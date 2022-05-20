@@ -4,7 +4,6 @@ class ControllerExtensionModuleSpecial extends Controller {
 		$this->load->language('extension/module/special');
 
 		$this->load->model('catalog/product');
-
 		$this->load->model('tool/image');
 
 		$data['products'] = array();
