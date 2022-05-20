@@ -6,7 +6,6 @@ class ControllerExtensionExtensionModule extends Controller {
 		$this->load->language('extension/extension/module');
 
 		$this->load->model('setting/extension');
-
 		$this->load->model('setting/module');
 
 		$this->getList();
@@ -16,7 +15,6 @@ class ControllerExtensionExtensionModule extends Controller {
 		$this->load->language('extension/extension/module');
 
 		$this->load->model('setting/extension');
-
 		$this->load->model('setting/module');
 
 		if ($this->validate()) {
@@ -42,7 +40,6 @@ class ControllerExtensionExtensionModule extends Controller {
 		$this->load->language('extension/extension/module');
 
 		$this->load->model('setting/extension');
-
 		$this->load->model('setting/module');
 
 		if ($this->validate()) {
@@ -63,7 +60,6 @@ class ControllerExtensionExtensionModule extends Controller {
 		$this->load->language('extension/extension/module');
 
 		$this->load->model('setting/extension');
-
 		$this->load->model('setting/module');
 
 		if ($this->validate()) {
@@ -81,7 +77,6 @@ class ControllerExtensionExtensionModule extends Controller {
 		$this->load->language('extension/extension/module');
 
 		$this->load->model('setting/extension');
-
 		$this->load->model('setting/module');
 
 		if (isset($this->request->get['module_id']) && $this->validate()) {
