@@ -10,9 +10,7 @@ class ControllerAccountWishList extends Controller {
 		$this->load->language('account/wishlist');
 
 		$this->load->model('account/wishlist');
-
 		$this->load->model('catalog/product');
-
 		$this->load->model('tool/image');
 
 		if (isset($this->request->get['remove'])) {
