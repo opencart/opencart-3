@@ -1,0 +1,90 @@
+<div id="amazonContainer">
+    {% if error %}
+        <div class="alert alert-danger"><button type="button" class="close" data-dismiss="alert">&times;</button><i class="fa fa-exclamation-circle"></i> {{ error }}
+        </div>
+    {% endif %}
+    <h3 class="text-center">{{ heading_payment }}</h3>
+    <div class="amazonWidget" id="walletWidget"></div>
+    <div class="buttons clearfix">
+        <div class="pull-left form-control-static">
+            <a href="{{ back }}" class="btn btn-default">{{ text_back }}</a>
+        </div>
+        <div class="pull-right form-control-static">
+            <input class="btn btn-primary" id="continue-button" type="submit" value="{{ text_continue }}" />
+        </div>
+    </div>
+</div>
+<style type="text/css">
+    #amazonContainer {
+        max-width: 600px;
+        margin: 0 auto;
+    }
+    
+    .amazonWidget {
+        margin: 0 0 10px 0;
+        width: 100%;
+    }
+
+    #walletWidget {
+        height: 350px;
+    }
+</style>
+<input type="hidden" name="payment_method" value="" />
+<script type="text/javascript">
+(function($) {
+    $(document).ready(function() {
+        var showError = function(message) {
+            $('#continue-button').button('reset');
+
+            $('#walletWidget').before('<div class="alert alert-danger"><button type="button" class="close" data-dismiss="alert">&times;</button><i class="fa fa-exclamation-circle"></i>&nbsp;&nbsp;' + message + '</div>');
+        }
+
+        amazon.Login.setClientId('{{ client_id }}');
+
+        $('#continue-button').click(function() {
+            $('#continue-button').button('loading');
+            $('div.alert').remove();
+
+            if ($("input[name='payment_method']").val() == '1') {
+                location = '{{ confirm }}';
+            } else {
+                showError('{{ error_payment_method }}');
+            }
+        });
+
+        var walletWidgetP  = new OffAmazonPayments.Widgets.Wallet({
+            sellerId: '{{ merchant_id }}',
+
+            {% if order_reference_id %}
+                orderReferenceId: '{{ order_reference_id }}',
+            {% endif %}
+
+            onPaymentSelect: function(orderReference) {
+                $("input[name='payment_method']").val('1');
+            },
+            design: {
+                designMode: 'responsive'
+            },
+            onError: function(error) {
+                switch (error.getErrorCode()) {
+                    case 'BuyerSessionExpired' :
+                        document.location = '{{ session_expired }}';
+                        break;
+                    case 'PaymentMethodNotModifiable' :
+                        document.location = '{{ back }}';
+                }
+
+                {% if sandbox %}
+                    console.log("Amazon Login Error (" + error.getErrorCode() + "): " + error.getErrorMessage());
+                {% endif %}
+            }
+        });
+
+        {% if enabled_buyers_multi_currency %}
+            walletWidgetP.setPresentmentCurrency('{{ buyer_currency }}');
+        {% endif %}
+
+        walletWidgetP.bind("walletWidget");
+    });
+})(jQuery);
+</script>
