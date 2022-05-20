@@ -56,9 +56,7 @@ class ControllerProductManufacturer extends Controller {
 		$this->load->language('product/manufacturer');
 
 		$this->load->model('catalog/manufacturer');
-
 		$this->load->model('catalog/product');
-
 		$this->load->model('tool/image');
 
 		if (isset($this->request->get['manufacturer_id'])) {
