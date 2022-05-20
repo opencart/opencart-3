@@ -4,7 +4,6 @@ class ControllerExtensionPaymentCardConnect extends Controller {
 
 	public function index() {
 		$this->load->model('setting/setting');
-
 		$this->load->model('extension/payment/cardconnect');
 
 		$this->load->language('extension/payment/cardconnect');
