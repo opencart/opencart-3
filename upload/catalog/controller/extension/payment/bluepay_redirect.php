@@ -45,7 +45,6 @@ class ControllerExtensionPaymentBluePayRedirect extends Controller {
 		$this->load->language('extension/payment/bluepay_redirect');
 
 		$this->load->model('checkout/order');
-
 		$this->load->model('extension/payment/bluepay_redirect');
 
 		if(!isset($this->session->data['order_id'])) {
