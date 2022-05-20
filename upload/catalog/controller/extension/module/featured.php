@@ -4,7 +4,6 @@ class ControllerExtensionModuleFeatured extends Controller {
 		$this->load->language('extension/module/featured');
 
 		$this->load->model('catalog/product');
-
 		$this->load->model('tool/image');
 
 		$data['products'] = array();
