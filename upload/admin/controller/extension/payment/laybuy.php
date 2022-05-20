@@ -4,9 +4,8 @@ class ControllerExtensionPaymentLaybuy extends Controller {
 
 	public function index() {
 		$this->load->model('setting/setting');
-
 		$this->load->model('extension/payment/laybuy');
-
+		
 		$this->load->language('extension/payment/laybuy');
 
 		$this->document->setTitle($this->language->get('heading_title'));
