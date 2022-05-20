@@ -4,7 +4,6 @@ class ControllerExtensionPaymentLaybuy extends Controller {
 		$this->load->language('extension/payment/laybuy');
 
 		$this->load->model('extension/payment/laybuy');
-
 		$this->load->model('checkout/order');
 
 		if(!isset($this->session->data['order_id'])) {
