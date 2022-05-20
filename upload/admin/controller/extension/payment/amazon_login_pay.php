@@ -10,7 +10,6 @@ class ControllerExtensionPaymentAmazonLoginPay extends Controller {
 		$this->document->setTitle($this->language->get('heading_title'));
 
 		$this->load->model('setting/setting');
-
 		$this->load->model('extension/payment/amazon_login_pay');
 
 		$this->model_extension_payment_amazon_login_pay->install();
