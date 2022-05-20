@@ -43,7 +43,6 @@ class ControllerCommonHeader extends Controller {
 			$data['profile'] = $this->url->link('common/profile', 'user_token=' . $this->session->data['user_token'], true);
 
 			$this->load->model('user/user');
-
 			$this->load->model('tool/image');
 
 			$user_info = $this->model_user_user->getUser($this->user->getId());
