@@ -1502,7 +1502,6 @@ class ControllerSaleOrder extends Controller {
 		$data['lang'] = $this->language->get('code');
 
 		$this->load->model('sale/order');
-
 		$this->load->model('setting/setting');
 
 		$data['orders'] = array();
@@ -1714,9 +1713,7 @@ class ControllerSaleOrder extends Controller {
 		$data['lang'] = $this->language->get('code');
 
 		$this->load->model('sale/order');
-
 		$this->load->model('catalog/product');
-
 		$this->load->model('setting/setting');
 
 		$data['orders'] = array();
