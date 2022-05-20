@@ -4,7 +4,6 @@ class ControllerExtensionPaymentPilibaba extends Controller {
 
 	public function index() {
 		$this->load->model('setting/setting');
-
 		$this->load->model('extension/payment/pilibaba');
 
 		$this->load->language('extension/payment/pilibaba');
