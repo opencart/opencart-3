@@ -84,11 +84,11 @@ class ModelExtensionPaymentWorldpay extends Model {
 	}
 
 	public function getOrder($order_id) {
-
 		$qry = $this->db->query("SELECT * FROM `" . DB_PREFIX . "worldpay_order` WHERE `order_id` = '" . (int)$order_id . "' LIMIT 1");
 
 		if ($qry->num_rows) {
 			$order = $qry->row;
+			
 			$order['transactions'] = $this->getTransactions($order['worldpay_order_id'], $qry->row['currency_code']);
 
 			return $order;
@@ -101,11 +101,14 @@ class ModelExtensionPaymentWorldpay extends Model {
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "worldpay_order_transaction` WHERE `worldpay_order_id` = '" . (int)$worldpay_order_id . "'");
 
 		$transactions = array();
+		
 		if ($query->num_rows) {
 			foreach ($query->rows as $row) {
 				$row['amount'] = $this->currency->format($row['amount'], $currency_code, false);
+				
 				$transactions[] = $row;
 			}
+			
 			return $transactions;
 		} else {
 			return false;
@@ -113,7 +116,7 @@ class ModelExtensionPaymentWorldpay extends Model {
 	}
 
 	public function addTransaction($worldpay_order_id, $type, $total) {
-		$this->db->query("INSERT INTO `" . DB_PREFIX . "worldpay_order_transaction` SET `worldpay_order_id` = '" . (int)$worldpay_order_id . "', `date_added` = now(), `type` = '" . $this->db->escape($type) . "', `amount` = '" . (double)$total . "'");
+		$this->db->query("INSERT INTO `" . DB_PREFIX . "worldpay_order_transaction` SET `worldpay_order_id` = '" . (int)$worldpay_order_id . "', `date_added` = NOW(), `type` = '" . $this->db->escape($type) . "', `amount` = '" . (double)$total . "'");
 	}
 
 	public function getTotalReleased($worldpay_order_id) {
@@ -123,13 +126,12 @@ class ModelExtensionPaymentWorldpay extends Model {
 	}
 
 	public function getTotalRefunded($worldpay_order_id) {
-		$query = $this->db->query("SELECT SUM(`amount`) AS `total` FROM `" . DB_PREFIX . "worldpay_order_transaction` WHERE `worldpay_order_id` = '" . (int)$worldpay_order_id . "' AND 'refund'");
+		$query = $this->db->query("SELECT SUM(`amount`) AS `total` FROM `" . DB_PREFIX . "worldpay_order_transaction` WHERE `worldpay_order_id` = '" . (int)$worldpay_order_id . "' AND `type` = 'refund'");
 
 		return (double)$query->row['total'];
 	}
 
 	public function sendCurl($url, $order) {
-
 		$json = json_encode($order);
 
 		$curl = curl_init();
@@ -150,6 +152,7 @@ class ModelExtensionPaymentWorldpay extends Model {
 		);
 
 		$result = json_decode(curl_exec($curl));
+		
 		curl_close($curl);
 
 		$response = array();

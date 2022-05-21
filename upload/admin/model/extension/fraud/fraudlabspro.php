@@ -54,18 +54,19 @@ class ModelExtensionFraudFraudLabsPro extends Model {
 			) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 		");
 
-		$this->db->query("INSERT INTO `" . DB_PREFIX . "order_status` (`language_id`, `name`) VALUES (1, 'Fraud');");
+		$this->db->query("INSERT INTO `" . DB_PREFIX . "order_status` SET `language_id` = '1', `name` = 'Fraud'");
+		
 		$status_fraud_id = $this->db->getLastId();
 
-		$this->db->query("INSERT INTO `" . DB_PREFIX . "order_status` (`language_id`, `name`) VALUES (1, 'Fraud Review');");
+		$this->db->query("INSERT INTO `" . DB_PREFIX . "order_status` SET `language_id` = '1', `name` = 'Fraud Review'");
 		
 		$status_fraud_review_id = $this->db->getLastId();
 
-		$this->db->query("INSERT INTO `" . DB_PREFIX . "setting` (`code`, `key`, `value`, `serialized`) VALUES ('fraudlabspro', 'fraud_fraudlabspro_score', '80', '0');");
-		$this->db->query("INSERT INTO `" . DB_PREFIX . "setting` (`code`, `key`, `value`, `serialized`) VALUES ('fraudlabspro', 'fraud_fraudlabspro_order_status_id', '" . (int)$status_fraud_id . "', '0');");
-		$this->db->query("INSERT INTO `" . DB_PREFIX . "setting` (`code`, `key`, `value`, `serialized`) VALUES ('fraudlabspro', 'fraud_fraudlabspro_review_status_id', '" . (int)$status_fraud_review_id . "', '0');");
-		$this->db->query("INSERT INTO `" . DB_PREFIX . "setting` (`code`, `key`, `value`, `serialized`) VALUES ('fraudlabspro', 'fraud_fraudlabspro_approve_status_id', '2', '0');");
-		$this->db->query("INSERT INTO `" . DB_PREFIX . "setting` (`code`, `key`, `value`, `serialized`) VALUES ('fraudlabspro', 'fraud_fraudlabspro_reject_status_id', '8', '0');");
+		$this->db->query("INSERT INTO `" . DB_PREFIX . "setting` SET `code` = 'fraudlabspro', `key` = 'fraud_fraudlabspro_score', `value` = '80', `serialized` = '0'");
+		$this->db->query("INSERT INTO `" . DB_PREFIX . "setting` SET `code` = 'fraudlabspro', `key` = 'fraud_fraudlabspro_order_status_id', `value` = '" . (int)$status_fraud_id . "', `serialized` = '0'");
+		$this->db->query("INSERT INTO `" . DB_PREFIX . "setting` SET `code` = 'fraudlabspro', `key` = 'fraud_fraudlabspro_review_status_id', `value` = '" . (int)$status_fraud_review_id . "', `serialized` = '0'");
+		$this->db->query("INSERT INTO `" . DB_PREFIX . "setting` SET `code` = 'fraudlabspro', `key` = 'fraud_fraudlabspro_approve_status_id', `value` = '2', `serialized` = '0'");
+		$this->db->query("INSERT INTO `" . DB_PREFIX . "setting` SET `code` = 'fraudlabspro', `key` = 'fraud_fraudlabspro_reject_status_id', `value` = '8', `serialized` = '0'");
 
 		$this->cache->delete('order_status.' . (int)$this->config->get('config_language_id'));
 	}
@@ -77,7 +78,7 @@ class ModelExtensionFraudFraudLabsPro extends Model {
 	}
 
 	public function getOrder($order_id) {
-		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "fraudlabspro` WHERE order_id = '" . (int)$order_id . "'");
+		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "fraudlabspro` WHERE `order_id` = '" . (int)$order_id . "'");
 
 		return $query->row;
 	}

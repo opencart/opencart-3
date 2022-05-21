@@ -98,7 +98,7 @@ class ModelExtensionPaymentLaybuy extends Model {
 	}
 
 	public function getTransactions($data = array()) {
-		$sql = "SELECT *, CONCAT(firstname, ' ', lastname) AS `customer` FROM `" . DB_PREFIX . "laybuy_transaction` `lt` WHERE 1 = 1";
+		$sql = "SELECT *, CONCAT(`firstname`, ' ', `lastname`) AS `customer` FROM `" . DB_PREFIX . "laybuy_transaction` `lt` WHERE 1 = 1";
 
 		$implode = array();
 
@@ -107,7 +107,7 @@ class ModelExtensionPaymentLaybuy extends Model {
 		}
 
 		if (!empty($data['filter_customer'])) {
-			$implode[] = "CONCAT(firstname, ' ', lastname) LIKE '%" . $this->db->escape($data['filter_customer']) . "%'";
+			$implode[] = "CONCAT(`firstname`, ' ', `lastname`) LIKE '%" . $this->db->escape($data['filter_customer']) . "%'";
 		}
 
 		if (!empty($data['filter_dp_percent'])) {
@@ -146,7 +146,7 @@ class ModelExtensionPaymentLaybuy extends Model {
 		if (isset($data['sort']) && in_array($data['sort'], $sort_data)) {
 			$sql .= " ORDER BY " . $data['sort'];
 		} else {
-			$sql .= " ORDER BY order_id";
+			$sql .= " ORDER BY `lt`.`order_id`";
 		}
 
 		if (isset($data['order']) && ($data['order'] == 'DESC')) {
@@ -156,7 +156,7 @@ class ModelExtensionPaymentLaybuy extends Model {
 		}
 
 		if (isset($data['sort']) && $data['sort'] != 'lt.date_added') {
-			$sql .= ", lt.date_added DESC";
+			$sql .= ", `lt`.`date_added` DESC";
 		}
 
 		if (isset($data['start']) || isset($data['limit'])) {
@@ -186,7 +186,7 @@ class ModelExtensionPaymentLaybuy extends Model {
 		}
 
 		if (!empty($data['filter_customer'])) {
-			$implode[] = "CONCAT(firstname, ' ', lastname) LIKE '%" . $this->db->escape($data['filter_customer']) . "%'";
+			$implode[] = "CONCAT(`firstname`, ' ', `lastname`) LIKE '%" . $this->db->escape($data['filter_customer']) . "%'";
 		}
 
 		if (!empty($data['filter_dp_percent'])) {
@@ -327,14 +327,12 @@ class ModelExtensionPaymentLaybuy extends Model {
 			$backtrace = debug_backtrace();
 
 			$log = new \Log('laybuy.log');
-
 			$log->write('(' . $backtrace[$step]['class'] . '::' . $backtrace[$step]['function'] . ') - ' . $data);
 		}
 	}
 
 	public function uninstall() {
 		$this->db->query("DROP TABLE IF EXISTS `" . DB_PREFIX . "laybuy_transaction`");
-
 		$this->db->query("DROP TABLE IF EXISTS `" . DB_PREFIX . "laybuy_revise_request`");
 
 		$this->load->model('setting/event');

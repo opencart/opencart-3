@@ -15,7 +15,7 @@ class ModelExtensionFraudIp extends Model {
 	}
 
     public function addIp($ip) {
-        $this->db->query("INSERT INTO `" . DB_PREFIX . "fraud_ip` SET `ip` = '" . $this->db->escape($ip) . "', date_added = NOW()");
+        $this->db->query("INSERT INTO `" . DB_PREFIX . "fraud_ip` SET `ip` = '" . $this->db->escape($ip) . "', `date_added` = NOW()");
     }
 
     public function removeIp($ip) {
@@ -43,7 +43,7 @@ class ModelExtensionFraudIp extends Model {
 	}
 
 	public function getTotalIpsByIp($ip) {
-		$query = $this->db->query("SELECT COUNT(*) AS total FROM `" . DB_PREFIX . "fraud_ip` WHERE ip = '" . $this->db->escape($ip) . "'");
+		$query = $this->db->query("SELECT COUNT(*) AS total FROM `" . DB_PREFIX . "fraud_ip` WHERE `ip` = '" . $this->db->escape($ip) . "'");
 
 		return $query->row['total'];
 	}

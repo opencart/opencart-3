@@ -60,13 +60,13 @@ class ModelExtensionPaymentBluePayHosted extends Model {
 			$void_data['DECLINED_URL'] = HTTP_CATALOG . 'index.php?route=extension/payment/bluepay_hosted/adminCallback';
 			$void_data['MISSING_URL'] = HTTP_CATALOG . 'index.php?route=extension/payment/bluepay_hosted/adminCallback';
 
-			if (isset($this->request->server["REMOTE_ADDR"])) {
-				$void_data["REMOTE_IP"] = $this->request->server["REMOTE_ADDR"];
+			if (isset($this->request->server['REMOTE_ADDR'])) {
+				$void_data['REMOTE_IP'] = $this->request->server['REMOTE_ADDR'];
 			}
 
 			$tamper_proof_data = $this->config->get('payment_bluepay_hosted_secret_key') . $void_data['MERCHANT'] . $void_data["TRANSACTION_TYPE"] . $void_data["RRNO"] . $void_data["MODE"];
 
-			$void_data["TAMPER_PROOF_SEAL"] = md5($tamper_proof_data);
+			$void_data['TAMPER_PROOF_SEAL'] = md5($tamper_proof_data);
 
 			$this->logger('$void_data:\r\n' . print_r($void_data, 1));
 
@@ -92,16 +92,16 @@ class ModelExtensionPaymentBluePayHosted extends Model {
 			$release_data = array();
 
 			$release_data['MERCHANT'] = $this->config->get('payment_bluepay_hosted_account_id');
-			$release_data["TRANSACTION_TYPE"] = 'CAPTURE';
-			$release_data["MODE"] = strtoupper($this->config->get('payment_bluepay_hosted_test'));
-			$release_data["RRNO"] = $bluepay_hosted_order['transaction_id'];
+			$release_data['TRANSACTION_TYPE'] = 'CAPTURE';
+			$release_data['MODE'] = strtoupper($this->config->get('payment_bluepay_hosted_test'));
+			$release_data['RRNO'] = $bluepay_hosted_order['transaction_id'];
 
 			$release_data['APPROVED_URL'] = HTTP_CATALOG . 'index.php?route=extension/payment/bluepay_hosted/adminCallback';
 			$release_data['DECLINED_URL'] = HTTP_CATALOG . 'index.php?route=extension/payment/bluepay_hosted/adminCallback';
 			$release_data['MISSING_URL'] = HTTP_CATALOG . 'index.php?route=extension/payment/bluepay_hosted/adminCallback';
 
-			if (isset($this->request->server["REMOTE_ADDR"])) {
-				$release_data["REMOTE_IP"] = $this->request->server["REMOTE_ADDR"];
+			if (isset($this->request->server['REMOTE_ADDR'])) {
+				$release_data['REMOTE_IP'] = $this->request->server['REMOTE_ADDR'];
 			}
 
 			$tamper_proof_data = $this->config->get('payment_bluepay_hosted_secret_key') . $release_data['MERCHANT'] . $release_data["TRANSACTION_TYPE"] . $release_data["RRNO"] . $release_data["MODE"];
@@ -127,21 +127,21 @@ class ModelExtensionPaymentBluePayHosted extends Model {
 			$rebate_data = array();
 
 			$rebate_data['MERCHANT'] = $this->config->get('payment_bluepay_hosted_account_id');
-			$rebate_data["TRANSACTION_TYPE"] = 'REFUND';
-			$rebate_data["MODE"] = strtoupper($this->config->get('payment_bluepay_hosted_test'));
-			$rebate_data["RRNO"] = $bluepay_hosted_order['transaction_id'];
-			$rebate_data["AMOUNT"] = $amount;
+			$rebate_data['TRANSACTION_TYPE'] = 'REFUND';
+			$rebate_data['MODE'] = strtoupper($this->config->get('payment_bluepay_hosted_test'));
+			$rebate_data['RRNO'] = $bluepay_hosted_order['transaction_id'];
+			$rebate_data['AMOUNT'] = $amount;
 			$rebate_data['APPROVED_URL'] = HTTP_CATALOG . 'index.php?route=extension/payment/bluepay_hosted/adminCallback';
 			$rebate_data['DECLINED_URL'] = HTTP_CATALOG . 'index.php?route=extension/payment/bluepay_hosted/adminCallback';
 			$rebate_data['MISSING_URL'] = HTTP_CATALOG . 'index.php?route=extension/payment/bluepay_hosted/adminCallback';
 
-			if (isset($this->request->server["REMOTE_ADDR"])) {
-				$rebate_data["REMOTE_IP"] = $this->request->server["REMOTE_ADDR"];
+			if (isset($this->request->server['REMOTE_ADDR'])) {
+				$rebate_data['REMOTE_IP'] = $this->request->server['REMOTE_ADDR'];
 			}
 
 			$tamper_proof_data = $this->config->get('payment_bluepay_hosted_secret_key') . $rebate_data['MERCHANT'] . $rebate_data["TRANSACTION_TYPE"] . $rebate_data['AMOUNT'] . $rebate_data["RRNO"] . $rebate_data["MODE"];
 
-			$rebate_data["TAMPER_PROOF_SEAL"] = md5($tamper_proof_data);
+			$rebate_data['TAMPER_PROOF_SEAL'] = md5($tamper_proof_data);
 
 			$response_data = $this->sendCurl('https://secure.bluepay.com/interfaces/bp10emu', $rebate_data);
 
@@ -186,6 +186,7 @@ class ModelExtensionPaymentBluePayHosted extends Model {
 	public function addTransaction($bluepay_hosted_order_id, $type, $total) {
 		$this->logger('$type:\r\n' . print_r($type, 1));
 		$this->logger('$total:\r\n' . print_r($total, 1));
+		
 		$this->db->query("INSERT INTO `" . DB_PREFIX . "bluepay_hosted_order_transaction` SET `bluepay_hosted_order_id` = '" . (int)$bluepay_hosted_order_id . "', `date_added` = now(), `type` = '" . $this->db->escape($type) . "', `amount` = '" . (float)$total . "'");
 	}
 
@@ -196,7 +197,7 @@ class ModelExtensionPaymentBluePayHosted extends Model {
 	}
 
 	public function getTotalRebated($bluepay_hosted_order_id) {
-		$query = $this->db->query("SELECT SUM(`amount`) AS `total` FROM `" . DB_PREFIX . "bluepay_hosted_order_transaction` WHERE `bluepay_hosted_order_id` = '" . (int)$bluepay_hosted_order_id . "' AND 'rebate'");
+		$query = $this->db->query("SELECT SUM(`amount`) AS `total` FROM `" . DB_PREFIX . "bluepay_hosted_order_transaction` WHERE `bluepay_hosted_order_id` = '" . (int)$bluepay_hosted_order_id . "' AND `type` = 'rebate'");
 
 		return (float)$query->row['total'];
 	}

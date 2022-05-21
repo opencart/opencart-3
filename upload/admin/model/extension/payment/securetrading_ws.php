@@ -30,7 +30,7 @@ class ModelExtensionPaymentSecureTradingWs extends Model {
 	}
 
 	public function uninstall() {
-		$this->db->query("DROP TABLE IF EXISTS " . DB_PREFIX . "securetrading_ws_order");
+		$this->db->query("DROP TABLE IF EXISTS `" . DB_PREFIX . "securetrading_ws_order`;");
 		$this->db->query("DROP TABLE IF EXISTS `" . DB_PREFIX . "securetrading_ws_order_transaction`;");
 	}
 
@@ -38,7 +38,6 @@ class ModelExtensionPaymentSecureTradingWs extends Model {
 		$securetrading_ws_order = $this->getOrder($order_id);
 
 		if (!empty($securetrading_ws_order) && $securetrading_ws_order['release_status'] == 0) {
-
 			$requestblock_xml = new \SimpleXMLElement('<requestblock></requestblock>');
 			$requestblock_xml->addAttribute('version', '3.67');
 			$requestblock_xml->addChild('alias', $this->config->get('payment_securetrading_ws_username'));
@@ -67,8 +66,8 @@ class ModelExtensionPaymentSecureTradingWs extends Model {
 		$total_released = $this->getTotalReleased($securetrading_ws_order['securetrading_ws_order_id']);
 
 		if (!empty($securetrading_ws_order) && $securetrading_ws_order['release_status'] == 0 && $total_released <= $amount) {
-
 			$requestblock_xml = new \SimpleXMLElement('<requestblock></requestblock>');
+			
 			$requestblock_xml->addAttribute('version', '3.67');
 			$requestblock_xml->addChild('alias', $this->config->get('payment_securetrading_ws_username'));
 
@@ -101,8 +100,8 @@ class ModelExtensionPaymentSecureTradingWs extends Model {
 		$securetrading_ws_order = $this->getOrder($order_id);
 
 		if (!empty($securetrading_ws_order) && $securetrading_ws_order['rebate_status'] != 1) {
-
 			$requestblock_xml = new \SimpleXMLElement('<requestblock></requestblock>');
+			
 			$requestblock_xml->addAttribute('version', '3.67');
 			$requestblock_xml->addChild('alias', $this->config->get('payment_securetrading_ws_username'));
 
@@ -131,6 +130,7 @@ class ModelExtensionPaymentSecureTradingWs extends Model {
 
 		if ($qry->num_rows) {
 			$order = $qry->row;
+			
 			$order['transactions'] = $this->getTransactions($order['securetrading_ws_order_id']);
 
 			return $order;
@@ -160,7 +160,7 @@ class ModelExtensionPaymentSecureTradingWs extends Model {
 	}
 
 	public function getTotalRebated($securetrading_ws_order_id) {
-		$query = $this->db->query("SELECT SUM(`amount`) AS `total` FROM `" . DB_PREFIX . "securetrading_ws_order_transaction` WHERE `securetrading_ws_order_id` = '" . (int)$securetrading_ws_order_id . "' AND 'rebate'");
+		$query = $this->db->query("SELECT SUM(`amount`) AS `total` FROM `" . DB_PREFIX . "securetrading_ws_order_transaction` WHERE `securetrading_ws_order_id` = '" . (int)$securetrading_ws_order_id . "' AND `type` = 'rebate'");
 
 		return (double)$query->row['total'];
 	}
@@ -173,6 +173,7 @@ class ModelExtensionPaymentSecureTradingWs extends Model {
 		$ch = curl_init();
 
 		$post_data = array();
+		
 		$post_data['sitereferences'] = $this->config->get('payment_securetrading_ws_site_reference');
 		$post_data['startdate'] = $data['date_from'];
 		$post_data['enddate'] = $data['date_to'];
@@ -257,6 +258,8 @@ class ModelExtensionPaymentSecureTradingWs extends Model {
 		if (isset($data['settle_status']) && !empty($data['settle_status'])) {
 			$post_data['settlestatuss'] = $data['settle_status'];
 		}
+		
+		$defaults = array();
 
 		$defaults = array(
 			CURLOPT_POST => 1,
@@ -313,6 +316,8 @@ class ModelExtensionPaymentSecureTradingWs extends Model {
 
 	public function call($data) {
 		$ch = curl_init();
+		
+		$defaults = array();
 
 		$defaults = array(
 			CURLOPT_POST => 1,

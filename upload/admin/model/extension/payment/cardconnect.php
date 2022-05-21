@@ -94,20 +94,23 @@ class ModelExtensionPaymentCardConnect extends Model {
 		$header[] = 'Authorization: Basic ' . base64_encode($this->config->get('cardconnect_api_username') . ':' . $this->config->get('cardconnect_api_password'));
 
 		$this->model_extension_payment_cardconnect->log('Header: ' . print_r($header, true));
-
 		$this->model_extension_payment_cardconnect->log('URL: ' . $url);
 
 		$ch = curl_init();
+		
 		curl_setopt($ch, CURLOPT_URL, $url);
 		curl_setopt($ch, CURLOPT_HTTPHEADER, $header);
 		curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'GET');
 		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 		curl_setopt($ch, CURLOPT_TIMEOUT, 30);
 		curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+		
 		$response_data = curl_exec($ch);
+		
 		if (curl_errno($ch)) {
 			$this->model_extension_payment_cardconnect->log('cURL error: ' . curl_errno($ch));
 		}
+		
 		curl_close($ch);
 
 		$response_data = json_decode($response_data, true);
@@ -124,9 +127,9 @@ class ModelExtensionPaymentCardConnect extends Model {
 
 		$this->log('Order ID: ' . $order_info['order_id']);
 
-		$order = $this->model_sale_order->getOrder($order_info['order_id']);
-
-		$totals = $this->model_sale_order->getOrderTotals($order_info['order_id']);
+		$order    = $this->model_sale_order->getOrder($order_info['order_id']);
+		$totals   = $this->model_sale_order->getOrderTotals($order_info['order_id']);
+		$products = $this->model_sale_order->getOrderProducts($order_info['order_id']);
 
 		$shipping_cost = '';
 
@@ -135,8 +138,6 @@ class ModelExtensionPaymentCardConnect extends Model {
 				$shipping_cost = $total['value'];
 			}
 		}
-
-		$products = $this->model_sale_order->getOrderProducts($order_info['order_id']);
 
 		$items = array();
 
@@ -190,6 +191,7 @@ class ModelExtensionPaymentCardConnect extends Model {
 		$this->model_extension_payment_cardconnect->log('URL: ' . $url);
 
 		$ch = curl_init();
+		
 		curl_setopt($ch, CURLOPT_URL, $url);
 		curl_setopt($ch, CURLOPT_HTTPHEADER, $header);
 		curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'PUT');
@@ -197,10 +199,13 @@ class ModelExtensionPaymentCardConnect extends Model {
 		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 		curl_setopt($ch, CURLOPT_TIMEOUT, 30);
 		curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+		
 		$response_data = curl_exec($ch);
+		
 		if (curl_errno($ch)) {
 			$this->model_extension_payment_cardconnect->log('cURL error: ' . curl_errno($ch));
 		}
+		
 		curl_close($ch);
 
 		$response_data = json_decode($response_data, true);
@@ -212,17 +217,18 @@ class ModelExtensionPaymentCardConnect extends Model {
 
 	public function refund($order_info, $amount) {
 		$this->log('Posting refund to CardConnect');
-
 		$this->log('Order ID: ' . $order_info['order_id']);
+		
+		$post_data = array();
 
-		$data = array(
+		$post_data = array(
 			'merchid'   => $this->config->get('payment_cardconnect_merchant_id'),
 			'amount'    => round(floatval($amount), 2, PHP_ROUND_HALF_DOWN),
 			'currency'  => $order_info['currency_code'],
 			'retref'    => $order_info['retref']
 		);
 
-		$data_json = json_encode($data);
+		$data_json = json_encode($post_data);
 
 		$url = 'https://' . $this->config->get('cardconnect_site') . '.cardconnect.com:' . (($this->config->get('cardconnect_environment') == 'live') ? 8443 : 6443) . '/cardconnect/rest/refund';
 
@@ -233,9 +239,7 @@ class ModelExtensionPaymentCardConnect extends Model {
 		$header[] = 'Authorization: Basic ' . base64_encode($this->config->get('cardconnect_api_username') . ':' . $this->config->get('cardconnect_api_password'));
 
 		$this->model_extension_payment_cardconnect->log('Header: ' . print_r($header, true));
-
 		$this->model_extension_payment_cardconnect->log('Post Data: ' . print_r($data, true));
-
 		$this->model_extension_payment_cardconnect->log('URL: ' . $url);
 
 		$ch = curl_init();
@@ -266,15 +270,17 @@ class ModelExtensionPaymentCardConnect extends Model {
 	public function void($order_info, $retref) {
 		$this->log('Posting void to CardConnect');
 		$this->log('Order ID: ' . $order_info['order_id']);
+		
+		$post_data = array();
 
-		$data = array(
+		$post_data = array(
 			'merchid'   => $this->config->get('payment_cardconnect_merchant_id'),
 			'amount'    => 0,
 			'currency'  => $order_info['currency_code'],
 			'retref'    => $retref
 		);
 
-		$data_json = json_encode($data);
+		$data_json = json_encode($post_data);
 
 		$url = 'https://' . $this->config->get('cardconnect_site') . '.cardconnect.com:' . (($this->config->get('cardconnect_environment') == 'live') ? 8443 : 6443) . '/cardconnect/rest/void';
 
@@ -285,9 +291,7 @@ class ModelExtensionPaymentCardConnect extends Model {
 		$header[] = 'Authorization: Basic ' . base64_encode($this->config->get('cardconnect_api_username') . ':' . $this->config->get('cardconnect_api_password'));
 
 		$this->model_extension_payment_cardconnect->log('Header: ' . print_r($header, true));
-
 		$this->model_extension_payment_cardconnect->log('Post Data: ' . print_r($data, true));
-
 		$this->model_extension_payment_cardconnect->log('URL: ' . $url);
 
 		$ch = curl_init();
@@ -326,7 +330,6 @@ class ModelExtensionPaymentCardConnect extends Model {
 	public function log($data) {
 		if ($this->config->get('cardconnect_logging')) {
 			$log = new \Log('cardconnect.log');
-
 			$log->write($data);
 		}
 	}

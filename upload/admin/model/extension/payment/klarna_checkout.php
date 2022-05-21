@@ -121,6 +121,7 @@ class ModelExtensionPaymentKlarnaCheckout extends Model {
 			$order = new \KCOrder($connector, $order_id);
 
 			$capture = $order->fetchCapture($capture_id);
+			
 			return $capture->addShippingInfo($data);
 		} catch (\Exception $e) {
 			$this->log($e->getMessage());
@@ -134,6 +135,7 @@ class ModelExtensionPaymentKlarnaCheckout extends Model {
 			$order = new \KCOrder($connector, $order_id);
 
 			$capture = $order->fetchCapture($capture_id);
+			
 			return $capture->updateCustomerDetails($data);
 		} catch (\Exception $e) {
 			$this->log($e->getMessage());
@@ -147,6 +149,7 @@ class ModelExtensionPaymentKlarnaCheckout extends Model {
 			$order = new \KCOrder($connector, $order_id);
 
 			$capture = $order->fetchCapture($capture_id);
+			
 			return $capture->triggerSendout();
 		} catch (\Exception $e) {
 			$this->log($e->getMessage());
@@ -219,6 +222,7 @@ class ModelExtensionPaymentKlarnaCheckout extends Model {
 	public function log($data) {
 		if ($this->config->get('klarna_checkout_debug')) {
 			$backtrace = debug_backtrace();
+			
 			$log = new \Log('klarna_checkout.log');
 			$log->write('(' . $backtrace[1]['class'] . '::' . $backtrace[1]['function'] . ') - ' . print_r($data, true));
 		}

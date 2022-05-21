@@ -1,13 +1,12 @@
 <?php
-class ModelExtensionPaymentPayPal extends Model {
-		
+class ModelExtensionPaymentPayPal extends Model {		
 	public function configureSmartButton() {
 		$this->load->model('user/user_group');
 		
-		$query = $this->db->query("SELECT * FROM " . DB_PREFIX . "extension WHERE `code` = 'paypal_smart_button'");
+		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "extension` WHERE `code` = 'paypal_smart_button'");
         		
         if (empty($query->row)) {
-            $this->db->query("INSERT INTO " . DB_PREFIX . "extension SET `type` = 'module', `code` = 'paypal_smart_button'");
+            $this->db->query("INSERT INTO `" . DB_PREFIX . "extension` SET `type` = 'module', `code` = 'paypal_smart_button'");
 
             $user_group_id = $this->user->getGroupId();
        									

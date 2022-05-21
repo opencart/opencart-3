@@ -22,13 +22,16 @@ class ModelExtensionPaymentPilibaba extends Model {
 
 	public function getCurrencies() {
 		$ch = curl_init();
+		
 		curl_setopt($ch, CURLOPT_URL, 'http://www.pilibaba.com/pilipay/getCurrency');
 		curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'GET');
 		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 		curl_setopt($ch, CURLOPT_HEADER, false);
 		curl_setopt($ch, CURLOPT_TIMEOUT, 30);
 		curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+		
 		$response = curl_exec($ch);
+		
 		curl_close($ch);
 
 		return json_decode($response, true);
@@ -36,13 +39,16 @@ class ModelExtensionPaymentPilibaba extends Model {
 
 	public function getWarehouses() {
 		$ch = curl_init();
+		
 		curl_setopt($ch, CURLOPT_URL, 'http://www.pilibaba.com/pilipay/getAddressList');
 		curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'GET');
 		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 		curl_setopt($ch, CURLOPT_HEADER, false);
 		curl_setopt($ch, CURLOPT_TIMEOUT, 30);
 		curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+		
 		$response = curl_exec($ch);
+		
 		curl_close($ch);
 
 		return json_decode($response, true);
@@ -78,8 +84,10 @@ class ModelExtensionPaymentPilibaba extends Model {
 		$this->log('URL: ' . $url);
 
 		$app_secret = strtoupper(md5((($warehouse) ? $warehouse : $country) . '0210000574' . '0b8l3ww5' . $currency . $email . md5($password)));
+		
+		$post_data = array();
 
-		$data = array(
+		$post_data = array(
 			'platformNo'  => '0210000574',
 			'appSecret'   => $app_secret,
 			'email'       => $email,
@@ -89,19 +97,22 @@ class ModelExtensionPaymentPilibaba extends Model {
 			'countryCode' => $country
 		);
 
-		$this->log('Data: ' . print_r($data, true));
+		$this->log('Data: ' . print_r($post_data, true));
 
 		$headers = array('Accept: application/json','Content-Type: application/json');
 
 		$ch = curl_init();
+		
 		curl_setopt($ch, CURLOPT_URL, $url);
 		curl_setopt($ch, CURLOPT_POST, true);
-		curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($data));
+		curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($post_data));
 		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 		curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
 		curl_setopt($ch, CURLOPT_TIMEOUT, 30);
 		curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+		
 		$response = curl_exec($ch);
+		
 		if (curl_errno($ch)) {
 			$this->log('cURL error: ' . curl_errno($ch));
 		}
@@ -128,16 +139,20 @@ class ModelExtensionPaymentPilibaba extends Model {
 		$this->log('URL: ' . $url);
 
 		$ch = curl_init();
+		
 		curl_setopt($ch, CURLOPT_URL, $url);
 		curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'GET');
 		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 		curl_setopt($ch, CURLOPT_HEADER, false);
 		curl_setopt($ch, CURLOPT_TIMEOUT, 30);
 		curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+		
 		$response = curl_exec($ch);
+		
 		if (curl_errno($ch)) {
 			$this->log('cURL error: ' . curl_errno($ch));
 		}
+		
 		curl_close($ch);
 
 		$this->db->query("UPDATE `" . DB_PREFIX . "pilibaba_order` SET `tracking` = '" . $this->db->escape($tracking_number) . "' WHERE `order_id` = '" . (int)$order_id . "'");

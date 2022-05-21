@@ -74,7 +74,6 @@ class ModelExtensionPaymentSagepayServer extends Model {
 		$sagepay_server_order = $this->getOrder($order_id);
 
 		if (!empty($sagepay_server_order) && $sagepay_server_order['release_status'] == 0) {
-
 			$void_data = array();
 
 			if ($this->config->get('payment_sagepay_server_test') == 'live') {
@@ -153,7 +152,6 @@ class ModelExtensionPaymentSagepayServer extends Model {
 		$sagepay_server_order = $this->getOrder($order_id);
 
 		if (!empty($sagepay_server_order) && $sagepay_server_order['rebate_status'] != 1) {
-
 			$refund_data = array();
 
 			if ($this->config->get('payment_sagepay_server_test') == 'live') {
@@ -187,11 +185,11 @@ class ModelExtensionPaymentSagepayServer extends Model {
 	}
 
 	public function getOrder($order_id) {
-
 		$qry = $this->db->query("SELECT * FROM `" . DB_PREFIX . "sagepay_server_order` WHERE `order_id` = '" . (int)$order_id . "' LIMIT 1");
 
 		if ($qry->num_rows) {
 			$order = $qry->row;
+			
 			$order['transactions'] = $this->getTransactions($order['sagepay_server_order_id']);
 
 			return $order;
@@ -211,7 +209,7 @@ class ModelExtensionPaymentSagepayServer extends Model {
 	}
 
 	public function addTransaction($sagepay_server_order_id, $type, $total) {
-		$this->db->query("INSERT INTO `" . DB_PREFIX . "sagepay_server_order_transaction` SET `sagepay_server_order_id` = '" . (int)$sagepay_server_order_id . "', `date_added` = now(), `type` = '" . $this->db->escape($type) . "', `amount` = '" . (float)$total . "'");
+		$this->db->query("INSERT INTO `" . DB_PREFIX . "sagepay_server_order_transaction` SET `sagepay_server_order_id` = '" . (int)$sagepay_server_order_id . "', `date_added` = NOW(), `type` = '" . $this->db->escape($type) . "', `amount` = '" . (float)$total . "'");
 	}
 
 	public function getTotalReleased($sagepay_server_order_id) {
@@ -221,7 +219,7 @@ class ModelExtensionPaymentSagepayServer extends Model {
 	}
 
 	public function getTotalRebated($sagepay_server_order_id) {
-		$query = $this->db->query("SELECT SUM(`amount`) AS `total` FROM `" . DB_PREFIX . "sagepay_server_order_transaction` WHERE `sagepay_server_order_id` = '" . (int)$sagepay_server_order_id . "' AND 'rebate'");
+		$query = $this->db->query("SELECT SUM(`amount`) AS `total` FROM `" . DB_PREFIX . "sagepay_server_order_transaction` WHERE `sagepay_server_order_id` = '" . (int)$sagepay_server_order_id . "' AND `type` = 'rebate'");
 
 		return (float)$query->row['total'];
 	}

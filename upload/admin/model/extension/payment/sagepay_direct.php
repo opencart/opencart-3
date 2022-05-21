@@ -73,7 +73,6 @@ class ModelExtensionPaymentSagepayDirect extends Model {
 		$sagepay_direct_order = $this->getOrder($order_id);
 
 		if (!empty($sagepay_direct_order) && $sagepay_direct_order['release_status'] == 0) {
-
 			$void_data = array();
 
 			if ($this->config->get('payment_sagepay_direct_test') == 'live') {
@@ -148,7 +147,6 @@ class ModelExtensionPaymentSagepayDirect extends Model {
 		$sagepay_direct_order = $this->getOrder($order_id);
 
 		if (!empty($sagepay_direct_order) && $sagepay_direct_order['rebate_status'] != 1) {
-
 			$refund_data = array();
 
 			if ($this->config->get('payment_sagepay_direct_test') == 'live') {
@@ -186,7 +184,6 @@ class ModelExtensionPaymentSagepayDirect extends Model {
 	}
 
 	public function getOrder($order_id) {
-
 		$qry = $this->db->query("SELECT * FROM `" . DB_PREFIX . "sagepay_direct_order` WHERE `order_id` = '" . (int)$order_id . "' LIMIT 1");
 
 		if ($qry->num_rows) {
@@ -210,7 +207,7 @@ class ModelExtensionPaymentSagepayDirect extends Model {
 	}
 
 	public function addTransaction($sagepay_direct_order_id, $type, $total) {
-		$this->db->query("INSERT INTO `" . DB_PREFIX . "sagepay_direct_order_transaction` SET `sagepay_direct_order_id` = '" . (int)$sagepay_direct_order_id . "', `date_added` = now(), `type` = '" . $this->db->escape($type) . "', `amount` = '" . (float)$total . "'");
+		$this->db->query("INSERT INTO `" . DB_PREFIX . "sagepay_direct_order_transaction` SET `sagepay_direct_order_id` = '" . (int)$sagepay_direct_order_id . "', `date_added` = NOW(), `type` = '" . $this->db->escape($type) . "', `amount` = '" . (float)$total . "'");
 	}
 
 	public function getTotalReleased($sagepay_direct_order_id) {
@@ -220,7 +217,7 @@ class ModelExtensionPaymentSagepayDirect extends Model {
 	}
 
 	public function getTotalRebated($sagepay_direct_order_id) {
-		$query = $this->db->query("SELECT SUM(`amount`) AS `total` FROM `" . DB_PREFIX . "sagepay_direct_order_transaction` WHERE `sagepay_direct_order_id` = '" . (int)$sagepay_direct_order_id . "' AND 'rebate'");
+		$query = $this->db->query("SELECT SUM(`amount`) AS `total` FROM `" . DB_PREFIX . "sagepay_direct_order_transaction` WHERE `sagepay_direct_order_id` = '" . (int)$sagepay_direct_order_id . "' AND `type` = 'rebate'");
 
 		return (float)$query->row['total'];
 	}

@@ -48,7 +48,6 @@ class ModelExtensionPaymentEway extends Model {
 	}
 
 	public function getCards($customer_id) {
-
 		$query = $this->db->query("SELECT * FROM " . DB_PREFIX . "eway_card WHERE customer_id = '" . (int)$customer_id . "'");
 
 		$card_data = array();
@@ -56,7 +55,6 @@ class ModelExtensionPaymentEway extends Model {
 		$this->load->model('account/address');
 
 		foreach ($query->rows as $row) {
-
 			$card_data[] = array(
 				'card_id' => $row['card_id'],
 				'customer_id' => $row['customer_id'],
@@ -66,11 +64,13 @@ class ModelExtensionPaymentEway extends Model {
 				'type' => $row['type'],
 			);
 		}
+		
 		return $card_data;
 	}
 
 	public function checkToken($token_id) {
 		$query = $this->db->query("SELECT * FROM " . DB_PREFIX . "eway_card WHERE token_id = '" . (int)$token_id . "'");
+		
 		if ($query->num_rows) {
 			return true;
 		} else {
@@ -141,12 +141,14 @@ class ModelExtensionPaymentEway extends Model {
 
 		curl_setopt($ch, CURLOPT_HTTPHEADER, array("Content-Type: application/json"));
 		curl_setopt($ch, CURLOPT_USERPWD, $eway_username . ":" . $eway_password);
+		
 		if ($is_post) {
-		curl_setopt($ch, CURLOPT_POST, 1);
+			curl_setopt($ch, CURLOPT_POST, 1);
 			curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($data));
 		} else {
 			curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'GET');
 		}
+		
 		curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
 		curl_setopt($ch, CURLOPT_TIMEOUT, 60);
 		curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 1);

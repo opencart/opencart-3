@@ -50,6 +50,7 @@ class ModelExtensionPaymentFirstdataRemote extends Model {
 
 	public function call($xml) {
 		$ch = curl_init();
+		
 		curl_setopt($ch, CURLOPT_URL, "https://test.ipg-online.com/ipgapi/services");
 		curl_setopt($ch, CURLOPT_POST, 1);
 		curl_setopt($ch, CURLOPT_HTTPHEADER, array("Content-Type: text/xml"));
@@ -64,6 +65,7 @@ class ModelExtensionPaymentFirstdataRemote extends Model {
 		curl_setopt($ch, CURLOPT_POSTFIELDS, $xml);
 		//curl_setopt($ch, CURLOPT_STDERR, fopen(DIR_LOGS . "/headers.txt", "w+"));
 		curl_setopt($ch, CURLOPT_VERBOSE, true);
+		
 		$response = curl_exec ($ch);
 
 		$this->logger('Post data: ' . print_r($this->request->post, 1));
@@ -105,6 +107,7 @@ class ModelExtensionPaymentFirstdataRemote extends Model {
 		$fault = $xml->xpath('//soap:Fault');
 
 		$response['fault'] = '';
+		
 		if (!empty($fault[0]) && isset($fault[0]->detail)) {
 			$response['fault'] = (string)$fault[0]->detail;
 		}
@@ -257,12 +260,14 @@ class ModelExtensionPaymentFirstdataRemote extends Model {
 	}
 
 	public function getTotalRefunded($firstdata_order_id) {
-		$query = $this->db->query("SELECT SUM(`amount`) AS `total` FROM `" . DB_PREFIX . "firstdata_remote_order_transaction` WHERE `firstdata_remote_order_id` = '" . (int)$firstdata_order_id . "' AND 'refund'");
+		$query = $this->db->query("SELECT SUM(`amount`) AS `total` FROM `" . DB_PREFIX . "firstdata_remote_order_transaction` WHERE `firstdata_remote_order_id` = '" . (int)$firstdata_order_id . "' AND `type` = 'refund'");
 
 		return (float)$query->row['total'];
 	}
 
 	public function mapCurrency($code) {
+		$currency = array();
+		
 		$currency = array(
 			'GBP' => 826,
 			'USD' => 840,

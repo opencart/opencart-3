@@ -48,7 +48,6 @@ class ModelExtensionPaymentBluepayredirect extends Model {
 		$bluepay_redirect_order = $this->getOrder($order_id);
 
 		if (!empty($bluepay_redirect_order) && $bluepay_redirect_order['release_status'] == 1) {
-
 			$void_data = array();
 
 			$void_data['MERCHANT'] = $this->config->get('payment_bluepay_redirect_account_id');
@@ -82,27 +81,28 @@ class ModelExtensionPaymentBluepayredirect extends Model {
 
 	public function release($order_id, $amount) {
 		$bluepay_redirect_order = $this->getOrder($order_id);
+		
 		$total_released = $this->getTotalReleased($bluepay_redirect_order['bluepay_redirect_order_id']);
 
 		if (!empty($bluepay_redirect_order) && $bluepay_redirect_order['release_status'] == 0 && ($total_released + $amount <= $bluepay_redirect_order['total'])) {
 			$release_data = array();
 
 			$release_data['MERCHANT'] = $this->config->get('payment_bluepay_redirect_account_id');
-			$release_data["TRANSACTION_TYPE"] = 'CAPTURE';
-			$release_data["MODE"] = strtoupper($this->config->get('payment_bluepay_redirect_test'));
-			$release_data["RRNO"] = $bluepay_redirect_order['transaction_id'];
-			$release_data["AMOUNT"] = $amount;
+			$release_data['TRANSACTION_TYPE'] = 'CAPTURE';
+			$release_data['MODE'] = strtoupper($this->config->get('payment_bluepay_redirect_test'));
+			$release_data['RRNO'] = $bluepay_redirect_order['transaction_id'];
+			$release_data['AMOUNT'] = $amount;
 			$release_data['APPROVED_URL'] = HTTP_CATALOG . 'index.php?route=extension/payment/bluepay_redirect/callback';
 			$release_data['DECLINED_URL'] = HTTP_CATALOG . 'index.php?route=extension/payment/bluepay_redirect/callback';
 			$release_data['MISSING_URL'] = HTTP_CATALOG . 'index.php?route=extension/payment/bluepay_redirect/callback';
 
-			if (isset($this->request->server["REMOTE_ADDR"])) {
-				$release_data["REMOTE_IP"] = $this->request->server["REMOTE_ADDR"];
+			if (isset($this->request->server['REMOTE_ADDR'])) {
+				$release_data['REMOTE_IP'] = $this->request->server['REMOTE_ADDR'];
 			}
 
 			$tamper_proof_data = $this->config->get('payment_bluepay_redirect_secret_key') . $release_data['MERCHANT'] . $release_data["TRANSACTION_TYPE"] . $release_data["AMOUNT"] . $release_data["RRNO"] . $release_data["MODE"];
 
-			$release_data["TAMPER_PROOF_SEAL"] = md5($tamper_proof_data);
+			$release_data['TAMPER_PROOF_SEAL'] = md5($tamper_proof_data);
 
 			$response_data = $this->sendCurl('https://secure.bluepay.com/interfaces/bp10emu', $release_data);
 
@@ -123,21 +123,21 @@ class ModelExtensionPaymentBluepayredirect extends Model {
 			$rebate_data = array();
 
 			$rebate_data['MERCHANT'] = $this->config->get('payment_bluepay_redirect_account_id');
-			$rebate_data["TRANSACTION_TYPE"] = 'REFUND';
-			$rebate_data["MODE"] = strtoupper($this->config->get('payment_bluepay_redirect_test'));
-			$rebate_data["RRNO"] = $bluepay_redirect_order['transaction_id'];
-			$rebate_data["AMOUNT"] = $amount;
+			$rebate_data['TRANSACTION_TYPE'] = 'REFUND';
+			$rebate_data['MODE'] = strtoupper($this->config->get('payment_bluepay_redirect_test'));
+			$rebate_data['RRNO'] = $bluepay_redirect_order['transaction_id'];
+			$rebate_data['AMOUNT'] = $amount;
 			$rebate_data['APPROVED_URL'] = HTTP_CATALOG . 'index.php?route=extension/payment/bluepay_redirect/callback';
 			$rebate_data['DECLINED_URL'] = HTTP_CATALOG . 'index.php?route=extension/payment/bluepay_redirect/callback';
 			$rebate_data['MISSING_URL'] = HTTP_CATALOG . 'index.php?route=extension/payment/bluepay_redirect/callback';
 
-			if (isset($this->request->server["REMOTE_ADDR"])) {
-				$rebate_data["REMOTE_IP"] = $this->request->server["REMOTE_ADDR"];
+			if (isset($this->request->server['REMOTE_ADDR'])) {
+				$rebate_data['REMOTE_IP'] = $this->request->server['REMOTE_ADDR'];
 			}
 
 			$tamper_proof_data = $this->config->get('payment_bluepay_redirect_secret_key') . $rebate_data['MERCHANT'] . $rebate_data["TRANSACTION_TYPE"] . $rebate_data['AMOUNT'] . $rebate_data["RRNO"] . $rebate_data["MODE"];
 
-			$rebate_data["TAMPER_PROOF_SEAL"] = md5($tamper_proof_data);
+			$rebate_data['TAMPER_PROOF_SEAL'] = md5($tamper_proof_data);
 
 			$response_data = $this->sendCurl('https://secure.bluepay.com/interfaces/bp10emu', $rebate_data);
 
@@ -156,7 +156,6 @@ class ModelExtensionPaymentBluepayredirect extends Model {
 	}
 
 	public function getOrder($order_id) {
-
 		$qry = $this->db->query("SELECT * FROM `" . DB_PREFIX . "bluepay_redirect_order` WHERE `order_id` = '" . (int)$order_id . "' LIMIT 1");
 
 		if ($qry->num_rows) {
@@ -180,7 +179,7 @@ class ModelExtensionPaymentBluepayredirect extends Model {
 	}
 
 	public function addTransaction($bluepay_redirect_order_id, $type, $total) {
-		$this->db->query("INSERT INTO `" . DB_PREFIX . "bluepay_redirect_order_transaction` SET `bluepay_redirect_order_id` = '" . (int)$bluepay_redirect_order_id . "', `date_added` = now(), `type` = '" . $this->db->escape($type) . "', `amount` = '" . (float)$total . "'");
+		$this->db->query("INSERT INTO `" . DB_PREFIX . "bluepay_redirect_order_transaction` SET `bluepay_redirect_order_id` = '" . (int)$bluepay_redirect_order_id . "', `date_added` = NOW(), `type` = '" . $this->db->escape($type) . "', `amount` = '" . (float)$total . "'");
 	}
 
 	public function getTotalReleased($bluepay_redirect_order_id) {
@@ -190,7 +189,7 @@ class ModelExtensionPaymentBluepayredirect extends Model {
 	}
 
 	public function getTotalRebated($bluepay_redirect_order_id) {
-		$query = $this->db->query("SELECT SUM(`amount`) AS `total` FROM `" . DB_PREFIX . "bluepay_redirect_order_transaction` WHERE `bluepay_redirect_order_id` = '" . (int)$bluepay_redirect_order_id . "' AND 'rebate'");
+		$query = $this->db->query("SELECT SUM(`amount`) AS `total` FROM `" . DB_PREFIX . "bluepay_redirect_order_transaction` WHERE `bluepay_redirect_order_id` = '" . (int)$bluepay_redirect_order_id . "' AND `type` = 'rebate'");
 
 		return (float)$query->row['total'];
 	}
