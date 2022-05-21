@@ -9,7 +9,7 @@
  *
  * Fork Me @ https://github.com/manifestinteractive/jqvmap
  */
-(function ($) {
+(function($) {
 
   var apiParams = {
     colors: 1,
@@ -35,7 +35,7 @@
     onRegionDeselect: 'regionDeselect'
   };
 
-  $.fn.vectorMap = function (options) {
+  $.fn.vectorMap = function(options) {
 
     var defaultParams = {
       map: 'world_en',
@@ -78,12 +78,12 @@
     }
   };
 
-  var VectorCanvas = function (width, height, params) {
+  var VectorCanvas = function(width, height, params) {
     this.mode = window.SVGAngle ? 'svg' : 'vml';
     this.params = params;
 
     if (this.mode == 'svg') {
-      this.createSvgNode = function (nodeName) {
+      this.createSvgNode = function(nodeName) {
         return document.createElementNS(this.svgns, nodeName);
       };
     } else {
@@ -91,11 +91,11 @@
         if (!document.namespaces.rvml) {
           document.namespaces.add("rvml", "urn:schemas-microsoft-com:vml");
         }
-        this.createVmlNode = function (tagName) {
+        this.createVmlNode = function(tagName) {
           return document.createElement('<rvml:' + tagName + ' class="rvml">');
         };
       } catch (e) {
-        this.createVmlNode = function (tagName) {
+        this.createVmlNode = function(tagName) {
           return document.createElement('<' + tagName + ' xmlns="urn:schemas-microsoft.com:vml" class="rvml">');
         };
       }
@@ -120,7 +120,7 @@
     height: 0,
     canvas: null,
 
-    setSize: function (width, height) {
+    setSize: function(width, height) {
       if (this.mode == 'svg') {
         this.canvas.setAttribute('width', width);
         this.canvas.setAttribute('height', height);
@@ -145,7 +145,7 @@
       this.height = height;
     },
 
-    createPath: function (config) {
+    createPath: function(config) {
       var node;
       if (this.mode == 'svg') {
         node = this.createSvgNode('path');
@@ -163,22 +163,22 @@
           node.setAttribute('stroke-opacity', this.params.borderOpacity);
         }
 
-        node.setFill = function (color) {
+        node.setFill = function(color) {
           this.setAttribute("fill", color);
           if (this.getAttribute("original") === null) {
             this.setAttribute("original", color);
           }
         };
 
-        node.getFill = function (color) {
+        node.getFill = function(color) {
           return this.getAttribute("fill");
         };
 
-        node.getOriginalFill = function () {
+        node.getOriginalFill = function() {
           return this.getAttribute("original");
         };
 
-        node.setOpacity = function (opacity) {
+        node.setOpacity = function(opacity) {
           this.setAttribute('fill-opacity', opacity);
         };
       } else {
@@ -201,27 +201,27 @@
         var fill = this.createVmlNode('fill');
         node.appendChild(fill);
 
-        node.setFill = function (color) {
+        node.setFill = function(color) {
           this.getElementsByTagName('fill')[0].color = color;
           if (this.getAttribute("original") === null) {
             this.setAttribute("original", color);
           }
         };
 
-        node.getFill = function (color) {
+        node.getFill = function(color) {
           return this.getElementsByTagName('fill')[0].color;
         };
-        node.getOriginalFill = function () {
+        node.getOriginalFill = function() {
           return this.getAttribute("original");
         };
-        node.setOpacity = function (opacity) {
+        node.setOpacity = function(opacity) {
           this.getElementsByTagName('fill')[0].opacity = parseInt(opacity * 100, 10) + '%';
         };
       }
       return node;
     },
 
-    createGroup: function (isRoot) {
+    createGroup: function(isRoot) {
       var node;
       if (this.mode == 'svg') {
         node = this.createSvgNode('g');
@@ -241,7 +241,7 @@
       return node;
     },
 
-    applyTransformParams: function (scale, transX, transY) {
+    applyTransformParams: function(scale, transX, transY) {
       if (this.mode == 'svg') {
         this.rootGroup.setAttribute('transform', 'scale(' + scale + ') translate(' + transX + ', ' + transY + ')');
       } else {
@@ -251,11 +251,11 @@
     }
   };
 
-  VectorCanvas.pathSvgToVml = function (path) {
+  VectorCanvas.pathSvgToVml = function(path) {
     var result = '';
     var cx = 0, cy = 0, ctrlx, ctrly;
 
-    return path.replace(/([MmLlHhVvCcSs])((?:-?(?:\d+)?(?:\.\d+)?,?\s?)+)/g, function (segment, letter, coords, index) {
+    return path.replace(/([MmLlHhVvCcSs])((?:-?(?:\d+)?(?:\.\d+)?,?\s?)+)/g, function(segment, letter, coords, index) {
       coords = coords.replace(/(\d)-/g, '$1,-').replace(/\s+/g, ',').split(',');
       if (!coords[0]) {
         coords.shift();
@@ -356,7 +356,7 @@
     }).replace(/z/g, '');
   };
 
-  var WorldMap = function (params) {
+  var WorldMap = function(params) {
     params = params || {};
     var map = this;
     var mapData = WorldMap.maps[params.map];
@@ -380,7 +380,7 @@
 
     this.resize();
 
-    jQuery(window).resize(function () {
+    jQuery(window).resize(function() {
       map.width = params.container.width();
       map.height = params.container.height();
       map.resize();
@@ -423,7 +423,7 @@
       jQuery(this.rootGroup).append(path);
     }
 
-    jQuery(params.container).delegate(this.canvas.mode == 'svg' ? 'path' : 'shape', 'mouseover mouseout', function (e) {
+    jQuery(params.container).delegate(this.canvas.mode == 'svg' ? 'path' : 'shape', 'mouseover mouseout', function(e) {
       var path = e.target,
       code = e.target.id.split('_').pop(),
       labelShowEvent = $.Event('labelShow.jqvmap'),
@@ -452,7 +452,7 @@
       }
     });
 
-    jQuery(params.container).delegate(this.canvas.mode == 'svg' ? 'path' : 'shape', 'click', function (e) {
+    jQuery(params.container).delegate(this.canvas.mode == 'svg' ? 'path' : 'shape', 'click', function(e) {
       if (!params.multiSelectRegion) {
         for (var key in mapData.pathes) {
           map.countries[key].currentFillColor = map.countries[key].getOriginalFill();
@@ -477,7 +477,7 @@
     });
 
     if (params.showTooltip) {
-      params.container.mousemove(function (e) {
+      params.container.mousemove(function(e) {
         if (map.label.is(':visible')) {
             var left = e.pageX - 15 - map.labelWidth;
             var top = e.pageY - 15 - map.labelHeight;
@@ -551,7 +551,7 @@
     zoomMaxStep: 4,
     zoomCurStep: 1,
 
-    setColors: function (key, color) {
+    setColors: function(key, color) {
       if (typeof key == 'string') {
         this.countries[key].setFill(color);
         this.countries[key].setAttribute("original", color);
@@ -567,7 +567,7 @@
       }
     },
 
-    setValues: function (values) {
+    setValues: function(values) {
       var max = 0,
       min = Number.MAX_VALUE,
       val;
@@ -598,11 +598,11 @@
       this.values = values;
     },
 
-    setBackgroundColor: function (backgroundColor) {
+    setBackgroundColor: function(backgroundColor) {
       this.container.css('background-color', backgroundColor);
     },
 
-    setScaleColors: function (colors) {
+    setScaleColors: function(colors) {
       this.colorScale.setColors(colors);
 
       if (this.values) {
@@ -610,15 +610,15 @@
       }
     },
 
-    setNormalizeFunction: function (f) {
-      this.colorScale.setNormalizefunction (f);
+    setNormalizeFunction: function(f) {
+      this.colorScale.setNormalizefunction(f);
 
       if (this.values) {
         this.setValues(this.values);
       }
     },
 
-    highlight: function (cc, path) {
+    highlight: function(cc, path) {
       path = path || $('#' + this.getCountryId(cc))[0];
       if (this.hoverOpacity) {
         path.setOpacity(this.hoverOpacity);
@@ -628,7 +628,7 @@
       }
     },
 
-    unhighlight: function (cc, path) {
+    unhighlight: function(cc, path) {
       path = path || $('#' + this.getCountryId(cc))[0];
       path.setOpacity(1);
       if (path.currentFillColor) {
@@ -636,7 +636,7 @@
       }
     },
 
-    select: function (cc, path) {
+    select: function(cc, path) {
       path = path || $('#' + this.getCountryId(cc))[0];
       if(this.selectedRegions.indexOf(cc) < 0) {
         if (this.multiSelectRegion) {
@@ -654,7 +654,7 @@
       }
     },
 
-    deselect: function (cc, path) {
+    deselect: function(cc, path) {
       path = path || $('#' + this.getCountryId(cc))[0];
       if(this.selectedRegions.indexOf(cc) >= 0) {
         this.selectedRegions.splice(this.selectedRegions.indexOf(cc), 1);
@@ -666,11 +666,11 @@
       }
     },
 
-    isSelected: function (cc) {
+    isSelected: function(cc) {
       return this.selectedRegions.indexOf(cc) >= 0;
     },
 
-    resize: function () {
+    resize: function() {
       var curBaseScale = this.baseScale;
       if (this.width / this.height > this.defaultWidth / this.defaultHeight) {
         this.baseScale = this.height / this.defaultHeight;
@@ -684,7 +684,7 @@
       this.transY *= this.baseScale / curBaseScale;
     },
 
-    reset: function () {
+    reset: function() {
       this.countryTitle.reset();
       for (var key in this.countries) {
         this.countries[key].setFill(WorldMap.defaultColor);
@@ -695,7 +695,7 @@
       this.applyTransform();
     },
 
-    applyTransform: function () {
+    applyTransform: function() {
       var maxTransX, maxTransY, minTransX, minTransY;
       if (this.defaultWidth * this.scale <= this.width) {
         maxTransX = (this.width - this.defaultWidth * this.scale) / (2 * this.scale);
@@ -729,7 +729,7 @@
       this.canvas.applyTransformParams(this.scale, this.transX, this.transY);
     },
 
-    makeDraggable: function () {
+    makeDraggable: function() {
       var mouseDown = false;
       var oldPageX, oldPageY;
       var self = this;
@@ -737,7 +737,7 @@
       self.isMoving = false;
       self.isMovingTimeout = false;
 
-      this.container.mousemove(function (e) {
+      this.container.mousemove(function(e) {
 
         if (mouseDown) {
           var curTransX = self.transX;
@@ -761,7 +761,7 @@
 
         return false;
 
-      }).mousedown(function (e) {
+      }).mousedown(function(e) {
 
         mouseDown = true;
         oldPageX = e.pageX;
@@ -769,11 +769,11 @@
 
         return false;
 
-      }).mouseup(function () {
+      }).mouseup(function() {
 
         mouseDown = false;
 
-        self.isMovingTimeout = setTimeout(function () {
+        self.isMovingTimeout = setTimeout(function() {
           self.isMoving = false;
         }, 100);
 
@@ -782,17 +782,17 @@
       });
     },
 
-    bindZoomButtons: function () {
+    bindZoomButtons: function() {
       var map = this;
-      this.container.find('.jqvmap-zoomin').click(function (){
+      this.container.find('.jqvmap-zoomin').click(function(){
         map.zoomIn();
       });
-      this.container.find('.jqvmap-zoomout').click(function (){
+      this.container.find('.jqvmap-zoomout').click(function(){
         map.zoomOut();
       });
     },
     
-    zoomIn: function () {
+    zoomIn: function() {
       var map = this;
       var sliderDelta = (jQuery('#zoom').innerHeight() - 6 * 2 - 15 * 2 - 3 * 2 - 7 - 6) / (this.zoomMaxStep - this.zoomCurStep);
 
@@ -812,7 +812,7 @@
       }
     },
     
-    zoomOut: function () {
+    zoomOut: function() {
       var map = this;
       var sliderDelta = (jQuery('#zoom').innerHeight() - 6 * 2 - 15 * 2 - 3 * 2 - 7 - 6) / (this.zoomMaxStep - this.zoomCurStep);
 
@@ -832,20 +832,20 @@
       }
     },
 
-    setScale: function (scale) {
+    setScale: function(scale) {
       this.scale = scale;
       this.applyTransform();
     },
 
-    getCountryId: function (cc) {
+    getCountryId: function(cc) {
       return 'jqvmap' + this.index + '_' + cc;
     },
 
-    getPinId: function (cc) {
+    getPinId: function(cc) {
       return this.getCountryId(cc)+'_pin';
     },
     
-    placePins: function (pins, pinMode){
+    placePins: function(pins, pinMode){
       var map = this;
 
       if(!pinMode || (pinMode != "content" && pinMode != "id")) {
@@ -853,7 +853,7 @@
       }
 
       if(pinMode == "content") {//treat pin as content
-        jQuery.each(pins, function (index, pin){
+        jQuery.each(pins, function(index, pin){
           if(jQuery('#'+map.getCountryId(index)).length == 0){
               return;
           }
@@ -865,7 +865,7 @@
           map.container.append('<div id="' + pinIndex + '" for="'+index+'" class="jqvmap_pin" style="position:absolute">' + pin + '</div>');
         });
       } else { //treat pin as id of an html content
-        jQuery.each(pins, function (index, pin){
+        jQuery.each(pins, function(index, pin){
           if(jQuery('#'+map.getCountryId(index)).length == 0){
               return;
           }
@@ -881,7 +881,7 @@
       this.positionPins();
       if(!this.pinHandlers){
         this.pinHandlers = true;//do only once
-        var positionFix = function (){
+        var positionFix = function(){
           map.positionPins();
         };
         this.container.bind('zoomIn', positionFix)
@@ -890,10 +890,10 @@
       }
     },
 
-    positionPins: function (){
+    positionPins: function(){
       var map = this;
       var pins = this.container.find('.jqvmap_pin');
-      jQuery.each(pins, function (index, pinObj){
+      jQuery.each(pins, function(index, pinObj){
         pinObj = jQuery(pinObj);
         var countryId = map.getCountryId(pinObj.attr('for'));
         var countryObj = jQuery('#' + countryId);
@@ -910,15 +910,15 @@
       });
      },
 
-     getPin: function (cc){
+     getPin: function(cc){
        var pinObj = jQuery('#'+this.getPinId(cc));
        return pinObj.html();
      },
 
-     getPins: function (){
+     getPins: function(){
        var pins = this.container.find('.jqvmap_pin');
        var ret = new Object();
-       jQuery.each(pins, function (index, pinObj){
+       jQuery.each(pins, function(index, pinObj){
          pinObj = jQuery(pinObj);
          var cc = pinObj.attr('for');
          var pinContent = pinObj.html();
@@ -927,11 +927,11 @@
        return JSON.stringify(ret);
      },
 
-     removePin: function (cc) {
+     removePin: function(cc) {
        jQuery('#'+this.getPinId(cc)).remove();
      },
 
-     removePins: function (){
+     removePins: function(){
        this.container.find('.jqvmap_pin').remove();
      }
   };
@@ -940,12 +940,12 @@
   WorldMap.mapIndex = 1;
   WorldMap.maps = {};
 
-  var ColorScale = function (colors, normalizeFunction, minValue, maxValue) {
+  var ColorScale = function(colors, normalizeFunction, minValue, maxValue) {
     if (colors) {
       this.setColors(colors);
     }
     if (normalizeFunction) {
-      this.setNormalizefunction (normalizeFunction);
+      this.setNormalizefunction(normalizeFunction);
     }
     if (minValue) {
       this.setMin(minValue);
@@ -958,7 +958,7 @@
   ColorScale.prototype = {
     colors: [],
 
-    setMin: function (min) {
+    setMin: function(min) {
       this.clearMinValue = min;
 
       if (typeof this.normalize === 'function') {
@@ -968,7 +968,7 @@
       }
     },
 
-    setMax: function (max) {
+    setMax: function(max) {
       this.clearMaxValue = max;
       if (typeof this.normalize === 'function') {
         this.maxValue = this.normalize(max);
@@ -977,16 +977,16 @@
       }
     },
 
-    setColors: function (colors) {
+    setColors: function(colors) {
       for (var i = 0; i < colors.length; i++) {
         colors[i] = ColorScale.rgbToArray(colors[i]);
       }
       this.colors = colors;
     },
 
-    setNormalizeFunction: function (f) {
+    setNormalizeFunction: function(f) {
       if (f === 'polynomial') {
-        this.normalize = function (value) {
+        this.normalize = function(value) {
           return Math.pow(value, 0.2);
         };
       }
@@ -999,7 +999,7 @@
       this.setMax(this.clearMaxValue);
     },
 
-    getColor: function (value) {
+    getColor: function(value) {
       if (typeof this.normalize === 'function') {
         value = this.normalize(value);
       }
@@ -1041,7 +1041,7 @@
       return '#' + color;
     },
 
-    vectorToNum: function (vector) {
+    vectorToNum: function(vector) {
       var num = 0;
       for (var i = 0; i < vector.length; i++) {
         num += Math.round(vector[i]) * Math.pow(256, vector.length - i - 1);
@@ -1049,7 +1049,7 @@
       return num;
     },
 
-    vectorSubtract: function (vector1, vector2) {
+    vectorSubtract: function(vector1, vector2) {
       var vector = [];
       for (var i = 0; i < vector1.length; i++) {
         vector[i] = vector1[i] - vector2[i];
@@ -1057,7 +1057,7 @@
       return vector;
     },
 
-    vectorAdd: function (vector1, vector2) {
+    vectorAdd: function(vector1, vector2) {
       var vector = [];
       for (var i = 0; i < vector1.length; i++) {
         vector[i] = vector1[i] + vector2[i];
@@ -1065,7 +1065,7 @@
       return vector;
     },
 
-    vectorMult: function (vector, num) {
+    vectorMult: function(vector, num) {
       var result = [];
       for (var i = 0; i < vector.length; i++) {
         result[i] = vector[i] * num;
@@ -1073,7 +1073,7 @@
       return result;
     },
 
-    vectorLength: function (vector) {
+    vectorLength: function(vector) {
       var result = 0;
       for (var i = 0; i < vector.length; i++) {
         result += vector[i] * vector[i];
@@ -1082,7 +1082,7 @@
     }
   };
 
-  ColorScale.arrayToRgb = function (ar) {
+  ColorScale.arrayToRgb = function(ar) {
     var rgb = '#';
     var d;
     for (var i = 0; i < ar.length; i++) {
@@ -1092,7 +1092,7 @@
     return rgb;
   };
 
-  ColorScale.rgbToArray = function (rgb) {
+  ColorScale.rgbToArray = function(rgb) {
     rgb = rgb.substr(1);
     return [parseInt(rgb.substr(0, 2), 16), parseInt(rgb.substr(2, 2), 16), parseInt(rgb.substr(4, 2), 16)];
   };

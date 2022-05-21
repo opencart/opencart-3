@@ -40,7 +40,7 @@ The plugin also adds four public methods:
     Example usage:
 
 	var myFlot = $.plot( $("#graph"), ..., { crosshair: { mode: "x" } } };
-	$("#graph").bind( "plothover", function ( evt, position, item ) {
+	$("#graph").bind( "plothover", function( evt, position, item ) {
 		if ( item ) {
 			// Lock the crosshair to the data point being hovered
 			myFlot.lockCrosshair({
@@ -58,7 +58,7 @@ The plugin also adds four public methods:
     Free the crosshair to move again after locking it.
 */
 
-(function ($) {
+(function($) {
     var options = {
         crosshair: {
             mode: null, // one of null, "x", "y" or "xy",
@@ -120,7 +120,7 @@ The plugin also adds four public methods:
             plot.triggerRedrawOverlay();
         }
         
-        plot.hooks.bindEvents.push(function (plot, eventHolder) {
+        plot.hooks.bindEvents.push(function(plot, eventHolder) {
             if (!plot.getOptions().crosshair.mode)
                 return;
 
@@ -128,7 +128,7 @@ The plugin also adds four public methods:
             eventHolder.mousemove(onMouseMove);
         });
 
-        plot.hooks.drawOverlay.push(function (plot, ctx) {
+        plot.hooks.drawOverlay.push(function(plot, ctx) {
             var c = plot.getOptions().crosshair;
             if (!c.mode)
                 return;
@@ -161,7 +161,7 @@ The plugin also adds four public methods:
             ctx.restore();
         });
 
-        plot.hooks.shutdown.push(function (plot, eventHolder) {
+        plot.hooks.shutdown.push(function(plot, eventHolder) {
             eventHolder.unbind("mouseout", onMouseOut);
             eventHolder.unbind("mousemove", onMouseMove);
         });

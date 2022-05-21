@@ -32,7 +32,7 @@
  * Peter Bergström (pbergstr@mac.com)
  * Long Ho
  */
-(function () {
+(function() {
   // Standard initialization stuff to make sure the library is
   // usable on both client and server (node) side.
 
@@ -74,7 +74,7 @@
 
   //Handle array indexOf in IE
   if (!Array.prototype.indexOf) {
-    Array.prototype.indexOf = function (el) {
+    Array.prototype.indexOf = function(el) {
       for (var i = 0; i < this.length; i++ ) {
         if (el === this[i]) return i;
       }
@@ -89,7 +89,7 @@
   // `_fixWidth(1998, 2) = '98'`
   //
   // This is used to pad numbers in converting date to string in ISO standard.
-  var _fixWidth = function (number, digits) {
+  var _fixWidth = function(number, digits) {
     if (typeof number !== "number") { throw "not a number: " + number; }
     var s = number.toString();
     if (number.length > digits) {
@@ -113,7 +113,7 @@
   //
   // - `error`: error callback function
   // Returns response from URL if async is false, otherwise the AJAX request object itself
-  var _transport = function (opts) {
+  var _transport = function(opts) {
     if ((!fleegix || typeof fleegix.xhr === 'undefined') && (!$ || typeof $.ajax === 'undefined')) {
       throw new Error('Please use the Fleegix.js XHR module, jQuery ajax, Zepto ajax, or define your own transport mechanism for downloading zone files.');
     }
@@ -142,7 +142,7 @@
   };
 
   // Constructor, which is similar to that of the native Date object itself
-  timezoneJS.Date = function () {
+  timezoneJS.Date = function() {
     var args = Array.prototype.slice.apply(arguments)
     , dt = null
     , tz = null
@@ -209,31 +209,31 @@
 
   // Implements most of the native Date object
   timezoneJS.Date.prototype = {
-    getDate: function () { return this.date; },
-    getDay: function () { return this._day; },
-    getFullYear: function () { return this.year; },
-    getMonth: function () { return this.month; },
-    getYear: function () { return this.year; },
-    getHours: function () { return this.hours; },
-    getMilliseconds: function () { return this.milliseconds; },
-    getMinutes: function () { return this.minutes; },
-    getSeconds: function () { return this.seconds; },
-    getUTCDate: function () { return this.getUTCDateProxy().getUTCDate(); },
-    getUTCDay: function () { return this.getUTCDateProxy().getUTCDay(); },
-    getUTCFullYear: function () { return this.getUTCDateProxy().getUTCFullYear(); },
-    getUTCHours: function () { return this.getUTCDateProxy().getUTCHours(); },
-    getUTCMilliseconds: function () { return this.getUTCDateProxy().getUTCMilliseconds(); },
-    getUTCMinutes: function () { return this.getUTCDateProxy().getUTCMinutes(); },
-    getUTCMonth: function () { return this.getUTCDateProxy().getUTCMonth(); },
-    getUTCSeconds: function () { return this.getUTCDateProxy().getUTCSeconds(); },
+    getDate: function() { return this.date; },
+    getDay: function() { return this._day; },
+    getFullYear: function() { return this.year; },
+    getMonth: function() { return this.month; },
+    getYear: function() { return this.year; },
+    getHours: function() { return this.hours; },
+    getMilliseconds: function() { return this.milliseconds; },
+    getMinutes: function() { return this.minutes; },
+    getSeconds: function() { return this.seconds; },
+    getUTCDate: function() { return this.getUTCDateProxy().getUTCDate(); },
+    getUTCDay: function() { return this.getUTCDateProxy().getUTCDay(); },
+    getUTCFullYear: function() { return this.getUTCDateProxy().getUTCFullYear(); },
+    getUTCHours: function() { return this.getUTCDateProxy().getUTCHours(); },
+    getUTCMilliseconds: function() { return this.getUTCDateProxy().getUTCMilliseconds(); },
+    getUTCMinutes: function() { return this.getUTCDateProxy().getUTCMinutes(); },
+    getUTCMonth: function() { return this.getUTCDateProxy().getUTCMonth(); },
+    getUTCSeconds: function() { return this.getUTCDateProxy().getUTCSeconds(); },
     // Time adjusted to user-specified timezone
-    getTime: function () {
+    getTime: function() {
       return this._timeProxy + (this.getTimezoneOffset() * 60 * 1000);
     },
-    getTimezone: function () { return this.timezone; },
-    getTimezoneOffset: function () { return this.getTimezoneInfo().tzOffset; },
-    getTimezoneAbbreviation: function () { return this.getTimezoneInfo().tzAbbr; },
-    getTimezoneInfo: function () {
+    getTimezone: function() { return this.timezone; },
+    getTimezoneOffset: function() { return this.getTimezoneInfo().tzOffset; },
+    getTimezoneAbbreviation: function() { return this.getTimezoneInfo().tzAbbr; },
+    getTimezoneInfo: function() {
       if (this._useCache) return this._tzInfo;
       var res;
       // If timezone is specified, get the correct timezone info based on the Date given
@@ -250,31 +250,31 @@
       this._useCache = true;
       return res
     },
-    getUTCDateProxy: function () {
+    getUTCDateProxy: function() {
       var dt = new Date(this._timeProxy);
       dt.setUTCMinutes(dt.getUTCMinutes() + this.getTimezoneOffset());
       return dt;
     },
-    setDate: function (n) { this.setAttribute('date', n); },
-    setFullYear: function (n) { this.setAttribute('year', n); },
-    setMonth: function (n) { this.setAttribute('month', n); },
-    setYear: function (n) { this.setUTCAttribute('year', n); },
-    setHours: function (n) { this.setAttribute('hours', n); },
-    setMilliseconds: function (n) { this.setAttribute('milliseconds', n); },
-    setMinutes: function (n) { this.setAttribute('minutes', n); },
-    setSeconds: function (n) { this.setAttribute('seconds', n); },
-    setTime: function (n) {
+    setDate: function(n) { this.setAttribute('date', n); },
+    setFullYear: function(n) { this.setAttribute('year', n); },
+    setMonth: function(n) { this.setAttribute('month', n); },
+    setYear: function(n) { this.setUTCAttribute('year', n); },
+    setHours: function(n) { this.setAttribute('hours', n); },
+    setMilliseconds: function(n) { this.setAttribute('milliseconds', n); },
+    setMinutes: function(n) { this.setAttribute('minutes', n); },
+    setSeconds: function(n) { this.setAttribute('seconds', n); },
+    setTime: function(n) {
       if (isNaN(n)) { throw new Error('Units must be a number.'); }
       this.setFromTimeProxy(n, this.timezone);
     },
-    setUTCDate: function (n) { this.setUTCAttribute('date', n); },
-    setUTCFullYear: function (n) { this.setUTCAttribute('year', n); },
-    setUTCHours: function (n) { this.setUTCAttribute('hours', n); },
-    setUTCMilliseconds: function (n) { this.setUTCAttribute('milliseconds', n); },
-    setUTCMinutes: function (n) { this.setUTCAttribute('minutes', n); },
-    setUTCMonth: function (n) { this.setUTCAttribute('month', n); },
-    setUTCSeconds: function (n) { this.setUTCAttribute('seconds', n); },
-    setFromDateObjProxy: function (dt) {
+    setUTCDate: function(n) { this.setUTCAttribute('date', n); },
+    setUTCFullYear: function(n) { this.setUTCAttribute('year', n); },
+    setUTCHours: function(n) { this.setUTCAttribute('hours', n); },
+    setUTCMilliseconds: function(n) { this.setUTCAttribute('milliseconds', n); },
+    setUTCMinutes: function(n) { this.setUTCAttribute('minutes', n); },
+    setUTCMonth: function(n) { this.setUTCAttribute('month', n); },
+    setUTCSeconds: function(n) { this.setUTCAttribute('seconds', n); },
+    setFromDateObjProxy: function(dt) {
       this.year = dt.getFullYear();
       this.month = dt.getMonth();
       this.date = dt.getDate();
@@ -287,21 +287,21 @@
       this._timeProxy = Date.UTC(this.year, this.month, this.date, this.hours, this.minutes, this.seconds, this.milliseconds);
       this._useCache = false;
     },
-    setFromTimeProxy: function (utcMillis, tz) {
+    setFromTimeProxy: function(utcMillis, tz) {
       var dt = new Date(utcMillis);
       var tzOffset;
       tzOffset = tz ? timezoneJS.timezone.getTzInfo(dt, tz).tzOffset : dt.getTimezoneOffset();
       dt.setTime(utcMillis + (dt.getTimezoneOffset() - tzOffset) * 60000);
       this.setFromDateObjProxy(dt);
     },
-    setAttribute: function (unit, n) {
+    setAttribute: function(unit, n) {
       if (isNaN(n)) { throw new Error('Units must be a number.'); }
       var dt = this._dateProxy;
       var meth = unit === 'year' ? 'FullYear' : unit.substr(0, 1).toUpperCase() + unit.substr(1);
       dt['set' + meth](n);
       this.setFromDateObjProxy(dt);
     },
-    setUTCAttribute: function (unit, n) {
+    setUTCAttribute: function(unit, n) {
       if (isNaN(n)) { throw new Error('Units must be a number.'); }
       var meth = unit === 'year' ? 'FullYear' : unit.substr(0, 1).toUpperCase() + unit.substr(1);
       var dt = this.getUTCDateProxy();
@@ -309,30 +309,30 @@
       dt.setUTCMinutes(dt.getUTCMinutes() - this.getTimezoneOffset());
       this.setFromTimeProxy(dt.getTime() + this.getTimezoneOffset() * 60000, this.timezone);
     },
-    setTimezone: function (tz) {
+    setTimezone: function(tz) {
       var previousOffset = this.getTimezoneInfo().tzOffset;
       this.timezone = tz;
       this._useCache = false;
       // Set UTC minutes offsets by the delta of the two timezones
       this.setUTCMinutes(this.getUTCMinutes() - this.getTimezoneInfo().tzOffset + previousOffset);
     },
-    removeTimezone: function () {
+    removeTimezone: function() {
       this.timezone = null;
       this._useCache = false;
     },
-    valueOf: function () { return this.getTime(); },
-    clone: function () {
+    valueOf: function() { return this.getTime(); },
+    clone: function() {
       return this.timezone ? new timezoneJS.Date(this.getTime(), this.timezone) : new timezoneJS.Date(this.getTime());
     },
-    toGMTString: function () { return this.toString('EEE, dd MMM yyyy HH:mm:ss Z', 'Etc/GMT'); },
-    toLocaleString: function () {},
-    toLocaleDateString: function () {},
-    toLocaleTimeString: function () {},
-    toSource: function () {},
-    toISOString: function () { return this.toString('yyyy-MM-ddTHH:mm:ss.SSS', 'Etc/UTC') + 'Z'; },
-    toJSON: function () { return this.toISOString(); },
+    toGMTString: function() { return this.toString('EEE, dd MMM yyyy HH:mm:ss Z', 'Etc/GMT'); },
+    toLocaleString: function() {},
+    toLocaleDateString: function() {},
+    toLocaleTimeString: function() {},
+    toSource: function() {},
+    toISOString: function() { return this.toString('yyyy-MM-ddTHH:mm:ss.SSS', 'Etc/UTC') + 'Z'; },
+    toJSON: function() { return this.toISOString(); },
     // Allows different format following ISO8601 format:
-    toString: function (format, tz) {
+    toString: function(format, tz) {
       // Default format is the same as toISOString
       if (!format) format = 'yyyy-MM-dd HH:mm:ss';
       var result = format;
@@ -346,19 +346,19 @@
       var hours = _this.getHours();
       return result
       // fix the same characters in Month names
-      .replace(/a+/g, function () { return 'k'; })
+      .replace(/a+/g, function() { return 'k'; })
       // `y`: year
-      .replace(/y+/g, function (token) { return _fixWidth(_this.getFullYear(), token.length); })
+      .replace(/y+/g, function(token) { return _fixWidth(_this.getFullYear(), token.length); })
       // `d`: date
-      .replace(/d+/g, function (token) { return _fixWidth(_this.getDate(), token.length); })
+      .replace(/d+/g, function(token) { return _fixWidth(_this.getDate(), token.length); })
       // `m`: minute
-      .replace(/m+/g, function (token) { return _fixWidth(_this.getMinutes(), token.length); })
+      .replace(/m+/g, function(token) { return _fixWidth(_this.getMinutes(), token.length); })
       // `s`: second
-      .replace(/s+/g, function (token) { return _fixWidth(_this.getSeconds(), token.length); })
+      .replace(/s+/g, function(token) { return _fixWidth(_this.getSeconds(), token.length); })
       // `S`: millisecond
-      .replace(/S+/g, function (token) { return _fixWidth(_this.getMilliseconds(), token.length); })
+      .replace(/S+/g, function(token) { return _fixWidth(_this.getMilliseconds(), token.length); })
       // `M`: month. Note: `MM` will be the numeric representation (e.g February is 02) but `MMM` will be text representation (e.g February is Feb)
-      .replace(/M+/g, function (token) {
+      .replace(/M+/g, function(token) {
         var _month = _this.getMonth(),
         _len = token.length;
         if (_len > 3) {
@@ -369,7 +369,7 @@
         return _fixWidth(_month + 1, _len);
       })
       // `k`: AM/PM
-      .replace(/k+/g, function () {
+      .replace(/k+/g, function() {
         if (hours >= 12) {
           if (hours > 12) {
             hours -= 12;
@@ -379,14 +379,14 @@
         return 'AM';
       })
       // `H`: hour
-      .replace(/H+/g, function (token) { return _fixWidth(hours, token.length); })
+      .replace(/H+/g, function(token) { return _fixWidth(hours, token.length); })
       // `E`: day
-      .replace(/E+/g, function (token) { return DAYS[_this.getDay()].substring(0, token.length); })
+      .replace(/E+/g, function(token) { return DAYS[_this.getDay()].substring(0, token.length); })
       // `Z`: timezone abbreviation
-      .replace(/Z+/gi, function () { return tzInfo.tzAbbr; });
+      .replace(/Z+/gi, function() { return tzInfo.tzAbbr; });
     },
-    toUTCString: function () { return this.toGMTString(); },
-    civilToJulianDayNumber: function (y, m, d) {
+    toUTCString: function() { return this.toGMTString(); },
+    civilToJulianDayNumber: function(y, m, d) {
       var a;
       // Adjust for zero-based JS-style array
       m++;
@@ -404,13 +404,13 @@
         , jDt = Math.floor(365.25 * (y + 4716)) + Math.floor(30.6001 * (m + 1)) + d + b - 1524;
       return jDt;
     },
-    getLocalOffset: function () {
+    getLocalOffset: function() {
       return this._dateProxy.getTimezoneOffset();
     }
   };
 
 
-  timezoneJS.timezone = new function () {
+  timezoneJS.timezone = new function() {
     var _this = this
       , regionMap = {'Etc':'etcetera','EST':'northamerica','MST':'northamerica','HST':'northamerica','EST5EDT':'northamerica','CST6CDT':'northamerica','MST7MDT':'northamerica','PST8PDT':'northamerica','America':'northamerica','Pacific':'australasia','Atlantic':'europe','Africa':'africa','Indian':'africa','Antarctica':'antarctica','Asia':'asia','Australia':'australasia','Europe':'europe','WET':'europe','CET':'europe','MET':'europe','EET':'europe'}
       , regionExceptions = {'Pacific/Honolulu':'northamerica','Atlantic/Bermuda':'northamerica','Atlantic/Cape_Verde':'africa','Atlantic/St_Helena':'africa','Indian/Kerguelen':'antarctica','Indian/Chagos':'asia','Indian/Maldives':'asia','Indian/Christmas':'australasia','Indian/Cocos':'australasia','America/Danmarkshavn':'europe','America/Scoresbysund':'europe','America/Godthab':'europe','America/Thule':'europe','Asia/Yekaterinburg':'europe','Asia/Omsk':'europe','Asia/Novosibirsk':'europe','Asia/Krasnoyarsk':'europe','Asia/Irkutsk':'europe','Asia/Yakutsk':'europe','Asia/Vladivostok':'europe','Asia/Sakhalin':'europe','Asia/Magadan':'europe','Asia/Kamchatka':'europe','Asia/Anadyr':'europe','Africa/Ceuta':'europe','America/Argentina/Buenos_Aires':'southamerica','America/Argentina/Cordoba':'southamerica','America/Argentina/Tucuman':'southamerica','America/Argentina/La_Rioja':'southamerica','America/Argentina/San_Juan':'southamerica','America/Argentina/Jujuy':'southamerica','America/Argentina/Catamarca':'southamerica','America/Argentina/Mendoza':'southamerica','America/Argentina/Rio_Gallegos':'southamerica','America/Argentina/Ushuaia':'southamerica','America/Aruba':'southamerica','America/La_Paz':'southamerica','America/Noronha':'southamerica','America/Belem':'southamerica','America/Fortaleza':'southamerica','America/Recife':'southamerica','America/Araguaina':'southamerica','America/Maceio':'southamerica','America/Bahia':'southamerica','America/Sao_Paulo':'southamerica','America/Campo_Grande':'southamerica','America/Cuiaba':'southamerica','America/Porto_Velho':'southamerica','America/Boa_Vista':'southamerica','America/Manaus':'southamerica','America/Eirunepe':'southamerica','America/Rio_Branco':'southamerica','America/Santiago':'southamerica','Pacific/Easter':'southamerica','America/Bogota':'southamerica','America/Curacao':'southamerica','America/Guayaquil':'southamerica','Pacific/Galapagos':'southamerica','Atlantic/Stanley':'southamerica','America/Cayenne':'southamerica','America/Guyana':'southamerica','America/Asuncion':'southamerica','America/Lima':'southamerica','Atlantic/South_Georgia':'southamerica','America/Paramaribo':'southamerica','America/Port_of_Spain':'southamerica','America/Montevideo':'southamerica','America/Caracas':'southamerica'};
@@ -422,13 +422,13 @@
       : _this.transport({
         async: true,
         url : url,
-        success : function (str) {
+        success : function(str) {
           if (_this.parseZones(str) && typeof opts.callback === 'function') {
             opts.callback();
           }
           return true;
         },
-        error : function () {
+        error : function() {
           throw new Error('Error retrieving "' + url + '" zoneinfo files');
         }
       });
@@ -531,7 +531,7 @@
     // - `w`: wall clock time (adjust for both time zone and DST offset).
       //
       // DST adjustment is done using the rule given as third argument.
-      var convertDateToUTC = function (date, type, rule) {
+      var convertDateToUTC = function(date, type, rule) {
         var offset = 0;
 
         if (type === 'u' || type === 'g' || type === 'z') { // UTC
@@ -562,7 +562,7 @@
       //
       //Step 5:  Sort the rules by effective date.
       //Step 6:  Apply the most recent rule before the current time.
-      var convertRuleToExactDateAndTime = function (yearAndRule, prevRule) {
+      var convertRuleToExactDateAndTime = function(yearAndRule, prevRule) {
         var year = yearAndRule[0]
           , rule = yearAndRule[1];
           // Assume that the rule applies to the year of the given date.
@@ -621,7 +621,7 @@
         return effectiveDate;
       };
 
-      var findApplicableRules = function (year, ruleset) {
+      var findApplicableRules = function(year, ruleset) {
         var applicableRules = [];
         for (var i = 0; ruleset && i < ruleset.length; i++) {
           //Exclude future rules.
@@ -644,7 +644,7 @@
         return applicableRules;
       };
 
-      var compareDates = function (a, b, prev) {
+      var compareDates = function(a, b, prev) {
         var year, rule;
         if (a.constructor !== Date) {
           year = a[0];
@@ -739,7 +739,7 @@
     this.zones = {};
     this.rules = {};
 
-    this.init = function (o) {
+    this.init = function(o) {
       var opts = { async: true }
         , def = this.defaultZoneFile = this.loadingScheme === this.loadingSchemes.PRELOAD_ALL
           ? this.zoneFiles
@@ -756,7 +756,7 @@
       //Wraps callback function in another one that makes
       // sure all files have been loaded.
       callbackFn = opts.callback;
-      opts.callback = function () {
+      opts.callback = function() {
         done++;
         (done === def.length) && typeof callbackFn === 'function' && callbackFn();
       };
@@ -768,7 +768,7 @@
     //Get the zone files via XHR -- if the sync flag
     // is set to true, it's being called by the lazy-loading
     // mechanism, so the result needs to be returned inline.
-    this.loadZoneFile = function (fileName, opts) {
+    this.loadZoneFile = function(fileName, opts) {
       if (typeof this.zoneFileBasePath === 'undefined') {
         throw new Error('Please define a base path to your zone file directory -- timezoneJS.timezone.zoneFileBasePath.');
       }
@@ -779,8 +779,8 @@
       this.loadedZones[fileName] = true;
       return builtInLoadZoneFile(fileName, opts);
     };
-    this.loadZoneJSONData = function (url, sync) {
-      var processData = function (data) {
+    this.loadZoneJSONData = function(url, sync) {
+      var processData = function(data) {
         data = eval('('+ data +')');
         for (var z in data.zones) {
           _this.zones[z] = data.zones[z];
@@ -793,7 +793,7 @@
       ? processData(_this.transport({ url : url, async : false }))
       : _this.transport({ url : url, success : processData });
     };
-    this.loadZoneDataFromObject = function (data) {
+    this.loadZoneDataFromObject = function(data) {
       if (!data) { return; }
       for (var z in data.zones) {
         _this.zones[z] = data.zones[z];
@@ -802,12 +802,12 @@
         _this.rules[r] = data.rules[r];
       }
     };
-    this.getAllZones = function () {
+    this.getAllZones = function() {
       var arr = [];
       for (var z in this.zones) { arr.push(z); }
       return arr.sort();
     };
-    this.parseZones = function (str) {
+    this.parseZones = function(str) {
       var lines = str.split('\n')
         , arr = []
         , chunk = ''
@@ -866,7 +866,7 @@
     };
     //Expose transport mechanism and allow overwrite.
     this.transport = _transport;
-    this.getTzInfo = function (dt, tz, isUTC) {
+    this.getTzInfo = function(dt, tz, isUTC) {
       //Lazy-load any zones not yet loaded.
       if (this.loadingScheme === this.loadingSchemes.LAZY_LOAD) {
         //Get the correct region for the zone.

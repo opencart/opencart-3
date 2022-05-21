@@ -22,7 +22,7 @@ function getURLVar(key) {
     }
 } 
 
-$(document).ready(function () {
+$(document).ready(function() {
 	route = getURLVar('route');
 	
 	if (!route) {

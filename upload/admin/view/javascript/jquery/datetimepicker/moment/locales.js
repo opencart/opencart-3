@@ -1,9 +1,9 @@
-;(function (global, factory) {
+;(function(global, factory) {
    typeof exports === 'object' && typeof module !== 'undefined'
        && typeof require === 'function' ? factory(require('../moment')) :
    typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
-}(this, (function (moment) { 'use strict';
+}(this, (function(moment) { 'use strict';
 
 //! moment.js locale configuration
 //! locale : Afrikaans [af]
@@ -16,10 +16,10 @@ moment.defineLocale('af', {
     weekdaysShort : 'Son_Maa_Din_Woe_Don_Vry_Sat'.split('_'),
     weekdaysMin : 'So_Ma_Di_Wo_Do_Vr_Sa'.split('_'),
     meridiemParse: /vm|nm/i,
-    isPM : function (input) {
+    isPM : function(input) {
         return /^nm$/i.test(input);
     },
-    meridiem : function (hours, minutes, isLower) {
+    meridiem : function(hours, minutes, isLower) {
         if (hours < 12) {
             return isLower ? 'vm' : 'VM';
         } else {
@@ -58,7 +58,7 @@ moment.defineLocale('af', {
         yy : '%d jaar'
     },
     dayOfMonthOrdinalParse: /\d{1,2}(ste|de)/,
-    ordinal : function (number) {
+    ordinal : function(number) {
         return number + ((number === 1 || number === 8 || number >= 20) ? 'ste' : 'de'); // Thanks to Joris Röling : https://github.com/jjupiter
     },
     week : {
@@ -179,7 +179,7 @@ var symbolMap = {
     '9': '9',
     '0': '0'
 };
-var pluralForm = function (n) {
+var pluralForm = function(n) {
     return n === 0 ? 0 : n === 1 ? 1 : n === 2 ? 2 : n % 100 >= 3 && n % 100 <= 10 ? 3 : n % 100 >= 11 ? 4 : 5;
 };
 var plurals = {
@@ -190,8 +190,8 @@ var plurals = {
     M : ['أقل من شهر', 'شهر واحد', ['شهران', 'شهرين'], '%d أشهر', '%d شهرا', '%d شهر'],
     y : ['أقل من عام', 'عام واحد', ['عامان', 'عامين'], '%d أعوام', '%d عامًا', '%d عام']
 };
-var pluralize = function (u) {
-    return function (number, withoutSuffix, string, isFuture) {
+var pluralize = function(u) {
+    return function(number, withoutSuffix, string, isFuture) {
         var f = pluralForm(number),
             str = plurals[u][pluralForm(number)];
         if (f === 2) {
@@ -231,10 +231,10 @@ moment.defineLocale('ar-ly', {
         LLLL : 'dddd D MMMM YYYY HH:mm'
     },
     meridiemParse: /ص|م/,
-    isPM : function (input) {
+    isPM : function(input) {
         return 'م' === input;
     },
-    meridiem : function (hour, minute, isLower) {
+    meridiem : function(hour, minute, isLower) {
         if (hour < 12) {
             return 'ص';
         } else {
@@ -264,11 +264,11 @@ moment.defineLocale('ar-ly', {
         y : pluralize('y'),
         yy : pluralize('y')
     },
-    preparse: function (string) {
+    preparse: function(string) {
         return string.replace(/\u200f/g, '').replace(/،/g, ',');
     },
-    postformat: function (string) {
-        return string.replace(/\d/g, function (match) {
+    postformat: function(string) {
+        return string.replace(/\d/g, function(match) {
             return symbolMap[match];
         }).replace(/,/g, '،');
     },
@@ -372,10 +372,10 @@ moment.defineLocale('ar-sa', {
         LLLL : 'dddd D MMMM YYYY HH:mm'
     },
     meridiemParse: /ص|م/,
-    isPM : function (input) {
+    isPM : function(input) {
         return 'م' === input;
     },
-    meridiem : function (hour, minute, isLower) {
+    meridiem : function(hour, minute, isLower) {
         if (hour < 12) {
             return 'ص';
         } else {
@@ -405,13 +405,13 @@ moment.defineLocale('ar-sa', {
         y : 'سنة',
         yy : '%d سنوات'
     },
-    preparse: function (string) {
-        return string.replace(/[١٢٣٤٥٦٧٨٩٠]/g, function (match) {
+    preparse: function(string) {
+        return string.replace(/[١٢٣٤٥٦٧٨٩٠]/g, function(match) {
             return numberMap[match];
         }).replace(/،/g, ',');
     },
-    postformat: function (string) {
-        return string.replace(/\d/g, function (match) {
+    postformat: function(string) {
+        return string.replace(/\d/g, function(match) {
             return symbolMap$1[match];
         }).replace(/,/g, '،');
     },
@@ -499,7 +499,7 @@ var numberMap$1 = {
     '٩': '9',
     '٠': '0'
 };
-var pluralForm$1 = function (n) {
+var pluralForm$1 = function(n) {
     return n === 0 ? 0 : n === 1 ? 1 : n === 2 ? 2 : n % 100 >= 3 && n % 100 <= 10 ? 3 : n % 100 >= 11 ? 4 : 5;
 };
 var plurals$1 = {
@@ -510,8 +510,8 @@ var plurals$1 = {
     M : ['أقل من شهر', 'شهر واحد', ['شهران', 'شهرين'], '%d أشهر', '%d شهرا', '%d شهر'],
     y : ['أقل من عام', 'عام واحد', ['عامان', 'عامين'], '%d أعوام', '%d عامًا', '%d عام']
 };
-var pluralize$1 = function (u) {
-    return function (number, withoutSuffix, string, isFuture) {
+var pluralize$1 = function(u) {
+    return function(number, withoutSuffix, string, isFuture) {
         var f = pluralForm$1(number),
             str = plurals$1[u][pluralForm$1(number)];
         if (f === 2) {
@@ -551,10 +551,10 @@ moment.defineLocale('ar', {
         LLLL : 'dddd D MMMM YYYY HH:mm'
     },
     meridiemParse: /ص|م/,
-    isPM : function (input) {
+    isPM : function(input) {
         return 'م' === input;
     },
-    meridiem : function (hour, minute, isLower) {
+    meridiem : function(hour, minute, isLower) {
         if (hour < 12) {
             return 'ص';
         } else {
@@ -584,13 +584,13 @@ moment.defineLocale('ar', {
         y : pluralize$1('y'),
         yy : pluralize$1('y')
     },
-    preparse: function (string) {
-        return string.replace(/\u200f/g, '').replace(/[١٢٣٤٥٦٧٨٩٠]/g, function (match) {
+    preparse: function(string) {
+        return string.replace(/\u200f/g, '').replace(/[١٢٣٤٥٦٧٨٩٠]/g, function(match) {
             return numberMap$1[match];
         }).replace(/،/g, ',');
     },
-    postformat: function (string) {
-        return string.replace(/\d/g, function (match) {
+    postformat: function(string) {
+        return string.replace(/\d/g, function(match) {
             return symbolMap$2[match];
         }).replace(/,/g, '،');
     },
@@ -664,10 +664,10 @@ moment.defineLocale('az', {
         yy : '%d il'
     },
     meridiemParse: /gecə|səhər|gündüz|axşam/,
-    isPM : function (input) {
+    isPM : function(input) {
         return /^(gündüz|axşam)$/.test(input);
     },
-    meridiem : function (hour, minute, isLower) {
+    meridiem : function(hour, minute, isLower) {
         if (hour < 4) {
             return 'gecə';
         } else if (hour < 12) {
@@ -679,7 +679,7 @@ moment.defineLocale('az', {
         }
     },
     dayOfMonthOrdinalParse: /\d{1,2}-(ıncı|inci|nci|üncü|ncı|uncu)/,
-    ordinal : function (number) {
+    ordinal : function(number) {
         if (number === 0) {  // special case for zero
             return number + '-ıncı';
         }
@@ -748,10 +748,10 @@ moment.defineLocale('be', {
         sameDay: '[Сёння ў] LT',
         nextDay: '[Заўтра ў] LT',
         lastDay: '[Учора ў] LT',
-        nextWeek: function () {
+        nextWeek: function() {
             return '[У] dddd [ў] LT';
         },
-        lastWeek: function () {
+        lastWeek: function() {
             switch (this.day()) {
                 case 0:
                 case 3:
@@ -782,10 +782,10 @@ moment.defineLocale('be', {
         yy : relativeTimeWithPlural
     },
     meridiemParse: /ночы|раніцы|дня|вечара/,
-    isPM : function (input) {
+    isPM : function(input) {
         return /^(дня|вечара)$/.test(input);
     },
-    meridiem : function (hour, minute, isLower) {
+    meridiem : function(hour, minute, isLower) {
         if (hour < 4) {
             return 'ночы';
         } else if (hour < 12) {
@@ -797,7 +797,7 @@ moment.defineLocale('be', {
         }
     },
     dayOfMonthOrdinalParse: /\d{1,2}-(і|ы|га)/,
-    ordinal: function (number, period) {
+    ordinal: function(number, period) {
         switch (period) {
             case 'M':
             case 'd':
@@ -840,7 +840,7 @@ moment.defineLocale('bg', {
         nextDay : '[Утре в] LT',
         nextWeek : 'dddd [в] LT',
         lastDay : '[Вчера в] LT',
-        lastWeek : function () {
+        lastWeek : function() {
             switch (this.day()) {
                 case 0:
                 case 3:
@@ -871,7 +871,7 @@ moment.defineLocale('bg', {
         yy : '%d години'
     },
     dayOfMonthOrdinalParse: /\d{1,2}-(ев|ен|ти|ви|ри|ми)/,
-    ordinal : function (number) {
+    ordinal : function(number) {
         var lastDigit = number % 10,
             last2Digits = number % 100;
         if (number === 0) {
@@ -962,18 +962,18 @@ moment.defineLocale('bn', {
         y : 'এক বছর',
         yy : '%d বছর'
     },
-    preparse: function (string) {
-        return string.replace(/[১২৩৪৫৬৭৮৯০]/g, function (match) {
+    preparse: function(string) {
+        return string.replace(/[১২৩৪৫৬৭৮৯০]/g, function(match) {
             return numberMap$2[match];
         });
     },
-    postformat: function (string) {
-        return string.replace(/\d/g, function (match) {
+    postformat: function(string) {
+        return string.replace(/\d/g, function(match) {
             return symbolMap$3[match];
         });
     },
     meridiemParse: /রাত|সকাল|দুপুর|বিকাল|রাত/,
-    meridiemHour : function (hour, meridiem) {
+    meridiemHour : function(hour, meridiem) {
         if (hour === 12) {
             hour = 0;
         }
@@ -985,7 +985,7 @@ moment.defineLocale('bn', {
             return hour;
         }
     },
-    meridiem : function (hour, minute, isLower) {
+    meridiem : function(hour, minute, isLower) {
         if (hour < 4) {
             return 'রাত';
         } else if (hour < 10) {
@@ -1070,18 +1070,18 @@ moment.defineLocale('bo', {
         y : 'ལོ་གཅིག',
         yy : '%d ལོ'
     },
-    preparse: function (string) {
-        return string.replace(/[༡༢༣༤༥༦༧༨༩༠]/g, function (match) {
+    preparse: function(string) {
+        return string.replace(/[༡༢༣༤༥༦༧༨༩༠]/g, function(match) {
             return numberMap$3[match];
         });
     },
-    postformat: function (string) {
-        return string.replace(/\d/g, function (match) {
+    postformat: function(string) {
+        return string.replace(/\d/g, function(match) {
             return symbolMap$4[match];
         });
     },
     meridiemParse: /མཚན་མོ|ཞོགས་ཀས|ཉིན་གུང|དགོང་དག|མཚན་མོ/,
-    meridiemHour : function (hour, meridiem) {
+    meridiemHour : function(hour, meridiem) {
         if (hour === 12) {
             hour = 0;
         }
@@ -1093,7 +1093,7 @@ moment.defineLocale('bo', {
             return hour;
         }
     },
-    meridiem : function (hour, minute, isLower) {
+    meridiem : function(hour, minute, isLower) {
         if (hour < 4) {
             return 'མཚན་མོ';
         } else if (hour < 10) {
@@ -1199,7 +1199,7 @@ moment.defineLocale('br', {
         yy : specialMutationForYears
     },
     dayOfMonthOrdinalParse: /\d{1,2}(añ|vet)/,
-    ordinal : function (number) {
+    ordinal : function(number) {
         var output = (number === 1) ? 'añ' : 'vet';
         return number + output;
     },
@@ -1286,7 +1286,7 @@ moment.defineLocale('bs', {
     calendar : {
         sameDay  : '[danas u] LT',
         nextDay  : '[sutra u] LT',
-        nextWeek : function () {
+        nextWeek : function() {
             switch (this.day()) {
                 case 0:
                     return '[u] [nedjelju] [u] LT';
@@ -1302,7 +1302,7 @@ moment.defineLocale('bs', {
             }
         },
         lastDay  : '[jučer u] LT',
-        lastWeek : function () {
+        lastWeek : function() {
             switch (this.day()) {
                 case 0:
                 case 3:
@@ -1369,19 +1369,19 @@ moment.defineLocale('ca', {
         llll : 'ddd D MMM YYYY, H:mm'
     },
     calendar : {
-        sameDay : function () {
+        sameDay : function() {
             return '[avui a ' + ((this.hours() !== 1) ? 'les' : 'la') + '] LT';
         },
-        nextDay : function () {
+        nextDay : function() {
             return '[demà a ' + ((this.hours() !== 1) ? 'les' : 'la') + '] LT';
         },
-        nextWeek : function () {
+        nextWeek : function() {
             return 'dddd [a ' + ((this.hours() !== 1) ? 'les' : 'la') + '] LT';
         },
-        lastDay : function () {
+        lastDay : function() {
             return '[ahir a ' + ((this.hours() !== 1) ? 'les' : 'la') + '] LT';
         },
-        lastWeek : function () {
+        lastWeek : function() {
             return '[el] dddd [passat a ' + ((this.hours() !== 1) ? 'les' : 'la') + '] LT';
         },
         sameElse : 'L'
@@ -1402,7 +1402,7 @@ moment.defineLocale('ca', {
         yy : '%d anys'
     },
     dayOfMonthOrdinalParse: /\d{1,2}(r|n|t|è|a)/,
-    ordinal : function (number, period) {
+    ordinal : function(number, period) {
         var output = (number === 1) ? 'r' :
             (number === 2) ? 'n' :
             (number === 3) ? 'r' :
@@ -1483,7 +1483,7 @@ function translate$1(number, withoutSuffix, key, isFuture) {
 moment.defineLocale('cs', {
     months : months$2,
     monthsShort : monthsShort,
-    monthsParse : (function (months, monthsShort) {
+    monthsParse : (function(months, monthsShort) {
         var i, _monthsParse = [];
         for (i = 0; i < 12; i++) {
             // use custom parser to solve problem with July (červenec)
@@ -1491,14 +1491,14 @@ moment.defineLocale('cs', {
         }
         return _monthsParse;
     }(months$2, monthsShort)),
-    shortMonthsParse : (function (monthsShort) {
+    shortMonthsParse : (function(monthsShort) {
         var i, _shortMonthsParse = [];
         for (i = 0; i < 12; i++) {
             _shortMonthsParse[i] = new RegExp('^' + monthsShort[i] + '$', 'i');
         }
         return _shortMonthsParse;
     }(monthsShort)),
-    longMonthsParse : (function (months) {
+    longMonthsParse : (function(months) {
         var i, _longMonthsParse = [];
         for (i = 0; i < 12; i++) {
             _longMonthsParse[i] = new RegExp('^' + months[i] + '$', 'i');
@@ -1520,7 +1520,7 @@ moment.defineLocale('cs', {
     calendar : {
         sameDay: '[dnes v] LT',
         nextDay: '[zítra v] LT',
-        nextWeek: function () {
+        nextWeek: function() {
             switch (this.day()) {
                 case 0:
                     return '[v neděli v] LT';
@@ -1538,7 +1538,7 @@ moment.defineLocale('cs', {
             }
         },
         lastDay: '[včera v] LT',
-        lastWeek: function () {
+        lastWeek: function() {
             switch (this.day()) {
                 case 0:
                     return '[minulou neděli v] LT';
@@ -1606,7 +1606,7 @@ moment.defineLocale('cv', {
         sameElse: 'L'
     },
     relativeTime : {
-        future : function (output) {
+        future : function(output) {
             var affix = /сехет$/i.exec(output) ? 'рен' : /ҫул$/i.exec(output) ? 'тан' : 'ран';
             return output + affix;
         },
@@ -1677,7 +1677,7 @@ moment.defineLocale('cy', {
     },
     dayOfMonthOrdinalParse: /\d{1,2}(fed|ain|af|il|ydd|ed|eg)/,
     // traditional ordinal numbers above 31 are not commonly used in colloquial Welsh
-    ordinal: function (number) {
+    ordinal: function(number) {
         var b = number,
             output = '',
             lookup = [
@@ -1996,10 +1996,10 @@ moment.defineLocale('dv', {
         LLLL : 'dddd D MMMM YYYY HH:mm'
     },
     meridiemParse: /މކ|މފ/,
-    isPM : function (input) {
+    isPM : function(input) {
         return 'މފ' === input;
     },
-    meridiem : function (hour, minute, isLower) {
+    meridiem : function(hour, minute, isLower) {
         if (hour < 12) {
             return 'މކ';
         } else {
@@ -2029,10 +2029,10 @@ moment.defineLocale('dv', {
         y : 'އަހަރެއް',
         yy : 'އަހަރު %d'
     },
-    preparse: function (string) {
+    preparse: function(string) {
         return string.replace(/،/g, ',');
     },
-    postformat: function (string) {
+    postformat: function(string) {
         return string.replace(/,/g, '،');
     },
     week : {
@@ -2041,7 +2041,7 @@ moment.defineLocale('dv', {
     }
 });
 
-function isfunction (input) {
+function isfunction(input) {
     return input instanceof Function || Object.prototype.toString.call(input) === '[object Function]';
 }
 
@@ -2052,7 +2052,7 @@ function isfunction (input) {
 moment.defineLocale('el', {
     monthsNominativeEl : 'Ιανουάριος_Φεβρουάριος_Μάρτιος_Απρίλιος_Μάιος_Ιούνιος_Ιούλιος_Αύγουστος_Σεπτέμβριος_Οκτώβριος_Νοέμβριος_Δεκέμβριος'.split('_'),
     monthsGenitiveEl : 'Ιανουαρίου_Φεβρουαρίου_Μαρτίου_Απριλίου_Μαΐου_Ιουνίου_Ιουλίου_Αυγούστου_Σεπτεμβρίου_Οκτωβρίου_Νοεμβρίου_Δεκεμβρίου'.split('_'),
-    months : function (momentToFormat, format) {
+    months : function(momentToFormat, format) {
         if (!momentToFormat) {
             return this._monthsNominativeEl;
         } else if (/D/.test(format.substring(0, format.indexOf('MMMM')))) { // if there is a day number before 'MMMM'
@@ -2065,14 +2065,14 @@ moment.defineLocale('el', {
     weekdays : 'Κυριακή_Δευτέρα_Τρίτη_Τετάρτη_Πέμπτη_Παρασκευή_Σάββατο'.split('_'),
     weekdaysShort : 'Κυρ_Δευ_Τρι_Τετ_Πεμ_Παρ_Σαβ'.split('_'),
     weekdaysMin : 'Κυ_Δε_Τρ_Τε_Πε_Πα_Σα'.split('_'),
-    meridiem : function (hours, minutes, isLower) {
+    meridiem : function(hours, minutes, isLower) {
         if (hours > 11) {
             return isLower ? 'μμ' : 'ΜΜ';
         } else {
             return isLower ? 'πμ' : 'ΠΜ';
         }
     },
-    isPM : function (input) {
+    isPM : function(input) {
         return ((input + '').toLowerCase()[0] === 'μ');
     },
     meridiemParse : /[ΠΜ]\.?Μ?\.?/i,
@@ -2089,7 +2089,7 @@ moment.defineLocale('el', {
         nextDay : '[Αύριο {}] LT',
         nextWeek : 'dddd [{}] LT',
         lastDay : '[Χθες {}] LT',
-        lastWeek : function () {
+        lastWeek : function() {
             switch (this.day()) {
                 case 6:
                     return '[το προηγούμενο] dddd [{}] LT';
@@ -2099,10 +2099,10 @@ moment.defineLocale('el', {
         },
         sameElse : 'L'
     },
-    calendar : function (key, mom) {
+    calendar : function(key, mom) {
         var output = this._calendarEl[key],
             hours = mom && mom.hours();
-        if (isfunction (output)) {
+        if (isfunction(output)) {
             output = output.apply(mom);
         }
         return output.replace('{}', (hours % 12 === 1 ? 'στη' : 'στις'));
@@ -2172,7 +2172,7 @@ moment.defineLocale('en-au', {
         yy : '%d years'
     },
     dayOfMonthOrdinalParse: /\d{1,2}(st|nd|rd|th)/,
-    ordinal : function (number) {
+    ordinal : function(number) {
         var b = number % 10,
             output = (~~(number % 100 / 10) === 1) ? 'th' :
             (b === 1) ? 'st' :
@@ -2228,7 +2228,7 @@ moment.defineLocale('en-ca', {
         yy : '%d years'
     },
     dayOfMonthOrdinalParse: /\d{1,2}(st|nd|rd|th)/,
-    ordinal : function (number) {
+    ordinal : function(number) {
         var b = number % 10,
             output = (~~(number % 100 / 10) === 1) ? 'th' :
             (b === 1) ? 'st' :
@@ -2280,7 +2280,7 @@ moment.defineLocale('en-gb', {
         yy : '%d years'
     },
     dayOfMonthOrdinalParse: /\d{1,2}(st|nd|rd|th)/,
-    ordinal : function (number) {
+    ordinal : function(number) {
         var b = number % 10,
             output = (~~(number % 100 / 10) === 1) ? 'th' :
             (b === 1) ? 'st' :
@@ -2336,7 +2336,7 @@ moment.defineLocale('en-ie', {
         yy : '%d years'
     },
     dayOfMonthOrdinalParse: /\d{1,2}(st|nd|rd|th)/,
-    ordinal : function (number) {
+    ordinal : function(number) {
         var b = number % 10,
             output = (~~(number % 100 / 10) === 1) ? 'th' :
             (b === 1) ? 'st' :
@@ -2392,7 +2392,7 @@ moment.defineLocale('en-nz', {
         yy : '%d years'
     },
     dayOfMonthOrdinalParse: /\d{1,2}(st|nd|rd|th)/,
-    ordinal : function (number) {
+    ordinal : function(number) {
         var b = number % 10,
             output = (~~(number % 100 / 10) === 1) ? 'th' :
             (b === 1) ? 'st' :
@@ -2427,10 +2427,10 @@ moment.defineLocale('eo', {
         LLLL : 'dddd, [la] D[-a de] MMMM, YYYY HH:mm'
     },
     meridiemParse: /[ap]\.t\.m/i,
-    isPM: function (input) {
+    isPM: function(input) {
         return input.charAt(0).toLowerCase() === 'p';
     },
-    meridiem : function (hours, minutes, isLower) {
+    meridiem : function(hours, minutes, isLower) {
         if (hours > 11) {
             return isLower ? 'p.t.m.' : 'P.T.M.';
         } else {
@@ -2476,7 +2476,7 @@ var monthsShort$1 = 'ene_feb_mar_abr_may_jun_jul_ago_sep_oct_nov_dic'.split('_')
 
 moment.defineLocale('es-do', {
     months : 'enero_febrero_marzo_abril_mayo_junio_julio_agosto_septiembre_octubre_noviembre_diciembre'.split('_'),
-    monthsShort : function (m, format) {
+    monthsShort : function(m, format) {
         if (!m) {
             return monthsShortDot;
         } else if (/-MMM-/.test(format)) {
@@ -2499,19 +2499,19 @@ moment.defineLocale('es-do', {
         LLLL : 'dddd, D [de] MMMM [de] YYYY h:mm A'
     },
     calendar : {
-        sameDay : function () {
+        sameDay : function() {
             return '[hoy a la' + ((this.hours() !== 1) ? 's' : '') + '] LT';
         },
-        nextDay : function () {
+        nextDay : function() {
             return '[mañana a la' + ((this.hours() !== 1) ? 's' : '') + '] LT';
         },
-        nextWeek : function () {
+        nextWeek : function() {
             return 'dddd [a la' + ((this.hours() !== 1) ? 's' : '') + '] LT';
         },
-        lastDay : function () {
+        lastDay : function() {
             return '[ayer a la' + ((this.hours() !== 1) ? 's' : '') + '] LT';
         },
-        lastWeek : function () {
+        lastWeek : function() {
             return '[el] dddd [pasado a la' + ((this.hours() !== 1) ? 's' : '') + '] LT';
         },
         sameElse : 'L'
@@ -2548,7 +2548,7 @@ var monthsShort$2 = 'ene_feb_mar_abr_may_jun_jul_ago_sep_oct_nov_dic'.split('_')
 
 moment.defineLocale('es', {
     months : 'enero_febrero_marzo_abril_mayo_junio_julio_agosto_septiembre_octubre_noviembre_diciembre'.split('_'),
-    monthsShort : function (m, format) {
+    monthsShort : function(m, format) {
         if (!m) {
             return monthsShortDot$1;
         } else if (/-MMM-/.test(format)) {
@@ -2571,19 +2571,19 @@ moment.defineLocale('es', {
         LLLL : 'dddd, D [de] MMMM [de] YYYY H:mm'
     },
     calendar : {
-        sameDay : function () {
+        sameDay : function() {
             return '[hoy a la' + ((this.hours() !== 1) ? 's' : '') + '] LT';
         },
-        nextDay : function () {
+        nextDay : function() {
             return '[mañana a la' + ((this.hours() !== 1) ? 's' : '') + '] LT';
         },
-        nextWeek : function () {
+        nextWeek : function() {
             return 'dddd [a la' + ((this.hours() !== 1) ? 's' : '') + '] LT';
         },
-        lastDay : function () {
+        lastDay : function() {
             return '[ayer a la' + ((this.hours() !== 1) ? 's' : '') + '] LT';
         },
-        lastWeek : function () {
+        lastWeek : function() {
             return '[el] dddd [pasado a la' + ((this.hours() !== 1) ? 's' : '') + '] LT';
         },
         sameElse : 'L'
@@ -2780,10 +2780,10 @@ moment.defineLocale('fa', {
         LLLL : 'dddd, D MMMM YYYY HH:mm'
     },
     meridiemParse: /قبل از ظهر|بعد از ظهر/,
-    isPM: function (input) {
+    isPM: function(input) {
         return /بعد از ظهر/.test(input);
     },
-    meridiem : function (hour, minute, isLower) {
+    meridiem : function(hour, minute, isLower) {
         if (hour < 12) {
             return 'قبل از ظهر';
         } else {
@@ -2813,13 +2813,13 @@ moment.defineLocale('fa', {
         y : 'یک سال',
         yy : '%d سال'
     },
-    preparse: function (string) {
-        return string.replace(/[۰-۹]/g, function (match) {
+    preparse: function(string) {
+        return string.replace(/[۰-۹]/g, function(match) {
             return numberMap$4[match];
         }).replace(/،/g, ',');
     },
-    postformat: function (string) {
-        return string.replace(/\d/g, function (match) {
+    postformat: function(string) {
+        return string.replace(/\d/g, function(match) {
             return symbolMap$5[match];
         }).replace(/,/g, '،');
     },
@@ -3020,7 +3020,7 @@ moment.defineLocale('fr-ca', {
         yy : '%d ans'
     },
     dayOfMonthOrdinalParse: /\d{1,2}(er|e)/,
-    ordinal : function (number, period) {
+    ordinal : function(number, period) {
         switch (period) {
             // Words with masculine grammatical gender: mois, trimestre, jour
             default:
@@ -3083,7 +3083,7 @@ moment.defineLocale('fr-ch', {
         yy : '%d ans'
     },
     dayOfMonthOrdinalParse: /\d{1,2}(er|e)/,
-    ordinal : function (number, period) {
+    ordinal : function(number, period) {
         switch (period) {
             // Words with masculine grammatical gender: mois, trimestre, jour
             default:
@@ -3150,7 +3150,7 @@ moment.defineLocale('fr', {
         yy : '%d ans'
     },
     dayOfMonthOrdinalParse: /\d{1,2}(er|)/,
-    ordinal : function (number, period) {
+    ordinal : function(number, period) {
         switch (period) {
             // TODO: Return 'e' when day of month > 1. Move this case inside
             // block for masculine words below.
@@ -3187,7 +3187,7 @@ var monthsShortWithoutDots = 'jan_feb_mrt_apr_mai_jun_jul_aug_sep_okt_nov_des'.s
 
 moment.defineLocale('fy', {
     months : 'jannewaris_febrewaris_maart_april_maaie_juny_july_augustus_septimber_oktober_novimber_desimber'.split('_'),
-    monthsShort : function (m, format) {
+    monthsShort : function(m, format) {
         if (!m) {
             return monthsShortWithDots;
         } else if (/-MMM-/.test(format)) {
@@ -3233,7 +3233,7 @@ moment.defineLocale('fy', {
         yy : '%d jierren'
     },
     dayOfMonthOrdinalParse: /\d{1,2}(ste|de)/,
-    ordinal : function (number) {
+    ordinal : function(number) {
         return number + ((number === 1 || number === 8 || number >= 20) ? 'ste' : 'de');
     },
     week : {
@@ -3297,7 +3297,7 @@ moment.defineLocale('gd', {
         yy : '%d bliadhna'
     },
     dayOfMonthOrdinalParse : /\d{1,2}(d|na|mh)/,
-    ordinal : function (number) {
+    ordinal : function(number) {
         var output = number === 1 ? 'd' : number % 10 === 2 ? 'na' : 'mh';
         return number + output;
     },
@@ -3328,25 +3328,25 @@ moment.defineLocale('gl', {
         LLLL : 'dddd, D [de] MMMM [de] YYYY H:mm'
     },
     calendar : {
-        sameDay : function () {
+        sameDay : function() {
             return '[hoxe ' + ((this.hours() !== 1) ? 'ás' : 'á') + '] LT';
         },
-        nextDay : function () {
+        nextDay : function() {
             return '[mañá ' + ((this.hours() !== 1) ? 'ás' : 'á') + '] LT';
         },
-        nextWeek : function () {
+        nextWeek : function() {
             return 'dddd [' + ((this.hours() !== 1) ? 'ás' : 'a') + '] LT';
         },
-        lastDay : function () {
+        lastDay : function() {
             return '[onte ' + ((this.hours() !== 1) ? 'á' : 'a') + '] LT';
         },
-        lastWeek : function () {
+        lastWeek : function() {
             return '[o] dddd [pasado ' + ((this.hours() !== 1) ? 'ás' : 'a') + '] LT';
         },
         sameElse : 'L'
     },
     relativeTime : {
-        future : function (str) {
+        future : function(str) {
             if (str.indexOf('un') === 0) {
                 return 'n' + str;
             }
@@ -3435,7 +3435,7 @@ moment.defineLocale('gom-latn', {
         yy : processRelativeTime$4
     },
     dayOfMonthOrdinalParse : /\d{1,2}(er)/,
-    ordinal : function (number, period) {
+    ordinal : function(number, period) {
         switch (period) {
             // the ordinal 'er' only applies to day of the month
             case 'D':
@@ -3455,7 +3455,7 @@ moment.defineLocale('gom-latn', {
         doy : 4  // The week that contains Jan 4th is the first week of the year.
     },
     meridiemParse: /rati|sokalli|donparam|sanje/,
-    meridiemHour : function (hour, meridiem) {
+    meridiemHour : function(hour, meridiem) {
         if (hour === 12) {
             hour = 0;
         }
@@ -3469,7 +3469,7 @@ moment.defineLocale('gom-latn', {
             return hour + 12;
         }
     },
-    meridiem : function (hour, minute, isLower) {
+    meridiem : function(hour, minute, isLower) {
         if (hour < 4) {
             return 'rati';
         } else if (hour < 12) {
@@ -3523,28 +3523,28 @@ moment.defineLocale('he', {
         m : 'דקה',
         mm : '%d דקות',
         h : 'שעה',
-        hh : function (number) {
+        hh : function(number) {
             if (number === 2) {
                 return 'שעתיים';
             }
             return number + ' שעות';
         },
         d : 'יום',
-        dd : function (number) {
+        dd : function(number) {
             if (number === 2) {
                 return 'יומיים';
             }
             return number + ' ימים';
         },
         M : 'חודש',
-        MM : function (number) {
+        MM : function(number) {
             if (number === 2) {
                 return 'חודשיים';
             }
             return number + ' חודשים';
         },
         y : 'שנה',
-        yy : function (number) {
+        yy : function(number) {
             if (number === 2) {
                 return 'שנתיים';
             } else if (number % 10 === 0 && number !== 10) {
@@ -3554,10 +3554,10 @@ moment.defineLocale('he', {
         }
     },
     meridiemParse: /אחה"צ|לפנה"צ|אחרי הצהריים|לפני הצהריים|לפנות בוקר|בבוקר|בערב/i,
-    isPM : function (input) {
+    isPM : function(input) {
         return /^(אחה"צ|אחרי הצהריים|בערב)$/.test(input);
     },
-    meridiem : function (hour, minute, isLower) {
+    meridiem : function(hour, minute, isLower) {
         if (hour < 5) {
             return 'לפנות בוקר';
         } else if (hour < 10) {
@@ -3639,20 +3639,20 @@ moment.defineLocale('hi', {
         y : 'एक वर्ष',
         yy : '%d वर्ष'
     },
-    preparse: function (string) {
-        return string.replace(/[१२३४५६७८९०]/g, function (match) {
+    preparse: function(string) {
+        return string.replace(/[१२३४५६७८९०]/g, function(match) {
             return numberMap$5[match];
         });
     },
-    postformat: function (string) {
-        return string.replace(/\d/g, function (match) {
+    postformat: function(string) {
+        return string.replace(/\d/g, function(match) {
             return symbolMap$6[match];
         });
     },
     // Hindi notation for meridiems are quite fuzzy in practice. While there exists
     // a rigid notion of a 'Pahar' it is not used as rigidly in modern Hindi.
     meridiemParse: /रात|सुबह|दोपहर|शाम/,
-    meridiemHour : function (hour, meridiem) {
+    meridiemHour : function(hour, meridiem) {
         if (hour === 12) {
             hour = 0;
         }
@@ -3666,7 +3666,7 @@ moment.defineLocale('hi', {
             return hour + 12;
         }
     },
-    meridiem : function (hour, minute, isLower) {
+    meridiem : function(hour, minute, isLower) {
         if (hour < 4) {
             return 'रात';
         } else if (hour < 10) {
@@ -3764,7 +3764,7 @@ moment.defineLocale('hr', {
     calendar : {
         sameDay  : '[danas u] LT',
         nextDay  : '[sutra u] LT',
-        nextWeek : function () {
+        nextWeek : function() {
             switch (this.day()) {
                 case 0:
                     return '[u] [nedjelju] [u] LT';
@@ -3780,7 +3780,7 @@ moment.defineLocale('hr', {
             }
         },
         lastDay  : '[jučer u] LT',
-        lastWeek : function () {
+        lastWeek : function() {
             switch (this.day()) {
                 case 0:
                 case 3:
@@ -3872,10 +3872,10 @@ moment.defineLocale('hu', {
         LLLL : 'YYYY. MMMM D., dddd H:mm'
     },
     meridiemParse: /de|du/i,
-    isPM: function (input) {
+    isPM: function(input) {
         return input.charAt(1).toLowerCase() === 'u';
     },
-    meridiem : function (hours, minutes, isLower) {
+    meridiem : function(hours, minutes, isLower) {
         if (hours < 12) {
             return isLower === true ? 'de' : 'DE';
         } else {
@@ -3885,11 +3885,11 @@ moment.defineLocale('hu', {
     calendar : {
         sameDay : '[ma] LT[-kor]',
         nextDay : '[holnap] LT[-kor]',
-        nextWeek : function () {
+        nextWeek : function() {
             return week.call(this, true);
         },
         lastDay : '[tegnap] LT[-kor]',
-        lastWeek : function () {
+        lastWeek : function() {
             return week.call(this, false);
         },
         sameElse : 'L'
@@ -3942,10 +3942,10 @@ moment.defineLocale('hy-am', {
         sameDay: '[այսօր] LT',
         nextDay: '[վաղը] LT',
         lastDay: '[երեկ] LT',
-        nextWeek: function () {
+        nextWeek: function() {
             return 'dddd [օրը ժամը] LT';
         },
-        lastWeek: function () {
+        lastWeek: function() {
             return '[անցած] dddd [օրը ժամը] LT';
         },
         sameElse: 'L'
@@ -3966,10 +3966,10 @@ moment.defineLocale('hy-am', {
         yy : '%d տարի'
     },
     meridiemParse: /գիշերվա|առավոտվա|ցերեկվա|երեկոյան/,
-    isPM: function (input) {
+    isPM: function(input) {
         return /^(ցերեկվա|երեկոյան)$/.test(input);
     },
-    meridiem : function (hour) {
+    meridiem : function(hour) {
         if (hour < 4) {
             return 'գիշերվա';
         } else if (hour < 12) {
@@ -3981,7 +3981,7 @@ moment.defineLocale('hy-am', {
         }
     },
     dayOfMonthOrdinalParse: /\d{1,2}|\d{1,2}-(ին|րդ)/,
-    ordinal: function (number, period) {
+    ordinal: function(number, period) {
         switch (period) {
             case 'DDD':
             case 'w':
@@ -4021,7 +4021,7 @@ moment.defineLocale('id', {
         LLLL : 'dddd, D MMMM YYYY [pukul] HH.mm'
     },
     meridiemParse: /pagi|siang|sore|malam/,
-    meridiemHour : function (hour, meridiem) {
+    meridiemHour : function(hour, meridiem) {
         if (hour === 12) {
             hour = 0;
         }
@@ -4033,7 +4033,7 @@ moment.defineLocale('id', {
             return hour + 12;
         }
     },
-    meridiem : function (hours, minutes, isLower) {
+    meridiem : function(hours, minutes, isLower) {
         if (hours < 11) {
             return 'pagi';
         } else if (hours < 15) {
@@ -4213,7 +4213,7 @@ moment.defineLocale('it', {
         nextDay: '[Domani alle] LT',
         nextWeek: 'dddd [alle] LT',
         lastDay: '[Ieri alle] LT',
-        lastWeek: function () {
+        lastWeek: function() {
             switch (this.day()) {
                 case 0:
                     return '[la scorsa] dddd [alle] LT';
@@ -4224,7 +4224,7 @@ moment.defineLocale('it', {
         sameElse: 'L'
     },
     relativeTime : {
-        future : function (s) {
+        future : function(s) {
             return ((/^[0-9].+$/).test(s) ? 'tra' : 'in') + ' ' + s;
         },
         past : '%s fa',
@@ -4271,10 +4271,10 @@ moment.defineLocale('ja', {
         llll : 'YYYY年M月D日 HH:mm dddd'
     },
     meridiemParse: /午前|午後/i,
-    isPM : function (input) {
+    isPM : function(input) {
         return input === '午後';
     },
-    meridiem : function (hour, minute, isLower) {
+    meridiem : function(hour, minute, isLower) {
         if (hour < 12) {
             return '午前';
         } else {
@@ -4290,7 +4290,7 @@ moment.defineLocale('ja', {
         sameElse : 'L'
     },
     dayOfMonthOrdinalParse : /\d{1,2}日/,
-    ordinal : function (number, period) {
+    ordinal : function(number, period) {
         switch (period) {
             case 'd':
             case 'D':
@@ -4337,7 +4337,7 @@ moment.defineLocale('jv', {
         LLLL : 'dddd, D MMMM YYYY [pukul] HH.mm'
     },
     meridiemParse: /enjing|siyang|sonten|ndalu/,
-    meridiemHour : function (hour, meridiem) {
+    meridiemHour : function(hour, meridiem) {
         if (hour === 12) {
             hour = 0;
         }
@@ -4349,7 +4349,7 @@ moment.defineLocale('jv', {
             return hour + 12;
         }
     },
-    meridiem : function (hours, minutes, isLower) {
+    meridiem : function(hours, minutes, isLower) {
         if (hours < 11) {
             return 'enjing';
         } else if (hours < 15) {
@@ -4423,12 +4423,12 @@ moment.defineLocale('ka', {
         sameElse : 'L'
     },
     relativeTime : {
-        future : function (s) {
+        future : function(s) {
             return (/(წამი|წუთი|საათი|წელი)/).test(s) ?
                 s.replace(/ი$/, 'ში') :
                 s + 'ში';
         },
-        past : function (s) {
+        past : function(s) {
             if ((/(წამი|წუთი|საათი|დღე|თვე)/).test(s)) {
                 return s.replace(/(ი|ე)$/, 'ის უკან');
             }
@@ -4449,7 +4449,7 @@ moment.defineLocale('ka', {
         yy : '%d წელი'
     },
     dayOfMonthOrdinalParse: /0|1-ლი|მე-\d{1,2}|\d{1,2}-ე/,
-    ordinal : function (number) {
+    ordinal : function(number) {
         if (number === 0) {
             return number;
         }
@@ -4532,7 +4532,7 @@ moment.defineLocale('kk', {
         yy : '%d жыл'
     },
     dayOfMonthOrdinalParse: /\d{1,2}-(ші|шы)/,
-    ordinal : function (number) {
+    ordinal : function(number) {
         var a = number % 10,
             b = number >= 100 ? 100 : null;
         return number + (suffixes$1[number] || suffixes$1[a] || suffixes$1[b]);
@@ -4657,18 +4657,18 @@ moment.defineLocale('kn', {
         y : 'ಒಂದು ವರ್ಷ',
         yy : '%d ವರ್ಷ'
     },
-    preparse: function (string) {
-        return string.replace(/[೧೨೩೪೫೬೭೮೯೦]/g, function (match) {
+    preparse: function(string) {
+        return string.replace(/[೧೨೩೪೫೬೭೮೯೦]/g, function(match) {
             return numberMap$6[match];
         });
     },
-    postformat: function (string) {
-        return string.replace(/\d/g, function (match) {
+    postformat: function(string) {
+        return string.replace(/\d/g, function(match) {
             return symbolMap$7[match];
         });
     },
     meridiemParse: /ರಾತ್ರಿ|ಬೆಳಿಗ್ಗೆ|ಮಧ್ಯಾಹ್ನ|ಸಂಜೆ/,
-    meridiemHour : function (hour, meridiem) {
+    meridiemHour : function(hour, meridiem) {
         if (hour === 12) {
             hour = 0;
         }
@@ -4682,7 +4682,7 @@ moment.defineLocale('kn', {
             return hour + 12;
         }
     },
-    meridiem : function (hour, minute, isLower) {
+    meridiem : function(hour, minute, isLower) {
         if (hour < 4) {
             return 'ರಾತ್ರಿ';
         } else if (hour < 10) {
@@ -4696,7 +4696,7 @@ moment.defineLocale('kn', {
         }
     },
     dayOfMonthOrdinalParse: /\d{1,2}(ನೇ)/,
-    ordinal : function (number) {
+    ordinal : function(number) {
         return number + 'ನೇ';
     },
     week : {
@@ -4755,10 +4755,10 @@ moment.defineLocale('ko', {
     dayOfMonthOrdinalParse : /\d{1,2}일/,
     ordinal : '%d일',
     meridiemParse : /오전|오후/,
-    isPM : function (token) {
+    isPM : function(token) {
         return token === '오후';
     },
-    meridiem : function (hour, minute, isUpper) {
+    meridiem : function(hour, minute, isUpper) {
         return hour < 12 ? '오전' : '오후';
     }
 });
@@ -4829,7 +4829,7 @@ moment.defineLocale('ky', {
         yy : '%d жыл'
     },
     dayOfMonthOrdinalParse: /\d{1,2}-(чи|чы|чү|чу)/,
-    ordinal : function (number) {
+    ordinal : function(number) {
         var a = number % 10,
             b = number >= 100 ? 100 : null;
         return number + (suffixes$2[number] || suffixes$2[a] || suffixes$2[b]);
@@ -4932,7 +4932,7 @@ moment.defineLocale('lb', {
         nextDay: '[Muer um] LT',
         nextWeek: 'dddd [um] LT',
         lastDay: '[Gëschter um] LT',
-        lastWeek: function () {
+        lastWeek: function() {
             // Different date string for 'Dënschdeg' (Tuesday) and 'Donneschdeg' (Thursday) due to phonological rule
             switch (this.day()) {
                 case 2:
@@ -4986,10 +4986,10 @@ moment.defineLocale('lo', {
         LLLL : 'ວັນdddd D MMMM YYYY HH:mm'
     },
     meridiemParse: /ຕອນເຊົ້າ|ຕອນແລງ/,
-    isPM: function (input) {
+    isPM: function(input) {
         return input === 'ຕອນແລງ';
     },
-    meridiem : function (hour, minute, isLower) {
+    meridiem : function(hour, minute, isLower) {
         if (hour < 12) {
             return 'ຕອນເຊົ້າ';
         } else {
@@ -5020,7 +5020,7 @@ moment.defineLocale('lo', {
         yy : '%d ປີ'
     },
     dayOfMonthOrdinalParse: /(ທີ່)\d{1,2}/,
-    ordinal : function (number) {
+    ordinal : function(number) {
         return 'ທີ່' + number;
     }
 });
@@ -5122,7 +5122,7 @@ moment.defineLocale('lt', {
         yy : translate$6
     },
     dayOfMonthOrdinalParse: /\d{1,2}-oji/,
-    ordinal : function (number) {
+    ordinal : function(number) {
         return number + '-oji';
     },
     week : {
@@ -5231,10 +5231,10 @@ var translator = {
         MM: ['mjesec', 'mjeseca', 'mjeseci'],
         yy: ['godina', 'godine', 'godina']
     },
-    correctGrammaticalCase: function (number, wordKey) {
+    correctGrammaticalCase: function(number, wordKey) {
         return number === 1 ? wordKey[0] : (number >= 2 && number <= 4 ? wordKey[1] : wordKey[2]);
     },
-    translate: function (number, withoutSuffix, key) {
+    translate: function(number, withoutSuffix, key) {
         var wordKey = translator.words[key];
         if (key.length === 1) {
             return withoutSuffix ? wordKey[0] : wordKey[1];
@@ -5264,7 +5264,7 @@ moment.defineLocale('me', {
         sameDay: '[danas u] LT',
         nextDay: '[sjutra u] LT',
 
-        nextWeek: function () {
+        nextWeek: function() {
             switch (this.day()) {
                 case 0:
                     return '[u] [nedjelju] [u] LT';
@@ -5280,7 +5280,7 @@ moment.defineLocale('me', {
             }
         },
         lastDay  : '[juče u] LT',
-        lastWeek : function () {
+        lastWeek : function() {
             var lastWeekDays = [
                 '[prošle] [nedjelje] [u] LT',
                 '[prošlog] [ponedjeljka] [u] LT',
@@ -5393,7 +5393,7 @@ moment.defineLocale('mk', {
         nextDay : '[Утре во] LT',
         nextWeek : '[Во] dddd [во] LT',
         lastDay : '[Вчера во] LT',
-        lastWeek : function () {
+        lastWeek : function() {
             switch (this.day()) {
                 case 0:
                 case 3:
@@ -5424,7 +5424,7 @@ moment.defineLocale('mk', {
         yy : '%d години'
     },
     dayOfMonthOrdinalParse: /\d{1,2}-(ев|ен|ти|ви|ри|ми)/,
-    ordinal : function (number) {
+    ordinal : function(number) {
         var lastDigit = number % 10,
             last2Digits = number % 100;
         if (number === 0) {
@@ -5492,7 +5492,7 @@ moment.defineLocale('ml', {
         yy : '%d വർഷം'
     },
     meridiemParse: /രാത്രി|രാവിലെ|ഉച്ച കഴിഞ്ഞ്|വൈകുന്നേരം|രാത്രി/i,
-    meridiemHour : function (hour, meridiem) {
+    meridiemHour : function(hour, meridiem) {
         if (hour === 12) {
             hour = 0;
         }
@@ -5504,7 +5504,7 @@ moment.defineLocale('ml', {
             return hour;
         }
     },
-    meridiem : function (hour, minute, isLower) {
+    meridiem : function(hour, minute, isLower) {
         if (hour < 4) {
             return 'രാത്രി';
         } else if (hour < 12) {
@@ -5623,18 +5623,18 @@ moment.defineLocale('mr', {
         y: relativeTimeMr,
         yy: relativeTimeMr
     },
-    preparse: function (string) {
-        return string.replace(/[१२३४५६७८९०]/g, function (match) {
+    preparse: function(string) {
+        return string.replace(/[१२३४५६७८९०]/g, function(match) {
             return numberMap$7[match];
         });
     },
-    postformat: function (string) {
-        return string.replace(/\d/g, function (match) {
+    postformat: function(string) {
+        return string.replace(/\d/g, function(match) {
             return symbolMap$8[match];
         });
     },
     meridiemParse: /रात्री|सकाळी|दुपारी|सायंकाळी/,
-    meridiemHour : function (hour, meridiem) {
+    meridiemHour : function(hour, meridiem) {
         if (hour === 12) {
             hour = 0;
         }
@@ -5648,7 +5648,7 @@ moment.defineLocale('mr', {
             return hour + 12;
         }
     },
-    meridiem: function (hour, minute, isLower) {
+    meridiem: function(hour, minute, isLower) {
         if (hour < 4) {
             return 'रात्री';
         } else if (hour < 10) {
@@ -5687,7 +5687,7 @@ moment.defineLocale('ms-my', {
         LLLL : 'dddd, D MMMM YYYY [pukul] HH.mm'
     },
     meridiemParse: /pagi|tengahari|petang|malam/,
-    meridiemHour: function (hour, meridiem) {
+    meridiemHour: function(hour, meridiem) {
         if (hour === 12) {
             hour = 0;
         }
@@ -5699,7 +5699,7 @@ moment.defineLocale('ms-my', {
             return hour + 12;
         }
     },
-    meridiem : function (hours, minutes, isLower) {
+    meridiem : function(hours, minutes, isLower) {
         if (hours < 11) {
             return 'pagi';
         } else if (hours < 15) {
@@ -5758,7 +5758,7 @@ moment.defineLocale('ms', {
         LLLL : 'dddd, D MMMM YYYY [pukul] HH.mm'
     },
     meridiemParse: /pagi|tengahari|petang|malam/,
-    meridiemHour: function (hour, meridiem) {
+    meridiemHour: function(hour, meridiem) {
         if (hour === 12) {
             hour = 0;
         }
@@ -5770,7 +5770,7 @@ moment.defineLocale('ms', {
             return hour + 12;
         }
     },
-    meridiem : function (hours, minutes, isLower) {
+    meridiem : function(hours, minutes, isLower) {
         if (hours < 11) {
             return 'pagi';
         } else if (hours < 15) {
@@ -5879,13 +5879,13 @@ moment.defineLocale('my', {
         y: 'တစ်နှစ်',
         yy: '%d နှစ်'
     },
-    preparse: function (string) {
-        return string.replace(/[၁၂၃၄၅၆၇၈၉၀]/g, function (match) {
+    preparse: function(string) {
+        return string.replace(/[၁၂၃၄၅၆၇၈၉၀]/g, function(match) {
             return numberMap$8[match];
         });
     },
-    postformat: function (string) {
-        return string.replace(/\d/g, function (match) {
+    postformat: function(string) {
+        return string.replace(/\d/g, function(match) {
             return symbolMap$9[match];
         });
     },
@@ -5992,18 +5992,18 @@ moment.defineLocale('ne', {
         LLL : 'D MMMM YYYY, Aको h:mm बजे',
         LLLL : 'dddd, D MMMM YYYY, Aको h:mm बजे'
     },
-    preparse: function (string) {
-        return string.replace(/[१२३४५६७८९०]/g, function (match) {
+    preparse: function(string) {
+        return string.replace(/[१२३४५६७८९०]/g, function(match) {
             return numberMap$9[match];
         });
     },
-    postformat: function (string) {
-        return string.replace(/\d/g, function (match) {
+    postformat: function(string) {
+        return string.replace(/\d/g, function(match) {
             return symbolMap$10[match];
         });
     },
     meridiemParse: /राति|बिहान|दिउँसो|साँझ/,
-    meridiemHour : function (hour, meridiem) {
+    meridiemHour : function(hour, meridiem) {
         if (hour === 12) {
             hour = 0;
         }
@@ -6017,7 +6017,7 @@ moment.defineLocale('ne', {
             return hour + 12;
         }
     },
-    meridiem : function (hour, minute, isLower) {
+    meridiem : function(hour, minute, isLower) {
         if (hour < 3) {
             return 'राति';
         } else if (hour < 12) {
@@ -6072,7 +6072,7 @@ var monthsRegex = /^(januari|februari|maart|april|mei|april|ju[nl]i|augustus|sep
 
 moment.defineLocale('nl-be', {
     months : 'januari_februari_maart_april_mei_juni_juli_augustus_september_oktober_november_december'.split('_'),
-    monthsShort : function (m, format) {
+    monthsShort : function(m, format) {
         if (!m) {
             return monthsShortWithDots$1;
         } else if (/-MMM-/.test(format)) {
@@ -6127,7 +6127,7 @@ moment.defineLocale('nl-be', {
         yy : '%d jaar'
     },
     dayOfMonthOrdinalParse: /\d{1,2}(ste|de)/,
-    ordinal : function (number) {
+    ordinal : function(number) {
         return number + ((number === 1 || number === 8 || number >= 20) ? 'ste' : 'de');
     },
     week : {
@@ -6149,7 +6149,7 @@ var monthsRegex$1 = /^(januari|februari|maart|april|mei|april|ju[nl]i|augustus|s
 
 moment.defineLocale('nl', {
     months : 'januari_februari_maart_april_mei_juni_juli_augustus_september_oktober_november_december'.split('_'),
-    monthsShort : function (m, format) {
+    monthsShort : function(m, format) {
         if (!m) {
             return monthsShortWithDots$2;
         } else if (/-MMM-/.test(format)) {
@@ -6204,7 +6204,7 @@ moment.defineLocale('nl', {
         yy : '%d jaar'
     },
     dayOfMonthOrdinalParse: /\d{1,2}(ste|de)/,
-    ordinal : function (number) {
+    ordinal : function(number) {
         return number + ((number === 1 || number === 8 || number >= 20) ? 'ste' : 'de');
     },
     week : {
@@ -6329,20 +6329,20 @@ moment.defineLocale('pa-in', {
         y : 'ਇੱਕ ਸਾਲ',
         yy : '%d ਸਾਲ'
     },
-    preparse: function (string) {
-        return string.replace(/[੧੨੩੪੫੬੭੮੯੦]/g, function (match) {
+    preparse: function(string) {
+        return string.replace(/[੧੨੩੪੫੬੭੮੯੦]/g, function(match) {
             return numberMap$10[match];
         });
     },
-    postformat: function (string) {
-        return string.replace(/\d/g, function (match) {
+    postformat: function(string) {
+        return string.replace(/\d/g, function(match) {
             return symbolMap$11[match];
         });
     },
     // Punjabi notation for meridiems are quite fuzzy in practice. While there exists
     // a rigid notion of a 'Pahar' it is not used as rigidly in modern Punjabi.
     meridiemParse: /ਰਾਤ|ਸਵੇਰ|ਦੁਪਹਿਰ|ਸ਼ਾਮ/,
-    meridiemHour : function (hour, meridiem) {
+    meridiemHour : function(hour, meridiem) {
         if (hour === 12) {
             hour = 0;
         }
@@ -6356,7 +6356,7 @@ moment.defineLocale('pa-in', {
             return hour + 12;
         }
     },
-    meridiem : function (hour, minute, isLower) {
+    meridiem : function(hour, minute, isLower) {
         if (hour < 4) {
             return 'ਰਾਤ';
         } else if (hour < 10) {
@@ -6403,7 +6403,7 @@ function translate$7(number, withoutSuffix, key) {
 }
 
 moment.defineLocale('pl', {
-    months : function (momentToFormat, format) {
+    months : function(momentToFormat, format) {
         if (!momentToFormat) {
             return monthsNominative;
         } else if (format === '') {
@@ -6434,7 +6434,7 @@ moment.defineLocale('pl', {
         nextDay: '[Jutro o] LT',
         nextWeek: '[W] dddd [o] LT',
         lastDay: '[Wczoraj o] LT',
-        lastWeek: function () {
+        lastWeek: function() {
             switch (this.day()) {
                 case 0:
                     return '[W zeszłą niedzielę o] LT';
@@ -6495,7 +6495,7 @@ moment.defineLocale('pt-br', {
         nextDay: '[Amanhã às] LT',
         nextWeek: 'dddd [às] LT',
         lastDay: '[Ontem às] LT',
-        lastWeek: function () {
+        lastWeek: function() {
             return (this.day() === 0 || this.day() === 6) ?
                 '[Último] dddd [às] LT' : // Saturday + Sunday
                 '[Última] dddd [às] LT'; // Monday - Friday
@@ -6545,7 +6545,7 @@ moment.defineLocale('pt', {
         nextDay: '[Amanhã às] LT',
         nextWeek: 'dddd [às] LT',
         lastDay: '[Ontem às] LT',
-        lastWeek: function () {
+        lastWeek: function() {
             return (this.day() === 0 || this.day() === 6) ?
                 '[Último] dddd [às] LT' : // Saturday + Sunday
                 '[Última] dddd [às] LT'; // Monday - Friday
@@ -6713,7 +6713,7 @@ moment.defineLocale('ru', {
         sameDay: '[Сегодня в] LT',
         nextDay: '[Завтра в] LT',
         lastDay: '[Вчера в] LT',
-        nextWeek: function (now) {
+        nextWeek: function(now) {
             if (now.week() !== this.week()) {
                 switch (this.day()) {
                     case 0:
@@ -6735,7 +6735,7 @@ moment.defineLocale('ru', {
                 }
             }
         },
-        lastWeek: function (now) {
+        lastWeek: function(now) {
             if (now.week() !== this.week()) {
                 switch (this.day()) {
                     case 0:
@@ -6775,10 +6775,10 @@ moment.defineLocale('ru', {
         yy : relativeTimeWithPlural$3
     },
     meridiemParse: /ночи|утра|дня|вечера/i,
-    isPM : function (input) {
+    isPM : function(input) {
         return /^(дня|вечера)$/.test(input);
     },
-    meridiem : function (hour, minute, isLower) {
+    meridiem : function(hour, minute, isLower) {
         if (hour < 4) {
             return 'ночи';
         } else if (hour < 12) {
@@ -6790,7 +6790,7 @@ moment.defineLocale('ru', {
         }
     },
     dayOfMonthOrdinalParse: /\d{1,2}-(й|го|я)/,
-    ordinal: function (number, period) {
+    ordinal: function(number, period) {
         switch (period) {
             case 'M':
             case 'd':
@@ -6854,10 +6854,10 @@ moment.defineLocale('sd', {
         LLLL : 'dddd، D MMMM YYYY HH:mm'
     },
     meridiemParse: /صبح|شام/,
-    isPM : function (input) {
+    isPM : function(input) {
         return 'شام' === input;
     },
-    meridiem : function (hour, minute, isLower) {
+    meridiem : function(hour, minute, isLower) {
         if (hour < 12) {
             return 'صبح';
         }
@@ -6886,10 +6886,10 @@ moment.defineLocale('sd', {
         y : 'هڪ سال',
         yy : '%d سال'
     },
-    preparse: function (string) {
+    preparse: function(string) {
         return string.replace(/،/g, ',');
     },
-    postformat: function (string) {
+    postformat: function(string) {
         return string.replace(/,/g, '،');
     },
     week : {
@@ -6992,14 +6992,14 @@ moment.defineLocale('si', {
         yy : 'වසර %d'
     },
     dayOfMonthOrdinalParse: /\d{1,2} වැනි/,
-    ordinal : function (number) {
+    ordinal : function(number) {
         return number + ' වැනි';
     },
     meridiemParse : /පෙර වරු|පස් වරු|පෙ.ව|ප.ව./,
-    isPM : function (input) {
+    isPM : function(input) {
         return input === 'ප.ව.' || input === 'පස් වරු';
     },
-    meridiem : function (hours, minutes, isLower) {
+    meridiem : function(hours, minutes, isLower) {
         if (hours > 11) {
             return isLower ? 'ප.ව.' : 'පස් වරු';
         } else {
@@ -7088,7 +7088,7 @@ moment.defineLocale('sk', {
     calendar : {
         sameDay: '[dnes o] LT',
         nextDay: '[zajtra o] LT',
-        nextWeek: function () {
+        nextWeek: function() {
             switch (this.day()) {
                 case 0:
                     return '[v nedeľu o] LT';
@@ -7106,7 +7106,7 @@ moment.defineLocale('sk', {
             }
         },
         lastDay: '[včera o] LT',
-        lastWeek: function () {
+        lastWeek: function() {
             switch (this.day()) {
                 case 0:
                     return '[minulú nedeľu o] LT';
@@ -7242,7 +7242,7 @@ moment.defineLocale('sl', {
         sameDay  : '[danes ob] LT',
         nextDay  : '[jutri ob] LT',
 
-        nextWeek : function () {
+        nextWeek : function() {
             switch (this.day()) {
                 case 0:
                     return '[v] [nedeljo] [ob] LT';
@@ -7258,7 +7258,7 @@ moment.defineLocale('sl', {
             }
         },
         lastDay  : '[včeraj ob] LT',
-        lastWeek : function () {
+        lastWeek : function() {
             switch (this.day()) {
                 case 0:
                     return '[prejšnjo] [nedeljo] [ob] LT';
@@ -7312,10 +7312,10 @@ moment.defineLocale('sq', {
     weekdaysMin : 'D_H_Ma_Më_E_P_Sh'.split('_'),
     weekdaysParseExact : true,
     meridiemParse: /PD|MD/,
-    isPM: function (input) {
+    isPM: function(input) {
         return input.charAt(0) === 'M';
     },
-    meridiem : function (hours, minutes, isLower) {
+    meridiem : function(hours, minutes, isLower) {
         return hours < 12 ? 'PD' : 'MD';
     },
     longDateFormat : {
@@ -7371,10 +7371,10 @@ var translator$1 = {
         MM: ['месец', 'месеца', 'месеци'],
         yy: ['година', 'године', 'година']
     },
-    correctGrammaticalCase: function (number, wordKey) {
+    correctGrammaticalCase: function(number, wordKey) {
         return number === 1 ? wordKey[0] : (number >= 2 && number <= 4 ? wordKey[1] : wordKey[2]);
     },
-    translate: function (number, withoutSuffix, key) {
+    translate: function(number, withoutSuffix, key) {
         var wordKey = translator$1.words[key];
         if (key.length === 1) {
             return withoutSuffix ? wordKey[0] : wordKey[1];
@@ -7403,7 +7403,7 @@ moment.defineLocale('sr-cyrl', {
     calendar: {
         sameDay: '[данас у] LT',
         nextDay: '[сутра у] LT',
-        nextWeek: function () {
+        nextWeek: function() {
             switch (this.day()) {
                 case 0:
                     return '[у] [недељу] [у] LT';
@@ -7419,7 +7419,7 @@ moment.defineLocale('sr-cyrl', {
             }
         },
         lastDay  : '[јуче у] LT',
-        lastWeek : function () {
+        lastWeek : function() {
             var lastWeekDays = [
                 '[прошле] [недеље] [у] LT',
                 '[прошлог] [понедељка] [у] LT',
@@ -7470,10 +7470,10 @@ var translator$2 = {
         MM: ['mesec', 'meseca', 'meseci'],
         yy: ['godina', 'godine', 'godina']
     },
-    correctGrammaticalCase: function (number, wordKey) {
+    correctGrammaticalCase: function(number, wordKey) {
         return number === 1 ? wordKey[0] : (number >= 2 && number <= 4 ? wordKey[1] : wordKey[2]);
     },
-    translate: function (number, withoutSuffix, key) {
+    translate: function(number, withoutSuffix, key) {
         var wordKey = translator$2.words[key];
         if (key.length === 1) {
             return withoutSuffix ? wordKey[0] : wordKey[1];
@@ -7502,7 +7502,7 @@ moment.defineLocale('sr', {
     calendar: {
         sameDay: '[danas u] LT',
         nextDay: '[sutra u] LT',
-        nextWeek: function () {
+        nextWeek: function() {
             switch (this.day()) {
                 case 0:
                     return '[u] [nedelju] [u] LT';
@@ -7518,7 +7518,7 @@ moment.defineLocale('sr', {
             }
         },
         lastDay  : '[juče u] LT',
-        lastWeek : function () {
+        lastWeek : function() {
             var lastWeekDays = [
                 '[prošle] [nedelje] [u] LT',
                 '[prošlog] [ponedeljka] [u] LT',
@@ -7599,7 +7599,7 @@ moment.defineLocale('ss', {
         yy : '%d iminyaka'
     },
     meridiemParse: /ekuseni|emini|entsambama|ebusuku/,
-    meridiem : function (hours, minutes, isLower) {
+    meridiem : function(hours, minutes, isLower) {
         if (hours < 11) {
             return 'ekuseni';
         } else if (hours < 15) {
@@ -7610,7 +7610,7 @@ moment.defineLocale('ss', {
             return 'ebusuku';
         }
     },
-    meridiemHour : function (hour, meridiem) {
+    meridiemHour : function(hour, meridiem) {
         if (hour === 12) {
             hour = 0;
         }
@@ -7677,7 +7677,7 @@ moment.defineLocale('sv', {
         yy : '%d år'
     },
     dayOfMonthOrdinalParse: /\d{1,2}(e|a)/,
-    ordinal : function (number) {
+    ordinal : function(number) {
         var b = number % 10,
             output = (~~(number % 100 / 10) === 1) ? 'e' :
             (b === 1) ? 'a' :
@@ -7806,22 +7806,22 @@ moment.defineLocale('ta', {
         yy : '%d ஆண்டுகள்'
     },
     dayOfMonthOrdinalParse: /\d{1,2}வது/,
-    ordinal : function (number) {
+    ordinal : function(number) {
         return number + 'வது';
     },
-    preparse: function (string) {
-        return string.replace(/[௧௨௩௪௫௬௭௮௯௦]/g, function (match) {
+    preparse: function(string) {
+        return string.replace(/[௧௨௩௪௫௬௭௮௯௦]/g, function(match) {
             return numberMap$11[match];
         });
     },
-    postformat: function (string) {
-        return string.replace(/\d/g, function (match) {
+    postformat: function(string) {
+        return string.replace(/\d/g, function(match) {
             return symbolMap$12[match];
         });
     },
     // refer http://ta.wikipedia.org/s/1er1
     meridiemParse: /யாமம்|வைகறை|காலை|நண்பகல்|எற்பாடு|மாலை/,
-    meridiem : function (hour, minute, isLower) {
+    meridiem : function(hour, minute, isLower) {
         if (hour < 2) {
             return ' யாமம்';
         } else if (hour < 6) {
@@ -7838,7 +7838,7 @@ moment.defineLocale('ta', {
             return ' யாமம்';
         }
     },
-    meridiemHour : function (hour, meridiem) {
+    meridiemHour : function(hour, meridiem) {
         if (hour === 12) {
             hour = 0;
         }
@@ -7903,7 +7903,7 @@ moment.defineLocale('te', {
     dayOfMonthOrdinalParse : /\d{1,2}వ/,
     ordinal : '%dవ',
     meridiemParse: /రాత్రి|ఉదయం|మధ్యాహ్నం|సాయంత్రం/,
-    meridiemHour : function (hour, meridiem) {
+    meridiemHour : function(hour, meridiem) {
         if (hour === 12) {
             hour = 0;
         }
@@ -7917,7 +7917,7 @@ moment.defineLocale('te', {
             return hour + 12;
         }
     },
-    meridiem : function (hour, minute, isLower) {
+    meridiem : function(hour, minute, isLower) {
         if (hour < 4) {
             return 'రాత్రి';
         } else if (hour < 10) {
@@ -7979,7 +7979,7 @@ moment.defineLocale('tet', {
         yy : 'tinan %d'
     },
     dayOfMonthOrdinalParse: /\d{1,2}(st|nd|rd|th)/,
-    ordinal : function (number) {
+    ordinal : function(number) {
         var b = number % 10,
             output = (~~(number % 100 / 10) === 1) ? 'th' :
             (b === 1) ? 'st' :
@@ -8014,10 +8014,10 @@ moment.defineLocale('th', {
         LLLL : 'วันddddที่ D MMMM YYYY เวลา H:mm'
     },
     meridiemParse: /ก่อนเที่ยง|หลังเที่ยง/,
-    isPM: function (input) {
+    isPM: function(input) {
         return input === 'หลังเที่ยง';
     },
-    meridiem : function (hour, minute, isLower) {
+    meridiem : function(hour, minute, isLower) {
         if (hour < 12) {
             return 'ก่อนเที่ยง';
         } else {
@@ -8091,7 +8091,7 @@ moment.defineLocale('tl-ph', {
         yy : '%d taon'
     },
     dayOfMonthOrdinalParse: /\d{1,2}/,
-    ordinal : function (number) {
+    ordinal : function(number) {
         return number;
     },
     week : {
@@ -8273,7 +8273,7 @@ moment.defineLocale('tr', {
         yy : '%d yıl'
     },
     dayOfMonthOrdinalParse: /\d{1,2}'(inci|nci|üncü|ncı|uncu|ıncı)/,
-    ordinal : function (number) {
+    ordinal : function(number) {
         if (number === 0) {  // special case for zero
             return number + '\'ıncı';
         }
@@ -8310,10 +8310,10 @@ moment.defineLocale('tzl', {
         LLLL : 'dddd, [li] D. MMMM [dallas] YYYY HH.mm'
     },
     meridiemParse: /d\'o|d\'a/i,
-    isPM : function (input) {
+    isPM : function(input) {
         return 'd\'o' === input.toLowerCase();
     },
-    meridiem : function (hours, minutes, isLower) {
+    meridiem : function(hours, minutes, isLower) {
         if (hours > 11) {
             return isLower ? 'd\'o' : 'D\'O';
         } else {
@@ -8507,8 +8507,8 @@ function weekdaysCaseReplace(m, format) {
             'nominative');
     return weekdays[nounCase][m.day()];
 }
-function processHoursfunction (str) {
-    return function () {
+function processHoursfunction(str) {
+    return function() {
         return str + 'о' + (this.hours() === 11 ? 'б' : '') + '] LT';
     };
 }
@@ -8531,21 +8531,21 @@ moment.defineLocale('uk', {
         LLLL : 'dddd, D MMMM YYYY р., HH:mm'
     },
     calendar : {
-        sameDay: processHoursfunction ('[Сьогодні '),
-        nextDay: processHoursfunction ('[Завтра '),
-        lastDay: processHoursfunction ('[Вчора '),
-        nextWeek: processHoursfunction ('[У] dddd ['),
-        lastWeek: function () {
+        sameDay: processHoursfunction('[Сьогодні '),
+        nextDay: processHoursfunction('[Завтра '),
+        lastDay: processHoursfunction('[Вчора '),
+        nextWeek: processHoursfunction('[У] dddd ['),
+        lastWeek: function() {
             switch (this.day()) {
                 case 0:
                 case 3:
                 case 5:
                 case 6:
-                    return processHoursfunction ('[Минулої] dddd [').call(this);
+                    return processHoursfunction('[Минулої] dddd [').call(this);
                 case 1:
                 case 2:
                 case 4:
-                    return processHoursfunction ('[Минулого] dddd [').call(this);
+                    return processHoursfunction('[Минулого] dddd [').call(this);
             }
         },
         sameElse: 'L'
@@ -8567,10 +8567,10 @@ moment.defineLocale('uk', {
     },
     // M. E.: those two are virtually unused but a user might want to implement them for his/her website for some reason
     meridiemParse: /ночі|ранку|дня|вечора/,
-    isPM: function (input) {
+    isPM: function(input) {
         return /^(дня|вечора)$/.test(input);
     },
-    meridiem : function (hour, minute, isLower) {
+    meridiem : function(hour, minute, isLower) {
         if (hour < 4) {
             return 'ночі';
         } else if (hour < 12) {
@@ -8582,7 +8582,7 @@ moment.defineLocale('uk', {
         }
     },
     dayOfMonthOrdinalParse: /\d{1,2}-(й|го)/,
-    ordinal: function (number, period) {
+    ordinal: function(number, period) {
         switch (period) {
             case 'M':
             case 'd':
@@ -8646,10 +8646,10 @@ moment.defineLocale('ur', {
         LLLL : 'dddd، D MMMM YYYY HH:mm'
     },
     meridiemParse: /صبح|شام/,
-    isPM : function (input) {
+    isPM : function(input) {
         return 'شام' === input;
     },
-    meridiem : function (hour, minute, isLower) {
+    meridiem : function(hour, minute, isLower) {
         if (hour < 12) {
             return 'صبح';
         }
@@ -8678,10 +8678,10 @@ moment.defineLocale('ur', {
         y : 'ایک سال',
         yy : '%d سال'
     },
-    preparse: function (string) {
+    preparse: function(string) {
         return string.replace(/،/g, ',');
     },
-    postformat: function (string) {
+    postformat: function(string) {
         return string.replace(/,/g, '،');
     },
     week : {
@@ -8797,10 +8797,10 @@ moment.defineLocale('vi', {
     weekdaysMin : 'CN_T2_T3_T4_T5_T6_T7'.split('_'),
     weekdaysParseExact : true,
     meridiemParse: /sa|ch/i,
-    isPM : function (input) {
+    isPM : function(input) {
         return /^ch$/i.test(input);
     },
-    meridiem : function (hours, minutes, isLower) {
+    meridiem : function(hours, minutes, isLower) {
         if (hours < 12) {
             return isLower ? 'sa' : 'SA';
         } else {
@@ -8843,7 +8843,7 @@ moment.defineLocale('vi', {
         yy : '%d năm'
     },
     dayOfMonthOrdinalParse: /\d{1,2}/,
-    ordinal : function (number) {
+    ordinal : function(number) {
         return number;
     },
     week : {
@@ -8895,7 +8895,7 @@ moment.defineLocale('x-pseudo', {
         yy : '%d ý~éárs'
     },
     dayOfMonthOrdinalParse: /\d{1,2}(th|st|nd|rd)/,
-    ordinal : function (number) {
+    ordinal : function(number) {
         var b = number % 10,
             output = (~~(number % 100 / 10) === 1) ? 'th' :
             (b === 1) ? 'st' :
@@ -8982,7 +8982,7 @@ moment.defineLocale('zh-cn', {
         llll : 'YYYY年MMMD日dddd HH:mm'
     },
     meridiemParse: /凌晨|早上|上午|中午|下午|晚上/,
-    meridiemHour: function (hour, meridiem) {
+    meridiemHour: function(hour, meridiem) {
         if (hour === 12) {
             hour = 0;
         }
@@ -8996,7 +8996,7 @@ moment.defineLocale('zh-cn', {
             return hour >= 11 ? hour : hour + 12;
         }
     },
-    meridiem : function (hour, minute, isLower) {
+    meridiem : function(hour, minute, isLower) {
         var hm = hour * 100 + minute;
         if (hm < 600) {
             return '凌晨';
@@ -9021,7 +9021,7 @@ moment.defineLocale('zh-cn', {
         sameElse : 'L'
     },
     dayOfMonthOrdinalParse: /\d{1,2}(日|月|周)/,
-    ordinal : function (number, period) {
+    ordinal : function(number, period) {
         switch (period) {
             case 'd':
             case 'D':
@@ -9083,7 +9083,7 @@ moment.defineLocale('zh-hk', {
         llll : 'YYYY年MMMD日dddd HH:mm'
     },
     meridiemParse: /凌晨|早上|上午|中午|下午|晚上/,
-    meridiemHour : function (hour, meridiem) {
+    meridiemHour : function(hour, meridiem) {
         if (hour === 12) {
             hour = 0;
         }
@@ -9095,7 +9095,7 @@ moment.defineLocale('zh-hk', {
             return hour + 12;
         }
     },
-    meridiem : function (hour, minute, isLower) {
+    meridiem : function(hour, minute, isLower) {
         var hm = hour * 100 + minute;
         if (hm < 600) {
             return '凌晨';
@@ -9120,7 +9120,7 @@ moment.defineLocale('zh-hk', {
         sameElse : 'L'
     },
     dayOfMonthOrdinalParse: /\d{1,2}(日|月|週)/,
-    ordinal : function (number, period) {
+    ordinal : function(number, period) {
         switch (period) {
             case 'd' :
             case 'D' :
@@ -9176,7 +9176,7 @@ moment.defineLocale('zh-tw', {
         llll : 'YYYY年MMMD日dddd HH:mm'
     },
     meridiemParse: /凌晨|早上|上午|中午|下午|晚上/,
-    meridiemHour : function (hour, meridiem) {
+    meridiemHour : function(hour, meridiem) {
         if (hour === 12) {
             hour = 0;
         }
@@ -9188,7 +9188,7 @@ moment.defineLocale('zh-tw', {
             return hour + 12;
         }
     },
-    meridiem : function (hour, minute, isLower) {
+    meridiem : function(hour, minute, isLower) {
         var hm = hour * 100 + minute;
         if (hm < 600) {
             return '凌晨';
@@ -9213,7 +9213,7 @@ moment.defineLocale('zh-tw', {
         sameElse : 'L'
     },
     dayOfMonthOrdinalParse: /\d{1,2}(日|月|週)/,
-    ordinal : function (number, period) {
+    ordinal : function(number, period) {
         switch (period) {
             case 'd' :
             case 'D' :

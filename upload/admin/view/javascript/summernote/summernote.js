@@ -9,15 +9,15 @@
  * Date: 2016-08-07T05:11Z
  */
 /*! For license information please see summernote.min.js.LICENSE.txt */
-!(function (t, e) {
+!(function(t, e) {
   if ("object" == typeof exports && "object" == typeof module) module.exports = e(require("jquery"));
   else if ("function" == typeof define && define.amd) define(["jquery"], e);
   else {
       var n = "object" == typeof exports ? e(require("jquery")) : e(t.jQuery);
       for (var o in n) ("object" == typeof exports ? exports : t)[o] = n[o];
   }
-})(window, function (t) {
-  return (function (t) {
+})(window, function(t) {
+  return (function(t) {
       var e = {};
       function n(o) {
           if (e[o]) return e[o].exports;
@@ -27,13 +27,13 @@
       return (
           (n.m = t),
           (n.c = e),
-          (n.d = function (t, e, o) {
+          (n.d = function(t, e, o) {
               n.o(t, e) || Object.defineProperty(t, e, { enumerable: !0, get: o });
           }),
-          (n.r = function (t) {
+          (n.r = function(t) {
               "undefined" != typeof Symbol && Symbol.toStringTag && Object.defineProperty(t, Symbol.toStringTag, { value: "Module" }), Object.defineProperty(t, "__esModule", { value: !0 });
           }),
-          (n.t = function (t, e) {
+          (n.t = function(t, e) {
               if ((1 & e && (t = n(t)), 8 & e)) return t;
               if (4 & e && "object" == typeof t && t && t.__esModule) return t;
               var o = Object.create(null);
@@ -42,44 +42,44 @@
                       n.d(
                           o,
                           i,
-                          function (e) {
+                          function(e) {
                               return t[e];
                           }.bind(null, i)
                       );
               return o;
           }),
-          (n.n = function (t) {
+          (n.n = function(t) {
               var e =
                   t && t.__esModule
-                      ? function () {
+                      ? function() {
                             return t.default;
                         }
-                      : function () {
+                      : function() {
                             return t;
                         };
               return n.d(e, "a", e), e;
           }),
-          (n.o = function (t, e) {
+          (n.o = function(t, e) {
               return Object.prototype.hasOwnProperty.call(t, e);
           }),
           (n.p = ""),
           n((n.s = 52))
       );
   })({
-      0: function (e, n) {
+      0: function(e, n) {
           e.exports = t;
       },
-      1: function (t, e, n) {
+      1: function(t, e, n) {
           "use strict";
           var o = n(0),
               i = n.n(o);
           function r(t) {
               return (r =
                   "function" == typeof Symbol && "symbol" == typeof Symbol.iterator
-                      ? function (t) {
+                      ? function(t) {
                             return typeof t;
                         }
-                      : function (t) {
+                      : function(t) {
                             return t && "function" == typeof Symbol && t.constructor === Symbol && t !== Symbol.prototype ? "symbol" : typeof t;
                         })(t);
           }
@@ -89,9 +89,9 @@
                   (o.enumerable = o.enumerable || !1), (o.configurable = !0), "value" in o && (o.writable = !0), Object.defineProperty(t, o.key, o);
               }
           }
-          var s = (function () {
+          var s = (function() {
               function t(e, n, o, i) {
-                  !(function (t, e) {
+                  !(function(t, e) {
                       if (!(t instanceof e)) throw new TypeError("Cannot call a class as a function");
                   })(this, t),
                       (this.markup = e),
@@ -105,21 +105,21 @@
                   (n = [
                       {
                           key: "render",
-                          value: function (t) {
+                          value: function(t) {
                               var e = i()(this.markup);
                               if (
                                   (this.options && this.options.contents && e.html(this.options.contents),
                                   this.options && this.options.className && e.addClass(this.options.className),
                                   this.options &&
                                       this.options.data &&
-                                      i.a.each(this.options.data, function (t, n) {
+                                      i.a.each(this.options.data, function(t, n) {
                                           e.attr("data-" + t, n);
                                       }),
                                   this.options && this.options.click && e.on("click", this.options.click),
                                   this.children)
                               ) {
                                   var n = e.find(".note-children-container");
-                                  this.children.forEach(function (t) {
+                                  this.children.forEach(function(t) {
                                       t.render(n.length ? n : e);
                                   });
                               }
@@ -132,8 +132,8 @@
               );
           })();
           e.a = {
-              create: function (t, e) {
-                  return function () {
+              create: function(t, e) {
+                  return function() {
                       var n = "object" === r(arguments[1]) ? arguments[1] : arguments[0],
                           o = Array.isArray(arguments[0]) ? arguments[0] : [];
                       return n && n.children && (o = n.children), new s(t, o, n, e);
@@ -141,12 +141,12 @@
               },
           };
       },
-      2: function (t, e) {
-          (function (e) {
+      2: function(t, e) {
+          (function(e) {
               t.exports = e;
           }.call(this, {}));
       },
-      3: function (t, e, n) {
+      3: function(t, e, n) {
           "use strict";
           var o = n(0),
               i = n.n(o);
@@ -298,7 +298,7 @@
                   jqueryVersion: parseFloat(i.a.fn.jquery),
                   isSupportAmd: r,
                   isSupportTouch: f,
-                  isFontInstalled: function (t) {
+                  isFontInstalled: function(t) {
                       var e = "Comic Sans MS" === t ? "Courier New" : "Comic Sans MS",
                           n = document.createElement("canvas").getContext("2d");
                       n.font = "200px '" + e + "'";
@@ -312,83 +312,83 @@
               };
           var v = 0;
           var g = {
-              eq: function (t) {
-                  return function (e) {
+              eq: function(t) {
+                  return function(e) {
                       return t === e;
                   };
               },
-              eq2: function (t, e) {
+              eq2: function(t, e) {
                   return t === e;
               },
-              peq2: function (t) {
-                  return function (e, n) {
+              peq2: function(t) {
+                  return function(e, n) {
                       return e[t] === n[t];
                   };
               },
-              ok: function () {
+              ok: function() {
                   return !0;
               },
-              fail: function () {
+              fail: function() {
                   return !1;
               },
-              self: function (t) {
+              self: function(t) {
                   return t;
               },
-              not: function (t) {
-                  return function () {
+              not: function(t) {
+                  return function() {
                       return !t.apply(t, arguments);
                   };
               },
-              and: function (t, e) {
-                  return function (n) {
+              and: function(t, e) {
+                  return function(n) {
                       return t(n) && e(n);
                   };
               },
-              invoke: function (t, e) {
-                  return function () {
+              invoke: function(t, e) {
+                  return function() {
                       return t[e].apply(t, arguments);
                   };
               },
-              resetUniqueId: function () {
+              resetUniqueId: function() {
                   v = 0;
               },
-              uniqueId: function (t) {
+              uniqueId: function(t) {
                   var e = ++v + "";
                   return t ? t + e : e;
               },
-              rect2bnd: function (t) {
+              rect2bnd: function(t) {
                   var e = i()(document);
                   return { top: t.top + e.scrollTop(), left: t.left + e.scrollLeft(), width: t.right - t.left, height: t.bottom - t.top };
               },
-              invertObject: function (t) {
+              invertObject: function(t) {
                   var e = {};
                   for (var n in t) Object.prototype.hasOwnProperty.call(t, n) && (e[t[n]] = n);
                   return e;
               },
-              namespaceToCamel: function (t, e) {
+              namespaceToCamel: function(t, e) {
                   return (
                       (e = e || "") +
                       t
                           .split(".")
-                          .map(function (t) {
+                          .map(function(t) {
                               return t.substring(0, 1).toUpperCase() + t.substring(1);
                           })
                           .join("")
                   );
               },
-              debounce: function (t, e, n) {
+              debounce: function(t, e, n) {
                   var o;
-                  return function () {
+                  return function() {
                       var i = this,
                           r = arguments,
-                          a = function () {
+                          a = function() {
                               (o = null), n || t.apply(i, r);
                           },
                           s = n && !o;
                       clearTimeout(o), (o = setTimeout(a, e)), s && t.apply(i, r);
                   };
               },
-              isValidUrl: function (t) {
+              isValidUrl: function(t) {
                   return /[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/gi.test(t);
               },
           };
@@ -411,54 +411,54 @@
           var C = {
                   head: b,
                   last: y,
-                  initial: function (t) {
+                  initial: function(t) {
                       return t.slice(0, t.length - 1);
                   },
                   tail: k,
-                  prev: function (t, e) {
+                  prev: function(t, e) {
                       if (t && t.length && e) {
                           var n = t.indexOf(e);
                           return -1 === n ? null : t[n - 1];
                       }
                       return null;
                   },
-                  next: function (t, e) {
+                  next: function(t, e) {
                       if (t && t.length && e) {
                           var n = t.indexOf(e);
                           return -1 === n ? null : t[n + 1];
                       }
                       return null;
                   },
-                  find: function (t, e) {
+                  find: function(t, e) {
                       for (var n = 0, o = t.length; n < o; n++) {
                           var i = t[n];
                           if (e(i)) return i;
                       }
                   },
                   contains: w,
-                  all: function (t, e) {
+                  all: function(t, e) {
                       for (var n = 0, o = t.length; n < o; n++) if (!e(t[n])) return !1;
                       return !0;
                   },
-                  sum: function (t, e) {
+                  sum: function(t, e) {
                       return (
                           (e = e || g.self),
-                          t.reduce(function (t, n) {
+                          t.reduce(function(t, n) {
                               return t + e(n);
                           }, 0)
                       );
                   },
-                  from: function (t) {
+                  from: function(t) {
                       for (var e = [], n = t.length, o = -1; ++o < n; ) e[o] = t[o];
                       return e;
                   },
-                  isEmpty: function (t) {
+                  isEmpty: function(t) {
                       return !t || !t.length;
                   },
-                  clusterBy: function (t, e) {
+                  clusterBy: function(t, e) {
                       return t.length
                           ? k(t).reduce(
-                                function (t, n) {
+                                function(t, n) {
                                     var o = y(t);
                                     return e(y(o), n) ? (o[o.length] = n) : (t[t.length] = [n]), t;
                                 },
@@ -466,11 +466,11 @@
                             )
                           : [];
                   },
-                  compact: function (t) {
+                  compact: function(t) {
                       for (var e = [], n = 0, o = t.length; n < o; n++) t[n] && e.push(t[n]);
                       return e;
                   },
-                  unique: function (t) {
+                  unique: function(t) {
                       for (var e = [], n = 0, o = t.length; n < o; n++) w(e, t[n]) || e.push(t[n]);
                       return e;
                   },
@@ -482,7 +482,7 @@
           function T(t) {
               return (
                   (t = t.toUpperCase()),
-                  function (e) {
+                  function(e) {
                       return e && e.nodeName.toUpperCase() === t;
                   }
               );
@@ -539,7 +539,7 @@
               e = e || g.fail;
               var n = [];
               return (
-                  V(t, function (t) {
+                  V(t, function(t) {
                       return S(t) || n.push(t), e(t);
                   }),
                   n
@@ -557,7 +557,7 @@
           }
           function Y(t, e) {
               return (
-                  i.a.each(e, function (e, n) {
+                  i.a.each(e, function(e, n) {
                       t.appendChild(n);
                   }),
                   t
@@ -647,7 +647,7 @@
               return o.length
                   ? 1 === o.length
                       ? lt(e, n)
-                      : o.reduce(function (t, o) {
+                      : o.reduce(function(t, o) {
                             return t === e.node && (t = lt(e, n)), lt({ node: o, offset: t ? et(t) : U(o) }, n);
                         })
                   : null;
@@ -678,28 +678,28 @@
               emptyPara: "<p>".concat(j, "</p>"),
               makePredByNodeName: T,
               isEditable: S,
-              isControlSizing: function (t) {
+              isControlSizing: function(t) {
                   return t && i()(t).hasClass("note-control-sizing");
               },
               isText: E,
-              isElement: function (t) {
+              isElement: function(t) {
                   return t && 1 === t.nodeType;
               },
               isVoid: I,
               isPara: $,
-              isPurePara: function (t) {
+              isPurePara: function(t) {
                   return $(t) && !P(t);
               },
-              isHeading: function (t) {
+              isHeading: function(t) {
                   return t && /^H[1-7]/.test(t.nodeName.toUpperCase());
               },
               isInline: A,
               isBlock: g.not(A),
-              isBodyInline: function (t) {
+              isBodyInline: function(t) {
                   return A(t) && !V(t, $);
               },
               isBody: O,
-              isParaInline: function (t) {
+              isParaInline: function(t) {
                   return A(t) && !!V(t, $);
               },
               isPre: N,
@@ -720,7 +720,7 @@
               isI: T("I"),
               isImg: T("IMG"),
               isTextarea: ht,
-              deepestChildIsEmpty: function (t) {
+              deepestChildIsEmpty: function(t) {
                   do {
                       if (null === t.firstElementChild || "" === t.firstElementChild.innerHTML) break;
                   } while ((t = t.firstElementChild));
@@ -728,10 +728,10 @@
               },
               isEmpty: W,
               isEmptyAnchor: g.and(M, W),
-              isClosestSibling: function (t, e) {
+              isClosestSibling: function(t, e) {
                   return t.nextSibling === e || t.previousSibling === e;
               },
-              withClosestSiblings: function (t, e) {
+              withClosestSiblings: function(t, e) {
                   e = e || g.ok;
                   var n = [];
                   return t.previousSibling && e(t.previousSibling) && n.push(t.previousSibling), n.push(t), t.nextSibling && e(t.nextSibling) && n.push(t.nextSibling), n;
@@ -742,53 +742,53 @@
               isEdgePoint: Q,
               isLeftEdgeOf: J,
               isRightEdgeOf: tt,
-              isLeftEdgePointOf: function (t, e) {
+              isLeftEdgePointOf: function(t, e) {
                   return Z(t) && J(t.node, e);
               },
-              isRightEdgePointOf: function (t, e) {
+              isRightEdgePointOf: function(t, e) {
                   return X(t) && tt(t.node, e);
               },
               prevPoint: ot,
               nextPoint: it,
               nextPointWithEmptyNode: rt,
               isSamePoint: st,
-              isVisiblePoint: function (t) {
+              isVisiblePoint: function(t) {
                   if (E(t.node) || !nt(t.node) || W(t.node)) return !0;
                   var e = t.node.childNodes[t.offset - 1],
                       n = t.node.childNodes[t.offset];
                   return !((e && !I(e)) || (n && !I(n)));
               },
-              prevPointUntil: function (t, e) {
+              prevPointUntil: function(t, e) {
                   for (; t; ) {
                       if (e(t)) return t;
                       t = ot(t);
                   }
                   return null;
               },
-              nextPointUntil: function (t, e) {
+              nextPointUntil: function(t, e) {
                   for (; t; ) {
                       if (e(t)) return t;
                       t = it(t);
                   }
                   return null;
               },
-              isCharPoint: function (t) {
+              isCharPoint: function(t) {
                   if (!E(t.node)) return !1;
                   var e = t.node.nodeValue.charAt(t.offset - 1);
                   return e && " " !== e && e !== x;
               },
-              isSpacePoint: function (t) {
+              isSpacePoint: function(t) {
                   if (!E(t.node)) return !1;
                   var e = t.node.nodeValue.charAt(t.offset - 1);
                   return " " === e || e === x;
               },
-              walkPoint: function (t, e, n, o) {
+              walkPoint: function(t, e, n, o) {
                   for (var i = t; i && (n(i), !st(i, e)); ) {
                       i = rt(i, o && t.node !== i.node && e.node !== i.node);
                   }
               },
               ancestor: V,
-              singleChildAncestor: function (t, e) {
+              singleChildAncestor: function(t, e) {
                   for (t = t.parentNode; t && 1 === U(t); ) {
                       if (e(t)) return t;
                       if (S(t)) break;
@@ -797,17 +797,17 @@
                   return null;
               },
               listAncestor: q,
-              lastAncestor: function (t, e) {
+              lastAncestor: function(t, e) {
                   var n = q(t);
                   return C.last(n.filter(e));
               },
               listNext: _,
-              listPrev: function (t, e) {
+              listPrev: function(t, e) {
                   e = e || g.fail;
                   for (var n = []; t && !e(t); ) n.push(t), (t = t.previousSibling);
                   return n;
               },
-              listDescendant: function (t, e) {
+              listDescendant: function(t, e) {
                   var n = [];
                   return (
                       (e = e || g.ok),
@@ -818,11 +818,11 @@
                       n
                   );
               },
-              commonAncestor: function (t, e) {
+              commonAncestor: function(t, e) {
                   for (var n = q(t), o = e; o; o = o.parentNode) if (n.indexOf(o) > -1) return o;
                   return null;
               },
-              wrap: function (t, e) {
+              wrap: function(t, e) {
                   var n = t.parentNode,
                       o = i()("<" + e + ">")[0];
                   return n.insertBefore(o, t), o.appendChild(t), o;
@@ -831,15 +831,15 @@
               appendChildNodes: Y,
               position: et,
               hasChildren: nt,
-              makeOffsetPath: function (t, e) {
+              makeOffsetPath: function(t, e) {
                   return q(e, g.eq(t)).map(et).reverse();
               },
-              fromOffsetPath: function (t, e) {
+              fromOffsetPath: function(t, e) {
                   for (var n = t, o = 0, i = e.length; o < i; o++) n = n.childNodes.length <= e[o] ? n.childNodes[n.childNodes.length - 1] : n.childNodes[e[o]];
                   return n;
               },
               splitTree: ct,
-              splitPoint: function (t, e) {
+              splitPoint: function(t, e) {
                   var n,
                       o,
                       i = e ? $ : B,
@@ -850,25 +850,25 @@
                   return s || o !== t.node || (s = t.node.childNodes[t.offset]), { rightNode: s, container: o };
               },
               create: ut,
-              createText: function (t) {
+              createText: function(t) {
                   return document.createTextNode(t);
               },
               remove: dt,
-              removeWhile: function (t, e) {
+              removeWhile: function(t, e) {
                   for (; t && !S(t) && e(t); ) {
                       var n = t.parentNode;
                       dt(t), (t = n);
                   }
               },
-              replace: function (t, e) {
+              replace: function(t, e) {
                   if (t.nodeName.toUpperCase() === e.toUpperCase()) return t;
                   var n = ut(e);
                   return t.style.cssText && (n.style.cssText = t.style.cssText), Y(n, C.from(t.childNodes)), G(n, t), dt(t), n;
               },
-              html: function (t, e) {
+              html: function(t, e) {
                   var n = ft(t);
                   if (e) {
-                      n = (n = n.replace(/<(\/?)(\b(?!!)[^>\s]*)(.*?)(\s*\/?>)/g, function (t, e, n) {
+                      n = (n = n.replace(/<(\/?)(\b(?!!)[^>\s]*)(.*?)(\s*\/?>)/g, function(t, e, n) {
                           n = n.toUpperCase();
                           var o = /^DIV|^TD|^TH|^P|^LI|^H[1-7]/.test(n) && !!e,
                               i = /^BLOCKQUOTE|^TABLE|^TBODY|^TR|^HR|^UL|^OL/.test(n);
@@ -878,23 +878,23 @@
                   return n;
               },
               value: ft,
-              posFromPlaceholder: function (t) {
+              posFromPlaceholder: function(t) {
                   var e = i()(t),
                       n = e.offset(),
                       o = e.outerHeight(!0);
                   return { left: n.left, top: n.top + o };
               },
-              attachEvents: function (t, e) {
-                  Object.keys(e).forEach(function (n) {
+              attachEvents: function(t, e) {
+                  Object.keys(e).forEach(function(n) {
                       t.on(n, e[n]);
                   });
               },
-              detachEvents: function (t, e) {
-                  Object.keys(e).forEach(function (n) {
+              detachEvents: function(t, e) {
+                  Object.keys(e).forEach(function(n) {
                       t.off(n, e[n]);
                   });
               },
-              isCustomStyleTag: function (t) {
+              isCustomStyleTag: function(t) {
                   return t && !E(t) && C.contains(t.classList, "note-styletag");
               },
           };
@@ -904,9 +904,9 @@
                   (o.enumerable = o.enumerable || !1), (o.configurable = !0), "value" in o && (o.writable = !0), Object.defineProperty(t, o.key, o);
               }
           }
-          var vt = (function () {
+          var vt = (function() {
               function t(e, n) {
-                  !(function (t, e) {
+                  !(function(t, e) {
                       if (!(t instanceof e)) throw new TypeError("Cannot call a class as a function");
                   })(this, t),
                       (this.$note = e),
@@ -924,51 +924,51 @@
                   (n = [
                       {
                           key: "initialize",
-                          value: function () {
+                          value: function() {
                               return (this.layoutInfo = this.ui.createLayout(this.$note)), this._initialize(), this.$note.hide(), this;
                           },
                       },
                       {
                           key: "destroy",
-                          value: function () {
+                          value: function() {
                               this._destroy(), this.$note.removeData("summernote"), this.ui.removeLayout(this.$note, this.layoutInfo);
                           },
                       },
                       {
                           key: "reset",
-                          value: function () {
+                          value: function() {
                               var t = this.isDisabled();
                               this.code(pt.emptyPara), this._destroy(), this._initialize(), t && this.disable();
                           },
                       },
                       {
                           key: "_initialize",
-                          value: function () {
+                          value: function() {
                               var t = this;
                               (this.options.id = g.uniqueId(i.a.now())), (this.options.container = this.options.container || this.layoutInfo.editor);
                               var e = i.a.extend({}, this.options.buttons);
-                              Object.keys(e).forEach(function (n) {
+                              Object.keys(e).forEach(function(n) {
                                   t.memo("button." + n, e[n]);
                               });
                               var n = i.a.extend({}, this.options.modules, i.a.summernote.plugins || {});
-                              Object.keys(n).forEach(function (e) {
+                              Object.keys(n).forEach(function(e) {
                                   t.module(e, n[e], !0);
                               }),
-                                  Object.keys(this.modules).forEach(function (e) {
+                                  Object.keys(this.modules).forEach(function(e) {
                                       t.initializeModule(e);
                                   });
                           },
                       },
                       {
                           key: "_destroy",
-                          value: function () {
+                          value: function() {
                               var t = this;
                               Object.keys(this.modules)
                                   .reverse()
-                                  .forEach(function (e) {
+                                  .forEach(function(e) {
                                       t.removeModule(e);
                                   }),
-                                  Object.keys(this.memos).forEach(function (e) {
+                                  Object.keys(this.memos).forEach(function(e) {
                                       t.removeMemo(e);
                                   }),
                                   this.triggerEvent("destroy", this);
@@ -976,7 +976,7 @@
                       },
                       {
                           key: "code",
-                          value: function (t) {
+                          value: function(t) {
                               var e = this.invoke("codeview.isActivated");
                               if (void 0 === t) return this.invoke("codeview.sync"), e ? this.layoutInfo.codable.val() : this.layoutInfo.editable.html();
                               e ? this.invoke("codeview.sync", t) : this.layoutInfo.editable.html(t), this.$note.val(t), this.triggerEvent("change", t, this.layoutInfo.editable);
@@ -984,19 +984,19 @@
                       },
                       {
                           key: "isDisabled",
-                          value: function () {
+                          value: function() {
                               return "false" === this.layoutInfo.editable.attr("contenteditable");
                           },
                       },
                       {
                           key: "enable",
-                          value: function () {
+                          value: function() {
                               this.layoutInfo.editable.attr("contenteditable", !0), this.invoke("toolbar.activate", !0), this.triggerEvent("disable", !1), (this.options.editing = !0);
                           },
                       },
                       {
                           key: "disable",
-                          value: function () {
+                          value: function() {
                               this.invoke("codeview.isActivated") && this.invoke("codeview.deactivate"),
                                   this.layoutInfo.editable.attr("contenteditable", !1),
                                   (this.options.editing = !1),
@@ -1006,7 +1006,7 @@
                       },
                       {
                           key: "triggerEvent",
-                          value: function () {
+                          value: function() {
                               var t = C.head(arguments),
                                   e = C.tail(C.from(arguments)),
                                   n = this.options.callbacks[g.namespaceToCamel(t, "on")];
@@ -1015,52 +1015,52 @@
                       },
                       {
                           key: "initializeModule",
-                          value: function (t) {
+                          value: function(t) {
                               var e = this.modules[t];
                               (e.shouldInitialize = e.shouldInitialize || g.ok), e.shouldInitialize() && (e.initialize && e.initialize(), e.events && pt.attachEvents(this.$note, e.events));
                           },
                       },
                       {
                           key: "module",
-                          value: function (t, e, n) {
+                          value: function(t, e, n) {
                               if (1 === arguments.length) return this.modules[t];
                               (this.modules[t] = new e(this)), n || this.initializeModule(t);
                           },
                       },
                       {
                           key: "removeModule",
-                          value: function (t) {
+                          value: function(t) {
                               var e = this.modules[t];
                               e.shouldInitialize() && (e.events && pt.detachEvents(this.$note, e.events), e.destroy && e.destroy()), delete this.modules[t];
                           },
                       },
                       {
                           key: "memo",
-                          value: function (t, e) {
+                          value: function(t, e) {
                               if (1 === arguments.length) return this.memos[t];
                               this.memos[t] = e;
                           },
                       },
                       {
                           key: "removeMemo",
-                          value: function (t) {
+                          value: function(t) {
                               this.memos[t] && this.memos[t].destroy && this.memos[t].destroy(), delete this.memos[t];
                           },
                       },
                       {
                           key: "createInvokeHandlerAndUpdateState",
-                          value: function (t, e) {
+                          value: function(t, e) {
                               var n = this;
-                              return function (o) {
+                              return function(o) {
                                   n.createInvokeHandler(t, e)(o), n.invoke("buttons.updateCurrentStyle");
                               };
                           },
                       },
                       {
                           key: "createInvokeHandler",
-                          value: function (t, e) {
+                          value: function(t, e) {
                               var n = this;
-                              return function (o) {
+                              return function(o) {
                                   o.preventDefault();
                                   var r = i()(o.target);
                                   n.invoke(t, e || r.closest("[data-value]").data("value"), r);
@@ -1069,7 +1069,7 @@
                       },
                       {
                           key: "invoke",
-                          value: function () {
+                          value: function() {
                               var t = C.head(arguments),
                                   e = C.tail(C.from(arguments)),
                                   n = t.split("."),
@@ -1131,7 +1131,7 @@
               return e.moveToElementText(n.node), e.collapse(n.collapseToStart), e.moveStart("character", n.offset), e;
           }
           i.a.fn.extend({
-              summernote: function () {
+              summernote: function() {
                   var t = i.a.type(C.head(arguments)),
                       e = "string" === t,
                       n = "object" === t,
@@ -1139,7 +1139,7 @@
                   (o.langInfo = i.a.extend(!0, {}, i.a.summernote.lang["en-US"], i.a.summernote.lang[o.lang])),
                       (o.icons = i.a.extend(!0, {}, i.a.summernote.options.icons, o.icons)),
                       (o.tooltip = "auto" === o.tooltip ? !m.isSupportTouch : o.tooltip),
-                      this.each(function (t, e) {
+                      this.each(function(t, e) {
                           var n = i()(e);
                           if (!n.data("summernote")) {
                               var r = new vt(n, o);
@@ -1155,9 +1155,9 @@
                   return this;
               },
           });
-          var kt = (function () {
+          var kt = (function() {
                   function t(e, n, o, i) {
-                      !(function (t, e) {
+                      !(function(t, e) {
                           if (!(t instanceof e)) throw new TypeError("Cannot call a class as a function");
                       })(this, t),
                           (this.sc = e),
@@ -1176,7 +1176,7 @@
                       (n = [
                           {
                               key: "nativeRange",
-                              value: function () {
+                              value: function() {
                                   if (m.isW3CRangeSupport) {
                                       var t = document.createRange();
                                       return t.setStart(this.sc, this.so), t.setEnd(this.ec, this.eo), t;
@@ -1187,25 +1187,25 @@
                           },
                           {
                               key: "getPoints",
-                              value: function () {
+                              value: function() {
                                   return { sc: this.sc, so: this.so, ec: this.ec, eo: this.eo };
                               },
                           },
                           {
                               key: "getStartPoint",
-                              value: function () {
+                              value: function() {
                                   return { node: this.sc, offset: this.so };
                               },
                           },
                           {
                               key: "getEndPoint",
-                              value: function () {
+                              value: function() {
                                   return { node: this.ec, offset: this.eo };
                               },
                           },
                           {
                               key: "select",
-                              value: function () {
+                              value: function() {
                                   var t = this.nativeRange();
                                   if (m.isW3CRangeSupport) {
                                       var e = document.getSelection();
@@ -1216,15 +1216,15 @@
                           },
                           {
                               key: "scrollIntoView",
-                              value: function (t) {
+                              value: function(t) {
                                   var e = i()(t).height();
                                   return t.scrollTop + e < this.sc.offsetTop && (t.scrollTop += Math.abs(t.scrollTop + e - this.sc.offsetTop)), this;
                               },
                           },
                           {
                               key: "normalize",
-                              value: function () {
-                                  var e = function (t, e) {
+                              value: function() {
+                                  var e = function(t, e) {
                                           if (!t) return t;
                                           if (
                                               pt.isVisiblePoint(t) &&
@@ -1260,7 +1260,7 @@
                           },
                           {
                               key: "nodes",
-                              value: function (t, e) {
+                              value: function(t, e) {
                                   t = t || g.ok;
                                   var n = e && e.includeAncestor,
                                       o = e && e.fullyContains,
@@ -1272,7 +1272,7 @@
                                       pt.walkPoint(
                                           i,
                                           r,
-                                          function (e) {
+                                          function(e) {
                                               var i;
                                               pt.isEditable(e.node) ||
                                                   (o ? (pt.isLeftEdgePoint(e) && s.push(e.node), pt.isRightEdgePoint(e) && C.contains(s, e.node) && (i = e.node)) : (i = n ? pt.ancestor(e.node, t) : e.node), i && t(i) && a.push(i));
@@ -1285,13 +1285,13 @@
                           },
                           {
                               key: "commonAncestor",
-                              value: function () {
+                              value: function() {
                                   return pt.commonAncestor(this.sc, this.ec);
                               },
                           },
                           {
                               key: "expand",
-                              value: function (e) {
+                              value: function(e) {
                                   var n = pt.ancestor(this.sc, e),
                                       o = pt.ancestor(this.ec, e);
                                   if (!n && !o) return new t(this.sc, this.so, this.ec, this.eo);
@@ -1301,13 +1301,13 @@
                           },
                           {
                               key: "collapse",
-                              value: function (e) {
+                              value: function(e) {
                                   return e ? new t(this.sc, this.so, this.sc, this.so) : new t(this.ec, this.eo, this.ec, this.eo);
                               },
                           },
                           {
                               key: "splitText",
-                              value: function () {
+                              value: function() {
                                   var e = this.sc === this.ec,
                                       n = this.getPoints();
                                   return (
@@ -1319,20 +1319,20 @@
                           },
                           {
                               key: "deleteContents",
-                              value: function () {
+                              value: function() {
                                   if (this.isCollapsed()) return this;
                                   var e = this.splitText(),
                                       n = e.nodes(null, { fullyContains: !0 }),
-                                      o = pt.prevPointUntil(e.getStartPoint(), function (t) {
+                                      o = pt.prevPointUntil(e.getStartPoint(), function(t) {
                                           return !C.contains(n, t.node);
                                       }),
                                       r = [];
                                   return (
-                                      i.a.each(n, function (t, e) {
+                                      i.a.each(n, function(t, e) {
                                           var n = e.parentNode;
                                           o.node !== n && 1 === pt.nodeLength(n) && r.push(n), pt.remove(e, !1);
                                       }),
-                                      i.a.each(r, function (t, e) {
+                                      i.a.each(r, function(t, e) {
                                           pt.remove(e, !1);
                                       }),
                                       new t(o.node, o.offset, o.node, o.offset).normalize()
@@ -1341,8 +1341,8 @@
                           },
                           {
                               key: "makeIsOn",
-                              value: function (t) {
-                                  return function () {
+                              value: function(t) {
+                                  return function() {
                                       var e = pt.ancestor(this.sc, t);
                                       return !!e && e === pt.ancestor(this.ec, t);
                                   };
@@ -1350,7 +1350,7 @@
                           },
                           {
                               key: "isLeftEdgeOf",
-                              value: function (t) {
+                              value: function(t) {
                                   if (!pt.isLeftEdgePoint(this.getStartPoint())) return !1;
                                   var e = pt.ancestor(this.sc, t);
                                   return e && pt.isLeftEdgeOf(this.sc, e);
@@ -1358,13 +1358,13 @@
                           },
                           {
                               key: "isCollapsed",
-                              value: function () {
+                              value: function() {
                                   return this.sc === this.ec && this.so === this.eo;
                               },
                           },
                           {
                               key: "wrapBodyInlineWithPara",
-                              value: function () {
+                              value: function() {
                                   if (pt.isBodyContainer(this.sc) && pt.isEmpty(this.sc)) return (this.sc.innerHTML = pt.emptyPara), new t(this.sc.firstChild, 0, this.sc.firstChild, 0);
                                   var e,
                                       n = this.normalize();
@@ -1385,7 +1385,7 @@
                           },
                           {
                               key: "insertNode",
-                              value: function (t) {
+                              value: function(t) {
                                   var e = this;
                                   (pt.isText(t) || pt.isInline(t)) && (e = this.wrapBodyInlineWithPara().deleteContents());
                                   var n = pt.splitPoint(e.getStartPoint(), pt.isInline(t));
@@ -1394,7 +1394,7 @@
                           },
                           {
                               key: "pasteHTML",
-                              value: function (t) {
+                              value: function(t) {
                                   t = i.a.trim(t);
                                   var e = i()("<div></div>").html(t)[0],
                                       n = C.from(e.childNodes),
@@ -1402,7 +1402,7 @@
                                       r = !1;
                                   return (
                                       o.so >= 0 && ((n = n.reverse()), (r = !0)),
-                                      (n = n.map(function (t) {
+                                      (n = n.map(function(t) {
                                           return o.insertNode(t);
                                       })),
                                       r && (n = n.reverse()),
@@ -1412,22 +1412,22 @@
                           },
                           {
                               key: "toString",
-                              value: function () {
+                              value: function() {
                                   var t = this.nativeRange();
                                   return m.isW3CRangeSupport ? t.toString() : t.text;
                               },
                           },
                           {
                               key: "getWordRange",
-                              value: function (e) {
+                              value: function(e) {
                                   var n = this.getEndPoint();
                                   if (!pt.isCharPoint(n)) return this;
-                                  var o = pt.prevPointUntil(n, function (t) {
+                                  var o = pt.prevPointUntil(n, function(t) {
                                       return !pt.isCharPoint(t);
                                   });
                                   return (
                                       e &&
-                                          (n = pt.nextPointUntil(n, function (t) {
+                                          (n = pt.nextPointUntil(n, function(t) {
                                               return !pt.isCharPoint(t);
                                           })),
                                       new t(o.node, o.offset, n.node, n.offset)
@@ -1436,9 +1436,9 @@
                           },
                           {
                               key: "getWordsRange",
-                              value: function (e) {
+                              value: function(e) {
                                   var n = this.getEndPoint(),
-                                      o = function (t) {
+                                      o = function(t) {
                                           return !pt.isCharPoint(t) && !pt.isSpacePoint(t);
                                       };
                                   if (o(n)) return this;
@@ -1448,9 +1448,9 @@
                           },
                           {
                               key: "getWordsMatchRange",
-                              value: function (e) {
+                              value: function(e) {
                                   var n = this.getEndPoint(),
-                                      o = pt.prevPointUntil(n, function (o) {
+                                      o = pt.prevPointUntil(n, function(o) {
                                           if (!pt.isCharPoint(o) && !pt.isSpacePoint(o)) return !0;
                                           var i = new t(o.node, o.offset, n.node, n.offset),
                                               r = e.exec(i.toString());
@@ -1464,19 +1464,19 @@
                           },
                           {
                               key: "bookmark",
-                              value: function (t) {
+                              value: function(t) {
                                   return { s: { path: pt.makeOffsetPath(t, this.sc), offset: this.so }, e: { path: pt.makeOffsetPath(t, this.ec), offset: this.eo } };
                               },
                           },
                           {
                               key: "paraBookmark",
-                              value: function (t) {
+                              value: function(t) {
                                   return { s: { path: C.tail(pt.makeOffsetPath(C.head(t), this.sc)), offset: this.so }, e: { path: C.tail(pt.makeOffsetPath(C.last(t), this.ec)), offset: this.eo } };
                               },
                           },
                           {
                               key: "getClientRects",
-                              value: function () {
+                              value: function() {
                                   return this.nativeRange().getClientRects();
                               },
                           },
@@ -1486,7 +1486,7 @@
                   );
               })(),
               wt = {
-                  create: function (t, e, n, o) {
+                  create: function(t, e, n, o) {
                       if (4 === arguments.length) return new kt(t, e, n, o);
                       if (2 === arguments.length) return new kt(t, e, (n = t), (o = e));
                       var i = this.createFromSelection();
@@ -1496,12 +1496,12 @@
                       }
                       return i;
                   },
-                  createFromBodyElement: function (t) {
+                  createFromBodyElement: function(t) {
                       var e = arguments.length > 1 && void 0 !== arguments[1] && arguments[1],
                           n = this.createFromNode(t);
                       return n.collapse(e);
                   },
-                  createFromSelection: function () {
+                  createFromSelection: function() {
                       var t, e, n, o;
                       if (m.isW3CRangeSupport) {
                           var i = document.getSelection();
@@ -1521,7 +1521,7 @@
                       }
                       return new kt(t, e, n, o);
                   },
-                  createFromNode: function (t) {
+                  createFromNode: function(t) {
                       var e = t,
                           n = 0,
                           o = t,
@@ -1532,20 +1532,20 @@
                           this.create(e, n, o, i)
                       );
                   },
-                  createFromNodeBefore: function (t) {
+                  createFromNodeBefore: function(t) {
                       return this.createFromNode(t).collapse(!0);
                   },
-                  createFromNodeAfter: function (t) {
+                  createFromNodeAfter: function(t) {
                       return this.createFromNode(t).collapse();
                   },
-                  createFromBookmark: function (t, e) {
+                  createFromBookmark: function(t, e) {
                       var n = pt.fromOffsetPath(t, e.s.path),
                           o = e.s.offset,
                           i = pt.fromOffsetPath(t, e.e.path),
                           r = e.e.offset;
                       return new kt(n, o, i, r);
                   },
-                  createFromParaBookmark: function (t, e) {
+                  createFromParaBookmark: function(t, e) {
                       var n = t.s.offset,
                           o = t.e.offset,
                           i = pt.fromOffsetPath(C.head(e), t.s.path),
@@ -1595,13 +1595,13 @@
                   PAGEDOWN: 34,
               },
               xt = {
-                  isEdit: function (t) {
+                  isEdit: function(t) {
                       return C.contains([Ct.BACKSPACE, Ct.TAB, Ct.ENTER, Ct.SPACE, Ct.DELETE], t);
                   },
-                  isMove: function (t) {
+                  isMove: function(t) {
                       return C.contains([Ct.LEFT, Ct.UP, Ct.RIGHT, Ct.DOWN], t);
                   },
-                  isNavigation: function (t) {
+                  isNavigation: function(t) {
                       return C.contains([Ct.HOME, Ct.END, Ct.PAGEUP, Ct.PAGEDOWN], t);
                   },
                   nameFromCode: g.invertObject(Ct),
@@ -1613,9 +1613,9 @@
                   (o.enumerable = o.enumerable || !1), (o.configurable = !0), "value" in o && (o.writable = !0), Object.defineProperty(t, o.key, o);
               }
           }
-          var Tt = (function () {
+          var Tt = (function() {
               function t(e) {
-                  !(function (t, e) {
+                  !(function(t, e) {
                       if (!(t instanceof e)) throw new TypeError("Cannot call a class as a function");
                   })(this, t),
                       (this.stack = []),
@@ -1630,50 +1630,50 @@
                   (n = [
                       {
                           key: "makeSnapshot",
-                          value: function () {
+                          value: function() {
                               var t = wt.create(this.editable);
                               return { contents: this.$editable.html(), bookmark: t && t.isOnEditable() ? t.bookmark(this.editable) : { s: { path: [], offset: 0 }, e: { path: [], offset: 0 } } };
                           },
                       },
                       {
                           key: "applySnapshot",
-                          value: function (t) {
+                          value: function(t) {
                               null !== t.contents && this.$editable.html(t.contents), null !== t.bookmark && wt.createFromBookmark(this.editable, t.bookmark).select();
                           },
                       },
                       {
                           key: "rewind",
-                          value: function () {
+                          value: function() {
                               this.$editable.html() !== this.stack[this.stackOffset].contents && this.recordUndo(), (this.stackOffset = 0), this.applySnapshot(this.stack[this.stackOffset]);
                           },
                       },
                       {
                           key: "commit",
-                          value: function () {
+                          value: function() {
                               (this.stack = []), (this.stackOffset = -1), this.recordUndo();
                           },
                       },
                       {
                           key: "reset",
-                          value: function () {
+                          value: function() {
                               (this.stack = []), (this.stackOffset = -1), this.$editable.html(""), this.recordUndo();
                           },
                       },
                       {
                           key: "undo",
-                          value: function () {
+                          value: function() {
                               this.$editable.html() !== this.stack[this.stackOffset].contents && this.recordUndo(), this.stackOffset > 0 && (this.stackOffset--, this.applySnapshot(this.stack[this.stackOffset]));
                           },
                       },
                       {
                           key: "redo",
-                          value: function () {
+                          value: function() {
                               this.stack.length - 1 > this.stackOffset && (this.stackOffset++, this.applySnapshot(this.stack[this.stackOffset]));
                           },
                       },
                       {
                           key: "recordUndo",
-                          value: function () {
+                          value: function() {
                               this.stackOffset++,
                                   this.stack.length > this.stackOffset && (this.stack = this.stack.slice(0, this.stackOffset)),
                                   this.stack.push(this.makeSnapshot()),
@@ -1691,9 +1691,9 @@
                   (o.enumerable = o.enumerable || !1), (o.configurable = !0), "value" in o && (o.writable = !0), Object.defineProperty(t, o.key, o);
               }
           }
-          var It = (function () {
+          var It = (function() {
               function t() {
-                  !(function (t, e) {
+                  !(function(t, e) {
                       if (!(t instanceof e)) throw new TypeError("Cannot call a class as a function");
                   })(this, t);
               }
@@ -1703,11 +1703,11 @@
                   (n = [
                       {
                           key: "jQueryCSS",
-                          value: function (t, e) {
+                          value: function(t, e) {
                               if (m.jqueryVersion < 1.9) {
                                   var n = {};
                                   return (
-                                      i.a.each(e, function (e, o) {
+                                      i.a.each(e, function(e, o) {
                                           n[o] = t.css(o);
                                       }),
                                       n
@@ -1718,7 +1718,7 @@
                       },
                       {
                           key: "fromNode",
-                          value: function (t) {
+                          value: function(t) {
                               var e = this.jQueryCSS(t, ["font-family", "font-size", "text-align", "list-style-type", "line-height"]) || {},
                                   n = t[0].style.fontSize || e["font-size"];
                               return (e["font-size"] = parseInt(n, 10)), (e["font-size-unit"] = n.match(/[a-z%]+$/)), e;
@@ -1726,37 +1726,37 @@
                       },
                       {
                           key: "stylePara",
-                          value: function (t, e) {
-                              i.a.each(t.nodes(pt.isPara, { includeAncestor: !0 }), function (t, n) {
+                          value: function(t, e) {
+                              i.a.each(t.nodes(pt.isPara, { includeAncestor: !0 }), function(t, n) {
                                   i()(n).css(e);
                               });
                           },
                       },
                       {
                           key: "styleNodes",
-                          value: function (t, e) {
+                          value: function(t, e) {
                               t = t.splitText();
                               var n = (e && e.nodeName) || "SPAN",
                                   o = !(!e || !e.expandClosestSibling),
                                   r = !(!e || !e.onlyPartialContains);
                               if (t.isCollapsed()) return [t.insertNode(pt.create(n))];
                               var a = pt.makePredByNodeName(n),
-                                  s = t.nodes(pt.isText, { fullyContains: !0 }).map(function (t) {
+                                  s = t.nodes(pt.isText, { fullyContains: !0 }).map(function(t) {
                                       return pt.singleChildAncestor(t, a) || pt.wrap(t, n);
                                   });
                               if (o) {
                                   if (r) {
                                       var l = t.nodes();
-                                      a = g.and(a, function (t) {
+                                      a = g.and(a, function(t) {
                                           return C.contains(l, t);
                                       });
                                   }
-                                  return s.map(function (t) {
+                                  return s.map(function(t) {
                                       var e = pt.withClosestSiblings(t, a),
                                           n = C.head(e),
                                           o = C.tail(e);
                                       return (
-                                          i.a.each(o, function (t, e) {
+                                          i.a.each(o, function(t, e) {
                                               pt.appendChildNodes(n, e.childNodes), pt.remove(e);
                                           }),
                                           C.head(e)
@@ -1768,7 +1768,7 @@
                       },
                       {
                           key: "current",
-                          value: function (t) {
+                          value: function(t) {
                               var e = i()(pt.isElement(t.sc) ? t.sc : t.sc.parentNode),
                                   n = this.fromNode(e);
                               try {
@@ -1806,9 +1806,9 @@
                   (o.enumerable = o.enumerable || !1), (o.configurable = !0), "value" in o && (o.writable = !0), Object.defineProperty(t, o.key, o);
               }
           }
-          var Nt = (function () {
+          var Nt = (function() {
               function t() {
-                  !(function (t, e) {
+                  !(function(t, e) {
                       if (!(t instanceof e)) throw new TypeError("Cannot call a class as a function");
                   })(this, t);
               }
@@ -1818,42 +1818,42 @@
                   (n = [
                       {
                           key: "insertOrderedList",
-                          value: function (t) {
+                          value: function(t) {
                               this.toggleList("OL", t);
                           },
                       },
                       {
                           key: "insertUnorderedList",
-                          value: function (t) {
+                          value: function(t) {
                               this.toggleList("UL", t);
                           },
                       },
                       {
                           key: "indent",
-                          value: function (t) {
+                          value: function(t) {
                               var e = this,
                                   n = wt.create(t).wrapBodyInlineWithPara(),
                                   o = n.nodes(pt.isPara, { includeAncestor: !0 }),
                                   r = C.clusterBy(o, g.peq2("parentNode"));
-                              i.a.each(r, function (t, n) {
+                              i.a.each(r, function(t, n) {
                                   var o = C.head(n);
                                   if (pt.isLi(o)) {
                                       var r = e.findList(o.previousSibling);
                                       r
-                                          ? n.map(function (t) {
+                                          ? n.map(function(t) {
                                                 return r.appendChild(t);
                                             })
                                           : (e.wrapList(n, o.parentNode.nodeName),
                                             n
-                                                .map(function (t) {
+                                                .map(function(t) {
                                                     return t.parentNode;
                                                 })
-                                                .map(function (t) {
+                                                .map(function(t) {
                                                     return e.appendToPrevious(t);
                                                 }));
                                   } else
-                                      i.a.each(n, function (t, e) {
-                                          i()(e).css("marginLeft", function (t, e) {
+                                      i.a.each(n, function(t, e) {
+                                          i()(e).css("marginLeft", function(t, e) {
                                               return (parseInt(e, 10) || 0) + 25;
                                           });
                                       });
@@ -1863,17 +1863,17 @@
                       },
                       {
                           key: "outdent",
-                          value: function (t) {
+                          value: function(t) {
                               var e = this,
                                   n = wt.create(t).wrapBodyInlineWithPara(),
                                   o = n.nodes(pt.isPara, { includeAncestor: !0 }),
                                   r = C.clusterBy(o, g.peq2("parentNode"));
-                              i.a.each(r, function (t, n) {
+                              i.a.each(r, function(t, n) {
                                   var o = C.head(n);
                                   pt.isLi(o)
                                       ? e.releaseList([n])
-                                      : i.a.each(n, function (t, e) {
-                                            i()(e).css("marginLeft", function (t, e) {
+                                      : i.a.each(n, function(t, e) {
+                                            i()(e).css("marginLeft", function(t, e) {
                                                 return (e = parseInt(e, 10) || 0) > 25 ? e - 25 : "";
                                             });
                                         });
@@ -1883,7 +1883,7 @@
                       },
                       {
                           key: "toggleList",
-                          value: function (t, e) {
+                          value: function(t, e) {
                               var n = this,
                                   o = wt.create(e).wrapBodyInlineWithPara(),
                                   r = o.nodes(pt.isPara, { includeAncestor: !0 }),
@@ -1891,16 +1891,16 @@
                                   s = C.clusterBy(r, g.peq2("parentNode"));
                               if (C.find(r, pt.isPurePara)) {
                                   var l = [];
-                                  i.a.each(s, function (e, o) {
+                                  i.a.each(s, function(e, o) {
                                       l = l.concat(n.wrapList(o, t));
                                   }),
                                       (r = l);
                               } else {
-                                  var c = o.nodes(pt.isList, { includeAncestor: !0 }).filter(function (e) {
+                                  var c = o.nodes(pt.isList, { includeAncestor: !0 }).filter(function(e) {
                                       return !i.a.nodeName(e, t);
                                   });
                                   c.length
-                                      ? i.a.each(c, function (e, n) {
+                                      ? i.a.each(c, function(e, n) {
                                             pt.replace(n, t);
                                         })
                                       : (r = this.releaseList(s, !0));
@@ -1910,14 +1910,14 @@
                       },
                       {
                           key: "wrapList",
-                          value: function (t, e) {
+                          value: function(t, e) {
                               var n = C.head(t),
                                   o = C.last(t),
                                   i = pt.isList(n.previousSibling) && n.previousSibling,
                                   r = pt.isList(o.nextSibling) && o.nextSibling,
                                   a = i || pt.insertAfter(pt.create(e || "UL"), o);
                               return (
-                                  (t = t.map(function (t) {
+                                  (t = t.map(function(t) {
                                       return pt.isPurePara(t) ? pt.replace(t, "LI") : t;
                                   })),
                                   pt.appendChildNodes(a, t),
@@ -1928,17 +1928,17 @@
                       },
                       {
                           key: "releaseList",
-                          value: function (t, e) {
+                          value: function(t, e) {
                               var n = this,
                                   o = [];
                               return (
-                                  i.a.each(t, function (t, r) {
+                                  i.a.each(t, function(t, r) {
                                       var a = C.head(r),
                                           s = C.last(r),
                                           l = e ? pt.lastAncestor(a, pt.isList) : a.parentNode,
                                           c = l.parentNode;
                                       if ("LI" === l.parentNode.nodeName)
-                                          r.map(function (t) {
+                                          r.map(function(t) {
                                               var e = n.findNextSiblings(t);
                                               c.nextSibling ? c.parentNode.insertBefore(t, c.nextSibling) : c.parentNode.appendChild(t), e.length && (n.wrapList(e, l.nodeName), t.appendChild(e[0].parentNode));
                                           }),
@@ -1949,16 +1949,16 @@
                                               d = pt.splitTree(l, { node: a.parentNode, offset: pt.position(a) }, { isSkipPaddingBlankHTML: !0 });
                                           (r = e ? pt.listDescendant(d, pt.isLi) : C.from(d.childNodes).filter(pt.isLi)),
                                               (!e && pt.isList(l.parentNode)) ||
-                                                  (r = r.map(function (t) {
+                                                  (r = r.map(function(t) {
                                                       return pt.replace(t, "P");
                                                   })),
-                                              i.a.each(C.from(r).reverse(), function (t, e) {
+                                              i.a.each(C.from(r).reverse(), function(t, e) {
                                                   pt.insertAfter(e, l);
                                               });
                                           var h = C.compact([l, d, u]);
-                                          i.a.each(h, function (t, e) {
+                                          i.a.each(h, function(t, e) {
                                               var n = [e].concat(pt.listDescendant(e, pt.isList));
-                                              i.a.each(n.reverse(), function (t, e) {
+                                              i.a.each(n.reverse(), function(t, e) {
                                                   pt.nodeLength(e) || pt.remove(e, !0);
                                               });
                                           });
@@ -1971,15 +1971,15 @@
                       },
                       {
                           key: "appendToPrevious",
-                          value: function (t) {
+                          value: function(t) {
                               return t.previousSibling ? pt.appendChildNodes(t.previousSibling, [t]) : this.wrapList([t], "LI");
                           },
                       },
                       {
                           key: "findList",
-                          value: function (t) {
+                          value: function(t) {
                               return t
-                                  ? C.find(t.children, function (t) {
+                                  ? C.find(t.children, function(t) {
                                         return ["OL", "UL"].indexOf(t.nodeName) > -1;
                                     })
                                   : null;
@@ -1987,7 +1987,7 @@
                       },
                       {
                           key: "findNextSiblings",
-                          value: function (t) {
+                          value: function(t) {
                               for (var e = []; t.nextSibling; ) e.push(t.nextSibling), (t = t.nextSibling);
                               return e;
                           },
@@ -2003,9 +2003,9 @@
                   (o.enumerable = o.enumerable || !1), (o.configurable = !0), "value" in o && (o.writable = !0), Object.defineProperty(t, o.key, o);
               }
           }
-          var Rt = (function () {
+          var Rt = (function() {
               function t(e) {
-                  !(function (t, e) {
+                  !(function(t, e) {
                       if (!(t instanceof e)) throw new TypeError("Cannot call a class as a function");
                   })(this, t),
                       (this.bullet = new Nt()),
@@ -2017,14 +2017,14 @@
                   (n = [
                       {
                           key: "insertTab",
-                          value: function (t, e) {
+                          value: function(t, e) {
                               var n = pt.createText(new Array(e + 1).join(pt.NBSP_CHAR));
                               (t = t.deleteContents()).insertNode(n, !0), (t = wt.create(n, e)).select();
                           },
                       },
                       {
                           key: "insertParagraph",
-                          value: function (t, e) {
+                          value: function(t, e) {
                               e = (e = (e = e || wt.create(t)).deleteContents()).wrapBodyInlineWithPara();
                               var n,
                                   o = pt.ancestor(e.sc, pt.isPara);
@@ -2039,7 +2039,7 @@
                                       n = pt.splitTree(o, e.getStartPoint());
                                       var s = pt.listDescendant(o, pt.isEmptyAnchor);
                                       (s = s.concat(pt.listDescendant(n, pt.isEmptyAnchor))),
-                                          i.a.each(s, function (t, e) {
+                                          i.a.each(s, function(t, e) {
                                               pt.remove(e);
                                           }),
                                           (pt.isHeading(n) || pt.isPre(n) || pt.isCustomStyleTag(n)) && pt.isEmpty(n) && (n = pt.replace(n, "p"));
@@ -2123,7 +2123,7 @@
                   }
                   return t.resultAction.AddCell;
               }
-              (this.getActionList = function () {
+              (this.getActionList = function() {
                   for (var e = n === t.where.Row ? r.rowPos : -1, i = n === t.where.Column ? r.colPos : -1, l = 0, u = !0; u; ) {
                       var d = e >= 0 ? e : l,
                           h = i >= 0 ? i : l,
@@ -2147,14 +2147,14 @@
                       e.tagName &&
                       ("td" === e.tagName.toLowerCase() || "th" === e.tagName.toLowerCase()) &&
                       ((r.colPos = e.cellIndex), e.parentElement && e.parentElement.tagName && "tr" === e.parentElement.tagName.toLowerCase() && (r.rowPos = e.parentElement.rowIndex)),
-                  (function () {
+                  (function() {
                       for (var t = i.rows, e = 0; e < t.length; e++) for (var n = t[e].cells, o = 0; o < n.length; o++) d(t[e], n[o]);
                   })();
           };
           (At.where = { Row: 0, Column: 1 }), (At.requestAction = { Add: 0, Delete: 1 }), (At.resultAction = { Ignore: 0, SubtractSpanCount: 1, RemoveCell: 2, AddCell: 3, SumSpanCount: 4 });
-          var Ft = (function () {
+          var Ft = (function() {
               function t() {
-                  !(function (t, e) {
+                  !(function(t, e) {
                       if (!(t instanceof e)) throw new TypeError("Cannot call a class as a function");
                   })(this, t);
               }
@@ -2164,7 +2164,7 @@
                   (n = [
                       {
                           key: "tab",
-                          value: function (t, e) {
+                          value: function(t, e) {
                               var n = pt.ancestor(t.commonAncestor(), pt.isCell),
                                   o = pt.ancestor(n, pt.isTable),
                                   i = pt.listDescendant(o, pt.isCell),
@@ -2174,7 +2174,7 @@
                       },
                       {
                           key: "addRow",
-                          value: function (t, e) {
+                          value: function(t, e) {
                               for (
                                   var n = pt.ancestor(t.commonAncestor(), pt.isCell),
                                       o = i()(n).closest("tr"),
@@ -2215,7 +2215,7 @@
                       },
                       {
                           key: "addCol",
-                          value: function (t, e) {
+                          value: function(t, e) {
                               var n = pt.ancestor(t.commonAncestor(), pt.isCell),
                                   o = i()(n).closest("tr");
                               i()(o).siblings().push(o);
@@ -2237,7 +2237,7 @@
                       },
                       {
                           key: "recoverAttributes",
-                          value: function (t) {
+                          value: function(t) {
                               var e = "";
                               if (!t) return e;
                               for (var n = t.attributes || [], o = 0; o < n.length; o++) "id" !== n[o].name.toLowerCase() && n[o].specified && (e += " " + n[o].name + "='" + n[o].value + "'");
@@ -2246,7 +2246,7 @@
                       },
                       {
                           key: "deleteRow",
-                          value: function (t) {
+                          value: function(t) {
                               for (
                                   var e = pt.ancestor(t.commonAncestor(), pt.isCell),
                                       n = i()(e).closest("tr"),
@@ -2289,7 +2289,7 @@
                       },
                       {
                           key: "deleteCol",
-                          value: function (t) {
+                          value: function(t) {
                               for (
                                   var e = pt.ancestor(t.commonAncestor(), pt.isCell),
                                       n = i()(e).closest("tr"),
@@ -2318,7 +2318,7 @@
                       },
                       {
                           key: "createTable",
-                          value: function (t, e, n) {
+                          value: function(t, e, n) {
                               for (var o, r = [], a = 0; a < t; a++) r.push("<td>" + pt.blank + "</td>");
                               o = r.join("");
                               for (var s, l = [], c = 0; c < e; c++) l.push("<tr>" + o + "</tr>");
@@ -2329,7 +2329,7 @@
                       },
                       {
                           key: "deleteTable",
-                          value: function (t) {
+                          value: function(t) {
                               var e = pt.ancestor(t.commonAncestor(), pt.isCell);
                               i()(e).closest("table").remove();
                           },
@@ -2345,10 +2345,10 @@
                   (o.enumerable = o.enumerable || !1), (o.configurable = !0), "value" in o && (o.writable = !0), Object.defineProperty(t, o.key, o);
               }
           }
-          var Ht = (function () {
+          var Ht = (function() {
               function t(e) {
                   var n = this;
-                  !(function (t, e) {
+                  !(function(t, e) {
                       if (!(t instanceof e)) throw new TypeError("Cannot call a class as a function");
                   })(this, t),
                       (this.context = e),
@@ -2383,73 +2383,73 @@
                       r < a;
                       r++
                   )
-                      (this[o[r]] = (function (t) {
-                          return function (e) {
+                      (this[o[r]] = (function(t) {
+                          return function(e) {
                               n.beforeCommand(), document.execCommand(t, !1, e), n.afterCommand(!0);
                           };
                       })(o[r])),
                           this.context.memo("help." + o[r], this.lang.help[o[r]]);
-                  (this.fontName = this.wrapCommand(function (t) {
+                  (this.fontName = this.wrapCommand(function(t) {
                       return n.fontStyling("font-family", m.validFontName(t));
                   })),
-                      (this.fontSize = this.wrapCommand(function (t) {
+                      (this.fontSize = this.wrapCommand(function(t) {
                           var e = n.currentStyle()["font-size-unit"];
                           return n.fontStyling("font-size", t + e);
                       })),
-                      (this.fontSizeUnit = this.wrapCommand(function (t) {
+                      (this.fontSizeUnit = this.wrapCommand(function(t) {
                           var e = n.currentStyle()["font-size"];
                           return n.fontStyling("font-size", e + t);
                       }));
                   for (var s = 1; s <= 6; s++)
-                      (this["formatH" + s] = (function (t) {
-                          return function () {
+                      (this["formatH" + s] = (function(t) {
+                          return function() {
                               n.formatBlock("H" + t);
                           };
                       })(s)),
                           this.context.memo("help.formatH" + s, this.lang.help["formatH" + s]);
-                  (this.insertParagraph = this.wrapCommand(function () {
+                  (this.insertParagraph = this.wrapCommand(function() {
                       n.typing.insertParagraph(n.editable);
                   })),
-                      (this.insertOrderedList = this.wrapCommand(function () {
+                      (this.insertOrderedList = this.wrapCommand(function() {
                           n.bullet.insertOrderedList(n.editable);
                       })),
-                      (this.insertUnorderedList = this.wrapCommand(function () {
+                      (this.insertUnorderedList = this.wrapCommand(function() {
                           n.bullet.insertUnorderedList(n.editable);
                       })),
-                      (this.indent = this.wrapCommand(function () {
+                      (this.indent = this.wrapCommand(function() {
                           n.bullet.indent(n.editable);
                       })),
-                      (this.outdent = this.wrapCommand(function () {
+                      (this.outdent = this.wrapCommand(function() {
                           n.bullet.outdent(n.editable);
                       })),
-                      (this.insertNode = this.wrapCommand(function (t) {
+                      (this.insertNode = this.wrapCommand(function(t) {
                           n.isLimited(i()(t).text().length) || (n.getLastRange().insertNode(t), n.setLastRange(wt.createFromNodeAfter(t).select()));
                       })),
-                      (this.insertText = this.wrapCommand(function (t) {
+                      (this.insertText = this.wrapCommand(function(t) {
                           if (!n.isLimited(t.length)) {
                               var e = n.getLastRange().insertNode(pt.createText(t));
                               n.setLastRange(wt.create(e, pt.nodeLength(e)).select());
                           }
                       })),
-                      (this.pasteHTML = this.wrapCommand(function (t) {
+                      (this.pasteHTML = this.wrapCommand(function(t) {
                           if (!n.isLimited(t.length)) {
                               t = n.context.invoke("codeview.purify", t);
                               var e = n.getLastRange().pasteHTML(t);
                               n.setLastRange(wt.createFromNodeAfter(C.last(e)).select());
                           }
                       })),
-                      (this.formatBlock = this.wrapCommand(function (t, e) {
+                      (this.formatBlock = this.wrapCommand(function(t, e) {
                           var o = n.options.callbacks.onApplyCustomStyle;
                           o ? o.call(n, e, n.context, n.onFormatBlock) : n.onFormatBlock(t, e);
                       })),
-                      (this.insertHorizontalRule = this.wrapCommand(function () {
+                      (this.insertHorizontalRule = this.wrapCommand(function() {
                           var t = n.getLastRange().insertNode(pt.create("HR"));
                           t.nextSibling && n.setLastRange(wt.create(t.nextSibling, 0).normalize().select());
                       })),
-                      (this.lineHeight = this.wrapCommand(function (t) {
+                      (this.lineHeight = this.wrapCommand(function(t) {
                           n.style.stylePara(n.getLastRange(), { lineHeight: t });
                       })),
-                      (this.createLink = this.wrapCommand(function (t) {
+                      (this.createLink = this.wrapCommand(function(t) {
                           var e = t.url,
                               o = t.text,
                               r = t.isNewWindow,
@@ -2464,33 +2464,33 @@
                                   var d = (s = s.deleteContents()).insertNode(i()("<A>" + o + "</A>")[0]);
                                   u.push(d);
                               } else u = n.style.styleNodes(s, { nodeName: "A", expandClosestSibling: !0, onlyPartialContains: !0 });
-                              i.a.each(u, function (t, n) {
+                              i.a.each(u, function(t, n) {
                                   i()(n).attr("href", e), r ? i()(n).attr("target", "_blank") : i()(n).removeAttr("target");
                               }),
                                   n.setLastRange(n.createRangeFromList(u).select());
                           }
                       })),
-                      (this.color = this.wrapCommand(function (t) {
+                      (this.color = this.wrapCommand(function(t) {
                           var e = t.foreColor,
                               n = t.backColor;
                           e && document.execCommand("foreColor", !1, e), n && document.execCommand("backColor", !1, n);
                       })),
-                      (this.foreColor = this.wrapCommand(function (t) {
+                      (this.foreColor = this.wrapCommand(function(t) {
                           document.execCommand("foreColor", !1, t);
                       })),
-                      (this.insertTable = this.wrapCommand(function (t) {
+                      (this.insertTable = this.wrapCommand(function(t) {
                           var e = t.split("x");
                           n.getLastRange().deleteContents().insertNode(n.table.createTable(e[0], e[1], n.options));
                       })),
-                      (this.removeMedia = this.wrapCommand(function () {
+                      (this.removeMedia = this.wrapCommand(function() {
                           var t = i()(n.restoreTarget()).parent();
                           t.closest("figure").length ? t.closest("figure").remove() : (t = i()(n.restoreTarget()).detach()), n.context.triggerEvent("media.delete", t, n.$editable);
                       })),
-                      (this.floatMe = this.wrapCommand(function (t) {
+                      (this.floatMe = this.wrapCommand(function(t) {
                           var e = i()(n.restoreTarget());
                           e.toggleClass("note-float-left", "left" === t), e.toggleClass("note-float-right", "right" === t), e.css("float", "none" === t ? "" : t);
                       })),
-                      (this.resize = this.wrapCommand(function (t) {
+                      (this.resize = this.wrapCommand(function(t) {
                           var e = i()(n.restoreTarget());
                           0 === (t = parseFloat(t)) ? e.css("width", "") : e.css({ width: 100 * t + "%", height: "" });
                       }));
@@ -2501,10 +2501,10 @@
                   (n = [
                       {
                           key: "initialize",
-                          value: function () {
+                          value: function() {
                               var t = this;
                               this.$editable
-                                  .on("keydown", function (e) {
+                                  .on("keydown", function(e) {
                                       if (
                                           (e.keyCode === xt.code.ENTER && t.context.triggerEvent("enter", e),
                                           t.context.triggerEvent("keydown", e),
@@ -2518,28 +2518,28 @@
                                       }
                                       t.setLastRange(), t.options.recordEveryKeystroke && !1 === t.hasKeyShortCut && t.history.recordUndo();
                                   })
-                                  .on("keyup", function (e) {
+                                  .on("keyup", function(e) {
                                       t.setLastRange(), t.context.triggerEvent("keyup", e);
                                   })
-                                  .on("focus", function (e) {
+                                  .on("focus", function(e) {
                                       t.setLastRange(), t.context.triggerEvent("focus", e);
                                   })
-                                  .on("blur", function (e) {
+                                  .on("blur", function(e) {
                                       t.context.triggerEvent("blur", e);
                                   })
-                                  .on("mousedown", function (e) {
+                                  .on("mousedown", function(e) {
                                       t.context.triggerEvent("mousedown", e);
                                   })
-                                  .on("mouseup", function (e) {
+                                  .on("mouseup", function(e) {
                                       t.setLastRange(), t.history.recordUndo(), t.context.triggerEvent("mouseup", e);
                                   })
-                                  .on("scroll", function (e) {
+                                  .on("scroll", function(e) {
                                       t.context.triggerEvent("scroll", e);
                                   })
-                                  .on("paste", function (e) {
+                                  .on("paste", function(e) {
                                       t.setLastRange(), t.context.triggerEvent("paste", e);
                                   })
-                                  .on("input", function () {
+                                  .on("input", function() {
                                       t.isLimited(0) && t.snapshot && t.history.applySnapshot(t.snapshot);
                                   }),
                                   this.$editable.attr("spellcheck", this.options.spellCheck),
@@ -2548,20 +2548,20 @@
                                   this.$editable.html(pt.html(this.$note) || pt.emptyPara),
                                   this.$editable.on(
                                       m.inputEventName,
-                                      g.debounce(function () {
+                                      g.debounce(function() {
                                           t.context.triggerEvent("change", t.$editable.html(), t.$editable);
                                       }, 10)
                                   ),
                                   this.$editable
-                                      .on("focusin", function (e) {
+                                      .on("focusin", function(e) {
                                           t.context.triggerEvent("focusin", e);
                                       })
-                                      .on("focusout", function (e) {
+                                      .on("focusout", function(e) {
                                           t.context.triggerEvent("focusout", e);
                                       }),
                                   this.options.airMode
                                       ? this.options.overrideContextMenu &&
-                                        this.$editor.on("contextmenu", function (e) {
+                                        this.$editor.on("contextmenu", function(e) {
                                             return t.context.triggerEvent("contextmenu", e), !1;
                                         })
                                       : (this.options.width && this.$editor.outerWidth(this.options.width),
@@ -2574,13 +2574,13 @@
                       },
                       {
                           key: "destroy",
-                          value: function () {
+                          value: function() {
                               this.$editable.off();
                           },
                       },
                       {
                           key: "handleKeyMap",
-                          value: function (t) {
+                          value: function(t) {
                               var e = this.options.keyMap[m.isMac ? "mac" : "pc"],
                                   n = [];
                               t.metaKey && n.push("CMD"), t.ctrlKey && !t.altKey && n.push("CTRL"), t.shiftKey && n.push("SHIFT");
@@ -2597,13 +2597,13 @@
                       },
                       {
                           key: "preventDefaultEditableShortCuts",
-                          value: function (t) {
+                          value: function(t) {
                               (t.ctrlKey || t.metaKey) && C.contains([66, 73, 85], t.keyCode) && t.preventDefault();
                           },
                       },
                       {
                           key: "isLimited",
-                          value: function (t, e) {
+                          value: function(t, e) {
                               return (
                                   (t = t || 0),
                                   (void 0 === e || !(xt.isMove(e.keyCode) || xt.isNavigation(e.keyCode) || e.ctrlKey || e.metaKey || C.contains([xt.code.BACKSPACE, xt.code.DELETE], e.keyCode))) &&
@@ -2614,13 +2614,13 @@
                       },
                       {
                           key: "createRange",
-                          value: function () {
+                          value: function() {
                               return this.focus(), this.setLastRange(), this.getLastRange();
                           },
                       },
                       {
                           key: "createRangeFromList",
-                          value: function (t) {
+                          value: function(t) {
                               var e = wt.createFromNodeBefore(C.head(t)).getStartPoint(),
                                   n = wt.createFromNodeAfter(C.last(t)).getEndPoint();
                               return wt.create(e.node, e.offset, n.node, n.offset);
@@ -2628,92 +2628,92 @@
                       },
                       {
                           key: "setLastRange",
-                          value: function (t) {
+                          value: function(t) {
                               t ? (this.lastRange = t) : ((this.lastRange = wt.create(this.editable)), 0 === i()(this.lastRange.sc).closest(".note-editable").length && (this.lastRange = wt.createFromBodyElement(this.editable)));
                           },
                       },
                       {
                           key: "getLastRange",
-                          value: function () {
+                          value: function() {
                               return this.lastRange || this.setLastRange(), this.lastRange;
                           },
                       },
                       {
                           key: "saveRange",
-                          value: function (t) {
+                          value: function(t) {
                               t && this.getLastRange().collapse().select();
                           },
                       },
                       {
                           key: "restoreRange",
-                          value: function () {
+                          value: function() {
                               this.lastRange && (this.lastRange.select(), this.focus());
                           },
                       },
                       {
                           key: "saveTarget",
-                          value: function (t) {
+                          value: function(t) {
                               this.$editable.data("target", t);
                           },
                       },
                       {
                           key: "clearTarget",
-                          value: function () {
+                          value: function() {
                               this.$editable.removeData("target");
                           },
                       },
                       {
                           key: "restoreTarget",
-                          value: function () {
+                          value: function() {
                               return this.$editable.data("target");
                           },
                       },
                       {
                           key: "currentStyle",
-                          value: function () {
+                          value: function() {
                               var t = wt.create();
                               return t && (t = t.normalize()), t ? this.style.current(t) : this.style.fromNode(this.$editable);
                           },
                       },
                       {
                           key: "styleFromNode",
-                          value: function (t) {
+                          value: function(t) {
                               return this.style.fromNode(t);
                           },
                       },
                       {
                           key: "undo",
-                          value: function () {
+                          value: function() {
                               this.context.triggerEvent("before.command", this.$editable.html()), this.history.undo(), this.context.triggerEvent("change", this.$editable.html(), this.$editable);
                           },
                       },
                       {
                           key: "commit",
-                          value: function () {
+                          value: function() {
                               this.context.triggerEvent("before.command", this.$editable.html()), this.history.commit(), this.context.triggerEvent("change", this.$editable.html(), this.$editable);
                           },
                       },
                       {
                           key: "redo",
-                          value: function () {
+                          value: function() {
                               this.context.triggerEvent("before.command", this.$editable.html()), this.history.redo(), this.context.triggerEvent("change", this.$editable.html(), this.$editable);
                           },
                       },
                       {
                           key: "beforeCommand",
-                          value: function () {
+                          value: function() {
                               this.context.triggerEvent("before.command", this.$editable.html()), document.execCommand("styleWithCSS", !1, this.options.styleWithCSS), this.focus();
                           },
                       },
                       {
                           key: "afterCommand",
-                          value: function (t) {
+                          value: function(t) {
                               this.normalizeContent(), this.history.recordUndo(), t || this.context.triggerEvent("change", this.$editable.html(), this.$editable);
                           },
                       },
                       {
                           key: "tab",
-                          value: function () {
+                          value: function() {
                               var t = this.getLastRange();
                               if (t.isCollapsed() && t.isOnCell()) this.table.tab(t);
                               else {
@@ -2724,7 +2724,7 @@
                       },
                       {
                           key: "untab",
-                          value: function () {
+                          value: function() {
                               var t = this.getLastRange();
                               if (t.isCollapsed() && t.isOnCell()) this.table.tab(t, !0);
                               else if (0 === this.options.tabSize) return !1;
@@ -2732,25 +2732,25 @@
                       },
                       {
                           key: "wrapCommand",
-                          value: function (t) {
-                              return function () {
+                          value: function(t) {
+                              return function() {
                                   this.beforeCommand(), t.apply(this, arguments), this.afterCommand();
                               };
                           },
                       },
                       {
                           key: "insertImage",
-                          value: function (t, e) {
+                          value: function(t, e) {
                               var n,
                                   o = this;
                               return ((n = t),
                               i.a
-                                  .Deferred(function (t) {
+                                  .Deferred(function(t) {
                                       var e = i()("<img>");
-                                      e.one("load", function () {
+                                      e.one("load", function() {
                                           e.off("error abort"), t.resolve(e);
                                       })
-                                          .one("error abort", function () {
+                                          .one("error abort", function() {
                                               e.off("load").detach(), t.reject(e);
                                           })
                                           .css({ display: "none" })
@@ -2758,7 +2758,7 @@
                                           .attr("src", n);
                                   })
                                   .promise())
-                                  .then(function (t) {
+                                  .then(function(t) {
                                       o.beforeCommand(),
                                           "function" == typeof e ? e(t) : ("string" == typeof e && t.attr("data-filename", e), t.css("width", Math.min(o.$editable.width(), t.width()))),
                                           t.show(),
@@ -2766,29 +2766,29 @@
                                           o.setLastRange(wt.createFromNodeAfter(t[0]).select()),
                                           o.afterCommand();
                                   })
-                                  .fail(function (t) {
+                                  .fail(function(t) {
                                       o.context.triggerEvent("image.upload.error", t);
                                   });
                           },
                       },
                       {
                           key: "insertImagesAsDataURL",
-                          value: function (t) {
+                          value: function(t) {
                               var e = this;
-                              i.a.each(t, function (t, n) {
+                              i.a.each(t, function(t, n) {
                                   var o = n.name;
                                   e.options.maximumImageFileSize && e.options.maximumImageFileSize < n.size
                                       ? e.context.triggerEvent("image.upload.error", e.lang.image.maximumFileSizeError)
-                                      : (function (t) {
+                                      : (function(t) {
                                             return i.a
-                                                .Deferred(function (e) {
+                                                .Deferred(function(e) {
                                                     i.a
                                                         .extend(new FileReader(), {
-                                                            onload: function (t) {
+                                                            onload: function(t) {
                                                                 var n = t.target.result;
                                                                 e.resolve(n);
                                                             },
-                                                            onerror: function (t) {
+                                                            onerror: function(t) {
                                                                 e.reject(t);
                                                             },
                                                         })
@@ -2796,10 +2796,10 @@
                                                 })
                                                 .promise();
                                         })(n)
-                                            .then(function (t) {
+                                            .then(function(t) {
                                                 return e.insertImage(t, o);
                                             })
-                                            .fail(function () {
+                                            .fail(function() {
                                                 e.context.triggerEvent("image.upload.error");
                                             });
                               });
@@ -2807,20 +2807,20 @@
                       },
                       {
                           key: "insertImagesOrCallback",
-                          value: function (t) {
+                          value: function(t) {
                               this.options.callbacks.onImageUpload ? this.context.triggerEvent("image.upload", t) : this.insertImagesAsDataURL(t);
                           },
                       },
                       {
                           key: "getSelectedText",
-                          value: function () {
+                          value: function() {
                               var t = this.getLastRange();
                               return t.isOnAnchor() && (t = wt.createFromNode(pt.ancestor(t.sc, pt.isAnchor))), t.toString();
                           },
                       },
                       {
                           key: "onFormatBlock",
-                          value: function (t, e) {
+                          value: function(t, e) {
                               if ((document.execCommand("FormatBlock", !1, m.isMSIE ? "<" + t + ">" : t), e && e.length && (e[0].tagName.toUpperCase() !== t.toUpperCase() && (e = e.find(t)), e && e.length))) {
                                   var n = e[0].className || "";
                                   if (n) {
@@ -2832,13 +2832,13 @@
                       },
                       {
                           key: "formatPara",
-                          value: function () {
+                          value: function() {
                               this.formatBlock("P");
                           },
                       },
                       {
                           key: "fontStyling",
-                          value: function (t, e) {
+                          value: function(t, e) {
                               var n = this.getLastRange();
                               if ("" !== n) {
                                   var o = this.style.styleNodes(n);
@@ -2849,7 +2849,7 @@
                               } else {
                                   var a = i.a.now();
                                   this.$editor.find(".note-status-output").html('<div id="note-status-output-' + a + '" class="alert alert-info">' + this.lang.output.noSelection + "</div>"),
-                                      setTimeout(function () {
+                                      setTimeout(function() {
                                           i()("#note-status-output-" + a).remove();
                                       }, 5e3);
                               }
@@ -2857,7 +2857,7 @@
                       },
                       {
                           key: "unlink",
-                          value: function () {
+                          value: function() {
                               var t = this.getLastRange();
                               if (t.isOnAnchor()) {
                                   var e = pt.ancestor(t.sc, pt.isAnchor);
@@ -2867,7 +2867,7 @@
                       },
                       {
                           key: "getLinkInfo",
-                          value: function () {
+                          value: function() {
                               var t = this.getLastRange().expand(pt.isAnchor),
                                   e = i()(C.head(t.nodes(pt.isAnchor))),
                                   n = { range: t, text: t.toString(), url: e.length ? e.attr("href") : "" };
@@ -2876,42 +2876,42 @@
                       },
                       {
                           key: "addRow",
-                          value: function (t) {
+                          value: function(t) {
                               var e = this.getLastRange(this.$editable);
                               e.isCollapsed() && e.isOnCell() && (this.beforeCommand(), this.table.addRow(e, t), this.afterCommand());
                           },
                       },
                       {
                           key: "addCol",
-                          value: function (t) {
+                          value: function(t) {
                               var e = this.getLastRange(this.$editable);
                               e.isCollapsed() && e.isOnCell() && (this.beforeCommand(), this.table.addCol(e, t), this.afterCommand());
                           },
                       },
                       {
                           key: "deleteRow",
-                          value: function () {
+                          value: function() {
                               var t = this.getLastRange(this.$editable);
                               t.isCollapsed() && t.isOnCell() && (this.beforeCommand(), this.table.deleteRow(t), this.afterCommand());
                           },
                       },
                       {
                           key: "deleteCol",
-                          value: function () {
+                          value: function() {
                               var t = this.getLastRange(this.$editable);
                               t.isCollapsed() && t.isOnCell() && (this.beforeCommand(), this.table.deleteCol(t), this.afterCommand());
                           },
                       },
                       {
                           key: "deleteTable",
-                          value: function () {
+                          value: function() {
                               var t = this.getLastRange(this.$editable);
                               t.isCollapsed() && t.isOnCell() && (this.beforeCommand(), this.table.deleteTable(t), this.afterCommand());
                           },
                       },
                       {
                           key: "resizeTo",
-                          value: function (t, e, n) {
+                          value: function(t, e, n) {
                               var o;
                               if (n) {
                                   var i = t.y / t.x,
@@ -2923,31 +2923,31 @@
                       },
                       {
                           key: "hasFocus",
-                          value: function () {
+                          value: function() {
                               return this.$editable.is(":focus");
                           },
                       },
                       {
                           key: "focus",
-                          value: function () {
+                          value: function() {
                               this.hasFocus() || this.$editable.focus();
                           },
                       },
                       {
                           key: "isEmpty",
-                          value: function () {
+                          value: function() {
                               return pt.isEmpty(this.$editable[0]) || pt.emptyPara === this.$editable.html();
                           },
                       },
                       {
                           key: "empty",
-                          value: function () {
+                          value: function() {
                               this.context.invoke("code", pt.emptyPara);
                           },
                       },
                       {
                           key: "normalizeContent",
-                          value: function () {
+                          value: function() {
                               this.$editable[0].normalize();
                           },
                       },
@@ -2962,9 +2962,9 @@
                   (o.enumerable = o.enumerable || !1), (o.configurable = !0), "value" in o && (o.writable = !0), Object.defineProperty(t, o.key, o);
               }
           }
-          var Bt = (function () {
+          var Bt = (function() {
               function t(e) {
-                  !(function (t, e) {
+                  !(function(t, e) {
                       if (!(t instanceof e)) throw new TypeError("Cannot call a class as a function");
                   })(this, t),
                       (this.context = e),
@@ -2976,13 +2976,13 @@
                   (n = [
                       {
                           key: "initialize",
-                          value: function () {
+                          value: function() {
                               this.$editable.on("paste", this.pasteByEvent.bind(this));
                           },
                       },
                       {
                           key: "pasteByEvent",
-                          value: function (t) {
+                          value: function(t) {
                               var e = this,
                                   n = t.originalEvent.clipboardData;
                               if (n && n.items && n.items.length) {
@@ -2994,7 +2994,7 @@
                                   var i = window.clipboardData.getData("text");
                                   this.context.invoke("editor.isLimited", i.length) && t.preventDefault();
                               }
-                              setTimeout(function () {
+                              setTimeout(function() {
                                   e.context.invoke("editor.afterCommand");
                               }, 10);
                           },
@@ -3010,9 +3010,9 @@
                   (o.enumerable = o.enumerable || !1), (o.configurable = !0), "value" in o && (o.writable = !0), Object.defineProperty(t, o.key, o);
               }
           }
-          var Ot = (function () {
+          var Ot = (function() {
               function t(e) {
-                  !(function (t, e) {
+                  !(function(t, e) {
                       if (!(t instanceof e)) throw new TypeError("Cannot call a class as a function");
                   })(this, t),
                       (this.context = e),
@@ -3030,9 +3030,9 @@
                   (n = [
                       {
                           key: "initialize",
-                          value: function () {
+                          value: function() {
                               this.options.disableDragAndDrop
-                                  ? ((this.documentEventHandlers.onDrop = function (t) {
+                                  ? ((this.documentEventHandlers.onDrop = function(t) {
                                         t.preventDefault();
                                     }),
                                     (this.$eventListener = this.$dropzone),
@@ -3042,41 +3042,41 @@
                       },
                       {
                           key: "attachDragAndDropEvent",
-                          value: function () {
+                          value: function() {
                               var t = this,
                                   e = i()(),
                                   n = this.$dropzone.find(".note-dropzone-message");
-                              (this.documentEventHandlers.onDragenter = function (o) {
+                              (this.documentEventHandlers.onDragenter = function(o) {
                                   var i = t.context.invoke("codeview.isActivated"),
                                       r = t.$editor.width() > 0 && t.$editor.height() > 0;
                                   i || e.length || !r || (t.$editor.addClass("dragover"), t.$dropzone.width(t.$editor.width()), t.$dropzone.height(t.$editor.height()), n.text(t.lang.image.dragImageHere)), (e = e.add(o.target));
                               }),
-                                  (this.documentEventHandlers.onDragleave = function (n) {
+                                  (this.documentEventHandlers.onDragleave = function(n) {
                                       ((e = e.not(n.target)).length && "BODY" !== n.target.nodeName) || ((e = i()()), t.$editor.removeClass("dragover"));
                                   }),
-                                  (this.documentEventHandlers.onDrop = function () {
+                                  (this.documentEventHandlers.onDrop = function() {
                                       (e = i()()), t.$editor.removeClass("dragover");
                                   }),
                                   this.$eventListener.on("dragenter", this.documentEventHandlers.onDragenter).on("dragleave", this.documentEventHandlers.onDragleave).on("drop", this.documentEventHandlers.onDrop),
                                   this.$dropzone
-                                      .on("dragenter", function () {
+                                      .on("dragenter", function() {
                                           t.$dropzone.addClass("hover"), n.text(t.lang.image.dropImage);
                                       })
-                                      .on("dragleave", function () {
+                                      .on("dragleave", function() {
                                           t.$dropzone.removeClass("hover"), n.text(t.lang.image.dragImageHere);
                                       }),
                                   this.$dropzone
-                                      .on("drop", function (e) {
+                                      .on("drop", function(e) {
                                           var n = e.originalEvent.dataTransfer;
                                           e.preventDefault(),
                                               n && n.files && n.files.length
                                                   ? (t.$editable.focus(), t.context.invoke("editor.insertImagesOrCallback", n.files))
-                                                  : i.a.each(n.types, function (e, o) {
+                                                  : i.a.each(n.types, function(e, o) {
                                                         if (!(o.toLowerCase().indexOf("_moz_") > -1)) {
                                                             var r = n.getData(o);
                                                             o.toLowerCase().indexOf("text") > -1
                                                                 ? t.context.invoke("editor.pasteHTML", r)
-                                                                : i()(r).each(function (e, n) {
+                                                                : i()(r).each(function(e, n) {
                                                                       t.context.invoke("editor.insertNode", n);
                                                                   });
                                                         }
@@ -3087,9 +3087,9 @@
                       },
                       {
                           key: "destroy",
-                          value: function () {
+                          value: function() {
                               var t = this;
-                              Object.keys(this.documentEventHandlers).forEach(function (e) {
+                              Object.keys(this.documentEventHandlers).forEach(function(e) {
                                   t.$eventListener.off(e.substr(2).toLowerCase(), t.documentEventHandlers[e]);
                               }),
                                   (this.documentEventHandlers = {});
@@ -3104,7 +3104,7 @@
               if ("undefined" == typeof Symbol || null == t[Symbol.iterator]) {
                   if (
                       Array.isArray(t) ||
-                      (t = (function (t, e) {
+                      (t = (function(t, e) {
                           if (!t) return;
                           if ("string" == typeof t) return Ut(t, e);
                           var n = Object.prototype.toString.call(t).slice(8, -1);
@@ -3114,13 +3114,13 @@
                       })(t))
                   ) {
                       var e = 0,
-                          n = function () {};
+                          n = function() {};
                       return {
                           s: n,
-                          n: function () {
+                          n: function() {
                               return e >= t.length ? { done: !0 } : { done: !1, value: t[e++] };
                           },
-                          e: function (t) {
+                          e: function(t) {
                               throw t;
                           },
                           f: n,
@@ -3133,17 +3133,17 @@
                   r = !0,
                   a = !1;
               return {
-                  s: function () {
+                  s: function() {
                       o = t[Symbol.iterator]();
                   },
-                  n: function () {
+                  n: function() {
                       var t = o.next();
                       return (r = t.done), t;
                   },
-                  e: function (t) {
+                  e: function(t) {
                       (a = !0), (i = t);
                   },
-                  f: function () {
+                  f: function() {
                       try {
                           r || null == o.return || o.return();
                       } finally {
@@ -3163,9 +3163,9 @@
                   (o.enumerable = o.enumerable || !1), (o.configurable = !0), "value" in o && (o.writable = !0), Object.defineProperty(t, o.key, o);
               }
           }
-          var Kt = (function () {
+          var Kt = (function() {
               function t(e) {
-                  !(function (t, e) {
+                  !(function(t, e) {
                       if (!(t instanceof e)) throw new TypeError("Cannot call a class as a function");
                   })(this, t),
                       (this.context = e),
@@ -3182,7 +3182,7 @@
                   (n = [
                       {
                           key: "sync",
-                          value: function (t) {
+                          value: function(t) {
                               var e = this.isActivated(),
                                   n = this.CodeMirrorConstructor;
                               e && (t ? (n ? this.$codable.data("cmEditor").getDoc().setValue(t) : this.$codable.val(t)) : n && this.$codable.data("cmEditor").save());
@@ -3190,31 +3190,31 @@
                       },
                       {
                           key: "initialize",
-                          value: function () {
+                          value: function() {
                               var t = this;
-                              this.$codable.on("keyup", function (e) {
+                              this.$codable.on("keyup", function(e) {
                                   e.keyCode === xt.code.ESCAPE && t.deactivate();
                               });
                           },
                       },
                       {
                           key: "isActivated",
-                          value: function () {
+                          value: function() {
                               return this.$editor.hasClass("codeview");
                           },
                       },
                       {
                           key: "toggle",
-                          value: function () {
+                          value: function() {
                               this.isActivated() ? this.deactivate() : this.activate(), this.context.triggerEvent("codeview.toggled");
                           },
                       },
                       {
                           key: "purify",
-                          value: function (t) {
+                          value: function(t) {
                               if (this.options.codeviewFilter && ((t = t.replace(this.options.codeviewFilterRegex, "")), this.options.codeviewIframeFilter)) {
                                   var e = this.options.codeviewIframeWhitelistSrc.concat(this.options.codeviewIframeWhitelistSrcBase);
-                                  t = t.replace(/(<iframe.*?>.*?(?:<\/iframe>)?)/gi, function (t) {
+                                  t = t.replace(/(<iframe.*?>.*?(?:<\/iframe>)?)/gi, function(t) {
                                       if (/<.+src(?==?('|"|\s)?)[\s\S]+src(?=('|"|\s)?)[^>]*?>/i.test(t)) return "";
                                       var n,
                                           o = jt(e);
@@ -3236,7 +3236,7 @@
                       },
                       {
                           key: "activate",
-                          value: function () {
+                          value: function() {
                               var t = this,
                                   e = this.CodeMirrorConstructor;
                               if (
@@ -3252,30 +3252,30 @@
                                   if (this.options.codemirror.tern) {
                                       var o = new e.TernServer(this.options.codemirror.tern);
                                       (n.ternServer = o),
-                                          n.on("cursorActivity", function (t) {
+                                          n.on("cursorActivity", function(t) {
                                               o.updateArgHints(t);
                                           });
                                   }
-                                  n.on("blur", function (e) {
+                                  n.on("blur", function(e) {
                                       t.context.triggerEvent("blur.codeview", n.getValue(), e);
                                   }),
-                                      n.on("change", function () {
+                                      n.on("change", function() {
                                           t.context.triggerEvent("change.codeview", n.getValue(), n);
                                       }),
                                       n.setSize(null, this.$editable.outerHeight()),
                                       this.$codable.data("cmEditor", n);
                               } else
-                                  this.$codable.on("blur", function (e) {
+                                  this.$codable.on("blur", function(e) {
                                       t.context.triggerEvent("blur.codeview", t.$codable.val(), e);
                                   }),
-                                      this.$codable.on("input", function () {
+                                      this.$codable.on("input", function() {
                                           t.context.triggerEvent("change.codeview", t.$codable.val(), t.$codable);
                                       });
                           },
                       },
                       {
                           key: "deactivate",
-                          value: function () {
+                          value: function() {
                               if (this.CodeMirrorConstructor) {
                                   var t = this.$codable.data("cmEditor");
                                   this.$codable.val(t.getValue()), t.toTextArea();
@@ -3293,7 +3293,7 @@
                       },
                       {
                           key: "destroy",
-                          value: function () {
+                          value: function() {
                               this.isActivated() && this.deactivate();
                           },
                       },
@@ -3308,9 +3308,9 @@
                   (o.enumerable = o.enumerable || !1), (o.configurable = !0), "value" in o && (o.writable = !0), Object.defineProperty(t, o.key, o);
               }
           }
-          var qt = (function () {
+          var qt = (function() {
               function t(e) {
-                  !(function (t, e) {
+                  !(function(t, e) {
                       if (!(t instanceof e)) throw new TypeError("Cannot call a class as a function");
                   })(this, t),
                       (this.$document = i()(document)),
@@ -3324,18 +3324,18 @@
                   (n = [
                       {
                           key: "initialize",
-                          value: function () {
+                          value: function() {
                               var t = this;
                               this.options.airMode || this.options.disableResizeEditor
                                   ? this.destroy()
-                                  : this.$statusbar.on("mousedown", function (e) {
+                                  : this.$statusbar.on("mousedown", function(e) {
                                         e.preventDefault(), e.stopPropagation();
                                         var n = t.$editable.offset().top - t.$document.scrollTop(),
-                                            o = function (e) {
+                                            o = function(e) {
                                                 var o = e.clientY - (n + 24);
                                                 (o = t.options.minheight > 0 ? Math.max(o, t.options.minheight) : o), (o = t.options.maxHeight > 0 ? Math.min(o, t.options.maxHeight) : o), t.$editable.height(o);
                                             };
-                                        t.$document.on("mousemove", o).one("mouseup", function () {
+                                        t.$document.on("mousemove", o).one("mouseup", function() {
                                             t.$document.off("mousemove", o);
                                         });
                                     });
@@ -3343,7 +3343,7 @@
                       },
                       {
                           key: "destroy",
-                          value: function () {
+                          value: function() {
                               this.$statusbar.off(), this.$statusbar.addClass("locked");
                           },
                       },
@@ -3358,10 +3358,10 @@
                   (o.enumerable = o.enumerable || !1), (o.configurable = !0), "value" in o && (o.writable = !0), Object.defineProperty(t, o.key, o);
               }
           }
-          var Gt = (function () {
+          var Gt = (function() {
               function t(e) {
                   var n = this;
-                  !(function (t, e) {
+                  !(function(t, e) {
                       if (!(t instanceof e)) throw new TypeError("Cannot call a class as a function");
                   })(this, t),
                       (this.context = e),
@@ -3371,7 +3371,7 @@
                       (this.$codable = e.layoutInfo.codable),
                       (this.$window = i()(window)),
                       (this.$scrollbar = i()("html, body")),
-                      (this.onResize = function () {
+                      (this.onResize = function() {
                           n.resizeTo({ h: n.$window.height() - n.$toolbar.outerHeight() });
                       });
               }
@@ -3381,13 +3381,13 @@
                   (n = [
                       {
                           key: "resizeTo",
-                          value: function (t) {
+                          value: function(t) {
                               this.$editable.css("height", t.h), this.$codable.css("height", t.h), this.$codable.data("cmeditor") && this.$codable.data("cmeditor").setsize(null, t.h);
                           },
                       },
                       {
                           key: "toggle",
-                          value: function () {
+                          value: function() {
                               this.$editor.toggleClass("fullscreen"),
                                   this.isFullscreen()
                                       ? (this.$editable.data("orgHeight", this.$editable.css("height")),
@@ -3404,7 +3404,7 @@
                       },
                       {
                           key: "isFullscreen",
-                          value: function () {
+                          value: function() {
                               return this.$editor.hasClass("fullscreen");
                           },
                       },
@@ -3419,10 +3419,10 @@
                   (o.enumerable = o.enumerable || !1), (o.configurable = !0), "value" in o && (o.writable = !0), Object.defineProperty(t, o.key, o);
               }
           }
-          var Zt = (function () {
+          var Zt = (function() {
               function t(e) {
                   var n = this;
-                  !(function (t, e) {
+                  !(function(t, e) {
                       if (!(t instanceof e)) throw new TypeError("Cannot call a class as a function");
                   })(this, t),
                       (this.context = e),
@@ -3431,16 +3431,16 @@
                       (this.options = e.options),
                       (this.lang = this.options.langInfo),
                       (this.events = {
-                          "summernote.mousedown": function (t, e) {
+                          "summernote.mousedown": function(t, e) {
                               n.update(e.target, e) && e.preventDefault();
                           },
-                          "summernote.keyup summernote.scroll summernote.change summernote.dialog.shown": function () {
+                          "summernote.keyup summernote.scroll summernote.change summernote.dialog.shown": function() {
                               n.update();
                           },
-                          "summernote.disable summernote.blur": function () {
+                          "summernote.disable summernote.blur": function() {
                               n.hide();
                           },
-                          "summernote.codeview.toggled": function () {
+                          "summernote.codeview.toggled": function() {
                               n.update();
                           },
                       });
@@ -3451,7 +3451,7 @@
                   (n = [
                       {
                           key: "initialize",
-                          value: function () {
+                          value: function() {
                               var t = this;
                               (this.$handle = i()(
                                   [
@@ -3469,35 +3469,35 @@
                                       "</div>",
                                   ].join("")
                               ).prependTo(this.$editingArea)),
-                                  this.$handle.on("mousedown", function (e) {
+                                  this.$handle.on("mousedown", function(e) {
                                       if (pt.isControlSizing(e.target)) {
                                           e.preventDefault(), e.stopPropagation();
                                           var n = t.$handle.find(".note-control-selection").data("target"),
                                               o = n.offset(),
                                               i = t.$document.scrollTop(),
-                                              r = function (e) {
+                                              r = function(e) {
                                                   t.context.invoke("editor.resizeTo", { x: e.clientX - o.left, y: e.clientY - (o.top - i) }, n, !e.shiftKey), t.update(n[0], e);
                                               };
-                                          t.$document.on("mousemove", r).one("mouseup", function (e) {
+                                          t.$document.on("mousemove", r).one("mouseup", function(e) {
                                               e.preventDefault(), t.$document.off("mousemove", r), t.context.invoke("editor.afterCommand");
                                           }),
                                               n.data("ratio") || n.data("ratio", n.height() / n.width());
                                       }
                                   }),
-                                  this.$handle.on("wheel", function (e) {
+                                  this.$handle.on("wheel", function(e) {
                                       e.preventDefault(), t.update();
                                   });
                           },
                       },
                       {
                           key: "destroy",
-                          value: function () {
+                          value: function() {
                               this.$handle.remove();
                           },
                       },
                       {
                           key: "update",
-                          value: function (t, e) {
+                          value: function(t, e) {
                               if (this.context.isDisabled()) return !1;
                               var n = pt.isImg(t),
                                   o = this.$handle.find(".note-control-selection");
@@ -3517,7 +3517,7 @@
                       },
                       {
                           key: "hide",
-                          value: function () {
+                          value: function() {
                               this.context.invoke("editor.clearTarget"), this.$handle.children().hide();
                           },
                       },
@@ -3533,19 +3533,19 @@
               }
           }
           var Qt = /^([A-Za-z][A-Za-z0-9+-.]*\:[\/]{2}|tel:|mailto:[A-Z0-9._%+-]+@)?(www\.)?(.+)$/i,
-              Jt = (function () {
+              Jt = (function() {
                   function t(e) {
                       var n = this;
-                      !(function (t, e) {
+                      !(function(t, e) {
                           if (!(t instanceof e)) throw new TypeError("Cannot call a class as a function");
                       })(this, t),
                           (this.context = e),
                           (this.options = e.options),
                           (this.events = {
-                              "summernote.keyup": function (t, e) {
+                              "summernote.keyup": function(t, e) {
                                   e.isDefaultPrevented() || n.handleKeyup(e);
                               },
-                              "summernote.keydown": function (t, e) {
+                              "summernote.keydown": function(t, e) {
                                   n.handleKeydown(e);
                               },
                           });
@@ -3556,19 +3556,19 @@
                       (n = [
                           {
                               key: "initialize",
-                              value: function () {
+                              value: function() {
                                   this.lastWordRange = null;
                               },
                           },
                           {
                               key: "destroy",
-                              value: function () {
+                              value: function() {
                                   this.lastWordRange = null;
                               },
                           },
                           {
                               key: "replace",
-                              value: function () {
+                              value: function() {
                                   if (this.lastWordRange) {
                                       var t = this.lastWordRange.toString(),
                                           e = t.match(Qt);
@@ -3583,7 +3583,7 @@
                           },
                           {
                               key: "handleKeydown",
-                              value: function (t) {
+                              value: function(t) {
                                   if (C.contains([xt.code.ENTER, xt.code.SPACE], t.keyCode)) {
                                       var e = this.context.invoke("editor.createRange").getWordRange();
                                       this.lastWordRange = e;
@@ -3592,7 +3592,7 @@
                           },
                           {
                               key: "handleKeyup",
-                              value: function (t) {
+                              value: function(t) {
                                   C.contains([xt.code.ENTER, xt.code.SPACE], t.keyCode) && this.replace();
                               },
                           },
@@ -3607,15 +3607,15 @@
                   (o.enumerable = o.enumerable || !1), (o.configurable = !0), "value" in o && (o.writable = !0), Object.defineProperty(t, o.key, o);
               }
           }
-          var ee = (function () {
+          var ee = (function() {
               function t(e) {
                   var n = this;
-                  !(function (t, e) {
+                  !(function(t, e) {
                       if (!(t instanceof e)) throw new TypeError("Cannot call a class as a function");
                   })(this, t),
                       (this.$note = e.layoutInfo.note),
                       (this.events = {
-                          "summernote.change": function () {
+                          "summernote.change": function() {
                               n.$note.val(e.invoke("code"));
                           },
                       });
@@ -3626,7 +3626,7 @@
                   (n = [
                       {
                           key: "shouldInitialize",
-                          value: function () {
+                          value: function() {
                               return pt.isTextarea(this.$note[0]);
                           },
                       },
@@ -3641,10 +3641,10 @@
                   (o.enumerable = o.enumerable || !1), (o.configurable = !0), "value" in o && (o.writable = !0), Object.defineProperty(t, o.key, o);
               }
           }
-          var oe = (function () {
+          var oe = (function() {
               function t(e) {
                   var n = this;
-                  !(function (t, e) {
+                  !(function(t, e) {
                       if (!(t instanceof e)) throw new TypeError("Cannot call a class as a function");
                   })(this, t),
                       (this.context = e),
@@ -3652,10 +3652,10 @@
                       (this.keys = [xt.code.ENTER, xt.code.SPACE, xt.code.PERIOD, xt.code.COMMA, xt.code.SEMICOLON, xt.code.SLASH]),
                       (this.previousKeydownCode = null),
                       (this.events = {
-                          "summernote.keyup": function (t, e) {
+                          "summernote.keyup": function(t, e) {
                               e.isDefaultPrevented() || n.handleKeyup(e);
                           },
-                          "summernote.keydown": function (t, e) {
+                          "summernote.keydown": function(t, e) {
                               n.handleKeydown(e);
                           },
                       });
@@ -3666,29 +3666,29 @@
                   (n = [
                       {
                           key: "shouldInitialize",
-                          value: function () {
+                          value: function() {
                               return !!this.options.match;
                           },
                       },
                       {
                           key: "initialize",
-                          value: function () {
+                          value: function() {
                               this.lastWord = null;
                           },
                       },
                       {
                           key: "destroy",
-                          value: function () {
+                          value: function() {
                               this.lastWord = null;
                           },
                       },
                       {
                           key: "replace",
-                          value: function () {
+                          value: function() {
                               if (this.lastWord) {
                                   var t = this,
                                       e = this.lastWord.toString();
-                                  this.options.match(e, function (e) {
+                                  this.options.match(e, function(e) {
                                       if (e) {
                                           var n = "";
                                           if (("string" == typeof e ? (n = pt.createText(e)) : e instanceof jQuery ? (n = e[0]) : e instanceof Node && (n = e), !n)) return;
@@ -3700,7 +3700,7 @@
                       },
                       {
                           key: "handleKeydown",
-                          value: function (t) {
+                          value: function(t) {
                               if (this.previousKeydownCode && C.contains(this.keys, this.previousKeydownCode)) this.previousKeydownCode = t.keyCode;
                               else {
                                   if (C.contains(this.keys, t.keyCode)) {
@@ -3713,7 +3713,7 @@
                       },
                       {
                           key: "handleKeyup",
-                          value: function (t) {
+                          value: function(t) {
                               C.contains(this.keys, t.keyCode) && this.replace();
                           },
                       },
@@ -3728,10 +3728,10 @@
                   (o.enumerable = o.enumerable || !1), (o.configurable = !0), "value" in o && (o.writable = !0), Object.defineProperty(t, o.key, o);
               }
           }
-          var re = (function () {
+          var re = (function() {
               function t(e) {
                   var n = this;
-                  !(function (t, e) {
+                  !(function(t, e) {
                       if (!(t instanceof e)) throw new TypeError("Cannot call a class as a function");
                   })(this, t),
                       (this.context = e),
@@ -3739,10 +3739,10 @@
                       (this.options = e.options),
                       !0 === this.options.inheritPlaceholder && (this.options.placeholder = this.context.$note.attr("placeholder") || this.options.placeholder),
                       (this.events = {
-                          "summernote.init summernote.change": function () {
+                          "summernote.init summernote.change": function() {
                               n.update();
                           },
-                          "summernote.codeview.toggled": function () {
+                          "summernote.codeview.toggled": function() {
                               n.update();
                           },
                       });
@@ -3753,17 +3753,17 @@
                   (n = [
                       {
                           key: "shouldInitialize",
-                          value: function () {
+                          value: function() {
                               return !!this.options.placeholder;
                           },
                       },
                       {
                           key: "initialize",
-                          value: function () {
+                          value: function() {
                               var t = this;
                               (this.$placeholder = i()('<div class="note-placeholder">')),
                                   this.$placeholder
-                                      .on("click", function () {
+                                      .on("click", function() {
                                           t.context.invoke("focus");
                                       })
                                       .html(this.options.placeholder)
@@ -3773,13 +3773,13 @@
                       },
                       {
                           key: "destroy",
-                          value: function () {
+                          value: function() {
                               this.$placeholder.remove();
                           },
                       },
                       {
                           key: "update",
-                          value: function () {
+                          value: function() {
                               var t = !this.context.invoke("codeview.isActivated") && this.context.invoke("editor.isEmpty");
                               this.$placeholder.toggle(t);
                           },
@@ -3795,9 +3795,9 @@
                   (o.enumerable = o.enumerable || !1), (o.configurable = !0), "value" in o && (o.writable = !0), Object.defineProperty(t, o.key, o);
               }
           }
-          var se = (function () {
+          var se = (function() {
               function t(e) {
-                  !(function (t, e) {
+                  !(function(t, e) {
                       if (!(t instanceof e)) throw new TypeError("Cannot call a class as a function");
                   })(this, t),
                       (this.ui = i.a.summernote.ui),
@@ -3813,7 +3813,7 @@
                   (n = [
                       {
                           key: "representShortcut",
-                          value: function (t) {
+                          value: function(t) {
                               var e = this.invertedKeyMap[t];
                               return this.options.shortcuts && e
                                   ? (m.isMac && (e = e.replace("CMD", "⌘").replace("SHIFT", "⇧")), " (" + (e = e.replace("BACKSLASH", "\\").replace("SLASH", "/").replace("LEFTBRACKET", "[").replace("RIGHTBRACKET", "]")) + ")")
@@ -3822,37 +3822,37 @@
                       },
                       {
                           key: "button",
-                          value: function (t) {
+                          value: function(t) {
                               return !this.options.tooltip && t.tooltip && delete t.tooltip, (t.container = this.options.container), this.ui.button(t);
                           },
                       },
                       {
                           key: "initialize",
-                          value: function () {
+                          value: function() {
                               this.addToolbarButtons(), this.addImagePopoverButtons(), this.addLinkPopoverButtons(), this.addTablePopoverButtons(), (this.fontInstalledMap = {});
                           },
                       },
                       {
                           key: "destroy",
-                          value: function () {
+                          value: function() {
                               delete this.fontInstalledMap;
                           },
                       },
                       {
                           key: "isFontInstalled",
-                          value: function (t) {
+                          value: function(t) {
                               return Object.prototype.hasOwnProperty.call(this.fontInstalledMap, t) || (this.fontInstalledMap[t] = m.isFontInstalled(t) || C.contains(this.options.fontNamesIgnoreCheck, t)), this.fontInstalledMap[t];
                           },
                       },
                       {
                           key: "isFontDeservedToAdd",
-                          value: function (t) {
+                          value: function(t) {
                               return "" !== (t = t.toLowerCase()) && this.isFontInstalled(t) && -1 === m.genericFontFamilies.indexOf(t);
                           },
                       },
                       {
                           key: "colorPalette",
-                          value: function (t, e, n, o) {
+                          value: function(t, e, n, o) {
                               var r = this;
                               return this.ui
                                   .buttonGroup({
@@ -3862,7 +3862,7 @@
                                               className: "note-current-color-button",
                                               contents: this.ui.icon(this.options.icons.font + " note-recent-color"),
                                               tooltip: e,
-                                              click: function (t) {
+                                              click: function(t) {
                                                   var e = i()(t.currentTarget);
                                                   n && o
                                                       ? r.context.invoke("editor.color", { backColor: e.attr("data-backColor"), foreColor: e.attr("data-foreColor") })
@@ -3870,7 +3870,7 @@
                                                       ? r.context.invoke("editor.color", { backColor: e.attr("data-backColor") })
                                                       : o && r.context.invoke("editor.color", { foreColor: e.attr("data-foreColor") });
                                               },
-                                              callback: function (t) {
+                                              callback: function(t) {
                                                   var e = t.find(".note-recent-color");
                                                   n && (e.css("background-color", r.options.colorButton.backColor), t.attr("data-backColor", r.options.colorButton.backColor)),
                                                       o ? (e.css("color", r.options.colorButton.foreColor), t.attr("data-foreColor", r.options.colorButton.foreColor)) : e.css("color", "transparent");
@@ -3919,18 +3919,18 @@
                                                             "</div>",
                                                         ].join("")
                                                       : ""),
-                                              callback: function (t) {
-                                                  t.find(".note-holder").each(function (t, e) {
+                                              callback: function(t) {
+                                                  t.find(".note-holder").each(function(t, e) {
                                                       var n = i()(e);
                                                       n.append(r.ui.palette({ colors: r.options.colors, colorsName: r.options.colorsName, eventName: n.data("event"), container: r.options.container, tooltip: r.options.tooltip }).render());
                                                   });
                                                   var e = [["#FFFFFF", "#FFFFFF", "#FFFFFF", "#FFFFFF", "#FFFFFF", "#FFFFFF", "#FFFFFF", "#FFFFFF"]];
-                                                  t.find(".note-holder-custom").each(function (t, n) {
+                                                  t.find(".note-holder-custom").each(function(t, n) {
                                                       var o = i()(n);
                                                       o.append(r.ui.palette({ colors: e, colorsName: e, eventName: o.data("event"), container: r.options.container, tooltip: r.options.tooltip }).render());
                                                   }),
-                                                      t.find("input[type=color]").each(function (e, n) {
-                                                          i()(n).change(function () {
+                                                      t.find("input[type=color]").each(function(e, n) {
+                                                          i()(n).change(function() {
                                                               var e = t
                                                                       .find("#" + i()(this).data("event"))
                                                                       .find(".note-color-btn")
@@ -3940,7 +3940,7 @@
                                                           });
                                                       });
                                               },
-                                              click: function (e) {
+                                              click: function(e) {
                                                   e.stopPropagation();
                                                   var n = i()("." + t).find(".note-dropdown-menu"),
                                                       o = i()(e.target),
@@ -3970,9 +3970,9 @@
                       },
                       {
                           key: "addToolbarButtons",
-                          value: function () {
+                          value: function() {
                               var t = this;
-                              this.context.memo("button.style", function () {
+                              this.context.memo("button.style", function() {
                                   return t.ui
                                       .buttonGroup([
                                           t.button({ className: "dropdown-toggle", contents: t.ui.dropdownButtonContents(t.ui.icon(t.options.icons.magic), t.options), tooltip: t.lang.style.style, data: { toggle: "dropdown" } }),
@@ -3980,7 +3980,7 @@
                                               className: "dropdown-style",
                                               items: t.options.styleTags,
                                               title: t.lang.style.style,
-                                              template: function (e) {
+                                              template: function(e) {
                                                   "string" == typeof e && (e = { tag: e, title: Object.prototype.hasOwnProperty.call(t.lang.style, e) ? t.lang.style[e] : e });
                                                   var n = e.tag,
                                                       o = e.title;
@@ -3992,9 +3992,9 @@
                                       .render();
                               });
                               for (
-                                  var e = function (e, n) {
+                                  var e = function(e, n) {
                                           var o = t.options.styleTags[e];
-                                          t.context.memo("button.style." + o, function () {
+                                          t.context.memo("button.style." + o, function() {
                                               return t
                                                   .button({
                                                       className: "note-btn-style-" + o,
@@ -4011,7 +4011,7 @@
                                   n++
                               )
                                   e(n);
-                              this.context.memo("button.bold", function () {
+                              this.context.memo("button.bold", function() {
                                   return t
                                       .button({
                                           className: "note-btn-bold",
@@ -4021,7 +4021,7 @@
                                       })
                                       .render();
                               }),
-                                  this.context.memo("button.italic", function () {
+                                  this.context.memo("button.italic", function() {
                                       return t
                                           .button({
                                               className: "note-btn-italic",
@@ -4031,7 +4031,7 @@
                                           })
                                           .render();
                                   }),
-                                  this.context.memo("button.underline", function () {
+                                  this.context.memo("button.underline", function() {
                                       return t
                                           .button({
                                               className: "note-btn-underline",
@@ -4041,12 +4041,12 @@
                                           })
                                           .render();
                                   }),
-                                  this.context.memo("button.clear", function () {
+                                  this.context.memo("button.clear", function() {
                                       return t
                                           .button({ contents: t.ui.icon(t.options.icons.eraser), tooltip: t.lang.font.clear + t.representShortcut("removeFormat"), click: t.context.createInvokeHandler("editor.removeFormat") })
                                           .render();
                                   }),
-                                  this.context.memo("button.strikethrough", function () {
+                                  this.context.memo("button.strikethrough", function() {
                                       return t
                                           .button({
                                               className: "note-btn-strikethrough",
@@ -4056,7 +4056,7 @@
                                           })
                                           .render();
                                   }),
-                                  this.context.memo("button.superscript", function () {
+                                  this.context.memo("button.superscript", function() {
                                       return t
                                           .button({
                                               className: "note-btn-superscript",
@@ -4066,16 +4066,16 @@
                                           })
                                           .render();
                                   }),
-                                  this.context.memo("button.subscript", function () {
+                                  this.context.memo("button.subscript", function() {
                                       return t
                                           .button({ className: "note-btn-subscript", contents: t.ui.icon(t.options.icons.subscript), tooltip: t.lang.font.subscript, click: t.context.createInvokeHandlerAndUpdateState("editor.subscript") })
                                           .render();
                                   }),
-                                  this.context.memo("button.fontname", function () {
+                                  this.context.memo("button.fontname", function() {
                                       var e = t.context.invoke("editor.currentStyle");
                                       return (
                                           t.options.addDefaultFonts &&
-                                              i.a.each(e["font-family"].split(","), function (e, n) {
+                                              i.a.each(e["font-family"].split(","), function(e, n) {
                                                   (n = n.trim().replace(/['"]+/g, "")), t.isFontDeservedToAdd(n) && -1 === t.options.fontNames.indexOf(n) && t.options.fontNames.push(n);
                                               }),
                                           t.ui
@@ -4091,7 +4091,7 @@
                                                       checkClassName: t.options.icons.menuCheck,
                                                       items: t.options.fontNames.filter(t.isFontInstalled.bind(t)),
                                                       title: t.lang.font.name,
-                                                      template: function (t) {
+                                                      template: function(t) {
                                                           return '<span style="font-family: ' + m.validFontName(t) + '">' + t + "</span>";
                                                       },
                                                       click: t.context.createInvokeHandlerAndUpdateState("editor.fontName"),
@@ -4100,7 +4100,7 @@
                                               .render()
                                       );
                                   }),
-                                  this.context.memo("button.fontsize", function () {
+                                  this.context.memo("button.fontsize", function() {
                                       return t.ui
                                           .buttonGroup([
                                               t.button({
@@ -4119,7 +4119,7 @@
                                           ])
                                           .render();
                                   }),
-                                  this.context.memo("button.fontsizeunit", function () {
+                                  this.context.memo("button.fontsizeunit", function() {
                                       return t.ui
                                           .buttonGroup([
                                               t.button({
@@ -4138,16 +4138,16 @@
                                           ])
                                           .render();
                                   }),
-                                  this.context.memo("button.color", function () {
+                                  this.context.memo("button.color", function() {
                                       return t.colorPalette("note-color-all", t.lang.color.recent, !0, !0);
                                   }),
-                                  this.context.memo("button.forecolor", function () {
+                                  this.context.memo("button.forecolor", function() {
                                       return t.colorPalette("note-color-fore", t.lang.color.foreground, !1, !0);
                                   }),
-                                  this.context.memo("button.backcolor", function () {
+                                  this.context.memo("button.backcolor", function() {
                                       return t.colorPalette("note-color-back", t.lang.color.background, !0, !1);
                                   }),
-                                  this.context.memo("button.ul", function () {
+                                  this.context.memo("button.ul", function() {
                                       return t
                                           .button({
                                               contents: t.ui.icon(t.options.icons.unorderedlist),
@@ -4156,7 +4156,7 @@
                                           })
                                           .render();
                                   }),
-                                  this.context.memo("button.ol", function () {
+                                  this.context.memo("button.ol", function() {
                                       return t
                                           .button({
                                               contents: t.ui.icon(t.options.icons.orderedlist),
@@ -4197,7 +4197,7 @@
                                   this.context.memo("button.justifyFull", g.invoke(l, "render")),
                                   this.context.memo("button.outdent", g.invoke(c, "render")),
                                   this.context.memo("button.indent", g.invoke(u, "render")),
-                                  this.context.memo("button.paragraph", function () {
+                                  this.context.memo("button.paragraph", function() {
                                       return t.ui
                                           .buttonGroup([
                                               t.button({
@@ -4210,7 +4210,7 @@
                                           ])
                                           .render();
                                   }),
-                                  this.context.memo("button.height", function () {
+                                  this.context.memo("button.height", function() {
                                       return t.ui
                                           .buttonGroup([
                                               t.button({ className: "dropdown-toggle", contents: t.ui.dropdownButtonContents(t.ui.icon(t.options.icons.textHeight), t.options), tooltip: t.lang.font.height, data: { toggle: "dropdown" } }),
@@ -4224,7 +4224,7 @@
                                           ])
                                           .render();
                                   }),
-                                  this.context.memo("button.table", function () {
+                                  this.context.memo("button.table", function() {
                                       return t.ui
                                           .buttonGroup(
                                               [
@@ -4243,7 +4243,7 @@
                                                   }),
                                               ],
                                               {
-                                                  callback: function (e) {
+                                                  callback: function(e) {
                                                       e.find(".note-dimension-picker-mousecatcher")
                                                           .css({ width: t.options.insertTableMaxSize.col + "em", height: t.options.insertTableMaxSize.row + "em" })
                                                           .mousedown(t.context.createInvokeHandler("editor.insertTable"))
@@ -4253,16 +4253,16 @@
                                           )
                                           .render();
                                   }),
-                                  this.context.memo("button.link", function () {
+                                  this.context.memo("button.link", function() {
                                       return t.button({ contents: t.ui.icon(t.options.icons.link), tooltip: t.lang.link.link + t.representShortcut("linkDialog.show"), click: t.context.createInvokeHandler("linkDialog.show") }).render();
                                   }),
-                                  this.context.memo("button.picture", function () {
+                                  this.context.memo("button.picture", function() {
                                       return t.button({ contents: t.ui.icon(t.options.icons.picture), tooltip: t.lang.image.image, click: t.context.createInvokeHandler("imageDialog.show") }).render();
                                   }),
-                                  this.context.memo("button.video", function () {
+                                  this.context.memo("button.video", function() {
                                       return t.button({ contents: t.ui.icon(t.options.icons.video), tooltip: t.lang.video.video, click: t.context.createInvokeHandler("videoDialog.show") }).render();
                                   }),
-                                  this.context.memo("button.hr", function () {
+                                  this.context.memo("button.hr", function() {
                                       return t
                                           .button({
                                               contents: t.ui.icon(t.options.icons.minus),
@@ -4271,7 +4271,7 @@
                                           })
                                           .render();
                                   }),
-                                  this.context.memo("button.fullscreen", function () {
+                                  this.context.memo("button.fullscreen", function() {
                                       return t
                                           .button({
                                               className: "btn-fullscreen note-codeview-keep",
@@ -4281,94 +4281,94 @@
                                           })
                                           .render();
                                   }),
-                                  this.context.memo("button.codeview", function () {
+                                  this.context.memo("button.codeview", function() {
                                       return t
                                           .button({ className: "btn-codeview note-codeview-keep", contents: t.ui.icon(t.options.icons.code), tooltip: t.lang.options.codeview, click: t.context.createInvokeHandler("codeview.toggle") })
                                           .render();
                                   }),
-                                  this.context.memo("button.redo", function () {
+                                  this.context.memo("button.redo", function() {
                                       return t.button({ contents: t.ui.icon(t.options.icons.redo), tooltip: t.lang.history.redo + t.representShortcut("redo"), click: t.context.createInvokeHandler("editor.redo") }).render();
                                   }),
-                                  this.context.memo("button.undo", function () {
+                                  this.context.memo("button.undo", function() {
                                       return t.button({ contents: t.ui.icon(t.options.icons.undo), tooltip: t.lang.history.undo + t.representShortcut("undo"), click: t.context.createInvokeHandler("editor.undo") }).render();
                                   }),
-                                  this.context.memo("button.help", function () {
+                                  this.context.memo("button.help", function() {
                                       return t.button({ contents: t.ui.icon(t.options.icons.question), tooltip: t.lang.options.help, click: t.context.createInvokeHandler("helpDialog.show") }).render();
                                   });
                           },
                       },
                       {
                           key: "addImagePopoverButtons",
-                          value: function () {
+                          value: function() {
                               var t = this;
-                              this.context.memo("button.resizeFull", function () {
+                              this.context.memo("button.resizeFull", function() {
                                   return t.button({ contents: '<span class="note-fontsize-10">100%</span>', tooltip: t.lang.image.resizeFull, click: t.context.createInvokeHandler("editor.resize", "1") }).render();
                               }),
-                                  this.context.memo("button.resizeHalf", function () {
+                                  this.context.memo("button.resizeHalf", function() {
                                       return t.button({ contents: '<span class="note-fontsize-10">50%</span>', tooltip: t.lang.image.resizeHalf, click: t.context.createInvokeHandler("editor.resize", "0.5") }).render();
                                   }),
-                                  this.context.memo("button.resizeQuarter", function () {
+                                  this.context.memo("button.resizeQuarter", function() {
                                       return t.button({ contents: '<span class="note-fontsize-10">25%</span>', tooltip: t.lang.image.resizeQuarter, click: t.context.createInvokeHandler("editor.resize", "0.25") }).render();
                                   }),
-                                  this.context.memo("button.resizeNone", function () {
+                                  this.context.memo("button.resizeNone", function() {
                                       return t.button({ contents: t.ui.icon(t.options.icons.rollback), tooltip: t.lang.image.resizeNone, click: t.context.createInvokeHandler("editor.resize", "0") }).render();
                                   }),
-                                  this.context.memo("button.floatLeft", function () {
+                                  this.context.memo("button.floatLeft", function() {
                                       return t.button({ contents: t.ui.icon(t.options.icons.floatLeft), tooltip: t.lang.image.floatLeft, click: t.context.createInvokeHandler("editor.floatMe", "left") }).render();
                                   }),
-                                  this.context.memo("button.floatRight", function () {
+                                  this.context.memo("button.floatRight", function() {
                                       return t.button({ contents: t.ui.icon(t.options.icons.floatRight), tooltip: t.lang.image.floatRight, click: t.context.createInvokeHandler("editor.floatMe", "right") }).render();
                                   }),
-                                  this.context.memo("button.floatNone", function () {
+                                  this.context.memo("button.floatNone", function() {
                                       return t.button({ contents: t.ui.icon(t.options.icons.rollback), tooltip: t.lang.image.floatNone, click: t.context.createInvokeHandler("editor.floatMe", "none") }).render();
                                   }),
-                                  this.context.memo("button.removeMedia", function () {
+                                  this.context.memo("button.removeMedia", function() {
                                       return t.button({ contents: t.ui.icon(t.options.icons.trash), tooltip: t.lang.image.remove, click: t.context.createInvokeHandler("editor.removeMedia") }).render();
                                   });
                           },
                       },
                       {
                           key: "addLinkPopoverButtons",
-                          value: function () {
+                          value: function() {
                               var t = this;
-                              this.context.memo("button.linkDialogShow", function () {
+                              this.context.memo("button.linkDialogShow", function() {
                                   return t.button({ contents: t.ui.icon(t.options.icons.link), tooltip: t.lang.link.edit, click: t.context.createInvokeHandler("linkDialog.show") }).render();
                               }),
-                                  this.context.memo("button.unlink", function () {
+                                  this.context.memo("button.unlink", function() {
                                       return t.button({ contents: t.ui.icon(t.options.icons.unlink), tooltip: t.lang.link.unlink, click: t.context.createInvokeHandler("editor.unlink") }).render();
                                   });
                           },
                       },
                       {
                           key: "addTablePopoverButtons",
-                          value: function () {
+                          value: function() {
                               var t = this;
-                              this.context.memo("button.addRowUp", function () {
+                              this.context.memo("button.addRowUp", function() {
                                   return t.button({ className: "btn-md", contents: t.ui.icon(t.options.icons.rowAbove), tooltip: t.lang.table.addRowAbove, click: t.context.createInvokeHandler("editor.addRow", "top") }).render();
                               }),
-                                  this.context.memo("button.addRowDown", function () {
+                                  this.context.memo("button.addRowDown", function() {
                                       return t.button({ className: "btn-md", contents: t.ui.icon(t.options.icons.rowBelow), tooltip: t.lang.table.addRowBelow, click: t.context.createInvokeHandler("editor.addRow", "bottom") }).render();
                                   }),
-                                  this.context.memo("button.addColLeft", function () {
+                                  this.context.memo("button.addColLeft", function() {
                                       return t.button({ className: "btn-md", contents: t.ui.icon(t.options.icons.colBefore), tooltip: t.lang.table.addColLeft, click: t.context.createInvokeHandler("editor.addCol", "left") }).render();
                                   }),
-                                  this.context.memo("button.addColRight", function () {
+                                  this.context.memo("button.addColRight", function() {
                                       return t.button({ className: "btn-md", contents: t.ui.icon(t.options.icons.colAfter), tooltip: t.lang.table.addColRight, click: t.context.createInvokeHandler("editor.addCol", "right") }).render();
                                   }),
-                                  this.context.memo("button.deleteRow", function () {
+                                  this.context.memo("button.deleteRow", function() {
                                       return t.button({ className: "btn-md", contents: t.ui.icon(t.options.icons.rowRemove), tooltip: t.lang.table.delRow, click: t.context.createInvokeHandler("editor.deleteRow") }).render();
                                   }),
-                                  this.context.memo("button.deleteCol", function () {
+                                  this.context.memo("button.deleteCol", function() {
                                       return t.button({ className: "btn-md", contents: t.ui.icon(t.options.icons.colRemove), tooltip: t.lang.table.delCol, click: t.context.createInvokeHandler("editor.deleteCol") }).render();
                                   }),
-                                  this.context.memo("button.deleteTable", function () {
+                                  this.context.memo("button.deleteTable", function() {
                                       return t.button({ className: "btn-md", contents: t.ui.icon(t.options.icons.trash), tooltip: t.lang.table.delTable, click: t.context.createInvokeHandler("editor.deleteTable") }).render();
                                   });
                           },
                       },
                       {
                           key: "build",
-                          value: function (t, e) {
+                          value: function(t, e) {
                               for (var n = 0, o = e.length; n < o; n++) {
                                   for (
                                       var i = e[n], r = Array.isArray(i) ? i[0] : i, a = Array.isArray(i) ? (1 === i.length ? [i[0]] : i[1]) : [i], s = this.ui.buttonGroup({ className: "note-" + r }).render(), l = 0, c = a.length;
@@ -4384,41 +4384,41 @@
                       },
                       {
                           key: "updateCurrentStyle",
-                          value: function (t) {
+                          value: function(t) {
                               var e = this,
                                   n = t || this.$toolbar,
                                   o = this.context.invoke("editor.currentStyle");
                               if (
                                   (this.updateBtnStates(n, {
-                                      ".note-btn-bold": function () {
+                                      ".note-btn-bold": function() {
                                           return "bold" === o["font-bold"];
                                       },
-                                      ".note-btn-italic": function () {
+                                      ".note-btn-italic": function() {
                                           return "italic" === o["font-italic"];
                                       },
-                                      ".note-btn-underline": function () {
+                                      ".note-btn-underline": function() {
                                           return "underline" === o["font-underline"];
                                       },
-                                      ".note-btn-subscript": function () {
+                                      ".note-btn-subscript": function() {
                                           return "subscript" === o["font-subscript"];
                                       },
-                                      ".note-btn-superscript": function () {
+                                      ".note-btn-superscript": function() {
                                           return "superscript" === o["font-superscript"];
                                       },
-                                      ".note-btn-strikethrough": function () {
+                                      ".note-btn-strikethrough": function() {
                                           return "strikethrough" === o["font-strikethrough"];
                                       },
                                   }),
                                   o["font-family"])
                               ) {
-                                  var r = o["font-family"].split(",").map(function (t) {
+                                  var r = o["font-family"].split(",").map(function(t) {
                                           return t
                                               .replace(/[\'\"]/g, "")
                                               .replace(/\s+$/, "")
                                               .replace(/^\s+/, "");
                                       }),
                                       a = C.find(r, this.isFontInstalled.bind(this));
-                                  n.find(".dropdown-fontname a").each(function (t, e) {
+                                  n.find(".dropdown-fontname a").each(function(t, e) {
                                       var n = i()(e),
                                           o = n.data("value") + "" == a + "";
                                       n.toggleClass("checked", o);
@@ -4427,14 +4427,14 @@
                               }
                               if (o["font-size"]) {
                                   var s = o["font-size"];
-                                  n.find(".dropdown-fontsize a").each(function (t, e) {
+                                  n.find(".dropdown-fontsize a").each(function(t, e) {
                                       var n = i()(e),
                                           o = n.data("value") + "" == s + "";
                                       n.toggleClass("checked", o);
                                   }),
                                       n.find(".note-current-fontsize").text(s);
                                   var l = o["font-size-unit"];
-                                  n.find(".dropdown-fontsizeunit a").each(function (t, e) {
+                                  n.find(".dropdown-fontsizeunit a").each(function(t, e) {
                                       var n = i()(e),
                                           o = n.data("value") + "" == l + "";
                                       n.toggleClass("checked", o);
@@ -4443,7 +4443,7 @@
                               }
                               if (o["line-height"]) {
                                   var c = o["line-height"];
-                                  n.find(".dropdown-line-height li a").each(function (t, n) {
+                                  n.find(".dropdown-line-height li a").each(function(t, n) {
                                       var o = i()(n).data("value") + "" == c + "";
                                       e.className = o ? "checked" : "";
                                   });
@@ -4452,16 +4452,16 @@
                       },
                       {
                           key: "updateBtnStates",
-                          value: function (t, e) {
+                          value: function(t, e) {
                               var n = this;
-                              i.a.each(e, function (e, o) {
+                              i.a.each(e, function(e, o) {
                                   n.ui.toggleBtnActive(t.find(e), o());
                               });
                           },
                       },
                       {
                           key: "tableMoveHandler",
-                          value: function (t) {
+                          value: function(t) {
                               var e,
                                   n = i()(t.target.parentNode),
                                   o = n.next(),
@@ -4492,9 +4492,9 @@
                   (o.enumerable = o.enumerable || !1), (o.configurable = !0), "value" in o && (o.writable = !0), Object.defineProperty(t, o.key, o);
               }
           }
-          var ce = (function () {
+          var ce = (function() {
               function t(e) {
-                  !(function (t, e) {
+                  !(function(t, e) {
                       if (!(t instanceof e)) throw new TypeError("Cannot call a class as a function");
                   })(this, t),
                       (this.context = e),
@@ -4516,19 +4516,19 @@
                   (n = [
                       {
                           key: "shouldInitialize",
-                          value: function () {
+                          value: function() {
                               return !this.options.airMode;
                           },
                       },
                       {
                           key: "initialize",
-                          value: function () {
+                          value: function() {
                               var t = this;
                               (this.options.toolbar = this.options.toolbar || []),
                                   this.options.toolbar.length ? this.context.invoke("buttons.build", this.$toolbar, this.options.toolbar) : this.$toolbar.hide(),
                                   this.options.toolbarContainer && this.$toolbar.appendTo(this.options.toolbarContainer),
                                   this.changeContainer(!1),
-                                  this.$note.on("summernote.keyup summernote.mouseup summernote.change", function () {
+                                  this.$note.on("summernote.keyup summernote.mouseup summernote.change", function() {
                                       t.context.invoke("buttons.updateCurrentStyle");
                                   }),
                                   this.context.invoke("buttons.updateCurrentStyle"),
@@ -4537,13 +4537,13 @@
                       },
                       {
                           key: "destroy",
-                          value: function () {
+                          value: function() {
                               this.$toolbar.children().remove(), this.options.followingToolbar && this.$window.off("scroll resize", this.followScroll);
                           },
                       },
                       {
                           key: "followScroll",
-                          value: function () {
+                          value: function() {
                               if (this.$editor.hasClass("fullscreen")) return !1;
                               var t = this.$editor.outerHeight(),
                                   e = this.$editor.width(),
@@ -4562,32 +4562,32 @@
                       },
                       {
                           key: "changeContainer",
-                          value: function (t) {
+                          value: function(t) {
                               t ? this.$toolbar.prependTo(this.$editor) : this.options.toolbarContainer && this.$toolbar.appendTo(this.options.toolbarContainer), this.options.followingToolbar && this.followScroll();
                           },
                       },
                       {
                           key: "updateFullscreen",
-                          value: function (t) {
+                          value: function(t) {
                               this.ui.toggleBtnActive(this.$toolbar.find(".btn-fullscreen"), t), this.changeContainer(t);
                           },
                       },
                       {
                           key: "updateCodeview",
-                          value: function (t) {
+                          value: function(t) {
                               this.ui.toggleBtnActive(this.$toolbar.find(".btn-codeview"), t), t ? this.deactivate() : this.activate();
                           },
                       },
                       {
                           key: "activate",
-                          value: function (t) {
+                          value: function(t) {
                               var e = this.$toolbar.find("button");
                               t || (e = e.not(".note-codeview-keep")), this.ui.toggleBtn(e, !0);
                           },
                       },
                       {
                           key: "deactivate",
-                          value: function (t) {
+                          value: function(t) {
                               var e = this.$toolbar.find("button");
                               t || (e = e.not(".note-codeview-keep")), this.ui.toggleBtn(e, !1);
                           },
@@ -4603,9 +4603,9 @@
                   (o.enumerable = o.enumerable || !1), (o.configurable = !0), "value" in o && (o.writable = !0), Object.defineProperty(t, o.key, o);
               }
           }
-          var de = (function () {
+          var de = (function() {
               function t(e) {
-                  !(function (t, e) {
+                  !(function(t, e) {
                       if (!(t instanceof e)) throw new TypeError("Cannot call a class as a function");
                   })(this, t),
                       (this.context = e),
@@ -4622,7 +4622,7 @@
                   (n = [
                       {
                           key: "initialize",
-                          value: function () {
+                          value: function() {
                               var t = this.options.dialogsInBody ? this.$body : this.options.container,
                                   e = [
                                       '<div class="form-group note-form-group">',
@@ -4648,45 +4648,45 @@
                       },
                       {
                           key: "destroy",
-                          value: function () {
+                          value: function() {
                               this.ui.hideDialog(this.$dialog), this.$dialog.remove();
                           },
                       },
                       {
                           key: "bindEnterKey",
-                          value: function (t, e) {
-                              t.on("keypress", function (t) {
+                          value: function(t, e) {
+                              t.on("keypress", function(t) {
                                   t.keyCode === xt.code.ENTER && (t.preventDefault(), e.trigger("click"));
                               });
                           },
                       },
                       {
                           key: "toggleLinkBtn",
-                          value: function (t, e, n) {
+                          value: function(t, e, n) {
                               this.ui.toggleBtn(t, e.val() && n.val());
                           },
                       },
                       {
                           key: "showLinkDialog",
-                          value: function (t) {
+                          value: function(t) {
                               var e = this;
                               return i.a
-                                  .Deferred(function (n) {
+                                  .Deferred(function(n) {
                                       var o = e.$dialog.find(".note-link-text"),
                                           i = e.$dialog.find(".note-link-url"),
                                           r = e.$dialog.find(".note-link-btn"),
                                           a = e.$dialog.find(".sn-checkbox-open-in-new-window input[type=checkbox]"),
                                           s = e.$dialog.find(".sn-checkbox-use-protocol input[type=checkbox]");
-                                      e.ui.onDialogShown(e.$dialog, function () {
+                                      e.ui.onDialogShown(e.$dialog, function() {
                                           e.context.triggerEvent("dialog.shown"),
                                               !t.url && g.isValidUrl(t.text) && (t.url = t.text),
                                               o
-                                                  .on("input paste propertychange", function () {
+                                                  .on("input paste propertychange", function() {
                                                       (t.text = o.val()), e.toggleLinkBtn(r, o, i);
                                                   })
                                                   .val(t.text),
                                               i
-                                                  .on("input paste propertychange", function () {
+                                                  .on("input paste propertychange", function() {
                                                       t.text || o.val(i.val()), e.toggleLinkBtn(r, o, i);
                                                   })
                                                   .val(t.url),
@@ -4698,11 +4698,11 @@
                                           a.prop("checked", l);
                                           var c = !t.url && e.context.options.useProtocol;
                                           s.prop("checked", c),
-                                              r.one("click", function (r) {
+                                              r.one("click", function(r) {
                                                   r.preventDefault(), n.resolve({ range: t.range, url: i.val(), text: o.val(), isNewWindow: a.is(":checked"), checkProtocol: s.is(":checked") }), e.ui.hideDialog(e.$dialog);
                                               });
                                       }),
-                                          e.ui.onDialogHidden(e.$dialog, function () {
+                                          e.ui.onDialogHidden(e.$dialog, function() {
                                               o.off(), i.off(), r.off(), "pending" === n.state() && n.reject();
                                           }),
                                           e.ui.showDialog(e.$dialog);
@@ -4712,15 +4712,15 @@
                       },
                       {
                           key: "show",
-                          value: function () {
+                          value: function() {
                               var t = this,
                                   e = this.context.invoke("editor.getLinkInfo");
                               this.context.invoke("editor.saveRange"),
                                   this.showLinkDialog(e)
-                                      .then(function (e) {
+                                      .then(function(e) {
                                           t.context.invoke("editor.restoreRange"), t.context.invoke("editor.createLink", e);
                                       })
-                                      .fail(function () {
+                                      .fail(function() {
                                           t.context.invoke("editor.restoreRange");
                                       });
                           },
@@ -4736,20 +4736,20 @@
                   (o.enumerable = o.enumerable || !1), (o.configurable = !0), "value" in o && (o.writable = !0), Object.defineProperty(t, o.key, o);
               }
           }
-          var fe = (function () {
+          var fe = (function() {
               function t(e) {
                   var n = this;
-                  !(function (t, e) {
+                  !(function(t, e) {
                       if (!(t instanceof e)) throw new TypeError("Cannot call a class as a function");
                   })(this, t),
                       (this.context = e),
                       (this.ui = i.a.summernote.ui),
                       (this.options = e.options),
                       (this.events = {
-                          "summernote.keyup summernote.mouseup summernote.change summernote.scroll": function () {
+                          "summernote.keyup summernote.mouseup summernote.change summernote.scroll": function() {
                               n.update();
                           },
-                          "summernote.disable summernote.dialog.shown summernote.blur": function () {
+                          "summernote.disable summernote.dialog.shown summernote.blur": function() {
                               n.hide();
                           },
                       });
@@ -4760,17 +4760,17 @@
                   (n = [
                       {
                           key: "shouldInitialize",
-                          value: function () {
+                          value: function() {
                               return !C.isEmpty(this.options.popover.link);
                           },
                       },
                       {
                           key: "initialize",
-                          value: function () {
+                          value: function() {
                               this.$popover = this.ui
                                   .popover({
                                       className: "note-link-popover",
-                                      callback: function (t) {
+                                      callback: function(t) {
                                           t.find(".popover-content,.note-popover-content").prepend('<span><a target="_blank"></a>&nbsp;</span>');
                                       },
                                   })
@@ -4778,20 +4778,20 @@
                                   .appendTo(this.options.container);
                               var t = this.$popover.find(".popover-content,.note-popover-content");
                               this.context.invoke("buttons.build", t, this.options.popover.link),
-                                  this.$popover.on("mousedown", function (t) {
+                                  this.$popover.on("mousedown", function(t) {
                                       t.preventDefault();
                                   });
                           },
                       },
                       {
                           key: "destroy",
-                          value: function () {
+                          value: function() {
                               this.$popover.remove();
                           },
                       },
                       {
                           key: "update",
-                          value: function () {
+                          value: function() {
                               if (this.context.invoke("editor.hasFocus")) {
                                   var t = this.context.invoke("editor.getLastRange");
                                   if (t.isCollapsed() && t.isOnAnchor()) {
@@ -4807,7 +4807,7 @@
                       },
                       {
                           key: "hide",
-                          value: function () {
+                          value: function() {
                               this.$popover.hide();
                           },
                       },
@@ -4822,9 +4822,9 @@
                   (o.enumerable = o.enumerable || !1), (o.configurable = !0), "value" in o && (o.writable = !0), Object.defineProperty(t, o.key, o);
               }
           }
-          var me = (function () {
+          var me = (function() {
               function t(e) {
-                  !(function (t, e) {
+                  !(function(t, e) {
                       if (!(t instanceof e)) throw new TypeError("Cannot call a class as a function");
                   })(this, t),
                       (this.context = e),
@@ -4840,7 +4840,7 @@
                   (n = [
                       {
                           key: "initialize",
-                          value: function () {
+                          value: function() {
                               var t = "";
                               if (this.options.maximumImageFileSize) {
                                   var e = Math.floor(Math.log(this.options.maximumImageFileSize) / Math.log(1024)),
@@ -4866,25 +4866,25 @@
                       },
                       {
                           key: "destroy",
-                          value: function () {
+                          value: function() {
                               this.ui.hideDialog(this.$dialog), this.$dialog.remove();
                           },
                       },
                       {
                           key: "bindEnterKey",
-                          value: function (t, e) {
-                              t.on("keypress", function (t) {
+                          value: function(t, e) {
+                              t.on("keypress", function(t) {
                                   t.keyCode === xt.code.ENTER && (t.preventDefault(), e.trigger("click"));
                               });
                           },
                       },
                       {
                           key: "show",
-                          value: function () {
+                          value: function() {
                               var t = this;
                               this.context.invoke("editor.saveRange"),
                                   this.showImageDialog()
-                                      .then(function (e) {
+                                      .then(function(e) {
                                           t.ui.hideDialog(t.$dialog),
                                               t.context.invoke("editor.restoreRange"),
                                               "string" == typeof e
@@ -4893,41 +4893,41 @@
                                                       : t.context.invoke("editor.insertImage", e)
                                                   : t.context.invoke("editor.insertImagesOrCallback", e);
                                       })
-                                      .fail(function () {
+                                      .fail(function() {
                                           t.context.invoke("editor.restoreRange");
                                       });
                           },
                       },
                       {
                           key: "showImageDialog",
-                          value: function () {
+                          value: function() {
                               var t = this;
-                              return i.a.Deferred(function (e) {
+                              return i.a.Deferred(function(e) {
                                   var n = t.$dialog.find(".note-image-input"),
                                       o = t.$dialog.find(".note-image-url"),
                                       i = t.$dialog.find(".note-image-btn");
-                                  t.ui.onDialogShown(t.$dialog, function () {
+                                  t.ui.onDialogShown(t.$dialog, function() {
                                       t.context.triggerEvent("dialog.shown"),
                                           n.replaceWith(
                                               n
                                                   .clone()
-                                                  .on("change", function (t) {
+                                                  .on("change", function(t) {
                                                       e.resolve(t.target.files || t.target.value);
                                                   })
                                                   .val("")
                                           ),
                                           o
-                                              .on("input paste propertychange", function () {
+                                              .on("input paste propertychange", function() {
                                                   t.ui.toggleBtn(i, o.val());
                                               })
                                               .val(""),
                                           m.isSupportTouch || o.trigger("focus"),
-                                          i.click(function (t) {
+                                          i.click(function(t) {
                                               t.preventDefault(), e.resolve(o.val());
                                           }),
                                           t.bindEnterKey(o, i);
                                   }),
-                                      t.ui.onDialogHidden(t.$dialog, function () {
+                                      t.ui.onDialogHidden(t.$dialog, function() {
                                           n.off(), o.off(), i.off(), "pending" === e.state() && e.reject();
                                       }),
                                       t.ui.showDialog(t.$dialog);
@@ -4945,10 +4945,10 @@
                   (o.enumerable = o.enumerable || !1), (o.configurable = !0), "value" in o && (o.writable = !0), Object.defineProperty(t, o.key, o);
               }
           }
-          var ge = (function () {
+          var ge = (function() {
               function t(e) {
                   var n = this;
-                  !(function (t, e) {
+                  !(function(t, e) {
                       if (!(t instanceof e)) throw new TypeError("Cannot call a class as a function");
                   })(this, t),
                       (this.context = e),
@@ -4956,7 +4956,7 @@
                       (this.editable = e.layoutInfo.editable[0]),
                       (this.options = e.options),
                       (this.events = {
-                          "summernote.disable summernote.blur": function () {
+                          "summernote.disable summernote.blur": function() {
                               n.hide();
                           },
                       });
@@ -4967,30 +4967,30 @@
                   (n = [
                       {
                           key: "shouldInitialize",
-                          value: function () {
+                          value: function() {
                               return !C.isEmpty(this.options.popover.image);
                           },
                       },
                       {
                           key: "initialize",
-                          value: function () {
+                          value: function() {
                               this.$popover = this.ui.popover({ className: "note-image-popover" }).render().appendTo(this.options.container);
                               var t = this.$popover.find(".popover-content,.note-popover-content");
                               this.context.invoke("buttons.build", t, this.options.popover.image),
-                                  this.$popover.on("mousedown", function (t) {
+                                  this.$popover.on("mousedown", function(t) {
                                       t.preventDefault();
                                   });
                           },
                       },
                       {
                           key: "destroy",
-                          value: function () {
+                          value: function() {
                               this.$popover.remove();
                           },
                       },
                       {
                           key: "update",
-                          value: function (t, e) {
+                          value: function(t, e) {
                               if (pt.isImg(t)) {
                                   var n = i()(t).offset(),
                                       o = i()(this.options.container).offset(),
@@ -5001,7 +5001,7 @@
                       },
                       {
                           key: "hide",
-                          value: function () {
+                          value: function() {
                               this.$popover.hide();
                           },
                       },
@@ -5016,23 +5016,23 @@
                   (o.enumerable = o.enumerable || !1), (o.configurable = !0), "value" in o && (o.writable = !0), Object.defineProperty(t, o.key, o);
               }
           }
-          var ye = (function () {
+          var ye = (function() {
               function t(e) {
                   var n = this;
-                  !(function (t, e) {
+                  !(function(t, e) {
                       if (!(t instanceof e)) throw new TypeError("Cannot call a class as a function");
                   })(this, t),
                       (this.context = e),
                       (this.ui = i.a.summernote.ui),
                       (this.options = e.options),
                       (this.events = {
-                          "summernote.mousedown": function (t, e) {
+                          "summernote.mousedown": function(t, e) {
                               n.update(e.target);
                           },
-                          "summernote.keyup summernote.scroll summernote.change": function () {
+                          "summernote.keyup summernote.scroll summernote.change": function() {
                               n.update();
                           },
-                          "summernote.disable summernote.blur": function () {
+                          "summernote.disable summernote.blur": function() {
                               n.hide();
                           },
                       });
@@ -5043,31 +5043,31 @@
                   (n = [
                       {
                           key: "shouldInitialize",
-                          value: function () {
+                          value: function() {
                               return !C.isEmpty(this.options.popover.table);
                           },
                       },
                       {
                           key: "initialize",
-                          value: function () {
+                          value: function() {
                               this.$popover = this.ui.popover({ className: "note-table-popover" }).render().appendTo(this.options.container);
                               var t = this.$popover.find(".popover-content,.note-popover-content");
                               this.context.invoke("buttons.build", t, this.options.popover.table),
                                   m.isFF && document.execCommand("enableInlineTableEditing", !1, !1),
-                                  this.$popover.on("mousedown", function (t) {
+                                  this.$popover.on("mousedown", function(t) {
                                       t.preventDefault();
                                   });
                           },
                       },
                       {
                           key: "destroy",
-                          value: function () {
+                          value: function() {
                               this.$popover.remove();
                           },
                       },
                       {
                           key: "update",
-                          value: function (t) {
+                          value: function(t) {
                               if (this.context.isDisabled()) return !1;
                               var e = pt.isCell(t);
                               if (e) {
@@ -5080,7 +5080,7 @@
                       },
                       {
                           key: "hide",
-                          value: function () {
+                          value: function() {
                               this.$popover.hide();
                           },
                       },
@@ -5095,9 +5095,9 @@
                   (o.enumerable = o.enumerable || !1), (o.configurable = !0), "value" in o && (o.writable = !0), Object.defineProperty(t, o.key, o);
               }
           }
-          var we = (function () {
+          var we = (function() {
               function t(e) {
-                  !(function (t, e) {
+                  !(function(t, e) {
                       if (!(t instanceof e)) throw new TypeError("Cannot call a class as a function");
                   })(this, t),
                       (this.context = e),
@@ -5113,7 +5113,7 @@
                   (n = [
                       {
                           key: "initialize",
-                          value: function () {
+                          value: function() {
                               var t = this.options.dialogsInBody ? this.$body : this.options.container,
                                   e = [
                                       '<div class="form-group note-form-group row-fluid">',
@@ -5130,21 +5130,21 @@
                       },
                       {
                           key: "destroy",
-                          value: function () {
+                          value: function() {
                               this.ui.hideDialog(this.$dialog), this.$dialog.remove();
                           },
                       },
                       {
                           key: "bindEnterKey",
-                          value: function (t, e) {
-                              t.on("keypress", function (t) {
+                          value: function(t, e) {
+                              t.on("keypress", function(t) {
                                   t.keyCode === xt.code.ENTER && (t.preventDefault(), e.trigger("click"));
                               });
                           },
                       },
                       {
                           key: "createVideoNode",
-                          value: function (t) {
+                          value: function(t) {
                               var e,
                                   n = t.match(/\/\/(?:(?:www|m)\.)?(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=))([\w|-]{11})(?:(?:[\?&]t=)(\S+))?$/),
                                   o = t.match(/(?:www\.|\/\/)instagram\.com\/p\/(.[a-zA-Z0-9_-]*)/),
@@ -5226,40 +5226,40 @@
                       },
                       {
                           key: "show",
-                          value: function () {
+                          value: function() {
                               var t = this,
                                   e = this.context.invoke("editor.getSelectedText");
                               this.context.invoke("editor.saveRange"),
                                   this.showVideoDialog(e)
-                                      .then(function (e) {
+                                      .then(function(e) {
                                           t.ui.hideDialog(t.$dialog), t.context.invoke("editor.restoreRange");
                                           var n = t.createVideoNode(e);
                                           n && t.context.invoke("editor.insertNode", n);
                                       })
-                                      .fail(function () {
+                                      .fail(function() {
                                           t.context.invoke("editor.restoreRange");
                                       });
                           },
                       },
                       {
                           key: "showVideoDialog",
-                          value: function () {
+                          value: function() {
                               var t = this;
-                              return i.a.Deferred(function (e) {
+                              return i.a.Deferred(function(e) {
                                   var n = t.$dialog.find(".note-video-url"),
                                       o = t.$dialog.find(".note-video-btn");
-                                  t.ui.onDialogShown(t.$dialog, function () {
+                                  t.ui.onDialogShown(t.$dialog, function() {
                                       t.context.triggerEvent("dialog.shown"),
-                                          n.on("input paste propertychange", function () {
+                                          n.on("input paste propertychange", function() {
                                               t.ui.toggleBtn(o, n.val());
                                           }),
                                           m.isSupportTouch || n.trigger("focus"),
-                                          o.click(function (t) {
+                                          o.click(function(t) {
                                               t.preventDefault(), e.resolve(n.val());
                                           }),
                                           t.bindEnterKey(n, o);
                                   }),
-                                      t.ui.onDialogHidden(t.$dialog, function () {
+                                      t.ui.onDialogHidden(t.$dialog, function() {
                                           n.off(), o.off(), "pending" === e.state() && e.reject();
                                       }),
                                       t.ui.showDialog(t.$dialog);
@@ -5277,9 +5277,9 @@
                   (o.enumerable = o.enumerable || !1), (o.configurable = !0), "value" in o && (o.writable = !0), Object.defineProperty(t, o.key, o);
               }
           }
-          var xe = (function () {
+          var xe = (function() {
               function t(e) {
-                  !(function (t, e) {
+                  !(function(t, e) {
                       if (!(t instanceof e)) throw new TypeError("Cannot call a class as a function");
                   })(this, t),
                       (this.context = e),
@@ -5295,7 +5295,7 @@
                   (n = [
                       {
                           key: "initialize",
-                          value: function () {
+                          value: function() {
                               var t = this.options.dialogsInBody ? this.$body : this.options.container,
                                   e = [
                                       '<p class="text-center">',
@@ -5310,7 +5310,7 @@
                                       fade: this.options.dialogsFade,
                                       body: this.createShortcutList(),
                                       footer: e,
-                                      callback: function (t) {
+                                      callback: function(t) {
                                           t.find(".modal-body,.note-modal-body").css({ "max-height": 300, overflow: "scroll" });
                                       },
                                   })
@@ -5320,17 +5320,17 @@
                       },
                       {
                           key: "destroy",
-                          value: function () {
+                          value: function() {
                               this.ui.hideDialog(this.$dialog), this.$dialog.remove();
                           },
                       },
                       {
                           key: "createShortcutList",
-                          value: function () {
+                          value: function() {
                               var t = this,
                                   e = this.options.keyMap[m.isMac ? "mac" : "pc"];
                               return Object.keys(e)
-                                  .map(function (n) {
+                                  .map(function(n) {
                                       var o = e[n],
                                           r = i()('<div><div class="help-list-item"></div></div>');
                                       return r.append(i()("<label><kbd>" + n + "</kdb></label>").css({ width: 180, "margin-right": 10 })).append(i()("<span/>").html(t.context.memo("help." + o) || o)), r.html();
@@ -5340,11 +5340,11 @@
                       },
                       {
                           key: "showHelpDialog",
-                          value: function () {
+                          value: function() {
                               var t = this;
                               return i.a
-                                  .Deferred(function (e) {
-                                      t.ui.onDialogShown(t.$dialog, function () {
+                                  .Deferred(function(e) {
+                                      t.ui.onDialogShown(t.$dialog, function() {
                                           t.context.triggerEvent("dialog.shown"), e.resolve();
                                       }),
                                           t.ui.showDialog(t.$dialog);
@@ -5354,10 +5354,10 @@
                       },
                       {
                           key: "show",
-                          value: function () {
+                          value: function() {
                               var t = this;
                               this.context.invoke("editor.saveRange"),
-                                  this.showHelpDialog().then(function () {
+                                  this.showHelpDialog().then(function() {
                                       t.context.invoke("editor.restoreRange");
                                   });
                           },
@@ -5373,10 +5373,10 @@
                   (o.enumerable = o.enumerable || !1), (o.configurable = !0), "value" in o && (o.writable = !0), Object.defineProperty(t, o.key, o);
               }
           }
-          var Te = (function () {
+          var Te = (function() {
               function t(e) {
                   var n = this;
-                  !(function (t, e) {
+                  !(function(t, e) {
                       if (!(t instanceof e)) throw new TypeError("Cannot call a class as a function");
                   })(this, t),
                       (this.context = e),
@@ -5387,19 +5387,19 @@
                       (this.pageX = null),
                       (this.pageY = null),
                       (this.events = {
-                          "summernote.contextmenu": function (t) {
+                          "summernote.contextmenu": function(t) {
                               n.options.editing && (t.preventDefault(), t.stopPropagation(), (n.onContextmenu = !0), n.update(!0));
                           },
-                          "summernote.mousedown": function (t, e) {
+                          "summernote.mousedown": function(t, e) {
                               (n.pageX = e.pageX), (n.pageY = e.pageY);
                           },
-                          "summernote.keyup summernote.mouseup summernote.scroll": function (t, e) {
+                          "summernote.keyup summernote.mouseup summernote.scroll": function(t, e) {
                               n.options.editing && !n.onContextmenu && ((n.pageX = e.pageX), (n.pageY = e.pageY), n.update()), (n.onContextmenu = !1);
                           },
-                          "summernote.disable summernote.change summernote.dialog.shown summernote.blur": function () {
+                          "summernote.disable summernote.change summernote.dialog.shown summernote.blur": function() {
                               n.hide();
                           },
-                          "summernote.focusout": function () {
+                          "summernote.focusout": function() {
                               n.$popover.is(":active,:focus") || n.hide();
                           },
                       });
@@ -5410,34 +5410,34 @@
                   (n = [
                       {
                           key: "shouldInitialize",
-                          value: function () {
+                          value: function() {
                               return this.options.airMode && !C.isEmpty(this.options.popover.air);
                           },
                       },
                       {
                           key: "initialize",
-                          value: function () {
+                          value: function() {
                               var t = this;
                               this.$popover = this.ui.popover({ className: "note-air-popover" }).render().appendTo(this.options.container);
                               var e = this.$popover.find(".popover-content");
                               this.context.invoke("buttons.build", e, this.options.popover.air),
-                                  this.$popover.on("mousedown", function () {
+                                  this.$popover.on("mousedown", function() {
                                       t.hidable = !1;
                                   }),
-                                  this.$popover.on("mouseup", function () {
+                                  this.$popover.on("mouseup", function() {
                                       t.hidable = !0;
                                   });
                           },
                       },
                       {
                           key: "destroy",
-                          value: function () {
+                          value: function() {
                               this.$popover.remove();
                           },
                       },
                       {
                           key: "update",
-                          value: function (t) {
+                          value: function(t) {
                               var e = this.context.invoke("editor.currentStyle");
                               if (!e.range || (e.range.isCollapsed() && !t)) this.hide();
                               else {
@@ -5449,13 +5449,13 @@
                       },
                       {
                           key: "updateCodeview",
-                          value: function (t) {
+                          value: function(t) {
                               this.ui.toggleBtnActive(this.$popover.find(".btn-codeview"), t), t && this.hide();
                           },
                       },
                       {
                           key: "hide",
-                          value: function () {
+                          value: function() {
                               this.hidable && this.$popover.hide();
                           },
                       },
@@ -5470,10 +5470,10 @@
                   (o.enumerable = o.enumerable || !1), (o.configurable = !0), "value" in o && (o.writable = !0), Object.defineProperty(t, o.key, o);
               }
           }
-          var Ie = (function () {
+          var Ie = (function() {
               function t(e) {
                   var n = this;
-                  !(function (t, e) {
+                  !(function(t, e) {
                       if (!(t instanceof e)) throw new TypeError("Cannot call a class as a function");
                   })(this, t),
                       (this.context = e),
@@ -5484,13 +5484,13 @@
                       (this.direction = this.options.hintDirection || "bottom"),
                       (this.hints = Array.isArray(this.hint) ? this.hint : [this.hint]),
                       (this.events = {
-                          "summernote.keyup": function (t, e) {
+                          "summernote.keyup": function(t, e) {
                               e.isDefaultPrevented() || n.handleKeyup(e);
                           },
-                          "summernote.keydown": function (t, e) {
+                          "summernote.keydown": function(t, e) {
                               n.handleKeydown(e);
                           },
-                          "summernote.disable summernote.dialog.shown summernote.blur": function () {
+                          "summernote.disable summernote.dialog.shown summernote.blur": function() {
                               n.hide();
                           },
                       });
@@ -5501,42 +5501,42 @@
                   (n = [
                       {
                           key: "shouldInitialize",
-                          value: function () {
+                          value: function() {
                               return this.hints.length > 0;
                           },
                       },
                       {
                           key: "initialize",
-                          value: function () {
+                          value: function() {
                               var t = this;
                               (this.lastWordRange = null),
                                   (this.matchingWord = null),
                                   (this.$popover = this.ui.popover({ className: "note-hint-popover", hideArrow: !0, direction: "" }).render().appendTo(this.options.container)),
                                   this.$popover.hide(),
                                   (this.$content = this.$popover.find(".popover-content,.note-popover-content")),
-                                  this.$content.on("click", ".note-hint-item", function (e) {
+                                  this.$content.on("click", ".note-hint-item", function(e) {
                                       t.$content.find(".active").removeClass("active"), i()(e.currentTarget).addClass("active"), t.replace();
                                   }),
-                                  this.$popover.on("mousedown", function (t) {
+                                  this.$popover.on("mousedown", function(t) {
                                       t.preventDefault();
                                   });
                           },
                       },
                       {
                           key: "destroy",
-                          value: function () {
+                          value: function() {
                               this.$popover.remove();
                           },
                       },
                       {
                           key: "selectItem",
-                          value: function (t) {
+                          value: function(t) {
                               this.$content.find(".active").removeClass("active"), t.addClass("active"), (this.$content[0].scrollTop = t[0].offsetTop - this.$content.innerHeight() / 2);
                           },
                       },
                       {
                           key: "moveDown",
-                          value: function () {
+                          value: function() {
                               var t = this.$content.find(".note-hint-item.active"),
                                   e = t.next();
                               if (e.length) this.selectItem(e);
@@ -5548,7 +5548,7 @@
                       },
                       {
                           key: "moveUp",
-                          value: function () {
+                          value: function() {
                               var t = this.$content.find(".note-hint-item.active"),
                                   e = t.prev();
                               if (e.length) this.selectItem(e);
@@ -5560,7 +5560,7 @@
                       },
                       {
                           key: "replace",
-                          value: function () {
+                          value: function() {
                               var t = this.$content.find(".note-hint-item.active");
                               if (t.length) {
                                   var e = this.nodeFromItem(t);
@@ -5579,7 +5579,7 @@
                       },
                       {
                           key: "nodeFromItem",
-                          value: function (t) {
+                          value: function(t) {
                               var e = this.hints[t.data("index")],
                                   n = t.data("item"),
                                   o = e.content ? e.content(n) : n;
@@ -5588,9 +5588,9 @@
                       },
                       {
                           key: "createItemTemplates",
-                          value: function (t, e) {
+                          value: function(t, e) {
                               var n = this.hints[t];
-                              return e.map(function (e) {
+                              return e.map(function(e) {
                                   var o = i()('<div class="note-hint-item"/>');
                                   return o.append(n.template ? n.template(e) : e + ""), o.data({ index: t, item: e }), o;
                               });
@@ -5598,14 +5598,14 @@
                       },
                       {
                           key: "handleKeydown",
-                          value: function (t) {
+                          value: function(t) {
                               this.$popover.is(":visible") &&
                                   (t.keyCode === xt.code.ENTER ? (t.preventDefault(), this.replace()) : t.keyCode === xt.code.UP ? (t.preventDefault(), this.moveUp()) : t.keyCode === xt.code.DOWN && (t.preventDefault(), this.moveDown()));
                           },
                       },
                       {
                           key: "searchKeyword",
-                          value: function (t, e, n) {
+                          value: function(t, e, n) {
                               var o = this.hints[t];
                               if (o && o.match.test(e) && o.search) {
                                   var i = o.match.exec(e);
@@ -5615,11 +5615,11 @@
                       },
                       {
                           key: "createGroup",
-                          value: function (t, e) {
+                          value: function(t, e) {
                               var n = this,
                                   o = i()('<div class="note-hint-group note-hint-group-' + t + '"></div>');
                               return (
-                                  this.searchKeyword(t, e, function (e) {
+                                  this.searchKeyword(t, e, function(e) {
                                       (e = e || []).length && (o.html(n.createItemTemplates(t, e)), n.show());
                                   }),
                                   o
@@ -5628,7 +5628,7 @@
                       },
                       {
                           key: "handleKeyup",
-                          value: function (t) {
+                          value: function(t) {
                               var e = this;
                               if (!C.contains([xt.code.ENTER, xt.code.UP, xt.code.DOWN], t.keyCode)) {
                                   var n,
@@ -5638,7 +5638,7 @@
                                       if (
                                           ((n = r.getWordsRange(r)),
                                           (o = n.toString()),
-                                          this.hints.forEach(function (t) {
+                                          this.hints.forEach(function(t) {
                                               if (t.match.test(o)) return (n = r.getWordsMatchRange(t.match)), !1;
                                           }),
                                           !n)
@@ -5655,7 +5655,7 @@
                                           (a.left -= s.left),
                                           this.$popover.hide(),
                                           (this.lastWordRange = n),
-                                          this.hints.forEach(function (t, n) {
+                                          this.hints.forEach(function(t, n) {
                                               t.match.test(o) && e.createGroup(n, o).appendTo(e.$content);
                                           }),
                                           this.$content.find(".note-hint-item:first").addClass("active"),
@@ -5666,13 +5666,13 @@
                       },
                       {
                           key: "show",
-                          value: function () {
+                          value: function() {
                               this.$popover.show();
                           },
                       },
                       {
                           key: "hide",
-                          value: function () {
+                          value: function() {
                               this.$popover.hide();
                           },
                       },
@@ -5951,8 +5951,8 @@
               },
           });
       },
-      4: function (t, e, n) {},
-      52: function (t, e, n) {
+      4: function(t, e, n) {},
+      52: function(t, e, n) {
           "use strict";
           n.r(e);
           var o = n(0),
@@ -5961,10 +5961,10 @@
           function a(t) {
               return (a =
                   "function" == typeof Symbol && "symbol" == typeof Symbol.iterator
-                      ? function (t) {
+                      ? function(t) {
                             return typeof t;
                         }
-                      : function (t) {
+                      : function(t) {
                             return t && "function" == typeof Symbol && t.constructor === Symbol && t !== Symbol.prototype ? "symbol" : typeof t;
                         })(t);
           }
@@ -5988,10 +5988,10 @@
               f = r.a.create('<div class="note-editor note-airframe"/>'),
               p = r.a.create(['<div class="note-editable" contentEditable="true" role="textbox" aria-multiline="true"></div>', '<output class="note-status-output" role="status" aria-live="polite"></output>'].join("")),
               m = r.a.create('<div class="note-btn-group btn-group">'),
-              v = r.a.create('<ul class="note-dropdown-menu dropdown-menu">', function (t, e) {
+              v = r.a.create('<ul class="note-dropdown-menu dropdown-menu">', function(t, e) {
                   var n = Array.isArray(e.items)
                       ? e.items
-                            .map(function (t) {
+                            .map(function(t) {
                                 var n = "string" == typeof t ? t : t.value || "",
                                     o = e.template ? e.template(t) : t,
                                     i = "object" === a(t) ? t.option : void 0;
@@ -6001,13 +6001,13 @@
                       : e.items;
                   t.html(n).attr({ "aria-label": e.title }), e && e.codeviewKeepButton && t.addClass("note-codeview-keep");
               }),
-              g = function (t, e) {
+              g = function(t, e) {
                   return t + " " + C(e.icons.caret, "span");
               },
-              b = r.a.create('<ul class="note-dropdown-menu dropdown-menu note-check">', function (t, e) {
+              b = r.a.create('<ul class="note-dropdown-menu dropdown-menu note-check">', function(t, e) {
                   var n = Array.isArray(e.items)
                       ? e.items
-                            .map(function (t) {
+                            .map(function(t) {
                                 var n = "string" == typeof t ? t : t.value || "",
                                     o = e.template ? e.template(t) : t;
                                 return '<li aria-label="' + t + '"><a href="#" data-value="' + n + '">' + C(e.checkClassName) + " " + o + "</a></li>";
@@ -6016,7 +6016,7 @@
                       : e.items;
                   t.html(n).attr({ "aria-label": e.title }), e && e.codeviewKeepButton && t.addClass("note-codeview-keep");
               }),
-              y = r.a.create('<div class="modal note-modal" aria-hidden="false" tabindex="-1" role="dialog"/>', function (t, e) {
+              y = r.a.create('<div class="modal note-modal" aria-hidden="false" tabindex="-1" role="dialog"/>', function(t, e) {
                   e.fade && t.addClass("fade"),
                       t.attr({ "aria-label": e.title }),
                       t.html(
@@ -6031,11 +6031,11 @@
                           ].join("")
                       );
               }),
-              k = r.a.create(['<div class="note-popover popover in">', '<div class="arrow"></div>', '<div class="popover-content note-children-container"></div>', "</div>"].join(""), function (t, e) {
+              k = r.a.create(['<div class="note-popover popover in">', '<div class="arrow"></div>', '<div class="popover-content note-children-container"></div>', "</div>"].join(""), function(t, e) {
                   var n = void 0 !== e.direction ? e.direction : "bottom";
                   t.addClass(n), e.hideArrow && t.find(".arrow").hide();
               }),
-              w = r.a.create('<div class="checkbox"></div>', function (t, e) {
+              w = r.a.create('<div class="checkbox"></div>', function(t, e) {
                   t.html(
                       [
                           "<label" + (e.id ? ' for="note-' + e.id + '"' : "") + ">",
@@ -6047,10 +6047,10 @@
                       ].join("")
                   );
               }),
-              C = function (t, e) {
+              C = function(t, e) {
                   return "<" + (e = e || "i") + ' class="' + t + '"></' + e + ">";
               },
-              x = function (t) {
+              x = function(t) {
                   return {
                       editor: s,
                       toolbar: l,
@@ -6069,8 +6069,8 @@
                       checkbox: w,
                       icon: C,
                       options: t,
-                      palette: function (e, n) {
-                          return r.a.create('<div class="note-color-palette"/>', function (e, n) {
+                      palette: function(e, n) {
+                          return r.a.create('<div class="note-color-palette"/>', function(e, n) {
                               for (var o = [], i = 0, r = n.colors.length; i < r; i++) {
                                   for (var a = n.eventName, s = n.colors[i], l = n.colorsName[i], c = [], u = 0, d = s.length; u < d; u++) {
                                       var h = s[u],
@@ -6102,45 +6102,45 @@
                               e.html(o.join("")), n.tooltip && e.find(".note-color-btn").tooltip({ container: n.container || t.container, trigger: "hover", placement: "bottom" });
                           })(e, n);
                       },
-                      button: function (e, n) {
-                          return r.a.create('<button type="button" class="note-btn btn btn-default btn-sm" tabindex="-1">', function (e, n) {
+                      button: function(e, n) {
+                          return r.a.create('<button type="button" class="note-btn btn btn-default btn-sm" tabindex="-1">', function(e, n) {
                               n &&
                                   n.tooltip &&
                                   e
                                       .attr({ title: n.tooltip, "aria-label": n.tooltip })
                                       .tooltip({ container: n.container || t.container, trigger: "hover", placement: "bottom" })
-                                      .on("click", function (t) {
+                                      .on("click", function(t) {
                                           i()(t.currentTarget).tooltip("hide");
                                       }),
                                   n && n.codeviewButton && e.addClass("note-codeview-keep");
                           })(e, n);
                       },
-                      toggleBtn: function (t, e) {
+                      toggleBtn: function(t, e) {
                           t.toggleClass("disabled", !e), t.attr("disabled", !e);
                       },
-                      toggleBtnActive: function (t, e) {
+                      toggleBtnActive: function(t, e) {
                           t.toggleClass("active", e);
                       },
-                      onDialogShown: function (t, e) {
+                      onDialogShown: function(t, e) {
                           t.one("shown.bs.modal", e);
                       },
-                      onDialogHidden: function (t, e) {
+                      onDialogHidden: function(t, e) {
                           t.one("hidden.bs.modal", e);
                       },
-                      showDialog: function (t) {
+                      showDialog: function(t) {
                           t.modal("show");
                       },
-                      hideDialog: function (t) {
+                      hideDialog: function(t) {
                           t.modal("hide");
                       },
-                      createLayout: function (e) {
+                      createLayout: function(e) {
                           var n = (t.airMode ? f([c([u(), p()])]) : "bottom" === t.toolbarPosition ? s([c([u(), d()]), l(), h()]) : s([l(), c([u(), d()]), h()])).render();
                           return (
                               n.insertAfter(e),
                               { note: e, editor: n, toolbar: n.find(".note-toolbar"), editingArea: n.find(".note-editing-area"), editable: n.find(".note-editable"), codable: n.find(".note-codable"), statusbar: n.find(".note-statusbar") }
                           );
                       },
-                      removeLayout: function (t, e) {
+                      removeLayout: function(t, e) {
                           t.html(e.editable.html()), e.editor.remove(), t.show();
                       },
                   };
