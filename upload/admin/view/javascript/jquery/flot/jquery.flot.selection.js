@@ -33,7 +33,7 @@ When selection support is enabled, a "plotselected" event will be emitted on
 the DOM element you passed into the plot function. The event handler gets a
 parameter with the ranges selected on the axes, like this:
 
-	placeholder.bind( "plotselected", function( event, ranges ) {
+	placeholder.bind( "plotselected", function ( event, ranges ) {
 		alert("You selected " + ranges.xaxis.from + " to " + ranges.xaxis.to)
 		// similar for yaxis - with multiple axes, the extra ones are in
 		// x2axis, x3axis, ...
@@ -297,7 +297,7 @@ The plugin allso adds the following methods to the plot object:
         plot.setSelection = setSelection;
         plot.getSelection = getSelection;
 
-        plot.hooks.bindEvents.push(function(plot, eventHolder) {
+        plot.hooks.bindEvents.push(function (plot, eventHolder) {
             var o = plot.getOptions();
             if (o.selection.mode != null) {
                 eventHolder.mousemove(onMouseMove);

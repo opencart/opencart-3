@@ -20,7 +20,7 @@
  * produce a color rather than just crashing.
  */ 
 
-(function($) {
+(function ($) {
     $.color = {};
 
     // construct color object with some convenient chainable helpers

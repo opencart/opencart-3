@@ -1,4 +1,4 @@
-CodeMirror.defineMode("xml", function(config, parserConfig) {
+CodeMirror.defineMode("xml", function (config, parserConfig) {
   var indentUnit = config.indentUnit;
   var multilineTagIndentFactor = parserConfig.multilineTagIndentFactor || 1;
   var multilineTagIndentPastTag = parserConfig.multilineTagIndentPastTag || true;
@@ -123,7 +123,7 @@ CodeMirror.defineMode("xml", function(config, parserConfig) {
   }
 
   function inAttribute(quote) {
-    var closure = function(stream, state) {
+    var closure = function (stream, state) {
       while (!stream.eol()) {
         if (stream.next() == quote) {
           state.tokenize = inTag;
@@ -137,7 +137,7 @@ CodeMirror.defineMode("xml", function(config, parserConfig) {
   }
 
   function inBlock(style, terminator) {
-    return function(stream, state) {
+    return function (stream, state) {
       while (!stream.eol()) {
         if (stream.match(terminator)) {
           state.tokenize = inText;
@@ -149,7 +149,7 @@ CodeMirror.defineMode("xml", function(config, parserConfig) {
     };
   }
   function doctype(depth) {
-    return function(stream, state) {
+    return function (stream, state) {
       var ch;
       while ((ch = stream.next()) != null) {
         if (ch == "<") {
@@ -215,7 +215,7 @@ CodeMirror.defineMode("xml", function(config, parserConfig) {
     return cont();
   }
   function endtag(startOfLine) {
-    return function(type) {
+    return function (type) {
       var tagName = curState.tagName;
       curState.tagName = curState.tagStart = null;
       if (type == "selfcloseTag" ||
@@ -232,7 +232,7 @@ CodeMirror.defineMode("xml", function(config, parserConfig) {
     };
   }
   function endclosetag(err) {
-    return function(type) {
+    return function (type) {
       if (err) setStyle = "error";
       if (type == "endTag") { popContext(); return cont(); }
       setStyle = "error";
@@ -278,11 +278,11 @@ CodeMirror.defineMode("xml", function(config, parserConfig) {
   }
 
   return {
-    startState: function() {
+    startState: function () {
       return {tokenize: inText, cc: [], indented: 0, startOfLine: true, tagName: null, tagStart: null, context: null};
     },
 
-    token: function(stream, state) {
+    token: function (stream, state) {
       if (!state.tagName && stream.sol()) {
         state.startOfLine = true;
         state.indented = stream.indentation();
@@ -305,7 +305,7 @@ CodeMirror.defineMode("xml", function(config, parserConfig) {
       return style;
     },
 
-    indent: function(state, textAfter, fullLine) {
+    indent: function (state, textAfter, fullLine) {
       var context = state.context;
       // Indent multi-line strings (e.g. css).
       if (state.tokenize.isInAttribute) {

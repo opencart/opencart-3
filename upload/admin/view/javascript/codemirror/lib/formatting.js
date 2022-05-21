@@ -1,5 +1,5 @@
 // ============== Formatting extensions ============================
-(function() {
+(function () {
   // Define extensions for a few modes
   CodeMirror.extendMode("css", {
     commentStart: "/*",
@@ -47,9 +47,9 @@
 
     autoFormatLineBreaks: function (text) {
       var curPos = 0;
-      var split = this.jsonMode ? function(str) {
+      var split = this.jsonMode ? function (str) {
         return str.replace(/([,{])/g, "$1\n").replace(/}/g, "\n}");
-      } : function(str) {
+      } : function (str) {
         return str.replace(/(;|\{|\})([^\r\n;])/g, "$1\n$2");
       };
       var nonBreakableBlocks = jsNonBreakableBlocks(text), res = "";
@@ -132,7 +132,7 @@
   // Comment/uncomment the specified range
   CodeMirror.defineExtension("commentRange", function (isComment, from, to) {
     var curMode = localModeAt(this, from), cm = this;
-    this.operation(function() {
+    this.operation(function () {
       if (isComment) { // Comment range
         cm.replaceRange(curMode.commentEnd, to);
         cm.replaceRange(curMode.commentStart, from);

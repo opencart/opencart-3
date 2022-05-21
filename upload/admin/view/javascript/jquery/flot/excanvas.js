@@ -35,7 +35,7 @@
 // Only add this code if we do not already have a canvas implementation
 if (!document.createElement('canvas').getContext) {
 
-(function() {
+(function () {
 
   // alias some functions to make (compiled) code shorter
   var m = Math;
@@ -81,7 +81,7 @@ if (!document.createElement('canvas').getContext) {
    */
   function bind(f, obj, var_args) {
     var a = slice.call(arguments, 2);
-    return function() {
+    return function () {
       return f.apply(obj, a.concat(slice.call(arguments)));
     };
   }
@@ -114,7 +114,7 @@ if (!document.createElement('canvas').getContext) {
   addNamespacesAndStylesheet(document);
 
   var G_vmlCanvasManager_ = {
-    init: function(opt_doc) {
+    init: function (opt_doc) {
       var doc = opt_doc || document;
       // Create a dummy element so that IE will allow canvas elements to be
       // recognized.
@@ -122,7 +122,7 @@ if (!document.createElement('canvas').getContext) {
       doc.attachEvent('onreadystatechange', bind(this.init_, this, doc));
     },
 
-    init_: function(doc) {
+    init_: function (doc) {
       // find all canvas elements
       var els = doc.getElementsByTagName('canvas');
       for (var i = 0; i < els.length; i++) {
@@ -138,7 +138,7 @@ if (!document.createElement('canvas').getContext) {
      * @param {HTMLElement} el The canvas element to initialize.
      * @return {HTMLElement} the element that was created.
      */
-    initElement: function(el) {
+    initElement: function (el) {
       if (!el.getContext) {
         el.getContext = getContext;
 
@@ -607,7 +607,7 @@ if (!document.createElement('canvas').getContext) {
   }
 
   var contextPrototype = CanvasRenderingContext2D_.prototype;
-  contextPrototype.clearRect = function() {
+  contextPrototype.clearRect = function () {
     if (this.textMeasureEl_) {
       this.textMeasureEl_.removeNode(true);
       this.textMeasureEl_ = null;
@@ -615,20 +615,20 @@ if (!document.createElement('canvas').getContext) {
     this.element_.innerHTML = '';
   };
 
-  contextPrototype.beginPath = function() {
+  contextPrototype.beginPath = function () {
     // TODO: Branch current matrix so that save/restore has no effect
     //       as per safari docs.
     this.currentPath_ = [];
   };
 
-  contextPrototype.moveTo = function(aX, aY) {
+  contextPrototype.moveTo = function (aX, aY) {
     var p = getCoords(this, aX, aY);
     this.currentPath_.push({type: 'moveTo', x: p.x, y: p.y});
     this.currentX_ = p.x;
     this.currentY_ = p.y;
   };
 
-  contextPrototype.lineTo = function(aX, aY) {
+  contextPrototype.lineTo = function (aX, aY) {
     var p = getCoords(this, aX, aY);
     this.currentPath_.push({type: 'lineTo', x: p.x, y: p.y});
 
@@ -636,7 +636,7 @@ if (!document.createElement('canvas').getContext) {
     this.currentY_ = p.y;
   };
 
-  contextPrototype.bezierCurveTo = function(aCP1x, aCP1y,
+  contextPrototype.bezierCurveTo = function (aCP1x, aCP1y,
                                             aCP2x, aCP2y,
                                             aX, aY) {
     var p = getCoords(this, aX, aY);
@@ -660,7 +660,7 @@ if (!document.createElement('canvas').getContext) {
     self.currentY_ = p.y;
   }
 
-  contextPrototype.quadraticCurveTo = function(aCPx, aCPy, aX, aY) {
+  contextPrototype.quadraticCurveTo = function (aCPx, aCPy, aX, aY) {
     // the following is lifted almost directly from
     // http://developer.mozilla.org/en/docs/Canvas_tutorial:Drawing_shapes
 
@@ -679,7 +679,7 @@ if (!document.createElement('canvas').getContext) {
     bezierCurveTo(this, cp1, cp2, p);
   };
 
-  contextPrototype.arc = function(aX, aY, aRadius,
+  contextPrototype.arc = function (aX, aY, aRadius,
                                   aStartAngle, aEndAngle, aClockwise) {
     aRadius *= Z;
     var arcType = aClockwise ? 'at' : 'wa';
@@ -711,7 +711,7 @@ if (!document.createElement('canvas').getContext) {
 
   };
 
-  contextPrototype.rect = function(aX, aY, aWidth, aHeight) {
+  contextPrototype.rect = function (aX, aY, aWidth, aHeight) {
     this.moveTo(aX, aY);
     this.lineTo(aX + aWidth, aY);
     this.lineTo(aX + aWidth, aY + aHeight);
@@ -719,7 +719,7 @@ if (!document.createElement('canvas').getContext) {
     this.closePath();
   };
 
-  contextPrototype.strokeRect = function(aX, aY, aWidth, aHeight) {
+  contextPrototype.strokeRect = function (aX, aY, aWidth, aHeight) {
     var oldPath = this.currentPath_;
     this.beginPath();
 
@@ -733,7 +733,7 @@ if (!document.createElement('canvas').getContext) {
     this.currentPath_ = oldPath;
   };
 
-  contextPrototype.fillRect = function(aX, aY, aWidth, aHeight) {
+  contextPrototype.fillRect = function (aX, aY, aWidth, aHeight) {
     var oldPath = this.currentPath_;
     this.beginPath();
 
@@ -747,7 +747,7 @@ if (!document.createElement('canvas').getContext) {
     this.currentPath_ = oldPath;
   };
 
-  contextPrototype.createLinearGradient = function(aX0, aY0, aX1, aY1) {
+  contextPrototype.createLinearGradient = function (aX0, aY0, aX1, aY1) {
     var gradient = new CanvasGradient_('gradient');
     gradient.x0_ = aX0;
     gradient.y0_ = aY0;
@@ -756,7 +756,7 @@ if (!document.createElement('canvas').getContext) {
     return gradient;
   };
 
-  contextPrototype.createRadialGradient = function(aX0, aY0, aR0,
+  contextPrototype.createRadialGradient = function (aX0, aY0, aR0,
                                                    aX1, aY1, aR1) {
     var gradient = new CanvasGradient_('gradientradial');
     gradient.x0_ = aX0;
@@ -768,7 +768,7 @@ if (!document.createElement('canvas').getContext) {
     return gradient;
   };
 
-  contextPrototype.drawImage = function(image, var_args) {
+  contextPrototype.drawImage = function (image, var_args) {
     var dx, dy, dw, dh, sx, sy, sw, sh;
 
     // to find the original width we overide the width and height
@@ -877,7 +877,7 @@ if (!document.createElement('canvas').getContext) {
     this.element_.insertAdjacentHTML('BeforeEnd', vmlStr.join(''));
   };
 
-  contextPrototype.stroke = function(aFill) {
+  contextPrototype.stroke = function (aFill) {
     var W = 10;
     var H = 10;
     // Divide the shape into chunks if it's too long because IE has a limit
@@ -1052,7 +1052,7 @@ if (!document.createElement('canvas').getContext) {
       // We need to sort the color stops in ascending order by offset,
       // otherwise IE won't interpret it correctly.
       var stops = fillStyle.colors_;
-      stops.sort(function(cs1, cs2) {
+      stops.sort(function (cs1, cs2) {
         return cs1.offset - cs2.offset;
       });
 
@@ -1101,11 +1101,11 @@ if (!document.createElement('canvas').getContext) {
     }
   }
 
-  contextPrototype.fill = function() {
+  contextPrototype.fill = function () {
     this.stroke(true);
   };
 
-  contextPrototype.closePath = function() {
+  contextPrototype.closePath = function () {
     this.currentPath_.push({type: 'close'});
   };
 
@@ -1117,7 +1117,7 @@ if (!document.createElement('canvas').getContext) {
     };
   };
 
-  contextPrototype.save = function() {
+  contextPrototype.save = function () {
     var o = {};
     copyState(this, o);
     this.aStack_.push(o);
@@ -1125,7 +1125,7 @@ if (!document.createElement('canvas').getContext) {
     this.m_ = matrixMultiply(createMatrixIdentity(), this.m_);
   };
 
-  contextPrototype.restore = function() {
+  contextPrototype.restore = function () {
     if (this.aStack_.length) {
       copyState(this.aStack_.pop(), this);
       this.m_ = this.mStack_.pop();
@@ -1154,7 +1154,7 @@ if (!document.createElement('canvas').getContext) {
     }
   }
 
-  contextPrototype.translate = function(aX, aY) {
+  contextPrototype.translate = function (aX, aY) {
     var m1 = [
       [1,  0,  0],
       [0,  1,  0],
@@ -1164,7 +1164,7 @@ if (!document.createElement('canvas').getContext) {
     setM(this, matrixMultiply(m1, this.m_), false);
   };
 
-  contextPrototype.rotate = function(aRot) {
+  contextPrototype.rotate = function (aRot) {
     var c = mc(aRot);
     var s = ms(aRot);
 
@@ -1177,7 +1177,7 @@ if (!document.createElement('canvas').getContext) {
     setM(this, matrixMultiply(m1, this.m_), false);
   };
 
-  contextPrototype.scale = function(aX, aY) {
+  contextPrototype.scale = function (aX, aY) {
     this.arcScaleX_ *= aX;
     this.arcScaleY_ *= aY;
     var m1 = [
@@ -1189,7 +1189,7 @@ if (!document.createElement('canvas').getContext) {
     setM(this, matrixMultiply(m1, this.m_), true);
   };
 
-  contextPrototype.transform = function(m11, m12, m21, m22, dx, dy) {
+  contextPrototype.transform = function (m11, m12, m21, m22, dx, dy) {
     var m1 = [
       [m11, m12, 0],
       [m21, m22, 0],
@@ -1199,7 +1199,7 @@ if (!document.createElement('canvas').getContext) {
     setM(this, matrixMultiply(m1, this.m_), true);
   };
 
-  contextPrototype.setTransform = function(m11, m12, m21, m22, dx, dy) {
+  contextPrototype.setTransform = function (m11, m12, m21, m22, dx, dy) {
     var m = [
       [m11, m12, 0],
       [m21, m22, 0],
@@ -1214,7 +1214,7 @@ if (!document.createElement('canvas').getContext) {
    * The maxWidth argument isn't taken in account, since no browser supports
    * it yet.
    */
-  contextPrototype.drawText_ = function(text, x, y, maxWidth, stroke) {
+  contextPrototype.drawText_ = function (text, x, y, maxWidth, stroke) {
     var m = this.m_,
         delta = 1000,
         left = 0,
@@ -1303,15 +1303,15 @@ if (!document.createElement('canvas').getContext) {
     this.element_.insertAdjacentHTML('beforeEnd', lineStr.join(''));
   };
 
-  contextPrototype.fillText = function(text, x, y, maxWidth) {
+  contextPrototype.fillText = function (text, x, y, maxWidth) {
     this.drawText_(text, x, y, maxWidth, false);
   };
 
-  contextPrototype.strokeText = function(text, x, y, maxWidth) {
+  contextPrototype.strokeText = function (text, x, y, maxWidth) {
     this.drawText_(text, x, y, maxWidth, true);
   };
 
-  contextPrototype.measureText = function(text) {
+  contextPrototype.measureText = function (text) {
     if (!this.textMeasureEl_) {
       var s = '<span style="position:absolute;' +
           'top:-20000px;left:0;padding:0;margin:0;border:none;' +
@@ -1328,15 +1328,15 @@ if (!document.createElement('canvas').getContext) {
   };
 
   /******** STUBS ********/
-  contextPrototype.clip = function() {
+  contextPrototype.clip = function () {
     // TODO: Implement
   };
 
-  contextPrototype.arcTo = function() {
+  contextPrototype.arcTo = function () {
     // TODO: Implement
   };
 
-  contextPrototype.createPattern = function(image, repetition) {
+  contextPrototype.createPattern = function (image, repetition) {
     return new CanvasPattern_(image, repetition);
   };
 
@@ -1352,7 +1352,7 @@ if (!document.createElement('canvas').getContext) {
     this.colors_ = [];
   }
 
-  CanvasGradient_.prototype.addColorStop = function(aOffset, aColor) {
+  CanvasGradient_.prototype.addColorStop = function (aOffset, aColor) {
     aColor = processStyle(aColor);
     this.colors_.push({offset: aOffset,
                        color: aColor.color,

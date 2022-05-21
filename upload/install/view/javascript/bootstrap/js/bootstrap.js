@@ -1268,7 +1268,7 @@ if (typeof jQuery === "undefined") { throw new Error("Bootstrap requires jQuery"
     }
   }
 
-  Tooltip.prototype.applyPlacement = function(offset, placement) {
+  Tooltip.prototype.applyPlacement = function (offset, placement) {
     var replace
     var $tip   = this.tip()
     var width  = $tip[0].offsetWidth
@@ -1319,7 +1319,7 @@ if (typeof jQuery === "undefined") { throw new Error("Bootstrap requires jQuery"
     if (replace) $tip.offset(offset)
   }
 
-  Tooltip.prototype.replaceArrow = function(delta, dimension, position) {
+  Tooltip.prototype.replaceArrow = function (delta, dimension, position) {
     this.arrow().css(position, delta ? (50 * (1 - delta / dimension) + "%") : '')
   }
 

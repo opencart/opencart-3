@@ -2,7 +2,7 @@
  * Summernote Image Attributes
  * https://github.com/StudioJunkyard/summernote-image-attributes
  */
-(function(factory){
+(function (factory){
   if(typeof define==='function'&&define.amd){
     define(['jquery'],factory);
   }else if(typeof module==='object'&&module.exports){
@@ -10,15 +10,15 @@
   }else{
     factory(window.jQuery);
   }
-}(function($){
-  var readFileAsDataURL=function(file){
-    return $.Deferred(function(deferred){
+}(function ($){
+  var readFileAsDataURL=function (file){
+    return $.Deferred(function (deferred){
       $.extend(new FileReader(),{
-        onload:function(e){
+        onload:function (e){
           var sDataURL=e.target.result;
           deferred.resolve(sDataURL);
         },
-        onerror:function(){
+        onerror:function (){
           deferred.reject(this);
         }
       }).readAsDataURL(file);
@@ -314,7 +314,7 @@
     }
   });
   $.extend($.summernote.plugins,{
-    'imageAttributes':function(context){
+    'imageAttributes':function (context){
       var self=this;
       var ui=$.summernote.ui;
       var $note=context.layoutInfo.note;
@@ -328,17 +328,17 @@
         var readableSize=(options.maximumImageFileSize/Math.pow(1024,unit)).toFixed(2)*1+' '+' KMGTP'[unit]+'B';
         imageLimitation='<small>'+lang.image.maximumFileSize+' : '+readableSize+'</small>';
       }
-      context.memo('button.imageAttributes',function(){
+      context.memo('button.imageAttributes',function (){
         var button=ui.button({
           contents:options.imageAttributes.icon,
           tooltip:lang.imageAttributes.tooltip,
-          click:function(e){
+          click:function (e){
             context.invoke('imageAttributes.show');
           }
         });
         return button.render();
       });
-      this.initialize=function(){
+      this.initialize=function (){
         var $container=options.dialogsInBody?$(document.body):$editor;
         if(options.imageDialogLayout=='horizontal'){
           var body='<dl class="dl-horizontal">';
@@ -512,22 +512,22 @@
           footer:'<button href="#" class="btn btn-primary note-image-attributes-btn">OK</button>'
         }).render().appendTo($container);
       };
-      this.destroy=function(){
+      this.destroy=function (){
         ui.hideDialog(this.$dialog);
         this.$dialog.remove();
       };
-      this.bindEnterKey=function($input,$btn){
-        $input.on('keypress',function(event){
+      this.bindEnterKey=function ($input,$btn){
+        $input.on('keypress',function (event){
           if(event.keyCode===13)$btn.trigger('click');
         });
       };
-      this.bindLabels=function(){
+      this.bindLabels=function (){
         self.$dialog.find('.form-control:first').focus().select();
-        self.$dialog.find('label').on('click',function(){
+        self.$dialog.find('label').on('click',function (){
           $(this).parent().find('.form-control:first').focus();
         });
       };
-      this.show=function(){
+      this.show=function (){
         var $img=$($editable.data('target'));
         var imgInfo={
           imgDom:$img,
@@ -540,7 +540,7 @@
           imgLink:$($img.context).parent().is("a")?$($img.context).parent():null
         };
         this.showLinkDialog(imgInfo)
-            .then(function(imgInfo){
+            .then(function (imgInfo){
               ui.hideDialog(self.$dialog);
               var $img=imgInfo.imgDom;
               if(options.imageAttributes.removeEmpty){
@@ -572,8 +572,8 @@
               $note.change();
             });
       };
-      this.showLinkDialog=function(imgInfo){
-        return $.Deferred(function(deferred){
+      this.showLinkDialog=function (imgInfo){
+        return $.Deferred(function (deferred){
           var $imageTitle=self.$dialog.find('.note-image-attributes-title'),
               $imageInput=self.$dialog.find('.note-image-input'),
               $imageSrc=self.$dialog.find('.note-image-attributes-src'),
@@ -591,31 +591,31 @@
             $linkHref.val(imgInfo.imgLink.attr('href'));
             $linkClass.val(imgInfo.imgLink.attr('class'));
             $linkRole.val(imgInfo.imgLink.attr('role'));
-            $linkTarget.find('option').each(function(){
+            $linkTarget.find('option').each(function (){
               if($(this).val()==imgInfo.imgLink.attr('target'))$(this).attr('selected','selected');
             });
-            $linkRel.find('option').each(function(){
+            $linkRel.find('option').each(function (){
               if($(this).val()==imgInfo.imgLink.attr('rel'))$(this).attr('selected','selected');
             });
           }
-          ui.onDialogShown(self.$dialog,function(){
+          ui.onDialogShown(self.$dialog,function (){
             context.triggerEvent('dialog.shown');
             $imageInput.replaceWith(
               $imageInput.clone()
-                         .on('change',function(){
+                         .on('change',function (){
                            var callbacks=options.callbacks;
                            if(callbacks.onImageUpload){
                              context.triggerEvent('image.upload',this.files[0]);
                            }else{
-                             readFileAsDataURL(this.files[0]).then(function(dataURL){
+                             readFileAsDataURL(this.files[0]).then(function (dataURL){
                                $imageSrc.val(dataURL)
-                             }).fail(function(){
+                             }).fail(function (){
                                context.triggerEvent('image.upload.error');
                              });
                            }
                          }).val('')
             );
-            $editBtn.click(function(e){
+            $editBtn.click(function (e){
               e.preventDefault();
               deferred.resolve({
                 imgDom:imgInfo.imgDom,
@@ -641,7 +641,7 @@
             self.bindEnterKey($editBtn);
             self.bindLabels();
           });
-          ui.onDialogHidden(self.$dialog,function(){
+          ui.onDialogHidden(self.$dialog,function (){
             $editBtn.off('click');
             if(deferred.state()==='pending')deferred.reject();
           });

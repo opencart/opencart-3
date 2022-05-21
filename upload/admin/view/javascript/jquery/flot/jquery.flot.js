@@ -29,10 +29,10 @@ Licensed under the MIT license.
  * V. 1.1: Fix error handling so e.g. parsing an empty string does
  * produce a color rather than just crashing.
  */
-(function(B){B.color={};B.color.make=function(F,E,C,D){var G={};G.r=F||0;G.g=E||0;G.b=C||0;G.a=D!=null?D:1;G.add=function(J,I){for(var H=0;H<J.length;++H){G[J.charAt(H)]+=I}return G.normalize()};G.scale=function(J,I){for(var H=0;H<J.length;++H){G[J.charAt(H)]*=I}return G.normalize()};G.toString=function(){if(G.a>=1){return"rgb("+[G.r,G.g,G.b].join(",")+")"}else{return"rgba("+[G.r,G.g,G.b,G.a].join(",")+")"}};G.normalize=function(){function H(J,K,I){return K<J?J:(K>I?I:K)}G.r=H(0,parseInt(G.r),255);G.g=H(0,parseInt(G.g),255);G.b=H(0,parseInt(G.b),255);G.a=H(0,G.a,1);return G};G.clone=function(){return B.color.make(G.r,G.b,G.g,G.a)};return G.normalize()};B.color.extract=function(D,C){var E;do{E=D.css(C).toLowerCase();if(E!=""&&E!="transparent"){break}D=D.parent()}while(!B.nodeName(D.get(0),"body"));if(E=="rgba(0, 0, 0, 0)"){E="transparent"}return B.color.parse(E)};B.color.parse=function(F){var E,C=B.color.make;if(E=/rgb\(\s*([0-9]{1,3})\s*,\s*([0-9]{1,3})\s*,\s*([0-9]{1,3})\s*\)/.exec(F)){return C(parseInt(E[1],10),parseInt(E[2],10),parseInt(E[3],10))}if(E=/rgba\(\s*([0-9]{1,3})\s*,\s*([0-9]{1,3})\s*,\s*([0-9]{1,3})\s*,\s*([0-9]+(?:\.[0-9]+)?)\s*\)/.exec(F)){return C(parseInt(E[1],10),parseInt(E[2],10),parseInt(E[3],10),parseFloat(E[4]))}if(E=/rgb\(\s*([0-9]+(?:\.[0-9]+)?)\%\s*,\s*([0-9]+(?:\.[0-9]+)?)\%\s*,\s*([0-9]+(?:\.[0-9]+)?)\%\s*\)/.exec(F)){return C(parseFloat(E[1])*2.55,parseFloat(E[2])*2.55,parseFloat(E[3])*2.55)}if(E=/rgba\(\s*([0-9]+(?:\.[0-9]+)?)\%\s*,\s*([0-9]+(?:\.[0-9]+)?)\%\s*,\s*([0-9]+(?:\.[0-9]+)?)\%\s*,\s*([0-9]+(?:\.[0-9]+)?)\s*\)/.exec(F)){return C(parseFloat(E[1])*2.55,parseFloat(E[2])*2.55,parseFloat(E[3])*2.55,parseFloat(E[4]))}if(E=/#([a-fA-F0-9]{2})([a-fA-F0-9]{2})([a-fA-F0-9]{2})/.exec(F)){return C(parseInt(E[1],16),parseInt(E[2],16),parseInt(E[3],16))}if(E=/#([a-fA-F0-9])([a-fA-F0-9])([a-fA-F0-9])/.exec(F)){return C(parseInt(E[1]+E[1],16),parseInt(E[2]+E[2],16),parseInt(E[3]+E[3],16))}var D=B.trim(F).toLowerCase();if(D=="transparent"){return C(255,255,255,0)}else{E=A[D]||[0,0,0];return C(E[0],E[1],E[2])}};var A={aqua:[0,255,255],azure:[240,255,255],beige:[245,245,220],black:[0,0,0],blue:[0,0,255],brown:[165,42,42],cyan:[0,255,255],darkblue:[0,0,139],darkcyan:[0,139,139],darkgrey:[169,169,169],darkgreen:[0,100,0],darkkhaki:[189,183,107],darkmagenta:[139,0,139],darkolivegreen:[85,107,47],darkorange:[255,140,0],darkorchid:[153,50,204],darkred:[139,0,0],darksalmon:[233,150,122],darkviolet:[148,0,211],fuchsia:[255,0,255],gold:[255,215,0],green:[0,128,0],indigo:[75,0,130],khaki:[240,230,140],lightblue:[173,216,230],lightcyan:[224,255,255],lightgreen:[144,238,144],lightgrey:[211,211,211],lightpink:[255,182,193],lightyellow:[255,255,224],lime:[0,255,0],magenta:[255,0,255],maroon:[128,0,0],navy:[0,0,128],olive:[128,128,0],orange:[255,165,0],pink:[255,192,203],purple:[128,0,128],violet:[128,0,128],red:[255,0,0],silver:[192,192,192],white:[255,255,255],yellow:[255,255,0]}})(jQuery);
+(function (B){B.color={};B.color.make=function (F,E,C,D){var G={};G.r=F||0;G.g=E||0;G.b=C||0;G.a=D!=null?D:1;G.add=function (J,I){for(var H=0;H<J.length;++H){G[J.charAt(H)]+=I}return G.normalize()};G.scale=function (J,I){for(var H=0;H<J.length;++H){G[J.charAt(H)]*=I}return G.normalize()};G.toString=function (){if(G.a>=1){return"rgb("+[G.r,G.g,G.b].join(",")+")"}else{return"rgba("+[G.r,G.g,G.b,G.a].join(",")+")"}};G.normalize=function (){function H(J,K,I){return K<J?J:(K>I?I:K)}G.r=H(0,parseInt(G.r),255);G.g=H(0,parseInt(G.g),255);G.b=H(0,parseInt(G.b),255);G.a=H(0,G.a,1);return G};G.clone=function (){return B.color.make(G.r,G.b,G.g,G.a)};return G.normalize()};B.color.extract=function (D,C){var E;do{E=D.css(C).toLowerCase();if(E!=""&&E!="transparent"){break}D=D.parent()}while(!B.nodeName(D.get(0),"body"));if(E=="rgba(0, 0, 0, 0)"){E="transparent"}return B.color.parse(E)};B.color.parse=function (F){var E,C=B.color.make;if(E=/rgb\(\s*([0-9]{1,3})\s*,\s*([0-9]{1,3})\s*,\s*([0-9]{1,3})\s*\)/.exec(F)){return C(parseInt(E[1],10),parseInt(E[2],10),parseInt(E[3],10))}if(E=/rgba\(\s*([0-9]{1,3})\s*,\s*([0-9]{1,3})\s*,\s*([0-9]{1,3})\s*,\s*([0-9]+(?:\.[0-9]+)?)\s*\)/.exec(F)){return C(parseInt(E[1],10),parseInt(E[2],10),parseInt(E[3],10),parseFloat(E[4]))}if(E=/rgb\(\s*([0-9]+(?:\.[0-9]+)?)\%\s*,\s*([0-9]+(?:\.[0-9]+)?)\%\s*,\s*([0-9]+(?:\.[0-9]+)?)\%\s*\)/.exec(F)){return C(parseFloat(E[1])*2.55,parseFloat(E[2])*2.55,parseFloat(E[3])*2.55)}if(E=/rgba\(\s*([0-9]+(?:\.[0-9]+)?)\%\s*,\s*([0-9]+(?:\.[0-9]+)?)\%\s*,\s*([0-9]+(?:\.[0-9]+)?)\%\s*,\s*([0-9]+(?:\.[0-9]+)?)\s*\)/.exec(F)){return C(parseFloat(E[1])*2.55,parseFloat(E[2])*2.55,parseFloat(E[3])*2.55,parseFloat(E[4]))}if(E=/#([a-fA-F0-9]{2})([a-fA-F0-9]{2})([a-fA-F0-9]{2})/.exec(F)){return C(parseInt(E[1],16),parseInt(E[2],16),parseInt(E[3],16))}if(E=/#([a-fA-F0-9])([a-fA-F0-9])([a-fA-F0-9])/.exec(F)){return C(parseInt(E[1]+E[1],16),parseInt(E[2]+E[2],16),parseInt(E[3]+E[3],16))}var D=B.trim(F).toLowerCase();if(D=="transparent"){return C(255,255,255,0)}else{E=A[D]||[0,0,0];return C(E[0],E[1],E[2])}};var A={aqua:[0,255,255],azure:[240,255,255],beige:[245,245,220],black:[0,0,0],blue:[0,0,255],brown:[165,42,42],cyan:[0,255,255],darkblue:[0,0,139],darkcyan:[0,139,139],darkgrey:[169,169,169],darkgreen:[0,100,0],darkkhaki:[189,183,107],darkmagenta:[139,0,139],darkolivegreen:[85,107,47],darkorange:[255,140,0],darkorchid:[153,50,204],darkred:[139,0,0],darksalmon:[233,150,122],darkviolet:[148,0,211],fuchsia:[255,0,255],gold:[255,215,0],green:[0,128,0],indigo:[75,0,130],khaki:[240,230,140],lightblue:[173,216,230],lightcyan:[224,255,255],lightgreen:[144,238,144],lightgrey:[211,211,211],lightpink:[255,182,193],lightyellow:[255,255,224],lime:[0,255,0],magenta:[255,0,255],maroon:[128,0,0],navy:[0,0,128],olive:[128,128,0],orange:[255,165,0],pink:[255,192,203],purple:[128,0,128],violet:[128,0,128],red:[255,0,0],silver:[192,192,192],white:[255,255,255],yellow:[255,255,0]}})(jQuery);
 
 // the actual Flot code
-(function($) {
+(function ($) {
 
 	// Cache the prototype hasOwnProperty for faster access
 
@@ -113,7 +113,7 @@ Licensed under the MIT license.
 	// @param {number} width New width of the canvas, in pixels.
 	// @param {number} width New height of the canvas, in pixels.
 
-	Canvas.prototype.resize = function(width, height) {
+	Canvas.prototype.resize = function (width, height) {
 
 		if (width <= 0 || height <= 0) {
 			throw new Error("Invalid dimensions for plot, width = " + width + ", height = " + height);
@@ -158,13 +158,13 @@ Licensed under the MIT license.
 
 	// Clears the entire canvas area, not including any overlaid HTML text
 
-	Canvas.prototype.clear = function() {
+	Canvas.prototype.clear = function () {
 		this.context.clearRect(0, 0, this.width, this.height);
 	};
 
 	// Finishes rendering the canvas, including managing the text overlay.
 
-	Canvas.prototype.render = function() {
+	Canvas.prototype.render = function () {
 
 		var cache = this._textCache;
 
@@ -220,7 +220,7 @@ Licensed under the MIT license.
 	//     uniquely identify the text layer.
 	// @return {object} The jQuery-wrapped text-layer div.
 
-	Canvas.prototype.getTextLayer = function(classes) {
+	Canvas.prototype.getTextLayer = function (classes) {
 
 		var layer = this.text[classes];
 
@@ -299,7 +299,7 @@ Licensed under the MIT license.
 	// @param {number=} width Maximum width of the text before it wraps.
 	// @return {object} a text info object.
 
-	Canvas.prototype.getTextInfo = function(layer, text, font, angle, width) {
+	Canvas.prototype.getTextInfo = function (layer, text, font, angle, width) {
 
 		var textStyle, layerCache, styleCache, info;
 
@@ -385,7 +385,7 @@ Licensed under the MIT license.
 	// @param {string=} valign Vertical alignment of the text; either "top",
 	//     "middle" or "bottom".
 
-	Canvas.prototype.addText = function(layer, x, y, text, font, angle, width, halign, valign) {
+	Canvas.prototype.addText = function (layer, x, y, text, font, angle, width, halign, valign) {
 
 		var info = this.getTextInfo(layer, text, font, angle, width),
 			positions = info.positions;
@@ -458,7 +458,7 @@ Licensed under the MIT license.
 	// @param {number=} angle Angle at which the text is rotated, in degrees.
 	//     Angle is currently unused, it will be implemented in the future.
 
-	Canvas.prototype.removeText = function(layer, x, y, text, font, angle) {
+	Canvas.prototype.removeText = function (layer, x, y, text, font, angle) {
 		if (text == null) {
 			var layerCache = this._textCache[layer];
 			if (layerCache != null) {
@@ -623,9 +623,9 @@ Licensed under the MIT license.
         plot.setData = setData;
         plot.setupGrid = setupGrid;
         plot.draw = draw;
-        plot.getPlaceholder = function() { return placeholder; };
-        plot.getCanvas = function() { return surface.element; };
-        plot.getPlotOffset = function() { return plotOffset; };
+        plot.getPlaceholder = function () { return placeholder; };
+        plot.getCanvas = function () { return surface.element; };
+        plot.getPlotOffset = function () { return plotOffset; };
         plot.width = function () { return plotWidth; };
         plot.height = function () { return plotHeight; };
         plot.offset = function () {
@@ -651,7 +651,7 @@ Licensed under the MIT license.
         plot.highlight = highlight;
         plot.unhighlight = unhighlight;
         plot.triggerRedrawOverlay = triggerRedrawOverlay;
-        plot.pointOffset = function(point) {
+        plot.pointOffset = function (point) {
             return {
                 left: parseInt(xaxes[axisNumber(point, "x") - 1].p2c(+point.x) + plotOffset.left, 10),
                 top: parseInt(yaxes[axisNumber(point, "y") - 1].p2c(+point.y) + plotOffset.top, 10)
@@ -1704,7 +1704,7 @@ Licensed under the MIT license.
                 };
             }
 
-            if ($.isFunction(opts.tickFormatter))
+            if ($.isfunction (opts.tickFormatter))
                 axis.tickFormatter = function (v, axis) { return "" + opts.tickFormatter(v, axis); };
 
             if (opts.alignTicksWithAxis != null) {
@@ -1751,7 +1751,7 @@ Licensed under the MIT license.
             if (oticks == null || (typeof oticks == "number" && oticks > 0))
                 ticks = axis.tickGenerator(axis);
             else if (oticks) {
-                if ($.isFunction(oticks))
+                if ($.isfunction (oticks))
                     // generate the ticks
                     ticks = oticks(axis);
                 else
@@ -1875,7 +1875,7 @@ Licensed under the MIT license.
             // draw markings
             var markings = options.grid.markings;
             if (markings) {
-                if ($.isFunction(markings)) {
+                if ($.isfunction (markings)) {
                     axes = plot.getAxes();
                     // xmin etc. is backwards compatibility, to be
                     // removed in the future
@@ -2659,13 +2659,13 @@ Licensed under the MIT license.
             // Sort the legend using either the default or a custom comparator
 
             if (options.legend.sorted) {
-                if ($.isFunction(options.legend.sorted)) {
+                if ($.isfunction (options.legend.sorted)) {
                     entries.sort(options.legend.sorted);
                 } else if (options.legend.sorted == "reverse") {
                 	entries.reverse();
                 } else {
                     var ascending = options.legend.sorted != "descending";
-                    entries.sort(function(a, b) {
+                    entries.sort(function (a, b) {
                         return a.label == b.label ? 0 : (
                             (a.label < b.label) != ascending ? 1 : -1   // Logical XOR
                         );
@@ -3034,7 +3034,7 @@ Licensed under the MIT license.
 
     // Add the plot function to the top level of the jQuery object
 
-    $.plot = function(placeholder, data, options) {
+    $.plot = function (placeholder, data, options) {
         //var t0 = new Date();
         var plot = new Plot($(placeholder), data, options, $.plot.plugins);
         //(window.console ? console.log : alert)("time used (msecs): " + ((new Date()).getTime() - t0.getTime()));
@@ -3047,8 +3047,8 @@ Licensed under the MIT license.
 
     // Also add the plot function as a chainable property
 
-    $.fn.plot = function(data, options) {
-        return this.each(function() {
+    $.fn.plot = function (data, options) {
+        return this.each(function () {
             $.plot(this, data, options);
         });
     };

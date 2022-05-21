@@ -8,7 +8,7 @@ API.txt for details.
 
 */
 
-(function($) {
+(function ($) {
 
 	var options = {
 		xaxis: {
@@ -34,7 +34,7 @@ API.txt for details.
 			return d.strftime(fmt);
 		}
 
-		var leftPad = function(n, pad) {
+		var leftPad = function (n, pad) {
 			n = "" + n;
 			pad = "" + (pad == null ? "0" : pad);
 			return n.length == 1 ? pad + n : n;
@@ -111,7 +111,7 @@ API.txt for details.
 	function makeUtcWrapper(d) {
 
 		function addProxyMethod(sourceObj, sourceMethod, targetObj, targetMethod) {
-			sourceObj[sourceMethod] = function() {
+			sourceObj[sourceMethod] = function () {
 				return targetObj[targetMethod].apply(targetObj, arguments);
 			};
 		};
@@ -196,12 +196,12 @@ API.txt for details.
 
 	function init(plot) {
 		plot.hooks.processOptions.push(function (plot, options) {
-			$.each(plot.getAxes(), function(axisName, axis) {
+			$.each(plot.getAxes(), function (axisName, axis) {
 
 				var opts = axis.options;
 
 				if (opts.mode == "time") {
-					axis.tickGenerator = function(axis) {
+					axis.tickGenerator = function (axis) {
 
 						var ticks = [];
 						var d = dateGenerator(axis.min, opts);
