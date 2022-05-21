@@ -129,7 +129,7 @@
 </div>
 
 <script type="text/javascript">
-  $('body').on('click', '.braintree-tab-link', function (event) {
+  $('body').on('click', '.braintree-tab-link', function(event) {
     event.preventDefault();
 
     if ($(this).attr('id') == 'saved-link') {
@@ -159,7 +159,7 @@
   var vault_paypal_payment = {{ payment_pp_braintree_paypal_check_vault }};
 
   {% if payment_pp_braintree_card_vault == 1 and guest != true %}
-    $('body').on('change', '#vault-method-card', function (event) {
+    $('body').on('change', '#vault-method-card', function(event) {
        if ($(this).prop("checked"))  {
            vault_card_payment = 1;
        } else {
@@ -169,7 +169,7 @@
   {% endif %}
 
   {% if payment_pp_braintree_paypal_vault == 1 and guest != true %}
-    $('body').on('change', '#vault-method-paypal', function (event) {
+    $('body').on('change', '#vault-method-paypal', function(event) {
        if ($(this).prop("checked"))  {
            vault_paypal_payment = 1;
        } else {
@@ -178,7 +178,7 @@
     });
   {% endif %}
 
-  $.getScript('https://js.braintreegateway.com/web/3.6.3/js/client.min.js', function () {
+  $.getScript('https://js.braintreegateway.com/web/3.6.3/js/client.min.js', function() {
     $.getScript('https://js.braintreegateway.com/web/3.6.3/js/hosted-fields.min.js');
     $.getScript('https://js.braintreegateway.com/web/3.6.3/js/data-collector.min.js');
     {% if payment_pp_braintree_paypal_option %}$.getScript('https://js.braintreegateway.com/web/3.6.3/js/paypal.min.js');{% endif %}
@@ -186,7 +186,7 @@
 
     braintree.client.create({
       authorization: '{{ client_token }}'
-    }, function (client_error, braintree_client) {
+    }, function(client_error, braintree_client) {
       console.log("Create Client");
 
       if (client_error) {
@@ -199,7 +199,7 @@
       {% if payment_pp_braintree_3ds_status or payment_pp_braintree_vault_cvv_3ds == '3ds' %}
         braintree.threeDSecure.create({
             client: braintree_client
-        }, function (error, instance) {
+        }, function(error, instance) {
           if (error) {
               console.error(error);
               return;
@@ -251,7 +251,7 @@
 
   {% if payment_pp_braintree_3ds_status or payment_pp_braintree_vault_cvv_3ds == '3ds' %}
   // 3D Secure
-  $('body').on('click', '#braintree-3ds-close', function (event) {
+  $('body').on('click', '#braintree-3ds-close', function(event) {
     event.preventDefault();
     threed_secure_instance.cancelVerifyCard(removeFrame());
   });
@@ -287,7 +287,7 @@
       nonce: nonce,
       addFrame: addFrame,
       removeFrame: removeFrame
-    }, function (error, payload) {
+    }, function(error, payload) {
       if (error) {
         $('#submit-new').prop('disabled', false).button('reset');
         return;
@@ -307,7 +307,7 @@
       nonce: nonce,
       addFrame: addFrame,
       removeFrame: removeFrame
-    }, function (error, payload) {
+    }, function(error, payload) {
       if (error) {
         console.log('3ds error: ' + error.code);
         $('#submit-vaulted').prop('disabled', false).button('reset');
@@ -342,7 +342,7 @@
 
     hosted_instance = instance;
 
-    instance.on('ready', function (event) {
+    instance.on('ready', function(event) {
       {% if vaulted_payment_count > 0 %}
         $('#braintree-choose').show();
         $('#braintree-vaulted').show();
@@ -353,14 +353,14 @@
       $('#braintree-loading').hide();
     });
 
-    $('body').on('click', '#submit-new', function (event) {
+    $('body').on('click', '#submit-new', function(event) {
       event.preventDefault();
 
       $('#braintree-alert').text('').hide();
 
       $('#submit-new').prop('disabled', true ).button('loading');
 
-      instance.tokenize(function (tokenize_error, payload) {
+      instance.tokenize(function(tokenize_error, payload) {
         if (tokenize_error) {
           switch (tokenize_error.code) {
             case 'HOSTED_FIELDS_FIELDS_EMPTY':
@@ -404,7 +404,7 @@
 
     $('#paypal-button').prop('disabled', false);
 
-    $('body').on('click', '#paypal-button', function (event) {
+    $('body').on('click', '#paypal-button', function(event) {
       event.preventDefault();
 
       $('#paypal-button').attr('disabled', true);
@@ -444,7 +444,7 @@
         },
         {% endif %}
         shippingAddressEditable: false
-      }, function (tokenize_error, payload) {
+      }, function(tokenize_error, payload) {
         if (tokenize_error) {
           $('#paypal-button').prop('disabled', false);
 
@@ -472,7 +472,7 @@
   {% endif %}
 
   {% if payment_pp_braintree_vault_cvv_3ds == 'cvv' %}
-  $('body').on('change', 'input[name=\'vaulted_payment_method\']', function (event) {
+  $('body').on('change', 'input[name=\'vaulted_payment_method\']', function(event) {
     $('.input-vaulted-cvv').hide();
 
     if ($(this).hasClass('vaulted-card')) {
@@ -492,10 +492,10 @@
               type: 'password'
             }
           }
-        }, function (error, instance) {
+        }, function(error, instance) {
           cvv_instance[payment_token] = instance;
 
-          instance.on('ready', function (event) {
+          instance.on('ready', function(event) {
             $('#input-vaulted-cvv-' + payment_token).show();
           });
         });
@@ -504,7 +504,7 @@
   });
   {% endif %}
 
-  $('body').on('click', '.remove-vault-method', function (event) {
+  $('body').on('click', '.remove-vault-method', function(event) {
     event.preventDefault();
 
     // get this id/var
@@ -516,7 +516,7 @@
         type: 'post',
         data: { vaulted_payment_method: vaulted_payment_token },
         dataType: 'json',
-        success: function (json) {
+        success: function(json) {
           if (json.error) {
             alert(json.error);
           }
@@ -537,7 +537,7 @@
     }
   });
 
-  $('body').on('click', '#submit-vaulted', function (event) {
+  $('body').on('click', '#submit-vaulted', function(event) {
     event.preventDefault();
 
     $('#braintree-alert').text('').hide();
@@ -548,7 +548,7 @@
 
     if ($('input[name=\'vaulted_payment_method\']:checked').hasClass('vaulted-card')) {
       {% if payment_pp_braintree_vault_cvv_3ds == 'cvv' %}
-        cvv_instance[vaulted_payment_token].tokenize(function (error, payload) {
+        cvv_instance[vaulted_payment_token].tokenize(function(error, payload) {
             if (error) {
                 switch (error.code) {
                     case 'HOSTED_FIELDS_FIELDS_EMPTY':
@@ -580,7 +580,7 @@
           type: 'post',
           data: { vaulted_payment_token: vaulted_payment_token },
           dataType: 'json',
-          success: function (json) {
+          success: function(json) {
             if (json.success) {
                 if (json.payment_method.type == 'PayPalAccount') {
                   submitVaultOrder(vaulted_payment_token, false);
@@ -593,7 +593,7 @@
               return;
             }
           },
-          failure: function () {
+          failure: function() {
             console.log('Failed to call getNonceFromToken');
             $('#submit-vaulted').prop('disabled', false).button('reset');
           }
@@ -655,7 +655,7 @@
     $('#braintree-new').submit();
   }
 
-  $(document).delegate('#button-payment-method', 'click', function () {
+  $(document).delegate('#button-payment-method', 'click', function() {
     console.log("Teardown!");
 
     $('#collapse-checkout-confirm .panel-body').empty();
@@ -671,7 +671,7 @@
     data_collector_instance.teardown();
     hosted_instance.teardown();
 
-    $.each(cvv_instance, function (instance_object) {
+    $.each(cvv_instance, function(instance_object) {
       instance_object.teardown();
     });
 

@@ -98,7 +98,7 @@
     </div>
   </div>
   <script type="text/javascript"><!--
-$('#ip').delegate('.pagination a', 'click', function (e) {
+$('#ip').delegate('.pagination a', 'click', function(e) {
 	e.preventDefault();
 	
 	$('#ip').load(this.href);
@@ -106,19 +106,19 @@ $('#ip').delegate('.pagination a', 'click', function (e) {
 
 $('#ip').load('index.php?route=extension/fraud/ip/ip&user_token={{ user_token }}');
 
-$('#button-ip-add').on('click', function () {
+$('#button-ip-add').on('click', function() {
 	$.ajax({
 		url: 'index.php?route=extension/fraud/ip/addip&user_token={{ user_token }}',
 		type: 'post',
 		dataType: 'json',
 		data: 'ip=' + encodeURIComponent($('#input-ip').val()),
-		beforeSend: function () {
+		beforeSend: function() {
 			$('#button-ip-add').button('loading');
 		},
-		complete: function () {
+		complete: function() {
 			$('#button-ip-add').button('reset');
 		},
-		success: function (json) {
+		success: function(json) {
 			$('.alert-dismissible').remove();
 			
 			if (json['error']) {
@@ -133,13 +133,13 @@ $('#button-ip-add').on('click', function () {
 				$('#input-ip').val('');
 			}
 		},
-		error: function (xhr, ajaxOptions, thrownError) {
+		error: function(xhr, ajaxOptions, thrownError) {
 			alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
 		}
 	});
 });
 
-$('#ip').delegate('button', 'click', function () {
+$('#ip').delegate('button', 'click', function() {
 	var element = this;
 	
 	$.ajax({
@@ -147,13 +147,13 @@ $('#ip').delegate('button', 'click', function () {
 		type: 'post',
 		dataType: 'json',
 		data: 'ip=' + encodeURIComponent($(element).val()),
-		beforeSend: function () {
+		beforeSend: function() {
 			$(element).button('loading');
 		},
-		complete: function () {
+		complete: function() {
 			$(element).button('reset');
 		},
-		success: function (json) {
+		success: function(json) {
 			$('.alert-dismissible').remove();
 			
 			if (json['error']) {
@@ -166,7 +166,7 @@ $('#ip').delegate('button', 'click', function () {
 				$('#ip').load('index.php?route=extension/fraud/ip/ip&user_token={{ user_token }}');
 			}
 		},
-		error: function (xhr, ajaxOptions, thrownError) {
+		error: function(xhr, ajaxOptions, thrownError) {
 			alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
 		}
 	});

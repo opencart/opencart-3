@@ -32,19 +32,19 @@
   </tr>
 </table>
 <script type="text/javascript"><!--
-	$('#button-tracking').click(function () {
+	$('#button-tracking').click(function() {
 		if (confirm('{{ text_confirm }}')) {
 			$.ajax({
 				type: 'POST',
 				dataType: 'json',
 				data: {'order_id': {{ order_id }}, 'tracking': $('#tracking').val()},
 				url: 'index.php?route=extension/payment/pilibaba/tracking&user_token={{ user_token }}',
-				beforeSend: function () {
+				beforeSend: function() {
 					$('#button-tracking').hide();
 					$('#img_loading_tracking').show();
 					$('.pilibaba_message').remove();
 				},
-				success: function (json) {
+				success: function(json) {
 					if (json['success']) {
 						$('h2').after('<div class="alert alert-success pilibaba_message" style="display:none"><i class="fa fa-check-circle"></i> ' + json['success'] + '</div>').fadeIn();
 					}

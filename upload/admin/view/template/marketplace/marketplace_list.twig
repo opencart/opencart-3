@@ -132,31 +132,31 @@
   </div>
 
 <script type="text/javascript"><!--
-$('#button-opencart').on('click', function (e) {
+$('#button-opencart').on('click', function(e) {
 	$('#modal-opencart').remove();
 	
 	$.ajax({
 		url: 'index.php?route=marketplace/api&user_token={{ user_token }}',
 		dataType: 'html',
-		beforeSend: function () {
+		beforeSend: function() {
 			$('#button-opencart').button('loading');
 		},
-		complete: function () {
+		complete: function() {
 			$('#button-opencart').button('reset');
 		},
-		success: function (html) {
+		success: function(html) {
 			$('body').append('<div id="modal-opencart" class="modal">' + html + '</div>');
 			
 			$('#modal-opencart').modal('show');
 		},
-		error: function (xhr, ajaxOptions, thrownError) {
+		error: function(xhr, ajaxOptions, thrownError) {
 			alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
 		}
 	});
 });
 //--></script> 
 <script type="text/javascript"><!--
-$('#button-filter').on('click', function (e) {
+$('#button-filter').on('click', function(e) {
 	var url = 'index.php?route=marketplace/marketplace&user_token={{ user_token }}';
 
 	var input = $('#extension-filter :input');
@@ -170,7 +170,7 @@ $('#button-filter').on('click', function (e) {
 	location = url;
 });
 
-$('input[name="filter_search"]').keydown(function (e) {
+$('input[name="filter_search"]').keydown(function(e) {
 	if (e.keyCode == 13) {
 		e.preventDefault();
 

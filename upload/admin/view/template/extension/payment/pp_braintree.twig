@@ -835,7 +835,7 @@ $('.date').datetimepicker({
 	pickTime: false
 });
 
-$('#button-filter').on('click', function (event) {
+$('#button-filter').on('click', function(event) {
 	event.preventDefault();
 
 	var url = 'index.php?route=extension/payment/pp_braintree/search&user_token={{ user_token }}';
@@ -870,7 +870,7 @@ $('#button-filter').on('click', function (event) {
 		url += '&filter_merchant_account_id=' + encodeURIComponent(filter_merchant_account_id);
 	}
 
-	$('.filter-transaction-status:checked').each(function (i) {
+	$('.filter-transaction-status:checked').each(function(i) {
 		url += '&filter_transaction_status[' + i + ']=' + encodeURIComponent($(this).val());
 	});
 
@@ -901,15 +901,15 @@ $('#button-filter').on('click', function (event) {
 	$.ajax({
 		url: url,
 		dataType: 'json',
-		beforeSend: function () {
+		beforeSend: function() {
 			$('#button-filter').button('loading');
 
 			$('#table-action').html('<div style="width: 5em; margin: 0px auto;"><i class="braintree-loading fa fa-spinner fa-spin fa-5x" style="text-align: center; margin: 0 auto; width: 100%; font-size: 5em;"></i></div>');
 		},
-		complete: function () {
+		complete: function() {
 			$('#button-filter').button('reset');
 		},
-		success: function (json) {
+		success: function(json) {
 			var html = '';
 
 			html += '<table class="table table-bordered">';
@@ -926,7 +926,7 @@ $('#button-filter').on('click', function (event) {
 			html +=   '</thead>';
 			html +=   '<tbody>';
 			if (json.transactions) {
-				$(json.transactions).each(function (i) {
+				$(json.transactions).each(function(i) {
 					html += '<tr>';
 					html += '<td><a href="#" class="transaction-id" data-id="' + this.transaction_id + '">' + this.transaction_id + '</a></td>';
 					html += '<td>' + this.amount + ' ' + this.currency_iso + '</td>';
@@ -959,13 +959,13 @@ $('#button-filter').on('click', function (event) {
 	});
 });
 
-$(document).on('click', '.transaction-id', function (event) {
+$(document).on('click', '.transaction-id', function(event) {
 	event.preventDefault();
 
 	getTransaction($(this).attr('data-id'));
 });
 
-$(document).on('click', '#delete-link', function (event) {
+$(document).on('click', '#delete-link', function(event) {
 	event.preventDefault();
 
   $('input[name="payment_pp_braintree_access_token"]').val('');
@@ -977,7 +977,7 @@ $(document).on('click', '#delete-link', function (event) {
   $('#form-braintree').submit();
 });
 
-$(document).ready(function () {
+$(document).ready(function() {
     if ($('#input-3ds-status').val() == 1) {
         $('.three-ds-status').show();
     } else {
@@ -985,7 +985,7 @@ $(document).ready(function () {
     }
 });
 
-$('#input-3ds-status').on('change', function () {
+$('#input-3ds-status').on('change', function() {
     if ($(this).val() == 1) {
         $('.three-ds-status').show();
     } else {
@@ -1000,15 +1000,15 @@ function getTransaction(transaction_id) {
 		data: {
 			transaction_id: transaction_id
 		},
-		beforeSend: function () {
+		beforeSend: function() {
 			$('#button-filter').button('loading');
 
 			$('#table-action').html('<div style="width: 5em; margin: 0px auto;"><i class="braintree-loading fa fa-spinner fa-spin fa-5x" style="text-align: center; margin: 0 auto; width: 100%; font-size: 5em;"></i></div>');
 		},
-		complete: function () {
+		complete: function() {
 			$('#button-filter').button('reset');
 		},
-		success: function (html) {
+		success: function(html) {
 			$('#table-action').html(html);
 		}
 	});
@@ -1021,7 +1021,7 @@ function getTransaction(transaction_id) {
     new BraintreeOAuthConnect({
       connectUrl: '{{ auth_connect_url }}',
       container: 'bt-connect',
-      onError: function (error) {
+      onError: function(error) {
         alert(error.message);
       }
     });

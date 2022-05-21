@@ -31,9 +31,9 @@
 </style>
 <input type="hidden" name="payment_method" value=""/>
 <script type="text/javascript">
-(function ($) {
-    $(document).ready(function () {
-        var showError = function (message) {
+(function($) {
+    $(document).ready(function() {
+        var showError = function(message) {
             $('#continue-button').button('reset');
 
             $('#walletWidget').before('<div class="alert alert-danger"><button type="button" class="close" data-dismiss="alert">&times;</button><i class="fa fa-exclamation-circle"></i>&nbsp;&nbsp;' + message + '</div>');
@@ -41,7 +41,7 @@
 
         amazon.Login.setClientId('{{ client_id }}');
 
-        $('#continue-button').click(function () {
+        $('#continue-button').click(function() {
             $('#continue-button').button('loading');
             $('div.alert').remove();
 
@@ -59,13 +59,13 @@
                 orderReferenceId: '{{ order_reference_id }}',
             {% endif %}
 
-            onPaymentSelect: function (orderReference) {
+            onPaymentSelect: function(orderReference) {
                 $("input[name='payment_method']").val('1');
             },
             design: {
                 designMode: 'responsive'
             },
-            onError: function (error) {
+            onError: function(error) {
                 switch (error.getErrorCode()) {
                     case 'BuyerSessionExpired' :
                         document.location = '{{ session_expired }}';

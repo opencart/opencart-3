@@ -159,20 +159,20 @@
     </div>
 </div>
 <script>
-(function ($) {
+(function($) {
     var divido = {
-        initialize: function () {
+        initialize: function() {
             this.bindEvents();
             this.toggleFields();
         },
 
-        bindEvents: function () {
+        bindEvents: function() {
             $('#divido_productselection').on('change', this.toggleFields);
             $('#divido_planselection').on('change', this.toggleFields);
 
         },
 
-        toggleFields: function () {
+        toggleFields: function() {
             var $apiKeyField = $('#api_key');
 
             if ($apiKeyField.val().length < 1) {
@@ -197,17 +197,17 @@
         }
     };
 
-    $(function () {
+    $(function() {
         divido.initialize();
     });
 
 	$('input[name="category"]').autocomplete({
-		source: function (request, response) {
+		source: function(request, response) {
 			$.ajax({
 				url: 'index.php?route=catalog/category/autocomplete&user_token={{ user_token }}&filter_name=' +  encodeURIComponent(request),
 				dataType: 'json',
-				success: function (json) {
-					response($.map(json, function (item) {
+				success: function(json) {
+					response($.map(json, function(item) {
 						return {
 							label: item['name'],
 							value: item['category_id']
@@ -216,14 +216,14 @@
 				}
 			});
 		},
-		select: function (item) {
+		select: function(item) {
 			$('input[name=\'category\']').val('');
 			$('#divido-category' + item['value']).remove();
 			$('#divido-category').append('<div id="divido-category' + item['value'] + '"><i class="fa fa-minus-circle"></i> ' + item['label'] + '<input type="hidden" name="payment_divido_categories[]" value="' + item['value'] + '"/></div>');
 		}
 	});
 
-	$('#divido-category').delegate('.fa-minus-circle', 'click', function () {
+	$('#divido-category').delegate('.fa-minus-circle', 'click', function() {
 		$(this).parent().remove();
 	});
 

@@ -514,10 +514,10 @@ function onBoardedCallback(authorization_code, shared_id) {
 		type: 'post',
 		data: 'environment=' + environment + '&authorization_code=' + authorization_code + '&shared_id=' + shared_id + '&seller_nonce={{ seller_nonce }}',
 		dataType: 'json',
-		success: function (json) {
+		success: function(json) {
 			
 		},
-		error: function (xhr, ajaxOptions, thrownError) {
+		error: function(xhr, ajaxOptions, thrownError) {
 			console.log(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
 		}
 	});
@@ -526,7 +526,7 @@ function onBoardedCallback(authorization_code, shared_id) {
 </script>
 <script type="text/javascript">
 
-$('#button_disconnect').on('click', function () {
+$('#button_disconnect').on('click', function() {
 	if (confirm('{{ text_confirm }}')) {
 		$('#input_client_id').val('');
 		$('#input_secret').val('');
@@ -536,7 +536,7 @@ $('#button_disconnect').on('click', function () {
 	}
 });
 
-$('#input_environment').on('change', function () {
+$('#input_environment').on('change', function() {
 	var environment = $(this).val();
 	
 	if (environment == 'production') {
@@ -554,7 +554,7 @@ $('#input_environment').on('change', function () {
 	$('#section_disconnect').addClass('hidden');
 });
 
-$('#input_checkout_message_layout').on('change', function () {
+$('#input_checkout_message_layout').on('change', function() {
 	var layout = $(this).val();
 	
 	if (layout == 'text') {

@@ -45,12 +45,12 @@ function refund() {
     data: {'transaction_reference': '{{ transaction_reference }}', 'amount': amount },
     url: 'index.php?route=extension/payment/pp_payflow_iframe/dorefund&user_token={{ user_token }}',
 
-    beforeSend: function () {
+    beforeSend: function() {
       $('#button-refund').after('<span class="btn btn-primary loading"><i class="fa fa-circle-o-notch fa-spin fa-lg"></i></span>');
       $('#button-refund').hide();
     },
 
-    success: function (data) {
+    success: function(data) {
       if (!data.error) {
         alert(data.success);
         $('input[name="amount"]').val('0.00');

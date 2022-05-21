@@ -76,7 +76,7 @@
   <script type="text/javascript"><!--
 
       //Load Worldpay.js and run script functions
-      $.getScript("{{ worldpay_script }}", function (data, textStatus, jqxhr) {
+      $.getScript("{{ worldpay_script }}", function(data, textStatus, jqxhr) {
         Worldpay.setClientKey("{{ worldpay_client_key }}");
 
         // disable new card form if existing cards
@@ -89,7 +89,7 @@
 {% if recurring_products %}
 	        Worldpay.reusable = true;
 {% else %}
-	        $('input[name=\'save-card\']').on('change', function () {
+	        $('input[name=\'save-card\']').on('change', function() {
 	          if ($(this).is(':checked')) {
 	            Worldpay.reusable = true;
 	          } else {
@@ -99,7 +99,7 @@
 {% endif %}
 
         Worldpay.templateSaveButton = false;
-        Worldpay.useTemplate('payment-new-form', 'paymentDetailsHere', 'inline', function (obj) {
+        Worldpay.useTemplate('payment-new-form', 'paymentDetailsHere', 'inline', function(obj) {
           var _el = document.createElement('input');
           _el.value = obj.token;
           _el.type = 'hidden';
@@ -109,11 +109,11 @@
         });
 
         //Submit form
-        $('input[type=\'submit\']').on('click', function () {
+        $('input[type=\'submit\']').on('click', function() {
           var existing = $('input[name=\'existing-card\']:checked').val();
           if (existing === '1') {
             var form = document.getElementById('payment-existing-form');
-            Worldpay.useForm(form, function (status, response) {
+            Worldpay.useForm(form, function(status, response) {
               if (response.error || status != 200) {
                 Worldpay.handleError(form, document.getElementById('payment-errors'), response.error);
               } else {
@@ -127,7 +127,7 @@
       });
 
       //Delete a card
-      $('#button-delete').on('click', function () {
+      $('#button-delete').on('click', function() {
         var token = $('select[name=\'token\'] option:selected');
 
         if (confirm('{{ text_confirm_delete }}\n' + token.text())) {
@@ -136,13 +136,13 @@
             type: 'post',
             data: {token: token.val()},
             dataType: 'json',
-            beforeSend: function () {
+            beforeSend: function() {
               $('#button-delete').button('loading');
             },
-            complete: function () {
+            complete: function() {
               $('#button-delete').button('reset');
             },
-            success: function (json) {
+            success: function(json) {
               if (json['error']) {
                 alert(json['error']);
               }
@@ -163,7 +163,7 @@
       });
 
       // enable or disable forms based on exiting or new card option
-      $('input[name=\'existing-card\']').on('change', function () {
+      $('input[name=\'existing-card\']').on('change', function() {
         if (this.value === '1') {
           $('#payment-existing-form').show();
           $('#payment-new-form').hide();

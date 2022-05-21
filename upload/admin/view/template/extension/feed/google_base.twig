@@ -68,24 +68,24 @@
   <script type="text/javascript"><!--
 // Google Category
 $('input[name=\'google_base_category\']').autocomplete({
-    'source': function (request, response) {
+    'source': function(request, response) {
       $.ajax({
         url: 'index.php?route=extension/feed/google_base/autocomplete&user_token={{ user_token }}&filter_name=' +  encodeURIComponent(request),
         dataType: 'json',
-        success: function (json) {
-          response($.map(json, function (item) {
+        success: function(json) {
+          response($.map(json, function(item) {
             return {
               label: item['name'],
               value: item['google_base_category_id']
             }
           }));
         },
-        error: function (xhr, ajaxOptions, thrownError) {
+        error: function(xhr, ajaxOptions, thrownError) {
           alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
         }
       });
     },
-    'select': function (item) {
+    'select': function(item) {
       $(this).val(item['label']);
       $('input[name=\'google_base_category_id\']').val(item['value']);
   }
@@ -93,30 +93,30 @@ $('input[name=\'google_base_category\']').autocomplete({
 
 // Category
 $('input[name=\'category\']').autocomplete({
-	'source': function (request, response) {
+	'source': function(request, response) {
 		$.ajax({
 			url: 'index.php?route=catalog/category/autocomplete&user_token={{ user_token }}&filter_name=' +  encodeURIComponent(request),
 			dataType: 'json',
-			success: function (json) {
-				response($.map(json, function (item) {
+			success: function(json) {
+				response($.map(json, function(item) {
 					return {
 						label: item['name'],
 						value: item['category_id']
 					}
 				}));
 			},
-      error: function (xhr, ajaxOptions, thrownError) {
+      error: function(xhr, ajaxOptions, thrownError) {
         alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
       }
     });
 	},
-	'select': function (item) {
+	'select': function(item) {
       $(this).val(item['label']);
       $('input[name="category_id"]').val(item['value']);
     }
 });
 
-$('#category').delegate('.pagination a', 'click', function (e) {
+$('#category').delegate('.pagination a', 'click', function(e) {
 	e.preventDefault();
 
 	$('#category').load(this.href);
@@ -124,19 +124,19 @@ $('#category').delegate('.pagination a', 'click', function (e) {
 
 $('#category').load('index.php?route=extension/feed/google_base/category&user_token={{ user_token }}');
 
-$('#button-category-add').on('click', function () {
+$('#button-category-add').on('click', function() {
 	$.ajax({
 		url: 'index.php?route=extension/feed/google_base/addcategory&user_token={{ user_token }}',
 		type: 'post',
 		dataType: 'json',
 		data: 'google_base_category_id=' + $('input[name=\'google_base_category_id\']').val() + '&category_id=' + $('input[name=\'category_id\']').val(),
-		beforeSend: function () {
+		beforeSend: function() {
 			$('#button-category-add').button('loading');
 		},
-		complete: function () {
+		complete: function() {
 			$('#button-category-add').button('reset');
 		},
-		success: function (json) {
+		success: function(json) {
 			$('.alert-dismissible').remove();
 
 			if (json['error']) {
@@ -154,13 +154,13 @@ $('#button-category-add').on('click', function () {
           $('input[name=\'google_base_category_id\']').val('');
 			}
 		},
-		error: function (xhr, ajaxOptions, thrownError) {
+		error: function(xhr, ajaxOptions, thrownError) {
 			alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
 		}
 	});
 });
 
-$('#category').delegate('.btn-danger', 'click', function () {
+$('#category').delegate('.btn-danger', 'click', function() {
 	var node = this;
 
 	$.ajax({
@@ -169,13 +169,13 @@ $('#category').delegate('.btn-danger', 'click', function () {
 		data: 'category_id=' + encodeURIComponent(this.value),
 		dataType: 'json',
 		crossDomain: true,
-		beforeSend: function () {
+		beforeSend: function() {
 			$(node).button('loading');
 		},
-		complete: function () {
+		complete: function() {
 			$(node).button('reset');
 		},
-		success: function (json) {
+		success: function(json) {
 			$('.alert-dismissible').remove();
 
 			// Check for errors
@@ -189,13 +189,13 @@ $('#category').delegate('.btn-danger', 'click', function () {
 				$('#category').before('<div class="alert alert-success alert-dismissible"><i class="fa fa-check-circle"></i> ' + json['success'] + ' <button type="button" class="close" data-dismiss="alert">&times;</button></div>');
 			}
 		},
-		error: function (xhr, ajaxOptions, thrownError) {
+		error: function(xhr, ajaxOptions, thrownError) {
 			alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
 		}
 	});
 });
 
-$('#button-import').on('click', function () {
+$('#button-import').on('click', function() {
 	$('#form-upload').remove();
 
 	$('body').prepend('<form enctype="multipart/form-data" id="form-upload" style="display: none;"><input type="file" name="file"/></form>');
@@ -206,7 +206,7 @@ $('#button-import').on('click', function () {
     clearInterval(timer);
 	}
 
-	timer = setInterval(function () {
+	timer = setInterval(function() {
 		if ($('#form-upload input[name=\'file\']').val() != '') {
 			clearInterval(timer);
 
@@ -218,13 +218,13 @@ $('#button-import').on('click', function () {
 				cache: false,
 				contentType: false,
 				processData: false,
-				beforeSend: function () {
+				beforeSend: function() {
 					$('#button-import').button('loading');
 				},
-				complete: function () {
+				complete: function() {
 					$('#button-import').button('reset');
 				},
-				success: function (json) {
+				success: function(json) {
 					$('.alert-dismissible').remove();
 
           if (json['error']) {
@@ -235,7 +235,7 @@ $('#button-import').on('click', function () {
         		$('#content > .container-fluid').prepend('<div class="alert alert-success alert-dismissible"><i class="fa fa-check-circle"></i> ' + json['success'] + ' <button type="button" class="close" data-dismiss="alert">&times;</button></div>');
         	}
 				},
-				error: function (xhr, ajaxOptions, thrownError) {
+				error: function(xhr, ajaxOptions, thrownError) {
 					alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
 				}
 			});

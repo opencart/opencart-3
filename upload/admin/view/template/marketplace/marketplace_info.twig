@@ -156,31 +156,31 @@
     </div>
   </div>
   <script type="text/javascript"><!--
-$('#button-opencart').on('click', function (e) {
+$('#button-opencart').on('click', function(e) {
 	$('#modal-opencart').remove();
 	
 	$.ajax({
 		url: 'index.php?route=marketplace/api&user_token={{ user_token }}',
 		dataType: 'html',
-		beforeSend: function () {
+		beforeSend: function() {
 			$('#button-opencart').button('loading');
 		},
-		complete: function () {
+		complete: function() {
 			$('#button-opencart').button('reset');
 		},
-		success: function (html) {
+		success: function(html) {
 			$('body').append('<div id="modal-opencart" class="modal">' + html + '</div>');
 			
 			$('#modal-opencart').modal('show');
 		},
-		error: function (xhr, ajaxOptions, thrownError) {
+		error: function(xhr, ajaxOptions, thrownError) {
 			alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
 		}
 	});
 });
 //--></script> 
   <script type="text/javascript"><!--
-$('#button-buy').on('click', function (e) {
+$('#button-buy').on('click', function(e) {
 	e.preventDefault();
 
 	$('#modal-purchase').remove();
@@ -212,7 +212,7 @@ $('#button-buy').on('click', function (e) {
 	$('#modal-purchase').modal('show');
 });
 
-$('body').on('click', '#modal-purchase #button-purchase', function (e) {
+$('body').on('click', '#modal-purchase #button-purchase', function(e) {
 	e.preventDefault();
 
 	var element = this;
@@ -222,13 +222,13 @@ $('body').on('click', '#modal-purchase #button-purchase', function (e) {
 		type: 'post',
 		data: $('input[name=\'pin\']'),
 		dataType: 'json',
-		beforeSend: function () {
+		beforeSend: function() {
 			$(element).button('loading');
 		},
-		complete: function () {
+		complete: function() {
 			$(element).button('reset');
 		},
-		success: function (json) {
+		success: function(json) {
 			$('.alert-dismissible').remove();
 			
 			if (json['error']) {
@@ -243,14 +243,14 @@ $('body').on('click', '#modal-purchase #button-purchase', function (e) {
 				$('#tab-download .btn-primary').prop('disabled', false);
 			}
 		},
-		error: function (xhr, ajaxOptions, thrownError) {
+		error: function(xhr, ajaxOptions, thrownError) {
 			alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
 		}
 	});
 });
 
 // Install
-$('#tab-download').on('click', '.btn-primary', function (e) {
+$('#tab-download').on('click', '.btn-primary', function(e) {
 	e.preventDefault();
 
 	var element = this;
@@ -263,13 +263,13 @@ $('#tab-download').on('click', '.btn-primary', function (e) {
 	$.ajax({
 		url: 'index.php?route=marketplace/marketplace/download&user_token={{ user_token }}&extension_id={{ extension_id }}&extension_download_id=' + $(this).attr('data-install'),
 		dataType: 'json',
-		beforeSend: function () {
+		beforeSend: function() {
 			$(element).button('loading');
 		},
-		complete: function () {
+		complete: function() {
 			$(element).button('reset');
 		},
-		success: function (json) {
+		success: function(json) {
 			$('.alert-dismissible').remove();
 			
 			if (json['error']) {
@@ -293,7 +293,7 @@ $('#tab-download').on('click', '.btn-primary', function (e) {
 				next(json['next'], element, 1);
 			}
 		},
-		error: function (xhr, ajaxOptions, thrownError) {
+		error: function(xhr, ajaxOptions, thrownError) {
 			alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
 		}
 	});
@@ -305,7 +305,7 @@ function next(url, element, i) {
 	$.ajax({
 		url: url,
 		dataType: 'json',
-		success: function (json) {
+		success: function(json) {
 			$('#progress-bar').css('width', (i * 20) + '%');
 
 			if (json['error']) {
@@ -326,14 +326,14 @@ function next(url, element, i) {
 				next(json['next'], element, i);
 			}
 		},
-		error: function (xhr, ajaxOptions, thrownError) {
+		error: function(xhr, ajaxOptions, thrownError) {
 			alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
 		}
 	});
 }
 
 // Uninstall
-$('#tab-download').on('click', ' .btn-danger', function (e) {
+$('#tab-download').on('click', ' .btn-danger', function(e) {
 	e.preventDefault();
 
 	var element = this;
@@ -345,13 +345,13 @@ $('#tab-download').on('click', ' .btn-danger', function (e) {
 	$.ajax({
 		url: 'index.php?route=marketplace/install/uninstall&user_token={{ user_token }}&extension_install_id=' + $(this).attr('data-uninstall'),
 		dataType: 'json',
-		beforeSend: function () {
+		beforeSend: function() {
 			$(element).button('loading');
 		},
-		complete: function () {
+		complete: function() {
 			$(element).button('reset');
 		},
-		success: function (json) {
+		success: function(json) {
 			if (json['error']) {
 				$('#progress-bar').addClass('progress-bar-danger');
 				$('#progress-text').html(json['error']);
@@ -365,13 +365,13 @@ $('#tab-download').on('click', ' .btn-danger', function (e) {
 				$(element).replaceWith('<button type="button" data-install="' + $(element).attr('data-install') + '" data-uninstall="" data-loading="{{ text_loading }}" class="btn btn-primary"><i class="fa fa-download"></i> {{ button_install }}</button>');
 			}
 		},
-		error: function (xhr, ajaxOptions, thrownError) {
+		error: function(xhr, ajaxOptions, thrownError) {
 			alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
 		}
 	});
 });
 
-$('#comment').delegate('.pagination a', 'click', function (e) {
+$('#comment').delegate('.pagination a', 'click', function(e) {
 	e.preventDefault();
 
 	$('#comment').load(this.href);
@@ -381,19 +381,19 @@ $('#comment').delegate('.pagination a', 'click', function (e) {
 $('#comment').load('index.php?route=marketplace/marketplace/comment&user_token={{ user_token }}&extension_id={{ extension_id }}');
 
 // Add comment
-$('#button-comment').on('click', function () {
+$('#button-comment').on('click', function() {
 	$.ajax({
 		url: 'index.php?route=marketplace/marketplace/addcomment&user_token={{ user_token }}&extension_id={{ extension_id }}',
 		type: 'post',
 		dataType: 'json',
 		data: 'comment=' + encodeURIComponent($('textarea[name=\'comment\']').val()),
-		beforeSend: function () {
+		beforeSend: function() {
 			$('#button-comment').button('loading');
 		},
-		complete: function () {
+		complete: function() {
 			$('#button-comment').button('reset');
 		},
-		success: function (json) {
+		success: function(json) {
 			$('.alert-dismissible').remove();
 			
 			if (json['error']) {
@@ -408,14 +408,14 @@ $('#button-comment').on('click', function () {
 				$('textarea[name=\'comment\']').val('');
 			}
 		},
-		error: function (xhr, ajaxOptions, thrownError) {
+		error: function(xhr, ajaxOptions, thrownError) {
 			alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
 		}
 	});
 });
 
 // Next replies
-$('#comment').on('click', '.btn-block', function (e) {
+$('#comment').on('click', '.btn-block', function(e) {
 	e.preventDefault();
 	
 	var element = this;
@@ -423,32 +423,32 @@ $('#comment').on('click', '.btn-block', function (e) {
 	$.ajax({
 		url: $(element).attr('href'),
 		dataType: 'html',
-		beforeSend: function () {
+		beforeSend: function() {
 			$(element).button('loading');
 		},
-		complete: function () {
+		complete: function() {
 			$(element).button('reset');
 		},
-		success: function (html) {
+		success: function(html) {
 			$(element).parent().parent().parent().append(html);
 			
 			$(element).parent().remove();
 		},
-		error: function (xhr, ajaxOptions, thrownError) {
+		error: function(xhr, ajaxOptions, thrownError) {
 			alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
 		}
 	});
 });
 
 // Reply
-$('#comment').on('click', '.btn-link', function (e) {
+$('#comment').on('click', '.btn-link', function(e) {
 	e.preventDefault();
 
 	$(this).parent().parent().find('.reply-input-box').toggle();
 });
 
 // Add reply
-$('#comment').on('click', '.btn-primary', function (e) {
+$('#comment').on('click', '.btn-primary', function(e) {
 	e.preventDefault();
 	
 	var element = this;
@@ -458,13 +458,13 @@ $('#comment').on('click', '.btn-primary', function (e) {
 		type: 'post',
 		dataType: 'json',
 		data: 'comment=' + encodeURIComponent($(element).parents('.reply-input-box').find('textarea[name=\'comment\']').val()),		
-		beforeSend: function () {
+		beforeSend: function() {
 			$(element).button('loading');
 		},
-		complete: function () {
+		complete: function() {
 			$(element).button('reset');
 		},
-		success: function (json) {
+		success: function(json) {
 			$('.alert-dismissible').remove();
 			
 			if (json['error']) {
@@ -479,14 +479,14 @@ $('#comment').on('click', '.btn-primary', function (e) {
 				$(element).parents('.reply-input-box').find('textarea[name=\'comment\']').val('');
 			}
 		},
-		error: function (xhr, ajaxOptions, thrownError) {
+		error: function(xhr, ajaxOptions, thrownError) {
 			alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
 		}
 	});
 });
 
 // Refresh
-$('#comment').on('click', '.reply-refresh', function (e) {
+$('#comment').on('click', '.reply-refresh', function(e) {
 	e.preventDefault();
 	
 	var element = this;
@@ -494,23 +494,23 @@ $('#comment').on('click', '.reply-refresh', function (e) {
 	$.ajax({
 		url: $(element).attr('href'),
 		dataType: 'html',
-		beforeSend: function () {
+		beforeSend: function() {
 			$(element).button('loading');
 		},
-		complete: function () {
+		complete: function() {
 			$(element).button('reset');
 		},
-		success: function (html) {
+		success: function(html) {
 			$(element).parent().replaceWith(html);
 		},
-		error: function (xhr, ajaxOptions, thrownError) {
+		error: function(xhr, ajaxOptions, thrownError) {
 			alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
 		}
 	});
 });
 //--></script> 
   <script type="text/javascript"><!--
-$(document).ready(function () {
+$(document).ready(function() {
 	$('.thumbnails').magnificPopup({
 		type:'image',
 		delegate: 'a',

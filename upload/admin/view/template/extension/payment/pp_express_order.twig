@@ -54,19 +54,19 @@
 <script type="text/javascript"><!--
 	$('#paypal-transaction').load('index.php?route=extension/payment/pp_express/transaction&user_token={{ user_token }}&order_id={{ order_id }}');
 
-	$('#button-capture').on('click', function () {
+	$('#button-capture').on('click', function() {
 		$.ajax({
 			url: 'index.php?route=extension/payment/pp_express/capture&user_token={{ user_token }}&order_id={{ order_id }}',
 			type: 'post',
 			dataType: 'json',
 			data: 'amount=' + $('#input-capture-amount').val() + '&complete=' + ($('#paypal-capture-complete').prop('checked') == true ? 1 : 0),
-			beforeSend: function () {
+			beforeSend: function() {
 				$('#button-capture').button('loading');
 			},
-			complete: function () {
+			complete: function() {
 				$('#button-capture').button('reset');
 			},
-			success: function (json) {
+			success: function(json) {
 				$('.alert-dismissible').remove();
 
 				if (json['error']) {
@@ -93,18 +93,18 @@
 		});
 	});
 
-	$('#button-void').on('click', function () {
+	$('#button-void').on('click', function() {
 		if (confirm('{{ text_confirm_void|escape('js') }}')) {
 			$.ajax({
 				url: 'index.php?route=extension/payment/pp_express/void&user_token={{ user_token }}&order_id={{ order_id }}',
 				dataType: 'json',
-				beforeSend: function () {
+				beforeSend: function() {
 					$('#button-void').button('loading');
 				},
-				complete: function () {
+				complete: function() {
 					$('#button-void').button('reset');
 				},
-				success: function (json) {
+				success: function(json) {
 					$('.alert-dismissible').remove();
 
 					if (json['error']) {
@@ -125,19 +125,19 @@
 		}
 	});
 
-	$('#paypal-transaction').delegate('button', 'click', function () {
+	$('#paypal-transaction').delegate('button', 'click', function() {
 		var element = this;
 
 		$.ajax({
 			url: $(element).attr('href'),
 			dataType: 'json',
-			beforeSend: function () {
+			beforeSend: function() {
 				$(element).button('loading');
 			},
-			complete: function () {
+			complete: function() {
 				$(element).button('reset');
 			},
-			success: function (json) {
+			success: function(json) {
 				$('.alert-dismissible').remove();
 
 				if (json['error']) {

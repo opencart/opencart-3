@@ -151,7 +151,7 @@
     </div>
   </div>
   <script type="text/javascript"><!--
-$('#button-filter').on('click', function () {
+$('#button-filter').on('click', function() {
 	url = 'index.php?route=sale/return&user_token={{ user_token }}';
 	
 	var filter_return_id = $('input[name=\'filter_return_id\']').val();
@@ -207,12 +207,12 @@ $('#button-filter').on('click', function () {
 //--></script> 
   <script type="text/javascript"><!--
 $('input[name=\'filter_customer\']').autocomplete({
-	'source': function (request, response) {
+	'source': function(request, response) {
 		$.ajax({
 			url: 'index.php?route=customer/customer/autocomplete&user_token={{ user_token }}&filter_name=' +  encodeURIComponent(request),
 			dataType: 'json',			
-			success: function (json) {
-				response($.map(json, function (item) {
+			success: function(json) {
+				response($.map(json, function(item) {
 					return {
 						label: item['name'],
 						value: item['customer_id']
@@ -221,18 +221,18 @@ $('input[name=\'filter_customer\']').autocomplete({
 			}
 		});
 	},
-	'select': function (item) {
+	'select': function(item) {
 		$('input[name=\'filter_customer\']').val(item['label']);
 	}	
 });
 
 $('input[name=\'filter_product\']').autocomplete({
-	'source': function (request, response) {
+	'source': function(request, response) {
 		$.ajax({
 			url: 'index.php?route=catalog/product/autocomplete&user_token={{ user_token }}&filter_name=' +  encodeURIComponent(request),
 			dataType: 'json',			
-			success: function (json) {
-				response($.map(json, function (item) {
+			success: function(json) {
+				response($.map(json, function(item) {
 					return {
 						label: item['name'],
 						value: item['product_id']
@@ -241,18 +241,18 @@ $('input[name=\'filter_product\']').autocomplete({
 			}
 		});
 	},
-	'select': function (item) {
+	'select': function(item) {
 		$('input[name=\'filter_product\']').val(item['label']);
 	}	
 });
 
 $('input[name=\'filter_model\']').autocomplete({
-	'source': function (request, response) {
+	'source': function(request, response) {
 		$.ajax({
 			url: 'index.php?route=catalog/product/autocomplete&user_token={{ user_token }}&filter_model=' +  encodeURIComponent(request),
 			dataType: 'json',			
-			success: function (json) {
-				response($.map(json, function (item) {
+			success: function(json) {
+				response($.map(json, function(item) {
 					return {
 						label: item['model'],
 						value: item['product_id']
@@ -261,7 +261,7 @@ $('input[name=\'filter_model\']').autocomplete({
 			}
 		});
 	},
-	'select': function (item) {
+	'select': function(item) {
 		$('input[name=\'filter_model\']').val(item['label']);
 	}	
 });

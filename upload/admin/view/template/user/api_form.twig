@@ -136,7 +136,7 @@
     </div>
   </div>
   <script type="text/javascript"><!--
-$('#button-generate').on('click', function () {
+$('#button-generate').on('click', function() {
 	rand = '';
 
 	string = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
@@ -163,7 +163,7 @@ function addIp() {
 }
 //--></script> 
   <script type="text/javascript"><!--
-$('#session button').on('click', function (e) {
+$('#session button').on('click', function(e) {
 	e.preventDefault();
 
 	var node = this;
@@ -172,13 +172,13 @@ $('#session button').on('click', function (e) {
 		url: 'index.php?route=user/api/deletesession&user_token={{ user_token }}&api_session_id=' + $(node).val(),
 		type: 'post',
 		dataType: 'json',
-		beforeSend: function () {
+		beforeSend: function() {
 			$(node).button('loading');
 		},
-		complete: function () {
+		complete: function() {
 			$(node).button('reset');
 		},
-		success: function (json) {
+		success: function(json) {
 			$('.alert-dismissible').remove();
 
 			if (json['error']) {
@@ -191,7 +191,7 @@ $('#session button').on('click', function (e) {
 				$(node).parent().parent().remove();
 			}
 		},
-		error: function (xhr, ajaxOptions, thrownError) {
+		error: function(xhr, ajaxOptions, thrownError) {
 			alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
 		}
 	});

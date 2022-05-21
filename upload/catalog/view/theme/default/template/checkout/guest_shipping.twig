@@ -199,7 +199,7 @@
 </form>
 <script type="text/javascript"><!--
 // Sort the custom fields
-$('#collapse-shipping-address .form-group[data-sort]').detach().each(function () {
+$('#collapse-shipping-address .form-group[data-sort]').detach().each(function() {
 	if ($(this).attr('data-sort') >= 0 && $(this).attr('data-sort') <= $('#collapse-shipping-address .form-group').length-2) {
 		$('#collapse-shipping-address .form-group').eq(parseInt($(this).attr('data-sort'))+2).before(this);
 	}
@@ -218,7 +218,7 @@ $('#collapse-shipping-address .form-group[data-sort]').detach().each(function ()
 });
 //--></script> 
 <script type="text/javascript"><!--
-$('#collapse-shipping-address button[id^=\'button-shipping-custom-field\']').on('click', function () {
+$('#collapse-shipping-address button[id^=\'button-shipping-custom-field\']').on('click', function() {
 	var node = this;
 
 	$('#form-upload').remove();
@@ -231,7 +231,7 @@ $('#collapse-shipping-address button[id^=\'button-shipping-custom-field\']').on(
     	clearInterval(timer);
 	}
 
-	timer = setInterval(function () {
+	timer = setInterval(function() {
 		if ($('#form-upload input[name=\'file\']').val() != '') {
 			clearInterval(timer);
 
@@ -243,13 +243,13 @@ $('#collapse-shipping-address button[id^=\'button-shipping-custom-field\']').on(
 				cache: false,
 				contentType: false,
 				processData: false,
-				beforeSend: function () {
+				beforeSend: function() {
 					$(node).button('loading');
 				},
-				complete: function () {
+				complete: function() {
 					$(node).button('reset');
 				},
-				success: function (json) {
+				success: function(json) {
 					$(node).parent().find('.text-danger').remove();
 
 					if (json['error']) {
@@ -262,7 +262,7 @@ $('#collapse-shipping-address button[id^=\'button-shipping-custom-field\']').on(
 						$(node).parent().find('input[name^=\'custom_field\']').attr('value', json['file']);
 					}
 				},
-				error: function (xhr, ajaxOptions, thrownError) {
+				error: function(xhr, ajaxOptions, thrownError) {
 					alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
 				}
 			});
@@ -288,17 +288,17 @@ $('.datetime').datetimepicker({
 });
 //--></script> 
 <script type="text/javascript"><!--
-$('#collapse-shipping-address select[name=\'country_id\']').on('change', function () {
+$('#collapse-shipping-address select[name=\'country_id\']').on('change', function() {
 	$.ajax({
 		url: 'index.php?route=checkout/checkout/country&country_id=' + this.value,
 		dataType: 'json',
-		beforeSend: function () {
+		beforeSend: function() {
 			$('#collapse-shipping-address select[name=\'country_id\']').prop('disabled', true);
 		},
-		complete: function () {
+		complete: function() {
 			$('#collapse-shipping-address select[name=\'country_id\']').prop('disabled', false);
 		},
-		success: function (json) {
+		success: function(json) {
 			if (json['postcode_required'] == '1') {
 				$('#collapse-shipping-address input[name=\'postcode\']').parent().parent().addClass('required');
 			} else {
@@ -323,7 +323,7 @@ $('#collapse-shipping-address select[name=\'country_id\']').on('change', functio
 
 			$('#collapse-shipping-address select[name=\'zone_id\']').html(html);
 		},
-		error: function (xhr, ajaxOptions, thrownError) {
+		error: function(xhr, ajaxOptions, thrownError) {
 			alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
 		}
 	});

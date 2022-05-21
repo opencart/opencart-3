@@ -17,7 +17,7 @@
 <script type="text/javascript" src="view/javascript/jquery/flot/jquery.flot.js"></script> 
 <script type="text/javascript" src="view/javascript/jquery/flot/jquery.flot.resize.min.js"></script>
 <script type="text/javascript"><!--
-$('#range a').on('click', function (e) {
+$('#range a').on('click', function(e) {
 	e.preventDefault();
 	
 	$(this).parent().parent().find('li').removeClass('active');
@@ -28,7 +28,7 @@ $('#range a').on('click', function (e) {
 		type: 'get',
 		url: 'index.php?route=extension/dashboard/chart/chart&user_token={{ user_token }}&range=' + $(this).attr('href'),
 		dataType: 'json',
-		success: function (json) {
+		success: function(json) {
             if (typeof json['order'] == 'undefined') { return false; }
 			
 			var option = {	
@@ -54,7 +54,7 @@ $('#range a').on('click', function (e) {
 			
 			$.plot('#chart-sale', [json['order'], json['customer']], option);	
 					
-			$('#chart-sale').bind('plothover', function (event, pos, item) {
+			$('#chart-sale').bind('plothover', function(event, pos, item) {
 				$('.tooltip').remove();
 			  
 				if (item) {
@@ -73,7 +73,7 @@ $('#range a').on('click', function (e) {
 				}
 			});
 		},
-        error: function (xhr, ajaxOptions, thrownError) {
+        error: function(xhr, ajaxOptions, thrownError) {
            alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
         }
 	});

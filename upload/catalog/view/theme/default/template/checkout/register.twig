@@ -365,7 +365,7 @@
 {% endif %} 
 <script type="text/javascript"><!--
 // Sort the custom fields
-$('#account .form-group[data-sort]').detach().each(function () {
+$('#account .form-group[data-sort]').detach().each(function() {
 	if ($(this).attr('data-sort') >= 0 && $(this).attr('data-sort') <= $('#account .form-group').length) {
 		$('#account .form-group').eq($(this).attr('data-sort')).before(this);
 	}
@@ -383,7 +383,7 @@ $('#account .form-group[data-sort]').detach().each(function () {
 	}
 });
 
-$('#address .form-group[data-sort]').detach().each(function () {
+$('#address .form-group[data-sort]').detach().each(function() {
 	if ($(this).attr('data-sort') >= 0 && $(this).attr('data-sort') <= $('#address .form-group').length) {
 		$('#address .form-group').eq($(this).attr('data-sort')).before(this);
 	}
@@ -401,11 +401,11 @@ $('#address .form-group[data-sort]').detach().each(function () {
 	}
 });
 
-$('#collapse-payment-address input[name=\'customer_group_id\']').on('change', function () {
+$('#collapse-payment-address input[name=\'customer_group_id\']').on('change', function() {
 	$.ajax({
 		url: 'index.php?route=checkout/checkout/customfield&customer_group_id=' + this.value,
 		dataType: 'json',
-		success: function (json) {
+		success: function(json) {
 			$('#collapse-payment-address .custom-field').hide();
 			$('#collapse-payment-address .custom-field').removeClass('required');
 
@@ -419,7 +419,7 @@ $('#collapse-payment-address input[name=\'customer_group_id\']').on('change', fu
 				}
 			}
 		},
-		error: function (xhr, ajaxOptions, thrownError) {
+		error: function(xhr, ajaxOptions, thrownError) {
 			alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
 		}
 	});
@@ -428,7 +428,7 @@ $('#collapse-payment-address input[name=\'customer_group_id\']').on('change', fu
 $('#collapse-payment-address input[name=\'customer_group_id\']:checked').trigger('change');
 //--></script> 
 <script type="text/javascript"><!--
-$('#collapse-payment-address button[id^=\'button-payment-custom-field\']').on('click', function () {
+$('#collapse-payment-address button[id^=\'button-payment-custom-field\']').on('click', function() {
 	var node = this;
 
 	$('#form-upload').remove();
@@ -441,7 +441,7 @@ $('#collapse-payment-address button[id^=\'button-payment-custom-field\']').on('c
     	clearInterval(timer);
 	}
 
-	timer = setInterval(function () {
+	timer = setInterval(function() {
 		if ($('#form-upload input[name=\'file\']').val() != '') {
 			clearInterval(timer);
 
@@ -453,13 +453,13 @@ $('#collapse-payment-address button[id^=\'button-payment-custom-field\']').on('c
 				cache: false,
 				contentType: false,
 				processData: false,
-				beforeSend: function () {
+				beforeSend: function() {
 					$(node).button('loading');
 				},
-				complete: function () {
+				complete: function() {
 					$(node).button('reset');
 				},
-				success: function (json) {
+				success: function(json) {
 					$('.text-danger').remove();
 
 					if (json['error']) {
@@ -472,7 +472,7 @@ $('#collapse-payment-address button[id^=\'button-payment-custom-field\']').on('c
 						$(node).parent().find('input[name^=\'custom_field\']').val(json['code']);
 					}
 				},
-				error: function (xhr, ajaxOptions, thrownError) {
+				error: function(xhr, ajaxOptions, thrownError) {
 					alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
 				}
 			});
@@ -498,17 +498,17 @@ $('.datetime').datetimepicker({
 });
 //--></script> 
 <script type="text/javascript"><!--
-$('#collapse-payment-address select[name=\'country_id\']').on('change', function () {
+$('#collapse-payment-address select[name=\'country_id\']').on('change', function() {
 	$.ajax({
 		url: 'index.php?route=checkout/checkout/country&country_id=' + this.value,
 		dataType: 'json',
-		beforeSend: function () {
+		beforeSend: function() {
 			$('#collapse-payment-address select[name=\'country_id\']').prop('disabled', true);
 		},
-		complete: function () {
+		complete: function() {
 			$('#collapse-payment-address select[name=\'country_id\']').prop('disabled', false);
 		},
-		success: function (json) {
+		success: function(json) {
 			if (json['postcode_required'] == '1') {
 				$('#collapse-payment-address input[name=\'postcode\']').parent().addClass('required');
 			} else {
@@ -533,7 +533,7 @@ $('#collapse-payment-address select[name=\'country_id\']').on('change', function
 
 			$('#collapse-payment-address select[name=\'zone_id\']').html(html);
 		},
-		error: function (xhr, ajaxOptions, thrownError) {
+		error: function(xhr, ajaxOptions, thrownError) {
 			alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
 		}
 	});

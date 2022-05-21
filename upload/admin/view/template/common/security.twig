@@ -53,11 +53,11 @@
   </div>
 </div>
 <script type="text/javascript"><!--
-$(document).ready(function () {
+$(document).ready(function() {
 	$('#modal-security').modal('show');
 });
 
-$('#modal-security select[name=\'type\']').on('change', function () {
+$('#modal-security select[name=\'type\']').on('change', function() {
 	$('#modal-security fieldset.collapse').removeClass('in');
 	
 	$('#modal-security #collapse-' + $(this).val()).addClass('in');
@@ -65,7 +65,7 @@ $('#modal-security select[name=\'type\']').on('change', function () {
 
 $('#modal-security select[name=\'type\']').trigger('change');
 
-$('#modal-security .dropdown-menu a').on('click', function (e) {
+$('#modal-security .dropdown-menu a').on('click', function(e) {
 	e.preventDefault();
 	
 	$('#modal-security #button-path').html($(this).html() + ' <span class="caret"></span>');
@@ -74,7 +74,7 @@ $('#modal-security .dropdown-menu a').on('click', function (e) {
 });
 
 
-$('#modal-security .dropdown-menu a').on('click', function (e) {
+$('#modal-security .dropdown-menu a').on('click', function(e) {
 	e.preventDefault();
 	
 	$('#button-path').html($(this).text() + ' <span class="caret"></span>');
@@ -84,7 +84,7 @@ $('#modal-security .dropdown-menu a').on('click', function (e) {
 	$('input[name=\'path\']').trigger('change');
 });
 
-$('#button-move').on('click', function () {
+$('#button-move').on('click', function() {
 	var element = this;
 	
 	$.ajax({
@@ -93,13 +93,13 @@ $('#button-move').on('click', function () {
 		data: $('input[name=\'path\'], input[name=\'directory\']'),
 		dataType: 'json',
 		crossDomain: true,
-		beforeSend: function () {
+		beforeSend: function() {
 			$(element).button('loading');
 		},
-		complete: function () {
+		complete: function() {
 			$(element).button('reset');
 		},
-		success: function (json) {
+		success: function(json) {
 			$('.alert-dismissible').remove();
 
 			if (json['error']) {
@@ -110,13 +110,13 @@ $('#button-move').on('click', function () {
 				$('#modal-security .modal-body').prepend('<div class="alert alert-success alert-dismissible"><i class="fa fa-check-circle"></i> ' + json['success'] + ' <button type="button" class="close" data-dismiss="alert">&times;</button></div>');
 			}
 		},
-		error: function (xhr, ajaxOptions, thrownError) {
+		error: function(xhr, ajaxOptions, thrownError) {
 			alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
 		}
 	});
 });
 
-$('#modal-security select[name=\'type\']').on('change', function () {
+$('#modal-security select[name=\'type\']').on('change', function() {
 	html  = '<ol>';
 	html += '<li><p>{{ text_move }}</p>';
 	html += '<p><strong>{{ storage }}</strong></p>';

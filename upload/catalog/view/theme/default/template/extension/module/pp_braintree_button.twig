@@ -11,12 +11,12 @@
   var data_collector_instance;
   var client_instance;
 
-  $.getScript('https://js.braintreegateway.com/web/3.6.3/js/client.min.js', function () {
+  $.getScript('https://js.braintreegateway.com/web/3.6.3/js/client.min.js', function() {
     $.getScript('https://js.braintreegateway.com/web/3.6.3/js/paypal.min.js');
 
     braintree.client.create({
       authorization: '{{ client_token }}'
-    }, function (client_error, braintree_client_button) {
+    }, function(client_error, braintree_client_button) {
       console.log("Create Client");
 
       if (client_error) {
@@ -26,7 +26,7 @@
 
       braintree.paypal.create({
         client: braintree_client_button
-      }, function (error, instance) {
+      }, function(error, instance) {
         if (error) {
           console.error(error);
           return;
@@ -34,7 +34,7 @@
 
         $('#paypal-button-module').prop('disabled', false);
 
-        $('body').on('click', '#paypal-button-module', function (event) {
+        $('body').on('click', '#paypal-button-module', function(event) {
           event.preventDefault();
 
           $('#paypal-button-module').attr('disabled', true);
@@ -50,7 +50,7 @@
             currency: '{{ currency_code }}',
             enableShippingAddress: true,
             shippingAddressEditable: true
-          }, function (tokenize_error, payload) {
+          }, function(tokenize_error, payload) {
             if (tokenize_error) {
               $('#paypal-button-module').prop('disabled', false);
 
@@ -75,7 +75,7 @@
                 type: 'post',
                 data: payload,
                 dataType: 'json',
-                success: function (json) {
+                success: function(json) {
                   if (json.error) {
                       $('#paypal-button-module').prop('disabled', false);
 
@@ -86,7 +86,7 @@
                       $('#braintree-express-form').submit();
                   }
                 },
-                failure: function () {
+                failure: function() {
                   console.log('Failed to setup payment');
                   $('#paypal-button-module').prop('disabled', false);
                 }

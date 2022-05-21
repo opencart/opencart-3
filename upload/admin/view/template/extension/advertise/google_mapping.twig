@@ -104,7 +104,7 @@
     }
 </style>
 <script type="text/javascript">
-(function ($) {
+(function($) {
     var selector = {
         save: '#proceed',
         save_modify: '#button-save-modify',
@@ -116,14 +116,14 @@
         modify_existing: '[name="advertise_google_modify_existing"]'
     };
 
-    $(selector.autocomplete).each(function (index, element) {
+    $(selector.autocomplete).each(function(index, element) {
         $(element).autocomplete({
-            'source': function (request, response) {
+            'source': function(request, response) {
                 $.ajax({
                     url: '{{ url_category_autocomplete }}&filter_name=' +  encodeURIComponent(request),
                     dataType: 'json',
-                    success: function (json) {
-                        response($.map(json, function (item) {
+                    success: function(json) {
+                        response($.map(json, function(item) {
                             return {
                                 label: item['name'],
                                 value: item['category_id']
@@ -132,7 +132,7 @@
                     }
                 });
             },
-            'select': function (item) {
+            'select': function(item) {
                 $(element).val(item.label);
 
                 $(element).closest('td').find(selector.category_id).val(item.value).trigger('change');
@@ -140,19 +140,19 @@
         });
     });
 
-    $(selector.category_id).change(function (e) {
+    $(selector.category_id).change(function(e) {
         var has_value = $(this).val() != '';
 
         $(this).closest('td').find(selector.autocomplete).attr('disabled', has_value);
         $(this).closest('td').find(selector.remove).attr('disabled', !has_value);
     }).trigger('change');
 
-    $(selector.remove).click(function (e) {
+    $(selector.remove).click(function(e) {
         $(this).closest('td').find(selector.autocomplete).val('');
         $(this).closest('td').find(selector.category_id).val('').trigger('change');
     });
 
-    $(document).on('click', selector.save, function (e) {
+    $(document).on('click', selector.save, function(e) {
         e.preventDefault();
         e.stopPropagation();
 
@@ -161,21 +161,21 @@
         $.ajax({
             url: '{{ url_mapping_verify }}',
             dataType: 'json',
-            success: function (data) {
+            success: function(data) {
                 if (data.submit_directly) {
                     $(selector.modify_existing).val('0');
                     $(selector.form).submit();
                 } else {
                     var modal = $(data.modal_confirmation).modal();
 
-                    $(modal).on('hidden.bs.modal', function (e) {
+                    $(modal).on('hidden.bs.modal', function(e) {
                         $(this).remove();
 
                         $(selector.save).text('{{ button_proceed }}').attr('disabled', false);
                     });
 
-                    $(modal).on('shown.bs.modal', function (e) {
-                        $(selector.save_proceed).click(function () {
+                    $(modal).on('shown.bs.modal', function(e) {
+                        $(selector.save_proceed).click(function() {
                             $(selector.save_proceed).text('{{ text_loading }}').attr('disabled', true);
                             $(selector.save_modify).attr('disabled', true);
                             $(selector.modify_existing).val('0');
@@ -183,7 +183,7 @@
                             $(selector.form).submit();
                         });
 
-                        $(selector.save_modify).click(function () {
+                        $(selector.save_modify).click(function() {
                             $(selector.save_modify).text('{{ text_loading }}').attr('disabled', true);
                             $(selector.save_proceed).attr('disabled', true);
                             $(selector.modify_existing).val('1');

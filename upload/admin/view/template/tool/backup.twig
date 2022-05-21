@@ -76,7 +76,7 @@
     </div>
   </div>
   <script type="text/javascript"><!--
-$('#button-import').on('click', function () {
+$('#button-import').on('click', function() {
 	$('#form-upload').remove();
 	
 	$('body').prepend('<form enctype="multipart/form-data" id="form-upload" style="display: none;"><input type="file" name="import"/></form>');
@@ -87,7 +87,7 @@ $('#button-import').on('click', function () {
 		clearInterval(timer);
 	}
 	
-	timer = setInterval(function () {
+	timer = setInterval(function() {
 		if ($('#form-upload input[name=\'import\']').val() != '') {
 			clearInterval(timer);
 	
@@ -102,13 +102,13 @@ $('#button-import').on('click', function () {
 				cache: false,
 				contentType: false,
 				processData: false,
-				beforeSend: function () {
+				beforeSend: function() {
 					$('#button-import').button('loading');
 				},
-				complete: function () {
+				complete: function() {
 					$('#button-import').button('reset');
 				},
-				success: function (json) {
+				success: function(json) {
 					$('.alert-dismissible').remove();
 					
 					if (json['error']) {
@@ -128,7 +128,7 @@ $('#button-import').on('click', function () {
 						next(json['next']);
 					}
 				},
-				error: function (xhr, ajaxOptions, thrownError) {
+				error: function(xhr, ajaxOptions, thrownError) {
 					alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
 				}
 			});
@@ -140,7 +140,7 @@ function next(url) {
 	$.ajax({
 		url: url,
 		dataType: 'json',
-		success: function (json) {
+		success: function(json) {
 			$('.alert-dismissible').remove();
 			
 			if (json['error']) {
@@ -160,7 +160,7 @@ function next(url) {
 				next(json['next']);
 			}
 		},
-		error: function (xhr, ajaxOptions, thrownError) {
+		error: function(xhr, ajaxOptions, thrownError) {
 			alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
 		}
 	});

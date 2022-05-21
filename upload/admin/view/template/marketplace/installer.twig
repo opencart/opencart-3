@@ -48,7 +48,7 @@
     </div>
   </div>
   <script type="text/javascript"><!--
-$('#history').delegate('.pagination a', 'click', function (e) {
+$('#history').delegate('.pagination a', 'click', function(e) {
 	e.preventDefault();
 
 	$('#history').load(this.href);
@@ -56,7 +56,7 @@ $('#history').delegate('.pagination a', 'click', function (e) {
 
 $('#history').load('index.php?route=marketplace/installer/history&user_token={{ user_token }}');
   
-$('#button-upload').on('click', function () {
+$('#button-upload').on('click', function() {
 	$('#form-upload').remove();
 
 	$('body').prepend('<form enctype="multipart/form-data" id="form-upload" style="display: none;"><input type="file" name="file"/></form>');
@@ -67,7 +67,7 @@ $('#button-upload').on('click', function () {
     	clearInterval(timer);
 	}
 
-	timer = setInterval(function () {
+	timer = setInterval(function() {
 		if ($('#form-upload input[name=\'file\']').val() != '') {
 			clearInterval(timer);
 
@@ -85,13 +85,13 @@ $('#button-upload').on('click', function () {
 				cache: false,
 				contentType: false,
 				processData: false,
-				beforeSend: function () {
+				beforeSend: function() {
 					$('#button-upload').button('loading');
 				},
-				complete: function () {
+				complete: function() {
 					$('#button-upload').button('reset');
 				},
-				success: function (json) {
+				success: function(json) {
 					if (json['error']) {
 						$('#progress-bar').addClass('progress-bar-danger');
 						$('#progress-text').html('<div class="text-danger">' + json['error'] + '</div>');
@@ -106,7 +106,7 @@ $('#button-upload').on('click', function () {
 						next(json['next'], 1);
 					}
 				},
-				error: function (xhr, ajaxOptions, thrownError) {
+				error: function(xhr, ajaxOptions, thrownError) {
 					alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
 				}
 			});
@@ -120,7 +120,7 @@ function next(url, i) {
 	$.ajax({
 		url: url,
 		dataType: 'json',
-		success: function (json) {
+		success: function(json) {
 			$('#progress-bar').css('width', (i * 20) + '%');
 			
 			if (json['error']) {
@@ -143,14 +143,14 @@ function next(url, i) {
 				next(json['next'], i);
 			}
 		},
-		error: function (xhr, ajaxOptions, thrownError) {
+		error: function(xhr, ajaxOptions, thrownError) {
 			alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
 		}
 	});
 }
 
 // Uninstall
-$('#history').on('click', '.btn-danger', function (e) {
+$('#history').on('click', '.btn-danger', function(e) {
 	e.preventDefault();
 
 	var element = this;
@@ -158,13 +158,13 @@ $('#history').on('click', '.btn-danger', function (e) {
 	$.ajax({
 		url: 'index.php?route=marketplace/install/uninstall&user_token={{ user_token }}&extension_install_id=' + $(this).attr('value'),
 		dataType: 'json',
-		beforeSend: function () {
+		beforeSend: function() {
 			$(element).button('loading');
 		},
-		complete: function () {
+		complete: function() {
 			$(element).button('reset');
 		},
-		success: function (json) {
+		success: function(json) {
 			$('.alert-dismissible').remove();
 			
 			if (json['success']) {
@@ -173,7 +173,7 @@ $('#history').on('click', '.btn-danger', function (e) {
 				$('#history').load('index.php?route=marketplace/installer/history&user_token={{ user_token }}');
 			}
 		},
-		error: function (xhr, ajaxOptions, thrownError) {
+		error: function(xhr, ajaxOptions, thrownError) {
 			alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
 		}
 	});

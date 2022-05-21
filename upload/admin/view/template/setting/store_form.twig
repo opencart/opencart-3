@@ -566,20 +566,20 @@
     </div>
   </div>
   <script type="text/javascript"><!--
-$('select[name=\'config_theme\']').on('change', function () {
+$('select[name=\'config_theme\']').on('change', function() {
 	$.ajax({
 		url: 'index.php?route=setting/setting/theme&user_token={{ user_token }}&theme=' + this.value,
 		dataType: 'html',
-		beforeSend: function () {
+		beforeSend: function() {
 			$('select[name=\'config_theme\']').prop('disabled', true);
 		},
-		complete: function () {
+		complete: function() {
 			$('select[name=\'config_theme\']').prop('disabled', false);
 		},
-		success: function (html) {
+		success: function(html) {
 			$('#theme').attr('src', html);
 		},
-		error: function (xhr, ajaxOptions, thrownError) {
+		error: function(xhr, ajaxOptions, thrownError) {
 			alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
 		}
 	});
@@ -587,17 +587,17 @@ $('select[name=\'config_theme\']').on('change', function () {
 
 $('select[name=\'config_theme\']').trigger('change');
 //--></script>   <script type="text/javascript"><!--
-$('select[name=\'config_country_id\']').on('change', function () {
+$('select[name=\'config_country_id\']').on('change', function() {
 	$.ajax({
 		url: 'index.php?route=localisation/country/country&user_token={{ user_token }}&country_id=' + this.value,
 		dataType: 'json',
-		beforeSend: function () {
+		beforeSend: function() {
 			$('select[name=\'config_country_id\']').prop('disabled', true);
 		},
-		complete: function () {
+		complete: function() {
 			$('select[name=\'config_country_id\']').prop('disabled', false);
 		},
-		success: function (json) {
+		success: function(json) {
 			html = '<option value="">{{ text_select }}</option>';
 
 			if (json['zone'] && json['zone'] != '') {
@@ -616,7 +616,7 @@ $('select[name=\'config_country_id\']').on('change', function () {
 
 			$('select[name=\'config_zone_id\']').html(html);
 		},
-		error: function (xhr, ajaxOptions, thrownError) {
+		error: function(xhr, ajaxOptions, thrownError) {
 			alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
 		}
 	});

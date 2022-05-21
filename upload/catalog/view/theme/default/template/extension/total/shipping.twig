@@ -37,19 +37,19 @@
         <button type="button" id="button-quote" data-loading-text="{{ text_loading }}" class="btn btn-primary">{{ button_quote }}</button>
       </div>
       <script type="text/javascript"><!--
-$('#button-quote').on('click', function () {
+$('#button-quote').on('click', function() {
 	$.ajax({
 		url: 'index.php?route=extension/total/shipping/quote',
 		type: 'post',
 		data: 'country_id=' + $('select[name=\'country_id\']').val() + '&zone_id=' + $('select[name=\'zone_id\']').val() + '&postcode=' + encodeURIComponent($('input[name=\'postcode\']').val()),
 		dataType: 'json',
-		beforeSend: function () {
+		beforeSend: function() {
 			$('#button-quote').button('loading');
 		},
-		complete: function () {
+		complete: function() {
 			$('#button-quote').button('reset');
 		},
-		success: function (json) {
+		success: function(json) {
 			$('.alert-dismissible, .text-danger').remove();
 
 			if (json['error']) {
@@ -123,30 +123,30 @@ $('#button-quote').on('click', function () {
 
 				$('#modal-shipping').modal('show');
 
-				$('input[name=\'shipping_method\']').on('change', function () {
+				$('input[name=\'shipping_method\']').on('change', function() {
 					$('#button-shipping').prop('disabled', false);
 				});
 			}
 		},
-		error: function (xhr, ajaxOptions, thrownError) {
+		error: function(xhr, ajaxOptions, thrownError) {
 			alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
 		}
 	});
 });
 
-$(document).delegate('#button-shipping', 'click', function () {
+$(document).delegate('#button-shipping', 'click', function() {
 	$.ajax({
 		url: 'index.php?route=extension/total/shipping/shipping',
 		type: 'post',
 		data: 'shipping_method=' + encodeURIComponent($('input[name=\'shipping_method\']:checked').val()),
 		dataType: 'json',
-		beforeSend: function () {
+		beforeSend: function() {
 			$('#button-shipping').button('loading');
 		},
-		complete: function () {
+		complete: function() {
 			$('#button-shipping').button('reset');
 		},
-		success: function (json) {
+		success: function(json) {
 			$('.alert-dismissible').remove();
 
 			if (json['error']) {
@@ -159,24 +159,24 @@ $(document).delegate('#button-shipping', 'click', function () {
 				location = json['redirect'];
 			}
 		},
-		error: function (xhr, ajaxOptions, thrownError) {
+		error: function(xhr, ajaxOptions, thrownError) {
 			alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
 		}
 	});
 });
 //--></script>
 <script type="text/javascript"><!--
-$('select[name=\'country_id\']').on('change', function () {
+$('select[name=\'country_id\']').on('change', function() {
 	$.ajax({
 		url: 'index.php?route=extension/total/shipping/country&country_id=' + this.value,
 		dataType: 'json',
-		beforeSend: function () {
+		beforeSend: function() {
 			$('select[name=\'country_id\']').prop('disabled', true);
 		},
-		complete: function () {
+		complete: function() {
 			$('select[name=\'country_id\']').prop('disabled', false);
 		},
-		success: function (json) {
+		success: function(json) {
 			if (json['postcode_required'] == '1') {
 				$('input[name=\'postcode\']').parent().parent().addClass('required');
 			} else {
@@ -201,7 +201,7 @@ $('select[name=\'country_id\']').on('change', function () {
 
 			$('select[name=\'zone_id\']').html(html);
 		},
-		error: function (xhr, ajaxOptions, thrownError) {
+		error: function(xhr, ajaxOptions, thrownError) {
 			alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
 		}
 	});

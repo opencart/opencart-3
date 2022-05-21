@@ -449,13 +449,13 @@
   </div>
 </div>
 <script type="text/javascript"><!--
-$('.klarna-checkout-api').on('change', function () {
+$('.klarna-checkout-api').on('change', function() {
 	if ($(this).val() === 'EU') {
 		alert('{{ help_api|escape('js') }}');
 	}
 });
 
-$(document).on('click', '#button-process-settlement', function () {
+$(document).on('click', '#button-process-settlement', function() {
 	if (confirm('{{ text_confirm_settlement }}')) {
 		$.ajax({
 			url: 'index.php?route=extension/payment/klarna_checkout/downloadSettlementFiles&user_token={{ user_token }}',
@@ -466,17 +466,17 @@ $(document).on('click', '#button-process-settlement', function () {
 				order_status_id: $('select[name=klarna_checkout_settlement_order_status_id]').val()
 			},
 			dataType: 'json',
-			beforeSend: function () {
+			beforeSend: function() {
 				$('#button-process-settlement').button('loading');
 
 				$('.settlement-alerts').empty();
 			},
-			complete: function () {
+			complete: function() {
 				$('#button-process-settlement').button('reset');
 			},
-			success: function (json) {
+			success: function(json) {
 				if (json['error']) {
-					$.each(json['error'], function (index, value) {
+					$.each(json['error'], function(index, value) {
 						$('.settlement-alerts').append('<div class="alert alert-danger alert-dismissible"><i class="fa fa-exclamation-circle"></i> ' + value + '</div>');
 					});
 				}
@@ -487,7 +487,7 @@ $(document).on('click', '#button-process-settlement', function () {
 					if (json['orders'].length > 0) {
 						$('.settlement-alerts').append('<div class="alert alert-success alert-dismissible"><i class="fa fa-exclamation-circle"></i> {{ text_processing_orders }}</div>');
 
-						$.each(json['orders'], function (index, value) {
+						$.each(json['orders'], function(index, value) {
 							$('.settlement-alerts').append('<div class="alert alert-success alert-dismissible"><i class="fa fa-exclamation-circle"></i> {{ text_processing_order }} ' + value + '</div>');
 
 							$.ajax({
@@ -495,13 +495,13 @@ $(document).on('click', '#button-process-settlement', function () {
 								type: 'post',
 								dataType: 'json',
 								data: 'order_status_id=' + encodeURIComponent($('select[name=klarna_checkout_settlement_order_status_id]').val()) + '&notify=0&override=1&comment',
-								beforeSend: function () {
+								beforeSend: function() {
 									//$('#button-history').button('loading');
 								},
-								complete: function () {
+								complete: function() {
 									//$('#button-history').button('reset');
 								},
-								success: function (json) {
+								success: function(json) {
 									if (json['error']) {
 										$('.settlement-alerts').append('<div class="alert alert-danger alert-dismissible"><i class="fa fa-exclamation-circle"></i> ' + json['error'] + ' <button type="button" class="close" data-dismiss="alert">&times;</button></div>');
 									}
@@ -510,7 +510,7 @@ $(document).on('click', '#button-process-settlement', function () {
 										$('.settlement-alerts').append('<div class="alert alert-success alert-dismissible"><i class="fa fa-check-circle"></i> ' + json['success'] + ' <button type="button" class="close" data-dismiss="alert">&times;</button></div>');
 									}
 								},
-								error: function (xhr, ajaxOptions, thrownError) {
+								error: function(xhr, ajaxOptions, thrownError) {
 									alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
 								}
 							});
@@ -532,7 +532,7 @@ $('.date').datetimepicker({
 });
 
 {% if not klarna_checkout_account %}
-$(document).ready(function () {
+$(document).ready(function() {
 	addAccount();
 });
 {% endif %}
@@ -578,19 +578,19 @@ function addAccount() {
 	account_row++;
 }
 
-$(document).delegate('#button-ip-add', 'click', function () {
+$(document).delegate('#button-ip-add', 'click', function() {
     $.ajax({
         url: 'index.php?route=user/api/addip&user_token={{ user_token }}&api_id={{ api_id }}',
         type: 'post',
         data: 'ip={{ api_ip }}',
         dataType: 'json',
-        beforeSend: function () {
+        beforeSend: function() {
             $('#button-ip-add').button('loading');
         },
-        complete: function () {
+        complete: function() {
             $('#button-ip-add').button('reset');
         },
-        success: function (json) {
+        success: function(json) {
             $('.api-alert').remove();
 
             if (json['error']) {
@@ -601,7 +601,7 @@ $(document).delegate('#button-ip-add', 'click', function () {
                 $('#content > .container-fluid').prepend('<div class="alert alert-success api-alert"><i class="fa fa-check-circle"></i> ' + json['success'] + ' <button type="button" class="close" data-dismiss="alert">&times;</button></div>');
             }
         },
-        error: function (xhr, ajaxOptions, thrownError) {
+        error: function(xhr, ajaxOptions, thrownError) {
             alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
         }
     });
@@ -616,7 +616,7 @@ $.ajax({
     dataType: 'json',
     data: 'key={{ api_key }}',
     crossDomain: true,
-    success: function (json) {
+    success: function(json) {
         $('.api-alert').remove();
 
         if (json['error']) {
@@ -633,7 +633,7 @@ $.ajax({
             token = json['user_token'];
         }
     },
-    error: function (xhr, ajaxOptions, thrownError) {
+    error: function(xhr, ajaxOptions, thrownError) {
         alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
     }
 });
