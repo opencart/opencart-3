@@ -287,6 +287,7 @@ class ModelExtensionPaymentDivido extends Model {
 		}
 
 		$price = 0;
+		
 		if (($this->config->get('config_customer_price') && $this->customer->isLogged()) || !$this->config->get('config_customer_price')) {
 			$base_price = !empty($product_info['special']) ? $product_info['special'] : $product_info['price'];
 			$price = $this->tax->calculate($base_price, $product_info['tax_class_id'], $this->config->get('config_tax'));
@@ -306,6 +307,7 @@ class ModelExtensionPaymentDivido extends Model {
 		$selected_plans  = explode(',', $settings['plans']);
 
 		$plans = array();
+		
 		foreach ($available_plans as $plan) {
 			if (in_array($plan->id, $selected_plans)) {
 				$plans[] = $plan;
@@ -318,5 +320,4 @@ class ModelExtensionPaymentDivido extends Model {
 
 		return $plans;
 	}
-
 }

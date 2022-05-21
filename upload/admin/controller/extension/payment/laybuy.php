@@ -3,10 +3,10 @@ class ControllerExtensionPaymentLaybuy extends Controller {
 	private $error = array();
 
 	public function index() {
+		$this->load->language('extension/payment/laybuy');
+		
 		$this->load->model('setting/setting');
 		$this->load->model('extension/payment/laybuy');
-		
-		$this->load->language('extension/payment/laybuy');
 
 		$this->document->setTitle($this->language->get('heading_title'));
 
@@ -485,8 +485,6 @@ class ControllerExtensionPaymentLaybuy extends Controller {
 		if ($this->user->hasPermission('modify', 'extension/payment/laybuy')) {
 			$this->load->language('extension/payment/laybuy');
 
-			$json = array();
-
 			$fetched = 0;
 
 			$paypal_profile_id_array = $this->model_extension_payment_laybuy->getPayPalProfileIds();
@@ -655,9 +653,9 @@ class ControllerExtensionPaymentLaybuy extends Controller {
 	}
 
 	public function transaction($order_page = false) {
-		$this->load->model('extension/payment/laybuy');
-
 		$this->load->language('extension/payment/laybuy');
+		
+		$this->load->model('extension/payment/laybuy');
 
 		if (isset($this->request->get['id'])) {
 			$id = (int)$this->request->get['id'];
@@ -1056,9 +1054,9 @@ class ControllerExtensionPaymentLaybuy extends Controller {
 
 	public function order() {
 		if ($this->config->get('payment_laybuy_status')) {
-			$this->load->model('extension/payment/laybuy');
-
 			$this->load->language('extension/payment/laybuy');
+			
+			$this->load->model('extension/payment/laybuy');
 
 			$order_id = $this->request->get['order_id'];
 
@@ -1080,10 +1078,9 @@ class ControllerExtensionPaymentLaybuy extends Controller {
 
 	private function getApiKey() {
 		$this->load->model('extension/payment/laybuy');
+		$this->load->model('user/api');
 
 		$this->model_extension_payment_laybuy->log('Getting API key');
-
-		$this->load->model('user/api');
 
 		$api_info = $this->model_user_api->getApi($this->config->get('config_api_id'));
 

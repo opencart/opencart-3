@@ -522,9 +522,9 @@ class ControllerExtensionPaymentPPExpress extends Controller {
 	}
 
 	public function capture() {
-		$json = array();
-
 		$this->load->language('extension/payment/pp_express_order');
+		
+		$json = array();
 
 		if (!isset($this->request->post['amount']) && $this->request->post['amount'] > 0) {
 			$json['error'] = $this->language->get('error_capture');
@@ -757,9 +757,9 @@ class ControllerExtensionPaymentPPExpress extends Controller {
 	 * used to void an authorised payment
 	 */
 	public function void() {
-		$json = array();
-
 		$this->load->language('extension/payment/pp_express_order');
+		
+		$json = array();
 
 		if (isset($this->request->get['order_id'])) {
 			$order_id = $this->request->get['order_id'];
@@ -816,9 +816,9 @@ class ControllerExtensionPaymentPPExpress extends Controller {
 
 	// Cancel an active recurring
 	public function recurringCancel() {
-		$json = array();
-
 		$this->load->language('extension/recurring/pp_express');
+		
+		$json = array();
 
 		//cancel an active recurring
 		$this->load->model('account/recurring');
@@ -1047,7 +1047,6 @@ class ControllerExtensionPaymentPPExpress extends Controller {
 		 * used to search for transactions from a user account
 		 */
 		if (isset($this->request->post['date_start'])) {
-
 			$this->load->model('extension/payment/pp_express');
 
 			$call_data = array();
@@ -1134,6 +1133,7 @@ class ControllerExtensionPaymentPPExpress extends Controller {
 		} else {
 			$response['error'] = true;
 			$response['error_msg'] = 'Enter a start date';
+			
 			$this->response->addHeader('Content-Type: application/json');
 			$this->response->setOutput(json_encode($response));
 		}

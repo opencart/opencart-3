@@ -3,10 +3,10 @@ class ControllerExtensionPaymentPilibaba extends Controller {
 	private $error = array();
 
 	public function index() {
+		$this->load->language('extension/payment/pilibaba');
+		
 		$this->load->model('setting/setting');
 		$this->load->model('extension/payment/pilibaba');
-
-		$this->load->language('extension/payment/pilibaba');
 
 		$this->document->setTitle($this->language->get('heading_title'));
 
@@ -243,7 +243,7 @@ class ControllerExtensionPaymentPilibaba extends Controller {
 		if ($this->config->get('payment_pilibaba_status')) {
 			$this->load->model('extension/payment/pilibaba');
 
-			$order_id = $this->request->get['order_id'];
+			$order_id = (int)$this->request->get['order_id'];
 
 			$pilibaba_order = $this->model_extension_payment_pilibaba->getOrder($this->request->get['order_id']);
 
@@ -266,7 +266,7 @@ class ControllerExtensionPaymentPilibaba extends Controller {
 
 				$data['barcode'] = $this->url->link('extension/payment/pilibaba/barcode', 'user_token=' . $this->session->data['user_token'] . '&order_id=' . $this->request->get['order_id'], true);
 
-				$data['order_id'] = (int)$this->request->get['order_id'];
+				$data['order_id'] = $order_id;
 
 				$data['user_token'] = $this->session->data['user_token'];
 

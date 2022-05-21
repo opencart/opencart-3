@@ -27,11 +27,14 @@ class ControllerExtensionPaymentWebPaymentSoftware extends Controller {
 	}
 
 	public function send() {
-		$this->load->model('checkout/order');
-
 		if(!isset($this->session->data['order_id'])) {
 			return false;
 		}
+		
+		//create object to use as json
+		$json = array();
+		
+		$this->load->model('checkout/order');
 
 		$order_info = $this->model_checkout_order->getOrder($this->session->data['order_id']);
 
@@ -81,9 +84,6 @@ class ControllerExtensionPaymentWebPaymentSoftware extends Controller {
 
 		//get response xml
 		$xml = simplexml_load_string($response);
-
-		//create object to use as json
-		$json = array();
 
 		//If successful log transaction in opencart system
 		if ('00' === (string)$xml->response_code) {

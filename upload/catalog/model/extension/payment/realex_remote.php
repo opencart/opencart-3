@@ -107,13 +107,16 @@ class ModelExtensionPaymentRealexRemote extends Model {
 		$this->logger($xml);
 
 		$ch = curl_init();
+		
 		curl_setopt($ch, CURLOPT_URL, "https://epage.payandshop.com/epage-3dsecure.cgi");
 		curl_setopt($ch, CURLOPT_POST, 1);
 		curl_setopt($ch, CURLOPT_USERAGENT, "OpenCart " . VERSION);
 		curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
 		curl_setopt($ch, CURLOPT_POSTFIELDS, $xml);
 		curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+		
 		$response = curl_exec ($ch);
+		
 		curl_close ($ch);
 
 		$this->logger('enrollmentSignature xml response');
@@ -178,6 +181,7 @@ class ModelExtensionPaymentRealexRemote extends Model {
 					if ($xid != '') {
 						$xml .= '<xid>' . (string)$xid . '</xid>';
 					}
+					
 				$xml .= '</mpi>';
 			}
 
@@ -211,6 +215,7 @@ class ModelExtensionPaymentRealexRemote extends Model {
 						}
 						$xml .= '</address>';
 					}
+					
 				$xml .= '</tssinfo>';
 			}
 
@@ -221,13 +226,16 @@ class ModelExtensionPaymentRealexRemote extends Model {
 		$this->logger($xml);
 
 		$ch = curl_init();
+		
 		curl_setopt($ch, CURLOPT_URL, "https://epage.payandshop.com/epage-remote.cgi");
 		curl_setopt($ch, CURLOPT_POST, 1);
 		curl_setopt($ch, CURLOPT_USERAGENT, "OpenCart " . VERSION);
 		curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
 		curl_setopt($ch, CURLOPT_POSTFIELDS, $xml);
 		curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+		
 		$response = curl_exec ($ch);
+		
 		curl_close ($ch);
 
 		$this->logger('capturePayment xml response');

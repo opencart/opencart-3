@@ -722,6 +722,8 @@ class ControllerExtensionPaymentPPBraintree extends Controller {
 
 	public function transactionCommand() {
 		$this->load->language('extension/payment/pp_braintree');
+		
+		$json = array();
 
 		$this->load->model('extension/payment/pp_braintree');
 
@@ -730,9 +732,7 @@ class ControllerExtensionPaymentPPBraintree extends Controller {
 			'payment_pp_braintree_merchant_id' => $this->config->get('payment_pp_braintree_merchant_id'),
 			'payment_pp_braintree_public_key'	=> $this->config->get('payment_pp_braintree_public_key'),
 			'payment_pp_braintree_private_key' => $this->config->get('payment_pp_braintree_private_key')
-		));
-
-		$json = array();
+		));		
 
 		$success = $error = '';
 
@@ -763,6 +763,8 @@ class ControllerExtensionPaymentPPBraintree extends Controller {
 
 	public function search() {
 		$this->load->language('extension/payment/pp_braintree');
+		
+		$json = array();
 
 		$this->load->model('extension/payment/pp_braintree');
 		$this->load->model('customer/customer');
@@ -774,8 +776,6 @@ class ControllerExtensionPaymentPPBraintree extends Controller {
 			'payment_pp_braintree_public_key'	=> $this->config->get('payment_pp_braintree_public_key'),
 			'payment_pp_braintree_private_key' => $this->config->get('payment_pp_braintree_private_key')
 		));
-
-		$json = array();
 
 		$success = $error = '';
 

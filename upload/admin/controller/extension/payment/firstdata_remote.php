@@ -265,11 +265,13 @@ class ControllerExtensionPaymentFirstdataRemote extends Controller {
 
 	public function install() {
 		$this->load->model('extension/payment/firstdata_remote');
+		
 		$this->model_extension_payment_firstdata_remote->install();
 	}
 
 	public function uninstall() {
 		$this->load->model('extension/payment/firstdata_remote');
+		
 		$this->model_extension_payment_firstdata_remote->uninstall();
 	}
 
@@ -356,6 +358,7 @@ class ControllerExtensionPaymentFirstdataRemote extends Controller {
 
 	public function capture() {
 		$this->load->language('extension/payment/firstdata');
+		
 		$json = array();
 
 		if (isset($this->request->post['order_id']) && $this->request->post['order_id'] != '') {

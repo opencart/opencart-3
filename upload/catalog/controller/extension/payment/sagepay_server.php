@@ -382,6 +382,7 @@ class ControllerExtensionPaymentSagepayServer extends Controller {
 			echo "RedirectURL=" . $error_page . $end_ln;
 
 			$this->model_extension_payment_sagepay_server->logger('StatusDetail', 'Cannot match the MD5 Hash. Order might be tampered with');
+			
 			exit;
 		}
 
@@ -393,6 +394,7 @@ class ControllerExtensionPaymentSagepayServer extends Controller {
 			echo "RedirectURL=" . $error_page . $end_ln;
 
 			$this->model_extension_payment_sagepay_server->logger('StatusDetail', 'Either status invalid or order info was not found');
+			
 			exit;
 		}
 
@@ -407,12 +409,12 @@ class ControllerExtensionPaymentSagepayServer extends Controller {
 			$comment .= "Paypal address status: " . $str_address_status . "<br>";
 			$comment .= "Paypal payer status: " . $str_payer_status . "<br>";
 		}
+		
 		$comment .= "Last 4 digits: " . $str_last_4_digits . "<br>";
 
 		$this->model_checkout_order->addOrderHistory($order_id, $this->config->get('payment_sagepay_server_order_status_id'), $comment);
 
 		$this->model_extension_payment_sagepay_server->updateOrder($order_info, $str_vps_tx_id, $str_tx_auth_no);
-
 		$this->model_extension_payment_sagepay_server->addTransaction($transaction_info['sagepay_server_order_id'], $this->config->get('payment_sagepay_server_transaction'), $order_info);
 
 		if (!empty($str_token)) {
@@ -473,15 +475,20 @@ class ControllerExtensionPaymentSagepayServer extends Controller {
 			} else {
 				$url = 'https://test.sagepay.com/gateway/service/removetoken.vsp';
 			}
+			
+			$payment_data = array();
+			
 			$payment_data['VPSProtocol'] = '3.00';
 			$payment_data['Vendor'] = $this->config->get('payment_sagepay_server_vendor');
 			$payment_data['TxType'] = 'REMOVETOKEN';
 			$payment_data['Token'] = $card['token'];
 
 			$response_data = $this->model_extension_payment_sagepay_server->sendCurl($url, $payment_data);
+			
 			if ($response_data['Status'] == 'OK') {
 				$this->model_extension_payment_sagepay_server->deleteCard($card['card_id']);
 				$this->session->data['success'] = $this->language->get('text_success_card');
+				
 				$json['success'] = true;
 			} else {
 				$json['error'] = $this->language->get('text_fail_card');
@@ -489,6 +496,7 @@ class ControllerExtensionPaymentSagepayServer extends Controller {
 		} else {
 			$json['error'] = $this->language->get('text_fail_card');
 		}
+		
 		$this->response->setOutput(json_encode($json));
 	}
 
@@ -499,7 +507,6 @@ class ControllerExtensionPaymentSagepayServer extends Controller {
 			$orders = $this->model_extension_payment_sagepay_server->cronPayment();
 
 			$this->model_extension_payment_sagepay_server->updateCronJobRunTime();
-
 			$this->model_extension_payment_sagepay_server->logger('Repeat Orders', $orders);
 		}
 	}

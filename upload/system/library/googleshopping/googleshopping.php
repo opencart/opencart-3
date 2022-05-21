@@ -179,6 +179,8 @@ class Googleshopping extends Library {
 
         while (null !== $products = $this->getFeedProducts(++$page, $job['language_id'], $job['currency'])) {
             $post = array();
+			
+			$post_data = array();
 
             $post_data = array(
                 'product' => $products,
@@ -187,6 +189,8 @@ class Googleshopping extends Library {
             );
 
             $this->curlPostQuery($post_data, $post);
+			
+			$push_request = array();
 
             $push_request = array(
                 'type' => 'POST',
@@ -202,6 +206,8 @@ class Googleshopping extends Library {
         }
 
         // Finally, close the file to finish the job
+		$close_request = array();
+		
         $close_request = array(
             'type' => 'POST',
             'endpoint' => self::ENDPOINT_DATAFEED_CLOSE,
@@ -355,6 +361,7 @@ class Googleshopping extends Library {
             }
 
             $campaigns = array();
+			
             $custom_label_0 = '';
             $custom_label_1 = '';
             $custom_label_2 = '';
@@ -383,6 +390,8 @@ class Googleshopping extends Library {
             } else {
                 $gtin = '';
             }
+			
+			$base_row = array();
 
             $base_row = array(
                 'adult' => !empty($row['adult']) ? 'yes' : 'no',
@@ -440,6 +449,8 @@ class Googleshopping extends Library {
     }
 
     public function getGroups($product_id, $language_id, $color_id, $size_id) {
+		$options = array();
+		
         $options = array(
             'color' => $this->getProductOptionValueNames($product_id, $language_id, $color_id),
             'size' => $this->getProductOptionValueNames($product_id, $language_id, $size_id)
@@ -738,6 +749,7 @@ class Googleshopping extends Library {
 
                     foreach (array_keys($groups) as $id) {
                         $id_parts = array();
+						
                         $id_parts[] = 'online';
                         $id_parts[] = $language_code;
                         $id_parts[] = $target['country']['code'];
@@ -761,6 +773,7 @@ class Googleshopping extends Library {
 
         foreach ($reports as $report) {
             $entry = array();
+			
             $entry['product_id'] = $this->getProductIdFromOfferId($report['offer_id']);
             $entry['store_id'] = (int)$this->store_id;
             $entry['impressions'] = (int)$report['impressions'];
@@ -887,6 +900,7 @@ class Googleshopping extends Library {
     protected function enableErrorReporting() {
         ini_set('display_errors', 1);
         ini_set('display_startup_errors', 1);
+		
         error_reporting(E_ALL);
     }
 
@@ -1173,6 +1187,8 @@ class Googleshopping extends Library {
 
     public function isStoreUrlClaimed() {
         // No need to check the connection here - this method is called immediately after checking it
+		
+		$request = array();
 
         $request = array(
             'type' => 'POST',
@@ -1199,8 +1215,10 @@ class Googleshopping extends Library {
         
         foreach ($this->getTargets($this->store_id) as $target) {
             $targets[] = $target['campaign_name'];
+			
             $statuses[$target['campaign_name']] = $target['status'];
         }
+		
         $targets[] = 'Total';
 
         $cache = new \Cache($this->config->get('cache_engine'), self::CACHE_CAMPAIGN_REPORT);
@@ -1225,15 +1243,20 @@ class Googleshopping extends Library {
 
             // Get date range
             $matches = array();
+			
             preg_match('~CAMPAIGN_PERFORMANCE_REPORT \((.*?)\)~', $lines[0], $matches);
+			
             $result['date_range'] = $matches[1];
 
             $header = explode(',', $lines[1]);
+			
             $data = array();
             $total = array();
             $value_keys = array();
 
             $campaign_keys = array_flip($targets);
+			
+			$expected = array();
 
             $expected = array(
                 'Campaign' => 'campaign_name',
@@ -1262,6 +1285,7 @@ class Googleshopping extends Library {
             // Fill actual values
             for ($j = 2; $j < count($lines); $j++) {
                 $line_items = explode(',', $lines[$j]);
+				
                 $l = null;
 
                 // Identify campaign key
@@ -1322,6 +1346,9 @@ class Googleshopping extends Library {
         }
 
         $post = array();
+		
+		$post_data = array();
+		
         $post_data = array(
             'product_ids' => $product_ids
         );
@@ -1344,8 +1371,11 @@ class Googleshopping extends Library {
             $lines = explode("\n", trim($response['ad_report']));
 
             $header = explode(',', $lines[1]);
+			
             $data = array();
             $keys = array();
+			
+			$expected = array();
             
             $expected = array(
                 'Item Id' => 'offer_id',
@@ -1393,6 +1423,8 @@ class Googleshopping extends Library {
         );
 
         $this->curlPostQuery($post_data, $post);
+		
+		$request = array();
 
         $request = array(
             'type' => 'POST',
@@ -1408,6 +1440,8 @@ class Googleshopping extends Library {
     }
 
     public function getConversionTracker() {
+		$request = array();
+		
         $request = array(
             'endpoint' => self::ENDPOINT_CONVERSION_TRACKER,
             'use_access_token' => true
@@ -1416,10 +1450,14 @@ class Googleshopping extends Library {
         $result = $this->api($request);
 
         // Amend the conversion snippet by replacing the default values with placeholders.
+		$search = array();
+		
         $search = array(
             "'value': 0.0",
             "'currency': 'USD'"
         );
+		
+		$replace = array();
 
         $replace = array(
             "'value': {VALUE}",
@@ -1432,6 +1470,8 @@ class Googleshopping extends Library {
     }
 
     public function testCampaigns() {
+		$request = array();
+		
         $request = array(
             'endpoint' => self::ENDPOINT_CAMPAIGN_TEST,
             'use_access_token' => true
@@ -1443,6 +1483,8 @@ class Googleshopping extends Library {
     }
 
     public function testAccessToken() {
+		$request = array();
+		
         $request = array(
             'endpoint' => self::ENDPOINT_ACCESS_TOKEN_TEST,
             'use_access_token' => true
@@ -1462,6 +1504,8 @@ class Googleshopping extends Library {
     }
 
     public function getAccessToken() {
+		$request = array();
+		
         $request = array(
             'type' => 'POST',
             'endpoint' => self::ENDPOINT_ACCESS_TOKEN,
@@ -1485,6 +1529,8 @@ class Googleshopping extends Library {
     }
 
     public function access($data, $code) {
+		$request = array();
+		
         $request = array(
             'type' => 'POST',
             'endpoint' => self::ENDPOINT_ACCESS_TOKEN,
@@ -1515,6 +1561,8 @@ class Googleshopping extends Library {
     }
 
     public function verifySite() {
+		$request = array();
+		
         $request = array(
             'type' => 'POST',
             'endpoint' => self::ENDPOINT_VERIFY_TOKEN,
@@ -1554,6 +1602,9 @@ class Googleshopping extends Library {
 
     public function deleteCampaign($name) {
         $post = array();
+		
+		$data = array();
+		
         $data = array(
             'delete' => array(
                 $name
@@ -1561,6 +1612,8 @@ class Googleshopping extends Library {
         );
 
         $this->curlPostQuery($data, $post);
+		
+		$request = array();
 
         $request = array(
             'type' => 'POST',
@@ -1576,6 +1629,7 @@ class Googleshopping extends Library {
     public function pushTargets() {
         $post = array();
         $targets = array();
+		$data = array();
 
         foreach ($this->getTargets($this->store_id) as $target) {
             $targets[] = array(
@@ -1593,6 +1647,8 @@ class Googleshopping extends Library {
         );
 
         $this->curlPostQuery($data, $post);
+		
+		$request = array();
 
         $request = array(
             'type' => 'POST',
@@ -1609,9 +1665,12 @@ class Googleshopping extends Library {
 
     public function pushShippingAndTaxes() {
         $post = array();
+		
         $data = $this->setting->get('advertise_google_shipping_taxes');
 
         $this->curlPostQuery($data, $post);
+		
+		$request = array();
 
         $request = array(
             'type' => 'POST',
@@ -1625,6 +1684,8 @@ class Googleshopping extends Library {
     }
 
     public function disconnect() {
+		$request = array();
+		
         $request = array(
             'type' => 'GET',
             'endpoint' => self::ENDPOINT_MERCHANT_DISCONNECT,
@@ -1644,12 +1705,16 @@ class Googleshopping extends Library {
                 'status' => $this->setting->get('advertise_google_status') ? $target['status'] : 'paused'
             );
         }
+		
+		$data = array();
 
         $data = array(
             'target' => $targets
         );
 
         $this->curlPostQuery($data, $post);
+		
+		$request = array();
 
         $request = array(
             'type' => 'POST',
@@ -1663,6 +1728,8 @@ class Googleshopping extends Library {
     }
 
     public function getAvailableCarriers() {
+		$request = array();
+		
         $request = array(
             'type' => 'GET',
             'endpoint' => self::ENDPOINT_MERCHANT_AVAILABLE_CARRIERS,
@@ -1712,8 +1779,6 @@ class Googleshopping extends Library {
         $result = array();
 
         $this->load->config('googleshopping/googleshopping');
-
-        $result = array();
 
         foreach ($this->config->get('advertise_google_currencies') as $code => $name) {
             if (in_array($code, $currency_codes)) {
@@ -1829,6 +1894,7 @@ class Googleshopping extends Library {
 
     private function applyNewSetting($key, $value) {
         $sql = "SELECT * FROM `" . DB_PREFIX . "setting` WHERE `code`='advertise_google' AND `key`='" . $this->db->escape($key) . "'";
+		
         $result = $this->db->query($sql);
 
         if (is_array($value)) {
@@ -1879,9 +1945,13 @@ class Googleshopping extends Library {
         $curl_options[CURLOPT_HTTPHEADER] = $headers;
 
         $ch = curl_init();
+		
         curl_setopt_array($ch, $curl_options);
+		
         $result = curl_exec($ch);
+		
         $info = curl_getinfo($ch);
+		
         curl_close($ch);
 
         $this->debugLog("RESPONSE: " . $result);

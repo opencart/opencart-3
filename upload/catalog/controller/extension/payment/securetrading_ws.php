@@ -1,26 +1,19 @@
 <?php
 class ControllerExtensionPaymentSecureTradingWs extends Controller {
 	public function index() {
-		$this->load->model('checkout/order');
-		$this->load->language('extension/payment/securetrading_ws');
-
 		if(!isset($this->session->data['order_id'])) {
 			return false;
 		}
+		
+		$this->load->language('extension/payment/securetrading_ws');
+		
+		$this->load->model('checkout/order');		
 
 		$order_info = $this->model_checkout_order->getOrder($this->session->data['order_id']);
 
 		if ($order_info) {
-			$data['entry_type'] = $this->language->get('entry_type');
-			$data['entry_number'] = $this->language->get('entry_number');
-			$data['entry_expire_date'] = $this->language->get('entry_expire_date');
-			$data['entry_cvv2'] = $this->language->get('entry_cvv2');
-
-			$data['text_card_details'] = $this->language->get('text_card_details');
-			$data['text_wait'] = $this->language->get('text_wait');
-
-			$data['button_confirm'] = $this->language->get('button_confirm');
-
+			$cards = array();
+			
 			$cards = array(
 				'AMEX' => 'American Express',
 				'VISA' => 'Visa',
@@ -63,14 +56,15 @@ class ControllerExtensionPaymentSecureTradingWs extends Controller {
 	}
 
 	public function process() {
-		$this->load->model('checkout/order');
-		$this->load->model('localisation/country');
-		$this->load->model('extension/payment/securetrading_ws');
-		$this->load->language('extension/payment/securetrading_ws');
-
 		if(!isset($this->session->data['order_id'])) {
 			return false;
 		}
+		
+		$this->load->language('extension/payment/securetrading_ws');
+		
+		$this->load->model('checkout/order');
+		$this->load->model('localisation/country');
+		$this->load->model('extension/payment/securetrading_ws');		
 
 		$order_info = $this->model_checkout_order->getOrder($this->session->data['order_id']);
 
@@ -219,14 +213,16 @@ class ControllerExtensionPaymentSecureTradingWs extends Controller {
 
 				$json = $this->processAuthResponse($response, $order_info['order_id']);
 			}
+			
 			$this->response->setOutput(json_encode($json));
 		}
 	}
 
 	public function threedreturn() {
-		$this->load->model('checkout/order');
-		$this->load->model('extension/payment/securetrading_ws');
 		$this->load->language('extension/payment/securetrading_ws');
+		
+		$this->load->model('checkout/order');
+		$this->load->model('extension/payment/securetrading_ws');		
 
 		// Using unmodified $_POST to access values as per Secure Trading's requirements
 		if (isset($_POST['PaRes']) && !empty($_POST['PaRes']) && isset($_POST['MD']) && !empty($_POST['MD'])) {

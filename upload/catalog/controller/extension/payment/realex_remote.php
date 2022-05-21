@@ -62,10 +62,12 @@ class ControllerExtensionPaymentRealexRemote extends Controller {
 	}
 
 	public function send() {
+		$this->load->language('extension/payment/realex_remote');
+		
+		$json = array();
+		
 		$this->load->model('checkout/order');
 		$this->load->model('extension/payment/realex_remote');
-
-		$this->load->language('extension/payment/realex_remote');
 
 		if ($this->request->post['cc_number'] == '') {
 			$json['error'] = $this->language->get('error_card_number');
@@ -83,7 +85,6 @@ class ControllerExtensionPaymentRealexRemote extends Controller {
 			$this->response->addHeader('Content-Type: application/json');
 			$this->response->setOutput(json_encode($json));
 			$this->response->output();
-			die();
 		}
 
 		if(!isset($this->session->data['order_id'])) {
@@ -145,7 +146,6 @@ class ControllerExtensionPaymentRealexRemote extends Controller {
 					$this->response->addHeader('Content-Type: application/json');
 					$this->response->setOutput(json_encode($json));
 					$this->response->output();
-					die();
 				}
 
 				// Cardholder Not Enrolled. Shift in liability. ECI = 6
@@ -153,6 +153,7 @@ class ControllerExtensionPaymentRealexRemote extends Controller {
 					$eci_ref = 1;
 					$xid = '';
 					$cavv = '';
+					
 					if ($this->request->post['cc_type'] == 'mc') {
 						$eci = 1;
 					} else {
@@ -170,11 +171,11 @@ class ControllerExtensionPaymentRealexRemote extends Controller {
 						$this->response->addHeader('Content-Type: application/json');
 						$this->response->setOutput(json_encode($json));
 						$this->response->output();
-						die();
 					} else {
 						$eci_ref = 2;
 						$xid = '';
 						$cavv = '';
+						
 						if ($this->request->post['cc_type'] == 'mc') {
 							$eci = 0;
 						} else {
@@ -192,10 +193,10 @@ class ControllerExtensionPaymentRealexRemote extends Controller {
 
 						$this->response->addHeader('Content-Type: application/json');
 						$this->response->setOutput(json_encode($json));
-						$this->response->output();
-						die();
+						$this->response->output();						
 					} else {
 						$eci_ref = 3;
+						
 						if ($this->request->post['cc_type'] == 'mc') {
 							$eci = 0;
 						} else {

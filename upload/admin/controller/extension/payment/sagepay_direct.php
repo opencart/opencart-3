@@ -149,11 +149,13 @@ class ControllerExtensionPaymentSagepayDirect extends Controller {
 
 	public function install() {
 		$this->load->model('extension/payment/sagepay_direct');
+		
 		$this->model_extension_payment_sagepay_direct->install();
 	}
 
 	public function uninstall() {
 		$this->load->model('extension/payment/sagepay_direct');
+		
 		$this->model_extension_payment_sagepay_direct->uninstall();
 	}
 
@@ -186,6 +188,7 @@ class ControllerExtensionPaymentSagepayDirect extends Controller {
 
 	public function void() {
 		$this->load->language('extension/payment/sagepay_direct');
+		
 		$json = array();
 
 		if (isset($this->request->post['order_id']) && $this->request->post['order_id'] != '') {
@@ -221,6 +224,7 @@ class ControllerExtensionPaymentSagepayDirect extends Controller {
 
 	public function release() {
 		$this->load->language('extension/payment/sagepay_direct');
+		
 		$json = array();
 
 		if (isset($this->request->post['order_id']) && $this->request->post['order_id'] != '' && isset($this->request->post['amount']) && $this->request->post['amount'] > 0) {
@@ -267,6 +271,7 @@ class ControllerExtensionPaymentSagepayDirect extends Controller {
 
 	public function rebate() {
 		$this->load->language('extension/payment/sagepay_direct');
+		
 		$json = array();
 
 		if (isset($this->request->post['order_id']) && !empty($this->request->post['order_id'])) {

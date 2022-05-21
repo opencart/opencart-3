@@ -37,11 +37,13 @@ class ControllerExtensionPaymentSagepayUS extends Controller {
 	}
 
 	public function send() {
-		$this->load->model('checkout/order');
-
 		if(!isset($this->session->data['order_id'])) {
 			return false;
 		}
+		
+		$json = array();
+		
+		$this->load->model('checkout/order');
 
 		$order_info = $this->model_checkout_order->getOrder($this->session->data['order_id']);
 
@@ -72,8 +74,6 @@ class ControllerExtensionPaymentSagepayUS extends Controller {
 		$response = curl_exec($ch);
 
 		curl_close($ch);
-
-		$json = array();
 
 		if ($response[1] == 'A') {
 			$message  = 'Approval Indicator: ' . $response[1] . "\n";

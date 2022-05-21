@@ -193,18 +193,18 @@ class ControllerExtensionPaymentWorldpay extends Controller {
 
 	public function install() {
 		$this->load->model('extension/payment/worldpay');
+		
 		$this->model_extension_payment_worldpay->install();
 	}
 
 	public function uninstall() {
 		$this->load->model('extension/payment/worldpay');
+		
 		$this->model_extension_payment_worldpay->uninstall();
 	}
 
 	public function order() {
-
 		if ($this->config->get('payment_worldpay_status')) {
-
 			$this->load->model('extension/payment/worldpay');
 
 			$worldpay_order = $this->model_extension_payment_worldpay->getOrder($this->request->get['order_id']);
@@ -230,6 +230,7 @@ class ControllerExtensionPaymentWorldpay extends Controller {
 
 	public function refund() {
 		$this->load->language('extension/payment/worldpay');
+		
 		$json = array();
 
 		if (isset($this->request->post['order_id']) && !empty($this->request->post['order_id'])) {

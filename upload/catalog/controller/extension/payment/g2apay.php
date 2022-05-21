@@ -186,6 +186,7 @@ class ControllerExtensionPaymentG2APay extends Controller {
 				}
 
 				$this->load->model('checkout/order');
+				
 				$this->model_checkout_order->addOrderHistory($this->request->post['userOrderId'], $order_status_id);
 			}
 		}

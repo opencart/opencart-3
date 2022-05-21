@@ -192,6 +192,7 @@ class ControllerExtensionPaymentRealexRemote extends Controller {
 
 	public function install() {
 		$this->load->model('extension/payment/realex_remote');
+		
 		$this->model_extension_payment_realex_remote->install();
 	}
 
@@ -224,6 +225,7 @@ class ControllerExtensionPaymentRealexRemote extends Controller {
 
 	public function void() {
 		$this->load->language('extension/payment/realex_remote');
+		
 		$json = array();
 
 		if (isset($this->request->post['order_id']) && $this->request->post['order_id'] != '') {
@@ -258,6 +260,7 @@ class ControllerExtensionPaymentRealexRemote extends Controller {
 
 	public function capture() {
 		$this->load->language('extension/payment/realex');
+		
 		$json = array();
 
 		if (isset($this->request->post['order_id']) && $this->request->post['order_id'] != '' && isset($this->request->post['amount']) && $this->request->post['amount'] > 0) {
@@ -307,6 +310,7 @@ class ControllerExtensionPaymentRealexRemote extends Controller {
 
 	public function rebate() {
 		$this->load->language('extension/payment/realex_remote');
+		
 		$json = array();
 
 		if (isset($this->request->post['order_id']) && $this->request->post['order_id'] != '') {

@@ -149,6 +149,8 @@ class ModelExtensionPaymentAmazonLoginPay extends Model {
     }
 
     public function makeOrder() {
+		$this->load->language('checkout/checkout');
+		
         $this->verifyOrderSessionData();
 
         $totals = array();
@@ -163,10 +165,10 @@ class ModelExtensionPaymentAmazonLoginPay extends Model {
         );
 
         $this->getTotals($total_data);
+		
+		$order_data = array();
 
         $order_data['totals'] = $totals;
-
-        $this->load->language('checkout/checkout');
 
         $order_data['invoice_prefix'] = $this->config->get('config_invoice_prefix');
         $order_data['store_id'] = $this->config->get('config_store_id');
@@ -897,6 +899,8 @@ class ModelExtensionPaymentAmazonLoginPay extends Model {
         $info = curl_getinfo($ch);
 
         if (empty($response)) {
+			$debug = array();
+			
             $debug = array(
                 'curl_getinfo' => $info,
                 'curl_errno' => curl_errno($ch),

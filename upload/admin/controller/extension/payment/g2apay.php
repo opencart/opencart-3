@@ -271,11 +271,13 @@ class ControllerExtensionPaymentG2APay extends Controller {
 
 	public function install() {
 		$this->load->model('extension/payment/g2apay');
+		
 		$this->model_extension_payment_g2apay->install();
 	}
 
 	public function uninstall() {
 		$this->load->model('extension/payment/g2apay');
+		
 		$this->model_extension_payment_g2apay->uninstall();
 	}
 

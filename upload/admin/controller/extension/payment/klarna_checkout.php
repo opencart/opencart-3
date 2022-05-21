@@ -560,21 +560,23 @@ class ControllerExtensionPaymentKlarnaCheckout extends Controller {
 
 	public function install() {
 		$this->load->model('extension/payment/klarna_checkout');
+		
 		$this->model_extension_payment_klarna_checkout->install();
 	}
 
 	public function uninstall() {
 		$this->load->model('extension/payment/klarna_checkout');
+		
 		$this->model_extension_payment_klarna_checkout->uninstall();
 	}
 
 	public function transactionCommand() {
 		$this->load->language('extension/payment/klarna_checkout');
+		
+		$json = array();
 
 		$this->load->model('extension/payment/klarna_checkout');
 		$this->load->model('sale/order');
-
-		$json = array();
 
 		$success = $error = '';
 
@@ -693,11 +695,11 @@ class ControllerExtensionPaymentKlarnaCheckout extends Controller {
 
 	public function downloadSettlementFiles() {
 		$this->load->language('extension/payment/klarna_checkout');
+		
+		$json = array();
 
 		$this->load->model('extension/payment/klarna_checkout');
 		$this->load->model('sale/order');
-
-		$json = array();
 
 		$error = array();
 

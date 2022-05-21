@@ -984,12 +984,12 @@ class ControllerExtensionPaymentSquareup extends Controller {
 
     protected function transactionAction($callback) {
         $this->load->language('extension/payment/squareup');
+		
+		$json = array();
 
         $this->load->model('extension/payment/squareup');
 
         $this->load->library('squareup');
-
-        $json = array();
 
         if (!$this->user->hasPermission('modify', 'extension/payment/squareup')) {
             $json['error'] = $this->language->get('error_permission');

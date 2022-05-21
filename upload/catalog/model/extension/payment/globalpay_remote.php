@@ -107,14 +107,17 @@ class ModelExtensionPaymentGlobalpayRemote extends Model {
 		$this->logger($xml);
 
 		$ch = curl_init();
+		
 		curl_setopt($ch, CURLOPT_URL, "https://remote.globaliris.com/realmpi");
 		curl_setopt($ch, CURLOPT_POST, 1);
 		curl_setopt($ch, CURLOPT_USERAGENT, "OpenCart " . VERSION);
 		curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
 		curl_setopt($ch, CURLOPT_POSTFIELDS, $xml);
 		curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
-		$response = curl_exec ($ch);
-		curl_close ($ch);
+		
+		$response = curl_exec($ch);
+		
+		curl_close($ch);
 
 		$this->logger('enrollmentSignature xml response');
 		$this->logger($response);
@@ -123,6 +126,8 @@ class ModelExtensionPaymentGlobalpayRemote extends Model {
 	}
 
 	public function capturePayment($account, $amount, $currency, $order_id, $order_ref, $card_number, $expire, $name, $type, $cvv, $issue, $eci_ref, $eci = '', $cavv = '', $xid = '') {
+		$this->load->language('extension/payment/globalpay_remote');
+		
 		$this->load->model('checkout/order');
 
 		$timestamp = date("YmdHis");
@@ -221,21 +226,22 @@ class ModelExtensionPaymentGlobalpayRemote extends Model {
 		$this->logger($xml);
 
 		$ch = curl_init();
+		
 		curl_setopt($ch, CURLOPT_URL, "https://remote.globaliris.com/realauth");
 		curl_setopt($ch, CURLOPT_POST, 1);
 		curl_setopt($ch, CURLOPT_USERAGENT, "OpenCart " . VERSION);
 		curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
 		curl_setopt($ch, CURLOPT_POSTFIELDS, $xml);
 		curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
-		$response = curl_exec ($ch);
-		curl_close ($ch);
+		
+		$response = curl_exec($ch);
+		
+		curl_close($ch);
 
 		$this->logger('capturePayment xml response');
 		$this->logger($response);
 
 		$response = simplexml_load_string($response);
-
-		$this->load->language('extension/payment/globalpay_remote');
 
 		$message = '<strong>' . $this->language->get('text_result') . ':</strong> ' . (int)$response->result;
 		$message .= '<br /><strong>' . $this->language->get('text_message') . ':</strong> ' . (string)$response->message;
@@ -293,9 +299,11 @@ class ModelExtensionPaymentGlobalpayRemote extends Model {
 
 			if ($this->config->get('payment_globalpay_remote_auto_settle') == 1) {
 				$this->addTransaction($globalpay_order_id, 'payment', $order_info);
+				
 				$this->model_checkout_order->addOrderHistory($order_id, $this->config->get('payment_globalpay_remote_order_status_success_settled_id'), $message);
 			} else {
 				$this->addTransaction($globalpay_order_id, 'auth', 0);
+				
 				$this->model_checkout_order->addOrderHistory($order_id, $this->config->get('payment_globalpay_remote_order_status_success_unsettled_id'), $message);
 			}
 		} elseif ($response->result == "101") {

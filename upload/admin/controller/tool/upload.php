@@ -253,9 +253,9 @@ class ControllerToolUpload extends Controller {
 	}
 
 	public function download() {
-		$this->load->model('tool/upload');
-
 		$this->load->language('tool/upload');
+		
+		$this->load->model('tool/upload');
 
 		if (isset($this->request->get['code'])) {
 			$code = $this->request->get['code'];

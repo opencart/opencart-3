@@ -3,10 +3,11 @@ class ControllerExtensionPaymentSecureTradingPp extends Controller {
 	private $error = array();
 
 	public function index() {
+		$this->load->language('extension/payment/securetrading_pp');
+		
 		$this->load->model('setting/setting');
 		$this->load->model('localisation/geo_zone');
-		$this->load->model('localisation/order_status');
-		$this->load->language('extension/payment/securetrading_pp');
+		$this->load->model('localisation/order_status');		
 
 		if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validate()) {
 			$this->request->post['payment_securetrading_pp_site_reference'] = trim($this->request->post['payment_securetrading_pp_site_reference']);
@@ -246,11 +247,13 @@ class ControllerExtensionPaymentSecureTradingPp extends Controller {
 
 	public function install() {
 		$this->load->model('extension/payment/securetrading_pp');
+		
 		$this->model_extension_payment_securetrading_pp->install();
 	}
 
 	public function uninstall() {
 		$this->load->model('extension/payment/securetrading_pp');
+		
 		$this->model_extension_payment_securetrading_pp->uninstall();
 	}
 
@@ -283,6 +286,7 @@ class ControllerExtensionPaymentSecureTradingPp extends Controller {
 
 	public function void() {
 		$this->load->language('extension/payment/securetrading_pp');
+		
 		$json = array();
 
 		if (isset($this->request->post['order_id']) && $this->request->post['order_id'] != '') {
@@ -333,6 +337,7 @@ class ControllerExtensionPaymentSecureTradingPp extends Controller {
 
 	public function release() {
 		$this->load->language('extension/payment/securetrading_pp');
+		
 		$json = array();
 
 		$amount = number_format($this->request->post['amount'], 2);
@@ -396,6 +401,7 @@ class ControllerExtensionPaymentSecureTradingPp extends Controller {
 
 	public function rebate() {
 		$this->load->language('extension/payment/securetrading_pp');
+		
 		$json = array();
 
 		if (isset($this->request->post['order_id']) && !empty($this->request->post['order_id'])) {

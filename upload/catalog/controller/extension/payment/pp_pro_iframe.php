@@ -1,13 +1,12 @@
 <?php
 class ControllerExtensionPaymentPPProIframe extends Controller {
 	public function index() {
+		$this->load->language('extension/payment/pp_pro_iframe');
+		
 		$this->load->model('checkout/order');
 		$this->load->model('extension/payment/pp_pro_iframe');
 
-		$this->load->language('extension/payment/pp_pro_iframe');
-
 		if ($this->config->get('payment_pp_pro_iframe_checkout_method') == 'redirect') {
-
 			if(!isset($this->session->data['order_id'])) {
 				return false;
 			}
@@ -38,15 +37,16 @@ class ControllerExtensionPaymentPPProIframe extends Controller {
 	}
 
 	public function create() {
+		if(!isset($this->session->data['order_id'])) {
+			return false;
+		}
+		
 		$this->load->language('extension/payment/pp_pro_iframe');
+		
 		$this->load->model('checkout/order');
 		$this->load->model('extension/payment/pp_pro_iframe');
 
 		$data['text_secure_connection'] = $this->language->get('text_secure_connection');
-
-		if(!isset($this->session->data['order_id'])) {
-			return false;
-		}
 
 		$order_info = $this->model_checkout_order->getOrder($this->session->data['order_id']);
 
@@ -201,6 +201,7 @@ class ControllerExtensionPaymentPPProIframe extends Controller {
 
 	private function constructButtonData($order_info) {
 		$s_data = array();
+		
 		$s_data['METHOD'] = 'BMCreateButton';
 		$s_data['VERSION'] = '65.2';
 		$s_data['BUTTONCODE'] = 'TOKEN';

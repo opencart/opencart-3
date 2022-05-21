@@ -167,6 +167,7 @@ class ControllerExtensionCreditCardSagepayServer extends Controller {
 
 		$success_page = $this->url->link('extension/credit_card/sagepay_server/success', '', true);
 		$error_page = $this->url->link('extension/credit_card/sagepay_server/failure', '', true);
+		
 		$end_ln = chr(13) . chr(10);
 
 		if (isset($this->request->post['VendorTxCode'])) {
@@ -212,6 +213,7 @@ class ControllerExtensionCreditCardSagepayServer extends Controller {
 		} else {
 			$str_security_key = '';
 		}
+		
 		$this->model_extension_payment_sagepay_server->logger('$transaction_info', $transaction_info);
 		$this->model_extension_payment_sagepay_server->logger('$str_vps_tx_id', $str_vps_tx_id);
 		$this->model_extension_payment_sagepay_server->logger('$vendor_tx_code', $vendor_tx_code);
@@ -226,11 +228,12 @@ class ControllerExtensionCreditCardSagepayServer extends Controller {
 
 		/** We can now compare our MD5 Hash signature with that from Sage Pay Server * */
 		if ($str_my_signature != $str_vps_signature) {
-
 			echo "Status=INVALID" . $end_ln;
 			echo "StatusDetail= Cannot match the MD5 Hash. Order might be tampered with." . $end_ln;
 			echo "RedirectURL=" . $error_page . $end_ln;
+			
 			$this->model_extension_payment_sagepay_server->logger('StatusDetail', 'Cannot match the MD5 Hash. Order might be tampered with.');
+			
 			exit;
 		}
 
@@ -243,12 +246,15 @@ class ControllerExtensionCreditCardSagepayServer extends Controller {
 
 			exit;
 		}
+		
+		$card_data = array();
 
 		$card_data['customer_id'] = $transaction_info['customer_id'];
 		$card_data['Token'] = $this->request->post['Token'];
 		$card_data['Last4Digits'] = $this->request->post['Last4Digits'];
 		$card_data['ExpiryDate'] = substr_replace($this->request->post['ExpiryDate'], '/', 2, 0);
 		$card_data['CardType'] = $this->request->post['CardType'];
+		
 		$this->model_extension_payment_sagepay_server->addCard($card_data);
 
 		echo "Status=OK" . $end_ln;
@@ -257,15 +263,21 @@ class ControllerExtensionCreditCardSagepayServer extends Controller {
 
 	public function success() {
 		$this->load->model('extension/payment/sagepay_server');
+		
 		$this->model_extension_payment_sagepay_server->logger('Success', '');
+		
 		$this->session->data['success'] = 'Success';
+		
 		$this->response->redirect($this->url->link('extension/credit_card/sagepay_server', '', true));
 	}
 
 	public function failure() {
 		$this->load->model('extension/payment/sagepay_server');
+		
 		$this->model_extension_payment_sagepay_server->logger('Failure', '');
+		
 		$this->session->data['error_warning'] = 'Failure';
+		
 		$this->response->redirect($this->url->link('extension/credit_card/sagepay_server', '', true));
 	}
 }

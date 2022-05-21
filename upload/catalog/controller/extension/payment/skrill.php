@@ -1,13 +1,13 @@
 <?php
 class ControllerExtensionPaymentSkrill extends Controller {
 	public function index() {
-		$this->load->model('checkout/order');
-
-		$this->load->language('extension/payment/skrill');
-
 		if(!isset($this->session->data['order_id'])) {
 			return false;
 		}
+		
+		$this->load->language('extension/payment/skrill');
+		
+		$this->load->model('checkout/order');
 
 		$data['button_confirm'] = $this->language->get('button_confirm');
 
@@ -77,6 +77,7 @@ class ControllerExtensionPaymentSkrill extends Controller {
 				$hash .= $this->request->post['status'];
 
 				$md5hash = strtoupper(md5($hash));
+				
 				$md5sig = $this->request->post['md5sig'];
 
 				if (($md5hash != $md5sig) || (strtolower($this->request->post['pay_to_email']) != strtolower($this->config->get('config_moneybookers_email'))) || ((float)$this->request->post['amount'] != $this->currency->format((float)$order_info['total'], $order_info['currency_code'], $order_info['currency_value'], false))) {

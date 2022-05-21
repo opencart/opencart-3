@@ -3,9 +3,9 @@ class ControllerExtensionModuleLaybuyLayout extends Controller {
 	private $error = array();
 
 	public function index() {
-		$this->load->model('setting/setting');
-
 		$this->load->language('extension/module/laybuy_layout');
+		
+		$this->load->model('setting/setting');
 
 		$this->document->setTitle($this->language->get('heading_title'));
 

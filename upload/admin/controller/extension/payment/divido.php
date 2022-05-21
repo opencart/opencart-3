@@ -197,11 +197,13 @@ class ControllerExtensionPaymentDivido extends Controller {
 
 	public function install() {
 		$this->load->model('extension/payment/divido');
+		
 		$this->model_extension_payment_divido->install();
 	}
 
 	public function uninstall() {
 		$this->load->model('extension/payment/divido');
+		
 		$this->model_extension_payment_divido->uninstall();
 	}
 

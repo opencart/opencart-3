@@ -359,6 +359,7 @@ class ControllerExtensionPaymentAmazonLoginPay extends Controller {
 
 	public function install() {
 		$this->load->model('extension/payment/amazon_login_pay');
+		
 		$this->model_extension_payment_amazon_login_pay->install();
 		$this->model_extension_payment_amazon_login_pay->deleteEvents();
 		$this->model_extension_payment_amazon_login_pay->addEvents();
@@ -367,6 +368,7 @@ class ControllerExtensionPaymentAmazonLoginPay extends Controller {
 	public function uninstall() {
 		$this->load->model('extension/payment/amazon_login_pay');
 		$this->load->model('setting/event');
+		
 		$this->model_extension_payment_amazon_login_pay->uninstall();
 		$this->model_extension_payment_amazon_login_pay->deleteEvents();
 	}
@@ -400,6 +402,7 @@ class ControllerExtensionPaymentAmazonLoginPay extends Controller {
 
 	public function cancel() {
 		$this->load->language('extension/payment/amazon_login_pay');
+		
 		$json = array();
 
 		if (isset($this->request->post['order_id']) && $this->request->post['order_id'] != '') {
@@ -435,6 +438,7 @@ class ControllerExtensionPaymentAmazonLoginPay extends Controller {
 
 	public function capture() {
 		$this->load->language('extension/payment/amazon_login_pay');
+		
 		$json = array();
 
 		if (isset($this->request->post['order_id']) && $this->request->post['order_id'] != '' && isset($this->request->post['amount']) && $this->request->post['amount'] > 0) {
@@ -493,6 +497,7 @@ class ControllerExtensionPaymentAmazonLoginPay extends Controller {
 
 	public function refund() {
 		$this->load->language('extension/payment/amazon_login_pay');
+		
 		$json = array();
 
 		if (isset($this->request->post['order_id']) && !empty($this->request->post['order_id'])) {

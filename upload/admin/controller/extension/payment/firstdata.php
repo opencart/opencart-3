@@ -193,11 +193,13 @@ class ControllerExtensionPaymentFirstdata extends Controller {
 
 	public function install() {
 		$this->load->model('extension/payment/firstdata');
+		
 		$this->model_extension_payment_firstdata->install();
 	}
 
 	public function uninstall() {
 		$this->load->model('extension/payment/firstdata');
+		
 		$this->model_extension_payment_firstdata->uninstall();
 	}
 

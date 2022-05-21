@@ -89,7 +89,6 @@ class ControllerInformationInformation extends Controller {
 		}
 
 		$this->response->addHeader('X-Robots-Tag: noindex');
-
 		$this->response->setOutput($output);
 	}
 }

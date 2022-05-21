@@ -171,9 +171,9 @@ class ModelExtensionPaymentLaybuy extends Model {
 	}
 
 	public function prepareTransactionReport($post_data) {
-		$this->load->model('checkout/order');
-
 		$this->load->language('extension/payment/laybuy');
+		
+		$this->load->model('checkout/order');
 
 		$data = array_change_key_case($post_data, CASE_LOWER);
 

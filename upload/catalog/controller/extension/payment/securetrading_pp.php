@@ -1,10 +1,11 @@
 <?php
 class ControllerExtensionPaymentSecureTradingPp extends Controller {
 	public function index() {
+		$this->load->language('extension/payment/securetrading_pp');
+		
 		$this->load->model('checkout/order');
 		$this->load->model('localisation/country');
-		$this->load->model('localisation/zone');
-		$this->load->language('extension/payment/securetrading_pp');
+		$this->load->model('localisation/zone');		
 
 		if(!isset($this->session->data['order_id'])) {
 			return false;
@@ -84,11 +85,13 @@ class ControllerExtensionPaymentSecureTradingPp extends Controller {
 	}
 
 	public function ipn() {
-		$this->load->model('checkout/order');
-		$this->load->model('extension/payment/securetrading_pp');
 		$this->load->language('extension/payment/securetrading_pp');
+		
+		$this->load->model('checkout/order');
+		$this->load->model('extension/payment/securetrading_pp');		
 
 		$keys = array_keys($this->request->post);
+		
 		sort($keys);
 
 		$keys_ignore = array('notificationreference', 'responsesitesecurity');
@@ -116,6 +119,7 @@ class ControllerExtensionPaymentSecureTradingPp extends Controller {
 						2 => $this->language->get('text_match'),
 						4 => $this->language->get('text_not_match'),
 					);
+					
 					$shipping_country = $this->model_extension_payment_securetrading_pp->getCountry($this->request->post['customercountryiso2a']);
 					$payment_country = $this->model_extension_payment_securetrading_pp->getCountry($this->request->post['billingcountryiso2a']);
 

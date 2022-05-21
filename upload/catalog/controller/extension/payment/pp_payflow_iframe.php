@@ -132,24 +132,26 @@ class ControllerExtensionPaymentPPPayflowIframe extends Controller {
 				} else {
 					$complete = 0;
 				}
+				
+				$post_data = array();
 
-				$data = array(
+				$post_data = array(
 					'secure_token_id'       => $this->request->post['SECURETOKENID'],
 					'transaction_reference' => $this->request->post['PNREF'],
 					'transaction_type'      => $this->request->post['TYPE'],
 					'complete'              => $complete,
 				);
 
-				$this->model_extension_payment_pp_payflow_iframe->updateOrder($data);
+				$this->model_extension_payment_pp_payflow_iframe->updateOrder($post_data);
 
-				$data = array(
+				$post_data = array(
 					'order_id'              => $order_id,
 					'type'                  => $this->request->post['TYPE'],
 					'transaction_reference' => $this->request->post['PNREF'],
 					'amount'                => $this->request->post['AMT'],
 				);
 
-				$this->model_extension_payment_pp_payflow_iframe->addTransaction($data);
+				$this->model_extension_payment_pp_payflow_iframe->addTransaction($post_data);
 			}
 		}
 

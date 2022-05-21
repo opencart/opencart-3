@@ -141,8 +141,6 @@ class ControllerExtensionPaymentKlarnaAccount extends Controller {
 			$data['iso_code_2'] = $order_info['payment_iso_code_2'];
 			$data['iso_code_3'] = $order_info['payment_iso_code_3'];
 
-			$payment_option = array();
-
 			$total = $this->currency->format($order_info['total'], $country_to_currency[$order_info['payment_iso_code_3']], '', false);
 
 			$pclasses = $this->config->get('klarna_account_pclasses');
@@ -198,6 +196,7 @@ class ControllerExtensionPaymentKlarnaAccount extends Controller {
 						$payment += $monthly_fee;
 
 						$balance = $sum;
+						
 						$pay_data = array();
 
 						$months = $pclass['months'];
@@ -239,6 +238,8 @@ class ControllerExtensionPaymentKlarnaAccount extends Controller {
 						}
 					}
 				}
+				
+				$payment_option = array();
 
 				$payment_option[$pclass['id']]['pclass_id'] = $pclass['id'];
 				$payment_option[$pclass['id']]['title'] = $pclass['description'];

@@ -84,11 +84,11 @@ class ControllerExtensionPaymentGlobalpay extends Controller {
 	}
 
 	public function notify() {
+		$this->load->language('extension/payment/globalpay');
+		
 		$this->load->model('extension/payment/globalpay');
 
 		$this->model_extension_payment_globalpay->logger(print_r($this->request->post, 1));
-
-		$this->load->language('extension/payment/globalpay');
 
 		$hash = sha1($this->request->post['TIMESTAMP'] . '.' . $this->config->get('payment_globalpay_merchant_id') . '.' . $this->request->post['ORDER_ID'] . '.' . $this->request->post['RESULT'] . '.' . $this->request->post['MESSAGE'] . '.' . $this->request->post['PASREF'] . '.' . $this->request->post['AUTHCODE']);
 		$tmp = $hash . '.' . $this->config->get('payment_globalpay_secret');

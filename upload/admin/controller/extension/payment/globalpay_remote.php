@@ -193,6 +193,7 @@ class ControllerExtensionPaymentGlobalpayRemote extends Controller {
 
 	public function install() {
 		$this->load->model('extension/payment/globalpay_remote');
+		
 		$this->model_extension_payment_globalpay_remote->install();
 	}
 
@@ -225,6 +226,7 @@ class ControllerExtensionPaymentGlobalpayRemote extends Controller {
 
 	public function void() {
 		$this->load->language('extension/payment/globalpay_remote');
+		
 		$json = array();
 
 		if (isset($this->request->post['order_id']) && $this->request->post['order_id'] != '') {
@@ -259,6 +261,7 @@ class ControllerExtensionPaymentGlobalpayRemote extends Controller {
 
 	public function capture() {
 		$this->load->language('extension/payment/globalpay');
+		
 		$json = array();
 
 		if (isset($this->request->post['order_id']) && $this->request->post['order_id'] != '' && isset($this->request->post['amount']) && $this->request->post['amount'] > 0) {
@@ -308,6 +311,7 @@ class ControllerExtensionPaymentGlobalpayRemote extends Controller {
 
 	public function rebate() {
 		$this->load->language('extension/payment/globalpay_remote');
+		
 		$json = array();
 
 		if (isset($this->request->post['order_id']) && $this->request->post['order_id'] != '') {

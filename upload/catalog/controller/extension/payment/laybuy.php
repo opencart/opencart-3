@@ -42,24 +42,24 @@ class ControllerExtensionPaymentLaybuy extends Controller {
 			if ($order_info) {
 				$this->model_extension_payment_laybuy->log('Order ID: ' . $order_info['order_id']);
 
-				$data = array();
+				$post_data = array();
 
-				$data['VERSION']      = '0.2';
-				$data['MEMBER']       = $this->config->get('payment_laybuys_membership_id');
-				$data['RETURNURL']    = $this->url->link('extension/payment/laybuy/callback', '', true);
-				$data['CANCELURL']    = $this->url->link('extension/payment/laybuy/cancel', '', true);
-				$data['AMOUNT']       = round(floatval($order_info['total']), 2, PHP_ROUND_HALF_DOWN);
-				$data['CURRENCY']     = $order_info['currency_code'];
-				$data['INIT']         = (int)$this->request->post['INIT'];
-				$data['MONTHS']       = (int)$this->request->post['MONTHS'];
-				$data['MIND']         = ((int)$this->config->get('payment_laybuy_min_deposit')) ? (int)$this->config->get('payment_laybuy_min_deposit') : 20;
-				$data['MAXD']         = ((int)$this->config->get('payment_laybuy_max_deposit')) ? (int)$this->config->get('payment_laybuy_max_deposit') : 50;
-				$data['CUSTOM']       = $order_info['order_id'] . ':' . md5($this->config->get('payment_laybuy_token'));
-				$data['EMAIL']        = $order_info['email'];
+				$post_data['VERSION']      = '0.2';
+				$post_data['MEMBER']       = $this->config->get('payment_laybuys_membership_id');
+				$post_data['RETURNURL']    = $this->url->link('extension/payment/laybuy/callback', '', true);
+				$post_data['CANCELURL']    = $this->url->link('extension/payment/laybuy/cancel', '', true);
+				$post_data['AMOUNT']       = round(floatval($order_info['total']), 2, PHP_ROUND_HALF_DOWN);
+				$post_data['CURRENCY']     = $order_info['currency_code'];
+				$post_data['INIT']         = (int)$this->request->post['INIT'];
+				$post_data['MONTHS']       = (int)$this->request->post['MONTHS'];
+				$post_data['MIND']         = ((int)$this->config->get('payment_laybuy_min_deposit')) ? (int)$this->config->get('payment_laybuy_min_deposit') : 20;
+				$post_data['MAXD']         = ((int)$this->config->get('payment_laybuy_max_deposit')) ? (int)$this->config->get('payment_laybuy_max_deposit') : 50;
+				$post_data['CUSTOM']       = $order_info['order_id'] . ':' . md5($this->config->get('payment_laybuy_token'));
+				$post_data['EMAIL']        = $order_info['email'];
 
 				$data_string = '';
 
-				foreach ($data as $param => $value) {
+				foreach ($post_data as $param => $value) {
 					$data_string .= $param . '=' . $value . '&';
 				}
 
@@ -70,6 +70,7 @@ class ControllerExtensionPaymentLaybuy extends Controller {
 				$this->model_extension_payment_laybuy->log('Gateway URL: ' . $this->config->get('payment_laybuy_gateway_url'));
 
 				$ch = curl_init();
+				
 				curl_setopt($ch, CURLOPT_URL, $this->config->get('payment_laybuy_gateway_url'));
 				curl_setopt($ch, CURLOPT_POST, true);
 				curl_setopt($ch, CURLOPT_POSTFIELDS, $data_string);
@@ -77,10 +78,13 @@ class ControllerExtensionPaymentLaybuy extends Controller {
 				curl_setopt($ch, CURLOPT_HEADER, false);
 				curl_setopt($ch, CURLOPT_TIMEOUT, 30);
 				curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+				
 				$result = curl_exec($ch);
+				
 				if (curl_errno($ch)) {
 					$this->model_extension_payment_laybuy->log('cURL error: ' . curl_errno($ch));
 				}
+				
 				curl_close($ch);
 
 				$result = json_decode($result, true);
@@ -261,7 +265,9 @@ class ControllerExtensionPaymentLaybuy extends Controller {
 							$this->model_extension_payment_laybuy->log('Data String: ' . $data_string);
 
 							$ch = curl_init();
+							
 							$url = 'https://lay-buys.com/vtmob/deal5cancel.php';
+							
 							curl_setopt($ch, CURLOPT_URL, $url);
 							curl_setopt($ch, CURLOPT_POST, true);
 							curl_setopt($ch, CURLOPT_POSTFIELDS, $data_string);
@@ -269,10 +275,13 @@ class ControllerExtensionPaymentLaybuy extends Controller {
 							curl_setopt($ch, CURLOPT_HEADER, false);
 							curl_setopt($ch, CURLOPT_TIMEOUT, 30);
 							curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+							
 							$result = curl_exec($ch);
+							
 							if (curl_errno($ch)) {
 								$this->model_extension_payment_laybuy->log('cURL error: ' . curl_errno($ch));
 							}
+							
 							curl_close($ch);
 
 							$this->model_extension_payment_laybuy->log('Response: ' . $result);
@@ -334,9 +343,9 @@ class ControllerExtensionPaymentLaybuy extends Controller {
 	}
 
 	public function cron() {
-		$this->load->model('extension/payment/laybuy');
-
 		$this->load->language('extension/payment/laybuy');
+		
+		$this->load->model('extension/payment/laybuy');
 
 		$this->model_extension_payment_laybuy->log('Running cron');
 
@@ -359,6 +368,7 @@ class ControllerExtensionPaymentLaybuy extends Controller {
 				$this->model_extension_payment_laybuy->log('API URL: ' . $this->config->get('payment_laybuy_api_url'));
 
 				$ch = curl_init();
+				
 				curl_setopt($ch, CURLOPT_URL, $this->config->get('payment_laybuy_api_url'));
 				curl_setopt($ch, CURLOPT_POST, true);
 				curl_setopt($ch, CURLOPT_POSTFIELDS, $data_string);
@@ -366,10 +376,13 @@ class ControllerExtensionPaymentLaybuy extends Controller {
 				curl_setopt($ch, CURLOPT_HEADER, false);
 				curl_setopt($ch, CURLOPT_TIMEOUT, 30);
 				curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+				
 				$result = curl_exec($ch);
+				
 				if (curl_errno($ch)) {
 					$this->model_extension_payment_laybuy->log('cURL error: ' . curl_errno($ch));
 				}
+				
 				curl_close($ch);
 
 				$results = json_decode($result, true);

@@ -65,8 +65,10 @@ class ControllerExtensionPaymentPPExpress extends Controller {
 
 		$max_amount = $this->cart->getTotal() * 1.5;
 		$max_amount = $this->currency->format($max_amount, $this->session->data['currency'], '', false);
+		
+		$post_data = array();
 
-		$data = array(
+		$post_data = array(
 			'METHOD'             => 'SetExpressCheckout',
 			'MAXAMT'             => $max_amount,
 			'RETURNURL'          => $this->url->link('extension/payment/pp_express/expressReturn', '', true),
@@ -82,12 +84,12 @@ class ControllerExtensionPaymentPPExpress extends Controller {
 		);
 
 		if (isset($this->session->data['pp_login']['seamless']['access_token']) && (isset($this->session->data['pp_login']['seamless']['customer_id']) && $this->session->data['pp_login']['seamless']['customer_id'] == $this->customer->getId()) && $this->config->get('module_pp_login_seamless')) {
-			$data['IDENTITYACCESSTOKEN'] = $this->session->data['pp_login']['seamless']['access_token'];
+			$post_data['IDENTITYACCESSTOKEN'] = $this->session->data['pp_login']['seamless']['access_token'];
 		}
 
-		$data = array_merge($data, $this->model_extension_payment_pp_express->paymentRequestInfo());
+		$post_data = array_merge($post_data, $this->model_extension_payment_pp_express->paymentRequestInfo());
 
-		$result = $this->model_extension_payment_pp_express->call($data);
+		$result = $this->model_extension_payment_pp_express->call($post_data);
 
 		/**
 		 * If a failed PayPal setup happens, handle it.
@@ -121,22 +123,26 @@ class ControllerExtensionPaymentPPExpress extends Controller {
 		 * It has no output, instead it sets the data and locates to checkout
 		 */
 		$this->load->model('extension/payment/pp_express');
-		$data = array(
+		
+		$post_data = array();
+		
+		$post_data = array(
 			'METHOD' => 'GetExpressCheckoutDetails',
 			'TOKEN'  => $this->session->data['paypal']['token']
 		);
 
-		$result = $this->model_extension_payment_pp_express->call($data);
+		$result = $this->model_extension_payment_pp_express->call($post_data);
+		
 		$this->session->data['paypal']['payerid']   = $result['PAYERID'];
 		$this->session->data['paypal']['result']    = $result;
-
+		
 		$this->session->data['comment'] = '';
+		
 		if (isset($result['PAYMENTREQUEST_0_NOTETEXT'])) {
 			$this->session->data['comment'] = $result['PAYMENTREQUEST_0_NOTETEXT'];
 		}
 
 		if ($this->session->data['paypal']['guest'] == true) {
-
 			$this->session->data['guest']['customer_group_id'] = $this->config->get('config_customer_group_id');
 			$this->session->data['guest']['firstname'] = trim($result['FIRSTNAME']);
 			$this->session->data['guest']['lastname'] = trim($result['LASTNAME']);
@@ -305,14 +311,17 @@ class ControllerExtensionPaymentPPExpress extends Controller {
 				 * If there is no address match add the address and set the info.
 				 */
 				if ($match == false) {
-
 					$shipping_name = explode(' ', trim($result['PAYMENTREQUEST_0_SHIPTONAME']));
 					$shipping_first_name = $shipping_name[0];
+					
 					unset($shipping_name[0]);
+					
 					$shipping_last_name = implode(' ', $shipping_name);
 
 					$country_info = $this->db->query("SELECT * FROM `" . DB_PREFIX . "country` WHERE `iso_code_2` = '" . $this->db->escape($result['PAYMENTREQUEST_0_SHIPTOCOUNTRYCODE']) . "' AND `status` = '1' LIMIT 1")->row;
 					$zone_info = $this->db->query("SELECT * FROM `" . DB_PREFIX . "zone` WHERE (`name` = '" . $this->db->escape($result['PAYMENTREQUEST_0_SHIPTOSTATE']) . "' OR `code` = '" . $this->db->escape($result['PAYMENTREQUEST_0_SHIPTOSTATE']) . "') AND `status` = '1' AND `country_id` = '" . (int)$country_info['country_id'] . "'")->row;
+					
+					$address_data = array();
 
 					$address_data = array(
 						'firstname'  => $shipping_first_name,
@@ -410,9 +419,6 @@ class ControllerExtensionPaymentPPExpress extends Controller {
 				$points_total += $product['points'];
 			}
 		}
-
-		$data['button_shipping'] = $this->language->get('button_express_shipping');
-		$data['button_confirm'] = $this->language->get('button_express_confirm');
 
 		if (isset($this->request->post['next'])) {
 			$data['next'] = $this->request->post['next'];
@@ -524,7 +530,6 @@ class ControllerExtensionPaymentPPExpress extends Controller {
 		$data['vouchers'] = array();
 
 		if ($this->cart->hasShipping()) {
-
 			$data['has_shipping'] = true;
 			/**
 			 * Shipping services
@@ -733,6 +738,7 @@ class ControllerExtensionPaymentPPExpress extends Controller {
 
 	public function expressComplete() {
 		$this->load->language('extension/payment/pp_express');
+		
 		$redirect = '';
 
 		if ($this->cart->hasShipping()) {
@@ -921,11 +927,13 @@ class ControllerExtensionPaymentPPExpress extends Controller {
 				$data['shipping_address_format'] = $shipping_address['address_format'];
 
 				$data['shipping_method'] = '';
+				
 				if (isset($this->session->data['shipping_method']['title'])) {
 					$data['shipping_method'] = $this->session->data['shipping_method']['title'];
 				}
 
 				$data['shipping_code'] = '';
+				
 				if (isset($this->session->data['shipping_method']['code'])) {
 					$data['shipping_code'] = $this->session->data['shipping_method']['code'];
 				}
@@ -1068,9 +1076,12 @@ class ControllerExtensionPaymentPPExpress extends Controller {
 			$this->load->model('checkout/order');
 
 			$order_id = $this->model_checkout_order->addOrder($data);
+			
 			$this->session->data['order_id'] = $order_id;
 
 			$this->load->model('extension/payment/pp_express');
+			
+			$paypal_data = array();
 
 			$paypal_data = array(
 				'TOKEN'                      => $this->session->data['paypal']['token'],
@@ -1272,6 +1283,8 @@ class ControllerExtensionPaymentPPExpress extends Controller {
 
 		$max_amount = $this->cart->getTotal() * 1.5;
 		$max_amount = $this->currency->format($max_amount, $this->session->data['currency'], '', false);
+		
+		$data_shipping = array();
 
 		if ($this->cart->hasShipping()) {
 			$shipping = 0;
@@ -1302,11 +1315,12 @@ class ControllerExtensionPaymentPPExpress extends Controller {
 				'ADDROVERRIDE' 						 => 1,
 			);
 		} else {
-			$shipping = 1;
-			$data_shipping = array();
+			$shipping = 1;			
 		}
+		
+		$post_data = array();
 
-		$data = array(
+		$post_data = array(
 			'METHOD'             => 'SetExpressCheckout',
 			'MAXAMT'             => $max_amount,
 			'RETURNURL'          => $this->url->link('extension/payment/pp_express/checkoutReturn', '', true),
@@ -1321,15 +1335,15 @@ class ControllerExtensionPaymentPPExpress extends Controller {
 			'ALLOWNOTE'          => $this->config->get('payment_pp_express_allow_note')
 		);
 
-		$data = array_merge($data, $data_shipping);
+		$post_data = array_merge($post_data, $data_shipping);
 
 		if (isset($this->session->data['pp_login']['seamless']['access_token']) && (isset($this->session->data['pp_login']['seamless']['customer_id']) && $this->session->data['pp_login']['seamless']['customer_id'] == $this->customer->getId()) && $this->config->get('module_pp_login_seamless')) {
-			$data['IDENTITYACCESSTOKEN'] = $this->session->data['pp_login']['seamless']['access_token'];
+			$post_data['IDENTITYACCESSTOKEN'] = $this->session->data['pp_login']['seamless']['access_token'];
 		}
 
-		$data = array_merge($data, $this->model_extension_payment_pp_express->paymentRequestInfo());
+		$post_data = array_merge($post_data, $this->model_extension_payment_pp_express->paymentRequestInfo());
 
-		$result = $this->model_extension_payment_pp_express->call($data);
+		$result = $this->model_extension_payment_pp_express->call($post_data);
 
 		/**
 		 * If a failed PayPal setup happens, handle it.
@@ -1360,18 +1374,22 @@ class ControllerExtensionPaymentPPExpress extends Controller {
 
 		$this->load->model('extension/payment/pp_express');
 		$this->load->model('checkout/order');
+		
+		$post_data = array();
 
-		$data = array(
+		$post_data = array(
 			'METHOD' => 'GetExpressCheckoutDetails',
 			'TOKEN'  => $this->session->data['paypal']['token']
 		);
 
-		$result = $this->model_extension_payment_pp_express->call($data);
+		$result = $this->model_extension_payment_pp_express->call($post_data);
 
 		$this->session->data['paypal']['payerid'] = $result['PAYERID'];
 		$this->session->data['paypal']['result'] = $result;
 
 		$order_id = $this->session->data['order_id'];
+		
+		$paypal_data = array();
 
 		$paypal_data = array(
 			'TOKEN'                      => $this->session->data['paypal']['token'],
@@ -1437,7 +1455,7 @@ class ControllerExtensionPaymentPPExpress extends Controller {
 			$paypal_transaction_data = array(
 				'paypal_order_id'       => $paypal_order_id,
 				'transaction_id'        => $result['PAYMENTINFO_0_TRANSACTIONID'],
-				'parent_id' => '',
+				'parent_id' 			=> '',
 				'note'                  => '',
 				'msgsubid'              => '',
 				'receipt_id'            => (isset($result['PAYMENTINFO_0_RECEIPTID']) ? $result['PAYMENTINFO_0_RECEIPTID'] : ''),
@@ -1526,7 +1544,6 @@ class ControllerExtensionPaymentPPExpress extends Controller {
 		} else {
 			if ($result['L_ERRORCODE0'] == '10486') {
 				if (isset($this->session->data['paypal_redirect_count'])) {
-
 					if ($this->session->data['paypal_redirect_count'] == 2) {
 						$this->session->data['paypal_redirect_count'] = 0;
 						$this->session->data['error'] = $this->language->get('error_too_many_failures');
@@ -1859,16 +1876,19 @@ class ControllerExtensionPaymentPPExpress extends Controller {
 
 		if (empty($code)) {
 			$this->session->data['error_warning'] = $this->language->get('error_shipping');
+			
 			return false;
 		} else {
 			$shipping = explode('.', $code);
 
 			if (!isset($shipping[0]) || !isset($shipping[1]) || !isset($this->session->data['shipping_methods'][$shipping[0]]['quote'][$shipping[1]])) {
 				$this->session->data['error_warning'] = $this->language->get('error_shipping');
+				
 				return false;
 			} else {
 				$this->session->data['shipping_method'] = $this->session->data['shipping_methods'][$shipping[0]]['quote'][$shipping[1]];
 				$this->session->data['success'] = $this->language->get('text_shipping_updated');
+				
 				return true;
 			}
 		}
@@ -1883,6 +1903,7 @@ class ControllerExtensionPaymentPPExpress extends Controller {
 			return true;
 		} else {
 			$this->session->data['error_warning'] = $this->language->get('error_coupon');
+			
 			return false;
 		}
 	}
@@ -1896,6 +1917,7 @@ class ControllerExtensionPaymentPPExpress extends Controller {
 			return true;
 		} else {
 			$this->session->data['error_warning'] = $this->language->get('error_voucher');
+			
 			return false;
 		}
 	}
@@ -1929,6 +1951,7 @@ class ControllerExtensionPaymentPPExpress extends Controller {
 			return true;
 		} else {
 			$this->session->data['error_warning'] = $error;
+			
 			return false;
 		}
 	}

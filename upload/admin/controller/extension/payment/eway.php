@@ -169,11 +169,13 @@ class ControllerExtensionPaymentEway extends Controller {
 
 	public function install() {
 		$this->load->model('extension/payment/eway');
+		
 		$this->model_extension_payment_eway->install();
 	}
 
 	public function uninstall() {
 		$this->load->model('extension/payment/eway');
+		
 		$this->model_extension_payment_eway->uninstall();
 	}
 

@@ -49,10 +49,12 @@ class ControllerExtensionPaymentGlobalpayRemote extends Controller {
 	}
 
 	public function send() {
+		$this->load->language('extension/payment/globalpay_remote');
+		
+		$json = array();
+		
 		$this->load->model('checkout/order');
 		$this->load->model('extension/payment/globalpay_remote');
-
-		$this->load->language('extension/payment/globalpay_remote');
 
 		if ($this->request->post['cc_number'] == '') {
 			$json['error'] = $this->language->get('error_card_number');
@@ -69,7 +71,6 @@ class ControllerExtensionPaymentGlobalpayRemote extends Controller {
 		if (isset($json['error'])) {
 			$this->response->addHeader('Content-Type: application/json');
 			$this->response->setOutput(json_encode($json));
-			die();
 		}
 
 		$order_id = $this->session->data['order_id'];
@@ -118,7 +119,6 @@ class ControllerExtensionPaymentGlobalpayRemote extends Controller {
 
 					$md = $this->encryption->encrypt($this->config->get('config_encryption'), json_encode($enc_data));
 
-					$json = array();
 					$json['ACSURL'] = (string)$verify_3ds->url;
 					$json['MD'] = $md;
 					$json['PaReq'] = (string)$verify_3ds->pareq;
@@ -127,7 +127,6 @@ class ControllerExtensionPaymentGlobalpayRemote extends Controller {
 					$this->response->addHeader('Content-Type: application/json');
 					$this->response->setOutput(json_encode($json));
 					$this->response->output();
-					die();
 				}
 
 				// Cardholder Not Enrolled. Shift in liability. ECI = 6
@@ -135,6 +134,7 @@ class ControllerExtensionPaymentGlobalpayRemote extends Controller {
 					$eci_ref = 1;
 					$xid = '';
 					$cavv = '';
+					
 					if ($this->request->post['cc_type'] == 'mc') {
 						$eci = 1;
 					} else {
@@ -151,12 +151,12 @@ class ControllerExtensionPaymentGlobalpayRemote extends Controller {
 
 						$this->response->addHeader('Content-Type: application/json');
 						$this->response->setOutput(json_encode($json));
-						$this->response->output();
-						die();
+						$this->response->output();						
 					} else {
 						$eci_ref = 2;
 						$xid = '';
 						$cavv = '';
+						
 						if ($this->request->post['cc_type'] == 'mc') {
 							$eci = 0;
 						} else {
@@ -297,7 +297,6 @@ class ControllerExtensionPaymentGlobalpayRemote extends Controller {
 					$this->session->data['error'] = $this->language->get('error_3d_unsuccessful');
 
 					$this->response->redirect($this->url->link('checkout/checkout', '', true));
-					die();
 				}
 			}
 

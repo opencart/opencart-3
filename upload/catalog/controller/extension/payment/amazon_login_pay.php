@@ -380,7 +380,8 @@ class ControllerExtensionPaymentAmazonLoginPay extends Controller {
         }
 
         $amazon_payment_js = $this->model_extension_payment_amazon_login_pay->getWidgetJs();
-        $this->document->addScript($amazon_payment_js);
+        
+		$this->document->addScript($amazon_payment_js);
 
         try {
             $order = $this->model_extension_payment_amazon_login_pay->makeOrder();
@@ -397,7 +398,8 @@ class ControllerExtensionPaymentAmazonLoginPay extends Controller {
 
         if (!empty($this->session->data['success'])) {
             $data['success'] = $this->session->data['success'];
-            unset($this->session->data['success']);
+            
+			unset($this->session->data['success']);
         }
 
         if (isset($this->session->data['coupon'])) {
@@ -416,7 +418,8 @@ class ControllerExtensionPaymentAmazonLoginPay extends Controller {
         $data['standard_checkout'] = $this->url->link('extension/payment/amazon_login_pay/standard_checkout', '', true);
 
         $zero_total = $this->currency->format(0, $this->session->data['currency']);
-        $data['error_order_total_zero'] = sprintf($this->language->get('error_order_total_zero'), $zero_total);
+        
+		$data['error_order_total_zero'] = sprintf($this->language->get('error_order_total_zero'), $zero_total);
 
         $data['process'] = html_entity_decode($this->url->link('extension/payment/amazon_login_pay/process', '', true), ENT_COMPAT, "UTF-8");
         $data['process_us'] = html_entity_decode($this->url->link('extension/payment/amazon_login_pay/process_us', '', true), ENT_COMPAT, "UTF-8");
@@ -458,6 +461,7 @@ class ControllerExtensionPaymentAmazonLoginPay extends Controller {
 
         //enable mfa only for UK and Europe regions
         $data['psd_enabled'] = "false";
+		
         if($this->config->get('payment_amazon_login_pay_payment_region') != 'USD') {
             $data['psd_enabled'] = "true";
         }
@@ -472,14 +476,17 @@ class ControllerExtensionPaymentAmazonLoginPay extends Controller {
 
             if (in_array($session_currency,$amazon_supported_currencies)) {
                 $data['buyer_currency'] = $session_currency;
+				$data['enabled_buyers_multi_currency'] = true;
+				
                 $this->session->data['apalwa']['pay']['buyer_currency'] = $session_currency;
-                $data['enabled_buyers_multi_currency'] = true;
             }
         }
 
         if (!$data['buyer_currency']) {
             $location_currency = $this->config->get('payment_amazon_login_pay_payment_region');
+			
             $rate = round($this->currency->getValue($location_currency) / $this->currency->getValue($order['currency_code']), 8);
+			
             $amount = $this->currency->format($this->currency->convert($order['total'], $this->config->get('config_currency'), $location_currency), $location_currency, 1, true);
 
             $data['is_amount_converted'] = $order['currency_code'] != $location_currency;
@@ -498,8 +505,11 @@ class ControllerExtensionPaymentAmazonLoginPay extends Controller {
     }
     //handle the SuccessUrl response
     public function mfa_success() {
+		$this->load->language('extension/payment/amazon_login_pay');
+		
         $this->load->model('extension/payment/amazon_login_pay');
         $this->load->model('checkout/order');
+		
         // Verify cart
         $this->model_extension_payment_amazon_login_pay->verifyCart();
         // Verify login
@@ -510,7 +520,6 @@ class ControllerExtensionPaymentAmazonLoginPay extends Controller {
         $this->model_extension_payment_amazon_login_pay->verifyShipping();
         // Verify order
         $this->model_extension_payment_amazon_login_pay->verifyOrder();
-        $this->load->language('extension/payment/amazon_login_pay');
 
         if (isset($this->request->get['AuthenticationStatus']) && $this->request->get['AuthenticationStatus'] == 'Success') {
             $this->authorize();
@@ -520,21 +529,25 @@ class ControllerExtensionPaymentAmazonLoginPay extends Controller {
     }
     //handle the FailureUrl response
     public function mfa_failure() {
-        $this->load->model('extension/payment/amazon_login_pay');
-        $this->load->language('extension/payment/amazon_login_pay');
+		$this->load->language('extension/payment/amazon_login_pay');
+		
+        $this->load->model('extension/payment/amazon_login_pay');        
 
         if(isset($this->request->get['AuthenticationStatus'])) {
             $mfa_authorization_status = $this->request->get['AuthenticationStatus'];
 
             if($mfa_authorization_status == 'Failure') {
                 $text_failed_mfa = $this->language->get('error_failure_mfa');
+				
                 $this->model_extension_payment_amazon_login_pay->cartRedirect($text_failed_mfa);
             } elseif ($mfa_authorization_status == 'Abandoned') {
                 $this->session->data['apalwa']['error'] = $this->language->get('error_abandoned_mfa');
+				
                 $this->response->redirect($this->url->link('extension/payment/amazon_login_pay/payment', '', true));
             }
         } else {
             $text_invaild_request = $this->language->get('error_invaild_request');
+			
             $this->model_extension_payment_amazon_login_pay->cartRedirect($text_invaild_request);
         }
     }
@@ -763,6 +776,7 @@ class ControllerExtensionPaymentAmazonLoginPay extends Controller {
                             // This should never occur, but just in case...
                             throw $this->model_extension_payment_amazon_login_pay->loggedException("Authorization has failed with code: " . $reason_code, $this->language->get('error_process_order'));
                         }
+						
                     break;
                 }
             }
@@ -964,6 +978,7 @@ class ControllerExtensionPaymentAmazonLoginPay extends Controller {
         $this->load->language('extension/payment/amazon_login_pay');
 
         $this->load->model('extension/payment/amazon_login_pay');
+		
         $order_id = $args[0];
 
         $order_info = $this->model_checkout_order->getOrder($order_id);

@@ -179,9 +179,10 @@ class ControllerExtensionPaymentPPPayflowIframe extends Controller {
 	}
 
 	public function refund() {
-		$this->load->model('extension/payment/pp_payflow_iframe');
-		$this->load->model('sale/order');
 		$this->load->language('extension/payment/pp_payflow_iframe');
+		
+		$this->load->model('extension/payment/pp_payflow_iframe');
+		$this->load->model('sale/order');		
 
 		$transaction = $this->model_extension_payment_pp_payflow_iframe->getTransaction($this->request->get['transaction_reference']);
 
@@ -227,9 +228,11 @@ class ControllerExtensionPaymentPPPayflowIframe extends Controller {
 	}
 
 	public function doRefund() {
-		$this->load->model('extension/payment/pp_payflow_iframe');
 		$this->load->language('extension/payment/pp_payflow_iframe');
+		
 		$json = array();
+		
+		$this->load->model('extension/payment/pp_payflow_iframe');
 
 		if (isset($this->request->post['transaction_reference']) && isset($this->request->post['amount'])) {
 
@@ -271,9 +274,10 @@ class ControllerExtensionPaymentPPPayflowIframe extends Controller {
 	}
 
 	public function capture() {
+		$this->load->language('extension/payment/pp_payflow_iframe');
+		
 		$this->load->model('extension/payment/pp_payflow_iframe');
 		$this->load->model('sale/order');
-		$this->load->language('extension/payment/pp_payflow_iframe');
 
 		if (isset($this->request->post['order_id']) && isset($this->request->post['amount']) && isset($this->request->post['complete'])) {
 			$order_id = $this->request->post['order_id'];
@@ -339,8 +343,9 @@ class ControllerExtensionPaymentPPPayflowIframe extends Controller {
 	}
 
 	public function void() {
-		$this->load->model('extension/payment/pp_payflow_iframe');
 		$this->load->language('extension/payment/pp_payflow_iframe');
+		
+		$this->load->model('extension/payment/pp_payflow_iframe');		
 
 		if (isset($this->request->post['order_id']) && $this->request->post['order_id'] != '') {
 			$order_id = $this->request->post['order_id'];
@@ -390,8 +395,9 @@ class ControllerExtensionPaymentPPPayflowIframe extends Controller {
 	}
 
 	public function order() {
-		$this->load->model('extension/payment/pp_payflow_iframe');
 		$this->load->language('extension/payment/pp_payflow_iframe');
+		
+		$this->load->model('extension/payment/pp_payflow_iframe');		
 
 		$order_id = $this->request->get['order_id'];
 

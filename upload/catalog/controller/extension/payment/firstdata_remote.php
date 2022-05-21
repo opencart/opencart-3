@@ -38,9 +38,10 @@ class ControllerExtensionPaymentFirstdataRemote extends Controller {
 	}
 
 	public function send() {
-		$this->load->model('checkout/order');
-		$this->load->model('extension/payment/firstdata_remote');
 		$this->load->language('extension/payment/firstdata_remote');
+		
+		$this->load->model('checkout/order');
+		$this->load->model('extension/payment/firstdata_remote');		
 
 		$address_codes = array(
 			'PPX' => $this->language->get('text_address_ppx'),

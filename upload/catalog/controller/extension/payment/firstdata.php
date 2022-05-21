@@ -82,10 +82,10 @@ class ControllerExtensionPaymentFirstdata extends Controller {
 	}
 
 	public function notify() {
+		$this->load->language('extension/payment/firstdata');
+		
 		$this->load->model('extension/payment/firstdata');
 		$this->load->model('checkout/order');
-
-		$this->load->language('extension/payment/firstdata');
 
 		$message = '';
 
