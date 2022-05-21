@@ -615,6 +615,7 @@ class ControllerMarketplaceMarketplace extends Controller {
 			$data['license'] = $response_info['license'];
 			$data['license_period'] = $response_info['license_period'];
 			$data['purchased'] = $response_info['purchased'];
+			$data['compatibility'] = $response_info['compatibility'];
 			$data['rating'] = $response_info['rating'];
 			$data['rating_total'] = $response_info['rating_total'];
 			$data['downloaded'] = $response_info['downloaded'];
