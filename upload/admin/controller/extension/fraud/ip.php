@@ -116,7 +116,7 @@ class ControllerExtensionFraudIp extends Controller {
 
 		$ip_total = $this->model_extension_fraud_ip->getTotalIps();
 
-		$pagination = new Pagination();
+		$pagination = new \Pagination();
 		$pagination->total = $ip_total;
 		$pagination->page = $page;
 		$pagination->limit = 10;

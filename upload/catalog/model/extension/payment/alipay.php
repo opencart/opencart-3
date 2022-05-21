@@ -56,19 +56,19 @@ class ModelExtensionPaymentAlipay extends Model {
 		$this->returnUrl = $alipay_config['return_url'];
 
 		if (empty($this->appid)||trim($this->appid)=="") {
-			throw new Exception("appid should not be NULL!");
+			throw new \Exception("appid should not be NULL!");
 		}
 		if (empty($this->private_key)||trim($this->private_key)=="") {
-			throw new Exception("private_key should not be NULL!");
+			throw new \Exception("private_key should not be NULL!");
 		}
 		if (empty($this->alipay_public_key)||trim($this->alipay_public_key)=="") {
-			throw new Exception("alipay_public_key should not be NULL!");
+			throw new \Exception("alipay_public_key should not be NULL!");
 		}
 		if (empty($this->postCharset)||trim($this->postCharset)=="") {
-			throw new Exception("charset should not be NULL!");
+			throw new \Exception("charset should not be NULL!");
 		}
 		if (empty($this->gateway_url)||trim($this->gateway_url)=="") {
-			throw new Exception("gateway_url should not be NULL!");
+			throw new \Exception("gateway_url should not be NULL!");
 		}
 	}
 
@@ -80,13 +80,13 @@ class ModelExtensionPaymentAlipay extends Model {
 			$biz_content = json_encode($builder,JSON_UNESCAPED_UNICODE);
 		}
 
-		$log = new Log($this->logFileName);
+		$log = new \Log($this->logFileName);
 		$log->write($biz_content);
 
 		$this->apiParas["biz_content"] = $biz_content;
 
 		$response = $this->pageExecute($this, "post");
-		$log = new Log($this->logFileName);
+		$log = new \Log($this->logFileName);
 		$log->write("response: ".var_export($response,true));
 
 		return $response;

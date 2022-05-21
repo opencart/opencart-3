@@ -96,7 +96,7 @@ class ModelExtensionPaymentBluePayRedirect extends Model {
 
 	public function logger($message) {
 		if ($this->config->get('payment_bluepay_redirect_debug') == 1) {
-			$log = new Log('bluepay_redirect.log');
+			$log = new \Log('bluepay_redirect.log');
 			$log->write($message);
 		}
 	}

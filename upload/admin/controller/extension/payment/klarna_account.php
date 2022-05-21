@@ -20,6 +20,8 @@ class ControllerExtensionPaymentKlarnaAccount extends Controller {
 					break;
 				}
 			}
+			
+			$klarna_data = array();
 
 			$klarna_data = array(
 				'klarna_account_pclasses' => $this->pclasses,
@@ -136,7 +138,9 @@ class ControllerExtensionPaymentKlarnaAccount extends Controller {
 			$this->error['warning'] = $this->language->get('error_permission');
 		}
 
-		$log = new Log('klarna_account.log');
+		$log = new \Log('klarna_account.log');
+		
+		$country = array();
 
 		$country = array(
 			'NOR' => array(
@@ -212,10 +216,10 @@ class ControllerExtensionPaymentKlarnaAccount extends Controller {
 				$response = curl_exec($curl);
 
 				if ($response !== false) {
-					$xml = new DOMDocument();
+					$xml = new \DOMDocument();
 					$xml->loadXML($response);
 
-					$xpath = new DOMXPath($xml);
+					$xpath = new \DOMXPath($xml);
 
 					$nodes = $xpath->query('//methodResponse/params/param/value');
 
@@ -298,7 +302,7 @@ class ControllerExtensionPaymentKlarnaAccount extends Controller {
 			case 'array':
 				$value = array();
 
-				$xpath = new DOMXPath($document);
+				$xpath = new \DOMXPath($document);
 				$entries = $xpath->query('.//array/data/value', $child);
 
 				for ($i = 0; $i < $entries->length; $i++) {

@@ -486,7 +486,7 @@ class ControllerMarketplaceMarketplace extends Controller {
 			$url .= '&sort=' . $this->request->get['sort'];
 		}
 
-		$pagination = new Pagination();
+		$pagination = new \Pagination();
 		$pagination->total = $extension_total;
 		$pagination->page = $page;
 		$pagination->limit = 12;
@@ -1034,7 +1034,7 @@ class ControllerMarketplaceMarketplace extends Controller {
 			}
 		}
 
-		$pagination = new Pagination();
+		$pagination = new \Pagination();
 		$pagination->total = $comment_total;
 		$pagination->page = $page;
 		$pagination->limit = 20;

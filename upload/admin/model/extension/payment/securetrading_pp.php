@@ -38,7 +38,8 @@ class ModelExtensionPaymentSecureTradingPp extends Model {
 
 		if (!empty($securetrading_pp_order) && $securetrading_pp_order['release_status'] == 0) {
 
-			$requestblock_xml = new SimpleXMLElement('<requestblock></requestblock>');
+			$requestblock_xml = new \SimpleXMLElement('<requestblock></requestblock>');
+			
 			$requestblock_xml->addAttribute('version', '3.67');
 			$requestblock_xml->addChild('alias', $this->config->get('payment_securetrading_pp_webservice_username'));
 
@@ -67,7 +68,7 @@ class ModelExtensionPaymentSecureTradingPp extends Model {
 
 		if (!empty($securetrading_pp_order) && $securetrading_pp_order['release_status'] == 0 && $total_released <= $amount) {
 
-			$requestblock_xml = new SimpleXMLElement('<requestblock></requestblock>');
+			$requestblock_xml = new \SimpleXMLElement('<requestblock></requestblock>');
 			$requestblock_xml->addAttribute('version', '3.67');
 			$requestblock_xml->addChild('alias', $this->config->get('payment_securetrading_pp_webservice_username'));
 
@@ -101,7 +102,7 @@ class ModelExtensionPaymentSecureTradingPp extends Model {
 
 		if (!empty($securetrading_pp_order) && $securetrading_pp_order['rebate_status'] != 1) {
 
-			$requestblock_xml = new SimpleXMLElement('<requestblock></requestblock>');
+			$requestblock_xml = new \SimpleXMLElement('<requestblock></requestblock>');
 			$requestblock_xml->addAttribute('version', '3.67');
 			$requestblock_xml->addChild('alias', $this->config->get('payment_securetrading_pp_webservice_username'));
 
@@ -202,7 +203,7 @@ class ModelExtensionPaymentSecureTradingPp extends Model {
 	}
 
 	public function logger($message) {
-		$log = new Log('securetrading_pp.log');
+		$log = new \Log('securetrading_pp.log');
 		$log->write($message);
 	}
 }

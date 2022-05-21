@@ -99,7 +99,7 @@ class ControllerReportOnline extends Controller {
 			$url .= '&filter_ip=' . $this->request->get['filter_ip'];
 		}
 
-		$pagination = new Pagination();
+		$pagination = new \Pagination();
 		$pagination->total = $customer_total;
 		$pagination->page = $page;
 		$pagination->limit = $this->config->get('config_limit_admin');

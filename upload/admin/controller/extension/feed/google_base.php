@@ -158,7 +158,7 @@ class ControllerExtensionFeedGoogleBase extends Controller {
 
 		$category_total = $this->model_extension_feed_google_base->getTotalCategories();
 
-		$pagination = new Pagination();
+		$pagination = new \Pagination();
 		$pagination->total = $category_total;
 		$pagination->page = $page;
 		$pagination->limit = 10;

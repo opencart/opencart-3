@@ -490,7 +490,7 @@ class ControllerSaleReturn extends Controller {
 			$url .= '&order=' . $this->request->get['order'];
 		}
 
-		$pagination = new Pagination();
+		$pagination = new \Pagination();
 		$pagination->total = $return_total;
 		$pagination->page = $page;
 		$pagination->limit = $this->config->get('config_limit_admin');
@@ -885,7 +885,7 @@ class ControllerSaleReturn extends Controller {
 
 		$history_total = $this->model_sale_return->getTotalReturnHistories($this->request->get['return_id']);
 
-		$pagination = new Pagination();
+		$pagination = new \Pagination();
 		$pagination->total = $history_total;
 		$pagination->page = $page;
 		$pagination->limit = 10;

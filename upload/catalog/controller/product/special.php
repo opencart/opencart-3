@@ -228,7 +228,7 @@ class ControllerProductSpecial extends Controller {
 			$url .= '&limit=' . $this->request->get['limit'];
 		}
 
-		$pagination = new Pagination();
+		$pagination = new \Pagination();
 		$pagination->total = $product_total;
 		$pagination->page = $page;
 		$pagination->limit = $limit;

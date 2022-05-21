@@ -233,7 +233,7 @@ class ControllerMarketingCoupon extends Controller {
 			$url .= '&order=' . $this->request->get['order'];
 		}
 
-		$pagination = new Pagination();
+		$pagination = new \Pagination();
 		$pagination->total = $coupon_total;
 		$pagination->page = $page;
 		$pagination->limit = $this->config->get('config_limit_admin');
@@ -541,7 +541,7 @@ class ControllerMarketingCoupon extends Controller {
 
 		$history_total = $this->model_marketing_coupon->getTotalCouponHistories($this->request->get['coupon_id']);
 
-		$pagination = new Pagination();
+		$pagination = new \Pagination();
 		$pagination->total = $history_total;
 		$pagination->page = $page;
 		$pagination->limit = 10;

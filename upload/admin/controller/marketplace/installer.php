@@ -51,7 +51,7 @@ class ControllerMarketplaceInstaller extends Controller {
 		
 		$history_total = $this->model_setting_extension->getTotalExtensionInstalls();
 
-		$pagination = new Pagination();
+		$pagination = new \Pagination();
 		$pagination->total = $history_total;
 		$pagination->page = $page;
 		$pagination->limit = 10;

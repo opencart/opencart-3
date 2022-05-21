@@ -417,7 +417,7 @@ class ControllerExtensionPaymentPPProIframe extends Controller {
 						$this->response->redirect($this->url->link('sale/order/info', 'user_token=' . $this->session->data['user_token'] . '&order_id=' . $paypal_order['order_id'], true));
 					} else {
 						if ($this->config->get('payment_pp_pro_iframe_debug')) {
-							$log = new Log('pp_pro_iframe.log');
+							$log = new \Log('pp_pro_iframe.log');
 							$log->write(json_encode($result));
 						}
 

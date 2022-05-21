@@ -80,7 +80,7 @@ class ModelExtensionPaymentPilibaba extends Model {
 
 	public function log($data) {
 		if ($this->config->get('payment_pilibaba_logging')) {
-			$log = new Log('pilibaba.log');
+			$log = new \Log('pilibaba.log');
 
 			$log->write($data);
 		}

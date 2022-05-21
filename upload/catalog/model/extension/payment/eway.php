@@ -156,19 +156,25 @@ class ModelExtensionPaymentEway extends Model {
 		$response = curl_exec($ch);
 
 		if (curl_errno($ch) != CURLE_OK) {
-			$response = new stdClass();
+			$response = new \stdClass();
+			
 			$response->Errors = "POST Error: " . curl_error($ch) . " URL: $url";
+			
 			$this->log->write(array('error' => curl_error($ch), 'errno' => curl_errno($ch)), 'cURL failed');
+			
 			$response = json_encode($response);
 		} else {
 			$info = curl_getinfo($ch);
+			
 			if ($info['http_code'] != 200) {
-				$response = new stdClass();
+				$response = new \stdClass();
+				
 				if ($info['http_code'] == 401 || $info['http_code'] == 404 || $info['http_code'] == 403) {
 					$response->Errors = "Please check the API Key and Password";
 				} else {
 					$response->Errors = 'Error connecting to eWAY: ' . $info['http_code'];
 				}
+				
 				$response = json_encode($response);
 			}
 		}

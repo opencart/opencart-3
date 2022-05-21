@@ -244,7 +244,7 @@ class ControllerSaleVoucher extends Controller {
 			$url .= '&order=' . $this->request->get['order'];
 		}
 
-		$pagination = new Pagination();
+		$pagination = new \Pagination();
 		$pagination->total = $voucher_total;
 		$pagination->page = $page;
 		$pagination->limit = $this->config->get('config_limit_admin');
@@ -533,7 +533,7 @@ class ControllerSaleVoucher extends Controller {
 
 		$history_total = $this->model_sale_voucher->getTotalVoucherHistories($this->request->get['voucher_id']);
 
-		$pagination = new Pagination();
+		$pagination = new \Pagination();
 		$pagination->total = $history_total;
 		$pagination->page = $page;
 		$pagination->limit = 10;
@@ -586,7 +586,7 @@ class ControllerSaleVoucher extends Controller {
 						if ($order_info) {
 							$this->load->model('localisation/language');
 			
-							$language = new Language($order_info['language_code']);
+							$language = new \Language($order_info['language_code']);
 							$language->load($order_info['language_code']);
 							$language->load('mail/voucher');
 			
@@ -611,7 +611,7 @@ class ControllerSaleVoucher extends Controller {
 							$data['store_url'] = $order_info['store_url'];
 							$data['message'] = nl2br($voucher_info['message']);
 			
-							$mail = new Mail($this->config->get('config_mail_engine'));
+							$mail = new \Mail($this->config->get('config_mail_engine'));
 							$mail->parameter = $this->config->get('config_mail_parameter');
 							$mail->smtp_hostname = $this->config->get('config_mail_smtp_hostname');
 							$mail->smtp_username = $this->config->get('config_mail_smtp_username');
@@ -650,7 +650,7 @@ class ControllerSaleVoucher extends Controller {
 							$data['store_url'] = HTTP_CATALOG;
 							$data['message'] = nl2br($voucher_info['message']);
 			
-							$mail = new Mail($this->config->get('config_mail_engine'));
+							$mail = new \Mail($this->config->get('config_mail_engine'));
 							$mail->parameter = $this->config->get('config_mail_parameter');
 							$mail->smtp_hostname = $this->config->get('config_mail_smtp_hostname');
 							$mail->smtp_username = $this->config->get('config_mail_smtp_username');

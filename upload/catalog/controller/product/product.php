@@ -566,7 +566,7 @@ class ControllerProductProduct extends Controller {
 			);
 		}
 
-		$pagination = new Pagination();
+		$pagination = new \Pagination();
 		$pagination->total = $review_total;
 		$pagination->page = $page;
 		$pagination->limit = 5;

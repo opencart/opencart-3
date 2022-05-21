@@ -157,29 +157,29 @@ class ModelExtensionPaymentSagePayServer extends Model {
 
 		$response_data = $this->setPaymentData($order_info, $order_details, $price, $item['order_recurring_id'], $item['recurring_name']);
 
-		$next_payment = new DateTime('now');
-		$trial_end = new DateTime('now');
-		$subscription_end = new DateTime('now');
+		$next_payment = new \DateTime('now');
+		$trial_end = new \DateTime('now');
+		$subscription_end = new \DateTime('now');
 
 		if ($item['trial'] == 1 && $item['trial_duration'] != 0) {
 			$next_payment = $this->calculateSchedule($item['trial_frequency'], $next_payment, $item['trial_cycle']);
 			$trial_end = $this->calculateSchedule($item['trial_frequency'], $trial_end, $item['trial_cycle'] * $item['trial_duration']);
 		} elseif ($item['trial'] == 1) {
 			$next_payment = $this->calculateSchedule($item['trial_frequency'], $next_payment, $item['trial_cycle']);
-			$trial_end = new DateTime('0000-00-00');
+			$trial_end = new \DateTime('0000-00-00');
 		}
 
 		if ($trial_end > $subscription_end && $item['recurring_duration'] != 0) {
-			$subscription_end = new DateTime(date_format($trial_end, 'Y-m-d H:i:s'));
+			$subscription_end = new \DateTime(date_format($trial_end, 'Y-m-d H:i:s'));
 			$subscription_end = $this->calculateSchedule($item['recurring_frequency'], $subscription_end, $item['recurring_cycle'] * $item['recurring_duration']);
 		} elseif ($trial_end == $subscription_end && $item['recurring_duration'] != 0) {
 			$next_payment = $this->calculateSchedule($item['recurring_frequency'], $next_payment, $item['recurring_cycle']);
 			$subscription_end = $this->calculateSchedule($item['recurring_frequency'], $subscription_end, $item['recurring_cycle'] * $item['recurring_duration']);
 		} elseif ($trial_end > $subscription_end && $item['recurring_duration'] == 0) {
-			$subscription_end = new DateTime('0000-00-00');
+			$subscription_end = new \DateTime('0000-00-00');
 		} elseif ($trial_end == $subscription_end && $item['recurring_duration'] == 0) {
 			$next_payment = $this->calculateSchedule($item['recurring_frequency'], $next_payment, $item['recurring_cycle']);
-			$subscription_end = new DateTime('0000-00-00');
+			$subscription_end = new \DateTime('0000-00-00');
 		}
 
 		$this->addRecurringOrder($order_details['order_id'], $response_data, $item['order_recurring_id'], date_format($trial_end, 'Y-m-d H:i:s'), date_format($subscription_end, 'Y-m-d H:i:s'));
@@ -273,11 +273,11 @@ class ModelExtensionPaymentSagePayServer extends Model {
 
 			$recurring_order = $this->getRecurringOrder($recurring['order_recurring_id']);
 
-			$today = new DateTime('now');
-			$unlimited = new DateTime('0000-00-00');
-			$next_payment = new DateTime($recurring_order['next_payment']);
-			$trial_end = new DateTime($recurring_order['trial_end']);
-			$subscription_end = new DateTime($recurring_order['subscription_end']);
+			$today = new \DateTime('now');
+			$unlimited = new \DateTime('0000-00-00');
+			$next_payment = new \DateTime($recurring_order['next_payment']);
+			$trial_end = new \DateTime($recurring_order['trial_end']);
+			$subscription_end = new \DateTime($recurring_order['subscription_end']);
 
 			$order_info = $this->model_account_order->getOrder($recurring['order_id']);
 
@@ -308,7 +308,7 @@ class ModelExtensionPaymentSagePayServer extends Model {
 				$this->addRecurringTransaction($recurring['order_recurring_id'], $response_data, 4);
 			}
 		}
-		$log = new Log('sagepay_server_recurring_orders.log');
+		$log = new \Log('sagepay_server_recurring_orders.log');
 		$log->write(print_r($cron_data, 1));
 		return $cron_data;
 	}
@@ -429,7 +429,7 @@ class ModelExtensionPaymentSagePayServer extends Model {
 
 	public function logger($title, $data) {
 		if ($this->config->get('payment_sagepay_server_debug')) {
-			$log = new Log('sagepay_server.log');
+			$log = new \Log('sagepay_server.log');
 			$backtrace = debug_backtrace();
 			$log->write($backtrace[6]['class'] . '::' . $backtrace[6]['function'] . ' - ' . $title . ': ' . print_r($data, 1));
 		}

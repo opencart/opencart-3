@@ -77,7 +77,7 @@ class ControllerDesignTheme extends Controller {
 			);
 		}
 
-		$pagination = new Pagination();
+		$pagination = new \Pagination();
 		$pagination->total = $history_total;
 		$pagination->page = $page;
 		$pagination->limit = 10;

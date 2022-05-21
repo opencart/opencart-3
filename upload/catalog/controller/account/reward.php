@@ -59,7 +59,7 @@ class ControllerAccountReward extends Controller {
 			);
 		}
 
-		$pagination = new Pagination();
+		$pagination = new \Pagination();
 		$pagination->total = $reward_total;
 		$pagination->page = $page;
 		$pagination->limit = 10;

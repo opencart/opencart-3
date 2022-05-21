@@ -20,6 +20,8 @@ final class Twig {
 		}
 
 		// initialize Twig environment
+		$config = array();
+		
 		$config = array(
 			'autoescape'  => false,
 			'debug'       => false,

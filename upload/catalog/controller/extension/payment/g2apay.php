@@ -47,7 +47,8 @@ class ControllerExtensionPaymentG2APay extends Controller {
 
 				if (isset($order_data['totals'][$i])) {
 					if (strstr(strtolower($order_data['totals'][$i]['code']), 'total') === false) {
-						$item = new stdClass();
+						$item = new \stdClass();
+						
 						$item->sku = $order_data['totals'][$i]['code'];
 						$item->name = $order_data['totals'][$i]['title'];
 						$item->amount = number_format($order_data['totals'][$i]['value'], 2);
@@ -55,6 +56,7 @@ class ControllerExtensionPaymentG2APay extends Controller {
 						$item->id = $order_data['totals'][$i]['code'];
 						$item->price = $order_data['totals'][$i]['value'];
 						$item->url = $this->url->link('common/home', '', true);
+						
 						$items[] = $item;
 					}
 
@@ -66,7 +68,7 @@ class ControllerExtensionPaymentG2APay extends Controller {
 		$ordered_products = $this->model_account_order->getOrderProducts($this->session->data['order_id']);
 
 		foreach ($ordered_products as $product) {
-			$item = new stdClass();
+			$item = new \stdClass();
 			$item->sku = $product['product_id'];
 			$item->name = $product['name'];
 			$item->amount = $product['price'] * $product['quantity'];

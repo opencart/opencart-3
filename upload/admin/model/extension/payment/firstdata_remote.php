@@ -245,7 +245,7 @@ class ModelExtensionPaymentFirstdataRemote extends Model {
 
 	public function logger($message) {
 		if ($this->config->get('firstdata_remote_debug') == 1) {
-			$log = new Log('firstdata_remote.log');
+			$log = new \Log('firstdata_remote.log');
 			$log->write($message);
 		}
 	}

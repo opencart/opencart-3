@@ -169,7 +169,7 @@ class ControllerExtensionPaymentKlarnaInvoice extends Controller {
 			case 'array':
 				$value = array();
 
-				$xpath = new DOMXPath($document);
+				$xpath = new \DOMXPath($document);
 				$entries = $xpath->query('.//array/data/value', $child);
 
 				for ($i = 0; $i < $entries->length; $i++) {

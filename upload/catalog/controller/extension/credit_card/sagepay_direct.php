@@ -52,7 +52,7 @@ class ControllerExtensionCreditCardSagepayDirect extends Controller {
 
 			$cards_total = count($data['cards']);
 
-			$pagination = new Pagination();
+			$pagination = new \Pagination();
 			$pagination->total = $cards_total;
 			$pagination->page = $page;
 			$pagination->limit = 10;

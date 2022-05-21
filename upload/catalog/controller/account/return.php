@@ -61,7 +61,7 @@ class ControllerAccountReturn extends Controller {
 			);
 		}
 
-		$pagination = new Pagination();
+		$pagination = new \Pagination();
 		$pagination->total = $return_total;
 		$pagination->page = $page;
 		$pagination->limit = $this->config->get('theme_' . $this->config->get('config_theme') . '_product_limit');

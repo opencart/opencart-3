@@ -223,7 +223,7 @@ class ControllerLocalisationReturnStatus extends Controller {
 			$url .= '&order=' . $this->request->get['order'];
 		}
 
-		$pagination = new Pagination();
+		$pagination = new \Pagination();
 		$pagination->total = $return_status_total;
 		$pagination->page = $page;
 		$pagination->limit = $this->config->get('config_limit_admin');

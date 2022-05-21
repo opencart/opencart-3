@@ -195,7 +195,7 @@ class ModelExtensionPaymentFirstdata extends Model {
 
 	public function logger($message) {
 		if ($this->config->get('payment_firstdata_debug') == 1) {
-			$log = new Log('firstdata.log');
+			$log = new \Log('firstdata.log');
 			$log->write($message);
 		}
 	}

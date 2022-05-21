@@ -20,7 +20,7 @@ class ModelExtensionPaymentCardinity extends Model {
 			'consumerSecret' => $secret,
 		));
 
-		$method = new Payment\Create($payment_data);
+		$method = new \Payment\Create($payment_data);
 
 		try {
 			$payment = $client->call($method);
@@ -39,7 +39,7 @@ class ModelExtensionPaymentCardinity extends Model {
 			'consumerSecret' => $secret,
 		));
 
-		$method = new Payment\Finalize($payment_id, $pares);
+		$method = new \Payment\Finalize($payment_id, $pares);
 
 		try {
 			$payment = $client->call($method);
@@ -96,7 +96,7 @@ class ModelExtensionPaymentCardinity extends Model {
 	public function log($data, $class_step = 6, $function_step = 6) {
 		if ($this->config->get('payment_cardinity_debug')) {
 			$backtrace = debug_backtrace();
-			$log = new Log('cardinity.log');
+			$log = new \Log('cardinity.log');
 			$log->write('(' . $backtrace[$class_step]['class'] . '::' . $backtrace[$function_step]['function'] . ') - ' . print_r($data, true));
 		}
 	}

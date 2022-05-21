@@ -127,7 +127,7 @@ class ControllerExtensionReportSaleCoupon extends Controller {
 			$url .= '&filter_date_end=' . $this->request->get['filter_date_end'];
 		}
 
-		$pagination = new Pagination();
+		$pagination = new \Pagination();
 		$pagination->total = $coupon_total;
 		$pagination->page = $page;
 		$pagination->limit = $this->config->get('config_limit_admin');

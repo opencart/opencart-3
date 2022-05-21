@@ -6,7 +6,7 @@ use Klarna\Rest\Checkout\Order as KCOrder;
 class ModelExtensionPaymentKlarnaCheckout extends Model {
 	public function orderCreate(KCConnector $connector, $order_data) {
 		try {
-			$checkout = new KCOrder($connector);
+			$checkout = new \KCOrder($connector);
 			$checkout->create($order_data);
 
 			return $checkout->fetch();
@@ -19,7 +19,7 @@ class ModelExtensionPaymentKlarnaCheckout extends Model {
 
 	public function orderRetrieve(KCConnector $connector, $order_id) {
 		try {
-			$checkout = new KCOrder($connector, $order_id);
+			$checkout = new \KCOrder($connector, $order_id);
 
 			return $checkout->fetch();
 		} catch (\Exception $e) {
@@ -31,7 +31,7 @@ class ModelExtensionPaymentKlarnaCheckout extends Model {
 
 	public function orderUpdate(KCConnector $connector, $order_id, $order_data) {
 		try {
-			$checkout = new KCOrder($connector, $order_id);
+			$checkout = new \KCOrder($connector, $order_id);
 			$checkout->update($order_data);
 
 			return $checkout->fetch();
@@ -174,7 +174,7 @@ class ModelExtensionPaymentKlarnaCheckout extends Model {
 	public function log($data, $step = 6) {
 		if ($this->config->get('klarna_checkout_debug')) {
 			$backtrace = debug_backtrace();
-			$log = new Log('klarna_checkout.log');
+			$log = new \Log('klarna_checkout.log');
 			$log->write('(' . $backtrace[$step]['class'] . '::' . $backtrace[$step]['function'] . ') - ' . print_r($data, true));
 		}
 	}

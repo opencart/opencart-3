@@ -450,7 +450,7 @@ class ModelExtensionShippingECShip extends Model {
 			$encoding_type = 'http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-soap-message-security-1.0#Base64Binary';
 
 			// Creating WSS identification header using SimpleXML
-			$root = new SimpleXMLElement('<root/>');
+			$root = new \SimpleXMLElement('<root/>');
 
 			$security = $root->addChild('wsse:Security', null, $ns_wsse);
 
@@ -465,11 +465,13 @@ class ModelExtensionShippingECShip extends Model {
 			$full = $root->xpath('/root/wsse:Security');
 			$auth = $full[0]->asXML();
 
-			$objSoapVarWSSEHeader = new SoapHeader($ns_wsse, 'Security', new SoapVar($auth, XSD_ANYXML), true);
+			$objSoapVarWSSEHeader = new \SoapHeader($ns_wsse, 'Security', new \SoapVar($auth, XSD_ANYXML), true);
 
-			$objClient = new SoapClient($url);
+			$objClient = new \SoapClient($url);
 
 			$objClient->__setSoapHeaders(array($objSoapVarWSSEHeader));
+			
+			$request = array();
 
 			$request = array(
 				'ecshipUsername'     => $this->config->get('shipping_ec_ship_username'),
@@ -482,11 +484,16 @@ class ModelExtensionShippingECShip extends Model {
 			$objResponseArray = array();
 
 			foreach ($address_to['code'] as $key => $value) {
-				$api01Req = new api01Req($request['ecshipUsername'], $request['integratorUsername'], $request['countryCode'], $key, $request['weight']);
+				$api01Req = new \api01Req($request['ecshipUsername'], $request['integratorUsername'], $request['countryCode'], $key, $request['weight']);
+				
+				$params = array();
+				
 				$params = array("api01Req" => $api01Req);
+				
 				$objResponse = $objClient->__soapCall("getTotalPostage", array($params));
 				$objResponse = json_decode(json_encode($objResponse), true);
 				$objResponse['getTotalPostageReturn']['serviceName'] = $value;
+				
 				array_push($objResponseArray, $objResponse);
 			}
 

@@ -259,7 +259,7 @@ class ControllerCatalogCategory extends Controller {
 			$url .= '&order=' . $this->request->get['order'];
 		}
 
-		$pagination = new Pagination();
+		$pagination = new \Pagination();
 		$pagination->total = $category_total;
 		$pagination->page = $page;
 		$pagination->limit = $this->config->get('config_limit_admin');

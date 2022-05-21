@@ -225,7 +225,7 @@ class ControllerCatalogManufacturer extends Controller {
 			$url .= '&order=' . $this->request->get['order'];
 		}
 
-		$pagination = new Pagination();
+		$pagination = new \Pagination();
 		$pagination->total = $manufacturer_total;
 		$pagination->page = $page;
 		$pagination->limit = $this->config->get('config_limit_admin');

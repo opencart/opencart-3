@@ -118,7 +118,7 @@ class ControllerExtensionReportProductViewed extends Controller {
 			$url .= '&page=' . $this->request->get['page'];
 		}
 
-		$pagination = new Pagination();
+		$pagination = new \Pagination();
 		$pagination->total = $product_total;
 		$pagination->page = $page;
 		$pagination->limit = $this->config->get('config_limit_admin');

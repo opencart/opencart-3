@@ -215,7 +215,7 @@ class ControllerExtensionPaymentSagepayDirect extends Controller {
 			}
 		} else {
 			$json['error'] = true;
-			$json['msg'] = 'Missing data';
+			$json['msg'] = $this->language->get('error_data_missing');
 		}
 
 		$this->response->addHeader('Content-Type: application/json');
@@ -251,10 +251,12 @@ class ControllerExtensionPaymentSagepayDirect extends Controller {
 				}
 
 				$json['data'] = array();
+				
 				$json['data']['date_added'] = date("Y-m-d H:i:s");
 				$json['data']['amount'] = $this->request->post['amount'];
 				$json['data']['release_status'] = $release_status;
 				$json['data']['total'] = (float)$total_released;
+				
 				$json['error'] = false;
 			} else {
 				$json['error'] = true;
@@ -299,19 +301,21 @@ class ControllerExtensionPaymentSagepayDirect extends Controller {
 				}
 
 				$json['data'] = array();
+				
 				$json['data']['date_added'] = date("Y-m-d H:i:s");
 				$json['data']['amount'] = $this->request->post['amount'] * -1;
 				$json['data']['total_released'] = (float)$total_released;
 				$json['data']['total_rebated'] = (float)$total_rebated;
 				$json['data']['rebate_status'] = $rebate_status;
+				
 				$json['error'] = false;
 			} else {
-				$json['error'] = true;
+				$json['error'] = true;				
 				$json['msg'] = isset($rebate_response['StatusDetail']) && !empty($rebate_response['StatusDetail']) ? (string)$rebate_response['StatusDetail'] : 'Unable to rebate';
 			}
 		} else {
 			$json['error'] = true;
-			$json['msg'] = 'Missing data';
+			$json['msg'] = $this->language->get('error_data_missing');
 		}
 
 		$this->response->addHeader('Content-Type: application/json');

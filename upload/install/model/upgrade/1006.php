@@ -185,7 +185,7 @@ class ModelUpgrade1006 extends Model {
 	    }
 
 	    // Open the source directory to read in files
-	    $i = new DirectoryIterator($src);
+	    $i = new \DirectoryIterator($src);
 		
 	    foreach ($i as $f) {
 	        if ($f->isFile() && !file_exists("$dest/" . $f->getFilename())) {

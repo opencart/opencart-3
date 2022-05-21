@@ -266,7 +266,7 @@ class ControllerCustomerCustomField extends Controller {
 			$url .= '&order=' . $this->request->get['order'];
 		}
 
-		$pagination = new Pagination();
+		$pagination = new \Pagination();
 		$pagination->total = $custom_field_total;
 		$pagination->page = $page;
 		$pagination->limit = $this->config->get('config_limit_admin');

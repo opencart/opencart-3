@@ -150,29 +150,29 @@ class ModelExtensionPaymentSagePayDirect extends Model {
 
 		$response_data = $this->setPaymentData($order_info, $sagepay_order_info, $price, $order_recurring_id, $item['recurring']['name']);
 
-		$next_payment = new DateTime('now');
-		$trial_end = new DateTime('now');
-		$subscription_end = new DateTime('now');
+		$next_payment = new \DateTime('now');
+		$trial_end = new \DateTime('now');
+		$subscription_end = new \DateTime('now');
 
 		if ($item['recurring']['trial'] == 1 && $item['recurring']['trial_duration'] != 0) {
 			$next_payment = $this->calculateSchedule($item['recurring']['trial_frequency'], $next_payment, $item['recurring']['trial_cycle']);
 			$trial_end = $this->calculateSchedule($item['recurring']['trial_frequency'], $trial_end, $item['recurring']['trial_cycle'] * $item['recurring']['trial_duration']);
 		} elseif ($item['recurring_trial'] == 1) {
 			$next_payment = $this->calculateSchedule($item['recurring']['trial_frequency'], $next_payment, $item['recurring']['trial_cycle']);
-			$trial_end = new DateTime('0000-00-00');
+			$trial_end = new \DateTime('0000-00-00');
 		}
 
 		if ($trial_end > $subscription_end && $item['recurring']['duration'] != 0) {
-			$subscription_end = new DateTime(date_format($trial_end, 'Y-m-d H:i:s'));
+			$subscription_end = new \DateTime(date_format($trial_end, 'Y-m-d H:i:s'));
 			$subscription_end = $this->calculateSchedule($item['recurring']['frequency'], $subscription_end, $item['recurring']['cycle'] * $item['recurring']['duration']);
 		} elseif ($trial_end == $subscription_end && $item['recurring']['duration'] != 0) {
 			$next_payment = $this->calculateSchedule($item['recurring']['frequency'], $next_payment, $item['recurring']['cycle']);
 			$subscription_end = $this->calculateSchedule($item['recurring']['frequency'], $subscription_end, $item['recurring']['cycle'] * $item['recurring']['duration']);
 		} elseif ($trial_end > $subscription_end && $item['recurring']['duration'] == 0) {
-			$subscription_end = new DateTime('0000-00-00');
+			$subscription_end = new \DateTime('0000-00-00');
 		} elseif ($trial_end == $subscription_end && $item['recurring']['duration'] == 0) {
 			$next_payment = $this->calculateSchedule($item['recurring']['frequency'], $next_payment, $item['recurring']['cycle']);
-			$subscription_end = new DateTime('0000-00-00');
+			$subscription_end = new \DateTime('0000-00-00');
 		}
 
 		$this->addRecurringOrder($this->session->data['order_id'], $response_data, $order_recurring_id, date_format($trial_end, 'Y-m-d H:i:s'), date_format($subscription_end, 'Y-m-d H:i:s'));
@@ -266,11 +266,11 @@ class ModelExtensionPaymentSagePayDirect extends Model {
 
 			$recurring_order = $this->getRecurringOrder($recurring['order_recurring_id']);
 
-			$today = new DateTime('now');
-			$unlimited = new DateTime('0000-00-00');
-			$next_payment = new DateTime($recurring_order['next_payment']);
-			$trial_end = new DateTime($recurring_order['trial_end']);
-			$subscription_end = new DateTime($recurring_order['subscription_end']);
+			$today = new \DateTime('now');
+			$unlimited = new \DateTime('0000-00-00');
+			$next_payment = new \DateTime($recurring_order['next_payment']);
+			$trial_end = new \DateTime($recurring_order['trial_end']);
+			$subscription_end = new \DateTime($recurring_order['subscription_end']);
 
 			$order_info = $this->model_account_order->getOrder($recurring['order_id']);
 
@@ -301,7 +301,7 @@ class ModelExtensionPaymentSagePayDirect extends Model {
 				$this->addRecurringTransaction($recurring['order_recurring_id'], $response_data, 4);
 			}
 		}
-		$log = new Log('sagepay_direct_recurring_orders.log');
+		$log = new \Log('sagepay_direct_recurring_orders.log');
 		$log->write(print_r($cron_data, 1));
 		return $cron_data;
 	}
@@ -422,7 +422,7 @@ class ModelExtensionPaymentSagePayDirect extends Model {
 
 	public function logger($title, $data) {
 		if ($this->config->get('payment_sagepay_direct_debug')) {
-			$log = new Log('sagepay_direct.log');
+			$log = new \Log('sagepay_direct.log');
 			$backtrace = debug_backtrace();
 			$log->write($backtrace[6]['class'] . '::' . $backtrace[6]['function'] . ' - ' . $title . ': ' . print_r($data, 1));
 		}

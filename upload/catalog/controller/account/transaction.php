@@ -59,7 +59,7 @@ class ControllerAccountTransaction extends Controller {
 			);
 		}
 
-		$pagination = new Pagination();
+		$pagination = new \Pagination();
 		$pagination->total = $transaction_total;
 		$pagination->page = $page;
 		$pagination->limit = 10;

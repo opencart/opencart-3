@@ -163,7 +163,7 @@ class ModelExtensionPaymentCardConnect extends Model {
 
 	public function log($data) {
 		if ($this->config->get('cardconnect_logging')) {
-			$log = new Log('cardconnect.log');
+			$log = new \Log('cardconnect.log');
 
 			$log->write($data);
 		}

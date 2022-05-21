@@ -64,7 +64,7 @@ class ControllerAccountRecurring extends Controller {
 			);
 		}
 
-		$pagination = new Pagination();
+		$pagination = new \Pagination();
 		$pagination->total = $recurring_total;
 		$pagination->page = $page;
 		$pagination->limit = 10;

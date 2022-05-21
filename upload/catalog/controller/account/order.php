@@ -63,7 +63,7 @@ class ControllerAccountOrder extends Controller {
 			);
 		}
 
-		$pagination = new Pagination();
+		$pagination = new \Pagination();
 		$pagination->total = $order_total;
 		$pagination->page = $page;
 		$pagination->limit = 10;

@@ -26,6 +26,9 @@ $_['text_register_success'] = 'You have successfully registered. You should rece
 $_['text_tracking_success'] = 'The tracking number was successfully updated.';
 $_['text_other']            = 'Other';
 $_['text_email']            = 'The registered email address for your Pilibaba account is %s';
+$_['text_select_country']	= 'Select Country';
+$_['text_select_currency']	= 'Select Currency';
+$_['text_select_warehouse']	= 'Select Warehouse';
 
 // Entry
 $_['entry_email_address']   = 'Email Address';

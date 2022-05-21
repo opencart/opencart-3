@@ -246,7 +246,7 @@ class ModelExtensionPaymentRealex extends Model {
 
 	public function logger($message) {
 		if ($this->config->get('payment_realex_debug') == 1) {
-			$log = new Log('realex.log');
+			$log = new \Log('realex.log');
 			$log->write($message);
 		}
 	}

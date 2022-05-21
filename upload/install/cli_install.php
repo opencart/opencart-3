@@ -39,10 +39,10 @@ define('DIR_MODIFICATION', DIR_SYSTEM . 'modification/');
 require_once(DIR_SYSTEM . 'startup.php');
 
 // Registry
-$registry = new Registry();
+$registry = new \Registry();
 
 // Loader
-$loader = new Loader($registry);
+$loader = new \Loader($registry);
 $registry->set('load', $loader);
 
 
@@ -52,7 +52,7 @@ function handleError($errno, $errstr, $errfile, $errline, array $errcontext) {
 		return false;
 	}
 	
-	throw new ErrorException($errstr, 0, $errno, $errfile, $errline);
+	throw new \ErrorException($errstr, 0, $errno, $errfile, $errline);
 }
 
 set_error_handler('handleError');
@@ -98,7 +98,7 @@ function get_options($argv) {
 		$is_flag = preg_match('/^--(.*)$/', $argv[$i], $match);
 		
 		if (!$is_flag) {
-			throw new Exception($argv[$i] . ' found in command line args instead of a valid option name starting with \'--\'');
+			throw new \Exception($argv[$i] . ' found in command line args instead of a valid option name starting with \'--\'');
 		}
 		
 		$options[$match[1]] = $argv[$i+1];
@@ -183,7 +183,7 @@ function check_requirements() {
 }
 
 function setup_db($data) {
-	$db = new DB($data['db_driver'], htmlspecialchars_decode($data['db_hostname']), htmlspecialchars_decode($data['db_username']), htmlspecialchars_decode($data['db_password']), htmlspecialchars_decode($data['db_database']), $data['db_port']);
+	$db = new \DB($data['db_driver'], htmlspecialchars_decode($data['db_hostname']), htmlspecialchars_decode($data['db_username']), htmlspecialchars_decode($data['db_password']), htmlspecialchars_decode($data['db_database']), $data['db_port']);
 
 	$file = DIR_APPLICATION . 'opencart.sql';
 

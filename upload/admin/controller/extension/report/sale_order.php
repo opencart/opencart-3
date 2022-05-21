@@ -176,7 +176,7 @@ class ControllerExtensionReportSaleOrder extends Controller {
 			$url .= '&filter_order_status_id=' . $this->request->get['filter_order_status_id'];
 		}
 
-		$pagination = new Pagination();
+		$pagination = new \Pagination();
 		$pagination->total = $order_total;
 		$pagination->page = $page;
 		$pagination->limit = $this->config->get('config_limit_admin');

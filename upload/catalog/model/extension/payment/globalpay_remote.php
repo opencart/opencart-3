@@ -350,7 +350,7 @@ class ModelExtensionPaymentGlobalpayRemote extends Model {
 
 	public function logger($message) {
 		if ($this->config->get('payment_globalpay_remote_debug') == 1) {
-			$log = new Log('globalpay_remote.log');
+			$log = new \Log('globalpay_remote.log');
 			$log->write($message);
 		}
 	}

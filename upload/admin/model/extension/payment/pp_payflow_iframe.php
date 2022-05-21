@@ -31,7 +31,7 @@ class ModelExtensionPaymentPPPayflowIFrame extends Model {
 
 	public function log($message) {
 		if ($this->config->get('payment_pp_payflow_iframe_debug')) {
-			$log = new Log('payflow-iframe.log');
+			$log = new \Log('payflow-iframe.log');
 			$log->write($message);
 		}
 	}

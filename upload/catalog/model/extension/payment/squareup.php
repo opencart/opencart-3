@@ -71,7 +71,7 @@ class ModelExtensionPaymentSquareup extends Model {
             return;
         }
 
-        $mail = new Mail();
+        $mail = new \Mail();
 
         $mail->protocol = $this->config->get('config_mail_protocol');
         $mail->parameter = $this->config->get('config_mail_parameter');
@@ -100,7 +100,7 @@ class ModelExtensionPaymentSquareup extends Model {
             return;
         }
 
-        $mail = new Mail();
+        $mail = new \Mail();
 
         $mail->protocol = $this->config->get('config_mail_protocol');
         $mail->parameter = $this->config->get('config_mail_parameter');
@@ -125,7 +125,7 @@ class ModelExtensionPaymentSquareup extends Model {
     }
 
     public function cronEmail($result) {
-        $mail = new Mail();
+        $mail = new \Mail();
         
         $mail->protocol = $this->config->get('config_mail_protocol');
         $mail->parameter = $this->config->get('config_mail_parameter');

@@ -326,7 +326,7 @@ class ModelExtensionPaymentLaybuy extends Model {
 		if ($this->config->get('payment_laybuy_logging')) {
 			$backtrace = debug_backtrace();
 
-			$log = new Log('laybuy.log');
+			$log = new \Log('laybuy.log');
 
 			$log->write('(' . $backtrace[$step]['class'] . '::' . $backtrace[$step]['function'] . ') - ' . $data);
 		}

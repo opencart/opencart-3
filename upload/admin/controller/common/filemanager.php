@@ -177,7 +177,7 @@ class ControllerCommonFileManager extends Controller {
 			$url .= '&thumb=' . $this->request->get['thumb'];
 		}
 
-		$pagination = new Pagination();
+		$pagination = new \Pagination();
 		$pagination->total = $image_total;
 		$pagination->page = $page;
 		$pagination->limit = 16;

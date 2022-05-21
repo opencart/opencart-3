@@ -167,7 +167,7 @@ class ModelExtensionPaymentWorldpay extends Model {
 
 	public function logger($message) {
 		if ($this->config->get('payment_worldpay_debug') == 1) {
-			$log = new Log('worldpay.log');
+			$log = new \Log('worldpay.log');
 			$log->write($message);
 		}
 	}

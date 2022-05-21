@@ -327,7 +327,7 @@ class ControllerExtensionAdvertiseGoogle extends Controller {
 
         $product_total = $this->googleshopping->getTotalProducts($filter_data, $this->store_id);
 
-        $pagination = new Pagination();
+        $pagination = new \Pagination();
         $pagination->total = $product_total;
         $pagination->page = $this->request->post['page'];
         $pagination->limit = $this->config->get('config_limit_admin');

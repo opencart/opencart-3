@@ -143,29 +143,29 @@ class ModelExtensionPaymentWorldpay extends Model {
 
 		$this->model_extension_payment_worldpay->logger($response_data);
 
-		$next_payment = new DateTime('now');
-		$trial_end = new DateTime('now');
-		$subscription_end = new DateTime('now');
+		$next_payment = new \DateTime('now');
+		$trial_end = new \DateTime('now');
+		$subscription_end = new \DateTime('now');
 
 		if ($item['recurring']['trial'] == 1 && $item['recurring']['trial_duration'] != 0) {
 			$next_payment = $this->calculateSchedule($item['recurring']['trial_frequency'], $next_payment, $item['recurring']['trial_cycle']);
 			$trial_end = $this->calculateSchedule($item['recurring']['trial_frequency'], $trial_end, $item['recurring']['trial_cycle'] * $item['recurring']['trial_duration']);
 		} elseif ($item['recurring']['trial'] == 1) {
 			$next_payment = $this->calculateSchedule($item['recurring']['trial_frequency'], $next_payment, $item['recurring']['trial_cycle']);
-			$trial_end = new DateTime('0000-00-00');
+			$trial_end = new \DateTime('0000-00-00');
 		}
 
 		if ($trial_end > $subscription_end && $item['recurring']['duration'] != 0) {
-			$subscription_end = new DateTime(date_format($trial_end, 'Y-m-d H:i:s'));
+			$subscription_end = new \DateTime(date_format($trial_end, 'Y-m-d H:i:s'));
 			$subscription_end = $this->calculateSchedule($item['recurring']['frequency'], $subscription_end, $item['recurring']['cycle'] * $item['recurring']['duration']);
 		} elseif ($trial_end == $subscription_end && $item['recurring']['duration'] != 0) {
 			$next_payment = $this->calculateSchedule($item['recurring']['frequency'], $next_payment, $item['recurring']['cycle']);
 			$subscription_end = $this->calculateSchedule($item['recurring']['frequency'], $subscription_end, $item['recurring']['cycle'] * $item['recurring']['duration']);
 		} elseif ($trial_end > $subscription_end && $item['recurring']['duration'] == 0) {
-			$subscription_end = new DateTime('0000-00-00');
+			$subscription_end = new \DateTime('0000-00-00');
 		} elseif ($trial_end == $subscription_end && $item['recurring']['duration'] == 0) {
 			$next_payment = $this->calculateSchedule($item['recurring']['frequency'], $next_payment, $item['recurring']['cycle']);
-			$subscription_end = new DateTime('0000-00-00');
+			$subscription_end = new \DateTime('0000-00-00');
 		}
 
 		if (isset($response_data->paymentStatus) && $response_data->paymentStatus == 'SUCCESS') {
@@ -189,11 +189,11 @@ class ModelExtensionPaymentWorldpay extends Model {
 		foreach ($profiles as $profile) {
 			$recurring_order = $this->getRecurringOrder($profile['order_recurring_id']);
 
-			$today = new DateTime('now');
-			$unlimited = new DateTime('0000-00-00');
-			$next_payment = new DateTime($recurring_order['next_payment']);
-			$trial_end = new DateTime($recurring_order['trial_end']);
-			$subscription_end = new DateTime($recurring_order['subscription_end']);
+			$today = new \DateTime('now');
+			$unlimited = new \DateTime('0000-00-00');
+			$next_payment = new \DateTime($recurring_order['next_payment']);
+			$trial_end = new \DateTime($recurring_order['trial_end']);
+			$subscription_end = new \DateTime($recurring_order['subscription_end']);
 
 			$order_info = $this->model_checkout_order->getOrder($profile['order_id']);
 
@@ -236,7 +236,7 @@ class ModelExtensionPaymentWorldpay extends Model {
 				$this->addProfileTransaction($profile['order_recurring_id'], '', $price, 4);
 			}
 		}
-		$log = new Log('worldpay_recurring_orders.log');
+		$log = new \Log('worldpay_recurring_orders.log');
 		$log->write(print_r($cron_data, 1));
 		return $cron_data;
 	}
@@ -357,7 +357,7 @@ class ModelExtensionPaymentWorldpay extends Model {
 
 	public function logger($data) {
 		if ($this->config->get('payment_worldpay_debug')) {
-			$log = new Log('worldpay_debug.log');
+			$log = new \Log('worldpay_debug.log');
 			$backtrace = debug_backtrace();
 			$log->write($backtrace[6]['class'] . '::' . $backtrace[6]['function'] . ' Data:  ' . print_r($data, 1));
 		}

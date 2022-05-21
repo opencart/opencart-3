@@ -225,7 +225,7 @@ class ControllerDesignTranslation extends Controller {
 		$data['sort_key'] = $this->url->link('design/translation', 'user_token=' . $this->session->data['user_token'] . '&sort=key' . $url, true);
 		$data['sort_value'] = $this->url->link('design/translation', 'user_token=' . $this->session->data['user_token'] . '&sort=value' . $url, true);
 
-		$pagination = new Pagination();
+		$pagination = new \Pagination();
 		$pagination->total = $translation_total;
 		$pagination->page = $page;
 		$pagination->limit = 10;

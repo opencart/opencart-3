@@ -345,7 +345,7 @@ class ControllerSaleOrder extends Controller {
 			$url .= '&order=' . $this->request->get['order'];
 		}
 
-		$pagination = new Pagination();
+		$pagination = new \Pagination();
 		$pagination->total = $order_total;
 		$pagination->page = $page;
 		$pagination->limit = $this->config->get('config_limit_admin');
@@ -379,7 +379,7 @@ class ControllerSaleOrder extends Controller {
 		$api_info = $this->model_user_api->getApi($this->config->get('config_api_id'));
 
 		if ($api_info && $this->user->hasPermission('modify', 'sale/order')) {
-			$session = new Session($this->config->get('session_engine'), $this->registry);
+			$session = new \Session($this->config->get('session_engine'), $this->registry);
 			
 			$session->start();
 					
@@ -712,7 +712,7 @@ class ControllerSaleOrder extends Controller {
 		$api_info = $this->model_user_api->getApi($this->config->get('config_api_id'));
 
 		if ($api_info && $this->user->hasPermission('modify', 'sale/order')) {
-			$session = new Session($this->config->get('session_engine'), $this->registry);
+			$session = new \Session($this->config->get('session_engine'), $this->registry);
 			
 			$session->start();
 					
@@ -1253,7 +1253,7 @@ class ControllerSaleOrder extends Controller {
 			$api_info = $this->model_user_api->getApi($this->config->get('config_api_id'));
 
 			if ($api_info && $this->user->hasPermission('modify', 'sale/order')) {
-				$session = new Session($this->config->get('session_engine'), $this->registry);
+				$session = new \Session($this->config->get('session_engine'), $this->registry);
 				
 				$session->start();
 				
@@ -1473,7 +1473,7 @@ class ControllerSaleOrder extends Controller {
 
 		$history_total = $this->model_sale_order->getTotalOrderHistories($this->request->get['order_id']);
 
-		$pagination = new Pagination();
+		$pagination = new \Pagination();
 		$pagination->total = $history_total;
 		$pagination->page = $page;
 		$pagination->limit = 10;

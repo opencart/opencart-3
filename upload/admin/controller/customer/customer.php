@@ -505,7 +505,7 @@ class ControllerCustomerCustomer extends Controller {
 			$url .= '&order=' . $this->request->get['order'];
 		}
 
-		$pagination = new Pagination();
+		$pagination = new \Pagination();
 		$pagination->total = $customer_total;
 		$pagination->page = $page;
 		$pagination->limit = $this->config->get('config_limit_admin');
@@ -1242,7 +1242,7 @@ class ControllerCustomerCustomer extends Controller {
 
 		$history_total = $this->model_customer_customer->getTotalHistories($this->request->get['customer_id']);
 
-		$pagination = new Pagination();
+		$pagination = new \Pagination();
 		$pagination->total = $history_total;
 		$pagination->page = $page;
 		$pagination->limit = $limit;
@@ -1303,7 +1303,7 @@ class ControllerCustomerCustomer extends Controller {
 
 		$transaction_total = $this->model_customer_customer->getTotalTransactions($this->request->get['customer_id']);
 
-		$pagination = new Pagination();
+		$pagination = new \Pagination();
 		$pagination->total = $transaction_total;
 		$pagination->page = $page;
 		$pagination->limit = $limit;
@@ -1364,7 +1364,7 @@ class ControllerCustomerCustomer extends Controller {
 
 		$reward_total = $this->model_customer_customer->getTotalRewards($this->request->get['customer_id']);
 
-		$pagination = new Pagination();
+		$pagination = new \Pagination();
 		$pagination->total = $reward_total;
 		$pagination->page = $page;
 		$pagination->limit = $limit;
@@ -1424,7 +1424,7 @@ class ControllerCustomerCustomer extends Controller {
 
 		$ip_total = $this->model_customer_customer->getTotalIps($this->request->get['customer_id']);
 
-		$pagination = new Pagination();
+		$pagination = new \Pagination();
 		$pagination->total = $ip_total;
 		$pagination->page = $page;
 		$pagination->limit = $limit;

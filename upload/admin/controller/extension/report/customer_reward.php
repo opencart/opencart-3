@@ -141,7 +141,7 @@ class ControllerExtensionReportCustomerReward extends Controller {
 			$url .= '&filter_customer=' . urlencode($this->request->get['filter_customer']);
 		}
 
-		$pagination = new Pagination();
+		$pagination = new \Pagination();
 		$pagination->total = $customer_total;
 		$pagination->page = $page;
 		$pagination->limit = $this->config->get('config_limit_admin');

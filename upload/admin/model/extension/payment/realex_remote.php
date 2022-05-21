@@ -241,7 +241,7 @@ class ModelExtensionPaymentRealexRemote extends Model {
 
 	public function logger($message) {
 		if ($this->config->get('payment_realex_remote_debug') == 1) {
-			$log = new Log('realex_remote.log');
+			$log = new \Log('realex_remote.log');
 			$log->write($message);
 		}
 	}

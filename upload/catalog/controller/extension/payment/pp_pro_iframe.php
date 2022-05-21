@@ -112,12 +112,12 @@ class ControllerExtensionPaymentPPProIframe extends Controller {
 
 			if (curl_errno($curl)) {
 				if ($this->config->get('payment_pp_pro_iframe_debug')) {
-					$log = new Log('pp_pro_iframe.log');
+					$log = new \Log('pp_pro_iframe.log');
 					$log->write('pp_pro_iframe :: CURL failed ' . curl_error($curl) . '(' . curl_errno($curl) . ')');
 				}				
 			} else {
 				if ($this->config->get('payment_pp_pro_iframe_debug')) {
-					$log = new Log('pp_pro_iframe.log');
+					$log = new \Log('pp_pro_iframe.log');
 					$log->write('pp_pro_iframe :: IPN REQUEST: ' . $request);
 					$log->write('pp_pro_iframe :: IPN RESPONSE: ' . $response);
 				}				
@@ -297,7 +297,7 @@ class ControllerExtensionPaymentPPProIframe extends Controller {
 		parse_str($response, $response_data);
 		
 		if ($this->config->get('payment_pp_pro_iframe_debug')) {
-			$log = new Log('pp_pro_iframe.log');
+			$log = new \Log('pp_pro_iframe.log');
 			$log->write(print_r(json_encode($response_data), 1));
 		}
 		
