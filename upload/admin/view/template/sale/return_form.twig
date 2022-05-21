@@ -241,12 +241,12 @@
   </div>
   <script type="text/javascript"><!--
 $('input[name=\'customer\']').autocomplete({
-	'source': function(request, response) {
+	'source': function (request, response) {
 		$.ajax({
 			url: 'index.php?route=customer/customer/autocomplete&user_token={{ user_token }}&filter_name=' +  encodeURIComponent(request),
 			dataType: 'json',			
-			success: function(json) {
-				response($.map(json, function(item) {
+			success: function (json) {
+				response($.map(json, function (item) {
 					return {
 						category: item['customer_group'],
 						label: item['name'],
@@ -260,7 +260,7 @@ $('input[name=\'customer\']').autocomplete({
 			}
 		});
 	},
-	'select': function(item) {
+	'select': function (item) {
 		$('input[name=\'customer\']').val(item['label']);
 		$('input[name=\'customer_id\']').val(item['value']);
 		$('input[name=\'firstname\']').val(item['firstname']);
@@ -272,12 +272,12 @@ $('input[name=\'customer\']').autocomplete({
 //--></script> 
   <script type="text/javascript"><!--
 $('input[name=\'product\']').autocomplete({
-	'source': function(request, response) {
+	'source': function (request, response) {
 		$.ajax({
 			url: 'index.php?route=catalog/product/autocomplete&user_token={{ user_token }}&filter_name=' +  encodeURIComponent(request),
 			dataType: 'json',			
-			success: function(json) {
-				response($.map(json, function(item) {
+			success: function (json) {
+				response($.map(json, function (item) {
 					return {
 						label: item['name'],
 						value: item['product_id'],
@@ -287,14 +287,14 @@ $('input[name=\'product\']').autocomplete({
 			}
 		});
 	},
-	'select': function(item) {
+	'select': function (item) {
 		$('input[name=\'product\']').val(item['label']);
 		$('input[name=\'product_id\']').val(item['value']);	
 		$('input[name=\'model\']').val(item['model']);	
 	}
 });
 
-$('#history').delegate('.pagination a', 'click', function(e) {
+$('#history').delegate('.pagination a', 'click', function (e) {
 	e.preventDefault();
 	
 	$('#history').load(this.href);
@@ -302,7 +302,7 @@ $('#history').delegate('.pagination a', 'click', function(e) {
 
 $('#history').load('index.php?route=sale/return/history&user_token={{ user_token }}&return_id={{ return_id }}');
 
-$('#button-history').on('click', function(e) {
+$('#button-history').on('click', function (e) {
 	e.preventDefault();
 
 	$.ajax({
@@ -310,13 +310,13 @@ $('#button-history').on('click', function(e) {
 		type: 'post',
 		dataType: 'json',
 		data: 'return_status_id=' + encodeURIComponent($('#tab-history select[name=\'return_status_id\']').val()) + '&notify=' + ($('input[name=\'notify\']').prop('checked') ? 1 : 0) + '&comment=' + encodeURIComponent($('#tab-history textarea[name=\'comment\']').val()),
-		beforeSend: function() {
+		beforeSend: function () {
 			$('#button-history').button('loading');	
 		},
-		complete: function() {
+		complete: function () {
 			$('#button-history').button('reset');	
 		},
-		success: function(json) {
+		success: function (json) {
 			$('.alert-dismissible').remove();
 	
 			if (json['error']) {

@@ -44,7 +44,7 @@ function setupPayPalSmartButton() {
 				tagline: '{{ button_tagline }}'
 			},
 			// Set up the transaction
-			createOrder: function(data, actions) {
+			createOrder: function (data, actions) {
 				order_id = false;
 					
 				$.ajax({
@@ -53,12 +53,12 @@ function setupPayPalSmartButton() {
 					data: $('#product input[type=\'text\'], #product input[type=\'hidden\'], #product input[type=\'radio\']:checked, #product input[type=\'checkbox\']:checked, #product select, #product textarea'),
 					dataType: 'json',
 					async: false,
-					success: function(json) {							
+					success: function (json) {							
 						showPayPalSmartButtonAlert(json);
 							
 						order_id = json['order_id'];
 					},
-					error: function(xhr, ajaxOptions, thrownError) {
+					error: function (xhr, ajaxOptions, thrownError) {
 						console.log(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
 					}
 				});
@@ -66,7 +66,7 @@ function setupPayPalSmartButton() {
 				return order_id;	
 			},
 			// Finalize the transaction
-			onApprove: function(data, actions) {						
+			onApprove: function (data, actions) {						
 				// Call your server to save the transaction
 				$.ajax({
 					method: 'post',
@@ -74,14 +74,14 @@ function setupPayPalSmartButton() {
 					data: {'order_id': data.orderID},
 					dataType: 'json',
 					async: false,
-					success: function(json) {							
+					success: function (json) {							
 						showPayPalSmartButtonAlert(json);
 							
 						if (json['url']) {
 							location = json['url'];
 						}
 					},
-					error: function(xhr, ajaxOptions, thrownError) {
+					error: function (xhr, ajaxOptions, thrownError) {
 						console.log(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
 					}
 				});

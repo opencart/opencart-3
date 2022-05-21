@@ -544,7 +544,7 @@
         /*=========================
           Set grab cursor
           ===========================*/
-        s.setGrabCursor = function(moving) {
+        s.setGrabCursor = function (moving) {
             s.container[0].style.cursor = 'move';
             s.container[0].style.cursor = moving ? '-webkit-grabbing' : '-webkit-grab';
             s.container[0].style.cursor = moving ? '-moz-grabbin' : '-moz-grab';
@@ -1043,7 +1043,7 @@
             s.updateClasses();
             s.updateRealIndex();
         };
-        s.updateRealIndex = function(){
+        s.updateRealIndex = function (){
             s.realIndex = parseInt(s.slides.eq(s.activeIndex).attr('data-swiper-slide-index') || s.activeIndex, 10);
         };
         
@@ -2266,7 +2266,7 @@
             if (window.WebKitCSSMatrix) {
                 curTransform = curStyle.transform || curStyle.webkitTransform;
                 if (curTransform.split(',').length > 6) {
-                    curTransform = curTransform.split(', ').map(function(a){
+                    curTransform = curTransform.split(', ').map(function (a){
                         return a.replace(',','.');
                     }).join(', ');
                 }
@@ -3102,9 +3102,9 @@
           ===========================*/
         s.controller = {
             LinearSpline: function (x, y) {
-                var binarySearch = (function() {
+                var binarySearch = (function () {
                     var maxIndex, minIndex, guess;
-                    return function(array, val) {
+                    return function (array, val) {
                         minIndex = -1;
                         maxIndex = array.length;
                         while (maxIndex - minIndex > 1)
@@ -3138,7 +3138,7 @@
                 };
             },
             //xxx: for now i will just save one spline function to to
-            getInterpolateFunction: function(c){
+            getInterpolateFunction: function (c){
                 if(!s.controller.spline) s.controller.spline = s.params.loop ?
                     new s.controller.LinearSpline(s.slidesGrid, c.slidesGrid) :
                     new s.controller.LinearSpline(s.snapGrid, c.snapGrid);
@@ -3153,7 +3153,7 @@
                     // the function does a lot of value caching for performance
                     translate = c.rtl && c.params.direction === 'horizontal' ? -s.translate : s.translate;
                     if (s.params.controlBy === 'slide') {
-                        s.controller.getInterpolateFunction(c);
+                        s.controller.getInterpolatefunction (c);
                         // i am not sure why the values have to be multiplicated this way, tried to invert the snapGrid
                         // but it did not work out
                         controlledTranslate = -s.controller.spline.interpolate(-translate);
@@ -3190,7 +3190,7 @@
                     c.setWrapperTransition(duration, s);
                     if (duration !== 0) {
                         c.onTransitionStart();
-                        c.wrapper.transitionEnd(function(){
+                        c.wrapper.transitionEnd(function (){
                             if (!controlled) return;
                             if (c.params.loop && s.params.controlBy === 'slide') {
                                 c.fixLoop();
@@ -3281,11 +3281,11 @@
                     window.addEventListener('popstate', this.setHistoryPopState);
                 }
             },
-            setHistoryPopState: function() {
+            setHistoryPopState: function () {
                 s.history.paths = s.history.getPathValues();
                 s.history.scrollToSlide(s.params.speed, s.history.paths.value, false);
             },
-            getPathValues: function() {
+            getPathValues: function () {
                 var pathArray = window.location.pathname.slice(1).split('/');
                 var total = pathArray.length;
                 var key = pathArray[total - 2];
@@ -3305,7 +3305,7 @@
                     window.history.pushState(null, null, value);
                 }
             },
-            slugify: function(text) {
+            slugify: function (text) {
                 return text.toString().toLowerCase()
                     .replace(/\s+/g, '-')
                     .replace(/[^\w\-]+/g, '')
@@ -3313,7 +3313,7 @@
                     .replace(/^-+/, '')
                     .replace(/-+$/, '');
             },
-            scrollToSlide: function(speed, value, runCallbacks) {
+            scrollToSlide: function (speed, value, runCallbacks) {
                 if (value) {
                     for (var i = 0, length = s.slides.length; i < length; i++) {
                         var slide = s.slides.eq(i);
@@ -3767,7 +3767,7 @@
         }
         s.parallax = {
             setTranslate: function () {
-                s.container.children('[data-swiper-parallax], [data-swiper-parallax-x], [data-swiper-parallax-y]').each(function(){
+                s.container.children('[data-swiper-parallax], [data-swiper-parallax-x], [data-swiper-parallax-y]').each(function (){
                     setParallaxTransform(this, s.progress);
         
                 });
@@ -3781,7 +3781,7 @@
             },
             setTransition: function (duration) {
                 if (typeof duration === 'undefined') duration = s.params.speed;
-                s.container.find('[data-swiper-parallax], [data-swiper-parallax-x], [data-swiper-parallax-y]').each(function(){
+                s.container.find('[data-swiper-parallax], [data-swiper-parallax-x], [data-swiper-parallax-y]').each(function (){
                     var el = $(this);
                     var parallaxDuration = parseInt(el.attr('data-swiper-parallax-duration'), 10) || duration;
                     if (duration === 0) parallaxDuration = 0;
@@ -4507,7 +4507,7 @@
         browser: {
             ie: window.navigator.pointerEnabled || window.navigator.msPointerEnabled,
             ieTouch: (window.navigator.msPointerEnabled && window.navigator.msMaxTouchPoints > 1) || (window.navigator.pointerEnabled && window.navigator.maxTouchPoints > 1),
-            lteIE9: (function() {
+            lteIE9: (function () {
                 // create temporary DIV
                 var div = document.createElement('div');
                 // add content to tmp DIV which is wrapped into the IE HTML conditional statement
@@ -4559,7 +4559,7 @@
                 var supportsPassive = false;
                 try {
                     var opts = Object.defineProperty({}, 'passive', {
-                        get: function() {
+                        get: function () {
                             supportsPassive = true;
                         }
                     });

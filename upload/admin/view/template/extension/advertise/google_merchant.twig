@@ -62,20 +62,20 @@
     </div>
 </div>
 <script type="text/javascript">
-(function($) {
+(function ($) {
     var selector = {
         acknowledge: '.acknowledge',
         save: '#proceed',
         form: '#form'
     }
 
-    $(document).on('change', selector.acknowledge, function() {
+    $(document).on('change', selector.acknowledge, function () {
         $(selector.save).attr('disabled', $(selector.acknowledge + ':not(:checked)').length > 0);
     });
 
     $(selector.acknowledge).trigger('change');
 
-    $(document).on('click', selector.save, function(e) {
+    $(document).on('click', selector.save, function (e) {
         e.preventDefault();
         e.stopPropagation();
 

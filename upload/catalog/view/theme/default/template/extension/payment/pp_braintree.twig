@@ -129,7 +129,7 @@
 </div>
 
 <script type="text/javascript">
-  $('body').on('click', '.braintree-tab-link', function(event) {
+  $('body').on('click', '.braintree-tab-link', function (event) {
     event.preventDefault();
 
     if ($(this).attr('id') == 'saved-link') {
@@ -178,7 +178,7 @@
     });
   {% endif %}
 
-  $.getScript('https://js.braintreegateway.com/web/3.6.3/js/client.min.js', function() {
+  $.getScript('https://js.braintreegateway.com/web/3.6.3/js/client.min.js', function () {
     $.getScript('https://js.braintreegateway.com/web/3.6.3/js/hosted-fields.min.js');
     $.getScript('https://js.braintreegateway.com/web/3.6.3/js/data-collector.min.js');
     {% if payment_pp_braintree_paypal_option %}$.getScript('https://js.braintreegateway.com/web/3.6.3/js/paypal.min.js');{% endif %}
@@ -287,7 +287,7 @@
       nonce: nonce,
       addFrame: addFrame,
       removeFrame: removeFrame
-    }, function(error, payload) {
+    }, function (error, payload) {
       if (error) {
         $('#submit-new').prop('disabled', false).button('reset');
         return;
@@ -307,7 +307,7 @@
       nonce: nonce,
       addFrame: addFrame,
       removeFrame: removeFrame
-    }, function(error, payload) {
+    }, function (error, payload) {
       if (error) {
         console.log('3ds error: ' + error.code);
         $('#submit-vaulted').prop('disabled', false).button('reset');
@@ -580,7 +580,7 @@
           type: 'post',
           data: { vaulted_payment_token: vaulted_payment_token },
           dataType: 'json',
-          success: function(json) {
+          success: function (json) {
             if (json.success) {
                 if (json.payment_method.type == 'PayPalAccount') {
                   submitVaultOrder(vaulted_payment_token, false);
@@ -593,7 +593,7 @@
               return;
             }
           },
-          failure: function() {
+          failure: function () {
             console.log('Failed to call getNonceFromToken');
             $('#submit-vaulted').prop('disabled', false).button('reset');
           }
@@ -655,7 +655,7 @@
     $('#braintree-new').submit();
   }
 
-  $(document).delegate('#button-payment-method', 'click', function() {
+  $(document).delegate('#button-payment-method', 'click', function () {
     console.log("Teardown!");
 
     $('#collapse-checkout-confirm .panel-body').empty();

@@ -87,12 +87,12 @@
         dataType: 'json',
         data: {'order_id': '{{ order_id }}' },
         url: 'index.php?route=extension/payment/realex/void&user_token={{ user_token }}',
-        beforeSend: function() {
+        beforeSend: function () {
           $('#button-void').hide();
           $('#loading-void').show();
           $('#realex-transaction-msg').hide();
         },
-        success: function(data) {
+        success: function (data) {
           if (data.error == false) {
             html = '';
             html += '<tr>';
@@ -127,13 +127,13 @@
         dataType: 'json',
         data: {'order_id' : '{{ order_id }}', 'amount' : $('#capture-amount').val() },
         url: 'index.php?route=extension/payment/realex/capture&user_token={{ user_token }}',
-        beforeSend: function() {
+        beforeSend: function () {
           $('#button-capture').hide();
           $('#capture-amount').hide();
           $('#loading-capture').show();
           $('#realex-transaction-msg').hide();
         },
-        success: function(data) {
+        success: function (data) {
           if (data.error == false) {
             html = '';
             html += '<tr>';
@@ -182,13 +182,13 @@
         dataType: 'json',
         data: {'order_id': '{{ order_id }}', 'amount' : $('#rebate-amount').val() },
         url: 'index.php?route=extension/payment/realex/rebate&user_token={{ user_token }}',
-        beforeSend: function() {
+        beforeSend: function () {
           $('#button-rebate').hide();
           $('#rebate-amount').hide();
           $('#loading-rebate').show();
           $('#realex-transaction-msg').hide();
         },
-        success: function(data) {
+        success: function (data) {
           if (data.error == false) {
             html = '';
             html += '<tr>';

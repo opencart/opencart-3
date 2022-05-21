@@ -62,17 +62,17 @@
   <script type="text/javascript" src="view/javascript/codemirror/lib/xml.js"></script> 
   <script type="text/javascript" src="view/javascript/codemirror/lib/formatting.js"></script> 
   <script type="text/javascript"><!--
-$('select[name="store_id"]').on('change', function(e) {
+$('select[name="store_id"]').on('change', function (e) {
 	$.ajax({
 		url: 'index.php?route=design/theme/path&user_token={{ user_token }}&store_id=' + $('select[name="store_id"]').val(),
 		dataType: 'json',
-		beforeSend: function() {
+		beforeSend: function () {
 			$('select[name="store_id"]').prop('disabled', true);
 		},
-		complete: function() {
+		complete: function () {
 			$('select[name="store_id"]').prop('disabled', false);
 		},
-		success: function(json) {
+		success: function (json) {
 			html = '';
 
 			if (json['directory']) {
@@ -89,7 +89,7 @@ $('select[name="store_id"]').on('change', function(e) {
 
 			$('#path').html(html);
 		},
-		error: function(xhr, ajaxOptions, thrownError) {
+		error: function (xhr, ajaxOptions, thrownError) {
 			alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
 		}
 	});
@@ -97,7 +97,7 @@ $('select[name="store_id"]').on('change', function(e) {
 
 $('select[name="store_id"]').trigger('change');
 
-$('#path').on('click', 'a.directory', function(e) {
+$('#path').on('click', 'a.directory', function (e) {
 	console.log($(node).attr('href'));
 	
 	e.preventDefault();
@@ -107,15 +107,15 @@ $('#path').on('click', 'a.directory', function(e) {
 	$.ajax({
 		url: 'index.php?route=design/theme/path&user_token={{ user_token }}&store_id=' + $('select[name="store_id"]').val() + '&path=' + $(node).attr('href'),
 		dataType: 'json',
-		beforeSend: function() {
+		beforeSend: function () {
 			$(node).find('i').removeClass('fa-arrow-right');
 			$(node).find('i').addClass('fa-circle-o-notch fa-spin');
 		},
-		complete: function() {
+		complete: function () {
 			$(node).find('i').removeClass('fa-circle-o-notch fa-spin');
 			$(node).find('i').addClass('fa-arrow-right');
 		},
-		success: function(json) {
+		success: function (json) {
 			html = '';
 
 			if (json['directory']) {
@@ -136,13 +136,13 @@ $('#path').on('click', 'a.directory', function(e) {
 
 			$('#path').html(html);
 		},
-		error: function(xhr, ajaxOptions, thrownError) {
+		error: function (xhr, ajaxOptions, thrownError) {
 			alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
 		}
 	});
 });
 
-$('#path').on('click', 'a.file', function(e) {
+$('#path').on('click', 'a.file', function (e) {
 	e.preventDefault();
 
 	var node = this;
@@ -160,15 +160,15 @@ $('#path').on('click', 'a.file', function(e) {
 		$.ajax({
 			url: 'index.php?route=design/theme/template&user_token={{ user_token }}&store_id=' + $('select[name="store_id"]').val() + '&path=' + $(node).attr('href'),
 			dataType: 'json',
-			beforeSend: function() {
+			beforeSend: function () {
 				$(node).find('i').removeClass('fa-arrow-right');
 				$(node).find('i').addClass('fa-circle-o-notch fa-spin');
 			},
-			complete: function() {
+			complete: function () {
 				$(node).find('i').removeClass('fa-circle-o-notch fa-spin');
 				$(node).find('i').addClass('fa-arrow-right');
 			},
-			success: function(json) {
+			success: function (json) {
 				if (json['code']) {
 					$('#code').show();
 					$('#recent').hide();
@@ -202,7 +202,7 @@ $('#path').on('click', 'a.file', function(e) {
 					codemirror.setValue(json['code']);
 				}
 			},
-			error: function(xhr, ajaxOptions, thrownError) {
+			error: function (xhr, ajaxOptions, thrownError) {
 				alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
 			}
 		});
@@ -211,7 +211,7 @@ $('#path').on('click', 'a.file', function(e) {
 	}
 });
 
-$('.nav-tabs').on('click', 'i.fa-minus-circle', function(e) {
+$('.nav-tabs').on('click', 'i.fa-minus-circle', function (e) {
 	e.preventDefault();
 
 	if ($(this).parent().parent().is('li.active')) {
@@ -234,7 +234,7 @@ $('.nav-tabs').on('click', 'i.fa-minus-circle', function(e) {
 	}
 });
 
-$('.tab-content').on('click', '.btn-primary', function(e) {
+$('.tab-content').on('click', '.btn-primary', function (e) {
 	var node = this;
 
 	var editor = $('.tab-content .active .CodeMirror')[0].CodeMirror;
@@ -244,13 +244,13 @@ $('.tab-content').on('click', '.btn-primary', function(e) {
 		type: 'post',
 		data: 'code=' + encodeURIComponent(editor.getValue()),
 		dataType: 'json',
-		beforeSend: function() {
+		beforeSend: function () {
 			$(node).button('loading');
 		},
-		complete: function() {
+		complete: function () {
 			$(node).button('reset');
 		},
-		success: function(json) {
+		success: function (json) {
 			$('.alert-dismissible').remove();
 			
 			if (json['error']) {
@@ -263,26 +263,26 @@ $('.tab-content').on('click', '.btn-primary', function(e) {
 				$('#history').load('index.php?route=design/theme/history&user_token={{ user_token }}');
 			}
 		},
-		error: function(xhr, ajaxOptions, thrownError) {
+		error: function (xhr, ajaxOptions, thrownError) {
 			alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
 		}
 	});
 });
 
-$('.tab-content').on('click', '.btn-danger', function(e) {
+$('.tab-content').on('click', '.btn-danger', function (e) {
 	if (confirm('{{ text_confirm }}')) {
 		var node = this;
 
 		$.ajax({
 			url: 'index.php?route=design/theme/reset&user_token={{ user_token }}&store_id=' + $('.tab-content .active input[name="store_id"]').val() + '&path=' + $('.tab-content .active input[name="path"]').val(),
 			dataType: 'json',
-			beforeSend: function() {
+			beforeSend: function () {
 				$(node).button('loading');
 			},
-			complete: function() {
+			complete: function () {
 				$(node).button('reset');
 			},
-			success: function(json) {
+			success: function (json) {
 				$('.alert-dismissible').remove();
 				
 				if (json['error']) {
@@ -297,14 +297,14 @@ $('.tab-content').on('click', '.btn-danger', function(e) {
 				
 				codemirror.setValue(json['code']);
 			},
-			error: function(xhr, ajaxOptions, thrownError) {
+			error: function (xhr, ajaxOptions, thrownError) {
 				alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
 			}
 		});
 	}
 });
 
-$('#history').delegate('.pagination a', 'click', function(e) {
+$('#history').delegate('.pagination a', 'click', function (e) {
 	e.preventDefault();
 
 	$('#history').load(this.href);
@@ -312,7 +312,7 @@ $('#history').delegate('.pagination a', 'click', function(e) {
 
 $('#history').load('index.php?route=design/theme/history&user_token={{ user_token }}');
 
-$('#history').on('click', '.btn-primary', function(e) {
+$('#history').on('click', '.btn-primary', function (e) {
 	e.preventDefault();
 
 	var node = this;
@@ -324,13 +324,13 @@ $('#history').on('click', '.btn-primary', function(e) {
 		$.ajax({
 			url: 'index.php?route=design/theme/template&user_token={{ user_token }}&store_id=' + $(node).parent().parent().find('input[name="store_id"]').val() + '&path=' + $(node).parent().parent().find('input[name="path"]').val(),
 			dataType: 'json',
-			beforeSend: function() {
+			beforeSend: function () {
 				$(node).button('loading');
 			},
-			complete: function() {
+			complete: function () {
 				$(node).button('reset');
 			},
-			success: function(json) {
+			success: function (json) {
 				if (json['code']) {
 					$('#code').show();
 					$('#recent').hide();
@@ -364,7 +364,7 @@ $('#history').on('click', '.btn-primary', function(e) {
 					codemirror.setValue(json['code']);
 				}
 			},
-			error: function(xhr, ajaxOptions, thrownError) {
+			error: function (xhr, ajaxOptions, thrownError) {
 				alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
 			}
 		});
@@ -373,7 +373,7 @@ $('#history').on('click', '.btn-primary', function(e) {
 	}
 });
 
-$('#history').on('click', '.btn-danger', function(e) {
+$('#history').on('click', '.btn-danger', function (e) {
 	e.preventDefault();
 	
 	if (confirm('{{ text_confirm }}')) {
@@ -382,13 +382,13 @@ $('#history').on('click', '.btn-danger', function(e) {
 		$.ajax({
 			url: $(node).attr('href'),
 			dataType: 'json',
-			beforeSend: function() {
+			beforeSend: function () {
 				$(node).button('loading');
 			},
-			complete: function() {
+			complete: function () {
 				$(node).button('reset');
 			},
-			success: function(json) {
+			success: function (json) {
 				$('.alert-dismissible').remove();
 				
 				if (json['error']) {
@@ -401,7 +401,7 @@ $('#history').on('click', '.btn-danger', function(e) {
 					$('#history').load('index.php?route=design/theme/history&user_token={{ user_token }}');
 				}
 			},
-			error: function(xhr, ajaxOptions, thrownError) {
+			error: function (xhr, ajaxOptions, thrownError) {
 				alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
 			}
 		});

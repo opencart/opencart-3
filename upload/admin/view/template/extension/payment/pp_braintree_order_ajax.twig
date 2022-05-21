@@ -157,7 +157,7 @@
 </table>
 
 <script type="text/javascript"><!--
-$('.button-command').on('click', function() {
+$('.button-command').on('click', function () {
 	var type = $(this).attr('data-type');
 	var confirm_text = '';
 	var clicked_button = $(this);
@@ -188,15 +188,15 @@ $('.button-command').on('click', function() {
 				amount: $(this).prev('input').val()
 			},
 			dataType: 'json',
-			beforeSend: function() {
+			beforeSend: function () {
 				clicked_button.button('loading');
 
 				$('.alert').hide().removeClass('alert-success alert-danger');
 			},
-			complete: function() {
+			complete: function () {
 				clicked_button.button('reset');
 			},
-			success: function(json) {
+			success: function (json) {
 				if (json.error) {
 					$('.alert').show().addClass('alert-danger').html('<i class="fa fa-check-circle"></i> ' + json.error);
 				}

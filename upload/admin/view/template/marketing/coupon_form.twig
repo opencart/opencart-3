@@ -198,12 +198,12 @@
   </div>
   <script type="text/javascript"><!--
 $('input[name=\'product\']').autocomplete({
-	'source': function(request, response) {
+	'source': function (request, response) {
 		$.ajax({
 			url: 'index.php?route=catalog/product/autocomplete&user_token={{ user_token }}&filter_name=' +  encodeURIComponent(request),
 			dataType: 'json',			
-			success: function(json) {
-				response($.map(json, function(item) {
+			success: function (json) {
+				response($.map(json, function (item) {
 					return {
 						label: item['name'],
 						value: item['product_id']
@@ -212,7 +212,7 @@ $('input[name=\'product\']').autocomplete({
 			}
 		});
 	},
-	'select': function(item) {
+	'select': function (item) {
 		$('input[name=\'product\']').val('');
 		
 		$('#coupon-product' + item['value']).remove();
@@ -221,18 +221,18 @@ $('input[name=\'product\']').autocomplete({
 	}
 });
 
-$('#coupon-product').delegate('.fa-minus-circle', 'click', function() {
+$('#coupon-product').delegate('.fa-minus-circle', 'click', function () {
 	$(this).parent().remove();
 });
 
 // Category
 $('input[name=\'category\']').autocomplete({
-	'source': function(request, response) {
+	'source': function (request, response) {
 		$.ajax({
 			url: 'index.php?route=catalog/category/autocomplete&user_token={{ user_token }}&filter_name=' +  encodeURIComponent(request),
 			dataType: 'json',
-			success: function(json) {
-				response($.map(json, function(item) {
+			success: function (json) {
+				response($.map(json, function (item) {
 					return {
 						label: item['name'],
 						value: item['category_id']
@@ -241,7 +241,7 @@ $('input[name=\'category\']').autocomplete({
 			}
 		});
 	},
-	'select': function(item) {
+	'select': function (item) {
 		$('input[name=\'category\']').val('');
 		
 		$('#coupon-category' + item['value']).remove();
@@ -250,13 +250,13 @@ $('input[name=\'category\']').autocomplete({
 	}	
 });
 
-$('#coupon-category').delegate('.fa-minus-circle', 'click', function() {
+$('#coupon-category').delegate('.fa-minus-circle', 'click', function () {
 	$(this).parent().remove();
 });
 //--></script> 
   {% if coupon_id %} 
   <script type="text/javascript"><!--
-$('#history').delegate('.pagination a', 'click', function(e) {
+$('#history').delegate('.pagination a', 'click', function (e) {
 	e.preventDefault();
 	
 	$('#history').load(this.href);

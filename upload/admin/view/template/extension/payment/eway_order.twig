@@ -65,13 +65,13 @@
 					'refund_amount': $("#eway-refund-amount").val()
 				},
 				url: 'index.php?route=extension/payment/eway/refund&user_token={{ user_token }}',
-				beforeSend: function(xhr, opts) {
+				beforeSend: function (xhr, opts) {
 					$('#btn-refund').hide();
 					$('#img-loading-refund').show();
 					$('#eway-transaction-msg').hide();
 					$('#eway-refund-amount').hide();
 				},
-				success: function(data) {
+				success: function (data) {
 					if (data.error == false) {
 						html = '';
 						html += '<tr>';
@@ -118,13 +118,13 @@
 					'capture_amount': $("#eway-capture-amount").val()
 				},
 				url: 'index.php?route=extension/payment/eway/capture&user_token={{ user_token }}',
-				beforeSend: function(xhr, opts) {
+				beforeSend: function (xhr, opts) {
 					$('#btn-capture').hide();
 					$('#img-loading-capture').show();
 					$('#eway-transaction-msg').hide();
 					$('#eway-capture-amount').hide();
 				},
-				success: function(data) {
+				success: function (data) {
 					if (data.error == false) {
 						html = '';
 						html += '<tr>';

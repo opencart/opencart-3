@@ -70,19 +70,19 @@
   </tr>
 </table>
 <script type="text/javascript"><!--
-	$(document).on('click', '#button-void', function(){
+	$(document).on('click', '#button-void', function (){
 		if (confirm('{{ text_confirm_void }}')) {
 			$.ajax({
 				type: 'POST',
 				dataType: 'json',
 				data: {'order_id': {{ order_id }}},
 				url: 'index.php?route=extension/payment/bluepay_redirect/void&user_token={{ user_token }}',
-				beforeSend: function() {
+				beforeSend: function () {
 					$('#button-void').hide();
 					$('#img_loading_void').show();
 					$('#bluepay_redirect_transaction_msg').hide();
 				},
-				success: function(data) {
+				success: function (data) {
 					if (data.error == false) {
 						html = '';
 						html += '<tr>';
@@ -113,20 +113,20 @@
 			});
 		}
 	});
-	$(document).on('click', '#button-release', function(){
+	$(document).on('click', '#button-release', function (){
 		if (confirm('{{ text_confirm_release }}')) {
 			$.ajax({
 				type: 'POST',
 				dataType: 'json',
 				data: {'order_id': {{ order_id }}, 'amount': $('#release_amount').val()},
 				url: 'index.php?route=extension/payment/bluepay_redirect/release&user_token={{ user_token }}',
-				beforeSend: function() {
+				beforeSend: function () {
 					$('#button-release').hide();
 					$('#release_amount').hide();
 					$('#img_loading_release').show();
 					$('#bluepay_redirect_transaction_msg').hide();
 				},
-				success: function(data) {
+				success: function (data) {
 					if (data.error == false) {
 						html = '';
 						html += '<tr>';
@@ -167,20 +167,20 @@
 			});
 		}
 	});
-	$(document).on('click', '#button-rebate', function(){
+	$(document).on('click', '#button-rebate', function (){
 		if (confirm('{{ text_confirm_rebate }}')) {
 			$.ajax({
 				type: 'POST',
 				dataType: 'json',
 				data: {'order_id': {{ order_id }}, 'amount': $('#rebate_amount').val()},
 				url: 'index.php?route=extension/payment/bluepay_redirect/rebate&user_token={{ user_token }}',
-				beforeSend: function() {
+				beforeSend: function () {
 					$('#button-rebate').hide();
 					$('#rebate_amount').hide();
 					$('#img_loading_rebate').show();
 					$('#bluepay_redirect_transaction_msg').hide();
 				},
-				success: function(data) {
+				success: function (data) {
 					if (data.error == false) {
 						html = '';
 						html += '<tr>';

@@ -2041,7 +2041,7 @@ moment.defineLocale('dv', {
     }
 });
 
-function isFunction(input) {
+function isfunction (input) {
     return input instanceof Function || Object.prototype.toString.call(input) === '[object Function]';
 }
 
@@ -2102,7 +2102,7 @@ moment.defineLocale('el', {
     calendar : function (key, mom) {
         var output = this._calendarEl[key],
             hours = mom && mom.hours();
-        if (isFunction(output)) {
+        if (isfunction (output)) {
             output = output.apply(mom);
         }
         return output.replace('{}', (hours % 12 === 1 ? 'στη' : 'στις'));
@@ -8507,7 +8507,7 @@ function weekdaysCaseReplace(m, format) {
             'nominative');
     return weekdays[nounCase][m.day()];
 }
-function processHoursFunction(str) {
+function processHoursfunction (str) {
     return function () {
         return str + 'о' + (this.hours() === 11 ? 'б' : '') + '] LT';
     };
@@ -8531,21 +8531,21 @@ moment.defineLocale('uk', {
         LLLL : 'dddd, D MMMM YYYY р., HH:mm'
     },
     calendar : {
-        sameDay: processHoursFunction('[Сьогодні '),
-        nextDay: processHoursFunction('[Завтра '),
-        lastDay: processHoursFunction('[Вчора '),
-        nextWeek: processHoursFunction('[У] dddd ['),
+        sameDay: processHoursfunction ('[Сьогодні '),
+        nextDay: processHoursfunction ('[Завтра '),
+        lastDay: processHoursfunction ('[Вчора '),
+        nextWeek: processHoursfunction ('[У] dddd ['),
         lastWeek: function () {
             switch (this.day()) {
                 case 0:
                 case 3:
                 case 5:
                 case 6:
-                    return processHoursFunction('[Минулої] dddd [').call(this);
+                    return processHoursfunction ('[Минулої] dddd [').call(this);
                 case 1:
                 case 2:
                 case 4:
-                    return processHoursFunction('[Минулого] dddd [').call(this);
+                    return processHoursfunction ('[Минулого] dddd [').call(this);
             }
         },
         sameElse: 'L'

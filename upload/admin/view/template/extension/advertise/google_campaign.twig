@@ -328,7 +328,7 @@
     </div>
 </script>
 <script type="text/javascript">
-(function($) {
+(function ($) {
     var allowed_targets = {{ json_allowed_targets }};
 
     var targets = {{ json_targets }};
@@ -374,34 +374,34 @@
         }
     };
 
-    var template = function(html, data) {
-        $.map(data, function(text, key) {
+    var template = function (html, data) {
+        $.map(data, function (text, key) {
             html = html.replace(new RegExp("{" + key + "}", 'g'), text);
         });
 
         return html;
     };
 
-    var makeModalHtml = function(data) {
+    var makeModalHtml = function (data) {
         var html = $(selector.template.modal).html();
 
         return template(html, data);
     };
 
-    var makeFeedsHtml = function(data) {
+    var makeFeedsHtml = function (data) {
         var html = $(selector.template.feed).html();
 
         data.languages = '';
         data.currencies = '';
 
         // Set the feed countries
-        $(allowed_targets).each(function(index, target) {
+        $(allowed_targets).each(function (index, target) {
             if (target.country.code == $(selector.target.country).val()) {
-                $(target.languages).each(function(index, language) {
+                $(target.languages).each(function (index, language) {
                     data.languages += '<option value="' + language.code + '" ' + (language.status ? '' : 'disabled') + '>' + language.name + '</option>';
                 });
 
-                $(target.currencies).each(function(index, currency) {
+                $(target.currencies).each(function (index, currency) {
                     data.currencies += '<option value="' + currency.code + '" ' + (currency.status ? '' : 'disabled') + '>' + currency.name + '</option>';
                 });
             }
@@ -410,13 +410,13 @@
         return template(html, data);
     };
 
-    var makeAlertHtml = function(data) {
+    var makeAlertHtml = function (data) {
         var html = $(selector.template.alert).html();
 
         return template(html, data);
     };
 
-    var displayError = function(container, message) {
+    var displayError = function (container, message) {
         $(container).html(makeAlertHtml({
             icon: 'exclamation-triangle',
             type: 'danger',
@@ -424,13 +424,13 @@
         }));
     };
 
-    var makeListElementHtml = function(data) {
+    var makeListElementHtml = function (data) {
         var html = $(selector.template.list_element).html();
 
         return template(html, data);
     }
 
-    var makeListElementRoasHtml = function(roas_status, roas_warning, roas) {
+    var makeListElementRoasHtml = function (roas_status, roas_warning, roas) {
         if (!roas_status) {
             return '<span class="label label-default" data-toggle="tooltip" data-original-title="' + roas_warning + '">{{ text_label_unavailable }}</span>';
         } else {
@@ -438,7 +438,7 @@
         }
     }
 
-    var makeListElementStatusHtml = function(status) {
+    var makeListElementStatusHtml = function (status) {
         if (status == 'paused') {
             return '<span class="label label-warning">{{ text_label_paused }}</span>';
         } else if (status == 'active') {
@@ -448,9 +448,9 @@
         return '';
     }
 
-    var makeListElementFeedsHtml = function(feeds) {
+    var makeListElementFeedsHtml = function (feeds) {
         html = '<ul>';
-        $(feeds).each(function(index, feed) {
+        $(feeds).each(function (index, feed) {
             html += '<li>' + feed.text + '</li>';
         });
         html += '</ul>';
@@ -458,7 +458,7 @@
         return html;
     }
 
-    var displaySuccess = function(message) {
+    var displaySuccess = function (message) {
         $(selector.alerts).html(makeAlertHtml({
             icon: 'check-circle',
             type: 'success',
@@ -466,19 +466,19 @@
         }));
     };
 
-    var refreshTargets = function(callback) {
+    var refreshTargets = function (callback) {
         $.ajax({
             url: '{{ target_list }}',
             type: 'GET',
             dataType: 'json',
-            beforeSend: function() {
+            beforeSend: function () {
                 $(selector.target.container).html('<div class="alert alert-info text-center">{{ text_loading }}</div>');
             },
             complete: callback,
-            error: function(jqXHR, textStatus, errorThrown) {
+            error: function (jqXHR, textStatus, errorThrown) {
                 displayError(selector.alerts, '(' + textStatus + ') ' + errorThrown);
             },
-            success: function(data) {
+            success: function (data) {
                 if (data.error) {
                     displayError(selector.alerts, data.error);
                 } else {
@@ -487,7 +487,7 @@
 
                         $(selector.target.container).html($(selector.template.targets).html());
 
-                        $(data.targets).each(function(index, target) {
+                        $(data.targets).each(function (index, target) {
                             $(selector.target.list).append(makeListElementHtml({
                                 target_id: target.target_id,
                                 campaign_name: target.campaign_name,
@@ -506,17 +506,17 @@
         });
     };
 
-    var initModal = function(modalData) {
+    var initModal = function (modalData) {
         var html = $(makeModalHtml(modalData));
 
         $(html).modal();
         
-        $(html).on('shown.bs.modal', function() {
+        $(html).on('shown.bs.modal', function () {
             // Enable tooltips
             $('[data-toggle="tooltip"]').tooltip({container: 'body', html: true});
 
             // Populate countries
-            $(allowed_targets).each(function(index, target) {
+            $(allowed_targets).each(function (index, target) {
                 $(selector.target.country).append('<option value="' + target.country.code + '">' + target.country.name + '</option>');
             });
 
@@ -533,7 +533,7 @@
             $(selector.target.warning_roas).toggle(!modalData.roas_status);
         });
         
-        $(html).on('hidden.bs.modal', function() {
+        $(html).on('hidden.bs.modal', function () {
             $(this).remove();
         });
     };
@@ -542,11 +542,11 @@
         {% if can_edit_campaigns %}
             resolve();
         {% else %}
-            var doCampaignCreateTest = function() {
+            var doCampaignCreateTest = function () {
                 $.ajax({
                     url: '{{ url_campaign_test }}',
                     dataType: 'json',
-                    success: function(data) {
+                    success: function (data) {
                         if (data.status) {
                             resolve();
                         } else if (data.redirect) {
@@ -562,7 +562,7 @@
         {% endif %}
     });
 
-    $(document).on('click', selector.target.add, function(e) {
+    $(document).on('click', selector.target.add, function (e) {
         e.preventDefault();
         e.stopPropagation();
 
@@ -586,7 +586,7 @@
         initModal(modalData);
     });
 
-    $(document).on('click', selector.target.edit, function(e) {
+    $(document).on('click', selector.target.edit, function (e) {
         e.preventDefault();
         e.stopPropagation();
 
@@ -594,14 +594,14 @@
         var feeds = '';
         var target_id = $(this).attr('data-target-id');
 
-        $(targets).each(function(index, target) {
+        $(targets).each(function (index, target) {
             if (target.target_id == target_id) {
                 data = target;
                 return;
             }
         });
 
-        $(data.feeds).each(function(index, feed) {
+        $(data.feeds).each(function (index, feed) {
             feeds += makeFeedsHtml({
                 id: id++,
                 language: feed.language,
@@ -625,7 +625,7 @@
         initModal(modalData);
     });
 
-    $(document).on('click', selector.target.delete, function(e) {
+    $(document).on('click', selector.target.delete, function (e) {
         e.preventDefault();
         e.stopPropagation();
 
@@ -634,18 +634,18 @@
 
             $(selector.target.container).html('<div class="alert alert-info text-center">{{ text_loading_please_wait }}</div>');
 
-            campaignCreateTestPromise.then(function() {
+            campaignCreateTestPromise.then(function () {
                 $.ajax({
                     url: '{{ target_delete }}'.replace(/{target_id}/, target_id),
                     type: 'GET',
                     dataType: 'json',
-                    complete: function() {
+                    complete: function () {
                         refreshTargets();
                     },
-                    error: function(jqXHR, textStatus, errorThrown) {
+                    error: function (jqXHR, textStatus, errorThrown) {
                         displayError(selector.alerts, '(' + textStatus + ') ' + errorThrown);
                     },
-                    success: function(data) {
+                    success: function (data) {
                         if (data.error) {
                             displayError(selector.alerts, data.error);
                         } else if (data.redirect) {
@@ -659,7 +659,7 @@
         }
     });
 
-    $(document).on('click', selector.feed.add, function(e) {
+    $(document).on('click', selector.feed.add, function (e) {
         $(selector.feed.container).append(
             $(makeFeedsHtml({
                 id: id++,
@@ -669,7 +669,7 @@
         );
     });
 
-    $(document).on('click', selector.feed.delete, function(e) {
+    $(document).on('click', selector.feed.delete, function (e) {
         e.preventDefault();
 
         if (confirm("{{ text_confirm }}")) {
@@ -677,7 +677,7 @@
         }
     });
 
-    $(document).on('click', selector.target.save, function(e) {
+    $(document).on('click', selector.target.save, function (e) {
         var saveButton = this;
 
         $(selector.target.alerts).empty();
@@ -695,39 +695,39 @@
 
         $('.has-error').removeClass('has-error');
 
-        campaignCreateTestPromise.then(function() {
+        campaignCreateTestPromise.then(function () {
             $.ajax({
                 url: $(saveButton).attr('data-url'),
                 type: 'POST',
                 dataType: 'json',
                 data: $(selector.target.modal).find('input,select'),
-                complete: function() {
+                complete: function () {
                     $(selector.target.save)
                         .text($(selector.target.save).attr('data-text'))
                         .attr('disabled', false);
 
                     $(selector.target.modal).find('input,select').attr('disabled', false);
-                    $(selector.target.modal).find('[data-original-disabled]').each(function(index, element) {
+                    $(selector.target.modal).find('[data-original-disabled]').each(function (index, element) {
                         $(element).attr('disabled', $(element).attr('data-original-disabled') == '1');
                     });
                     $(selector.target.modal).find(selector.feed.add).attr('disabled', false);
                     $(selector.target.modal).find(selector.feed.delete).attr('disabled', false);
                 },
-                error: function(jqXHR, textStatus, errorThrown) {
+                error: function (jqXHR, textStatus, errorThrown) {
                     displayError(selector.target.alerts, '(' + textStatus + ') ' + errorThrown);
                 },
-                success: function(data) {
+                success: function (data) {
                     if (data.error) {
                         displayError(selector.target.alerts, data.error);
 
-                        $(selector.feed.error_type).each(function(index, element) {
+                        $(selector.feed.error_type).each(function (index, element) {
                             if (typeof data[$(element).attr('data-error-type')] != 'undefined') {
                                 $(element).find('.col-sm-9').append('<div class="text-danger">' + data[$(element).attr('data-error-type')] + '</div>');
                             }
                         });
 
                         // Highlight any found errors
-                        $('.text-danger').each(function() {
+                        $('.text-danger').each(function () {
                             var element = $(saveButton).parent().parent();
 
                             if (element.hasClass('form-group')) {
@@ -739,7 +739,7 @@
                     } else if (data.success) {
                         displaySuccess(data.success);
 
-                        refreshTargets(function() {
+                        refreshTargets(function () {
                             $(selector.target.modal).modal('hide');
                         });
                     }
@@ -748,15 +748,15 @@
         });
     });
 
-    $(document).on('change', selector.target.country, function() {
+    $(document).on('change', selector.target.country, function () {
         var code = $(this).val();
 
         // Set the feed countries
-        $(allowed_targets).each(function(index, target) {
+        $(allowed_targets).each(function (index, target) {
             if (target.country.code == code) {
                 $(selector.feed.container).find(selector.feed.language).find('option[value!=""]').remove();
 
-                $(target.languages).each(function(index, language) {
+                $(target.languages).each(function (index, language) {
                     $(selector.feed.container).find(selector.feed.language).append('<option value="' + language.code + '" ' + (language.status ? '' : 'disabled') + '>' + language.name + '</option>');
                 });
 
@@ -766,7 +766,7 @@
 
                 $(selector.feed.container).find(selector.feed.currency).find('option[value!=""]').remove();
 
-                $(target.currencies).each(function(index, currency) {
+                $(target.currencies).each(function (index, currency) {
                     $(selector.feed.container).find(selector.feed.currency).append('<option value="' + currency.code + '" ' + (currency.status ? '' : 'disabled') + '>' + currency.name + '</option>');
                 });
 
@@ -777,11 +777,11 @@
         });
     });
 
-    $(document).on('change', selector.acknowledge, function() {
+    $(document).on('change', selector.acknowledge, function () {
         $(selector.save).attr('disabled', $(selector.acknowledge + ':not(:checked)').length > 0);
     });
 
-    $(document).on('change keyup', selector.target.budget, function() {
+    $(document).on('change keyup', selector.target.budget, function () {
         if (parseFloat($(this).val()) < 10) {
             $(selector.target.warning_budget).show();
         } else {
@@ -789,14 +789,14 @@
         }
     });
 
-    $(document).on('click', selector.save, function(e) {
+    $(document).on('click', selector.save, function (e) {
         e.preventDefault();
         e.stopPropagation();
 
         $(selector.save).text('{{ text_loading_please_wait }}').attr('disabled', true);
         $(selector.acknowledge).attr('disabled', true);
 
-        campaignCreateTestPromise.then(function() {
+        campaignCreateTestPromise.then(function () {
             $(selector.form).submit();
         });
     });

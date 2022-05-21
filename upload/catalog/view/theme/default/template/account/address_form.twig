@@ -283,7 +283,7 @@
 </div>
 <script type="text/javascript"><!--
 // Sort the custom fields
-$('.form-group[data-sort]').detach().each(function() {
+$('.form-group[data-sort]').detach().each(function () {
 	if ($(this).attr('data-sort') >= 0 && $(this).attr('data-sort') <= $('.form-group').length-2) {
 		$('.form-group').eq(parseInt($(this).attr('data-sort'))+2).before(this);
 	}
@@ -302,7 +302,7 @@ $('.form-group[data-sort]').detach().each(function() {
 });
 //--></script> 
 <script type="text/javascript"><!--
-$('button[id^=\'button-custom-field\']').on('click', function() {
+$('button[id^=\'button-custom-field\']').on('click', function () {
 	var element = this;
 	
 	$('#form-upload').remove();
@@ -315,7 +315,7 @@ $('button[id^=\'button-custom-field\']').on('click', function() {
 		clearInterval(timer);
 	}
 	
-	timer = setInterval(function() {
+	timer = setInterval(function () {
 		if ($('#form-upload input[name=\'file\']').val() != '') {
 			clearInterval(timer);
 		
@@ -327,13 +327,13 @@ $('button[id^=\'button-custom-field\']').on('click', function() {
 				cache: false,
 				contentType: false,
 				processData: false,
-				beforeSend: function() {
+				beforeSend: function () {
 					$(element).button('loading');
 				},
-				complete: function() {
+				complete: function () {
 					$(element).button('reset');
 				},
-				success: function(json) {
+				success: function (json) {
 					$(element).parent().find('.text-danger').remove();
 					
 					if (json['error']) {
@@ -346,7 +346,7 @@ $('button[id^=\'button-custom-field\']').on('click', function() {
 						$(element).parent().find('input').val(json['code']);
 					}
 				},
-				error: function(xhr, ajaxOptions, thrownError) {
+				error: function (xhr, ajaxOptions, thrownError) {
 					alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
 				}
 			});
@@ -372,17 +372,17 @@ $('.time').datetimepicker({
 });
 //--></script> 
 <script type="text/javascript"><!--
-$('select[name=\'country_id\']').on('change', function() {
+$('select[name=\'country_id\']').on('change', function () {
 	$.ajax({
 		url: 'index.php?route=account/account/country&country_id=' + this.value,
 		dataType: 'json',
-		beforeSend: function() {
+		beforeSend: function () {
 			$('select[name=\'country_id\']').prop('disabled', true);
 		},
-		complete: function() {
+		complete: function () {
 			$('select[name=\'country_id\']').prop('disabled', false);
 		},
-		success: function(json) {
+		success: function (json) {
 			if (json['postcode_required'] == '1') {
 				$('input[name=\'postcode\']').parent().parent().addClass('required');
 			} else {
@@ -407,7 +407,7 @@ $('select[name=\'country_id\']').on('change', function() {
 			
 			$('select[name=\'zone_id\']').html(html);
 		},
-		error: function(xhr, ajaxOptions, thrownError) {
+		error: function (xhr, ajaxOptions, thrownError) {
 			alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
 		}
 	});

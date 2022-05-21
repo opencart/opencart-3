@@ -258,7 +258,7 @@ $.ajax({
 	dataType: 'json',
 	data: 'key={{ api_key }}',
 	crossDomain: true,
-	success: function(json) {
+	success: function (json) {
         if (json['error']) {
     		if (json['error']['key']) {
     			alert(json['error']['key']);
@@ -273,14 +273,14 @@ $.ajax({
 			token = json['user_token'];
 		}
 	},
-	error: function(xhr, ajaxOptions, thrownError) {
+	error: function (xhr, ajaxOptions, thrownError) {
 		alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
 	}
 });
 //--></script>
 
 <script type="text/javascript"><!--
-$('#cancel-plan').on('click', function(e) {
+$('#cancel-plan').on('click', function (e) {
 	e.preventDefault();
 
 	$.ajax({
@@ -288,15 +288,15 @@ $('#cancel-plan').on('click', function(e) {
 		type: 'post',
 		dataType: 'json',
 		cache: false,
-		beforeSend: function() {
+		beforeSend: function () {
 			$('#cancel-plan, #revise-plan').attr('disabled', true);
 			$('#cancel-plan').after('<span class="laybuy-loading fa fa-spinner" style="margin-left:2px"></span>');
 		},
-		complete: function() {
+		complete: function () {
 			$('#cancel-plan, #revise-plan').attr('disabled', false);
 			$('.laybuy-loading').remove();
 		},
-		success: function(json) {
+		success: function (json) {
 			if (json['error']) {
 				alert(json['error']);
 			}
@@ -309,12 +309,12 @@ $('#cancel-plan').on('click', function(e) {
 						type: 'post',
 						dataType: 'json',
 						data: 'order_status_id=' + json['order_status_id'] + '&notify=1&override=0&append=0&comment=' + encodeURIComponent(json['comment']),
-						success: function(json) {
+						success: function (json) {
 							if (json['error']) {
 								alert(json['error']);
 							}
 						},
-						error: function(xhr, ajaxOptions, thrownError) {
+						error: function (xhr, ajaxOptions, thrownError) {
 							alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
 						}
 					});
@@ -325,7 +325,7 @@ $('#cancel-plan').on('click', function(e) {
 				location = json['reload'].replace(/&amp;/g, '&');
 			}
 		},
-	 	error: function(xhr, ajaxOptions, thrownError) {
+	 	error: function (xhr, ajaxOptions, thrownError) {
 	 		alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
 		}
 	});
@@ -333,7 +333,7 @@ $('#cancel-plan').on('click', function(e) {
 //--></script>
 
 <script type="text/javascript"><!--
-$('#revise-plan').on('click', function(e) {
+$('#revise-plan').on('click', function (e) {
 	e.preventDefault();
 
 	$.ajax({
@@ -342,15 +342,15 @@ $('#revise-plan').on('click', function(e) {
 		data: $('#payment-type, #amount, #down-payment, #months'),
 		dataType: 'json',
 		cache: false,
-		beforeSend: function() {
+		beforeSend: function () {
 			$('#cancel-plan, #revise-plan').attr('disabled', true);
 			$('#revise-plan').after('<div class="laybuy-loading fa fa-spinner" style="margin-left:2px"></div>');
 		},
-		complete: function() {
+		complete: function () {
 			$('#cancel-plan, #revise-plan').attr('disabled', false);
 			$('.laybuy-loading').remove();
 		},
-		success: function(json) {
+		success: function (json) {
 			if (json['error']) {
 				alert(json['error']);
 			}
@@ -361,7 +361,7 @@ $('#revise-plan').on('click', function(e) {
 				location = json['reload'].replace(/&amp;/g, '&');
 			}
 		},
-		error: function(xhr, ajaxOptions, thrownError) {
+		error: function (xhr, ajaxOptions, thrownError) {
 			alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
 		}
 	});
@@ -369,7 +369,7 @@ $('#revise-plan').on('click', function(e) {
 //--></script>
 
 <script type="text/javascript"><!--
-$('#payment-type').on('change', function() {
+$('#payment-type').on('change', function () {
 	var payment_type = $('#payment-type').val();
 
 	if (payment_type == '1') {
@@ -381,8 +381,8 @@ $('#payment-type').on('change', function() {
 //--></script>
 
 <script type="text/javascript"><!--
-$(document).ready(function() {
-	$('#tab-modify').on('click', 'select', function() {
+$(document).ready(function () {
+	$('#tab-modify').on('click', 'select', function () {
    		calculate($('#down-payment').val(), $('#months').val());
 	});
 

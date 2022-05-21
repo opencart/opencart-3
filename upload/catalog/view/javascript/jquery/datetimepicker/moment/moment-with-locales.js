@@ -333,7 +333,7 @@ function deprecateSimple(name, msg) {
 hooks.suppressDeprecationWarnings = false;
 hooks.deprecationHandler = null;
 
-function isFunction(input) {
+function isfunction (input) {
     return input instanceof Function || Object.prototype.toString.call(input) === '[object Function]';
 }
 
@@ -341,7 +341,7 @@ function set (config) {
     var prop, i;
     for (i in config) {
         prop = config[i];
-        if (isFunction(prop)) {
+        if (isfunction (prop)) {
             this[i] = prop;
         } else {
             this['_' + i] = prop;
@@ -417,7 +417,7 @@ var defaultCalendar = {
 
 function calendar (key, mom, now) {
     var output = this._calendar[key] || this._calendar['sameElse'];
-    return isFunction(output) ? output.call(mom, now) : output;
+    return isfunction (output) ? output.call(mom, now) : output;
 }
 
 var defaultLongDateFormat = {
@@ -476,14 +476,14 @@ var defaultRelativeTime = {
 
 function relativeTime (number, withoutSuffix, string, isFuture) {
     var output = this._relativeTime[string];
-    return (isFunction(output)) ?
+    return (isfunction (output)) ?
         output(number, withoutSuffix, string, isFuture) :
         output.replace(/%d/i, number);
 }
 
 function pastFuture (diff, output) {
     var format = this._relativeTime[diff > 0 ? 'future' : 'past'];
-    return isFunction(format) ? format(output) : format.replace(/%s/i, output);
+    return isfunction (format) ? format(output) : format.replace(/%s/i, output);
 }
 
 var aliases = {};
@@ -558,7 +558,7 @@ function set$1 (mom, unit, value) {
 
 function stringGet (units) {
     units = normalizeUnits(units);
-    if (isFunction(this[units])) {
+    if (isfunction (this[units])) {
         return this[units]();
     }
     return this;
@@ -574,7 +574,7 @@ function stringSet (units, value) {
         }
     } else {
         units = normalizeUnits(units);
-        if (isFunction(this[units])) {
+        if (isfunction (this[units])) {
             return this[units](value);
         }
     }
@@ -630,7 +630,7 @@ function removeFormattingTokens(input) {
     return input.replace(/\\/g, '');
 }
 
-function makeFormatFunction(format) {
+function makeFormatfunction (format) {
     var array = format.match(formattingTokens), i, length;
 
     for (i = 0, length = array.length; i < length; i++) {
@@ -644,7 +644,7 @@ function makeFormatFunction(format) {
     return function (mom) {
         var output = '', i;
         for (i = 0; i < length; i++) {
-            output += isFunction(array[i]) ? array[i].call(mom, format) : array[i];
+            output += isfunction (array[i]) ? array[i].call(mom, format) : array[i];
         }
         return output;
     };
@@ -657,7 +657,7 @@ function formatMoment(m, format) {
     }
 
     format = expandFormat(format, m.localeData());
-    formatFunctions[format] = formatFunctions[format] || makeFormatFunction(format);
+    formatFunctions[format] = formatFunctions[format] || makeFormatfunction (format);
 
     return formatFunctions[format](m);
 }
@@ -707,7 +707,7 @@ var matchWord = /[0-9]*['a-z\u00A0-\u05FF\u0700-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF
 var regexes = {};
 
 function addRegexToken (token, regex, strictRegex) {
-    regexes[token] = isFunction(regex) ? regex : function (isStrict, localeData) {
+    regexes[token] = isfunction (regex) ? regex : function (isStrict, localeData) {
         return (isStrict && strictRegex) ? strictRegex : regex;
     };
 }
@@ -3123,7 +3123,7 @@ function calendar$1 (time, formats) {
         sod = cloneWithOffset(now, this).startOf('day'),
         format = hooks.calendarFormat(this, sod) || 'sameElse';
 
-    var output = formats && (isFunction(formats[format]) ? formats[format].call(this, now) : formats[format]);
+    var output = formats && (isfunction (formats[format]) ? formats[format].call(this, now) : formats[format]);
 
     return this.format(output || this.localeData().calendar(format, this, createLocal(now)));
 }
@@ -3261,7 +3261,7 @@ function toISOString() {
     if (m.year() < 0 || m.year() > 9999) {
         return formatMoment(m, 'YYYYYY-MM-DD[T]HH:mm:ss.SSS[Z]');
     }
-    if (isFunction(Date.prototype.toISOString)) {
+    if (isfunction (Date.prototype.toISOString)) {
         // native implementation is ~50x faster, use it when we can
         return this.toDate().toISOString();
     }
@@ -6550,7 +6550,7 @@ hooks.defineLocale('el', {
     calendar : function (key, mom) {
         var output = this._calendarEl[key],
             hours = mom && mom.hours();
-        if (isFunction(output)) {
+        if (isfunction (output)) {
             output = output.apply(mom);
         }
         return output.replace('{}', (hours % 12 === 1 ? 'στη' : 'στις'));
@@ -12955,7 +12955,7 @@ function weekdaysCaseReplace(m, format) {
             'nominative');
     return weekdays[nounCase][m.day()];
 }
-function processHoursFunction(str) {
+function processHoursfunction (str) {
     return function () {
         return str + 'о' + (this.hours() === 11 ? 'б' : '') + '] LT';
     };
@@ -12979,21 +12979,21 @@ hooks.defineLocale('uk', {
         LLLL : 'dddd, D MMMM YYYY р., HH:mm'
     },
     calendar : {
-        sameDay: processHoursFunction('[Сьогодні '),
-        nextDay: processHoursFunction('[Завтра '),
-        lastDay: processHoursFunction('[Вчора '),
-        nextWeek: processHoursFunction('[У] dddd ['),
+        sameDay: processHoursfunction ('[Сьогодні '),
+        nextDay: processHoursfunction ('[Завтра '),
+        lastDay: processHoursfunction ('[Вчора '),
+        nextWeek: processHoursfunction ('[У] dddd ['),
         lastWeek: function () {
             switch (this.day()) {
                 case 0:
                 case 3:
                 case 5:
                 case 6:
-                    return processHoursFunction('[Минулої] dddd [').call(this);
+                    return processHoursfunction ('[Минулої] dddd [').call(this);
                 case 1:
                 case 2:
                 case 4:
-                    return processHoursFunction('[Минулого] dddd [').call(this);
+                    return processHoursfunction ('[Минулого] dddd [').call(this);
             }
         },
         sameElse: 'L'

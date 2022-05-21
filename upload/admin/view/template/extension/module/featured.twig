@@ -91,12 +91,12 @@
   </div>
   <script type="text/javascript"><!--
 $('input[name=\'product_name\']').autocomplete({
-	source: function(request, response) {
+	source: function (request, response) {
 		$.ajax({
 			url: 'index.php?route=catalog/product/autocomplete&user_token={{ user_token }}&filter_name=' +  encodeURIComponent(request),
 			dataType: 'json',
-			success: function(json) {
-				response($.map(json, function(item) {
+			success: function (json) {
+				response($.map(json, function (item) {
 					return {
 						label: item['name'],
 						value: item['product_id']
@@ -105,7 +105,7 @@ $('input[name=\'product_name\']').autocomplete({
 			}
 		});
 	},
-	select: function(item) {
+	select: function (item) {
 		$('input[name=\'product_name\']').val('');
 		
 		$('#featured-product' + item['value']).remove();
@@ -114,7 +114,7 @@ $('input[name=\'product_name\']').autocomplete({
 	}
 });
 	
-$('#featured-product').delegate('.fa-minus-circle', 'click', function() {
+$('#featured-product').delegate('.fa-minus-circle', 'click', function () {
 	$(this).parent().remove();
 });
 //--></script></div>

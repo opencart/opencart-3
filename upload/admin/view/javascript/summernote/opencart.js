@@ -1,6 +1,6 @@
-$(document).ready(function() {
+$(document).ready(function () {
 	// Override summernotes image manager
-	$('[data-toggle=\'summernote\']').each(function() {
+	$('[data-toggle=\'summernote\']').each(function () {
 		var element = this;
 
 		if ($(this).attr('data-lang') && $(this).attr('data-lang')!='en-gb') {
@@ -43,7 +43,7 @@ $(document).ready(function() {
 				],
 			},
 			buttons: {
-    			image: function() {
+    			image: function () {
 					var ui = $.summernote.ui;
 
 					// create button
@@ -56,20 +56,20 @@ $(document).ready(function() {
 							$.ajax({
 								url: 'index.php?route=common/filemanager&user_token=' + getURLVar('user_token'),
 								dataType: 'html',
-								beforeSend: function() {
+								beforeSend: function () {
 									$('#button-image i').replaceWith('<i class="fa fa-circle-o-notch fa-spin"></i>');
 									$('#button-image').prop('disabled', true);
 								},
-								complete: function() {
+								complete: function () {
 									$('#button-image i').replaceWith('<i class="fa fa-upload"></i>');
 									$('#button-image').prop('disabled', false);
 								},
-								success: function(html) {
+								success: function (html) {
 									$('body').append('<div id="modal-image" class="modal">' + html + '</div>');
 
 									$('#modal-image').modal('show');
 
-									$('#modal-image').delegate('a.thumbnail', 'click', function(e) {
+									$('#modal-image').delegate('a.thumbnail', 'click', function (e) {
 										e.preventDefault();
 
 										$(element).summernote('insertImage', $(this).attr('href'));

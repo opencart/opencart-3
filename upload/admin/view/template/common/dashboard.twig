@@ -31,24 +31,24 @@
     {% endfor %}</div>
     {{ security }}
   <script type="text/javascript"><!--
-$('#button-developer').on('click', function() {
+$('#button-developer').on('click', function () {
 	$.ajax({
 		url: 'index.php?route=common/developer&user_token={{ user_token }}',
 		dataType: 'html',
-		beforeSend: function() {
+		beforeSend: function () {
 			$('#button-developer').button('loading');
 		},
-		complete: function() {
+		complete: function () {
 			$('#button-developer').button('reset');
 		},
-		success: function(html) {
+		success: function (html) {
 			$('#modal-developer').remove();
 			
 			$('body').prepend('<div id="modal-developer" class="modal">' + html + '</div>');
 			
 			$('#modal-developer').modal('show');
 		},
-		error: function(xhr, ajaxOptions, thrownError) {
+		error: function (xhr, ajaxOptions, thrownError) {
 			alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
 		}
 	});	

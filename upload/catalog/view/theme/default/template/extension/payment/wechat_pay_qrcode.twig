@@ -41,7 +41,7 @@
     $.ajax({
       url: 'index.php?route=extension/payment/wechat_pay/isOrderPaid&order_id={{ order_id }}',
       dataType: 'json',
-      success: function(json) {
+      success: function (json) {
         if (json['result']) {
           loop = false;
           location.href = "{{ action_success }}";
@@ -50,7 +50,7 @@
           setTimeout("chekOrderStatus()", 1000);
         }
       },
-      error: function(xhr, ajaxOptions, thrownError) {
+      error: function (xhr, ajaxOptions, thrownError) {
         alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
       }
     });

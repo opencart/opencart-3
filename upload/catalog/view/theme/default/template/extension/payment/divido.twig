@@ -359,13 +359,13 @@
 </div>
 
 <script>
-(function($) {
+(function ($) {
     $(function () {
         $.getScript('{{ merchant_script }}', function () {
             divido_calculator($('#divido-checkout'));
         });
 
-        $('#button-confirm').on('click', function() {
+        $('#button-confirm').on('click', function () {
             var finance_elem = $('select[name="divido_finance"]');
             var deposit      = $('[name="divido_deposit"]').val();
 
@@ -387,13 +387,13 @@
                 data     : data,
                 dataType : 'json',
                 cache    : false,
-                beforeSend: function() {
+                beforeSend: function () {
                     $('#button-confirm').button('loading');
                 },
-                complete: function() {
+                complete: function () {
                     $('#button-confirm').button('reset');
                 },
-                success: function(data) {
+                success: function (data) {
                     if (data.status == 'ok') {
                         location = data.url;
                     } else {

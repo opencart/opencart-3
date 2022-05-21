@@ -404,14 +404,14 @@ function addModule(type) {
 	
 	$('#module-' + type + ' select[name*=\'code\']').trigger('change');
 		
-	$('#module-' + type + ' tbody input[name*=\'sort_order\']').each(function(i, element) {
+	$('#module-' + type + ' tbody input[name*=\'sort_order\']').each(function (i, element) {
 		$(element).val(i);
 	});
 	
 	module_row++;
 }
 
-$('#module-column-left, #module-column-right, #module-content-top, #module-content-bottom').delegate('select[name*=\'code\']', 'change', function() {
+$('#module-column-left, #module-column-right, #module-content-top, #module-content-bottom').delegate('select[name*=\'code\']', 'change', function () {
 	var part = this.value.split('.');
 	
 	if (!part[1]) {

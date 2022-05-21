@@ -76,7 +76,7 @@
     }
 </style>
 <script type="text/javascript">
-    $(document).ready(function() {
+    $(document).ready(function () {
         var app_id = '{{ app_id }}';
 
         var paymentFormSettings = {
@@ -103,11 +103,11 @@
             callbacks: {
                 // Called when the SqPaymentForm completes a request to generate a card
                 // nonce, even if the request failed because of an error.
-                cardNonceResponseReceived: function(errors, nonce, cardData) {
+                cardNonceResponseReceived: function (errors, nonce, cardData) {
                     if (errors) {
                         var message = '';
 
-                        errors.forEach(function(error) {
+                        errors.forEach(function (error) {
                             message += error.message + '. ';
                         });
 
@@ -119,12 +119,12 @@
                     }
                 },
 
-                unsupportedBrowserDetected: function() {
+                unsupportedBrowserDetected: function () {
                     squareupError("{{ error_browser_not_supported }}");
                     // Fill in this callback to alert buyers when their browser is not supported.
                 },
 
-                paymentFormLoaded: function() {
+                paymentFormLoaded: function () {
                     // Fill in this callback to perform actions after the payment form is
                     // done loading (such as setting the postal code field programmatically).
                     paymentForm.setPostalCode('{{ payment_zip|escape('js') }}');
@@ -143,20 +143,20 @@
             dataType : 'json',
             type : $(form).attr('method'),
             data : $(form).serialize(),
-            beforeSend : function() {
+            beforeSend : function () {
                 $('#button-confirm-order').button('loading');
             },
-            success : function(json) {
+            success : function (json) {
                 if (json.error) {
                     squareupError(json.error);
                 } else if (json.redirect) {
                     document.location = json.redirect;
                 }
             },
-            error : function(jqXHR, ajaxSettings, thrownError) {
+            error : function (jqXHR, ajaxSettings, thrownError) {
                 squareupError(thrownError);
             },
-            complete : function() {
+            complete : function () {
                 $('#button-confirm-order').button('reset');
             }
         });
@@ -199,7 +199,7 @@
         toggleAjaxSetup(init_ajax_setup);
     }
 
-    $('#button-confirm-order').unbind().click(function(e) {
+    $('#button-confirm-order').unbind().click(function (e) {
         e.preventDefault();
         e.stopPropagation();
 
@@ -209,7 +209,7 @@
         onConfirmCheckout();
     });
 
-    $('#squareup_select_card').change(function() {
+    $('#squareup_select_card').change(function () {
         if ($(this).val()) {
             $('#hide-card-details').slideUp();
         } else {

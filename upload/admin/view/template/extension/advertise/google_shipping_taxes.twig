@@ -194,7 +194,7 @@
     }
 </style>
 <script type="text/javascript">
-(function($) {
+(function ($) {
     var selector = {
         shipping_type: '[name="advertise_google_shipping_taxes[shipping_type]"]',
         tax_type: '[name="advertise_google_shipping_taxes[tax_type]"]',
@@ -202,7 +202,7 @@
         form: '#form'
     }
 
-    $(selector.shipping_type).change(function(e) {
+    $(selector.shipping_type).change(function (e) {
         $('[data-shipping-visible-on]').hide();
 
         $('[data-shipping-visible-on="' + $(this).val() + '"]').show();
@@ -210,7 +210,7 @@
 
     $(selector.shipping_type + ':checked').trigger('change');
 
-    $(selector.tax_type).change(function(e) {
+    $(selector.tax_type).change(function (e) {
         $('[data-tax-visible-on]').hide();
 
         $('[data-tax-visible-on="' + $(this).val() + '"]').show();
@@ -218,7 +218,7 @@
 
     $(selector.tax_type + ':checked').trigger('change');
 
-    $(document).on('click', selector.save, function(e) {
+    $(document).on('click', selector.save, function (e) {
         e.preventDefault();
         e.stopPropagation();
 

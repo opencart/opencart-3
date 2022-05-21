@@ -61700,7 +61700,7 @@ test('toISOString', function (assert) {
 test('inspect', function (assert) {
     function roundtrip(m) {
         /*jshint evil:true */
-        return (new Function('moment', 'return ' + m.inspect()))(moment);
+        return (new function ('moment', 'return ' + m.inspect()))(moment);
     }
     function testInspect(date, string) {
         var inspected = date.inspect();

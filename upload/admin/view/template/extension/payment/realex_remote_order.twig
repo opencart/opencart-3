@@ -75,12 +75,12 @@
         dataType: 'json',
         data: {'order_id': {{ order_id }} },
         url: 'index.php?route=extension/payment/realex_remote/void&user_token={{ user_token }}',
-        beforeSend: function() {
+        beforeSend: function () {
           $('#button-void').hide();
           $('#img_loading_void').show();
           $('#realex_transaction_msg').hide();
         },
-        success: function(data) {
+        success: function (data) {
           if (data.error == false) {
             html = '';
             html += '<tr>';
@@ -115,13 +115,13 @@
         dataType: 'json',
         data: {'order_id': {{ order_id }}, 'amount' : $('#capture_amount').val() },
         url: 'index.php?route=extension/payment/realex_remote/capture&user_token={{ user_token }}',
-        beforeSend: function() {
+        beforeSend: function () {
           $('#button_capture').hide();
           $('#capture_amount').hide();
           $('#img_loading_capture').show();
           $('#realex_transaction_msg').hide();
         },
-        success: function(data) {
+        success: function (data) {
           if (data.error == false) {
             html = '';
             html += '<tr>';
@@ -170,13 +170,13 @@
         dataType: 'json',
         data: {'order_id': {{ order_id }}, 'amount' : $('#rebate_amount').val() },
         url: 'index.php?route=extension/payment/realex_remote/rebate&user_token={{ user_token }}',
-        beforeSend: function() {
+        beforeSend: function () {
           $('#button-rebate').hide();
           $('#rebate_amount').hide();
           $('#img_loading_rebate').show();
           $('#realex_transaction_msg').hide();
         },
-        success: function(data) {
+        success: function (data) {
           if (data.error == false) {
             html = '';
             html += '<tr>';

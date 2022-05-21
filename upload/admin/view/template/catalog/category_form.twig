@@ -249,17 +249,17 @@
   
   <script type="text/javascript"><!--
 $('input[name=\'path\']').autocomplete({
-	'source': function(request, response) {
+	'source': function (request, response) {
 		$.ajax({
 			url: 'index.php?route=catalog/category/autocomplete&user_token={{ user_token }}&filter_name=' +  encodeURIComponent(request),
 			dataType: 'json',
-			success: function(json) {
+			success: function (json) {
 				json.unshift({
 					category_id: 0,
 					name: '{{ text_none }}'
 				});
 
-				response($.map(json, function(item) {
+				response($.map(json, function (item) {
 					return {
 						label: item['name'],
 						value: item['category_id']
@@ -268,7 +268,7 @@ $('input[name=\'path\']').autocomplete({
 			}
 		});
 	},
-	'select': function(item) {
+	'select': function (item) {
 		$('input[name=\'path\']').val(item['label']);
 		$('input[name=\'parent_id\']').val(item['value']);
 	}
@@ -276,12 +276,12 @@ $('input[name=\'path\']').autocomplete({
 //--></script>
   <script type="text/javascript"><!--
 $('input[name=\'filter\']').autocomplete({
-	'source': function(request, response) {
+	'source': function (request, response) {
 		$.ajax({
 			url: 'index.php?route=catalog/filter/autocomplete&user_token={{ user_token }}&filter_name=' +  encodeURIComponent(request),
 			dataType: 'json',
-			success: function(json) {
-				response($.map(json, function(item) {
+			success: function (json) {
+				response($.map(json, function (item) {
 					return {
 						label: item['name'],
 						value: item['filter_id']
@@ -290,7 +290,7 @@ $('input[name=\'filter\']').autocomplete({
 			}
 		});
 	},
-	'select': function(item) {
+	'select': function (item) {
 		$('input[name=\'filter\']').val('');
 
 		$('#category-filter' + item['value']).remove();
@@ -299,7 +299,7 @@ $('input[name=\'filter\']').autocomplete({
 	}
 });
 
-$('#category-filter').delegate('.fa-minus-circle', 'click', function() {
+$('#category-filter').delegate('.fa-minus-circle', 'click', function () {
 	$(this).parent().remove();
 });
 //--></script>
