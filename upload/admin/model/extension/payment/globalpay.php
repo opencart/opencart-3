@@ -61,14 +61,17 @@ class ModelExtensionPaymentGlobalpay extends Model {
 			$this->logger('Void XML request:\r\n' . print_r(simplexml_load_string($xml), 1));
 
 			$ch = curl_init();
+			
 			curl_setopt($ch, CURLOPT_URL, "https://epage.payandshop.com/epage-remote.cgi");
 			curl_setopt($ch, CURLOPT_POST, 1);
 			curl_setopt($ch, CURLOPT_USERAGENT, "OpenCart " . VERSION);
 			curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
 			curl_setopt($ch, CURLOPT_POSTFIELDS, $xml);
 			curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
-			$response = curl_exec ($ch);
-			curl_close ($ch);
+			
+			$response = curl_exec($ch);
+			
+			curl_close($ch);
 
 			return simplexml_load_string($response);
 		} else {
@@ -126,14 +129,17 @@ class ModelExtensionPaymentGlobalpay extends Model {
 			$this->logger('Settle XML request:\r\n' . print_r(simplexml_load_string($xml), 1));
 
 			$ch = curl_init();
+			
 			curl_setopt($ch, CURLOPT_URL, "https://epage.payandshop.com/epage-remote.cgi");
 			curl_setopt($ch, CURLOPT_POST, 1);
 			curl_setopt($ch, CURLOPT_USERAGENT, "OpenCart " . VERSION);
 			curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
 			curl_setopt($ch, CURLOPT_POSTFIELDS, $xml);
 			curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
-			$response = curl_exec ($ch);
-			curl_close ($ch);
+			
+			$response = curl_exec($ch);
+			
+			curl_close($ch);
 
 			return simplexml_load_string($response);
 		} else {
@@ -194,14 +200,17 @@ class ModelExtensionPaymentGlobalpay extends Model {
 			$this->logger('Rebate XML request:\r\n' . print_r(simplexml_load_string($xml), 1));
 
 			$ch = curl_init();
+			
 			curl_setopt($ch, CURLOPT_URL, "https://epage.payandshop.com/epage-remote.cgi");
 			curl_setopt($ch, CURLOPT_POST, 1);
 			curl_setopt($ch, CURLOPT_USERAGENT, "OpenCart " . VERSION);
 			curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
 			curl_setopt($ch, CURLOPT_POSTFIELDS, $xml);
 			curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
-			$response = curl_exec ($ch);
-			curl_close ($ch);
+			
+			$response = curl_exec($ch);
+			
+			curl_close($ch);
 
 			return simplexml_load_string($response);
 		} else {

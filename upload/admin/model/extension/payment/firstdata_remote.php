@@ -66,7 +66,7 @@ class ModelExtensionPaymentFirstdataRemote extends Model {
 		//curl_setopt($ch, CURLOPT_STDERR, fopen(DIR_LOGS . "/headers.txt", "w+"));
 		curl_setopt($ch, CURLOPT_VERBOSE, true);
 		
-		$response = curl_exec ($ch);
+		$response = curl_exec($ch);
 
 		$this->logger('Post data: ' . print_r($this->request->post, 1));
 		$this->logger('Request: ' . $xml);
@@ -75,7 +75,7 @@ class ModelExtensionPaymentFirstdataRemote extends Model {
 		$this->logger('Curl response info: ' . print_r(curl_getinfo($ch), 1));
 		$this->logger('Curl response: ' . $response);
 
-		curl_close ($ch);
+		curl_close($ch);
 
 		return $response;
 	}
