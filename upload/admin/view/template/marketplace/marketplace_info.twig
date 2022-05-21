@@ -61,7 +61,6 @@
                       <th class="text-right">{{ text_action }}</th>
                         </thead>
                     <tbody>
-                    
                     {% if downloads %}
                     {% for download in downloads %}
                     <tr>
@@ -82,7 +81,6 @@
                     </tr>
                     {% endif %}
                     </tbody>
-                    
                   </table>
                 </fieldset>
               </div>
@@ -131,6 +129,11 @@
               </div>
               <hr>
               <div class="row">
+                <div class="col-xs-5"><strong>{{ text_compatibility }}</strong></div>
+                <div class="col-xs-7 text-right">{{ compatibility }}</div>
+              </div>
+              <hr>
+              <div class="row">
                 <div class="col-xs-5"><strong>{{ text_date_modified }}</strong></div>
                 <div class="col-xs-7 text-right">{{ date_modified }}</div>
               </div>
@@ -149,7 +152,7 @@
                   <small>{{ text_member_since }} {{ member_date_added }}</small></div>
               </div>
               <br>
-              <a href="{{ filter_member }}" class="btn btn-primary btn-lg btn-block">{{ button_view_all }}</a> <a href="https://www.opencart.com/index.php?route=support/seller&amp;extension_id={{ extension_id }}" target="_blank" class="btn btn-ghost-dark btn-lg btn-block">{{ button_get_support }}</a></div>
+              <a href="{{ filter_member }}" class="btn btn-primary btn-lg btn-block">{{ button_view_all }}</a> <a href="https://www.opencart.com/index.php?route=support/seller&amp;extension_id={{ extension_id }}" target="_blank" class="btn btn-default btn-lg btn-block">{{ button_get_support }}</a></div>
           </div>
         </div>
       </div>
