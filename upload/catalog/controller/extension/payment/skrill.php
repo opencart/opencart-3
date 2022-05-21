@@ -1,7 +1,7 @@
 <?php
 class ControllerExtensionPaymentSkrill extends Controller {
 	public function index() {
-		if(!isset($this->session->data['order_id'])) {
+		if (!isset($this->session->data['order_id'])) {
 			return false;
 		}
 		
@@ -86,7 +86,7 @@ class ControllerExtensionPaymentSkrill extends Controller {
 			}
 
 			if ($verified) {
-				switch($this->request->post['status']) {
+				switch ($this->request->post['status']) {
 					case '2':
 						$this->model_checkout_order->addOrderHistory($order_id, $this->config->get('payment_skrill_order_status_id'), '', true);
 						break;

@@ -15,7 +15,7 @@ $_['text_production']			 	 	= 'Production';
 $_['text_sandbox']			 			= 'Sandbox';
 $_['text_authorization']			 	= 'Authorization';
 $_['text_sale']			 	 			= 'Sale';
-$_['text_connect']						= 'Your seller account has been connected.<br />Client ID = %s<br />Secret = %s<br />Merchant ID = %s<br />If you would like to connect another account, please, disconnect.';
+$_['text_connect']						= 'Your seller account has been connected.<br>Client ID = %s<br>Secret = %s<br>Merchant ID = %s<br>If you would like to connect another account, please, disconnect.';
 $_['text_currency_aud']					= 'Australian Dollar';
 $_['text_currency_brl']					= 'Brazilian Real';
 $_['text_currency_cad']					= 'Canadian Dollar';

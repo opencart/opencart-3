@@ -135,7 +135,7 @@
 					</td>
 					<td>
 						{% if settle_action is not empty %}
-							<input id="settle-amount" text="text" name="settle_amount" value="{{ max_settle_amount }}" />
+							<input id="settle-amount" text="text" name="settle_amount" value="{{ max_settle_amount }}"/>
 							<a class="btn btn-primary button-command" data-type="settle">{{ button_settle }}</a>
 						{% else %}
 							{{ text_na }}
@@ -143,7 +143,7 @@
 					</td>
 					<td>
 						{% if refund_action is not empty %}
-							<input id="refund-amount" text="text" name="refund_amount" value="{{ max_refund_amount }}" />
+							<input id="refund-amount" text="text" name="refund_amount" value="{{ max_refund_amount }}"/>
 							<a class="btn btn-primary button-command" data-type="refund">{{ button_refund }}</a>
 						{% else %}
 							{{ text_na }}

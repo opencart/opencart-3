@@ -59,7 +59,7 @@ class ControllerExtensionPaymentSagepayServer extends Controller {
 		$this->load->model('checkout/order');
 		$this->load->model('extension/payment/sagepay_server');
 
-		if(!isset($this->session->data['order_id'])) {
+		if (!isset($this->session->data['order_id'])) {
 			return false;
 		}
 
@@ -510,5 +510,4 @@ class ControllerExtensionPaymentSagepayServer extends Controller {
 			$this->model_extension_payment_sagepay_server->logger('Repeat Orders', $orders);
 		}
 	}
-
 }

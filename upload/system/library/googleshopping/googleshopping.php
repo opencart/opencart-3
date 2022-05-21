@@ -954,7 +954,7 @@ class Googleshopping extends Library {
         if (defined('STDOUT')) {
             fwrite(STDOUT, $log_message . PHP_EOL);
         } else {
-            echo $log_message . '<br /><hr />';
+            echo $log_message . '<br><hr/>';
         }
 
         return $log_message;
@@ -968,7 +968,7 @@ class Googleshopping extends Library {
         $this->load->language('extension/advertise/google');
 
         $subject = $this->language->get('text_cron_email_subject');
-        $message = sprintf($this->language->get('text_cron_email_message'), implode('<br/>', $report));
+        $message = sprintf($this->language->get('text_cron_email_message'), implode('<br>', $report));
 
         $mail = new \Mail();
 

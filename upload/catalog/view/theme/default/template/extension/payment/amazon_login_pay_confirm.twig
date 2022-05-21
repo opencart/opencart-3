@@ -13,29 +13,29 @@
         </div>
     </div>
     {% if is_coupon_change_allowed %}
-        <hr />
+        <hr>
         <h3 class="text-center">{{ text_coupon }}</h3>
         <p>{{ text_enter_coupon }}</p>
         <div class="input-group" id="couponContainer">
             {% if coupon %}
-                <input id="coupon" class="form-control" type="text" disabled value="{{ coupon }}" />
+                <input id="coupon" class="form-control" type="text" disabled value="{{ coupon }}"/>
                 <span class="input-group-btn">
                     <a id="couponDiscard" href="{{ coupon_discard }}" class="btn btn-danger"><i class="fa fa-times"></i></a>
                 </span>
             {% else %}
-                <input id="coupon" class="form-control" type="text" value="" />
+                <input id="coupon" class="form-control" type="text" value=""/>
                 <span class="input-group-btn">
                     <button class="btn btn-primary" id="couponApply"><i class="fa fa-tick"></i> {{ button_coupon }}</button>
                 </span>
             {% endif %}
         </div>
     {% endif %}
-    <hr />
+    <hr>
     <h3 class="text-center">{{ text_comments }}</h3>
     <div class="form-group">
         <textarea class="form-control" id="comment">{{ comment }}</textarea>
     </div>
-    <hr />
+    <hr>
     <table class="table table-bordered table-hover">
         <thead>
             <tr>
@@ -50,7 +50,7 @@
         {% for product in order.products %}
             <tr>
                 <td class="text-left">{{ product.name }}
-                    {% for option in product.option %} <br />
+                    {% for option in product.option %} <br>
                     <small>- {{ option.name }}: {{ option.value }}</small>
                     {% endfor %}
                 </td>
@@ -82,7 +82,7 @@
                     {% if is_amount_converted %}
                         <div class="alert alert-warning">
                             <i class="fa fa-exclamation-circle"></i> {{ text_amount_converted }}
-                            <hr />
+                            <hr>
                             <div class="text-right">
                                 <a class="btn btn-primary" id="confirm-button">{{ text_confirm }}</a>
                             </div>
@@ -94,7 +94,7 @@
             {% else %}
                 <div class="alert alert-warning">
                     <i class="fa fa-exclamation-circle"></i> {{ error_order_total_zero }}
-                    <hr />
+                    <hr>
                     <div class="text-right">
                         <a class="btn btn-primary" href="{{ standard_checkout }}" id="confirm-button">{{ text_continue_checkout }}</a>
                     </div>

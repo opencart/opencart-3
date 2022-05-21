@@ -676,7 +676,8 @@ class ControllerExtensionPaymentPPBraintree extends Controller {
 				 * Compare all of the user addresses and see if there is a match
 				 */
 				$match = false;
-				foreach($addresses as $address) {
+				
+				foreach ($addresses as $address) {
 					if (trim(strtolower($address['address_1'])) == trim(strtolower($this->request->post['details']['shippingAddress']['line1'])) && trim(strtolower($address['postcode'])) == trim(strtolower($this->request->post['details']['shippingAddress']['postalCode']))) {
 						$match = true;
 

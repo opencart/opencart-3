@@ -350,7 +350,7 @@ class ModelCheckoutOrder extends Model {
 				// Restock
 				$order_products = $this->getOrderProducts($order_id);
 
-				foreach($order_products as $order_product) {
+				foreach ($order_products as $order_product) {
 					$this->db->query("UPDATE `" . DB_PREFIX . "product` SET quantity = (quantity + " . (int)$order_product['quantity'] . ") WHERE product_id = '" . (int)$order_product['product_id'] . "' AND subtract = '1'");
 
 					$order_options = $this->getOrderOptions($order_id, $order_product['order_product_id']);

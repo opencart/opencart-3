@@ -13,7 +13,7 @@ class ControllerExtensionPaymentG2APay extends Controller {
 		$this->load->model('account/order');
 		$this->load->model('extension/payment/g2apay');
 
-		if(!isset($this->session->data['order_id'])) {
+		if (!isset($this->session->data['order_id'])) {
 			return false;
 		}
 
@@ -152,6 +152,8 @@ class ControllerExtensionPaymentG2APay extends Controller {
 
 	public function ipn() {
 		$this->load->model('extension/payment/g2apay');
+		$this->load->model('checkout/order');
+		
 		$this->model_extension_payment_g2apay->logger('ipn');
 
 		if (isset($this->request->get['token']) && hash_equals($this->config->get('payment_g2apay_secret_token'), $this->request->get['token'])) {
@@ -162,8 +164,10 @@ class ControllerExtensionPaymentG2APay extends Controller {
 
 				$string = $g2apay_order['g2apay_transaction_id'] . $g2apay_order['order_id'] . round($g2apay_order['total'], 2) . html_entity_decode($this->config->get('payment_g2apay_secret'));
 				$hash = hash('sha256', $string);
-				if($hash != $this->request->post['hash']){
+				
+				if ($hash != $this->request->post['hash']) {
 					$this->model_extension_payment_g2apay->logger('Hashes do not match, possible tampering!');
+					
 					return;
 				}
 
@@ -184,8 +188,6 @@ class ControllerExtensionPaymentG2APay extends Controller {
 						$order_status_id = $this->config->get('payment_g2apay_refunded_status_id');
 						break;
 				}
-
-				$this->load->model('checkout/order');
 				
 				$this->model_checkout_order->addOrderHistory($this->request->post['userOrderId'], $order_status_id);
 			}

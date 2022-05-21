@@ -41,7 +41,7 @@ class ControllerExtensionPaymentWechatPay extends Controller {
 
 		$this->load->model('checkout/order');
 
-		if(!isset($this->session->data['order_id'])) {
+		if (!isset($this->session->data['order_id'])) {
 			return false;
 		}
 
@@ -68,7 +68,8 @@ class ControllerExtensionPaymentWechatPay extends Controller {
 
 		$data['error'] = '';
 		$data['code_url'] = '';
-		if($result === FALSE){
+		
+		if ($result === FALSE) {
 			$data['error_warning'] = $pay->errMsg;
 		} else {
 			$data['code_url'] = $result;

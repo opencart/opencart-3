@@ -6,7 +6,7 @@ class MySQLi {
 	public function __construct($hostname, $username, $password, $database, $port = '3306') {
 		try {
 			$mysqli = @new \MySQLi($hostname, $username, $password, $database, $port);
-		} catch (mysqli_sql_exception $e) {
+		} catch (\mysqli_sql_exception $e) {
 			throw new \Exception('Error: Could not make a database link using ' . $username . '@' . $hostname . '!');
 		}
 
@@ -25,7 +25,7 @@ class MySQLi {
 
 		if (!$this->connection->errno) {
 			if ($query instanceof \mysqli_result) {
-				$data = [];
+				$data = array();
 
 				while ($row = $query->fetch_assoc()) {
 					$data[] = $row;
@@ -45,7 +45,7 @@ class MySQLi {
 				return true;
 			}
 		} else {
-			throw new \Exception('Error: ' . $this->connection->error  . '<br />Error No: ' . $this->connection->errno . '<br />' . $sql);
+			throw new \Exception('Error: ' . $this->connection->error  . '<br>Error No: ' . $this->connection->errno . '<br>' . $sql);
 		}
 	}
 

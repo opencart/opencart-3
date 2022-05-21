@@ -232,10 +232,10 @@
                   <div class="checkbox">
                     <label>
                       {% if card.value in firstdata_remote_cards_accepted %}
-                      <input type="checkbox" name="firstdata_remote_cards_accepted[]" value="{{ card.value }}" checked="checked" />
+                      <input type="checkbox" name="firstdata_remote_cards_accepted[]" value="{{ card.value }}" checked="checked"/>
                       {{ card.text }}
                       {% else %}
-                      <input type="checkbox" name="firstdata_remote_cards_accepted[]" value="{{ card.value }}" />
+                      <input type="checkbox" name="firstdata_remote_cards_accepted[]" value="{{ card.value }}"/>
                       {{ card.text }}
                       {% endif %}
                     </label>

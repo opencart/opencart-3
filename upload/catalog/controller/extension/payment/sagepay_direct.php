@@ -120,7 +120,7 @@ class ControllerExtensionPaymentSagepayDirect extends Controller {
 			$payment_data['VPSProtocol'] = '2.23';
 		}
 
-		if(!isset($this->session->data['order_id'])) {
+		if (!isset($this->session->data['order_id'])) {
 			return false;
 		}
 

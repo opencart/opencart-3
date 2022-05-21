@@ -59,7 +59,7 @@ class ModelExtensionPaymentSecureTradingPp extends Model {
 
 		$amount = $this->currency->format($order_info['total'], $order_info['currency_code'], false, false);
 
-		switch($this->config->get('payment_securetrading_pp_settle_status')){
+		switch ($this->config->get('payment_securetrading_pp_settle_status')) {
 			case 0:
 				$trans_type = 'auth';
 				break;

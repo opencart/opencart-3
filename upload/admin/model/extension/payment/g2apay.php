@@ -141,5 +141,4 @@ class ModelExtensionPaymentG2aPay extends Model {
 			$log->write(print_r($message, 1));
 		}
 	}
-
 }

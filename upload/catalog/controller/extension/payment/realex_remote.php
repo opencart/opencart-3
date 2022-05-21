@@ -87,7 +87,7 @@ class ControllerExtensionPaymentRealexRemote extends Controller {
 			$this->response->output();
 		}
 
-		if(!isset($this->session->data['order_id'])) {
+		if (!isset($this->session->data['order_id'])) {
 			return false;
 		}
 
@@ -300,15 +300,15 @@ class ControllerExtensionPaymentRealexRemote extends Controller {
 					$this->load->language('extension/payment/realex_remote');
 
 					$message = $this->language->get('error_3d_unsuccessful');
-					$message .= '<br /><strong>' . $this->language->get('text_eci') . ':</strong> (' . $eci . ') ' . $this->language->get('text_3d_s' . (int)$eci_ref);
-					$message .= '<br /><strong>' . $this->language->get('text_timestamp') . ':</strong> ' . (string)date("YmdHis");
-					$message .= '<br /><strong>' . $this->language->get('text_order_ref') . ':</strong> ' . (string)$md['order_ref'];
+					$message .= '<br><strong>' . $this->language->get('text_eci') . ':</strong> (' . $eci . ') ' . $this->language->get('text_3d_s' . (int)$eci_ref);
+					$message .= '<br><strong>' . $this->language->get('text_timestamp') . ':</strong> ' . (string)date("YmdHis");
+					$message .= '<br><strong>' . $this->language->get('text_order_ref') . ':</strong> ' . (string)$md['order_ref'];
 
 					if ($this->config->get('payment_realex_remote_card_data_status') == 1) {
-						$message .= '<br /><strong>' . $this->language->get('entry_cc_type') . ':</strong> ' . (string)$md['cc_type'];
-						$message .= '<br /><strong>' . $this->language->get('text_last_digits') . ':</strong> ' . (string)substr($md['cc_number'], -4);
-						$message .= '<br /><strong>' . $this->language->get('entry_cc_expire_date') . ':</strong> ' . (string)$md['cc_expire'];
-						$message .= '<br /><strong>' . $this->language->get('entry_cc_name') . ':</strong> ' . (string)$md['cc_name'];
+						$message .= '<br><strong>' . $this->language->get('entry_cc_type') . ':</strong> ' . (string)$md['cc_type'];
+						$message .= '<br><strong>' . $this->language->get('text_last_digits') . ':</strong> ' . (string)substr($md['cc_number'], -4);
+						$message .= '<br><strong>' . $this->language->get('entry_cc_expire_date') . ':</strong> ' . (string)$md['cc_expire'];
+						$message .= '<br><strong>' . $this->language->get('entry_cc_name') . ':</strong> ' . (string)$md['cc_name'];
 					}
 
 					$this->model_extension_payment_realex_remote->addHistory($md['order_id'], $this->config->get('payment_realex_remote_order_status_decline_id'), $message);

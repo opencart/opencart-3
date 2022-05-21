@@ -490,7 +490,7 @@ class ModelExtensionShippingECShip extends Model {
 				array_push($objResponseArray, $objResponse);
 			}
 
-			if ($objResponseArray){
+			if ($objResponseArray) {
 				$code = 'ec_ship';
 				$quote_data = array();
 

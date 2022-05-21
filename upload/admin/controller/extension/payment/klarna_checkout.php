@@ -411,7 +411,7 @@ class ControllerExtensionPaymentKlarnaCheckout extends Controller {
 			'phone'				=> $klarna_order['billing_address']['phone']
 		);
 
-		$billing_address_formatted = str_replace(array("\r\n", "\r", "\n"), '<br />', preg_replace(array("/\s\s+/", "/\r\r+/", "/\n\n+/"), '<br />', trim(str_replace($find, $replace, $format))));
+		$billing_address_formatted = str_replace(array("\r\n", "\r", "\n"), '<br>', preg_replace(array("/\s\s+/", "/\r\r+/", "/\n\n+/"), '<br>', trim(str_replace($find, $replace, $format))));
 
 		$replace = array(
 			'title'				=> $klarna_order['shipping_address']['title'],

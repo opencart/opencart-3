@@ -370,5 +370,4 @@ class ModelExtensionPaymentWorldpay extends Model {
 		 */
 		return true;
 	}
-
 }

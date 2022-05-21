@@ -44,7 +44,7 @@ final class PgSQL {
 				return true;
 			}
 		} else {
-			throw new \Exception('Error: ' . pg_result_error($this->link) . '<br />' . $sql);
+			throw new \Exception('Error: ' . pg_result_error($this->link) . '<br>' . $sql);
 		}
 	}
 

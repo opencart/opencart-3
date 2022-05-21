@@ -28,7 +28,7 @@
           <div class="form-group required">
             <label class="col-sm-2 control-label" for="input-key">{{ entry_key }}</label>
             <div class="col-sm-10">
-              <input type="text" name="shipping_fedex_key" value="{{ shipping_fedex_key }}" placeholder="{{ entry_key }}" id="input-key" class="form-control" />
+              <input type="text" name="shipping_fedex_key" value="{{ shipping_fedex_key }}" placeholder="{{ entry_key }}" id="input-key" class="form-control"/>
               {% if error_key %}
               <div class="text-danger">{{ error_key }}</div>
               {% endif %}
@@ -37,7 +37,7 @@
           <div class="form-group required">
             <label class="col-sm-2 control-label" for="input-password">{{ entry_password }}</label>
             <div class="col-sm-10">
-              <input type="text" name="shipping_fedex_password" value="{{ shipping_fedex_password }}" placeholder="{{ entry_password }}" id="input-password" class="form-control" />
+              <input type="text" name="shipping_fedex_password" value="{{ shipping_fedex_password }}" placeholder="{{ entry_password }}" id="input-password" class="form-control"/>
               {% if error_password %}
               <div class="text-danger">{{ error_password }}</div>
               {% endif %}
@@ -46,7 +46,7 @@
           <div class="form-group required">
             <label class="col-sm-2 control-label" for="input-account">{{ entry_account }}</label>
             <div class="col-sm-10">
-              <input type="text" name="shipping_fedex_account" value="{{ shipping_fedex_account }}" placeholder="{{ entry_account }}" id="input-account" class="form-control" />
+              <input type="text" name="shipping_fedex_account" value="{{ shipping_fedex_account }}" placeholder="{{ entry_account }}" id="input-account" class="form-control"/>
               {% if error_account %}
               <div class="text-danger">{{ error_account }}</div>
               {% endif %}
@@ -55,7 +55,7 @@
           <div class="form-group required">
             <label class="col-sm-2 control-label" for="input-meter">{{ entry_meter }}</label>
             <div class="col-sm-10">
-              <input type="text" name="shipping_fedex_meter" value="{{ shipping_fedex_meter }}" placeholder="{{ entry_meter }}" id="input-meter" class="form-control" />
+              <input type="text" name="shipping_fedex_meter" value="{{ shipping_fedex_meter }}" placeholder="{{ entry_meter }}" id="input-meter" class="form-control"/>
               {% if error_meter %}
               <div class="text-danger">{{ error_meter }}</div>
               {% endif %}
@@ -64,7 +64,7 @@
           <div class="form-group required">
             <label class="col-sm-2 control-label" for="input-postcode">{{ entry_postcode }}</label>
             <div class="col-sm-10">
-              <input type="text" name="shipping_fedex_postcode" value="{{ shipping_fedex_postcode }}" placeholder="{{ entry_postcode }}" id="input-postcode" class="form-control" />
+              <input type="text" name="shipping_fedex_postcode" value="{{ shipping_fedex_postcode }}" placeholder="{{ entry_postcode }}" id="input-postcode" class="form-control"/>
               {% if error_postcode %}
               <div class="text-danger">{{ error_postcode }}</div>
               {% endif %}
@@ -75,19 +75,19 @@
             <div class="col-sm-10">
               <label class="radio-inline">
                 {% if shipping_fedex_test %}
-                <input type="radio" name="shipping_fedex_test" value="1" checked="checked" />
+                <input type="radio" name="shipping_fedex_test" value="1" checked="checked"/>
                 {{ text_yes }}
                 {% else %}
-                <input type="radio" name="shipping_fedex_test" value="1" />
+                <input type="radio" name="shipping_fedex_test" value="1"/>
                 {{ text_yes }}
                 {% endif %}
               </label>
               <label class="radio-inline">
                 {% if not shipping_fedex_test %}
-                <input type="radio" name="shipping_fedex_test" value="0" checked="checked" />
+                <input type="radio" name="shipping_fedex_test" value="0" checked="checked"/>
                 {{ text_no }}
                 {% else %}
-                <input type="radio" name="shipping_fedex_test" value="0" />
+                <input type="radio" name="shipping_fedex_test" value="0"/>
                 {{ text_no }}
                 {% endif %}
               </label>
@@ -101,10 +101,10 @@
                 <div class="checkbox">
                   <label>
                     {% if service.value in shipping_fedex_service %}
-                    <input type="checkbox" name="shipping_fedex_service[]" value="{{ service.value }}" checked="checked" />
+                    <input type="checkbox" name="shipping_fedex_service[]" value="{{ service.value }}" checked="checked"/>
                     {{ service.text }}
                     {% else %}
-                    <input type="checkbox" name="shipping_fedex_service[]" value="{{ service.value }}" />
+                    <input type="checkbox" name="shipping_fedex_service[]" value="{{ service.value }}"/>
                     {{ service.text }}
                     {% endif %}
                   </label>
@@ -118,13 +118,13 @@
             <div class="col-sm-10">
               <div class="row">
                 <div class="col-sm-4">
-                  <input type="text" name="shipping_fedex_length" value="{{ shipping_fedex_length }}" placeholder="{{ entry_length }}" id="input-length" class="form-control" />
+                  <input type="text" name="shipping_fedex_length" value="{{ shipping_fedex_length }}" placeholder="{{ entry_length }}" id="input-length" class="form-control"/>
                 </div>
                 <div class="col-sm-4">
-                  <input type="text" name="shipping_fedex_width" value="{{ shipping_fedex_width }}" placeholder="{{ entry_width }}" id="input-width" class="form-control" />
+                  <input type="text" name="shipping_fedex_width" value="{{ shipping_fedex_width }}" placeholder="{{ entry_width }}" id="input-width" class="form-control"/>
                 </div>
                 <div class="col-sm-4">
-                  <input type="text" name="shipping_fedex_height" value="{{ shipping_fedex_height }}" placeholder="{{ entry_height }}" id="input-height" class="form-control" />
+                  <input type="text" name="shipping_fedex_height" value="{{ shipping_fedex_height }}" placeholder="{{ entry_height }}" id="input-height" class="form-control"/>
                 </div>
               </div>
               {% if error_dimension %}
@@ -242,19 +242,19 @@
             <div class="col-sm-10">
               <label class="radio-inline">
                 {% if shipping_fedex_display_time %}
-                <input type="radio" name="shipping_fedex_display_time" value="1" checked="checked" />
+                <input type="radio" name="shipping_fedex_display_time" value="1" checked="checked"/>
                 {{ text_yes }}
                 {% else %}
-                <input type="radio" name="shipping_fedex_display_time" value="1" />
+                <input type="radio" name="shipping_fedex_display_time" value="1"/>
                 {{ text_yes }}
                 {% endif %}
               </label>
               <label class="radio-inline">
                 {% if not shipping_fedex_display_time %}
-                <input type="radio" name="shipping_fedex_display_time" value="0" checked="checked" />
+                <input type="radio" name="shipping_fedex_display_time" value="0" checked="checked"/>
                 {{ text_no }}
                 {% else %}
-                <input type="radio" name="shipping_fedex_display_time" value="0" />
+                <input type="radio" name="shipping_fedex_display_time" value="0"/>
                 {{ text_no }}
                 {% endif %}
               </label>
@@ -265,19 +265,19 @@
             <div class="col-sm-10">
               <label class="radio-inline">
                 {% if shipping_fedex_display_weight %}
-                <input type="radio" name="shipping_fedex_display_weight" value="1" checked="checked" />
+                <input type="radio" name="shipping_fedex_display_weight" value="1" checked="checked"/>
                 {{ text_yes }}
                 {% else %}
-                <input type="radio" name="shipping_fedex_display_weight" value="1" />
+                <input type="radio" name="shipping_fedex_display_weight" value="1"/>
                 {{ text_yes }}
                 {% endif %}
               </label>
               <label class="radio-inline">
                 {% if not shipping_fedex_display_weight %}
-                <input type="radio" name="shipping_fedex_display_weight" value="0" checked="checked" />
+                <input type="radio" name="shipping_fedex_display_weight" value="0" checked="checked"/>
                 {{ text_no }}
                 {% else %}
-                <input type="radio" name="shipping_fedex_display_weight" value="0" />
+                <input type="radio" name="shipping_fedex_display_weight" value="0"/>
                 {{ text_no }}
                 {% endif %}
               </label>
@@ -344,7 +344,7 @@
           <div class="form-group">
             <label class="col-sm-2 control-label" for="input-sort-order">{{ entry_sort_order }}</label>
             <div class="col-sm-10">
-              <input type="text" name="shipping_fedex_sort_order" value="{{ shipping_fedex_sort_order }}" placeholder="{{ entry_sort_order }}" id="input-sort-order" class="form-control" />
+              <input type="text" name="shipping_fedex_sort_order" value="{{ shipping_fedex_sort_order }}" placeholder="{{ entry_sort_order }}" id="input-sort-order" class="form-control"/>
             </div>
           </div>
         </form>

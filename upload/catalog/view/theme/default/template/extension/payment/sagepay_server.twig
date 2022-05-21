@@ -24,7 +24,7 @@
           </select>
         </div>
         <div class="col-sm-2">
-          <input type="button" value="{{ button_delete_card }}" id="button-delete" data-loading-text="{{ text_loading }}" class="btn btn-danger" />
+          <input type="button" value="{{ button_delete_card }}" id="button-delete" data-loading-text="{{ text_loading }}" class="btn btn-danger"/>
         </div>
       </div>
     </div>
@@ -61,7 +61,7 @@
     {% endif %}
     <div class="buttons">
       <div class="pull-right">
-        <input type="button" value="{{ button_confirm }}" id="button-confirm" data-loading-text="{{ text_loading }}" class="btn btn-primary" />
+        <input type="button" value="{{ button_confirm }}" id="button-confirm" data-loading-text="{{ text_loading }}" class="btn btn-primary"/>
       </div>
     </div>
   </fieldset>
@@ -99,8 +99,8 @@ $('#button-confirm').bind('click', function() {
 			// if success
 			if (json['redirect']) {
 				html = '<form action="' + json['redirect'] + '" method="post" id="redirect">';
-				html += '  <input type="hidden" name="Status" value="' + json['Status'] + '" />';
-				html += '  <input type="hidden" name="StatusDetail" value="' + json['StatusDetail'] + '" />';
+				html += '  <input type="hidden" name="Status" value="' + json['Status'] + '"/>';
+				html += '  <input type="hidden" name="StatusDetail" value="' + json['StatusDetail'] + '"/>';
 
 				html += '</form>';
 

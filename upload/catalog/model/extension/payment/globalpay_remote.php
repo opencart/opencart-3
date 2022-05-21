@@ -244,51 +244,51 @@ class ModelExtensionPaymentGlobalpayRemote extends Model {
 		$response = simplexml_load_string($response);
 
 		$message = '<strong>' . $this->language->get('text_result') . ':</strong> ' . (int)$response->result;
-		$message .= '<br /><strong>' . $this->language->get('text_message') . ':</strong> ' . (string)$response->message;
-		$message .= '<br /><strong>' . $this->language->get('text_order_ref') . ':</strong> ' . (string)$order_ref;
+		$message .= '<br><strong>' . $this->language->get('text_message') . ':</strong> ' . (string)$response->message;
+		$message .= '<br><strong>' . $this->language->get('text_order_ref') . ':</strong> ' . (string)$order_ref;
 
 		if (isset($response->cvnresult) && !empty($response->cvnresult)) {
-			$message .= '<br /><strong>' . $this->language->get('text_cvn_result') . ':</strong> ' . (string)$response->cvnresult;
+			$message .= '<br><strong>' . $this->language->get('text_cvn_result') . ':</strong> ' . (string)$response->cvnresult;
 		}
 
 		if (isset($response->avspostcoderesponse) && !empty($response->avspostcoderesponse)) {
-			$message .= '<br /><strong>' . $this->language->get('text_avs_postcode') . ':</strong> ' . (string)$response->avspostcoderesponse;
+			$message .= '<br><strong>' . $this->language->get('text_avs_postcode') . ':</strong> ' . (string)$response->avspostcoderesponse;
 		}
 
 		if (isset($response->avsaddressresponse) && !empty($response->avsaddressresponse)) {
-			$message .= '<br /><strong>' . $this->language->get('text_avs_address') . ':</strong> ' . (string)$response->avsaddressresponse;
+			$message .= '<br><strong>' . $this->language->get('text_avs_address') . ':</strong> ' . (string)$response->avsaddressresponse;
 		}
 
 		if (isset($response->authcode) && !empty($response->authcode)) {
-			$message .= '<br /><strong>' . $this->language->get('text_auth_code') . ':</strong> ' . (string)$response->authcode;
+			$message .= '<br><strong>' . $this->language->get('text_auth_code') . ':</strong> ' . (string)$response->authcode;
 		}
 
 		if (!empty($eci_ref)) {
-			$message .= '<br /><strong>' . $this->language->get('text_eci') . ':</strong> (' . (int)$eci . ') ' . $this->language->get('text_3d_s' . (int)$eci_ref);
+			$message .= '<br><strong>' . $this->language->get('text_eci') . ':</strong> (' . (int)$eci . ') ' . $this->language->get('text_3d_s' . (int)$eci_ref);
 		}
 
 		if (isset($response->tss->result) && !empty($response->tss->result)) {
-			$message .= '<br /><strong>' . $this->language->get('text_tss') . ':</strong> ' . (int)$response->tss->result;
+			$message .= '<br><strong>' . $this->language->get('text_tss') . ':</strong> ' . (int)$response->tss->result;
 		}
 
-		$message .= '<br /><strong>' . $this->language->get('text_timestamp') . ':</strong> ' . (string)$timestamp;
+		$message .= '<br><strong>' . $this->language->get('text_timestamp') . ':</strong> ' . (string)$timestamp;
 
 		if ($this->config->get('payment_globalpay_remote_card_data_status') == 1) {
-			$message .= '<br /><strong>' . $this->language->get('entry_cc_type') . ':</strong> ' . (string)$type;
-			$message .= '<br /><strong>' . $this->language->get('text_last_digits') . ':</strong> ' . (string)substr($card_number, -4);
-			$message .= '<br /><strong>' . $this->language->get('entry_cc_expire_date') . ':</strong> ' . (string)$expire;
-			$message .= '<br /><strong>' . $this->language->get('entry_cc_name') . ':</strong> ' . (string)$name;
+			$message .= '<br><strong>' . $this->language->get('entry_cc_type') . ':</strong> ' . (string)$type;
+			$message .= '<br><strong>' . $this->language->get('text_last_digits') . ':</strong> ' . (string)substr($card_number, -4);
+			$message .= '<br><strong>' . $this->language->get('entry_cc_expire_date') . ':</strong> ' . (string)$expire;
+			$message .= '<br><strong>' . $this->language->get('entry_cc_name') . ':</strong> ' . (string)$name;
 
 			if (isset($response->cardissuer->bank) && !empty($response->cardissuer->bank)) {
-				$message .= '<br /><strong>' . $this->language->get('text_card_bank') . ':</strong> ' . (string)$response->cardissuer->bank;
+				$message .= '<br><strong>' . $this->language->get('text_card_bank') . ':</strong> ' . (string)$response->cardissuer->bank;
 			}
 
 			if (isset($response->cardissuer->country) && !empty($response->cardissuer->country)) {
-				$message .= '<br /><strong>' . $this->language->get('text_card_country') . ':</strong> ' . (string)$response->cardissuer->country;
+				$message .= '<br><strong>' . $this->language->get('text_card_country') . ':</strong> ' . (string)$response->cardissuer->country;
 			}
 
 			if (isset($response->cardissuer->region) && !empty($response->cardissuer->region)) {
-				$message .= '<br /><strong>' . $this->language->get('text_card_region') . ':</strong> ' . (string)$response->cardissuer->region;
+				$message .= '<br><strong>' . $this->language->get('text_card_region') . ':</strong> ' . (string)$response->cardissuer->region;
 			}
 		}
 

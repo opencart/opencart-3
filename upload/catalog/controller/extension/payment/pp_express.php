@@ -290,7 +290,7 @@ class ControllerExtensionPaymentPPExpress extends Controller {
 				 * Compare all of the user addresses and see if there is a match
 				 */
 				$match = false;
-				foreach($addresses as $address) {
+				foreach ($addresses as $address) {
 					if (trim(strtolower($address['address_1'])) == trim(strtolower($result['PAYMENTREQUEST_0_SHIPTOSTREET'])) && trim(strtolower($address['postcode'])) == trim(strtolower($result['PAYMENTREQUEST_0_SHIPTOZIP']))) {
 						$match = true;
 
@@ -1097,7 +1097,7 @@ class ControllerExtensionPaymentPPExpress extends Controller {
 
 			if ($result['ACK'] == 'Success') {
 				//handle order status
-				switch($result['PAYMENTINFO_0_PAYMENTSTATUS']) {
+				switch ($result['PAYMENTINFO_0_PAYMENTSTATUS']) {
 					case 'Canceled_Reversal':
 						$order_status_id = $this->config->get('payment_pp_express_canceled_reversal_status_id');
 						break;
@@ -1177,7 +1177,7 @@ class ControllerExtensionPaymentPPExpress extends Controller {
 						'year'       => 'Year'
 					);
 
-					foreach($recurring_products as $item) {
+					foreach ($recurring_products as $item) {
 						$data = array(
 							'METHOD'             => 'CreateRecurringPaymentsProfile',
 							'TOKEN'              => $this->session->data['paypal']['token'],
@@ -1275,7 +1275,7 @@ class ControllerExtensionPaymentPPExpress extends Controller {
 		$this->load->model('tool/image');
 		$this->load->model('checkout/order');
 
-		if(!isset($this->session->data['order_id'])) {
+		if (!isset($this->session->data['order_id'])) {
 			return false;
 		}
 
@@ -1405,7 +1405,7 @@ class ControllerExtensionPaymentPPExpress extends Controller {
 
 		if ($result['ACK'] == 'Success') {
 			//handle order status
-			switch($result['PAYMENTINFO_0_PAYMENTSTATUS']) {
+			switch ($result['PAYMENTINFO_0_PAYMENTSTATUS']) {
 				case 'Canceled_Reversal':
 					$order_status_id = $this->config->get('payment_pp_express_canceled_reversal_status_id');
 					break;
@@ -1728,7 +1728,6 @@ class ControllerExtensionPaymentPPExpress extends Controller {
 
 						$this->model_extension_payment_pp_express->updateOrder('Complete', $parent_transaction['order_id']);
 					}
-
 				} else {
 					//parent transaction doesn't exists, need to investigate?
 					$this->model_extension_payment_pp_express->log('Parent transaction not found', 'IPN data');

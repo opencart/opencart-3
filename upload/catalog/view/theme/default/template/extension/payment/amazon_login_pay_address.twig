@@ -7,7 +7,7 @@
             <a href="{{ cart }}" class="btn btn-default">{{ text_cart }}</a>
         </div>
         <div class="pull-right form-control-static">
-            <input class="btn btn-primary" id="continue-button" data-loading-text="{{ text_loading }}" type="submit" value="{{ text_continue }}" />
+            <input class="btn btn-primary" id="continue-button" data-loading-text="{{ text_loading }}" type="submit" value="{{ text_continue }}"/>
         </div>
     </div>
 </div>
@@ -26,7 +26,7 @@
         height: 350px;
     }
 </style>
-<input type="hidden" name="addressSelected" value="0" />
+<input type="hidden" name="addressSelected" value="0"/>
 <script type="text/javascript">
 (function($) {
     $(document).ready(function() {
@@ -88,16 +88,16 @@
                         var html = '';
 
                         $.each(data.quotes, function(code, shippingMethod) {
-                            html += '<hr /><h3>' + shippingMethod.title + '</h3>';
+                            html += '<hr><h3>' + shippingMethod.title + '</h3>';
 
                             $.each(shippingMethod.quote, function(i, quote) {
                                 html += '<div class="radio">';
                                 html += '<label>';
 
                                 if (data.selected == quote.code) {
-                                    html += '<input type="radio" name="shipping_method" value="' + quote.code + '" id="' + quote.code + '" checked="checked" />';
+                                    html += '<input type="radio" name="shipping_method" value="' + quote.code + '" id="' + quote.code + '" checked="checked"/>';
                                 } else {
-                                    html += '<input type="radio" name="shipping_method" value="' + quote.code + '" id="' + quote.code + '" />';
+                                    html += '<input type="radio" name="shipping_method" value="' + quote.code + '" id="' + quote.code + '"/>';
                                 }
 
                                 html += quote.title + ' - ';

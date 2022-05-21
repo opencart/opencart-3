@@ -24,7 +24,7 @@
               <label class="col-sm-2 control-label" for="input-date-start">{{ entry_date_start }}</label>
               <div class="col-sm-10">
                 <div class="input-group date">
-                  <input type="text" name="date_start" value="{{ date_start }}" placeholder="{{ text_format }}: yy-mm-dd" data-date-format="YYYY-MM-DD" id="input-date-start" class="form-control" />
+                  <input type="text" name="date_start" value="{{ date_start }}" placeholder="{{ text_format }}: yy-mm-dd" data-date-format="YYYY-MM-DD" id="input-date-start" class="form-control"/>
                   <span class="input-group-btn">
                   <button type="button" class="btn btn-default"><i class="fa fa-calendar"></i></button>
                   </span></div>
@@ -34,7 +34,7 @@
               <label class="col-sm-2 control-label" for="input-date-end">{{ entry_date_end }}</label>
               <div class="col-sm-10">
                 <div class="input-group date">
-                  <input type="text" name="date_end" value="{{ date_end }}" placeholder="{{ text_format }}: yy-mm-dd" data-date-format="YYYY-MM-DD" class="form-control" />
+                  <input type="text" name="date_end" value="{{ date_end }}" placeholder="{{ text_format }}: yy-mm-dd" data-date-format="YYYY-MM-DD" class="form-control"/>
                   <span class="input-group-btn">
                   <button type="button" class="btn btn-default"><i class="fa fa-calendar"></i></button>
                   </span></div>
@@ -70,44 +70,44 @@
             <div class="form-group">
               <label class="col-sm-2 control-label">{{ entry_email }} ({{ entry_email_buyer }})</label>
               <div class="col-sm-10">
-                <input type="text" name="buyer_email" value="" placeholder="{{ entry_email_buyer }}" class="form-control" />
+                <input type="text" name="buyer_email" value="" placeholder="{{ entry_email_buyer }}" class="form-control"/>
               </div>
             </div>
             <div class="form-group">
               <label class="col-sm-2 control-label">{{ entry_email }} ({{ entry_email_merchant }})</label>
               <div class="col-sm-10">
-                <input type="text" name="merchant_email" value="" placeholder="{{ entry_email_merchant }}" class="form-control" />
+                <input type="text" name="merchant_email" value="" placeholder="{{ entry_email_merchant }}" class="form-control"/>
               </div>
             </div>
             <div class="form-group">
               <label class="col-sm-2 control-label">{{ entry_receipt }}</label>
               <div class="col-sm-10">
-                <input type="text" name="receipt_id" value="" placeholder="{{ entry_receipt }}" class="form-control" />
+                <input type="text" name="receipt_id" value="" placeholder="{{ entry_receipt }}" class="form-control"/>
               </div>
             </div>
             <div class="form-group">
               <label class="col-sm-2 control-label">{{ entry_transaction_id }}</label>
               <div class="col-sm-10">
-                <input type="text" name="transaction_id" value="" placeholder="{{ entry_transaction_id }}" class="form-control" />
+                <input type="text" name="transaction_id" value="" placeholder="{{ entry_transaction_id }}" class="form-control"/>
               </div>
             </div>
             <div class="form-group">
               <label class="col-sm-2 control-label">{{ entry_invoice_no }}</label>
               <div class="col-sm-10">
-                <input type="text" name="invoice_number" value="" placeholder="{{ entry_invoice_no }}" class="form-control" />
+                <input type="text" name="invoice_number" value="" placeholder="{{ entry_invoice_no }}" class="form-control"/>
               </div>
             </div>
             <div class="form-group">
               <label class="col-sm-2 control-label">{{ entry_auction }}</label>
               <div class="col-sm-10">
-                <input type="text" name="auction_item_number" value="" placeholder="{{ entry_auction }}" class="form-control" />
+                <input type="text" name="auction_item_number" value="" placeholder="{{ entry_auction }}" class="form-control"/>
               </div>
             </div>
             <div class="form-group">
               <label class="col-sm-2 control-label">{{ entry_amount }}</label>
               <div class="col-sm-10">
-                <input type="text" name="amount" value="" placeholder="{{ entry_amount }}" class="form-control" />
-                <br />
+                <input type="text" name="amount" value="" placeholder="{{ entry_amount }}" class="form-control"/>
+                <br>
                 <select name="currency_code" class="form-control">
                   {% for code in currency_codes %}
                   <option {% if code == default_currency  %} 'selected' {% endif %}>{{ code }}</option>
@@ -118,38 +118,38 @@
             <div class="form-group">
               <label class="col-sm-2 control-label">{{ entry_recurring_id }}</label>
               <div class="col-sm-10">
-                <input type="text" name="recurring_id" value="" placeholder="{{ entry_recurring_id }}" class="form-control" />
+                <input type="text" name="recurring_id" value="" placeholder="{{ entry_recurring_id }}" class="form-control"/>
               </div>
             </div>
             <h3>{{ text_buyer_info }}</h3>
             <div class="form-group">
               <label class="col-sm-2 control-label">{{ entry_salutation }}</label>
               <div class="col-sm-10">
-                <input type="text" name="name_salutation" value="" placeholder="{{ entry_salutation }}" class="form-control" />
+                <input type="text" name="name_salutation" value="" placeholder="{{ entry_salutation }}" class="form-control"/>
               </div>
             </div>
             <div class="form-group">
               <label class="col-sm-2 control-label">{{ entry_firstname }}</label>
               <div class="col-sm-10">
-                <input type="text" name="name_first" value="" placeholder="{{ entry_firstname }}" class="form-control" />
+                <input type="text" name="name_first" value="" placeholder="{{ entry_firstname }}" class="form-control"/>
               </div>
             </div>
             <div class="form-group">
               <label class="col-sm-2 control-label">{{ entry_middlename }}</label>
               <div class="col-sm-10">
-                <input type="text" name="name_middle" value="" placeholder="{{ entry_middlename }}" class="form-control" />
+                <input type="text" name="name_middle" value="" placeholder="{{ entry_middlename }}" class="form-control"/>
               </div>
             </div>
             <div class="form-group">
               <label class="col-sm-2 control-label">{{ entry_lastname }}</label>
               <div class="col-sm-10">
-                <input type="text" name="name_last" value="" placeholder="{{ entry_lastname }}" class="form-control" />
+                <input type="text" name="name_last" value="" placeholder="{{ entry_lastname }}" class="form-control"/>
               </div>
             </div>
             <div class="form-group">
               <label class="col-sm-2 control-label">{{ entry_suffix }}</label>
               <div class="col-sm-10">
-                <input type="text" name="name_suffix" value="" placeholder="{{ entry_suffix }}" class="form-control" />
+                <input type="text" name="name_suffix" value="" placeholder="{{ entry_suffix }}" class="form-control"/>
               </div>
             </div>
           </form>

@@ -870,6 +870,7 @@ class ControllerExtensionPaymentLaybuy extends Controller {
 				$json['reload'] = $this->url->link('extension/payment/laybuy/transaction', 'user_token=' . $this->session->data['user_token'] . '&id=' . $id, true);
 			}
 
+			$this->response->addHeader('Content-Type: application/json');
 			$this->response->setOutput(json_encode($json));
 		} else {
 			$this->model_extension_payment_laybuy->log('User does not have permission');
@@ -989,7 +990,9 @@ class ControllerExtensionPaymentLaybuy extends Controller {
 				$this->model_extension_payment_laybuy->log('Data String: ' . $data_string);
 
 				$ch = curl_init();
+				
 				$url = 'https://lay-buys.com/vtmob/deal5.php';
+				
 				curl_setopt($ch, CURLOPT_URL, $url);
 				curl_setopt($ch, CURLOPT_POST, true);
 				curl_setopt($ch, CURLOPT_POSTFIELDS, $data_string);
@@ -997,10 +1000,13 @@ class ControllerExtensionPaymentLaybuy extends Controller {
 				curl_setopt($ch, CURLOPT_HEADER, false);
 				curl_setopt($ch, CURLOPT_TIMEOUT, 30);
 				curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+				
 				$result = curl_exec($ch);
+				
 				if (curl_errno($ch)) {
 					$this->model_extension_payment_laybuy->log('cURL error: ' . curl_errno($ch));
 				}
+				
 				curl_close($ch);
 
 				if ($result == 'success') {
@@ -1023,6 +1029,7 @@ class ControllerExtensionPaymentLaybuy extends Controller {
 					$json['reload'] = $this->url->link('extension/payment/laybuy/transaction', 'user_token=' . $this->session->data['user_token'] . '&id=' . $id, true);
 				}
 
+				$this->response->addHeader('Content-Type: application/json');
 				$this->response->setOutput(json_encode($json));
 			} else {
 				$this->model_extension_payment_laybuy->log('No $_POST data');

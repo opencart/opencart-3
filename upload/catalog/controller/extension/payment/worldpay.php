@@ -37,7 +37,7 @@ class ControllerExtensionPaymentWorldpay extends Controller {
 		$this->load->model('localisation/country');
 		$this->load->model('extension/payment/worldpay');
 
-		if(!isset($this->session->data['order_id'])) {
+		if (!isset($this->session->data['order_id'])) {
 			return false;
 		}
 
@@ -201,5 +201,4 @@ class ControllerExtensionPaymentWorldpay extends Controller {
 			$this->model_extension_payment_worldpay->logger($orders);
 		}
 	}
-
 }

@@ -42,13 +42,13 @@
                   <div class="col-sm-2"></div>
                   <div class="col-sm-3 img-rounded text-center" style="border:1px solid #cecece; padding:5px; cursor: pointer;">
                     <a id="configure-live-setup" data-paypal-button="true" href="{{ auth_connect_url_live }}&displayMode=minibrowser" target="PPFrame">
-                      <img src="https://www.paypalobjects.com/webstatic/en_US/i/buttons/PP_logo_h_200x51.png" alt="PayPal - {{ text_configure_sandbox }}" /><h3>{{ text_configure_live }}</h3>
+                      <img src="https://www.paypalobjects.com/webstatic/en_US/i/buttons/PP_logo_h_200x51.png" alt="PayPal - {{ text_configure_sandbox }}"/><h3>{{ text_configure_live }}</h3>
                     </a>
                   </div>
                   <div class="col-sm-2"></div>
                   <div class="col-sm-3 img-rounded text-center" style="border:1px solid #cecece; padding:5px; cursor: pointer;">
                     <a id="configure-sandbox-setup" data-paypal-button="true" href="{{ auth_connect_url_sandbox }}&displayMode=minibrowser" target="PPFrame">
-                      <img src="https://www.paypalobjects.com/webstatic/en_US/i/buttons/PP_logo_h_200x51.png" alt="PayPal - {{ text_configure_sandbox }}" /><h3>{{ text_configure_sandbox }}</h3>
+                      <img src="https://www.paypalobjects.com/webstatic/en_US/i/buttons/PP_logo_h_200x51.png" alt="PayPal - {{ text_configure_sandbox }}"/><h3>{{ text_configure_sandbox }}</h3>
                     </a>
                   </div>
                   <div class="col-sm-2"></div>
@@ -59,7 +59,7 @@
                 <div class="form-group">
                   <label class="col-sm-2 control-label" for="entry-username">{{ entry_username }}</label>
                   <div class="col-sm-10">
-                    <input type="text" name="payment_pp_express_username" value="{{ payment_pp_express_username }}" placeholder="{{ entry_username }}" id="entry-username" class="form-control" />
+                    <input type="text" name="payment_pp_express_username" value="{{ payment_pp_express_username }}" placeholder="{{ entry_username }}" id="entry-username" class="form-control"/>
                     {% if error_username %}
                     <div class="text-danger">{{ error_username }}</div>
                     {% endif %}
@@ -68,7 +68,7 @@
                 <div class="form-group">
                   <label class="col-sm-2 control-label" for="entry-password">{{ entry_password }}</label>
                   <div class="col-sm-10">
-                    <input type="text" name="payment_pp_express_password" value="{{ payment_pp_express_password }}" placeholder="{{ entry_password }}" id="entry-password" class="form-control" />
+                    <input type="text" name="payment_pp_express_password" value="{{ payment_pp_express_password }}" placeholder="{{ entry_password }}" id="entry-password" class="form-control"/>
                     {% if error_password %}
                     <div class="text-danger">{{ error_password }}</div>
                     {% endif %}
@@ -77,7 +77,7 @@
                 <div class="form-group">
                   <label class="col-sm-2 control-label" for="entry-signature">{{ entry_signature }}</label>
                   <div class="col-sm-10">
-                    <input type="text" name="payment_pp_express_signature" value="{{ payment_pp_express_signature }}" placeholder="{{ entry_signature }}" id="entry-signature" class="form-control" />
+                    <input type="text" name="payment_pp_express_signature" value="{{ payment_pp_express_signature }}" placeholder="{{ entry_signature }}" id="entry-signature" class="form-control"/>
                     {% if error_signature %}
                     <div class="text-danger">{{ error_signature }}</div>
                     {% endif %}
@@ -86,7 +86,7 @@
                 <div class="form-group">
                   <label class="col-sm-2 control-label" for="entry-sandbox-username">{{ entry_sandbox_username }}</label>
                   <div class="col-sm-10">
-                    <input type="text" name="payment_pp_express_sandbox_username" value="{{ payment_pp_express_sandbox_username }}" placeholder="{{ entry_sandbox_username }}" id="entry-sandbox-username" class="form-control" />
+                    <input type="text" name="payment_pp_express_sandbox_username" value="{{ payment_pp_express_sandbox_username }}" placeholder="{{ entry_sandbox_username }}" id="entry-sandbox-username" class="form-control"/>
                     {% if error_sandbox_username %}
                     <div class="text-danger">{{ error_sandbox_username }}</div>
                     {% endif %}
@@ -95,7 +95,7 @@
                 <div class="form-group">
                   <label class="col-sm-2 control-label" for="entry-sandbox-password">{{ entry_sandbox_password }}</label>
                   <div class="col-sm-10">
-                    <input type="text" name="payment_pp_express_sandbox_password" value="{{ payment_pp_express_sandbox_password }}" placeholder="{{ entry_sandbox_password }}" id="entry-sandbox-password" class="form-control" />
+                    <input type="text" name="payment_pp_express_sandbox_password" value="{{ payment_pp_express_sandbox_password }}" placeholder="{{ entry_sandbox_password }}" id="entry-sandbox-password" class="form-control"/>
                     {% if error_sandbox_password %}
                     <div class="text-danger">{{ error_sandbox_password }}</div>
                     {% endif %}
@@ -104,7 +104,7 @@
                 <div class="form-group">
                   <label class="col-sm-2 control-label" for="entry-sandbox-signature">{{ entry_sandbox_signature }}</label>
                   <div class="col-sm-10">
-                    <input type="text" name="payment_pp_express_sandbox_signature" value="{{ payment_pp_express_sandbox_signature }}" placeholder="{{ entry_sandbox_signature }}" id="entry-sandbox-signature" class="form-control" />
+                    <input type="text" name="payment_pp_express_sandbox_signature" value="{{ payment_pp_express_sandbox_signature }}" placeholder="{{ entry_sandbox_signature }}" id="entry-sandbox-signature" class="form-control"/>
                     {% if error_sandbox_signature %}
                     <div class="text-danger">{{ error_sandbox_signature }}</div>
                     {% endif %}
@@ -114,7 +114,7 @@
                   <label class="col-sm-2 control-label"><span data-toggle="tooltip" title="{{ help_ipn }}">{{ entry_ipn }}</span></label>
                   <div class="col-sm-10">
                     <div class="input-group"><span class="input-group-addon"><i class="fa fa-link"></i></span>
-                      <input type="text" value="{{ ipn_url }}" class="form-control" />
+                      <input type="text" value="{{ ipn_url }}" class="form-control"/>
                     </div>
                   </div>
                 </div>
@@ -211,7 +211,7 @@
               <div class="form-group">
                 <label class="col-sm-2 control-label" for="input-total"><span data-toggle="tooltip" title="{{ help_total }}">{{ entry_total }}</span></label>
                 <div class="col-sm-10">
-                  <input type="text" name="payment_pp_express_total" value="{{ payment_pp_express_total }}" placeholder="{{ entry_total }}" id="input-total" class="form-control" />
+                  <input type="text" name="payment_pp_express_total" value="{{ payment_pp_express_total }}" placeholder="{{ entry_total }}" id="input-total" class="form-control"/>
                 </div>
               </div>
               <div class="form-group">
@@ -232,7 +232,7 @@
               <div class="form-group">
                 <label class="col-sm-2 control-label" for="input-sort-order">{{ entry_sort_order }}</label>
                 <div class="col-sm-10">
-                  <input type="text" name="payment_pp_express_sort_order" value="{{ payment_pp_express_sort_order }}" placeholder="{{ entry_sort_order }}" id="input-sort-order" class="form-control" />
+                  <input type="text" name="payment_pp_express_sort_order" value="{{ payment_pp_express_sort_order }}" placeholder="{{ entry_sort_order }}" id="input-sort-order" class="form-control"/>
                 </div>
               </div>
             </div>
@@ -391,20 +391,20 @@
                     <option value="0" selected="selected">{{ text_no }}</option>
                     {% endif %}
                   </select>
-                  <br />{{ text_incontext_not_supported }}
+                  <br>{{ text_incontext_not_supported }}
                 </div>
               </div>
               <div class="form-group">
                 <label class="col-sm-2 control-label" for="input-color"><span data-toggle="tooltip" title="{{ help_colour }}">{{ entry_colour }}</span></label>
                 <div class="col-sm-10">
-                  <input type="text" name="payment_pp_express_colour" value="{{ payment_pp_express_colour }}" placeholder="{{ entry_colour }}" id="input-color" class="form-control" />
-                  <br />{{ text_incontext_not_supported }}
+                  <input type="text" name="payment_pp_express_colour" value="{{ payment_pp_express_colour }}" placeholder="{{ entry_colour }}" id="input-color" class="form-control"/>
+                  <br>{{ text_incontext_not_supported }}
                 </div>
               </div>
               <div class="form-group">
                 <label class="col-sm-2 control-label"><span data-toggle="tooltip" title="{{ help_logo }}">{{ entry_logo }}</span></label>
-                <div class="col-sm-10"><a href="" id="thumb-image" data-toggle="image" class="img-thumbnail"><img src="{{ thumb }}" alt="" title="" data-placeholder="{{ placeholder }}" /></a>
-                  <input type="hidden" name="payment_pp_express_logo" value="{{ payment_pp_express_logo }}" id="input-logo" />
+                <div class="col-sm-10"><a href="" id="thumb-image" data-toggle="image" class="img-thumbnail"><img src="{{ thumb }}" alt="" title="" data-placeholder="{{ placeholder }}"/></a>
+                  <input type="hidden" name="payment_pp_express_logo" value="{{ payment_pp_express_logo }}" id="input-logo"/>
                 </div>
               </div>
               <div class="form-group">

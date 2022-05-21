@@ -28,15 +28,15 @@
         <div class="alert alert-info"><i class="fa fa-info-circle"></i> {{ text_import }} <button type="button" class="close" data-dismiss="alert">×</button></div>
         <form action="{{ action }}" method="post" enctype="multipart/form-data" id="form-feed" class="form-horizontal">
             <div id="category"></div>
-            <br />
+            <br>
             <div class="form-group">
               <label class="col-sm-2 control-label" for="input-data-feed">{{ entry_google_category }}</label>
               <div class="col-sm-10">
-                  <input type="text" name="google_base_category" value="" placeholder="{{ entry_google_category }}" id="input-google-category" class="form-control" />
-                  <input type="hidden" name="google_base_category_id" value="" />
+                  <input type="text" name="google_base_category" value="" placeholder="{{ entry_google_category }}" id="input-google-category" class="form-control"/>
+                  <input type="hidden" name="google_base_category_id" value=""/>
                   <div class="input-group">
-                    <input type="text" name="category" value="" placeholder="{{ entry_category }}" id="input-category" class="form-control" />
-                    <input type="hidden" name="category_id" value="" />
+                    <input type="text" name="category" value="" placeholder="{{ entry_category }}" id="input-category" class="form-control"/>
+                    <input type="hidden" name="category_id" value=""/>
                     <span class="input-group-btn"><button type="button" id="button-category-add" data-toggle="tooltip" title="{{ button_category_add }}" class="btn btn-primary"><i class="fa fa-plus"></i></button></span>
                   </div>
               </div>
@@ -198,7 +198,7 @@ $('#category').delegate('.btn-danger', 'click', function() {
 $('#button-import').on('click', function() {
 	$('#form-upload').remove();
 
-	$('body').prepend('<form enctype="multipart/form-data" id="form-upload" style="display: none;"><input type="file" name="file" /></form>');
+	$('body').prepend('<form enctype="multipart/form-data" id="form-upload" style="display: none;"><input type="file" name="file"/></form>');
 
 	$('#form-upload input[name=\'file\']').trigger('click');
 

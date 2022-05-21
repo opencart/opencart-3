@@ -19,7 +19,7 @@
             </span></div>
         </div>
       </div>
-      <hr />
+      <hr>
       {% for image in images|batch(4) %}
       <div class="row">
         {% for image in image %}
@@ -27,19 +27,19 @@
           {% if image.type == 'directory' %}
           <div class="text-center"><a href="{{ image.href }}" class="directory" style="vertical-align: middle;"><i class="fa fa-folder fa-5x"></i></a></div>
           <label>
-            <input type="checkbox" name="path[]" value="{{ image.path }}" />
+            <input type="checkbox" name="path[]" value="{{ image.path }}"/>
             {{ image.name }}</label>
           {% endif %}
           {% if image.type == 'image' %}
-          <a href="{{ image.href }}" class="thumbnail"><img src="{{ image.thumb }}" alt="{{ image.name }}" title="{{ image.name }}" /></a>
+          <a href="{{ image.href }}" class="thumbnail"><img src="{{ image.thumb }}" alt="{{ image.name }}" title="{{ image.name }}"/></a>
           <label>
-            <input type="checkbox" name="path[]" value="{{ image.path }}" />
+            <input type="checkbox" name="path[]" value="{{ image.path }}"/>
             {{ image.name }}</label>
           {% endif %}
         </div>
         {% endfor %}
       </div>
-      <br/>
+      <br>
       {% endfor %}
     </div>
     <div class="modal-footer">{{ pagination }}</div>
@@ -114,7 +114,7 @@ $('#button-search').on('click', function(e) {
 $('#button-upload').on('click', function() {
 	$('#form-upload').remove();
 
-	$('body').prepend('<form enctype="multipart/form-data" id="form-upload" style="display: none;"><input type="file" name="file[]" value="" multiple="multiple" /></form>');
+	$('body').prepend('<form enctype="multipart/form-data" id="form-upload" style="display: none;"><input type="file" name="file[]" value="" multiple="multiple"/></form>');
 
 	$('#form-upload input[name=\'file[]\']').trigger('click');
 

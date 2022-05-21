@@ -34,7 +34,7 @@
             <div class="tab-pane active" id="tab-general">
               <ul class="nav nav-tabs" id="language">
                 {% for language in languages %}
-                <li><a href="#language{{ language.language_id }}" data-toggle="tab"><img src="language/{{ language.code }}/{{ language.code }}.png" title="{{ language.name }}" /> {{ language.name }}</a></li>
+                <li><a href="#language{{ language.language_id }}" data-toggle="tab"><img src="language/{{ language.code }}/{{ language.code }}.png" title="{{ language.name }}"/> {{ language.name }}</a></li>
                 {% endfor %}
               </ul>
               <div class="tab-content">{% for language in languages %}
@@ -42,7 +42,7 @@
                   <div class="form-group required">
                     <label class="col-sm-2 control-label" for="input-title{{ language.language_id }}">{{ entry_title }}</label>
                     <div class="col-sm-10">
-                      <input type="text" name="information_description[{{ language.language_id }}][title]" value="{{ information_description[language.language_id] ? information_description[language.language_id].title }}" placeholder="{{ entry_title }}" id="input-title{{ language.language_id }}" class="form-control" />
+                      <input type="text" name="information_description[{{ language.language_id }}][title]" value="{{ information_description[language.language_id] ? information_description[language.language_id].title }}" placeholder="{{ entry_title }}" id="input-title{{ language.language_id }}" class="form-control"/>
                       {% if error_title[language.language_id] %}
                       <div class="text-danger">{{ error_title[language.language_id] }}</div>
                       {% endif %} </div>
@@ -58,7 +58,7 @@
                   <div class="form-group required">
                     <label class="col-sm-2 control-label" for="input-meta-title{{ language.language_id }}">{{ entry_meta_title }}</label>
                     <div class="col-sm-10">
-                      <input type="text" name="information_description[{{ language.language_id }}][meta_title]" value="{{ information_description[language.language_id] ? information_description[language.language_id].meta_title }}" placeholder="{{ entry_meta_title }}" id="input-meta-title{{ language.language_id }}" class="form-control" />
+                      <input type="text" name="information_description[{{ language.language_id }}][meta_title]" value="{{ information_description[language.language_id] ? information_description[language.language_id].meta_title }}" placeholder="{{ entry_meta_title }}" id="input-meta-title{{ language.language_id }}" class="form-control"/>
                       {% if error_meta_title[language.language_id] %}
                       <div class="text-danger">{{ error_meta_title[language.language_id] }}</div>
                       {% endif %} </div>
@@ -85,10 +85,10 @@
                   <div class="well well-sm" style="height: 150px; overflow: auto;"> {% for store in stores %}
                     <div class="checkbox">
                       <label> {% if store.store_id in information_store %}
-                        <input type="checkbox" name="information_store[]" value="{{ store.store_id }}" checked="checked" />
+                        <input type="checkbox" name="information_store[]" value="{{ store.store_id }}" checked="checked"/>
                         {{ store.name }}
                         {% else %}
-                        <input type="checkbox" name="information_store[]" value="{{ store.store_id }}" />
+                        <input type="checkbox" name="information_store[]" value="{{ store.store_id }}"/>
                         {{ store.name }}
                         {% endif %}</label>
                     </div>
@@ -100,9 +100,9 @@
                 <div class="col-sm-10">
                   <div class="checkbox">
                     <label>{% if bottom %}
-                      <input type="checkbox" name="bottom" value="1" checked="checked" id="input-bottom" />
+                      <input type="checkbox" name="bottom" value="1" checked="checked" id="input-bottom"/>
                       {% else %}
-                      <input type="checkbox" name="bottom" value="1" id="input-bottom" />
+                      <input type="checkbox" name="bottom" value="1" id="input-bottom"/>
                       {% endif %}
                       &nbsp;</label>
                   </div>
@@ -125,7 +125,7 @@
               <div class="form-group">
                 <label class="col-sm-2 control-label" for="input-sort-order">{{ entry_sort_order }}</label>
                 <div class="col-sm-10">
-                  <input type="text" name="sort_order" value="{{ sort_order }}" placeholder="{{ entry_sort_order }}" id="input-sort-order" class="form-control" />
+                  <input type="text" name="sort_order" value="{{ sort_order }}" placeholder="{{ entry_sort_order }}" id="input-sort-order" class="form-control"/>
                 </div>
               </div>
             </div>
@@ -144,8 +144,8 @@
                   <tr>
                     <td class="text-left">{{ store.name }}</td>
                     <td class="text-left">{% for language in languages %}
-                      <div class="input-group"><span class="input-group-addon"><img src="language/{{ language.code }}/{{ language.code }}.png" title="{{ language.name }}" /></span>
-                        <input type="text" name="information_seo_url[{{ store.store_id }}][{{ language.language_id }}]" value="{% if information_seo_url[store.store_id][language.language_id] %}{{ information_seo_url[store.store_id][language.language_id] }}{% endif %}" placeholder="{{ entry_keyword }}" class="form-control" />
+                      <div class="input-group"><span class="input-group-addon"><img src="language/{{ language.code }}/{{ language.code }}.png" title="{{ language.name }}"/></span>
+                        <input type="text" name="information_seo_url[{{ store.store_id }}][{{ language.language_id }}]" value="{% if information_seo_url[store.store_id][language.language_id] %}{{ information_seo_url[store.store_id][language.language_id] }}{% endif %}" placeholder="{{ entry_keyword }}" class="form-control"/>
                       </div>
                       {% if error_keyword[store.store_id][language.language_id] %}
                       <div class="text-danger">{{ error_keyword[store.store_id][language.language_id] }}</div>
@@ -193,13 +193,13 @@
       </div>
     </div>
   </div>
-  <link href="view/javascript/codemirror/lib/codemirror.css" rel="stylesheet" />
-  <link href="view/javascript/codemirror/theme/monokai.css" rel="stylesheet" />
+  <link href="view/javascript/codemirror/lib/codemirror.css" rel="stylesheet"/>
+  <link href="view/javascript/codemirror/theme/monokai.css" rel="stylesheet"/>
   <script type="text/javascript" src="view/javascript/codemirror/lib/codemirror.js"></script> 
   <script type="text/javascript" src="view/javascript/codemirror/lib/xml.js"></script> 
   <script type="text/javascript" src="view/javascript/codemirror/lib/formatting.js"></script> 
   <script type="text/javascript" src="view/javascript/summernote/summernote.min.js"></script>
-  <link href="view/javascript/summernote/summernote.min.css" rel="stylesheet" />
+  <link href="view/javascript/summernote/summernote.min.css" rel="stylesheet"/>
   <script type="text/javascript" src="view/javascript/summernote/summernote-image-attributes.js"></script> 
   <script type="text/javascript" src="view/javascript/summernote/opencart.js"></script> 
   <script type="text/javascript"><!--

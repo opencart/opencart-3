@@ -251,7 +251,7 @@ class ControllerExtensionPaymentCardConnect extends Controller {
 
 				$cardconnect_order['total_captured_formatted'] = $this->currency->format($cardconnect_order['total_captured'], $cardconnect_order['currency_code'], false, true);
 
-				foreach($cardconnect_order['transactions'] as &$transaction) {
+				foreach ($cardconnect_order['transactions'] as &$transaction) {
 					switch ($transaction['type']) {
 						case 'payment':
 							$transaction['type'] = 'Payment';

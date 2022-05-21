@@ -139,24 +139,27 @@ class ControllerExtensionFraudFraudLabsPro extends Controller {
 		$this->load->model('extension/fraud/fraudlabspro');
 
 		// Action of the Approve/Reject button click
-		if (isset($_POST['flp_id'])){
+		if (isset($_POST['flp_id'])) {
 			$flp_status = $_POST['new_status'];
+			
 			$data['flp_status'] = $flp_status;
 
 			//Feedback FLP status to server
 			$fraud_fraudlabspro_key = $this->config->get('fraud_fraudlabspro_key');
 
-			for($i=0; $i<3; $i++){
+			for ($i = 0; $i < 3; $i++) {
 				$result = @file_get_contents('https://api.fraudlabspro.com/v1/order/feedback?key=' . $fraud_fraudlabspro_key . '&format=json&id=' . $_POST['flp_id'] . '&action=' . $flp_status);
 
-				if($result) break;
+				if ($result) break;
 			}
 
 			// Update fraud status into table
 			$this->db->query("UPDATE `" . DB_PREFIX . "fraudlabspro` SET fraudlabspro_status = '" . $this->db->escape($flp_status) . "' WHERE order_id = " . $this->db->escape($this->request->get['order_id']));
+			
+			$data_temp = array();
 
 			//Update history record
-			if (strtolower($flp_status) == 'approve'){
+			if (strtolower($flp_status) == 'approve') {
 				$data_temp = array(
 					'order_status_id'=>$this->config->get('fraud_fraudlabspro_approve_status_id'),
 					'notify'=>0,
@@ -164,8 +167,7 @@ class ControllerExtensionFraudFraudLabsPro extends Controller {
 				);
 
 				$this->model_extension_fraud_fraudlabspro->addOrderHistory($this->request->get['order_id'], $data_temp);
-			}
-			else if (strtolower($flp_status) == "reject"){
+			} else if (strtolower($flp_status) == "reject") {
 				$data_temp = array(
 					'order_status_id'=>$this->config->get('fraud_fraudlabspro_reject_status_id'),
 					'notify'=>0,

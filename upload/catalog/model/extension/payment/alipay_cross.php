@@ -64,13 +64,12 @@ class ModelExtensionPaymentAlipayCross extends Model {
 		return $para_sort;
 	}
 
-	function verifyNotify($alipay_config){
+	function verifyNotify($alipay_config) {
 		$this->alipay_config = $alipay_config;
 
-		if(empty($_POST)) {
+		if (empty($_POST)) {
 			return false;
-		}
-		else {
+		} else {
 			$isSign = $this->getSignVeryfy($_POST, $_POST["sign"]);
 
 			$responseTxt = 'false';
@@ -117,9 +116,11 @@ class ModelExtensionPaymentAlipayCross extends Model {
 
 	function createLinkstring($para) {
 		$arg  = "";
-		while (list ($key, $val) = each ($para)) {
+		
+		while (list($key, $val) = each($para)) {
 			$arg .= $key . "=" . $val . "&";
 		}
+		
 		//remove the last char '&'
 		$arg = substr($arg, 0, count($arg)-2);
 
@@ -128,30 +129,41 @@ class ModelExtensionPaymentAlipayCross extends Model {
 
 	function paraFilter($para) {
 		$para_filter = array();
-		while (list ($key, $val) = each ($para)) {
-			if($key == "sign" || $key == "sign_type" || $val == "")continue;
-			else	$para_filter[$key] = $para[$key];
+		
+		while (list($key, $val) = each($para)) {
+			if ($key == "sign" || $key == "sign_type" || $val == "") {
+				continue;
+			} else {
+				$para_filter[$key] = $para[$key];
+			}
 		}
+		
 		return $para_filter;
 	}
 
 	function argSort($para) {
 		ksort($para);
+		
 		reset($para);
+		
 		return $para;
 	}
 
 	function getHttpResponseGET($url,$cacert_url) {
 		$curl = curl_init($url);
+		
 		curl_setopt($curl, CURLOPT_HEADER, 0 );
 		curl_setopt($curl,CURLOPT_RETURNTRANSFER, 1);
 		curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, true);
 		curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, 2);
 		curl_setopt($curl, CURLOPT_CAINFO,$cacert_url);
+		
 		$responseText = curl_exec($curl);
+		
 		if (!$responseText) {
 			$this->log->write('ALIPAY NOTIFY CURL_ERROR: ' . var_export(curl_error($curl), true));
 		}
+		
 		curl_close($curl);
 
 		return $responseText;
@@ -159,11 +171,11 @@ class ModelExtensionPaymentAlipayCross extends Model {
 
 	function md5Sign($prestr, $key) {
 		$prestr = $prestr . $key;
+		
 		return md5($prestr);
 	}
 
-	function md5Verify($prestr, $sign, $key)
-	{
+	function md5Verify($prestr, $sign, $key) {
 		$prestr = $prestr . $key;
 		$mysgin = md5($prestr);
 

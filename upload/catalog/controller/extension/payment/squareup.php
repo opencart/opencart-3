@@ -55,7 +55,7 @@ class ControllerExtensionPaymentSquareup extends Controller {
 
         $this->load->library('squareup');
 
-        if(!isset($this->session->data['order_id'])) {
+        if (!isset($this->session->data['order_id'])) {
 			return false;
 		}
 

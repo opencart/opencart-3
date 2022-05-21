@@ -162,14 +162,14 @@ class ControllerProductProduct extends Controller {
 		if (isset($this->request->get['path'])) {
 			$parts = explode('_', (string)$this->request->get['path']);
 						
-			if(empty($this->model_catalog_product->checkProductCategory($product_id, $parts))) {
+			if (empty($this->model_catalog_product->checkProductCategory($product_id, $parts))) {
 				$product_info = array();
 			}
 		}
 
 		//check product page open from manufacturer page
 		if (isset($this->request->get['manufacturer_id']) && !empty($product_info)) {
-			if($product_info['manufacturer_id'] !=  $this->request->get['manufacturer_id']) {
+			if ($product_info['manufacturer_id'] !=  $this->request->get['manufacturer_id']) {
 				$product_info = array();
 			}
 		}

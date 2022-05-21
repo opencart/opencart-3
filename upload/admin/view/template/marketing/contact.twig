@@ -58,28 +58,28 @@
           <div class="form-group to" id="to-customer">
             <label class="col-sm-2 control-label" for="input-customer"><span data-toggle="tooltip" title="{{ help_customer }}">{{ entry_customer }}</span></label>
             <div class="col-sm-10">
-              <input type="text" name="customers" value="" placeholder="{{ entry_customer }}" id="input-customer" class="form-control" />
+              <input type="text" name="customers" value="" placeholder="{{ entry_customer }}" id="input-customer" class="form-control"/>
               <div class="well well-sm" style="height: 150px; overflow: auto;"></div>
             </div>
           </div>
           <div class="form-group to" id="to-affiliate">
             <label class="col-sm-2 control-label" for="input-affiliate"><span data-toggle="tooltip" title="{{ help_affiliate }}">{{ entry_affiliate }}</span></label>
             <div class="col-sm-10">
-              <input type="text" name="affiliates" value="" placeholder="{{ entry_affiliate }}" id="input-affiliate" class="form-control" />
+              <input type="text" name="affiliates" value="" placeholder="{{ entry_affiliate }}" id="input-affiliate" class="form-control"/>
               <div class="well well-sm" style="height: 150px; overflow: auto;"></div>
             </div>
           </div>
           <div class="form-group to" id="to-product">
             <label class="col-sm-2 control-label" for="input-product"><span data-toggle="tooltip" title="{{ help_product }}">{{ entry_product }}</span></label>
             <div class="col-sm-10">
-              <input type="text" name="products" value="" placeholder="{{ entry_product }}" id="input-product" class="form-control" />
+              <input type="text" name="products" value="" placeholder="{{ entry_product }}" id="input-product" class="form-control"/>
               <div class="well well-sm" style="height: 150px; overflow: auto;"></div>
             </div>
           </div>
           <div class="form-group required">
             <label class="col-sm-2 control-label" for="input-subject">{{ entry_subject }}</label>
             <div class="col-sm-10">
-              <input type="text" name="subject" value="" placeholder="{{ entry_subject }}" id="input-subject" class="form-control" />
+              <input type="text" name="subject" value="" placeholder="{{ entry_subject }}" id="input-subject" class="form-control"/>
             </div>
           </div>
           <div class="form-group required">
@@ -92,13 +92,13 @@
       </div>
     </div>
   </div>
-  <link href="view/javascript/codemirror/lib/codemirror.css" rel="stylesheet" />
-  <link href="view/javascript/codemirror/theme/monokai.css" rel="stylesheet" />
+  <link href="view/javascript/codemirror/lib/codemirror.css" rel="stylesheet"/>
+  <link href="view/javascript/codemirror/theme/monokai.css" rel="stylesheet"/>
   <script type="text/javascript" src="view/javascript/codemirror/lib/codemirror.js"></script> 
   <script type="text/javascript" src="view/javascript/codemirror/lib/xml.js"></script> 
   <script type="text/javascript" src="view/javascript/codemirror/lib/formatting.js"></script> 
   <script type="text/javascript" src="view/javascript/summernote/summernote.min.js"></script>
-  <link href="view/javascript/summernote/summernote.min.css" rel="stylesheet" />
+  <link href="view/javascript/summernote/summernote.min.css" rel="stylesheet"/>
   <script type="text/javascript" src="view/javascript/summernote/summernote-image-attributes.js"></script> 
   <script type="text/javascript" src="view/javascript/summernote/opencart.js"></script> 
   <script type="text/javascript"><!--
@@ -135,7 +135,7 @@ $('input[name=\'customers\']').autocomplete({
 
 		$('#customer' + item['value']).remove();
 
-		$('#input-customer').parent().find('.well').append('<div id="customer' + item['value'] + '"><i class="fa fa-minus-circle"></i> ' + item['label'] + '<input type="hidden" name="customer[]" value="' + item['value'] + '" /></div>');
+		$('#input-customer').parent().find('.well').append('<div id="customer' + item['value'] + '"><i class="fa fa-minus-circle"></i> ' + item['label'] + '<input type="hidden" name="customer[]" value="' + item['value'] + '"/></div>');
 	}
 });
 
@@ -167,7 +167,7 @@ $('input[name=\'affiliates\']').autocomplete({
 
 		$('#affiliate' + item['value']).remove();
 
-		$('#input-affiliate').parent().find('.well').append('<div id="affiliate' + item['value'] + '"><i class="fa fa-minus-circle"></i> ' + item['label'] + '<input type="hidden" name="affiliate[]" value="' + item['value'] + '" /></div>');
+		$('#input-affiliate').parent().find('.well').append('<div id="affiliate' + item['value'] + '"><i class="fa fa-minus-circle"></i> ' + item['label'] + '<input type="hidden" name="affiliate[]" value="' + item['value'] + '"/></div>');
 	}
 });
 
@@ -199,7 +199,7 @@ $('input[name=\'products\']').autocomplete({
 
 		$('#product' + item['value']).remove();
 
-		$('#input-product').parent().find('.well').append('<div id="product' + item['value'] + '"><i class="fa fa-minus-circle"></i> ' + item['label'] + '<input type="hidden" name="product[]" value="' + item['value'] + '" /></div>');
+		$('#input-product').parent().find('.well').append('<div id="product' + item['value'] + '"><i class="fa fa-minus-circle"></i> ' + item['label'] + '<input type="hidden" name="product[]" value="' + item['value'] + '"/></div>');
 	}
 });
 

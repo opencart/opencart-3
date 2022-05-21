@@ -67,7 +67,7 @@ final class PDO {
 				$result->num_rows = $this->statement->rowCount();
 			}
 		} catch (\PDOException $e) {
-			throw new \Exception('Error: ' . $e->getMessage() . ' Error Code : ' . $e->getCode() . ' <br />' . $sql);
+			throw new \Exception('Error: ' . $e->getMessage() . ' Error Code : ' . $e->getCode() . ' <br>' . $sql);
 		}
 
 		if ($result) {

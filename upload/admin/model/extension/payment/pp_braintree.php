@@ -9,7 +9,7 @@ class ModelExtensionPaymentPPBraintree extends Model {
 			}
 
 			return $client_token;
-		} catch (Exception $e) {
+		} catch (\Exception $e) {
 			$this->log($e->getMessage());
 
 			return false;
@@ -29,7 +29,7 @@ class ModelExtensionPaymentPPBraintree extends Model {
 			} else {
 				return false;
 			}
-		} catch (Exception $e) {
+		} catch (\Exception $e) {
 			$this->log($e->getMessage());
 
 			return false;
@@ -49,7 +49,7 @@ class ModelExtensionPaymentPPBraintree extends Model {
 			} else {
 				return false;
 			}
-		} catch (Exception $e) {
+		} catch (\Exception $e) {
 			$this->log($e->getMessage());
 
 			return false;
@@ -69,7 +69,7 @@ class ModelExtensionPaymentPPBraintree extends Model {
 			} else {
 				return false;
 			}
-		} catch (Exception $e) {
+		} catch (\Exception $e) {
 			$this->log($e->getMessage());
 
 			return false;
@@ -89,7 +89,7 @@ class ModelExtensionPaymentPPBraintree extends Model {
 			} else {
 				return false;
 			}
-		} catch (Exception $e) {
+		} catch (\Exception $e) {
 			$this->log($e->getMessage());
 
 			return false;
@@ -109,7 +109,7 @@ class ModelExtensionPaymentPPBraintree extends Model {
 			} else {
 				return false;
 			}
-		} catch (Exception $e) {
+		} catch (\Exception $e) {
             $this->log($e->getMessage());
 
 			return false;
@@ -126,7 +126,7 @@ class ModelExtensionPaymentPPBraintree extends Model {
 			}
 
 			return $client_token;
-		} catch (Exception $e) {
+		} catch (\Exception $e) {
             $this->log($e->getMessage());
 
 			return false;
@@ -147,7 +147,7 @@ class ModelExtensionPaymentPPBraintree extends Model {
 			} else {
 				return false;
 			}
-		} catch (Exception $e) {
+		} catch (\Exception $e) {
             $this->log($e->getMessage());
 
 			return false;

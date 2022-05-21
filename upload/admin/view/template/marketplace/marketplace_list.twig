@@ -23,7 +23,7 @@
       <div class="panel-body">
         <div class="well">
           <div class="input-group" id="extension-filter">
-            <input type="text" name="filter_search" value="{{ filter_search }}" placeholder="{{ text_search }}" class="form-control" />
+            <input type="text" name="filter_search" value="{{ filter_search }}" placeholder="{{ text_search }}" class="form-control"/>
             <div class="input-group-btn">{% for category in categories %}
               {% if category.value == filter_category %}
               <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">{{ text_category }} ({{ category.text }}) <span class="caret"></span></button>
@@ -34,12 +34,12 @@
                 <li><a href="{{ category.href }}">{{ category.text }}</a></li>
                 {% endfor %}
               </ul>
-              <input type="hidden" name="filter_category_id" value="{{ filter_category_id }}" class="form-control" />
-              <input type="hidden" name="filter_download_id" value="{{ filter_download_id }}" class="form-control" />
-              <input type="hidden" name="filter_rating" value="{{ filter_rating }}" class="form-control" />
-              <input type="hidden" name="filter_license" value="{{ filter_license }}" class="form-control" />
-              <input type="hidden" name="filter_partner" value="{{ filter_partner }}" class="form-control" />
-              <input type="hidden" name="sort" value="{{ sort }}" class="form-control" />
+              <input type="hidden" name="filter_category_id" value="{{ filter_category_id }}" class="form-control"/>
+              <input type="hidden" name="filter_download_id" value="{{ filter_download_id }}" class="form-control"/>
+              <input type="hidden" name="filter_rating" value="{{ filter_rating }}" class="form-control"/>
+              <input type="hidden" name="filter_license" value="{{ filter_license }}" class="form-control"/>
+              <input type="hidden" name="filter_partner" value="{{ filter_partner }}" class="form-control"/>
+              <input type="hidden" name="sort" value="{{ sort }}" class="form-control"/>
               <button type="button" id="button-filter" class="btn btn-primary"><i class="fa fa-filter"></i></button>
             </div>
           </div>
@@ -65,7 +65,7 @@
             </div>
           </div>
         </div>
-        <br/>
+        <br>
         <div id="extension-list">{% if promotions %}
           <h3>{{ text_featured }}</h3>
           <div class="row">{% for extension in promotions %}
@@ -74,7 +74,7 @@
               <section>
                 <div class="extension-preview"><a href="{{ extension.href }}">
                   <div class="extension-description"></div>
-                  <img src="{{ extension.image }}" alt="{{ extension.name }}" title="{{ extension.name }}" class="img-responsive" /></a></div>
+                  <img src="{{ extension.image }}" alt="{{ extension.name }}" title="{{ extension.name }}" class="img-responsive"/></a></div>
                 <div class="extension-name">
                   <h4><a href="{{ extension.href }}">{{ extension.name }}</a></h4>
                   {{ extension.price }}</div>
@@ -92,7 +92,7 @@
             </div>
             {% endif %}
             {% endfor %}</div>
-          <hr />
+          <hr>
           {% endif %}
           
           {% if extensions %}
@@ -103,7 +103,7 @@
               <section>
                 <div class="extension-preview"><a href="{{ extension.href }}">
                   <div class="extension-description"></div>
-                  <img src="{{ extension.image }}" alt="{{ extension.name }}" title="{{ extension.name }}" class="img-responsive" /></a></div>
+                  <img src="{{ extension.image }}" alt="{{ extension.name }}" title="{{ extension.name }}" class="img-responsive"/></a></div>
                 <div class="extension-name">
                   <h4><a href="{{ extension.href }}">{{ extension.name }}</a></h4>
                   {{ extension.price }}</div>

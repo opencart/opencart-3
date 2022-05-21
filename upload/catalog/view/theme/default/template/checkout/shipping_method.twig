@@ -10,9 +10,9 @@
 <div class="radio">
   <label> {% if quote.code == code or not code %}
     {% set code = quote.code %}
-    <input type="radio" name="shipping_method" value="{{ quote.code }}" checked="checked" />
+    <input type="radio" name="shipping_method" value="{{ quote.code }}" checked="checked"/>
     {% else %}
-    <input type="radio" name="shipping_method" value="{{ quote.code }}" />
+    <input type="radio" name="shipping_method" value="{{ quote.code }}"/>
     {% endif %}
     {{ quote.title }} - {{ quote.text }}</label>
 </div>
@@ -28,6 +28,6 @@
 </p>
 <div class="buttons">
   <div class="pull-right">
-    <input type="button" value="{{ button_continue }}" id="button-shipping-method" data-loading-text="{{ text_loading }}" class="btn btn-primary" />
+    <input type="button" value="{{ button_continue }}" id="button-shipping-method" data-loading-text="{{ text_loading }}" class="btn btn-primary"/>
   </div>
 </div>

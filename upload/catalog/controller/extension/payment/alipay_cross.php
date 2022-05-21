@@ -8,7 +8,7 @@ class ControllerExtensionPaymentAlipayCross extends Controller {
 
 		$this->load->model('checkout/order');
 
-		if(!isset($this->session->data['order_id'])) {
+		if (!isset($this->session->data['order_id'])) {
 			return false;
 		}
 

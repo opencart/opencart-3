@@ -94,14 +94,14 @@ class ControllerDesignTheme extends Controller {
 		$this->load->language('design/theme');
 
 		$json = array();
+		
+		$this->load->model('setting/setting');
 
 		if (isset($this->request->get['store_id'])) {
 			$store_id = $this->request->get['store_id'];
 		} else {
 			$store_id = 0;
 		}
-
-		$this->load->model('setting/setting');
 
 		$theme = $this->model_setting_setting->getSettingValue('config_theme', $store_id);
 
@@ -123,7 +123,7 @@ class ControllerDesignTheme extends Controller {
 			$files = glob(rtrim(DIR_CATALOG . 'view/theme/{default,' . $theme . '}/template/' . $path, '/') . '/*', GLOB_BRACE);
 
 			if ($files) {
-				foreach($files as $file) {
+				foreach ($files as $file) {
 					if (!in_array(basename($file), $path_data))  {
 						if (is_dir($file)) {
 							$json['directory'][] = array(

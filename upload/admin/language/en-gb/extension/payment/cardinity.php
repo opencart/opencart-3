@@ -16,7 +16,7 @@ $_['text_na']				= 'N/A';
 $_['text_success_action']	= 'Success';
 $_['text_error_generic']	= 'Error: There was an error with your request. Please check the logs.';
 $_['text_amount']			= 'Amount';
-$_['text_description']	    = 'Description';
+$_['text_description']	    = 'Description:';
 
 // Column
 $_['column_refund']			= 'Refund';

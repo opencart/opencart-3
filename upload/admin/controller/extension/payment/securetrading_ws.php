@@ -409,6 +409,7 @@ class ControllerExtensionPaymentSecureTradingWs extends Controller {
 			$json['msg'] = 'Missing data';
 		}
 
+		$this->response->addHeader('Content-Type: application/json');
 		$this->response->setOutput(json_encode($json));
 	}
 
@@ -441,12 +442,15 @@ class ControllerExtensionPaymentSecureTradingWs extends Controller {
 
 					if ($total_released >= $securetrading_ws_order['total'] || $securetrading_ws_order['settle_type'] == 100) {
 						$this->model_extension_payment_securetrading_ws->updateReleaseStatus($securetrading_ws_order['securetrading_ws_order_id'], 1);
+						
 						$release_status = 1;
+						
 						$json['msg'] = $this->language->get('text_release_ok_order');
 
 						$this->load->model('sale/order');
 
 						$history = array();
+						
 						$history['order_status_id'] = $this->config->get('securetrading_ws_order_status_success_settled_id');
 						$history['comment'] = '';
 						$history['notify'] = '';
@@ -462,6 +466,7 @@ class ControllerExtensionPaymentSecureTradingWs extends Controller {
 					$json['data']['amount'] = $amount;
 					$json['data']['release_status'] = $release_status;
 					$json['data']['total'] = (double)$total_released;
+					
 					$json['error'] = false;
 				}
 			} else {
@@ -473,6 +478,7 @@ class ControllerExtensionPaymentSecureTradingWs extends Controller {
 			$json['msg'] = $this->language->get('error_data_missing');
 		}
 
+		$this->response->addHeader('Content-Type: application/json');
 		$this->response->setOutput(json_encode($json));
 	}
 
@@ -526,6 +532,7 @@ class ControllerExtensionPaymentSecureTradingWs extends Controller {
 					}
 
 					$json['data'] = array();
+					
 					$json['data']['created'] = date("Y-m-d H:i:s");
 					$json['data']['amount'] = $amount * -1;
 					$json['data']['total_released'] = (double)$total_released;
@@ -545,6 +552,7 @@ class ControllerExtensionPaymentSecureTradingWs extends Controller {
 			$json['msg'] = 'Missing data';
 		}
 
+		$this->response->addHeader('Content-Type: application/json');
 		$this->response->setOutput(json_encode($json));
 	}
 

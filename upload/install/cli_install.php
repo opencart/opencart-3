@@ -1,5 +1,4 @@
 <?php
-
 //
 // Command line tool for installing opencart
 // Author: Vineet Naik <vineet.naik@kodeplay.com> <naikvin@gmail.com>
@@ -52,16 +51,17 @@ function handleError($errno, $errstr, $errfile, $errline, array $errcontext) {
 	if (!(error_reporting() & $errno)) {
 		return false;
 	}
+	
 	throw new ErrorException($errstr, 0, $errno, $errfile, $errline);
 }
 
 set_error_handler('handleError');
 
-
 function usage() {
 	echo "Usage:\n";
 	echo "======\n";
 	echo "\n";
+	
 	$options = implode(" ", array(
 		'--db_hostname', 'localhost',
 		'--db_username', 'root',
@@ -74,11 +74,13 @@ function usage() {
 		'--email', 'youremail@example.com',
 		'--http_server', 'http://localhost/opencart/'
 	));
+	
 	echo 'php cli_install.php install ' . $options . "\n\n";
 }
 
-
 function get_options($argv) {
+	$defaults = array();
+	
 	$defaults = array(
 		'db_hostname' => 'localhost',
 		'db_database' => 'opencart',
@@ -87,19 +89,23 @@ function get_options($argv) {
 		'db_port' => '3306',
 		'username' => 'admin',
 	);
-
+	
 	$options = array();
+	
 	$total = count($argv);
-	for ($i=0; $i < $total; $i=$i+2) {
+	
+	for ($i = 0; $i < $total; $i = $i + 2) {
 		$is_flag = preg_match('/^--(.*)$/', $argv[$i], $match);
+		
 		if (!$is_flag) {
 			throw new Exception($argv[$i] . ' found in command line args instead of a valid option name starting with \'--\'');
 		}
+		
 		$options[$match[1]] = $argv[$i+1];
 	}
+	
 	return array_merge($defaults, $options);
 }
-
 
 function valid($options) {
 	$required = array(
@@ -127,7 +133,6 @@ function valid($options) {
 	return array($valid, $missing);
 }
 
-
 function install($options) {
 	$check = check_requirements();
 	if ($check[0]) {
@@ -139,7 +144,6 @@ function install($options) {
 		exit(1);
 	}
 }
-
 
 function check_requirements() {
 	$error = null;
@@ -177,7 +181,6 @@ function check_requirements() {
 
 	return array($error === null, $error);
 }
-
 
 function setup_db($data) {
 	$db = new DB($data['db_driver'], htmlspecialchars_decode($data['db_hostname']), htmlspecialchars_decode($data['db_username']), htmlspecialchars_decode($data['db_password']), htmlspecialchars_decode($data['db_database']), $data['db_port']);
@@ -232,7 +235,6 @@ function setup_db($data) {
 	}
 }
 
-
 function write_config_files($options) {
 	$output  = '<?php' . "\n";
 	$output .= '// HTTP' . "\n";
@@ -264,7 +266,6 @@ function write_config_files($options) {
 	$output .= 'define(\'DB_DATABASE\', \'' . addslashes($options['db_database']) . '\');' . "\n";
 	$output .= 'define(\'DB_PREFIX\', \'' . addslashes($options['db_prefix']) . '\');' . "\n";
 	$output .= 'define(\'DB_PORT\', \'' . addslashes($options['db_port']) . '\');' . "\n";
-
 
 	$file = fopen(DIR_OPENCART . 'config.php', 'w');
 
@@ -309,14 +310,12 @@ function write_config_files($options) {
 	$output .= '// OpenCart API' . "\n";
 	$output .= 'define(\'OPENCART_SERVER\', \'https://www.opencart.com/\');' . "\n";
 
-
 	$file = fopen(DIR_OPENCART . 'admin/config.php', 'w');
 
 	fwrite($file, $output);
 
 	fclose($file);
 }
-
 
 function dir_permissions() {
 	$dirs = array(
@@ -330,32 +329,36 @@ function dir_permissions() {
 	exec('chmod o+w -R ' . implode(' ', $dirs));
 }
 
-
 $argv = $_SERVER['argv'];
 $script = array_shift($argv);
 $subcommand = array_shift($argv);
-
 
 switch ($subcommand) {
 
 case "install":
 	try {
 		$options = get_options($argv);
+		
 		define('HTTP_OPENCART', $options['http_server']);
+		
 		$valid = valid($options);
+		
 		if (!$valid[0]) {
 			echo "FAILED! Following inputs were missing or invalid: ";
 			echo implode(', ', $valid[1]) . "\n\n";
 			exit(1);
 		}
+		
 		install($options);
+		
 		echo "SUCCESS! Opencart successfully installed on your server\n";
 		echo "Store link: " . $options['http_server'] . "\n";
 		echo "Admin link: " . $options['http_server'] . "admin/\n\n";
-	} catch (ErrorException $e) {
+	} catch (\ErrorException $e) {
 		echo 'FAILED!: ' . $e->getMessage() . "\n";
 		exit(1);
 	}
+	
 	break;
 case "usage":
 default:

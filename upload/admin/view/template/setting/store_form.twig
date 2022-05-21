@@ -43,7 +43,7 @@
               <div class="form-group required">
                 <label class="col-sm-2 control-label" for="input-url"><span data-toggle="tooltip" data-html="true" title="{{ help_url|escape('html') }}">{{ entry_url }}</span></label>
                 <div class="col-sm-10">
-                  <input type="text" name="config_url" value="{{ config_url }}" placeholder="{{ entry_url }}" id="input-url" class="form-control" />
+                  <input type="text" name="config_url" value="{{ config_url }}" placeholder="{{ entry_url }}" id="input-url" class="form-control"/>
                   {% if error_url %}
                   <div class="text-danger">{{ error_url }}</div>
                   {% endif %}
@@ -52,13 +52,13 @@
               <div class="form-group">
                 <label class="col-sm-2 control-label" for="input-ssl"><span data-toggle="tooltip" data-html="true" title="{{ help_ssl }}">{{ entry_ssl }}</span></label>
                 <div class="col-sm-10">
-                  <input type="text" name="config_ssl" value="{{ config_ssl }}" placeholder="{{ entry_ssl }}" id="input-ssl" class="form-control" />
+                  <input type="text" name="config_ssl" value="{{ config_ssl }}" placeholder="{{ entry_ssl }}" id="input-ssl" class="form-control"/>
                 </div>
               </div>
               <div class="form-group required">
                 <label class="col-sm-2 control-label" for="input-meta-title">{{ entry_meta_title }}</label>
                 <div class="col-sm-10">
-                  <input type="text" name="config_meta_title" value="{{ config_meta_title }}" placeholder="{{ entry_meta_title }}" id="input-meta-title" class="form-control" />
+                  <input type="text" name="config_meta_title" value="{{ config_meta_title }}" placeholder="{{ entry_meta_title }}" id="input-meta-title" class="form-control"/>
                   {% if error_meta_title %}
                   <div class="text-danger">{{ error_meta_title }}</div>
                   {% endif %}
@@ -88,8 +88,8 @@
                     {% endif %}
                     {% endfor %}
                   </select>
-                  <br/>
-                  <img src="" alt="" id="theme" class="img-thumbnail" /></div>
+                  <br>
+                  <img src="" alt="" id="theme" class="img-thumbnail"/></div>
               </div>
               <div class="form-group">
                 <label class="col-sm-2 control-label" for="input-layout">{{ entry_layout }}</label>
@@ -110,7 +110,7 @@
               <div class="form-group required">
                 <label class="col-sm-2 control-label" for="input-name">{{ entry_name }}</label>
                 <div class="col-sm-10">
-                  <input type="text" name="config_name" value="{{ config_name }}" placeholder="{{ entry_name }}" id="input-name" class="form-control" />
+                  <input type="text" name="config_name" value="{{ config_name }}" placeholder="{{ entry_name }}" id="input-name" class="form-control"/>
                   {% if error_name %}
                   <div class="text-danger">{{ error_name }}</div>
                   {% endif %}
@@ -119,7 +119,7 @@
               <div class="form-group required">
                 <label class="col-sm-2 control-label" for="input-owner">{{ entry_owner }}</label>
                 <div class="col-sm-10">
-                  <input type="text" name="config_owner" value="{{ config_owner }}" placeholder="{{ entry_owner }}" id="input-owner" class="form-control" />
+                  <input type="text" name="config_owner" value="{{ config_owner }}" placeholder="{{ entry_owner }}" id="input-owner" class="form-control"/>
                   {% if error_owner %}
                   <div class="text-danger">{{ error_owner }}</div>
                   {% endif %}
@@ -137,13 +137,13 @@
               <div class="form-group">
                 <label class="col-sm-2 control-label" for="input-geocode"><span data-toggle="tooltip" data-container="#tab-general" title="{{ help_geocode }}">{{ entry_geocode }}</span></label>
                 <div class="col-sm-10">
-                  <input type="text" name="config_geocode" value="{{ config_geocode }}" placeholder="{{ entry_geocode }}" id="input-geocode" class="form-control" />
+                  <input type="text" name="config_geocode" value="{{ config_geocode }}" placeholder="{{ entry_geocode }}" id="input-geocode" class="form-control"/>
                 </div>
               </div>
               <div class="form-group required">
                 <label class="col-sm-2 control-label" for="input-email">{{ entry_email }}</label>
                 <div class="col-sm-10">
-                  <input type="text" name="config_email" value="{{ config_email }}" placeholder="{{ entry_email }}" id="input-email" class="form-control" />
+                  <input type="text" name="config_email" value="{{ config_email }}" placeholder="{{ entry_email }}" id="input-email" class="form-control"/>
                   {% if error_email %}
                   <div class="text-danger">{{ error_email }}</div>
                   {% endif %}
@@ -152,7 +152,7 @@
               <div class="form-group required">
                 <label class="col-sm-2 control-label" for="input-telephone">{{ entry_telephone }}</label>
                 <div class="col-sm-10">
-                  <input type="text" name="config_telephone" value="{{ config_telephone }}" placeholder="{{ entry_telephone }}" id="input-telephone" class="form-control" />
+                  <input type="text" name="config_telephone" value="{{ config_telephone }}" placeholder="{{ entry_telephone }}" id="input-telephone" class="form-control"/>
                   {% if error_telephone %}
                   <div class="text-danger">{{ error_telephone }}</div>
                   {% endif %}
@@ -161,13 +161,13 @@
               <div class="form-group">
                 <label class="col-sm-2 control-label" for="input-fax">{{ entry_fax }}</label>
                 <div class="col-sm-10">
-                  <input type="text" name="config_fax" value="{{ config_fax }}" placeholder="{{ entry_fax }}" id="input-fax" class="form-control" />
+                  <input type="text" name="config_fax" value="{{ config_fax }}" placeholder="{{ entry_fax }}" id="input-fax" class="form-control"/>
                 </div>
               </div>              
               <div class="form-group">
                 <label class="col-sm-2 control-label" for="input-image">{{ entry_image }}</label>
-                <div class="col-sm-10"><a href="" id="thumb-image" data-toggle="image" class="img-thumbnail"><img src="{{ thumb }}" alt="" title="" data-placeholder="{{ placeholder }}" /></a>
-                  <input type="hidden" name="config_image" value="{{ config_image }}" id="input-image" />
+                <div class="col-sm-10"><a href="" id="thumb-image" data-toggle="image" class="img-thumbnail"><img src="{{ thumb }}" alt="" title="" data-placeholder="{{ placeholder }}"/></a>
+                  <input type="hidden" name="config_image" value="{{ config_image }}" id="input-image"/>
                 </div>
               </div>
               <div class="form-group">
@@ -190,10 +190,10 @@
                   <div class="checkbox">
                     <label>
                       {% if location.location_id in config_location %}
-                      <input type="checkbox" name="config_location[]" value="{{ location.location_id }}" checked="checked" />
+                      <input type="checkbox" name="config_location[]" value="{{ location.location_id }}" checked="checked"/>
                       {{ location.name }}
                       {% else %}
-                      <input type="checkbox" name="config_location[]" value="{{ location.location_id }}" />
+                      <input type="checkbox" name="config_location[]" value="{{ location.location_id }}"/>
                       {{ location.name }}
                       {% endif %}
                     </label>
@@ -262,19 +262,19 @@
                   <div class="col-sm-10">
                     <label class="radio-inline">
                       {% if config_tax %}
-                      <input type="radio" name="config_tax" value="1" checked="checked" />
+                      <input type="radio" name="config_tax" value="1" checked="checked"/>
                       {{ text_yes }}
                       {% else %}
-                      <input type="radio" name="config_tax" value="1" />
+                      <input type="radio" name="config_tax" value="1"/>
                       {{ text_yes }}
                       {% endif %}
                     </label>
                     <label class="radio-inline">
                       {% if not config_tax %}
-                      <input type="radio" name="config_tax" value="0" checked="checked" />
+                      <input type="radio" name="config_tax" value="0" checked="checked"/>
                       {{ text_no }}
                       {% else %}
-                      <input type="radio" name="config_tax" value="0" />
+                      <input type="radio" name="config_tax" value="0"/>
                       {{ text_no }}
                       {% endif %}
                     </label>
@@ -340,10 +340,10 @@
                     <div class="checkbox">
                       <label>
                         {% if customer_group.customer_group_id in config_customer_group_display %}
-                        <input type="checkbox" name="config_customer_group_display[]" value="{{ customer_group.customer_group_id }}" checked="checked" />
+                        <input type="checkbox" name="config_customer_group_display[]" value="{{ customer_group.customer_group_id }}" checked="checked"/>
                         {{ customer_group.name }}
                         {% else %}
-                        <input type="checkbox" name="config_customer_group_display[]" value="{{ customer_group.customer_group_id }}" />
+                        <input type="checkbox" name="config_customer_group_display[]" value="{{ customer_group.customer_group_id }}"/>
                         {{ customer_group.name }}
                         {% endif %}
                       </label>
@@ -359,19 +359,19 @@
                   <div class="col-sm-10">
                     <label class="radio-inline">
                       {% if config_customer_price %}
-                      <input type="radio" name="config_customer_price" value="1" checked="checked" />
+                      <input type="radio" name="config_customer_price" value="1" checked="checked"/>
                       {{ text_yes }}
                       {% else %}
-                      <input type="radio" name="config_customer_price" value="1" />
+                      <input type="radio" name="config_customer_price" value="1"/>
                       {{ text_yes }}
                       {% endif %}
                     </label>
                     <label class="radio-inline">
                       {% if not config_customer_price %}
-                      <input type="radio" name="config_customer_price" value="0" checked="checked" />
+                      <input type="radio" name="config_customer_price" value="0" checked="checked"/>
                       {{ text_no }}
                       {% else %}
-                      <input type="radio" name="config_customer_price" value="0" />
+                      <input type="radio" name="config_customer_price" value="0"/>
                       {{ text_no }}
                       {% endif %}
                     </label>
@@ -400,19 +400,19 @@
                   <div class="col-sm-10">
                     <label class="radio-inline">
                       {% if config_cart_weight %}
-                      <input type="radio" name="config_cart_weight" value="1" checked="checked" />
+                      <input type="radio" name="config_cart_weight" value="1" checked="checked"/>
                       {{ text_yes }}
                       {% else %}
-                      <input type="radio" name="config_cart_weight" value="1" />
+                      <input type="radio" name="config_cart_weight" value="1"/>
                       {{ text_yes }}
                       {% endif %}
                     </label>
                     <label class="radio-inline">
                       {% if not config_cart_weight %}
-                      <input type="radio" name="config_cart_weight" value="0" checked="checked" />
+                      <input type="radio" name="config_cart_weight" value="0" checked="checked"/>
                       {{ text_no }}
                       {% else %}
-                      <input type="radio" name="config_cart_weight" value="0" />
+                      <input type="radio" name="config_cart_weight" value="0"/>
                       {{ text_no }}
                       {% endif %}
                     </label>
@@ -423,19 +423,19 @@
                   <div class="col-sm-10">
                     <label class="radio-inline">
                       {% if config_checkout_guest %}
-                      <input type="radio" name="config_checkout_guest" value="1" checked="checked" />
+                      <input type="radio" name="config_checkout_guest" value="1" checked="checked"/>
                       {{ text_yes }}
                       {% else %}
-                      <input type="radio" name="config_checkout_guest" value="1" />
+                      <input type="radio" name="config_checkout_guest" value="1"/>
                       {{ text_yes }}
                       {% endif %}
                     </label>
                     <label class="radio-inline">
                       {% if not config_checkout_guest %}
-                      <input type="radio" name="config_checkout_guest" value="0" checked="checked" />
+                      <input type="radio" name="config_checkout_guest" value="0" checked="checked"/>
                       {{ text_no }}
                       {% else %}
-                      <input type="radio" name="config_checkout_guest" value="0" />
+                      <input type="radio" name="config_checkout_guest" value="0"/>
                       {{ text_no }}
                       {% endif %}
                     </label>
@@ -478,19 +478,19 @@
                   <div class="col-sm-10">
                     <label class="radio-inline">
                       {% if config_stock_display %}
-                      <input type="radio" name="config_stock_display" value="1" checked="checked" />
+                      <input type="radio" name="config_stock_display" value="1" checked="checked"/>
                       {{ text_yes }}
                       {% else %}
-                      <input type="radio" name="config_stock_display" value="1" />
+                      <input type="radio" name="config_stock_display" value="1"/>
                       {{ text_yes }}
                       {% endif %}
                     </label>
                     <label class="radio-inline">
                       {% if not config_stock_display %}
-                      <input type="radio" name="config_stock_display" value="0" checked="checked" />
+                      <input type="radio" name="config_stock_display" value="0" checked="checked"/>
                       {{ text_no }}
                       {% else %}
-                      <input type="radio" name="config_stock_display" value="0" />
+                      <input type="radio" name="config_stock_display" value="0"/>
                       {{ text_no }}
                       {% endif %}
                     </label>
@@ -501,19 +501,19 @@
                   <div class="col-sm-10">
                     <label class="radio-inline">
                       {% if config_stock_checkout %}
-                      <input type="radio" name="config_stock_checkout" value="1" checked="checked" />
+                      <input type="radio" name="config_stock_checkout" value="1" checked="checked"/>
                       {{ text_yes }}
                       {% else %}
-                      <input type="radio" name="config_stock_checkout" value="1" />
+                      <input type="radio" name="config_stock_checkout" value="1"/>
                       {{ text_yes }}
                       {% endif %}
                     </label>
                     <label class="radio-inline">
                       {% if not config_stock_checkout %}
-                      <input type="radio" name="config_stock_checkout" value="0" checked="checked" />
+                      <input type="radio" name="config_stock_checkout" value="0" checked="checked"/>
                       {{ text_no }}
                       {% else %}
-                      <input type="radio" name="config_stock_checkout" value="0" />
+                      <input type="radio" name="config_stock_checkout" value="0"/>
                       {{ text_no }}
                       {% endif %}
                     </label>
@@ -524,14 +524,14 @@
             <div class="tab-pane" id="tab-image">
               <div class="form-group">
                 <label class="col-sm-2 control-label" for="input-logo">{{ entry_logo }}</label>
-                <div class="col-sm-10"><a href="" id="thumb-logo" data-toggle="image" class="img-thumbnail"><img src="{{ logo }}" alt="" title="" data-placeholder="{{ placeholder }}" /></a>
-                  <input type="hidden" name="config_logo" value="{{ config_logo }}" id="input-logo" />
+                <div class="col-sm-10"><a href="" id="thumb-logo" data-toggle="image" class="img-thumbnail"><img src="{{ logo }}" alt="" title="" data-placeholder="{{ placeholder }}"/></a>
+                  <input type="hidden" name="config_logo" value="{{ config_logo }}" id="input-logo"/>
                 </div>
               </div>
               <div class="form-group">
                 <label class="col-sm-2 control-label" for="input-icon"><span data-toggle="tooltip" title="{{ help_icon }}">{{ entry_icon }}</span></label>
-                <div class="col-sm-10"><a href="" id="thumb-icon" data-toggle="image" class="img-thumbnail"><img src="{{ icon }}" alt="" title="" data-placeholder="{{ placeholder }}" /></a>
-                  <input type="hidden" name="config_icon" value="{{ config_icon }}" id="input-icon" />
+                <div class="col-sm-10"><a href="" id="thumb-icon" data-toggle="image" class="img-thumbnail"><img src="{{ icon }}" alt="" title="" data-placeholder="{{ placeholder }}"/></a>
+                  <input type="hidden" name="config_icon" value="{{ config_icon }}" id="input-icon"/>
                 </div>
               </div>
             </div>
@@ -541,19 +541,19 @@
                 <div class="col-sm-10">
                   <label class="radio-inline">
                     {% if config_secure %}
-                    <input type="radio" name="config_secure" value="1" checked="checked" />
+                    <input type="radio" name="config_secure" value="1" checked="checked"/>
                     {{ text_yes }}
                     {% else %}
-                    <input type="radio" name="config_secure" value="1" />
+                    <input type="radio" name="config_secure" value="1"/>
                     {{ text_yes }}
                     {% endif %}
                   </label>
                   <label class="radio-inline">
                     {% if not config_secure %}
-                    <input type="radio" name="config_secure" value="0" checked="checked" />
+                    <input type="radio" name="config_secure" value="0" checked="checked"/>
                     {{ text_no }}
                     {% else %}
-                    <input type="radio" name="config_secure" value="0" />
+                    <input type="radio" name="config_secure" value="0"/>
                     {{ text_no }}
                     {% endif %}
                   </label>

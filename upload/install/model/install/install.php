@@ -14,7 +14,7 @@ class ModelInstallInstall extends Model {
 		if ($lines) {
 			$sql = '';
 
-			foreach($lines as $line) {
+			foreach ($lines as $line) {
 				if ($line && (substr($line, 0, 2) != '--') && (substr($line, 0, 1) != '#')) {
 					$sql .= $line;
 

@@ -2,7 +2,7 @@
 <div id="braintree-loading" style="text-align: center"><i class="fa fa-spinner fa-pulse fa-2x fa-fw"></i> <span>{{ text_loading }}</span></div>
 <div id="braintree-choose" style="display: none;" class="form-horizontal">
   {% if vaulted_payment_count > 0 %}
-  <input type="hidden" name="payment_type" value="saved" id="tab-option" />
+  <input type="hidden" name="payment_type" value="saved" id="tab-option"/>
   <ul class="nav nav-tabs">
     <li role="presentation" id="tab-saved" class="active"><a href="#" class="braintree-tab-link braintree-button" id="saved-link">{{ entry_saved_methods }}</a></li>
     <li role="presentation" id="tab-new"><a href="#" class="braintree-tab-link braintree-button" id="new-link">{{ entry_new }}</a></li>
@@ -31,7 +31,7 @@
           </div>
         </div>
       {% endif %}
-      <hr />
+      <hr>
     {% endif %}
     <div class="form-group">
       <label class="col-sm-2 control-label" for="input-card-number">{{ entry_card }}</label>
@@ -40,12 +40,12 @@
       </div>
       <div class="col-sm-2">
         <div id="card-type">
-          <img style="display: none;" class="card-logo" id="visa-logo" src="https://assets.braintreegateway.com/payment_method_logo/visa.png" alt="Visa" />
-          <img style="display: none;" class="card-logo" id="master-card-logo" src="https://assets.braintreegateway.com/payment_method_logo/mastercard.png" alt="MasterCard" />
-          <img style="display: none;" class="card-logo" id="american-express-logo" src="https://assets.braintreegateway.com/payment_method_logo/american_express.png" alt="American Express" />
-          <img style="display: none;" class="card-logo" id="discover-logo" src="https://assets.braintreegateway.com/payment_method_logo/discover.png" alt="Discover" />
-          <img style="display: none;" class="card-logo" id="jcb-image" src="https://assets.braintreegateway.com/payment_method_logo/jcb.png" alt="JCB" />
-          <img style="display: none;" class="card-logo" id="maestro-image" src="https://assets.braintreegateway.com/payment_method_logo/maestro.png" alt="Maestro" />
+          <img style="display: none;" class="card-logo" id="visa-logo" src="https://assets.braintreegateway.com/payment_method_logo/visa.png" alt="Visa"/>
+          <img style="display: none;" class="card-logo" id="master-card-logo" src="https://assets.braintreegateway.com/payment_method_logo/mastercard.png" alt="MasterCard"/>
+          <img style="display: none;" class="card-logo" id="american-express-logo" src="https://assets.braintreegateway.com/payment_method_logo/american_express.png" alt="American Express"/>
+          <img style="display: none;" class="card-logo" id="discover-logo" src="https://assets.braintreegateway.com/payment_method_logo/discover.png" alt="Discover"/>
+          <img style="display: none;" class="card-logo" id="jcb-image" src="https://assets.braintreegateway.com/payment_method_logo/jcb.png" alt="JCB"/>
+          <img style="display: none;" class="card-logo" id="maestro-image" src="https://assets.braintreegateway.com/payment_method_logo/maestro.png" alt="Maestro"/>
         </div>
       </div>
     </div>
@@ -89,22 +89,22 @@
     {% for vaulted_payment_method in vaulted_payment_methods.cards %}
     <div class="row" id="vaulted-method-{{ vaulted_payment_method.token }}">
       <div class="col-sm-1">
-        <input type="radio" name="vaulted_payment_method" class="pull-right vaulted-card" value="{{ vaulted_payment_method.token }}" />
-        <input type="hidden" id="vaulted-payment-cvv-nonce-{{ vaulted_payment_method.token }}" value="" />
+        <input type="radio" name="vaulted_payment_method" class="pull-right vaulted-card" value="{{ vaulted_payment_method.token }}"/>
+        <input type="hidden" id="vaulted-payment-cvv-nonce-{{ vaulted_payment_method.token }}" value=""/>
       </div>
-      <div class="col-sm-1"><img class="card-logo" src="{{ vaulted_payment_method.image }}" /></div>
-      <div class="col-sm-4">{{ vaulted_payment_method.name }}<br />[<a id="{{ vaulted_payment_method.token }}" class="remove-vault-method braintree-button">{{ text_remove }}</a>]</div>
+      <div class="col-sm-1"><img class="card-logo" src="{{ vaulted_payment_method.image }}"/></div>
+      <div class="col-sm-4">{{ vaulted_payment_method.name }}<br>[<a id="{{ vaulted_payment_method.token }}" class="remove-vault-method braintree-button">{{ text_remove }}</a>]</div>
       <div class="col-sm-2">{% if payment_pp_braintree_vault_cvv_3ds == 'cvv' %}<div class="form-control input-vaulted-cvv" id="input-vaulted-cvv-{{ vaulted_payment_method.token }}" style="display: none;"></div>{% endif %}</div>
     </div>
-    <hr />
+    <hr>
     {% endfor %}
     {% for vaulted_payment_method in vaulted_payment_methods.paypal %}
     <div class="row" id="vaulted-method-{{ vaulted_payment_method.token }}">
       <div class="col-sm-1"><input type="radio" name="vaulted_payment_method" class="pull-right" value="{{ vaulted_payment_method.token }}"/></div>
-      <div class="col-sm-1"><img class="card-logo" src="{{ vaulted_payment_method.image }}" /></div>
-      <div class="col-sm-10">{{ vaulted_payment_method.name }}<br />[<a id="{{ vaulted_payment_method.token }}" class="remove-vault-method braintree-button">{{ text_remove }}</a>]</div>
+      <div class="col-sm-1"><img class="card-logo" src="{{ vaulted_payment_method.image }}"/></div>
+      <div class="col-sm-10">{{ vaulted_payment_method.name }}<br>[<a id="{{ vaulted_payment_method.token }}" class="remove-vault-method braintree-button">{{ text_remove }}</a>]</div>
     </div>
-    <hr />
+    <hr>
     {% endfor %}
   </fieldset>
   <div class="form-group">

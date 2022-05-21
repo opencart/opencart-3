@@ -135,10 +135,10 @@
             <label class="col-xs-12 control-label control-label-left"><span data-toggle="tooltip" title="{{ help_adult }}">{{ entry_adult }}</span></label>
             <div class="col-xs-12">
                 <label class="radio-inline">
-                    <input type="radio" name="adult" value="1" {{ adult ? "checked" }} /> {{ text_yes }}
+                    <input type="radio" name="adult" value="1" {{ adult ? "checked" }}/> {{ text_yes }}
                 </label>
                 <label class="radio-inline">
-                    <input type="radio" name="adult" value="0" {{ not adult ? "checked" }} /> {{ text_no }}
+                    <input type="radio" name="adult" value="0" {{ not adult ? "checked" }}/> {{ text_no }}
                 </label>
                 {% if error_adult %}
                     <div class="text-danger">{{ error_adult }}</div>
@@ -149,7 +149,7 @@
         <div class="form-group">
             <label class="col-xs-12 control-label control-label-left"><span data-toggle="tooltip" title="{{ help_multipack }}">{{ entry_multipack }}</span></label>
             <div class="col-xs-12">
-                <input type="number" name="multipack" value="{{ multipack }}" class="form-control" />
+                <input type="number" name="multipack" value="{{ multipack }}" class="form-control"/>
                 {% if error_multipack %}
                     <div class="text-danger">{{ error_multipack }}</div>
                 {% endif %}
@@ -160,10 +160,10 @@
             <label class="col-xs-12 control-label control-label-left"><span data-toggle="tooltip" title="{{ help_is_bundle }}">{{ entry_is_bundle }}</span></label>
             <div class="col-xs-12">
                 <label class="radio-inline">
-                    <input type="radio" name="is_bundle" value="1" {{ is_bundle ? "checked" }} /> {{ text_yes }}
+                    <input type="radio" name="is_bundle" value="1" {{ is_bundle ? "checked" }}/> {{ text_yes }}
                 </label>
                 <label class="radio-inline">
-                    <input type="radio" name="is_bundle" value="0" {{ not is_bundle ? "checked" }} /> {{ text_no }}
+                    <input type="radio" name="is_bundle" value="0" {{ not is_bundle ? "checked" }}/> {{ text_no }}
                 </label>
                 {% if error_is_bundle %}
                     <div class="text-danger">{{ error_is_bundle }}</div>

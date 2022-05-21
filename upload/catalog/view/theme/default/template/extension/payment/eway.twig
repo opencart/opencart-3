@@ -69,10 +69,10 @@
         <div class="col-sm-10">
           <input name="EWAY_CARDCVN" type="text" maxlength="4" value="" placeholder="{{ entry_cc_cvv2 }}" id="eway-cardcvn" autocomplete="off" class="form-control" pattern="\d*"/> <span id="cvn-details" class="help"> {{ help_cvv }}
             {% if 'amex' in payment_type %}
-              <br/>
+              <br>
               {{ help_cvv_amex }}
             {% endif %} </span>
-          <br/>
+          <br>
           <span id="ewaycvn-error" class="text-danger"></span></div>
       </div>
       {% endif %}

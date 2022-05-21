@@ -51,7 +51,7 @@
                         <div class="form-group required">
                             <label for="input-min-transit-time" class="col-sm-3 control-label">{{ entry_min_transit_time }}</label>
                             <div class="col-sm-9">
-                                <input type="number" class="form-control" id="input-min-transit-time" name="advertise_google_shipping_taxes[min_transit_time]" value="{{ advertise_google_shipping_taxes.min_transit_time }}" />
+                                <input type="number" class="form-control" id="input-min-transit-time" name="advertise_google_shipping_taxes[min_transit_time]" value="{{ advertise_google_shipping_taxes.min_transit_time }}"/>
                                 {% if error_min_transit_time %}
                                     <div class="text-danger">{{ error_min_transit_time }}</div>
                                 {% endif %}
@@ -60,7 +60,7 @@
                         <div class="form-group required">
                             <label for="input-max-transit-time" class="col-sm-3 control-label">{{ entry_max_transit_time }}</label>
                             <div class="col-sm-9">
-                                <input type="number" class="form-control" id="input-max-transit-time" name="advertise_google_shipping_taxes[max_transit_time]" value="{{ advertise_google_shipping_taxes.max_transit_time }}" />
+                                <input type="number" class="form-control" id="input-max-transit-time" name="advertise_google_shipping_taxes[max_transit_time]" value="{{ advertise_google_shipping_taxes.max_transit_time }}"/>
                                 {% if error_max_transit_time %}
                                     <div class="text-danger">{{ error_max_transit_time }}</div>
                                 {% endif %}
@@ -72,14 +72,14 @@
                         <div class="form-group">
                             <div class="col-sm-3">
                                 <label>
-                                    <input type="radio" name="advertise_google_shipping_taxes[shipping_type]" value="flat" {{ advertise_google_shipping_taxes.shipping_type == 'flat' ? 'checked' }} />
+                                    <input type="radio" name="advertise_google_shipping_taxes[shipping_type]" value="flat" {{ advertise_google_shipping_taxes.shipping_type == 'flat' ? 'checked' }}/>
                                     {{ text_shipping_flat }}
                                 </label>
                             </div>
                             <div class="col-sm-9" data-shipping-visible-on="flat">
                                 <div class="input-group">
                                     <div class="input-group-addon"><i class="fa fa-dollar"></i></div>
-                                    <input type="number" class="form-control" name="advertise_google_shipping_taxes[flat_rate]" value="{{ advertise_google_shipping_taxes.flat_rate }}" />
+                                    <input type="number" class="form-control" name="advertise_google_shipping_taxes[flat_rate]" value="{{ advertise_google_shipping_taxes.flat_rate }}"/>
                                     <div class="input-group-addon">{{ text_usd }}</div>
                                 </div>
                                 {% if error_flat_rate %}
@@ -90,21 +90,21 @@
                         <div class="form-group">
                             <div class="col-sm-3">
                                 <label>
-                                    <input type="radio" name="advertise_google_shipping_taxes[shipping_type]" value="carrier" {{ advertise_google_shipping_taxes.shipping_type == 'carrier' ? 'checked' }}  />
+                                    <input type="radio" name="advertise_google_shipping_taxes[shipping_type]" value="carrier" {{ advertise_google_shipping_taxes.shipping_type == 'carrier' ? 'checked' }} />
                                     {{ text_shipping_carrier }}
                                 </label>
                             </div>
                             <div class="col-sm-9" data-shipping-visible-on="carrier">
                                 <div class="input-group">
                                     <div class="input-group-addon">{{ text_carrier_postcode }}</div>
-                                    <input type="text" class="form-control" name="advertise_google_shipping_taxes[carrier_postcode]" value="{{ advertise_google_shipping_taxes.carrier_postcode }}" />
+                                    <input type="text" class="form-control" name="advertise_google_shipping_taxes[carrier_postcode]" value="{{ advertise_google_shipping_taxes.carrier_postcode }}"/>
                                 </div>
                                 {% if error_carrier_postcode %}
                                     <div class="text-danger">{{ error_carrier_postcode }}</div>
                                 {% endif %}
                                 <div class="input-group margin-top-10">
                                     <div class="input-group-addon"><span data-toggle="tooltip" title="{{ help_carrier_price_percentage }}">{{ text_carrier_price_percentage }}</span></div>
-                                    <input type="number" class="form-control" name="advertise_google_shipping_taxes[carrier_price_percentage]" value="{{ advertise_google_shipping_taxes.carrier_price_percentage }}" />
+                                    <input type="number" class="form-control" name="advertise_google_shipping_taxes[carrier_price_percentage]" value="{{ advertise_google_shipping_taxes.carrier_price_percentage }}"/>
                                     <div class="input-group-addon"><i class="fa fa-percent"></i></div>
                                 </div>
                                 {% if error_carrier_price_percentage %}
@@ -115,7 +115,7 @@
                                         <legend>{{ carrier.name }} ({{ carrier.country }})</legend>
                                         {% for service in carrier.services %}
                                             <label class="label-block">
-                                                <input type="checkbox" name="advertise_google_shipping_taxes[carrier][{{ carrier.code }}][{{ service.code }}]" value="1" {{ advertise_google_shipping_taxes.carrier[carrier.code][service.code] == '1' ? 'checked' }} /> {{ service.name }}
+                                                <input type="checkbox" name="advertise_google_shipping_taxes[carrier][{{ carrier.code }}][{{ service.code }}]" value="1" {{ advertise_google_shipping_taxes.carrier[carrier.code][service.code] == '1' ? 'checked' }}/> {{ service.name }}
                                             </label>
                                         {% endfor %}
                                     </fieldset>
@@ -125,7 +125,7 @@
                         <div class="form-group">
                             <div class="col-sm-12">
                                 <label>
-                                    <input type="radio" name="advertise_google_shipping_taxes[shipping_type]" value="custom" {{ advertise_google_shipping_taxes.shipping_type == 'custom' ? 'checked' }}  />
+                                    <input type="radio" name="advertise_google_shipping_taxes[shipping_type]" value="custom" {{ advertise_google_shipping_taxes.shipping_type == 'custom' ? 'checked' }} />
                                     {{ text_shipping_custom }}
                                 </label>
                             </div>
@@ -136,7 +136,7 @@
                         <div class="form-group">
                             <div class="col-sm-3">
                                 <label>
-                                    <input type="radio" name="advertise_google_shipping_taxes[tax_type]" value="usa" {{ advertise_google_shipping_taxes.tax_type == 'usa' ? 'checked' }}  />
+                                    <input type="radio" name="advertise_google_shipping_taxes[tax_type]" value="usa" {{ advertise_google_shipping_taxes.tax_type == 'usa' ? 'checked' }} />
                                     {{ text_tax_usa }}
                                 </label>
                             </div>
@@ -152,7 +152,7 @@
                                     <legend>{{ text_active_states }}</legend>
                                     {% for id, state in states %}
                                         <label class="label-block">
-                                            <input type="checkbox" name="advertise_google_shipping_taxes[tax][]" value="{{ id }}" {{ id in advertise_google_shipping_taxes.tax ? 'checked' }} /> {{ state }}
+                                            <input type="checkbox" name="advertise_google_shipping_taxes[tax][]" value="{{ id }}" {{ id in advertise_google_shipping_taxes.tax ? 'checked' }}/> {{ state }}
                                         </label>
                                     {% endfor %}
                                 </fieldset>
@@ -161,7 +161,7 @@
                         <div class="form-group">
                             <div class="col-sm-12">
                                 <label>
-                                    <input type="radio" name="advertise_google_shipping_taxes[tax_type]" value="not_usa" {{ advertise_google_shipping_taxes.tax_type == 'not_usa' ? 'checked' }}  />
+                                    <input type="radio" name="advertise_google_shipping_taxes[tax_type]" value="not_usa" {{ advertise_google_shipping_taxes.tax_type == 'not_usa' ? 'checked' }} />
                                     {{ text_tax_not_usa }}
                                 </label>
                             </div>
@@ -169,7 +169,7 @@
                         <div class="form-group">
                             <div class="col-sm-12">
                                 <label>
-                                    <input type="radio" name="advertise_google_shipping_taxes[tax_type]" value="custom" {{ advertise_google_shipping_taxes.tax_type == 'custom' ? 'checked' }}  />
+                                    <input type="radio" name="advertise_google_shipping_taxes[tax_type]" value="custom" {{ advertise_google_shipping_taxes.tax_type == 'custom' ? 'checked' }} />
                                     {{ text_tax_custom }}
                                 </label>
                             </div>

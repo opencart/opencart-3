@@ -45,7 +45,7 @@ class ModelExtensionPaymentAlipay extends Model {
 		return $method_data;
 	}
 
-	private function setParams($alipay_config){
+	private function setParams($alipay_config) {
 		$this->gateway_url = $alipay_config['gateway_url'];
 		$this->appid = $alipay_config['app_id'];
 		$this->private_key = $alipay_config['merchant_private_key'];
@@ -74,8 +74,9 @@ class ModelExtensionPaymentAlipay extends Model {
 
 	function pagePay($builder,$config) {
 		$this->setParams($config);
-		$biz_content=null;
-		if(!empty($builder)){
+		$biz_content = null;
+		
+		if (!empty($builder)) {
 			$biz_content = json_encode($builder,JSON_UNESCAPED_UNICODE);
 		}
 
@@ -91,7 +92,7 @@ class ModelExtensionPaymentAlipay extends Model {
 		return $response;
 	}
 
-	function check($arr, $config){
+	function check($arr, $config) {
 		$this->setParams($config);
 
 		$result = $this->rsaCheckV1($arr, $this->signtype);
@@ -177,7 +178,9 @@ class ModelExtensionPaymentAlipay extends Model {
 		ksort($params);
 
 		$stringToBeSigned = "";
+		
 		$i = 0;
+		
 		foreach ($params as $k => $v) {
 			if (false === $this->checkEmpty($v) && "@" != substr($v, 0, 1)) {
 				if ($i == 0) {
@@ -213,7 +216,7 @@ class ModelExtensionPaymentAlipay extends Model {
 		return $sign;
 	}
 
-	function getPostCharset(){
+	function getPostCharset() {
 		return trim($this->postCharset);
 	}
 }

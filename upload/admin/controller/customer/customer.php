@@ -777,14 +777,14 @@ class ControllerCustomerCustomer extends Controller {
 				'sort_order'         => $custom_field['sort_order']
 			);
 
-			if($custom_field['type'] == 'file') {
-				if(isset($data['account_custom_field'][$custom_field['custom_field_id']])) {
+			if ($custom_field['type'] == 'file') {
+				if (isset($data['account_custom_field'][$custom_field['custom_field_id']])) {
 					$code = $data['account_custom_field'][$custom_field['custom_field_id']];
 
 					$upload_result = $this->model_tool_upload->getUploadByCode($code);
 
 					$data['account_custom_field'][$custom_field['custom_field_id']] = array();
-					if($upload_result) {
+					if ($upload_result) {
 						$data['account_custom_field'][$custom_field['custom_field_id']]['name'] = $upload_result['name'];
 						$data['account_custom_field'][$custom_field['custom_field_id']]['code'] = $upload_result['code'];
 					} else {
@@ -793,14 +793,14 @@ class ControllerCustomerCustomer extends Controller {
 					}
 				}
 
-				foreach($data['addresses'] as $address_id => $address) {
-					if(isset($address['custom_field'][$custom_field['custom_field_id']])) {
+				foreach ($data['addresses'] as $address_id => $address) {
+					if (isset($address['custom_field'][$custom_field['custom_field_id']])) {
 						$code = $address['custom_field'][$custom_field['custom_field_id']];
 
 						$upload_result = $this->model_tool_upload->getUploadByCode($code);
 						
 						$data['addresses'][$address_id]['custom_field'][$custom_field['custom_field_id']] = array();
-						if($upload_result) {
+						if ($upload_result) {
 							$data['addresses'][$address_id]['custom_field'][$custom_field['custom_field_id']]['name'] = $upload_result['name'];
 							$data['addresses'][$address_id]['custom_field'][$custom_field['custom_field_id']]['code'] = $upload_result['code'];
 						} else {

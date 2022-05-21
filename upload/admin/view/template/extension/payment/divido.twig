@@ -142,11 +142,11 @@
                     <div class="form-group">
                         <label class="col-sm-2 control-label" for="category"><span data-toggle="tooltip" title="{{ help_category }}">{{ entry_category }}</span></label>
                         <div class="col-sm-10">
-                            <input type="text" name="category" value="" placeholder="{{ entry_category }}" id="category" class="form-control" />
+                            <input type="text" name="category" value="" placeholder="{{ entry_category }}" id="category" class="form-control"/>
                             <div id="divido-category" class="well well-sm" style="height: 150px; overflow: auto;">
                             {% for category in categories %}
                                 <div id="category{{ category.category_id }}"><i class="fa fa-minus-circle"></i> {{ category.name }}
-                                    <input type="hidden" name="payment_divido_categories[]" value="{{ category.category_id }}" />
+                                    <input type="hidden" name="payment_divido_categories[]" value="{{ category.category_id }}"/>
                                 </div>
                             {% endfor %}
                             </div>
@@ -219,7 +219,7 @@
 		select: function(item) {
 			$('input[name=\'category\']').val('');
 			$('#divido-category' + item['value']).remove();
-			$('#divido-category').append('<div id="divido-category' + item['value'] + '"><i class="fa fa-minus-circle"></i> ' + item['label'] + '<input type="hidden" name="payment_divido_categories[]" value="' + item['value'] + '" /></div>');
+			$('#divido-category').append('<div id="divido-category' + item['value'] + '"><i class="fa fa-minus-circle"></i> ' + item['label'] + '<input type="hidden" name="payment_divido_categories[]" value="' + item['value'] + '"/></div>');
 		}
 	});
 

@@ -36,7 +36,7 @@
             <table class="table table-bordered table-hover">
               <thead>
                 <tr>
-                  <td style="width: 1px;" class="text-center"><input type="checkbox" onclick="$('input[name*=\'selected\']').prop('checked', this.checked);" /></td>
+                  <td style="width: 1px;" class="text-center"><input type="checkbox" onclick="$('input[name*=\'selected\']').prop('checked', this.checked);"/></td>
                   <td class="text-left">{% if sort == 'v.code' %}
                     <a href="{{ sort_code }}" class="{{ order|lower }}">{{ column_code }}</a>
                     {% else %}
@@ -80,9 +80,9 @@
                 {% for voucher in vouchers %}
                 <tr>
                   <td class="text-center">{% if voucher.voucher_id in selected %}
-                    <input type="checkbox" name="selected[]" value="{{ voucher.voucher_id }}" checked="checked" />
+                    <input type="checkbox" name="selected[]" value="{{ voucher.voucher_id }}" checked="checked"/>
                     {% else %}
-                    <input type="checkbox" name="selected[]" value="{{ voucher.voucher_id }}" />
+                    <input type="checkbox" name="selected[]" value="{{ voucher.voucher_id }}"/>
                     {% endif %}</td>
                   <td class="text-left">{{ voucher.code }}</td>
                   <td class="text-left">{{ voucher.from }}</td>

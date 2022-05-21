@@ -462,7 +462,7 @@ class ControllerExtensionPaymentAmazonLoginPay extends Controller {
         //enable mfa only for UK and Europe regions
         $data['psd_enabled'] = "false";
 		
-        if($this->config->get('payment_amazon_login_pay_payment_region') != 'USD') {
+        if ($this->config->get('payment_amazon_login_pay_payment_region') != 'USD') {
             $data['psd_enabled'] = "true";
         }
         //detect the buyer multi-currency
@@ -533,10 +533,10 @@ class ControllerExtensionPaymentAmazonLoginPay extends Controller {
 		
         $this->load->model('extension/payment/amazon_login_pay');        
 
-        if(isset($this->request->get['AuthenticationStatus'])) {
+        if (isset($this->request->get['AuthenticationStatus'])) {
             $mfa_authorization_status = $this->request->get['AuthenticationStatus'];
 
-            if($mfa_authorization_status == 'Failure') {
+            if ($mfa_authorization_status == 'Failure') {
                 $text_failed_mfa = $this->language->get('error_failure_mfa');
 				
                 $this->model_extension_payment_amazon_login_pay->cartRedirect($text_failed_mfa);
@@ -843,7 +843,7 @@ class ControllerExtensionPaymentAmazonLoginPay extends Controller {
 
                 $this->session->data['order_id'] = $order_id;
 
-                if(isset($this->session->data['apalwa']['pay']['buyer_currency'])) {
+                if (isset($this->session->data['apalwa']['pay']['buyer_currency'])) {
                     $currency_code = $this->session->data['apalwa']['pay']['buyer_currency'];
                 } else {
                     $currency_code =  $this->config->get('payment_amazon_login_pay_payment_region');
@@ -920,7 +920,7 @@ class ControllerExtensionPaymentAmazonLoginPay extends Controller {
 
                 switch ($xml->getName()) {
                     case 'AuthorizationNotification':
-                        if($this->model_extension_payment_amazon_login_pay->authorizationIpn($xml)) {
+                        if ($this->model_extension_payment_amazon_login_pay->authorizationIpn($xml)) {
                             $this->load->model('checkout/order');
                             $oc_order_status_id = $this->config->get('payment_amazon_login_pay_capture_oc_status');
                             $amazon_capture_id = (string)$xml->AuthorizationDetails->IdList->Id;
@@ -943,7 +943,7 @@ class ControllerExtensionPaymentAmazonLoginPay extends Controller {
                             );
                             $transaction_exists = (!empty($amazon_capture_id)) ? $this->model_extension_payment_amazon_login_pay->findCapture($amazon_capture_id) : false;
 
-                            if(!isset($transaction_exists) || !$transaction_exists) {
+                            if (!isset($transaction_exists) || !$transaction_exists) {
                                 $this->model_extension_payment_amazon_login_pay->addTransaction($transaction);
                             }
                             $order_reference_details = $this->model_extension_payment_amazon_login_pay->fetchOrder($amazon_order_reference_id);
@@ -952,11 +952,12 @@ class ControllerExtensionPaymentAmazonLoginPay extends Controller {
                             $order_total = (float) $order_reference_details->OrderTotal->Amount;
                             $total_captured = $this->model_extension_payment_amazon_login_pay->getTotalCaptured($amazon_login_pay_order_id);
                             //chnage the order status only if the order is closed with the response code maxamountcharged or if the order is fully captured
-                            if(($order_state =="Closed" && $order_reason_code =="MaxAmountCharged") || $order_reason_code == "SellerClosed" || $amazon_captured_amount >= $order_total || $total_captured >= $order_total) {
+                            if (($order_state =="Closed" && $order_reason_code =="MaxAmountCharged") || $order_reason_code == "SellerClosed" || $amazon_captured_amount >= $order_total || $total_captured >= $order_total) {
                                 //update the order history
                                 $this->model_checkout_order->addOrderHistory($order_id, $oc_order_status_id, "", true);
                             }
                         }
+						
                         break;
                     case 'CaptureNotification':
                         $this->model_extension_payment_amazon_login_pay->captureIpn($xml);

@@ -300,5 +300,4 @@ class ControllerExtensionPaymentG2APay extends Controller {
 
 		return !$this->error;
 	}
-
 }

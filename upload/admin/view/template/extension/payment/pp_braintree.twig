@@ -44,11 +44,11 @@
           <div class="tab-content">
             <div class="tab-pane active" id="tab-setting">
               {% if payment_pp_braintree_access_token is not empty %}
-                <input type="hidden" name="payment_pp_braintree_access_token" value="{{ payment_pp_braintree_access_token }}" />
-                <input type="hidden" name="payment_pp_braintree_refresh_token" value="{{ payment_pp_braintree_refresh_token }}" />
-                <input type="hidden" name="payment_pp_braintree_merchant_id" value="{{ payment_pp_braintree_merchant_id }}" />
-                <input type="hidden" name="payment_pp_braintree_public_key" value="" />
-                <input type="hidden" name="payment_pp_braintree_private_key" value="" />
+                <input type="hidden" name="payment_pp_braintree_access_token" value="{{ payment_pp_braintree_access_token }}"/>
+                <input type="hidden" name="payment_pp_braintree_refresh_token" value="{{ payment_pp_braintree_refresh_token }}"/>
+                <input type="hidden" name="payment_pp_braintree_merchant_id" value="{{ payment_pp_braintree_merchant_id }}"/>
+                <input type="hidden" name="payment_pp_braintree_public_key" value=""/>
+                <input type="hidden" name="payment_pp_braintree_private_key" value=""/>
 
                 <div class="form-group">
                   <label class="col-sm-2 control-label">{{ entry_connection }}</label>
@@ -57,8 +57,8 @@
                   </div>
                 </div>
               {% else %}
-                <input type="hidden" name="payment_pp_braintree_access_token" value="" />
-                <input type="hidden" name="payment_pp_braintree_refresh_token" value="" />
+                <input type="hidden" name="payment_pp_braintree_access_token" value=""/>
+                <input type="hidden" name="payment_pp_braintree_refresh_token" value=""/>
                 <div class="form-group">
                   <label class="col-sm-2">{{ text_braintree_learn }}</label>
                   <div class="col-sm-10" id="bt-connect"></div>
@@ -66,19 +66,19 @@
                 <div class="form-group">
                   <label class="col-sm-2 control-label" for="input-merchant-id">{{ entry_merchant_id }}</label>
                   <div class="col-sm-10">
-                    <input type="text" name="payment_pp_braintree_merchant_id" value="{{ payment_pp_braintree_merchant_id }}" placeholder="{{ entry_merchant_id }}" id="input-merchant-id" class="form-control" />
+                    <input type="text" name="payment_pp_braintree_merchant_id" value="{{ payment_pp_braintree_merchant_id }}" placeholder="{{ entry_merchant_id }}" id="input-merchant-id" class="form-control"/>
                   </div>
                 </div>
                 <div class="form-group">
                   <label class="col-sm-2 control-label" for="input-public-key">{{ entry_public_key }}</label>
                   <div class="col-sm-10">
-                    <input type="text" name="payment_pp_braintree_public_key" value="{{ payment_pp_braintree_public_key }}" placeholder="{{ entry_public_key }}" id="input-public-key" class="form-control" />
+                    <input type="text" name="payment_pp_braintree_public_key" value="{{ payment_pp_braintree_public_key }}" placeholder="{{ entry_public_key }}" id="input-public-key" class="form-control"/>
                   </div>
                 </div>
                 <div class="form-group">
                   <label class="col-sm-2 control-label" for="input-private-key">{{ entry_private_key }}</label>
                   <div class="col-sm-10">
-                    <input type="text" name="payment_pp_braintree_private_key" value="{{ payment_pp_braintree_private_key }}" placeholder="{{ entry_private_key }}" id="input-private-key" class="form-control" />
+                    <input type="text" name="payment_pp_braintree_private_key" value="{{ payment_pp_braintree_private_key }}" placeholder="{{ entry_private_key }}" id="input-private-key" class="form-control"/>
                   </div>
                 </div>
               {% endif %}
@@ -88,7 +88,7 @@
                   <div class="col-sm-10">
                     {% if payment_pp_braintree_access_token is not empty and payment_pp_braintree_environment is not empty %}
                       <label class="control-label">{{ payment_pp_braintree_environment }}</label>
-                      <input type="hidden" name="payment_pp_braintree_environment" value="{{ payment_pp_braintree_environment }}" />
+                      <input type="hidden" name="payment_pp_braintree_environment" value="{{ payment_pp_braintree_environment }}"/>
                     {% else %}
                       <select name="payment_pp_braintree_environment" id="input-environment" class="form-control">
                         {% if payment_pp_braintree_environment == 'production' %}
@@ -134,7 +134,7 @@
               <div class="form-group">
                 <label class="col-sm-2 control-label" for="input-total"><span data-toggle="tooltip" title="{{ help_total }}">{{ entry_total }}</span></label>
                 <div class="col-sm-10">
-                  <input type="text" name="payment_pp_braintree_total" value="{{ payment_pp_braintree_total }}" placeholder="{{ entry_total }}" id="input-total" class="form-control" />
+                  <input type="text" name="payment_pp_braintree_total" value="{{ payment_pp_braintree_total }}" placeholder="{{ entry_total }}" id="input-total" class="form-control"/>
                 </div>
               </div>
               <div class="form-group">
@@ -169,7 +169,7 @@
               <div class="form-group">
                 <label class="col-sm-2 control-label" for="input-sort-order">{{ entry_sort_order }}</label>
                 <div class="col-sm-10">
-                  <input type="text" name="payment_pp_braintree_sort_order" value="{{ payment_pp_braintree_sort_order }}" placeholder="{{ entry_sort_order }}" id="input-sort-order" class="form-control" />
+                  <input type="text" name="payment_pp_braintree_sort_order" value="{{ payment_pp_braintree_sort_order }}" placeholder="{{ entry_sort_order }}" id="input-sort-order" class="form-control"/>
                 </div>
               </div>
             </div>
@@ -188,14 +188,14 @@
                       <tr>
                         <td class="text-center">
                           {% if payment_pp_braintree_account[currency.code].status == 1 %}
-                            <input type="checkbox" name="payment_pp_braintree_account[{{ currency.code }}][status]" value="1" checked="checked" />
+                            <input type="checkbox" name="payment_pp_braintree_account[{{ currency.code }}][status]" value="1" checked="checked"/>
                           {% else %}
-                            <input type="checkbox" name="payment_pp_braintree_account[{{ currency.code }}][status]" value="1" />
+                            <input type="checkbox" name="payment_pp_braintree_account[{{ currency.code }}][status]" value="1"/>
                           {% endif %}
                         </td>
                         <td class="text-left">{{ currency.code }}</td>
                         <td class="text-left">
-                          <input type="text" name="payment_pp_braintree_account[{{ currency.code }}][merchant_account_id]" value="{{ payment_pp_braintree_account[currency.code].merchant_account_id }}" placeholder="{{ text_merchant_account_id }}" class="form-control" />
+                          <input type="text" name="payment_pp_braintree_account[{{ currency.code }}][merchant_account_id]" value="{{ payment_pp_braintree_account[currency.code].merchant_account_id }}" placeholder="{{ text_merchant_account_id }}" class="form-control"/>
                           {% if error_account[currency.code] %}
                             <div class="text-danger">{{ error_account[currency.code] }}</div>
                           {% endif %}
@@ -365,7 +365,7 @@
             <div class="tab-pane" id="tab-3ds">
               {% if braintree_config.three_d_secure_enabled == 0 %}
                 <div class="alert alert-info">{{ error_braintree_account_3ds }}</div>
-                <input type="hidden" name="payment_pp_braintree_3ds_status" value="0" />
+                <input type="hidden" name="payment_pp_braintree_3ds_status" value="0"/>
               {% else %}
 			        <div class="form-group">
                 <label class="col-sm-2 control-label" for="input-3ds-status">{{ entry_3ds_status }}</label>
@@ -632,14 +632,14 @@
                   </div>
                 </div>
               {% else %}
-                <input type="hidden" name="payment_pp_braintree_paypal_vault" value="0" />
-                <input type="hidden" name="payment_pp_braintree_paypal_check_vault" value="0" />
+                <input type="hidden" name="payment_pp_braintree_paypal_vault" value="0"/>
+                <input type="hidden" name="payment_pp_braintree_paypal_check_vault" value="0"/>
               {% endif %}
             </div>
             <div class="tab-pane" id="tab-paypal">
               {% if braintree_config.paypal_enabled == 0 %}
                 <div class="alert alert-info">{{ error_braintree_account_paypal }}</div>
-                <input type="hidden" name="payment_pp_braintree_paypal_option" value="0" />
+                <input type="hidden" name="payment_pp_braintree_paypal_option" value="0"/>
               {% else %}
                 <div class="form-group">
                   <label class="col-sm-2 control-label" for="input-paypal-option"><span data-toggle="tooltip" title="{{ help_paypal_option }}">{{ entry_paypal_option }}</span></label>
@@ -657,7 +657,7 @@
                 </div>
 
                 <!-- required at a later date but must be empty -->
-                <input type="hidden" name="payment_pp_braintree_billing_agreement" value="" />
+                <input type="hidden" name="payment_pp_braintree_billing_agreement" value=""/>
 
                 <div class="form-group">
                   <label class="col-sm-2 control-label" for="input-paypal-button-colour">{{ entry_paypal_button_colour }}</label>
@@ -719,7 +719,7 @@
                   <div class="col-sm-3">
                     <div class="form-group">
                     <label class="control-label" for="input-transaction-id">{{ entry_transaction_id }}</label>
-                    <input type="text" name="filter_transaction_id" value="" placeholder="Transaction ID" id="input-transaction-id" class="form-control" />
+                    <input type="text" name="filter_transaction_id" value="" placeholder="Transaction ID" id="input-transaction-id" class="form-control"/>
                     </div>
                     <div class="form-group">
                     <label class="control-label" for="input-transaction-type">{{ entry_transaction_type }}</label>
@@ -733,7 +733,7 @@
                     <div class="col-sm-6" style="padding-left: 0;">
                       <label class="control-label" for="input-date-from">{{ entry_date_from }}</label>
                       <div class="input-group date">
-                        <input type="text" name="filter_date_from" value="" placeholder="From" data-date-format="YYYY-MM-DD" id="input-date-from" class="form-control" />
+                        <input type="text" name="filter_date_from" value="" placeholder="From" data-date-format="YYYY-MM-DD" id="input-date-from" class="form-control"/>
                         <span class="input-group-btn">
                           <button class="btn btn-default" type="button"><i class="fa fa-calendar"></i></button>
                         </span>
@@ -742,7 +742,7 @@
                     <div class="col-sm-6" style="padding-right: 0;">
                       <label class="control-label" for="input-date-to">{{ entry_date_to }}</label>
                       <div class="input-group date">
-                        <input type="text" name="filter_date_to" value="" placeholder="To" data-date-format="YYYY-MM-DD" id="input-date-to" class="form-control" />
+                        <input type="text" name="filter_date_to" value="" placeholder="To" data-date-format="YYYY-MM-DD" id="input-date-to" class="form-control"/>
                         <span class="input-group-btn">
                           <button class="btn btn-default" type="button"><i class="fa fa-calendar"></i></button>
                         </span>
@@ -771,11 +771,11 @@
                     <div class="form-group">
                     <div class="col-sm-6" style="padding-left: 0;">
                       <label class="control-label" for="input-amount-from">{{ entry_amount_from }}</label>
-                      <input type="text" name="filter_amount_from" value="" placeholder="From" id="input-amount-from" class="form-control" />
+                      <input type="text" name="filter_amount_from" value="" placeholder="From" id="input-amount-from" class="form-control"/>
                     </div>
                     <div class="col-sm-6" style="padding-right: 0;">
                       <label class="control-label" for="input-amount-to">{{ entry_amount_to }}</label>
-                      <input type="text" name="filter_amount_to" value="" placeholder="To" id="input-amount-to" class="form-control" />
+                      <input type="text" name="filter_amount_to" value="" placeholder="To" id="input-amount-to" class="form-control"/>
                     </div>
                     </div>
                   </div>
@@ -786,7 +786,7 @@
                       {% for transaction_status in transaction_statuses %}
                         <div class="checkbox">
                           <label>
-                            <input class="filter-transaction-status" type="checkbox" name="filter_transaction_status[]" value="{{ transaction_status }}" checked="checked" /> {{ transaction_status }}
+                            <input class="filter-transaction-status" type="checkbox" name="filter_transaction_status[]" value="{{ transaction_status }}" checked="checked"/> {{ transaction_status }}
                           </label>
                         </div>
                       {% endfor %}

@@ -1,7 +1,7 @@
 {% if comments %}
 {% for comment in comments %}
 <div id="comment{{ comment.extension_comment_id }}" class="media">
-  <div class="media-left"><img src="{{ comment.image }}" alt="{{ comment.member }}" title="{{ comment.member }}" class="media-object" /></div>
+  <div class="media-left"><img src="{{ comment.image }}" alt="{{ comment.member }}" title="{{ comment.member }}" class="media-object"/></div>
   <div class="media-body">
     <p class="media-heading">{{ comment.member }} <span>{{ comment.date_added }}</span></p>
     <p>{{ comment.comment }}</p>
@@ -10,7 +10,7 @@
         
         {% for reply in comment.reply %}
         <div class="media">
-          <div class="media-left"><img src="{{ reply.image }}" alt="{{ reply.member }}" title="{{ reply.member }}" class="media-object" /></div>
+          <div class="media-left"><img src="{{ reply.image }}" alt="{{ reply.member }}" title="{{ reply.member }}" class="media-object"/></div>
           <div class="media-body">
             <p class="media-heading">{{ reply.member }} <span>{{ reply.date_added }}</span></p>
             <p>{{ reply.comment }}</p>
@@ -41,6 +41,6 @@
   </div>
 </div>
 </div>
-{% endfor %} <br/>
+{% endfor %} <br>
 <div class="text-center">{{ pagination }}</div>
 {% endif %} 

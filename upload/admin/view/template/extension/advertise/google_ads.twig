@@ -16,7 +16,7 @@
             <div class="form-group">
                 <label class="control-label" for="input-category">{{ text_product_category }}</label>
                 <div class="category-select-container">
-                    <input id="input-category" type="text" name="category_autocomplete" value="" class="form-control" placeholder="{{ text_product_category }}" />
+                    <input id="input-category" type="text" name="category_autocomplete" value="" class="form-control" placeholder="{{ text_product_category }}"/>
                     <input type="hidden" name="filter_category_id" value="">
                     <button id="button-category-remove" class="btn btn-default" disabled><i class="fa fa-close"></i></button>
                 </div>
@@ -41,7 +41,7 @@
     <div class="alert alert-info">
         {{ text_ads_intro }}
     </div>
-    <hr />
+    <hr>
     <div class="row">
         <div class="col-md-12">
             <div class="pull-right form-control-static">
@@ -52,7 +52,7 @@
                     </button>
                     <ul class="dropdown-menu dropdown-menu-right campaign-dropdown">
                         {% for campaign in campaigns %}
-                            <li class="text-pre-line"><a><input type="checkbox" name="target_ids[]" value="{{ campaign.target_id }}" />&nbsp;&nbsp;<span class="form-control-static">{{ campaign.campaign_name }}</span></a></li>
+                            <li class="text-pre-line"><a><input type="checkbox" name="target_ids[]" value="{{ campaign.target_id }}"/>&nbsp;&nbsp;<span class="form-control-static">{{ campaign.campaign_name }}</span></a></li>
                         {% endfor %}
                         <li role="separator" class="divider"></li>
                         <li class="text-center padding-lr-5">
@@ -70,7 +70,7 @@
         <table class="table table-bordered table-hover">
             <thead id="list-head">
                 <tr>
-                    <th class="text-center"><input type="checkbox" name="select_all" /></th>
+                    <th class="text-center"><input type="checkbox" name="select_all"/></th>
                     <th class="text-center">{{ text_image }}</th>
                     <th class="text-left visible-lg"><a href="javascript:void(0)" data-sort="name">{{ text_product_name }}</a></th>
                     <th class="text-left"><a href="javascript:void(0)" data-sort="model">{{ text_product_model }}</a></th>
@@ -101,7 +101,7 @@
                     </button>
                     <ul class="dropdown-menu dropdown-menu-right campaign-dropdown">
                         {% for campaign in campaigns %}
-                            <li class="text-pre-line"><a><input type="checkbox" name="target_ids[]" value="{{ campaign.target_id }}" />&nbsp;&nbsp;<span class="form-control-static">{{ campaign.campaign_name }}</span></a></li>
+                            <li class="text-pre-line"><a><input type="checkbox" name="target_ids[]" value="{{ campaign.target_id }}"/>&nbsp;&nbsp;<span class="form-control-static">{{ campaign.campaign_name }}</span></a></li>
                         {% endfor %}
                         <li role="separator" class="divider"></li>
                         <li class="text-center padding-lr-5">
@@ -113,7 +113,7 @@
             </div>
         </div>
     </div>
-    <hr />
+    <hr>
     <div class="row">
         <div class="col-md-6">
             <div class="list-pagination">
@@ -294,7 +294,7 @@
                 return element.campaign_name;
             });
 
-            html = result.join('<br />');
+            html = result.join('<br>');
         }
 
         return html != '' ? html : '<span class="label label-default">{{ text_label_unassigned }}</span>';
@@ -360,7 +360,7 @@
                             var html = '<tr class="product-row">';
 
                             html += '<td class="highlightable text-center"><input type="checkbox" name="select[]" value="' + product.product_id + '"></td>';
-                            html += '<td class="highlightable text-center"><img class="img-thumbnail" src="' + product.image + '" alt="' + product.name + '" /></td>';
+                            html += '<td class="highlightable text-center"><img class="img-thumbnail" src="' + product.image + '" alt="' + product.name + '"/></td>';
                             html += '<td class="highlightable text-left visible-lg">' + product.name + '</td>';
                             html += '<td class="highlightable text-left">' + product.model + '</td>';
                             html += '<td class="highlightable text-center">' + product.impressions + '</td>';

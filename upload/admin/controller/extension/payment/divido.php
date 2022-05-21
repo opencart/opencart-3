@@ -152,7 +152,7 @@ class ControllerExtensionPaymentDivido extends Controller {
 
 		try {
 			$data['divido_plans'] = $this->model_extension_payment_divido->getAllPlans();
-		} catch (Exception $e) {
+		} catch (\Exception $e) {
 			$this->log->write($e->getMessage());
 			$data['divido_plans'] = array();
 		}
@@ -165,7 +165,6 @@ class ControllerExtensionPaymentDivido extends Controller {
 
 		$this->response->setOutput($this->load->view('extension/payment/divido', $data));
 	}
-
 
 	public function order() {
 		if (!$this->config->get('payment_divido_status')) {

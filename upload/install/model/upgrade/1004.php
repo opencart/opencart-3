@@ -204,7 +204,8 @@ class ModelUpgrade1004 extends Model {
 						foreach ($value as $k => $v) {
 							$module_data['name'] = ($result['key'] . '_' . $k);
 							$module_data['status'] = $v['status'];
-							foreach($v['description'] as $language_id => $description) {
+							
+							foreach ($v['description'] as $language_id => $description) {
 								$module_data['module_description'][$language_id]['title'] = '';
 								$module_data['module_description'][$language_id]['description'] = str_replace('image/data', 'image/catalog', $description);
 							}
@@ -238,8 +239,6 @@ class ModelUpgrade1004 extends Model {
 						$this->db->query("UPDATE `" . DB_PREFIX . "setting` SET `value` = '" . $this->db->escape(json_encode($value)) . "' WHERE `setting_id` = '" . (int)$result['setting_id'] . "'");
 					}
 				}
-			} else {
-
 			}
 		}
 	}

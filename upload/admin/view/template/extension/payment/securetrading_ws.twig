@@ -27,7 +27,7 @@
           <div class="form-group required">
             <label class="col-sm-2 control-label" for="securetrading_ws_site_reference">{{ entry_site_reference }}</label>
             <div class="col-sm-10">
-              <input type="text" name="payment_securetrading_ws_site_reference" value="{{ payment_securetrading_ws_site_reference }}" placeholder="{{ entry_site_reference }}" id="securetrading_ws_site_reference" class="form-control" />
+              <input type="text" name="payment_securetrading_ws_site_reference" value="{{ payment_securetrading_ws_site_reference }}" placeholder="{{ entry_site_reference }}" id="securetrading_ws_site_reference" class="form-control"/>
               {% if error_site_reference %}
               <div class="text-danger">{{ error_site_reference }}</div>
               {% endif %} </div>
@@ -35,7 +35,7 @@
           <div class="form-group required">
             <label class="col-sm-2 control-label" for="securetrading_ws_username">{{ entry_username }}</label>
             <div class="col-sm-10">
-              <input type="text" name="payment_securetrading_ws_username" value="{{ payment_securetrading_ws_username }}" placeholder="{{ entry_username }}" id="securetrading_ws_username" class="form-control" />
+              <input type="text" name="payment_securetrading_ws_username" value="{{ payment_securetrading_ws_username }}" placeholder="{{ entry_username }}" id="securetrading_ws_username" class="form-control"/>
               {% if error_username %}
               <div class="text-danger">{{ error_username }}</div>
               {% endif %} </div>
@@ -43,7 +43,7 @@
           <div class="form-group required">
             <label class="col-sm-2 control-label" for="securetrading_ws_password">{{ entry_password }}</label>
             <div class="col-sm-10">
-              <input type="text" name="payment_securetrading_ws_password" value="{{ payment_securetrading_ws_password }}" placeholder="{{ entry_password }}" id="securetrading_ws_password" class="form-control" />
+              <input type="text" name="payment_securetrading_ws_password" value="{{ payment_securetrading_ws_password }}" placeholder="{{ entry_password }}" id="securetrading_ws_password" class="form-control"/>
               {% if error_password %}
               <div class="text-danger">{{ error_password }}</div>
               {% endif %} </div>
@@ -51,13 +51,13 @@
           <div class="form-group">
             <label class="col-sm-2 control-label" for="securetrading_ws_csv_username">{{ entry_csv_username }}</label>
             <div class="col-sm-10">
-              <input type="text" name="payment_securetrading_ws_csv_username" value="{{ payment_securetrading_ws_csv_username }}" placeholder="{{ entry_csv_username }}" id="securetrading_ws_csv_username" class="form-control" />
+              <input type="text" name="payment_securetrading_ws_csv_username" value="{{ payment_securetrading_ws_csv_username }}" placeholder="{{ entry_csv_username }}" id="securetrading_ws_csv_username" class="form-control"/>
               <span class="help-block">{{ help_csv_username }}</span> </div>
           </div>
           <div class="form-group">
             <label class="col-sm-2 control-label" for="securetrading_ws_csv_password">{{ entry_csv_password }}</label>
             <div class="col-sm-10">
-              <input type="text" name="payment_securetrading_ws_csv_password" value="{{ payment_securetrading_ws_csv_password }}" placeholder="{{ entry_csv_password }}" id="securetrading_ws_csv_password" class="form-control" />
+              <input type="text" name="payment_securetrading_ws_csv_password" value="{{ payment_securetrading_ws_csv_password }}" placeholder="{{ entry_csv_password }}" id="securetrading_ws_csv_password" class="form-control"/>
               <span class="help-block">{{ help_csv_password }}</span> </div>
           </div>
           <div class="form-group required">
@@ -65,9 +65,9 @@
             <div class="col-sm-10"> {% for key, value in cards %}
               <div class="checkbox">
                 <label> {% if key in payment_securetrading_ws_cards_accepted %}
-                  <input type="checkbox" checked="checked" name="payment_securetrading_ws_cards_accepted[]" value="{{ key }}" />
+                  <input type="checkbox" checked="checked" name="payment_securetrading_ws_cards_accepted[]" value="{{ key }}"/>
                   {% else %}
-                  <input type="checkbox" name="payment_securetrading_ws_cards_accepted[]" value="{{ key }}" />
+                  <input type="checkbox" name="payment_securetrading_ws_cards_accepted[]" value="{{ key }}"/>
                   {% endif %}
                   {{ value }} </label>
               </div>
@@ -128,7 +128,7 @@
           <div class="form-group">
             <label class="col-sm-2 control-label" for="securetrading_ws_total">{{ entry_total }}</label>
             <div class="col-sm-10">
-              <input type="text" name="payment_securetrading_ws_total" value="{{ payment_securetrading_ws_total }}" placeholder="{{ entry_total }}" id="securetrading_ws_total" class="form-control" />
+              <input type="text" name="payment_securetrading_ws_total" value="{{ payment_securetrading_ws_total }}" placeholder="{{ entry_total }}" id="securetrading_ws_total" class="form-control"/>
               <span class="help-block">{{ help_total }}</span> </div>
           </div>
           <div class="form-group">
@@ -286,7 +286,7 @@
           <div class="form-group">
             <label class="col-sm-2 control-label" for="securetrading_ws_sort_order">{{ entry_sort_order }}</label>
             <div class="col-sm-10">
-              <input type="text" name="payment_securetrading_ws_sort_order" value="{{ payment_securetrading_ws_sort_order }}" placeholder="{{ entry_sort_order }}" id="securetrading_ws_sort_order" class="form-control" />
+              <input type="text" name="payment_securetrading_ws_sort_order" value="{{ payment_securetrading_ws_sort_order }}" placeholder="{{ entry_sort_order }}" id="securetrading_ws_sort_order" class="form-control"/>
             </div>
           </div>
         </form>
@@ -332,7 +332,7 @@
                 <div class="form-group">
                   <label class="control-label" for="date-from">{{ entry_date_from }}</label>
                   <div class="input-group date">
-                    <input type="text" name="date_from" value="<?php echo date('Y-m-d'); ?>" placeholder="{{ entry_date_from }}" data-date-format="YYYY-MM-DD" id="date-from" class="form-control" />
+                    <input type="text" name="date_from" value="<?php echo date('Y-m-d'); ?>" placeholder="{{ entry_date_from }}" data-date-format="YYYY-MM-DD" id="date-from" class="form-control"/>
                     <span class="input-group-btn">
                     <button type="button" class="btn btn-default"><i class="fa fa-calendar"></i></button>
                     </span> </div>
@@ -374,7 +374,7 @@
                 <div class="form-group">
                   <label class="control-label" for="date-to">{{ entry_date_to }}</label>
                   <div class="input-group date">
-                    <input type="text" name="date_to" value="<?php echo date('Y-m-d'); ?>" placeholder="{{ entry_date_to }}" data-date-format="YYYY-MM-DD" id="date-to" class="form-control" />
+                    <input type="text" name="date_to" value="<?php echo date('Y-m-d'); ?>" placeholder="{{ entry_date_to }}" data-date-format="YYYY-MM-DD" id="date-to" class="form-control"/>
                     <span class="input-group-btn">
                     <button type="button" class="btn btn-default"><i class="fa fa-calendar"></i></button>
                     </span> </div>
@@ -465,7 +465,7 @@
 <script type="text/javascript">
 	function downloadTransactions() {
 		$('#download-iframe').remove();
-		$('#transaction-form').after('<iframe name="download-iframe" id="download-iframe" style="display: none;" src="" />');
+		$('#transaction-form').after('<iframe name="download-iframe" id="download-iframe" style="display: none;" src=""/>');
 
 		$('#transaction-form').attr('method', 'POST');
 		$('#transaction-form').attr('target', 'download-iframe');

@@ -137,14 +137,14 @@ class ControllerAccountEdit extends Controller {
 
 		foreach ($custom_fields as $custom_field) {
 			if ($custom_field['location'] == 'account') {
-				if($custom_field['type'] == 'file' && isset($data['account_custom_field'][$custom_field['custom_field_id']])) {
+				if ($custom_field['type'] == 'file' && isset($data['account_custom_field'][$custom_field['custom_field_id']])) {
 					$code = $data['account_custom_field'][$custom_field['custom_field_id']];
 
 					$data['account_custom_field'][$custom_field['custom_field_id']] = array();
 
 					$upload_result = $this->model_tool_upload->getUploadByCode($code);
 					
-					if($upload_result) {
+					if ($upload_result) {
 						$data['account_custom_field'][$custom_field['custom_field_id']]['name'] = $upload_result['name'];
 						$data['account_custom_field'][$custom_field['custom_field_id']]['code'] = $upload_result['code'];
 					} else {

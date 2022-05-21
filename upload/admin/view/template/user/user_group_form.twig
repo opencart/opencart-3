@@ -28,7 +28,7 @@
           <div class="form-group required">
             <label class="col-sm-2 control-label" for="input-name">{{ entry_name }}</label>
             <div class="col-sm-10">
-              <input type="text" name="name" value="{{ name }}" placeholder="{{ entry_name }}" id="input-name" class="form-control" />
+              <input type="text" name="name" value="{{ name }}" placeholder="{{ entry_name }}" id="input-name" class="form-control"/>
               {% if error_name %}
               <div class="text-danger">{{ error_name }}</div>
               {% endif %}
@@ -42,10 +42,10 @@
                 <div class="checkbox">
                   <label>
                     {% if permission in access %}
-                    <input type="checkbox" name="permission[access][]" value="{{ permission }}" checked="checked" />
+                    <input type="checkbox" name="permission[access][]" value="{{ permission }}" checked="checked"/>
                     {{ permission }}
                     {% else %}
-                    <input type="checkbox" name="permission[access][]" value="{{ permission }}" />
+                    <input type="checkbox" name="permission[access][]" value="{{ permission }}"/>
                     {{ permission }}
                     {% endif %}
                   </label>
@@ -62,10 +62,10 @@
                 <div class="checkbox">
                   <label>
                     {% if permission in modify %}
-                    <input type="checkbox" name="permission[modify][]" value="{{ permission }}" checked="checked" />
+                    <input type="checkbox" name="permission[modify][]" value="{{ permission }}" checked="checked"/>
                     {{ permission }}
                     {% else %}
-                    <input type="checkbox" name="permission[modify][]" value="{{ permission }}" />
+                    <input type="checkbox" name="permission[modify][]" value="{{ permission }}"/>
                     {{ permission }}
                     {% endif %}
                   </label>

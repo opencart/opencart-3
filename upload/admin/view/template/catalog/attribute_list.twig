@@ -34,7 +34,7 @@
             <table class="table table-bordered table-hover">
               <thead>
                 <tr>
-                  <td style="width: 1px;" class="text-center"><input type="checkbox" onclick="$('input[name*=\'selected\']').prop('checked', this.checked);" /></td>
+                  <td style="width: 1px;" class="text-center"><input type="checkbox" onclick="$('input[name*=\'selected\']').prop('checked', this.checked);"/></td>
                   <td class="text-left">{% if sort == 'ad.name' %}
                     <a href="{{ sort_name }}" class="{{ order|lower }}">{{ column_name }}</a>
                     {% else %}
@@ -58,9 +58,9 @@
                 {% for attribute in attributes %}
                 <tr>
                   <td class="text-center">{% if attribute.attribute_id in selected %}
-                    <input type="checkbox" name="selected[]" value="{{ attribute.attribute_id }}" checked="checked" />
+                    <input type="checkbox" name="selected[]" value="{{ attribute.attribute_id }}" checked="checked"/>
                     {% else %}
-                    <input type="checkbox" name="selected[]" value="{{ attribute.attribute_id }}" />
+                    <input type="checkbox" name="selected[]" value="{{ attribute.attribute_id }}"/>
                     {% endif %}</td>
                   <td class="text-left">{{ attribute.name }}</td>
                   <td class="text-left">{{ attribute.attribute_group }}</td>

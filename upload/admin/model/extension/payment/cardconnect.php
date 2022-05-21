@@ -130,7 +130,7 @@ class ModelExtensionPaymentCardConnect extends Model {
 
 		$shipping_cost = '';
 
-		foreach($totals as $total) {
+		foreach ($totals as $total) {
 			if ($total['code'] == 'shipping') {
 				$shipping_cost = $total['value'];
 			}

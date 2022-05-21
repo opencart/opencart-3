@@ -7,7 +7,7 @@ class ControllerExtensionPaymentSecureTradingPp extends Controller {
 		$this->load->model('localisation/country');
 		$this->load->model('localisation/zone');		
 
-		if(!isset($this->session->data['order_id'])) {
+		if (!isset($this->session->data['order_id'])) {
 			return false;
 		}
 

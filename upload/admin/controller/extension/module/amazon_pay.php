@@ -113,5 +113,4 @@ class ControllerExtensionModuleAmazonPay extends Controller {
 		
 		$this->model_setting_event->deleteEventByCode('amazon_pay');
 	}
-
 }

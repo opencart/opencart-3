@@ -119,5 +119,4 @@ class ModelExtensionPaymentBluePayRedirect extends Model {
 
 		return json_decode($response_data, true);
 	}
-
 }

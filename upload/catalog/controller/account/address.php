@@ -199,7 +199,7 @@ class ControllerAccountAddress extends Controller {
 
 			$data['addresses'][] = array(
 				'address_id' => $result['address_id'],
-				'address'    => str_replace(array("\r\n", "\r", "\n"), '<br />', preg_replace(array("/\s\s+/", "/\r\r+/", "/\n\n+/"), '<br />', trim(str_replace($find, $replace, $format)))),
+				'address'    => str_replace(array("\r\n", "\r", "\n"), '<br>', preg_replace(array("/\s\s+/", "/\r\r+/", "/\n\n+/"), '<br>', trim(str_replace($find, $replace, $format)))),
 				'update'     => $this->url->link('account/address/edit', 'address_id=' . $result['address_id'], true),
 				'delete'     => $this->url->link('account/address/delete', 'address_id=' . $result['address_id'], true)
 			);
@@ -402,13 +402,13 @@ class ControllerAccountAddress extends Controller {
 
 		foreach ($custom_fields as $custom_field) {
 			if ($custom_field['location'] == 'address') {
-				if($custom_field['type'] == 'file' && isset($data['address_custom_field'][$custom_field['custom_field_id']])) {
+				if ($custom_field['type'] == 'file' && isset($data['address_custom_field'][$custom_field['custom_field_id']])) {
 					$code = $data['address_custom_field'][$custom_field['custom_field_id']];
 
 					$upload_result = $this->model_tool_upload->getUploadByCode($code);
 
 					$data['address_custom_field'][$custom_field['custom_field_id']] = array();
-					if($upload_result) {
+					if ($upload_result) {
 						$data['address_custom_field'][$custom_field['custom_field_id']]['name'] = $upload_result['name'];
 						$data['address_custom_field'][$custom_field['custom_field_id']]['code'] = $upload_result['code'];
 					} else {

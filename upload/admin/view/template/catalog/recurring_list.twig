@@ -35,7 +35,7 @@
             <table class="table table-bordered table-hover">
               <thead>
                 <tr>
-                  <td class="text-center" width="1"><input type="checkbox" onclick="$('input[name*=\'selected\']').prop('checked', this.checked);" /></td>
+                  <td class="text-center" width="1"><input type="checkbox" onclick="$('input[name*=\'selected\']').prop('checked', this.checked);"/></td>
                   <td class="text-left">{% if sort == 'pd.name' %}
                     <a href="{{ sort_name }}" class="{{ order|lower }}">{{ column_name }}</a>
                     {% else %}
@@ -54,9 +54,9 @@
                 {% for recurring in recurrings %}
                 <tr>
                   <td class="text-center">{% if recurring.recurring_id in selected %}
-                    <input type="checkbox" name="selected[]" value="{{ recurring.recurring_id }}" checked="checked" />
+                    <input type="checkbox" name="selected[]" value="{{ recurring.recurring_id }}" checked="checked"/>
                     {% else %}
-                    <input type="checkbox" name="selected[]" value="{{ recurring.recurring_id }}" />
+                    <input type="checkbox" name="selected[]" value="{{ recurring.recurring_id }}"/>
                     {% endif %}</td>
                   <td class="text-left">{{ recurring.name }}</td>
                   <td class="text-right">{{ recurring.sort_order }}</td>

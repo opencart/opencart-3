@@ -16,7 +16,7 @@ class ControllerExtensionPaymentPPStandard extends Controller {
 
 		$this->load->model('checkout/order');
 
-		if(!isset($this->session->data['order_id'])) {
+		if (!isset($this->session->data['order_id'])) {
 			return false;
 		}
 
@@ -182,7 +182,7 @@ class ControllerExtensionPaymentPPStandard extends Controller {
 			if ((strcmp($response, 'VERIFIED') == 0 || strcmp($response, 'UNVERIFIED') == 0) && isset($this->request->post['payment_status'])) {
 				$order_status_id = $this->config->get('config_order_status_id');
 
-				switch($this->request->post['payment_status']) {
+				switch ($this->request->post['payment_status']) {
 					case 'Canceled_Reversal':
 						$order_status_id = $this->config->get('payment_pp_standard_canceled_reversal_status_id');
 						break;

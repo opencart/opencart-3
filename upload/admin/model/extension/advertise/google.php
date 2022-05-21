@@ -200,6 +200,7 @@ class ModelExtensionAdvertiseGoogle extends Model {
         $this->load->config('googleshopping/googleshopping');
 
         $result = array();
+		
         $countries = $this->getTargetCountriesByProductIds($product_ids, $store_id);
 
         foreach ($countries as $country) {
@@ -221,6 +222,7 @@ class ModelExtensionAdvertiseGoogle extends Model {
         $this->load->config('googleshopping/googleshopping');
 
         $result = array();
+		
         $countries = $this->getTargetCountriesByFilter($data, $store_id);
 
         foreach ($countries as $country) {
@@ -358,6 +360,7 @@ class ModelExtensionAdvertiseGoogle extends Model {
         $values = array();
 
         $entry = array();
+		
         $entry['product_id'] = (int)$data['product_id'];
         $entry = array_merge($entry, $this->makeInsertData($data));
 
@@ -374,6 +377,7 @@ class ModelExtensionAdvertiseGoogle extends Model {
         $this->googleshopping->applyFilter($insert_sql, $filter_data);
 
         $insert_data = array();
+		
         $keys[] = "`product_id`";
 
         foreach ($this->makeInsertData($data) as $key => $value) {
@@ -468,6 +472,7 @@ class ModelExtensionAdvertiseGoogle extends Model {
 
         if (!empty($product_info)) {
             $result = array();
+			
             $result['name'] = $product_info['name'];
             $result['model'] = $product_info['model'];
             $result['entries'] = array();

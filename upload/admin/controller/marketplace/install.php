@@ -332,7 +332,7 @@ class ControllerMarketplaceInstall extends Controller {
 	
 							$this->model_setting_modification->addModification($modification_data);
 						}
-					} catch (Exception $exception) {
+					} catch (\Exception $exception) {
 						$json['error'] = sprintf($this->language->get('error_exception'), $exception->getCode(), $exception->getMessage(), $exception->getFile(), $exception->getLine());
 					}
 				}
@@ -518,7 +518,8 @@ class ControllerMarketplaceInstall extends Controller {
 
 		$this->response->addHeader('Content-Type: application/json');
 		$this->response->setOutput(json_encode($json));
-	}	
+	}
+	
 	private function isDirEmpty ($dir_name) {
 		if (!is_dir($dir_name)) {
 			return false;

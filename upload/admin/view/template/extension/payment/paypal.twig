@@ -69,7 +69,7 @@
 												margin-top: -12px;
 											}
 										</style>
-										<a id="button_connect_ppcp" href="{{ configure_url[environment]['ppcp'] }}" target="_blank" data-paypal-button="PPLtBlue" data-paypal-onboard-complete="onBoardedCallback">{{ button_connect }}</a><br />
+										<a id="button_connect_ppcp" href="{{ configure_url[environment]['ppcp'] }}" target="_blank" data-paypal-button="PPLtBlue" data-paypal-onboard-complete="onBoardedCallback">{{ button_connect }}</a><br>
 										<p>{{ help_checkout_express }}</p>
 									</div>
 									{% if client_id and secret and merchant_id %}
@@ -78,10 +78,10 @@
 										<a id="button_disconnect" class="btn btn-danger">{{ button_disconnect }}</a>
 									</div>
 									{% endif %}
-									<input type="hidden" name="payment_paypal_client_id" value="{{ client_id }}" id="input_client_id" />
-									<input type="hidden" name="payment_paypal_secret" value="{{ secret }}" id="input_secret" />
-									<input type="hidden" name="payment_paypal_merchant_id" value="{{ merchant_id }}" id="input_merchant_id" />
-									<input type="hidden" name="payment_paypal_webhook_id" value="{{ webhook_id }}" id="input_webhook_id" />
+									<input type="hidden" name="payment_paypal_client_id" value="{{ client_id }}" id="input_client_id"/>
+									<input type="hidden" name="payment_paypal_secret" value="{{ secret }}" id="input_secret"/>
+									<input type="hidden" name="payment_paypal_merchant_id" value="{{ merchant_id }}" id="input_merchant_id"/>
+									<input type="hidden" name="payment_paypal_webhook_id" value="{{ webhook_id }}" id="input_webhook_id"/>
 								</div>
 							</div>
 							{% if client_id and secret and merchant_id %}
@@ -162,7 +162,7 @@
 							<div class="form-group">
 								<label class="col-sm-2 control-label" for="input_total"><span data-toggle="tooltip" title="{{ help_total }}">{{ entry_total }}</span></label>
 								<div class="col-sm-10">
-									<input type="text" name="payment_paypal_total" value="{{ total }}" placeholder="{{ entry_total }}" id="input_total" class="form-control" />
+									<input type="text" name="payment_paypal_total" value="{{ total }}" placeholder="{{ entry_total }}" id="input_total" class="form-control"/>
 								</div>
 							</div>
 							<div class="form-group">
@@ -197,7 +197,7 @@
 							<div class="form-group">
 								<label class="col-sm-2 control-label" for="input_sort_order">{{ entry_sort_order }}</label>
 								<div class="col-sm-10">
-									<input type="text" name="payment_paypal_sort_order" value="{{ sort_order }}" placeholder="{{ entry_sort_order }}" id="input_sort_order" class="form-control" />
+									<input type="text" name="payment_paypal_sort_order" value="{{ sort_order }}" placeholder="{{ entry_sort_order }}" id="input_sort_order" class="form-control"/>
 								</div>
 							</div>
 							<div class="form-group">
@@ -217,7 +217,7 @@
 							<div class="form-group">
 								<label class="col-sm-2 control-label" for="input_currency_value"><span data-toggle="tooltip" title="{{ help_currency_value }}">{{ entry_currency_value }}</span></label>
 								<div class="col-sm-10">
-									<input type="text" name="payment_paypal_currency_value" value="{{ currency_value }}" placeholder="{{ entry_currency_value }}" id="input_currency_value" class="form-control" />
+									<input type="text" name="payment_paypal_currency_value" value="{{ currency_value }}" placeholder="{{ entry_currency_value }}" id="input_currency_value" class="form-control"/>
 								</div>
 							</div>
 							<div class="form-group">
@@ -375,7 +375,7 @@
 											</select>
 										</div>
 									</div>
-									<br />
+									<br>
 									{% endfor %}
 								</div>
 							</div>

@@ -29,7 +29,7 @@
             <div class="form-group required">
               <label class="col-sm-2 control-label" for="input-title">{{ entry_title }}</label>
               <div class="col-sm-10">
-                <input type="text" name="title" value="{{ title }}" placeholder="{{ entry_title }}" id="input-title" class="form-control" />
+                <input type="text" name="title" value="{{ title }}" placeholder="{{ entry_title }}" id="input-title" class="form-control"/>
                 {% if error_title %}
                 <div class="text-danger">{{ error_title }}</div>
                 {% endif %} </div>
@@ -37,7 +37,7 @@
             <div class="form-group required">
               <label class="col-sm-2 control-label" for="input-description">{{ entry_description }}</label>
               <div class="col-sm-10">
-                <input type="text" name="description" value="{{ description }}" placeholder="{{ entry_description }}" id="input-description" class="form-control" />
+                <input type="text" name="description" value="{{ description }}" placeholder="{{ entry_description }}" id="input-description" class="form-control"/>
                 {% if error_description %}
                 <div class="text-danger">{{ error_description }}</div>
                 {% endif %} </div>
@@ -85,7 +85,7 @@
                     <option value="store">{{ text_store }}</option>
                     {% endif %}
                   </select></td>
-                <td class="text-left"><input type="text" name="tax_rule[{{ tax_rule_row }}][priority]" value="{{ tax_rule.priority }}" placeholder="{{ entry_priority }}" class="form-control" /></td>
+                <td class="text-left"><input type="text" name="tax_rule[{{ tax_rule_row }}][priority]" value="{{ tax_rule.priority }}" placeholder="{{ entry_priority }}" class="form-control"/></td>
                 <td class="text-left"><button type="button" onclick="$('#tax-rule-row{{ tax_rule_row }}').remove();" data-toggle="tooltip" title="{{ button_remove }}" class="btn btn-danger"><i class="fa fa-minus-circle"></i></button></td>
               </tr>
               {% set tax_rule_row = tax_rule_row + 1 %}
@@ -120,7 +120,7 @@ function addRule() {
     html += '    <option value="payment">{{ text_payment }}</option>';
     html += '    <option value="store">{{ text_store }}</option>';
     html += '  </select></td>';
-	html += '  <td class="text-left"><input type="text" name="tax_rule[' + tax_rule_row + '][priority]" value="" placeholder="{{ entry_priority }}" class="form-control" /></td>';
+	html += '  <td class="text-left"><input type="text" name="tax_rule[' + tax_rule_row + '][priority]" value="" placeholder="{{ entry_priority }}" class="form-control"/></td>';
 	html += '  <td class="text-left"><button type="button" onclick="$(\'#tax-rule-row' + tax_rule_row + '\').remove();" data-toggle="tooltip" title="{{ button_remove }}" class="btn btn-danger"><i class="fa fa-minus-circle"></i></button></td>';
 	html += '</tr>';
 	

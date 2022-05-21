@@ -38,7 +38,7 @@
                   <div class="well well-sm" style="height: 150px; overflow: auto;"> {% for table in tables %}
                     <div class="checkbox">
                       <label>
-                        <input type="checkbox" name="backup[]" value="{{ table }}" checked="checked" />
+                        <input type="checkbox" name="backup[]" value="{{ table }}" checked="checked"/>
                         {{ table }}</label>
                     </div>
                     {% endfor %} </div>
@@ -79,7 +79,7 @@
 $('#button-import').on('click', function() {
 	$('#form-upload').remove();
 	
-	$('body').prepend('<form enctype="multipart/form-data" id="form-upload" style="display: none;"><input type="file" name="import" /></form>');
+	$('body').prepend('<form enctype="multipart/form-data" id="form-upload" style="display: none;"><input type="file" name="import"/></form>');
 	
 	$('#form-upload input[name=\'import\']').trigger('click');
 	

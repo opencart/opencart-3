@@ -27,7 +27,7 @@ class ControllerExtensionPaymentWebPaymentSoftware extends Controller {
 	}
 
 	public function send() {
-		if(!isset($this->session->data['order_id'])) {
+		if (!isset($this->session->data['order_id'])) {
 			return false;
 		}
 		

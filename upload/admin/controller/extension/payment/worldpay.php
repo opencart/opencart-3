@@ -267,6 +267,7 @@ class ControllerExtensionPaymentWorldpay extends Controller {
 			$json['msg'] = 'Missing data';
 		}
 
+		$this->response->addHeader('Content-Type: application/json');
 		$this->response->setOutput(json_encode($json));
 	}
 

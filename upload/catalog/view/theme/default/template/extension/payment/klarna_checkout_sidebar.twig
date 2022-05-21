@@ -27,9 +27,9 @@
 	<label>
 	  {% if quote.code == code or not code %}
 	  {% set code = quote.code %}
-	  <input type="radio" name="shipping_method" value="{{ quote.code }}" checked="checked" />
+	  <input type="radio" name="shipping_method" value="{{ quote.code }}" checked="checked"/>
 	  {% else %}
-	  <input type="radio" name="shipping_method" value="{{ quote.code }}" />
+	  <input type="radio" name="shipping_method" value="{{ quote.code }}"/>
 	  {% endif %}
 	  {{ quote.title }} - {{ quote.text }}</label>
   </div>
@@ -56,12 +56,12 @@
         		<td class="text-left"><a href="{{ product.href }}">{{ product.name }}</a>
         		  {% if product.option %}
         		  {% for option in product.option %}
-        		  <br />
+        		  <br>
         		  - <small>{{ option.name }} {{ option.value }}</small>
         		  {% endfor %}
         		  {% endif %}
         		  {% if product.recurring %}
-        		  <br />
+        		  <br>
         		  - <small>{{ text_recurring }} {{ product.recurring }}</small>
         		  {% endif %}</td>
         		<td class="text-right">x {{ product.quantity }}</td>

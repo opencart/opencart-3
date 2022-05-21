@@ -313,13 +313,13 @@ class ModelExtensionPaymentAmazonLoginPay extends Model {
 		
 		$validate_response = $this->validateResponse('GetOrderReferenceDetails', $validate_details, true);
 		
-		if($validate_response['error_code'] && $validate_response['error_code'] != 'InvalidOrderReferenceId'){
+		if ($validate_response['error_code'] && $validate_response['error_code'] != 'InvalidOrderReferenceId') {
 			return $validate_response;
 		}
 	}
 
 	public function offAmazon($Action, $parameter_data, $post_data = array()) {
-		if(!empty($post_data)){
+		if (!empty($post_data)) {
 			$merchant_id = $post_data['payment_amazon_login_pay_merchant_id'];
 			$access_key = $post_data['payment_amazon_login_pay_access_key'];
 			$access_secret = $post_data['payment_amazon_login_pay_access_secret'];
@@ -331,7 +331,6 @@ class ModelExtensionPaymentAmazonLoginPay extends Model {
 			$access_secret = $this->config->get('payment_amazon_login_pay_access_secret');
 			$test = $this->config->get('payment_amazon_login_pay_test');
 			$payment_region = $this->config->get('payment_amazon_login_pay_payment_region');
-
 		}
 
 		if ($test == 'sandbox') {

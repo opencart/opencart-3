@@ -34,11 +34,11 @@
         <div class="panel-body">
           <div class="form-group">
             <label class="control-label" for="input-order-id">{{ entry_order_id }}</label>
-            <input type="text" name="filter_order_id" value="{{ filter_order_id }}" placeholder="{{ entry_order_id }}" id="input-order-id" class="form-control" />
+            <input type="text" name="filter_order_id" value="{{ filter_order_id }}" placeholder="{{ entry_order_id }}" id="input-order-id" class="form-control"/>
           </div>
           <div class="form-group">
             <label class="control-label" for="input-customer">{{ entry_customer }}</label>
-            <input type="text" name="filter_customer" value="{{ filter_customer }}" placeholder="{{ entry_customer }}" id="input-customer" class="form-control" />
+            <input type="text" name="filter_customer" value="{{ filter_customer }}" placeholder="{{ entry_customer }}" id="input-customer" class="form-control"/>
           </div>
           <div class="form-group">
             <label class="control-label" for="input-order-status">{{ entry_order_status }}</label>
@@ -60,12 +60,12 @@
           </div>
           <div class="form-group">
             <label class="control-label" for="input-total">{{ entry_total }}</label>
-            <input type="text" name="filter_total" value="{{ filter_total }}" placeholder="{{ entry_total }}" id="input-total" class="form-control" />
+            <input type="text" name="filter_total" value="{{ filter_total }}" placeholder="{{ entry_total }}" id="input-total" class="form-control"/>
           </div>
           <div class="form-group">
             <label class="control-label" for="input-date-added">{{ entry_date_added }}</label>
             <div class="input-group date">
-              <input type="text" name="filter_date_added" value="{{ filter_date_added }}" placeholder="{{ entry_date_added }}" data-date-format="YYYY-MM-DD" id="input-date-added" class="form-control" />
+              <input type="text" name="filter_date_added" value="{{ filter_date_added }}" placeholder="{{ entry_date_added }}" data-date-format="YYYY-MM-DD" id="input-date-added" class="form-control"/>
               <span class="input-group-btn">
               <button type="button" class="btn btn-default"><i class="fa fa-calendar"></i></button>
               </span> </div>
@@ -73,7 +73,7 @@
           <div class="form-group">
             <label class="control-label" for="input-date-modified">{{ entry_date_modified }}</label>
             <div class="input-group date">
-              <input type="text" name="filter_date_modified" value="{{ filter_date_modified }}" placeholder="{{ entry_date_modified }}" data-date-format="YYYY-MM-DD" id="input-date-modified" class="form-control" />
+              <input type="text" name="filter_date_modified" value="{{ filter_date_modified }}" placeholder="{{ entry_date_modified }}" data-date-format="YYYY-MM-DD" id="input-date-modified" class="form-control"/>
               <span class="input-group-btn">
               <button type="button" class="btn btn-default"><i class="fa fa-calendar"></i></button>
               </span> </div>
@@ -95,7 +95,7 @@
               <table class="table table-bordered table-hover">
                 <thead>
                   <tr>
-                    <td style="width: 1px;" class="text-center"><input type="checkbox" onclick="$('input[name*=\'selected\']').prop('checked', this.checked);" /></td>
+                    <td style="width: 1px;" class="text-center"><input type="checkbox" onclick="$('input[name*=\'selected\']').prop('checked', this.checked);"/></td>
                     <td class="text-right">{% if sort == 'o.order_id' %} <a href="{{ sort_order }}" class="{{ order|lower }}">{{ column_order_id }}</a> {% else %} <a href="{{ sort_order }}">{{ column_order_id }}</a> {% endif %}</td>
                     <td class="text-left">{% if sort == 'customer' %} <a href="{{ sort_customer }}" class="{{ order|lower }}">{{ column_customer }}</a> {% else %} <a href="{{ sort_customer }}">{{ column_customer }}</a> {% endif %}</td>
                     <td class="text-left">{% if sort == 'order_status' %} <a href="{{ sort_status }}" class="{{ order|lower }}">{{ column_status }}</a> {% else %} <a href="{{ sort_status }}">{{ column_status }}</a> {% endif %}</td>
@@ -111,11 +111,11 @@
                 {% for order in orders %}
                 <tr>
                   <td class="text-center"> {% if order.order_id in selected %}
-                    <input type="checkbox" name="selected[]" value="{{ order.order_id }}" checked="checked" />
+                    <input type="checkbox" name="selected[]" value="{{ order.order_id }}" checked="checked"/>
                     {% else %}
-                    <input type="checkbox" name="selected[]" value="{{ order.order_id }}" />
+                    <input type="checkbox" name="selected[]" value="{{ order.order_id }}"/>
                     {% endif %}
-                    <input type="hidden" name="shipping_code[]" value="{{ order.shipping_code }}" /></td>
+                    <input type="hidden" name="shipping_code[]" value="{{ order.shipping_code }}"/></td>
                   <td class="text-right">{{ order.order_id }}</td>
                   <td class="text-left">{{ order.customer }}</td>
                   <td class="text-left">{{ order.order_status }}</td>
@@ -277,7 +277,7 @@ $('#form-order li:last-child a').on('click', function(e) {
 });
 //--></script> 
   <script src="view/javascript/jquery/datetimepicker/bootstrap-datetimepicker.min.js" type="text/javascript"></script>
-  <link href="view/javascript/jquery/datetimepicker/bootstrap-datetimepicker.min.css" type="text/css" rel="stylesheet" media="screen" />
+  <link href="view/javascript/jquery/datetimepicker/bootstrap-datetimepicker.min.css" type="text/css" rel="stylesheet" media="screen"/>
   <script type="text/javascript"><!--
 $('.date').datetimepicker({
 	language: '{{ datepicker }}',

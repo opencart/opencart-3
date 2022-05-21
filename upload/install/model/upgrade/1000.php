@@ -20,7 +20,7 @@ class ModelUpgrade1000 extends Model {
 		$status = false;
 
 		// Get only the create statements
-		foreach($lines as $line) {
+		foreach ($lines as $line) {
 			// Set any prefix
 			$line = str_replace("DROP TABLE IF EXISTS `oc_", "DROP TABLE IF EXISTS `" . DB_PREFIX, $line);
 
@@ -60,7 +60,7 @@ class ModelUpgrade1000 extends Model {
 
 			preg_match_all('#`(\w[\w\d]*)`\s+((tinyint|smallint|mediumint|bigint|int|tinytext|text|mediumtext|longtext|tinyblob|blob|mediumblob|longblob|varchar|char|datetime|date|float|double|decimal|timestamp|time|year|enum|set|binary|varbinary)(\((.*)\))?){1}\s*(collate (\w+)\s*)?(unsigned\s*)?((NOT\s*NULL\s*)|(NULL\s*))?(auto_increment\s*)?(default \'([^\']*)\'\s*)?#i', $sql, $match);
 
-			foreach(array_keys($match[0]) as $key) {
+			foreach (array_keys($match[0]) as $key) {
 				$field_data[] = array(
 					'name'          => trim($match[1][$key]),
 					'type'          => strtoupper(trim($match[3][$key])),
@@ -86,7 +86,7 @@ class ModelUpgrade1000 extends Model {
 			}
 
 			if ($match) {
-				foreach($match[1] as $primary) {
+				foreach ($match[1] as $primary) {
 					$primary_data[] = $primary;
 				}
 			}
@@ -98,16 +98,16 @@ class ModelUpgrade1000 extends Model {
 
 			preg_match_all('#key\s*`\w[\w\d]*`\s*\(.*\)#i', $sql, $match);
 
-			foreach($match[0] as $key) {
+			foreach ($match[0] as $key) {
 				preg_match_all('#`(\w[\w\d]*)`#', $key, $match);
 
 				$indexes[] = $match;
 			}
 
-			foreach($indexes as $index) {
+			foreach ($indexes as $index) {
 				$key = '';
 
-				foreach($index[1] as $field) {
+				foreach ($index[1] as $field) {
 					if ($key == '') {
 						$key = $field;
 					} else{
@@ -121,7 +121,7 @@ class ModelUpgrade1000 extends Model {
 
 			preg_match_all('#(\w+)=\'?(\w+\~?\w+)\'?#', $sql, $option);
 
-			foreach(array_keys($option[0]) as $key) {
+			foreach (array_keys($option[0]) as $key) {
 				$option_data[$option[1][$key]] = $option[2][$key];
 			}
 

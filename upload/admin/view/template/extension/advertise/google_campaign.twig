@@ -119,27 +119,27 @@
                                     </div>
                                 </div>
                             </div>
-                            <!--div class="form-group">
-                                <label class="col-sm-2 control-label">{{ entry_auto_advertise }}</label>
-                                <div class="col-sm-10">
-                                    <label class="radio-inline">
-                                        <input type="radio" name="advertise_google_auto_advertise" value="1" {{ advertise_google_auto_advertise == '1' ? 'checked="checked"' }}>
-                                        {{ text_yes }}
-                                    </label>
-                                    <label class="radio-inline">
-                                        <input type="radio" name="advertise_google_auto_advertise" value="0" {{ advertise_google_auto_advertise == '0' ? 'checked="checked"' }}>
-                                        {{ text_no }}
-                                    </label>
-                                </div>
-                            </div-->
-                            <hr />
+                            {# div class="form-group"> #}
+                                {# <label class="col-sm-2 control-label">{{ entry_auto_advertise }}</label> #}
+                                {# <div class="col-sm-10"> #}
+                                    {# <label class="radio-inline"> #}
+                                        {# <input type="radio" name="advertise_google_auto_advertise" value="1" {{ advertise_google_auto_advertise == '1' ? 'checked="checked"' }}> #}
+                                        {# {{ text_yes }} #}
+                                    {# </label> #}
+                                    {# <label class="radio-inline"> #}
+                                        {# <input type="radio" name="advertise_google_auto_advertise" value="0" {{ advertise_google_auto_advertise == '0' ? 'checked="checked"' }}> #}
+                                        {# {{ text_no }} #}
+                                    {# </label> #}
+                                {# </div> #}
+                            {# </div> #}
+                            <hr>
                             {% if not from_dashboard %}
                             <div class="alert alert-info text-left">
                                 <div class="checkbox">
-                                    <label><input type="checkbox" class="acknowledge" /> {{ text_acknowledge_add_campaign_1 }}</label>
+                                    <label><input type="checkbox" class="acknowledge"/> {{ text_acknowledge_add_campaign_1 }}</label>
                                 </div>
                                 <div class="checkbox">
-                                    <label><input type="checkbox" class="acknowledge" /> {{ text_acknowledge_add_campaign_2 }}</label>
+                                    <label><input type="checkbox" class="acknowledge"/> {{ text_acknowledge_add_campaign_2 }}</label>
                                 </div>
                             </div>
                             {% endif %}
@@ -164,7 +164,7 @@
                         <h3 class="panel-title"><i class="fa fa-image"></i>&nbsp;<span>{{ text_panel_heading_preview }}</span></h3>
                     </div>
                     <div class="panel-body text-center">
-                        <img id="ad-preview" src="view/image/advertise/google/ad-preview.png" />
+                        <img id="ad-preview" src="view/image/advertise/google/ad-preview.png"/>
                     </div>
                 </div>
             </div>
@@ -240,7 +240,7 @@
                     <div class="form-group required" data-error-type="error_campaign_name">
                         <label for="input-campaign-name" class="col-sm-3 control-label">{{ entry_campaign_name }}</label>
                         <div class="col-sm-9">
-                            <input type="text" class="form-control" id="input-campaign-name" name="campaign_name" value="{campaign_name}" />
+                            <input type="text" class="form-control" id="input-campaign-name" name="campaign_name" value="{campaign_name}"/>
                         </div>
                     </div>
                     <div class="form-group">
@@ -266,7 +266,7 @@
                             <div class="alert alert-info"><i class="fa fa-info-circle"></i> {{ help_roas }}</div>
                             <div id="warning-roas" class="alert alert-warning" style="display: none;"><i class="fa fa-exclamation-triangle"></i> {roas_warning}</div>
                             <div class="input-group">
-                                <input type="number" class="form-control" id="input-roas" name="roas" value="{roas}" min="0" />
+                                <input type="number" class="form-control" id="input-roas" name="roas" value="{roas}" min="0"/>
                                 <div class="input-group-addon"><i class="fa fa-percent"></i></div>
                             </div>
                         </div>
@@ -278,7 +278,7 @@
                             <div id="warning-budget" class="alert alert-warning" style="display: none;"><i class="fa fa-exclamation-triangle"></i> {{ warning_budget }}</div>
                             <div class="input-group">
                                 <div class="input-group-addon"><i class="fa fa-dollar"></i></div>
-                                <input type="number" class="form-control" id="input-budget" name="budget" value="{budget}" min="5" />
+                                <input type="number" class="form-control" id="input-budget" name="budget" value="{budget}" min="5"/>
                                 <div class="input-group-addon">{{ text_usd_day }}</div>
                             </div>
                         </div>

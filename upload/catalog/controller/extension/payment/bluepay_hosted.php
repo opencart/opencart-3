@@ -5,7 +5,7 @@ class ControllerExtensionPaymentBluePayHosted extends Controller {
 		$this->load->model('checkout/order');
 		$this->load->model('extension/payment/bluepay_hosted');
 
-		if(!isset($this->session->data['order_id'])) {
+		if (!isset($this->session->data['order_id'])) {
 			return false;
 		}
 

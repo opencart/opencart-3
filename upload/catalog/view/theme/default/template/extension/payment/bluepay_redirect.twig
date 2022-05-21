@@ -10,7 +10,7 @@
 						{{ entry_card_existing }}
 					</label>
 					<label class="radio-inline">
-						<input type="radio" name="new-existing" value="new" />
+						<input type="radio" name="new-existing" value="new"/>
 						{{ entry_card_new }}
 					</label>
 				</div>
@@ -29,7 +29,7 @@
 				<div class="form-group">
 					<label class="col-sm-2 control-label" for="input-cc-cvv2">{{ entry_cc_cvv2 }}</label>
 					<div class="col-sm-10">
-						<input type="text" name="CVCCVV2" value="" placeholder="{{ entry_cc_cvv2 }}" id="input-cc-cvv2" class="form-control" />
+						<input type="text" name="CVCCVV2" value="" placeholder="{{ entry_cc_cvv2 }}" id="input-cc-cvv2" class="form-control"/>
 					</div>
 				</div>
 			</div>
@@ -40,7 +40,7 @@
                 <div class="form-group required">
                     <label class="col-sm-2 control-label" for="input-cc-number">{{ entry_cc_number }}</label>
                     <div class="col-sm-10">
-                        <input type="text" name="CC_NUM" value="" placeholder="{{ entry_cc_number }}" id="input-cc-number" class="form-control" />
+                        <input type="text" name="CC_NUM" value="" placeholder="{{ entry_cc_number }}" id="input-cc-number" class="form-control"/>
                     </div>
                 </div>
                 <div class="form-group required">
@@ -63,14 +63,14 @@
                 <div class="form-group">
                     <label class="col-sm-2 control-label" for="input-cc-cvv2">{{ entry_cc_cvv2 }}</label>
                     <div class="col-sm-10">
-                        <input type="text" name="CVCCVV2" value="" placeholder="{{ entry_cc_cvv2 }}" id="input-cc-cvv2" class="form-control" />
+                        <input type="text" name="CVCCVV2" value="" placeholder="{{ entry_cc_cvv2 }}" id="input-cc-cvv2" class="form-control"/>
                     </div>
                 </div>
 				{% if bluepay_redirect_card %}
 					<div class="form-group">
 						<label class="col-sm-2 control-label" for="input-cc-save">{{ entry_card_save }}</label>
 						<div class="col-sm-2">
-							<input id="input-cc-save" type="checkbox" name="CreateToken" value="1" />
+							<input id="input-cc-save" type="checkbox" name="CreateToken" value="1"/>
 						</div>
 					</div>
 				{% endif %}
@@ -78,7 +78,7 @@
         </div>
         <div class="buttons">
             <div class="pull-right">
-                <input type="button" value="{{ button_confirm }}" id="button-confirm" data-loading-text="{{ text_loading }}" class="btn btn-primary" />
+                <input type="button" value="{{ button_confirm }}" id="button-confirm" data-loading-text="{{ text_loading }}" class="btn btn-primary"/>
             </div>
         </div>
     </fieldset>

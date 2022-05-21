@@ -28,7 +28,7 @@
           <div class="form-group required">
             <label class="col-sm-2 control-label" for="securetrading_pp_site_reference">{{ entry_site_reference }}</label>
             <div class="col-sm-10">
-              <input type="text" name="payment_securetrading_pp_site_reference" value="{{ payment_securetrading_pp_site_reference }}" placeholder="{{ entry_site_reference }}" id="securetrading_pp_site_reference" class="form-control" />
+              <input type="text" name="payment_securetrading_pp_site_reference" value="{{ payment_securetrading_pp_site_reference }}" placeholder="{{ entry_site_reference }}" id="securetrading_pp_site_reference" class="form-control"/>
               {% if error_site_reference %}
               <div class="text-danger">{{ error_site_reference }}</div>
               {% endif %}
@@ -37,7 +37,7 @@
           <div class="form-group required">
             <label class="col-sm-2 control-label" for="securetrading_pp_version"><span data-toggle="tooltip" title="{{ help_version }}">{{ entry_version }}</span></label>
             <div class="col-sm-10">
-              <input type="text" name="payment_securetrading_pp_version" value="{{ payment_securetrading_pp_version }}" placeholder="{{ entry_version }}" id="securetrading_pp_version" class="form-control" />
+              <input type="text" name="payment_securetrading_pp_version" value="{{ payment_securetrading_pp_version }}" placeholder="{{ entry_version }}" id="securetrading_pp_version" class="form-control"/>
               {% if error_version %}
               <div class="text-danger">{{ error_version }}</div>
               {% endif %}
@@ -46,13 +46,13 @@
           <div class="form-group">
             <label class="col-sm-2 control-label" for="payment_securetrading_pp_username">{{ entry_username }}</label>
             <div class="col-sm-10">
-              <input type="text" name="payment_securetrading_pp_username" value="{{ payment_securetrading_pp_username }}" placeholder="{{ entry_username }}" id="payment_securetrading_pp_username" class="form-control" />
+              <input type="text" name="payment_securetrading_pp_username" value="{{ payment_securetrading_pp_username }}" placeholder="{{ entry_username }}" id="payment_securetrading_pp_username" class="form-control"/>
             </div>
           </div>
           <div class="form-group">
             <label class="col-sm-2 control-label" for="securetrading_pp_password">{{ entry_password }}</label>
             <div class="col-sm-10">
-              <input type="text" name="payment_securetrading_pp_password" value="{{ payment_securetrading_pp_password }}" placeholder="{{ entry_password }}" id="securetrading_pp_password" class="form-control" />
+              <input type="text" name="payment_securetrading_pp_password" value="{{ payment_securetrading_pp_password }}" placeholder="{{ entry_password }}" id="securetrading_pp_password" class="form-control"/>
             </div>
           </div>
           <div class="form-group">
@@ -75,13 +75,13 @@
           <div class="form-group">
             <label class="col-sm-2 control-label" for="securetrading_pp_site_security_password">{{ entry_site_security_password }}</label>
             <div class="col-sm-10">
-              <input type="text" name="payment_securetrading_pp_site_security_password" value="{{ payment_securetrading_pp_site_security_password }}" placeholder="{{ entry_site_security_password }}" id="securetrading_pp_site_security_password" class="form-control" />
+              <input type="text" name="payment_securetrading_pp_site_security_password" value="{{ payment_securetrading_pp_site_security_password }}" placeholder="{{ entry_site_security_password }}" id="securetrading_pp_site_security_password" class="form-control"/>
             </div>
           </div>
           <div class="form-group required">
             <label class="col-sm-2 control-label" for="securetrading_pp_notification_password">{{ entry_notification_password }}</label>
             <div class="col-sm-10">
-              <input type="text" name="payment_securetrading_pp_notification_password" value="{{ payment_securetrading_pp_notification_password }}" placeholder="{{ entry_notification_password }}" id="securetrading_pp_site_security_password" class="form-control" />
+              <input type="text" name="payment_securetrading_pp_notification_password" value="{{ payment_securetrading_pp_notification_password }}" placeholder="{{ entry_notification_password }}" id="securetrading_pp_site_security_password" class="form-control"/>
               {% if error_notification_password %}
               <div class="text-danger">{{ error_notification_password }}</div>
               {% endif %}
@@ -90,13 +90,13 @@
           <div class="form-group">
             <label class="col-sm-2 control-label" for="securetrading_pp_webservice_username">{{ entry_username }}</label>
             <div class="col-sm-10">
-              <input type="text" name="payment_securetrading_pp_webservice_username" value="{{ payment_securetrading_pp_webservice_username }}" placeholder="{{ entry_username }}" id="securetrading_pp_webservice_username" class="form-control" />
+              <input type="text" name="payment_securetrading_pp_webservice_username" value="{{ payment_securetrading_pp_webservice_username }}" placeholder="{{ entry_username }}" id="securetrading_pp_webservice_username" class="form-control"/>
               <span class="help-block">{{ help_username }}</span> </div>
           </div>
           <div class="form-group">
             <label class="col-sm-2 control-label" for="securetrading_pp_webservice_password">{{ entry_password }}</label>
             <div class="col-sm-10">
-              <input type="text" name="payment_securetrading_pp_webservice_password" value="{{ payment_securetrading_pp_webservice_password }}" placeholder="{{ entry_password }}" id="securetrading_pp_webservice_username" class="form-control" />
+              <input type="text" name="payment_securetrading_pp_webservice_password" value="{{ payment_securetrading_pp_webservice_password }}" placeholder="{{ entry_password }}" id="securetrading_pp_webservice_username" class="form-control"/>
               <span class="help-block">{{ help_password }}</span> </div>
           </div>
           <div class="form-group required">
@@ -106,9 +106,9 @@
               <div class="checkbox">
                 <label>
                   {% if key in payment_securetrading_pp_cards_accepted %}
-                  <input type="checkbox" checked="checked" name="payment_securetrading_pp_cards_accepted[]" value="{{ key }}" />
+                  <input type="checkbox" checked="checked" name="payment_securetrading_pp_cards_accepted[]" value="{{ key }}"/>
                   {% else %}
-                  <input type="checkbox" name="payment_securetrading_pp_cards_accepted[]" value="{{ key }}" />
+                  <input type="checkbox" name="payment_securetrading_pp_cards_accepted[]" value="{{ key }}"/>
                   {% endif %}
                   {{ value }} </label>
               </div>
@@ -154,7 +154,7 @@
           <div class="form-group">
             <label class="col-sm-2 control-label" for="securetrading_pp_total">{{ entry_total }}</label>
             <div class="col-sm-10">
-              <input type="text" name="payment_securetrading_pp_total" value="{{ payment_securetrading_pp_total }}" placeholder="{{ entry_total }}" id="securetrading_pp_total" class="form-control" />
+              <input type="text" name="payment_securetrading_pp_total" value="{{ payment_securetrading_pp_total }}" placeholder="{{ entry_total }}" id="securetrading_pp_total" class="form-control"/>
               <span class="help-block">{{ help_total }}</span> </div>
           </div>
           <div class="form-group">
@@ -252,19 +252,19 @@
           <div class="form-group">
             <label class="col-sm-2 control-label" for="securetrading_pp_sort_order">{{ entry_sort_order }}</label>
             <div class="col-sm-10">
-              <input type="text" name="payment_securetrading_pp_sort_order" value="{{ payment_securetrading_pp_sort_order }}" placeholder="{{ entry_sort_order }}" id="securetrading_pp_sort_order" class="form-control" />
+              <input type="text" name="payment_securetrading_pp_sort_order" value="{{ payment_securetrading_pp_sort_order }}" placeholder="{{ entry_sort_order }}" id="securetrading_pp_sort_order" class="form-control"/>
             </div>
           </div>
           <div class="form-group">
             <label class="col-sm-2 control-label" for="securetrading_pp_parent_css">{{ entry_parent_css }}</label>
             <div class="col-sm-10">
-              <input type="text" name="payment_securetrading_pp_parent_css" value="{{ payment_securetrading_pp_parent_css }}" placeholder="{{ entry_parent_css }}" id="securetrading_pp_parent_css" class="form-control" />
+              <input type="text" name="payment_securetrading_pp_parent_css" value="{{ payment_securetrading_pp_parent_css }}" placeholder="{{ entry_parent_css }}" id="securetrading_pp_parent_css" class="form-control"/>
             </div>
           </div>
           <div class="form-group">
             <label class="col-sm-2 control-label" for="securetrading_pp_child_css">{{ entry_child_css }}</label>
             <div class="col-sm-10">
-              <input type="text" name="payment_securetrading_pp_child_css" value="{{ payment_securetrading_pp_child_css }}" placeholder="{{ entry_child_css }}" id="securetrading_pp_child_css" class="form-control" />
+              <input type="text" name="payment_securetrading_pp_child_css" value="{{ payment_securetrading_pp_child_css }}" placeholder="{{ entry_child_css }}" id="securetrading_pp_child_css" class="form-control"/>
             </div>
           </div>
         </form>

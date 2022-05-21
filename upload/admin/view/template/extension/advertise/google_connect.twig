@@ -53,7 +53,7 @@
                         <div class="form-group required">
                             <label for="input-app-id" class="col-sm-2 control-label">{{ text_app_id }}</label>
                             <div class="col-sm-10">
-                                <input type="text" id="input-app-id" class="form-control" name="advertise_google_app_id" autocomplete="off" value="{{ advertise_google_app_id }}" />
+                                <input type="text" id="input-app-id" class="form-control" name="advertise_google_app_id" autocomplete="off" value="{{ advertise_google_app_id }}"/>
                                 {% if error_app_id %}
                                     <div class="text-danger">{{ error_app_id }}</div>
                                 {% endif %}
@@ -62,7 +62,7 @@
                         <div class="form-group required">
                             <label for="input-app-secret" class="col-sm-2 control-label">{{ text_app_secret }}</label>
                             <div class="col-sm-10">
-                                <input type="text" id="input-app-secret" class="form-control" name="advertise_google_app_secret" autocomplete="off" value="{{ advertise_google_app_secret }}" />
+                                <input type="text" id="input-app-secret" class="form-control" name="advertise_google_app_secret" autocomplete="off" value="{{ advertise_google_app_secret }}"/>
                                 {% if error_app_secret %}
                                     <div class="text-danger">{{ error_app_secret }}</div>
                                 {% endif %}
@@ -75,26 +75,26 @@
                         <div class="form-group">
                             <label class="col-sm-2 control-label"><span data-toggle="tooltip" data-original-title="{{ help_local_cron }}">{{ text_local_cron }}</span></label>
                             <div class="col-sm-10">
-                                <input readonly type="text" class="form-control" value="{{ advertise_google_cron_command }}" />
+                                <input readonly type="text" class="form-control" value="{{ advertise_google_cron_command }}"/>
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="col-sm-2 control-label"><span data-toggle="tooltip" data-original-title="{{ help_remote_cron }}">{{ text_remote_cron }}</span></label>
                             <div class="col-sm-10">
                                 <div class="input-group">
-                                    <input readonly type="text" name="advertise_google_cron_url" id="input_advertise_google_cron_url" class="form-control" value="" />
+                                    <input readonly type="text" name="advertise_google_cron_url" id="input_advertise_google_cron_url" class="form-control" value=""/>
                                     <div data-toggle="tooltip" data-original-title="{{ text_refresh_token }}" class="input-group-addon btn btn-primary" id="refresh-cron-token">
                                         <i class="fa fa-refresh"></i>
                                     </div>
                                 </div>
-                                <input id="input_advertise_google_cron_token" type="hidden" name="advertise_google_cron_token" value="{{ advertise_google_cron_token }}" />
+                                <input id="input_advertise_google_cron_token" type="hidden" name="advertise_google_cron_token" value="{{ advertise_google_cron_token }}"/>
                             </div>
                         </div>
                         <div class="form-group required">
                             <label class="col-sm-2 control-label" for="checkbox_advertise_google_cron_acknowledge">{{ entry_setup_confirmation }}</label>
                             <div class="col-sm-10">
                                 <label class="checkbox-inline">
-                                    <input id="checkbox_advertise_google_cron_acknowledge" type="checkbox" value="1" {% if advertise_google_cron_acknowledge %} checked {% endif %} name="advertise_google_cron_acknowledge" /> {{ text_acknowledge_cron }}
+                                    <input id="checkbox_advertise_google_cron_acknowledge" type="checkbox" value="1" {% if advertise_google_cron_acknowledge %} checked {% endif %} name="advertise_google_cron_acknowledge"/> {{ text_acknowledge_cron }}
                                 </label>
 
                                 {% if error_cron_acknowledge %}

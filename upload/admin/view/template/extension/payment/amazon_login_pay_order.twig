@@ -50,7 +50,7 @@
 	  {% else %}
 		  <span class="refund_text">{{ text_no }}</span>&nbsp;&nbsp;
 		  {% if amazon_login_pay_order.total_captured > 0 and amazon_login_pay_order.cancel_status == 0 %}
-			  <input type="text" width="10" id="refund-amount" />
+			  <input type="text" width="10" id="refund-amount"/>
 			  <a class="button btn btn-primary" id="button-refund">{{ button_refund }}</a>
 		  {% else %}
 			  <input type="text" width="10" id="refund-amount" style="display: none;"/>

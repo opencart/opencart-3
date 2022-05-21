@@ -26,7 +26,7 @@
             </div>
           </div>
         </fieldset>
-        <br/>
+        <br>
         <fieldset>
           <legend>{{ text_progress }}</legend>
           <div class="form-group">
@@ -39,7 +39,7 @@
             </div>
           </div>
         </fieldset>
-        <br/>
+        <br>
         <fieldset>
           <legend>{{ text_history }}</legend>
           <div id="history"></div>
@@ -59,7 +59,7 @@ $('#history').load('index.php?route=marketplace/installer/history&user_token={{ 
 $('#button-upload').on('click', function() {
 	$('#form-upload').remove();
 
-	$('body').prepend('<form enctype="multipart/form-data" id="form-upload" style="display: none;"><input type="file" name="file" /></form>');
+	$('body').prepend('<form enctype="multipart/form-data" id="form-upload" style="display: none;"><input type="file" name="file"/></form>');
 
 	$('#form-upload input[name=\'file\']').trigger('click');
 

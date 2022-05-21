@@ -27,10 +27,10 @@
       <div class="panel-body">
         <div class="row extension-info">
           <div class="col-sm-8">{% if banner %}
-            <div id="banner" class="text-center thumbnail"><img src="{{ banner }}" title="{{ name }}" alt="{{ name }}" class="img-responsive" /></div>
+            <div id="banner" class="text-center thumbnail"><img src="{{ banner }}" title="{{ name }}" alt="{{ name }}" class="img-responsive"/></div>
             {% endif %}
             <div class="row thumbnails">{% for image in images %}
-              <div class="col-xs-4 col-sm-2"><a href="{{ image.popup }}" class="thumbnail"><img src="{{ image.thumb }}" alt="{{ image.name }}" title="{{ image.name }}" class="img-responsive" /></a></div>
+              <div class="col-xs-4 col-sm-2"><a href="{{ image.popup }}" class="thumbnail"><img src="{{ image.thumb }}" alt="{{ image.name }}" title="{{ image.name }}" class="img-responsive"/></a></div>
               {% endfor %} </div>
             <ul class="nav nav-tabs">
               <li class="active"><a href="#tab-description" data-toggle="tab">{{ tab_general }}</a></li>
@@ -50,7 +50,7 @@
                     </div>
                     <div id="progress-text"></div>
                   </div>
-                  <hr />
+                  <hr>
                 </fieldset>
                 <fieldset>
                   <legend>{{ text_available }}</legend>
@@ -96,7 +96,7 @@
                     <button type="button" id="button-comment" class="btn btn-primary">{{ button_comment }}</button>
                   </div>
                 </fieldset>
-                <br/>
+                <br>
                 <fieldset>
                   <legend>{{ text_comment }}</legend>
                   <div id="comment"></div>
@@ -145,10 +145,10 @@
             <div class="well">
               <div class="media">
                 <div class="media-left media-middle"><img src="{{ member_image }}" alt="{{ member_username }}" title="{{ member_username }}" class="media-object img-circle"></div>
-                <div class="media-body"> <span><a href="{{ filter_member }}">{{ member_username }}</a></span><br/>
+                <div class="media-body"> <span><a href="{{ filter_member }}">{{ member_username }}</a></span><br>
                   <small>{{ text_member_since }} {{ member_date_added }}</small></div>
               </div>
-              <br/>
+              <br>
               <a href="{{ filter_member }}" class="btn btn-primary btn-lg btn-block">{{ button_view_all }}</a> <a href="https://www.opencart.com/index.php?route=support/seller&amp;extension_id={{ extension_id }}" target="_blank" class="btn btn-ghost-dark btn-lg btn-block">{{ button_get_support }}</a></div>
           </div>
         </div>
@@ -197,7 +197,7 @@ $('#button-buy').on('click', function(e) {
 	html += '        <p>{{ text_secure }}</p>';
 	html += '        <div class="form-group">';
 	html += '          <label for="input-pin">{{ entry_pin }}</label>';
-	html += '          <input type="password" name="pin" value="" placeholder="{{ entry_pin }}" id="input-pin" class="form-control" />';
+	html += '          <input type="password" name="pin" value="" placeholder="{{ entry_pin }}" id="input-pin" class="form-control"/>';
 	html += '        </div>';
 	html += '        <div class="form-group text-right">';
 	html += '          <button type="button" id="button-purchase" data-loading-text="{{ text_loading }}" class="btn btn-primary btn-lg">{{ button_purchase }}</button>';

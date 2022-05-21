@@ -56,7 +56,7 @@
       <div class="buttons clearfix">
         <div class="pull-left"><a href="{{ back }}" class="btn btn-default">{{ button_back }}</a></div>
         <div class="pull-right">
-          <input type="button" value="{{ button_new_card }}" id="button-add-card" data-loading-text="{{ text_loading }}" class="btn btn-primary" />
+          <input type="button" value="{{ button_new_card }}" id="button-add-card" data-loading-text="{{ text_loading }}" class="btn btn-primary"/>
         </div>
       </div>
       {{ content_bottom }}</div>
@@ -78,8 +78,8 @@ $('#button-add-card').bind('click', function () {
 			// if success
 			if (json['redirect']) {
 				html = '<form action="' + json['redirect'] + '" method="post" id="redirect">';
-				html += '  <input type="hidden" name="Status" value="' + json['Status'] + '" />';
-				html += '  <input type="hidden" name="StatusDetail" value="' + json['StatusDetail'] + '" />';
+				html += '  <input type="hidden" name="Status" value="' + json['Status'] + '"/>';
+				html += '  <input type="hidden" name="StatusDetail" value="' + json['StatusDetail'] + '"/>';
 				
 				html += '</form>';
 				

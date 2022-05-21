@@ -7,7 +7,7 @@ class ControllerExtensionPaymentPPProIframe extends Controller {
 		$this->load->model('extension/payment/pp_pro_iframe');
 
 		if ($this->config->get('payment_pp_pro_iframe_checkout_method') == 'redirect') {
-			if(!isset($this->session->data['order_id'])) {
+			if (!isset($this->session->data['order_id'])) {
 				return false;
 			}
 
@@ -37,7 +37,7 @@ class ControllerExtensionPaymentPPProIframe extends Controller {
 	}
 
 	public function create() {
-		if(!isset($this->session->data['order_id'])) {
+		if (!isset($this->session->data['order_id'])) {
 			return false;
 		}
 		

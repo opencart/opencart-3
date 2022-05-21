@@ -38,7 +38,7 @@
               <div class="form-group required">
                 <label class="col-sm-2 control-label" for="input-merchant-id">{{ entry_merchant_id }}</label>
                 <div class="col-sm-10">
-                  <input type="text" name="payment_globalpay_merchant_id" value="{{ payment_globalpay_merchant_id }}" placeholder="{{ entry_merchant_id }}" id="input-merchant-id" class="form-control" />
+                  <input type="text" name="payment_globalpay_merchant_id" value="{{ payment_globalpay_merchant_id }}" placeholder="{{ entry_merchant_id }}" id="input-merchant-id" class="form-control"/>
                   {% if error_merchant_id %}
                   <div class="text-danger">{{ error_merchant_id }}</div>
                   {% endif %}
@@ -47,7 +47,7 @@
               <div class="form-group required">
                 <label class="col-sm-2 control-label" for="input-secret">{{ entry_secret }}</label>
                 <div class="col-sm-10">
-                  <input type="password" name="payment_globalpay_secret" value="{{ payment_globalpay_secret }}" placeholder="{{ entry_secret }}" id="input-secret" class="form-control" />
+                  <input type="password" name="payment_globalpay_secret" value="{{ payment_globalpay_secret }}" placeholder="{{ entry_secret }}" id="input-secret" class="form-control"/>
                   {% if error_secret %}
                   <div class="text-danger">{{ error_secret }}</div>
                   {% endif %}
@@ -56,7 +56,7 @@
               <div class="form-group">
                 <label class="col-sm-2 control-label" for="input-secret">{{ entry_rebate_password }}</label>
                 <div class="col-sm-10">
-                  <input type="password" name="payment_globalpay_rebate_password" value="{{ payment_globalpay_rebate_password }}" placeholder="{{ entry_rebate_password }}" id="input-rebate-password" class="form-control" />
+                  <input type="password" name="payment_globalpay_rebate_password" value="{{ payment_globalpay_rebate_password }}" placeholder="{{ entry_rebate_password }}" id="input-rebate-password" class="form-control"/>
                 </div>
               </div>
               <div class="form-group">
@@ -119,13 +119,13 @@
               <div class="form-group">
                 <label class="col-sm-2 control-label" for="input-total"><span data-toggle="tooltip" title="{{ help_total }}">{{ entry_total }}</span></label>
                 <div class="col-sm-10">
-                  <input type="text" name="payment_globalpay_total" value="{{ payment_globalpay_total }}" placeholder="{{ entry_total }}" id="input-total" class="form-control" />
+                  <input type="text" name="payment_globalpay_total" value="{{ payment_globalpay_total }}" placeholder="{{ entry_total }}" id="input-total" class="form-control"/>
                 </div>
               </div>
               <div class="form-group">
                 <label class="col-sm-2 control-label" for="input-sort-order">{{ entry_sort_order }}</label>
                 <div class="col-sm-10">
-                  <input type="text" name="payment_globalpay_sort_order" value="{{ payment_globalpay_sort_order }}" placeholder="{{ entry_sort_order }}" id="input-sort-order" class="form-control" />
+                  <input type="text" name="payment_globalpay_sort_order" value="{{ payment_globalpay_sort_order }}" placeholder="{{ entry_sort_order }}" id="input-sort-order" class="form-control"/>
                 </div>
               </div>
             </div>
@@ -148,37 +148,37 @@
                       <td class="text-left">{{ text_card_visa }}</td>
                       <td class="text-center"><input type="checkbox" name="payment_globalpay_account[visa][enabled]" value="1" {{ payment_globalpay_account.visa.enabled is defined and payment_globalpay_account.visa.enabled == 1 ? 'checked="checked"' : '' }}/></td>
                       <td class="text-center"><input type="checkbox" name="payment_globalpay_account[visa][default]" value="1" {{ payment_globalpay_account.visa.default is defined and payment_globalpay_account.visa.default == 1 ? 'checked="checked"' : '' }}/></td>
-                      <td class="text-right"><input type="text" name="payment_globalpay_account[visa][merchant_id]" value="{{ payment_globalpay_account.visa.merchant_id is defined ? payment_globalpay_account.visa.merchant_id : '' }}" placeholder="{{ text_subaccount }}" class="form-control" /></td>
+                      <td class="text-right"><input type="text" name="payment_globalpay_account[visa][merchant_id]" value="{{ payment_globalpay_account.visa.merchant_id is defined ? payment_globalpay_account.visa.merchant_id : '' }}" placeholder="{{ text_subaccount }}" class="form-control"/></td>
                     </tr>
                     <tr>
                       <td class="text-left">{{ text_card_master }}</td>
                       <td class="text-center"><input type="checkbox" name="payment_globalpay_account[mc][enabled]" value="1" {{ payment_globalpay_account.mc.enabled is defined and payment_globalpay_account.mc.enabled == 1 ? 'checked="checked"' : '' }}/></td>
                       <td class="text-center"><input type="checkbox" name="payment_globalpay_account[mc][default]" value="1" {{ payment_globalpay_account.mc.default is defined and payment_globalpay_account.mc.default == 1 ? 'checked="checked"' : '' }}/></td>
-                      <td class="text-right"><input type="text" name="payment_globalpay_account[mc][merchant_id]" value="{{ payment_globalpay_account.mc.merchant_id is defined ? payment_globalpay_account.mc.merchant_id : '' }}" placeholder="{{ text_subaccount }}" class="form-control" /></td>
+                      <td class="text-right"><input type="text" name="payment_globalpay_account[mc][merchant_id]" value="{{ payment_globalpay_account.mc.merchant_id is defined ? payment_globalpay_account.mc.merchant_id : '' }}" placeholder="{{ text_subaccount }}" class="form-control"/></td>
                     </tr>
                     <tr>
                       <td class="text-left">{{ text_card_amex }}</td>
                       <td class="text-center"><input type="checkbox" name="payment_globalpay_account[amex][enabled]" value="1" {{ payment_globalpay_account.amex.enabled is defined and payment_globalpay_account.amex.enabled == 1 ? 'checked="checked"' : '' }}/></td>
                       <td class="text-center"><input type="checkbox" name="payment_globalpay_account[amex][default]" value="1" {{ payment_globalpay_account.amex.default is defined and payment_globalpay_account.amex.default == 1 ? 'checked="checked"' : '' }}/></td>
-                      <td class="text-right"><input type="text" name="payment_globalpay_account[amex][merchant_id]" value="{{ payment_globalpay_account.amex.merchant_id is defined ? payment_globalpay_account.amex.merchant_id : '' }}" placeholder="{{ text_subaccount }}" class="form-control" /></td>
+                      <td class="text-right"><input type="text" name="payment_globalpay_account[amex][merchant_id]" value="{{ payment_globalpay_account.amex.merchant_id is defined ? payment_globalpay_account.amex.merchant_id : '' }}" placeholder="{{ text_subaccount }}" class="form-control"/></td>
                     </tr>
                     <tr>
                       <td class="text-left">{{ text_card_switch }}</td>
                       <td class="text-center"><input type="checkbox" name="payment_globalpay_account[switch][enabled]" value="1" {{ payment_globalpay_account.switch.enabled is defined and payment_globalpay_account.switch.enabled == 1 ? 'checked="checked"' : '' }}/></td>
                       <td class="text-center"><input type="checkbox" name="payment_globalpay_account[switch][default]" value="1" {{ payment_globalpay_account.switch.default is defined and payment_globalpay_account.switch.default == 1 ? 'checked="checked"' : '' }}/></td>
-                      <td class="text-right"><input type="text" name="payment_globalpay_account[switch][merchant_id]" value="{{ payment_globalpay_account.switch.merchant_id is defined ? payment_globalpay_account.switch.merchant_id : '' }}" placeholder="{{ text_subaccount }}" class="form-control" /></td>
+                      <td class="text-right"><input type="text" name="payment_globalpay_account[switch][merchant_id]" value="{{ payment_globalpay_account.switch.merchant_id is defined ? payment_globalpay_account.switch.merchant_id : '' }}" placeholder="{{ text_subaccount }}" class="form-control"/></td>
                     </tr>
                     <tr>
                       <td class="text-left">{{ text_card_laser }}</td>
                       <td class="text-center"><input type="checkbox" name="payment_globalpay_account[laser][enabled]" value="1" {{ payment_globalpay_account.laser.enabled is defined and payment_globalpay_account.laser.enabled == 1 ? 'checked="checked"' : '' }}/></td>
                       <td class="text-center"><input type="checkbox" name="payment_globalpay_account[laser][default]" value="1" {{ payment_globalpay_account.laser.default is defined and payment_globalpay_account.laser.default == 1 ? 'checked="checked"' : '' }}/></td>
-                      <td class="text-right"><input type="text" name="payment_globalpay_account[laser][merchant_id]" value="{{ payment_globalpay_account.laser.merchant_id is defined ? payment_globalpay_account.laser.merchant_id : '' }}" placeholder="{{ text_subaccount }}" class="form-control" /></td>
+                      <td class="text-right"><input type="text" name="payment_globalpay_account[laser][merchant_id]" value="{{ payment_globalpay_account.laser.merchant_id is defined ? payment_globalpay_account.laser.merchant_id : '' }}" placeholder="{{ text_subaccount }}" class="form-control"/></td>
                     </tr>
                     <tr>
                       <td class="text-left">{{ text_card_diners }}</td>
                       <td class="text-center"><input type="checkbox" name="payment_globalpay_account[diners][enabled]" value="1" {{ payment_globalpay_account.diners.enabled is defined and payment_globalpay_account.diners.enabled == 1 ? 'checked="checked"' : '' }}/></td>
                       <td class="text-center"><input type="checkbox" name="payment_globalpay_account[diners][default]" value="1" {{ payment_globalpay_account.diners.default is defined and payment_globalpay_account.diners.default == 1 ? 'checked="checked"' : '' }}/></td>
-                      <td class="text-right"><input type="text" name="payment_globalpay_account[diners][merchant_id]" value="{{ payment_globalpay_account.diners.merchant_id is defined ? payment_globalpay_account.diners.merchant_id : '' }}" placeholder="{{ text_subaccount }}" class="form-control" /></td>
+                      <td class="text-right"><input type="text" name="payment_globalpay_account[diners][merchant_id]" value="{{ payment_globalpay_account.diners.merchant_id is defined ? payment_globalpay_account.diners.merchant_id : '' }}" placeholder="{{ text_subaccount }}" class="form-control"/></td>
                     </tr>
                   </tbody>
                 </table>
@@ -314,7 +314,7 @@
               <div class="form-group required">
                 <label class="col-sm-2 control-label" for="input-live-url">{{ entry_live_url }}</label>
                 <div class="col-sm-10">
-                  <input type="text" name="payment_globalpay_live_url" value="{{ payment_globalpay_live_url }}" placeholder="{{ entry_live_url }}" id="input-live-url" class="form-control" />
+                  <input type="text" name="payment_globalpay_live_url" value="{{ payment_globalpay_live_url }}" placeholder="{{ entry_live_url }}" id="input-live-url" class="form-control"/>
                   {% if error_live_url %}
                   <div class="text-danger">{{ error_live_url }}</div>
                   {% endif %}
@@ -323,7 +323,7 @@
               <div class="form-group required">
                 <label class="col-sm-2 control-label" for="input-demo-url">{{ entry_demo_url }}</label>
                 <div class="col-sm-10">
-                  <input type="text" name="payment_globalpay_demo_url" value="{{ payment_globalpay_demo_url }}" placeholder="{{ entry_demo_url }}" id="input-demo-url" class="form-control" />
+                  <input type="text" name="payment_globalpay_demo_url" value="{{ payment_globalpay_demo_url }}" placeholder="{{ entry_demo_url }}" id="input-demo-url" class="form-control"/>
                   {% if error_demo_url %}
                   <div class="text-danger">{{ error_demo_url }}</div>
                   {% endif %}
@@ -333,7 +333,7 @@
                 <label class="col-sm-2 control-label" for="input-sort-order"><span data-toggle="tooltip" title="{{ help_notification }}">{{ entry_notification_url }}</span></label>
                 <div class="col-sm-10">
                   <div class="input-group"><span class="input-group-addon"><i class="fa fa-link"></i></span>
-                    <input type="text" value="{{ notify_url }}" class="form-control" />
+                    <input type="text" value="{{ notify_url }}" class="form-control"/>
                   </div>
                 </div>
               </div>

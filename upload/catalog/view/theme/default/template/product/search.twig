@@ -18,7 +18,7 @@
       <label class="control-label" for="input-search">{{ entry_search }}</label>
       <div class="row">
         <div class="col-sm-4">
-          <input type="text" name="search" value="{{ search }}" placeholder="{{ text_keyword }}" id="input-search" class="form-control" />
+          <input type="text" name="search" value="{{ search }}" placeholder="{{ text_keyword }}" id="input-search" class="form-control"/>
         </div>
         <div class="col-sm-3">
           <select name="category_id" class="form-control">
@@ -49,9 +49,9 @@
         <div class="col-sm-3">
           <label class="checkbox-inline">
             {% if sub_category %}
-            <input type="checkbox" name="sub_category" value="1" checked="checked" />
+            <input type="checkbox" name="sub_category" value="1" checked="checked"/>
             {% else %}
-            <input type="checkbox" name="sub_category" value="1" />
+            <input type="checkbox" name="sub_category" value="1"/>
             {% endif %}
             {{ text_sub_category }}</label>
         </div>
@@ -59,13 +59,13 @@
       <p>
         <label class="checkbox-inline">
           {% if description %}
-          <input type="checkbox" name="description" value="1" id="description" checked="checked" />
+          <input type="checkbox" name="description" value="1" id="description" checked="checked"/>
           {% else %}
-          <input type="checkbox" name="description" value="1" id="description" />
+          <input type="checkbox" name="description" value="1" id="description"/>
           {% endif %}
           {{ entry_description }}</label>
       </p>
-      <input type="button" value="{{ button_search }}" id="button-search" class="btn btn-primary" />
+      <input type="button" value="{{ button_search }}" id="button-search" class="btn btn-primary"/>
       <h2>{{ text_search }}</h2>
       {% if products %}
       <div class="row">
@@ -113,7 +113,7 @@
         {% for product in products %}
         <div class="product-layout product-list col-xs-12">
           <div class="product-thumb">
-            <div class="image"><a href="{{ product.href }}"><img src="{{ product.thumb }}" alt="{{ product.name }}" title="{{ product.name }}" class="img-responsive" /></a></div>
+            <div class="image"><a href="{{ product.href }}"><img src="{{ product.thumb }}" alt="{{ product.name }}" title="{{ product.name }}" class="img-responsive"/></a></div>
             <div>
               <div class="caption">
                 <h4><a href="{{ product.href }}">{{ product.name }}</a></h4>

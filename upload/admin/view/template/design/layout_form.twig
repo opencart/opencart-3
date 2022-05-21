@@ -30,7 +30,7 @@
             <div class="form-group required">
               <label class="col-sm-2 control-label" for="input-name">{{ entry_name }}</label>
               <div class="col-sm-10">
-                <input type="text" name="name" value="{{ name }}" placeholder="{{ entry_name }}" id="input-name" class="form-control" />
+                <input type="text" name="name" value="{{ name }}" placeholder="{{ entry_name }}" id="input-name" class="form-control"/>
                 {% if error_name %}
                 <div class="text-danger">{{ error_name }}</div>
                 {% endif %}
@@ -58,7 +58,7 @@
                       {% endif %}
                       {% endfor %}
                     </select></td>
-                  <td class="text-left"><input type="text" name="layout_route[{{ route_row }}][route]" value="{{ layout_route.route }}" placeholder="{{ entry_route }}" class="form-control" /></td>
+                  <td class="text-left"><input type="text" name="layout_route[{{ route_row }}][route]" value="{{ layout_route.route }}" placeholder="{{ entry_route }}" class="form-control"/></td>
                   <td class="text-left"><button type="button" onclick="$('#route-row{{ route_row }}').remove();" data-toggle="tooltip" title="{{ button_remove }}" class="btn btn-danger"><i class="fa fa-minus-circle"></i></button></td>
                 </tr>
                 {% set route_row = route_row + 1 %}
@@ -109,8 +109,8 @@
                             </optgroup>
                             {% endfor %}
                           </select>
-                          <input type="hidden" name="layout_module[{{ module_row }}][position]" value="{{ layout_module.position }}" />
-                          <input type="hidden" name="layout_module[{{ module_row }}][sort_order]" value="{{ layout_module.sort_order }}" />
+                          <input type="hidden" name="layout_module[{{ module_row }}][position]" value="{{ layout_module.position }}"/>
+                          <input type="hidden" name="layout_module[{{ module_row }}][sort_order]" value="{{ layout_module.sort_order }}"/>
                           <div class="input-group-btn"><a href="{{ layout_module.edit }}" type="button" data-toggle="tooltip" title="{{ button_edit }}" target="_blank" class="btn btn-primary btn-sm"><i class="fa fa-pencil"></i></a>
                             <button type="button" onclick="$('#module-row{{ module_row }}').remove();" data-toggle="tooltip" title="{{ button_remove }}" class="btn btn-danger btn-sm"><i class="fa fa fa-minus-circle"></i></button>
                           </div>
@@ -178,8 +178,8 @@
                             </optgroup>
                             {% endfor %}
                           </select>
-                          <input type="hidden" name="layout_module[{{ module_row }}][position]" value="{{ layout_module.position }}" />
-                          <input type="hidden" name="layout_module[{{ module_row }}][sort_order]" value="{{ layout_module.sort_order }}" />
+                          <input type="hidden" name="layout_module[{{ module_row }}][position]" value="{{ layout_module.position }}"/>
+                          <input type="hidden" name="layout_module[{{ module_row }}][sort_order]" value="{{ layout_module.sort_order }}"/>
                           <div class="input-group-btn"> <a href="{{ layout_module.edit }}" type="button" data-toggle="tooltip" title="{{ button_edit }}" target="_blank" class="btn btn-primary btn-sm"><i class="fa fa-pencil"></i></a>
                             <button type="button" onclick="$('#module-row{{ module_row }}').remove();" data-toggle="tooltip" title="{{ button_remove }}" class="btn btn-danger btn-sm"><i class="fa fa fa-minus-circle"></i></button>
                           </div>
@@ -245,8 +245,8 @@
                             </optgroup>
                             {% endfor %}
                           </select>
-                          <input type="hidden" name="layout_module[{{ module_row }}][position]" value="{{ layout_module.position }}" />
-                          <input type="hidden" name="layout_module[{{ module_row }}][sort_order]" value="{{ layout_module.sort_order }}" />
+                          <input type="hidden" name="layout_module[{{ module_row }}][position]" value="{{ layout_module.position }}"/>
+                          <input type="hidden" name="layout_module[{{ module_row }}][sort_order]" value="{{ layout_module.sort_order }}"/>
                           <div class="input-group-btn"><a href="{{ layout_module.edit }}" type="button" data-toggle="tooltip" title="{{ button_edit }}" target="_blank" class="btn btn-primary btn-sm"><i class="fa fa-pencil"></i></a>
                             <button type="button" onclick="$('#module-row{{ module_row }}').remove();" data-toggle="tooltip" title="{{ button_remove }}" class="btn btn-danger btn-sm"><i class="fa fa fa-minus-circle"></i></button>
                           </div>
@@ -314,8 +314,8 @@
                             </optgroup>
                             {% endfor %}
                           </select>
-                          <input type="hidden" name="layout_module[{{ module_row }}][position]" value="{{ layout_module.position }}" />
-                          <input type="hidden" name="layout_module[{{ module_row }}][sort_order]" value="{{ layout_module.sort_order }}" />
+                          <input type="hidden" name="layout_module[{{ module_row }}][position]" value="{{ layout_module.position }}"/>
+                          <input type="hidden" name="layout_module[{{ module_row }}][sort_order]" value="{{ layout_module.sort_order }}"/>
                           <div class="input-group-btn"><a href="{{ layout_module.edit }}" data-toggle="tooltip" title="{{ button_edit }}" target="_blank" class="btn btn-primary btn-sm"><i class="fa fa-pencil"></i></a>
                             <button type="button" onclick="$('#module-row{{ module_row }}').remove();" data-toggle="tooltip" title="{{ button_remove }}" class="btn btn-danger btn-sm"><i class="fa fa fa-minus-circle"></i></button>
                           </div>
@@ -367,7 +367,7 @@ function addRoute() {
 	html += '<option value="{{ store.store_id }}">{{ store.name|escape('js') }}</option>';
 	{% endfor %}
 	html += '  </select></td>';
-	html += '  <td class="text-left"><input type="text" name="layout_route[' + route_row + '][route]" value="" placeholder="{{ entry_route }}" class="form-control" /></td>';
+	html += '  <td class="text-left"><input type="text" name="layout_route[' + route_row + '][route]" value="" placeholder="{{ entry_route }}" class="form-control"/></td>';
 	html += '  <td class="text-left"><button type="button" onclick="$(\'#route-row' + route_row + '\').remove();" data-toggle="tooltip" title="{{ button_remove }}" class="btn btn-danger"><i class="fa fa-minus-circle"></i></button></td>';
 	html += '</tr>';
 	
@@ -393,8 +393,8 @@ function addModule(type) {
 	html += '    </optgroup>';
 	{% endfor %}
 	html += '  </select>';
-    html += '  <input type="hidden" name="layout_module[' + module_row + '][position]" value="' + type.replace('-', '_') + '" />';
-    html += '  <input type="hidden" name="layout_module[' + module_row + '][sort_order]" value="" />';
+    html += '  <input type="hidden" name="layout_module[' + module_row + '][position]" value="' + type.replace('-', '_') + '"/>';
+    html += '  <input type="hidden" name="layout_module[' + module_row + '][sort_order]" value=""/>';
 	html += '  <div class="input-group-btn"><a href="" target="_blank" type="button" data-toggle="tooltip" title="{{ button_edit }}" class="btn btn-primary btn-sm"><i class="fa fa-pencil"></i></a><button type="button" onclick="$(\'#module-row' + module_row + '\').remove();" data-toggle="tooltip" title="{{ button_remove }}" class="btn btn-danger btn-sm"><i class="fa fa fa-minus-circle"></i></button></div></div></td>';
 	html += '</tr>';
 	

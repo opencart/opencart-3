@@ -53,5 +53,4 @@ class ModelExtensionPaymentBluePayHosted extends Model {
 			$log->write($message);
 		}
 	}
-
 }

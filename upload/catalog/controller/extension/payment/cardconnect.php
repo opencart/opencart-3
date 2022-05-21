@@ -286,8 +286,8 @@ class ControllerExtensionPaymentCardConnect extends Controller {
 
 				$responses = $this->model_extension_payment_cardconnect->getSettlementStatuses($this->config->get('payment_cardconnect_merchant_id'), $date);
 
-				foreach($responses as $response) {
-					foreach($response['txns'] as $transaction) {
+				foreach ($responses as $response) {
+					foreach ($response['txns'] as $transaction) {
 						$this->model_extension_payment_cardconnect->updateTransactionStatusByRetref($transaction['retref'], $transaction['setlstat']);
 					}
 				}

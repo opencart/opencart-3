@@ -395,7 +395,6 @@ class ModelExtensionShippingUsps extends Model {
 													'text'         => $this->currency->format($this->tax->calculate($this->currency->convert($cost, 'USD', $this->session->data['currency']), $this->config->get('shipping_usps_tax_class_id'), $this->config->get('config_tax')), $this->session->data['currency'], 1.0000000)
 												);
 											}
-
 										} elseif ($this->config->get('shipping_usps_domestic_' . $classid)) {
 											$cost = $postage->getElementsByTagName('Rate')->item(0)->nodeValue;
 

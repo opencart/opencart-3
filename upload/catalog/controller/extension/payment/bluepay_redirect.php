@@ -47,7 +47,7 @@ class ControllerExtensionPaymentBluePayRedirect extends Controller {
 		$this->load->model('checkout/order');
 		$this->load->model('extension/payment/bluepay_redirect');
 
-		if(!isset($this->session->data['order_id'])) {
+		if (!isset($this->session->data['order_id'])) {
 			return false;
 		}
 

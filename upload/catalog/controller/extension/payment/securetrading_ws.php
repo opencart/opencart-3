@@ -1,7 +1,7 @@
 <?php
 class ControllerExtensionPaymentSecureTradingWs extends Controller {
 	public function index() {
-		if(!isset($this->session->data['order_id'])) {
+		if (!isset($this->session->data['order_id'])) {
 			return false;
 		}
 		
@@ -56,7 +56,7 @@ class ControllerExtensionPaymentSecureTradingWs extends Controller {
 	}
 
 	public function process() {
-		if(!isset($this->session->data['order_id'])) {
+		if (!isset($this->session->data['order_id'])) {
 			return false;
 		}
 		
