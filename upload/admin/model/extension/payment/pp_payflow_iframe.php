@@ -37,7 +37,7 @@ class ModelExtensionPaymentPPPayflowIFrame extends Model {
 	}
 
 	public function getOrder($order_id) {
-		$result = $this->db->query("SELECT * FROM `" . DB_PREFIX . "paypal_payflow_iframe_order` WHERE `order_id` = " . (int)$order_id);
+		$result = $this->db->query("SELECT * FROM `" . DB_PREFIX . "paypal_payflow_iframe_order` WHERE `order_id` = '" . (int)$order_id . "'");
 
 		if ($result->num_rows) {
 			$order = $result->row;
