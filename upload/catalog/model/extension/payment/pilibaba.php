@@ -51,16 +51,20 @@ class ModelExtensionPaymentPilibaba extends Model {
 		$this->log('URL: ' . $url);
 
 		$ch = curl_init();
+		
 		curl_setopt($ch, CURLOPT_URL, $url);
 		curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'GET');
 		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 		curl_setopt($ch, CURLOPT_HEADER, false);
 		curl_setopt($ch, CURLOPT_TIMEOUT, 30);
 		curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+		
 		$response = curl_exec($ch);
+		
 		if (curl_errno($ch)) {
 			$this->log('cURL error: ' . curl_errno($ch));
 		}
+		
 		curl_close($ch);
 
 		$this->log('Response: ' . print_r($response, true));
@@ -72,7 +76,6 @@ class ModelExtensionPaymentPilibaba extends Model {
 		$parts = explode(' ', $data['name']);
 
 		$data['lastname'] = array_pop($parts);
-
 		$data['firstname'] = implode(' ', $parts);
 
 		$this->db->query("UPDATE `" . DB_PREFIX . "order` SET `firstname` = '" . $this->db->escape($data['firstname']) . "', `lastname` = '" . $this->db->escape($data['lastname']) . "', `email` = '" . $this->db->escape($data['email']) . "', `telephone` = '" . $this->db->escape($data['mobile']) . "', `payment_firstname` = '" . $this->db->escape($data['firstname']) . "', `payment_lastname` = '" . $this->db->escape($data['lastname']) . "', `payment_address_1` = '" . $this->db->escape($data['address']) . "', `payment_city` = '" . $this->db->escape($data['city']) . "', `payment_postcode` = '" . $this->db->escape($data['zipcode']) . "', `payment_country` = '" . $this->db->escape($data['country']) . "', `payment_zone` = '" . $this->db->escape($data['district']) . "', `shipping_firstname` = '" . $this->db->escape($data['firstname']) . "', `shipping_lastname` = '" . $this->db->escape($data['lastname']) . "', `shipping_address_1` = '" . $this->db->escape($data['address']) . "', `shipping_city` = '" . $this->db->escape($data['city']) . "', `shipping_postcode` = '" . $this->db->escape($data['zipcode']) . "', `shipping_country` = '" . $this->db->escape($data['country']) . "', `shipping_zone` = '" . $this->db->escape($data['district']) . "', `date_modified` = NOW() WHERE `order_id` = '" . (int)$order_id . "'");
@@ -81,7 +84,6 @@ class ModelExtensionPaymentPilibaba extends Model {
 	public function log($data) {
 		if ($this->config->get('payment_pilibaba_logging')) {
 			$log = new \Log('pilibaba.log');
-
 			$log->write($data);
 		}
 	}

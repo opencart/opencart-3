@@ -8,7 +8,7 @@ class ModelExtensionFraudFraudLabsPro extends Model {
 
 		$risk_score = 0;
 
-		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "fraudlabspro` WHERE order_id = '" . (int)$data['order_id'] . "'");
+		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "fraudlabspro` WHERE `order_id` = '" . (int)$data['order_id'] . "'");
 
 		// Do not call FraudLabs Pro API if order is already screened.
 		if ($query->num_rows) {
@@ -64,6 +64,7 @@ class ModelExtensionFraudFraudLabsPro extends Model {
 		$request['source_version'] = '2.1.0.2';
 
 		$curl = curl_init();
+		
 		curl_setopt($curl, CURLOPT_URL, 'https://api.fraudlabspro.com/v1/order/screen?' . http_build_query($request));
 		curl_setopt($curl, CURLOPT_HEADER, 0);
 		curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, 0);

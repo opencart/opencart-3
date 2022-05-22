@@ -3,7 +3,7 @@ class ModelExtensionPaymentGlobalpayRemote extends Model {
 	public function getMethod($address, $total) {
 		$this->load->language('extension/payment/globalpay_remote');
 
-		$query = $this->db->query("SELECT * FROM " . DB_PREFIX . "zone_to_geo_zone WHERE geo_zone_id = '" . (int)$this->config->get('payment_globalpay_geo_zone_id') . "' AND country_id = '" . (int)$address['country_id'] . "' AND (zone_id = '" . (int)$address['zone_id'] . "' OR zone_id = '0')");
+		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "zone_to_geo_zone` WHERE `geo_zone_id` = '" . (int)$this->config->get('payment_globalpay_geo_zone_id') . "' AND `country_id` = '" . (int)$address['country_id'] . "' AND (`zone_id` = '" . (int)$address['zone_id'] . "' OR `zone_id` = '0')");
 
 		if ($this->config->get('payment_globalpay_remote_total') > 0 && $this->config->get('payment_globalpay_remote_total') > $total) {
 			$status = false;
@@ -30,7 +30,7 @@ class ModelExtensionPaymentGlobalpayRemote extends Model {
 	}
 
 	public function checkEnrollment($account, $amount, $currency, $order_ref) {
-		$timestamp = date("YmdHis");
+		$timestamp = date('YmdHis');
 		$merchant_id = $this->config->get('payment_globalpay_remote_merchant_id');
 		$secret = $this->config->get('payment_globalpay_remote_secret');
 
@@ -59,14 +59,17 @@ class ModelExtensionPaymentGlobalpayRemote extends Model {
 		$this->logger($xml);
 
 		$ch = curl_init();
+		
 		curl_setopt($ch, CURLOPT_URL, "https://remote.globaliris.com/realmpi");
 		curl_setopt($ch, CURLOPT_POST, 1);
 		curl_setopt($ch, CURLOPT_USERAGENT, "OpenCart " . VERSION);
 		curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
 		curl_setopt($ch, CURLOPT_POSTFIELDS, $xml);
 		curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
-		$response = curl_exec ($ch);
-		curl_close ($ch);
+		
+		$response = curl_exec($ch);
+		
+		curl_close($ch);
 
 		$this->logger('checkEnrollment xml response');
 		$this->logger($response);
@@ -130,7 +133,7 @@ class ModelExtensionPaymentGlobalpayRemote extends Model {
 		
 		$this->load->model('checkout/order');
 
-		$timestamp = date("YmdHis");
+		$timestamp = date('YmdHis');
 		$merchant_id = $this->config->get('payment_globalpay_remote_merchant_id');
 		$secret = $this->config->get('payment_globalpay_remote_secret');
 
@@ -356,6 +359,6 @@ class ModelExtensionPaymentGlobalpayRemote extends Model {
 	}
 
 	public function addHistory($order_id, $order_status_id, $comment) {
-		$this->db->query("INSERT INTO " . DB_PREFIX . "order_history SET order_id = '" . (int)$order_id . "', order_status_id = '" . (int)$order_status_id . "', notify = '0', comment = '" . $this->db->escape($comment) . "', date_added = NOW()");
+		$this->db->query("INSERT INTO `" . DB_PREFIX . "order_history` SET `order_id` = '" . (int)$order_id . "', `order_status_id` = '" . (int)$order_status_id . "', `notify` = '0', `comment` = '" . $this->db->escape($comment) . "', `date_added` = NOW()");
 	}
 }

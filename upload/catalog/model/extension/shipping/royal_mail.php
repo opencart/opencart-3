@@ -244,7 +244,7 @@ class ModelExtensionShippingRoyalMail extends Model {
 	function getQuote($address) {
 		$this->load->language('extension/shipping/royal_mail');
 
-		$query = $this->db->query("SELECT * FROM " . DB_PREFIX . "zone_to_geo_zone WHERE geo_zone_id = '" . (int)$this->config->get('shipping_royal_mail_geo_zone_id') . "' AND country_id = '" . (int)$address['country_id'] . "' AND (zone_id = '" . (int)$address['zone_id'] . "' OR zone_id = '0')");
+		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "zone_to_geo_zone` WHERE `geo_zone_id` = '" . (int)$this->config->get('shipping_royal_mail_geo_zone_id') . "' AND `country_id` = '" . (int)$address['country_id'] . "' AND (`zone_id` = '" . (int)$address['zone_id'] . "' OR `zone_id` = '0')");
 
 		if (!$this->config->get('shipping_royal_mail_geo_zone_id')) {
 			$status = true;
@@ -520,6 +520,8 @@ class ModelExtensionShippingRoyalMail extends Model {
 					);
 				}
 			}
+			
+			$europe = array();
 
 			$europe = array(
 				'AL',
@@ -579,6 +581,8 @@ class ModelExtensionShippingRoyalMail extends Model {
 				'UZ',
 				'VA'
 			);
+			
+			$non_eu = array();
 
 			$non_eu = array(
 				'AL',
@@ -610,6 +614,8 @@ class ModelExtensionShippingRoyalMail extends Model {
 				'UZ',
 				'VA'
 			);
+			
+			$zone_1 = array();
 
 			$zone_1 = array(
 				'AF',
@@ -767,6 +773,8 @@ class ModelExtensionShippingRoyalMail extends Model {
 				'ZM',
 				'ZW'
 			);
+			
+			$zone_2 = array();
 
 			$zone_2 = array(
 				'AU',
@@ -845,6 +853,8 @@ class ModelExtensionShippingRoyalMail extends Model {
 			}
 
 			// International Tracked & Signed
+			$tracked_signed = array();
+			
 			$tracked_signed = array(
 				'AD',
 				'AR',
@@ -940,6 +950,8 @@ class ModelExtensionShippingRoyalMail extends Model {
 			}
 
 			// International Tracked
+			$tracked = array();
+			
 			$tracked = array(
 				'AD',
 				'AU',
@@ -1031,6 +1043,8 @@ class ModelExtensionShippingRoyalMail extends Model {
 			}
 
 			// International Signed
+			$signed = array();
+			
 			$signed = array(
 				'AF',
 				'NA',

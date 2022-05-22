@@ -9,7 +9,7 @@ class ModelExtensionFraudIp extends Model {
             $results = $this->model_account_customer->getIps($order_info['customer_id']);
 
             foreach ($results as $result) {
-                $query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "fraud_ip` WHERE ip = '" . $this->db->escape($result['ip']) . "'");
+                $query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "fraud_ip` WHERE `ip` = '" . $this->db->escape($result['ip']) . "'");
 
                 if ($query->num_rows) {
                     $status = true;
@@ -18,7 +18,7 @@ class ModelExtensionFraudIp extends Model {
                 }
             }
         } else {
-            $query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "fraud_ip` WHERE ip = '" . $this->db->escape($order_info['ip']) . "'");
+            $query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "fraud_ip` WHERE `ip` = '" . $this->db->escape($order_info['ip']) . "'");
 
             if ($query->num_rows) {
                 $status = true;

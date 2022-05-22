@@ -278,7 +278,7 @@ class ModelExtensionPaymentFirstdataRemote extends Model {
 	public function getStoredCards() {
 		$customer_id = $this->customer->getId();
 
-		$query = $this->db->query("SELECT * FROM " . DB_PREFIX . "firstdata_remote_card WHERE customer_id = '" . (int)$customer_id . "'");
+		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "firstdata_remote_card` WHERE `customer_id` = '" . (int)$customer_id . "'");
 
 		return $query->rows;
 	}

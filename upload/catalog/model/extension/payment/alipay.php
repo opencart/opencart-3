@@ -19,7 +19,7 @@ class ModelExtensionPaymentAlipay extends Model {
 	public function getMethod($address, $total) {
 		$this->load->language('extension/payment/alipay');
 
-		$query = $this->db->query("SELECT * FROM " . DB_PREFIX . "zone_to_geo_zone WHERE geo_zone_id = '" . (int)$this->config->get('payment_alipay_geo_zone_id') . "' AND country_id = '" . (int)$address['country_id'] . "' AND (zone_id = '" . (int)$address['zone_id'] . "' OR zone_id = '0')");
+		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "zone_to_geo_zone` WHERE `geo_zone_id` = '" . (int)$this->config->get('payment_alipay_geo_zone_id') . "' AND `country_id` = '" . (int)$address['country_id'] . "' AND (`zone_id` = '" . (int)$address['zone_id'] . "' OR `zone_id` = '0')");
 
 		if ($this->config->get('payment_alipay_total') > 0 && $this->config->get('payment_alipay_total') > $total) {
 			$status = false;
@@ -77,17 +77,17 @@ class ModelExtensionPaymentAlipay extends Model {
 		$biz_content = null;
 		
 		if (!empty($builder)) {
-			$biz_content = json_encode($builder,JSON_UNESCAPED_UNICODE);
+			$biz_content = json_encode($builder, JSON_UNESCAPED_UNICODE);
 		}
 
 		$log = new \Log($this->logFileName);
 		$log->write($biz_content);
 
-		$this->apiParas["biz_content"] = $biz_content;
+		$this->apiParas['biz_content'] = $biz_content;
 
-		$response = $this->pageExecute($this, "post");
-		$log = new \Log($this->logFileName);
-		$log->write("response: ".var_export($response,true));
+		$response = $this->pageExecute($this, 'post');
+		
+		$log->write("response: ".var_export($response, true));
 
 		return $response;
 	}
@@ -103,25 +103,25 @@ class ModelExtensionPaymentAlipay extends Model {
 	public function pageExecute($request, $httpmethod = "POST") {
 		$iv=$this->apiVersion;
 
-		$sysParams["app_id"] = $this->appid;
-		$sysParams["version"] = $iv;
-		$sysParams["format"] = $this->format;
-		$sysParams["sign_type"] = $this->signtype;
-		$sysParams["method"] = $this->apiMethodName;
-		$sysParams["timestamp"] = date("Y-m-d H:i:s");
-		$sysParams["alipay_sdk"] = $this->alipaySdkVersion;
-		$sysParams["notify_url"] = $this->notifyUrl;
-		$sysParams["return_url"] = $this->returnUrl;
-		$sysParams["charset"] = $this->postCharset;
-		$sysParams["gateway_url"] = $this->gateway_url;
+		$sysParams['app_id'] = $this->appid;
+		$sysParams['version'] = $iv;
+		$sysParams['format'] = $this->format;
+		$sysParams['sign_type'] = $this->signtype;
+		$sysParams['method'] = $this->apiMethodName;
+		$sysParams['timestamp'] = date("Y-m-d H:i:s");
+		$sysParams['alipay_sdk'] = $this->alipaySdkVersion;
+		$sysParams['notify_url'] = $this->notifyUrl;
+		$sysParams['return_url'] = $this->returnUrl;
+		$sysParams['charset'] = $this->postCharset;
+		$sysParams['gateway_url'] = $this->gateway_url;
 
 		$apiParams = $this->apiParas;
 
 		$totalParams = array_merge($apiParams, $sysParams);
 
-		$totalParams["sign"] = $this->generateSign($totalParams, $this->signtype);
+		$totalParams['sign'] = $this->generateSign($totalParams, $this->signtype);
 
-		if ("GET" == strtoupper($httpmethod)) {
+		if ('GET' == strtoupper($httpmethod)) {
 			$preString=$this->getSignContentUrlencode($totalParams);
 			$requestUrl = $this->gateway_url."?".$preString;
 
@@ -135,6 +135,7 @@ class ModelExtensionPaymentAlipay extends Model {
 					unset($totalParams[$key]);
 				}
 			}
+			
 			return $totalParams;
 		}
 	}
@@ -144,7 +145,7 @@ class ModelExtensionPaymentAlipay extends Model {
 			return true;
 		if ($value === null)
 			return true;
-		if (trim($value) === "")
+		if (trim($value) === '')
 			return true;
 
 		return false;
@@ -165,7 +166,7 @@ class ModelExtensionPaymentAlipay extends Model {
 
 		(trim($pubKey)) or die('Alipay public key error!');
 
-		if ("RSA2" == $signType) {
+		if ('RSA2' == $signType) {
 			$result = (bool)openssl_verify($data, base64_decode($sign), $res, OPENSSL_ALGO_SHA256);
 		} else {
 			$result = (bool)openssl_verify($data, base64_decode($sign), $res);
@@ -188,11 +189,13 @@ class ModelExtensionPaymentAlipay extends Model {
 				} else {
 					$stringToBeSigned .= "&" . "$k" . "=" . "$v";
 				}
+				
 				$i++;
 			}
 		}
 
 		unset ($k, $v);
+		
 		return $stringToBeSigned;
 	}
 
@@ -201,12 +204,13 @@ class ModelExtensionPaymentAlipay extends Model {
 	}
 
 	protected function sign($data, $signType = "RSA") {
-		$priKey=$this->private_key;
+		$priKey = $this->private_key;
+		
 		$res = "-----BEGIN RSA PRIVATE KEY-----\n" .
 			wordwrap($priKey, 64, "\n", true) .
 			"\n-----END RSA PRIVATE KEY-----";
 
-		if ("RSA2" == $signType) {
+		if ('RSA2' == $signType) {
 			openssl_sign($data, $sign, $res, OPENSSL_ALGO_SHA256);
 		} else {
 			openssl_sign($data, $sign, $res);

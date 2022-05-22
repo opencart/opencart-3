@@ -25,6 +25,7 @@ class ModelExtensionPaymentDivido extends Model {
 		}
 
 		$cart_threshold = $this->config->get('payment_divido_cart_threshold');
+		
 		if ($cart_threshold > $total) {
 			return array();
 		}
@@ -34,8 +35,10 @@ class ModelExtensionPaymentDivido extends Model {
 
 		foreach ($plans as $plan) {
 			$planMinTotal = $total - ($total * ($plan->min_deposit / 100));
+			
 			if ($plan->min_amount <= $planMinTotal) {
 				$has_plan = true;
+				
 				break;
 			}
 		}
@@ -45,6 +48,7 @@ class ModelExtensionPaymentDivido extends Model {
 		}
 
 		$title = $this->language->get('text_checkout_title');
+		
 		if ($title_override = $this->config->get('payment_divido_title')) {
 			$title = $title_override;
 		}
@@ -123,11 +127,13 @@ class ModelExtensionPaymentDivido extends Model {
 		}
 
 		$selected_plans = $this->config->get('payment_divido_plans_selected');
+		
 		if (!$selected_plans) {
 			return array();
 		}
 
 		$plans = array();
+		
 		foreach ($all_plans as $plan) {
 			if (in_array($plan->id, $selected_plans)) {
 				$plans[] = $plan;
@@ -149,6 +155,7 @@ class ModelExtensionPaymentDivido extends Model {
 		}
 
 		$api_key = $this->config->get('payment_divido_api_key');
+		
 		if (!$api_key) {
 			throw new \Exception("No Divido api-key defined");
 		}
@@ -156,6 +163,7 @@ class ModelExtensionPaymentDivido extends Model {
 		Divido::setMerchant($api_key);
 
 		$response = Divido_Finances::all();
+		
 		if ($response->status != 'ok') {
 			throw new \Exception("Can't get list of finance plans from Divido!");
 		}
@@ -165,6 +173,7 @@ class ModelExtensionPaymentDivido extends Model {
 		// OpenCart 2.1 switched to json for their file storage cache, so
 		// we need to convert to a simple object.
 		$plans_plain = array();
+		
 		foreach ($plans as $plan) {
 			$plan_copy = new \stdClass();
 			
@@ -188,9 +197,12 @@ class ModelExtensionPaymentDivido extends Model {
 
 	public function getCartPlans($cart)	{
 		$plans = array();
+		
 		$products = $cart->getProducts();
+		
 		foreach ($products as $product) {
 			$product_plans = $this->getProductPlans($product['product_id']);
+			
 			if ($product_plans) {
 				$plans = array_merge($plans, $product_plans);
 			}

@@ -120,32 +120,32 @@ class ModelExtensionPaymentKlarnaCheckout extends Model {
 	}
 
 	public function getCountryByIsoCode2($iso_code_2) {
-		$query = $this->db->query("SELECT * FROM " . DB_PREFIX . "country WHERE `iso_code_2` = '" . $this->db->escape($iso_code_2) . "' AND `status` = '1'");
+		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "country` WHERE `iso_code_2` = '" . $this->db->escape($iso_code_2) . "' AND `status` = '1'");
 
 		return $query->row;
 	}
 
 	public function getCountryByIsoCode3($iso_code_3) {
-		$query = $this->db->query("SELECT * FROM " . DB_PREFIX . "country WHERE `iso_code_3` = '" . $this->db->escape($iso_code_3) . "' AND `status` = '1'");
+		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "country` WHERE `iso_code_3` = '" . $this->db->escape($iso_code_3) . "' AND `status` = '1'");
 
 		return $query->row;
 	}
 
 	public function getZoneByCode($code, $country_id) {
-		$query = $this->db->query("SELECT * FROM " . DB_PREFIX . "zone WHERE (`code` = '" . $this->db->escape($code) . "' OR `name` = '" . $this->db->escape($code) . "') AND `country_id` = '" . (int)$country_id . "' AND `status` = '1'");
+		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "zone` WHERE (`code` = '" . $this->db->escape($code) . "' OR `name` = '" . $this->db->escape($code) . "') AND `country_id` = '" . (int)$country_id . "' AND `status` = '1'");
 
 		return $query->row;
 	}
 
 	public function getCountriesByGeoZone($geo_zone_id) {
-		$query = $this->db->query("SELECT * FROM " . DB_PREFIX . "zone_to_geo_zone WHERE geo_zone_id = '" . (int)$geo_zone_id . "' GROUP BY `country_id` ORDER BY `country_id` ASC");
+		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "zone_to_geo_zone` WHERE `geo_zone_id` = '" . (int)$geo_zone_id . "' GROUP BY `country_id` ORDER BY `country_id` ASC");
 
 		return $query->rows;
 	}
 
 	public function checkForPaymentTaxes($products = array()) {
 		foreach ($products as $product) {
-			$query = $this->db->query("SELECT COUNT(*) AS `total` FROM " . DB_PREFIX . "tax_rule WHERE `based` = 'payment' AND `tax_class_id` = '" . (int)$product['tax_class_id'] . "'");
+			$query = $this->db->query("SELECT COUNT(*) AS `total` FROM `" . DB_PREFIX . "tax_rule` WHERE `based` = 'payment' AND `tax_class_id` = '" . (int)$product['tax_class_id'] . "'");
 
 			if ($query->row['total']) {
 				return true;
@@ -174,6 +174,7 @@ class ModelExtensionPaymentKlarnaCheckout extends Model {
 	public function log($data, $step = 6) {
 		if ($this->config->get('klarna_checkout_debug')) {
 			$backtrace = debug_backtrace();
+			
 			$log = new \Log('klarna_checkout.log');
 			$log->write('(' . $backtrace[$step]['class'] . '::' . $backtrace[$step]['function'] . ') - ' . print_r($data, true));
 		}

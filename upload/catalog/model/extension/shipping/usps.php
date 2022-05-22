@@ -3,7 +3,7 @@ class ModelExtensionShippingUsps extends Model {
 	public function getQuote($address) {
 		$this->load->language('extension/shipping/usps');
 
-		$query = $this->db->query("SELECT * FROM " . DB_PREFIX . "zone_to_geo_zone WHERE geo_zone_id = '" . (int)$this->config->get('shipping_usps_geo_zone_id') . "' AND country_id = '" . (int)$address['country_id'] . "' AND (zone_id = '" . (int)$address['zone_id'] . "' OR zone_id = '0')");
+		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "zone_to_geo_zone` WHERE `geo_zone_id` = '" . (int)$this->config->get('shipping_usps_geo_zone_id') . "' AND `country_id` = '" . (int)$address['country_id'] . "' AND (`zone_id` = '" . (int)$address['zone_id'] . "' OR `zone_id` = '0')");
 
 		if (!$this->config->get('shipping_usps_geo_zone_id')) {
 			$status = true;
@@ -61,6 +61,8 @@ class ModelExtensionShippingUsps extends Model {
 
 				$request = 'API=RateV4&XML=' . urlencode($xml);
 			} else {
+				$country = array();
+				
 				$country = array(
 					'AF' => 'Afghanistan',
 					'AL' => 'Albania',

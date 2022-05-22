@@ -68,7 +68,6 @@ class ModelExtensionPaymentPPExpress extends Model {
 	}
 
 	public function paymentRequestInfo() {
-
 		$data['PAYMENTREQUEST_0_SHIPPINGAMT'] = '';
 		$data['PAYMENTREQUEST_0_CURRENCYCODE'] = $this->session->data['currency'];
 		$data['PAYMENTREQUEST_0_PAYMENTACTION'] = $this->config->get('payment_pp_express_transaction');
@@ -80,6 +79,7 @@ class ModelExtensionPaymentPPExpress extends Model {
 			$data['L_PAYMENTREQUEST_0_DESC' . $i] = '';
 
 			$option_count = 0;
+			
 			foreach ($item['option'] as $option) {
 				if ($option['type'] != 'file') {
 					$value = $option['value'];
@@ -227,6 +227,7 @@ class ModelExtensionPaymentPPExpress extends Model {
 				}
 
 				$data['L_BILLINGAGREEMENTDESCRIPTION' . $z] = $recurring_description;
+				
 				$z++;
 			}
 		}
@@ -324,6 +325,7 @@ class ModelExtensionPaymentPPExpress extends Model {
 		$base = 'ABCDEFGHKLMNOPQRSTWXYZabcdefghjkmnpqrstwxyz123456789';
 		$max = strlen($base)-1;
 		$activate_code = '';
+		
 		mt_srand((float)microtime()*1000000);
 
 		while (strlen($activate_code)<$len+1) {

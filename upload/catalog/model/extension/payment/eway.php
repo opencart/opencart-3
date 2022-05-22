@@ -4,7 +4,7 @@ class ModelExtensionPaymentEway extends Model {
 		$this->load->language('extension/payment/eway');
 
 		if ($this->config->get('payment_eway_status')) {
-			$query = $this->db->query("SELECT * FROM " . DB_PREFIX . "zone_to_geo_zone WHERE geo_zone_id = '" . (int)$this->config->get('payment_eway_standard_geo_zone_id') . "' AND country_id = '" . (int)$address['country_id'] . "' AND (zone_id = '" . (int)$address['zone_id'] . "' OR zone_id = '0')");
+			$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "zone_to_geo_zone` WHERE `geo_zone_id` = '" . (int)$this->config->get('payment_eway_standard_geo_zone_id') . "' AND `country_id` = '" . (int)$address['country_id'] . "' AND (`zone_id` = '" . (int)$address['zone_id'] . "' OR `zone_id` = '0')");
 			if (!$this->config->get('payment_eway_standard_geo_zone_id')) {
 				$status = true;
 			} elseif ($query->num_rows) {
@@ -48,7 +48,7 @@ class ModelExtensionPaymentEway extends Model {
 	}
 
 	public function getCards($customer_id) {
-		$query = $this->db->query("SELECT * FROM " . DB_PREFIX . "eway_card WHERE customer_id = '" . (int)$customer_id . "'");
+		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "eway_card` WHERE `customer_id` = '" . (int)$customer_id . "'");
 
 		$card_data = array();
 
@@ -69,7 +69,7 @@ class ModelExtensionPaymentEway extends Model {
 	}
 
 	public function checkToken($token_id) {
-		$query = $this->db->query("SELECT * FROM " . DB_PREFIX . "eway_card WHERE token_id = '" . (int)$token_id . "'");
+		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "eway_card` WHERE `token_id` = '" . (int)$token_id . "'");
 		
 		if ($query->num_rows) {
 			return true;
@@ -79,19 +79,19 @@ class ModelExtensionPaymentEway extends Model {
 	}
 
 	public function addCard($order_id, $card_data) {
-		$this->db->query("INSERT into " . DB_PREFIX . "eway_card SET customer_id = '" . $this->db->escape($card_data['customer_id']) . "', order_id = '" . $this->db->escape($order_id) . "', digits = '" . $this->db->escape($card_data['Last4Digits']) . "', expiry = '" . $this->db->escape($card_data['ExpiryDate']) . "', type = '" . $this->db->escape($card_data['CardType']) . "'");
+		$this->db->query("INSERT INTO `" . DB_PREFIX . "eway_card` SET `customer_id` = '" . $this->db->escape($card_data['customer_id']) . "', `order_id` = '" . $this->db->escape($order_id) . "', `digits` = '" . $this->db->escape($card_data['Last4Digits']) . "', `expiry` = '" . $this->db->escape($card_data['ExpiryDate']) . "', `type` = '" . $this->db->escape($card_data['CardType']) . "'");
 	}
 
 	public function updateCard($order_id, $token) {
-		$this->db->query("UPDATE " . DB_PREFIX . "eway_card SET token = '" . $this->db->escape($token) . "' WHERE order_id = '" . (int)$order_id . "'");
+		$this->db->query("UPDATE `" . DB_PREFIX . "eway_card` SET `token` = '" . $this->db->escape($token) . "' WHERE `order_id` = '" . (int)$order_id . "'");
 	}
 
 	public function updateFullCard($card_id, $token, $card_data) {
-		$this->db->query("UPDATE " . DB_PREFIX . "eway_card SET token = '" . $this->db->escape($token) . "', digits = '" . $this->db->escape($card_data['Last4Digits']) . "', expiry = '" . $this->db->escape($card_data['ExpiryDate']) . "', type = '" . $this->db->escape($card_data['CardType']) . "' WHERE card_id = '" . (int)$card_id . "'");
+		$this->db->query("UPDATE `" . DB_PREFIX . "eway_card` SET `token` = '" . $this->db->escape($token) . "', `digits` = '" . $this->db->escape($card_data['Last4Digits']) . "', `expiry` = '" . $this->db->escape($card_data['ExpiryDate']) . "', `type` = '" . $this->db->escape($card_data['CardType']) . "' WHERE `card_id` = '" . (int)$card_id . "'");
 	}
 
 	public function deleteCard($order_id) {
-		$this->db->query("DELETE FROM " . DB_PREFIX . "eway_card WHERE order_id = '" . (int)$order_id . "'");
+		$this->db->query("DELETE FROM `" . DB_PREFIX . "eway_card` WHERE `order_id` = '" . (int)$order_id . "'");
 	}
 
 	public function getAccessCode($request) {

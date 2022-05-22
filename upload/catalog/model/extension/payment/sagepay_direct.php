@@ -3,7 +3,7 @@ class ModelExtensionPaymentSagePayDirect extends Model {
 	public function getMethod($address, $total) {
 		$this->load->language('extension/payment/sagepay_direct');
 
-		$query = $this->db->query("SELECT * FROM " . DB_PREFIX . "zone_to_geo_zone WHERE geo_zone_id = '" . (int)$this->config->get('payment_sagepay_direct_geo_zone_id') . "' AND country_id = '" . (int)$address['country_id'] . "' AND (zone_id = '" . (int)$address['zone_id'] . "' OR zone_id = '0')");
+		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "zone_to_geo_zone` WHERE `geo_zone_id` = '" . (int)$this->config->get('payment_sagepay_direct_geo_zone_id') . "' AND `country_id` = '" . (int)$address['country_id'] . "' AND (`zone_id` = '" . (int)$address['zone_id'] . "' OR `zone_id` = '0')");
 
 		if ($this->config->get('sagepay_direct_total') > 0 && $this->config->get('payment_sagepay_direct_total') > $total) {
 			$status = false;
@@ -30,15 +30,13 @@ class ModelExtensionPaymentSagePayDirect extends Model {
 	}
 
 	public function getCards($customer_id) {
-
-		$query = $this->db->query("SELECT * FROM " . DB_PREFIX . "sagepay_direct_card WHERE customer_id = '" . (int)$customer_id . "' ORDER BY card_id");
+		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "sagepay_direct_card` WHERE `customer_id` = '" . (int)$customer_id . "' ORDER BY `card_id`");
 
 		$card_data = array();
 
 		$this->load->model('account/address');
 
 		foreach ($query->rows as $row) {
-
 			$card_data[] = array(
 				'card_id' => $row['card_id'],
 				'customer_id' => $row['customer_id'],
@@ -48,6 +46,7 @@ class ModelExtensionPaymentSagePayDirect extends Model {
 				'type' => $row['type'],
 			);
 		}
+		
 		return $card_data;
 	}
 
@@ -86,6 +85,7 @@ class ModelExtensionPaymentSagePayDirect extends Model {
 
 		if ($qry->num_rows) {
 			$order = $qry->row;
+			
 			$order['transactions'] = $this->getTransactions($order['sagepay_direct_order_id']);
 
 			return $order;
@@ -119,9 +119,9 @@ class ModelExtensionPaymentSagePayDirect extends Model {
 	}
 
 	public function recurringPayment($item, $vendor_tx_code) {
-
-		$this->load->model('checkout/recurring');
 		$this->load->model('extension/payment/sagepay_direct');
+		$this->load->model('checkout/recurring');		
+		
 		//trial information
 		if ($item['recurring']['trial'] == 1) {
 			$price = $item['recurring']['trial_price'];
@@ -247,6 +247,7 @@ class ModelExtensionPaymentSagePayDirect extends Model {
 
 			$payment_data['DeliveryPhone'] = $order_info['telephone'];
 		}
+		
 		$response_data = $this->sendCurl($url, $payment_data, $i);
 		$response_data['VendorTxCode'] = $payment_data['VendorTxCode'];
 		$response_data['Amount'] = $payment_data['Amount'];
@@ -256,14 +257,15 @@ class ModelExtensionPaymentSagePayDirect extends Model {
 	}
 
 	public function cronPayment() {
-
 		$this->load->model('account/order');
+		
 		$recurrings = $this->getProfiles();
+		
 		$cron_data = array();
+		
 		$i = 0;
 
 		foreach ($recurrings as $recurring) {
-
 			$recurring_order = $this->getRecurringOrder($recurring['order_recurring_id']);
 
 			$today = new \DateTime('now');
@@ -301,8 +303,10 @@ class ModelExtensionPaymentSagePayDirect extends Model {
 				$this->addRecurringTransaction($recurring['order_recurring_id'], $response_data, 4);
 			}
 		}
+		
 		$log = new \Log('sagepay_direct_recurring_orders.log');
 		$log->write(print_r($cron_data, 1));
+		
 		return $cron_data;
 	}
 
@@ -311,6 +315,7 @@ class ModelExtensionPaymentSagePayDirect extends Model {
 			$day = date_format($next_payment, 'd');
 			$value = 15 - $day;
 			$is_even = false;
+			
 			if ($cycle % 2 == 0) {
 				$is_even = true;
 			}
@@ -341,6 +346,7 @@ class ModelExtensionPaymentSagePayDirect extends Model {
 		} else {
 			$next_payment->modify('+' . $cycle . ' ' . $frequency);
 		}
+		
 		return $next_payment;
 	}
 
@@ -353,7 +359,8 @@ class ModelExtensionPaymentSagePayDirect extends Model {
 	}
 
 	private function getRecurringOrder($order_recurring_id) {
-		$qry = $this->db->query("SELECT * FROM " . DB_PREFIX . "sagepay_direct_order_recurring WHERE order_recurring_id = '" . (int)$order_recurring_id . "'");
+		$qry = $this->db->query("SELECT * FROM `" . DB_PREFIX . "sagepay_direct_order_recurring` WHERE `order_recurring_id` = '" . (int)$order_recurring_id . "'");
+		
 		return $qry->row;
 	}
 
@@ -362,12 +369,11 @@ class ModelExtensionPaymentSagePayDirect extends Model {
 	}
 
 	private function getProfiles() {
-
 		$sql = "
-			SELECT `or`.order_recurring_id
+			SELECT `or`.`order_recurring_id`
 			FROM `" . DB_PREFIX . "order_recurring` `or`
-			JOIN `" . DB_PREFIX . "order` `o` USING(`order_id`)
-			WHERE o.payment_code = 'sagepay_direct'";
+			JOIN `" . DB_PREFIX . "order` o USING(`order_id`)
+			WHERE o.`payment_code` = 'sagepay_direct'";
 
 		$qry = $this->db->query($sql);
 
@@ -376,11 +382,13 @@ class ModelExtensionPaymentSagePayDirect extends Model {
 		foreach ($qry->rows as $recurring) {
 			$order_recurring[] = $this->getProfile($recurring['order_recurring_id']);
 		}
+		
 		return $order_recurring;
 	}
 
 	private function getProfile($order_recurring_id) {
 		$qry = $this->db->query("SELECT * FROM " . DB_PREFIX . "order_recurring WHERE order_recurring_id = " . (int)$order_recurring_id);
+		
 		return $qry->row;
 	}
 
@@ -417,13 +425,15 @@ class ModelExtensionPaymentSagePayDirect extends Model {
 				$data[trim($parts[0])] = trim($parts[1]);
 			}
 		}
+		
 		return $data;
 	}
 
 	public function logger($title, $data) {
 		if ($this->config->get('payment_sagepay_direct_debug')) {
-			$log = new \Log('sagepay_direct.log');
 			$backtrace = debug_backtrace();
+			
+			$log = new \Log('sagepay_direct.log');			
 			$log->write($backtrace[6]['class'] . '::' . $backtrace[6]['function'] . ' - ' . $title . ': ' . print_r($data, 1));
 		}
 	}

@@ -397,7 +397,7 @@ class ModelExtensionPaymentAmazonLoginPay extends Model {
     }
 
     public function confirmOrder($order_reference_id) {
-        $this->postCurl("ConfirmOrderReference", array(
+        $this->postCurl('ConfirmOrderReference', array(
             'AmazonOrderReferenceId' => $order_reference_id,
             'SuccessUrl' => $this->url->link('extension/payment/amazon_login_pay/mfa_success', '', true),
             'FailureUrl' => $this->url->link('extension/payment/amazon_login_pay/mfa_failure', '', true)
@@ -476,7 +476,7 @@ class ModelExtensionPaymentAmazonLoginPay extends Model {
 
         $order_reference_id = (string)$order->AmazonOrderReferenceId;
 
-        $find_sql = "SELECT * FROM `" . DB_PREFIX . "amazon_login_pay_order` WHERE order_id=" . (int)$order_id . " AND amazon_order_reference_id='" . $this->db->escape($order_reference_id) . "'";
+        $find_sql = "SELECT * FROM `" . DB_PREFIX . "amazon_login_pay_order` WHERE `order_id` = '" . (int)$order_id . "' AND `amazon_order_reference_id` = '" . $this->db->escape($order_reference_id) . "'";
 
         $find_result = $this->db->query($find_sql);
 
@@ -507,7 +507,7 @@ class ModelExtensionPaymentAmazonLoginPay extends Model {
     }
 
     public function getOrderByOrderId($order_id) {
-        $sql = "SELECT * FROM `" . DB_PREFIX . "amazon_login_pay_order` WHERE `order_id`=" . (int)$order_id;
+        $sql = "SELECT * FROM `" . DB_PREFIX . "amazon_login_pay_order` WHERE `order_id` = " . (int)$order_id;
 
         $result = $this->db->query($sql);
 
@@ -544,17 +544,17 @@ class ModelExtensionPaymentAmazonLoginPay extends Model {
 
         $capture_status = $type == 'capture';
 
-        $this->db->query("UPDATE `" . DB_PREFIX . "amazon_login_pay_order` SET `amazon_authorization_id`='" . $this->db->escape($authorization_id) . "' WHERE `amazon_login_pay_order_id`='" . $this->db->escape($amazon_login_pay_order_id) . "'");
+        $this->db->query("UPDATE `" . DB_PREFIX . "amazon_login_pay_order` SET `amazon_authorization_id` = '" . $this->db->escape($authorization_id) . "' WHERE `amazon_login_pay_order_id` = '" . $this->db->escape($amazon_login_pay_order_id) . "'");
 
         $this->updateCapturedStatus($amazon_login_pay_order_id, $capture_status);
     }
 
     public function updateCapturedStatus($amazon_login_pay_order_id, $status) {
-        $this->db->query("UPDATE `" . DB_PREFIX . "amazon_login_pay_order` SET `capture_status`=" . (int)$status . " WHERE `amazon_login_pay_order_id`='" . $this->db->escape($amazon_login_pay_order_id) . "'");
+        $this->db->query("UPDATE `" . DB_PREFIX . "amazon_login_pay_order` SET `capture_status` = " . (int)$status . " WHERE `amazon_login_pay_order_id` = '" . $this->db->escape($amazon_login_pay_order_id) . "'");
     }
 
     public function findCapture($amazon_capture_id) {
-        $sql = "SELECT * FROM `" . DB_PREFIX . "amazon_login_pay_order_transaction` WHERE amazon_capture_id='" . $this->db->escape($amazon_capture_id) . "'";
+        $sql = "SELECT * FROM `" . DB_PREFIX . "amazon_login_pay_order_transaction` WHERE amazon_capture_id = '" . $this->db->escape($amazon_capture_id) . "'";
         
         return $this->db->query($sql)->num_rows > 0;
     }
@@ -574,14 +574,14 @@ class ModelExtensionPaymentAmazonLoginPay extends Model {
         $row = array();
 
         foreach ($insert as $key => $value) {
-            $row[] = "`" . $key . "`=" . $value;
+            $row[] = "`" . $key . "` = " . $value;
         }
 
         $this->db->query("INSERT INTO `" . DB_PREFIX . "amazon_login_pay_order_transaction` SET " . implode(',', $row));
     }
 
     public function isShippingFree($order_id) {
-        $sql = "SELECT * FROM `" . DB_PREFIX . "order_total` WHERE order_id=" . (int)$order_id . " AND `value`=0.0000 AND `code`='shipping'";
+        $sql = "SELECT * FROM `" . DB_PREFIX . "order_total` WHERE `order_id` = " . (int)$order_id . " AND `value` = 0.0000 AND `code` = 'shipping'";
 
         return $this->db->query($sql)->num_rows > 0;
     }
@@ -627,20 +627,27 @@ class ModelExtensionPaymentAmazonLoginPay extends Model {
     public function updateStatus($amazon_id, $type, $status) {
         $this->db->query("UPDATE `" . DB_PREFIX . "amazon_login_pay_order_transaction` SET `status` = '" . $this->db->escape($status) . "' WHERE `amazon_" . $type . "_id` = '" . $this->db->escape($amazon_id) . "' AND `type` = '" . $this->db->escape($type) . "'");
     }
+	
     public function findOCOrderId($amazon_authorization_id) {
-        $sql = "SELECT * FROM `" . DB_PREFIX . "amazon_login_pay_order` WHERE amazon_order_reference_id='" . $this->db->escape($amazon_authorization_id) . "'";
+        $sql = "SELECT * FROM `" . DB_PREFIX . "amazon_login_pay_order` WHERE `amazon_order_reference_id` = '" . $this->db->escape($amazon_authorization_id) . "'";
+		
         $result = $this->db->query($sql);
+		
         if ($result->num_rows > 0) {
           return (int) $result->row['order_id'];
         }
     }
+	
     public function findAOrderId($amazon_authorization_id) {
-        $sql = "SELECT * FROM `" . DB_PREFIX . "amazon_login_pay_order` WHERE amazon_order_reference_id='" . $this->db->escape($amazon_authorization_id) . "'";
+        $sql = "SELECT * FROM `" . DB_PREFIX . "amazon_login_pay_order` WHERE `amazon_order_reference_id` = '" . $this->db->escape($amazon_authorization_id) . "'";
+		
         $result = $this->db->query($sql);
+		
         if ($result->num_rows > 0) {
           return (int) $result->row['amazon_login_pay_order_id'];
         }
     }
+	
     public function getTotalCaptured($amazon_login_pay_order_id) {
 		$query = $this->db->query("SELECT SUM(`amount`) AS `total` FROM `" . DB_PREFIX . "amazon_login_pay_order_transaction` WHERE `amazon_login_pay_order_id` = '" . (int)$amazon_login_pay_order_id . "' AND (`type` = 'capture' OR `type` = 'refund') AND (`status` = 'Completed' OR `status` = 'Closed')");
 
@@ -649,18 +656,25 @@ class ModelExtensionPaymentAmazonLoginPay extends Model {
 
     public function authorizationIpn($xml) {
         $status = (string)$xml->AuthorizationDetails->AuthorizationStatus->State;
+		
         $amazon_authorization_id = (string)$xml->AuthorizationDetails->AmazonAuthorizationId;
+		
         $this->updateStatus($amazon_authorization_id, 'authorization', $status);
+		
         if ($status == 'Declined' || $status == 'Closed') {
             $this->debugLog("NOTICE", $status . ': ' . (string)$xml->AuthorizationDetails->AuthorizationStatus->ReasonCode);
         }
+		
         return ($status == 'Closed' && $xml->AuthorizationDetails->AuthorizationStatus->ReasonCode == 'MaxCapturesProcessed');
     }
 
     public function captureIpn($xml) {
         $status = (string)$xml->CaptureDetails->CaptureStatus->State;
+		
         $amazon_capture_id = (string)$xml->CaptureDetails->AmazonCaptureId;
+		
         $this->updateStatus($amazon_capture_id, 'capture', $status);
+		
         if ($status == 'Declined' || $status == 'Canceled' || $status == 'Closed') {
             $this->debugLog("NOTICE", $status . ': ' . (string)$xml->CaptureDetails->CaptureStatus->ReasonCode);
         }
@@ -668,8 +682,11 @@ class ModelExtensionPaymentAmazonLoginPay extends Model {
 
     public function refundIpn($xml) {
         $status = (string)$xml->RefundDetails->RefundStatus->State;
+		
         $amazon_refund_id = (string)$xml->RefundDetails->AmazonRefundId;
+		
         $this->updateStatus($amazon_refund_id, 'refund', $status);
+		
         if ($status == 'Declined') {
             $this->debugLog("NOTICE", $status . ': ' . (string)$xml->RefundDetails->RefundStatus->ReasonCode);
         }
@@ -677,6 +694,8 @@ class ModelExtensionPaymentAmazonLoginPay extends Model {
 
     public function updatePaymentAddress($order_id, $amazon_address) {
         $address = $this->amazonAddressToOcAddress($amazon_address);
+		
+		$data = array();
 
         $data = array(
             'payment_firstname' => "'" . $this->db->escape($address['firstname']) . "'",
@@ -700,13 +719,14 @@ class ModelExtensionPaymentAmazonLoginPay extends Model {
             $update[] = "`" . $key . "`=" . $value;
         }
 
-        $sql = "UPDATE `" . DB_PREFIX . "order` SET " . implode(",", $update) . " WHERE `order_id`=" . (int)$order_id;
+        $sql = "UPDATE `" . DB_PREFIX . "order` SET " . implode(",", $update) . " WHERE `order_id` = '" . (int)$order_id . "'";
 
         $this->db->query($sql);
     }
 
     public function amazonAddressToOcAddress($amazon_address, $default_telephone = '0000000') {
         $full_name = explode(' ', $amazon_address->Name);
+		
         $amazon_address->FirstName = array_shift($full_name);
         $amazon_address->LastName = implode(' ', $full_name);
 
@@ -771,7 +791,7 @@ class ModelExtensionPaymentAmazonLoginPay extends Model {
     }
 
     public function getCountryInfo($amazon_address) {
-        $sql = "SELECT * FROM `" . DB_PREFIX . "country` WHERE LOWER(`iso_code_2`)='" . $this->db->escape(strtolower($amazon_address->CountryCode)) . "' AND status=1 LIMIT 1";
+        $sql = "SELECT * FROM `" . DB_PREFIX . "country` WHERE LOWER(`iso_code_2`) = '" . $this->db->escape(strtolower($amazon_address->CountryCode)) . "' AND `status` = '1' LIMIT 1";
 
         $result = $this->db->query($sql);
 
@@ -911,7 +931,7 @@ class ModelExtensionPaymentAmazonLoginPay extends Model {
 
             throw $this->loggedException($debug, $this->language->get('error_process_order'));
         } else {
-            $this->debugLog("SUCCESS", $response);
+            $this->debugLog('SUCCESS', $response);
         }
 
         curl_close($ch);
@@ -940,7 +960,7 @@ class ModelExtensionPaymentAmazonLoginPay extends Model {
     public function loggedException($log_message, $error_message) {
         $id = uniqid();
 
-        $this->debugLog("ERROR", $log_message, $id);
+        $this->debugLog('ERROR', $log_message, $id);
 
         return new \RuntimeException("#" . $id . ": " . $error_message);
     }

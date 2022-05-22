@@ -3,7 +3,7 @@ class ModelExtensionPaymentRealexRemote extends Model {
 	public function getMethod($address, $total) {
 		$this->load->language('extension/payment/realex_remote');
 
-		$query = $this->db->query("SELECT * FROM " . DB_PREFIX . "zone_to_geo_zone WHERE geo_zone_id = '" . (int)$this->config->get('payment_realex_geo_zone_id') . "' AND country_id = '" . (int)$address['country_id'] . "' AND (zone_id = '" . (int)$address['zone_id'] . "' OR zone_id = '0')");
+		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "zone_to_geo_zone` WHERE `geo_zone_id` = '" . (int)$this->config->get('payment_realex_geo_zone_id') . "' AND `country_id` = '" . (int)$address['country_id'] . "' AND (`zone_id` = '" . (int)$address['zone_id'] . "' OR `zone_id` = '0')");
 
 		if ($this->config->get('payment_realex_remote_total') > 0 && $this->config->get('payment_realex_remote_total') > $total) {
 			$status = false;
@@ -30,7 +30,7 @@ class ModelExtensionPaymentRealexRemote extends Model {
 	}
 
 	public function checkEnrollment($account, $amount, $currency, $order_ref) {
-		$timestamp = date("YmdHis");
+		$timestamp = date('YmdHis');
 		$merchant_id = $this->config->get('payment_realex_remote_merchant_id');
 		$secret = $this->config->get('payment_realex_remote_secret');
 
@@ -59,14 +59,17 @@ class ModelExtensionPaymentRealexRemote extends Model {
 		$this->logger($xml);
 
 		$ch = curl_init();
+		
 		curl_setopt($ch, CURLOPT_URL, "https://epage.payandshop.com/epage-3dsecure.cgi");
 		curl_setopt($ch, CURLOPT_POST, 1);
 		curl_setopt($ch, CURLOPT_USERAGENT, "OpenCart " . VERSION);
 		curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
 		curl_setopt($ch, CURLOPT_POSTFIELDS, $xml);
 		curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
-		$response = curl_exec ($ch);
-		curl_close ($ch);
+		
+		$response = curl_exec($ch);
+		
+		curl_close($ch);
 
 		$this->logger('checkEnrollment xml response');
 		$this->logger($response);
@@ -77,7 +80,7 @@ class ModelExtensionPaymentRealexRemote extends Model {
 	public function enrollmentSignature($account, $amount, $currency, $order_ref, $card_number, $card_expire, $card_type, $card_name, $pares) {
 		$this->load->model('checkout/order');
 
-		$timestamp = date("YmdHis");
+		$timestamp = date('YmdHis');
 		$merchant_id = $this->config->get('payment_realex_remote_merchant_id');
 		$secret = $this->config->get('payment_realex_remote_secret');
 
@@ -115,9 +118,9 @@ class ModelExtensionPaymentRealexRemote extends Model {
 		curl_setopt($ch, CURLOPT_POSTFIELDS, $xml);
 		curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
 		
-		$response = curl_exec ($ch);
+		$response = curl_exec($ch);
 		
-		curl_close ($ch);
+		curl_close($ch);
 
 		$this->logger('enrollmentSignature xml response');
 		$this->logger($response);
@@ -128,7 +131,7 @@ class ModelExtensionPaymentRealexRemote extends Model {
 	public function capturePayment($account, $amount, $currency, $order_id, $order_ref, $card_number, $expire, $name, $type, $cvv, $issue, $eci_ref, $eci = '', $cavv = '', $xid = '') {
 		$this->load->model('checkout/order');
 
-		$timestamp = date("YmdHis");
+		$timestamp = date('YmdHis');
 		$merchant_id = $this->config->get('payment_realex_remote_merchant_id');
 		$secret = $this->config->get('payment_realex_remote_secret');
 
@@ -356,6 +359,6 @@ class ModelExtensionPaymentRealexRemote extends Model {
 	}
 
 	public function addHistory($order_id, $order_status_id, $comment) {
-		$this->db->query("INSERT INTO " . DB_PREFIX . "order_history SET order_id = '" . (int)$order_id . "', order_status_id = '" . (int)$order_status_id . "', notify = '0', comment = '" . $this->db->escape($comment) . "', date_added = NOW()");
+		$this->db->query("INSERT INTO `" . DB_PREFIX . "order_history` SET `order_id` = '" . (int)$order_id . "', `order_status_id` = '" . (int)$order_status_id . "', `notify` = '0', `comment` = '" . $this->db->escape($comment) . "', `date_added` = NOW()");
 	}
 }

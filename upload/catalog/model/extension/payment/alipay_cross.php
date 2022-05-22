@@ -7,7 +7,7 @@ class ModelExtensionPaymentAlipayCross extends Model {
 	public function getMethod($address, $total) {
 		$this->load->language('extension/payment/alipay_cross');
 
-		$query = $this->db->query("SELECT * FROM " . DB_PREFIX . "zone_to_geo_zone WHERE geo_zone_id = '" . (int)$this->config->get('payment_alipay_cross_geo_zone_id') . "' AND country_id = '" . (int)$address['country_id'] . "' AND (zone_id = '" . (int)$address['zone_id'] . "' OR zone_id = '0')");
+		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "zone_to_geo_zone` WHERE `geo_zone_id` = '" . (int)$this->config->get('payment_alipay_cross_geo_zone_id') . "' AND `country_id` = '" . (int)$address['country_id'] . "' AND (`zone_id` = '" . (int)$address['zone_id'] . "' OR `zone_id` = '0')");
 
 		if ($this->config->get('payment_alipay_cross_total') > 0 && $this->config->get('payment_alipay_cross_total') > $total) {
 			$status = false;
@@ -95,7 +95,7 @@ class ModelExtensionPaymentAlipayCross extends Model {
 		$prestr = $this->createLinkstring($para_sort);
 
 		switch (strtoupper(trim($this->alipay_config['sign_type']))) {
-			case "MD5" :
+			case 'MD5' :
 				$isSgin = $this->md5Verify($prestr, $sign, $this->alipay_config['key']);
 				break;
 			default :
@@ -108,7 +108,7 @@ class ModelExtensionPaymentAlipayCross extends Model {
 	function getResponse($notify_id) {
 		$partner = trim($this->alipay_config['partner']);
 		$veryfy_url = $this->config->get('payment_alipay_cross_test') == "sandbox" ? $this->https_verify_url_test : $this->https_verify_url;
-		$veryfy_url .= "partner=" . $partner . "&notify_id=" . $notify_id;
+		$veryfy_url .= 'partner=' . $partner . '&notify_id=' . $notify_id;
 		$responseTxt = $this->getHttpResponseGET($veryfy_url, $this->alipay_config['cacert']);
 
 		return $responseTxt;
@@ -186,4 +186,3 @@ class ModelExtensionPaymentAlipayCross extends Model {
 		}
 	}
 }
-

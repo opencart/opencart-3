@@ -1,8 +1,8 @@
 <?php
 
 class ModelExtensionModuleAmazonLogin extends Model {
-    const LOG_FILENAME = "amazon_login.log";
-    const URL_PROFILE = "https://%s/user/profile";
+    const LOG_FILENAME  = "amazon_login.log";
+    const URL_PROFILE   = "https://%s/user/profile";
     const URL_TOKENINFO = "https://%s/auth/o2/tokeninfo?access_token=%s";
 
     public function fetchProfile($access_token) {
@@ -181,7 +181,7 @@ class ModelExtensionModuleAmazonLogin extends Model {
     }
 
     public function curlGet($url, $headers = array()) {
-        $this->debugLog("URL", $url);
+        $this->debugLog('URL', $url);
 
         $ch = curl_init($url);
 
@@ -192,7 +192,8 @@ class ModelExtensionModuleAmazonLogin extends Model {
         curl_setopt($ch, CURLOPT_USERAGENT, $this->request->server['HTTP_USER_AGENT']);
 
         if (!empty($headers)) {
-            $this->debugLog("HEADERS", $headers);
+            $this->debugLog('HEADERS', $headers);
+			
             curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
         }
 
@@ -204,14 +205,14 @@ class ModelExtensionModuleAmazonLogin extends Model {
                 'curl_errno' => curl_errno($ch),
                 'curl_error' => curl_error($ch)
             );
+			
+			curl_close($ch);
 
-            curl_close($ch);
-
-            $this->debugLog("ERROR", $debug);
+            $this->debugLog('ERROR', $debug);
 
             throw new \RuntimeException($this->language->get('error_login'));
         } else {
-            $this->debugLog("SUCCESS", $response);
+            $this->debugLog('SUCCESS', $response);
         }
 
         curl_close($ch);
@@ -236,7 +237,6 @@ class ModelExtensionModuleAmazonLogin extends Model {
         ob_end_clean();
 
         $log = new \Log(self::LOG_FILENAME);
-
         $log->write($type . " ---> " . $message);
 
         unset($log);
