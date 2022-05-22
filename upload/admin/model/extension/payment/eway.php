@@ -218,13 +218,13 @@ class ModelExtensionPaymentEway extends Model {
 	}
 
 	public function getTotalCaptured($eway_order_id) {
-		$query = $this->db->query("SELECT SUM(`amount`) AS `total` FROM `" . DB_PREFIX . "eway_transactions` WHERE `eway_order_id` = '" . (int)$eway_order_id . "' AND `type` = 'payment' ");
+		$query = $this->db->query("SELECT SUM(`amount`) AS total FROM `" . DB_PREFIX . "eway_transactions` WHERE `eway_order_id` = '" . (int)$eway_order_id . "' AND `type` = 'payment' ");
 
 		return (double)$query->row['total'];
 	}
 
 	public function getTotalRefunded($eway_order_id) {
-		$query = $this->db->query("SELECT SUM(`amount`) AS `total` FROM `" . DB_PREFIX . "eway_transactions` WHERE `eway_order_id` = '" . (int)$eway_order_id . "' AND `type` = 'refund'");
+		$query = $this->db->query("SELECT SUM(`amount`) AS total FROM `" . DB_PREFIX . "eway_transactions` WHERE `eway_order_id` = '" . (int)$eway_order_id . "' AND `type` = 'refund'");
 
 		return (double)$query->row['total'];
 	}

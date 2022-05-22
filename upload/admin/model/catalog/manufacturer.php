@@ -143,7 +143,7 @@ class ModelCatalogManufacturer extends Model {
 	}
 	
 	public function getTotalManufacturers() {
-		$query = $this->db->query("SELECT COUNT(*) AS `total` FROM `" . DB_PREFIX . "manufacturer`");
+		$query = $this->db->query("SELECT COUNT(*) AS total FROM `" . DB_PREFIX . "manufacturer`");
 
 		return $query->row['total'];
 	}

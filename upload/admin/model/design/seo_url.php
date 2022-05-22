@@ -80,7 +80,7 @@ class ModelDesignSeoUrl extends Model {
 	}
 
 	public function getTotalSeoUrls($data = array()) {
-		$sql = "SELECT COUNT(*) AS `total` FROM `" . DB_PREFIX . "seo_url`";
+		$sql = "SELECT COUNT(*) AS total FROM `" . DB_PREFIX . "seo_url`";
 		
 		$implode = array();
 
