@@ -28,6 +28,8 @@ class ModelSettingModification extends Model {
 
 	public function getModifications($data = array()) {
 		$sql = "SELECT * FROM `" . DB_PREFIX . "modification`";
+		
+		$sort_data = array();
 
 		$sort_data = array(
 			'name',
@@ -40,7 +42,7 @@ class ModelSettingModification extends Model {
 		if (isset($data['sort']) && in_array($data['sort'], $sort_data)) {
 			$sql .= " ORDER BY " . $data['sort'];
 		} else {
-			$sql .= " ORDER BY name";
+			$sql .= " ORDER BY `name`";
 		}
 
 		if (isset($data['order']) && ($data['order'] == 'DESC')) {

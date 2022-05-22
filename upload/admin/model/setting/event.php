@@ -15,11 +15,11 @@ class ModelSettingEvent extends Model {
 	}
 
 	public function enableEvent($event_id) {
-		$this->db->query("UPDATE `" . DB_PREFIX . "event` SET `status` = '1' WHERE event_id = '" . (int)$event_id . "'");
+		$this->db->query("UPDATE `" . DB_PREFIX . "event` SET `status` = '1' WHERE `event_id` = '" . (int)$event_id . "'");
 	}
 	
 	public function disableEvent($event_id) {
-		$this->db->query("UPDATE `" . DB_PREFIX . "event` SET `status` = '0' WHERE event_id = '" . (int)$event_id . "'");
+		$this->db->query("UPDATE `" . DB_PREFIX . "event` SET `status` = '0' WHERE `event_id` = '" . (int)$event_id . "'");
 	}
 	
 	public function uninstall($type, $code) {
@@ -41,6 +41,8 @@ class ModelSettingEvent extends Model {
 		
 	public function getEvents($data = array()) {
 		$sql = "SELECT * FROM `" . DB_PREFIX . "event`";
+		
+		$sort_data = array();
 
 		$sort_data = array(
 			'code',
