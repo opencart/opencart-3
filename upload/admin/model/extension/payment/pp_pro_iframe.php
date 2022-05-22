@@ -203,7 +203,7 @@ class ModelExtensionPaymentPPProIframe extends Model {
 	}
 
 	public function getOrderId($transaction_id) {
-		$qry = $this->db->query("SELECT o.`order_id` FROM `" . DB_PREFIX . "paypal_iframe_order_transaction` `ot` LEFT JOIN `" . DB_PREFIX . "paypal_iframe_order` o ON `o`.`paypal_iframe_order_id` = `ot`.`paypal_iframe_order_id` WHERE `ot`.`transaction_id` = '" . $this->db->escape($transaction_id) . "' LIMIT 1");
+		$qry = $this->db->query("SELECT o.`order_id` FROM `" . DB_PREFIX . "paypal_iframe_order_transaction` `ot` LEFT JOIN `" . DB_PREFIX . "paypal_iframe_order` o ON o.`paypal_iframe_order_id` = `ot`.`paypal_iframe_order_id` WHERE `ot`.`transaction_id` = '" . $this->db->escape($transaction_id) . "' LIMIT 1");
 
 		if ($qry->num_rows) {
 			return $qry->row['order_id'];
