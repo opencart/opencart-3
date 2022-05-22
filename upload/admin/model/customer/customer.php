@@ -110,7 +110,7 @@ class ModelCustomerCustomer extends Model {
 		}
 		
 		if (!empty($data['filter_ip'])) {
-			$implode[] = "c.`customer_id` IN (SELECT `customer_id` FROM `" . DB_PREFIX . "customer_ip` WHERE `ip` = '" . $this->db->escape($data['filter_ip']) . "')";
+			$implode[] = "c.`customer_id` IN(SELECT `customer_id` FROM `" . DB_PREFIX . "customer_ip` WHERE `ip` = '" . $this->db->escape($data['filter_ip']) . "')";
 		}
 
 		if (isset($data['filter_status']) && $data['filter_status'] !== '') {
@@ -254,7 +254,7 @@ class ModelCustomerCustomer extends Model {
 		}
 
 		if (!empty($data['filter_ip'])) {
-			$implode[] = "`customer_id` IN (SELECT customer_id FROM " . DB_PREFIX . "customer_ip WHERE ip = '" . $this->db->escape($data['filter_ip']) . "')";
+			$implode[] = "`customer_id` IN(SELECT `customer_id` FROM `" . DB_PREFIX . "customer_ip` WHERE `ip` = '" . $this->db->escape($data['filter_ip']) . "')";
 		}
 
 		if (isset($data['filter_status']) && $data['filter_status'] !== '') {
