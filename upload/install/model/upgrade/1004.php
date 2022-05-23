@@ -139,9 +139,19 @@ class ModelUpgrade1004 extends Model {
 							$module_data['name'] = ($result['key'] . '_' . $k);
 							$module_data['status'] = $v['status'];
 							
-							if (isset($v['image_width'])) {	$module_data['width'] = $v['image_width']; }
-							if (isset($v['image_height'])) { $module_data['height'] = $v['image_height']; }
-							if (isset($v['limit'])) { $module_data['limit'] = $v['limit']; } else { $module_data['limit'] = 4; }
+							if (isset($v['image_width'])) {
+								$module_data['width'] = $v['image_width'];
+							}
+							
+							if (isset($v['image_height'])) {
+								$module_data['height'] = $v['image_height'];
+							}
+							
+							if (isset($v['limit'])) {
+								$module_data['limit'] = $v['limit'];
+							} else {
+								$module_data['limit'] = 4;
+							}
 
 							if ($result['code'] == 'featured') {
 								foreach ($query->rows as $result2) {
@@ -152,6 +162,7 @@ class ModelUpgrade1004 extends Model {
 										break;
 									} else {
 										$featured_product_query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "setting` WHERE `key` = 'featured_product'");
+										
 										if ($featured_product_query->num_rows) {
 											$module_data['product'] = explode(",", $featured_product_query->row['value']);
 											$module_data['limit'] = 4;
