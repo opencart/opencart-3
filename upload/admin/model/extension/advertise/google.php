@@ -206,7 +206,7 @@ class ModelExtensionAdvertiseGoogle extends Model {
         foreach ($countries as $country) {
             foreach ($this->config->get('advertise_google_country_required_fields') as $field => $requirements) {
                 if (
-                    (!empty($requirements['countries']) && in_array($country, $requirements['countries']))
+                    (!empty($requirements['countries']) && in_array($country, (array)$requirements['countries']))
                         ||
                     (is_array($requirements['countries']) && empty($requirements['countries']))
                 ) {
@@ -228,7 +228,7 @@ class ModelExtensionAdvertiseGoogle extends Model {
         foreach ($countries as $country) {
             foreach ($this->config->get('advertise_google_country_required_fields') as $field => $requirements) {
                 if (
-                    (!empty($requirements['countries']) && in_array($country, $requirements['countries']))
+                    (!empty($requirements['countries']) && in_array($country, (array)$requirements['countries']))
                         ||
                     (is_array($requirements['countries']) && empty($requirements['countries']))
                 ) {

@@ -49,14 +49,14 @@ class ModelExtensionPaymentLaybuy extends Model {
 
 		/* Condition for customer group */
 		if ($status && $this->config->get('payment_laybuy_customer_group')) {
-			if (isset($this->session->data['guest']) && in_array(0, $this->config->get('payment_laybuy_customer_group'))) {
+			if (isset($this->session->data['guest']) && in_array(0, (array)$this->config->get('payment_laybuy_customer_group'))) {
 				$status = true;
 			} elseif ($this->customer->isLogged() && $this->session->data['customer_id']) {
 				$this->load->model('account/customer');
 
 				$customer = $this->model_account_customer->getCustomer($this->session->data['customer_id']);
 
-				if (in_array($customer['customer_group_id'], $this->config->get('payment_laybuy_customer_group'))) {
+				if (in_array($customer['customer_group_id'], (array)$this->config->get('payment_laybuy_customer_group'))) {
 					$this->session->data['customer_group_id'] = $customer['customer_group_id'];
 
 					$status = true;

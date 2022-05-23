@@ -87,7 +87,7 @@ class ControllerReportStatistics extends Controller {
 			$results = $this->model_localisation_order_status->getOrderStatuses();
 	
 			foreach ($results as $result) {
-				if (!in_array($result['order_status_id'], array_merge($this->config->get('config_complete_status'), $this->config->get('config_processing_status')))) {
+				if (!in_array($result['order_status_id'], array_merge((array)$this->config->get('config_complete_status'), (array)$this->config->get('config_processing_status')))) {
 					$order_status_data[] = $result['order_status_id'];
 				}
 			}		
