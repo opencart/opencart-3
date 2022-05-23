@@ -1,6 +1,5 @@
 <?php
 class ModelExtensionPaymentAmazonLoginPay extends Model {
-
 	public function install() {
 		$this->db->query("
 			CREATE TABLE IF NOT EXISTS `" . DB_PREFIX . "amazon_login_pay_order` (
