@@ -5,7 +5,7 @@ class ControllerExtensionPaymentDivido extends Controller {
 	public function index() {
 		$this->load->language('extension/payment/divido');
 		
-		$this->document->setTitle($this->language->get('heading_title'));		
+		$this->document->setTitle($this->language->get('heading_title'));
 		
 		$this->load->model('setting/setting');
 		$this->load->model('extension/payment/divido');

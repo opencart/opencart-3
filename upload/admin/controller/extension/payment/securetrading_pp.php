@@ -213,7 +213,11 @@ class ControllerExtensionPaymentSecureTradingPp extends Controller {
 		);
 
 		$data['geo_zones'] = $this->model_localisation_geo_zone->getGeoZones();
+		
 		$data['order_statuses'] = $this->model_localisation_order_status->getOrderStatuses();
+		
+		$data['cards'] = array();
+		
 		$data['cards'] = array(
 			'AMEX' => 'American Express',
 			'VISA' => 'Visa',
@@ -226,6 +230,8 @@ class ControllerExtensionPaymentSecureTradingPp extends Controller {
 			'MAESTRO' => 'Maestro',
 			'PAYPAL' => 'PayPal',
 		);
+		
+		$data['settlement_statuses'] = array();
 
 		$data['settlement_statuses'] = array(
 			'0' => $this->language->get('text_pending_settlement'),
