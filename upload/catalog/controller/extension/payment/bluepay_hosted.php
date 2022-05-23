@@ -27,8 +27,8 @@ class ControllerExtensionPaymentBluePayHosted extends Controller {
 		$data['DBA'] = $this->config->get('payment_bluepay_hosted_account_name');
 		$data['MERCHANT'] = $this->config->get('payment_bluepay_hosted_account_id');
 		$data['SHPF_ACCOUNT_ID'] = $this->config->get('payment_bluepay_hosted_account_id');
-		$data["TRANSACTION_TYPE"] = $this->config->get('payment_bluepay_hosted_transaction');
-		$data["MODE"] = strtoupper($this->config->get('payment_bluepay_hosted_test'));
+		$data['TRANSACTION_TYPE'] = $this->config->get('payment_bluepay_hosted_transaction');
+		$data['MODE'] = strtoupper($this->config->get('payment_bluepay_hosted_test'));
 
 		$data['CARD_TYPES'] = 'vi-mc';
 
@@ -40,7 +40,7 @@ class ControllerExtensionPaymentBluePayHosted extends Controller {
 			$data['CARD_TYPES'] .= '-am';
 		}
 
-		$data["AMOUNT"] = $this->currency->format($order_info['total'], $order_info['currency_code'], false, false);
+		$data['AMOUNT'] = $this->currency->format($order_info['total'], $order_info['currency_code'], false, false);
 		$data['APPROVED_URL'] = $this->url->link('extension/payment/bluepay_hosted/callback', '', true);
 		$data['DECLINED_URL'] = $this->url->link('extension/payment/bluepay_hosted/callback', '', true);
 		$data['MISSING_URL'] = $this->url->link('extension/payment/bluepay_hosted/callback', '', true);

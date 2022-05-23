@@ -117,6 +117,7 @@ class ControllerExtensionPaymentWechatPay extends Controller {
 
 		\Wechat\Loader::config($options);
 		$pay = new \Wechat\WechatPay();
+		
 		$notifyInfo = $pay->getNotify();
 
 		if ($notifyInfo === FALSE) {
@@ -124,14 +125,19 @@ class ControllerExtensionPaymentWechatPay extends Controller {
 		} else {
 			if ($notifyInfo['result_code'] == 'SUCCESS' && $notifyInfo['return_code'] == 'SUCCESS') {
 				$order_id = $notifyInfo['out_trade_no'];
+				
 				$this->load->model('checkout/order');
+				
 				$order_info = $this->model_checkout_order->getOrder($order_id);
+				
 				if ($order_info) {
-					$order_status_id = $order_info["order_status_id"];
+					$order_status_id = $order_info['order_status_id'];
+					
 					if (!$order_status_id) {
 						$this->model_checkout_order->addOrderHistory($order_id, $this->config->get('payment_wechat_pay_completed_status_id'));
 					}
 				}
+				
 				return xml(['return_code' => 'SUCCESS', 'return_msg' => 'DEAL WITH SUCCESS']);
 			}
 		}

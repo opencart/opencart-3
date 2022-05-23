@@ -28,6 +28,8 @@ class ControllerExtensionPaymentAlipay extends Controller {
 		$subject = trim($this->config->get('config_name'));
 		$total_amount = trim($this->currency->format($order_info['total'], 'CNY', '', false));
 		$body = '';//trim($_POST['WIDbody']);
+		
+		$payRequestBuilder = array();
 
 		$payRequestBuilder = array(
 			'body'         => $body,
@@ -40,7 +42,9 @@ class ControllerExtensionPaymentAlipay extends Controller {
 		$this->load->model('extension/payment/alipay');
 
 		$response = $this->model_extension_payment_alipay->pagePay($payRequestBuilder, $config);
-		$data['action'] = $config['gateway_url'] . "?charset=" . $this->model_extension_payment_alipay->getPostCharset();
+		
+		$data['action'] = $config['gateway_url'] . '?charset=' . $this->model_extension_payment_alipay->getPostCharset();
+		
 		$data['form_params'] = $response;
 
 		return $this->load->view('extension/payment/alipay', $data);

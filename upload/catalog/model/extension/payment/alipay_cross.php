@@ -70,9 +70,10 @@ class ModelExtensionPaymentAlipayCross extends Model {
 		if (empty($_POST)) {
 			return false;
 		} else {
-			$isSign = $this->getSignVeryfy($_POST, $_POST["sign"]);
+			$isSign = $this->getSignVeryfy($_POST, $_POST['sign']);
 
 			$responseTxt = 'false';
+			
 			if (! empty($_POST["notify_id"])) {
 				$responseTxt = $this->getResponse($_POST["notify_id"]);
 			}

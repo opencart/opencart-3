@@ -25,11 +25,11 @@ function advertise_google_init($current_dir) {
     advertise_google_validate();
 
     // Set up default server vars
-    $_SERVER["HTTP_HOST"] = getenv("CUSTOM_SERVER_NAME");
-    $_SERVER["SERVER_NAME"] = getenv("CUSTOM_SERVER_NAME");
-    $_SERVER["SERVER_PORT"] = getenv("CUSTOM_SERVER_PORT");
+    $_SERVER['HTTP_HOST'] = getenv('CUSTOM_SERVER_NAME');
+    $_SERVER['SERVER_NAME'] = getenv('CUSTOM_SERVER_NAME');
+    $_SERVER['SERVER_PORT'] = getenv('CUSTOM_SERVER_PORT');
 
-    putenv("SERVER_NAME=" . $_SERVER["SERVER_NAME"]);
+    putenv("SERVER_NAME=" . $_SERVER['SERVER_NAME']);
 
     // Change root dir
     $root_dir = advertise_google_chdir($current_dir);

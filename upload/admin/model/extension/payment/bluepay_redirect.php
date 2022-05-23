@@ -51,21 +51,21 @@ class ModelExtensionPaymentBluepayredirect extends Model {
 			$void_data = array();
 
 			$void_data['MERCHANT'] = $this->config->get('payment_bluepay_redirect_account_id');
-			$void_data["TRANSACTION_TYPE"] = 'VOID';
-			$void_data["MODE"] = strtoupper($this->config->get('payment_bluepay_redirect_test'));
-			$void_data["RRNO"] = $bluepay_redirect_order['transaction_id'];
+			$void_data['TRANSACTION_TYPE'] = 'VOID';
+			$void_data['MODE'] = strtoupper($this->config->get('payment_bluepay_redirect_test'));
+			$void_data['RRNO'] = $bluepay_redirect_order['transaction_id'];
 
 			$void_data['APPROVED_URL'] = HTTP_CATALOG . 'index.php?route=extension/payment/bluepay_redirect/callback';
 			$void_data['DECLINED_URL'] = HTTP_CATALOG . 'index.php?route=extension/payment/bluepay_redirect/callback';
 			$void_data['MISSING_URL'] = HTTP_CATALOG . 'index.php?route=extension/payment/bluepay_redirect/callback';
 
-			if (isset($this->request->server["REMOTE_ADDR"])) {
-				$void_data["REMOTE_IP"] = $this->request->server["REMOTE_ADDR"];
+			if (isset($this->request->server['REMOTE_ADDR'])) {
+				$void_data['REMOTE_IP'] = $this->request->server['REMOTE_ADDR'];
 			}
 
-			$tamper_proof_data = $this->config->get('payment_bluepay_redirect_secret_key') . $void_data['MERCHANT'] . $void_data["TRANSACTION_TYPE"] . $void_data["RRNO"] . $void_data["MODE"];
+			$tamper_proof_data = $this->config->get('payment_bluepay_redirect_secret_key') . $void_data['MERCHANT'] . $void_data['TRANSACTION_TYPE'] . $void_data['RRNO'] . $void_data['MODE'];
 
-			$void_data["TAMPER_PROOF_SEAL"] = md5($tamper_proof_data);
+			$void_data['TAMPER_PROOF_SEAL'] = md5($tamper_proof_data);
 
 			$response_data = $this->sendCurl('https://secure.bluepay.com/interfaces/bp10emu', $void_data);
 
@@ -100,7 +100,7 @@ class ModelExtensionPaymentBluepayredirect extends Model {
 				$release_data['REMOTE_IP'] = $this->request->server['REMOTE_ADDR'];
 			}
 
-			$tamper_proof_data = $this->config->get('payment_bluepay_redirect_secret_key') . $release_data['MERCHANT'] . $release_data["TRANSACTION_TYPE"] . $release_data["AMOUNT"] . $release_data["RRNO"] . $release_data["MODE"];
+			$tamper_proof_data = $this->config->get('payment_bluepay_redirect_secret_key') . $release_data['MERCHANT'] . $release_data['TRANSACTION_TYPE'] . $release_data['AMOUNT'] . $release_data['RRNO'] . $release_data['MODE'];
 
 			$release_data['TAMPER_PROOF_SEAL'] = md5($tamper_proof_data);
 
@@ -135,7 +135,7 @@ class ModelExtensionPaymentBluepayredirect extends Model {
 				$rebate_data['REMOTE_IP'] = $this->request->server['REMOTE_ADDR'];
 			}
 
-			$tamper_proof_data = $this->config->get('payment_bluepay_redirect_secret_key') . $rebate_data['MERCHANT'] . $rebate_data["TRANSACTION_TYPE"] . $rebate_data['AMOUNT'] . $rebate_data["RRNO"] . $rebate_data["MODE"];
+			$tamper_proof_data = $this->config->get('payment_bluepay_redirect_secret_key') . $rebate_data['MERCHANT'] . $rebate_data['TRANSACTION_TYPE'] . $rebate_data['AMOUNT'] . $rebate_data['RRNO'] . $rebate_data['MODE'];
 
 			$rebate_data['TAMPER_PROOF_SEAL'] = md5($tamper_proof_data);
 

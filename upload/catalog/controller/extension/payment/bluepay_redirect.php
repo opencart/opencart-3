@@ -56,7 +56,7 @@ class ControllerExtensionPaymentBluePayRedirect extends Controller {
 		$post_data = $this->request->post;
 
 		$post_data['MERCHANT'] = $this->config->get('payment_bluepay_redirect_account_id');
-		$post_data["TRANSACTION_TYPE"] = $this->config->get('payment_bluepay_redirect_transaction');
+		$post_data['TRANSACTION_TYPE'] = $this->config->get('payment_bluepay_redirect_transaction');
 		$post_data['MODE'] = strtoupper($this->config->get('payment_bluepay_redirect_test'));
 		$post_data['AMOUNT'] = $this->currency->format($order_info['total'], $order_info['currency_code'], false, false);
 
@@ -83,7 +83,7 @@ class ControllerExtensionPaymentBluePayRedirect extends Controller {
 			$post_data['REMOTE_IP'] = $this->request->server['REMOTE_ADDR'];
 		}
 
-		$tamper_proof_data = $this->config->get('payment_bluepay_redirect_secret_key') . $post_data['MERCHANT'] . $post_data["TRANSACTION_TYPE"] . $post_data['AMOUNT'] . $post_data["RRNO"] . $post_data["MODE"];
+		$tamper_proof_data = $this->config->get('payment_bluepay_redirect_secret_key') . $post_data['MERCHANT'] . $post_data['TRANSACTION_TYPE'] . $post_data['AMOUNT'] . $post_data['RRNO'] . $post_data['MODE'];
 
 		$post_data['TAMPER_PROOF_SEAL'] = md5($tamper_proof_data);
 
