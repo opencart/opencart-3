@@ -61,7 +61,7 @@ class ModelExtensionPaymentBluePayRedirect extends Model {
 			$release_status = null;
 		}
 
-		$this->db->query("INSERT INTO `" . DB_PREFIX . "bluepay_redirect_order` SET `order_id` = '" . (int)$order_info['order_id'] . "', `transaction_id` = '" . $this->db->escape($response_data['RRNO']) . "', `date_added` = NOW(), `date_modified` = NOW(), `release_status` = '" . (int)$release_status . "',  `currency_code` = '" . $this->db->escape($order_info['currency_code']) . "', `total` = '" . $this->currency->format($order_info['total'], $order_info['currency_code'], false, false) . "'");
+		$this->db->query("INSERT INTO `" . DB_PREFIX . "bluepay_redirect_order` SET `order_id` = '" . (int)$order_info['order_id'] . "', `transaction_id` = '" . $this->db->escape($response_data['RRNO']) . "', `date_added` = NOW(), `date_modified` = NOW(), `release_status` = '" . (int)$release_status . "', `currency_code` = '" . $this->db->escape($order_info['currency_code']) . "', `total` = '" . $this->currency->format($order_info['total'], $order_info['currency_code'], false, false) . "'");
 
 		return $this->db->getLastId();
 	}
