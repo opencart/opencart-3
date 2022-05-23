@@ -53,6 +53,7 @@ class ControllerExtensionPaymentWebPaymentSoftware extends Controller {
 		);
 
 		$data['action'] = $this->url->link('extension/payment/web_payment_software', 'user_token=' . $this->session->data['user_token'], true);
+		
 		$data['cancel'] = $this->url->link('marketplace/extension', 'user_token=' . $this->session->data['user_token'] . '&type=payment', true);
 
 		if (isset($this->request->post['payment_web_payment_software_merchant_name'])) {

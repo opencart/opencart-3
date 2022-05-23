@@ -628,6 +628,7 @@ class ControllerExtensionPaymentPPExpress extends Controller {
 
 		//button actions
 		$data['action'] = $this->url->link('extension/payment/pp_express/doRefund', 'user_token=' . $this->session->data['user_token'], true);
+		
 		$data['cancel'] = $this->url->link('extension/payment/pp_express', 'user_token=' . $this->session->data['user_token'], true);
 
 		$data['transaction_id'] = $this->request->get['transaction_id'];
