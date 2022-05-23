@@ -129,7 +129,7 @@ $_['text_no_reason_provided']                           = 'Reason not provided.'
 // Statuses
 $_['squareup_status_comment_authorized']                = 'The card transaction has been authorized but not yet captured.';
 $_['squareup_status_comment_captured']                  = 'The card transaction was authorized and subsequently captured (i.e., completed).';
-$_['squareup_status_comment_voided']                    = 'The card transaction was authorized and subsequently voided (i.e., canceled).   ';
+$_['squareup_status_comment_voided']                    = 'The card transaction was authorized and subsequently voided (i.e., canceled).';
 $_['squareup_status_comment_failed']                    = 'The card transaction failed.';
 
 // Entry

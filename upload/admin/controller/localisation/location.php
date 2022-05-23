@@ -301,7 +301,7 @@ class ControllerLocalisationLocation extends Controller {
 		if (!isset($this->request->get['location_id'])) {
 			$data['action'] = $this->url->link('localisation/location/add', 'user_token=' . $this->session->data['user_token'] . $url, true);
 		} else {
-			$data['action'] = $this->url->link('localisation/location/edit', 'user_token=' . $this->session->data['user_token'] .  '&location_id=' . $this->request->get['location_id'] . $url, true);
+			$data['action'] = $this->url->link('localisation/location/edit', 'user_token=' . $this->session->data['user_token'] . '&location_id=' . $this->request->get['location_id'] . $url, true);
 		}
 
 		$data['cancel'] = $this->url->link('localisation/location', 'user_token=' . $this->session->data['user_token'] . $url, true);

@@ -111,7 +111,7 @@ class ModelLocalisationCurrency extends Model {
 		if ($force) {
 			$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "currency` WHERE `code` != '" . $this->db->escape($this->config->get('config_currency')) . "'");
 		} else {
-			$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "currency` WHERE `code` != '" . $this->db->escape($this->config->get('config_currency')) . "' AND `date_modified` < '" .  $this->db->escape(date('Y-m-d H:i:s', strtotime('-1 day'))) . "'");
+			$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "currency` WHERE `code` != '" . $this->db->escape($this->config->get('config_currency')) . "' AND `date_modified` < '" . $this->db->escape(date('Y-m-d H:i:s', strtotime('-1 day'))) . "'");
 		}
 
 		foreach ($query->rows as $result) {
@@ -146,11 +146,11 @@ class ModelLocalisationCurrency extends Model {
 			}	
 						
 			if ((float)$value) {
-				$this->db->query("UPDATE `" . DB_PREFIX . "currency` SET `value` = '" . (float)$value . "', `date_modified` = '" .  $this->db->escape(date('Y-m-d H:i:s')) . "' WHERE `code` = '" . $this->db->escape($currency) . "'");
+				$this->db->query("UPDATE `" . DB_PREFIX . "currency` SET `value` = '" . (float)$value . "', `date_modified` = '" . $this->db->escape(date('Y-m-d H:i:s')) . "' WHERE `code` = '" . $this->db->escape($currency) . "'");
 			}
 		}
 
-		$this->db->query("UPDATE `" . DB_PREFIX . "currency` SET `value` = '1.00000', `date_modified` = '" .  $this->db->escape(date('Y-m-d H:i:s')) . "' WHERE `code` = '" . $this->db->escape($this->config->get('config_currency')) . "'");
+		$this->db->query("UPDATE `" . DB_PREFIX . "currency` SET `value` = '1.00000', `date_modified` = '" . $this->db->escape(date('Y-m-d H:i:s')) . "' WHERE `code` = '" . $this->db->escape($this->config->get('config_currency')) . "'");
 
 		$this->cache->delete('currency');
 	}

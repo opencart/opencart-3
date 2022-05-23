@@ -267,28 +267,28 @@ class ControllerExtensionPaymentRealexRemote extends Controller {
 					$eci = 7;
 				}
 
-				// Enrolled but invalid response from ACS.  No shift in liability. ECI = 7
+				// Enrolled but invalid response from ACS. No shift in liability. ECI = 7
 				if ($signature_result->result == '110' && strtoupper($signature_result->threedsecure->status) == 'Y') {
 					$eci_ref = 4;
 					$cavv = (string)$signature_result->threedsecure->cavv;
 					$xid = (string)$signature_result->threedsecure->xid;
 				}
 
-				// Incorrect password entered.  No shift in liability. ECI = 7
+				// Incorrect password entered. No shift in liability. ECI = 7
 				if ($signature_result->result == '00' && strtoupper($signature_result->threedsecure->status) == 'N') {
 					$eci_ref = 7;
 					$xid = (string)$signature_result->threedsecure->xid;
 					$cavv = '';
 				}
 
-				// Authentication Unavailable.  No shift in liability. ECI = 7
+				// Authentication Unavailable. No shift in liability. ECI = 7
 				if ($signature_result->result == '00' && strtoupper($signature_result->threedsecure->status) == 'U') {
 					$eci_ref = 8;
 					$xid = (string)$signature_result->threedsecure->xid;
 					$cavv = '';
 				}
 
-				// Invalid response from ACS.  No shift in liability. ECI = 7
+				// Invalid response from ACS. No shift in liability. ECI = 7
 				if (isset($signature_result->result)  && $signature_result->result >= 500 && $signature_result->result < 600) {
 					$eci_ref = 9;
 					$xid = '';

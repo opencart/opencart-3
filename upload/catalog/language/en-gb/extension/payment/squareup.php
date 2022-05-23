@@ -46,7 +46,7 @@ $_['warning_test_mode']                 = 'Warning: Sandbox mode is enabled! Tra
 // Statuses
 $_['squareup_status_comment_authorized']    = 'The card transaction has been authorized but not yet captured.';
 $_['squareup_status_comment_captured']      = 'The card transaction was authorized and subsequently captured (i.e., completed).';
-$_['squareup_status_comment_voided']        = 'The card transaction was authorized and subsequently voided (i.e., canceled).   ';
+$_['squareup_status_comment_voided']        = 'The card transaction was authorized and subsequently voided (i.e., canceled).';
 $_['squareup_status_comment_failed']        = 'The card transaction failed.';
 
 // Override errors

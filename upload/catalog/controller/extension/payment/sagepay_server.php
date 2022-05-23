@@ -365,7 +365,7 @@ class ControllerExtensionPaymentSagepayServer extends Controller {
 
 		/** Now we rebuilt the POST message, including our security key, and use the MD5 Hash **
 		 * * component that is included to create our own signature to compare with **
-		 * * the contents of the VPSSignature field in the POST.  Check the Sage Pay Server protocol **
+		 * * the contents of the VPSSignature field in the POST. Check the Sage Pay Server protocol **
 		 * * if you need clarification on this process * */
 		$str_message = $str_vps_tx_id . $vendor_tx_code . $str_status . $str_tx_auth_no . $this->config->get('payment_sagepay_server_vendor') . urldecode($str_avs_cv2) . $str_security_key
 				. $str_address_result . $str_postcode_result . $str_cv2_result . $str_gift_aid . $str_3d_secure_status . $str_cavv

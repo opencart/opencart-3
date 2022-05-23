@@ -109,7 +109,7 @@ class ModelExtensionPaymentPPPayflowIframe extends Model {
 				`transaction_reference` = '" . $this->db->escape($data['transaction_reference']) . "',
 				`transaction_type` = '" . $this->db->escape($data['type']) . "',
 				`time` = NOW(),
-				`amount` = '" . $this->db->escape($data['amount']) .  "'
+				`amount` = '" . $this->db->escape($data['amount']) . "'
 		");
 	}
 
