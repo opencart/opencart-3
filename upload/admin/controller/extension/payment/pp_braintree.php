@@ -356,6 +356,8 @@ class ControllerExtensionPaymentPPBraintree extends Controller {
 		} else {
 			$data['payment_pp_braintree_billing_agreement'] = $this->config->get('payment_pp_braintree_billing_agreement');
 		}
+		
+		$data['transaction_statuses'] = array();
 
 		$data['transaction_statuses'] = array(
 			'authorization_expired',
@@ -370,6 +372,8 @@ class ControllerExtensionPaymentPPBraintree extends Controller {
 			'submitted_for_settlement',
 			'voided'
 		);
+		
+		$data['card_types'] = array();
 
 		$data['card_types'] = array(
 			'Visa',
@@ -399,7 +403,9 @@ class ControllerExtensionPaymentPPBraintree extends Controller {
 			curl_setopt($curl, CURLOPT_POSTFIELDS, $post_data);
 
 			$curl_response = curl_exec($curl);
+			
 			$config_response = json_decode($curl_response, true);
+			
 			curl_close($curl);
 
 			if (isset($config_response['merchant_id']) && isset($config_response['access_token']) && isset($config_response['refresh_token'])) {

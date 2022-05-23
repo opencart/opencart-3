@@ -24,13 +24,13 @@ class ControllerExtensionPaymentBluePayRedirect extends Controller {
 		}
 
 		if ($this->config->get('payment_bluepay_redirect_card') == '1') {
-			$data['bluepay_redirect_card'] = true;
+			$data['payment_bluepay_redirect_card'] = true;
 		} else {
-			$data['bluepay_redirect_card'] = false;
+			$data['payment_bluepay_redirect_card'] = false;
 		}
 
 		$data['existing_cards'] = array();
-		if ($this->customer->isLogged() && $data['bluepay_redirect_card']) {
+		if ($this->customer->isLogged() && $data['payment_bluepay_redirect_card']) {
 			$this->load->model('extension/payment/bluepay_redirect');
 
 			$cards = $this->model_extension_payment_bluepay_redirect->getCards($this->customer->getId());
@@ -42,49 +42,50 @@ class ControllerExtensionPaymentBluePayRedirect extends Controller {
 	}
 
 	public function send() {
-		$this->load->language('extension/payment/bluepay_redirect');
-
-		$this->load->model('checkout/order');
-		$this->load->model('extension/payment/bluepay_redirect');
-
 		if (!isset($this->session->data['order_id'])) {
 			return false;
 		}
+		
+		$this->load->language('extension/payment/bluepay_redirect');
+
+		$this->load->model('extension/payment/bluepay_redirect');
+		$this->load->model('checkout/order');		
 
 		$order_info = $this->model_checkout_order->getOrder($this->session->data['order_id']);
+		
 		$post_data = $this->request->post;
 
 		$post_data['MERCHANT'] = $this->config->get('payment_bluepay_redirect_account_id');
 		$post_data["TRANSACTION_TYPE"] = $this->config->get('payment_bluepay_redirect_transaction');
-		$post_data["MODE"] = strtoupper($this->config->get('payment_bluepay_redirect_test'));
-		$post_data["AMOUNT"] = $this->currency->format($order_info['total'], $order_info['currency_code'], false, false);
+		$post_data['MODE'] = strtoupper($this->config->get('payment_bluepay_redirect_test'));
+		$post_data['AMOUNT'] = $this->currency->format($order_info['total'], $order_info['currency_code'], false, false);
 
 		if (isset($this->request->post['RRNO'])) {
-			$post_data["RRNO"] = $this->request->post['RRNO'];
+			$post_data['RRNO'] = $this->request->post['RRNO'];
 		} else {
-			$post_data["RRNO"] = '';
+			$post_data['RRNO'] = '';
 		}
 
-		$post_data["NAME"] = substr($order_info['payment_firstname'], 0, 20) . ' ' . substr($order_info['payment_lastname'], 0, 20);
-		$post_data["ADDR1"] = $post_data['BillingAddress1'] = substr($order_info['payment_address_1'], 0, 100);
-		$post_data["CITY"] = $order_info['payment_city'];
+		$post_data['NAME'] = substr($order_info['payment_firstname'], 0, 20) . ' ' . substr($order_info['payment_lastname'], 0, 20);
+		$post_data['ADDR1'] = $post_data['BillingAddress1'] = substr($order_info['payment_address_1'], 0, 100);
+		$post_data['CITY'] = $order_info['payment_city'];
 		$post_data['STATE'] = $order_info['payment_zone_code'];
-		$post_data["PHONE"] = substr($order_info['telephone'], 0, 20);
-		$post_data["EMAIL"] = substr($order_info['email'], 0, 255);
-		$post_data["ORDER_ID"] = $this->session->data['order_id'];
+		$post_data['PHONE'] = substr($order_info['telephone'], 0, 20);
+		$post_data['EMAIL'] = substr($order_info['email'], 0, 255);
+		$post_data['ORDER_ID'] = $this->session->data['order_id'];
 		$post_data['ZIPCODE'] = substr($order_info['payment_postcode'], 0, 10);
 
 		$post_data['APPROVED_URL'] = $this->url->link('extension/payment/bluepay_redirect/callback', '', true);
 		$post_data['DECLINED_URL'] = $this->url->link('extension/payment/bluepay_redirect/callback', '', true);
 		$post_data['MISSING_URL'] = $this->url->link('extension/payment/bluepay_redirect/callback', '', true);
 
-		if (isset($this->request->server["REMOTE_ADDR"])) {
-			$post_data["REMOTE_IP"] = $this->request->server["REMOTE_ADDR"];
+		if (isset($this->request->server['REMOTE_ADDR'])) {
+			$post_data['REMOTE_IP'] = $this->request->server['REMOTE_ADDR'];
 		}
 
 		$tamper_proof_data = $this->config->get('payment_bluepay_redirect_secret_key') . $post_data['MERCHANT'] . $post_data["TRANSACTION_TYPE"] . $post_data['AMOUNT'] . $post_data["RRNO"] . $post_data["MODE"];
 
-		$post_data["TAMPER_PROOF_SEAL"] = md5($tamper_proof_data);
+		$post_data['TAMPER_PROOF_SEAL'] = md5($tamper_proof_data);
 
 		$response_data = $this->model_extension_payment_bluepay_redirect->sendCurl("https://secure.bluepay.com/interfaces/bp10emu", $post_data);
 

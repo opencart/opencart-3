@@ -19,6 +19,8 @@ $_['text_column_date_added']	 	  = 'Added';
 $_['text_refund_ok']			 	  = 'Refund was successfully requested';
 $_['text_refund_ok_order']		 	  = 'Refund was successfully requested, amount fully refunded';
 $_['text_refund']                     = 'Refund';
+$_['text_g2apay_environment_live']	  = 'Live';
+$_['text_g2apay_environment_test']	  = 'Test';
 
 // Entry
 $_['entry_username']			 	  = 'Username';
@@ -58,6 +60,3 @@ $_['entry_status']				 	  = 'Status';
 
 //Button
 $_['btn_refund']				 	  = 'refund';
-
-$_['g2apay_environment_live']	 	  = 'Live';
-$_['g2apay_environment_test']	 	  = 'Test';

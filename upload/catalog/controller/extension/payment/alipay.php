@@ -10,8 +10,10 @@ class ControllerExtensionPaymentAlipay extends Controller {
 		}
 
 		$order_info = $this->model_checkout_order->getOrder($this->session->data['order_id']);
+		
+		$config = array();
 
-		$config = array (
+		$config = array(
 			'app_id'               => $this->config->get('payment_alipay_app_id'),
 			'merchant_private_key' => $this->config->get('payment_alipay_merchant_private_key'),
 			'notify_url'           => HTTPS_SERVER . "payment_callback/alipay",
@@ -21,6 +23,7 @@ class ControllerExtensionPaymentAlipay extends Controller {
 			'gateway_url'          => $this->config->get('payment_alipay_test') == "sandbox" ? "https://openapi.alipaydev.com/gateway.do" : "https://openapi.alipay.com/gateway.do",
 			'alipay_public_key'    => $this->config->get('payment_alipay_alipay_public_key'),
 		);
+		
 		$out_trade_no = trim($order_info['order_id']);
 		$subject = trim($this->config->get('config_name'));
 		$total_amount = trim($this->currency->format($order_info['total'], 'CNY', '', false));
@@ -46,11 +49,13 @@ class ControllerExtensionPaymentAlipay extends Controller {
 	public function callback() {
 		$this->log->write('alipay pay notify:');
 		
+		$this->load->model('extension/payment/alipay');
+		
 		$arr = $_POST;
 		
 		$config = array();
 		
-		$config = array (
+		$config = array(
 			'app_id'               => $this->config->get('payment_alipay_app_id'),
 			'merchant_private_key' => $this->config->get('payment_alipay_merchant_private_key'),
 			'notify_url'           => HTTPS_SERVER . "payment_callback/alipay",
@@ -60,8 +65,6 @@ class ControllerExtensionPaymentAlipay extends Controller {
 			'gateway_url'          => $this->config->get('payment_alipay_test') == "sandbox" ? "https://openapi.alipaydev.com/gateway.do" : "https://openapi.alipay.com/gateway.do",
 			'alipay_public_key'    => $this->config->get('payment_alipay_alipay_public_key'),
 		);
-		
-		$this->load->model('extension/payment/alipay');
 		
 		$this->log->write('POST' . var_export($_POST,true));
 		
@@ -76,6 +79,7 @@ class ControllerExtensionPaymentAlipay extends Controller {
 				continue;
 			} else if ($_POST['trade_status'] == 'TRADE_SUCCESS') {
 				$this->load->model('checkout/order');
+				
 				$this->model_checkout_order->addOrderHistory($order_id, $this->config->get('payment_alipay_order_status_id'));
 			}
 			

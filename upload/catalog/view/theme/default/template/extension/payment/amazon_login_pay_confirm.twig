@@ -244,11 +244,12 @@
     var psd_enabled = {{ psd_enabled }};
 
     buyNowBtn.addEventListener('click', function() {
-        if(psd_enabled) {
+        if (psd_enabled) {
             OffAmazonPayments.initConfirmationFlow('{{ merchant_id }}', '{{ order_reference_id }}', placeOrder);
         } else {
             buyNowBtn.setAttribute("href", '{{ process_us }}');
         }
+		
         $(buyNowBtn).button('loading');
     });
 
@@ -258,7 +259,7 @@
             type: 'get',
             dataType: 'json',
             success: function(data) {
-                if(data.redirect) {
+                if (data.redirect) {
                     document.location = data.redirect;
                 } else if (data.error) {
                     window.alert(data.error);

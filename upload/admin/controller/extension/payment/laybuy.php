@@ -4,11 +4,11 @@ class ControllerExtensionPaymentLaybuy extends Controller {
 
 	public function index() {
 		$this->load->language('extension/payment/laybuy');
+
+		$this->document->setTitle($this->language->get('heading_title'));		
 		
 		$this->load->model('setting/setting');
 		$this->load->model('extension/payment/laybuy');
-
-		$this->document->setTitle($this->language->get('heading_title'));
 
 		if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validate()) {
 			unset($this->request->post['laybuy_cron_url'], $this->request->post['laybuy_cron_time']);
@@ -39,9 +39,9 @@ class ControllerExtensionPaymentLaybuy extends Controller {
 
 		$data['action'] = $this->url->link('extension/payment/laybuy', 'user_token=' . $this->session->data['user_token'], true);
 
-		$data['fetch'] = $this->url->link('extension/payment/laybuy/fetch', 'user_token=' . $this->session->data['user_token'] . '#reportstab', true);
-
 		$data['cancel'] = $this->url->link('marketplace/extension', 'user_token=' . $this->session->data['user_token'] . '&type=payment', true);
+		
+		$data['fetch'] = $this->url->link('extension/payment/laybuy/fetch', 'user_token=' . $this->session->data['user_token'] . '#reportstab', true);
 
 		if (isset($this->request->post['payment_laybuys_membership_id'])) {
 			$data['payment_laybuys_membership_id'] = $this->request->post['payment_laybuys_membership_id'];
@@ -205,10 +205,10 @@ class ControllerExtensionPaymentLaybuy extends Controller {
 
 		$data['laybuy_cron_url'] = HTTPS_CATALOG . 'index.php?route=extension/payment/laybuy/cron&token=' . $data['payment_laybuy_token'];
 
-		if ($this->config->get('laybuy_cron_time')) {
-			$data['laybuy_cron_time'] = date($this->language->get('datetime_format'), strtotime($this->config->get('laybuy_cron_time')));
+		if ($this->config->get('payment_laybuy_cron_time')) {
+			$data['payment_laybuy_cron_time'] = date($this->language->get('datetime_format'), strtotime($this->config->get('laybuy_cron_time')));
 		} else {
-			$data['laybuy_cron_time'] = $this->language->get('text_no_cron_time');
+			$data['payment_laybuy_cron_time'] = $this->language->get('text_no_cron_time');
 		}
 
 		if (isset($this->error['warning'])) {
@@ -299,6 +299,8 @@ class ControllerExtensionPaymentLaybuy extends Controller {
 		}
 
 		$data['reports'] = array();
+		
+		$filter_data = array();
 
 		$filter_data = array(
 			'filter_order_id'	=> $filter_order_id,

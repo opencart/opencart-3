@@ -44,25 +44,24 @@ class ControllerExtensionPaymentKlarnaCheckout extends Controller {
 			)
 		);
 
+		$this->load->model('extension/payment/klarna_checkout');
 		$this->load->model('catalog/information');
 
-		$data['informations'] = $this->model_catalog_information->getInformations();
-
+		$data['informations'] = $this->model_catalog_information->getInformations();		
+		
 		$this->load->model('localisation/currency');
-
-		$data['currencies'] = $this->model_localisation_currency->getCurrencies();
-
+		
+		$data['currencies'] = $this->model_localisation_currency->getCurrencies();		
+		
 		$this->load->model('localisation/order_status');
-
+		
 		$data['order_statuses'] = $this->model_localisation_order_status->getOrderStatuses();
 
 		if (isset($this->error['warning'])) {
 			$data['error_warning'] = $this->error['warning'];
 		} else {
 			$data['error_warning'] = '';
-		}
-
-		$this->load->model('extension/payment/klarna_checkout');
+		}		
 
 		if ($this->model_extension_payment_klarna_checkout->checkForPaymentTaxes()) {
 			$data['error_tax_warning'] = $this->language->get('error_tax_warning');
@@ -106,6 +105,7 @@ class ControllerExtensionPaymentKlarnaCheckout extends Controller {
 		);
 
 		$data['action'] = $this->url->link('extension/payment/klarna_checkout', 'user_token=' . $this->session->data['user_token'], true);
+		
 		$data['cancel'] = $this->url->link('marketplace/extension', 'user_token=' . $this->session->data['user_token'] . '&type=payment', true);
 
 		if (isset($this->request->post['payment_klarna_checkout_debug'])) {
@@ -315,14 +315,14 @@ class ControllerExtensionPaymentKlarnaCheckout extends Controller {
 	}
 
 	public function getTransaction() {
-		$this->load->language('extension/payment/klarna_checkout');
-
-		$this->load->model('extension/payment/klarna_checkout');
-		$this->load->model('sale/order');
-
 		if (!$this->config->get('payment_klarna_checkout_status') || !isset($this->request->get['order_id'])) {
 			return;
 		}
+		
+		$this->load->language('extension/payment/klarna_checkout');
+		
+		$this->load->model('sale/order');
+		$this->load->model('extension/payment/klarna_checkout');
 
 		$order_reference = $this->model_extension_payment_klarna_checkout->getOrder($this->request->get['order_id']);
 
@@ -583,11 +583,8 @@ class ControllerExtensionPaymentKlarnaCheckout extends Controller {
 	}
 
 	public function transactionCommand() {
-		$this->load->language('extension/payment/klarna_checkout');
-		
 		$json = array();
-
-		$this->load->model('extension/payment/klarna_checkout');
+		
 		$this->load->model('sale/order');
 
 		$success = $error = '';
@@ -599,6 +596,10 @@ class ControllerExtensionPaymentKlarnaCheckout extends Controller {
 		if (!$klarna_account || !$connector) {
 			return;
 		}
+		
+		$this->load->language('extension/payment/klarna_checkout');
+		
+		$this->load->model('extension/payment/klarna_checkout');
 
 		$klarna_order = $this->model_extension_payment_klarna_checkout->omRetrieve($connector, $this->request->post['order_ref']);
 
@@ -664,6 +665,7 @@ class ControllerExtensionPaymentKlarnaCheckout extends Controller {
 		$new_klarna_status = $klarna_order['status'];
 
 		$order_status_id = '';
+		
 		if ($old_klarna_status != $new_klarna_status) {
 			switch ($klarna_order['status']) {
 				case 'AUTHORIZED':
@@ -820,9 +822,9 @@ class ControllerExtensionPaymentKlarnaCheckout extends Controller {
 		$this->response->setOutput(json_encode($json));
 	}
 
-	protected function validate() {
-		$this->load->model('extension/payment/klarna_checkout');
+	protected function validate() {		
 		$this->load->model('localisation/geo_zone');
+		$this->load->model('extension/payment/klarna_checkout');
 
 		if (version_compare(phpversion(), '7.3', '<')) {
 			$this->error['warning'] = $this->language->get('error_php_version');

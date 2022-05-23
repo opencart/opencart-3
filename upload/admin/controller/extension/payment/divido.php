@@ -4,9 +4,9 @@ class ControllerExtensionPaymentDivido extends Controller {
 
 	public function index() {
 		$this->load->language('extension/payment/divido');
-
-		$this->document->setTitle($this->language->get('heading_title'));
-
+		
+		$this->document->setTitle($this->language->get('heading_title'));		
+		
 		$this->load->model('setting/setting');
 		$this->load->model('extension/payment/divido');
 
@@ -17,11 +17,15 @@ class ControllerExtensionPaymentDivido extends Controller {
 			
 			$this->response->redirect($this->url->link('marketplace/extension', 'user_token=' . $this->session->data['user_token'] . '&type=payment', true));
 		}
+		
+		$data['entry_plans_options'] = array();
 
 		$data['entry_plans_options'] = array(
 			'all'		=> $this->language->get('entry_plans_options_all'),
 			'selected'	=> $this->language->get('entry_plans_options_selected'),
 		);
+		
+		$data['entry_products_options']= array();
 
 		$data['entry_products_options']= array(
 			'all'		=> $this->language->get('entry_products_options_all'),
@@ -154,6 +158,7 @@ class ControllerExtensionPaymentDivido extends Controller {
 			$data['divido_plans'] = $this->model_extension_payment_divido->getAllPlans();
 		} catch (\Exception $e) {
 			$this->log->write($e->getMessage());
+			
 			$data['divido_plans'] = array();
 		}
 
@@ -178,9 +183,11 @@ class ControllerExtensionPaymentDivido extends Controller {
 		$order_id = $this->request->get['order_id'];
 
 		$lookup = $this->model_extension_payment_divido->getLookupByOrderId($order_id);
+		
 		$proposal_id = null;
 		$application_id = null;
 		$deposit_amount = null;
+		
 		if ($lookup->num_rows == 1) {
 			$lookup_data = $lookup->row;
 			$proposal_id = $lookup_data['proposal_id'];

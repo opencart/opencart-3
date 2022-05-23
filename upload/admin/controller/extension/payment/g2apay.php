@@ -1,14 +1,12 @@
 <?php
-
 class ControllerExtensionPaymentG2APay extends Controller {
-
 	private $error = array();
 
 	public function index() {
 		$this->load->language('extension/payment/g2apay');
 
 		$this->document->setTitle($this->language->get('heading_title'));
-
+		
 		$this->load->model('setting/setting');
 
 		if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validate()) {
@@ -43,6 +41,31 @@ class ControllerExtensionPaymentG2APay extends Controller {
 			$data['error_api_hash'] = '';
 		}
 
+		$data['breadcrumbs'] = array();
+
+		$data['breadcrumbs'][] = array(
+			'text' => $this->language->get('text_home'),
+			'href' => $this->url->link('common/dashboard', 'user_token=' . $this->session->data['user_token'], true)
+		);
+
+		$data['breadcrumbs'][] = array(
+			'text' => $this->language->get('text_extension'),
+			'href' => $this->url->link('marketplace/extension', 'user_token=' . $this->session->data['user_token'] . '&type=payment', true)
+		);
+
+		$data['breadcrumbs'][] = array(
+			'text' => $this->language->get('heading_title'),
+			'href' => $this->url->link('extension/payment/g2apay', 'user_token=' . $this->session->data['user_token'], true)
+		);
+
+		$this->load->model('localisation/order_status');
+		
+		$data['order_statuses'] = $this->model_localisation_order_status->getOrderStatuses();
+
+		$data['action'] = $this->url->link('extension/payment/g2apay', 'user_token=' . $this->session->data['user_token'], true);
+
+		$data['cancel'] = $this->url->link('marketplace/extension', 'user_token=' . $this->session->data['user_token'] . '&type=payment', true);
+		
 		if (isset($this->request->post['payment_g2apay_order_status_id'])) {
 			$data['payment_g2apay_order_status_id'] = $this->request->post['payment_g2apay_order_status_id'];
 		} else {
@@ -85,30 +108,6 @@ class ControllerExtensionPaymentG2APay extends Controller {
 			$data['payment_g2apay_partially_refunded_status_id'] = $this->config->get('payment_g2apay_partially_refunded_status_id');
 		}
 
-		$data['breadcrumbs'] = array();
-
-		$data['breadcrumbs'][] = array(
-			'text' => $this->language->get('text_home'),
-			'href' => $this->url->link('common/dashboard', 'user_token=' . $this->session->data['user_token'], true)
-		);
-
-		$data['breadcrumbs'][] = array(
-			'text' => $this->language->get('text_extension'),
-			'href' => $this->url->link('marketplace/extension', 'user_token=' . $this->session->data['user_token'] . '&type=payment', true)
-		);
-
-		$data['breadcrumbs'][] = array(
-			'text' => $this->language->get('heading_title'),
-			'href' => $this->url->link('extension/payment/g2apay', 'user_token=' . $this->session->data['user_token'], true)
-		);
-
-		$this->load->model('localisation/order_status');
-		$data['order_statuses'] = $this->model_localisation_order_status->getOrderStatuses();
-
-		$data['action'] = $this->url->link('extension/payment/g2apay', 'user_token=' . $this->session->data['user_token'], true);
-
-		$data['cancel'] = $this->url->link('marketplace/extension', 'user_token=' . $this->session->data['user_token'] . '&type=payment', true);
-
 		if (isset($this->request->post['payment_g2apay_username'])) {
 			$data['payment_g2apay_username'] = $this->request->post['payment_g2apay_username'];
 		} else {
@@ -148,12 +147,6 @@ class ControllerExtensionPaymentG2APay extends Controller {
 		}
 
 		$data['g2apay_ipn_url'] = HTTPS_CATALOG . 'index.php?route=extension/payment/g2apay/ipn&token=' . $data['payment_g2apay_secret_token'];
-
-		if (isset($this->request->post['payment_g2apay_ipn_uri'])) {
-			$data['payment_g2apay_ipn_uri'] = $this->request->post['payment_g2apay_ipn_uri'];
-		} else {
-			$data['payment_g2apay_ipn_uri'] = $this->config->get('payment_g2apay_ipn_uri');
-		}
 
 		$this->load->model('localisation/order_status');
 
@@ -195,22 +188,20 @@ class ControllerExtensionPaymentG2APay extends Controller {
 	}
 
 	public function order() {
-
 		if ($this->config->get('payment_g2apay_status')) {
-
 			$this->load->model('extension/payment/g2apay');
 
-			$g2apay_order = $this->model_extension_payment_g2apay->getOrder($this->request->get['order_id']);
+			$payment_g2apay_order = $this->model_extension_payment_g2apay->getOrder($this->request->get['order_id']);
 
-			if (!empty($g2apay_order)) {
+			if (!empty($payment_g2apay_order)) {
 				$this->load->language('extension/payment/g2apay');
 
-				$g2apay_order['total_released'] = $this->model_extension_payment_g2apay->getTotalReleased($g2apay_order['g2apay_order_id']);
+				$payment_g2apay_order['total_released_formatted'] = $this->currency->format($payment_g2apay_order['total_released'], $payment_g2apay_order['currency_code'], false);
+				$payment_g2apay_order['total_formatted'] = $this->currency->format($payment_g2apay_order['total'], $payment_g2apay_order['currency_code'], false);
+				$payment_g2apay_order['total_released'] = $this->model_extension_payment_g2apay->getTotalReleased($payment_g2apay_order['g2apay_order_id']);				
+				
 
-				$g2apay_order['total_formatted'] = $this->currency->format($g2apay_order['total'], $g2apay_order['currency_code'], false);
-				$g2apay_order['total_released_formatted'] = $this->currency->format($g2apay_order['total_released'], $g2apay_order['currency_code'], false);
-
-				$data['g2apay_order'] = $g2apay_order;
+				$data['g2apay_order'] = $payment_g2apay_order;
 
 				$data['order_id'] = (int)$this->request->get['order_id'];
 				
@@ -223,25 +214,26 @@ class ControllerExtensionPaymentG2APay extends Controller {
 
 	public function refund() {
 		$this->load->language('extension/payment/g2apay');
+		
 		$json = array();
 
 		if (isset($this->request->post['order_id']) && !empty($this->request->post['order_id'])) {
 			$this->load->model('extension/payment/g2apay');
 
-			$g2apay_order = $this->model_extension_payment_g2apay->getOrder($this->request->post['order_id']);
+			$payment_g2apay_order = $this->model_extension_payment_g2apay->getOrder($this->request->post['order_id']);
 
-			$refund_response = $this->model_extension_payment_g2apay->refund($g2apay_order, $this->request->post['amount']);
+			$refund_response = $this->model_extension_payment_g2apay->refund($payment_g2apay_order, $this->request->post['amount']);
 
 			$this->model_extension_payment_g2apay->logger($refund_response);
 
 			if ($refund_response == 'ok') {
-				$this->model_extension_payment_g2apay->addTransaction($g2apay_order['g2apay_order_id'], 'refund', $this->request->post['amount'] * -1);
+				$this->model_extension_payment_g2apay->addTransaction($payment_g2apay_order['g2apay_order_id'], 'refund', $this->request->post['amount'] * -1);
 
-				$total_refunded = $this->model_extension_payment_g2apay->getTotalRefunded($g2apay_order['g2apay_order_id']);
-				$total_released = $this->model_extension_payment_g2apay->getTotalReleased($g2apay_order['g2apay_order_id']);
+				$total_refunded = $this->model_extension_payment_g2apay->getTotalRefunded($payment_g2apay_order['g2apay_order_id']);
+				$total_released = $this->model_extension_payment_g2apay->getTotalReleased($payment_g2apay_order['g2apay_order_id']);
 
-				if ($total_released <= 0 && $g2apay_order['release_status'] == 1) {
-					$this->model_extension_payment_g2apay->updateRefundStatus($g2apay_order['g2apay_order_id'], 1);
+				if ($total_released <= 0 && $payment_g2apay_order['release_status'] == 1) {
+					$this->model_extension_payment_g2apay->updateRefundStatus($payment_g2apay_order['g2apay_order_id'], 1);
 					$refund_status = 1;
 					$json['msg'] = $this->language->get('text_refund_ok_order');
 				} else {
@@ -251,7 +243,7 @@ class ControllerExtensionPaymentG2APay extends Controller {
 
 				$json['data'] = array();
 				$json['data']['date_added'] = date("Y-m-d H:i:s");
-				$json['data']['amount'] = $this->currency->format(($this->request->post['amount'] * -1), $g2apay_order['currency_code'], false);
+				$json['data']['amount'] = $this->currency->format(($this->request->post['amount'] * -1), $payment_g2apay_order['currency_code'], false);
 				$json['data']['total_released'] = (float)$total_released;
 				$json['data']['total_refunded'] = (float)$total_refunded;
 				$json['data']['refund_status'] = $refund_status;
@@ -262,7 +254,7 @@ class ControllerExtensionPaymentG2APay extends Controller {
 			}
 		} else {
 			$json['error'] = true;
-			$json['msg'] = 'Missing data';
+			$json['msg'] = $this->language->get('error_data_missing');
 		}
 
 		$this->response->addHeader('Content-Type: application/json');

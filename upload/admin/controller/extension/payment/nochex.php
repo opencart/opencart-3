@@ -98,7 +98,7 @@ class ControllerExtensionPaymentNOCHEX extends Controller {
 			$data['payment_nochex_order_status_id'] = $this->config->get('payment_nochex_order_status_id');
 		}
 
-		$this->load->model('localisation/order_status');
+		$this->load->model('localisation/order_status');		
 
 		$data['order_statuses'] = $this->model_localisation_order_status->getOrderStatuses();
 

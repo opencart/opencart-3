@@ -172,7 +172,7 @@ class ModelExtensionPaymentKlarnaCheckout extends Model {
 	}
 
 	public function log($data, $step = 6) {
-		if ($this->config->get('klarna_checkout_debug')) {
+		if ($this->config->get('payment_klarna_checkout_debug')) {
 			$backtrace = debug_backtrace();
 			
 			$log = new \Log('klarna_checkout.log');
@@ -181,7 +181,7 @@ class ModelExtensionPaymentKlarnaCheckout extends Model {
 	}
 
 	public function subscribeNewsletter($customer_id) {
-		$this->db->query("UPDATE " . DB_PREFIX . "customer SET newsletter = '1' WHERE customer_id = '" . (int)$customer_id . "'");
+		$this->db->query("UPDATE `" . DB_PREFIX . "customer` SET `newsletter` = '1' WHERE `customer_id` = '" . (int)$customer_id . "'");
 	}
 
 	public function getTotals() {

@@ -44,7 +44,7 @@ class ControllerExtensionModuleKlarnaCheckoutModule extends Controller {
 
 		list($totals, $taxes, $total) = $this->model_extension_payment_klarna_checkout->getTotals();
 
-		if ($this->config->get('klarna_checkout_total') > 0 && $this->config->get('klarna_checkout_total') > $total) {
+		if ($this->config->get('payment_klarna_checkout_total') > 0 && $this->config->get('payment_klarna_checkout_total') > $total) {
 			return false;
 		}
 

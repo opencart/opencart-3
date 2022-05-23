@@ -6,7 +6,7 @@ class ControllerExtensionPaymentFirstdata extends Controller {
 		$this->load->language('extension/payment/firstdata');
 
 		$this->document->setTitle($this->language->get('heading_title'));
-
+		
 		$this->load->model('setting/setting');
 
 		if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validate()) {

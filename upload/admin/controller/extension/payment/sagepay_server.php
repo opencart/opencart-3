@@ -57,12 +57,6 @@ class ControllerExtensionPaymentSagepayServer extends Controller {
 			$data['payment_sagepay_server_vendor'] = $this->config->get('payment_sagepay_server_vendor');
 		}
 
-		if (isset($this->request->post['payment_sagepay_server_password'])) {
-			$data['payment_sagepay_server_password'] = $this->request->post['payment_sagepay_server_password'];
-		} else {
-			$data['payment_sagepay_server_password'] = $this->config->get('payment_sagepay_server_password');
-		}
-
 		if (isset($this->request->post['payment_sagepay_server_test'])) {
 			$data['payment_sagepay_server_test'] = $this->request->post['payment_sagepay_server_test'];
 		} else {
@@ -216,7 +210,7 @@ class ControllerExtensionPaymentSagepayServer extends Controller {
 			}
 		} else {
 			$json['error'] = true;
-			$json['msg'] = 'Missing data';
+			$json['msg'] = $this->language->get('error_data_missing');
 		}
 
 		$this->response->addHeader('Content-Type: application/json');
@@ -312,7 +306,7 @@ class ControllerExtensionPaymentSagepayServer extends Controller {
 			}
 		} else {
 			$json['error'] = true;
-			$json['msg'] = 'Missing data';
+			$json['msg'] = $this->language->get('error_data_missing');
 		}
 
 		$this->response->addHeader('Content-Type: application/json');

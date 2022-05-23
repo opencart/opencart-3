@@ -205,7 +205,7 @@ class ControllerExtensionPaymentBluepayredirect extends Controller {
 			}
 		} else {
 			$json['error'] = true;
-			$json['msg'] = 'Missing data';
+			$json['msg'] = $this->language->get('error_data_missing');
 		}
 
 		$this->response->addHeader('Content-Type: application/json');
@@ -303,7 +303,7 @@ class ControllerExtensionPaymentBluepayredirect extends Controller {
 			}
 		} else {
 			$json['error'] = true;
-			$json['msg'] = 'Missing data';
+			$json['msg'] = $this->language->get('error_data_missing');
 		}
 
 		$this->response->addHeader('Content-Type: application/json');

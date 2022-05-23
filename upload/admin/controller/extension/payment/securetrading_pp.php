@@ -7,7 +7,7 @@ class ControllerExtensionPaymentSecureTradingPp extends Controller {
 		
 		$this->load->model('setting/setting');
 		$this->load->model('localisation/geo_zone');
-		$this->load->model('localisation/order_status');		
+		$this->load->model('localisation/order_status');
 
 		if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validate()) {
 			$this->request->post['payment_securetrading_pp_site_reference'] = trim($this->request->post['payment_securetrading_pp_site_reference']);
@@ -329,7 +329,7 @@ class ControllerExtensionPaymentSecureTradingPp extends Controller {
 			}
 		} else {
 			$json['error'] = true;
-			$json['msg'] = 'Missing data';
+			$json['msg'] = $this->language->get('error_data_missing');
 		}
 
 		$this->response->addHeader('Content-Type: application/json');
@@ -467,7 +467,7 @@ class ControllerExtensionPaymentSecureTradingPp extends Controller {
 			}
 		} else {
 			$json['error'] = true;
-			$json['msg'] = 'Missing data';
+			$json['msg'] = $this->language->get('error_data_missing');
 		}
 
 		$this->response->addHeader('Content-Type: application/json');

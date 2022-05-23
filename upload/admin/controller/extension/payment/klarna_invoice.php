@@ -4,10 +4,10 @@ class ControllerExtensionPaymentKlarnaInvoice extends Controller {
 
 	public function index() {
 		$this->load->language('extension/payment/klarna_invoice');
+		
+		$this->load->model('setting/setting');
 
 		$this->document->setTitle($this->language->get('heading_title'));
-
-		$this->load->model('setting/setting');
 
 		if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validate()) {
 			$status = false;
@@ -19,6 +19,8 @@ class ControllerExtensionPaymentKlarnaInvoice extends Controller {
 					break;
 				}
 			}
+			
+			$klarna_data = array();
 
 			$klarna_data = array(
 				'klarna_invoice_pclasses' => $this->pclasses,

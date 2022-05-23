@@ -1,6 +1,5 @@
 <?php
 class ControllerExtensionPaymentEway extends Controller {
-
 	private $error = array();
 
 	public function index() {
@@ -68,13 +67,8 @@ class ControllerExtensionPaymentEway extends Controller {
 		);
 
 		$data['action'] = $this->url->link('extension/payment/eway', 'user_token=' . $this->session->data['user_token'], true);
+		
 		$data['cancel'] = $this->url->link('marketplace/extension', 'user_token=' . $this->session->data['user_token'], true);
-
-		if (isset($this->request->post['payment_eway_payment_gateway'])) {
-			$data['payment_eway_payment_gateway'] = $this->request->post['payment_eway_payment_gateway'];
-		} else {
-			$data['payment_eway_payment_gateway'] = $this->config->get('payment_eway_payment_gateway');
-		}
 
 		if (isset($this->request->post['payment_eway_paymode'])) {
 			$data['payment_eway_paymode'] = $this->request->post['payment_eway_paymode'];
@@ -289,7 +283,7 @@ class ControllerExtensionPaymentEway extends Controller {
 			}
 		} else {
 			$json['error'] = true;
-			$json['message'] = 'Missing data';
+			$json['message'] = $this->language->get('error_data_missing');
 		}
 
 		$this->response->addHeader('Content-Type: application/json');
@@ -346,7 +340,7 @@ class ControllerExtensionPaymentEway extends Controller {
 			}
 		} else {
 			$json['error'] = true;
-			$json['message'] = 'Missing data';
+			$json['message'] = $this->language->get('error_data_missing');
 		}
 
 		$this->response->addHeader('Content-Type: application/json');

@@ -143,7 +143,7 @@ class ControllerExtensionPaymentKlarnaAccount extends Controller {
 
 			$total = $this->currency->format($order_info['total'], $country_to_currency[$order_info['payment_iso_code_3']], '', false);
 
-			$pclasses = $this->config->get('klarna_account_pclasses');
+			$pclasses = $this->config->get('payment_klarna_account_pclasses');
 
 			if (isset($pclasses[$order_info['payment_iso_code_3']])) {
 				$pclasses = $pclasses[$order_info['payment_iso_code_3']];

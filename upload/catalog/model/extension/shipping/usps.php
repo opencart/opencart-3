@@ -355,8 +355,10 @@ class ModelExtensionShippingUsps extends Model {
 					$rate_response = $dom->getElementsByTagName('RateV4Response')->item(0);
 					$intl_rate_response = $dom->getElementsByTagName('IntlRateV2Response')->item(0);
 					$error = $dom->getElementsByTagName('Error')->item(0);
+					
+					$firstclasses = array();
 
-					$firstclasses = array (
+					$firstclasses = array(
 						'First-Class Mail Parcel',
 						'First-Class Mail Large Envelope',
 						'First-Class Mail Stamped Letter',

@@ -859,7 +859,7 @@
         };
 
         this.push_counter = function(key){
-            if(push_counters[key] === undefined){
+            if (push_counters[key] === undefined){
                 push_counters[key] = 0;
             }
             return push_counters[key]++;
@@ -868,7 +868,7 @@
         $.each($(this).serializeArray(), function(){
 
             // skip invalid keys
-            if(!patterns.validate.test(this.name)){
+            if (!patterns.validate.test(this.name)){
                 return;
             }
 
@@ -883,17 +883,17 @@
                 reverse_key = reverse_key.replace(new RegExp("\\[" + k + "\\]$"), '');
 
                 // push
-                if(k.match(patterns.push)){
+                if (k.match(patterns.push)){
                     merge = self.build([], self.push_counter(reverse_key), merge);
                 }
 
                 // fixed
-                else if(k.match(patterns.fixed)){
+                else if (k.match(patterns.fixed)){
                     merge = self.build([], k, merge);
                 }
 
                 // named
-                else if(k.match(patterns.named)){
+                else if (k.match(patterns.named)){
                     merge = self.build({}, k, merge);
                 }
             }

@@ -63,11 +63,11 @@
 				<div class="col-sm-10">
 				  <select name="payment_g2apay_environment" class="form-control" id="input-environment">
 					{% if payment_g2apay_environment %}
-						<option value="1" selected="selected">{{ g2apay_environment_live }}</option>
-						<option value="0">{{ g2apay_environment_test }}</option>
+						<option value="1" selected="selected">{{ text_g2apay_environment_live }}</option>
+						<option value="0">{{ text_g2apay_environment_test }}</option>
 					{% else %}
-						<option value="1">{{ g2apay_environment_live }}</option>
-						<option value="0" selected="selected">{{ g2apay_environment_test }}</option>
+						<option value="1">{{ text_g2apay_environment_live }}</option>
+						<option value="0" selected="selected">{{ text_g2apay_environment_test }}</option>
 					{% endif %}
 				  </select>
 				</div>

@@ -5,10 +5,10 @@ class ControllerExtensionPaymentPilibaba extends Controller {
 	public function index() {
 		$this->load->language('extension/payment/pilibaba');
 		
+		$this->document->setTitle($this->language->get('heading_title'));
+		
 		$this->load->model('setting/setting');
 		$this->load->model('extension/payment/pilibaba');
-
-		$this->document->setTitle($this->language->get('heading_title'));
 
 		if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validate()) {
 			$this->model_setting_setting->editSetting('payment_pilibaba', $this->request->post);
@@ -135,7 +135,7 @@ class ControllerExtensionPaymentPilibaba extends Controller {
 			$data['error_pilibaba_shipping_fee'] = '';
 		}
 
-		if (isset($data['pilibaba_merchant_number']) && $data['pilibaba_merchant_number'] && isset($data['payment_pilibaba_secret_key']) && $data['payment_pilibaba_secret_key']) {
+		if (isset($data['payment_pilibaba_merchant_number']) && $data['payment_pilibaba_merchant_number'] && isset($data['payment_pilibaba_secret_key']) && $data['payment_pilibaba_secret_key']) {
 			$data['show_register'] = false;
 
 			$data['currencies'] = $data['warehouses'] = $data['countries'] = array();

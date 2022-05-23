@@ -46,7 +46,7 @@
               <div class="form-group required">
                 <label class="col-sm-2 control-label" for="input-cardconnect-api-username"><span data-toggle="tooltip" title="{{ help_api_username }}">{{ entry_api_username }}</span></label>
                 <div class="col-sm-10">
-                  <input type="text" name="cardconnect_api_username" value="{{ cardconnect_api_username }}" placeholder="{{ entry_api_username }}" id="input-cardconnect-api-username" class="form-control"/>
+                  <input type="text" name="payment_cardconnect_api_username" value="{{ payment_cardconnect_api_username }}" placeholder="{{ entry_api_username }}" id="input-cardconnect-api-username" class="form-control"/>
                   {% if error_cardconnect_api_username %}
                   <div class="text-danger">{{ error_cardconnect_api_username }}</div>
                   {% endif %} </div>
@@ -54,7 +54,7 @@
               <div class="form-group required">
                 <label class="col-sm-2 control-label" for="input-cardconnect-api-password"><span data-toggle="tooltip" title="{{ help_api_password }}">{{ entry_api_password }}</span></label>
                 <div class="col-sm-10">
-                  <input type="text" name="cardconnect_api_password" value="{{ cardconnect_api_password }}" placeholder="{{ entry_api_password }}" id="input-cardconnect-api-password" class="form-control"/>
+                  <input type="text" name="payment_cardconnect_api_password" value="{{ payment_cardconnect_api_password }}" placeholder="{{ entry_api_password }}" id="input-cardconnect-api-password" class="form-control"/>
                   {% if error_cardconnect_api_password %}
                   <div class="text-danger">{{ error_cardconnect_api_password }}</div>
                   {% endif %} </div>
@@ -62,7 +62,7 @@
               <div class="form-group required">
                 <label class="col-sm-2 control-label" for="input-cardconnect-token"><span data-toggle="tooltip" title="{{ help_token }}">{{ entry_token }}</span></label>
                 <div class="col-sm-10">
-                  <input type="text" name="cardconnect_token" value="{{ cardconnect_token }}" placeholder="{{ entry_token }}" id="input-cardconnect-token" class="form-control"/>
+                  <input type="text" name="payment_cardconnect_token" value="{{ payment_cardconnect_token }}" placeholder="{{ entry_token }}" id="input-cardconnect-token" class="form-control"/>
                   {% if error_cardconnect_token %}
                   <div class="text-danger">{{ error_cardconnect_token }}</div>
                   {% endif %} </div>
@@ -70,9 +70,9 @@
               <div class="form-group">
                 <label class="col-sm-2 control-label" for="input-cardconnect-transaction"><span data-toggle="tooltip" title="{{ help_transaction }}">{{ entry_transaction }}</span></label>
                 <div class="col-sm-10">
-                  <select name="cardconnect_transaction" id="input-cardconnect-transaction" class="form-control">
+                  <select name="payment_cardconnect_transaction" id="input-cardconnect-transaction" class="form-control">
                     
-                    {% if cardconnect_transaction == 'payment' %}
+                    {% if payment_cardconnect_transaction == 'payment' %}
                     
                     <option value="payment" selected="selected">{{ text_payment }}</option>
                     
@@ -81,7 +81,7 @@
                     <option value="payment">{{ text_payment }}</option>
                     
                     {% endif %}
-                    {% if cardconnect_transaction == 'authorize' %}
+                    {% if payment_cardconnect_transaction == 'authorize' %}
                     
                     <option value="authorize" selected="selected">{{ text_authorize }}</option>
                     
@@ -97,7 +97,7 @@
               <div class="form-group required">
                 <label class="col-sm-2 control-label" for="input-cardconnect-site"><span data-toggle="tooltip" title="{{ help_site }}">{{ entry_site }}</span></label>
                 <div class="col-sm-10">
-                  <input type="text" name="cardconnect_site" value="{{ cardconnect_site }}" placeholder="{{ entry_site }}" id="input-cardconnect-site" class="form-control"/>
+                  <input type="text" name="payment_cardconnect_site" value="{{ payment_cardconnect_site }}" placeholder="{{ entry_site }}" id="input-cardconnect-site" class="form-control"/>
                   {% if error_cardconnect_site %}
                   <div class="text-danger">{{ error_cardconnect_site }}</div>
                   {% endif %} </div>
@@ -105,9 +105,9 @@
               <div class="form-group">
                 <label class="col-sm-2 control-label" for="input-cardconnect-environment">{{ entry_environment }}</label>
                 <div class="col-sm-10">
-                  <select name="cardconnect_environment" id="input-cardconnect-environment" class="form-control">
+                  <select name="payment_cardconnect_environment" id="input-cardconnect-environment" class="form-control">
                     
-                    {% if cardconnect_environment == 'live' %}
+                    {% if payment_cardconnect_environment == 'live' %}
                     
                     <option value="live" selected="selected">{{ text_live }}</option>
                     
@@ -116,7 +116,7 @@
                     <option value="live">{{ text_live }}</option>
                     
                     {% endif %}
-                    {% if cardconnect_environment == 'test' %}
+                    {% if payment_cardconnect_environment == 'test' %}
                     
                     <option value="test" selected="selected">{{ text_test }}</option>
                     
@@ -132,9 +132,9 @@
               <div class="form-group">
                 <label class="col-sm-2 control-label" for="input-cardconnect-store-cards"><span data-toggle="tooltip" title="{{ help_store_cards }}">{{ entry_store_cards }}</span></label>
                 <div class="col-sm-10">
-                  <select name="cardconnect_store_cards" id="input-cardconnect-store-cards" class="form-control">
+                  <select name="payment_cardconnect_store_cards" id="input-cardconnect-store-cards" class="form-control">
                     
-                    {% if cardconnect_store_cards %}
+                    {% if payment_cardconnect_store_cards %}
                       
                     <option value="1" selected="selected">{{ text_enabled }}</option>
                     <option value="0">{{ text_disabled }}</option>
@@ -152,9 +152,9 @@
               <div class="form-group">
                 <label class="col-sm-2 control-label" for="input-cardconnect-echeck"><span data-toggle="tooltip" title="{{ help_echeck }}">{{ entry_echeck }}</span></label>
                 <div class="col-sm-10">
-                  <select name="cardconnect_echeck" id="input-cardconnect-echeck" class="form-control">
+                  <select name="payment_cardconnect_echeck" id="input-cardconnect-echeck" class="form-control">
                     
-                    {% if cardconnect_echeck %}
+                    {% if payment_cardconnect_echeck %}
                       
                     <option value="1" selected="selected">{{ text_enabled }}</option>
                     <option value="0">{{ text_disabled }}</option>
@@ -172,17 +172,17 @@
               <div class="form-group">
                 <label class="col-sm-2 control-label" for="input-cardconnect-total"><span data-toggle="tooltip" title="{{ help_total }}">{{ entry_total }}</span></label>
                 <div class="col-sm-10">
-                  <input type="text" name="cardconnect_total" value="{{ cardconnect_total }}" placeholder="{{ entry_total }}" id="input-cardconnect-total" class="form-control"/>
+                  <input type="text" name="payment_cardconnect_total" value="{{ payment_cardconnect_total }}" placeholder="{{ entry_total }}" id="input-cardconnect-total" class="form-control"/>
                 </div>
               </div>
               <div class="form-group">
                 <label class="col-sm-2 control-label" for="input-cardconnect-geo-zone">{{ entry_geo_zone }}</label>
                 <div class="col-sm-10">
-                  <select name="cardconnect_geo_zone" id="input-cardconnect-geo-zone" class="form-control">
+                  <select name="payment_cardconnect_geo_zone_id" id="input-cardconnect-geo-zone" class="form-control">
                     <option value="0">{{ text_all_zones }}</option>
                     
 				    {% for geo_zone in geo_zones %}
-                    {% if geo_zone.geo_zone_id == cardconnect_geo_zone %}
+                    {% if geo_zone.geo_zone_id == payment_cardconnect_geo_zone_id %}
 				        
                     <option value="{{ geo_zone.geo_zone_id }}" selected="selected">{{ geo_zone.name }}</option>
                     
@@ -199,9 +199,9 @@
               <div class="form-group">
                 <label class="col-sm-2 control-label" for="input-cardconnect-status">{{ entry_status }}</label>
                 <div class="col-sm-10">
-                  <select name="cardconnect_status" id="input-cardconnect-status" class="form-control">
+                  <select name="payment_cardconnect_status" id="input-cardconnect-status" class="form-control">
                     
-                    {% if cardconnect_status %}
+                    {% if payment_cardconnect_status %}
                       
                     <option value="1" selected="selected">{{ text_enabled }}</option>
                     <option value="0">{{ text_disabled }}</option>
@@ -219,9 +219,9 @@
               <div class="form-group">
                 <label class="col-sm-2 control-label" for="input-cardconnect-logging"><span data-toggle="tooltip" title="{{ help_logging }}">{{ entry_logging }}</span></label>
                 <div class="col-sm-10">
-                  <select name="cardconnect_logging" id="input-cardconnect-logging" class="form-control">
+                  <select name="payment_cardconnect_logging" id="input-cardconnect-logging" class="form-control">
                     
-                    {% if cardconnect_logging %}
+                    {% if payment_cardconnect_logging %}
                       
                     <option value="1" selected="selected">{{ text_enabled }}</option>
                     <option value="0">{{ text_disabled }}</option>
@@ -239,7 +239,7 @@
               <div class="form-group">
                 <label class="col-sm-2 control-label" for="input-cardconnect-sort-order">{{ entry_sort_order }}</label>
                 <div class="col-sm-10">
-                  <input type="text" name="cardconnect_sort_order" value="{{ cardconnect_sort_order }}" placeholder="{{ entry_sort_order }}" id="input-cardconnect-sort-order" class="form-control"/>
+                  <input type="text" name="payment_cardconnect_sort_order" value="{{ payment_cardconnect_sort_order }}" placeholder="{{ entry_sort_order }}" id="input-cardconnect-sort-order" class="form-control"/>
                 </div>
               </div>
               <div class="form-group">
@@ -251,7 +251,7 @@
               <div class="form-group">
                 <label class="col-sm-2 control-label" for="input-cardconnect-cron-time"><span data-toggle="tooltip" title="{{ help_cron_time }}">{{ entry_cron_time }}</span></label>
                 <div class="col-sm-10">
-                  <input type="text" name="cardconnect_cron_time" value="{{ cardconnect_cron_time }}" readonly disabled placeholder="{{ entry_cron_time }}" id="input-cardconnect-cron-time" class="form-control"/>
+                  <input type="text" name="payment_cardconnect_cron_time" value="{{ payment_cardconnect_cron_time }}" readonly disabled placeholder="{{ entry_cron_time }}" id="input-cardconnect-cron-time" class="form-control"/>
                 </div>
               </div>
             </div>
@@ -259,10 +259,10 @@
               <div class="form-group">
                 <label class="col-sm-2 control-label" for="input-cardconnect-order-status-pending"><span data-toggle="tooltip" title="{{ help_order_status_pending }}">{{ entry_order_status_pending }}</span></label>
                 <div class="col-sm-10">
-                  <select name="cardconnect_order_status_id_pending" id="input-cardconnect-order-status-pending" class="form-control">
+                  <select name="payment_cardconnect_order_status_id_pending" id="input-cardconnect-order-status-pending" class="form-control">
                     
                     {% for order_status in order_statuses %}
-                      {% if order_status.order_status_id == cardconnect_order_status_id_pending %}
+                      {% if order_status.order_status_id == payment_cardconnect_order_status_id_pending %}
                         
                     <option value="{{ order_status.order_status_id }}" selected="selected">{{ order_status.name }}</option>
                     
@@ -279,10 +279,10 @@
               <div class="form-group">
                 <label class="col-sm-2 control-label" for="input-cardconnect-order-status-processing"><span data-toggle="tooltip" title="{{ help_order_status_processing }}">{{ entry_order_status_processing }}</span></label>
                 <div class="col-sm-10">
-                  <select name="cardconnect_order_status_id_processing" id="input-cardconnect-order-status-processing" class="form-control">
+                  <select name="payment_cardconnect_order_status_id_processing" id="input-cardconnect-order-status-processing" class="form-control">
                     
                     {% for order_status in order_statuses %}
-                      {% if order_status.order_status_id == cardconnect_order_status_id_processing %}
+                      {% if order_status.order_status_id == payment_cardconnect_order_status_id_processing %}
                         
                     <option value="{{ order_status.order_status_id }}" selected="selected">{{ order_status.name }}</option>
                     
