@@ -177,7 +177,7 @@ class ModelExtensionShippingFedex extends Model {
 				foreach ($rate_reply_details as $rate_reply_detail) {
 					$code = strtolower($rate_reply_detail->getElementsByTagName('ServiceType')->item(0)->nodeValue);
 
-						if (!empty($this->config->get('shipping_fedex_service')) && in_array(strtoupper($code), (array)$this->config->get('shipping_fedex_service'))) {
+						if (in_array(strtoupper($code), (array)$this->config->get('shipping_fedex_service'))) {
 						$title = $this->language->get('text_' . $code);
 
 						$delivery_time_stamp = $rate_reply_detail->getElementsByTagName('DeliveryTimestamp');
