@@ -107,81 +107,82 @@ class ModelUpgrade1005 extends Model {
 		}
 
 		// Set Product Meta Title default to product name if empty
-		$this->db->query("UPDATE `" . DB_PREFIX . "product_description` SET `meta_title` = `name` WHERE meta_title = ''");
-		$this->db->query("UPDATE `" . DB_PREFIX . "category_description` SET `meta_title` = `name` WHERE meta_title = ''");
-		$this->db->query("UPDATE `" . DB_PREFIX . "information_description` SET `meta_title` = `title` WHERE meta_title = ''");
+		$this->db->query("UPDATE `" . DB_PREFIX . "product_description` SET `meta_title` = 'name' WHERE `meta_title` = ''");
+		$this->db->query("UPDATE `" . DB_PREFIX . "category_description` SET `meta_title` = 'name' WHERE `meta_title` = ''");
+		$this->db->query("UPDATE `" . DB_PREFIX . "information_description` SET `meta_title` = 'title' WHERE `meta_title` = ''");
 		
 		// setting
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "setting` WHERE `key` = 'config_complete_status'");
 
 		if (!$query->num_rows) {
-			$this->db->query("INSERT INTO `" . DB_PREFIX . "setting` SET `key` = 'config_complete_status', `value` = '[\"5\"]', `code` = 'config', `serialized` = '1', `store_id` = 0");
+			$this->db->query("INSERT INTO `" . DB_PREFIX . "setting` SET `key` = 'config_complete_status', `value` = '[\"5\"]', `code` = 'config', `serialized` = '1', `store_id` = '0'");
 		}
 
 		// setting
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "setting` WHERE `key` = 'config_processing_status'");
 
 		if (!$query->num_rows) {
-			$this->db->query("INSERT INTO `" . DB_PREFIX . "setting` SET `key` = 'config_processing_status', `value` = '[\"2\"]', `code` = 'config', `serialized` = '1', `store_id` = 0");
+			$this->db->query("INSERT INTO `" . DB_PREFIX . "setting` SET `key` = 'config_processing_status', `value` = '[\"2\"]', `code` = 'config', `serialized` = '1', `store_id` = '0'");
 		}
 
 		// setting
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "setting` WHERE `key` = 'config_fraud_status_id'");
 
 		if (!$query->num_rows) {
-			$this->db->query("INSERT INTO `" . DB_PREFIX . "setting` SET `key` = 'config_fraud_status_id', `value` = '8', `code` = 'config', `serialized` = '0', `store_id` = 0");
+			$this->db->query("INSERT INTO `" . DB_PREFIX . "setting` SET `key` = 'config_fraud_status_id', `value` = '8', `code` = 'config', `serialized` = '0', `store_id` = '0'");
 		}
 
 		// setting
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "setting` WHERE `key` = 'config_api_id'");
 
 		if (!$query->num_rows) {
-			$this->db->query("INSERT INTO `" . DB_PREFIX . "setting` SET `key` = 'config_api_id', `value` = '1', `code` = 'config', `serialized` = '0', `store_id` = 0");
+			$this->db->query("INSERT INTO `" . DB_PREFIX . "setting` SET `key` = 'config_api_id', `value` = '1', `code` = 'config', `serialized` = '0', `store_id` = '0'");
 		}
 
 		// setting
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "setting` WHERE `key` = 'config_image_location_height'");
 
 		if (!$query->num_rows) {
-			$this->db->query("INSERT INTO `" . DB_PREFIX . "setting` SET `key` = 'config_image_location_height', `value` = '50', `code` = 'config', `serialized` = '0', `store_id` = 0");
+			$this->db->query("INSERT INTO `" . DB_PREFIX . "setting` SET `key` = 'config_image_location_height', `value` = '50', `code` = 'config', `serialized` = '0', `store_id` = '0'");
 		}
 
 		// setting
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "setting` WHERE `key` = 'config_image_location_width'");
 
 		if (!$query->num_rows) {
-			$this->db->query("INSERT INTO `" . DB_PREFIX . "setting` SET `key` = 'config_image_location_width', `value` = '258', `code` = 'config', `serialized` = '0', `store_id` = 0");
+			$this->db->query("INSERT INTO `" . DB_PREFIX . "setting` SET `key` = 'config_image_location_width', `value` = '258', `code` = 'config', `serialized` = '0', `store_id` = '0'");
 		}
 
 		// setting
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "setting` WHERE `key` = 'config_product_limit'");
 
 		if (!$query->num_rows) {
-			$this->db->query("INSERT INTO `" . DB_PREFIX . "setting` SET `key` = 'config_product_limit', `value` = '20', `code` = 'config', `serialized` = '0', `store_id` = 0");
+			$this->db->query("INSERT INTO `" . DB_PREFIX . "setting` SET `key` = 'config_product_limit', `value` = '20', `code` = 'config', `serialized` = '0', `store_id` = '0'");
 		}
 
 		// setting
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "setting` WHERE `key` = 'config_product_description_length'");
 
 		if (!$query->num_rows) {
-			$this->db->query("INSERT INTO `" . DB_PREFIX . "setting` SET `key` = 'config_product_description_length', `value` = '100', `code` = 'config', `serialized` = '0', `store_id` = 0");
+			$this->db->query("INSERT INTO `" . DB_PREFIX . "setting` SET `key` = 'config_product_description_length', `value` = '100', `code` = 'config', `serialized` = '0', `store_id` = '0'");
 		}
 
 		// setting
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "setting` WHERE `key` = 'config_limit_admin'");
 
 		if (!$query->num_rows) {
-			$this->db->query("INSERT INTO `" . DB_PREFIX . "setting` SET `key` = 'config_limit_admin', `value` = '20', `code` = 'config', `serialized` = '0', `store_id` = 0");
+			$this->db->query("INSERT INTO `" . DB_PREFIX . "setting` SET `key` = 'config_limit_admin', `value` = '20', `code` = 'config', `serialized` = '0', `store_id` = '0'");
 		}
 
 		// setting
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "setting` WHERE `key` = 'config_encryption'");
 
 		if (!$query->num_rows) {
-			$this->db->query("INSERT INTO `" . DB_PREFIX . "setting` SET `key` = 'config_encryption', `value` = '" . hash('sha512', mt_rand()) . "', `code` = 'config', `serialized` = '0', `store_id` = 0");
+			$this->db->query("INSERT INTO `" . DB_PREFIX . "setting` SET `key` = 'config_encryption', `value` = '" . hash('sha512', mt_rand()) . "', `code` = 'config', `serialized` = '0', `store_id` = '0'");
 		} elseif (strlen($query->row['value']) < 28) {
 			$this->db->query("DELETE FROM `" . DB_PREFIX . "setting` WHERE `key` = 'config_encryption'");
-			$this->db->query("INSERT INTO `" . DB_PREFIX . "setting` SET `key` = 'config_encryption', `value` = '" . hash('sha512', mt_rand()) . "', `code` = 'config', `serialized` = '0', `store_id` = 0");
+			
+			$this->db->query("INSERT INTO `" . DB_PREFIX . "setting` SET `key` = 'config_encryption', `value` = '" . hash('sha512', mt_rand()) . "', `code` = 'config', `serialized` = '0', `store_id` = '0'");
 		}
 		// force some settings to prevent errors
 		$this->db->query("UPDATE " . DB_PREFIX . "setting set value = 'default' WHERE `key` = 'config_template'");

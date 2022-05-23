@@ -97,30 +97,30 @@ class ModelUpgrade1004 extends Model {
 
 		// Convert _smtp_ to _mail_smtp_
 		if (empty($settings['config_mail_smtp_hostname']) && !empty($settings['config_smtp_host'])) {
-			$this->db->query("INSERT INTO `" . DB_PREFIX . "setting` SET `value` = '" . $settings['config_smtp_host'] . "', `key` = 'config_mail_smtp_hostname', `code` = 'config', `store_id` = 0");
+			$this->db->query("INSERT INTO `" . DB_PREFIX . "setting` SET `value` = '" . $settings['config_smtp_host'] . "', `key` = 'config_mail_smtp_hostname', `code` = 'config', `store_id` = '0'");
 		}
 		if (empty($settings['config_mail_smtp_username']) && !empty($settings['config_smtp_username'])) {
-			$this->db->query("INSERT INTO `" . DB_PREFIX . "setting` SET `value` = '" . $settings['config_smtp_username'] . "', `key` = 'config_mail_smtp_username', `code` = 'config', `store_id` = 0");
+			$this->db->query("INSERT INTO `" . DB_PREFIX . "setting` SET `value` = '" . $settings['config_smtp_username'] . "', `key` = 'config_mail_smtp_username', `code` = 'config', `store_id` = '0'");
 		}
 		if (empty($settings['config_mail_smtp_password']) && !empty($settings['config_smtp_password'])) {
-			$this->db->query("INSERT INTO `" . DB_PREFIX . "setting` SET `value` = '" . $settings['config_smtp_password'] . "', `key` = 'config_mail_smtp_password', `code` = 'config', `store_id` = 0");
+			$this->db->query("INSERT INTO `" . DB_PREFIX . "setting` SET `value` = '" . $settings['config_smtp_password'] . "', `key` = 'config_mail_smtp_password', `code` = 'config', `store_id` = '0'");
 		}
 		if (empty($settings['config_mail_smtp_port']) && !empty($settings['config_smtp_port'])) {
-			$this->db->query("INSERT INTO `" . DB_PREFIX . "setting` SET `value` = '" . $settings['config_smtp_port'] . "', `key` = 'config_mail_smtp_port', `code` = 'config', `store_id` = 0");
+			$this->db->query("INSERT INTO `" . DB_PREFIX . "setting` SET `value` = '" . $settings['config_smtp_port'] . "', `key` = 'config_mail_smtp_port', `code` = 'config', `store_id` = '0'");
 		}
 		if (empty($settings['config_mail_smtp_timeout']) && !empty($settings['config_smtp_timeout'])) {
-			$this->db->query("INSERT INTO `" . DB_PREFIX . "setting` SET `value` = '" . $settings['config_smtp_timeout'] . "', `key` = 'config_mail_smtp_timeout', `code` = 'config', `store_id` = 0");
+			$this->db->query("INSERT INTO `" . DB_PREFIX . "setting` SET `value` = '" . $settings['config_smtp_timeout'] . "', `key` = 'config_mail_smtp_timeout', `code` = 'config', `store_id` = '0'");
 		}
 
 		// setting
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "setting` WHERE `key` = 'config_meta_title'");
 
 		if (!$query->num_rows) {
-			$this->db->query("INSERT INTO `" . DB_PREFIX . "setting` SET `key` = 'config_meta_title', `value` = '" . $this->db->escape($settings['config_name']) . "', `code` = 'config', `serialized` = '0', `store_id` = 0");
+			$this->db->query("INSERT INTO `" . DB_PREFIX . "setting` SET `key` = 'config_meta_title', `value` = '" . $this->db->escape($settings['config_name']) . "', `code` = 'config', `serialized` = '0', `store_id` = '0'");
 		}
 
 		// Convert 1.5.x core module format to 2.x (core modules only)
-		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "setting` WHERE serialized = '1'");
+		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "setting` WHERE `serialized` = '1'");
 
 		foreach ($query->rows as $result) {
 			if ($result['serialized']) {
