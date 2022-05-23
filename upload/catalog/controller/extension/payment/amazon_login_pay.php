@@ -1,5 +1,4 @@
 <?php
-
 class ControllerExtensionPaymentAmazonLoginPay extends Controller {
     private $version = "3.2.1";
     public function session_expired() {

@@ -1,5 +1,4 @@
 <?php
-
 class ModelExtensionPaymentSquareup extends Model {
     const RECURRING_ACTIVE = 1;
     const RECURRING_INACTIVE = 2;

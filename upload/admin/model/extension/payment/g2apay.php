@@ -1,7 +1,5 @@
 <?php
-
 class ModelExtensionPaymentG2aPay extends Model {
-
 	public function install() {
 		$this->db->query("
 			CREATE TABLE `" . DB_PREFIX . "g2apay_order` (

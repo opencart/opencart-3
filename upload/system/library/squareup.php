@@ -1,5 +1,4 @@
 <?php
-
 class Squareup {
     private $session;
     private $url;

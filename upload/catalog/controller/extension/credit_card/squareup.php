@@ -1,5 +1,4 @@
 <?php
-
 class ControllerExtensionCreditCardSquareup extends Controller {
     public function index() {
         if (!$this->customer->isLogged()) {

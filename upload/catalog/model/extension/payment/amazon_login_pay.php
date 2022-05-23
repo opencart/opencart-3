@@ -1,5 +1,4 @@
 <?php
-
 class ModelExtensionPaymentAmazonLoginPay extends Model {
     const LOG_FILENAME = "amazon_pay.log";
 

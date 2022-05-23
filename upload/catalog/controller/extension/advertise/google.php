@@ -1,5 +1,4 @@
 <?php
-
 use \googleshopping\traits\StoreLoader;
 use \googleshopping\traits\LibraryLoader;
 

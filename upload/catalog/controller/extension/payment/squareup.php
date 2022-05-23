@@ -1,5 +1,4 @@
 <?php
-
 class ControllerExtensionPaymentSquareup extends Controller {
     public function index() {
         $this->load->language('extension/payment/squareup');

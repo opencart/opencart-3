@@ -1,5 +1,4 @@
 <?php
-
 class ControllerExtensionPaymentSquareup extends Controller {
     private $error = array();
 

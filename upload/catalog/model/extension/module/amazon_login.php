@@ -1,5 +1,4 @@
 <?php
-
 class ModelExtensionModuleAmazonLogin extends Model {
     const LOG_FILENAME  = "amazon_login.log";
     const URL_PROFILE   = "https://%s/user/profile";

@@ -1,7 +1,9 @@
 <?php
 
+// Heading
 $_['heading_title'] = 'Square Credit Cards';
 
+// Text
 $_['text_account'] = 'Account';
 $_['text_back'] = 'Back';
 $_['text_delete'] = 'Delete';
