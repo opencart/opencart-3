@@ -69,13 +69,13 @@ class ModelExtensionPaymentKlarnaCheckout extends Model {
 					if ($account['environment'] == 'test') {
 						if ($account['api'] == 'NA') {
 							$base_url = KCConnectorInterface::NA_TEST_BASE_URL;
-						} elseif ($account['api'] == 'EU')  {
+						} elseif ($account['api'] == 'EU') {
 							$base_url = KCConnectorInterface::EU_TEST_BASE_URL;
 						}
 					} elseif ($account['environment'] == 'live') {
 						if ($account['api'] == 'NA') {
 							$base_url = KCConnectorInterface::NA_BASE_URL;
-						} elseif ($account['api'] == 'EU')  {
+						} elseif ($account['api'] == 'EU') {
 							$base_url = KCConnectorInterface::EU_BASE_URL;
 						}
 					}

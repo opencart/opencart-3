@@ -381,7 +381,7 @@ class ModelExtensionShippingUsps extends Model {
 										if ($classid == '0') {
 											$mailservice = $postage->getElementsByTagName('MailService')->item(0)->nodeValue;
 
-											foreach ($firstclasses as $k => $firstclass)  {
+											foreach ($firstclasses as $k => $firstclass) {
 												if ($firstclass == $mailservice) {
 													$classid = $classid . $k;
 													break;

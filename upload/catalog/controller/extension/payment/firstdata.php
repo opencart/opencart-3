@@ -72,7 +72,7 @@ class ControllerExtensionPaymentFirstdata extends Controller {
 		if ($this->config->get('payment_firstdata_card_storage') == 1 && $this->customer->isLogged()) {
 			$data['card_storage'] = 1;
 			$data['stored_cards'] = $this->model_extension_payment_firstdata->getStoredCards();
-			$data['new_hosted_id'] = sha1($this->customer->getId()  . '-' . date("Y-m-d-H-i-s") . rand(10, 500));
+			$data['new_hosted_id'] = sha1($this->customer->getId() . '-' . date("Y-m-d-H-i-s") . rand(10, 500));
 		} else {
 			$data['card_storage'] = 0;
 			$data['stored_cards'] = array();

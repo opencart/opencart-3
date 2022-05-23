@@ -124,7 +124,7 @@ class ControllerDesignTheme extends Controller {
 
 			if ($files) {
 				foreach ($files as $file) {
-					if (!in_array(basename($file), $path_data))  {
+					if (!in_array(basename($file), $path_data)) {
 						if (is_dir($file)) {
 							$json['directory'][] = array(
 								'name' => basename($file),

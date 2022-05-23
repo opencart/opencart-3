@@ -343,7 +343,7 @@ class ControllerExtensionPaymentKlarnaInvoice extends Controller {
 				$xml .= '  <methodName>add_invoice</methodName>';
 				$xml .= '  <params>';
 
-				foreach ($transaction as $parameter)  {
+				foreach ($transaction as $parameter) {
 					$xml .= '    <param><value>' . $this->constructXmlrpc($parameter) . '</value></param>';
 				}
 

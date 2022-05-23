@@ -452,7 +452,7 @@ class ControllerSaleVoucher extends Controller {
 		if ($voucher_info) {
 			if (!isset($this->request->get['voucher_id'])) {
 				$this->error['warning'] = $this->language->get('error_exists');
-			} elseif ($voucher_info['voucher_id'] != $this->request->get['voucher_id'])  {
+			} elseif ($voucher_info['voucher_id'] != $this->request->get['voucher_id']) {
 				$this->error['warning'] = $this->language->get('error_exists');
 			}
 		}

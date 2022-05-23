@@ -185,7 +185,7 @@ class ControllerExtensionPaymentRealexRemote extends Controller {
 				}
 
 				// Invalid response from Enrollment Server. No shift in liability. ECI = 7
-				if (isset($verify_3ds->result)  && $verify_3ds->result >= 500 && $verify_3ds->result < 600) {
+				if (isset($verify_3ds->result) && $verify_3ds->result >= 500 && $verify_3ds->result < 600) {
 					if ($this->config->get('payment_realex_remote_liability') != 1) {
 						$this->load->language('extension/payment/realex_remote');
 
@@ -289,7 +289,7 @@ class ControllerExtensionPaymentRealexRemote extends Controller {
 				}
 
 				// Invalid response from ACS. No shift in liability. ECI = 7
-				if (isset($signature_result->result)  && $signature_result->result >= 500 && $signature_result->result < 600) {
+				if (isset($signature_result->result) && $signature_result->result >= 500 && $signature_result->result < 600) {
 					$eci_ref = 9;
 					$xid = '';
 					$cavv = '';

@@ -1206,7 +1206,7 @@ class ControllerExtensionPaymentPPExpress extends Controller {
 							$trial_text = '';
 						}
 
-						$recurring_amt = $this->currency->format($this->tax->calculate($item['recurring']['price'], $item['tax_class_id'], $this->config->get('config_tax')), $this->session->data['currency'], false, false)  * $item['quantity'] . ' ' . $this->session->data['currency'];
+						$recurring_amt = $this->currency->format($this->tax->calculate($item['recurring']['price'], $item['tax_class_id'], $this->config->get('config_tax')), $this->session->data['currency'], false, false) * $item['quantity'] . ' ' . $this->session->data['currency'];
 						$recurring_description = $trial_text . sprintf($this->language->get('text_recurring'), $recurring_amt, $item['recurring']['cycle'], $item['recurring']['frequency']);
 
 						if ($item['recurring']['duration'] > 0) {
@@ -1511,7 +1511,7 @@ class ControllerExtensionPaymentPPExpress extends Controller {
 						$trial_text = '';
 					}
 
-					$recurring_amt = $this->currency->format($this->tax->calculate($item['recurring']['price'], $item['tax_class_id'], $this->config->get('config_tax')), $this->session->data['currency'], false, false)  * $item['quantity'] . ' ' . $this->session->data['currency'];
+					$recurring_amt = $this->currency->format($this->tax->calculate($item['recurring']['price'], $item['tax_class_id'], $this->config->get('config_tax')), $this->session->data['currency'], false, false) * $item['quantity'] . ' ' . $this->session->data['currency'];
 					$recurring_description = $trial_text . sprintf($this->language->get('text_recurring'), $recurring_amt, $item['recurring']['cycle'], $item['recurring']['frequency']);
 
 					if ($item['recurring']['duration'] > 0) {
@@ -1631,7 +1631,7 @@ class ControllerExtensionPaymentPPExpress extends Controller {
 
 		$this->model_extension_payment_pp_express->log(array('request' => $request,'response' => $response), 'IPN data');
 
-		if ((string)$response == "VERIFIED")  {
+		if ((string)$response == "VERIFIED") {
 			if (isset($this->request->post['transaction_entity'])) {
 				$this->log->write($this->request->post['transaction_entity']);
 			}
