@@ -1,5 +1,4 @@
 <?php
-
 // Heading
 $_['heading_title']                                     = 'Square';
 $_['heading_title_transaction']                         = 'View Transaction #%s';

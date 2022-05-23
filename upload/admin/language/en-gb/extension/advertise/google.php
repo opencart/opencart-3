@@ -1,5 +1,4 @@
 <?php
-
 // Heading
 $_['heading_campaign']                      = 'Smart Shopping Ad Campaigns';
 $_['heading_mapping']                       = 'Category Mapping';

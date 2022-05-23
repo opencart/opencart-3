@@ -1,5 +1,4 @@
 <?php
-
 // Text
 $_['text_title']												= 'Pay with Credit Card (eWAY)';
 $_['text_credit_card']											= 'Credit Card Details';
