@@ -78,7 +78,7 @@ class ModelExtensionPaymentAlipayCross extends Model {
 			}
 
 			//Veryfy
-			if (preg_match("/true$/i",$responseTxt) && $isSign) {
+			if (preg_match("/true$/i", $responseTxt) && $isSign) {
 				return true;
 			} else {
 				$this->log->write($responseTxt);
@@ -149,14 +149,14 @@ class ModelExtensionPaymentAlipayCross extends Model {
 		return $para;
 	}
 
-	function getHttpResponseGET($url,$cacert_url) {
+	function getHttpResponseGET($url, $cacert_url) {
 		$curl = curl_init($url);
 		
 		curl_setopt($curl, CURLOPT_HEADER, 0 );
 		curl_setopt($curl,CURLOPT_RETURNTRANSFER, 1);
 		curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, true);
 		curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, 2);
-		curl_setopt($curl, CURLOPT_CAINFO,$cacert_url);
+		curl_setopt($curl, CURLOPT_CAINFO, $cacert_url);
 		
 		$responseText = curl_exec($curl);
 		

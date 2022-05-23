@@ -39,7 +39,7 @@ class ControllerExtensionPaymentAlipay extends Controller {
 
 		$this->load->model('extension/payment/alipay');
 
-		$response = $this->model_extension_payment_alipay->pagePay($payRequestBuilder,$config);
+		$response = $this->model_extension_payment_alipay->pagePay($payRequestBuilder, $config);
 		$data['action'] = $config['gateway_url'] . "?charset=" . $this->model_extension_payment_alipay->getPostCharset();
 		$data['form_params'] = $response;
 

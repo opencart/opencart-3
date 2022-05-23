@@ -99,7 +99,7 @@ class ControllerExtensionPaymentFirstdata extends Controller {
 			if ($local_hash == $this->request->post['notification_hash']) {
 				$order_id_parts = explode('T', $this->request->post['oid']);
 
-				$order_id = str_replace("CON-","",$order_id_parts[0]);
+				$order_id = str_replace("CON-", "", $order_id_parts[0]);
 
 				$order_info = $this->model_checkout_order->getOrder($order_id);
 

@@ -72,7 +72,7 @@ class ModelExtensionPaymentAlipay extends Model {
 		}
 	}
 
-	function pagePay($builder,$config) {
+	function pagePay($builder, $config) {
 		$this->setParams($config);
 		$biz_content = null;
 		
@@ -87,7 +87,7 @@ class ModelExtensionPaymentAlipay extends Model {
 
 		$response = $this->pageExecute($this, 'post');
 		
-		$log->write("response: ".var_export($response, true));
+		$log->write("response: " . var_export($response, true));
 
 		return $response;
 	}
@@ -123,7 +123,7 @@ class ModelExtensionPaymentAlipay extends Model {
 
 		if ('GET' == strtoupper($httpmethod)) {
 			$preString=$this->getSignContentUrlencode($totalParams);
-			$requestUrl = $this->gateway_url."?".$preString;
+			$requestUrl = $this->gateway_url . '?' . $preString;
 
 			return $requestUrl;
 		} else {

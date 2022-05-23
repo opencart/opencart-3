@@ -266,14 +266,14 @@ class ControllerExtensionPaymentAmazonLoginPay extends Controller {
 		
 		foreach ($amazon_supported_currencies as $amazon_supported_currency) {
 			if (isset($oc_currencies[$amazon_supported_currency]) && $oc_currencies[$amazon_supported_currency]['status'] == '1') {
-				array_push($store_buyer_currencies,$amazon_supported_currency);
+				array_push($store_buyer_currencies, $amazon_supported_currency);
 			}
 		}
 		
 		$this->load->language('common/column_left');
 		
 		$data['help_buyer_multi_currency'] = !empty($store_buyer_currencies) ? sprintf($this->language->get('help_buyer_multi_currency'), implode(', ', $store_buyer_currencies)) : $this->language->get('help_buyer_multi_currency_no_available_currency');
-		$data['text_info_buyer_multi_currencies'] = sprintf($this->language->get('text_info_buyer_multi_currencies'), $this->session->data['user_token'], $this->language->get('text_system'), $this->language->get('text_localisation'),$this->language->get('text_currency'));
+		$data['text_info_buyer_multi_currencies'] = sprintf($this->language->get('text_info_buyer_multi_currencies'), $this->session->data['user_token'], $this->language->get('text_system'), $this->language->get('text_localisation'), $this->language->get('text_currency'));
 		$data['help_capture_oc_status'] = sprintf($this->language->get('help_capture_oc_status'), $this->language->get('text_sale'), $this->language->get('text_order'), $this->language->get('button_view'));
 		
 		if (isset($this->request->post['payment_amazon_login_pay_debug'])) {

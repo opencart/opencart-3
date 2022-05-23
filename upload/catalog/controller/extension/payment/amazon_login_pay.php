@@ -474,7 +474,7 @@ class ControllerExtensionPaymentAmazonLoginPay extends Controller {
         if ($this->config->get('payment_amazon_login_pay_buyer_multi_currency') && $this->config->get('payment_amazon_login_pay_payment_region') != 'USD') {
             $session_currency = !empty($this->session->data['currency']) ? $this->session->data['currency'] : $this->config->get('config_currency');
 
-            if (in_array($session_currency,$amazon_supported_currencies)) {
+            if (in_array($session_currency, $amazon_supported_currencies)) {
                 $data['buyer_currency'] = $session_currency;
 				$data['enabled_buyers_multi_currency'] = true;
 				
