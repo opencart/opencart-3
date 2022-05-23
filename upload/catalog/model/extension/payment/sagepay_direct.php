@@ -394,7 +394,8 @@ class ModelExtensionPaymentSagePayDirect extends Model {
 
 	public function updateCronJobRunTime() {
 		$this->db->query("DELETE FROM `" . DB_PREFIX . "setting` WHERE `code` = 'sagepay_direct' AND `key` = 'payment_sagepay_direct_last_cron_job_run'");
-		$this->db->query("INSERT INTO `" . DB_PREFIX . "setting` (`store_id`, `code`, `key`, `value`, `serialized`) VALUES (0, 'sagepay_direct', 'payment_sagepay_direct_last_cron_job_run', NOW(), 0)");
+		
+		$this->db->query("INSERT INTO `" . DB_PREFIX . "setting` SET `store_id` = '0', `code` = 'sagepay_direct', `key` = 'payment_sagepay_direct_last_cron_job_run', `value` = NOW(), `serialized` = '0'");
 	}
 
 	public function sendCurl($url, $payment_data, $i = null) {
