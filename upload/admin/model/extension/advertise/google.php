@@ -328,7 +328,7 @@ class ModelExtensionAdvertiseGoogle extends Model {
         if (!empty($post_target_ids)) {
             $target_ids = array_map(array($this->googleshopping, 'integer'), $post_target_ids);
 
-            $insert_sql = "SELECT p.`product_id`, " . (int)$store_id . " as `store_id`, '{TARGET_ID}' AS advertise_google_target_id FROM `" . DB_PREFIX . "product` p LEFT JOIN `" . DB_PREFIX . "product_description` pd ON (pd.`product_id` = p.`product_id`) WHERE pd.`language_id`=" . (int)$this->config->get('config_language_id');
+            $insert_sql = "SELECT p.`product_id`, " . (int)$store_id . " AS `store_id`, '{TARGET_ID}' AS advertise_google_target_id FROM `" . DB_PREFIX . "product` p LEFT JOIN `" . DB_PREFIX . "product_description` pd ON (pd.`product_id` = p.`product_id`) WHERE pd.`language_id`=" . (int)$this->config->get('config_language_id');
 
             $this->googleshopping->applyFilter($insert_sql, $data);
 

@@ -83,7 +83,7 @@ class ModelExtensionPaymentLaybuy extends Model {
 					$status = false;
 					break;
 				} else {
-					$product = $this->db->query("SELECT GROUP_CONCAT(`category_id`) as `categories` FROM `" . DB_PREFIX . "product_to_category` WHERE `product_id` = '" . (int)$cart_product['product_id'] . "'");
+					$product = $this->db->query("SELECT GROUP_CONCAT(`category_id`) AS `categories` FROM `" . DB_PREFIX . "product_to_category` WHERE `product_id` = '" . (int)$cart_product['product_id'] . "'");
 
 					$product = $product->row;
 

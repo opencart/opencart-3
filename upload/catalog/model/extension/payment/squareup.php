@@ -357,7 +357,7 @@ class ModelExtensionPaymentSquareup extends Model {
     }
 
     private function getTotalSuccessfulPayments($order_recurring_id) {
-        return $this->db->query("SELECT COUNT(*) as total FROM `" . DB_PREFIX . "order_recurring_transaction` WHERE `order_recurring_id` = '" . (int)$order_recurring_id . "' AND type='" . self::TRANSACTION_PAYMENT . "'")->row['total'];
+        return $this->db->query("SELECT COUNT(*) AS total FROM `" . DB_PREFIX . "order_recurring_transaction` WHERE `order_recurring_id` = '" . (int)$order_recurring_id . "' AND type = '" . self::TRANSACTION_PAYMENT . "'")->row['total'];
     }
 
     private function paymentIsDue($order_recurring_id) {
