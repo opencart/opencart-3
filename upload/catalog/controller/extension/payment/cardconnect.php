@@ -152,6 +152,7 @@ class ControllerExtensionPaymentCardConnect extends Controller {
 						$this->model_extension_payment_cardconnect->log('URL: ' . $url);
 
 						$ch = curl_init();
+						
 						curl_setopt($ch, CURLOPT_URL, $url);
 						curl_setopt($ch, CURLOPT_HTTPHEADER, $header);
 						curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'PUT');
@@ -159,10 +160,13 @@ class ControllerExtensionPaymentCardConnect extends Controller {
 						curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 						curl_setopt($ch, CURLOPT_TIMEOUT, 30);
 						curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+						
 						$response_data = curl_exec($ch);
+						
 						if (curl_errno($ch)) {
 							$this->model_extension_payment_cardconnect->log('cURL error: ' . curl_errno($ch));
 						}
+						
 						curl_close($ch);
 
 						$response_data = json_decode($response_data, true);

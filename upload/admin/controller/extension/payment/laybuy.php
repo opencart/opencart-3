@@ -505,6 +505,7 @@ class ControllerExtensionPaymentLaybuy extends Controller {
 				$this->model_extension_payment_laybuy->log('API URL: ' . $this->config->get('payment_laybuy_api_url'));
 
 				$ch = curl_init();
+				
 				curl_setopt($ch, CURLOPT_URL, $this->config->get('payment_laybuy_api_url'));
 				curl_setopt($ch, CURLOPT_POST, true);
 				curl_setopt($ch, CURLOPT_POSTFIELDS, $data_string);
@@ -512,10 +513,13 @@ class ControllerExtensionPaymentLaybuy extends Controller {
 				curl_setopt($ch, CURLOPT_HEADER, false);
 				curl_setopt($ch, CURLOPT_TIMEOUT, 30);
 				curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+				
 				$result = curl_exec($ch);
+				
 				if (curl_errno($ch)) {
 					$this->model_extension_payment_laybuy->log('cURL error: ' . curl_errno($ch));
 				}
+				
 				curl_close($ch);
 
 				$results = json_decode($result, true);

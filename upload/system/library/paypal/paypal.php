@@ -335,7 +335,9 @@ class PayPal {
 			}
 			
 			$ch = curl_init();
+			
 			curl_setopt_array($ch, $curl_options);
+			
 			$response = curl_exec($ch);
 			
 			if (curl_errno($ch)) {
@@ -379,11 +381,14 @@ class PayPal {
             }
 			
             $response_headers = array();
+			
             $header_lines = explode("\r\n", $head);
+			
             array_shift($header_lines);
 			
             foreach ($header_lines as $line) {
                 list($key, $value) = explode(':', $line, 2);
+				
                 $response_headers[$key] = $value;
             }
 			

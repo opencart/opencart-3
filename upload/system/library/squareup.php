@@ -128,7 +128,9 @@ class Squareup {
 
         // Fire off the request
         $ch = curl_init();
+		
         curl_setopt_array($ch, $curl_options);
+		
         $result = curl_exec($ch);
 
         if ($result) {
