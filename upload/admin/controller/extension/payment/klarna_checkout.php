@@ -47,11 +47,11 @@ class ControllerExtensionPaymentKlarnaCheckout extends Controller {
 		$this->load->model('extension/payment/klarna_checkout');
 		$this->load->model('catalog/information');
 
-		$data['informations'] = $this->model_catalog_information->getInformations();		
+		$data['informations'] = $this->model_catalog_information->getInformations();
 		
 		$this->load->model('localisation/currency');
 		
-		$data['currencies'] = $this->model_localisation_currency->getCurrencies();		
+		$data['currencies'] = $this->model_localisation_currency->getCurrencies();
 		
 		$this->load->model('localisation/order_status');
 		
