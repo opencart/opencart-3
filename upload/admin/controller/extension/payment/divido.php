@@ -171,8 +171,9 @@ class ControllerExtensionPaymentDivido extends Controller {
 			return null;
 		}
 
-		$this->load->model('extension/payment/divido');
 		$this->load->language('extension/payment/divido');
+		
+		$this->load->model('extension/payment/divido');		
 
 		$order_id = $this->request->get['order_id'];
 

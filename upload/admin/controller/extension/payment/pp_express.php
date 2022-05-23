@@ -671,9 +671,9 @@ class ControllerExtensionPaymentPPExpress extends Controller {
 		 * refund can be full or partial
 		 */
 		if (isset($this->request->post['transaction_id']) && isset($this->request->post['refund_full'])) {
-
-			$this->load->model('extension/payment/pp_express');
 			$this->load->language('extension/payment/pp_express_refund');
+			
+			$this->load->model('extension/payment/pp_express');			
 
 			if ($this->request->post['refund_full'] == 0 && $this->request->post['amount'] == 0) {
 				$this->session->data['error'] = $this->language->get('error_partial_amt');
