@@ -607,7 +607,7 @@ class ControllerProductProduct extends Controller {
 					}
 				}
 
-				if (!isset($json['error'])) {
+				if (!$json) {
 					$this->load->model('catalog/review');
 
 					$this->model_catalog_review->addReview($this->request->get['product_id'], $this->request->post);

@@ -46,7 +46,7 @@ class ControllerCheckoutLogin extends Controller {
 				$json['error']['warning'] = $this->language->get('error_approved');
 			}
 
-			if (!isset($json['error'])) {
+			if (!$json) {
 				if (!$this->customer->login($this->request->post['email'], $this->request->post['password'])) {
 					$json['error']['warning'] = $this->language->get('error_login');
 
