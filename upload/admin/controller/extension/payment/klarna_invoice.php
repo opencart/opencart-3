@@ -143,7 +143,7 @@ class ControllerExtensionPaymentKlarnaInvoice extends Controller {
 
 		switch ($child->nodeName) {
 			case 'string':
-				$value = $child->nodeValue;				
+				$value = $child->nodeValue;
 				break;
 			case 'boolean':
 				$value = (string)$child->nodeValue;
@@ -160,7 +160,7 @@ class ControllerExtensionPaymentKlarnaInvoice extends Controller {
 			case 'int':
 			case 'i4':
 			case 'i8':
-				$value = (int)$child->nodeValue;				
+				$value = (int)$child->nodeValue;
 				break;
 			case 'array':
 				$value = array();
