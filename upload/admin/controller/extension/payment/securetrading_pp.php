@@ -314,7 +314,6 @@ class ControllerExtensionPaymentSecureTradingPp extends Controller {
 					
 					$json['error'] = true;
 				} else {
-
 					$this->model_extension_payment_securetrading_pp->addTransaction($securetrading_pp_order['securetrading_pp_order_id'], 'reversed', 0.00);
 					$this->model_extension_payment_securetrading_pp->updateVoidStatus($securetrading_pp_order['securetrading_pp_order_id'], 1);
 
@@ -444,7 +443,6 @@ class ControllerExtensionPaymentSecureTradingPp extends Controller {
 				$error_code = (string)$response_xml->response->error->code;
 
 				if ($error_code == '0') {
-
 					$this->model_extension_payment_securetrading_pp->addTransaction($securetrading_pp_order['securetrading_pp_order_id'], 'rebate', $amount * -1);
 
 					$total_rebated = $this->model_extension_payment_securetrading_pp->getTotalRebated($securetrading_pp_order['securetrading_pp_order_id']);
@@ -452,10 +450,13 @@ class ControllerExtensionPaymentSecureTradingPp extends Controller {
 
 					if ($total_released <= 0 && $securetrading_pp_order['release_status'] == 1) {
 						$json['status'] = 1;
+						
 						$json['message'] = $this->language->get('text_refund_issued');
 
 						$this->model_extension_payment_securetrading_pp->updateRebateStatus($securetrading_pp_order['securetrading_pp_order_id'], 1);
+						
 						$rebate_status = 1;
+						
 						$json['msg'] = $this->language->get('text_rebate_ok_order');
 
 						$this->load->model('sale/order');
@@ -469,6 +470,7 @@ class ControllerExtensionPaymentSecureTradingPp extends Controller {
 						$this->model_sale_order->addOrderHistory($this->request->post['order_id'], $history);
 					} else {
 						$rebate_status = 0;
+						
 						$json['msg'] = $this->language->get('text_rebate_ok');
 					}
 

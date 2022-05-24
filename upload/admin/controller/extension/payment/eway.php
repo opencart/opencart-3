@@ -266,14 +266,17 @@ class ControllerExtensionPaymentEway extends Controller {
 				$json['message'] = $this->language->get('text_refund_failed') . $reason;
 			} else {
 				$eway_order = $this->model_extension_payment_eway->getOrder($order_id);
+				
 				$this->model_extension_payment_eway->addTransaction($eway_order['eway_order_id'], $result->Refund->TransactionID, 'refund', $result->Refund->TotalAmount / 100, $eway_order['currency_code']);
 
 				$total_captured = $this->model_extension_payment_eway->getTotalCaptured($eway_order['eway_order_id']);
 				$total_refunded = $this->model_extension_payment_eway->getTotalRefunded($eway_order['eway_order_id']);
+				
 				$refund_status = 0;
 
 				if ($total_captured == $total_refunded) {
 					$refund_status = 1;
+					
 					$this->model_extension_payment_eway->updateRefundStatus($eway_order['eway_order_id'], $refund_status);
 				}
 
@@ -292,6 +295,7 @@ class ControllerExtensionPaymentEway extends Controller {
 			}
 		} else {
 			$json['error'] = true;
+			
 			$json['message'] = $this->language->get('error_data_missing');
 		}
 
@@ -320,15 +324,19 @@ class ControllerExtensionPaymentEway extends Controller {
 			// Check if any error returns
 			if (isset($result->Errors) || $result === false) {
 				$json['error'] = true;
+				
 				$reason = '';
+				
 				if ($result === false) {
 					$reason = $this->language->get('text_unknown_failure');
 				} else {
 					$errors = explode(',', $result->Errors);
+					
 					foreach ($errors as $error) {
 						$reason .= $this->language->get('text_card_message_' . $result->Errors);
 					}
 				}
+				
 				$json['message'] = $this->language->get('text_capture_failed') . $reason;
 			} else {
 				$this->model_extension_payment_eway->addTransaction($eway_order['eway_order_id'], $result->TransactionID, 'payment', $capture_amount, $eway_order['currency_code']);
@@ -337,6 +345,7 @@ class ControllerExtensionPaymentEway extends Controller {
 				$total_refunded = $this->model_extension_payment_eway->getTotalRefunded($eway_order['eway_order_id']);
 
 				$remaining = $eway_order['amount'] - $capture_amount;
+				
 				if ($remaining <= 0) {
 					$remaining = 0;
 				}
@@ -359,6 +368,7 @@ class ControllerExtensionPaymentEway extends Controller {
 			}
 		} else {
 			$json['error'] = true;
+			
 			$json['message'] = $this->language->get('error_data_missing');
 		}
 

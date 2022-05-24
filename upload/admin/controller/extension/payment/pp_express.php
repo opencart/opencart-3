@@ -304,7 +304,9 @@ class ControllerExtensionPaymentPPExpress extends Controller {
 			curl_setopt($curl, CURLOPT_POSTFIELDS, $post_data);
 
 			$curl_response = curl_exec($curl);
+			
 			$config_response = json_decode($curl_response, true);
+			
 			curl_close($curl);
 
 			if (isset($config_response['api_user_name']) && isset($config_response['api_password']) && isset($config_response['signature'])) {
@@ -393,6 +395,7 @@ class ControllerExtensionPaymentPPExpress extends Controller {
 		curl_close($curl);
 
 		$data['auth_connect_url_live'] = '';
+		
 		if (isset($curl_response['url']) && !empty($curl_response['url'])) {
 			$data['auth_connect_url_live'] = $curl_response['url'];
 		}
@@ -684,6 +687,7 @@ class ControllerExtensionPaymentPPExpress extends Controller {
 				$this->session->data['error'] = $this->language->get('error_partial_amt');
 			} else {
 				$order_id = $this->model_extension_payment_pp_express->getOrderId($this->request->post['transaction_id']);
+				
 				$paypal_order = $this->model_extension_payment_pp_express->getOrder($order_id);
 
 				if ($paypal_order) {
@@ -727,7 +731,7 @@ class ControllerExtensionPaymentPPExpress extends Controller {
 						$this->model_extension_payment_pp_express->addTransaction($transaction, $call_data);
 						
 						$this->response->redirect($this->url->link('sale/order/info', 'user_token=' . $this->session->data['user_token'] . '&order_id=' . $paypal_order['order_id'], true));
-					} else if ($result['ACK'] != 'Failure' && $result['ACK'] != 'FailureWithWarning') {
+					} elseif ($result['ACK'] != 'Failure' && $result['ACK'] != 'FailureWithWarning') {
 						$transaction['transaction_id'] = $result['REFUNDTRANSACTIONID'];
 						$transaction['payment_type'] = $result['REFUNDSTATUS'];
 						$transaction['pending_reason'] = $result['PENDINGREASON'];
@@ -920,13 +924,11 @@ class ControllerExtensionPaymentPPExpress extends Controller {
 		$transaction = $this->model_extension_payment_pp_express->getFailedTransaction($paypal_order_transaction_id);
 
 		if ($transaction) {
-
 			$call_data = json_decode($transaction['call_data'], true);
 
 			$result = $this->model_extension_payment_pp_express->call($call_data);
 
 			if ($result) {
-
 				$parent_transaction = $this->model_extension_payment_pp_express->getLocalTransaction($transaction['parent_id']);
 
 				if ($parent_transaction['amount'] == abs($transaction['amount'])) {
@@ -1041,9 +1043,11 @@ class ControllerExtensionPaymentPPExpress extends Controller {
 		$this->load->model('extension/payment/pp_express');
 
 		$data['transaction'] = $this->model_extension_payment_pp_express->getTransaction($this->request->get['transaction_id']);
+		
 		$data['lines'] = $this->formatRows($data['transaction']);
 		$data['view_link'] = $this->url->link('extension/payment/pp_express/info', 'user_token=' . $this->session->data['user_token'], true);
 		$data['cancel'] = $this->url->link('extension/payment/pp_express/search', 'user_token=' . $this->session->data['user_token'], true);
+		
 		$data['user_token'] = $this->session->data['user_token'];
 
 		$data['header'] = $this->load->controller('common/header');

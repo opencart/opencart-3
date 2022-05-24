@@ -234,10 +234,13 @@ class ControllerExtensionPaymentG2APay extends Controller {
 
 				if ($total_released <= 0 && $payment_g2apay_order['release_status'] == 1) {
 					$this->model_extension_payment_g2apay->updateRefundStatus($payment_g2apay_order['g2apay_order_id'], 1);
+					
 					$refund_status = 1;
+					
 					$json['msg'] = $this->language->get('text_refund_ok_order');
 				} else {
 					$refund_status = 0;
+					
 					$json['msg'] = $this->language->get('text_refund_ok');
 				}
 

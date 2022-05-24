@@ -126,7 +126,7 @@ class ControllerExtensionPaymentSquareup extends Controller {
                     'icon' => 'exclamation-circle',
                     'text' => sprintf($this->language->get('text_token_expired'), $this->url->link('extension/payment/squareup/refresh_token', 'user_token=' . $this->session->data['user_token'], true))
                 ));
-            } else if ($delta < (5 * 24 * 60 * 60)) { // token is valid, just about to expire
+            } elseif ($delta < (5 * 24 * 60 * 60)) { // token is valid, just about to expire
                 $this->pushAlert(array(
                     'type' => 'warning',
                     'icon' => 'exclamation-circle',
@@ -135,7 +135,7 @@ class ControllerExtensionPaymentSquareup extends Controller {
             }
 
             $data['access_token_expires_time'] = $expiration_date_formatted;
-        } else if ($previous_config->get('payment_squareup_client_id')) {
+        } elseif ($previous_config->get('payment_squareup_client_id')) {
             $this->pushAlert(array(
                 'type' => 'danger',
                 'icon' => 'exclamation-circle',
@@ -206,9 +206,9 @@ class ControllerExtensionPaymentSquareup extends Controller {
 
         if (isset($this->request->get['tab']) && in_array($this->request->get['tab'], $tabs)) {
             $data['tab'] = $this->request->get['tab'];
-        } else if (isset($this->error['cron_email']) || isset($this->error['cron_acknowledge'])) {
+        } elseif (isset($this->error['cron_email']) || isset($this->error['cron_acknowledge'])) {
             $data['tab'] = 'tab-cron';
-        } else if ($this->error) {
+        } elseif ($this->error) {
             $data['tab'] = 'tab-setting';
         } else {
             $data['tab'] = $tabs[1];
@@ -468,8 +468,8 @@ class ControllerExtensionPaymentSquareup extends Controller {
         }
 
         $result = array(
-            'transactions' => array(),
-            'pagination' => ''
+            'transactions' 	=> array(),
+            'pagination' 	=> ''
         );
 
         $filter_data = array(
@@ -492,24 +492,24 @@ class ControllerExtensionPaymentSquareup extends Controller {
             $order_info = $this->model_sale_order->getOrder($transaction['order_id']);
             
             $result['transactions'][] = array(
-                'squareup_transaction_id' => $transaction['squareup_transaction_id'],
-                'transaction_id' => $transaction['transaction_id'],
-                'url_order' => $this->url->link('sale/order/info', 'user_token=' . $this->session->data['user_token'] . '&order_id=' . $transaction['order_id'], true),
-                'url_void' => $this->url->link('extension/payment/squareup/void', 'user_token=' . $this->session->data['user_token'] . '&squareup_transaction_id=' . $transaction['squareup_transaction_id'], true),
-                'url_capture' => $this->url->link('extension/payment/squareup/capture', 'user_token=' . $this->session->data['user_token'] . '&squareup_transaction_id=' . $transaction['squareup_transaction_id'], true),
-                'url_refund' => $this->url->link('extension/payment/squareup/refund', 'user_token=' . $this->session->data['user_token'] . '&squareup_transaction_id=' . $transaction['squareup_transaction_id'], true),
-                'confirm_capture' => sprintf($this->language->get('text_confirm_capture'), $amount),
-                'confirm_void' => sprintf($this->language->get('text_confirm_void'), $amount),
-                'confirm_refund' => $this->language->get('text_confirm_refund'),
-                'insert_amount' => sprintf($this->language->get('text_insert_amount'), $amount, $transaction['transaction_currency']),
-                'order_id' => $transaction['order_id'],
-                'type' => $transaction['transaction_type'],
-                'num_refunds' => count(@json_decode($transaction['refunds'], true)),
-                'amount' => $amount,
-                'customer' => $order_info['firstname'] . ' ' . $order_info['lastname'],
-                'ip' => $transaction['device_ip'],
-                'date_created' => date($this->language->get('datetime_format'), strtotime($transaction['created_at'])),
-                'url_info' => $this->url->link('extension/payment/squareup/transaction_info', 'user_token=' . $this->session->data['user_token'] . '&squareup_transaction_id=' . $transaction['squareup_transaction_id'], true)
+                'squareup_transaction_id' 	=> $transaction['squareup_transaction_id'],
+                'transaction_id' 			=> $transaction['transaction_id'],
+                'url_order' 				=> $this->url->link('sale/order/info', 'user_token=' . $this->session->data['user_token'] . '&order_id=' . $transaction['order_id'], true),
+                'url_void' 					=> $this->url->link('extension/payment/squareup/void', 'user_token=' . $this->session->data['user_token'] . '&squareup_transaction_id=' . $transaction['squareup_transaction_id'], true),
+                'url_capture' 				=> $this->url->link('extension/payment/squareup/capture', 'user_token=' . $this->session->data['user_token'] . '&squareup_transaction_id=' . $transaction['squareup_transaction_id'], true),
+                'url_refund' 				=> $this->url->link('extension/payment/squareup/refund', 'user_token=' . $this->session->data['user_token'] . '&squareup_transaction_id=' . $transaction['squareup_transaction_id'], true),
+                'confirm_capture' 			=> sprintf($this->language->get('text_confirm_capture'), $amount),
+                'confirm_void' 				=> sprintf($this->language->get('text_confirm_void'), $amount),
+                'confirm_refund' 			=> $this->language->get('text_confirm_refund'),
+                'insert_amount' 			=> sprintf($this->language->get('text_insert_amount'), $amount, $transaction['transaction_currency']),
+                'order_id' 					=> $transaction['order_id'],
+                'type' 						=> $transaction['transaction_type'],
+                'num_refunds' 				=> count(@json_decode($transaction['refunds'], true)),
+                'amount' 					=> $amount,
+                'customer' 					=> $order_info['firstname'] . ' ' . $order_info['lastname'],
+                'ip' 						=> $transaction['device_ip'],
+                'date_created' 				=> date($this->language->get('datetime_format'), strtotime($transaction['created_at'])),
+                'url_info' 					=> $this->url->link('extension/payment/squareup/transaction_info', 'user_token=' . $this->session->data['user_token'] . '&squareup_transaction_id=' . $transaction['squareup_transaction_id'], true)
             );
         }
 
@@ -643,6 +643,7 @@ class ControllerExtensionPaymentSquareup extends Controller {
                 !isset($previous_setting['payment_squareup_location_id']) || 
                 (isset($previous_setting['payment_squareup_location_id']) && !in_array(
                     $previous_setting['payment_squareup_location_id'], 
+					
                     array_map(
                         function($location) {
                             return $location['id'];
@@ -694,10 +695,10 @@ class ControllerExtensionPaymentSquareup extends Controller {
             $this->model_extension_payment_squareup->updateTransaction($transaction_info['squareup_transaction_id'], $status);
 
             $json['order_history_data'] = array(
-                'notify' => 1,
-                'order_id' => $transaction_info['order_id'],
-                'order_status_id' => $this->model_extension_payment_squareup->getOrderStatusId($transaction_info['order_id'], $status),
-                'comment' => $this->language->get('squareup_status_comment_' . strtolower($status)),
+                'notify' 			=> 1,
+                'order_id' 			=> $transaction_info['order_id'],
+                'order_status_id' 	=> $this->model_extension_payment_squareup->getOrderStatusId($transaction_info['order_id'], $status),
+                'comment' 			=> $this->language->get('squareup_status_comment_' . strtolower($status)),
             );
 
             $json['success'] = $this->language->get('text_success_capture');
@@ -713,10 +714,10 @@ class ControllerExtensionPaymentSquareup extends Controller {
             $this->model_extension_payment_squareup->updateTransaction($transaction_info['squareup_transaction_id'], $status);
 
             $json['order_history_data'] = array(
-                'notify' => 1,
-                'order_id' => $transaction_info['order_id'],
-                'order_status_id' => $this->model_extension_payment_squareup->getOrderStatusId($transaction_info['order_id'], $status),
-                'comment' => $this->language->get('squareup_status_comment_' . strtolower($status)),
+                'notify' 			=> 1,
+                'order_id' 			=> $transaction_info['order_id'],
+                'order_status_id' 	=> $this->model_extension_payment_squareup->getOrderStatusId($transaction_info['order_id'], $status),
+                'comment' 			=> $this->language->get('squareup_status_comment_' . strtolower($status)),
             );
 
             $json['success'] = $this->language->get('text_success_void');
@@ -736,7 +737,7 @@ class ControllerExtensionPaymentSquareup extends Controller {
 
                 if (strpos($amount, ',') !== FALSE && strpos($amount, '.') !== FALSE) {
                     $amount = (float)str_replace(',', '', $amount);
-                } else if (strpos($amount, ',') !== FALSE && strpos($amount, '.') === FALSE) {
+                } elseif (strpos($amount, ',') !== FALSE && strpos($amount, '.') === FALSE) {
                     $amount = (float)str_replace(',', '.', $amount);
                 } else {
                     $amount = (float)$amount;
@@ -1069,7 +1070,7 @@ class ControllerExtensionPaymentSquareup extends Controller {
 
         if (isset($this->request->post[$key])) {
             return $this->request->post[$key]; 
-        } else if ($this->config->has($key)) {
+        } elseif ($this->config->has($key)) {
             return $this->config->get($key);
         } else {
             return $default;

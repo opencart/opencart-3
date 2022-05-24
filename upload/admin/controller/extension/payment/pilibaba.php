@@ -201,15 +201,15 @@ class ControllerExtensionPaymentPilibaba extends Controller {
 		if (isset($this->request->post['email_address']) && isset($this->request->post['password']) && isset($this->request->post['currency']) && isset($this->request->post['warehouse']) && isset($this->request->post['country']) && isset($this->request->post['environment'])) {
 			if (utf8_strlen($this->request->post['email_address']) < 1) {
 				$json['error'] = $this->language->get('error_email_address');
-			} else if (!filter_var($this->request->post['email_address'], FILTER_VALIDATE_EMAIL)) {
+			} elseif (!filter_var($this->request->post['email_address'], FILTER_VALIDATE_EMAIL)) {
 				$json['error'] = $this->language->get('error_email_invalid');
-			} else if (utf8_strlen($this->request->post['password']) < 8) {
+			} elseif (utf8_strlen($this->request->post['password']) < 8) {
 				$json['error'] = $this->language->get('error_password');
-			} else if (utf8_strlen($this->request->post['currency']) < 1) {
+			} elseif (utf8_strlen($this->request->post['currency']) < 1) {
 				$json['error'] = $this->language->get('error_currency');
-			} else if (utf8_strlen($this->request->post['warehouse']) < 1) {
+			} elseif (utf8_strlen($this->request->post['warehouse']) < 1) {
 				$json['error'] = $this->language->get('error_warehouse');
-			} else if ($this->request->post['warehouse'] == 'other' && utf8_strlen($this->request->post['country']) < 1) {
+			} elseif ($this->request->post['warehouse'] == 'other' && utf8_strlen($this->request->post['country']) < 1) {
 				$json['error'] = $this->language->get('error_country');
 			} else {
 				$this->load->model('extension/payment/pilibaba');

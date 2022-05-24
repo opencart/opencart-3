@@ -251,19 +251,24 @@ class ControllerExtensionPaymentWorldpay extends Controller {
 				$this->model_extension_payment_worldpay->updateRefundStatus($worldpay_order['payment_worldpay_order_id'], 1);
 
 				$json['msg'] = $this->language->get('text_refund_ok_order');
+				
 				$json['data'] = array();
+				
 				$json['data']['created'] = date("Y-m-d H:i:s");
 				$json['data']['amount'] = $this->currency->format(($this->request->post['amount'] * -1), $worldpay_order['currency_code'], false);
 				$json['data']['total_released'] = $this->currency->format($total_released, $worldpay_order['currency_code'], false);
 				$json['data']['total_refund'] = $this->currency->format($total_refunded, $worldpay_order['currency_code'], false);
 				$json['data']['refund_status'] = 1;
+				
 				$json['error'] = false;
 			} else {
 				$json['error'] = true;
+				
 				$json['msg'] = isset($refund_response['message']) && !empty($refund_response['message']) ? (string)$refund_response['message'] : 'Unable to refund';
 			}
 		} else {
 			$json['error'] = true;
+			
 			$json['msg'] = $this->language->get('error_data_missing');
 		}
 

@@ -212,16 +212,21 @@ class ControllerExtensionPaymentBluePayHosted extends Controller {
 				$this->model_extension_payment_bluepay_hosted->updateVoidStatus($bluepay_hosted_order['bluepay_hosted_order_id'], 1);
 
 				$json['msg'] = $this->language->get('text_void_ok');
+				
 				$json['data'] = array();
+				
 				$json['data']['date_added'] = date("Y-m-d H:i:s");
 				$json['data']['total'] = $bluepay_hosted_order['total'];
+				
 				$json['error'] = false;
 			} else {
 				$json['error'] = true;
+				
 				$json['msg'] = isset($void_response['MESSAGE']) && !empty($void_response['MESSAGE']) ? (string)$void_response['MESSAGE'] : 'Unable to void';
 			}
 		} else {
 			$json['error'] = true;
+			
 			$json['msg'] = $this->language->get('error_data_missing');
 		}
 
@@ -252,25 +257,32 @@ class ControllerExtensionPaymentBluePayHosted extends Controller {
 
 				if ($total_released >= $bluepay_hosted_order['total']) {
 					$this->model_extension_payment_bluepay_hosted->updateReleaseStatus($bluepay_hosted_order['bluepay_hosted_order_id'], 1);
+					
 					$release_status = 1;
+					
 					$json['msg'] = $this->language->get('text_release_ok_order');
 				} else {
 					$release_status = 0;
+					
 					$json['msg'] = $this->language->get('text_release_ok');
 				}
 
 				$json['data'] = array();
+				
 				$json['data']['date_added'] = date("Y-m-d H:i:s");
 				$json['data']['amount'] = $this->request->post['amount'];
 				$json['data']['release_status'] = $release_status;
 				$json['data']['total'] = (float)$total_released;
+				
 				$json['error'] = false;
 			} else {
 				$json['error'] = true;
+				
 				$json['msg'] = isset($release_response['MESSAGE']) && !empty($release_response['MESSAGE']) ? (string)$release_response['MESSAGE'] : 'Unable to release';
 			}
 		} else {
 			$json['error'] = true;
+			
 			$json['msg'] = $this->language->get('error_data_missing');
 		}
 
@@ -300,26 +312,33 @@ class ControllerExtensionPaymentBluePayHosted extends Controller {
 
 				if ($total_released <= 0 && $bluepay_hosted_order['release_status'] == 1) {
 					$this->model_extension_payment_bluepay_hosted->updateRebateStatus($bluepay_hosted_order['bluepay_hosted_order_id'], 1);
+					
 					$rebate_status = 1;
+					
 					$json['msg'] = $this->language->get('text_rebate_ok_order');
 				} else {
 					$rebate_status = 0;
+					
 					$json['msg'] = $this->language->get('text_rebate_ok');
 				}
 
 				$json['data'] = array();
+				
 				$json['data']['date_added'] = date("Y-m-d H:i:s");
 				$json['data']['amount'] = $this->request->post['amount'] * -1;
 				$json['data']['total_released'] = (float)$total_released;
 				$json['data']['total_rebated'] = (float)$total_rebated;
 				$json['data']['rebate_status'] = $rebate_status;
+				
 				$json['error'] = false;
 			} else {
 				$json['error'] = true;
+				
 				$json['msg'] = isset($rebate_response['MESSAGE']) && !empty($rebate_response['MESSAGE']) ? (string)$rebate_response['MESSAGE'] : 'Unable to rebate';
 			}
 		} else {
 			$json['error'] = true;
+			
 			$json['msg'] = $this->language->get('error_data_missing');
 		}
 

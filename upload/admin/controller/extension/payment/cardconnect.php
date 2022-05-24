@@ -276,7 +276,7 @@ class ControllerExtensionPaymentCardConnect extends Controller {
 
 					if ($transaction['status'] == 'Y') {
 						$transaction['status'] = 'Accepted';
-					} else if ($transaction['status'] == 'N') {
+					} elseif ($transaction['status'] == 'N') {
 						$transaction['status'] = 'Rejected';
 					}
 
@@ -350,7 +350,7 @@ class ControllerExtensionPaymentCardConnect extends Controller {
 
 						if (!isset($capture_response['retref'])) {
 							$json['error'] = $this->language->get('error_invalid_response');
-						} else if (isset($capture_response['respstat']) && $capture_response['respstat'] == 'C') {
+						} elseif (isset($capture_response['respstat']) && $capture_response['respstat'] == 'C') {
 							$json['error'] = $capture_response['resptext'];
 						} else {
 							$this->model_extension_payment_cardconnect->addTransaction($payment_cardconnect_order['cardconnect_order_id'], 'payment', $capture_response['retref'], $this->request->post['amount'], $capture_response['setlstat']);
@@ -400,7 +400,7 @@ class ControllerExtensionPaymentCardConnect extends Controller {
 
 						if (!isset($refund_response['retref'])) {
 							$json['error'] = $this->language->get('error_invalid_response');
-						} else if (isset($refund_response['respstat']) && $refund_response['respstat'] == 'C') {
+						} elseif (isset($refund_response['respstat']) && $refund_response['respstat'] == 'C') {
 							$json['error'] = $refund_response['resptext'];
 						} else {
 							$this->model_extension_payment_cardconnect->addTransaction($payment_cardconnect_order['cardconnect_order_id'], 'refund', $refund_response['retref'], $this->request->post['amount'] * -1, $refund_response['resptext']);

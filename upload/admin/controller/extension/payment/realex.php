@@ -270,15 +270,20 @@ class ControllerExtensionPaymentRealex extends Controller {
 				$this->model_extension_payment_realex->updateVoidStatus($payment_realex_order['realex_order_id'], 1);
 
 				$json['msg'] = $this->language->get('text_void_ok');
+				
 				$json['data'] = array();
+				
 				$json['data']['date_added'] = date("Y-m-d H:i:s");
+				
 				$json['error'] = false;
 			} else {
 				$json['error'] = true;
+				
 				$json['msg'] = isset($void_response->message) && !empty($void_response->message) ? (string)$void_response->message : 'Unable to void';
 			}
 		} else {
 			$json['error'] = true;
+			
 			$json['msg'] = $this->language->get('error_data_missing');
 		}
 

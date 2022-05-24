@@ -201,14 +201,18 @@ class ControllerExtensionPaymentSagepayDirect extends Controller {
 				$json['msg'] = $this->language->get('text_void_ok');
 
 				$json['data'] = array();
+				
 				$json['data']['date_added'] = date("Y-m-d H:i:s");
+				
 				$json['error'] = false;
 			} else {
 				$json['error'] = true;
+				
 				$json['msg'] = isset($void_response['StatuesDetail']) && !empty($void_response['StatuesDetail']) ? (string)$void_response['StatuesDetail'] : 'Unable to void';
 			}
 		} else {
 			$json['error'] = true;
+			
 			$json['msg'] = $this->language->get('error_data_missing');
 		}
 

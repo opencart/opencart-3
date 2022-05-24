@@ -236,7 +236,6 @@ class ControllerExtensionPaymentPPPayflowIframe extends Controller {
 		$this->load->model('extension/payment/pp_payflow_iframe');
 
 		if (isset($this->request->post['transaction_reference']) && isset($this->request->post['amount'])) {
-
 			$transaction = $this->model_extension_payment_pp_payflow_iframe->getTransaction($this->request->post['transaction_reference']);
 
 			if ($transaction) {
@@ -312,7 +311,6 @@ class ControllerExtensionPaymentPPPayflowIframe extends Controller {
 				$result = $this->model_extension_payment_pp_payflow_iframe->call($call_data);
 
 				if ($result['RESULT'] == 0) {
-
 					$data = array(
 						'order_id'              => $order_id,
 						'type'                  => 'D',

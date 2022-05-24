@@ -280,6 +280,7 @@ class ControllerExtensionPaymentGlobalpayRemote extends Controller {
 
 			if (isset($capture_response->result) && $capture_response->result == '00') {
 				$this->model_extension_payment_globalpay_remote->addTransaction($globalpay_order['globalpay_remote_order_id'], 'payment', $this->request->post['amount']);
+				
 				$total_captured = $this->model_extension_payment_globalpay_remote->getTotalCaptured($globalpay_order['globalpay_remote_order_id']);
 
 				if ($total_captured >= $globalpay_order['total'] || $globalpay_order['settle_type'] == 0) {
@@ -344,6 +345,7 @@ class ControllerExtensionPaymentGlobalpayRemote extends Controller {
 
 				if ($total_captured <= 0 && $globalpay_order['capture_status'] == 1) {
 					$this->model_extension_payment_globalpay_remote->updateRebateStatus($globalpay_order['globalpay_remote_order_id'], 1);
+					
 					$rebate_status = 1;
 					
 					$json['msg'] = $this->language->get('text_rebate_ok_order');

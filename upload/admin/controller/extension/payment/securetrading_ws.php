@@ -386,6 +386,7 @@ class ControllerExtensionPaymentSecureTradingWs extends Controller {
 
 				if ($response_xml->response['type'] == 'ERROR' || (string)$response_xml->response->error->code != '0') {
 					$json['msg'] = (string)$response_xml->response->error->message;
+					
 					$json['error'] = true;
 				} else {
 
@@ -529,6 +530,7 @@ class ControllerExtensionPaymentSecureTradingWs extends Controller {
 						$json['message'] = $this->language->get('text_refund_issued');
 
 						$this->model_extension_payment_securetrading_ws->updateRebateStatus($securetrading_ws_order['securetrading_ws_order_id'], 1);
+						
 						$rebate_status = 1;
 						
 						$json['msg'] = $this->language->get('text_rebate_ok_order');

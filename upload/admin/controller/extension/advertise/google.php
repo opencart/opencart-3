@@ -122,6 +122,7 @@ class ControllerExtensionAdvertiseGoogle extends Controller {
         }
 
         $advertised_count = $this->model_extension_advertise_google->getAdvertisedCount($this->store_id);
+		
         $last_cron_executed = (int)$this->setting->get('advertise_google_cron_last_executed');
 
         $data['warning'] = '';
@@ -287,6 +288,7 @@ class ControllerExtensionAdvertiseGoogle extends Controller {
 
         // Refresh warnings
         $advertised_count = $this->model_extension_advertise_google->getAdvertisedCount($this->store_id);
+		
         $last_cron_executed = (int)$this->setting->get('advertise_google_cron_last_executed');
 
         if (!$this->setting->get('advertise_google_status') && $this->model_extension_advertise_google->hasActiveTarget($this->store_id)) {
@@ -671,7 +673,9 @@ class ControllerExtensionAdvertiseGoogle extends Controller {
         $data['mapping'] = array();
 
         foreach ($this->config->get('advertise_google_google_product_categories') as $google_product_category_id => $google_product_category_name) {
-            if ($google_product_category_id == 0) continue;
+            if ($google_product_category_id == 0) {
+				continue;
+			}
 
             $category_id = '';
 			
@@ -683,13 +687,13 @@ class ControllerExtensionAdvertiseGoogle extends Controller {
             }
 
             $map = array(
-                'google_product_category' => array(
-                    'id' 	=> $google_product_category_id,
-                    'name' 	=> $google_product_category_name
-                ),
-                'oc_category' => array(
-                    'category_id' 	=> $category_id,
-                    'name' 			=> $name
+                'google_product_category' 	=> array(
+                    'id' 						=> $google_product_category_id,
+                    'name' 						=> $google_product_category_name
+                ),				
+                'oc_category' 				=> array(
+                    'category_id' 				=> $category_id,
+                    'name' 						=> $name
                 )
             );
 
@@ -1515,6 +1519,7 @@ class ControllerExtensionAdvertiseGoogle extends Controller {
                     } else {
                         foreach ($product_ids as $product_id) {
                             $form_data['product_id'] = (int)$product_id;
+							
                             $this->model_extension_advertise_google->updateSingleProductFields($form_data);
                         }
                     }

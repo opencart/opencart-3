@@ -630,7 +630,7 @@ class ControllerExtensionPaymentKlarnaCheckout extends Controller {
 				$data['billing_address'] = array();
 				
 				parse_str(html_entity_decode($this->request->post['data']), $data['billing_address']);
-			} else if ($this->request->post['type'] == 'shipping_address') {
+			} elseif ($this->request->post['type'] == 'shipping_address') {
 				$data['shipping_address'] = array();
 				
 				parse_str(html_entity_decode($this->request->post['data']), $data['shipping_address']);

@@ -386,7 +386,7 @@ class ControllerExtensionPaymentPPBraintree extends Controller {
 			$curl = curl_init($this->opencart_retrieve_url);
 
 			$post_data = array(
-				'return_url' => $this->url->link('extension/payment/pp_braintree', 'user_token=' . $this->session->data['user_token'], true),
+				'return_url' 	=> $this->url->link('extension/payment/pp_braintree', 'user_token=' . $this->session->data['user_token'], true),
 				'retrieve_code' => $this->request->get['retrieve_code'],
 				'store_version' => VERSION,
 			);

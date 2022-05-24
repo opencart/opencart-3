@@ -818,7 +818,9 @@ class ControllerExtensionPaymentLaybuy extends Controller {
 				$this->model_extension_payment_laybuy->log('Data String: ' . $data_string);
 
 				$ch = curl_init();
+				
 				$url = 'https://lay-buys.com/vtmob/deal5cancel.php';
+				
 				curl_setopt($ch, CURLOPT_URL, $url);
 				curl_setopt($ch, CURLOPT_POST, true);
 				curl_setopt($ch, CURLOPT_POSTFIELDS, $data_string);
@@ -826,10 +828,13 @@ class ControllerExtensionPaymentLaybuy extends Controller {
 				curl_setopt($ch, CURLOPT_HEADER, false);
 				curl_setopt($ch, CURLOPT_TIMEOUT, 30);
 				curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+				
 				$result = curl_exec($ch);
+				
 				if (curl_errno($ch)) {
 					$this->model_extension_payment_laybuy->log('cURL error: ' . curl_errno($ch));
 				}
+				
 				curl_close($ch);
 
 				$this->model_extension_payment_laybuy->log('Response: ' . $result);

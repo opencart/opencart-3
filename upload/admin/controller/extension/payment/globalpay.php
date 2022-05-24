@@ -370,10 +370,13 @@ class ControllerExtensionPaymentGlobalpay extends Controller {
 
 				if ($total_captured <= 0 && $globalpay_order['capture_status'] == 1) {
 					$this->model_extension_payment_globalpay->updateRebateStatus($globalpay_order['globalpay_order_id'], 1);
+					
 					$rebate_status = 1;
+					
 					$json['msg'] = $this->language->get('text_rebate_ok_order');
 				} else {
 					$rebate_status = 0;
+					
 					$json['msg'] = $this->language->get('text_rebate_ok');
 				}
 

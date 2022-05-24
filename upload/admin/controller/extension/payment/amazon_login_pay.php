@@ -392,7 +392,6 @@ class ControllerExtensionPaymentAmazonLoginPay extends Controller {
 			$amazon_login_pay_order = $this->model_extension_payment_amazon_login_pay->getOrder($this->request->get['order_id']);
 
 			if (!empty($amazon_login_pay_order)) {
-
 				$this->load->language('extension/payment/amazon_login_pay');
 
 				$amazon_login_pay_order['total_captured'] = $this->model_extension_payment_amazon_login_pay->getTotalCaptured($amazon_login_pay_order['amazon_login_pay_order_id']);
@@ -548,10 +547,13 @@ class ControllerExtensionPaymentAmazonLoginPay extends Controller {
 
 					if ($total_captured <= 0 && $amazon_login_pay_order['capture_status'] == 1) {
 						$this->model_extension_payment_amazon_login_pay->updateRefundStatus($amazon_login_pay_order['amazon_login_pay_order_id'], 1);
+						
 						$refund_status = 1;
+						
 						$json['msg'][] = $this->language->get('text_refund_ok_order') . '<br>';
 					} else {
 						$refund_status = 0;
+						
 						$json['msg'][] = $this->language->get('text_refund_ok') . '<br>';
 					}
 					

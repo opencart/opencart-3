@@ -353,6 +353,7 @@ class ControllerExtensionPaymentFirstdataRemote extends Controller {
 
 			if (strtoupper($capture_response['transaction_result']) == 'APPROVED') {
 				$this->model_extension_payment_firstdata_remote->addTransaction($firstdata_order['firstdata_remote_order_id'], 'payment', $firstdata_order['total']);
+				
 				$total_captured = $this->model_extension_payment_firstdata_remote->getTotalCaptured($firstdata_order['firstdata_remote_order_id']);
 
 				$this->model_extension_payment_firstdata_remote->updateCaptureStatus($firstdata_order['firstdata_remote_order_id'], 1);
@@ -408,10 +409,13 @@ class ControllerExtensionPaymentFirstdataRemote extends Controller {
 
 				if ($total_captured <= 0 && $firstdata_order['capture_status'] == 1) {
 					$this->model_extension_payment_firstdata_remote->updateRefundStatus($firstdata_order['firstdata_remote_order_id'], 1);
+					
 					$refund_status = 1;
+					
 					$json['msg'] = $this->language->get('text_refund_ok_order');
 				} else {
 					$refund_status = 0;
+					
 					$json['msg'] = $this->language->get('text_refund_ok');
 				}
 

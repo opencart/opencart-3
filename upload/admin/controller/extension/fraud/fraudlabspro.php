@@ -161,17 +161,17 @@ class ControllerExtensionFraudFraudLabsPro extends Controller {
 			//Update history record
 			if (strtolower($flp_status) == 'approve') {
 				$data_temp = array(
-					'order_status_id'=>$this->config->get('fraud_fraudlabspro_approve_status_id'),
-					'notify'=>0,
-					'comment'=>'Approved using FraudLabs Pro.'
+					'order_status_id'	=> $this->config->get('fraud_fraudlabspro_approve_status_id'),
+					'notify'			=> 0,
+					'comment'			=> 'Approved using FraudLabs Pro.'
 				);
 
 				$this->model_extension_fraud_fraudlabspro->addOrderHistory($this->request->get['order_id'], $data_temp);
 			} else if (strtolower($flp_status) == "reject") {
 				$data_temp = array(
-					'order_status_id'=>$this->config->get('fraud_fraudlabspro_reject_status_id'),
-					'notify'=>0,
-					'comment'=>'Rejected using FraudLabs Pro.'
+					'order_status_id'	=> $this->config->get('fraud_fraudlabspro_reject_status_id'),
+					'notify'			=> 0,
+					'comment'			=> 'Rejected using FraudLabs Pro.'
 				);
 
 				$this->model_extension_fraud_fraudlabspro->addOrderHistory($this->request->get['order_id'], $data_temp);
