@@ -584,7 +584,21 @@ class ControllerProductProduct extends Controller {
 
 		$json = array();
 
-		if (isset($this->request->get['product_id']) && $this->request->get['product_id']) {
+		if (isset($this->request->get['product_id'])) {
+			$product_id = (int)$this->request->get['product_id'];
+		} else {
+			$product_id = 0;
+		}
+		
+		$this->load->model('catalog/product');
+			
+		$product_info = $this->model_catalog_product->getProduct($product_id);
+		
+		if (!$product_info) {
+			$json['error'] = $this->language->get('error_product');
+		}
+		
+		if (!$json) {
 			if ($this->request->server['REQUEST_METHOD'] == 'POST') {
 				if ((utf8_strlen($this->request->post['name']) < 3) || (utf8_strlen($this->request->post['name']) > 25)) {
 					$json['error'] = $this->language->get('error_name');
@@ -606,18 +620,16 @@ class ControllerProductProduct extends Controller {
 						$json['error'] = $captcha;
 					}
 				}
-
-				if (!$json) {
-					$this->load->model('catalog/review');
-
-					$this->model_catalog_review->addReview($this->request->get['product_id'], $this->request->post);
-
-					$json['success'] = $this->language->get('text_success');
-				}
 			}
-		} else {
-			$json['error'] = $this->language->get('error_product');
-		} 
+		}
+		
+		if (!$json) {
+			$this->load->model('catalog/review');
+
+			$this->model_catalog_review->addReview($product_id, $this->request->post);
+
+			$json['success'] = $this->language->get('text_success');
+		}
 
 		$this->response->addHeader('Content-Type: application/json');
 		$this->response->setOutput(json_encode($json));
