@@ -385,8 +385,6 @@ class ControllerExtensionPaymentKlarnaCheckout extends Controller {
 
 		$format = '{title} {given_name} {family_name}' . "\n" . '{street_address}' . "\n" . '{street_address2}' . "\n" . '{city} {postcode}' . "\n" . '{region}' . "\n" . '{country}' . "\n" . '{email} {phone}';
 		
-		$find = array();
-
 		$find = array(
 			'{title}',
 			'{given_name}',
@@ -401,8 +399,6 @@ class ControllerExtensionPaymentKlarnaCheckout extends Controller {
 			'{phone}',
 		);
 		
-		$replace = array();
-
 		$replace = array(
 			'title'				=> $klarna_order['billing_address']['title'],
 			'given_name'		=> $klarna_order['billing_address']['given_name'],
@@ -520,8 +516,6 @@ class ControllerExtensionPaymentKlarnaCheckout extends Controller {
 			$refund_action = false;
 		}
 		
-		$data['allowed_shipping_methods'] = array();
-
 		$data['allowed_shipping_methods'] = array(
 			'PickUpStore',
 			'Home',
@@ -623,6 +617,7 @@ class ControllerExtensionPaymentKlarnaCheckout extends Controller {
 			$action = $this->model_extension_payment_klarna_checkout->omExtendAuthorizationTime($connector, $this->request->post['order_ref']);
 		} elseif ($this->request->post['type'] == 'merchant_reference' && $this->request->post['data']) {
 			$data = array();
+			
 			parse_str(html_entity_decode($this->request->post['data']), $data);
 
 			$action = $this->model_extension_payment_klarna_checkout->omUpdateMerchantReference($connector, $this->request->post['order_ref'], array(
@@ -631,9 +626,11 @@ class ControllerExtensionPaymentKlarnaCheckout extends Controller {
 		} elseif (($this->request->post['type'] == 'billing_address' || $this->request->post['type'] == 'shipping_address') && $this->request->post['data']) {
 			if ($this->request->post['type'] == 'billing_address') {
 				$data['billing_address'] = array();
+				
 				parse_str(html_entity_decode($this->request->post['data']), $data['billing_address']);
 			} else if ($this->request->post['type'] == 'shipping_address') {
 				$data['shipping_address'] = array();
+				
 				parse_str(html_entity_decode($this->request->post['data']), $data['shipping_address']);
 			}
 
@@ -642,11 +639,13 @@ class ControllerExtensionPaymentKlarnaCheckout extends Controller {
 			$action = $this->model_extension_payment_klarna_checkout->omReleaseAuthorization($connector, $this->request->post['order_ref']);
 		} elseif ($this->request->post['type'] == 'capture_shipping_info' && isset($this->request->post['id'])) {
 			$data = array();
+			
 			parse_str(html_entity_decode($this->request->post['data']), $data);
 
 			$action = $this->model_extension_payment_klarna_checkout->omShippingInfo($connector, $this->request->post['order_ref'], $this->request->post['id'], $data);
 		} elseif ($this->request->post['type'] == 'capture_billing_address' && isset($this->request->post['id'])) {
 			$data['billing_address'] = array();
+			
 			parse_str(html_entity_decode($this->request->post['data']), $data['billing_address']);
 
 			$action = $this->model_extension_payment_klarna_checkout->omCustomerDetails($connector, $this->request->post['order_ref'], $this->request->post['id'], $data);
@@ -781,6 +780,7 @@ class ControllerExtensionPaymentKlarnaCheckout extends Controller {
 				// Skip first 2 lines, use third as headings
 				fgetcsv($handle);
 				fgetcsv($handle);
+				
 				$headings = fgetcsv($handle);
 
 				while ($data = fgetcsv($handle)) {
@@ -816,6 +816,7 @@ class ControllerExtensionPaymentKlarnaCheckout extends Controller {
 		}
 
 		$json['error'] = $error;
+		
 		$json['orders'] = $orders_to_process;
 
 		$this->response->addHeader('Content-Type: application/json');
@@ -846,7 +847,6 @@ class ControllerExtensionPaymentKlarnaCheckout extends Controller {
 			foreach ($this->request->post['payment_klarna_checkout_account'] as $key => $account) {
 				if (in_array($account['currency'], $currencies)) {
 					$this->error['account_warning'] = $this->language->get('error_account_currency');
-
 					break;
 				} else {
 					$currencies[] = $account['currency'];

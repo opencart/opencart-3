@@ -300,8 +300,6 @@ class ControllerExtensionPaymentLaybuy extends Controller {
 
 		$data['reports'] = array();
 		
-		$filter_data = array();
-
 		$filter_data = array(
 			'filter_order_id'	=> $filter_order_id,
 			'filter_customer'	=> $filter_customer,
@@ -533,8 +531,6 @@ class ControllerExtensionPaymentLaybuy extends Controller {
 						$status = $reports['status'];
 
 						$report = $reports['report'];
-
-						$transaction = array();
 
 						$transaction = $this->model_extension_payment_laybuy->getTransactionByLayBuyRefId($laybuy_ref_id);
 

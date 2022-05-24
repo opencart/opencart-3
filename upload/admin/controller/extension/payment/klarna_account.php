@@ -21,8 +21,6 @@ class ControllerExtensionPaymentKlarnaAccount extends Controller {
 				}
 			}
 			
-			$klarna_data = array();
-
 			$klarna_data = array(
 				'klarna_account_pclasses' => $this->pclasses,
 				'klarna_account_status'   => $status
@@ -140,8 +138,6 @@ class ControllerExtensionPaymentKlarnaAccount extends Controller {
 
 		$log = new \Log('klarna_account.log');
 		
-		$country = array();
-
 		$country = array(
 			'NOR' => array(
 				'currency' => 1,

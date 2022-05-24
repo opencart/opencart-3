@@ -357,8 +357,6 @@ class ControllerExtensionPaymentPPBraintree extends Controller {
 			$data['payment_pp_braintree_billing_agreement'] = $this->config->get('payment_pp_braintree_billing_agreement');
 		}
 		
-		$data['transaction_statuses'] = array();
-
 		$data['transaction_statuses'] = array(
 			'authorization_expired',
 			'authorized',
@@ -373,8 +371,6 @@ class ControllerExtensionPaymentPPBraintree extends Controller {
 			'voided'
 		);
 		
-		$data['card_types'] = array();
-
 		$data['card_types'] = array(
 			'Visa',
 			'MasterCard',
@@ -437,6 +433,7 @@ class ControllerExtensionPaymentPPBraintree extends Controller {
 			$curl = curl_init($this->opencart_connect_url);
 
 			$this->load->model('localisation/country');
+			
 			$country = $this->model_localisation_country->getCountry($this->config->get('config_country_id'));
 
 			$post_data = array(
@@ -465,6 +462,7 @@ class ControllerExtensionPaymentPPBraintree extends Controller {
 		}
 
 		$data['braintree_config'] = array();
+		
 		$data['braintree_config']['three_d_secure_enabled'] = 0;
 		$data['braintree_config']['paypal_enabled'] = 0;
 

@@ -20,8 +20,6 @@ class ControllerExtensionPaymentKlarnaInvoice extends Controller {
 				}
 			}
 			
-			$klarna_data = array();
-
 			$klarna_data = array(
 				'klarna_invoice_pclasses' => $this->pclasses,
 				'klarna_invoice_status'   => $status
@@ -145,9 +143,8 @@ class ControllerExtensionPaymentKlarnaInvoice extends Controller {
 
 		switch ($child->nodeName) {
 			case 'string':
-				$value = $child->nodeValue;
+				$value = $child->nodeValue;				
 				break;
-
 			case 'boolean':
 				$value = (string)$child->nodeValue;
 
@@ -158,16 +155,13 @@ class ControllerExtensionPaymentKlarnaInvoice extends Controller {
 				} else {
 					$value = null;
 				}
-
 				break;
-
 			case 'integer':
 			case 'int':
 			case 'i4':
 			case 'i8':
-				$value = (int)$child->nodeValue;
+				$value = (int)$child->nodeValue;				
 				break;
-
 			case 'array':
 				$value = array();
 
@@ -177,9 +171,7 @@ class ControllerExtensionPaymentKlarnaInvoice extends Controller {
 				for ($i = 0; $i < $entries->length; $i++) {
 					$value[] = $this->parseResponse($entries->item($i)->firstChild, $document);
 				}
-
 				break;
-
 			default:
 				$value = null;
 		}

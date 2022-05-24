@@ -242,18 +242,22 @@ class ControllerExtensionPaymentG2APay extends Controller {
 				}
 
 				$json['data'] = array();
+				
 				$json['data']['date_added'] = date("Y-m-d H:i:s");
 				$json['data']['amount'] = $this->currency->format(($this->request->post['amount'] * -1), $payment_g2apay_order['currency_code'], false);
 				$json['data']['total_released'] = (float)$total_released;
 				$json['data']['total_refunded'] = (float)$total_refunded;
 				$json['data']['refund_status'] = $refund_status;
+				
 				$json['error'] = false;
 			} else {
 				$json['error'] = true;
+				
 				$json['msg'] = 'Unable to refund: ' . $refund_response;
 			}
 		} else {
 			$json['error'] = true;
+			
 			$json['msg'] = $this->language->get('error_data_missing');
 		}
 

@@ -309,6 +309,7 @@ class ControllerExtensionPaymentSecureTradingWs extends Controller {
 			$lines = array_filter(explode("\n", $response));
 
 			$csv = array();
+			
 			$keys = str_getcsv($lines[0]);
 
 			for ($i = 1; $i < count($lines); $i++) {

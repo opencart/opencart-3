@@ -684,6 +684,7 @@ class ControllerExtensionPaymentPPExpress extends Controller {
 
 				if ($paypal_order) {
 					$call_data = array();
+					
 					$call_data['METHOD'] = 'RefundTransaction';
 					$call_data['TRANSACTIONID'] = $this->request->post['transaction_id'];
 					$call_data['NOTE'] = urlencode($this->request->post['refund_message']);
@@ -700,7 +701,7 @@ class ControllerExtensionPaymentPPExpress extends Controller {
 					}
 
 					$result = $this->model_extension_payment_pp_express->call($call_data);
-
+					
 					$transaction = array(
 						'paypal_order_id' => $paypal_order['paypal_order_id'],
 						'transaction_id' => '',
@@ -718,10 +719,11 @@ class ControllerExtensionPaymentPPExpress extends Controller {
 
 					if ($result == false) {
 						$transaction['payment_status'] = 'Failed';
+						
 						$this->model_extension_payment_pp_express->addTransaction($transaction, $call_data);
+						
 						$this->response->redirect($this->url->link('sale/order/info', 'user_token=' . $this->session->data['user_token'] . '&order_id=' . $paypal_order['order_id'], true));
 					} else if ($result['ACK'] != 'Failure' && $result['ACK'] != 'FailureWithWarning') {
-
 						$transaction['transaction_id'] = $result['REFUNDTRANSACTIONID'];
 						$transaction['payment_type'] = $result['REFUNDSTATUS'];
 						$transaction['pending_reason'] = $result['PENDINGREASON'];
@@ -740,16 +742,20 @@ class ControllerExtensionPaymentPPExpress extends Controller {
 						$this->response->redirect($this->url->link('sale/order/info', 'user_token=' . $this->session->data['user_token'] . '&order_id=' . $paypal_order['order_id'], true));
 					} else {
 						$this->model_extension_payment_pp_express->log(json_encode($result));
+						
 						$this->session->data['error'] = (isset($result['L_SHORTMESSAGE0']) ? $result['L_SHORTMESSAGE0'] : 'There was an error') . (isset($result['L_LONGMESSAGE0']) ? '<br>' . $result['L_LONGMESSAGE0'] : '');
+						
 						$this->response->redirect($this->url->link('extension/payment/pp_express/refund', 'user_token=' . $this->session->data['user_token'] . '&transaction_id=' . $this->request->post['transaction_id'], true));
 					}
 				} else {
 					$this->session->data['error'] = $this->language->get('error_data_missing');
+					
 					$this->response->redirect($this->url->link('extension/payment/pp_express/refund', 'user_token=' . $this->session->data['user_token'] . '&transaction_id=' . $this->request->post['transaction_id'], true));
 				}
 			}
 		} else {
 			$this->session->data['error'] = $this->language->get('error_data');
+			
 			$this->response->redirect($this->url->link('extension/payment/pp_express/refund', 'user_token=' . $this->session->data['user_token'] . '&transaction_id=' . $this->request->post['transaction_id'], true));
 		}
 	}
@@ -1051,6 +1057,7 @@ class ControllerExtensionPaymentPPExpress extends Controller {
 			$this->load->model('extension/payment/pp_express');
 
 			$call_data = array();
+			
 			$call_data['METHOD'] = 'TransactionSearch';
 			$call_data['STARTDATE'] = gmdate($this->request->post['date_start'] . "\TH:i:s\Z");
 
@@ -1198,11 +1205,13 @@ class ControllerExtensionPaymentPPExpress extends Controller {
 
 		foreach ($data as $k => $v) {
 			$elements = preg_split("/(\d+)/", $k, -1, PREG_SPLIT_NO_EMPTY | PREG_SPLIT_DELIM_CAPTURE);
+			
 			if (isset($elements[1]) && isset($elements[0])) {
 				if ($elements[0] == 'L_TIMESTAMP') {
 					$v = str_replace('T', ' ', $v);
 					$v = str_replace('Z', '', $v);
 				}
+				
 				$return[$elements[1]][$elements[0]] = $v;
 			}
 		}
@@ -1260,6 +1269,7 @@ class ControllerExtensionPaymentPPExpress extends Controller {
 			curl_setopt($curl, CURLOPT_POSTFIELDS, http_build_query($post_data));
 
 			$curl_response = curl_exec($curl);
+			
 			$curl_response = json_decode($curl_response, true);
 
 			curl_close($curl);
@@ -1288,12 +1298,12 @@ class ControllerExtensionPaymentPPExpress extends Controller {
 			}
 		}
 
-		if ($this->config->get("payment_pp_express_status") == 1) {
-			$data['payment_pp_express_status'] = "enabled";
-		} elseif ($this->config->get("payment_pp_express_status") == null) {
-			$data['payment_pp_express_status'] = "";
+		if ($this->config->get('payment_pp_express_status') == 1) {
+			$data['payment_pp_express_status'] = 'enabled';
+		} elseif ($this->config->get('payment_pp_express_status') == null) {
+			$data['payment_pp_express_status'] = '';
 		} else {
-			$data['payment_pp_express_status'] = "disabled";
+			$data['payment_pp_express_status'] = 'disabled';
 		}
 
 		return $this->load->view('extension/payment/pp_express_preferred', $data);

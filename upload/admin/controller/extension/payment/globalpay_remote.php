@@ -243,7 +243,9 @@ class ControllerExtensionPaymentGlobalpayRemote extends Controller {
 				$this->model_extension_payment_globalpay_remote->updateVoidStatus($globalpay_order['globalpay_remote_order_id'], 1);
 
 				$json['msg'] = $this->language->get('text_void_ok');
+				
 				$json['data'] = array();
+				
 				$json['data']['date_added'] = date("Y-m-d H:i:s");
 				
 				$json['error'] = false;

@@ -272,13 +272,16 @@ class ControllerExtensionPaymentEway extends Controller {
 				}
 
 				$json['data'] = array();
+				
 				$json['data']['transactionid'] = $result->TransactionID;
 				$json['data']['created'] = date("Y-m-d H:i:s");
 				$json['data']['amount'] = number_format($refund_amount, 2, '.', '');
 				$json['data']['total_refunded_formatted'] = $this->currency->format($total_refunded, $eway_order['currency_code'], 1, true);
 				$json['data']['refund_status'] = $refund_status;
 				$json['data']['remaining'] = $total_captured - $total_refunded;
+				
 				$json['message'] = $this->language->get('text_refund_success');
+				
 				$json['error'] = false;
 			}
 		} else {
@@ -329,13 +332,16 @@ class ControllerExtensionPaymentEway extends Controller {
 				$this->model_extension_payment_eway->updateTransactionId($eway_order['eway_order_id'], $result->TransactionID);
 
 				$json['data'] = array();
+				
 				$json['data']['transactionid'] = $result->TransactionID;
 				$json['data']['created'] = date("Y-m-d H:i:s");
 				$json['data']['amount'] = number_format($capture_amount, 2, '.', '');
 				$json['data']['total_captured_formatted'] = $this->currency->format($total_captured, $eway_order['currency_code'], 1, true);
 				$json['data']['capture_status'] = 1;
 				$json['data']['remaining'] = $remaining;
+				
 				$json['message'] = $this->language->get('text_capture_success');
+				
 				$json['error'] = false;
 			}
 		} else {

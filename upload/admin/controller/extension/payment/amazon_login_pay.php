@@ -488,6 +488,7 @@ class ControllerExtensionPaymentAmazonLoginPay extends Controller {
 				}
 
 				$json['data'] = array();
+				
 				$json['data']['date_added'] = date("Y-m-d H:i:s");
 				$json['data']['type'] = 'capture';
 				$json['data']['status'] = $capture_response['status'];
@@ -496,6 +497,7 @@ class ControllerExtensionPaymentAmazonLoginPay extends Controller {
 				$json['data']['amount'] = $this->currency->format($this->request->post['amount'], $amazon_login_pay_order['currency_code'], true, true);
 				$json['data']['capture_status'] = $capture_status;
 				$json['data']['total'] = $this->currency->format($total_captured, $amazon_login_pay_order['currency_code'], true, true);
+				
 				$json['error'] = false;
 			} else {
 				$json['error'] = true;
@@ -574,9 +576,7 @@ class ControllerExtensionPaymentAmazonLoginPay extends Controller {
 	}
 
     protected function trimIntegrationDetails() {
-		$integration_keys = array();
-		 
-        $integration_keys = array(
+		$integration_keys = array(
             'payment_amazon_login_pay_merchant_id',
             'payment_amazon_login_pay_access_key',
             'payment_amazon_login_pay_access_secret',
