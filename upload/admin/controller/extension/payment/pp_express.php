@@ -452,7 +452,7 @@ class ControllerExtensionPaymentPPExpress extends Controller {
 			$this->load->language('extension/payment/pp_express_order');
 
 			if (isset($this->request->get['order_id'])) {
-				$order_id = $this->request->get['order_id'];
+				$order_id = (int)$this->request->get['order_id'];
 			} else {
 				$order_id = 0;
 			}
@@ -491,7 +491,7 @@ class ControllerExtensionPaymentPPExpress extends Controller {
 		$data['transactions'] = array();
 
 		if (isset($this->request->get['order_id'])) {
-			$order_id = $this->request->get['order_id'];
+			$order_id = (int)$this->request->get['order_id'];
 		} else {
 			$order_id = 0;
 		}
@@ -534,7 +534,7 @@ class ControllerExtensionPaymentPPExpress extends Controller {
 			$this->load->model('extension/payment/pp_express');
 
 			if (isset($this->request->get['order_id'])) {
-				$order_id = $this->request->get['order_id'];
+				$order_id = (int)$this->request->get['order_id'];
 			} else {
 				$order_id = 0;
 			}
@@ -769,7 +769,7 @@ class ControllerExtensionPaymentPPExpress extends Controller {
 		$json = array();
 
 		if (isset($this->request->get['order_id'])) {
-			$order_id = $this->request->get['order_id'];
+			$order_id = (int)$this->request->get['order_id'];
 		} else {
 			$order_id = 0;
 		}

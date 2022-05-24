@@ -1067,8 +1067,12 @@ class ControllerExtensionPaymentLaybuy extends Controller {
 			$this->load->language('extension/payment/laybuy');
 			
 			$this->load->model('extension/payment/laybuy');
-
-			$order_id = $this->request->get['order_id'];
+			
+			if (isset($this->request->get['order_id'])) {
+				$order_id = (int)$this->request->get['order_id'];
+			} else {
+				$order_id = 0;
+			}
 
 			$transaction_info = $this->model_extension_payment_laybuy->getTransactionByOrderId($order_id);
 

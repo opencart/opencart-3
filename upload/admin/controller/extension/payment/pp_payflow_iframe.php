@@ -282,9 +282,16 @@ class ControllerExtensionPaymentPPPayflowIframe extends Controller {
 		$this->load->model('sale/order');
 
 		if (isset($this->request->post['order_id']) && isset($this->request->post['amount']) && isset($this->request->post['complete'])) {
-			$order_id = $this->request->post['order_id'];
+			if (isset($this->request->post['order_id'])) {
+				$order_id = (int)$this->request->post['order_id'];
+			} else {
+				$order_id = 0;
+			}
+			
 			$paypal_order = $this->model_extension_payment_pp_payflow_iframe->getOrder($order_id);
+			
 			$paypal_transactions = $this->model_extension_payment_pp_payflow_iframe->getTransactions($order_id);
+			
 			$order_info = $this->model_sale_order->getOrder($order_id);
 
 			if ($paypal_order && $order_info) {
@@ -350,7 +357,12 @@ class ControllerExtensionPaymentPPPayflowIframe extends Controller {
 		$this->load->model('extension/payment/pp_payflow_iframe');		
 
 		if (isset($this->request->post['order_id']) && $this->request->post['order_id'] != '') {
-			$order_id = $this->request->post['order_id'];
+			if (isset($this->request->post['order_id'])) {
+				$order_id = (int)$this->request->post['order_id'];
+			} else {
+				$order_id = 0;
+			}
+			
 			$paypal_order = $this->model_extension_payment_pp_payflow_iframe->getOrder($order_id);
 
 			if ($paypal_order) {
@@ -401,7 +413,11 @@ class ControllerExtensionPaymentPPPayflowIframe extends Controller {
 		
 		$this->load->model('extension/payment/pp_payflow_iframe');		
 
-		$order_id = $this->request->get['order_id'];
+		if (isset($this->request->get['order_id'])) {
+			$order_id = (int)$this->request->get['order_id'];
+		} else {
+			$order_id = 0;
+		}
 
 		$paypal_order = $this->model_extension_payment_pp_payflow_iframe->getOrder($order_id);
 
