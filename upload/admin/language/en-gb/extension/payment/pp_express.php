@@ -28,6 +28,7 @@ $_['text_connect_paypal']			 = 'Connect with PayPal';
 $_['text_incontext_not_supported']	 = '* Not supported with In-Context Checkout';
 $_['text_retrieve']	 				 = 'Your details have been entered from PayPal';
 $_['text_enable_button']			 = 'We recommend offering PayPal Express Shortcut to maximise checkout conversion, this allows customers to use their PayPal address book and <strong>checkout is as little as three taps</strong> from the basket page. Click enable to install the extension and access the layout manager, you will ned to add "PayPal Express Checkout Button" to the checkout layout';
+$_['text_capture_status']			 = 'Complete';
 
 // Entry
 $_['entry_username']				 = 'API Username';

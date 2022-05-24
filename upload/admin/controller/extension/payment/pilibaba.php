@@ -257,7 +257,7 @@ class ControllerExtensionPaymentPilibaba extends Controller {
 
 				$order_info['fee'] = '&yen;' . $pilibaba_order['fee'];
 
-				$order_info['status'] = 'Success';
+				$order_info['status'] = $this->language->get('text_status');
 
 				$order_info['date_added'] = date($this->language->get('datetime_format'), strtotime($pilibaba_order['date_added']));
 

@@ -478,10 +478,13 @@ class ControllerExtensionPaymentPPProIframe extends Controller {
 				$transaction['date_added'] = date("Y-m-d H:i:s");
 
 				$json['data'] = $transaction;
+				
 				$json['error'] = false;
-				$json['msg'] = 'Ok';
+				
+				$json['msg'] = $this->language->get('text_reauthorise_ok');
 			} else {
 				$json['error'] = true;
+				
 				$json['msg'] = (isset($result['L_SHORTMESSAGE0']) ? $result['L_SHORTMESSAGE0'] : $this->language->get('error_general'));
 			}
 		} else {
@@ -544,7 +547,6 @@ class ControllerExtensionPaymentPPProIframe extends Controller {
 		 * capture can be full or partial amounts
 		 */
 		if (isset($this->request->post['order_id']) && $this->request->post['amount'] > 0 && isset($this->request->post['order_id']) && isset($this->request->post['complete'])) {
-
 			$this->load->model('extension/payment/pp_pro_iframe');
 
 			$paypal_order = $this->model_extension_payment_pp_pro_iframe->getOrder($this->request->post['order_id']);
@@ -643,14 +645,18 @@ class ControllerExtensionPaymentPPProIframe extends Controller {
 				}
 
 				$json['data'] = $transaction;
+				
 				$json['error'] = false;
-				$json['msg'] = 'Ok';
+				
+				$json['msg'] = $this->language->get('text_capture_ok');
 			} else {
 				$json['error'] = true;
+				
 				$json['msg'] = (isset($result['L_SHORTMESSAGE0']) ? $result['L_SHORTMESSAGE0'] : 'There was an error');
 			}
 		} else {
 			$json['error'] = true;
+			
 			$json['msg'] = $this->language->get('error_data_missing');
 		}
 
@@ -693,17 +699,22 @@ class ControllerExtensionPaymentPPProIframe extends Controller {
 				$this->model_extension_payment_pp_pro_iframe->updateOrder('Complete', $this->request->post['order_id']);
 
 				unset($transaction['debug_data']);
+				
 				$transaction['date_added'] = date("Y-m-d H:i:s");
 
 				$json['data'] = $transaction;
+				
 				$json['error'] = false;
-				$json['msg'] = 'Transaction void';
+				
+				$json['msg'] = $this->language->get('text_void_ok');
 			} else {
 				$json['error'] = true;
+				
 				$json['msg'] = (isset($result['L_SHORTMESSAGE0']) ? $result['L_SHORTMESSAGE0'] : $this->language->get('error_general'));
 			}
 		} else {
 			$json['error'] = true;
+			
 			$json['msg'] = $this->language->get('error_missing_data');
 		}
 

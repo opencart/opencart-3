@@ -17,6 +17,7 @@ $_['text_payment_info']     = 'Payment Info';
 $_['text_order_id']         = 'Order ID';
 $_['text_amount']           = 'Amount';
 $_['text_fee']              = 'Fee';
+$_['text_status']			= 'Success';
 $_['text_date_added']       = 'Date Added';
 $_['text_tracking']         = 'Tracking';
 $_['text_barcode']          = 'Barcode';
