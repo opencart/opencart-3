@@ -1075,6 +1075,7 @@ class ControllerExtensionAdvertiseGoogle extends Controller {
                 $this->googleshopping->verifySite();
 
                 $this->load->model('user/user');
+				
                 $user_info = $this->model_user_user->getUser($this->user->getId());
 
                 $this->applyNewSettings(array(

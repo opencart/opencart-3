@@ -240,7 +240,9 @@ class ControllerExtensionPaymentSquareup extends Controller {
         $data['url_list_transactions'] = html_entity_decode($this->url->link('extension/payment/squareup/transactions', 'user_token=' . $this->session->data['user_token'] . '&page={PAGE}', true));
 
         $this->load->model('localisation/language');
+		
         $data['languages'] = array();
+		
         foreach ($this->model_localisation_language->getLanguages() as $language) {
             $data['languages'][] = array(
                 'language_id' => $language['language_id'],
@@ -250,9 +252,11 @@ class ControllerExtensionPaymentSquareup extends Controller {
         }
 
         $this->load->model('localisation/order_status');
+		
         $data['order_statuses'] = $this->model_localisation_order_status->getOrderStatuses();
 
         $this->load->model('localisation/geo_zone');
+		
         $data['geo_zones'] = $this->model_localisation_geo_zone->getGeoZones();
 
         $data['payment_squareup_cron_command'] = PHP_BINDIR . '/php -d session.save_path=' . session_save_path() . ' ' . DIR_SYSTEM . 'library/squareup/cron.php ' . parse_url($server, PHP_URL_HOST) . ' 443 > /dev/null 2> /dev/null';

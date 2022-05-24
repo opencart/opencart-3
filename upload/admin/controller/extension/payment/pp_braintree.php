@@ -998,6 +998,7 @@ class ControllerExtensionPaymentPPBraintree extends Controller {
 			$curl = curl_init($this->opencart_connect_url);
 
 			$this->load->model('localisation/country');
+			
 			$country = $this->model_localisation_country->getCountry($this->config->get('config_country_id'));
 
 			$post_data = array(

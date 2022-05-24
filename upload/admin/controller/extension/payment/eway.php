@@ -248,6 +248,7 @@ class ControllerExtensionPaymentEway extends Controller {
 
 		if ($order_id && $refund_amount > 0) {
 			$this->load->model('extension/payment/eway');
+			
 			$result = $this->model_extension_payment_eway->refund($order_id, $refund_amount);
 
 			// Check if any error returns

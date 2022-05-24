@@ -83,6 +83,7 @@ class ControllerExtensionPaymentPPProIframe extends Controller {
 		}
 
 		$this->load->model('localisation/order_status');
+		
 		$data['order_statuses'] = $this->model_localisation_order_status->getOrderStatuses();
 
 		if (isset($this->request->post['payment_pp_pro_iframe_canceled_reversal_status_id'])) {

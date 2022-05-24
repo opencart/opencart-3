@@ -634,6 +634,7 @@ class ControllerExtensionPaymentPPExpress extends Controller {
 		$data['transaction_id'] = $this->request->get['transaction_id'];
 
 		$this->load->model('extension/payment/pp_express');
+		
 		$pp_transaction = $this->model_extension_payment_pp_express->getTransaction($this->request->get['transaction_id']);
 
 		$data['amount_original'] = $pp_transaction['AMT'];
