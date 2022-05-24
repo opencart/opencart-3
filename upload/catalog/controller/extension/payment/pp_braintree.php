@@ -756,6 +756,7 @@ class ControllerExtensionPaymentPPBraintree extends Controller {
 		}
 
 		$this->load->language('extension/payment/pp_braintree');
+		
 		$this->load->language('checkout/cart');
 
 		$this->load->model('tool/image');
@@ -1559,6 +1560,7 @@ class ControllerExtensionPaymentPPBraintree extends Controller {
 
 	protected function shippingValidate($code) {
 		$this->load->language('checkout/cart');
+		
 		$this->load->language('extension/payment/pp_braintree');
 
 		if (empty($code)) {

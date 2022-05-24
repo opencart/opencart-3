@@ -237,6 +237,7 @@ class ControllerExtensionPaymentKlarnaCheckout extends Controller {
 
 	public function sidebar() {
 		$this->load->language('checkout/checkout');
+		
 		$this->load->language('extension/payment/klarna_checkout');
 
 		$this->load->model('extension/payment/klarna_checkout');

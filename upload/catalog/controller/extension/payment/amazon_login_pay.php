@@ -352,6 +352,7 @@ class ControllerExtensionPaymentAmazonLoginPay extends Controller {
 
     public function confirm() {
         $this->load->language('extension/payment/amazon_login_pay');
+		
         $this->load->language('checkout/checkout');
         
         $this->load->model('extension/payment/amazon_login_pay');
@@ -557,6 +558,7 @@ class ControllerExtensionPaymentAmazonLoginPay extends Controller {
 
     private function authorize() {
           $this->load->language('extension/payment/amazon_login_pay');
+		  
           $this->load->language('checkout/checkout');
 
           $this->load->model('extension/payment/amazon_login_pay');
@@ -667,6 +669,7 @@ class ControllerExtensionPaymentAmazonLoginPay extends Controller {
 
     public function process_us() {
         $this->load->language('extension/payment/amazon_login_pay');
+		
         $this->load->language('checkout/checkout');
 
         $this->load->model('extension/payment/amazon_login_pay');
@@ -816,6 +819,7 @@ class ControllerExtensionPaymentAmazonLoginPay extends Controller {
     }
     public function process() {
         $this->load->language('extension/payment/amazon_login_pay');
+		
         $this->load->language('checkout/checkout');
 
         $this->load->model('extension/payment/amazon_login_pay');

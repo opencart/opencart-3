@@ -537,6 +537,7 @@ class ControllerExtensionModulePayPalSmartButton extends Controller {
 	
 	public function confirmOrder() {
 		$this->load->language('extension/module/paypal_smart_button');
+		
 		$this->load->language('checkout/cart');
 
 		$this->load->model('tool/image');
@@ -1594,6 +1595,7 @@ class ControllerExtensionModulePayPalSmartButton extends Controller {
 		
 	private function validateShipping($code) {
 		$this->load->language('checkout/cart');
+		
 		$this->load->language('extension/module/paypal_smart_button');
 
 		if (empty($code)) {

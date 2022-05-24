@@ -71,6 +71,7 @@ class ControllerExtensionModuleAmazonLogin extends Controller {
 
     public function login() {
         $this->load->language('extension/payment/amazon_login_pay');
+		
         $this->load->language('account/login');
 
         $this->load->model('extension/module/amazon_login');

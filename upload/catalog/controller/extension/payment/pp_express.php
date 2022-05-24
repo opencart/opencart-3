@@ -360,6 +360,7 @@ class ControllerExtensionPaymentPPExpress extends Controller {
 
 	public function expressConfirm() {
 		$this->load->language('extension/payment/pp_express');
+		
 		$this->load->language('checkout/cart');
 
 		$this->load->model('tool/image');
@@ -1876,6 +1877,7 @@ class ControllerExtensionPaymentPPExpress extends Controller {
 
 	protected function shippingValidate($code) {
 		$this->load->language('checkout/cart');
+		
 		$this->load->language('extension/payment/pp_express');
 
 		if (empty($code)) {
