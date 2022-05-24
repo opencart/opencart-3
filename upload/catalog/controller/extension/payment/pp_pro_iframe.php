@@ -4,6 +4,7 @@ class ControllerExtensionPaymentPPProIframe extends Controller {
 		$this->load->language('extension/payment/pp_pro_iframe');
 		
 		$this->load->model('checkout/order');
+		
 		$this->load->model('extension/payment/pp_pro_iframe');
 
 		if ($this->config->get('payment_pp_pro_iframe_checkout_method') == 'redirect') {
@@ -44,6 +45,7 @@ class ControllerExtensionPaymentPPProIframe extends Controller {
 		$this->load->language('extension/payment/pp_pro_iframe');
 		
 		$this->load->model('checkout/order');
+		
 		$this->load->model('extension/payment/pp_pro_iframe');
 
 		$data['text_secure_connection'] = $this->language->get('text_secure_connection');

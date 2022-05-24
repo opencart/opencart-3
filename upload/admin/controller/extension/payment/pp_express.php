@@ -1152,6 +1152,7 @@ class ControllerExtensionPaymentPPExpress extends Controller {
 			$this->load->language('extension/payment/pp_express');
 
 			$this->load->model('extension/payment/pp_express');
+			
 			$this->load->model('setting/setting');
 
 			$token = $this->model_extension_payment_pp_express->getTokens('live');
@@ -1179,6 +1180,7 @@ class ControllerExtensionPaymentPPExpress extends Controller {
 			$this->load->language('extension/payment/pp_express');
 
 			$this->load->model('extension/payment/pp_express');
+			
 			$this->load->model('setting/setting');
 
 			$token = $this->model_extension_payment_pp_express->getTokens('sandbox');

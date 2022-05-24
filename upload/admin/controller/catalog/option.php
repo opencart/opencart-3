@@ -426,6 +426,7 @@ class ControllerCatalogOption extends Controller {
 			$this->load->language('catalog/option');
 
 			$this->load->model('catalog/option');
+			
 			$this->load->model('tool/image');
 
 			$filter_data = array(

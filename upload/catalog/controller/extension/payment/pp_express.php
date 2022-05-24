@@ -1073,6 +1073,7 @@ class ControllerExtensionPaymentPPExpress extends Controller {
 			}
 
 			$this->load->model('account/custom_field');
+			
 			$this->load->model('checkout/order');
 
 			$order_id = $this->model_checkout_order->addOrder($data);
@@ -1272,7 +1273,9 @@ class ControllerExtensionPaymentPPExpress extends Controller {
 		}
 
 		$this->load->model('extension/payment/pp_express');
+		
 		$this->load->model('tool/image');
+		
 		$this->load->model('checkout/order');
 
 		if (!isset($this->session->data['order_id'])) {
@@ -1373,6 +1376,7 @@ class ControllerExtensionPaymentPPExpress extends Controller {
 		$this->load->language('extension/payment/pp_express');
 
 		$this->load->model('extension/payment/pp_express');
+		
 		$this->load->model('checkout/order');
 		
 		$post_data = array();
@@ -1602,6 +1606,7 @@ class ControllerExtensionPaymentPPExpress extends Controller {
 
 	public function ipn() {
 		$this->load->model('extension/payment/pp_express');
+		
 		$this->load->model('account/recurring');
 
 		$request = 'cmd=_notify-validate';

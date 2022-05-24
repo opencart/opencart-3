@@ -131,6 +131,7 @@ class ControllerAccountEdit extends Controller {
 		$data['custom_fields'] = array();
 
 		$this->load->model('tool/upload');
+		
 		$this->load->model('account/custom_field');
 
 		$custom_fields = $this->model_account_custom_field->getCustomFields($this->config->get('config_customer_group_id'));

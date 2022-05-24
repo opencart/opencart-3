@@ -425,6 +425,7 @@ class ControllerExtensionModulePayPalSmartButton extends Controller {
 		
 		if ($order_info && !$this->error) {
 			$this->load->model('account/customer');
+			
 			$this->load->model('account/address');
 			
 			unset($this->session->data['shipping_method']);

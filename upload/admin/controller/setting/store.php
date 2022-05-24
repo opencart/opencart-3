@@ -8,6 +8,7 @@ class ControllerSettingStore extends Controller {
 		$this->document->setTitle($this->language->get('heading_title'));
 
 		$this->load->model('setting/store');
+		
 		$this->load->model('setting/setting');
 
 		$this->getList();

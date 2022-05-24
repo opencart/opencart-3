@@ -4,6 +4,7 @@ class ControllerExtensionRecurringSquareup extends Controller {
         $this->load->language('extension/recurring/squareup');
         
         $this->load->model('account/recurring');
+		
         $this->load->model('extension/payment/squareup');
 
         if (isset($this->request->get['order_recurring_id'])) {
@@ -33,6 +34,7 @@ class ControllerExtensionRecurringSquareup extends Controller {
         $this->load->language('extension/recurring/squareup');
         
         $this->load->model('account/recurring');
+		
         $this->load->model('extension/payment/squareup');
         
         if (isset($this->request->get['order_recurring_id'])) {

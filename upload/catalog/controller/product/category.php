@@ -4,7 +4,9 @@ class ControllerProductCategory extends Controller {
 		$this->load->language('product/category');
 
 		$this->load->model('catalog/category');
+		
 		$this->load->model('catalog/product');
+		
 		$this->load->model('tool/image');
 
 		if (isset($this->request->get['filter'])) {

@@ -4,6 +4,7 @@ class ControllerExtensionPaymentFirstdata extends Controller {
 		$this->load->language('extension/payment/firstdata');
 
 		$this->load->model('checkout/order');
+		
 		$this->load->model('extension/payment/firstdata');
 
 		$order_info = $this->model_checkout_order->getOrder($this->session->data['order_id']);
@@ -85,6 +86,7 @@ class ControllerExtensionPaymentFirstdata extends Controller {
 		$this->load->language('extension/payment/firstdata');
 		
 		$this->load->model('extension/payment/firstdata');
+		
 		$this->load->model('checkout/order');
 
 		$message = '';

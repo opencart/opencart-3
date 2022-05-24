@@ -568,6 +568,7 @@ class ControllerSaleVoucher extends Controller {
 
 			if ($vouchers) {
 				$this->load->model('sale/order');
+				
 				$this->load->model('sale/voucher_theme');
 
 				foreach ($vouchers as $voucher_id) {

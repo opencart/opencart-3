@@ -4,6 +4,7 @@ class ControllerExtensionPaymentPilibaba extends Controller {
 		$this->load->language('extension/payment/pilibaba');
 
 		$this->load->model('checkout/order');
+		
 		$this->load->model('extension/payment/pilibaba');
 
 		$this->model_extension_payment_pilibaba->log('Regular called');
@@ -369,6 +370,7 @@ class ControllerExtensionPaymentPilibaba extends Controller {
 		$this->load->language('extension/payment/pilibaba');
 
 		$this->load->model('checkout/order');
+		
 		$this->load->model('extension/payment/pilibaba');
 
 		$this->model_extension_payment_pilibaba->log('Receiving callback');

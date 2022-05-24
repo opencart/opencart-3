@@ -45,6 +45,7 @@ class ControllerExtensionPaymentKlarnaCheckout extends Controller {
 		);
 
 		$this->load->model('extension/payment/klarna_checkout');
+		
 		$this->load->model('catalog/information');
 
 		$data['informations'] = $this->model_catalog_information->getInformations();
@@ -322,6 +323,7 @@ class ControllerExtensionPaymentKlarnaCheckout extends Controller {
 		$this->load->language('extension/payment/klarna_checkout');
 		
 		$this->load->model('sale/order');
+		
 		$this->load->model('extension/payment/klarna_checkout');
 
 		$order_reference = $this->model_extension_payment_klarna_checkout->getOrder($this->request->get['order_id']);
@@ -712,6 +714,7 @@ class ControllerExtensionPaymentKlarnaCheckout extends Controller {
 		$json = array();
 
 		$this->load->model('extension/payment/klarna_checkout');
+		
 		$this->load->model('sale/order');
 
 		$error = array();
@@ -825,6 +828,7 @@ class ControllerExtensionPaymentKlarnaCheckout extends Controller {
 
 	protected function validate() {		
 		$this->load->model('localisation/geo_zone');
+		
 		$this->load->model('extension/payment/klarna_checkout');
 
 		if (version_compare(phpversion(), '7.3', '<')) {

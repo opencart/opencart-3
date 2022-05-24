@@ -117,6 +117,7 @@ class ControllerExtensionCreditCardSagepayServer extends Controller {
 		$this->load->language('extension/payment/sagepay_server');
 		
 		$this->load->model('checkout/order');
+		
 		$this->load->model('extension/payment/sagepay_server');
 
 		$payment_data = array();
@@ -126,6 +127,7 @@ class ControllerExtensionCreditCardSagepayServer extends Controller {
 		} else {
 			$url = 'https://test.sagepay.com/gateway/service/token.vsp';
 		}
+		
 		$payment_data['VPSProtocol'] = '3.00';
 
 		$payment_data['ReferrerID'] = 'E511AF91-E4A0-42DE-80B0-09C981A3FB61';
@@ -161,6 +163,7 @@ class ControllerExtensionCreditCardSagepayServer extends Controller {
 
 	public function callback() {
 		$this->load->model('checkout/order');
+		
 		$this->load->model('extension/payment/sagepay_server');
 
 		$this->model_extension_payment_sagepay_server->logger('Callback data', $this->request->post);

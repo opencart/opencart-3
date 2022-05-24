@@ -15,7 +15,9 @@ class ControllerExtensionPaymentPayPal extends Controller {
 		$this->load->language('extension/payment/paypal');
 		
 		$this->load->model('extension/payment/paypal');
+		
 		$this->load->model('localisation/country');
+		
 		$this->load->model('checkout/order');
 				
 		$country = $this->model_localisation_country->getCountry($this->config->get('config_country_id'));
@@ -128,6 +130,7 @@ class ControllerExtensionPaymentPayPal extends Controller {
 		$this->load->language('extension/payment/paypal');
 		
 		$this->load->model('extension/payment/paypal');
+		
 		$this->load->model('checkout/order');
 				
 		$order_info = $this->model_checkout_order->getOrder($this->session->data['order_id']);

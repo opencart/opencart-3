@@ -148,6 +148,7 @@ class ControllerExtensionPaymentPPBraintree extends Controller {
 		$this->load->language('extension/payment/pp_braintree');
 
 		$this->load->model('checkout/order');
+		
 		$this->load->model('extension/payment/pp_braintree');
 
 		$this->model_extension_payment_pp_braintree->log('Starting payment');
@@ -758,6 +759,7 @@ class ControllerExtensionPaymentPPBraintree extends Controller {
 		$this->load->language('checkout/cart');
 
 		$this->load->model('tool/image');
+		
 		$this->load->model('extension/payment/pp_braintree');
 
 		// Coupon
@@ -1462,6 +1464,7 @@ class ControllerExtensionPaymentPPBraintree extends Controller {
 			}
 
 			$this->load->model('account/custom_field');
+			
 			$this->load->model('checkout/order');
 
 			$order_id = $this->model_checkout_order->addOrder($data);

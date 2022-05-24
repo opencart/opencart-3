@@ -93,6 +93,7 @@ class ControllerExtensionFraudIp extends Controller {
 		$this->load->language('extension/fraud/ip');
 
 		$this->load->model('extension/fraud/ip');
+		
         $this->load->model('customer/customer');
 
 		if (isset($this->request->get['page'])) {

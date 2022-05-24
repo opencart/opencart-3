@@ -14,6 +14,7 @@ class ControllerExtensionModulePPBraintreeButton extends Controller {
 
 			if ($status) {
 				$this->load->model('checkout/order');
+				
 				$this->load->model('extension/payment/pp_braintree');
 
 				$create_token = array();

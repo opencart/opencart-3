@@ -7,6 +7,7 @@ class ControllerExtensionModuleAmazonPay extends Controller {
 		$this->load->language('extension/module/amazon_pay');
 
 		$this->load->model('setting/setting');
+		
 		$this->load->model('design/layout');
 
 		$this->document->setTitle($this->language->get('heading_title'));
@@ -15,7 +16,9 @@ class ControllerExtensionModuleAmazonPay extends Controller {
 			$this->model_setting_setting->editSetting('module_amazon_pay', $this->request->post);
 
 			$this->load->model('setting/event');
+			
 			$this->model_setting_event->deleteEventByCode('amazon_pay');
+			
 			$this->model_setting_event->addEvent('amazon_pay', 'catalog/controller/account/logout/after', 'extension/module/amazon_pay/logout');
 			
 			$this->session->data['success'] = $this->language->get('text_success');

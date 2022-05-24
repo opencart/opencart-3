@@ -101,6 +101,7 @@ class ModelExtensionPaymentWorldpay extends Model {
 
 	public function recurringPayment($item, $order_id_rand, $token) {
 		$this->load->model('extension/payment/worldpay');		
+		
 		$this->load->model('checkout/recurring');		
 		
 		//trial information
@@ -178,6 +179,7 @@ class ModelExtensionPaymentWorldpay extends Model {
 
 	public function cronPayment() {
 		$this->load->model('account/order');
+		
 		$this->load->model('checkout/order');
 		
 		$profiles = $this->getProfiles();

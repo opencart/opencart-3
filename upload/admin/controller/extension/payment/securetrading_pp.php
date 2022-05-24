@@ -6,7 +6,9 @@ class ControllerExtensionPaymentSecureTradingPp extends Controller {
 		$this->load->language('extension/payment/securetrading_pp');
 		
 		$this->load->model('setting/setting');
+		
 		$this->load->model('localisation/geo_zone');
+		
 		$this->load->model('localisation/order_status');
 
 		if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validate()) {

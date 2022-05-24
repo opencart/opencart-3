@@ -2,8 +2,11 @@
 class ControllerExtensionPaymentPPPayflowIframe extends Controller {
 	public function index() {
 		$this->load->model('checkout/order');
+		
 		$this->load->model('extension/payment/pp_payflow_iframe');
+		
 		$this->load->model('localisation/country');
+		
 		$this->load->model('localisation/zone');
 
 		if (!isset($this->session->data['order_id'])) {
@@ -104,6 +107,7 @@ class ControllerExtensionPaymentPPPayflowIframe extends Controller {
 
 	public function paymentIpn() {
 		$this->load->model('extension/payment/pp_payflow_iframe');
+		
 		$this->load->model('checkout/order');
 
 		if ($this->config->get('payment_pp_pro_iframe_debug')) {

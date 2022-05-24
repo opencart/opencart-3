@@ -48,8 +48,11 @@ class ControllerExtensionPaymentSquareup extends Controller {
         $this->load->language('extension/payment/squareup');
 
         $this->load->model('extension/payment/squareup');
+		
         $this->load->model('extension/credit_card/squareup');
+		
         $this->load->model('checkout/order');
+		
         $this->load->model('localisation/country');
 
         $this->load->library('squareup');

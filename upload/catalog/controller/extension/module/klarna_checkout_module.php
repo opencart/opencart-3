@@ -71,7 +71,9 @@ class ControllerExtensionModuleKlarnaCheckoutModule extends Controller {
 
 	private function setShipping() {
 		$this->load->model('account/address');
+		
 		$this->load->model('localisation/country');
+		
 		$this->load->model('localisation/zone');
 
 		if (isset($this->session->data['shipping_address']) && !empty($this->session->data['shipping_address'])) {

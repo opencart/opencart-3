@@ -353,6 +353,7 @@ class ControllerCustomerCustomerGroup extends Controller {
 		}
 
 		$this->load->model('setting/store');
+		
 		$this->load->model('customer/customer');
 
 		foreach ($this->request->post['selected'] as $customer_group_id) {

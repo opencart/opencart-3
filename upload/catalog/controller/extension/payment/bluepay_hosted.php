@@ -2,7 +2,9 @@
 class ControllerExtensionPaymentBluePayHosted extends Controller {
 	public function index() {
 		$this->load->language('extension/payment/bluepay_hosted');
+		
 		$this->load->model('checkout/order');
+		
 		$this->load->model('extension/payment/bluepay_hosted');
 
 		if (!isset($this->session->data['order_id'])) {
@@ -62,6 +64,7 @@ class ControllerExtensionPaymentBluePayHosted extends Controller {
 		$this->load->language('extension/payment/bluepay_hosted');
 
 		$this->load->model('checkout/order');
+		
 		$this->load->model('extension/payment/bluepay_hosted');
 
 		$response_data = $this->request->get;

@@ -1660,6 +1660,7 @@ class ControllerExtensionAdvertiseGoogle extends Controller {
         $this->language->load('extension/advertise/google');
 
         $this->load->model('catalog/product');
+		
         $this->load->model('extension/advertise/google');
 
         $product_id = isset($this->request->get['product_id']) ? (int)$this->request->get['product_id'] : 0;
@@ -1719,6 +1720,7 @@ class ControllerExtensionAdvertiseGoogle extends Controller {
 
     public function addProduct(&$route, &$args, &$output) {
         $this->load->model('extension/advertise/google');
+		
         $this->load->model('catalog/product');
 
         foreach ($this->model_catalog_product->getProductStores($output) as $store_id) {
@@ -1728,6 +1730,7 @@ class ControllerExtensionAdvertiseGoogle extends Controller {
 
     public function copyProduct(&$route, &$args, &$output) {
         $this->load->model('extension/advertise/google');
+		
         $this->load->model('catalog/product');
 
         $final_product_id = $this->model_extension_advertise_google->getFinalProductId();

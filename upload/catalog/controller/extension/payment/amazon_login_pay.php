@@ -97,6 +97,7 @@ class ControllerExtensionPaymentAmazonLoginPay extends Controller {
 
         try {
             $this->load->model('extension/payment/amazon_login_pay');
+			
             $this->load->model('setting/extension');
 
             if (!isset($this->request->get['AmazonOrderReferenceId'])) {
@@ -170,6 +171,7 @@ class ControllerExtensionPaymentAmazonLoginPay extends Controller {
         $this->load->language('extension/payment/amazon_login_pay');
 
         $this->load->model('extension/payment/amazon_login_pay');
+		
         $this->load->model('extension/module/amazon_login');
 
         $json = array(
@@ -507,6 +509,7 @@ class ControllerExtensionPaymentAmazonLoginPay extends Controller {
 		$this->load->language('extension/payment/amazon_login_pay');
 		
         $this->load->model('extension/payment/amazon_login_pay');
+		
         $this->load->model('checkout/order');
 		
         // Verify cart
@@ -557,6 +560,7 @@ class ControllerExtensionPaymentAmazonLoginPay extends Controller {
           $this->load->language('checkout/checkout');
 
           $this->load->model('extension/payment/amazon_login_pay');
+		  
           $this->load->model('checkout/order');
 
           // Verify cart
@@ -666,6 +670,7 @@ class ControllerExtensionPaymentAmazonLoginPay extends Controller {
         $this->load->language('checkout/checkout');
 
         $this->load->model('extension/payment/amazon_login_pay');
+		
         $this->load->model('checkout/order');
 
         // Verify cart
@@ -814,6 +819,7 @@ class ControllerExtensionPaymentAmazonLoginPay extends Controller {
         $this->load->language('checkout/checkout');
 
         $this->load->model('extension/payment/amazon_login_pay');
+		
         $this->load->model('checkout/order');
 
         // Verify cart

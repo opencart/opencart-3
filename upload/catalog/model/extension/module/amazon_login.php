@@ -40,7 +40,9 @@ class ModelExtensionModuleAmazonLogin extends Model {
 
     public function loginProfile($amazon_profile) {
         $this->load->model('account/address');
+		
         $this->load->model('account/customer');
+		
         $this->load->model('account/customer_group');
 
         $customer_info = $this->model_account_customer->getCustomerByEmail((string)$amazon_profile->email);

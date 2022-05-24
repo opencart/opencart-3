@@ -120,6 +120,7 @@ class ModelExtensionPaymentSagePayDirect extends Model {
 
 	public function recurringPayment($item, $vendor_tx_code) {
 		$this->load->model('extension/payment/sagepay_direct');
+		
 		$this->load->model('checkout/recurring');		
 		
 		//trial information

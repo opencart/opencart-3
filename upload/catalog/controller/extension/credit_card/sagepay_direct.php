@@ -230,7 +230,9 @@ class ControllerExtensionCreditCardSagepayDirect extends Controller {
 
 	public function addCard() {
 		$this->load->language('extension/credit_card/sagepay_direct');
+		
 		$this->load->model('checkout/order');
+		
 		$this->load->model('extension/payment/sagepay_direct');
 
 		$payment_data = array();

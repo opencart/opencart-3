@@ -637,6 +637,7 @@ class ControllerSaleOrder extends Controller {
 
 		// Custom Fields
 		$this->load->model('customer/custom_field');
+		
 		$this->load->model('tool/upload');
 
 		$data['custom_fields'] = array();
@@ -1502,6 +1503,7 @@ class ControllerSaleOrder extends Controller {
 		$data['lang'] = $this->language->get('code');
 
 		$this->load->model('sale/order');
+		
 		$this->load->model('setting/setting');
 
 		$data['orders'] = array();
@@ -1509,7 +1511,7 @@ class ControllerSaleOrder extends Controller {
 		$orders = array();
 
 		if (isset($this->request->post['selected'])) {
-			$orders = $this->request->post['selected'];
+			$orders = (array)$this->request->post['selected'];
 		} elseif (isset($this->request->get['order_id'])) {
 			$orders[] = $this->request->get['order_id'];
 		}
@@ -1713,7 +1715,9 @@ class ControllerSaleOrder extends Controller {
 		$data['lang'] = $this->language->get('code');
 
 		$this->load->model('sale/order');
+		
 		$this->load->model('catalog/product');
+		
 		$this->load->model('setting/setting');
 
 		$data['orders'] = array();

@@ -109,6 +109,7 @@ class ControllerExtensionReportCustomerSearch extends Controller {
 		}
 
 		$this->load->model('extension/report/customer');
+		
 		$this->load->model('catalog/category');
 
 		$data['searches'] = array();

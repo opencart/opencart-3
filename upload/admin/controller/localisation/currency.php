@@ -426,6 +426,7 @@ class ControllerLocalisationCurrency extends Controller {
 		}
 
 		$this->load->model('setting/store');
+		
 		$this->load->model('sale/order');
 
 		foreach ($this->request->post['selected'] as $currency_id) {

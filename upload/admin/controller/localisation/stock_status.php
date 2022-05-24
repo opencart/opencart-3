@@ -331,6 +331,7 @@ class ControllerLocalisationStockStatus extends Controller {
 		}
 
 		$this->load->model('setting/store');
+		
 		$this->load->model('catalog/product');
 
 		foreach ($this->request->post['selected'] as $stock_status_id) {

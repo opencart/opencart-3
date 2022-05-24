@@ -42,6 +42,7 @@ class ControllerExtensionPaymentFirstdataRemote extends Controller {
 		$this->load->language('extension/payment/firstdata_remote');
 		
 		$this->load->model('checkout/order');
+		
 		$this->load->model('extension/payment/firstdata_remote');		
 
 		$address_codes = array(

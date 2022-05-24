@@ -755,6 +755,7 @@ class ControllerCustomerCustomer extends Controller {
 
 		// Custom Fields
 		$this->load->model('customer/custom_field');
+		
 		$this->load->model('tool/upload');
 
 		$data['custom_fields'] = array();

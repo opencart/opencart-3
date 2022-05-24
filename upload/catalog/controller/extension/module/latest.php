@@ -4,6 +4,7 @@ class ControllerExtensionModuleLatest extends Controller {
 		$this->load->language('extension/module/latest');
 
 		$this->load->model('catalog/product');
+		
 		$this->load->model('tool/image');
 
 		$data['products'] = array();

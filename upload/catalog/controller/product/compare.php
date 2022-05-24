@@ -4,6 +4,7 @@ class ControllerProductCompare extends Controller {
 		$this->load->language('product/compare');
 
 		$this->load->model('catalog/product');
+		
 		$this->load->model('tool/image');
 
 		if (!isset($this->session->data['compare'])) {

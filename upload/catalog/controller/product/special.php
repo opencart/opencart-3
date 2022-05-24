@@ -4,6 +4,7 @@ class ControllerProductSpecial extends Controller {
 		$this->load->language('product/special');
 
 		$this->load->model('catalog/product');
+		
 		$this->load->model('tool/image');
 
 		if (isset($this->request->get['sort'])) {

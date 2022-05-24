@@ -34,7 +34,9 @@ class ControllerExtensionPaymentWorldpay extends Controller {
 	public function send() {
 		$this->load->language('extension/payment/worldpay');
 		$this->load->model('checkout/order');
+		
 		$this->load->model('localisation/country');
+		
 		$this->load->model('extension/payment/worldpay');
 
 		if (!isset($this->session->data['order_id'])) {

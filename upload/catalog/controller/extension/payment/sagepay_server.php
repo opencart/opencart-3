@@ -57,6 +57,7 @@ class ControllerExtensionPaymentSagepayServer extends Controller {
 		}
 
 		$this->load->model('checkout/order');
+		
 		$this->load->model('extension/payment/sagepay_server');
 
 		if (!isset($this->session->data['order_id'])) {
@@ -203,10 +204,12 @@ class ControllerExtensionPaymentSagepayServer extends Controller {
 
 	public function callback() {
 		$this->load->model('checkout/order');
+		
 		$this->load->model('extension/payment/sagepay_server');
 
 		$success_page = $this->url->link('extension/payment/sagepay_server/success', '', true);
 		$error_page = $this->url->link('extension/payment/sagepay_server/failure', '', true);
+		
 		$end_ln = chr(13) . chr(10);
 
 		if (isset($this->request->post['VendorTxCode'])) {
@@ -433,7 +436,9 @@ class ControllerExtensionPaymentSagepayServer extends Controller {
 
 	public function success() {
 		$this->load->model('checkout/order');
+		
 		$this->load->model('extension/payment/sagepay_server');
+		
 		$this->load->model('checkout/recurring');
 
 		if (isset($this->session->data['order_id'])) {

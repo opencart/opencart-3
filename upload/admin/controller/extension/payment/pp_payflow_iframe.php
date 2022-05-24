@@ -182,6 +182,7 @@ class ControllerExtensionPaymentPPPayflowIframe extends Controller {
 		$this->load->language('extension/payment/pp_payflow_iframe');
 		
 		$this->load->model('extension/payment/pp_payflow_iframe');
+		
 		$this->load->model('sale/order');		
 
 		$transaction = $this->model_extension_payment_pp_payflow_iframe->getTransaction($this->request->get['transaction_reference']);
@@ -277,6 +278,7 @@ class ControllerExtensionPaymentPPPayflowIframe extends Controller {
 		$this->load->language('extension/payment/pp_payflow_iframe');
 		
 		$this->load->model('extension/payment/pp_payflow_iframe');
+		
 		$this->load->model('sale/order');
 
 		if (isset($this->request->post['order_id']) && isset($this->request->post['amount']) && isset($this->request->post['complete'])) {

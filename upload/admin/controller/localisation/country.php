@@ -373,8 +373,11 @@ class ControllerLocalisationCountry extends Controller {
 		}
 
 		$this->load->model('setting/store');
+		
 		$this->load->model('customer/customer');
+		
 		$this->load->model('localisation/zone');
+		
 		$this->load->model('localisation/geo_zone');
 
 		foreach ($this->request->post['selected'] as $country_id) {

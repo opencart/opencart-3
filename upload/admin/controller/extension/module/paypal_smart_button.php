@@ -6,6 +6,7 @@ class ControllerExtensionModulePayPalSmartButton extends Controller {
 		$this->load->language('extension/module/paypal_smart_button');
 
 		$this->load->model('extension/module/paypal_smart_button');
+		
 		$this->load->model('setting/setting');
 
 		$this->document->setTitle($this->language->get('heading_title'));
@@ -72,6 +73,7 @@ class ControllerExtensionModulePayPalSmartButton extends Controller {
 
 	public function install() {
 		$this->load->model('extension/module/paypal_smart_button');
+		
 		$this->load->model('setting/setting');
 
 		$this->model_extension_module_paypal_smart_button->install();

@@ -9,6 +9,7 @@ class ControllerExtensionPaymentAmazonLoginPay extends Controller {
 		$this->document->setTitle($this->language->get('heading_title'));
 		
 		$this->load->model('setting/setting');
+		
 		$this->load->model('extension/payment/amazon_login_pay');
 
 		$this->model_extension_payment_amazon_login_pay->install();
@@ -19,6 +20,7 @@ class ControllerExtensionPaymentAmazonLoginPay extends Controller {
 			$this->model_setting_setting->editSetting('payment_amazon_login_pay', $this->request->post);
 
 			$this->model_extension_payment_amazon_login_pay->deleteEvents();
+			
 			$this->model_extension_payment_amazon_login_pay->addEvents();
 
 			$this->session->data['success'] = $this->language->get('text_success');
@@ -376,6 +378,7 @@ class ControllerExtensionPaymentAmazonLoginPay extends Controller {
 
 	public function uninstall() {
 		$this->load->model('extension/payment/amazon_login_pay');
+		
 		$this->load->model('setting/event');
 		
 		$this->model_extension_payment_amazon_login_pay->uninstall();
@@ -442,6 +445,7 @@ class ControllerExtensionPaymentAmazonLoginPay extends Controller {
 			}
 		} else {
 			$json['error'] = true;
+			
 			$json['msg'] = $this->language->get('error_data_missing');
 		}
 
@@ -480,10 +484,13 @@ class ControllerExtensionPaymentAmazonLoginPay extends Controller {
 
 				if ($total_captured >= (double)$amazon_login_pay_order['total']) {
 					$this->model_extension_payment_amazon_login_pay->updateCaptureStatus($amazon_login_pay_order['amazon_login_pay_order_id'], 1);
+					
 					$capture_status = 1;
+					
 					$json['msg'] = $this->language->get('text_capture_ok_order');
 				} else {
 					$capture_status = 0;
+					
 					$json['msg'] = $this->language->get('text_capture_ok');
 				}
 
@@ -501,10 +508,12 @@ class ControllerExtensionPaymentAmazonLoginPay extends Controller {
 				$json['error'] = false;
 			} else {
 				$json['error'] = true;
+				
 				$json['msg'] = isset($capture_response['status_detail']) && !empty($capture_response['status_detail']) ? (string)$capture_response['status_detail'] : 'Unable to capture';
 			}
 		} else {
 			$json['error'] = true;
+			
 			$json['msg'] = $this->language->get('error_data_missing');
 		}
 
@@ -564,10 +573,12 @@ class ControllerExtensionPaymentAmazonLoginPay extends Controller {
 			}
 			
 			$json['refund_status'] = $refund_status;
+			
 			$json['total_captured'] = $this->currency->format($total_captured, $amazon_login_pay_order['currency_code'], true, true);
 			$json['total_refunded'] = $this->currency->format($total_refunded, $amazon_login_pay_order['currency_code'], true, true);
 		} else {
 			$json['error'] = true;
+			
 			$json['error_msg'][] = $this->language->get('error_data_missing');
 		}		
 		

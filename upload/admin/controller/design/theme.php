@@ -51,6 +51,7 @@ class ControllerDesignTheme extends Controller {
 		$data['histories'] = array();
 
 		$this->load->model('design/theme');
+		
 		$this->load->model('setting/store');
 
 		$history_total = $this->model_design_theme->getTotalThemes();

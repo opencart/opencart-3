@@ -67,6 +67,7 @@ class ControllerExtensionPaymentRealexRemote extends Controller {
 		$json = array();
 		
 		$this->load->model('checkout/order');
+		
 		$this->load->model('extension/payment/realex_remote');
 
 		if ($this->request->post['cc_number'] == '') {
@@ -240,6 +241,7 @@ class ControllerExtensionPaymentRealexRemote extends Controller {
 	public function acsReturn() {
 		if (isset($this->session->data['order_id'])) {
 			$this->load->model('checkout/order');
+			
 			$this->load->model('extension/payment/realex_remote');
 
 			$post = $this->request->post;

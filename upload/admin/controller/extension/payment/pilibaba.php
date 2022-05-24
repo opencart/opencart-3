@@ -8,6 +8,7 @@ class ControllerExtensionPaymentPilibaba extends Controller {
 		$this->document->setTitle($this->language->get('heading_title'));
 		
 		$this->load->model('setting/setting');
+		
 		$this->load->model('extension/payment/pilibaba');
 
 		if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validate()) {

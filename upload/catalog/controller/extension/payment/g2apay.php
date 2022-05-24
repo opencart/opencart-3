@@ -10,7 +10,9 @@ class ControllerExtensionPaymentG2APay extends Controller {
 
 	public function checkout() {
 		$this->load->model('checkout/order');
+		
 		$this->load->model('account/order');
+		
 		$this->load->model('extension/payment/g2apay');
 
 		if (!isset($this->session->data['order_id'])) {
@@ -154,6 +156,7 @@ class ControllerExtensionPaymentG2APay extends Controller {
 
 	public function ipn() {
 		$this->load->model('extension/payment/g2apay');
+		
 		$this->load->model('checkout/order');
 		
 		$this->model_extension_payment_g2apay->logger('ipn');

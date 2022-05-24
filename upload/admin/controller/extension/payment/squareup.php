@@ -6,6 +6,7 @@ class ControllerExtensionPaymentSquareup extends Controller {
         $this->load->language('extension/payment/squareup');
 
         $this->load->model('extension/payment/squareup');
+		
         $this->load->model('setting/setting');
 
         $this->load->library('squareup');

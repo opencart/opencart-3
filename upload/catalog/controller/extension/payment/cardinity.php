@@ -32,6 +32,7 @@ class ControllerExtensionPaymentCardinity extends Controller {
 		$json = array();
 		
 		$this->load->model('checkout/order');
+		
 		$this->load->model('extension/payment/cardinity');		
 
 		$json['error'] = $json['success'] = $json['3ds'] = '';
@@ -238,6 +239,7 @@ class ControllerExtensionPaymentCardinity extends Controller {
 
 	private function validate() {
 		$this->load->model('checkout/order');
+		
 		$this->load->model('extension/payment/cardinity');
 
 		$error = array();

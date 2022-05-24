@@ -75,6 +75,7 @@ class ControllerExtensionExtensionTheme extends Controller {
 		}
 
 		$this->load->model('setting/store');
+		
 		$this->load->model('setting/setting');
 
 		$stores = $this->model_setting_store->getStores();

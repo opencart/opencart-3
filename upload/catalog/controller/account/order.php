@@ -233,6 +233,7 @@ class ControllerAccountOrder extends Controller {
 			$data['shipping_method'] = $order_info['shipping_method'];
 
 			$this->load->model('catalog/product');
+			
 			$this->load->model('tool/upload');
 
 			// Products
