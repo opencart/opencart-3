@@ -774,10 +774,10 @@ class ControllerExtensionPaymentSquareup extends Controller {
                 $comment = sprintf($this->language->get('text_refunded_amount'), $refunded_amount, $last_refund['status'], $last_refund['reason']);
 
                 $json['order_history_data'] = array(
-                    'notify' => 1,
-                    'order_id' => $transaction_info['order_id'],
-                    'order_status_id' => $this->model_extension_payment_squareup->getOrderStatusId($transaction_info['order_id']),
-                    'comment' => $comment,
+                    'notify' 			=> 1,
+                    'order_id' 			=> $transaction_info['order_id'],
+                    'order_status_id' 	=> $this->model_extension_payment_squareup->getOrderStatusId($transaction_info['order_id']),
+                    'comment' 			=> $comment,
                 );
 
                 $json['success'] = $this->language->get('text_success_refund');

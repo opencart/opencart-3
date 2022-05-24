@@ -64,8 +64,8 @@ class ControllerExtensionPaymentPayPal extends Controller {
 			require_once DIR_SYSTEM . 'library/paypal/paypal.php';
 			
 			$paypal_info = array(
-				'client_id' => $this->session->data['shared_id'],
-				'environment' => $environment
+				'client_id' 	=> $this->session->data['shared_id'],
+				'environment' 	=> $environment
 			);
 					
 			$paypal = new \PayPal($paypal_info);
@@ -151,12 +151,12 @@ class ControllerExtensionPaymentPayPal extends Controller {
 		
 		$data['configure_url'] = array(
 			'production' => array(
-				'ppcp' => 'https://www.paypal.com/bizsignup/partner/entry?partnerId=' . $data['setting']['partner']['production']['partner_id'] . '&partnerClientId=' . $data['setting']['partner']['production']['client_id'] . '&features=PAYMENT,REFUND&product=ppcp&integrationType=FO&returnToPartnerUrl=' . $data['partner_url'] . '&displayMode=minibrowser&sellerNonce=' . $data['seller_nonce'],
-				'express_checkout' => 'https://www.paypal.com/bizsignup/partner/entry?partnerId=' . $data['setting']['partner']['production']['partner_id'] . '&partnerClientId=' . $data['setting']['partner']['production']['client_id'] . '&features=PAYMENT,REFUND&product=EXPRESS_CHECKOUT&integrationType=FO&returnToPartnerUrl=' . $data['partner_url'] . '&displayMode=minibrowser&sellerNonce=' . $data['seller_nonce']
+				'ppcp' 				=> 'https://www.paypal.com/bizsignup/partner/entry?partnerId=' . $data['setting']['partner']['production']['partner_id'] . '&partnerClientId=' . $data['setting']['partner']['production']['client_id'] . '&features=PAYMENT,REFUND&product=ppcp&integrationType=FO&returnToPartnerUrl=' . $data['partner_url'] . '&displayMode=minibrowser&sellerNonce=' . $data['seller_nonce'],
+				'express_checkout' 	=> 'https://www.paypal.com/bizsignup/partner/entry?partnerId=' . $data['setting']['partner']['production']['partner_id'] . '&partnerClientId=' . $data['setting']['partner']['production']['client_id'] . '&features=PAYMENT,REFUND&product=EXPRESS_CHECKOUT&integrationType=FO&returnToPartnerUrl=' . $data['partner_url'] . '&displayMode=minibrowser&sellerNonce=' . $data['seller_nonce']
 			),
 			'sandbox' => array(
-				'ppcp' => 'https://www.sandbox.paypal.com/bizsignup/partner/entry?partnerId=' . $data['setting']['partner']['sandbox']['partner_id'] . '&partnerClientId=' . $data['setting']['partner']['sandbox']['client_id'] . '&features=PAYMENT,REFUND&product=ppcp&integrationType=FO&returnToPartnerUrl=' . $data['partner_url'] . '&displayMode=minibrowser&sellerNonce=' . $data['seller_nonce'],
-				'express_checkout' => 'https://www.sandbox.paypal.com/bizsignup/partner/entry?partnerId=' . $data['setting']['partner']['sandbox']['partner_id'] . '&partnerClientId=' . $data['setting']['partner']['sandbox']['client_id'] . '&features=PAYMENT,REFUND&product=EXPRESS_CHECKOUT&integrationType=FO&returnToPartnerUrl=' . $data['partner_url'] . '&displayMode=minibrowser&sellerNonce=' . $data['seller_nonce']
+				'ppcp' 				=> 'https://www.sandbox.paypal.com/bizsignup/partner/entry?partnerId=' . $data['setting']['partner']['sandbox']['partner_id'] . '&partnerClientId=' . $data['setting']['partner']['sandbox']['client_id'] . '&features=PAYMENT,REFUND&product=ppcp&integrationType=FO&returnToPartnerUrl=' . $data['partner_url'] . '&displayMode=minibrowser&sellerNonce=' . $data['seller_nonce'],
+				'express_checkout' 	=> 'https://www.sandbox.paypal.com/bizsignup/partner/entry?partnerId=' . $data['setting']['partner']['sandbox']['partner_id'] . '&partnerClientId=' . $data['setting']['partner']['sandbox']['client_id'] . '&features=PAYMENT,REFUND&product=EXPRESS_CHECKOUT&integrationType=FO&returnToPartnerUrl=' . $data['partner_url'] . '&displayMode=minibrowser&sellerNonce=' . $data['seller_nonce']
 			)
 		);
 		
@@ -264,9 +264,9 @@ class ControllerExtensionPaymentPayPal extends Controller {
 			require_once DIR_SYSTEM . 'library/paypal/paypal.php';
 			
 			$paypal_info = array(
-				'client_id' => $data['client_id'],
-				'secret' => $data['secret'],
-				'environment' => $data['environment']
+				'client_id' 	=> $data['client_id'],
+				'secret' 		=> $data['secret'],
+				'environment' 	=> $data['environment']
 			);
 		
 			$paypal = new \PayPal($paypal_info);
@@ -344,9 +344,9 @@ class ControllerExtensionPaymentPayPal extends Controller {
 		require_once DIR_SYSTEM . 'library/paypal/paypal.php';
 		
 		$paypal_info = array(
-			'client_id' => $this->request->post['payment_paypal_client_id'],
-			'secret' => $this->request->post['payment_paypal_secret'],
-			'environment' => $this->request->post['payment_paypal_environment']
+			'client_id' 	=> $this->request->post['payment_paypal_client_id'],
+			'secret' 		=> $this->request->post['payment_paypal_secret'],
+			'environment' 	=> $this->request->post['payment_paypal_environment']
 		);
 		
 		$paypal = new \PayPal($paypal_info);

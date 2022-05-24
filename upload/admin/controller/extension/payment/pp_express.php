@@ -292,7 +292,7 @@ class ControllerExtensionPaymentPPExpress extends Controller {
 			$curl = curl_init($this->opencart_retrieve_url);
 
 			$post_data = array(
-				'merchant_id' => $this->request->get['merchant_id'],
+				'merchant_id' 	=> $this->request->get['merchant_id'],
 				'retrieve_code' => $this->request->get['retrieve_code'],
 			);
 
@@ -344,8 +344,8 @@ class ControllerExtensionPaymentPPExpress extends Controller {
 		$country = $this->model_localisation_country->getCountry($this->config->get('config_country_id'));
 
 		$post_data = array(
-			'return_url' => $this->url->link('extension/payment/pp_express', 'user_token=' . $this->session->data['user_token'], true),
-			'store_url' => HTTPS_CATALOG,
+			'return_url' 	=> $this->url->link('extension/payment/pp_express', 'user_token=' . $this->session->data['user_token'], true),
+			'store_url' 	=> HTTPS_CATALOG,
 			'store_version' => VERSION,
 			'store_country' => (isset($country['iso_code_3']) ? $country['iso_code_3'] : ''),
 		);
@@ -363,11 +363,13 @@ class ControllerExtensionPaymentPPExpress extends Controller {
 		curl_setopt($curl, CURLOPT_POSTFIELDS, http_build_query($post_data));
 
 		$curl_response = curl_exec($curl);
+		
 		$curl_response = json_decode($curl_response, true);
 
 		curl_close($curl);
 
 		$data['auth_connect_url_sandbox'] = '';
+		
 		if (isset($curl_response['url']) && !empty($curl_response['url'])) {
 			$data['auth_connect_url_sandbox'] = $curl_response['url'];
 		}
@@ -385,6 +387,7 @@ class ControllerExtensionPaymentPPExpress extends Controller {
 		curl_setopt($curl, CURLOPT_POSTFIELDS, http_build_query($post_data));
 
 		$curl_response = curl_exec($curl);
+		
 		$curl_response = json_decode($curl_response, true);
 
 		curl_close($curl);
@@ -704,18 +707,18 @@ class ControllerExtensionPaymentPPExpress extends Controller {
 					$result = $this->model_extension_payment_pp_express->call($call_data);
 					
 					$transaction = array(
-						'paypal_order_id' => $paypal_order['paypal_order_id'],
-						'transaction_id' => '',
+						'paypal_order_id' 		=> $paypal_order['paypal_order_id'],
+						'transaction_id' 		=> '',
 						'parent_transaction_id' => $this->request->post['transaction_id'],
-						'note' => $this->request->post['refund_message'],
-						'msgsubid' => $call_data['MSGSUBID'],
-						'receipt_id' => '',
-						'payment_type' => '',
-						'payment_status' => 'Refunded',
-						'transaction_entity' => 'payment',
-						'pending_reason' => '',
-						'amount' => '-' . (isset($call_data['AMT']) ? $call_data['AMT'] : $current_transaction['amount']),
-						'debug_data' => json_encode($result)
+						'note' 					=> $this->request->post['refund_message'],
+						'msgsubid' 				=> $call_data['MSGSUBID'],
+						'receipt_id' 			=> '',
+						'payment_type' 			=> '',
+						'payment_status' 		=> 'Refunded',
+						'transaction_entity' 	=> 'payment',
+						'pending_reason' 		=> '',
+						'amount' 				=> '-' . (isset($call_data['AMT']) ? $call_data['AMT'] : $current_transaction['amount']),
+						'debug_data' 			=> json_encode($result)
 					);
 
 					if ($result == false) {
