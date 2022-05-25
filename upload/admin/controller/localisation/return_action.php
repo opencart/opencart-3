@@ -332,7 +332,7 @@ class ControllerLocalisationReturnAction extends Controller {
 
 		$this->load->model('sale/returns');
 
-		foreach ($this->request->post['selected'] as $return_action_id) {
+		foreach ((array)$this->request->post['selected'] as $return_action_id) {
 			$return_total = $this->model_sale_returns->getTotalReturnsByReturnActionId($return_action_id);
 
 			if ($return_total) {
