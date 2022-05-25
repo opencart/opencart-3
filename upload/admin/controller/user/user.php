@@ -84,7 +84,7 @@ class ControllerUserUser extends Controller {
 		$this->load->model('user/user');
 
 		if (isset($this->request->post['selected']) && $this->validateDelete()) {
-			foreach ($this->request->post['selected'] as $user_id) {
+			foreach ((array)$this->request->post['selected'] as $user_id) {
 				$this->model_user_user->deleteUser($user_id);
 			}
 
@@ -484,7 +484,7 @@ class ControllerUserUser extends Controller {
 			$this->error['warning'] = $this->language->get('error_permission');
 		}
 
-		foreach ($this->request->post['selected'] as $user_id) {
+		foreach ((array)$this->request->post['selected'] as $user_id) {
 			if ($this->user->getId() == $user_id) {
 				$this->error['warning'] = $this->language->get('error_account');
 			}

@@ -84,7 +84,7 @@ class ControllerLocalisationGeoZone extends Controller {
 		$this->load->model('localisation/geo_zone');
 
 		if (isset($this->request->post['selected']) && $this->validateDelete()) {
-			foreach ($this->request->post['selected'] as $geo_zone_id) {
+			foreach ((array)$this->request->post['selected'] as $geo_zone_id) {
 				$this->model_localisation_geo_zone->deleteGeoZone($geo_zone_id);
 			}
 
@@ -364,7 +364,7 @@ class ControllerLocalisationGeoZone extends Controller {
 
 		$this->load->model('localisation/tax_rate');
 
-		foreach ($this->request->post['selected'] as $geo_zone_id) {
+		foreach ((array)$this->request->post['selected'] as $geo_zone_id) {
 			$tax_rate_total = $this->model_localisation_tax_rate->getTotalTaxRatesByGeoZoneId($geo_zone_id);
 
 			if ($tax_rate_total) {

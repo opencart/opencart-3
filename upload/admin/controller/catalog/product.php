@@ -124,7 +124,7 @@ class ControllerCatalogProduct extends Controller {
 		$this->load->model('catalog/product');
 
 		if (isset($this->request->post['selected']) && $this->validateDelete()) {
-			foreach ($this->request->post['selected'] as $product_id) {
+			foreach ((array)$this->request->post['selected'] as $product_id) {
 				$this->model_catalog_product->deleteProduct($product_id);
 			}
 
@@ -178,7 +178,7 @@ class ControllerCatalogProduct extends Controller {
 		$this->load->model('catalog/product');
 
 		if (isset($this->request->post['selected']) && $this->validateCopy()) {
-			foreach ($this->request->post['selected'] as $product_id) {
+			foreach ((array)$this->request->post['selected'] as $product_id) {
 				$this->model_catalog_product->copyProduct($product_id);
 			}
 

@@ -84,7 +84,7 @@ class ControllerLocalisationCountry extends Controller {
 		$this->load->model('localisation/country');
 
 		if (isset($this->request->post['selected']) && $this->validateDelete()) {
-			foreach ($this->request->post['selected'] as $country_id) {
+			foreach ((array)$this->request->post['selected'] as $country_id) {
 				$this->model_localisation_country->deleteCountry($country_id);
 			}
 
@@ -380,7 +380,7 @@ class ControllerLocalisationCountry extends Controller {
 		
 		$this->load->model('localisation/geo_zone');
 
-		foreach ($this->request->post['selected'] as $country_id) {
+		foreach ((array)$this->request->post['selected'] as $country_id) {
 			if ($this->config->get('config_country_id') == $country_id) {
 				$this->error['warning'] = $this->language->get('error_default');
 			}

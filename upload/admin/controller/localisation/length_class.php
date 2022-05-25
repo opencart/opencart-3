@@ -84,7 +84,7 @@ class ControllerLocalisationLengthClass extends Controller {
 		$this->load->model('localisation/length_class');
 
 		if (isset($this->request->post['selected']) && $this->validateDelete()) {
-			foreach ($this->request->post['selected'] as $length_class_id) {
+			foreach ((array)$this->request->post['selected'] as $length_class_id) {
 				$this->model_localisation_length_class->deleteLengthClass($length_class_id);
 			}
 
@@ -358,7 +358,7 @@ class ControllerLocalisationLengthClass extends Controller {
 
 		$this->load->model('catalog/product');
 
-		foreach ($this->request->post['selected'] as $length_class_id) {
+		foreach ((array)$this->request->post['selected'] as $length_class_id) {
 			if ($this->config->get('config_length_class_id') == $length_class_id) {
 				$this->error['warning'] = $this->language->get('error_default');
 			}

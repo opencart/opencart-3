@@ -84,7 +84,7 @@ class ControllerCatalogAttribute extends Controller {
 		$this->load->model('catalog/attribute');
 
 		if (isset($this->request->post['selected']) && $this->validateDelete()) {
-			foreach ($this->request->post['selected'] as $attribute_id) {
+			foreach ((array)$this->request->post['selected'] as $attribute_id) {
 				$this->model_catalog_attribute->deleteAttribute($attribute_id);
 			}
 
@@ -370,7 +370,7 @@ class ControllerCatalogAttribute extends Controller {
 
 		$this->load->model('catalog/product');
 
-		foreach ($this->request->post['selected'] as $attribute_id) {
+		foreach ((array)$this->request->post['selected'] as $attribute_id) {
 			$product_total = $this->model_catalog_product->getTotalProductsByAttributeId($attribute_id);
 
 			if ($product_total) {

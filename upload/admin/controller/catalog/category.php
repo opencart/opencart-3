@@ -84,7 +84,7 @@ class ControllerCatalogCategory extends Controller {
 		$this->load->model('catalog/category');
 
 		if (isset($this->request->post['selected']) && $this->validateDelete()) {
-			foreach ($this->request->post['selected'] as $category_id) {
+			foreach ((array)$this->request->post['selected'] as $category_id) {
 				$this->model_catalog_category->deleteCategory($category_id);
 			}
 

@@ -84,7 +84,7 @@ class ControllerDesignBanner extends Controller {
 		$this->load->model('design/banner');
 
 		if (isset($this->request->post['selected']) && $this->validateDelete()) {
-			foreach ($this->request->post['selected'] as $banner_id) {
+			foreach ((array)$this->request->post['selected'] as $banner_id) {
 				$this->model_design_banner->deleteBanner($banner_id);
 			}
 

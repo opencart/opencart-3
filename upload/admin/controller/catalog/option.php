@@ -84,7 +84,7 @@ class ControllerCatalogOption extends Controller {
 		$this->load->model('catalog/option');
 
 		if (isset($this->request->post['selected']) && $this->validateDelete()) {
-			foreach ($this->request->post['selected'] as $option_id) {
+			foreach ((array)$this->request->post['selected'] as $option_id) {
 				$this->model_catalog_option->deleteOption($option_id);
 			}
 
@@ -408,7 +408,7 @@ class ControllerCatalogOption extends Controller {
 
 		$this->load->model('catalog/product');
 
-		foreach ($this->request->post['selected'] as $option_id) {
+		foreach ((array)$this->request->post['selected'] as $option_id) {
 			$product_total = $this->model_catalog_product->getTotalProductsByOptionId($option_id);
 
 			if ($product_total) {

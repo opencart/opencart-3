@@ -84,7 +84,7 @@ class ControllerUserApi extends Controller {
 		$this->load->model('user/api');
 
 		if (isset($this->request->post['selected']) && $this->validateDelete()) {
-			foreach ($this->request->post['selected'] as $api_id) {
+			foreach ((array)$this->request->post['selected'] as $api_id) {
 				$this->model_user_api->deleteApi($api_id);
 			}
 

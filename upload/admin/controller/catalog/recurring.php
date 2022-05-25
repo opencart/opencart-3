@@ -84,7 +84,7 @@ class ControllerCatalogRecurring extends Controller {
 		$this->load->model('catalog/recurring');
 
 		if (isset($this->request->post['selected']) && $this->validateDelete()) {
-			foreach ($this->request->post['selected'] as $recurring_id) {
+			foreach ((array)$this->request->post['selected'] as $recurring_id) {
 				$this->model_catalog_recurring->deleteRecurring($recurring_id);
 			}
 
@@ -118,7 +118,7 @@ class ControllerCatalogRecurring extends Controller {
 		$this->load->model('catalog/recurring');
 
 		if (isset($this->request->post['selected']) && $this->validateCopy()) {
-			foreach ($this->request->post['selected'] as $recurring_id) {
+			foreach ((array)$this->request->post['selected'] as $recurring_id) {
 				$this->model_catalog_recurring->copyRecurring($recurring_id);
 			}
 
@@ -493,7 +493,7 @@ class ControllerCatalogRecurring extends Controller {
 
 		$this->load->model('catalog/product');
 
-		foreach ($this->request->post['selected'] as $recurring_id) {
+		foreach ((array)$this->request->post['selected'] as $recurring_id) {
 			$product_total = $this->model_catalog_product->getTotalProductsByProfileId($recurring_id);
 
 			if ($product_total) {

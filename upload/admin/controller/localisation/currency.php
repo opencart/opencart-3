@@ -84,7 +84,7 @@ class ControllerLocalisationCurrency extends Controller {
 		$this->load->model('localisation/currency');
 
 		if (isset($this->request->post['selected']) && $this->validateDelete()) {
-			foreach ($this->request->post['selected'] as $currency_id) {
+			foreach ((array)$this->request->post['selected'] as $currency_id) {
 				$this->model_localisation_currency->deleteCurrency($currency_id);
 			}
 
@@ -429,7 +429,7 @@ class ControllerLocalisationCurrency extends Controller {
 		
 		$this->load->model('sale/order');
 
-		foreach ($this->request->post['selected'] as $currency_id) {
+		foreach ((array)$this->request->post['selected'] as $currency_id) {
 			$currency_info = $this->model_localisation_currency->getCurrency($currency_id);
 
 			if ($currency_info) {

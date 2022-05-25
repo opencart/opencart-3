@@ -84,7 +84,7 @@ class ControllerCatalogInformation extends Controller {
 		$this->load->model('catalog/information');
 
 		if (isset($this->request->post['selected']) && $this->validateDelete()) {
-			foreach ($this->request->post['selected'] as $information_id) {
+			foreach ((array)$this->request->post['selected'] as $information_id) {
 				$this->model_catalog_information->deleteInformation($information_id);
 			}
 
@@ -462,7 +462,7 @@ class ControllerCatalogInformation extends Controller {
 
 		$this->load->model('setting/store');
 
-		foreach ($this->request->post['selected'] as $information_id) {
+		foreach ((array)$this->request->post['selected'] as $information_id) {
 			if ($this->config->get('config_account_id') == $information_id) {
 				$this->error['warning'] = $this->language->get('error_account');
 			}

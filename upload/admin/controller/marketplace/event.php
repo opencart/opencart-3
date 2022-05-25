@@ -84,7 +84,7 @@ class ControllerMarketplaceEvent extends Controller {
 		$this->load->model('setting/event');
 
 		if (isset($this->request->post['selected']) && $this->validate()) {
-			foreach ($this->request->post['selected'] as $event_id) {
+			foreach ((array)$this->request->post['selected'] as $event_id) {
 				$this->model_setting_event->deleteEvent($event_id);
 			}
 

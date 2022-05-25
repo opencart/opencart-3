@@ -84,7 +84,7 @@ class ControllerLocalisationReturnAction extends Controller {
 		$this->load->model('localisation/return_action');
 
 		if (isset($this->request->post['selected']) && $this->validateDelete()) {
-			foreach ($this->request->post['selected'] as $return_action_id) {
+			foreach ((array)$this->request->post['selected'] as $return_action_id) {
 				$this->model_localisation_return_action->deleteReturnAction($return_action_id);
 			}
 

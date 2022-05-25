@@ -108,7 +108,7 @@ class ControllerMarketingMarketing extends Controller {
 		$this->load->model('marketing/marketing');
 
 		if (isset($this->request->post['selected']) && $this->validateDelete()) {
-			foreach ($this->request->post['selected'] as $marketing_id) {
+			foreach ((array)$this->request->post['selected'] as $marketing_id) {
 				$this->model_marketing_marketing->deleteMarketing($marketing_id);
 			}
 

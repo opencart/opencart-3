@@ -84,7 +84,7 @@ class ControllerLocalisationReturnReason extends Controller {
 		$this->load->model('localisation/return_reason');
 
 		if (isset($this->request->post['selected']) && $this->validateDelete()) {
-			foreach ($this->request->post['selected'] as $return_reason_id) {
+			foreach ((array)$this->request->post['selected'] as $return_reason_id) {
 				$this->model_localisation_return_reason->deleteReturnReason($return_reason_id);
 			}
 
@@ -332,7 +332,7 @@ class ControllerLocalisationReturnReason extends Controller {
 
 		$this->load->model('sale/returns');
 
-		foreach ($this->request->post['selected'] as $return_reason_id) {
+		foreach ((array)$this->request->post['selected'] as $return_reason_id) {
 			$return_total = $this->model_sale_returns->getTotalReturnsByReturnReasonId($return_reason_id);
 
 			if ($return_total) {

@@ -84,7 +84,7 @@ class ControllerSaleVoucherTheme extends Controller {
 		$this->load->model('sale/voucher_theme');
 
 		if (isset($this->request->post['selected']) && $this->validateDelete()) {
-			foreach ($this->request->post['selected'] as $voucher_theme_id) {
+			foreach ((array)$this->request->post['selected'] as $voucher_theme_id) {
 				$this->model_sale_voucher_theme->deleteVoucherTheme($voucher_theme_id);
 			}
 
@@ -368,7 +368,7 @@ class ControllerSaleVoucherTheme extends Controller {
 
 		$this->load->model('sale/voucher');
 
-		foreach ($this->request->post['selected'] as $voucher_theme_id) {
+		foreach ((array)$this->request->post['selected'] as $voucher_theme_id) {
 			$voucher_total = $this->model_sale_voucher->getTotalVouchersByVoucherThemeId($voucher_theme_id);
 
 			if ($voucher_total) {

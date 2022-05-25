@@ -84,7 +84,7 @@ class ControllerLocalisationLanguage extends Controller {
 		$this->load->model('localisation/language');
 
 		if (isset($this->request->post['selected']) && $this->validateDelete()) {
-			foreach ($this->request->post['selected'] as $language_id) {
+			foreach ((array)$this->request->post['selected'] as $language_id) {
 				$this->model_localisation_language->deleteLanguage($language_id);
 			}
 
@@ -408,7 +408,7 @@ class ControllerLocalisationLanguage extends Controller {
 		
 		$this->load->model('sale/order');
 
-		foreach ($this->request->post['selected'] as $language_id) {
+		foreach ((array)$this->request->post['selected'] as $language_id) {
 			$language_info = $this->model_localisation_language->getLanguage($language_id);
 
 			if ($language_info) {

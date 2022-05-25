@@ -84,7 +84,7 @@ class ControllerUserUserPermission extends Controller {
 		$this->load->model('user/user_group');
 
 		if (isset($this->request->post['selected']) && $this->validateDelete()) {
-			foreach ($this->request->post['selected'] as $user_group_id) {
+			foreach ((array)$this->request->post['selected'] as $user_group_id) {
 				$this->model_user_user_group->deleteUserGroup($user_group_id);
 			}
 
@@ -396,7 +396,7 @@ class ControllerUserUserPermission extends Controller {
 
 		$this->load->model('user/user');
 
-		foreach ($this->request->post['selected'] as $user_group_id) {
+		foreach ((array)$this->request->post['selected'] as $user_group_id) {
 			$user_total = $this->model_user_user->getTotalUsersByGroupId($user_group_id);
 
 			if ($user_total) {

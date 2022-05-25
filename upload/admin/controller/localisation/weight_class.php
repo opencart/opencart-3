@@ -84,7 +84,7 @@ class ControllerLocalisationWeightClass extends Controller {
 		$this->load->model('localisation/weight_class');
 
 		if (isset($this->request->post['selected']) && $this->validateDelete()) {
-			foreach ($this->request->post['selected'] as $weight_class_id) {
+			foreach ((array)$this->request->post['selected'] as $weight_class_id) {
 				$this->model_localisation_weight_class->deleteWeightClass($weight_class_id);
 			}
 
@@ -358,7 +358,7 @@ class ControllerLocalisationWeightClass extends Controller {
 
 		$this->load->model('catalog/product');
 
-		foreach ($this->request->post['selected'] as $weight_class_id) {
+		foreach ((array)$this->request->post['selected'] as $weight_class_id) {
 			if ($this->config->get('config_weight_class_id') == $weight_class_id) {
 				$this->error['warning'] = $this->language->get('error_default');
 			}

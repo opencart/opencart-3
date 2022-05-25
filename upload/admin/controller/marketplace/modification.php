@@ -25,7 +25,7 @@ class ControllerMarketplaceModification extends Controller {
 		$this->load->model('setting/modification');
 
 		if (isset($this->request->post['selected']) && $this->validate()) {
-			foreach ($this->request->post['selected'] as $modification_id) {
+			foreach ((array)$this->request->post['selected'] as $modification_id) {
 				$this->model_setting_modification->deleteModification($modification_id);
 			}
 

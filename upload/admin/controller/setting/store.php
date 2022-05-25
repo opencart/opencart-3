@@ -68,7 +68,7 @@ class ControllerSettingStore extends Controller {
 		if (isset($this->request->post['selected']) && $this->validateDelete()) {
 			$this->load->model('setting/setting');
 
-			foreach ($this->request->post['selected'] as $store_id) {
+			foreach ((array)$this->request->post['selected'] as $store_id) {
 				$this->model_setting_store->deleteStore($store_id);
 
 				$this->model_setting_setting->deleteSetting('config', $store_id);
@@ -700,7 +700,7 @@ class ControllerSettingStore extends Controller {
 
 		$this->load->model('sale/order');
 
-		foreach ($this->request->post['selected'] as $store_id) {
+		foreach ((array)$this->request->post['selected'] as $store_id) {
 			if (!$store_id) {
 				$this->error['warning'] = $this->language->get('error_default');
 			}

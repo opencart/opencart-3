@@ -84,7 +84,7 @@ class ControllerLocalisationReturnStatus extends Controller {
 		$this->load->model('localisation/return_status');
 
 		if (isset($this->request->post['selected']) && $this->validateDelete()) {
-			foreach ($this->request->post['selected'] as $return_status_id) {
+			foreach ((array)$this->request->post['selected'] as $return_status_id) {
 				$this->model_localisation_return_status->deleteReturnStatus($return_status_id);
 			}
 
@@ -332,7 +332,7 @@ class ControllerLocalisationReturnStatus extends Controller {
 
 		$this->load->model('sale/returns');
 
-		foreach ($this->request->post['selected'] as $return_status_id) {
+		foreach ((array)$this->request->post['selected'] as $return_status_id) {
 			if ($this->config->get('config_return_status_id') == $return_status_id) {
 				$this->error['warning'] = $this->language->get('error_default');
 			}

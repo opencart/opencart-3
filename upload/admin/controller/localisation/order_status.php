@@ -84,7 +84,7 @@ class ControllerLocalisationOrderStatus extends Controller {
 		$this->load->model('localisation/order_status');
 
 		if (isset($this->request->post['selected']) && $this->validateDelete()) {
-			foreach ($this->request->post['selected'] as $order_status_id) {
+			foreach ((array)$this->request->post['selected'] as $order_status_id) {
 				$this->model_localisation_order_status->deleteOrderStatus($order_status_id);
 			}
 
@@ -334,7 +334,7 @@ class ControllerLocalisationOrderStatus extends Controller {
 		
 		$this->load->model('sale/order');
 
-		foreach ($this->request->post['selected'] as $order_status_id) {
+		foreach ((array)$this->request->post['selected'] as $order_status_id) {
 			if ($this->config->get('config_order_status_id') == $order_status_id) {
 				$this->error['warning'] = $this->language->get('error_default');
 			}

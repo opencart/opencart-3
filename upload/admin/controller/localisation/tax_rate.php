@@ -84,7 +84,7 @@ class ControllerLocalisationTaxRate extends Controller {
 		$this->load->model('localisation/tax_rate');
 
 		if (isset($this->request->post['selected']) && $this->validateDelete()) {
-			foreach ($this->request->post['selected'] as $tax_rate_id) {
+			foreach ((array)$this->request->post['selected'] as $tax_rate_id) {
 				$this->model_localisation_tax_rate->deleteTaxRate($tax_rate_id);
 			}
 
@@ -390,7 +390,7 @@ class ControllerLocalisationTaxRate extends Controller {
 
 		$this->load->model('localisation/tax_class');
 
-		foreach ($this->request->post['selected'] as $tax_rate_id) {
+		foreach ((array)$this->request->post['selected'] as $tax_rate_id) {
 			$tax_rule_total = $this->model_localisation_tax_class->getTotalTaxRulesByTaxRateId($tax_rate_id);
 
 			if ($tax_rule_total) {

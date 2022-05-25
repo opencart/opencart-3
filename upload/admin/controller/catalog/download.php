@@ -84,7 +84,7 @@ class ControllerCatalogDownload extends Controller {
 		$this->load->model('catalog/download');
 
 		if (isset($this->request->post['selected']) && $this->validateDelete()) {
-			foreach ($this->request->post['selected'] as $download_id) {
+			foreach ((array)$this->request->post['selected'] as $download_id) {
 				$this->model_catalog_download->deleteDownload($download_id);
 			}
 
@@ -386,7 +386,7 @@ class ControllerCatalogDownload extends Controller {
 
 		$this->load->model('catalog/product');
 
-		foreach ($this->request->post['selected'] as $download_id) {
+		foreach ((array)$this->request->post['selected'] as $download_id) {
 			$product_total = $this->model_catalog_product->getTotalProductsByDownloadId($download_id);
 
 			if ($product_total) {

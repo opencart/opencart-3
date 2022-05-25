@@ -84,7 +84,7 @@ class ControllerCatalogAttributeGroup extends Controller {
 		$this->load->model('catalog/attribute_group');
 
 		if (isset($this->request->post['selected']) && $this->validateDelete()) {
-			foreach ($this->request->post['selected'] as $attribute_group_id) {
+			foreach ((array)$this->request->post['selected'] as $attribute_group_id) {
 				$this->model_catalog_attribute_group->deleteAttributeGroup($attribute_group_id);
 			}
 
@@ -346,7 +346,7 @@ class ControllerCatalogAttributeGroup extends Controller {
 
 		$this->load->model('catalog/attribute');
 
-		foreach ($this->request->post['selected'] as $attribute_group_id) {
+		foreach ((array)$this->request->post['selected'] as $attribute_group_id) {
 			$attribute_total = $this->model_catalog_attribute->getTotalAttributesByAttributeGroupId($attribute_group_id);
 
 			if ($attribute_total) {

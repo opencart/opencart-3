@@ -132,7 +132,7 @@ class ControllerCustomerCustomer extends Controller {
 		$this->load->model('customer/customer');
 
 		if (isset($this->request->post['selected']) && $this->validateDelete()) {
-			foreach ($this->request->post['selected'] as $customer_id) {
+			foreach ((array)$this->request->post['selected'] as $customer_id) {
 				$this->model_customer_customer->deleteCustomer($customer_id);
 			}
 

@@ -84,7 +84,7 @@ class ControllerDesignLayout extends Controller {
 		$this->load->model('design/layout');
 
 		if (isset($this->request->post['selected']) && $this->validateDelete()) {
-			foreach ($this->request->post['selected'] as $layout_id) {
+			foreach ((array)$this->request->post['selected'] as $layout_id) {
 				$this->model_design_layout->deleteLayout($layout_id);
 			}
 
@@ -419,7 +419,7 @@ class ControllerDesignLayout extends Controller {
 		
 		$this->load->model('catalog/information');
 
-		foreach ($this->request->post['selected'] as $layout_id) {
+		foreach ((array)$this->request->post['selected'] as $layout_id) {
 			if ($this->config->get('config_layout_id') == $layout_id) {
 				$this->error['warning'] = $this->language->get('error_default');
 			}

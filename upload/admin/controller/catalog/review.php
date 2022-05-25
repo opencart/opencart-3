@@ -116,7 +116,7 @@ class ControllerCatalogReview extends Controller {
 		$this->load->model('catalog/review');
 
 		if (isset($this->request->post['selected']) && $this->validateDelete()) {
-			foreach ($this->request->post['selected'] as $review_id) {
+			foreach ((array)$this->request->post['selected'] as $review_id) {
 				$this->model_catalog_review->deleteReview($review_id);
 			}
 

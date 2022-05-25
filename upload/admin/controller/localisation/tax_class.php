@@ -84,7 +84,7 @@ class ControllerLocalisationTaxClass extends Controller {
 		$this->load->model('localisation/tax_class');
 
 		if (isset($this->request->post['selected']) && $this->validateDelete()) {
-			foreach ($this->request->post['selected'] as $tax_class_id) {
+			foreach ((array)$this->request->post['selected'] as $tax_class_id) {
 				$this->model_localisation_tax_class->deleteTaxClass($tax_class_id);
 			}
 
@@ -360,7 +360,7 @@ class ControllerLocalisationTaxClass extends Controller {
 
 		$this->load->model('catalog/product');
 
-		foreach ($this->request->post['selected'] as $tax_class_id) {
+		foreach ((array)$this->request->post['selected'] as $tax_class_id) {
 			$product_total = $this->model_catalog_product->getTotalProductsByTaxClassId($tax_class_id);
 
 			if ($product_total) {

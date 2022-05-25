@@ -84,7 +84,7 @@ class ControllerCustomerCustomField extends Controller {
 		$this->load->model('customer/custom_field');
 
 		if (isset($this->request->post['selected']) && $this->validateDelete()) {
-			foreach ($this->request->post['selected'] as $custom_field_id) {
+			foreach ((array)$this->request->post['selected'] as $custom_field_id) {
 				$this->model_customer_custom_field->deleteCustomField($custom_field_id);
 			}
 

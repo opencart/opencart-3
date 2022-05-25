@@ -20,7 +20,7 @@ class ControllerToolUpload extends Controller {
 		$this->load->model('tool/upload');
 
 		if (isset($this->request->post['selected']) && $this->validateDelete()) {
-			foreach ($this->request->post['selected'] as $upload_id) {
+			foreach ((array)$this->request->post['selected'] as $upload_id) {
 				// Remove file before deleting DB record.
 				$upload_info = $this->model_tool_upload->getUpload($upload_id);
 

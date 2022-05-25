@@ -116,7 +116,7 @@ class ControllerDesignSeoUrl extends Controller {
 		$this->load->model('design/seo_url');
 
 		if (isset($this->request->post['selected']) && $this->validateDelete()) {
-			foreach ($this->request->post['selected'] as $seo_url_id) {
+			foreach ((array)$this->request->post['selected'] as $seo_url_id) {
 				$this->model_design_seo_url->deleteSeoUrl($seo_url_id);
 			}
 

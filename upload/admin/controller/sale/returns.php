@@ -149,7 +149,7 @@ class ControllerSaleReturns extends Controller {
 		$this->load->model('sale/returns');
 
 		if (isset($this->request->post['selected']) && $this->validateDelete()) {
-			foreach ($this->request->post['selected'] as $return_id) {
+			foreach ((array)$this->request->post['selected'] as $return_id) {
 				$this->model_sale_return->deleteReturn($return_id);
 			}
 
@@ -1068,7 +1068,7 @@ class ControllerSaleReturns extends Controller {
 		$this->load->model('sale/returns');
 
 		if (isset($this->request->post['selected']) && $this->validateDelete()) {
-			foreach ($this->request->post['selected'] as $return_id) {
+			foreach ((array)$this->request->post['selected'] as $return_id) {
 				$this->model_sale_returns->deleteReturn($return_id);
 			}
 

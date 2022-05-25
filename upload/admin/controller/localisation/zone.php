@@ -84,7 +84,7 @@ class ControllerLocalisationZone extends Controller {
 		$this->load->model('localisation/zone');
 
 		if (isset($this->request->post['selected']) && $this->validateDelete()) {
-			foreach ($this->request->post['selected'] as $zone_id) {
+			foreach ((array)$this->request->post['selected'] as $zone_id) {
 				$this->model_localisation_zone->deleteZone($zone_id);
 			}
 
@@ -366,7 +366,7 @@ class ControllerLocalisationZone extends Controller {
 		
 		$this->load->model('localisation/geo_zone');
 
-		foreach ($this->request->post['selected'] as $zone_id) {
+		foreach ((array)$this->request->post['selected'] as $zone_id) {
 			if ($this->config->get('config_zone_id') == $zone_id) {
 				$this->error['warning'] = $this->language->get('error_default');
 			}

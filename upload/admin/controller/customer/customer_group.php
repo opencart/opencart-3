@@ -84,7 +84,7 @@ class ControllerCustomerCustomerGroup extends Controller {
 		$this->load->model('customer/customer_group');
 
 		if (isset($this->request->post['selected']) && $this->validateDelete()) {
-			foreach ($this->request->post['selected'] as $customer_group_id) {
+			foreach ((array)$this->request->post['selected'] as $customer_group_id) {
 				$this->model_customer_customer_group->deleteCustomerGroup($customer_group_id);
 			}
 
@@ -356,7 +356,7 @@ class ControllerCustomerCustomerGroup extends Controller {
 		
 		$this->load->model('customer/customer');
 
-		foreach ($this->request->post['selected'] as $customer_group_id) {
+		foreach ((array)$this->request->post['selected'] as $customer_group_id) {
 			if ($this->config->get('config_customer_group_id') == $customer_group_id) {
 				$this->error['warning'] = $this->language->get('error_default');
 			}

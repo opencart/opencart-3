@@ -84,7 +84,7 @@ class ControllerCatalogFilter extends Controller {
 		$this->load->model('catalog/filter');
 
 		if (isset($this->request->post['selected']) && $this->validateDelete()) {
-			foreach ($this->request->post['selected'] as $filter_group_id) {
+			foreach ((array)$this->request->post['selected'] as $filter_group_id) {
 				$this->model_catalog_filter->deleteFilter($filter_group_id);
 			}
 

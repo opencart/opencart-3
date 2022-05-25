@@ -84,7 +84,7 @@ class ControllerMarketingCoupon extends Controller {
 		$this->load->model('marketing/coupon');
 
 		if (isset($this->request->post['selected']) && $this->validateDelete()) {
-			foreach ($this->request->post['selected'] as $coupon_id) {
+			foreach ((array)$this->request->post['selected'] as $coupon_id) {
 				$this->model_marketing_coupon->deleteCoupon($coupon_id);
 			}
 

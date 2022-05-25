@@ -84,7 +84,7 @@ class ControllerLocalisationStockStatus extends Controller {
 		$this->load->model('localisation/stock_status');
 
 		if (isset($this->request->post['selected']) && $this->validateDelete()) {
-			foreach ($this->request->post['selected'] as $stock_status_id) {
+			foreach ((array)$this->request->post['selected'] as $stock_status_id) {
 				$this->model_localisation_stock_status->deleteStockStatus($stock_status_id);
 			}
 
@@ -334,7 +334,7 @@ class ControllerLocalisationStockStatus extends Controller {
 		
 		$this->load->model('catalog/product');
 
-		foreach ($this->request->post['selected'] as $stock_status_id) {
+		foreach ((array)$this->request->post['selected'] as $stock_status_id) {
 			$product_total = $this->model_catalog_product->getTotalProductsByStockStatusId($stock_status_id);
 
 			if ($product_total) {

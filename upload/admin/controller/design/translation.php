@@ -84,7 +84,7 @@ class ControllerDesignTranslation extends Controller {
 		$this->load->model('design/translation');
 
 		if (isset($this->request->post['selected']) && $this->validateDelete()) {
-			foreach ($this->request->post['selected'] as $translation_id) {
+			foreach ((array)$this->request->post['selected'] as $translation_id) {
 				$this->model_design_translation->deleteTranslation($translation_id);
 			}
 

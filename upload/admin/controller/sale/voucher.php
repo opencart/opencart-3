@@ -84,7 +84,7 @@ class ControllerSaleVoucher extends Controller {
 		$this->load->model('sale/voucher');
 
 		if (isset($this->request->post['selected']) && $this->validateDelete()) {
-			foreach ($this->request->post['selected'] as $voucher_id) {
+			foreach ((array)$this->request->post['selected'] as $voucher_id) {
 				$this->model_sale_voucher->deleteVoucher($voucher_id);
 			}
 
@@ -487,7 +487,7 @@ class ControllerSaleVoucher extends Controller {
 
 		$this->load->model('sale/order');
 
-		foreach ($this->request->post['selected'] as $voucher_id) {
+		foreach ((array)$this->request->post['selected'] as $voucher_id) {
 			$order_voucher_info = $this->model_sale_order->getOrderVoucherByVoucherId($voucher_id);
 
 			if ($order_voucher_info) {
