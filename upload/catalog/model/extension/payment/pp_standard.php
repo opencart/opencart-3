@@ -15,8 +15,6 @@ class ModelExtensionPaymentPPStandard extends Model {
 			$status = false;
 		}
 		
-		$currencies = array();
-
 		$currencies = array(
 			'AUD',
 			'CAD',

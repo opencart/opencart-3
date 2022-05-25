@@ -15,8 +15,6 @@ class ModelExtensionPaymentPayMate extends Model {
 			$status = false;
 		}
 		
-		$currencies = array();
-
 		$currencies = array(
 			'AUD',
 			'NZD',
