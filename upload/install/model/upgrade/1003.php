@@ -34,7 +34,7 @@ class ModelUpgrade1003 extends Model {
 		}
 
 		// setting
-		$query = $this->db->query("SELECT setting_id,value FROM `" . DB_PREFIX . "setting` WHERE serialized = '1' AND value LIKE 'a:%'");
+		$query = $this->db->query("SELECT `setting_id`, `value` FROM `" . DB_PREFIX . "setting` WHERE `serialized` = '1' AND `value` LIKE 'a:%'");
 
 		foreach ($query->rows as $result) {
 			if (preg_match('/^(a:)/', $result['value'])) {
@@ -43,7 +43,7 @@ class ModelUpgrade1003 extends Model {
 		}
 
 		// customer
-		$query = $this->db->query("SELECT customer_id,cart,wishlist,custom_field FROM `" . DB_PREFIX . "customer` WHERE custom_field LIKE 'a:%' OR cart LIKE 'a:%' OR wishlist LIKE 'a:%'");
+		$query = $this->db->query("SELECT `customer_id`, `cart`, `wishlist`, `custom_field` FROM `" . DB_PREFIX . "customer` WHERE `custom_field` LIKE 'a:%' OR `cart` LIKE 'a:%' OR `wishlist` LIKE 'a:%'");
 
 		foreach ($query->rows as $result) {
 			if (preg_match('/^(a:)/', $result['cart'])) {
@@ -60,7 +60,7 @@ class ModelUpgrade1003 extends Model {
 		}
 
 		// address
-		$query = $this->db->query("SELECT address_id,custom_field FROM `" . DB_PREFIX . "address` WHERE custom_field LIKE 'a:%'");
+		$query = $this->db->query("SELECT `address_id`, `custom_field` FROM `" . DB_PREFIX . "address` WHERE `custom_field` LIKE 'a:%'");
 
 		foreach ($query->rows as $result) {
 			if (preg_match('/^(a:)/', $result['custom_field'])) {
@@ -69,7 +69,7 @@ class ModelUpgrade1003 extends Model {
 		}
 
 		// order
-		$query = $this->db->query("SELECT order_id, custom_field, payment_custom_field, shipping_custom_field FROM `" . DB_PREFIX . "order` WHERE custom_field LIKE 'a:%' OR payment_custom_field LIKE 'a:%' OR shipping_custom_field LIKE 'a:%'");
+		$query = $this->db->query("SELECT `order_id`, `custom_field`, `payment_custom_field`, `shipping_custom_field` FROM `" . DB_PREFIX . "order` WHERE `custom_field` LIKE 'a:%' OR `payment_custom_field` LIKE 'a:%' OR `shipping_custom_field` LIKE 'a:%'");
 
 		foreach ($query->rows as $result) {
 			if (preg_match('/^(a:)/', $result['custom_field'])) {
@@ -86,7 +86,7 @@ class ModelUpgrade1003 extends Model {
 		}
 
 		// user_group
-		$query = $this->db->query("SELECT user_group_id,permission FROM `" . DB_PREFIX . "user_group`");
+		$query = $this->db->query("SELECT `user_group_id`, `permission` FROM `" . DB_PREFIX . "user_group`");
 
 		foreach ($query->rows as $result) {
 			if (preg_match('/^(a:)/', $result['permission'])) {
@@ -98,7 +98,7 @@ class ModelUpgrade1003 extends Model {
 		$query = $this->db->query("SELECT * FROM information_schema.COLUMNS WHERE TABLE_SCHEMA = '" . DB_DATABASE . "' AND TABLE_NAME = '" . DB_PREFIX . "affiliate_activity'");
 
 		if ($query->num_rows) {
-			$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "affiliate_activity` WHERE data LIKE 'a:%'");
+			$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "affiliate_activity` WHERE `data` LIKE 'a:%'");
 	
 			foreach ($query->rows as $result) {
 				if (preg_match('/^(a:)/', $result['data'])) {
@@ -108,7 +108,7 @@ class ModelUpgrade1003 extends Model {
 		}
 		
 		// customer_activity
-		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "customer_activity` WHERE data LIKE 'a:%'");
+		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "customer_activity` WHERE `data` LIKE 'a:%'");
 
 		foreach ($query->rows as $result) {
 			if (preg_match('/^(a:)/', $result['data'])) {

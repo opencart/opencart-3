@@ -2,14 +2,14 @@
 class ModelUpgrade1002 extends Model {
 	public function upgrade() {
 		// setting
-		$query = $this->db->query("SELECT setting_id FROM `" . DB_PREFIX . "setting` WHERE `key` = 'config_product_limit'");
+		$query = $this->db->query("SELECT `setting_id` FROM `" . DB_PREFIX . "setting` WHERE `key` = 'config_product_limit'");
 
 		if (!$query->num_rows) {
 			$this->db->query("INSERT INTO `" . DB_PREFIX . "setting` SET `key` = 'config_product_limit', `value` = '20', `code` = 'config', `store_id` = '0'");
 		}
 
 		//  setting
-		$query = $this->db->query("SELECT setting_id FROM `" . DB_PREFIX . "setting` WHERE `store_id` = '0' AND `key` = 'config_voucher_min'");
+		$query = $this->db->query("SELECT `setting_id` FROM `" . DB_PREFIX . "setting` WHERE `store_id` = '0' AND `key` = 'config_voucher_min'");
 
 		if (!$query->num_rows) {
 			$this->db->query("INSERT INTO `" . DB_PREFIX . "setting` SET `key` = 'config_voucher_min', `value` = '1', `code` = 'config', `store_id` = '0'");

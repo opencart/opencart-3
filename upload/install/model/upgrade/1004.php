@@ -32,10 +32,10 @@ class ModelUpgrade1004 extends Model {
 			$order_field_query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "order_field`");
 
 			foreach ($order_field_query->rows as $result) {
-				$order_custom_field_query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "order_custom_field` WHERE `order_id` = '" . (int)$result['order_id'] . "' AND custom_field_id = '" . (int)$result['custom_field_id'] . "' AND custom_field_value_id = '" . (int)$result['custom_field_value_id'] . "' AND `name` = '" . $this->db->escape($result['name']) . "' AND `value` = '" . $this->db->escape($result['value']) . "'");
+				$order_custom_field_query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "order_custom_field` WHERE `order_id` = '" . (int)$result['order_id'] . "' AND `custom_field_id` = '" . (int)$result['custom_field_id'] . "' AND `custom_field_value_id` = '" . (int)$result['custom_field_value_id'] . "' AND `name` = '" . $this->db->escape($result['name']) . "' AND `value` = '" . $this->db->escape($result['value']) . "'");
 
 				if (!$order_custom_field_query->num_rows) {
-					$this->db->query("INSERT INTO `" . DB_PREFIX . "order_custom_field` SET `order_id` = '" . (int)$result['order_id'] . "', custom_field_id = '" . (int)$result['custom_field_id'] . "', custom_field_value_id = '" . (int)$result['custom_field_value_id'] . "', `name` = '" . $this->db->escape($result['name']) . "', `value` = '" . $this->db->escape($result['value']) . "'");
+					$this->db->query("INSERT INTO `" . DB_PREFIX . "order_custom_field` SET `order_id` = '" . (int)$result['order_id'] . "', `custom_field_id` = '" . (int)$result['custom_field_id'] . "', `custom_field_value_id` = '" . (int)$result['custom_field_value_id'] . "', `name` = '" . $this->db->escape($result['name']) . "', `value` = '" . $this->db->escape($result['value']) . "'");
 				}
 			}
 
