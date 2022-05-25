@@ -1,6 +1,6 @@
 <?php
 class ModelExtensionShippingECShip extends Model {
-	function getQuote($address) {
+	public function getQuote($address) {
 		$this->load->language('extension/shipping/ec_ship');
 
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "zone_to_geo_zone` WHERE `geo_zone_id` = '" . (int)$this->config->get('shipping_ec_ship_geo_zone_id') . "' AND `country_id` = '" . (int)$address['country_id'] . "' AND (`zone_id` = '" . (int)$address['zone_id'] . "' OR `zone_id` = '0')");
@@ -14,8 +14,6 @@ class ModelExtensionShippingECShip extends Model {
 		}
 
 		//convert iso_code_3 to ec-ship country code
-		$country_codes = array();
-		
 		$country_codes = array(
 			'AFG'                            => 'AFA',
 			'ALB'                            => 'ALA',
@@ -260,8 +258,6 @@ class ModelExtensionShippingECShip extends Model {
 			)
  		);
 		
-		$service = array();
-
 		$service = array(
 			'ARM' => $this->config->get('shipping_ec_ship_air_registered_mail'),
 			'APL' => $this->config->get('shipping_ec_ship_air_parcel'),
@@ -278,8 +274,6 @@ class ModelExtensionShippingECShip extends Model {
 		);
 
 		//Countries available service
-		$shipCode = array();
-		
 		$shipCode = array(
 			'AUS' => array(
 				'AE2' => $this->language->get('text_e_express_service_two'),
@@ -445,6 +439,7 @@ class ModelExtensionShippingECShip extends Model {
 
 			$username   = $this->config->get('shipping_ec_ship_api_username');
 			$password   = $this->config->get('shipping_ec_ship_api_key');
+			
 			$passdigest = base64_encode(pack('H*',sha1(pack('H*', $simple_nonce) . pack('a*', $tm_created) . pack('a*', $password))));
 
 

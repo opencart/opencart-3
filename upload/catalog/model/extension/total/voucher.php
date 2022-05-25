@@ -19,7 +19,7 @@ class ModelExtensionTotalVoucher extends Model {
 			if ($voucher_query->row['order_id']) {
 				$implode = array();
 
-				foreach ($this->config->get('config_complete_status') as $order_status_id) {
+				foreach ((array)$this->config->get('config_complete_status') as $order_status_id) {
 					$implode[] = "'" . (int)$order_status_id . "'";
 				}
 

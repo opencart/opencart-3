@@ -3,7 +3,7 @@ class ModelExtensionDashboardChart extends Model {
 	public function getTotalOrdersByDay() {
 		$implode = array();
 
-		foreach ($this->config->get('config_complete_status') as $order_status_id) {
+		foreach ((array)$this->config->get('config_complete_status') as $order_status_id) {
 			$implode[] = "'" . (int)$order_status_id . "'";
 		}
 
@@ -31,7 +31,7 @@ class ModelExtensionDashboardChart extends Model {
 	public function getTotalOrdersByWeek() {
 		$implode = array();
 
-		foreach ($this->config->get('config_complete_status') as $order_status_id) {
+		foreach ((array)$this->config->get('config_complete_status') as $order_status_id) {
 			$implode[] = "'" . (int)$order_status_id . "'";
 		}
 
@@ -63,7 +63,7 @@ class ModelExtensionDashboardChart extends Model {
 	public function getTotalOrdersByMonth() {
 		$implode = array();
 
-		foreach ($this->config->get('config_complete_status') as $order_status_id) {
+		foreach ((array)$this->config->get('config_complete_status') as $order_status_id) {
 			$implode[] = "'" . (int)$order_status_id . "'";
 		}
 
@@ -93,7 +93,7 @@ class ModelExtensionDashboardChart extends Model {
 	public function getTotalOrdersByYear() {
 		$implode = array();
 
-		foreach ($this->config->get('config_complete_status') as $order_status_id) {
+		foreach ((array)$this->config->get('config_complete_status') as $order_status_id) {
 			$implode[] = "'" . (int)$order_status_id . "'";
 		}
 
