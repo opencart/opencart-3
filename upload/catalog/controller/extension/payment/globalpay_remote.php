@@ -152,8 +152,7 @@ class ControllerExtensionPaymentGlobalpayRemote extends Controller {
 
 						$this->response->addHeader('Content-Type: application/json');
 						$this->response->setOutput(json_encode($json));
-						$this->response->output();
-						die();
+						$this->response->output();						
 					} else {
 						$eci_ref = 2;
 						$xid = '';
@@ -176,8 +175,7 @@ class ControllerExtensionPaymentGlobalpayRemote extends Controller {
 
 						$this->response->addHeader('Content-Type: application/json');
 						$this->response->setOutput(json_encode($json));
-						$this->response->output();
-						die();
+						$this->response->output();						
 					} else {
 						$eci_ref = 3;
 						if ($this->request->post['cc_type'] == 'mc') {

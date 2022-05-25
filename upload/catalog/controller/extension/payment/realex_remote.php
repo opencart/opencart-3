@@ -318,8 +318,7 @@ class ControllerExtensionPaymentRealexRemote extends Controller {
 
 					$this->session->data['error'] = $this->language->get('error_3d_unsuccessful');
 
-					$this->response->redirect($this->url->link('checkout/checkout', '', true));
-					die();
+					$this->response->redirect($this->url->link('checkout/checkout', '', true));					
 				}
 			}
 
