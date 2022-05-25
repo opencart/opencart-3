@@ -112,7 +112,7 @@ class ControllerReportStatistics extends Controller {
 		$this->load->model('report/statistics');
 		
 		if ($this->validate()) {
-			$this->load->model('sale/return');
+			$this->load->model('sale/returns');
 			
 			$this->model_report_statistics->editValue('return', $this->model_sale_return->getTotalReturns(array('filter_return_status_id' => $this->config->get('config_return_status_id'))));
 		

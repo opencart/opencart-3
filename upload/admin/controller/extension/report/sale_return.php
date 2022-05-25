@@ -102,7 +102,7 @@ class ControllerExtensionReportSaleReturn extends Controller {
 			$page = 1;
 		}
 		
-		$this->load->model('extension/report/return');
+		$this->load->model('extension/report/returns');
 
 		$data['returns'] = array();
 

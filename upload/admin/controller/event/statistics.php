@@ -7,7 +7,7 @@ class ControllerEventStatistics extends Controller {
 		$this->model_report_statistics->addValue('review', 1);
 	}
 
-	// model/sale/return/removeReturn/after
+	// model/sale/returns/removeReturn/after
 	public function removeReturn(&$route, &$args, &$output) {
 		$this->load->model('setting/statistics');
 

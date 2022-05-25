@@ -330,7 +330,7 @@ class ControllerLocalisationReturnReason extends Controller {
 			$this->error['warning'] = $this->language->get('error_permission');
 		}
 
-		$this->load->model('sale/return');
+		$this->load->model('sale/returns');
 
 		foreach ($this->request->post['selected'] as $return_reason_id) {
 			$return_total = $this->model_sale_return->getTotalReturnsByReturnReasonId($return_reason_id);
