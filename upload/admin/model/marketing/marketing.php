@@ -29,7 +29,7 @@ class ModelMarketingMarketing extends Model {
 	public function getMarketings($data = array()) {
 		$implode = array();
 
-		$order_statuses = $this->config->get('config_complete_status');
+		$order_statuses = (array)$this->config->get('config_complete_status');
 
 		foreach ($order_statuses as $order_status_id) {
 			$implode[] = "o.`order_status_id` = '" . (int)$order_status_id . "'";

@@ -3,7 +3,7 @@ class ModelAccountDownload extends Model {
 	public function getDownload($download_id) {
 		$implode = array();
 
-		$order_statuses = $this->config->get('config_complete_status');
+		$order_statuses = (array)$this->config->get('config_complete_status');
 
 		foreach ($order_statuses as $order_status_id) {
 			$implode[] = "o.`order_status_id` = '" . (int)$order_status_id . "'";
@@ -29,7 +29,7 @@ class ModelAccountDownload extends Model {
 
 		$implode = array();
 
-		$order_statuses = $this->config->get('config_complete_status');
+		$order_statuses = (array)$this->config->get('config_complete_status');
 
 		foreach ($order_statuses as $order_status_id) {
 			$implode[] = "o.order_status_id = '" . (int)$order_status_id . "'";
@@ -47,7 +47,7 @@ class ModelAccountDownload extends Model {
 	public function getTotalDownloads() {
 		$implode = array();
 
-		$order_statuses = $this->config->get('config_complete_status');
+		$order_statuses = (array)$this->config->get('config_complete_status');
 
 		foreach ($order_statuses as $order_status_id) {
 			$implode[] = "o.`order_status_id` = '" . (int)$order_status_id . "'";

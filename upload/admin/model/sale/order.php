@@ -317,7 +317,7 @@ class ModelSaleOrder extends Model {
 	public function getTotalOrdersByProcessingStatus() {
 		$implode = array();
 
-		$order_statuses = $this->config->get('config_processing_status');
+		$order_statuses = (array)$this->config->get('config_processing_status');
 
 		foreach ($order_statuses as $order_status_id) {
 			$implode[] = "`order_status_id` = '" . (int)$order_status_id . "'";
@@ -335,7 +335,7 @@ class ModelSaleOrder extends Model {
 	public function getTotalOrdersByCompleteStatus() {
 		$implode = array();
 
-		$order_statuses = $this->config->get('config_complete_status');
+		$order_statuses = (array)$this->config->get('config_complete_status');
 
 		foreach ($order_statuses as $order_status_id) {
 			$implode[] = "`order_status_id` = '" . (int)$order_status_id . "'";
