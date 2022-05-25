@@ -72,7 +72,7 @@ class ModelExtensionPaymentAlipay extends Model {
 		}
 	}
 
-	function pagePay($builder, $config) {
+	public function pagePay($builder, $config) {
 		$this->setParams($config);
 		$biz_content = null;
 		
@@ -92,7 +92,7 @@ class ModelExtensionPaymentAlipay extends Model {
 		return $response;
 	}
 
-	function check($arr, $config) {
+	public function check($arr, $config) {
 		$this->setParams($config);
 
 		$result = $this->rsaCheckV1($arr, $this->signtype);
@@ -122,7 +122,7 @@ class ModelExtensionPaymentAlipay extends Model {
 		$totalParams['sign'] = $this->generateSign($totalParams, $this->signtype);
 
 		if ('GET' == strtoupper($httpmethod)) {
-			$preString=$this->getSignContentUrlencode($totalParams);
+			$preString = $this->getSignContentUrlencode($totalParams);
 			$requestUrl = $this->gateway_url . '?' . $preString;
 
 			return $requestUrl;
@@ -140,7 +140,7 @@ class ModelExtensionPaymentAlipay extends Model {
 		}
 	}
 
-	protected function checkEmpty($value) {
+	private function checkEmpty($value) {
 		if (!isset($value))
 			return true;
 		if ($value === null)
@@ -158,8 +158,9 @@ class ModelExtensionPaymentAlipay extends Model {
 		return $this->verify($this->getSignContent($params), $sign, $signType);
 	}
 
-	function verify($data, $sign, $signType = 'RSA') {
-		$pubKey= $this->alipay_public_key;
+	private function verify($data, $sign, $signType = 'RSA') {
+		$pubKey = $this->alipay_public_key;
+		
 		$res = "-----BEGIN PUBLIC KEY-----\n" .
 			wordwrap($pubKey, 64, "\n", true) .
 			"\n-----END PUBLIC KEY-----";
@@ -175,7 +176,7 @@ class ModelExtensionPaymentAlipay extends Model {
 		return $result;
 	}
 
-	public function getSignContent($params) {
+	private function getSignContent($params) {
 		ksort($params);
 
 		$stringToBeSigned = "";
@@ -199,11 +200,11 @@ class ModelExtensionPaymentAlipay extends Model {
 		return $stringToBeSigned;
 	}
 
-	public function generateSign($params, $signType = "RSA") {
+	private function generateSign($params, $signType = "RSA") {
 		return $this->sign($this->getSignContent($params), $signType);
 	}
 
-	protected function sign($data, $signType = "RSA") {
+	private function sign($data, $signType = "RSA") {
 		$priKey = $this->private_key;
 		
 		$res = "-----BEGIN RSA PRIVATE KEY-----\n" .
@@ -220,7 +221,7 @@ class ModelExtensionPaymentAlipay extends Model {
 		return $sign;
 	}
 
-	function getPostCharset() {
+	public function getPostCharset() {
 		return trim($this->postCharset);
 	}
 }
