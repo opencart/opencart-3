@@ -1,6 +1,6 @@
 <?php
 class ModelExtensionShippingUps extends Model {
-	function getQuote($address) {
+	public function getQuote($address) {
 		$this->load->language('extension/shipping/ups');
 
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "zone_to_geo_zone` WHERE `geo_zone_id` = '" . (int)$this->config->get('shipping_ups_geo_zone_id') . "' AND `country_id` = '" . (int)$address['country_id'] . "' AND (`zone_id` = '" . (int)$address['zone_id'] . "' OR `zone_id` = '0')");
