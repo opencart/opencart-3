@@ -17,8 +17,6 @@
     braintree.client.create({
       authorization: '{{ client_token }}'
     }, function(client_error, braintree_client_button) {
-      console.log("Create Client");
-
       if (client_error) {
         console.error(client_error);
         return;
