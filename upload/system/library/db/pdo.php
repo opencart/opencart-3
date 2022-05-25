@@ -1,96 +1,73 @@
 <?php
 namespace DB;
-final class PDO {
-	private $connection = null;
-	private $statement = null;
+class PDO {
+	private $connection;
+	private $data = [];
+	private $affected;
 
 	public function __construct($hostname, $username, $password, $database, $port = '3306') {
-		try {
-			$this->connection = new \PDO("mysql:host=" . $hostname . ";port=" . $port . ";dbname=" . $database, $username, $password, array(\PDO::ATTR_PERSISTENT => true));
-		} catch (\PDOException $e) {
-			throw new \Exception('Failed to connect to database. Reason: \'' . $e->getMessage() . '\'');
+		if (!$port) {
+			$port = '3306';
 		}
 
-		$this->connection->exec("SET NAMES 'utf8'");
-		$this->connection->exec("SET CHARACTER SET utf8");
-		$this->connection->exec("SET CHARACTER_SET_CONNECTION=utf8");
-		$this->connection->exec("SET SQL_MODE = ''");
-	}
-
-	public function prepare($sql) {
-		$this->statement = $this->connection->prepare($sql);
-	}
-
-	public function bindParam($parameter, $variable, $data_type = \PDO::PARAM_STR, $length = 0) {
-		if ($length) {
-			$this->statement->bindParam($parameter, $variable, $data_type, $length);
-		} else {
-			$this->statement->bindParam($parameter, $variable, $data_type);
-		}
-	}
-
-	public function execute() {
 		try {
-			if ($this->statement && $this->statement->execute()) {
-				$data = array();
-
-				while ($row = $this->statement->fetch(\PDO::FETCH_ASSOC)) {
-					$data[] = $row;
-				}
-
-				$result = new \stdClass();
-				$result->row = (isset($data[0])) ? $data[0] : array();
-				$result->rows = $data;
-				$result->num_rows = $this->statement->rowCount();
-			}
+			$pdo = @new \PDO('mysql:host=' . $hostname . ';port=' . $port . ';dbname=' . $database, $username, $password, array(\PDO::ATTR_PERSISTENT => false));
 		} catch (\PDOException $e) {
-			throw new \Exception('Error: ' . $e->getMessage() . ' Error Code : ' . $e->getCode());
+			throw new \Exception('Error: Could not make a database link using ' . $username . '@' . $hostname . '!');
+		}
+
+		if ($pdo) {
+			$this->connection = $pdo;
+			$this->connection->query("SET SESSION sql_mode = 'NO_ZERO_IN_DATE,NO_ZERO_DATE,NO_ENGINE_SUBSTITUTION'");
 		}
 	}
 
 	public function query($sql, $params = array()) {
-		$this->statement = $this->connection->prepare($sql);
-		
-		$result = false;
+		$sql = preg_replace('/(?:\'\:)([a-z0-9]*.)(?:\')/', ':$1', $sql);
+
+		$statement = $this->connection->prepare($sql);
 
 		try {
-			if ($this->statement && $this->statement->execute($params)) {
-				$data = array();
+			if ($statement && $statement->execute($this->data)) {
+				$this->data = array();
 
-				while ($row = $this->statement->fetch(\PDO::FETCH_ASSOC)) {
-					$data[] = $row;
+				if ($statement->columnCount()) {
+					$data = $statement->fetchAll(\PDO::FETCH_ASSOC);
+
+					$result = new \stdClass();
+					$result->row = isset($data[0]) ? $data[0] : [];
+					$result->rows = $data;
+					$result->num_rows = count($data);
+					$this->affected = 0;
+
+					return $result;
+				} else {
+					$this->affected = $statement->rowCount();
+
+					return true;
 				}
 
-				$result = new \stdClass();
-				$result->row = (isset($data[0]) ? $data[0] : array());
-				$result->rows = $data;
-				$result->num_rows = $this->statement->rowCount();
+				$statement->closeCursor();
+			} else {
+				return true;
 			}
 		} catch (\PDOException $e) {
-			throw new \Exception('Error: ' . $e->getMessage() . ' Error Code : ' . $e->getCode() . ' <br>' . $sql);
+			throw new \Exception('Error: ' . $e->getMessage() . ' Error Code : ' . $e->getCode() . ' <br />' . $sql);
 		}
 
-		if ($result) {
-			return $result;
-		} else {
-			$result = new \stdClass();
-			$result->row = array();
-			$result->rows = array();
-			$result->num_rows = 0;
-			return $result;
-		}
+		return false;
 	}
 
 	public function escape($value) {
-		return str_replace(array("\\", "\0", "\n", "\r", "\x1a", "'", '"'), array("\\\\", "\\0", "\\n", "\\r", "\Z", "\'", '\"'), $value);
+		$key = ':' . count($this->data);
+
+		$this->data[$key] = $value;
+
+		return $key;
 	}
 
 	public function countAffected() {
-		if ($this->statement) {
-			return $this->statement->rowCount();
-		} else {
-			return 0;
-		}
+		return $this->affected;
 	}
 
 	public function getLastId() {
@@ -106,6 +83,6 @@ final class PDO {
 	}
 	
 	public function __destruct() {
-		$this->connection = null;
+		unset($this->connection);
 	}
 }

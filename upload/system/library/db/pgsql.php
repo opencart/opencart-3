@@ -1,18 +1,24 @@
 <?php
 namespace DB;
-final class PgSQL {
+class PgSQL {
 	private $connection;
 
 	public function __construct($hostname, $username, $password, $database, $port = '5432') {
-		if (!$this->connection = pg_connect('hostname=' . $hostname . ' port=' . $port . ' username=' . $username . ' password='	. $password . ' database=' . $database)) {
+		if (!$port) {
+			$port = '5432';
+		}
+
+		try {
+			$pg = @pg_connect('hostname=' . $hostname . ' port=' . $port .  ' username=' . $username . ' password='	. $password . ' database=' . $database);
+		} catch (\Exception $e) {
 			throw new \Exception('Error: Could not make a database link using ' . $username . '@' . $hostname);
 		}
 
-		if (!mysql_select_db($database, $this->connection)) {
-			throw new \Exception('Error: Could not connect to database ' . $database);
+		if ($pg) {
+			$this->connection = $pg;
+			
+			pg_query($this->connection, "SET CLIENT_ENCODING TO 'UTF8'");
 		}
-
-		pg_query($this->connection, "SET CLIENT_ENCODING TO 'UTF8'");
 	}
 
 	public function query($sql) {
@@ -33,7 +39,7 @@ final class PgSQL {
 				pg_free_result($resource);
 
 				$query = new \stdClass();
-				$query->row = isset($data[0]) ? $data[0] : array();
+				$query->row = isset($data[0]) ? $data[0] : [];
 				$query->rows = $data;
 				$query->num_rows = $i;
 
@@ -44,7 +50,7 @@ final class PgSQL {
 				return true;
 			}
 		} else {
-			throw new \Exception('Error: ' . pg_result_error($this->connection) . '<br>' . $sql);
+			throw new \Exception('Error: ' . pg_result_error($this->connection) . '<br />' . $sql);
 		}
 	}
 
@@ -55,12 +61,6 @@ final class PgSQL {
 	public function countAffected() {
 		return pg_affected_rows($this->connection);
 	}
-
-	public function getLastId() {
-		$query = $this->query("SELECT LASTVAL() AS `id`");
-
-		return $query->row['id'];
-	}
 	
 	public function isConnected() {
 		if (pg_connection_status($this->connection) == PGSQL_CONNECTION_OK) {
@@ -70,7 +70,17 @@ final class PgSQL {
 		}
 	}
 
+	public function getLastId() {
+		$query = $this->query("SELECT LASTVAL() AS `id`");
+
+		return $query->row['id'];
+	}
+
 	public function __destruct() {
-		pg_close($this->connection);
+		if ($this->connection) {
+			pg_close($this->connection);
+
+			$this->connection = '';
+		}
 	}
 }

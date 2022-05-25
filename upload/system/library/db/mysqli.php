@@ -4,26 +4,26 @@ class MySQLi {
 	private $connection;
 
 	public function __construct($hostname, $username, $password, $database, $port = '3306') {
-		try {
-			$mysqli = @new \MySQLi($hostname, $username, $password, $database, $port);
-		} catch (\mysqli_sql_exception $e) {
-			throw new \Exception('Error: Could not make a database link using ' . $username . '@' . $hostname . '!');
+		if (!$port) {
+			$port = '3306';
 		}
 
-		if (!$mysqli->connect_errno) {
+		try {
+			$mysqli = @new \MySQLi($hostname, $username, $password, $database, $port);
+
 			$this->connection = $mysqli;
 			$this->connection->report_mode = MYSQLI_REPORT_ERROR;
 			$this->connection->set_charset('utf8');
 			$this->connection->query("SET SESSION sql_mode = 'NO_ZERO_IN_DATE,NO_ENGINE_SUBSTITUTION'");
-		} else {
+		} catch (\mysqli_sql_exception $e) {
 			throw new \Exception('Error: Could not make a database link using ' . $username . '@' . $hostname . '!');
 		}
 	}
 
 	public function query($sql) {
-		$query = $this->connection->query($sql);
+		try {
+			$query = $this->connection->query($sql);
 
-		if (!$this->connection->errno) {
 			if ($query instanceof \mysqli_result) {
 				$data = array();
 
@@ -44,13 +44,13 @@ class MySQLi {
 			} else {
 				return true;
 			}
-		} else {
-			throw new \Exception('Error: ' . $this->connection->error  . '<br>Error No: ' . $this->connection->errno . '<br>' . $sql);
+		} catch (\mysqli_sql_exception $e) {
+			throw new \Exception('Error: ' . $this->connection->error  . '<br />Error No: ' . $this->connection->errno . '<br />' . $sql);
 		}
 	}
 
 	public function escape($value) {
-		return $this->connection->real_escape_string(($value===null) ? '' : $value);
+		return $this->connection->real_escape_string($value);
 	}
 
 	public function countAffected() {
@@ -79,7 +79,7 @@ class MySQLi {
 		if ($this->connection) {
 			$this->connection->close();
 
-			$this->connection = '';
+			unset($this->connection);
 		}
 	}
 }
