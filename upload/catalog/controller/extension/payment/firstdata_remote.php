@@ -7,9 +7,11 @@ class ControllerExtensionPaymentFirstdataRemote extends Controller {
 
 		if ($this->config->get('payment_firstdata_remote_card_storage') == 1 && $this->customer->isLogged()) {
 			$data['card_storage'] = 1;
+			
 			$data['stored_cards'] = $this->model_extension_payment_firstdata_remote->getStoredCards();
 		} else {
 			$data['card_storage'] = 0;
+			
 			$data['stored_cards'] = array();
 		}
 
@@ -41,30 +43,7 @@ class ControllerExtensionPaymentFirstdataRemote extends Controller {
 	public function send() {
 		$this->load->language('extension/payment/firstdata_remote');
 		
-		$this->load->model('checkout/order');
-		
-		$this->load->model('extension/payment/firstdata_remote');		
-
-		$address_codes = array(
-			'PPX' => $this->language->get('text_address_ppx'),
-			'YYY' => $this->language->get('text_address_yyy'),
-			'YNA' => $this->language->get('text_address_yna'),
-			'NYZ' => $this->language->get('text_address_nyz'),
-			'NNN' => $this->language->get('text_address_nnn'),
-			'YPX' => $this->language->get('text_address_ypx'),
-			'PYX' => $this->language->get('text_address_pyx'),
-			'XXU' => $this->language->get('text_address_xxu')
-		);
-
-		$cvv_codes = array(
-			'M' => $this->language->get('text_card_code_m'),
-			'N' => $this->language->get('text_card_code_n'),
-			'P' => $this->language->get('text_card_code_p'),
-			'S' => $this->language->get('text_card_code_s'),
-			'U' => $this->language->get('text_card_code_u'),
-			'X' => $this->language->get('text_card_code_x'),
-			'NONE' => $this->language->get('text_card_code_blank')
-		);
+		$json = array();
 
 		if (!isset($this->request->post['cc_choice']) || (isset($this->request->post['cc_choice']) && $this->request->post['cc_choice'] == 'new')) {
 			if ($this->request->post['cc_number'] == '') {
@@ -80,8 +59,34 @@ class ControllerExtensionPaymentFirstdataRemote extends Controller {
 			$json['error'] = $this->language->get('error_card_cvv');
 		}
 
-		if (empty($json['error'])) {
+		if (!$json) {
+			$this->load->model('checkout/order');
+		
+			$this->load->model('extension/payment/firstdata_remote');		
+
+			$address_codes = array(
+				'PPX' 	=> $this->language->get('text_address_ppx'),
+				'YYY' 	=> $this->language->get('text_address_yyy'),
+				'YNA' 	=> $this->language->get('text_address_yna'),
+				'NYZ' 	=> $this->language->get('text_address_nyz'),
+				'NNN' 	=> $this->language->get('text_address_nnn'),
+				'YPX' 	=> $this->language->get('text_address_ypx'),
+				'PYX' 	=> $this->language->get('text_address_pyx'),
+				'XXU' 	=> $this->language->get('text_address_xxu')
+			);
+
+			$cvv_codes = array(
+				'M' 	=> $this->language->get('text_card_code_m'),
+				'N' 	=> $this->language->get('text_card_code_n'),
+				'P' 	=> $this->language->get('text_card_code_p'),
+				'S' 	=> $this->language->get('text_card_code_s'),
+				'U' 	=> $this->language->get('text_card_code_u'),
+				'X' 	=> $this->language->get('text_card_code_x'),
+				'NONE' 	=> $this->language->get('text_card_code_blank')
+			);
+			
 			$order_id = $this->session->data['order_id'];
+			
 			$order_info = $this->model_checkout_order->getOrder($order_id);
 
 			$capture_result = $this->model_extension_payment_firstdata_remote->capturePayment($this->request->post, $order_id);
@@ -131,7 +136,7 @@ class ControllerExtensionPaymentFirstdataRemote extends Controller {
 				$message .= $this->language->get('text_card_brand') . $capture_result['brand'] . '<br>';
 				$message .= $this->language->get('text_card_number_ref') . $capture_result['card_number_ref'] . '<br>';
 
-				$this->model_extension_payment_firstdata_remote->addHistory($order_id, $this->config->get('payment_firstdata_remote_order_status_decline_id'), $message);
+				$this->model_checkout_order->addOrderHistory($order_id, $this->config->get('payment_firstdata_remote_order_status_decline_id'), $message);
 			}
 		}
 

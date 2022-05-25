@@ -57,10 +57,6 @@ class ModelExtensionPaymentFirstdata extends Model {
 		$this->db->query("INSERT INTO `" . DB_PREFIX . "firstdata_order_transaction` SET `firstdata_order_id` = '" . (int)$fd_order_id . "', `date_added` = NOW(), `type` = '" . $this->db->escape($type) . "', `amount` = '" . (float)$amount . "'");
 	}
 
-	public function addHistory($order_id, $order_status_id, $comment) {
-		$this->db->query("INSERT INTO `" . DB_PREFIX . "order_history` SET `order_id` = '" . (int)$order_id . "', `order_status_id` = '" . (int)$order_status_id . "', `notify` = '0', `comment` = '" . $this->db->escape($comment) . "', `date_added` = NOW()");
-	}
-
 	public function logger($message) {
 		if ($this->config->get('payment_firstdata_debug') == 1) {
 			$log = new \Log('firstdata.log');

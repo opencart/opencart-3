@@ -6,12 +6,12 @@ class ControllerExtensionPaymentGlobalpayRemote extends Controller {
 		$accounts = $this->config->get('payment_globalpay_remote_account');
 
 		$card_types = array(
-			'visa' => $this->language->get('text_card_visa'),
-			'mc' => $this->language->get('text_card_mc'),
-			'amex' => $this->language->get('text_card_amex'),
-			'switch' => $this->language->get('text_card_switch'),
-			'laser' => $this->language->get('text_card_laser'),
-			'diners' => $this->language->get('text_card_diners'),
+			'visa' 		=> $this->language->get('text_card_visa'),
+			'mc' 		=> $this->language->get('text_card_mc'),
+			'amex' 		=> $this->language->get('text_card_amex'),
+			'switch' 	=> $this->language->get('text_card_switch'),
+			'laser' 	=> $this->language->get('text_card_laser'),
+			'diners' 	=> $this->language->get('text_card_diners'),
 		);
 
 		$data['cards'] = array();
@@ -105,17 +105,17 @@ class ControllerExtensionPaymentGlobalpayRemote extends Controller {
 				// Proceed to 3D secure
 				if (isset($verify_3ds->result) && $verify_3ds->result == '00') {
 					$enc_data = array(
-						'account' => $account,
-						'amount' => $amount,
-						'currency' => $currency,
-						'order_id' => $order_id,
+						'account' 	=> $account,
+						'amount' 	=> $amount,
+						'currency' 	=> $currency,
+						'order_id' 	=> $order_id,
 						'order_ref' => $order_ref,
 						'cc_number' => $this->request->post['cc_number'],
 						'cc_expire' => $this->request->post['cc_expire_date_month'] . $this->request->post['cc_expire_date_year'],
-						'cc_name' => $this->request->post['cc_name'],
-						'cc_type' => $this->request->post['cc_type'],
-						'cc_cvv2' => $this->request->post['cc_cvv2'],
-						'cc_issue' => $this->request->post['cc_issue']
+						'cc_name' 	=> $this->request->post['cc_name'],
+						'cc_type' 	=> $this->request->post['cc_type'],
+						'cc_cvv2' 	=> $this->request->post['cc_cvv2'],
+						'cc_issue' 	=> $this->request->post['cc_issue']
 					);
 
 					$md = $this->encryption->encrypt($this->config->get('config_encryption'), json_encode($enc_data));
@@ -152,7 +152,8 @@ class ControllerExtensionPaymentGlobalpayRemote extends Controller {
 
 						$this->response->addHeader('Content-Type: application/json');
 						$this->response->setOutput(json_encode($json));
-						$this->response->output();						
+						$this->response->output();
+						die();
 					} else {
 						$eci_ref = 2;
 						$xid = '';
@@ -240,9 +241,9 @@ class ControllerExtensionPaymentGlobalpayRemote extends Controller {
 					$eci_ref = 6;
 				}
 
-				$eci = (string)$signature_result->threedsecure->eci;
+				$eci  = (string)$signature_result->threedsecure->eci;
 				$cavv = (string)$signature_result->threedsecure->cavv;
-				$xid = (string)$signature_result->threedsecure->xid;
+				$xid  = (string)$signature_result->threedsecure->xid;
 			} else {
 				if ($md['cc_type'] == 'mc') {
 					$eci = 0;
@@ -294,7 +295,7 @@ class ControllerExtensionPaymentGlobalpayRemote extends Controller {
 						$message .= '<br><strong>' . $this->language->get('entry_cc_name') . ':</strong> ' . (string)$md['cc_name'];
 					}
 
-					$this->model_extension_payment_globalpay_remote->addHistory($md['order_id'], $this->config->get('payment_globalpay_remote_order_status_decline_id'), $message);
+					$this->model_checkout_order->addOrderHistory($md['order_id'], $this->config->get('payment_globalpay_remote_order_status_decline_id'), $message);
 
 					$this->session->data['error'] = $this->language->get('error_3d_unsuccessful');
 

@@ -1,19 +1,13 @@
 <?php
 class ControllerExtensionPaymentRealex extends Controller {
 	public function index() {
-		$this->load->language('extension/payment/realex');
-
-		$data['entry_cc_type'] = $this->language->get('entry_cc_type');
-
-		$data['help_select_card'] = $this->language->get('help_select_card');
-
-		$data['button_confirm'] = $this->language->get('button_confirm');
-
-		$this->load->model('checkout/order');
-
 		if (!isset($this->session->data['order_id'])) {
 			return false;
 		}
+		
+		$this->load->language('extension/payment/realex');
+
+		$this->load->model('checkout/order');
 
 		$order_info = $this->model_checkout_order->getOrder($this->session->data['order_id']);
 
@@ -25,12 +19,12 @@ class ControllerExtensionPaymentRealex extends Controller {
 
 		if ($this->config->get('payment_realex_card_select') == 1) {
 			$card_types = array(
-				'visa' => $this->language->get('text_card_visa'),
-				'mc' => $this->language->get('text_card_mc'),
-				'amex' => $this->language->get('text_card_amex'),
-				'switch' => $this->language->get('text_card_switch'),
-				'laser' => $this->language->get('text_card_laser'),
-				'diners' => $this->language->get('text_card_diners'),
+				'visa' 		=> $this->language->get('text_card_visa'),
+				'mc' 		=> $this->language->get('text_card_mc'),
+				'amex' 		=> $this->language->get('text_card_amex'),
+				'switch' 	=> $this->language->get('text_card_switch'),
+				'laser' 	=> $this->language->get('text_card_laser'),
+				'diners' 	=> $this->language->get('text_card_diners'),
 			);
 
 			$data['cards'] = array();
@@ -71,6 +65,7 @@ class ControllerExtensionPaymentRealex extends Controller {
 		$tmp = $data['timestamp'] . '.' . $data['merchant_id'] . '.' . $data['order_id'] . '.' . $data['amount'] . '.' . $data['currency'];
 		$hash = sha1($tmp);
 		$tmp = $hash . '.' . $this->config->get('payment_realex_secret');
+		
 		$data['hash'] = sha1($tmp);
 
 		$data['billing_code'] = filter_var(str_replace('-', '', $order_info['payment_postcode']), FILTER_SANITIZE_NUMBER_INT) . '|' . filter_var(str_replace('-', '', $order_info['payment_address_1']), FILTER_SANITIZE_NUMBER_INT);
@@ -207,7 +202,7 @@ class ControllerExtensionPaymentRealex extends Controller {
 				$message .= '<br><strong>DCCCHOICE:</strong> ' . $this->request->post['DCCCHOICE'];
 			}
 
-			if ($this->request->post['RESULT'] == "00") {
+			if ($this->request->post['RESULT'] == '00') {
 				$realex_order_id = $this->model_extension_payment_realex->addOrder($order_info, $this->request->post['PASREF'], $this->request->post['AUTHCODE'], $this->request->post['ACCOUNT'], $this->request->post['ORDER_ID']);
 
 				if ($auto_settle == 1) {
@@ -222,45 +217,45 @@ class ControllerExtensionPaymentRealex extends Controller {
 
 				$data['text_response'] = $this->language->get('text_success');
 				$data['text_link'] = sprintf($this->language->get('text_link'), $this->url->link('checkout/success', '', true));
-			} elseif ($this->request->post['RESULT'] == "101") {
+			} elseif ($this->request->post['RESULT'] == '101') {
 				// Decline
-				$this->model_extension_payment_realex->addHistory($order_id, $this->config->get('payment_realex_order_status_decline_id'), $message);
+				$this->model_checkout_order->addOrderHistory($order_id, $this->config->get('payment_realex_order_status_decline_id'), $message);
 				
 				$data['text_response'] = $this->language->get('text_decline');
 				$data['text_link'] = sprintf($this->language->get('text_link'), $this->url->link('checkout/checkout', '', true));
-			} elseif ($this->request->post['RESULT'] == "102") {
+			} elseif ($this->request->post['RESULT'] == '102') {
 				// Referal B
-				$this->model_extension_payment_realex->addHistory($order_id, $this->config->get('payment_realex_order_status_decline_pending_id'), $message);
+				$this->model_checkout_order->addOrderHistory($order_id, $this->config->get('payment_realex_order_status_decline_pending_id'), $message);
 				
 				$data['text_response'] = $this->language->get('text_decline');
 				$data['text_link'] = sprintf($this->language->get('text_link'), $this->url->link('checkout/checkout', '', true));
-			} elseif ($this->request->post['RESULT'] == "103") {
+			} elseif ($this->request->post['RESULT'] == '103') {
 				// Referal A
-				$this->model_extension_payment_realex->addHistory($order_id, $this->config->get('payment_realex_order_status_decline_stolen_id'), $message);
+				$this->model_checkout_order->addOrderHistory($order_id, $this->config->get('payment_realex_order_status_decline_stolen_id'), $message);
 				
 				$data['text_response'] = $this->language->get('text_decline');
 				$data['text_link'] = sprintf($this->language->get('text_link'), $this->url->link('checkout/checkout', '', true));
-			} elseif ($this->request->post['RESULT'] == "200") {
+			} elseif ($this->request->post['RESULT'] == '200') {
 				// Error Connecting to Bank
-				$this->model_extension_payment_realex->addHistory($order_id, $this->config->get('payment_realex_order_status_decline_bank_id'), $message);
+				$this->model_checkout_order->addOrderHistory($order_id, $this->config->get('payment_realex_order_status_decline_bank_id'), $message);
 				
 				$data['text_response'] = $this->language->get('text_bank_error');
 				$data['text_link'] = sprintf($this->language->get('text_link'), $this->url->link('checkout/checkout', '', true));
-			} elseif ($this->request->post['RESULT'] == "204") {
+			} elseif ($this->request->post['RESULT'] == '204') {
 				// Error Connecting to Bank
-				$this->model_extension_payment_realex->addHistory($order_id, $this->config->get('payment_realex_order_status_decline_bank_id'), $message);
+				$this->model_checkout_order->addOrderHistory($order_id, $this->config->get('payment_realex_order_status_decline_bank_id'), $message);
 				
 				$data['text_response'] = $this->language->get('text_bank_error');
 				$data['text_link'] = sprintf($this->language->get('text_link'), $this->url->link('checkout/checkout', '', true));
-			} elseif ($this->request->post['RESULT'] == "205") {
+			} elseif ($this->request->post['RESULT'] == '205') {
 				// Comms Error				
-				$this->model_extension_payment_realex->addHistory($order_id, $this->config->get('payment_realex_order_status_decline_bank_id'), $message);
+				$this->model_checkout_order->addOrderHistory($order_id, $this->config->get('payment_realex_order_status_decline_bank_id'), $message);
 				
 				$data['text_response'] = $this->language->get('text_bank_error');
 				$data['text_link'] = sprintf($this->language->get('text_link'), $this->url->link('checkout/checkout', '', true));
 			} else {
 				// Other error
-				$this->model_extension_payment_realex->addHistory($order_id, $this->config->get('payment_realex_order_status_decline_id'), $message);
+				$this->model_checkout_order->addOrderHistory($order_id, $this->config->get('payment_realex_order_status_decline_id'), $message);
 				
 				$data['text_response'] = $this->language->get('text_generic_error');
 				$data['text_link'] = sprintf($this->language->get('text_link'), $this->url->link('checkout/checkout', '', true));

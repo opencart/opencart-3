@@ -139,6 +139,7 @@ class ControllerExtensionPaymentRealexRemote extends Controller {
 					$md = $this->encryption->encrypt($this->config->get('config_encryption'), json_encode($enc_data));
 
 					$json = array();
+					
 					$json['ACSURL'] = (string)$verify_3ds->url;
 					$json['MD'] = $md;
 					$json['PaReq'] = (string)$verify_3ds->pareq;
@@ -259,9 +260,9 @@ class ControllerExtensionPaymentRealexRemote extends Controller {
 					$eci_ref = 6;
 				}
 
-				$eci = (string)$signature_result->threedsecure->eci;
+				$eci  = (string)$signature_result->threedsecure->eci;
 				$cavv = (string)$signature_result->threedsecure->cavv;
-				$xid = (string)$signature_result->threedsecure->xid;
+				$xid  = (string)$signature_result->threedsecure->xid;
 			} else {
 				if ($md['cc_type'] == 'mc') {
 					$eci = 0;
@@ -313,7 +314,7 @@ class ControllerExtensionPaymentRealexRemote extends Controller {
 						$message .= '<br><strong>' . $this->language->get('entry_cc_name') . ':</strong> ' . (string)$md['cc_name'];
 					}
 
-					$this->model_extension_payment_realex_remote->addHistory($md['order_id'], $this->config->get('payment_realex_remote_order_status_decline_id'), $message);
+					$this->model_checkout_order->addOrderHistory($md['order_id'], $this->config->get('payment_realex_remote_order_status_decline_id'), $message);
 
 					$this->session->data['error'] = $this->language->get('error_3d_unsuccessful');
 

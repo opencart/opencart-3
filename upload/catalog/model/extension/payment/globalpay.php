@@ -45,10 +45,6 @@ class ModelExtensionPaymentGlobalpay extends Model {
 		$this->db->query("INSERT INTO `" . DB_PREFIX . "globalpay_order_transaction` SET `globalpay_order_id` = '" . (int)$globalpay_order_id . "', `date_added` = NOW(), `type` = '" . $this->db->escape($type) . "', `amount` = '" . $this->currency->format($order_info['total'], $order_info['currency_code'], $order_info['currency_value'], false) . "'");
 	}
 
-	public function addHistory($order_id, $order_status_id, $comment) {
-		$this->db->query("INSERT INTO `" . DB_PREFIX . "order_history` SET `order_id` = '" . (int)$order_id . "', `order_status_id` = '" . (int)$order_status_id . "', `notify` = '0', `comment` = '" . $this->db->escape($comment) . "', `date_added` = NOW()");
-	}
-
 	public function logger($message) {
 		if ($this->config->get('payment_globalpay_debug') == 1) {
 			$log = new \Log('globalpay.log');

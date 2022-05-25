@@ -357,8 +357,4 @@ class ModelExtensionPaymentGlobalpayRemote extends Model {
 			$log->write($message);
 		}
 	}
-
-	public function addHistory($order_id, $order_status_id, $comment) {
-		$this->db->query("INSERT INTO `" . DB_PREFIX . "order_history` SET `order_id` = '" . (int)$order_id . "', `order_status_id` = '" . (int)$order_status_id . "', `notify` = '0', `comment` = '" . $this->db->escape($comment) . "', `date_added` = NOW()");
-	}
 }

@@ -160,6 +160,7 @@ class ModelExtensionPaymentRealexRemote extends Model {
 					$xml .= '<number>' . (int)$cvv . '</number>';
 					$xml .= '<presind>2</presind>';
 				$xml .= '</cvn>';
+				
 				if (!empty($issue)) {
 					$xml .= '<issueno>' . (int)$issue . '</issueno>';
 				}
@@ -175,12 +176,15 @@ class ModelExtensionPaymentRealexRemote extends Model {
 
 			if ($eci != '' || $cavv != '' || $xid != '') {
 				$xml .= '<mpi>';
+				
 					if ($eci != '') {
 						$xml .= '<eci>' . (string)$eci . '</eci>';
 					}
+					
 					if ($cavv != '') {
 						$xml .= '<cavv>' . (string)$cavv . '</cavv>';
 					}
+					
 					if ($xid != '') {
 						$xml .= '<xid>' . (string)$xid . '</xid>';
 					}
@@ -200,22 +204,29 @@ class ModelExtensionPaymentRealexRemote extends Model {
 
 					if ((isset($order_info['payment_iso_code_2']) && !empty($order_info['payment_iso_code_2'])) || (isset($order_info['payment_postcode']) && !empty($order_info['payment_postcode']))) {
 						$xml .= '<address type="billing">';
+						
 						if ((isset($order_info['payment_postcode']) && !empty($order_info['payment_postcode']))) {
 							$xml .= '<code>' . filter_var($order_info['payment_postcode'], FILTER_SANITIZE_NUMBER_INT) . '|' . filter_var($order_info['payment_address_1'], FILTER_SANITIZE_NUMBER_INT) . '</code>';
 						}
+						
 						if ((isset($order_info['payment_iso_code_2']) && !empty($order_info['payment_iso_code_2']))) {
 							$xml .= '<country>' . $order_info['payment_iso_code_2'] . '</country>';
 						}
+						
 						$xml .= '</address>';
 					}
+					
 					if ((isset($order_info['shipping_iso_code_2']) && !empty($order_info['shipping_iso_code_2'])) || (isset($order_info['shipping_postcode']) && !empty($order_info['shipping_postcode']))) {
 						$xml .= '<address type="shipping">';
+						
 						if ((isset($order_info['shipping_postcode']) && !empty($order_info['shipping_postcode']))) {
 							$xml .= '<code>' . filter_var($order_info['shipping_postcode'], FILTER_SANITIZE_NUMBER_INT) . '|' . filter_var($order_info['shipping_address_1'], FILTER_SANITIZE_NUMBER_INT) . '</code>';
 						}
+						
 						if ((isset($order_info['shipping_iso_code_2']) && !empty($order_info['shipping_iso_code_2']))) {
 							$xml .= '<country>' . $order_info['shipping_iso_code_2'] . '</country>';
 						}
+						
 						$xml .= '</address>';
 					}
 					
@@ -304,32 +315,34 @@ class ModelExtensionPaymentRealexRemote extends Model {
 
 			if ($this->config->get('payment_realex_remote_auto_settle') == 1) {
 				$this->addTransaction($realex_order_id, 'payment', $order_info);
+				
 				$this->model_checkout_order->addOrderHistory($order_id, $this->config->get('payment_realex_remote_order_status_success_settled_id'), $message);
 			} else {
 				$this->addTransaction($realex_order_id, 'auth', 0);
+				
 				$this->model_checkout_order->addOrderHistory($order_id, $this->config->get('payment_realex_remote_order_status_success_unsettled_id'), $message);
 			}
-		} elseif ($response->result == "101") {
+		} elseif ($response->result == '101') {
 			// Decline
-			$this->addHistory($order_id, $this->config->get('payment_realex_remote_order_status_decline_id'), $message);
-		} elseif ($response->result == "102") {
+			$this->model_checkout_order->addOrderHistory($order_id, $this->config->get('payment_realex_remote_order_status_decline_id'), $message);
+		} elseif ($response->result == '102') {
 			// Referal B
-			$this->addHistory($order_id, $this->config->get('payment_realex_remote_order_status_decline_pending_id'), $message);
-		} elseif ($response->result == "103") {
+			$this->model_checkout_order->addOrderHistory($order_id, $this->config->get('payment_realex_remote_order_status_decline_pending_id'), $message);
+		} elseif ($response->result == '103') {
 			// Referal A
-			$this->addHistory($order_id, $this->config->get('payment_realex_remote_order_status_decline_stolen_id'), $message);
-		} elseif ($response->result == "200") {
+			$this->model_checkout_order->addOrderHistory($order_id, $this->config->get('payment_realex_remote_order_status_decline_stolen_id'), $message);
+		} elseif ($response->result == '200') {
 			// Error Connecting to Bank
-			$this->addHistory($order_id, $this->config->get('payment_realex_remote_order_status_decline_bank_id'), $message);
-		} elseif ($response->result == "204") {
+			$this->model_checkout_order->addOrderHistory($order_id, $this->config->get('payment_realex_remote_order_status_decline_bank_id'), $message);
+		} elseif ($response->result == '204') {
 			// Error Connecting to Bank
-			$this->addHistory($order_id, $this->config->get('payment_realex_remote_order_status_decline_bank_id'), $message);
-		} elseif ($response->result == "205") {
+			$this->model_checkout_order->addOrderHistory($order_id, $this->config->get('payment_realex_remote_order_status_decline_bank_id'), $message);
+		} elseif ($response->result == '205') {
 			// Comms Error
-			$this->addHistory($order_id, $this->config->get('payment_realex_remote_order_status_decline_bank_id'), $message);
+			$this->model_checkout_order->addOrderHistory($order_id, $this->config->get('payment_realex_remote_order_status_decline_bank_id'), $message);
 		} else {
 			// Other
-			$this->addHistory($order_id, $this->config->get('payment_realex_remote_order_status_decline_id'), $message);
+			$this->model_checkout_order->addOrderHistory($order_id, $this->config->get('payment_realex_remote_order_status_decline_id'), $message);
 		}
 
 		return $response;
@@ -356,9 +369,5 @@ class ModelExtensionPaymentRealexRemote extends Model {
 			$log = new \Log('realex_remote.log');
 			$log->write($message);
 		}
-	}
-
-	public function addHistory($order_id, $order_status_id, $comment) {
-		$this->db->query("INSERT INTO `" . DB_PREFIX . "order_history` SET `order_id` = '" . (int)$order_id . "', `order_status_id` = '" . (int)$order_status_id . "', `notify` = '0', `comment` = '" . $this->db->escape($comment) . "', `date_added` = NOW()");
 	}
 }
