@@ -1,22 +1,22 @@
 <?php
 namespace DB;
 final class PgSQL {
-	private $link;
+	private $connection;
 
 	public function __construct($hostname, $username, $password, $database, $port = '5432') {
-		if (!$this->link = pg_connect('hostname=' . $hostname . ' port=' . $port . ' username=' . $username . ' password='	. $password . ' database=' . $database)) {
+		if (!$this->connection = pg_connect('hostname=' . $hostname . ' port=' . $port . ' username=' . $username . ' password='	. $password . ' database=' . $database)) {
 			throw new \Exception('Error: Could not make a database link using ' . $username . '@' . $hostname);
 		}
 
-		if (!mysql_select_db($database, $this->link)) {
+		if (!mysql_select_db($database, $this->connection)) {
 			throw new \Exception('Error: Could not connect to database ' . $database);
 		}
 
-		pg_query($this->link, "SET CLIENT_ENCODING TO 'UTF8'");
+		pg_query($this->connection, "SET CLIENT_ENCODING TO 'UTF8'");
 	}
 
 	public function query($sql) {
-		$resource = pg_query($this->link, $sql);
+		$resource = pg_query($this->connection, $sql);
 
 		if ($resource) {
 			if (is_resource($resource)) {
@@ -44,16 +44,16 @@ final class PgSQL {
 				return true;
 			}
 		} else {
-			throw new \Exception('Error: ' . pg_result_error($this->link) . '<br>' . $sql);
+			throw new \Exception('Error: ' . pg_result_error($this->connection) . '<br>' . $sql);
 		}
 	}
 
 	public function escape($value) {
-		return pg_escape_string($this->link, $value);
+		return pg_escape_string($this->connection, $value);
 	}
 
 	public function countAffected() {
-		return pg_affected_rows($this->link);
+		return pg_affected_rows($this->connection);
 	}
 
 	public function getLastId() {
@@ -61,8 +61,16 @@ final class PgSQL {
 
 		return $query->row['id'];
 	}
+	
+	public function isConnected() {
+		if (pg_connection_status($this->connection) == PGSQL_CONNECTION_OK) {
+			return true;
+		} else {
+			return false;
+		}
+	}
 
 	public function __destruct() {
-		pg_close($this->link);
+		pg_close($this->connection);
 	}
 }
