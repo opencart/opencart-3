@@ -135,7 +135,7 @@ $(document).ready(function() {
 	});
 });
 
-// Cart add remove functions
+// Cart add, edit, and remove functions
 var cart = {
 	'add': function(product_id, quantity) {
 		$.ajax({
@@ -235,9 +235,6 @@ var cart = {
 }
 
 var voucher = {
-	'add': function() {
-
-	},
 	'remove': function(key) {
 		$.ajax({
 			url: 'index.php?route=checkout/cart/remove',
@@ -296,10 +293,7 @@ var wishlist = {
 				alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
 			}
 		});
-	},
-	'remove': function() {
-
-	}
+	}	
 }
 
 var compare = {
@@ -324,10 +318,7 @@ var compare = {
 				alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
 			}
 		});
-	},
-	'remove': function() {
-
-	}
+	}	
 }
 
 /* Agree to Terms */
