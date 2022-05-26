@@ -2087,7 +2087,7 @@ class ControllerExtensionAdvertiseGoogle extends Controller {
         if (empty($this->request->post['campaign_name']) || trim($this->request->post['campaign_name']) == '') {
             $this->error['campaign_name'] = $this->language->get('error_empty_campaign_name');
         } else {
-            $disallowed_names = [];
+            $disallowed_names = array();
 
             $this->load->model('extension/advertise/google');
 

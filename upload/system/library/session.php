@@ -21,7 +21,7 @@ class Session {
 	 * @param	string	$adaptor
 	 * @param	object	$registry
  	*/
-	public function __construct($adaptor, $registry = '') {
+	public function __construct($adaptor, Registry $registry) {
 		$class = 'Session\\' . $adaptor;
 		
 		if (class_exists($class)) {
@@ -29,13 +29,13 @@ class Session {
 				$this->adaptor = new $class($registry);
 			} else {
 				$this->adaptor = new $class();
-			}	
-			
-			register_shutdown_function(array($this, 'close'));
+			}
+
+			register_shutdown_function([&$this, 'close']);
+			register_shutdown_function([&$this, 'gc']);
 		} else {
-			trigger_error('Error: Could not load cache adaptor ' . $adaptor . ' session!');
-			exit();
-		}	
+			throw new \Exception('Error: Could not load session adaptor ' . $adaptor . ' session!');
+		}
 	}
 	
 	/**
@@ -66,7 +66,7 @@ class Session {
 		if (preg_match('/^[a-zA-Z0-9,\-]{22,52}$/', $session_id)) {
 			$this->session_id = $session_id;
 		} else {
-			exit('Error: Invalid session ID!');
+			throw new \Exception('Error: Invalid session ID!');
 		}
 		
 		$this->data = $this->adaptor->read($session_id);
@@ -86,5 +86,14 @@ class Session {
  	*/	
 	public function destroy() {
 		$this->adaptor->destroy($this->session_id);
+	}
+	
+	/**
+	 * GC
+	 *
+	 * Garbage Collection
+	 */
+	public function gc(): void {
+		$this->adaptor->gc($this->session_id);
 	}
 }

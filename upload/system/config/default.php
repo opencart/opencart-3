@@ -43,6 +43,9 @@ $_['cache_expire']         = 3600;
 $_['session_engine']       = 'db';
 $_['session_autostart']    = true;
 $_['session_name']         = 'OCSESSID';
+$_['session_expire']       = 999999999;
+$_['session_divisor']      = 5;
+$_['session_probability']  = 1;
 
 // Template
 $_['template_engine']      = 'twig';
