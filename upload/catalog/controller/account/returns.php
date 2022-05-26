@@ -46,9 +46,9 @@ class ControllerAccountReturns extends Controller {
 
 		$data['returns'] = array();
 
-		$return_total = $this->model_account_return->getTotalReturns();
+		$return_total = $this->model_account_returns->getTotalReturns();
 
-		$results = $this->model_account_return->getReturns(($page - 1) * 10, 10);
+		$results = $this->model_account_returns->getReturns(($page - 1) * 10, 10);
 
 		foreach ($results as $result) {
 			$data['returns'][] = array(
@@ -100,7 +100,7 @@ class ControllerAccountReturns extends Controller {
 
 		$this->load->model('account/returns');
 
-		$return_info = $this->model_account_return->getReturn($return_id);
+		$return_info = $this->model_account_returns->getReturn($return_id);
 
 		if ($return_info) {
 			$this->document->setTitle($this->language->get('text_return'));
@@ -151,7 +151,7 @@ class ControllerAccountReturns extends Controller {
 
 			$data['histories'] = array();
 
-			$results = $this->model_account_return->getReturnHistories($this->request->get['return_id']);
+			$results = $this->model_account_returns->getReturnHistories($this->request->get['return_id']);
 
 			foreach ($results as $result) {
 				$data['histories'][] = array(
@@ -221,7 +221,7 @@ class ControllerAccountReturns extends Controller {
 		$this->load->model('account/returns');
 
 		if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validate()) {
-			$this->model_account_return->addReturn($this->request->post);
+			$this->model_account_returns->addReturn($this->request->post);
 
 			$this->response->redirect($this->url->link('account/returns/success', '', true));
 		}
