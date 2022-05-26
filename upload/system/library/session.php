@@ -93,7 +93,7 @@ class Session {
 	 *
 	 * Garbage Collection
 	 */
-	public function gc(): void {
+	public function gc() {
 		$this->adaptor->gc($this->session_id);
 	}
 }
