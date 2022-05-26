@@ -126,7 +126,7 @@ $('#category').load('index.php?route=extension/feed/google_base/category&user_to
 
 $('#button-category-add').on('click', function() {
 	$.ajax({
-		url: 'index.php?route=extension/feed/google_base/addcategory&user_token={{ user_token }}',
+		url: 'index.php?route=extension/feed/google_base/addCategory&user_token={{ user_token }}',
 		type: 'post',
 		dataType: 'json',
 		data: 'google_base_category_id=' + $('input[name=\'google_base_category_id\']').val() + '&category_id=' + $('input[name=\'category_id\']').val(),
@@ -164,7 +164,7 @@ $('#category').delegate('.btn-danger', 'click', function() {
 	var node = this;
 
 	$.ajax({
-		url: 'index.php?route=extension/feed/google_base/removecategory&user_token={{ user_token }}',
+		url: 'index.php?route=extension/feed/google_base/removeCategory&user_token={{ user_token }}',
 		type: 'post',
 		data: 'category_id=' + encodeURIComponent(this.value),
 		dataType: 'json',

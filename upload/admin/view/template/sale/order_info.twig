@@ -395,7 +395,7 @@
 
   $(document).delegate('#button-reward-add', 'click', function() {
 	  $.ajax({
-		  url: 'index.php?route=sale/order/addreward&user_token={{ user_token }}&order_id={{ order_id }}',
+		  url: 'index.php?route=sale/order/addReward&user_token={{ user_token }}&order_id={{ order_id }}',
 		  type: 'post',
 		  dataType: 'json',
 		  beforeSend: function() {
@@ -425,7 +425,7 @@
 
   $(document).delegate('#button-reward-remove', 'click', function() {
 	  $.ajax({
-		  url: 'index.php?route=sale/order/removereward&user_token={{ user_token }}&order_id={{ order_id }}',
+		  url: 'index.php?route=sale/order/removeReward&user_token={{ user_token }}&order_id={{ order_id }}',
 		  type: 'post',
 		  dataType: 'json',
 		  beforeSend: function() {
@@ -455,7 +455,7 @@
 
   $(document).delegate('#button-commission-add', 'click', function() {
 	  $.ajax({
-		  url: 'index.php?route=sale/order/addcommission&user_token={{ user_token }}&order_id={{ order_id }}',
+		  url: 'index.php?route=sale/order/addCommission&user_token={{ user_token }}&order_id={{ order_id }}',
 		  type: 'post',
 		  dataType: 'json',
 		  beforeSend: function() {
@@ -485,7 +485,7 @@
 
   $(document).delegate('#button-commission-remove', 'click', function() {
 	  $.ajax({
-		  url: 'index.php?route=sale/order/removecommission&user_token={{ user_token }}&order_id={{ order_id }}',
+		  url: 'index.php?route=sale/order/removeCommission&user_token={{ user_token }}&order_id={{ order_id }}',
 		  type: 'post',
 		  dataType: 'json',
 		  beforeSend: function() {

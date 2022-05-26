@@ -580,7 +580,7 @@ function addAccount() {
 
 $(document).delegate('#button-ip-add', 'click', function() {
     $.ajax({
-        url: 'index.php?route=user/api/addip&user_token={{ user_token }}&api_id={{ api_id }}',
+        url: 'index.php?route=extension/fraud/ip/addIp&user_token={{ user_token }}&api_id={{ api_id }}',
         type: 'post',
         data: 'ip={{ api_ip }}',
         dataType: 'json',
