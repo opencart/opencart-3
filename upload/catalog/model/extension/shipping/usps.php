@@ -61,8 +61,6 @@ class ModelExtensionShippingUsps extends Model {
 
 				$request = 'API=RateV4&XML=' . urlencode($xml);
 			} else {
-				$country = array();
-				
 				$country = array(
 					'AF' => 'Afghanistan',
 					'AL' => 'Albania',
@@ -356,8 +354,6 @@ class ModelExtensionShippingUsps extends Model {
 					$intl_rate_response = $dom->getElementsByTagName('IntlRateV2Response')->item(0);
 					$error = $dom->getElementsByTagName('Error')->item(0);
 					
-					$firstclasses = array();
-
 					$firstclasses = array(
 						'First-Class Mail Parcel',
 						'First-Class Mail Large Envelope',

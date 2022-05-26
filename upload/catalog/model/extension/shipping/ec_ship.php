@@ -471,8 +471,6 @@ class ModelExtensionShippingECShip extends Model {
 
 			$objClient->__setSoapHeaders(array($objSoapVarWSSEHeader));
 			
-			$request = array();
-
 			$request = array(
 				'ecshipUsername'     => $this->config->get('shipping_ec_ship_username'),
 				'integratorUsername' => $this->config->get('shipping_ec_ship_api_username'),
@@ -485,8 +483,6 @@ class ModelExtensionShippingECShip extends Model {
 
 			foreach ($address_to['code'] as $key => $value) {
 				$api01Req = new \api01Req($request['ecshipUsername'], $request['integratorUsername'], $request['countryCode'], $key, $request['weight']);
-				
-				$params = array();
 				
 				$params = array("api01Req" => $api01Req);
 				

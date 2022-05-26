@@ -521,8 +521,6 @@ class ModelExtensionShippingRoyalMail extends Model {
 				}
 			}
 			
-			$europe = array();
-
 			$europe = array(
 				'AL',
 				'AD',
@@ -582,8 +580,6 @@ class ModelExtensionShippingRoyalMail extends Model {
 				'VA'
 			);
 			
-			$non_eu = array();
-
 			$non_eu = array(
 				'AL',
 				'AD',
@@ -615,8 +611,6 @@ class ModelExtensionShippingRoyalMail extends Model {
 				'VA'
 			);
 			
-			$zone_1 = array();
-
 			$zone_1 = array(
 				'AF',
 				'NA',
@@ -774,8 +768,6 @@ class ModelExtensionShippingRoyalMail extends Model {
 				'ZW'
 			);
 			
-			$zone_2 = array();
-
 			$zone_2 = array(
 				'AU',
 				'IO',
@@ -853,8 +845,6 @@ class ModelExtensionShippingRoyalMail extends Model {
 			}
 
 			// International Tracked & Signed
-			$tracked_signed = array();
-			
 			$tracked_signed = array(
 				'AD',
 				'AR',
@@ -950,8 +940,6 @@ class ModelExtensionShippingRoyalMail extends Model {
 			}
 
 			// International Tracked
-			$tracked = array();
-			
 			$tracked = array(
 				'AD',
 				'AU',
@@ -1043,8 +1031,6 @@ class ModelExtensionShippingRoyalMail extends Model {
 			}
 
 			// International Signed
-			$signed = array();
-			
 			$signed = array(
 				'AF',
 				'NA',
