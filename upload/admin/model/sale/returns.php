@@ -138,7 +138,7 @@ class ModelSaleReturns extends Model {
 		}
 
 		if (!empty($data['filter_date_modified'])) {
-			$implode[] = "DATE(r.`date_modified)` = DATE('" . $this->db->escape($data['filter_date_modified']) . "')";
+			$implode[] = "DATE(r.`date_modified`) = DATE('" . $this->db->escape($data['filter_date_modified']) . "')";
 		}
 
 		if ($implode) {
