@@ -90,11 +90,27 @@ class ModelUpgrade1009 extends Model {
 		}
 
 		// Returns
-		$this->db->query("UPDATE `" . DB_PREFIX . "event` SET `trigger` = 'catalog/model/account/returns/addReturn/after' WHERE `action` = 'event/activity/addReturn'");
-		$this->db->query("UPDATE `" . DB_PREFIX . "event` SET `trigger` = 'catalog/model/account/returns/addReturn/after' WHERE `action` = 'event/statistics/addReturn'");
 		$this->db->query("UPDATE `" . DB_PREFIX . "event` SET `trigger` = 'admin/model/sale/returns/addReturnHistory/after', `action` = 'mail/returns' WHERE `action` = 'mail/return'");
-		
+		$this->db->query("UPDATE `" . DB_PREFIX . "event` SET `trigger` = 'catalog/model/account/returns/addReturn/after' WHERE `action` = 'event/statistics/addReturn'");
+		$this->db->query("UPDATE `" . DB_PREFIX . "event` SET `trigger` = 'catalog/model/account/returns/addReturn/after' WHERE `action` = 'event/activity/addReturn'");		
 		$this->db->query("UPDATE `" . DB_PREFIX . "statistics` SET `code` = 'returns' WHERE `code` = 'return'");
+		
+		$this->db->query("DELETE FROM `" . DB_PREFIX . "event` WHERE `trigger` = 'admin/model/sale/return/deleteReturn/after'");
+		$this->db->query("DELETE FROM `" . DB_PREFIX . "event` WHERE `trigger` = 'admin/model/sale/return/addReturn/after'");
+		
+		$event = $this->db->query("SELECT * FROM `" . DB_PREFIX . "event` WHERE `trigger` = 'admin/model/sale/returns/addReturn/after'");
+		
+		if (!$event->num_rows) {
+			$this->db->query("INSERT INTO `" . DB_PREFIX . "event` SET `trigger` = 'admin/model/sale/returns/deleteReturn/after', `action` = 'event/statistics/deleteReturn', '1', '0'");
+			$this->db->query("INSERT INTO `" . DB_PREFIX . "event` SET `trigger` = 'admin/model/sale/returns/addReturn/after', `action` = 'event/statistics/addReturn', '1', '0'");			
+		}
+		
+		$event = $this->db->query("SELECT * FROM `" . DB_PREFIX . "event` WHERE `trigger` = 'admin/model/sale/review/addReview/after'");
+		
+		if (!$event->num_rows) {
+			$this->db->query("INSERT INTO `" . DB_PREFIX . "event` SET `trigger` = 'admin/model/sale/returns/deleteReview/after', `action` = 'event/statistics/deleteReview', '1', '0'");
+			$this->db->query("INSERT INTO `" . DB_PREFIX . "event` SET `trigger` = 'admin/model/sale/review/addReview/after', `action` = 'event/statistics/addReview', '1', '0'");			
+		}
 		
 		$config_captcha_page = json_decode((array)$config->get('config_captcha_page'), true);
 		
