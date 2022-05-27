@@ -56,7 +56,7 @@ class ControllerStartupStartup extends Controller {
 		$this->config->set('template_cache', $this->config->get('developer_theme'));
 		
 		// Url
-		$this->registry->set('url', new Url($this->config->get('config_url'), $this->config->get('config_ssl')));
+		$this->registry->set('url', new \Url($this->config->get('config_url'), $this->config->get('config_ssl')));
 		
 		// Language
 		$code = '';
@@ -178,10 +178,10 @@ class ControllerStartupStartup extends Controller {
 			setcookie('currency', $code, time() + 60 * 60 * 24 * 30, '/', $this->request->server['HTTP_HOST']);
 		}		
 		
-		$this->registry->set('currency', new Cart\Currency($this->registry));
+		$this->registry->set('currency', new \Cart\Currency($this->registry));
 		
 		// Tax
-		$this->registry->set('tax', new Cart\Tax($this->registry));
+		$this->registry->set('tax', new \Cart\Tax($this->registry));
 		
 		// PHP v7.4+ validation compatibility.
 		if (isset($this->session->data['shipping_address']['country_id']) && isset($this->session->data['shipping_address']['zone_id'])) {
@@ -199,15 +199,15 @@ class ControllerStartupStartup extends Controller {
 		$this->tax->setStoreAddress($this->config->get('config_country_id'), $this->config->get('config_zone_id'));
 		
 		// Weight
-		$this->registry->set('weight', new Cart\Weight($this->registry));
+		$this->registry->set('weight', new \Cart\Weight($this->registry));
 		
 		// Length
-		$this->registry->set('length', new Cart\Length($this->registry));
+		$this->registry->set('length', new \Cart\Length($this->registry));
 		
 		// Cart
-		$this->registry->set('cart', new Cart\Cart($this->registry));
+		$this->registry->set('cart', new \Cart\Cart($this->registry));
 		
 		// Encryption
-		$this->registry->set('encryption', new Encryption($this->config->get('config_encryption')));
+		$this->registry->set('encryption', new \Encryption($this->config->get('config_encryption')));
 	}
 }

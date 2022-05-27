@@ -18,7 +18,7 @@ class ControllerStartupMaintenance extends Controller {
 			$this->user = new \Cart\User($this->registry);
 
 			if ((substr($route, 0, 17) != 'extension/payment' && substr($route, 0, 3) != 'api') && !in_array($route, $ignore) && !$this->user->isLogged()) {
-				return new Action('common/maintenance');
+				return new \Action('common/maintenance');
 			}
 		}
 	}
