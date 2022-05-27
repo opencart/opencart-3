@@ -89,11 +89,11 @@ class ControllerMarketingContact extends Controller {
 
 				switch ($this->request->post['to']) {
 					case 'newsletter':
-						$customer_data = [
+						$customer_data = array(
 							'filter_newsletter' => 1,
 							'start'             => ($page - 1) * 10,
 							'limit'             => 10
-						];
+						);
 
 						$email_total = $this->model_customer_customer->getTotalCustomers($customer_data);
 
@@ -104,10 +104,10 @@ class ControllerMarketingContact extends Controller {
 						}
 						break;
 					case 'customer_all':
-						$customer_data = [
+						$customer_data = array(
 							'start' => ($page - 1) * 10,
 							'limit' => 10
-						];
+						);
 
 						$email_total = $this->model_customer_customer->getTotalCustomers($customer_data);
 
@@ -118,11 +118,11 @@ class ControllerMarketingContact extends Controller {
 						}
 						break;
 					case 'customer_group':
-						$customer_data = [
+						$customer_data = array(
 							'filter_customer_group_id' => $this->request->post['customer_group_id'],
 							'start'                    => ($page - 1) * 10,
 							'limit'                    => 10
-						];
+						);
 
 						$email_total = $this->model_customer_customer->getTotalCustomers($customer_data);
 
@@ -148,11 +148,11 @@ class ControllerMarketingContact extends Controller {
 						}
 						break;
 					case 'affiliate_all':
-						$affiliate_data = [
+						$affiliate_data = array(
 							'filter_affiliate' => 1,
 							'start'            => ($page - 1) * 10,
 							'limit'            => 10
-						];
+						);
 
 						$email_total = $this->model_customer_customer->getTotalCustomers($affiliate_data);
 
