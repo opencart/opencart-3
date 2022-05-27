@@ -49,8 +49,10 @@ class ControllerExtensionCreditCardSquareup extends Controller {
         $data['back'] = $this->url->link('account/account', '', true);
 
         $data['cards'] = array();
+		
+		$cards = $this->model_extension_credit_card_squareup->getCards($this->customer->getId(), $this->config->get('payment_squareup_enable_sandbox'));
 
-        foreach ($this->model_extension_credit_card_squareup->getCards($this->customer->getId(), $this->config->get('payment_squareup_enable_sandbox')) as $card) {
+        foreach ($cards as $card) {
             $data['cards'][] = array(
                 'text' => sprintf($this->language->get('text_card_ends_in'), $card['brand'], $card['ends_in']),
                 'delete' => $this->url->link('extension/credit_card/squareup/forget', 'squareup_token_id=' . $card['squareup_token_id'], true)

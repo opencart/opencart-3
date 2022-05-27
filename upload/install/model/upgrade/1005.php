@@ -82,7 +82,7 @@ class ModelUpgrade1005 extends Model {
 			$query = $this->db->query("SELECT * FROM information_schema.COLUMNS WHERE TABLE_SCHEMA = '" . DB_DATABASE . "' AND TABLE_NAME = '" . DB_PREFIX . "order_recurring_transaction' AND COLUMN_NAME = 'date_added'");
 
 			if ($query->num_rows) {
-				$this->db->query("UPDATE `" . DB_PREFIX . "order_recurring_transaction` SET `date_added` = `created` WHERE `date_added` IS NULL or `date_added` = ''");
+				$this->db->query("UPDATE `" . DB_PREFIX . "order_recurring_transaction` SET `date_added` = `created` WHERE `date_added` IS NULL OR `date_added` = ''");
 				
 				$this->db->query("ALTER TABLE `" . DB_PREFIX . "order_recurring_transaction` DROP `created`");
 			} else {
@@ -186,9 +186,9 @@ class ModelUpgrade1005 extends Model {
 			$this->db->query("INSERT INTO `" . DB_PREFIX . "setting` SET `key` = 'config_encryption', `value` = '" . hash('sha512', mt_rand()) . "', `code` = 'config', `serialized` = '0', `store_id` = '0'");
 		}
 		// force some settings to prevent errors
-		$this->db->query("UPDATE `" . DB_PREFIX . "setting` set `value` = 'default' WHERE `key` = 'config_template'");
-		$this->db->query("UPDATE `" . DB_PREFIX . "setting` set `value` = '1' WHERE `key` = 'config_error_display'");
-		$this->db->query("UPDATE `" . DB_PREFIX . "setting` set `value` = '1' WHERE `key` = 'config_error_log'");
-		$this->db->query("UPDATE `" . DB_PREFIX . "setting` set `value` = '0' WHERE `key` = 'config_compression'");
+		$this->db->query("UPDATE `" . DB_PREFIX . "setting` SET `value` = 'default' WHERE `key` = 'config_template'");
+		$this->db->query("UPDATE `" . DB_PREFIX . "setting` SET `value` = '1' WHERE `key` = 'config_error_display'");
+		$this->db->query("UPDATE `" . DB_PREFIX . "setting` SET `value` = '1' WHERE `key` = 'config_error_log'");
+		$this->db->query("UPDATE `" . DB_PREFIX . "setting` SET `value` = '0' WHERE `key` = 'config_compression'");
 	}
 }

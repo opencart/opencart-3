@@ -557,7 +557,7 @@ class Googleshopping extends Library {
     }
 
     public function getTotalProducts($data, $store_id) {
-        $sql = "SELECT COUNT(*) as total FROM `" . DB_PREFIX . "product` p LEFT JOIN `" . DB_PREFIX . "product_description` pd ON (p.`product_id` = pd.`product_id`) LEFT JOIN `" . DB_PREFIX . "googleshopping_product` pag ON (pag.`product_id` = p.`product_id` AND pag.`store_id` = '" . (int)$store_id . "') WHERE pag.`store_id` IS NOT NULL AND pd.`language_id` = '" . (int)$this->config->get('config_language_id') . "'";
+        $sql = "SELECT COUNT(*) AS total FROM `" . DB_PREFIX . "product` p LEFT JOIN `" . DB_PREFIX . "product_description` pd ON (p.`product_id` = pd.`product_id`) LEFT JOIN `" . DB_PREFIX . "googleshopping_product` pag ON (pag.`product_id` = p.`product_id` AND pag.`store_id` = '" . (int)$store_id . "') WHERE pag.`store_id` IS NOT NULL AND pd.`language_id` = '" . (int)$this->config->get('config_language_id') . "'";
 
         $this->applyFilter($sql, $data);
 
@@ -1114,7 +1114,7 @@ class Googleshopping extends Library {
     protected function getFeedProductsQuery($page, $language_id) {
         $this->load->config('googleshopping/googleshopping');
 
-        $sql = "SELECT p.`product_id`, pd.`name`, pd.`description`, p.`image`, p.`quantity`, p.`price`, p.`mpn`, p.`ean`, p.`jan`, p.`isbn`, p.`upc`, p.`model`, p.`tax_class_id`, IFNULL((SELECT m.`name` FROM `" . DB_PREFIX . "manufacturer` m WHERE m.`manufacturer_id` = p.`manufacturer_id`), '') as brand, (SELECT GROUP_CONCAT(agt.`campaign_name` SEPARATOR '<[S]>') FROM `" . DB_PREFIX . "googleshopping_product_target` pagt LEFT JOIN `" . DB_PREFIX . "googleshopping_target` agt ON (agt.`advertise_google_target_id` = pagt.`advertise_google_target_id`) WHERE pagt.`product_id` = p.`product_id` AND pagt.`store_id` = p2s.`store_id` GROUP BY pagt.`product_id`) AS campaign_names, (SELECT CONCAT_WS('<[S]>', ps.`price`, ps.`date_start`, ps.`date_end`) FROM `" . DB_PREFIX . "product_special` ps WHERE ps.`product_id` = p.`product_id` AND ps.`customer_group_id` = '" . (int)$this->config->get('config_customer_group_id') . "' AND ((ps.`date_start` = '0000-00-00' OR ps.`date_start` < NOW()) AND (ps.`date_end` = '0000-00-00' OR ps.`date_end` > NOW())) ORDER BY ps.`priority` ASC, ps.`price` ASC LIMIT 1) AS special_price, pag.`google_product_category`, pag.`condition`, pag.`adult`, pag.`multipack`, pag.`is_bundle`, pag.`age_group`, pag.`color`, pag.`gender`, pag.`size_type`, pag.`size_system`, pag.`size` FROM `" . DB_PREFIX . "product` p LEFT JOIN `" . DB_PREFIX . "product_to_store` p2s ON (p2s.`product_id` = p.`product_id` AND p2s.`store_id` = '" . (int)$this->store_id . "') LEFT JOIN `" . DB_PREFIX . "product_description` pd ON (pd.`product_id` = p.`product_id`) LEFT JOIN `" . DB_PREFIX . "googleshopping_product` pag ON (pag.`product_id` = p.`product_id` AND pag.`store_id` = p2s.`store_id`) WHERE p2s.`store_id` IS NOT NULL AND pd.`language_id` = '" . (int)$language_id . "' AND pd.`name` != '' AND pd.`description` != '' AND pd.`name` IS NOT NULL AND pd.`description` IS NOT NULL AND p.`image` != '' AND p.`status` = '1' AND p.`date_available` <= NOW() AND p.`price` > '0' ORDER BY p.`product_id` ASC LIMIT " . (int)(($page - 1) * $this->config->get('advertise_google_push_limit')) . ',' . (int)$this->config->get('advertise_google_push_limit');
+        $sql = "SELECT p.`product_id`, pd.`name`, pd.`description`, p.`image`, p.`quantity`, p.`price`, p.`mpn`, p.`ean`, p.`jan`, p.`isbn`, p.`upc`, p.`model`, p.`tax_class_id`, IFNULL((SELECT m.`name` FROM `" . DB_PREFIX . "manufacturer` m WHERE m.`manufacturer_id` = p.`manufacturer_id`), '') AS brand, (SELECT GROUP_CONCAT(agt.`campaign_name` SEPARATOR '<[S]>') FROM `" . DB_PREFIX . "googleshopping_product_target` pagt LEFT JOIN `" . DB_PREFIX . "googleshopping_target` agt ON (agt.`advertise_google_target_id` = pagt.`advertise_google_target_id`) WHERE pagt.`product_id` = p.`product_id` AND pagt.`store_id` = p2s.`store_id` GROUP BY pagt.`product_id`) AS campaign_names, (SELECT CONCAT_WS('<[S]>', ps.`price`, ps.`date_start`, ps.`date_end`) FROM `" . DB_PREFIX . "product_special` ps WHERE ps.`product_id` = p.`product_id` AND ps.`customer_group_id` = '" . (int)$this->config->get('config_customer_group_id') . "' AND ((ps.`date_start` = '0000-00-00' OR ps.`date_start` < NOW()) AND (ps.`date_end` = '0000-00-00' OR ps.`date_end` > NOW())) ORDER BY ps.`priority` ASC, ps.`price` ASC LIMIT 1) AS special_price, pag.`google_product_category`, pag.`condition`, pag.`adult`, pag.`multipack`, pag.`is_bundle`, pag.`age_group`, pag.`color`, pag.`gender`, pag.`size_type`, pag.`size_system`, pag.`size` FROM `" . DB_PREFIX . "product` p LEFT JOIN `" . DB_PREFIX . "product_to_store` p2s ON (p2s.`product_id` = p.`product_id` AND p2s.`store_id` = '" . (int)$this->store_id . "') LEFT JOIN `" . DB_PREFIX . "product_description` pd ON (pd.`product_id` = p.`product_id`) LEFT JOIN `" . DB_PREFIX . "googleshopping_product` pag ON (pag.`product_id` = p.`product_id` AND pag.`store_id` = p2s.`store_id`) WHERE p2s.`store_id` IS NOT NULL AND pd.`language_id` = '" . (int)$language_id . "' AND pd.`name` != '' AND pd.`description` != '' AND pd.`name` IS NOT NULL AND pd.`description` IS NOT NULL AND p.`image` != '' AND p.`status` = '1' AND p.`date_available` <= NOW() AND p.`price` > '0' ORDER BY p.`product_id` ASC LIMIT " . (int)(($page - 1) * $this->config->get('advertise_google_push_limit')) . ',' . (int)$this->config->get('advertise_google_push_limit');
 
         return $sql;
     }
@@ -1746,8 +1746,8 @@ class Googleshopping extends Library {
 
         $result = array();
 
-        foreach ($this->config->get('advertise_google_languages') as $code => $name) {
-            if (in_array($code, $language_codes)) {
+        foreach ((array)$this->config->get('advertise_google_languages') as $code => $name) {
+            if (in_array($code, (array)$language_codes)) {
                 $supported_language_id = $this->getSupportedLanguageId($code);
 
                 $result[] = array(
@@ -1780,8 +1780,8 @@ class Googleshopping extends Library {
 
         $this->load->config('googleshopping/googleshopping');
 
-        foreach ($this->config->get('advertise_google_currencies') as $code => $name) {
-            if (in_array($code, $currency_codes)) {
+        foreach ((array)$this->config->get('advertise_google_currencies') as $code => $name) {
+            if (in_array($code, (array)$currency_codes)) {
                 $supported_currency_id = $this->getSupportedCurrencyId($code);
 
                 $result[] = array(

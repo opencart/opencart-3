@@ -11,7 +11,7 @@ class ModelUpgrade1003 extends Model {
 				$query = $this->db->query("SELECT * FROM information_schema.COLUMNS WHERE TABLE_SCHEMA = '" . DB_DATABASE . "' AND TABLE_NAME = '" . DB_PREFIX . "affiliate_activity' AND COLUMN_NAME = 'affiliate_activity_id'");
 	
 				if ($query->num_rows) {
-					$this->db->query("UPDATE `" . DB_PREFIX . "affiliate_activity` SET `affiliate_activity_id` = `activity_id` WHERE `affiliate_activity_id` IS NULL or `affiliate_activity_id` = ''");
+					$this->db->query("UPDATE `" . DB_PREFIX . "affiliate_activity` SET `affiliate_activity_id` = `activity_id` WHERE `affiliate_activity_id` IS NULL OR `affiliate_activity_id` = ''");
 					$this->db->query("ALTER TABLE `" . DB_PREFIX . "affiliate_activity` DROP `activity_id`");
 				} else {
 					$this->db->query("ALTER TABLE `" . DB_PREFIX . "affiliate_activity` CHANGE `activity_id` `affiliate_activity_id` INT(11) NOT NULL AUTO_INCREMENT");
@@ -26,7 +26,7 @@ class ModelUpgrade1003 extends Model {
 			$query = $this->db->query("SELECT * FROM information_schema.COLUMNS WHERE TABLE_SCHEMA = '" . DB_DATABASE . "' AND TABLE_NAME = '" . DB_PREFIX . "customer_activity' AND COLUMN_NAME = 'activity_id'");
 
 			if ($query->num_rows) {
-				$this->db->query("UPDATE `" . DB_PREFIX . "customer_activity` SET `customer_activity_id` = `activity_id` WHERE `customer_activity_id` IS NULL or `customer_activity_id` = ''");
+				$this->db->query("UPDATE `" . DB_PREFIX . "customer_activity` SET `customer_activity_id` = `activity_id` WHERE `customer_activity_id` IS NULL OR `customer_activity_id` = ''");
 				$this->db->query("ALTER TABLE `" . DB_PREFIX . "customer_activity` DROP `activity_id`");
 			} else {
 				$this->db->query("ALTER TABLE `" . DB_PREFIX . "customer_activity` CHANGE `activity_id` `customer_activity_id` INT(11) NOT NULL AUTO_INCREMENT");
