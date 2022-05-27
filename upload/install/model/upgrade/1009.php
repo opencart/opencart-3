@@ -11,7 +11,7 @@ class ModelUpgrade1009 extends Model {
 			$setting_query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "setting` WHERE `store_id` = '0'");
 			
 			foreach ($setting_query->rows as $setting) {
-				$config->set($setting['key'], $setting['value']);				
+				$config->set($setting['key'], $setting['value']);
 			}
 			
 			$affiliate_query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "affiliate`");
