@@ -561,9 +561,9 @@ class ControllerSaleVoucher extends Controller {
 			$vouchers = array();
 
 			if (isset($this->request->post['selected'])) {
-				$vouchers = $this->request->post['selected'];
+				$vouchers = (array)$this->request->post['selected'];
 			} elseif (isset($this->request->post['voucher_id'])) {
-				$vouchers[] = $this->request->post['voucher_id'];
+				$vouchers[] = (int)$this->request->post['voucher_id'];
 			}
 
 			if ($vouchers) {

@@ -680,7 +680,7 @@ class ControllerMarketplaceMarketplace extends Controller {
 		$json = array();
 
 		if (isset($this->request->get['extension_id'])) {
-			$extension_id = $this->request->get['extension_id'];
+			$extension_id = (int)$this->request->get['extension_id'];
 		} else {
 			$extension_id = 0;
 		}
@@ -751,7 +751,7 @@ class ControllerMarketplaceMarketplace extends Controller {
 		$json = array();
 
 		if (isset($this->request->get['extension_id'])) {
-			$extension_id = $this->request->get['extension_id'];
+			$extension_id = (int)$this->request->get['extension_id'];
 		} else {
 			$extension_id = 0;
 		}
@@ -901,13 +901,13 @@ class ControllerMarketplaceMarketplace extends Controller {
 		$json = array();
 
 		if (isset($this->request->get['extension_id'])) {
-			$extension_id = $this->request->get['extension_id'];
+			$extension_id = (int)$this->request->get['extension_id'];
 		} else {
 			$extension_id = 0;
 		}
 
 		if (isset($this->request->get['parent_id'])) {
-			$parent_id = $this->request->get['parent_id'];
+			$parent_id = (int)$this->request->get['parent_id'];
 		} else {
 			$parent_id = 0;
 		}
@@ -1049,13 +1049,13 @@ class ControllerMarketplaceMarketplace extends Controller {
 		$this->load->language('marketplace/marketplace');
 
 		if (isset($this->request->get['extension_id'])) {
-			$extension_id = $this->request->get['extension_id'];
+			$extension_id = (int)$this->request->get['extension_id'];
 		} else {
 			$extension_id = 0;
 		}
 
 		if (isset($this->request->get['parent_id'])) {
-			$parent_id = $this->request->get['parent_id'];
+			$parent_id = (int)$this->request->get['parent_id'];
 		} else {
 			$parent_id = 0;
 		}

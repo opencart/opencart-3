@@ -1513,7 +1513,7 @@ class ControllerSaleOrder extends Controller {
 		if (isset($this->request->post['selected'])) {
 			$orders = (array)$this->request->post['selected'];
 		} elseif (isset($this->request->get['order_id'])) {
-			$orders[] = $this->request->get['order_id'];
+			$orders[] = (int)$this->request->get['order_id'];
 		}
 
 		foreach ($orders as $order_id) {
@@ -1673,26 +1673,26 @@ class ControllerSaleOrder extends Controller {
 				}
 
 				$data['orders'][] = array(
-					'order_id'	   => $order_id,
-					'invoice_no'       => $invoice_no,
-					'text_order'	   => $text_order,
-					'date_added'       => date($this->language->get('date_format_short'), strtotime($order_info['date_added'])),
-					'store_name'       => $order_info['store_name'],
-					'store_url'        => rtrim($order_info['store_url'], '/'),
-					'store_address'    => nl2br($store_address),
-					'store_email'      => $store_email,
-					'store_telephone'  => $store_telephone,
-					'store_fax'        => $store_fax,
-					'email'            => $order_info['email'],
-					'telephone'        => $order_info['telephone'],
-					'shipping_address' => $shipping_address,
-					'shipping_method'  => $order_info['shipping_method'],
-					'payment_address'  => $payment_address,
-					'payment_method'   => $order_info['payment_method'],
-					'product'          => $product_data,
-					'voucher'          => $voucher_data,
-					'total'            => $total_data,
-					'comment'          => nl2br($order_info['comment'])
+					'order_id'	   		=> $order_id,
+					'invoice_no'       	=> $invoice_no,
+					'text_order'	   	=> $text_order,
+					'date_added'       	=> date($this->language->get('date_format_short'), strtotime($order_info['date_added'])),
+					'store_name'       	=> $order_info['store_name'],
+					'store_url'        	=> rtrim($order_info['store_url'], '/'),
+					'store_address'    	=> nl2br($store_address),
+					'store_email'      	=> $store_email,
+					'store_telephone'  	=> $store_telephone,
+					'store_fax'        	=> $store_fax,
+					'email'            	=> $order_info['email'],
+					'telephone'        	=> $order_info['telephone'],
+					'shipping_address' 	=> $shipping_address,
+					'shipping_method'  	=> $order_info['shipping_method'],
+					'payment_address'  	=> $payment_address,
+					'payment_method'   	=> $order_info['payment_method'],
+					'product'          	=> $product_data,
+					'voucher'          	=> $voucher_data,
+					'total'            	=> $total_data,
+					'comment'          	=> nl2br($order_info['comment'])
 				);
 			}
 		}
@@ -1727,7 +1727,7 @@ class ControllerSaleOrder extends Controller {
 		if (isset($this->request->post['selected'])) {
 			$orders = (array)$this->request->post['selected'];
 		} elseif (isset($this->request->get['order_id'])) {
-			$orders[] = $this->request->get['order_id'];
+			$orders[] = (int)$this->request->get['order_id'];
 		}
 
 		foreach ($orders as $order_id) {

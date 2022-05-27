@@ -1162,7 +1162,7 @@ class ControllerCustomerCustomer extends Controller {
 
 	public function login() {
 		if (isset($this->request->get['customer_id'])) {
-			$customer_id = $this->request->get['customer_id'];
+			$customer_id = (int)$this->request->get['customer_id'];
 		} else {
 			$customer_id = 0;
 		}

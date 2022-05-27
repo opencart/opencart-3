@@ -87,7 +87,7 @@ class ControllerAccountReturns extends Controller {
 		$this->load->language('account/returns');
 
 		if (isset($this->request->get['return_id'])) {
-			$return_id = $this->request->get['return_id'];
+			$return_id = (int)$this->request->get['return_id'];
 		} else {
 			$return_id = 0;
 		}
@@ -227,6 +227,7 @@ class ControllerAccountReturns extends Controller {
 		}
 
 		$this->document->setTitle($this->language->get('heading_title'));
+		
 		$this->document->addScript('catalog/view/javascript/jquery/datetimepicker/moment/moment.min.js');
 		$this->document->addScript('catalog/view/javascript/jquery/datetimepicker/moment/moment-with-locales.min.js');
 		$this->document->addScript('catalog/view/javascript/jquery/datetimepicker/bootstrap-datetimepicker.min.js');
@@ -390,7 +391,7 @@ class ControllerAccountReturns extends Controller {
 		}
 
 		if (isset($this->request->post['quantity'])) {
-			$data['quantity'] = $this->request->post['quantity'];
+			$data['quantity'] = (int)$this->request->post['quantity'];
 		} else {
 			$data['quantity'] = 1;
 		}

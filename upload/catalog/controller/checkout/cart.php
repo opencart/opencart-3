@@ -297,7 +297,7 @@ class ControllerCheckoutCart extends Controller {
 			}
 
 			if (isset($this->request->post['recurring_id'])) {
-				$recurring_id = $this->request->post['recurring_id'];
+				$recurring_id = (int)$this->request->post['recurring_id'];
 			} else {
 				$recurring_id = 0;
 			}

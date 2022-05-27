@@ -51,7 +51,7 @@ class ControllerProductCompare extends Controller {
 
 		$data['attribute_groups'] = array();
 
-		foreach ($this->session->data['compare'] as $key => $product_id) {
+		foreach ((array)$this->session->data['compare'] as $key => $product_id) {
 			$product_info = $this->model_catalog_product->getProduct($product_id);
 
 			if ($product_info) {
@@ -157,7 +157,7 @@ class ControllerProductCompare extends Controller {
 		$product_info = $this->model_catalog_product->getProduct($product_id);
 
 		if ($product_info) {
-			if (!in_array($this->request->post['product_id'], $this->session->data['compare'])) {
+			if (!in_array($this->request->post['product_id'], (array)$this->session->data['compare'])) {
 				if (count($this->session->data['compare']) >= 4) {
 					array_shift($this->session->data['compare']);
 				}

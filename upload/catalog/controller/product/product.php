@@ -378,6 +378,7 @@ class ControllerProductProduct extends Controller {
 			}
 
 			$data['reviews'] = sprintf($this->language->get('text_reviews'), (int)$product_info['reviews']);
+			
 			$data['rating'] = (int)$product_info['rating'];
 
 			// Captcha
@@ -637,6 +638,7 @@ class ControllerProductProduct extends Controller {
 
 	public function getRecurringDescription() {
 		$this->load->language('product/product');
+		
 		$this->load->model('catalog/product');
 
 		if (isset($this->request->post['product_id'])) {

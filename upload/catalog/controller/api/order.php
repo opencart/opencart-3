@@ -344,7 +344,7 @@ class ControllerApiOrder extends Controller {
 
 				// Set the order history
 				if (isset($this->request->post['order_status_id'])) {
-					$order_status_id = $this->request->post['order_status_id'];
+					$order_status_id = (int)$this->request->post['order_status_id'];
 				} else {
 					$order_status_id = $this->config->get('config_order_status_id');
 				}
@@ -371,7 +371,7 @@ class ControllerApiOrder extends Controller {
 			$this->load->model('checkout/order');
 
 			if (isset($this->request->get['order_id'])) {
-				$order_id = $this->request->get['order_id'];
+				$order_id = (int)$this->request->get['order_id'];
 			} else {
 				$order_id = 0;
 			}
@@ -680,7 +680,7 @@ class ControllerApiOrder extends Controller {
 
 					// Set the order history
 					if (isset($this->request->post['order_status_id'])) {
-						$order_status_id = $this->request->post['order_status_id'];
+						$order_status_id = (int)$this->request->post['order_status_id'];
 					} else {
 						$order_status_id = $this->config->get('config_order_status_id');
 					}
@@ -712,7 +712,7 @@ class ControllerApiOrder extends Controller {
 			$this->load->model('checkout/order');
 
 			if (isset($this->request->get['order_id'])) {
-				$order_id = $this->request->get['order_id'];
+				$order_id = (int)$this->request->get['order_id'];
 			} else {
 				$order_id = 0;
 			}
@@ -743,7 +743,7 @@ class ControllerApiOrder extends Controller {
 			$this->load->model('checkout/order');
 
 			if (isset($this->request->get['order_id'])) {
-				$order_id = $this->request->get['order_id'];
+				$order_id = (int)$this->request->get['order_id'];
 			} else {
 				$order_id = 0;
 			}
@@ -788,7 +788,7 @@ class ControllerApiOrder extends Controller {
 			$this->load->model('checkout/order');
 
 			if (isset($this->request->get['order_id'])) {
-				$order_id = $this->request->get['order_id'];
+				$order_id = (int)$this->request->get['order_id'];
 			} else {
 				$order_id = 0;
 			}

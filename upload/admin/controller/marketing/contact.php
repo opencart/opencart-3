@@ -89,11 +89,11 @@ class ControllerMarketingContact extends Controller {
 
 				switch ($this->request->post['to']) {
 					case 'newsletter':
-						$customer_data = array(
+						$customer_data = [
 							'filter_newsletter' => 1,
 							'start'             => ($page - 1) * 10,
 							'limit'             => 10
-						);
+						];
 
 						$email_total = $this->model_customer_customer->getTotalCustomers($customer_data);
 
@@ -104,10 +104,10 @@ class ControllerMarketingContact extends Controller {
 						}
 						break;
 					case 'customer_all':
-						$customer_data = array(
+						$customer_data = [
 							'start' => ($page - 1) * 10,
 							'limit' => 10
-						);
+						];
 
 						$email_total = $this->model_customer_customer->getTotalCustomers($customer_data);
 
@@ -118,11 +118,11 @@ class ControllerMarketingContact extends Controller {
 						}
 						break;
 					case 'customer_group':
-						$customer_data = array(
+						$customer_data = [
 							'filter_customer_group_id' => $this->request->post['customer_group_id'],
 							'start'                    => ($page - 1) * 10,
 							'limit'                    => 10
-						);
+						];
 
 						$email_total = $this->model_customer_customer->getTotalCustomers($customer_data);
 
@@ -134,6 +134,8 @@ class ControllerMarketingContact extends Controller {
 						break;
 					case 'customer':
 						if (!empty($this->request->post['customer'])) {
+							$email_total = count($this->request->post['customer']);
+
 							$customers = array_slice($this->request->post['customer'], ($page - 1) * 10, 10);
 
 							foreach ($customers as $customer_id) {
@@ -143,16 +145,14 @@ class ControllerMarketingContact extends Controller {
 									$emails[] = $customer_info['email'];
 								}
 							}
-
-							$email_total = count($emails);
 						}
 						break;
 					case 'affiliate_all':
-						$affiliate_data = array(
+						$affiliate_data = [
 							'filter_affiliate' => 1,
 							'start'            => ($page - 1) * 10,
 							'limit'            => 10
-						);
+						];
 
 						$email_total = $this->model_customer_customer->getTotalCustomers($affiliate_data);
 
@@ -196,18 +196,10 @@ class ControllerMarketingContact extends Controller {
 					$start = ($page - 1) * 10;
 					$end = $start + 10;
 
-					if ($page == 1 && $email_total < 10) {
-						$json['success'] = sprintf($this->language->get('text_sent'), $email_total, $email_total);
-					} elseif ($page == 1 && $email_total > 10) {
-						$json['success'] = sprintf($this->language->get('text_sent'), 10, $email_total);
-					} elseif ($page > 1 && $email_total < ($page * 10)) {
-						$json['success'] = sprintf($this->language->get('text_sent'), $email_total, $email_total);
-					} else {
-						$json['success'] = sprintf($this->language->get('text_sent'), ($start * $page), $email_total);
-					}
+					$json['success'] = sprintf($this->language->get('text_sent'), $start, $email_total);
 
 					if ($end < $email_total) {
-						$json['next'] = str_replace('&amp;', '&', $this->url->link('marketing/contact/send', 'user_token=' . $this->session->data['user_token'] . '&page=' . ($page + 1), true));
+						$json['next'] = $this->url->link('marketing/contact/send', 'user_token=' . $this->session->data['user_token'] . '&page=' . ($page + 1), true);
 					} else {
 						$json['next'] = '';
 					}
@@ -220,17 +212,17 @@ class ControllerMarketingContact extends Controller {
 					$message .= '  <body>' . html_entity_decode($this->request->post['message'], ENT_QUOTES, 'UTF-8') . '</body>' . "\n";
 					$message .= '</html>' . "\n";
 
+					$mail = new \Mail($this->config->get('config_mail_engine'));
+					$mail->parameter = $this->config->get('config_mail_parameter');
+					$mail->smtp_hostname = $this->config->get('config_mail_smtp_hostname');
+					$mail->smtp_username = $this->config->get('config_mail_smtp_username');
+					$mail->smtp_password = html_entity_decode($this->config->get('config_mail_smtp_password'), ENT_QUOTES, 'UTF-8');
+					$mail->smtp_port = $this->config->get('config_mail_smtp_port');
+					$mail->smtp_timeout = $this->config->get('config_mail_smtp_timeout');
+
 					foreach ($emails as $email) {
 						if (filter_var($email, FILTER_VALIDATE_EMAIL)) {
-							$mail = new \Mail($this->config->get('config_mail_engine'));
-							$mail->parameter = $this->config->get('config_mail_parameter');
-							$mail->smtp_hostname = $this->config->get('config_mail_smtp_hostname');
-							$mail->smtp_username = $this->config->get('config_mail_smtp_username');
-							$mail->smtp_password = html_entity_decode($this->config->get('config_mail_smtp_password'), ENT_QUOTES, 'UTF-8');
-							$mail->smtp_port = $this->config->get('config_mail_smtp_port');
-							$mail->smtp_timeout = $this->config->get('config_mail_smtp_timeout');
-
-							$mail->setTo($email);
+							$mail->setTo(trim($email));
 							$mail->setFrom($store_email);
 							$mail->setSender(html_entity_decode($store_name, ENT_QUOTES, 'UTF-8'));
 							$mail->setSubject(html_entity_decode($this->request->post['subject'], ENT_QUOTES, 'UTF-8'));
@@ -239,7 +231,7 @@ class ControllerMarketingContact extends Controller {
 						}
 					}
 				} else {
-					$json['error']['email'] = $this->language->get('error_email');
+					$json['error']['warning'] = $this->language->get('error_email');
 				}
 			}
 		}
