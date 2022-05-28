@@ -83,7 +83,7 @@
     <input type="button" value="{{ button_confirm }}" id="button-confirm" data-loading-text="{{ text_loading }}" class="btn btn-primary"/>
   </div>
 </div>
-<script language="JavaScript" type="text/javascript">//<!--
+<script language="JavaScript" type="text/javascript"><!--
 function select_eWAYPaymentOption(v) {
 	if ($('#creditcard-info').length) {
 		$('#creditcard-info').hide();
@@ -103,11 +103,9 @@ function select_eWAYPaymentOption(v) {
 		$('#tip-' + v).show();
 	}
 }
-
 //--></script>
 <script type="text/javascript"><!--
 $('#button-confirm').bind('click', function() {
-
 	if ($('#eway-radio-cc').is(':checked')) {
 		var eway_error = false;
 		if ($('#eway-cardname').val().length < 1) {
