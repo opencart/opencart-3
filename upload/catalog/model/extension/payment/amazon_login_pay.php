@@ -506,7 +506,7 @@ class ModelExtensionPaymentAmazonLoginPay extends Model {
     }
 
     public function getOrderByOrderId($order_id) {
-        $sql = "SELECT * FROM `" . DB_PREFIX . "amazon_login_pay_order` WHERE `order_id` = " . (int)$order_id;
+        $sql = "SELECT * FROM `" . DB_PREFIX . "amazon_login_pay_order` WHERE `order_id` = '" . (int)$order_id . "'";
 
         $result = $this->db->query($sql);
 
@@ -549,7 +549,7 @@ class ModelExtensionPaymentAmazonLoginPay extends Model {
     }
 
     public function updateCapturedStatus($amazon_login_pay_order_id, $status) {
-        $this->db->query("UPDATE `" . DB_PREFIX . "amazon_login_pay_order` SET `capture_status` = " . (int)$status . " WHERE `amazon_login_pay_order_id` = '" . $this->db->escape($amazon_login_pay_order_id) . "'");
+        $this->db->query("UPDATE `" . DB_PREFIX . "amazon_login_pay_order` SET `capture_status` = '" . (int)$status . "' WHERE `amazon_login_pay_order_id` = '" . $this->db->escape($amazon_login_pay_order_id) . "'");
     }
 
     public function findCapture($amazon_capture_id) {
@@ -573,14 +573,14 @@ class ModelExtensionPaymentAmazonLoginPay extends Model {
         $row = array();
 
         foreach ($insert as $key => $value) {
-            $row[] = "`" . $key . "` = " . $value;
+            $row[] = "`" . $key . "` = '" . $value . "'";
         }
 
         $this->db->query("INSERT INTO `" . DB_PREFIX . "amazon_login_pay_order_transaction` SET " . implode(',', $row));
     }
 
     public function isShippingFree($order_id) {
-        $sql = "SELECT * FROM `" . DB_PREFIX . "order_total` WHERE `order_id` = " . (int)$order_id . " AND `value` = 0.0000 AND `code` = 'shipping'";
+        $sql = "SELECT * FROM `" . DB_PREFIX . "order_total` WHERE `order_id` = '" . (int)$order_id . "' AND `value` = '0.0000' AND `code` = 'shipping'";
 
         return $this->db->query($sql)->num_rows > 0;
     }
@@ -815,7 +815,7 @@ class ModelExtensionPaymentAmazonLoginPay extends Model {
 
     public function getZoneInfo($amazon_address, $country_info) {
         if (!empty($amazon_address->StateOrRegion)) {
-            $sql = "SELECT `zone_id`, `code`, `name` FROM `" . DB_PREFIX . "zone` WHERE (LOWER(`name`) LIKE '" . $this->db->escape(strtolower($amazon_address->StateOrRegion)) . "' OR LOWER(`code`) LIKE '" . $this->db->escape(strtolower($amazon_address->StateOrRegion)) . "') AND `country_id` = " . (int)$country_info['country_id'] . " LIMIT 1";
+            $sql = "SELECT `zone_id`, `code`, `name` FROM `" . DB_PREFIX . "zone` WHERE (LOWER(`name`) LIKE '" . $this->db->escape(strtolower($amazon_address->StateOrRegion)) . "' OR LOWER(`code`) LIKE '" . $this->db->escape(strtolower($amazon_address->StateOrRegion)) . "') AND `country_id` = '" . (int)$country_info['country_id'] . "' LIMIT 1";
 
             $result = $this->db->query($sql);
 

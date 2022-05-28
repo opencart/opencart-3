@@ -149,7 +149,7 @@ class ModelExtensionPaymentPPProIframe extends Model {
 	public function updateTransaction($transaction) {
 		$this->db->query("
 			UPDATE `" . DB_PREFIX . "paypal_iframe_order_transaction`
-			SET `paypal_iframe_order_id` = " . (int)$transaction['paypal_iframe_order_id'] . ",
+			SET `paypal_iframe_order_id` = '" . (int)$transaction['paypal_iframe_order_id'] . "',
 				`transaction_id` = '" . $this->db->escape($transaction['transaction_id']) . "',
 				`parent_id` = '" . $this->db->escape($transaction['parent_id']) . "',
 				`date_added` = '" . $this->db->escape($transaction['date_added']) . "',
