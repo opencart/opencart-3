@@ -381,11 +381,11 @@ class Googleshopping extends Library {
 
             if (!empty($row['upc'])) {
                 $gtin = $row['upc'];
-            } else if (!empty($row['ean'])) {
+            } elseif (!empty($row['ean'])) {
                 $gtin = $row['ean'];
-            } else if (!empty($row['jan'])) {
+            } elseif (!empty($row['jan'])) {
                 $gtin = $row['jan'];
-            } else if (!empty($row['isbn'])) {
+            } elseif (!empty($row['isbn'])) {
                 $gtin = $row['isbn'];
             } else {
                 $gtin = '';
@@ -887,9 +887,9 @@ class Googleshopping extends Library {
         if (preg_match('/^(\d+)(.)$/', $memory_limit, $matches)) {
             if ($matches[2] == 'G') {
                 $memory_limit = (int)$matches[1] * 1024 * 1024 * 1024; // nnnG -> nnn GB
-            } else if ($matches[2] == 'M') {
+            } elseif ($matches[2] == 'M') {
                 $memory_limit = (int)$matches[1] * 1024 * 1024; // nnnM -> nnn MB
-            } else if ($matches[2] == 'K') {
+            } elseif ($matches[2] == 'K') {
                 $memory_limit = (int)$matches[1] * 1024; // nnnK -> nnn KB
             }
         }
@@ -1304,9 +1304,9 @@ class Googleshopping extends Library {
 
                         if (in_array($value_keys[$k], array('cost'))) {
                             $line_item_value = $this->currencyFormat((float)$line_item_value / self::MICROAMOUNT);
-                        } else if (in_array($value_keys[$k], array('conversion_value'))) {
+                        } elseif (in_array($value_keys[$k], array('conversion_value'))) {
                             $line_item_value = $this->currencyFormat((float)$line_item_value);
-                        } else if ($value_keys[$k] == 'conversions') {
+                        } elseif ($value_keys[$k] == 'conversions') {
                             $line_item_value = (int)$line_item_value;
                         }
 
@@ -1964,7 +1964,7 @@ class Googleshopping extends Library {
             } else {
                 return $return['result'];
             }
-        } else if (in_array($info['http_code'], array(400, 401, 403))) {
+        } elseif (in_array($info['http_code'], array(400, 401, 403))) {
             $return = json_decode($result, true);
 
             if ($info['http_code'] != 401 && $return['error']) {
@@ -1972,7 +1972,7 @@ class Googleshopping extends Library {
             } else {
                 throw new ConnectionException("Access unavailable. Please re-connect.");
             }
-        } else if ($info['http_code'] == 402) {
+        } elseif ($info['http_code'] == 402) {
             $return = json_decode($result, true);
 
             if ($return['error']) {

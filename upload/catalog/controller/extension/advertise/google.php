@@ -228,7 +228,7 @@ class ControllerExtensionAdvertiseGoogle extends Controller {
         if (isset($this->request->get['path'])) {
             $parts = explode('_', $this->request->get['path']);
             $category_id = (int)end($parts);
-        } else if (isset($this->request->get['category_id'])) {
+        } elseif (isset($this->request->get['category_id'])) {
             $category_id = (int)$this->request->get['category_id'];
         } else {
             $category_id = 0;

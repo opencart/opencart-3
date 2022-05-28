@@ -60,7 +60,7 @@ class ControllerExtensionPaymentCardConnect extends Controller {
 
 							if ($this->request->post['card_new'] && isset($this->request->post['card_save']) && $this->config->get('payment_cardconnect_store_cards') && $this->customer->isLogged()) {
 								$profile = 'Y';
-							} else if (!$this->request->post['card_new'] && $this->customer->isLogged()) {
+							} elseif (!$this->request->post['card_new'] && $this->customer->isLogged()) {
 								$existing_card = $this->model_extension_payment_cardconnect->getCard($this->request->post['card_choice'], $this->customer->getId());
 
 								$profile = $existing_card['profileid'];

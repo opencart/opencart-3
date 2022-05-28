@@ -126,7 +126,7 @@ class ControllerExtensionPaymentSquareup extends Controller {
 
                 $use_saved = true;
                 $square_card_id = $card['token'];
-            } else if ($this->customer->isLogged() && isset($this->request->post['squareup_save_card'])) {
+            } elseif ($this->customer->isLogged() && isset($this->request->post['squareup_save_card'])) {
                 // Save the card
                 $card_data = array(
                     'card_nonce' => $this->request->post['squareup_nonce'],
@@ -234,12 +234,12 @@ class ControllerExtensionPaymentSquareup extends Controller {
         } catch (\Squareup\Exception $e) {
             if ($e->isCurlError()) {
                 $json['error'] = $this->language->get('text_token_issue_customer_error');
-            } else if ($e->isAccessTokenRevoked()) {
+            } elseif ($e->isAccessTokenRevoked()) {
                 // Send reminder e-mail to store admin to refresh the token
                 $this->model_extension_payment_squareup->tokenRevokedEmail();
 
                 $json['error'] = $this->language->get('text_token_issue_customer_error');
-            } else if ($e->isAccessTokenExpired()) {
+            } elseif ($e->isAccessTokenExpired()) {
                 // Send reminder e-mail to store admin to refresh the token
                 $this->model_extension_payment_squareup->tokenExpiredEmail();
 

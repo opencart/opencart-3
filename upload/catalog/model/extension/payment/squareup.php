@@ -39,9 +39,9 @@ class ModelExtensionPaymentSquareup extends Model {
 
         if ($minimum_total > 0 && $minimum_total > $total) {
             $status = false;
-        } else if (empty($squareup_geo_zone_id)) {
+        } elseif (empty($squareup_geo_zone_id)) {
             $status = true;
-        } else if ($geo_zone_query->num_rows == 0) {
+        } elseif ($geo_zone_query->num_rows == 0) {
             $status = false;
         }
 
