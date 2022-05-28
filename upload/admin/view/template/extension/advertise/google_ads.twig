@@ -86,8 +86,7 @@
                     <th class="text-right">{{ text_action }}</th>
                 </tr>
             </thead>
-            <tbody id="list">
-                
+            <tbody id="list">                
             </tbody>
         </table>
     </div>
@@ -840,7 +839,7 @@
         }
     });
 
-    $.fn.serializeObject = function(){
+    $.fn.serializeObject = function() {
         var self = this,
             json = {},
             push_counters = {},
@@ -851,7 +850,6 @@
                 "fixed":    /^\d+$/,
                 "named":    /^[a-zA-Z0-9_]+$/
             };
-
 
         this.build = function(base, key, value){
             base[key] = value;
@@ -865,8 +863,7 @@
             return push_counters[key]++;
         };
 
-        $.each($(this).serializeArray(), function(){
-
+        $.each($(this).serializeArray(), function() {
             // skip invalid keys
             if (!patterns.validate.test(this.name)){
                 return;
@@ -877,8 +874,7 @@
                 merge = this.value,
                 reverse_key = this.name;
 
-            while((k = keys.pop()) !== undefined){
-
+            while ((k = keys.pop()) !== undefined) {
                 // adjust reverse_key
                 reverse_key = reverse_key.replace(new RegExp("\\[" + k + "\\]$"), '');
 

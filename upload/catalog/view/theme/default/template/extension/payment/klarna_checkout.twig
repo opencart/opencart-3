@@ -89,8 +89,6 @@ $('.klarna-checkout-main').load('index.php?route=extension/payment/klarna_checko
 		});
 	});
 
-
-
 	$.get('index.php?route=extension/payment/klarna_checkout/cartTotal', function(total) {
 		setTimeout(function() {
 			$('#cart > button').html('<span id="cart-total"><i class="fa fa-shopping-cart"></i> ' + total + '</span>');

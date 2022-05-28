@@ -94,7 +94,7 @@
       </div>
       <div class="col-sm-1"><img class="card-logo" src="{{ vaulted_payment_method.image }}"/></div>
       <div class="col-sm-4">{{ vaulted_payment_method.name }}<br>[<a id="{{ vaulted_payment_method.token }}" class="remove-vault-method braintree-button">{{ text_remove }}</a>]</div>
-      <div class="col-sm-2">{% if payment_pp_braintree_vault_cvv_3ds == 'cvv' %}<div class="form-control input-vaulted-cvv" id="input-vaulted-cvv-{{ vaulted_payment_method.token }}" style="display: none;"></div>{% endif %}</div>
+      <div class="col-sm-2">{% if payment_pp_braintree_vault_cvv_3ds == 'cvv' %}<div class="form-control input-vaulted-cvv" id="input-vaulted-cvv-{{ vaulted_payment_method.token }}" style="display: none;"></div>{% endif %} </div>
     </div>
     <hr>
     {% endfor %}

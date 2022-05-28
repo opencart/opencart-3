@@ -46,7 +46,7 @@ function setupPayPalSmartButton() {
 			// Set up the transaction
 			createOrder: function(data, actions) {
 				order_id = false;
-					
+
 				$.ajax({
 					method: 'post',
 					url: 'index.php?route=extension/module/paypal_smart_button/createOrder',
@@ -55,14 +55,14 @@ function setupPayPalSmartButton() {
 					async: false,
 					success: function(json) {							
 						showPayPalSmartButtonAlert(json);
-							
+
 						order_id = json['order_id'];
 					},
 					error: function(xhr, ajaxOptions, thrownError) {
 						console.log(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
 					}
 				});
-					
+
 				return order_id;	
 			},
 			// Finalize the transaction
@@ -76,7 +76,7 @@ function setupPayPalSmartButton() {
 					async: false,
 					success: function(json) {							
 						showPayPalSmartButtonAlert(json);
-							
+
 						if (json['url']) {
 							location = json['url'];
 						}
@@ -111,15 +111,15 @@ function paypalReady() {
 window.addEventListener('load', function() {
 	if ($('{{ insert_tag }}').length) {
 		var html = '<div id="paypal_form"><div id="paypal_smart_button" class="buttons clearfix"><div id="paypal_smart_button_container"></div></div>';
-		
+
 		{% if message_status %}
 		html += '<div id="paypal_message"><div id="paypal_message_container"><div data-pp-message data-pp-placement="{{ message_placement }}" data-pp-amount="{{ message_amount }}" data-pp-style-layout="{{ message_layout }}" {% if (message_layout == 'text') %}data-pp-style-text-color="{{ message_text_color }}" data-pp-style-text-size="{{ message_text_size }}"{% else %}data-pp-style-color="{{ message_flex_color }}" data-pp-style-ratio="{{ message_flex_ratio }}"{% endif %}></div></div></div>';
 		{% endif %}
-		
+
 		html += '</div>';
-		
+
 		$('{{ insert_tag }}').{{ insert_type }}(html);
-		
+
 		if (typeof paypal_sdk === 'undefined') {
 			var script = document.createElement('script');
 			script.type = 'text/javascript';
@@ -128,7 +128,7 @@ window.addEventListener('load', function() {
 			script.setAttribute('data-namespace', 'paypal_sdk');
 			script.async = false;
 			script.onload = paypalReady();
-	
+
 			var paypal_form = document.querySelector('#paypal_form');
 			paypal_form.appendChild(script);
 		} else {

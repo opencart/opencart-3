@@ -39,7 +39,7 @@
                   {{ customer_group.name }}</label>
               </div>
               {% endif %}
-              {% endfor %}</div>
+              {% endfor %} </div>
           </div>
           <div class="form-group required">
             <label class="col-sm-2 control-label" for="input-firstname">{{ entry_firstname }}</label>
@@ -80,49 +80,14 @@
             <label class="col-sm-2 control-label" for="input-custom-field{{ custom_field.custom_field_id }}">{{ custom_field.name }}</label>
             <div class="col-sm-10">
               <select name="custom_field[{{ custom_field.location }}][{{ custom_field.custom_field_id }}]" id="input-custom-field{{ custom_field.custom_field_id }}" class="form-control">
-                <option value="">{{ text_select }}</option>
-                
-                
-                
-                
-                
-                
-                {% for custom_field_value in custom_field.custom_field_value %}
-                {% if register_custom_field[custom_field.custom_field_id] and custom_field_value.custom_field_value_id == register_custom_field[custom_field.custom_field_id] %}
-                
-                
-                
-                
-                
-                <option value="{{ custom_field_value.custom_field_value_id }}" selected="selected">{{ custom_field_value.name }}</option>
-                
-                
-                
-                
-                
-                
-                {% else %}
-                
-                
-                
-                
-                
-                
-                <option value="{{ custom_field_value.custom_field_value_id }}">{{ custom_field_value.name }}</option>
-                
-                
-                
-                
-                
-                
-                {% endif %}
-                {% endfor %}
-              
-              
-              
-              
-              
-              
+              <option value="">{{ text_select }}</option>
+              {% for custom_field_value in custom_field.custom_field_value %}
+              {% if register_custom_field[custom_field.custom_field_id] and custom_field_value.custom_field_value_id == register_custom_field[custom_field.custom_field_id] %}
+              <option value="{{ custom_field_value.custom_field_value_id }}" selected="selected">{{ custom_field_value.name }}</option>
+              {% else %}
+              <option value="{{ custom_field_value.custom_field_value_id }}">{{ custom_field_value.name }}</option>
+              {% endif %}
+              {% endfor %}
               </select>
               {% if error_custom_field[custom_field.custom_field_id] %}
               <div class="text-danger">{{ error_custom_field[custom_field.custom_field_id] }}</div>
@@ -197,7 +162,7 @@
               <input type="hidden" name="custom_field[{{ custom_field.location }}][{{ custom_field.custom_field_id }}]" value="{% if register_custom_field[custom_field.custom_field_id] %}  {{ register_custom_field[custom_field.custom_field_id] }} {% endif %}"/>
               {% if error_custom_field[custom_field.custom_field_id] %}
               <div class="text-danger">{{ error_custom_field[custom_field.custom_field_id] }}</div>
-              {% endif %}</div>
+              {% endif %} </div>
           </div>
           {% endif %}
           {% if custom_field.type == 'date' %}
@@ -253,7 +218,7 @@
               <input type="text" name="company" value="{{ company }}" placeholder="{{ entry_company }}" id="input-company" class="form-control"/>
             </div>
           </div>       
-          
+
           <div class="form-group">
             <label class="col-sm-2 control-label" for="input-website">{{ entry_website }}</label>
             <div class="col-sm-10">
@@ -353,54 +318,14 @@
               <label class="col-sm-2 control-label" for="input-custom-field{{ custom_field.custom_field_id }}">{{ custom_field.name }}</label>
               <div class="col-sm-10">
                 <select name="custom_field[{{ custom_field.location }}][{{ custom_field.custom_field_id }}]" id="input-custom-field{{ custom_field.custom_field_id }}" class="form-control">
-                  <option value="">{{ text_select }}</option>
-                  
-                
-                
-                
-                
-                
-                
+                <option value="">{{ text_select }}</option>
                 {% for custom_field_value in custom_field.custom_field_value %}
                 {% if register_custom_field[custom_field.custom_field_id] and custom_field_value.custom_field_value_id == register_custom_field[custom_field.custom_field_id] %}
-                
-                
-                
-                
-                
-                  <option value="{{ custom_field_value.custom_field_value_id }}" selected="selected">{{ custom_field_value.name }}</option>
-                  
-                
-                
-                
-                
-                
-                
+                <option value="{{ custom_field_value.custom_field_value_id }}" selected="selected">{{ custom_field_value.name }}</option>
                 {% else %}
-                
-                
-                
-                
-                
-                
-                
-                  <option value="{{ custom_field_value.custom_field_value_id }}">{{ custom_field_value.name }}</option>
-                  
-                
-                
-                
-                
-                
-                
+                <option value="{{ custom_field_value.custom_field_value_id }}">{{ custom_field_value.name }}</option>
                 {% endif %}
                 {% endfor %}
-              
-              
-              
-              
-              
-              
-              
                 </select>
                 {% if error_custom_field[custom_field.custom_field_id] %}
                 <div class="text-danger">{{ error_custom_field[custom_field.custom_field_id] }}</div>
@@ -567,146 +492,146 @@
     {{ column_right }}</div>
 </div>
 <script type="text/javascript"><!--
-// Sort the custom fields
-$('#account .form-group[data-sort]').detach().each(function() {
-	if ($(this).attr('data-sort') >= 0 && $(this).attr('data-sort') <= $('#account .form-group').length) {
-		$('#account .form-group').eq($(this).attr('data-sort')).before(this);
-	}
+	// Sort the custom fields
+	$('#account .form-group[data-sort]').detach().each(function() {
+		if ($(this).attr('data-sort') >= 0 && $(this).attr('data-sort') <= $('#account .form-group').length) {
+			$('#account .form-group').eq($(this).attr('data-sort')).before(this);
+		}
 
-	if ($(this).attr('data-sort') > $('#account .form-group').length) {
-		$('#account .form-group:last').after(this);
-	}
+		if ($(this).attr('data-sort') > $('#account .form-group').length) {
+			$('#account .form-group:last').after(this);
+		}
 
-	if ($(this).attr('data-sort') == $('#account .form-group').length) {
-		$('#account .form-group:last').after(this);
-	}
+		if ($(this).attr('data-sort') == $('#account .form-group').length) {
+			$('#account .form-group:last').after(this);
+		}
 
-	if ($(this).attr('data-sort') < -$('#account .form-group').length) {
-		$('#account .form-group:first').before(this);
-	}
-});
-
-$('#affiliate .form-group[data-sort]').detach().each(function() {
-	if ($(this).attr('data-sort') >= 0 && $(this).attr('data-sort') <= $('#affiliate .form-group').length) {
-		$('#affiliate .form-group').eq($(this).attr('data-sort')).before(this);
-	}
-
-	if ($(this).attr('data-sort') > $('#affiliate .form-group').length) {
-		$('#affiliate .form-group:last').after(this);
-	}
-
-	if ($(this).attr('data-sort') == $('#affiliate .form-group').length) {
-		$('#affiliate .form-group:last').after(this);
-	}
-
-	if ($(this).attr('data-sort') < -$('#affiliate .form-group').length) {
-		$('#affiliate .form-group:first').before(this);
-	}
-});
-
-$('input[name=\'customer_group_id\']').on('change', function() {
-	$.ajax({
-		url: 'index.php?route=account/register/customfield&customer_group_id=' + this.value,
-		dataType: 'json',
-		success: function(json) {
-			$('.custom-field').hide();
-			$('.custom-field').removeClass('required');
-
-			for (i = 0; i < json.length; i++) {
-				custom_field = json[i];
-
-				$('#custom-field' + custom_field['custom_field_id']).show();
-
-				if (custom_field['required']) {
-					$('#custom-field' + custom_field['custom_field_id']).addClass('required');
-				}
-			}
-		},
-		error: function(xhr, ajaxOptions, thrownError) {
-			alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
+		if ($(this).attr('data-sort') < -$('#account .form-group').length) {
+			$('#account .form-group:first').before(this);
 		}
 	});
-});
 
-$('input[name=\'customer_group_id\']:checked').trigger('change');
-//--></script> 
-<script type="text/javascript"><!--
-$('button[id^=\'button-custom-field\']').on('click', function() {
-	var node = this;
-
-	$('#form-upload').remove();
-
-	$('body').prepend('<form enctype="multipart/form-data" id="form-upload" style="display: none;"><input type="file" name="file"/></form>');
-
-	$('#form-upload input[name=\'file\']').trigger('click');
-
-	if (typeof timer != 'undefined') {
-    	clearInterval(timer);
-	}
-
-	timer = setInterval(function() {
-		if ($('#form-upload input[name=\'file\']').val() != '') {
-			clearInterval(timer);
-
-			$.ajax({
-				url: 'index.php?route=tool/upload',
-				type: 'post',
-				dataType: 'json',
-				data: new FormData($('#form-upload')[0]),
-				cache: false,
-				contentType: false,
-				processData: false,
-				beforeSend: function() {
-					$(node).button('loading');
-				},
-				complete: function() {
-					$(node).button('reset');
-				},
-				success: function(json) {
-					$(node).parent().find('.text-danger').remove();
-
-					if (json['error']) {
-						$(node).parent().find('input').after('<div class="text-danger">' + json['error'] + '</div>');
-					}
-
-					if (json['success']) {
-						alert(json['success']);
-
-						$(node).parent().find('input').val(json['code']);
-					}
-				},
-				error: function(xhr, ajaxOptions, thrownError) {
-					alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
-				}
-			});
+	$('#affiliate .form-group[data-sort]').detach().each(function() {
+		if ($(this).attr('data-sort') >= 0 && $(this).attr('data-sort') <= $('#affiliate .form-group').length) {
+			$('#affiliate .form-group').eq($(this).attr('data-sort')).before(this);
 		}
-	}, 500);
-});
+
+		if ($(this).attr('data-sort') > $('#affiliate .form-group').length) {
+			$('#affiliate .form-group:last').after(this);
+		}
+
+		if ($(this).attr('data-sort') == $('#affiliate .form-group').length) {
+			$('#affiliate .form-group:last').after(this);
+		}
+
+		if ($(this).attr('data-sort') < -$('#affiliate .form-group').length) {
+			$('#affiliate .form-group:first').before(this);
+		}
+	});
+
+	$('input[name=\'customer_group_id\']').on('change', function() {
+		$.ajax({
+			url: 'index.php?route=account/register/customfield&customer_group_id=' + this.value,
+			dataType: 'json',
+			success: function(json) {
+				$('.custom-field').hide();
+				$('.custom-field').removeClass('required');
+
+				for (i = 0; i < json.length; i++) {
+					custom_field = json[i];
+
+					$('#custom-field' + custom_field['custom_field_id']).show();
+
+					if (custom_field['required']) {
+						$('#custom-field' + custom_field['custom_field_id']).addClass('required');
+					}
+				}
+			},
+			error: function(xhr, ajaxOptions, thrownError) {
+				alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
+			}
+		});
+	});
+
+	$('input[name=\'customer_group_id\']:checked').trigger('change');
 //--></script> 
 <script type="text/javascript"><!--
-$('.date').datetimepicker({
-	language: '{{ datepicker }}',
-	pickTime: false
-});
+	$('button[id^=\'button-custom-field\']').on('click', function() {
+		var node = this;
 
-$('.time').datetimepicker({
-	language: '{{ datepicker }}',
-	pickDate: false
-});
+		$('#form-upload').remove();
 
-$('.datetime').datetimepicker({
-	language: '{{ datepicker }}',
-	pickDate: true,
-	pickTime: true
-});
+		$('body').prepend('<form enctype="multipart/form-data" id="form-upload" style="display: none;"><input type="file" name="file"/></form>');
+
+		$('#form-upload input[name=\'file\']').trigger('click');
+
+		if (typeof timer != 'undefined') {
+			clearInterval(timer);
+		}
+
+		timer = setInterval(function() {
+			if ($('#form-upload input[name=\'file\']').val() != '') {
+				clearInterval(timer);
+
+				$.ajax({
+					url: 'index.php?route=tool/upload',
+					type: 'post',
+					dataType: 'json',
+					data: new FormData($('#form-upload')[0]),
+					cache: false,
+					contentType: false,
+					processData: false,
+					beforeSend: function() {
+						$(node).button('loading');
+					},
+					complete: function() {
+						$(node).button('reset');
+					},
+					success: function(json) {
+						$(node).parent().find('.text-danger').remove();
+
+						if (json['error']) {
+							$(node).parent().find('input').after('<div class="text-danger">' + json['error'] + '</div>');
+						}
+
+						if (json['success']) {
+							alert(json['success']);
+
+							$(node).parent().find('input').val(json['code']);
+						}
+					},
+					error: function(xhr, ajaxOptions, thrownError) {
+						alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
+					}
+				});
+			}
+		}, 500);
+	});
+//--></script> 
+<script type="text/javascript"><!--
+	$('.date').datetimepicker({
+		language: '{{ datepicker }}',
+		pickTime: false
+	});
+
+	$('.time').datetimepicker({
+		language: '{{ datepicker }}',
+		pickDate: false
+	});
+
+	$('.datetime').datetimepicker({
+		language: '{{ datepicker }}',
+		pickDate: true,
+		pickTime: true
+	});
 //--></script>
 <script type="text/javascript"><!--
-$('input[name=\'payment\']').on('change', function() {
-	$('.payment').hide();
+	$('input[name=\'payment\']').on('change', function() {
+		$('.payment').hide();
 
-	$('#payment-' + this.value).show();
-});
+		$('#payment-' + this.value).show();
+	});
 
-$('input[name=\'payment\']:checked').trigger('change');
+	$('input[name=\'payment\']:checked').trigger('change');
 //--></script> 
 {{ footer }} 

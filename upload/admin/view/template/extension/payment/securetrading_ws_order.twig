@@ -83,7 +83,7 @@
 	</tr>
 </table>
 <script type="text/javascript"><!--
-  $("#btn_void").click(function() {
+  $('#btn_void').click(function() {
 		if (confirm('{{ text_confirm_void }}')) {
 			$.ajax({
 				type: 'POST',
@@ -123,7 +123,8 @@
 			});
 		}
 	});
-	$("#btn_release").click(function() {
+	
+	$('#btn_release').click(function() {
 		if (confirm('{{ text_confirm_release }}')) {
 			$.ajax({
 				type: 'POST',
@@ -178,7 +179,8 @@
 			});
 		}
 	});
-	$("#btn_rebate").click(function() {
+	
+	$('#btn_rebate').click(function() {
 		if (confirm('{{ text_confirm_rebate }}')) {
 			$.ajax({
 				type: 'POST',

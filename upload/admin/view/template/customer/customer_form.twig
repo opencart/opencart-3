@@ -73,7 +73,7 @@
                             <input type="text" name="firstname" value="{{ firstname }}" placeholder="{{ entry_firstname }}" id="input-firstname" class="form-control"/>
                             {% if error_firstname %}
                             <div class="text-danger">{{ error_firstname }}</div>
-                            {% endif %}</div>
+                            {% endif %} </div>
                         </div>
                         <div class="form-group required">
                           <label class="col-sm-2 control-label" for="input-lastname">{{ entry_lastname }}</label>
@@ -81,7 +81,7 @@
                             <input type="text" name="lastname" value="{{ lastname }}" placeholder="{{ entry_lastname }}" id="input-lastname" class="form-control"/>
                             {% if error_lastname %}
                             <div class="text-danger">{{ error_lastname }}</div>
-                            {% endif %}</div>
+                            {% endif %} </div>
                         </div>
                         <div class="form-group required">
                           <label class="col-sm-2 control-label" for="input-email">{{ entry_email }}</label>
@@ -89,7 +89,7 @@
                             <input type="text" name="email" value="{{ email }}" placeholder="{{ entry_email }}" id="input-email" class="form-control"/>
                             {% if error_email %}
                             <div class="text-danger">{{ error_email }}</div>
-                            {% endif %}</div>
+                            {% endif %} </div>
                         </div>
                         <div class="form-group required">
                           <label class="col-sm-2 control-label" for="input-telephone">{{ entry_telephone }}</label>
@@ -97,7 +97,7 @@
                             <input type="text" name="telephone" value="{{ telephone }}" placeholder="{{ entry_telephone }}" id="input-telephone" class="form-control"/>
                             {% if error_telephone %}
                             <div class="text-danger">{{ error_telephone }}</div>
-                            {% endif %}</div>
+                            {% endif %} </div>
                         </div>
                         {% for custom_field in custom_fields %}
                         {% if custom_field.location == 'account' %}
@@ -117,7 +117,7 @@
                             </select>
                             {% if error_custom_field[custom_field.custom_field_id] %}
                             <div class="text-danger">{{ error_custom_field[custom_field.custom_field_id] }}</div>
-                            {% endif %}</div>
+                            {% endif %} </div>
                         </div>
                         {% endif %}
                         {% if custom_field.type == 'radio' %}
@@ -133,11 +133,11 @@
                                 <label>
                                   <input type="radio" name="custom_field[{{ custom_field.custom_field_id }}]" value="{{ custom_field_value.custom_field_value_id }}"/>
                                   {{ custom_field_value.name }}</label>
-                                {% endif %}</div>
+                                {% endif %} </div>
                               {% endfor %} </div>
                             {% if error_custom_field[custom_field.custom_field_id] %}
                             <div class="text-danger">{{ error_custom_field[custom_field.custom_field_id] }}</div>
-                            {% endif %}</div>
+                            {% endif %} </div>
                         </div>
                         {% endif %}
                         {% if custom_field.type == 'checkbox' %}
@@ -153,11 +153,11 @@
                                 <label>
                                   <input type="checkbox" name="custom_field[{{ custom_field.custom_field_id }}][]" value="{{ custom_field_value.custom_field_value_id }}"/>
                                   {{ custom_field_value.name }}</label>
-                                {% endif %}</div>
-                              {% endfor %}</div>
+                                {% endif %} </div>
+                              {% endfor %} </div>
                             {% if error_custom_field[custom_field.custom_field_id] %}
                             <div class="text-danger">{{ error_custom_field[custom_field.custom_field_id] }}</div>
-                            {% endif %}</div>
+                            {% endif %} </div>
                         </div>
                         {% endif %}
                         {% if custom_field.type == 'text' %}
@@ -167,7 +167,7 @@
                             <input type="text" name="custom_field[{{ custom_field.custom_field_id }}]" value="{{ account_custom_field[custom_field.custom_field_id] ? account_custom_field[custom_field.custom_field_id] : custom_field.value }}" placeholder="{{ custom_field.name }}" id="input-custom-field{{ custom_field.custom_field_id }}" class="form-control"/>
                             {% if error_custom_field[custom_field.custom_field_id] %}
                             <div class="text-danger">{{ error_custom_field[custom_field.custom_field_id] }}</div>
-                            {% endif %}</div>
+                            {% endif %} </div>
                         </div>
                         {% endif %}
                         {% if custom_field.type == 'textarea' %}
@@ -177,7 +177,7 @@
                             <textarea name="custom_field[{{ custom_field.custom_field_id }}]" rows="5" placeholder="{{ custom_field.name }}" id="input-custom-field{{ custom_field.custom_field_id }}" class="form-control">{{ account_custom_field[custom_field.custom_field_id] ? account_custom_field[custom_field.custom_field_id] : custom_field.value }}</textarea>
                             {% if error_custom_field[custom_field.custom_field_id] %}
                             <div class="text-danger">{{ error_custom_field[custom_field.custom_field_id] }}</div>
-                            {% endif %}</div>
+                            {% endif %} </div>
                         </div>
                         {% endif %}
                         {% if custom_field.type == 'file' %}
@@ -189,7 +189,7 @@
                             <span>{{ account_custom_field[custom_field.custom_field_id]['name'] }}</span>
                             {% if error_custom_field[custom_field.custom_field_id] %}
                             <div class="text-danger">{{ error_custom_field[custom_field.custom_field_id] }}</div>
-                            {% endif %}</div>
+                            {% endif %} </div>
                         </div>
                         {% endif %}
                         {% if custom_field.type == 'date' %}
@@ -203,7 +203,7 @@
                               </span></div>
                             {% if error_custom_field[custom_field.custom_field_id] %}
                             <div class="text-danger">{{ error_custom_field[custom_field.custom_field_id] }}</div>
-                            {% endif %}</div>
+                            {% endif %} </div>
                         </div>
                         {% endif %}
                         {% if custom_field.type == 'time' %}
@@ -217,7 +217,7 @@
                               </span></div>
                             {% if error_custom_field[custom_field.custom_field_id] %}
                             <div class="text-danger">{{ error_custom_field[custom_field.custom_field_id] }}</div>
-                            {% endif %}</div>
+                            {% endif %} </div>
                         </div>
                         {% endif %}
                         {% if custom_field.type == 'datetime' %}
@@ -231,7 +231,7 @@
                               </span></div>
                             {% if error_custom_field[custom_field.custom_field_id] %}
                             <div class="text-danger">{{ error_custom_field[custom_field.custom_field_id] }}</div>
-                            {% endif %}</div>
+                            {% endif %} </div>
                         </div>
                         {% endif %}
                         {% endif %}
@@ -245,7 +245,7 @@
                             <input type="password" name="password" value="{{ password }}" placeholder="{{ entry_password }}" id="input-password" class="form-control" autocomplete="off"/>
                             {% if error_password %}
                             <div class="text-danger">{{ error_password }}</div>
-                            {% endif %}</div>
+                            {% endif %} </div>
                         </div>
                         <div class="form-group required">
                           <label class="col-sm-2 control-label" for="input-confirm">{{ entry_confirm }}</label>
@@ -253,7 +253,7 @@
                             <input type="password" name="confirm" value="{{ confirm }}" placeholder="{{ entry_confirm }}" autocomplete="off" id="input-confirm" class="form-control"/>
                             {% if error_confirm %}
                             <div class="text-danger">{{ error_confirm }}</div>
-                            {% endif %}</div>
+                            {% endif %} </div>
                         </div>
                       </fieldset>
                       <fieldset>
@@ -312,7 +312,7 @@
                           <input type="text" name="address[{{ address_row }}][firstname]" value="{{ address.firstname }}" placeholder="{{ entry_firstname }}" id="input-firstname{{ address_row }}" class="form-control"/>
                           {% if error_address[address_row].firstname %}
                           <div class="text-danger">{{ error_address[address_row].firstname }}</div>
-                          {% endif %}</div>
+                          {% endif %} </div>
                       </div>
                       <div class="form-group required">
                         <label class="col-sm-2 control-label" for="input-lastname{{ address_row }}">{{ entry_lastname }}</label>
@@ -320,7 +320,7 @@
                           <input type="text" name="address[{{ address_row }}][lastname]" value="{{ address.lastname }}" placeholder="{{ entry_lastname }}" id="input-lastname{{ address_row }}" class="form-control"/>
                           {% if error_address[address_row].lastname %}
                           <div class="text-danger">{{ error_address[address_row].lastname }}</div>
-                          {% endif %}</div>
+                          {% endif %} </div>
                       </div>
                       <div class="form-group">
                         <label class="col-sm-2 control-label" for="input-company{{ address_row }}">{{ entry_company }}</label>
@@ -334,7 +334,7 @@
                           <input type="text" name="address[{{ address_row }}][address_1]" value="{{ address.address_1 }}" placeholder="{{ entry_address_1 }}" id="input-address-1{{ address_row }}" class="form-control"/>
                           {% if error_address[address_row].address_1 %}
                           <div class="text-danger">{{ error_address[address_row].address_1 }}</div>
-                          {% endif %}</div>
+                          {% endif %} </div>
                       </div>
                       <div class="form-group">
                         <label class="col-sm-2 control-label" for="input-address-2{{ address_row }}">{{ entry_address_2 }}</label>
@@ -348,7 +348,7 @@
                           <input type="text" name="address[{{ address_row }}][city]" value="{{ address.city }}" placeholder="{{ entry_city }}" id="input-city{{ address_row }}" class="form-control"/>
                           {% if error_address[address_row].city %}
                           <div class="text-danger">{{ error_address[address_row].city }}</div>
-                          {% endif %}</div>
+                          {% endif %} </div>
                       </div>
                       <div class="form-group required">
                         <label class="col-sm-2 control-label" for="input-postcode{{ address_row }}">{{ entry_postcode }}</label>
@@ -356,7 +356,7 @@
                           <input type="text" name="address[{{ address_row }}][postcode]" value="{{ address.postcode }}" placeholder="{{ entry_postcode }}" id="input-postcode{{ address_row }}" class="form-control"/>
                           {% if error_address[address_row].postcode %}
                           <div class="text-danger">{{ error_address[address_row].postcode }}</div>
-                          {% endif %}</div>
+                          {% endif %} </div>
                       </div>
                       <div class="form-group required">
                         <label class="col-sm-2 control-label" for="input-country{{ address_row }}">{{ entry_country }}</label>
@@ -373,7 +373,7 @@
                           </select>
                           {% if error_address[address_row].country %}
                           <div class="text-danger">{{ error_address[address_row].country }}</div>
-                          {% endif %}</div>
+                          {% endif %} </div>
                       </div>
                       <div class="form-group required">
                         <label class="col-sm-2 control-label" for="input-zone{{ address_row }}">{{ entry_zone }}</label>
@@ -382,7 +382,7 @@
                           </select>
                           {% if error_address[address_row].zone %}
                           <div class="text-danger">{{ error_address[address_row].zone }}</div>
-                          {% endif %}</div>
+                          {% endif %} </div>
                       </div>
                       {% for custom_field in custom_fields %}
                       {% if custom_field.location == 'address' %}
@@ -402,7 +402,7 @@
                           </select>
                           {% if error_address[address_row]['custom_field'][custom_field.custom_field_id] %}
                           <div class="text-danger">{{ error_address[address_row].custom_field[custom_field.custom_field_id] }}</div>
-                          {% endif %}</div>
+                          {% endif %} </div>
                       </div>
                       {% endif %}
                       {% if custom_field.type == 'radio' %}
@@ -418,11 +418,11 @@
                               <label>
                                 <input type="radio" name="address[{{ address_row }}][custom_field][{{ custom_field.custom_field_id }}]" value="{{ custom_field_value.custom_field_value_id }}"/>
                                 {{ custom_field_value.name }}</label>
-                              {% endif %}</div>
+                              {% endif %} </div>
                             {% endfor %} </div>
                           {% if error_address[address_row].custom_field[custom_field.custom_field_id] %}
                           <div class="text-danger">{{ error_address[address_row].custom_field[custom_field.custom_field_id] }}</div>
-                          {% endif %}</div>
+                          {% endif %} </div>
                       </div>
                       {% endif %}
                       {% if custom_field.type == 'checkbox' %}
@@ -438,11 +438,11 @@
                               <label>
                                 <input type="checkbox" name="address[{{ address_row }}][custom_field][{{ custom_field.custom_field_id }}][]" value="{{ custom_field_value.custom_field_value_id }}"/>
                                 {{ custom_field_value.name }}</label>
-                              {% endif %}</div>
+                              {% endif %} </div>
                             {% endfor %} </div>
                           {% if error_address[address_row]['custom_field'][custom_field.custom_field_id] %}
                           <div class="text-danger">{{ error_address[address_row].custom_field[custom_field.custom_field_id] }}</div>
-                          {% endif %}</div>
+                          {% endif %} </div>
                       </div>
                       {% endif %}
                       {% if custom_field.type == 'text' %}
@@ -452,7 +452,7 @@
                           <input type="text" name="address[{{ address_row }}][custom_field][{{ custom_field.custom_field_id }}]" value="{{ address.custom_field[custom_field.custom_field_id] ? address.custom_field[custom_field.custom_field_id] : custom_field.value }}" placeholder="{{ custom_field.name }}" id="input-address{{ address_row }}-custom-field{{ custom_field.custom_field_id }}" class="form-control"/>
                           {% if error_address[address_row]['custom_field'][custom_field.custom_field_id] %}
                           <div class="text-danger">{{ error_address[address_row].custom_field[custom_field.custom_field_id] }}</div>
-                          {% endif %}</div>
+                          {% endif %} </div>
                       </div>
                       {% endif %}
                       {% if custom_field.type == 'textarea' %}
@@ -462,7 +462,7 @@
                           <textarea name="address[{{ address_row }}][custom_field][{{ custom_field.custom_field_id }}]" rows="5" placeholder="{{ custom_field.name }}" id="input-address{{ address_row }}-custom-field{{ custom_field.custom_field_id }}" class="form-control">{{ address.custom_field[custom_field.custom_field_id] ? address.custom_field[custom_field.custom_field_id] : custom_field.value }}</textarea>
                           {% if error_address[address_row]['custom_field'][custom_field.custom_field_id] %}
                           <div class="text-danger">{{ error_address[address_row].custom_field[custom_field.custom_field_id] }}</div>
-                          {% endif %}</div>
+                          {% endif %} </div>
                       </div>
                       {% endif %}
                       {% if custom_field.type == 'file' %}
@@ -474,7 +474,7 @@
                           <span>{{ address.custom_field[custom_field.custom_field_id]['name'] }}</span>
                           {% if error_address[address_row]['custom_field'][custom_field.custom_field_id] %}
                           <div class="text-danger">{{ error_address[address_row].custom_field[custom_field.custom_field_id] }}</div>
-                          {% endif %}</div>
+                          {% endif %} </div>
                       </div>
                       {% endif %}
                       {% if custom_field.type == 'date' %}
@@ -488,7 +488,7 @@
                             </span></div>
                           {% if error_address[address_row]['custom_field'][custom_field.custom_field_id] %}
                           <div class="text-danger">{{ error_address[address_row].custom_field[custom_field.custom_field_id] }}</div>
-                          {% endif %}</div>
+                          {% endif %} </div>
                       </div>
                       {% endif %}
                       {% if custom_field.type == 'time' %}
@@ -502,7 +502,7 @@
                             </span></div>
                           {% if error_address[address_row]['custom_field'][custom_field.custom_field_id] %}
                           <div class="text-danger">{{ error_address[address_row].custom_field[custom_field.custom_field_id] }}</div>
-                          {% endif %}</div>
+                          {% endif %} </div>
                       </div>
                       {% endif %}
                       {% if custom_field.type == 'datetime' %}
@@ -516,7 +516,7 @@
                             </span> </div>
                           {% if error_address[address_row]['custom_field'][custom_field.custom_field_id] %}
                           <div class="text-danger">{{ error_address[address_row].custom_field[custom_field.custom_field_id] }}</div>
-                          {% endif %}</div>
+                          {% endif %} </div>
                       </div>
                       {% endif %}
                       {% endif %}
@@ -586,7 +586,7 @@
                     </select>
                     {% if error_custom_field[custom_field.custom_field_id] %}
                     <div class="text-danger">{{ error_custom_field[custom_field.custom_field_id] }}</div>
-                    {% endif %}</div>
+                    {% endif %} </div>
                 </div>
                 {% endif %}
                 {% if custom_field.type == 'radio' %}
@@ -602,11 +602,11 @@
                         <label>
                           <input type="radio" name="custom_field[{{ custom_field.custom_field_id }}]" value="{{ custom_field_value.custom_field_value_id }}"/>
                           {{ custom_field_value.name }}</label>
-                        {% endif %}</div>
+                        {% endif %} </div>
                       {% endfor %} </div>
                     {% if error_custom_field[custom_field.custom_field_id] %}
                     <div class="text-danger">{{ error_custom_field[custom_field.custom_field_id] }}</div>
-                    {% endif %}</div>
+                    {% endif %} </div>
                 </div>
                 {% endif %}
                 {% if custom_field.type == 'checkbox' %}
@@ -622,11 +622,11 @@
                         <label>
                           <input type="checkbox" name="custom_field[{{ custom_field.custom_field_id }}][]" value="{{ custom_field_value.custom_field_value_id }}"/>
                           {{ custom_field_value.name }}</label>
-                        {% endif %}</div>
+                        {% endif %} </div>
                       {% endfor %} </div>
                     {% if error_custom_field[custom_field.custom_field_id] %}
                     <div class="text-danger">{{ error_custom_field[custom_field.custom_field_id] }}</div>
-                    {% endif %}</div>
+                    {% endif %} </div>
                 </div>
                 {% endif %}
                 {% if custom_field.type == 'text' %}
@@ -636,7 +636,7 @@
                     <input type="text" name="custom_field[{{ custom_field.custom_field_id }}]" value="{{ affiliate_custom_field[custom_field.custom_field_id] ? affiliate_custom_field[custom_field.custom_field_id] : custom_field.value }}" placeholder="{{ custom_field.name }}" id="input-custom-field{{ custom_field.custom_field_id }}" class="form-control"/>
                     {% if error_custom_field[custom_field.custom_field_id] %}
                     <div class="text-danger">{{ error_custom_field[custom_field.custom_field_id] }}</div>
-                    {% endif %}</div>
+                    {% endif %} </div>
                 </div>
                 {% endif %}
                 {% if custom_field.type == 'textarea' %}
@@ -646,7 +646,7 @@
                     <textarea name="custom_field[{{ custom_field.custom_field_id }}]" rows="5" placeholder="{{ custom_field.name }}" id="input-custom-field{{ custom_field.custom_field_id }}" class="form-control">{{ affiliate_custom_field[custom_field.custom_field_id] ? affiliate_custom_field[custom_field.custom_field_id] : custom_field.value }}</textarea>
                     {% if error_custom_field[custom_field.custom_field_id] %}
                     <div class="text-danger">{{ error_custom_field[custom_field.custom_field_id] }}</div>
-                    {% endif %}</div>
+                    {% endif %} </div>
                 </div>
                 {% endif %}
                 {% if custom_field.type == 'file' %}
@@ -657,7 +657,7 @@
                     <input type="hidden" name="custom_field[{{ custom_field.custom_field_id }}]" value="{{ affiliate_custom_field[custom_field.custom_field_id] ? affiliate_custom_field[custom_field.custom_field_id] }}" id="input-custom-field{{ custom_field.custom_field_id }}"/>
                     {% if error_custom_field[custom_field.custom_field_id] %}
                     <div class="text-danger">{{ error_custom_field[custom_field.custom_field_id] }}</div>
-                    {% endif %}</div>
+                    {% endif %} </div>
                 </div>
                 {% endif %}
                 {% if custom_field.type == 'date' %}
@@ -671,7 +671,7 @@
                       </span></div>
                     {% if error_custom_field[custom_field.custom_field_id] %}
                     <div class="text-danger">{{ error_custom_field[custom_field.custom_field_id] }}</div>
-                    {% endif %}</div>
+                    {% endif %} </div>
                 </div>
                 {% endif %}
                 {% if custom_field.type == 'time' %}
@@ -685,7 +685,7 @@
                       </span></div>
                     {% if error_custom_field[custom_field.custom_field_id] %}
                     <div class="text-danger">{{ error_custom_field[custom_field.custom_field_id] }}</div>
-                    {% endif %}</div>
+                    {% endif %} </div>
                 </div>
                 {% endif %}
                 {% if custom_field.type == 'datetime' %}
@@ -699,7 +699,7 @@
                       </span></div>
                     {% if error_custom_field[custom_field.custom_field_id] %}
                     <div class="text-danger">{{ error_custom_field[custom_field.custom_field_id] }}</div>
-                    {% endif %}</div>
+                    {% endif %} </div>
                 </div>
                 {% endif %}
                 {% endif %}
@@ -749,7 +749,7 @@
                       <input type="text" name="cheque" value="{{ cheque }}" placeholder="{{ entry_cheque }}" id="input-cheque" class="form-control"/>
                       {% if error_cheque %}
                       <div class="text-danger">{{ error_cheque }}</div>
-                      {% endif %}</div>
+                      {% endif %} </div>
                   </div>
                 </div>
                 <div id="payment-paypal" class="payment">
@@ -759,7 +759,7 @@
                       <input type="text" name="paypal" value="{{ paypal }}" placeholder="{{ entry_paypal }}" id="input-paypal" class="form-control"/>
                       {% if error_paypal %}
                       <div class="text-danger">{{ error_paypal }}</div>
-                      {% endif %}</div>
+                      {% endif %} </div>
                   </div>
                 </div>
                 <div id="payment-bank" class="payment">
@@ -787,7 +787,7 @@
                       <input type="text" name="bank_account_name" value="{{ bank_account_name }}" placeholder="{{ entry_bank_account_name }}" id="input-bank-account-name" class="form-control"/>
                       {% if error_bank_account_name %}
                       <div class="text-danger">{{ error_bank_account_name }}</div>
-                      {% endif %}</div>
+                      {% endif %} </div>
                   </div>
                   <div class="form-group required">
                     <label class="col-sm-2 control-label" for="input-bank-account-number">{{ entry_bank_account_number }}</label>
@@ -795,7 +795,7 @@
                       <input type="text" name="bank_account_number" value="{{ bank_account_number }}" placeholder="{{ entry_bank_account_number }}" id="input-bank-account-number" class="form-control"/>
                       {% if error_bank_account_number %}
                       <div class="text-danger">{{ error_bank_account_number }}</div>
-                      {% endif %}</div>
+                      {% endif %} </div>
                   </div>
                 </div>
                 <div class="form-group">
@@ -1137,11 +1137,11 @@
 		if ($(this).attr('data-sort') >= 0 && $(this).attr('data-sort') <= $('#tab-address' + address_row + ' .form-group').length) {
 			$('#tab-address' + address_row + ' .form-group').eq($(this).attr('data-sort')).before(this);
 		}
-		
+
 		if ($(this).attr('data-sort') > $('#tab-address' + address_row + ' .form-group').length) {
 			$('#tab-address' + address_row + ' .form-group:last').after(this);
 		}
-		
+
 		if ($(this).attr('data-sort') < -$('#tab-address' + address_row + ' .form-group').length) {
 			$('#tab-address' + address_row + ' .form-group:first').before(this);
 		}
@@ -1151,316 +1151,316 @@
   }
   //--></script> 
   <script type="text/javascript"><!--
-  function country(element, index, zone_id) {
-    $.ajax({
-      url: 'index.php?route=localisation/country/country&user_token={{ user_token }}&country_id=' + element.value,
-      dataType: 'json',
-      beforeSend: function() {
-        $('select[name=\'address[' + index + '][country_id]\']').prop('disabled', true);
-      },
-      complete: function() {
-        $('select[name=\'address[' + index + '][country_id]\']').prop('disabled', false);
-      },
-      success: function(json) {
-        if (json['postcode_required'] == '1') {
-          $('input[name=\'address[' + index + '][postcode]\']').parent().parent().addClass('required');
-        } else {
-          $('input[name=\'address[' + index + '][postcode]\']').parent().parent().removeClass('required');
-        }
+	  function country(element, index, zone_id) {
+		$.ajax({
+		  url: 'index.php?route=localisation/country/country&user_token={{ user_token }}&country_id=' + element.value,
+		  dataType: 'json',
+		  beforeSend: function() {
+			$('select[name=\'address[' + index + '][country_id]\']').prop('disabled', true);
+		  },
+		  complete: function() {
+			$('select[name=\'address[' + index + '][country_id]\']').prop('disabled', false);
+		  },
+		  success: function(json) {
+			if (json['postcode_required'] == '1') {
+			  $('input[name=\'address[' + index + '][postcode]\']').parent().parent().addClass('required');
+			} else {
+			  $('input[name=\'address[' + index + '][postcode]\']').parent().parent().removeClass('required');
+			}
 
-        html = '<option value="">{{ text_select }}</option>';
+			html = '<option value="">{{ text_select }}</option>';
 
-        if (json['zone'] && json['zone'] != '') {
-          for (i = 0; i < json['zone'].length; i++) {
-            html += '<option value="' + json['zone'][i]['zone_id'] + '"';
+			if (json['zone'] && json['zone'] != '') {
+			  for (i = 0; i < json['zone'].length; i++) {
+				html += '<option value="' + json['zone'][i]['zone_id'] + '"';
 
-            if (json['zone'][i]['zone_id'] == zone_id) {
-              html += ' selected="selected"';
-            }
+				if (json['zone'][i]['zone_id'] == zone_id) {
+				  html += ' selected="selected"';
+				}
 
-            html += '>' + json['zone'][i]['name'] + '</option>';
-          }
-        } else {
-          html += '<option value="0">{{ text_none }}</option>';
-        }
+				html += '>' + json['zone'][i]['name'] + '</option>';
+			  }
+			} else {
+			  html += '<option value="0">{{ text_none }}</option>';
+			}
 
-        $('select[name=\'address[' + index + '][zone_id]\']').html(html);
-      },
-      error: function(xhr, ajaxOptions, thrownError) {
-        alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
-      }
-    });
-  }
+			$('select[name=\'address[' + index + '][zone_id]\']').html(html);
+		  },
+		  error: function(xhr, ajaxOptions, thrownError) {
+			alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
+		  }
+		});
+	  }
 
-  $('select[name$=\'[country_id]\']').trigger('change');
+	  $('select[name$=\'[country_id]\']').trigger('change');
   //--></script> 
   <script type="text/javascript"><!--
-  $('#history').delegate('.pagination a', 'click', function(e) {
-    e.preventDefault();
+	  $('#history').delegate('.pagination a', 'click', function(e) {
+		e.preventDefault();
 
-    $('#history').load(this.href);
-  });
+		$('#history').load(this.href);
+	  });
 
-  $('#history').load('index.php?route=customer/customer/history&user_token={{ user_token }}&customer_id={{ customer_id }}');
+	  $('#history').load('index.php?route=customer/customer/history&user_token={{ user_token }}&customer_id={{ customer_id }}');
 
-  $('#button-history').on('click', function(e) {
-    e.preventDefault();
+	  $('#button-history').on('click', function(e) {
+		e.preventDefault();
 
-    $.ajax({
-      url: 'index.php?route=customer/customer/addHistory&user_token={{ user_token }}&customer_id={{ customer_id }}',
-      type: 'post',
-      dataType: 'json',
-      data: 'comment=' + encodeURIComponent($('#tab-history textarea[name=\'comment\']').val()),
-      beforeSend: function() {
-        $('#button-history').button('loading');
-      },
-      complete: function() {
-        $('#button-history').button('reset');
-      },
-      success: function(json) {
-        $('.alert-dismissible').remove();
+		$.ajax({
+		  url: 'index.php?route=customer/customer/addHistory&user_token={{ user_token }}&customer_id={{ customer_id }}',
+		  type: 'post',
+		  dataType: 'json',
+		  data: 'comment=' + encodeURIComponent($('#tab-history textarea[name=\'comment\']').val()),
+		  beforeSend: function() {
+			$('#button-history').button('loading');
+		  },
+		  complete: function() {
+			$('#button-history').button('reset');
+		  },
+		  success: function(json) {
+			$('.alert-dismissible').remove();
 
-        if (json['error']) {
-           $('#tab-history').prepend('<div class="alert alert-danger alert-dismissible"><i class="fa fa-exclamation-circle"></i> ' + json['error'] + ' <button type="button" class="close" data-dismiss="alert">&times;</button></div>');
-        }
+			if (json['error']) {
+			   $('#tab-history').prepend('<div class="alert alert-danger alert-dismissible"><i class="fa fa-exclamation-circle"></i> ' + json['error'] + ' <button type="button" class="close" data-dismiss="alert">&times;</button></div>');
+			}
 
-        if (json['success']) {
-          $('#tab-history').prepend('<div class="alert alert-success alert-dismissible"><i class="fa fa-check-circle"></i> ' + json['success'] + ' <button type="button" class="close" data-dismiss="alert">&times;</button></div>');
+			if (json['success']) {
+			  $('#tab-history').prepend('<div class="alert alert-success alert-dismissible"><i class="fa fa-check-circle"></i> ' + json['success'] + ' <button type="button" class="close" data-dismiss="alert">&times;</button></div>');
 
-          $('#history').load('index.php?route=customer/customer/history&user_token={{ user_token }}&customer_id={{ customer_id }}');
+			  $('#history').load('index.php?route=customer/customer/history&user_token={{ user_token }}&customer_id={{ customer_id }}');
 
-          $('#tab-history textarea[name=\'comment\']').val('');
-        }
-      },
-      error: function(xhr, ajaxOptions, thrownError) {
-        alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
-      }
-    });
-  });
+			  $('#tab-history textarea[name=\'comment\']').val('');
+			}
+		  },
+		  error: function(xhr, ajaxOptions, thrownError) {
+			alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
+		  }
+		});
+	  });
   //--></script> 
   <script type="text/javascript"><!--
-  $('#transaction').delegate('.pagination a', 'click', function(e) {
-    e.preventDefault();
+	  $('#transaction').delegate('.pagination a', 'click', function(e) {
+		e.preventDefault();
 
-    $('#transaction').load(this.href);
-  });
+		$('#transaction').load(this.href);
+	  });
 
-  $('#transaction').load('index.php?route=customer/customer/transaction&user_token={{ user_token }}&customer_id={{ customer_id }}');
+	  $('#transaction').load('index.php?route=customer/customer/transaction&user_token={{ user_token }}&customer_id={{ customer_id }}');
 
-  $('#button-transaction').on('click', function(e) {
-    e.preventDefault();
+	  $('#button-transaction').on('click', function(e) {
+		e.preventDefault();
 
-    $.ajax({
-      url: 'index.php?route=customer/customer/addTransaction&user_token={{ user_token }}&customer_id={{ customer_id }}',
-      type: 'post',
-      dataType: 'json',
-      data: 'description=' + encodeURIComponent($('#tab-transaction input[name=\'description\']').val()) + '&amount=' + encodeURIComponent($('#tab-transaction input[name=\'amount\']').val()),
-      beforeSend: function() {
-        $('#button-transaction').button('loading');
-      },
-      complete: function() {
-        $('#button-transaction').button('reset');
-      },
-      success: function(json) {
-        $('.alert-dismissible').remove();
+		$.ajax({
+		  url: 'index.php?route=customer/customer/addTransaction&user_token={{ user_token }}&customer_id={{ customer_id }}',
+		  type: 'post',
+		  dataType: 'json',
+		  data: 'description=' + encodeURIComponent($('#tab-transaction input[name=\'description\']').val()) + '&amount=' + encodeURIComponent($('#tab-transaction input[name=\'amount\']').val()),
+		  beforeSend: function() {
+			$('#button-transaction').button('loading');
+		  },
+		  complete: function() {
+			$('#button-transaction').button('reset');
+		  },
+		  success: function(json) {
+			$('.alert-dismissible').remove();
 
-        if (json['error']) {
-           $('#tab-transaction').prepend('<div class="alert alert-danger alert-dismissible"><i class="fa fa-exclamation-circle"></i> ' + json['error'] + ' <button type="button" class="close" data-dismiss="alert">&times;</button></div>');
-        }
+			if (json['error']) {
+			   $('#tab-transaction').prepend('<div class="alert alert-danger alert-dismissible"><i class="fa fa-exclamation-circle"></i> ' + json['error'] + ' <button type="button" class="close" data-dismiss="alert">&times;</button></div>');
+			}
 
-        if (json['success']) {
-          $('#tab-transaction').prepend('<div class="alert alert-success alert-dismissible"><i class="fa fa-check-circle"></i> ' + json['success'] + ' <button type="button" class="close" data-dismiss="alert">&times;</button></div>');
+			if (json['success']) {
+			  $('#tab-transaction').prepend('<div class="alert alert-success alert-dismissible"><i class="fa fa-check-circle"></i> ' + json['success'] + ' <button type="button" class="close" data-dismiss="alert">&times;</button></div>');
 
-          $('#transaction').load('index.php?route=customer/customer/transaction&user_token={{ user_token }}&customer_id={{ customer_id }}');
+			  $('#transaction').load('index.php?route=customer/customer/transaction&user_token={{ user_token }}&customer_id={{ customer_id }}');
 
-          $('#tab-transaction input[name=\'amount\']').val('');
-          $('#tab-transaction input[name=\'description\']').val('');
-        }
-      },
-      error: function(xhr, ajaxOptions, thrownError) {
-        alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
-      }
-    });
-  });
+			  $('#tab-transaction input[name=\'amount\']').val('');
+			  $('#tab-transaction input[name=\'description\']').val('');
+			}
+		  },
+		  error: function(xhr, ajaxOptions, thrownError) {
+			alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
+		  }
+		});
+	  });
   //--></script> 
   <script type="text/javascript"><!--
-  $('#reward').delegate('.pagination a', 'click', function(e) {
-    e.preventDefault();
+	  $('#reward').delegate('.pagination a', 'click', function(e) {
+		e.preventDefault();
 
-    $('#reward').load(this.href);
-  });
+		$('#reward').load(this.href);
+	  });
 
-  $('#reward').load('index.php?route=customer/customer/reward&user_token={{ user_token }}&customer_id={{ customer_id }}');
+	  $('#reward').load('index.php?route=customer/customer/reward&user_token={{ user_token }}&customer_id={{ customer_id }}');
 
-  $('#button-reward').on('click', function(e) {
-    e.preventDefault();
+	  $('#button-reward').on('click', function(e) {
+		e.preventDefault();
 
-    $.ajax({
-      url: 'index.php?route=customer/customer/addReward&user_token={{ user_token }}&customer_id={{ customer_id }}',
-      type: 'post',
-      dataType: 'json',
-      data: 'description=' + encodeURIComponent($('#tab-reward input[name=\'description\']').val()) + '&points=' + encodeURIComponent($('#tab-reward input[name=\'points\']').val()),
-      beforeSend: function() {
-        $('#button-reward').button('loading');
-      },
-      complete: function() {
-        $('#button-reward').button('reset');
-      },
-      success: function(json) {
-        $('.alert-dismissible').remove();
+		$.ajax({
+		  url: 'index.php?route=customer/customer/addReward&user_token={{ user_token }}&customer_id={{ customer_id }}',
+		  type: 'post',
+		  dataType: 'json',
+		  data: 'description=' + encodeURIComponent($('#tab-reward input[name=\'description\']').val()) + '&points=' + encodeURIComponent($('#tab-reward input[name=\'points\']').val()),
+		  beforeSend: function() {
+			$('#button-reward').button('loading');
+		  },
+		  complete: function() {
+			$('#button-reward').button('reset');
+		  },
+		  success: function(json) {
+			$('.alert-dismissible').remove();
 
-        if (json['error']) {
-           $('#tab-reward').prepend('<div class="alert alert-danger alert-dismissible"><i class="fa fa-exclamation-circle"></i> ' + json['error'] + ' <button type="button" class="close" data-dismiss="alert">&times;</button></div>');
-        }
+			if (json['error']) {
+			   $('#tab-reward').prepend('<div class="alert alert-danger alert-dismissible"><i class="fa fa-exclamation-circle"></i> ' + json['error'] + ' <button type="button" class="close" data-dismiss="alert">&times;</button></div>');
+			}
 
-        if (json['success']) {
-          $('#tab-reward').prepend('<div class="alert alert-success alert-dismissible"><i class="fa fa-check-circle"></i> ' + json['success'] + ' <button type="button" class="close" data-dismiss="alert">&times;</button></div>');
+			if (json['success']) {
+			  $('#tab-reward').prepend('<div class="alert alert-success alert-dismissible"><i class="fa fa-check-circle"></i> ' + json['success'] + ' <button type="button" class="close" data-dismiss="alert">&times;</button></div>');
 
-          $('#reward').load('index.php?route=customer/customer/reward&user_token={{ user_token }}&customer_id={{ customer_id }}');
+			  $('#reward').load('index.php?route=customer/customer/reward&user_token={{ user_token }}&customer_id={{ customer_id }}');
 
-          $('#tab-reward input[name=\'points\']').val('');
-          $('#tab-reward input[name=\'description\']').val('');
-        }
-      },
-      error: function(xhr, ajaxOptions, thrownError) {
-        alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
-      }
-    });
-  });
+			  $('#tab-reward input[name=\'points\']').val('');
+			  $('#tab-reward input[name=\'description\']').val('');
+			}
+		  },
+		  error: function(xhr, ajaxOptions, thrownError) {
+			alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
+		  }
+		});
+	  });
 
-  $('#ip').delegate('.pagination a', 'click', function(e) {
-    e.preventDefault();
+	  $('#ip').delegate('.pagination a', 'click', function(e) {
+		e.preventDefault();
 
-    $('#ip').load(this.href);
-  });
+		$('#ip').load(this.href);
+	  });
 
-  $('#ip').load('index.php?route=customer/customer/ip&user_token={{ user_token }}&customer_id={{ customer_id }}');
+	  $('#ip').load('index.php?route=customer/customer/ip&user_token={{ user_token }}&customer_id={{ customer_id }}');
 
-  $('#content').delegate('button[id^=\'button-custom-field\'], button[id^=\'button-address\']', 'click', function() {
-    var node = this;
+	  $('#content').delegate('button[id^=\'button-custom-field\'], button[id^=\'button-address\']', 'click', function() {
+		var node = this;
 
-    $('#form-upload').remove();
+		$('#form-upload').remove();
 
-    $('body').prepend('<form enctype="multipart/form-data" id="form-upload" style="display: none;"><input type="file" name="file"/></form>');
+		$('body').prepend('<form enctype="multipart/form-data" id="form-upload" style="display: none;"><input type="file" name="file"/></form>');
 
-    $('#form-upload input[name=\'file\']').trigger('click');
+		$('#form-upload input[name=\'file\']').trigger('click');
 
-    if (typeof timer != 'undefined') {
-        clearInterval(timer);
-    }
+		if (typeof timer != 'undefined') {
+			clearInterval(timer);
+		}
 
-    timer = setInterval(function() {
-      if ($('#form-upload input[name=\'file\']').val() != '') {
-        clearInterval(timer);
+		timer = setInterval(function() {
+		  if ($('#form-upload input[name=\'file\']').val() != '') {
+			clearInterval(timer);
 
-        $.ajax({
-          url: 'index.php?route=tool/upload/upload&user_token={{ user_token }}',
-          type: 'post',
-          dataType: 'json',
-          data: new FormData($('#form-upload')[0]),
-          cache: false,
-          contentType: false,
-          processData: false,
-          beforeSend: function() {
-            $(node).button('loading');
-          },
-          complete: function() {
-            $(node).button('reset');
-          },
-          success: function(json) {
-            $(node).parent().find('.text-danger').remove();
+			$.ajax({
+			  url: 'index.php?route=tool/upload/upload&user_token={{ user_token }}',
+			  type: 'post',
+			  dataType: 'json',
+			  data: new FormData($('#form-upload')[0]),
+			  cache: false,
+			  contentType: false,
+			  processData: false,
+			  beforeSend: function() {
+				$(node).button('loading');
+			  },
+			  complete: function() {
+				$(node).button('reset');
+			  },
+			  success: function(json) {
+				$(node).parent().find('.text-danger').remove();
 
-            if (json['error']) {
-              $(node).parent().find('input[type=\'hidden\']').after('<div class="text-danger">' + json['error'] + '</div>');
-            }
+				if (json['error']) {
+				  $(node).parent().find('input[type=\'hidden\']').after('<div class="text-danger">' + json['error'] + '</div>');
+				}
 
-            if (json['success']) {
-              alert(json['success']);
-            }
+				if (json['success']) {
+				  alert(json['success']);
+				}
 
-            if (json['code']) {
-              $(node).parent().find('input[type=\'hidden\']').val(json['code']);
-            }
-          },
-          error: function(xhr, ajaxOptions, thrownError) {
-            alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
-          }
-        });
-      }
-    }, 500);
-  });
+				if (json['code']) {
+				  $(node).parent().find('input[type=\'hidden\']').val(json['code']);
+				}
+			  },
+			  error: function(xhr, ajaxOptions, thrownError) {
+				alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
+			  }
+			});
+		  }
+		}, 500);
+	  });
 
-  $('.date').datetimepicker({
-    language: '{{ datepicker }}',
-    pickTime: false
-  });
+	  $('.date').datetimepicker({
+		language: '{{ datepicker }}',
+		pickTime: false
+	  });
 
-  $('.datetime').datetimepicker({
-    language: '{{ datepicker }}',
-    pickDate: true,
-    pickTime: true
-  });
+	  $('.datetime').datetimepicker({
+		language: '{{ datepicker }}',
+		pickDate: true,
+		pickTime: true
+	  });
 
-  $('.time').datetimepicker({
-    language: '{{ datepicker }}',
-    pickDate: false
-  });
+	  $('.time').datetimepicker({
+		language: '{{ datepicker }}',
+		pickDate: false
+	  });
 
-  // Sort the custom fields
-  {% set address_row = 1 %}
-  {% for address in addresses %}
-  $('#tab-address{{ address_row }} .form-group[data-sort]').detach().each(function() {
-    if ($(this).attr('data-sort') >= 0 && $(this).attr('data-sort') <= $('#tab-address{{ address_row }} .form-group').length) {
-      $('#tab-address{{ address_row }} .form-group').eq($(this).attr('data-sort')).before(this);
-    }
+	  // Sort the custom fields
+	  {% set address_row = 1 %}
+	  {% for address in addresses %}
+	  $('#tab-address{{ address_row }} .form-group[data-sort]').detach().each(function() {
+		if ($(this).attr('data-sort') >= 0 && $(this).attr('data-sort') <= $('#tab-address{{ address_row }} .form-group').length) {
+		  $('#tab-address{{ address_row }} .form-group').eq($(this).attr('data-sort')).before(this);
+		}
 
-    if ($(this).attr('data-sort') > $('#tab-address{{ address_row }} .form-group').length) {
-      $('#tab-address{{ address_row }} .form-group:last').after(this);
-    }
+		if ($(this).attr('data-sort') > $('#tab-address{{ address_row }} .form-group').length) {
+		  $('#tab-address{{ address_row }} .form-group:last').after(this);
+		}
 
-    if ($(this).attr('data-sort') < -$('#tab-address{{ address_row }} .form-group').length) {
-      $('#tab-address{{ address_row }} .form-group:first').before(this);
-    }
-  });
-  {% set address_row = address_row + 1 %}
-  {% endfor %}
+		if ($(this).attr('data-sort') < -$('#tab-address{{ address_row }} .form-group').length) {
+		  $('#tab-address{{ address_row }} .form-group:first').before(this);
+		}
+	  });
+	  {% set address_row = address_row + 1 %}
+	  {% endfor %}
 
-  $('#tab-customer .form-group[data-sort]').detach().each(function() {
-    if ($(this).attr('data-sort') >= 0 && $(this).attr('data-sort') <= $('#tab-customer .form-group').length) {
-      $('#tab-customer .form-group').eq($(this).attr('data-sort')).before(this);
-    }
+	  $('#tab-customer .form-group[data-sort]').detach().each(function() {
+		if ($(this).attr('data-sort') >= 0 && $(this).attr('data-sort') <= $('#tab-customer .form-group').length) {
+		  $('#tab-customer .form-group').eq($(this).attr('data-sort')).before(this);
+		}
 
-    if ($(this).attr('data-sort') > $('#tab-customer .form-group').length) {
-      $('#tab-customer .form-group:last').after(this);
-    }
+		if ($(this).attr('data-sort') > $('#tab-customer .form-group').length) {
+		  $('#tab-customer .form-group:last').after(this);
+		}
 
-    if ($(this).attr('data-sort') < -$('#tab-customer .form-group').length) {
-      $('#tab-customer .form-group:first').before(this);
-    }
-  });
+		if ($(this).attr('data-sort') < -$('#tab-customer .form-group').length) {
+		  $('#tab-customer .form-group:first').before(this);
+		}
+	  });
 
-  $('#tab-affiliate .form-group[data-sort]').detach().each(function() {
-    if ($(this).attr('data-sort') >= 0 && $(this).attr('data-sort') <= $('#tab-affiliate .form-group').length) {
-      $('#tab-affiliate .form-group').eq($(this).attr('data-sort')).before(this);
-    }
+	  $('#tab-affiliate .form-group[data-sort]').detach().each(function() {
+		if ($(this).attr('data-sort') >= 0 && $(this).attr('data-sort') <= $('#tab-affiliate .form-group').length) {
+		  $('#tab-affiliate .form-group').eq($(this).attr('data-sort')).before(this);
+		}
 
-    if ($(this).attr('data-sort') > $('#tab-affiliate .form-group').length) {
-      $('#tab-affiliate .form-group:last').after(this);
-    }
+		if ($(this).attr('data-sort') > $('#tab-affiliate .form-group').length) {
+		  $('#tab-affiliate .form-group:last').after(this);
+		}
 
-    if ($(this).attr('data-sort') < -$('#tab-affiliate .form-group').length) {
-      $('#tab-affiliate .form-group:first').before(this);
-    }
-  });
+		if ($(this).attr('data-sort') < -$('#tab-affiliate .form-group').length) {
+		  $('#tab-affiliate .form-group:first').before(this);
+		}
+	  });
   //--></script> 
   <script type="text/javascript"><!--
-  $('input[name=\'payment\']').on('change', function() {
-    $('.payment').hide();
+	  $('input[name=\'payment\']').on('change', function() {
+		$('.payment').hide();
 
-    $('#payment-' + this.value).show();
-  });
+		$('#payment-' + this.value).show();
+	  });
 
-  $('input[name=\'payment\']:checked').trigger('change');
+	  $('input[name=\'payment\']:checked').trigger('change');
   //--></script> 
 </div>
-{{ footer }} 
+{{ footer }}

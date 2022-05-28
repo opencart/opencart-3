@@ -33,8 +33,7 @@
               <td class="text-right">{{ column_action }}</td>
             </tr>
           </thead>
-          <tbody>
-          
+          <tbody>          
           {% for product in products %}
           <tr>
             <td class="text-center">{% if product.thumb %}<a href="{{ product.href }}"><img src="{{ product.thumb }}" alt="{{ product.name }}" title="{{ product.name }}"/></a>{% endif %}</td>
@@ -50,8 +49,7 @@
               <a href="{{ product.remove }}" data-toggle="tooltip" title="{{ button_remove }}" class="btn btn-danger"><i class="fa fa-times"></i></a></td>
           </tr>
           {% endfor %}
-            </tbody>
-          
+          </tbody>          
         </table>
       </div>
       {% else %}

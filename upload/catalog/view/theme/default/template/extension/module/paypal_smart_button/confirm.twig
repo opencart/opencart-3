@@ -326,7 +326,7 @@ function onLoadPaymentAddress() {
 	});
 
 	$('#payment_address select[name=\'country_id\']').trigger('change');
-	
+
 	$('.date').datetimepicker({
 		language: '{{ datepicker }}',
 		pickTime: false
@@ -342,7 +342,7 @@ function onLoadPaymentAddress() {
 		pickDate: true,
 		pickTime: true
 	});
-	
+
 	$('#payment_address button[id^=\'button_payment_custom_field\']').on('click', function() {
 		var node = this;
 
@@ -394,7 +394,7 @@ function onLoadPaymentAddress() {
 			}
 		}, 500);
 	});
-	
+
 	$('#payment_address .button-confirm').on('click', function(event) {
 		$.ajax({
 			type: 'post',
@@ -404,21 +404,21 @@ function onLoadPaymentAddress() {
 			success: function(json) {
 				$('#payment_address .alert, #payment_address .text-danger').remove();
 				$('#payment_address .form-group').removeClass('has-error');
-			
+
 				if (json['error']) {
 					for (i in json['error']) {
 						var element = $('#payment_address #input_payment_' + i);
-					
+
 						if (element.parent().hasClass('input-group')) {
 							$(element).parent().after('<div class="text-danger">' + json['error'][i] + '</div>');
 						} else {
 							$(element).after('<div class="text-danger">' + json['error'][i] + '</div>');
 						}
-			
+
 						$(element).parents('.form-group').addClass('has-error');
 					}
 				}
-				
+
 				if (json['url']) {
 					location = json['url'];
 				}
@@ -449,7 +449,7 @@ function onLoadShippingAddress() {
 			$('#shipping_address .form-group:first').before(this);
 		}
 	});
-	
+
 	$('#shipping_address select[name=\'country_id\']').on('change', function() {
 		$.ajax({
 			url: 'index.php?route=checkout/checkout/country&country_id=' + this.value,
@@ -492,7 +492,7 @@ function onLoadShippingAddress() {
 	});
 
 	$('#shipping_address select[name=\'country_id\']').trigger('change');
-	
+
 	$('.date').datetimepicker({
 		language: '{{ datepicker }}',
 		pickTime: false
@@ -508,7 +508,7 @@ function onLoadShippingAddress() {
 		pickDate: true,
 		pickTime: true
 	});
-	
+
 	$('#shipping_address button[id^=\'button_shipping_custom_field\']').on('click', function() {
 		var node = this;
 
@@ -560,7 +560,7 @@ function onLoadShippingAddress() {
 			}
 		}, 500);
 	});
-	
+
 	$('#shipping_address .button-confirm').on('click', function(event) {
 		$.ajax({
 			type: 'post',
@@ -570,21 +570,21 @@ function onLoadShippingAddress() {
 			success: function(json) {
 				$('#shipping_address .alert, #shipping_address .text-danger').remove();
 				$('#shipping_address .form-group').removeClass('has-error');
-			
+
 				if (json['error']) {
 					for (i in json['error']) {
 						var element = $('#shipping_address #input_shipping_' + i);
-					
+
 						if (element.parent().hasClass('input-group')) {
 							$(element).parent().after('<div class="text-danger">' + json['error'][i] + '</div>');
 						} else {
 							$(element).after('<div class="text-danger">' + json['error'][i] + '</div>');
 						}
-			
+
 						$(element).parents('.form-group').addClass('has-error');
 					}
 				}
-				
+
 				if (json['url']) {
 					location = json['url'];
 				}

@@ -197,68 +197,69 @@ $('#button-search').on('click', function() {
 					html += '<td class="right">{{ column_netamt }}</td>';
 					html += '<td class="center">{{ column_action }}</td>';
 					html += '</tr></thead>';
-				
-          $.each(data.result, function(k, v) {
-            if ("L_LONGMESSAGE" in v) {
-              $('#error').text(v.L_LONGMESSAGE).fadeIn();
-            } else {
-              if (!("L_EMAIL" in v)) {
-                v.L_EMAIL = '';
-              }
 
-              html += '<tr>';
-              html += '<td class="left">' + v.L_TIMESTAMP + '</td>';
-              html += '<td class="left">' + v.L_TYPE + '</td>';
-              html += '<td class="left">' + v.L_EMAIL + '</td>';
-              html += '<td class="left">' + v.L_NAME + '</td>';
-              html += '<td class="left">' + v.L_TRANSACTIONID + '</td>';
-              html += '<td class="left">' + v.L_STATUS + '</td>';
-              html += '<td class="left">' + v.L_CURRENCYCODE + '</td>';
-              html += '<td class="right">' + v.L_AMT + '</td>';
-              html += '<td class="right">' + v.L_FEEAMT + '</td>';
-              html += '<td class="right">' + v.L_NETAMT + '</td>';
-              html += '<td class="center">';
-              html += '<a href="{{ view_link }}&transaction_id=' + v.L_TRANSACTIONID + '">{{ text_view }}</a>';
-              html += '</td>';
-              html += '</tr>';
-            }
-          });
-	
-          $('#searching').hide();
-          $('#search_results').append(html).fadeIn();
-	      } else {
-	        $('#searching').hide();
-	        $('#error').html('<i class="fa fa-exclamation-circle"></i> {{ text_no_results }}').fadeIn();
-	      }
-	    }
-	  }
+				    $.each(data.result, function(k, v) {
+						if ("L_LONGMESSAGE" in v) {
+							$('#error').text(v.L_LONGMESSAGE).fadeIn();
+						} else {
+							if (!("L_EMAIL" in v)) {
+								v.L_EMAIL = '';
+							}
+
+							html += '<tr>';
+							html += '<td class="left">' + v.L_TIMESTAMP + '</td>';
+							html += '<td class="left">' + v.L_TYPE + '</td>';
+							html += '<td class="left">' + v.L_EMAIL + '</td>';
+							html += '<td class="left">' + v.L_NAME + '</td>';
+							html += '<td class="left">' + v.L_TRANSACTIONID + '</td>';
+							html += '<td class="left">' + v.L_STATUS + '</td>';
+							html += '<td class="left">' + v.L_CURRENCYCODE + '</td>';
+							html += '<td class="right">' + v.L_AMT + '</td>';
+							html += '<td class="right">' + v.L_FEEAMT + '</td>';
+							html += '<td class="right">' + v.L_NETAMT + '</td>';
+							html += '<td class="center">';
+							html += '<a href="{{ view_link }}&transaction_id=' + v.L_TRANSACTIONID + '">{{ text_view }}</a>';
+							html += '</td>';
+							html += '</tr>';
+						}
+					});
+
+					$('#searching').hide();
+					$('#search_results').append(html).fadeIn();
+
+					} else {
+						$('#searching').hide();
+						$('#error').html('<i class="fa fa-exclamation-circle"></i> {{ text_no_results }}').fadeIn();
+					}
+				}
+			}
+		});
 	});
-});
 
-$('#button-edit').on('click', function() {
-  $('#search-box').hide();
-  $('#search-input').show();
-  $('#button-edit').hide();
-  $('#button-search').show();
-  $('#searching').show();
-  $('#search_results').empty().hide();
-  $('#error').empty().hide();
-});
+	$('#button-edit').on('click', function() {
+	  $('#search-box').hide();
+	  $('#search-input').show();
+	  $('#button-edit').hide();
+	  $('#button-search').show();
+	  $('#searching').show();
+	  $('#search_results').empty().hide();
+	  $('#error').empty().hide();
+	});
 
-$('.date').datetimepicker({
-	language: '{{ datepicker }}',
-	pickTime: false
-});
+	$('.date').datetimepicker({
+		language: '{{ datepicker }}',
+		pickTime: false
+	});
 
-$('.time').datetimepicker({
-	language: '{{ datepicker }}',
-	pickDate: false
-});
+	$('.time').datetimepicker({
+		language: '{{ datepicker }}',
+		pickDate: false
+	});
 
-$('.datetime').datetimepicker({
-	language: '{{ datepicker }}',
-	pickDate: true,
-	pickTime: true
-});
+	$('.datetime').datetimepicker({
+		language: '{{ datepicker }}',
+		pickDate: true,
+		pickTime: true
+	});
 //--></script></div>
 {{ footer }}

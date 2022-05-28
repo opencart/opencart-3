@@ -68,13 +68,13 @@
   </tr>
 </table>
 <script type="text/javascript"><!--
-  $("#button-void").click(function() {
+  $('#button-void').click(function() {
     if (confirm('{{ text_confirm_void }}')) {
       $.ajax({
-        type:'POST',
+	    url: 'index.php?route=extension/payment/globalpay_remote/void&user_token={{ user_token }}',
+        type: 'post',
         dataType: 'json',
-        data: {'order_id': {{ order_id }} },
-        url: 'index.php?route=extension/payment/globalpay_remote/void&user_token={{ user_token }}',
+        data: { 'order_id': {{ order_id }} },        
         beforeSend: function() {
           $('#button-void').hide();
           $('#img_loading_void').show();
@@ -108,13 +108,14 @@
       });
     }
   });
-  $("#button_capture").click(function() {
+  
+  $('#button_capture').click(function() {
     if (confirm('{{ text_confirm_capture }}')) {
       $.ajax({
-        type:'POST',
+		url: 'index.php?route=extension/payment/globalpay_remote/capture&user_token={{ user_token }}',
+        type: 'post',
         dataType: 'json',
-        data: {'order_id': {{ order_id }}, 'amount' : $('#capture_amount').val() },
-        url: 'index.php?route=extension/payment/globalpay_remote/capture&user_token={{ user_token }}',
+        data: { 'order_id': {{ order_id }}, 'amount' : $('#capture_amount').val() },        
         beforeSend: function() {
           $('#button_capture').hide();
           $('#capture_amount').hide();
@@ -163,13 +164,14 @@
       });
     }
   });
-  $("#button-rebate").click(function() {
+  
+  $('#button-rebate').click(function() {
     if (confirm('{{ text_confirm_rebate }}')) {
       $.ajax({
-        type:'POST',
+	    url: 'index.php?route=extension/payment/globalpay_remote/rebate&user_token={{ user_token }}',
+        type: 'post',
         dataType: 'json',
-        data: {'order_id': {{ order_id }}, 'amount' : $('#rebate_amount').val() },
-        url: 'index.php?route=extension/payment/globalpay_remote/rebate&user_token={{ user_token }}',
+        data: { 'order_id': {{ order_id }}, 'amount': $('#rebate_amount').val() },        
         beforeSend: function() {
           $('#button-rebate').hide();
           $('#rebate_amount').hide();

@@ -6,8 +6,7 @@
     <p class="media-heading">{{ comment.member }} <span>{{ comment.date_added }}</span></p>
     <p>{{ comment.comment }}</p>
     <div class="reply">
-      <div> {% if comment.reply %}
-        
+      <div>{% if comment.reply %}        
         {% for reply in comment.reply %}
         <div class="media">
           <div class="media-left"><img src="{{ reply.image }}" alt="{{ reply.member }}" title="{{ reply.member }}" class="media-object"/></div>
@@ -16,13 +15,12 @@
             <p>{{ reply.comment }}</p>
           </div>
         </div>
-        {% endfor %}
-        
+        {% endfor %}        
         {% if comment.next %}
         <div class="text-center"><a href="{{ comment.next }}" class="btn btn-block">{{ text_see_more }}</a></div>
-        {% endif %}
-        
-        {% endif %} <a href="{{ comment.refresh }}" class="reply-refresh hide">{{ button_refresh }}</a> </div>
+        {% endif %}        
+        {% endif %} 
+		<a href="{{ comment.refresh }}" class="reply-refresh hide">{{ button_refresh }}</a></div>
     </div>
     <p class="text-right">
       <button type="button" class="btn btn-link btn-xs">{{ button_reply }}</button>
@@ -40,7 +38,6 @@
     </div>
   </div>
 </div>
-</div>
-{% endfor %} <br>
+{% endfor %}<br>
 <div class="text-center">{{ pagination }}</div>
-{% endif %} 
+{% endif %}

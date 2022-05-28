@@ -71,8 +71,7 @@
               <td style="width: 20px;"></td>
               {% endif %} </tr>
           </thead>
-          <tbody>
-          
+          <tbody>          
           {% for product in products %}
           <tr>
             <td class="text-left">{{ product.name }}
@@ -96,10 +95,8 @@
             <td></td>
             {% endif %} </tr>
           {% endfor %}
-            </tbody>
-          
+          </tbody>
           <tfoot>
-          
           {% for total in totals %}
           <tr>
             <td colspan="3"></td>
@@ -109,8 +106,7 @@
             <td></td>
             {% endif %} </tr>
           {% endfor %}
-            </tfoot>
-          
+          </tfoot>
         </table>
       </div>
       {% if comment %}
@@ -137,8 +133,7 @@
             <td class="text-left">{{ column_comment }}</td>
           </tr>
         </thead>
-        <tbody>
-        
+        <tbody>        
         {% if histories %}
         {% for history in histories %}
         <tr>
@@ -152,8 +147,7 @@
           <td colspan="3" class="text-center">{{ text_no_results }}</td>
         </tr>
         {% endif %}
-          </tbody>
-        
+        </tbody>        
       </table>
       {% endif %}
       <div class="buttons clearfix">

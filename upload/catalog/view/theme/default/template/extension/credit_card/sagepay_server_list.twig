@@ -29,8 +29,7 @@
               <td class="text-right">{{ column_expiry }}</td>
             </tr>
           </thead>
-          <tbody>
-          
+          <tbody>          
           {% if cards %}
           {% for card in cards %}
           <tr>
@@ -45,8 +44,7 @@
             <td class="text-center" colspan="5">{{ text_empty }}</td>
           </tr>
           {% endif %}
-            </tbody>
-          
+          </tbody>          
         </table>
       </div>
       <div class="row">
@@ -63,37 +61,37 @@
     {{ column_right }}</div>
 </div>
 <script type="text/javascript"><!--
-$('#button-add-card').bind('click', function() {
-	$.ajax({
-		url: 'index.php?route=extension/credit_card/sagepay_server_cards/addCard',
-		dataType: 'json',
-		cache: false,
-		beforeSend: function() {
-			$('#button-confirm').button('loading');
-		},
-		complete: function() {
-			$('#button-confirm').button('reset');
-		},
-		success: function(json) {
-			// if success
-			if (json['redirect']) {
-				html = '<form action="' + json['redirect'] + '" method="post" id="redirect">';
-				html += '  <input type="hidden" name="Status" value="' + json['Status'] + '"/>';
-				html += '  <input type="hidden" name="StatusDetail" value="' + json['StatusDetail'] + '"/>';
-				
-				html += '</form>';
-				
-				$('.breadcrumb').after(html);
-				
-				$('#redirect').submit();
+	$('#button-add-card').bind('click', function() {
+		$.ajax({
+			url: 'index.php?route=extension/credit_card/sagepay_server_cards/addCard',
+			dataType: 'json',
+			cache: false,
+			beforeSend: function() {
+				$('#button-confirm').button('loading');
+			},
+			complete: function() {
+				$('#button-confirm').button('reset');
+			},
+			success: function(json) {
+				// if success
+				if (json['redirect']) {
+					html = '<form action="' + json['redirect'] + '" method="post" id="redirect">';
+					html += '  <input type="hidden" name="Status" value="' + json['Status'] + '"/>';
+					html += '  <input type="hidden" name="StatusDetail" value="' + json['StatusDetail'] + '"/>';
+
+					html += '</form>';
+
+					$('.breadcrumb').after(html);
+
+					$('#redirect').submit();
+				}
+
+				// if error
+				if (json['error']) {
+					$('.breadcrumb').after('<div class="alert alert-danger alert-dismissible"><i class="fa fa-exclamation-circle"></i> ' + json['error'] + '</div>');
+				}
 			}
-			
-			// if error
-			if (json['error']) {
-				$('.breadcrumb').after('<div class="alert alert-danger alert-dismissible"><i class="fa fa-exclamation-circle"></i> ' + json['error'] + '</div>');
-			}
-		}
+		});
 	});
-});
 //--></script> 
-{{ footer }} 
+{{ footer }}

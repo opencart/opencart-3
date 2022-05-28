@@ -10,8 +10,7 @@
         <td class="text-right">{{ column_total }}</td>
       </tr>
     </thead>
-    <tbody>
-    
+    <tbody>    
     {% for product in products %}
     <tr>
       <td class="text-left"><a href="{{ product.href }}">{{ product.name }}</a> {% for option in product.option %} <br>
@@ -33,23 +32,20 @@
       <td class="text-right">{{ voucher.amount }}</td>
     </tr>
     {% endfor %}
-      </tbody>
-    
-    <tfoot>
-    
+    </tbody>    
+    <tfoot>    
     {% for total in totals %}
     <tr>
       <td colspan="4" class="text-right"><strong>{{ total.title }}:</strong></td>
       <td class="text-right">{{ total.text }}</td>
     </tr>
     {% endfor %}
-      </tfoot>
-    
+    </tfoot>    
   </table>
 </div>
 {{ payment }}
 {% else %} 
 <script type="text/javascript"><!--
-location = '{{ redirect }}';
+	location = '{{ redirect }}';
 //--></script> 
-{% endif %} 
+{% endif %}

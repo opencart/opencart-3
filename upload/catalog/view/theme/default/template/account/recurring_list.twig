@@ -27,8 +27,7 @@
               <td class="text-right"></td>
             </tr>
           </thead>
-          <tbody>
-          
+          <tbody>          
           {% for recurring in recurrings %}
           <tr>
             <td class="text-right">#{{ recurring.order_recurring_id }}</td>
@@ -37,8 +36,7 @@
             <td class="text-left">{{ recurring.date_added }}</td>
             <td class="text-right"><a href="{{ recurring.view }}" data-toggle="tooltip" title="{{ button_view }}" class="btn btn-info"><i class="fa fa-eye"></i></a></td>
           </tr>
-          {% endfor %}
-          
+          {% endfor %}          
           </tbody>
         </table>
       </div>

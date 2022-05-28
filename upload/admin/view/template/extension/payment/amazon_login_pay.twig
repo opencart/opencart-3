@@ -394,12 +394,14 @@
             $('#buyer-multi-currency').hide();
             break;
         }
+		
         $('<input>').attr({
           type: 'hidden',
           value: 'true',
           name: 'language_reload'
         }).appendTo('#form-amazon-login-pay');
-        $("#form-amazon-login-pay").submit();
+		
+        $('#form-amazon-login-pay').submit();
       });
       //</script>
   <script type="text/javascript">
@@ -410,9 +412,9 @@
       });
       //</script>
   <script type="text/javascript">
-      $('#sign-up').on('click', function() {
-        $("#registration-form").submit();
-        $("#container-credentials").show();
+        $('#sign-up').on('click', function() {
+        $('#registration-form').submit();
+        $('#container-credentials').show();
       });
       //</script>
 <script type="text/javascript">

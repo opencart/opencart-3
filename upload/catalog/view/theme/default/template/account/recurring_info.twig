@@ -59,8 +59,7 @@
               <td class="text-right">{{ column_amount }}</td>
             </tr>
           </thead>
-          <tbody>
-          
+          <tbody>          
           {% if transactions %}
           {% for transaction in transactions %}
           <tr>
@@ -74,11 +73,10 @@
             <td colspan="3" class="text-center">{{ text_no_results }}</td>
           </tr>
           {% endif %}
-            </tbody>
-          
+          </tbody>          
         </table>
       </div>
       {{ recurring }}{{ content_bottom }}</div>
     {{ column_right }}</div>
 </div>
-{{ footer }} 
+{{ footer }}

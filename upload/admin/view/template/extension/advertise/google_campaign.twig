@@ -207,8 +207,7 @@
                     <th class="text-right">{{ entry_action }}</th>
                 </tr>
             </thead>
-            <tbody id="list">
-                
+            <tbody id="list">                
             </tbody>
         </table>
     </div>
@@ -510,7 +509,7 @@
         var html = $(makeModalHtml(modalData));
 
         $(html).modal();
-        
+
         $(html).on('shown.bs.modal', function() {
             // Enable tooltips
             $('[data-toggle="tooltip"]').tooltip({container: 'body', html: true});
@@ -532,7 +531,7 @@
 
             $(selector.target.warning_roas).toggle(!modalData.roas_status);
         });
-        
+
         $(html).on('hidden.bs.modal', function() {
             $(this).remove();
         });

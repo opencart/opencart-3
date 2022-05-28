@@ -516,7 +516,7 @@ $(document).ready(function() {
             }
 
             $('#transactions').html(html);
-            
+
             $('#transactions_pagination').html(data.pagination).find('a[href]').each(function(index,element) {
               $(this).click(function(e) {
                 e.preventDefault();
@@ -618,7 +618,7 @@ $(document).ready(function() {
 
             transactionRequest('GET', url);
         });
-        
+
         $(modal).modal('show');
     }
 
@@ -670,7 +670,7 @@ $(document).ready(function() {
                 amount : $(amount_input).val()
             });
         });
-        
+
         $(modal).modal('show');
     }
 
@@ -703,7 +703,7 @@ $(document).ready(function() {
     });
 
     $('#connect-button').click(onConnectClick);
-    
+
     $('#reconnect-button').click(onConnectClick);
 
     $(document).on('click', '*[data-url-transaction-capture]', function() {
@@ -714,7 +714,7 @@ $(document).ready(function() {
             $(this).attr('data-confirm-capture')
         );
     });
-        
+
     $(document).on('click', '*[data-url-transaction-void]', function() {
         if ($(this).attr('disabled')) return;
 
@@ -733,7 +733,7 @@ $(document).ready(function() {
             $(this).attr('data-insert-amount')
         );
     });
-    
+
     setCronUrl();
 
     listTransactions();

@@ -67,8 +67,7 @@
                       <td class="text-right">{{ column_action }}</td>
                     </tr>
                   </thead>
-                  <tbody>
-                  
+                  <tbody>                  
                   {% if uploads %}
                   {% for upload in uploads %}
                   <tr>
@@ -88,8 +87,7 @@
                     <td class="text-center" colspan="5">{{ text_no_results }}</td>
                   </tr>
                   {% endif %}
-                    </tbody>
-                  
+                  </tbody>                  
                 </table>
               </div>
             </form>
@@ -102,35 +100,35 @@
       </div>
     </div>
   </div>
-  <script type="text/javascript"><!--
-$('#button-filter').on('click', function() {
-	url = 'index.php?route=tool/upload&user_token={{ user_token }}';
-	
-	var filter_name = $('input[name=\'filter_name\']').val();
-	
-	if (filter_name) {
-		url += '&filter_name=' + encodeURIComponent(filter_name);
-	}
-	
-	var filter_filename = $('input[name=\'filter_filename\']').val();
-	
-	if (filter_filename) {
-		url += '&filter_filename=' + encodeURIComponent(filter_filename);
-	}
-	
-	var filter_date_added = $('input[name=\'filter_date_added\']').val();
-	
-	if (filter_date_added) {
-		url += '&filter_date_added=' + encodeURIComponent(filter_date_added);
-	}
+<script type="text/javascript"><!--
+	$('#button-filter').on('click', function() {
+		url = 'index.php?route=tool/upload&user_token={{ user_token }}';
 
-	location = url;
-});
+		var filter_name = $('input[name=\'filter_name\']').val();
+
+		if (filter_name) {
+			url += '&filter_name=' + encodeURIComponent(filter_name);
+		}
+
+		var filter_filename = $('input[name=\'filter_filename\']').val();
+
+		if (filter_filename) {
+			url += '&filter_filename=' + encodeURIComponent(filter_filename);
+		}
+
+		var filter_date_added = $('input[name=\'filter_date_added\']').val();
+
+		if (filter_date_added) {
+			url += '&filter_date_added=' + encodeURIComponent(filter_date_added);
+		}
+
+		location = url;
+	});
 //--></script> 
-  <script type="text/javascript"><!--
-$('.date').datetimepicker({
-	language: '{{ datepicker }}',
-	pickTime: false
-});
+<script type="text/javascript"><!--
+	$('.date').datetimepicker({
+		language: '{{ datepicker }}',
+		pickTime: false
+	});
 //--></script></div>
 {{ footer }}

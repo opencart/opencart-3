@@ -8,13 +8,10 @@
       <p>{{ reply.comment }}</p>
     </div>
   </div>
-  {% endfor %}
-  
+  {% endfor %}  
   {% if next %}
   <div class="text-center"><a href="{{ next }}" class="btn btn-block">{{ text_see_more }}</a></div>
-  {% endif %}
-  
-  {% endif %}
-  
+  {% endif %}  
+  {% endif %}  
   <a href="{{ refresh }}" class="reply-refresh hide">{{ button_refresh }}</a>
 </div>

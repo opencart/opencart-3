@@ -85,22 +85,22 @@
 </div>
 <script language="JavaScript" type="text/javascript">//<!--
 function select_eWAYPaymentOption(v) {
-	if ($("#creditcard-info").length) {
-		$("#creditcard-info").hide();
+	if ($('#creditcard-info').length) {
+		$('#creditcard-info').hide();
 	}
-	if ($("#tip-paypal").length) {
-		$("#tip-paypal").hide();
+	if ($('#tip-paypal').length) {
+		$('#tip-paypal').hide();
 	}
-	if ($("#tip-masterpass").length) {
-		$("#tip-masterpass").hide();
+	if ($('#tip-masterpass').length) {
+		$('#tip-masterpass').hide();
 	}
-	if ($("#tip-vme").length) {
-		$("#tip-vme").hide();
+	if ($('#tip-vme').length) {
+		$('#tip-vme').hide();
 	}
 	if (v == 'creditcard') {
-		$("#creditcard-info").show();
+		$('#creditcard-info').show();
 	} else {
-		$("#tip-" + v).show();
+		$('#tip-' + v).show();
 	}
 }
 

@@ -44,8 +44,7 @@
                 <td class="text-right">{{ column_action }}</td>
               </tr>
             </thead>
-            <tbody>
-            
+            <tbody>            
             {% if coupons %}
             {% for coupon in coupons %}
             <tr>
@@ -61,8 +60,7 @@
               <td class="text-center" colspan="6">{{ text_no_results }}</td>
             </tr>
             {% endif %}
-            </tbody>
-            
+            </tbody>            
           </table>
         </div>
         <div class="row">
@@ -76,15 +74,15 @@
 <script type="text/javascript"><!--
 $('#button-filter').on('click', function() {
 	var url = '';
-	
+
 	var filter_date_start = $('input[name=\'filter_date_start\']').val();
-	
+
 	if (filter_date_start) {
 		url += '&filter_date_start=' + encodeURIComponent(filter_date_start);
 	}
 
 	var filter_date_end = $('input[name=\'filter_date_end\']').val();
-	
+
 	if (filter_date_end) {
 		url += '&filter_date_end=' + encodeURIComponent(filter_date_end);
 	}

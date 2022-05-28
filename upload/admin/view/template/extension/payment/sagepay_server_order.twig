@@ -71,7 +71,7 @@
   </tr>
 </table>
 <script type="text/javascript"><!--
-  $("#button-void").click(function() {
+  $('#button-void').click(function() {
 		if (confirm('{{ text_confirm_void }}')) {
 			$.ajax({
 				type: 'POST',
@@ -111,7 +111,8 @@
 			});
 		}
 	});
-	$("#button-release").click(function() {
+	
+	$('#button-release').click(function() {
 		if (confirm('{{ text_confirm_release }}')) {
 			$.ajax({
 				type: 'POST',
@@ -166,7 +167,8 @@
 			});
 		}
 	});
-	$("#button-rebate").click(function() {
+	
+	$('#button-rebate').click(function() {
 		if (confirm('{{ text_confirm_rebate }}')) {
 			$.ajax({
 				type: 'POST',

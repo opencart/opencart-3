@@ -76,7 +76,6 @@
       </tr>
     </thead>
     <tbody>
-    
     {% for product in products %}
     <tr>
       <td style="font-size: 12px; border-right: 1px solid #DDDDDD; border-bottom: 1px solid #DDDDDD; text-align: left; padding: 7px;">{{ product.name }}
@@ -88,6 +87,7 @@
       <td style="font-size: 12px;	border-right: 1px solid #DDDDDD; border-bottom: 1px solid #DDDDDD; text-align: right; padding: 7px;">{{ product.total }}</td>
     </tr>
     {% endfor %}
+
     {% for voucher in vouchers %}
     <tr>
       <td style="font-size: 12px;	border-right: 1px solid #DDDDDD; border-bottom: 1px solid #DDDDDD; text-align: left; padding: 7px;">{{ voucher.description }}</td>
@@ -97,18 +97,16 @@
       <td style="font-size: 12px;	border-right: 1px solid #DDDDDD; border-bottom: 1px solid #DDDDDD; text-align: right; padding: 7px;">{{ voucher.amount }}</td>
     </tr>
     {% endfor %}
-      </tbody>
-    
-    <tfoot>
-    
+    </tbody>
+
+    <tfoot>	
     {% for total in totals %}
     <tr>
       <td style="font-size: 12px;	border-right: 1px solid #DDDDDD; border-bottom: 1px solid #DDDDDD; text-align: right; padding: 7px;" colspan="4"><b>{{ total.title }}:</b></td>
       <td style="font-size: 12px;	border-right: 1px solid #DDDDDD; border-bottom: 1px solid #DDDDDD; text-align: right; padding: 7px;">{{ total.text }}</td>
     </tr>
     {% endfor %}
-      </tfoot>
-    
+    </tfoot>
   </table>
   <p style="margin-top: 0px; margin-bottom: 20px;">{{ text_footer }}</p>
 </div>

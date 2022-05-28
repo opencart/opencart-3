@@ -29,25 +29,13 @@
             <label class="col-sm-2 control-label" for="input-status">{{ entry_status }}</label>
             <div class="col-sm-10">
               <select name="fraud_fraudlabspro_status" id="input-status" class="form-control">
-                
-                
-								{% if fraud_fraudlabspro_status %}
-								
-                
-                <option value="1" selected="selected">{{ text_enabled }}</option>
-                <option value="0">{{ text_disabled }}</option>
-                
-                
-								{% else %}
-								
-                
-                <option value="1">{{ text_enabled }}</option>
-                <option value="0" selected="selected">{{ text_disabled }}</option>
-                
-                
-								{% endif %}
-							
-              
+			  {% if fraud_fraudlabspro_status %}
+              <option value="1" selected="selected">{{ text_enabled }}</option>
+              <option value="0">{{ text_disabled }}</option>
+			  {% else %}
+              <option value="1">{{ text_enabled }}</option>
+              <option value="0" selected="selected">{{ text_disabled }}</option>
+			  {% endif %}
               </select>
             </div>
           </div>
@@ -69,25 +57,13 @@
             <label class="col-sm-2 control-label" for="input-order-status"><span data-toggle="tooltip" title="{{ help_order_status }}">{{ entry_order_status }}</span></label>
             <div class="col-sm-10">
               <select name="fraud_fraudlabspro_order_status_id" id="input-order-status" class="form-control">
-                
-                
-								{% for order_status in order_statuses %}
-								{% if order_status.order_status_id == fraud_fraudlabspro_order_status_id %}
-								
-                
-                <option value="{{ order_status.order_status_id }}" selected="selected">{{ order_status.name }}</option>
-                
-                
-								{% else %}
-								
-                
-                <option value="{{ order_status.order_status_id }}">{{ order_status.name }}</option>
-                
-                
-								{% endif %}
-								{% endfor %}
-							
-              
+			  {% for order_status in order_statuses %}
+			  {% if order_status.order_status_id == fraud_fraudlabspro_order_status_id %}
+              <option value="{{ order_status.order_status_id }}" selected="selected">{{ order_status.name }}</option>
+			  {% else %}
+              <option value="{{ order_status.order_status_id }}">{{ order_status.name }}</option>
+			  {% endif %}
+			  {% endfor %}
               </select>
             </div>
           </div>
@@ -97,25 +73,13 @@
               <label class="col-sm-2 control-label" for="input-fraud-review-status"><span data-toggle="tooltip" title="{{ help_review_status }}">{{ entry_review_status }}</span></label>
               <div class="col-sm-10">
                 <select name="fraud_fraudlabspro_review_status_id" id="input-fraud-review-status" class="form-control">
-                  
-                  
-									{% for order_status in order_statuses %}
-									{% if order_status.order_status_id == fraud_fraudlabspro_review_status_id %}
-									
-                  
-                  <option value="{{ order_status.order_status_id }}" selected="selected">{{ order_status.name }}</option>
-                  
-                  
-									{% else %}
-									
-                  
-                  <option value="{{ order_status.order_status_id }}">{{ order_status.name }}</option>
-                  
-                  
-									{% endif %}
-									{% endfor %}
-								
-                
+				{% for order_status in order_statuses %}
+				{% if order_status.order_status_id == fraud_fraudlabspro_review_status_id %}
+                <option value="{{ order_status.order_status_id }}" selected="selected">{{ order_status.name }}</option>
+				{% else %}
+                <option value="{{ order_status.order_status_id }}">{{ order_status.name }}</option>
+				{% endif %}
+				{% endfor %}
                 </select>
               </div>
             </div>
@@ -123,25 +87,13 @@
               <label class="col-sm-2 control-label" for="input-fraud-approve-status"><span data-toggle="tooltip" title="{{ help_approve_status }}">{{ entry_approve_status }}</span></label>
               <div class="col-sm-10">
                 <select name="fraud_fraudlabspro_approve_status_id" id="input-fraud-approve-status" class="form-control">
-                  
-                  
-									{% for order_status in order_statuses %}
-									{% if order_status.order_status_id == fraud_fraudlabspro_approve_status_id %}
-									
-                  
-                  <option value="{{ order_status.order_status_id }}" selected="selected">{{ order_status.name }}</option>
-                  
-                  
-									{% else %}
-									
-                  
-                  <option value="{{ order_status.order_status_id }}">{{ order_status.name }}</option>
-                  
-                  
-									{% endif %}
-									{% endfor %}
-								
-                
+				{% for order_status in order_statuses %}
+				{% if order_status.order_status_id == fraud_fraudlabspro_approve_status_id %}
+                <option value="{{ order_status.order_status_id }}" selected="selected">{{ order_status.name }}</option>
+				{% else %}
+                <option value="{{ order_status.order_status_id }}">{{ order_status.name }}</option>
+				{% endif %}
+				{% endfor %}
                 </select>
               </div>
             </div>
@@ -149,25 +101,13 @@
               <label class="col-sm-2 control-label" for="input-fraud-reject-status"><span data-toggle="tooltip" title="{{ help_reject_status }}">{{ entry_reject_status }}</span></label>
               <div class="col-sm-10">
                 <select name="fraud_fraudlabspro_reject_status_id" id="input-fraud-reject-status" class="form-control">
-                  
-                  
-								{% for order_status in order_statuses %}
-								{% if order_status.order_status_id == fraud_fraudlabspro_reject_status_id %}
-								
-                  
-                  <option value="{{ order_status.order_status_id }}" selected="selected">{{ order_status.name }}</option>
-                  
-                  
-								{% else %}
-								
-                  
-                  <option value="{{ order_status.order_status_id }}">{{ order_status.name }}</option>
-                  
-                  
-								{% endif %}
-								{% endfor %}
-								
-                
+				{% for order_status in order_statuses %}
+				{% if order_status.order_status_id == fraud_fraudlabspro_reject_status_id %}
+                <option value="{{ order_status.order_status_id }}" selected="selected">{{ order_status.name }}</option>
+				{% else %}
+                <option value="{{ order_status.order_status_id }}">{{ order_status.name }}</option>
+				{% endif %}
+				{% endfor %}
                 </select>
               </div>
             </div>

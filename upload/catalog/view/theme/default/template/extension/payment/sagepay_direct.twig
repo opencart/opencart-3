@@ -173,39 +173,38 @@ $('#button-confirm').bind('click', function() {
     });
 //--></script>
 <script type="text/javascript"><!--
-$('#button-delete').bind('click', function() {
-	if (confirm('{{ text_confirm_delete }}')) {
-		$.ajax({
-			url: 'index.php?route=extension/payment/sagepay_direct/delete',
-			type: 'post',
-			data: $('#card-existing :input[name=\'Token\']'),
-			dataType: 'json',
-			beforeSend: function() {
-				$('#button-delete').button('loading');
-			},
-			complete: function() {
-				$('#button-delete').button('reset');
-			},
-			success: function(json) {
-				if (json['error']) {
-					alert(json['error']);
+	$('#button-delete').bind('click', function() {
+		if (confirm('{{ text_confirm_delete }}')) {
+			$.ajax({
+				url: 'index.php?route=extension/payment/sagepay_direct/delete',
+				type: 'post',
+				data: $('#card-existing :input[name=\'Token\']'),
+				dataType: 'json',
+				beforeSend: function() {
+					$('#button-delete').button('loading');
+				},
+				complete: function() {
+					$('#button-delete').button('reset');
+				},
+				success: function(json) {
+					if (json['error']) {
+						alert(json['error']);
+					}
+
+					if (json['success']) {
+						$.ajax({
+							url: 'index.php?route=checkout/confirm',
+							dataType: 'html',
+							success: function(html) {
+								$('#collapse-checkout-confirm .panel-body').html(html);
+							},
+							error: function(xhr, ajaxOptions, thrownError) {
+								alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
+							}
+						});
+					}
 				}
-			
-				if (json['success']) {
-					$.ajax({
-						url: 'index.php?route=checkout/confirm',
-						dataType: 'html',
-						success: function(html) {
-							$('#collapse-checkout-confirm .panel-body').html(html);
-						},
-						error: function(xhr, ajaxOptions, thrownError) {
-							alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
-						}
-					});
-				}
-			
-			}
-		});
-	}
-});
+			});
+		}
+	});
 //--></script>

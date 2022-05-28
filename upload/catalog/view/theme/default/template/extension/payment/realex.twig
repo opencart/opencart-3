@@ -18,14 +18,10 @@
     <div class="form-group required">
       <label class="col-sm-2 control-label" for="input-cc-type"><span data-toggle="tooltip" title="{{ help_select_card }}">{{ entry_cc_type }}</span></label>
       <div class="col-sm-10">
-        <select name="ACCOUNT" class="form-control" id="input-cc-type">
-          
-          {% for card in cards %}
-          
-          <option value="{{ card.account }}">{{ card.type }}</option>
-          
-          {% endfor %}
-        
+        <select name="ACCOUNT" class="form-control" id="input-cc-type">          
+        {% for card in cards %}          
+        <option value="{{ card.account }}">{{ card.type }}</option>          
+        {% endfor %}        
         </select>
       </div>
     </div>
@@ -38,7 +34,7 @@
   </div>
 </div>
 <script type="text/javascript"><!--
-$('#button-confirm').bind('click', function() {
-  $('#realex_form_redirect').submit();
-});
+	$('#button-confirm').bind('click', function() {
+	  $('#realex_form_redirect').submit();
+	});
 //--></script>

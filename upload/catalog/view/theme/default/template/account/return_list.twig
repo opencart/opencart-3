@@ -28,8 +28,7 @@
               <td></td>
             </tr>
           </thead>
-          <tbody>
-          
+          <tbody>          
           {% for return in returns %}
           <tr>
             <td class="text-right">#{{ return.return_id }}</td>
@@ -40,8 +39,7 @@
             <td class="text-right"><a href="{{ return.href }}" data-toggle="tooltip" title="{{ button_view }}" class="btn btn-info"><i class="fa fa-eye"></i></a></td>
           </tr>
           {% endfor %}
-            </tbody>
-          
+          </tbody>          
         </table>
       </div>
       <div class="row">
@@ -57,4 +55,4 @@
       {{ content_bottom }}</div>
     {{ column_right }}</div>
 </div>
-{{ footer }} 
+{{ footer }}

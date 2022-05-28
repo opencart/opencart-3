@@ -6,12 +6,10 @@
         {% if is_authorized %}
             <a id="transaction_capture" data-url-transaction-capture="{{ url_capture }}" data-confirm-capture="{{ confirm_capture }}" class="btn btn-success">{{ button_capture }}</a>
             <a id="transaction_void" data-url-transaction-void="{{ url_void }}" data-confirm-void="{{ confirm_void }}" class="btn btn-warning">{{ button_void }}</a>
-        {% endif %}
-        
+        {% endif %}        
         {% if is_captured %}
             <a id="transaction_refund" data-url-transaction-refund="{{ url_refund }}" data-confirm-refund="{{ confirm_refund }}" data-insert-amount="{{ insert_amount }}" class="btn btn-danger">{{ button_refund }}</a>
-        {% endif %}
-        
+        {% endif %}        
         <a href="{{ cancel }}" data-toggle="tooltip" title="{{ button_cancel }}" class="btn btn-default"><i class="fa fa-reply"></i></a></div>
       <h1>{{ heading_title }}</h1>
       <ul class="breadcrumb">
@@ -273,7 +271,7 @@ $(document).ready(function() {
 
             transactionRequest('GET', url);
         });
-        
+
         $(modal).modal('show');
     }
 
@@ -325,7 +323,7 @@ $(document).ready(function() {
                 amount : $(amount_input).val()
             });
         });
-        
+
         $(modal).modal('show');
     }
 
@@ -337,7 +335,7 @@ $(document).ready(function() {
             $(this).attr('data-confirm-capture')
         );
     });
-        
+
     $(document).on('click', '*[data-url-transaction-void]', function() {
         if ($(this).attr('disabled')) return;
 
