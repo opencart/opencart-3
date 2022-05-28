@@ -670,7 +670,7 @@ class ControllerMarketplaceMarketplace extends Controller {
 
 			$this->response->setOutput($this->load->view('marketplace/marketplace_info', $data));
 		} else {
-			return new Action('error/not_found');
+			return new \Action('error/not_found');
 		}
 	}
 

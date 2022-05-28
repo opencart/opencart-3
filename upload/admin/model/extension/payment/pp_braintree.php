@@ -155,7 +155,7 @@ class ModelExtensionPaymentPPBraintree extends Model {
 	}
 
 	public function setGateway($access_token) {
-		return new Braintree_Gateway(array('accessToken' => $access_token));
+		return new \Braintree_Gateway(array('accessToken' => $access_token));
 	}
 
 	public function log($data) {

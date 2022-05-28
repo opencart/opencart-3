@@ -13,7 +13,7 @@ class ControllerStartupLogin extends Controller {
 		$this->registry->set('user', new \Cart\User($this->registry));
 
 		if (!$this->user->isLogged() && !in_array($route, $ignore)) {
-			return new Action('common/login');
+			return new \Action('common/login');
 		}
 
 		if (isset($this->request->get['route'])) {

@@ -48,7 +48,7 @@ class ControllerAccountTracking extends Controller {
 	
 			$this->response->setOutput($this->load->view('account/tracking', $data));
 		} else {
-			return new Action('error/not_found');
+			return new \Action('error/not_found');
 		}
 	}
 
