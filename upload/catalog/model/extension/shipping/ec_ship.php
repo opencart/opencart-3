@@ -484,9 +484,11 @@ class ModelExtensionShippingECShip extends Model {
 			foreach ($address_to['code'] as $key => $value) {
 				$api01Req = new \api01Req($request['ecshipUsername'], $request['integratorUsername'], $request['countryCode'], $key, $request['weight']);
 				
-				$params = array("api01Req" => $api01Req);
+				$params = array(
+					'api01Req' => $api01Req
+				);
 				
-				$objResponse = $objClient->__soapCall("getTotalPostage", array($params));
+				$objResponse = $objClient->__soapCall('getTotalPostage', array($params));
 				$objResponse = json_decode(json_encode($objResponse), true);
 				$objResponse['getTotalPostageReturn']['serviceName'] = $value;
 				

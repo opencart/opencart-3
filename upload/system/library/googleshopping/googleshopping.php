@@ -459,7 +459,10 @@ class Googleshopping extends Library {
         $result = array();
 
         foreach ($this->combineOptions($options) as $group) {
-            $key = $product_id . '-' . md5(json_encode(array('color' => $group['color'], 'size' => $group['size'])));
+            $key = $product_id . '-' . md5(json_encode(array(
+				'color' => $group['color'], 
+				'size' => $group['size'])
+			));
 
             $result[$key] = $group;
         }
@@ -619,10 +622,10 @@ class Googleshopping extends Library {
             $report[] = $this->output($e->getMessage());
         }
 
-        $default_config_tax = $this->config->get("config_tax");
-        $default_config_store_id = $this->config->get("config_store_id");
-        $default_config_language_id = $this->config->get("config_language_id");
-        $default_config_seo_url = $this->config->get("config_seo_url");
+        $default_config_tax = $this->config->get('config_tax');
+        $default_config_store_id = $this->config->get('config_store_id');
+        $default_config_language_id = $this->config->get('config_language_id');
+        $default_config_seo_url = $this->config->get('config_seo_url');
 
         // Do product feed uploads
         foreach ($this->getJobs() as $job) {
@@ -630,24 +633,24 @@ class Googleshopping extends Library {
                 $report[] = $this->output("Uploading product feed. Work ID: " . $job['work_id']);
 
                 // Set the tax context for the job
-                if (in_array("US", $job['countries'])) {
+                if (in_array('US', $job['countries'])) {
                     // In case the feed is for the US, disable taxes because they are already configured on the merchant level by the extension
-                    $this->config->set("config_tax", 0);
+                    $this->config->set('config_tax', 0);
                 }
 
                 // Set the store and language context for the job
-                $this->config->set("config_store_id", $this->store_id);
-                $this->config->set("config_language_id", $job['language_id']);
-                $this->config->set("config_seo_url", $this->model_setting_setting->getSettingValue("config_seo_url", $this->store_id));
+                $this->config->set('config_store_id', $this->store_id);
+                $this->config->set('config_language_id', $job['language_id']);
+                $this->config->set('config_seo_url', $this->model_setting_setting->getSettingValue('config_seo_url', $this->store_id));
 
                 // Do the CRON job
                 $count = $this->doJob($job);
 
                 // Reset the taxes, store, and language to their original state
-                $this->config->set("config_tax", $default_config_tax);
-                $this->config->set("config_store_id", $default_config_store_id);
-                $this->config->set("config_language_id", $default_config_language_id);
-                $this->config->set("config_seo_url", $default_config_seo_url);
+                $this->config->set('config_tax', $default_config_tax);
+                $this->config->set('config_store_id', $default_config_store_id);
+                $this->config->set('config_language_id', $default_config_language_id);
+                $this->config->set('config_seo_url', $default_config_seo_url);
 
                 $report[] = $this->output("Uploaded count: " . $count);
             } catch (\RuntimeException $e) {
@@ -656,10 +659,10 @@ class Googleshopping extends Library {
         }
 
         // Reset the taxes, store, and language to their original state
-        $this->config->set("config_tax", $default_config_tax);
-        $this->config->set("config_store_id", $default_config_store_id);
-        $this->config->set("config_language_id", $default_config_language_id);
-        $this->config->set("config_seo_url", $default_config_seo_url);
+        $this->config->set('config_tax', $default_config_tax);
+        $this->config->set('config_store_id', $default_config_store_id);
+        $this->config->set('config_language_id', $default_config_language_id);
+        $this->config->set('config_seo_url', $default_config_seo_url);
 
         // Pull product reports
         $report[] = $this->output("Fetching product reports.");

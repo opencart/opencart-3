@@ -60,7 +60,11 @@ class ControllerExtensionPaymentKlarnaInvoice extends Controller {
 					$taxes = array();
 					
 					// We have to put the totals in an array so that they pass by reference.
-					$this->{'model_extension_total_' . $result['code']}->getTotal(array("totals"=>$total_data, "total"=>$total, "taxes"=>$taxes));
+					$this->{'model_extension_total_' . $result['code']}->getTotal(array(
+						'totals'	=>	$total_data, 
+						'total'		=>	$total, 
+						'taxes'		=>	$taxes
+					));
 
 					$amount = 0;
 

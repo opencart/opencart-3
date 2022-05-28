@@ -139,8 +139,8 @@ class ModelExtensionPaymentEway extends Model {
 		$eway_username = html_entity_decode($this->config->get('payment_eway_username'), ENT_QUOTES, 'UTF-8');
 		$eway_password = html_entity_decode($this->config->get('payment_eway_password'), ENT_QUOTES, 'UTF-8');
 
-		curl_setopt($ch, CURLOPT_HTTPHEADER, array("Content-Type: application/json"));
-		curl_setopt($ch, CURLOPT_USERPWD, $eway_username . ":" . $eway_password);
+		curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json'));
+		curl_setopt($ch, CURLOPT_USERPWD, $eway_username . ':' . $eway_password);
 		
 		if ($is_post) {
 			curl_setopt($ch, CURLOPT_POST, 1);

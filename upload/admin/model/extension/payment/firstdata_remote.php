@@ -51,9 +51,9 @@ class ModelExtensionPaymentFirstdataRemote extends Model {
 	public function call($xml) {
 		$ch = curl_init();
 		
-		curl_setopt($ch, CURLOPT_URL, "https://test.ipg-online.com/ipgapi/services");
+		curl_setopt($ch, CURLOPT_URL, 'https://test.ipg-online.com/ipgapi/services');
 		curl_setopt($ch, CURLOPT_POST, 1);
-		curl_setopt($ch, CURLOPT_HTTPHEADER, array("Content-Type: text/xml"));
+		curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: text/xml'));
 		curl_setopt($ch, CURLOPT_HTTPAUTH, 'CURLAUTH_BASIC');
 		curl_setopt($ch, CURLOPT_USERPWD, $this->config->get('payment_firstdata_remote_user_id') . ':' . $this->config->get('payment_firstdata_remote_password'));
 		curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 1);
@@ -63,7 +63,7 @@ class ModelExtensionPaymentFirstdataRemote extends Model {
 		curl_setopt($ch, CURLOPT_SSLKEYPASSWD, $this->config->get('payment_firstdata_remote_key_pw'));
 		curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
 		curl_setopt($ch, CURLOPT_POSTFIELDS, $xml);
-		//curl_setopt($ch, CURLOPT_STDERR, fopen(DIR_LOGS . "/headers.txt", "w+"));
+		//curl_setopt($ch, CURLOPT_STDERR, fopen(DIR_LOGS . '/headers.txt', 'w+'));
 		curl_setopt($ch, CURLOPT_VERBOSE, true);
 		
 		$response = curl_exec($ch);

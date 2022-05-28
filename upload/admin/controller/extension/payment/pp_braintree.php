@@ -1045,9 +1045,9 @@ class ControllerExtensionPaymentPPBraintree extends Controller {
 			}
 		}
 
-		if ($this->config->get("payment_pp_braintree_status") == 1) {
+		if ($this->config->get('payment_pp_braintree_status') == 1) {
 			$data['payment_pp_braintree_status'] = "enabled";
-		} elseif ($this->config->get("payment_pp_braintree_status") == null) {
+		} elseif ($this->config->get('payment_pp_braintree_status') == null) {
 			$data['payment_pp_braintree_status'] = "";
 		} else {
 			$data['payment_pp_braintree_status'] = "disabled";
