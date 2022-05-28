@@ -94,7 +94,7 @@ class ControllerExtensionPaymentGlobalpay extends Controller {
 		$tmp = $hash . '.' . $this->config->get('payment_globalpay_secret');
 		$hash = sha1($tmp);
 
-		//Check to see if hashes match or not
+		// Check to see if hashes match or not
 		if ($hash != $this->request->post['SHA1HASH']) {
 			$data['text_response'] = $this->language->get('text_hash_failed');
 			

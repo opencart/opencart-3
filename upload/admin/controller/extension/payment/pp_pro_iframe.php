@@ -302,7 +302,7 @@ class ControllerExtensionPaymentPPProIframe extends Controller {
 			'href' => $this->url->link('extension/payment/pp_pro_iframe/refund', 'user_token=' . $this->session->data['user_token'], true)
 		);
 
-		//button actions
+		// Button actions
 		$data['action'] = $this->url->link('extension/payment/pp_pro_iframe/doRefund', 'user_token=' . $this->session->data['user_token'], true);
 
 		if (isset($this->request->get['order_id'])) {
@@ -418,7 +418,7 @@ class ControllerExtensionPaymentPPProIframe extends Controller {
 							$this->model_extension_payment_pp_pro_iframe->updateRefundTransaction($this->request->post['transaction_id'], 'Partially-Refunded');
 						}
 
-						//redirect back to the order
+						// Redirect back to the order
 						$this->response->redirect($this->url->link('sale/order/info', 'user_token=' . $this->session->data['user_token'] . '&order_id=' . $paypal_order['order_id'], true));
 					} else {
 						if ($this->config->get('payment_pp_pro_iframe_debug')) {

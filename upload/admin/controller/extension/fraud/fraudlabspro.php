@@ -144,7 +144,7 @@ class ControllerExtensionFraudFraudLabsPro extends Controller {
 			
 			$data['flp_status'] = $flp_status;
 
-			//Feedback FLP status to server
+			// Feedback FLP status to server
 			$fraud_fraudlabspro_key = $this->config->get('fraud_fraudlabspro_key');
 
 			for ($i = 0; $i < 3; $i++) {
@@ -158,7 +158,7 @@ class ControllerExtensionFraudFraudLabsPro extends Controller {
 			
 			$data_temp = array();
 
-			//Update history record
+			// Update history record
 			if (strtolower($flp_status) == 'approve') {
 				$data_temp = array(
 					'order_status_id'	=> $this->config->get('fraud_fraudlabspro_approve_status_id'),

@@ -187,9 +187,9 @@ class ControllerExtensionPaymentSagepayServer extends Controller {
 			$this->model_extension_payment_sagepay_server->addOrder($order_info);
 
 			if ($this->config->get('payment_sagepay_server_transaction') == 'PAYMENT') {
+				// Loop through any products that are recurring items
 				$recurring_products = $this->cart->getRecurringProducts();
-
-				//loop through any products that are recurring items
+				
 				foreach ($recurring_products as $item) {
 					$this->model_extension_payment_sagepay_server->addRecurringPayment($item, $payment_data['VendorTxCode']);
 				}
@@ -349,7 +349,7 @@ class ControllerExtensionPaymentSagepayServer extends Controller {
 		$this->model_extension_payment_sagepay_server->logger('$transaction_info', $transaction_info);
 		$this->model_extension_payment_sagepay_server->logger('$strStatus', $str_status);
 
-		//Check if order we have saved in database maches with callback sagepay does
+		// Check if order we have saved in database maches with callback sagepay does
 		if (!isset($transaction_info['order_id']) || $transaction_info['order_id'] != $order_id) {
 			echo "Status=INVALID" . $end_ln;
 			echo "StatusDetail= Order IDs could not be matched. Order might be tampered with." . $end_ln;
@@ -447,7 +447,7 @@ class ControllerExtensionPaymentSagepayServer extends Controller {
 			if ($this->config->get('payment_sagepay_server_transaction') == 'PAYMENT') {
 				$recurring_products = $this->model_extension_payment_sagepay_server->getRecurringOrders($this->session->data['order_id']);
 
-				//loop through any products that are recurring items
+				// Loop through any products that are recurring items
 				foreach ($recurring_products as $item) {
 					$this->model_extension_payment_sagepay_server->updateRecurringPayment($item, $order_details);
 				}

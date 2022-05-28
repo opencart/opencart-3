@@ -90,7 +90,7 @@ class ControllerExtensionPaymentAlipay extends Controller {
 			echo "success";	//Do not modified or deleted
 		} else {
 			$this->log->write('Alipay check failed');
-			//check failed
+			// Check failed
 			echo "fail";
 		}
 	}

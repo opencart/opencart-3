@@ -78,7 +78,7 @@ class ModelExtensionPaymentAlipayCross extends Model {
 				$responseTxt = $this->getResponse($_POST["notify_id"]);
 			}
 
-			//Veryfy
+			// Verify
 			if (preg_match("/true$/i", $responseTxt) && $isSign) {
 				return true;
 			} else {
@@ -122,7 +122,7 @@ class ModelExtensionPaymentAlipayCross extends Model {
 			$arg .= $key . "=" . $val . "&";
 		}
 		
-		//remove the last char '&'
+		// Remove the last char '&'
 		$arg = substr($arg, 0, count($arg)-2);
 
 		return $arg;

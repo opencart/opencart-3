@@ -581,7 +581,7 @@ class ControllerExtensionPaymentPPExpress extends Controller {
 						$data['shipping_methods'] = $quote_data;
 
 						if (!isset($this->session->data['shipping_method'])) {
-							//default the shipping to the very first option.
+							// Default the shipping to the very first option.
 							$key1 = key($quote_data);
 							$key2 = key($quote_data[$key1]['quote']);
 							$this->session->data['shipping_method'] = $quote_data[$key1]['quote'][$key2];
@@ -1098,7 +1098,7 @@ class ControllerExtensionPaymentPPExpress extends Controller {
 			$result = $this->model_extension_payment_pp_express->call($paypal_data);
 
 			if ($result['ACK'] == 'Success') {
-				//handle order status
+				// Handle order status
 				switch ($result['PAYMENTINFO_0_PAYMENTSTATUS']) {
 					case 'Canceled_Reversal':
 						$order_status_id = $this->config->get('payment_pp_express_canceled_reversal_status_id');
@@ -1134,7 +1134,7 @@ class ControllerExtensionPaymentPPExpress extends Controller {
 
 				$this->model_checkout_order->addOrderHistory($order_id, $order_status_id);
 
-				//add order to paypal table
+				// Add order to paypal table
 				$paypal_order_data = array(
 					'order_id'         => $order_id,
 					'capture_status'   => ($this->config->get('payment_pp_express_transaction') == 'Sale' ? 'Complete' : 'NotComplete'),
@@ -1145,7 +1145,7 @@ class ControllerExtensionPaymentPPExpress extends Controller {
 
 				$paypal_order_id = $this->model_extension_payment_pp_express->addOrder($paypal_order_data);
 
-				//add transaction to paypal transaction table
+				// Add transaction to paypal transaction table
 				$paypal_transaction_data = array(
 					'paypal_order_id'       => $paypal_order_id,
 					'transaction_id'        => $result['PAYMENTINFO_0_TRANSACTIONID'],
@@ -1165,7 +1165,7 @@ class ControllerExtensionPaymentPPExpress extends Controller {
 
 				$recurring_products = $this->cart->getRecurringProducts();
 
-				//loop through any products that are recurring items
+				// Loop through any products that are recurring items
 				if ($recurring_products) {
 					$this->load->language('extension/payment/pp_express');
 
@@ -1191,7 +1191,7 @@ class ControllerExtensionPaymentPPExpress extends Controller {
 							'CURRENCYCODE'       => $this->session->data['currency']
 						);
 
-						//trial information
+						// Trial information
 						if ($item['recurring']['trial']) {
 							$data_trial = array(
 								'TRIALBILLINGPERIOD'      => $billing_period[$item['recurring']['trial_frequency']],
@@ -1215,7 +1215,7 @@ class ControllerExtensionPaymentPPExpress extends Controller {
 							$recurring_description .= sprintf($this->language->get('text_length'), $item['recurring']['duration']);
 						}
 
-						//create new recurring and set to pending status as no payment has been made yet.
+						// Create new recurring and set to pending status as no payment has been made yet.
 						$recurring_id = $this->model_checkout_recurring->addRecurring($order_id, $recurring_description, $item);
 
 						$data['PROFILEREFERENCE'] = $recurring_id;
@@ -1409,7 +1409,7 @@ class ControllerExtensionPaymentPPExpress extends Controller {
 		$result = $this->model_extension_payment_pp_express->call($paypal_data);
 
 		if ($result['ACK'] == 'Success') {
-			//handle order status
+			// Handle order status
 			switch ($result['PAYMENTINFO_0_PAYMENTSTATUS']) {
 				case 'Canceled_Reversal':
 					$order_status_id = $this->config->get('payment_pp_express_canceled_reversal_status_id');
@@ -1445,7 +1445,7 @@ class ControllerExtensionPaymentPPExpress extends Controller {
 
 			$this->model_checkout_order->addOrderHistory($order_id, $order_status_id);
 
-			//add order to paypal table
+			// Add order to paypal table
 			$paypal_order_data = array(
 				'order_id'         => $order_id,
 				'capture_status'   => ($this->config->get('payment_pp_express_transaction') == 'Sale' ? 'Complete' : 'NotComplete'),
@@ -1456,7 +1456,7 @@ class ControllerExtensionPaymentPPExpress extends Controller {
 
 			$paypal_order_id = $this->model_extension_payment_pp_express->addOrder($paypal_order_data);
 
-			//add transaction to paypal transaction table
+			// Add transaction to paypal transaction table
 			$paypal_transaction_data = array(
 				'paypal_order_id'       => $paypal_order_id,
 				'transaction_id'        => $result['PAYMENTINFO_0_TRANSACTIONID'],
@@ -1475,7 +1475,7 @@ class ControllerExtensionPaymentPPExpress extends Controller {
 
 			$recurring_products = $this->cart->getRecurringProducts();
 
-			//loop through any products that are recurring items
+			// Loop through any products that are recurring items
 			if ($recurring_products) {
 				$this->load->model('checkout/recurring');
 
@@ -1499,7 +1499,7 @@ class ControllerExtensionPaymentPPExpress extends Controller {
 						'CURRENCYCODE'       => $this->session->data['currency']
 					);
 
-					//trial information
+					// Trial information
 					if ($item['recurring']['trial'] == 1) {
 						$data_trial = array(
 							'TRIALBILLINGPERIOD'      => $billing_period[$item['recurring']['trial_frequency']],
@@ -1523,7 +1523,7 @@ class ControllerExtensionPaymentPPExpress extends Controller {
 						$recurring_description .= sprintf($this->language->get('text_length'), $item['recurring']['duration']);
 					}
 
-					//create new recurring and set to pending status as no payment has been made yet.
+					// Create new recurring and set to pending status as no payment has been made yet.
 					$recurring_id = $this->model_checkout_recurring->addRecurring($order_id, $recurring_description, $item);
 
 					$data['PROFILEREFERENCE'] = $recurring_id;
@@ -1655,24 +1655,24 @@ class ControllerExtensionPaymentPPExpress extends Controller {
 			}
 
 			if ($transaction) {
-				//transaction exists, check for cleared payment or updates etc
+				// Transaction exists, check for cleared payment or updates etc
 				$this->model_extension_payment_pp_express->log('Transaction exists', 'IPN data');
 
-				//if the transaction is pending but the new status is completed
+				// If the transaction is pending but the new status is completed
 				if ($transaction['payment_status'] != $this->request->post['payment_status']) {
 					$this->db->query("UPDATE `" . DB_PREFIX . "paypal_order_transaction` SET `payment_status` = '" . $this->db->escape($this->request->post['payment_status']) . "' WHERE `transaction_id` = '" . $this->db->escape($transaction['transaction_id']) . "' LIMIT 1");
 				} elseif ($transaction['payment_status'] == 'Pending' && ($transaction['pending_reason'] != $this->request->post['pending_reason'])) {
-					//payment is still pending but the pending reason has changed, update it.
+					// Payment is still pending but the pending reason has changed, update it.
 					$this->db->query("UPDATE `" . DB_PREFIX . "paypal_order_transaction` SET `pending_reason` = '" . $this->db->escape($this->request->post['pending_reason']) . "' WHERE `transaction_id` = '" . $this->db->escape($transaction['transaction_id']) . "' LIMIT 1");
 				}
 			} else {
 				$this->model_extension_payment_pp_express->log('Transaction does not exist', 'IPN data');
 
 				if ($parent_transaction) {
-					//parent transaction exists
+					// Parent transaction exists
 					$this->model_extension_payment_pp_express->log('Parent transaction exists', 'IPN data');
 
-					//add new related transaction
+					// Add new related transaction
 					$transaction = array(
 						'paypal_order_id'       => $parent_transaction['paypal_order_id'],
 						'transaction_id'        => $this->request->post['txn_id'],
@@ -1735,7 +1735,7 @@ class ControllerExtensionPaymentPPExpress extends Controller {
 						$this->model_extension_payment_pp_express->updateOrder('Complete', $parent_transaction['order_id']);
 					}
 				} else {
-					//parent transaction doesn't exists, need to investigate?
+					// Parent transaction doesn't exists, need to investigate?
 					$this->model_extension_payment_pp_express->log('Parent transaction not found', 'IPN data');
 				}
 			}
@@ -1750,7 +1750,7 @@ class ControllerExtensionPaymentPPExpress extends Controller {
 			if (isset($this->request->post['txn_type'])) {
 				$this->model_extension_payment_pp_express->log($this->request->post['txn_type'], 'IPN data');
 
-				//payment
+				// Payment
 				if ($this->request->post['txn_type'] == 'recurring_payment') {
 					$recurring = $this->model_account_recurring->getOrderRecurringByReference($this->request->post['recurring_payment_id']);
 
@@ -1759,14 +1759,14 @@ class ControllerExtensionPaymentPPExpress extends Controller {
 					if ($recurring != false) {
 						$this->db->query("INSERT INTO `" . DB_PREFIX . "order_recurring_transaction` SET `order_recurring_id` = '" . (int)$recurring['order_recurring_id'] . "', `date_added` = NOW(), `amount` = '" . (float)$this->request->post['amount'] . "', `type` = '1'");
 
-						//as there was a payment the recurring is active, ensure it is set to active (may be been suspended before)
+						// As there was a payment the recurring is active, ensure it is set to active (may be been suspended before)
 						if ($recurring['status'] != 1) {
 							$this->db->query("UPDATE `" . DB_PREFIX . "order_recurring` SET `status` = 2 WHERE `order_recurring_id` = '" . (int)$recurring['order_recurring_id'] . "'");
 						}
 					}
 				}
 
-				//suspend
+				// Suspend
 				if ($this->request->post['txn_type'] == 'recurring_payment_suspended') {
 					$recurring = $this->model_account_recurring->getOrderRecurringByReference($this->request->post['recurring_payment_id']);
 
@@ -1776,7 +1776,7 @@ class ControllerExtensionPaymentPPExpress extends Controller {
 					}
 				}
 
-				//suspend due to max failed
+				// Suspend due to max failed
 				if ($this->request->post['txn_type'] == 'recurring_payment_suspended_due_to_max_failed_payment') {
 					$recurring = $this->model_account_recurring->getOrderRecurringByReference($this->request->post['recurring_payment_id']);
 
@@ -1786,7 +1786,7 @@ class ControllerExtensionPaymentPPExpress extends Controller {
 					}
 				}
 
-				//payment failed
+				// Payment failed
 				if ($this->request->post['txn_type'] == 'recurring_payment_failed') {
 					$recurring = $this->model_account_recurring->getOrderRecurringByReference($this->request->post['recurring_payment_id']);
 
@@ -1795,7 +1795,7 @@ class ControllerExtensionPaymentPPExpress extends Controller {
 					}
 				}
 
-				//outstanding payment failed
+				// Outstanding payment failed
 				if ($this->request->post['txn_type'] == 'recurring_payment_outstanding_payment_failed') {
 					$recurring = $this->model_account_recurring->getOrderRecurringByReference($this->request->post['recurring_payment_id']);
 
@@ -1804,21 +1804,21 @@ class ControllerExtensionPaymentPPExpress extends Controller {
 					}
 				}
 
-				//outstanding payment
+				// Outstanding payment
 				if ($this->request->post['txn_type'] == 'recurring_payment_outstanding_payment') {
 					$recurring = $this->model_account_recurring->getOrderRecurringByReference($this->request->post['recurring_payment_id']);
 
 					if ($recurring != false) {
 						$this->db->query("INSERT INTO `" . DB_PREFIX . "order_recurring_transaction` SET `order_recurring_id` = '" . (int)$recurring['order_recurring_id'] . "', `date_added` = NOW(), `amount` = '" . (float)$this->request->post['amount'] . "', `type` = '2'");
 
-						//as there was a payment the recurring is active, ensure it is set to active (may be been suspended before)
+						// As there was a payment the recurring is active, ensure it is set to active (may be been suspended before)
 						if ($recurring['status'] != 1) {
 							$this->db->query("UPDATE `" . DB_PREFIX . "order_recurring` SET `status` = 2 WHERE `order_recurring_id` = '" . (int)$recurring['order_recurring_id'] . "'");
 						}
 					}
 				}
 
-				//date_added
+				// date_added
 				if ($this->request->post['txn_type'] == 'recurring_payment_profile_date_added') {
 					$recurring = $this->model_account_recurring->getOrderRecurringByReference($this->request->post['recurring_payment_id']);
 
@@ -1831,7 +1831,7 @@ class ControllerExtensionPaymentPPExpress extends Controller {
 					}
 				}
 
-				//cancelled
+				// Cancelled
 				if ($this->request->post['txn_type'] == 'recurring_payment_profile_cancel') {
 					$recurring = $this->model_account_recurring->getOrderRecurringByReference($this->request->post['recurring_payment_id']);
 
@@ -1841,7 +1841,7 @@ class ControllerExtensionPaymentPPExpress extends Controller {
 					}
 				}
 
-				//skipped
+				// Skipped
 				if ($this->request->post['txn_type'] == 'recurring_payment_skipped') {
 					$recurring = $this->model_account_recurring->getOrderRecurringByReference($this->request->post['recurring_payment_id']);
 
@@ -1850,7 +1850,7 @@ class ControllerExtensionPaymentPPExpress extends Controller {
 					}
 				}
 
-				//expired
+				// Expired
 				if ($this->request->post['txn_type'] == 'recurring_payment_expired') {
 					$recurring = $this->model_account_recurring->getOrderRecurringByReference($this->request->post['recurring_payment_id']);
 

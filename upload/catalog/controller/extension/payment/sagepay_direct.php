@@ -327,8 +327,9 @@ class ControllerExtensionPaymentSagepayDirect extends Controller {
 			$this->model_checkout_order->addOrderHistory($this->session->data['order_id'], $this->config->get('payment_sagepay_direct_order_status_id'), $message, false);
 
 			if ($this->config->get('payment_sagepay_direct_transaction') == 'PAYMENT') {
-				$recurring_products = $this->cart->getRecurringProducts();
-				//loop through any products that are recurring items
+				// Loop through any products that are recurring items
+				$recurring_products = $this->cart->getRecurringProducts();				
+				
 				foreach ($recurring_products as $item) {
 					$this->model_extension_payment_sagepay_direct->recurringPayment($item, $payment_data['VendorTxCode']);
 				}
@@ -414,8 +415,9 @@ class ControllerExtensionPaymentSagepayDirect extends Controller {
 				}
 
 				if ($this->config->get('payment_sagepay_direct_transaction') == 'PAYMENT') {
+					// Loop through any products that are recurring items
 					$recurring_products = $this->cart->getRecurringProducts();
-					//loop through any products that are recurring items
+					
 					foreach ($recurring_products as $item) {
 						$this->model_extension_payment_sagepay_direct->recurringPayment($item, $sagepay_order_info['VendorTxCode']);
 					}

@@ -58,5 +58,5 @@ $_['error_secret']				 	  = 'Secret Required!';
 $_['error_api_hash']			 	  = 'API Hash Required!';
 $_['entry_status']				 	  = 'Status';
 
-//Button
+// Button
 $_['btn_refund']				 	  = 'refund';

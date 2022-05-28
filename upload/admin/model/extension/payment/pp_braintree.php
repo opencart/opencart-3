@@ -118,7 +118,7 @@ class ModelExtensionPaymentPPBraintree extends Model {
 
 	public function verifyCredentials($gateway) {
 		try {
-			//Try API call, if no exception is thrown, the credentials are correct
+			// Try API call, if no exception is thrown, the credentials are correct
 			if ($gateway != null) {
 				$client_token = $gateway->clientToken()->generate();
 			} else {
@@ -135,7 +135,7 @@ class ModelExtensionPaymentPPBraintree extends Model {
 
 	public function verifyMerchantAccount($gateway, $merchant_account_id) {
 		try {
-			//Try API call, if no exception is thrown, the above credentials are correct
+			// Try API call, if no exception is thrown, the above credentials are correct
 			if ($gateway != null) {
 				$merchant_account = $gateway->merchantAccount()->find($merchant_account_id);
 			} else {

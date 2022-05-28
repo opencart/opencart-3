@@ -632,7 +632,7 @@ class ControllerExtensionPaymentPPExpress extends Controller {
 			'href' => $this->url->link('extension/payment/pp_express/refund', 'user_token=' . $this->session->data['user_token'], true),
 		);
 
-		//button actions
+		// Button actions
 		$data['action'] = $this->url->link('extension/payment/pp_express/doRefund', 'user_token=' . $this->session->data['user_token'], true);
 		
 		$data['cancel'] = $this->url->link('extension/payment/pp_express', 'user_token=' . $this->session->data['user_token'], true);
@@ -739,14 +739,14 @@ class ControllerExtensionPaymentPPExpress extends Controller {
 
 						$this->model_extension_payment_pp_express->addTransaction($transaction);
 
-						//edit transaction to refunded status
+						// Edit transaction to refunded status
 						if ($result['TOTALREFUNDEDAMOUNT'] == $this->request->post['amount_original']) {
 							$this->db->query("UPDATE `" . DB_PREFIX . "paypal_order_transaction` SET `payment_status` = 'Refunded' WHERE `transaction_id` = '" . $this->db->escape($this->request->post['transaction_id']) . "' LIMIT 1");
 						} else {
 							$this->db->query("UPDATE `" . DB_PREFIX . "paypal_order_transaction` SET `payment_status` = 'Partially-Refunded' WHERE `transaction_id` = '" . $this->db->escape($this->request->post['transaction_id']) . "' LIMIT 1");
 						}
 
-						//redirect back to the order
+						// Redirect back to the order
 						$this->response->redirect($this->url->link('sale/order/info', 'user_token=' . $this->session->data['user_token'] . '&order_id=' . $paypal_order['order_id'], true));
 					} else {
 						$this->model_extension_payment_pp_express->log(json_encode($result));
@@ -835,7 +835,7 @@ class ControllerExtensionPaymentPPExpress extends Controller {
 		
 		$json = array();
 
-		//cancel an active recurring
+		// Cancel an active recurring
 		$this->load->model('account/recurring');
 
 		if (isset($this->request->get['order_recurring_id'])) {

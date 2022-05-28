@@ -12,7 +12,7 @@ class PayPal {
 	private $errors = array();
 	private $last_response = array();
 		
-	//IN:  paypal info
+	// IN:  paypal info
 	public function __construct($paypal_info) {
 		if (isset($paypal_info['partner_id']) && $paypal_info['partner_id']) {
 			$this->partner_id = $paypal_info['partner_id'];
@@ -31,8 +31,8 @@ class PayPal {
 		}
 	}
 	
-	//IN:  token info
-	//OUT: access token, if no return - check errors
+	// IN:  token info
+	// OUT: access token, if no return - check errors
 	public function setAccessToken($token_info) {
 		$command = '/v1/oauth2/token';
 		
@@ -51,12 +51,12 @@ class PayPal {
 		}
 	}
 	
-	//OUT: access token
+	// OUT: access token
 	public function getAccessToken() {
 		return $this->access_token;
 	}
 	
-	//OUT: access token, if no return - check errors
+	// OUT: access token, if no return - check errors
 	public function getClientToken() {
 		$command = '/v1/identity/generate-token';
 										
@@ -71,8 +71,8 @@ class PayPal {
 		}
 	}
 					
-	//IN:  partner id
-	//OUT: merchant info, if no return - check errors
+	// IN:  partner id
+	// OUT: merchant info, if no return - check errors
 	public function getSellerCredentials($partner_id) {
 		$command = '/v1/customer/partners/' . $partner_id . '/merchant-integrations/credentials';
 				
@@ -87,7 +87,7 @@ class PayPal {
 		}
 	}
 		
-	//IN:  webhook info
+	// IN:  webhook info
 	public function createWebhook($webhook_info) {
 		$command = '/v1/notifications/webhooks';
 		
@@ -104,8 +104,8 @@ class PayPal {
 		}
 	}
 	
-	//IN:  webhook id
-	//OUT: webhook info, if no return - check errors
+	// IN:  webhook id
+	// OUT: webhook info, if no return - check errors
 	public function updateWebhook($webhook_id, $webhook_info) {
 		$command = '/v1/notifications/webhooks/' . $webhook_id;
 		
@@ -122,7 +122,7 @@ class PayPal {
 		}
 	}
 	
-	//IN:  webhook id
+	// IN:  webhook id
 	public function deleteWebhook($webhook_id) {
 		$command = '/v1/notifications/webhooks/' . $webhook_id;
 				
@@ -131,8 +131,8 @@ class PayPal {
 		return true;
 	}
 	
-	//IN:  webhook id
-	//OUT: webhook info, if no return - check errors
+	// IN:  webhook id
+	// OUT: webhook info, if no return - check errors
 	public function getWebhook($webhook_id) {
 		$command = '/v1/notifications/webhooks/' . $webhook_id;
 				
@@ -147,7 +147,7 @@ class PayPal {
 		}
 	}
 	
-	//OUT: webhooks info, if no return - check errors
+	// OUT: webhooks info, if no return - check errors
 	public function getWebhooks() {
 		$command = '/v1/notifications/webhooks';
 				
@@ -162,7 +162,7 @@ class PayPal {
 		}
 	}
 	
-	//IN:  order info
+	// IN:  order info
 	public function createOrder($order_info) {
 		$command = '/v2/checkout/orders';
 		
@@ -179,8 +179,8 @@ class PayPal {
 		}
 	}
 	
-	//IN:  order id
-	//OUT: order info, if no return - check errors
+	// IN:  order id
+	// OUT: order info, if no return - check errors
 	public function updateOrder($order_id, $order_info) {
 		$command = '/v2/checkout/orders/' . $order_id;
 		
@@ -197,8 +197,8 @@ class PayPal {
 		}
 	}
 	
-	//IN:  order id
-	//OUT: order info, if no return - check errors
+	// IN:  order id
+	// OUT: order info, if no return - check errors
 	public function getOrder($order_id) {
 		$command = '/v2/checkout/orders/' . $order_id;
 				
@@ -213,7 +213,7 @@ class PayPal {
 		}
 	}
 	
-	//IN:  order id
+	// IN:  order id
 	public function setOrderAuthorize($order_id) {
 		$command = '/v2/checkout/orders/' . $order_id . '/authorize';
 						
@@ -228,7 +228,7 @@ class PayPal {
 		}
 	}
 	
-	//IN:  order id
+	// IN:  order id
 	public function setOrderCapture($order_id) {
 		$command = '/v2/checkout/orders/' . $order_id . '/capture';
 						
@@ -243,17 +243,17 @@ class PayPal {
 		}
 	}
 				
-	//OUT: number of errors
+	// OUT: number of errors
 	public function hasErrors()	{
 		return count($this->errors);
 	}
 	
-	//OUT: array of errors
+	// OUT: array of errors
 	public function getErrors()	{
 		return $this->errors;
 	}
 	
-	//OUT: last response
+	// OUT: last response
 	public function getResponse() {
 		return $this->last_response;
 	}

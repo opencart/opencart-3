@@ -104,7 +104,7 @@ class ModelExtensionPaymentWorldpay extends Model {
 		
 		$this->load->model('checkout/recurring');		
 		
-		//trial information
+		// Trial information
 		if ($item['recurring']['trial'] == 1) {
 			$price = $item['recurring']['trial_price'];
 			$trial_amt = $this->currency->format($this->tax->calculate($item['recurring']['trial_price'], $item['tax_class_id'], $this->config->get('config_tax')), $this->session->data['currency'], false, false) * $item['quantity'] . ' ' . $this->session->data['currency'];

@@ -119,7 +119,7 @@ class ModelExtensionModuleAmazonLogin extends Model {
     }
 
     public function addressMatch($a1, $a2, $keys) {
-        //Skip comparison of custom_field. TODO introduce comparison for custom_field
+        // Skip comparison of custom_field. TODO introduce comparison for custom_field
         unset($keys[array_search('custom_field', $keys)]);
 
         $diff = array_diff_assoc(

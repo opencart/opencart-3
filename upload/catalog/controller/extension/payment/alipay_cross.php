@@ -99,7 +99,7 @@ class ControllerExtensionPaymentAlipayCross extends Controller {
 		} else {
 			$this->log->write('Alipay cross check failed');
 			
-			//check failed
+			// Check failed
 			echo "fail";
 		}
 	}

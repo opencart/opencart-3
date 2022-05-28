@@ -122,7 +122,7 @@ class ModelExtensionPaymentSagePayServer extends Model {
 		
 		$this->load->model('checkout/recurring');				
 
-		//trial information
+		// Trial information
 		if ($item['recurring']['trial'] == 1) {
 			$trial_amt = $this->currency->format($this->tax->calculate($item['recurring']['trial_price'], $item['tax_class_id'], $this->config->get('config_tax')), $this->session->data['currency'], false, false) * $item['quantity'] . ' ' . $this->session->data['currency'];
 			$trial_text = sprintf($this->language->get('text_trial'), $trial_amt, $item['recurring']['trial_cycle'], $item['recurring']['trial_frequency'], $item['recurring']['trial_duration']);
@@ -137,7 +137,7 @@ class ModelExtensionPaymentSagePayServer extends Model {
 			$recurring_description .= sprintf($this->language->get('text_length'), $item['recurring']['duration']);
 		}
 
-		//create new recurring and set to pending status as no payment has been made yet.
+		// Create new recurring and set to pending status as no payment has been made yet.
 		$recurring_id = $this->model_checkout_recurring->addRecurring($this->session->data['order_id'], $recurring_description, $item['recurring']);
 		
 		$this->model_checkout_recurring->editReference($recurring_id, $vendor_tx_code);
@@ -148,7 +148,7 @@ class ModelExtensionPaymentSagePayServer extends Model {
 
 		$order_info = $this->model_checkout_order->getOrder($order_details['order_id']);
 
-		//trial information
+		// Trial information
 		if ($item['trial'] == 1) {
 			$price = $this->currency->format($item['trial_price'], $this->session->data['currency'], false, false);
 		} else {

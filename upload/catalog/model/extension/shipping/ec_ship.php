@@ -13,7 +13,7 @@ class ModelExtensionShippingECShip extends Model {
 			$status = false;
 		}
 
-		//convert iso_code_3 to ec-ship country code
+		// Convert iso_code_3 to ec-ship country code
 		$country_codes = array(
 			'AFG'                            => 'AFA',
 			'ALB'                            => 'ALA',
@@ -273,7 +273,7 @@ class ModelExtensionShippingECShip extends Model {
 			'LPL' => $this->config->get('shipping_ec_ship_local_parcel')
 		);
 
-		//Countries available service
+		// Countries available service
 		$shipCode = array(
 			'AUS' => array(
 				'AE2' => $this->language->get('text_e_express_service_two'),

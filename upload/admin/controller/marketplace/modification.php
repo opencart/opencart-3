@@ -66,7 +66,7 @@ class ControllerMarketplaceModification extends Controller {
 
 			$this->model_setting_setting->editSettingValue('config', 'config_maintenance', true);
 
-			//Log
+			// Log
 			$log = array();
 
 			// Clear all modification files

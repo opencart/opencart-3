@@ -190,7 +190,7 @@ class ControllerExtensionPaymentPPBraintree extends Controller {
 			$success = false;
 		}
 
-		//Start creating transaction array
+		// Start creating transaction array
 		if ($success) {
 			$order_info = $this->model_checkout_order->getOrder($this->session->data['order_id']);
 
@@ -219,7 +219,7 @@ class ControllerExtensionPaymentPPBraintree extends Controller {
 				'options' => array('three_d_secure' => array('required' => false))
 			);
 
-			//Add shipping details
+			// Add shipping details
 			if ($this->cart->hasShipping()) {
 				$create_sale['shipping'] = array(
 					'firstName'			=> $order_info['shipping_firstname'],
@@ -349,7 +349,7 @@ class ControllerExtensionPaymentPPBraintree extends Controller {
 		}
 		$this->model_extension_payment_pp_braintree->log("Success:" . (int)$success);
 
-		//Create transaction
+		// Create transaction
 		if ($success) {
 			$transaction = $this->model_extension_payment_pp_braintree->addTransaction($this->gateway, $create_sale);
 
@@ -406,7 +406,7 @@ class ControllerExtensionPaymentPPBraintree extends Controller {
 			}
 		}
 
-		//If this is reached, transaction has failed
+		// If this is reached, transaction has failed
 		$this->model_extension_payment_pp_braintree->log('Transaction reached end of method without being handled, failure');
 
 		if (isset($this->session->data['order_id'])) {
@@ -964,7 +964,7 @@ class ControllerExtensionPaymentPPBraintree extends Controller {
 						$data['shipping_methods'] = $quote_data;
 
 						if (!isset($this->session->data['shipping_method'])) {
-							//default the shipping to the very first option.
+							// Default the shipping to the very first option.
 							$key1 = key($quote_data);
 							$key2 = key($quote_data[$key1]['quote']);
 							$this->session->data['shipping_method'] = $quote_data[$key1]['quote'][$key2];
@@ -1476,17 +1476,17 @@ class ControllerExtensionPaymentPPBraintree extends Controller {
 			$this->initialise();
 
 			$create_sale = [
-				"amount" => $this->currency->format($data['total'], $data['currency_code'], $data['currency_value'], false),
-				"paymentMethodNonce" => $this->session->data['paypal_braintree']['nonce'],
-				"orderId" => $order_id,
-				'channel' => 'OpenCart_Cart_vzero',
+				"amount" 				=> $this->currency->format($data['total'], $data['currency_code'], $data['currency_value'], false),
+				"paymentMethodNonce" 	=> $this->session->data['paypal_braintree']['nonce'],
+				"orderId" 				=> $order_id,
+				'channel' 				=> 'OpenCart_Cart_vzero',
 			];
 
 			$transaction = $this->model_extension_payment_pp_braintree->addTransaction($this->gateway, $create_sale);
 
-			//handle order status
-
+			// Handle order status
 			$order_status_id = 0;
+			
 			switch ($transaction->transaction->status) {
 				case 'authorization_expired':
 					$order_status_id = $this->config->get('payment_pp_braintree_authorization_expired_id');

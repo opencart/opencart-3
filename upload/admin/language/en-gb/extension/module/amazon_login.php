@@ -2,7 +2,7 @@
 // Heading
 $_['heading_title'] = 'Login with Amazon';
 
-//Text
+// Text
 $_['text_module'] = 'Modules';
 $_['text_extension']               = 'Extensions';
 $_['text_success'] = 'Success: You have modified module Login with Amazon!';
@@ -21,7 +21,7 @@ $_['text_medium_button'] = 'Medium';
 $_['text_large_button'] = 'Large';
 $_['text_x_large_button'] = 'X-Large';
 
-//Entry
+// Entry
 $_['entry_button_type'] = 'Button Type';
 $_['entry_button_colour'] = 'Button Colour';
 $_['entry_button_size'] = 'Button Size';
@@ -30,5 +30,5 @@ $_['entry_position'] = 'Position';
 $_['entry_status'] = 'Status';
 $_['entry_sort_order'] = 'Sort Order';
 
-//Error
+// Error
 $_['error_permission'] = 'Warning: You do not have permission to modify module Login with Amazon!';

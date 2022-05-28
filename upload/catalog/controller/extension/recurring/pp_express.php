@@ -31,7 +31,7 @@ class ControllerExtensionRecurringPPExpress extends Controller {
 		
 		$this->load->language('extension/recurring/pp_express');
 		
-		//cancel an active recurring
+		// Cancel an active recurring
 		$this->load->model('account/recurring');
 		
 		if (isset($this->request->get['order_recurring_id'])) {

@@ -15,5 +15,5 @@ $_['text_smart_post']                          = 'Smart Post';
 $_['text_local_courier_post']                  = 'Local Courier Post (Counter Collection)';
 $_['text_local_parcel']                        = 'Local Parcel';
 
-//error
+// Error
 $_['text_unavailable']                         = 'No shipping service available';

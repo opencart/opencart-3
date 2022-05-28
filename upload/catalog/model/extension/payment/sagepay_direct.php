@@ -123,7 +123,7 @@ class ModelExtensionPaymentSagePayDirect extends Model {
 		
 		$this->load->model('checkout/recurring');		
 		
-		//trial information
+		// Trial information
 		if ($item['recurring']['trial'] == 1) {
 			$price = $item['recurring']['trial_price'];
 			$trial_amt = $this->currency->format($this->tax->calculate($item['recurring']['trial_price'], $item['tax_class_id'], $this->config->get('config_tax')), $this->session->data['currency'], false, false) * $item['quantity'] . ' ' . $this->session->data['currency'];
@@ -140,7 +140,7 @@ class ModelExtensionPaymentSagePayDirect extends Model {
 			$recurring_description .= sprintf($this->language->get('text_length'), $item['recurring']['duration']);
 		}
 
-		//create new recurring and set to pending status as no payment has been made yet.
+		// Create new recurring and set to pending status as no payment has been made yet.
 		$order_recurring_id = $this->model_checkout_recurring->addRecurring($this->session->data['order_id'], $recurring_description, $item['recurring']);
 		
 		$this->model_checkout_recurring->addReference($order_recurring_id, $vendor_tx_code);

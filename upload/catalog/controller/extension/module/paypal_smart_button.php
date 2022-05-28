@@ -768,7 +768,7 @@ class ControllerExtensionModulePayPalSmartButton extends Controller {
 						$data['shipping_methods'] = $quote_data;
 
 						if (!isset($this->session->data['shipping_method'])) {
-							//default the shipping to the very first option.
+							// Default the shipping to the very first option.
 							$key1 = key($quote_data);
 							$key2 = key($quote_data[$key1]['quote']);
 							$this->session->data['shipping_method'] = $quote_data[$key1]['quote'][$key2];

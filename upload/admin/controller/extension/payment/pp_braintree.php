@@ -666,7 +666,7 @@ class ControllerExtensionPaymentPPBraintree extends Controller {
 				);
 			}
 
-			//If nothing left to refund, disable refund action
+			// If nothing left to refund, disable refund action
 			if (!$max_refund_amount) {
 				$data['refund_action'] = false;
 			}

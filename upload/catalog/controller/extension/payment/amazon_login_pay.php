@@ -237,7 +237,7 @@ class ControllerExtensionPaymentAmazonLoginPay extends Controller {
 
         $data['order_reference_id'] = !empty($this->session->data['apalwa']['pay']['order_reference_id']) ? $this->session->data['apalwa']['pay']['order_reference_id'] : null;
 
-        //detect the buyer multi-currency
+        // Detect the buyer multi-currency
         $amazon_supported_currencies = array('AUD', 'GBP','DKK', 'EUR', 'HKD', 'JPY', 'NZD','NOK', 'ZAR', 'SEK', 'CHF', 'USD');
 
         $data['enabled_buyers_multi_currency'] = false;
@@ -461,13 +461,14 @@ class ControllerExtensionPaymentAmazonLoginPay extends Controller {
             'text' => $this->language->get('breadcrumb_summary')
         );
 
-        //enable mfa only for UK and Europe regions
+        // Enable mfa only for UK and Europe regions
         $data['psd_enabled'] = "false";
 		
         if ($this->config->get('payment_amazon_login_pay_payment_region') != 'USD') {
             $data['psd_enabled'] = "true";
         }
-        //detect the buyer multi-currency
+		
+        // Detect the buyer multi-currency
         $amazon_supported_currencies = array('AUD', 'GBP','DKK', 'EUR', 'HKD', 'JPY', 'NZD','NOK', 'ZAR', 'SEK', 'CHF', 'USD');
 
         $data['enabled_buyers_multi_currency'] = false;
@@ -505,7 +506,8 @@ class ControllerExtensionPaymentAmazonLoginPay extends Controller {
 
         $this->response->setOutput($this->load->view('extension/payment/amazon_login_pay_generic', $data));
     }
-    //handle the SuccessUrl response
+	
+    // Handle the SuccessUrl response
     public function mfa_success() {
 		$this->load->language('extension/payment/amazon_login_pay');
 		
@@ -530,7 +532,8 @@ class ControllerExtensionPaymentAmazonLoginPay extends Controller {
             $this->model_extension_payment_amazon_login_pay->cartRedirect($this->language->get('error_invaild_request'));
         }
     }
-    //handle the FailureUrl response
+	
+    // Handle the FailureUrl response
     public function mfa_failure() {
 		$this->load->language('extension/payment/amazon_login_pay');
 		
@@ -960,9 +963,10 @@ class ControllerExtensionPaymentAmazonLoginPay extends Controller {
                             $order_state = (string) $order_reference_details->OrderReferenceStatus->State;
                             $order_total = (float) $order_reference_details->OrderTotal->Amount;
                             $total_captured = $this->model_extension_payment_amazon_login_pay->getTotalCaptured($amazon_login_pay_order_id);
-                            //chnage the order status only if the order is closed with the response code maxamountcharged or if the order is fully captured
+                            
+							// Change the order status only if the order is closed with the response code maxamountcharged or if the order is fully captured
                             if (($order_state =="Closed" && $order_reason_code =="MaxAmountCharged") || $order_reason_code == "SellerClosed" || $amazon_captured_amount >= $order_total || $total_captured >= $order_total) {
-                                //update the order history
+                                // Update the order history
                                 $this->model_checkout_order->addOrderHistory($order_id, $oc_order_status_id, "", true);
                             }
                         }

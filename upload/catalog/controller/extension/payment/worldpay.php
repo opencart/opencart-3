@@ -107,7 +107,7 @@ class ControllerExtensionPaymentWorldpay extends Controller {
 				}
 			}
 
-			//loop through any products that are recurring items
+			// Loop through any products that are recurring items
 			foreach ($recurring_products as $item) {
 				$this->model_extension_payment_worldpay->recurringPayment($item, $this->session->data['order_id'] . rand(), $this->request->post['token']);
 			}

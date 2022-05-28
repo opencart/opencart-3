@@ -2,7 +2,7 @@
 //Headings
 $_['heading_title']                 = 'Amazon Pay and Login with Amazon';
 
-//Text
+// Text
 $_['text_success']                  = 'Amazon Pay and Login with Amazon module has been updated.';
 $_['text_ipn_url']					= 'Cron Job\'s URL';
 $_['text_ipn_token']				= 'Secret Token';
@@ -81,7 +81,7 @@ $_['text_info_buyer_multi_currencies'] = 'This extension supports the Multi-Curr
 // Columns
 $_['column_status']                 = 'Status';
 
-//entry
+// Entry
 $_['entry_merchant_id']             = 'Merchant ID';
 $_['entry_access_key']              = 'Access Key';
 $_['entry_access_secret']           = 'Secret Key';

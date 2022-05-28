@@ -158,7 +158,7 @@ class ControllerProductProduct extends Controller {
 
 		$product_info = $this->model_catalog_product->getProduct($product_id);
 
-		//check product page open from cateory page
+		// Check product page open from cateory page
 		if (isset($this->request->get['path'])) {
 			$parts = explode('_', (string)$this->request->get['path']);
 						
@@ -167,7 +167,7 @@ class ControllerProductProduct extends Controller {
 			}
 		}
 
-		//check product page open from manufacturer page
+		// Check product page open from manufacturer page
 		if (isset($this->request->get['manufacturer_id']) && !empty($product_info)) {
 			if ($product_info['manufacturer_id'] !=  $this->request->get['manufacturer_id']) {
 				$product_info = array();

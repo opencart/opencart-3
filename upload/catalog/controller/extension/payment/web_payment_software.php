@@ -31,7 +31,7 @@ class ControllerExtensionPaymentWebPaymentSoftware extends Controller {
 			return false;
 		}
 		
-		//create object to use as json
+		// Create object to use as json
 		$json = array();
 		
 		$this->load->model('checkout/order');
@@ -75,17 +75,17 @@ class ControllerExtensionPaymentWebPaymentSoftware extends Controller {
 
 		curl_close($curl);
 
-		//If in test mode strip results to only contain xml data
+		// If in test mode strip results to only contain xml data
 		if ($this->config->get('payment_web_payment_software_mode') == 'test') {
 			$end_index = strpos($response, '</WebPaymentSoftwareResponse>');
 			$debug = substr($response, $end_index + 30);
 			$response = substr($response, 0, $end_index) . '</WebPaymentSoftwareResponse>';
 		}
 
-		//get response xml
+		// Get response xml
 		$xml = simplexml_load_string($response);
 
-		//If successful log transaction in opencart system
+		// If successful log transaction in opencart system
 		if ('00' === (string)$xml->response_code) {
 			$message = '';
 
