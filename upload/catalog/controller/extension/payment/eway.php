@@ -251,24 +251,28 @@ class ControllerExtensionPaymentEway extends Controller {
 
 				$this->load->model('extension/payment/eway');
 				$eway_order_data = array(
-					'order_id' => $order_id,
-					'transaction_id' => $result->TransactionID,
-					'amount' => $this->ValidateDenomination($result->TotalAmount, $order_info['currency_code']),
-					'currency_code' => $order_info['currency_code'],
-					'debug_data' => json_encode($result)
+					'order_id' 			=> $order_id,
+					'transaction_id' 	=> $result->TransactionID,
+					'amount' 			=> $this->ValidateDenomination($result->TotalAmount, $order_info['currency_code']),
+					'currency_code' 	=> $order_info['currency_code'],
+					'debug_data' 		=> json_encode($result)
 				);
 
 				$error_array = explode(", ", $result->ResponseMessage);
+				
 				$log_error = '';
+				
 				foreach ($error_array as $error) {
 					if (stripos($error, 'F') !== false) {
 						$fraud = true;
 						$log_error .= $this->language->get('text_card_message_' . $error) . ", ";
 					}
 				}
+				
 				$log_error = substr($log_error, 0, -2);
 
 				$eway_order_id = $this->model_extension_payment_eway->addOrder($eway_order_data);
+				
 				$this->model_extension_payment_eway->addTransaction($eway_order_id, $this->config->get('payment_eway_transaction_method'), $result->TransactionID, $order_info);
 
 				if ($fraud) {
@@ -276,6 +280,7 @@ class ControllerExtensionPaymentEway extends Controller {
 				} else {
 					$message = "eWAY Payment accepted\n";
 				}
+				
 				$message .= 'Transaction ID: ' . $result->TransactionID . "\n";
 				$message .= 'Authorisation Code: ' . $result->AuthorisationCode . "\n";
 				$message .= 'Card Response Code: ' . $result->ResponseCode . "\n";
@@ -290,11 +295,13 @@ class ControllerExtensionPaymentEway extends Controller {
 
 				if (!empty($result->Customer->TokenCustomerID) && $this->customer->isLogged() && !$this->model_checkout_order->checkToken($result->Customer->TokenCustomerID)) {
 					$card_data = array();
+					
 					$card_data['customer_id'] = $this->customer->getId();
 					$card_data['Token'] = $result->Customer->TokenCustomerID;
 					$card_data['Last4Digits'] = substr(str_replace(' ', '', $result->Customer->CardDetails->Number), -4, 4);
 					$card_data['ExpiryDate'] = $result->Customer->CardDetails->ExpiryMonth . '/' . $result->Customer->CardDetails->ExpiryYear;
 					$card_data['CardType'] = '';
+					
 					$this->model_extension_payment_eway->addFullCard($this->session->data['order_id'], $card_data);
 				}
 

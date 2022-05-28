@@ -133,8 +133,8 @@ class ControllerExtensionPaymentPPExpress extends Controller {
 
 		$result = $this->model_extension_payment_pp_express->call($post_data);
 		
-		$this->session->data['paypal']['payerid']   = $result['PAYERID'];
-		$this->session->data['paypal']['result']    = $result;
+		$this->session->data['paypal']['payerid'] = $result['PAYERID'];
+		$this->session->data['paypal']['result']  = $result;
 		
 		$this->session->data['comment'] = '';
 		

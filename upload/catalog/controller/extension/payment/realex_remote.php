@@ -19,12 +19,12 @@ class ControllerExtensionPaymentRealexRemote extends Controller {
 		$accounts = $this->config->get('payment_realex_remote_account');
 
 		$card_types = array(
-			'visa' => $this->language->get('text_card_visa'),
-			'mc' => $this->language->get('text_card_mc'),
-			'amex' => $this->language->get('text_card_amex'),
-			'switch' => $this->language->get('text_card_switch'),
-			'laser' => $this->language->get('text_card_laser'),
-			'diners' => $this->language->get('text_card_diners'),
+			'visa' 		=> $this->language->get('text_card_visa'),
+			'mc' 		=> $this->language->get('text_card_mc'),
+			'amex' 		=> $this->language->get('text_card_amex'),
+			'switch' 	=> $this->language->get('text_card_switch'),
+			'laser' 	=> $this->language->get('text_card_laser'),
+			'diners' 	=> $this->language->get('text_card_diners'),
 		);
 
 		$data['cards'] = array();

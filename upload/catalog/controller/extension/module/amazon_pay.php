@@ -47,7 +47,7 @@ class ControllerExtensionModuleAmazonPay extends Controller {
 				$language_region_mapping = array(
 					'EUR' => array('de-De', 'es-ES','fr-FR', 'it-IT', 'en-GB'),
 					'GBP' => array('de-De', 'es-ES','fr-FR', 'it-IT', 'en-GB'),
-					'USD' =>array('en-US')
+					'USD' => array('en-US')
 				);
 
                 if ($this->config->get('payment_amazon_login_pay_payment_region')) {

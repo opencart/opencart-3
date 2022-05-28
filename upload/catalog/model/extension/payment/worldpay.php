@@ -19,10 +19,10 @@ class ModelExtensionPaymentWorldpay extends Model {
 
 		if ($status) {
 			$method_data = array(
-				'code' => 'worldpay',
-				'title' => $this->language->get('text_title'),
-				'terms' => '',
-				'sort_order' => $this->config->get('payment_worldpay_sort_order')
+				'code' 			=> 'worldpay',
+				'title' 		=> $this->language->get('text_title'),
+				'terms' 		=> '',
+				'sort_order' 	=> $this->config->get('payment_worldpay_sort_order')
 			);
 		}
 
@@ -39,12 +39,12 @@ class ModelExtensionPaymentWorldpay extends Model {
 		foreach ($query->rows as $row) {
 
 			$card_data[] = array(
-				'card_id' => $row['card_id'],
-				'customer_id' => $row['customer_id'],
-				'token' => $row['token'],
-				'digits' => $row['digits'],
-				'expiry' => $row['expiry'],
-				'type' => $row['type'],
+				'card_id' 		=> $row['card_id'],
+				'customer_id' 	=> $row['customer_id'],
+				'token' 		=> $row['token'],
+				'digits' 		=> $row['digits'],
+				'expiry' 		=> $row['expiry'],
+				'type' 			=> $row['type'],
 			);
 		}
 		
@@ -128,12 +128,12 @@ class ModelExtensionPaymentWorldpay extends Model {
 		$order_info = $this->model_checkout_order->getOrder($this->session->data['order_id']);
 
 		$order = array(
-			"token" => $token,
-			"orderType" => 'RECURRING',
-			"amount" => (int)($price * 100),
-			"currencyCode" => $order_info['currency_code'],
-			"name" => $order_info['firstname'] . ' ' . $order_info['lastname'],
-			"orderDescription" => $order_info['store_name'] . ' - ' . date('Y-m-d H:i:s'),
+			"token" 			=> $token,
+			"orderType" 		=> 'RECURRING',
+			"amount" 			=> (int)($price * 100),
+			"currencyCode" 		=> $order_info['currency_code'],
+			"name" 				=> $order_info['firstname'] . ' ' . $order_info['lastname'],
+			"orderDescription" 	=> $order_info['store_name'] . ' - ' . date('Y-m-d H:i:s'),
 			"customerOrderCode" => 'orderRecurring-' . $order_recurring_id
 		);
 
@@ -214,12 +214,12 @@ class ModelExtensionPaymentWorldpay extends Model {
 			$order = array();
 
 			$order = array(
-				"token" => $recurring_order['token'],
-				"orderType" => 'RECURRING',
-				"amount" => (int)($price * 100),
-				"currencyCode" => $order_info['currency_code'],
-				"name" => $order_info['firstname'] . ' ' . $order_info['lastname'],
-				"orderDescription" => $order_info['store_name'] . ' - ' . date('Y-m-d H:i:s'),
+				"token" 			=> $recurring_order['token'],
+				"orderType" 		=> 'RECURRING',
+				"amount" 			=> (int)($price * 100),
+				"currencyCode" 		=> $order_info['currency_code'],
+				"name" 				=> $order_info['firstname'] . ' ' . $order_info['lastname'],
+				"orderDescription" 	=> $order_info['store_name'] . ' - ' . date('Y-m-d H:i:s'),
 				"customerOrderCode" => 'orderRecurring-' . $profile['order_recurring_id'] . '-repeat-' . $i++
 			);
 

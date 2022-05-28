@@ -45,9 +45,9 @@ class ModelExtensionAdvertiseGoogle extends Model {
         $sizes = $this->googleshopping->getProductOptionValueNames($product_id, $this->config->get('config_language_id'), $size_id);
 
         $map = array(
-            'groups' => $groups,
-            'colors' => count($colors) > 1 ? $colors : null,
-            'sizes' => count($sizes) > 1 ? $sizes : null,
+            'groups' 	=> $groups,
+            'colors' 	=> count($colors) > 1 ? $colors : null,
+            'sizes' 	=> count($sizes) > 1 ? $sizes : null,
         );
 
         return $map;
@@ -83,10 +83,10 @@ class ModelExtensionAdvertiseGoogle extends Model {
         foreach ($products as $product) {
             if (null !== $id = $this->getRemarketingProductId($product, $store_id)) {
                 $items[] = array(
-                    'google_business_vertical' => 'retail',
-                    'id' => (string)$id,
-                    'name' => (string)$product['name'],
-                    'quantity' => (int)$product['quantity']
+                    'google_business_vertical' 	=> 'retail',
+                    'id' 						=> (string)$id,
+                    'name' 						=> (string)$product['name'],
+                    'quantity' 					=> (int)$product['quantity']
                 );
             }
         }
@@ -96,8 +96,8 @@ class ModelExtensionAdvertiseGoogle extends Model {
 
     protected function getRemarketingProductId($product, $store_id) {
         $option_map = $this->getSizeAndColorOptionMap($product['product_id'], $store_id);
-        $found_color = "";
-        $found_size = "";
+        $found_color = '';
+        $found_size = '';
 
         foreach ($product['option'] as $option) {
             if (is_array($option_map['colors'])) {

@@ -79,15 +79,13 @@ function usage() {
 }
 
 function get_options($argv) {
-	$defaults = array();
-	
 	$defaults = array(
-		'db_hostname' => 'localhost',
-		'db_database' => 'opencart',
-		'db_prefix' => 'oc_',
-		'db_driver' => 'mysqli',
-		'db_port' => '3306',
-		'username' => 'admin',
+		'db_hostname' 	=> 'localhost',
+		'db_database' 	=> 'opencart',
+		'db_prefix' 	=> 'oc_',
+		'db_driver' 	=> 'mysqli',
+		'db_port' 		=> '3306',
+		'username' 		=> 'admin',
 	);
 	
 	$options = array();

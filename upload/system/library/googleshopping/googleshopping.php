@@ -163,12 +163,12 @@ class Googleshopping extends Library {
 
         // Initialize push
         $init_request = array(
-            'type' => 'POST',
-            'endpoint' => self::ENDPOINT_DATAFEED_INIT,
-            'use_access_token' => true,
-            'content_type' => 'multipart/form-data',
-            'data' => array(
-                'work_id' => $job['work_id']
+            'type' 				=> 'POST',
+            'endpoint' 			=> self::ENDPOINT_DATAFEED_INIT,
+            'use_access_token' 	=> true,
+            'content_type' 		=> 'multipart/form-data',
+            'data' 				=> array(
+                'work_id' 			=> $job['work_id']
             )
         );
 
@@ -180,24 +180,20 @@ class Googleshopping extends Library {
         while (null !== $products = $this->getFeedProducts(++$page, $job['language_id'], $job['currency'])) {
             $post = array();
 			
-			$post_data = array();
-
-            $post_data = array(
-                'product' => $products,
-                'work_id' => $job['work_id'],
+			$post_data = array(
+                'product' 	=> $products,
+                'work_id' 	=> $job['work_id'],
                 'work_step' => $response['work_step']
             );
 
             $this->curlPostQuery($post_data, $post);
 			
-			$push_request = array();
-
-            $push_request = array(
-                'type' => 'POST',
-                'endpoint' => self::ENDPOINT_DATAFEED_PUSH,
-                'use_access_token' => true,
-                'content_type' => 'multipart/form-data',
-                'data' => $post
+			$push_request = array(
+                'type' 				=> 'POST',
+                'endpoint' 			=> self::ENDPOINT_DATAFEED_PUSH,
+                'use_access_token' 	=> true,
+                'content_type' 		=> 'multipart/form-data',
+                'data' 				=> $post
             );
 
             $response = $this->api($push_request);
@@ -209,13 +205,13 @@ class Googleshopping extends Library {
 		$close_request = array();
 		
         $close_request = array(
-            'type' => 'POST',
-            'endpoint' => self::ENDPOINT_DATAFEED_CLOSE,
-            'use_access_token' => true,
-            'content_type' => 'multipart/form-data',
-            'data' => array(
-                'work_id' => $job['work_id'],
-                'work_step' => $response['work_step']
+            'type' 				=> 'POST',
+            'endpoint' 			=> self::ENDPOINT_DATAFEED_CLOSE,
+            'use_access_token' 	=> true,
+            'content_type' 		=> 'multipart/form-data',
+            'data' 				=> array(
+                'work_id' 			=> $job['work_id'],
+                'work_step' 		=> $response['work_step']
             )
         );
 
@@ -347,8 +343,8 @@ class Googleshopping extends Library {
                 $parts = explode('<[S]>', $row['special_price']);
 
                 $special_price = array(
-                    'value' => $this->convertedTaxedPrice($parts[0], $row['tax_class_id'], $currency),
-                    'currency' => $currency
+                    'value' 	=> $this->convertedTaxedPrice($parts[0], $row['tax_class_id'], $currency),
+                    'currency' 	=> $currency
                 );
 
                 if ($parts[1] >= '1970-01-01') {
@@ -394,37 +390,37 @@ class Googleshopping extends Library {
 			$base_row = array();
 
             $base_row = array(
-                'adult' => !empty($row['adult']) ? 'yes' : 'no',
-                'age_group' => !empty($row['age_group']) ? $row['age_group'] : '',
-                'availability' => (int)$row['quantity'] > 0 && !$this->config->get('config_maintenance') ? 'in stock' : 'out of stock',
-                'brand' => $this->sanitizeText($row['brand'], 70),
-                'color' => '',
-                'condition' => !empty($row['condition']) ? $row['condition'] : '',
-                'custom_label_0' => $this->sanitizeText($custom_label_0, 100),
-                'custom_label_1' => $this->sanitizeText($custom_label_1, 100),
-                'custom_label_2' => $this->sanitizeText($custom_label_2, 100),
-                'custom_label_3' => $this->sanitizeText($custom_label_3, 100),
-                'custom_label_4' => $this->sanitizeText($custom_label_4, 100),
-                'description' => $this->sanitizeText($row['description'], 5000),
-                'gender' => !empty($row['gender']) ? $row['gender'] : '',
-                'google_product_category' => !empty($row['google_product_category']) ? $row['google_product_category'] : '',
-                'id' => $this->sanitizeText($row['product_id'], 50),
-                'identifier_exists' => !empty($row['brand']) && !empty($mpn) ? 'yes' : 'no',
-                'image_link' => $this->sanitizeText($image, 2000),
-                'is_bundle' => !empty($row['is_bundle']) ? 'yes' : 'no',
-                'item_group_id' => $this->sanitizeText($row['product_id'], 50),
-                'link' => $this->sanitizeText(html_entity_decode($url->link('product/product', 'product_id=' . $row['product_id'], true), ENT_QUOTES, 'UTF-8'), 2000),
-                'mpn' => $this->sanitizeText($mpn, 70),
-                'gtin' => $this->sanitizeText($gtin, 14),
-                'multipack' => !empty($row['multipack']) && (int)$row['multipack'] >= 2 ? (int)$row['multipack'] : '', // Cannot be 1!!!
-                'price' => array(
-                    'value' => $price,
-                    'currency' => $currency
+                'adult' 					=> !empty($row['adult']) ? 'yes' : 'no',
+                'age_group' 				=> !empty($row['age_group']) ? $row['age_group'] : '',
+                'availability' 				=> (int)$row['quantity'] > 0 && !$this->config->get('config_maintenance') ? 'in stock' : 'out of stock',
+                'brand' 					=> $this->sanitizeText($row['brand'], 70),
+                'color' 					=> '',
+                'condition' 				=> !empty($row['condition']) ? $row['condition'] : '',
+                'custom_label_0' 			=> $this->sanitizeText($custom_label_0, 100),
+                'custom_label_1' 			=> $this->sanitizeText($custom_label_1, 100),
+                'custom_label_2' 			=> $this->sanitizeText($custom_label_2, 100),
+                'custom_label_3' 			=> $this->sanitizeText($custom_label_3, 100),
+                'custom_label_4' 			=> $this->sanitizeText($custom_label_4, 100),
+                'description' 				=> $this->sanitizeText($row['description'], 5000),
+                'gender' 					=> !empty($row['gender']) ? $row['gender'] : '',
+                'google_product_category' 	=> !empty($row['google_product_category']) ? $row['google_product_category'] : '',
+                'id' 						=> $this->sanitizeText($row['product_id'], 50),
+                'identifier_exists' 		=> !empty($row['brand']) && !empty($mpn) ? 'yes' : 'no',
+                'image_link' 				=> $this->sanitizeText($image, 2000),
+                'is_bundle' 				=> !empty($row['is_bundle']) ? 'yes' : 'no',
+                'item_group_id' 			=> $this->sanitizeText($row['product_id'], 50),
+                'link' 						=> $this->sanitizeText(html_entity_decode($url->link('product/product', 'product_id=' . $row['product_id'], true), ENT_QUOTES, 'UTF-8'), 2000),
+                'mpn' 						=> $this->sanitizeText($mpn, 70),
+                'gtin' 						=> $this->sanitizeText($gtin, 14),
+                'multipack' 				=> !empty($row['multipack']) && (int)$row['multipack'] >= 2 ? (int)$row['multipack'] : '', // Cannot be 1!!!
+                'price' 					=> array(
+                    'value' 					=> $price,
+                    'currency' 					=> $currency
                 ),
-                'size' => '',
-                'size_system' => !empty($row['size_system']) ? $row['size_system'] : '',
-                'size_type' => !empty($row['size_type']) ? $row['size_type'] : '',
-                'title' => $this->sanitizeText($row['name'], 150)
+                'size' 						=> '',
+                'size_system' 				=> !empty($row['size_system']) ? $row['size_system'] : '',
+                'size_type' 				=> !empty($row['size_type']) ? $row['size_type'] : '',
+                'title' 					=> $this->sanitizeText($row['name'], 150)
             );
 
             // Provide optional special price
@@ -453,7 +449,7 @@ class Googleshopping extends Library {
 		
         $options = array(
             'color' => $this->getProductOptionValueNames($product_id, $language_id, $color_id),
-            'size' => $this->getProductOptionValueNames($product_id, $language_id, $size_id)
+            'size' 	=> $this->getProductOptionValueNames($product_id, $language_id, $size_id)
         );
 
         $result = array();
@@ -461,7 +457,7 @@ class Googleshopping extends Library {
         foreach ($this->combineOptions($options) as $group) {
             $key = $product_id . '-' . md5(json_encode(array(
 				'color' => $group['color'], 
-				'size' => $group['size'])
+				'size' 	=> $group['size'])
 			));
 
             $result[$key] = $group;
@@ -805,10 +801,10 @@ class Googleshopping extends Library {
 
             if (!isset($product_level_entries[$product_id])) {
                 $product_level_entries[$product_id] = array(
-                    'product_id' => (int)$product_id,
-                    'store_id' => (int)$this->store_id,
-                    'has_issues' => 0,
-                    'destination_status' => 'pending'
+                    'product_id' 			=> (int)$product_id,
+                    'store_id' 				=> (int)$this->store_id,
+                    'has_issues' 			=> 0,
+                    'destination_status' 	=> 'pending'
                 );
             }
 
@@ -939,10 +935,10 @@ class Googleshopping extends Library {
                     $currency_info = $this->getCurrency($supported_currency_id);
 
                     $jobs[] = array(
-                        'work_id' => $work['work_id'],
-                        'countries' => isset($work['countries']) && is_array($work['countries']) ? $work['countries'] : array(),
-                        'language_id' => $supported_language_id,
-                        'currency' => $currency_info['code']
+                        'work_id' 		=> $work['work_id'],
+                        'countries' 	=> isset($work['countries']) && is_array($work['countries']) ? $work['countries'] : array(),
+                        'language_id' 	=> $supported_language_id,
+                        'currency' 		=> $currency_info['code']
                     );
                 }
             }
@@ -1006,11 +1002,13 @@ class Googleshopping extends Library {
 
         foreach ($arrays as $property => $property_values) {
             $tmp = array();
+			
             foreach ($result as $result_item) {
                 foreach ($property_values as $property_value) {
                     $tmp[] = array_merge($result_item, array($property => $property_value));
                 }
             }
+			
             $result = $tmp;
         }
 
@@ -1160,11 +1158,11 @@ class Googleshopping extends Library {
 
     public function getMerchantAuthUrl($data) {
         $request = array(
-            'type' => 'POST',
-            'endpoint' => self::ENDPOINT_MERCHANT_AUTH_URL,
-            'use_access_token' => true,
-            'content_type' => 'multipart/form-data',
-            'data' => $data
+            'type' 				=> 'POST',
+            'endpoint' 			=> self::ENDPOINT_MERCHANT_AUTH_URL,
+            'use_access_token' 	=> true,
+            'content_type' 		=> 'multipart/form-data',
+            'data' 				=> $data
         );
 
         $response = $this->api($request);
@@ -1185,7 +1183,7 @@ class Googleshopping extends Library {
             }
         }
 
-        throw new ConnectionException("Access unavailable. Please re-connect.");
+        throw new \ConnectionException("Access unavailable. Please re-connect.");
     }
 
     public function isStoreUrlClaimed() {
@@ -1194,12 +1192,12 @@ class Googleshopping extends Library {
 		$request = array();
 
         $request = array(
-            'type' => 'POST',
-            'endpoint' => self::ENDPOINT_VERIFY_IS_CLAIMED,
-            'use_access_token' => true,
-            'content_type' => 'multipart/form-data',
-            'data' => array(
-                'url_website' => $this->store_url
+            'type' 				=> 'POST',
+            'endpoint' 			=> self::ENDPOINT_VERIFY_IS_CLAIMED,
+            'use_access_token' 	=> true,
+            'content_type' 		=> 'multipart/form-data',
+            'data' 				=> array(
+                'url_website' 		=> $this->store_url
             )
         );
 
@@ -1231,8 +1229,8 @@ class Googleshopping extends Library {
 
         if (empty($cache_result['result']) || (isset($cache_result['timestamp']) && $cache_result['timestamp'] >= time() + self::CACHE_CAMPAIGN_REPORT)) {
             $request = array(
-                'endpoint' => sprintf(self::ENDPOINT_REPORT_CAMPAIGN, $this->setting->get('advertise_google_reporting_interval')),
-                'use_access_token' => true
+                'endpoint' 			=> sprintf(self::ENDPOINT_REPORT_CAMPAIGN, $this->setting->get('advertise_google_reporting_interval')),
+                'use_access_token' 	=> true
             );
 
             $csv = $this->api($request);
@@ -1240,8 +1238,8 @@ class Googleshopping extends Library {
             $lines = explode("\n", trim($csv['campaign_report']));
 
             $result = array(
-                'date_range' => null,
-                'reports' => array()
+                'date_range' 	=> null,
+                'reports' 		=> array()
             );
 
             // Get date range
@@ -1262,11 +1260,11 @@ class Googleshopping extends Library {
 			$expected = array();
 
             $expected = array(
-                'Campaign' => 'campaign_name',
-                'Impressions' => 'impressions',
-                'Clicks' => 'clicks',
-                'Cost' => 'cost',
-                'Conversions' => 'conversions',
+                'Campaign' 			=> 'campaign_name',
+                'Impressions' 		=> 'impressions',
+                'Clicks' 			=> 'clicks',
+                'Cost' 				=> 'cost',
+                'Conversions' 		=> 'conversions',
                 'Total conv. value' => 'conversion_value'
             );
 
@@ -1359,11 +1357,11 @@ class Googleshopping extends Library {
         $this->curlPostQuery($post_data, $post);
 
         $request = array(
-            'type' => 'POST',
-            'endpoint' => sprintf(self::ENDPOINT_REPORT_AD, $this->setting->get('advertise_google_reporting_interval')),
-            'use_access_token' => true,
-            'content_type' => 'multipart/form-data',
-            'data' => $post
+            'type' 				=> 'POST',
+            'endpoint' 			=> sprintf(self::ENDPOINT_REPORT_AD, $this->setting->get('advertise_google_reporting_interval')),
+            'use_access_token' 	=> true,
+            'content_type' 		=> 'multipart/form-data',
+            'data' 				=> $post
         );
 
         $response = $this->api($request);
@@ -1381,11 +1379,11 @@ class Googleshopping extends Library {
 			$expected = array();
             
             $expected = array(
-                'Item Id' => 'offer_id',
-                'Impressions' => 'impressions',
-                'Clicks' => 'clicks',
-                'Cost' => 'cost',
-                'Conversions' => 'conversions',
+                'Item Id' 			=> 'offer_id',
+                'Impressions' 		=> 'impressions',
+                'Clicks' 			=> 'clicks',
+                'Cost' 				=> 'cost',
+                'Conversions' 		=> 'conversions',
                 'Total conv. value' => 'conversion_value'
             );
 
@@ -1413,7 +1411,7 @@ class Googleshopping extends Library {
         }
 
         $cache->set($cache_key, array(
-            'result' => $result,
+            'result' 	=> $result,
             'timestamp' => time()
         ));
 
@@ -1430,11 +1428,11 @@ class Googleshopping extends Library {
 		$request = array();
 
         $request = array(
-            'type' => 'POST',
-            'endpoint' => self::ENDPOINT_MERCHANT_PRODUCT_STATUSES,
-            'use_access_token' => true,
-            'content_type' => 'multipart/form-data',
-            'data' => $post
+            'type' 				=> 'POST',
+            'endpoint' 			=> self::ENDPOINT_MERCHANT_PRODUCT_STATUSES,
+            'use_access_token' 	=> true,
+            'content_type' 		=> 'multipart/form-data',
+            'data' 				=> $post
         );
 
         $response = $this->api($request);
@@ -1446,8 +1444,8 @@ class Googleshopping extends Library {
 		$request = array();
 		
         $request = array(
-            'endpoint' => self::ENDPOINT_CONVERSION_TRACKER,
-            'use_access_token' => true
+            'endpoint' 			=> self::ENDPOINT_CONVERSION_TRACKER,
+            'use_access_token' 	=> true
         );
 
         $result = $this->api($request);
@@ -1476,8 +1474,8 @@ class Googleshopping extends Library {
 		$request = array();
 		
         $request = array(
-            'endpoint' => self::ENDPOINT_CAMPAIGN_TEST,
-            'use_access_token' => true
+            'endpoint' 			=> self::ENDPOINT_CAMPAIGN_TEST,
+            'use_access_token' 	=> true
         );
         
         $result = $this->api($request);
@@ -1489,8 +1487,8 @@ class Googleshopping extends Library {
 		$request = array();
 		
         $request = array(
-            'endpoint' => self::ENDPOINT_ACCESS_TOKEN_TEST,
-            'use_access_token' => true
+            'endpoint' 			=> self::ENDPOINT_ACCESS_TOKEN_TEST,
+            'use_access_token' 	=> true
         );
         
         try {
@@ -1510,16 +1508,16 @@ class Googleshopping extends Library {
 		$request = array();
 		
         $request = array(
-            'type' => 'POST',
-            'endpoint' => self::ENDPOINT_ACCESS_TOKEN,
-            'use_access_token' => false,
-            'content_type' => 'multipart/form-data',
+            'type' 					=> 'POST',
+            'endpoint' 				=> self::ENDPOINT_ACCESS_TOKEN,
+            'use_access_token' 		=> false,
+            'content_type' 			=> 'multipart/form-data',
             'data' => array(
-                'grant_type' => 'refresh_token',
-                'refresh_token' => $this->setting->get('advertise_google_refresh_token'),
-                'client_id' => $this->setting->get('advertise_google_app_id'),
-                'client_secret' => $this->setting->get('advertise_google_app_secret'),
-                'scope' => self::SCOPES
+                'grant_type' 			=> 'refresh_token',
+                'refresh_token' 		=> $this->setting->get('advertise_google_refresh_token'),
+                'client_id' 			=> $this->setting->get('advertise_google_app_id'),
+                'client_secret' 		=> $this->setting->get('advertise_google_app_secret'),
+                'scope' 				=> self::SCOPES
             )
         );
 
@@ -1535,16 +1533,16 @@ class Googleshopping extends Library {
 		$request = array();
 		
         $request = array(
-            'type' => 'POST',
-            'endpoint' => self::ENDPOINT_ACCESS_TOKEN,
-            'use_access_token' => false,
-            'content_type' => 'multipart/form-data',
-            'data' => array(
-                'grant_type' => 'authorization_code',
-                'client_id' => $data['app_id'],
-                'client_secret' => $data['app_secret'],
-                'redirect_uri' => $data['redirect_uri'],
-                'code' => $code
+            'type' 				=> 'POST',
+            'endpoint' 			=> self::ENDPOINT_ACCESS_TOKEN,
+            'use_access_token' 	=> false,
+            'content_type' 		=> 'multipart/form-data',
+            'data' 				=> array(
+                'grant_type' 		=> 'authorization_code',
+                'client_id' 		=> $data['app_id'],
+                'client_secret' 	=> $data['app_secret'],
+                'redirect_uri' 		=> $data['redirect_uri'],
+                'code' 				=> $code
             )
         );
 
@@ -1567,12 +1565,12 @@ class Googleshopping extends Library {
 		$request = array();
 		
         $request = array(
-            'type' => 'POST',
-            'endpoint' => self::ENDPOINT_VERIFY_TOKEN,
-            'use_access_token' => true,
-            'content_type' => 'multipart/form-data',
-            'data' => array(
-                'url_website' => $this->store_url
+            'type' 				=> 'POST',
+            'endpoint' 			=> self::ENDPOINT_VERIFY_TOKEN,
+            'use_access_token' 	=> true,
+            'content_type' 		=> 'multipart/form-data',
+            'data' 				=> array(
+                'url_website' 		=> $this->store_url
             )
         );
 
@@ -1583,12 +1581,12 @@ class Googleshopping extends Library {
         $this->createVerificationToken($token);
 
         $request = array(
-            'type' => 'POST',
-            'endpoint' => self::ENDPOINT_VERIFY_SITE,
-            'use_access_token' => true,
-            'content_type' => 'multipart/form-data',
-            'data' => array(
-                'url_website' => $this->store_url
+            'type' 				=> 'POST',
+            'endpoint' 			=> self::ENDPOINT_VERIFY_SITE,
+            'use_access_token' 	=> true,
+            'content_type' 		=> 'multipart/form-data',
+            'data' 				=> array(
+                'url_website' 		=> $this->store_url
             )
         );
 
@@ -1606,9 +1604,7 @@ class Googleshopping extends Library {
     public function deleteCampaign($name) {
         $post = array();
 		
-		$data = array();
-		
-        $data = array(
+		$data = array(
             'delete' => array(
                 $name
             )
@@ -1616,14 +1612,12 @@ class Googleshopping extends Library {
 
         $this->curlPostQuery($data, $post);
 		
-		$request = array();
-
-        $request = array(
-            'type' => 'POST',
-            'endpoint' => self::ENDPOINT_CAMPAIGN_DELETE,
-            'use_access_token' => true,
-            'content_type' => 'multipart/form-data',
-            'data' => $post
+		$request = array(
+            'type' 				=> 'POST',
+            'endpoint' 			=> self::ENDPOINT_CAMPAIGN_DELETE,
+            'use_access_token' 	=> true,
+            'content_type' 		=> 'multipart/form-data',
+            'data' 				=> $post
         );
 
         $this->api($request);
@@ -1637,11 +1631,11 @@ class Googleshopping extends Library {
         foreach ($this->getTargets($this->store_id) as $target) {
             $targets[] = array(
                 'campaign_name' => $target['campaign_name_raw'],
-                'country' => $target['country']['code'],
-                'status' => $this->setting->get('advertise_google_status') ? $target['status'] : 'paused',
-                'budget' => (float)$target['budget']['value'],
-                'roas' => ((int)$target['roas']) / 100,
-                'feeds' => $target['feeds_raw']
+                'country' 		=> $target['country']['code'],
+                'status' 		=> $this->setting->get('advertise_google_status') ? $target['status'] : 'paused',
+                'budget' 		=> (float)$target['budget']['value'],
+                'roas' 			=> ((int)$target['roas']) / 100,
+                'feeds' 		=> $target['feeds_raw']
             );
         }
 
@@ -1654,11 +1648,11 @@ class Googleshopping extends Library {
 		$request = array();
 
         $request = array(
-            'type' => 'POST',
-            'endpoint' => self::ENDPOINT_CAMPAIGN_UPDATE,
-            'use_access_token' => true,
-            'content_type' => 'multipart/form-data',
-            'data' => $post
+            'type' 				=> 'POST',
+            'endpoint' 			=> self::ENDPOINT_CAMPAIGN_UPDATE,
+            'use_access_token' 	=> true,
+            'content_type' 		=> 'multipart/form-data',
+            'data' 				=> $post
         );
 
         $response = $this->api($request);
@@ -1676,11 +1670,11 @@ class Googleshopping extends Library {
 		$request = array();
 
         $request = array(
-            'type' => 'POST',
-            'endpoint' => self::ENDPOINT_MERCHANT_SHIPPING_TAXES,
-            'use_access_token' => true,
-            'content_type' => 'multipart/form-data',
-            'data' => $post
+            'type' 				=> 'POST',
+            'endpoint' 			=> self::ENDPOINT_MERCHANT_SHIPPING_TAXES,
+            'use_access_token' 	=> true,
+            'content_type' 		=> 'multipart/form-data',
+            'data' 				=> $post
         );
 
         $this->api($request);
@@ -1690,9 +1684,9 @@ class Googleshopping extends Library {
 		$request = array();
 		
         $request = array(
-            'type' => 'GET',
-            'endpoint' => self::ENDPOINT_MERCHANT_DISCONNECT,
-            'use_access_token' => true
+            'type' 				=> 'GET',
+            'endpoint' 			=> self::ENDPOINT_MERCHANT_DISCONNECT,
+            'use_access_token' 	=> true
         );
 
         $this->api($request);
@@ -1705,7 +1699,7 @@ class Googleshopping extends Library {
         foreach ($this->getTargets($this->store_id) as $target) {
             $targets[] = array(
                 'campaign_name' => $target['campaign_name_raw'],
-                'status' => $this->setting->get('advertise_google_status') ? $target['status'] : 'paused'
+                'status' 		=> $this->setting->get('advertise_google_status') ? $target['status'] : 'paused'
             );
         }
 		
@@ -1717,14 +1711,12 @@ class Googleshopping extends Library {
 
         $this->curlPostQuery($data, $post);
 		
-		$request = array();
-
-        $request = array(
-            'type' => 'POST',
-            'endpoint' => self::ENDPOINT_CAMPAIGN_STATUS,
-            'use_access_token' => true,
-            'content_type' => 'multipart/form-data',
-            'data' => $post
+		$request = array(
+            'type' 				=> 'POST',
+            'endpoint' 			=> self::ENDPOINT_CAMPAIGN_STATUS,
+            'use_access_token' 	=> true,
+            'content_type' 		=> 'multipart/form-data',
+            'data' 				=> $post
         );
 
         $this->api($request);
@@ -1734,9 +1726,9 @@ class Googleshopping extends Library {
 		$request = array();
 		
         $request = array(
-            'type' => 'GET',
-            'endpoint' => self::ENDPOINT_MERCHANT_AVAILABLE_CARRIERS,
-            'use_access_token' => true
+            'type' 				=> 'GET',
+            'endpoint' 			=> self::ENDPOINT_MERCHANT_AVAILABLE_CARRIERS,
+            'use_access_token' 	=> true
         );
 
         $result = $this->api($request);
@@ -1754,10 +1746,10 @@ class Googleshopping extends Library {
                 $supported_language_id = $this->getSupportedLanguageId($code);
 
                 $result[] = array(
-                    'status' => $supported_language_id !== 0,
-                    'language_id' => $supported_language_id,
-                    'code' => $code,
-                    'name' => $this->getLanguageName($supported_language_id, $name)
+                    'status' 		=> $supported_language_id !== 0,
+                    'language_id' 	=> $supported_language_id,
+                    'code' 			=> $code,
+                    'name' 			=> $this->getLanguageName($supported_language_id, $name)
                 );
             }
         }
@@ -1788,9 +1780,9 @@ class Googleshopping extends Library {
                 $supported_currency_id = $this->getSupportedCurrencyId($code);
 
                 $result[] = array(
-                    'status' => $supported_currency_id !== 0,
-                    'code' => $code,
-                    'name' => $this->getCurrencyName($supported_currency_id, $name) . ' (' . $code . ')'
+                    'status' 	=> $supported_currency_id !== 0,
+                    'code' 		=> $code,
+                    'name' 		=> $this->getCurrencyName($supported_currency_id, $name) . ' (' . $code . ')'
                 );
             }
         }
@@ -1838,23 +1830,23 @@ class Googleshopping extends Library {
         }, $feeds_raw);
 
         return array(
-            'target_id' => $target['advertise_google_target_id'],
-            'campaign_name' => str_replace('&#44;', ',', trim($target['campaign_name'])),
+            'target_id' 		=> $target['advertise_google_target_id'],
+            'campaign_name' 	=> str_replace('&#44;', ',', trim($target['campaign_name'])),
             'campaign_name_raw' => $target['campaign_name'],
-            'country' => array(
-                'code' => $target['country'],
-                'name' => $this->getCountryName($target['country'])
+            'country' 			=> array(
+                'code' 				=> $target['country'],
+                'name' 				=> $this->getCountryName($target['country'])
             ),
-            'budget' => array(
-                'formatted' => sprintf($this->language->get('text_per_day'), number_format((float)$target['budget'], 2)),
-                'value' => (float)$target['budget']
+            'budget' 			=> array(
+                'formatted' 		=> sprintf($this->language->get('text_per_day'), number_format((float)$target['budget'], 2)),
+                'value' 			=> (float)$target['budget']
             ),
-            'feeds' => $feeds,
-            'status' => $target['status'],
-            'roas' => $target['roas'],
-            'roas_status' => $target['date_added'] <= date('Y-m-d', time() - self::ROAS_WAIT_INTERVAL),
+            'feeds' 			=> $feeds,
+            'status' 			=> $target['status'],
+            'roas' 				=> $target['roas'],
+            'roas_status' 		=> $target['date_added'] <= date('Y-m-d', time() - self::ROAS_WAIT_INTERVAL),
             'roas_available_on' => strtotime($target['date_added']) + self::ROAS_WAIT_INTERVAL,
-            'feeds_raw' => $feeds_raw
+            'feeds_raw' 		=> $feeds_raw
         );
     }
 
@@ -1973,15 +1965,15 @@ class Googleshopping extends Library {
             if ($info['http_code'] != 401 && $return['error']) {
                 throw new \RuntimeException($return['message']);
             } else {
-                throw new ConnectionException("Access unavailable. Please re-connect.");
+                throw new \ConnectionException("Access unavailable. Please re-connect.");
             }
         } elseif ($info['http_code'] == 402) {
             $return = json_decode($result, true);
 
             if ($return['error']) {
-                throw new AccessForbiddenException($return['message']);
+                throw new \AccessForbiddenException($return['message']);
             } else {
-                throw new ConnectionException("Access unavailable. Please re-connect.");
+                throw new \ConnectionException("Access unavailable. Please re-connect.");
             }
         } else {
             $this->debugLog("CURL ERROR! CURL INFO: " . print_r($info, true));

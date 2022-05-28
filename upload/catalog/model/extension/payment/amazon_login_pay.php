@@ -385,21 +385,21 @@ class ModelExtensionPaymentAmazonLoginPay extends Model {
         }
 
         return $this->postCurl("SetOrderReferenceDetails", array(
-            'AmazonOrderReferenceId' => $order_reference_id,
-            'OrderReferenceAttributes.OrderTotal.CurrencyCode' => $currency_code,
-            'OrderReferenceAttributes.OrderTotal.Amount' => $this->currency->convert($order_info['total'], $this->config->get('config_currency'), $currency_code),
-            'OrderReferenceAttributes.PlatformId' => $this->getPlatformId(),
-            'OrderReferenceAttributes.SellerOrderAttributes.SellerOrderId' => $order_id,
-            'OrderReferenceAttributes.SellerOrderAttributes.StoreName' => $order_info['store_name'],
-            'OrderReferenceAttributes.SellerOrderAttributes.CustomInformation' => $text_version
+            'AmazonOrderReferenceId' 											=> $order_reference_id,
+            'OrderReferenceAttributes.OrderTotal.CurrencyCode' 					=> $currency_code,
+            'OrderReferenceAttributes.OrderTotal.Amount' 						=> $this->currency->convert($order_info['total'], $this->config->get('config_currency'), $currency_code),
+            'OrderReferenceAttributes.PlatformId' 								=> $this->getPlatformId(),
+            'OrderReferenceAttributes.SellerOrderAttributes.SellerOrderId' 		=> $order_id,
+            'OrderReferenceAttributes.SellerOrderAttributes.StoreName' 			=> $order_info['store_name'],
+            'OrderReferenceAttributes.SellerOrderAttributes.CustomInformation' 	=> $text_version
         ));
     }
 
     public function confirmOrder($order_reference_id) {
         $this->postCurl('ConfirmOrderReference', array(
-            'AmazonOrderReferenceId' => $order_reference_id,
-            'SuccessUrl' => $this->url->link('extension/payment/amazon_login_pay/mfa_success', '', true),
-            'FailureUrl' => $this->url->link('extension/payment/amazon_login_pay/mfa_failure', '', true)
+            'AmazonOrderReferenceId' 	=> $order_reference_id,
+            'SuccessUrl' 				=> $this->url->link('extension/payment/amazon_login_pay/mfa_success', '', true),
+            'FailureUrl' 				=> $this->url->link('extension/payment/amazon_login_pay/mfa_failure', '', true)
           //  'AuthorizationAmount'=>
         ));
     }
@@ -408,12 +408,12 @@ class ModelExtensionPaymentAmazonLoginPay extends Model {
         $capture_now = $this->config->get('payment_amazon_login_pay_mode') == 'payment';
 
         return $this->postCurl("Authorize", array(
-            'AmazonOrderReferenceId' => (string)$order->AmazonOrderReferenceId,
-            'AuthorizationReferenceId' => 'auth_' . uniqid(),
-            'AuthorizationAmount.Amount' => (float)$order->OrderTotal->Amount,
-            'AuthorizationAmount.CurrencyCode' => (string)$order->OrderTotal->CurrencyCode,
-            'TransactionTimeout' => 0,
-            'CaptureNow' => $capture_now
+            'AmazonOrderReferenceId' 			=> (string)$order->AmazonOrderReferenceId,
+            'AuthorizationReferenceId' 			=> 'auth_' . uniqid(),
+            'AuthorizationAmount.Amount' 		=> (float)$order->OrderTotal->Amount,
+            'AuthorizationAmount.CurrencyCode' 	=> (string)$order->OrderTotal->CurrencyCode,
+            'TransactionTimeout' 				=> 0,
+            'CaptureNow' 						=> $capture_now
         ))
             ->ResponseBody
             ->AuthorizeResult
@@ -442,10 +442,10 @@ class ModelExtensionPaymentAmazonLoginPay extends Model {
 
     public function captureOrder($amazon_authorization_id, $total, $currency) {
         return $this->postCurl("Capture", array(
-            'AmazonAuthorizationId' => $amazon_authorization_id,
-            'CaptureReferenceId' => 'capture_' . uniqid(),
-            'CaptureAmount.Amount' => $total,
-            'CaptureAmount.CurrencyCode' => $currency
+            'AmazonAuthorizationId' 		=> $amazon_authorization_id,
+            'CaptureReferenceId' 			=> 'capture_' . uniqid(),
+            'CaptureAmount.Amount' 			=> $total,
+            'CaptureAmount.CurrencyCode' 	=> $currency
         ))
             ->ResponseBody
             ->CaptureResult
@@ -454,15 +454,15 @@ class ModelExtensionPaymentAmazonLoginPay extends Model {
 
     public function cancelOrder($order_reference_id, $reason) {
         $this->postCurl("CancelOrderReference", array(
-            'AmazonOrderReferenceId' => $order_reference_id,
-            'CancelationReason' => $reason
+            'AmazonOrderReferenceId' 		=> $order_reference_id,
+            'CancelationReason' 			=> $reason
         ));
     }
 
     public function closeOrder($order_reference_id, $reason) {
         $this->postCurl("CloseOrderReference", array(
-            'AmazonOrderReferenceId' => $order_reference_id,
-            'ClosureReason' => $reason
+            'AmazonOrderReferenceId' 		=> $order_reference_id,
+            'ClosureReason' 				=> $reason
         ));
     }
 
@@ -484,14 +484,14 @@ class ModelExtensionPaymentAmazonLoginPay extends Model {
         }
 
         $insert = array(
-            'order_id' => (int)$order_id,
+            'order_id' 					=> (int)$order_id,
             'amazon_order_reference_id' => "'" . $this->db->escape($order_reference_id) . "'",
-            'amazon_authorization_id' => "''",
-            'free_shipping' => (int)$this->isShippingFree($order_id),
-            'date_added' => "'" . date('Y-m-d H:i:s', strtotime((string)$order->CreationTimestamp)) . "'",
-            'modified' => "'" . date('Y-m-d H:i:s', strtotime((string)$order->OrderReferenceStatus->LastUpdateTimestamp)) . "'",
-            'currency_code' => "'" . $this->db->escape((string)$order->OrderTotal->CurrencyCode) . "'",
-            'total' => (float)$order->OrderTotal->Amount
+            'amazon_authorization_id' 	=> "''",
+            'free_shipping' 			=> (int)$this->isShippingFree($order_id),
+            'date_added' 				=> "'" . date('Y-m-d H:i:s', strtotime((string)$order->CreationTimestamp)) . "'",
+            'modified' 					=> "'" . date('Y-m-d H:i:s', strtotime((string)$order->OrderReferenceStatus->LastUpdateTimestamp)) . "'",
+            'currency_code' 			=> "'" . $this->db->escape((string)$order->OrderTotal->CurrencyCode) . "'",
+            'total' 					=> (float)$order->OrderTotal->Amount
         );
 
         $row = array();
@@ -530,13 +530,13 @@ class ModelExtensionPaymentAmazonLoginPay extends Model {
 
         $transaction = array(
             'amazon_login_pay_order_id' => $amazon_login_pay_order_id,
-            'amazon_authorization_id' => $authorization_id,
-            'amazon_capture_id' => $capture_id,
-            'amazon_refund_id' => '',
-            'date_added' => date('Y-m-d H:i:s', strtotime((string)$authorization->CreationTimestamp)),
-            'type' => $type,
-            'status' => (string)$authorization->AuthorizationStatus->State,
-            'amount' => $amount
+            'amazon_authorization_id' 	=> $authorization_id,
+            'amazon_capture_id' 		=> $capture_id,
+            'amazon_refund_id' 			=> '',
+            'date_added' 				=> date('Y-m-d H:i:s', strtotime((string)$authorization->CreationTimestamp)),            
+            'status' 					=> (string)$authorization->AuthorizationStatus->State,
+            'amount' 					=> $amount,
+			'type' 						=> $type
         );
 
         $this->addTransaction($transaction);
@@ -561,13 +561,13 @@ class ModelExtensionPaymentAmazonLoginPay extends Model {
     public function addTransaction($data) {
         $insert = array(
             'amazon_login_pay_order_id' => (int)$data['amazon_login_pay_order_id'],
-            'amazon_authorization_id' => "'" . $this->db->escape($data['amazon_authorization_id']) . "'",
-            'amazon_capture_id' => "'" . $this->db->escape($data['amazon_capture_id']) . "'",
-            'amazon_refund_id' => "'" . $this->db->escape($data['amazon_refund_id']) . "'",
-            'date_added' => "'" . $this->db->escape($data['date_added']) . "'",
-            'type' => "'" . $this->db->escape($data['type']) . "'",
-            'status' => "'" . $this->db->escape($data['status']) . "'",
-            'amount' => (float)$data['amount']
+            'amazon_authorization_id' 	=> "'" . $this->db->escape($data['amazon_authorization_id']) . "'",
+            'amazon_capture_id' 		=> "'" . $this->db->escape($data['amazon_capture_id']) . "'",
+            'amazon_refund_id' 			=> "'" . $this->db->escape($data['amazon_refund_id']) . "'",
+            'date_added' 				=> "'" . $this->db->escape($data['date_added']) . "'",
+            'type' 						=> "'" . $this->db->escape($data['type']) . "'",
+            'status' 					=> "'" . $this->db->escape($data['status']) . "'",
+            'amount' 					=> (float)$data['amount']
         );
 
         $row = array();
@@ -697,19 +697,19 @@ class ModelExtensionPaymentAmazonLoginPay extends Model {
 		$data = array();
 
         $data = array(
-            'payment_firstname' => "'" . $this->db->escape($address['firstname']) . "'",
-            'payment_lastname' => "'" . $this->db->escape($address['lastname']) . "'",
-            'payment_company' => "'" . $this->db->escape($address['company']) . "'",
-            'payment_address_1' => "'" . $this->db->escape($address['address_1']) . "'",
-            'payment_address_2' => "'" . $this->db->escape($address['address_2']) . "'",
-            'payment_city' => "'" . $this->db->escape($address['city']) . "'",
-            'payment_postcode' => "'" . $this->db->escape($address['postcode']) . "'",
-            'payment_zone' => "'" . $this->db->escape($address['zone']) . "'",
-            'payment_zone_id' => (int)$address['zone_id'],
-            'payment_country' => "'" . $this->db->escape($address['country']) . "'",
-            'payment_country_id' => (int)$address['country_id'],
-            'payment_address_format' => "'" . $this->db->escape($address['address_format']) . "'",
-            'payment_custom_field' => "'[]'"
+            'payment_firstname' 		=> "'" . $this->db->escape($address['firstname']) . "'",
+            'payment_lastname' 			=> "'" . $this->db->escape($address['lastname']) . "'",
+            'payment_company' 			=> "'" . $this->db->escape($address['company']) . "'",
+            'payment_address_1' 		=> "'" . $this->db->escape($address['address_1']) . "'",
+            'payment_address_2' 		=> "'" . $this->db->escape($address['address_2']) . "'",
+            'payment_city' 				=> "'" . $this->db->escape($address['city']) . "'",
+            'payment_postcode' 			=> "'" . $this->db->escape($address['postcode']) . "'",
+            'payment_zone' 				=> "'" . $this->db->escape($address['zone']) . "'",
+            'payment_zone_id' 			=> (int)$address['zone_id'],
+            'payment_country' 			=> "'" . $this->db->escape($address['country']) . "'",
+            'payment_country_id' 		=> (int)$address['country_id'],
+            'payment_address_format' 	=> "'" . $this->db->escape($address['address_format']) . "'",
+            'payment_custom_field' 		=> "'[]'"
         );
 
         $update = array();
@@ -738,24 +738,24 @@ class ModelExtensionPaymentAmazonLoginPay extends Model {
         $zone_info = $this->getZoneInfo($amazon_address, $country_info);
 
         return array(
-            'firstname' => (string)$amazon_address->FirstName,
-            'lastname' => (string)$amazon_address->LastName,
-            'company' => '',
-            'company_id' => '',
-            'tax_id' => '',
-            'city' => (string)$amazon_address->City,
-            'telephone' => !empty($amazon_address->Phone) ? (string)$amazon_address->Phone : $default_telephone,
-            'postcode' => (string)$amazon_address->PostalCode,
-            'country' => $country_info['country'],
-            'country_id' => $country_info['country_id'],
-            'zone' => $zone_info['name'],
-            'zone_code' => $zone_info['code'],
-            'zone_id' => $zone_info['zone_id'],
-            'address_1' => (string)$address_line_1,
-            'address_2' => (string)$address_line_2,
-            'iso_code_2' => $country_info['iso_code_2'],
-            'iso_code_3' => $country_info['iso_code_3'],
-            'address_format' => $country_info['address_format']
+            'firstname' 		=> (string)$amazon_address->FirstName,
+            'lastname' 			=> (string)$amazon_address->LastName,
+            'company' 			=> '',
+            'company_id' 		=> '',
+            'tax_id' 			=> '',
+            'city' 				=> (string)$amazon_address->City,
+            'telephone' 		=> !empty($amazon_address->Phone) ? (string)$amazon_address->Phone : $default_telephone,
+            'postcode' 			=> (string)$amazon_address->PostalCode,
+            'country' 			=> $country_info['country'],
+            'country_id' 		=> $country_info['country_id'],
+            'zone' 				=> $zone_info['name'],
+            'zone_code' 		=> $zone_info['code'],
+            'zone_id' 			=> $zone_info['zone_id'],
+            'address_1' 		=> (string)$address_line_1,
+            'address_2' 		=> (string)$address_line_2,
+            'iso_code_2' 		=> $country_info['iso_code_2'],
+            'iso_code_3' 		=> $country_info['iso_code_3'],
+            'address_format' 	=> $country_info['address_format']
         );
     }
 
@@ -796,20 +796,20 @@ class ModelExtensionPaymentAmazonLoginPay extends Model {
 
         if ($result->num_rows > 0) {
             return array(
-                'country_id' => (int)$result->row['country_id'],
-                'country' => $result->row['name'],
-                'iso_code_2' => $result->row['iso_code_2'],
-                'iso_code_3' => $result->row['iso_code_3'],
-                'address_format' => $result->row['address_format']
+                'country_id' 		=> (int)$result->row['country_id'],
+                'country' 			=> $result->row['name'],
+                'iso_code_2' 		=> $result->row['iso_code_2'],
+                'iso_code_3' 		=> $result->row['iso_code_3'],
+                'address_format' 	=> $result->row['address_format']
             );
         }
 
         return array(
-            'country_id' => 0,
-            'country' => '',
-            'iso_code_2' => '',
-            'iso_code_3' => '',
-            'address_format' => ''
+            'country_id' 		=> 0,
+            'country' 			=> '',
+            'iso_code_2' 		=> '',
+            'iso_code_3' 		=> '',
+            'address_format' 	=> ''
         );
     }
 
@@ -821,17 +821,17 @@ class ModelExtensionPaymentAmazonLoginPay extends Model {
 
             if ($result->num_rows > 0) {
                 return array(
-                    'zone_id' => (int)$result->row['zone_id'],
-                    'name' => $result->row['name'],
-                    'code' => $result->row['code']
+                    'zone_id' 	=> (int)$result->row['zone_id'],
+                    'name' 		=> $result->row['name'],
+                    'code' 		=> $result->row['code']
                 );
             }
         }
 
         return array(
-            'zone_id' => 0,
-            'name' => '',
-            'code' => ''
+            'zone_id' 	=> 0,
+            'name' 		=> '',
+            'code' 		=> ''
         );
     }
 
@@ -921,9 +921,9 @@ class ModelExtensionPaymentAmazonLoginPay extends Model {
 			$debug = array();
 			
             $debug = array(
-                'curl_getinfo' => $info,
-                'curl_errno' => curl_errno($ch),
-                'curl_error' => curl_error($ch)
+                'curl_getinfo' 	=> $info,
+                'curl_errno' 	=> curl_errno($ch),
+                'curl_error' 	=> curl_error($ch)
             );
 
             curl_close($ch);

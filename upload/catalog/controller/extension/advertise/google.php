@@ -102,13 +102,13 @@ class ControllerExtensionAdvertiseGoogle extends Controller {
         }
 
         $purchase_data = array(
-            'transaction_id' => $order_info['order_id'],
-            'value' => $total,
-            'currency' => $currency,
-            'tax' => $tax,
-            'shipping' => $shipping,
-            'items' => $this->model_extension_advertise_google->getRemarketingItems($order_products, $order_info['store_id']),
-            'ecomm_prodid' => $this->model_extension_advertise_google->getRemarketingProductIds($order_products, $order_info['store_id'])
+            'transaction_id' 	=> $order_info['order_id'],
+            'value' 			=> $total,
+            'currency' 			=> $currency,
+            'tax' 				=> $tax,
+            'shipping' 			=> $shipping,
+            'items' 			=> $this->model_extension_advertise_google->getRemarketingItems($order_products, $order_info['store_id']),
+            'ecomm_prodid' 		=> $this->model_extension_advertise_google->getRemarketingProductIds($order_products, $order_info['store_id'])
         );
 
         if ($coupon !== null) {

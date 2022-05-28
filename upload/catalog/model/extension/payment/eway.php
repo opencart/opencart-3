@@ -20,10 +20,10 @@ class ModelExtensionPaymentEway extends Model {
 
 		if ($status) {
 			$method_data = array(
-				'code' => 'eway',
-				'title' => $this->language->get('text_title'),
-				'terms'      => '',
-				'sort_order' => $this->config->get('payment_eway_sort_order')
+				'code' 			=> 'eway',
+				'title' 		=> $this->language->get('text_title'),
+				'terms'      	=> '',
+				'sort_order' 	=> $this->config->get('payment_eway_sort_order')
 			);
 		}
 
@@ -31,11 +31,12 @@ class ModelExtensionPaymentEway extends Model {
 	}
 
 	public function addOrder($order_data) {
-
 		$cap = '';
+		
 		if ($this->config->get('payment_eway_transaction_method') == 'payment') {
 			$cap = ",`capture_status` = '1'";
 		}
+		
 		$this->db->query("INSERT INTO `" . DB_PREFIX . "eway_order` SET `order_id` = '" . (int)$order_data['order_id'] . "', `created` = NOW(), `modified` = NOW(), `debug_data` = '" . $this->db->escape($order_data['debug_data']) . "', `amount` = '" . $this->currency->format($order_data['amount'], $order_data['currency_code'], false, false) . "', `currency_code` = '" . $this->db->escape($order_data['currency_code']) . "', `transaction_id` = '" . $this->db->escape($order_data['transaction_id']) . "'{$cap}");
 
 		return $this->db->getLastId();

@@ -15,21 +15,21 @@ class ControllerExtensionPaymentSecureTradingWs extends Controller {
 			$cards = array();
 			
 			$cards = array(
-				'AMEX' => 'American Express',
-				'VISA' => 'Visa',
-				'DELTA' => 'Visa Debit',
-				'ELECTRON' => 'Visa Electron',
-				'PURCHASING' => 'Visa Purchasing',
-				'VPAY' => 'V Pay',
-				'MASTERCARD' => 'MasterCard',
-				'MASTERCARDDEBIT' => 'MasterCard Debit',
-				'MAESTRO' => 'Maestro',
-				'PAYPAL' => 'PayPal',
+				'AMEX' 				=> 'American Express',
+				'VISA' 				=> 'Visa',
+				'DELTA' 			=> 'Visa Debit',
+				'ELECTRON' 			=> 'Visa Electron',
+				'PURCHASING' 		=> 'Visa Purchasing',
+				'VPAY' 				=> 'V Pay',
+				'MASTERCARD' 		=> 'MasterCard',
+				'MASTERCARDDEBIT' 	=> 'MasterCard Debit',
+				'MAESTRO' 			=> 'Maestro',
+				'PAYPAL' 			=> 'PayPal',
 			);
 
 			for ($i = 1; $i <= 12; $i++) {
 				$data['months'][] = array(
-					'text' => sprintf('%02d', $i),
+					'text' 	=> sprintf('%02d', $i),
 					'value' => sprintf('%02d', $i)
 				);
 			}
@@ -40,7 +40,7 @@ class ControllerExtensionPaymentSecureTradingWs extends Controller {
 
 			for ($i = $today['year']; $i < $today['year'] + 11; $i++) {
 				$data['year_expire'][] = array(
-					'text' => sprintf('%02d', $i % 100),
+					'text' 	=> sprintf('%02d', $i % 100),
 					'value' => sprintf('%04d', $i)
 				);
 			}

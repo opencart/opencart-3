@@ -50,12 +50,12 @@ class ModelExtensionModuleAmazonLogin extends Model {
         // Create non-existing customer
         if (empty($customer_info)) {
             $data = array(
-                'customer_group_id' => (int)$this->config->get('config_customer_group_id'),
-                'firstname' => (string)$amazon_profile->first_name,
-                'lastname' => (string)$amazon_profile->last_name,
-                'email' => (string)$amazon_profile->email,
-                'telephone' => '0000000',
-                'password' => uniqid(rand(), true)
+                'customer_group_id' 	=> (int)$this->config->get('config_customer_group_id'),
+                'firstname' 			=> (string)$amazon_profile->first_name,
+                'lastname' 				=> (string)$amazon_profile->last_name,
+                'email' 				=> (string)$amazon_profile->email,
+                'telephone' 			=> '0000000',
+                'password' 				=> uniqid(rand(), true)
             );
 
             $customer_id = $this->model_account_customer->addCustomer($data);
@@ -202,9 +202,9 @@ class ModelExtensionModuleAmazonLogin extends Model {
 
         if (empty($response)) {
             $debug = array(
-                'curl_getinfo' => curl_getinfo($ch),
-                'curl_errno' => curl_errno($ch),
-                'curl_error' => curl_error($ch)
+                'curl_getinfo' 	=> curl_getinfo($ch),
+                'curl_errno' 	=> curl_errno($ch),
+                'curl_error' 	=> curl_error($ch)
             );
 			
 			curl_close($ch);

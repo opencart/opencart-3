@@ -69,9 +69,9 @@ class ModelExtensionPaymentG2aPay extends Model {
 			$fields = array();
 
 			$fields = array(
-				'action' => 'refund',
-				'amount' => $refunded_amount,
-				'hash' => $hash,
+				'action' 	=> 'refund',
+				'amount' 	=> $refunded_amount,
+				'hash' 		=> $hash,
 			);
 
 			return $this->sendCurl($url, $fields);

@@ -19,10 +19,10 @@ class ModelExtensionPaymentSagePayDirect extends Model {
 
 		if ($status) {
 			$method_data = array(
-				'code' => 'sagepay_direct',
-				'title' => $this->language->get('text_title'),
-				'terms' => '',
-				'sort_order' => $this->config->get('payment_sagepay_direct_sort_order')
+				'code' 			=> 'sagepay_direct',
+				'title' 		=> $this->language->get('text_title'),
+				'terms' 		=> '',
+				'sort_order' 	=> $this->config->get('payment_sagepay_direct_sort_order')
 			);
 		}
 
@@ -38,12 +38,12 @@ class ModelExtensionPaymentSagePayDirect extends Model {
 
 		foreach ($query->rows as $row) {
 			$card_data[] = array(
-				'card_id' => $row['card_id'],
-				'customer_id' => $row['customer_id'],
-				'token' => $row['token'],
-				'digits' => '**** ' . $row['digits'],
-				'expiry' => $row['expiry'],
-				'type' => $row['type'],
+				'card_id' 		=> $row['card_id'],
+				'customer_id' 	=> $row['customer_id'],
+				'token' 		=> $row['token'],
+				'digits' 		=> '**** ' . $row['digits'],
+				'expiry' 		=> $row['expiry'],
+				'type' 			=> $row['type'],
 			);
 		}
 		
@@ -51,7 +51,7 @@ class ModelExtensionPaymentSagePayDirect extends Model {
 	}
 
 	public function addCard($card_data) {
-		$this->db->query("INSERT into " . DB_PREFIX . "sagepay_direct_card SET customer_id = '" . $this->db->escape($card_data['customer_id']) . "', digits = '" . $this->db->escape($card_data['Last4Digits']) . "', expiry = '" . $this->db->escape($card_data['ExpiryDate']) . "', type = '" . $this->db->escape($card_data['CardType']) . "', token = '" . $this->db->escape($card_data['Token']) . "'");
+		$this->db->query("INSERT INTO " . DB_PREFIX . "sagepay_direct_card SET customer_id = '" . $this->db->escape($card_data['customer_id']) . "', digits = '" . $this->db->escape($card_data['Last4Digits']) . "', expiry = '" . $this->db->escape($card_data['ExpiryDate']) . "', type = '" . $this->db->escape($card_data['CardType']) . "', token = '" . $this->db->escape($card_data['Token']) . "'");
 
 		return $this->db->getLastId();
 	}

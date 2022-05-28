@@ -19,10 +19,10 @@ class ModelExtensionPaymentSagePayServer extends Model {
 
 		if ($status) {
 			$method_data = array(
-				'code' => 'sagepay_server',
-				'title' => $this->language->get('text_title'),
-				'terms' => '',
-				'sort_order' => $this->config->get('payment_sagepay_server_sort_order')
+				'code' 			=> 'sagepay_server',
+				'title' 		=> $this->language->get('text_title'),
+				'terms' 		=> '',
+				'sort_order' 	=> $this->config->get('payment_sagepay_server_sort_order')
 			);
 		}
 
@@ -38,12 +38,12 @@ class ModelExtensionPaymentSagePayServer extends Model {
 
 		foreach ($query->rows as $row) {
 			$card_data[] = array(
-				'card_id' => $row['card_id'],
-				'customer_id' => $row['customer_id'],
-				'token' => $row['token'],
-				'digits' => '**** ' . $row['digits'],
-				'expiry' => $row['expiry'],
-				'type' => $row['type'],
+				'card_id' 		=> $row['card_id'],
+				'customer_id' 	=> $row['customer_id'],
+				'token' 		=> $row['token'],
+				'digits' 		=> '**** ' . $row['digits'],
+				'expiry' 		=> $row['expiry'],
+				'type' 			=> $row['type'],
 			);
 		}
 		

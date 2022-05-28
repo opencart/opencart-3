@@ -92,15 +92,15 @@ class ControllerExtensionPaymentG2APay extends Controller {
 		$string = $this->session->data['order_id'] . $order_total . $order_info['currency_code'] . html_entity_decode($this->config->get('payment_g2apay_secret'));
 
 		$fields = array(
-			'api_hash' => $this->config->get('payment_g2apay_api_hash'),
-			'hash' => hash('sha256', $string),
-			'order_id' => $this->session->data['order_id'],
-			'amount' => $order_total,
-			'currency' => $order_info['currency_code'],
-			'email' => $order_info['email'],
-			'url_failure' => $this->url->link('checkout/failure'),
-			'url_ok' => $this->url->link('extension/payment/g2apay/success'),
-			'items' => json_encode($items)
+			'api_hash' 		=> $this->config->get('payment_g2apay_api_hash'),
+			'hash' 			=> hash('sha256', $string),
+			'order_id' 		=> $this->session->data['order_id'],
+			'amount' 		=> $order_total,
+			'currency' 		=> $order_info['currency_code'],
+			'email' 		=> $order_info['email'],
+			'url_failure' 	=> $this->url->link('checkout/failure'),
+			'url_ok' 		=> $this->url->link('extension/payment/g2apay/success'),
+			'items' =		> json_encode($items)
 		);
 
 		$response_data = $this->model_extension_payment_g2apay->sendCurl($url, $fields);
@@ -127,7 +127,7 @@ class ControllerExtensionPaymentG2APay extends Controller {
 	}
 
 	public function success() {
-		$order_id = $this->session->data['order_id'];
+		$order_id = (int)$this->session->data['order_id'];
 
 		if (isset($this->request->post['transaction_id'])) {
 			$g2apay_transaction_id = $this->request->post['transaction_id'];

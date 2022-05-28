@@ -33,8 +33,8 @@ class ControllerExtensionPaymentSquareup extends Controller {
 
             foreach ($cards as $card) {
                 $data['cards'][] = array(
-                    'id' => $card['squareup_token_id'],
-                    'text' => sprintf($this->language->get('text_card_ends_in'), $card['brand'], $card['ends_in'])
+                    'id' 	=> $card['squareup_token_id'],
+                    'text' 	=> sprintf($this->language->get('text_card_ends_in'), $card['brand'], $card['ends_in'])
                 );
             }
         } else {
@@ -69,15 +69,15 @@ class ControllerExtensionPaymentSquareup extends Controller {
 
         if (!empty($billing_country_info)) {
             $billing_address = array(
-                'first_name' => $order_info['payment_firstname'],
-                'last_name' => $order_info['payment_lastname'],
-                'address_line_1' => $order_info['payment_address_1'],
-                'address_line_2' => $order_info['payment_address_2'],
-                'locality' => $order_info['payment_city'],
-                'sublocality' => $order_info['payment_zone'],
-                'postal_code' => $order_info['payment_postcode'],
-                'country' => $billing_country_info['iso_code_2'],
-                'organization' => $order_info['payment_company']
+                'first_name' 		=> $order_info['payment_firstname'],
+                'last_name' 		=> $order_info['payment_lastname'],
+                'address_line_1' 	=> $order_info['payment_address_1'],
+                'address_line_2' 	=> $order_info['payment_address_2'],
+                'locality' 			=> $order_info['payment_city'],
+                'sublocality' 		=> $order_info['payment_zone'],
+                'postal_code' 		=> $order_info['payment_postcode'],
+                'country' 			=> $billing_country_info['iso_code_2'],
+                'organization' 		=> $order_info['payment_company']
             );
         } else {
             $billing_address = array();
@@ -85,15 +85,15 @@ class ControllerExtensionPaymentSquareup extends Controller {
 
         if (!empty($shipping_country_info)) {
             $shipping_address = array(
-                'first_name' => $order_info['shipping_firstname'],
-                'last_name' => $order_info['shipping_lastname'],
-                'address_line_1' => $order_info['shipping_address_1'],
-                'address_line_2' => $order_info['shipping_address_2'],
-                'locality' => $order_info['shipping_city'],
-                'sublocality' => $order_info['shipping_zone'],
-                'postal_code' => $order_info['shipping_postcode'],
-                'country' => $shipping_country_info['iso_code_2'],
-                'organization' => $order_info['shipping_company']
+                'first_name' 		=> $order_info['shipping_firstname'],
+                'last_name' 		=> $order_info['shipping_lastname'],
+                'address_line_1' 	=> $order_info['shipping_address_1'],
+                'address_line_2' 	=> $order_info['shipping_address_2'],
+                'locality' 			=> $order_info['shipping_city'],
+                'sublocality' 		=> $order_info['shipping_zone'],
+                'postal_code' 		=> $order_info['shipping_postcode'],
+                'country' 			=> $shipping_country_info['iso_code_2'],
+                'organization' 		=> $order_info['shipping_company']
             );
         } else {
             $shipping_address = array();
@@ -129,9 +129,9 @@ class ControllerExtensionPaymentSquareup extends Controller {
             } elseif ($this->customer->isLogged() && isset($this->request->post['squareup_save_card'])) {
                 // Save the card
                 $card_data = array(
-                    'card_nonce' => $this->request->post['squareup_nonce'],
-                    'billing_address' => $billing_address,
-                    'cardholder_name' => $order_info['payment_firstname'] . ' ' . $order_info['payment_lastname']
+                    'card_nonce' 		=> $this->request->post['squareup_nonce'],
+                    'billing_address' 	=> $billing_address,
+                    'cardholder_name' 	=> $order_info['payment_firstname'] . ' ' . $order_info['payment_lastname']
                 );
 
                 $square_card = $this->squareup->addCard($square_customer['square_customer_id'], $card_data);
@@ -146,15 +146,15 @@ class ControllerExtensionPaymentSquareup extends Controller {
 
             // Prepare Transaction
             $transaction_data = array(
-                'idempotency_key' => uniqid(),
-                'amount_money' => array(
-                    'amount' => $this->squareup->lowestDenomination($order_info['total'], $order_info['currency_code']),
-                    'currency' => $order_info['currency_code']
+                'idempotency_key' 	=> uniqid(),
+                'amount_money' 			=> array(
+                    'amount' 				=> $this->squareup->lowestDenomination($order_info['total'], $order_info['currency_code']),
+                    'currency' 				=> $order_info['currency_code']
                 ),
-                'billing_address' => $billing_address,
-                'buyer_email_address' => $order_info['email'],
-                'delay_capture' => !$this->cart->hasRecurringProducts() && $this->config->get('payment_squareup_delay_capture'),
-                'integration_id' => Squareup::SQUARE_INTEGRATION_ID
+                'billing_address' 		=> $billing_address,
+                'buyer_email_address' 	=> $order_info['email'],
+                'delay_capture' 		=> !$this->cart->hasRecurringProducts() && $this->config->get('payment_squareup_delay_capture'),
+                'integration_id' 		=> Squareup::SQUARE_INTEGRATION_ID
             );
             
             if (!empty($shipping_address)) {

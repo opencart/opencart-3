@@ -29,6 +29,7 @@ class ControllerExtensionPaymentPPBraintree extends Controller {
 		$order_info = $this->model_checkout_order->getOrder($this->session->data['order_id']);
 
 		$create_token = array();
+		
 		$merchant_id = $this->config->get('payment_pp_braintree_merchant_id');
 
 		if ($this->gateway == '') {

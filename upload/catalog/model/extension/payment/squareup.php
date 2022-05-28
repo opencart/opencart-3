@@ -49,10 +49,10 @@ class ModelExtensionPaymentSquareup extends Model {
 
         if ($status) {
             $method_data = array(
-                'code'      => 'squareup',
-                'title'     => $title,
-                'terms'     => '',
-                'sort_order' => (int)$this->config->get('payment_squareup_sort_order')
+                'code'      	=> 'squareup',
+                'title'     	=> $title,
+                'terms'     	=> '',
+                'sort_order' 	=> (int)$this->config->get('payment_squareup_sort_order')
             );
         }
 
@@ -214,7 +214,7 @@ class ModelExtensionPaymentSquareup extends Model {
                 return $this->language->get('error_squareup_cron_token');
             } else {
                 $this->editTokenSetting(array(
-                    'payment_squareup_access_token' => $response['access_token'],
+                    'payment_squareup_access_token' 		=> $response['access_token'],
                     'payment_squareup_access_token_expires' => $response['expires_at']
                 ));
             }
@@ -242,15 +242,15 @@ class ModelExtensionPaymentSquareup extends Model {
             $order_info = $this->model_checkout_order->getOrder($recurring['order_id']);
 
             $billing_address = array(
-                'first_name' => $order_info['payment_firstname'],
-                'last_name' => $order_info['payment_lastname'],
-                'address_line_1' => $recurring['billing_address_street_1'],
-                'address_line_2' => $recurring['billing_address_street_2'],
-                'locality' => $recurring['billing_address_city'],
-                'sublocality' => $recurring['billing_address_province'],
-                'postal_code' => $recurring['billing_address_postcode'],
-                'country' => $recurring['billing_address_country'],
-                'organization' => $recurring['billing_address_company']
+                'first_name' 		=> $order_info['payment_firstname'],
+                'last_name' 		=> $order_info['payment_lastname'],
+                'address_line_1' 	=> $recurring['billing_address_street_1'],
+                'address_line_2' 	=> $recurring['billing_address_street_2'],
+                'locality' 			=> $recurring['billing_address_city'],
+                'sublocality' 		=> $recurring['billing_address_province'],
+                'postal_code' 		=> $recurring['billing_address_postcode'],
+                'country' 			=> $recurring['billing_address_country'],
+                'organization' 		=> $recurring['billing_address_company']
             );
 
             $transaction_tenders = @json_decode($recurring['tenders'], true);
@@ -258,25 +258,25 @@ class ModelExtensionPaymentSquareup extends Model {
             $price = (float)($recurring['trial'] ? $recurring['trial_price'] : $recurring['recurring_price']);
 
             $transaction = array(
-                'idempotency_key' => uniqid(),
-                'amount_money' => array(
-                    'amount' => $this->squareup->lowestDenomination($price * $recurring['product_quantity'], $recurring['transaction_currency']),
-                    'currency' => $recurring['transaction_currency']
+                'idempotency_key' 		=> uniqid(),
+                'amount_money' 				=> array(
+                    'amount' 					=> $this->squareup->lowestDenomination($price * $recurring['product_quantity'], $recurring['transaction_currency']),
+                    'currency' 					=> $recurring['transaction_currency']
                 ),
-                'billing_address' => $billing_address,
-                'buyer_email_address' => $order_info['email'],
-                'delay_capture' => false,
-                'customer_id' => $transaction_tenders[0]['customer_id'],
-                'customer_card_id' => $transaction_tenders[0]['card_details']['card']['id'],
-                'integration_id' => Squareup::SQUARE_INTEGRATION_ID
+                'billing_address' 		=> $billing_address,
+                'buyer_email_address' 	=> $order_info['email'],
+                'delay_capture' 		=> false,
+                'customer_id' 			=> $transaction_tenders[0]['customer_id'],
+                'customer_card_id' 		=> $transaction_tenders[0]['card_details']['card']['id'],
+                'integration_id' 		=> Squareup::SQUARE_INTEGRATION_ID
             );
 
             $payments[] = array(
-                'is_free' => $price == 0,
-                'order_id' => $recurring['order_id'],
-                'order_recurring_id' => $recurring['order_recurring_id'],
-                'billing_address' => $billing_address,
-                'transaction' => $transaction
+                'is_free' 				=> $price == 0,
+                'order_id' 				=> $recurring['order_id'],
+                'order_recurring_id' 	=> $recurring['order_recurring_id'],
+                'billing_address' 		=> $billing_address,
+                'transaction' 			=> $transaction
             );
         }
 

@@ -7,7 +7,7 @@ class ControllerExtensionPaymentBluePayRedirect extends Controller {
 
 		for ($i = 1; $i <= 12; $i++) {
 			$data['months'][] = array(
-				'text' => sprintf('%02d', $i),
+				'text' 	=> sprintf('%02d', $i),
 				'value' => sprintf('%02d', $i)
 			);
 		}
@@ -18,7 +18,7 @@ class ControllerExtensionPaymentBluePayRedirect extends Controller {
 
 		for ($i = $today['year']; $i < $today['year'] + 11; $i++) {
 			$data['year_expire'][] = array(
-				'text' => sprintf('%02d', $i % 100),
+				'text' 	=> sprintf('%02d', $i % 100),
 				'value' => sprintf('%04d', $i)
 			);
 		}

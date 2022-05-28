@@ -54,10 +54,10 @@ class ModelExtensionPaymentDivido extends Model {
 		}
 
 		$method_data = array(
-			'code' => 'divido',
-			'title' => $title,
-			'terms' => '',
-			'sort_order' => $this->config->get('payment_divido_sort_order')
+			'code' 			=> 'divido',
+			'title' 		=> $title,
+			'terms' 		=> '',
+			'sort_order' 	=> $this->config->get('payment_divido_sort_order')
 		);
 
 		return $method_data;

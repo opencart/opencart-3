@@ -35,15 +35,15 @@ class ModelExtensionPaymentSecureTradingWs extends Model {
 		$defaults = array();
 
 		$defaults = array(
-			CURLOPT_POST => 1,
-			CURLOPT_HEADER => 0,
-			CURLOPT_SSL_VERIFYPEER => 0,
-			CURLOPT_URL => 'https://webservices.securetrading.net/xml/',
-			CURLOPT_FRESH_CONNECT => 1,
-			CURLOPT_RETURNTRANSFER => 1,
-			CURLOPT_FORBID_REUSE => 1,
-			CURLOPT_TIMEOUT => 15,
-			CURLOPT_HTTPHEADER => array(
+			CURLOPT_POST 			=> 1,
+			CURLOPT_HEADER 			=> 0,
+			CURLOPT_SSL_VERIFYPEER 	=> 0,
+			CURLOPT_URL 			=> 'https://webservices.securetrading.net/xml/',
+			CURLOPT_FRESH_CONNECT 	=> 1,
+			CURLOPT_RETURNTRANSFER 	=> 1,
+			CURLOPT_FORBID_REUSE 	=> 1,
+			CURLOPT_TIMEOUT 		=> 15,
+			CURLOPT_HTTPHEADER 			=> array(
 				'User-Agent: OpenCart - Secure Trading WS',
 				'Content-Length: ' . strlen($data),
 				'Authorization: Basic ' . base64_encode($this->config->get('payment_securetrading_ws_username') . ':' . $this->config->get('payment_securetrading_ws_password')),

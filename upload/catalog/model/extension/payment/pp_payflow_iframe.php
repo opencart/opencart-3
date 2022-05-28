@@ -19,10 +19,10 @@ class ModelExtensionPaymentPPPayflowIframe extends Model {
 
 		if ($status) {
 			$method_data = array(
-				'code' => 'pp_payflow_iframe',
-				'title' => $this->language->get('text_title'),
-				'terms'      => '',
-				'sort_order' => $this->config->get('payment_pp_payflow_iframe_sort_order')
+				'code' 			=> 'pp_payflow_iframe',
+				'title' 		=> $this->language->get('text_title'),
+				'terms'      	=> '',
+				'sort_order' 	=> $this->config->get('payment_pp_payflow_iframe_sort_order')
 			);
 		}
 
@@ -59,11 +59,11 @@ class ModelExtensionPaymentPPPayflowIframe extends Model {
 		$default_parameters = array();
 		
 		$default_parameters = array(
-			'USER' => $this->config->get('payment_pp_payflow_iframe_user'),
-			'VENDOR' => $this->config->get('payment_pp_payflow_iframe_vendor'),
-			'PWD' => $this->config->get('payment_pp_payflow_iframe_password'),
-			'PARTNER' => $this->config->get('payment_pp_payflow_iframe_partner'),
-			'BUTTONSOURCE' => 'OpenCart_Cart_PFP',
+			'USER' 			=> $this->config->get('payment_pp_payflow_iframe_user'),
+			'VENDOR' 		=> $this->config->get('payment_pp_payflow_iframe_vendor'),
+			'PWD' 			=> $this->config->get('payment_pp_payflow_iframe_password'),
+			'PARTNER' 		=> $this->config->get('payment_pp_payflow_iframe_partner'),
+			'BUTTONSOURCE' 	=> 'OpenCart_Cart_PFP',
 		);
 
 		$call_parameters = array_merge($data, $default_parameters);

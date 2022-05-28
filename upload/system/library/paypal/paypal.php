@@ -1,8 +1,8 @@
 <?php
 class PayPal {
 	private $server = array(
-		'sandbox' => 'https://api.sandbox.paypal.com',
-		'production' => 'https://api.paypal.com'
+		'sandbox' 		=> 'https://api.sandbox.paypal.com',
+		'production' 	=> 'https://api.paypal.com'
 	);
 	private $environment = 'sandbox';
 	private $partner_id = '';
@@ -263,13 +263,13 @@ class PayPal {
 
 		if ($method && $command) {
 			$curl_options = array(
-				CURLOPT_URL => $this->server[$this->environment] . $command,
-				CURLOPT_HEADER => true,
-				CURLOPT_RETURNTRANSFER => true,
-				CURLOPT_INFILESIZE => Null,
-				CURLOPT_HTTPHEADER => array(),
-				CURLOPT_CONNECTTIMEOUT => 10,
-				CURLOPT_TIMEOUT => 10
+				CURLOPT_URL 			=> $this->server[$this->environment] . $command,
+				CURLOPT_HEADER 			=> true,
+				CURLOPT_RETURNTRANSFER 	=> true,
+				CURLOPT_INFILESIZE 		=> Null,
+				CURLOPT_HTTPHEADER 		=> array(),
+				CURLOPT_CONNECTTIMEOUT 	=> 10,
+				CURLOPT_TIMEOUT 		=> 10
 			);
 			
 			$curl_options[CURLOPT_HTTPHEADER][] = 'Accept-Charset: utf-8';
@@ -321,7 +321,10 @@ class PayPal {
 							$curl_options[CURLOPT_INFILE] = $buffer;
 							$curl_options[CURLOPT_INFILESIZE] = strlen($params_string);
 						} else {
-							$this->errors[] = array('name' => 'FAILED_OPEN_TEMP_FILE', 'message' => 'Unable to open a temporary file');
+							$this->errors[] = array(
+								'name' => 'FAILED_OPEN_TEMP_FILE', 
+								'message' => 'Unable to open a temporary file'
+							);
 						}
 					}
 					
@@ -346,7 +349,10 @@ class PayPal {
 				$constant = get_defined_constants(true);
 				$curl_constant = preg_grep('/^CURLE_/', array_flip($constant['curl']));
 				
-				$this->errors[] = array('name' => $curl_constant[$curl_code], 'message' => curl_strerror($curl_code));
+				$this->errors[] = array(
+					'name' => $curl_constant[$curl_code], 
+					'message' => curl_strerror($curl_code)
+				);
 			}
 	
             /*$status_code = curl_getinfo($ch, CURLINFO_HTTP_CODE);

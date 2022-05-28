@@ -305,7 +305,7 @@ class ModelExtensionShippingRoyalMail extends Model {
 				$cost = 0;
 				$insurance = 0;
 
-				$rates = explode(',', $this->config->get('shipping_royal_mail_special_delivery_1000_rate'));
+				$rates = explode(',', (string)$this->config->get('shipping_royal_mail_special_delivery_1000_rate'));
 
 				foreach ($rates as $rate) {
 					$data = explode(':', $rate);
@@ -346,7 +346,7 @@ class ModelExtensionShippingRoyalMail extends Model {
 				$cost = 0;
 				$insurance = 0;
 
-				$rates = explode(',', $this->config->get('shipping_royal_mail_special_delivery_2500_rate'));
+				$rates = explode(',', (string)$this->config->get('shipping_royal_mail_special_delivery_2500_rate'));
 
 				foreach ($rates as $rate) {
 					$data = explode(':', $rate);
@@ -455,7 +455,7 @@ class ModelExtensionShippingRoyalMail extends Model {
 			if ($this->config->get('shipping_royal_mail_1st_class_standard_status') && $address['iso_code_2'] == 'GB') {
 				$cost = 0;
 
-				$rates = explode(',', $this->config->get('shipping_royal_mail_1st_class_standard_rate'));
+				$rates = explode(',', (string)$this->config->get('shipping_royal_mail_1st_class_standard_rate'));
 
 				foreach ($rates as $rate) {
 					$data = explode(':', $rate);

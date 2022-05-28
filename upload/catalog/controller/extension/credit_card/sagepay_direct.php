@@ -111,47 +111,47 @@ class ControllerExtensionCreditCardSagepayDirect extends Controller {
 		$data['cards'] = array();
 
 		$data['cards'][] = array(
-			'text' => 'Visa',
+			'text' 	=> 'Visa',
 			'value' => 'VISA'
 		);
 
 		$data['cards'][] = array(
-			'text' => 'MasterCard',
+			'text' 	=> 'MasterCard',
 			'value' => 'MC'
 		);
 
 		$data['cards'][] = array(
-			'text' => 'Visa Delta/Debit',
+			'text' 	=> 'Visa Delta/Debit',
 			'value' => 'DELTA'
 		);
 
 		$data['cards'][] = array(
-			'text' => 'Solo',
+			'text' 	=> 'Solo',
 			'value' => 'SOLO'
 		);
 
 		$data['cards'][] = array(
-			'text' => 'Maestro',
+			'text' 	=> 'Maestro',
 			'value' => 'MAESTRO'
 		);
 
 		$data['cards'][] = array(
-			'text' => 'Visa Electron UK Debit',
+			'text' 	=> 'Visa Electron UK Debit',
 			'value' => 'UKE'
 		);
 
 		$data['cards'][] = array(
-			'text' => 'American Express',
+			'text' 	=> 'American Express',
 			'value' => 'AMEX'
 		);
 
 		$data['cards'][] = array(
-			'text' => 'Diners Club',
+			'text' 	=> 'Diners Club',
 			'value' => 'DC'
 		);
 
 		$data['cards'][] = array(
-			'text' => 'Japan Credit Bureau',
+			'text' 	=> 'Japan Credit Bureau',
 			'value' => 'JCB'
 		);
 
@@ -159,7 +159,7 @@ class ControllerExtensionCreditCardSagepayDirect extends Controller {
 
 		for ($i = 1; $i <= 12; $i++) {
 			$data['months'][] = array(
-				'text' => sprintf('%02d', $i),
+				'text' 	=> sprintf('%02d', $i),
 				'value' => sprintf('%02d', $i)
 			);
 		}
@@ -196,6 +196,7 @@ class ControllerExtensionCreditCardSagepayDirect extends Controller {
 
 	public function delete() {
 		$this->load->language('extension/credit_card/sagepay_direct');
+		
 		$this->load->model('extension/payment/sagepay_direct');
 
 		$card = $this->model_extension_payment_sagepay_direct->getCard($this->request->get['card_id'], false);

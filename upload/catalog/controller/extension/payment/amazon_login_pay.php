@@ -64,9 +64,9 @@ class ControllerExtensionPaymentAmazonLoginPay extends Controller {
         );
 
         $data['breadcrumbs'][] = array(
-            'href' => $this->url->link('extension/payment/amazon_login_pay/address'),
-            'current' => true,
-            'text' => $this->language->get('breadcrumb_shipping')
+            'href' 		=> $this->url->link('extension/payment/amazon_login_pay/address'),
+            'current' 	=> true,
+            'text' 		=> $this->language->get('breadcrumb_shipping')
         );
 
         $data['breadcrumbs'][] = array(

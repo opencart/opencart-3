@@ -92,11 +92,11 @@ class ModelExtensionPaymentPPPayflowIFrame extends Model {
 
 	public function call($data) {
 		$default_parameters = array(
-			'USER' => $this->config->get('payment_pp_payflow_iframe_user'),
-			'VENDOR' => $this->config->get('payment_pp_payflow_iframe_vendor'),
-			'PWD' => $this->config->get('payment_pp_payflow_iframe_password'),
-			'PARTNER' => $this->config->get('payment_pp_payflow_iframe_partner'),
-			'BUTTONSOURCE' => 'OpenCart_Cart_PFP',
+			'USER' 			=> $this->config->get('payment_pp_payflow_iframe_user'),
+			'VENDOR' 		=> $this->config->get('payment_pp_payflow_iframe_vendor'),
+			'PWD' 			=> $this->config->get('payment_pp_payflow_iframe_password'),
+			'PARTNER' 		=> $this->config->get('payment_pp_payflow_iframe_partner'),
+			'BUTTONSOURCE' 	=> 'OpenCart_Cart_PFP',
 		);
 
 		$call_parameters = array_merge($data, $default_parameters);

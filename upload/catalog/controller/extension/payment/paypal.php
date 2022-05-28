@@ -85,10 +85,10 @@ class ControllerExtensionPaymentPayPal extends Controller {
 		require_once DIR_SYSTEM .'library/paypal/paypal.php';
 		
 		$paypal_info = array(
-			'partner_id' => $data['partner_id'],
-			'client_id' => $data['client_id'],
-			'secret' => $data['secret'],
-			'environment' => $data['environment']
+			'partner_id' 	=> $data['partner_id'],
+			'client_id' 	=> $data['client_id'],
+			'secret' 		=> $data['secret'],
+			'environment' 	=> $data['environment']
 		);
 		
 		$paypal = new \PayPal($paypal_info);
@@ -156,10 +156,10 @@ class ControllerExtensionPaymentPayPal extends Controller {
 		require_once DIR_SYSTEM . 'library/paypal/paypal.php';
 		
 		$paypal_info = array(
-			'partner_id' => $partner_id,
-			'client_id' => $client_id,
-			'secret' => $secret,
-			'environment' => $environment
+			'partner_id' 	=> $partner_id,
+			'client_id' 	=> $client_id,
+			'secret' 		=> $secret,
+			'environment' 	=> $environment
 		);
 		
 		$paypal = new \PayPal($paypal_info);
@@ -204,13 +204,13 @@ class ControllerExtensionPaymentPayPal extends Controller {
 			$product_price = number_format($product['price'] * $currency_value, $decimal_place, '.', '');
 				
 			$item_info[] = array(
-				'name' => $product['name'],
-				'sku' => $product['model'],
-				'url' => $this->url->link('product/product', 'product_id=' . $product['product_id'], true),
-				'quantity' => $product['quantity'],
-				'unit_amount' => array(
-					'currency_code' => $currency_code,
-					'value' => $product_price
+				'name' 			=> $product['name'],
+				'sku' 			=> $product['model'],
+				'url' 			=> $this->url->link('product/product', 'product_id=' . $product['product_id'], true),
+				'quantity' 		=> $product['quantity'],
+				'unit_amount' 		=> array(
+					'currency_code' 	=> $currency_code,
+					'value' 			=> $product_price
 				)
 			);
 			
@@ -243,42 +243,42 @@ class ControllerExtensionPaymentPayPal extends Controller {
 
 		$amount_info = array(
 			'currency_code' => $currency_code,
-			'value' => $order_total,
-			'breakdown' => array(
-				'item_total' => array(
-					'currency_code' => $currency_code,
-					'value' => $item_total
+			'value' 		=> $order_total,
+			'breakdown' 	=> array(
+				'item_total' 	=> array(
+					'currency_code' 	=> $currency_code,
+					'value' 			=> $item_total
 				),
-				'tax_total' => array(
-					'currency_code' => $currency_code,
-					'value' => $tax_total
+				'tax_total' 	=> array(
+					'currency_code' 	=> $currency_code,
+					'value' 			=> $tax_total
 				),
-				'shipping' => array(
-					'currency_code' => $currency_code,
-					'value' => $shipping_total
+				'shipping' 		=> array(
+					'currency_code' 	=> $currency_code,
+					'value' 			=> $shipping_total
 				),
-				'handling' => array(
-					'currency_code' => $currency_code,
-					'value' => $handling_total
+				'handling' 		=> array(
+					'currency_code' 	=> $currency_code,
+					'value' 			=> $handling_total
 				),
 				'discount' => array(
-					'currency_code' => $currency_code,
-					'value' => $discount_total
+					'currency_code' 	=> $currency_code,
+					'value' 			=> $discount_total
 				)
 			)
 		);
 	
 		if ($this->cart->hasShipping()) {
 			$order_info = array(
-				'intent' => strtoupper($transaction_method),
-				'purchase_units' => array(
+				'intent' 			=> strtoupper($transaction_method),
+				'purchase_units' 	=> array(
 					array(
-						'reference_id' => 'default',
-						'description' => 'Your order ' . $order_info['order_id'],
-						'invoice_id' => $order_info['order_id'],
-						'shipping' => $shipping_info,
-						'items' => $item_info,
-						'amount' => $amount_info
+						'reference_id' 	=> 'default',
+						'description' 	=> 'Your order ' . $order_info['order_id'],
+						'invoice_id' 	=> $order_info['order_id'],
+						'shipping' 		=> $shipping_info,
+						'items' 		=> $item_info,
+						'amount' 		=> $amount_info
 					)
 				),
 				'application_context' => array(
@@ -290,14 +290,14 @@ class ControllerExtensionPaymentPayPal extends Controller {
 				'intent' => strtoupper($transaction_method),
 				'purchase_units' => array(
 					array(
-						'reference_id' => 'default',
-						'description' => 'Your order ' . $order_info['order_id'],
-						'invoice_id' => $order_info['order_id'],
-						'items' => $item_info,
-						'amount' => $amount_info
+						'reference_id' 	=> 'default',
+						'description' 	=> 'Your order ' . $order_info['order_id'],
+						'invoice_id' 	=> $order_info['order_id'],
+						'items' 		=> $item_info,
+						'amount' 		=> $amount_info
 					)
 				),
-				'application_context' => array(
+				'application_context' 	=> array(
 					'shipping_preference' => $shipping_preference
 				)
 			);
@@ -385,10 +385,10 @@ class ControllerExtensionPaymentPayPal extends Controller {
 			require_once DIR_SYSTEM .'library/paypal/paypal.php';
 		
 			$paypal_info = array(
-				'partner_id' => $partner_id,
-				'client_id' => $client_id,
-				'secret' => $secret,
-				'environment' => $environment
+				'partner_id' 	=> $partner_id,
+				'client_id' 	=> $client_id,
+				'secret' 		=> $secret,
+				'environment' 	=> $environment
 			);
 		
 			$paypal = new \PayPal($paypal_info);

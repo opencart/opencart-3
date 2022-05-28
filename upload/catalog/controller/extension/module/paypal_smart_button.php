@@ -223,10 +223,10 @@ class ControllerExtensionModulePayPalSmartButton extends Controller {
 			require_once DIR_SYSTEM . 'library/paypal/paypal.php';
 		
 			$paypal_info = array(
-				'partner_id' => $partner_id,
-				'client_id' => $client_id,
-				'secret' => $secret,
-				'environment' => $environment
+				'partner_id' 	=> $partner_id,
+				'client_id' 	=> $client_id,
+				'secret' 		=> $secret,
+				'environment' 	=> $environment
 			);
 		
 			$paypal = new \PayPal($paypal_info);
@@ -245,13 +245,13 @@ class ControllerExtensionModulePayPalSmartButton extends Controller {
 				$product_price = number_format($product['price'] * $currency_value, $decimal_place, '.', '');
 				
 				$item_info[] = array(
-					'name' => $product['name'],
-					'sku' => $product['model'],
-					'url' => $this->url->link('product/product', 'product_id=' . $product['product_id'], true),
-					'quantity' => $product['quantity'],
-					'unit_amount' => array(
-						'currency_code' => $currency_code,
-						'value' => $product_price
+					'name' 				=> $product['name'],
+					'sku' 				=> $product['model'],
+					'url' 				=> $this->url->link('product/product', 'product_id=' . $product['product_id'], true),
+					'quantity' 			=> $product['quantity'],
+					'unit_amount' 		=> array(
+						'currency_code' 	=> $currency_code,
+						'value' 			=> $product_price
 					)
 				);
 				
@@ -265,16 +265,16 @@ class ControllerExtensionModulePayPalSmartButton extends Controller {
 			$order_total = number_format($item_total + $tax_total, $decimal_place, '.', '');
 						
 			$amount_info = array(
-				'currency_code' => $currency_code,
-				'value' => $order_total,
-				'breakdown' => array(
-					'item_total' => array(
-						'currency_code' => $currency_code,
-						'value' => $item_total
+				'currency_code' 	=> $currency_code,
+				'value' 			=> $order_total,
+				'breakdown' 		=> array(
+					'item_total' 		=> array(
+						'currency_code' 	=> $currency_code,
+						'value' 			=> $item_total
 					),
 					'tax_total' => array(
 						'currency_code' => $currency_code,
-						'value' => $tax_total
+						'value' 		=> $tax_total
 					)
 				)
 			);
@@ -286,16 +286,16 @@ class ControllerExtensionModulePayPalSmartButton extends Controller {
 			}
 				
 			$order_info = array(
-				'intent' => strtoupper($transaction_method),
-				'purchase_units' => array(
+				'intent' 			=> strtoupper($transaction_method),
+				'purchase_units' 		=> array(
 					array(
-						'reference_id' => 'default',
-						'items' => $item_info,
-						'amount' => $amount_info
+						'reference_id' 		=> 'default',
+						'items' 			=> $item_info,
+						'amount' 			=> $amount_info
 					)
 				),
-				'application_context' => array(
-					'shipping_preference' => $shipping_preference
+				'application_context' 	=> array(
+					'shipping_preference' 	=> $shipping_preference
 				)
 			);
 					
@@ -385,16 +385,16 @@ class ControllerExtensionModulePayPalSmartButton extends Controller {
 		require_once DIR_SYSTEM . 'library/paypal/paypal.php';
 		
 		$paypal_info = array(
-			'partner_id' => $partner_id,
-			'client_id' => $client_id,
-			'secret' => $secret,
-			'environment' => $environment
+			'partner_id' 	=> $partner_id,
+			'client_id' 	=> $client_id,
+			'secret' 		=> $secret,
+			'environment' 	=> $environment
 		);
 		
 		$paypal = new \PayPal($paypal_info);
 		
 		$token_info = array(
-			'grant_type' => 'client_credentials'
+			'grant_type' 	=> 'client_credentials'
 		);	
 						
 		$paypal->setAccessToken($token_info);
@@ -1238,16 +1238,16 @@ class ControllerExtensionModulePayPalSmartButton extends Controller {
 			require_once DIR_SYSTEM . 'library/paypal/paypal.php';
 		
 			$paypal_info = array(
-				'partner_id' => $partner_id,
-				'client_id' => $client_id,
-				'secret' => $secret,
-				'environment' => $environment
+				'partner_id' 	=> $partner_id,
+				'client_id' 	=> $client_id,
+				'secret' 		=> $secret,
+				'environment' 	=> $environment
 			);
 		
 			$paypal = new \PayPal($paypal_info);
 			
 			$token_info = array(
-				'grant_type' => 'client_credentials'
+				'grant_type' 	=> 'client_credentials'
 			);	
 				
 			$paypal->setAccessToken($token_info);
@@ -1257,8 +1257,8 @@ class ControllerExtensionModulePayPalSmartButton extends Controller {
 			$order_info = array();
 			
 			$order_info[] = array(
-				'op' => 'add',
-				'path' => '/purchase_units/@reference_id==\'default\'/description',
+				'op' 	=> 'add',
+				'path' 	=> '/purchase_units/@reference_id==\'default\'/description',
 				'value' => 'Your order ' . $this->session->data['order_id']
 			);
 			
@@ -1290,14 +1290,14 @@ class ControllerExtensionModulePayPalSmartButton extends Controller {
 				}
 				
 				$order_info[] = array(
-					'op' => 'replace',
-					'path' => '/purchase_units/@reference_id==\'default\'/shipping/name',
+					'op' 	=> 'replace',
+					'path' 	=> '/purchase_units/@reference_id==\'default\'/shipping/name',
 					'value' => $shipping_info['name']
 				);
 				
 				$order_info[] = array(
-					'op' => 'replace',
-					'path' => '/purchase_units/@reference_id==\'default\'/shipping/address',
+					'op' 	=> 'replace',
+					'path' 	=> '/purchase_units/@reference_id==\'default\'/shipping/address',
 					'value' => $shipping_info['address']
 				);
 			}
@@ -1336,11 +1336,11 @@ class ControllerExtensionModulePayPalSmartButton extends Controller {
 
 			$amount_info = array(
 				'currency_code' => $currency_code,
-				'value' => $order_total,
-				'breakdown' => array(
-					'item_total' => array(
-						'currency_code' => $currency_code,
-						'value' => $item_total
+				'value' 		=> $order_total,
+				'breakdown' 		=> array(
+					'item_total' 		=> array(
+						'currency_code' 	=> $currency_code,
+						'value' 			=> $item_total
 					),
 					'tax_total' => array(
 						'currency_code' => $currency_code,
@@ -1362,8 +1362,8 @@ class ControllerExtensionModulePayPalSmartButton extends Controller {
 			);
 			
 			$order_info[] = array(
-				'op' => 'replace',
-				'path' => '/purchase_units/@reference_id==\'default\'/amount',
+				'op' 	=> 'replace',
+				'path' 	=> '/purchase_units/@reference_id==\'default\'/amount',
 				'value' => $amount_info
 			);
 					
