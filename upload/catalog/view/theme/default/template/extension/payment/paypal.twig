@@ -380,7 +380,7 @@
 					$.ajax({
 						method: 'post',
 						url: 'index.php?route=extension/payment/paypal/approveOrder',
-						data: {'order_id': data.orderID},
+						data: { 'order_id': data.orderID },
 						dataType: 'json',
 						async: false,
 						success: function(json) {							
@@ -555,7 +555,7 @@
 								$.ajax({
 									method: 'post',
 									url: 'index.php?route=extension/payment/paypal/approveOrder',
-									data: {'payload': JSON.stringify(payload)},
+									data: { 'payload': JSON.stringify(payload) },
 									dataType: 'json',
 									async: false,
 									success: function(json) {					

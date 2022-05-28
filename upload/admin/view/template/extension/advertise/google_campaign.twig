@@ -468,7 +468,7 @@
     var refreshTargets = function(callback) {
         $.ajax({
             url: '{{ target_list }}',
-            type: 'GET',
+            type: 'get',
             dataType: 'json',
             beforeSend: function() {
                 $(selector.target.container).html('<div class="alert alert-info text-center">{{ text_loading }}</div>');
@@ -636,7 +636,7 @@
             campaignCreateTestPromise.then(function() {
                 $.ajax({
                     url: '{{ target_delete }}'.replace(/{target_id}/, target_id),
-                    type: 'GET',
+                    type: 'get',
                     dataType: 'json',
                     complete: function() {
                         refreshTargets();
@@ -697,7 +697,7 @@
         campaignCreateTestPromise.then(function() {
             $.ajax({
                 url: $(saveButton).attr('data-url'),
-                type: 'POST',
+                type: 'post',
                 dataType: 'json',
                 data: $(selector.target.modal).find('input,select'),
                 complete: function() {

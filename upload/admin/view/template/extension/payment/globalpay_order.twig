@@ -123,10 +123,10 @@
   $('#button-capture').click(function() {
     if (confirm('{{ text_confirm_capture }}')) {
       $.ajax({
+		url: 'index.php?route=extension/payment/globalpay/capture&user_token={{ user_token }}',
         type: 'post',
         dataType: 'json',
-        data: { 'order_id': '{{ order_id }}', 'amount': $('#capture-amount').val() },
-        url: 'index.php?route=extension/payment/globalpay/capture&user_token={{ user_token }}',
+        data: { 'order_id': '{{ order_id }}', 'amount': $('#capture-amount').val() },        
         beforeSend: function() {
           $('#button-capture').hide();
           $('#capture-amount').hide();

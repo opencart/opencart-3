@@ -71,7 +71,7 @@ function setupPayPalSmartButton() {
 				$.ajax({
 					method: 'post',
 					url: 'index.php?route=extension/module/paypal_smart_button/approveOrder',
-					data: {'order_id': data.orderID},
+					data: { 'order_id': data.orderID },
 					dataType: 'json',
 					async: false,
 					success: function(json) {							

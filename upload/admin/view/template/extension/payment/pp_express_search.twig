@@ -169,7 +169,7 @@ $('#button-search').on('click', function() {
 
 	$.ajax({
 		url: 'index.php?route=extension/payment/pp_express/doSearch&user_token={{ user_token }}',
-		type: 'POST',
+		type: 'post',
 		dataType: 'json',
 		data: $('#form').serialize(),
 		beforeSend: function() {

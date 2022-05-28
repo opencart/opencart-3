@@ -96,10 +96,10 @@
   $('#button-cancel').click(function() {
       if (confirm('{{ text_confirm_cancel }}')) {
         $.ajax({
-          type: 'POST',
+		  url: 'index.php?route=extension/payment/amazon_login_pay/cancel&user_token={{ user_token }}',
+          type: 'post',
           dataType: 'json',
-          data: {'order_id': '{{ order_id }}'},
-          url: 'index.php?route=extension/payment/amazon_login_pay/cancel&user_token={{ user_token }}',
+          data: { 'order_id': '{{ order_id }}' },
           beforeSend: function() {
             $('#button-cancel').hide();
             $('#loading-cancel').show();
@@ -141,10 +141,10 @@
     $('#button-capture').click(function() {
       if (confirm('{{ text_confirm_capture }}')) {
         $.ajax({
-          type: 'POST',
+		  url: 'index.php?route=extension/payment/amazon_login_pay/capture&user_token={{ user_token }}',
+          type: 'post',
           dataType: 'json',
-          data: {'order_id': '{{ order_id }}', 'amount': $('#capture-amount').val()},
-          url: 'index.php?route=extension/payment/amazon_login_pay/capture&user_token={{ user_token }}',
+          data: { 'order_id': '{{ order_id }}', 'amount': $('#capture-amount').val() },
           beforeSend: function() {
             $('#button-capture').hide();
             $('#capture-amount').hide();
@@ -197,10 +197,10 @@
     $('#button-refund').click(function() {
       if (confirm('{{ text_confirm_refund }}')) {
         $.ajax({
-          type: 'POST',
+		  url: 'index.php?route=extension/payment/amazon_login_pay/refund&user_token={{ user_token }}',
+          type: 'post',
           dataType: 'json',
-          data: {'order_id': '{{ order_id }}', 'amount': $('#refund-amount').val()},
-          url: 'index.php?route=extension/payment/amazon_login_pay/refund&user_token={{ user_token }}',
+          data: { 'order_id': '{{ order_id }}', 'amount': $('#refund-amount').val() },
           beforeSend: function() {
             $('#button-refund').hide();
             $('#refund-amount').hide();

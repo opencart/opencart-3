@@ -39,10 +39,10 @@
 	$('#button-tracking').click(function() {
 		if (confirm('{{ text_confirm }}')) {
 			$.ajax({
-				type: 'POST',
-				dataType: 'json',
-				data: {'order_id': {{ order_id }}, 'tracking': $('#tracking').val()},
 				url: 'index.php?route=extension/payment/pilibaba/tracking&user_token={{ user_token }}',
+				type: 'post',
+				dataType: 'json',
+				data: { 'order_id': {{ order_id }}, 'tracking': $('#tracking').val() },
 				beforeSend: function() {
 					$('#button-tracking').hide();
 					$('#img_loading_tracking').show();

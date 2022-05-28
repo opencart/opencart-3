@@ -247,9 +247,9 @@ function reauthorise() {
 
 function resendTransaction(element) {
     $.ajax({
-        type:'GET',
-        dataType: 'json',
-        url: $(element).attr('href'),
+		url: $(element).attr('href'),
+        type: 'get',
+        dataType: 'json',        
         beforeSend: function() {
             $(element).hide();
             $(element).after('<span class="btn btn-primary loading"><i class="fa fa-circle-o-notch fa-spin fa-lg"></i></span>');

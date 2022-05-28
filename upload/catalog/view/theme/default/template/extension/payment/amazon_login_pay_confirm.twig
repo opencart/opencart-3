@@ -232,10 +232,8 @@
         typewatch(() => {
             $.ajax({
                 url: '{{ persist_comment }}',
-                data: {
-                    comment: $('#comment').val()
-                },
-                type: 'POST'
+                data: { comment: $('#comment').val() },
+                type: 'post'
             })
         });
     });

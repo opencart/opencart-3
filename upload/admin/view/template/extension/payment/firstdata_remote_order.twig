@@ -172,7 +172,7 @@ $('#button-refund').bind('click', function() {
 			url: 'index.php?route=extension/payment/firstdata_remote/refund&user_token={{ user_token }}',
 			type: 'post',
 			dataType: 'json',
-			data: {'order_id': {{ order_id }} },		
+			data: { 'order_id': {{ order_id }} },
 			beforeSend: function() {
 				$('#button-refund').hide();
 				$('#img_loading_refund').show();

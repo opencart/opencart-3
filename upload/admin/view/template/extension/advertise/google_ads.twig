@@ -311,7 +311,7 @@
     var listProducts = function() {
         $.ajax({
             url: '{{ list_ads }}',
-            type: 'POST',
+            type: 'post',
             dataType: 'json',
             data: {
                 sort: $(selector.list).data('sort'),
@@ -428,7 +428,7 @@
         $.ajax({
             url: '{{ advertise }}',
             dataType: 'json',
-            type: 'POST',
+            type: 'post',
             data: post_data,
             beforeSend: function() {
                 $(selector.list).html('<tr><td colspan="' + $(selector.head).find('th').length + '"><div class="text-center">{{ text_loading }}</div></td></tr>');
@@ -547,7 +547,7 @@
                 $.ajax({
                     url: '{{ url_popup }}',
                     dataType: 'json',
-                    type: 'POST',
+                    type: 'post',
                     data: {
                         action: 'submit',
                         operand: settings.operand,
@@ -571,7 +571,7 @@
         $.ajax({
             url: '{{ url_popup }}',
             dataType: 'json',
-            type: 'POST',
+            type: 'post',
             data: {
                 action : 'view',
                 operand : settings.operand
@@ -750,7 +750,7 @@
             $.ajax({
                 url: url_popup,
                 dataType: 'json',
-                type: 'GET',
+                type: 'get',
                 beforeSend: function() {
                     $(modal).modal('show');
                 },

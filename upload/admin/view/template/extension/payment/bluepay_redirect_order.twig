@@ -73,10 +73,10 @@
 	$(document).on('click', '#button-void', function() {
 		if (confirm('{{ text_confirm_void }}')) {
 			$.ajax({
-				type: 'POST',
+			    url: 'index.php?route=extension/payment/bluepay_redirect/void&user_token={{ user_token }}',
+				type: 'post',
 				dataType: 'json',
-				data: {'order_id': {{ order_id }}},
-				url: 'index.php?route=extension/payment/bluepay_redirect/void&user_token={{ user_token }}',
+				data: { 'order_id': {{ order_id }} },
 				beforeSend: function() {
 					$('#button-void').hide();
 					$('#img_loading_void').show();
@@ -116,10 +116,10 @@
 	$(document).on('click', '#button-release', function() {
 		if (confirm('{{ text_confirm_release }}')) {
 			$.ajax({
-				type: 'POST',
-				dataType: 'json',
-				data: {'order_id': {{ order_id }}, 'amount': $('#release_amount').val()},
 				url: 'index.php?route=extension/payment/bluepay_redirect/release&user_token={{ user_token }}',
+				type: 'post',
+				dataType: 'json',
+				data: { 'order_id': {{ order_id }}, 'amount': $('#release_amount').val() },
 				beforeSend: function() {
 					$('#button-release').hide();
 					$('#release_amount').hide();
@@ -170,10 +170,10 @@
 	$(document).on('click', '#button-rebate', function() {
 		if (confirm('{{ text_confirm_rebate }}')) {
 			$.ajax({
-				type: 'POST',
-				dataType: 'json',
-				data: {'order_id': {{ order_id }}, 'amount': $('#rebate_amount').val()},
 				url: 'index.php?route=extension/payment/bluepay_redirect/rebate&user_token={{ user_token }}',
+				type: 'post,
+				dataType: 'json',
+				data: { 'order_id': {{ order_id }}, 'amount': $('#rebate_amount').val() },
 				beforeSend: function() {
 					$('#button-rebate').hide();
 					$('#rebate_amount').hide();
