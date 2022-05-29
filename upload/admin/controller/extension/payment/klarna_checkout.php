@@ -734,9 +734,9 @@ class ControllerExtensionPaymentKlarnaCheckout extends Controller {
 		}
 
 		if (isset($this->request->post['order_status_id'])) {
-			$order_status_id = $this->request->post['order_status_id'];
+			$order_status_id = (int)$this->request->post['order_status_id'];
 		} else {
-			$order_status_id = false;
+			$order_status_id = 0;
 		}
 
 		if (!$username || !$password || !$order_status_id) {

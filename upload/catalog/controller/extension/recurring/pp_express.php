@@ -4,7 +4,7 @@ class ControllerExtensionRecurringPPExpress extends Controller {
 		$this->load->language('extension/recurring/pp_express');
 		
 		if (isset($this->request->get['order_recurring_id'])) {
-			$order_recurring_id = $this->request->get['order_recurring_id'];
+			$order_recurring_id = (int)$this->request->get['order_recurring_id'];
 		} else {
 			$order_recurring_id = 0;
 		}
@@ -35,7 +35,7 @@ class ControllerExtensionRecurringPPExpress extends Controller {
 		$this->load->model('account/recurring');
 		
 		if (isset($this->request->get['order_recurring_id'])) {
-			$order_recurring_id = $this->request->get['order_recurring_id'];
+			$order_recurring_id = (int)$this->request->get['order_recurring_id'];
 		} else {
 			$order_recurring_id = 0;
 		}

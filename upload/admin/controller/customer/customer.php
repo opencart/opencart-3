@@ -1178,7 +1178,7 @@ class ControllerCustomerCustomer extends Controller {
 			$this->model_customer_customer->editToken($customer_id, $token);
 
 			if (isset($this->request->get['store_id'])) {
-				$store_id = $this->request->get['store_id'];
+				$store_id = (int)$this->request->get['store_id'];
 			} else {
 				$store_id = 0;
 			}
@@ -1507,7 +1507,7 @@ class ControllerCustomerCustomer extends Controller {
 
 		// Customer Group
 		if (isset($this->request->get['customer_group_id'])) {
-			$customer_group_id = $this->request->get['customer_group_id'];
+			$customer_group_id = (int)$this->request->get['customer_group_id'];
 		} else {
 			$customer_group_id = $this->config->get('config_customer_group_id');
 		}
