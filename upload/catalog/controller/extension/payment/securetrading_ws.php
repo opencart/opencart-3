@@ -47,7 +47,7 @@ class ControllerExtensionPaymentSecureTradingWs extends Controller {
 
 			$data['cards'] = array();
 
-			foreach ($this->config->get('payment_securetrading_ws_cards_accepted') as $card_type) {
+			foreach ((array)$this->config->get('payment_securetrading_ws_cards_accepted') as $card_type) {
 				$data['cards'][$card_type] = $cards[$card_type];
 			}
 

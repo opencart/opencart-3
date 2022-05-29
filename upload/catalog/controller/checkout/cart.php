@@ -388,7 +388,7 @@ class ControllerCheckoutCart extends Controller {
 
 		// Update
 		if (!empty($this->request->post['quantity'])) {
-			foreach ($this->request->post['quantity'] as $key => $value) {
+			foreach ((array)$this->request->post['quantity'] as $key => $value) {
 				$this->cart->update($key, $value);
 			}
 

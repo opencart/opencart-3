@@ -672,7 +672,7 @@ class ControllerExtensionAdvertiseGoogle extends Controller {
 
         $data['mapping'] = array();
 
-        foreach ($this->config->get('advertise_google_google_product_categories') as $google_product_category_id => $google_product_category_name) {
+        foreach ((array)$this->config->get('advertise_google_google_product_categories') as $google_product_category_id => $google_product_category_name) {
             if ($google_product_category_id == 0) {
 				continue;
 			}
@@ -1629,7 +1629,7 @@ class ControllerExtensionAdvertiseGoogle extends Controller {
                 '' 			=> $this->language->get('text_does_not_apply')
             );
 			
-            foreach ($this->config->get('advertise_google_size_systems') as $system) {
+            foreach ((array)$this->config->get('advertise_google_size_systems') as $system) {
                 $data['size_systems'][$system] = $system;
             }
 

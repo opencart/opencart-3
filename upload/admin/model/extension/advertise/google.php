@@ -203,7 +203,7 @@ class ModelExtensionAdvertiseGoogle extends Model {
         $countries = $this->getTargetCountriesByProductIds($product_ids, $store_id);
 
         foreach ($countries as $country) {
-            foreach ($this->config->get('advertise_google_country_required_fields') as $field => $requirements) {
+            foreach ((array)$this->config->get('advertise_google_country_required_fields') as $field => $requirements) {
                 if (
                     (!empty($requirements['countries']) && in_array($country, (array)$requirements['countries']))
                         ||
@@ -225,7 +225,7 @@ class ModelExtensionAdvertiseGoogle extends Model {
         $countries = $this->getTargetCountriesByFilter($data, $store_id);
 
         foreach ($countries as $country) {
-            foreach ($this->config->get('advertise_google_country_required_fields') as $field => $requirements) {
+            foreach ((array)$this->config->get('advertise_google_country_required_fields') as $field => $requirements) {
                 if (
                     (!empty($requirements['countries']) && in_array($country, (array)$requirements['countries']))
                         ||
@@ -683,7 +683,7 @@ class ModelExtensionAdvertiseGoogle extends Model {
 
         $result = array();
 
-        foreach ($this->config->get('advertise_google_targets') as $target) {
+        foreach ((array)$this->config->get('advertise_google_targets') as $target) {
             $result[] = array(
                 'country' => array(
                     'code' => $target['country'],

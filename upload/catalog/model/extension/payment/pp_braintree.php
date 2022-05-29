@@ -173,7 +173,7 @@ class ModelExtensionPaymentPPBraintree extends Model {
 	public function getSupportedCurrencies() {
 		$currencies = array();
 
-		foreach ($this->config->get('payment_pp_braintree_account') as $currency => $account) {
+		foreach ((array)$this->config->get('payment_pp_braintree_account') as $currency => $account) {
 			if ($account['status']) {
 				$currencies[] = $currency;
 			}
