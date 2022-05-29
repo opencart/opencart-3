@@ -174,7 +174,7 @@ class ControllerExtensionPaymentSagepayServer extends Controller {
 
 		$json = array();
 
-		if ((substr($response_data['Status'], 0, 2) == "OK") || $response_data['Status'] == 'AUTHENTICATED' || $response_data['Status'] == 'REGISTERED') {
+		if ((substr($response_data['Status'], 0, 2) == 'OK') || $response_data['Status'] == 'AUTHENTICATED' || $response_data['Status'] == 'REGISTERED') {
 			$json['redirect'] = $response_data['NextURL'];
 			$json['Status'] = $response_data['Status'];
 			$json['StatusDetail'] = $response_data['StatusDetail'];
@@ -408,7 +408,7 @@ class ControllerExtensionPaymentSagepayServer extends Controller {
 		$comment .= "3D Secure checks: " . $str_3d_secure_status . "<br>";
 		$comment .= "Card type: " . $str_card_type . "<br>";
 
-		if ($str_card_type == "PAYPAL") {
+		if ($str_card_type == 'PAYPAL') {
 			$comment .= "Paypal address status: " . $str_address_status . "<br>";
 			$comment .= "Paypal payer status: " . $str_payer_status . "<br>";
 		}

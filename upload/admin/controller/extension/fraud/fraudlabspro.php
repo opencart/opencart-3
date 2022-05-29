@@ -167,7 +167,7 @@ class ControllerExtensionFraudFraudLabsPro extends Controller {
 				);
 
 				$this->model_extension_fraud_fraudlabspro->addOrderHistory($this->request->get['order_id'], $data_temp);
-			} elseif (strtolower($flp_status) == "reject") {
+			} elseif (strtolower($flp_status) == 'reject') {
 				$data_temp = array(
 					'order_status_id'	=> $this->config->get('fraud_fraudlabspro_reject_status_id'),
 					'notify'			=> 0,

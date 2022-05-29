@@ -309,22 +309,22 @@ class ModelExtensionPaymentGlobalpayRemote extends Model {
 				
 				$this->model_checkout_order->addOrderHistory($order_id, $this->config->get('payment_globalpay_remote_order_status_success_unsettled_id'), $message);
 			}
-		} elseif ($response->result == "101") {
+		} elseif ($response->result == '101') {
 			// Decline
 			$this->addHistory($order_id, $this->config->get('payment_globalpay_remote_order_status_decline_id'), $message);
-		} elseif ($response->result == "102") {
+		} elseif ($response->result == '102') {
 			// Referal B
 			$this->addHistory($order_id, $this->config->get('payment_globalpay_remote_order_status_decline_pending_id'), $message);
-		} elseif ($response->result == "103") {
+		} elseif ($response->result == '103') {
 			// Referal A
 			$this->addHistory($order_id, $this->config->get('payment_globalpay_remote_order_status_decline_stolen_id'), $message);
-		} elseif ($response->result == "200") {
+		} elseif ($response->result == '200') {
 			// Error Connecting to Bank
 			$this->addHistory($order_id, $this->config->get('payment_globalpay_remote_order_status_decline_bank_id'), $message);
-		} elseif ($response->result == "204") {
+		} elseif ($response->result == '204') {
 			// Error Connecting to Bank
 			$this->addHistory($order_id, $this->config->get('payment_globalpay_remote_order_status_decline_bank_id'), $message);
-		} elseif ($response->result == "205") {
+		} elseif ($response->result == '205') {
 			// Comms Error
 			$this->addHistory($order_id, $this->config->get('payment_globalpay_remote_order_status_decline_bank_id'), $message);
 		} else {

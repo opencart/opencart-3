@@ -20,17 +20,15 @@ class ControllerExtensionPaymentAlipay extends Controller {
 			'return_url'           => $this->url->link('checkout/success'),
 			'charset'              => "UTF-8",
 			'sign_type'            => "RSA2",
-			'gateway_url'          => $this->config->get('payment_alipay_test') == "sandbox" ? "https://openapi.alipaydev.com/gateway.do" : "https://openapi.alipay.com/gateway.do",
+			'gateway_url'          => $this->config->get('payment_alipay_test') == 'sandbox' ? 'https://openapi.alipaydev.com/gateway.do' : 'https://openapi.alipay.com/gateway.do',
 			'alipay_public_key'    => $this->config->get('payment_alipay_alipay_public_key'),
 		);
 		
-		$out_trade_no = trim($order_info['order_id']);
+		$out_trade_no = $order_info['order_id'];
 		$subject = trim($this->config->get('config_name'));
-		$total_amount = trim($this->currency->format($order_info['total'], 'CNY', '', false));
+		$total_amount = $this->currency->format($order_info['total'], 'CNY', '', false);
 		$body = '';//trim($_POST['WIDbody']);
 		
-		$payRequestBuilder = array();
-
 		$payRequestBuilder = array(
 			'body'         => $body,
 			'subject'      => $subject,
@@ -57,16 +55,14 @@ class ControllerExtensionPaymentAlipay extends Controller {
 		
 		$arr = $_POST;
 		
-		$config = array();
-		
 		$config = array(
 			'app_id'               => $this->config->get('payment_alipay_app_id'),
 			'merchant_private_key' => $this->config->get('payment_alipay_merchant_private_key'),
-			'notify_url'           => HTTPS_SERVER . "payment_callback/alipay",
+			'notify_url'           => HTTPS_SERVER . 'payment_callback/alipay',
 			'return_url'           => $this->url->link('checkout/success'),
-			'charset'              => "UTF-8",
-			'sign_type'            => "RSA2",
-			'gateway_url'          => $this->config->get('payment_alipay_test') == "sandbox" ? "https://openapi.alipaydev.com/gateway.do" : "https://openapi.alipay.com/gateway.do",
+			'charset'              => 'UTF-8',
+			'sign_type'            => 'RSA2',
+			'gateway_url'          => $this->config->get('payment_alipay_test') == 'sandbox' ? 'https://openapi.alipaydev.com/gateway.do' : 'https://openapi.alipay.com/gateway.do',
 			'alipay_public_key'    => $this->config->get('payment_alipay_alipay_public_key'),
 		);
 		
@@ -87,11 +83,11 @@ class ControllerExtensionPaymentAlipay extends Controller {
 				$this->model_checkout_order->addOrderHistory($order_id, $this->config->get('payment_alipay_order_status_id'));
 			}
 			
-			echo "success";	//Do not modified or deleted
+			echo 'success';	//Do not modified or deleted
 		} else {
 			$this->log->write('Alipay check failed');
 			// Check failed
-			echo "fail";
+			echo 'fail';
 		}
 	}
 }

@@ -1858,7 +1858,7 @@ class ControllerExtensionPaymentPPExpress extends Controller {
 					}
 				}
 			}
-		} elseif ((string)$response == "INVALID") {
+		} elseif ((string)$response == 'INVALID') {
 			$this->model_extension_payment_pp_express->log(array('IPN was invalid'), 'IPN fail');
 		} else {
 			$this->model_extension_payment_pp_express->log('Response string unknown: ' . (string)$response, 'IPN data');

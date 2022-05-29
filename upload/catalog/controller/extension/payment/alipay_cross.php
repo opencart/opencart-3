@@ -57,7 +57,7 @@ class ControllerExtensionPaymentAlipayCross extends Controller {
 
 		$this->load->model('extension/payment/alipay_cross');
 		$data['params'] = $this->model_extension_payment_alipay_cross->buildRequestPara($alipay_config, $parameter);
-		$gateway = $this->config->get('payment_alipay_cross_test') == "sandbox" ? $this->alipay_gateway_test : $this->alipay_gateway;
+		$gateway = $this->config->get('payment_alipay_cross_test') == 'sandbox' ? $this->alipay_gateway_test : $this->alipay_gateway;
 		$data['action'] = $gateway . "_input_charset=" . trim($alipay_config['input_charset']);
 
 		return $this->load->view('extension/payment/alipay_cross', $data);
@@ -78,7 +78,7 @@ class ControllerExtensionPaymentAlipayCross extends Controller {
 			'cacert'               => getcwd().'/cacert.pem'
 		);
 		
-		$this->log->write('config: ' . var_export($alipay_config,true));
+		$this->log->write('config: ' . var_export($alipay_config, true));
 		
 		$verify_result = $this->model_extension_payment_alipay_cross->verifyNotify($alipay_config);
 

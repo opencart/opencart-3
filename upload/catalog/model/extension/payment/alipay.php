@@ -55,20 +55,20 @@ class ModelExtensionPaymentAlipay extends Model {
 		$this->notifyUrl = $alipay_config['notify_url'];
 		$this->returnUrl = $alipay_config['return_url'];
 
-		if (empty($this->appid)||trim($this->appid)=="") {
-			throw new \Exception("appid should not be NULL!");
+		if (empty($this->appid) || trim($this->appid) == '') {
+			throw new \Exception('appid should not be NULL!');
 		}
-		if (empty($this->private_key)||trim($this->private_key)=="") {
-			throw new \Exception("private_key should not be NULL!");
+		if (empty($this->private_key) || trim($this->private_key) == '') {
+			throw new \Exception('private_key should not be NULL!');
 		}
-		if (empty($this->alipay_public_key)||trim($this->alipay_public_key)=="") {
-			throw new \Exception("alipay_public_key should not be NULL!");
+		if (empty($this->alipay_public_key) || trim($this->alipay_public_key) == '') {
+			throw new \Exception('alipay_public_key should not be NULL!');
 		}
-		if (empty($this->postCharset)||trim($this->postCharset)=="") {
-			throw new \Exception("charset should not be NULL!");
+		if (empty($this->postCharset) || trim($this->postCharset) == '') {
+			throw new \Exception('charset should not be NULL!');
 		}
-		if (empty($this->gateway_url)||trim($this->gateway_url)=="") {
-			throw new \Exception("gateway_url should not be NULL!");
+		if (empty($this->gateway_url) || trim($this->gateway_url) == '') {
+			throw new \Exception('gateway_url should not be NULL!');
 		}
 	}
 

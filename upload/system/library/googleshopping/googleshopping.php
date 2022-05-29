@@ -500,7 +500,7 @@ class Googleshopping extends Library {
             $sql .= " AND p.`product_id` IN (SELECT p2c_t.`product_id` FROM `" . DB_PREFIX . "category_path` cp_t LEFT JOIN `" . DB_PREFIX . "product_to_category` p2c_t ON (p2c_t.`category_id` = cp_t.`category_id`) WHERE cp_t.`path_id` = '" . (int)$data['filter_category_id'] . "')";
         }
 
-        if (isset($data['filter_is_modified']) && $data['filter_is_modified'] !== "") {
+        if (isset($data['filter_is_modified']) && $data['filter_is_modified'] !== '') {
             $sql .= " AND p.`product_id` IN (SELECT pag_t.`product_id` FROM `" . DB_PREFIX . "googleshopping_product` pag_t WHERE pag_t.`is_modified` = '" . (int)$data['filter_is_modified'] . "')";
         }
 

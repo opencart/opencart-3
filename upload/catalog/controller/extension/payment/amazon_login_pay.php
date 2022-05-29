@@ -934,15 +934,19 @@ class ControllerExtensionPaymentAmazonLoginPay extends Controller {
                     case 'AuthorizationNotification':
                         if ($this->model_extension_payment_amazon_login_pay->authorizationIpn($xml)) {
                             $this->load->model('checkout/order');
+							
                             $oc_order_status_id = $this->config->get('payment_amazon_login_pay_capture_oc_status');
                             $amazon_capture_id = (string)$xml->AuthorizationDetails->IdList->Id;
                             $amazon_captured_amount = (float)$xml->AuthorizationDetails->CapturedAmount->Amount;
                             $amazon_authorization_id = (string)$xml->AuthorizationDetails->AmazonAuthorizationId;
                             $exploded_authorization_id = explode("-", $amazon_authorization_id);
+							
                             array_pop($exploded_authorization_id);
+							
                             $amazon_order_reference_id = implode("-", $exploded_authorization_id);
                             $order_id = $this->model_extension_payment_amazon_login_pay->findOCOrderId($amazon_order_reference_id);
                             $amazon_login_pay_order_id = $this->model_extension_payment_amazon_login_pay->findAOrderId($amazon_order_reference_id);
+							
                             $transaction = array(
                                 'amazon_login_pay_order_id' => $amazon_login_pay_order_id,
                                 'amazon_authorization_id' => $amazon_authorization_id,
@@ -953,24 +957,24 @@ class ControllerExtensionPaymentAmazonLoginPay extends Controller {
                                 'status' => 'Completed',
                                 'amount' => $amazon_captured_amount
                             );
+							
                             $transaction_exists = (!empty($amazon_capture_id)) ? $this->model_extension_payment_amazon_login_pay->findCapture($amazon_capture_id) : false;
 
                             if (!isset($transaction_exists) || !$transaction_exists) {
                                 $this->model_extension_payment_amazon_login_pay->addTransaction($transaction);
                             }
                             $order_reference_details = $this->model_extension_payment_amazon_login_pay->fetchOrder($amazon_order_reference_id);
-                            $order_reason_code = (string) $order_reference_details->OrderReferenceStatus->ReasonCode;
-                            $order_state = (string) $order_reference_details->OrderReferenceStatus->State;
-                            $order_total = (float) $order_reference_details->OrderTotal->Amount;
+                            $order_reason_code = (string)$order_reference_details->OrderReferenceStatus->ReasonCode;
+                            $order_state = (string)$order_reference_details->OrderReferenceStatus->State;
+                            $order_total = (float)$order_reference_details->OrderTotal->Amount;
                             $total_captured = $this->model_extension_payment_amazon_login_pay->getTotalCaptured($amazon_login_pay_order_id);
                             
 							// Change the order status only if the order is closed with the response code maxamountcharged or if the order is fully captured
-                            if (($order_state =="Closed" && $order_reason_code =="MaxAmountCharged") || $order_reason_code == "SellerClosed" || $amazon_captured_amount >= $order_total || $total_captured >= $order_total) {
+                            if (($order_state == 'Closed' && $order_reason_code == 'MaxAmountCharged') || $order_reason_code == 'SellerClosed' || $amazon_captured_amount >= $order_total || $total_captured >= $order_total) {
                                 // Update the order history
-                                $this->model_checkout_order->addOrderHistory($order_id, $oc_order_status_id, "", true);
+                                $this->model_checkout_order->addOrderHistory($order_id, $oc_order_status_id, '', true);
                             }
-                        }
-						
+                        }						
                         break;
                     case 'CaptureNotification':
                         $this->model_extension_payment_amazon_login_pay->captureIpn($xml);

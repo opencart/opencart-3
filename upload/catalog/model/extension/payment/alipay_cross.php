@@ -108,7 +108,7 @@ class ModelExtensionPaymentAlipayCross extends Model {
 
 	private function getResponse($notify_id) {
 		$partner = trim($this->alipay_config['partner']);
-		$veryfy_url = $this->config->get('payment_alipay_cross_test') == "sandbox" ? $this->https_verify_url_test : $this->https_verify_url;
+		$veryfy_url = $this->config->get('payment_alipay_cross_test') == 'sandbox' ? $this->https_verify_url_test : $this->https_verify_url;
 		$veryfy_url .= 'partner=' . $partner . '&notify_id=' . $notify_id;
 		$responseTxt = $this->getHttpResponseGET($veryfy_url, $this->alipay_config['cacert']);
 
@@ -132,7 +132,7 @@ class ModelExtensionPaymentAlipayCross extends Model {
 		$para_filter = array();
 		
 		while (list($key, $val) = each($para)) {
-			if ($key == "sign" || $key == "sign_type" || $val == "") {
+			if ($key == 'sign' || $key == 'sign_type' || $val == '') {
 				continue;
 			} else {
 				$para_filter[$key] = $para[$key];

@@ -106,7 +106,7 @@ class ModelExtensionAdvertiseGoogle extends Model {
     );
 
     public function isAppIdUsed($app_id, $store_id) {
-        $sql = "SELECT `store_id` FROM `" . DB_PREFIX . "setting` WHERE `key`='advertise_google_app_id' AND `value`='" . $this->db->escape($store_id) . "' AND `store_id`!=" . (int)$store_id . " LIMIT 1";
+        $sql = "SELECT `store_id` FROM `" . DB_PREFIX . "setting` WHERE `key` = 'advertise_google_app_id' AND `value` = '" . $this->db->escape($store_id) . "' AND `store_id` != '" . (int)$store_id . "' LIMIT 1";
 
         $result = $this->db->query($sql);
 
