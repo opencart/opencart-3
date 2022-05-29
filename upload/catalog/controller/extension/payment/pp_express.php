@@ -1392,10 +1392,8 @@ class ControllerExtensionPaymentPPExpress extends Controller {
 		$this->session->data['paypal']['payerid'] = $result['PAYERID'];
 		$this->session->data['paypal']['result'] = $result;
 
-		$order_id = $this->session->data['order_id'];
+		$order_id = (int)$this->session->data['order_id'];
 		
-		$paypal_data = array();
-
 		$paypal_data = array(
 			'TOKEN'                      => $this->session->data['paypal']['token'],
 			'PAYERID'                    => $this->session->data['paypal']['payerid'],
@@ -1531,11 +1529,11 @@ class ControllerExtensionPaymentPPExpress extends Controller {
 
 					$result = $this->model_extension_payment_pp_express->call($data);
 
-					if (isset($result['PROFILEID'])) {
-						$this->model_checkout_recurring->editReference($recurring_id, $result['PROFILEID']);
-					} else {
+					if (!isset($result['PROFILEID'])) {
 						// there was an error creating the recurring, need to log and also alert admin / user
-
+						
+					} else {						
+						$this->model_checkout_recurring->editReference($recurring_id, $result['PROFILEID']);
 					}
 				}
 			}
@@ -1637,7 +1635,7 @@ class ControllerExtensionPaymentPPExpress extends Controller {
 
 		$this->model_extension_payment_pp_express->log(array('request' => $request,'response' => $response), 'IPN data');
 
-		if ((string)$response == "VERIFIED") {
+		if ((string)$response == 'VERIFIED') {
 			if (isset($this->request->post['transaction_entity'])) {
 				$this->log->write($this->request->post['transaction_entity']);
 			}

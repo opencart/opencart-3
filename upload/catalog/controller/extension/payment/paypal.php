@@ -353,6 +353,8 @@ class ControllerExtensionPaymentPayPal extends Controller {
 				
 		if (isset($this->request->post['order_id'])) {
 			$order_id = $this->request->post['order_id'];
+		} else {
+			$order_id = '';
 		}
 		
 		if (isset($this->request->post['payload'])) {

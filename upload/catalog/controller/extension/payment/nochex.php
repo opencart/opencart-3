@@ -81,7 +81,7 @@ class ControllerExtensionPaymentNochex extends Controller {
 		}
 
 		if (isset($this->request->post['order_id'])) {
-			$order_id = $this->request->post['order_id'];
+			$order_id = (int)$this->request->post['order_id'];
 		} else {
 			$order_id = 0;
 		}

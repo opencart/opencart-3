@@ -85,7 +85,7 @@ class ControllerExtensionPaymentFirstdataRemote extends Controller {
 				'NONE' 	=> $this->language->get('text_card_code_blank')
 			);
 			
-			$order_id = $this->session->data['order_id'];
+			$order_id = (int)$this->session->data['order_id'];
 			
 			$order_info = $this->model_checkout_order->getOrder($order_id);
 

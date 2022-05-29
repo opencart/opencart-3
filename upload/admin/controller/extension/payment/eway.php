@@ -239,7 +239,7 @@ class ControllerExtensionPaymentEway extends Controller {
 		$this->load->language('extension/payment/eway');
 		
 		if (isset($this->request->get['order_id'])) {
-			$order_id = $this->request->get['order_id'];
+			$order_id = (int)$this->request->get['order_id'];
 		} else {
 			$order_id = 0;
 		}		

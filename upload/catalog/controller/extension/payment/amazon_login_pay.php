@@ -597,7 +597,7 @@ class ControllerExtensionPaymentAmazonLoginPay extends Controller {
                 $this->model_extension_payment_amazon_login_pay->submitOrderDetails($order_reference_id, $order_id, $currency_code, $text_version);
 
             } else {
-                $order_id = $this->session->data['order_id'];
+                $order_id = (int)$this->session->data['order_id'];
             }
             $amazon_order = $this->model_extension_payment_amazon_login_pay->fetchOrder($order_reference_id);
 
@@ -712,7 +712,7 @@ class ControllerExtensionPaymentAmazonLoginPay extends Controller {
 
                 $this->model_extension_payment_amazon_login_pay->submitOrderDetails($order_reference_id, $order_id, $currency_code, $text_version);
             } else {
-                $order_id = $this->session->data['order_id'];
+                $order_id = (int)$this->session->data['order_id'];
             }
 
             // Check constraints
@@ -865,7 +865,7 @@ class ControllerExtensionPaymentAmazonLoginPay extends Controller {
 
                 $this->model_extension_payment_amazon_login_pay->submitOrderDetails($order_reference_id, $order_id, $currency_code, $text_version);
             } else {
-                $order_id = $this->session->data['order_id'];
+                $order_id = (int)$this->session->data['order_id'];
             }
 
             // Check constraints

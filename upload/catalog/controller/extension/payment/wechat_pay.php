@@ -93,9 +93,10 @@ class ControllerExtensionPaymentWechatPay extends Controller {
 		$json['result'] = false;
 
 		if (isset($this->request->get['order_id'])) {
-			$order_id = $this->request->get['order_id'];
+			$order_id = (int)$this->request->get['order_id'];
 
 			$this->load->model('checkout/order');
+			
 			$order_info = $this->model_checkout_order->getOrder($order_id);
 
 			if ($order_info['order_status_id'] == $this->config->get('payment_wechat_pay_completed_status_id')) {

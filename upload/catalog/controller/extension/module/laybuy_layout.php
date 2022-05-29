@@ -8,7 +8,7 @@ class ControllerExtensionModuleLaybuyLayout extends Controller {
 		if ($status && $this->config->get('payment_laybuy_status')) {
 			if ($this->customer->isLogged()) {
 				if (isset($this->request->get['order_id'])) {
-					$order_id = $this->request->get['order_id'];
+					$order_id = (int)$this->request->get['order_id'];
 
 					if ($this->model_extension_module_laybuy_layout->isLayBuyOrder($order_id)) {
 						$this->load->language('extension/module/laybuy_layout');

@@ -74,7 +74,7 @@ class ControllerExtensionPaymentGlobalpayRemote extends Controller {
 			$this->response->setOutput(json_encode($json));
 		}
 
-		$order_id = $this->session->data['order_id'];
+		$order_id = (int)$this->session->data['order_id'];
 
 		$order_ref = $order_id . 'T' . date("YmdHis") . mt_rand(1, 999);
 
