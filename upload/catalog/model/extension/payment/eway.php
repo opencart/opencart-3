@@ -80,7 +80,7 @@ class ModelExtensionPaymentEway extends Model {
 	}
 
 	public function addCard($order_id, $card_data) {
-		$this->db->query("INSERT INTO `" . DB_PREFIX . "eway_card` SET `customer_id` = '" . $this->db->escape($card_data['customer_id']) . "', `order_id` = '" . $this->db->escape($order_id) . "', `digits` = '" . $this->db->escape($card_data['Last4Digits']) . "', `expiry` = '" . $this->db->escape($card_data['ExpiryDate']) . "', `type` = '" . $this->db->escape($card_data['CardType']) . "'");
+		$this->db->query("INSERT INTO `" . DB_PREFIX . "eway_card` SET `customer_id` = '" . (int)$card_data['customer_id'] . "', `order_id` = '" . (int)$order_id . "', `digits` = '" . $this->db->escape($card_data['Last4Digits']) . "', `expiry` = '" . $this->db->escape($card_data['ExpiryDate']) . "', `type` = '" . $this->db->escape($card_data['CardType']) . "'");
 	}
 
 	public function updateCard($order_id, $token) {

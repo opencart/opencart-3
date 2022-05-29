@@ -118,7 +118,7 @@ class ModelSaleReturns extends Model {
 		}
 
 		if (!empty($data['filter_order_id'])) {
-			$implode[] = "r.`order_id` = '" . $this->db->escape($data['filter_order_id']) . "'";
+			$implode[] = "r.`order_id` = '" . (int)$data['filter_order_id'] . "'";
 		}
 
 		if (!empty($data['filter_product'])) {
