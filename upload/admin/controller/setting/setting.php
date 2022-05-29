@@ -325,7 +325,7 @@ class ControllerSettingSetting extends Controller {
 			$data['config_timezone'] = 'UTC';
 		}
 		// Set Time Zone
-		$data['timezones'] = [];
+		$data['timezones'] = array();
 
 		$timestamp = time();
 		$timestamp = date_create('now');
