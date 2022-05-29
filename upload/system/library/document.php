@@ -11,16 +11,15 @@
 * Document class
 */
 class Document {
-	private $title;
-	private $description;
-	private $keywords;
-
-	private $links = array();
-	private $styles = array();
-	private $scripts = array();
+	private string $title = '';
+	private string $description = '';
+	private string $keywords = '';
+	private array $links = array();
+	private array $styles = array();
+	private array $scripts = array();
 
 	/**
-     * 
+     *
      *
      * @param	string	$title
      */
@@ -29,8 +28,8 @@ class Document {
 	}
 
 	/**
-     * 
-	 * 
+     *
+	 *
 	 * @return	string
      */
 	public function getTitle() {
@@ -38,7 +37,7 @@ class Document {
 	}
 
 	/**
-     * 
+     *
      *
      * @param	string	$description
      */
@@ -47,10 +46,10 @@ class Document {
 	}
 
 	/**
-     * 
+     *
      *
      * @param	string	$description
-	 * 
+	 *
 	 * @return	string
      */
 	public function getDescription() {
@@ -58,7 +57,7 @@ class Document {
 	}
 
 	/**
-     * 
+     *
      *
      * @param	string	$keywords
      */
@@ -68,29 +67,29 @@ class Document {
 
 	/**
      *
-	 * 
+	 *
 	 * @return	string
      */
 	public function getKeywords() {
 		return $this->keywords;
 	}
-	
+
 	/**
-     * 
+     *
      *
      * @param	string	$href
 	 * @param	string	$rel
      */
 	public function addLink($href, $rel) {
-		$this->links[$href] = array(
+		$this->links[$href] = [
 			'href' => $href,
 			'rel'  => $rel
-		);
+		];
 	}
 
 	/**
-     * 
-	 * 
+     *
+	 *
 	 * @return	array
      */
 	public function getLinks() {
@@ -98,14 +97,14 @@ class Document {
 	}
 
 	/**
-     * 
+     *
      *
      * @param	string	$href
 	 * @param	string	$rel
 	 * @param	string	$media
      */
-	public function addStyle($href, $rel = 'stylesheet', $media = 'screen', $position = 'header') {
-		$this->styles[$position][$href] = array(
+	public function addStyle($href, $rel = 'stylesheet', $media = 'screen') {
+		$this->styles[$href] = array(
 			'href'  => $href,
 			'rel'   => $rel,
 			'media' => $media
@@ -113,20 +112,16 @@ class Document {
 	}
 
 	/**
-     * 
-	 * 
+     *
+	 *
 	 * @return	array
      */
-	public function getStyles($position = 'header') {
-		if (isset($this->styles[$position])) {
-			return $this->styles[$position];
-		} else {
-			return array();
-		}
+	public function getStyles() {
+		return $this->styles;
 	}
 
 	/**
-     * 
+     *
      *
      * @param	string	$href
 	 * @param	string	$position
@@ -136,10 +131,10 @@ class Document {
 	}
 
 	/**
-     * 
+     *
      *
      * @param	string	$position
-	 * 
+	 *
 	 * @return	array
      */
 	public function getScripts($position = 'header') {
