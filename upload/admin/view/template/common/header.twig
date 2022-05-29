@@ -28,7 +28,7 @@
 {% endfor %}
 <script src="view/javascript/common.js" type="text/javascript"></script>
 {% for script in scripts %}
-<script type="text/javascript" src="{{ script }}"></script>
+<script type="text/javascript" src="{{ script.href }}"></script>
 {% endfor %}
 </head>
 <body>
