@@ -11,12 +11,12 @@
 * Document class
 */
 class Document {
-	private string $title = '';
-	private string $description = '';
-	private string $keywords = '';
-	private array $links = array();
-	private array $styles = array();
-	private array $scripts = array();
+	private $title = '';
+	private $description = '';
+	private $keywords = '';
+	private $links = array();
+	private $styles = array();
+	private $scripts = array();
 
 	/**
      *
