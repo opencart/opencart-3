@@ -36,7 +36,7 @@ class ControllerExtensionAdvertiseGoogle extends Controller {
 
         // Fix a missing AUTO_INCREMENT
         $this->model_extension_advertise_google->fixColumns();
-        
+
         // Redirect to the preliminary check-list
         if (!$this->setting->get('advertise_google_checklist_confirmed')) {
             $this->response->redirect($this->url->link('extension/advertise/google/checklist', 'store_id=' . $this->store_id . '&user_token=' . $this->session->data['user_token'], true));
@@ -188,7 +188,7 @@ class ControllerExtensionAdvertiseGoogle extends Controller {
         $server = $this->googleshopping->getStoreUrl();
 
         $data['advertise_google_cron_command'] = 'export CUSTOM_SERVER_NAME=' . parse_url($server, PHP_URL_HOST) . '; export CUSTOM_SERVER_PORT=443; export ADVERTISE_GOOGLE_CRON=1; export ADVERTISE_GOOGLE_STORE_ID=' . $this->store_id . '; ' . PHP_BINDIR . '/php -d session.save_path=' . session_save_path() . ' -d memory_limit=256M ' . DIR_SYSTEM . 'library/googleshopping/cron.php > /dev/null 2> /dev/null';
-        
+
         if (!$this->setting->get('advertise_google_cron_token')) {
             $data['advertise_google_cron_token'] = md5(mt_rand());
         }
@@ -247,7 +247,7 @@ class ControllerExtensionAdvertiseGoogle extends Controller {
 
     public function advertise() {
         $this->load->language('extension/advertise/google');
-        
+
         $json = array(
             'success' 	=> null,
             'redirect' 	=> null,
@@ -729,7 +729,7 @@ class ControllerExtensionAdvertiseGoogle extends Controller {
         $this->load->language('extension/advertise/google');
 
         $this->load->model('extension/advertise/google');
-        
+
         $data = array();
 
         $json = array(
@@ -1292,7 +1292,7 @@ class ControllerExtensionAdvertiseGoogle extends Controller {
         $server = $this->googleshopping->getStoreUrl();
 
         $data['advertise_google_cron_command'] = 'export CUSTOM_SERVER_NAME=' . parse_url($server, PHP_URL_HOST) . '; export CUSTOM_SERVER_PORT=443; export ADVERTISE_GOOGLE_CRON=1; export ADVERTISE_GOOGLE_STORE_ID=' . $this->store_id . '; ' . PHP_BINDIR . '/php -d session.save_path=' . session_save_path() . ' -d memory_limit=256M ' . DIR_SYSTEM . 'library/googleshopping/cron.php > /dev/null 2> /dev/null';
-        
+
         if (!$this->setting->get('advertise_google_cron_token')) {
             $data['advertise_google_cron_token'] = md5(mt_rand());
         }
@@ -1399,7 +1399,7 @@ class ControllerExtensionAdvertiseGoogle extends Controller {
 
         $data['cancel']       = $this->url->link('marketplace/extension', 'user_token=' . $this->session->data['user_token'] . '&type=advertise', true);
         $data['action']       = $this->url->link('extension/advertise/google/checklist', 'store_id=' . $this->store_id . '&user_token=' . $this->session->data['user_token'], true);
-        
+
         $data['header']       = $this->load->controller('common/header');
         $data['column_left']  = $this->load->controller('common/column_left');
         $data['footer']       = $this->load->controller('common/footer');
@@ -1432,7 +1432,7 @@ class ControllerExtensionAdvertiseGoogle extends Controller {
 
             if ($product_info !== NULL) {
                 $json['product_id'] = $product_info['product_id'];
-                
+
                 // Required variables:
                 $operand_info = array(
                     'title' => sprintf($this->language->get('text_popup_title_single'), $product_info['name'], $product_info['model'])
@@ -1939,7 +1939,7 @@ class ControllerExtensionAdvertiseGoogle extends Controller {
 
     protected function validateShippingAndTaxes() {
         $this->validatePermission();
-        
+
         if (empty($this->request->post['advertise_google_shipping_taxes']['min_transit_time']) || !is_numeric($this->request->post['advertise_google_shipping_taxes']['min_transit_time']) || (int)$this->request->post['advertise_google_shipping_taxes']['min_transit_time'] < 0) {
             $this->error['min_transit_time'] = $this->language->get('error_min_transit_time');
         } elseif (empty($this->request->post['advertise_google_shipping_taxes']['max_transit_time']) || !is_numeric($this->request->post['advertise_google_shipping_taxes']['max_transit_time']) || (int)$this->request->post['advertise_google_shipping_taxes']['max_transit_time'] < (int)$this->request->post['advertise_google_shipping_taxes']['min_transit_time']) {
@@ -1984,7 +1984,7 @@ class ControllerExtensionAdvertiseGoogle extends Controller {
 
     protected function validateMapping() {
         $this->validatePermission();
-        
+
         if (!isset($this->error['warning']) && $this->error) {
             $this->error['warning'] = $this->language->get('error_warning');
         }

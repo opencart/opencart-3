@@ -65,7 +65,7 @@ class ControllerExtensionCreditCardSquareup extends Controller {
         $data['content_bottom'] = $this->load->controller('common/content_bottom');
         $data['footer'] = $this->load->controller('common/footer');
         $data['header'] = $this->load->controller('common/header');
-        
+
         $this->response->setOutput($this->load->view('extension/credit_card/squareup', $data));
     }
 
@@ -89,12 +89,12 @@ class ControllerExtensionCreditCardSquareup extends Controller {
             $card_info = $this->model_extension_credit_card_squareup->getCard($squareup_token_id);
 
             $customer_info = $this->model_extension_credit_card_squareup->getCustomer($this->customer->getId(), $card_info['sandbox']);
-            
+
             try {
                 $this->squareup->deleteCard($customer_info['square_customer_id'], $card_info['token']);
-                
+
                 $this->model_extension_credit_card_squareup->deleteCard($squareup_token_id);
-                
+
                 $this->session->data['success'] = $this->language->get('text_success_card_delete');
             } catch (\Squareup\Exception $e) {
                 $this->session->data['error'] = $e->getMessage();

@@ -554,7 +554,7 @@ class ModelExtensionPaymentAmazonLoginPay extends Model {
 
     public function findCapture($amazon_capture_id) {
         $sql = "SELECT * FROM `" . DB_PREFIX . "amazon_login_pay_order_transaction` WHERE amazon_capture_id = '" . $this->db->escape($amazon_capture_id) . "'";
-        
+
         return $this->db->query($sql)->num_rows > 0;
     }
 

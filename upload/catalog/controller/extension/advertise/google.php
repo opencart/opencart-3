@@ -65,7 +65,7 @@ class ControllerExtensionAdvertiseGoogle extends Controller {
 
         $tracker = $this->setting->get('advertise_google_conversion_tracker');
         $currency = $order_info['currency_code'];
-        
+
         $total = $this->googleshopping->convertAndFormat($order_info['total'], $currency);
 
         $search = array(

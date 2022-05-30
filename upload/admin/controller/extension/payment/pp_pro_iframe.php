@@ -507,7 +507,7 @@ class ControllerExtensionPaymentPPProIframe extends Controller {
 		$this->load->language('extension/payment/pp_pro_iframe');
 		
 		$this->load->model('extension/payment/pp_pro_iframe');		
- 
+
 		$data['breadcrumbs'] = array();
 
 		$data['breadcrumbs'][] = array(

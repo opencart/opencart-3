@@ -7,7 +7,7 @@ namespace googleshopping;
 */
 class Log {
     private $handle;
-    
+
     /**
      * Constructor
      *
@@ -31,7 +31,7 @@ class Log {
 
         $this->handle = @fopen(DIR_LOGS . $filename, $mode);
     }
-    
+
     /**
      * 
      *
@@ -42,7 +42,7 @@ class Log {
             fwrite($this->handle, date('Y-m-d G:i:s') . ' - ' . print_r($message, true) . "\n");
         }
     }
-    
+
     /**
      * 
      *

@@ -52,7 +52,7 @@ class Cache {
 	public function set($key, $value) {
 		return $this->adaptor->set($key, $value);
 	}
-   
+
     /**
      * 
      *

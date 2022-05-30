@@ -22,7 +22,7 @@ class ControllerExtensionExtensionAdvertise extends Controller {
 
             $this->model_user_user_group->addPermission($this->user->getGroupId(), 'access', 'extension/advertise/' . $this->request->get['extension']);
             $this->model_user_user_group->addPermission($this->user->getGroupId(), 'modify', 'extension/advertise/' . $this->request->get['extension']);
-            
+
             // Compatibility
             $this->model_user_user_group->addPermission($this->user->getGroupId(), 'access', 'advertise/' . $this->request->get['extension']);
             $this->model_user_user_group->addPermission($this->user->getGroupId(), 'modify', 'advertise/' . $this->request->get['extension']);
@@ -77,13 +77,13 @@ class ControllerExtensionExtensionAdvertise extends Controller {
                 unset($extensions[$key]);
             }
         }
-        
+
         $this->load->model('setting/store');
 		
         $this->load->model('setting/setting');
 
         $stores = $this->model_setting_store->getStores();
-        
+
         $data['extensions'] = array();
 
         // Compatibility code for old extension folders
@@ -92,10 +92,10 @@ class ControllerExtensionExtensionAdvertise extends Controller {
         if ($files) {
             foreach ($files as $file) {
                 $extension = basename($file, '.php');
-                
+
                 // Compatibility code for old extension folders
                 $this->load->language('extension/advertise/' . $extension, 'extension');
-                
+
                 $store_data = array();
 
                 $store_data[] = array(
@@ -103,7 +103,7 @@ class ControllerExtensionExtensionAdvertise extends Controller {
                     'edit'   => $this->url->link('extension/advertise/' . $extension, 'user_token=' . $this->session->data['user_token'] . '&store_id=0', true),
                     'status' => $this->config->get('advertise_' . $extension . '_status') ? $this->language->get('text_enabled') : $this->language->get('text_disabled')
                 );
-                
+
                 foreach ($stores as $store) {
                     $store_data[] = array(
                         'name'   => $store['name'],

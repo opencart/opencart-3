@@ -12,7 +12,7 @@
 */
 class Config {
 	private $data = array();
-    
+
 	/**
      * 
      *

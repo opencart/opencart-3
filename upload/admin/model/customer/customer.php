@@ -273,10 +273,10 @@ class ModelCustomerCustomer extends Model {
 
 		return $query->row['total'];
 	}
-        
+
     public function getAffiliateByTracking($tracking) {
         $query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "customer_affiliate` WHERE `tracking` = '" . $this->db->escape($tracking) . "'");
-                
+
         return $query->row;
     }
 	

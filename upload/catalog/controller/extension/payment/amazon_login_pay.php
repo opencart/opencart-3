@@ -27,7 +27,7 @@ class ControllerExtensionPaymentAmazonLoginPay extends Controller {
 
         // Cancel an existing order reference
         unset($this->session->data['order_id']);
-        
+
         if (!empty($this->session->data['apalwa']['pay']['order_reference_id']) && !$this->model_extension_payment_amazon_login_pay->isOrderInState($this->session->data['apalwa']['pay']['order_reference_id'], array('Canceled', 'Closed', 'Draft'))) {
             $this->model_extension_payment_amazon_login_pay->cancelOrder($this->session->data['apalwa']['pay']['order_reference_id'], "Shipment widget has been requested, cancelling this order reference.");
 
@@ -354,7 +354,7 @@ class ControllerExtensionPaymentAmazonLoginPay extends Controller {
         $this->load->language('extension/payment/amazon_login_pay');
 		
         $this->load->language('checkout/checkout');
-        
+
         $this->load->model('extension/payment/amazon_login_pay');
 
         $this->document->setTitle($this->language->get('heading_confirm'));
@@ -376,13 +376,13 @@ class ControllerExtensionPaymentAmazonLoginPay extends Controller {
 
         $data['merchant_id'] = $this->config->get('payment_amazon_login_pay_merchant_id');
         $data['client_id'] = $this->config->get('payment_amazon_login_pay_client_id');
-        
+
         if ($this->config->get('payment_amazon_login_pay_test') == 'sandbox') {
             $data['sandbox'] = isset($this->session->data['user_id']); // Require an active admin panel session to show debug messages
         }
 
         $amazon_payment_js = $this->model_extension_payment_amazon_login_pay->getWidgetJs();
-        
+
 		$this->document->addScript($amazon_payment_js);
 
         try {
@@ -400,7 +400,7 @@ class ControllerExtensionPaymentAmazonLoginPay extends Controller {
 
         if (!empty($this->session->data['success'])) {
             $data['success'] = $this->session->data['success'];
-            
+
 			unset($this->session->data['success']);
         }
 
@@ -420,7 +420,7 @@ class ControllerExtensionPaymentAmazonLoginPay extends Controller {
         $data['standard_checkout'] = $this->url->link('extension/payment/amazon_login_pay/standard_checkout', '', true);
 
         $zero_total = $this->currency->format(0, $this->session->data['currency']);
-        
+
 		$data['error_order_total_zero'] = sprintf($this->language->get('error_order_total_zero'), $zero_total);
 
         $data['process'] = html_entity_decode($this->url->link('extension/payment/amazon_login_pay/process', '', true), ENT_COMPAT, "UTF-8");
@@ -968,7 +968,7 @@ class ControllerExtensionPaymentAmazonLoginPay extends Controller {
                             $order_state = (string)$order_reference_details->OrderReferenceStatus->State;
                             $order_total = (float)$order_reference_details->OrderTotal->Amount;
                             $total_captured = $this->model_extension_payment_amazon_login_pay->getTotalCaptured($amazon_login_pay_order_id);
-                            
+
 							// Change the order status only if the order is closed with the response code maxamountcharged or if the order is fully captured
                             if (($order_state == 'Closed' && $order_reason_code == 'MaxAmountCharged') || $order_reason_code == 'SellerClosed' || $amazon_captured_amount >= $order_total || $total_captured >= $order_total) {
                                 // Update the order history

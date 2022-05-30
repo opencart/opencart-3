@@ -2,13 +2,9 @@
 class ControllerMailAffiliate extends Controller {
 	public function index(&$route, &$args, &$output) {
 		$this->load->language('mail/affiliate');
-        
-		$data['text_welcome'] = sprintf($this->language->get('text_welcome'), html_entity_decode($this->config->get('config_name'), ENT_QUOTES, 'UTF-8'));
-		$data['text_login'] = $this->language->get('text_login');
-		$data['text_approval'] = $this->language->get('text_approval');
-		$data['text_service'] = $this->language->get('text_service');
-		$data['text_thanks'] = $this->language->get('text_thanks');
 
+		$data['text_welcome'] = sprintf($this->language->get('text_welcome'), html_entity_decode($this->config->get('config_name'), ENT_QUOTES, 'UTF-8'));
+		
 		$this->load->model('account/customer_group');
 		
 		if ($this->customer->isLogged()) {
@@ -53,14 +49,6 @@ class ControllerMailAffiliate extends Controller {
 		// Send to main admin email if new affiliate email is enabled
 		if (in_array('affiliate', (array)$this->config->get('config_mail_alert'))) {
 			$this->load->language('mail/affiliate');
-			
-			$data['text_signup'] = $this->language->get('text_signup');
-			$data['text_website'] = $this->language->get('text_website');
-			$data['text_firstname'] = $this->language->get('text_firstname');
-			$data['text_lastname'] = $this->language->get('text_lastname');
-			$data['text_customer_group'] = $this->language->get('text_customer_group');
-			$data['text_email'] = $this->language->get('text_email');
-			$data['text_telephone'] = $this->language->get('text_telephone');
 			
 			if ($this->customer->isLogged()) {
 				$customer_group_id = $this->customer->getGroupId();

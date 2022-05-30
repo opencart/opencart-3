@@ -780,7 +780,7 @@ class Googleshopping extends Library {
             $entry['conversions'] = (int)$report['conversions'];
             $entry['cost'] = ((int)$report['cost']) / self::MICROAMOUNT;
             $entry['conversion_value'] = (float)$report['conversion_value'];
-            
+
             $values[] = "(" . implode(",", $entry) . ")";
         }
 
@@ -861,7 +861,7 @@ class Googleshopping extends Library {
             $entry_status['destination_statuses'] = "'" . $this->db->escape(json_encode($entry_status['destination_statuses'])) . "'";
             $entry_status['data_quality_issues'] = "'" . $this->db->escape(json_encode($entry_status['data_quality_issues'])) . "'";
             $entry_status['item_level_issues'] = "'" . $this->db->escape(json_encode($entry_status['item_level_issues'])) . "'";
-            
+
             $product_advertise_google_status[] = "(" . implode(",", $entry_status) . ")";
         }
 
@@ -986,7 +986,7 @@ class Googleshopping extends Library {
         $mail->setSubject(html_entity_decode($subject, ENT_QUOTES, "UTF-8"));
         $mail->setText(strip_tags($message));
         $mail->setHtml($message);
-        
+
         $mail->send();
     }
 
@@ -1027,7 +1027,7 @@ class Googleshopping extends Library {
 
         if (!is_file(DIR_IMAGE . $image_new) || (filemtime(DIR_IMAGE . $image_old) > filemtime(DIR_IMAGE . $image_new))) {
             list($width_orig, $height_orig, $image_type) = getimagesize(DIR_IMAGE . $image_old);
-            
+
             if ($width_orig * $height_orig * 4 > $this->memoryLimitInBytes() * 0.4) {
                 throw new \RuntimeException("Image too large, skipping: " . $image_old);
             }
@@ -1035,7 +1035,7 @@ class Googleshopping extends Library {
             if (!in_array($image_type, array(IMAGETYPE_PNG, IMAGETYPE_JPEG, IMAGETYPE_GIF))) {
                 throw new \RuntimeException("Unexpected image type, skipping: " . $image_old);
             }
-                        
+
             $path = '';
 
             $directories = explode('/', dirname($image_new));
@@ -1056,9 +1056,9 @@ class Googleshopping extends Library {
                 copy(DIR_IMAGE . $image_old, DIR_IMAGE . $image_new);
             }
         }
-        
+
         $image_new = str_replace(array(' ', ','), array('%20', '%2C'), $image_new);  // fix bug when attach image on email (gmail.com). it is automatic changing space " " to +
-        
+
         return $this->store_url . 'image/' . $image_new;
     }
 
@@ -1189,9 +1189,7 @@ class Googleshopping extends Library {
     public function isStoreUrlClaimed() {
         // No need to check the connection here - this method is called immediately after checking it
 		
-		$request = array();
-
-        $request = array(
+		$request = array(
             'type' 				=> 'POST',
             'endpoint' 			=> self::ENDPOINT_VERIFY_IS_CLAIMED,
             'use_access_token' 	=> true,
@@ -1213,7 +1211,7 @@ class Googleshopping extends Library {
     public function getCampaignReports() {
         $targets = array();
         $statuses = array();
-        
+
         foreach ($this->getTargets($this->store_id) as $target) {
             $targets[] = $target['campaign_name'];
 			
@@ -1376,9 +1374,7 @@ class Googleshopping extends Library {
             $data = array();
             $keys = array();
 			
-			$expected = array();
-            
-            $expected = array(
+			$expected = array(
                 'Item Id' 			=> 'offer_id',
                 'Impressions' 		=> 'impressions',
                 'Clicks' 			=> 'clicks',
@@ -1425,8 +1421,6 @@ class Googleshopping extends Library {
 
         $this->curlPostQuery($post_data, $post);
 		
-		$request = array();
-
         $request = array(
             'type' 				=> 'POST',
             'endpoint' 			=> self::ENDPOINT_MERCHANT_PRODUCT_STATUSES,
@@ -1441,9 +1435,7 @@ class Googleshopping extends Library {
     }
 
     public function getConversionTracker() {
-		$request = array();
-		
-        $request = array(
+		$request = array(
             'endpoint' 			=> self::ENDPOINT_CONVERSION_TRACKER,
             'use_access_token' 	=> true
         );
@@ -1451,16 +1443,12 @@ class Googleshopping extends Library {
         $result = $this->api($request);
 
         // Amend the conversion snippet by replacing the default values with placeholders.
-		$search = array();
-		
-        $search = array(
+		$search = array(
             "'value': 0.0",
             "'currency': 'USD'"
         );
 		
-		$replace = array();
-
-        $replace = array(
+		$replace = array(
             "'value': {VALUE}",
             "'currency': '{CURRENCY}'"
         );
@@ -1471,31 +1459,27 @@ class Googleshopping extends Library {
     }
 
     public function testCampaigns() {
-		$request = array();
-		
-        $request = array(
+		$request = array(
             'endpoint' 			=> self::ENDPOINT_CAMPAIGN_TEST,
             'use_access_token' 	=> true
         );
-        
+
         $result = $this->api($request);
 
         return $result['status'] === true;
     }
 
     public function testAccessToken() {
-		$request = array();
-		
-        $request = array(
+		$request = array(
             'endpoint' 			=> self::ENDPOINT_ACCESS_TOKEN_TEST,
             'use_access_token' 	=> true
         );
-        
+
         try {
             $result = $this->api($request);
 
             return $result['status'] === true;
-        } catch (AccessForbiddenException $e) {
+        } catch (\AccessForbiddenException $e) {
             throw $e;
         } catch (\RuntimeException $e) {
             // Do nothing
@@ -1505,14 +1489,12 @@ class Googleshopping extends Library {
     }
 
     public function getAccessToken() {
-		$request = array();
-		
-        $request = array(
+		$request = array(
             'type' 					=> 'POST',
             'endpoint' 				=> self::ENDPOINT_ACCESS_TOKEN,
             'use_access_token' 		=> false,
             'content_type' 			=> 'multipart/form-data',
-            'data' => array(
+            'data' 					=> array(
                 'grant_type' 			=> 'refresh_token',
                 'refresh_token' 		=> $this->setting->get('advertise_google_refresh_token'),
                 'client_id' 			=> $this->setting->get('advertise_google_app_id'),
@@ -1530,9 +1512,7 @@ class Googleshopping extends Library {
     }
 
     public function access($data, $code) {
-		$request = array();
-		
-        $request = array(
+		$request = array(
             'type' 				=> 'POST',
             'endpoint' 			=> self::ENDPOINT_ACCESS_TOKEN,
             'use_access_token' 	=> false,
@@ -1562,9 +1542,7 @@ class Googleshopping extends Library {
     }
 
     public function verifySite() {
-		$request = array();
-		
-        $request = array(
+		$request = array(
             'type' 				=> 'POST',
             'endpoint' 			=> self::ENDPOINT_VERIFY_TOKEN,
             'use_access_token' 	=> true,
@@ -1596,7 +1574,7 @@ class Googleshopping extends Library {
             $this->deleteVerificationToken($token);
         } catch (\RuntimeException $e) {
             $this->deleteVerificationToken($token);
-            
+
             throw $e;
         }
     }
@@ -1645,9 +1623,7 @@ class Googleshopping extends Library {
 
         $this->curlPostQuery($data, $post);
 		
-		$request = array();
-
-        $request = array(
+		$request = array(
             'type' 				=> 'POST',
             'endpoint' 			=> self::ENDPOINT_CAMPAIGN_UPDATE,
             'use_access_token' 	=> true,
@@ -1667,9 +1643,7 @@ class Googleshopping extends Library {
 
         $this->curlPostQuery($data, $post);
 		
-		$request = array();
-
-        $request = array(
+		$request = array(
             'type' 				=> 'POST',
             'endpoint' 			=> self::ENDPOINT_MERCHANT_SHIPPING_TAXES,
             'use_access_token' 	=> true,
@@ -1681,9 +1655,7 @@ class Googleshopping extends Library {
     }
 
     public function disconnect() {
-		$request = array();
-		
-        $request = array(
+		$request = array(
             'type' 				=> 'GET',
             'endpoint' 			=> self::ENDPOINT_MERCHANT_DISCONNECT,
             'use_access_token' 	=> true
@@ -1723,9 +1695,7 @@ class Googleshopping extends Library {
     }
 
     public function getAvailableCarriers() {
-		$request = array();
-		
-        $request = array(
+		$request = array(
             'type' 				=> 'GET',
             'endpoint' 			=> self::ENDPOINT_MERCHANT_AVAILABLE_CARRIERS,
             'use_access_token' 	=> true
