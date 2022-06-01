@@ -139,24 +139,24 @@
         var form = '#squareup_card_details_form';
 
         $.ajax({
-            url : $(form).attr('action'),
-            dataType : 'json',
-            type : $(form).attr('method'),
-            data : $(form).serialize(),
-            beforeSend : function() {
+            url: $(form).attr('action'),
+            dataType: 'json',
+            type: $(form).attr('method'),
+            data: $(form).serialize(),
+            beforeSend: function() {
                 $('#button-confirm-order').button('loading');
             },
-            success : function(json) {
+            success: function(json) {
                 if (json.error) {
                     squareupError(json.error);
                 } else if (json.redirect) {
                     document.location = json.redirect;
                 }
             },
-            error : function(jqXHR, ajaxSettings, thrownError) {
+            error: function(jqXHR, ajaxSettings, thrownError) {
                 squareupError(thrownError);
             },
-            complete : function() {
+            complete: function() {
                 $('#button-confirm-order').button('reset');
             }
         });

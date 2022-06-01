@@ -572,12 +572,12 @@ $(document).ready(function() {
 
     var transactionRequest = function(type, url, data) {
         $.ajax({
-            url : url,
-            dataType : 'json',
-            type : type,
-            data : data,
-            beforeSend : transactionLoading,
-            success : function(json) {
+            url: url,
+            dataType: 'json',
+            type: type,
+            data: data,
+            beforeSend: transactionLoading,
+            success: function(json) {
                 if (json.error) {
                     transactionError(json.error);
                     enableTransactionButtons();
@@ -590,7 +590,7 @@ $(document).ready(function() {
                     });
                 }
             },
-            error : function(xhr, ajaxSettings, thrownError) {
+            error: function(xhr, ajaxSettings, thrownError) {
                 transactionError(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
                 enableTransactionButtons();
             }
