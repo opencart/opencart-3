@@ -1,6 +1,23 @@
 <?php
 namespace Mail;
-class Mail {
+class Mail {							
+	protected string $to = '';
+	protected string $from = '';
+	protected string $sender = '';
+	protected string $reply_to = '';
+	protected string $subject = '';
+	protected string $text = '';
+	protected string $html = '';
+	protected array $attachments = [];
+	protected string $parameter;
+
+	public function __construct(array $args) {
+		foreach ($args as $key => $value) {
+			if (property_exists($this, $key)) {
+				$this->{$key} = $value;
+			}
+		}
+	
 	public function send() {
 		if (is_array($this->to)) {
 			$to = implode(',', $this->to);
@@ -34,7 +51,7 @@ class Mail {
 			$message  = '--' . $boundary . $eol;
 			$message .= 'Content-Type: text/plain; charset="utf-8"' . $eol;
 			$message .= 'Content-Transfer-Encoding: base64' . $eol . $eol;
-			$message .= chunk_split(base64_encode($this->text)) . $eol;
+			$message .= base64_encode($this->text) . $eol;
 		} else {
 			$message  = '--' . $boundary . $eol;
 			$message .= 'Content-Type: multipart/alternative; boundary="' . $boundary . '_alt"' . $eol . $eol;
@@ -43,20 +60,20 @@ class Mail {
 			$message .= 'Content-Transfer-Encoding: base64' . $eol . $eol;
 
 			if ($this->text) {
-				$message .= chunk_split(base64_encode($this->text)) . $eol;
+				$message .= base64_encode($this->text) . $eol;
 			} else {
-				$message .= chunk_split(base64_encode('This is a HTML email and your email client software does not support HTML email!')) . $eol;
+				$message .= base64_encode('This is a HTML email and your email client software does not support HTML email!') . $eol;
 			}
 
 			$message .= '--' . $boundary . '_alt' . $eol;
 			$message .= 'Content-Type: text/html; charset="utf-8"' . $eol;
 			$message .= 'Content-Transfer-Encoding: base64' . $eol . $eol;
-			$message .= chunk_split(base64_encode($this->html)) . $eol;
+			$message .= base64_encode($this->html) . $eol;
 			$message .= '--' . $boundary . '_alt--' . $eol;
 		}
 
 		foreach ($this->attachments as $attachment) {
-			if (file_exists($attachment)) {
+			if (is_file($attachment)) {
 				$handle = fopen($attachment, 'r');
 
 				$content = fread($handle, filesize($attachment));
@@ -65,7 +82,7 @@ class Mail {
 
 				$message .= '--' . $boundary . $eol;
 				$message .= 'Content-Type: application/octet-stream; name="' . basename($attachment) . '"' . $eol;
-				$message .= 'Content-Transfer-Encoding: base64' . $eol;
+				$message .= 'Content-Transfer-Encoding: base64' . PHP_EOL;
 				$message .= 'Content-Disposition: attachment; filename="' . basename($attachment) . '"' . $eol;
 				$message .= 'Content-ID: <' . urlencode(basename($attachment)) . '>' . $eol;
 				$message .= 'X-Attachment-Id: ' . urlencode(basename($attachment)) . $eol . $eol;
@@ -78,9 +95,9 @@ class Mail {
 		ini_set('sendmail_from', $this->from);
 
 		if ($this->parameter) {
-			mail($to, '=?UTF-8?B?' . base64_encode($this->subject) . '?=', $message, $header, $this->parameter);
+			return mail($to, '=?UTF-8?B?' . base64_encode($this->subject) . '?=', $message, $header, $this->parameter);
 		} else {
-			mail($to, '=?UTF-8?B?' . base64_encode($this->subject) . '?=', $message, $header);
+			return mail($to, '=?UTF-8?B?' . base64_encode($this->subject) . '?=', $message, $header);
 		}
 	}
 }

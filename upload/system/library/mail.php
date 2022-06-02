@@ -11,6 +11,7 @@
 * Mail class
 */
 class Mail {
+	private $adapter;
 	protected $to;
 	protected $from;
 	protected $sender;
