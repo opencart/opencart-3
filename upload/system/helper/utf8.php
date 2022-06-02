@@ -14,8 +14,8 @@ if (extension_loaded('mbstring')) {
 		return mb_strrpos($string, $needle, $offset);
 	}
 
-	function utf8_substr($string, $offset, $length = null) {
-		if ($length === null) {
+	function utf8_substr($string, $offset, $length = 0) {
+		if ($length == 0) {
 			return mb_substr($string, $offset, utf8_strlen($string));
 		} else {
 			return mb_substr($string, $offset, $length);
@@ -42,8 +42,8 @@ if (extension_loaded('mbstring')) {
 		return iconv_strrpos($string, $needle, 'UTF-8');
 	}
 
-	function utf8_substr($string, $offset, $length = null) {
-		if ($length === null) {
+	function utf8_substr($string, $offset, $length = 0) {
+		if ($length == 0) {
 			return iconv_substr($string, $offset, utf8_strlen($string), 'UTF-8');
 		} else {
 			return iconv_substr($string, $offset, $length, 'UTF-8');
@@ -186,8 +186,6 @@ if (extension_loaded('mbstring')) {
 				0x040C => 0x045C,
 				0x041F => 0x043F,
 				0x042C => 0x044C,
-				0x00DE => 0x00FE,
-				0x00D0 => 0x00F0,
 				0x1EF2 => 0x1EF3,
 				0x0048 => 0x0068,
 				0x00CB => 0x00EB,
@@ -246,7 +244,6 @@ if (extension_loaded('mbstring')) {
 				0x0106 => 0x0107,
 				0x03AB => 0x03CB,
 				0x0426 => 0x0446,
-				0x00DE => 0x00FE,
 				0x00C7 => 0x00E7,
 				0x03AA => 0x03CA,
 				0x0421 => 0x0441,
@@ -260,13 +257,10 @@ if (extension_loaded('mbstring')) {
 				0x040B => 0x045B,
 				0x0406 => 0x0456,
 				0x0102 => 0x0103,
-				0x039B => 0x03BB,
 				0x00D1 => 0x00F1,
 				0x041D => 0x043D,
 				0x038C => 0x03CC,
 				0x00C9 => 0x00E9,
-				0x00D0 => 0x00F0,
-				0x0407 => 0x0457,
 				0x0122 => 0x0123
 			);
 		}
@@ -422,8 +416,6 @@ if (extension_loaded('mbstring')) {
 				0x045C => 0x040C,
 				0x043F => 0x041F,
 				0x044C => 0x042C,
-				0x00FE => 0x00DE,
-				0x00F0 => 0x00D0,
 				0x1EF3 => 0x1EF2,
 				0x0068 => 0x0048,
 				0x00EB => 0x00CB,
@@ -482,7 +474,6 @@ if (extension_loaded('mbstring')) {
 				0x0107 => 0x0106,
 				0x03CB => 0x03AB,
 				0x0446 => 0x0426,
-				0x00FE => 0x00DE,
 				0x00E7 => 0x00C7,
 				0x03CA => 0x03AA,
 				0x0441 => 0x0421,
@@ -496,13 +487,10 @@ if (extension_loaded('mbstring')) {
 				0x045B => 0x040B,
 				0x0456 => 0x0406,
 				0x0103 => 0x0102,
-				0x03BB => 0x039B,
 				0x00F1 => 0x00D1,
 				0x043D => 0x041D,
 				0x03CC => 0x038C,
 				0x00E9 => 0x00C9,
-				0x00F0 => 0x00D0,
-				0x0457 => 0x0407,
 				0x0123 => 0x0122
 			);
 		}
@@ -577,7 +565,7 @@ if (extension_loaded('mbstring')) {
 			}
 
 			if ($unicode[$i] >= 2097152 && $unicode[$i] <= 67108863) {
-				$string  .= chr(($unicode[$i] / 16777216) + 248) . chr((($unicode[$i] / 262144) % 64) + 128) . chr((($unicode[$i] / 4096) % 64) + 128) . chr((($unicode[$i] / 64) % 64) + 128) . chr(($unicode[$i] % 64) + 128);
+				$string .= chr(($unicode[$i] / 16777216) + 248) . chr((($unicode[$i] / 262144) % 64) + 128) . chr((($unicode[$i] / 4096) % 64) + 128) . chr((($unicode[$i] / 64) % 64) + 128) . chr(($unicode[$i] % 64) + 128);
 			}
 
 			if ($unicode[$i] >= 67108864 && $unicode[$i] <= 2147483647) {
