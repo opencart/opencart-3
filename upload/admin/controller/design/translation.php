@@ -341,13 +341,15 @@ class ControllerDesignTranslation extends Controller {
 			while (count($path) != 0) {
 				$next = array_shift($path);
 
-				foreach ((array)glob($next) as $file) {
-					if (is_dir($file)) {
-						$path[] = $file . '/*';
-					}
+				if (is_dir($next)) {
+					foreach (glob(trim($next, '/') . '/{*,.[!.]*,..?*}', GLOB_BRACE) as $file) {
+						if (is_dir($file)) {
+							$path[] = $file . '/*';
+						}
 
-					if (substr($file, -4) == '.php') {
-						$data['paths'][] = substr(substr($file, strlen(DIR_CATALOG . 'language/' . $code . '/')), 0, -4);
+						if (substr($file, -4) == '.php') {
+							$data['paths'][] = substr(substr($file, strlen(DIR_CATALOG . 'language/' . $code . '/')), 0, -4);
+						}
 					}
 				}
 			}
