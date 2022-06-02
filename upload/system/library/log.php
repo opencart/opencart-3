@@ -11,15 +11,16 @@
 * Log class
 */
 class Log {
-	private $handle;
-	
+	private $file;
+	private $message = '';
+
 	/**
 	 * Constructor
 	 *
 	 * @param	string	$filename
  	*/
 	public function __construct($filename) {
-		$this->handle = fopen(DIR_LOGS . $filename, 'a');
+		$this->file = DIR_LOGS . $filename;
 	}
 	
 	/**
@@ -28,7 +29,7 @@ class Log {
      * @param	string	$message
      */
 	public function write($message) {
-		fwrite($this->handle, date('Y-m-d G:i:s') . ' - ' . print_r($message, true) . "\n");
+		$this->message .= date('Y-m-d G:i:s') . ' - ' . print_r($message, true) . "\n";
 	}
 	
 	/**
@@ -36,6 +37,6 @@ class Log {
      *
      */
 	public function __destruct() {
-		fclose($this->handle);
+		if (is_file($this->file)) file_put_contents($this->file, $this->message, FILE_APPEND);
 	}
 }
