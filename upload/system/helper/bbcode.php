@@ -62,7 +62,7 @@ function bbcode_decode($string) {
 	
 	// YouTube
 	$pattern[9] = '/\[youtube\](.*?)\[\/youtube\]/is';
-	$replace[9] = '<iframe width="560" height="315" src="http://www.youtube.com/embed/$1" frameborder="0" allowfullscreen></iframe>';
+	$replace[9] = '<iframe width="560" height="315" src="http://www.youtube.com/embed/$1" allowfullscreen></iframe>';
 		
     $string = preg_replace($pattern, $replace, $string);  
 	   
