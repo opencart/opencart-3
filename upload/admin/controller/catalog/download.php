@@ -354,6 +354,7 @@ class ControllerCatalogDownload extends Controller {
 	}
 
 	protected function validateForm() {
+		// Check user has permission
 		if (!$this->user->hasPermission('modify', 'catalog/download')) {
 			$this->error['warning'] = $this->language->get('error_permission');
 		}

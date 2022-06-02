@@ -657,6 +657,7 @@ class ControllerCatalogProduct extends Controller {
 			$data['location'] = '';
 		}
 
+		// Stores
 		$this->load->model('setting/store');
 
 		$data['stores'] = array();
@@ -699,6 +700,7 @@ class ControllerCatalogProduct extends Controller {
 			$data['price'] = '';
 		}
 
+		// Recurring
 		$this->load->model('catalog/recurring');
 
 		$data['recurrings'] = $this->model_catalog_recurring->getRecurrings();
@@ -711,6 +713,7 @@ class ControllerCatalogProduct extends Controller {
 			$data['product_recurrings'] = array();
 		}
 
+		// Tax Classes
 		$this->load->model('localisation/tax_class');
 
 		$data['tax_classes'] = $this->model_localisation_tax_class->getTaxClasses();
@@ -763,6 +766,7 @@ class ControllerCatalogProduct extends Controller {
 			$data['sort_order'] = 1;
 		}
 
+		// Stock Statuses
 		$this->load->model('localisation/stock_status');
 
 		$data['stock_statuses'] = $this->model_localisation_stock_status->getStockStatuses();
@@ -791,6 +795,7 @@ class ControllerCatalogProduct extends Controller {
 			$data['weight'] = '';
 		}
 
+		// Weight Classes
 		$this->load->model('localisation/weight_class');
 
 		$data['weight_classes'] = $this->model_localisation_weight_class->getWeightClasses();
@@ -827,6 +832,7 @@ class ControllerCatalogProduct extends Controller {
 			$data['height'] = '';
 		}
 
+		// Length Classes
 		$this->load->model('localisation/length_class');
 
 		$data['length_classes'] = $this->model_localisation_length_class->getLengthClasses();
@@ -839,6 +845,7 @@ class ControllerCatalogProduct extends Controller {
 			$data['length_class_id'] = $this->config->get('config_length_class_id');
 		}
 
+		// Manufacturers
 		$this->load->model('catalog/manufacturer');
 
 		if (isset($this->request->post['manufacturer_id'])) {
@@ -990,10 +997,12 @@ class ControllerCatalogProduct extends Controller {
 			}
 		}
 
+		// Customer Groups
 		$this->load->model('customer/customer_group');
 
 		$data['customer_groups'] = $this->model_customer_customer_group->getCustomerGroups();
-
+		
+		// Product Discounts
 		if (isset($this->request->post['product_discount'])) {
 			$product_discounts = $this->request->post['product_discount'];
 		} elseif (isset($this->request->get['product_id'])) {
@@ -1015,6 +1024,7 @@ class ControllerCatalogProduct extends Controller {
 			);
 		}
 
+		// Product Specials
 		if (isset($this->request->post['product_special'])) {
 			$product_specials = $this->request->post['product_special'];
 		} elseif (isset($this->request->get['product_id'])) {
@@ -1107,6 +1117,7 @@ class ControllerCatalogProduct extends Controller {
 			}
 		}
 
+		// Related
 		if (isset($this->request->post['product_related'])) {
 			$products = $this->request->post['product_related'];
 		} elseif (isset($this->request->get['product_id'])) {
@@ -1127,7 +1138,8 @@ class ControllerCatalogProduct extends Controller {
 				);
 			}
 		}
-
+		
+		// Points
 		if (isset($this->request->post['points'])) {
 			$data['points'] = $this->request->post['points'];
 		} elseif (!empty($product_info)) {
@@ -1136,6 +1148,7 @@ class ControllerCatalogProduct extends Controller {
 			$data['points'] = '';
 		}
 
+		// Rewards
 		if (isset($this->request->post['product_reward'])) {
 			$data['product_reward'] = $this->request->post['product_reward'];
 		} elseif (isset($this->request->get['product_id'])) {
@@ -1144,6 +1157,7 @@ class ControllerCatalogProduct extends Controller {
 			$data['product_reward'] = array();
 		}
 
+		// SEO
 		if (isset($this->request->post['product_seo_url'])) {
 			$data['product_seo_url'] = $this->request->post['product_seo_url'];
 		} elseif (isset($this->request->get['product_id'])) {
@@ -1160,6 +1174,7 @@ class ControllerCatalogProduct extends Controller {
 			$data['product_layout'] = array();
 		}
 
+		// Layouts
 		$this->load->model('design/layout');
 
 		$data['layouts'] = $this->model_design_layout->getLayouts();
