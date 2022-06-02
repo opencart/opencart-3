@@ -104,14 +104,16 @@ class ModelUpgrade1006 extends Model {
 				while (count($path) != 0) {
 					$next = array_shift($path);
 
-					foreach (glob($next) as $file) {
-						// If directory add to path array
-						if (is_dir($file)) {
-							$path[] = $file . '/*';
-						}
+					if (is_dir($next)) {
+						foreach (glob(trim($next, '/') . '/{*,.[!.]*,..?*}', GLOB_BRACE) as $file) {
+							// If directory add to path array
+							if (is_dir($file)) {
+								$path[] = $file . '/*';
+							}
 
-						// Add the file to the files to be deleted array
-						$files[] = $file;
+							// Add the file to the files to be deleted array
+							$files[] = $file;
+						}
 					}
 
 					// Reverse sort the file array
