@@ -215,7 +215,7 @@ class ControllerExtensionPaymentBluePayHosted extends Controller {
 				
 				$json['data'] = array();
 				
-				$json['data']['date_added'] = date("Y-m-d H:i:s");
+				$json['data']['date_added'] = date('Y-m-d H:i:s');
 				$json['data']['total'] = $bluepay_hosted_order['total'];
 				
 				$json['error'] = false;
@@ -269,7 +269,7 @@ class ControllerExtensionPaymentBluePayHosted extends Controller {
 
 				$json['data'] = array();
 				
-				$json['data']['date_added'] = date("Y-m-d H:i:s");
+				$json['data']['date_added'] = date('Y-m-d H:i:s');
 				$json['data']['amount'] = $this->request->post['amount'];
 				$json['data']['release_status'] = $release_status;
 				$json['data']['total'] = (float)$total_released;
@@ -324,7 +324,7 @@ class ControllerExtensionPaymentBluePayHosted extends Controller {
 
 				$json['data'] = array();
 				
-				$json['data']['date_added'] = date("Y-m-d H:i:s");
+				$json['data']['date_added'] = date('Y-m-d H:i:s');
 				$json['data']['amount'] = $this->request->post['amount'] * -1;
 				$json['data']['total_released'] = (float)$total_released;
 				$json['data']['total_rebated'] = (float)$total_rebated;

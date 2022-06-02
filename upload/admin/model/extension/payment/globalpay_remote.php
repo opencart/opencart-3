@@ -37,7 +37,7 @@ class ModelExtensionPaymentGlobalpayRemote extends Model {
 		$globalpay_order = $this->getOrder($order_id);
 
 		if (!empty($globalpay_order)) {
-			$timestamp = date("YmdHis");
+			$timestamp = date('YmdHis');
 			$merchant_id = $this->config->get('payment_globalpay_remote_merchant_id');
 			$secret = $this->config->get('payment_globalpay_remote_secret');
 
@@ -87,7 +87,7 @@ class ModelExtensionPaymentGlobalpayRemote extends Model {
 		$globalpay_order = $this->getOrder($order_id);
 
 		if (!empty($globalpay_order) && $globalpay_order['capture_status'] == 0) {
-			$timestamp = date("YmdHis");
+			$timestamp = date('YmdHis');
 			$merchant_id = $this->config->get('payment_globalpay_remote_merchant_id');
 			$secret = $this->config->get('payment_globalpay_remote_secret');
 
@@ -158,7 +158,7 @@ class ModelExtensionPaymentGlobalpayRemote extends Model {
 		$globalpay_order = $this->getOrder($order_id);
 
 		if (!empty($globalpay_order) && $globalpay_order['rebate_status'] != 1) {
-			$timestamp = date("YmdHis");
+			$timestamp = date('YmdHis');
 			$merchant_id = $this->config->get('payment_globalpay_remote_merchant_id');
 			$secret = $this->config->get('payment_globalpay_remote_secret');
 

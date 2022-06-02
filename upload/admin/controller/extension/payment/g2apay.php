@@ -246,7 +246,7 @@ class ControllerExtensionPaymentG2APay extends Controller {
 
 				$json['data'] = array();
 				
-				$json['data']['date_added'] = date("Y-m-d H:i:s");
+				$json['data']['date_added'] = date('Y-m-d H:i:s');
 				$json['data']['amount'] = $this->currency->format(($this->request->post['amount'] * -1), $payment_g2apay_order['currency_code'], false);
 				$json['data']['total_released'] = (float)$total_released;
 				$json['data']['total_refunded'] = (float)$total_refunded;

@@ -1007,8 +1007,8 @@ class ControllerExtensionPaymentPPExpress extends Controller {
 
 		$data['default_currency'] = $this->config->get('payment_pp_express_currency');
 
-		$data['date_start'] = date("Y-m-d", strtotime('-30 days'));
-		$data['date_end'] = date("Y-m-d");
+		$data['date_start'] = date('Y-m-d', strtotime('-30 days'));
+		$data['date_end'] = date('Y-m-d');
 		$data['view_link'] = $this->url->link('extension/payment/pp_express/info', 'user_token=' . $this->session->data['user_token'], true);
 
 		$data['header'] = $this->load->controller('common/header');

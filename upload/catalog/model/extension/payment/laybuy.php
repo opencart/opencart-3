@@ -204,7 +204,7 @@ class ModelExtensionPaymentLaybuy extends Model {
 		);
 
 		for ($month = 1; $month <= $months; $month++) {
-			$date = date("Y-m-d h:i:s", strtotime($data['first_payment_due'] . " +" . ($month -1) . " month"));
+			$date = date('Y-m-d h:i:s', strtotime($data['first_payment_due'] . ' +' . ($month -1) . ' month'));
 			$date = date($this->language->get('date_format_short'), strtotime($date));
 
 			$report_content[] = array(

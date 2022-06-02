@@ -80,7 +80,7 @@ class ModelExtensionPaymentGlobalpayRemote extends Model {
 	public function enrollmentSignature($account, $amount, $currency, $order_ref, $card_number, $card_expire, $card_type, $card_name, $pares) {
 		$this->load->model('checkout/order');
 
-		$timestamp = date("YmdHis");
+		$timestamp = date('YmdHis');
 		$merchant_id = $this->config->get('payment_globalpay_remote_merchant_id');
 		$secret = $this->config->get('payment_globalpay_remote_secret');
 

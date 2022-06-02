@@ -101,7 +101,7 @@ class ControllerExtensionPaymentWorldpay extends Controller {
 					$card_data['customer_id'] = $this->customer->getId();
 					$card_data['Token'] = $response->token;
 					$card_data['Last4Digits'] = (string)$response->paymentMethod->maskedCardNumber;
-					$card_data['ExpiryDate'] = date("m/y", $expiry_date);
+					$card_data['ExpiryDate'] = date('m/y', $expiry_date);
 					$card_data['CardType'] = (string)$response->paymentMethod->cardType;
 					$this->model_extension_payment_worldpay->addCard($this->session->data['order_id'], $card_data);
 				}

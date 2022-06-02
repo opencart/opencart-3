@@ -431,7 +431,7 @@ class ControllerExtensionPaymentAmazonLoginPay extends Controller {
 				
 				$json['data'] = array();
 				
-				$json['data']['date_added'] = date("Y-m-d H:i:s");
+				$json['data']['date_added'] = date('Y-m-d H:i:s');
 				$json['data']['type'] = 'cancel';
 				$json['data']['status'] = $cancel_response['status'];
 				$json['data']['amount'] = $this->currency->format(0.00, $amazon_login_pay_order['currency_code'], true, true);
@@ -495,7 +495,7 @@ class ControllerExtensionPaymentAmazonLoginPay extends Controller {
 
 				$json['data'] = array();
 				
-				$json['data']['date_added'] = date("Y-m-d H:i:s");
+				$json['data']['date_added'] = date('Y-m-d H:i:s');
 				$json['data']['type'] = 'capture';
 				$json['data']['status'] = $capture_response['status'];
 				$json['data']['amazon_authorization_id'] = $capture_response['AmazonAuthorizationId'];
@@ -559,7 +559,7 @@ class ControllerExtensionPaymentAmazonLoginPay extends Controller {
 					
 					$post_data = array();
 
-					$post_data['date_added'] = date("Y-m-d H:i:s");
+					$post_data['date_added'] = date('Y-m-d H:i:s');
 					$post_data['type'] = 'refund';
 					$post_data['status'] = $response['status'];
 					$post_data['amazon_authorization_id'] = $response['amazon_authorization_id'];

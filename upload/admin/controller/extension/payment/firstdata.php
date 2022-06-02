@@ -221,7 +221,7 @@ class ControllerExtensionPaymentFirstdata extends Controller {
 				$data['currency'] = $this->model_extension_payment_firstdata->mapCurrency($firstdata_order['currency_code']);
 				$data['amount'] = number_format($firstdata_order['total'], 2);
 
-				$data['request_timestamp'] = date("Y:m:d-H:i:s");
+				$data['request_timestamp'] = date('Y:m:d-H:i:s');
 
 				$data['hash'] = sha1(bin2hex($data['merchant_id'] . $data['request_timestamp'] . $data['amount'] . $data['currency'] . $this->config->get('payment_firstdata_secret')));
 

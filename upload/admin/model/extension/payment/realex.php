@@ -37,7 +37,7 @@ class ModelExtensionPaymentRealex extends Model {
 		$realex_order = $this->getOrder($order_id);
 
 		if (!empty($realex_order)) {
-			$timestamp = date("YmdHis");
+			$timestamp = date('YmdHis');
 			$merchant_id = $this->config->get('payment_realex_merchant_id');
 			$secret = $this->config->get('payment_realex_secret');
 
@@ -87,7 +87,7 @@ class ModelExtensionPaymentRealex extends Model {
 		$realex_order = $this->getOrder($order_id);
 
 		if (!empty($realex_order) && $realex_order['capture_status'] == 0) {
-			$timestamp = date("YmdHis");
+			$timestamp = date('YmdHis');
 			$merchant_id = $this->config->get('payment_realex_merchant_id');
 			$secret = $this->config->get('payment_realex_secret');
 
@@ -159,7 +159,7 @@ class ModelExtensionPaymentRealex extends Model {
 		$realex_order = $this->getOrder($order_id);
 
 		if (!empty($realex_order) && $realex_order['rebate_status'] != 1) {
-			$timestamp = date("YmdHis");
+			$timestamp = date('YmdHis');
 			$merchant_id = $this->config->get('payment_realex_merchant_id');
 			$secret = $this->config->get('payment_realex_secret');
 

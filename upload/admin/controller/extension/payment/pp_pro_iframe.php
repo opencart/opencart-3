@@ -481,7 +481,7 @@ class ControllerExtensionPaymentPPProIframe extends Controller {
 
 				$this->model_extension_payment_pp_pro_iframe->addTransaction($transaction);
 
-				$transaction['date_added'] = date("Y-m-d H:i:s");
+				$transaction['date_added'] = date('Y-m-d H:i:s');
 
 				$json['data'] = $transaction;
 				
@@ -599,7 +599,7 @@ class ControllerExtensionPaymentPPProIframe extends Controller {
 
 				$json['failed_transaction']['paypal_iframe_order_transaction_id'] = $paypal_iframe_order_transaction_id;
 				$json['failed_transaction']['amount'] = $transaction['amount'];
-				$json['failed_transaction']['date_added'] = date("Y-m-d H:i:s");
+				$json['failed_transaction']['date_added'] = date('Y-m-d H:i:s');
 
 				$json['msg'] = $this->language->get('error_timeout');
 			} elseif (isset($result['ACK']) && $result['ACK'] != 'Failure' && $result['ACK'] != 'FailureWithWarning') {
@@ -613,7 +613,7 @@ class ControllerExtensionPaymentPPProIframe extends Controller {
 
 				unset($transaction['debug_data']);
 				
-				$transaction['date_added'] = date("Y-m-d H:i:s");
+				$transaction['date_added'] = date('Y-m-d H:i:s');
 
 				$captured = number_format($this->model_extension_payment_pp_pro_iframe->getTotalCaptured($paypal_order['paypal_iframe_order_id']), 2);
 				$refunded = number_format($this->model_extension_payment_pp_pro_iframe->getTotalRefunded($paypal_order['paypal_iframe_order_id']), 2);
@@ -650,7 +650,7 @@ class ControllerExtensionPaymentPPProIframe extends Controller {
 					$this->model_extension_payment_pp_pro_iframe->addTransaction($transaction['void']);
 					$this->model_extension_payment_pp_pro_iframe->updateOrder('Complete', $this->request->post['order_id']);
 					
-					$transaction['void']['date_added'] = date("Y-m-d H:i:s");
+					$transaction['void']['date_added'] = date('Y-m-d H:i:s');
 					$transaction['status'] = 1;
 				}
 
@@ -710,7 +710,7 @@ class ControllerExtensionPaymentPPProIframe extends Controller {
 
 				unset($transaction['debug_data']);
 				
-				$transaction['date_added'] = date("Y-m-d H:i:s");
+				$transaction['date_added'] = date('Y-m-d H:i:s');
 
 				$json['data'] = $transaction;
 				

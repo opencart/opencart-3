@@ -405,7 +405,7 @@ class ControllerExtensionPaymentSecureTradingWs extends Controller {
 
 					$json['msg'] = $this->language->get('text_authorisation_reversed');
 					
-					$json['data']['created'] = date("Y-m-d H:i:s");
+					$json['data']['created'] = date('Y-m-d H:i:s');
 					
 					$json['error'] = false;
 				}
@@ -475,7 +475,7 @@ class ControllerExtensionPaymentSecureTradingWs extends Controller {
 
 					$json['data'] = array();
 					
-					$json['data']['created'] = date("Y-m-d H:i:s");
+					$json['data']['created'] = date('Y-m-d H:i:s');
 					$json['data']['amount'] = $amount;
 					$json['data']['release_status'] = $release_status;
 					$json['data']['total'] = (double)$total_released;
@@ -552,7 +552,7 @@ class ControllerExtensionPaymentSecureTradingWs extends Controller {
 
 					$json['data'] = array();
 					
-					$json['data']['created'] = date("Y-m-d H:i:s");
+					$json['data']['created'] = date('Y-m-d H:i:s');
 					$json['data']['amount'] = $amount * -1;
 					$json['data']['total_released'] = (double)$total_released;
 					$json['data']['total_rebated'] = (double)$total_rebated;

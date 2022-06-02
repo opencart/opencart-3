@@ -583,7 +583,7 @@ class ControllerExtensionPaymentLaybuy extends Controller {
 
 						if ($month < $months) {
 							for ($month = 1; $month <= $months; $month++) {
-								$next_payment_date = date("Y-m-d h:i:s", strtotime($next_payment_date . " +1 month"));
+								$next_payment_date = date('Y-m-d h:i:s', strtotime($next_payment_date . ' +1 month'));
 								$date = date($this->language->get('date_format_short'), strtotime($next_payment_date));
 
 								$report_content[] = array(

@@ -364,7 +364,7 @@ class ControllerExtensionPaymentFirstdataRemote extends Controller {
 				
 				$json['data'] = array();
 				
-				$json['data']['column_date_added'] = date("Y-m-d H:i:s");
+				$json['data']['column_date_added'] = date('Y-m-d H:i:s');
 				$json['data']['amount'] = (float)$firstdata_order['total'];
 				$json['data']['capture_status'] = $capture_status;
 				$json['data']['total'] = (float)$total_captured;
@@ -421,7 +421,7 @@ class ControllerExtensionPaymentFirstdataRemote extends Controller {
 
 				$json['data'] = array();
 				
-				$json['data']['column_date_added'] = date("Y-m-d H:i:s");
+				$json['data']['column_date_added'] = date('Y-m-d H:i:s');
 				$json['data']['amount'] = $firstdata_order['total'] * -1;
 				$json['data']['total_captured'] = (float)$total_captured;
 				$json['data']['total_refunded'] = (float)$total_refunded;

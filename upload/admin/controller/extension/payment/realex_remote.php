@@ -246,7 +246,7 @@ class ControllerExtensionPaymentRealexRemote extends Controller {
 				
 				$json['data'] = array();
 				
-				$json['data']['date_added'] = date("Y-m-d H:i:s");
+				$json['data']['date_added'] = date('Y-m-d H:i:s');
 				
 				$json['error'] = false;
 			} else {
@@ -299,7 +299,7 @@ class ControllerExtensionPaymentRealexRemote extends Controller {
 
 				$json['data'] = array();
 				
-				$json['data']['date_added'] = date("Y-m-d H:i:s");
+				$json['data']['date_added'] = date('Y-m-d H:i:s');
 				$json['data']['amount'] = (float)$this->request->post['amount'];
 				$json['data']['capture_status'] = $capture_status;
 				$json['data']['total'] = (float)$total_captured;
@@ -353,7 +353,7 @@ class ControllerExtensionPaymentRealexRemote extends Controller {
 
 				$json['data'] = array();
 				
-				$json['data']['date_added'] = date("Y-m-d H:i:s");
+				$json['data']['date_added'] = date('Y-m-d H:i:s');
 				$json['data']['amount'] = $this->request->post['amount'] * -1;
 				$json['data']['total_captured'] = (float)$total_captured;
 				$json['data']['total_rebated'] = (float)$total_rebated;

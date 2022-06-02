@@ -108,7 +108,7 @@ class ModelExtensionPaymentAlipay extends Model {
 		$sysParams['format'] = $this->format;
 		$sysParams['sign_type'] = $this->signtype;
 		$sysParams['method'] = $this->apiMethodName;
-		$sysParams['timestamp'] = date("Y-m-d H:i:s");
+		$sysParams['timestamp'] = date('Y-m-d H:i:s');
 		$sysParams['alipay_sdk'] = $this->alipaySdkVersion;
 		$sysParams['notify_url'] = $this->notifyUrl;
 		$sysParams['return_url'] = $this->returnUrl;
