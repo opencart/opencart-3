@@ -1,14 +1,14 @@
 <?php
 namespace Mail;
 class Mail {							
-	protected string $to = '';
-	protected string $from = '';
-	protected string $sender = '';
-	protected string $reply_to = '';
-	protected string $subject = '';
-	protected string $text = '';
-	protected string $html = '';
-	protected array $attachments = [];
+	protected $to;
+	protected $from;
+	protected $sender;
+	protected $reply_to;
+	protected $subject;
+	protected $text;
+	protected $html;
+	protected $attachments;
 	protected string $parameter;
 
 	public function __construct(array $args) {

@@ -1,21 +1,21 @@
 <?php
 namespace Mail;
 class Smtp {
-protected string $to = '';
-	protected string $from = '';
-	protected string $sender = '';
-	protected string $reply_to = '';
-	protected string $subject = '';
-	protected string $text = '';
-	protected string $html = '';
-	protected array $attachments = [];
-	protected string $smtp_hostname = '';
-	protected string $smtp_username = '';
-	protected string $smtp_password = '';
-	protected int $smtp_port = 25;
-	protected int $smtp_timeout = 5;
-	protected int $max_attempts = 3;
-	protected bool $verp = false;
+	protected $to;
+	protected $from;
+	protected $sender;
+	protected $reply_to;
+	protected $subject;
+	protected $text;
+	protected $html;
+	protected $attachments;
+	protected $smtp_hostname;
+	protected $smtp_username;
+	protected $smtp_password;
+	protected $smtp_port = 25;
+	protected $smtp_timeout = 5;
+	protected $max_attempts = 3;
+	protected $verp = false;
 
 	public function __construct(array $args) {
 		foreach ($args as $key => $value) {
