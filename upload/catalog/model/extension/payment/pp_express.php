@@ -109,12 +109,14 @@ class ModelExtensionPaymentPPExpress extends Model {
 
 			if ($this->config->get('config_cart_weight')) {
 				$weight = $this->weight->convert($item['weight'], $item['weight_class_id'], $this->config->get('config_weight_class_id'));
+				
 				$data['L_PAYMENTREQUEST_0_ITEMWEIGHTVALUE' . $i] = number_format($weight / $item['quantity'], 2, '.', '');
 				$data['L_PAYMENTREQUEST_0_ITEMWEIGHTUNIT' . $i] = $this->weight->getUnit($this->config->get('config_weight_class_id'));
 			}
 
 			if ($item['length'] > 0 || $item['width'] > 0 || $item['height'] > 0) {
 				$unit = $this->length->getUnit($item['length_class_id']);
+				
 				$data['L_PAYMENTREQUEST_0_ITEMLENGTHVALUE' . $i] = $item['length'];
 				$data['L_PAYMENTREQUEST_0_ITEMLENGTHUNIT' . $i] = $unit;
 				$data['L_PAYMENTREQUEST_0_ITEMWIDTHVALUE' . $i] = $item['width'];
@@ -135,6 +137,7 @@ class ModelExtensionPaymentPPExpress extends Model {
 				$data['L_PAYMENTREQUEST_0_NUMBER' . $i] = 'VOUCHER';
 				$data['L_PAYMENTREQUEST_0_QTY' . $i] = 1;
 				$data['L_PAYMENTREQUEST_0_AMT' . $i] = $this->currency->format($voucher['amount'], $this->session->data['currency'], false, false);
+				
 				$i++;
 			}
 		}
@@ -194,6 +197,7 @@ class ModelExtensionPaymentPPExpress extends Model {
 					$data['L_PAYMENTREQUEST_0_QTY' . $i] = 1;
 
 					$item_total = $item_total + $item_price;
+					
 					$i++;
 				}
 			}
@@ -285,17 +289,17 @@ class ModelExtensionPaymentPPExpress extends Model {
 		$this->log($data, 'Call data');
 
 		$defaults = array(
-			CURLOPT_POST => 1,
-			CURLOPT_HEADER => 0,
-			CURLOPT_URL => $api_url,
-			CURLOPT_USERAGENT => "Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US; rv:1.8.1.1) Gecko/20061204 Firefox/2.0.0.1",
-			CURLOPT_FRESH_CONNECT => 1,
-			CURLOPT_RETURNTRANSFER => 1,
-			CURLOPT_FORBID_REUSE => 1,
-			CURLOPT_TIMEOUT => 0,
-			CURLOPT_SSL_VERIFYPEER => 0,
-			CURLOPT_SSL_VERIFYHOST => 0,
-			CURLOPT_POSTFIELDS => http_build_query(array_merge($data, $settings), '', "&"),
+			CURLOPT_POST 			=> 1,
+			CURLOPT_HEADER 			=> 0,
+			CURLOPT_URL 			=> $api_url,
+			CURLOPT_USERAGENT 		=> "Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US; rv:1.8.1.1) Gecko/20061204 Firefox/2.0.0.1",
+			CURLOPT_FRESH_CONNECT 	=> 1,
+			CURLOPT_RETURNTRANSFER 	=> 1,
+			CURLOPT_FORBID_REUSE 	=> 1,
+			CURLOPT_TIMEOUT 		=> 0,
+			CURLOPT_SSL_VERIFYPEER 	=> 0,
+			CURLOPT_SSL_VERIFYHOST 	=> 0,
+			CURLOPT_POSTFIELDS 		=> http_build_query(array_merge($data, $settings), '', "&"),
 		);
 
 		$ch = curl_init();
@@ -323,12 +327,12 @@ class ModelExtensionPaymentPPExpress extends Model {
 
 	public function createToken($len = 32) {
 		$base = 'ABCDEFGHKLMNOPQRSTWXYZabcdefghjkmnpqrstwxyz123456789';
-		$max = strlen($base)-1;
+		$max = strlen($base) - 1;
 		$activate_code = '';
 		
-		mt_srand((float)microtime()*1000000);
+		mt_srand((float)microtime() * 1000000);
 
-		while (strlen($activate_code)<$len+1) {
+		while (strlen($activate_code) < $len + 1) {
 			$activate_code .= $base[mt_rand(0, $max)];
 		}
 
@@ -346,7 +350,7 @@ class ModelExtensionPaymentPPExpress extends Model {
 
 		$arr = array();
 
-		foreach ($data as $k=>$v) {
+		foreach ($data as $k => $v) {
 			$tmp = explode('=', $v);
 			$arr[$tmp[0]] = isset($tmp[1]) ? urldecode($tmp[1]) : '';
 		}

@@ -99,7 +99,7 @@ function get_options($argv) {
 			throw new \Exception($argv[$i] . ' found in command line args instead of a valid option name starting with \'--\'');
 		}
 		
-		$options[$match[1]] = $argv[$i+1];
+		$options[$match[1]] = $argv[$i + 1];
 	}
 	
 	return array_merge($defaults, $options);

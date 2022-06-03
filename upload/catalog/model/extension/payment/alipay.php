@@ -195,7 +195,7 @@ class ModelExtensionPaymentAlipay extends Model {
 			}
 		}
 
-		unset ($k, $v);
+		unset($k, $v);
 		
 		return $stringToBeSigned;
 	}
