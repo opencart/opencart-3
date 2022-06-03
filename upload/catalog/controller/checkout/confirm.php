@@ -48,7 +48,6 @@ class ControllerCheckoutConfirm extends Controller {
 
 			if ($product['minimum'] > $product_total) {
 				$redirect = $this->url->link('checkout/cart');
-
 				break;
 			}
 		}

@@ -6,7 +6,6 @@ class ModelExtensionModuleLaybuyLayout extends Model {
 		foreach ($statuses as $status) {
 			if ($status['status_id'] == $id && $status['status_name'] != '') {
 				return $status['status_name'];
-
 				break;
 			}
 		}

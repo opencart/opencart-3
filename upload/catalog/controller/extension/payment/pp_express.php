@@ -302,7 +302,6 @@ class ControllerExtensionPaymentPPExpress extends Controller {
 						$this->session->data['shipping_country_id'] = $address['country_id'];
 						$this->session->data['shipping_zone_id'] = $address['zone_id'];
 						$this->session->data['shipping_postcode'] = $address['postcode'];
-
 						break;
 					}
 				}
@@ -806,7 +805,6 @@ class ControllerExtensionPaymentPPExpress extends Controller {
 
 			if ($product['minimum'] > $product_total) {
 				$redirect = $this->url->link('checkout/cart');
-
 				break;
 			}
 		}

@@ -358,7 +358,6 @@ class ControllerCommonFileManager extends Controller {
 			// Check path exists
 			if ($path == DIR_IMAGE . 'catalog' || substr(str_replace('\\', '/', realpath(DIR_IMAGE . $path)), 0, strlen(DIR_IMAGE . 'catalog')) != str_replace('\\', '/', DIR_IMAGE . 'catalog')) {
 				$json['error'] = $this->language->get('error_delete');
-
 				break;
 			}
 		}

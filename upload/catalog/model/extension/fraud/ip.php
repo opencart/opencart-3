@@ -13,7 +13,6 @@ class ModelExtensionFraudIp extends Model {
 
                 if ($query->num_rows) {
                     $status = true;
-
                     break;
                 }
             }

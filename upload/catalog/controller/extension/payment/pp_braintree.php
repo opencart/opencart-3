@@ -40,7 +40,6 @@ class ControllerExtensionPaymentPPBraintree extends Controller {
 					$create_token['merchantAccountId'] = $merchant_account['merchant_account_id'];
 
 					$merchant_id = $merchant_account['merchant_account_id'];
-
 					break;
 				}
 			}
@@ -694,7 +693,6 @@ class ControllerExtensionPaymentPPBraintree extends Controller {
 						$this->session->data['shipping_country_id'] = $address['country_id'];
 						$this->session->data['shipping_zone_id'] = $address['zone_id'];
 						$this->session->data['shipping_postcode'] = $address['postcode'];
-
 						break;
 					}
 				}
@@ -1205,7 +1203,6 @@ class ControllerExtensionPaymentPPBraintree extends Controller {
 
 			if ($product['minimum'] > $product_total) {
 				$redirect = $this->url->link('checkout/cart');
-
 				break;
 			}
 		}

@@ -171,7 +171,6 @@ class ModelUpgrade1001 extends Model {
 				foreach ($lines as $line) {
 					if (strpos($line, 'DIR_MODIFICATION') !== false) {
 						$upgrade = false;
-
 						break;
 					}
 				}
@@ -206,7 +205,6 @@ class ModelUpgrade1001 extends Model {
 				foreach ($lines as $line) {
 					if (strpos($line, 'DIR_UPLOAD') !== false) {
 						$upgrade = false;
-
 						break;
 					}
 				}
@@ -241,7 +239,6 @@ class ModelUpgrade1001 extends Model {
 				foreach ($lines as $line) {
 					if (strpos($line, "'mysql'") !== false) {
 						$upgrade = true;
-
 						break;
 					}
 				}

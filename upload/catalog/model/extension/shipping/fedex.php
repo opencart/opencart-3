@@ -194,7 +194,6 @@ class ModelExtensionShippingFedex extends Model {
 
 							if (count($shipment_rate_detail_type) == 3 && $shipment_rate_detail_type[1] == $this->config->get('shipping_fedex_rate_type')) {
 								$total_net_charge = $shipment_rate_detail->getElementsByTagName('TotalNetCharge')->item(0);
-
 								break;
 							}
 						}

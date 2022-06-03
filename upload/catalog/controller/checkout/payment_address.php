@@ -80,7 +80,6 @@ class ControllerCheckoutPaymentAddress extends Controller {
 
 			if ($product['minimum'] > $product_total) {
 				$json['redirect'] = $this->url->link('checkout/cart');
-
 				break;
 			}
 		}

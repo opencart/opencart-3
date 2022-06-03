@@ -522,7 +522,6 @@ class ControllerDesignSeoUrl extends Controller {
 		foreach ($seo_urls as $seo_url) {
 			if ($seo_url['store_id'] == $this->request->post['store_id'] && $seo_url['query'] == $this->request->post['query']) {
 				$this->error['query'] = $this->language->get('error_query_exists');
-
 				break;
 			}
 		}
@@ -536,7 +535,6 @@ class ControllerDesignSeoUrl extends Controller {
 		foreach ($seo_urls as $seo_url) {
 			if ($seo_url['store_id'] == $this->request->post['store_id'] && $seo_url['query'] != $this->request->post['query']) {
 				$this->error['keyword'] = $this->language->get('error_exists');
-
 				break;
 			}
 		}

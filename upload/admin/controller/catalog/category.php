@@ -529,7 +529,6 @@ class ControllerCatalogCategory extends Controller {
 			foreach ($results as $result) {
 				if ($result['path_id'] == $this->request->get['category_id']) {
 					$this->error['parent'] = $this->language->get('error_parent');
-
 					break;
 				}
 			}
@@ -550,7 +549,6 @@ class ControllerCatalogCategory extends Controller {
 						foreach ($seo_urls as $seo_url) {
 							if (($seo_url['store_id'] == $store_id) && (!isset($this->request->get['category_id']) || ($seo_url['query'] != 'category_id=' . $this->request->get['category_id']))) {
 								$this->error['keyword'][$store_id][$language_id] = $this->language->get('error_keyword');
-
 								break;
 							}
 						}

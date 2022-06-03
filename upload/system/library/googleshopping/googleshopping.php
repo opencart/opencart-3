@@ -274,7 +274,6 @@ class Googleshopping extends Library {
                             $url .= '/' . $query->row['keyword'];
                         } else {
                             $url = '';
-
                             break;
                         }
                     }

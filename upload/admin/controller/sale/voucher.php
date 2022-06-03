@@ -492,7 +492,6 @@ class ControllerSaleVoucher extends Controller {
 
 			if ($order_voucher_info) {
 				$this->error['warning'] = sprintf($this->language->get('error_order'), $this->url->link('sale/order/info', 'user_token=' . $this->session->data['user_token'] . '&order_id=' . $order_voucher_info['order_id'], true));
-
 				break;
 			}
 		}

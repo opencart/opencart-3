@@ -132,7 +132,6 @@ class ModelUpgrade1009 extends Model {
 		foreach ($lines as $line) {
 			if (strpos(strtoupper($line), 'OPENCART_SERVER') !== false) {
 				$upgrade = false;
-
 				break;
 			}
 		}

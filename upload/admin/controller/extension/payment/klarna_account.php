@@ -16,7 +16,6 @@ class ControllerExtensionPaymentKlarnaAccount extends Controller {
 			foreach ($this->request->post['payment_klarna_account_'] as $klarna_account) {
 				if ($klarna_account['status']) {
 					$status = true;
-
 					break;
 				}
 			}
@@ -287,7 +286,6 @@ class ControllerExtensionPaymentKlarnaAccount extends Controller {
 				} else {
 					$value = null;
 				}
-
 				break;
 			case 'integer':
 			case 'int':
@@ -304,7 +302,6 @@ class ControllerExtensionPaymentKlarnaAccount extends Controller {
 				for ($i = 0; $i < $entries->length; $i++) {
 					$value[] = $this->parseResponse($entries->item($i)->firstChild, $document);
 				}
-
 				break;
 			default:
 				$value = null;

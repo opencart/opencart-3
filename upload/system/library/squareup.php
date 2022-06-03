@@ -71,7 +71,6 @@ class Squareup {
                 if (is_string($params)) {
                     $curl_options[CURLOPT_URL] .= ((strpos($url, '?') === false) ? '?' : '&') . $params;
                 }
-
                 break;
             case 'POST' :
                 $curl_options[CURLOPT_POST] = true;
@@ -79,7 +78,6 @@ class Squareup {
                 if ($params !== null) {
                     $curl_options[CURLOPT_POSTFIELDS] = $params;
                 }
-
                 break;
             default : 
                 $curl_options[CURLOPT_CUSTOMREQUEST] = $request_data['method'];
@@ -87,7 +85,6 @@ class Squareup {
                 if ($params !== null) {
                     $curl_options[CURLOPT_POSTFIELDS] = $params;
                 }
-
                 break;
         }
 

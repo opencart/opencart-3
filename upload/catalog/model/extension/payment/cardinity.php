@@ -110,13 +110,11 @@ class ModelExtensionPaymentCardinity extends Model {
 				if ($exception->getErrorsAsString()) {
 					$this->log($exception->getErrorsAsString(), 1, 2);
 				}
-
 				break;
 			case $exception instanceof CardinityException\InvalidAttributeValue:
 				foreach ($exception->getViolations() as $violation) {
 					$this->log($violation->getMessage(), 1, 2);
 				}
-
 				break;
 		}
 	}

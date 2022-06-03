@@ -776,7 +776,6 @@ class ControllerMarketplaceMarketplace extends Controller {
 
 			if (is_file($file)) {
 				$json['error'] = $this->language->get('error_install');
-
 				break;
 			}
 		}
@@ -821,7 +820,6 @@ class ControllerMarketplaceMarketplace extends Controller {
 
 			if (is_dir($directory)) {
 				$json['error'] = $this->language->get('error_install');
-
 				break;
 			}
 		}

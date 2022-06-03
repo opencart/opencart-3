@@ -15,7 +15,6 @@ class ControllerExtensionTotalKlarnaFee extends Controller {
 			foreach ($this->request->post['klarna_fee'] as $klarna_account) {
 				if ($klarna_account['status']) {
 					$status = true;
-
 					break;
 				}
 			}

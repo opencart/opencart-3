@@ -15,7 +15,6 @@ class ControllerExtensionPaymentKlarnaInvoice extends Controller {
 			foreach ($this->request->post['payment_klarna_invoice'] as $klarna_invoice) {
 				if ($klarna_invoice['status']) {
 					$status = true;
-
 					break;
 				}
 			}

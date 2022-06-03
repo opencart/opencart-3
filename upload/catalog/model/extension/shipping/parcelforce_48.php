@@ -29,7 +29,6 @@ class ModelExtensionShippingParcelforce48 extends Model {
 					if (isset($data[1])) {
 						$cost = $data[1];
 					}
-
 					break;
 				}
 			}
@@ -43,7 +42,6 @@ class ModelExtensionShippingParcelforce48 extends Model {
 					if (isset($data[1])) {
 						$insurance = $data[1];
 					}
-
 					break;
 				}
 			}

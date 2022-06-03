@@ -23,7 +23,6 @@ class ModelUpgrade1006 extends Model {
 				foreach ($lines as $line) {
 					if (strpos(strtoupper($line), 'DB_PORT') !== false) {
 						$upgrade = false;
-
 						break;
 					}
 				}

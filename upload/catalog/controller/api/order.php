@@ -88,7 +88,6 @@ class ControllerApiOrder extends Controller {
 
 				if ($product['minimum'] > $product_total) {
 					$json['error'] = sprintf($this->language->get('error_minimum'), $product['name'], $product['minimum']);
-
 					break;
 				}
 			}
@@ -458,7 +457,6 @@ class ControllerApiOrder extends Controller {
 
 					if ($product['minimum'] > $product_total) {
 						$json['error'] = sprintf($this->language->get('error_minimum'), $product['name'], $product['minimum']);
-
 						break;
 					}
 				}

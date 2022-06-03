@@ -46,7 +46,6 @@ class ControllerStartupSeoUrl extends Controller {
 					}
 				} else {
 					$this->request->get['route'] = 'error/not_found';
-
 					break;
 				}
 			}
@@ -94,7 +93,6 @@ class ControllerStartupSeoUrl extends Controller {
 							$url .= '/' . $query->row['keyword'];
 						} else {
 							$url = '';
-
 							break;
 						}
 					}

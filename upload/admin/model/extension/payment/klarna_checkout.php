@@ -185,7 +185,6 @@ class ModelExtensionPaymentKlarnaCheckout extends Model {
 						$account['secret'],
 						$base_url
 					);
-
 					break;
 				}
 			}

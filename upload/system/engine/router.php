@@ -47,7 +47,6 @@ final class Router {
 
 			if ($result instanceof Action) {
 				$action = $result;
-
 				break;
 			}
 		}

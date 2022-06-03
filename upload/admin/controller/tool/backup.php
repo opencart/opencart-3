@@ -91,7 +91,6 @@ class ControllerToolBackup extends Controller {
 
 				if ($i > 0 && (substr($line, 0, 24) == 'TRUNCATE TABLE `oc_user`' || substr($line, 0, 30) == 'TRUNCATE TABLE `oc_user_group`')) {
 					fseek($handle, $position, SEEK_SET);
-
 					break;
 				}
 
