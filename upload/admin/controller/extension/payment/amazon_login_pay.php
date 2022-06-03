@@ -274,7 +274,7 @@ class ControllerExtensionPaymentAmazonLoginPay extends Controller {
 		
 		$this->load->language('common/column_left');
 		
-		$data['help_buyer_multi_currency'] = !empty($store_buyer_currencies) ? sprintf($this->language->get('help_buyer_multi_currency'), implode(', ', $store_buyer_currencies)) : $this->language->get('help_buyer_multi_currency_na');
+		$data['help_buyer_multi_currency'] = !empty($store_buyer_currencies) ? sprintf($this->language->get('help_buyer_multi_currency'), implode(', ', $store_buyer_currencies)) : $this->language->get('help_buyer_multi_no_currency');
 		$data['text_info_buyer_multi_currencies'] = sprintf($this->language->get('text_info_buyer_multi_currencies'), $this->session->data['user_token'], $this->language->get('text_system'), $this->language->get('text_localisation'), $this->language->get('text_currency'));
 		$data['help_capture_oc_status'] = sprintf($this->language->get('help_capture_oc_status'), $this->language->get('text_sale'), $this->language->get('text_order'), $this->language->get('button_view'));
 		
