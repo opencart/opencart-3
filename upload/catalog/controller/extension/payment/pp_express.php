@@ -1767,7 +1767,7 @@ class ControllerExtensionPaymentPPExpress extends Controller {
 
 						// As there was a payment the recurring is active, ensure it is set to active (may be been suspended before)
 						if ($recurring['status'] != 1) {
-							$this->db->query("UPDATE `" . DB_PREFIX . "order_recurring` SET `status` = 2 WHERE `order_recurring_id` = '" . (int)$recurring['order_recurring_id'] . "'");
+							$this->db->query("UPDATE `" . DB_PREFIX . "order_recurring` SET `status` = '2' WHERE `order_recurring_id` = '" . (int)$recurring['order_recurring_id'] . "'");
 						}
 					}
 				}
@@ -1778,7 +1778,7 @@ class ControllerExtensionPaymentPPExpress extends Controller {
 
 					if ($recurring != false) {
 						$this->db->query("INSERT INTO `" . DB_PREFIX . "order_recurring_transaction` SET `order_recurring_id` = '" . (int)$recurring['order_recurring_id'] . "', `date_added` = NOW(), `type` = '6'");
-						$this->db->query("UPDATE `" . DB_PREFIX . "order_recurring` SET `status` = 3 WHERE `order_recurring_id` = '" . (int)$recurring['order_recurring_id'] . "' LIMIT 1");
+						$this->db->query("UPDATE `" . DB_PREFIX . "order_recurring` SET `status` = '3' WHERE `order_recurring_id` = '" . (int)$recurring['order_recurring_id'] . "' LIMIT 1");
 					}
 				}
 
@@ -1788,7 +1788,7 @@ class ControllerExtensionPaymentPPExpress extends Controller {
 
 					if ($recurring != false) {
 						$this->db->query("INSERT INTO `" . DB_PREFIX . "order_recurring_transaction` SET `order_recurring_id` = '" . (int)$recurring['order_recurring_id'] . "', `date_added` = NOW(), `type` = '7'");
-						$this->db->query("UPDATE `" . DB_PREFIX . "order_recurring` SET `status` = 3 WHERE `order_recurring_id` = '" . (int)$recurring['order_recurring_id'] . "' LIMIT 1");
+						$this->db->query("UPDATE `" . DB_PREFIX . "order_recurring` SET `status` = '3' WHERE `order_recurring_id` = '" . (int)$recurring['order_recurring_id'] . "' LIMIT 1");
 					}
 				}
 
@@ -1819,7 +1819,7 @@ class ControllerExtensionPaymentPPExpress extends Controller {
 
 						// As there was a payment the recurring is active, ensure it is set to active (may be been suspended before)
 						if ($recurring['status'] != 1) {
-							$this->db->query("UPDATE `" . DB_PREFIX . "order_recurring` SET `status` = 2 WHERE `order_recurring_id` = '" . (int)$recurring['order_recurring_id'] . "'");
+							$this->db->query("UPDATE `" . DB_PREFIX . "order_recurring` SET `status` = '2' WHERE `order_recurring_id` = '" . (int)$recurring['order_recurring_id'] . "'");
 						}
 					}
 				}
@@ -1832,7 +1832,7 @@ class ControllerExtensionPaymentPPExpress extends Controller {
 						$this->db->query("INSERT INTO `" . DB_PREFIX . "order_recurring_transaction` SET `order_recurring_id` = '" . (int)$recurring['order_recurring_id'] . "', `date_added` = NOW(), `type` = '0'");
 
 						if ($recurring['status'] != 1) {
-							$this->db->query("UPDATE `" . DB_PREFIX . "order_recurring` SET `status` = 2 WHERE `order_recurring_id` = '" . (int)$recurring['order_recurring_id'] . "'");
+							$this->db->query("UPDATE `" . DB_PREFIX . "order_recurring` SET `status` = '2' WHERE `order_recurring_id` = '" . (int)$recurring['order_recurring_id'] . "'");
 						}
 					}
 				}
@@ -1843,7 +1843,7 @@ class ControllerExtensionPaymentPPExpress extends Controller {
 
 					if ($recurring != false && $recurring['status'] != 3) {
 						$this->db->query("INSERT INTO `" . DB_PREFIX . "order_recurring_transaction` SET `order_recurring_id` = '" . (int)$recurring['order_recurring_id'] . "', `date_added` = NOW(), `type` = '5'");
-						$this->db->query("UPDATE `" . DB_PREFIX . "order_recurring` SET `status` = 4 WHERE `order_recurring_id` = '" . (int)$recurring['order_recurring_id'] . "' LIMIT 1");
+						$this->db->query("UPDATE `" . DB_PREFIX . "order_recurring` SET `status` = '4' WHERE `order_recurring_id` = '" . (int)$recurring['order_recurring_id'] . "' LIMIT 1");
 					}
 				}
 
@@ -1862,7 +1862,7 @@ class ControllerExtensionPaymentPPExpress extends Controller {
 
 					if ($recurring != false) {
 						$this->db->query("INSERT INTO `" . DB_PREFIX . "order_recurring_transaction` SET `order_recurring_id` = '" . (int)$recurring['order_recurring_id'] . "', `date_added` = NOW(), `type` = '9'");
-						$this->db->query("UPDATE `" . DB_PREFIX . "order_recurring` SET `status` = 5 WHERE `order_recurring_id` = '" . (int)$recurring['order_recurring_id'] . "' LIMIT 1");
+						$this->db->query("UPDATE `" . DB_PREFIX . "order_recurring` SET `status` = '5' WHERE `order_recurring_id` = '" . (int)$recurring['order_recurring_id'] . "' LIMIT 1");
 					}
 				}
 			}
