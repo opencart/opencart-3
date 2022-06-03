@@ -330,11 +330,11 @@ class ControllerExtensionPaymentPPExpress extends Controller {
 						'company_id' => '',
 						'tax_id'     => '',
 						'address_1'  => $result['PAYMENTREQUEST_0_SHIPTOSTREET'],
-						'address_2'  => (isset($result['PAYMENTREQUEST_0_SHIPTOSTREET2']) ? $result['PAYMENTREQUEST_0_SHIPTOSTREET2'] : ''),
+						'address_2'  => isset($result['PAYMENTREQUEST_0_SHIPTOSTREET2']) ? $result['PAYMENTREQUEST_0_SHIPTOSTREET2'] : '',
 						'postcode'   => $result['PAYMENTREQUEST_0_SHIPTOZIP'],
 						'city'       => $result['PAYMENTREQUEST_0_SHIPTOCITY'],
-						'zone_id'    => (isset($zone_info['zone_id']) ? $zone_info['zone_id'] : 0),
-						'country_id' => (isset($country_info['country_id']) ? $country_info['country_id'] : 0)
+						'zone_id'    => isset($zone_info['zone_id']) ? $zone_info['zone_id'] : 0,
+						'country_id' => isset($country_info['country_id']) ? $country_info['country_id'] : 0
 					);
 
 					$address_id = $this->model_account_address->addAddress($this->customer->getId(), $address_data);
@@ -523,7 +523,7 @@ class ControllerExtensionPaymentPPExpress extends Controller {
 				'href'                  => $this->url->link('product/product', 'product_id=' . $product['product_id']),
 				'remove'                => $this->url->link('checkout/cart', 'remove=' . $product['cart_id']),
 				'recurring'             => $product['recurring'],
-				'recurring_name'        => (isset($product['recurring']['recurring_name']) ? $product['recurring']['recurring_name'] : ''),
+				'recurring_name'        => isset($product['recurring']['recurring_name']) ? $product['recurring']['recurring_name'] : '',
 				'recurring_description' => $recurring_description
 			);
 		}
@@ -1158,7 +1158,7 @@ class ControllerExtensionPaymentPPExpress extends Controller {
 					'parent_id' => '',
 					'note'                  => '',
 					'msgsubid'              => '',
-					'receipt_id'            => (isset($result['PAYMENTINFO_0_RECEIPTID']) ? $result['PAYMENTINFO_0_RECEIPTID'] : ''),
+					'receipt_id'            => isset($result['PAYMENTINFO_0_RECEIPTID']) ? $result['PAYMENTINFO_0_RECEIPTID'] : '',
 					'payment_type'          => $result['PAYMENTINFO_0_PAYMENTTYPE'],
 					'payment_status'        => $result['PAYMENTINFO_0_PAYMENTSTATUS'],
 					'pending_reason'        => $result['PAYMENTINFO_0_PENDINGREASON'],
@@ -1469,7 +1469,7 @@ class ControllerExtensionPaymentPPExpress extends Controller {
 				'parent_id' 			=> '',
 				'note'                  => '',
 				'msgsubid'              => '',
-				'receipt_id'            => (isset($result['PAYMENTINFO_0_RECEIPTID']) ? $result['PAYMENTINFO_0_RECEIPTID'] : ''),
+				'receipt_id'            => isset($result['PAYMENTINFO_0_RECEIPTID']) ? $result['PAYMENTINFO_0_RECEIPTID'] : '',
 				'payment_type'          => $result['PAYMENTINFO_0_PAYMENTTYPE'],
 				'payment_status'        => $result['PAYMENTINFO_0_PAYMENTSTATUS'],
 				'pending_reason'        => $result['PAYMENTINFO_0_PENDINGREASON'],
@@ -1685,13 +1685,13 @@ class ControllerExtensionPaymentPPExpress extends Controller {
 						'parent_id' => $this->request->post['parent_txn_id'],
 						'note'                  => '',
 						'msgsubid'              => '',
-						'receipt_id'            => (isset($this->request->post['receipt_id']) ? $this->request->post['receipt_id'] : ''),
-						'payment_type'          => (isset($this->request->post['payment_type']) ? $this->request->post['payment_type'] : ''),
-						'payment_status'        => (isset($this->request->post['payment_status']) ? $this->request->post['payment_status'] : ''),
-						'pending_reason'        => (isset($this->request->post['pending_reason']) ? $this->request->post['pending_reason'] : ''),
+						'receipt_id'            => isset($this->request->post['receipt_id']) ? $this->request->post['receipt_id'] : '',
+						'payment_type'          => isset($this->request->post['payment_type']) ? $this->request->post['payment_type'] : '',
+						'payment_status'        => isset($this->request->post['payment_status']) ? $this->request->post['payment_status'] : '',
+						'pending_reason'        => isset($this->request->post['pending_reason']) ? $this->request->post['pending_reason'] : '',
 						'amount'                => $this->request->post['mc_gross'],
 						'debug_data'            => json_encode($this->request->post),
-						'transaction_entity'    => (isset($this->request->post['transaction_entity']) ? $this->request->post['transaction_entity'] : '')
+						'transaction_entity'    => isset($this->request->post['transaction_entity']) ? $this->request->post['transaction_entity'] : ''
 					);
 
 					$this->model_extension_payment_pp_express->addTransaction($transaction);

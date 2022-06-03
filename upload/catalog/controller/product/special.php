@@ -63,7 +63,7 @@ class ControllerProductSpecial extends Controller {
 			'href' => $this->url->link('product/special', $url)
 		);
 
-		$data['text_compare'] = sprintf($this->language->get('text_compare'), (isset($this->session->data['compare']) ? count($this->session->data['compare']) : 0));
+		$data['text_compare'] = sprintf($this->language->get('text_compare'), isset($this->session->data['compare']) ? count($this->session->data['compare']) : 0);
 
 		$data['compare'] = $this->url->link('product/compare');
 

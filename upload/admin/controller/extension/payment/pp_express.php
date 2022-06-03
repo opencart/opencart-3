@@ -349,7 +349,7 @@ class ControllerExtensionPaymentPPExpress extends Controller {
 			'return_url' 	=> $this->url->link('extension/payment/pp_express', 'user_token=' . $this->session->data['user_token'], true),
 			'store_url' 	=> HTTPS_CATALOG,
 			'store_version' => VERSION,
-			'store_country' => (isset($country['iso_code_3']) ? $country['iso_code_3'] : ''),
+			'store_country' => isset($country['iso_code_3']) ? $country['iso_code_3'] : '',
 		);
 
 		// Create sandbox link
@@ -576,7 +576,7 @@ class ControllerExtensionPaymentPPExpress extends Controller {
 						'receipt_id'            => '',
 						'payment_type'          => $response['PAYMENTTYPE'],
 						'payment_status'        => $response['PAYMENTSTATUS'],
-						'pending_reason'        => (isset($response['PENDINGREASON']) ? $response['PENDINGREASON'] : ''),
+						'pending_reason'        => isset($response['PENDINGREASON']) ? $response['PENDINGREASON'] : '',
 						'transaction_entity'    => 'payment',
 						'amount'                => $response['AMT'],
 						'debug_data'            => json_encode($response)
@@ -599,7 +599,7 @@ class ControllerExtensionPaymentPPExpress extends Controller {
 
 					$json['success'] = $this->language->get('text_success');
 				} else {
-					$json['error'] = (isset($response_info['L_SHORTMESSAGE0']) ? $response_info['L_SHORTMESSAGE0'] : $this->language->get('error_transaction'));
+					$json['error'] = isset($response_info['L_SHORTMESSAGE0']) ? $response_info['L_SHORTMESSAGE0'] : $this->language->get('error_transaction');
 				}
 			} else {
 				$json['error'] = $this->language->get('error_not_found');
@@ -722,7 +722,7 @@ class ControllerExtensionPaymentPPExpress extends Controller {
 						'payment_status' 		=> 'Refunded',
 						'transaction_entity' 	=> 'payment',
 						'pending_reason' 		=> '',
-						'amount' 				=> '-' . (isset($call_data['AMT']) ? $call_data['AMT'] : $current_transaction['amount']),
+						'amount' 				=> '-' . isset($call_data['AMT']) ? $call_data['AMT'] : $current_transaction['amount'],
 						'debug_data' 			=> json_encode($result)
 					);
 
@@ -752,7 +752,7 @@ class ControllerExtensionPaymentPPExpress extends Controller {
 					} else {
 						$this->model_extension_payment_pp_express->log(json_encode($result));
 						
-						$this->session->data['error'] = (isset($result['L_SHORTMESSAGE0']) ? $result['L_SHORTMESSAGE0'] : 'There was an error') . (isset($result['L_LONGMESSAGE0']) ? '<br>' . $result['L_LONGMESSAGE0'] : '');
+						$this->session->data['error'] = isset($result['L_SHORTMESSAGE0']) ? $result['L_SHORTMESSAGE0'] : 'There was an error' . isset($result['L_LONGMESSAGE0']) ? '<br>' . $result['L_LONGMESSAGE0'] : '';
 						
 						$this->response->redirect($this->url->link('extension/payment/pp_express/refund', 'user_token=' . $this->session->data['user_token'] . '&transaction_id=' . $this->request->post['transaction_id'], true));
 					}
@@ -820,7 +820,7 @@ class ControllerExtensionPaymentPPExpress extends Controller {
 
 				$json['success'] = $this->language->get('text_success');
 			} else {
-				$json['error'] = (isset($result['L_SHORTMESSAGE0']) ? $result['L_SHORTMESSAGE0'] : $this->language->get('error_transaction'));
+				$json['error'] = isset($result['L_SHORTMESSAGE0']) ? $result['L_SHORTMESSAGE0'] : $this->language->get('error_transaction');
 			}
 		} else {
 			$json['error'] = $this->language->get('error_not_found');
@@ -962,7 +962,7 @@ class ControllerExtensionPaymentPPExpress extends Controller {
 					$transaction['amount'] = $transaction['amount'];
 				}
 
-				$transaction['pending_reason'] = (isset($result['PENDINGREASON']) ? $result['PENDINGREASON'] : '');
+				$transaction['pending_reason'] = isset($result['PENDINGREASON']) ? $result['PENDINGREASON'] : '';
 
 				$this->model_extension_payment_pp_express->updateTransaction($transaction);
 
@@ -1263,10 +1263,10 @@ class ControllerExtensionPaymentPPExpress extends Controller {
 			$country = $this->model_localisation_country->getCountry($this->config->get('config_country_id'));
 
 			$post_data = array(
-				'return_url' => $this->url->link('extension/payment/pp_express', 'user_token=' . $this->session->data['user_token'], true),
-				'store_url' => HTTPS_CATALOG,
+				'return_url' 	=> $this->url->link('extension/payment/pp_express', 'user_token=' . $this->session->data['user_token'], true),
+				'store_url' 	=> HTTPS_CATALOG,
 				'store_version' => VERSION,
-				'store_country' => (isset($country['iso_code_3']) ? $country['iso_code_3'] : ''),
+				'store_country' => isset($country['iso_code_3']) ? $country['iso_code_3'] : '',
 			);
 
 			// Create Live link

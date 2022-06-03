@@ -180,7 +180,7 @@ class ControllerExtensionPaymentPPProIframe extends Controller {
 							'receipt_id'             => $this->request->post['receipt_id'],
 							'payment_type'           => $this->request->post['payment_type'],
 							'payment_status'         => $this->request->post['payment_status'],
-							'pending_reason'         => (isset($this->request->post['pending_reason']) ? $this->request->post['pending_reason'] : ''),
+							'pending_reason'         => isset($this->request->post['pending_reason']) ? $this->request->post['pending_reason'] : '',
 							'transaction_entity'     => ($this->config->get('payment_pp_pro_iframe_transaction_method') == 'sale' ? 'payment' : 'auth'),
 							'amount'                 => $this->request->post['mc_gross'],
 							'debug_data'             => json_encode($this->request->post),

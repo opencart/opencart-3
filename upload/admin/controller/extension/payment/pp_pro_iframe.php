@@ -395,7 +395,7 @@ class ControllerExtensionPaymentPPProIframe extends Controller {
 						'payment_status' 			=> 'Refunded',
 						'transaction_entity' 		=> 'payment',
 						'pending_reason' 			=> '',
-						'amount' 					=> '-' . (isset($call_data['AMT']) ? $call_data['AMT'] : $current_transaction['amount']),
+						'amount' 					=> '-' . isset($call_data['AMT']) ? $call_data['AMT'] : $current_transaction['amount'],
 						'debug_data' 				=> json_encode($result)
 					);
 
@@ -427,7 +427,7 @@ class ControllerExtensionPaymentPPProIframe extends Controller {
 							$log->write(json_encode($result));
 						}
 
-						$this->session->data['error'] = (isset($result['L_SHORTMESSAGE0']) ? $result['L_SHORTMESSAGE0'] : 'There was an error') . (isset($result['L_LONGMESSAGE0']) ? '<br>' . $result['L_LONGMESSAGE0'] : '');
+						$this->session->data['error'] = isset($result['L_SHORTMESSAGE0']) ? $result['L_SHORTMESSAGE0'] : 'There was an error' . isset($result['L_LONGMESSAGE0']) ? '<br>' . $result['L_LONGMESSAGE0'] : '';
 						
 						$this->response->redirect($this->url->link('extension/payment/pp_pro_iframe/refund', 'user_token=' . $this->session->data['user_token'] . '&transaction_id=' . $this->request->post['transaction_id'], true));
 					}
@@ -492,7 +492,7 @@ class ControllerExtensionPaymentPPProIframe extends Controller {
 			} else {
 				$json['error'] = true;
 				
-				$json['msg'] = (isset($result['L_SHORTMESSAGE0']) ? $result['L_SHORTMESSAGE0'] : $this->language->get('error_general'));
+				$json['msg'] = isset($result['L_SHORTMESSAGE0']) ? $result['L_SHORTMESSAGE0'] : $this->language->get('error_general');
 			}
 		} else {
 			$json['error'] = true;
@@ -610,7 +610,7 @@ class ControllerExtensionPaymentPPProIframe extends Controller {
 				$transaction['transaction_id'] = $result['TRANSACTIONID'];
 				$transaction['payment_type'] = $result['PAYMENTTYPE'];
 				$transaction['payment_status'] = $result['PAYMENTSTATUS'];
-				$transaction['pending_reason'] = (isset($result['PENDINGREASON']) ? $result['PENDINGREASON'] : '');
+				$transaction['pending_reason'] = isset($result['PENDINGREASON']) ? $result['PENDINGREASON'] : '';
 				$transaction['amount'] = $result['AMT'];
 
 				$this->model_extension_payment_pp_pro_iframe->addTransaction($transaction);
@@ -666,7 +666,7 @@ class ControllerExtensionPaymentPPProIframe extends Controller {
 			} else {
 				$json['error'] = true;
 				
-				$json['msg'] = (isset($result['L_SHORTMESSAGE0']) ? $result['L_SHORTMESSAGE0'] : 'There was an error');
+				$json['msg'] = isset($result['L_SHORTMESSAGE0']) ? $result['L_SHORTMESSAGE0'] : 'There was an error';
 			}
 		} else {
 			$json['error'] = true;
@@ -726,7 +726,7 @@ class ControllerExtensionPaymentPPProIframe extends Controller {
 			} else {
 				$json['error'] = true;
 				
-				$json['msg'] = (isset($result['L_SHORTMESSAGE0']) ? $result['L_SHORTMESSAGE0'] : $this->language->get('error_general'));
+				$json['msg'] = isset($result['L_SHORTMESSAGE0'] ? $result['L_SHORTMESSAGE0'] : $this->language->get('error_general'));
 			}
 		} else {
 			$json['error'] = true;
@@ -786,7 +786,7 @@ class ControllerExtensionPaymentPPProIframe extends Controller {
 						$transaction['amount'] = $transaction['amount'];
 					}
 
-					$transaction['pending_reason'] = (isset($result['PENDINGREASON']) ? $result['PENDINGREASON'] : '');
+					$transaction['pending_reason'] = isset($result['PENDINGREASON']) ? $result['PENDINGREASON'] : '';
 
 					$this->model_extension_payment_pp_pro_iframe->updateTransaction($transaction);
 

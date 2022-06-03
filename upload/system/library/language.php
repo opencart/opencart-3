@@ -33,7 +33,7 @@ class Language {
 	 * @return	string
      */
 	public function get($key) {
-		return (isset($this->data[$key]) ? $this->data[$key] : $key);
+		return isset($this->data[$key]) ? $this->data[$key] : $key;
 	}
 	
 	public function set($key, $value) {

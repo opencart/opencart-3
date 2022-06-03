@@ -440,7 +440,7 @@ class ControllerExtensionPaymentPPBraintree extends Controller {
 				'return_url' 	=> $this->url->link('extension/payment/pp_braintree', 'user_token=' . $this->session->data['user_token'], true),
 				'store_url' 	=> HTTPS_CATALOG,
 				'store_version' => VERSION,
-				'store_country' => (isset($country['iso_code_3']) ? $country['iso_code_3'] : ''),
+				'store_country' => isset($country['iso_code_3']) ? $country['iso_code_3'] : '',
 			);
 
 			curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, 0);
@@ -1005,7 +1005,7 @@ class ControllerExtensionPaymentPPBraintree extends Controller {
 				'return_url' 	=> $this->url->link('extension/payment/pp_braintree', 'user_token=' . $this->session->data['user_token'], true),
 				'store_url' 	=> HTTPS_CATALOG,
 				'store_version' => VERSION,
-				'store_country' => (isset($country['iso_code_3']) ? $country['iso_code_3'] : ''),
+				'store_country' => isset($country['iso_code_3']) ? $country['iso_code_3'] : '',
 			);
 
 			curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, 0);

@@ -531,7 +531,7 @@ class ControllerExtensionPaymentKlarnaCheckout extends Controller {
 
 			array_multisort($sort_order, SORT_ASC, $totals);
 
-			$total = sprintf($this->language->get('text_items'), $this->cart->countProducts() + (isset($this->session->data['vouchers']) ? count($this->session->data['vouchers']) : 0), $this->currency->format($total, $this->session->data['currency']));
+			$total = sprintf($this->language->get('text_items'), $this->cart->countProducts() + isset($this->session->data['vouchers']) ? count($this->session->data['vouchers']) : 0, $this->currency->format($total, $this->session->data['currency']));
 		}
 
 		$this->response->addHeader('Content-Type: application/json');
@@ -1081,7 +1081,7 @@ class ControllerExtensionPaymentKlarnaCheckout extends Controller {
 				'payment_firstname'		  => utf8_substr($request->billing_address->given_name, 0, 32),
 				'payment_lastname'		  => utf8_substr($request->billing_address->family_name, 0, 32),
 				'payment_address_1'		  => utf8_substr($request->billing_address->street_address, 0, 128),
-				'payment_address_2'		  => (isset($request->billing_address->street_address2) ? utf8_substr($request->billing_address->street_address2, 0, 128) : ''),
+				'payment_address_2'		  => isset($request->billing_address->street_address2) ? utf8_substr($request->billing_address->street_address2, 0, 128) : '',
 				'payment_city'			  => utf8_substr($request->billing_address->city, 0, 128),
 				'payment_postcode'		  => utf8_substr($request->billing_address->postal_code, 0, 10),
 				'payment_zone'			  => ($payment_zone_info ? $payment_zone_info['name'] : ''),
@@ -1092,7 +1092,7 @@ class ControllerExtensionPaymentKlarnaCheckout extends Controller {
 				'shipping_firstname'	  => utf8_substr($request->shipping_address->given_name, 0, 32),
 				'shipping_lastname'		  => utf8_substr($request->shipping_address->family_name, 0, 32),
 				'shipping_address_1'	  => utf8_substr($request->shipping_address->street_address, 0, 128),
-				'shipping_address_2'	  => (isset($request->shipping_address->street_address2) ? utf8_substr($request->shipping_address->street_address2, 0, 128) : ''),
+				'shipping_address_2'	  => isset($request->shipping_address->street_address2) ? utf8_substr($request->shipping_address->street_address2, 0, 128) : '',
 				'shipping_city'			  => utf8_substr($request->shipping_address->city, 0, 128),
 				'shipping_postcode'		  => utf8_substr($request->shipping_address->postal_code, 0, 10),
 				'shipping_zone'			  => ($shipping_zone_info ? $shipping_zone_info['name'] : ''),
@@ -1272,7 +1272,7 @@ class ControllerExtensionPaymentKlarnaCheckout extends Controller {
 									'payment_firstname'		  => utf8_substr($order['billing_address']['given_name'], 0, 32),
 									'payment_lastname'		  => utf8_substr($order['billing_address']['family_name'], 0, 32),
 									'payment_address_1'		  => utf8_substr($order['billing_address']['street_address'], 0, 128),
-									'payment_address_2'		  => (isset($order['billing_address']['street_address2']) ? utf8_substr($order['billing_address']['street_address2'], 0, 128) : ''),
+									'payment_address_2'		  => isset($order['billing_address']['street_address2']) ? utf8_substr($order['billing_address']['street_address2'], 0, 128) : '',
 									'payment_city'			  => utf8_substr($order['billing_address']['city'], 0, 128),
 									'payment_postcode'		  => utf8_substr($order['billing_address']['postal_code'], 0, 10),
 									'payment_zone'			  => ($payment_zone_info ? $payment_zone_info['name'] : ''),
@@ -1283,7 +1283,7 @@ class ControllerExtensionPaymentKlarnaCheckout extends Controller {
 									'shipping_firstname'	  => utf8_substr($order['shipping_address']['given_name'], 0, 32),
 									'shipping_lastname'		  => utf8_substr($order['shipping_address']['family_name'], 0, 32),
 									'shipping_address_1'	  => utf8_substr($order['shipping_address']['street_address'], 0, 128),
-									'shipping_address_2'	  => (isset($order['shipping_address']['street_address2']) ? utf8_substr($order['shipping_address']['street_address2'], 0, 128) : ''),
+									'shipping_address_2'	  => isset($order['shipping_address']['street_address2']) ? utf8_substr($order['shipping_address']['street_address2'], 0, 128) : '',
 									'shipping_city'			  => utf8_substr($order['shipping_address']['city'], 0, 128),
 									'shipping_postcode'		  => utf8_substr($order['shipping_address']['postal_code'], 0, 10),
 									'shipping_zone'			  => ($shipping_zone_info ? $shipping_zone_info['name'] : ''),
@@ -1520,7 +1520,7 @@ class ControllerExtensionPaymentKlarnaCheckout extends Controller {
 		$order_data['payment_country'] = $this->session->data['payment_address']['country'];
 		$order_data['payment_country_id'] = $this->session->data['payment_address']['country_id'];
 		$order_data['payment_address_format'] = $this->session->data['payment_address']['address_format'];
-		$order_data['payment_custom_field'] = (isset($this->session->data['payment_address']['custom_field']) ? $this->session->data['payment_address']['custom_field'] : array());
+		$order_data['payment_custom_field'] = isset($this->session->data['payment_address']['custom_field']) ? $this->session->data['payment_address']['custom_field'] : array();
 
 		if (isset($this->session->data['payment_method']['title'])) {
 			$order_data['payment_method'] = $this->session->data['payment_method']['title'];
@@ -1547,7 +1547,7 @@ class ControllerExtensionPaymentKlarnaCheckout extends Controller {
 			$order_data['shipping_country'] = $this->session->data['shipping_address']['country'];
 			$order_data['shipping_country_id'] = $this->session->data['shipping_address']['country_id'];
 			$order_data['shipping_address_format'] = $this->session->data['shipping_address']['address_format'];
-			$order_data['shipping_custom_field'] = (isset($this->session->data['shipping_address']['custom_field']) ? $this->session->data['shipping_address']['custom_field'] : array());
+			$order_data['shipping_custom_field'] = isset($this->session->data['shipping_address']['custom_field']) ? $this->session->data['shipping_address']['custom_field'] : array();
 
 			if (isset($this->session->data['shipping_method']['title'])) {
 				$order_data['shipping_method'] = $this->session->data['shipping_method']['title'];

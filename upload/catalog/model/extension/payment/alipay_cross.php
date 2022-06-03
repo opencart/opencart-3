@@ -74,8 +74,8 @@ class ModelExtensionPaymentAlipayCross extends Model {
 
 			$responseTxt = 'false';
 			
-			if (! empty($_POST["notify_id"])) {
-				$responseTxt = $this->getResponse($_POST["notify_id"]);
+			if (!empty($_POST['notify_id'])) {
+				$responseTxt = $this->getResponse($_POST['notify_id']);
 			}
 
 			// Verify

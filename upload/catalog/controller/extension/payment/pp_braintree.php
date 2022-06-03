@@ -718,11 +718,11 @@ class ControllerExtensionPaymentPPBraintree extends Controller {
 						'company_id' => '',
 						'tax_id'     => '',
 						'address_1'  => $this->request->post['details']['shippingAddress']['line1'],
-						'address_2'  => (isset($this->request->post['details']['shippingAddress']['line2']) ? $this->request->post['details']['shippingAddress']['line2'] : ''),
+						'address_2'  => isset($this->request->post['details']['shippingAddress']['line2']) ? $this->request->post['details']['shippingAddress']['line2'] : '',
 						'postcode'   => $this->request->post['details']['shippingAddress']['postalCode'],
 						'city'       => $this->request->post['details']['shippingAddress']['city'],
-						'zone_id'    => (isset($zone_info['zone_id']) ? $zone_info['zone_id'] : 0),
-						'country_id' => (isset($country_info['country_id']) ? $country_info['country_id'] : 0)
+						'zone_id'    => isset($zone_info['zone_id']) ? $zone_info['zone_id'] : 0,
+						'country_id' => isset($country_info['country_id']) ? $country_info['country_id'] : 0
 					);
 
 					$address_id = $this->model_account_address->addAddress($this->customer->getId(), $address_data);

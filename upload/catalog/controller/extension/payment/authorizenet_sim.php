@@ -133,7 +133,7 @@ class ControllerExtensionPaymentAuthorizeNetSim extends Controller {
 		$to_hash = '^';
 
 		foreach ($verify_hash_fields as $hash_field) {
-			$to_hash .= (isset($post_fields[$hash_field]) ? $post_fields[$hash_field] : '') . '^';
+			$to_hash .= isset($post_fields[$hash_field]) ? $post_fields[$hash_field] : '' . '^';
 		}
 
 		return $this->generateHash($to_hash, $signature_key);

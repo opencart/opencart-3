@@ -35,7 +35,7 @@ class ControllerExtensionPaymentRealex extends Controller {
 				if (isset($account['enabled']) && $account['enabled'] == 1) {
 					$data['cards'][] = array(
 						'type' 		=> $card_types[$card],
-						'account' 	=> (isset($account['default']) && $account['default'] == 1 ? $this->config->get('payment_realex_merchant_id') : $account['merchant_id']),
+						'account' 	=> isset($account['default']) && $account['default'] == 1 ? $this->config->get('payment_realex_merchant_id') : $account['merchant_id'],
 					);
 				}
 			}
