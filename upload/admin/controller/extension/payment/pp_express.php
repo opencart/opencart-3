@@ -372,7 +372,7 @@ class ControllerExtensionPaymentPPExpress extends Controller {
 
 		$data['auth_connect_url_sandbox'] = '';
 		
-		if (isset($curl_response['url']) && !empty($curl_response['url'])) {
+		if (isset($curl_response['url']) && $curl_response['url'] != '') {
 			$data['auth_connect_url_sandbox'] = $curl_response['url'];
 		}
 
@@ -396,7 +396,7 @@ class ControllerExtensionPaymentPPExpress extends Controller {
 
 		$data['auth_connect_url_live'] = '';
 		
-		if (isset($curl_response['url']) && !empty($curl_response['url'])) {
+		if (isset($curl_response['url']) && $curl_response['url'] != '') {
 			$data['auth_connect_url_live'] = $curl_response['url'];
 		}
 
@@ -1287,7 +1287,7 @@ class ControllerExtensionPaymentPPExpress extends Controller {
 
 			curl_close($curl);
 
-			if (isset($curl_response['url']) && !empty($curl_response['url'])) {
+			if (isset($curl_response['url']) && $curl_response['url'] != '') {
 				$this->response->redirect($curl_response['url']);
 			} else {
 				$this->response->redirect($this->url->link('marketplace/extension', 'user_token=' . $this->session->data['user_token'], true));

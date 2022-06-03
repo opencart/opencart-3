@@ -440,7 +440,7 @@ class ControllerExtensionPaymentAmazonLoginPay extends Controller {
 			} else {
 				$json['error'] = true;
 				
-				$json['msg'] = isset($cancel_response['status_detail']) && !empty($cancel_response['status_detail']) ? sprintf($this->language->get('error_status'), (string)$cancel_response['status_detail']) : $this->language->get('error_cancel');
+				$json['msg'] = isset($cancel_response['status_detail']) && $cancel_response['status_detail'] != '' ? sprintf($this->language->get('error_status'), (string)$cancel_response['status_detail']) : $this->language->get('error_cancel');
 			}
 		} else {
 			$json['error'] = true;
@@ -508,7 +508,7 @@ class ControllerExtensionPaymentAmazonLoginPay extends Controller {
 			} else {
 				$json['error'] = true;
 				
-				$json['msg'] = isset($capture_response['status_detail']) && !empty($capture_response['status_detail']) ? sprintf($this->language->get('error_status'), (string)$capture_response['status_detail']) : $this->language->get('error_capture');
+				$json['msg'] = isset($capture_response['status_detail']) && $capture_response['status_detail'] != '' ? sprintf($this->language->get('error_status'), (string)$capture_response['status_detail']) : $this->language->get('error_capture');
 			}
 		} else {
 			$json['error'] = true;
@@ -525,7 +525,7 @@ class ControllerExtensionPaymentAmazonLoginPay extends Controller {
 		
 		$json = array();
 
-		if (isset($this->request->post['order_id']) && !empty($this->request->post['order_id'])) {
+		if (isset($this->request->post['order_id'])) {
 			$this->load->model('extension/payment/amazon_login_pay');
 
 			$amazon_login_pay_order = $this->model_extension_payment_amazon_login_pay->getOrder($this->request->post['order_id']);
@@ -570,7 +570,7 @@ class ControllerExtensionPaymentAmazonLoginPay extends Controller {
 					$json['data'][] = $post_data;
 				} else {
 					$json['error'] = true;
-					$json['error_msg'][] = isset($response['status_detail']) && !empty($response['status_detail']) ? sprintf($this->language->get('error_status'), (string)$response['status_detail']) : $this->language->get('error_refund');
+					$json['error_msg'][] = isset($response['status_detail']) && $response['status_detail'] != '' ? sprintf($this->language->get('error_status'), (string)$response['status_detail']) : $this->language->get('error_refund');
 				}
 			}
 			

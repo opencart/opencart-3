@@ -76,7 +76,7 @@ class ControllerExtensionModuleKlarnaCheckoutModule extends Controller {
 		
 		$this->load->model('localisation/zone');
 
-		if (isset($this->session->data['shipping_address']) && !empty($this->session->data['shipping_address'])) {
+		if (isset($this->session->data['shipping_address']) && $this->session->data['shipping_address'] != '') {
 			$this->session->data['shipping_address'] = $this->session->data['shipping_address'];
 		} elseif ($this->customer->isLogged() && $this->customer->getAddressId()) {
 			$this->session->data['shipping_address'] = $this->model_account_address->getAddress($this->customer->getAddressId());

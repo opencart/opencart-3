@@ -233,7 +233,7 @@ class ControllerExtensionPaymentFirstdata extends Controller {
 	public function fail() {
 		$this->load->language('extension/payment/firstdata');
 
-		if (isset($this->request->post['fail_reason']) && !empty($this->request->post['fail_reason'])) {
+		if (isset($this->request->post['fail_reason']) && $this->request->post['fail_reason'] != '') {
 			$this->session->data['error'] = $this->request->post['fail_reason'];
 		} else {
 			$this->session->data['error'] = $this->language->get('error_failed');

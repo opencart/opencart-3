@@ -209,7 +209,7 @@ class ControllerExtensionPaymentSagepayServer extends Controller {
 			} else {
 				$json['error'] = true;
 				
-				$json['msg'] = isset($void_response['StatusDetail']) && !empty($void_response['StatusDetail']) ? sprintf($this->language->get('error_status'), (string)$void_response['StatusDetail']) : $this->language->get('error_void');
+				$json['msg'] = isset($void_response['StatusDetail']) && $void_response['StatusDetail'] != '' ? sprintf($this->language->get('error_status'), (string)$void_response['StatusDetail']) : $this->language->get('error_void');
 			}
 		} else {
 			$json['error'] = true;
@@ -263,7 +263,7 @@ class ControllerExtensionPaymentSagepayServer extends Controller {
 			} else {
 				$json['error'] = true;
 				
-				$json['msg'] = isset($release_response['StatusDetail']) && !empty($release_response['StatusDetail']) ? sprintf($this->language->get('error_status'), (string)$release_response['StatusDetail']) : $this->language->get('error_release');
+				$json['msg'] = isset($release_response['StatusDetail']) && $release_response['StatusDetail'] != '' ? sprintf($this->language->get('error_status'), (string)$release_response['StatusDetail']) : $this->language->get('error_release');
 			}
 		} else {
 			$json['error'] = true;
@@ -280,7 +280,7 @@ class ControllerExtensionPaymentSagepayServer extends Controller {
 		
 		$json = array();
 
-		if (isset($this->request->post['order_id']) && !empty($this->request->post['order_id'])) {
+		if (isset($this->request->post['order_id'])) {
 			$this->load->model('extension/payment/sagepay_server');
 
 			$sagepay_server_order = $this->model_extension_payment_sagepay_server->getOrder($this->request->post['order_id']);
@@ -319,7 +319,7 @@ class ControllerExtensionPaymentSagepayServer extends Controller {
 			} else {
 				$json['error'] = true;
 				
-				$json['msg'] = isset($rebate_response['StatusDetail']) && !empty($rebate_response['StatusDetail']) ? sprintf($this->language->get('error_status'), (string)$rebate_response['StatusDetail']) : $this->language->get('error_rebate');
+				$json['msg'] = isset($rebate_response['StatusDetail']) && $rebate_response['StatusDetail'] != '' ? sprintf($this->language->get('error_status'), (string)$rebate_response['StatusDetail']) : $this->language->get('error_rebate');
 			}
 		} else {
 			$json['error'] = true;

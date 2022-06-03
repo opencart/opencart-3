@@ -239,23 +239,23 @@ class ModelExtensionPaymentSecureTradingWs extends Model {
 			);
 		}
 
-		if (isset($data['currency']) && !empty($data['currency'])) {
+		if (isset($data['currency']) && $data['currency'] != '') {
 			$post_data['currencyiso3as'] = $data['currency'];
 		}
 
-		if (isset($data['status']) && !empty($data['status'])) {
+		if (isset($data['status']) && $data['status'] != '') {
 			$post_data['errorcodes'] = $data['status'];
 		}
 
-		if (isset($data['payment_type']) && !empty($data['payment_type'])) {
+		if (isset($data['payment_type']) && $data['payment_type'] != '') {
 			$post_data['paymenttypedescriptions'] = $data['payment_type'];
 		}
 
-		if (isset($data['request']) && !empty($data['request'])) {
+		if (isset($data['request']) && $data['request'] != '') {
 			$post_data['requesttypedescriptions'] = $data['request'];
 		}
 
-		if (isset($data['settle_status']) && !empty($data['settle_status'])) {
+		if (isset($data['settle_status']) && $data['settle_status'] != '') {
 			$post_data['settlestatuss'] = $data['settle_status'];
 		}
 		

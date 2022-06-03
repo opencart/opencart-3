@@ -426,7 +426,7 @@ class ControllerExtensionPaymentSecureTradingPp extends Controller {
 		
 		$json = array();
 
-		if (isset($this->request->post['order_id']) && !empty($this->request->post['order_id'])) {
+		if (isset($this->request->post['order_id'])) {
 			$this->load->model('extension/payment/securetrading_pp');
 
 			$securetrading_pp_order = $this->model_extension_payment_securetrading_pp->getOrder($this->request->post['order_id']);

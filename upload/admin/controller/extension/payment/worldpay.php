@@ -233,7 +233,7 @@ class ControllerExtensionPaymentWorldpay extends Controller {
 		
 		$json = array();
 
-		if (isset($this->request->post['order_id']) && !empty($this->request->post['order_id'])) {
+		if (isset($this->request->post['order_id'])) {
 			$this->load->model('extension/payment/worldpay');
 
 			$worldpay_order = $this->model_extension_payment_worldpay->getOrder($this->request->post['order_id']);
@@ -264,7 +264,7 @@ class ControllerExtensionPaymentWorldpay extends Controller {
 			} else {
 				$json['error'] = true;
 				
-				$json['msg'] = isset($refund_response['message']) && !empty($refund_response['message']) ? sprintf($this->language->get('error_status'), (string)$refund_response['message']) : $this->language->get('error_refund');
+				$json['msg'] = isset($refund_response['message']) && $refund_response['message'] != '' ? sprintf($this->language->get('error_status'), (string)$refund_response['message']) : $this->language->get('error_refund');
 			}
 		} else {
 			$json['error'] = true;

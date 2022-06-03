@@ -353,7 +353,7 @@ class ControllerExtensionPaymentGlobalpay extends Controller {
 		
 		$json = array();
 
-		if (isset($this->request->post['order_id']) && !empty($this->request->post['order_id'])) {
+		if (isset($this->request->post['order_id'])) {
 			$this->load->model('extension/payment/globalpay');
 
 			$globalpay_order = $this->model_extension_payment_globalpay->getOrder($this->request->post['order_id']);

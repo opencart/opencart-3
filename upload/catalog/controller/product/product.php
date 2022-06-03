@@ -168,7 +168,7 @@ class ControllerProductProduct extends Controller {
 		}
 
 		// Check product page open from manufacturer page
-		if (isset($this->request->get['manufacturer_id']) && !empty($product_info)) {
+		if (isset($this->request->get['manufacturer_id']) && $product_info) {
 			if ($product_info['manufacturer_id'] !=  $this->request->get['manufacturer_id']) {
 				$product_info = array();
 			}

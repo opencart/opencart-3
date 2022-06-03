@@ -228,7 +228,7 @@ class ControllerExtensionPaymentSecureTradingWs extends Controller {
 		$this->load->model('extension/payment/securetrading_ws');		
 
 		// Using unmodified $_POST to access values as per Secure Trading's requirements
-		if (isset($_POST['PaRes']) && !empty($_POST['PaRes']) && isset($_POST['MD']) && !empty($_POST['MD'])) {
+		if (isset($_POST['PaRes']) && isset($_POST['MD'])) {
 			$md = $_POST['MD'];
 			$pares = $_POST['PaRes'];
 

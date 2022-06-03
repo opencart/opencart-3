@@ -121,13 +121,13 @@ class ControllerExtensionPaymentFirstdataRemote extends Controller {
 					$this->model_checkout_order->addOrderHistory($order_id, $this->config->get('payment_firstdata_remote_order_status_success_unsettled_id'), $message, false);
 				}
 			} else {
-				if (isset($capture_result['error']) && !empty($capture_result['error'])) {
+				if (isset($capture_result['error']) && $capture_result['error'] != '') {
 					$json['error'] = $capture_result['error'];
 				} else {
 					$json['error'] = $this->language->get('error_failed');
 				}
 
-				if (isset($capture_result['fault']) && !empty($capture_result['fault'])) {
+				if (isset($capture_result['fault']) && $capture_result['fault'] != '') {
 					$message .= $this->language->get('text_fault') . $capture_result['fault'] . '<br>';
 				}
 

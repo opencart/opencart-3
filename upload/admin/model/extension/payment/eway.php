@@ -67,7 +67,7 @@ class ModelExtensionPaymentEway extends Model {
 		$total_amount = $result->Refund->TotalAmount / 100;
 		$refund_amount = $order['refund_amount'] + $total_amount;
 
-		if (isset($order['refund_transaction_id']) && !empty($order['refund_transaction_id'])) {
+		if (isset($order['refund_transaction_id']) && $order['refund_transaction_id'] != '') {
 			$order['refund_transaction_id'] .= ',';
 		}
 		

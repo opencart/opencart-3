@@ -352,7 +352,7 @@ class ControllerExtensionPaymentRealex extends Controller {
 		
 		$json = array();
 
-		if (isset($this->request->post['order_id']) && !empty($this->request->post['order_id'])) {
+		if (isset($this->request->post['order_id'])) {
 			$this->load->model('extension/payment/realex');
 
 			$payment_realex_order = $this->model_extension_payment_realex->getOrder($this->request->post['order_id']);

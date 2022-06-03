@@ -205,7 +205,7 @@ class ControllerExtensionPaymentBluepayredirect extends Controller {
 			} else {
 				$json['error'] = true;
 				
-				$json['msg'] = isset($void_response['MESSAGE']) && !empty($void_response['MESSAGE']) ? (string)$void_response['MESSAGE'] : $this->language->get('error_void');
+				$json['msg'] = isset($void_response['MESSAGE']) && $void_response['MESSAGE'] != '' ? (string)$void_response['MESSAGE'] : $this->language->get('error_void');
 			}
 		} else {
 			$json['error'] = true;
@@ -261,7 +261,7 @@ class ControllerExtensionPaymentBluepayredirect extends Controller {
 			} else {
 				$json['error'] = true;
 				
-				$json['msg'] = isset($release_response['MESSAGE']) && !empty($release_response['MESSAGE']) ? sprintf($this->language->get('error_status'), (string)$release_response['MESSAGE']) : $this->language->get('error_release');
+				$json['msg'] = isset($release_response['MESSAGE']) && $release_response['MESSAGE'] != '' ? sprintf($this->language->get('error_status'), (string)$release_response['MESSAGE']) : $this->language->get('error_release');
 			}
 		} else {
 			$json['error'] = true;
@@ -278,7 +278,7 @@ class ControllerExtensionPaymentBluepayredirect extends Controller {
 		
 		$json = array();
 
-		if (isset($this->request->post['order_id']) && !empty($this->request->post['order_id'])) {
+		if (isset($this->request->post['order_id'])) {
 			$this->load->model('extension/payment/bluepay_redirect');
 
 			$bluepay_redirect_order = $this->model_extension_payment_bluepay_redirect->getOrder($this->request->post['order_id']);
@@ -314,7 +314,7 @@ class ControllerExtensionPaymentBluepayredirect extends Controller {
 			} else {
 				$json['error'] = true;
 				
-				$json['msg'] = isset($rebate_response['MESSAGE']) && !empty($rebate_response['MESSAGE']) ? sprintf($this->language->get('error_status'), (string)$rebate_response['MESSAGE']) : $this->language->get('error_rebate');
+				$json['msg'] = isset($rebate_response['MESSAGE']) && $rebate_response['MESSAGE'] != '' ? sprintf($this->language->get('error_status'), (string)$rebate_response['MESSAGE']) : $this->language->get('error_rebate');
 			}
 		} else {
 			$json['error'] = true;

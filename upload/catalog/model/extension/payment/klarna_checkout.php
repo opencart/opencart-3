@@ -158,7 +158,7 @@ class ModelExtensionPaymentKlarnaCheckout extends Model {
 	public function getDefaultShippingMethod($shipping_methods) {
 		$first_shipping_method = reset($shipping_methods);
 
-		if ($first_shipping_method && isset($first_shipping_method['quote']) && !empty($first_shipping_method['quote'])) {
+		if ($first_shipping_method && isset($first_shipping_method['quote'])) {
 			$first_shipping_method_quote = reset($first_shipping_method['quote']);
 
 			if ($first_shipping_method_quote) {

@@ -217,7 +217,7 @@ class ControllerExtensionPaymentG2APay extends Controller {
 		
 		$json = array();
 
-		if (isset($this->request->post['order_id']) && !empty($this->request->post['order_id'])) {
+		if (isset($this->request->post['order_id'])) {
 			$this->load->model('extension/payment/g2apay');
 
 			$payment_g2apay_order = $this->model_extension_payment_g2apay->getOrder($this->request->post['order_id']);
