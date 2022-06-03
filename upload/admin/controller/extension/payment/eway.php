@@ -238,6 +238,8 @@ class ControllerExtensionPaymentEway extends Controller {
 	public function refund() {
 		$this->load->language('extension/payment/eway');
 		
+		$json = array();
+		
 		if (isset($this->request->get['order_id'])) {
 			$order_id = (int)$this->request->get['order_id'];
 		} else {
@@ -254,15 +256,19 @@ class ControllerExtensionPaymentEway extends Controller {
 			// Check if any error returns
 			if (isset($result->Errors) || $result === false) {
 				$json['error'] = true;
+				
 				$reason = '';
+				
 				if ($result === false) {
 					$reason = $this->language->get('text_unknown_failure');
 				} else {
 					$errors = explode(',', $result->Errors);
+					
 					foreach ($errors as $error) {
 						$reason .= $this->language->get('text_card_message_' . $result->Errors);
 					}
 				}
+				
 				$json['message'] = $this->language->get('text_refund_failed') . $reason;
 			} else {
 				$eway_order = $this->model_extension_payment_eway->getOrder($order_id);
@@ -305,6 +311,8 @@ class ControllerExtensionPaymentEway extends Controller {
 
 	public function capture() {
 		$this->load->language('extension/payment/eway');
+		
+		$json = array();
 		
 		if (isset($this->request->get['order_id'])) {
 			$order_id = (int)$this->request->get['order_id'];

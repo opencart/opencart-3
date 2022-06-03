@@ -127,6 +127,7 @@ class ControllerExtensionPaymentKlarnaCheckout extends Controller {
 
 			if (isset($this->session->data['klarna_checkout_currency']) && $this->session->data['klarna_checkout_currency'] != $this->session->data['currency']) {
 				$this->model_extension_payment_klarna_checkout->log('Currency changed, unsetting kc order id');
+				
 				unset($this->session->data['klarna_checkout_order_id']);
 				unset($this->session->data['klarna_checkout_data']);
 			}
@@ -228,6 +229,8 @@ class ControllerExtensionPaymentKlarnaCheckout extends Controller {
 
 			$this->response->setOutput($this->load->view('extension/payment/klarna_checkout_main', $data));
 		} elseif (isset($this->request->post['response']) && $this->request->post['response'] == 'json') {
+			$json = array();
+			
 			$json['redirect'] = $redirect;
 
 			$this->response->addHeader('Content-Type: application/json');

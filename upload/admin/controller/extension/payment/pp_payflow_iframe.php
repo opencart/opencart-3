@@ -276,6 +276,8 @@ class ControllerExtensionPaymentPPPayflowIframe extends Controller {
 	public function capture() {
 		$this->load->language('extension/payment/pp_payflow_iframe');
 		
+		$json = array();
+		
 		$this->load->model('extension/payment/pp_payflow_iframe');
 		
 		$this->load->model('sale/order');
@@ -352,6 +354,8 @@ class ControllerExtensionPaymentPPPayflowIframe extends Controller {
 	public function void() {
 		$this->load->language('extension/payment/pp_payflow_iframe');
 		
+		$json = array();
+		
 		$this->load->model('extension/payment/pp_payflow_iframe');		
 
 		if (isset($this->request->post['order_id']) && $this->request->post['order_id'] != '') {
@@ -374,6 +378,7 @@ class ControllerExtensionPaymentPPPayflowIframe extends Controller {
 
 				if ($result['RESULT'] == 0) {
 					$json['success'] = $this->language->get('text_void_success');
+					
 					$this->model_extension_payment_pp_payflow_iframe->updateOrderStatus($order_id, 1);
 
 					$data = array(

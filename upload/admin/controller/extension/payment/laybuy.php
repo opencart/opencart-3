@@ -972,24 +972,24 @@ class ControllerExtensionPaymentLaybuy extends Controller {
 					$pplan = '0';
 				}
 
-				$data = array();
+				$post_data = array();
 
-				$data['mid']       = $this->config->get('payment_laybuys_membership_id');
-				$data['eml']       = $revised_transaction['email'];
-				$data['prc']       = $revised_transaction['amount'];
-				$data['curr']      = $revised_transaction['currency'];
-				$data['pp']        = $pp;
-				$data['pplan']     = $pplan;
-				$data['init']      = $initial;
-				$data['mnth']      = $months;
-				$data['convrate']  = '1';
-				$data['id']        = $revised_transaction['laybuy_revise_request_id'] . '-' . $revised_transaction['order_id'] . ':' . md5($this->config->get('payment_laybuy_token'));
-				$data['RETURNURL'] = HTTPS_CATALOG . 'index.php?route=extension/payment/laybuy/reviseCallback';
-				$data['CANCELURL'] = HTTPS_CATALOG . 'index.php?route=extension/payment/laybuy/reviseCancel';
+				$post_data['mid']       = $this->config->get('payment_laybuys_membership_id');
+				$post_data['eml']       = $revised_transaction['email'];
+				$post_data['prc']       = $revised_transaction['amount'];
+				$post_data['curr']      = $revised_transaction['currency'];
+				$post_data['pp']        = $pp;
+				$post_data['pplan']     = $pplan;
+				$post_data['init']      = $initial;
+				$post_data['mnth']      = $months;
+				$post_data['convrate']  = '1';
+				$post_data['id']        = $revised_transaction['laybuy_revise_request_id'] . '-' . $revised_transaction['order_id'] . ':' . md5($this->config->get('payment_laybuy_token'));
+				$post_data['RETURNURL'] = HTTPS_CATALOG . 'index.php?route=extension/payment/laybuy/reviseCallback';
+				$post_data['CANCELURL'] = HTTPS_CATALOG . 'index.php?route=extension/payment/laybuy/reviseCancel';
 
 				$data_string = '';
 
-				foreach ($data as $param => $value) {
+				foreach ($post_data as $param => $value) {
 					$data_string .= $param . '=' . $value . '&';
 				}
 

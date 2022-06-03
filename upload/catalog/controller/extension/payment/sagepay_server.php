@@ -469,6 +469,8 @@ class ControllerExtensionPaymentSagepayServer extends Controller {
 
 	public function delete() {
 		$this->load->language('account/sagepay_server_cards');
+		
+		$json = array();
 
 		$this->load->model('extension/payment/sagepay_server');
 

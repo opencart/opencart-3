@@ -27,9 +27,9 @@ class ControllerExtensionRecurringPPExpress extends Controller {
 	}
 	
 	public function cancel() {
-		$json = array();
-		
 		$this->load->language('extension/recurring/pp_express');
+		
+		$json = array();
 		
 		// Cancel an active recurring
 		$this->load->model('account/recurring');

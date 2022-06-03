@@ -37,6 +37,8 @@ class ControllerExtensionPaymentPerpetualPayments extends Controller {
 
 	public function send() {
 		$this->load->language('extension/payment/perpetual_payments');
+		
+		$json = array();
 
 		$this->load->model('checkout/order');
 

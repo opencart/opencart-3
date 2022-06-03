@@ -504,7 +504,8 @@ class ControllerExtensionPaymentPPBraintree extends Controller {
 		// check checkout can continue due to stock checks or vouchers
 		if ((!$this->cart->hasProducts() && empty($this->session->data['vouchers'])) || (!$this->cart->hasStock() && !$this->config->get('config_stock_checkout'))) {
 			$json = array();
-			$json['error'] = true;
+			
+			$json['error'] = true;			
 			$json['url'] = $this->url->link('checkout/cart');
 
 			$this->response->addHeader('Content-Type: application/json');
@@ -514,6 +515,7 @@ class ControllerExtensionPaymentPPBraintree extends Controller {
 		// if user not logged in check that the guest checkout is allowed
 		if (!$this->customer->isLogged() && (!$this->config->get('config_checkout_guest') || $this->config->get('config_customer_price') || $this->cart->hasDownload() || $this->cart->hasRecurringProducts())) {
 			$json = array();
+			
 			$json['error'] = true;
 			$json['url'] = $this->url->link('checkout/checkout');
 
@@ -744,7 +746,7 @@ class ControllerExtensionPaymentPPBraintree extends Controller {
 
 		$json = array(
 			'error' => false,
-			'url' => ''
+			'url' 	=> ''
 		);
 
 		$this->response->addHeader('Content-Type: application/json');

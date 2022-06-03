@@ -909,9 +909,9 @@ class ControllerExtensionPaymentPPExpress extends Controller {
 	}
 
 	public function resend() {
-		$json = array();
-
 		$this->load->language('extension/payment/pp_express');
+		
+		$json = array();
 
 		if (isset($this->request->get['paypal_order_transaction_id'])) {
 			$paypal_order_transaction_id = $this->request->get['paypal_order_transaction_id'];
@@ -1061,6 +1061,8 @@ class ControllerExtensionPaymentPPExpress extends Controller {
 		/**
 		 * used to search for transactions from a user account
 		 */
+		 $response = array();
+		 
 		if (isset($this->request->post['date_start'])) {
 			$this->load->model('extension/payment/pp_express');
 

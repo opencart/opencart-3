@@ -62,6 +62,8 @@ class ControllerExtensionPaymentSecureTradingWs extends Controller {
 		
 		$this->load->language('extension/payment/securetrading_ws');
 		
+		$json = array();
+		
 		$this->load->model('checkout/order');
 		
 		$this->load->model('localisation/country');
@@ -168,8 +170,6 @@ class ControllerExtensionPaymentSecureTradingWs extends Controller {
 				}
 			} else {
 				$country = $this->model_localisation_country->getCountry($order_info['payment_country_id']);
-
-				$json = array();
 
 				$requestblock_xml = new \SimpleXMLElement('<requestblock></requestblock>');
 				$requestblock_xml->addAttribute('version', '3.67');

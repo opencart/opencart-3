@@ -178,6 +178,7 @@ class ControllerExtensionPaymentGlobalpayRemote extends Controller {
 						$this->response->output();						
 					} else {
 						$eci_ref = 3;
+						
 						if ($this->request->post['cc_type'] == 'mc') {
 							$eci = 0;
 						} else {

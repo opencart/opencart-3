@@ -212,8 +212,10 @@ class ControllerExtensionPaymentSagepayDirect extends Controller {
 		}
 
 		$order_products = $this->model_account_order->getOrderProducts($this->session->data['order_id']);
+		
 		$cart_rows = 0;
-		$str_basket = "";
+		$str_basket = '';
+		
 		foreach ($order_products as $product) {
 			$str_basket .=
 					":" . str_replace(":", " ", $product['name'] . " " . $product['model']) .
@@ -222,14 +224,17 @@ class ControllerExtensionPaymentSagepayDirect extends Controller {
 					":" . $this->currency->format($product['tax'], $order_info['currency_code'], false, false) .
 					":" . $this->currency->format(($product['price'] + $product['tax']), $order_info['currency_code'], false, false) .
 					":" . $this->currency->format(($product['price'] + $product['tax']) * $product['quantity'], $order_info['currency_code'], false, false);
+					
 			$cart_rows++;
 		}
 
 		$order_totals = $this->model_account_order->getOrderTotals($this->session->data['order_id']);
+		
 		foreach ($order_totals as $total) {
 			$str_basket .= ":" . str_replace(":", " ", $total['title']) . ":::::" . $this->currency->format($total['value'], $order_info['currency_code'], false, false);
 			$cart_rows++;
 		}
+		
 		$str_basket = $cart_rows . $str_basket;
 
 		$payment_data['Basket'] = $str_basket;
@@ -251,6 +256,7 @@ class ControllerExtensionPaymentSagepayDirect extends Controller {
 			$response_data['TxAuthNo'] = '';
 
 			$card_id = '';
+			
 			if (!empty($payment_data['CreateToken']) && $this->customer->isLogged()) {
 				$card_data = array();
 				$card_data['customer_id'] = $this->customer->getId();
@@ -304,6 +310,7 @@ class ControllerExtensionPaymentSagepayDirect extends Controller {
 			}
 
 			$card_id = '';
+			
 			if (!empty($payment_data['CreateToken']) && !empty($response_data['Token']) && $this->customer->isLogged()) {
 				$card_data = array();
 				$card_data['customer_id'] = $this->customer->getId();
@@ -318,10 +325,11 @@ class ControllerExtensionPaymentSagepayDirect extends Controller {
 			}
 
 			$sagepay_direct_order_id = $this->model_extension_payment_sagepay_direct->addOrder($order_info['order_id'], $response_data, $payment_data, $card_id);
+			
 			$this->model_extension_payment_sagepay_direct->logger('Response data', $response_data);
 			$this->model_extension_payment_sagepay_direct->logger('$payment_data', $payment_data);
 			$this->model_extension_payment_sagepay_direct->logger('order_id', $this->session->data['order_id']);
-
+			
 			$this->model_extension_payment_sagepay_direct->addTransaction($sagepay_direct_order_id, $this->config->get('payment_sagepay_direct_transaction'), $order_info);
 
 			$this->model_checkout_order->addOrderHistory($this->session->data['order_id'], $this->config->get('payment_sagepay_direct_order_status_id'), $message, false);
@@ -338,6 +346,7 @@ class ControllerExtensionPaymentSagepayDirect extends Controller {
 			$json['redirect'] = $this->url->link('checkout/success', '', true);
 		} else {
 			$json['error'] = $response_data['Status'] . ': ' . $response_data['StatusDetail'];
+			
 			$this->model_extension_payment_sagepay_direct->logger('Response data', $json['error']);
 		}
 
@@ -436,11 +445,13 @@ class ControllerExtensionPaymentSagepayDirect extends Controller {
 
 	public function delete() {
 		$this->load->language('account/sagepay_direct_cards');
+		
+		$json = array();
 
 		$this->load->model('extension/payment/sagepay_direct');
 
 		$card = $this->model_extension_payment_sagepay_direct->getCard(false, $this->request->post['Token']);
-
+		
 		if (!empty($card['token'])) {
 			if ($this->config->get('payment_sagepay_direct_test') == 'live') {
 				$url = 'https://live.sagepay.com/gateway/service/removetoken.vsp';
@@ -459,6 +470,7 @@ class ControllerExtensionPaymentSagepayDirect extends Controller {
 			
 			if ($response_data['Status'] == 'OK') {
 				$this->model_extension_payment_sagepay_direct->deleteCard($card['card_id']);
+				
 				$this->session->data['success'] = $this->language->get('text_success_card');
 				
 				$json['success'] = true;

@@ -138,6 +138,7 @@ class ControllerExtensionPaymentDivido extends Controller {
 		$this->load->model('extension/payment/divido');
 
 		ini_set('html_errors', 0);
+		
 		if (!$this->session->data['payment_method']['code'] == 'divido') {
 			return false;
 		}
@@ -177,6 +178,7 @@ class ControllerExtensionPaymentDivido extends Controller {
 		$postcode  = $address['postcode'];
 
 		$products  = array();
+		
 		foreach ($this->cart->getProducts() as $product) {
 			$products[] = array(
 				'type' 		=> 'product',
@@ -202,6 +204,7 @@ class ControllerExtensionPaymentDivido extends Controller {
 		$deposit_amount = round(($deposit / 100) * $total, 2, PHP_ROUND_HALF_UP);
 
 		$shop_url = $this->config->get('config_url');
+		
 		if (isset($this->request->server['HTTPS']) && (($this->request->server['HTTPS'] == 'on') || ($this->request->server['HTTPS'] == '1'))) {
 			$shop_url = $this->config->get('config_ssl');
 		}
@@ -211,6 +214,7 @@ class ControllerExtensionPaymentDivido extends Controller {
 		$checkout_url = $this->url->link('checkout/checkout', '', true);
 
 		$salt = uniqid('', true);
+		
 		$hash = $this->model_extension_payment_divido->hashOrderId($order_id, $salt);
 
 		$request_data = array(

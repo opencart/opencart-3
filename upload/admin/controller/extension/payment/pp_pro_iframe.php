@@ -550,6 +550,9 @@ class ControllerExtensionPaymentPPProIframe extends Controller {
 
 	public function capture() {
 		$this->load->language('extension/payment/pp_pro_iframe');
+		
+		$json = array();
+		
 		/*
 		 * used to capture authorised payments
 		 * capture can be full or partial amounts
@@ -676,6 +679,8 @@ class ControllerExtensionPaymentPPProIframe extends Controller {
 
 	public function void() {
 		$this->load->language('extension/payment/pp_pro_iframe');
+		
+		$json = array();
 
 		if (isset($this->request->post['order_id']) && $this->request->post['order_id'] != '') {
 			$this->load->model('extension/payment/pp_pro_iframe');

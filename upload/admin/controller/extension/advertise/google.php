@@ -296,9 +296,9 @@ class ControllerExtensionAdvertiseGoogle extends Controller {
         } elseif (!$this->model_extension_advertise_google->hasActiveTarget($this->store_id)) {
             $json['warning'] = sprintf($this->language->get('warning_no_active_campaigns'), $this->url->link('extension/advertise/google/campaign', 'store_id=' . $this->store_id . '&user_token=' . $this->session->data['user_token'] . '&from_dashboard=true', true));
         } elseif ($advertised_count == 0) {
-            $json['warning'] = sprintf($this->language->get("warning_no_advertised_products"), $this->language->get("text_video_tutorial_url_advertise"));
+            $json['warning'] = sprintf($this->language->get('warning_no_advertised_products'), $this->language->get('text_video_tutorial_url_advertise'));
         } elseif ($last_cron_executed + 24 * 60 * 60 <= time()) {
-            $json['warning'] = sprintf($this->language->get("warning_last_cron_executed"), $this->language->get("text_tutorial_cron"));
+            $json['warning'] = sprintf($this->language->get('warning_last_cron_executed'), $this->language->get('text_tutorial_cron'));
         }
 
         $this->response->addHeader('Content-Type: application/json');
@@ -639,6 +639,7 @@ class ControllerExtensionAdvertiseGoogle extends Controller {
 
         if (isset($this->session->data['success'])) {
             $data['success'] = $this->session->data['success'];
+			
             unset($this->session->data['success']);
         }
 
@@ -730,11 +731,11 @@ class ControllerExtensionAdvertiseGoogle extends Controller {
 
         $this->load->model('extension/advertise/google');
 
-        $data = array();
+        $post_data = array();
 
         $json = array(
             'submit_directly' 		=> !$this->model_extension_advertise_google->isAnyProductCategoryModified($this->store_id),
-            'modal_confirmation' 	=> $this->load->view('extension/advertise/google_mapping_verify', $data)
+            'modal_confirmation' 	=> $this->load->view('extension/advertise/google_mapping_verify', $post_data)
         );
 
         $this->response->addHeader('Content-Type: application/json');
@@ -794,6 +795,7 @@ class ControllerExtensionAdvertiseGoogle extends Controller {
 
         if (isset($this->session->data['error'])) {
             $data['error'] = $this->session->data['error'];
+			
             unset($this->session->data['error']);
         } elseif (!empty($this->error['warning'])) {
             $data['error'] = $this->error['warning'];
@@ -803,6 +805,7 @@ class ControllerExtensionAdvertiseGoogle extends Controller {
 
         if (isset($this->session->data['success'])) {
             $data['success'] = $this->session->data['success'];
+			
             unset($this->session->data['success']);
         }
 
@@ -1054,8 +1057,8 @@ class ControllerExtensionAdvertiseGoogle extends Controller {
         $this->load->language('extension/advertise/google');
 
         $json = array(
-            'targets' => null,
-            'error' => null
+            'targets' 	=> null,
+            'error' 	=> null
         );
 
         $this->load->model('extension/advertise/google');

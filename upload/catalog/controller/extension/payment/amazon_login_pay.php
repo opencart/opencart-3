@@ -175,8 +175,8 @@ class ControllerExtensionPaymentAmazonLoginPay extends Controller {
         $this->load->model('extension/module/amazon_login');
 
         $json = array(
-            'redirect' => null,
-            'error' => null
+            'redirect' 	=> null,
+            'error' 	=> null
         );
 
         try {
@@ -824,6 +824,8 @@ class ControllerExtensionPaymentAmazonLoginPay extends Controller {
         $this->load->language('extension/payment/amazon_login_pay');
 		
         $this->load->language('checkout/checkout');
+		
+		$json = array();
 
         $this->load->model('extension/payment/amazon_login_pay');
 		
@@ -843,8 +845,6 @@ class ControllerExtensionPaymentAmazonLoginPay extends Controller {
 
         // Verify order
         $this->model_extension_payment_amazon_login_pay->verifyOrder();
-
-        $json = array();
 
         try {
             $order_reference_id = $this->session->data['apalwa']['pay']['order_reference_id'];

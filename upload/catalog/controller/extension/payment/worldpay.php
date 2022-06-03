@@ -122,6 +122,9 @@ class ControllerExtensionPaymentWorldpay extends Controller {
 
 	public function deleteCard() {
 		$this->load->language('extension/payment/worldpay');
+		
+		$json = array();
+		
 		$this->load->model('extension/payment/worldpay');
 
 		if (isset($this->request->post['token'])) {

@@ -211,10 +211,10 @@ class ControllerExtensionPaymentCardinity extends Controller {
 
 	public function refund() {
 		$this->load->language('extension/payment/cardinity');
+		
+		$json = array();
 
 		$this->load->model('extension/payment/cardinity');
-
-		$json = array();
 
 		$success = $error = '';
 
