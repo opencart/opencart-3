@@ -846,8 +846,6 @@ class ControllerExtensionPaymentPPExpress extends Controller {
 
 			$this->load->language('checkout/checkout');
 
-			$data = array();
-
 			$data['invoice_prefix'] = $this->config->get('config_invoice_prefix');
 			$data['store_id'] = $this->config->get('config_store_id');
 			$data['store_name'] = $this->config->get('config_name');
@@ -896,11 +894,13 @@ class ControllerExtensionPaymentPPExpress extends Controller {
 			$data['payment_address_format'] = isset($payment_address['address_format']) ? $payment_address['address_format'] : '';
 
 			$data['payment_method'] = '';
+			
 			if (isset($this->session->data['payment_method']['title'])) {
 				$data['payment_method'] = $this->session->data['payment_method']['title'];
 			}
 
 			$data['payment_code'] = '';
+			
 			if (isset($this->session->data['payment_method']['code'])) {
 				$data['payment_code'] = $this->session->data['payment_method']['code'];
 			}
@@ -1083,8 +1083,6 @@ class ControllerExtensionPaymentPPExpress extends Controller {
 
 			$this->load->model('extension/payment/pp_express');
 			
-			$paypal_data = array();
-
 			$paypal_data = array(
 				'TOKEN'                      => $this->session->data['paypal']['token'],
 				'PAYERID'                    => $this->session->data['paypal']['payerid'],

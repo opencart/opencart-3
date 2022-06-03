@@ -618,9 +618,9 @@ class ControllerExtensionPaymentKlarnaCheckout extends Controller {
 		} elseif ($this->request->post['type'] == 'extend_authorization') {
 			$action = $this->model_extension_payment_klarna_checkout->omExtendAuthorizationTime($connector, $this->request->post['order_ref']);
 		} elseif ($this->request->post['type'] == 'merchant_reference' && $this->request->post['data']) {
-			$data = array();
+			$post_data = array();
 			
-			parse_str(html_entity_decode($this->request->post['data']), $data);
+			parse_str(html_entity_decode($this->request->post['data']), $post_data);
 
 			$action = $this->model_extension_payment_klarna_checkout->omUpdateMerchantReference($connector, $this->request->post['order_ref'], array(
 				'merchant_reference1' => (string)$data['merchant_reference_1']
@@ -640,9 +640,9 @@ class ControllerExtensionPaymentKlarnaCheckout extends Controller {
 		} elseif ($this->request->post['type'] == 'release_authorization') {
 			$action = $this->model_extension_payment_klarna_checkout->omReleaseAuthorization($connector, $this->request->post['order_ref']);
 		} elseif ($this->request->post['type'] == 'capture_shipping_info' && isset($this->request->post['id'])) {
-			$data = array();
+			$post_data = array();
 			
-			parse_str(html_entity_decode($this->request->post['data']), $data);
+			parse_str(html_entity_decode($this->request->post['data']), $post_data);
 
 			$action = $this->model_extension_payment_klarna_checkout->omShippingInfo($connector, $this->request->post['order_ref'], $this->request->post['id'], $data);
 		} elseif ($this->request->post['type'] == 'capture_billing_address' && isset($this->request->post['id'])) {

@@ -694,9 +694,7 @@ class ModelExtensionPaymentAmazonLoginPay extends Model {
     public function updatePaymentAddress($order_id, $amazon_address) {
         $address = $this->amazonAddressToOcAddress($amazon_address);
 		
-		$data = array();
-
-        $data = array(
+		$data = array(
             'payment_firstname' 		=> "'" . $this->db->escape($address['firstname']) . "'",
             'payment_lastname' 			=> "'" . $this->db->escape($address['lastname']) . "'",
             'payment_company' 			=> "'" . $this->db->escape($address['company']) . "'",

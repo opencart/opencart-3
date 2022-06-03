@@ -168,7 +168,6 @@ class ControllerExtensionAdvertiseGoogle extends Controller {
             return;
         }
 
-        $data = array();
         $data['send_to'] = $this->googleshopping->getEventSnippetSendTo();
 
         $snippet = $this->load->view('extension/advertise/google_dynamic_remarketing_home', $data);
@@ -196,7 +195,6 @@ class ControllerExtensionAdvertiseGoogle extends Controller {
             return;
         }
 
-        $data = array();
         $data['send_to'] = $this->googleshopping->getEventSnippetSendTo();
         $data['search_term'] = $this->request->get['search'];
 
@@ -280,7 +278,6 @@ class ControllerExtensionAdvertiseGoogle extends Controller {
 
         $option_map = $this->model_extension_advertise_google->getSizeAndColorOptionMap($product_info['product_id'], $this->store_id);
 
-        $data = array();
         $data['send_to'] = $this->googleshopping->getEventSnippetSendTo();
         $data['option_map'] = json_encode($option_map);
         $data['brand'] = $product_info['manufacturer'];

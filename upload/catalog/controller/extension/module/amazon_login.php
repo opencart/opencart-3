@@ -141,8 +141,6 @@ class ControllerExtensionModuleAmazonLogin extends Controller {
     public function error() {
         $this->load->language('extension/payment/amazon_login_pay');
 
-        $data = array();
-
         $continue = $this->url->link('common/home', '', true);
 
         if (isset($this->session->data['apalwa']['login']['error'])) {
@@ -162,9 +160,9 @@ class ControllerExtensionModuleAmazonLogin extends Controller {
             );
 
             $data['breadcrumbs'][] = array(
-                'href' => null,
-                'current' => true,
-                'text' => $this->language->get('error_login')
+                'href' 		=> null,
+                'current' 	=> true,
+                'text' 		=> $this->language->get('error_login')
             );
 
             $data['content_main'] = $this->load->view('extension/module/amazon_login_error', $data);

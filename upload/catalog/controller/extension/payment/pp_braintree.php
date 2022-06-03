@@ -1242,8 +1242,6 @@ class ControllerExtensionPaymentPPBraintree extends Controller {
 
 			$this->load->language('checkout/checkout');
 
-			$data = array();
-
 			$data['invoice_prefix'] = $this->config->get('config_invoice_prefix');
 			$data['store_id'] = $this->config->get('config_store_id');
 			$data['store_name'] = $this->config->get('config_name');

@@ -98,14 +98,13 @@ class ControllerExtensionAdvertiseGoogle extends Controller {
 
         $this->document->setTitle($this->language->get('heading_title'));
 
-        $data = array();
-
         $data['text_connected'] = sprintf($this->language->get('text_connected'), $this->setting->get('advertise_google_gmc_account_id'));
 
         $data['error'] = '';
 
         if (isset($this->session->data['error'])) {
             $data['error'] = $this->session->data['error'];
+			
             unset($this->session->data['error']);
         } elseif (!empty($this->error['warning'])) {
             $data['error'] = $this->error['warning'];
@@ -118,6 +117,7 @@ class ControllerExtensionAdvertiseGoogle extends Controller {
 
         if (isset($this->session->data['success'])) {
             $data['success'] = $this->session->data['success'];
+			
             unset($this->session->data['success']);
         }
 
@@ -381,12 +381,11 @@ class ControllerExtensionAdvertiseGoogle extends Controller {
             }
         }
 
-        $data = array();
-
         $data['error'] = '';
 
         if (isset($this->session->data['error'])) {
             $data['error'] = $this->session->data['error'];
+			
             unset($this->session->data['error']);
         } elseif (!empty($this->error['warning'])) {
             $data['error'] = $this->error['warning'];
@@ -396,6 +395,7 @@ class ControllerExtensionAdvertiseGoogle extends Controller {
 
         if (isset($this->session->data['success'])) {
             $data['success'] = $this->session->data['success'];
+			
             unset($this->session->data['success']);
         }
 
@@ -624,12 +624,11 @@ class ControllerExtensionAdvertiseGoogle extends Controller {
             }
         }
 
-        $data = array();
-
         $data['error'] = '';
 
         if (isset($this->session->data['error'])) {
             $data['error'] = $this->session->data['error'];
+			
             unset($this->session->data['error']);
         } elseif (!empty($this->error['warning'])) {
             $data['error'] = $this->error['warning'];
@@ -1230,8 +1229,6 @@ class ControllerExtensionAdvertiseGoogle extends Controller {
 
             $this->response->redirect($url);
         }
-
-        $data = array();
 
         $data['error'] = '';
 
