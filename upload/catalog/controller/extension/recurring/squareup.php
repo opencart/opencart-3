@@ -99,7 +99,7 @@ class ControllerExtensionRecurringSquareup extends Controller {
 
                     $amount = $this->squareup->standardDenomination($transaction['tenders'][0]['amount_money']['amount'], $target_currency);
 
-                    $this->model_extension_payment_squareup->addTransaction($transaction, $this->config->get('payment_squareup_merchant_id'), $payment['billing_address'], $payment['order_id'], "CRON JOB", "127.0.0.1");
+                    $this->model_extension_payment_squareup->addTransaction($transaction, $this->config->get('payment_squareup_merchant_id'), $payment['billing_address'], $payment['order_id'], 'CRON JOB', '127.0.0.1');
 
                     $reference = $transaction['id'];
                 } else {
@@ -163,7 +163,7 @@ class ControllerExtensionRecurringSquareup extends Controller {
             } catch (\Squareup\Exception $e) {
                 $result['transaction_error'][] = '[ID: ' . $payment['order_recurring_id'] . '] - ' . $e->getMessage();
             }
-        };
+        }
 
         if ($this->config->get('payment_squareup_cron_email_status')) {
             $this->model_extension_payment_squareup->cronEmail($result);

@@ -51,17 +51,17 @@ class ModelExtensionPaymentSagePayDirect extends Model {
 	}
 
 	public function addCard($card_data) {
-		$this->db->query("INSERT INTO " . DB_PREFIX . "sagepay_direct_card SET customer_id = '" . $this->db->escape($card_data['customer_id']) . "', digits = '" . $this->db->escape($card_data['Last4Digits']) . "', expiry = '" . $this->db->escape($card_data['ExpiryDate']) . "', type = '" . $this->db->escape($card_data['CardType']) . "', token = '" . $this->db->escape($card_data['Token']) . "'");
+		$this->db->query("INSERT INTO `" . DB_PREFIX . "sagepay_direct_card` SET `customer_id` = '" . $this->db->escape($card_data['customer_id']) . "', `digits` = '" . $this->db->escape($card_data['Last4Digits']) . "', `expiry` = '" . $this->db->escape($card_data['ExpiryDate']) . "', `type` = '" . $this->db->escape($card_data['CardType']) . "', `token` = '" . $this->db->escape($card_data['Token']) . "'");
 
 		return $this->db->getLastId();
 	}
 
 	public function updateCard($card_id, $token) {
-		$this->db->query("UPDATE " . DB_PREFIX . "sagepay_direct_card SET token = '" . $this->db->escape($token) . "' WHERE card_id = '" . (int)$card_id . "'");
+		$this->db->query("UPDATE `" . DB_PREFIX . "sagepay_direct_card` SET `token` = '" . $this->db->escape($token) . "' WHERE `card_id` = '" . (int)$card_id . "'");
 	}
 
 	public function getCard($card_id, $token) {
-		$qry = $this->db->query("SELECT * FROM " . DB_PREFIX . "sagepay_direct_card WHERE (card_id = '" . $this->db->escape($card_id) . "' OR token = '" . $this->db->escape($token) . "') AND customer_id = '" . (int)$this->customer->getId() . "'");
+		$qry = $this->db->query("SELECT * FROM `" . DB_PREFIX . "sagepay_direct_card` WHERE (`card_id` = '" . $this->db->escape($card_id) . "' OR `token` = '" . $this->db->escape($token) . "') AND `customer_id` = '" . (int)$this->customer->getId() . "'");
 
 		if ($qry->num_rows) {
 			return $qry->row;
@@ -71,7 +71,7 @@ class ModelExtensionPaymentSagePayDirect extends Model {
 	}
 
 	public function deleteCard($card_id) {
-		$this->db->query("DELETE FROM " . DB_PREFIX . "sagepay_direct_card WHERE card_id = '" . (int)$card_id . "'");
+		$this->db->query("DELETE FROM `" . DB_PREFIX . "sagepay_direct_card` WHERE `card_id` = '" . (int)$card_id . "'");
 	}
 
 	public function addOrder($order_id, $response_data, $payment_data, $card_id) {
