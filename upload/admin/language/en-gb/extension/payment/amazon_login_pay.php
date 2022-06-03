@@ -132,6 +132,7 @@ $_['error_no_supported_currencies'] = 'There are no supported currencies availab
 $_['error_cancel']					= 'Unable to cancel the order';
 $_['error_capture']					= 'Unable to capture the order';
 $_['error_refund']					= 'Unable to refund the order';
+$_['error_status']					= '%s';
 
 // Buttons
 $_['button_capture']				= 'Capture';

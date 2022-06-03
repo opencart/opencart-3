@@ -85,3 +85,6 @@ $_['error_sandbox_signature']		 = 'API Sandbox Signature Required!';
 $_['error_api']						 = 'Paypal Authorization Error';
 $_['error_api_sandbox']				 = 'Paypal Sandbox Authorization Error';
 $_['error_consent']				 	 = 'To use quick setup you need to permit PayPal to use your store information';
+$_['error_status_void_short']		 = '%s';
+$_['error_status_capture_short']	 = '%s';
+$_['error_status_refund_long']		 = 'There was an error: %s';

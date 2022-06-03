@@ -69,3 +69,4 @@ $_['error_vendor']			  = 'Vendor ID Required!';
 $_['error_void']			  = 'Unable to void the order';
 $_['error_release']			  = 'Unable to release the order';
 $_['error_rebate']			  = 'Unable to rebate the order';
+$_['error_status']			  = '%s';

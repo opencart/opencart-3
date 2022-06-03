@@ -102,3 +102,4 @@ $_['error_use_select_card']			 = 'You must have "Select Card" enabled for subacc
 $_['error_void']					 = 'Unable to void the order';
 $_['error_capture']					 = 'Unable to capture the order';
 $_['error_rebate']					 = 'Unable to rebate the order';
+$_['error_status']					 = '%s';

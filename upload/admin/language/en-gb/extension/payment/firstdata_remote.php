@@ -93,3 +93,4 @@ $_['error_ca']						 = 'Certificate Authority (CA) is required';
 $_['error_void']					 = 'Unable to void the order';
 $_['error_capture']					 = 'Unable to capture the order';
 $_['error_refund']					 = 'Unable to refund the order';
+$_['error_status']					 = '%s';

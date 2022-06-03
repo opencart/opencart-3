@@ -59,7 +59,7 @@ $_['error_permission']			         = 'Warning: You do not have permission to modi
 $_['error_service_key']			         = 'Service Key Required!';
 $_['error_client_key']			         = 'Client Key Required!';
 $_['error_refund']						 = 'Unable to refund the order';
-
+$_['error_status']						 = '%s';
 
 // Order page - payment tab
 $_['text_payment_info']			         = 'Payment information';

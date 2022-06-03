@@ -252,7 +252,7 @@ class ControllerExtensionPaymentGlobalpayRemote extends Controller {
 			} else {
 				$json['error'] = true;
 				
-				$json['msg'] = isset($void_response->message) && !empty($void_response->message) ? (string)$void_response->message : $this->language->get('error_void');
+				$json['msg'] = isset($void_response->message) && !empty($void_response->message) ? sprintf($this->language->get('error_status'), (string)$void_response->message) : $this->language->get('error_void');
 			}
 		} else {
 			$json['error'] = true;
@@ -310,7 +310,7 @@ class ControllerExtensionPaymentGlobalpayRemote extends Controller {
 			} else {
 				$json['error'] = true;
 				
-				$json['msg'] = isset($capture_response->message) && !empty($capture_response->message) ? (string)$capture_response->message : $this->language->get('error_capture');
+				$json['msg'] = isset($capture_response->message) && !empty($capture_response->message) ? sprintf($this->language->get('error_status'), (string)$capture_response->message) : $this->language->get('error_capture');
 
 			}
 		} else {
@@ -367,7 +367,7 @@ class ControllerExtensionPaymentGlobalpayRemote extends Controller {
 			} else {
 				$json['error'] = true;
 				
-				$json['msg'] = isset($rebate_response->message) && !empty($rebate_response->message) ? (string)$rebate_response->message : $this->language->get('error_rebate');
+				$json['msg'] = isset($rebate_response->message) && !empty($rebate_response->message) ? sprintf($this->language->get('error_status'), (string)$rebate_response->message) : $this->language->get('error_rebate');
 			}
 		} else {
 			$json['error'] = true;

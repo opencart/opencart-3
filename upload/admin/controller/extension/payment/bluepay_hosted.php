@@ -222,7 +222,7 @@ class ControllerExtensionPaymentBluePayHosted extends Controller {
 			} else {
 				$json['error'] = true;
 				
-				$json['msg'] = isset($void_response['MESSAGE']) && !empty($void_response['MESSAGE']) ? (string)$void_response['MESSAGE'] : $this->language->get('error_void');
+				$json['msg'] = isset($void_response['MESSAGE']) && !empty($void_response['MESSAGE']) ? sprintf($this->language->get('error_status'), (string)$void_response['MESSAGE']) : $this->language->get('error_void');
 			}
 		} else {
 			$json['error'] = true;
@@ -278,7 +278,7 @@ class ControllerExtensionPaymentBluePayHosted extends Controller {
 			} else {
 				$json['error'] = true;
 				
-				$json['msg'] = isset($release_response['MESSAGE']) && !empty($release_response['MESSAGE']) ? (string)$release_response['MESSAGE'] : $this->language->get('error_release');
+				$json['msg'] = isset($release_response['MESSAGE']) && !empty($release_response['MESSAGE']) ? sprintf($this->language->get('error_status'), (string)$release_response['MESSAGE']) : $this->language->get('error_release');
 			}
 		} else {
 			$json['error'] = true;
@@ -334,7 +334,7 @@ class ControllerExtensionPaymentBluePayHosted extends Controller {
 			} else {
 				$json['error'] = true;
 				
-				$json['msg'] = isset($rebate_response['MESSAGE']) && !empty($rebate_response['MESSAGE']) ? (string)$rebate_response['MESSAGE'] : $this->language->get('error_rebate');
+				$json['msg'] = isset($rebate_response['MESSAGE']) && !empty($rebate_response['MESSAGE']) ? sprintf($this->language->get('error_status'), (string)$rebate_response['MESSAGE']) : $this->language->get('error_rebate');
 			}
 		} else {
 			$json['error'] = true;
