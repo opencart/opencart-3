@@ -283,8 +283,8 @@ class ControllerExtensionPaymentSecureTradingWs extends Controller {
 						$message .= sprintf($this->language->get('text_3d_secure_check'), $threed_status_mapping[$threed_status]) . "\n";
 
 						$transaction_reference = (string)$response_xml->response->transactionreference;
+						
 						$this->model_extension_payment_securetrading_ws->updateReference($order_id, $transaction_reference);
-
 						$this->model_extension_payment_securetrading_ws->confirmOrder($order_id, $this->config->get('payment_securetrading_ws_order_status_id'));
 						$this->model_extension_payment_securetrading_ws->updateOrder($order_id, $this->config->get('payment_securetrading_ws_order_status_id'), $message);
 
@@ -293,18 +293,22 @@ class ControllerExtensionPaymentSecureTradingWs extends Controller {
 						$this->model_extension_payment_securetrading_ws->updateOrder($order_id, $this->config->get('payment_securetrading_ws_declined_order_status_id'));
 
 						$this->session->data['error'] = $this->language->get('text_transaction_declined');
+						
 						$this->response->redirect($this->url->link('checkout/checkout', '', true));
 					}
 				} else {
 					$this->session->data['error'] = $this->language->get('error_failure');
+					
 					$this->response->redirect($this->url->link('checkout/checkout', '', true));
 				}
 			} else {
 				$this->session->data['error'] = $this->language->get('error_failure');
+				
 				$this->response->redirect($this->url->link('checkout/checkout', '', true));
 			}
 		} else {
 			$this->session->data['error'] = $this->language->get('error_failure');
+			
 			$this->response->redirect($this->url->link('checkout/checkout', '', true));
 		}
 	}

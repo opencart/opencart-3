@@ -449,7 +449,6 @@ class ControllerExtensionPaymentKlarnaInvoice extends Controller {
 					}
 
 					$xml .= '</data></array>';
-
 				} else {
 					// array is associative
 					$xml = '<struct>';
@@ -463,7 +462,6 @@ class ControllerExtensionPaymentKlarnaInvoice extends Controller {
 
 					$xml .= '</struct>';
 				}
-
 				break;
 			default:
 				$xml = '<nil/>';

@@ -187,7 +187,6 @@ class ControllerExtensionPaymentAmazonLoginPay extends Controller {
             $shipping_method = explode('.', $this->request->post['shipping_method']);
 
             if (!isset($shipping_method[0]) || !isset($shipping_method[1]) || !isset($this->session->data['apalwa']['pay']['shipping_methods'][$shipping_method[0]]['quote'][$shipping_method[1]])) {
-
                 throw $this->model_extension_payment_amazon_login_pay->loggedException("Used shipping method is not allowed.", $this->language->get('error_process_order'));
             }
 
@@ -260,6 +259,7 @@ class ControllerExtensionPaymentAmazonLoginPay extends Controller {
         $data['error'] = '';
         if (isset($this->session->data['apalwa']['error'])) {
             $data['error'] = $this->session->data['apalwa']['error'];
+			
             unset($this->session->data['apalwa']['error']);
         }
 
@@ -582,8 +582,10 @@ class ControllerExtensionPaymentAmazonLoginPay extends Controller {
 
           // Verify order
           $this->model_extension_payment_amazon_login_pay->verifyOrder();
+		  
           try {
             $order_reference_id = $this->session->data['apalwa']['pay']['order_reference_id'];
+			
             if (empty($this->session->data['order_id'])) {
                 // Up to this point, everything is fine in the session. Save the order and submit it to Amazon.
                 $order_id = $this->model_checkout_order->addOrder($this->session->data['apalwa']['pay']['order']);
@@ -595,10 +597,10 @@ class ControllerExtensionPaymentAmazonLoginPay extends Controller {
                 $text_version = sprintf($this->language->get('text_created_by'), $this->version);
 
                 $this->model_extension_payment_amazon_login_pay->submitOrderDetails($order_reference_id, $order_id, $currency_code, $text_version);
-
             } else {
                 $order_id = (int)$this->session->data['order_id'];
             }
+			
             $amazon_order = $this->model_extension_payment_amazon_login_pay->fetchOrder($order_reference_id);
 
             // The order has been opened for authorization. Store it in the database

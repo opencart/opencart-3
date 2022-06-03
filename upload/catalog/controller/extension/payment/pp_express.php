@@ -578,12 +578,14 @@ class ControllerExtensionPaymentPPExpress extends Controller {
 						array_multisort($sort_order, SORT_ASC, $quote_data);
 
 						$this->session->data['shipping_methods'] = $quote_data;
+						
 						$data['shipping_methods'] = $quote_data;
 
 						if (!isset($this->session->data['shipping_method'])) {
 							// Default the shipping to the very first option.
 							$key1 = key($quote_data);
 							$key2 = key($quote_data[$key1]['quote']);
+							
 							$this->session->data['shipping_method'] = $quote_data[$key1]['quote'][$key2];
 						}
 
@@ -592,11 +594,13 @@ class ControllerExtensionPaymentPPExpress extends Controller {
 					} else {
 						unset($this->session->data['shipping_methods']);
 						unset($this->session->data['shipping_method']);
+						
 						$data['error_no_shipping'] = $this->language->get('error_no_shipping');
 					}
 				} else {
 					unset($this->session->data['shipping_methods']);
 					unset($this->session->data['shipping_method']);
+					
 					$data['error_no_shipping'] = $this->language->get('error_no_shipping');
 				}
 			}
@@ -695,6 +699,7 @@ class ControllerExtensionPaymentPPExpress extends Controller {
 
 		if (!isset($method_data['pp_express'])) {
 			$this->session->data['error_warning'] = $this->language->get('error_unavailable');
+			
 			$this->response->redirect($this->url->link('checkout/checkout', '', true));
 		}
 
@@ -705,13 +710,15 @@ class ControllerExtensionPaymentPPExpress extends Controller {
 
 		if (isset($this->session->data['error_warning'])) {
 			$data['error_warning'] = $this->session->data['error_warning'];
+			
 			unset($this->session->data['error_warning']);
 		} else {
 			$data['error_warning'] = '';
 		}
 
-		if (isset($this->session->data['success'])) {
+		if (isset($this->session->data['success'])) {			
 			$data['success'] = $this->session->data['success'];
+			
 			unset($this->session->data['success']);
 		} else {
 			$data['success'] = '';
@@ -719,6 +726,7 @@ class ControllerExtensionPaymentPPExpress extends Controller {
 
 		if (isset($this->session->data['attention'])) {
 			$data['attention'] = $this->session->data['attention'];
+			
 			unset($this->session->data['attention']);
 		} else {
 			$data['attention'] = '';
@@ -1239,10 +1247,11 @@ class ControllerExtensionPaymentPPExpress extends Controller {
 			} else {
 				if ($result['L_ERRORCODE0'] == '10486') {
 					if (isset($this->session->data['paypal_redirect_count'])) {
-
 						if ($this->session->data['paypal_redirect_count'] == 2) {
 							$this->session->data['paypal_redirect_count'] = 0;
+							
 							$this->session->data['error'] = $this->language->get('error_too_many_failures');
+							
 							$this->response->redirect($this->url->link('checkout/checkout', '', true));
 						} else {
 							$this->session->data['paypal_redirect_count']++;
@@ -1259,6 +1268,7 @@ class ControllerExtensionPaymentPPExpress extends Controller {
 				}
 
 				$this->session->data['error_warning'] = $result['L_LONGMESSAGE0'];
+				
 				$this->response->redirect($this->url->link('extension/payment/pp_express/expressConfirm', '', true));
 			}
 		} else {

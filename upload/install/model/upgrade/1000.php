@@ -181,11 +181,10 @@ class ModelUpgrade1000 extends Model {
 				$i = 0;
 
 				foreach ($table['field'] as $field) {
-
 					// If field is not found create it
 					if (!in_array($field['name'], $table_old_data[$table['name']]['field_list'])) {
-
 						$status = true;
+						
 						foreach ($table_old_data[$table['name']]['extended_field_data'] as $oldfield) {
 							if ($oldfield['Extra'] == 'auto_increment' && $field['autoincrement']) {
 								$sql = "ALTER TABLE `" . $table['name'] . "` CHANGE `" . $oldfield['Field'] . "` `" . $field['name'] . "` " . strtoupper($field['type']);

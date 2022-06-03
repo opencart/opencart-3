@@ -403,6 +403,7 @@ class ControllerExtensionPaymentPPBraintree extends Controller {
 				$this->model_extension_payment_pp_braintree->log($transaction);
 
 				$this->session->data['error'] = $this->language->get('error_process_order');
+				
 				$this->response->redirect($this->url->link('checkout/checkout', '', true));
 			}
 		}
@@ -964,12 +965,14 @@ class ControllerExtensionPaymentPPBraintree extends Controller {
 						array_multisort($sort_order, SORT_ASC, $quote_data);
 
 						$this->session->data['shipping_methods'] = $quote_data;
+						
 						$data['shipping_methods'] = $quote_data;
 
 						if (!isset($this->session->data['shipping_method'])) {
 							// Default the shipping to the very first option.
 							$key1 = key($quote_data);
 							$key2 = key($quote_data[$key1]['quote']);
+							
 							$this->session->data['shipping_method'] = $quote_data[$key1]['quote'][$key2];
 						}
 
@@ -978,11 +981,13 @@ class ControllerExtensionPaymentPPBraintree extends Controller {
 					} else {
 						unset($this->session->data['shipping_methods']);
 						unset($this->session->data['shipping_method']);
+						
 						$data['error_no_shipping'] = $this->language->get('error_no_shipping');
 					}
 				} else {
 					unset($this->session->data['shipping_methods']);
 					unset($this->session->data['shipping_method']);
+					
 					$data['error_no_shipping'] = $this->language->get('error_no_shipping');
 				}
 			}
@@ -1087,7 +1092,9 @@ class ControllerExtensionPaymentPPBraintree extends Controller {
 
 		if (!isset($method_data['pp_braintree'])) {
 			$this->model_extension_payment_pp_braintree->log("Braintree module was no longer an option. Check configured zones or minimum order amount based on user address info");
+			
 			$this->session->data['error_warning'] = $this->language->get('error_unavailable');
+			
 			$this->response->redirect($this->url->link('checkout/checkout', '', true));
 		}
 
@@ -1098,6 +1105,7 @@ class ControllerExtensionPaymentPPBraintree extends Controller {
 
 		if (isset($this->session->data['error_warning'])) {
 			$data['error_warning'] = $this->session->data['error_warning'];
+			
 			unset($this->session->data['error_warning']);
 		} else {
 			$data['error_warning'] = '';
@@ -1105,6 +1113,7 @@ class ControllerExtensionPaymentPPBraintree extends Controller {
 
 		if (isset($this->session->data['success'])) {
 			$data['success'] = $this->session->data['success'];
+			
 			unset($this->session->data['success']);
 		} else {
 			$data['success'] = '';
@@ -1112,6 +1121,7 @@ class ControllerExtensionPaymentPPBraintree extends Controller {
 
 		if (isset($this->session->data['attention'])) {
 			$data['attention'] = $this->session->data['attention'];
+			
 			unset($this->session->data['attention']);
 		} else {
 			$data['attention'] = '';
@@ -1136,6 +1146,7 @@ class ControllerExtensionPaymentPPBraintree extends Controller {
 		}
 
 		$this->load->language('extension/payment/pp_braintree');
+		
 		$redirect = '';
 
 		if ($this->cart->hasShipping()) {
@@ -1536,6 +1547,7 @@ class ControllerExtensionPaymentPPBraintree extends Controller {
 				$this->model_extension_payment_pp_braintree->log($transaction);
 
 				$this->session->data['error'] = $this->language->get('error_process_order');
+				
 				$this->response->redirect($this->url->link('checkout/checkout', '', true));
 			}
 		} else {

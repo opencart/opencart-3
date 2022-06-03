@@ -48,7 +48,6 @@ class ModelExtensionPaymentBluePayHosted extends Model {
 		$bluepay_hosted_order = $this->getOrder($order_id);
 
 		if (!empty($bluepay_hosted_order) && $bluepay_hosted_order['release_status'] == 1) {
-
 			$void_data = array();
 
 			$void_data['MERCHANT'] = $this->config->get('payment_bluepay_hosted_account_id');

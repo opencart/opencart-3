@@ -53,7 +53,9 @@ class ModelExtensionPaymentEway extends Model {
 
 		if ($qry->num_rows) {
 			$order = $qry->row;
+			
 			$order['transactions'] = $this->getTransactions($order['eway_order_id']);
+			
 			return $order;
 		} else {
 			return false;
@@ -68,6 +70,7 @@ class ModelExtensionPaymentEway extends Model {
 		if (isset($order['refund_transaction_id']) && !empty($order['refund_transaction_id'])) {
 			$order['refund_transaction_id'] .= ',';
 		}
+		
 		$order['refund_transaction_id'] .= $transaction_id;
 
 		$this->db->query("UPDATE `" . DB_PREFIX . "eway_order` SET `modified` = NOW(), `refund_amount` = '" . (double)$refund_amount . "', `refund_transaction_id` = '" . $this->db->escape($order['refund_transaction_id']) . "' WHERE `eway_order_id` = '" . $order['eway_order_id'] . "'");
@@ -77,7 +80,6 @@ class ModelExtensionPaymentEway extends Model {
 		$eway_order = $this->getOrder($order_id);
 
 		if ($eway_order && $capture_amount > 0 ) {
-
 			$capture_data = new \stdClass();
 			
 			$capture_data->Payment = new \stdClass();
@@ -95,7 +97,6 @@ class ModelExtensionPaymentEway extends Model {
 			$response = $this->sendCurl($url, $capture_data);
 
 			return json_decode($response);
-
 		} else {
 			return false;
 		}
@@ -125,7 +126,6 @@ class ModelExtensionPaymentEway extends Model {
 			$response = $this->sendCurl($url, $data);
 
 			return json_decode($response);
-
 		} else {
 			return false;
 		}
@@ -139,7 +139,6 @@ class ModelExtensionPaymentEway extends Model {
 		$eway_order = $this->getOrder($order_id);
 
 		if ($eway_order && $refund_amount > 0) {
-
 			$refund_data = new \stdClass();
 			
 			$refund_data->Refund = new \stdClass();

@@ -895,6 +895,7 @@ class ControllerExtensionModulePayPalSmartButton extends Controller {
 
 		if (isset($this->session->data['error_warning'])) {
 			$data['error_warning'] = $this->session->data['error_warning'];
+			
 			unset($this->session->data['error_warning']);
 		} else {
 			$data['error_warning'] = '';
@@ -902,6 +903,7 @@ class ControllerExtensionModulePayPalSmartButton extends Controller {
 
 		if (isset($this->session->data['success'])) {
 			$data['success'] = $this->session->data['success'];
+			
 			unset($this->session->data['success']);
 		} else {
 			$data['success'] = '';
@@ -909,6 +911,7 @@ class ControllerExtensionModulePayPalSmartButton extends Controller {
 
 		if (isset($this->session->data['attention'])) {
 			$data['attention'] = $this->session->data['attention'];
+			
 			unset($this->session->data['attention']);
 		} else {
 			$data['attention'] = '';

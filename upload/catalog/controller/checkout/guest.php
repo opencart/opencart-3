@@ -174,7 +174,6 @@ class ControllerCheckoutGuest extends Controller {
 			}
 
 			if ((utf8_strlen($this->request->post['telephone']) < 3) || (utf8_strlen($this->request->post['telephone']) > 32)) {
-
 				$json['error']['telephone'] = $this->language->get('error_telephone');
 			}
 

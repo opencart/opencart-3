@@ -332,6 +332,7 @@ class ControllerExtensionPaymentPPProIframe extends Controller {
 
 		if (isset($this->session->data['error'])) {
 			$data['error'] = $this->session->data['error'];
+			
 			unset($this->session->data['error']);
 		} else {
 			$data['error'] = '';

@@ -920,7 +920,6 @@ class ControllerExtensionPaymentSquareup extends Controller {
                 $this->model_extension_payment_squareup->editOrderRecurringStatus($order_recurring_id, ModelExtensionPaymentSquareup::RECURRING_CANCELLED);
 
                 $json['success'] = $this->language->get('text_canceled_success');
-
             } else {
                 $json['error'] = $this->language->get('error_not_found');
             }

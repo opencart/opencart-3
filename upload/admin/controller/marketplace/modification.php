@@ -205,7 +205,6 @@ class ControllerMarketplaceModification extends Controller {
 
 										// Log
 										$log[] = PHP_EOL . 'FILE: ' . $key;
-
 									} else {
 										// Log
 										$log[] = PHP_EOL . 'FILE: (sub modification) ' . $key;

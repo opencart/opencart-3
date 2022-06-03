@@ -77,6 +77,7 @@ class ControllerExtensionPaymentEway extends Controller {
 		$request->ShippingAddress->ShippingMethod = "Unknown";
 
 		$invoice_desc = '';
+		
 		foreach ($this->cart->getProducts() as $product) {
 			$item_price = $this->currency->format($product['price'], $order_info['currency_code'], false, false);
 			$item_total = $this->currency->format($product['total'], $order_info['currency_code'], false, false);
@@ -90,7 +91,9 @@ class ControllerExtensionPaymentEway extends Controller {
 			$request->Items[] = $item;
 			$invoice_desc .= $product['name'] . ', ';
 		}
+		
 		$invoice_desc = (string)substr($invoice_desc, 0, -2);
+		
 		if (strlen($invoice_desc) > 64) {
 			$invoice_desc = (string)substr($invoice_desc, 0, 61) . '...';
 		}
@@ -120,18 +123,22 @@ class ControllerExtensionPaymentEway extends Controller {
 		$request->Payment->CurrencyCode = $order_info['currency_code'];
 
 		$request->RedirectUrl = $this->url->link('extension/payment/eway/callback', '', true);
+		
 		if ($this->config->get('payment_eway_transaction_method') == 'auth') {
 			$request->Method = 'Authorise';
 		} else {
 			$request->Method = 'ProcessPayment';
 		}
+		
 		$request->TransactionType = 'Purchase';
 		$request->DeviceID = 'opencart-' . VERSION . ' eway-trans-2.1.2';
 		$request->CustomerIP = $this->request->server['REMOTE_ADDR'];
 		$request->PartnerID = '0f1bec3642814f89a2ea06e7d2800b7f';
 
 		$this->load->model('extension/payment/eway');
+		
 		$template = 'eway';
+		
 		if ($this->config->get('payment_eway_paymode') == 'iframe') {
 			$request->CancelUrl = 'http://www.example.org';
 			$request->CustomerReadOnly = true;
@@ -163,6 +170,7 @@ class ControllerExtensionPaymentEway extends Controller {
 				$data['callback'] = $this->url->link('extension/payment/eway/callback', 'AccessCode=' . $result->AccessCode, true);
 				$data['SharedPaymentUrl'] = $result->SharedPaymentUrl;
 			}
+			
 			$data['action'] = $result->FormActionURL;
 			$data['AccessCode'] = $result->AccessCode;
 		}
@@ -190,7 +198,6 @@ class ControllerExtensionPaymentEway extends Controller {
 		$this->load->language('extension/payment/eway');
 
 		if (isset($this->request->get['AccessCode']) || isset($this->request->get['amp;AccessCode'])) {
-
 			$this->load->model('extension/payment/eway');
 
 			if (isset($this->request->get['amp;AccessCode'])) {
@@ -208,19 +215,25 @@ class ControllerExtensionPaymentEway extends Controller {
 				$error_array = explode(",", $result->Errors);
 				$is_error = true;
 				$lbl_error = '';
+				
 				foreach ($error_array as $error) {
 					$error = $this->language->get('text_card_message_' . $error);
-					$lbl_error .= $error . ", ";
+					
+					$lbl_error .= $error . ", ";				
 				}
+				
 				$this->log->write('eWAY error: ' . $lbl_error);
 			}
+			
 			if (!$is_error) {
 				$fraud = false;
+				
 				if (!$result->TransactionStatus) {
 					$error_array = explode(", ", $result->ResponseMessage);
 					$is_error = true;
 					$lbl_error = '';
 					$log_error = '';
+					
 					foreach ($error_array as $error) {
 						// Don't show fraud issues to customers
 						if (stripos($error, 'F') === false) {
@@ -228,9 +241,12 @@ class ControllerExtensionPaymentEway extends Controller {
 						} else {
 							$fraud = true;
 						}
+						
 						$log_error .= $this->language->get('text_card_message_' . $error) . ", ";
 					}
+					
 					$log_error = substr($log_error, 0, -2);
+					
 					$this->log->write('eWAY payment failed: ' . $log_error);
 				}
 			}
@@ -242,6 +258,7 @@ class ControllerExtensionPaymentEway extends Controller {
 					$this->response->redirect($this->url->link('checkout/failure', '', true));
 				} else {
 					$this->session->data['error'] = $this->language->get('text_transaction_failed');
+					
 					$this->response->redirect($this->url->link('checkout/checkout', '', true));
 				}
 			} else {

@@ -297,7 +297,7 @@ class ControllerExtensionPaymentSecureTradingWs extends Controller {
 		$data['transactions'] = array();
 
 		$status_mapping = array(
-			'0' => $this->language->get('text_ok'),
+			'0' 	=> $this->language->get('text_ok'),
 			'70000' => $this->language->get('text_denied'),
 		);
 
@@ -502,7 +502,7 @@ class ControllerExtensionPaymentSecureTradingWs extends Controller {
 		
 		$json = array();
 
-		if (isset($this->request->post['order_id']) && !empty($this->request->post['order_id'])) {
+		if (isset($this->request->post['order_id']) && $this->request->post['order_id'] != '') {
 			$this->load->model('extension/payment/securetrading_ws');
 
 			$securetrading_ws_order = $this->model_extension_payment_securetrading_ws->getOrder($this->request->post['order_id']);

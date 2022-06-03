@@ -248,7 +248,6 @@ class ControllerExtensionPaymentDivido extends Controller {
 		$response = Divido_CreditRequest::create($request_data);
 
 		if ($response->status == 'ok') {
-
 			$this->model_extension_payment_divido->saveLookup($order_id, $salt, $response->id, null, $deposit_amount);
 
 			$data = array(

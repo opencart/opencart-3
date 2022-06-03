@@ -33,6 +33,7 @@ class ControllerExtensionPaymentWorldpay extends Controller {
 
 	public function send() {
 		$this->load->language('extension/payment/worldpay');
+		
 		$this->load->model('checkout/order');
 		
 		$this->load->model('localisation/country');
@@ -98,11 +99,13 @@ class ControllerExtensionPaymentWorldpay extends Controller {
 
 				if (isset($response->paymentMethod)) {
 					$card_data = array();
+					
 					$card_data['customer_id'] = $this->customer->getId();
 					$card_data['Token'] = $response->token;
 					$card_data['Last4Digits'] = (string)$response->paymentMethod->maskedCardNumber;
 					$card_data['ExpiryDate'] = date('m/y', $expiry_date);
 					$card_data['CardType'] = (string)$response->paymentMethod->cardType;
+					
 					$this->model_extension_payment_worldpay->addCard($this->session->data['order_id'], $card_data);
 				}
 			}
@@ -116,6 +119,7 @@ class ControllerExtensionPaymentWorldpay extends Controller {
 		} else {
 
 			$this->session->data['error'] = $this->language->get('error_process_order');
+			
 			$this->response->redirect($this->url->link('checkout/checkout', '', true));
 		}
 	}

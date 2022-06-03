@@ -86,6 +86,7 @@ class ControllerExtensionPaymentKlarnaCheckout extends Controller {
 
 		// Shipping
 		$unset_shipping_method = true;
+		
 		if (isset($this->session->data['shipping_method']) && isset($this->session->data['shipping_methods'])) {
 			foreach ($this->session->data['shipping_methods'] as $shipping_method) {
 				if ($shipping_method['quote']) {
@@ -254,6 +255,7 @@ class ControllerExtensionPaymentKlarnaCheckout extends Controller {
 
 		// Shipping
 		$unset_shipping_method = true;
+		
 		if (isset($this->session->data['shipping_method']) && isset($this->session->data['shipping_methods'])) {
 			foreach ($this->session->data['shipping_methods'] as $shipping_method) {
 				if ($shipping_method['quote']) {
@@ -1708,6 +1710,7 @@ class ControllerExtensionPaymentKlarnaCheckout extends Controller {
 
 		// Shipping
 		$unset_shipping_method = true;
+		
 		if (isset($this->session->data['shipping_method']) && isset($this->session->data['shipping_methods'])) {
 			foreach ($this->session->data['shipping_methods'] as $shipping_method) {
 				if ($shipping_method['quote']) {

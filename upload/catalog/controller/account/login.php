@@ -8,6 +8,7 @@ class ControllerAccountLogin extends Controller {
 		// Login override for admin users
 		if (!empty($this->request->get['token'])) {
 			$this->customer->logout();
+			
 			$this->cart->clear();
 
 			unset($this->session->data['order_id']);

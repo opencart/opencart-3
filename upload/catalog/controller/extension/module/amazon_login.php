@@ -2,7 +2,6 @@
 class ControllerExtensionModuleAmazonLogin extends Controller {
     public function index() {
         if ($this->config->get('payment_amazon_login_pay_status') && $this->config->get('module_amazon_login_status') && !$this->customer->isLogged() && !empty($this->request->server['HTTPS'])) {
-
             $this->load->model('extension/payment/amazon_login_pay');
 
             // capital L in Amazon cookie name is required, do not alter for coding standards
@@ -101,6 +100,7 @@ class ControllerExtensionModuleAmazonLogin extends Controller {
             // No issues found, and the Amazon profile has been fetched
             if ($from_amazon_pay) {
                 unset($this->session->data['guest']);
+				
                 unset($this->session->data['account']);
 
                 if ($this->config->get('payment_amazon_login_pay_checkout') == 'guest') {

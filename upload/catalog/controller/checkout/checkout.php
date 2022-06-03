@@ -70,6 +70,7 @@ class ControllerCheckoutCheckout extends Controller {
 
 		if (isset($this->session->data['error'])) {
 			$data['error_warning'] = $this->session->data['error'];
+			
 			unset($this->session->data['error']);
 		} else {
 			$data['error_warning'] = '';
