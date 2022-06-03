@@ -143,6 +143,7 @@ class ControllerExtensionPaymentSagepayServer extends Controller {
 					":" . $this->currency->format($product['tax'], $order_info['currency_code'], false, false) .
 					":" . $this->currency->format(($product['price'] + $product['tax']), $order_info['currency_code'], false, false) .
 					":" . $this->currency->format(($product['price'] + $product['tax']) * $product['quantity'], $order_info['currency_code'], false, false);
+					
 			$cart_rows++;
 		}
 
@@ -150,6 +151,7 @@ class ControllerExtensionPaymentSagepayServer extends Controller {
 		
 		foreach ($order_totals as $total) {
 			$str_basket .= ":" . str_replace(":", " ", $total['title']) . ":::::" . $this->currency->format($total['value'], $order_info['currency_code'], false, false);
+			
 			$cart_rows++;
 		}
 		

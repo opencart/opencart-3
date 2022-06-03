@@ -233,6 +233,7 @@ class ControllerExtensionPaymentSagepayDirect extends Controller {
 		
 		foreach ($order_totals as $total) {
 			$str_basket .= ":" . str_replace(":", " ", $total['title']) . ":::::" . $this->currency->format($total['value'], $order_info['currency_code'], false, false);
+			
 			$cart_rows++;
 		}
 		
