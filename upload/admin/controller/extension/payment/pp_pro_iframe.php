@@ -558,7 +558,7 @@ class ControllerExtensionPaymentPPProIframe extends Controller {
 		 * used to capture authorised payments
 		 * capture can be full or partial amounts
 		 */
-		if (isset($this->request->post['order_id']) && $this->request->post['amount'] > 0 && isset($this->request->post['order_id']) && isset($this->request->post['complete'])) {
+		if (isset($this->request->post['order_id']) && $this->request->post['order_id'] != '' && isset($this->request->post['amount']) && $this->request->post['amount'] > 0) {
 			$this->load->model('extension/payment/pp_pro_iframe');
 
 			$paypal_order = $this->model_extension_payment_pp_pro_iframe->getOrder($this->request->post['order_id']);
@@ -666,7 +666,7 @@ class ControllerExtensionPaymentPPProIframe extends Controller {
 			} else {
 				$json['error'] = true;
 				
-				$json['msg'] = isset($result['L_SHORTMESSAGE0']) ? $result['L_SHORTMESSAGE0'] : 'There was an error';
+				$json['msg'] = isset($result['L_SHORTMESSAGE0']) ? $result['L_SHORTMESSAGE0'] : $this->language->get('error_general');
 			}
 		} else {
 			$json['error'] = true;

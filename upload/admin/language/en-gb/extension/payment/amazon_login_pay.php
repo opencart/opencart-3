@@ -129,6 +129,9 @@ $_['error_upload']                  = 'Upload failed';
 $_['error_data_missing'] 			= 'Required data is missing';
 $_['error_credentials'] 			= 'Please enter the keys in a valid JSON format';
 $_['error_no_supported_currencies'] = 'There are no supported currencies available in your store, please add/enable Buyer Multi-Currency supported currencies in order to use this feature.';
+$_['error_cancel']					= 'Unable to cancel the order';
+$_['error_capture']					= 'Unable to capture the order';
+$_['error_refund']					= 'Unable to refund the order';
 
 // Buttons
 $_['button_capture']				= 'Capture';

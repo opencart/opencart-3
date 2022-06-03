@@ -573,13 +573,17 @@ class ControllerExtensionAdvertiseGoogle extends Controller {
         } elseif ($this->setting->has('advertise_google_shipping_taxes')) {
             $data['advertise_google_shipping_taxes'] = $this->setting->get('advertise_google_shipping_taxes');
         } else {
-            $data['advertise_google_shipping_taxes'] = array(
+			$this->load->model('localisation/country');
+			
+			$country_info = $this->model_localisation_country->getCountry($this->config->get('config_country_id'));
+			
+			$data['advertise_google_shipping_taxes'] = array(
                 'shipping_type' 			=> 'flat',
                 'flat_rate' 				=> $this->config->get('shipping_flat_cost'),
                 'min_transit_time' 			=> 1,
                 'max_transit_time' 			=> 14,
                 'carrier_price_percentage' 	=> 5,
-                'tax_type' 					=> $this->config->get('config_country_id') == 223 ? 'usa' : 'not_usa'
+                'tax_type' 					=> $country_info && $country_info['iso_code_2'] == 'US' ? 'usa' : 'not_usa'
             );
         }
 

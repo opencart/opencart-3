@@ -40,8 +40,6 @@ $_['entry_charged_back_status']			 = 'Charged Back:';
 $_['entry_information_requested_status'] = 'Information Requested Status:';
 $_['entry_information_supplied_status']	 = 'Information Supplied Status:';
 $_['entry_chargeback_reversed_status']	 = 'Chargeback Reversed Status:';
-
-
 $_['entry_reversed_status']			     = 'Reversed Status:';
 $_['entry_voided_status']			     = 'Voided Status:';
 
@@ -60,6 +58,8 @@ $_['tab_order_status']			         = 'Order Status';
 $_['error_permission']			         = 'Warning: You do not have permission to modify payment Worldpay!';
 $_['error_service_key']			         = 'Service Key Required!';
 $_['error_client_key']			         = 'Client Key Required!';
+$_['error_refund']						 = 'Unable to refund the order';
+
 
 // Order page - payment tab
 $_['text_payment_info']			         = 'Payment information';
@@ -75,4 +75,3 @@ $_['text_column_date_added']	         = 'Added';
 $_['text_confirm_refund']		         = 'Are you sure you want to refund the payment?';
 
 $_['button_refund']				         = 'Rebate / refund';
-

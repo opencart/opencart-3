@@ -26,3 +26,4 @@ $_['error_3ds_attempted']				= 'Card is not enrolled in 3D Secure as card issuin
 $_['error_3ds_card_ineligible']			= 'Card is not eligible for 3DS Secure authentication.';
 $_['error_payment']						= 'Please choose another payment method or <a href="%s" target="_blank">contact us</a>.';
 $_['error_timeout'] 	  				= 'Sorry, PayPal is currently busy. Please try again later!';
+$_['error_undefined']					= 'Undefined';

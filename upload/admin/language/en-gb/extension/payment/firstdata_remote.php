@@ -90,3 +90,6 @@ $_['error_certificate']				 = 'Certificate path is required';
 $_['error_key']						 = 'Certificate key is required';
 $_['error_key_pw']					 = 'Certificate key password is required';
 $_['error_ca']						 = 'Certificate Authority (CA) is required';
+$_['error_void']					 = 'Unable to void the order';
+$_['error_capture']					 = 'Unable to capture the order';
+$_['error_refund']					 = 'Unable to refund the order';

@@ -66,3 +66,6 @@ $_['button_void']			  = 'Void';
 // Error
 $_['error_permission']		  = 'Warning: You do not have permission to modify payment SagePay!';
 $_['error_vendor']			  = 'Vendor ID Required!';
+$_['error_void']			  = 'Unable to void the order';
+$_['error_release']			  = 'Unable to release the order';
+$_['error_rebate']			  = 'Unable to rebate the order';

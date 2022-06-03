@@ -364,7 +364,7 @@ class ControllerExtensionPaymentPayPal extends Controller {
 				$order_id = $payload['orderId'];
 						
 				if ($setting['checkout']['card']['secure_status']) {					
-					$secure_scenario_code = isset($payload['authenticationReason']) ? strtolower($payload['authenticationReason']) : 'undefined';
+					$secure_scenario_code = isset($payload['authenticationReason']) ? strtolower($payload['authenticationReason']) : $this->language->get('error_undefined');
 					
 					if (isset($setting['secure_scenario'][$secure_scenario_code]) && isset($setting['checkout']['card']['secure_scenario'][$secure_scenario_code]) && !$setting['checkout']['card']['secure_scenario'][$secure_scenario_code]) {
 						$this->error['warning'] = $this->language->get($setting['secure_scenario'][$secure_scenario_code]['error']);

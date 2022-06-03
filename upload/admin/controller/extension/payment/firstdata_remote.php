@@ -325,7 +325,7 @@ class ControllerExtensionPaymentFirstdataRemote extends Controller {
 			} else {
 				$json['error'] = true;
 				
-				$json['msg'] = isset($void_response['error']) && !empty($void_response['error']) ? (string)$void_response['error'] : 'Unable to void';
+				$json['msg'] = isset($void_response['error']) && !empty($void_response['error']) ? (string)$void_response['error'] : $this->language->get('error_void');
 			}
 		} else {
 			$json['error'] = true;
@@ -374,7 +374,7 @@ class ControllerExtensionPaymentFirstdataRemote extends Controller {
 			} else {
 				$json['error'] = true;
 				
-				$json['msg'] = isset($capture_response['error']) && !empty($capture_response['error']) ? (string)$capture_response['error'] : 'Unable to capture';
+				$json['msg'] = isset($capture_response['error']) && !empty($capture_response['error']) ? (string)$capture_response['error'] : $this->language->get('error_capture');
 
 			}
 		} else {
@@ -431,7 +431,7 @@ class ControllerExtensionPaymentFirstdataRemote extends Controller {
 			} else {
 				$json['error'] = true;
 				
-				$json['msg'] = isset($refund_response['error']) && !empty($refund_response['error']) ? (string)$refund_response['error'] : 'Unable to refund';
+				$json['msg'] = isset($refund_response['error']) && !empty($refund_response['error']) ? (string)$refund_response['error'] : $this->language->get('error_refund');
 			}
 		} else {
 			$json['error'] = true;

@@ -65,3 +65,6 @@ $_['error_permission']		 = 'Warning: You do not have permission to modify paymen
 $_['error_account_name']	 = 'Account Name Required!';
 $_['error_account_id']		 = 'Account ID Required!';
 $_['error_secret_key']		 = 'Secret Key Required!';
+$_['error_void']			 = 'Unable to void the order';
+$_['error_release']			 = 'Unable to release the order';
+$_['error_rebate']			 = 'Unable to rebate the order';

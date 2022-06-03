@@ -440,7 +440,7 @@ class ControllerExtensionPaymentAmazonLoginPay extends Controller {
 			} else {
 				$json['error'] = true;
 				
-				$json['msg'] = isset($cancel_response['StatuesDetail']) && !empty($cancel_response['StatuesDetail']) ? (string)$cancel_response['StatuesDetail'] : 'Unable to cancel';
+				$json['msg'] = isset($cancel_response['StatuesDetail']) && !empty($cancel_response['StatuesDetail']) ? (string)$cancel_response['StatuesDetail'] : $this->language->get('error_cancel');
 			}
 		} else {
 			$json['error'] = true;
@@ -508,7 +508,7 @@ class ControllerExtensionPaymentAmazonLoginPay extends Controller {
 			} else {
 				$json['error'] = true;
 				
-				$json['msg'] = isset($capture_response['status_detail']) && !empty($capture_response['status_detail']) ? (string)$capture_response['status_detail'] : 'Unable to capture';
+				$json['msg'] = isset($capture_response['status_detail']) && !empty($capture_response['status_detail']) ? (string)$capture_response['status_detail'] : $this->language->get('error_capture');
 			}
 		} else {
 			$json['error'] = true;
@@ -570,7 +570,7 @@ class ControllerExtensionPaymentAmazonLoginPay extends Controller {
 					$json['data'][] = $post_data;
 				} else {
 					$json['error'] = true;
-					$json['error_msg'][] = isset($response['status_detail']) && !empty($response['status_detail']) ? (string)$response['status_detail'] : 'Unable to refund';
+					$json['error_msg'][] = isset($response['status_detail']) && !empty($response['status_detail']) ? (string)$response['status_detail'] : $this->language->get('error_refund');
 				}
 			}
 			
