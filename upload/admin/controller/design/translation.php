@@ -342,7 +342,7 @@ class ControllerDesignTranslation extends Controller {
 				$next = array_shift($path);
 
 				if (is_dir($next)) {
-					foreach (glob(trim($next, '/') . '/{*,.[!.]*,..?*}', GLOB_BRACE) as $file) {
+					foreach (glob($next . '/*') as $file) {
 						if (is_dir($file)) {
 							$path[] = $file . '/*';
 						}

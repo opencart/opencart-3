@@ -142,6 +142,7 @@ class ControllerExtensionPaymentEway extends Controller {
 		if ($this->config->get('payment_eway_paymode') == 'iframe') {
 			$request->CancelUrl = 'http://www.example.org';
 			$request->CustomerReadOnly = true;
+			
 			$result = $this->model_extension_payment_eway->getSharedAccessCode($request);
 
 			$template = 'eway_iframe';
@@ -267,6 +268,7 @@ class ControllerExtensionPaymentEway extends Controller {
 				$order_info = $this->model_checkout_order->getOrder($order_id);
 
 				$this->load->model('extension/payment/eway');
+				
 				$eway_order_data = array(
 					'order_id' 			=> $order_id,
 					'transaction_id' 	=> $result->TransactionID,
