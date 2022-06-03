@@ -139,8 +139,8 @@ class ControllerExtensionFraudFraudLabsPro extends Controller {
 		$this->load->model('extension/fraud/fraudlabspro');
 
 		// Action of the Approve/Reject button click
-		if (isset($_POST['flp_id'])) {
-			$flp_status = $_POST['new_status'];
+		if (isset($this->request->post['flp_id'])) {
+			$flp_status = $this->request->post['new_status'];
 			
 			$data['flp_status'] = $flp_status;
 
@@ -148,13 +148,13 @@ class ControllerExtensionFraudFraudLabsPro extends Controller {
 			$fraud_fraudlabspro_key = $this->config->get('fraud_fraudlabspro_key');
 
 			for ($i = 0; $i < 3; $i++) {
-				$result = @file_get_contents('https://api.fraudlabspro.com/v1/order/feedback?key=' . $fraud_fraudlabspro_key . '&format=json&id=' . $_POST['flp_id'] . '&action=' . $flp_status);
+				$result = @file_get_contents('https://api.fraudlabspro.com/v1/order/feedback?key=' . $fraud_fraudlabspro_key . '&format=json&id=' . $this->request->post['flp_id'] . '&action=' . $flp_status);
 
 				if ($result) break;
 			}
 
 			// Update fraud status into table
-			$this->db->query("UPDATE `" . DB_PREFIX . "fraudlabspro` SET fraudlabspro_status = '" . $this->db->escape($flp_status) . "' WHERE order_id = " . $this->db->escape($this->request->get['order_id']));
+			$this->db->query("UPDATE `" . DB_PREFIX . "fraudlabspro` SET `fraudlabspro_status` = '" . $this->db->escape($flp_status) . "' WHERE `order_id` = " . $this->db->escape($this->request->get['order_id']));
 			
 			$data_temp = array();
 
