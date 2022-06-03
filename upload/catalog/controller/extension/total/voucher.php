@@ -45,14 +45,14 @@ class ControllerExtensionTotalVoucher extends Controller {
 		$this->response->setOutput(json_encode($json));
 	}
 
-	public function send($route, $args, $output) {
+	public function send(&$route, &$args, &$output) {
 		$this->load->model('checkout/order');
 
 		$order_info = $this->model_checkout_order->getOrder($args[0]);
 
 		// If order status in the complete range create any vouchers that where in the order need to be made available.
 		if (in_array($order_info['order_status_id'], (array)$this->config->get('config_complete_status'))) {
-			$voucher_query = $this->db->query("SELECT *, vtd.name AS theme FROM `" . DB_PREFIX . "voucher` v LEFT JOIN " . DB_PREFIX . "voucher_theme vt ON (v.voucher_theme_id = vt.voucher_theme_id) LEFT JOIN " . DB_PREFIX . "voucher_theme_description vtd ON (vt.voucher_theme_id = vtd.voucher_theme_id) WHERE v.order_id = '" . (int)$order_info['order_id'] . "' AND vtd.language_id = '" . (int)$order_info['language_id'] . "'");
+			$voucher_query = $this->db->query("SELECT *, vtd.`name` AS theme FROM `" . DB_PREFIX . "voucher` v LEFT JOIN `" . DB_PREFIX . "voucher_theme` vt ON (v.`voucher_theme_id` = vt.`voucher_theme_id`) LEFT JOIN `" . DB_PREFIX . "voucher_theme_description` vtd ON (vt.`voucher_theme_id` = vtd.`voucher_theme_id`) WHERE v.`order_id` = '" . (int)$order_info['order_id'] . "' AND vtd.`language_id` = '" . (int)$order_info['language_id'] . "'");
 
 			if ($voucher_query->num_rows) {
 				// Send out any gift voucher mails
@@ -62,25 +62,23 @@ class ControllerExtensionTotalVoucher extends Controller {
 
 				foreach ($voucher_query->rows as $voucher) {
 					// HTML Mail
-					$data = array();
+					$args['title'] = sprintf($language->get('text_subject'), $voucher['from_name']);
 
-					$data['title'] = sprintf($language->get('text_subject'), $voucher['from_name']);
-
-					$data['text_greeting'] = sprintf($language->get('text_greeting'), $this->currency->format($voucher['amount'], $order_info['currency_code'], $order_info['currency_value']));
-					$data['text_from'] = sprintf($language->get('text_from'), $voucher['from_name']);
-					$data['text_message'] = $language->get('text_message');
-					$data['text_redeem'] = sprintf($language->get('text_redeem'), $voucher['code']);
-					$data['text_footer'] = $language->get('text_footer');
+					$args['text_greeting'] = sprintf($language->get('text_greeting'), $this->currency->format($voucher['amount'], $order_info['currency_code'], $order_info['currency_value']));
+					$args['text_from'] = sprintf($language->get('text_from'), $voucher['from_name']);
+					$args['text_message'] = $language->get('text_message');
+					$args['text_redeem'] = sprintf($language->get('text_redeem'), $voucher['code']);
+					$args['text_footer'] = $language->get('text_footer');
 
 					if (is_file(DIR_IMAGE . $voucher['image'])) {
-						$data['image'] = $this->config->get('config_url') . 'image/' . $voucher['image'];
+						$args['image'] = $this->config->get('config_url') . 'image/' . $voucher['image'];
 					} else {
-						$data['image'] = '';
+						$args['image'] = '';
 					}
 
-					$data['store_name'] = $order_info['store_name'];
-					$data['store_url'] = $order_info['store_url'];
-					$data['message'] = nl2br($voucher['message']);
+					$args['store_name'] = $order_info['store_name'];
+					$args['store_url'] = $order_info['store_url'];
+					$args['message'] = nl2br($voucher['message']);
 
 					$mail = new \Mail($this->config->get('config_mail_engine'));
 					$mail->parameter = $this->config->get('config_mail_parameter');
@@ -94,7 +92,7 @@ class ControllerExtensionTotalVoucher extends Controller {
 					$mail->setFrom($this->config->get('config_email'));
 					$mail->setSender(html_entity_decode($order_info['store_name'], ENT_QUOTES, 'UTF-8'));
 					$mail->setSubject(html_entity_decode(sprintf($language->get('text_subject'), $voucher['from_name']), ENT_QUOTES, 'UTF-8'));
-					$mail->setHtml($this->load->view('mail/voucher', $data));
+					$mail->setHtml($this->load->view('mail/voucher', $args));
 					$mail->send();
 				}
 			}
