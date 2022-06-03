@@ -1,6 +1,6 @@
 <?php
 class ControllerMailTransaction extends Controller {
-	public function index($route, $args, $output) {
+	public function index(&$route, &$args, &$output) {
 		if (isset($args[0])) {
 			$customer_id = $args[0];
 		} else {
@@ -42,8 +42,8 @@ class ControllerMailTransaction extends Controller {
 				$store_name = $this->config->get('config_name');
 			}
 
-			$data['text_received'] = sprintf($this->language->get('text_received'), $this->currency->format($amount, $this->config->get('config_currency')));
-			$data['text_total'] = sprintf($this->language->get('text_total'), $this->currency->format($this->model_customer_customer->getTransactionTotal($customer_id), $this->config->get('config_currency')));
+			$args['text_received'] = sprintf($this->language->get('text_received'), $this->currency->format($amount, $this->config->get('config_currency')));
+			$args['text_total'] = sprintf($this->language->get('text_total'), $this->currency->format($this->model_customer_customer->getTransactionTotal($customer_id), $this->config->get('config_currency')));
 			
 			$mail = new \Mail($this->config->get('config_mail_engine'));
 			$mail->parameter = $this->config->get('config_mail_parameter');
@@ -57,7 +57,7 @@ class ControllerMailTransaction extends Controller {
 			$mail->setFrom($this->config->get('config_email'));
 			$mail->setSender(html_entity_decode($store_name, ENT_QUOTES, 'UTF-8'));
 			$mail->setSubject(sprintf($this->language->get('text_subject'), html_entity_decode($this->config->get('config_name'), ENT_QUOTES, 'UTF-8')));
-			$mail->setText($this->load->view('mail/transaction', $data));
+			$mail->setText($this->load->view('mail/transaction', $args));
 			$mail->send();
 		}
 	}		
