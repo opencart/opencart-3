@@ -335,7 +335,7 @@ class ModelCheckoutOrder extends Model {
 					$this->load->model('account/customer');
 
 					if (!$this->model_account_customer->getTotalTransactionsByOrderId($order_id)) {
-						$this->model_account_customer->addTransaction($order_info['affiliate_id'], $this->language->get('text_order_id') . ' #' . $order_id, $order_info['commission'], $order_id);
+						$this->model_account_customer->addTransaction($order_info['affiliate_id'], $this->language->get('text_orders_id') . ' #' . $order_id, $order_info['commission'], $order_id);
 					}
 				}
 			}

@@ -717,10 +717,6 @@ class ControllerExtensionPaymentPPBraintree extends Controller {
 				'threeds_shift_possible'  	=> ($transaction->threeDSecureInfo ? $liability_shift_possible : '')
 			);
 
-			$data['text_confirm_void'] = $this->language->get('text_confirm_void');
-			$data['text_confirm_settle'] = $this->language->get('text_confirm_settle');
-			$data['text_confirm_refund'] = $this->language->get('text_confirm_refund');
-
 			$this->response->setOutput($this->load->view('extension/payment/pp_braintree_order_ajax', $data));
 		}
 	}

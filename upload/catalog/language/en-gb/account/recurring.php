@@ -10,7 +10,7 @@ $_['text_order_recurring_id']              = 'Recurring ID:';
 $_['text_date_added']                      = 'Date Added:';
 $_['text_status']                          = 'Status:';
 $_['text_payment_method']                  = 'Payment Method:';
-$_['text_order_id']                        = 'Order ID:';
+$_['text_orders_id']                       = 'Order ID:';
 $_['text_product']                         = 'Product:';
 $_['text_quantity']                        = 'Quantity:';
 $_['text_description']                     = 'Description';
@@ -32,7 +32,7 @@ $_['text_transaction_suspended']           = 'Suspended';
 $_['text_transaction_suspended_failed']    = 'Suspended from failed payment';
 $_['text_transaction_outstanding_failed']  = 'Outstanding payment failed';
 $_['text_transaction_expired']             = 'Expired';
-$_['text_empty']                           = 'No recurring payments found!';
+$_['text_no_results']                      = 'No recurring payments found!';
 $_['text_error']                           = 'The recurring order you requested could not be found!';
 $_['text_cancelled']                       = 'Recurring payment has been cancelled';
 

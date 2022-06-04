@@ -69,7 +69,7 @@ class ControllerMailOrder extends Controller {
 		$data['text_download'] = $language->get('text_download');
 		$data['text_order_detail'] = $language->get('text_order_detail');
 		$data['text_instruction'] = $language->get('text_instruction');
-		$data['text_order_id'] = $language->get('text_order_id');
+		$data['text_orders_id'] = $language->get('text_orders_id');
 		$data['text_date_added'] = $language->get('text_date_added');
 		$data['text_payment_method'] = $language->get('text_payment_method');
 		$data['text_shipping_method'] = $language->get('text_shipping_method');
@@ -280,7 +280,7 @@ class ControllerMailOrder extends Controller {
 		$language->load($order_info['language_code']);
 		$language->load('mail/order_edit');
 
-		$data['text_order_id'] = $language->get('text_order_id');
+		$data['text_orders_id'] = $language->get('text_orders_id');
 		$data['text_date_added'] = $language->get('text_date_added');
 		$data['text_order_status'] = $language->get('text_order_status');
 		$data['text_link'] = $language->get('text_link');
@@ -363,7 +363,7 @@ class ControllerMailOrder extends Controller {
 			
 			// HTML Mail
 			$data['text_received'] = $this->language->get('text_received');
-			$data['text_order_id'] = $this->language->get('text_order_id');
+			$data['text_orders_id'] = $this->language->get('text_orders_id');
 			$data['text_date_added'] = $this->language->get('text_date_added');
 			$data['text_order_status'] = $this->language->get('text_order_status');
 			$data['text_product'] = $this->language->get('text_product');

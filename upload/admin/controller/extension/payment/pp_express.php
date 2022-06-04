@@ -334,8 +334,7 @@ class ControllerExtensionPaymentPPExpress extends Controller {
 					$data['payment_pp_express_test'] = 0;
 				}
 
-				$data['retrieve_success'] = 1;
-				$data['text_retrieve'] = $this->language->get('text_retrieve');
+				$data['retrieve_success'] = 1;				
 
 				$this->model_setting_setting->editSetting('payment_pp_express', $pp_express_settings);
 			}

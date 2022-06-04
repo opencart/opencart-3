@@ -1484,12 +1484,12 @@ class ControllerExtensionPaymentPPBraintree extends Controller {
 
 			$this->initialise();
 
-			$create_sale = [
+			$create_sale = array(
 				"amount" 				=> $this->currency->format($data['total'], $data['currency_code'], $data['currency_value'], false),
 				"paymentMethodNonce" 	=> $this->session->data['paypal_braintree']['nonce'],
 				"orderId" 				=> $order_id,
 				'channel' 				=> 'OpenCart_Cart_vzero',
-			];
+			);
 
 			$transaction = $this->model_extension_payment_pp_braintree->addTransaction($this->gateway, $create_sale);
 

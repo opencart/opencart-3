@@ -70,7 +70,7 @@ class ModelSaleReturns extends Model {
 			'customer',
 			'r.product',
 			'r.model',
-			'status',
+			'return_status',
 			'r.date_added',
 			'r.date_modified'
 		);
@@ -105,7 +105,7 @@ class ModelSaleReturns extends Model {
 	}
 
 	public function getTotalReturns($data = array()) {
-		$sql = "SELECT COUNT(*) AS total FROM `" . DB_PREFIX . "return`r";
+		$sql = "SELECT COUNT(*) AS total FROM `" . DB_PREFIX . "return` r";
 
 		$implode = array();
 
@@ -118,7 +118,7 @@ class ModelSaleReturns extends Model {
 		}
 
 		if (!empty($data['filter_order_id'])) {
-			$implode[] = "r.`order_id` = '" . (int)$data['filter_order_id'] . "'";
+			$implode[] = "r.`order_id` = '" . $this->db->escape($data['filter_order_id']) . "'";
 		}
 
 		if (!empty($data['filter_product'])) {

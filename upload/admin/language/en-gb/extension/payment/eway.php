@@ -65,8 +65,8 @@ $_['text_confirm_capture']		= 'Are you sure you want to capture the payment?';
 $_['text_confirm_release']		= 'Are you sure you want to release the payment?';
 $_['text_confirm_refund']		= 'Are you sure you want to refund the payment?';
 
-$_['text_empty_refund']			= 'Please enter an amount to refund';
-$_['text_empty_capture']		= 'Please enter an amount to capture';
+$_['text_no_results_refund']	= 'Please enter an amount to refund';
+$_['text_no_results_capture']	= 'Please enter an amount to capture';
 
 $_['btn_refund']				= 'Refund';
 $_['btn_capture']				= 'Capture';

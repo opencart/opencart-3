@@ -205,27 +205,6 @@ class ControllerExtensionPaymentEway extends Controller {
 
 				$eway_order['unrefunded'] = $eway_order['total_captured'] - $eway_order['total_refunded'];
 
-				$data['text_payment_info'] = $this->language->get('text_payment_info');
-				$data['text_order_total'] = $this->language->get('text_order_total');
-				$data['text_void_status'] = $this->language->get('text_void_status');
-				$data['text_transactions'] = $this->language->get('text_transactions');
-				$data['text_column_amount'] = $this->language->get('text_column_amount');
-				$data['text_column_type'] = $this->language->get('text_column_type');
-				$data['text_column_created'] = $this->language->get('text_column_created');
-				$data['text_column_transactionid'] = $this->language->get('text_column_transactionid');
-				$data['btn_refund'] = $this->language->get('btn_refund');
-				$data['btn_capture'] = $this->language->get('btn_capture');
-				$data['text_confirm_refund'] = $this->language->get('text_confirm_refund');
-				$data['text_confirm_capture'] = $this->language->get('text_confirm_capture');
-
-				$data['text_total_captured'] = $this->language->get('text_total_captured');
-				$data['text_total_refunded'] = $this->language->get('text_total_refunded');
-				$data['text_capture_status'] = $this->language->get('text_capture_status');
-				$data['text_refund_status'] = $this->language->get('text_refund_status');
-
-				$data['text_empty_refund'] = $this->language->get('text_empty_refund');
-				$data['text_empty_capture'] = $this->language->get('text_empty_capture');
-
 				$data['eway_order'] = $eway_order;
 				$data['user_token'] = $this->session->data['user_token'];
 				$data['order_id'] = (int)$this->request->get['order_id'];

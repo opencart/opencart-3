@@ -267,23 +267,6 @@ class ControllerExtensionPaymentFirstdata extends Controller {
 					$data['capture_error'] = '';
 				}
 
-				$data['text_payment_info'] = $this->language->get('text_payment_info');
-				$data['text_order_ref'] = $this->language->get('text_order_ref');
-				$data['text_order_total'] = $this->language->get('text_order_total');
-				$data['text_total_captured'] = $this->language->get('text_total_captured');
-				$data['text_capture_status'] = $this->language->get('text_capture_status');
-				$data['text_void_status'] = $this->language->get('text_void_status');
-				$data['text_transactions'] = $this->language->get('text_transactions');
-				$data['text_yes'] = $this->language->get('text_yes');
-				$data['text_no'] = $this->language->get('text_no');
-				$data['text_column_amount'] = $this->language->get('text_column_amount');
-				$data['text_column_type'] = $this->language->get('text_column_type');
-				$data['text_column_date_added'] = $this->language->get('text_column_date_added');
-				$data['button_capture'] = $this->language->get('button_capture');
-				$data['button_void'] = $this->language->get('button_void');
-				$data['text_confirm_void'] = $this->language->get('text_confirm_void');
-				$data['text_confirm_capture'] = $this->language->get('text_confirm_capture');
-
 				$data['order_id'] = (int)$this->request->get['order_id'];
 				$data['user_token'] = $this->session->data['user_token'];
 

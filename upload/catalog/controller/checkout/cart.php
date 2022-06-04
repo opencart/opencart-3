@@ -243,7 +243,7 @@ class ControllerCheckoutCart extends Controller {
 
 			$this->response->setOutput($this->load->view('checkout/cart', $data));
 		} else {
-			$data['text_error'] = $this->language->get('text_empty');
+			$data['text_error'] = $this->language->get('text_no_results');
 			
 			$data['continue'] = $this->url->link('common/home');
 

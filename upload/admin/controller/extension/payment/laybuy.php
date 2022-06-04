@@ -751,8 +751,6 @@ class ControllerExtensionPaymentLaybuy extends Controller {
 			);
 		} else {
 			$data['transaction'] = array();
-
-			$data['text_not_found'] = $this->language->get('text_not_found');
 		}
 
 		$data['user_token'] = $this->session->data['user_token'];

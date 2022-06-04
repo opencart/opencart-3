@@ -97,7 +97,7 @@ class ControllerExtensionPaymentAuthorizeNetSim extends Controller {
 		/**
 		 * The following array must not be reordered or elements removed, the hash requires ALL, even if empty/not set
 		 */
-		$verify_hash_fields = [
+		$verify_hash_fields = array(
 			'x_trans_id',
 			'x_test_request',
 			'x_response_code',
@@ -128,7 +128,7 @@ class ControllerExtensionPaymentAuthorizeNetSim extends Controller {
 			'x_ship_to_zip',
 			'x_ship_to_country',
 			'x_invoice_num',
-		];
+		);
 
 		$to_hash = '^';
 

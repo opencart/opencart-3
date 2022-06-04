@@ -11,14 +11,14 @@ $_['text_order']         = 'Order Information';
 $_['text_product']       = 'Product Information';
 $_['text_reason']        = 'Reason for Return';
 $_['text_message']       = '<p>Thank you for submitting your return request. Your request has been sent to the relevant department for processing.</p><p> You will be notified via e-mail as to the status of your request.</p>';
-$_['text_return_id']     = 'Return ID:';
-$_['text_order_id']      = 'Order ID:';
+$_['text_returns_id']    = 'Return ID:';
+$_['text_orders_id']     = 'Order ID:';
 $_['text_date_ordered']  = 'Order Date:';
 $_['text_status']        = 'Status:';
 $_['text_date_added']    = 'Date Added:';
 $_['text_comment']       = 'Return Comments';
 $_['text_history']       = 'Return History';
-$_['text_empty']         = 'You have not made any previous returns!';
+$_['text_no_results']    = 'You have not made any previous returns!';
 $_['text_agree']         = 'I have read and agree to the <a href="%s" class="agree"><b>%s</b></a>';
 
 // Column

@@ -125,7 +125,7 @@ class ModelLocalisationCurrency extends Model {
 
 			$cube = $dom->getElementsByTagName('Cube')->item(0);
 
-			$currencies = [];
+			$currencies = array();
 
 			$currencies['EUR'] = 1.0000;
 				
