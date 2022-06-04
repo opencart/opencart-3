@@ -915,7 +915,7 @@ class Googleshopping extends Library {
     }
 
     protected function clearReports() {
-        $sql = "UPDATE `" . DB_PREFIX . "googleshopping_product` SET `impressions`=0, `clicks`=0, `conversions`=0, `cost`=0.0000, `conversion_value`=0.0000 WHERE `store_id`=" . (int)$this->store_id;
+        $sql = "UPDATE `" . DB_PREFIX . "googleshopping_product` SET `impressions` = '0', `clicks` = '0', `conversions` = '0', `cost` = '0.0000', `conversion_value` = '0.0000' WHERE `store_id` = '" . (int)$this->store_id . "'";
 
         $this->db->query($sql);
     }
@@ -1016,7 +1016,7 @@ class Googleshopping extends Library {
 
     protected function resize($filename, $width, $height) {
         if (!is_file(DIR_IMAGE . $filename) || substr(str_replace('\\', '/', realpath(DIR_IMAGE . $filename)), 0, strlen(DIR_IMAGE)) != str_replace('\\', '/', DIR_IMAGE)) {
-            throw new \RuntimeException("Invalid image filename: " . DIR_IMAGE . $filename);
+            throw new \RuntimeException('Invalid image filename: ' . DIR_IMAGE . $filename);
         }
 
         $extension = pathinfo($filename, PATHINFO_EXTENSION);
@@ -1028,11 +1028,11 @@ class Googleshopping extends Library {
             list($width_orig, $height_orig, $image_type) = getimagesize(DIR_IMAGE . $image_old);
 
             if ($width_orig * $height_orig * 4 > $this->memoryLimitInBytes() * 0.4) {
-                throw new \RuntimeException("Image too large, skipping: " . $image_old);
+                throw new \RuntimeException('Image too large, skipping: ' . $image_old);
             }
 
             if (!in_array($image_type, array(IMAGETYPE_PNG, IMAGETYPE_JPEG, IMAGETYPE_GIF))) {
-                throw new \RuntimeException("Unexpected image type, skipping: " . $image_old);
+                throw new \RuntimeException('Unexpected image type, skipping: ' . $image_old);
             }
 
             $path = '';
@@ -1152,6 +1152,7 @@ class Googleshopping extends Library {
     public function convertAndFormat($price, $currency) {
         $currency_converter = new \Cart\Currency($this->registry);
         $converted_price = $currency_converter->convert((float)$price, $this->config->get('config_currency'), $currency);
+		
         return (float)number_format($converted_price, 2, '.', '');
     }
 
@@ -1254,9 +1255,7 @@ class Googleshopping extends Library {
 
             $campaign_keys = array_flip($targets);
 			
-			$expected = array();
-
-            $expected = array(
+			$expected = array(
                 'Campaign' 			=> 'campaign_name',
                 'Impressions' 		=> 'impressions',
                 'Clicks' 			=> 'clicks',
@@ -1674,9 +1673,7 @@ class Googleshopping extends Library {
             );
         }
 		
-		$data = array();
-
-        $data = array(
+		$data = array(
             'target' => $targets
         );
 
@@ -1822,6 +1819,7 @@ class Googleshopping extends Library {
     private function curlPostQuery($arrays, &$new = array(), $prefix = null) {
         foreach ($arrays as $key => $value) {
             $k = isset($prefix) ? $prefix . '[' . $key . ']' : $key;
+			
             if (is_array($value)) {
                 $this->curlPostQuery($value, $new, $k);
             } else {
@@ -1945,9 +1943,9 @@ class Googleshopping extends Library {
                 throw new \ConnectionException("Access unavailable. Please re-connect.");
             }
         } else {
-            $this->debugLog("CURL ERROR! CURL INFO: " . print_r($info, true));
+            $this->debugLog('CURL ERROR! CURL INFO: ' . print_r($info, true));
 
-            throw new \RuntimeException("A temporary error was encountered. Please try again later.");
+            throw new \RuntimeException('A temporary error was encountered. Please try again later.');
         }
     }
 }

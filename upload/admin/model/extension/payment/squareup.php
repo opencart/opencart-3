@@ -8,14 +8,14 @@ class ModelExtensionPaymentSquareup extends Model {
     const RECURRING_PENDING = 6;
 
     public function getTransaction($squareup_transaction_id) {
-        return $this->db->query("SELECT * FROM `" . DB_PREFIX . "squareup_transaction` WHERE `squareup_transaction_id`='" . (int)$squareup_transaction_id . "'")->row;
+        return $this->db->query("SELECT * FROM `" . DB_PREFIX . "squareup_transaction` WHERE `squareup_transaction_id` = '" . (int)$squareup_transaction_id . "'")->row;
     }
 
     public function getTransactions($data) {
         $sql = "SELECT * FROM `" . DB_PREFIX . "squareup_transaction`";
 
         if (isset($data['order_id'])) {
-            $sql .= " WHERE `order_id`='" . (int)$data['order_id'] . "'";
+            $sql .= " WHERE `order_id` = '" . (int)$data['order_id'] . "'";
         }
 
         $sql .= " ORDER BY `created_at` DESC";
@@ -31,14 +31,14 @@ class ModelExtensionPaymentSquareup extends Model {
         $sql = "SELECT COUNT(*) AS total FROM `" . DB_PREFIX . "squareup_transaction`";
 
         if (isset($data['order_id'])) {
-            $sql .= " WHERE `order_id`='" . (int)$data['order_id'] . "'";
+            $sql .= " WHERE `order_id` = '" . (int)$data['order_id'] . "'";
         }
 
         return $this->db->query($sql)->row['total'];
     }
 
     public function updateTransaction($squareup_transaction_id, $type, $refunds = array()) {
-        $this->db->query("UPDATE `" . DB_PREFIX . "squareup_transaction` SET `transaction_type`='" . $this->db->escape($type) . "', `is_refunded`='" . (int)!empty($refunds) . "', `refunds`='" . $this->db->escape(json_encode($refunds)) . "' WHERE `squareup_transaction_id`='" . (int)$squareup_transaction_id . "'");
+        $this->db->query("UPDATE `" . DB_PREFIX . "squareup_transaction` SET `transaction_type` = '" . $this->db->escape($type) . "', `is_refunded` = '" . (int)!empty($refunds) . "', `refunds` = '" . $this->db->escape(json_encode($refunds)) . "' WHERE `squareup_transaction_id` = '" . (int)$squareup_transaction_id . "'");
     }
 
     public function getOrderStatusId($order_id, $transaction_status = null) {

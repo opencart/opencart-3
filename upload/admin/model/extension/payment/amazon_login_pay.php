@@ -268,7 +268,7 @@ class ModelExtensionPaymentAmazonLoginPay extends Model {
 	}
 
 	public function updateAuthorizationStatus($amazon_authorization_id, $status) {
-		$this->db->query("UPDATE `" . DB_PREFIX . "amazon_login_pay_order_transaction` SET `status` = '" . $this->db->escape($status) . "' WHERE `amazon_authorization_id`='" . $this->db->escape($amazon_authorization_id) . "' AND `type`='authorization'");
+		$this->db->query("UPDATE `" . DB_PREFIX . "amazon_login_pay_order_transaction` SET `status` = '" . $this->db->escape($status) . "' WHERE `amazon_authorization_id` = '" . $this->db->escape($amazon_authorization_id) . "' AND `type` = 'authorization'");
 	}
 
 	public function isOrderInState($order_reference_id, $states = array()) {
@@ -276,7 +276,7 @@ class ModelExtensionPaymentAmazonLoginPay extends Model {
     }
 
     public function fetchOrder($order_reference_id) {
-    	$order = $this->offAmazon("GetOrderReferenceDetails", array(
+    	$order = $this->offAmazon('GetOrderReferenceDetails', array(
             'AmazonOrderReferenceId' => $order_reference_id
         ));
 
@@ -428,20 +428,24 @@ class ModelExtensionPaymentAmazonLoginPay extends Model {
 		curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
 
 		$response = curl_exec($curl);
+		
 		curl_close($curl);
 
 		list($other, $responseBody) = explode("\r\n\r\n", $response, 2);
 		$other = preg_split("/\r\n|\n|\r/", $other);
 
 		list($protocol, $code, $text) = explode(' ', trim(array_shift($other)), 3);
+		
 		return array('status' => (int)$code, 'ResponseBody' => $responseBody);
 	}
 
 	private function getParametersAsString(array $parameters) {
 		$queryParameters = array();
+		
 		foreach ($parameters as $key => $value) {
 			$queryParameters[] = $key . '=' . $this->urlencode($value);
 		}
+		
 		return implode('&', $queryParameters);
 	}
 
@@ -452,9 +456,11 @@ class ModelExtensionPaymentAmazonLoginPay extends Model {
 		$data .= $endpoint['host'];
 		$data .= "\n";
 		$uri = array_key_exists('path', $endpoint) ? $endpoint['path'] : null;
+		
 		if (!isset($uri)) {
 			$uri = "/";
 		}
+		
 		$uriencoded = implode("/", array_map(array($this, "urlencode"), explode("/", $uri)));
 		$data .= $uriencoded;
 		$data .= "\n";
