@@ -627,8 +627,10 @@ class ControllerSaleVoucher extends Controller {
 			
 							$data['text_greeting'] = sprintf($this->language->get('text_greeting'), $this->currency->format($voucher_info['amount'], $this->config->get('config_currency')));
 							$data['text_from'] = sprintf($this->language->get('text_from'), $voucher_info['from_name']);
+							$data['text_message'] = $this->language->get('text_message');
 							$data['text_redeem'] = sprintf($this->language->get('text_redeem'), $voucher_info['code']);
-			
+							$data['text_footer'] = $this->language->get('text_footer');
+							
 							$voucher_theme_info = $this->model_sale_voucher_theme->getVoucherTheme($voucher_info['voucher_theme_id']);
 
 							if ($voucher_theme_info && is_file(DIR_IMAGE . $voucher_theme_info['image'])) {
