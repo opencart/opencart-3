@@ -11,9 +11,13 @@ class ControllerMailCustomer extends Controller {
 			$store_info = $this->model_setting_store->getStore($customer_info['store_id']);
 
 			if ($store_info) {
+				$this->load->model('setting/setting');
+
+				$store_logo = html_entity_decode($this->model_setting_setting->getValue('config_logo', $store_info['store_id']), ENT_QUOTES, 'UTF-8');
 				$store_name = html_entity_decode($store_info['name'], ENT_QUOTES, 'UTF-8');
 				$store_url = $store_info['url'];
 			} else {
+				$store_logo = html_entity_decode($this->config->get('config_logo'), ENT_QUOTES, 'UTF-8');
 				$store_name = html_entity_decode($this->config->get('config_name'), ENT_QUOTES, 'UTF-8');
 				$store_url = HTTP_CATALOG;
 			}
@@ -31,13 +35,23 @@ class ControllerMailCustomer extends Controller {
 			$language = new \Language($language_code);
 			$language->load($language_code);
 			$language->load('mail/customer_approve');
+			
+			$this->load->model('tool/image');
+
+			if (is_file(DIR_IMAGE . $store_logo)) {
+				$data['logo'] = $store_url . 'image/' . $store_logo;
+			} else {
+				$data['logo'] = '';
+			}
 
 			$subject = sprintf($language->get('text_subject'), $store_name);
 
 			$data['text_welcome'] = sprintf($language->get('text_welcome'), $store_name);
 
 			$data['login'] = $store_url . 'index.php?route=account/login';
+			
 			$data['store'] = $store_name;
+			$data['store_url'] = $store_url;
 
 			$mail = new \Mail($this->config->get('config_mail_engine'));
 			$mail->parameter = $this->config->get('config_mail_parameter');
@@ -51,7 +65,7 @@ class ControllerMailCustomer extends Controller {
 			$mail->setFrom($this->config->get('config_email'));
 			$mail->setSender($store_name);
 			$mail->setSubject($subject);
-			$mail->setText($this->load->view('mail/customer_approve', $data));
+			$mail->setHtml($this->load->view('mail/customer_approve', $data));
 			$mail->send();
 		}
 	}
@@ -67,9 +81,13 @@ class ControllerMailCustomer extends Controller {
 			$store_info = $this->model_setting_store->getStore($customer_info['store_id']);
 
 			if ($store_info) {
+				$this->load->model('setting/setting');
+
+				$store_logo = html_entity_decode($this->model_setting_setting->getValue('config_logo', $store_info['store_id']), ENT_QUOTES, 'UTF-8');
 				$store_name = html_entity_decode($store_info['name'], ENT_QUOTES, 'UTF-8');
 				$store_url = $store_info['url'];
 			} else {
+				$store_logo = html_entity_decode($this->config->get('config_logo'), ENT_QUOTES, 'UTF-8');
 				$store_name = html_entity_decode($this->config->get('config_name'), ENT_QUOTES, 'UTF-8');
 				$store_url = HTTP_CATALOG;
 			}
@@ -87,13 +105,23 @@ class ControllerMailCustomer extends Controller {
 			$language = new \Language($language_code);
 			$language->load($language_code);
 			$language->load('mail/customer_deny');
+			
+			$this->load->model('tool/image');
+
+			if (is_file(DIR_IMAGE . $store_logo)) {
+				$data['logo'] = $store_url . 'image/' . $store_logo;
+			} else {
+				$data['logo'] = '';
+			}
 
 			$subject = sprintf($language->get('text_subject'), $store_name);
 
 			$data['text_welcome'] = sprintf($language->get('text_welcome'), $store_name);
 
 			$data['contact'] = $store_url . 'index.php?route=information/contact';
+			
 			$data['store'] = $store_name;
+			$data['store_url'] = $store_url;
 
 			$mail = new \Mail($this->config->get('config_mail_engine'));
 			$mail->parameter = $this->config->get('config_mail_parameter');
@@ -107,7 +135,7 @@ class ControllerMailCustomer extends Controller {
 			$mail->setFrom($this->config->get('config_email'));
 			$mail->setSender($store_name);
 			$mail->setSubject($subject);
-			$mail->setText($this->load->view('mail/customer_deny', $data));
+			$mail->setHtml($this->load->view('mail/customer_deny', $data));
 			$mail->send();
 		}
 	}
