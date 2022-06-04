@@ -148,20 +148,13 @@ class ControllerEventActivity extends Controller {
 		if ($this->config->get('config_customer_activity')) {
 			$this->load->model('account/activity');
 
-			if ($this->customer->getId()) {
-				$activity_data = array(
-					'customer_id' => $this->customer->getId(),
-					'name'        => $this->customer->getFirstName() . ' ' . $this->customer->getLastName()
-				);
-			} else {
-				$activity_data = array(
-					'customer_id' => $args[0],
-					'name'        => $args[1]['firstname'] . ' ' . $args[1]['lastname']
-				);
-			}
+			$activity_data = array(
+				'customer_id' => $this->customer->getId(),
+				'name'        => $this->customer->getFirstName() . ' ' . $this->customer->getLastName()
+			);
 
 			$this->model_account_activity->addActivity('address_add', $activity_data);
-		}	
+		}
 	}
 	
 	// model/account/address/editAddress/after
