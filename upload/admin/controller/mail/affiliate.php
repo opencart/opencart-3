@@ -37,7 +37,9 @@ class ControllerMailAffiliate extends Controller {
 			$data['text_welcome'] = sprintf($language->get('text_welcome'), $store_name);
 
 			$data['login'] = $store_url . 'index.php?route=affiliate/login';
+			
 			$data['store'] = $store_name;
+			$data['store_url'] = $store_url;
 
 			$mail = new \Mail($this->config->get('config_mail_engine'));
 			$mail->parameter = $this->config->get('config_mail_parameter');
@@ -93,7 +95,9 @@ class ControllerMailAffiliate extends Controller {
 			$data['text_welcome'] = sprintf($language->get('text_welcome'), $store_name);
 
 			$data['contact'] = $store_url . 'index.php?route=information/contact';
+			
 			$data['store'] = $store_name;
+			$data['store_url'] = $store_url;
 
 			$mail = new \Mail($this->config->get('config_mail_engine'));
 			$mail->parameter = $this->config->get('config_mail_parameter');
