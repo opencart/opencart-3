@@ -54,9 +54,6 @@ class ControllerExtensionPaymentBluePayHosted extends Controller {
 		$data['SHPF_TPS_DEF'] = "SHPF_FORM_ID SHPF_ACCOUNT_ID DBA TAMPER_PROOF_SEAL CARD_TYPES TPS_DEF SHPF_TPS_DEF AMOUNT";
 		$data['SHPF_TPS'] = md5($this->config->get('payment_bluepay_hosted_secret_key') . $data['SHPF_FORM_ID'] . $data['SHPF_ACCOUNT_ID'] . $data['DBA'] . $data['TAMPER_PROOF_SEAL'] . $data['CARD_TYPES'] . $data['TPS_DEF'] . $data['SHPF_TPS_DEF'] . $data['AMOUNT']);
 
-		$data['button_confirm'] = $this->language->get('button_confirm');
-		$data['text_loading'] = $this->language->get('text_loading');
-
 		return $this->load->view('extension/payment/bluepay_hosted', $data);
 	}
 

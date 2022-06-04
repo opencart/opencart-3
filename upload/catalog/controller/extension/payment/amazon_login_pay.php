@@ -34,8 +34,6 @@ class ControllerExtensionPaymentAmazonLoginPay extends Controller {
             unset($this->session->data['apalwa']['pay']['order_reference_id']);
         }
 
-        $data['text_cart'] = $this->language->get('text_cart');
-
         $data['shipping_methods'] = html_entity_decode($this->url->link('extension/payment/amazon_login_pay/shipping_methods', '', true), ENT_COMPAT, "UTF-8");
         $data['shipping'] = html_entity_decode($this->url->link('extension/payment/amazon_login_pay/shipping', '', true), ENT_COMPAT, "UTF-8");
         $data['cart'] = html_entity_decode($this->url->link('checkout/cart'), ENT_COMPAT, "UTF-8");

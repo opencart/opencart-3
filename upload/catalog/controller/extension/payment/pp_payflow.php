@@ -3,21 +3,6 @@ class ControllerExtensionPaymentPPPayflow extends Controller {
 	public function index() {
 		$this->load->language('extension/payment/pp_payflow');
 
-		$data['text_credit_card'] = $this->language->get('text_credit_card');
-		$data['text_start_date'] = $this->language->get('text_start_date');
-		$data['text_issue'] = $this->language->get('text_issue');
-		$data['text_loading'] = $this->language->get('text_loading');
-
-		$data['entry_cc_owner'] = $this->language->get('entry_cc_owner');
-		$data['entry_cc_type'] = $this->language->get('entry_cc_type');
-		$data['entry_cc_number'] = $this->language->get('entry_cc_number');
-		$data['entry_cc_start_date'] = $this->language->get('entry_cc_start_date');
-		$data['entry_cc_expire_date'] = $this->language->get('entry_cc_expire_date');
-		$data['entry_cc_cvv2'] = $this->language->get('entry_cc_cvv2');
-		$data['entry_cc_issue'] = $this->language->get('entry_cc_issue');
-
-		$data['button_confirm'] = $this->language->get('button_confirm');
-
 		$this->load->model('checkout/order');
 
 		if (!isset($this->session->data['order_id'])) {

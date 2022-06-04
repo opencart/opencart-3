@@ -33,9 +33,11 @@ class ControllerExtensionPaymentEway extends Controller {
 
 		if ($this->config->get('payment_eway_test')) {
 			$data['text_testing'] = $this->language->get('text_testing');
+			
 			$data['Endpoint'] = 'Sandbox';
 		} else {
 			$data['text_testing'] = '';
+			
 			$data['Endpoint'] = 'Production';
 		}
 

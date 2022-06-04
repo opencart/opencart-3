@@ -3,8 +3,6 @@ class ControllerCommonSecurity extends Controller {
 	public function index() {
 		$this->load->language('common/security');
 
-		$data['text_instruction'] = $this->language->get('text_instruction');
-
 		$data['user_token'] = $this->session->data['user_token'];
 
 		$data['storage'] = DIR_SYSTEM . 'storage/';

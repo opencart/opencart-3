@@ -78,10 +78,6 @@ class ControllerExtensionPaymentSecureTradingPp extends Controller {
 				}
 			}
 
-			$data['button_confirm'] = $this->language->get('button_confirm');
-			$data['text_payment_details'] = $this->language->get('text_payment_details');
-			$data['entry_card_type'] = $this->language->get('entry_card_type');
-
 			return $this->load->view('extension/payment/securetrading_pp', $data);
 		}
 	}

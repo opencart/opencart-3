@@ -2,23 +2,7 @@
 class ControllerExtensionPaymentSagepayServer extends Controller {
 	public function index() {
 		$this->load->language('extension/payment/sagepay_server');
-		$data['text_credit_card'] = $this->language->get('text_credit_card');
-		$data['text_card_name'] = $this->language->get('text_card_name');
-		$data['text_card_type'] = $this->language->get('text_card_type');
-		$data['text_card_digits'] = $this->language->get('text_card_digits');
-		$data['text_card_expiry'] = $this->language->get('text_card_expiry');
-		$data['text_loading'] = $this->language->get('text_loading');
-		$data['text_confirm_delete'] = $this->language->get('text_confirm_delete');
-
-		$data['entry_card'] = $this->language->get('entry_card');
-		$data['entry_card_existing'] = $this->language->get('entry_card_existing');
-		$data['entry_card_new'] = $this->language->get('entry_card_new');
-		$data['entry_card_save'] = $this->language->get('entry_card_save');
-		$data['entry_cc_choice'] = $this->language->get('entry_cc_choice');
-
-		$data['button_confirm'] = $this->language->get('button_confirm');
-		$data['button_delete_card'] = $this->language->get('button_delete_card');
-
+		
 		$data['action'] = $this->url->link('extension/payment/sagepay_server/send', '', true);
 
 		if ($this->config->get('payment_sagepay_server_card') == '1') {

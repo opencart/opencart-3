@@ -504,13 +504,6 @@ class ControllerSaleVoucher extends Controller {
 
 		$this->load->model('sale/voucher');
 
-		$data['text_no_results'] = $this->language->get('text_no_results');
-
-		$data['column_order_id'] = $this->language->get('column_order_id');
-		$data['column_customer'] = $this->language->get('column_customer');
-		$data['column_amount'] = $this->language->get('column_amount');
-		$data['column_date_added'] = $this->language->get('column_date_added');
-
 		if (isset($this->request->get['page'])) {
 			$page = (int)$this->request->get['page'];
 		} else {
@@ -634,9 +627,7 @@ class ControllerSaleVoucher extends Controller {
 			
 							$data['text_greeting'] = sprintf($this->language->get('text_greeting'), $this->currency->format($voucher_info['amount'], $this->config->get('config_currency')));
 							$data['text_from'] = sprintf($this->language->get('text_from'), $voucher_info['from_name']);
-							$data['text_message'] = $this->language->get('text_message');
 							$data['text_redeem'] = sprintf($this->language->get('text_redeem'), $voucher_info['code']);
-							$data['text_footer'] = $this->language->get('text_footer');		
 			
 							$voucher_theme_info = $this->model_sale_voucher_theme->getVoucherTheme($voucher_info['voucher_theme_id']);
 
