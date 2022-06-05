@@ -1,31 +1,31 @@
 <?php
 class ModelExtensionFraudIp extends Model {
     public function check($order_info) {
-        $this->load->model('account/customer');
-
         $status = false;
 
-        if ($order_info['customer_id']) {
-            $results = $this->model_account_customer->getIps($order_info['customer_id']);
+		if ($order_info['customer_id']) {
+			$this->load->model('account/customer');
 
-            foreach ($results as $result) {
-                $query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "fraud_ip` WHERE `ip` = '" . $this->db->escape($result['ip']) . "'");
+			$results = $this->model_account_customer->getIps($order_info['customer_id']);
 
-                if ($query->num_rows) {
-                    $status = true;
-                    break;
-                }
-            }
-        } else {
-            $query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "fraud_ip` WHERE `ip` = '" . $this->db->escape($order_info['ip']) . "'");
+			foreach ($results as $result) {
+				$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "fraud_ip` WHERE `ip` = '" . $this->db->escape($result['ip']) . "'");
 
-            if ($query->num_rows) {
-                $status = true;
-            }
-        }
+				if ($query->num_rows) {
+					$status = true;
+					break;
+				}
+			}
+		} else {
+			$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "fraud_ip` WHERE `ip` = '" . $this->db->escape($order_info['ip']) . "'");
 
-        if ($status) {
-            return $this->config->get('fraud_ip_order_status_id');
-        }
+			if ($query->num_rows) {
+				$status = true;
+			}
+		}
+
+		if ($status) {
+			return (int)$this->config->get('fraud_ip_order_status_id');
+		}
     }
 }
