@@ -29,11 +29,7 @@ class ControllerExtensionModuleFraudlabspro extends Controller {
 		$order_info = $this->model_checkout_order->getOrder($order_id);
 		
 		if ($order_info) {
-			$comment = $this->getStatus($order_id, $order_status_id, $notify);				
-			
-			if ($comment) {
-				$this->model_checkout_order->addOrderHistory($order_id, $order_status_id, $comment);
-			}
+			$this->getStatus($order_id, $order_status_id, $notify);
 		}
 	}
 	
@@ -47,9 +43,19 @@ class ControllerExtensionModuleFraudlabspro extends Controller {
 			
 			$status = $this->model_extension_fraud_fraudlabspro->getStatus($order_id);
 			
-			if ($status) {
-				return sprintf($this->language->get('text_status'), $status);
-			}
+			if ($status == 'REVIEW') {
+				$comment = $this->language->get('text_review');
+				
+				$this->model_checkout_order->addOrderHistory($order_id, $this->config->get('fraud_fraudlabspro_review_status_id'), $comment);
+			} elseif ($status == 'APPROVE') {
+				$comment = $this->language->get('text_approve');
+				
+				$this->model_checkout_order->addOrderHistory($order_id, $order_status_id, $comment);
+			} elseif ($status == 'REJECT') {
+				$comment = $this->language->get('text_reject');
+				
+				$this->model_checkout_order->addOrderHistory($order_id, $this->config->get('fraud_fraudlabspro_reject_status_id'), $comment);
+			}			
 		}
 	}
 }
