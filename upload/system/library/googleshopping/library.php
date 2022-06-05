@@ -1,5 +1,4 @@
 <?php
-
 namespace googleshopping;
 
 abstract class Library {

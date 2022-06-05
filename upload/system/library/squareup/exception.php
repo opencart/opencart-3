@@ -1,5 +1,4 @@
 <?php
-
 namespace Squareup;
 
 class Exception extends \Exception {

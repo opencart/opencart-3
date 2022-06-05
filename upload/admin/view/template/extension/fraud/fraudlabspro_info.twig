@@ -95,8 +95,8 @@
     <td id="flp_action" colspan="2">
       <form id="review-action" method="post">
 	    <div align="center">
-		  <button type="button" id="button-flp-approve" class="btn btn-primary"><i class="fa fa-check"></i> Approve</button>
-		  <button type="button" id="button-flp-reject" class="btn btn-danger"><i class="fa fa-remove"></i> Reject</button>
+		  <button type="button" id="button-flp-approve" class="btn btn-primary"><i class="fa fa-check"></i> {{ text_approve }}</button>
+		  <button type="button" id="button-flp-reject" class="btn btn-danger"><i class="fa fa-remove"></i> {{ text_reject }}</button>
 		</div>
 		<input type="hidden" id="flp_id" name="flp_id" value="{{ flp_id }}"/>
 		<input type="hidden" id="new_status" name="new_status" value=""/>

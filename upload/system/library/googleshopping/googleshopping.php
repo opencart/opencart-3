@@ -1,5 +1,4 @@
 <?php
-
 namespace googleshopping;
 
 use \googleshopping\traits\StoreLoader;

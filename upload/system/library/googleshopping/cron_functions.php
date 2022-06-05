@@ -1,5 +1,4 @@
 <?php
-
 function advertise_google_validate() {
     if (!getenv("ADVERTISE_GOOGLE_CRON")) {
         die("Not in Command Line." . PHP_EOL);

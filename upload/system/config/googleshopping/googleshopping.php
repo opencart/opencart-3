@@ -1,5 +1,4 @@
 <?php
-
 $_['advertise_google_push_limit'] = 1000; // No more than 1000
 $_['advertise_google_report_limit'] = 1000; // No more than 1000
 $_['advertise_google_product_status_limit'] = 1000; // No more than 1000

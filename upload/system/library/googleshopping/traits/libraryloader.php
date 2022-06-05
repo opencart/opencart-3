@@ -1,5 +1,4 @@
 <?php
-
 namespace googleshopping\traits;
 
 use \googleshopping\Googleshopping;

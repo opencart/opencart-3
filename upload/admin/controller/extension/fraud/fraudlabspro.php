@@ -154,28 +154,7 @@ class ControllerExtensionFraudFraudLabsPro extends Controller {
 			}
 
 			// Update fraud status into table
-			$this->db->query("UPDATE `" . DB_PREFIX . "fraudlabspro` SET `fraudlabspro_status` = '" . $this->db->escape($flp_status) . "' WHERE `order_id` = " . $this->db->escape($this->request->get['order_id']));
-			
-			$data_temp = array();
-
-			// Update history record
-			if (strtolower($flp_status) == 'approve') {
-				$data_temp = array(
-					'order_status_id'	=> $this->config->get('fraud_fraudlabspro_approve_status_id'),
-					'notify'			=> 0,
-					'comment'			=> 'Approved using FraudLabs Pro.'
-				);
-
-				$this->model_extension_fraud_fraudlabspro->addOrderHistory($this->request->get['order_id'], $data_temp);
-			} elseif (strtolower($flp_status) == 'reject') {
-				$data_temp = array(
-					'order_status_id'	=> $this->config->get('fraud_fraudlabspro_reject_status_id'),
-					'notify'			=> 0,
-					'comment'			=> 'Rejected using FraudLabs Pro.'
-				);
-
-				$this->model_extension_fraud_fraudlabspro->addOrderHistory($this->request->get['order_id'], $data_temp);
-			}
+			$this->db->query("UPDATE `" . DB_PREFIX . "fraudlabspro` SET `fraudlabspro_status` = '" . $this->db->escape($flp_status) . "' WHERE `order_id` = '" . $this->db->escape($this->request->get['order_id']) . "'");
 		}
 
 		if (isset($this->request->get['order_id'])) {

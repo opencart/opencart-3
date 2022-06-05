@@ -67,6 +67,11 @@ class ModelExtensionFraudFraudLabsPro extends Model {
 		$this->db->query("INSERT INTO `" . DB_PREFIX . "setting` SET `code` = 'fraudlabspro', `key` = 'fraud_fraudlabspro_review_status_id', `value` = '" . (int)$status_fraud_review_id . "', `serialized` = '0'");
 		$this->db->query("INSERT INTO `" . DB_PREFIX . "setting` SET `code` = 'fraudlabspro', `key` = 'fraud_fraudlabspro_approve_status_id', `value` = '2', `serialized` = '0'");
 		$this->db->query("INSERT INTO `" . DB_PREFIX . "setting` SET `code` = 'fraudlabspro', `key` = 'fraud_fraudlabspro_reject_status_id', `value` = '8', `serialized` = '0'");
+		
+		// Events
+		$this->load->model('setting/event');
+		
+		$this->model_setting_event->addEvent('fraud_fraudlabspro_history', 'catalog/model/order/addOrderHistory/after', 'extension/module/fraudlabspro/addOrderHistory');
 
 		$this->cache->delete('order_status.' . (int)$this->config->get('config_language_id'));
 	}
@@ -75,52 +80,16 @@ class ModelExtensionFraudFraudLabsPro extends Model {
 		//$this->db->query("DROP TABLE IF EXISTS `" . DB_PREFIX . "fraudlabspro`");
 		$this->db->query("DELETE FROM `" . DB_PREFIX . "order_status` WHERE `name` = 'Fraud'");
 		$this->db->query("DELETE FROM `" . DB_PREFIX . "order_status` WHERE `name` = 'Fraud Review'");
+		
+		// Events
+		$this->load->model('setting/event');
+		
+		$this->model_setting_event->deleteEventByCode('fraud_fraudlabspro_history');
 	}
 
 	public function getOrder($order_id) {
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "fraudlabspro` WHERE `order_id` = '" . (int)$order_id . "'");
 
 		return $query->row;
-	}
-
-	public function addOrderHistory($order_id, $data, $store_id = 0) {
-		$json = array();
-
-		$this->load->model('setting/store');
-
-		$store_info = $this->model_setting_store->getStore($store_id);
-
-		if ($store_info) {
-			$url = $store_info['ssl'];
-		} else {
-			$url = HTTPS_CATALOG;
-		}
-
-		if (isset($this->session->data['cookie'])) {
-			$curl = curl_init();
-
-			// Set SSL if required
-			if (substr($url, 0, 5) == 'https') {
-				curl_setopt($curl, CURLOPT_PORT, 443);
-			}
-
-			curl_setopt($curl, CURLOPT_HEADER, false);
-			curl_setopt($curl, CURLINFO_HEADER_OUT, true);
-			curl_setopt($curl, CURLOPT_USERAGENT, $this->request->server['HTTP_USER_AGENT']);
-			curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, false);
-			curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
-			curl_setopt($curl, CURLOPT_FORBID_REUSE, false);
-			curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
-			curl_setopt($curl, CURLOPT_URL, $url . 'index.php?route=api/order/history&order_id=' . $order_id);
-			curl_setopt($curl, CURLOPT_POST, true);
-			curl_setopt($curl, CURLOPT_POSTFIELDS, http_build_query($data));
-			curl_setopt($curl, CURLOPT_COOKIE, session_name() . '=' . $this->session->data['cookie'] . ';');
-
-			$json = curl_exec($curl);
-
-			curl_close($curl);
-		}
-
-		return $json;
 	}
 }
