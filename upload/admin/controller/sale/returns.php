@@ -475,9 +475,9 @@ class ControllerSaleReturns extends Controller {
 		$data['filter_date_added'] = $filter_date_added;
 		$data['filter_date_modified'] = $filter_date_modified;
 
-		$this->load->model('localisation/return_status');
+		$this->load->model('localisation/returns_status');
 
-		$data['return_statuses'] = $this->model_localisation_return_status->getReturnStatuses();
+		$data['return_statuses'] = $this->model_localisation_returns_status->getReturnStatuses();
 
 		$data['sort'] = $sort;
 		$data['order'] = $order;
@@ -702,9 +702,9 @@ class ControllerSaleReturns extends Controller {
 			$data['opened'] = '';
 		}
 
-		$this->load->model('localisation/return_reason');
+		$this->load->model('localisation/returns_reason');
 
-		$data['return_reasons'] = $this->model_localisation_return_reason->getReturnReasons();
+		$data['return_reasons'] = $this->model_localisation_returns_reason->getReturnReasons();
 
 		if (!empty($return_info)) {
 			$data['return_reason_id'] = $return_info['return_reason_id'];
@@ -712,9 +712,9 @@ class ControllerSaleReturns extends Controller {
 			$data['return_reason_id'] = 0;
 		}
 
-		$this->load->model('localisation/return_action');
+		$this->load->model('localisation/returns_action');
 
-		$data['return_actions'] = $this->model_localisation_return_action->getReturnActions();
+		$data['return_actions'] = $this->model_localisation_returns_action->getReturnActions();
 
 		if (!empty($return_info)) {
 			$data['return_action_id'] = $return_info['return_action_id'];
@@ -728,9 +728,9 @@ class ControllerSaleReturns extends Controller {
 			$data['comment'] = '';
 		}
 
-		$this->load->model('localisation/return_status');
+		$this->load->model('localisation/returns_status');
 
-		$data['return_statuses'] = $this->model_localisation_return_status->getReturnStatuses();
+		$data['return_statuses'] = $this->model_localisation_returns_status->getReturnStatuses();
 
 		if (!empty($return_info)) {
 			$data['return_status_id'] = $return_info['return_status_id'];

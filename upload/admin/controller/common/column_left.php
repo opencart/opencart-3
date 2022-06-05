@@ -472,26 +472,26 @@ class ControllerCommonColumnLeft extends Controller {
 			// Returns
 			$return = array();
 
-			if ($this->user->hasPermission('access', 'localisation/return_status')) {
+			if ($this->user->hasPermission('access', 'localisation/returns_status')) {
 				$return[] = array(
 					'name'	   => $this->language->get('text_return_status'),
-					'href'     => $this->url->link('localisation/return_status', 'user_token=' . $this->session->data['user_token'], true),
+					'href'     => $this->url->link('localisation/returns_status', 'user_token=' . $this->session->data['user_token'], true),
 					'children' => array()
 				);
 			}
 
-			if ($this->user->hasPermission('access', 'localisation/return_action')) {
+			if ($this->user->hasPermission('access', 'localisation/returns_action')) {
 				$return[] = array(
 					'name'	   => $this->language->get('text_return_action'),
-					'href'     => $this->url->link('localisation/return_action', 'user_token=' . $this->session->data['user_token'], true),
+					'href'     => $this->url->link('localisation/returns_action', 'user_token=' . $this->session->data['user_token'], true),
 					'children' => array()
 				);
 			}
 
-			if ($this->user->hasPermission('access', 'localisation/return_reason')) {
+			if ($this->user->hasPermission('access', 'localisation/returns_reason')) {
 				$return[] = array(
 					'name'	   => $this->language->get('text_return_reason'),
-					'href'     => $this->url->link('localisation/return_reason', 'user_token=' . $this->session->data['user_token'], true),
+					'href'     => $this->url->link('localisation/returns_reason', 'user_token=' . $this->session->data['user_token'], true),
 					'children' => array()
 				);
 			}

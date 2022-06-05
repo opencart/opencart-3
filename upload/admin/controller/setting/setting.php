@@ -645,9 +645,9 @@ class ControllerSettingSetting extends Controller {
 			$data['config_return_status_id'] = $this->config->get('config_return_status_id');
 		}
 
-		$this->load->model('localisation/return_status');
+		$this->load->model('localisation/returns_status');
 
-		$data['return_statuses'] = $this->model_localisation_return_status->getReturnStatuses();
+		$data['return_statuses'] = $this->model_localisation_returns_status->getReturnStatuses();
 
 		if (isset($this->request->post['config_captcha'])) {
 			$data['config_captcha'] = $this->request->post['config_captcha'];

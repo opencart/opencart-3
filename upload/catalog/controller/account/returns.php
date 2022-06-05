@@ -408,9 +408,9 @@ class ControllerAccountReturns extends Controller {
 			$data['return_reason_id'] = '';
 		}
 
-		$this->load->model('localisation/return_reason');
+		$this->load->model('localisation/returns_reason');
 
-		$data['return_reasons'] = $this->model_localisation_return_reason->getReturnReasons();
+		$data['return_reasons'] = $this->model_localisation_returns_reason->getReturnReasons();
 
 		if (isset($this->request->post['comment'])) {
 			$data['comment'] = $this->request->post['comment'];
