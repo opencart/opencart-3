@@ -79,7 +79,7 @@ class ModelCustomerCustomerApproval extends Model {
 
 		$query = $this->db->query($sql);
 
-		return $query->row['total'];
+		return (int)$query->row['total'];
 	}
 	
 	public function approveCustomer($customer_id) {

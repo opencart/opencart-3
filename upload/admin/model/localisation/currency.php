@@ -162,6 +162,6 @@ class ModelLocalisationCurrency extends Model {
 	public function getTotalCurrencies() {
 		$query = $this->db->query("SELECT COUNT(*) AS total FROM `" . DB_PREFIX . "currency`");
 
-		return $query->row['total'];
+		return (int)$query->row['total'];
 	}
 }

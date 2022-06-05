@@ -33,6 +33,6 @@ class ModelDesignTheme extends Model {
 	public function getTotalThemes() {
 		$query = $this->db->query("SELECT COUNT(*) AS total FROM `" . DB_PREFIX . "theme`");
 
-		return $query->row['total'];
+		return (int)$query->row['total'];
 	}	
 }

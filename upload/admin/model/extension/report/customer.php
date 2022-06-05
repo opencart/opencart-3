@@ -159,7 +159,7 @@ class ModelExtensionReportCustomer extends Model {
 
 		$query = $this->db->query($sql);
 
-		return $query->row['total'];
+		return (int)$query->row['total'];
 	}
 
 	public function getRewardPoints($data = array()) {
@@ -219,7 +219,7 @@ class ModelExtensionReportCustomer extends Model {
 
 		$query = $this->db->query($sql);
 
-		return $query->row['total'];
+		return (int)$query->row['total'];
 	}
 
 	public function getCustomerActivities($data = array()) {
@@ -293,7 +293,7 @@ class ModelExtensionReportCustomer extends Model {
 
 		$query = $this->db->query($sql);
 
-		return $query->row['total'];
+		return (int)$query->row['total'];
 	}
 
 	public function getCustomerSearches($data = array()) {
@@ -375,6 +375,6 @@ class ModelExtensionReportCustomer extends Model {
 
 		$query = $this->db->query($sql);
 
-		return $query->row['total'];
+		return (int)$query->row['total'];
 	}
 }

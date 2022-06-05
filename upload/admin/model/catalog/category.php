@@ -333,12 +333,12 @@ class ModelCatalogCategory extends Model {
 	public function getTotalCategories() {
 		$query = $this->db->query("SELECT COUNT(*) AS total FROM `" . DB_PREFIX . "category`");
 
-		return $query->row['total'];
+		return (int)$query->row['total'];
 	}
 	
 	public function getTotalCategoriesByLayoutId($layout_id) {
 		$query = $this->db->query("SELECT COUNT(*) AS total FROM `" . DB_PREFIX . "category_to_layout` WHERE `layout_id` = '" . (int)$layout_id . "'");
 
-		return $query->row['total'];
+		return (int)$query->row['total'];
 	}	
 }

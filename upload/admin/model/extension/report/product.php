@@ -23,13 +23,13 @@ class ModelExtensionReportProduct extends Model {
 	public function getTotalProductViews() {
 		$query = $this->db->query("SELECT SUM(`viewed`) AS total FROM `" . DB_PREFIX . "product`");
 
-		return $query->row['total'];
+		return (int)$query->row['total'];
 	}
 
 	public function getTotalProductsViewed() {
 		$query = $this->db->query("SELECT COUNT(*) AS total FROM `" . DB_PREFIX . "product` WHERE `viewed` > '0'");
 
-		return $query->row['total'];
+		return (int)$query->row['total'];
 	}
 
 	public function reset() {
@@ -91,6 +91,6 @@ class ModelExtensionReportProduct extends Model {
 
 		$query = $this->db->query($sql);
 
-		return $query->row['total'];
+		return (int)$query->row['total'];
 	}
 }

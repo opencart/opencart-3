@@ -107,12 +107,12 @@ class ModelCatalogReview extends Model {
 
 		$query = $this->db->query($sql);
 
-		return $query->row['total'];
+		return (int)$query->row['total'];
 	}
 
 	public function getTotalReviewsAwaitingApproval() {
 		$query = $this->db->query("SELECT COUNT(*) AS total FROM `" . DB_PREFIX . "review` WHERE `status` = '0'");
 
-		return $query->row['total'];
+		return (int)$query->row['total'];
 	}
 }

@@ -147,25 +147,25 @@ class ModelSaleReturns extends Model {
 
 		$query = $this->db->query($sql);
 
-		return $query->row['total'];
+		return (int)$query->row['total'];
 	}
 
 	public function getTotalReturnsByReturnStatusId($return_status_id) {
 		$query = $this->db->query("SELECT COUNT(*) AS total FROM `" . DB_PREFIX . "return` WHERE `return_status_id` = '" . (int)$return_status_id . "'");
 
-		return $query->row['total'];
+		return (int)$query->row['total'];
 	}
 
 	public function getTotalReturnsByReturnReasonId($return_reason_id) {
 		$query = $this->db->query("SELECT COUNT(*) AS total FROM `" . DB_PREFIX . "return` WHERE `return_reason_id` = '" . (int)$return_reason_id . "'");
 
-		return $query->row['total'];
+		return (int)$query->row['total'];
 	}
 
 	public function getTotalReturnsByReturnActionId($return_action_id) {
 		$query = $this->db->query("SELECT COUNT(*) AS total FROM `" . DB_PREFIX . "return` WHERE `return_action_id` = '" . (int)$return_action_id . "'");
 
-		return $query->row['total'];
+		return (int)$query->row['total'];
 	}
 	
 	public function addReturnHistory($return_id, $return_status_id, $comment, $notify) {
@@ -191,12 +191,12 @@ class ModelSaleReturns extends Model {
 	public function getTotalReturnHistories($return_id) {
 		$query = $this->db->query("SELECT COUNT(*) AS total FROM `" . DB_PREFIX . "return_history` WHERE `return_id` = '" . (int)$return_id . "'");
 
-		return $query->row['total'];
+		return (int)$query->row['total'];
 	}
 
 	public function getTotalReturnHistoriesByReturnStatusId($return_status_id) {
 		$query = $this->db->query("SELECT COUNT(*) AS total FROM `" . DB_PREFIX . "return_history` WHERE `return_status_id` = '" . (int)$return_status_id . "'");
 
-		return $query->row['total'];
+		return (int)$query->row['total'];
 	}
 }

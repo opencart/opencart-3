@@ -233,7 +233,7 @@ class ModelExtensionDashboardSale extends Model {
 
 		$query = $this->db->query($sql);
 
-		return $query->row['total'];
+		return (int)$query->row['total'];
 	}
 
 	public function getTaxes($data = array()) {
@@ -333,7 +333,7 @@ class ModelExtensionDashboardSale extends Model {
 
 		$query = $this->db->query($sql);
 
-		return $query->row['total'];
+		return (int)$query->row['total'];
 	}
 
 	public function getShipping($data = array()) {
@@ -433,6 +433,6 @@ class ModelExtensionDashboardSale extends Model {
 
 		$query = $this->db->query($sql);
 
-		return $query->row['total'];
+		return (int)$query->row['total'];
 	}
 }

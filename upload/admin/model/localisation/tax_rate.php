@@ -95,12 +95,12 @@ class ModelLocalisationTaxRate extends Model {
 	public function getTotalTaxRates() {
 		$query = $this->db->query("SELECT COUNT(*) AS total FROM `" . DB_PREFIX . "tax_rate`");
 
-		return $query->row['total'];
+		return (int)$query->row['total'];
 	}
 
 	public function getTotalTaxRatesByGeoZoneId($geo_zone_id) {
 		$query = $this->db->query("SELECT COUNT(*) AS total FROM `" . DB_PREFIX . "tax_rate` WHERE `geo_zone_id` = '" . (int)$geo_zone_id . "'");
 
-		return $query->row['total'];
+		return (int)$query->row['total'];
 	}
 }

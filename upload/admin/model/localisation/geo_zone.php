@@ -99,7 +99,7 @@ class ModelLocalisationGeoZone extends Model {
 	public function getTotalGeoZones() {
 		$query = $this->db->query("SELECT COUNT(*) AS total FROM `" . DB_PREFIX . "geo_zone`");
 
-		return $query->row['total'];
+		return (int)$query->row['total'];
 	}
 
 	public function getZoneToGeoZones($geo_zone_id) {
@@ -111,18 +111,18 @@ class ModelLocalisationGeoZone extends Model {
 	public function getTotalZoneToGeoZoneByGeoZoneId($geo_zone_id) {
 		$query = $this->db->query("SELECT COUNT(*) AS total FROM `" . DB_PREFIX . "zone_to_geo_zone` WHERE `geo_zone_id` = '" . (int)$geo_zone_id . "'");
 
-		return $query->row['total'];
+		return (int)$query->row['total'];
 	}
 
 	public function getTotalZoneToGeoZoneByCountryId($country_id) {
 		$query = $this->db->query("SELECT COUNT(*) AS total FROM `" . DB_PREFIX . "zone_to_geo_zone` WHERE `country_id` = '" . (int)$country_id . "'");
 
-		return $query->row['total'];
+		return (int)$query->row['total'];
 	}
 
 	public function getTotalZoneToGeoZoneByZoneId($zone_id) {
 		$query = $this->db->query("SELECT COUNT(*) AS total FROM `" . DB_PREFIX . "zone_to_geo_zone` WHERE `zone_id` = '" . (int)$zone_id . "'");
 
-		return $query->row['total'];
+		return (int)$query->row['total'];
 	}
 }

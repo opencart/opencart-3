@@ -91,6 +91,6 @@ class ModelCatalogDownload extends Model {
 	public function getTotalDownloads() {
 		$query = $this->db->query("SELECT COUNT(*) AS total FROM `" . DB_PREFIX . "download`");
 
-		return $query->row['total'];
+		return (int)$query->row['total'];
 	}
 }
