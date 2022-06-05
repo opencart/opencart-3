@@ -3,24 +3,24 @@ class ControllerLocalisationReturnStatus extends Controller {
 	private $error = array();
 
 	public function index() {
-		$this->load->language('localisation/return_status');
+		$this->load->language('localisation/returns_status');
 
 		$this->document->setTitle($this->language->get('heading_title'));
 
-		$this->load->model('localisation/return_status');
+		$this->load->model('localisation/returns_status');
 
 		$this->getList();
 	}
 
 	public function add() {
-		$this->load->language('localisation/return_status');
+		$this->load->language('localisation/returns_status');
 
 		$this->document->setTitle($this->language->get('heading_title'));
 
-		$this->load->model('localisation/return_status');
+		$this->load->model('localisation/returns_status');
 
 		if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validateForm()) {
-			$this->model_localisation_return_status->addReturnStatus($this->request->post);
+			$this->model_localisation_returns_status->addReturnStatus($this->request->post);
 
 			$this->session->data['success'] = $this->language->get('text_success');
 
@@ -38,21 +38,21 @@ class ControllerLocalisationReturnStatus extends Controller {
 				$url .= '&page=' . $this->request->get['page'];
 			}
 
-			$this->response->redirect($this->url->link('localisation/return_status', 'user_token=' . $this->session->data['user_token'] . $url, true));
+			$this->response->redirect($this->url->link('localisation/returns_status', 'user_token=' . $this->session->data['user_token'] . $url, true));
 		}
 
 		$this->getForm();
 	}
 
 	public function edit() {
-		$this->load->language('localisation/return_status');
+		$this->load->language('localisation/returns_status');
 
 		$this->document->setTitle($this->language->get('heading_title'));
 
-		$this->load->model('localisation/return_status');
+		$this->load->model('localisation/returns_status');
 
 		if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validateForm()) {
-			$this->model_localisation_return_status->editReturnStatus($this->request->get['return_status_id'], $this->request->post);
+			$this->model_localisation_returns_status->editReturnStatus($this->request->get['return_status_id'], $this->request->post);
 
 			$this->session->data['success'] = $this->language->get('text_success');
 
@@ -70,22 +70,22 @@ class ControllerLocalisationReturnStatus extends Controller {
 				$url .= '&page=' . $this->request->get['page'];
 			}
 
-			$this->response->redirect($this->url->link('localisation/return_status', 'user_token=' . $this->session->data['user_token'] . $url, true));
+			$this->response->redirect($this->url->link('localisation/returns_status', 'user_token=' . $this->session->data['user_token'] . $url, true));
 		}
 
 		$this->getForm();
 	}
 
 	public function delete() {
-		$this->load->language('localisation/return_status');
+		$this->load->language('localisation/returns_status');
 
 		$this->document->setTitle($this->language->get('heading_title'));
 
-		$this->load->model('localisation/return_status');
+		$this->load->model('localisation/returns_status');
 
 		if (isset($this->request->post['selected']) && $this->validateDelete()) {
 			foreach ((array)$this->request->post['selected'] as $return_status_id) {
-				$this->model_localisation_return_status->deleteReturnStatus($return_status_id);
+				$this->model_localisation_returns_status->deleteReturnStatus($return_status_id);
 			}
 
 			$this->session->data['success'] = $this->language->get('text_success');
@@ -104,7 +104,7 @@ class ControllerLocalisationReturnStatus extends Controller {
 				$url .= '&page=' . $this->request->get['page'];
 			}
 
-			$this->response->redirect($this->url->link('localisation/return_status', 'user_token=' . $this->session->data['user_token'] . $url, true));
+			$this->response->redirect($this->url->link('localisation/returns_status', 'user_token=' . $this->session->data['user_token'] . $url, true));
 		}
 
 		$this->getList();
@@ -152,11 +152,11 @@ class ControllerLocalisationReturnStatus extends Controller {
 
 		$data['breadcrumbs'][] = array(
 			'text' => $this->language->get('heading_title'),
-			'href' => $this->url->link('localisation/return_status', 'user_token=' . $this->session->data['user_token'] . $url, true)
+			'href' => $this->url->link('localisation/returns_status', 'user_token=' . $this->session->data['user_token'] . $url, true)
 		);
 
-		$data['add'] = $this->url->link('localisation/return_status/add', 'user_token=' . $this->session->data['user_token'] . $url, true);
-		$data['delete'] = $this->url->link('localisation/return_status/delete', 'user_token=' . $this->session->data['user_token'] . $url, true);
+		$data['add'] = $this->url->link('localisation/returns_status/add', 'user_token=' . $this->session->data['user_token'] . $url, true);
+		$data['delete'] = $this->url->link('localisation/returns_status/delete', 'user_token=' . $this->session->data['user_token'] . $url, true);
 
 		$data['return_statuses'] = array();
 
@@ -167,15 +167,15 @@ class ControllerLocalisationReturnStatus extends Controller {
 			'limit' => $this->config->get('config_limit_admin')
 		);
 
-		$return_status_total = $this->model_localisation_return_status->getTotalReturnStatuses();
+		$return_status_total = $this->model_localisation_returns_status->getTotalReturnStatuses();
 
-		$results = $this->model_localisation_return_status->getReturnStatuses($filter_data);
+		$results = $this->model_localisation_returns_status->getReturnStatuses($filter_data);
 
 		foreach ($results as $result) {
 			$data['return_statuses'][] = array(
 				'return_status_id' => $result['return_status_id'],
 				'name'             => $result['name'] . (($result['return_status_id'] == $this->config->get('config_return_status_id')) ? $this->language->get('text_default') : null),
-				'edit'             => $this->url->link('localisation/return_status/edit', 'user_token=' . $this->session->data['user_token'] . '&return_status_id=' . $result['return_status_id'] . $url, true)
+				'edit'             => $this->url->link('localisation/returns_status/edit', 'user_token=' . $this->session->data['user_token'] . '&return_status_id=' . $result['return_status_id'] . $url, true)
 			);
 		}
 
@@ -211,7 +211,7 @@ class ControllerLocalisationReturnStatus extends Controller {
 			$url .= '&page=' . $this->request->get['page'];
 		}
 
-		$data['sort_name'] = $this->url->link('localisation/return_status', 'user_token=' . $this->session->data['user_token'] . '&sort=name' . $url, true);
+		$data['sort_name'] = $this->url->link('localisation/returns_status', 'user_token=' . $this->session->data['user_token'] . '&sort=name' . $url, true);
 
 		$url = '';
 
@@ -227,7 +227,7 @@ class ControllerLocalisationReturnStatus extends Controller {
 		$pagination->total = $return_status_total;
 		$pagination->page = $page;
 		$pagination->limit = $this->config->get('config_limit_admin');
-		$pagination->url = $this->url->link('localisation/return_status', 'user_token=' . $this->session->data['user_token'] . $url . '&page={page}', true);
+		$pagination->url = $this->url->link('localisation/returns_status', 'user_token=' . $this->session->data['user_token'] . $url . '&page={page}', true);
 
 		$data['pagination'] = $pagination->render();
 
@@ -240,7 +240,7 @@ class ControllerLocalisationReturnStatus extends Controller {
 		$data['column_left'] = $this->load->controller('common/column_left');
 		$data['footer'] = $this->load->controller('common/footer');
 
-		$this->response->setOutput($this->load->view('localisation/return_status_list', $data));
+		$this->response->setOutput($this->load->view('localisation/returns_status_list', $data));
 	}
 
 	protected function getForm() {
@@ -281,16 +281,16 @@ class ControllerLocalisationReturnStatus extends Controller {
 
 		$data['breadcrumbs'][] = array(
 			'text' => $this->language->get('heading_title'),
-			'href' => $this->url->link('localisation/return_status', 'user_token=' . $this->session->data['user_token'] . $url, true)
+			'href' => $this->url->link('localisation/returns_status', 'user_token=' . $this->session->data['user_token'] . $url, true)
 		);
 
 		if (!isset($this->request->get['return_status_id'])) {
-			$data['action'] = $this->url->link('localisation/return_status/add', 'user_token=' . $this->session->data['user_token'] . $url, true);
+			$data['action'] = $this->url->link('localisation/returns_status/add', 'user_token=' . $this->session->data['user_token'] . $url, true);
 		} else {
-			$data['action'] = $this->url->link('localisation/return_status/edit', 'user_token=' . $this->session->data['user_token'] . '&return_status_id=' . $this->request->get['return_status_id'] . $url, true);
+			$data['action'] = $this->url->link('localisation/returns_status/edit', 'user_token=' . $this->session->data['user_token'] . '&return_status_id=' . $this->request->get['return_status_id'] . $url, true);
 		}
 
-		$data['cancel'] = $this->url->link('localisation/return_status', 'user_token=' . $this->session->data['user_token'] . $url, true);
+		$data['cancel'] = $this->url->link('localisation/returns_status', 'user_token=' . $this->session->data['user_token'] . $url, true);
 
 		$this->load->model('localisation/language');
 
@@ -299,7 +299,7 @@ class ControllerLocalisationReturnStatus extends Controller {
 		if (isset($this->request->post['return_status'])) {
 			$data['return_status'] = $this->request->post['return_status'];
 		} elseif (isset($this->request->get['return_status_id'])) {
-			$data['return_status'] = $this->model_localisation_return_status->getReturnStatusDescriptions($this->request->get['return_status_id']);
+			$data['return_status'] = $this->model_localisation_returns_status->getReturnStatusDescriptions($this->request->get['return_status_id']);
 		} else {
 			$data['return_status'] = array();
 		}
@@ -308,11 +308,11 @@ class ControllerLocalisationReturnStatus extends Controller {
 		$data['column_left'] = $this->load->controller('common/column_left');
 		$data['footer'] = $this->load->controller('common/footer');
 
-		$this->response->setOutput($this->load->view('localisation/return_status_form', $data));
+		$this->response->setOutput($this->load->view('localisation/returns_status_form', $data));
 	}
 
 	protected function validateForm() {
-		if (!$this->user->hasPermission('modify', 'localisation/return_status')) {
+		if (!$this->user->hasPermission('modify', 'localisation/returns_status')) {
 			$this->error['warning'] = $this->language->get('error_permission');
 		}
 
@@ -326,7 +326,7 @@ class ControllerLocalisationReturnStatus extends Controller {
 	}
 
 	protected function validateDelete() {
-		if (!$this->user->hasPermission('modify', 'localisation/return_status')) {
+		if (!$this->user->hasPermission('modify', 'localisation/returns_status')) {
 			$this->error['warning'] = $this->language->get('error_permission');
 		}
 
