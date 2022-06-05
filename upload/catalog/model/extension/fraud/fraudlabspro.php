@@ -156,7 +156,11 @@ class ModelExtensionFraudFraudLabsPro extends Model {
 	public function getStatus($order_id) {
 		$query = $this->db->query("SELECT `fraudlabspro_status` FROM `" . DB_PREFIX . "fraudlabspro` WHERE `order_id` = '" . (int)$order_id . "'");
 		
-		return $query->row['fraudlabspro_status'];
+		if ($query->num_rows) {
+			return $query->row['fraudlabspro_status'];
+		} else {
+			return false;
+		}
 	}
 
 	private function hashIt($s) {
