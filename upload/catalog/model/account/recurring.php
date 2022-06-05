@@ -35,7 +35,7 @@ class ModelAccountRecurring extends Model {
 	public function getTotalOrderRecurrings() {
 		$query = $this->db->query("SELECT COUNT(*) AS total FROM `" . DB_PREFIX . "order_recurring` `or` LEFT JOIN `" . DB_PREFIX . "order` o ON `or`.`order_id` = o.`order_id` WHERE o.`customer_id` = '" . (int)$this->customer->getId() . "'");
 
-		return (int)$query->row['total'];;
+		return (int)$query->row['total'];
 	}
 	
 	public function addOrderRecurringTransaction($order_recurring_id, $type) {
