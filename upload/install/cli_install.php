@@ -118,24 +118,32 @@ function valid($options) {
 		'email',
 		'http_server',
 	);
+	
 	$missing = array();
+	
 	foreach ($required as $r) {
 		if (!array_key_exists($r, $options)) {
 			$missing[] = $r;
 		}
 	}
+	
 	if (!preg_match('#/$#', $options['http_server'])) {
 		$options['http_server'] = $options['http_server'] . '/';
 	}
+	
 	$valid = count($missing) === 0;
+	
 	return array($valid, $missing);
 }
 
 function install($options) {
 	$check = check_requirements();
+	
 	if ($check[0]) {
 		setup_db($options);
+		
 		write_config_files($options);
+		
 		dir_permissions();
 	} else {
 		echo 'FAILED! Pre-installation check failed: ' . $check[1] . "\n\n";
@@ -145,6 +153,7 @@ function install($options) {
 
 function check_requirements() {
 	$error = null;
+	
 	if (phpversion() < '7.3') {
 		$error = 'Warning: You need to use PHP7.3+ or above for OpenCart to work!';
 	}
@@ -231,6 +240,7 @@ function setup_db($data) {
 		$api_id = $db->getLastId();
 
 		$db->query("DELETE FROM `" . $data['db_prefix'] . "setting` WHERE `key` = 'config_api_id'");
+		
 		$db->query("INSERT INTO `" . $data['db_prefix'] . "setting` SET `code` = 'config', `key` = 'config_api_id', `value` = '" . (int)$api_id . "'");
 	}
 }
@@ -326,6 +336,7 @@ function dir_permissions() {
 		DIR_OPENCART . 'system/storage/logs/',
 		DIR_OPENCART . 'system/storage/modification/',
 	);
+	
 	exec('chmod o+w -R ' . implode(' ', $dirs));
 }
 
