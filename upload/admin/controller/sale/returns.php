@@ -486,7 +486,7 @@ class ControllerSaleReturns extends Controller {
 		$data['column_left'] = $this->load->controller('common/column_left');
 		$data['footer'] = $this->load->controller('common/footer');
 
-		$this->response->setOutput($this->load->view('sale/return_list', $data));
+		$this->response->setOutput($this->load->view('sale/returns_list', $data));
 	}
 
 	protected function getForm() {
@@ -744,7 +744,7 @@ class ControllerSaleReturns extends Controller {
 		$data['column_left'] = $this->load->controller('common/column_left');
 		$data['footer'] = $this->load->controller('common/footer');
 
-		$this->response->setOutput($this->load->view('sale/return_form', $data));
+		$this->response->setOutput($this->load->view('sale/returns_form', $data));
 	}
 
 	protected function validateForm() {
@@ -835,7 +835,7 @@ class ControllerSaleReturns extends Controller {
 
 		$data['results'] = sprintf($this->language->get('text_pagination'), ($history_total) ? (($page - 1) * 10) + 1 : 0, ((($page - 1) * 10) > ($history_total - 10)) ? $history_total : ((($page - 1) * 10) + 10), $history_total, ceil($history_total / 10));
 
-		$this->response->setOutput($this->load->view('sale/return_history', $data));
+		$this->response->setOutput($this->load->view('sale/returns_history', $data));
 	}
 	
 	public function addHistory() {

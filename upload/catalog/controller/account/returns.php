@@ -80,7 +80,7 @@ class ControllerAccountReturns extends Controller {
 		$data['footer'] = $this->load->controller('common/footer');
 		$data['header'] = $this->load->controller('common/header');
 
-		$this->response->setOutput($this->load->view('account/return_list', $data));
+		$this->response->setOutput($this->load->view('account/returns_list', $data));
 	}
 
 	public function info() {
@@ -170,7 +170,7 @@ class ControllerAccountReturns extends Controller {
 			$data['footer'] = $this->load->controller('common/footer');
 			$data['header'] = $this->load->controller('common/header');
 
-			$this->response->setOutput($this->load->view('account/return_info', $data));
+			$this->response->setOutput($this->load->view('account/returns_info', $data));
 		} else {
 			$this->document->setTitle($this->language->get('text_return'));
 
@@ -454,7 +454,7 @@ class ControllerAccountReturns extends Controller {
 		$data['footer'] = $this->load->controller('common/footer');
 		$data['header'] = $this->load->controller('common/header');
 
-		$this->response->setOutput($this->load->view('account/return_form', $data));
+		$this->response->setOutput($this->load->view('account/returns_form', $data));
 	}
 
 	protected function validate() {
