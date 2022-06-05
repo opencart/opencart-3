@@ -44,10 +44,12 @@ class ControllerExtensionModuleFraudlabspro extends Controller {
 		if (!$notify && $order_status_id) {
 			$this->load->language('extension/module/fraudlabspro');
 			
-			$query = $this->db->query("SELECT `fraudlabspro_status` FROM `" . DB_PREFIX . "fraudlabspro` WHERE `order_id` = '" . (int)$order_id . "'");
+			$this->load->model('extension/fraud/fraudlabspro');
 			
-			if ($query->num_rows) {
-				return sprintf($this->language->get('text_status'), $query->row['fraudlabspro_status']);
+			$status = $this->model_extension_fraud_fraudlabspro->getStatus($order_id);
+			
+			if ($status) {
+				return sprintf($this->language->get('text_status'), $status);
 			}
 		}
 	}
