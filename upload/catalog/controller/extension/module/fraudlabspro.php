@@ -26,7 +26,6 @@ class ControllerExtensionModuleFraudlabspro extends Controller {
 			$notify = false;
 		}
 						
-		// We need to grab the old order status ID.
 		$order_info = $this->model_checkout_order->getOrder($order_id);
 		
 		if ($order_info) {
