@@ -556,7 +556,6 @@ class ControllerExtensionPaymentAmazonLoginPay extends Controller {
         }
     }
 
-
     private function authorize() {
           $this->load->language('extension/payment/amazon_login_pay');
 		  

@@ -442,7 +442,6 @@ class ModelExtensionShippingECShip extends Model {
 			
 			$passdigest = base64_encode(pack('H*',sha1(pack('H*', $simple_nonce) . pack('a*', $tm_created) . pack('a*', $password))));
 
-
 			// Initializing namespaces
 			$ns_wsse       = 'http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd';
 			$ns_wsu        = 'http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd';
