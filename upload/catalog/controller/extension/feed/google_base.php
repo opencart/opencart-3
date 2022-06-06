@@ -48,7 +48,7 @@ class ControllerExtensionFeedGoogleBase extends Controller {
 						$output .= '  <g:model_number>' . $product['model'] . '</g:model_number>';
 
 						if ($product['mpn']) {
-							$output .= '  <g:mpn><![CDATA[' . $product['mpn'] . ']]></g:mpn>' ;
+							$output .= '  <g:mpn><![CDATA[' . $product['mpn'] . ']]></g:mpn>';
 						} else {
 							$output .= '  <g:identifier_exists>false</g:identifier_exists>';
 						}
