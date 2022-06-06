@@ -307,72 +307,146 @@
             <div class="row">
               <div class="col-sm-4">
                 <div class="form-group">
-                  <label class="control-label" for="request">{{ entry_request }}</label>
-                  <select name="request[]" id="request" multiple class="form-control" style="height: 150px">
-                    <option selected="selected">ACCOUNTCHECK</option>
-                    <option selected="selected">AUTH</option>
-                    <option selected="selected">FRAUDSCORE</option>
-                    <option selected="selected">ORDER</option>
-                    <option selected="selected">ORDERDETAILS</option>
-                    <option selected="selected">REFUND</option>
-                    <option selected="selected">THREEDQUERY</option>
-                  </select>
+                  <label class="col-sm-2 control-label">{{ entry_request }}</label>
+                  <div class="col-sm-10">
+                    <div class="well well-sm" style="height: 150px; overflow: auto;"> 
+                      <div class="checkbox">
+                        <label> 
+                          <input type="checkbox" name="request[]" checked="checked"/>
+                          {{ text_account_check }}
+						  <input type="checkbox" name="request[]" checked="checked"/>
+                          {{ text_auth }}
+						  <input type="checkbox" name="request[]" checked="checked"/>
+                          {{ text_fraud_score }}
+						  <input type="checkbox" name="request[]" checked="checked"/>
+                          {{ text_order }}
+						  <input type="checkbox" name="request[]" checked="checked"/>
+                          {{ text_order_detail }}
+						  <input type="checkbox" name="request[]" checked="checked"/>
+                          {{ text_refund }}
+						  <input type="checkbox" name="request[]" checked="checked"/>
+                          {{ text_threed_query }}
+						  <input type="checkbox" name="request[]" checked="checked"/>
+                          {{ text_amex }}
+						  <input type="checkbox" name="request[]" checked="checked"/>
+                          {{ text_delta }}
+						  <input type="checkbox" name="request[]" checked="checked"/>
+                          {{ text_electron }}
+						  <input type="checkbox" name="request[]" checked="checked"/>
+                          {{ text_maestro }}
+						  <input type="checkbox" name="request[]" checked="checked"/>
+                          {{ text_mastercard }}
+						  <input type="checkbox" name="request[]" checked="checked"/>
+                          {{ text_mastercard_debit }}
+						  <input type="checkbox" name="request[]" checked="checked"/>
+                          {{ text_paypal }}
+						  <input type="checkbox" name="request[]" checked="checked"/>
+                          {{ text_purchasing }}
+						  <input type="checkbox" name="request[]" checked="checked"/>
+                          {{ text_visa }}
+						  <input type="checkbox" name="request[]" checked="checked"/>
+                          {{ text_vpay }}
+                        </label>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
               <div class="col-sm-4">
                 <div class="form-group">
-                  <label class="control-label" for="currency">{{ entry_currency }}</label>
-                  <select name="currency[]" id="currency" multiple class="form-control" style="height: 150px">                    
-				  {% for currency in currencies %}												
-                  <option selected="selected" value="{{ currency.code }}">{{ currency.title }}</option>                    
-				  {% endfor %}										
-                  </select>
+                  <label class="col-sm-2 control-label">{{ entry_currency }}</label>
+                  <div class="col-sm-10">
+                    <div class="well well-sm" style="height: 150px; overflow: auto;"> {% for currency in currencies %}
+                      <div class="checkbox">
+                        <label> 
+                          <input type="checkbox" name="currency[]" checked="checked"/>
+                          {{ currency.title }}
+                        </label>
+                        </div>
+                      {% endfor %} </div>
+                  </div>
                 </div>
               </div>
               <div class="col-sm-4">
                 <div class="form-group">
-                  <label class="control-label" for="payment-type">{{ entry_payment_type }}</label>
-                  <select name="payment_type[]" id="payment-type" multiple class="form-control" style="height: 150px">
-                    <option selected="selected">AMEX</option>
-                    <option selected="selected">DELTA</option>
-                    <option selected="selected">ELECTRON</option>
-                    <option selected="selected">MAESTRO</option>
-                    <option selected="selected">MASTERCARD</option>
-                    <option selected="selected">MASTERCARDDEBIT</option>
-                    <option selected="selected">PAYPAL</option>
-                    <option selected="selected">PURCHASING</option>
-                    <option selected="selected">VISA</option>
-                    <option selected="selected">VPAY</option>
-                  </select>
+                  <label class="col-sm-2 control-label">{{ entry_payment_type }}</label>
+                  <div class="col-sm-10">
+                    <div class="well well-sm" style="height: 150px; overflow: auto;"> 
+                      <div class="checkbox">
+                        <label> 
+                          <input type="checkbox" name="payment_type[]" checked="checked"/>
+                          {{ text_amex }}
+						  <input type="checkbox" name="payment_type[]" checked="checked"/>
+                          {{ text_delta }}
+						  <input type="checkbox" name="payment_type[]" checked="checked"/>
+                          {{ text_electron }}
+						  <input type="checkbox" name="payment_type[]" checked="checked"/>
+                          {{ text_maestro }}
+						  <input type="checkbox" name="payment_type[]" checked="checked"/>
+                          {{ text_mastercard }}
+						  <input type="checkbox" name="payment_type[]" checked="checked"/>
+                          {{ text_mastercard_debit }}
+						  <input type="checkbox" name="payment_type[]" checked="checked"/>
+                          {{ text_mastercard_paypal }}
+						  <input type="checkbox" name="payment_type[]" checked="checked"/>
+                          {{ text_mastercard_purchasing }}
+						  <input type="checkbox" name="payment_type[]" checked="checked"/>
+                          {{ text_mastercard_visa }}
+						  <input type="checkbox" name="payment_type[]" checked="checked"/>
+                          {{ text_mastercard_vpay }}
+                        </label>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
             <div class="row">
               <div class="col-sm-4">
                 <div class="form-group">
-                  <label class="control-label" for="status">{{ entry_status_code }}</label>
-                  <select name="status[]" id="status" multiple class="form-control" style="height: 150px">
-                    <option selected="selected" value="0">0 - Ok</option>
-                    <option selected="selected" value="70000">70000 - Decline</option>
-                  </select>
+                  <label class="col-sm-2 control-label">{{ entry_status_code }}</label>
+                  <div class="col-sm-10">
+                    <div class="well well-sm" style="height: 150px; overflow: auto;"> 
+                      <div class="checkbox">
+                        <label> 
+                          <input type="checkbox" name="status[]" value="0" checked="checked"/>
+                          0 - {{ text_ok }}
+						  <input type="checkbox" name="status[]" value="70000" checked="checked"/>
+                          70000 - {{ text_decline }}
+                        </label>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
               <div class="col-sm-4">
                 <div class="form-group">
-                  <label class="control-label" for="settle-status">{{ entry_settle_status }}</label>
-                  <select name="settle_status[]" id="settle-status" multiple class="form-control" style="height: 150px">
-                    <option selected="selected" value="0">0 - {{ text_pending_settlement }}</option>
-                    <option selected="selected" value="1">1 - {{ text_manual_settlement }}</option>
-                    <option selected="selected" value="2">2 - {{ text_suspended }}</option>
-                    <option selected="selected" value="3">3 - {{ text_cancelled }}</option>
-                    <option selected="selected" value="10">10 - {{ text_settling }}</option>
-                    <option selected="selected" value="100">100 - {{ text_settled }}</option>
-                  </select>
+                  <label class="col-sm-2 control-label">{{ entry_settle_status }}</label>
+                  <div class="col-sm-10">
+                    <div class="well well-sm" style="height: 150px; overflow: auto;"> 
+                      <div class="checkbox">
+                        <label> 
+                          <input type="checkbox" name="settle_status[]" value="0" checked="checked"/>
+                          0 - {{ text_pending_settlement }}
+						  <input type="checkbox" name="settle_status[]" value="1" checked="checked"/>
+                          1 - {{ text_manual_settlement }}
+						  <input type="checkbox" name="settle_status[]" value="2" checked="checked"/>
+                          2 - {{ text_suspended }}
+						  <input type="checkbox" name="settle_status[]" value="3" checked="checked"/>
+                          3 - {{ text_cancelled }}
+						  <input type="checkbox" name="settle_status[]" value="10" checked="checked"/>
+                          10 - {{ text_settling }}
+						  <input type="checkbox" name="settle_status[]" value="100" checked="checked"/>
+                          100 - {{ text_settled }}
+                        </label>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
             <div class="row">
-              <div class="col-sm-12"> <a class="btn btn-primary" onclick="showTransactions()">{{ button_show }}</a> <a class="btn btn-primary" onclick="downloadTransactions()">{{ button_download }}</a> </div>
+              <div class="col-sm-12"> <a class="btn btn-primary" onclick="showTransactions()">{{ button_show }}</a> <a class="btn btn-primary" onclick="downloadTransactions()">{{ button_download }}</a></div>
             </div>
           </form>
         </div>

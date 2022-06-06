@@ -797,7 +797,7 @@
                     <div class="form-group">
                     <label class="control-label" for="input-merchant-account-id">{{ entry_merchant_account_id }}</label>
                     <select name="filter_merchant_account_id" id="input-merchant-account-id" class="form-control">
-                      <option value="*">All</option>
+                      <option value="*">{{ text_all }}</option>
                       {% for pp_braintree_account_value in payment_pp_braintree_account %}
                         {% if pp_braintree_account_value.merchant_account_id %}
                           <option value="{{ pp_braintree_account_value.merchant_account_id }}">{{ pp_braintree_account_value.merchant_account_id }}</option>
