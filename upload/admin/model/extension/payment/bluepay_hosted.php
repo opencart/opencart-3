@@ -54,7 +54,6 @@ class ModelExtensionPaymentBluePayHosted extends Model {
 			$void_data['TRANSACTION_TYPE'] = 'VOID';
 			$void_data['MODE'] = strtoupper($this->config->get('payment_bluepay_hosted_test'));
 			$void_data['RRNO'] = $bluepay_hosted_order['transaction_id'];
-			$void_data['RRNO'] = $bluepay_hosted_order['transaction_id'];
 
 			$void_data['APPROVED_URL'] = HTTP_CATALOG . 'index.php?route=extension/payment/bluepay_hosted/adminCallback';
 			$void_data['DECLINED_URL'] = HTTP_CATALOG . 'index.php?route=extension/payment/bluepay_hosted/adminCallback';
