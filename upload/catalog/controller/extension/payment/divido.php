@@ -41,8 +41,7 @@ class ControllerExtensionPaymentDivido extends Controller {
 	public function index() {
 		$this->load->language('extension/payment/divido');
 		
-		$this->load->model('extension/payment/divido');
-		
+		$this->load->model('extension/payment/divido');		
 		$this->load->model('checkout/order');
 
 		$api_key   = $this->config->get('payment_divido_api_key');
@@ -54,8 +53,10 @@ class ControllerExtensionPaymentDivido extends Controller {
 		$this->model_extension_payment_divido->setMerchant($this->config->get('payment_divido_api_key'));
 
 		$plans = $this->model_extension_payment_divido->getCartPlans($this->cart);
+		
 		foreach ($plans as $key => $plan) {
 			$planMinTotal = $total - ($total * ($plan->min_deposit / 100));
+			
 			if ($plan->min_amount > $planMinTotal) {
 				unset($plans[$key]);
 			}
@@ -64,6 +65,7 @@ class ControllerExtensionPaymentDivido extends Controller {
 		$plans_ids  = array_map(function ($plan) {
 			return $plan->id;
 		}, $plans);
+		
 		$plans_ids  = array_unique($plans_ids);
 		$plans_list = implode(',', $plans_ids);
 
@@ -81,8 +83,7 @@ class ControllerExtensionPaymentDivido extends Controller {
 	public function update() {
 		$this->load->language('extension/payment/divido');
 		
-		$this->load->model('extension/payment/divido');
-		
+		$this->load->model('extension/payment/divido');		
 		$this->load->model('checkout/order');
 
 		$data = json_decode(file_get_contents('php://input'));
@@ -93,12 +94,14 @@ class ControllerExtensionPaymentDivido extends Controller {
 		}
 
 		$lookup = $this->model_extension_payment_divido->getLookupByOrderId($data->metadata->order_id);
+		
 		if ($lookup->num_rows != 1) {
 			$this->response->setOutput('');
 			return;
 		}
 
 		$hash = $this->model_extension_payment_divido->hashOrderId($data->metadata->order_id, $lookup->row['salt']);
+		
 		if ($hash !== $data->metadata->order_hash) {
 			$this->response->setOutput('');
 			return;
@@ -108,12 +111,14 @@ class ControllerExtensionPaymentDivido extends Controller {
 		$order_info = $this->model_checkout_order->getOrder($order_id);
 		$status_id = $order_info['order_status_id'];
 		$message = "Status: {$data->status}";
+		
 		if (isset($this->history_messages[$data->status])) {
 			$message = $this->history_messages[$data->status];
 		}
 
 		if ($data->status == self::STATUS_SIGNED) {
 			$status_override = $this->config->get('payment_divido_order_status_id');
+			
 			if (!empty($status_override)) {
 				$this->status_id[self::STATUS_SIGNED] = $status_override;
 			}
@@ -128,7 +133,9 @@ class ControllerExtensionPaymentDivido extends Controller {
 		}
 
 		$this->model_extension_payment_divido->saveLookup($data->metadata->order_id, $lookup->row['salt'], null, $data->application);
+		
 		$this->model_checkout_order->addOrderHistory($order_id, $status_id, $message, false);
+		
 		$this->response->setOutput('ok');
 	}
 
@@ -151,6 +158,7 @@ class ControllerExtensionPaymentDivido extends Controller {
 		$finance = $this->request->post['finance'];
 
 		$address = $this->session->data['payment_address'];
+		
 		if (isset($this->session->data['shipping_address'])) {
 			$address = $this->session->data['shipping_address'];
 		}
@@ -162,6 +170,7 @@ class ControllerExtensionPaymentDivido extends Controller {
 
 		if ($this->customer->isLogged()) {
 			$this->load->model('account/customer');
+			
 			$customer_info = $this->model_account_customer->getCustomer($this->customer->getId());
 
 			$firstname = $customer_info['firstname'];
@@ -286,6 +295,7 @@ class ControllerExtensionPaymentDivido extends Controller {
 		}
 
 		$plans = $this->model_extension_payment_divido->getProductPlans($product_id);
+		
 		if (empty($plans)) {
 			return null;
 		}
