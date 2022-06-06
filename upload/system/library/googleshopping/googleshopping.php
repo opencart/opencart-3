@@ -947,15 +947,9 @@ class Googleshopping extends Library {
 
     protected function output($message) {
         $log_message = date('Y-m-d H:i:s - ') . $message;
-		
-		if (version_compare(phpversion(), '8.0', '>=') || substr(PHP_OS, 0, 3) == 'WIN') {
-			$eol = "\r\n";
-		} else {
-			$eol = PHP_EOL;
-		}
 
         if (defined('STDOUT')) {
-            fwrite(STDOUT, $log_message . $eol);
+            fwrite(STDOUT, $log_message . PHP_EOL);
         } else {
             echo $log_message . '<br><hr/>';
         }

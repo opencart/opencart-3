@@ -231,16 +231,10 @@ class ModelExtensionModuleAmazonLogin extends Model {
         } else {
             $message = $data;
         }
-		
-		if (version_compare(phpversion(), '8.0', '>=') || substr(PHP_OS, 0, 3) == 'WIN') {
-			$eol = "\r\n";
-		} else {
-			$eol = PHP_EOL;
-		}
 
         ob_start();
             debug_print_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS);
-            $message .= $eol . ob_get_contents();
+            $message .= PHP_EOL . ob_get_contents();
         ob_end_clean();
 
         $log = new \Log(self::LOG_FILENAME);

@@ -1,13 +1,7 @@
 <?php
 function advertise_google_validate() {
-	if (version_compare(phpversion(), '8.0', '>=') || substr(PHP_OS, 0, 3) == 'WIN') {
-		$eol = "\r\n";
-	} else {
-		$eol = PHP_EOL;
-	}
-	
     if (!getenv("ADVERTISE_GOOGLE_CRON")) {
-        die("Not in Command Line." . $eol);
+        die("Not in Command Line." . PHP_EOL);
     }
 }
 

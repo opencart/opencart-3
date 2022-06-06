@@ -134,12 +134,6 @@ class ControllerMarketplaceModification extends Controller {
 			}
 
 			$modification = array();
-			
-			if (version_compare(phpversion(), '8.0', '>=') || substr(PHP_OS, 0, 3) == 'WIN') {
-				$eol = "\r\n";
-			} else {
-				$eol = PHP_EOL;
-			}
 
 			foreach ($xml as $xml) {
 				if (empty($xml)) {
@@ -210,10 +204,10 @@ class ControllerMarketplaceModification extends Controller {
 										$original[$key] = preg_replace('~\r?\n~', "\n", $content);
 
 										// Log
-										$log[] = $eol . 'FILE: ' . $key;
+										$log[] = PHP_EOL . 'FILE: ' . $key;
 									} else {
 										// Log
-										$log[] = $eol . 'FILE: (sub modification) ' . $key;
+										$log[] = PHP_EOL . 'FILE: (sub modification) ' . $key;
 									
 									}
 
