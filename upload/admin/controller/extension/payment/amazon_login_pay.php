@@ -251,6 +251,7 @@ class ControllerExtensionPaymentAmazonLoginPay extends Controller {
 		} else {
 			$data['payment_amazon_login_pay_geo_zone'] = '0';
 		}
+		
 		if (isset($this->request->post['payment_amazon_login_pay_buyer_multi_currency'])) {
 			$data['payment_amazon_login_pay_buyer_multi_currency'] = $this->request->post['payment_amazon_login_pay_buyer_multi_currency'];
 		} elseif ($this->config->get('payment_amazon_login_pay_buyer_multi_currency')) {

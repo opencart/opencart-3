@@ -445,6 +445,7 @@ class ControllerCatalogRecurring extends Controller {
 		} else {
 			$data['trial_cycle'] = '1';
 		}
+		
 		if (isset($this->request->post['trial_status'])) {
 			$data['trial_status'] = $this->request->post['trial_status'];
 		} elseif (!empty($recurring_info)) {

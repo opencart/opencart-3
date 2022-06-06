@@ -99,15 +99,19 @@ class ModelUpgrade1004 extends Model {
 		if (empty($settings['config_mail_smtp_hostname']) && !empty($settings['config_smtp_host'])) {
 			$this->db->query("INSERT INTO `" . DB_PREFIX . "setting` SET `value` = '" . $settings['config_smtp_host'] . "', `key` = 'config_mail_smtp_hostname', `code` = 'config', `store_id` = '0'");
 		}
+		
 		if (empty($settings['config_mail_smtp_username']) && !empty($settings['config_smtp_username'])) {
 			$this->db->query("INSERT INTO `" . DB_PREFIX . "setting` SET `value` = '" . $settings['config_smtp_username'] . "', `key` = 'config_mail_smtp_username', `code` = 'config', `store_id` = '0'");
 		}
+		
 		if (empty($settings['config_mail_smtp_password']) && !empty($settings['config_smtp_password'])) {
 			$this->db->query("INSERT INTO `" . DB_PREFIX . "setting` SET `value` = '" . $settings['config_smtp_password'] . "', `key` = 'config_mail_smtp_password', `code` = 'config', `store_id` = '0'");
 		}
+		
 		if (empty($settings['config_mail_smtp_port']) && !empty($settings['config_smtp_port'])) {
 			$this->db->query("INSERT INTO `" . DB_PREFIX . "setting` SET `value` = '" . $settings['config_smtp_port'] . "', `key` = 'config_mail_smtp_port', `code` = 'config', `store_id` = '0'");
 		}
+		
 		if (empty($settings['config_mail_smtp_timeout']) && !empty($settings['config_smtp_timeout'])) {
 			$this->db->query("INSERT INTO `" . DB_PREFIX . "setting` SET `value` = '" . $settings['config_smtp_timeout'] . "', `key` = 'config_mail_smtp_timeout', `code` = 'config', `store_id` = '0'");
 		}

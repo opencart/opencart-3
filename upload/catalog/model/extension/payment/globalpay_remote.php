@@ -180,9 +180,11 @@ class ModelExtensionPaymentGlobalpayRemote extends Model {
 					if ($eci != '') {
 						$xml .= '<eci>' . (string)$eci . '</eci>';
 					}
+					
 					if ($cavv != '') {
 						$xml .= '<cavv>' . (string)$cavv . '</cavv>';
 					}
+					
 					if ($xid != '') {
 						$xml .= '<xid>' . (string)$xid . '</xid>';
 					}

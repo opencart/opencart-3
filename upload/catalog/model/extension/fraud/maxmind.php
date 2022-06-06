@@ -190,6 +190,7 @@ class ModelExtensionFraudMaxMind extends Model {
 				} else {
 					$ip_metro_code = '';
 				}
+				
 				if (isset($response_info['ip_areaCode'])) {
 					$ip_area_code = $response_info['ip_areaCode'];
 				} else {

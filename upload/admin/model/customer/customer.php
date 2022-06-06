@@ -456,6 +456,7 @@ class ModelCustomerCustomer extends Model {
 		if ($start < 0) {
 			$start = 0;
 		}
+		
 		if ($limit < 1) {
 			$limit = 10;
 		}

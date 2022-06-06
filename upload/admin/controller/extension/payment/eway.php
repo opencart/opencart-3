@@ -367,12 +367,15 @@ class ControllerExtensionPaymentEway extends Controller {
 		if (!$this->user->hasPermission('modify', 'extension/payment/eway')) {
 			$this->error['warning'] = $this->language->get('error_permission');
 		}
+		
 		if (!$this->request->post['payment_eway_username']) {
 			$this->error['username'] = $this->language->get('error_username');
 		}
+		
 		if (!$this->request->post['payment_eway_password']) {
 			$this->error['password'] = $this->language->get('error_password');
 		}
+		
 		if (!isset($this->request->post['payment_eway_payment_type'])) {
 			$this->error['payment_type'] = $this->language->get('error_payment_type');
 		}

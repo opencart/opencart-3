@@ -218,6 +218,7 @@ class ControllerExtensionPaymentSagepayServer extends Controller {
 		} else {
 			$str_vps_signature = '';
 		}
+		
 		if (isset($this->request->post['StatusDetail'])) {
 			$str_status_detail = $this->request->post['StatusDetail'];
 		} else {
