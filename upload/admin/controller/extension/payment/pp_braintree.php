@@ -767,10 +767,8 @@ class ControllerExtensionPaymentPPBraintree extends Controller {
 		
 		$json = array();
 
-		$this->load->model('extension/payment/pp_braintree');
-		
-		$this->load->model('customer/customer');
-		
+		$this->load->model('extension/payment/pp_braintree');		
+		$this->load->model('customer/customer');		
 		$this->load->model('sale/order');
 
 		$this->initialise($this->config->get('payment_pp_braintree_access_token'), array(

@@ -245,9 +245,9 @@ class ControllerExtensionPaymentSquareup extends Controller {
 		
         foreach ($this->model_localisation_language->getLanguages() as $language) {
             $data['languages'][] = array(
-                'language_id' => $language['language_id'],
-                'name' => $language['name'] . ($language['code'] == $this->config->get('config_language') ? $this->language->get('text_default') : ''),
-                'image' => 'language/' . $language['code'] . '/'. $language['code'] . '.png'
+                'language_id' 	=> $language['language_id'],
+                'name' 			=> $language['name'] . ($language['code'] == $this->config->get('config_language') ? $this->language->get('text_default') : ''),
+                'image' 		=> 'language/' . $language['code'] . '/'. $language['code'] . '.png'
             );
         }
 
@@ -309,7 +309,7 @@ class ControllerExtensionPaymentSquareup extends Controller {
         $this->load->library('squareup');
 
         if (isset($this->request->get['squareup_transaction_id'])) {
-            $squareup_transaction_id = $this->request->get['squareup_transaction_id'];
+            $squareup_transaction_id = (int)$this->request->get['squareup_transaction_id'];
         } else {
             $squareup_transaction_id = 0;
         }
@@ -359,6 +359,7 @@ class ControllerExtensionPaymentSquareup extends Controller {
         $data['url_void'] = $this->url->link('extension/payment/squareup' . '/void', 'user_token=' . $this->session->data['user_token'] . '&preserve_alert=true&squareup_transaction_id=' . $transaction_info['squareup_transaction_id'], true);
         $data['url_capture'] = $this->url->link('extension/payment/squareup' . '/capture', 'user_token=' . $this->session->data['user_token'] . '&preserve_alert=true&squareup_transaction_id=' . $transaction_info['squareup_transaction_id'], true);
         $data['url_refund'] = $this->url->link('extension/payment/squareup' . '/refund', 'user_token=' . $this->session->data['user_token'] . '&preserve_alert=true&squareup_transaction_id=' . $transaction_info['squareup_transaction_id'], true);
+		
         $data['url_transaction'] = sprintf(
             Squareup::VIEW_TRANSACTION_URL,
             $transaction_info['transaction_id'],
@@ -396,10 +397,10 @@ class ControllerExtensionPaymentSquareup extends Controller {
 
                 $data['refunds'][] = array(
                     'date_created' => date($this->language->get('datetime_format'), strtotime($refund['created_at'])),
-                    'reason' => $refund['reason'],
-                    'status' => $refund['status'],
-                    'amount' => $amount,
-                    'fee' => $fee
+                    'reason' 	=> $refund['reason'],
+                    'status' 	=> $refund['status'],
+                    'amount' 	=> $amount,
+                    'fee' 		=> $fee
                 );
             }
         }
@@ -1003,7 +1004,7 @@ class ControllerExtensionPaymentSquareup extends Controller {
         }
 
         if (isset($this->request->get['squareup_transaction_id'])) {
-            $squareup_transaction_id = $this->request->get['squareup_transaction_id'];
+            $squareup_transaction_id = (int)$this->request->get['squareup_transaction_id'];
         } else {
             $squareup_transaction_id = 0;
         }

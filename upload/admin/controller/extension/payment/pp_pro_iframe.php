@@ -367,6 +367,7 @@ class ControllerExtensionPaymentPPProIframe extends Controller {
 
 				if ($paypal_order) {
 					$call_data = array();
+					
 					$call_data['METHOD'] = 'RefundTransaction';
 					$call_data['TRANSACTIONID'] = $this->request->post['transaction_id'];
 					$call_data['NOTE'] = urlencode($this->request->post['refund_message']);
@@ -455,6 +456,7 @@ class ControllerExtensionPaymentPPProIframe extends Controller {
 			$paypal_order = $this->model_extension_payment_pp_pro_iframe->getOrder($this->request->post['order_id']);
 
 			$call_data = array();
+			
 			$call_data['METHOD'] = 'DoReauthorization';
 			$call_data['AUTHORIZATIONID'] = $paypal_order['authorization_id'];
 			$call_data['AMT'] = number_format($paypal_order['total'], 2);
