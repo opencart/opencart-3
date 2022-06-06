@@ -307,7 +307,7 @@
 </style>
 <div id="paypal_form">
 	{% if message_status %}
-	<div id="paypal_message"><div id="paypal_message_container"><div data-pp-message data-pp-placement="{{ message_placement }}" data-pp-amount="{{ message_amount }}" data-pp-style-layout="{{ message_layout }}" {% if (message_layout == 'text') %}data-pp-style-text-color="{{ message_text_color }}" data-pp-style-text-size="{{ message_text_size }}"{% else %}data-pp-style-color="{{ message_flex_color }}" data-pp-style-ratio="{{ message_flex_ratio }}"{% endif %}></div></div></div>
+	<div id="paypal_message"><div id="paypal_message_container"><div data-pp-message data-pp-placement="{{ message_placement }}" data-pp-amount="{{ message_amount }}" data-pp-style-layout="{{ message_layout }}" {% if message_layout == 'text' %}data-pp-style-text-color="{{ message_text_color }}" data-pp-style-text-size="{{ message_text_size }}"{% else %}data-pp-style-color="{{ message_flex_color }}" data-pp-style-ratio="{{ message_flex_ratio }}"{% endif %}></div></div></div>
 	{% endif %}
 	{% if express_status %}
 	<div id="paypal_express_button" class="buttons clearfix"><div id="paypal_express_button_container"></div></div>

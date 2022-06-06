@@ -39,7 +39,7 @@
 								<label class="col-sm-2 control-label" for="input_environment">{{ entry_environment }}</label>
 								<div class="col-sm-10">
 									<select name="payment_paypal_environment" id="input_environment" class="form-control">
-									{% if (environment == 'production') %}
+									{% if environment == 'production' %}
 									<option value="production" selected="selected">{{ text_production }}</option>
 									<option value="sandbox">{{ text_sandbox }}</option>
 									{% else %}
@@ -148,7 +148,7 @@
 								<label class="col-sm-2 control-label" for="input_transaction_method">{{ entry_transaction_method }}</label>
 								<div class="col-sm-10">
 									<select name="payment_paypal_transaction_method" id="input_transaction_method" class="form-control">
-									{% if (transaction_method == 'authorize') %}
+									{% if transaction_method == 'authorize' %}
 									<option value="authorize" selected="selected">{{ text_authorization }}</option>
 									<option value="capture">{{ text_sale }}</option>
 									{% else %}
@@ -250,7 +250,7 @@
 								<div class="col-sm-10">
 									<select name="payment_paypal_setting[checkout][express][button_align]" id="input_checkout_express_button_align" class="form-control">
 									{% for button_align in setting['button_align'] %}
-									{% if (button_align['code'] == setting['checkout']['express']['button_align']) %}
+									{% if button_align['code'] == setting['checkout']['express']['button_align'] %}
 									<option value="{{ button_align['code'] }}" selected="selected">{{ attribute(_context, button_align['name']) }}</option>
 									{% else %}
 									<option value="{{ button_align['code'] }}">{{ attribute(_context, button_align['name']) }}</option>
@@ -264,7 +264,7 @@
 								<div class="col-sm-10">
 									<select name="payment_paypal_setting[checkout][express][button_size]" id="input_checkout_express_button_size" class="form-control">
 									{% for button_size in setting['button_size'] %}
-									{% if (button_size['code'] == setting['checkout']['express']['button_size']) %}
+									{% if button_size['code'] == setting['checkout']['express']['button_size'] %}
 									<option value="{{ button_size['code'] }}" selected="selected">{{ attribute(_context, button_size['name']) }}</option>
 									{% else %}
 									<option value="{{ button_size['code'] }}">{{ attribute(_context, button_size['name']) }}</option>
@@ -278,7 +278,7 @@
 								<div class="col-sm-10">
 									<select name="payment_paypal_setting[checkout][express][button_color]" id="input_checkout_express_button_color" class="form-control">
 									{% for button_color in setting['button_color'] %}
-									{% if (button_color['code'] == setting['checkout']['express']['button_color']) %}
+									{% if button_color['code'] == setting['checkout']['express']['button_color'] %}
 									<option value="{{ button_color['code'] }}" selected="selected">{{ attribute(_context, button_color['name']) }}</option>
 									{% else %}
 									<option value="{{ button_color['code'] }}">{{ attribute(_context, button_color['name']) }}</option>
@@ -292,7 +292,7 @@
 								<div class="col-sm-10">
 									<select name="payment_paypal_setting[checkout][express][button_shape]" id="input_checkout_express_button_shape" class="form-control">
 									{% for button_shape in setting['button_shape'] %}
-									{% if (button_shape['code'] == setting['checkout']['express']['button_shape']) %}
+									{% if button_shape['code'] == setting['checkout']['express']['button_shape'] %}
 									<option value="{{ button_shape['code'] }}" selected="selected">{{ attribute(_context, button_shape['name']) }}</option>
 									{% else %}
 									<option value="{{ button_shape['code'] }}">{{ attribute(_context, button_shape['name']) }}</option>
@@ -306,7 +306,7 @@
 								<div class="col-sm-10">
 									<select name="payment_paypal_setting[checkout][express][button_label]" id="input_checkout_express_button_label" class="form-control">
 									{% for button_label in setting['button_label'] %}
-									{% if (button_label['code'] == setting['checkout']['express']['button_label']) %}
+									{% if button_label['code'] == setting['checkout']['express']['button_label'] %}
 									<option value="{{ button_label['code'] }}" selected="selected">{{ attribute(_context, button_label['name']) }}</option>
 									{% else %}
 									<option value="{{ button_label['code'] }}">{{ attribute(_context, button_label['name']) }}</option>
@@ -322,7 +322,7 @@
 								<div class="col-sm-10">
 									<select name="payment_paypal_setting[checkout][card][form_align]" id="input_checkout_card_form_align" class="form-control">
 									{% for form_align in setting['form_align'] %}
-									{% if (form_align['code'] == setting['checkout']['card']['form_align']) %}
+									{% if form_align['code'] == setting['checkout']['card']['form_align'] %}
 									<option value="{{ form_align['code'] }}" selected="selected">{{ attribute(_context, form_align['name']) }}</option>
 									{% else %}
 									<option value="{{ form_align['code'] }}">{{ attribute(_context, form_align['name']) }}</option>
@@ -336,7 +336,7 @@
 								<div class="col-sm-10">
 									<select name="payment_paypal_setting[checkout][card][form_size]" id="input_checkout_card_form_size" class="form-control">
 									{% for form_size in setting['form_size'] %}
-									{% if (form_size['code'] == setting['checkout']['card']['form_size']) %}
+									{% if form_size['code'] == setting['checkout']['card']['form_size'] %}
 									<option value="{{ form_size['code'] }}" selected="selected">{{ attribute(_context, form_size['name']) }}</option>
 									{% else %}
 									<option value="{{ form_size['code'] }}">{{ attribute(_context, form_size['name']) }}</option>
@@ -385,7 +385,7 @@
 								<div class="col-sm-10">
 									<select name="payment_paypal_setting[checkout][message][message_align]" id="input_checkout_message_align" class="form-control">
 									{% for message_align in setting['message_align'] %}
-									{% if (message_align['code'] == setting['checkout']['message']['message_align']) %}
+									{% if message_align['code'] == setting['checkout']['message']['message_align'] %}
 									<option value="{{ message_align['code'] }}" selected="selected">{{ attribute(_context, message_align['name']) }}</option>
 									{% else %}
 									<option value="{{ message_align['code'] }}">{{ attribute(_context, message_align['name']) }}</option>
@@ -399,7 +399,7 @@
 								<div class="col-sm-10">
 									<select name="payment_paypal_setting[checkout][message][message_size]" id="input_checkout_message_size" class="form-control">
 									{% for message_size in setting['message_size'] %}
-									{% if (message_size['code'] == setting['checkout']['message']['message_size']) %}
+									{% if message_size['code'] == setting['checkout']['message']['message_size'] %}
 									<option value="{{ message_size['code'] }}" selected="selected">{{ attribute(_context, message_size['name']) }}</option>
 									{% else %}
 									<option value="{{ message_size['code'] }}">{{ attribute(_context, message_size['name']) }}</option>
@@ -413,7 +413,7 @@
 								<div class="col-sm-10">
 									<select name="payment_paypal_setting[checkout][message][message_layout]" id="input_checkout_message_layout" class="form-control">
 									{% for message_layout in setting['message_layout'] %}
-									{% if (message_layout['code'] == setting['checkout']['message']['message_layout']) %}
+									{% if message_layout['code'] == setting['checkout']['message']['message_layout'] %}
 									<option value="{{ message_layout['code'] }}" selected="selected">{{ attribute(_context, message_layout['name']) }}</option>
 									{% else %}
 									<option value="{{ message_layout['code'] }}">{{ attribute(_context, message_layout['name']) }}</option>
@@ -422,12 +422,12 @@
 									</select>
 								</div>
 							</div>
-							<div class="form-group {% if (setting['checkout']['message']['message_layout'] == 'flex') %}hidden{% endif %}">
+							<div class="form-group {% if setting['checkout']['message']['message_layout'] == 'flex' %}hidden{% endif %}">
 								<label class="col-sm-2 control-label" for="input_checkout_message_text_color">{{ entry_message_text_color }}</label>
 								<div class="col-sm-10">
 									<select name="payment_paypal_setting[checkout][message][message_text_color]" id="input_checkout_message_text_color" class="form-control">
 									{% for message_text_color in setting['message_text_color'] %}
-									{% if (message_text_color['code'] == setting['checkout']['message']['message_text_color']) %}
+									{% if message_text_color['code'] == setting['checkout']['message']['message_text_color'] %}
 									<option value="{{ message_text_color['code'] }}" selected="selected">{{ attribute(_context, message_text_color['name']) }}</option>
 									{% else %}
 									<option value="{{ message_text_color['code'] }}">{{ attribute(_context, message_text_color['name']) }}</option>
@@ -436,12 +436,12 @@
 									</select>
 								</div>
 							</div>
-							<div class="form-group {% if (setting['checkout']['message']['message_layout'] == 'flex') %}hidden{% endif %}">
+							<div class="form-group {% if setting['checkout']['message']['message_layout'] == 'flex' %}hidden{% endif %}">
 								<label class="col-sm-2 control-label" for="input_checkout_message_text_size">{{ entry_message_text_size }}</label>
 								<div class="col-sm-10">
 									<select name="payment_paypal_setting[checkout][message][message_text_size]" id="input_checkout_message_text_size" class="form-control">
 									{% for message_text_size in setting['message_text_size'] %}
-									{% if (message_text_size == setting['checkout']['message']['message_text_size']) %}
+									{% if message_text_size == setting['checkout']['message']['message_text_size'] %}
 									<option value="{{ message_text_size }}" selected="selected">{{ message_text_size }}</option>
 									{% else %}
 									<option value="{{ message_text_size }}">{{ message_text_size }}</option>
@@ -450,12 +450,12 @@
 									</select>
 								</div>
 							</div>
-							<div class="form-group {% if (setting['checkout']['message']['message_layout'] == 'text') %}hidden{% endif %}">
+							<div class="form-group {% if setting['checkout']['message']['message_layout'] == 'text' %}hidden{% endif %}">
 								<label class="col-sm-2 control-label" for="input_checkout_message_flex_color">{{ entry_message_flex_color }}</label>
 								<div class="col-sm-10">
 									<select name="payment_paypal_setting[checkout][message][message_flex_color]" id="input_checkout_message_flex_color" class="form-control">
 									{% for message_flex_color in setting['message_flex_color'] %}
-									{% if (message_flex_color['code'] == setting['checkout']['message']['message_flex_color']) %}
+									{% if message_flex_color['code'] == setting['checkout']['message']['message_flex_color'] %}
 									<option value="{{ message_flex_color['code'] }}" selected="selected">{{ attribute(_context, message_flex_color['name']) }}</option>
 									{% else %}
 									<option value="{{ message_flex_color['code'] }}">{{ attribute(_context, message_flex_color['name']) }}</option>
@@ -464,12 +464,12 @@
 									</select>
 								</div>
 							</div>
-							<div class="form-group {% if (setting['checkout']['message']['message_layout'] == 'text') %}hidden{% endif %}">
+							<div class="form-group {% if setting['checkout']['message']['message_layout'] == 'text' %}hidden{% endif %}">
 								<label class="col-sm-2 control-label" for="input_checkout_message_flex_ratio">{{ entry_message_flex_ratio }}</label>
 								<div class="col-sm-10">
 									<select name="payment_paypal_setting[checkout][message][message_flex_ratio]" id="input_checkout_message_flex_ratio" class="form-control">
 									{% for message_flex_ratio in setting['message_flex_ratio'] %}
-									{% if (message_flex_ratio == setting['checkout']['message']['message_flex_ratio']) %}
+									{% if message_flex_ratio == setting['checkout']['message']['message_flex_ratio'] %}
 									<option value="{{ message_flex_ratio }}" selected="selected">{{ message_flex_ratio }}</option>
 									{% else %}
 									<option value="{{ message_flex_ratio }}">{{ message_flex_ratio }}</option>

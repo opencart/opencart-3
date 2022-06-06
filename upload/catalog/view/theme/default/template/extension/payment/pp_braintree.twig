@@ -635,7 +635,7 @@
     var payment_method_nonce = $('<input>').attr('type', 'hidden').attr('name', 'payment_method_nonce').val(nonce);
     $('#braintree-new').append($(payment_method_nonce));
 
-    {% if (payment_pp_braintree_paypal_vault == 1 or payment_pp_braintree_card_vault == 1) and guest != true %}
+    {% if payment_pp_braintree_paypal_vault == 1 or payment_pp_braintree_card_vault == 1 and guest != true %}
       var vault_method;
 
       if (vault_payment == 1) {

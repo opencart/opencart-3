@@ -78,7 +78,7 @@
 								<div class="col-sm-10">
 									<select name="module_paypal_smart_button_setting[page][{{ page['code'] }}][insert_type]" id="input_page_{{ page['code'] }}_insert_type" class="form-control">
 										{% for insert_type in setting['insert_type'] %}
-										{% if (insert_type['code'] == page['insert_type']) %}
+										{% if insert_type['code'] == page['insert_type'] %}
 										<option value="{{ insert_type['code'] }}" selected="selected">{{ attribute(_context, insert_type['name']) }}</option>
 										{% else %}
 										<option value="{{ insert_type['code'] }}">{{ attribute(_context, insert_type['name']) }}</option>
@@ -92,7 +92,7 @@
 								<div class="col-sm-10">
 									<select name="module_paypal_smart_button_setting[page][{{ page['code'] }}][button_align]" id="input_page_{{ page['code'] }}_button_align" class="form-control">
 										{% for button_align in setting['button_align'] %}
-										{% if (button_align['code'] == page['button_align']) %}
+										{% if button_align['code'] == page['button_align'] %}
 										<option value="{{ button_align['code'] }}" selected="selected">{{ attribute(_context, button_align['name']) }}</option>
 										{% else %}
 										<option value="{{ button_align['code'] }}">{{ attribute(_context, button_align['name']) }}</option>
@@ -106,7 +106,7 @@
 								<div class="col-sm-10">
 									<select name="module_paypal_smart_button_setting[page][{{ page['code'] }}][button_size]" id="input_page_{{ page['code'] }}_button_size" class="form-control">
 										{% for button_size in setting['button_size'] %}
-										{% if (button_size['code'] == page['button_size']) %}
+										{% if button_size['code'] == page['button_size'] %}
 										<option value="{{ button_size['code'] }}" selected="selected">{{ attribute(_context, button_size['name']) }}</option>
 										{% else %}
 										<option value="{{ button_size['code'] }}">{{ attribute(_context, button_size['name']) }}</option>
@@ -120,7 +120,7 @@
 								<div class="col-sm-10">
 									<select name="module_paypal_smart_button_setting[page][{{ page['code'] }}][button_color]" id="input_page_{{ page['code'] }}_button_color" class="form-control">
 										{% for button_color in setting['button_color'] %}
-										{% if (button_color['code'] == page['button_color']) %}
+										{% if button_color['code'] == page['button_color'] %}
 										<option value="{{ button_color['code'] }}" selected="selected">{{ attribute(_context, button_color['name']) }}</option>
 										{% else %}
 										<option value="{{ button_color['code'] }}">{{ attribute(_context, button_color['name']) }}</option>
@@ -134,7 +134,7 @@
 								<div class="col-sm-10">
 									<select name="module_paypal_smart_button_setting[page][{{ page['code'] }}][button_shape]" id="input_page_{{ page['code'] }}_shape" class="form-control">
 										{% for button_shape in setting['button_shape'] %}
-										{% if (button_shape['code'] == page['button_shape']) %}
+										{% if button_shape['code'] == page['button_shape'] %}
 										<option value="{{ button_shape['code'] }}" selected="selected">{{ attribute(_context, button_shape['name']) }}</option>
 										{% else %}
 										<option value="{{ button_shape['code'] }}">{{ attribute(_context, button_shape['name']) }}</option>
@@ -148,7 +148,7 @@
 								<div class="col-sm-10">
 									<select name="module_paypal_smart_button_setting[page][{{ page['code'] }}][button_label]" id="input_page_{{ page['code'] }}_button_label" class="form-control">
 										{% for button_label in setting['button_label'] %}
-										{% if (button_label['code'] == page['button_label']) %}
+										{% if button_label['code'] == page['button_label'] %}
 										<option value="{{ button_label['code'] }}" selected="selected">{{ attribute(_context, button_label['name']) }}</option>
 										{% else %}
 										<option value="{{ button_label['code'] }}">{{ attribute(_context, button_label['name']) }}</option>
@@ -162,7 +162,7 @@
 								<div class="col-sm-10">
 									<select name="module_paypal_smart_button_tagline" id="input_button_tagline" class="form-control">
 										{% for button_tagline in setting['button_tagline'] %}
-										{% if (button_tagline['code'] == page['button_tagline']) %}
+										{% if button_tagline['code'] == page['button_tagline'] %}
 										<option value="{{ button_tagline['code'] }}" selected="selected">{{ attribute(_context, button_tagline['name']) }}</option>
 										{% else %}
 										<option value="{{ button_tagline['code'] }}">{{ attribute(_context, button_tagline['name']) }}</option>
@@ -190,7 +190,7 @@
 								<div class="col-sm-10">
 									<select name="module_paypal_smart_button_setting[page][{{ page['code'] }}][message_align]" id="input_page_{{ page['code'] }}_message_align" class="form-control">
 										{% for message_align in setting['message_align'] %}
-										{% if (message_align['code'] == page['message_align']) %}
+										{% if message_align['code'] == page['message_align'] %}
 										<option value="{{ message_align['code'] }}" selected="selected">{{ attribute(_context, message_align['name']) }}</option>
 										{% else %}
 										<option value="{{ message_align['code'] }}">{{ attribute(_context, message_align['name']) }}</option>
@@ -204,7 +204,7 @@
 								<div class="col-sm-10">
 									<select name="module_paypal_smart_button_setting[page][{{ page['code'] }}][message_size]" id="input_page_{{ page['code'] }}_message_size" class="form-control">
 										{% for message_size in setting['message_size'] %}
-										{% if (message_size['code'] == page['message_size']) %}
+										{% if message_size['code'] == page['message_size'] %}
 										<option value="{{ message_size['code'] }}" selected="selected">{{ attribute(_context, message_size['name']) }}</option>
 										{% else %}
 										<option value="{{ message_size['code'] }}">{{ attribute(_context, message_size['name']) }}</option>
@@ -218,7 +218,7 @@
 								<div class="col-sm-10">
 									<select name="module_paypal_smart_button_setting[page][{{ page['code'] }}][message_layout]" id="input_page_{{ page['code'] }}_message_layout" class="form-control">
 										{% for message_layout in setting['message_layout'] %}
-										{% if (message_layout['code'] == page['message_layout']) %}
+										{% if message_layout['code'] == page['message_layout'] %}
 										<option value="{{ message_layout['code'] }}" selected="selected">{{ attribute(_context, message_layout['name']) }}</option>
 										{% else %}
 										<option value="{{ message_layout['code'] }}">{{ attribute(_context, message_layout['name']) }}</option>
@@ -227,12 +227,12 @@
 									</select>
 								</div>
 							</div>
-							<div class="form-group {% if (page['message_layout'] == 'flex') %}hidden{% endif %}">
+							<div class="form-group {% if page['message_layout'] == 'flex' %}hidden{% endif %}">
 								<label class="col-sm-2 control-label" for="input_page_{{ page['code'] }}_message_text_color">{{ entry_message_text_color }}</label>
 								<div class="col-sm-10">
 									<select name="module_paypal_smart_button_setting[page][{{ page['code'] }}][message_text_color]" id="input_page_{{ page['code'] }}_message_text_color" class="form-control">
 										{% for message_text_color in setting['message_text_color'] %}
-										{% if (message_text_color['code'] == page['message_text_color']) %}
+										{% if message_text_color['code'] == page['message_text_color'] %}
 										<option value="{{ message_text_color['code'] }}" selected="selected">{{ attribute(_context, message_text_color['name']) }}</option>
 										{% else %}
 										<option value="{{ message_text_color['code'] }}">{{ attribute(_context, message_text_color['name']) }}</option>
@@ -241,12 +241,12 @@
 									</select>
 								</div>
 							</div>
-							<div class="form-group {% if (page['message_layout'] == 'flex') %}hidden{% endif %}">
+							<div class="form-group {% if page['message_layout'] == 'flex' %}hidden{% endif %}">
 								<label class="col-sm-2 control-label" for="input_page_{{ page['code'] }}_message_text_size">{{ entry_message_text_size }}</label>
 								<div class="col-sm-10">
 									<select name="module_paypal_smart_button_setting[page][{{ page['code'] }}][message_text_size]" id="input_page_{{ page['code'] }}_message_text_size" class="form-control">
 										{% for message_text_size in setting['message_text_size'] %}
-										{% if (message_text_size == page['message_text_size']) %}
+										{% if message_text_size == page['message_text_size'] %}
 										<option value="{{ message_text_size }}" selected="selected">{{ message_text_size }}</option>
 										{% else %}
 										<option value="{{ message_text_size }}">{{ message_text_size }}</option>
@@ -255,12 +255,12 @@
 									</select>
 								</div>
 							</div>
-							<div class="form-group {% if (page['message_layout'] == 'text') %}hidden{% endif %}">
+							<div class="form-group {% if page['message_layout'] == 'text' %}hidden{% endif %}">
 								<label class="col-sm-2 control-label" for="input_page_{{ page['code'] }}_message_flex_color">{{ entry_message_flex_color }}</label>
 								<div class="col-sm-10">
 									<select name="module_paypal_smart_button_setting[page][{{ page['code'] }}][message_flex_color]" id="input_page_{{ page['code'] }}_message_flex_color" class="form-control">
 										{% for message_flex_color in setting['message_flex_color'] %}
-										{% if (message_flex_color['code'] == page['message_flex_color']) %}
+										{% if message_flex_color['code'] == page['message_flex_color'] %}
 										<option value="{{ message_flex_color['code'] }}" selected="selected">{{ attribute(_context, message_flex_color['name']) }}</option>
 										{% else %}
 										<option value="{{ message_flex_color['code'] }}">{{ attribute(_context, message_flex_color['name']) }}</option>
@@ -269,12 +269,12 @@
 									</select>
 								</div>
 							</div>
-							<div class="form-group {% if (page['message_layout'] == 'text') %}hidden{% endif %}">
+							<div class="form-group {% if page['message_layout'] == 'text' %}hidden{% endif %}">
 								<label class="col-sm-2 control-label" for="input_page_{{ page['code'] }}_message_flex_ratio">{{ entry_message_flex_ratio }}</label>
 								<div class="col-sm-10">
 									<select name="module_paypal_smart_button_setting[page][{{ page['code'] }}][message_flex_ratio]" id="input_page_{{ page['code'] }}_message_flex_ratio" class="form-control">
 										{% for message_flex_ratio in setting['message_flex_ratio'] %}
-										{% if (message_flex_ratio == page['message_flex_ratio']) %}
+										{% if message_flex_ratio == page['message_flex_ratio'] %}
 										<option value="{{ message_flex_ratio }}" selected="selected">{{ message_flex_ratio }}</option>
 										{% else %}
 										<option value="{{ message_flex_ratio }}">{{ message_flex_ratio }}</option>
