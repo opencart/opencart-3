@@ -3,10 +3,8 @@ class ControllerProductSearch extends Controller {
 	public function index() {
 		$this->load->language('product/search');
 
-		$this->load->model('catalog/category');
-		
-		$this->load->model('catalog/product');
-		
+		$this->load->model('catalog/category');		
+		$this->load->model('catalog/product');		
 		$this->load->model('tool/image');
 
 		if (isset($this->request->get['search'])) {
