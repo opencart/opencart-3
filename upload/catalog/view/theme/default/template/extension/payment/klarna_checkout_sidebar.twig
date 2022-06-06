@@ -54,12 +54,12 @@
         		<td class="text-left"><a href="{{ product.href }}">{{ product.name }}</a>
         		  {% if product.option %}
         		  {% for option in product.option %}
-        		  <br>
+        		  <br/>
         		  - <small>{{ option.name }} {{ option.value }}</small>
         		  {% endfor %}
         		  {% endif %}
         		  {% if product.recurring %}
-        		  <br>
+        		  <br/>
         		  - <small>{{ text_recurring }} {{ product.recurring }}</small>
         		  {% endif %}</td>
         		<td class="text-right">x {{ product.quantity }}</td>

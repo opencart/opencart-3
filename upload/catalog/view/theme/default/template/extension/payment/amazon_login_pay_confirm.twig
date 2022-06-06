@@ -50,7 +50,7 @@
         {% for product in order.products %}
             <tr>
                 <td class="text-left">{{ product.name }}
-                    {% for option in product.option %} <br>
+                    {% for option in product.option %} <br/>
                     <small>- {{ option.name }}: {{ option.value }}</small>
                     {% endfor %}
                 </td>
