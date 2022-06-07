@@ -20,6 +20,7 @@ class ControllerExtensionAdvertiseGoogle extends Controller {
         $this->loadStore($this->store_id);
     }
 
+	// catalog/view/common/header/after
     public function google_global_site_tag(&$route, &$data, &$output) {
         // In case the extension is disabled, do nothing
         if (!$this->setting->get('advertise_google_status')) {
@@ -37,6 +38,7 @@ class ControllerExtensionAdvertiseGoogle extends Controller {
         $output = str_replace('</head>', $tracker['google_global_site_tag'] . '</head>', $output);
     }
 
+	// catalog/controller/checkout/success/before
     public function before_checkout_success(&$route, &$data) {
         // In case the extension is disabled, do nothing
         if (!$this->setting->get('advertise_google_status')) {
@@ -119,6 +121,7 @@ class ControllerExtensionAdvertiseGoogle extends Controller {
         $this->googleshopping->setPurchaseData($purchase_data);
     }
 
+	// catalog/view/common/success/after
     public function google_dynamic_remarketing_purchase(&$route, &$data, &$output) {
         // In case the extension is disabled, do nothing
         if (!$this->setting->get('advertise_google_status')) {
@@ -149,6 +152,7 @@ class ControllerExtensionAdvertiseGoogle extends Controller {
         $output = str_replace('</body>', $this->googleshopping->getEventSnippet() . $purchase_snippet . '</body>', $output);
     }
 
+	// catalog/view/common/home/after
     public function google_dynamic_remarketing_home(&$route, &$data, &$output) {
         // In case the extension is disabled, do nothing
         if (!$this->setting->get('advertise_google_status')) {
@@ -176,6 +180,7 @@ class ControllerExtensionAdvertiseGoogle extends Controller {
         $output = str_replace('</body>', $snippet . '</body>', $output);
     }
 
+	// catalog/view/product/search/after
     public function google_dynamic_remarketing_searchresults(&$route, &$data, &$output) {
         // In case the extension is disabled, do nothing
         if (!$this->setting->get('advertise_google_status')) {
@@ -204,6 +209,7 @@ class ControllerExtensionAdvertiseGoogle extends Controller {
         $output = str_replace('</body>', $snippet . '</body>', $output);
     }
 
+	// catalog/view/product/category/after
     public function google_dynamic_remarketing_category(&$route, &$data, &$output) {
         // In case the extension is disabled, do nothing
         if (!$this->setting->get('advertise_google_status')) {
@@ -244,6 +250,7 @@ class ControllerExtensionAdvertiseGoogle extends Controller {
         $output = str_replace('</body>', $snippet . '</body>', $output);
     }
 
+	// catalog/view/product/product/after
     public function google_dynamic_remarketing_product(&$route, &$data, &$output) {
         // In case the extension is disabled, do nothing
         if (!$this->setting->get('advertise_google_status')) {
@@ -290,6 +297,7 @@ class ControllerExtensionAdvertiseGoogle extends Controller {
         $output = str_replace('</body>', $snippet . '</body>', $output);
     }
 
+	// catalog/view/checkout/cart/after
     public function google_dynamic_remarketing_cart(&$route, &$data, &$output) {
         // In case the extension is disabled, do nothing
         if (!$this->setting->get('advertise_google_status')) {

@@ -43,11 +43,11 @@ class ModelExtensionAdvertiseGoogle extends Model {
     );
 
     private $rename_tables = array(
-        'advertise_google_target' => 'googleshopping_target',
-        'category_to_google_product_category' => 'googleshopping_category',
-        'product_advertise_google_status' => 'googleshopping_product_status',
-        'product_advertise_google_target' => 'googleshopping_product_target',
-        'product_advertise_google' => 'googleshopping_product'
+        'advertise_google_target' 				=> 'googleshopping_target',
+        'category_to_google_product_category' 	=> 'googleshopping_category',
+        'product_advertise_google_status' 		=> 'googleshopping_product_status',
+        'product_advertise_google_target' 		=> 'googleshopping_product_target',
+        'product_advertise_google' 				=> 'googleshopping_product'
     );
 
     private $table_columns = array(
