@@ -465,7 +465,7 @@ class Googleshopping extends Library {
     }
 
     public function getProductOptionValueNames($product_id, $language_id, $option_id) {
-        $sql = "SELECT DISTINCT pov.`product_option_value_id`, ovd.`name` FROM `" . DB_PREFIX . "product_option_value` pov LEFT JOIN `" . DB_PREFIX . "option_value_description` ovd ON (ovd.`option_value_id` = pov.`option_value_id`) WHERE pov.`product_id` = '" . (int)$product_id . "' AND pov.`option_id` = '" . (int)$option_id . "' AND ovd.`language_id` = " . (int)$language_id;
+        $sql = "SELECT DISTINCT pov.`product_option_value_id`, ovd.`name` FROM `" . DB_PREFIX . "product_option_value` pov LEFT JOIN `" . DB_PREFIX . "option_value_description` ovd ON (ovd.`option_value_id` = pov.`option_value_id`) WHERE pov.`product_id` = '" . (int)$product_id . "' AND pov.`option_id` = '" . (int)$option_id . "' AND ovd.`language_id` = '" . (int)$language_id . "'";
 
         $result = $this->db->query($sql);
 
