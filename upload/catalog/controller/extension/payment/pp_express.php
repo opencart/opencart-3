@@ -169,7 +169,9 @@ class ControllerExtensionPaymentPPExpress extends Controller {
 			if ($this->cart->hasShipping()) {
 				$shipping_name = explode(' ', trim($result['PAYMENTREQUEST_0_SHIPTONAME']));
 				$shipping_first_name = $shipping_name[0];
+				
 				unset($shipping_name[0]);
+				
 				$shipping_last_name = implode(' ', $shipping_name);
 
 				$this->session->data['guest']['payment']['address_1'] = $result['PAYMENTREQUEST_0_SHIPTOSTREET'];

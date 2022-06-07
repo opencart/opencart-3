@@ -183,6 +183,7 @@ class ModelExtensionPaymentPPExpress extends Model {
 
 		foreach ($data as $k => $v) {
 			$tmp = explode('=', $v);
+			
 			$arr[$tmp[0]] = urldecode($tmp[1]);
 		}
 
