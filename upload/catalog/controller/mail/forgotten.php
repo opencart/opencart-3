@@ -1,6 +1,6 @@
 <?php
 class ControllerMailForgotten extends Controller {
-	// catalog/model/account/customer/editCode/after
+	// model/account/customer/editCode/after
 	public function index(&$route, &$args, &$output) {			            
 		if ($args[0] && $args[1]) {
 			$this->load->model('account/customer');

@@ -1,6 +1,6 @@
 <?php
 class ControllerMailRegister extends Controller {
-	// catalog/model/account/customer/addCustomer/after
+	// model/account/customer/addCustomer/after
 	public function index(&$route, &$args, &$output) {
 		$this->load->language('mail/register');
 
