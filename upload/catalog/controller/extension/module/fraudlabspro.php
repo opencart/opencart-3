@@ -25,36 +25,40 @@ class ControllerExtensionModuleFraudlabspro extends Controller {
 		} else {
 			$notify = false;
 		}
-						
-		$order_info = $this->model_checkout_order->getOrder($order_id);
-		
-		if ($order_info) {
-			$this->getStatus($order_id, $order_status_id, $notify);
+
+		if ($this->config->get('fraud_fraudlabspro_status')) {
+			$order_info = $this->model_checkout_order->getOrder($order_id);
+			
+			if ($order_info) {
+				$this->getStatus($order_id, $order_status_id, $notify);
+			}
 		}
 	}
 	
 	private function getStatus($order_id, $order_status_id, $notify) {
 		// Only pull the comment if we don't notify the customer and when there's an order status ID 
 		// for service information security purposes between store owners and the customers.
-		if (!$notify && $order_status_id) {
-			$this->load->language('extension/module/fraudlabspro');
-			
-			$this->load->model('extension/fraud/fraudlabspro');
-			
-			$status = $this->model_extension_fraud_fraudlabspro->getStatus($order_id);
-			
-			if ($status == 'REVIEW') {
-				$comment = $this->language->get('text_review');
+		if ($this->config->get('fraud_fraudlabspro_status')) {
+			if (!$notify && $order_status_id) {
+				$this->load->language('extension/module/fraudlabspro');
 				
-				$this->model_checkout_order->addOrderHistory($order_id, $this->config->get('fraud_fraudlabspro_review_status_id'), $comment);			
-			} elseif ($status == 'REJECT') {
-				$comment = $this->language->get('text_reject');
+				$this->load->model('extension/fraud/fraudlabspro');
 				
-				$this->model_checkout_order->addOrderHistory($order_id, $this->config->get('fraud_fraudlabspro_reject_status_id'), $comment);
-			} elseif ($status == 'APPROVE') {
-				$comment = $this->language->get('text_approve');
+				$status = $this->model_extension_fraud_fraudlabspro->getStatus($order_id);
 				
-				$this->model_checkout_order->addOrderHistory($order_id, $order_status_id, $comment);
+				if ($status == 'REVIEW') {
+					$comment = $this->language->get('text_review');
+					
+					$this->model_checkout_order->addOrderHistory($order_id, $this->config->get('fraud_fraudlabspro_review_status_id'), $comment);			
+				} elseif ($status == 'REJECT') {
+					$comment = $this->language->get('text_reject');
+					
+					$this->model_checkout_order->addOrderHistory($order_id, $this->config->get('fraud_fraudlabspro_reject_status_id'), $comment);
+				} elseif ($status == 'APPROVE') {
+					$comment = $this->language->get('text_approve');
+					
+					$this->model_checkout_order->addOrderHistory($order_id, $order_status_id, $comment);
+				}
 			}
 		}
 	}
