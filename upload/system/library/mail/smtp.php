@@ -32,12 +32,6 @@ class Smtp {
 			$to = $this->to;
 		}
 
-		if (version_compare(phpversion(), '8.0', '>=') || substr(PHP_OS, 0, 3) == 'WIN') {
-			PHP_EOL = "\r\n";
-		} else {
-			PHP_EOL = PHP_EOL;
-		}
-
 		$boundary = '----=_NextPart_' . md5(time());
 
 		$header = 'MIME-Version: 1.0' . PHP_EOL;
