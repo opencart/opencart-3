@@ -1,6 +1,6 @@
 <?php
 class ControllerMailTransaction extends Controller {
-	// model/account/customer/addTransaction/after
+	// catalog/model/account/customer/addTransaction/after
 	public function index(string &$route, array &$args, mixed &$output): void {
 		$this->load->language('mail/transaction');
 

@@ -991,6 +991,8 @@ class ControllerExtensionPaymentAmazonLoginPay extends Controller {
         $this->response->addHeader('Content-Type: application/json');
     }
 
+	// catalog/model/checkout/order/editOrder/after
+	// catalog/model/checkout/order/addOrderHistory/after
     public function capture(&$route, &$args, &$output) {
         $this->load->language('extension/payment/amazon_login_pay');
 

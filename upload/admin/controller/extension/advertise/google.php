@@ -1757,6 +1757,7 @@ class ControllerExtensionAdvertiseGoogle extends Controller {
         }
     }
 
+	// admin/model/catalog/product/addProduct/after
     public function addProduct(&$route, &$args, &$output) {
         $this->load->model('extension/advertise/google');
 		
@@ -1767,6 +1768,7 @@ class ControllerExtensionAdvertiseGoogle extends Controller {
         }
     }
 
+	// admin/model/catalog/product/copyProduct/after
     public function copyProduct(&$route, &$args, &$output) {
         $this->load->model('extension/advertise/google');
 		
@@ -1781,6 +1783,7 @@ class ControllerExtensionAdvertiseGoogle extends Controller {
         }
     }
 
+	// admin/model/catalog/product/deleteProduct/after
     public function deleteProduct(&$route, &$args, &$output) {
         $this->load->model('extension/advertise/google');
 

@@ -1,20 +1,20 @@
 <?php
 class ControllerEventStatistics extends Controller {
-	// model/catalog/review/addReview/after
+	// catalog/model/catalog/review/addReview/after
 	public function addReview(&$route, &$args, &$output) {
 		$this->load->model('report/statistics');
 
 		$this->model_report_statistics->addValue('review', 1);	
 	}
 		
-	// model/account/returns/addReturn/after
+	// catalog/model/account/returns/addReturn/after
 	public function addReturn(&$route, &$args, &$output) {
 		$this->load->model('report/statistics');
 
 		$this->model_report_statistics->addValue('returns', 1);	
 	}
 	
-	// model/checkout/order/addOrderHistory/before
+	// catalog/model/checkout/order/addOrderHistory/before
 	public function addOrderHistory(&$route, &$args, &$output) {
 		$this->load->model('checkout/order');
 				
