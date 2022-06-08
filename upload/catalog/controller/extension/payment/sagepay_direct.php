@@ -105,8 +105,8 @@ class ControllerExtensionPaymentSagepayDirect extends Controller {
 	public function send() {
 		$this->load->language('extension/payment/sagepay_direct');
 		
-		$this->load->model('checkout/order');
 		$this->load->model('extension/payment/sagepay_direct');
+		$this->load->model('checkout/order');		
 		$this->load->model('account/order');
 
 		$payment_data = array();

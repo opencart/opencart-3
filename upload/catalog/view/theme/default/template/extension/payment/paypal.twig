@@ -355,8 +355,8 @@
 					order_id = false;
 
 					$.ajax({
-						method: 'post',
 						url: 'index.php?route=extension/payment/paypal/createOrder',
+						method: 'post',						
 						data: '',
 						dataType: 'json',
 						async: false,
@@ -378,8 +378,8 @@
 					restart = false;
 
 					$.ajax({
-						method: 'post',
 						url: 'index.php?route=extension/payment/paypal/approveOrder',
+						method: 'post',						
 						data: { 'order_id': data.orderID },
 						dataType: 'json',
 						async: false,
@@ -453,8 +453,8 @@
 						order_id = false;
 
 						$.ajax({
-							method: 'post',
 							url: 'index.php?route=extension/payment/paypal/createOrder',
+							method: 'post',							
 							data: '',
 							dataType: 'json',
 							async: false,
@@ -553,8 +553,8 @@
 
 							}).then(function(payload) {
 								$.ajax({
-									method: 'post',
 									url: 'index.php?route=extension/payment/paypal/approveOrder',
+									method: 'post',									
 									data: { 'payload': JSON.stringify(payload) },
 									dataType: 'json',
 									async: false,
