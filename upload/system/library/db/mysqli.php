@@ -33,7 +33,7 @@ class MySQLi {
 
 				$result = new \stdClass();
 				$result->num_rows = $query->num_rows;
-				$result->row = isset($data[0]) ? $data[0] : [];
+				$result->row = isset($data[0]) ? $data[0] : array();
 				$result->rows = $data;
 
 				$query->close();
@@ -45,7 +45,7 @@ class MySQLi {
 				return true;
 			}
 		} catch (\mysqli_sql_exception $e) {
-			throw new \Exception('Error: ' . $this->connection->error  . '<br />Error No: ' . $this->connection->errno . '<br />' . $sql);
+			throw new \Exception('Error: ' . $this->connection->error  . '<br/>Error No: ' . $this->connection->errno . '<br/>' . $sql);
 		}
 	}
 

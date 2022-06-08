@@ -39,7 +39,7 @@ class PgSQL {
 				pg_free_result($resource);
 
 				$query = new \stdClass();
-				$query->row = isset($data[0]) ? $data[0] : [];
+				$query->row = isset($data[0]) ? $data[0] : array();
 				$query->rows = $data;
 				$query->num_rows = $i;
 
@@ -50,7 +50,7 @@ class PgSQL {
 				return true;
 			}
 		} else {
-			throw new \Exception('Error: ' . pg_result_error($this->connection) . '<br />' . $sql);
+			throw new \Exception('Error: ' . pg_result_error($this->connection) . '<br/>' . $sql);
 		}
 	}
 

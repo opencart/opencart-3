@@ -35,7 +35,7 @@ class PDO {
 					$data = $statement->fetchAll(\PDO::FETCH_ASSOC);
 
 					$result = new \stdClass();
-					$result->row = isset($data[0]) ? $data[0] : [];
+					$result->row = isset($data[0]) ? $data[0] : array();
 					$result->rows = $data;
 					$result->num_rows = count($data);
 					$this->affected = 0;
@@ -52,7 +52,7 @@ class PDO {
 				return true;
 			}
 		} catch (\PDOException $e) {
-			throw new \Exception('Error: ' . $e->getMessage() . ' Error Code : ' . $e->getCode() . ' <br />' . $sql);
+			throw new \Exception('Error: ' . $e->getMessage() . ' <br/>Error Code : ' . $e->getCode() . ' <br/>' . $sql);
 		}
 
 		return false;
