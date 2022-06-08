@@ -356,7 +356,7 @@
 
 					$.ajax({
 						url: 'index.php?route=extension/payment/paypal/createOrder',
-						method: 'post',						
+						method: 'post',
 						data: '',
 						dataType: 'json',
 						async: false,
@@ -379,7 +379,7 @@
 
 					$.ajax({
 						url: 'index.php?route=extension/payment/paypal/approveOrder',
-						method: 'post',						
+						method: 'post',
 						data: { 'order_id': data.orderID },
 						dataType: 'json',
 						async: false,
@@ -454,7 +454,7 @@
 
 						$.ajax({
 							url: 'index.php?route=extension/payment/paypal/createOrder',
-							method: 'post',							
+							method: 'post',
 							data: '',
 							dataType: 'json',
 							async: false,
@@ -554,7 +554,7 @@
 							}).then(function(payload) {
 								$.ajax({
 									url: 'index.php?route=extension/payment/paypal/approveOrder',
-									method: 'post',									
+									method: 'post',
 									data: { 'payload': JSON.stringify(payload) },
 									dataType: 'json',
 									async: false,
