@@ -40,9 +40,12 @@ if (extension_loaded('mbstring')) {
 	}
 
 	function utf8_substr($string, $offset, $length = null) {
-		return iconv_substr($string, $offset, $length, 'UTF-8');
+		if ($length === null) {
+			return iconv_substr($string, $offset, utf8_strlen($string), 'UTF-8');
+		} else {
+			return iconv_substr($string, $offset, $length, 'UTF-8');
+		}
 	}
-
 
 	function utf8_strtolower($string) {
 		static $upper_to_lower;
