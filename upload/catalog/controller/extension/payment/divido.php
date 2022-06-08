@@ -41,7 +41,7 @@ class ControllerExtensionPaymentDivido extends Controller {
 	public function index() {
 		$this->load->language('extension/payment/divido');
 		
-		$this->load->model('extension/payment/divido');		
+		$this->load->model('extension/payment/divido');
 		$this->load->model('checkout/order');
 
 		$api_key   = $this->config->get('payment_divido_api_key');
@@ -83,7 +83,7 @@ class ControllerExtensionPaymentDivido extends Controller {
 	public function update() {
 		$this->load->language('extension/payment/divido');
 		
-		$this->load->model('extension/payment/divido');		
+		$this->load->model('extension/payment/divido');
 		$this->load->model('checkout/order');
 
 		$data = json_decode(file_get_contents('php://input'));
