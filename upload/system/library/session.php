@@ -21,7 +21,7 @@ class Session {
 	 * @param	string	$adaptor
 	 * @param	object	$registry
  	*/
-	public function __construct($adaptor, Registry $registry) {
+	public function __construct($adaptor, $registry) {
 		$class = 'Session\\' . $adaptor;
 		
 		if (class_exists($class)) {
