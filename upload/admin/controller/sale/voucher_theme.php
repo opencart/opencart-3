@@ -244,7 +244,7 @@ class ControllerSaleVoucherTheme extends Controller {
 	}
 
 	protected function getForm() {
-		$data['text_form'] = (!isset($this->request->get['voucher_theme_id']) ? $this->language->get('text_add') : $this->language->get('text_edit'));
+		$data['text_form'] = !isset($this->request->get['voucher_theme_id']) ? $this->language->get('text_add') : $this->language->get('text_edit');
 
 		if (isset($this->error['warning'])) {
 			$data['error_warning'] = $this->error['warning'];
