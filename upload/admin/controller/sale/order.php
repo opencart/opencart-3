@@ -402,7 +402,7 @@ class ControllerSaleOrder extends Controller {
 	}
 		
 	public function getForm() {
-		$data['text_form'] = !isset($this->request->get['order_id']) ? $this->language->get('text_add') : $this->language->get('text_edit');
+		$data['text_form'] = (!isset($this->request->get['order_id']) ? $this->language->get('text_add') : $this->language->get('text_edit'));
 
 		$url = '';
 
