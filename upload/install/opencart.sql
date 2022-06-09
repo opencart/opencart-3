@@ -1461,29 +1461,29 @@ INSERT INTO `oc_event` (`code`, `trigger`, `action`, `status`, `sort_order`) VAL
 ('admin_mail_return', 'admin/model/sale/returns/addReturnHistory/after', 'mail/returns', 1, 0);
 INSERT INTO `oc_event` (`code`, `trigger`, `action`, `status`, `sort_order`) VALUES
 ('admin_mail_forgotten', 'admin/model/user/user/editCode/after', 'mail/forgotten', 1, 0);
-INSERT INTO `oc_event` (`code`, `trigger`, `action`, `status`, `sort_order`, `sort_order`) VALUES
+INSERT INTO `oc_event` (`code`, `trigger`, `action`, `status`, `sort_order`) VALUES
 ('advertise_google', 'admin/model/catalog/product/deleteProduct/after', 'extension/advertise/google/deleteProduct', 1, 0);
-INSERT INTO `oc_event` (`code`, `trigger`, `action`, `status`, `sort_order`, `sort_order`) VALUES
+INSERT INTO `oc_event` (`code`, `trigger`, `action`, `status`, `sort_order`) VALUES
 ('advertise_google', 'admin/model/catalog/product/copyProduct/after', 'extension/advertise/google/copyProduct', 1, 0);
-INSERT INTO `oc_event` (`code`, `trigger`, `action`, `status`, `sort_order`, `sort_order`) VALUES
+INSERT INTO `oc_event` (`code`, `trigger`, `action`, `status`, `sort_order`) VALUES
 ('advertise_google', 'admin/view/common/column_left/before', 'extension/advertise/google/admin_link', 1, 0);
-INSERT INTO `oc_event` (`code`, `trigger`, `action`, `status`, `sort_order`, `sort_order`) VALUES
+INSERT INTO `oc_event` (`code`, `trigger`, `action`, `status`, `sort_order`) VALUES
 ('advertise_google', 'admin/model/catalog/product/addProduct/after', 'extension/advertise/google/addProduct', 1, 0);
-INSERT INTO `oc_event` (`code`, `trigger`, `action`, `status`, `sort_order`, `sort_order`) VALUES
+INSERT INTO `oc_event` (`code`, `trigger`, `action`, `status`, `sort_order`) VALUES
 ('advertise_google', 'catalog/controller/checkout/success/before', 'extension/advertise/google/before_checkout_success', 1, 0);
-INSERT INTO `oc_event` (`code`, `trigger`, `action`, `status`, `sort_order`, `sort_order`) VALUES
+INSERT INTO `oc_event` (`code`, `trigger`, `action`, `status`, `sort_order`) VALUES
 ('advertise_google', 'catalog/view/common/header/after', 'extension/advertise/google/google_global_site_tag', 1, 0);
-INSERT INTO `oc_event` (`code`, `trigger`, `action`, `status`, `sort_order`, `sort_order`) VALUES
+INSERT INTO `oc_event` (`code`, `trigger`, `action`, `status`, `sort_order`) VALUES
 ('advertise_google', 'catalog/view/common/success/after', 'extension/advertise/google/google_dynamic_remarketing_purchase', 1, 0);
-INSERT INTO `oc_event` (`code`, `trigger`, `action`, `status`, `sort_order`, `sort_order`) VALUES
+INSERT INTO `oc_event` (`code`, `trigger`, `action`, `status`, `sort_order`) VALUES
 ('advertise_google', 'catalog/view/product/product/after', 'extension/advertise/google/google_dynamic_remarketing_product', 1, 0);
-INSERT INTO `oc_event` (`code`, `trigger`, `action`, `status`, `sort_order`, `sort_order`) VALUES
+INSERT INTO `oc_event` (`code`, `trigger`, `action`, `status`, `sort_order`) VALUES
 ('advertise_google', 'catalog/view/product/search/after', 'extension/advertise/google/google_dynamic_remarketing_searchresults', 1, 0);
-INSERT INTO `oc_event` (`code`, `trigger`, `action`, `status`, `sort_order`, `sort_order`) VALUES
+INSERT INTO `oc_event` (`code`, `trigger`, `action`, `status`, `sort_order`) VALUES
 ('advertise_google', 'catalog/view/product/category/after', 'extension/advertise/google/google_dynamic_remarketing_category', 1, 0);
-INSERT INTO `oc_event` (`code`, `trigger`, `action`, `status`, `sort_order`, `sort_order`) VALUES
+INSERT INTO `oc_event` (`code`, `trigger`, `action`, `status`, `sort_order`) VALUES
 ('advertise_google', 'catalog/view/common/home/after', 'extension/advertise/google/google_dynamic_remarketing_home', 1, 0);
-INSERT INTO `oc_event` (`code`, `trigger`, `action`, `status`, `sort_order`, `sort_order`) VALUES
+INSERT INTO `oc_event` (`code`, `trigger`, `action`, `status`, `sort_order`) VALUES
 ('advertise_google', 'catalog/view/checkout/cart/after', 'extension/advertise/google/google_dynamic_remarketing_cart', 1, 0);
 
 -----------------------------------------------------------
