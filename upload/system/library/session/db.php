@@ -2,7 +2,7 @@
 namespace Session;
 
 final class DB {
-	public function __construct(Registry $registry) {
+	public function __construct($registry) {
 		$this->db = $registry->get('db');
 		
 		$this->config = $registry->get('config');
