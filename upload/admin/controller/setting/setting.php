@@ -903,6 +903,12 @@ class ControllerSettingSetting extends Controller {
 		} else {
 			$data['config_error_filename'] = $this->config->get('config_error_filename');
 		}
+		
+		if ($this->config->has('config_session_expire')) {
+			$data['config_session_expire'] = $this->config->get('config_session_expire');
+		} else {
+			$data['config_session_expire'] = 3600;
+		}
 
 		$data['header'] = $this->load->controller('common/header');
 		$data['column_left'] = $this->load->controller('common/column_left');
