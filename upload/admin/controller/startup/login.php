@@ -1,7 +1,7 @@
 <?php
 class ControllerStartupLogin extends Controller {
 	public function index() {
-		$route = isset($this->request->get['route']) ? $this->request->get['route'] : '';
+		$route = (isset($this->request->get['route']) ? $this->request->get['route'] : '');
 		
 		$ignore = array(
 			'common/login',

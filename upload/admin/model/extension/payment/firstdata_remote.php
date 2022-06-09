@@ -113,10 +113,10 @@ class ModelExtensionPaymentFirstdataRemote extends Model {
 		}
 
 		$string = $xml->xpath('//ipgapi:ErrorMessage');
-		$response['error'] = isset($string[0]) ? (string)$string[0] : '';
+		$response['error'] = (isset($string[0]) ? (string)$string[0] : '');
 
 		$string = $xml->xpath('//ipgapi:TransactionResult');
-		$response['transaction_result'] = isset($string[0]) ? (string)$string[0] : '';
+		$response['transaction_result'] = (isset($string[0]) ? (string)$string[0] : '');
 
 		return $response;
 	}
@@ -160,10 +160,10 @@ class ModelExtensionPaymentFirstdataRemote extends Model {
 		}
 
 		$string = $xml->xpath('//ipgapi:ErrorMessage');
-		$response['error'] = isset($string[0]) ? (string)$string[0] : '';
+		$response['error'] = (isset($string[0]) ? (string)$string[0] : '');
 
 		$string = $xml->xpath('//ipgapi:TransactionResult');
-		$response['transaction_result'] = isset($string[0]) ? (string)$string[0] : '';
+		$response['transaction_result'] = (isset($string[0]) ? (string)$string[0] : '');
 
 		return $response;
 	}
@@ -207,10 +207,10 @@ class ModelExtensionPaymentFirstdataRemote extends Model {
 		}
 
 		$string = $xml->xpath('//ipgapi:ErrorMessage');
-		$response['error'] = isset($string[0]) ? (string)$string[0] : '';
+		$response['error'] = (isset($string[0]) ? (string)$string[0] : '');
 
 		$string = $xml->xpath('//ipgapi:TransactionResult');
-		$response['transaction_result'] = isset($string[0]) ? (string)$string[0] : '';
+		$response['transaction_result'] = (isset($string[0]) ? (string)$string[0] : '');
 
 		return $response;
 	}

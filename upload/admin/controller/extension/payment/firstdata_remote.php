@@ -305,7 +305,7 @@ class ControllerExtensionPaymentFirstdataRemote extends Controller {
 			} else {
 				$json['error'] = true;
 				
-				$json['msg'] = isset($void_response['error']) && $void_response['error'] != '' ? sprintf($this->language->get('error_status'), (string)$void_response['error']) : $this->language->get('error_void');
+				$json['msg'] = (isset($void_response['error']) && $void_response['error'] != '' ? sprintf($this->language->get('error_status'), (string)$void_response['error']) : $this->language->get('error_void'));
 			}
 		} else {
 			$json['error'] = true;
@@ -354,7 +354,7 @@ class ControllerExtensionPaymentFirstdataRemote extends Controller {
 			} else {
 				$json['error'] = true;
 				
-				$json['msg'] = isset($capture_response['error']) && $capture_response['error'] != '' ? sprintf($this->language->get('error_status'), (string)$capture_response['error']) : $this->language->get('error_capture');
+				$json['msg'] = (isset($capture_response['error']) && $capture_response['error'] != '' ? sprintf($this->language->get('error_status'), (string)$capture_response['error']) : $this->language->get('error_capture'));
 
 			}
 		} else {
@@ -411,7 +411,7 @@ class ControllerExtensionPaymentFirstdataRemote extends Controller {
 			} else {
 				$json['error'] = true;
 				
-				$json['msg'] = isset($refund_response['error']) && $refund_response['error'] != '' ? sprintf($this->language->get('error_status'), (string)$refund_response['error']) : $this->language->get('error_refund');
+				$json['msg'] = (isset($refund_response['error']) && $refund_response['error'] != '' ? sprintf($this->language->get('error_status'), (string)$refund_response['error']) : $this->language->get('error_refund'));
 			}
 		} else {
 			$json['error'] = true;

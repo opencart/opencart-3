@@ -598,7 +598,7 @@ class ControllerExtensionPaymentPPExpress extends Controller {
 
 					$json['success'] = $this->language->get('text_success');
 				} else {
-					$json['error'] = isset($response_info['L_SHORTMESSAGE0']) ? sprintf($this->language->get('error_status_capture_short'), $response_info['L_SHORTMESSAGE0']) : $this->language->get('error_transaction');
+					$json['error'] = (isset($response_info['L_SHORTMESSAGE0']) ? sprintf($this->language->get('error_status_capture_short'), $response_info['L_SHORTMESSAGE0']) : $this->language->get('error_transaction'));
 				}
 			} else {
 				$json['error'] = $this->language->get('error_not_found');
@@ -751,7 +751,7 @@ class ControllerExtensionPaymentPPExpress extends Controller {
 					} else {
 						$this->model_extension_payment_pp_express->log(json_encode($result));
 						
-						$this->session->data['error'] = isset($result['L_SHORTMESSAGE0']) ? $result['L_SHORTMESSAGE0'] : isset($result['L_LONGMESSAGE0']) ? '<br>' . sprintf($this->language->get('error_status_refund_long'), $result['L_LONGMESSAGE0']) : '';
+						$this->session->data['error'] = (isset($result['L_SHORTMESSAGE0']) ? $result['L_SHORTMESSAGE0'] : isset($result['L_LONGMESSAGE0']) ? '<br>' . sprintf($this->language->get('error_status_refund_long'), $result['L_LONGMESSAGE0']) : '');
 						
 						$this->response->redirect($this->url->link('extension/payment/pp_express/refund', 'user_token=' . $this->session->data['user_token'] . '&transaction_id=' . $this->request->post['transaction_id'], true));
 					}
@@ -819,7 +819,7 @@ class ControllerExtensionPaymentPPExpress extends Controller {
 
 				$json['success'] = $this->language->get('text_success');
 			} else {
-				$json['error'] = isset($result['L_SHORTMESSAGE0']) ? sprintf($this->language->get('error_status_void_short'), $result['L_SHORTMESSAGE0']) : $this->language->get('error_transaction');
+				$json['error'] = (isset($result['L_SHORTMESSAGE0']) ? sprintf($this->language->get('error_status_void_short'), $result['L_SHORTMESSAGE0']) : $this->language->get('error_transaction'));
 			}
 		} else {
 			$json['error'] = $this->language->get('error_not_found');
@@ -961,7 +961,7 @@ class ControllerExtensionPaymentPPExpress extends Controller {
 					$transaction['amount'] = $transaction['amount'];
 				}
 
-				$transaction['pending_reason'] = isset($result['PENDINGREASON']) ? $result['PENDINGREASON'] : '';
+				$transaction['pending_reason'] = (isset($result['PENDINGREASON']) ? $result['PENDINGREASON'] : '');
 
 				$this->model_extension_payment_pp_express->updateTransaction($transaction);
 
