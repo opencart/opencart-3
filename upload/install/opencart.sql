@@ -628,7 +628,7 @@ CREATE TABLE `oc_country` (
 -- Dumping data for table `oc_country`
 --
 
-INSERT INTO `oc_country` (`country_id`, `name`, `iso_code_2`, `iso_code_3`, `address_format_id`, `postcode_required`, `status`) VALUES
+INSERT INTO `oc_country` (`country_id`, `name`, `iso_code_2`, `iso_code_3`, `address_format`, `postcode_required`, `status`) VALUES
 (1, 'Afghanistan', 'AF', 'AFG', 1, 0, 1),
 (2, 'Albania', 'AL', 'ALB', 1, 0, 1),
 (3, 'Algeria', 'DZ', 'DZA', 1, 0, 1),
