@@ -1387,104 +1387,104 @@ CREATE TABLE `oc_event` (
 -- Dumping data for table `oc_event`
 --
 
-INSERT INTO `oc_event` (`event_id`, `code`, `trigger`, `action`, `status`, `sort_order`) VALUES
-(1, 'activity_customer_add', 'catalog/model/account/customer/addCustomer/after', 'event/activity/addCustomer', 1, 0);
-INSERT INTO `oc_event` (`event_id`, `code`, `trigger`, `action`, `status`, `sort_order`) VALUES
-(2, 'activity_customer_edit', 'catalog/model/account/customer/editCustomer/after', 'event/activity/editCustomer', 1, 0);
-INSERT INTO `oc_event` (`event_id`, `code`, `trigger`, `action`, `status`, `sort_order`) VALUES
-(3, 'activity_customer_password', 'catalog/model/account/customer/editPassword/after', 'event/activity/editPassword', 1, 0);
-INSERT INTO `oc_event` (`event_id`, `code`, `trigger`, `action`, `status`, `sort_order`) VALUES
-(4, 'activity_customer_forgotten', 'catalog/model/account/customer/editCode/after', 'event/activity/forgotten', 1, 0);
-INSERT INTO `oc_event` (`event_id`, `code`, `trigger`, `action`, `status`, `sort_order`) VALUES
-(5, 'activity_transaction', 'catalog/model/account/customer/addTransaction/after', 'event/activity/addTransaction', 1, 0);
-INSERT INTO `oc_event` (`event_id`, `code`, `trigger`, `action`, `status`, `sort_order`) VALUES
-(6, 'activity_customer_login', 'catalog/model/account/customer/deleteLoginAttempts/after', 'event/activity/login', 1, 0);
-INSERT INTO `oc_event` (`event_id`, `code`, `trigger`, `action`, `status`, `sort_order`) VALUES
-(7, 'activity_address_add', 'catalog/model/account/address/addAddress/after', 'event/activity/addAddress', 1, 0);
-INSERT INTO `oc_event` (`event_id`, `code`, `trigger`, `action`, `status`, `sort_order`) VALUES
-(8, 'activity_address_edit', 'catalog/model/account/address/editAddress/after', 'event/activity/editAddress', 1, 0);
-INSERT INTO `oc_event` (`event_id`, `code`, `trigger`, `action`, `status`, `sort_order`) VALUES
-(9, 'activity_address_delete', 'catalog/model/account/address/deleteAddress/after', 'event/activity/deleteAddress', 1, 0);
-INSERT INTO `oc_event` (`event_id`, `code`, `trigger`, `action`, `status`, `sort_order`) VALUES
-(10, 'activity_affiliate_add', 'catalog/model/account/customer/addAffiliate/after', 'event/activity/addAffiliate', 1, 0);
-INSERT INTO `oc_event` (`event_id`, `code`, `trigger`, `action`, `status`, `sort_order`) VALUES
-(11, 'activity_affiliate_edit', 'catalog/model/account/customer/editAffiliate/after', 'event/activity/editAffiliate', 1, 0);
-INSERT INTO `oc_event` (`event_id`, `code`, `trigger`, `action`, `status`, `sort_order`) VALUES
-(12, 'activity_order_add', 'catalog/model/checkout/order/addOrderHistory/before', 'event/activity/addOrderHistory', 1, 0);
-INSERT INTO `oc_event` (`event_id`, `code`, `trigger`, `action`, `status`, `sort_order`) VALUES
-(13, 'activity_return_add', 'catalog/model/account/returns/addReturn/after', 'event/activity/addReturn', 1, 0);
-INSERT INTO `oc_event` (`event_id`, `code`, `trigger`, `action`, `status`, `sort_order`) VALUES
-(14, 'mail_transaction', 'catalog/model/account/customer/addTransaction/after', 'mail/transaction', 1, 0);
-INSERT INTO `oc_event` (`event_id`, `code`, `trigger`, `action`, `status`, `sort_order`) VALUES
-(15, 'mail_forgotten', 'catalog/model/account/customer/editCode/after', 'mail/forgotten', 1, 0);
-INSERT INTO `oc_event` (`event_id`, `code`, `trigger`, `action`, `status`, `sort_order`) VALUES
-(16, 'mail_customer_add', 'catalog/model/account/customer/addCustomer/after', 'mail/register', 1, 0);
-INSERT INTO `oc_event` (`event_id`, `code`, `trigger`, `action`, `status`, `sort_order`) VALUES
-(17, 'mail_customer_alert', 'catalog/model/account/customer/addCustomer/after', 'mail/register/alert', 1, 0);
-INSERT INTO `oc_event` (`event_id`, `code`, `trigger`, `action`, `status`, `sort_order`) VALUES
-(18, 'mail_affiliate_add', 'catalog/model/account/customer/addAffiliate/after', 'mail/affiliate', 1, 0);
-INSERT INTO `oc_event` (`event_id`, `code`, `trigger`, `action`, `status`, `sort_order`) VALUES
-(19, 'mail_affiliate_alert', 'catalog/model/account/customer/addAffiliate/after', 'mail/affiliate/alert', 1, 0);
-INSERT INTO `oc_event` (`event_id`, `code`, `trigger`, `action`, `status`, `sort_order`) VALUES
-(20, 'mail_voucher', 'catalog/model/checkout/order/addOrderHistory/after', 'extension/total/voucher/send', 1, 0);
-INSERT INTO `oc_event` (`event_id`, `code`, `trigger`, `action`, `status`, `sort_order`) VALUES
-(21, 'mail_order_add', 'catalog/model/checkout/order/addOrderHistory/before', 'mail/order', 1, 0);
-INSERT INTO `oc_event` (`event_id`, `code`, `trigger`, `action`, `status`, `sort_order`) VALUES
-(22, 'mail_order_alert', 'catalog/model/checkout/order/addOrderHistory/before', 'mail/order/alert', 1, 0);
-INSERT INTO `oc_event` (`event_id`, `code`, `trigger`, `action`, `status`, `sort_order`) VALUES
-(23, 'statistics_review_add', 'catalog/model/catalog/review/addReview/after', 'event/statistics/addReview', 1, 0);
-INSERT INTO `oc_event` (`event_id`, `code`, `trigger`, `action`, `status`, `sort_order`) VALUES
-(24, 'statistics_return_add', 'catalog/model/account/returns/addReturn/after', 'event/statistics/addReturn', 1, 0);
-INSERT INTO `oc_event` (`event_id`, `code`, `trigger`, `action`, `status`, `sort_order`) VALUES
-(25, 'statistics_order_history', 'catalog/model/checkout/order/addOrderHistory/after', 'event/statistics/addOrderHistory', 1, 0);
-INSERT INTO `oc_event` (`event_id`, `code`, `trigger`, `action`, `status`, `sort_order`) VALUES
-(26, 'admin_mail_affiliate_approve', 'admin/model/customer/customer_approval/approveAffiliate/after', 'mail/affiliate/approve', 1, 0);
-INSERT INTO `oc_event` (`event_id`, `code`, `trigger`, `action`, `status`, `sort_order`) VALUES
-(27, 'admin_mail_affiliate_deny', 'admin/model/customer/customer_approval/denyAffiliate/after', 'mail/affiliate/deny', 1, 0);
-INSERT INTO `oc_event` (`event_id`, `code`, `trigger`, `action`, `status`, `sort_order`) VALUES
-(28, 'admin_mail_customer_approve', 'admin/model/customer/customer_approval/approveCustomer/after', 'mail/customer/approve', 1, 0);
-INSERT INTO `oc_event` (`event_id`, `code`, `trigger`, `action`, `status`, `sort_order`) VALUES
-(29, 'admin_mail_customer_deny', 'admin/model/customer/customer_approval/denyCustomer/after', 'mail/customer/deny', 1, 0);
-INSERT INTO `oc_event` (`event_id`, `code`, `trigger`, `action`, `status`, `sort_order`) VALUES
-(30, 'admin_mail_reward', 'admin/model/customer/customer/addReward/after', 'mail/reward', 1, 0);
-INSERT INTO `oc_event` (`event_id`, `code`, `trigger`, `action`, `status`, `sort_order`) VALUES
-(31, 'admin_mail_transaction', 'admin/model/customer/customer/addTransaction/after', 'mail/transaction', 1, 0);
-INSERT INTO `oc_event` (`event_id`, `code`, `trigger`, `action`, `status`, `sort_order`) VALUES
-(32, 'statistics_review_add', 'admin/model/catalog/review/addReview/after', 'event/statistics/addReview', 1, 0),
-INSERT INTO `oc_event` (`event_id`, `code`, `trigger`, `action`, `status`, `sort_order`) VALUES
-(33, 'statistics_review_delete', 'admin/model/catalog/review/deleteReview/after', 'event/statistics/deleteReview', 1, 0),
-INSERT INTO `oc_event` (`event_id`, `code`, `trigger`, `action`, `status`, `sort_order`) VALUES
-(34, 'statistics_return_add', 'admin/model/sale/returns/addReturn/after', 'event/statistics/addReturn', 1, 0),
-INSERT INTO `oc_event` (`event_id`, `code`, `trigger`, `action`, `status`, `sort_order`) VALUES
-(35, 'statistics_return_delete', 'admin/model/sale/returns/deleteReturn/after', 'event/statistics/deleteReturn', 1, 0),
-INSERT INTO `oc_event` (`event_id`, `code`, `trigger`, `action`, `status`, `sort_order`) VALUES
-(36, 'admin_mail_return', 'admin/model/sale/returns/addReturnHistory/after', 'mail/returns', 1, 0);
-INSERT INTO `oc_event` (`event_id`, `code`, `trigger`, `action`, `status`, `sort_order`) VALUES
-(37, 'admin_mail_forgotten', 'admin/model/user/user/editCode/after', 'mail/forgotten', 1, 0);
-INSERT INTO `oc_event` (`event_id`, `code`, `trigger`, `action`, `status`, `sort_order`, `sort_order`) VALUES
-(38, 'advertise_google', 'admin/model/catalog/product/deleteProduct/after', 'extension/advertise/google/deleteProduct', 1, 0, 0);
-INSERT INTO `oc_event` (`event_id`, `code`, `trigger`, `action`, `status`, `sort_order`, `sort_order`) VALUES
-(39, 'advertise_google', 'admin/model/catalog/product/copyProduct/after', 'extension/advertise/google/copyProduct', 1, 0, 0);
-INSERT INTO `oc_event` (`event_id`, `code`, `trigger`, `action`, `status`, `sort_order`, `sort_order`) VALUES
-(40, 'advertise_google', 'admin/view/common/column_left/before', 'extension/advertise/google/admin_link', 1, 0, 0);
-INSERT INTO `oc_event` (`event_id`, `code`, `trigger`, `action`, `status`, `sort_order`, `sort_order`) VALUES
-(41, 'advertise_google', 'admin/model/catalog/product/addProduct/after', 'extension/advertise/google/addProduct', 1, 0, 0);
-INSERT INTO `oc_event` (`event_id`, `code`, `trigger`, `action`, `status`, `sort_order`, `sort_order`) VALUES
-(42, 'advertise_google', 'catalog/controller/checkout/success/before', 'extension/advertise/google/before_checkout_success', 1, 0, 0);
-INSERT INTO `oc_event` (`event_id`, `code`, `trigger`, `action`, `status`, `sort_order`, `sort_order`) VALUES
-(43, 'advertise_google', 'catalog/view/common/header/after', 'extension/advertise/google/google_global_site_tag', 1, 0, 0);
-INSERT INTO `oc_event` (`event_id`, `code`, `trigger`, `action`, `status`, `sort_order`, `sort_order`) VALUES
-(44, 'advertise_google', 'catalog/view/common/success/after', 'extension/advertise/google/google_dynamic_remarketing_purchase', 1, 0, 0);
-INSERT INTO `oc_event` (`event_id`, `code`, `trigger`, `action`, `status`, `sort_order`, `sort_order`) VALUES
-(45, 'advertise_google', 'catalog/view/product/product/after', 'extension/advertise/google/google_dynamic_remarketing_product', 1, 0, 0);
-INSERT INTO `oc_event` (`event_id`, `code`, `trigger`, `action`, `status`, `sort_order`, `sort_order`) VALUES
-(46, 'advertise_google', 'catalog/view/product/search/after', 'extension/advertise/google/google_dynamic_remarketing_searchresults', 1, 0, 0);
-INSERT INTO `oc_event` (`event_id`, `code`, `trigger`, `action`, `status`, `sort_order`, `sort_order`) VALUES
-(47, 'advertise_google', 'catalog/view/product/category/after', 'extension/advertise/google/google_dynamic_remarketing_category', 1, 0, 0);
-INSERT INTO `oc_event` (`event_id`, `code`, `trigger`, `action`, `status`, `sort_order`, `sort_order`) VALUES
-(48, 'advertise_google', 'catalog/view/common/home/after', 'extension/advertise/google/google_dynamic_remarketing_home', 1, 0, 0);
-INSERT INTO `oc_event` (`event_id`, `code`, `trigger`, `action`, `status`, `sort_order`, `sort_order`) VALUES
-(49, 'advertise_google', 'catalog/view/checkout/cart/after', 'extension/advertise/google/google_dynamic_remarketing_cart', 1, 0, 0);
+INSERT INTO `oc_event` (`code`, `trigger`, `action`, `status`, `sort_order`) VALUES
+('activity_customer_add', 'catalog/model/account/customer/addCustomer/after', 'event/activity/addCustomer', 1, 0);
+INSERT INTO `oc_event` (`code`, `trigger`, `action`, `status`, `sort_order`) VALUES
+('activity_customer_edit', 'catalog/model/account/customer/editCustomer/after', 'event/activity/editCustomer', 1, 0);
+INSERT INTO `oc_event` (`code`, `trigger`, `action`, `status`, `sort_order`) VALUES
+('activity_customer_password', 'catalog/model/account/customer/editPassword/after', 'event/activity/editPassword', 1, 0);
+INSERT INTO `oc_event` (`code`, `trigger`, `action`, `status`, `sort_order`) VALUES
+('activity_customer_forgotten', 'catalog/model/account/customer/editCode/after', 'event/activity/forgotten', 1, 0);
+INSERT INTO `oc_event` (`code`, `trigger`, `action`, `status`, `sort_order`) VALUES
+('activity_transaction', 'catalog/model/account/customer/addTransaction/after', 'event/activity/addTransaction', 1, 0);
+INSERT INTO `oc_event` (`code`, `trigger`, `action`, `status`, `sort_order`) VALUES
+('activity_customer_login', 'catalog/model/account/customer/deleteLoginAttempts/after', 'event/activity/login', 1, 0);
+INSERT INTO `oc_event` (`code`, `trigger`, `action`, `status`, `sort_order`) VALUES
+('activity_address_add', 'catalog/model/account/address/addAddress/after', 'event/activity/addAddress', 1, 0);
+INSERT INTO `oc_event` (`code`, `trigger`, `action`, `status`, `sort_order`) VALUES
+('activity_address_edit', 'catalog/model/account/address/editAddress/after', 'event/activity/editAddress', 1, 0);
+INSERT INTO `oc_event` (`code`, `trigger`, `action`, `status`, `sort_order`) VALUES
+('activity_address_delete', 'catalog/model/account/address/deleteAddress/after', 'event/activity/deleteAddress', 1, 0);
+INSERT INTO `oc_event` (`code`, `trigger`, `action`, `status`, `sort_order`) VALUES
+('activity_affiliate_add', 'catalog/model/account/customer/addAffiliate/after', 'event/activity/addAffiliate', 1, 0);
+INSERT INTO `oc_event` (`code`, `trigger`, `action`, `status`, `sort_order`) VALUES
+('activity_affiliate_edit', 'catalog/model/account/customer/editAffiliate/after', 'event/activity/editAffiliate', 1, 0);
+INSERT INTO `oc_event` (`code`, `trigger`, `action`, `status`, `sort_order`) VALUES
+('activity_order_add', 'catalog/model/checkout/order/addOrderHistory/before', 'event/activity/addOrderHistory', 1, 0);
+INSERT INTO `oc_event` (`code`, `trigger`, `action`, `status`, `sort_order`) VALUES
+('activity_return_add', 'catalog/model/account/returns/addReturn/after', 'event/activity/addReturn', 1, 0);
+INSERT INTO `oc_event` (`code`, `trigger`, `action`, `status`, `sort_order`) VALUES
+('mail_transaction', 'catalog/model/account/customer/addTransaction/after', 'mail/transaction', 1, 0);
+INSERT INTO `oc_event` (`code`, `trigger`, `action`, `status`, `sort_order`) VALUES
+('mail_forgotten', 'catalog/model/account/customer/editCode/after', 'mail/forgotten', 1, 0);
+INSERT INTO `oc_event` (`code`, `trigger`, `action`, `status`, `sort_order`) VALUES
+('mail_customer_add', 'catalog/model/account/customer/addCustomer/after', 'mail/register', 1, 0);
+INSERT INTO `oc_event` (`code`, `trigger`, `action`, `status`, `sort_order`) VALUES
+('mail_customer_alert', 'catalog/model/account/customer/addCustomer/after', 'mail/register/alert', 1, 0);
+INSERT INTO `oc_event` (`code`, `trigger`, `action`, `status`, `sort_order`) VALUES
+('mail_affiliate_add', 'catalog/model/account/customer/addAffiliate/after', 'mail/affiliate', 1, 0);
+INSERT INTO `oc_event` (`code`, `trigger`, `action`, `status`, `sort_order`) VALUES
+('mail_affiliate_alert', 'catalog/model/account/customer/addAffiliate/after', 'mail/affiliate/alert', 1, 0);
+INSERT INTO `oc_event` (`code`, `trigger`, `action`, `status`, `sort_order`) VALUES
+('mail_voucher', 'catalog/model/checkout/order/addOrderHistory/after', 'extension/total/voucher/send', 1, 0);
+INSERT INTO `oc_event` (`code`, `trigger`, `action`, `status`, `sort_order`) VALUES
+('mail_order_add', 'catalog/model/checkout/order/addOrderHistory/before', 'mail/order', 1, 0);
+INSERT INTO `oc_event` (`code`, `trigger`, `action`, `status`, `sort_order`) VALUES
+('mail_order_alert', 'catalog/model/checkout/order/addOrderHistory/before', 'mail/order/alert', 1, 0);
+INSERT INTO `oc_event` (`code`, `trigger`, `action`, `status`, `sort_order`) VALUES
+('statistics_review_add', 'catalog/model/catalog/review/addReview/after', 'event/statistics/addReview', 1, 0);
+INSERT INTO `oc_event` (`code`, `trigger`, `action`, `status`, `sort_order`) VALUES
+('statistics_return_add', 'catalog/model/account/returns/addReturn/after', 'event/statistics/addReturn', 1, 0);
+INSERT INTO `oc_event` (`code`, `trigger`, `action`, `status`, `sort_order`) VALUES
+('statistics_order_history', 'catalog/model/checkout/order/addOrderHistory/after', 'event/statistics/addOrderHistory', 1, 0);
+INSERT INTO `oc_event` (`code`, `trigger`, `action`, `status`, `sort_order`) VALUES
+('admin_mail_affiliate_approve', 'admin/model/customer/customer_approval/approveAffiliate/after', 'mail/affiliate/approve', 1, 0);
+INSERT INTO `oc_event` (`code`, `trigger`, `action`, `status`, `sort_order`) VALUES
+('admin_mail_affiliate_deny', 'admin/model/customer/customer_approval/denyAffiliate/after', 'mail/affiliate/deny', 1, 0);
+INSERT INTO `oc_event` (`code`, `trigger`, `action`, `status`, `sort_order`) VALUES
+('admin_mail_customer_approve', 'admin/model/customer/customer_approval/approveCustomer/after', 'mail/customer/approve', 1, 0);
+INSERT INTO `oc_event` (`code`, `trigger`, `action`, `status`, `sort_order`) VALUES
+('admin_mail_customer_deny', 'admin/model/customer/customer_approval/denyCustomer/after', 'mail/customer/deny', 1, 0);
+INSERT INTO `oc_event` (`code`, `trigger`, `action`, `status`, `sort_order`) VALUES
+('admin_mail_reward', 'admin/model/customer/customer/addReward/after', 'mail/reward', 1, 0);
+INSERT INTO `oc_event` (`code`, `trigger`, `action`, `status`, `sort_order`) VALUES
+('admin_mail_transaction', 'admin/model/customer/customer/addTransaction/after', 'mail/transaction', 1, 0);
+INSERT INTO `oc_event` (`code`, `trigger`, `action`, `status`, `sort_order`) VALUES
+('statistics_review_add', 'admin/model/catalog/review/addReview/after', 'event/statistics/addReview', 1, 0);
+INSERT INTO `oc_event` (`code`, `trigger`, `action`, `status`, `sort_order`) VALUES
+('statistics_review_delete', 'admin/model/catalog/review/deleteReview/after', 'event/statistics/deleteReview', 1, 0);
+INSERT INTO `oc_event` (`code`, `trigger`, `action`, `status`, `sort_order`) VALUES
+('statistics_return_add', 'admin/model/sale/returns/addReturn/after', 'event/statistics/addReturn', 1, 0);
+INSERT INTO `oc_event` (`code`, `trigger`, `action`, `status`, `sort_order`) VALUES
+('statistics_return_delete', 'admin/model/sale/returns/deleteReturn/after', 'event/statistics/deleteReturn', 1, 0);
+INSERT INTO `oc_event` (`code`, `trigger`, `action`, `status`, `sort_order`) VALUES
+('admin_mail_return', 'admin/model/sale/returns/addReturnHistory/after', 'mail/returns', 1, 0);
+INSERT INTO `oc_event` (`code`, `trigger`, `action`, `status`, `sort_order`) VALUES
+('admin_mail_forgotten', 'admin/model/user/user/editCode/after', 'mail/forgotten', 1, 0);
+INSERT INTO `oc_event` (`code`, `trigger`, `action`, `status`, `sort_order`) VALUES
+('advertise_google', 'admin/model/catalog/product/deleteProduct/after', 'extension/advertise/google/deleteProduct', 1, 0);
+INSERT INTO `oc_event` (`code`, `trigger`, `action`, `status`, `sort_order`) VALUES
+('advertise_google', 'admin/model/catalog/product/copyProduct/after', 'extension/advertise/google/copyProduct', 1, 0);
+INSERT INTO `oc_event` (`code`, `trigger`, `action`, `status`, `sort_order`) VALUES
+('advertise_google', 'admin/view/common/column_left/before', 'extension/advertise/google/admin_link', 1, 0);
+INSERT INTO `oc_event` (`code`, `trigger`, `action`, `status`, `sort_order`) VALUES
+('advertise_google', 'admin/model/catalog/product/addProduct/after', 'extension/advertise/google/addProduct', 1, 0);
+INSERT INTO `oc_event` (`code`, `trigger`, `action`, `status`, `sort_order`) VALUES
+('advertise_google', 'catalog/controller/checkout/success/before', 'extension/advertise/google/before_checkout_success', 1, 0);
+INSERT INTO `oc_event` (`code`, `trigger`, `action`, `status`, `sort_order`) VALUES
+('advertise_google', 'catalog/view/common/header/after', 'extension/advertise/google/google_global_site_tag', 1, 0);
+INSERT INTO `oc_event` (`code`, `trigger`, `action`, `status`, `sort_order`) VALUES
+('advertise_google', 'catalog/view/common/success/after', 'extension/advertise/google/google_dynamic_remarketing_purchase', 1, 0);
+INSERT INTO `oc_event` (`code`, `trigger`, `action`, `status`, `sort_order`) VALUES
+('advertise_google', 'catalog/view/product/product/after', 'extension/advertise/google/google_dynamic_remarketing_product', 1, 0);
+INSERT INTO `oc_event` (`code`, `trigger`, `action`, `status`, `sort_order`) VALUES
+('advertise_google', 'catalog/view/product/search/after', 'extension/advertise/google/google_dynamic_remarketing_searchresults', 1, 0);
+INSERT INTO `oc_event` (`code`, `trigger`, `action`, `status`, `sort_order`) VALUES
+('advertise_google', 'catalog/view/product/category/after', 'extension/advertise/google/google_dynamic_remarketing_category', 1, 0);
+INSERT INTO `oc_event` (`code`, `trigger`, `action`, `status`, `sort_order`) VALUES
+('advertise_google', 'catalog/view/common/home/after', 'extension/advertise/google/google_dynamic_remarketing_home', 1, 0);
+INSERT INTO `oc_event` (`code`, `trigger`, `action`, `status`, `sort_order`) VALUES
+('advertise_google', 'catalog/view/checkout/cart/after', 'extension/advertise/google/google_dynamic_remarketing_cart', 1, 0);
 
 -----------------------------------------------------------
 
