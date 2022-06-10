@@ -282,7 +282,7 @@ class ModelExtensionShippingUps extends Model {
 			$title = $this->language->get('text_title');
 
 			if ($this->config->get('shipping_ups_display_weight')) {
-				$title .= ' (' . $this->language->get('text_weight') . ' ' . $this->weight->format($weight, $this->config->get('shipping_ups_weight_class_id')) . ')';
+				$title .= ' (' . $this->language->get('text_weight') . ' ' . $this->weight->format($weight, $this->config->get('shipping_ups_weight_class_id'), $this->language->get('decimal_point'), $this->language->get('thousand_point')) . ')';
 			}
 
 			if ($quote_data || $error) {
