@@ -441,7 +441,7 @@ class ControllerExtensionPaymentAmazonLoginPay extends Controller {
 			} else {
 				$json['error'] = true;
 				
-				$json['msg'] = isset($cancel_response['status_detail']) && $cancel_response['status_detail'] != '' ? sprintf($this->language->get('error_status'), (string)$cancel_response['status_detail']) : $this->language->get('error_cancel');
+				$json['msg'] = (isset($cancel_response['status_detail']) && $cancel_response['status_detail'] != '' ? sprintf($this->language->get('error_status'), (string)$cancel_response['status_detail']) : $this->language->get('error_cancel'));
 			}
 		} else {
 			$json['error'] = true;
@@ -509,7 +509,7 @@ class ControllerExtensionPaymentAmazonLoginPay extends Controller {
 			} else {
 				$json['error'] = true;
 				
-				$json['msg'] = isset($capture_response['status_detail']) && $capture_response['status_detail'] != '' ? sprintf($this->language->get('error_status'), (string)$capture_response['status_detail']) : $this->language->get('error_capture');
+				$json['msg'] = (isset($capture_response['status_detail']) && $capture_response['status_detail'] != '' ? sprintf($this->language->get('error_status'), (string)$capture_response['status_detail']) : $this->language->get('error_capture'));
 			}
 		} else {
 			$json['error'] = true;
@@ -571,7 +571,7 @@ class ControllerExtensionPaymentAmazonLoginPay extends Controller {
 					$json['data'][] = $post_data;
 				} else {
 					$json['error'] = true;
-					$json['error_msg'][] = isset($response['status_detail']) && $response['status_detail'] != '' ? sprintf($this->language->get('error_status'), (string)$response['status_detail']) : $this->language->get('error_refund');
+					$json['error_msg'][] = (isset($response['status_detail']) && $response['status_detail'] != '' ? sprintf($this->language->get('error_status'), (string)$response['status_detail']) : $this->language->get('error_refund'));
 				}
 			}
 			

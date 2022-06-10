@@ -75,7 +75,7 @@ class ControllerMarketingContact extends Controller {
 
 				$setting = $this->model_setting_setting->getSetting('config', $this->request->post['store_id']);
 
-				$store_email = isset($setting['config_email']) ? $setting['config_email'] : $this->config->get('config_email');
+				$store_email = (isset($setting['config_email']) ? $setting['config_email'] : $this->config->get('config_email'));
 
 				if (isset($this->request->get['page'])) {
 					$page = (int)$this->request->get['page'];

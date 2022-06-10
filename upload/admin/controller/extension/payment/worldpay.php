@@ -264,7 +264,7 @@ class ControllerExtensionPaymentWorldpay extends Controller {
 			} else {
 				$json['error'] = true;
 				
-				$json['msg'] = isset($refund_response['message']) && $refund_response['message'] != '' ? sprintf($this->language->get('error_status'), (string)$refund_response['message']) : $this->language->get('error_refund');
+				$json['msg'] = (isset($refund_response['message']) && $refund_response['message'] != '' ? sprintf($this->language->get('error_status'), (string)$refund_response['message']) : $this->language->get('error_refund'));
 			}
 		} else {
 			$json['error'] = true;

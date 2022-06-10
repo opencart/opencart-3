@@ -478,7 +478,7 @@ class ModelExtensionPaymentAmazonLoginPay extends Model {
 			$log = new \Log('amazon_login_pay_admin.log');
 			
 			$backtrace = debug_backtrace();
-			$class = isset($backtrace[6]['class']) ? $backtrace[6]['class'] . '::' : '';
+			$class = (isset($backtrace[6]['class']) ? $backtrace[6]['class'] . '::' : '');
 			
 			$log->write('Origin: ' . $class . $backtrace[6]['function']);
             $log->write(!is_string($message) ? print_r($message, true) : $message);

@@ -282,7 +282,7 @@ class ModelExtensionShippingRoyalMail extends Model {
 					$title = $this->language->get('text_special_delivery');
 
 					if ($this->config->get('shipping_royal_mail_display_weight')) {
-						$title .= ' (' . $this->language->get('text_weight') . ' ' . $this->weight->format($weight, $this->config->get('config_weight_class_id')) . ')';
+						$title .= ' (' . $this->language->get('text_weight') . ' ' . $this->weight->format($weight, $this->config->get('config_weight_class_id'), $this->language->get('decimal_point'), $this->language->get('thousand_point')) . ')';
 					}
 
 					if ($this->config->get('shipping_royal_mail_display_insurance')) {
@@ -321,7 +321,7 @@ class ModelExtensionShippingRoyalMail extends Model {
 					$title = $this->language->get('text_special_delivery');
 
 					if ($this->config->get('shipping_royal_mail_display_weight')) {
-						$title .= ' (' . $this->language->get('text_weight') . ' ' . $this->weight->format($weight, $this->config->get('config_weight_class_id')) . ')';
+						$title .= ' (' . $this->language->get('text_weight') . ' ' . $this->weight->format($weight, $this->config->get('config_weight_class_id'), $this->language->get('decimal_point'), $this->language->get('thousand_point')) . ')';
 					}
 
 					if ($this->config->get('shipping_royal_mail_display_insurance')) {
@@ -361,7 +361,7 @@ class ModelExtensionShippingRoyalMail extends Model {
 					$title = $this->language->get('text_special_delivery');
 
 					if ($this->config->get('shipping_royal_mail_display_weight')) {
-						$title .= ' (' . $this->language->get('text_weight') . ' ' . $this->weight->format($weight, $this->config->get('config_weight_class_id')) . ')';
+						$title .= ' (' . $this->language->get('text_weight') . ' ' . $this->weight->format($weight, $this->config->get('config_weight_class_id'), $this->language->get('decimal_point'), $this->language->get('thousand_point')) . ')';
 					}
 
 					if ($this->config->get('shipping_royal_mail_display_insurance')) {
@@ -399,7 +399,7 @@ class ModelExtensionShippingRoyalMail extends Model {
 					$title = $this->language->get('text_1st_class_signed');
 
 					if ($this->config->get('shipping_royal_mail_display_weight')) {
-						$title .= ' (' . $this->language->get('text_weight') . ' ' . $this->weight->format($weight, $this->config->get('config_weight_class_id')) . ')';
+						$title .= ' (' . $this->language->get('text_weight') . ' ' . $this->weight->format($weight, $this->config->get('config_weight_class_id'), $this->language->get('decimal_point'), $this->language->get('thousand_point')) . ')';
 					}
 
 					$quote_data['1st_class_signed'] = array(
@@ -433,7 +433,7 @@ class ModelExtensionShippingRoyalMail extends Model {
 					$title = $this->language->get('text_2nd_class_signed');
 
 					if ($this->config->get('shipping_royal_mail_display_weight')) {
-						$title .= ' (' . $this->language->get('text_weight') . ' ' . $this->weight->format($weight, $this->config->get('config_weight_class_id')) . ')';
+						$title .= ' (' . $this->language->get('text_weight') . ' ' . $this->weight->format($weight, $this->config->get('config_weight_class_id'), $this->language->get('decimal_point'), $this->language->get('thousand_point')) . ')';
 					}
 
 					$quote_data['2nd_class_signed'] = array(
@@ -467,7 +467,7 @@ class ModelExtensionShippingRoyalMail extends Model {
 					$title = $this->language->get('text_1st_class_standard');
 
 					if ($this->config->get('shipping_royal_mail_display_weight')) {
-						$title .= ' (' . $this->language->get('text_weight') . ' ' . $this->weight->format($weight, $this->config->get('config_weight_class_id')) . ')';
+						$title .= ' (' . $this->language->get('text_weight') . ' ' . $this->weight->format($weight, $this->config->get('config_weight_class_id'), $this->language->get('decimal_point'), $this->language->get('thousand_point')) . ')';
 					}
 
 					$quote_data['1st_class_standard'] = array(
@@ -501,7 +501,7 @@ class ModelExtensionShippingRoyalMail extends Model {
 					$title = $this->language->get('text_2nd_class_standard');
 
 					if ($this->config->get('shipping_royal_mail_display_weight')) {
-						$title .= ' (' . $this->language->get('text_weight') . ' ' . $this->weight->format($weight, $this->config->get('config_weight_class_id')) . ')';
+						$title .= ' (' . $this->language->get('text_weight') . ' ' . $this->weight->format($weight, $this->config->get('config_weight_class_id'), $this->language->get('decimal_point'), $this->language->get('thousand_point')) . ')';
 					}
 
 					$quote_data['2nd_class_standard'] = array(
@@ -823,7 +823,7 @@ class ModelExtensionShippingRoyalMail extends Model {
 					$title = $this->language->get('text_international_standard');
 
 					if ($this->config->get('shipping_royal_mail_display_weight')) {
-						$title .= ' (' . $this->language->get('text_weight') . ' ' . $this->weight->format($weight, $this->config->get('config_weight_class_id')) . ')';
+						$title .= ' (' . $this->language->get('text_weight') . ' ' . $this->weight->format($weight, $this->config->get('config_weight_class_id'), $this->language->get('decimal_point'), $this->language->get('thousand_point')) . ')';
 					}
 
 					$quote_data['international_standard'] = array(
@@ -917,7 +917,7 @@ class ModelExtensionShippingRoyalMail extends Model {
 					$title = $this->language->get('text_international_tracked_signed');
 
 					if ($this->config->get('shipping_royal_mail_display_weight')) {
-						$title .= ' (' . $this->language->get('text_weight') . ' ' . $this->weight->format($weight, $this->config->get('config_weight_class_id')) . ')';
+						$title .= ' (' . $this->language->get('text_weight') . ' ' . $this->weight->format($weight, $this->config->get('config_weight_class_id'), $this->language->get('decimal_point'), $this->language->get('thousand_point')) . ')';
 					}
 
 					$quote_data['international_tracked_signed'] = array(
@@ -1007,7 +1007,7 @@ class ModelExtensionShippingRoyalMail extends Model {
 					$title = $this->language->get('text_international_tracked');
 
 					if ($this->config->get('shipping_royal_mail_display_weight')) {
-						$title .= ' (' . $this->language->get('text_weight') . ' ' . $this->weight->format($weight, $this->config->get('config_weight_class_id')) . ')';
+						$title .= ' (' . $this->language->get('text_weight') . ' ' . $this->weight->format($weight, $this->config->get('config_weight_class_id'), $this->language->get('decimal_point'), $this->language->get('thousand_point')) . ')';
 					}
 
 					$quote_data['international_tracked'] = array(
@@ -1251,7 +1251,7 @@ class ModelExtensionShippingRoyalMail extends Model {
 					$title = $this->language->get('text_international_signed');
 
 					if ($this->config->get('shipping_royal_mail_display_weight')) {
-						$title .= ' (' . $this->language->get('text_weight') . ' ' . $this->weight->format($weight, $this->config->get('config_weight_class_id')) . ')';
+						$title .= ' (' . $this->language->get('text_weight') . ' ' . $this->weight->format($weight, $this->config->get('config_weight_class_id'), $this->language->get('decimal_point'), $this->language->get('thousand_point')) . ')';
 					}
 
 					$quote_data['international_signed'] = array(
@@ -1285,7 +1285,7 @@ class ModelExtensionShippingRoyalMail extends Model {
 					$title = $this->language->get('text_international_economy');
 
 					if ($this->config->get('shipping_royal_mail_display_weight')) {
-						$title .= ' (' . $this->language->get('text_weight') . ' ' . $this->weight->format($weight, $this->config->get('config_weight_class_id')) . ')';
+						$title .= ' (' . $this->language->get('text_weight') . ' ' . $this->weight->format($weight, $this->config->get('config_weight_class_id'), $this->language->get('decimal_point'), $this->language->get('thousand_point')) . ')';
 					}
 
 					$quote_data['international_economy'] = array(
