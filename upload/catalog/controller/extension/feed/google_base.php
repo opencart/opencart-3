@@ -108,7 +108,7 @@ class ControllerExtensionFeedGoogleBase extends Controller {
 						}
 
 						$output .= '  <g:quantity>' . $product['quantity'] . '</g:quantity>';
-						$output .= '  <g:weight>' . $this->weight->format($product['weight'], $product['weight_class_id']) . '</g:weight>';
+						$output .= '  <g:weight>' . $this->weight->format($product['weight'], $product['weight_class_id'], $this->language->get('decimal_point'), $this->language->get('thousand_point')) . '</g:weight>';
 						$output .= '  <g:availability><![CDATA[' . ($product['quantity'] ? 'in stock' : 'out of stock') . ']]></g:availability>';
 						$output .= '</item>';
 					}
