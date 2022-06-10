@@ -491,6 +491,14 @@ class ControllerSettingStore extends Controller {
 		} else {
 			$data['config_cookie_id'] = '';
 		}
+		
+		if (isset($this->request->post['config_gdpr_id'])) {
+			$data['config_gdpr_id'] = $this->request->post['config_gdpr_id'];
+		} elseif (isset($store_info['config_gdpr_id'])) {
+			$data['config_gdpr_id'] = $store_info['config_gdpr_id'];
+		} else {
+			$data['config_gdpr_id'] = '';
+		}
 
 		if (isset($this->request->post['config_tax'])) {
 			$data['config_tax'] = $this->request->post['config_tax'];

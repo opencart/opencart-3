@@ -15,6 +15,12 @@ class ControllerCommonFooter extends Controller {
 				);
 			}
 		}
+		
+		if ($this->config->get('config_gdpr_id')) {
+			$data['gdpr'] = $this->url->link('information/gdpr');
+		} else {
+			$data['gdpr'] = '';
+		}
 
 		$data['contact'] = $this->url->link('information/contact');
 		$data['returns'] = $this->url->link('account/returns/add', '', true);
