@@ -22,7 +22,7 @@ class ControllerCommonCookie extends Controller {
 	}
 
 	public function confirm() {
-		$json = [];
+		$json = array();
 
 		if ($this->config->get('config_cookie_id') && !isset($this->request->cookie['policy'])) {
 			$this->load->language('common/cookie');
