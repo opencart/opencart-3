@@ -33,11 +33,11 @@ class ControllerCommonCookie extends Controller {
 				$agree = 0;
 			}
 
-			$option = [
+			$option = array(
 				'expires'  => time() + 60 * 60 * 24 * 365,
 				'path'     => !empty($this->request->server['PHP_SELF']) ? rtrim(dirname($this->request->server['PHP_SELF']), '/') . '/' : '/',
 				'SameSite' => $this->config->get('session_samesite')
-			];
+			);
 
 			setcookie('policy', $agree, $option);
 

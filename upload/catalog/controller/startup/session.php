@@ -43,13 +43,13 @@ class ControllerStartupSession extends Controller {
 
 		$session->start($session_id);
 
-		$option = [
+		$option = array(
 			'expires'  => time() + (int)$this->config->get('config_session_expire'),
 			'path'     => !empty($this->request->server['PHP_SELF']) ? rtrim(dirname($this->request->server['PHP_SELF']), '/') . '/' : '/',
 			'secure'   => $this->request->server['HTTPS'],
 			'httponly' => false,
 			'SameSite' => $this->config->get('session_samesite')
-		];
+		);
 
 		$this->response->addHeader('Cache-Control: no-store, no-cache, must-revalidate, post-check=0, pre-check=0');
 
