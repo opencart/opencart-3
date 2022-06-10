@@ -12,7 +12,7 @@
       <ul class="dropdown-menu">
         {% for language in languages %}
         <li>
-          <button class="btn btn-link btn-block language-select" type="button" name="{{ language.code }}"><img src="catalog/language/{{ language.code }}/{{ language.code }}.png" alt="{{ language.name }}" title="{{ language.name }}"/> {{ language.name }}</button>
+          <button class="language-select btn btn-link btn-block" type="button" name="{{ language.code }}"><img src="catalog/language/{{ language.code }}/{{ language.code }}.png" alt="{{ language.name }}" title="{{ language.name }}"/> {{ language.name }}</button>
         </li>
         {% endfor %}
       </ul>

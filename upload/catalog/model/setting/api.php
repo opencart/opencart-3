@@ -5,4 +5,13 @@ class ModelSettingApi extends Model {
 
 		return $query->row;
 	}
+	
+	public function updateSession(string $api_session_id) {
+		// keep the session alive
+		$this->db->query("UPDATE `" . DB_PREFIX . "api_session` SET `date_modified` = NOW() WHERE `api_session_id` = '" . (int)$api_session_id . "'");
+	}
+	
+	public function cleanSessions() {
+		$this->db->query("DELETE FROM `" . DB_PREFIX . "api_session` WHERE TIMESTAMPADD(HOUR, 1, `date_modified`) < NOW()");
+	}
 }
