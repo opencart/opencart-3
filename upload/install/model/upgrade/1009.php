@@ -122,6 +122,13 @@ class ModelUpgrade1009 extends Model {
 			$this->db->query("UPDATE `" . DB_PREFIX . "setting` SET `value` = '" . json_encode($this->db->escape($config_captcha_page)) . "' WHERE `key` = 'config_captcha_page'");
 		}
 		
+		// Config Session Expire
+		$setting_query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "setting` WHERE `key` = 'config_session_expire'");
+		
+		if (!$setting_query->num_rows) {
+			$this->db->query("INSERT INTO `" . DB_PREFIX . "setting` SET `store_id` = '0', `code` = 'config', `key` = 'config_session_expire', `value` = '3600', `serialized` = '0'");
+		}
+		
 		// OPENCART_SERVER
 		$upgrade = true;
 		
