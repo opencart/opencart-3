@@ -549,11 +549,9 @@ class ControllerExtensionPaymentKlarnaCheckout extends Controller {
 
 		if ($api_info && $this->user->hasPermission('modify', 'sale/order')) {
 			$session = new \Session($this->config->get('session_engine'), $this->registry);
-
 			$session->start();
 
 			$this->model_user_api->deleteApiSessionBySessionId($session->getId());
-
 			$this->model_user_api->addApiSession($api_info['api_id'], $session->getId(), $this->request->server['REMOTE_ADDR']);
 
 			$session->data['api_id'] = $api_info['api_id'];
