@@ -170,7 +170,7 @@ jQuery.fn = jQuery.prototype = {
 
 		// HANDLE: $(function)
 		// Shortcut for document ready
-		} else if ( jQuery.isfunction( selector ) ) {
+		} else if ( jQuery.isFunction( selector ) ) {
 			return rootjQuery.ready( selector );
 		}
 
@@ -304,7 +304,7 @@ jQuery.extend = jQuery.fn.extend = function() {
 	}
 
 	// Handle case when target is a string or something (possible in deep copy)
-	if ( typeof target !== "object" && !jQuery.isfunction(target) ) {
+	if ( typeof target !== "object" && !jQuery.isFunction(target) ) {
 		target = {};
 	}
 
@@ -520,7 +520,7 @@ jQuery.extend({
 			.replace( rvalidtokens, "]" )
 			.replace( rvalidbraces, "")) ) {
 
-			return ( new function( "return " + data ) )();
+			return ( new Function( "return " + data ) )();
 
 		}
 		jQuery.error( "Invalid JSON: " + data );
@@ -581,7 +581,7 @@ jQuery.extend({
 		var name,
 			i = 0,
 			length = obj.length,
-			isObj = length === undefined || jQuery.isfunction( obj );
+			isObj = length === undefined || jQuery.isFunction( obj );
 
 		if ( args ) {
 			if ( isObj ) {
@@ -765,7 +765,7 @@ jQuery.extend({
 
 		// Quick check to determine if target is callable, in the spec
 		// this throws a TypeError, but we will just return undefined.
-		if ( !jQuery.isfunction( fn ) ) {
+		if ( !jQuery.isFunction( fn ) ) {
 			return undefined;
 		}
 
@@ -799,7 +799,7 @@ jQuery.extend({
 		// Sets one value
 		} else if ( value !== undefined ) {
 			// Optionally, function values get executed if exec is true
-			exec = pass === undefined && jQuery.isfunction( value );
+			exec = pass === undefined && jQuery.isFunction( value );
 
 			if ( bulk ) {
 				// Bulk operations only iterate when executing function values
@@ -1124,10 +1124,10 @@ jQuery.extend({
 							var action = tuple[ 0 ],
 								fn = fns[ i ];
 							// deferred[ done | fail | progress ] for forwarding actions to newDefer
-							deferred[ tuple[1] ]( jQuery.isfunction( fn ) ?
+							deferred[ tuple[1] ]( jQuery.isFunction( fn ) ?
 								function() {
 									var returned = fn.apply( this, arguments );
-									if ( returned && jQuery.isfunction( returned.promise ) ) {
+									if ( returned && jQuery.isFunction( returned.promise ) ) {
 										returned.promise()
 											.done( newDefer.resolve )
 											.fail( newDefer.reject )
@@ -1195,7 +1195,7 @@ jQuery.extend({
 			length = resolveValues.length,
 
 			// the count of uncompleted subordinates
-			remaining = length !== 1 || ( subordinate && jQuery.isfunction( subordinate.promise ) ) ? length : 0,
+			remaining = length !== 1 || ( subordinate && jQuery.isFunction( subordinate.promise ) ) ? length : 0,
 
 			// the master Deferred. If resolveValues consist of only a single Deferred, just use that.
 			deferred = remaining === 1 ? subordinate : jQuery.Deferred(),
@@ -1221,7 +1221,7 @@ jQuery.extend({
 			progressContexts = new Array( length );
 			resolveContexts = new Array( length );
 			for ( ; i < length; i++ ) {
-				if ( resolveValues[ i ] && jQuery.isfunction( resolveValues[ i ].promise ) ) {
+				if ( resolveValues[ i ] && jQuery.isFunction( resolveValues[ i ].promise ) ) {
 					resolveValues[ i ].promise()
 						.done( updateFunc( i, resolveContexts, resolveValues ) )
 						.fail( deferred.reject )
@@ -2030,7 +2030,7 @@ jQuery.fn.extend({
 		var classNames, i, l, elem,
 			setClass, c, cl;
 
-		if ( jQuery.isfunction( value ) ) {
+		if ( jQuery.isFunction( value ) ) {
 			return this.each(function( j ) {
 				jQuery( this ).addClass( value.call(this, j, this.className) );
 			});
@@ -2066,7 +2066,7 @@ jQuery.fn.extend({
 	removeClass: function( value ) {
 		var removes, className, elem, c, cl, i, l;
 
-		if ( jQuery.isfunction( value ) ) {
+		if ( jQuery.isFunction( value ) ) {
 			return this.each(function( j ) {
 				jQuery( this ).removeClass( value.call(this, j, this.className) );
 			});
@@ -2099,7 +2099,7 @@ jQuery.fn.extend({
 		var type = typeof value,
 			isBool = typeof stateVal === "boolean";
 
-		if ( jQuery.isfunction( value ) ) {
+		if ( jQuery.isFunction( value ) ) {
 			return this.each(function( i ) {
 				jQuery( this ).toggleClass( value.call(this, i, this.className, stateVal), stateVal );
 			});
@@ -2169,7 +2169,7 @@ jQuery.fn.extend({
 			return;
 		}
 
-		isFunction = jQuery.isfunction( value );
+		isFunction = jQuery.isFunction( value );
 
 		return this.each(function( i ) {
 			var val,
@@ -2191,7 +2191,7 @@ jQuery.fn.extend({
 			} else if ( typeof val === "number" ) {
 				val += "";
 			} else if ( jQuery.isArray( val ) ) {
-				val = jQuery.map(val, function( value ) {
+				val = jQuery.map(val, function ( value ) {
 					return value == null ? "" : value + "";
 				});
 			}
@@ -2281,7 +2281,7 @@ jQuery.extend({
 			return;
 		}
 
-		if ( pass && jQuery.isfunction( jQuery.fn[ name ] ) ) {
+		if ( pass && jQuery.isFunction( jQuery.fn[ name ] ) ) {
 			return jQuery( elem )[ name ]( value );
 		}
 
@@ -2955,7 +2955,7 @@ jQuery.event = {
 				!(type === "click" && jQuery.nodeName( elem, "a" )) && jQuery.acceptData( elem ) ) {
 
 				// Call a native DOM method on the target with the same name name as the event.
-				// Can't use an .isfunction() check here because IE6/7 fails that test.
+				// Can't use an .isFunction() check here because IE6/7 fails that test.
 				// Don't do default actions on window, that's where global variables be (#6170)
 				// IE<9 dies on focus/blur to hidden element (#1486)
 				if ( ontype && elem[ type ] && ((type !== "focus" && type !== "blur") || event.target.offsetWidth !== 0) && !jQuery.isWindow( elem ) ) {
@@ -3714,7 +3714,7 @@ var cachedruns,
 		var cache = {},
 			keys = [];
 
-		return markfunction(function( key, value ) {
+		return markFunction(function( key, value ) {
 			// Only keep the most recent entries
 			if ( keys.push( key ) > Expr.cacheLength ) {
 				delete cache[ keys.shift() ];
@@ -3963,9 +3963,9 @@ function createButtonPseudo( type ) {
 
 // Returns a function to use in pseudos for positionals
 function createPositionalPseudo( fn ) {
-	return markfunction(function( argument ) {
+	return markFunction(function( argument ) {
 		argument = +argument;
-		return markfunction(function( seed, matches ) {
+		return markFunction(function( seed, matches ) {
 			var j,
 				matchIndexes = fn( [], seed.length, argument ),
 				i = matchIndexes.length;
@@ -4368,7 +4368,7 @@ Expr = Sizzle.selectors = {
 			if ( fn.length > 1 ) {
 				args = [ pseudo, pseudo, "", argument ];
 				return Expr.setFilters.hasOwnProperty( pseudo.toLowerCase() ) ?
-					markfunction(function( seed, matches ) {
+					markFunction(function( seed, matches ) {
 						var idx,
 							matched = fn( seed, argument ),
 							i = matched.length;
@@ -4387,7 +4387,7 @@ Expr = Sizzle.selectors = {
 	},
 
 	pseudos: {
-		"not": markfunction(function( selector ) {
+		"not": markFunction(function( selector ) {
 			// Trim the selector passed to compile
 			// to avoid treating leading and trailing
 			// spaces as combinators
@@ -4396,7 +4396,7 @@ Expr = Sizzle.selectors = {
 				matcher = compile( selector.replace( rtrim, "$1" ) );
 
 			return matcher[ expando ] ?
-				markfunction(function( seed, matches, context, xml ) {
+				markFunction(function( seed, matches, context, xml ) {
 					var elem,
 						unmatched = matcher( seed, null, xml, [] ),
 						i = seed.length;
@@ -4415,13 +4415,13 @@ Expr = Sizzle.selectors = {
 				};
 		}),
 
-		"has": markfunction(function( selector ) {
+		"has": markFunction(function( selector ) {
 			return function( elem ) {
 				return Sizzle( selector, elem ).length > 0;
 			};
 		}),
 
-		"contains": markfunction(function( text ) {
+		"contains": markFunction(function( text ) {
 			return function( elem ) {
 				return ( elem.textContent || elem.innerText || getText( elem ) ).indexOf( text ) > -1;
 			};
@@ -4648,7 +4648,7 @@ sortOrder = docElem.compareDocumentPosition ?
 	};
 
 // Always assume the presence of duplicates if sort doesn't
-// pass them to our comparison function(as in Google Chrome).
+// pass them to our comparison function (as in Google Chrome).
 [0, 0].sort( sortOrder );
 baseHasDuplicate = !hasDuplicate;
 
@@ -4837,7 +4837,7 @@ function setMatcher( preFilter, selector, matcher, postFilter, postFinder, postS
 	if ( postFinder && !postFinder[ expando ] ) {
 		postFinder = setMatcher( postFinder, postSelector );
 	}
-	return markfunction(function( seed, results, context, xml ) {
+	return markFunction(function( seed, results, context, xml ) {
 		var temp, i, elem,
 			preMap = [],
 			postMap = [],
@@ -5068,7 +5068,7 @@ function matcherFromGroupMatchers( elementMatchers, setMatchers ) {
 
 	superMatcher.el = 0;
 	return bySet ?
-		markfunction( superMatcher ) :
+		markFunction( superMatcher ) :
 		superMatcher;
 }
 
@@ -5619,7 +5619,7 @@ function winnow( elements, qualifier, keep ) {
 	// Set to 0 to skip string check
 	qualifier = qualifier || 0;
 
-	if ( jQuery.isfunction( qualifier ) ) {
+	if ( jQuery.isFunction( qualifier ) ) {
 		return jQuery.grep(elements, function( elem, i ) {
 			var retVal = !!qualifier.call( elem, i, elem );
 			return retVal === keep;
@@ -5709,7 +5709,7 @@ jQuery.fn.extend({
 	},
 
 	wrapAll: function( html ) {
-		if ( jQuery.isfunction( html ) ) {
+		if ( jQuery.isFunction( html ) ) {
 			return this.each(function(i) {
 				jQuery(this).wrapAll( html.call(this, i) );
 			});
@@ -5738,7 +5738,7 @@ jQuery.fn.extend({
 	},
 
 	wrapInner: function( html ) {
-		if ( jQuery.isfunction( html ) ) {
+		if ( jQuery.isFunction( html ) ) {
 			return this.each(function(i) {
 				jQuery(this).wrapInner( html.call(this, i) );
 			});
@@ -5758,7 +5758,7 @@ jQuery.fn.extend({
 	},
 
 	wrap: function( html ) {
-		var isFunction = jQuery.isfunction( html );
+		var isFunction = jQuery.isFunction( html );
 
 		return this.each(function(i) {
 			jQuery( this ).wrapAll( isFunction ? html.call(this, i) : html );
@@ -5859,7 +5859,7 @@ jQuery.fn.extend({
 		dataAndEvents = dataAndEvents == null ? false : dataAndEvents;
 		deepDataAndEvents = deepDataAndEvents == null ? dataAndEvents : deepDataAndEvents;
 
-		return this.map( function() {
+		return this.map( function () {
 			return jQuery.clone( this, dataAndEvents, deepDataAndEvents );
 		});
 	},
@@ -5910,7 +5910,7 @@ jQuery.fn.extend({
 		if ( !isDisconnected( this[0] ) ) {
 			// Make sure that the elements are removed from the DOM before they are inserted
 			// this can help fix replacing a parent with child elements
-			if ( jQuery.isfunction( value ) ) {
+			if ( jQuery.isFunction( value ) ) {
 				return this.each(function(i) {
 					var self = jQuery(this), old = self.html();
 					self.replaceWith( value.call( this, i, old ) );
@@ -5936,7 +5936,7 @@ jQuery.fn.extend({
 		}
 
 		return this.length ?
-			this.pushStack( jQuery(jQuery.isfunction(value) ? value() : value), "replaceWith", value ) :
+			this.pushStack( jQuery(jQuery.isFunction(value) ? value() : value), "replaceWith", value ) :
 			this;
 	},
 
@@ -5962,7 +5962,7 @@ jQuery.fn.extend({
 			});
 		}
 
-		if ( jQuery.isfunction(value) ) {
+		if ( jQuery.isFunction(value) ) {
 			return this.each(function(i) {
 				var self = jQuery(this);
 				args[0] = value.call( this, i, table ? self.html() : undefined );
@@ -6653,7 +6653,7 @@ jQuery.fn.extend({
 	toggle: function( state, fn2 ) {
 		var bool = typeof state === "boolean";
 
-		if ( jQuery.isfunction( state ) && jQuery.isfunction( fn2 ) ) {
+		if ( jQuery.isFunction( state ) && jQuery.isFunction( fn2 ) ) {
 			return eventsToggle.apply( this, arguments );
 		}
 
@@ -7215,7 +7215,7 @@ jQuery.param = function( a, traditional ) {
 		s = [],
 		add = function( key, value ) {
 			// If value is a function, invoke it and return its value
-			value = jQuery.isfunction( value ) ? value() : ( value == null ? "" : value );
+			value = jQuery.isFunction( value ) ? value() : ( value == null ? "" : value );
 			s[ s.length ] = encodeURIComponent( key ) + "=" + encodeURIComponent( value );
 		};
 
@@ -7347,7 +7347,7 @@ function addToPrefiltersOrTransports( structure ) {
 			i = 0,
 			length = dataTypes.length;
 
-		if ( jQuery.isfunction( func ) ) {
+		if ( jQuery.isFunction( func ) ) {
 			// For each dataType in the dataTypeExpression
 			for ( ; i < length; i++ ) {
 				dataType = dataTypes[ i ];
@@ -7441,7 +7441,7 @@ jQuery.fn.load = function( url, params, callback ) {
 	}
 
 	// If it's a function
-	if ( jQuery.isfunction( params ) ) {
+	if ( jQuery.isFunction( params ) ) {
 
 		// We assume that it's the callback
 		callback = params;
@@ -7501,7 +7501,7 @@ jQuery.each( "ajaxStart ajaxStop ajaxComplete ajaxError ajaxSuccess ajaxSend".sp
 jQuery.each( [ "get", "post" ], function( i, method ) {
 	jQuery[ method ] = function( url, data, callback, type ) {
 		// shift arguments if data argument was omitted
-		if ( jQuery.isfunction( data ) ) {
+		if ( jQuery.isFunction( data ) ) {
 			type = type || callback;
 			callback = data;
 			data = undefined;
@@ -7718,7 +7718,7 @@ jQuery.extend({
 
 		// Callback for when everything is done
 		// It is defined here because jslint complains if it is declared
-		// at the end of the function(which would be more logical and readable)
+		// at the end of the function (which would be more logical and readable)
 		function done( status, nativeStatusText, responses, headers ) {
 			var isSuccess, success, error, response, modified,
 				statusText = nativeStatusText;
@@ -8189,7 +8189,7 @@ jQuery.ajaxPrefilter( "json jsonp", function( s, originalSettings, jqXHR ) {
 	if ( s.dataTypes[ 0 ] === "jsonp" || replaceInUrl || replaceInData ) {
 
 		// Get callback name, remembering preexisting value associated with it
-		callbackName = s.jsonpCallback = jQuery.isfunction( s.jsonpCallback ) ?
+		callbackName = s.jsonpCallback = jQuery.isFunction( s.jsonpCallback ) ?
 			s.jsonpCallback() :
 			s.jsonpCallback;
 		overwritten = window[ callbackName ];
@@ -8219,7 +8219,7 @@ jQuery.ajaxPrefilter( "json jsonp", function( s, originalSettings, jqXHR ) {
 			responseContainer = arguments;
 		};
 
-		// Clean-up function(fires after converters)
+		// Clean-up function (fires after converters)
 		jqXHR.always(function() {
 			// Restore preexisting value
 			window[ callbackName ] = overwritten;
@@ -8234,7 +8234,7 @@ jQuery.ajaxPrefilter( "json jsonp", function( s, originalSettings, jqXHR ) {
 			}
 
 			// Call if it was a function and we have a response
-			if ( responseContainer && jQuery.isfunction( overwritten ) ) {
+			if ( responseContainer && jQuery.isFunction( overwritten ) ) {
 				overwritten( responseContainer[ 0 ] );
 			}
 
@@ -8702,7 +8702,7 @@ function Animation( elem, properties, options ) {
 
 	createTweens( animation, props );
 
-	if ( jQuery.isfunction( animation.opts.start ) ) {
+	if ( jQuery.isFunction( animation.opts.start ) ) {
 		animation.opts.start.call( elem, animation );
 	}
 
@@ -8761,7 +8761,7 @@ function propFilter( props, specialEasing ) {
 jQuery.Animation = jQuery.extend( Animation, {
 
 	tweener: function( props, callback ) {
-		if ( jQuery.isfunction( props ) ) {
+		if ( jQuery.isFunction( props ) ) {
 			callback = props;
 			props = [ "*" ];
 		} else {
@@ -9011,7 +9011,7 @@ jQuery.each([ "toggle", "show", "hide" ], function( i, name ) {
 	jQuery.fn[ name ] = function( speed, easing, callback ) {
 		return speed == null || typeof speed === "boolean" ||
 			// special check for .toggle( handler, handler, ... )
-			( !i && jQuery.isfunction( speed ) && jQuery.isfunction( easing ) ) ?
+			( !i && jQuery.isFunction( speed ) && jQuery.isFunction( easing ) ) ?
 			cssFn.apply( this, arguments ) :
 			this.animate( genFx( name, true ), speed, easing, callback );
 	};
@@ -9133,9 +9133,9 @@ jQuery.each({
 jQuery.speed = function( speed, easing, fn ) {
 	var opt = speed && typeof speed === "object" ? jQuery.extend( {}, speed ) : {
 		complete: fn || !fn && easing ||
-			jQuery.isfunction( speed ) && speed,
+			jQuery.isFunction( speed ) && speed,
 		duration: speed,
-		easing: fn && easing || easing && !jQuery.isfunction( easing ) && easing
+		easing: fn && easing || easing && !jQuery.isFunction( easing ) && easing
 	};
 
 	opt.duration = jQuery.fx.off ? 0 : typeof opt.duration === "number" ? opt.duration :
@@ -9150,7 +9150,7 @@ jQuery.speed = function( speed, easing, fn ) {
 	opt.old = opt.complete;
 
 	opt.complete = function() {
-		if ( jQuery.isfunction( opt.old ) ) {
+		if ( jQuery.isFunction( opt.old ) ) {
 			opt.old.call( this );
 		}
 
@@ -9310,7 +9310,7 @@ jQuery.offset = {
 			curLeft = parseFloat( curCSSLeft ) || 0;
 		}
 
-		if ( jQuery.isfunction( options ) ) {
+		if ( jQuery.isFunction( options ) ) {
 			options = options.call( elem, i, curOffset );
 		}
 
@@ -9466,7 +9466,7 @@ window.jQuery = window.$ = jQuery;
 // Do this after creating the global so that if an AMD module wants to call
 // noConflict to hide this version of jQuery, it will work.
 if ( typeof define === "function" && define.amd && define.amd.jQuery ) {
-	define( "jquery", [], function() { return jQuery; } );
+	define( "jquery", [], function () { return jQuery; } );
 }
 
 })( window );

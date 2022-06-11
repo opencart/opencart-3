@@ -3,8 +3,8 @@ $(document).ready(function() {
 	$('[data-toggle=\'summernote\']').each(function() {
 		var element = this;
 
-		if ($(this).attr('data-lang') && $(this).attr('data-lang')!='en-gb') {
-			$('head').append('<script type="text/javascript" src="view/javascript/summernote/lang/summernote-' + $(this).attr('data-lang') + '.min.js"></script>');
+		if ($(this).attr('data-lang')) {
+			$('head').append('<script type="text/javascript" src="view/javascript/summernote/lang/summernote-' + $(this).attr('data-lang') + '.js"></script>');
 		}
 
 		$(element).summernote({
@@ -31,15 +31,11 @@ $(document).ready(function() {
 				['view', ['fullscreen', 'codeview', 'help']]
 			],
 			popover: {
-				image: [
+           		image: [
 					['custom', ['imageAttributes']],
-					['resize', ['resizeFull', 'resizeHalf', 'resizeQuarter', 'resizeNone']],
+					['imagesize', ['imageSize100', 'imageSize50', 'imageSize25']],
 					['float', ['floatLeft', 'floatRight', 'floatNone']],
 					['remove', ['removeMedia']]
-				],
-				table: [
-					['add', ['addRowDown', 'addRowUp', 'addColLeft', 'addColRight']],
-					['delete', ['deleteRow', 'deleteCol', 'deleteTable']]
 				],
 			},
 			buttons: {
@@ -50,7 +46,7 @@ $(document).ready(function() {
 					var button = ui.button({
 						contents: '<i class="note-icon-picture" />',
 						tooltip: $.summernote.lang[$.summernote.options.lang].image.image,
-						click: function() {
+						click: function () {
 							$('#modal-image').remove();
 
 							$.ajax({

@@ -114,50 +114,45 @@ $(document).ready(function() {
 
 		$element.popover('show');
 
-		setTimeout(function(){ // fix bind events on new popover when 
+		$('#button-image').on('click', function() {
+			var $button = $(this);
+			var $icon   = $button.find('> i');
 
-			$('#button-image').on('click', function() {
-				var $button = $(this);
-				var $icon   = $button.find('> i');
+			$('#modal-image').remove();
 
-				$('#modal-image').remove();
-
-				$.ajax({
-					url: 'index.php?route=common/filemanager&user_token=' + getURLVar('user_token') + '&target=' + $element.parent().find('input').attr('id') + '&thumb=' + $element.attr('id'),
-					dataType: 'html',
-					beforeSend: function() {
-						$button.prop('disabled', true);
-						if ($icon.length) {
-							$icon.attr('class', 'fa fa-circle-o-notch fa-spin');
-						}
-					},
-					complete: function() {
-						$button.prop('disabled', false);
-
-						if ($icon.length) {
-							$icon.attr('class', 'fa fa-pencil');
-						}
-					},
-					success: function(html) {
-						$('body').append('<div id="modal-image" class="modal">' + html + '</div>');
-
-						$('#modal-image').modal('show');
+			$.ajax({
+				url: 'index.php?route=common/filemanager&user_token=' + getURLVar('user_token') + '&target=' + $element.parent().find('input').attr('id') + '&thumb=' + $element.attr('id'),
+				dataType: 'html',
+				beforeSend: function() {
+					$button.prop('disabled', true);
+					if ($icon.length) {
+						$icon.attr('class', 'fa fa-circle-o-notch fa-spin');
 					}
-				});
+				},
+				complete: function() {
+					$button.prop('disabled', false);
 
-				$element.popover('destroy');
+					if ($icon.length) {
+						$icon.attr('class', 'fa fa-pencil');
+					}
+				},
+				success: function(html) {
+					$('body').append('<div id="modal-image" class="modal">' + html + '</div>');
+
+					$('#modal-image').modal('show');
+				}
 			});
 
-			$('#button-clear').on('click', function() {
-				$element.find('img').attr('src', $element.find('img').attr('data-placeholder'));
+			$element.popover('destroy');
+		});
 
-				$element.parent().find('input').val('');
+		$('#button-clear').on('click', function() {
+			$element.find('img').attr('src', $element.find('img').attr('data-placeholder'));
 
-				$element.popover('destroy');
-			});
-			
-		}, 250); // end timeout fix
-			
+			$element.parent().find('input').val('');
+
+			$element.popover('destroy');
+		});
 	});
 });
 

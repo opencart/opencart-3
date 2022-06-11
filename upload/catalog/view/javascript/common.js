@@ -135,7 +135,7 @@ $(document).ready(function() {
 	});
 });
 
-// Cart add, edit, and remove functions
+// Cart add remove functions
 var cart = {
 	'add': function(product_id, quantity) {
 		$.ajax({
@@ -160,7 +160,7 @@ var cart = {
 					$('#content').parent().before('<div class="alert alert-success alert-dismissible"><i class="fa fa-check-circle"></i> ' + json['success'] + ' <button type="button" class="close" data-dismiss="alert">&times;</button></div>');
 
 					// Need to set timeout otherwise it wont update the total
-					setTimeout(function() {
+					setTimeout(function () {
 						$('#cart > button').html('<span id="cart-total"><i class="fa fa-shopping-cart"></i> ' + json['total'] + '</span>');
 					}, 100);
 
@@ -188,7 +188,7 @@ var cart = {
 			},
 			success: function(json) {
 				// Need to set timeout otherwise it wont update the total
-				setTimeout(function() {
+				setTimeout(function () {
 					$('#cart > button').html('<span id="cart-total"><i class="fa fa-shopping-cart"></i> ' + json['total'] + '</span>');
 				}, 100);
 
@@ -217,7 +217,7 @@ var cart = {
 			},
 			success: function(json) {
 				// Need to set timeout otherwise it wont update the total
-				setTimeout(function() {
+				setTimeout(function () {
 					$('#cart > button').html('<span id="cart-total"><i class="fa fa-shopping-cart"></i> ' + json['total'] + '</span>');
 				}, 100);
 
@@ -235,6 +235,9 @@ var cart = {
 }
 
 var voucher = {
+	'add': function() {
+
+	},
 	'remove': function(key) {
 		$.ajax({
 			url: 'index.php?route=checkout/cart/remove',
@@ -249,7 +252,7 @@ var voucher = {
 			},
 			success: function(json) {
 				// Need to set timeout otherwise it wont update the total
-				setTimeout(function() {
+				setTimeout(function () {
 					$('#cart > button').html('<span id="cart-total"><i class="fa fa-shopping-cart"></i> ' + json['total'] + '</span>');
 				}, 100);
 
@@ -293,7 +296,10 @@ var wishlist = {
 				alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
 			}
 		});
-	}	
+	},
+	'remove': function() {
+
+	}
 }
 
 var compare = {
@@ -318,7 +324,10 @@ var compare = {
 				alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
 			}
 		});
-	}	
+	},
+	'remove': function() {
+
+	}
 }
 
 /* Agree to Terms */
@@ -351,33 +360,6 @@ $(document).delegate('.agree', 'click', function(e) {
 			$('#modal-agree').modal('show');
 		}
 	});
-});
-
-// Cookie Policy
-$('#cookie button').on('click', function () {
-    var element = this;
-
-    $.ajax({
-        url: $(this).val(),
-        type: 'get',
-        dataType: 'json',
-        beforeSend: function () {
-            $(element).button('loading');
-        },
-        complete: function () {
-            $(element).prop('disabled', false).removeClass('loading');
-        },
-        success: function (json) {
-            if (json['success']) {
-                $('#cookie').fadeOut(400, function () {
-                    $('#cookie').remove();
-                });
-            }
-        },
-        error: function (xhr, ajaxOptions, thrownError) {
-            console.log(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
-        }
-    });
 });
 
 // Autocomplete */

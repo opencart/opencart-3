@@ -24,26 +24,26 @@
     $.color = {};
 
     // construct color object with some convenient chainable helpers
-    $.color.make = function(r, g, b, a) {
+    $.color.make = function (r, g, b, a) {
         var o = {};
         o.r = r || 0;
         o.g = g || 0;
         o.b = b || 0;
         o.a = a != null ? a : 1;
 
-        o.add = function(c, d) {
+        o.add = function (c, d) {
             for (var i = 0; i < c.length; ++i)
                 o[c.charAt(i)] += d;
             return o.normalize();
         };
         
-        o.scale = function(c, f) {
+        o.scale = function (c, f) {
             for (var i = 0; i < c.length; ++i)
                 o[c.charAt(i)] *= f;
             return o.normalize();
         };
         
-        o.toString = function() {
+        o.toString = function () {
             if (o.a >= 1.0) {
                 return "rgb("+[o.r, o.g, o.b].join(",")+")";
             } else {
@@ -51,7 +51,7 @@
             }
         };
 
-        o.normalize = function() {
+        o.normalize = function () {
             function clamp(min, value, max) {
                 return value < min ? min: (value > max ? max: value);
             }
@@ -63,7 +63,7 @@
             return o;
         };
 
-        o.clone = function() {
+        o.clone = function () {
             return $.color.make(o.r, o.b, o.g, o.a);
         };
 
@@ -72,7 +72,7 @@
 
     // extract CSS color property from element, going up in the DOM
     // if it's "transparent"
-    $.color.extract = function(elem, css) {
+    $.color.extract = function (elem, css) {
         var c;
         do {
             c = elem.css(css).toLowerCase();
@@ -93,7 +93,7 @@
     // parse CSS color string (like "rgb(10, 32, 43)" or "#fff"),
     // returns color object, if parsing failed, you get black (0, 0,
     // 0) out
-    $.color.parse = function(str) {
+    $.color.parse = function (str) {
         var res, m = $.color.make;
 
         // Look for rgb(num,num,num)

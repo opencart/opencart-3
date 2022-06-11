@@ -78,7 +78,7 @@ The plugin allso adds the following methods to the plot object:
 
 */
 
-(function($) {
+(function ($) {
     function init(plot) {
         var selection = {
                 first: { x: -1, y: -1}, second: { x: -1, y: -1},
@@ -113,11 +113,11 @@ The plugin allso adds the following methods to the plot object:
             // prevent text selection and drag in old-school browsers
             if (document.onselectstart !== undefined && savedhandlers.onselectstart == null) {
                 savedhandlers.onselectstart = document.onselectstart;
-                document.onselectstart = function() { return false; };
+                document.onselectstart = function () { return false; };
             }
             if (document.ondrag !== undefined && savedhandlers.ondrag == null) {
                 savedhandlers.ondrag = document.ondrag;
-                document.ondrag = function() { return false; };
+                document.ondrag = function () { return false; };
             }
 
             setSelectionPos(selection.first, e);
@@ -126,7 +126,7 @@ The plugin allso adds the following methods to the plot object:
 
             // this is a bit silly, but we have to use a closure to be
             // able to whack the same handler again
-            mouseUpHandler = function(e) { onMouseUp(e); };
+            mouseUpHandler = function (e) { onMouseUp(e); };
             
             $(document).one("mouseup", mouseUpHandler);
         }
@@ -162,7 +162,7 @@ The plugin allso adds the following methods to the plot object:
             if (!selection.show) return null;
 
             var r = {}, c1 = selection.first, c2 = selection.second;
-            $.each(plot.getAxes(), function(name, axis) {
+            $.each(plot.getAxes(), function (name, axis) {
                 if (axis.used) {
                     var p1 = axis.c2p(c1[axis.direction]), p2 = axis.c2p(c2[axis.direction]); 
                     r[name] = { from: Math.min(p1, p2), to: Math.max(p1, p2) };
@@ -306,7 +306,7 @@ The plugin allso adds the following methods to the plot object:
         });
 
 
-        plot.hooks.drawOverlay.push(function(plot, ctx) {
+        plot.hooks.drawOverlay.push(function (plot, ctx) {
             // draw selection
             if (selection.show && selectionIsSane()) {
                 var plotOffset = plot.getPlotOffset();
@@ -334,7 +334,7 @@ The plugin allso adds the following methods to the plot object:
             }
         });
         
-        plot.hooks.shutdown.push(function(plot, eventHolder) {
+        plot.hooks.shutdown.push(function (plot, eventHolder) {
             eventHolder.unbind("mousemove", onMouseMove);
             eventHolder.unbind("mousedown", onMouseDown);
             

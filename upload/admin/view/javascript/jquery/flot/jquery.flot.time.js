@@ -195,7 +195,7 @@ API.txt for details.
 		[1, "year"]]);
 
 	function init(plot) {
-		plot.hooks.processOptions.push(function(plot, options) {
+		plot.hooks.processOptions.push(function (plot, options) {
 			$.each(plot.getAxes(), function(axisName, axis) {
 
 				var opts = axis.options;
@@ -355,7 +355,7 @@ API.txt for details.
 						return ticks;
 					};
 
-					axis.tickFormatter = function(v, axis) {
+					axis.tickFormatter = function (v, axis) {
 
 						var d = dateGenerator(v, axis.options);
 

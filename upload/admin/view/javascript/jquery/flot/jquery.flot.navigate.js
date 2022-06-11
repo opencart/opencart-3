@@ -105,7 +105,7 @@ Licensed under the MIT License ~ http://threedubmedia.googlecode.com/files/MIT-L
 
 
 
-(function($) {
+(function ($) {
     var options = {
         xaxis: {
             zoomRange: null, // or [number, number] (min range, max range)
@@ -159,7 +159,7 @@ Licensed under the MIT License ~ http://threedubmedia.googlecode.com/files/MIT-L
             if (panTimeout || !frameRate)
                 return;
 
-            panTimeout = setTimeout(function() {
+            panTimeout = setTimeout(function () {
                 plot.pan({ left: prevPageX - e.pageX,
                            top: prevPageY - e.pageY });
                 prevPageX = e.pageX;
@@ -194,7 +194,7 @@ Licensed under the MIT License ~ http://threedubmedia.googlecode.com/files/MIT-L
             }
         }
 
-        plot.zoomOut = function(args) {
+        plot.zoomOut = function (args) {
             if (!args)
                 args = {};
             
@@ -205,7 +205,7 @@ Licensed under the MIT License ~ http://threedubmedia.googlecode.com/files/MIT-L
             plot.zoom(args);
         };
         
-        plot.zoom = function(args) {
+        plot.zoom = function (args) {
             if (!args)
                 args = {};
             
@@ -275,7 +275,7 @@ Licensed under the MIT License ~ http://threedubmedia.googlecode.com/files/MIT-L
                 plot.getPlaceholder().trigger("plotzoom", [ plot, args ]);
         };
 
-        plot.pan = function(args) {
+        plot.pan = function (args) {
             var delta = {
                 x: +args.left,
                 y: +args.top
@@ -286,7 +286,7 @@ Licensed under the MIT License ~ http://threedubmedia.googlecode.com/files/MIT-L
             if (isNaN(delta.y))
                 delta.y = 0;
 
-            $.each(plot.getAxes(), function(_, axis) {
+            $.each(plot.getAxes(), function (_, axis) {
                 var opts = axis.options,
                     min, max, d = delta[axis.direction];
 

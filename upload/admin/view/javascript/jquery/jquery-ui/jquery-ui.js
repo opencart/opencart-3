@@ -393,7 +393,7 @@ $.widget = function( name, base, prototype ) {
 	// inheriting from
 	basePrototype.options = $.widget.extend( {}, basePrototype.options );
 	$.each( prototype, function( prop, value ) {
-		if ( !$.isfunction( value ) ) {
+		if ( !$.isFunction( value ) ) {
 			proxiedPrototype[ prop ] = value;
 			return;
 		}
@@ -502,7 +502,7 @@ $.widget.bridge = function( name, object ) {
 					return $.error( "cannot call methods on " + name + " prior to initialization; " +
 						"attempted to call method '" + options + "'" );
 				}
-				if ( !$.isfunction( instance[options] ) || options.charAt( 0 ) === "_" ) {
+				if ( !$.isFunction( instance[options] ) || options.charAt( 0 ) === "_" ) {
 					return $.error( "no such method '" + options + "' for " + name + " widget instance" );
 				}
 				methodValue = instance[ options ].apply( instance, args );
@@ -811,7 +811,7 @@ $.Widget.prototype = {
 		}
 
 		this.element.trigger( event, data );
-		return !( $.isfunction( callback ) &&
+		return !( $.isFunction( callback ) &&
 			callback.apply( this.element[0], [ event ].concat( data ) ) === false ||
 			event.isDefaultPrevented() );
 	}
@@ -1829,7 +1829,7 @@ $.widget("ui.draggable", $.ui.mouse, {
 			this.dropped = false;
 		}
 
-		if ((this.options.revert === "invalid" && !dropped) || (this.options.revert === "valid" && dropped) || this.options.revert === true || ($.isfunction(this.options.revert) && this.options.revert.call(this.element, dropped))) {
+		if ((this.options.revert === "invalid" && !dropped) || (this.options.revert === "valid" && dropped) || this.options.revert === true || ($.isFunction(this.options.revert) && this.options.revert.call(this.element, dropped))) {
 			$(this.helper).animate(this.originalPosition, parseInt(this.options.revertDuration, 10), function() {
 				if (that._trigger("stop", event) !== false) {
 					that._clear();
@@ -1892,7 +1892,7 @@ $.widget("ui.draggable", $.ui.mouse, {
 	_createHelper: function(event) {
 
 		var o = this.options,
-			helperIsFunction = $.isfunction( o.helper ),
+			helperIsFunction = $.isFunction( o.helper ),
 			helper = helperIsFunction ?
 				$( o.helper.apply( this.element[ 0 ], [ event ] ) ) :
 				( o.helper === "clone" ?
@@ -2706,7 +2706,7 @@ $.widget( "ui.droppable", {
 		this.isover = false;
 		this.isout = true;
 
-		this.accept = $.isfunction( accept ) ? accept : function( d ) {
+		this.accept = $.isFunction( accept ) ? accept : function( d ) {
 			return d.is( accept );
 		};
 
@@ -2757,7 +2757,7 @@ $.widget( "ui.droppable", {
 	_setOption: function( key, value ) {
 
 		if ( key === "accept" ) {
-			this.accept = $.isfunction( value ) ? value : function( d ) {
+			this.accept = $.isFunction( value ) ? value : function( d ) {
 				return d.is( value );
 			};
 		} else if ( key === "scope" ) {
@@ -5106,13 +5106,13 @@ var sortable = $.widget("ui.sortable", $.ui.mouse, {
 				for ( j = cur.length - 1; j >= 0; j--){
 					inst = $.data(cur[j], this.widgetFullName);
 					if(inst && inst !== this && !inst.options.disabled) {
-						queries.push([$.isfunction(inst.options.items) ? inst.options.items.call(inst.element) : $(inst.options.items, inst.element).not(".ui-sortable-helper").not(".ui-sortable-placeholder"), inst]);
+						queries.push([$.isFunction(inst.options.items) ? inst.options.items.call(inst.element) : $(inst.options.items, inst.element).not(".ui-sortable-helper").not(".ui-sortable-placeholder"), inst]);
 					}
 				}
 			}
 		}
 
-		queries.push([$.isfunction(this.options.items) ? this.options.items.call(this.element, null, { options: this.options, item: this.currentItem }) : $(this.options.items, this.element).not(".ui-sortable-helper").not(".ui-sortable-placeholder"), this]);
+		queries.push([$.isFunction(this.options.items) ? this.options.items.call(this.element, null, { options: this.options, item: this.currentItem }) : $(this.options.items, this.element).not(".ui-sortable-helper").not(".ui-sortable-placeholder"), this]);
 
 		function addItems() {
 			items.push( this );
@@ -5129,7 +5129,7 @@ var sortable = $.widget("ui.sortable", $.ui.mouse, {
 
 		var list = this.currentItem.find(":data(" + this.widgetName + "-item)");
 
-		this.items = $.grep(this.items, function(item) {
+		this.items = $.grep(this.items, function (item) {
 			for (var j=0; j < list.length; j++) {
 				if(list[j] === item.item[0]) {
 					return false;
@@ -5147,7 +5147,7 @@ var sortable = $.widget("ui.sortable", $.ui.mouse, {
 
 		var i, j, cur, inst, targetData, _queries, item, queriesLength,
 			items = this.items,
-			queries = [[$.isfunction(this.options.items) ? this.options.items.call(this.element[0], event, { item: this.currentItem }) : $(this.options.items, this.element), this]],
+			queries = [[$.isFunction(this.options.items) ? this.options.items.call(this.element[0], event, { item: this.currentItem }) : $(this.options.items, this.element), this]],
 			connectWith = this._connectWith();
 
 		if(connectWith && this.ready) { //Shouldn't be run the first time through due to massive slow-down
@@ -5156,7 +5156,7 @@ var sortable = $.widget("ui.sortable", $.ui.mouse, {
 				for (j = cur.length - 1; j >= 0; j--){
 					inst = $.data(cur[j], this.widgetFullName);
 					if(inst && inst !== this && !inst.options.disabled) {
-						queries.push([$.isfunction(inst.options.items) ? inst.options.items.call(inst.element[0], event, { item: this.currentItem }) : $(inst.options.items, inst.element), inst]);
+						queries.push([$.isFunction(inst.options.items) ? inst.options.items.call(inst.element[0], event, { item: this.currentItem }) : $(inst.options.items, inst.element), inst]);
 						this.containers.push(inst);
 					}
 				}
@@ -5406,7 +5406,7 @@ var sortable = $.widget("ui.sortable", $.ui.mouse, {
 	_createHelper: function(event) {
 
 		var o = this.options,
-			helper = $.isfunction(o.helper) ? $(o.helper.apply(this.element[0], [event, this.currentItem])) : (o.helper === "clone" ? this.currentItem.clone() : this.currentItem);
+			helper = $.isFunction(o.helper) ? $(o.helper.apply(this.element[0], [event, this.currentItem])) : (o.helper === "clone" ? this.currentItem.clone() : this.currentItem);
 
 		//Add the helper to the DOM if that didn't happen already
 		if(!helper.parents("body").length) {
@@ -9085,7 +9085,7 @@ $.extend(Datepicker.prototype, {
 	 *					monthNames		string[12] - names of the months (optional)
 	 * @return  Date - the extracted date value or null if value is blank
 	 */
-	parseDate: function(format, value, settings) {
+	parseDate: function (format, value, settings) {
 		if (format == null || value == null) {
 			throw "Invalid arguments";
 		}
@@ -9135,13 +9135,13 @@ $.extend(Datepicker.prototype, {
 			// Extract a name from the string value and convert to an index
 			getName = function(match, shortNames, longNames) {
 				var index = -1,
-					names = $.map(lookAhead(match) ? longNames : shortNames, function(v, k) {
+					names = $.map(lookAhead(match) ? longNames : shortNames, function (v, k) {
 						return [ [k, v] ];
-					}).sort(function(a, b) {
+					}).sort(function (a, b) {
 						return -(a[1].length - b[1].length);
 					});
 
-				$.each(names, function(i, pair) {
+				$.each(names, function (i, pair) {
 					var name = pair[1];
 					if (value.substr(iValue, name.length).toLowerCase() === name.toLowerCase()) {
 						index = pair[0];
@@ -9294,7 +9294,7 @@ $.extend(Datepicker.prototype, {
 	 *					monthNames		string[12] - names of the months (optional)
 	 * @return  string - the date in the above format
 	 */
-	formatDate: function(format, date, settings) {
+	formatDate: function (format, date, settings) {
 		if (!date) {
 			return "";
 		}
@@ -9382,7 +9382,7 @@ $.extend(Datepicker.prototype, {
 	},
 
 	/* Extract all possible characters from the date format. */
-	_possibleChars: function(format) {
+	_possibleChars: function (format) {
 		var iFormat,
 			chars = "",
 			literal = false,
@@ -9566,29 +9566,29 @@ $.extend(Datepicker.prototype, {
 	_attachHandlers: function(inst) {
 		var stepMonths = this._get(inst, "stepMonths"),
 			id = "#" + inst.id.replace( /\\\\/g, "\\" );
-		inst.dpDiv.find("[data-handler]").map(function() {
+		inst.dpDiv.find("[data-handler]").map(function () {
 			var handler = {
-				prev: function() {
+				prev: function () {
 					$.datepicker._adjustDate(id, -stepMonths, "M");
 				},
-				next: function() {
+				next: function () {
 					$.datepicker._adjustDate(id, +stepMonths, "M");
 				},
-				hide: function() {
+				hide: function () {
 					$.datepicker._hideDatepicker();
 				},
-				today: function() {
+				today: function () {
 					$.datepicker._gotoToday(id);
 				},
-				selectDay: function() {
+				selectDay: function () {
 					$.datepicker._selectDay(id, +this.getAttribute("data-month"), +this.getAttribute("data-year"), this);
 					return false;
 				},
-				selectMonth: function() {
+				selectMonth: function () {
 					$.datepicker._selectMonthYear(id, this, "M");
 					return false;
 				},
-				selectYear: function() {
+				selectYear: function () {
 					$.datepicker._selectMonthYear(id, this, "Y");
 					return false;
 				}
@@ -10508,7 +10508,7 @@ var dialog = $.widget( "ui.dialog", {
 
 		$.each( buttons, function( name, props ) {
 			var click, buttonOptions;
-			props = $.isfunction( props ) ?
+			props = $.isFunction( props ) ?
 				{ click: props, text: name } :
 				props;
 			// Default to a non-submitting button
@@ -12658,7 +12658,7 @@ var spinner = $.widget( "ui.spinner", {
 		var incremental = this.options.incremental;
 
 		if ( incremental ) {
-			return $.isfunction( incremental ) ?
+			return $.isFunction( incremental ) ?
 				incremental( i ) :
 				Math.floor( i * i * i / 50000 - i * i / 500 + 17 * i / 200 + 1 );
 		}
@@ -15267,7 +15267,7 @@ function _normalizeArguments( effect, options, speed, callback ) {
 	}
 
 	// catch (effect, callback)
-	if ( $.isfunction( options ) ) {
+	if ( $.isFunction( options ) ) {
 		callback = options;
 		speed = null;
 		options = {};
@@ -15281,7 +15281,7 @@ function _normalizeArguments( effect, options, speed, callback ) {
 	}
 
 	// catch (effect, options, callback)
-	if ( $.isfunction( speed ) ) {
+	if ( $.isFunction( speed ) ) {
 		callback = speed;
 		speed = null;
 	}
@@ -15314,7 +15314,7 @@ function standardAnimationOption( option ) {
 	}
 
 	// Complete callback
-	if ( $.isfunction( option ) ) {
+	if ( $.isFunction( option ) ) {
 		return true;
 	}
 
@@ -15353,10 +15353,10 @@ $.fn.extend({
 				mode = args.mode;
 
 			function done() {
-				if ( $.isfunction( complete ) ) {
+				if ( $.isFunction( complete ) ) {
 					complete.call( elem[0] );
 				}
-				if ( $.isfunction( next ) ) {
+				if ( $.isFunction( next ) ) {
 					next();
 				}
 			}

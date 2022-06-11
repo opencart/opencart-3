@@ -43,7 +43,7 @@ as "categories" on the axis object, e.g. plot.getAxes().xaxis.categories.
 
 */
 
-(function($) {
+(function ($) {
     var options = {
         xaxis: {
             categories: null
@@ -112,7 +112,7 @@ as "categories" on the axis object, e.g. plot.getAxes().xaxis.categories.
                 res.push([v, label]);
         }
 
-        res.sort(function(a, b) { return a[0] - b[0]; });
+        res.sort(function (a, b) { return a[0] - b[0]; });
 
         return res;
     }

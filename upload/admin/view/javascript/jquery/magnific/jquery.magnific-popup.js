@@ -1,7 +1,7 @@
 /*! Magnific Popup - v1.1.0 - 2016-02-20
 * http://dimsemenov.com/plugins/magnific-popup/
 * Copyright (c) 2016 Dmitry Semenov; */
-;(function(factory) { 
+;(function (factory) { 
 if (typeof define === 'function' && define.amd) { 
  // AMD. Register as an anonymous module. 
  define(['jquery'], factory); 
@@ -641,7 +641,7 @@ MagnificPopup.prototype = {
 		var disableOn = options.disableOn !== undefined ? options.disableOn : $.magnificPopup.defaults.disableOn;
 
 		if(disableOn) {
-			if($.isfunction(disableOn)) {
+			if($.isFunction(disableOn)) {
 				if( !disableOn.call(mfp) ) {
 					return true;
 				}
@@ -1117,7 +1117,7 @@ var _imgInterval,
 		var src = mfp.st.image.titleSrc;
 
 		if(src) {
-			if($.isfunction(src)) {
+			if($.isFunction(src)) {
 				return src.call(mfp, item);
 			} else if(item.el) {
 				return item.el.attr(src) || '';

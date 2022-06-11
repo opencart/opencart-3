@@ -5,7 +5,7 @@
     commentStart: "/*",
     commentEnd: "*/",
     wordWrapChars: [";", "\\{", "\\}"],
-    autoFormatLineBreaks: function(text) {
+    autoFormatLineBreaks: function (text) {
       return text.replace(new RegExp("(;|\\{|\\})([^\r\n])", "g"), "$1\n$2");
     }
   });
@@ -33,7 +33,7 @@
         }
       }
     }
-    nonBreakableBlocks.sort(function(a, b) {
+    nonBreakableBlocks.sort(function (a, b) {
       return a.start - b.start;
     });
 
@@ -45,7 +45,7 @@
     commentEnd: "*/",
     wordWrapChars: [";", "\\{", "\\}"],
 
-    autoFormatLineBreaks: function(text) {
+    autoFormatLineBreaks: function (text) {
       var curPos = 0;
       var split = this.jsonMode ? function(str) {
         return str.replace(/([,{])/g, "$1\n").replace(/}/g, "\n}");
@@ -79,7 +79,7 @@
     commentEnd: "-->",
     wordWrapChars: [">"],
 
-    autoFormatLineBreaks: function(text) {
+    autoFormatLineBreaks: function (text) {
       var lines = text.split("\n");
       var reProcessedPortion = new RegExp("(^\\s*?<|^[^<]*?)(.+)(>\\s*?$|[^>]*?$)");
       var reOpenBrackets = new RegExp("<", "g");
@@ -130,7 +130,7 @@
   }
 
   // Comment/uncomment the specified range
-  CodeMirror.defineExtension("commentRange", function(isComment, from, to) {
+  CodeMirror.defineExtension("commentRange", function (isComment, from, to) {
     var curMode = localModeAt(this, from), cm = this;
     this.operation(function() {
       if (isComment) { // Comment range
@@ -156,9 +156,9 @@
   });
 
   // Applies automatic mode-aware indentation to the specified range
-  CodeMirror.defineExtension("autoIndentRange", function(from, to) {
+  CodeMirror.defineExtension("autoIndentRange", function (from, to) {
     var cmInstance = this;
-    this.operation(function() {
+    this.operation(function () {
       for (var i = from.line; i <= to.line; i++) {
         cmInstance.indentLine(i, "smart");
       }
@@ -166,9 +166,9 @@
   });
 
   // Applies automatic formatting to the specified range
-  CodeMirror.defineExtension("autoFormatRange", function(from, to) {
+  CodeMirror.defineExtension("autoFormatRange", function (from, to) {
     var cm = this;
-    cm.operation(function() {
+    cm.operation(function () {
       for (var cur = from.line, end = to.line; cur <= end; ++cur) {
         var f = {line: cur, ch: cur == from.line ? from.ch : 0};
         var t = {line: cur, ch: cur == end ? to.ch : null};

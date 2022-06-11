@@ -7560,7 +7560,7 @@
         this.history.lastOp = this.history.lastSelOp = this.history.lastOrigin = null;
       return this.history.generation;
     },
-    isClean: function(gen) {
+    isClean: function (gen) {
       return this.history.generation == (gen || this.cleanGeneration);
     },
 
@@ -7667,12 +7667,12 @@
       });
       return clipPos(this, Pos(lineNo, ch));
     },
-    indexFromPos: function(coords) {
+    indexFromPos: function (coords) {
       coords = clipPos(this, coords);
       var index = coords.ch;
       if (coords.line < this.first || coords.ch < 0) return 0;
       var sepSize = this.lineSeparator().length;
-      this.iter(this.first, coords.line, function(line) {
+      this.iter(this.first, coords.line, function (line) {
         index += line.text.length + sepSize;
       });
       return index;

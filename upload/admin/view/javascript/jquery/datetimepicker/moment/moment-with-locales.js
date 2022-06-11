@@ -1,8 +1,8 @@
-;(function(global, factory) {
+;(function (global, factory) {
     typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
     typeof define === 'function' && define.amd ? define(factory) :
     global.moment = factory()
-}(this, (function() { 'use strict';
+}(this, (function () { 'use strict';
 
 var hookCallback;
 
@@ -112,7 +112,7 @@ var some;
 if (Array.prototype.some) {
     some = Array.prototype.some;
 } else {
-    some = function(fun) {
+    some = function (fun) {
         var t = Object(this);
         var len = t.length >>> 0;
 
@@ -131,7 +131,7 @@ var some$1 = some;
 function isValid(m) {
     if (m._isValid == null) {
         var flags = getParsingFlags(m);
-        var parsedParts = some$1.call(flags.parsedDateParts, function(i) {
+        var parsedParts = some$1.call(flags.parsedDateParts, function (i) {
             return i != null;
         });
         var isNowValid = !isNaN(m._d.getTime()) &&
@@ -291,7 +291,7 @@ function warn(msg) {
 function deprecate(msg, fn) {
     var firstTime = true;
 
-    return extend(function() {
+    return extend(function () {
         if (hooks.deprecationHandler != null) {
             hooks.deprecationHandler(null, msg);
         }
@@ -333,7 +333,7 @@ function deprecateSimple(name, msg) {
 hooks.suppressDeprecationWarnings = false;
 hooks.deprecationHandler = null;
 
-function isfunction(input) {
+function isFunction(input) {
     return input instanceof Function || Object.prototype.toString.call(input) === '[object Function]';
 }
 
@@ -341,7 +341,7 @@ function set (config) {
     var prop, i;
     for (i in config) {
         prop = config[i];
-        if (isfunction(prop)) {
+        if (isFunction(prop)) {
             this[i] = prop;
         } else {
             this['_' + i] = prop;
@@ -393,7 +393,7 @@ var keys;
 if (Object.keys) {
     keys = Object.keys;
 } else {
-    keys = function(obj) {
+    keys = function (obj) {
         var i, res = [];
         for (i in obj) {
             if (hasOwnProp(obj, i)) {
@@ -417,7 +417,7 @@ var defaultCalendar = {
 
 function calendar (key, mom, now) {
     var output = this._calendar[key] || this._calendar['sameElse'];
-    return isfunction(output) ? output.call(mom, now) : output;
+    return isFunction(output) ? output.call(mom, now) : output;
 }
 
 var defaultLongDateFormat = {
@@ -437,7 +437,7 @@ function longDateFormat (key) {
         return format;
     }
 
-    this._longDateFormat[key] = formatUpper.replace(/MMMM|MM|DD|dddd/g, function(val) {
+    this._longDateFormat[key] = formatUpper.replace(/MMMM|MM|DD|dddd/g, function (val) {
         return val.slice(1);
     });
 
@@ -476,14 +476,14 @@ var defaultRelativeTime = {
 
 function relativeTime (number, withoutSuffix, string, isFuture) {
     var output = this._relativeTime[string];
-    return (isfunction(output)) ?
+    return (isFunction(output)) ?
         output(number, withoutSuffix, string, isFuture) :
         output.replace(/%d/i, number);
 }
 
 function pastFuture (diff, output) {
     var format = this._relativeTime[diff > 0 ? 'future' : 'past'];
-    return isfunction(format) ? format(output) : format.replace(/%s/i, output);
+    return isFunction(format) ? format(output) : format.replace(/%s/i, output);
 }
 
 var aliases = {};
@@ -525,14 +525,14 @@ function getPrioritizedUnits(unitsObj) {
     for (var u in unitsObj) {
         units.push({unit: u, priority: priorities[u]});
     }
-    units.sort(function(a, b) {
+    units.sort(function (a, b) {
         return a.priority - b.priority;
     });
     return units;
 }
 
 function makeGetSet (unit, keepTime) {
-    return function(value) {
+    return function (value) {
         if (value != null) {
             set$1(this, unit, value);
             hooks.updateOffset(this, keepTime);
@@ -558,7 +558,7 @@ function set$1 (mom, unit, value) {
 
 function stringGet (units) {
     units = normalizeUnits(units);
-    if (isfunction(this[units])) {
+    if (isFunction(this[units])) {
         return this[units]();
     }
     return this;
@@ -574,7 +574,7 @@ function stringSet (units, value) {
         }
     } else {
         units = normalizeUnits(units);
-        if (isfunction(this[units])) {
+        if (isFunction(this[units])) {
             return this[units](value);
         }
     }
@@ -600,11 +600,11 @@ var formatTokenFunctions = {};
 // token:    'M'
 // padded:   ['MM', 2]
 // ordinal:  'Mo'
-// callback: function() { this.month() + 1 }
+// callback: function () { this.month() + 1 }
 function addFormatToken (token, padded, ordinal, callback) {
     var func = callback;
     if (typeof callback === 'string') {
-        func = function() {
+        func = function () {
             return this[callback]();
         };
     }
@@ -612,12 +612,12 @@ function addFormatToken (token, padded, ordinal, callback) {
         formatTokenFunctions[token] = func;
     }
     if (padded) {
-        formatTokenFunctions[padded[0]] = function() {
+        formatTokenFunctions[padded[0]] = function () {
             return zeroFill(func.apply(this, arguments), padded[1], padded[2]);
         };
     }
     if (ordinal) {
-        formatTokenFunctions[ordinal] = function() {
+        formatTokenFunctions[ordinal] = function () {
             return this.localeData().ordinal(func.apply(this, arguments), token);
         };
     }
@@ -630,7 +630,7 @@ function removeFormattingTokens(input) {
     return input.replace(/\\/g, '');
 }
 
-function makeFormatfunction(format) {
+function makeFormatFunction(format) {
     var array = format.match(formattingTokens), i, length;
 
     for (i = 0, length = array.length; i < length; i++) {
@@ -641,10 +641,10 @@ function makeFormatfunction(format) {
         }
     }
 
-    return function(mom) {
+    return function (mom) {
         var output = '', i;
         for (i = 0; i < length; i++) {
-            output += isfunction(array[i]) ? array[i].call(mom, format) : array[i];
+            output += isFunction(array[i]) ? array[i].call(mom, format) : array[i];
         }
         return output;
     };
@@ -657,7 +657,7 @@ function formatMoment(m, format) {
     }
 
     format = expandFormat(format, m.localeData());
-    formatFunctions[format] = formatFunctions[format] || makeFormatfunction(format);
+    formatFunctions[format] = formatFunctions[format] || makeFormatFunction(format);
 
     return formatFunctions[format](m);
 }
@@ -707,7 +707,7 @@ var matchWord = /[0-9]*['a-z\u00A0-\u05FF\u0700-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF
 var regexes = {};
 
 function addRegexToken (token, regex, strictRegex) {
-    regexes[token] = isfunction(regex) ? regex : function(isStrict, localeData) {
+    regexes[token] = isFunction(regex) ? regex : function (isStrict, localeData) {
         return (isStrict && strictRegex) ? strictRegex : regex;
     };
 }
@@ -722,7 +722,7 @@ function getParseRegexForToken (token, config) {
 
 // Code from http://stackoverflow.com/questions/3561493/is-there-a-regexp-escape-function-in-javascript
 function unescapeFormat(s) {
-    return regexEscape(s.replace('\\', '').replace(/\\(\[)|\\(\])|\[([^\]\[]*)\]|\\(.)/g, function(matched, p1, p2, p3, p4) {
+    return regexEscape(s.replace('\\', '').replace(/\\(\[)|\\(\])|\[([^\]\[]*)\]|\\(.)/g, function (matched, p1, p2, p3, p4) {
         return p1 || p2 || p3 || p4;
     }));
 }
@@ -739,7 +739,7 @@ function addParseToken (token, callback) {
         token = [token];
     }
     if (isNumber(callback)) {
-        func = function(input, array) {
+        func = function (input, array) {
             array[callback] = toInt(input);
         };
     }
@@ -749,7 +749,7 @@ function addParseToken (token, callback) {
 }
 
 function addWeekParseToken (token, callback) {
-    addParseToken(token, function(input, array, config, token) {
+    addParseToken(token, function (input, array, config, token) {
         config._w = config._w || {};
         callback(input, config._w, config, token);
     });
@@ -776,7 +776,7 @@ var indexOf;
 if (Array.prototype.indexOf) {
     indexOf = Array.prototype.indexOf;
 } else {
-    indexOf = function(o) {
+    indexOf = function (o) {
         // I know
         var i;
         for (i = 0; i < this.length; ++i) {
@@ -796,15 +796,15 @@ function daysInMonth(year, month) {
 
 // FORMATTING
 
-addFormatToken('M', ['MM', 2], 'Mo', function() {
+addFormatToken('M', ['MM', 2], 'Mo', function () {
     return this.month() + 1;
 });
 
-addFormatToken('MMM', 0, 0, function(format) {
+addFormatToken('MMM', 0, 0, function (format) {
     return this.localeData().monthsShort(this, format);
 });
 
-addFormatToken('MMMM', 0, 0, function(format) {
+addFormatToken('MMMM', 0, 0, function (format) {
     return this.localeData().months(this, format);
 });
 
@@ -820,18 +820,18 @@ addUnitPriority('month', 8);
 
 addRegexToken('M',    match1to2);
 addRegexToken('MM',   match1to2, match2);
-addRegexToken('MMM',  function(isStrict, locale) {
+addRegexToken('MMM',  function (isStrict, locale) {
     return locale.monthsShortRegex(isStrict);
 });
-addRegexToken('MMMM', function(isStrict, locale) {
+addRegexToken('MMMM', function (isStrict, locale) {
     return locale.monthsRegex(isStrict);
 });
 
-addParseToken(['M', 'MM'], function(input, array) {
+addParseToken(['M', 'MM'], function (input, array) {
     array[MONTH] = toInt(input) - 1;
 });
 
-addParseToken(['MMM', 'MMMM'], function(input, array, config, token) {
+addParseToken(['MMM', 'MMMM'], function (input, array, config, token) {
     var month = config._locale.monthsParse(input, token, config._strict);
     // if we didn't find a month name, mark the date as invalid.
     if (month != null) {
@@ -1060,12 +1060,12 @@ function computeMonthsParse () {
 
 // FORMATTING
 
-addFormatToken('Y', 0, 0, function() {
+addFormatToken('Y', 0, 0, function () {
     var y = this.year();
     return y <= 9999 ? '' + y : '+' + y;
 });
 
-addFormatToken(0, ['YY', 2], 0, function() {
+addFormatToken(0, ['YY', 2], 0, function () {
     return this.year() % 100;
 });
 
@@ -1090,13 +1090,13 @@ addRegexToken('YYYYY',  match1to6, match6);
 addRegexToken('YYYYYY', match1to6, match6);
 
 addParseToken(['YYYYY', 'YYYYYY'], YEAR);
-addParseToken('YYYY', function(input, array) {
+addParseToken('YYYY', function (input, array) {
     array[YEAR] = input.length === 2 ? hooks.parseTwoDigitYear(input) : toInt(input);
 });
-addParseToken('YY', function(input, array) {
+addParseToken('YY', function (input, array) {
     array[YEAR] = hooks.parseTwoDigitYear(input);
 });
-addParseToken('Y', function(input, array) {
+addParseToken('Y', function (input, array) {
     array[YEAR] = parseInt(input, 10);
 });
 
@@ -1112,7 +1112,7 @@ function isLeapYear(year) {
 
 // HOOKS
 
-hooks.parseTwoDigitYear = function(input) {
+hooks.parseTwoDigitYear = function (input) {
     return toInt(input) + (toInt(input) > 68 ? 1900 : 2000);
 };
 
@@ -1230,7 +1230,7 @@ addRegexToken('ww', match1to2, match2);
 addRegexToken('W',  match1to2);
 addRegexToken('WW', match1to2, match2);
 
-addWeekParseToken(['w', 'ww', 'W', 'WW'], function(input, week, config, token) {
+addWeekParseToken(['w', 'ww', 'W', 'WW'], function (input, week, config, token) {
     week[token.substr(0, 1)] = toInt(input);
 });
 
@@ -1271,15 +1271,15 @@ function getSetISOWeek (input) {
 
 addFormatToken('d', 0, 'do', 'day');
 
-addFormatToken('dd', 0, 0, function(format) {
+addFormatToken('dd', 0, 0, function (format) {
     return this.localeData().weekdaysMin(this, format);
 });
 
-addFormatToken('ddd', 0, 0, function(format) {
+addFormatToken('ddd', 0, 0, function (format) {
     return this.localeData().weekdaysShort(this, format);
 });
 
-addFormatToken('dddd', 0, 0, function(format) {
+addFormatToken('dddd', 0, 0, function (format) {
     return this.localeData().weekdays(this, format);
 });
 
@@ -1302,17 +1302,17 @@ addUnitPriority('isoWeekday', 11);
 addRegexToken('d',    match1to2);
 addRegexToken('e',    match1to2);
 addRegexToken('E',    match1to2);
-addRegexToken('dd',   function(isStrict, locale) {
+addRegexToken('dd',   function (isStrict, locale) {
     return locale.weekdaysMinRegex(isStrict);
 });
-addRegexToken('ddd',   function(isStrict, locale) {
+addRegexToken('ddd',   function (isStrict, locale) {
     return locale.weekdaysShortRegex(isStrict);
 });
-addRegexToken('dddd',   function(isStrict, locale) {
+addRegexToken('dddd',   function (isStrict, locale) {
     return locale.weekdaysRegex(isStrict);
 });
 
-addWeekParseToken(['dd', 'ddd', 'dddd'], function(input, week, config, token) {
+addWeekParseToken(['dd', 'ddd', 'dddd'], function (input, week, config, token) {
     var weekday = config._locale.weekdaysParse(input, token, config._strict);
     // if we didn't get a weekday name, mark the date as invalid
     if (weekday != null) {
@@ -1322,7 +1322,7 @@ addWeekParseToken(['dd', 'ddd', 'dddd'], function(input, week, config, token) {
     }
 });
 
-addWeekParseToken(['d', 'e', 'E'], function(input, week, config, token) {
+addWeekParseToken(['d', 'e', 'E'], function (input, week, config, token) {
     week[token] = toInt(input);
 });
 
@@ -1634,26 +1634,26 @@ addFormatToken('H', ['HH', 2], 0, 'hour');
 addFormatToken('h', ['hh', 2], 0, hFormat);
 addFormatToken('k', ['kk', 2], 0, kFormat);
 
-addFormatToken('hmm', 0, 0, function() {
+addFormatToken('hmm', 0, 0, function () {
     return '' + hFormat.apply(this) + zeroFill(this.minutes(), 2);
 });
 
-addFormatToken('hmmss', 0, 0, function() {
+addFormatToken('hmmss', 0, 0, function () {
     return '' + hFormat.apply(this) + zeroFill(this.minutes(), 2) +
         zeroFill(this.seconds(), 2);
 });
 
-addFormatToken('Hmm', 0, 0, function() {
+addFormatToken('Hmm', 0, 0, function () {
     return '' + this.hours() + zeroFill(this.minutes(), 2);
 });
 
-addFormatToken('Hmmss', 0, 0, function() {
+addFormatToken('Hmmss', 0, 0, function () {
     return '' + this.hours() + zeroFill(this.minutes(), 2) +
         zeroFill(this.seconds(), 2);
 });
 
 function meridiem (token, lowercase) {
-    addFormatToken(token, 0, 0, function() {
+    addFormatToken(token, 0, 0, function () {
         return this.localeData().meridiem(this.hours(), this.minutes(), lowercase);
     });
 }
@@ -1689,25 +1689,25 @@ addRegexToken('Hmm', match3to4);
 addRegexToken('Hmmss', match5to6);
 
 addParseToken(['H', 'HH'], HOUR);
-addParseToken(['k', 'kk'], function(input, array, config) {
+addParseToken(['k', 'kk'], function (input, array, config) {
     var kInput = toInt(input);
     array[HOUR] = kInput === 24 ? 0 : kInput;
 });
-addParseToken(['a', 'A'], function(input, array, config) {
+addParseToken(['a', 'A'], function (input, array, config) {
     config._isPm = config._locale.isPM(input);
     config._meridiem = input;
 });
-addParseToken(['h', 'hh'], function(input, array, config) {
+addParseToken(['h', 'hh'], function (input, array, config) {
     array[HOUR] = toInt(input);
     getParsingFlags(config).bigHour = true;
 });
-addParseToken('hmm', function(input, array, config) {
+addParseToken('hmm', function (input, array, config) {
     var pos = input.length - 2;
     array[HOUR] = toInt(input.substr(0, pos));
     array[MINUTE] = toInt(input.substr(pos));
     getParsingFlags(config).bigHour = true;
 });
-addParseToken('hmmss', function(input, array, config) {
+addParseToken('hmmss', function (input, array, config) {
     var pos1 = input.length - 4;
     var pos2 = input.length - 2;
     array[HOUR] = toInt(input.substr(0, pos1));
@@ -1715,12 +1715,12 @@ addParseToken('hmmss', function(input, array, config) {
     array[SECOND] = toInt(input.substr(pos2));
     getParsingFlags(config).bigHour = true;
 });
-addParseToken('Hmm', function(input, array, config) {
+addParseToken('Hmm', function (input, array, config) {
     var pos = input.length - 2;
     array[HOUR] = toInt(input.substr(0, pos));
     array[MINUTE] = toInt(input.substr(pos));
 });
-addParseToken('Hmmss', function(input, array, config) {
+addParseToken('Hmmss', function (input, array, config) {
     var pos1 = input.length - 4;
     var pos2 = input.length - 2;
     array[HOUR] = toInt(input.substr(0, pos1));
@@ -1880,7 +1880,7 @@ function defineLocale (name, config) {
         locales[name] = new Locale(mergeConfigs(parentConfig, config));
 
         if (localeFamilies[name]) {
-            localeFamilies[name].forEach(function(x) {
+            localeFamilies[name].forEach(function (x) {
                 defineLocale(x.name, x.config);
             });
         }
@@ -2177,7 +2177,7 @@ hooks.createFromInputFallback = deprecate(
     'which is not reliable across all browsers and versions. Non RFC2822/ISO date formats are ' +
     'discouraged and will be removed in an upcoming major release. Please refer to ' +
     'http://momentjs.com/guides/#/warnings/js-date/ for more info.',
-    function(config) {
+    function (config) {
         config._d = new Date(config._i + (config._useUTC ? ' UTC' : ''));
     }
 );
@@ -2326,10 +2326,10 @@ function dayOfYearFromWeekInfo(config) {
 }
 
 // constant that refers to the ISO standard
-hooks.ISO_8601 = function() {};
+hooks.ISO_8601 = function () {};
 
 // constant that refers to the RFC 2822 form
-hooks.RFC_2822 = function() {};
+hooks.RFC_2822 = function () {};
 
 // date from string and format string
 function configFromStringAndFormat(config) {
@@ -2480,7 +2480,7 @@ function configFromObject(config) {
     }
 
     var i = normalizeObjectUnits(config._i);
-    config._a = map([i.year, i.month, i.day || i.date, i.hour, i.minute, i.second, i.millisecond], function(obj) {
+    config._a = map([i.year, i.month, i.day || i.date, i.hour, i.minute, i.second, i.millisecond], function (obj) {
         return obj && parseInt(obj, 10);
     });
 
@@ -2540,7 +2540,7 @@ function configFromInput(config) {
     } else if (typeof input === 'string') {
         configFromString(config);
     } else if (isArray(input)) {
-        config._a = map(input.slice(0), function(obj) {
+        config._a = map(input.slice(0), function (obj) {
             return parseInt(obj, 10);
         });
         configFromArray(config);
@@ -2584,7 +2584,7 @@ function createLocal (input, format, locale, strict) {
 
 var prototypeMin = deprecate(
     'moment().min is deprecated, use moment.max instead. http://momentjs.com/guides/#/warnings/min-max/',
-    function() {
+    function () {
         var other = createLocal.apply(null, arguments);
         if (this.isValid() && other.isValid()) {
             return other < this ? this : other;
@@ -2596,7 +2596,7 @@ var prototypeMin = deprecate(
 
 var prototypeMax = deprecate(
     'moment().max is deprecated, use moment.min instead. http://momentjs.com/guides/#/warnings/min-max/',
-    function() {
+    function () {
         var other = createLocal.apply(null, arguments);
         if (this.isValid() && other.isValid()) {
             return other > this ? this : other;
@@ -2641,7 +2641,7 @@ function max () {
     return pickBy('isAfter', args);
 }
 
-var now = function() {
+var now = function () {
     return Date.now ? Date.now() : +(new Date());
 };
 
@@ -2729,7 +2729,7 @@ function absRound (number) {
 // FORMATTING
 
 function offset (token, separator) {
-    addFormatToken(token, 0, 0, function() {
+    addFormatToken(token, 0, 0, function () {
         var offset = this.utcOffset();
         var sign = '+';
         if (offset < 0) {
@@ -2747,7 +2747,7 @@ offset('ZZ', '');
 
 addRegexToken('Z',  matchShortOffset);
 addRegexToken('ZZ', matchShortOffset);
-addParseToken(['Z', 'ZZ'], function(input, array, config) {
+addParseToken(['Z', 'ZZ'], function (input, array, config) {
     config._useUTC = true;
     config._tzm = offsetFromString(matchShortOffset, input);
 });
@@ -2800,7 +2800,7 @@ function getDateOffset (m) {
 
 // This function will be called whenever a moment is mutated.
 // It is intended to keep the offset in sync with the timezone.
-hooks.updateOffset = function() {};
+hooks.updateOffset = function () {};
 
 // MOMENTS
 
@@ -3061,7 +3061,7 @@ function momentsDifference(base, other) {
 
 // TODO: remove 'name' arg after deprecation is removed
 function createAdder(direction, name) {
-    return function(val, period) {
+    return function (val, period) {
         var dur, tmp;
         //invert the arguments, but complain about it
         if (period !== null && !isNaN(+period)) {
@@ -3123,7 +3123,7 @@ function calendar$1 (time, formats) {
         sod = cloneWithOffset(now, this).startOf('day'),
         format = hooks.calendarFormat(this, sod) || 'sameElse';
 
-    var output = formats && (isfunction(formats[format]) ? formats[format].call(this, now) : formats[format]);
+    var output = formats && (isFunction(formats[format]) ? formats[format].call(this, now) : formats[format]);
 
     return this.format(output || this.localeData().calendar(format, this, createLocal(now)));
 }
@@ -3261,7 +3261,7 @@ function toISOString() {
     if (m.year() < 0 || m.year() > 9999) {
         return formatMoment(m, 'YYYYYY-MM-DD[T]HH:mm:ss.SSS[Z]');
     }
-    if (isfunction(Date.prototype.toISOString)) {
+    if (isFunction(Date.prototype.toISOString)) {
         // native implementation is ~50x faster, use it when we can
         return this.toDate().toISOString();
     }
@@ -3347,7 +3347,7 @@ function locale (key) {
 
 var lang = deprecate(
     'moment().lang() is deprecated. Instead, use moment().localeData() to get the language configuration. Use moment().locale() to change languages.',
-    function(key) {
+    function (key) {
         if (key === undefined) {
             return this.localeData();
         } else {
@@ -3477,11 +3477,11 @@ function creationData() {
 
 // FORMATTING
 
-addFormatToken(0, ['gg', 2], 0, function() {
+addFormatToken(0, ['gg', 2], 0, function () {
     return this.weekYear() % 100;
 });
 
-addFormatToken(0, ['GG', 2], 0, function() {
+addFormatToken(0, ['GG', 2], 0, function () {
     return this.isoWeekYear() % 100;
 });
 
@@ -3516,11 +3516,11 @@ addRegexToken('gggg',   match1to4, match4);
 addRegexToken('GGGGG',  match1to6, match6);
 addRegexToken('ggggg',  match1to6, match6);
 
-addWeekParseToken(['gggg', 'ggggg', 'GGGG', 'GGGGG'], function(input, week, config, token) {
+addWeekParseToken(['gggg', 'ggggg', 'GGGG', 'GGGGG'], function (input, week, config, token) {
     week[token.substr(0, 2)] = toInt(input);
 });
 
-addWeekParseToken(['gg', 'GG'], function(input, week, config, token) {
+addWeekParseToken(['gg', 'GG'], function (input, week, config, token) {
     week[token] = hooks.parseTwoDigitYear(input);
 });
 
@@ -3587,7 +3587,7 @@ addUnitPriority('quarter', 7);
 // PARSING
 
 addRegexToken('Q', match1);
-addParseToken('Q', function(input, array) {
+addParseToken('Q', function (input, array) {
     array[MONTH] = (toInt(input) - 1) * 3;
 });
 
@@ -3612,7 +3612,7 @@ addUnitPriority('date', 9);
 
 addRegexToken('D',  match1to2);
 addRegexToken('DD', match1to2, match2);
-addRegexToken('Do', function(isStrict, locale) {
+addRegexToken('Do', function (isStrict, locale) {
     // TODO: Remove "ordinalParse" fallback in next major release.
     return isStrict ?
       (locale._dayOfMonthOrdinalParse || locale._ordinalParse) :
@@ -3620,7 +3620,7 @@ addRegexToken('Do', function(isStrict, locale) {
 });
 
 addParseToken(['D', 'DD'], DATE);
-addParseToken('Do', function(input, array) {
+addParseToken('Do', function (input, array) {
     array[DATE] = toInt(input.match(match1to2)[0], 10);
 });
 
@@ -3643,7 +3643,7 @@ addUnitPriority('dayOfYear', 4);
 
 addRegexToken('DDD',  match1to3);
 addRegexToken('DDDD', match3);
-addParseToken(['DDD', 'DDDD'], function(input, array, config) {
+addParseToken(['DDD', 'DDDD'], function (input, array, config) {
     config._dayOfYear = toInt(input);
 });
 
@@ -3702,31 +3702,31 @@ var getSetSecond = makeGetSet('Seconds', false);
 
 // FORMATTING
 
-addFormatToken('S', 0, 0, function() {
+addFormatToken('S', 0, 0, function () {
     return ~~(this.millisecond() / 100);
 });
 
-addFormatToken(0, ['SS', 2], 0, function() {
+addFormatToken(0, ['SS', 2], 0, function () {
     return ~~(this.millisecond() / 10);
 });
 
 addFormatToken(0, ['SSS', 3], 0, 'millisecond');
-addFormatToken(0, ['SSSS', 4], 0, function() {
+addFormatToken(0, ['SSSS', 4], 0, function () {
     return this.millisecond() * 10;
 });
-addFormatToken(0, ['SSSSS', 5], 0, function() {
+addFormatToken(0, ['SSSSS', 5], 0, function () {
     return this.millisecond() * 100;
 });
-addFormatToken(0, ['SSSSSS', 6], 0, function() {
+addFormatToken(0, ['SSSSSS', 6], 0, function () {
     return this.millisecond() * 1000;
 });
-addFormatToken(0, ['SSSSSSS', 7], 0, function() {
+addFormatToken(0, ['SSSSSSS', 7], 0, function () {
     return this.millisecond() * 10000;
 });
-addFormatToken(0, ['SSSSSSSS', 8], 0, function() {
+addFormatToken(0, ['SSSSSSSS', 8], 0, function () {
     return this.millisecond() * 100000;
 });
-addFormatToken(0, ['SSSSSSSSS', 9], 0, function() {
+addFormatToken(0, ['SSSSSSSSS', 9], 0, function () {
     return this.millisecond() * 1000000;
 });
 
@@ -4022,7 +4022,7 @@ function listWeekdaysMin (localeSorted, format, index) {
 
 getSetGlobalLocale('en', {
     dayOfMonthOrdinalParse: /\d{1,2}(th|st|nd|rd)/,
-    ordinal : function(number) {
+    ordinal : function (number) {
         var b = number % 10,
             output = (toInt(number % 100 / 10) === 1) ? 'th' :
             (b === 1) ? 'st' :
@@ -4185,7 +4185,7 @@ function valueOf$1 () {
 }
 
 function makeAs (alias) {
-    return function() {
+    return function () {
         return this.as(alias);
     };
 }
@@ -4205,7 +4205,7 @@ function get$2 (units) {
 }
 
 function makeGetter(name) {
-    return function() {
+    return function () {
         return this.isValid() ? this._data[name] : NaN;
     };
 }
@@ -4410,10 +4410,10 @@ addFormatToken('x', 0, 0, 'valueOf');
 
 addRegexToken('x', matchSigned);
 addRegexToken('X', matchTimestamp);
-addParseToken('X', function(input, array, config) {
+addParseToken('X', function (input, array, config) {
     config._d = new Date(parseFloat(input, 10) * 1000);
 });
-addParseToken('x', function(input, array, config) {
+addParseToken('x', function (input, array, config) {
     config._d = new Date(toInt(input));
 });
 
@@ -4468,10 +4468,10 @@ hooks.defineLocale('af', {
     weekdaysShort : 'Son_Maa_Din_Woe_Don_Vry_Sat'.split('_'),
     weekdaysMin : 'So_Ma_Di_Wo_Do_Vr_Sa'.split('_'),
     meridiemParse: /vm|nm/i,
-    isPM : function(input) {
+    isPM : function (input) {
         return /^nm$/i.test(input);
     },
-    meridiem : function(hours, minutes, isLower) {
+    meridiem : function (hours, minutes, isLower) {
         if (hours < 12) {
             return isLower ? 'vm' : 'VM';
         } else {
@@ -4510,7 +4510,7 @@ hooks.defineLocale('af', {
         yy : '%d jaar'
     },
     dayOfMonthOrdinalParse: /\d{1,2}(ste|de)/,
-    ordinal : function(number) {
+    ordinal : function (number) {
         return number + ((number === 1 || number === 8 || number >= 20) ? 'ste' : 'de'); // Thanks to Joris Röling : https://github.com/jjupiter
     },
     week : {
@@ -4631,7 +4631,7 @@ var symbolMap = {
     '9': '9',
     '0': '0'
 };
-var pluralForm = function(n) {
+var pluralForm = function (n) {
     return n === 0 ? 0 : n === 1 ? 1 : n === 2 ? 2 : n % 100 >= 3 && n % 100 <= 10 ? 3 : n % 100 >= 11 ? 4 : 5;
 };
 var plurals = {
@@ -4642,8 +4642,8 @@ var plurals = {
     M : ['أقل من شهر', 'شهر واحد', ['شهران', 'شهرين'], '%d أشهر', '%d شهرا', '%d شهر'],
     y : ['أقل من عام', 'عام واحد', ['عامان', 'عامين'], '%d أعوام', '%d عامًا', '%d عام']
 };
-var pluralize = function(u) {
-    return function(number, withoutSuffix, string, isFuture) {
+var pluralize = function (u) {
+    return function (number, withoutSuffix, string, isFuture) {
         var f = pluralForm(number),
             str = plurals[u][pluralForm(number)];
         if (f === 2) {
@@ -4683,10 +4683,10 @@ hooks.defineLocale('ar-ly', {
         LLLL : 'dddd D MMMM YYYY HH:mm'
     },
     meridiemParse: /ص|م/,
-    isPM : function(input) {
+    isPM : function (input) {
         return 'م' === input;
     },
-    meridiem : function(hour, minute, isLower) {
+    meridiem : function (hour, minute, isLower) {
         if (hour < 12) {
             return 'ص';
         } else {
@@ -4716,11 +4716,11 @@ hooks.defineLocale('ar-ly', {
         y : pluralize('y'),
         yy : pluralize('y')
     },
-    preparse: function(string) {
+    preparse: function (string) {
         return string.replace(/\u200f/g, '').replace(/،/g, ',');
     },
-    postformat: function(string) {
-        return string.replace(/\d/g, function(match) {
+    postformat: function (string) {
+        return string.replace(/\d/g, function (match) {
             return symbolMap[match];
         }).replace(/,/g, '،');
     },
@@ -4824,10 +4824,10 @@ hooks.defineLocale('ar-sa', {
         LLLL : 'dddd D MMMM YYYY HH:mm'
     },
     meridiemParse: /ص|م/,
-    isPM : function(input) {
+    isPM : function (input) {
         return 'م' === input;
     },
-    meridiem : function(hour, minute, isLower) {
+    meridiem : function (hour, minute, isLower) {
         if (hour < 12) {
             return 'ص';
         } else {
@@ -4857,13 +4857,13 @@ hooks.defineLocale('ar-sa', {
         y : 'سنة',
         yy : '%d سنوات'
     },
-    preparse: function(string) {
-        return string.replace(/[١٢٣٤٥٦٧٨٩٠]/g, function(match) {
+    preparse: function (string) {
+        return string.replace(/[١٢٣٤٥٦٧٨٩٠]/g, function (match) {
             return numberMap[match];
         }).replace(/،/g, ',');
     },
-    postformat: function(string) {
-        return string.replace(/\d/g, function(match) {
+    postformat: function (string) {
+        return string.replace(/\d/g, function (match) {
             return symbolMap$1[match];
         }).replace(/,/g, '،');
     },
@@ -4951,7 +4951,7 @@ var numberMap$1 = {
     '٩': '9',
     '٠': '0'
 };
-var pluralForm$1 = function(n) {
+var pluralForm$1 = function (n) {
     return n === 0 ? 0 : n === 1 ? 1 : n === 2 ? 2 : n % 100 >= 3 && n % 100 <= 10 ? 3 : n % 100 >= 11 ? 4 : 5;
 };
 var plurals$1 = {
@@ -4962,8 +4962,8 @@ var plurals$1 = {
     M : ['أقل من شهر', 'شهر واحد', ['شهران', 'شهرين'], '%d أشهر', '%d شهرا', '%d شهر'],
     y : ['أقل من عام', 'عام واحد', ['عامان', 'عامين'], '%d أعوام', '%d عامًا', '%d عام']
 };
-var pluralize$1 = function(u) {
-    return function(number, withoutSuffix, string, isFuture) {
+var pluralize$1 = function (u) {
+    return function (number, withoutSuffix, string, isFuture) {
         var f = pluralForm$1(number),
             str = plurals$1[u][pluralForm$1(number)];
         if (f === 2) {
@@ -5003,10 +5003,10 @@ hooks.defineLocale('ar', {
         LLLL : 'dddd D MMMM YYYY HH:mm'
     },
     meridiemParse: /ص|م/,
-    isPM : function(input) {
+    isPM : function (input) {
         return 'م' === input;
     },
-    meridiem : function(hour, minute, isLower) {
+    meridiem : function (hour, minute, isLower) {
         if (hour < 12) {
             return 'ص';
         } else {
@@ -5036,13 +5036,13 @@ hooks.defineLocale('ar', {
         y : pluralize$1('y'),
         yy : pluralize$1('y')
     },
-    preparse: function(string) {
-        return string.replace(/\u200f/g, '').replace(/[١٢٣٤٥٦٧٨٩٠]/g, function(match) {
+    preparse: function (string) {
+        return string.replace(/\u200f/g, '').replace(/[١٢٣٤٥٦٧٨٩٠]/g, function (match) {
             return numberMap$1[match];
         }).replace(/،/g, ',');
     },
-    postformat: function(string) {
-        return string.replace(/\d/g, function(match) {
+    postformat: function (string) {
+        return string.replace(/\d/g, function (match) {
             return symbolMap$2[match];
         }).replace(/,/g, '،');
     },
@@ -5116,10 +5116,10 @@ hooks.defineLocale('az', {
         yy : '%d il'
     },
     meridiemParse: /gecə|səhər|gündüz|axşam/,
-    isPM : function(input) {
+    isPM : function (input) {
         return /^(gündüz|axşam)$/.test(input);
     },
-    meridiem : function(hour, minute, isLower) {
+    meridiem : function (hour, minute, isLower) {
         if (hour < 4) {
             return 'gecə';
         } else if (hour < 12) {
@@ -5131,7 +5131,7 @@ hooks.defineLocale('az', {
         }
     },
     dayOfMonthOrdinalParse: /\d{1,2}-(ıncı|inci|nci|üncü|ncı|uncu)/,
-    ordinal : function(number) {
+    ordinal : function (number) {
         if (number === 0) {  // special case for zero
             return number + '-ıncı';
         }
@@ -5200,10 +5200,10 @@ hooks.defineLocale('be', {
         sameDay: '[Сёння ў] LT',
         nextDay: '[Заўтра ў] LT',
         lastDay: '[Учора ў] LT',
-        nextWeek: function() {
+        nextWeek: function () {
             return '[У] dddd [ў] LT';
         },
-        lastWeek: function() {
+        lastWeek: function () {
             switch (this.day()) {
                 case 0:
                 case 3:
@@ -5234,10 +5234,10 @@ hooks.defineLocale('be', {
         yy : relativeTimeWithPlural
     },
     meridiemParse: /ночы|раніцы|дня|вечара/,
-    isPM : function(input) {
+    isPM : function (input) {
         return /^(дня|вечара)$/.test(input);
     },
-    meridiem : function(hour, minute, isLower) {
+    meridiem : function (hour, minute, isLower) {
         if (hour < 4) {
             return 'ночы';
         } else if (hour < 12) {
@@ -5249,7 +5249,7 @@ hooks.defineLocale('be', {
         }
     },
     dayOfMonthOrdinalParse: /\d{1,2}-(і|ы|га)/,
-    ordinal: function(number, period) {
+    ordinal: function (number, period) {
         switch (period) {
             case 'M':
             case 'd':
@@ -5292,7 +5292,7 @@ hooks.defineLocale('bg', {
         nextDay : '[Утре в] LT',
         nextWeek : 'dddd [в] LT',
         lastDay : '[Вчера в] LT',
-        lastWeek : function() {
+        lastWeek : function () {
             switch (this.day()) {
                 case 0:
                 case 3:
@@ -5323,7 +5323,7 @@ hooks.defineLocale('bg', {
         yy : '%d години'
     },
     dayOfMonthOrdinalParse: /\d{1,2}-(ев|ен|ти|ви|ри|ми)/,
-    ordinal : function(number) {
+    ordinal : function (number) {
         var lastDigit = number % 10,
             last2Digits = number % 100;
         if (number === 0) {
@@ -5414,18 +5414,18 @@ hooks.defineLocale('bn', {
         y : 'এক বছর',
         yy : '%d বছর'
     },
-    preparse: function(string) {
-        return string.replace(/[১২৩৪৫৬৭৮৯০]/g, function(match) {
+    preparse: function (string) {
+        return string.replace(/[১২৩৪৫৬৭৮৯০]/g, function (match) {
             return numberMap$2[match];
         });
     },
-    postformat: function(string) {
-        return string.replace(/\d/g, function(match) {
+    postformat: function (string) {
+        return string.replace(/\d/g, function (match) {
             return symbolMap$3[match];
         });
     },
     meridiemParse: /রাত|সকাল|দুপুর|বিকাল|রাত/,
-    meridiemHour : function(hour, meridiem) {
+    meridiemHour : function (hour, meridiem) {
         if (hour === 12) {
             hour = 0;
         }
@@ -5437,7 +5437,7 @@ hooks.defineLocale('bn', {
             return hour;
         }
     },
-    meridiem : function(hour, minute, isLower) {
+    meridiem : function (hour, minute, isLower) {
         if (hour < 4) {
             return 'রাত';
         } else if (hour < 10) {
@@ -5522,18 +5522,18 @@ hooks.defineLocale('bo', {
         y : 'ལོ་གཅིག',
         yy : '%d ལོ'
     },
-    preparse: function(string) {
-        return string.replace(/[༡༢༣༤༥༦༧༨༩༠]/g, function(match) {
+    preparse: function (string) {
+        return string.replace(/[༡༢༣༤༥༦༧༨༩༠]/g, function (match) {
             return numberMap$3[match];
         });
     },
-    postformat: function(string) {
-        return string.replace(/\d/g, function(match) {
+    postformat: function (string) {
+        return string.replace(/\d/g, function (match) {
             return symbolMap$4[match];
         });
     },
     meridiemParse: /མཚན་མོ|ཞོགས་ཀས|ཉིན་གུང|དགོང་དག|མཚན་མོ/,
-    meridiemHour : function(hour, meridiem) {
+    meridiemHour : function (hour, meridiem) {
         if (hour === 12) {
             hour = 0;
         }
@@ -5545,7 +5545,7 @@ hooks.defineLocale('bo', {
             return hour;
         }
     },
-    meridiem : function(hour, minute, isLower) {
+    meridiem : function (hour, minute, isLower) {
         if (hour < 4) {
             return 'མཚན་མོ';
         } else if (hour < 10) {
@@ -5651,7 +5651,7 @@ hooks.defineLocale('br', {
         yy : specialMutationForYears
     },
     dayOfMonthOrdinalParse: /\d{1,2}(añ|vet)/,
-    ordinal : function(number) {
+    ordinal : function (number) {
         var output = (number === 1) ? 'añ' : 'vet';
         return number + output;
     },
@@ -5738,7 +5738,7 @@ hooks.defineLocale('bs', {
     calendar : {
         sameDay  : '[danas u] LT',
         nextDay  : '[sutra u] LT',
-        nextWeek : function() {
+        nextWeek : function () {
             switch (this.day()) {
                 case 0:
                     return '[u] [nedjelju] [u] LT';
@@ -5754,7 +5754,7 @@ hooks.defineLocale('bs', {
             }
         },
         lastDay  : '[jučer u] LT',
-        lastWeek : function() {
+        lastWeek : function () {
             switch (this.day()) {
                 case 0:
                 case 3:
@@ -5821,19 +5821,19 @@ hooks.defineLocale('ca', {
         llll : 'ddd D MMM YYYY, H:mm'
     },
     calendar : {
-        sameDay : function() {
+        sameDay : function () {
             return '[avui a ' + ((this.hours() !== 1) ? 'les' : 'la') + '] LT';
         },
-        nextDay : function() {
+        nextDay : function () {
             return '[demà a ' + ((this.hours() !== 1) ? 'les' : 'la') + '] LT';
         },
-        nextWeek : function() {
+        nextWeek : function () {
             return 'dddd [a ' + ((this.hours() !== 1) ? 'les' : 'la') + '] LT';
         },
-        lastDay : function() {
+        lastDay : function () {
             return '[ahir a ' + ((this.hours() !== 1) ? 'les' : 'la') + '] LT';
         },
-        lastWeek : function() {
+        lastWeek : function () {
             return '[el] dddd [passat a ' + ((this.hours() !== 1) ? 'les' : 'la') + '] LT';
         },
         sameElse : 'L'
@@ -5854,7 +5854,7 @@ hooks.defineLocale('ca', {
         yy : '%d anys'
     },
     dayOfMonthOrdinalParse: /\d{1,2}(r|n|t|è|a)/,
-    ordinal : function(number, period) {
+    ordinal : function (number, period) {
         var output = (number === 1) ? 'r' :
             (number === 2) ? 'n' :
             (number === 3) ? 'r' :
@@ -5935,7 +5935,7 @@ function translate$1(number, withoutSuffix, key, isFuture) {
 hooks.defineLocale('cs', {
     months : months$3,
     monthsShort : monthsShort,
-    monthsParse : (function(months, monthsShort) {
+    monthsParse : (function (months, monthsShort) {
         var i, _monthsParse = [];
         for (i = 0; i < 12; i++) {
             // use custom parser to solve problem with July (červenec)
@@ -5943,14 +5943,14 @@ hooks.defineLocale('cs', {
         }
         return _monthsParse;
     }(months$3, monthsShort)),
-    shortMonthsParse : (function(monthsShort) {
+    shortMonthsParse : (function (monthsShort) {
         var i, _shortMonthsParse = [];
         for (i = 0; i < 12; i++) {
             _shortMonthsParse[i] = new RegExp('^' + monthsShort[i] + '$', 'i');
         }
         return _shortMonthsParse;
     }(monthsShort)),
-    longMonthsParse : (function(months) {
+    longMonthsParse : (function (months) {
         var i, _longMonthsParse = [];
         for (i = 0; i < 12; i++) {
             _longMonthsParse[i] = new RegExp('^' + months[i] + '$', 'i');
@@ -5972,7 +5972,7 @@ hooks.defineLocale('cs', {
     calendar : {
         sameDay: '[dnes v] LT',
         nextDay: '[zítra v] LT',
-        nextWeek: function() {
+        nextWeek: function () {
             switch (this.day()) {
                 case 0:
                     return '[v neděli v] LT';
@@ -5990,7 +5990,7 @@ hooks.defineLocale('cs', {
             }
         },
         lastDay: '[včera v] LT',
-        lastWeek: function() {
+        lastWeek: function () {
             switch (this.day()) {
                 case 0:
                     return '[minulou neděli v] LT';
@@ -6058,7 +6058,7 @@ hooks.defineLocale('cv', {
         sameElse: 'L'
     },
     relativeTime : {
-        future : function(output) {
+        future : function (output) {
             var affix = /сехет$/i.exec(output) ? 'рен' : /ҫул$/i.exec(output) ? 'тан' : 'ран';
             return output + affix;
         },
@@ -6129,7 +6129,7 @@ hooks.defineLocale('cy', {
     },
     dayOfMonthOrdinalParse: /\d{1,2}(fed|ain|af|il|ydd|ed|eg)/,
     // traditional ordinal numbers above 31 are not commonly used in colloquial Welsh
-    ordinal: function(number) {
+    ordinal: function (number) {
         var b = number,
             output = '',
             lookup = [
@@ -6448,10 +6448,10 @@ hooks.defineLocale('dv', {
         LLLL : 'dddd D MMMM YYYY HH:mm'
     },
     meridiemParse: /މކ|މފ/,
-    isPM : function(input) {
+    isPM : function (input) {
         return 'މފ' === input;
     },
-    meridiem : function(hour, minute, isLower) {
+    meridiem : function (hour, minute, isLower) {
         if (hour < 12) {
             return 'މކ';
         } else {
@@ -6481,10 +6481,10 @@ hooks.defineLocale('dv', {
         y : 'އަހަރެއް',
         yy : 'އަހަރު %d'
     },
-    preparse: function(string) {
+    preparse: function (string) {
         return string.replace(/،/g, ',');
     },
-    postformat: function(string) {
+    postformat: function (string) {
         return string.replace(/,/g, '،');
     },
     week : {
@@ -6500,7 +6500,7 @@ hooks.defineLocale('dv', {
 hooks.defineLocale('el', {
     monthsNominativeEl : 'Ιανουάριος_Φεβρουάριος_Μάρτιος_Απρίλιος_Μάιος_Ιούνιος_Ιούλιος_Αύγουστος_Σεπτέμβριος_Οκτώβριος_Νοέμβριος_Δεκέμβριος'.split('_'),
     monthsGenitiveEl : 'Ιανουαρίου_Φεβρουαρίου_Μαρτίου_Απριλίου_Μαΐου_Ιουνίου_Ιουλίου_Αυγούστου_Σεπτεμβρίου_Οκτωβρίου_Νοεμβρίου_Δεκεμβρίου'.split('_'),
-    months : function(momentToFormat, format) {
+    months : function (momentToFormat, format) {
         if (!momentToFormat) {
             return this._monthsNominativeEl;
         } else if (/D/.test(format.substring(0, format.indexOf('MMMM')))) { // if there is a day number before 'MMMM'
@@ -6513,14 +6513,14 @@ hooks.defineLocale('el', {
     weekdays : 'Κυριακή_Δευτέρα_Τρίτη_Τετάρτη_Πέμπτη_Παρασκευή_Σάββατο'.split('_'),
     weekdaysShort : 'Κυρ_Δευ_Τρι_Τετ_Πεμ_Παρ_Σαβ'.split('_'),
     weekdaysMin : 'Κυ_Δε_Τρ_Τε_Πε_Πα_Σα'.split('_'),
-    meridiem : function(hours, minutes, isLower) {
+    meridiem : function (hours, minutes, isLower) {
         if (hours > 11) {
             return isLower ? 'μμ' : 'ΜΜ';
         } else {
             return isLower ? 'πμ' : 'ΠΜ';
         }
     },
-    isPM : function(input) {
+    isPM : function (input) {
         return ((input + '').toLowerCase()[0] === 'μ');
     },
     meridiemParse : /[ΠΜ]\.?Μ?\.?/i,
@@ -6537,7 +6537,7 @@ hooks.defineLocale('el', {
         nextDay : '[Αύριο {}] LT',
         nextWeek : 'dddd [{}] LT',
         lastDay : '[Χθες {}] LT',
-        lastWeek : function() {
+        lastWeek : function () {
             switch (this.day()) {
                 case 6:
                     return '[το προηγούμενο] dddd [{}] LT';
@@ -6547,10 +6547,10 @@ hooks.defineLocale('el', {
         },
         sameElse : 'L'
     },
-    calendar : function(key, mom) {
+    calendar : function (key, mom) {
         var output = this._calendarEl[key],
             hours = mom && mom.hours();
-        if (isfunction(output)) {
+        if (isFunction(output)) {
             output = output.apply(mom);
         }
         return output.replace('{}', (hours % 12 === 1 ? 'στη' : 'στις'));
@@ -6620,7 +6620,7 @@ hooks.defineLocale('en-au', {
         yy : '%d years'
     },
     dayOfMonthOrdinalParse: /\d{1,2}(st|nd|rd|th)/,
-    ordinal : function(number) {
+    ordinal : function (number) {
         var b = number % 10,
             output = (~~(number % 100 / 10) === 1) ? 'th' :
             (b === 1) ? 'st' :
@@ -6676,7 +6676,7 @@ hooks.defineLocale('en-ca', {
         yy : '%d years'
     },
     dayOfMonthOrdinalParse: /\d{1,2}(st|nd|rd|th)/,
-    ordinal : function(number) {
+    ordinal : function (number) {
         var b = number % 10,
             output = (~~(number % 100 / 10) === 1) ? 'th' :
             (b === 1) ? 'st' :
@@ -6728,7 +6728,7 @@ hooks.defineLocale('en-gb', {
         yy : '%d years'
     },
     dayOfMonthOrdinalParse: /\d{1,2}(st|nd|rd|th)/,
-    ordinal : function(number) {
+    ordinal : function (number) {
         var b = number % 10,
             output = (~~(number % 100 / 10) === 1) ? 'th' :
             (b === 1) ? 'st' :
@@ -6784,7 +6784,7 @@ hooks.defineLocale('en-ie', {
         yy : '%d years'
     },
     dayOfMonthOrdinalParse: /\d{1,2}(st|nd|rd|th)/,
-    ordinal : function(number) {
+    ordinal : function (number) {
         var b = number % 10,
             output = (~~(number % 100 / 10) === 1) ? 'th' :
             (b === 1) ? 'st' :
@@ -6840,7 +6840,7 @@ hooks.defineLocale('en-nz', {
         yy : '%d years'
     },
     dayOfMonthOrdinalParse: /\d{1,2}(st|nd|rd|th)/,
-    ordinal : function(number) {
+    ordinal : function (number) {
         var b = number % 10,
             output = (~~(number % 100 / 10) === 1) ? 'th' :
             (b === 1) ? 'st' :
@@ -6875,10 +6875,10 @@ hooks.defineLocale('eo', {
         LLLL : 'dddd, [la] D[-a de] MMMM, YYYY HH:mm'
     },
     meridiemParse: /[ap]\.t\.m/i,
-    isPM: function(input) {
+    isPM: function (input) {
         return input.charAt(0).toLowerCase() === 'p';
     },
-    meridiem : function(hours, minutes, isLower) {
+    meridiem : function (hours, minutes, isLower) {
         if (hours > 11) {
             return isLower ? 'p.t.m.' : 'P.T.M.';
         } else {
@@ -6924,7 +6924,7 @@ var monthsShort$1 = 'ene_feb_mar_abr_may_jun_jul_ago_sep_oct_nov_dic'.split('_')
 
 hooks.defineLocale('es-do', {
     months : 'enero_febrero_marzo_abril_mayo_junio_julio_agosto_septiembre_octubre_noviembre_diciembre'.split('_'),
-    monthsShort : function(m, format) {
+    monthsShort : function (m, format) {
         if (!m) {
             return monthsShortDot;
         } else if (/-MMM-/.test(format)) {
@@ -6947,19 +6947,19 @@ hooks.defineLocale('es-do', {
         LLLL : 'dddd, D [de] MMMM [de] YYYY h:mm A'
     },
     calendar : {
-        sameDay : function() {
+        sameDay : function () {
             return '[hoy a la' + ((this.hours() !== 1) ? 's' : '') + '] LT';
         },
-        nextDay : function() {
+        nextDay : function () {
             return '[mañana a la' + ((this.hours() !== 1) ? 's' : '') + '] LT';
         },
-        nextWeek : function() {
+        nextWeek : function () {
             return 'dddd [a la' + ((this.hours() !== 1) ? 's' : '') + '] LT';
         },
-        lastDay : function() {
+        lastDay : function () {
             return '[ayer a la' + ((this.hours() !== 1) ? 's' : '') + '] LT';
         },
-        lastWeek : function() {
+        lastWeek : function () {
             return '[el] dddd [pasado a la' + ((this.hours() !== 1) ? 's' : '') + '] LT';
         },
         sameElse : 'L'
@@ -6996,7 +6996,7 @@ var monthsShort$2 = 'ene_feb_mar_abr_may_jun_jul_ago_sep_oct_nov_dic'.split('_')
 
 hooks.defineLocale('es', {
     months : 'enero_febrero_marzo_abril_mayo_junio_julio_agosto_septiembre_octubre_noviembre_diciembre'.split('_'),
-    monthsShort : function(m, format) {
+    monthsShort : function (m, format) {
         if (!m) {
             return monthsShortDot$1;
         } else if (/-MMM-/.test(format)) {
@@ -7019,19 +7019,19 @@ hooks.defineLocale('es', {
         LLLL : 'dddd, D [de] MMMM [de] YYYY H:mm'
     },
     calendar : {
-        sameDay : function() {
+        sameDay : function () {
             return '[hoy a la' + ((this.hours() !== 1) ? 's' : '') + '] LT';
         },
-        nextDay : function() {
+        nextDay : function () {
             return '[mañana a la' + ((this.hours() !== 1) ? 's' : '') + '] LT';
         },
-        nextWeek : function() {
+        nextWeek : function () {
             return 'dddd [a la' + ((this.hours() !== 1) ? 's' : '') + '] LT';
         },
-        lastDay : function() {
+        lastDay : function () {
             return '[ayer a la' + ((this.hours() !== 1) ? 's' : '') + '] LT';
         },
-        lastWeek : function() {
+        lastWeek : function () {
             return '[el] dddd [pasado a la' + ((this.hours() !== 1) ? 's' : '') + '] LT';
         },
         sameElse : 'L'
@@ -7228,10 +7228,10 @@ hooks.defineLocale('fa', {
         LLLL : 'dddd, D MMMM YYYY HH:mm'
     },
     meridiemParse: /قبل از ظهر|بعد از ظهر/,
-    isPM: function(input) {
+    isPM: function (input) {
         return /بعد از ظهر/.test(input);
     },
-    meridiem : function(hour, minute, isLower) {
+    meridiem : function (hour, minute, isLower) {
         if (hour < 12) {
             return 'قبل از ظهر';
         } else {
@@ -7261,13 +7261,13 @@ hooks.defineLocale('fa', {
         y : 'یک سال',
         yy : '%d سال'
     },
-    preparse: function(string) {
-        return string.replace(/[۰-۹]/g, function(match) {
+    preparse: function (string) {
+        return string.replace(/[۰-۹]/g, function (match) {
             return numberMap$4[match];
         }).replace(/،/g, ',');
     },
-    postformat: function(string) {
-        return string.replace(/\d/g, function(match) {
+    postformat: function (string) {
+        return string.replace(/\d/g, function (match) {
             return symbolMap$5[match];
         }).replace(/,/g, '،');
     },
@@ -7468,7 +7468,7 @@ hooks.defineLocale('fr-ca', {
         yy : '%d ans'
     },
     dayOfMonthOrdinalParse: /\d{1,2}(er|e)/,
-    ordinal : function(number, period) {
+    ordinal : function (number, period) {
         switch (period) {
             // Words with masculine grammatical gender: mois, trimestre, jour
             default:
@@ -7531,7 +7531,7 @@ hooks.defineLocale('fr-ch', {
         yy : '%d ans'
     },
     dayOfMonthOrdinalParse: /\d{1,2}(er|e)/,
-    ordinal : function(number, period) {
+    ordinal : function (number, period) {
         switch (period) {
             // Words with masculine grammatical gender: mois, trimestre, jour
             default:
@@ -7598,7 +7598,7 @@ hooks.defineLocale('fr', {
         yy : '%d ans'
     },
     dayOfMonthOrdinalParse: /\d{1,2}(er|)/,
-    ordinal : function(number, period) {
+    ordinal : function (number, period) {
         switch (period) {
             // TODO: Return 'e' when day of month > 1. Move this case inside
             // block for masculine words below.
@@ -7635,7 +7635,7 @@ var monthsShortWithoutDots = 'jan_feb_mrt_apr_mai_jun_jul_aug_sep_okt_nov_des'.s
 
 hooks.defineLocale('fy', {
     months : 'jannewaris_febrewaris_maart_april_maaie_juny_july_augustus_septimber_oktober_novimber_desimber'.split('_'),
-    monthsShort : function(m, format) {
+    monthsShort : function (m, format) {
         if (!m) {
             return monthsShortWithDots;
         } else if (/-MMM-/.test(format)) {
@@ -7681,7 +7681,7 @@ hooks.defineLocale('fy', {
         yy : '%d jierren'
     },
     dayOfMonthOrdinalParse: /\d{1,2}(ste|de)/,
-    ordinal : function(number) {
+    ordinal : function (number) {
         return number + ((number === 1 || number === 8 || number >= 20) ? 'ste' : 'de');
     },
     week : {
@@ -7745,7 +7745,7 @@ hooks.defineLocale('gd', {
         yy : '%d bliadhna'
     },
     dayOfMonthOrdinalParse : /\d{1,2}(d|na|mh)/,
-    ordinal : function(number) {
+    ordinal : function (number) {
         var output = number === 1 ? 'd' : number % 10 === 2 ? 'na' : 'mh';
         return number + output;
     },
@@ -7776,25 +7776,25 @@ hooks.defineLocale('gl', {
         LLLL : 'dddd, D [de] MMMM [de] YYYY H:mm'
     },
     calendar : {
-        sameDay : function() {
+        sameDay : function () {
             return '[hoxe ' + ((this.hours() !== 1) ? 'ás' : 'á') + '] LT';
         },
-        nextDay : function() {
+        nextDay : function () {
             return '[mañá ' + ((this.hours() !== 1) ? 'ás' : 'á') + '] LT';
         },
-        nextWeek : function() {
+        nextWeek : function () {
             return 'dddd [' + ((this.hours() !== 1) ? 'ás' : 'a') + '] LT';
         },
-        lastDay : function() {
+        lastDay : function () {
             return '[onte ' + ((this.hours() !== 1) ? 'á' : 'a') + '] LT';
         },
-        lastWeek : function() {
+        lastWeek : function () {
             return '[o] dddd [pasado ' + ((this.hours() !== 1) ? 'ás' : 'a') + '] LT';
         },
         sameElse : 'L'
     },
     relativeTime : {
-        future : function(str) {
+        future : function (str) {
             if (str.indexOf('un') === 0) {
                 return 'n' + str;
             }
@@ -7883,7 +7883,7 @@ hooks.defineLocale('gom-latn', {
         yy : processRelativeTime$4
     },
     dayOfMonthOrdinalParse : /\d{1,2}(er)/,
-    ordinal : function(number, period) {
+    ordinal : function (number, period) {
         switch (period) {
             // the ordinal 'er' only applies to day of the month
             case 'D':
@@ -7903,7 +7903,7 @@ hooks.defineLocale('gom-latn', {
         doy : 4  // The week that contains Jan 4th is the first week of the year.
     },
     meridiemParse: /rati|sokalli|donparam|sanje/,
-    meridiemHour : function(hour, meridiem) {
+    meridiemHour : function (hour, meridiem) {
         if (hour === 12) {
             hour = 0;
         }
@@ -7917,7 +7917,7 @@ hooks.defineLocale('gom-latn', {
             return hour + 12;
         }
     },
-    meridiem : function(hour, minute, isLower) {
+    meridiem : function (hour, minute, isLower) {
         if (hour < 4) {
             return 'rati';
         } else if (hour < 12) {
@@ -7971,28 +7971,28 @@ hooks.defineLocale('he', {
         m : 'דקה',
         mm : '%d דקות',
         h : 'שעה',
-        hh : function(number) {
+        hh : function (number) {
             if (number === 2) {
                 return 'שעתיים';
             }
             return number + ' שעות';
         },
         d : 'יום',
-        dd : function(number) {
+        dd : function (number) {
             if (number === 2) {
                 return 'יומיים';
             }
             return number + ' ימים';
         },
         M : 'חודש',
-        MM : function(number) {
+        MM : function (number) {
             if (number === 2) {
                 return 'חודשיים';
             }
             return number + ' חודשים';
         },
         y : 'שנה',
-        yy : function(number) {
+        yy : function (number) {
             if (number === 2) {
                 return 'שנתיים';
             } else if (number % 10 === 0 && number !== 10) {
@@ -8002,10 +8002,10 @@ hooks.defineLocale('he', {
         }
     },
     meridiemParse: /אחה"צ|לפנה"צ|אחרי הצהריים|לפני הצהריים|לפנות בוקר|בבוקר|בערב/i,
-    isPM : function(input) {
+    isPM : function (input) {
         return /^(אחה"צ|אחרי הצהריים|בערב)$/.test(input);
     },
-    meridiem : function(hour, minute, isLower) {
+    meridiem : function (hour, minute, isLower) {
         if (hour < 5) {
             return 'לפנות בוקר';
         } else if (hour < 10) {
@@ -8087,20 +8087,20 @@ hooks.defineLocale('hi', {
         y : 'एक वर्ष',
         yy : '%d वर्ष'
     },
-    preparse: function(string) {
-        return string.replace(/[१२३४५६७८९०]/g, function(match) {
+    preparse: function (string) {
+        return string.replace(/[१२३४५६७८९०]/g, function (match) {
             return numberMap$5[match];
         });
     },
-    postformat: function(string) {
-        return string.replace(/\d/g, function(match) {
+    postformat: function (string) {
+        return string.replace(/\d/g, function (match) {
             return symbolMap$6[match];
         });
     },
     // Hindi notation for meridiems are quite fuzzy in practice. While there exists
     // a rigid notion of a 'Pahar' it is not used as rigidly in modern Hindi.
     meridiemParse: /रात|सुबह|दोपहर|शाम/,
-    meridiemHour : function(hour, meridiem) {
+    meridiemHour : function (hour, meridiem) {
         if (hour === 12) {
             hour = 0;
         }
@@ -8114,7 +8114,7 @@ hooks.defineLocale('hi', {
             return hour + 12;
         }
     },
-    meridiem : function(hour, minute, isLower) {
+    meridiem : function (hour, minute, isLower) {
         if (hour < 4) {
             return 'रात';
         } else if (hour < 10) {
@@ -8212,7 +8212,7 @@ hooks.defineLocale('hr', {
     calendar : {
         sameDay  : '[danas u] LT',
         nextDay  : '[sutra u] LT',
-        nextWeek : function() {
+        nextWeek : function () {
             switch (this.day()) {
                 case 0:
                     return '[u] [nedjelju] [u] LT';
@@ -8228,7 +8228,7 @@ hooks.defineLocale('hr', {
             }
         },
         lastDay  : '[jučer u] LT',
-        lastWeek : function() {
+        lastWeek : function () {
             switch (this.day()) {
                 case 0:
                 case 3:
@@ -8320,10 +8320,10 @@ hooks.defineLocale('hu', {
         LLLL : 'YYYY. MMMM D., dddd H:mm'
     },
     meridiemParse: /de|du/i,
-    isPM: function(input) {
+    isPM: function (input) {
         return input.charAt(1).toLowerCase() === 'u';
     },
-    meridiem : function(hours, minutes, isLower) {
+    meridiem : function (hours, minutes, isLower) {
         if (hours < 12) {
             return isLower === true ? 'de' : 'DE';
         } else {
@@ -8333,11 +8333,11 @@ hooks.defineLocale('hu', {
     calendar : {
         sameDay : '[ma] LT[-kor]',
         nextDay : '[holnap] LT[-kor]',
-        nextWeek : function() {
+        nextWeek : function () {
             return week.call(this, true);
         },
         lastDay : '[tegnap] LT[-kor]',
-        lastWeek : function() {
+        lastWeek : function () {
             return week.call(this, false);
         },
         sameElse : 'L'
@@ -8390,10 +8390,10 @@ hooks.defineLocale('hy-am', {
         sameDay: '[այսօր] LT',
         nextDay: '[վաղը] LT',
         lastDay: '[երեկ] LT',
-        nextWeek: function() {
+        nextWeek: function () {
             return 'dddd [օրը ժամը] LT';
         },
-        lastWeek: function() {
+        lastWeek: function () {
             return '[անցած] dddd [օրը ժամը] LT';
         },
         sameElse: 'L'
@@ -8414,10 +8414,10 @@ hooks.defineLocale('hy-am', {
         yy : '%d տարի'
     },
     meridiemParse: /գիշերվա|առավոտվա|ցերեկվա|երեկոյան/,
-    isPM: function(input) {
+    isPM: function (input) {
         return /^(ցերեկվա|երեկոյան)$/.test(input);
     },
-    meridiem : function(hour) {
+    meridiem : function (hour) {
         if (hour < 4) {
             return 'գիշերվա';
         } else if (hour < 12) {
@@ -8429,7 +8429,7 @@ hooks.defineLocale('hy-am', {
         }
     },
     dayOfMonthOrdinalParse: /\d{1,2}|\d{1,2}-(ին|րդ)/,
-    ordinal: function(number, period) {
+    ordinal: function (number, period) {
         switch (period) {
             case 'DDD':
             case 'w':
@@ -8469,7 +8469,7 @@ hooks.defineLocale('id', {
         LLLL : 'dddd, D MMMM YYYY [pukul] HH.mm'
     },
     meridiemParse: /pagi|siang|sore|malam/,
-    meridiemHour : function(hour, meridiem) {
+    meridiemHour : function (hour, meridiem) {
         if (hour === 12) {
             hour = 0;
         }
@@ -8481,7 +8481,7 @@ hooks.defineLocale('id', {
             return hour + 12;
         }
     },
-    meridiem : function(hours, minutes, isLower) {
+    meridiem : function (hours, minutes, isLower) {
         if (hours < 11) {
             return 'pagi';
         } else if (hours < 15) {
@@ -8661,7 +8661,7 @@ hooks.defineLocale('it', {
         nextDay: '[Domani alle] LT',
         nextWeek: 'dddd [alle] LT',
         lastDay: '[Ieri alle] LT',
-        lastWeek: function() {
+        lastWeek: function () {
             switch (this.day()) {
                 case 0:
                     return '[la scorsa] dddd [alle] LT';
@@ -8672,7 +8672,7 @@ hooks.defineLocale('it', {
         sameElse: 'L'
     },
     relativeTime : {
-        future : function(s) {
+        future : function (s) {
             return ((/^[0-9].+$/).test(s) ? 'tra' : 'in') + ' ' + s;
         },
         past : '%s fa',
@@ -8719,10 +8719,10 @@ hooks.defineLocale('ja', {
         llll : 'YYYY年M月D日 HH:mm dddd'
     },
     meridiemParse: /午前|午後/i,
-    isPM : function(input) {
+    isPM : function (input) {
         return input === '午後';
     },
-    meridiem : function(hour, minute, isLower) {
+    meridiem : function (hour, minute, isLower) {
         if (hour < 12) {
             return '午前';
         } else {
@@ -8738,7 +8738,7 @@ hooks.defineLocale('ja', {
         sameElse : 'L'
     },
     dayOfMonthOrdinalParse : /\d{1,2}日/,
-    ordinal : function(number, period) {
+    ordinal : function (number, period) {
         switch (period) {
             case 'd':
             case 'D':
@@ -8785,7 +8785,7 @@ hooks.defineLocale('jv', {
         LLLL : 'dddd, D MMMM YYYY [pukul] HH.mm'
     },
     meridiemParse: /enjing|siyang|sonten|ndalu/,
-    meridiemHour : function(hour, meridiem) {
+    meridiemHour : function (hour, meridiem) {
         if (hour === 12) {
             hour = 0;
         }
@@ -8797,7 +8797,7 @@ hooks.defineLocale('jv', {
             return hour + 12;
         }
     },
-    meridiem : function(hours, minutes, isLower) {
+    meridiem : function (hours, minutes, isLower) {
         if (hours < 11) {
             return 'enjing';
         } else if (hours < 15) {
@@ -8871,12 +8871,12 @@ hooks.defineLocale('ka', {
         sameElse : 'L'
     },
     relativeTime : {
-        future : function(s) {
+        future : function (s) {
             return (/(წამი|წუთი|საათი|წელი)/).test(s) ?
                 s.replace(/ი$/, 'ში') :
                 s + 'ში';
         },
-        past : function(s) {
+        past : function (s) {
             if ((/(წამი|წუთი|საათი|დღე|თვე)/).test(s)) {
                 return s.replace(/(ი|ე)$/, 'ის უკან');
             }
@@ -8897,7 +8897,7 @@ hooks.defineLocale('ka', {
         yy : '%d წელი'
     },
     dayOfMonthOrdinalParse: /0|1-ლი|მე-\d{1,2}|\d{1,2}-ე/,
-    ordinal : function(number) {
+    ordinal : function (number) {
         if (number === 0) {
             return number;
         }
@@ -8980,7 +8980,7 @@ hooks.defineLocale('kk', {
         yy : '%d жыл'
     },
     dayOfMonthOrdinalParse: /\d{1,2}-(ші|шы)/,
-    ordinal : function(number) {
+    ordinal : function (number) {
         var a = number % 10,
             b = number >= 100 ? 100 : null;
         return number + (suffixes$1[number] || suffixes$1[a] || suffixes$1[b]);
@@ -9105,18 +9105,18 @@ hooks.defineLocale('kn', {
         y : 'ಒಂದು ವರ್ಷ',
         yy : '%d ವರ್ಷ'
     },
-    preparse: function(string) {
-        return string.replace(/[೧೨೩೪೫೬೭೮೯೦]/g, function(match) {
+    preparse: function (string) {
+        return string.replace(/[೧೨೩೪೫೬೭೮೯೦]/g, function (match) {
             return numberMap$6[match];
         });
     },
-    postformat: function(string) {
-        return string.replace(/\d/g, function(match) {
+    postformat: function (string) {
+        return string.replace(/\d/g, function (match) {
             return symbolMap$7[match];
         });
     },
     meridiemParse: /ರಾತ್ರಿ|ಬೆಳಿಗ್ಗೆ|ಮಧ್ಯಾಹ್ನ|ಸಂಜೆ/,
-    meridiemHour : function(hour, meridiem) {
+    meridiemHour : function (hour, meridiem) {
         if (hour === 12) {
             hour = 0;
         }
@@ -9130,7 +9130,7 @@ hooks.defineLocale('kn', {
             return hour + 12;
         }
     },
-    meridiem : function(hour, minute, isLower) {
+    meridiem : function (hour, minute, isLower) {
         if (hour < 4) {
             return 'ರಾತ್ರಿ';
         } else if (hour < 10) {
@@ -9144,7 +9144,7 @@ hooks.defineLocale('kn', {
         }
     },
     dayOfMonthOrdinalParse: /\d{1,2}(ನೇ)/,
-    ordinal : function(number) {
+    ordinal : function (number) {
         return number + 'ನೇ';
     },
     week : {
@@ -9203,10 +9203,10 @@ hooks.defineLocale('ko', {
     dayOfMonthOrdinalParse : /\d{1,2}일/,
     ordinal : '%d일',
     meridiemParse : /오전|오후/,
-    isPM : function(token) {
+    isPM : function (token) {
         return token === '오후';
     },
-    meridiem : function(hour, minute, isUpper) {
+    meridiem : function (hour, minute, isUpper) {
         return hour < 12 ? '오전' : '오후';
     }
 });
@@ -9277,7 +9277,7 @@ hooks.defineLocale('ky', {
         yy : '%d жыл'
     },
     dayOfMonthOrdinalParse: /\d{1,2}-(чи|чы|чү|чу)/,
-    ordinal : function(number) {
+    ordinal : function (number) {
         var a = number % 10,
             b = number >= 100 ? 100 : null;
         return number + (suffixes$2[number] || suffixes$2[a] || suffixes$2[b]);
@@ -9380,7 +9380,7 @@ hooks.defineLocale('lb', {
         nextDay: '[Muer um] LT',
         nextWeek: 'dddd [um] LT',
         lastDay: '[Gëschter um] LT',
-        lastWeek: function() {
+        lastWeek: function () {
             // Different date string for 'Dënschdeg' (Tuesday) and 'Donneschdeg' (Thursday) due to phonological rule
             switch (this.day()) {
                 case 2:
@@ -9434,10 +9434,10 @@ hooks.defineLocale('lo', {
         LLLL : 'ວັນdddd D MMMM YYYY HH:mm'
     },
     meridiemParse: /ຕອນເຊົ້າ|ຕອນແລງ/,
-    isPM: function(input) {
+    isPM: function (input) {
         return input === 'ຕອນແລງ';
     },
-    meridiem : function(hour, minute, isLower) {
+    meridiem : function (hour, minute, isLower) {
         if (hour < 12) {
             return 'ຕອນເຊົ້າ';
         } else {
@@ -9468,7 +9468,7 @@ hooks.defineLocale('lo', {
         yy : '%d ປີ'
     },
     dayOfMonthOrdinalParse: /(ທີ່)\d{1,2}/,
-    ordinal : function(number) {
+    ordinal : function (number) {
         return 'ທີ່' + number;
     }
 });
@@ -9570,7 +9570,7 @@ hooks.defineLocale('lt', {
         yy : translate$6
     },
     dayOfMonthOrdinalParse: /\d{1,2}-oji/,
-    ordinal : function(number) {
+    ordinal : function (number) {
         return number + '-oji';
     },
     week : {
@@ -9679,10 +9679,10 @@ var translator = {
         MM: ['mjesec', 'mjeseca', 'mjeseci'],
         yy: ['godina', 'godine', 'godina']
     },
-    correctGrammaticalCase: function(number, wordKey) {
+    correctGrammaticalCase: function (number, wordKey) {
         return number === 1 ? wordKey[0] : (number >= 2 && number <= 4 ? wordKey[1] : wordKey[2]);
     },
-    translate: function(number, withoutSuffix, key) {
+    translate: function (number, withoutSuffix, key) {
         var wordKey = translator.words[key];
         if (key.length === 1) {
             return withoutSuffix ? wordKey[0] : wordKey[1];
@@ -9712,7 +9712,7 @@ hooks.defineLocale('me', {
         sameDay: '[danas u] LT',
         nextDay: '[sjutra u] LT',
 
-        nextWeek: function() {
+        nextWeek: function () {
             switch (this.day()) {
                 case 0:
                     return '[u] [nedjelju] [u] LT';
@@ -9728,7 +9728,7 @@ hooks.defineLocale('me', {
             }
         },
         lastDay  : '[juče u] LT',
-        lastWeek : function() {
+        lastWeek : function () {
             var lastWeekDays = [
                 '[prošle] [nedjelje] [u] LT',
                 '[prošlog] [ponedjeljka] [u] LT',
@@ -9841,7 +9841,7 @@ hooks.defineLocale('mk', {
         nextDay : '[Утре во] LT',
         nextWeek : '[Во] dddd [во] LT',
         lastDay : '[Вчера во] LT',
-        lastWeek : function() {
+        lastWeek : function () {
             switch (this.day()) {
                 case 0:
                 case 3:
@@ -9872,7 +9872,7 @@ hooks.defineLocale('mk', {
         yy : '%d години'
     },
     dayOfMonthOrdinalParse: /\d{1,2}-(ев|ен|ти|ви|ри|ми)/,
-    ordinal : function(number) {
+    ordinal : function (number) {
         var lastDigit = number % 10,
             last2Digits = number % 100;
         if (number === 0) {
@@ -9940,7 +9940,7 @@ hooks.defineLocale('ml', {
         yy : '%d വർഷം'
     },
     meridiemParse: /രാത്രി|രാവിലെ|ഉച്ച കഴിഞ്ഞ്|വൈകുന്നേരം|രാത്രി/i,
-    meridiemHour : function(hour, meridiem) {
+    meridiemHour : function (hour, meridiem) {
         if (hour === 12) {
             hour = 0;
         }
@@ -9952,7 +9952,7 @@ hooks.defineLocale('ml', {
             return hour;
         }
     },
-    meridiem : function(hour, minute, isLower) {
+    meridiem : function (hour, minute, isLower) {
         if (hour < 4) {
             return 'രാത്രി';
         } else if (hour < 12) {
@@ -10071,18 +10071,18 @@ hooks.defineLocale('mr', {
         y: relativeTimeMr,
         yy: relativeTimeMr
     },
-    preparse: function(string) {
-        return string.replace(/[१२३४५६७८९०]/g, function(match) {
+    preparse: function (string) {
+        return string.replace(/[१२३४५६७८९०]/g, function (match) {
             return numberMap$7[match];
         });
     },
-    postformat: function(string) {
-        return string.replace(/\d/g, function(match) {
+    postformat: function (string) {
+        return string.replace(/\d/g, function (match) {
             return symbolMap$8[match];
         });
     },
     meridiemParse: /रात्री|सकाळी|दुपारी|सायंकाळी/,
-    meridiemHour : function(hour, meridiem) {
+    meridiemHour : function (hour, meridiem) {
         if (hour === 12) {
             hour = 0;
         }
@@ -10096,7 +10096,7 @@ hooks.defineLocale('mr', {
             return hour + 12;
         }
     },
-    meridiem: function(hour, minute, isLower) {
+    meridiem: function (hour, minute, isLower) {
         if (hour < 4) {
             return 'रात्री';
         } else if (hour < 10) {
@@ -10135,7 +10135,7 @@ hooks.defineLocale('ms-my', {
         LLLL : 'dddd, D MMMM YYYY [pukul] HH.mm'
     },
     meridiemParse: /pagi|tengahari|petang|malam/,
-    meridiemHour: function(hour, meridiem) {
+    meridiemHour: function (hour, meridiem) {
         if (hour === 12) {
             hour = 0;
         }
@@ -10147,7 +10147,7 @@ hooks.defineLocale('ms-my', {
             return hour + 12;
         }
     },
-    meridiem : function(hours, minutes, isLower) {
+    meridiem : function (hours, minutes, isLower) {
         if (hours < 11) {
             return 'pagi';
         } else if (hours < 15) {
@@ -10206,7 +10206,7 @@ hooks.defineLocale('ms', {
         LLLL : 'dddd, D MMMM YYYY [pukul] HH.mm'
     },
     meridiemParse: /pagi|tengahari|petang|malam/,
-    meridiemHour: function(hour, meridiem) {
+    meridiemHour: function (hour, meridiem) {
         if (hour === 12) {
             hour = 0;
         }
@@ -10218,7 +10218,7 @@ hooks.defineLocale('ms', {
             return hour + 12;
         }
     },
-    meridiem : function(hours, minutes, isLower) {
+    meridiem : function (hours, minutes, isLower) {
         if (hours < 11) {
             return 'pagi';
         } else if (hours < 15) {
@@ -10327,13 +10327,13 @@ hooks.defineLocale('my', {
         y: 'တစ်နှစ်',
         yy: '%d နှစ်'
     },
-    preparse: function(string) {
-        return string.replace(/[၁၂၃၄၅၆၇၈၉၀]/g, function(match) {
+    preparse: function (string) {
+        return string.replace(/[၁၂၃၄၅၆၇၈၉၀]/g, function (match) {
             return numberMap$8[match];
         });
     },
-    postformat: function(string) {
-        return string.replace(/\d/g, function(match) {
+    postformat: function (string) {
+        return string.replace(/\d/g, function (match) {
             return symbolMap$9[match];
         });
     },
@@ -10440,18 +10440,18 @@ hooks.defineLocale('ne', {
         LLL : 'D MMMM YYYY, Aको h:mm बजे',
         LLLL : 'dddd, D MMMM YYYY, Aको h:mm बजे'
     },
-    preparse: function(string) {
-        return string.replace(/[१२३४५६७८९०]/g, function(match) {
+    preparse: function (string) {
+        return string.replace(/[१२३४५६७८९०]/g, function (match) {
             return numberMap$9[match];
         });
     },
-    postformat: function(string) {
-        return string.replace(/\d/g, function(match) {
+    postformat: function (string) {
+        return string.replace(/\d/g, function (match) {
             return symbolMap$10[match];
         });
     },
     meridiemParse: /राति|बिहान|दिउँसो|साँझ/,
-    meridiemHour : function(hour, meridiem) {
+    meridiemHour : function (hour, meridiem) {
         if (hour === 12) {
             hour = 0;
         }
@@ -10465,7 +10465,7 @@ hooks.defineLocale('ne', {
             return hour + 12;
         }
     },
-    meridiem : function(hour, minute, isLower) {
+    meridiem : function (hour, minute, isLower) {
         if (hour < 3) {
             return 'राति';
         } else if (hour < 12) {
@@ -10520,7 +10520,7 @@ var monthsRegex$1 = /^(januari|februari|maart|april|mei|april|ju[nl]i|augustus|s
 
 hooks.defineLocale('nl-be', {
     months : 'januari_februari_maart_april_mei_juni_juli_augustus_september_oktober_november_december'.split('_'),
-    monthsShort : function(m, format) {
+    monthsShort : function (m, format) {
         if (!m) {
             return monthsShortWithDots$1;
         } else if (/-MMM-/.test(format)) {
@@ -10575,7 +10575,7 @@ hooks.defineLocale('nl-be', {
         yy : '%d jaar'
     },
     dayOfMonthOrdinalParse: /\d{1,2}(ste|de)/,
-    ordinal : function(number) {
+    ordinal : function (number) {
         return number + ((number === 1 || number === 8 || number >= 20) ? 'ste' : 'de');
     },
     week : {
@@ -10597,7 +10597,7 @@ var monthsRegex$2 = /^(januari|februari|maart|april|mei|april|ju[nl]i|augustus|s
 
 hooks.defineLocale('nl', {
     months : 'januari_februari_maart_april_mei_juni_juli_augustus_september_oktober_november_december'.split('_'),
-    monthsShort : function(m, format) {
+    monthsShort : function (m, format) {
         if (!m) {
             return monthsShortWithDots$2;
         } else if (/-MMM-/.test(format)) {
@@ -10652,7 +10652,7 @@ hooks.defineLocale('nl', {
         yy : '%d jaar'
     },
     dayOfMonthOrdinalParse: /\d{1,2}(ste|de)/,
-    ordinal : function(number) {
+    ordinal : function (number) {
         return number + ((number === 1 || number === 8 || number >= 20) ? 'ste' : 'de');
     },
     week : {
@@ -10777,20 +10777,20 @@ hooks.defineLocale('pa-in', {
         y : 'ਇੱਕ ਸਾਲ',
         yy : '%d ਸਾਲ'
     },
-    preparse: function(string) {
-        return string.replace(/[੧੨੩੪੫੬੭੮੯੦]/g, function(match) {
+    preparse: function (string) {
+        return string.replace(/[੧੨੩੪੫੬੭੮੯੦]/g, function (match) {
             return numberMap$10[match];
         });
     },
-    postformat: function(string) {
-        return string.replace(/\d/g, function(match) {
+    postformat: function (string) {
+        return string.replace(/\d/g, function (match) {
             return symbolMap$11[match];
         });
     },
     // Punjabi notation for meridiems are quite fuzzy in practice. While there exists
     // a rigid notion of a 'Pahar' it is not used as rigidly in modern Punjabi.
     meridiemParse: /ਰਾਤ|ਸਵੇਰ|ਦੁਪਹਿਰ|ਸ਼ਾਮ/,
-    meridiemHour : function(hour, meridiem) {
+    meridiemHour : function (hour, meridiem) {
         if (hour === 12) {
             hour = 0;
         }
@@ -10804,7 +10804,7 @@ hooks.defineLocale('pa-in', {
             return hour + 12;
         }
     },
-    meridiem : function(hour, minute, isLower) {
+    meridiem : function (hour, minute, isLower) {
         if (hour < 4) {
             return 'ਰਾਤ';
         } else if (hour < 10) {
@@ -10851,7 +10851,7 @@ function translate$7(number, withoutSuffix, key) {
 }
 
 hooks.defineLocale('pl', {
-    months : function(momentToFormat, format) {
+    months : function (momentToFormat, format) {
         if (!momentToFormat) {
             return monthsNominative;
         } else if (format === '') {
@@ -10882,7 +10882,7 @@ hooks.defineLocale('pl', {
         nextDay: '[Jutro o] LT',
         nextWeek: '[W] dddd [o] LT',
         lastDay: '[Wczoraj o] LT',
-        lastWeek: function() {
+        lastWeek: function () {
             switch (this.day()) {
                 case 0:
                     return '[W zeszłą niedzielę o] LT';
@@ -10943,7 +10943,7 @@ hooks.defineLocale('pt-br', {
         nextDay: '[Amanhã às] LT',
         nextWeek: 'dddd [às] LT',
         lastDay: '[Ontem às] LT',
-        lastWeek: function() {
+        lastWeek: function () {
             return (this.day() === 0 || this.day() === 6) ?
                 '[Último] dddd [às] LT' : // Saturday + Sunday
                 '[Última] dddd [às] LT'; // Monday - Friday
@@ -10993,7 +10993,7 @@ hooks.defineLocale('pt', {
         nextDay: '[Amanhã às] LT',
         nextWeek: 'dddd [às] LT',
         lastDay: '[Ontem às] LT',
-        lastWeek: function() {
+        lastWeek: function () {
             return (this.day() === 0 || this.day() === 6) ?
                 '[Último] dddd [às] LT' : // Saturday + Sunday
                 '[Última] dddd [às] LT'; // Monday - Friday
@@ -11161,7 +11161,7 @@ hooks.defineLocale('ru', {
         sameDay: '[Сегодня в] LT',
         nextDay: '[Завтра в] LT',
         lastDay: '[Вчера в] LT',
-        nextWeek: function(now) {
+        nextWeek: function (now) {
             if (now.week() !== this.week()) {
                 switch (this.day()) {
                     case 0:
@@ -11183,7 +11183,7 @@ hooks.defineLocale('ru', {
                 }
             }
         },
-        lastWeek: function(now) {
+        lastWeek: function (now) {
             if (now.week() !== this.week()) {
                 switch (this.day()) {
                     case 0:
@@ -11223,10 +11223,10 @@ hooks.defineLocale('ru', {
         yy : relativeTimeWithPlural$3
     },
     meridiemParse: /ночи|утра|дня|вечера/i,
-    isPM : function(input) {
+    isPM : function (input) {
         return /^(дня|вечера)$/.test(input);
     },
-    meridiem : function(hour, minute, isLower) {
+    meridiem : function (hour, minute, isLower) {
         if (hour < 4) {
             return 'ночи';
         } else if (hour < 12) {
@@ -11238,7 +11238,7 @@ hooks.defineLocale('ru', {
         }
     },
     dayOfMonthOrdinalParse: /\d{1,2}-(й|го|я)/,
-    ordinal: function(number, period) {
+    ordinal: function (number, period) {
         switch (period) {
             case 'M':
             case 'd':
@@ -11302,10 +11302,10 @@ hooks.defineLocale('sd', {
         LLLL : 'dddd، D MMMM YYYY HH:mm'
     },
     meridiemParse: /صبح|شام/,
-    isPM : function(input) {
+    isPM : function (input) {
         return 'شام' === input;
     },
-    meridiem : function(hour, minute, isLower) {
+    meridiem : function (hour, minute, isLower) {
         if (hour < 12) {
             return 'صبح';
         }
@@ -11334,10 +11334,10 @@ hooks.defineLocale('sd', {
         y : 'هڪ سال',
         yy : '%d سال'
     },
-    preparse: function(string) {
+    preparse: function (string) {
         return string.replace(/،/g, ',');
     },
-    postformat: function(string) {
+    postformat: function (string) {
         return string.replace(/,/g, '،');
     },
     week : {
@@ -11440,14 +11440,14 @@ hooks.defineLocale('si', {
         yy : 'වසර %d'
     },
     dayOfMonthOrdinalParse: /\d{1,2} වැනි/,
-    ordinal : function(number) {
+    ordinal : function (number) {
         return number + ' වැනි';
     },
     meridiemParse : /පෙර වරු|පස් වරු|පෙ.ව|ප.ව./,
-    isPM : function(input) {
+    isPM : function (input) {
         return input === 'ප.ව.' || input === 'පස් වරු';
     },
-    meridiem : function(hours, minutes, isLower) {
+    meridiem : function (hours, minutes, isLower) {
         if (hours > 11) {
             return isLower ? 'ප.ව.' : 'පස් වරු';
         } else {
@@ -11536,7 +11536,7 @@ hooks.defineLocale('sk', {
     calendar : {
         sameDay: '[dnes o] LT',
         nextDay: '[zajtra o] LT',
-        nextWeek: function() {
+        nextWeek: function () {
             switch (this.day()) {
                 case 0:
                     return '[v nedeľu o] LT';
@@ -11554,7 +11554,7 @@ hooks.defineLocale('sk', {
             }
         },
         lastDay: '[včera o] LT',
-        lastWeek: function() {
+        lastWeek: function () {
             switch (this.day()) {
                 case 0:
                     return '[minulú nedeľu o] LT';
@@ -11690,7 +11690,7 @@ hooks.defineLocale('sl', {
         sameDay  : '[danes ob] LT',
         nextDay  : '[jutri ob] LT',
 
-        nextWeek : function() {
+        nextWeek : function () {
             switch (this.day()) {
                 case 0:
                     return '[v] [nedeljo] [ob] LT';
@@ -11706,7 +11706,7 @@ hooks.defineLocale('sl', {
             }
         },
         lastDay  : '[včeraj ob] LT',
-        lastWeek : function() {
+        lastWeek : function () {
             switch (this.day()) {
                 case 0:
                     return '[prejšnjo] [nedeljo] [ob] LT';
@@ -11760,10 +11760,10 @@ hooks.defineLocale('sq', {
     weekdaysMin : 'D_H_Ma_Më_E_P_Sh'.split('_'),
     weekdaysParseExact : true,
     meridiemParse: /PD|MD/,
-    isPM: function(input) {
+    isPM: function (input) {
         return input.charAt(0) === 'M';
     },
-    meridiem : function(hours, minutes, isLower) {
+    meridiem : function (hours, minutes, isLower) {
         return hours < 12 ? 'PD' : 'MD';
     },
     longDateFormat : {
@@ -11819,10 +11819,10 @@ var translator$1 = {
         MM: ['месец', 'месеца', 'месеци'],
         yy: ['година', 'године', 'година']
     },
-    correctGrammaticalCase: function(number, wordKey) {
+    correctGrammaticalCase: function (number, wordKey) {
         return number === 1 ? wordKey[0] : (number >= 2 && number <= 4 ? wordKey[1] : wordKey[2]);
     },
-    translate: function(number, withoutSuffix, key) {
+    translate: function (number, withoutSuffix, key) {
         var wordKey = translator$1.words[key];
         if (key.length === 1) {
             return withoutSuffix ? wordKey[0] : wordKey[1];
@@ -11851,7 +11851,7 @@ hooks.defineLocale('sr-cyrl', {
     calendar: {
         sameDay: '[данас у] LT',
         nextDay: '[сутра у] LT',
-        nextWeek: function() {
+        nextWeek: function () {
             switch (this.day()) {
                 case 0:
                     return '[у] [недељу] [у] LT';
@@ -11867,7 +11867,7 @@ hooks.defineLocale('sr-cyrl', {
             }
         },
         lastDay  : '[јуче у] LT',
-        lastWeek : function() {
+        lastWeek : function () {
             var lastWeekDays = [
                 '[прошле] [недеље] [у] LT',
                 '[прошлог] [понедељка] [у] LT',
@@ -11918,10 +11918,10 @@ var translator$2 = {
         MM: ['mesec', 'meseca', 'meseci'],
         yy: ['godina', 'godine', 'godina']
     },
-    correctGrammaticalCase: function(number, wordKey) {
+    correctGrammaticalCase: function (number, wordKey) {
         return number === 1 ? wordKey[0] : (number >= 2 && number <= 4 ? wordKey[1] : wordKey[2]);
     },
-    translate: function(number, withoutSuffix, key) {
+    translate: function (number, withoutSuffix, key) {
         var wordKey = translator$2.words[key];
         if (key.length === 1) {
             return withoutSuffix ? wordKey[0] : wordKey[1];
@@ -11950,7 +11950,7 @@ hooks.defineLocale('sr', {
     calendar: {
         sameDay: '[danas u] LT',
         nextDay: '[sutra u] LT',
-        nextWeek: function() {
+        nextWeek: function () {
             switch (this.day()) {
                 case 0:
                     return '[u] [nedelju] [u] LT';
@@ -11966,7 +11966,7 @@ hooks.defineLocale('sr', {
             }
         },
         lastDay  : '[juče u] LT',
-        lastWeek : function() {
+        lastWeek : function () {
             var lastWeekDays = [
                 '[prošle] [nedelje] [u] LT',
                 '[prošlog] [ponedeljka] [u] LT',
@@ -12047,7 +12047,7 @@ hooks.defineLocale('ss', {
         yy : '%d iminyaka'
     },
     meridiemParse: /ekuseni|emini|entsambama|ebusuku/,
-    meridiem : function(hours, minutes, isLower) {
+    meridiem : function (hours, minutes, isLower) {
         if (hours < 11) {
             return 'ekuseni';
         } else if (hours < 15) {
@@ -12058,7 +12058,7 @@ hooks.defineLocale('ss', {
             return 'ebusuku';
         }
     },
-    meridiemHour : function(hour, meridiem) {
+    meridiemHour : function (hour, meridiem) {
         if (hour === 12) {
             hour = 0;
         }
@@ -12125,7 +12125,7 @@ hooks.defineLocale('sv', {
         yy : '%d år'
     },
     dayOfMonthOrdinalParse: /\d{1,2}(e|a)/,
-    ordinal : function(number) {
+    ordinal : function (number) {
         var b = number % 10,
             output = (~~(number % 100 / 10) === 1) ? 'e' :
             (b === 1) ? 'a' :
@@ -12254,22 +12254,22 @@ hooks.defineLocale('ta', {
         yy : '%d ஆண்டுகள்'
     },
     dayOfMonthOrdinalParse: /\d{1,2}வது/,
-    ordinal : function(number) {
+    ordinal : function (number) {
         return number + 'வது';
     },
-    preparse: function(string) {
-        return string.replace(/[௧௨௩௪௫௬௭௮௯௦]/g, function(match) {
+    preparse: function (string) {
+        return string.replace(/[௧௨௩௪௫௬௭௮௯௦]/g, function (match) {
             return numberMap$11[match];
         });
     },
-    postformat: function(string) {
-        return string.replace(/\d/g, function(match) {
+    postformat: function (string) {
+        return string.replace(/\d/g, function (match) {
             return symbolMap$12[match];
         });
     },
     // refer http://ta.wikipedia.org/s/1er1
     meridiemParse: /யாமம்|வைகறை|காலை|நண்பகல்|எற்பாடு|மாலை/,
-    meridiem : function(hour, minute, isLower) {
+    meridiem : function (hour, minute, isLower) {
         if (hour < 2) {
             return ' யாமம்';
         } else if (hour < 6) {
@@ -12286,7 +12286,7 @@ hooks.defineLocale('ta', {
             return ' யாமம்';
         }
     },
-    meridiemHour : function(hour, meridiem) {
+    meridiemHour : function (hour, meridiem) {
         if (hour === 12) {
             hour = 0;
         }
@@ -12351,7 +12351,7 @@ hooks.defineLocale('te', {
     dayOfMonthOrdinalParse : /\d{1,2}వ/,
     ordinal : '%dవ',
     meridiemParse: /రాత్రి|ఉదయం|మధ్యాహ్నం|సాయంత్రం/,
-    meridiemHour : function(hour, meridiem) {
+    meridiemHour : function (hour, meridiem) {
         if (hour === 12) {
             hour = 0;
         }
@@ -12365,7 +12365,7 @@ hooks.defineLocale('te', {
             return hour + 12;
         }
     },
-    meridiem : function(hour, minute, isLower) {
+    meridiem : function (hour, minute, isLower) {
         if (hour < 4) {
             return 'రాత్రి';
         } else if (hour < 10) {
@@ -12427,7 +12427,7 @@ hooks.defineLocale('tet', {
         yy : 'tinan %d'
     },
     dayOfMonthOrdinalParse: /\d{1,2}(st|nd|rd|th)/,
-    ordinal : function(number) {
+    ordinal : function (number) {
         var b = number % 10,
             output = (~~(number % 100 / 10) === 1) ? 'th' :
             (b === 1) ? 'st' :
@@ -12462,10 +12462,10 @@ hooks.defineLocale('th', {
         LLLL : 'วันddddที่ D MMMM YYYY เวลา H:mm'
     },
     meridiemParse: /ก่อนเที่ยง|หลังเที่ยง/,
-    isPM: function(input) {
+    isPM: function (input) {
         return input === 'หลังเที่ยง';
     },
-    meridiem : function(hour, minute, isLower) {
+    meridiem : function (hour, minute, isLower) {
         if (hour < 12) {
             return 'ก่อนเที่ยง';
         } else {
@@ -12539,7 +12539,7 @@ hooks.defineLocale('tl-ph', {
         yy : '%d taon'
     },
     dayOfMonthOrdinalParse: /\d{1,2}/,
-    ordinal : function(number) {
+    ordinal : function (number) {
         return number;
     },
     week : {
@@ -12721,7 +12721,7 @@ hooks.defineLocale('tr', {
         yy : '%d yıl'
     },
     dayOfMonthOrdinalParse: /\d{1,2}'(inci|nci|üncü|ncı|uncu|ıncı)/,
-    ordinal : function(number) {
+    ordinal : function (number) {
         if (number === 0) {  // special case for zero
             return number + '\'ıncı';
         }
@@ -12758,10 +12758,10 @@ hooks.defineLocale('tzl', {
         LLLL : 'dddd, [li] D. MMMM [dallas] YYYY HH.mm'
     },
     meridiemParse: /d\'o|d\'a/i,
-    isPM : function(input) {
+    isPM : function (input) {
         return 'd\'o' === input.toLowerCase();
     },
-    meridiem : function(hours, minutes, isLower) {
+    meridiem : function (hours, minutes, isLower) {
         if (hours > 11) {
             return isLower ? 'd\'o' : 'D\'O';
         } else {
@@ -12955,8 +12955,8 @@ function weekdaysCaseReplace(m, format) {
             'nominative');
     return weekdays[nounCase][m.day()];
 }
-function processHoursfunction(str) {
-    return function() {
+function processHoursFunction(str) {
+    return function () {
         return str + 'о' + (this.hours() === 11 ? 'б' : '') + '] LT';
     };
 }
@@ -12979,21 +12979,21 @@ hooks.defineLocale('uk', {
         LLLL : 'dddd, D MMMM YYYY р., HH:mm'
     },
     calendar : {
-        sameDay: processHoursfunction('[Сьогодні '),
-        nextDay: processHoursfunction('[Завтра '),
-        lastDay: processHoursfunction('[Вчора '),
-        nextWeek: processHoursfunction('[У] dddd ['),
-        lastWeek: function() {
+        sameDay: processHoursFunction('[Сьогодні '),
+        nextDay: processHoursFunction('[Завтра '),
+        lastDay: processHoursFunction('[Вчора '),
+        nextWeek: processHoursFunction('[У] dddd ['),
+        lastWeek: function () {
             switch (this.day()) {
                 case 0:
                 case 3:
                 case 5:
                 case 6:
-                    return processHoursfunction('[Минулої] dddd [').call(this);
+                    return processHoursFunction('[Минулої] dddd [').call(this);
                 case 1:
                 case 2:
                 case 4:
-                    return processHoursfunction('[Минулого] dddd [').call(this);
+                    return processHoursFunction('[Минулого] dddd [').call(this);
             }
         },
         sameElse: 'L'
@@ -13015,10 +13015,10 @@ hooks.defineLocale('uk', {
     },
     // M. E.: those two are virtually unused but a user might want to implement them for his/her website for some reason
     meridiemParse: /ночі|ранку|дня|вечора/,
-    isPM: function(input) {
+    isPM: function (input) {
         return /^(дня|вечора)$/.test(input);
     },
-    meridiem : function(hour, minute, isLower) {
+    meridiem : function (hour, minute, isLower) {
         if (hour < 4) {
             return 'ночі';
         } else if (hour < 12) {
@@ -13030,7 +13030,7 @@ hooks.defineLocale('uk', {
         }
     },
     dayOfMonthOrdinalParse: /\d{1,2}-(й|го)/,
-    ordinal: function(number, period) {
+    ordinal: function (number, period) {
         switch (period) {
             case 'M':
             case 'd':
@@ -13094,10 +13094,10 @@ hooks.defineLocale('ur', {
         LLLL : 'dddd، D MMMM YYYY HH:mm'
     },
     meridiemParse: /صبح|شام/,
-    isPM : function(input) {
+    isPM : function (input) {
         return 'شام' === input;
     },
-    meridiem : function(hour, minute, isLower) {
+    meridiem : function (hour, minute, isLower) {
         if (hour < 12) {
             return 'صبح';
         }
@@ -13126,10 +13126,10 @@ hooks.defineLocale('ur', {
         y : 'ایک سال',
         yy : '%d سال'
     },
-    preparse: function(string) {
+    preparse: function (string) {
         return string.replace(/،/g, ',');
     },
-    postformat: function(string) {
+    postformat: function (string) {
         return string.replace(/,/g, '،');
     },
     week : {
@@ -13245,10 +13245,10 @@ hooks.defineLocale('vi', {
     weekdaysMin : 'CN_T2_T3_T4_T5_T6_T7'.split('_'),
     weekdaysParseExact : true,
     meridiemParse: /sa|ch/i,
-    isPM : function(input) {
+    isPM : function (input) {
         return /^ch$/i.test(input);
     },
-    meridiem : function(hours, minutes, isLower) {
+    meridiem : function (hours, minutes, isLower) {
         if (hours < 12) {
             return isLower ? 'sa' : 'SA';
         } else {
@@ -13291,7 +13291,7 @@ hooks.defineLocale('vi', {
         yy : '%d năm'
     },
     dayOfMonthOrdinalParse: /\d{1,2}/,
-    ordinal : function(number) {
+    ordinal : function (number) {
         return number;
     },
     week : {
@@ -13343,7 +13343,7 @@ hooks.defineLocale('x-pseudo', {
         yy : '%d ý~éárs'
     },
     dayOfMonthOrdinalParse: /\d{1,2}(th|st|nd|rd)/,
-    ordinal : function(number) {
+    ordinal : function (number) {
         var b = number % 10,
             output = (~~(number % 100 / 10) === 1) ? 'th' :
             (b === 1) ? 'st' :
@@ -13430,7 +13430,7 @@ hooks.defineLocale('zh-cn', {
         llll : 'YYYY年MMMD日dddd HH:mm'
     },
     meridiemParse: /凌晨|早上|上午|中午|下午|晚上/,
-    meridiemHour: function(hour, meridiem) {
+    meridiemHour: function (hour, meridiem) {
         if (hour === 12) {
             hour = 0;
         }
@@ -13444,7 +13444,7 @@ hooks.defineLocale('zh-cn', {
             return hour >= 11 ? hour : hour + 12;
         }
     },
-    meridiem : function(hour, minute, isLower) {
+    meridiem : function (hour, minute, isLower) {
         var hm = hour * 100 + minute;
         if (hm < 600) {
             return '凌晨';
@@ -13469,7 +13469,7 @@ hooks.defineLocale('zh-cn', {
         sameElse : 'L'
     },
     dayOfMonthOrdinalParse: /\d{1,2}(日|月|周)/,
-    ordinal : function(number, period) {
+    ordinal : function (number, period) {
         switch (period) {
             case 'd':
             case 'D':
@@ -13531,7 +13531,7 @@ hooks.defineLocale('zh-hk', {
         llll : 'YYYY年MMMD日dddd HH:mm'
     },
     meridiemParse: /凌晨|早上|上午|中午|下午|晚上/,
-    meridiemHour : function(hour, meridiem) {
+    meridiemHour : function (hour, meridiem) {
         if (hour === 12) {
             hour = 0;
         }
@@ -13543,7 +13543,7 @@ hooks.defineLocale('zh-hk', {
             return hour + 12;
         }
     },
-    meridiem : function(hour, minute, isLower) {
+    meridiem : function (hour, minute, isLower) {
         var hm = hour * 100 + minute;
         if (hm < 600) {
             return '凌晨';
@@ -13568,7 +13568,7 @@ hooks.defineLocale('zh-hk', {
         sameElse : 'L'
     },
     dayOfMonthOrdinalParse: /\d{1,2}(日|月|週)/,
-    ordinal : function(number, period) {
+    ordinal : function (number, period) {
         switch (period) {
             case 'd' :
             case 'D' :
@@ -13624,7 +13624,7 @@ hooks.defineLocale('zh-tw', {
         llll : 'YYYY年MMMD日dddd HH:mm'
     },
     meridiemParse: /凌晨|早上|上午|中午|下午|晚上/,
-    meridiemHour : function(hour, meridiem) {
+    meridiemHour : function (hour, meridiem) {
         if (hour === 12) {
             hour = 0;
         }
@@ -13636,7 +13636,7 @@ hooks.defineLocale('zh-tw', {
             return hour + 12;
         }
     },
-    meridiem : function(hour, minute, isLower) {
+    meridiem : function (hour, minute, isLower) {
         var hm = hour * 100 + minute;
         if (hm < 600) {
             return '凌晨';
@@ -13661,7 +13661,7 @@ hooks.defineLocale('zh-tw', {
         sameElse : 'L'
     },
     dayOfMonthOrdinalParse: /\d{1,2}(日|月|週)/,
-    ordinal : function(number, period) {
+    ordinal : function (number, period) {
         switch (period) {
             case 'd' :
             case 'D' :
