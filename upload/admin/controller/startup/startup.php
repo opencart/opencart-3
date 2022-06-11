@@ -20,11 +20,6 @@ class ControllerStartupStartup extends Controller {
 			$this->db->query("SET time_zone = '" . $this->db->escape(date('P')) . "'");
 		}
 		
-		// Update the session lifetime
-		if ($this->config->get('config_session_expire')) {
-			$this->config->set('session_expire', $this->config->get('config_session_expire'));
-		}
-
 		// Theme
 		$this->config->set('template_cache', $this->config->get('developer_theme'));
 				

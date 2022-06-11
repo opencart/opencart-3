@@ -40,12 +40,15 @@ $_['cache_engine']         = 'file'; // apc, file, mem or memcached
 $_['cache_expire']         = 3600;
 
 // Session
-$_['session_engine']       = 'db';
-$_['session_autostart']    = true;
+$_['session_autostart']    = false;
+$_['session_engine']       = 'file'; // db or file
 $_['session_name']         = 'OCSESSID';
+$_['session_domain']       = '';
+$_['session_path']         = '/';
 $_['session_expire']       = 999999999;
-$_['session_divisor']      = 5;
 $_['session_probability']  = 1;
+$_['session_divisor']      = 5;
+$_['session_samesite']     = 'Strict';
 
 // Template
 $_['template_engine']      = 'twig';

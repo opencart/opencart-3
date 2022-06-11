@@ -15,6 +15,12 @@ class ControllerCommonFooter extends Controller {
 				);
 			}
 		}
+		
+		if ($this->config->get('config_gdpr_id')) {
+			$data['gdpr'] = $this->url->link('information/gdpr');
+		} else {
+			$data['gdpr'] = '';
+		}
 
 		$data['contact'] = $this->url->link('information/contact');
 		$data['returns'] = $this->url->link('account/returns/add', '', true);
@@ -58,6 +64,8 @@ class ControllerCommonFooter extends Controller {
 
 		$data['scripts'] = $this->document->getScripts('footer');
 		$data['styles'] = $this->document->getStyles('footer');
+		
+		$data['cookie'] = $this->load->controller('common/cookie');
 		
 		return $this->load->view('common/footer', $data);
 	}

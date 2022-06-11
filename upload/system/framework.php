@@ -84,32 +84,30 @@ if ($config->get('db_autostart')) {
 	$db->query("SET time_zone = '" . $db->escape(date('P')) . "'");
 }
 
-// Session
-$session = new \Session($config->get('session_engine'), $registry);
-$registry->set('session', $session);
-
 if ($config->get('session_autostart')) {
-	/*
-	We are adding the session cookie outside of the session class as I believe
-	PHP messed up in a big way handling sessions. Why in the hell is it so hard to
-	have more than one concurrent session using cookies!
-
-	Is it not better to have multiple cookies when accessing parts of the system
-	that requires different cookie sessions for security reasons.
-
-	Also cookies can be accessed via the URL parameters. So why force only one cookie
-	for all sessions!
-	*/
-
-	if (isset($_COOKIE[$config->get('session_name')])) {
-		$session_id = $_COOKIE[$config->get('session_name')];
+	// Session
+	$session = new \Session($config->get('session_engine'), $registry);
+	$registry->set('session', $session);
+	
+	if (isset($request->cookie[$config->get('session_name')])) {
+		$session_id = $request->cookie[$config->get('session_name')];
 	} else {
 		$session_id = '';
 	}
 
 	$session->start($session_id);
 
-	setcookie($config->get('session_name'), $session->getId(), $config->get('config_session_expire'), ini_get('session.cookie_path'), ini_get('session.cookie_domain'));
+	// Require higher security for session cookies
+	$option = array(
+		'expires'  => 0,
+		'path'     => !empty($request->server['PHP_SELF']) ? rtrim(dirname($request->server['PHP_SELF']), '/') . '/' : '/',
+		'domain'   => $config->get('session_domain'),
+		'secure'   => $request->server['HTTPS'],
+		'httponly' => false,
+		'SameSite' => $config->get('session_samesite')
+	);
+
+	setcookie($config->get('session_name'), $session->getId(), $option);
 }
 
 // Cache

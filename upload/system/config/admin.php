@@ -20,6 +20,7 @@ $_['template_cache']    = true;
 
 // Actions
 $_['action_pre_action'] = array(
+	'startup/session',
 	'startup/startup',
 	'startup/error',
 	'startup/event',
@@ -29,10 +30,10 @@ $_['action_pre_action'] = array(
 );
 
 // Actions
-$_['action_default'] = 'common/dashboard';
+$_['action_default'] 	= 'common/dashboard';
 
 // Action Events
-$_['action_event'] = array(
+$_['action_event'] 		= array(
 	'controller/*/before' => array(
 		'event/language/before'
 	),

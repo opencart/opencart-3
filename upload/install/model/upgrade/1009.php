@@ -88,6 +88,31 @@ class ModelUpgrade1009 extends Model {
 		if ($query->num_rows) {
 			$this->db->query("ALTER TABLE `" . DB_PREFIX . "event` DROP COLUMN `date_added`");
 		}
+		
+		// Events - Admin GDPR
+		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "event` WHERE `trigger` = 'admin/model/customer/gdpr/editStatus/after'");
+		
+		if (!$query->num_rows) {
+			$this->db->query("INSERT INTO `" . DB_PREFIX . "event` SET `code` = 'admin_mail_gdpr', `trigger` = 'admin/model/customer/gdpr/editStatus/after', `action` = 'mail/gdpr', '1', '0'");
+		}
+		
+		// Events - Catalog GDPR
+		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "event` WHERE `trigger` = 'catalog/model/account/gdpr/addGdpr/after'");
+		
+		if (!$query->num_rows) {
+			$this->db->query("INSERT INTO `" . DB_PREFIX . "event` SET `code` = 'mail_gdpr', `trigger` = 'catalog/model/account/gdpr/addGdpr/after', `action` = 'mail/gdpr', '1', '0'");
+		}
+		
+		// Layouts - GDPR Information
+		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "layout` WHERE `name` = 'Account'");
+		
+		if ($query->num_rows) {
+			$layout_route = $this->db->query("SELECT * FROM `" . DB_PREFIX . "layout_route` WHERE `layout_id` = '" . (int)$query->row['layout_id'] . "' AND `route` = 'information/gdpr'");
+			
+			if (!$layout_route->num_rows) {
+				$this->db->query("INSERT INTO `" . DB_PREFIX . "layout_route` SET `layout_id` = '" . (int)$query->row['layout_id'] . "', `store_id` = '0', `route` = 'information/gdpr'");
+			}
+		}
 
 		// Returns
 		$this->db->query("UPDATE `" . DB_PREFIX . "event` SET `trigger` = 'admin/model/sale/returns/addReturnHistory/after', `action` = 'mail/returns' WHERE `action` = 'mail/return'");
@@ -127,6 +152,27 @@ class ModelUpgrade1009 extends Model {
 		
 		if (!$setting_query->num_rows) {
 			$this->db->query("INSERT INTO `" . DB_PREFIX . "setting` SET `store_id` = '0', `code` = 'config', `key` = 'config_session_expire', `value` = '3600', `serialized` = '0'");
+		}
+		
+		// Config Cookie ID
+		$setting_query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "setting` WHERE `key` = 'config_cookie_id'");
+		
+		if (!$setting_query->num_rows) {
+			$this->db->query("INSERT INTO `" . DB_PREFIX . "setting` SET `store_id` = '0', `code` = 'config', `key` = 'config_cookie_id', `value` = '0', `serialized` = '0'");
+		}
+		
+		// Config GDPR ID
+		$setting_query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "setting` WHERE `key` = 'config_gdpr_id'");
+		
+		if (!$setting_query->num_rows) {
+			$this->db->query("INSERT INTO `" . DB_PREFIX . "setting` SET `store_id` = '0', `code` = 'config', `key` = 'config_gdpr_id', `value` = '0', `serialized` = '0'");
+		}
+		
+		// Config GDPR Limit
+		$setting_query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "setting` WHERE `key` = 'config_gdpr_limit'");
+		
+		if (!$setting_query->num_rows) {
+			$this->db->query("INSERT INTO `" . DB_PREFIX . "setting` SET `store_id` = '0', `code` = 'config', `key` = 'config_gdpr_limit', `value` = '180', `serialized` = '0'");
 		}
 		
 		// OPENCART_SERVER
