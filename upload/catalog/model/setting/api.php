@@ -6,6 +6,12 @@ class ModelSettingApi extends Model {
 		return $query->row;
 	}
 	
+	public function getApiByToken($token) {
+		$query = $this->db->query("SELECT DISTINCT * FROM `" . DB_PREFIX . "api` a LEFT JOIN `" . DB_PREFIX . "api_session` `as` ON (a.`api_id` = `as`.`api_id`) LEFT JOIN `" . DB_PREFIX . "api_ip` ai ON (a.`api_id` = ai.`api_id`) WHERE a.`status` = '1' AND `as`.`session_id` = '" . $this->db->escape($token) . "' AND ai.`ip` = '" . $this->db->escape($this->request->server['REMOTE_ADDR']) . "'");
+
+		return $query->row;
+	}
+	
 	public function updateSession($api_session_id) {
 		// keep the session alive
 		$this->db->query("UPDATE `" . DB_PREFIX . "api_session` SET `date_modified` = NOW() WHERE `api_session_id` = '" . (int)$api_session_id . "'");
