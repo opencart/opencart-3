@@ -62,7 +62,7 @@ function start(url) {
 			url: url,
 			type: 'post',
 			dataType: 'json',
-			success: function(json) {
+			success: function (json) {
 				if (json['error']) {
 					$('#progress-bar').addClass('progress-bar-danger');
 					$('#progress-text').html('<div class="text-danger">' + json['error'] + '</div>');
@@ -85,7 +85,7 @@ function start(url) {
 
 				step++;
 			},
-			error: function(xhr, ajaxOptions, thrownError) {
+			error: function (xhr, ajaxOptions, thrownError) {
 				$('#progress-bar').addClass('progress-bar-danger');
 				$('#progress-text').html('<div class="text-danger">' + (thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText) + '</div>');
 				$('#button-continue').prop('disabled', false);

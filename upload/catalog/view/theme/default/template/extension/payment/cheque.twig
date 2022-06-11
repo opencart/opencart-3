@@ -22,12 +22,12 @@ $('#button-confirm').on('click', function() {
 		complete: function() {
 			$('#button-confirm').button('reset');
 		},
-		success: function(json) {
+		success: function (json) {
 			if (json['redirect']) {
 				location = json['redirect'];	
 			}
 		},
-		error: function(xhr, ajaxOptions, thrownError) {
+		error: function (xhr, ajaxOptions, thrownError) {
 			console.log(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
 			alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
 		}

@@ -74,7 +74,7 @@
     </div>
   </div>
   <script type="text/javascript"><!--
-	$('#ip').delegate('.pagination a', 'click', function(e) {
+	$('#ip').delegate('.pagination a', 'click', function (e) {
 		e.preventDefault();
 
 		$('#ip').load(this.href);
@@ -94,7 +94,7 @@
 			complete: function() {
 				$('#button-ip-add').button('reset');
 			},
-			success: function(json) {
+			success: function (json) {
 				$('.alert-dismissible').remove();
 
 				if (json['error']) {
@@ -109,7 +109,7 @@
 					$('#input-ip').val('');
 				}
 			},
-			error: function(xhr, ajaxOptions, thrownError) {
+			error: function (xhr, ajaxOptions, thrownError) {
 				alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
 			}
 		});
@@ -129,7 +129,7 @@
 			complete: function() {
 				$(element).button('reset');
 			},
-			success: function(json) {
+			success: function (json) {
 				$('.alert-dismissible').remove();
 
 				if (json['error']) {
@@ -142,7 +142,7 @@
 					$('#ip').load('index.php?route=extension/fraud/ip/ip&user_token={{ user_token }}');
 				}
 			},
-			error: function(xhr, ajaxOptions, thrownError) {
+			error: function (xhr, ajaxOptions, thrownError) {
 				alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
 			}
 		});

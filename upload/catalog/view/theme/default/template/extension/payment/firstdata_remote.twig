@@ -106,7 +106,7 @@ $('#button-confirm').bind('click', function() {
 			$('#button-confirm').attr('disabled', false);
 			$('#firstdata_message_wait').remove();
 		},
-		success: function(json) {
+		success: function (json) {
 			// if error
 			if (json['error']) {
 				$('#payment').before('<div id="firstdata_message_error" class="alert alert-warning"><i class="fa fa-info-circle"></i> ' + json['error'] + '</div>');

@@ -369,7 +369,7 @@ $('button[id^=\'button-custom-field\']').on('click', function() {
 				complete: function() {
 					$(node).button('reset');
 				},
-				success: function(json) {
+				success: function (json) {
 					$(node).parent().find('.text-danger').remove();
 
 					if (json['error']) {
@@ -382,7 +382,7 @@ $('button[id^=\'button-custom-field\']').on('click', function() {
 						$(node).parent().find('input').val(json['code']);
 					}
 				},
-				error: function(xhr, ajaxOptions, thrownError) {
+				error: function (xhr, ajaxOptions, thrownError) {
 					alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
 				}
 			});

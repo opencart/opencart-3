@@ -105,7 +105,7 @@
             $('#loading-cancel').show();
             $('#amazon_login_pay-transaction-msg').hide();
           },
-          success: function(data) {
+          success: function (data) {
             if (data.error == false) {
               var html = '';
               html += '<tr>';
@@ -151,7 +151,7 @@
             $('#loading-capture').show();
             $('#amazon_login_pay-transaction-msg').hide();
           },
-          success: function(data) {
+          success: function (data) {
             if (data.error == false) {
               var html = '';
               html += '<tr>';
@@ -207,10 +207,10 @@
             $('#loading-refund').show();
             $('#amazon_login_pay-transaction-msg').hide();
           },
-          success: function(data) {
+          success: function (data) {
             var html = '';
             if (data.data != undefined) {
-              $.each(data.data, function(index, value) {
+              $.each(data.data, function (index, value) {
                 html += '<tr>';
                 html += '<td class="text-left">' + value['date_added'] + '</td>';
                 html += '<td class="text-left">' + value['type'] + '</td>';
@@ -236,7 +236,7 @@
             }
             if (data.error == true) {
               var msg = '';
-              $.each(data.error_msg, function(index, value) {
+              $.each(data.error_msg, function (index, value) {
                 msg += value + "\n";
               });
               alert(msg);

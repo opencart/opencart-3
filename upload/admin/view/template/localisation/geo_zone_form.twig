@@ -118,7 +118,7 @@
 					$(element).prop('disabled', false);
 					$('button[form=\'form-geo-zone\']').prop('disabled', false);
 				},
-				success: function(json) {
+				success: function (json) {
 					html = '<option value="0">{{ text_all_zones }}</option>';
 
 					if (json['zone'] && json['zone'] != '') {	
@@ -139,7 +139,7 @@
 
 					$('select[name$=\'[country_id]\']:disabled:first').trigger('change');
 				},
-				error: function(xhr, ajaxOptions, thrownError) {
+				error: function (xhr, ajaxOptions, thrownError) {
 					alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
 				}
 			});

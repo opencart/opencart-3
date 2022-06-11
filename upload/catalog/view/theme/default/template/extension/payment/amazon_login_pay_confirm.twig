@@ -129,14 +129,14 @@
 </style>
 <script>
 (function($) {
-    var showCouponError = function(message) {
+    var showCouponError = function (message) {
         $('#couponContainer').before('<div class="alert alert-danger"><button type="button" class="close" data-dismiss="alert">&times;</button><i class="fa fa-exclamation-circle"></i>&nbsp;&nbsp;' + message + '</div>');
     }
 
     var typewatch = (function() {
         var timer = 0;
 
-        return function(callback) {
+        return function (callback) {
             clearTimeout(timer);
             timer = setTimeout(callback, 1500);
         };
@@ -152,7 +152,7 @@
             design: {
                 designMode: 'responsive'
             },
-            onError: function(error) {
+            onError: function (error) {
                 if (error.getErrorCode() == 'BuyerSessionExpired') {
                     document.location = '{{ session_expired }}';
                 }
@@ -170,7 +170,7 @@
             design: {
                 designMode: 'responsive'
             },
-            onError: function(error) {
+            onError: function (error) {
                 if (error.getErrorCode() == 'BuyerSessionExpired') {
                     document.location = '{{ session_expired }}';
                 }
@@ -204,7 +204,7 @@
             data: {
                 coupon: $('#coupon').val()
             },
-            success: function(data) {
+            success: function (data) {
                 if (data.error) {
                     showCouponError(data.error);
                     $('#coupon').val('').trigger('input');
@@ -256,7 +256,7 @@
             url: '{{ process }}',
             type: 'get',
             dataType: 'json',
-            success: function(data) {
+            success: function (data) {
                 if (data.redirect) {
                     document.location = data.redirect;
                 } else if (data.error) {

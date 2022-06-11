@@ -146,7 +146,7 @@ $('#button-confirm').bind('click', function() {
 		complete: function() {
           $('#button-confirm').button('reset');
         },
-			success: function(json) {
+			success: function (json) {
           if (json['ACSURL']) {
             $('#3dauth').remove();
 
@@ -186,7 +186,7 @@ $('#button-confirm').bind('click', function() {
 				complete: function() {
 					$('#button-delete').button('reset');
 				},
-				success: function(json) {
+				success: function (json) {
 					if (json['error']) {
 						alert(json['error']);
 					}
@@ -195,10 +195,10 @@ $('#button-confirm').bind('click', function() {
 						$.ajax({
 							url: 'index.php?route=checkout/confirm',
 							dataType: 'html',
-							success: function(html) {
+							success: function (html) {
 								$('#collapse-checkout-confirm .panel-body').html(html);
 							},
-							error: function(xhr, ajaxOptions, thrownError) {
+							error: function (xhr, ajaxOptions, thrownError) {
 								alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
 							}
 						});

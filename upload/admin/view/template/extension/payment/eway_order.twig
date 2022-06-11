@@ -62,13 +62,13 @@
 				type: 'post',
 				dataType: 'json',
 				data: { 'order_id': {{ order_id }}, 'refund_amount': $('#eway-refund-amount').val() },				
-				beforeSend: function(xhr, opts) {
+				beforeSend: function (xhr, opts) {
 					$('#btn-refund').hide();
 					$('#img-loading-refund').show();
 					$('#eway-transaction-msg').hide();
 					$('#eway-refund-amount').hide();
 				},
-				success: function(data) {
+				success: function (data) {
 					if (data.error == false) {
 						html = '';
 						html += '<tr>';
@@ -112,13 +112,13 @@
 				type :'post',
 				dataType: 'json',
 				data: { 'order_id': {{ order_id }}, 'capture_amount': $('#eway-capture-amount').val() },				
-				beforeSend: function(xhr, opts) {
+				beforeSend: function (xhr, opts) {
 					$('#btn-capture').hide();
 					$('#img-loading-capture').show();
 					$('#eway-transaction-msg').hide();
 					$('#eway-capture-amount').hide();
 				},
-				success: function(data) {
+				success: function (data) {
 					if (data.error == false) {
 						html = '';
 						html += '<tr>';

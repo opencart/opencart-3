@@ -48,7 +48,7 @@
     </div>
   </div>
   <script type="text/javascript"><!--
-	$('#history').delegate('.pagination a', 'click', function(e) {
+	$('#history').delegate('.pagination a', 'click', function (e) {
 		e.preventDefault();
 
 		$('#history').load(this.href);
@@ -91,7 +91,7 @@
 					complete: function() {
 						$('#button-upload').button('reset');
 					},
-					success: function(json) {
+					success: function (json) {
 						if (json['error']) {
 							$('#progress-bar').addClass('progress-bar-danger');
 							$('#progress-text').html('<div class="text-danger">' + json['error'] + '</div>');
@@ -106,7 +106,7 @@
 							next(json['next'], 1);
 						}
 					},
-					error: function(xhr, ajaxOptions, thrownError) {
+					error: function (xhr, ajaxOptions, thrownError) {
 						alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
 					}
 				});
@@ -120,7 +120,7 @@
 		$.ajax({
 			url: url,
 			dataType: 'json',
-			success: function(json) {
+			success: function (json) {
 				$('#progress-bar').css('width', (i * 20) + '%');
 
 				if (json['error']) {
@@ -143,14 +143,14 @@
 					next(json['next'], i);
 				}
 			},
-			error: function(xhr, ajaxOptions, thrownError) {
+			error: function (xhr, ajaxOptions, thrownError) {
 				alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
 			}
 		});
 	}
 
 	// Uninstall
-	$('#history').on('click', '.btn-danger', function(e) {
+	$('#history').on('click', '.btn-danger', function (e) {
 		e.preventDefault();
 
 		var element = this;
@@ -164,7 +164,7 @@
 			complete: function() {
 				$(element).button('reset');
 			},
-			success: function(json) {
+			success: function (json) {
 				$('.alert-dismissible').remove();
 
 				if (json['success']) {
@@ -173,7 +173,7 @@
 					$('#history').load('index.php?route=marketplace/installer/history&user_token={{ user_token }}');
 				}
 			},
-			error: function(xhr, ajaxOptions, thrownError) {
+			error: function (xhr, ajaxOptions, thrownError) {
 				alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
 			}
 		});

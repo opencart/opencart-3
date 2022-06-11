@@ -56,8 +56,8 @@
 </style>
 
 <script type="text/javascript"><!--
-$('.klarna-checkout-main').load('index.php?route=extension/payment/klarna_checkout/main', {response: 'template'}, function(data) {
-	window._klarnaCheckout(function(api) {
+$('.klarna-checkout-main').load('index.php?route=extension/payment/klarna_checkout/main', {response: 'template'}, function (data) {
+	window._klarnaCheckout(function (api) {
 		addSidebarOverlay();
 		api.suspend();
 
@@ -67,14 +67,14 @@ $('.klarna-checkout-main').load('index.php?route=extension/payment/klarna_checko
 		});
 
 		api.on({
-			shipping_address_change: function(data) {
+			shipping_address_change: function (data) {
 				addSidebarOverlay();
 				api.suspend();
 
-				$.post('index.php?route=extension/payment/klarna_checkout/shippingAddress', data, function(data) {
+				$.post('index.php?route=extension/payment/klarna_checkout/shippingAddress', data, function (data) {
 					$('.klarna-checkout-sidebar').load('index.php?route=extension/payment/klarna_checkout/sidebar');
 
-					$.get('index.php?route=extension/payment/klarna_checkout/cartTotal', function(total) {
+					$.get('index.php?route=extension/payment/klarna_checkout/cartTotal', function (total) {
 						setTimeout(function() {
 							$('#cart > button').html('<span id="cart-total"><i class="fa fa-shopping-cart"></i> ' + total + '</span>');
 						}, 100);
@@ -89,7 +89,7 @@ $('.klarna-checkout-main').load('index.php?route=extension/payment/klarna_checko
 		});
 	});
 
-	$.get('index.php?route=extension/payment/klarna_checkout/cartTotal', function(total) {
+	$.get('index.php?route=extension/payment/klarna_checkout/cartTotal', function (total) {
 		setTimeout(function() {
 			$('#cart > button').html('<span id="cart-total"><i class="fa fa-shopping-cart"></i> ' + total + '</span>');
 		}, 100);

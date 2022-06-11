@@ -34,7 +34,7 @@
 					scope: 'profile postal_code payments:widget payments:shipping_address'
 				}, "{{ return_url }}");
 			},
-			onError: function(error) {
+			onError: function (error) {
 				{% if sandbox %}
 					console.log("Amazon Login Error (" + error.getErrorCode() + "): " + error.getErrorMessage());
 				{% endif %}

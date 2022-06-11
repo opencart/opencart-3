@@ -94,7 +94,7 @@ $('#button-upload').on('click', function() {
 				complete: function() {
 					$('#button-upload').button('reset');
 				},
-				success: function(json) {
+				success: function (json) {
 					if (json['error']) {
 						alert(json['error']);
 					}
@@ -106,7 +106,7 @@ $('#button-upload').on('click', function() {
 						$('input[name=\'mask\']').val(json['mask']);
 					}
 				},
-				error: function(xhr, ajaxOptions, thrownError) {
+				error: function (xhr, ajaxOptions, thrownError) {
 					alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
 				}
 			});

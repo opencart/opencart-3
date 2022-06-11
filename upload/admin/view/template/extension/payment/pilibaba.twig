@@ -225,7 +225,7 @@
 				$('#img_loading_register').show();
 				$('.pilibaba_message').remove();
 			},
-			success: function(json) {
+			success: function (json) {
 				if (json['redirect']) {
 					location = json['redirect'].replace('&amp;', '&');
 				}

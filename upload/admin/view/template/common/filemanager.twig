@@ -47,7 +47,7 @@
 </div>
 <script type="text/javascript"><!--
 {% if target %}
-$('a.thumbnail').on('click', function(e) {
+$('a.thumbnail').on('click', function (e) {
 	e.preventDefault();
 
 	{% if thumb %}
@@ -60,37 +60,37 @@ $('a.thumbnail').on('click', function(e) {
 });
 {% endif %}
 
-$('a.directory').on('click', function(e) {
+$('a.directory').on('click', function (e) {
 	e.preventDefault();
 
 	$('#modal-image').load($(this).attr('href'));
 });
 
-$('.pagination a').on('click', function(e) {
+$('.pagination a').on('click', function (e) {
 	e.preventDefault();
 
 	$('#modal-image').load($(this).attr('href'));
 });
 
-$('#button-parent').on('click', function(e) {
+$('#button-parent').on('click', function (e) {
 	e.preventDefault();
 
 	$('#modal-image').load($(this).attr('href'));
 });
 
-$('#button-refresh').on('click', function(e) {
+$('#button-refresh').on('click', function (e) {
 	e.preventDefault();
 
 	$('#modal-image').load($(this).attr('href'));
 });
 
-$('input[name=\'search\']').on('keydown', function(e) {
+$('input[name=\'search\']').on('keydown', function (e) {
 	if (e.which == 13) {
 		$('#button-search').trigger('click');
 	}
 });
 
-$('#button-search').on('click', function(e) {
+$('#button-search').on('click', function (e) {
 	var url = 'index.php?route=common/filemanager&user_token={{ user_token }}&directory={{ directory }}';
 
 	var filter_name = $('input[name=\'search\']').val();
@@ -142,7 +142,7 @@ $('#button-upload').on('click', function() {
 					$('#button-upload i').replaceWith('<i class="fa fa-upload"></i>');
 					$('#button-upload').prop('disabled', false);
 				},
-				success: function(json) {
+				success: function (json) {
 					if (json['error']) {
 						alert(json['error']);
 					}
@@ -153,7 +153,7 @@ $('#button-upload').on('click', function() {
 						$('#button-refresh').trigger('click');
 					}
 				},
-				error: function(xhr, ajaxOptions, thrownError) {
+				error: function (xhr, ajaxOptions, thrownError) {
 					alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
 				}
 			});
@@ -189,7 +189,7 @@ $('#button-folder').on('shown.bs.popover', function() {
 			complete: function() {
 				$('#button-create').prop('disabled', false);
 			},
-			success: function(json) {
+			success: function (json) {
 				if (json['error']) {
 					alert(json['error']);
 				}
@@ -200,14 +200,14 @@ $('#button-folder').on('shown.bs.popover', function() {
 					$('#button-refresh').trigger('click');
 				}
 			},
-			error: function(xhr, ajaxOptions, thrownError) {
+			error: function (xhr, ajaxOptions, thrownError) {
 				alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
 			}
 		});
 	});
 });
 
-$('#modal-image #button-delete').on('click', function(e) {
+$('#modal-image #button-delete').on('click', function (e) {
 	if (confirm('{{ text_confirm }}')) {
 		$.ajax({
 			url: 'index.php?route=common/filemanager/delete&user_token={{ user_token }}',
@@ -220,7 +220,7 @@ $('#modal-image #button-delete').on('click', function(e) {
 			complete: function() {
 				$('#button-delete').prop('disabled', false);
 			},
-			success: function(json) {
+			success: function (json) {
 				if (json['error']) {
 					alert(json['error']);
 				}
@@ -231,7 +231,7 @@ $('#modal-image #button-delete').on('click', function(e) {
 					$('#button-refresh').trigger('click');
 				}
 			},
-			error: function(xhr, ajaxOptions, thrownError) {
+			error: function (xhr, ajaxOptions, thrownError) {
 				alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
 			}
 		});

@@ -158,7 +158,7 @@
 	}
 //--></script> 
 <script type="text/javascript"><!--
-	$('#session button').on('click', function(e) {
+	$('#session button').on('click', function (e) {
 		e.preventDefault();
 
 		var node = this;
@@ -173,7 +173,7 @@
 			complete: function() {
 				$(node).button('reset');
 			},
-			success: function(json) {
+			success: function (json) {
 				$('.alert-dismissible').remove();
 
 				if (json['error']) {
@@ -186,7 +186,7 @@
 					$(node).parent().parent().remove();
 				}
 			},
-			error: function(xhr, ajaxOptions, thrownError) {
+			error: function (xhr, ajaxOptions, thrownError) {
 				alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
 			}
 		});

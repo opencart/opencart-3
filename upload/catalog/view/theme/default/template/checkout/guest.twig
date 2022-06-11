@@ -330,7 +330,7 @@
 		$.ajax({
 			url: 'index.php?route=checkout/checkout/customfield&customer_group_id=' + this.value,
 			dataType: 'json',
-			success: function(json) {
+			success: function (json) {
 				$('#collapse-payment-address .custom-field').hide();
 				$('#collapse-payment-address .custom-field').removeClass('required');
 
@@ -346,7 +346,7 @@
 					}
 				}
 			},
-			error: function(xhr, ajaxOptions, thrownError) {
+			error: function (xhr, ajaxOptions, thrownError) {
 				alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
 			}
 		});
@@ -386,7 +386,7 @@
 					complete: function() {
 						$(node).button('reset');
 					},
-					success: function(json) {
+					success: function (json) {
 						$(node).parent().find('.text-danger').remove();
 
 						if (json['error']) {
@@ -399,7 +399,7 @@
 							$(node).parent().find('input[name^=\'custom_field\']').val(json['code']);
 						}
 					},
-					error: function(xhr, ajaxOptions, thrownError) {
+					error: function (xhr, ajaxOptions, thrownError) {
 						alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
 					}
 				});
@@ -435,7 +435,7 @@
 			complete: function() {
 				$('#collapse-payment-address select[name=\'country_id\']').prop('disabled', false);
 			},
-			success: function(json) {
+			success: function (json) {
 				if (json['postcode_required'] == '1') {
 					$('#collapse-payment-address input[name=\'postcode\']').parent().parent().addClass('required');
 				} else {
@@ -460,7 +460,7 @@
 
 				$('#collapse-payment-address select[name=\'zone_id\']').html(html);
 			},
-			error: function(xhr, ajaxOptions, thrownError) {
+			error: function (xhr, ajaxOptions, thrownError) {
 				alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
 			}
 		});

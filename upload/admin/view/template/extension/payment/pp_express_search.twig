@@ -178,7 +178,7 @@ $('#button-search').on('click', function() {
 			$('#button-search').hide();
 			$('#button-edit').show();
 		},
-		success: function(data) {
+		success: function (data) {
 			if (data.error == true) {
 				$('#searching').hide();
 				$('#error').html('<i class="fa fa-exclamation-circle"></i> ' + data.error_msg).fadeIn();
@@ -198,7 +198,7 @@ $('#button-search').on('click', function() {
 					html += '<td class="center">{{ column_action }}</td>';
 					html += '</tr></thead>';
 
-				    $.each(data.result, function(k, v) {
+				    $.each(data.result, function (k, v) {
 						if ("L_LONGMESSAGE" in v) {
 							$('#error').text(v.L_LONGMESSAGE).fadeIn();
 						} else {

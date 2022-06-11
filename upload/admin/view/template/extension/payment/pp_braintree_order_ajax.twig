@@ -196,7 +196,7 @@ $('.button-command').on('click', function() {
 			complete: function() {
 				clicked_button.button('reset');
 			},
-			success: function(json) {
+			success: function (json) {
 				if (json.error) {
 					$('.alert').show().addClass('alert-danger').html('<i class="fa fa-check-circle"></i> ' + json.error);
 				}

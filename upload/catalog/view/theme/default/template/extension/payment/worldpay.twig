@@ -76,7 +76,7 @@
   <script type="text/javascript"><!--
 
       //Load Worldpay.js and run script functions
-      $.getScript("{{ worldpay_script }}", function(data, textStatus, jqxhr) {
+      $.getScript("{{ worldpay_script }}", function (data, textStatus, jqxhr) {
         Worldpay.setClientKey("{{ worldpay_client_key }}");
 
         // disable new card form if existing cards
@@ -99,7 +99,7 @@
 {% endif %}
 
         Worldpay.templateSaveButton = false;
-        Worldpay.useTemplate('payment-new-form', 'paymentDetailsHere', 'inline', function(obj) {
+        Worldpay.useTemplate('payment-new-form', 'paymentDetailsHere', 'inline', function (obj) {
           var _el = document.createElement('input');
           _el.value = obj.token;
           _el.type = 'hidden';
@@ -113,7 +113,7 @@
           var existing = $('input[name=\'existing-card\']:checked').val();
           if (existing === '1') {
             var form = document.getElementById('payment-existing-form');
-            Worldpay.useForm(form, function(status, response) {
+            Worldpay.useForm(form, function (status, response) {
               if (response.error || status != 200) {
                 Worldpay.handleError(form, document.getElementById('payment-errors'), response.error);
               } else {
@@ -142,7 +142,7 @@
             complete: function() {
               $('#button-delete').button('reset');
             },
-            success: function(json) {
+            success: function (json) {
               if (json['error']) {
                 alert(json['error']);
               }

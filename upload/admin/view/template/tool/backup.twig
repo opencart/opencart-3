@@ -108,7 +108,7 @@
 					complete: function() {
 						$('#button-import').button('reset');
 					},
-					success: function(json) {
+					success: function (json) {
 						$('.alert-dismissible').remove();
 
 						if (json['error']) {
@@ -128,7 +128,7 @@
 							next(json['next']);
 						}
 					},
-					error: function(xhr, ajaxOptions, thrownError) {
+					error: function (xhr, ajaxOptions, thrownError) {
 						alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
 					}
 				});
@@ -140,7 +140,7 @@
 		$.ajax({
 			url: url,
 			dataType: 'json',
-			success: function(json) {
+			success: function (json) {
 				$('.alert-dismissible').remove();
 
 				if (json['error']) {
@@ -160,7 +160,7 @@
 					next(json['next']);
 				}
 			},
-			error: function(xhr, ajaxOptions, thrownError) {
+			error: function (xhr, ajaxOptions, thrownError) {
 				alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
 			}
 		});

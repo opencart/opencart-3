@@ -62,7 +62,7 @@
 			complete: function() {
 				$('#button-confirm').attr('disabled', false);
 			},
-			success: function(json) {
+			success: function (json) {
 				$('form.form-horizontal .alert').remove();
 
 				if (json['status']) {

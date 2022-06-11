@@ -66,7 +66,7 @@
 			complete: function() {
 				$('#button-capture').button('reset');
 			},
-			success: function(json) {
+			success: function (json) {
 				$('.alert-dismissible').remove();
 
 				if (json['error']) {
@@ -104,7 +104,7 @@
 				complete: function() {
 					$('#button-void').button('reset');
 				},
-				success: function(json) {
+				success: function (json) {
 					$('.alert-dismissible').remove();
 
 					if (json['error']) {
@@ -137,7 +137,7 @@
 			complete: function() {
 				$(element).button('reset');
 			},
-			success: function(json) {
+			success: function (json) {
 				$('.alert-dismissible').remove();
 
 				if (json['error']) {

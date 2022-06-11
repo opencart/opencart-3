@@ -1272,10 +1272,10 @@
 			complete: function() {
 				$('select[name=\'config_theme\']').prop('disabled', false);
 			},
-			success: function(html) {
+			success: function (html) {
 				$('#theme').attr('src', html);
 			},
-			error: function(xhr, ajaxOptions, thrownError) {
+			error: function (xhr, ajaxOptions, thrownError) {
 				alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
 			}
 		});
@@ -1294,7 +1294,7 @@
 			complete: function() {
 				$('select[name=\'config_country_id\']').prop('disabled', false);
 			},
-			success: function(json) {
+			success: function (json) {
 				html = '<option value="">{{ text_select }}</option>';
 
 				if (json['zone'] && json['zone'] != '') {
@@ -1315,7 +1315,7 @@
 
 				$('#button-save').prop('disabled', false);
 			},
-			error: function(xhr, ajaxOptions, thrownError) {
+			error: function (xhr, ajaxOptions, thrownError) {
 				alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
 			}
 		});

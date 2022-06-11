@@ -72,7 +72,7 @@
 			complete: function() {
 				$('#button-confirm').button('reset');
 			},
-			success: function(json) {
+			success: function (json) {
 				// if success
 				if (json['redirect']) {
 					html = '<form action="' + json['redirect'] + '" method="post" id="redirect">';

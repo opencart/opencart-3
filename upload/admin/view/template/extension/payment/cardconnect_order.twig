@@ -91,7 +91,7 @@
 					$('#img_loading_capture').show();
 					$('.cardconnect_message').remove();
 				},
-				success: function(json) {
+				success: function (json) {
 					if (json['success']) {
 						html = '';
 						html += '<tr>';
@@ -140,7 +140,7 @@
 					$('#img_loading_refund').show();
 					$('.cardconnect_message').remove();
 				},
-				success: function(json) {
+				success: function (json) {
 					if (json['success']) {
 						html = '';
 						html += '<tr>';
@@ -175,7 +175,7 @@
 		}
 	});
 
-	$(document).on('click', '.button-inquire', function(e) {
+	$(document).on('click', '.button-inquire', function (e) {
 		var button = $(e.target);
 
 		$.ajax({
@@ -188,7 +188,7 @@
 				button.next().show();
 				$('.cardconnect_message').remove();
 			},
-			success: function(json) {
+			success: function (json) {
 				if (json['success']) {
 					$('*[data-inquire-retref="' + button.data('inquire-retref') + '"]').parent().prev().prev().prev().text(json['status']);
 
@@ -209,7 +209,7 @@
 		});
 	});
 
-	$(document).on('click', '.button-void', function(e) {
+	$(document).on('click', '.button-void', function (e) {
 		var button = $(e.target);
 
 		$.ajax({
@@ -222,7 +222,7 @@
 				button.next().show();
 				$('.cardconnect_message').remove();
 			},
-			success: function(json) {
+			success: function (json) {
 				if (json['success']) {
 					$('*[data-void-retref="' + button.data('void-retref') + '"]').parent().prev().prev().prev().prev().text(json['status']);
 

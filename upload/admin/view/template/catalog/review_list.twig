@@ -157,12 +157,12 @@
 	});
 
 	$('input[name=\'filter_product\']').autocomplete({
-		'source': function(request, response) {
+		'source': function (request, response) {
 			$.ajax({
 				url: 'index.php?route=catalog/product/autocomplete&user_token={{ user_token }}&filter_name=' +  encodeURIComponent(request),
 				dataType: 'json',
-				success: function(json) {
-					response($.map(json, function(item) {
+				success: function (json) {
+					response($.map(json, function (item) {
 						return {
 							label: item['name'],
 							value: item['product_id']
@@ -171,7 +171,7 @@
 				}
 			});
 		},
-		'select': function(item) {
+		'select': function (item) {
 			$('input[name=\'filter_product\']').val(item['label']);
 		}
 	});

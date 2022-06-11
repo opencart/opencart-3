@@ -23,7 +23,7 @@ $('#button-voucher').on('click', function() {
 		complete: function() {
 			$('#button-voucher').button('reset');
 		},
-		success: function(json) {
+		success: function (json) {
 			$('.alert-dismissible').remove();
 
 			if (json['error']) {
@@ -36,7 +36,7 @@ $('#button-voucher').on('click', function() {
 				location = json['redirect'];
 			}
 		},
-		error: function(xhr, ajaxOptions, thrownError) {
+		error: function (xhr, ajaxOptions, thrownError) {
 			alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
 		}
 	});

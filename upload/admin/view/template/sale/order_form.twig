@@ -945,7 +945,7 @@
   </div>
   <script type="text/javascript"><!--
 // Disable the tabs
-$('#order a[data-toggle=\'tab\']').on('click', function(e) {
+$('#order a[data-toggle=\'tab\']').on('click', function (e) {
 	return false;
 });
 
@@ -963,7 +963,7 @@ $('select[name=\'currency\']').on('change', function() {
 		complete: function() {
 			$('select[name=\'currency\']').prop('disabled', false);
 		},
-		success: function(json) {
+		success: function (json) {
 			$('.alert-dismissible, .text-danger').remove();
 			$('.form-group').removeClass('has-error');
 
@@ -974,7 +974,7 @@ $('select[name=\'currency\']').on('change', function() {
 				$('select[name=\'currency\']').closest('.form-group').addClass('has-error');
 			}
 		},
-		error: function(xhr, ajaxOptions, thrownError) {
+		error: function (xhr, ajaxOptions, thrownError) {
 			alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
 		}
 	});
@@ -984,11 +984,11 @@ $('select[name=\'currency\']').trigger('change');
 
 // Customer
 $('input[name=\'customer\']').autocomplete({
-	'source': function(request, response) {
+	'source': function (request, response) {
 		$.ajax({
 			url: 'index.php?route=customer/customer/autocomplete&user_token={{ user_token }}&filter_name=' +  encodeURIComponent(request),
 			dataType: 'json',
-			success: function(json) {
+			success: function (json) {
 				json.unshift({
 					customer_id: '0',
 					customer_group_id: '{{ customer_group_id }}',
@@ -1002,7 +1002,7 @@ $('input[name=\'customer\']').autocomplete({
 					address: []
 				});
 
-				response($.map(json, function(item) {
+				response($.map(json, function (item) {
 					return {
 						category: item['customer_group'],
 						label: item['name'],
@@ -1019,7 +1019,7 @@ $('input[name=\'customer\']').autocomplete({
 			}
 		});
 	},
-	'select': function(item) {
+	'select': function (item) {
 		// Reset all custom fields
 		$('#tab-customer input[type=\'text\'], #tab-customer textarea').not('#tab-customer input[name=\'customer\'], #tab-customer input[name=\'customer_id\']').val('');
 		$('#tab-customer select option').not($('#tab-customer select[name=\'store_id\'] option, #tab-customer select[name=\'currency\'] option')).removeAttr('selected');
@@ -1065,7 +1065,7 @@ $('select[name=\'customer_group_id\']').on('change', function() {
 	$.ajax({
 		url: 'index.php?route=customer/customer/customfield&user_token={{ user_token }}&customer_group_id=' + this.value,
 		dataType: 'json',
-		success: function(json) {
+		success: function (json) {
 			$('.custom-field').hide();
 			$('.custom-field').removeClass('required');
 
@@ -1079,7 +1079,7 @@ $('select[name=\'customer_group_id\']').on('change', function() {
 				}
 			}
 		},
-		error: function(xhr, ajaxOptions, thrownError) {
+		error: function (xhr, ajaxOptions, thrownError) {
 			alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
 		}
 	});
@@ -1100,7 +1100,7 @@ $('#button-customer').on('click', function() {
 		complete: function() {
 			 $('#button-customer').button('reset');
 		},
-		success: function(json) {
+		success: function (json) {
 			$('.alert-dismissible, .text-danger').remove();
 			$('.form-group').removeClass('has-error');
 
@@ -1135,7 +1135,7 @@ $('#button-customer').on('click', function() {
                     complete: function() {
                         $('#button-product-add').button('reset');
                     },
-                    success: function(json) {
+                    success: function (json) {
                         $('.alert-dismissible, .text-danger').remove();
                         $('.form-group').removeClass('has-error');
 
@@ -1143,7 +1143,7 @@ $('#button-customer').on('click', function() {
                             $('#content > .container-fluid').prepend('<div class="alert alert-danger alert-dismissible"><i class="fa fa-exclamation-circle"></i> ' + json['error']['warning'] + ' <button type="button" class="close" data-dismiss="alert">&times;</button></div>');
                         }
             		},
-                    error: function(xhr, ajaxOptions, thrownError) {
+                    error: function (xhr, ajaxOptions, thrownError) {
                         alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
                     }
                 });
@@ -1161,7 +1161,7 @@ $('#button-customer').on('click', function() {
                         complete: function() {
                             $('#button-voucher-add').button('reset');
                         },
-                        success: function(json) {
+                        success: function (json) {
                             $('.alert-dismissible, .text-danger').remove();
                             $('.form-group').removeClass('has-error');
 
@@ -1169,7 +1169,7 @@ $('#button-customer').on('click', function() {
                                 $('#content > .container-fluid').prepend('<div class="alert alert-danger alert-dismissible"><i class="fa fa-exclamation-circle"></i> ' + json['error']['warning'] + ' <button type="button" class="close" data-dismiss="alert">&times;</button></div>');
                             }
                 		},
-                        error: function(xhr, ajaxOptions, thrownError) {
+                        error: function (xhr, ajaxOptions, thrownError) {
                             alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
                         }
                     });
@@ -1182,19 +1182,19 @@ $('#button-customer').on('click', function() {
                 });
 			}
 		},
-		error: function(xhr, ajaxOptions, thrownError) {
+		error: function (xhr, ajaxOptions, thrownError) {
 			alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
 		}
 	});
 });
 
 $('#tab-product input[name=\'product\']').autocomplete({
-	'source': function(request, response) {
+	'source': function (request, response) {
 		$.ajax({
 			url: 'index.php?route=catalog/product/autocomplete&user_token={{ user_token }}&filter_name=' +  encodeURIComponent(request),
 			dataType: 'json',
-			success: function(json) {
-				response($.map(json, function(item) {
+			success: function (json) {
+				response($.map(json, function (item) {
 					return {
 						label: item['name'],
 						value: item['product_id'],
@@ -1206,7 +1206,7 @@ $('#tab-product input[name=\'product\']').autocomplete({
 			}
 		});
 	},
-	'select': function(item) {
+	'select': function (item) {
 		$('#tab-product input[name=\'product\']').val(item['label']);
 		$('#tab-product input[name=\'product_id\']').val(item['value']);
 
@@ -1399,7 +1399,7 @@ $('#button-product-add').on('click', function() {
 		complete: function() {
 			$('#button-product-add').button('reset');
 		},
-		success: function(json) {
+		success: function (json) {
 			$('.alert-dismissible, .text-danger').remove();
 			$('.form-group').removeClass('has-error');
 
@@ -1431,7 +1431,7 @@ $('#button-product-add').on('click', function() {
 				$('#button-refresh').trigger('click');
 			}
 		},
-		error: function(xhr, ajaxOptions, thrownError) {
+		error: function (xhr, ajaxOptions, thrownError) {
 			alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
 		}
 	});
@@ -1451,7 +1451,7 @@ $('#button-voucher-add').on('click', function() {
 		complete: function() {
 			$('#button-voucher-add').button('reset');
 		},
-		success: function(json) {
+		success: function (json) {
 			$('.alert-dismissible, .text-danger').remove();
 			$('.form-group').removeClass('has-error');
 
@@ -1484,7 +1484,7 @@ $('#button-voucher-add').on('click', function() {
 				$('#button-refresh').trigger('click');
 			}
 		},
-		error: function(xhr, ajaxOptions, thrownError) {
+		error: function (xhr, ajaxOptions, thrownError) {
 			alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
 		}
 	});
@@ -1505,7 +1505,7 @@ $('#cart').delegate('.btn-danger', 'click', function() {
 		complete: function() {
 			$(node).button('reset');
 		},
-		success: function(json) {
+		success: function (json) {
 			$('.alert-dismissible, .text-danger').remove();
 
 			// Check for errors
@@ -1516,7 +1516,7 @@ $('#cart').delegate('.btn-danger', 'click', function() {
 				$('#button-refresh').trigger('click');
 			}
 		},
-		error: function(xhr, ajaxOptions, thrownError) {
+		error: function (xhr, ajaxOptions, thrownError) {
 			alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
 		}
 	});
@@ -1538,7 +1538,7 @@ $('#cart').delegate('.btn-primary', 'click', function() {
         complete: function() {
             $(node).button('reset');
         },
-        success: function(json) {
+        success: function (json) {
             $('.alert-dismissible, .text-danger').remove();
             $('.form-group').removeClass('has-error');
 
@@ -1550,7 +1550,7 @@ $('#cart').delegate('.btn-primary', 'click', function() {
 				$('#content > .container-fluid').prepend('<div class="alert alert-success alert-dismissible"><i class="fa fa-check-circle"></i> ' + json['success'] + ' <button type="button" class="close" data-dismiss="alert">&times;</button></div>');
 			}
         },
-        error: function(xhr, ajaxOptions, thrownError) {
+        error: function (xhr, ajaxOptions, thrownError) {
             alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
         }
     }).done(function() {
@@ -1573,7 +1573,7 @@ $('select[name=\'payment_address\']').on('change', function() {
 		complete: function() {
 			$('select[name=\'payment_address\']').prop('disabled', false);
 		},
-		success: function(json) {
+		success: function (json) {
 			// Reset all fields
 			$('#tab-payment input[type=\'text\'], #tab-payment input[type=\'text\'], #tab-payment textarea').val('');
 			$('#tab-payment select option').not('#tab-payment select[name=\'payment_address\']').removeAttr('selected');
@@ -1607,7 +1607,7 @@ $('select[name=\'payment_address\']').on('change', function() {
 
 			$('#tab-payment select[name=\'country_id\']').trigger('change');
 		},
-		error: function(xhr, ajaxOptions, thrownError) {
+		error: function (xhr, ajaxOptions, thrownError) {
 			alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
 		}
 	});
@@ -1625,7 +1625,7 @@ $('#tab-payment select[name=\'country_id\']').on('change', function() {
 		complete: function() {
 			$('#tab-payment .fa-spin').remove();
 		},
-		success: function(json) {
+		success: function (json) {
 			if (json['postcode_required'] == '1') {
 				$('#tab-payment input[name=\'postcode\']').closest('.form-group').addClass('required');
 			} else {
@@ -1650,7 +1650,7 @@ $('#tab-payment select[name=\'country_id\']').on('change', function() {
 
 			$('#tab-payment select[name=\'zone_id\']').html(html);
 		},
-		error: function(xhr, ajaxOptions, thrownError) {
+		error: function (xhr, ajaxOptions, thrownError) {
 			alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
 		}
 	});
@@ -1671,7 +1671,7 @@ $('#button-payment-address').on('click', function() {
 		complete: function() {
 			$('#button-payment-address').button('reset');
 		},
-		success: function(json) {
+		success: function (json) {
 			$('.alert-dismissible, .text-danger').remove();
 			$('.form-group').removeClass('has-error');
 
@@ -1705,7 +1705,7 @@ $('#button-payment-address').on('click', function() {
 					complete: function() {
 						$('#button-payment-address').button('reset');
 					},
-					success: function(json) {
+					success: function (json) {
 						if (json['error']) {
 							$('#content > .container-fluid').prepend('<div class="alert alert-danger alert-dismissible"><i class="fa fa-exclamation-circle"></i> ' + json['error'] + ' <button type="button" class="close" data-dismiss="alert">&times;</button></div>');
 						} else {
@@ -1724,7 +1724,7 @@ $('#button-payment-address').on('click', function() {
 							$('select[name=\'payment_method\']').html(html);
 						}
 					},
-					error: function(xhr, ajaxOptions, thrownError) {
+					error: function (xhr, ajaxOptions, thrownError) {
 						alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
 					}
 				}).done(function() {
@@ -1740,7 +1740,7 @@ $('#button-payment-address').on('click', function() {
                 });
 			}
 		},
-		error: function(xhr, ajaxOptions, thrownError) {
+		error: function (xhr, ajaxOptions, thrownError) {
 			alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
 		}
 	});
@@ -1757,7 +1757,7 @@ $('select[name=\'shipping_address\']').on('change', function() {
 		complete: function() {
 			$('select[name=\'shipping_address\']').prop('disabled', false);
 		},
-		success: function(json) {
+		success: function (json) {
 			// Reset all fields
 			$('#tab-shipping input[type=\'text\'], #tab-shipping input[type=\'text\'], #tab-shipping textarea').val('');
 			$('#tab-shipping select option').not('#tab-shipping select[name=\'shipping_address\']').removeAttr('selected');
@@ -1791,7 +1791,7 @@ $('select[name=\'shipping_address\']').on('change', function() {
 
 			$('#tab-shipping select[name=\'country_id\']').trigger('change');
 		},
-		error: function(xhr, ajaxOptions, thrownError) {
+		error: function (xhr, ajaxOptions, thrownError) {
 			alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
 		}
 	});
@@ -1809,7 +1809,7 @@ $('#tab-shipping select[name=\'country_id\']').on('change', function() {
 		complete: function() {
 			$('#tab-shipping select[name=\'country_id\']').prop('disabled', false);
 		},
-		success: function(json) {
+		success: function (json) {
 			if (json['postcode_required'] == '1') {
 				$('#tab-shipping input[name=\'postcode\']').closest('.form-group').addClass('required');
 			} else {
@@ -1834,7 +1834,7 @@ $('#tab-shipping select[name=\'country_id\']').on('change', function() {
 
 			$('#tab-shipping select[name=\'zone_id\']').html(html);
 		},
-		error: function(xhr, ajaxOptions, thrownError) {
+		error: function (xhr, ajaxOptions, thrownError) {
 			alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
 		}
 	});
@@ -1855,7 +1855,7 @@ $('#button-shipping-address').on('click', function() {
 		complete: function() {
 			$('#button-shipping-address').button('reset');
 		},
-		success: function(json) {
+		success: function (json) {
 			$('.alert-dismissible, .text-danger').remove();
 			$('.form-group').removeClass('has-error');
 
@@ -1888,7 +1888,7 @@ $('#button-shipping-address').on('click', function() {
 					complete: function() {
 						$('#button-shipping-address').button('reset');
 					},
-					success: function(json) {
+					success: function (json) {
 						if (json['error']) {
 							$('#content > .container-fluid').prepend('<div class="alert alert-danger alert-dismissible"><i class="fa fa-exclamation-circle"></i> ' + json['error'] + ' <button type="button" class="close" data-dismiss="alert">&times;</button></div>');
 						} else {
@@ -1918,7 +1918,7 @@ $('#button-shipping-address').on('click', function() {
 							$('select[name=\'shipping_method\']').html(html);
 						}
 					},
-					error: function(xhr, ajaxOptions, thrownError) {
+					error: function (xhr, ajaxOptions, thrownError) {
 						alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
 					}
 				}).done(function() {
@@ -1929,7 +1929,7 @@ $('#button-shipping-address').on('click', function() {
                 });
 			}
 		},
-		error: function(xhr, ajaxOptions, thrownError) {
+		error: function (xhr, ajaxOptions, thrownError) {
 			alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
 		}
 	});
@@ -1949,7 +1949,7 @@ $('#button-shipping-method').on('click', function() {
 		complete: function() {
 			$('#button-shipping-method').button('reset');
 		},
-		success: function(json) {
+		success: function (json) {
 			$('.alert-dismissible, .text-danger').remove();
 			$('.form-group').removeClass('has-error');
 
@@ -1967,7 +1967,7 @@ $('#button-shipping-method').on('click', function() {
 				$('#button-refresh').trigger('click');
 			}
 		},
-		error: function(xhr, ajaxOptions, thrownError) {
+		error: function (xhr, ajaxOptions, thrownError) {
 			alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
 		}
 	});
@@ -1987,7 +1987,7 @@ $('#button-payment-method').on('click', function() {
 		complete: function() {
 			$('#button-payment-method').button('reset');
 		},
-		success: function(json) {
+		success: function (json) {
 			$('.alert-dismissible, .text-danger').remove();
 			$('.form-group').removeClass('has-error');
 
@@ -2005,7 +2005,7 @@ $('#button-payment-method').on('click', function() {
 				$('#button-refresh').trigger('click');
 			}
 		},
-		error: function(xhr, ajaxOptions, thrownError) {
+		error: function (xhr, ajaxOptions, thrownError) {
 			alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
 		}
 	});
@@ -2025,7 +2025,7 @@ $('#button-coupon').on('click', function() {
 		complete: function() {
 			$('#button-coupon').button('reset');
 		},
-		success: function(json) {
+		success: function (json) {
 			$('.alert-dismissible, .text-danger').remove();
 			$('.form-group').removeClass('has-error');
 
@@ -2043,7 +2043,7 @@ $('#button-coupon').on('click', function() {
 				$('#button-refresh').trigger('click');
 			}
 		},
-		error: function(xhr, ajaxOptions, thrownError) {
+		error: function (xhr, ajaxOptions, thrownError) {
 			alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
 		}
 	});
@@ -2063,7 +2063,7 @@ $('#button-voucher').on('click', function() {
 		complete: function() {
 			$('#button-voucher').button('reset');
 		},
-		success: function(json) {
+		success: function (json) {
 			$('.alert-dismissible, .text-danger').remove();
 			$('.form-group').removeClass('has-error');
 
@@ -2081,7 +2081,7 @@ $('#button-voucher').on('click', function() {
 				$('#button-refresh').trigger('click');
 			}
 		},
-		error: function(xhr, ajaxOptions, thrownError) {
+		error: function (xhr, ajaxOptions, thrownError) {
 			alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
 		}
 	});
@@ -2101,7 +2101,7 @@ $('#button-reward').on('click', function() {
 		complete: function() {
 			$('#button-reward').button('reset');
 		},
-		success: function(json) {
+		success: function (json) {
 			$('.alert-dismissible, .text-danger').remove();
 			$('.form-group').removeClass('has-error');
 
@@ -2119,7 +2119,7 @@ $('#button-reward').on('click', function() {
 				$('#button-refresh').trigger('click');
 			}
 		},
-		error: function(xhr, ajaxOptions, thrownError) {
+		error: function (xhr, ajaxOptions, thrownError) {
 			alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
 		}
 	});
@@ -2127,17 +2127,17 @@ $('#button-reward').on('click', function() {
 
 // Affiliate
 $('input[name=\'affiliate\']').autocomplete({
-	'source': function(request, response) {
+	'source': function (request, response) {
 		$.ajax({
 			url: 'index.php?route=customer/customer/autocomplete&user_token={{ user_token }}&filter_affiliate=1&filter_name=' +  encodeURIComponent(request),
 			dataType: 'json',
-			success: function(json) {
+			success: function (json) {
 				json.unshift({
 					customer_id: 0,
 					name: '{{ text_none }}'
 				});
 
-				response($.map(json, function(item) {
+				response($.map(json, function (item) {
 					return {
 						label: item['name'],
 						value: item['customer_id']
@@ -2146,7 +2146,7 @@ $('input[name=\'affiliate\']').autocomplete({
 			}
 		});
 	},
-	'select': function(item) {
+	'select': function (item) {
 		$('input[name=\'affiliate\']').val(item['label']);
 		$('input[name=\'affiliate_id\']').val(item['value']);
 	}
@@ -2172,7 +2172,7 @@ $('#button-save').on('click', function() {
 		complete: function() {
 			$('#button-save').button('reset');
 		},
-		success: function(json) {
+		success: function (json) {
 			$('.alert-dismissible, .text-danger').remove();
 
 			if (json['error']) {
@@ -2187,7 +2187,7 @@ $('#button-save').on('click', function() {
 				$('input[name=\'order_id\']').val(json['order_id']);
 			}
 		},
-		error: function(xhr, ajaxOptions, thrownError) {
+		error: function (xhr, ajaxOptions, thrownError) {
 			alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
 		}
 	});
@@ -2224,7 +2224,7 @@ $('#content').delegate('button[id^=\'button-upload\'], button[id^=\'button-custo
 				complete: function() {
 					$(node).button('reset');
 				},
-				success: function(json) {
+				success: function (json) {
 					$(node).parent().find('.text-danger').remove();
 
 					if (json['error']) {
@@ -2239,7 +2239,7 @@ $('#content').delegate('button[id^=\'button-upload\'], button[id^=\'button-custo
 						$(node).parent().find('input[type=\'hidden\']').val(json['code']);
 					}
 				},
-				error: function(xhr, ajaxOptions, thrownError) {
+				error: function (xhr, ajaxOptions, thrownError) {
 					alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
 				}
 			});
@@ -2320,7 +2320,7 @@ $('#button-refresh').on('click', function() {
 		complete: function() {
 			$('#button-refresh').button('reset');
 		},		
-		success: function(json) {
+		success: function (json) {
 			$('.alert-dismissible').remove();
 
 			// Check for errors
@@ -2488,7 +2488,7 @@ $('#button-refresh').on('click', function() {
 
 			$('#total').html(html);
 		},
-		error: function(xhr, ajaxOptions, thrownError) {
+		error: function (xhr, ajaxOptions, thrownError) {
 			alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
 		}
 	});

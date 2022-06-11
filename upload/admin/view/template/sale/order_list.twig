@@ -194,12 +194,12 @@
 //--></script> 
   <script type="text/javascript"><!--
 	$('input[name=\'filter_customer\']').autocomplete({
-		'source': function(request, response) {
+		'source': function (request, response) {
 			$.ajax({
 				url: 'index.php?route=customer/customer/autocomplete&user_token={{ user_token }}&filter_name=' +  encodeURIComponent(request),
 				dataType: 'json',
-				success: function(json) {
-					response($.map(json, function(item) {
+				success: function (json) {
+					response($.map(json, function (item) {
 						return {
 							label: item['name'],
 							value: item['customer_id']
@@ -208,7 +208,7 @@
 				}
 			});
 		},
-		'select': function(item) {
+		'select': function (item) {
 			$('input[name=\'filter_customer\']').val(item['label']);
 		}
 	});
@@ -237,11 +237,11 @@
 	$('input[name^=\'selected\']:first').trigger('change');
 
 	// IE and Edge fix!
-	$('#button-shipping, #button-invoice').on('click', function(e) {
+	$('#button-shipping, #button-invoice').on('click', function (e) {
 		$('#form-order').attr('action', this.getAttribute('formAction'));
 	});
 
-	$('#form-order li:last-child a').on('click', function(e) {
+	$('#form-order li:last-child a').on('click', function (e) {
 		e.preventDefault();
 
 		var element = this;
@@ -256,7 +256,7 @@
 				complete: function() {
 					$(element).parent().parent().parent().find('button').button('reset');
 				},
-				success: function(json) {
+				success: function (json) {
 					$('.alert-dismissible').remove();
 
 					if (json['error']) {
@@ -267,7 +267,7 @@
 						location = '{{ delete }}';
 					}
 				},
-				error: function(xhr, ajaxOptions, thrownError) {
+				error: function (xhr, ajaxOptions, thrownError) {
 					alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
 				}
 			});

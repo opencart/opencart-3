@@ -103,11 +103,11 @@
             callbacks: {
                 // Called when the SqPaymentForm completes a request to generate a card
                 // nonce, even if the request failed because of an error.
-                cardNonceResponseReceived: function(errors, nonce, cardData) {
+                cardNonceResponseReceived: function (errors, nonce, cardData) {
                     if (errors) {
                         var message = '';
 
-                        errors.forEach(function(error) {
+                        errors.forEach(function (error) {
                             message += error.message + '. ';
                         });
 
@@ -146,14 +146,14 @@
             beforeSend: function() {
                 $('#button-confirm-order').button('loading');
             },
-            success: function(json) {
+            success: function (json) {
                 if (json.error) {
                     squareupError(json.error);
                 } else if (json.redirect) {
                     document.location = json.redirect;
                 }
             },
-            error: function(jqXHR, ajaxSettings, thrownError) {
+            error: function (jqXHR, ajaxSettings, thrownError) {
                 squareupError(thrownError);
             },
             complete: function() {
@@ -199,7 +199,7 @@
         toggleAjaxSetup(init_ajax_setup);
     }
 
-    $('#button-confirm-order').unbind().click(function(e) {
+    $('#button-confirm-order').unbind().click(function (e) {
         e.preventDefault();
         e.stopPropagation();
 

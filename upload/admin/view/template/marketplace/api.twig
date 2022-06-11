@@ -21,7 +21,7 @@
   </div>
 </div>
 <script type="text/javascript"><!--
-	$('#button-save').on('click', function(e) {
+	$('#button-save').on('click', function (e) {
 		$.ajax({
 			url: 'index.php?route=marketplace/api/save&user_token={{ user_token }}',
 			type: 'post',
@@ -33,7 +33,7 @@
 			complete: function() {
 				$('#button-save').button('reset');
 			},
-			success: function(json) {
+			success: function (json) {
 				$('.alert-dismissible, .text-danger').remove();
 
 				if (json['error']) {
@@ -56,7 +56,7 @@
 					window.location.reload();
 				}			
 			},
-			error: function(xhr, ajaxOptions, thrownError) {
+			error: function (xhr, ajaxOptions, thrownError) {
 				alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
 			}
 		});

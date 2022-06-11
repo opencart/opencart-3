@@ -361,7 +361,7 @@
 			beforeSend: function() {
 				$('#recurring-description').html('');
 			},
-			success: function(json) {
+			success: function (json) {
 				$('.alert-dismissible, .text-danger').remove();
 
 				if (json['success']) {
@@ -384,7 +384,7 @@
 			complete: function() {
 				$('#button-cart').button('reset');
 			},
-			success: function(json) {
+			success: function (json) {
 				$('.alert-dismissible, .text-danger').remove();
 				$('.form-group').removeClass('has-error');
 
@@ -419,7 +419,7 @@
 					$('#cart > ul').load('index.php?route=common/cart/info ul li');
 				}
 			},
-			error: function(xhr, ajaxOptions, thrownError) {
+			error: function (xhr, ajaxOptions, thrownError) {
 				alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
 			}
 		});
@@ -473,7 +473,7 @@ $('button[id^=\'button-upload\']').on('click', function() {
 				complete: function() {
 					$(node).button('reset');
 				},
-				success: function(json) {
+				success: function (json) {
 					$('.text-danger').remove();
 
 					if (json['error']) {
@@ -486,7 +486,7 @@ $('button[id^=\'button-upload\']').on('click', function() {
 						$(node).parent().find('input').val(json['code']);
 					}
 				},
-				error: function(xhr, ajaxOptions, thrownError) {
+				error: function (xhr, ajaxOptions, thrownError) {
 					alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
 				}
 			});
@@ -495,7 +495,7 @@ $('button[id^=\'button-upload\']').on('click', function() {
 });
 //--></script> 
 <script type="text/javascript"><!--
-$('#review').delegate('.pagination a', 'click', function(e) {
+$('#review').delegate('.pagination a', 'click', function (e) {
     e.preventDefault();
 
     $('#review').fadeOut('slow');
@@ -519,7 +519,7 @@ $('#button-review').on('click', function() {
 		complete: function() {
 			$('#button-review').button('reset');
 		},
-		success: function(json) {
+		success: function (json) {
 			$('.alert-dismissible').remove();
 
 			if (json['error']) {

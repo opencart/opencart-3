@@ -113,24 +113,24 @@ $('select[name=\'to\']').trigger('change');
   <script type="text/javascript"><!--
 // Customers
 $('input[name=\'customers\']').autocomplete({
-	'source': function(request, response) {
+	'source': function (request, response) {
 		$.ajax({
 			url: 'index.php?route=customer/customer/autocomplete&user_token={{ user_token }}&filter_name=' +  encodeURIComponent(request),
 			dataType: 'json',
-			success: function(json) {
-				response($.map(json, function(item) {
+			success: function (json) {
+				response($.map(json, function (item) {
 					return {
 						label: item['name'],
 						value: item['customer_id']
 					}
 				}));
 			},
-			error: function(xhr, ajaxOptions, thrownError) {
+			error: function (xhr, ajaxOptions, thrownError) {
 				alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
 			}
 		});
 	},
-	'select': function(item) {
+	'select': function (item) {
 		$('input[name=\'customers\']').val('');
 
 		$('#customer' + item['value']).remove();
@@ -145,24 +145,24 @@ $('#input-customer').parent().find('.well').delegate('.fa-minus-circle', 'click'
 
 // Affiliates
 $('input[name=\'affiliates\']').autocomplete({
-	'source': function(request, response) {
+	'source': function (request, response) {
 		$.ajax({
 			url: 'index.php?route=customer/customer/autocomplete&user_token={{ user_token }}&filter_name=' +  encodeURIComponent(request) + '&filter_affiliate=1',
 			dataType: 'json',
-			success: function(json) {
-				response($.map(json, function(item) {
+			success: function (json) {
+				response($.map(json, function (item) {
 					return {
 						label: item['name'],
 						value: item['customer_id']
 					}
 				}));
 			},
-			error: function(xhr, ajaxOptions, thrownError) {
+			error: function (xhr, ajaxOptions, thrownError) {
 				alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
 			}
 		});
 	},
-	'select': function(item) {
+	'select': function (item) {
 		$('input[name=\'affiliates\']').val('');
 
 		$('#affiliate' + item['value']).remove();
@@ -177,24 +177,24 @@ $('#input-affiliate').parent().find('.well').delegate('.fa-minus-circle', 'click
 
 // Products
 $('input[name=\'products\']').autocomplete({
-	'source': function(request, response) {
+	'source': function (request, response) {
 		$.ajax({
 			url: 'index.php?route=catalog/product/autocomplete&user_token={{ user_token }}&filter_name=' +  encodeURIComponent(request),
 			dataType: 'json',
-			success: function(json) {
-				response($.map(json, function(item) {
+			success: function (json) {
+				response($.map(json, function (item) {
 					return {
 						label: item['name'],
 						value: item['product_id']
 					}
 				}));
 			},
-			error: function(xhr, ajaxOptions, thrownError) {
+			error: function (xhr, ajaxOptions, thrownError) {
 				alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
 			}
 		});
 	},
-	'select': function(item) {
+	'select': function (item) {
 		$('input[name=\'products\']').val('');
 
 		$('#product' + item['value']).remove();
@@ -216,7 +216,7 @@ function send(url) {
 		beforeSend: function() {
 			$('#button-send').button('loading');
 		},
-		success: function(json) {
+		success: function (json) {
 			$('.alert-dismissible, .text-danger').remove();
 
 			if (json['error']) {
@@ -247,7 +247,7 @@ function send(url) {
 				$('#button-send').button('reset');
 			}			
 		},
-		error: function(xhr, ajaxOptions, thrownError) {
+		error: function (xhr, ajaxOptions, thrownError) {
 			alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
 		}
 	});

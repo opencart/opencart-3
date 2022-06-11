@@ -835,7 +835,7 @@ $('.date').datetimepicker({
 	pickTime: false
 });
 
-$('#button-filter').on('click', function(event) {
+$('#button-filter').on('click', function (event) {
 	event.preventDefault();
 
 	var url = 'index.php?route=extension/payment/pp_braintree/search&user_token={{ user_token }}';
@@ -870,7 +870,7 @@ $('#button-filter').on('click', function(event) {
 		url += '&filter_merchant_account_id=' + encodeURIComponent(filter_merchant_account_id);
 	}
 
-	$('.filter-transaction-status:checked').each(function(i) {
+	$('.filter-transaction-status:checked').each(function (i) {
 		url += '&filter_transaction_status[' + i + ']=' + encodeURIComponent($(this).val());
 	});
 
@@ -909,7 +909,7 @@ $('#button-filter').on('click', function(event) {
 		complete: function() {
 			$('#button-filter').button('reset');
 		},
-		success: function(json) {
+		success: function (json) {
 			var html = '';
 
 			html += '<table class="table table-bordered">';
@@ -926,7 +926,7 @@ $('#button-filter').on('click', function(event) {
 			html +=   '</thead>';
 			html +=   '<tbody>';
 			if (json.transactions) {
-				$(json.transactions).each(function(i) {
+				$(json.transactions).each(function (i) {
 					html += '<tr>';
 					html += '<td><a href="#" class="transaction-id" data-id="' + this.transaction_id + '">' + this.transaction_id + '</a></td>';
 					html += '<td>' + this.amount + ' ' + this.currency_iso + '</td>';
@@ -959,13 +959,13 @@ $('#button-filter').on('click', function(event) {
 	});
 });
 
-$(document).on('click', '.transaction-id', function(event) {
+$(document).on('click', '.transaction-id', function (event) {
 	event.preventDefault();
 
 	getTransaction($(this).attr('data-id'));
 });
 
-$(document).on('click', '#delete-link', function(event) {
+$(document).on('click', '#delete-link', function (event) {
 	event.preventDefault();
 
   $('input[name="payment_pp_braintree_access_token"]').val('');
@@ -1008,7 +1008,7 @@ function getTransaction(transaction_id) {
 		complete: function() {
 			$('#button-filter').button('reset');
 		},
-		success: function(html) {
+		success: function (html) {
 			$('#table-action').html(html);
 		}
 	});
@@ -1021,7 +1021,7 @@ function getTransaction(transaction_id) {
     new BraintreeOAuthConnect({
       connectUrl: '{{ auth_connect_url }}',
       container: 'bt-connect',
-      onError: function(error) {
+      onError: function (error) {
         alert(error.message);
       }
     });

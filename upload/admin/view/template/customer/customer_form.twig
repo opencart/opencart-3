@@ -913,7 +913,7 @@
     $.ajax({
       url: 'index.php?route=customer/customer/customfield&user_token={{ user_token }}&customer_group_id=' + this.value,
       dataType: 'json',
-      success: function(json) {
+      success: function (json) {
         $('.custom-field').hide();
         $('.custom-field').removeClass('required');
 
@@ -927,7 +927,7 @@
           }
         }
       },
-      error: function(xhr, ajaxOptions, thrownError) {
+      error: function (xhr, ajaxOptions, thrownError) {
         alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
       }
     });
@@ -1161,7 +1161,7 @@
 		  complete: function() {
 			$('select[name=\'address[' + index + '][country_id]\']').prop('disabled', false);
 		  },
-		  success: function(json) {
+		  success: function (json) {
 			if (json['postcode_required'] == '1') {
 			  $('input[name=\'address[' + index + '][postcode]\']').parent().parent().addClass('required');
 			} else {
@@ -1186,7 +1186,7 @@
 
 			$('select[name=\'address[' + index + '][zone_id]\']').html(html);
 		  },
-		  error: function(xhr, ajaxOptions, thrownError) {
+		  error: function (xhr, ajaxOptions, thrownError) {
 			alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
 		  }
 		});
@@ -1195,7 +1195,7 @@
 	  $('select[name$=\'[country_id]\']').trigger('change');
   //--></script> 
   <script type="text/javascript"><!--
-	  $('#history').delegate('.pagination a', 'click', function(e) {
+	  $('#history').delegate('.pagination a', 'click', function (e) {
 		e.preventDefault();
 
 		$('#history').load(this.href);
@@ -1203,7 +1203,7 @@
 
 	  $('#history').load('index.php?route=customer/customer/history&user_token={{ user_token }}&customer_id={{ customer_id }}');
 
-	  $('#button-history').on('click', function(e) {
+	  $('#button-history').on('click', function (e) {
 		e.preventDefault();
 
 		$.ajax({
@@ -1217,7 +1217,7 @@
 		  complete: function() {
 			$('#button-history').button('reset');
 		  },
-		  success: function(json) {
+		  success: function (json) {
 			$('.alert-dismissible').remove();
 
 			if (json['error']) {
@@ -1232,14 +1232,14 @@
 			  $('#tab-history textarea[name=\'comment\']').val('');
 			}
 		  },
-		  error: function(xhr, ajaxOptions, thrownError) {
+		  error: function (xhr, ajaxOptions, thrownError) {
 			alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
 		  }
 		});
 	  });
   //--></script> 
   <script type="text/javascript"><!--
-	  $('#transaction').delegate('.pagination a', 'click', function(e) {
+	  $('#transaction').delegate('.pagination a', 'click', function (e) {
 		e.preventDefault();
 
 		$('#transaction').load(this.href);
@@ -1247,7 +1247,7 @@
 
 	  $('#transaction').load('index.php?route=customer/customer/transaction&user_token={{ user_token }}&customer_id={{ customer_id }}');
 
-	  $('#button-transaction').on('click', function(e) {
+	  $('#button-transaction').on('click', function (e) {
 		e.preventDefault();
 
 		$.ajax({
@@ -1261,7 +1261,7 @@
 		  complete: function() {
 			$('#button-transaction').button('reset');
 		  },
-		  success: function(json) {
+		  success: function (json) {
 			$('.alert-dismissible').remove();
 
 			if (json['error']) {
@@ -1277,14 +1277,14 @@
 			  $('#tab-transaction input[name=\'description\']').val('');
 			}
 		  },
-		  error: function(xhr, ajaxOptions, thrownError) {
+		  error: function (xhr, ajaxOptions, thrownError) {
 			alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
 		  }
 		});
 	  });
   //--></script> 
   <script type="text/javascript"><!--
-	  $('#reward').delegate('.pagination a', 'click', function(e) {
+	  $('#reward').delegate('.pagination a', 'click', function (e) {
 		e.preventDefault();
 
 		$('#reward').load(this.href);
@@ -1292,7 +1292,7 @@
 
 	  $('#reward').load('index.php?route=customer/customer/reward&user_token={{ user_token }}&customer_id={{ customer_id }}');
 
-	  $('#button-reward').on('click', function(e) {
+	  $('#button-reward').on('click', function (e) {
 		e.preventDefault();
 
 		$.ajax({
@@ -1306,7 +1306,7 @@
 		  complete: function() {
 			$('#button-reward').button('reset');
 		  },
-		  success: function(json) {
+		  success: function (json) {
 			$('.alert-dismissible').remove();
 
 			if (json['error']) {
@@ -1322,13 +1322,13 @@
 			  $('#tab-reward input[name=\'description\']').val('');
 			}
 		  },
-		  error: function(xhr, ajaxOptions, thrownError) {
+		  error: function (xhr, ajaxOptions, thrownError) {
 			alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
 		  }
 		});
 	  });
 
-	  $('#ip').delegate('.pagination a', 'click', function(e) {
+	  $('#ip').delegate('.pagination a', 'click', function (e) {
 		e.preventDefault();
 
 		$('#ip').load(this.href);
@@ -1367,7 +1367,7 @@
 			  complete: function() {
 				$(node).button('reset');
 			  },
-			  success: function(json) {
+			  success: function (json) {
 				$(node).parent().find('.text-danger').remove();
 
 				if (json['error']) {
@@ -1382,7 +1382,7 @@
 				  $(node).parent().find('input[type=\'hidden\']').val(json['code']);
 				}
 			  },
-			  error: function(xhr, ajaxOptions, thrownError) {
+			  error: function (xhr, ajaxOptions, thrownError) {
 				alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
 			  }
 			});

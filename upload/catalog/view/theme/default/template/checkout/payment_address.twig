@@ -266,7 +266,7 @@ $('#collapse-payment-address button[id^=\'button-payment-custom-field\']').on('c
 				complete: function() {
 					$(element).button('reset');
 				},
-				success: function(json) {
+				success: function (json) {
 					$(element).parent().find('.text-danger').remove();
 
 					if (json['error']) {
@@ -279,7 +279,7 @@ $('#collapse-payment-address button[id^=\'button-payment-custom-field\']').on('c
 						$(element).parent().find('input[name^=\'custom_field\']').val(json['code']);
 					}
 				},
-				error: function(xhr, ajaxOptions, thrownError) {
+				error: function (xhr, ajaxOptions, thrownError) {
 					alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
 				}
 			});
@@ -315,7 +315,7 @@ $('#collapse-payment-address select[name=\'country_id\']').on('change', function
 		complete: function() {
 			$('#collapse-payment-address select[name=\'country_id\']').prop('disabled', false);
 		},
-		success: function(json) {
+		success: function (json) {
 			if (json['postcode_required'] == '1') {
 				$('#collapse-payment-address input[name=\'postcode\']').parent().parent().addClass('required');
 			} else {
@@ -340,7 +340,7 @@ $('#collapse-payment-address select[name=\'country_id\']').on('change', function
 
 			$('#collapse-payment-address select[name=\'zone_id\']').html(html);
 		},
-		error: function(xhr, ajaxOptions, thrownError) {
+		error: function (xhr, ajaxOptions, thrownError) {
 			alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
 		}
 	});

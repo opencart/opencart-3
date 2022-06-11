@@ -86,7 +86,7 @@ $('#button-void').bind('click', function() {
 				$('#img_loading_void').show();
 				$('#firstdata_transaction_msg').hide();
 			},
-			success: function(data) {
+			success: function (data) {
 				if (data['error'] == false) {
 					html = '';
 					html += '<tr>';
@@ -130,7 +130,7 @@ $('#button-capture').bind('click', function() {
 				$('#img_loading_capture').show();
 				$('#firstdata_transaction_msg').hide();
 			},
-			success: function(data) {
+			success: function (data) {
 				if (data.error == false) {
 					html = '';
 					html += '<tr>';
@@ -178,7 +178,7 @@ $('#button-refund').bind('click', function() {
 				$('#img_loading_refund').show();
 				$('#firstdata_transaction_msg').hide();
 			},
-			success: function(data) {
+			success: function (data) {
 				if (data.error == false) {
 					html = '';
 					html += '<tr>';

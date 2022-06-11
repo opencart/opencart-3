@@ -222,14 +222,14 @@ $('input[name=\'shipping_method\']').change(function() {
 	$('#shipping_form').submit();
 });
 
-$(document).on('click', '.button-payment-address', function(event) {
+$(document).on('click', '.button-payment-address', function (event) {
 	$('#payment_address').remove();
 	$('body').append('<div id="payment_address" class="modal fade"></div>');
 	$('#payment_address').load('index.php?route=extension/module/paypal_smart_button/paymentAddress #payment_address >', onLoadPaymentAddress);
 	$('#payment_address').modal('show');
 });
 
-$(document).on('click', '.button-shipping-address', function(event) {
+$(document).on('click', '.button-shipping-address', function (event) {
 	$('#shipping_address').remove();
 	$('body').append('<div id="shipping_address" class="modal fade"></div>');
 	$('#shipping_address').load('index.php?route=extension/module/paypal_smart_button/shippingAddress #shipping_address >', onLoadShippingAddress);
@@ -294,7 +294,7 @@ function onLoadPaymentAddress() {
 			complete: function() {
 				$('#payment_address select[name=\'country_id\']').prop('disabled', false);
 			},
-			success: function(json) {
+			success: function (json) {
 				if (json['postcode_required'] == '1') {
 					$('#payment_address input[name=\'postcode\']').parent().parent().addClass('required');
 				} else {
@@ -319,7 +319,7 @@ function onLoadPaymentAddress() {
 
 				$('#payment_address select[name=\'zone_id\']').html(html);
 			},
-			error: function(xhr, ajaxOptions, thrownError) {
+			error: function (xhr, ajaxOptions, thrownError) {
 				alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
 			}
 		});
@@ -374,7 +374,7 @@ function onLoadPaymentAddress() {
 					complete: function() {
 						$(node).button('reset');
 					},
-					success: function(json) {
+					success: function (json) {
 						$(node).parent().find('.text-danger').remove();
 
 						if (json['error']) {
@@ -387,7 +387,7 @@ function onLoadPaymentAddress() {
 							$(node).parent().find('input[name^=\'custom_field\']').val(json['code']);
 						}
 					},
-					error: function(xhr, ajaxOptions, thrownError) {
+					error: function (xhr, ajaxOptions, thrownError) {
 						alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
 					}
 				});
@@ -395,13 +395,13 @@ function onLoadPaymentAddress() {
 		}, 500);
 	});
 
-	$('#payment_address .button-confirm').on('click', function(event) {
+	$('#payment_address .button-confirm').on('click', function (event) {
 		$.ajax({
 			type: 'post',
 			url: 'index.php?route=extension/module/paypal_smart_button/confirmPaymentAddress',
 			data: $('#payment_address [name]'),
 			dataType: 'json',
-			success: function(json) {
+			success: function (json) {
 				$('#payment_address .alert, #payment_address .text-danger').remove();
 				$('#payment_address .form-group').removeClass('has-error');
 
@@ -423,7 +423,7 @@ function onLoadPaymentAddress() {
 					location = json['url'];
 				}
 			},
-			error: function(xhr, ajaxOptions, thrownError) {
+			error: function (xhr, ajaxOptions, thrownError) {
 				console.log(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
 			}
 		});
@@ -460,7 +460,7 @@ function onLoadShippingAddress() {
 			complete: function() {
 				$('#shipping_address select[name=\'country_id\']').prop('disabled', false);
 			},
-			success: function(json) {
+			success: function (json) {
 				if (json['postcode_required'] == '1') {
 					$('#shipping_address input[name=\'postcode\']').parent().parent().addClass('required');
 				} else {
@@ -485,7 +485,7 @@ function onLoadShippingAddress() {
 
 				$('#shipping_address select[name=\'zone_id\']').html(html);
 			},
-			error: function(xhr, ajaxOptions, thrownError) {
+			error: function (xhr, ajaxOptions, thrownError) {
 				alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
 			}
 		});
@@ -540,7 +540,7 @@ function onLoadShippingAddress() {
 					complete: function() {
 						$(node).button('reset');
 					},
-					success: function(json) {
+					success: function (json) {
 						$(node).parent().find('.text-danger').remove();
 
 						if (json['error']) {
@@ -553,7 +553,7 @@ function onLoadShippingAddress() {
 							$(node).parent().find('input[name^=\'custom_field\']').attr('value', json['file']);
 						}
 					},
-					error: function(xhr, ajaxOptions, thrownError) {
+					error: function (xhr, ajaxOptions, thrownError) {
 						alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
 					}
 				});
@@ -561,13 +561,13 @@ function onLoadShippingAddress() {
 		}, 500);
 	});
 
-	$('#shipping_address .button-confirm').on('click', function(event) {
+	$('#shipping_address .button-confirm').on('click', function (event) {
 		$.ajax({
 			type: 'post',
 			url: 'index.php?route=extension/module/paypal_smart_button/confirmShippingAddress',
 			data: $('#shipping_address [name]'),
 			dataType: 'json',
-			success: function(json) {
+			success: function (json) {
 				$('#shipping_address .alert, #shipping_address .text-danger').remove();
 				$('#shipping_address .form-group').removeClass('has-error');
 
@@ -589,7 +589,7 @@ function onLoadShippingAddress() {
 					location = json['url'];
 				}
 			},
-			error: function(xhr, ajaxOptions, thrownError) {
+			error: function (xhr, ajaxOptions, thrownError) {
 				console.log(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
 			}
 		});

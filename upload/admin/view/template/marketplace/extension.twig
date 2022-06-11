@@ -53,10 +53,10 @@
 				$('.fa-circle-o-notch').removeClass('fa-circle-o-notch fa-spin');
 				$('select[name=\'type\']').prop('disabled', false);
 			},
-			success: function(html) {
+			success: function (html) {
 				$('#extension').html(html);
 			},
-			error: function(xhr, ajaxOptions, thrownError) {
+			error: function (xhr, ajaxOptions, thrownError) {
 				alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
 			}
 		});
@@ -64,7 +64,7 @@
 
 	$('select[name="type"]').trigger('change');
 
-	$('#extension').on('click', '.btn-success', function(e) {
+	$('#extension').on('click', '.btn-success', function (e) {
 		e.preventDefault();
 
 		var element = this;
@@ -78,16 +78,16 @@
 			complete: function() {
 				$(element).button('reset');
 			},
-			success: function(html) {
+			success: function (html) {
 				$('#extension').html(html);
 			},
-			error: function(xhr, ajaxOptions, thrownError) {
+			error: function (xhr, ajaxOptions, thrownError) {
 				alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
 			}
 		});
 	});
 
-	$('#extension').on('click', '.btn-danger, .btn-warning', function(e) {
+	$('#extension').on('click', '.btn-danger, .btn-warning', function (e) {
 		e.preventDefault();
 
 		if (confirm('{{ text_confirm }}')) {
@@ -102,10 +102,10 @@
 				complete: function() {
 					$(element).button('reset');
 				},
-				success: function(html) {
+				success: function (html) {
 					$('#extension').html(html);
 				},
-				error: function(xhr, ajaxOptions, thrownError) {
+				error: function (xhr, ajaxOptions, thrownError) {
 					alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
 				}
 			});

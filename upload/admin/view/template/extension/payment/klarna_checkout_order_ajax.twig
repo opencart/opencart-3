@@ -645,7 +645,7 @@ $(document).off('click', '.button-command').on('click', '.button-command', funct
 
 				$(modal).modal('hide');
 			},
-			success: function(json) {
+			success: function (json) {
 				if (json.error) {
 					$('.kc-alert').show().addClass('alert alert-danger').html('<i class="fa fa-check-circle"></i> ' + json.error);
 				}
@@ -666,7 +666,7 @@ $(document).off('click', '.button-command').on('click', '.button-command', funct
 						complete: function() {
 							$('#button-history').button('reset');
 						},
-						success: function(json) {
+						success: function (json) {
 							$('.alert-dismissible').remove();
 
 							if (json['error']) {
@@ -681,7 +681,7 @@ $(document).off('click', '.button-command').on('click', '.button-command', funct
 								$('textarea[name=\'comment\']').val('');
 							}
 						},
-						error: function(xhr, ajaxOptions, thrownError) {
+						error: function (xhr, ajaxOptions, thrownError) {
 							alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
 						}
 					});

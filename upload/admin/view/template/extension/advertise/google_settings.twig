@@ -117,7 +117,7 @@
     }
 
     $(document).ready(function() {
-        $('#button_disconnect').click(function(e) {
+        $('#button_disconnect').click(function (e) {
             if ($(this).is(':disabled') || !confirm('{{ text_confirm }}')) {
                 e.preventDefault();
             } else {

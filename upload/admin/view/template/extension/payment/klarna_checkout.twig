@@ -474,9 +474,9 @@ $(document).on('click', '#button-process-settlement', function() {
 			complete: function() {
 				$('#button-process-settlement').button('reset');
 			},
-			success: function(json) {
+			success: function (json) {
 				if (json['error']) {
-					$.each(json['error'], function(index, value) {
+					$.each(json['error'], function (index, value) {
 						$('.settlement-alerts').append('<div class="alert alert-danger alert-dismissible"><i class="fa fa-exclamation-circle"></i> ' + value + '</div>');
 					});
 				}
@@ -487,7 +487,7 @@ $(document).on('click', '#button-process-settlement', function() {
 					if (json['orders'].length > 0) {
 						$('.settlement-alerts').append('<div class="alert alert-success alert-dismissible"><i class="fa fa-exclamation-circle"></i> {{ text_processing_orders }}</div>');
 
-						$.each(json['orders'], function(index, value) {
+						$.each(json['orders'], function (index, value) {
 							$('.settlement-alerts').append('<div class="alert alert-success alert-dismissible"><i class="fa fa-exclamation-circle"></i> {{ text_processing_order }} ' + value + '</div>');
 
 							$.ajax({
@@ -501,7 +501,7 @@ $(document).on('click', '#button-process-settlement', function() {
 								complete: function() {
 									//$('#button-history').button('reset');
 								},
-								success: function(json) {
+								success: function (json) {
 									if (json['error']) {
 										$('.settlement-alerts').append('<div class="alert alert-danger alert-dismissible"><i class="fa fa-exclamation-circle"></i> ' + json['error'] + ' <button type="button" class="close" data-dismiss="alert">&times;</button></div>');
 									}
@@ -510,7 +510,7 @@ $(document).on('click', '#button-process-settlement', function() {
 										$('.settlement-alerts').append('<div class="alert alert-success alert-dismissible"><i class="fa fa-check-circle"></i> ' + json['success'] + ' <button type="button" class="close" data-dismiss="alert">&times;</button></div>');
 									}
 								},
-								error: function(xhr, ajaxOptions, thrownError) {
+								error: function (xhr, ajaxOptions, thrownError) {
 									alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
 								}
 							});
@@ -590,7 +590,7 @@ $(document).delegate('#button-ip-add', 'click', function() {
         complete: function() {
             $('#button-ip-add').button('reset');
         },
-        success: function(json) {
+        success: function (json) {
             $('.api-alert').remove();
 
             if (json['error']) {
@@ -601,7 +601,7 @@ $(document).delegate('#button-ip-add', 'click', function() {
                 $('#content > .container-fluid').prepend('<div class="alert alert-success api-alert"><i class="fa fa-check-circle"></i> ' + json['success'] + ' <button type="button" class="close" data-dismiss="alert">&times;</button></div>');
             }
         },
-        error: function(xhr, ajaxOptions, thrownError) {
+        error: function (xhr, ajaxOptions, thrownError) {
             alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
         }
     });
@@ -616,7 +616,7 @@ $.ajax({
     dataType: 'json',
     data: 'key={{ api_key }}',
     crossDomain: true,
-    success: function(json) {
+    success: function (json) {
         $('.api-alert').remove();
 
         if (json['error']) {
@@ -633,7 +633,7 @@ $.ajax({
             token = json['user_token'];
         }
     },
-    error: function(xhr, ajaxOptions, thrownError) {
+    error: function (xhr, ajaxOptions, thrownError) {
         alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
     }
 });

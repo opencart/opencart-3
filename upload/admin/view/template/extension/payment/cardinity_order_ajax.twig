@@ -93,7 +93,7 @@ $('.button-command').on('click', function() {
 			complete: function() {
 				$('#button-settle').button('reset');
 			},
-			success: function(json) {
+			success: function (json) {
 				if (json.error) {
 					$('.alert').show();
 
