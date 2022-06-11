@@ -362,6 +362,33 @@ $(document).delegate('.agree', 'click', function(e) {
 	});
 });
 
+// Cookie Policy
+$('#cookie button').on('click', function () {
+	var element = this;
+
+    $.ajax({
+        url: $(this).val(),
+        type: 'get',
+        dataType: 'json',
+        beforeSend: function () {
+            $(element).button('loading');
+        },
+        complete: function () {
+            $(element).prop('disabled', false).removeClass('loading');
+        },
+        success: function (json) {
+            if (json['success']) {
+                $('#cookie').fadeOut(400, function () {
+                    $('#cookie').remove();
+                });
+            }
+        },
+        error: function (xhr, ajaxOptions, thrownError) {
+            console.log(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
+        }
+    });
+});
+
 // Autocomplete */
 (function($) {
 	$.fn.autocomplete = function(option) {
