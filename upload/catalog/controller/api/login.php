@@ -31,8 +31,7 @@ class ControllerApiLogin extends Controller {
 			if (!$json) {
 				$json['success'] = $this->language->get('text_success');
 				
-				$session = new \Session($this->config->get('session_engine'), $this->registry);
-				
+				$session = new \Session($this->config->get('session_engine'), $this->registry);				
 				$session->start();
 				
 				$this->model_account_api->addApiSession($api_info['api_id'], $session->getId(), $this->request->server['REMOTE_ADDR']);
