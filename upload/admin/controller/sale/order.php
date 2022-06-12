@@ -669,14 +669,15 @@ class ControllerSaleOrder extends Controller {
 					if (isset($data[$location][$custom_field['custom_field_id']])) {
 						$code = $data[$location][$custom_field['custom_field_id']];
 
-						$upload_result = $this->model_tool_upload->getUploadByCode($code);
+						$upload_info = $this->model_tool_upload->getUploadByCode($code);
 
 						$data[$location][$custom_field['custom_field_id']] = array();
-						if ($upload_result) {
-							$data[$location][$custom_field['custom_field_id']]['name'] = $upload_result['name'];
-							$data[$location][$custom_field['custom_field_id']]['code'] = $upload_result['code'];
+						
+						if ($upload_info) {
+							$data[$location][$custom_field['custom_field_id']]['name'] = $upload_info['name'];
+							$data[$location][$custom_field['custom_field_id']]['code'] = $upload_info['code'];
 						} else {
-							$data[$location][$custom_field['custom_field_id']]['name'] = "";
+							$data[$location][$custom_field['custom_field_id']]['name'] = '';
 							$data[$location][$custom_field['custom_field_id']]['code'] = $code;
 						}
 					}
