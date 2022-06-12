@@ -16,4 +16,4 @@ $_['error_custom_field'] = '%s required!';
 $_['error_address']      = 'Warning: Payment address required!';
 $_['error_method']       = 'Warning: Payment method required!';
 $_['error_no_payment']   = 'Warning: No Payment options are available!';
-$_['error_regex']        = '%s not a valid input!';
+$_['error_regex']        = '%s is not a valid input!';

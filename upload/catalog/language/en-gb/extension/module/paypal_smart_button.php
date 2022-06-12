@@ -72,4 +72,4 @@ $_['error_agree']                    	= 'Warning: You must agree to the %s!';
 $_['error_address']                  	= 'Warning: You must select address!';
 $_['error_custom_field']             	= '%s required!';
 $_['error_timeout'] 	  				= 'Sorry, PayPal is currently busy. Please try again later!';
-$_['error_regex']        			 	= '%s not a valid input!';
+$_['error_regex']        			 	= '%s is not a valid input!';
