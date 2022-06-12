@@ -1988,7 +1988,7 @@ class ControllerExtensionAdvertiseGoogle extends Controller {
             break;
         }
 
-        if (!isset($this->error['warning']) && $this->error) {
+        if ($this->error && !isset($this->error['warning'])) {
             $this->error['warning'] = $this->language->get('error_warning');
         }
 
@@ -1998,7 +1998,7 @@ class ControllerExtensionAdvertiseGoogle extends Controller {
     protected function validateMapping() {
         $this->validatePermission();
 
-        if (!isset($this->error['warning']) && $this->error) {
+        if ($this->error && !isset($this->error['warning'])) {
             $this->error['warning'] = $this->language->get('error_warning');
         }
 
@@ -2024,7 +2024,7 @@ class ControllerExtensionAdvertiseGoogle extends Controller {
             }
         }
 
-        if (!isset($this->error['warning']) && $this->error) {
+        if ($this->error && !isset($this->error['warning'])) {
             $this->error['warning'] = $this->language->get('error_warning');
         }
 
@@ -2050,7 +2050,7 @@ class ControllerExtensionAdvertiseGoogle extends Controller {
             $this->error['warning'] = $this->language->get('error_no_targets');
         }
 
-        if (!isset($this->error['warning']) && $this->error) {
+        if ($this->error && !isset($this->error['warning'])) {
             $this->error['warning'] = $this->language->get('error_warning');
         }
 
@@ -2070,7 +2070,7 @@ class ControllerExtensionAdvertiseGoogle extends Controller {
             $this->error['app_secret'] = $this->language->get('error_empty_app_secret');
         }
 
-        if (!isset($this->error['warning']) && $this->error) {
+        if ($this->error && !isset($this->error['warning'])) {
             $this->error['warning'] = $this->language->get('error_warning');
         }
 
@@ -2124,7 +2124,7 @@ class ControllerExtensionAdvertiseGoogle extends Controller {
             }
         }
 
-        if (!isset($this->error['warning']) && $this->error) {
+        if ($this->error && !isset($this->error['warning'])) {
             $this->error['warning'] = $this->language->get('error_warning');
         }
 
