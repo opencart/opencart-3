@@ -1141,7 +1141,7 @@ class ControllerExtensionAdvertiseGoogle extends Controller {
             } catch (\RuntimeException $e) {
                 $this->session->data['error'] = $e->getMessage();
             }
-        } elseif (!is_null($error)) {
+        } elseif ($error != '') {
             $this->session->data['error'] = $error;
 
             $setting = $this->model_setting_setting->getSetting('advertise_google', $this->store_id);
