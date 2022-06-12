@@ -245,7 +245,7 @@ class ModelCustomerCustomer extends Model {
 			$implode[] = "`email` LIKE '" . $this->db->escape($data['filter_email']) . "%'";
 		}
 
-		if (isset($data['filter_newsletter']) && !is_null($data['filter_newsletter'])) {
+		if (isset($data['filter_newsletter']) && $data['filter_newsletter'] != '') {
 			$implode[] = "`newsletter` = '" . (int)$data['filter_newsletter'] . "'";
 		}
 
