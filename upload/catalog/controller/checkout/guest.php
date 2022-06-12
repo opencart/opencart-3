@@ -240,8 +240,8 @@ class ControllerCheckoutGuest extends Controller {
 			$this->session->data['guest']['email'] = $this->request->post['email'];
 			$this->session->data['guest']['telephone'] = $this->request->post['telephone'];
 
-			if (isset($this->request->post['custom_field']['account'])) {
-				$this->session->data['guest']['custom_field'] = $this->request->post['custom_field']['account'];
+			if (isset($this->request->post['custom_field'])) {
+				$this->session->data['guest']['custom_field'] = $this->request->post['custom_field'];
 			} else {
 				$this->session->data['guest']['custom_field'] = array();
 			}
