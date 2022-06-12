@@ -1,13 +1,13 @@
 <?php
 class ModelUserUserGroup extends Model {
 	public function addUserGroup($data) {
-		$this->db->query("INSERT INTO `" . DB_PREFIX . "user_group` SET `name` = '" . $this->db->escape($data['name']) . "', `permission` = '" . (isset($data['permission']) ? $this->db->escape(json_encode($data['permission'])) : '') . "'");
+		$this->db->query("INSERT INTO `" . DB_PREFIX . "user_group` SET `name` = '" . $this->db->escape($data['name']) . "', `permission` = '" . $this->db->escape(isset($data['permission']) ? json_encode($data['permission']) : json_encode(array())) . "'");
 	
 		return $this->db->getLastId();
 	}
 
 	public function editUserGroup($user_group_id, $data) {
-		$this->db->query("UPDATE `" . DB_PREFIX . "user_group` SET `name` = '" . $this->db->escape($data['name']) . "', `permission` = '" . (isset($data['permission']) ? $this->db->escape(json_encode($data['permission'])) : '') . "' WHERE `user_group_id` = '" . (int)$user_group_id . "'");
+		$this->db->query("UPDATE `" . DB_PREFIX . "user_group` SET `name` = '" . $this->db->escape($data['name']) . "', `permission` = '" . $this->db->escape(isset($data['permission']) ? json_encode($data['permission']) : json_encode(array())) . "' WHERE `user_group_id` = '" . (int)$user_group_id . "'");
 	}
 
 	public function deleteUserGroup($user_group_id) {

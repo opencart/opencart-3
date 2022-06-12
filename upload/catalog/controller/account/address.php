@@ -380,8 +380,8 @@ class ControllerAccountAddress extends Controller {
 			$data['zone_id'] = '';
 		}
 
-		if (isset($this->request->post['custom_field']['address'])) {
-			$data['address_custom_field'] = $this->request->post['custom_field']['address'];
+		if (isset($this->request->post['custom_field'])) {
+			$data['address_custom_field'] = $this->request->post['custom_field'];
 		} elseif (isset($address_info['custom_field'])) {
 			$data['address_custom_field'] = $address_info['custom_field'];
 		} else {
@@ -406,16 +406,18 @@ class ControllerAccountAddress extends Controller {
 				if ($custom_field['type'] == 'file' && isset($data['address_custom_field'][$custom_field['custom_field_id']])) {
 					$code = $data['address_custom_field'][$custom_field['custom_field_id']];
 
-					$upload_result = $this->model_tool_upload->getUploadByCode($code);
+					$upload_code = $this->model_tool_upload->getUploadByCode($code);
 
 					$data['address_custom_field'][$custom_field['custom_field_id']] = array();
-					if ($upload_result) {
-						$data['address_custom_field'][$custom_field['custom_field_id']]['name'] = $upload_result['name'];
-						$data['address_custom_field'][$custom_field['custom_field_id']]['code'] = $upload_result['code'];
+					
+					if ($upload_code) {
+						$data['address_custom_field'][$custom_field['custom_field_id']]['name'] = $upload_code['name'];
+						$data['address_custom_field'][$custom_field['custom_field_id']]['code'] = $upload_code['code'];
 					} else {
-						$data['address_custom_field'][$custom_field['custom_field_id']]['name'] = "";
+						$data['address_custom_field'][$custom_field['custom_field_id']]['name'] = '';
 						$data['address_custom_field'][$custom_field['custom_field_id']]['code'] = $code;
 					}
+					
 					$data['custom_fields'][] = $custom_field;
 				} else {
 					$data['custom_fields'][] = $custom_field;
@@ -485,8 +487,8 @@ class ControllerAccountAddress extends Controller {
 			if ($custom_field['location'] == 'address') {
 				if ($custom_field['required'] && empty($this->request->post['custom_field'][$custom_field['location']][$custom_field['custom_field_id']])) {
 					$this->error['custom_field'][$custom_field['custom_field_id']] = sprintf($this->language->get('error_custom_field'), $custom_field['name']);
-				} elseif (($custom_field['type'] == 'text') && !empty($custom_field['validation']) && !filter_var($this->request->post['custom_field'][$custom_field['location']][$custom_field['custom_field_id']], FILTER_VALIDATE_REGEXP, array('options' => array('regexp' => $custom_field['validation'])))) {
-					$this->error['custom_field'][$custom_field['custom_field_id']] = sprintf($this->language->get('error_custom_field'), $custom_field['name']);
+				} elseif (($custom_field['type'] == 'text') && !empty($custom_field['validation']) && !preg_match(html_entity_decode($custom_field['validation'], ENT_QUOTES, 'UTF-8'), $this->request->post['custom_field'][$custom_field['location']][$custom_field['custom_field_id']])) {
+					$this->error['custom_field'][$custom_field['custom_field_id']] = sprintf($this->language->get('error_regex'), $custom_field['name']);
 				}
 			}
 		}
