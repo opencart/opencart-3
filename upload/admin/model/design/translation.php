@@ -61,7 +61,7 @@ class ModelDesignTranslation extends Model {
 	}	
 
 	public function getTotalTranslations() {
-		$query = $this->db->query("SELECT COUNT(*) AS total FROM `" . DB_PREFIX . "translation`");
+		$query = $this->db->query("SELECT COUNT(*) AS `total` FROM `" . DB_PREFIX . "translation`");
 		
 		return (int)$query->row['total'];
 	}	

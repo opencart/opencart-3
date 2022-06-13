@@ -256,13 +256,13 @@ class ModelExtensionPaymentRealexRemote extends Model {
 	}
 
 	public function getTotalCaptured($realex_order_id) {
-		$query = $this->db->query("SELECT SUM(`amount`) AS total FROM `" . DB_PREFIX . "realex_remote_order_transaction` WHERE `realex_remote_order_id` = '" . (int)$realex_order_id . "' AND (`type` = 'payment' OR `type` = 'rebate')");
+		$query = $this->db->query("SELECT SUM(`amount`) AS `total` FROM `" . DB_PREFIX . "realex_remote_order_transaction` WHERE `realex_remote_order_id` = '" . (int)$realex_order_id . "' AND (`type` = 'payment' OR `type` = 'rebate')");
 
 		return (float)$query->row['total'];
 	}
 
 	public function getTotalRebated($realex_order_id) {
-		$query = $this->db->query("SELECT SUM(`amount`) AS total FROM `" . DB_PREFIX . "realex_remote_order_transaction` WHERE `realex_remote_order_id` = '" . (int)$realex_order_id . "' AND `type` = 'rebate'");
+		$query = $this->db->query("SELECT SUM(`amount`) AS `total` FROM `" . DB_PREFIX . "realex_remote_order_transaction` WHERE `realex_remote_order_id` = '" . (int)$realex_order_id . "' AND `type` = 'rebate'");
 
 		return (double)$query->row['total'];
 	}

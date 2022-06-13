@@ -203,7 +203,7 @@ class ModelCustomerCustomField extends Model {
 	}
 
 	public function getTotalCustomFields() {
-		$query = $this->db->query("SELECT COUNT(*) AS total FROM `" . DB_PREFIX . "custom_field`");
+		$query = $this->db->query("SELECT COUNT(*) AS `total` FROM `" . DB_PREFIX . "custom_field`");
 
 		return (int)$query->row['total'];
 	}

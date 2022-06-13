@@ -69,7 +69,7 @@ class ModelSettingModification extends Model {
 	}
 
 	public function getTotalModifications() {
-		$query = $this->db->query("SELECT COUNT(*) AS total FROM `" . DB_PREFIX . "modification`");
+		$query = $this->db->query("SELECT COUNT(*) AS `total` FROM `" . DB_PREFIX . "modification`");
 
 		return (int)$query->row['total'];
 	}

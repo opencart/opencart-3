@@ -176,7 +176,7 @@ class ModelExtensionPaymentLaybuy extends Model {
 	}
 
 	public function getTotalTransactions($data = array()) {
-		$sql = "SELECT COUNT(*) AS total FROM `" . DB_PREFIX . "laybuy_transaction` `lt` WHERE 1 = 1";
+		$sql = "SELECT COUNT(*) AS `total` FROM `" . DB_PREFIX . "laybuy_transaction` `lt` WHERE 1 = 1";
 
 		$implode = array();
 

@@ -70,13 +70,13 @@ class ModelSaleVoucher extends Model {
 	}
 
 	public function getTotalVouchers() {
-		$query = $this->db->query("SELECT COUNT(*) AS total FROM `" . DB_PREFIX . "voucher`");
+		$query = $this->db->query("SELECT COUNT(*) AS `total` FROM `" . DB_PREFIX . "voucher`");
 
 		return (int)$query->row['total'];
 	}
 
 	public function getTotalVouchersByVoucherThemeId($voucher_theme_id) {
-		$query = $this->db->query("SELECT COUNT(*) AS total FROM `" . DB_PREFIX . "voucher` WHERE `voucher_theme_id` = '" . (int)$voucher_theme_id . "'");
+		$query = $this->db->query("SELECT COUNT(*) AS `total` FROM `" . DB_PREFIX . "voucher` WHERE `voucher_theme_id` = '" . (int)$voucher_theme_id . "'");
 
 		return (int)$query->row['total'];
 	}
@@ -96,7 +96,7 @@ class ModelSaleVoucher extends Model {
 	}
 
 	public function getTotalVoucherHistories($voucher_id) {
-		$query = $this->db->query("SELECT COUNT(*) AS total FROM `" . DB_PREFIX . "voucher_history` WHERE `voucher_id` = '" . (int)$voucher_id . "'");
+		$query = $this->db->query("SELECT COUNT(*) AS `total` FROM `" . DB_PREFIX . "voucher_history` WHERE `voucher_id` = '" . (int)$voucher_id . "'");
 
 		return (int)$query->row['total'];
 	}

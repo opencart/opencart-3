@@ -85,7 +85,7 @@ class ModelCatalogAttributeGroup extends Model {
 	}
 
 	public function getTotalAttributeGroups() {
-		$query = $this->db->query("SELECT COUNT(*) AS total FROM `" . DB_PREFIX . "attribute_group`");
+		$query = $this->db->query("SELECT COUNT(*) AS `total` FROM `" . DB_PREFIX . "attribute_group`");
 
 		return (int)$query->row['total'];
 	}

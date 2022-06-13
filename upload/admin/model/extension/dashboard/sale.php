@@ -1,7 +1,7 @@
 <?php
 class ModelExtensionDashboardSale extends Model {
 	public function getTotalSales($data = array()) {
-		$sql = "SELECT SUM(total) AS total FROM `" . DB_PREFIX . "order` WHERE `order_status_id` > '0'";
+		$sql = "SELECT SUM(total) AS `total` FROM `" . DB_PREFIX . "order` WHERE `order_status_id` > '0'";
 
 		if (!empty($data['filter_date_added'])) {
 			$sql .= " AND DATE(`date_added`) = DATE('" . $this->db->escape($data['filter_date_added']) . "')";
@@ -13,7 +13,7 @@ class ModelExtensionDashboardSale extends Model {
 	}
 
 	public function getTotalOrdersByCountry() {
-		$query = $this->db->query("SELECT COUNT(*) AS total, SUM(o.`total`) AS amount, c.`iso_code_2` FROM `" . DB_PREFIX . "order` o LEFT JOIN `" . DB_PREFIX . "country` c ON (o.`payment_country_id` = c.`country_id`) WHERE o.`order_status_id` > '0' GROUP BY o.`payment_country_id`");
+		$query = $this->db->query("SELECT COUNT(*) AS `total`, SUM(o.`total`) AS amount, c.`iso_code_2` FROM `" . DB_PREFIX . "order` o LEFT JOIN `" . DB_PREFIX . "country` c ON (o.`payment_country_id` = c.`country_id`) WHERE o.`order_status_id` > '0' GROUP BY o.`payment_country_id`");
 
 		return $query->rows;
 	}
@@ -34,7 +34,7 @@ class ModelExtensionDashboardSale extends Model {
 			);
 		}
 
-		$query = $this->db->query("SELECT COUNT(*) AS total, HOUR(`date_added`) AS hour FROM `" . DB_PREFIX . "order` WHERE `order_status_id` IN(" . implode(",", $implode) . ") AND DATE(`date_added`) = DATE(NOW()) GROUP BY HOUR(`date_added`) ORDER BY `date_added` ASC");
+		$query = $this->db->query("SELECT COUNT(*) AS `total`, HOUR(`date_added`) AS hour FROM `" . DB_PREFIX . "order` WHERE `order_status_id` IN(" . implode(",", $implode) . ") AND DATE(`date_added`) = DATE(NOW()) GROUP BY HOUR(`date_added`) ORDER BY `date_added` ASC");
 
 		foreach ($query->rows as $result) {
 			$order_data[$result['hour']] = array(
@@ -66,7 +66,7 @@ class ModelExtensionDashboardSale extends Model {
 			);
 		}
 
-		$query = $this->db->query("SELECT COUNT(*) AS total, `date_added` FROM `" . DB_PREFIX . "order` WHERE `order_status_id` IN(" . implode(",", $implode) . ") AND DATE(`date_added`) >= DATE('" . $this->db->escape(date('Y-m-d', $date_start)) . "') GROUP BY DAYNAME(`date_added`)");
+		$query = $this->db->query("SELECT COUNT(*) AS `total`, `date_added` FROM `" . DB_PREFIX . "order` WHERE `order_status_id` IN(" . implode(",", $implode) . ") AND DATE(`date_added`) >= DATE('" . $this->db->escape(date('Y-m-d', $date_start)) . "') GROUP BY DAYNAME(`date_added`)");
 
 		foreach ($query->rows as $result) {
 			$order_data[date('w', strtotime($result['date_added']))] = array(
@@ -96,7 +96,7 @@ class ModelExtensionDashboardSale extends Model {
 			);
 		}
 
-		$query = $this->db->query("SELECT COUNT(*) AS total, `date_added` FROM `" . DB_PREFIX . "order` WHERE `order_status_id` IN(" . implode(",", $implode) . ") AND DATE(`date_added`) >= DATE('" . $this->db->escape(date('Y') . '-' . date('m') . '-1') . "') GROUP BY DATE(`date_added`)");
+		$query = $this->db->query("SELECT COUNT(*) AS `total`, `date_added` FROM `" . DB_PREFIX . "order` WHERE `order_status_id` IN(" . implode(",", $implode) . ") AND DATE(`date_added`) >= DATE('" . $this->db->escape(date('Y') . '-' . date('m') . '-1') . "') GROUP BY DATE(`date_added`)");
 
 		foreach ($query->rows as $result) {
 			$order_data[date('j', strtotime($result['date_added']))] = array(
@@ -124,7 +124,7 @@ class ModelExtensionDashboardSale extends Model {
 			);
 		}
 
-		$query = $this->db->query("SELECT COUNT(*) AS total, `date_added` FROM `" . DB_PREFIX . "order` WHERE `order_status_id` IN(" . implode(",", $implode) . ") AND YEAR(`date_added`) = YEAR(NOW()) GROUP BY MONTH(`date_added`)");
+		$query = $this->db->query("SELECT COUNT(*) AS `total`, `date_added` FROM `" . DB_PREFIX . "order` WHERE `order_status_id` IN(" . implode(",", $implode) . ") AND YEAR(`date_added`) = YEAR(NOW()) GROUP BY MONTH(`date_added`)");
 
 		foreach ($query->rows as $result) {
 			$order_data[date('n', strtotime($result['date_added']))] = array(
@@ -137,7 +137,7 @@ class ModelExtensionDashboardSale extends Model {
 	}
 
 	public function getOrders($data = array()) {
-		$sql = "SELECT MIN(o.`date_added`) AS date_start, MAX(o.`date_added`) AS date_end, COUNT(*) AS `orders`, SUM((SELECT SUM(op.`quantity`) FROM `" . DB_PREFIX . "order_product` op WHERE op.`order_id` = o.`order_id` GROUP BY op.`order_id`)) AS products, SUM((SELECT SUM(ot.`value`) FROM `" . DB_PREFIX . "order_total` ot WHERE ot.`order_id` = o.`order_id` AND ot.`code` = 'tax' GROUP BY ot.`order_id`)) AS tax, SUM(o.`total`) AS total FROM `" . DB_PREFIX . "order` o";
+		$sql = "SELECT MIN(o.`date_added`) AS date_start, MAX(o.`date_added`) AS date_end, COUNT(*) AS `orders`, SUM((SELECT SUM(op.`quantity`) FROM `" . DB_PREFIX . "order_product` op WHERE op.`order_id` = o.`order_id` GROUP BY op.`order_id`)) AS products, SUM((SELECT SUM(ot.`value`) FROM `" . DB_PREFIX . "order_total` ot WHERE ot.`order_id` = o.`order_id` AND ot.`code` = 'tax' GROUP BY ot.`order_id`)) AS tax, SUM(o.`total`) AS `total` FROM `" . DB_PREFIX . "order` o";
 
 		if (!empty($data['filter_order_status_id'])) {
 			$sql .= " WHERE o.`order_status_id` = '" . (int)$data['filter_order_status_id'] . "'";
@@ -203,17 +203,17 @@ class ModelExtensionDashboardSale extends Model {
 
 		switch ($group) {
 			case 'day';
-				$sql = "SELECT COUNT(DISTINCT YEAR(`date_added`), MONTH(`date_added`), DAY(`date_added`)) AS total FROM `" . DB_PREFIX . "order`";
+				$sql = "SELECT COUNT(DISTINCT YEAR(`date_added`), MONTH(`date_added`), DAY(`date_added`)) AS `total` FROM `" . DB_PREFIX . "order`";
 				break;
 			default:
 			case 'week':
-				$sql = "SELECT COUNT(DISTINCT YEAR(`date_added`), WEEK(`date_added`)) AS total FROM `" . DB_PREFIX . "order`";
+				$sql = "SELECT COUNT(DISTINCT YEAR(`date_added`), WEEK(`date_added`)) AS `total` FROM `" . DB_PREFIX . "order`";
 				break;
 			case 'month':
-				$sql = "SELECT COUNT(DISTINCT YEAR(`date_added`), MONTH(`date_added`)) AS total FROM `" . DB_PREFIX . "order`";
+				$sql = "SELECT COUNT(DISTINCT YEAR(`date_added`), MONTH(`date_added`)) AS `total` FROM `" . DB_PREFIX . "order`";
 				break;
 			case 'year':
-				$sql = "SELECT COUNT(DISTINCT YEAR(`date_added`)) AS total FROM `" . DB_PREFIX . "order`";
+				$sql = "SELECT COUNT(DISTINCT YEAR(`date_added`)) AS `total` FROM `" . DB_PREFIX . "order`";
 				break;
 		}
 
@@ -301,17 +301,17 @@ class ModelExtensionDashboardSale extends Model {
 
 		switch ($group) {
 			case 'day';
-				$sql = "SELECT COUNT(DISTINCT YEAR(o.`date_added`), MONTH(o.`date_added`), DAY(o.`date_added`), ot.`title`) AS total FROM `" . DB_PREFIX . "order` o";
+				$sql = "SELECT COUNT(DISTINCT YEAR(o.`date_added`), MONTH(o.`date_added`), DAY(o.`date_added`), ot.`title`) AS `total` FROM `" . DB_PREFIX . "order` o";
 				break;
 			default:
 			case 'week':
-				$sql = "SELECT COUNT(DISTINCT YEAR(o.`date_added`), WEEK(o.`date_added`), ot.`title`) AS total FROM `" . DB_PREFIX . "order` o";
+				$sql = "SELECT COUNT(DISTINCT YEAR(o.`date_added`), WEEK(o.`date_added`), ot.`title`) AS `total` FROM `" . DB_PREFIX . "order` o";
 				break;
 			case 'month':
-				$sql = "SELECT COUNT(DISTINCT YEAR(o.`date_added`), MONTH(o.`date_added`), ot.`title`) AS total FROM `" . DB_PREFIX . "order` o";
+				$sql = "SELECT COUNT(DISTINCT YEAR(o.`date_added`), MONTH(o.`date_added`), ot.`title`) AS `total` FROM `" . DB_PREFIX . "order` o";
 				break;
 			case 'year':
-				$sql = "SELECT COUNT(DISTINCT YEAR(o.`date_added`), ot.`title`) AS total FROM `" . DB_PREFIX . "order` o";
+				$sql = "SELECT COUNT(DISTINCT YEAR(o.`date_added`), ot.`title`) AS `total` FROM `" . DB_PREFIX . "order` o";
 				break;
 		}
 
@@ -401,17 +401,17 @@ class ModelExtensionDashboardSale extends Model {
 
 		switch ($group) {
 			case 'day';
-				$sql = "SELECT COUNT(DISTINCT YEAR(o.`date_added`), MONTH(o.`date_added`), DAY(o.`date_added`), ot.`title`) AS total FROM `" . DB_PREFIX . "order` o";
+				$sql = "SELECT COUNT(DISTINCT YEAR(o.`date_added`), MONTH(o.`date_added`), DAY(o.`date_added`), ot.`title`) AS `total` FROM `" . DB_PREFIX . "order` o";
 				break;
 			default:
 			case 'week':
-				$sql = "SELECT COUNT(DISTINCT YEAR(o.`date_added`), WEEK(o.`date_added`), ot.`title`) AS total FROM `" . DB_PREFIX . "order` o";
+				$sql = "SELECT COUNT(DISTINCT YEAR(o.`date_added`), WEEK(o.`date_added`), ot.`title`) AS `total` FROM `" . DB_PREFIX . "order` o";
 				break;
 			case 'month':
-				$sql = "SELECT COUNT(DISTINCT YEAR(o.`date_added`), MONTH(o.`date_added`), ot.`title`) AS total FROM `" . DB_PREFIX . "order` o";
+				$sql = "SELECT COUNT(DISTINCT YEAR(o.`date_added`), MONTH(o.`date_added`), ot.`title`) AS `total` FROM `" . DB_PREFIX . "order` o";
 				break;
 			case 'year':
-				$sql = "SELECT COUNT(DISTINCT YEAR(o.`date_added`), ot.`title`) AS total FROM `" . DB_PREFIX . "order` o";
+				$sql = "SELECT COUNT(DISTINCT YEAR(o.`date_added`), ot.`title`) AS `total` FROM `" . DB_PREFIX . "order` o";
 				break;
 		}
 

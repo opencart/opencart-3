@@ -92,7 +92,7 @@ class ModelSaleVoucherTheme extends Model {
 	}
 
 	public function getTotalVoucherThemes() {
-		$query = $this->db->query("SELECT COUNT(*) AS total FROM `" . DB_PREFIX . "voucher_theme`");
+		$query = $this->db->query("SELECT COUNT(*) AS `total` FROM `" . DB_PREFIX . "voucher_theme`");
 
 		return (int)$query->row['total'];
 	}

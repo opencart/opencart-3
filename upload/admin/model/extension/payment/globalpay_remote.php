@@ -256,13 +256,13 @@ class ModelExtensionPaymentGlobalpayRemote extends Model {
 	}
 
 	public function getTotalCaptured($globalpay_order_id) {
-		$query = $this->db->query("SELECT SUM(`amount`) AS total FROM `" . DB_PREFIX . "globalpay_remote_order_transaction` WHERE `globalpay_remote_order_id` = '" . (int)$globalpay_order_id . "' AND (`type` = 'payment' OR `type` = 'rebate')");
+		$query = $this->db->query("SELECT SUM(`amount`) AS `total` FROM `" . DB_PREFIX . "globalpay_remote_order_transaction` WHERE `globalpay_remote_order_id` = '" . (int)$globalpay_order_id . "' AND (`type` = 'payment' OR `type` = 'rebate')");
 
 		return (float)$query->row['total'];
 	}
 
 	public function getTotalRebated($globalpay_order_id) {
-		$query = $this->db->query("SELECT SUM(`amount`) AS total FROM `" . DB_PREFIX . "globalpay_remote_order_transaction` WHERE `globalpay_remote_order_id` = '" . (int)$globalpay_order_id . "' AND `type` = 'rebate'");
+		$query = $this->db->query("SELECT SUM(`amount`) AS `total` FROM `" . DB_PREFIX . "globalpay_remote_order_transaction` WHERE `globalpay_remote_order_id` = '" . (int)$globalpay_order_id . "' AND `type` = 'rebate'");
 
 		return (double)$query->row['total'];
 	}

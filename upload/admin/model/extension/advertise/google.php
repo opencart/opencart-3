@@ -142,7 +142,7 @@ class ModelExtensionAdvertiseGoogle extends Model {
     }
 
     public function getAdvertisedCount($store_id) {
-        $result = $this->db->query("SELECT COUNT(`product_id`) AS total FROM `" . DB_PREFIX . "googleshopping_product_target` WHERE `store_id` = '" . (int)$store_id . "' GROUP BY `product_id`");
+        $result = $this->db->query("SELECT COUNT(`product_id`) AS `total` FROM `" . DB_PREFIX . "googleshopping_product_target` WHERE `store_id` = '" . (int)$store_id . "' GROUP BY `product_id`");
 
         return $result->num_rows > 0 ? (int)$result->row['total'] : 0;
     }

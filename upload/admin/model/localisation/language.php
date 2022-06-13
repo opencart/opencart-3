@@ -302,7 +302,7 @@ class ModelLocalisationLanguage extends Model {
 	}
 
 	public function getTotalLanguages() {
-		$query = $this->db->query("SELECT COUNT(*) AS total FROM `" . DB_PREFIX . "language`");
+		$query = $this->db->query("SELECT COUNT(*) AS `total` FROM `" . DB_PREFIX . "language`");
 
 		return (int)$query->row['total'];
 	}

@@ -127,7 +127,7 @@ class ModelMarketingCoupon extends Model {
 	}
 
 	public function getTotalCoupons() {
-		$query = $this->db->query("SELECT COUNT(*) AS total FROM `" . DB_PREFIX . "coupon`");
+		$query = $this->db->query("SELECT COUNT(*) AS `total` FROM `" . DB_PREFIX . "coupon`");
 
 		return (int)$query->row['total'];
 	}
@@ -147,7 +147,7 @@ class ModelMarketingCoupon extends Model {
 	}
 
 	public function getTotalCouponHistories($coupon_id) {
-		$query = $this->db->query("SELECT COUNT(*) AS total FROM `" . DB_PREFIX . "coupon_history` WHERE `coupon_id` = '" . (int)$coupon_id . "'");
+		$query = $this->db->query("SELECT COUNT(*) AS `total` FROM `" . DB_PREFIX . "coupon_history` WHERE `coupon_id` = '" . (int)$coupon_id . "'");
 
 		return (int)$query->row['total'];
 	}

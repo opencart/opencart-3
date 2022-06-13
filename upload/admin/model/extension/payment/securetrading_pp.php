@@ -154,13 +154,13 @@ class ModelExtensionPaymentSecureTradingPp extends Model {
 	}
 
 	public function getTotalReleased($securetrading_pp_order_id) {
-		$query = $this->db->query("SELECT SUM(`amount`) AS total` FROM `" . DB_PREFIX . "securetrading_pp_order_transaction` WHERE `securetrading_pp_order_id` = '" . (int)$securetrading_pp_order_id . "' AND (`type` = 'payment' OR `type` = 'rebate')");
+		$query = $this->db->query("SELECT SUM(`amount`) AS `total` FROM `" . DB_PREFIX . "securetrading_pp_order_transaction` WHERE `securetrading_pp_order_id` = '" . (int)$securetrading_pp_order_id . "' AND (`type` = 'payment' OR `type` = 'rebate')");
 
 		return (double)$query->row['total'];
 	}
 
 	public function getTotalRebated($securetrading_pp_order_id) {
-		$query = $this->db->query("SELECT SUM(`amount`) AS total FROM `" . DB_PREFIX . "securetrading_pp_order_transaction` WHERE `securetrading_pp_order_id` = '" . (int)$securetrading_pp_order_id . "' AND `type` = 'rebate'");
+		$query = $this->db->query("SELECT SUM(`amount`) AS `total` FROM `" . DB_PREFIX . "securetrading_pp_order_transaction` WHERE `securetrading_pp_order_id` = '" . (int)$securetrading_pp_order_id . "' AND `type` = 'rebate'");
 
 		return (double)$query->row['total'];
 	}

@@ -96,7 +96,7 @@ class ModelDesignBanner extends Model {
 	}
 
 	public function getTotalBanners() {
-		$query = $this->db->query("SELECT COUNT(*) AS total FROM `" . DB_PREFIX . "banner`");
+		$query = $this->db->query("SELECT COUNT(*) AS `total` FROM `" . DB_PREFIX . "banner`");
 
 		return (int)$query->row['total'];
 	}

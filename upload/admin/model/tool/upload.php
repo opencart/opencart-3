@@ -81,7 +81,7 @@ class ModelToolUpload extends Model {
 	}
 
 	public function getTotalUploads() {
-		$sql = "SELECT COUNT(*) AS total FROM `" . DB_PREFIX . "upload`";
+		$sql = "SELECT COUNT(*) AS `total` FROM `" . DB_PREFIX . "upload`";
 
 		$implode = array();
 

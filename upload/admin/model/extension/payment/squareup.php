@@ -28,7 +28,7 @@ class ModelExtensionPaymentSquareup extends Model {
     }
 
     public function getTotalTransactions($data) {
-        $sql = "SELECT COUNT(*) AS total FROM `" . DB_PREFIX . "squareup_transaction`";
+        $sql = "SELECT COUNT(*) AS `total` FROM `" . DB_PREFIX . "squareup_transaction`";
 
         if (isset($data['order_id'])) {
             $sql .= " WHERE `order_id` = '" . (int)$data['order_id'] . "'";

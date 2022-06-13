@@ -80,7 +80,7 @@ class ModelUserApi extends Model {
 	}
 
 	public function getTotalApis() {
-		$query = $this->db->query("SELECT COUNT(*) AS total FROM `" . DB_PREFIX . "api`");
+		$query = $this->db->query("SELECT COUNT(*) AS `total` FROM `" . DB_PREFIX . "api`");
 
 		return (int)$query->row['total'];
 	}

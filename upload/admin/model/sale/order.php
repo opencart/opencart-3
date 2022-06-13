@@ -257,7 +257,7 @@ class ModelSaleOrder extends Model {
 	}
 	
 	public function getTotalOrders($data = array()) {
-		$sql = "SELECT COUNT(*) AS total FROM `" . DB_PREFIX . "order`";
+		$sql = "SELECT COUNT(*) AS `total` FROM `" . DB_PREFIX . "order`";
 
 		if (!empty($data['filter_order_status'])) {
 			$implode = array();
@@ -303,13 +303,13 @@ class ModelSaleOrder extends Model {
 	}
 
 	public function getTotalOrdersByStoreId($store_id) {
-		$query = $this->db->query("SELECT COUNT(*) AS total FROM `" . DB_PREFIX . "order` WHERE `store_id` = '" . (int)$store_id . "'");
+		$query = $this->db->query("SELECT COUNT(*) AS `total` FROM `" . DB_PREFIX . "order` WHERE `store_id` = '" . (int)$store_id . "'");
 
 		return (int)$query->row['total'];
 	}
 
 	public function getTotalOrdersByOrderStatusId($order_status_id) {
-		$query = $this->db->query("SELECT COUNT(*) AS total FROM `" . DB_PREFIX . "order` WHERE `order_status_id` = '" . (int)$order_status_id . "' AND `order_status_id` > '0'");
+		$query = $this->db->query("SELECT COUNT(*) AS `total` FROM `" . DB_PREFIX . "order` WHERE `order_status_id` = '" . (int)$order_status_id . "' AND `order_status_id` > '0'");
 
 		return (int)$query->row['total'];
 	}
@@ -324,7 +324,7 @@ class ModelSaleOrder extends Model {
 		}
 
 		if ($implode) {
-			$query = $this->db->query("SELECT COUNT(*) AS total FROM `" . DB_PREFIX . "order` WHERE " . implode(" OR ", $implode));
+			$query = $this->db->query("SELECT COUNT(*) AS `total` FROM `" . DB_PREFIX . "order` WHERE " . implode(" OR ", $implode));
 
 			return (int)$query->row['total'];
 		} else {
@@ -342,7 +342,7 @@ class ModelSaleOrder extends Model {
 		}
 
 		if ($implode) {
-			$query = $this->db->query("SELECT COUNT(*) AS total FROM `" . DB_PREFIX . "order` WHERE " . implode(" OR ", $implode) . "");
+			$query = $this->db->query("SELECT COUNT(*) AS `total` FROM `" . DB_PREFIX . "order` WHERE " . implode(" OR ", $implode) . "");
 
 			return (int)$query->row['total'];
 		} else {
@@ -351,19 +351,19 @@ class ModelSaleOrder extends Model {
 	}
 
 	public function getTotalOrdersByLanguageId($language_id) {
-		$query = $this->db->query("SELECT COUNT(*) AS total FROM `" . DB_PREFIX . "order` WHERE `language_id` = '" . (int)$language_id . "' AND `order_status_id` > '0'");
+		$query = $this->db->query("SELECT COUNT(*) AS `total` FROM `" . DB_PREFIX . "order` WHERE `language_id` = '" . (int)$language_id . "' AND `order_status_id` > '0'");
 
 		return (int)$query->row['total'];
 	}
 
 	public function getTotalOrdersByCurrencyId($currency_id) {
-		$query = $this->db->query("SELECT COUNT(*) AS total FROM `" . DB_PREFIX . "order` WHERE `currency_id` = '" . (int)$currency_id . "' AND `order_status_id` > '0'");
+		$query = $this->db->query("SELECT COUNT(*) AS `total` FROM `" . DB_PREFIX . "order` WHERE `currency_id` = '" . (int)$currency_id . "' AND `order_status_id` > '0'");
 
 		return (int)$query->row['total'];
 	}
 	
 	public function getTotalSales($data = array()) {
-		$sql = "SELECT SUM(`total`) AS total FROM `" . DB_PREFIX . "order`";
+		$sql = "SELECT SUM(`total`) AS `total` FROM `" . DB_PREFIX . "order`";
 
 		if (!empty($data['filter_order_status'])) {
 			$implode = array();
@@ -441,13 +441,13 @@ class ModelSaleOrder extends Model {
 	}
 
 	public function getTotalOrderHistories($order_id) {
-		$query = $this->db->query("SELECT COUNT(*) AS total FROM `" . DB_PREFIX . "order_history` WHERE `order_id` = '" . (int)$order_id . "'");
+		$query = $this->db->query("SELECT COUNT(*) AS `total` FROM `" . DB_PREFIX . "order_history` WHERE `order_id` = '" . (int)$order_id . "'");
 
 		return (int)$query->row['total'];
 	}
 
 	public function getTotalOrderHistoriesByOrderStatusId($order_status_id) {
-		$query = $this->db->query("SELECT COUNT(*) AS total FROM `" . DB_PREFIX . "order_history` WHERE `order_status_id` = '" . (int)$order_status_id . "'");
+		$query = $this->db->query("SELECT COUNT(*) AS `total` FROM `" . DB_PREFIX . "order_history` WHERE `order_status_id` = '" . (int)$order_status_id . "'");
 
 		return (int)$query->row['total'];
 	}
@@ -471,7 +471,7 @@ class ModelSaleOrder extends Model {
 			$implode[] = "op.`product_id` = '" . (int)$product_id . "'";
 		}
 
-		$query = $this->db->query("SELECT COUNT(DISTINCT `email`) AS total FROM `" . DB_PREFIX . "order` o LEFT JOIN `" . DB_PREFIX . "order_product` op ON (o.`order_id` = op.`order_id`) WHERE (" . implode(" OR ", $implode) . ") AND o.`order_status_id` <> '0'");
+		$query = $this->db->query("SELECT COUNT(DISTINCT `email`) AS `total` FROM `" . DB_PREFIX . "order` o LEFT JOIN `" . DB_PREFIX . "order_product` op ON (o.`order_id` = op.`order_id`) WHERE (" . implode(" OR ", $implode) . ") AND o.`order_status_id` <> '0'");
 
 		return (int)$query->row['total'];
 	}
