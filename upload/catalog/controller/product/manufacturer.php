@@ -27,7 +27,7 @@ class ControllerProductManufacturer extends Controller {
 			if (is_numeric(utf8_substr($result['name'], 0, 1))) {
 				$key = '0 - 9';
 			} else {
-				$key = substr(strtoupper($result['name']), 0, 1);
+				$key = utf8_substr(utf8_strtoupper($result['name']), 0, 1);
 			}
 
 			if (!isset($data['categories'][$key])) {
@@ -55,10 +55,8 @@ class ControllerProductManufacturer extends Controller {
 	public function info() {
 		$this->load->language('product/manufacturer');
 
-		$this->load->model('catalog/manufacturer');
-		
-		$this->load->model('catalog/product');
-		
+		$this->load->model('catalog/manufacturer');		
+		$this->load->model('catalog/product');		
 		$this->load->model('tool/image');
 
 		if (isset($this->request->get['manufacturer_id'])) {
