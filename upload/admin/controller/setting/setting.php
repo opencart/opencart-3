@@ -336,10 +336,10 @@ class ControllerSettingSetting extends Controller {
 
 			$hour = ' (' . date_format($timestamp, 'P') . ')';
 
-			$data['timezones'][] = [
+			$data['timezones'][] = array(
 				'text'  => $timezone . $hour,
 				'value' => $timezone
-			];
+			);
 		}
 
 		if (isset($this->request->post['config_language'])) {
