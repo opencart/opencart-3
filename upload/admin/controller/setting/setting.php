@@ -327,22 +327,19 @@ class ControllerSettingSetting extends Controller {
 		// Set Time Zone
 		$data['timezones'] = array();
 
-		$timestamp = time();
 		$timestamp = date_create('now');
 
 		$timezones = timezone_identifiers_list();
 
 		foreach ($timezones as $timezone) {
-			date_default_timezone_set($timezone);
 			date_timezone_set($timestamp, timezone_open($timezone));
 
-			$hour = ' (' . date('P', $timestamp) . ')';
 			$hour = ' (' . date_format($timestamp, 'P') . ')';
 
-			$data['timezones'][] = array(
+			$data['timezones'][] = [
 				'text'  => $timezone . $hour,
 				'value' => $timezone
-			);
+			];
 		}
 
 		if (isset($this->request->post['config_language'])) {
