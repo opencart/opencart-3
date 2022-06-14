@@ -344,7 +344,7 @@ function onLoadPaymentAddress() {
 	});
 
 	$('#payment_address button[id^=\'button_payment_custom_field\']').on('click', function() {
-		var node = this;
+		var element = this;
 
 		$('#form_upload').remove();
 
@@ -369,22 +369,22 @@ function onLoadPaymentAddress() {
 					contentType: false,
 					processData: false,
 					beforeSend: function() {
-						$(node).button('loading');
+						$(element).button('loading');
 					},
 					complete: function() {
-						$(node).button('reset');
+						$(element).button('reset');
 					},
 					success: function (json) {
-						$(node).parent().find('.text-danger').remove();
+						$(element).parent().find('.text-danger').remove();
 
 						if (json['error']) {
-							$(node).parent().find('input[name^=\'custom_field\']').after('<div class="text-danger">' + json['error'] + '</div>');
+							$(element).parent().find('input[name^=\'custom_field\']').after('<div class="text-danger">' + json['error'] + '</div>');
 						}
 
 						if (json['success']) {
 							alert(json['success']);
 
-							$(node).parent().find('input[name^=\'custom_field\']').val(json['code']);
+							$(element).parent().find('input[name^=\'custom_field\']').val(json['code']);
 						}
 					},
 					error: function (xhr, ajaxOptions, thrownError) {
@@ -510,7 +510,7 @@ function onLoadShippingAddress() {
 	});
 
 	$('#shipping_address button[id^=\'button_shipping_custom_field\']').on('click', function() {
-		var node = this;
+		var element = this;
 
 		$('#form_upload').remove();
 
@@ -535,22 +535,22 @@ function onLoadShippingAddress() {
 					contentType: false,
 					processData: false,
 					beforeSend: function() {
-						$(node).button('loading');
+						$(element).button('loading');
 					},
 					complete: function() {
-						$(node).button('reset');
+						$(element).button('reset');
 					},
 					success: function (json) {
-						$(node).parent().find('.text-danger').remove();
+						$(element).parent().find('.text-danger').remove();
 
 						if (json['error']) {
-							$(node).parent().find('input[name^=\'custom_field\']').after('<div class="text-danger">' + json['error'] + '</div>');
+							$(element).parent().find('input[name^=\'custom_field\']').after('<div class="text-danger">' + json['error'] + '</div>');
 						}
 
 						if (json['success']) {
 							alert(json['success']);
 
-							$(node).parent().find('input[name^=\'custom_field\']').attr('value', json['file']);
+							$(element).parent().find('input[name^=\'custom_field\']').attr('value', json['file']);
 						}
 					},
 					error: function (xhr, ajaxOptions, thrownError) {
