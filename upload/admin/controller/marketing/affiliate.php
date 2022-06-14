@@ -462,7 +462,7 @@ class ControllerMarketingAffiliate extends Controller {
 		if (isset($this->error['custom_field'])) {
 			$data['error_custom_field'] = $this->error['custom_field'];
 		} else {
-			$data['error_custom_field'] = [];
+			$data['error_custom_field'] = array();
 		}
 
 		$url = '';
@@ -499,7 +499,7 @@ class ControllerMarketingAffiliate extends Controller {
 			$url .= '&page=' . $this->request->get['page'];
 		}
 
-		$data['breadcrumbs'] = [];
+		$data['breadcrumbs'] = array();
 
 		$data['breadcrumbs'][] = [
 			'text' => $this->language->get('text_home'),
@@ -689,7 +689,7 @@ class ControllerMarketingAffiliate extends Controller {
 		} elseif (!empty($affiliate_info)) {
 			$data['affiliate_custom_field'] = json_decode($affiliate_info['custom_field'], true);
 		} else {
-			$data['affiliate_custom_field'] = [];
+			$data['affiliate_custom_field'] = array();
 		}
 
 		$data['header'] = $this->load->controller('common/header');
