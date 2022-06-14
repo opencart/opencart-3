@@ -43,6 +43,13 @@ CREATE TABLE `oc_address_format` (
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 --
+-- Dumping data for table `oc_address_format`
+--
+
+INSERT INTO `oc_address_format` (`address_format_id`, `name`, `address_format`) VALUES
+(1, 'Address Format', '{firstname} {lastname}\r\n{company}\r\n{address_1}\r\n{address_2}\r\n{city}, {zone} {postcode}\r\n{country}');
+
+--
 -- Table structure for table `oc_googleshopping_target`
 --
 
