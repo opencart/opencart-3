@@ -83,15 +83,6 @@ class ControllerStartupSeoUrl extends Controller {
 
 						unset($data[$key]);
 					}
-				} elseif ($key == 'route') {
-					$query = $this->db->query("SELECT * FROM " . DB_PREFIX . "seo_url WHERE `query` = '" . $this->db->escape($value) . "' AND store_id = '" . (int)$this->config->get('config_store_id') . "' AND language_id = '" . (int)$this->config->get('config_language_id') . "'");
-				   	if ($query->num_rows && $query->row['keyword']) {
-					 	$url .= '/' . $query->row['keyword'];
-
-					 	unset($data[$key]);
-				   	} elseif ($data['route'] == 'common/home') {
-					    $url .= '/';
-				   	}
 				} elseif ($key == 'path') {
 					$categories = explode('_', $value);
 
