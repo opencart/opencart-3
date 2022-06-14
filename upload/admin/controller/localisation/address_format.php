@@ -38,7 +38,7 @@ class ControllerLocalisationAddressFormat extends Controller {
 		$this->load->model('localisation/address_format');
 
 		if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validateForm()) {
-			$this->model_localisation_address_format->editaddress_format($this->request->get['address_format_id'], $this->request->post);
+			$this->model_localisation_address_format->editAddressFormat($this->request->get['address_format_id'], $this->request->post);
 
 			$this->session->data['success'] = $this->language->get('text_success');
 
@@ -54,6 +54,7 @@ class ControllerLocalisationAddressFormat extends Controller {
 		$this->document->setTitle($this->language->get('heading_title'));
 
 		$this->load->model('localisation/address_format');
+		$this->load->model('localisation/country');
 
 		if (isset($this->request->post['selected']) && $this->validateDelete()) {
 			foreach ((array)$this->request->post['selected'] as $address_format_id) {
@@ -75,10 +76,16 @@ class ControllerLocalisationAddressFormat extends Controller {
 			$page = 1;
 		}
 		
-		if (isset($this->error['warning'])) {
-			$data['error_warning'] = $this->error['warning'];
+		if (isset($this->error['address_format'])) {
+			$data['error_address_format'] = $this->error['address_format'];
 		} else {
-			$data['error_warning'] = '';
+			$data['error_address_format'] = '';
+		}
+		
+		if (isset($this->error['country'])) {
+			$data['error_country'] = $this->error['country'];
+		} else {
+			$data['error_country'] = '';
 		}
 		
 		if (isset($this->session->data['success'])) {
@@ -141,8 +148,12 @@ class ControllerLocalisationAddressFormat extends Controller {
 		$data['pagination'] = $pagination->render();
 
 		$data['results'] = sprintf($this->language->get('text_pagination'), ($address_format_total) ? (($page - 1) * $this->config->get('config_limit_admin')) + 1 : 0, ((($page - 1) * $this->config->get('config_limit_admin')) > ($address_format_total - $this->config->get('config_limit_admin'))) ? $address_format_total : ((($page - 1) * $this->config->get('config_limit_admin')) + $this->config->get('config_limit_admin')), $address_format_total, ceil($address_format_total / $this->config->get('config_limit_admin')));
+		
+		$data['header'] = $this->load->controller('common/header');
+		$data['column_left'] = $this->load->controller('common/column_left');
+		$data['footer'] = $this->load->controller('common/footer');
 
-		return $this->load->view('localisation/address_format_list', $data);
+		$this->response->setOutput($this->load->view('localisation/address_format_list', $data));
 	}
 
 	protected function getForm() {
@@ -228,13 +239,13 @@ class ControllerLocalisationAddressFormat extends Controller {
 
 		foreach ((array)$this->request->post['selected'] as $address_format_id) {
 			if ($this->config->get('config_address_format_id') == $address_format_id) {
-				$this->error['warning'] = $this->language->get('error_default');
+				$this->error['address_format'] = $this->language->get('error_default');
 			}
 
 			$country_total = $this->model_localisation_country->getTotalCountriesByAddressFormatId($address_format_id);
 			
 			if ($country_total) {
-				$this->error['warning'] = sprintf($this->language->get('error_country'), $country_total);
+				$this->error['country'] = sprintf($this->language->get('error_country'), $country_total);
 			}
 		}
 

@@ -1,6 +1,5 @@
 <?php
-namespace Opencart\Admin\Model\Localisation;
-class Country extends \Opencart\System\Engine\Model {
+class ModelLocalisationCountry extends Model {
 	public function addCountry($data) {
 		$this->db->query("INSERT INTO `" . DB_PREFIX . "country` SET `name` = '" . $this->db->escape($data['name']) . "', `iso_code_2` = '" . $this->db->escape($data['iso_code_2']) . "', `iso_code_3` = '" . $this->db->escape($data['iso_code_3']) . "', `address_format_id` = '" . (int)$data['address_format_id'] . "', `postcode_required` = '" . (int)$data['postcode_required'] . "', `status` = '" . (bool)$data['status'] . "'");
 
@@ -136,7 +135,7 @@ class Country extends \Opencart\System\Engine\Model {
 	}
 
 	public function getTotalCountriesByAddressFormatId($address_format_id) {
-		$query = $this->db->query("SELECT COUNT(*) AS `total` FROM `" . DB_PREFIX . "country` WHERE `address_format_id` = '" . (int)$address_format_id . "'");
+		$query = $this->db->query("SELECT COUNT(*) AS `total` FROM `" . DB_PREFIX . "country` WHERE `address_format_id` = '" . $address_format_id . "'");
 
 		return (int)$query->row['total'];
 	}
