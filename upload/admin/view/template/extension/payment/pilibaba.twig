@@ -204,7 +204,7 @@
 </div>
 
 <script type="text/javascript"><!--
-	$('#input-pilibaba-warehouse').change(function() {
+	$('#input-pilibaba-warehouse').change(function () {
 		var value = $(this).val();
 
 		if (value == 'other') {
@@ -214,13 +214,13 @@
 		}
 	});
 
-	$('#button-register').click(function() {
+	$('#button-register').click(function () {
 		$.ajax({
 			url: 'index.php?route=extension/payment/pilibaba/register&user_token={{ user_token }}',
 			type: 'post',
 			dataType: 'json',
 			data: { 'email_address': $('#input-pilibaba-email-address').val(), 'password': $('#input-pilibaba-password').val(), 'currency': $('#input-pilibaba-currency').val(), 'warehouse': $('#input-pilibaba-warehouse').val(), 'country': $('#input-pilibaba-country').val(), 'environment': $('#input-pilibaba-environment').val() },
-			beforeSend: function() {
+			beforeSend: function () {
 				$('#button-register').hide();
 				$('#img_loading_register').show();
 				$('.pilibaba_message').remove();

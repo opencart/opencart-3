@@ -39,16 +39,16 @@
   </div>
   {% if categories %}
   <script type="text/javascript"><!--
-	$('select[name="type"]').on('change', function() {
+	$('select[name="type"]').on('change', function () {
 		$.ajax({
 			url: $('select[name="type"]').val(),
 			dataType: 'html',
-			beforeSend: function() {
+			beforeSend: function () {
 				$('.fa-filter').addClass('fa-circle-o-notch fa-spin');
 				$('.fa-filter').removeClass('fa-filter');
 				$('select[name=\'type\']').prop('disabled', true);
 			},
-			complete: function() {
+			complete: function () {
 				$('.fa-circle-o-notch').addClass('fa-filter');
 				$('.fa-circle-o-notch').removeClass('fa-circle-o-notch fa-spin');
 				$('select[name=\'type\']').prop('disabled', false);
@@ -72,10 +72,10 @@
 		$.ajax({
 			url: $(element).attr('href'),
 			dataType: 'html',
-			beforeSend: function() {
+			beforeSend: function () {
 				$(element).button('loading');
 			},
-			complete: function() {
+			complete: function () {
 				$(element).button('reset');
 			},
 			success: function (html) {
@@ -96,10 +96,10 @@
 			$.ajax({
 				url: $(element).attr('href'),
 				dataType: 'html',
-				beforeSend: function() {
+				beforeSend: function () {
 					$(element).button('loading');
 				},
-				complete: function() {
+				complete: function () {
 					$(element).button('reset');
 				},
 				success: function (html) {

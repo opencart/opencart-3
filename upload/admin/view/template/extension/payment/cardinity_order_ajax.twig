@@ -64,7 +64,7 @@
 {% endif %}
 
 <script type="text/javascript"><!--
-$('.button-command').on('click', function() {
+$('.button-command').on('click', function () {
 	var confirm_text = '';
 
 	{% if symbol_left %}
@@ -83,14 +83,14 @@ $('.button-command').on('click', function() {
 				description: $('#refund-description').val()
 			},
 			dataType: 'json',
-			beforeSend: function() {
+			beforeSend: function () {
 				$('#button-settle').button('loading');
 
 				$('.alert').hide();
 
 				$('.alert').removeClass('alert-success alert-danger');
 			},
-			complete: function() {
+			complete: function () {
 				$('#button-settle').button('reset');
 			},
 			success: function (json) {

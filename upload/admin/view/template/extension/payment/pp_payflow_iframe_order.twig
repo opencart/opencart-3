@@ -69,7 +69,7 @@ function doVoid() {
             type: 'post',
             dataType: 'json',
             data: { 'order_id': {{ order_id }} },
-            beforeSend: function() {
+            beforeSend: function () {
                 $('#button-void').after('<span class="btn btn-primary loading"><i class="fa fa-circle-o-notch fa-spin fa-lg"></i></span>');
                 $('#button-void').hide();
             },
@@ -114,7 +114,7 @@ function capture() {
         type: 'post',
         dataType: 'json',
         data: { 'order_id': {{ order_id }}, 'amount': amount, 'complete': complete },        
-        beforeSend: function() {
+        beforeSend: function () {
             $('#button-capture').after('<span class="btn btn-primary loading"><i class="fa fa-circle-o-notch fa-spin fa-lg"></i></span>');
             $('#button-capture').hide();
         },

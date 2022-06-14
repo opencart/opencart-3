@@ -71,14 +71,14 @@
   </tr>
 </table>
 <script type="text/javascript"><!--
-  $('#button-void').click(function() {
+  $('#button-void').click(function () {
 		if (confirm('{{ text_confirm_void }}')) {
 			$.ajax({
 				url: 'index.php?route=extension/payment/sagepay_server/void&user_token={{ user_token }}',
 				type: 'post',
 				dataType: 'json',
 				data: { 'order_id': {{ order_id }} },
-				beforeSend: function() {
+				beforeSend: function () {
 					$('#button-void').hide();
 					$('#img_loading_void').show();
 					$('#sagepay_server_transaction_msg').hide();
@@ -112,14 +112,14 @@
 		}
 	});
 	
-	$('#button-release').click(function() {
+	$('#button-release').click(function () {
 		if (confirm('{{ text_confirm_release }}')) {
 			$.ajax({
 				url: 'index.php?route=extension/payment/sagepay_server/release&user_token={{ user_token }}',
 				type: 'post',
 				dataType: 'json',
 				data: { 'order_id': {{ order_id }}, 'amount': $('#release_amount').val() },
-				beforeSend: function() {
+				beforeSend: function () {
 					$('#button-release').hide();
 					$('#release_amount').hide();
 					$('#img_loading_release').show();
@@ -168,14 +168,14 @@
 		}
 	});
 	
-	$('#button-rebate').click(function() {
+	$('#button-rebate').click(function () {
 		if (confirm('{{ text_confirm_rebate }}')) {
 			$.ajax({
 				url: 'index.php?route=extension/payment/sagepay_server/rebate&user_token={{ user_token }}',
 				type: 'post',
 				dataType: 'json',
 				data: { 'order_id': {{ order_id }}, 'amount': $('#rebate_amount').val() },
-				beforeSend: function() {
+				beforeSend: function () {
 					$('#button-rebate').hide();
 					$('#rebate_amount').hide();
 					$('#img_loading_rebate').show();

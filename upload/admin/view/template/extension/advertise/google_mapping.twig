@@ -104,7 +104,7 @@
     }
 </style>
 <script type="text/javascript">
-(function($) {
+(function ($) {
     var selector = {
         save: '#proceed',
         save_modify: '#button-save-modify',
@@ -175,7 +175,7 @@
                     });
 
                     $(modal).on('shown.bs.modal', function (e) {
-                        $(selector.save_proceed).click(function() {
+                        $(selector.save_proceed).click(function () {
                             $(selector.save_proceed).text('{{ text_loading }}').attr('disabled', true);
                             $(selector.save_modify).attr('disabled', true);
                             $(selector.modify_existing).val('0');
@@ -183,7 +183,7 @@
                             $(selector.form).submit();
                         });
 
-                        $(selector.save_modify).click(function() {
+                        $(selector.save_modify).click(function () {
                             $(selector.save_modify).text('{{ text_loading }}').attr('disabled', true);
                             $(selector.save_proceed).attr('disabled', true);
                             $(selector.modify_existing).val('1');

@@ -11,16 +11,16 @@
         <input type="submit" value="{{ button_voucher }}" id="button-voucher" data-loading-text="{{ text_loading }}"  class="btn btn-primary"/>
         </span> </div>
       <script type="text/javascript"><!--
-$('#button-voucher').on('click', function() {
+$('#button-voucher').on('click', function () {
 	$.ajax({
 		url: 'index.php?route=extension/total/voucher/voucher',
 		type: 'post',
 		data: 'voucher=' + encodeURIComponent($('input[name=\'voucher\']').val()),
 		dataType: 'json',
-		beforeSend: function() {
+		beforeSend: function () {
 			$('#button-voucher').button('loading');
 		},
-		complete: function() {
+		complete: function () {
 			$('#button-voucher').button('reset');
 		},
 		success: function (json) {

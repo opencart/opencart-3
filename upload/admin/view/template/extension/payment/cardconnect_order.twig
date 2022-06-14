@@ -71,22 +71,22 @@
   </tr>
 </table>
 <script type="text/javascript"><!--
-	$('#button-inquire-all').click(function() {
+	$('#button-inquire-all').click(function () {
 		$('.button-inquire').trigger('click');
 	});
 
-	$('#button-void-all').click(function() {
+	$('#button-void-all').click(function () {
 		$('.button-void').trigger('click');
 	});
 
-	$('#button-capture').click(function() {
+	$('#button-capture').click(function () {
 		if (confirm('{{ text_confirm_capture }}')) {
 			$.ajax({
 				url: 'index.php?route=extension/payment/cardconnect/capture&user_token={{ user_token }}',
 				type: 'post',
 				dataType: 'json',
 				data: { 'order_id': {{ order_id }}, 'amount': $('#capture_amount').val() },
-				beforeSend: function() {
+				beforeSend: function () {
 					$('#button-capture, #capture_amount').hide();
 					$('#img_loading_capture').show();
 					$('.cardconnect_message').remove();
@@ -128,14 +128,14 @@
 		}
 	});
 
-	$('#button-refund').click(function() {
+	$('#button-refund').click(function () {
 		if (confirm('{{ text_confirm_refund }}')) {
 			$.ajax({
 				url: 'index.php?route=extension/payment/cardconnect/refund&user_token={{ user_token }}',
 				type: 'post',
 				dataType: 'json',
 				data: { 'order_id': {{ order_id }}, 'amount': $('#refund_amount').val() },
-				beforeSend: function() {
+				beforeSend: function () {
 					$('#button-refund, #refund_amount').hide();
 					$('#img_loading_refund').show();
 					$('.cardconnect_message').remove();
@@ -183,7 +183,7 @@
 			type: 'post',
 			dataType: 'json',
 			data: { 'order_id': {{ order_id }}, 'retref': $(this).data('inquire-retref') },
-			beforeSend: function() {
+			beforeSend: function () {
 				button.hide();
 				button.next().show();
 				$('.cardconnect_message').remove();
@@ -217,7 +217,7 @@
 			type: 'post',
 			dataType: 'json',
 			data: { 'order_id': {{ order_id }}, 'retref': $(this).data('void-retref') },
-			beforeSend: function() {
+			beforeSend: function () {
 				button.hide();
 				button.next().show();
 				$('.cardconnect_message').remove();

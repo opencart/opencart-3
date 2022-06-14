@@ -135,10 +135,10 @@
 		$.ajax({
 			url: 'index.php?route=marketplace/api&user_token={{ user_token }}',
 			dataType: 'html',
-			beforeSend: function() {
+			beforeSend: function () {
 				$('#button-opencart').button('loading');
 			},
-			complete: function() {
+			complete: function () {
 				$('#button-opencart').button('reset');
 			},
 			success: function (html) {

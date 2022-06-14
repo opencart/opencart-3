@@ -164,7 +164,7 @@
     </div>
   </div>
   <script type="text/javascript"><!--
-$('#button-search').on('click', function() {
+$('#button-search').on('click', function () {
   var html = '';
 
 	$.ajax({
@@ -172,7 +172,7 @@ $('#button-search').on('click', function() {
 		type: 'post',
 		dataType: 'json',
 		data: $('#form').serialize(),
-		beforeSend: function() {
+		beforeSend: function () {
 			$('#search-input').hide();
 			$('#search-box').show();
 			$('#button-search').hide();
@@ -236,7 +236,7 @@ $('#button-search').on('click', function() {
 		});
 	});
 
-	$('#button-edit').on('click', function() {
+	$('#button-edit').on('click', function () {
 	  $('#search-box').hide();
 	  $('#search-input').show();
 	  $('#button-edit').hide();

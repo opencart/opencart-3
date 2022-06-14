@@ -210,7 +210,7 @@
     </div>
 </script>
 <script type="text/javascript">
-(function($) {
+(function ($) {
     var selector = {
         ad_wrap: '#wrapTest',
         campaign_dropdown: {
@@ -299,7 +299,7 @@
         return html != '' ? html : '<span class="label label-default">{{ text_label_unassigned }}</span>';
     }
 
-    var getFilterPostData = function() {
+    var getFilterPostData = function () {
         return {
             product_name: $(selector.filter.product_name).val(),
             product_model: $(selector.filter.product_model).val(),
@@ -308,7 +308,7 @@
         };
     };
 
-    var listProducts = function() {
+    var listProducts = function () {
         $.ajax({
             url: '{{ list_ads }}',
             type: 'post',
@@ -319,7 +319,7 @@
                 page: $(selector.list).data('page'),
                 filter: getFilterPostData()
             },
-            beforeSend: function() {
+            beforeSend: function () {
                 $('[data-sort]').removeClass('asc').removeClass('desc');
 
                 $('[data-sort="' + $(selector.list).data('sort') + '"]').addClass($(selector.list).data('order') == 'ASC' ? 'asc' : 'desc');
@@ -387,7 +387,7 @@
                     total_pages = data.pages;
                 }
             },
-            complete: function() {
+            complete: function () {
                 updateSelected();
             }
         });
@@ -409,7 +409,7 @@
         return $(selector).html().replace(/{body}/g, data.body).replace(/{title}/g, data.title);
     }
 
-    var advertiseChange = function() {
+    var advertiseChange = function () {
         var post_data = {
             all_pages : selected_all_pages ? '1' : '0',
             filter: getFilterPostData(),
@@ -430,7 +430,7 @@
             dataType: 'json',
             type: 'post',
             data: post_data,
-            beforeSend: function() {
+            beforeSend: function () {
                 $(selector.list).html('<tr><td colspan="' + $(selector.head).find('th').length + '"><div class="text-center">{{ text_loading }}</div></td></tr>');
 
                 $(selector.campaign_dropdown.container).closest('.btn-group').removeClass('open');
@@ -467,7 +467,7 @@
         });
     }
 
-    var updateSelected = function() {
+    var updateSelected = function () {
         var selected = $(selector.checkboxes + ':checked').length;
         var selection_text = '{{ text_selection_page }}'.replace(/{selected_page}/, selected).replace(/{total}/, total_items);
         var deselection_text = '{{ text_selection_all }}'.replace(/{total}/, total_items);
@@ -553,12 +553,12 @@
                         operand: settings.operand,
                         form: $(selector.popup.product.form).serializeObject()
                     },
-                    beforeSend: function() {
+                    beforeSend: function () {
                         $(modal).modal('show');
                     },
                     success: ajaxSuccess,
                     error: ajaxError,
-                    complete: function() {
+                    complete: function () {
                         // Highlight any found errors
                         $(modal).find('.modal-body').find('.text-danger').each(function (index, element) {
                             $(element).closest('.form-group').addClass('has-error');
@@ -576,7 +576,7 @@
                 action : 'view',
                 operand : settings.operand
             },
-            beforeSend: function() {
+            beforeSend: function () {
                 $(modal).modal('show');
             },
             success: ajaxSuccess,
@@ -751,7 +751,7 @@
                 url: url_popup,
                 dataType: 'json',
                 type: 'get',
-                beforeSend: function() {
+                beforeSend: function () {
                     $(modal).modal('show');
                 },
                 success: ajaxSuccess,
@@ -769,7 +769,7 @@
             $(selector.filter.category).val('').trigger('change');
         });
 
-    $(document).ready(function() {
+    $(document).ready(function () {
         $(selector.list).data('sort', 'name');
         $(selector.list).data('order', 'ASC');
         $(selector.list).data('page', 1);
@@ -839,7 +839,7 @@
         }
     });
 
-    $.fn.serializeObject = function() {
+    $.fn.serializeObject = function () {
         var self = this,
             json = {},
             push_counters = {},
@@ -863,7 +863,7 @@
             return push_counters[key]++;
         };
 
-        $.each($(this).serializeArray(), function() {
+        $.each($(this).serializeArray(), function () {
             // skip invalid keys
             if (!patterns.validate.test(this.name)){
                 return;

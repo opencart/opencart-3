@@ -131,7 +131,7 @@
     </div>
   </div>
   <script type="text/javascript"><!--
-	$('#button-generate').on('click', function() {
+	$('#button-generate').on('click', function () {
 		rand = '';
 
 		string = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
@@ -167,10 +167,10 @@
 			url: 'index.php?route=user/api/deletesession&user_token={{ user_token }}&api_session_id=' + $(element).val(),
 			type: 'post',
 			dataType: 'json',
-			beforeSend: function() {
+			beforeSend: function () {
 				$(element).button('loading');
 			},
-			complete: function() {
+			complete: function () {
 				$(element).button('reset');
 			},
 			success: function (json) {

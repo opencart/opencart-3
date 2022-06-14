@@ -82,16 +82,16 @@
 
 	$('#ip').load('index.php?route=extension/fraud/ip/ip&user_token={{ user_token }}');
 
-	$('#button-ip-add').on('click', function() {
+	$('#button-ip-add').on('click', function () {
 		$.ajax({
 			url: 'index.php?route=extension/fraud/ip/addIp&user_token={{ user_token }}',
 			type: 'post',
 			dataType: 'json',
 			data: 'ip=' + encodeURIComponent($('#input-ip').val()),
-			beforeSend: function() {
+			beforeSend: function () {
 				$('#button-ip-add').button('loading');
 			},
-			complete: function() {
+			complete: function () {
 				$('#button-ip-add').button('reset');
 			},
 			success: function (json) {
@@ -115,7 +115,7 @@
 		});
 	});
 
-	$('#ip').delegate('button', 'click', function() {
+	$('#ip').delegate('button', 'click', function () {
 		var element = this;
 
 		$.ajax({
@@ -123,10 +123,10 @@
 			type: 'post',
 			dataType: 'json',
 			data: 'ip=' + encodeURIComponent($(element).val()),
-			beforeSend: function() {
+			beforeSend: function () {
 				$(element).button('loading');
 			},
-			complete: function() {
+			complete: function () {
 				$(element).button('reset');
 			},
 			success: function (json) {

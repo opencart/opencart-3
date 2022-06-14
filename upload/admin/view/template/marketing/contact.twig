@@ -102,7 +102,7 @@
   <script type="text/javascript" src="view/javascript/summernote/summernote-image-attributes.js"></script> 
   <script type="text/javascript" src="view/javascript/summernote/opencart.js"></script> 
   <script type="text/javascript"><!--
-$('select[name=\'to\']').on('change', function() {
+$('select[name=\'to\']').on('change', function () {
 	$('.to').hide();
 
 	$('#to-' + this.value.replace('_', '-')).show();
@@ -139,7 +139,7 @@ $('input[name=\'customers\']').autocomplete({
 	}
 });
 
-$('#input-customer').parent().find('.well').delegate('.fa-minus-circle', 'click', function() {
+$('#input-customer').parent().find('.well').delegate('.fa-minus-circle', 'click', function () {
 	$(this).parent().remove();
 });
 
@@ -171,7 +171,7 @@ $('input[name=\'affiliates\']').autocomplete({
 	}
 });
 
-$('#input-affiliate').parent().find('.well').delegate('.fa-minus-circle', 'click', function() {
+$('#input-affiliate').parent().find('.well').delegate('.fa-minus-circle', 'click', function () {
 	$(this).parent().remove();
 });
 
@@ -203,7 +203,7 @@ $('input[name=\'products\']').autocomplete({
 	}
 });
 
-$('#input-product').parent().find('.well').delegate('.fa-minus-circle', 'click', function() {
+$('#input-product').parent().find('.well').delegate('.fa-minus-circle', 'click', function () {
 	$(this).parent().remove();
 });
 
@@ -213,7 +213,7 @@ function send(url) {
 		type: 'post',
 		data: $('#content select, #content input, #content textarea'),
 		dataType: 'json',
-		beforeSend: function() {
+		beforeSend: function () {
 			$('#button-send').button('loading');
 		},
 		success: function (json) {

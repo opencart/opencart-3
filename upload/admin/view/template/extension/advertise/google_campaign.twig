@@ -327,7 +327,7 @@
     </div>
 </script>
 <script type="text/javascript">
-(function($) {
+(function ($) {
     var allowed_targets = {{ json_allowed_targets }};
 
     var targets = {{ json_targets }};
@@ -470,7 +470,7 @@
             url: '{{ target_list }}',
             type: 'get',
             dataType: 'json',
-            beforeSend: function() {
+            beforeSend: function () {
                 $(selector.target.container).html('<div class="alert alert-info text-center">{{ text_loading }}</div>');
             },
             complete: callback,
@@ -510,7 +510,7 @@
 
         $(html).modal();
 
-        $(html).on('shown.bs.modal', function() {
+        $(html).on('shown.bs.modal', function () {
             // Enable tooltips
             $('[data-toggle="tooltip"]').tooltip({container: 'body', html: true});
 
@@ -532,7 +532,7 @@
             $(selector.target.warning_roas).toggle(!modalData.roas_status);
         });
 
-        $(html).on('hidden.bs.modal', function() {
+        $(html).on('hidden.bs.modal', function () {
             $(this).remove();
         });
     };
@@ -541,7 +541,7 @@
         {% if can_edit_campaigns %}
             resolve();
         {% else %}
-            var doCampaignCreateTest = function() {
+            var doCampaignCreateTest = function () {
                 $.ajax({
                     url: '{{ url_campaign_test }}',
                     dataType: 'json',
@@ -633,12 +633,12 @@
 
             $(selector.target.container).html('<div class="alert alert-info text-center">{{ text_loading_please_wait }}</div>');
 
-            campaignCreateTestPromise.then(function() {
+            campaignCreateTestPromise.then(function () {
                 $.ajax({
                     url: '{{ target_delete }}'.replace(/{target_id}/, target_id),
                     type: 'get',
                     dataType: 'json',
-                    complete: function() {
+                    complete: function () {
                         refreshTargets();
                     },
                     error: function (jqXHR, textStatus, errorThrown) {
@@ -694,13 +694,13 @@
 
         $('.has-error').removeClass('has-error');
 
-        campaignCreateTestPromise.then(function() {
+        campaignCreateTestPromise.then(function () {
             $.ajax({
                 url: $(saveButton).attr('data-url'),
                 type: 'post',
                 dataType: 'json',
                 data: $(selector.target.modal).find('input,select'),
-                complete: function() {
+                complete: function () {
                     $(selector.target.save)
                         .text($(selector.target.save).attr('data-text'))
                         .attr('disabled', false);
@@ -726,7 +726,7 @@
                         });
 
                         // Highlight any found errors
-                        $('.text-danger').each(function() {
+                        $('.text-danger').each(function () {
                             var element = $(saveButton).parent().parent();
 
                             if (element.hasClass('form-group')) {
@@ -738,7 +738,7 @@
                     } else if (data.success) {
                         displaySuccess(data.success);
 
-                        refreshTargets(function() {
+                        refreshTargets(function () {
                             $(selector.target.modal).modal('hide');
                         });
                     }
@@ -747,7 +747,7 @@
         });
     });
 
-    $(document).on('change', selector.target.country, function() {
+    $(document).on('change', selector.target.country, function () {
         var code = $(this).val();
 
         // Set the feed countries
@@ -776,11 +776,11 @@
         });
     });
 
-    $(document).on('change', selector.acknowledge, function() {
+    $(document).on('change', selector.acknowledge, function () {
         $(selector.save).attr('disabled', $(selector.acknowledge + ':not(:checked)').length > 0);
     });
 
-    $(document).on('change keyup', selector.target.budget, function() {
+    $(document).on('change keyup', selector.target.budget, function () {
         if (parseFloat($(this).val()) < 10) {
             $(selector.target.warning_budget).show();
         } else {
@@ -795,7 +795,7 @@
         $(selector.save).text('{{ text_loading_please_wait }}').attr('disabled', true);
         $(selector.acknowledge).attr('disabled', true);
 
-        campaignCreateTestPromise.then(function() {
+        campaignCreateTestPromise.then(function () {
             $(selector.form).submit();
         });
     });

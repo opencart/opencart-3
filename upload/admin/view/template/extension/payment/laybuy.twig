@@ -445,7 +445,7 @@
 		}
 	});
 
-	$('#laybuy-category').delegate('.fa-minus-circle', 'click', function() {
+	$('#laybuy-category').delegate('.fa-minus-circle', 'click', function () {
 		$(this).parent().remove();
 	});
 //--></script>
@@ -475,7 +475,7 @@
 		}
 	});
 
-	$('#laybuy-customer-group').delegate('.fa-minus-circle', 'click', function() {
+	$('#laybuy-customer-group').delegate('.fa-minus-circle', 'click', function () {
 		$(this).parent().remove();
 	});
 //--></script>
@@ -503,7 +503,7 @@ $('input[name=\'filter_customer\']').autocomplete({
 //--></script>
 
 <script type="text/javascript"><!--
-$('#button-filter').on('click', function() {
+$('#button-filter').on('click', function () {
 	url = 'index.php?route=extension/payment/laybuy&user_token={{ user_token }}';
 
 	var filter_order_id = $('input[name=\'filter_order_id\']').val();

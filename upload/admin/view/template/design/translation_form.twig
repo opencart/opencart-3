@@ -102,11 +102,11 @@
     $('select[name="key"]').prop('disabled', true);
     $('input[name="key"]').prop('disabled', true);
     {% else %}
-    $('select[name="language_id"]').on('change', function() {
+    $('select[name="language_id"]').on('change', function () {
       $.ajax({
         url: 'index.php?route=design/translation/path&user_token={{ user_token }}&language_id=' + $('select[name="language_id"]').val(),
         dataType: 'json',
-        beforeSend: function() {
+        beforeSend: function () {
           $('select[name="route"]').html('');
           $('select[name="key"]').html('');
           $('input[name="key"]').val('');
@@ -118,7 +118,7 @@
           $('input[name="key"]').prop('disabled', true);
           $('textarea[name="value"]').prop('disabled', true);
         },
-        complete: function() {
+        complete: function () {
           $('select[name="store_id"]').prop('disabled', false);
           $('select[name="language_id"]').prop('disabled', false);
           $('select[name="route"]').prop('disabled', false);
@@ -148,12 +148,12 @@
 
     var translation = [];
 
-    $('select[name="route"]').on('change', function() {
+    $('select[name="route"]').on('change', function () {
       $.ajax({
         url: 'index.php?route=design/translation/translation&user_token={{ user_token }}&language_id=' + $('select[name="language_id"]').val() + '&path=' + $('select[name="route"]').val(),
         dataType: 'json',
         {% if not key %}
-        beforeSend: function() {
+        beforeSend: function () {
           $('select[name="key"]').html('');
           $('input[name="key"]').val('');
           $('textarea[name="default"]').val('');
@@ -164,7 +164,7 @@
           $('select[name="key"]').prop('disabled', true);
           $('textarea[name="value"]').prop('disabled', true);
         },
-        complete: function() {
+        complete: function () {
           $('select[name="store_id"]').prop('disabled', false);
           $('select[name="language_id"]').prop('disabled', false);
           $('select[name="route"]').prop('disabled', false);
@@ -201,7 +201,7 @@
 
     $('select[name="language_id"]').trigger('change');
 
-    $('select[name="key"]').on('change', function() {
+    $('select[name="key"]').on('change', function () {
       if ($(this).val()) {
         $('textarea[name="default"]').val(translation[$('select[name="key"]').val()]);
         $('input[name="key"]').val($('select[name="key"]').val());

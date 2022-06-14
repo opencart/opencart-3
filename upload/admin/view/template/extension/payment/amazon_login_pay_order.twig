@@ -93,14 +93,14 @@
   </tr>
 </table>
 <script type="text/javascript"><!--
-  $('#button-cancel').click(function() {
+  $('#button-cancel').click(function () {
       if (confirm('{{ text_confirm_cancel }}')) {
         $.ajax({
 		  url: 'index.php?route=extension/payment/amazon_login_pay/cancel&user_token={{ user_token }}',
           type: 'post',
           dataType: 'json',
           data: { 'order_id': '{{ order_id }}' },
-          beforeSend: function() {
+          beforeSend: function () {
             $('#button-cancel').hide();
             $('#loading-cancel').show();
             $('#amazon_login_pay-transaction-msg').hide();
@@ -138,14 +138,14 @@
       }
     });
 	
-    $('#button-capture').click(function() {
+    $('#button-capture').click(function () {
       if (confirm('{{ text_confirm_capture }}')) {
         $.ajax({
 		  url: 'index.php?route=extension/payment/amazon_login_pay/capture&user_token={{ user_token }}',
           type: 'post',
           dataType: 'json',
           data: { 'order_id': '{{ order_id }}', 'amount': $('#capture-amount').val() },
-          beforeSend: function() {
+          beforeSend: function () {
             $('#button-capture').hide();
             $('#capture-amount').hide();
             $('#loading-capture').show();
@@ -194,14 +194,14 @@
       }
     });
 	
-    $('#button-refund').click(function() {
+    $('#button-refund').click(function () {
       if (confirm('{{ text_confirm_refund }}')) {
         $.ajax({
 		  url: 'index.php?route=extension/payment/amazon_login_pay/refund&user_token={{ user_token }}',
           type: 'post',
           dataType: 'json',
           data: { 'order_id': '{{ order_id }}', 'amount': $('#refund-amount').val() },
-          beforeSend: function() {
+          beforeSend: function () {
             $('#button-refund').hide();
             $('#refund-amount').hide();
             $('#loading-refund').show();

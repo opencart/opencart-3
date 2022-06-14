@@ -178,12 +178,12 @@
     } else {
       t.css('overflow', 'visible');
     }
-  }).on('hidden.bs.dropdown', function() {
+  }).on('hidden.bs.dropdown', function () {
     $(this).css({'padding-bottom': '', 'overflow': ''});
   });
   //--></script>
   <script type="text/javascript"><!--
-  $('#button-filter').on('click', function() {
+  $('#button-filter').on('click', function () {
     url = 'index.php?route=customer/customer&user_token={{ user_token }}';
     var filter_name = $('input[name=\'filter_name\']').val();
     if (filter_name) {

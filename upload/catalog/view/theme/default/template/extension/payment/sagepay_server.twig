@@ -67,7 +67,7 @@
   </fieldset>
 </form>
 <script type="text/javascript">
-	$('input[name=\'CreateToken\']').on('change', function() {
+	$('input[name=\'CreateToken\']').on('change', function () {
 		if (this.value === '0') {
 			$('#card-existing').show();
 			$('#card-save').hide();
@@ -82,17 +82,17 @@
 	});
 //</script> 
 <script type="text/javascript"><!--
-$('#button-confirm').bind('click', function() {
+$('#button-confirm').bind('click', function () {
 	$.ajax({
 		url: 'index.php?route=extension/payment/sagepay_server/send',
 		type: 'post',
 		data: $('#card-existing :input:checked, #card-save :input:enabled, #payment select:enabled'),
 		dataType: 'json',
 		cache: false,
-		beforeSend: function() {
+		beforeSend: function () {
 			$('#button-confirm').button('loading');
 		},
-		complete: function() {
+		complete: function () {
 			$('#button-confirm').button('reset');
 		},
 		success: function (json) {
@@ -118,17 +118,17 @@ $('#button-confirm').bind('click', function() {
 });
 //--></script> 
 <script type="text/javascript"><!--
-$('#button-delete').bind('click', function() {
+$('#button-delete').bind('click', function () {
   if (confirm('{{ text_confirm_delete }}')) {
 	$.ajax({
 	  url: 'index.php?route=extension/payment/sagepay_server/delete',
 	  type: 'post',
 	  data: $('#card-existing :input[name=\'Token\']'),
 	  dataType: 'json',
-	  beforeSend: function() {
+	  beforeSend: function () {
 		$('#button-delete').button('loading');
 	  },
-	  complete: function() {
+	  complete: function () {
 		$('#button-delete').button('reset');
 	  },
 	  success: function (json) {

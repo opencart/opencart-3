@@ -160,10 +160,10 @@
 		$.ajax({
 			url: 'index.php?route=marketplace/api&user_token={{ user_token }}',
 			dataType: 'html',
-			beforeSend: function() {
+			beforeSend: function () {
 				$('#button-opencart').button('loading');
 			},
-			complete: function() {
+			complete: function () {
 				$('#button-opencart').button('reset');
 			},
 			success: function (html) {
@@ -220,10 +220,10 @@
 			type: 'post',
 			data: $('input[name=\'pin\']'),
 			dataType: 'json',
-			beforeSend: function() {
+			beforeSend: function () {
 				$(element).button('loading');
 			},
-			complete: function() {
+			complete: function () {
 				$(element).button('reset');
 			},
 			success: function (json) {
@@ -261,10 +261,10 @@
 		$.ajax({
 			url: 'index.php?route=marketplace/marketplace/download&user_token={{ user_token }}&extension_id={{ extension_id }}&extension_download_id=' + $(this).attr('data-install'),
 			dataType: 'json',
-			beforeSend: function() {
+			beforeSend: function () {
 				$(element).button('loading');
 			},
-			complete: function() {
+			complete: function () {
 				$(element).button('reset');
 			},
 			success: function (json) {
@@ -343,10 +343,10 @@
 		$.ajax({
 			url: 'index.php?route=marketplace/install/uninstall&user_token={{ user_token }}&extension_install_id=' + $(this).attr('data-uninstall'),
 			dataType: 'json',
-			beforeSend: function() {
+			beforeSend: function () {
 				$(element).button('loading');
 			},
-			complete: function() {
+			complete: function () {
 				$(element).button('reset');
 			},
 			success: function (json) {
@@ -379,16 +379,16 @@
 	$('#comment').load('index.php?route=marketplace/marketplace/comment&user_token={{ user_token }}&extension_id={{ extension_id }}');
 
 	// Add comment
-	$('#button-comment').on('click', function() {
+	$('#button-comment').on('click', function () {
 		$.ajax({
 			url: 'index.php?route=marketplace/marketplace/addComment&user_token={{ user_token }}&extension_id={{ extension_id }}',
 			type: 'post',
 			dataType: 'json',
 			data: 'comment=' + encodeURIComponent($('textarea[name=\'comment\']').val()),
-			beforeSend: function() {
+			beforeSend: function () {
 				$('#button-comment').button('loading');
 			},
-			complete: function() {
+			complete: function () {
 				$('#button-comment').button('reset');
 			},
 			success: function (json) {
@@ -421,10 +421,10 @@
 		$.ajax({
 			url: $(element).attr('href'),
 			dataType: 'html',
-			beforeSend: function() {
+			beforeSend: function () {
 				$(element).button('loading');
 			},
-			complete: function() {
+			complete: function () {
 				$(element).button('reset');
 			},
 			success: function (html) {
@@ -456,10 +456,10 @@
 			type: 'post',
 			dataType: 'json',
 			data: 'comment=' + encodeURIComponent($(element).parents('.reply-input-box').find('textarea[name=\'comment\']').val()),		
-			beforeSend: function() {
+			beforeSend: function () {
 				$(element).button('loading');
 			},
-			complete: function() {
+			complete: function () {
 				$(element).button('reset');
 			},
 			success: function (json) {
@@ -492,10 +492,10 @@
 		$.ajax({
 			url: $(element).attr('href'),
 			dataType: 'html',
-			beforeSend: function() {
+			beforeSend: function () {
 				$(element).button('loading');
 			},
-			complete: function() {
+			complete: function () {
 				$(element).button('reset');
 			},
 			success: function (html) {
@@ -508,7 +508,7 @@
 	});
 //--></script> 
 <script type="text/javascript"><!--
-	$(document).ready(function() {
+	$(document).ready(function () {
 		$('.thumbnails').magnificPopup({
 			type:'image',
 			delegate: 'a',

@@ -44,14 +44,14 @@
   </tr>
 </table>
 <script type="text/javascript"><!--
-	$('#btn_refund').click(function() {
+	$('#btn_refund').click(function () {
 	  if (confirm('{{ text_confirm_refund }}')) {
 		$.ajax({
 		  url: 'index.php?route=extension/payment/g2apay/refund&user_token={{ user_token }}',
 		  type: 'post',
 		  dataType: 'json',
 		  data: { 'order_id': {{ order_id }}, 'amount': $('#refund_amount').val() },
-		  beforeSend: function() {
+		  beforeSend: function () {
 			$('#btn_refund').hide();
 			$('#refund_amount').hide();
 			$('#img_loading_refund').show();

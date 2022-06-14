@@ -28,8 +28,8 @@
 </style>
 <input type="hidden" name="addressSelected" value="0"/>
 <script type="text/javascript">
-(function($) {
-    $(document).ready(function() {
+(function ($) {
+    $(document).ready(function () {
         var AmazonOrderReferenceId;
 
         var showError = function (message) {
@@ -40,7 +40,7 @@
 
         amazon.Login.setClientId('{{ client_id }}');
 
-        $('#continue-button').click(function() {
+        $('#continue-button').click(function () {
             $('#continue-button').button('loading');
             $('.alert').remove();
 

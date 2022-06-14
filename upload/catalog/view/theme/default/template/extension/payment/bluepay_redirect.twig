@@ -84,7 +84,7 @@
     </fieldset>
 </form>
 <script type="text/javascript"><!--
-$(document).ready(function() {
+$(document).ready(function () {
 {% if existing_cards %}
 	$('#card-new input').prop('disabled', true);
 	$('#card-new input').prop('disabled', true);
@@ -93,7 +93,7 @@ $(document).ready(function() {
 	});
 //--></script>
 <script type="text/javascript"><!--
-	$('input[name=\'new-existing\']').on('change', function() {
+	$('input[name=\'new-existing\']').on('change', function () {
 		if (this.value === 'existing') {
 			$('#card-existing').show();
 			$('#card-new').hide();
@@ -112,17 +112,17 @@ $(document).ready(function() {
 	});
 //--></script>
 <script type="text/javascript">
-	$('#button-confirm').bind('click', function() {
+	$('#button-confirm').bind('click', function () {
 		$.ajax({
 			url: 'index.php?route=extension/payment/bluepay_redirect/send',
 			type: 'post',
 			data: $('#card-new :input[type=\'text\']:enabled, #card-new select:enabled, #card-new :input[type=\'checkbox\']:checked:enabled, #payment select:enabled, #card-existing :input:enabled'),
 			dataType: 'json',
 			cache: false,
-			beforeSend: function() {
+			beforeSend: function () {
 				$('#button-confirm').button('loading');
 			},
-			complete: function() {
+			complete: function () {
 				$('#button-confirm').button('reset');
 			},
 			success: function (json) {

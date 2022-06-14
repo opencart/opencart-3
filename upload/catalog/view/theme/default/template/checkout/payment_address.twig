@@ -204,7 +204,7 @@
   </div>
 </form>
 <script type="text/javascript"><!--
-$('input[name=\'payment_address\']').on('change', function() {
+$('input[name=\'payment_address\']').on('change', function () {
 	if (this.value == 'new') {
 		$('#payment-existing').hide();
 		$('#payment-new').show();
@@ -216,7 +216,7 @@ $('input[name=\'payment_address\']').on('change', function() {
 //--></script>
 <script type="text/javascript"><!--
 // Sort the custom fields
-$('#collapse-payment-address .form-group[data-sort]').detach().each(function() {
+$('#collapse-payment-address .form-group[data-sort]').detach().each(function () {
 	if ($(this).attr('data-sort') >= 0 && $(this).attr('data-sort') <= $('#collapse-payment-address .form-group').length-2) {
 		$('#collapse-payment-address .form-group').eq(parseInt($(this).attr('data-sort'))+2).before(this);
 	}
@@ -235,7 +235,7 @@ $('#collapse-payment-address .form-group[data-sort]').detach().each(function() {
 });
 //--></script>
 <script type="text/javascript"><!--
-$('#collapse-payment-address button[id^=\'button-payment-custom-field\']').on('click', function() {
+$('#collapse-payment-address button[id^=\'button-payment-custom-field\']').on('click', function () {
 	var element = this;
 
 	$('#form-upload').remove();
@@ -248,7 +248,7 @@ $('#collapse-payment-address button[id^=\'button-payment-custom-field\']').on('c
     	clearInterval(timer);
 	}
 
-	timer = setInterval(function() {
+	timer = setInterval(function () {
 		if ($('#form-upload input[name=\'file\']').val() != '') {
 			clearInterval(timer);
 
@@ -260,10 +260,10 @@ $('#collapse-payment-address button[id^=\'button-payment-custom-field\']').on('c
 				cache: false,
 				contentType: false,
 				processData: false,
-				beforeSend: function() {
+				beforeSend: function () {
 					$(element).button('loading');
 				},
-				complete: function() {
+				complete: function () {
 					$(element).button('reset');
 				},
 				success: function (json) {
@@ -305,14 +305,14 @@ $('.datetime').datetimepicker({
 });
 //--></script>
 <script type="text/javascript"><!--
-$('#collapse-payment-address select[name=\'country_id\']').on('change', function() {
+$('#collapse-payment-address select[name=\'country_id\']').on('change', function () {
 	$.ajax({
 		url: 'index.php?route=checkout/checkout/country&country_id=' + this.value,
 		dataType: 'json',
-		beforeSend: function() {
+		beforeSend: function () {
 			$('#collapse-payment-address select[name=\'country_id\']').prop('disabled', true);
 		},
-		complete: function() {
+		complete: function () {
 			$('#collapse-payment-address select[name=\'country_id\']').prop('disabled', false);
 		},
 		success: function (json) {

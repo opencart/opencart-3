@@ -115,7 +115,7 @@
   </div>
 </div>
 <script type="text/javascript"><!--
-$('select[name="method"]').on('change', function() {
+$('select[name="method"]').on('change', function () {
 	if ($(this).val() == 'card') {
 		$('#payment legend').text('{{ text_card_details }}');
 		$('.card_container').show();
@@ -128,7 +128,7 @@ $('select[name="method"]').on('change', function() {
 });
 //--></script> 
 <script type="text/javascript"><!--
-$('input[name="card_new"]').on('change', function() {
+$('input[name="card_new"]').on('change', function () {
 	if ($(this).val() == '1') {
 		$('.card_new_container').show();
 		$('.card_old_container').hide();
@@ -139,19 +139,19 @@ $('input[name="card_new"]').on('change', function() {
 });
 //--></script> 
 <script type="text/javascript"><!--
-$('#button-delete').bind('click', function() {
+$('#button-delete').bind('click', function () {
 	if (confirm('{{ text_confirm_delete }}')) {
 		$.ajax({
 			url: 'index.php?route=extension/payment/cardconnect/delete',
 			type: 'post',
 			data: $('#input-card-choice'),
 			dataType: 'json',
-			beforeSend: function() {
+			beforeSend: function () {
 				$('.cardconnect_message').remove();
 				$('#payment').before('<div class="alert alert-info cardconnect_wait"><i class="fa fa-info-circle"></i> {{ text_wait }}</div>');
 				$('#button-delete').button('loading');
 			},
-			complete: function() {
+			complete: function () {
 				$('.cardconnect_wait').remove();
 				$('#button-delete').button('reset');
 			},
@@ -178,20 +178,20 @@ $('#button-delete').bind('click', function() {
 });
 //--></script> 
 <script type="text/javascript"><!--
-$('#button-confirm').bind('click', function() {
+$('#button-confirm').bind('click', function () {
 	$.ajax({
 		url: 'index.php?route=extension/payment/cardconnect/send',
 		type: 'post',
 		data: $('#cardconnect-form').serialize(),
 		dataType: 'json',
-		beforeSend: function() {
+		beforeSend: function () {
 			$('.cardconnect_message').remove();
 			$('.text-danger').remove();
 			$('#payment').find('*').removeClass('has-error');
 			$('#payment').before('<div class="alert alert-info cardconnect_wait"><i class="fa fa-info-circle"></i> {{ text_wait }}</div>');
 			$('#button-confirm').button('loading');
 		},
-		complete: function() {
+		complete: function () {
 			$('.cardconnect_wait').remove();
 			$('#button-confirm').button('reset');
 		},

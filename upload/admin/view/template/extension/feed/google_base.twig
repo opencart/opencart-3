@@ -124,16 +124,16 @@ $('#category').delegate('.pagination a', 'click', function (e) {
 
 $('#category').load('index.php?route=extension/feed/google_base/category&user_token={{ user_token }}');
 
-$('#button-category-add').on('click', function() {
+$('#button-category-add').on('click', function () {
 	$.ajax({
 		url: 'index.php?route=extension/feed/google_base/addCategory&user_token={{ user_token }}',
 		type: 'post',
 		dataType: 'json',
 		data: 'google_base_category_id=' + $('input[name=\'google_base_category_id\']').val() + '&category_id=' + $('input[name=\'category_id\']').val(),
-		beforeSend: function() {
+		beforeSend: function () {
 			$('#button-category-add').button('loading');
 		},
-		complete: function() {
+		complete: function () {
 			$('#button-category-add').button('reset');
 		},
 		success: function (json) {
@@ -160,7 +160,7 @@ $('#button-category-add').on('click', function() {
 	});
 });
 
-$('#category').delegate('.btn-danger', 'click', function() {
+$('#category').delegate('.btn-danger', 'click', function () {
 	var element = this;
 
 	$.ajax({
@@ -169,10 +169,10 @@ $('#category').delegate('.btn-danger', 'click', function() {
 		data: 'category_id=' + encodeURIComponent(this.value),
 		dataType: 'json',
 		crossDomain: true,
-		beforeSend: function() {
+		beforeSend: function () {
 			$(element).button('loading');
 		},
-		complete: function() {
+		complete: function () {
 			$(element).button('reset');
 		},
 		success: function (json) {
@@ -195,7 +195,7 @@ $('#category').delegate('.btn-danger', 'click', function() {
 	});
 });
 
-$('#button-import').on('click', function() {
+$('#button-import').on('click', function () {
 	$('#form-upload').remove();
 
 	$('body').prepend('<form enctype="multipart/form-data" id="form-upload" style="display: none;"><input type="file" name="file"/></form>');
@@ -206,7 +206,7 @@ $('#button-import').on('click', function() {
     clearInterval(timer);
 	}
 
-	timer = setInterval(function() {
+	timer = setInterval(function () {
 		if ($('#form-upload input[name=\'file\']').val() != '') {
 			clearInterval(timer);
 
@@ -218,10 +218,10 @@ $('#button-import').on('click', function() {
 				cache: false,
 				contentType: false,
 				processData: false,
-				beforeSend: function() {
+				beforeSend: function () {
 					$('#button-import').button('loading');
 				},
-				complete: function() {
+				complete: function () {
 					$('#button-import').button('reset');
 				},
 				success: function (json) {

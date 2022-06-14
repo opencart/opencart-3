@@ -95,7 +95,7 @@
                 type: 'post',
                 dataType: 'json',
                 data: { 'amount': amt,'order_id': {{ order_id }}, 'complete': captureComplete },
-                beforeSend: function() {
+                beforeSend: function () {
                     $('#button-capture').hide();
                     $('#img_loading_capture').show();
                 },
@@ -170,7 +170,7 @@
                 type: 'post',
                 dataType: 'json',
                 data: { 'order_id': {{ order_id }} },
-                beforeSend: function() {
+                beforeSend: function () {
                     $('#button-void').hide();
                     $('#img_loading_void').show();
                 },
@@ -209,7 +209,7 @@ function reauthorise() {
         type: 'post',
         dataType: 'json',
         data: { 'order_id':{{ order_id }} },
-        beforeSend: function() {
+        beforeSend: function () {
             $('#button-reauthorise').hide();
             $('.loading').remove();
             $('#button-reauthorise').after('<span class="btn btn-primary loading"><i class="fa fa-circle-o-notch fa-spin fa-lg"></i></span>');
@@ -250,7 +250,7 @@ function resendTransaction(element) {
 		url: $(element).attr('href'),
         type: 'get',
         dataType: 'json',        
-        beforeSend: function() {
+        beforeSend: function () {
             $(element).hide();
             $(element).after('<span class="btn btn-primary loading"><i class="fa fa-circle-o-notch fa-spin fa-lg"></i></span>');
         },

@@ -351,7 +351,7 @@
 	</div>
   </div>
   <script type="text/javascript">
-      $('#button-credentials').on('click', function() {
+      $('#button-credentials').on('click', function () {
         var json = $('#input-credentials').val();
         try {
           var credentials = $.parseJSON($('#input-credentials').val());
@@ -372,7 +372,7 @@
       });
       //</script>
   <script type="text/javascript">
-      $('input[name=\'payment_amazon_login_pay_ipn_token\']').change(function() {
+      $('input[name=\'payment_amazon_login_pay_ipn_token\']').change(function () {
         var base = '{{ https_catalog }}index.php?route=extension/payment/amazon_login_pay/ipn&token=';
         var allowedLength = 150 - base.length;
         var newVal = $(this).val().substr(0, allowedLength);
@@ -381,7 +381,7 @@
       });
       //</script>
   <script type="text/javascript">
-      $('#amazon-login-pay-payment_region').on('change', function() {
+      $('#amazon-login-pay-payment_region').on('change', function () {
         switch ($(this).val()) {
           case 'EUR':
             $('#amazon-login-pay-language').html('<option selected value="de-DE">{{ text_de }}</option>');
@@ -405,14 +405,14 @@
       });
       //</script>
   <script type="text/javascript">
-      $('#amazon-login-pay-language').on('change', function() {
+      $('#amazon-login-pay-language').on('change', function () {
         var language = $(this).val();
         var mod_lang = language.replace("-", "_");
         $('input[name="language"]').val(mod_lang);
       });
       //</script>
   <script type="text/javascript">
-        $('#sign-up').on('click', function() {
+        $('#sign-up').on('click', function () {
         $('#registration-form').submit();
         $('#container-credentials').show();
       });
@@ -429,7 +429,7 @@
 	        $(this).find('.fa-eye-slash').removeClass('fa-eye-slash').addClass('fa-eye');
 	    }
 	});
-    $(document).ready(function() {
+    $(document).ready(function () {
         if ($('#amazon-login-pay-payment_region').val() === 'USD') {
             $('#buyer-multi-currency').hide();
         }

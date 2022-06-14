@@ -128,12 +128,12 @@
     }
 </style>
 <script>
-(function($) {
+(function ($) {
     var showCouponError = function (message) {
         $('#couponContainer').before('<div class="alert alert-danger"><button type="button" class="close" data-dismiss="alert">&times;</button><i class="fa fa-exclamation-circle"></i>&nbsp;&nbsp;' + message + '</div>');
     }
 
-    var typewatch = (function() {
+    var typewatch = (function () {
         var timer = 0;
 
         return function (callback) {
@@ -142,7 +142,7 @@
         };
     })();
 
-    $(document).ready(function() {
+    $(document).ready(function () {
         amazon.Login.setClientId('{{ client_id }}');
 
         new OffAmazonPayments.Widgets.AddressBook({
@@ -188,11 +188,11 @@
         walletWidgetC.bind("walletWidget");
     });
 
-    $(document).on('click', '#couponDiscard', function() {
+    $(document).on('click', '#couponDiscard', function () {
         $('#couponDiscard').attr('disabled', true);
     });
 
-    $(document).on('click', '#couponApply', function() {
+    $(document).on('click', '#couponApply', function () {
         $('#couponApply').attr('disabled', true);
 
         $('.alert-danger').remove();
@@ -216,7 +216,7 @@
         });
     });
 
-    $(document).on('propertychange input', '#coupon', function() {
+    $(document).on('propertychange input', '#coupon', function () {
         if ($(this).val() != '') {
             $('#confirm-button').attr('disabled', true);
             $('#confirm-button').hide();
@@ -228,7 +228,7 @@
         }
     });
 
-    $(document).on('propertychange input', '#comment', function() {
+    $(document).on('propertychange input', '#comment', function () {
         typewatch(() => {
             $.ajax({
                 url: '{{ persist_comment }}',
@@ -241,7 +241,7 @@
     var buyNowBtn = document.getElementById("confirm-button");
     var psd_enabled = {{ psd_enabled }};
 
-    buyNowBtn.addEventListener('click', function() {
+    buyNowBtn.addEventListener('click', function () {
         if (psd_enabled) {
             OffAmazonPayments.initConfirmationFlow('{{ merchant_id }}', '{{ order_reference_id }}', placeOrder);
         } else {
@@ -266,7 +266,7 @@
                     amazonPayFlow.success();
                 }
             },
-            error: function() {
+            error: function () {
                 amazonPayFlow.error();
                 window.alert('{{ error_unexpected_network_error }}');
             },

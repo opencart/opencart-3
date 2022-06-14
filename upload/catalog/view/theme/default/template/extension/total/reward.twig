@@ -11,16 +11,16 @@
         <input type="submit" value="{{ button_reward }}" id="button-reward" data-loading-text="{{ text_loading }}"  class="btn btn-primary"/>
         </span></div>
       <script type="text/javascript"><!--
-$('#button-reward').on('click', function() {
+$('#button-reward').on('click', function () {
 	$.ajax({
 		url: 'index.php?route=extension/total/reward/reward',
 		type: 'post',
 		data: 'reward=' + encodeURIComponent($('input[name=\'reward\']').val()),
 		dataType: 'json',
-		beforeSend: function() {
+		beforeSend: function () {
 			$('#button-reward').button('loading');
 		},
-		complete: function() {
+		complete: function () {
 			$('#button-reward').button('reset');
 		},
 		success: function (json) {

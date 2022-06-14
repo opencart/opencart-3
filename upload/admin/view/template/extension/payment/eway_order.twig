@@ -55,7 +55,7 @@
 </table>
 
 <script type="text/javascript"><!--
-	$('#btn-refund').bind('click', function() {
+	$('#btn-refund').bind('click', function () {
 		if ($('#eway-refund-amount').val() != '' && confirm('{{ text_confirm_refund }}')) {
 			$.ajax({
 			    url: 'index.php?route=extension/payment/eway/refund&user_token={{ user_token }}',
@@ -105,7 +105,7 @@
 //-->
 </script>
 <script type="text/javascript"><!--
-	$('#btn-capture').bind('click', function() {
+	$('#btn-capture').bind('click', function () {
 		if ($('#eway-capture-amount').val() != '' && confirm('{{ text_confirm_capture }}')) {
 			$.ajax({
 			    url: 'index.php?route=extension/payment/eway/capture&user_token={{ user_token }}',

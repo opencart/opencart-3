@@ -439,8 +439,8 @@
     </div>
 </div>
 <script type="text/javascript">
-$(document).ready(function() {
-    var triggerConnectButtons = function() {
+$(document).ready(function () {
+    var triggerConnectButtons = function () {
         if ($('#input_payment_squareup_client_id').val() != '' && $('#input_payment_squareup_client_secret').val() != '') {
             $('.btn-connect').removeClass('disabled');
         } else {
@@ -448,13 +448,13 @@ $(document).ready(function() {
         }
     }
 
-    var setCronUrl = function() {
+    var setCronUrl = function () {
         $('#input_payment_squareup_cron_url').val(
             "{{ payment_squareup_cron_url }}".replace('{CRON_TOKEN}', $('#input_payment_squareup_cron_token').val())
         );
     }
 
-    var randomString = function() {
+    var randomString = function () {
         return (Math.random() * 100).toString(16).replace('.', '');
     }
 
@@ -471,7 +471,7 @@ $(document).ready(function() {
         $.ajax({
           url : '{{ url_list_transactions }}'.replace('{PAGE}', page ? page : transactionListPage),
           dataType : 'json',
-          beforeSend : function() {
+          beforeSend : function () {
             $('#refresh_transactions').button('loading');
             $('#transactions_pagination').empty();
             $('#transactions').html('<tr><td colspan="9" class="text-center"><i class="fa fa-circle-o-notch fa-spin"></i>&nbsp;{{ text_loading }}</td></tr>');
@@ -527,13 +527,13 @@ $(document).ready(function() {
               })
             });
           },
-          complete : function() {
+          complete : function () {
             $('#refresh_transactions').button('reset');
           }
         });
     }
 
-    var transactionLoading = function() {
+    var transactionLoading = function () {
         var message = $('#transaction-alert').attr('data-message');
 
         $('#transaction-alert').html('<div class="text-center alert alert-info"><i class="fa fa-circle-o-notch fa-spin"></i>&nbsp;' + message + '</div>');
@@ -584,7 +584,7 @@ $(document).ready(function() {
                 }
 
                 if (json.success && json.order_history_data) {
-                    addOrderHistory(json.order_history_data, function() {
+                    addOrderHistory(json.order_history_data, function () {
                         transactionSuccess(json.success);
                         listTransactions();
                     });
@@ -597,11 +597,11 @@ $(document).ready(function() {
         });
     }
 
-    var disableTransactionButtons = function() {
+    var disableTransactionButtons = function () {
         $('*[data-url-transaction-capture], *[data-url-transaction-void], *[data-url-transaction-refund]').attr('disabled', true);
     }
 
-    var enableTransactionButtons = function() {
+    var enableTransactionButtons = function () {
         $('*[data-url-transaction-capture], *[data-url-transaction-void], *[data-url-transaction-refund]').attr('disabled', false);
     }
 
@@ -611,7 +611,7 @@ $(document).ready(function() {
         var button = '#squareup-confirm-ok';
 
         $(content).html(text);
-        $(button).unbind().click(function() {
+        $(button).unbind().click(function () {
             disableTransactionButtons();
 
             $(modal).modal('hide');
@@ -656,7 +656,7 @@ $(document).ready(function() {
         $(reason_input).val('');
         $(amount_input).val('');
 
-        $(button).unbind().click(function() {
+        $(button).unbind().click(function () {
             if (!refundInputValidate(reason_input, amount_input)) {
                 return;
             }
@@ -679,7 +679,7 @@ $(document).ready(function() {
     $('.nav-tabs a[href="#{{ tab }}"]').tab('show');
 
     $('#dropdown_payment_squareup_enable_sandbox')
-        .change(function() {
+        .change(function () {
             if ($(this).val() == '0') {
                 $('#sandbox_settings').slideUp();
                 $('#dropdown_payment_squareup_location_id').show();
@@ -697,7 +697,7 @@ $(document).ready(function() {
         .keyup(triggerConnectButtons)
         .trigger('change');
 
-    $('#refresh-cron-token').click(function() {
+    $('#refresh-cron-token').click(function () {
         $('#input_payment_squareup_cron_token').val(randomString() + randomString());
         setCronUrl();
     });
@@ -706,7 +706,7 @@ $(document).ready(function() {
 
     $('#reconnect-button').click(onConnectClick);
 
-    $(document).on('click', '*[data-url-transaction-capture]', function() {
+    $(document).on('click', '*[data-url-transaction-capture]', function () {
         if ($(this).attr('disabled')) return;
 
         modalConfirm(
@@ -715,7 +715,7 @@ $(document).ready(function() {
         );
     });
 
-    $(document).on('click', '*[data-url-transaction-void]', function() {
+    $(document).on('click', '*[data-url-transaction-void]', function () {
         if ($(this).attr('disabled')) return;
 
         modalConfirm(
@@ -724,7 +724,7 @@ $(document).ready(function() {
         );
     });
 
-    $(document).on('click', '*[data-url-transaction-refund]', function() {
+    $(document).on('click', '*[data-url-transaction-refund]', function () {
         if ($(this).attr('disabled')) return;
 
         modalRefund(

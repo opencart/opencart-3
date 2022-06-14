@@ -130,17 +130,17 @@
     </div>
 </div>
 <script type="text/javascript">
-(function($) {
+(function ($) {
     var selector = {
         save: '#connect',
         form: '#form'
     }
 
-    var randomString = function() {
+    var randomString = function () {
         return (Math.random() * 100).toString(16).replace('.', '');
     }
 
-    var setCronUrl = function() {
+    var setCronUrl = function () {
         $('#input_advertise_google_cron_url').val(
             "{{ advertise_google_cron_url }}".replace('{CRON_TOKEN}', $('#input_advertise_google_cron_token').val())
         );
@@ -155,11 +155,11 @@
         $(selector.form).submit();
     });
 
-    $(document).ready(function() {
+    $(document).ready(function () {
         setCronUrl();
     });
 
-    $('#refresh-cron-token').click(function() {
+    $('#refresh-cron-token').click(function () {
         $('#input_advertise_google_cron_token').val(randomString() + randomString());
         setCronUrl();
     });

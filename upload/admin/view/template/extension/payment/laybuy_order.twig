@@ -288,11 +288,11 @@
 			type: 'post',
 			dataType: 'json',
 			cache: false,
-			beforeSend: function() {
+			beforeSend: function () {
 				$('#cancel-plan, #revise-plan').attr('disabled', true);
 				$('#cancel-plan').after('<span class="laybuy-loading fa fa-spinner" style="margin-left:2px"></span>');
 			},
-			complete: function() {
+			complete: function () {
 				$('#cancel-plan, #revise-plan').attr('disabled', false);
 				$('.laybuy-loading').remove();
 			},
@@ -342,11 +342,11 @@
 			data: $('#payment-type, #amount, #down-payment, #months'),
 			dataType: 'json',
 			cache: false,
-			beforeSend: function() {
+			beforeSend: function () {
 				$('#cancel-plan, #revise-plan').attr('disabled', true);
 				$('#revise-plan').after('<div class="laybuy-loading fa fa-spinner" style="margin-left:2px"></div>');
 			},
-			complete: function() {
+			complete: function () {
 				$('#cancel-plan, #revise-plan').attr('disabled', false);
 				$('.laybuy-loading').remove();
 			},
@@ -369,7 +369,7 @@
 //--></script>
 
 <script type="text/javascript"><!--
-	$('#payment-type').on('change', function() {
+	$('#payment-type').on('change', function () {
 		var payment_type = $('#payment-type').val();
 
 		if (payment_type == '1') {
@@ -381,8 +381,8 @@
 //--></script>
 
 <script type="text/javascript"><!--
-	$(document).ready(function() {
-		$('#tab-modify').on('click', 'select', function() {
+	$(document).ready(function () {
+		$('#tab-modify').on('click', 'select', function () {
 			calculate($('#down-payment').val(), $('#months').val());
 		});
 
