@@ -148,7 +148,7 @@ class ModelCustomerCustomer extends Model {
 		$address_query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "address` WHERE `address_id` = '" . (int)$address_id . "'");
 
 		if ($address_query->num_rows) {
-			$country_query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "country` WHERE `country_id` = '" . (int)$address_query->row['country_id'] . "'");
+			$country_query = $this->db->query("SELECT *, c.name FROM `" . DB_PREFIX . "country` c LEFT JOIN `" . DB_PREFIX . "address_format` af ON (c.`address_format_id` = af.`address_format_id`) WHERE `country_id` = '" . (int)$address_query->row['country_id'] . "'");
 
 			if ($country_query->num_rows) {
 				$country = $country_query->row['name'];
@@ -190,9 +190,12 @@ class ModelCustomerCustomer extends Model {
 				'iso_code_2'     => $iso_code_2,
 				'iso_code_3'     => $iso_code_3,
 				'address_format' => $address_format,
-				'custom_field'   => json_decode($address_query->row['custom_field'], true)
+				'custom_field'   => json_decode($address_query->row['custom_field'], true),
+				'default'        => $address_query->row['default']
 			);
 		}
+		
+		return array();
 	}
 
 	public function getAddresses($customer_id) {

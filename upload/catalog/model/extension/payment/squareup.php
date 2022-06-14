@@ -135,7 +135,7 @@ class ModelExtensionPaymentSquareup extends Model {
         $mail->smtp_port = $this->config->get('config_mail_smtp_port');
         $mail->smtp_timeout = $this->config->get('config_mail_smtp_timeout');
 
-        $br = '<br>';
+        $br = '<br/>';
 
         $subject = $this->language->get('text_cron_subject');
 

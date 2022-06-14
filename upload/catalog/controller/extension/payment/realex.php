@@ -113,22 +113,22 @@ class ControllerExtensionPaymentRealex extends Controller {
 			$tss = (int)$this->config->get('payment_realex_tss_check');
 
 			$message = '<strong>' . $this->language->get('text_result') . ':</strong> ' . $this->request->post['RESULT'];
-			$message .= '<br><strong>' . $this->language->get('text_message') . ':</strong> ' . $this->request->post['MESSAGE'];
+			$message .= '<br/><strong>' . $this->language->get('text_message') . ':</strong> ' . $this->request->post['MESSAGE'];
 
 			if (isset($this->request->post['ORDER_ID'])) {
-				$message .= '<br><strong>' . $this->language->get('text_order_ref') . ':</strong> ' . $this->request->post['ORDER_ID'];
+				$message .= '<br/><strong>' . $this->language->get('text_order_ref') . ':</strong> ' . $this->request->post['ORDER_ID'];
 			}
 
 			if (isset($this->request->post['CVNRESULT'])) {
-				$message .= '<br><strong>' . $this->language->get('text_cvn_result') . ':</strong> ' . $this->request->post['CVNRESULT'];
+				$message .= '<br/><strong>' . $this->language->get('text_cvn_result') . ':</strong> ' . $this->request->post['CVNRESULT'];
 			}
 
 			if (isset($this->request->post['AVSPOSTCODERESULT'])) {
-				$message .= '<br><strong>' . $this->language->get('text_avs_postcode') . ':</strong> ' . $this->request->post['AVSPOSTCODERESULT'];
+				$message .= '<br/><strong>' . $this->language->get('text_avs_postcode') . ':</strong> ' . $this->request->post['AVSPOSTCODERESULT'];
 			}
 
 			if (isset($this->request->post['AVSADDRESSRESULT'])) {
-				$message .= '<br><strong>' . $this->language->get('text_avs_address') . ':</strong> ' . $this->request->post['AVSADDRESSRESULT'];
+				$message .= '<br/><strong>' . $this->language->get('text_avs_address') . ':</strong> ' . $this->request->post['AVSADDRESSRESULT'];
 			}
 
 			//3D Secure message
@@ -161,46 +161,46 @@ class ControllerExtensionPaymentRealex extends Controller {
 					$scenario_message = $this->language->get('text_3d_liability');
 				}
 
-				$message .= '<br><strong>' . $this->language->get('text_eci') . ':</strong> (' . $eci . ') ' . $scenario_message;
+				$message .= '<br/><strong>' . $this->language->get('text_eci') . ':</strong> (' . $eci . ') ' . $scenario_message;
 			}
 
 			if ($tss == 1 && isset($this->request->post['TSS'])) {
-				$message .= '<br><strong>' . $this->language->get('text_tss') . ':</strong> ' . $this->request->post['TSS'];
+				$message .= '<br/><strong>' . $this->language->get('text_tss') . ':</strong> ' . $this->request->post['TSS'];
 			}
 
 			if (isset($this->request->post['TIMESTAMP'])) {
-				$message .= '<br><strong>' . $this->language->get('text_timestamp') . ':</strong> ' . $this->request->post['TIMESTAMP'];
+				$message .= '<br/><strong>' . $this->language->get('text_timestamp') . ':</strong> ' . $this->request->post['TIMESTAMP'];
 			}
 
 			if (isset($this->request->post['CARDDIGITS'])) {
-				$message .= '<br><strong>' . $this->language->get('text_card_digits') . ':</strong> ' . $this->request->post['CARDDIGITS'];
+				$message .= '<br/><strong>' . $this->language->get('text_card_digits') . ':</strong> ' . $this->request->post['CARDDIGITS'];
 			}
 
 			if (isset($this->request->post['CARDTYPE'])) {
-				$message .= '<br><strong>' . $this->language->get('text_card_type') . ':</strong> ' . $this->request->post['CARDTYPE'];
+				$message .= '<br/><strong>' . $this->language->get('text_card_type') . ':</strong> ' . $this->request->post['CARDTYPE'];
 			}
 
 			if (isset($this->request->post['EXPDATE'])) {
-				$message .= '<br><strong>' . $this->language->get('text_card_exp') . ':</strong> ' . $this->request->post['EXPDATE'];
+				$message .= '<br/><strong>' . $this->language->get('text_card_exp') . ':</strong> ' . $this->request->post['EXPDATE'];
 			}
 
 			if (isset($this->request->post['CARDNAME'])) {
-				$message .= '<br><strong>' . $this->language->get('text_card_name') . ':</strong> ' . $this->request->post['CARDNAME'];
+				$message .= '<br/><strong>' . $this->language->get('text_card_name') . ':</strong> ' . $this->request->post['CARDNAME'];
 			}
 
 			if (isset($this->request->post['DCCAUTHCARDHOLDERAMOUNT']) && isset($this->request->post['DCCAUTHRATE'])) {
-				$message .= '<br><strong>DCCAUTHCARDHOLDERAMOUNT:</strong> ' . $this->request->post['DCCAUTHCARDHOLDERAMOUNT'];
-				$message .= '<br><strong>DCCAUTHRATE:</strong> ' . $this->request->post['DCCAUTHRATE'];
-				$message .= '<br><strong>DCCAUTHCARDHOLDERCURRENCY:</strong> ' . $this->request->post['DCCAUTHCARDHOLDERCURRENCY'];
-				$message .= '<br><strong>DCCAUTHMERCHANTCURRENCY:</strong> ' . $this->request->post['DCCAUTHMERCHANTCURRENCY'];
-				$message .= '<br><strong>DCCAUTHMERCHANTAMOUNT:</strong> ' . $this->request->post['DCCAUTHMERCHANTAMOUNT'];
-				$message .= '<br><strong>DCCCCP:</strong> ' . $this->request->post['DCCCCP'];
-				$message .= '<br><strong>DCCRATE:</strong> ' . $this->request->post['DCCRATE'];
-				$message .= '<br><strong>DCCMARGINRATEPERCENTAGE:</strong> ' . $this->request->post['DCCMARGINRATEPERCENTAGE'];
-				$message .= '<br><strong>DCCEXCHANGERATESOURCENAME:</strong> ' . $this->request->post['DCCEXCHANGERATESOURCENAME'];
-				$message .= '<br><strong>DCCCOMMISSIONPERCENTAGE:</strong> ' . $this->request->post['DCCCOMMISSIONPERCENTAGE'];
-				$message .= '<br><strong>DCCEXCHANGERATESOURCETIMESTAMP:</strong> ' . $this->request->post['DCCEXCHANGERATESOURCETIMESTAMP'];
-				$message .= '<br><strong>DCCCHOICE:</strong> ' . $this->request->post['DCCCHOICE'];
+				$message .= '<br/><strong>DCCAUTHCARDHOLDERAMOUNT:</strong> ' . $this->request->post['DCCAUTHCARDHOLDERAMOUNT'];
+				$message .= '<br/><strong>DCCAUTHRATE:</strong> ' . $this->request->post['DCCAUTHRATE'];
+				$message .= '<br/><strong>DCCAUTHCARDHOLDERCURRENCY:</strong> ' . $this->request->post['DCCAUTHCARDHOLDERCURRENCY'];
+				$message .= '<br/><strong>DCCAUTHMERCHANTCURRENCY:</strong> ' . $this->request->post['DCCAUTHMERCHANTCURRENCY'];
+				$message .= '<br/><strong>DCCAUTHMERCHANTAMOUNT:</strong> ' . $this->request->post['DCCAUTHMERCHANTAMOUNT'];
+				$message .= '<br/><strong>DCCCCP:</strong> ' . $this->request->post['DCCCCP'];
+				$message .= '<br/><strong>DCCRATE:</strong> ' . $this->request->post['DCCRATE'];
+				$message .= '<br/><strong>DCCMARGINRATEPERCENTAGE:</strong> ' . $this->request->post['DCCMARGINRATEPERCENTAGE'];
+				$message .= '<br/><strong>DCCEXCHANGERATESOURCENAME:</strong> ' . $this->request->post['DCCEXCHANGERATESOURCENAME'];
+				$message .= '<br/><strong>DCCCOMMISSIONPERCENTAGE:</strong> ' . $this->request->post['DCCCOMMISSIONPERCENTAGE'];
+				$message .= '<br/><strong>DCCEXCHANGERATESOURCETIMESTAMP:</strong> ' . $this->request->post['DCCEXCHANGERATESOURCETIMESTAMP'];
+				$message .= '<br/><strong>DCCCHOICE:</strong> ' . $this->request->post['DCCCHOICE'];
 			}
 
 			if ($this->request->post['RESULT'] == '00') {

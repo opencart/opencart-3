@@ -2,7 +2,7 @@
 // Text
 $_['text_title']												= 'Pay with Credit Card (eWAY)';
 $_['text_credit_card']											= 'Credit Card Details';
-$_['text_testing']												= 'This payment gateway is currently being tested. Your credit card will not be charged.<br>If this is a real order, please use an alternate method of payment at this time.';
+$_['text_testing']												= 'This payment gateway is currently being tested. Your credit card will not be charged.<br/>If this is a real order, please use an alternate method of payment at this time.';
 
 $_['text_basket']												= 'Basket';
 $_['text_checkout']												= 'Checkout';

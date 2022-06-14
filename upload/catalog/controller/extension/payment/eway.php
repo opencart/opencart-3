@@ -160,7 +160,7 @@ class ControllerExtensionPaymentEway extends Controller {
 			
 			foreach ($error_array as $error) {
 				$error = $this->language->get('text_card_message_' . $error);
-				$lbl_error .= $error . "<br>\n";
+				$lbl_error .= $error . "<br/>\n";
 			}
 			
 			$this->log->write('eWAY Payment error: ' . $lbl_error);

@@ -551,11 +551,11 @@ class ControllerExtensionPaymentAmazonLoginPay extends Controller {
 						
 						$refund_status = 1;
 						
-						$json['msg'][] = $this->language->get('text_refund_ok_order') . '<br>';
+						$json['msg'][] = $this->language->get('text_refund_ok_order') . '<br/>';
 					} else {
 						$refund_status = 0;
 						
-						$json['msg'][] = $this->language->get('text_refund_ok') . '<br>';
+						$json['msg'][] = $this->language->get('text_refund_ok') . '<br/>';
 					}
 					
 					$post_data = array();

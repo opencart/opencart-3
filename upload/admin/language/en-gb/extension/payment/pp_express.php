@@ -70,7 +70,7 @@ $_['tab_checkout']					 = 'Checkout';
 // Help
 $_['help_ipn']						 = 'Required for subscriptions';
 $_['help_total']					 = 'The checkout total the order must reach before this payment method becomes active';
-$_['help_logo']						 = 'Max 750px(w) x 90px(h)<br>You should only use a logo if you have SSL set up.';
+$_['help_logo']						 = 'Max 750px(w) x 90px(h)<br/>You should only use a logo if you have SSL set up.';
 $_['help_colour']					 = '6 character HTML colour code';
 $_['help_currency']					 = 'Used for transaction searches';
 

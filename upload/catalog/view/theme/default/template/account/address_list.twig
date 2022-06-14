@@ -5,11 +5,20 @@
     <li><a href="{{ breadcrumb.href }}">{{ breadcrumb.text }}</a></li>
     {% endfor %}
   </ul>
+  {% if attention %}
+  <div class="alert alert-info"><i class="fa fa-info-circle"></i> {{ attention }}
+    <button type="button" class="close" data-dismiss="alert">&times;</button>
+  </div>
+  {% endif %}
   {% if success %}
-  <div class="alert alert-success alert-dismissible"><i class="fa fa-check-circle"></i> {{ success }}</div>
+  <div class="alert alert-success alert-dismissible"><i class="fa fa-check-circle"></i> {{ success }}
+    <button type="button" class="close" data-dismiss="alert">&times;</button>
+  </div>
   {% endif %}
   {% if error_warning %}
-  <div class="alert alert-warning"><i class="fa fa-exclamation-circle"></i> {{ error_warning }}</div>
+  <div class="alert alert-danger alert-dismissible"><i class="fa fa-exclamation-circle"></i> {{ error_warning }}
+    <button type="button" class="close" data-dismiss="alert">&times;</button>
+  </div>
   {% endif %}
   <div class="row">{{ column_left }}
     {% if column_left and column_right %}
@@ -21,23 +30,36 @@
     {% endif %}
     <div id="content" class="{{ class }}">{{ content_top }}
       <h2>{{ text_address_book }}</h2>
-      {% if addresses %}
-      <div class="table-responsive">
-        <table class="table table-bordered table-hover">
-          {% for result in addresses %}
-           <form  action="{{ result.delete }}" method="post" enctype="multipart/form-data" id="form-address-{{ result.address_id }}">
-          <tr>
-            <td class="text-left">{{ result.address }}</td>
-            <td class="text-right"><a href="{{ result.update }}" class="btn btn-info">{{ button_edit }}</a> &nbsp; 
-            <a href = "{{ result.delete }}" data-toggle="tooltip" title="{{ button_delete }}" class="btn btn-danger" onclick="return confirm('{{ text_confirm }}')">{{ button_delete }}</a></td>
-          </tr>
-          </form>
-          {% endfor %}
-        </table>
-      </div>
-      {% else %}
-      <p>{{ text_no_results }}</p>
-      {% endif %}      
+      <form class="form-horizontal" id="form-address">
+        <div class="table-responsive">
+          <table class="table table-bordered">
+            <thead>
+              <tr>
+                <td class="text-center">{{ column_address_id }}</td>
+                <td class="text-center">{{ column_address }}</td>
+				<td class="text-right">{{ column_action }}</td>
+              </tr>
+            </thead>
+            <tbody>
+			{% if addresses %}
+            {% for address in addresses %}
+            <tr>
+              <td class="text-center">{{ address.address_id }}</td>
+              <td class="text-center">{{ address.address }}</td>
+			  <td class="text-right">
+			  <button type="button" data-toggle="tooltip" title="{{ button_edit }}" onclick="address.update('{{ address.address_id }}');" class="btn btn-primary"><i class="fa fa-pencil"></i></button>
+			  <button type="button" data-toggle="tooltip" title="{{ button_delete }}" onclick="address.remove('{{ address.address_id }}');return confirm('{{ text_confirm }}');" class="btn btn-danger"><i class="fa fa-times-circle"></i></button></td>
+            </tr>
+            {% endfor %}
+			{% else %}
+			<tr>
+                <td class="text-center" colspan="3">{{ text_no_results }}</td>
+			</tr>
+			{% endif %}
+            </tbody>            
+          </table>
+        </div>
+      </form>      
       <div class="buttons clearfix">
         <div class="pull-left"><a href="{{ back }}" class="btn btn-default">{{ button_back }}</a></div>
         <div class="pull-right"><a href="{{ add }}" class="btn btn-primary">{{ button_new_address }}</a></div>
@@ -45,4 +67,15 @@
       {{ content_bottom }}</div>
     {{ column_right }}</div>
 </div>
+<script type="text/javascript"><!--
+// Address update, and remove functions
+var address = {
+	'update': function(key) {
+		location = 'index.php?route=account/address/edit&address_id=' + key;
+	},
+	'remove': function(key) {
+		location = 'index.php?route=account/address/delete&address_id=' + key;
+	}
+}
+</script>
 {{ footer }}

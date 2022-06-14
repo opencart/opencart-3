@@ -175,6 +175,20 @@ class ModelUpgrade1009 extends Model {
 			$this->db->query("INSERT INTO `" . DB_PREFIX . "setting` SET `store_id` = '0', `code` = 'config', `key` = 'config_gdpr_limit', `value` = '180', `serialized` = '0'");
 		}
 		
+		// Country address_format_id
+		$query = $this->db->query("SELECT * FROM information_schema.COLUMNS WHERE TABLE_SCHEMA = '" . DB_DATABASE . "' AND TABLE_NAME = '" . DB_PREFIX . "country' AND COLUMN_NAME = 'address_format_id'");
+		
+		if (!$query->num_rows) {
+			$this->db->query("ALTER TABLE `" . DB_PREFIX . "country` ADD COLUMN `address_format_id` int(11) NOT NULL AFTER `address_format`");
+			$this->db->query("ALTER TABLE `" . DB_PREFIX . "country` DROP COLUMN `address_format`");
+			
+			$countries = $this->db->query("SELECT * FROM `" . DB_PREFIX . "country`");
+			
+			foreach ($countries->rows as $country) {
+				$this->db->query("UPDATE `" . DB_PREFIX . "country` SET `address_format_id` = '1' WHERE `status` = '1'");
+			}
+		}
+		
 		// OPENCART_SERVER
 		$upgrade = true;
 		

@@ -153,25 +153,25 @@ class ControllerExtensionPaymentFirstdata extends Controller {
 									$cvv_pass = 'NONE';
 								}
 
-								$message .= $this->language->get('text_address_response') . $address_codes[$address_pass] . '<br>';
-								$message .= $this->language->get('text_card_code_verify') . $cvv_codes[$cvv_pass] . '<br>';
-								$message .= $this->language->get('text_response_code_full') . $this->request->post['approval_code'] . '<br>';
-								$message .= $this->language->get('text_response_code') . $response_parts[1] . '<br>';
+								$message .= $this->language->get('text_address_response') . $address_codes[$address_pass] . '<br/>';
+								$message .= $this->language->get('text_card_code_verify') . $cvv_codes[$cvv_pass] . '<br/>';
+								$message .= $this->language->get('text_response_code_full') . $this->request->post['approval_code'] . '<br/>';
+								$message .= $this->language->get('text_response_code') . $response_parts[1] . '<br/>';
 
 								if (isset($this->request->post['cardnumber'])) {
-									$message .= $this->language->get('text_response_card') . $this->request->post['cardnumber'] . '<br>';
+									$message .= $this->language->get('text_response_card') . $this->request->post['cardnumber'] . '<br/>';
 								}
 
 								if (isset($this->request->post['processor_response_code'])) {
-									$message .= $this->language->get('text_response_proc_code') . $this->request->post['processor_response_code'] . '<br>';
+									$message .= $this->language->get('text_response_proc_code') . $this->request->post['processor_response_code'] . '<br/>';
 								}
 
 								if (isset($this->request->post['refnumber'])) {
-									$message .= $this->language->get('text_response_ref') . $this->request->post['refnumber'] . '<br>';
+									$message .= $this->language->get('text_response_ref') . $this->request->post['refnumber'] . '<br/>';
 								}
 
 								if (isset($this->request->post['paymentMethod'])) {
-									$message .= $this->language->get('text_response_card_type') . $card_types[strtoupper($this->request->post['paymentMethod'])] . '<br>';
+									$message .= $this->language->get('text_response_card_type') . $card_types[strtoupper($this->request->post['paymentMethod'])] . '<br/>';
 								}
 							}
 
@@ -191,7 +191,7 @@ class ControllerExtensionPaymentFirstdata extends Controller {
 								$this->model_checkout_order->addOrderHistory($order_id, $this->config->get('payment_firstdata_order_status_success_unsettled_id'), $message, false);
 							}
 						} else {
-							$message = $this->request->post['fail_reason'] . '<br>';
+							$message = $this->request->post['fail_reason'] . '<br/>';
 							$message .= $this->language->get('text_response_code_full') . $this->request->post['approval_code'];
 
 							$this->model_checkout_order->addOrderHistory($order_id, $this->config->get('payment_firstdata_order_status_decline_id'), $message);

@@ -1,15 +1,16 @@
 <?php
-class ModelLocalisationCountry extends Model {
+namespace Opencart\Admin\Model\Localisation;
+class Country extends \Opencart\System\Engine\Model {
 	public function addCountry($data) {
-		$this->db->query("INSERT INTO `" . DB_PREFIX . "country` SET `name` = '" . $this->db->escape($data['name']) . "', `iso_code_2` = '" . $this->db->escape($data['iso_code_2']) . "', `iso_code_3` = '" . $this->db->escape($data['iso_code_3']) . "', `address_format` = '" . $this->db->escape($data['address_format']) . "', `postcode_required` = '" . (int)$data['postcode_required'] . "', `status` = '" . (int)$data['status'] . "'");
+		$this->db->query("INSERT INTO `" . DB_PREFIX . "country` SET `name` = '" . $this->db->escape($data['name']) . "', `iso_code_2` = '" . $this->db->escape($data['iso_code_2']) . "', `iso_code_3` = '" . $this->db->escape($data['iso_code_3']) . "', `address_format_id` = '" . (int)$data['address_format_id'] . "', `postcode_required` = '" . (int)$data['postcode_required'] . "', `status` = '" . (bool)$data['status'] . "'");
 
 		$this->cache->delete('country');
-		
+
 		return $this->db->getLastId();
 	}
 
 	public function editCountry($country_id, $data) {
-		$this->db->query("UPDATE `" . DB_PREFIX . "country` SET `name` = '" . $this->db->escape($data['name']) . "', `iso_code_2` = '" . $this->db->escape($data['iso_code_2']) . "', `iso_code_3` = '" . $this->db->escape($data['iso_code_3']) . "', `address_format` = '" . $this->db->escape($data['address_format']) . "', `postcode_required` = '" . (int)$data['postcode_required'] . "', `status` = '" . (int)$data['status'] . "' WHERE `country_id` = '" . (int)$country_id . "'");
+		$this->db->query("UPDATE `" . DB_PREFIX . "country` SET `name` = '" . $this->db->escape($data['name']) . "', `iso_code_2` = '" . $this->db->escape($data['iso_code_2']) . "', `iso_code_3` = '" . $this->db->escape($data['iso_code_3']) . "', `address_format_id` = '" . (int)$data['address_format_id'] . "', `postcode_required` = '" . (int)$data['postcode_required'] . "', `status` = '" . (bool)$data['status'] . "' WHERE `country_id` = '" . (int)$country_id . "'");
 
 		$this->cache->delete('country');
 	}
@@ -26,18 +27,48 @@ class ModelLocalisationCountry extends Model {
 		return $query->row;
 	}
 
+	public function getCountryByIsoCode2($iso_code_2) {
+		$query = $this->db->query("SELECT * FROM " . DB_PREFIX . "country WHERE `iso_code_2` = '" . $this->db->escape($iso_code_2) . "' AND `status` = '1'");
+
+		return $query->row;
+	}
+
+	public function getCountryByIsoCode3($iso_code_3) {
+		$query = $this->db->query("SELECT * FROM " . DB_PREFIX . "country WHERE `iso_code_3` = '" . $this->db->escape($iso_code_3) . "' AND `status` = '1'");
+
+		return $query->row;
+	}
+
 	public function getCountries($data = array()) {
 		if ($data) {
 			$sql = "SELECT * FROM `" . DB_PREFIX . "country`";
 
-			$sort_data = array(
+			$implode = array();
+
+			if (!empty($data['filter_name'])) {
+				$implode[] = "`name` LIKE '" . $this->db->escape($data['filter_name'] . '%') . "'";
+			}
+
+			if (!empty($data['filter_iso_code_2'])) {
+				$implode[] = "`iso_code_2` LIKE '" . $this->db->escape($data['filter_iso_code_2'] . '%') . "'";
+			}
+
+			if (!empty($data['filter_iso_code_3'])) {
+				$implode[] = "`iso_code_3` LIKE '" . $this->db->escape($data['filter_iso_code_3'] . '%') . "'";
+			}
+
+			if ($implode) {
+				$sql .= " WHERE " . implode(" AND ", $implode);
+			}
+
+			$sort_data = [
 				'name',
 				'iso_code_2',
 				'iso_code_3'
-			);
+			];
 
 			if (isset($data['sort']) && in_array($data['sort'], $sort_data)) {
-				$sql .= " ORDER BY " . $data['sort'];
+				$sql .= " ORDER BY `" . $data['sort'] . "`";
 			} else {
 				$sql .= " ORDER BY `name`";
 			}
@@ -78,8 +109,34 @@ class ModelLocalisationCountry extends Model {
 		}
 	}
 
-	public function getTotalCountries() {
-		$query = $this->db->query("SELECT COUNT(*) AS `total` FROM `" . DB_PREFIX . "country`");
+	public function getTotalCountries($data = array()) {
+		$sql = "SELECT COUNT(*) AS `total` FROM `" . DB_PREFIX . "country`";
+
+		$implode = array();
+
+		if (!empty($data['filter_name'])) {
+			$implode[] = "`name` LIKE '" . $this->db->escape($data['filter_name'] . '%') . "'";
+		}
+
+		if (!empty($data['filter_iso_code_2'])) {
+			$implode[] = "`iso_code_2` LIKE '" . $this->db->escape($data['filter_iso_code_2'] . '%') . "'";
+		}
+
+		if (!empty($data['filter_iso_code_3'])) {
+			$implode[] = "`iso_code_3` LIKE '" . $this->db->escape($data['filter_iso_code_3'] . '%') . "'";
+		}
+
+		if ($implode) {
+			$sql .= " WHERE " . implode(" AND ", $implode);
+		}
+
+		$query = $this->db->query($sql);
+
+		return (int)$query->row['total'];
+	}
+
+	public function getTotalCountriesByAddressFormatId($address_format_id) {
+		$query = $this->db->query("SELECT COUNT(*) AS `total` FROM `" . DB_PREFIX . "country` WHERE `address_format_id` = '" . $address_format_id . "'");
 
 		return (int)$query->row['total'];
 	}

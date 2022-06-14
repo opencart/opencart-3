@@ -165,46 +165,14 @@ class ControllerAccountAddress extends Controller {
 		$results = $this->model_account_address->getAddresses();
 
 		foreach ($results as $result) {
-			if ($result['address_format']) {
-				$format = $result['address_format'];
-			} else {
-				$format = '{firstname} {lastname}' . "\n" . '{company}' . "\n" . '{address_1}' . "\n" . '{address_2}' . "\n" . '{city} {postcode}' . "\n" . '{zone}' . "\n" . '{country}';
-			}
-
-			$find = array(
-				'{firstname}',
-				'{lastname}',
-				'{company}',
-				'{address_1}',
-				'{address_2}',
-				'{city}',
-				'{postcode}',
-				'{zone}',
-				'{zone_code}',
-				'{country}'
-			);
-
-			$replace = array(
-				'firstname' => $result['firstname'],
-				'lastname'  => $result['lastname'],
-				'company'   => $result['company'],
-				'address_1' => $result['address_1'],
-				'address_2' => $result['address_2'],
-				'city'      => $result['city'],
-				'postcode'  => $result['postcode'],
-				'zone'      => $result['zone'],
-				'zone_code' => $result['zone_code'],
-				'country'   => $result['country']
-			);
-
 			$data['addresses'][] = array(
 				'address_id' => $result['address_id'],
-				'address'    => str_replace(array("\r\n", "\r", "\n"), '<br>', preg_replace(array("/\s\s+/", "/\r\r+/", "/\n\n+/"), '<br>', trim(str_replace($find, $replace, $format)))),
+				'address'    => $result['address_format'],
 				'update'     => $this->url->link('account/address/edit', 'address_id=' . $result['address_id'], true),
 				'delete'     => $this->url->link('account/address/delete', 'address_id=' . $result['address_id'], true)
 			);
 		}
-
+		
 		$data['add'] = $this->url->link('account/address/add', '', true);
 		$data['back'] = $this->url->link('account/account', '', true);
 

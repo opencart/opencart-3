@@ -31,6 +31,18 @@ CREATE TABLE `oc_address` (
 -----------------------------------------------------------
 
 --
+-- Table structure for table `oc_address_format`
+--
+
+DROP TABLE IF EXISTS `oc_address_format`;
+CREATE TABLE `oc_address_format` (
+  `address_format_id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(128) NOT NULL,
+  `address_format` text NOT NULL,
+  PRIMARY KEY (`address_format_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+
+--
 -- Table structure for table `oc_googleshopping_target`
 --
 
@@ -618,7 +630,7 @@ CREATE TABLE `oc_country` (
   `name` varchar(128) NOT NULL,
   `iso_code_2` varchar(2) NOT NULL,
   `iso_code_3` varchar(3) NOT NULL,
-  `address_format` text NOT NULL,
+  `address_format_id` int(11) NOT NULL,
   `postcode_required` tinyint(1) NOT NULL,
   `status` tinyint(1) NOT NULL DEFAULT '1',
   PRIMARY KEY (`country_id`)
@@ -628,7 +640,7 @@ CREATE TABLE `oc_country` (
 -- Dumping data for table `oc_country`
 --
 
-INSERT INTO `oc_country` (`country_id`, `name`, `iso_code_2`, `iso_code_3`, `address_format`, `postcode_required`, `status`) VALUES
+INSERT INTO `oc_country` (`country_id`, `name`, `iso_code_2`, `iso_code_3`, `address_format_id`, `postcode_required`, `status`) VALUES
 (1, 'Afghanistan', 'AF', 'AFG', 1, 0, 1),
 (2, 'Albania', 'AL', 'ALB', 1, 0, 1),
 (3, 'Algeria', 'DZ', 'DZA', 1, 0, 1),

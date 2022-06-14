@@ -173,11 +173,12 @@ class ControllerLocalisationCountry extends Controller {
 
 		foreach ($results as $result) {
 			$data['countries'][] = array(
-				'country_id' => $result['country_id'],
-				'name'       => $result['name'] . (($result['country_id'] == $this->config->get('config_country_id')) ? $this->language->get('text_default') : null),
-				'iso_code_2' => $result['iso_code_2'],
-				'iso_code_3' => $result['iso_code_3'],
-				'edit'       => $this->url->link('localisation/country/edit', 'user_token=' . $this->session->data['user_token'] . '&country_id=' . $result['country_id'] . $url, true)
+				'country_id' 		=> $result['country_id'],
+				'name'       		=> $result['name'] . (($result['country_id'] == $this->config->get('config_country_id')) ? $this->language->get('text_default') : null),
+				'iso_code_2' 		=> $result['iso_code_2'],
+				'iso_code_3' 		=> $result['iso_code_3'],
+				'address_format_id' => $result['address_format_id'],
+				'edit'       		=> $this->url->link('localisation/country/edit', 'user_token=' . $this->session->data['user_token'] . '&country_id=' . $result['country_id'] . $url, true)
 			);
 		}
 
@@ -323,13 +324,17 @@ class ControllerLocalisationCountry extends Controller {
 		} else {
 			$data['iso_code_3'] = '';
 		}
+		
+		$this->load->model('localisation/address_format');
 
-		if (isset($this->request->post['address_format'])) {
-			$data['address_format'] = $this->request->post['address_format'];
+		$data['address_formats'] = $this->model_localisation_address_format->getAddressFormats();
+
+		if (isset($this->request->post['address_format_id'])) {
+			$data['address_format_id'] = $this->request->post['address_format_id'];
 		} elseif (!empty($country_info)) {
-			$data['address_format'] = $country_info['address_format'];
+			$data['address_format_id'] = $country_info['address_format_id'];
 		} else {
-			$data['address_format'] = '';
+			$data['address_format_id'] = 0;
 		}
 
 		if (isset($this->request->post['postcode_required'])) {
@@ -372,12 +377,9 @@ class ControllerLocalisationCountry extends Controller {
 			$this->error['warning'] = $this->language->get('error_permission');
 		}
 
-		$this->load->model('setting/store');
-		
-		$this->load->model('customer/customer');
-		
-		$this->load->model('localisation/zone');
-		
+		$this->load->model('setting/store');		
+		$this->load->model('customer/customer');		
+		$this->load->model('localisation/zone');		
 		$this->load->model('localisation/geo_zone');
 
 		foreach ((array)$this->request->post['selected'] as $country_id) {
@@ -437,5 +439,5 @@ class ControllerLocalisationCountry extends Controller {
 
 		$this->response->addHeader('Content-Type: application/json');
 		$this->response->setOutput(json_encode($json));
-	}	
+	}
 }

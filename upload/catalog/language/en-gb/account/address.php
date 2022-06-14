@@ -2,6 +2,11 @@
 // Heading
 $_['heading_title']      = 'Address Book';
 
+// Column
+$_['column_address_id']	 = 'Address ID';
+$_['column_address']	 = 'Address';
+$_['column_action']		 = 'Action';
+
 // Text
 $_['text_account']       = 'Account';
 $_['text_address_book']  = 'Address Book Entries';
