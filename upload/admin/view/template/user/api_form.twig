@@ -161,17 +161,17 @@
 	$('#session button').on('click', function (e) {
 		e.preventDefault();
 
-		var node = this;
+		var element = this;
 
 		$.ajax({
-			url: 'index.php?route=user/api/deletesession&user_token={{ user_token }}&api_session_id=' + $(node).val(),
+			url: 'index.php?route=user/api/deletesession&user_token={{ user_token }}&api_session_id=' + $(element).val(),
 			type: 'post',
 			dataType: 'json',
 			beforeSend: function() {
-				$(node).button('loading');
+				$(element).button('loading');
 			},
 			complete: function() {
-				$(node).button('reset');
+				$(element).button('reset');
 			},
 			success: function (json) {
 				$('.alert-dismissible').remove();
@@ -183,7 +183,7 @@
 				if (json['success']) {
 					$('#tab-session').prepend('<div class="alert alert-success alert-dismissible"><i class="fa fa-check-circle"></i> ' + json['success'] + ' <button type="button" class="close" data-dismiss="alert">&times;</button></div>');
 
-					$(node).parent().parent().remove();
+					$(element).parent().parent().remove();
 				}
 			},
 			error: function (xhr, ajaxOptions, thrownError) {
