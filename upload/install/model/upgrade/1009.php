@@ -187,6 +187,16 @@ class ModelUpgrade1009 extends Model {
 			foreach ($countries->rows as $country) {
 				$this->db->query("UPDATE `" . DB_PREFIX . "country` SET `address_format_id` = '1' WHERE `status` = '1'");
 			}
+		}		
+		
+		$query = $this->db->query("SELECT * FROM information_schema.COLUMNS WHERE TABLE_SCHEMA = '" . DB_DATABASE . "' AND TABLE_NAME = '" . DB_PREFIX . "address_format'");
+		
+		if ($query->num_rows) {
+			$address_format_total = $this->db->query("SELECT COUNT(*) AS `total` FROM `" . DB_PREFIX . "address_format`");
+			
+			if (!$address_format_total['total']) {
+				$this->db->query("INSERT INTO `" . DB_PREFIX . "address_format` SET `name` = 'Address Format', `address_format` = '{firstname} {lastname}\r\n{company}\r\n{address_1}\r\n{address_2}\r\n{city}, {zone} {postcode}\r\n{country}'");
+			}
 		}
 		
 		// OPENCART_SERVER
