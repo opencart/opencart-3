@@ -194,7 +194,7 @@ class ModelUpgrade1009 extends Model {
 		if ($query->num_rows) {
 			$address_format_total = $this->db->query("SELECT COUNT(*) AS `total` FROM `" . DB_PREFIX . "address_format`");
 			
-			if (!$address_format_total['total']) {
+			if (!$address_format_total->row['total']) {
 				$this->db->query("INSERT INTO `" . DB_PREFIX . "address_format` SET `name` = 'Address Format', `address_format` = '{firstname} {lastname}\r\n{company}\r\n{address_1}\r\n{address_2}\r\n{city}, {zone} {postcode}\r\n{country}'");
 			}
 		}
