@@ -18,7 +18,7 @@ class ControllerCommonCurrency extends Controller {
 		unset($url_data['route']);
 		unset($url_data['_route_']);
 
-		$data['currencies'] = [];
+		$data['currencies'] = array();
 
 		$this->load->model('localisation/currency');
 
@@ -54,11 +54,11 @@ class ControllerCommonCurrency extends Controller {
 			unset($this->session->data['shipping_methods']);
 		}
 
-		$option = [
+		$option = array(
 			'expires'  => time() + 60 * 60 * 24 * 30,
 			'path'     => '/',
 			'SameSite' => 'Lax'
-		];
+		);
 
 		setcookie('currency', $this->session->data['currency'], $option);
 

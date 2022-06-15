@@ -91,7 +91,7 @@ class Session {
 	 * Deletes the current session from storage
  	*/
 	public function destroy() {
-		$this->data = [];
+		$this->data = array();
 
 		$this->adaptor->destroy($this->session_id);
 	}
