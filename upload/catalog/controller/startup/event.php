@@ -14,10 +14,6 @@ class ControllerStartupEvent extends Controller {
 
 				$this->event->register(implode('/', $part), new \Action($result['action']), $result['sort_order']);
 			}
-
-			if ($part[0] == 'system') {
-				$this->event->register($result['trigger'], new \Action($result['action']), $result['sort_order']);
-			}
 		}
 	}
 }
