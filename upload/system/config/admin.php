@@ -14,13 +14,17 @@ $_['db_port']           = DB_PORT;
 
 // Session
 $_['session_autostart'] = true;
+$_['session_engine']    = 'db'; // db or file
 
 // Template
 $_['template_cache']    = true;
 
 // Actions
 $_['action_pre_action'] = array(
+	'startup/setting',
 	'startup/session',
+	'startup/language',
+	'startup/application',	
 	'startup/startup',
 	'startup/error',
 	'startup/event',
