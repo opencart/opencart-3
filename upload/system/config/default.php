@@ -59,6 +59,7 @@ $_['template_cache']       = false;
 $_['error_display']        = true;
 $_['error_log']            = true;
 $_['error_filename']       = 'error.log';
+$_['error_page']           = 'error.html';
 
 // Response
 $_['response_header']      = array('Content-Type: text/html; charset=utf-8');

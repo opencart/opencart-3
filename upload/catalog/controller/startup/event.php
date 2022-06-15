@@ -7,7 +7,17 @@ class ControllerStartupEvent extends Controller {
 		$results = $this->model_setting_event->getEvents();
 		
 		foreach ($results as $result) {
-			$this->event->register(substr($result['trigger'], strpos($result['trigger'], '/') + 1), new \Action($result['action']), $result['sort_order']);
+			$part = explode('/', $result['trigger']);
+
+			if ($part[0] == 'catalog') {
+				array_shift($part);
+
+				$this->event->register(implode('/', $part), new \Action($result['action']), $result['sort_order']);
+			}
+
+			if ($part[0] == 'system') {
+				$this->event->register($result['trigger'], new \Action($result['action']), $result['sort_order']);
+			}
 		}
 	}
 }

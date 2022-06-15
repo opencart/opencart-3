@@ -13,4 +13,10 @@ class ModelSettingStore extends Model {
 
 		return $store_data;
 	}
+	
+	public function getStoreByHostname(string $url) {
+		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "store` WHERE REPLACE(`url`, 'www.', '') = '" . $this->db->escape($url) . "'");
+
+		return $query->row;
+	}
 }
