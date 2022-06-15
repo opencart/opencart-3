@@ -430,7 +430,7 @@ class ControllerLocalisationCountry extends Controller {
 				'name'              => $country_info['name'],
 				'iso_code_2'        => $country_info['iso_code_2'],
 				'iso_code_3'        => $country_info['iso_code_3'],
-				'address_format'    => $country_info['address_format'],
+				'address_format_id' => $country_info['address_format_id'],
 				'postcode_required' => $country_info['postcode_required'],
 				'zone'              => $this->model_localisation_zone->getZonesByCountryId($this->request->get['country_id']),
 				'status'            => $country_info['status']
