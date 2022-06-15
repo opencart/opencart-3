@@ -8,6 +8,10 @@ class ControllerAccountAffiliate extends Controller {
 
 			$this->response->redirect($this->url->link('affiliate/login', '', true));
 		}
+		
+		if (!$this->config->get('config_affiliate_status')) {
+			$this->response->redirect($this->url->link('account/account', '', true));
+		}
 
 		$this->load->language('account/affiliate');
 

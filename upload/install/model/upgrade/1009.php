@@ -151,7 +151,7 @@ class ModelUpgrade1009 extends Model {
 		$setting_query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "setting` WHERE `key` = 'config_session_expire'");
 		
 		if (!$setting_query->num_rows) {
-			$this->db->query("INSERT INTO `" . DB_PREFIX . "setting` SET `store_id` = '0', `code` = 'config', `key` = 'config_session_expire', `value` = '3600', `serialized` = '0'");
+			$this->db->query("INSERT INTO `" . DB_PREFIX . "setting` SET `store_id` = '0', `code` = 'config', `key` = 'config_session_expire', `value` = '3600000000', `serialized` = '0'");
 		}
 		
 		// Config Cookie ID
@@ -175,18 +175,26 @@ class ModelUpgrade1009 extends Model {
 			$this->db->query("INSERT INTO `" . DB_PREFIX . "setting` SET `store_id` = '0', `code` = 'config', `key` = 'config_gdpr_limit', `value` = '180', `serialized` = '0'");
 		}
 		
+		// Config affiliate Status ID
+		$setting_query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "setting` WHERE `key` = 'config_affiliate_status'");
+		
+		if (!$setting_query->num_rows) {
+			$this->db->query("INSERT INTO `" . DB_PREFIX . "setting` SET `store_id` = '0', `code` = 'config', `key` = 'config_affiliate_status', `value` = '1', `serialized` = '0'");
+		}
+		
+		// Config affiliate expire
+		$setting_query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "setting` WHERE `key` = 'config_affiliate_expire'");
+		
+		if (!$setting_query->num_rows) {
+			$this->db->query("INSERT INTO `" . DB_PREFIX . "setting` SET `store_id` = '0', `code` = 'config', `key` = 'config_affiliate_expire', `value` = '3600000000', `serialized` = '0'");
+		}
+		
 		// Country address_format_id
 		$query = $this->db->query("SELECT * FROM information_schema.COLUMNS WHERE TABLE_SCHEMA = '" . DB_DATABASE . "' AND TABLE_NAME = '" . DB_PREFIX . "country' AND COLUMN_NAME = 'address_format_id'");
 		
 		if (!$query->num_rows) {
 			$this->db->query("ALTER TABLE `" . DB_PREFIX . "country` ADD COLUMN `address_format_id` int(11) NOT NULL AFTER `address_format`");
 			$this->db->query("ALTER TABLE `" . DB_PREFIX . "country` DROP COLUMN `address_format`");
-			
-			$countries = $this->db->query("SELECT * FROM `" . DB_PREFIX . "country`");
-			
-			foreach ($countries->rows as $country) {
-				$this->db->query("UPDATE `" . DB_PREFIX . "country` SET `address_format_id` = '1' WHERE `status` = '1'");
-			}
 		}		
 		
 		$query = $this->db->query("SELECT * FROM information_schema.COLUMNS WHERE TABLE_SCHEMA = '" . DB_DATABASE . "' AND TABLE_NAME = '" . DB_PREFIX . "address_format'");
@@ -198,6 +206,9 @@ class ModelUpgrade1009 extends Model {
 				$this->db->query("INSERT INTO `" . DB_PREFIX . "address_format` SET `name` = 'Address Format', `address_format` = '{firstname} {lastname}\r\n{company}\r\n{address_1}\r\n{address_2}\r\n{city}, {zone} {postcode}\r\n{country}'");
 			}
 		}
+		
+		// Country
+		$this->db->query("UPDATE `" . DB_PREFIX . "country` SET `address_format_id` = '1' WHERE `address_format_id` = '0'");
 		
 		// OPENCART_SERVER
 		$upgrade = true;

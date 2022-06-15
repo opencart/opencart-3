@@ -148,5 +148,9 @@ class ModelAccountCustomer extends Model {
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "customer_affiliate` WHERE `tracking` = '" . $this->db->escape($tracking) . "'");
 
 		return $query->row;
-	}			
+	}
+	
+	public function addReport($customer_id, $ip, $country = '') {
+		$this->db->query("INSERT INTO `" . DB_PREFIX . "customer_affiliate_report` SET `customer_id` = '" . (int)$customer_id . "', `store_id` = '" . (int)$this->config->get('config_store_id') . "', `ip` = '" . $this->db->escape($ip) . "', `country` = '" . $this->db->escape($country) . "', `date_added` = NOW()");
+	}
 }

@@ -6,6 +6,10 @@ class ControllerAccountTracking extends Controller {
 
 			$this->response->redirect($this->url->link('account/login', '', true));
 		}
+		
+		if (!$this->config->get('config_affiliate_status')) {
+			$this->response->redirect($this->url->link('account/account', '', true));
+		}
 
 		$this->load->model('account/customer');
 
