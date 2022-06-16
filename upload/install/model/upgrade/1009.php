@@ -1,19 +1,20 @@
 <?php
 class ModelUpgrade1009 extends Model {
 	public function upgrade() {
+		// Config
+		$config = new \Config();
+			
+		$setting_query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "setting` WHERE `store_id` = '0'");
+			
+		foreach ($setting_query->rows as $setting) {
+			$config->set($setting['key'], $setting['value']);
+		}
+			
 		// Affiliate customer merge code
-		$query = $this->db->query("SELECT * FROM information_schema.COLUMNS WHERE TABLE_SCHEMA = '" . DB_DATABASE . "' AND TABLE_NAME = '" . DB_PREFIX . "affiliate'");
+		$query = $this->db->query("SELECT * FROM information_schema.COLUMNS WHERE TABLE_SCHEMA = '" . DB_DATABASE . "' AND TABLE_NAME = '" . DB_PREFIX . "affiliate'");		
 		
 		if ($query->num_rows) {
 			// Removing affiliate and moving to the customer account.
-			$config = new \Config();
-			
-			$setting_query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "setting` WHERE `store_id` = '0'");
-			
-			foreach ($setting_query->rows as $setting) {
-				$config->set($setting['key'], $setting['value']);
-			}
-			
 			$affiliate_query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "affiliate`");
 			
 			foreach ($affiliate_query->rows as $affiliate) {
@@ -138,14 +139,14 @@ class ModelUpgrade1009 extends Model {
 		}
 		
 		$config_captcha_page = json_decode((array)$config->get('config_captcha_page'), true);
-		
+			
 		$search = array_search('return', $config_captcha_page);
-		
+			
 		if ($search) {
 			$config_captcha_page[$search] = str_replace($config_captcha_page[$search], 'returns', $config_captcha_page[$search]);
-			
+				
 			$this->db->query("UPDATE `" . DB_PREFIX . "setting` SET `value` = '" . json_encode($this->db->escape($config_captcha_page)) . "' WHERE `key` = 'config_captcha_page'");
-		}
+		}		
 		
 		// Config Session Expire
 		$setting_query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "setting` WHERE `key` = 'config_session_expire'");
