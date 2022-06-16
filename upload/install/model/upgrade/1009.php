@@ -149,44 +149,31 @@ class ModelUpgrade1009 extends Model {
 		}		
 		
 		// Config Session Expire
-		$setting_query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "setting` WHERE `key` = 'config_session_expire'");
-		
-		if (!$setting_query->num_rows) {
+		if (!$config->has('config_session_expire')) {
 			$this->db->query("INSERT INTO `" . DB_PREFIX . "setting` SET `store_id` = '0', `code` = 'config', `key` = 'config_session_expire', `value` = '3600000000', `serialized` = '0'");
 		}
 		
 		// Config Cookie ID
-		$setting_query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "setting` WHERE `key` = 'config_cookie_id'");
-		
-		if (!$setting_query->num_rows) {
+		if (!$config->has('config_cookie_id')) {
 			$this->db->query("INSERT INTO `" . DB_PREFIX . "setting` SET `store_id` = '0', `code` = 'config', `key` = 'config_cookie_id', `value` = '0', `serialized` = '0'");
 		}
 		
 		// Config GDPR ID
-		$setting_query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "setting` WHERE `key` = 'config_gdpr_id'");
-		
-		if (!$setting_query->num_rows) {
+		if (!$config->has('config_gdpr_id')) {
 			$this->db->query("INSERT INTO `" . DB_PREFIX . "setting` SET `store_id` = '0', `code` = 'config', `key` = 'config_gdpr_id', `value` = '0', `serialized` = '0'");
 		}
 		
-		// Config GDPR Limit
-		$setting_query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "setting` WHERE `key` = 'config_gdpr_limit'");
-		
-		if (!$setting_query->num_rows) {
+		if (!$config->has('config_gdpr_limit')) {
 			$this->db->query("INSERT INTO `" . DB_PREFIX . "setting` SET `store_id` = '0', `code` = 'config', `key` = 'config_gdpr_limit', `value` = '180', `serialized` = '0'");
 		}
 		
 		// Config affiliate Status ID
-		$setting_query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "setting` WHERE `key` = 'config_affiliate_status'");
-		
-		if (!$setting_query->num_rows) {
+		if (!$config->has('config_affiliate_status')) {
 			$this->db->query("INSERT INTO `" . DB_PREFIX . "setting` SET `store_id` = '0', `code` = 'config', `key` = 'config_affiliate_status', `value` = '1', `serialized` = '0'");
 		}
 		
 		// Config affiliate expire
-		$setting_query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "setting` WHERE `key` = 'config_affiliate_expire'");
-		
-		if (!$setting_query->num_rows) {
+		if (!$config->has('config_affiliate_expire')) {
 			$this->db->query("INSERT INTO `" . DB_PREFIX . "setting` SET `store_id` = '0', `code` = 'config', `key` = 'config_affiliate_expire', `value` = '3600000000', `serialized` = '0'");
 		}
 		
