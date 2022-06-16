@@ -1,23 +1,23 @@
 <?php
 namespace Mail;
 class Smtp {
-	protected $to;
-	protected $from;
-	protected $sender;
-	protected $reply_to;
-	protected $subject;
-	protected $text;
-	protected $html;
-	protected $attachments;
-	protected $smtp_hostname;
-	protected $smtp_username;
-	protected $smtp_password;
+	protected $to = '';
+	protected $from = '';
+	protected $sender = '';
+	protected $reply_to = '';
+	protected $subject = '';
+	protected $text = '';
+	protected $html = '';
+	protected $attachments = array();
+	protected $smtp_hostname = '';
+	protected $smtp_username = '';
+	protected $smtp_password = '';
 	protected $smtp_port = 25;
 	protected $smtp_timeout = 5;
 	protected $max_attempts = 3;
 	protected $verp = false;
 
-	public function __construct(array $args) {
+	public function __construct($args) {
 		foreach ($args as $key => $value) {
 			if (property_exists($this, $key)) {
 				$this->{$key} = $value;

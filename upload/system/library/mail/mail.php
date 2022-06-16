@@ -1,17 +1,17 @@
 <?php
 namespace Mail;
-class Mail {							
-	protected $to;
-	protected $from;
-	protected $sender;
-	protected $reply_to;
-	protected $subject;
-	protected $text;
-	protected $html;
-	protected $attachments;
+class Mail {
+	protected $to = '';
+	protected $from = '';
+	protected $sender = '';
+	protected $reply_to = '';
+	protected $subject = '';
+	protected $text = '';
+	protected $html = '';
+	protected $attachments = array();
 	protected string $parameter;
 
-	public function __construct(array $args) {
+	public function __construct($args) {
 		foreach ($args as $key => $value) {
 			if (property_exists($this, $key)) {
 				$this->{$key} = $value;
@@ -82,7 +82,7 @@ class Mail {
 
 				$message .= '--' . $boundary . $eol;
 				$message .= 'Content-Type: application/octet-stream; name="' . basename($attachment) . '"' . $eol;
-				$message .= 'Content-Transfer-Encoding: base64' . PHP_EOL;
+				$message .= 'Content-Transfer-Encoding: base64' . $eol;
 				$message .= 'Content-Disposition: attachment; filename="' . basename($attachment) . '"' . $eol;
 				$message .= 'Content-ID: <' . urlencode(basename($attachment)) . '>' . $eol;
 				$message .= 'X-Attachment-Id: ' . urlencode(basename($attachment)) . $eol . $eol;
