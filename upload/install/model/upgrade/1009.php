@@ -93,14 +93,14 @@ class ModelUpgrade1009 extends Model {
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "event` WHERE `trigger` = 'admin/model/customer/gdpr/editStatus/after'");
 		
 		if (!$query->num_rows) {
-			$this->db->query("INSERT INTO `" . DB_PREFIX . "event` SET `code` = 'admin_mail_gdpr', `trigger` = 'admin/model/customer/gdpr/editStatus/after', `action` = 'mail/gdpr', '1', '0'");
+			$this->db->query("INSERT INTO `" . DB_PREFIX . "event` SET `code` = 'admin_mail_gdpr', `trigger` = 'admin/model/customer/gdpr/editStatus/after', `action` = 'mail/gdpr', `status` = '1', `sort_order` = '0'");
 		}
 		
 		// Events - Catalog GDPR
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "event` WHERE `trigger` = 'catalog/model/account/gdpr/addGdpr/after'");
 		
 		if (!$query->num_rows) {
-			$this->db->query("INSERT INTO `" . DB_PREFIX . "event` SET `code` = 'mail_gdpr', `trigger` = 'catalog/model/account/gdpr/addGdpr/after', `action` = 'mail/gdpr', '1', '0'");
+			$this->db->query("INSERT INTO `" . DB_PREFIX . "event` SET `code` = 'mail_gdpr', `trigger` = 'catalog/model/account/gdpr/addGdpr/after', `action` = 'mail/gdpr', `status` = '1', `sort_order` = '0'");
 		}
 		
 		// Layouts - GDPR Information
@@ -126,15 +126,15 @@ class ModelUpgrade1009 extends Model {
 		$event = $this->db->query("SELECT * FROM `" . DB_PREFIX . "event` WHERE `trigger` = 'admin/model/sale/returns/addReturn/after'");
 		
 		if (!$event->num_rows) {
-			$this->db->query("INSERT INTO `" . DB_PREFIX . "event` SET `trigger` = 'admin/model/sale/returns/deleteReturn/after', `action` = 'event/statistics/deleteReturn', '1', '0'");
-			$this->db->query("INSERT INTO `" . DB_PREFIX . "event` SET `trigger` = 'admin/model/sale/returns/addReturn/after', `action` = 'event/statistics/addReturn', '1', '0'");			
+			$this->db->query("INSERT INTO `" . DB_PREFIX . "event` SET `trigger` = 'admin/model/sale/returns/deleteReturn/after', `action` = 'event/statistics/deleteReturn', `status` = '1', `sort_order` = '0'");
+			$this->db->query("INSERT INTO `" . DB_PREFIX . "event` SET `trigger` = 'admin/model/sale/returns/addReturn/after', `action` = 'event/statistics/addReturn', `status` = '1', `sort_order` = '0'");
 		}
 		
 		$event = $this->db->query("SELECT * FROM `" . DB_PREFIX . "event` WHERE `trigger` = 'admin/model/sale/review/addReview/after'");
 		
 		if (!$event->num_rows) {
-			$this->db->query("INSERT INTO `" . DB_PREFIX . "event` SET `trigger` = 'admin/model/sale/returns/deleteReview/after', `action` = 'event/statistics/deleteReview', '1', '0'");
-			$this->db->query("INSERT INTO `" . DB_PREFIX . "event` SET `trigger` = 'admin/model/sale/review/addReview/after', `action` = 'event/statistics/addReview', '1', '0'");			
+			$this->db->query("INSERT INTO `" . DB_PREFIX . "event` SET `trigger` = 'admin/model/sale/returns/deleteReview/after', `action` = 'event/statistics/deleteReview', `status` = '1', `sort_order` = '0'");
+			$this->db->query("INSERT INTO `" . DB_PREFIX . "event` SET `trigger` = 'admin/model/sale/review/addReview/after', `action` = 'event/statistics/addReview', `status` = '1', `sort_order` = '0'");
 		}
 		
 		$config_captcha_page = json_decode((array)$config->get('config_captcha_page'), true);
