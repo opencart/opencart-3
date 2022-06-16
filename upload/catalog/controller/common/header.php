@@ -25,6 +25,22 @@ class ControllerCommonHeader extends Controller {
 		}
 
 		$data['title'] = $this->document->getTitle();
+		
+		// If the default theme is selected we need to know which directory its pointing to
+		if ($this->config->get('config_theme') == 'default') {
+			$directory = $this->config->get('theme_default_directory');
+		} else {
+			$directory = $this->config->get('config_theme');
+		}
+		
+		// Hard coding css so they can be replaced via the event's system.
+		$data['bootstrap_css'] = 'catalog/view/javascript/bootstrap/css/bootstrap.min.css';
+		$data['bootstrap_js'] = 'catalog/view/javascript/bootstrap/js/bootstrap.min.js';
+		$data['icons'] = 'catalog/view/javascript/font-awesome/css/font-awesome.min.css';
+		$data['stylesheet'] = 'catalog/view/theme/' . $directory . '/stylesheet/stylesheet.css';
+
+		// Hard coding scripts so they can be replaced via the event's system.
+		$data['jquery'] = 'catalog/view/javascript/jquery/jquery-2.1.1.min.js';
 
 		$data['base'] = $server;
 		$data['description'] = $this->document->getDescription();
