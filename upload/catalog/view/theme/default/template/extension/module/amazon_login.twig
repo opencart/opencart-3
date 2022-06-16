@@ -9,7 +9,7 @@
 
 <script type="text/javascript">
 (function ($) {
-	$(document).ready(function () {
+	$(document).ready(function() {
 		var script;
 
 		script = document.createElement('script');
@@ -23,13 +23,13 @@
 		amazon.Login.setClientId('{{ client_id }}');
 	});
 
-	$(window).load(function () {
+	$(window).load(function() {
 		OffAmazonPayments.Button("{{ button_id }}", "{{ merchant_id }}", {
 			type: "{{ button_type }}",
 			color: "{{ button_colour }}",
 			size: "{{ button_size }}",
 			language: "{{ language }}",
-			authorization: function () {
+			authorization: function() {
 				amazon.Login.authorize({
 					scope: 'profile postal_code payments:widget payments:shipping_address'
 				}, "{{ return_url }}");

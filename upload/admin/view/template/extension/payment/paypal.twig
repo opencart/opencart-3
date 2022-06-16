@@ -521,7 +521,7 @@
 	}
 </script>
 <script type="text/javascript">
-	$('#button_disconnect').on('click', function () {
+	$('#button_disconnect').on('click', function() {
 		if (confirm('{{ text_confirm }}')) {
 			$('#input_client_id').val('');
 			$('#input_secret').val('');
@@ -531,7 +531,7 @@
 		}
 	});
 
-	$('#input_environment').on('change', function () {
+	$('#input_environment').on('change', function() {
 		var environment = $(this).val();
 
 		if (environment == 'production') {
@@ -549,7 +549,7 @@
 		$('#section_disconnect').addClass('hidden');
 	});
 
-	$('#input_checkout_message_layout').on('change', function () {
+	$('#input_checkout_message_layout').on('change', function() {
 		var layout = $(this).val();
 
 		if (layout == 'text') {

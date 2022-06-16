@@ -566,7 +566,7 @@
 {% endfor %}
 
 <script type="text/javascript"><!--
-$(document).off('click', '.button-command').on('click', '.button-command', function () {
+$(document).off('click', '.button-command').on('click', '.button-command', function() {
 	var type = $(this).attr('data-type');
 	var id = $(this).attr('data-id');
 	var modal = $(this).attr('data-modal');
@@ -633,14 +633,14 @@ $(document).off('click', '.button-command').on('click', '.button-command', funct
 				data: data
 			},
 			dataType: 'json',
-			beforeSend: function () {
+			beforeSend: function() {
 				clicked_button.button('loading');
 
 				$('.kc-alert').hide();
 
 				$('.kc-alert').removeClass('alert alert-success alert-danger');
 			},
-			complete: function () {
+			complete: function() {
 				clicked_button.button('reset');
 
 				$(modal).modal('hide');
@@ -660,10 +660,10 @@ $(document).off('click', '.button-command').on('click', '.button-command', funct
 						type: 'post',
 						dataType: 'json',
 						data: 'order_status_id=' + encodeURIComponent(json.order_status_id) + '&notify=0&override=1&comment',
-						beforeSend: function () {
+						beforeSend: function() {
 							$('#button-history').button('loading');
 						},
-						complete: function () {
+						complete: function() {
 							$('#button-history').button('reset');
 						},
 						success: function (json) {
@@ -687,7 +687,7 @@ $(document).off('click', '.button-command').on('click', '.button-command', funct
 					});
 				}
 
-				setTimeout(function () {
+				setTimeout(function() {
 					getTransaction('{{ order_id }}');
 				}, 300);
 			}

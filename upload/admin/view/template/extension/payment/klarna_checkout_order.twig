@@ -10,12 +10,12 @@ function getTransaction() {
 		data: {
 			order_id: '{{ order_id }}'
 		},
-		beforeSend: function () {
+		beforeSend: function() {
 			$('#button-filter').button('loading');
 
 			$('#table-action').html('<i class="klarna_checkout-loading fa fa-spinner fa-spin fa-5x" style="text-align: center; margin: 0 auto; width: 100%; font-size: 5em;"></i>');
 		},
-		complete: function () {
+		complete: function() {
 			$('#button-filter').button('reset');
 		},
 		success: function (html) {

@@ -29,7 +29,7 @@
     if (option_map.colors === null && option_map.sizes === null) {
         submitGtagByColorAndSize("", "");
     } else {
-        $('[name^="option["]').change(function () {
+        $('[name^="option["]').change(function() {
             var color, size = "";
 
             $('select[name^="option["], [type="radio"][name^="option["]:checked').each(function (index, option) {

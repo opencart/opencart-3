@@ -6,7 +6,7 @@
   {% endif %}
 </div>
 <script type="text/javascript"><!--
-$(document).ready(function () {
+$(document).ready(function() {
     var addOrderHistory = function (success_callback) {
         $.ajax({
             url: '{{ catalog }}index.php?route=api/order/history&api_token={{ api_token }}&order_id={{ order_id }}',
@@ -28,7 +28,7 @@ $(document).ready(function () {
         });
     }
 
-    $(document).delegate('#button-cancel', 'click', function () {
+    $(document).delegate('#button-cancel', 'click', function() {
         if (!confirm("{{ text_confirm_cancel }}")) {
             return false;
         }
@@ -36,14 +36,14 @@ $(document).ready(function () {
         $.ajax({
             url: '{{ cancel }}',
             dataType: 'json',
-            beforeSend: function () {
+            beforeSend: function() {
                 $('#button-cancel').button('loading');
             },
             success: function (json) {
                 $('.alert').remove();
 
                 if (json['success']) {
-                    addOrderHistory(function () {
+                    addOrderHistory(function() {
                         $('#squareup_buttons').before('<div class="alert alert-success">' + json['success'] + '<button type="button" class="close" data-dismiss="alert">&times;</button></div>');
 
                         $('#button-cancel').hide();

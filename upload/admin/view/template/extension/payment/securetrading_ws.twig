@@ -477,7 +477,7 @@
 			type: 'post',
 			data: $('#transaction-form').serialize(),
 			dataType: 'html',
-			beforeSend: function () {
+			beforeSend: function() {
 				$('.transactions').remove();
 			},
 			success: function (html) {

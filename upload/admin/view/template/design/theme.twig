@@ -66,10 +66,10 @@
 		$.ajax({
 			url: 'index.php?route=design/theme/path&user_token={{ user_token }}&store_id=' + $('select[name="store_id"]').val(),
 			dataType: 'json',
-			beforeSend: function () {
+			beforeSend: function() {
 				$('select[name="store_id"]').prop('disabled', true);
 			},
-			complete: function () {
+			complete: function() {
 				$('select[name="store_id"]').prop('disabled', false);
 			},
 			success: function (json) {
@@ -105,11 +105,11 @@
 		$.ajax({
 			url: 'index.php?route=design/theme/path&user_token={{ user_token }}&store_id=' + $('select[name="store_id"]').val() + '&path=' + $(element).attr('href'),
 			dataType: 'json',
-			beforeSend: function () {
+			beforeSend: function() {
 				$(element).find('i').removeClass('fa-arrow-right');
 				$(element).find('i').addClass('fa-circle-o-notch fa-spin');
 			},
-			complete: function () {
+			complete: function() {
 				$(element).find('i').removeClass('fa-circle-o-notch fa-spin');
 				$(element).find('i').addClass('fa-arrow-right');
 			},
@@ -158,11 +158,11 @@
 			$.ajax({
 				url: 'index.php?route=design/theme/template&user_token={{ user_token }}&store_id=' + $('select[name="store_id"]').val() + '&path=' + $(element).attr('href'),
 				dataType: 'json',
-				beforeSend: function () {
+				beforeSend: function() {
 					$(element).find('i').removeClass('fa-arrow-right');
 					$(element).find('i').addClass('fa-circle-o-notch fa-spin');
 				},
-				complete: function () {
+				complete: function() {
 					$(element).find('i').removeClass('fa-circle-o-notch fa-spin');
 					$(element).find('i').addClass('fa-arrow-right');
 				},
@@ -242,10 +242,10 @@
 			type: 'post',
 			data: 'code=' + encodeURIComponent(editor.getValue()),
 			dataType: 'json',
-			beforeSend: function () {
+			beforeSend: function() {
 				$(element).button('loading');
 			},
-			complete: function () {
+			complete: function() {
 				$(element).button('reset');
 			},
 			success: function (json) {
@@ -274,10 +274,10 @@
 			$.ajax({
 				url: 'index.php?route=design/theme/reset&user_token={{ user_token }}&store_id=' + $('.tab-content .active input[name="store_id"]').val() + '&path=' + $('.tab-content .active input[name="path"]').val(),
 				dataType: 'json',
-				beforeSend: function () {
+				beforeSend: function() {
 					$(element).button('loading');
 				},
-				complete: function () {
+				complete: function() {
 					$(element).button('reset');
 				},
 				success: function (json) {
@@ -322,10 +322,10 @@
 			$.ajax({
 				url: 'index.php?route=design/theme/template&user_token={{ user_token }}&store_id=' + $(element).parent().parent().find('input[name="store_id"]').val() + '&path=' + $(element).parent().parent().find('input[name="path"]').val(),
 				dataType: 'json',
-				beforeSend: function () {
+				beforeSend: function() {
 					$(element).button('loading');
 				},
-				complete: function () {
+				complete: function() {
 					$(element).button('reset');
 				},
 				success: function (json) {
@@ -380,10 +380,10 @@
 			$.ajax({
 				url: $(element).attr('href'),
 				dataType: 'json',
-				beforeSend: function () {
+				beforeSend: function() {
 					$(element).button('loading');
 				},
-				complete: function () {
+				complete: function() {
 					$(element).button('reset');
 				},
 				success: function (json) {

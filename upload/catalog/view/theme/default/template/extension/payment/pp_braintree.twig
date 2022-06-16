@@ -178,7 +178,7 @@
     });
   {% endif %}
 
-  $.getScript('https://js.braintreegateway.com/web/3.6.3/js/client.min.js', function () {
+  $.getScript('https://js.braintreegateway.com/web/3.6.3/js/client.min.js', function() {
     $.getScript('https://js.braintreegateway.com/web/3.6.3/js/hosted-fields.min.js');
     $.getScript('https://js.braintreegateway.com/web/3.6.3/js/data-collector.min.js');
     {% if payment_pp_braintree_paypal_option %}$.getScript('https://js.braintreegateway.com/web/3.6.3/js/paypal.min.js');{% endif %}
@@ -591,7 +591,7 @@
               return;
             }
           },
-          failure: function () {
+          failure: function() {
             console.log('Failed to call getNonceFromToken');
             $('#submit-vaulted').prop('disabled', false).button('reset');
           }
@@ -653,7 +653,7 @@
     $('#braintree-new').submit();
   }
 
-  $(document).delegate('#button-payment-method', 'click', function () {
+  $(document).delegate('#button-payment-method', 'click', function() {
     console.log("Teardown!");
 
     $('#collapse-checkout-confirm .panel-body').empty();

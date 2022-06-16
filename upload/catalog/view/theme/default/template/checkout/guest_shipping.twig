@@ -198,7 +198,7 @@
 </form>
 <script type="text/javascript"><!--
 	// Sort the custom fields
-	$('#collapse-shipping-address .form-group[data-sort]').detach().each(function () {
+	$('#collapse-shipping-address .form-group[data-sort]').detach().each(function() {
 		if ($(this).attr('data-sort') >= 0 && $(this).attr('data-sort') <= $('#collapse-shipping-address .form-group').length-2) {
 			$('#collapse-shipping-address .form-group').eq(parseInt($(this).attr('data-sort'))+2).before(this);
 		}
@@ -217,7 +217,7 @@
 	});
 //--></script> 
 <script type="text/javascript"><!--
-	$('#collapse-shipping-address button[id^=\'button-shipping-custom-field\']').on('click', function () {
+	$('#collapse-shipping-address button[id^=\'button-shipping-custom-field\']').on('click', function() {
 		var element = this;
 
 		$('#form-upload').remove();
@@ -230,7 +230,7 @@
 			clearInterval(timer);
 		}
 
-		timer = setInterval(function () {
+		timer = setInterval(function() {
 			if ($('#form-upload input[name=\'file\']').val() != '') {
 				clearInterval(timer);
 
@@ -242,10 +242,10 @@
 					cache: false,
 					contentType: false,
 					processData: false,
-					beforeSend: function () {
+					beforeSend: function() {
 						$(element).button('loading');
 					},
-					complete: function () {
+					complete: function() {
 						$(element).button('reset');
 					},
 					success: function (json) {
@@ -287,14 +287,14 @@
 	});
 //--></script> 
 <script type="text/javascript"><!--
-	$('#collapse-shipping-address select[name=\'country_id\']').on('change', function () {
+	$('#collapse-shipping-address select[name=\'country_id\']').on('change', function() {
 		$.ajax({
 			url: 'index.php?route=checkout/checkout/country&country_id=' + this.value,
 			dataType: 'json',
-			beforeSend: function () {
+			beforeSend: function() {
 				$('#collapse-shipping-address select[name=\'country_id\']').prop('disabled', true);
 			},
-			complete: function () {
+			complete: function() {
 				$('#collapse-shipping-address select[name=\'country_id\']').prop('disabled', false);
 			},
 			success: function (json) {

@@ -111,7 +111,7 @@ $('#button-search').on('click', function (e) {
 });
 //--></script>
 <script type="text/javascript"><!--
-$('#button-upload').on('click', function () {
+$('#button-upload').on('click', function() {
 	$('#form-upload').remove();
 
 	$('body').prepend('<form enctype="multipart/form-data" id="form-upload" style="display: none;"><input type="file" name="file[]" value="" multiple="multiple"/></form>');
@@ -122,7 +122,7 @@ $('#button-upload').on('click', function () {
     	clearInterval(timer);
 	}
 
-	timer = setInterval(function () {
+	timer = setInterval(function() {
 		if ($('#form-upload input[name=\'file[]\']').val() != '') {
 			clearInterval(timer);
 
@@ -134,11 +134,11 @@ $('#button-upload').on('click', function () {
 				cache: false,
 				contentType: false,
 				processData: false,
-				beforeSend: function () {
+				beforeSend: function() {
 					$('#button-upload i').replaceWith('<i class="fa fa-circle-o-notch fa-spin"></i>');
 					$('#button-upload').prop('disabled', true);
 				},
-				complete: function () {
+				complete: function() {
 					$('#button-upload i').replaceWith('<i class="fa fa-upload"></i>');
 					$('#button-upload').prop('disabled', false);
 				},
@@ -166,7 +166,7 @@ $('#button-folder').popover({
 	placement: 'bottom',
 	trigger: 'click',
 	title: '{{ entry_folder }}',
-	content: function () {
+	content: function() {
 		html  = '<div class="input-group">';
 		html += '  <input type="text" name="folder" value="" placeholder="{{ entry_folder }}" class="form-control">';
 		html += '  <span class="input-group-btn"><button type="button" title="{{ button_folder }}" id="button-create" class="btn btn-primary"><i class="fa fa-plus-circle"></i></button></span>';
@@ -176,17 +176,17 @@ $('#button-folder').popover({
 	}
 });
 
-$('#button-folder').on('shown.bs.popover', function () {
-	$('#button-create').on('click', function () {
+$('#button-folder').on('shown.bs.popover', function() {
+	$('#button-create').on('click', function() {
 		$.ajax({
 			url: 'index.php?route=common/filemanager/folder&user_token={{ user_token }}&directory={{ directory }}',
 			type: 'post',
 			dataType: 'json',
 			data: 'folder=' + encodeURIComponent($('input[name=\'folder\']').val()),
-			beforeSend: function () {
+			beforeSend: function() {
 				$('#button-create').prop('disabled', true);
 			},
-			complete: function () {
+			complete: function() {
 				$('#button-create').prop('disabled', false);
 			},
 			success: function (json) {
@@ -214,10 +214,10 @@ $('#modal-image #button-delete').on('click', function (e) {
 			type: 'post',
 			dataType: 'json',
 			data: $('input[name^=\'path\']:checked'),
-			beforeSend: function () {
+			beforeSend: function() {
 				$('#button-delete').prop('disabled', true);
 			},
-			complete: function () {
+			complete: function() {
 				$('#button-delete').prop('disabled', false);
 			},
 			success: function (json) {

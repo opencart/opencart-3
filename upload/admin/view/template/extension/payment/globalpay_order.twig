@@ -79,14 +79,14 @@
   </tr>
 </table>
 <script type="text/javascript"><!--
-  $('#button-void').click(function () {
+  $('#button-void').click(function() {
     if (confirm('{{ text_confirm_void }}')) {
       $.ajax({
 	    url: 'index.php?route=extension/payment/globalpay/void&user_token={{ user_token }}',
         type: 'post',
         dataType: 'json',
         data: { 'order_id': '{{ order_id }}' },
-        beforeSend: function () {
+        beforeSend: function() {
           $('#button-void').hide();
           $('#loading-void').show();
           $('#globalpay-transaction-msg').hide();
@@ -120,14 +120,14 @@
     }
   });
   
-  $('#button-capture').click(function () {
+  $('#button-capture').click(function() {
     if (confirm('{{ text_confirm_capture }}')) {
       $.ajax({
 		url: 'index.php?route=extension/payment/globalpay/capture&user_token={{ user_token }}',
         type: 'post',
         dataType: 'json',
         data: { 'order_id': '{{ order_id }}', 'amount': $('#capture-amount').val() },        
-        beforeSend: function () {
+        beforeSend: function() {
           $('#button-capture').hide();
           $('#capture-amount').hide();
           $('#loading-capture').show();
@@ -176,14 +176,14 @@
     }
   });
   
-  $('#button-rebate').click(function () {
+  $('#button-rebate').click(function() {
     if (confirm('{{ text_confirm_rebate }}')) {
       $.ajax({
 	    url: 'index.php?route=extension/payment/globalpay/rebate&user_token={{ user_token }}',
         type: 'post',
         dataType: 'json',
         data: { 'order_id': '{{ order_id }}', 'amount': $('#rebate-amount').val() },        
-        beforeSend: function () {
+        beforeSend: function() {
           $('#button-rebate').hide();
           $('#rebate-amount').hide();
           $('#loading-rebate').show();

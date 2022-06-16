@@ -48,7 +48,7 @@
   <script type="text/javascript"><!--
 var step = 0;
 
-$('#button-continue').on('click', function () {
+$('#button-continue').on('click', function() {
 	$('#progress-bar').addClass('progress-bar-success').css('width', '0%').removeClass('progress-bar-danger');
 	$('#progress-text').html('');
 	$('#button-continue').prop('disabled', true).before('<i class="fa fa-spinner fa-spin"></i> ');
@@ -57,7 +57,7 @@ $('#button-continue').on('click', function () {
 });
 
 function start(url) {
-	setTimeout(function () {
+	setTimeout(function() {
 		$.ajax({
 			url: url,
 			type: 'post',

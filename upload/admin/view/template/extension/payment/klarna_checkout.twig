@@ -449,13 +449,13 @@
   </div>
 </div>
 <script type="text/javascript"><!--
-$('.klarna-checkout-api').on('change', function () {
+$('.klarna-checkout-api').on('change', function() {
 	if ($(this).val() === 'EU') {
 		alert('{{ help_api|escape('js') }}');
 	}
 });
 
-$(document).on('click', '#button-process-settlement', function () {
+$(document).on('click', '#button-process-settlement', function() {
 	if (confirm('{{ text_confirm_settlement }}')) {
 		$.ajax({
 			url: 'index.php?route=extension/payment/klarna_checkout/downloadSettlementFiles&user_token={{ user_token }}',
@@ -466,12 +466,12 @@ $(document).on('click', '#button-process-settlement', function () {
 				order_status_id: $('select[name=payment_klarna_checkout_settlement_order_status_id]').val()
 			},
 			dataType: 'json',
-			beforeSend: function () {
+			beforeSend: function() {
 				$('#button-process-settlement').button('loading');
 
 				$('.settlement-alerts').empty();
 			},
-			complete: function () {
+			complete: function() {
 				$('#button-process-settlement').button('reset');
 			},
 			success: function (json) {
@@ -495,10 +495,10 @@ $(document).on('click', '#button-process-settlement', function () {
 								type: 'post',
 								dataType: 'json',
 								data: 'order_status_id=' + encodeURIComponent($('select[name=payment_klarna_checkout_settlement_order_status_id]').val()) + '&notify=0&override=1&comment',
-								beforeSend: function () {
+								beforeSend: function() {
 									//$('#button-history').button('loading');
 								},
-								complete: function () {
+								complete: function() {
 									//$('#button-history').button('reset');
 								},
 								success: function (json) {
@@ -532,7 +532,7 @@ $('.date').datetimepicker({
 });
 
 {% if not klarna_checkout_account %}
-$(document).ready(function () {
+$(document).ready(function() {
 	addAccount();
 });
 {% endif %}
@@ -578,16 +578,16 @@ function addAccount() {
 	account_row++;
 }
 
-$(document).delegate('#button-ip-add', 'click', function () {
+$(document).delegate('#button-ip-add', 'click', function() {
     $.ajax({
         url: 'index.php?route=extension/fraud/ip/addIp&user_token={{ user_token }}&api_id={{ api_id }}',
         type: 'post',
         data: 'ip={{ api_ip }}',
         dataType: 'json',
-        beforeSend: function () {
+        beforeSend: function() {
             $('#button-ip-add').button('loading');
         },
-        complete: function () {
+        complete: function() {
             $('#button-ip-add').button('reset');
         },
         success: function (json) {

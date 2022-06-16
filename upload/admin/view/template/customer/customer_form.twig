@@ -621,7 +621,7 @@
   </div>
 
   <script type="text/javascript"><!--
-  $('select[name=\'customer_group_id\']').on('change', function () {
+  $('select[name=\'customer_group_id\']').on('change', function() {
     $.ajax({
       url: 'index.php?route=customer/customer/customfield&user_token={{ user_token }}&customer_group_id=' + this.value,
       dataType: 'json',
@@ -845,7 +845,7 @@
 		pickDate: false
     });
 
-    $('#tab-address' + address_row + ' .form-group[data-sort]').detach().each(function () {
+    $('#tab-address' + address_row + ' .form-group[data-sort]').detach().each(function() {
 		if ($(this).attr('data-sort') >= 0 && $(this).attr('data-sort') <= $('#tab-address' + address_row + ' .form-group').length) {
 			$('#tab-address' + address_row + ' .form-group').eq($(this).attr('data-sort')).before(this);
 		}
@@ -867,10 +867,10 @@
 		$.ajax({
 		  url: 'index.php?route=localisation/country/country&user_token={{ user_token }}&country_id=' + element.value,
 		  dataType: 'json',
-		  beforeSend: function () {
+		  beforeSend: function() {
 			$('select[name=\'address[' + index + '][country_id]\']').prop('disabled', true);
 		  },
-		  complete: function () {
+		  complete: function() {
 			$('select[name=\'address[' + index + '][country_id]\']').prop('disabled', false);
 		  },
 		  success: function (json) {
@@ -923,10 +923,10 @@
 		  type: 'post',
 		  dataType: 'json',
 		  data: 'comment=' + encodeURIComponent($('#tab-history textarea[name=\'comment\']').val()),
-		  beforeSend: function () {
+		  beforeSend: function() {
 			$('#button-history').button('loading');
 		  },
-		  complete: function () {
+		  complete: function() {
 			$('#button-history').button('reset');
 		  },
 		  success: function (json) {
@@ -967,10 +967,10 @@
 		  type: 'post',
 		  dataType: 'json',
 		  data: 'description=' + encodeURIComponent($('#tab-transaction input[name=\'description\']').val()) + '&amount=' + encodeURIComponent($('#tab-transaction input[name=\'amount\']').val()),
-		  beforeSend: function () {
+		  beforeSend: function() {
 			$('#button-transaction').button('loading');
 		  },
-		  complete: function () {
+		  complete: function() {
 			$('#button-transaction').button('reset');
 		  },
 		  success: function (json) {
@@ -1012,10 +1012,10 @@
 		  type: 'post',
 		  dataType: 'json',
 		  data: 'description=' + encodeURIComponent($('#tab-reward input[name=\'description\']').val()) + '&points=' + encodeURIComponent($('#tab-reward input[name=\'points\']').val()),
-		  beforeSend: function () {
+		  beforeSend: function() {
 			$('#button-reward').button('loading');
 		  },
-		  complete: function () {
+		  complete: function() {
 			$('#button-reward').button('reset');
 		  },
 		  success: function (json) {
@@ -1048,7 +1048,7 @@
 
 	  $('#ip').load('index.php?route=customer/customer/ip&user_token={{ user_token }}&customer_id={{ customer_id }}');
 
-	  $('#content').delegate('button[id^=\'button-custom-field\'], button[id^=\'button-address\']', 'click', function () {
+	  $('#content').delegate('button[id^=\'button-custom-field\'], button[id^=\'button-address\']', 'click', function() {
 		var element = this;
 
 		$('#form-upload').remove();
@@ -1061,7 +1061,7 @@
 			clearInterval(timer);
 		}
 
-		timer = setInterval(function () {
+		timer = setInterval(function() {
 		  if ($('#form-upload input[name=\'file\']').val() != '') {
 			clearInterval(timer);
 
@@ -1073,10 +1073,10 @@
 			  cache: false,
 			  contentType: false,
 			  processData: false,
-			  beforeSend: function () {
+			  beforeSend: function() {
 				$(element).button('loading');
 			  },
-			  complete: function () {
+			  complete: function() {
 				$(element).button('reset');
 			  },
 			  success: function (json) {
@@ -1121,7 +1121,7 @@
 	  // Sort the custom fields
 	  {% set address_row = 1 %}
 	  {% for address in addresses %}
-	  $('#tab-address{{ address_row }} .form-group[data-sort]').detach().each(function () {
+	  $('#tab-address{{ address_row }} .form-group[data-sort]').detach().each(function() {
 		if ($(this).attr('data-sort') >= 0 && $(this).attr('data-sort') <= $('#tab-address{{ address_row }} .form-group').length) {
 		  $('#tab-address{{ address_row }} .form-group').eq($(this).attr('data-sort')).before(this);
 		}
@@ -1137,7 +1137,7 @@
 	  {% set address_row = address_row + 1 %}
 	  {% endfor %}
 
-	  $('#tab-customer .form-group[data-sort]').detach().each(function () {
+	  $('#tab-customer .form-group[data-sort]').detach().each(function() {
 		if ($(this).attr('data-sort') >= 0 && $(this).attr('data-sort') <= $('#tab-customer .form-group').length) {
 		  $('#tab-customer .form-group').eq($(this).attr('data-sort')).before(this);
 		}
@@ -1152,7 +1152,7 @@
 	  });
   //--></script> 
   <script type="text/javascript"><!--
-	  $('input[name=\'payment\']').on('change', function () {
+	  $('input[name=\'payment\']').on('change', function() {
 		$('.payment').hide();
 
 		$('#payment-' + this.value).show();

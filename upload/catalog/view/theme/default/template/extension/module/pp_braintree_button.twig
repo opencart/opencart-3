@@ -11,7 +11,7 @@
   var data_collector_instance;
   var client_instance;
 
-  $.getScript('https://js.braintreegateway.com/web/3.6.3/js/client.min.js', function () {
+  $.getScript('https://js.braintreegateway.com/web/3.6.3/js/client.min.js', function() {
     $.getScript('https://js.braintreegateway.com/web/3.6.3/js/paypal.min.js');
 
     braintree.client.create({
@@ -84,7 +84,7 @@
                       $('#braintree-express-form').submit();
                   }
                 },
-                failure: function () {
+                failure: function() {
                   console.log('Failed to setup payment');
                   $('#paypal-button-module').prop('disabled', false);
                 }

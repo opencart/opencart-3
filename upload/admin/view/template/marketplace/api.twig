@@ -27,10 +27,10 @@
 			type: 'post',
 			dataType: 'json',		
 			data: $('#modal-opencart :input'),		
-			beforeSend: function () {
+			beforeSend: function() {
 				$('#button-save').button('loading');
 			},
-			complete: function () {
+			complete: function() {
 				$('#button-save').button('reset');
 			},
 			success: function (json) {

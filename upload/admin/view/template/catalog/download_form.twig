@@ -65,7 +65,7 @@
     </div>
   </div>
 <script type="text/javascript"><!--
-$('#button-upload').on('click', function () {
+$('#button-upload').on('click', function() {
 	$('#form-upload').remove();
 
 	$('body').prepend('<form enctype="multipart/form-data" id="form-upload" style="display: none;"><input type="file" name="file"/></form>');
@@ -76,7 +76,7 @@ $('#button-upload').on('click', function () {
     	clearInterval(timer);
 	}
 
-	timer = setInterval(function () {
+	timer = setInterval(function() {
 		if ($('#form-upload input[name=\'file\']').val() != '') {
 			clearInterval(timer);
 
@@ -88,10 +88,10 @@ $('#button-upload').on('click', function () {
 				cache: false,
 				contentType: false,
 				processData: false,
-				beforeSend: function () {
+				beforeSend: function() {
 					$('#button-upload').button('loading');
 				},
-				complete: function () {
+				complete: function() {
 					$('#button-upload').button('reset');
 				},
 				success: function (json) {

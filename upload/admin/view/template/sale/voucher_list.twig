@@ -115,17 +115,17 @@
     </div>
   </div>
 <script type="text/javascript"><!--
-	$('#button-send').on('click', function () {
+	$('#button-send').on('click', function() {
 		$.ajax({
 			url: 'index.php?route=sale/voucher/send&user_token={{ user_token }}',
 			type: 'post',
 			dataType: 'json',
 			data: $('input[name^=\'selected\']:checked'),
-			beforeSend: function () {
+			beforeSend: function() {
 				$('#button-send i').replaceWith('<i class="fa fa-circle-o-notch fa-spin"></i>');
 				$('#button-send').prop('disabled', true);
 			},	
-			complete: function () {
+			complete: function() {
 				$('#button-send i').replaceWith('<i class="fa fa-envelope"></i>');
 				$('#button-send').prop('disabled', false);
 			},

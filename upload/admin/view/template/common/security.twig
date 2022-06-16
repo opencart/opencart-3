@@ -53,11 +53,11 @@
   </div>
 </div>
 <script type="text/javascript"><!--
-	$(document).ready(function () {
+	$(document).ready(function() {
 		$('#modal-security').modal('show');
 	});
 
-	$('#modal-security select[name=\'type\']').on('change', function () {
+	$('#modal-security select[name=\'type\']').on('change', function() {
 		$('#modal-security fieldset.collapse').removeClass('in');
 
 		$('#modal-security #collapse-' + $(this).val()).addClass('in');
@@ -83,7 +83,7 @@
 		$('input[name=\'path\']').trigger('change');
 	});
 
-	$('#button-move').on('click', function () {
+	$('#button-move').on('click', function() {
 		var element = this;
 
 		$.ajax({
@@ -92,10 +92,10 @@
 			data: $('input[name=\'path\'], input[name=\'directory\']'),
 			dataType: 'json',
 			crossDomain: true,
-			beforeSend: function () {
+			beforeSend: function() {
 				$(element).button('loading');
 			},
-			complete: function () {
+			complete: function() {
 				$(element).button('reset');
 			},
 			success: function (json) {
@@ -115,7 +115,7 @@
 		});
 	});
 
-	$('#modal-security select[name=\'type\']').on('change', function () {
+	$('#modal-security select[name=\'type\']').on('change', function() {
 		html  = '<ol>';
 		html += '<li><p>{{ text_move }}</p>';
 		html += '<p><strong>{{ storage }}</strong></p>';

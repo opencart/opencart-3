@@ -89,7 +89,7 @@
 {% if recurring_products %}
 	        Worldpay.reusable = true;
 {% else %}
-	        $('input[name=\'save-card\']').on('change', function () {
+	        $('input[name=\'save-card\']').on('change', function() {
 	          if ($(this).is(':checked')) {
 	            Worldpay.reusable = true;
 	          } else {
@@ -109,7 +109,7 @@
         });
 
         //Submit form
-        $('input[type=\'submit\']').on('click', function () {
+        $('input[type=\'submit\']').on('click', function() {
           var existing = $('input[name=\'existing-card\']:checked').val();
           if (existing === '1') {
             var form = document.getElementById('payment-existing-form');
@@ -127,7 +127,7 @@
       });
 
       //Delete a card
-      $('#button-delete').on('click', function () {
+      $('#button-delete').on('click', function() {
         var token = $('select[name=\'token\'] option:selected');
 
         if (confirm('{{ text_confirm_delete }}\n' + token.text())) {
@@ -136,10 +136,10 @@
             type: 'post',
             data: {token: token.val()},
             dataType: 'json',
-            beforeSend: function () {
+            beforeSend: function() {
               $('#button-delete').button('loading');
             },
-            complete: function () {
+            complete: function() {
               $('#button-delete').button('reset');
             },
             success: function (json) {
@@ -163,7 +163,7 @@
       });
 
       // enable or disable forms based on exiting or new card option
-      $('input[name=\'existing-card\']').on('change', function () {
+      $('input[name=\'existing-card\']').on('change', function() {
         if (this.value === '1') {
           $('#payment-existing-form').show();
           $('#payment-new-form').hide();

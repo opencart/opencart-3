@@ -11,16 +11,16 @@
         <input type="button" value="{{ button_coupon }}" id="button-coupon" data-loading-text="{{ text_loading }}"  class="btn btn-primary"/>
         </span></div>
       <script type="text/javascript"><!--
-$('#button-coupon').on('click', function () {
+$('#button-coupon').on('click', function() {
 	$.ajax({
 		url: 'index.php?route=extension/total/coupon/coupon',
 		type: 'post',
 		data: 'coupon=' + encodeURIComponent($('input[name=\'coupon\']').val()),
 		dataType: 'json',
-		beforeSend: function () {
+		beforeSend: function() {
 			$('#button-coupon').button('loading');
 		},
-		complete: function () {
+		complete: function() {
 			$('#button-coupon').button('reset');
 		},
 		success: function (json) {

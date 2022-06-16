@@ -44,7 +44,7 @@ function refund() {
     type: 'post',
     dataType: 'json',
     data: { 'transaction_reference': '{{ transaction_reference }}', 'amount': amount },    
-    beforeSend: function () {
+    beforeSend: function() {
       $('#button-refund').after('<span class="btn btn-primary loading"><i class="fa fa-circle-o-notch fa-spin fa-lg"></i></span>');
       $('#button-refund').hide();
     },

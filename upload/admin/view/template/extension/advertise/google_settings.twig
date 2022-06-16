@@ -106,17 +106,17 @@
 </style>
 <script type="text/javascript">
 (function ($) {
-    var randomString = function () {
+    var randomString = function() {
         return (Math.random() * 100).toString(16).replace('.', '');
     }
 
-    var setCronUrl = function () {
+    var setCronUrl = function() {
         $('#input_advertise_google_cron_url').val(
             "{{ advertise_google_cron_url }}".replace('{CRON_TOKEN}', $('#input_advertise_google_cron_token').val())
         );
     }
 
-    $(document).ready(function () {
+    $(document).ready(function() {
         $('#button_disconnect').click(function (e) {
             if ($(this).is(':disabled') || !confirm('{{ text_confirm }}')) {
                 e.preventDefault();
@@ -128,7 +128,7 @@
         setCronUrl();
     });
 
-    $('#refresh-cron-token').click(function () {
+    $('#refresh-cron-token').click(function() {
         $('#input_advertise_google_cron_token').val(randomString() + randomString());
         setCronUrl();
     });

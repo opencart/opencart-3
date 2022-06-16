@@ -69,7 +69,7 @@
         form: '#form'
     }
 
-    $(document).on('change', selector.acknowledge, function () {
+    $(document).on('change', selector.acknowledge, function() {
         $(selector.save).attr('disabled', $(selector.acknowledge + ':not(:checked)').length > 0);
     });
 

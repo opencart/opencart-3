@@ -310,10 +310,10 @@
 			type: 'post',
 			dataType: 'json',
 			data: 'return_status_id=' + encodeURIComponent($('#tab-history select[name=\'return_status_id\']').val()) + '&notify=' + ($('input[name=\'notify\']').prop('checked') ? 1 : 0) + '&comment=' + encodeURIComponent($('#tab-history textarea[name=\'comment\']').val()),
-			beforeSend: function () {
+			beforeSend: function() {
 				$('#button-history').button('loading');	
 			},
-			complete: function () {
+			complete: function() {
 				$('#button-history').button('reset');	
 			},
 			success: function (json) {

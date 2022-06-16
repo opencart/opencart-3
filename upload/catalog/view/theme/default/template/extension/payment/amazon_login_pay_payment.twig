@@ -32,7 +32,7 @@
 <input type="hidden" name="payment_method" value=""/>
 <script type="text/javascript">
 (function ($) {
-    $(document).ready(function () {
+    $(document).ready(function() {
         var showError = function (message) {
             $('#continue-button').button('reset');
 
@@ -41,7 +41,7 @@
 
         amazon.Login.setClientId('{{ client_id }}');
 
-        $('#continue-button').click(function () {
+        $('#continue-button').click(function() {
             $('#continue-button').button('loading');
             $('div.alert').remove();
 

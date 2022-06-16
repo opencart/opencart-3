@@ -108,10 +108,10 @@
 		$.ajax({
 			url: $(element).attr('href'),
 			dataType: 'json',
-			beforeSend: function () {
+			beforeSend: function() {
 				$(element).button('loading');
 			},
-			complete: function () {
+			complete: function() {
 				$(element).button('reset');
 			},
 			success: function (json) {
@@ -133,7 +133,7 @@
 		});
 	});
 
-	$('#button-filter').on('click', function () {
+	$('#button-filter').on('click', function() {
 		url = '';
 
 		var filter_name = $('input[name=\'filter_name\']').val();

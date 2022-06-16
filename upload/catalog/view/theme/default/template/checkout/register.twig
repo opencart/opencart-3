@@ -323,7 +323,7 @@
 {% endif %} 
 <script type="text/javascript"><!--
 	// Sort the custom fields
-	$('#account .form-group[data-sort]').detach().each(function () {
+	$('#account .form-group[data-sort]').detach().each(function() {
 		if ($(this).attr('data-sort') >= 0 && $(this).attr('data-sort') <= $('#account .form-group').length) {
 			$('#account .form-group').eq($(this).attr('data-sort')).before(this);
 		}
@@ -341,7 +341,7 @@
 		}
 	});
 
-	$('#address .form-group[data-sort]').detach().each(function () {
+	$('#address .form-group[data-sort]').detach().each(function() {
 		if ($(this).attr('data-sort') >= 0 && $(this).attr('data-sort') <= $('#address .form-group').length) {
 			$('#address .form-group').eq($(this).attr('data-sort')).before(this);
 		}
@@ -359,7 +359,7 @@
 		}
 	});
 
-	$('#collapse-payment-address input[name=\'customer_group_id\']').on('change', function () {
+	$('#collapse-payment-address input[name=\'customer_group_id\']').on('change', function() {
 		$.ajax({
 			url: 'index.php?route=checkout/checkout/customfield&customer_group_id=' + this.value,
 			dataType: 'json',
@@ -386,7 +386,7 @@
 	$('#collapse-payment-address input[name=\'customer_group_id\']:checked').trigger('change');
 //--></script> 
 <script type="text/javascript"><!--
-	$('#collapse-payment-address button[id^=\'button-payment-custom-field\']').on('click', function () {
+	$('#collapse-payment-address button[id^=\'button-payment-custom-field\']').on('click', function() {
 		var element = this;
 
 		$('#form-upload').remove();
@@ -399,7 +399,7 @@
 			clearInterval(timer);
 		}
 
-		timer = setInterval(function () {
+		timer = setInterval(function() {
 			if ($('#form-upload input[name=\'file\']').val() != '') {
 				clearInterval(timer);
 
@@ -411,10 +411,10 @@
 					cache: false,
 					contentType: false,
 					processData: false,
-					beforeSend: function () {
+					beforeSend: function() {
 						$(element).button('loading');
 					},
-					complete: function () {
+					complete: function() {
 						$(element).button('reset');
 					},
 					success: function (json) {
@@ -456,14 +456,14 @@
 	});
 //--></script> 
 <script type="text/javascript"><!--
-	$('#collapse-payment-address select[name=\'country_id\']').on('change', function () {
+	$('#collapse-payment-address select[name=\'country_id\']').on('change', function() {
 		$.ajax({
 			url: 'index.php?route=checkout/checkout/country&country_id=' + this.value,
 			dataType: 'json',
-			beforeSend: function () {
+			beforeSend: function() {
 				$('#collapse-payment-address select[name=\'country_id\']').prop('disabled', true);
 			},
-			complete: function () {
+			complete: function() {
 				$('#collapse-payment-address select[name=\'country_id\']').prop('disabled', false);
 			},
 			success: function (json) {

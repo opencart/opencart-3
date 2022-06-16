@@ -76,7 +76,7 @@
     }
 </style>
 <script type="text/javascript">
-    $(document).ready(function () {
+    $(document).ready(function() {
         var app_id = '{{ app_id }}';
 
         var paymentFormSettings = {
@@ -119,12 +119,12 @@
                     }
                 },
 
-                unsupportedBrowserDetected: function () {
+                unsupportedBrowserDetected: function() {
                     squareupError("{{ error_browser_not_supported }}");
                     // Fill in this callback to alert buyers when their browser is not supported.
                 },
 
-                paymentFormLoaded: function () {
+                paymentFormLoaded: function() {
                     // Fill in this callback to perform actions after the payment form is
                     // done loading (such as setting the postal code field programmatically).
                     paymentForm.setPostalCode('{{ payment_zip|escape('js') }}');
@@ -143,7 +143,7 @@
             dataType: 'json',
             type: $(form).attr('method'),
             data: $(form).serialize(),
-            beforeSend: function () {
+            beforeSend: function() {
                 $('#button-confirm-order').button('loading');
             },
             success: function (json) {
@@ -156,7 +156,7 @@
             error: function (jqXHR, ajaxSettings, thrownError) {
                 squareupError(thrownError);
             },
-            complete: function () {
+            complete: function() {
                 $('#button-confirm-order').button('reset');
             }
         });
@@ -209,7 +209,7 @@
         onConfirmCheckout();
     });
 
-    $('#squareup_select_card').change(function () {
+    $('#squareup_select_card').change(function() {
         if ($(this).val()) {
             $('#hide-card-details').slideUp();
         } else {
