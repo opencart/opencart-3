@@ -40,12 +40,12 @@ class ModelAccountAddress extends Model {
 				$country = $country_query->row['name'];
 				$iso_code_2 = $country_query->row['iso_code_2'];
 				$iso_code_3 = $country_query->row['iso_code_3'];
-				$address_format = $country_query->row['address_format'];
+				$address_format_id = $country_query->row['address_format_id'];
 			} else {
 				$country = '';
 				$iso_code_2 = '';
 				$iso_code_3 = '';
-				$address_format = '';
+				$address_format = 0;
 			}
 
 			$zone_query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "zone` WHERE `zone_id` = '" . (int)$address_query->row['zone_id'] . "'");
@@ -74,7 +74,7 @@ class ModelAccountAddress extends Model {
 				'country'        => $country,
 				'iso_code_2'     => $iso_code_2,
 				'iso_code_3'     => $iso_code_3,
-				'address_format' => $address_format,
+				'address_format' => $address_format_id,
 				'custom_field'   => json_decode($address_query->row['custom_field'], true)
 			);
 
@@ -96,12 +96,12 @@ class ModelAccountAddress extends Model {
 				$country = $country_query->row['name'];
 				$iso_code_2 = $country_query->row['iso_code_2'];
 				$iso_code_3 = $country_query->row['iso_code_3'];
-				$address_format = $country_query->row['address_format'];
+				$address_format_id = $country_query->row['address_format_id'];
 			} else {
 				$country = '';
 				$iso_code_2 = '';
 				$iso_code_3 = '';
-				$address_format = '';
+				$address_format = 0;
 			}
 
 			$zone_query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "zone` WHERE `zone_id` = '" . (int)$result['zone_id'] . "'");
@@ -130,7 +130,7 @@ class ModelAccountAddress extends Model {
 				'country'        => $country,
 				'iso_code_2'     => $iso_code_2,
 				'iso_code_3'     => $iso_code_3,
-				'address_format' => $address_format,
+				'address_format' => $address_format_id,
 				'custom_field'   => json_decode($result['custom_field'], true)
 
 			);
