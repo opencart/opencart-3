@@ -212,7 +212,7 @@ class ControllerCustomerCustomField extends Controller {
 				'name'            => $result['name'],
 				'location'        => $this->language->get('text_' . $result['location']),
 				'type'            => $type,
-				'status'          => $result['status'],
+				'status'          => $result['status'] ? $this->language->get('text_enabled') : $this->language->get('text_disabled'),
 				'sort_order'      => $result['sort_order'],
 				'edit'            => $this->url->link('customer/custom_field/edit', 'user_token=' . $this->session->data['user_token'] . '&custom_field_id=' . $result['custom_field_id'] . $url, true)
 			);
