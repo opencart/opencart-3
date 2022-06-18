@@ -93,10 +93,12 @@ class ControllerAccountAddress extends Controller {
 	}
 
 	public function delete() {
+		$json = array();
+		
 		if (!$this->customer->isLogged()) {
 			$this->session->data['redirect'] = $this->url->link('account/address', '', true);
 
-			$this->response->redirect($this->url->link('account/login', '', true));
+			$json['redirect'] = str_replace('&amp;', '&', $this->url->link('account/login', '', true));
 		}
 
 		$this->load->language('account/address');
@@ -104,8 +106,16 @@ class ControllerAccountAddress extends Controller {
 		$this->document->setTitle($this->language->get('heading_title'));
 
 		$this->load->model('account/address');
+		
+		if ($this->model_account_address->getTotalAddresses() == 1) {
+			$json['warning'] = $this->language->get('error_delete');
+		}
 
-		if (isset($this->request->get['address_id']) && $this->validateDelete()) {
+		if ($this->customer->getAddressId() == $this->request->get['address_id']) {
+			$json['warning'] = $this->language->get('error_default');
+		}
+
+		if (!$json && isset($this->request->get['address_id'])) {
 			$this->model_account_address->deleteAddress($this->request->get['address_id']);
 
 			// Default Shipping Address
@@ -124,10 +134,11 @@ class ControllerAccountAddress extends Controller {
 
 			$this->session->data['success'] = $this->language->get('text_delete');
 
-			$this->response->redirect($this->url->link('account/address', '', true));
+			$json['success'] = str_replace('&amp;', '&', $this->url->link('account/address', '', true));
 		}
 
-		$this->getList();
+		$this->response->addHeader('Content-Type: application/json');
+		$this->response->setOutput(json_encode($json));
 	}
 
 	protected function getList() {
@@ -145,12 +156,6 @@ class ControllerAccountAddress extends Controller {
 			'text' => $this->language->get('heading_title'),
 			'href' => $this->url->link('account/address', '', true)
 		);
-
-		if (isset($this->error['warning'])) {
-			$data['error_warning'] = $this->error['warning'];
-		} else {
-			$data['error_warning'] = '';
-		}
 
 		if (isset($this->session->data['success'])) {
 			$data['success'] = $this->session->data['success'];
@@ -463,16 +468,15 @@ class ControllerAccountAddress extends Controller {
 
 		return !$this->error;
 	}
-
-	protected function validateDelete() {
-		if ($this->model_account_address->getTotalAddresses() == 1) {
-			$this->error['warning'] = $this->language->get('error_delete');
+	
+	public function editAddress() {
+		$json = array();
+		
+		if (isset($this->request->get['address_id'])) {
+			$json['redirect'] = str_replace('&amp;', '&', $this->url->link('account/address/edit', 'address_id=' . $this->request->get['address_id'], true));
 		}
-
-		if ($this->customer->getAddressId() == $this->request->get['address_id']) {
-			$this->error['warning'] = $this->language->get('error_default');
-		}
-
-		return !$this->error;
+		
+		$this->response->addHeader('Content-Type: application/json');
+		$this->response->setOutput(json_encode($json));
 	}
 }

@@ -14,12 +14,7 @@
   <div class="alert alert-success alert-dismissible"><i class="fa fa-check-circle"></i> {{ success }}
     <button type="button" class="close" data-dismiss="alert">&times;</button>
   </div>
-  {% endif %}
-  {% if error_warning %}
-  <div class="alert alert-danger alert-dismissible"><i class="fa fa-exclamation-circle"></i> {{ error_warning }}
-    <button type="button" class="close" data-dismiss="alert">&times;</button>
-  </div>
-  {% endif %}
+  {% endif %}  
   <div class="row">{{ column_left }}
     {% if column_left and column_right %}
     {% set class = 'col-sm-6' %}
@@ -35,25 +30,23 @@
           <table class="table table-bordered">
             <thead>
               <tr>
-                <td class="text-center">{{ column_address_id }}</td>
                 <td class="text-center">{{ column_address }}</td>
 				<td class="text-right">{{ column_action }}</td>
               </tr>
             </thead>
             <tbody>
 			{% if addresses %}
-            {% for address in addresses %}
+			{% for address in addresses %}
             <tr>
-              <td class="text-center">{{ address.address_id }}</td>
               <td class="text-center">{{ address.address }}</td>
 			  <td class="text-right">
 			  <button type="button" data-toggle="tooltip" title="{{ button_edit }}" onclick="address.update('{{ address.address_id }}');" class="btn btn-primary"><i class="fa fa-pencil"></i></button>
-			  <button type="button" data-toggle="tooltip" title="{{ button_delete }}" onclick="address.remove('{{ address.address_id }}');return confirm('{{ text_confirm }}');" class="btn btn-danger"><i class="fa fa-times-circle"></i></button></td>
+			  <button type="button" data-toggle="tooltip" title="{{ button_delete }}" onclick="address.remove('{{ address.address_id }}');return false;" class="btn btn-danger"><i class="fa fa-times-circle"></i></button></td>
             </tr>
             {% endfor %}
 			{% else %}
 			<tr>
-                <td class="text-center" colspan="3">{{ text_no_results }}</td>
+                <td class="text-center" colspan="2">{{ text_no_results }}</td>
 			</tr>
 			{% endif %}
             </tbody>            
@@ -71,10 +64,49 @@
 // Address update, and remove functions
 var address = {
 	'update': function(key) {
-		location = 'index.php?route=account/address/edit&address_id=' + key;
+		$.ajax({
+			url: 'index.php?route=account/address/editAddress&address_id=' + key,
+			type: 'post',
+			dataType: 'json',			
+			success: function(json) {
+				if (json['redirect']) {
+					location = json['redirect'];
+				}
+			}
+		});
+		
 	},
 	'remove': function(key) {
-		location = 'index.php?route=account/address/delete&address_id=' + key;
+		//location = 'index.php?route=account/address/delete&address_id=' + key;
+		
+		var address_row = '{{ address_row }}';
+		
+		$('.alert-dismissible').remove();
+		
+		$.ajax({
+			url: 'index.php?route=account/address/delete&address_id=' + key,
+			type: 'post',
+			dataType: 'json',			
+			success: function(json) {
+				if (json['redirect']) {
+					location = json['redirect'];
+				}
+				
+				if (json['warning']) {
+					var result = confirm('{{ text_confirm }}');
+						
+					if (!result) {
+						return false;
+					} else {
+						$('#account-address > .breadcrumb').after('<div class="alert alert-danger alert-dismissible"><i class="fa fa-exclamation-circle"></i> ' + json['warning'] + '<button type="button" class="close" data-dismiss="alert">&times;</button></div>');
+					}
+				}
+				
+				if (json['success']) {
+					location = json['success'];
+				}
+			}
+		});
 	}
 }
 </script>
