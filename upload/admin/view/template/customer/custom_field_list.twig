@@ -50,6 +50,11 @@
                     {% else %}
                     <a href="{{ sort_type }}">{{ column_type }}</a>
                     {% endif %}</td>
+                  <td class="text-left">{% if sort == 'cf.status' %}
+                    <a href="{{ sort_status }}" class="{{ order|lower }}">{{ column_status }}</a>
+                    {% else %}
+                    <a href="{{ sort_status }}">{{ column_status }}</a>
+                    {% endif %}</td>
                   <td class="text-right">{% if sort == 'cf.sort_order' %}
                     <a href="{{ sort_sort_order }}" class="{{ order|lower }}">{{ column_sort_order }}</a>
                     {% else %}
@@ -70,6 +75,7 @@
                   <td class="text-left">{{ custom_field.name }}</td>
                   <td class="text-left">{{ custom_field.location }}</td>
                   <td class="text-left">{{ custom_field.type }}</td>
+                  <td class="text-left">{{ custom_field.status }}</td>
                   <td class="text-right">{{ custom_field.sort_order }}</td>
                   <td class="text-right"><a href="{{ custom_field.edit }}" data-toggle="tooltip" title="{{ button_edit }}" class="btn btn-primary"><i class="fa fa-pencil"></i></a></td>
                 </tr>
