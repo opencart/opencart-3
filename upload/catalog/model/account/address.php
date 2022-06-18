@@ -34,31 +34,63 @@ class ModelAccountAddress extends Model {
 		$address_query = $this->db->query("SELECT DISTINCT * FROM `" . DB_PREFIX . "address` WHERE `address_id` = '" . (int)$address_id . "' AND `customer_id` = '" . (int)$this->customer->getId() . "'");
 
 		if ($address_query->num_rows) {
-			$country_query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "country` WHERE `country_id` = '" . (int)$address_query->row['country_id'] . "'");
+			$this->load->model('localisation/country');
 
-			if ($country_query->num_rows) {
-				$country = $country_query->row['name'];
-				$iso_code_2 = $country_query->row['iso_code_2'];
-				$iso_code_3 = $country_query->row['iso_code_3'];
-				$address_format_id = $country_query->row['address_format_id'];
+			$country_info = $this->model_localisation_country->getCountry($address_query->row['country_id']);
+
+			if ($country_info) {
+				$country = $country_info['name'];
+				$iso_code_2 = $country_info['iso_code_2'];
+				$iso_code_3 = $country_info['iso_code_3'];
+				$address_format = $country_info['address_format'];
 			} else {
 				$country = '';
 				$iso_code_2 = '';
 				$iso_code_3 = '';
-				$address_format = 0;
+				$address_format = '';
 			}
 
-			$zone_query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "zone` WHERE `zone_id` = '" . (int)$address_query->row['zone_id'] . "'");
+			$this->load->model('localisation/zone');
 
-			if ($zone_query->num_rows) {
-				$zone = $zone_query->row['name'];
-				$zone_code = $zone_query->row['code'];
+			$zone_info = $this->model_localisation_zone->getZone($address_query->row['zone_id']);
+
+			if ($zone_info) {
+				$zone = $zone_info['name'];
+				$zone_code = $zone_info['code'];
 			} else {
 				$zone = '';
 				$zone_code = '';
 			}
 
-			$address_data = array(
+			$find = [
+				'{firstname}',
+				'{lastname}',
+				'{company}',
+				'{address_1}',
+				'{address_2}',
+				'{city}',
+				'{postcode}',
+				'{zone}',
+				'{zone_code}',
+				'{country}'
+			];
+
+			$replace = [
+				'firstname' => $address_query->row['firstname'],
+				'lastname'  => $address_query->row['lastname'],
+				'company'   => $address_query->row['company'],
+				'address_1' => $address_query->row['address_1'],
+				'address_2' => $address_query->row['address_2'],
+				'city'      => $address_query->row['city'],
+				'postcode'  => $address_query->row['postcode'],
+				'zone'      => $zone,
+				'zone_code' => $zone_code,
+				'country'   => $country
+			];
+
+			$address_format = str_replace(["\r\n", "\r", "\n"], '<br/>', preg_replace(["/\s\s+/", "/\r\r+/", "/\n\n+/"], '<br/>', trim(str_replace($find, $replace, $address_format))));
+
+			return [
 				'address_id'     => $address_query->row['address_id'],
 				'firstname'      => $address_query->row['firstname'],
 				'lastname'       => $address_query->row['lastname'],
@@ -74,66 +106,26 @@ class ModelAccountAddress extends Model {
 				'country'        => $country,
 				'iso_code_2'     => $iso_code_2,
 				'iso_code_3'     => $iso_code_3,
-				'address_format' => $address_format_id,
-				'custom_field'   => json_decode($address_query->row['custom_field'], true)
-			);
-
-			return $address_data;
+				'address_format' => $address_format,
+				'custom_field'   => json_decode($address_query->row['custom_field'], true),
+				'default'        => $address_query->row['default']
+			];
 		} else {
-			return false;
+			return [];
 		}
 	}
 
 	public function getAddresses() {
 		$address_data = array();
 
-		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "address` WHERE `customer_id` = '" . (int)$this->customer->getId() . "'");
+		$query = $this->db->query("SELECT `address_id` FROM `" . DB_PREFIX . "address` WHERE `customer_id` = '" . (int)$this->customer->getId() . "'");
 
 		foreach ($query->rows as $result) {
-			$country_query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "country` WHERE `country_id` = '" . (int)$result['country_id'] . "'");
+			$address_info = $this->getAddress($result['address_id']);
 
-			if ($country_query->num_rows) {
-				$country = $country_query->row['name'];
-				$iso_code_2 = $country_query->row['iso_code_2'];
-				$iso_code_3 = $country_query->row['iso_code_3'];
-				$address_format_id = $country_query->row['address_format_id'];
-			} else {
-				$country = '';
-				$iso_code_2 = '';
-				$iso_code_3 = '';
-				$address_format = 0;
+			if ($address_info) {
+				$address_data[$result['address_id']] = $address_info;
 			}
-
-			$zone_query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "zone` WHERE `zone_id` = '" . (int)$result['zone_id'] . "'");
-
-			if ($zone_query->num_rows) {
-				$zone = $zone_query->row['name'];
-				$zone_code = $zone_query->row['code'];
-			} else {
-				$zone = '';
-				$zone_code = '';
-			}
-
-			$address_data[$result['address_id']] = array(
-				'address_id'     => $result['address_id'],
-				'firstname'      => $result['firstname'],
-				'lastname'       => $result['lastname'],
-				'company'        => $result['company'],
-				'address_1'      => $result['address_1'],
-				'address_2'      => $result['address_2'],
-				'postcode'       => $result['postcode'],
-				'city'           => $result['city'],
-				'zone_id'        => $result['zone_id'],
-				'zone'           => $zone,
-				'zone_code'      => $zone_code,
-				'country_id'     => $result['country_id'],
-				'country'        => $country,
-				'iso_code_2'     => $iso_code_2,
-				'iso_code_3'     => $iso_code_3,
-				'address_format' => $address_format_id,
-				'custom_field'   => json_decode($result['custom_field'], true)
-
-			);
 		}
 
 		return $address_data;
