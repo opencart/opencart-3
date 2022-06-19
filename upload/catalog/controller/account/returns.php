@@ -22,7 +22,7 @@ class ControllerAccountReturns extends Controller {
 
 		$data['breadcrumbs'][] = array(
 			'text' => $this->language->get('text_account'),
-			'href' => $this->url->link('account/account', '', true)
+			'href' => $this->url->link('account/account', 'customer_token=' . $this->session->data['customer_token'], true)
 		);
 
 		$url = '';
@@ -33,7 +33,7 @@ class ControllerAccountReturns extends Controller {
 
 		$data['breadcrumbs'][] = array(
 			'text' => $this->language->get('heading_title'),
-			'href' => $this->url->link('account/returns', $url, true)
+			'href' => $this->url->link('account/returns', 'customer_token=' . $this->session->data['customer_token'] . $url, true)
 		);
 
 		$this->load->model('account/returns');
@@ -65,13 +65,13 @@ class ControllerAccountReturns extends Controller {
 		$pagination->total = $return_total;
 		$pagination->page = $page;
 		$pagination->limit = $this->config->get('theme_' . $this->config->get('config_theme') . '_product_limit');
-		$pagination->url = $this->url->link('account/returns', 'page={page}', true);
+		$pagination->url = $this->url->link('account/returns', 'customer_token=' . $this->session->data['customer_token'] . '&page={page}', true);
 
 		$data['pagination'] = $pagination->render();
 
 		$data['results'] = sprintf($this->language->get('text_pagination'), ($return_total) ? (($page - 1) * $this->config->get('theme_' . $this->config->get('config_theme') . '_product_limit')) + 1 : 0, ((($page - 1) * $this->config->get('theme_' . $this->config->get('config_theme') . '_product_limit')) > ($return_total - $this->config->get('theme_' . $this->config->get('config_theme') . '_product_limit'))) ? $return_total : ((($page - 1) * $this->config->get('theme_' . $this->config->get('config_theme') . '_product_limit')) + $this->config->get('theme_' . $this->config->get('config_theme') . '_product_limit')), $return_total, ceil($return_total / $this->config->get('theme_' . $this->config->get('config_theme') . '_product_limit')));
 
-		$data['continue'] = $this->url->link('account/account', '', true);
+		$data['continue'] = $this->url->link('account/account', 'customer_token=' . $this->session->data['customer_token'], true);
 
 		$data['column_left'] = $this->load->controller('common/column_left');
 		$data['column_right'] = $this->load->controller('common/column_right');
@@ -92,7 +92,7 @@ class ControllerAccountReturns extends Controller {
 			$return_id = 0;
 		}
 
-		if (!$this->customer->isLogged()) {
+		if (!$this->customer->isLogged() || (!isset($this->request->get['customer_token']) || !isset($this->session->data['customer_token']) || ($this->request->get['customer_token'] != $this->session->data['customer_token']))) {
 			$this->session->data['redirect'] = $this->url->link('account/returns/info', 'return_id=' . $return_id, true);
 
 			$this->response->redirect($this->url->link('account/login', '', true));
@@ -114,7 +114,7 @@ class ControllerAccountReturns extends Controller {
 
 			$data['breadcrumbs'][] = array(
 				'text' => $this->language->get('text_account'),
-				'href' => $this->url->link('account/account', '', true)
+				'href' => $this->url->link('account/account', 'customer_token=' . $this->session->data['customer_token'], true)
 			);
 
 			$url = '';
@@ -125,12 +125,12 @@ class ControllerAccountReturns extends Controller {
 
 			$data['breadcrumbs'][] = array(
 				'text' => $this->language->get('heading_title'),
-				'href' => $this->url->link('account/returns', $url, true)
+				'href' => $this->url->link('account/returns', 'customer_token=' . $this->session->data['customer_token'] . $url, true)
 			);
 
 			$data['breadcrumbs'][] = array(
 				'text' => $this->language->get('text_return'),
-				'href' => $this->url->link('account/returns/info', 'return_id=' . $this->request->get['return_id'] . $url, true)
+				'href' => $this->url->link('account/returns/info', 'customer_token=' . $this->session->data['customer_token'] . '&return_id=' . $this->request->get['return_id'] . $url, true)
 			);
 
 			$data['return_id'] = $return_info['return_id'];

@@ -1,7 +1,7 @@
 <?php
 class ControllerAccountWishList extends Controller {
 	public function index() {
-		if (!$this->customer->isLogged()) {
+		if (!$this->customer->isLogged() || (!isset($this->request->get['customer_token']) || !isset($this->session->data['customer_token']) || ($this->request->get['customer_token'] != $this->session->data['customer_token']))) {
 			$this->session->data['redirect'] = $this->url->link('account/wishlist', '', true);
 
 			$this->response->redirect($this->url->link('account/login', '', true));
@@ -9,10 +9,8 @@ class ControllerAccountWishList extends Controller {
 
 		$this->load->language('account/wishlist');
 
-		$this->load->model('account/wishlist');
-		
-		$this->load->model('catalog/product');
-		
+		$this->load->model('account/wishlist');		
+		$this->load->model('catalog/product');		
 		$this->load->model('tool/image');
 
 		if (isset($this->request->get['remove'])) {
@@ -35,12 +33,12 @@ class ControllerAccountWishList extends Controller {
 
 		$data['breadcrumbs'][] = array(
 			'text' => $this->language->get('text_account'),
-			'href' => $this->url->link('account/account', '', true)
+			'href' => $this->url->link('account/account', (isset($this->session->data['customer_token']) ? '&customer_token=' . $this->session->data['customer_token'] : ''), true)
 		);
 
 		$data['breadcrumbs'][] = array(
 			'text' => $this->language->get('heading_title'),
-			'href' => $this->url->link('account/wishlist')
+			'href' => $this->url->link('account/wishlist', (isset($this->session->data['customer_token']) ? '&customer_token=' . $this->session->data['customer_token'] : ''), true)
 		);
 
 		if (isset($this->session->data['success'])) {
@@ -94,14 +92,14 @@ class ControllerAccountWishList extends Controller {
 					'price'      => $price,
 					'special'    => $special,
 					'href'       => $this->url->link('product/product', 'product_id=' . $product_info['product_id']),
-					'remove'     => $this->url->link('account/wishlist', 'remove=' . $product_info['product_id'])
+					'remove'     => $this->url->link('account/wishlist', (isset($this->session->data['customer_token']) ? '&customer_token=' . $this->session->data['customer_token'] : '') . '&remove=' . $product_info['product_id'])
 				);
 			} else {
 				$this->model_account_wishlist->deleteWishlist($result['product_id']);
 			}
 		}
 
-		$data['continue'] = $this->url->link('account/account', '', true);
+		$data['continue'] = $this->url->link('account/account', 'customer_token=' . $this->session->data['customer_token'], true);
 
 		$data['column_left'] = $this->load->controller('common/column_left');
 		$data['column_right'] = $this->load->controller('common/column_right');
@@ -147,7 +145,7 @@ class ControllerAccountWishList extends Controller {
 
 				$this->session->data['wishlist'] = array_unique($this->session->data['wishlist']);
 
-				$json['success'] = sprintf($this->language->get('text_login'), $this->url->link('account/login', '', true), $this->url->link('account/register', '', true), $this->url->link('product/product', 'product_id=' . (int)$this->request->post['product_id']), $product_info['name'], $this->url->link('account/wishlist'));
+				$json['success'] = sprintf($this->language->get('text_login'), $this->url->link('account/login', '', true), $this->url->link('account/register', '', true), $this->url->link('product/product', 'product_id=' . (int)$this->request->post['product_id']), $product_info['name'], $this->url->link('account/wishlist', (isset($this->session->data['customer_token']) ? '&customer_token=' . $this->session->data['customer_token'] : '')));
 
 				$json['total'] = sprintf($this->language->get('text_wishlist'), isset($this->session->data['wishlist']) ? count($this->session->data['wishlist']) : 0);
 			}

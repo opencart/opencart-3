@@ -3,7 +3,7 @@ class ControllerAccountPassword extends Controller {
 	private $error = array();
 
 	public function index() {
-		if (!$this->customer->isLogged()) {
+		if (!$this->customer->isLogged() || (!isset($this->request->get['customer_token']) || !isset($this->session->data['customer_token']) || ($this->request->get['customer_token'] != $this->session->data['customer_token']))) {
 			$this->session->data['redirect'] = $this->url->link('account/password', '', true);
 
 			$this->response->redirect($this->url->link('account/login', '', true));
@@ -20,7 +20,7 @@ class ControllerAccountPassword extends Controller {
 
 			$this->session->data['success'] = $this->language->get('text_success');
 
-			$this->response->redirect($this->url->link('account/account', '', true));
+			$this->response->redirect($this->url->link('account/account', 'customer_token=' . $this->session->data['customer_token'], true));
 		}
 
 		$data['breadcrumbs'] = array();
@@ -32,12 +32,12 @@ class ControllerAccountPassword extends Controller {
 
 		$data['breadcrumbs'][] = array(
 			'text' => $this->language->get('text_account'),
-			'href' => $this->url->link('account/account', '', true)
+			'href' => $this->url->link('account/account', 'customer_token=' . $this->session->data['customer_token'], true)
 		);
 
 		$data['breadcrumbs'][] = array(
 			'text' => $this->language->get('heading_title'),
-			'href' => $this->url->link('account/password', '', true)
+			'href' => $this->url->link('account/password', 'customer_token=' . $this->session->data['customer_token'], true)
 		);
 
 		if (isset($this->error['password'])) {
@@ -52,7 +52,7 @@ class ControllerAccountPassword extends Controller {
 			$data['error_confirm'] = '';
 		}
 
-		$data['action'] = $this->url->link('account/password', '', true);
+		$data['action'] = $this->url->link('account/password', 'customer_token=' . $this->session->data['customer_token'], true);
 
 		if (isset($this->request->post['password'])) {
 			$data['password'] = $this->request->post['password'];
@@ -66,7 +66,7 @@ class ControllerAccountPassword extends Controller {
 			$data['confirm'] = '';
 		}
 
-		$data['back'] = $this->url->link('account/account', '', true);
+		$data['back'] = $this->url->link('account/account', 'customer_token=' . $this->session->data['customer_token'], true);
 
 		$data['column_left'] = $this->load->controller('common/column_left');
 		$data['column_right'] = $this->load->controller('common/column_right');

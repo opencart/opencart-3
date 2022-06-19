@@ -1,7 +1,7 @@
 <?php
 class ControllerAccountDownload extends Controller {
 	public function index() {
-		if (!$this->customer->isLogged()) {
+		if (!$this->customer->isLogged() || (!isset($this->request->get['customer_token']) || !isset($this->session->data['customer_token']) || ($this->request->get['customer_token'] != $this->session->data['customer_token']))) {
 			$this->session->data['redirect'] = $this->url->link('account/download', '', true);
 
 			$this->response->redirect($this->url->link('account/login', '', true));
@@ -20,12 +20,12 @@ class ControllerAccountDownload extends Controller {
 
 		$data['breadcrumbs'][] = array(
 			'text' => $this->language->get('text_account'),
-			'href' => $this->url->link('account/account', '', true)
+			'href' => $this->url->link('account/account', 'customer_token=' . $this->session->data['customer_token'], true)
 		);
 
 		$data['breadcrumbs'][] = array(
 			'text' => $this->language->get('text_downloads'),
-			'href' => $this->url->link('account/download', '', true)
+			'href' => $this->url->link('account/download', 'customer_token=' . $this->session->data['customer_token'], true)
 		);
 
 		$this->load->model('account/download');
@@ -71,7 +71,7 @@ class ControllerAccountDownload extends Controller {
 					'date_added' => date($this->language->get('date_format_short'), strtotime($result['date_added'])),
 					'name'       => $result['name'],
 					'size'       => round(substr($size, 0, strpos($size, '.') + 4), 2) . $suffix[$i],
-					'href'       => $this->url->link('account/download/download', 'download_id=' . $result['download_id'], true)
+					'href'       => $this->url->link('account/download/download', 'customer_token=' . $this->session->data['customer_token'] . '&download_id=' . $result['download_id'], true)
 				);
 			}
 		}
@@ -80,13 +80,13 @@ class ControllerAccountDownload extends Controller {
 		$pagination->total = $download_total;
 		$pagination->page = $page;
 		$pagination->limit = $this->config->get('theme_' . $this->config->get('config_theme') . '_product_limit');
-		$pagination->url = $this->url->link('account/download', 'page={page}', true);
+		$pagination->url = $this->url->link('account/download', 'customer_token=' . $this->session->data['customer_token'] . '&page={page}', true);
 
 		$data['pagination'] = $pagination->render();
 
 		$data['results'] = sprintf($this->language->get('text_pagination'), ($download_total) ? (($page - 1) * 10) + 1 : 0, ((($page - 1) * 10) > ($download_total - 10)) ? $download_total : ((($page - 1) * 10) + 10), $download_total, ceil($download_total / 10));
 		
-		$data['continue'] = $this->url->link('account/account', '', true);
+		$data['continue'] = $this->url->link('account/account', 'customer_token=' . $this->session->data['customer_token'], true);
 
 		$data['column_left'] = $this->load->controller('common/column_left');
 		$data['column_right'] = $this->load->controller('common/column_right');
@@ -100,9 +100,9 @@ class ControllerAccountDownload extends Controller {
 
 	public function download() {
 		if (!$this->customer->isLogged()) {
-			$this->session->data['redirect'] = $this->url->link('account/download', '', true);
+			$this->session->data['redirect'] = $this->url->link('account/download', 'customer_token=' . $this->session->data['customer_token'], true);
 
-			$this->response->redirect($this->url->link('account/login', '', true));
+			$this->response->redirect($this->url->link('account/login', 'customer_token=' . $this->session->data['customer_token'], true));
 		}
 
 		$this->load->model('account/download');

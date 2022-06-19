@@ -1,14 +1,14 @@
 <?php
 class ControllerAccountTracking extends Controller {
 	public function index() {
-		if (!$this->customer->isLogged()) {
+		if (!$this->customer->isLogged() || (!isset($this->request->get['customer_token']) || !isset($this->session->data['customer_token']) || ($this->request->get['customer_token'] != $this->session->data['customer_token']))) {
 			$this->session->data['redirect'] = $this->url->link('account/tracking', '', true);
 
 			$this->response->redirect($this->url->link('account/login', '', true));
 		}
 		
 		if (!$this->config->get('config_affiliate_status')) {
-			$this->response->redirect($this->url->link('account/account', '', true));
+			$this->response->redirect($this->url->link('account/account', 'customer_token=' . $this->session->data['customer_token'], true));
 		}
 
 		$this->load->model('account/customer');
@@ -41,7 +41,9 @@ class ControllerAccountTracking extends Controller {
 	
 			$data['code'] = $affiliate_info['tracking'];
 	
-			$data['continue'] = $this->url->link('account/account', '', true);
+			$data['continue'] = $this->url->link('account/account', 'customer_token=' . $this->session->data['customer_token'], true);
+			
+			$data['customer_token'] = $this->session->data['customer_token'];
 	
 			$data['column_left'] = $this->load->controller('common/column_left');
 			$data['column_right'] = $this->load->controller('common/column_right');
@@ -64,6 +66,12 @@ class ControllerAccountTracking extends Controller {
 				$tracking = $this->request->get['tracking'];
 			} else {
 				$tracking = '';
+			}
+			
+			if (!$this->customer->isLogged() || (!isset($this->request->get['customer_token']) || !isset($this->session->data['customer_token']) || ($this->request->get['customer_token'] != $this->session->data['customer_token']))) {
+				$this->session->data['redirect'] = $this->url->link('account/password', '', true);
+
+				$json['redirect'] = $this->url->link('account/login', '', true);
 			}
 			
 			$this->load->model('catalog/product');

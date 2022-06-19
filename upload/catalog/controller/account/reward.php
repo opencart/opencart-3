@@ -1,7 +1,7 @@
 <?php
 class ControllerAccountReward extends Controller {
 	public function index() {
-		if (!$this->customer->isLogged()) {
+		if (!$this->customer->isLogged() || (!isset($this->request->get['customer_token']) || !isset($this->session->data['customer_token']) || ($this->request->get['customer_token'] != $this->session->data['customer_token']))) {
 			$this->session->data['redirect'] = $this->url->link('account/reward', '', true);
 
 			$this->response->redirect($this->url->link('account/login', '', true));
@@ -20,12 +20,12 @@ class ControllerAccountReward extends Controller {
 
 		$data['breadcrumbs'][] = array(
 			'text' => $this->language->get('text_account'),
-			'href' => $this->url->link('account/account', '', true)
+			'href' => $this->url->link('account/account', 'customer_token=' . $this->session->data['customer_token'], true)
 		);
 
 		$data['breadcrumbs'][] = array(
 			'text' => $this->language->get('text_reward'),
-			'href' => $this->url->link('account/reward', '', true)
+			'href' => $this->url->link('account/reward', 'customer_token=' . $this->session->data['customer_token'], true)
 		);
 
 		$this->load->model('account/reward');
@@ -55,7 +55,7 @@ class ControllerAccountReward extends Controller {
 				'points'      => $result['points'],
 				'description' => $result['description'],
 				'date_added'  => date($this->language->get('date_format_short'), strtotime($result['date_added'])),
-				'href'        => $this->url->link('account/order/info', 'order_id=' . $result['order_id'], true)
+				'href'        => $this->url->link('account/order/info', 'customer_token=' . $this->session->data['customer_token'] . '&order_id=' . $result['order_id'], true)
 			);
 		}
 
@@ -63,7 +63,7 @@ class ControllerAccountReward extends Controller {
 		$pagination->total = $reward_total;
 		$pagination->page = $page;
 		$pagination->limit = 10;
-		$pagination->url = $this->url->link('account/reward', 'page={page}', true);
+		$pagination->url = $this->url->link('account/reward', 'customer_token=' . $this->session->data['customer_token'] . '&page={page}', true);
 
 		$data['pagination'] = $pagination->render();
 
@@ -71,7 +71,7 @@ class ControllerAccountReward extends Controller {
 
 		$data['total'] = (int)$this->customer->getRewardPoints();
 
-		$data['continue'] = $this->url->link('account/account', '', true);
+		$data['continue'] = $this->url->link('account/account', 'customer_token=' . $this->session->data['customer_token'], true);
 
 		$data['column_left'] = $this->load->controller('common/column_left');
 		$data['column_right'] = $this->load->controller('common/column_right');

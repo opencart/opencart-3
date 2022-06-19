@@ -14,12 +14,12 @@ class ControllerAccountSuccess extends Controller {
 
 		$data['breadcrumbs'][] = array(
 			'text' => $this->language->get('text_account'),
-			'href' => $this->url->link('account/account', '', true)
+			'href' => $this->url->link('account/account', (isset($this->session->data['customer_token']) ? '&customer_token=' . $this->session->data['customer_token'] : ''), true)
 		);
 
 		$data['breadcrumbs'][] = array(
 			'text' => $this->language->get('text_success'),
-			'href' => $this->url->link('account/success')
+			'href' => $this->url->link('account/success', (isset($this->session->data['customer_token']) ? '&customer_token=' . $this->session->data['customer_token'] : ''))
 		);
 
 		if ($this->customer->isLogged()) {
@@ -31,7 +31,7 @@ class ControllerAccountSuccess extends Controller {
 		if ($this->cart->hasProducts()) {
 			$data['continue'] = $this->url->link('checkout/cart');
 		} else {
-			$data['continue'] = $this->url->link('account/account', '', true);
+			$data['continue'] = $this->url->link('account/account', (isset($this->session->data['customer_token']) ? '&customer_token=' . $this->session->data['customer_token'] : ''), true);
 		}
 
 		$data['column_left'] = $this->load->controller('common/column_left');

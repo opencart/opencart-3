@@ -223,6 +223,9 @@ class ControllerCheckoutRegister extends Controller {
 			$customer_group_info = $this->model_account_customer_group->getCustomerGroup($customer_group_id);
 
 			if ($customer_group_info && !$customer_group_info['approval']) {
+				// Create customer token
+				$this->session->data['customer_token'] = token(26);
+				
 				$this->customer->login($this->request->post['email'], $this->request->post['password']);
 
 				$this->session->data['payment_address'] = $this->model_account_address->getAddress($this->customer->getAddressId());

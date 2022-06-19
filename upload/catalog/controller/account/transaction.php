@@ -1,7 +1,7 @@
 <?php
 class ControllerAccountTransaction extends Controller {
 	public function index() {
-		if (!$this->customer->isLogged()) {
+		if (!$this->customer->isLogged() || (!isset($this->request->get['customer_token']) || !isset($this->session->data['customer_token']) || ($this->request->get['customer_token'] != $this->session->data['customer_token']))) {
 			$this->session->data['redirect'] = $this->url->link('account/transaction', '', true);
 
 			$this->response->redirect($this->url->link('account/login', '', true));
@@ -20,12 +20,12 @@ class ControllerAccountTransaction extends Controller {
 
 		$data['breadcrumbs'][] = array(
 			'text' => $this->language->get('text_account'),
-			'href' => $this->url->link('account/account', '', true)
+			'href' => $this->url->link('account/account', 'customer_token=' . $this->session->data['customer_token'], true)
 		);
 
 		$data['breadcrumbs'][] = array(
 			'text' => $this->language->get('text_transaction'),
-			'href' => $this->url->link('account/transaction', '', true)
+			'href' => $this->url->link('account/transaction', 'customer_token=' . $this->session->data['customer_token'], true)
 		);
 
 		$this->load->model('account/transaction');
@@ -63,7 +63,7 @@ class ControllerAccountTransaction extends Controller {
 		$pagination->total = $transaction_total;
 		$pagination->page = $page;
 		$pagination->limit = 10;
-		$pagination->url = $this->url->link('account/transaction', 'page={page}', true);
+		$pagination->url = $this->url->link('account/transaction', 'customer_token=' . $this->session->data['customer_token'] . '&page={page}', true);
 
 		$data['pagination'] = $pagination->render();
 
@@ -71,7 +71,7 @@ class ControllerAccountTransaction extends Controller {
 
 		$data['total'] = $this->currency->format($this->customer->getBalance(), $this->session->data['currency']);
 
-		$data['continue'] = $this->url->link('account/account', '', true);
+		$data['continue'] = $this->url->link('account/account', 'customer_token=' . $this->session->data['customer_token'], true);
 
 		$data['column_left'] = $this->load->controller('common/column_left');
 		$data['column_right'] = $this->load->controller('common/column_right');

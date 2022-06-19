@@ -46,16 +46,20 @@
 $('input[name=\'product\']').autocomplete({
 	'source': function (request, response) {
 		$.ajax({
-			url: 'index.php?route=account/tracking/autocomplete&filter_name=' +  encodeURIComponent(request) + '&tracking=' + encodeURIComponent($('#input-code').val()),
+			url: 'index.php?route=account/tracking|autocomplete&customer_token={{ customer_token }}&filter_name=' + encodeURIComponent(request) + '&tracking=' + encodeURIComponent($('#input-code').val()),
 			dataType: 'json',
-			success: function (json) {
-				response($.map(json, function (item) {
-					return {
-						label: item['name'],
-						value: item['link']
-					}
-				}));
-			}
+            success: function (json) {
+                if (json['redirect']) {
+					location = $json['redirect'];
+				}
+            }
+        }).done(function(json)) {
+			response($.map(json, function (item) {
+				return {
+					label: item['name'],
+                    value: item['link']
+                }
+            }));
 		});
 	},
 	'select': function (item) {

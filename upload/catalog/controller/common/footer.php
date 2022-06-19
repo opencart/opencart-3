@@ -27,16 +27,16 @@ class ControllerCommonFooter extends Controller {
 		$data['sitemap'] = $this->url->link('information/sitemap');
 		$data['tracking'] = $this->url->link('information/tracking');
 		$data['manufacturer'] = $this->url->link('product/manufacturer');
-		$data['voucher'] = $this->url->link('account/voucher', '', true);		
 		$data['special'] = $this->url->link('product/special');
-		$data['account'] = $this->url->link('account/account', '', true);
-		$data['order'] = $this->url->link('account/order', '', true);
-		$data['wishlist'] = $this->url->link('account/wishlist', '', true);
-		$data['newsletter'] = $this->url->link('account/newsletter', '', true);
+		$data['voucher'] = $this->url->link('account/voucher', (isset($this->session->data['customer_token']) ? '&customer_token=' . $this->session->data['customer_token'] : ''), true);				
+		$data['account'] = $this->url->link('account/account', (isset($this->session->data['customer_token']) ? '&customer_token=' . $this->session->data['customer_token'] : ''), true);
+		$data['order'] = $this->url->link('account/order', (isset($this->session->data['customer_token']) ? '&customer_token=' . $this->session->data['customer_token'] : ''), true);
+		$data['wishlist'] = $this->url->link('account/wishlist', (isset($this->session->data['customer_token']) ? '&customer_token=' . $this->session->data['customer_token'] : ''), true);
+		$data['newsletter'] = $this->url->link('account/newsletter', (isset($this->session->data['customer_token']) ? '&customer_token=' . $this->session->data['customer_token'] : ''), true);
 		
 		// Affiliate
 		if ($this->config->get('config_affiliate_status')) {
-			$data['affiliate'] = $this->url->link('account/affiliate', '', true);
+			$data['affiliate'] = $this->url->link('account/affiliate', (isset($this->session->data['customer_token']) ? '&customer_token=' . $this->session->data['customer_token'] : ''), true);
 		} else {
 			$data['affiliate'] = '';
 		}
@@ -47,7 +47,9 @@ class ControllerCommonFooter extends Controller {
 		if ($this->config->get('config_customer_online')) {
 			$this->load->model('tool/online');
 
-			if (isset($this->request->server['REMOTE_ADDR'])) {
+			if (isset($this->request->server['HTTP_X_REAL_IP'])) {
+				$ip = $this->request->server['HTTP_X_REAL_IP'];
+			} elseif (isset($this->request->server['REMOTE_ADDR'])) {
 				$ip = $this->request->server['REMOTE_ADDR'];
 			} else {
 				$ip = '';

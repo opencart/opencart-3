@@ -3,7 +3,7 @@ class ControllerAccountAddress extends Controller {
 	private $error = array();
 
 	public function index() {
-		if (!$this->customer->isLogged()) {
+		if (!$this->customer->isLogged() || (!isset($this->request->get['customer_token']) || !isset($this->session->data['customer_token']) || ($this->request->get['customer_token'] != $this->session->data['customer_token']))) {
 			$this->session->data['redirect'] = $this->url->link('account/address', '', true);
 
 			$this->response->redirect($this->url->link('account/login', '', true));
@@ -20,7 +20,7 @@ class ControllerAccountAddress extends Controller {
 
 	public function add() {
 		if (!$this->customer->isLogged()) {
-			$this->session->data['redirect'] = $this->url->link('account/address', '', true);
+			$this->session->data['redirect'] = $this->url->link('account/address', 'customer_token=' . $this->session->data['customer_token'], true);
 
 			$this->response->redirect($this->url->link('account/login', '', true));
 		}
@@ -41,7 +41,7 @@ class ControllerAccountAddress extends Controller {
 
 			$this->session->data['success'] = $this->language->get('text_add');
 
-			$this->response->redirect($this->url->link('account/address', '', true));
+			$this->response->redirect($this->url->link('account/address', 'customer_token=' . $this->session->data['customer_token'], true));
 		}
 
 		$this->getForm();
@@ -49,9 +49,9 @@ class ControllerAccountAddress extends Controller {
 
 	public function edit() {
 		if (!$this->customer->isLogged()) {
-			$this->session->data['redirect'] = $this->url->link('account/address', '', true);
+			$this->session->data['redirect'] = $this->url->link('account/address', 'customer_token=' . $this->session->data['customer_token'], true);
 
-			$this->response->redirect($this->url->link('account/login', '', true));
+			$this->response->redirect($this->url->link('account/login', 'customer_token=' . $this->session->data['customer_token'], true));
 		}
 
 		$this->load->language('account/address');
@@ -86,7 +86,7 @@ class ControllerAccountAddress extends Controller {
 
 			$this->session->data['success'] = $this->language->get('text_edit');
 
-			$this->response->redirect($this->url->link('account/address', '', true));
+			$this->response->redirect($this->url->link('account/address', 'customer_token=' . $this->session->data['customer_token'], true));
 		}
 
 		$this->getForm();
@@ -96,9 +96,9 @@ class ControllerAccountAddress extends Controller {
 		$json = array();
 		
 		if (!$this->customer->isLogged()) {
-			$this->session->data['redirect'] = $this->url->link('account/address', '', true);
+			$this->session->data['redirect'] = $this->url->link('account/address', 'customer_token=' . $this->session->data['customer_token'], true);
 
-			$json['redirect'] = str_replace('&amp;', '&', $this->url->link('account/login', '', true));
+			$json['redirect'] = str_replace('&amp;', '&', $this->url->link('account/login', 'customer_token=' . $this->session->data['customer_token'], true));
 		}
 
 		$this->load->language('account/address');
@@ -149,12 +149,12 @@ class ControllerAccountAddress extends Controller {
 
 		$data['breadcrumbs'][] = array(
 			'text' => $this->language->get('text_account'),
-			'href' => $this->url->link('account/account', '', true)
+			'href' => $this->url->link('account/account', 'customer_token=' . $this->session->data['customer_token'], true)
 		);
 
 		$data['breadcrumbs'][] = array(
 			'text' => $this->language->get('heading_title'),
-			'href' => $this->url->link('account/address', '', true)
+			'href' => $this->url->link('account/address', 'customer_token=' . $this->session->data['customer_token'], true)
 		);
 
 		if (isset($this->session->data['success'])) {
@@ -173,13 +173,13 @@ class ControllerAccountAddress extends Controller {
 			$data['addresses'][] = array(
 				'address_id' => $result['address_id'],
 				'address'    => $result['address_format'],
-				'update'     => $this->url->link('account/address/edit', 'address_id=' . $result['address_id'], true),
-				'delete'     => $this->url->link('account/address/delete', 'address_id=' . $result['address_id'], true)
+				'update'     => $this->url->link('account/address/edit', 'address_id=' . $result['address_id'] . '&customer_token=' . $this->session->data['customer_token'], true),
+				'delete'     => $this->url->link('account/address/delete', 'address_id=' . $result['address_id'] . '&customer_token=' . $this->session->data['customer_token'], true)
 			);
 		}
 		
-		$data['add'] = $this->url->link('account/address/add', '', true);
-		$data['back'] = $this->url->link('account/account', '', true);
+		$data['add'] = $this->url->link('account/address/add', 'customer_token=' . $this->session->data['customer_token'], true);
+		$data['back'] = $this->url->link('account/account', 'customer_token=' . $this->session->data['customer_token'], true);
 
 		$data['column_left'] = $this->load->controller('common/column_left');
 		$data['column_right'] = $this->load->controller('common/column_right');
@@ -201,23 +201,23 @@ class ControllerAccountAddress extends Controller {
 
 		$data['breadcrumbs'][] = array(
 			'text' => $this->language->get('text_account'),
-			'href' => $this->url->link('account/account', '', true)
+			'href' => $this->url->link('account/account', 'customer_token=' . $this->session->data['customer_token'], true)
 		);
 
 		$data['breadcrumbs'][] = array(
 			'text' => $this->language->get('heading_title'),
-			'href' => $this->url->link('account/address', '', true)
+			'href' => $this->url->link('account/address', 'customer_token=' . $this->session->data['customer_token'], true)
 		);
 
 		if (!isset($this->request->get['address_id'])) {
 			$data['breadcrumbs'][] = array(
 				'text' => $this->language->get('text_address_add'),
-				'href' => $this->url->link('account/address/add', '', true)
+				'href' => $this->url->link('account/address/add', 'customer_token=' . $this->session->data['customer_token'], true)
 			);
 		} else {
 			$data['breadcrumbs'][] = array(
 				'text' => $this->language->get('text_address_edit'),
-				'href' => $this->url->link('account/address/edit', 'address_id=' . $this->request->get['address_id'], true)
+				'href' => $this->url->link('account/address/edit', 'address_id=' . $this->request->get['address_id'] . '&customer_token=' . $this->session->data['customer_token'], true)
 			);
 		}
 
@@ -272,9 +272,9 @@ class ControllerAccountAddress extends Controller {
 		}
 
 		if (!isset($this->request->get['address_id'])) {
-			$data['action'] = $this->url->link('account/address/add', '', true);
+			$data['action'] = $this->url->link('account/address/add', 'customer_token=' . $this->session->data['customer_token'], true);
 		} else {
-			$data['action'] = $this->url->link('account/address/edit', 'address_id=' . $this->request->get['address_id'], true);
+			$data['action'] = $this->url->link('account/address/edit', 'address_id=' . $this->request->get['address_id'] . '&customer_token=' . $this->session->data['customer_token'], true);
 		}
 
 		if (isset($this->request->get['address_id']) && ($this->request->server['REQUEST_METHOD'] != 'POST')) {
@@ -406,7 +406,7 @@ class ControllerAccountAddress extends Controller {
 			$data['default'] = false;
 		}
 
-		$data['back'] = $this->url->link('account/address', '', true);
+		$data['back'] = $this->url->link('account/address', 'customer_token=' . $this->session->data['customer_token'], true);
 
 		$data['column_left'] = $this->load->controller('common/column_left');
 		$data['column_right'] = $this->load->controller('common/column_right');
@@ -473,7 +473,7 @@ class ControllerAccountAddress extends Controller {
 		$json = array();
 		
 		if (isset($this->request->get['address_id'])) {
-			$json['redirect'] = str_replace('&amp;', '&', $this->url->link('account/address/edit', 'address_id=' . $this->request->get['address_id'], true));
+			$json['redirect'] = str_replace('&amp;', '&', $this->url->link('account/address/edit', 'address_id=' . $this->request->get['address_id'] . '&customer_token=' . $this->session->data['customer_token'], true));
 		}
 		
 		$this->response->addHeader('Content-Type: application/json');

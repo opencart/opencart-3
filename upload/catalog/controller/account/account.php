@@ -1,7 +1,7 @@
 <?php
 class ControllerAccountAccount extends Controller {
 	public function index() {
-		if (!$this->customer->isLogged()) {
+		if (!$this->customer->isLogged() || (!isset($this->request->get['customer_token']) || !isset($this->session->data['customer_token']) || ($this->request->get['customer_token'] != $this->session->data['customer_token']))) {
 			$this->session->data['redirect'] = $this->url->link('account/account', '', true);
 
 			$this->response->redirect($this->url->link('account/login', '', true));
@@ -20,7 +20,7 @@ class ControllerAccountAccount extends Controller {
 
 		$data['breadcrumbs'][] = array(
 			'text' => $this->language->get('text_account'),
-			'href' => $this->url->link('account/account', '', true)
+			'href' => $this->url->link('account/account', 'customer_token=' . $this->session->data['customer_token'], true)
 		);
 
 		if (isset($this->session->data['success'])) {
@@ -31,9 +31,9 @@ class ControllerAccountAccount extends Controller {
 			$data['success'] = '';
 		} 
 		
-		$data['edit'] = $this->url->link('account/edit', '', true);
-		$data['password'] = $this->url->link('account/password', '', true);
-		$data['address'] = $this->url->link('account/address', '', true);
+		$data['edit'] = $this->url->link('account/edit', 'customer_token=' . $this->session->data['customer_token'], true);
+		$data['password'] = $this->url->link('account/password', 'customer_token=' . $this->session->data['customer_token'], true);
+		$data['address'] = $this->url->link('account/address', 'customer_token=' . $this->session->data['customer_token'], true);
 		
 		$data['credit_cards'] = array();
 		
@@ -52,31 +52,31 @@ class ControllerAccountAccount extends Controller {
 			}
 		}
 		
-		$data['wishlist'] = $this->url->link('account/wishlist');
-		$data['order'] = $this->url->link('account/order', '', true);
-		$data['download'] = $this->url->link('account/download', '', true);
+		$data['wishlist'] = $this->url->link('account/wishlist', 'customer_token=' . $this->session->data['customer_token']);
+		$data['order'] = $this->url->link('account/order', 'customer_token=' . $this->session->data['customer_token'], true);
+		$data['download'] = $this->url->link('account/download', 'customer_token=' . $this->session->data['customer_token'], true);
 		
 		if ($this->config->get('total_reward_status')) {
-			$data['reward'] = $this->url->link('account/reward', '', true);
+			$data['reward'] = $this->url->link('account/reward', 'customer_token=' . $this->session->data['customer_token'], true);
 		} else {
 			$data['reward'] = '';
 		}		
 		
-		$data['returns'] = $this->url->link('account/returns', '', true);
-		$data['transaction'] = $this->url->link('account/transaction', '', true);
-		$data['newsletter'] = $this->url->link('account/newsletter', '', true);
-		$data['recurring'] = $this->url->link('account/recurring', '', true);
+		$data['returns'] = $this->url->link('account/returns', 'customer_token=' . $this->session->data['customer_token'], true);
+		$data['transaction'] = $this->url->link('account/transaction', 'customer_token=' . $this->session->data['customer_token'], true);
+		$data['newsletter'] = $this->url->link('account/newsletter', 'customer_token=' . $this->session->data['customer_token'], true);
+		$data['recurring'] = $this->url->link('account/recurring', 'customer_token=' . $this->session->data['customer_token'], true);
 		
 		// Affiliate
 		if ($this->config->get('config_affiliate_status')) {
-			$data['affiliate'] = $this->url->link('account/affiliate', '', true);
+			$data['affiliate'] = $this->url->link('account/affiliate', 'customer_token=' . $this->session->data['customer_token'], true);
 
 			$this->load->model('account/customer');
 
 			$affiliate_info = $this->model_account_customer->getAffiliate($this->customer->getId());
 
 			if ($affiliate_info) {
-				$data['tracking'] = $this->url->link('account/tracking', '', true);
+				$data['tracking'] = $this->url->link('account/tracking', 'customer_token=' . $this->session->data['customer_token'], true);
 			} else {
 				$data['tracking'] = '';
 			}
