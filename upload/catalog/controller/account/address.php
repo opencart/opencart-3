@@ -96,9 +96,9 @@ class ControllerAccountAddress extends Controller {
 		$json = array();
 		
 		if (!$this->customer->isLogged()) {
-			$this->session->data['redirect'] = $this->url->link('account/address', 'customer_token=' . $this->session->data['customer_token'], true);
+			$this->session->data['redirect'] = $this->url->link('account/address', '', true);
 
-			$json['redirect'] = str_replace('&amp;', '&', $this->url->link('account/login', 'customer_token=' . $this->session->data['customer_token'], true));
+			$json['redirect'] = str_replace('&amp;', '&', $this->url->link('account/login', '', true));
 		}
 
 		$this->load->language('account/address');
@@ -134,7 +134,7 @@ class ControllerAccountAddress extends Controller {
 
 			$this->session->data['success'] = $this->language->get('text_delete');
 
-			$json['success'] = str_replace('&amp;', '&', $this->url->link('account/address', '', true));
+			$json['success'] = str_replace('&amp;', '&', $this->url->link('account/address', 'customer_token=' . $this->session->data['customer_token'], true));
 		}
 
 		$this->response->addHeader('Content-Type: application/json');
@@ -173,8 +173,8 @@ class ControllerAccountAddress extends Controller {
 			$data['addresses'][] = array(
 				'address_id' => $result['address_id'],
 				'address'    => $result['address_format'],
-				'update'     => $this->url->link('account/address/edit', 'address_id=' . $result['address_id'] . '&customer_token=' . $this->session->data['customer_token'], true),
-				'delete'     => $this->url->link('account/address/delete', 'address_id=' . $result['address_id'] . '&customer_token=' . $this->session->data['customer_token'], true)
+				'update'     => $this->url->link('account/address/edit', 'customer_token=' . $this->session->data['customer_token'] . '&address_id=' . $result['address_id'], true),
+				'delete'     => $this->url->link('account/address/delete', 'customer_token=' . $this->session->data['customer_token'] . '&address_id=' . $result['address_id'], true)
 			);
 		}
 		
@@ -217,7 +217,7 @@ class ControllerAccountAddress extends Controller {
 		} else {
 			$data['breadcrumbs'][] = array(
 				'text' => $this->language->get('text_address_edit'),
-				'href' => $this->url->link('account/address/edit', 'address_id=' . $this->request->get['address_id'] . '&customer_token=' . $this->session->data['customer_token'], true)
+				'href' => $this->url->link('account/address/edit', 'customer_token=' . $this->session->data['customer_token'] . '&address_id=' . $this->request->get['address_id'], true)
 			);
 		}
 
@@ -274,7 +274,7 @@ class ControllerAccountAddress extends Controller {
 		if (!isset($this->request->get['address_id'])) {
 			$data['action'] = $this->url->link('account/address/add', 'customer_token=' . $this->session->data['customer_token'], true);
 		} else {
-			$data['action'] = $this->url->link('account/address/edit', 'address_id=' . $this->request->get['address_id'] . '&customer_token=' . $this->session->data['customer_token'], true);
+			$data['action'] = $this->url->link('account/address/edit', 'customer_token=' . $this->session->data['customer_token'] . '&address_id=' . $this->request->get['address_id'], true);
 		}
 
 		if (isset($this->request->get['address_id']) && ($this->request->server['REQUEST_METHOD'] != 'POST')) {
@@ -473,7 +473,7 @@ class ControllerAccountAddress extends Controller {
 		$json = array();
 		
 		if (isset($this->request->get['address_id'])) {
-			$json['redirect'] = str_replace('&amp;', '&', $this->url->link('account/address/edit', 'address_id=' . $this->request->get['address_id'] . '&customer_token=' . $this->session->data['customer_token'], true));
+			$json['redirect'] = str_replace('&amp;', '&', $this->url->link('account/address/edit', 'customer_token=' . $this->session->data['customer_token'] . '&address_id=' . $this->request->get['address_id'], true));
 		}
 		
 		$this->response->addHeader('Content-Type: application/json');
