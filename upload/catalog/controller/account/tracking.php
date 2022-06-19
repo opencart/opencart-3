@@ -61,34 +61,43 @@ class ControllerAccountTracking extends Controller {
 	public function autocomplete() {
 		$json = array();
 
-		// Only display tracking list if customer is logged in and has its customer token.
-		if ($this->customer->isLogged() && (isset($this->request->get['customer_token']) && isset($this->session->data['customer_token']) && ($this->request->get['customer_token'] == $this->session->data['customer_token']))) {
-			if (isset($this->request->get['filter_name'])) {
-				if (isset($this->request->get['tracking'])) {
-					$tracking = $this->request->get['tracking'];
-				} else {
-					$tracking = '';
-				}			
-			
-				$this->load->model('catalog/product');
+		if (isset($this->request->get['filter_name'])) {
+			$filter_name = $this->request->get['filter_name'];
+		} else {
+			$filter_name = '';
+		}
 
-				$filter_data = array(
-					'filter_name' => $this->request->get['filter_name'],
-					'start'       => 0,
-					'limit'       => 5
+		if (isset($this->request->get['tracking'])) {
+			$tracking = $this->request->get['tracking'];
+		} else {
+			$tracking = '';
+		}
+
+		if (!$this->customer->isLogged() || (!isset($this->request->get['customer_token']) || !isset($this->session->data['customer_token']) || ($this->request->get['customer_token'] != $this->session->data['customer_token']))) {
+			$this->session->data['redirect'] = $this->url->link('account/password', '', true);
+
+			$json['redirect'] = $this->url->link('account/login', '', true);
+		}
+
+		if (!$json) {
+			$this->load->model('catalog/product');
+
+			$filter_data = array(
+				'filter_name' 	=> $this->request->get['filter_name'],
+				'start' 		=> 0,
+				'limit' 		=> 5
+			);
+
+			$results = $this->model_catalog_product->getProducts($filter_data);
+
+			foreach ($results as $result) {
+				$json[] = array(
+					'name' => strip_tags(html_entity_decode($result['name'], ENT_QUOTES, 'UTF-8')),
+					'link' => str_replace('&amp;', '&', $this->url->link('product/product', 'product_id=' . $result['product_id'] . '&tracking=' . $tracking))
 				);
-
-				$results = $this->model_catalog_product->getProducts($filter_data);
-
-				// Events can still capture this for extensions purposes.
-				foreach ($results as $result) {
-					$json[] = array(
-						'name' => strip_tags(html_entity_decode($result['name'], ENT_QUOTES, 'UTF-8')),
-						'link' => str_replace('&amp;', '&', $this->url->link('product/product', 'product_id=' . $result['product_id'] . '&tracking=' . $tracking))
-					);
-				}
 			}
 		}
+
 
 		$this->response->addHeader('Content-Type: application/json');
 		$this->response->setOutput(json_encode($json));
