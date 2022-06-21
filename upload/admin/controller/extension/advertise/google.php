@@ -263,7 +263,7 @@ class ControllerExtensionAdvertiseGoogle extends Controller {
 
             if (!empty($this->request->post['all_pages'])) {
                 $filter_data = $this->getFilter($this->request->post['filter']);
-            } elseif (isset($this->request->post['select']) && is_array($this->request->post['select'])) {
+            } elseif (!empty($this->request->post['select']) && is_array($this->request->post['select'])) {
                 $select = $this->request->post['select'];
             }
 

@@ -412,7 +412,7 @@ class ModelExtensionShippingECShip extends Model {
 				}
 			}
 
-			if (isset($country_codes[$address['iso_code_3']]) && is_array($country_codes[$address['iso_code_3']])) {
+			if (!empty($country_codes[$address['iso_code_3']]) && is_array($country_codes[$address['iso_code_3']])) {
 				foreach ($country_codes[$address['iso_code_3']] as $key => $value) {
 					if ($address['zone_code'] == $key) {
 						$address_to['country'] = $country_codes[$address['iso_code_3']][$address['zone_code']];

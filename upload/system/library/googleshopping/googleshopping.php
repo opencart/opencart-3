@@ -934,7 +934,7 @@ class Googleshopping extends Library {
 
                     $jobs[] = array(
                         'work_id' 		=> $work['work_id'],
-                        'countries' 	=> isset($work['countries']) && is_array($work['countries']) ? $work['countries'] : array(),
+                        'countries' 	=> !empty($work['countries']) && is_array($work['countries']) ? $work['countries'] : array(),
                         'language_id' 	=> $supported_language_id,
                         'currency' 		=> $currency_info['code']
                     );

@@ -73,7 +73,7 @@ class ControllerCheckoutLogin extends Controller {
 			}
 
 			// Wishlist
-			if (isset($this->session->data['wishlist']) && is_array($this->session->data['wishlist'])) {
+			if (!empty($this->session->data['wishlist']) && is_array($this->session->data['wishlist'])) {
 				$this->load->model('account/wishlist');
 
 				foreach ($this->session->data['wishlist'] as $key => $product_id) {

@@ -1057,7 +1057,7 @@ class ControllerSaleOrder extends Controller {
 						}
 					}
 
-					if ($custom_field['type'] == 'checkbox' && is_array($order_info['custom_field'][$custom_field['custom_field_id']])) {
+					if ($custom_field['type'] == 'checkbox' && !empty($order_info['custom_field'][$custom_field['custom_field_id']]) && is_array($order_info['custom_field'][$custom_field['custom_field_id']])) {
 						foreach ($order_info['custom_field'][$custom_field['custom_field_id']] as $custom_field_value_id) {
 							$custom_field_value_info = $this->model_customer_custom_field->getCustomFieldValue($custom_field_value_id);
 
@@ -1107,7 +1107,7 @@ class ControllerSaleOrder extends Controller {
 						}
 					}
 
-					if ($custom_field['type'] == 'checkbox' && is_array($order_info['payment_custom_field'][$custom_field['custom_field_id']])) {
+					if ($custom_field['type'] == 'checkbox' && !empty($order_info['payment_custom_field'][$custom_field['custom_field_id']]) && is_array($order_info['payment_custom_field'][$custom_field['custom_field_id']])) {
 						foreach ($order_info['payment_custom_field'][$custom_field['custom_field_id']] as $custom_field_value_id) {
 							$custom_field_value_info = $this->model_customer_custom_field->getCustomFieldValue($custom_field_value_id);
 
@@ -1160,7 +1160,7 @@ class ControllerSaleOrder extends Controller {
 						}
 					}
 
-					if ($custom_field['type'] == 'checkbox' && is_array($order_info['shipping_custom_field'][$custom_field['custom_field_id']])) {
+					if ($custom_field['type'] == 'checkbox' && !empty($order_info['shipping_custom_field'][$custom_field['custom_field_id']]) && is_array($order_info['shipping_custom_field'][$custom_field['custom_field_id']])) {
 						foreach ($order_info['shipping_custom_field'][$custom_field['custom_field_id']] as $custom_field_value_id) {
 							$custom_field_value_info = $this->model_customer_custom_field->getCustomFieldValue($custom_field_value_id);
 

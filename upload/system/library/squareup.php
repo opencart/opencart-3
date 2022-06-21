@@ -58,7 +58,7 @@ class Squareup {
         }
 
         // handle method and parameters
-        if (isset($request_data['parameters']) && is_array($request_data['parameters']) && count($request_data['parameters'])) {
+        if (!empty($request_data['parameters']) && is_array($request_data['parameters']) && $request_data['parameters']) {
             $params = $this->encodeParameters($request_data['parameters'], $content_type);
         } else {
             $params = null;
@@ -111,7 +111,7 @@ class Squareup {
             $added_headers[] = 'Content-Type: ' . $content_type;
         }
 
-        if (isset($request_data['headers']) && is_array($request_data['headers'])) {
+        if (!empty($request_data['headers']) && is_array($request_data['headers'])) {
             $curl_options[CURLOPT_HTTPHEADER] = array_merge($added_headers, $request_data['headers']);
         } else {
             $curl_options[CURLOPT_HTTPHEADER] = $added_headers;
