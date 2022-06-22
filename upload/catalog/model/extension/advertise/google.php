@@ -100,7 +100,7 @@ class ModelExtensionAdvertiseGoogle extends Model {
         $found_size = '';
 
         foreach ($product['option'] as $option) {
-            if (is_array($option_map['colors'])) {
+            if (!empty($option_map['colors']) && is_array($option_map['colors'])) {
                 foreach ($option_map['colors'] as $product_option_value_id => $color) {
                     if ($option['product_option_value_id'] == $product_option_value_id) {
                         $found_color = $color;
@@ -108,7 +108,7 @@ class ModelExtensionAdvertiseGoogle extends Model {
                 }
             }
 
-            if (is_array($option_map['sizes'])) {
+            if (!empty($option_map['sizes']) && is_array($option_map['sizes'])) {
                 foreach ($option_map['sizes'] as $product_option_value_id => $size) {
                     if ($option['product_option_value_id'] == $product_option_value_id) {
                         $found_size = $size;

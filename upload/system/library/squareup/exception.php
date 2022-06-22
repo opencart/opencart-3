@@ -47,7 +47,7 @@ class Exception extends \Exception {
     }
 
     protected function errorCodeExists($code) {
-        if (is_array($this->errors)) {
+        if (!empty($this->errors) && is_array($this->errors)) {
             foreach ($this->errors as $error) {
                 if ($error['code'] == $code) {
                     return true;
