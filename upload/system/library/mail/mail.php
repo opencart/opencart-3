@@ -17,6 +17,7 @@ class Mail {
 				$this->{$key} = $value;
 			}
 		}
+	}
 	
 	public function send() {
 		if (is_array($this->to)) {
