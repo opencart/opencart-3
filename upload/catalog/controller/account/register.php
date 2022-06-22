@@ -240,6 +240,10 @@ class ControllerAccountRegister extends Controller {
 		if ((utf8_strlen($this->request->post['telephone']) < 3) || (utf8_strlen($this->request->post['telephone']) > 32)) {
 			$this->error['telephone'] = $this->language->get('error_telephone');
 		}
+		
+		if (!filter_var($this->request->post['telephone'], FILTER_SANITIZE_NUMBER_INT)) {
+			$this->error['telephone'] = $this->language->get('error_invalid_telephone');
+		}
 
 		// Customer Group
 		if (isset($this->request->post['customer_group_id']) && in_array($this->request->post['customer_group_id'], (array)$this->config->get('config_customer_group_display'))) {

@@ -192,6 +192,10 @@ class ControllerAccountEdit extends Controller {
 		if ((utf8_strlen($this->request->post['telephone']) < 3) || (utf8_strlen($this->request->post['telephone']) > 32)) {
 			$this->error['telephone'] = $this->language->get('error_telephone');
 		}
+		
+		if (!filter_var($this->request->post['telephone'], FILTER_SANITIZE_NUMBER_INT)) {
+			$this->error['telephone'] = $this->language->get('error_invalid_telephone');
+		}
 
 		// Custom field validation
 		$this->load->model('account/custom_field');
