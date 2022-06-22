@@ -65,7 +65,7 @@
 var address = {
 	'update': function(key) {
 		$.ajax({
-			url: 'index.php?route=account/address/editAddress&address_id=' + key,
+			url: 'index.php?route=account/address/editAddress&customer_token={{ customer_token }}&address_id=' + key,
 			type: 'post',
 			dataType: 'json',			
 			success: function(json) {
@@ -77,14 +77,12 @@ var address = {
 		
 	},
 	'remove': function(key) {
-		//location = 'index.php?route=account/address/delete&address_id=' + key;
-		
 		var address_row = '{{ address_row }}';
 		
 		$('.alert-dismissible').remove();
 		
 		$.ajax({
-			url: 'index.php?route=account/address/delete&address_id=' + key,
+			url: 'index.php?route=account/address/delete&customer_token={{ customer_token }}&address_id=' + key,
 			type: 'post',
 			dataType: 'json',			
 			success: function(json) {

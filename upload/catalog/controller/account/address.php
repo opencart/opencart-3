@@ -95,7 +95,7 @@ class ControllerAccountAddress extends Controller {
 	public function delete() {
 		$json = array();
 		
-		if (!$this->customer->isLogged()) {
+		if (!$this->customer->isLogged() || (!isset($this->request->get['customer_token']) || !isset($this->session->data['customer_token']) || ($this->request->get['customer_token'] != $this->session->data['customer_token']))) {
 			$this->session->data['redirect'] = $this->url->link('account/address', '', true);
 
 			$json['redirect'] = str_replace('&amp;', '&', $this->url->link('account/login', '', true));
@@ -471,6 +471,12 @@ class ControllerAccountAddress extends Controller {
 	
 	public function editAddress() {
 		$json = array();
+		
+		if (!$this->customer->isLogged() || (!isset($this->request->get['customer_token']) || !isset($this->session->data['customer_token']) || ($this->request->get['customer_token'] != $this->session->data['customer_token']))) {
+			$this->session->data['redirect'] = $this->url->link('account/address', '', true);
+
+			$json['redirect'] = str_replace('&amp;', '&', $this->url->link('account/login', '', true));
+		}
 		
 		if (isset($this->request->get['address_id'])) {
 			$json['redirect'] = str_replace('&amp;', '&', $this->url->link('account/address/edit', 'customer_token=' . $this->session->data['customer_token'] . '&address_id=' . $this->request->get['address_id'], true));
