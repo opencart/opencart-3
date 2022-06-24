@@ -30,8 +30,6 @@ class ControllerCheckoutCart extends Controller {
 
 			if ($this->config->get('config_customer_price') && !$this->customer->isLogged()) {
 				$data['attention'] = sprintf($this->language->get('text_login'), $this->url->link('account/login'), $this->url->link('account/register'));
-			} else {
-				$data['attention'] = '';
 			}
 
 			if (isset($this->session->data['success'])) {
@@ -50,8 +48,7 @@ class ControllerCheckoutCart extends Controller {
 				$data['weight'] = '';
 			}
 
-			$this->load->model('tool/image');
-			
+			$this->load->model('tool/image');			
 			$this->load->model('tool/upload');
 
 			$data['products'] = array();
