@@ -125,6 +125,33 @@ $(document).ready(function() {
 			$('#collapse-checkout-option #button-login').trigger('click');
 		}
 	});
+	
+	// Cookie Policy
+	$('#cookie button').on('click', function() {
+		var element = this;
+
+		$.ajax({
+			url: $(this).val(),
+			type: 'get',
+			dataType: 'json',
+			beforeSend: function() {
+				$(element).button('loading');
+			},
+			complete: function() {
+				$(element).button('reset');
+			},
+			success: function(json) {
+				if (json['success']) {
+					$('#cookie').fadeOut(400, function() {
+						$('#cookie').remove();
+					});
+				}
+			},
+			error: function(xhr, ajaxOptions, thrownError) {
+				console.log(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
+			}
+		});
+	});
 
 	// tooltips on hover
 	$('[data-toggle=\'tooltip\']').tooltip({container: 'body'});
@@ -155,7 +182,7 @@ var cart = {
 				if (json['redirect']) {
 					location = json['redirect'];
 				}
-
+				
 				if (json['success']) {
 					$('#content').parent().before('<div class="alert alert-success alert-dismissible"><i class="fa fa-check-circle"></i> ' + json['success'] + ' <button type="button" class="close" data-dismiss="alert">&times;</button></div>');
 
@@ -360,33 +387,6 @@ $(document).delegate('.agree', 'click', function(e) {
 			$('#modal-agree').modal('show');
 		}
 	});
-});
-
-// Cookie Policy
-$('#cookie button').on('click', function() {
-	var element = this;
-
-    $.ajax({
-        url: $(this).val(),
-        type: 'get',
-        dataType: 'json',
-        beforeSend: function() {
-            $(element).button('loading');
-        },
-        complete: function() {
-            $(element).prop('disabled', false).removeClass('loading');
-        },
-        success: function(json) {
-            if (json['success']) {
-                $('#cookie').fadeOut(400, function() {
-                    $('#cookie').remove();
-                });
-            }
-        },
-        error: function(xhr, ajaxOptions, thrownError) {
-            console.log(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
-        }
-    });
 });
 
 // Autocomplete */
