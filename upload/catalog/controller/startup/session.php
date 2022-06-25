@@ -31,7 +31,7 @@ class ControllerStartupSession extends Controller {
 			$this->session->start($session_id);
 			
 			$option = array(
-				'expires'  => time() + (int)$this->config->get('session_expire'),
+				'expires'  => time() + (int)$this->config->get('config_session_expire'),
 				'path'     => !empty($this->request->server['PHP_SELF']) ? rtrim(dirname($this->request->server['PHP_SELF']), '/') . '/' : '/',
 				'secure'   => $this->request->server['HTTPS'],
 				'httponly' => false,
