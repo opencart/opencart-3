@@ -149,7 +149,7 @@ class ModelExtensionPaymentSagePayServer extends Model {
 	}
 
 	public function updateRecurringPayment($item, $order_details) {
-		$this->load->model('checkout/order');		
+		$this->load->model('checkout/order');
 		
 		$order_info = $this->model_checkout_order->getOrder($order_details['order_id']);
 		
