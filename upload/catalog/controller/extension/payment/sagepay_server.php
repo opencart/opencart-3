@@ -426,12 +426,14 @@ class ControllerExtensionPaymentSagepayServer extends Controller {
 		if (isset($this->session->data['order_id'])) {
 			$order_details = $this->model_extension_payment_sagepay_server->getOrder($this->session->data['order_id']);
 
-			if ($this->config->get('payment_sagepay_server_transaction') == 'PAYMENT') {
-				$subscription_products = $this->model_extension_payment_sagepay_server->getRecurringOrders($this->session->data['order_id']);
+			if ($order_details && $order_details['VendorTxCode']) {
+				if ($this->config->get('payment_sagepay_server_transaction') == 'PAYMENT') {
+					$subscription_products = $this->model_extension_payment_sagepay_server->getRecurringOrders($this->session->data['order_id']);
 
-				// Loop through any products that are subscription items
-				foreach ($subscription_products as $item) {
-					$this->model_extension_payment_sagepay_server->updateRecurringPayment($item, $order_details);
+					// Loop through any products that are subscription items
+					foreach ($subscription_products as $item) {
+						$this->model_extension_payment_sagepay_server->updateRecurringPayment($item, $order_details);
+					}
 				}
 			}
 
