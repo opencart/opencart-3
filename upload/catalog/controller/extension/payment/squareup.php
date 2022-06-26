@@ -207,17 +207,17 @@ class ControllerExtensionPaymentSquareup extends Controller {
 									$trial_text = '';
 								}
 
-								$recurring_price = $this->tax->calculate($item['subscription']['price'] * $item['quantity'], $item['tax_class_id']);
-								$recurring_amt = $this->currency->format($recurring_price, $this->session->data['currency']);
-								$recurring_description = $trial_text . sprintf($this->language->get('text_recurring'), $recurring_amt, $item['subscription']['cycle'], $item['subscription']['frequency']);
+								$subscription_price = $this->tax->calculate($item['subscription']['price'] * $item['quantity'], $item['tax_class_id']);
+								$subscription_amt = $this->currency->format($subscription_price, $this->session->data['currency']);
+								$subscription_description = $trial_text . sprintf($this->language->get('text_subscription'), $subscription_amt, $item['subscription']['cycle'], $item['subscription']['frequency']);
 
-								$item['subscription']['price'] = $recurring_price;
+								$item['subscription']['price'] = $subscription_price;
 
 								if ($item['subscription']['duration'] > 0) {
-									$recurring_description .= sprintf($this->language->get('text_length'), $item['subscription']['duration']);
+									$subscription_description .= sprintf($this->language->get('text_length'), $item['subscription']['duration']);
 								}
 										
-								$item['subscription']['description'] = $recurring_description;
+								$item['subscription']['description'] = $subscription_description;
 
 								if (!$item['subscription']['trial_status']) {
 									// We need to override this value for the proper calculation in updateRecurringExpired

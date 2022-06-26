@@ -7,7 +7,6 @@ $_['text_card_name']		 = 'Card Name: ';
 $_['text_card_digits']		 = 'Last Digits: ';
 $_['text_card_expiry']		 = 'Expiry: ';
 $_['text_trial']			 = '%s every %s %s for %s payments then ';
-$_['text_recurring']		 = '%s every %s %s';
 $_['text_length']			 = ' for %s payments';
 $_['text_confirm_delete']	 = 'Are you sure you wish to delete this card';
 $_['text_card_success']		 = 'Card has been successfully removed';

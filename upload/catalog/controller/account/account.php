@@ -65,8 +65,7 @@ class ControllerAccountAccount extends Controller {
 		
 		$data['returns'] = $this->url->link('account/returns', 'customer_token=' . $this->session->data['customer_token'], true);
 		$data['transaction'] = $this->url->link('account/transaction', 'customer_token=' . $this->session->data['customer_token'], true);
-		$data['newsletter'] = $this->url->link('account/newsletter', 'customer_token=' . $this->session->data['customer_token'], true);
-		$data['recurring'] = $this->url->link('account/recurring', 'customer_token=' . $this->session->data['customer_token'], true);
+		$data['newsletter'] = $this->url->link('account/newsletter', 'customer_token=' . $this->session->data['customer_token'], true);		
 		
 		// Affiliate
 		if ($this->config->get('config_affiliate_status')) {

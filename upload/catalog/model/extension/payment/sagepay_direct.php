@@ -132,22 +132,22 @@ class ModelExtensionPaymentSagePayDirect extends Model {
 			$trial_text = '';
 		}
 
-		$recurring_amt = $this->currency->format($this->tax->calculate($item['price'], $item['tax_class_id'], $this->config->get('config_tax')), $this->session->data['currency'], false, false) * $item['quantity'] . ' ' . $this->session->data['currency'];
+		$subscription_amt = $this->currency->format($this->tax->calculate($item['price'], $item['tax_class_id'], $this->config->get('config_tax')), $this->session->data['currency'], false, false) * $item['quantity'] . ' ' . $this->session->data['currency'];
 		
 		$item['description'] = array();
 		
-		$recurring_description = $trial_text . sprintf($this->language->get('text_recurring'), $recurring_amt, $item['cycle'], $item['frequency']);
+		$subscription_description = $trial_text . sprintf($this->language->get('text_subscription'), $subscription_amt, $item['cycle'], $item['frequency']);
 
 		if ($item['duration'] > 0) {
-			$recurring_description .= sprintf($this->language->get('text_length'), $item['duration']);
+			$subscription_description .= sprintf($this->language->get('text_length'), $item['duration']);
 		}
 		
-		$item['description'] = $recurring_description;
+		$item['description'] = $subscription_description;
 
-		// Create new recurring and set to pending status as no payment has been made yet.
+		// Create new subscription and set to pending status as no payment has been made yet.
 		$subscription_id = $this->model_checkout_subscription->addSubscription($this->session->data['order_id'], $item);
 		
-		$this->model_checkout_recurring->addReference($subscription_id, $vendor_tx_code);
+		$this->model_checkout_subscription->editReference($subscription_id, $vendor_tx_code);
 
 		$order_info = $this->model_checkout_order->getOrder($this->session->data['order_id']);
 
@@ -301,8 +301,10 @@ class ModelExtensionPaymentSagePayDirect extends Model {
 
 			if ($response_data['RepeatResponseData_' . $i++]['Status'] == 'OK') {
 				$this->addRecurringTransaction($subscription['subscription_id'], $response_data, 1);
+				
 				$next_payment = $this->calculateSchedule($frequency, $next_payment, $cycle);
 				$next_payment = date_format($next_payment, 'Y-m-d H:i:s');
+				
 				$this->updateRecurringOrder($subscription['subscription_id'], $next_payment);
 			} else {
 				$this->addRecurringTransaction($subscription['subscription_id'], $response_data, 4);
@@ -439,10 +441,10 @@ class ModelExtensionPaymentSagePayDirect extends Model {
 		}
 	}
 
-	public function recurringPayments() {
+	public function subscriptionPayments() {
 		/*
 		 * Used by the checkout to state the module
-		 * supports recurring recurrings.
+		 * supports subscriptions.
 		 */
 		return true;
 	}

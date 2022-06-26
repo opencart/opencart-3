@@ -180,7 +180,11 @@ class ModelExtensionPaymentSquareup extends Model {
         $mail->send();
     }
 
-    public function recurringPayments() {
+    public function subscriptionPayments() {
+		/*
+		 * Used by the checkout to state the module
+		 * supports subscriptions.
+		 */
         return (bool)$this->config->get('payment_squareup_recurring_status');
     }
 

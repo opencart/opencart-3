@@ -56,9 +56,7 @@
                 <small>{{ option.name }}: {{ option.value }}</small> {% endfor %}
                 {% endif %}
                 {% if product.reward %} <br/>
-                <small>{{ product.reward }}</small> {% endif %}
-                {% if product.recurring %} <br/>
-                <span class="label label-info">{{ text_recurring_item }}</span> <small>{{ product.recurring }}</small> {% endif %}
+                <small>{{ product.reward }}</small> {% endif %}                
 				{% if product.subscription %} <br/>
                 <span class="label label-info">{{ text_subscription }}</span> <small>{{ product.subscription }}</small> {% endif %}</td>
               <td class="text-left">{{ product.model }}</td>

@@ -134,72 +134,74 @@ class ControllerExtensionModulePayPalSmartButton extends Controller {
 	public function createOrder() {
 		$this->load->language('extension/module/paypal_smart_button');
 		
-		$this->load->model('extension/module/paypal_smart_button');
-		
 		$errors = array();
+		
+		$this->load->model('extension/module/paypal_smart_button');
 		
 		$data['order_id'] = '';
 		
 		if (isset($this->request->post['product_id'])) {
 			$product_id = (int)$this->request->post['product_id'];
+		} else {
+			$product_id = 0;
+		}
 		
-			$this->load->model('catalog/product');
+		$this->load->model('catalog/product');
 
-			$product_info = $this->model_catalog_product->getProduct($product_id);
+		$product_info = $this->model_catalog_product->getProduct($product_id);
 
-			if ($product_info) {
-				if (isset($this->request->post['quantity'])) {
-					$quantity = (int)$this->request->post['quantity'];
-				} else {
-					$quantity = 1;
-				}
-
-				if (isset($this->request->post['option'])) {
-					$option = array_filter($this->request->post['option']);
-				} else {
-					$option = array();
-				}
-
-				$product_options = $this->model_catalog_product->getProductOptions($this->request->post['product_id']);
-
-				foreach ($product_options as $product_option) {
-					if ($product_option['required'] && empty($option[$product_option['product_option_id']])) {
-						$errors[] = sprintf($this->language->get('error_required'), $product_option['name']);
-					}
-				}
-
-				if (isset($this->request->post['recurring_id'])) {
-					$recurring_id = (int)$this->request->post['recurring_id'];
-				} else {
-					$recurring_id = 0;
-				}
-
-				$recurrings = $this->model_catalog_product->getProfiles($product_info['product_id']);
-
-				if ($recurrings) {
-					$recurring_ids = array();
-
-					foreach ($recurrings as $recurring) {
-						$recurring_ids[] = $recurring['recurring_id'];
-					}
-
-					if (!in_array($recurring_id, $recurring_ids)) {
-						$errors[] = $this->language->get('error_recurring_required');
-					}
-				}
-
-				if (!$errors) {					
-					if (!$this->model_extension_module_paypal_smart_button->hasProductInCart($this->request->post['product_id'], $option, $recurring_id)) {
-						$this->cart->add($this->request->post['product_id'], $quantity, $option, $recurring_id);
-					}
-					
-					// Unset all shipping and payment methods
-					unset($this->session->data['shipping_method']);
-					unset($this->session->data['shipping_methods']);
-					unset($this->session->data['payment_method']);
-					unset($this->session->data['payment_methods']);
-				}					
+		if ($product_info) {
+			if (isset($this->request->post['quantity'])) {
+				$quantity = (int)$this->request->post['quantity'];
+			} else {
+				$quantity = 1;
 			}
+
+			if (isset($this->request->post['option'])) {
+				$option = array_filter($this->request->post['option']);
+			} else {
+				$option = array();
+			}
+
+			$product_options = $this->model_catalog_product->getProductOptions($this->request->post['product_id']);
+
+			foreach ($product_options as $product_option) {
+				if ($product_option['required'] && empty($option[$product_option['product_option_id']])) {
+					$errors[] = sprintf($this->language->get('error_required'), $product_option['name']);
+				}
+			}
+
+			if (isset($this->request->post['subscription_plan_id'])) {
+				$subscription_plan_id = (int)$this->request->post['subscription_plan_id'];
+			} else {
+				$subscription_plan_id = 0;
+			}
+
+			$subscription_plans = $this->model_catalog_product->getSubscriptions($product_info['product_id']);
+
+			if ($subscription_plans) {
+				$subscription_plan_ids = array();
+
+				foreach ($subscription_plans as $subscription_plan) {
+					$subscription_plan_ids[] = $subscription_plan['subscription_plan_id'];
+				}
+
+				if (!in_array($subscription_plan_id, $subscription_plan_ids)) {
+					$errors[] = $this->language->get('error_subscription_required');
+				}
+			}
+
+			if (!$errors) {					
+				if (!$this->model_extension_module_paypal_smart_button->hasProductInCart($this->request->post['product_id'], $option, $subscription_plan_id)) {
+					$this->cart->add($this->request->post['product_id'], $quantity, $option, $subscription_plan_id);
+				}
+					
+				// Unset all shipping and payment methods
+				unset($this->session->data['shipping_method']);
+				unset($this->session->data['shipping_methods']);
+				unset($this->session->data['payment_method']);
+				unset($this->session->data['payment_methods']);
+			}			
 		}
 		
 		if (!$errors) {					
@@ -672,25 +674,28 @@ class ControllerExtensionModulePayPalSmartButton extends Controller {
 				$total = false;
 			}
 			
-			$recurring = '';
+			// Subscription
+			$description = '';
 
-			if ($product['recurring']) {
-				$frequencies = array(
-					'day'        => $this->language->get('text_day'),
-					'week'       => $this->language->get('text_week'),
-					'semi_month' => $this->language->get('text_semi_month'),
-					'month'      => $this->language->get('text_month'),
-					'year'       => $this->language->get('text_year'),
-				);
+			if ($product['subscription']) {
+				$trial_price = $this->currency->format($this->tax->calculate($product['subscription']['trial_price'], $product['tax_class_id'], $this->config->get('config_tax')), $this->session->data['currency']);
+				$trial_cycle = $product['subscription']['trial_cycle'];
+				$trial_frequency = $this->language->get('text_' . $product['subscription']['trial_frequency']);
+				$trial_duration = $product['subscription']['trial_duration'];
 
-				if ($product['recurring']['trial']) {
-					$recurring = sprintf($this->language->get('text_trial_description'), $this->currency->format($this->tax->calculate($product['recurring']['trial_price'] * $product['quantity'], $product['tax_class_id'], $this->config->get('config_tax')), $this->session->data['currency']), $product['recurring']['trial_cycle'], $frequencies[$product['recurring']['trial_frequency']], $product['recurring']['trial_duration']) . ' ';
+				if ($product['subscription']['trial_status']) {
+					$description .= sprintf($this->language->get('text_subscription_trial'), $trial_price, $trial_cycle, $trial_frequency, $trial_duration);
 				}
 
-				if ($product['recurring']['duration']) {
-					$recurring .= sprintf($this->language->get('text_payment_description'), $this->currency->format($this->tax->calculate($product['recurring']['price'] * $product['quantity'], $product['tax_class_id'], $this->config->get('config_tax')), $this->session->data['currency']), $product['recurring']['cycle'], $frequencies[$product['recurring']['frequency']], $product['recurring']['duration']);
+				$price = $this->currency->format($this->tax->calculate($product['subscription']['price'], $product['tax_class_id'], $this->config->get('config_tax')), $this->session->data['currency']);
+				$cycle = $product['subscription']['cycle'];
+				$frequency = $this->language->get('text_' . $product['subscription']['frequency']);
+				$duration = $product['subscription']['duration'];
+
+				if ($duration) {
+					$description .= sprintf($this->language->get('text_subscription_duration'), $price, $cycle, $frequency, $duration);
 				} else {
-					$recurring .= sprintf($this->language->get('text_payment_cancel'), $this->currency->format($this->tax->calculate($product['recurring']['price'] * $product['quantity'], $product['tax_class_id'], $this->config->get('config_tax')), $this->session->data['currency']), $product['recurring']['cycle'], $frequencies[$product['recurring']['frequency']], $product['recurring']['duration']);
+					$description .= sprintf($this->language->get('text_subscription_cancel'), $price, $cycle, $frequency);
 				}
 			}
 
@@ -700,7 +705,7 @@ class ControllerExtensionModulePayPalSmartButton extends Controller {
 				'name'                  => $product['name'],
 				'model'                 => $product['model'],
 				'option'                => $option_data,
-				'recurring' 			=> $recurring,
+				'subscription' 			=> $description,
 				'quantity'              => $product['quantity'],
 				'stock'                 => $product['stock'] ? true : !(!$this->config->get('config_stock_checkout') || $this->config->get('config_stock_warning')),
 				'reward'                => ($product['reward'] ? sprintf($this->language->get('text_points'), $product['reward']) : ''),

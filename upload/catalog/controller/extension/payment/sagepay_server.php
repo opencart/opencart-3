@@ -172,7 +172,7 @@ class ControllerExtensionPaymentSagepayServer extends Controller {
 			$this->model_extension_payment_sagepay_server->addOrder($order_info);
 
 			if ($this->config->get('payment_sagepay_server_transaction') == 'PAYMENT') {
-				// Loop through any products that are recurring items
+				// Loop through any products that are subscription items
 				$subscription_products = $this->cart->getSubscription();
 				
 				foreach ($subscription_products as $item) {
@@ -428,10 +428,10 @@ class ControllerExtensionPaymentSagepayServer extends Controller {
 			$order_details = $this->model_extension_payment_sagepay_server->getOrder($this->session->data['order_id']);
 
 			if ($this->config->get('payment_sagepay_server_transaction') == 'PAYMENT') {
-				$recurring_products = $this->model_extension_payment_sagepay_server->getRecurringOrders($this->session->data['order_id']);
+				$subscription_products = $this->model_extension_payment_sagepay_server->getRecurringOrders($this->session->data['order_id']);
 
-				// Loop through any products that are recurring items
-				foreach ($recurring_products as $item) {
+				// Loop through any products that are subscription items
+				foreach ($subscription_products as $item) {
 					$this->model_extension_payment_sagepay_server->updateRecurringPayment($item, $order_details);
 				}
 			}

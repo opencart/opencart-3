@@ -7,8 +7,7 @@ $_['text_title']              = 'PayPal Express Checkout';
 $_['text_cart']               = 'Shopping Cart';
 $_['text_shipping_updated']   = 'Shipping service updated';
 $_['text_trial']              = '%s every %s %s for %s payments then ';
-$_['text_recurring']          = '%s every %s %s';
-$_['text_recurring_item']     = 'Recurring Item';
+$_['text_subscription']       = '%s every %s %s';
 $_['text_length']             = ' for %s payments';
 
 // Entry

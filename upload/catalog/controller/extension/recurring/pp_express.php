@@ -3,23 +3,23 @@ class ControllerExtensionRecurringPPExpress extends Controller {
 	public function index() {
 		$this->load->language('extension/recurring/pp_express');
 		
-		if (isset($this->request->get['order_recurring_id'])) {
-			$order_recurring_id = (int)$this->request->get['order_recurring_id'];
+		if (isset($this->request->get['subscription_id'])) {
+			$subscription_id = (int)$this->request->get['subscription_id'];
 		} else {
-			$order_recurring_id = 0;
+			$subscription_id = 0;
 		}
 		
-		$this->load->model('account/recurring');
+		$this->load->model('account/subscription');
 
-		$recurring_info = $this->model_account_recurring->getOrderRecurring($order_recurring_id);
+		$subscription_info = $this->model_account_subscription->getSubscription($subscription_id);
 		
-		if ($recurring_info) {
-			$data['continue'] = $this->url->link('account/recurring', '', true);	
+		if ($subscription_info) {
+			$data['continue'] = $this->url->link('account/subscription', '', true);	
 			
-			if ($recurring_info['status'] == 2 || $recurring_info['status'] == 3) {
-				$data['order_recurring_id'] = $order_recurring_id;
+			if ($subscription_info['status'] == 2 || $subscription_info['status'] == 3) {
+				$data['subscription_id'] = $subscription_id;
 			} else {
-				$data['order_recurring_id'] = '';
+				$data['subscription_id'] = '';
 			}
 
 			return $this->load->view('extension/recurring/pp_express', $data);
@@ -31,11 +31,11 @@ class ControllerExtensionRecurringPPExpress extends Controller {
 		
 		$json = array();
 		
-		// Cancel an active recurring
+		// Cancel an active subscription
 		$this->load->model('account/subscription');
 		
-		if (isset($this->request->get['order_recurring_id'])) {
-			$subscription_id = (int)$this->request->get['order_recurring_id'];
+		if (isset($this->request->get['subscription_id'])) {
+			$subscription_id = (int)$this->request->get['subscription_id'];
 		} else {
 			$subscription_id = 0;
 		}

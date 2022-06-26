@@ -46,9 +46,9 @@ class ControllerExtensionPaymentWorldpay extends Controller {
 
 		$order_info = $this->model_checkout_order->getOrder($this->session->data['order_id']);
 
-		$recurring_products = $this->cart->getSubscription();
+		$subscription_products = $this->cart->getSubscription();
 
-		if (empty($recurring_products)) {
+		if (empty($subscription_products)) {
 			$order_type = 'ECOM';
 		} else {
 			$order_type = 'RECURRING';
@@ -110,14 +110,13 @@ class ControllerExtensionPaymentWorldpay extends Controller {
 				}
 			}
 
-			// Loop through any products that are recurring items
-			foreach ($recurring_products as $item) {
+			// Loop through any products that are subscription items
+			foreach ($subscription_products as $item) {
 				$this->model_extension_payment_worldpay->recurringPayment($item, $this->session->data['order_id'] . rand(), $this->request->post['token']);
 			}
 
 			$this->response->redirect($this->url->link('checkout/success', '', true));
 		} else {
-
 			$this->session->data['error'] = $this->language->get('error_process_order');
 			
 			$this->response->redirect($this->url->link('checkout/checkout', '', true));

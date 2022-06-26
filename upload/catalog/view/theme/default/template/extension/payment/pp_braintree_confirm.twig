@@ -86,10 +86,10 @@
                 <a href="{{ product.href }}">{{ product.name }}</a>
                 {% for option in product.option %} <br/>
                   <small> - {{ option.name }}: {{ option.value }}</small>
-                {% endfor %}
-                {% if product.recurring %}
-                  <br/><span class="label label-info">{{ text_recurring_item }}</span> <small>{{ product.recurring_description }}</small>
-                {% endif %}
+                {% endfor %}                
+				{% if product.subscription %}
+        		  <br/>
+        		  - <small>{{ text_subscription }} {{ product.subscription }}</small>
               </td>
               <td class="text-left">{{ product.model }}</td>
               <td class="text-center">{{ product.quantity }}</td>

@@ -208,12 +208,12 @@ class ModelExtensionPaymentPPExpress extends Model {
 
 		$z = 0;
 
-		$recurring_products = $this->cart->getSubscription();
+		$subscription_products = $this->cart->getSubscription();
 
-		if ($recurring_products) {
+		if ($subscription_products) {
 			$this->load->language('extension/payment/pp_express');
 
-			foreach ($recurring_products as $item) {
+			foreach ($subscription_products as $item) {
 				$data['L_BILLINGTYPE' . $z] = 'RecurringPayments';
 
 				if ($item['subscription']['trial_status']) {
@@ -223,14 +223,14 @@ class ModelExtensionPaymentPPExpress extends Model {
 					$trial_text = '';
 				}
 
-				$recurring_amt = $this->currency->format($this->tax->calculate($item['subscription']['price'], $item['tax_class_id'], $this->config->get('config_tax')), $this->session->data['currency'], false, false) * $item['quantity'] . ' ' . $this->session->data['currency'];
-				$recurring_description = $trial_text . sprintf($this->language->get('text_recurring'), $recurring_amt, $item['subscription']['cycle'], $item['subscription']['frequency']);
+				$subscription_amt = $this->currency->format($this->tax->calculate($item['subscription']['price'], $item['tax_class_id'], $this->config->get('config_tax')), $this->session->data['currency'], false, false) * $item['quantity'] . ' ' . $this->session->data['currency'];
+				$subscription_description = $trial_text . sprintf($this->language->get('text_subscription'), $subscription_amt, $item['subscription']['cycle'], $item['subscription']['frequency']);
 
 				if ($item['subscription']['duration'] > 0) {
-					$recurring_description .= sprintf($this->language->get('text_length'), $item['subscription']['duration']);
+					$subscription_description .= sprintf($this->language->get('text_length'), $item['subscription']['duration']);
 				}
 
-				$data['L_BILLINGAGREEMENTDESCRIPTION' . $z] = $recurring_description;
+				$data['L_BILLINGAGREEMENTDESCRIPTION' . $z] = $subscription_description;
 				
 				$z++;
 			}
@@ -317,10 +317,10 @@ class ModelExtensionPaymentPPExpress extends Model {
 		return $this->cleanReturn($result);
 	}
 
-	public function recurringPayments() {
+	public function subscriptionPayments() {
 		/*
 		 * Used by the checkout to state the module
-		 * supports recurring recurrings.
+		 * supports subscriptions.
 		 */
 		return true;
 	}

@@ -16,12 +16,10 @@ $_['text_semi_month']          			= 'half-month';
 $_['text_month']               			= 'month';
 $_['text_year']                			= 'year';
 $_['text_trial']               			= '%s every %s %s for %s payments then ';
-$_['text_recurring']          			= '%s every %s %s';
-$_['text_recurring_item']      			= 'Recurring Item';
-$_['text_payment_recurring']   			= 'Payment Profile';
-$_['text_trial_description']   			= '%s every %d %s(s) for %d payment(s) then';
-$_['text_payment_description'] 			= '%s every %d %s(s) for %d payment(s)';
-$_['text_payment_cancel']      			= '%s every %d %s(s) until canceled';
+$_['text_subscription']          		= 'Subscription';
+$_['text_subscription_trial']    		= '%s every %d %s(s) for %d payment(s) then';
+$_['text_subscription_duration'] 		= '%s every %d %s(s) for %d payment(s)';
+$_['text_subscription_cancel']   		= '%s every %d %s(s) until canceled';
 
 // Column
 $_['column_image']             			= 'Image';
@@ -53,7 +51,7 @@ $_['error_stock']              			= 'Products marked with *** are not available 
 $_['error_minimum']            			= 'Minimum order amount for %s is %s!';
 $_['error_required']           			= '%s required!';
 $_['error_product']            			= 'Warning: There are no products in your cart!';
-$_['error_recurring_required'] 			= 'Please select a payment recurring!';
+$_['error_subscription_required']		= 'Please select a payment subscription!';
 $_['error_unavailable'] 	  			= 'Please use the full checkout with this order!';
 $_['error_shipping']                 	= 'Warning: Shipping method required!';
 $_['error_no_shipping']    				= 'Warning: No Shipping options are available.';
