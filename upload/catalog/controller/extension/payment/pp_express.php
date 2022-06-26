@@ -1214,8 +1214,6 @@ class ControllerExtensionPaymentPPExpress extends Controller {
 
 						$recurring_amt = $this->currency->format($this->tax->calculate($item['subscription']['price'], $item['tax_class_id'], $this->config->get('config_tax')), $this->session->data['currency'], false, false) * $item['quantity'] . ' ' . $this->session->data['currency'];
 						
-						$item['subscription']['description'] = array();
-						
 						$description = $trial_text . sprintf($this->language->get('text_recurring'), $recurring_amt, $item['subscription']['cycle'], $item['subscription']['frequency']);
 
 						if ($item['subscription']['duration'] > 0) {
@@ -1524,8 +1522,6 @@ class ControllerExtensionPaymentPPExpress extends Controller {
 					}
 
 					$recurring_amt = $this->currency->format($this->tax->calculate($item['subscription']['price'], $item['tax_class_id'], $this->config->get('config_tax')), $this->session->data['currency'], false, false) * $item['quantity'] . ' ' . $this->session->data['currency'];
-					
-					$item['subscription']['description'] = array();
 					
 					$description = $trial_text . sprintf($this->language->get('text_recurring'), $recurring_amt, $item['subscription']['cycle'], $item['subscription']['frequency']);
 
