@@ -81,9 +81,9 @@ class ModelExtensionPaymentSecureTradingWs extends Model {
 	}
 
 	public function getOrder($order_id) {
-		$qry = $this->db->query("SELECT * FROM `" . DB_PREFIX . "securetrading_ws_order` WHERE `order_id` = '" . (int)$order_id . "' LIMIT 1");
+		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "securetrading_ws_order` WHERE `order_id` = '" . (int)$order_id . "' LIMIT 1");
 
-		return $qry->row;
+		return $query->row;
 	}
 
 	public function addMd($order_id, $md) {

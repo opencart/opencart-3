@@ -86,7 +86,7 @@
 
         // Set if token is reusable, remove first value when Worldpay update
         Worldpay.reusable = true;
-{% if recurring_products %}
+{% if subscription_products %}
 	        Worldpay.reusable = true;
 {% else %}
 	        $('input[name=\'save-card\']').on('change', function() {

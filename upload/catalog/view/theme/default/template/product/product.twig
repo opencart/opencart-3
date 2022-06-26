@@ -273,6 +273,21 @@
               <div class="help-block" id="recurring-description"></div>
             </div>
             {% endif %}
+			{% if subscription_plans %}
+            <hr>
+            <h3>{{ text_subscription }}</h3>
+            <div class="form-group required">
+              <select name="subscription_plan_id" id="input-subscription" class="form-control">
+                <option value="">{{ text_select }}</option>
+                {% for subscription_plan in subscription_plans %}
+                <option value="{{ subscription_plan.subscription_plan_id }}">{{ subscription_plan.name }}</option>
+                {% endfor %}
+              </select>
+			  {% for subscription_plan in subscription_plans %}
+                <div id="subscription-description-{{ subscription_plan.subscription_plan_id }}" class="form-text subscription d-none">{{ subscription_plan.description }}</div>
+              {% endfor %}
+            </div>
+            {% endif %}
             <div class="form-group">
               <label class="control-label" for="input-quantity">{{ entry_qty }}</label>
               <input type="text" name="quantity" value="{{ minimum }}" size="2" id="input-quantity" class="form-control"/>
@@ -351,6 +366,15 @@
       {{ content_bottom }}</div>
     {{ column_right }}</div>
 </div>
+$('#input-subscription').on('change', function (e) {
+    var element = this;
+
+    $('.subscription').addClass('d-none');
+
+    $('#subscription-description-' + $(element).val()).removeClass('d-none');
+});
+//--></script>
+
 <script type="text/javascript"><!--
 	$('select[name=\'recurring_id\'], input[name="quantity"]').change(function() {
 		$.ajax({
@@ -370,7 +394,37 @@
 			}
 		});
 	});
-//--></script> 
+//--></script>
+<script type="text/javascript"><!--
+	$('select[name=\'subscription_plan_id\'], input[name="quantity"]').change(function() {
+		$.ajax({
+			url: 'index.php?route=product/product/getSubscriptionDescription',
+			type: 'post',
+			data: $('input[name=\'product_id\'], input[name=\'quantity\'], select[name=\'subscription_plan_id\']'),
+			dataType: 'json',
+			beforeSend: function() {
+				$('#subscription-description').html('');
+			},
+			success: function (json) {
+				$('.alert-dismissible, .text-danger').remove();
+				
+				html = '<option value=""></option>';
+
+				if (json['subscription_plans']) {
+					for (i = 0; i < json['subscription_plans'].length; i++) {
+						html += '<option value="' + json['subscription_plans'][i]['subscription_plan_id'] + '">' + json['subscription_plans'][i]['name'] + '</option>';
+						
+						$('#subscription-description-' + json['subscription_plans'][i]['subscription_plan_id']).html(json['subscription_plans'][i]['description']);
+					}
+				}
+
+				$('select[name="subscription_plan_id"]').html(html);
+
+				$('select[name="subscription_plan_id"]').trigger('change');
+			}
+		});
+	});
+//--></script>
 <script type="text/javascript"><!--
 	$('#button-cart').on('click', function() {
 		$.ajax({
@@ -403,6 +457,10 @@
 
 					if (json['error']['recurring']) {
 						$('select[name=\'recurring_id\']').after('<div class="text-danger">' + json['error']['recurring'] + '</div>');
+					}
+					
+					if (json['error']['subscription']) {
+						$('select[name=\'subscription_plan_id\']').after('<div class="text-danger">' + json['error']['subscription'] + '</div>');
 					}
 
 					// Highlight any found errors

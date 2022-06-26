@@ -177,6 +177,36 @@ class ModelUpgrade1009 extends Model {
 			$this->db->query("INSERT INTO `" . DB_PREFIX . "setting` SET `store_id` = '0', `code` = 'config', `key` = 'config_affiliate_expire', `value` = '3600000000', `serialized` = '0'");
 		}
 		
+		// Config Subscriptions
+		if (!$config->has('config_subscription_status_id')) {
+			$this->db->query("INSERT INTO `" . DB_PREFIX . "setting` SET `store_id` = '0', `code` = 'config', `key` = 'config_subscription_status_id', `value` = '1', `serialized` = '0'");
+		}
+		
+		if (!$config->has('config_subscription_active_status_id')) {
+			$this->db->query("INSERT INTO `" . DB_PREFIX . "setting` SET `store_id` = '0', `code` = 'config', `key` = 'config_subscription_active_status_id', `value` = '2', `serialized` = '0'");
+		}
+		
+		if (!$config->has('config_subscription_expired_status_id')) {
+			$this->db->query("INSERT INTO `" . DB_PREFIX . "setting` SET `store_id` = '0', `code` = 'config', `key` = 'config_subscription_expired_status_id', `value` = '6', `serialized` = '0'");
+		}
+		
+		if (!$config->has('config_subscription_canceled_status_id')) {
+			$this->db->query("INSERT INTO `" . DB_PREFIX . "setting` SET `store_id` = '0', `code` = 'config', `key` = 'config_subscription_canceled_status_id', `value` = '4', `serialized` = '0'");
+		}
+		
+		if (!$config->has('config_subscription_failed_status_id')) {
+			$this->db->query("INSERT INTO `" . DB_PREFIX . "setting` SET `store_id` = '0', `code` = 'config', `key` = 'config_subscription_failed_status_id', `value` = '3', `serialized` = '0'");
+		}
+		
+		if (!$config->has('config_subscription_denied_status_id')) {
+			$this->db->query("INSERT INTO `" . DB_PREFIX . "setting` SET `store_id` = '0', `code` = 'config', `key` = 'config_subscription_denied_status_id', `value` = '5', `serialized` = '0'");
+		}
+		
+		// Config - Fraud Status ID
+		if (!$config->has('config_fraud_status_id')) {
+			$this->db->query("INSERT INTO `" . DB_PREFIX . "setting` SET `store_id` = '0', `code` = 'config', `key` = 'config_fraud_status_id', `value` = '8', `serialized` = '0'");
+		}
+		
 		// Country address_format_id
 		$query = $this->db->query("SELECT * FROM information_schema.COLUMNS WHERE TABLE_SCHEMA = '" . DB_DATABASE . "' AND TABLE_NAME = '" . DB_PREFIX . "country' AND COLUMN_NAME = 'address_format_id'");
 		
@@ -203,6 +233,29 @@ class ModelUpgrade1009 extends Model {
 		
 		if (!$query->num_rows) {
 			$this->db->query("ALTER TABLE `" . DB_PREFIX . "address` ADD COLUMN `default` tinyint(1) NOT NULL AFTER `custom_field`");
+		}
+		
+		// Information - Subscriptions
+		$information_id = $this->db->query("INSERT INTO `" . DB_PREFIX . "information` SET `bottom` = '1', `sort_order` = '5', `status` = '1'");
+		
+		$this->db->query("INSERT INTO `" . DB_PREFIX . "information_description` SET (`information_id` = '" . (int)$information_id . "', `language_id` = '1', `title` = 'Subscriptions', `description` = 'In the next couple of months, our store will be introducing a new subscription system where customers will have the ability to handle customer payments with their accounts and our store to provide better services with larger recurring products managed by subscriptions.', `meta_title` = 'Subscriptions', `meta_description` = '', `meta_keyword` = ''");
+		$this->db->query("INSERT INTO `" . DB_PREFIX . "information_to_store` SET `information_id` = '" . (int)$information_id . "', `store_id` = '0'");
+		
+		// Subscription Statuses
+		$this->db->query("INSERT INTO `" . DB_PREFIX . "subscription_status` SET `subscription_status_id` = '1', `language_id` = '1', `name` = 'Pending'");
+		$this->db->query("INSERT INTO `" . DB_PREFIX . "subscription_status` SET `subscription_status_id` = '2', `language_id` = '1', `name` = 'Active'");
+		$this->db->query("INSERT INTO `" . DB_PREFIX . "subscription_status` SET `subscription_status_id` = '3', `language_id` = '1', `name` = 'Failed'");
+		$this->db->query("INSERT INTO `" . DB_PREFIX . "subscription_status` SET `subscription_status_id` = '4', `language_id` = '1', `name` = 'Cancelled'");
+		$this->db->query("INSERT INTO `" . DB_PREFIX . "subscription_status` SET `subscription_status_id` = '5', `language_id` = '1', `name` = 'Denied'");
+		$this->db->query("INSERT INTO `" . DB_PREFIX . "subscription_status` SET `subscription_status_id` = '6', `language_id` = '1', `name` = 'Expired'");
+		
+		// Cart - Subscriptions
+		$query = $this->db->query("SELECT * FROM information_schema.COLUMNS WHERE TABLE_SCHEMA = '" . DB_DATABASE . "' AND TABLE_NAME = '" . DB_PREFIX . "cart' AND COLUMN_NAME = 'subscription_plan_id'");
+		
+		if (!$query->num_rows) {
+			$this->db->query("TRUNCATE TABLE `" . DB_PREFIX . "cart`");
+			
+			$this->db->query("ALTER TABLE `" . DB_PREFIX . "cart` CHANGE COLUMN `recurring_id` `subscription_plan_id` int(11)");
 		}
 		
 		// OPENCART_SERVER

@@ -58,7 +58,9 @@
                 {% if product.reward %} <br/>
                 <small>{{ product.reward }}</small> {% endif %}
                 {% if product.recurring %} <br/>
-                <span class="label label-info">{{ text_recurring_item }}</span> <small>{{ product.recurring }}</small> {% endif %}</td>
+                <span class="label label-info">{{ text_recurring_item }}</span> <small>{{ product.recurring }}</small> {% endif %}
+				{% if product.subscription %} <br/>
+                <span class="label label-info">{{ text_subscription }}</span> <small>{{ product.subscription }}</small> {% endif %}</td>
               <td class="text-left">{{ product.model }}</td>
               <td class="text-left"><div class="input-group btn-block" style="max-width: 200px;">
                   <input type="text" name="quantity[{{ product.cart_id }}]" value="{{ product.quantity }}" size="1" class="form-control"/>

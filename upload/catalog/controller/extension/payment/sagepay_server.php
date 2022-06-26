@@ -23,7 +23,6 @@ class ControllerExtensionPaymentSagepayServer extends Controller {
 	}
 
 	public function send() {
-
 		$payment_data = array();
 
 		if ($this->config->get('payment_sagepay_server_test') == 'live') {
@@ -40,8 +39,7 @@ class ControllerExtensionPaymentSagepayServer extends Controller {
 			$payment_data['VPSProtocol'] = '2.23';
 		}
 
-		$this->load->model('checkout/order');
-		
+		$this->load->model('checkout/order');		
 		$this->load->model('extension/payment/sagepay_server');
 
 		if (!isset($this->session->data['order_id'])) {
@@ -117,8 +115,10 @@ class ControllerExtensionPaymentSagepayServer extends Controller {
 		}
 
 		$order_products = $this->model_checkout_order->getOrderProducts($this->session->data['order_id']);
+		
 		$cart_rows = 0;
-		$str_basket = "";
+		$str_basket = '';
+		
 		foreach ($order_products as $product) {
 			$str_basket .=
 					":" . str_replace(":", " ", $product['name'] . " " . $product['model']) .
@@ -142,7 +142,6 @@ class ControllerExtensionPaymentSagepayServer extends Controller {
 		$str_basket = $cart_rows . $str_basket;
 
 		$payment_data['Basket'] = $str_basket;
-
 		$payment_data['CustomerEMail'] = substr($order_info['email'], 0, 255);
 		$payment_data['Apply3DSecure'] = '0';
 
@@ -174,10 +173,10 @@ class ControllerExtensionPaymentSagepayServer extends Controller {
 
 			if ($this->config->get('payment_sagepay_server_transaction') == 'PAYMENT') {
 				// Loop through any products that are recurring items
-				$recurring_products = $this->cart->getRecurringProducts();
+				$subscription_products = $this->cart->getSubscription();
 				
-				foreach ($recurring_products as $item) {
-					$this->model_extension_payment_sagepay_server->addRecurringPayment($item, $payment_data['VendorTxCode']);
+				foreach ($subscription_products as $item) {
+					$this->model_extension_payment_sagepay_server->addRecurringPayment($item['subscription'], $payment_data['VendorTxCode']);
 				}
 			}
 		} else {
@@ -189,8 +188,7 @@ class ControllerExtensionPaymentSagepayServer extends Controller {
 	}
 
 	public function callback() {
-		$this->load->model('checkout/order');
-		
+		$this->load->model('checkout/order');		
 		$this->load->model('extension/payment/sagepay_server');
 
 		$success_page = $this->url->link('extension/payment/sagepay_server/success', '', true);
@@ -422,11 +420,9 @@ class ControllerExtensionPaymentSagepayServer extends Controller {
 	}
 
 	public function success() {
-		$this->load->model('checkout/order');
-		
-		$this->load->model('extension/payment/sagepay_server');
-		
-		$this->load->model('checkout/recurring');
+		$this->load->model('checkout/order');		
+		$this->load->model('extension/payment/sagepay_server');		
+		$this->load->model('checkout/recurring');		
 
 		if (isset($this->session->data['order_id'])) {
 			$order_details = $this->model_extension_payment_sagepay_server->getOrder($this->session->data['order_id']);

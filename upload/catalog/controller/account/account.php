@@ -54,6 +54,7 @@ class ControllerAccountAccount extends Controller {
 		
 		$data['wishlist'] = $this->url->link('account/wishlist', 'customer_token=' . $this->session->data['customer_token']);
 		$data['order'] = $this->url->link('account/order', 'customer_token=' . $this->session->data['customer_token'], true);
+		$data['subscription'] = $this->url->link('account/subscription', 'customer_token=' . $this->session->data['customer_token'], true);
 		$data['download'] = $this->url->link('account/download', 'customer_token=' . $this->session->data['customer_token'], true);
 		
 		if ($this->config->get('total_reward_status')) {

@@ -50,7 +50,8 @@ class ControllerCheckoutCart extends Controller {
 				$data['weight'] = '';
 			}
 
-			$this->load->model('tool/image');			
+			$this->load->model('tool/image');
+			
 			$this->load->model('tool/upload');
 
 			$data['products'] = array();
@@ -129,20 +130,45 @@ class ControllerCheckoutCart extends Controller {
 						$recurring .= sprintf($this->language->get('text_payment_cancel'), $this->currency->format($this->tax->calculate($product['recurring']['price'] * $product['quantity'], $product['tax_class_id'], $this->config->get('config_tax')), $this->session->data['currency']), $product['recurring']['cycle'], $frequencies[$product['recurring']['frequency']], $product['recurring']['duration']);
 					}
 				}
+				
+				$description = '';
+
+				if ($product['subscription']) {
+					$trial_price = $this->currency->format($this->tax->calculate($product['subscription']['trial_price'], $product['tax_class_id'], $this->config->get('config_tax')), $this->session->data['currency']);
+					$trial_cycle = $product['subscription']['trial_cycle'];
+					$trial_frequency = $this->language->get('text_' . $product['subscription']['trial_frequency']);
+					$trial_duration = $product['subscription']['trial_duration'];
+
+					if ($product['subscription']['trial_status']) {
+						$description .= sprintf($this->language->get('text_subscription_trial'), $trial_price, $trial_cycle, $trial_frequency, $trial_duration);
+					}
+
+					$price = $this->currency->format($this->tax->calculate($product['subscription']['price'], $product['tax_class_id'], $this->config->get('config_tax')), $this->session->data['currency']);
+					$cycle = $product['subscription']['cycle'];
+					$frequency = $this->language->get('text_' . $product['subscription']['frequency']);
+					$duration = $product['subscription']['duration'];
+
+					if ($duration) {
+						$description .= sprintf($this->language->get('text_subscription_duration'), $price, $cycle, $frequency, $duration);
+					} else {
+						$description .= sprintf($this->language->get('text_subscription_cancel'), $price, $cycle, $frequency);
+					}
+				}
 
 				$data['products'][] = array(
-					'cart_id'   => $product['cart_id'],
-					'thumb'     => $image,
-					'name'      => $product['name'],
-					'model'     => $product['model'],
-					'option'    => $option_data,
-					'recurring' => $recurring,
-					'quantity'  => $product['quantity'],
-					'stock'     => $product['stock'] ? true : !(!$this->config->get('config_stock_checkout') || $this->config->get('config_stock_warning')),
-					'reward'    => ($product['reward'] ? sprintf($this->language->get('text_points'), $product['reward']) : ''),
-					'price'     => $price,
-					'total'     => $total,
-					'href'      => $this->url->link('product/product', 'product_id=' . $product['product_id'])
+					'cart_id'   	=> $product['cart_id'],
+					'thumb'     	=> $image,
+					'name'      	=> $product['name'],
+					'model'     	=> $product['model'],
+					'option'    	=> $option_data,
+					'recurring' 	=> $recurring,
+					'subscription'	=> $description,
+					'quantity'  	=> $product['quantity'],
+					'stock'     	=> $product['stock'] ? true : !(!$this->config->get('config_stock_checkout') || $this->config->get('config_stock_warning')),
+					'reward'    	=> ($product['reward'] ? sprintf($this->language->get('text_points'), $product['reward']) : ''),
+					'price'     	=> $price,
+					'total'     	=> $total,
+					'href'      	=> $this->url->link('product/product', 'product_id=' . $product['product_id'])
 				);
 			}
 
@@ -285,7 +311,7 @@ class ControllerCheckoutCart extends Controller {
 				$option = array_filter($this->request->post['option']);
 			} else {
 				$option = array();
-			}
+			}\
 
 			$product_options = $this->model_catalog_product->getProductOptions($this->request->post['product_id']);
 
@@ -312,6 +338,27 @@ class ControllerCheckoutCart extends Controller {
 
 				if (!in_array($recurring_id, $recurring_ids)) {
 					$json['error']['recurring'] = $this->language->get('error_recurring_required');
+				}
+			}
+			
+			if (isset($this->request->post['subscription_plan_id'])) {
+				$subscription_plan_id = (int)$this->request->post['subscription_plan_id'];
+			} else {
+				$subscription_plan_id = 0;
+			}
+			
+			// Validate subscription products
+			$subscriptions = $this->model_catalog_product->getSubscriptions($product_id);
+
+			if ($subscriptions) {
+				$subscription_plan_ids = [];
+
+				foreach ($subscriptions as $subscription) {
+					$subscription_plan_ids[] = $subscription['subscription_plan_id'];
+				}
+
+				if (!in_array($subscription_plan_id, $subscription_plan_ids)) {
+					$json['error']['subscription'] = $this->language->get('error_subscription');
 				}
 			}
 

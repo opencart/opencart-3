@@ -22,10 +22,10 @@ class ControllerExtensionPaymentWorldpay extends Controller {
 			$data['existing_cards'] = $this->model_extension_payment_worldpay->getCards($this->customer->getId());
 		}
 
-		$recurring_products = $this->cart->getRecurringProducts();
+		$subscription_products = $this->cart->getSubscription();
 
-		if (!empty($recurring_products)) {
-			$data['recurring_products'] = true;
+		if (!empty($subscription_products)) {
+			$data['subscription_products'] = true;
 		}
 
 		return $this->load->view('extension/payment/worldpay', $data);
@@ -46,7 +46,7 @@ class ControllerExtensionPaymentWorldpay extends Controller {
 
 		$order_info = $this->model_checkout_order->getOrder($this->session->data['order_id']);
 
-		$recurring_products = $this->cart->getRecurringProducts();
+		$recurring_products = $this->cart->getSubscription();
 
 		if (empty($recurring_products)) {
 			$order_type = 'ECOM';

@@ -33,7 +33,7 @@ class ControllerExtensionPaymentPPExpress extends Controller {
 
 			unset($this->session->data['guest']);
 		} else {
-			if ($this->config->get('config_checkout_guest') && !$this->config->get('config_customer_price') && !$this->cart->hasDownload() && !$this->cart->hasRecurringProducts()) {
+			if ($this->config->get('config_checkout_guest') && !$this->config->get('config_customer_price') && !$this->cart->hasDownload() && !$this->cart->hasSubscription()) {
 				/**
 				 * If the guest checkout is allowed (config ok, no login for price and doesn't have downloads)
 				 */
@@ -360,8 +360,7 @@ class ControllerExtensionPaymentPPExpress extends Controller {
 	}
 
 	public function expressConfirm() {
-		$this->load->language('extension/payment/pp_express');
-		
+		$this->load->language('extension/payment/pp_express');		
 		$this->load->language('checkout/cart');
 
 		$this->load->model('tool/image');
@@ -485,9 +484,9 @@ class ControllerExtensionPaymentPPExpress extends Controller {
 				$total = false;
 			}
 
-			$recurring_description = '';
+			$description = '';
 
-			if ($product['recurring']) {
+			if ($product['subscription']) {
 				$frequencies = array(
 					'day'        => $this->language->get('text_day'),
 					'week'       => $this->language->get('text_week'),
@@ -496,17 +495,17 @@ class ControllerExtensionPaymentPPExpress extends Controller {
 					'year'       => $this->language->get('text_year'),
 				);
 
-				if ($product['recurring']['trial']) {
-					$recurring_price = $this->currency->format($this->tax->calculate($product['recurring']['trial_price'] * $product['quantity'], $product['tax_class_id'], $this->config->get('config_tax')), $this->session->data['currency']);
-					$recurring_description = sprintf($this->language->get('text_trial_description'), $recurring_price, $product['recurring']['trial_cycle'], $frequencies[$product['recurring']['trial_frequency']], $product['recurring']['trial_duration']) . ' ';
+				if ($product['subscription']['trial_status']) {
+					$recurring_price = $this->currency->format($this->tax->calculate($product['subscription']['trial_price'] * $product['quantity'], $product['tax_class_id'], $this->config->get('config_tax')), $this->session->data['currency']);
+					$description = sprintf($this->language->get('text_trial_description'), $recurring_price, $product['subscription']['trial_cycle'], $frequencies[$product['subscription']['trial_frequency']], $product['subscription']['trial_duration']) . ' ';
 				}
 
-				$recurring_price = $this->currency->format($this->tax->calculate($product['recurring']['price'] * $product['quantity'], $product['tax_class_id'], $this->config->get('config_tax')), $this->session->data['currency']);
+				$recurring_price = $this->currency->format($this->tax->calculate($product['subscription']['price'] * $product['quantity'], $product['tax_class_id'], $this->config->get('config_tax')), $this->session->data['currency']);
 
-				if ($product['recurring']['duration']) {
-					$recurring_description .= sprintf($this->language->get('text_payment_description'), $recurring_price, $product['recurring']['cycle'], $frequencies[$product['recurring']['frequency']], $product['recurring']['duration']);
+				if ($product['subscription']['duration']) {
+					$description .= sprintf($this->language->get('text_payment_description'), $recurring_price, $product['subscription']['cycle'], $frequencies[$product['subscription']['frequency']], $product['subscription']['duration']);
 				} else {
-					$recurring_description .= sprintf($this->language->get('text_payment_cancel'), $recurring_price, $product['recurring']['cycle'], $frequencies[$product['recurring']['frequency']], $product['recurring']['duration']);
+					$description .= sprintf($this->language->get('text_payment_cancel'), $recurring_price, $product['subscription']['cycle'], $frequencies[$product['subscription']['frequency']], $product['subscription']['duration']);
 				}
 			}
 
@@ -523,9 +522,9 @@ class ControllerExtensionPaymentPPExpress extends Controller {
 				'total'                 => $total,
 				'href'                  => $this->url->link('product/product', 'product_id=' . $product['product_id']),
 				'remove'                => $this->url->link('checkout/cart', 'remove=' . $product['cart_id']),
-				'recurring'             => $product['recurring'],
-				'recurring_name'        => isset($product['recurring']['recurring_name']) ? $product['recurring']['recurring_name'] : '',
-				'recurring_description' => $recurring_description
+				'recurring'             => $product['subscription'],
+				'recurring_name'        => isset($product['subscription']['name']) ? $product['subscription']['name'] : '',
+				'subscription' 			=> $description
 			);
 		}
 
@@ -1081,8 +1080,7 @@ class ControllerExtensionPaymentPPExpress extends Controller {
 				$data['accept_language'] = '';
 			}
 
-			$this->load->model('account/custom_field');
-			
+			$this->load->model('account/custom_field');			
 			$this->load->model('checkout/order');
 
 			$order_id = $this->model_checkout_order->addOrder($data);
@@ -1169,13 +1167,13 @@ class ControllerExtensionPaymentPPExpress extends Controller {
 
 				$this->model_extension_payment_pp_express->addTransaction($paypal_transaction_data);
 
-				$recurring_products = $this->cart->getRecurringProducts();
+				$recurring_products = $this->cart->getSubscription();
 
 				// Loop through any products that are recurring items
 				if ($recurring_products) {
 					$this->load->language('extension/payment/pp_express');
 
-					$this->load->model('checkout/recurring');
+					$this->load->model('checkout/subscription');
 
 					$billing_period = array(
 						'day'        => 'Day',
@@ -1190,42 +1188,47 @@ class ControllerExtensionPaymentPPExpress extends Controller {
 							'METHOD'             => 'CreateRecurringPaymentsProfile',
 							'TOKEN'              => $this->session->data['paypal']['token'],
 							'PROFILESTARTDATE'   => gmdate('Y-m-d\TH:i:s\Z', gmmktime(gmdate('H'), gmdate('i') +5, gmdate('s'), gmdate('m'), gmdate('d'), gmdate('y'))),
-							'BILLINGPERIOD'      => $billing_period[$item['recurring']['frequency']],
-							'BILLINGFREQUENCY'   => $item['recurring']['cycle'],
-							'TOTALBILLINGCYCLES' => $item['recurring']['duration'],
-							'AMT'                => $this->currency->format($this->tax->calculate($item['recurring']['price'], $item['tax_class_id'], $this->config->get('config_tax')), $this->session->data['currency'], false, false) * $item['quantity'],
+							'BILLINGPERIOD'      => $billing_period[$item['subscription']['frequency']],
+							'BILLINGFREQUENCY'   => $item['subscription']['cycle'],
+							'TOTALBILLINGCYCLES' => $item['subscription']['duration'],
+							'AMT'                => $this->currency->format($this->tax->calculate($item['subscription']['price'], $item['tax_class_id'], $this->config->get('config_tax')), $this->session->data['currency'], false, false) * $item['quantity'],
 							'CURRENCYCODE'       => $this->session->data['currency']
 						);
 
 						// Trial information
-						if ($item['recurring']['trial']) {
+						if ($item['subscription']['trial_status']) {
 							$data_trial = array(
-								'TRIALBILLINGPERIOD'      => $billing_period[$item['recurring']['trial_frequency']],
-								'TRIALBILLINGFREQUENCY'   => $item['recurring']['trial_cycle'],
-								'TRIALTOTALBILLINGCYCLES' => $item['recurring']['trial_duration'],
-								'TRIALAMT'                => $this->currency->format($this->tax->calculate($item['recurring']['trial_price'], $item['tax_class_id'], $this->config->get('config_tax')), $this->session->data['currency'], false, false) * $item['quantity']
+								'TRIALBILLINGPERIOD'      => $billing_period[$item['subscription']['trial_frequency']],
+								'TRIALBILLINGFREQUENCY'   => $item['subscription']['trial_cycle'],
+								'TRIALTOTALBILLINGCYCLES' => $item['subscription']['trial_duration'],
+								'TRIALAMT'                => $this->currency->format($this->tax->calculate($item['subscription']['trial_price'], $item['tax_class_id'], $this->config->get('config_tax')), $this->session->data['currency'], false, false) * $item['quantity']
 							);
 
-							$trial_amt = $this->currency->format($this->tax->calculate($item['recurring']['trial_price'], $item['tax_class_id'], $this->config->get('config_tax')), $this->session->data['currency'], false, false) * $item['quantity'] . ' ' . $this->session->data['currency'];
-							$trial_text =  sprintf($this->language->get('text_trial'), $trial_amt, $item['recurring']['trial_cycle'], $item['recurring']['trial_frequency'], $item['recurring']['trial_duration']);
+							$trial_amt = $this->currency->format($this->tax->calculate($item['subscription']['trial_price'], $item['tax_class_id'], $this->config->get('config_tax')), $this->session->data['currency'], false, false) * $item['quantity'] . ' ' . $this->session->data['currency'];
+							$trial_text =  sprintf($this->language->get('text_trial'), $trial_amt, $item['subscription']['trial_cycle'], $item['subscription']['trial_frequency'], $item['subscription']['trial_duration']);
 
 							$data = array_merge($data, $data_trial);
 						} else {
 							$trial_text = '';
 						}
 
-						$recurring_amt = $this->currency->format($this->tax->calculate($item['recurring']['price'], $item['tax_class_id'], $this->config->get('config_tax')), $this->session->data['currency'], false, false) * $item['quantity'] . ' ' . $this->session->data['currency'];
-						$recurring_description = $trial_text . sprintf($this->language->get('text_recurring'), $recurring_amt, $item['recurring']['cycle'], $item['recurring']['frequency']);
+						$recurring_amt = $this->currency->format($this->tax->calculate($item['subscription']['price'], $item['tax_class_id'], $this->config->get('config_tax')), $this->session->data['currency'], false, false) * $item['quantity'] . ' ' . $this->session->data['currency'];
+						
+						$item['subscription']['description'] = array();
+						
+						$description = $trial_text . sprintf($this->language->get('text_recurring'), $recurring_amt, $item['subscription']['cycle'], $item['subscription']['frequency']);
 
-						if ($item['recurring']['duration'] > 0) {
-							$recurring_description .= sprintf($this->language->get('text_length'), $item['recurring']['duration']);
+						if ($item['subscription']['duration'] > 0) {
+							$description .= sprintf($this->language->get('text_length'), $item['subscription']['duration']);
 						}
+						
+						$item['subscription']['description'] = $description;
 
 						// Create new recurring and set to pending status as no payment has been made yet.
-						$recurring_id = $this->model_checkout_recurring->addRecurring($order_id, $recurring_description, $item);
+						$recurring_id = $this->model_checkout_subscription->addSubscription($order_id, $item['subscription']);
 
 						$data['PROFILEREFERENCE'] = $recurring_id;
-						$data['DESC'] = $recurring_description;
+						$data['DESC'] = $description;
 
 						$result = $this->model_extension_payment_pp_express->call($data);
 
@@ -1281,10 +1284,8 @@ class ControllerExtensionPaymentPPExpress extends Controller {
 			$this->response->redirect($this->url->link('checkout/cart'));
 		}
 
-		$this->load->model('extension/payment/pp_express');
-		
-		$this->load->model('tool/image');
-		
+		$this->load->model('extension/payment/pp_express');		
+		$this->load->model('tool/image');		
 		$this->load->model('checkout/order');
 
 		if (!isset($this->session->data['order_id'])) {
@@ -1479,11 +1480,11 @@ class ControllerExtensionPaymentPPExpress extends Controller {
 			);
 			$this->model_extension_payment_pp_express->addTransaction($paypal_transaction_data);
 
-			$recurring_products = $this->cart->getRecurringProducts();
+			$recurring_products = $this->cart->getSubscription();
 
 			// Loop through any products that are recurring items
 			if ($recurring_products) {
-				$this->load->model('checkout/recurring');
+				$this->load->model('checkout/subscription');
 
 				$billing_period = array(
 					'day'        => 'Day',
@@ -1498,42 +1499,47 @@ class ControllerExtensionPaymentPPExpress extends Controller {
 						'METHOD'             => 'CreateRecurringPaymentsProfile',
 						'TOKEN'              => $this->session->data['paypal']['token'],
 						'PROFILESTARTDATE'   => gmdate('Y-m-d\TH:i:s\Z', gmmktime(gmdate('H'), gmdate('i') + 5, gmdate('s'), gmdate('m'), gmdate('d'), gmdate('y'))),
-						'BILLINGPERIOD'      => $billing_period[$item['recurring']['frequency']],
-						'BILLINGFREQUENCY'   => $item['recurring']['cycle'],
-						'TOTALBILLINGCYCLES' => $item['recurring']['duration'],
-						'AMT'                => $this->currency->format($this->tax->calculate($item['recurring']['price'], $item['tax_class_id'], $this->config->get('config_tax')), $this->session->data['currency'], false, false) * $item['quantity'],
+						'BILLINGPERIOD'      => $billing_period[$item['subscription']['frequency']],
+						'BILLINGFREQUENCY'   => $item['subscription']['cycle'],
+						'TOTALBILLINGCYCLES' => $item['subscription']['duration'],
+						'AMT'                => $this->currency->format($this->tax->calculate($item['subscription']['price'], $item['tax_class_id'], $this->config->get('config_tax')), $this->session->data['currency'], false, false) * $item['quantity'],
 						'CURRENCYCODE'       => $this->session->data['currency']
 					);
 
 					// Trial information
-					if ($item['recurring']['trial'] == 1) {
+					if ($item['subscription']['trial_status'] == 1) {
 						$data_trial = array(
-							'TRIALBILLINGPERIOD'      => $billing_period[$item['recurring']['trial_frequency']],
-							'TRIALBILLINGFREQUENCY'   => $item['recurring']['trial_cycle'],
-							'TRIALTOTALBILLINGCYCLES' => $item['recurring']['trial_duration'],
-							'TRIALAMT'                => $this->currency->format($this->tax->calculate($item['recurring']['trial_price'], $item['tax_class_id'], $this->config->get('config_tax')), $this->session->data['currency'], false, false) * $item['quantity']
+							'TRIALBILLINGPERIOD'      => $billing_period[$item['subscription']['trial_frequency']],
+							'TRIALBILLINGFREQUENCY'   => $item['subscription']['trial_cycle'],
+							'TRIALTOTALBILLINGCYCLES' => $item['subscription']['trial_duration'],
+							'TRIALAMT'                => $this->currency->format($this->tax->calculate($item['subscription']['trial_price'], $item['tax_class_id'], $this->config->get('config_tax')), $this->session->data['currency'], false, false) * $item['quantity']
 						);
 
-						$trial_amt = $this->currency->format($this->tax->calculate($item['recurring']['trial_price'], $item['tax_class_id'], $this->config->get('config_tax')), $this->session->data['currency'], false, false) * $item['quantity'] . ' ' . $this->session->data['currency'];
-						$trial_text =  sprintf($this->language->get('text_trial'), $trial_amt, $item['recurring']['trial_cycle'], $item['recurring']['trial_frequency'], $item['recurring']['trial_duration']);
+						$trial_amt = $this->currency->format($this->tax->calculate($item['subscription']['trial_price'], $item['tax_class_id'], $this->config->get('config_tax')), $this->session->data['currency'], false, false) * $item['quantity'] . ' ' . $this->session->data['currency'];
+						$trial_text =  sprintf($this->language->get('text_trial'), $trial_amt, $item['subscription']['trial_cycle'], $item['subscription']['trial_frequency'], $item['subscription']['trial_duration']);
 
 						$data = array_merge($data, $data_trial);
 					} else {
 						$trial_text = '';
 					}
 
-					$recurring_amt = $this->currency->format($this->tax->calculate($item['recurring']['price'], $item['tax_class_id'], $this->config->get('config_tax')), $this->session->data['currency'], false, false) * $item['quantity'] . ' ' . $this->session->data['currency'];
-					$recurring_description = $trial_text . sprintf($this->language->get('text_recurring'), $recurring_amt, $item['recurring']['cycle'], $item['recurring']['frequency']);
+					$recurring_amt = $this->currency->format($this->tax->calculate($item['subscription']['price'], $item['tax_class_id'], $this->config->get('config_tax')), $this->session->data['currency'], false, false) * $item['quantity'] . ' ' . $this->session->data['currency'];
+					
+					$item['subscription']['description'] = array();
+					
+					$description = $trial_text . sprintf($this->language->get('text_recurring'), $recurring_amt, $item['subscription']['cycle'], $item['subscription']['frequency']);
 
-					if ($item['recurring']['duration'] > 0) {
-						$recurring_description .= sprintf($this->language->get('text_length'), $item['recurring']['duration']);
+					if ($item['subscription']['duration'] > 0) {
+						$description .= sprintf($this->language->get('text_length'), $item['subscription']['duration']);
 					}
+					
+					$item['subscription']['description'] = $description;
 
 					// Create new recurring and set to pending status as no payment has been made yet.
-					$recurring_id = $this->model_checkout_recurring->addRecurring($order_id, $recurring_description, $item);
+					$recurring_id = $this->model_checkout_subscription->addSubscription($order_id, $item['subscription']);
 
 					$data['PROFILEREFERENCE'] = $recurring_id;
-					$data['DESC'] = $recurring_description;
+					$data['DESC'] = $description;
 
 					$result = $this->model_extension_payment_pp_express->call($data);
 
@@ -1612,9 +1618,8 @@ class ControllerExtensionPaymentPPExpress extends Controller {
 	}
 
 	public function ipn() {
-		$this->load->model('extension/payment/pp_express');
-		
-		$this->load->model('account/recurring');
+		$this->load->model('extension/payment/pp_express');		
+		$this->load->model('account/subscription');
 
 		$request = 'cmd=_notify-validate';
 
@@ -1682,7 +1687,7 @@ class ControllerExtensionPaymentPPExpress extends Controller {
 					$transaction = array(
 						'paypal_order_id'       => $parent_transaction['paypal_order_id'],
 						'transaction_id'        => $this->request->post['txn_id'],
-						'parent_id' => $this->request->post['parent_txn_id'],
+						'parent_id' 			=> $this->request->post['parent_txn_id'],
 						'note'                  => '',
 						'msgsubid'              => '',
 						'receipt_id'            => isset($this->request->post['receipt_id']) ? $this->request->post['receipt_id'] : '',
@@ -1755,114 +1760,143 @@ class ControllerExtensionPaymentPPExpress extends Controller {
 			 */
 			if (isset($this->request->post['txn_type'])) {
 				$this->model_extension_payment_pp_express->log($this->request->post['txn_type'], 'IPN data');
+				
+				if (isset($transaction['transaction_id'])) {
+					$transaction_id = $transaction['transaction_id'];
+				} elseif (isset($this->request->post['parent_txn_id'])) {
+					$transaction_id = $this->request->post['parent_txn_id'];
+				}
 
 				// Payment
 				if ($this->request->post['txn_type'] == 'recurring_payment') {
-					$recurring = $this->model_account_recurring->getOrderRecurringByReference($this->request->post['recurring_payment_id']);
+					$subscription = $this->model_account_subscription->getSubscriptionByReference($this->request->post['recurring_payment_id']);
 
-					$this->model_extension_payment_pp_express->log($recurring, 'IPN data');
+					$this->model_extension_payment_pp_express->log($subscription, 'IPN data');
 
-					if ($recurring != false) {
-						$this->db->query("INSERT INTO `" . DB_PREFIX . "order_recurring_transaction` SET `order_recurring_id` = '" . (int)$recurring['order_recurring_id'] . "', `date_added` = NOW(), `amount` = '" . (float)$this->request->post['amount'] . "', `type` = '1'");
-
+					if ($subscription != false) {
+						$this->model_account_subscription->addTransaction($subscription['subscription_id'], $subscription['order_id'], 1);
+						
 						// As there was a payment the recurring is active, ensure it is set to active (may be been suspended before)
-						if ($recurring['status'] != 1) {
-							$this->db->query("UPDATE `" . DB_PREFIX . "order_recurring` SET `status` = '2' WHERE `order_recurring_id` = '" . (int)$recurring['order_recurring_id'] . "'");
+						if ($subscription['status'] != 1) {
+							$this->model_account_subscription->editStatus($subscription['subscription_id'], 2);
 						}
 					}
 				}
 
 				// Suspend
 				if ($this->request->post['txn_type'] == 'recurring_payment_suspended') {
-					$recurring = $this->model_account_recurring->getOrderRecurringByReference($this->request->post['recurring_payment_id']);
+					$subscription = $this->model_account_subscription->getSubscriptionByReference($this->request->post['recurring_payment_id']);
 
-					if ($recurring != false) {
-						$this->db->query("INSERT INTO `" . DB_PREFIX . "order_recurring_transaction` SET `order_recurring_id` = '" . (int)$recurring['order_recurring_id'] . "', `date_added` = NOW(), `type` = '6'");
-						$this->db->query("UPDATE `" . DB_PREFIX . "order_recurring` SET `status` = '3' WHERE `order_recurring_id` = '" . (int)$recurring['order_recurring_id'] . "' LIMIT 1");
+					$this->model_extension_payment_pp_express->log($subscription, 'IPN data');
+
+					if ($subscription != false) {
+						$this->model_account_subscription->addTransaction($subscription['subscription_id'], $subscription['order_id'], 6);
+						
+						$this->model_account_subscription->editStatus($subscription['subscription_id'], 3);
 					}
 				}
 
 				// Suspend due to max failed
 				if ($this->request->post['txn_type'] == 'recurring_payment_suspended_due_to_max_failed_payment') {
-					$recurring = $this->model_account_recurring->getOrderRecurringByReference($this->request->post['recurring_payment_id']);
+					$subscription = $this->model_account_subscription->getSubscriptionByReference($this->request->post['recurring_payment_id']);
 
-					if ($recurring != false) {
-						$this->db->query("INSERT INTO `" . DB_PREFIX . "order_recurring_transaction` SET `order_recurring_id` = '" . (int)$recurring['order_recurring_id'] . "', `date_added` = NOW(), `type` = '7'");
-						$this->db->query("UPDATE `" . DB_PREFIX . "order_recurring` SET `status` = '3' WHERE `order_recurring_id` = '" . (int)$recurring['order_recurring_id'] . "' LIMIT 1");
+					$this->model_extension_payment_pp_express->log($subscription, 'IPN data');
+
+					if ($subscription != false) {
+						$this->model_account_subscription->addTransaction($subscription['subscription_id'], $subscription['order_id'], 7);
+						
+						$this->model_account_subscription->editStatus($subscription['subscription_id'], 3);
 					}
 				}
 
 				// Payment failed
 				if ($this->request->post['txn_type'] == 'recurring_payment_failed') {
-					$recurring = $this->model_account_recurring->getOrderRecurringByReference($this->request->post['recurring_payment_id']);
+					$subscription = $this->model_account_subscription->getSubscriptionByReference($this->request->post['recurring_payment_id']);
 
-					if ($recurring != false) {
-						$this->db->query("INSERT INTO `" . DB_PREFIX . "order_recurring_transaction` SET `order_recurring_id` = '" . (int)$recurring['order_recurring_id'] . "', `date_added` = NOW(), `type` = '4'");
+					$this->model_extension_payment_pp_express->log($subscription, 'IPN data');
+
+					if ($subscription != false) {
+						$this->model_account_subscription->addTransaction($subscription['subscription_id'], $subscription['order_id'], 4);
 					}
 				}
 
 				// Outstanding payment failed
 				if ($this->request->post['txn_type'] == 'recurring_payment_outstanding_payment_failed') {
-					$recurring = $this->model_account_recurring->getOrderRecurringByReference($this->request->post['recurring_payment_id']);
+					$subscription = $this->model_account_subscription->getSubscriptionByReference($this->request->post['recurring_payment_id']);
 
-					if ($recurring != false) {
-						$this->db->query("INSERT INTO `" . DB_PREFIX . "order_recurring_transaction` SET `order_recurring_id` = '" . (int)$recurring['order_recurring_id'] . "', `date_added` = NOW(), `type` = '8'");
+					$this->model_extension_payment_pp_express->log($subscription, 'IPN data');
+
+					if ($subscription != false) {
+						$this->model_account_subscription->addTransaction($subscription['subscription_id'], $subscription['order_id'], 8);
 					}
 				}
 
 				// Outstanding payment
 				if ($this->request->post['txn_type'] == 'recurring_payment_outstanding_payment') {
-					$recurring = $this->model_account_recurring->getOrderRecurringByReference($this->request->post['recurring_payment_id']);
+					$subscription = $this->model_account_subscription->getSubscriptionByReference($this->request->post['recurring_payment_id']);
 
-					if ($recurring != false) {
-						$this->db->query("INSERT INTO `" . DB_PREFIX . "order_recurring_transaction` SET `order_recurring_id` = '" . (int)$recurring['order_recurring_id'] . "', `date_added` = NOW(), `amount` = '" . (float)$this->request->post['amount'] . "', `type` = '2'");
+					$this->model_extension_payment_pp_express->log($subscription, 'IPN data');
 
+					if ($subscription != false) {
+						$this->model_account_subscription->addTransaction($subscription['subscription_id'], $subscription['order_id'], 2);
+						
 						// As there was a payment the recurring is active, ensure it is set to active (may be been suspended before)
-						if ($recurring['status'] != 1) {
-							$this->db->query("UPDATE `" . DB_PREFIX . "order_recurring` SET `status` = '2' WHERE `order_recurring_id` = '" . (int)$recurring['order_recurring_id'] . "'");
+						if ($subscription['status'] != 1) {
+							$this->model_account_subscription->editStatus($subscription['subscription_id'], 2);
 						}
 					}
 				}
 
 				// date_added
 				if ($this->request->post['txn_type'] == 'recurring_payment_profile_date_added') {
-					$recurring = $this->model_account_recurring->getOrderRecurringByReference($this->request->post['recurring_payment_id']);
+					$subscription = $this->model_account_subscription->getSubscriptionByReference($this->request->post['recurring_payment_id']);
 
-					if ($recurring != false) {
-						$this->db->query("INSERT INTO `" . DB_PREFIX . "order_recurring_transaction` SET `order_recurring_id` = '" . (int)$recurring['order_recurring_id'] . "', `date_added` = NOW(), `type` = '0'");
+					$this->model_extension_payment_pp_express->log($subscription, 'IPN data');
 
-						if ($recurring['status'] != 1) {
-							$this->db->query("UPDATE `" . DB_PREFIX . "order_recurring` SET `status` = '2' WHERE `order_recurring_id` = '" . (int)$recurring['order_recurring_id'] . "'");
+					if ($subscription != false) {
+						$this->model_account_subscription->addTransaction($subscription['subscription_id'], $subscription['order_id'], 0);
+						
+						// As there was a payment the recurring is active, ensure it is set to active (may be been suspended before)
+						if ($subscription['status'] != 1) {
+							$this->model_account_subscription->editStatus($subscription['subscription_id'], 2);
 						}
 					}
 				}
 
 				// Cancelled
 				if ($this->request->post['txn_type'] == 'recurring_payment_profile_cancel') {
-					$recurring = $this->model_account_recurring->getOrderRecurringByReference($this->request->post['recurring_payment_id']);
+					$subscription = $this->model_account_subscription->getSubscriptionByReference($this->request->post['recurring_payment_id']);
 
-					if ($recurring != false && $recurring['status'] != 3) {
-						$this->db->query("INSERT INTO `" . DB_PREFIX . "order_recurring_transaction` SET `order_recurring_id` = '" . (int)$recurring['order_recurring_id'] . "', `date_added` = NOW(), `type` = '5'");
-						$this->db->query("UPDATE `" . DB_PREFIX . "order_recurring` SET `status` = '4' WHERE `order_recurring_id` = '" . (int)$recurring['order_recurring_id'] . "' LIMIT 1");
+					$this->model_extension_payment_pp_express->log($subscription, 'IPN data');
+
+					if ($subscription != false && $subscription['status'] != 3) {
+						$this->model_account_subscription->addTransaction($subscription['subscription_id'], $subscription['order_id'], 5);
+						
+						$this->model_account_subscription->editStatus($subscription['subscription_id'], 4);
 					}
 				}
 
 				// Skipped
 				if ($this->request->post['txn_type'] == 'recurring_payment_skipped') {
-					$recurring = $this->model_account_recurring->getOrderRecurringByReference($this->request->post['recurring_payment_id']);
+					$subscription = $this->model_account_subscription->getSubscriptionByReference($this->request->post['recurring_payment_id']);
 
-					if ($recurring != false) {
-						$this->db->query("INSERT INTO `" . DB_PREFIX . "order_recurring_transaction` SET `order_recurring_id` = '" . (int)$recurring['order_recurring_id'] . "', `date_added` = NOW(), `type` = '3'");
+					$this->model_extension_payment_pp_express->log($subscription, 'IPN data');
+
+					if ($subscription != false) {
+						$this->model_account_subscription->addTransaction($subscription['subscription_id'], $subscription['order_id'], 3);
 					}
 				}
 
 				// Expired
 				if ($this->request->post['txn_type'] == 'recurring_payment_expired') {
-					$recurring = $this->model_account_recurring->getOrderRecurringByReference($this->request->post['recurring_payment_id']);
+					$subscription = $this->model_account_subscription->getSubscriptionByReference($this->request->post['recurring_payment_id']);
 
-					if ($recurring != false) {
-						$this->db->query("INSERT INTO `" . DB_PREFIX . "order_recurring_transaction` SET `order_recurring_id` = '" . (int)$recurring['order_recurring_id'] . "', `date_added` = NOW(), `type` = '9'");
-						$this->db->query("UPDATE `" . DB_PREFIX . "order_recurring` SET `status` = '5' WHERE `order_recurring_id` = '" . (int)$recurring['order_recurring_id'] . "' LIMIT 1");
+					$this->model_extension_payment_pp_express->log($subscription, 'IPN data');
+
+					if ($subscription != false) {
+						$this->model_account_subscription->addTransaction($subscription['subscription_id'], $subscription['order_id'], 9);
+						
+						$this->model_account_subscription->editStatus($subscription['subscription_id'], 5);
 					}
 				}
 			}

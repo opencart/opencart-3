@@ -697,4 +697,68 @@ class ControllerProductProduct extends Controller {
 		$this->response->addHeader('Content-Type: application/json');
 		$this->response->setOutput(json_encode($json));
 	}
+	
+	public function getSubscriptionDescription() {
+		$this->load->language('product/product');
+		
+		$json = array();
+		
+		$this->load->model('catalog/product');
+
+		if (isset($this->request->post['product_id'])) {
+			$product_id = (int)$this->request->post['product_id'];
+		} else {
+			$product_id = 0;
+		}
+
+		if (isset($this->request->post['subscription_plan_id'])) {
+			$subscription_plan_id = (int)$this->request->post['subscription_plan_id'];
+		} else {
+			$subscription_plan_id = 0;
+		}
+
+		if (isset($this->request->post['quantity'])) {
+			$quantity = (int)$this->request->post['quantity'];
+		} else {
+			$quantity = 1;
+		}
+
+		// Subscriptions
+		$json['subscription_plans'] = array();
+
+		$results = $this->model_catalog_product->getSubscriptions($product_id);
+
+		foreach ($results as $result) {
+			$description = '';
+
+			$trial_price = $this->currency->format($this->tax->calculate($result['trial_price'], $product_info['tax_class_id'], $this->config->get('config_tax')), $this->session->data['currency']);
+			$trial_cycle = $result['trial_cycle'];
+			$trial_frequency = $this->language->get('text_' . $result['trial_frequency']);
+			$trial_duration = $result['trial_duration'];
+
+			if ($result['trial_status']) {
+				$description .= sprintf($this->language->get('text_subscription_trial'), $trial_price, $trial_cycle, $trial_frequency, $trial_duration);
+			}
+
+			$price = $this->currency->format($this->tax->calculate($result['price'], $product_info['tax_class_id'], $this->config->get('config_tax')), $this->session->data['currency']);
+			$cycle = $result['cycle'];
+			$frequency = $this->language->get('text_' . $result['frequency']);
+			$duration = $result['duration'];
+
+			if ($duration) {
+				$description .= sprintf($this->language->get('text_subscription_duration'), $price, $cycle, $frequency, $duration);
+			} else {
+				$description .= sprintf($this->language->get('text_subscription_cancel'), $price, $cycle, $frequency);
+			}
+
+			$json['subscription_plans'][] = array(
+				'subscription_plan_id' => $result['subscription_plan_id'],
+				'name'                 => $result['name'],
+				'description'          => $description
+			);
+		}
+
+		$this->response->addHeader('Content-Type: application/json');
+		$this->response->setOutput(json_encode($json));
+	}
 }

@@ -12,7 +12,12 @@
             - <small>{{ option.name }} {{ option.value }}</small> {% endfor %}
             {% endif %}
             {% if product.recurring %} <br/>
-            - <small>{{ text_recurring }} {{ product.recurring }}</small> {% endif %}</td>
+            - <small>{{ text_recurring }} {{ product.recurring }}</small> {% endif %}
+			{% if product.subscription %}
+            <br/>
+            <small> - {{ text_subscription }} {{ product.subscription }}</small>
+            {% endif %}
+		  </td>
           <td class="text-right">x {{ product.quantity }}</td>
           <td class="text-right">{{ product.total }}</td>
           <td class="text-center"><button type="button" onclick="cart.remove('{{ product.cart_id }}');" title="{{ button_remove }}" class="btn btn-danger btn-xs"><i class="fa fa-times"></i></button></td>

@@ -300,12 +300,12 @@ CREATE TABLE `oc_cart` (
   `customer_id` int(11) NOT NULL,
   `session_id` varchar(32) NOT NULL,
   `product_id` int(11) NOT NULL,
-  `recurring_id` int(11) NOT NULL,
+  `subscription_plan_id` int(11) NOT NULL,
   `option` text NOT NULL,
   `quantity` int(5) NOT NULL,
   `date_added` datetime NOT NULL,
   PRIMARY KEY (`cart_id`),
-  KEY `cart_id` (`api_id`,`customer_id`,`session_id`,`product_id`,`recurring_id`)
+  KEY `cart_id` (`api_id`,`customer_id`,`session_id`,`product_id`,`subscription_plan_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 -----------------------------------------------------------
@@ -1722,6 +1722,7 @@ INSERT INTO `oc_information` (`information_id`, `bottom`, `sort_order`, `status`
 (4, 1, 1, 1),
 (5, 1, 4, 1),
 (6, 1, 2, 1);
+(7, 1, 5, 1);
 
 -----------------------------------------------------------
 
@@ -1750,6 +1751,7 @@ INSERT INTO `oc_information_description` (`information_id`, `language_id`, `titl
 (5, 1, 'Terms &amp; Conditions', '&lt;p&gt;\r\n	Terms &amp;amp; Conditions&lt;/p&gt;\r\n', 'Terms &amp; Conditions', '', ''),
 (3, 1, 'Privacy Policy', '&lt;p&gt;\r\n	Privacy Policy&lt;/p&gt;\r\n', 'Privacy Policy', '', ''),
 (6, 1, 'Delivery Information', '&lt;p&gt;\r\n	Delivery Information&lt;/p&gt;\r\n', 'Delivery Information', '', '');
+(7, 1, 'Subscriptions', 'In the next couple of months, our store will be introducing a new subscription system where customers will have the ability to handle customer payments with their accounts and our store to provide better services with larger recurring products managed by subscriptions.', 'Subscriptions', '', '');
 
 -----------------------------------------------------------
 
@@ -1787,6 +1789,7 @@ INSERT INTO `oc_information_to_store` (`information_id`, `store_id`) VALUES
 (4, 0),
 (5, 0),
 (6, 0);
+(7, 0);
 
 -----------------------------------------------------------
 
@@ -2949,6 +2952,20 @@ CREATE TABLE `oc_product_recurring` (
 -----------------------------------------------------------
 
 --
+-- Table structure for table `oc_product_subscription`
+--
+
+DROP TABLE IF EXISTS `oc_product_subscription`;
+CREATE TABLE `oc_product_subscription` (
+  `product_id` int(11) NOT NULL,
+  `subscription_plan_id` int(11) NOT NULL,
+  `customer_group_id` int(11) NOT NULL,
+  PRIMARY KEY (`product_id`,`subscription_plan_id`,`customer_group_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+
+-----------------------------------------------------------
+
+--
 -- Table structure for table `oc_product_related`
 --
 
@@ -3445,6 +3462,13 @@ INSERT INTO `oc_setting` (`store_id`, `code`, `key`, `value`, `serialized`) VALU
 (0, 'config', 'config_order_status_id', '1', 0),
 (0, 'config', 'config_processing_status', '["5","1","2","12","3"]', 1),
 (0, 'config', 'config_complete_status', '["5","3"]', 1),
+(0, 'config', 'config_fraud_status_id', '8', 0),
+(0, 'config', 'config_subscription_status_id', '1', 0),
+(0, 'config', 'config_subscription_active_status_id', '2', 0),
+(0, 'config', 'config_subscription_expired_status_id', '6', 0),
+(0, 'config', 'config_subscription_canceled_status_id', '4', 0),
+(0, 'config', 'config_subscription_failed_status_id', '3', 0),
+(0, 'config', 'config_subscription_denied_status_id', '5', 0),
 (0, 'config', 'config_stock_display', '0', 0),
 (0, 'config', 'config_stock_warning', '0', 0),
 (0, 'config', 'config_stock_checkout', '0', 0),
@@ -3624,6 +3648,147 @@ INSERT INTO `oc_stock_status` (`stock_status_id`, `language_id`, `name`) VALUES
 (8, 1, 'Pre-Order'),
 (5, 1, 'Out Of Stock'),
 (6, 1, '2-3 Days');
+
+-----------------------------------------------------------
+
+--
+-- Table structure for table `oc_subscription`
+--
+
+DROP TABLE IF EXISTS `oc_subscription`;
+CREATE TABLE `oc_subscription` (
+  `subscription_id` int(11) NOT NULL AUTO_INCREMENT,
+  `customer_id` int(11) NOT NULL,
+  `order_id` int(11) NOT NULL,
+  `order_product_id` int(11) NOT NULL,
+  `subscription_plan_id` int(11) NOT NULL,
+  `customer_plan_id` int(11) NOT NULL,  
+  `name` varchar(32) NOT NULL,
+  `description` text NOT NULL,
+  `reference` varchar(255) NOT NULL,
+  `trial_price` decimal(10,4) NOT NULL,
+  `trial_frequency` enum('day','week','semi_month','month','year') NOT NULL,
+  `trial_cycle` smallint(6) NOT NULL,
+  `trial_duration` smallint(6) NOT NULL,
+  `trial_remaining` smallint(6) NOT NULL,
+  `trial_status` tinyint(1) NOT NULL,
+  `price` decimal(10,4) NOT NULL,
+  `frequency` enum('day','week','semi_month','month','year') NOT NULL,
+  `cycle` smallint(6) NOT NULL,
+  `duration` smallint(6) NOT NULL,
+  `remaining` smallint(6) NOT NULL,
+  `date_next` datetime NOT NULL,
+  `subscription_status_id` int(11) NOT NULL,
+  `status` tinyint(1) NOT NULL,
+  `date_added` datetime NOT NULL,
+  `date_modified` datetime NOT NULL,
+  PRIMARY KEY (`subscription_id`),
+  KEY `order_id` (`order_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+
+-----------------------------------------------------------
+
+--
+-- Table structure for table `oc_subscription_history`
+--
+
+DROP TABLE IF EXISTS `oc_subscription_history`;
+CREATE TABLE `oc_subscription_history` (
+  `subscription_history_id` int(11) NOT NULL AUTO_INCREMENT,
+  `subscription_id` int(11) NOT NULL,
+  `subscription_status_id` int(11) NOT NULL,
+  `notify` tinyint(1) NOT NULL,
+  `comment` text NOT NULL,
+  `date_added` datetime NOT NULL,
+  PRIMARY KEY (`subscription_history_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+
+-----------------------------------------------------------
+
+--
+-- Table structure for table `oc_subscription_plan`
+--
+
+DROP TABLE IF EXISTS `oc_subscription_plan`;
+CREATE TABLE `oc_subscription_plan` (
+  `subscription_plan_id` int(11) NOT NULL AUTO_INCREMENT,
+  `trial_price` decimal(10,4) NOT NULL,
+  `trial_frequency` enum('day','week','semi_month','month','year') NOT NULL,
+  `trial_duration` smallint(6) NOT NULL,
+  `trial_cycle` smallint(6) NOT NULL,
+  `trial_status` tinyint(1) NOT NULL,
+  `price` decimal(10,4) NOT NULL,
+  `frequency` enum('day','week','semi_month','month','year') NOT NULL,
+  `duration` smallint(6) NOT NULL,
+  `cycle` smallint(6) NOT NULL,
+  `status` tinyint(1) NOT NULL,
+  `sort_order` int(3) NOT NULL,
+  PRIMARY KEY (`subscription_plan_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+
+-----------------------------------------------------------
+
+--
+-- Table structure for table `oc_subscription_plan_description`
+--
+
+DROP TABLE IF EXISTS `oc_subscription_plan_description`;
+CREATE TABLE `oc_subscription_plan` (
+  `subscription_plan_id` int(11) NOT NULL,
+  `language_id` int(11) NOT NULL,
+  `name` VARCHAR(255) NOT NULL,
+  `description` text NOT NULL,
+  PRIMARY KEY (`subscription_plan_id`,`language_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+
+-----------------------------------------------------------
+
+--
+-- Table structure for table `oc_subscription_status`
+--
+
+DROP TABLE IF EXISTS `oc_subscription_status`;
+CREATE TABLE `oc_subscription_status` (
+  `subscription_status_id` int(11) NOT NULL AUTO_INCREMENT,
+  `language_id` int(11) NOT NULL,
+  `name` varchar(32) NOT NULL,
+  PRIMARY KEY (`subscription_status_id`,`language_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+
+--
+-- Dumping data for table `oc_subscription_status`
+--
+
+INSERT INTO `oc_subscription_status` (`subscription_status_id`, `language_id`, `name`) VALUES
+(1, 1, 'Pending'),
+(2, 1, 'Active'),
+(3, 1, 'Failed'),
+(4, 1, 'Cancelled'),
+(5, 1, 'Denied'),
+(6, 1, 'Expired');
+
+-----------------------------------------------------------
+
+--
+-- Table structure for table `oc_subscription_transaction`
+--
+
+DROP TABLE IF EXISTS `oc_subscription_transaction`;
+CREATE TABLE `oc_subscription_transaction` (
+  `subscription_transaction_id` int(11) NOT NULL AUTO_INCREMENT,
+  `subscription_id` int(11) NOT NULL,
+  `order_id` int(11) NOT NULL,
+  `transaction_id` int(11) NOT NULL,
+  `description` text NOT NULL,
+  `amount` decimal(10,4) NOT NULL,
+  `type` tinyint(2) NOT NULL,
+  `payment_method` VARCHAR(128) NOT NULL,
+  `payment_code` VARCHAR(128) NOT NULL,
+  `date_added` datetime NOT NULL,
+  PRIMARY KEY (`subscription_transaction_id`),
+  KEY `subscription_id` (`subscription_id`),
+  KEY `order_id` (`order_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 -----------------------------------------------------------
 

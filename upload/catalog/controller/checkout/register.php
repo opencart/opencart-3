@@ -18,6 +18,8 @@ class ControllerCheckoutRegister extends Controller {
 				}
 			}
 		}
+		
+		$data['config_checkout_guest'] = ($this->config->get('config_checkout_guest') && !$this->config->get('config_customer_price') && !$this->cart->hasDownload() && !$this->cart->hasSubscription());
 
 		$data['customer_group_id'] = $this->config->get('config_customer_group_id');
 
@@ -170,6 +172,11 @@ class ControllerCheckoutRegister extends Controller {
 				if ($information_info && !isset($this->request->post['agree'])) {
 					$json['error']['warning'] = sprintf($this->language->get('error_agree'), $information_info['title']);
 				}
+			}
+			
+			// If not guest checkout disabled, login require price or cart has downloads
+			if (!$this->request->post['account'] && (!$this->config->get('config_checkout_guest') || $this->config->get('config_customer_price') || $this->cart->hasDownload() || $this->cart->hasSubscription())) {
+				$json['error']['warning'] = $this->language->get('error_guest');
 			}
 
 			// Customer Group

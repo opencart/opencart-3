@@ -336,10 +336,10 @@ class ControllerExtensionPaymentSagepayDirect extends Controller {
 
 			if ($this->config->get('payment_sagepay_direct_transaction') == 'PAYMENT') {
 				// Loop through any products that are recurring items
-				$recurring_products = $this->cart->getRecurringProducts();				
+				$recurring_products = $this->cart->getSubscription();				
 				
 				foreach ($recurring_products as $item) {
-					$this->model_extension_payment_sagepay_direct->recurringPayment($item, $payment_data['VendorTxCode']);
+					$this->model_extension_payment_sagepay_direct->recurringPayment($item['subscription'], $payment_data['VendorTxCode']);
 				}
 			}
 
@@ -415,6 +415,7 @@ class ControllerExtensionPaymentSagepayDirect extends Controller {
 
 				$this->model_extension_payment_sagepay_direct->updateOrder($order_info, $response_data);
 				$this->model_extension_payment_sagepay_direct->addTransaction($sagepay_order_info['sagepay_direct_order_id'], $this->config->get('payment_sagepay_direct_transaction'), $order_info);
+				
 				$this->model_checkout_order->addOrderHistory($this->session->data['order_id'], $this->config->get('payment_sagepay_direct_order_status_id'), $message, false);
 
 				if (!empty($response_data['Token']) && $this->customer->isLogged()) {
@@ -425,10 +426,10 @@ class ControllerExtensionPaymentSagepayDirect extends Controller {
 
 				if ($this->config->get('payment_sagepay_direct_transaction') == 'PAYMENT') {
 					// Loop through any products that are recurring items
-					$recurring_products = $this->cart->getRecurringProducts();
+					$subscription_products = $this->cart->getSubscription();
 					
-					foreach ($recurring_products as $item) {
-						$this->model_extension_payment_sagepay_direct->recurringPayment($item, $sagepay_order_info['VendorTxCode']);
+					foreach ($subscription_products as $item) {
+						$this->model_extension_payment_sagepay_direct->recurringPayment($item['subscription'], $sagepay_order_info['VendorTxCode']);
 					}
 				}
 

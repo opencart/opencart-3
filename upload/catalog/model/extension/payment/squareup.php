@@ -184,10 +184,14 @@ class ModelExtensionPaymentSquareup extends Model {
         return (bool)$this->config->get('payment_squareup_recurring_status');
     }
 
-    public function createRecurring($recurring, $order_id, $description, $reference) {
-        $this->db->query("INSERT INTO `" . DB_PREFIX . "order_recurring` SET `order_id` = '" . (int)$order_id . "', `date_added` = NOW(), `status` = '" . self::RECURRING_ACTIVE . "', `product_id` = '" . (int)$recurring['product_id'] . "', `product_name` = '" . $this->db->escape($recurring['name']) . "', `product_quantity` = '" . $this->db->escape($recurring['quantity']) . "', `recurring_id` = '" . (int)$recurring['recurring']['recurring_id'] . "', `recurring_name` = '" . $this->db->escape($recurring['recurring']['name']) . "', `recurring_description` = '" . $this->db->escape($description) . "', `recurring_frequency` = '" . $this->db->escape($recurring['recurring']['frequency']) . "', `recurring_cycle` = '" . (int)$recurring['recurring']['cycle'] . "', `recurring_duration` = '" . (int)$recurring['recurring']['duration'] . "', `recurring_price` = '" . (float)$recurring['recurring']['price'] . "', `trial` = '" . (int)$recurring['recurring']['trial'] . "', `trial_frequency` = '" . $this->db->escape($recurring['recurring']['trial_frequency']) . "', `trial_cycle` = '" . (int)$recurring['recurring']['trial_cycle'] . "', `trial_duration` = '" . (int)$recurring['recurring']['trial_duration'] . "', `trial_price` = '" . (float)$recurring['recurring']['trial_price'] . "', `reference` = '" . $this->db->escape($reference) . "'");
-
-        return $this->db->getLastId();
+    public function createRecurring($order_id, $data) {
+		$this->load->model('checkout/subscription');
+		
+		$status = self::RECURRING_ACTIVE;
+		
+		$data = array_merge($data, array('status', $status));
+		
+		return $this->model_checkout_subscription->addSubscription($order_id, $data);
     }
 
     public function validateCRON() {
@@ -230,38 +234,38 @@ class ModelExtensionPaymentSquareup extends Model {
 
         $this->load->library('squareup');
 
-        $recurring_sql = "SELECT * FROM `" . DB_PREFIX . "order_recurring` `or` INNER JOIN `" . DB_PREFIX . "squareup_transaction` st ON (st.`transaction_id` = `or`.`reference`) WHERE `or`.`status` = '" . self::RECURRING_ACTIVE . "'";
+        $subscription_sql = "SELECT * FROM `" . DB_PREFIX . "subscription` s INNER JOIN `" . DB_PREFIX . "squareup_transaction` st ON (st.`transaction_id` = s.`reference`) WHERE s.`status` = '" . self::RECURRING_ACTIVE . "'";
 
         $this->load->model('checkout/order');
 
-        foreach ($this->db->query($recurring_sql)->rows as $recurring) {
-            if (!$this->paymentIsDue($recurring['order_recurring_id'])) {
+        foreach ($this->db->query($subscription_sql)->rows as $subscription) {
+            if (!$this->paymentIsDue($subscription['subscription_id'])) {
                 continue;
             }
 
-            $order_info = $this->model_checkout_order->getOrder($recurring['order_id']);
+            $order_info = $this->model_checkout_order->getOrder($subscription['order_id']);
 
             $billing_address = array(
                 'first_name' 		=> $order_info['payment_firstname'],
                 'last_name' 		=> $order_info['payment_lastname'],
-                'address_line_1' 	=> $recurring['billing_address_street_1'],
-                'address_line_2' 	=> $recurring['billing_address_street_2'],
-                'locality' 			=> $recurring['billing_address_city'],
-                'sublocality' 		=> $recurring['billing_address_province'],
-                'postal_code' 		=> $recurring['billing_address_postcode'],
-                'country' 			=> $recurring['billing_address_country'],
-                'organization' 		=> $recurring['billing_address_company']
+                'address_line_1' 	=> $subscription['billing_address_street_1'],
+                'address_line_2' 	=> $subscription['billing_address_street_2'],
+                'locality' 			=> $subscription['billing_address_city'],
+                'sublocality' 		=> $subscription['billing_address_province'],
+                'postal_code' 		=> $subscription['billing_address_postcode'],
+                'country' 			=> $subscription['billing_address_country'],
+                'organization' 		=> $subscription['billing_address_company']
             );
 
-            $transaction_tenders = @json_decode($recurring['tenders'], true);
+            $transaction_tenders = @json_decode($subscription['tenders'], true);
 
-            $price = (float)($recurring['trial'] ? $recurring['trial_price'] : $recurring['recurring_price']);
+            $price = (int)($subscription['trial_status'] ? $subscription['trial_price'] : $subscription['price']);
 
             $transaction = array(
                 'idempotency_key' 		=> uniqid(),
                 'amount_money' 				=> array(
-                    'amount' 					=> $this->squareup->lowestDenomination($price * $recurring['product_quantity'], $recurring['transaction_currency']),
-                    'currency' 					=> $recurring['transaction_currency']
+                    'amount' 					=> $this->squareup->lowestDenomination($price * $subscription['product_quantity'], $subscription['transaction_currency']),
+                    'currency' 					=> $subscription['transaction_currency']
                 ),
                 'billing_address' 		=> $billing_address,
                 'buyer_email_address' 	=> $order_info['email'],
@@ -273,8 +277,8 @@ class ModelExtensionPaymentSquareup extends Model {
 
             $payments[] = array(
                 'is_free' 				=> $price == 0,
-                'order_id' 				=> $recurring['order_id'],
-                'order_recurring_id' 	=> $recurring['order_recurring_id'],
+                'order_id' 				=> $subscription['order_id'],
+                'order_recurring_id' 	=> $subscription['subscription_id'],
                 'billing_address' 		=> $billing_address,
                 'transaction' 			=> $transaction
             );
@@ -283,36 +287,39 @@ class ModelExtensionPaymentSquareup extends Model {
         return $payments;
     }
 
-    public function addRecurringTransaction($order_recurring_id, $reference, $amount, $status) {
+    public function addRecurringTransaction($subscription_id, $reference, $response_data, $status) {
+		$this->load->model('checkout/subscription');
+		$this->load->model('account/subscription');
+		
         if ($status) {
             $type = self::TRANSACTION_PAYMENT;
         } else {
             $type = self::TRANSACTION_FAILED;
-        }
-
-        $this->db->query("INSERT INTO `" . DB_PREFIX . "order_recurring_transaction` SET order_recurring_id='" . (int)$order_recurring_id . "', reference='" . $this->db->escape($reference) . "', type='" . (int)$type . "', amount='" . (float)$amount . "', date_added=NOW()");
+        }		
+			
+		$this->model_checkout_subscription->editReference($subscription_id, $reference);
     }
 
-    public function updateRecurringExpired($order_recurring_id) {
-        $recurring_info = $this->getRecurring($order_recurring_id);
+    public function updateRecurringExpired($subscription_id) {
+        $subscription_info = $this->getSubscription($subscription_id);
 
-        if ($recurring_info['trial']) {
+        if ($subscription_info['trial_status']) {
             // If we are in trial, we need to check if the trial will end at some point
-            $expirable = (bool)$recurring_info['trial_duration'];
+            $expirable = (bool)$subscription_info['trial_duration'];
         } else {
             // If we are not in trial, we need to check if the recurring will end at some point
-            $expirable = (bool)$recurring_info['recurring_duration'];
+            $expirable = (bool)$subscription_info['duration'];
         }
 
-        // If recurring payment can expire (trial_duration > 0 AND recurring_duration > 0)
+        // If recurring payment can expire (trial_duration > 0 AND duration > 0)
         if ($expirable) {
-            $number_of_successful_payments = $this->getTotalSuccessfulPayments($order_recurring_id);
+            $number_of_successful_payments = $this->getTotalSuccessfulPayments($subscription_id);
 
-            $total_duration = (int)$recurring_info['trial_duration'] + (int)$recurring_info['recurring_duration'];
+            $total_duration = (int)$subscription_info['trial_duration'] + (int)$subscription_info['duration'];
 
             // If successful payments exceed total_duration
             if ($number_of_successful_payments >= $total_duration) {
-                $this->db->query("UPDATE `" . DB_PREFIX . "order_recurring` SET status='" . self::RECURRING_EXPIRED . "' WHERE order_recurring_id='" . (int)$order_recurring_id . "'");
+                $this->db->query("UPDATE `" . DB_PREFIX . "subscription` SET `status` = '" . self::RECURRING_EXPIRED . "' WHERE `subscription_id` = '" . (int)$subscription_id . "'");
 
                 return true;
             }
@@ -321,16 +328,16 @@ class ModelExtensionPaymentSquareup extends Model {
         return false;
     }
 
-    public function updateRecurringTrial($order_recurring_id) {
-        $recurring_info = $this->getRecurring($order_recurring_id);
+    public function updateRecurringTrial($subscription_id) {
+        $subscription_info = $this->getSubscription($subscription_id);
 
         // If recurring payment is in trial and can expire (trial_duration > 0)
-        if ($recurring_info['trial'] && $recurring_info['trial_duration']) {
-            $number_of_successful_payments = $this->getTotalSuccessfulPayments($order_recurring_id);
+        if ($subscription_info['trial_status'] && $subscription_info['trial_duration']) {
+            $number_of_successful_payments = $this->getTotalSuccessfulPayments($subscription_id);
 
             // If successful payments exceed trial_duration
-            if ($number_of_successful_payments >= $recurring_info['trial_duration']) {
-                $this->db->query("UPDATE `" . DB_PREFIX . "order_recurring` SET trial='0' WHERE order_recurring_id='" . (int)$order_recurring_id . "'");
+            if ($number_of_successful_payments >= $subscription_info['trial_duration']) {
+                $this->db->query("UPDATE `" . DB_PREFIX . "subscription` SET `trial_status` = '0' WHERE `subscription_id` = '" . (int)$subscription_id . "'");
 
                 return true;
             }
@@ -339,42 +346,42 @@ class ModelExtensionPaymentSquareup extends Model {
         return false;
     }
 
-    public function suspendRecurringProfile($order_recurring_id) {
-        $this->db->query("UPDATE `" . DB_PREFIX . "order_recurring` SET `status` = '" . self::RECURRING_SUSPENDED . "' WHERE `order_recurring_id` = '" . (int)$order_recurring_id . "'");
+    public function suspendRecurringProfile($subscription_id) {
+        $this->db->query("UPDATE `" . DB_PREFIX . "subscription` SET `status` = '" . self::RECURRING_SUSPENDED . "' WHERE `subscription_id` = '" . (int)$subscription_id . "'");
 
         return true;
     }
 
-    private function getLastSuccessfulRecurringPaymentDate($order_recurring_id) {
-        return $this->db->query("SELECT `date_added` FROM `" . DB_PREFIX . "order_recurring_transaction` WHERE `order_recurring_id` = '" . (int)$order_recurring_id . "' AND `type` = '" . self::TRANSACTION_PAYMENT . "' ORDER BY `date_added` DESC LIMIT 0,1")->row['date_added'];
+    private function getLastSuccessfulRecurringPaymentDate($subscription_id) {
+        return $this->db->query("SELECT `date_added` FROM `" . DB_PREFIX . "subscription_transaction` WHERE `subscription_id` = '" . (int)$subscription_id . "' AND `type` = '" . self::TRANSACTION_PAYMENT . "' ORDER BY `date_added` DESC LIMIT 0,1")->row['date_added'];
     }
 
-    private function getRecurring($order_recurring_id) {
-        $recurring_sql = "SELECT * FROM `" . DB_PREFIX . "order_recurring` WHERE `order_recurring_id` = '" . (int)$order_recurring_id . "'";
-
-        return $this->db->query($recurring_sql)->row;
+    private function getSubscription($subscription_id) {
+        $this->load->model('account/subscription');
+		
+		return $this->model_account_subscription->getSubscription($subscription_id);
     }
 
-    private function getTotalSuccessfulPayments($order_recurring_id) {
-        return $this->db->query("SELECT COUNT(*) AS total FROM `" . DB_PREFIX . "order_recurring_transaction` WHERE `order_recurring_id` = '" . (int)$order_recurring_id . "' AND type = '" . self::TRANSACTION_PAYMENT . "'")->row['total'];
+    private function getTotalSuccessfulPayments($subscription_id) {
+        return $this->db->query("SELECT COUNT(*) AS total FROM `" . DB_PREFIX . "subscription_transaction` WHERE `subscription_id` = '" . (int)$subscription_id . "' AND `type` = '" . self::TRANSACTION_PAYMENT . "'")->row['total'];
     }
 
-    private function paymentIsDue($order_recurring_id) {
+    private function paymentIsDue($subscription_id) {
         // We know the recurring profile is active.
-        $recurring_info = $this->getRecurring($order_recurring_id);
+        $subscription_info = $this->getSubscription($subscription_id);
 
-        if ($recurring_info['trial']) {
-            $frequency = $recurring_info['trial_frequency'];
-            $cycle = (int)$recurring_info['trial_cycle'];
+        if ($subscription_info['trial_status']) {
+            $frequency = $subscription_info['trial_frequency'];
+            $cycle = (int)$subscription_info['trial_cycle'];
         } else {
-            $frequency = $recurring_info['recurring_frequency'];
-            $cycle = (int)$recurring_info['recurring_cycle'];
+            $frequency = $subscription_info['frequency'];
+            $cycle = (int)$subscription_info['cycle'];
         }
         // Find date of last payment
-        if (!$this->getTotalSuccessfulPayments($order_recurring_id)) {
-            $previous_time = strtotime($recurring_info['date_added']);
+        if (!$this->getTotalSuccessfulPayments($subscription_id)) {
+            $previous_time = strtotime($subscription_info['date_added']);
         } else {
-            $previous_time = strtotime($this->getLastSuccessfulRecurringPaymentDate($order_recurring_id));
+            $previous_time = strtotime($this->getLastSuccessfulRecurringPaymentDate($subscription_id));
         }
 
         switch ($frequency) {

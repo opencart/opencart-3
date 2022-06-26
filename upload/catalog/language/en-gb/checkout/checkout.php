@@ -34,11 +34,15 @@ $_['text_payment_recurring']         = 'Payment Profile';
 $_['text_trial_description']         = '%s every %d %s(s) for %d payment(s) then';
 $_['text_payment_description']       = '%s every %d %s(s) for %d payment(s)';
 $_['text_payment_cancel']            = '%s every %d %s(s) until canceled';
-$_['text_day']                       = 'day';
-$_['text_week']                      = 'week';
-$_['text_semi_month']                = 'half-month';
-$_['text_month']                     = 'month';
-$_['text_year']                      = 'year';
+$_['text_subscription']          	 = 'Subscription';
+$_['text_subscription_trial']    	 = '%s every %d %s(s) for %d payment(s) then ';
+$_['text_subscription_duration'] 	 = '%s every %d %s(s) for %d payment(s)';
+$_['text_subscription_cancel']   	 = '%s every %d %s(s) until canceled';
+$_['text_day']                   	 = 'day';
+$_['text_week']                  	 = 'week';
+$_['text_semi_month']            	 = 'half-month';
+$_['text_month']                 	 = 'month';
+$_['text_year']                  	 = 'year';
 
 // Column
 $_['column_name']                    = 'Product Name';
@@ -68,11 +72,18 @@ $_['entry_newsletter']               = 'I wish to subscribe to the %s newsletter
 $_['entry_shipping']                 = 'My delivery and billing addresses are the same.';
 
 // Error
-$_['error_warning']                  = 'There was a problem while trying to process your order! If the problem persists please try selecting a different payment method or you can contact the store owner by <a href="%s">clicking here</a>.';
+$_['error_guest']             		 = 'Warning: Items in your shopping cart require you to register for an account!';
 $_['error_login']                    = 'Warning: No match for E-Mail Address and/or Password.';
 $_['error_attempts']                 = 'Warning: Your account has exceeded allowed number of login attempts. Please try again in 1 hour.';
 $_['error_approved']                 = 'Warning: Your account requires approval before you can login.';
 $_['error_exists']                   = 'Warning: E-Mail Address is already registered!';
+$_['error_agree']                    = 'Warning: You must agree to the %s!';
+$_['error_address']                  = 'Warning: You must select address!';
+$_['error_shipping']                 = 'Warning: Shipping method required!';
+$_['error_no_shipping']              = 'Warning: No Shipping options are available. Please <a href="%s">contact us</a> for assistance!';
+$_['error_payment']                  = 'Warning: Payment method required!';
+$_['error_no_payment']               = 'Warning: No Payment options are available. Please <a href="%s">contact us</a> for assistance!';
+$_['error_warning']                  = 'There was a problem while trying to process your order! If the problem persists please try selecting a different payment method or you can contact the store owner by <a href="%s">clicking here</a>.';
 $_['error_firstname']                = 'First Name must be between 1 and 32 characters!';
 $_['error_lastname']                 = 'Last Name must be between 1 and 32 characters!';
 $_['error_email']                    = 'E-Mail address does not appear to be valid!';
@@ -84,11 +95,5 @@ $_['error_city']                     = 'City must be between 2 and 128 character
 $_['error_postcode']                 = 'Postcode must be between 2 and 10 characters!';
 $_['error_country']                  = 'Please select a country!';
 $_['error_zone']                     = 'Please select a region / state!';
-$_['error_agree']                    = 'Warning: You must agree to the %s!';
-$_['error_address']                  = 'Warning: You must select address!';
-$_['error_shipping']                 = 'Warning: Shipping method required!';
-$_['error_no_shipping']              = 'Warning: No Shipping options are available. Please <a href="%s">contact us</a> for assistance!';
-$_['error_payment']                  = 'Warning: Payment method required!';
-$_['error_no_payment']               = 'Warning: No Payment options are available. Please <a href="%s">contact us</a> for assistance!';
 $_['error_custom_field']             = '%s required!';
 $_['error_regex']        			 = '%s is not a valid input!';

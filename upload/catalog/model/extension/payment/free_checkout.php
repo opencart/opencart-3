@@ -3,8 +3,10 @@ class ModelExtensionPaymentFreeCheckout extends Model {
 	public function getMethod($address, $total) {
 		$this->load->language('extension/payment/free_checkout');
 
-		if ($total <= 0.00) {
+		if ((float)$total <= 0.00) {
 			$status = true;
+		} elseif ($this->cart->hasSubscription()) {
+			$status = false;
 		} else {
 			$status = false;
 		}

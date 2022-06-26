@@ -94,18 +94,44 @@ class ControllerCommonCart extends Controller {
 				$price = false;
 				$total = false;
 			}
+			
+			// Subscription
+			$description = '';
+
+			if ($product['subscription']) {
+				$trial_price = $this->currency->format($this->tax->calculate($product['subscription']['trial_price'], $product['tax_class_id'], $this->config->get('config_tax')), $this->session->data['currency']);
+				$trial_cycle = $product['subscription']['trial_cycle'];
+				$trial_frequency = $this->language->get('text_' . $product['subscription']['trial_frequency']);
+				$trial_duration = $product['subscription']['trial_duration'];
+
+				if ($product['subscription']['trial_status']) {
+					$description .= sprintf($this->language->get('text_subscription_trial'), $trial_price, $trial_cycle, $trial_frequency, $trial_duration);
+				}
+
+				$price = $this->currency->format($this->tax->calculate($product['subscription']['price'], $product['tax_class_id'], $this->config->get('config_tax')), $this->session->data['currency']);
+				$cycle = $product['subscription']['cycle'];
+				$frequency = $this->language->get('text_' . $product['subscription']['frequency']);
+				$duration = $product['subscription']['duration'];
+
+				if ($duration) {
+					$description .= sprintf($this->language->get('text_subscription_duration'), $price, $cycle, $frequency, $duration);
+				} else {
+					$description .= sprintf($this->language->get('text_subscription_cancel'), $price, $cycle, $frequency);
+				}
+			}
 
 			$data['products'][] = array(
-				'cart_id'   => $product['cart_id'],
-				'thumb'     => $image,
-				'name'      => $product['name'],
-				'model'     => $product['model'],
-				'option'    => $option_data,
-				'recurring' => ($product['recurring'] ? $product['recurring']['name'] : ''),
-				'quantity'  => $product['quantity'],
-				'price'     => $price,
-				'total'     => $total,
-				'href'      => $this->url->link('product/product', 'product_id=' . $product['product_id'])
+				'cart_id'   	=> $product['cart_id'],
+				'thumb'     	=> $image,
+				'name'      	=> $product['name'],
+				'model'     	=> $product['model'],
+				'option'    	=> $option_data,
+				'recurring' 	=> ($product['recurring'] ? $product['recurring']['name'] : ''),
+				'subscription' 	=> $description,
+				'quantity'  	=> $product['quantity'],
+				'price'     	=> $price,
+				'total'     	=> $total,
+				'href'      	=> $this->url->link('product/product', 'product_id=' . $product['product_id'])
 			);
 		}
 

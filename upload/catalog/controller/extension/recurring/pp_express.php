@@ -32,17 +32,17 @@ class ControllerExtensionRecurringPPExpress extends Controller {
 		$json = array();
 		
 		// Cancel an active recurring
-		$this->load->model('account/recurring');
+		$this->load->model('account/subscription');
 		
 		if (isset($this->request->get['order_recurring_id'])) {
-			$order_recurring_id = (int)$this->request->get['order_recurring_id'];
+			$subscription_id = (int)$this->request->get['order_recurring_id'];
 		} else {
-			$order_recurring_id = 0;
+			$subscription_id = 0;
 		}
 		
-		$recurring_info = $this->model_account_recurring->getOrderRecurring($order_recurring_id);
+		$subscription_info = $this->model_account_account->getSubscription($subscription_id);
 
-		if ($recurring_info && $recurring_info['reference']) {
+		if ($subscription_info && $subscription_info['reference']) {
 			if ($this->config->get('payment_pp_express_test')) {
 				$api_url = 'https://api-3t.sandbox.paypal.com/nvp';
 				$api_username = $this->config->get('payment_pp_express_sandbox_username');
@@ -63,7 +63,7 @@ class ControllerExtensionRecurringPPExpress extends Controller {
 				'BUTTONSOURCE' => 'OpenCart_2.0_EC',
 				'METHOD'       => 'SetExpressCheckout',
 				'METHOD'       => 'ManageRecurringPaymentsProfileStatus',
-				'PROFILEID'    => $recurring_info['reference'],
+				'PROFILEID'    => $subscription_info['reference'],
 				'ACTION'       => 'Cancel'
 			);
 
@@ -89,8 +89,8 @@ class ControllerExtensionRecurringPPExpress extends Controller {
 			parse_str($response, $response_info);
 
 			if (isset($response_info['PROFILEID'])) {
-				$this->model_account_recurring->editOrderRecurringStatus($order_recurring_id, 4);
-				$this->model_account_recurring->addOrderRecurringTransaction($order_recurring_id, 5);
+				$this->model_account_subscription->editStatus($subscription_id, 4);
+				$this->model_account_subscription->addTransaction($subscription_id, $subscription_info['order_id'], 5);
 
 				$json['success'] = $this->language->get('text_cancelled');
 			} else {

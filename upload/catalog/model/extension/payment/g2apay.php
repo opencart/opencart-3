@@ -44,10 +44,10 @@ class ModelExtensionPaymentG2APay extends Model {
 	}
 
 	public function getG2aOrder($order_id) {
-		$qry = $this->db->query("SELECT * FROM `" . DB_PREFIX . "g2apay_order` WHERE `order_id` = '" . (int)$order_id . "' LIMIT 1");
+		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "g2apay_order` WHERE `order_id` = '" . (int)$order_id . "' LIMIT 1");
 
-		if ($qry->num_rows) {
-			return $qry->row;
+		if ($query->num_rows) {
+			return $query->row;
 		} else {
 			return false;
 		}

@@ -36,7 +36,7 @@ class ControllerExtensionModuleKlarnaCheckoutModule extends Controller {
 		}
 
 		// Validate cart has recurring products
-		if ($this->cart->hasRecurringProducts()) {
+		if ($this->cart->hasSubscription()) {
 			$this->model_extension_payment_klarna_checkout->log('Not shown due to cart having recurring products.');
 			
 			return false;

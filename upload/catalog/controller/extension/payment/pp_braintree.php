@@ -513,7 +513,7 @@ class ControllerExtensionPaymentPPBraintree extends Controller {
 		}
 
 		// if user not logged in check that the guest checkout is allowed
-		if (!$this->customer->isLogged() && (!$this->config->get('config_checkout_guest') || $this->config->get('config_customer_price') || $this->cart->hasDownload() || $this->cart->hasRecurringProducts())) {
+		if (!$this->customer->isLogged() && (!$this->config->get('config_checkout_guest') || $this->config->get('config_customer_price') || $this->cart->hasDownload() || $this->cart->hasSubscription())) {
 			$json = array();
 			
 			$json['error'] = true;

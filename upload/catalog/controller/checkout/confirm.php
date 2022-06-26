@@ -223,17 +223,18 @@ class ControllerCheckoutConfirm extends Controller {
 				}
 
 				$order_data['products'][] = array(
-					'product_id' => $product['product_id'],
-					'name'       => $product['name'],
-					'model'      => $product['model'],
-					'option'     => $option_data,
-					'download'   => $product['download'],
-					'quantity'   => $product['quantity'],
-					'subtract'   => $product['subtract'],
-					'price'      => $product['price'],
-					'total'      => $product['total'],
-					'tax'        => $this->tax->getTax($product['price'], $product['tax_class_id']),
-					'reward'     => $product['reward']
+					'product_id' 	=> $product['product_id'],
+					'name'       	=> $product['name'],
+					'model'      	=> $product['model'],
+					'option'     	=> $option_data,
+					'subscription'	=> $product['subscription'],
+					'download'   	=> $product['download'],
+					'quantity'   	=> $product['quantity'],
+					'subtract'   	=> $product['subtract'],
+					'price'      	=> $product['price'],
+					'total'      	=> $product['total'],
+					'tax'        	=> $this->tax->getTax($product['price'], $product['tax_class_id']),
+					'reward'     	=> $product['reward']
 				);
 			}
 
@@ -356,19 +357,44 @@ class ControllerCheckoutConfirm extends Controller {
 						$recurring .= sprintf($this->language->get('text_payment_cancel'), $this->currency->format($this->tax->calculate($product['recurring']['price'] * $product['quantity'], $product['tax_class_id'], $this->config->get('config_tax')), $this->session->data['currency']), $product['recurring']['cycle'], $frequencies[$product['recurring']['frequency']], $product['recurring']['duration']);
 					}
 				}
+				
+				$description = '';
+
+				if ($product['subscription']) {
+					$trial_price = $this->currency->format($this->tax->calculate($product['subscription']['trial_price'], $product['tax_class_id'], $this->config->get('config_tax')), $this->session->data['currency']);
+					$trial_cycle = $product['subscription']['trial_cycle'];
+					$trial_frequency = $this->language->get('text_' . $product['subscription']['trial_frequency']);
+					$trial_duration = $product['subscription']['trial_duration'];
+
+					if ($product['subscription']['trial_status']) {
+						$description .= sprintf($this->language->get('text_subscription_trial'), $trial_price, $trial_cycle, $trial_frequency, $trial_duration);
+					}
+
+					$price = $this->currency->format($this->tax->calculate($product['subscription']['price'], $product['tax_class_id'], $this->config->get('config_tax')), $this->session->data['currency']);
+					$cycle = $product['subscription']['cycle'];
+					$frequency = $this->language->get('text_' . $product['subscription']['frequency']);
+					$duration = $product['subscription']['duration'];
+
+					if ($duration) {
+						$description .= sprintf($this->language->get('text_subscription_duration'), $price, $cycle, $frequency, $duration);
+					} else {
+						$description .= sprintf($this->language->get('text_subscription_cancel'), $price, $cycle, $frequency);
+					}
+				}
 
 				$data['products'][] = array(
-					'cart_id'    => $product['cart_id'],
-					'product_id' => $product['product_id'],
-					'name'       => $product['name'],
-					'model'      => $product['model'],
-					'option'     => $option_data,
-					'recurring'  => $recurring,
-					'quantity'   => $product['quantity'],
-					'subtract'   => $product['subtract'],
-					'price'      => $this->currency->format($this->tax->calculate($product['price'], $product['tax_class_id'], $this->config->get('config_tax')), $this->session->data['currency']),
-					'total'      => $this->currency->format($this->tax->calculate($product['price'], $product['tax_class_id'], $this->config->get('config_tax')) * $product['quantity'], $this->session->data['currency']),
-					'href'       => $this->url->link('product/product', 'product_id=' . $product['product_id'])
+					'cart_id'    	=> $product['cart_id'],
+					'product_id' 	=> $product['product_id'],
+					'name'       	=> $product['name'],
+					'model'      	=> $product['model'],
+					'option'     	=> $option_data,
+					'recurring'  	=> $recurring,
+					'subscription'	=> $description,
+					'quantity'   	=> $product['quantity'],
+					'subtract'   	=> $product['subtract'],
+					'price'      	=> $this->currency->format($this->tax->calculate($product['price'], $product['tax_class_id'], $this->config->get('config_tax')), $this->session->data['currency']),
+					'total'      	=> $this->currency->format($this->tax->calculate($product['price'], $product['tax_class_id'], $this->config->get('config_tax')) * $product['quantity'], $this->session->data['currency']),
+					'href'       	=> $this->url->link('product/product', 'product_id=' . $product['product_id'])
 				);
 			}
 
