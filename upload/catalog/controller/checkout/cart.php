@@ -309,7 +309,7 @@ class ControllerCheckoutCart extends Controller {
 			$subscriptions = $this->model_catalog_product->getSubscriptions($product_id);
 
 			if ($subscriptions) {
-				$subscription_plan_ids = [];
+				$subscription_plan_ids = array();
 
 				foreach ($subscriptions as $subscription) {
 					$subscription_plan_ids[] = $subscription['subscription_plan_id'];
