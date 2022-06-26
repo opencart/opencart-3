@@ -422,7 +422,6 @@ class ControllerExtensionPaymentSagepayServer extends Controller {
 	public function success() {
 		$this->load->model('checkout/order');		
 		$this->load->model('extension/payment/sagepay_server');		
-		$this->load->model('checkout/recurring');		
 
 		if (isset($this->session->data['order_id'])) {
 			$order_details = $this->model_extension_payment_sagepay_server->getOrder($this->session->data['order_id']);

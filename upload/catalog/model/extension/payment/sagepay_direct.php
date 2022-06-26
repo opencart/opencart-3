@@ -373,7 +373,6 @@ class ModelExtensionPaymentSagePayDirect extends Model {
 
 	private function addRecurringTransaction($subscription_id, $response_data, $type) {
 		$this->load->model('checkout/subscription');		
-		$this->load->model('account/subscription');
 		
 		$this->model_checkout_subscription->editReference($subscription_id, $response_data['VendorTxCode']);
 	}
