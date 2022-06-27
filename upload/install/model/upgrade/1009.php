@@ -282,11 +282,12 @@ class ModelUpgrade1009 extends Model {
 		
 		// Cart - Subscriptions
 		$query = $this->db->query("SELECT * FROM information_schema.COLUMNS WHERE TABLE_SCHEMA = '" . DB_DATABASE . "' AND TABLE_NAME = '" . DB_PREFIX . "cart' AND COLUMN_NAME = 'subscription_plan_id'");
-		
+
 		if (!$query->num_rows) {
 			$this->db->query("TRUNCATE TABLE `" . DB_PREFIX . "cart`");
-			
-			$this->db->query("ALTER TABLE `" . DB_PREFIX . "cart` CHANGE COLUMN `recurring_id` `subscription_plan_id` int(11)");
+
+			$this->db->query("ALTER TABLE `" . DB_PREFIX . "cart` DROP COLUMN `recurring_id`");
+			$this->db->query("ALTER TABLE `" . DB_PREFIX . "cart` ADD COLUMN `subscription_plan_id` int(11) NOT NULL AFTER `product_id`");
 		}
 		
 		// Order - Transaction ID
