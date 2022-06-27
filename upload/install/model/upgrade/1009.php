@@ -1,19 +1,19 @@
 <?php
 class ModelUpgrade1009 extends Model {
-	public function upgrade() {
-		// Config
-		$config = new \Config();
-			
-		$setting_query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "setting` WHERE `store_id` = '0'");
-			
-		foreach ($setting_query->rows as $setting) {
-			$config->set($setting['key'], $setting['value']);
-		}
-			
+	public function upgrade() {\
 		// Affiliate customer merge code
 		$query = $this->db->query("SELECT * FROM information_schema.COLUMNS WHERE TABLE_SCHEMA = '" . DB_DATABASE . "' AND TABLE_NAME = '" . DB_PREFIX . "affiliate'");		
 		
 		if ($query->num_rows) {
+			// Config
+			$config = new \Config();
+				
+			$setting_query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "setting` WHERE `store_id` = '0'");
+				
+			foreach ($setting_query->rows as $setting) {
+				$config->set($setting['key'], $setting['value']);
+			}
+			
 			// Removing affiliate and moving to the customer account.
 			$affiliate_query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "affiliate`");
 			
@@ -138,15 +138,20 @@ class ModelUpgrade1009 extends Model {
 			$this->db->query("INSERT INTO `" . DB_PREFIX . "event` SET `trigger` = 'admin/model/sale/review/addReview/after', `action` = 'event/statistics/addReview', `status` = '1', `sort_order` = '0'");
 		}
 		
-		$config_captcha_page = json_decode((array)$config->get('config_captcha_page'), true);
+		// Config - Captcha Returns
+		$query = $this->db->query("SELECT * FROM `setting` WHERE `key` = 'config_captcha_page'");
 			
-		$search = array_search('return', $config_captcha_page);
-			
-		if ($search) {
-			$config_captcha_page[$search] = str_replace($config_captcha_page[$search], 'returns', $config_captcha_page[$search]);
-				
-			$this->db->query("UPDATE `" . DB_PREFIX . "setting` SET `value` = '" . json_encode($this->db->escape($config_captcha_page)) . "' WHERE `key` = 'config_captcha_page'");
-		}		
+		if ($query->num_rows) {
+			$config_captcha_page = json_decode($query->row['value'], true);
+
+			$search = array_search('return', $config_captcha_page);
+
+			if ($search) {
+				$config_captcha_page[$search] = str_replace($config_captcha_page[$search], 'returns', $config_captcha_page[$search]);
+
+				$this->db->query("UPDATE `" . DB_PREFIX . "setting` SET `value` = '" . json_encode($this->db->escape($config_captcha_page)) . "' WHERE `key` = 'config_captcha_page'");
+			}
+		}
 		
 		// Config Session Expire
 		if (!$config->has('config_session_expire')) {
