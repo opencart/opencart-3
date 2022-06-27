@@ -7,7 +7,7 @@ class ModelExtensionFeedGoogleBase extends Model {
     }
 
 	public function getTotalCategories() {
-		$query = $this->db->query("SELECT COUNT(*) AS total FROM `" . DB_PREFIX . "google_base_category_to_category`");
+		$query = $this->db->query("SELECT COUNT(*) AS `total` FROM `" . DB_PREFIX . "google_base_category_to_category`");
 
 		return (int)$query->row['total'];
     }

@@ -144,7 +144,7 @@ class ModelExtensionPaymentKlarnaCheckout extends Model {
 
 	public function checkForPaymentTaxes($products = array()) {
 		foreach ($products as $product) {
-			$query = $this->db->query("SELECT COUNT(*) AS total FROM `" . DB_PREFIX . "tax_rule` WHERE `based` = 'payment' AND `tax_class_id` = '" . (int)$product['tax_class_id'] . "'");
+			$query = $this->db->query("SELECT COUNT(*) AS `total` FROM `" . DB_PREFIX . "tax_rule` WHERE `based` = 'payment' AND `tax_class_id` = '" . (int)$product['tax_class_id'] . "'");
 
 			if ($query->row['total']) {
 				return true;

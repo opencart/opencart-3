@@ -5,7 +5,7 @@ class ModelAccountSubscription extends Model {
 	}
 
 	public function getSubscription($subscription_id) {
-		$query = $this->db->query("SELECT `s`.*, `o`.`payment_method`, `o`.`payment_code`, `o`.`currency_code` FROM `" . DB_PREFIX . "subscription` `s` LEFT JOIN `" . DB_PREFIX . "order` `o` ON (`s`.`order_id` = `o`.`order_id`) WHERE `s`.`subscription_id` = '" . (int)$subscription_id . "' AND `o`.`customer_id` = '" . (int)$this->customer->getId() . "'");
+		$query = $this->db->query("SELECT s.*, o.`payment_method`, o.`payment_code`, o.`currency_code` FROM `" . DB_PREFIX . "subscription` s LEFT JOIN `" . DB_PREFIX . "order` o ON (s.`order_id` = o.`order_id`) WHERE s.`subscription_id` = '" . (int)$subscription_id . "' AND o.`customer_id` = '" . (int)$this->customer->getId() . "'");
 
 		return $query->row;
 	}
@@ -19,7 +19,7 @@ class ModelAccountSubscription extends Model {
 			$limit = 1;
 		}
 
-		$query = $this->db->query("SELECT `o`.*, `o`.`payment_method`, `o`.`currency_id`, `o`.`currency_value` FROM `" . DB_PREFIX . "subscription` `s` LEFT JOIN `" . DB_PREFIX . "order` `o` ON (`s`.`order_id` = o.`order_id`) WHERE `o`.`customer_id` = '" . (int)$this->customer->getId() . "' ORDER BY `o`.`order_id` DESC LIMIT " . (int)$start . "," . (int)$limit);
+		$query = $this->db->query("SELECT o.*, o.`payment_method`, o.`currency_id`, o.`currency_value` FROM `" . DB_PREFIX . "subscription` s LEFT JOIN `" . DB_PREFIX . "order` o ON (s.`order_id` = o.`order_id`) WHERE o.`customer_id` = '" . (int)$this->customer->getId() . "' ORDER BY o.`order_id` DESC LIMIT " . (int)$start . "," . (int)$limit);
 
 		return $query->rows;
 	}
@@ -31,9 +31,9 @@ class ModelAccountSubscription extends Model {
 	}
 
 	public function getTotalSubscriptions() {
-		$query = $this->db->query("SELECT COUNT(*) AS `total` FROM `" . DB_PREFIX . "subscription` `s` LEFT JOIN `" . DB_PREFIX . "order` `o` ON (`s`.`order_id` = `o`.`order_id`) WHERE `o`.`customer_id` = '" . (int)$this->customer->getId() . "'");
+		$query = $this->db->query("SELECT COUNT(*) AS `total` FROM `" . DB_PREFIX . "subscription` s LEFT JOIN `" . DB_PREFIX . "order` o ON (s.`order_id` = o.`order_id`) WHERE o.`customer_id` = '" . (int)$this->customer->getId() . "'");
 
-		return $query->row['total'];
+		return (int)$query->row['total'];
 	}
 
 	public function getTransactions($subscription_id) {

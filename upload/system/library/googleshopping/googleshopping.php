@@ -554,7 +554,7 @@ class Googleshopping extends Library {
     }
 
     public function getTotalProducts($data, $store_id) {
-        $sql = "SELECT COUNT(*) AS total FROM `" . DB_PREFIX . "product` p LEFT JOIN `" . DB_PREFIX . "product_description` pd ON (p.`product_id` = pd.`product_id`) LEFT JOIN `" . DB_PREFIX . "googleshopping_product` pag ON (pag.`product_id` = p.`product_id` AND pag.`store_id` = '" . (int)$store_id . "') WHERE pag.`store_id` IS NOT NULL AND pd.`language_id` = '" . (int)$this->config->get('config_language_id') . "'";
+        $sql = "SELECT COUNT(*) AS `total` FROM `" . DB_PREFIX . "product` p LEFT JOIN `" . DB_PREFIX . "product_description` pd ON (p.`product_id` = pd.`product_id`) LEFT JOIN `" . DB_PREFIX . "googleshopping_product` pag ON (pag.`product_id` = p.`product_id` AND pag.`store_id` = '" . (int)$store_id . "') WHERE pag.`store_id` IS NOT NULL AND pd.`language_id` = '" . (int)$this->config->get('config_language_id') . "'";
 
         $this->applyFilter($sql, $data);
 

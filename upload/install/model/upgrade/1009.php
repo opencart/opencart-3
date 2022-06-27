@@ -258,6 +258,13 @@ class ModelUpgrade1009 extends Model {
 			$this->db->query("ALTER TABLE `" . DB_PREFIX . "cart` CHANGE COLUMN `recurring_id` `subscription_plan_id` int(11)");
 		}
 		
+		// Order - Transaction ID
+		$query = $this->db->query("SELECT * FROM information_schema.COLUMNS WHERE TABLE_SCHEMA = '" . DB_DATABASE . "' AND TABLE_NAME = '" . DB_PREFIX . "order' AND COLUMN_NAME = 'transaction_id'");
+		
+		if (!$query->num_rows) {
+			$this->db->query("ALTER TABLE `" . DB_PREFIX . "order` ADD COLUMN `transaction_id` varchar(100) NOT NULL AFTER `order_id`");
+		}
+		
 		// OPENCART_SERVER
 		$upgrade = true;
 		

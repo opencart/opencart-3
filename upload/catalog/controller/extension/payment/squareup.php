@@ -201,7 +201,7 @@ class ControllerExtensionPaymentSquareup extends Controller {
 									$trial_price = $this->tax->calculate($item['subscription']['trial_price'] * $item['quantity'], $item['tax_class_id']);
 									$trial_amt = $this->currency->format($trial_price, $this->session->data['currency']);
 									$trial_text =  sprintf($this->language->get('text_trial'), $trial_amt, $item['subscription']['trial_cycle'], $item['subscription']['trial_frequency'], $item['subscription']['trial_duration']);
-
+									
 									$item['subscription']['trial_price'] = $trial_price;
 								} else {
 									$trial_text = '';
@@ -225,8 +225,8 @@ class ControllerExtensionPaymentSquareup extends Controller {
 								}
 									
 								$subscription_data = array(
+									'order_id'			=> $this->session->data['order_id'],
 									'order_product_id'	=> $order_product['order_product_id'],
-									'transaction_id'	=> $transaction['id'],
 									'trial_price'		=> $item['subscription']['trial_price'],
 									'trial_cycle'		=> $item['subscription']['trial_cycle'],
 									'trial_frequency'	=> $item['subscription']['trial_frequency'],
@@ -239,11 +239,14 @@ class ControllerExtensionPaymentSquareup extends Controller {
 									'frequency'			=> $item['subscription']['frequency'],
 									'duration'			=> $item['subscription']['duration'],
 									'status'			=> $item['subscription']['status'],
-									'date_next'			=> date('Y-m-d H:i:s'),
-									'reference'			=> ''
+									'date_next'			=> date('Y-m-d H:i:s')
 								);
 
-								$this->model_extension_payment_squareup->createRecurring($this->session->data['order_id'], $subscription_data);
+								$subscription_id = $this->model_extension_payment_squareup->createRecurring($this->session->data['order_id'], $subscription_data);
+								
+								if ($subscription_id) {
+									$this->model_extension_payment_squareup->addRecurringTransaction($subscription_id, $subscription_data, $transaction, $transaction_status);
+								}
 							}
 						}
                     }

@@ -12,6 +12,10 @@ class ModelSaleRecurring extends Model {
 		if (!empty($data['filter_order_id'])) {
 			$implode[] = "`or`.`order_id` = '" . (int)$data['filter_order_id'] . "'";
 		}
+		
+		if (!empty($data['filter_product_id'])) {
+			$implode[] = "`or`.`product_id` = '" . (int)$data['filter_product_id'] . "'";
+		}
 
 		if (!empty($data['filter_reference'])) {
 			$implode[] = "`or`.`reference` LIKE '" . $this->db->escape($data['filter_reference']) . "%'";

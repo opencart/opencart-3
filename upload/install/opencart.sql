@@ -2239,7 +2239,7 @@ INSERT INTO `oc_option_value_description` (`option_value_id`, `language_id`, `op
 
 DROP TABLE IF EXISTS `oc_order`;
 CREATE TABLE `oc_order` (
-  `order_id` int(11) NOT NULL AUTO_INCREMENT,
+  `order_id` int(11) NOT NULL AUTO_INCREMENT,  
   `invoice_no` int(11) NOT NULL DEFAULT '0',
   `invoice_prefix` varchar(26) NOT NULL,
   `store_id` int(11) NOT NULL DEFAULT '0',

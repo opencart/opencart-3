@@ -291,17 +291,30 @@ class ModelExtensionPaymentSquareup extends Model {
         return $payments;
     }
 
-    public function addRecurringTransaction($subscription_id, $reference, $response_data, $status) {
-		$this->load->model('checkout/subscription');
-		$this->load->model('account/subscription');
+    public function addRecurringTransaction($subscription_id, $response_data, $transaction, $status) {		
+		$this->load->model('checkout/order');
 		
-        if ($status) {
-            $type = self::TRANSACTION_PAYMENT;
-        } else {
-            $type = self::TRANSACTION_FAILED;
-        }		
+		$order_info = $this->model_checkout_order->getOrder($response_data['order_id']);
+		
+		if ($order_info) {
+			$this->load->model('checkout/subscription');
+			$this->load->model('account/subscription');			
 			
-		$this->model_checkout_subscription->editReference($subscription_id, $reference);
+			if ($status) {
+				$type = self::TRANSACTION_PAYMENT;
+			} else {
+				$type = self::TRANSACTION_FAILED;
+			}		
+				
+			$this->model_checkout_subscription->editReference($subscription_id, $reference);
+			
+			$amount = $this->squareup->standardDenomination($transaction['tenders'][0]['amount_money']['amount'], $transaction['tenders'][0]['amount_money']['currency']);
+				
+			$this->model_account_subscription->addTransaction($subscription_id, $order_info['order_id'], 0, $response_data['description'], $amount, $type, $order_info['payment_method'], $order_info['payment_code']);
+			
+			// On-hold from the master branch.
+			//$this->model_checkout_order->editTransactionId($transaction['id']);
+		}
     }
 
     public function updateRecurringExpired($subscription_id) {
@@ -367,7 +380,7 @@ class ModelExtensionPaymentSquareup extends Model {
     }
 
     private function getTotalSuccessfulPayments($subscription_id) {
-        return $this->db->query("SELECT COUNT(*) AS total FROM `" . DB_PREFIX . "subscription_transaction` WHERE `subscription_id` = '" . (int)$subscription_id . "' AND `type` = '" . self::TRANSACTION_PAYMENT . "'")->row['total'];
+        return $this->db->query("SELECT COUNT(*) AS `total` FROM `" . DB_PREFIX . "subscription_transaction` WHERE `subscription_id` = '" . (int)$subscription_id . "' AND `type` = '" . self::TRANSACTION_PAYMENT . "'")->row['total'];
     }
 
     private function paymentIsDue($subscription_id) {

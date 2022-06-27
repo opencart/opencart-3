@@ -1,12 +1,8 @@
 <?php
 class ModelCheckoutRecurring extends Model {
-	public function editReference($subscription_id, $reference) {
-		$this->db->query("UPDATE `" . DB_PREFIX . "subscription` SET `reference` = '" . $this->db->escape($reference) . "' WHERE `subscription_id` = '" . (int)$subscription_id . "'");
+	public function addSubscription($order_id, $description, $data) {
+		$this->db->query("INSERT INTO `" . DB_PREFIX . "subscription` SET `customer_id` = '" . (int)$data['customer_id'] . "', `order_id` = '" . (int)$order_id . "', `order_product_id` = '" . (int)$data['recurring_order_product_id'] . "', `reference` = '', `subscription_plan_id` = '" . (int)$data['subscription_plan_id'] . "', `name` = '" . $this->db->escape($data['recurring_name']) . "', `description` = '" . $this->db->escape($description) . "', `trial_price` = '" . (float)$data['recurring_trial_price'] . "', `trial_frequency` = '" . $this->db->escape($data['recurring_trial_frequency']) . "', `trial_cycle` = '" . (int)$data['recurring_trial_cycle'] . "', `trial_duration` = '" . (int)$data['recurring_trial_duration'] . "', `trial_remaining` = '" . (int)$data['recurring_trial_remaining'] . "', `trial_status` = '" . (int)$data['recurring_trial_status'] . "', `price` = '" . (float)$data['recurring_price'] . "', `frequency` = '" . $this->db->escape($data['recurring_frequency']) . "', `cycle` = '" . (int)$data['recurring_cycle'] . "', `duration` = '" . (int)$data['recurring_duration'] . "', `remaining` = '" . (int)$data['recurring_remaining'] . "', `date_next` = NOW(), `subscription_status_id` = '" . (int)$this->config->get('config_subscription_status_id'). "', `status` = '" . (int)$data['recurring_status'] . "', `date_added` = NOW(), `date_modified` = NOW()");						
 
-		if ($this->db->countAffected() > 0) {
-			return true;
-		} else {
-			return false;
-		}
+		return $this->db->getLastId();
 	}
 }
