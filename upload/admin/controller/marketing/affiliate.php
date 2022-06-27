@@ -392,7 +392,7 @@ class ControllerMarketingAffiliate extends Controller {
 			$url .= '&order=' . $this->request->get['order'];
 		}
 
-		$pagination = new Pagination();
+		$pagination = new \Pagination();
 		$pagination->total = $affiliate_total;
 		$pagination->page = $page;
 		$pagination->limit = $this->config->get('config_limit_admin');
@@ -824,7 +824,7 @@ class ControllerMarketingAffiliate extends Controller {
 
 		$report_total = $this->model_marketing_affiliate->getTotalReports($customer_id);
 
-		$pagination = new Pagination();
+		$pagination = new \Pagination();
 		$pagination->total = $report_total;
 		$pagination->page = $page;
 		$pagination->limit = 10;
