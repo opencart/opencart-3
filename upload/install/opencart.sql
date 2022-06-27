@@ -1776,7 +1776,7 @@ INSERT INTO `oc_information_description` (`information_id`, `language_id`, `titl
 (5, 1, 'Terms &amp; Conditions', '&lt;p&gt;\r\n	Terms &amp;amp; Conditions&lt;/p&gt;\r\n', 'Terms &amp; Conditions', '', ''),
 (3, 1, 'Privacy Policy', '&lt;p&gt;\r\n	Privacy Policy&lt;/p&gt;\r\n', 'Privacy Policy', '', ''),
 (6, 1, 'Delivery Information', '&lt;p&gt;\r\n	Delivery Information&lt;/p&gt;\r\n', 'Delivery Information', '', ''),
-(7, 1, 'Subscriptions', 'In the next couple of months, our store will be introducing a new subscription system where customers will have the ability to handle customer payments with their accounts and our store to provide better services with larger recurring products managed by subscriptions.', 'Subscriptions', '', '');
+(7, 1, 'Subscriptions', 'Within the next couple of months, our store will be introducing a new subscription system where customers will have the ability to handle customer payments with their accounts and our store to provide better services with larger subscription products.', 'Subscriptions', '', '');
 
 -----------------------------------------------------------
 

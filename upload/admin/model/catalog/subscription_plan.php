@@ -1,5 +1,5 @@
 <?php
-class ModelSubscriptionPlan extends Model {
+class ModelCatalogSubscriptionPlan extends Model {
 	public function addSubscriptionPlan($data) {
 		$this->db->query("INSERT INTO `" . DB_PREFIX . "subscription_plan` SET `trial_price` = '" . (float)$data['trial_price'] . "', `trial_frequency` = '" . $this->db->escape($data['trial_frequency']) . "', `trial_duration` = '" . (int)$data['trial_duration'] . "', `trial_cycle` = '" . (int)$data['trial_cycle'] . "', `trial_status` = '" . (int)$data['trial_status'] . "', `price` = '" . (float)$data['price'] . "', `frequency` = '" . $this->db->escape($data['frequency']) . "', `duration` = '" . (int)$data['duration'] . "', `cycle` = '" . (int)$data['cycle'] . "', `status` = '" . (bool)(isset($data['status']) ? $data['status'] : 0) . "', `sort_order` = '" . (int)$data['sort_order'] . "'");
 
@@ -22,7 +22,7 @@ class ModelSubscriptionPlan extends Model {
 		}
 	}
 
-	public function copySubscriptionPlan($subscription_plan_id) {
+	public function copySubscriptionPlan(int $subscription_plan_id): void {
 		$data = $this->getSubscriptionPlan($subscription_plan_id);
 
 		$data['subscription_plan_description'] = $this->getDescription($subscription_plan_id);

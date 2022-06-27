@@ -269,7 +269,7 @@ class ModelUpgrade1009 extends Model {
 		// Information - Subscriptions
 		$information_id = $this->db->query("INSERT INTO `" . DB_PREFIX . "information` SET `bottom` = '1', `sort_order` = '5', `status` = '1'");
 		
-		$this->db->query("INSERT INTO `" . DB_PREFIX . "information_description` SET (`information_id` = '" . (int)$information_id . "', `language_id` = '1', `title` = 'Subscriptions', `description` = 'In the next couple of months, our store will be introducing a new subscription system where customers will have the ability to handle customer payments with their accounts and our store to provide better services with larger recurring products managed by subscriptions.', `meta_title` = 'Subscriptions', `meta_description` = '', `meta_keyword` = ''");
+		$this->db->query("INSERT INTO `" . DB_PREFIX . "information_description` SET (`information_id` = '" . (int)$information_id . "', `language_id` = '1', `title` = 'Subscriptions', `description` = 'Within the next couple of months, our store will be introducing a new subscription system where customers will have the ability to handle customer payments with their accounts and our store to provide better services with larger subscription products.', `meta_title` = 'Subscriptions', `meta_description` = '', `meta_keyword` = ''");
 		$this->db->query("INSERT INTO `" . DB_PREFIX . "information_to_store` SET `information_id` = '" . (int)$information_id . "', `store_id` = '0'");
 		
 		// Subscription Statuses
