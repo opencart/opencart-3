@@ -20,6 +20,7 @@ class ControllerStartupPermission extends Controller {
 				'extension/dashboard',
 				'extension/analytics',
 				'extension/captcha',
+				'extension/currency',
 				'extension/extension',
 				'extension/feed',
 				'extension/fraud',
@@ -42,6 +43,7 @@ class ControllerStartupPermission extends Controller {
 				'common/logout',
 				'common/forgotten',
 				'common/reset',
+				'common/cron',
 				'error/not_found',
 				'error/permission'
 			);
