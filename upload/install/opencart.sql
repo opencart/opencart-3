@@ -1746,7 +1746,7 @@ INSERT INTO `oc_information` (`information_id`, `bottom`, `sort_order`, `status`
 (3, 1, 3, 1),
 (4, 1, 1, 1),
 (5, 1, 4, 1),
-(6, 1, 2, 1);
+(6, 1, 2, 1),
 (7, 1, 5, 1);
 
 -----------------------------------------------------------
@@ -1775,7 +1775,7 @@ INSERT INTO `oc_information_description` (`information_id`, `language_id`, `titl
 (4, 1, 'About Us', '&lt;p&gt;\r\n	About Us&lt;/p&gt;\r\n', 'About Us', '', ''),
 (5, 1, 'Terms &amp; Conditions', '&lt;p&gt;\r\n	Terms &amp;amp; Conditions&lt;/p&gt;\r\n', 'Terms &amp; Conditions', '', ''),
 (3, 1, 'Privacy Policy', '&lt;p&gt;\r\n	Privacy Policy&lt;/p&gt;\r\n', 'Privacy Policy', '', ''),
-(6, 1, 'Delivery Information', '&lt;p&gt;\r\n	Delivery Information&lt;/p&gt;\r\n', 'Delivery Information', '', '');
+(6, 1, 'Delivery Information', '&lt;p&gt;\r\n	Delivery Information&lt;/p&gt;\r\n', 'Delivery Information', '', ''),
 (7, 1, 'Subscriptions', 'In the next couple of months, our store will be introducing a new subscription system where customers will have the ability to handle customer payments with their accounts and our store to provide better services with larger recurring products managed by subscriptions.', 'Subscriptions', '', '');
 
 -----------------------------------------------------------
@@ -1813,7 +1813,7 @@ INSERT INTO `oc_information_to_store` (`information_id`, `store_id`) VALUES
 (3, 0),
 (4, 0),
 (5, 0),
-(6, 0);
+(6, 0),
 (7, 0);
 
 -----------------------------------------------------------
@@ -3760,7 +3760,7 @@ CREATE TABLE `oc_subscription_plan` (
 --
 
 DROP TABLE IF EXISTS `oc_subscription_plan_description`;
-CREATE TABLE `oc_subscription_plan` (
+CREATE TABLE `oc_subscription_plan_description` (
   `subscription_plan_id` int(11) NOT NULL,
   `language_id` int(11) NOT NULL,
   `name` VARCHAR(255) NOT NULL,
