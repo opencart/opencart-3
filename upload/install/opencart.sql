@@ -2462,7 +2462,7 @@ DROP TABLE IF EXISTS `oc_order_subscription_transaction`;
 CREATE TABLE `oc_order_subscription_transaction` (
   `order_subscription_transaction_id` int(11) NOT NULL AUTO_INCREMENT,
   `transaction_id` varchar(100) NOT NULL,
-  PRIMARY KEY (`order_subscription_id`)
+  PRIMARY KEY (`order_subscription_transaction_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 -----------------------------------------------------------
