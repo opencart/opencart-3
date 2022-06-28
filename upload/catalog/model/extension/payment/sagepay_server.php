@@ -388,8 +388,13 @@ class ModelExtensionPaymentSagePayServer extends Model {
 
 	private function addRecurringTransaction($subscription_id, $order_id, $response_data, $type) {
 		$this->load->model('checkout/subscription');
+		$this->load->model('account/subscription');
 		
-        $this->model_checkout_subscription->editReference($subscription_id, $response_data['VendorTxCode']);
+		$subscription_info = $this->model_account_subscription->getSubscription($subscription_id);
+		
+		if ($subscription_info) {
+			$this->model_checkout_subscription->editReference($subscription_id, $response_data['VendorTxCode']);
+		}
 	}
 
 	private function getProfiles() {

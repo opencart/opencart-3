@@ -291,14 +291,14 @@ class ModelExtensionPaymentSquareup extends Model {
         return $payments;
     }
 
-    public function addRecurringTransaction($subscription_id, $response_data, $transaction, $status) {		
+    public function addRecurringTransaction($subscription_id, $response_data, $transaction, $status) {
 		$this->load->model('checkout/order');
 		
 		$order_info = $this->model_checkout_order->getOrder($response_data['order_id']);
 		
 		if ($order_info) {
 			$this->load->model('checkout/subscription');
-			$this->load->model('account/subscription');			
+			$this->load->model('account/subscription');
 			
 			if ($status) {
 				$type = self::TRANSACTION_PAYMENT;
