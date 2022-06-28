@@ -596,6 +596,47 @@ class ControllerSettingSetting extends Controller {
 		} else {
 			$data['config_complete_status'] = array();
 		}
+		
+		// Subscription
+		$this->load->model('localisation/subscription_status');
+
+		$data['subscription_statuses'] = $this->model_localisation_subscription_status->getSubscriptionStatuses();
+
+		if (isset($this->request->post['config_subscription_status_id'])) {
+			$data['config_subscription_status_id'] = $this->request->post['config_subscription_status_id'];
+		} else {
+			$data['config_subscription_status_id'] = $this->config->get('config_subscription_status_id');
+		}
+		
+		if (isset($this->request->post['config_subscription_active_status_id'])) {
+			$data['config_subscription_active_status_id'] = $this->request->post['config_subscription_active_status_id'];
+		} else {
+			$data['config_subscription_active_status_id'] = $this->config->get('config_subscription_active_status_id');
+		}
+		
+		if (isset($this->request->post['config_subscription_expired_status_id'])) {
+			$data['config_subscription_expired_status_id'] = $this->request->post['config_subscription_expired_status_id'];
+		} else {
+			$data['config_subscription_expired_status_id'] = $this->config->get('config_subscription_expired_status_id');
+		}
+		
+		if (isset($this->request->post['config_subscription_canceled_status_id'])) {
+			$data['config_subscription_canceled_status_id'] = $this->request->post['config_subscription_canceled_status_id'];
+		} else {
+			$data['config_subscription_canceled_status_id'] = $this->config->get('config_subscription_canceled_status_id');
+		}
+		
+		if (isset($this->request->post['config_subscription_failed_status_id'])) {
+			$data['config_subscription_failed_status_id'] = $this->request->post['config_subscription_failed_status_id'];
+		} else {
+			$data['config_subscription_failed_status_id'] = $this->config->get('config_subscription_failed_status_id');
+		}
+		
+		if (isset($this->request->post['config_subscription_denied_status_id'])) {
+			$data['config_subscription_denied_status_id'] = $this->request->post['config_subscription_denied_status_id'];
+		} else {
+			$data['config_subscription_denied_status_id'] = $this->config->get('config_subscription_denied_status_id');
+		}
 
 		if (isset($this->request->post['config_fraud_status_id'])) {
 			$data['config_fraud_status_id'] = $this->request->post['config_fraud_status_id'];

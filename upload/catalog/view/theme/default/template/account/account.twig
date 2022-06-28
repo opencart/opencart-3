@@ -8,6 +8,9 @@
   {% if success %}
   <div class="alert alert-success alert-dismissible"><i class="fa fa-check-circle"></i> {{ success }}</div>
   {% endif %}
+  {% if config_information_subscription_id %}
+	<div class="alert alert-info"><i class="fa fa-exclamation-circle"></i> {{ text_subscription_marketing }}</div>
+  {% endif %}
   <div class="row">{{ column_left }}
     {% if column_left and column_right %}
     {% set class = 'col-sm-6' %}
@@ -34,7 +37,8 @@
       {% endif %}
       <h2>{{ text_my_orders }}</h2>
       <ul class="list-unstyled">
-        <li><a href="{{ order }}">{{ text_order }}</a></li>		
+        <li><a href="{{ order }}">{{ text_order }}</a></li>
+		<li><a href="{{ subscription }}">{{ text_subscription }}</a></li>
         <li><a href="{{ download }}">{{ text_download }}</a></li>
         {% if reward %}
         <li><a href="{{ reward }}">{{ text_reward }}</a></li>

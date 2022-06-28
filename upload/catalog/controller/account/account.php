@@ -65,7 +65,8 @@ class ControllerAccountAccount extends Controller {
 		
 		$data['returns'] = $this->url->link('account/returns', 'customer_token=' . $this->session->data['customer_token'], true);
 		$data['transaction'] = $this->url->link('account/transaction', 'customer_token=' . $this->session->data['customer_token'], true);
-		$data['newsletter'] = $this->url->link('account/newsletter', 'customer_token=' . $this->session->data['customer_token'], true);		
+		$data['newsletter'] = $this->url->link('account/newsletter', 'customer_token=' . $this->session->data['customer_token'], true);
+		$data['recurring'] = $this->url->link('account/recurring', 'customer_token=' . $this->session->data['customer_token'], true);
 		
 		// Affiliate
 		if ($this->config->get('config_affiliate_status')) {
@@ -83,6 +84,19 @@ class ControllerAccountAccount extends Controller {
 		} else {
 			$data['affiliate'] = '';
 		}
+		
+		// Subscription Information
+		$data['config_information_subscription_id'] = $this->config->get('config_information_subscription_id');
+			
+		$this->load->model('catalog/information');
+
+		$information_info = $this->model_catalog_information->getInformation($this->config->get('config_information_subscription_id'));
+
+		if ($information_info) {
+			$data['text_subscription_marketing'] = sprintf($this->language->get('text_subscription_marketing'), $this->url->link('information/information', 'information_id=' . $this->config->get('config_information_subscription_id'), true), $information_info['title']);			
+		} else {
+			$data['text_subscription_marketing'] = '';
+		}		
 		
 		$data['column_left'] = $this->load->controller('common/column_left');
 		$data['column_right'] = $this->load->controller('common/column_right');
