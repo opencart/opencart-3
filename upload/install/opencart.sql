@@ -1476,6 +1476,8 @@ INSERT INTO `oc_event` (`code`, `trigger`, `action`, `status`, `sort_order`) VAL
 INSERT INTO `oc_event` (`code`, `trigger`, `action`, `status`, `sort_order`) VALUES
 ('activity_return_add', 'catalog/model/account/returns/addReturn/after', 'event/activity/addReturn', 1, 0);
 INSERT INTO `oc_event` (`code`, `trigger`, `action`, `status`, `sort_order`) VALUES
+('account_customer_subscription', 'catalog/controller/account/account/after', 'extension/module/account/subscription', 1, 0);
+INSERT INTO `oc_event` (`code`, `trigger`, `action`, `status`, `sort_order`) VALUES
 ('mail_transaction', 'catalog/model/account/customer/addTransaction/after', 'mail/transaction', 1, 0);
 INSERT INTO `oc_event` (`code`, `trigger`, `action`, `status`, `sort_order`) VALUES
 ('mail_forgotten', 'catalog/model/account/customer/editCode/after', 'mail/forgotten', 1, 0);

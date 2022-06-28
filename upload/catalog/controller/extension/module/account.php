@@ -23,4 +23,30 @@ class ControllerExtensionModuleAccount extends Controller {
 
 		return $this->load->view('extension/module/account', $data);
 	}
+	
+	public function subscription(&$route, &$args, &$output) {
+		if ($this->config->get('config_information_subscription_id')) {
+			$this->load->language('extension/module/account');
+		
+			$args'scripts'] = $this->document->getScripts();
+			
+			$this->load->model('catalog/information');
+
+			$information_info = $this->model_catalog_information->getInformation($this->config->get('config_information_subscription_id'));
+
+			if ($information_info) {
+				$args['text_subscription_marketing'] = sprintf($this->language->get('text_subscription_marketing'), $this->url->link('information/information/agree', 'information_id=' . $this->config->get('config_information_subscription_id'), true), $information_info['title']);
+				
+				$search = '<div class="row">';
+				
+				$replace = $this->load->view('extension/module/account_subscription', $args);
+				
+				$output = str_replace($search, $replace . $search, $output);
+			} else {
+				$args['text_subscription_marketing'] = '';
+			}
+		} else {
+			$args['text_subscription_marketing'] = '';
+		}
+	}
 }

@@ -560,6 +560,12 @@ class ControllerSettingSetting extends Controller {
 		} else {
 			$data['config_checkout_id'] = $this->config->get('config_checkout_id');
 		}
+		
+		if (isset($this->request->post['config_information_subscription_id'])) {
+			$data['config_information_subscription_id'] = $this->request->post['config_information_subscription_id'];
+		} else {
+			$data['config_information_subscription_id'] = $this->config->get('config_information_subscription_id');
+		}
 
 		if (isset($this->request->post['config_invoice_prefix'])) {
 			$data['config_invoice_prefix'] = $this->request->post['config_invoice_prefix'];

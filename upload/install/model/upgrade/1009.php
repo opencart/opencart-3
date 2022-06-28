@@ -138,6 +138,13 @@ class ModelUpgrade1009 extends Model {
 			$this->db->query("INSERT INTO `" . DB_PREFIX . "event` SET `trigger` = 'admin/model/sale/review/addReview/after', `action` = 'event/statistics/addReview', `status` = '1', `sort_order` = '0'");
 		}
 		
+		// Account Subscription Information
+		$event = $this->db->query("SELECT * FROM `" . DB_PREFIX . "event` WHERE `trigger` = 'catalog/controller/account/account/after'");
+		
+		if (!$event->num_rows) {
+			$this->db->query("INSERT INTO `" . DB_PREFIX . "event` SET `code` = 'account_customer_subscription', `trigger` = 'catalog/controller/account/account/after', `action` = 'extension/module/account/subscription', `status` = '1', `sort_order` = '0'");
+		}
+		
 		// Config - Captcha Returns
 		$query = $this->db->query("SELECT * FROM `setting` WHERE `key` = 'config_captcha_page'");
 
