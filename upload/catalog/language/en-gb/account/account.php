@@ -24,4 +24,4 @@ $_['text_transactions']   			= 'Transactions';
 $_['text_affiliate_add']  			= 'Register for an affiliate account';
 $_['text_affiliate_edit'] 			= 'Edit your affiliate information';
 $_['text_tracking']       			= 'Custom Affiliate Tracking Code';
-$_['text_subscription_marketing'] 	= 'Customers can now benefit better service by using our new <a href="%s">subscription system</a>.';
+$_['text_subscription_marketing'] 	= 'Customers can now benefit better quality service by using our new <a href="%s">subscription system</a>.';
