@@ -310,9 +310,13 @@ class ModelExtensionPaymentSquareup extends Model {
 			
 			$this->model_account_subscription->addOrderSubscriptionTransaction($transaction['id']);
 			
-			$amount = $this->squareup->standardDenomination($transaction['tenders'][0]['amount_money']['amount'], $transaction['tenders'][0]['amount_money']['currency']);
-				
-			$this->model_account_subscription->addTransaction($subscription_id, $order_info['order_id'], 0, $transaction['id'], $response_data['description'], $amount, $type, $order_info['payment_method'], $order_info['payment_code']);
+			$order_subscription_transaction_info = $this->db->query("SELECT `order_subscription_transaction_id` FROM `" . DB_PREFIX . "order_subscription_transaction` WHERE `transaction_id` = '" . $this->db->escape($transaction['id']) . "'");
+			
+			if ($order_subscription_transaction_info) {
+				$amount = $this->squareup->standardDenomination($transaction['tenders'][0]['amount_money']['amount'], $transaction['tenders'][0]['amount_money']['currency']);
+					
+				$this->model_account_subscription->addTransaction($subscription_id, $order_info['order_id'], 0, $order_subscription_transaction_info['order_subscription_transaction_id'], $response_data['description'], $amount, $type, $order_info['payment_method'], $order_info['payment_code']);
+			}
 		}
     }
 
