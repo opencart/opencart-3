@@ -42,7 +42,13 @@ class ModelAccountSubscription extends Model {
 		return $query->rows;
 	}
 
-	public function addTransaction($subscription_id, $order_id, $transaction_id, $description, $amount, $type, $payment_method, $payment_code) {
-		$this->db->query("INSERT INTO `" . DB_PREFIX . "subscription_transaction` SET `subscription_id` = '" . (int)$subscription_id . "', `order_id` = '" . (int)$order_id . "', `transaction_id` = '" . (int)$transaction_id . "', `description` = '" . $this->db->escape($description) . "', `amount` = '" . (float)$amount . "', `type` = '" . (int)$type . "', `payment_method` = '" . $this->db->escape($payment_method) . "', `payment_code` = '" . $this->db->escape($payment_code) . "', `date_added` = NOW()");
+	public function addTransaction($subscription_id, $order_id, $transaction_id, $order_subscription_transaction_id, $description, $amount, $type, $payment_method, $payment_code) {
+		$this->db->query("INSERT INTO `" . DB_PREFIX . "subscription_transaction` SET `subscription_id` = '" . (int)$subscription_id . "', `order_id` = '" . (int)$order_id . "', `transaction_id` = '" . (int)$transaction_id . "', `order_subscription_transaction_id` = '" . (int)$order_subscription_transaction_id . "', `description` = '" . $this->db->escape($description) . "', `amount` = '" . (float)$amount . "', `type` = '" . (int)$type . "', `payment_method` = '" . $this->db->escape($payment_method) . "', `payment_code` = '" . $this->db->escape($payment_code) . "', `date_added` = NOW()");
+	}
+	
+	public function addOrderSubscriptionTransaction($transaction_id) {
+		$this->db->query("INSERT INTO `" . DB_PREFIX . "order_subscription_transaction` SET `transaction_id` = '" . $this->db->escape($transaction_id) . "'");
+		
+		return $this->db->getLastId();
 	}
 }
