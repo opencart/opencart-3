@@ -2963,20 +2963,6 @@ INSERT INTO `oc_product_option_value` (`product_option_value_id`, `product_optio
 -----------------------------------------------------------
 
 --
--- Table structure for table `oc_product_recurring`
---
-
-DROP TABLE IF EXISTS `oc_product_recurring`;
-CREATE TABLE `oc_product_recurring` (
-  `product_id` int(11) NOT NULL,
-  `recurring_id` int(11) NOT NULL,
-  `customer_group_id` int(11) NOT NULL,
-  PRIMARY KEY (`product_id`,`recurring_id`,`customer_group_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
-
------------------------------------------------------------
-
---
 -- Table structure for table `oc_product_subscription`
 --
 
@@ -3193,43 +3179,6 @@ INSERT INTO `oc_product_to_store` (`product_id`, `store_id`) VALUES
 (47, 0),
 (48, 0),
 (49, 0);
-
------------------------------------------------------------
-
---
--- Table structure for table `oc_recurring`
---
-
-DROP TABLE IF EXISTS `oc_recurring`;
-CREATE TABLE `oc_recurring` (
-  `recurring_id` int(11) NOT NULL AUTO_INCREMENT,
-  `price` decimal(10,4) NOT NULL,
-  `frequency` enum('day','week','semi_month','month','year') NOT NULL,
-  `duration` int(10) unsigned NOT NULL,
-  `cycle` int(10) unsigned NOT NULL,
-  `trial_status` tinyint(4) NOT NULL,
-  `trial_price` decimal(10,4) NOT NULL,
-  `trial_frequency` enum('day','week','semi_month','month','year') NOT NULL,
-  `trial_duration` int(10) unsigned NOT NULL,
-  `trial_cycle` int(10) unsigned NOT NULL,
-  `status` tinyint(4) NOT NULL,
-  `sort_order` int(11) NOT NULL,
-  PRIMARY KEY (`recurring_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
-
------------------------------------------------------------
-
---
--- Table structure for table `oc_recurring_description`
---
-
-DROP TABLE IF EXISTS `oc_recurring_description`;
-CREATE TABLE `oc_recurring_description` (
-  `recurring_id` int(11) NOT NULL,
-  `language_id` int(11) NOT NULL,
-  `name` varchar(255) NOT NULL,
-  PRIMARY KEY (`recurring_id`,`language_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 -----------------------------------------------------------
 
@@ -3763,7 +3712,7 @@ DROP TABLE IF EXISTS `oc_subscription_plan_description`;
 CREATE TABLE `oc_subscription_plan_description` (
   `subscription_plan_id` int(11) NOT NULL,
   `language_id` int(11) NOT NULL,
-  `name` VARCHAR(255) NOT NULL,
+  `name` varchar(255) NOT NULL,
   `description` text NOT NULL,
   PRIMARY KEY (`subscription_plan_id`,`language_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
@@ -3809,8 +3758,8 @@ CREATE TABLE `oc_subscription_transaction` (
   `description` text NOT NULL,
   `amount` decimal(10,4) NOT NULL,
   `type` tinyint(2) NOT NULL,
-  `payment_method` VARCHAR(128) NOT NULL,
-  `payment_code` VARCHAR(128) NOT NULL,
+  `payment_method` varchar(128) NOT NULL,
+  `payment_code` varchar(128) NOT NULL,
   `date_added` datetime NOT NULL,
   PRIMARY KEY (`subscription_transaction_id`),
   KEY `subscription_id` (`subscription_id`),

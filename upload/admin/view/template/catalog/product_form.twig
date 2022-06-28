@@ -1334,32 +1334,32 @@
 	  }
   //--></script>
   <script type="text/javascript"><!--
-	  var recurring_row = {{ recurring_row }};
+	  var subscription_row = {{ subscription_row }};
 
-	  function addRecurring() {
-		  html = '<tr id="recurring-row' + recurring_row + '">';
+	  function addSubscription() {
+		  html = '<tr id="subscription-row' + subscription_row + '">';
 		  html += '  <td class="left">';
-		  html += '    <select name="product_recurring[' + recurring_row + '][recurring_id]" class="form-control">>';
-		{% for recurring in recurrings %}
-		  html += '      <option value="{{ recurring.recurring_id }}">{{ recurring.name }}</option>';
+		  html += '    <select name="product_subscription[' + subscription_row + '][subscription_id]" class="form-control">>';
+		{% for subscription in subscriptions %}
+		  html += '      <option value="{{ subscription.subscription_id }}">{{ subscription.name }}</option>';
 		{% endfor %}
 		  html += '    </select>';
 		  html += '  </td>';
 		  html += '  <td class="left">';
-		  html += '    <select name="product_recurring[' + recurring_row + '][customer_group_id]" class="form-control">>';
+		  html += '    <select name="product_subscription[' + subscription_row + '][customer_group_id]" class="form-control">>';
 		{% for customer_group in customer_groups %}
 		  html += '      <option value="{{ customer_group.customer_group_id }}">{{ customer_group.name }}</option>';
 		{% endfor %}
 		  html += '    <select>';
 		  html += '  </td>';
 		  html += '  <td class="left">';
-		  html += '    <a onclick="$(\'#recurring-row' + recurring_row + '\').remove()" data-toggle="tooltip" title="{{ button_remove }}" class="btn btn-danger"><i class="fa fa-minus-circle"></i></a>';
+		  html += '    <a onclick="$(\'#subscription-row' + subscription_row + '\').remove()" data-toggle="tooltip" title="{{ button_remove }}" class="btn btn-danger"><i class="fa fa-minus-circle"></i></a>';
 		  html += '  </td>';
 		  html += '</tr>';
 
-		  $('#tab-recurring table tbody').append(html);
+		  $('#tab-subscription table tbody').append(html);
 
-		  recurring_row++;
+		  subscription_row++;
 	  }
   //--></script>
   <script type="text/javascript"><!--

@@ -43,5 +43,4 @@ $_['error_stock']              		= 'Products marked with *** are not available i
 $_['error_minimum']            		= 'Minimum order amount for %s is %s!';
 $_['error_required']           		= '%s required!';
 $_['error_product']            		= 'Warning: There are no products in your cart!';
-$_['error_recurring_required'] 		= 'Please select a payment recurring!';
 $_['error_subscription']         	= 'Please select a subscription plan!';

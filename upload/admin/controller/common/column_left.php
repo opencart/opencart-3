@@ -35,10 +35,10 @@ class ControllerCommonColumnLeft extends Controller {
 				);
 			}
 
-			if ($this->user->hasPermission('access', 'catalog/recurring')) {
+			if ($this->user->hasPermission('access', 'catalog/subscription')) {
 				$catalog[] = array(
-					'name'	   => $this->language->get('text_recurring'),
-					'href'     => $this->url->link('catalog/recurring', 'user_token=' . $this->session->data['user_token'], true),
+					'name'	   => $this->language->get('text_subscription'),
+					'href'     => $this->url->link('catalog/subscription', 'user_token=' . $this->session->data['user_token'], true),
 					'children' => array()
 				);
 			}
@@ -257,6 +257,14 @@ class ControllerCommonColumnLeft extends Controller {
 				$sale[] = array(
 					'name'	   => $this->language->get('text_order_recurring'),
 					'href'     => $this->url->link('sale/recurring', 'user_token=' . $this->session->data['user_token'], true),
+					'children' => array()
+				);
+			}
+			
+			if ($this->user->hasPermission('access', 'sale/subscription')) {
+				$sale[] = array(
+					'name'	   => $this->language->get('text_order_subscription'),
+					'href'     => $this->url->link('sale/subscription', 'user_token=' . $this->session->data['user_token'], true),
 					'children' => array()
 				);
 			}
