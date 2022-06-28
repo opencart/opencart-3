@@ -316,6 +316,7 @@ class ModelUpgrade1009 extends Model {
 				if (isset($subscription_plan_id)) {
 					$this->db->query("DROP TABLE `" . DB_PREFIX . "recurring`");
 					$this->db->query("DROP TABLE `" . DB_PREFIX . "recurring_description`");
+					$this->db->query("DROP TABLE `" . DB_PREFIX . "product_recurring`");
 				}
 			}
 		}
