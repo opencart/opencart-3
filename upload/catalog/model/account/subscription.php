@@ -48,7 +48,5 @@ class ModelAccountSubscription extends Model {
 	
 	public function addOrderSubscriptionTransaction($transaction_id) {
 		$this->db->query("INSERT INTO `" . DB_PREFIX . "order_subscription_transaction` SET `transaction_id` = '" . $this->db->escape($transaction_id) . "'");
-		
-		return $this->db->getLastId();
 	}
 }
