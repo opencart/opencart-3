@@ -2455,7 +2455,7 @@ CREATE TABLE `oc_order_shipment` (
 -----------------------------------------------------------
 
 --
--- Table structure for table `oc_order_subscription`
+-- Table structure for table `oc_order_subscription_subscription`
 --
 
 DROP TABLE IF EXISTS `oc_order_subscription_transaction`;
