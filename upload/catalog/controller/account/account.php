@@ -87,7 +87,7 @@ class ControllerAccountAccount extends Controller {
 		// Subscription Information
 		$this->load->model('account/subscription');
 		
-		$data['config_information_subscription_id'] = (!$this->model_account_subscription->getTotalSubscriptions() ? $this->config->get('config_information_subscription_id') : '');
+		$data['config_information_subscription_id'] = (!$this->model_account_subscription->getTotalSubscriptions() && $this->config->get('config_information_subscription_id') ? true : false);
 			
 		$this->load->model('catalog/information');
 
