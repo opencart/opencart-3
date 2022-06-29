@@ -995,10 +995,16 @@ class ControllerSettingSetting extends Controller {
 			$data['config_error_filename'] = $this->config->get('config_error_filename');
 		}
 		
-		if ($this->config->has('config_session_expire')) {
-			$data['config_session_expire'] = $this->config->get('config_session_expire');
+		if (isset($this->request->post['config_session_expire'])) {
+			$data['config_session_expire'] = $this->request->post['config_session_expire'];
 		} else {
-			$data['config_session_expire'] = 3600;
+			$data['config_session_expire'] = $this->config->get('config_session_expire');
+		}
+		
+		if (isset($this->request->post['config_session_samesite'])) {
+			$data['config_session_samesite'] = $this->request->post['config_session_samesite'];
+		} else {
+			$data['config_session_samesite'] = $this->config->get('config_session_samesite');
 		}
 
 		$data['header'] = $this->load->controller('common/header');

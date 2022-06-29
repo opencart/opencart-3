@@ -166,6 +166,13 @@ class ModelUpgrade1009 extends Model {
 		if (!$query->num_rows) {
 			$this->db->query("INSERT INTO `" . DB_PREFIX . "setting` SET `store_id` = '0', `code` = 'config', `key` = 'config_session_expire', `value` = '3600000000', `serialized` = '0'");
 		}
+		
+		// Config - SameSite
+		$query = $this->db->query("SELECT * FROM `setting` WHERE `key` = 'config_session_samesite'");
+
+		if (!$query->num_rows) {
+			$this->db->query("INSERT INTO `" . DB_PREFIX . "setting` SET `store_id` = '0', `code` = 'config', `key` = 'config_session_samesite', `value` = 'Strict', `serialized` = '0'");
+		}
 
 		// Config Cookie ID
 		$query = $this->db->query("SELECT * FROM `setting` WHERE `key` = 'config_cookie_id'");
