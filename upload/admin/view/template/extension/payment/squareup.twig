@@ -458,10 +458,10 @@ $(document).ready(function() {
         return (Math.random() * 100).toString(16).replace('.', '');
     }
 
-    var onConnectClick = function (event) {
+    var onConnectClick = function (e) {
         if ($('#input_payment_squareup_client_id').val() != '{{ payment_squareup_client_id }}' || $('#input_payment_squareup_client_secret').val() != '{{ payment_squareup_client_secret }}') {
-            event.preventDefault();
-            event.stopPropagation();
+            e.preventDefault();
+            e.stopPropagation();
 
             $('form').attr('action','{{ action_save_auth }}').submit();
         }
@@ -473,6 +473,7 @@ $(document).ready(function() {
           dataType : 'json',
           beforeSend : function() {
             $('#refresh_transactions').button('loading');
+			
             $('#transactions_pagination').empty();
             $('#transactions').html('<tr><td colspan="9" class="text-center"><i class="fa fa-circle-o-notch fa-spin"></i>&nbsp;{{ text_loading }}</td></tr>');
           },
@@ -611,6 +612,7 @@ $(document).ready(function() {
         var button = '#squareup-confirm-ok';
 
         $(content).html(text);
+		
         $(button).unbind().click(function() {
             disableTransactionButtons();
 
@@ -699,6 +701,7 @@ $(document).ready(function() {
 
     $('#refresh-cron-token').click(function() {
         $('#input_payment_squareup_cron_token').val(randomString() + randomString());
+		
         setCronUrl();
     });
 

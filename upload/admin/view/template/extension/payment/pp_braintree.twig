@@ -957,19 +957,20 @@ $('#button-filter').on('click', function (e) {
 	});
 });
 
-$(document).on('click', '.transaction-id', function (event) {
-	event.preventDefault();
+$(document).on('click', '.transaction-id', function (e) {
+  e.preventDefault();
 
-	getTransaction($(this).attr('data-id'));
+  getTransaction($(this).attr('data-id'));
 });
 
-$(document).on('click', '#delete-link', function (event) {
-	event.preventDefault();
+$(document).on('click', '#delete-link', function (e) {
+  e.preventDefault();
 
   $('input[name="payment_pp_braintree_access_token"]').val('');
   $('input[name="payment_pp_braintree_refresh_token"]').val('');
   $('input[name="payment_pp_braintree_merchant_id"]').val('');
   $('input[name="payment_pp_braintree_public_key"]').val('');
+
   $('select[name="payment_pp_braintree_status"]').val(0);
 
   $('#form-braintree').submit();
@@ -1023,6 +1024,7 @@ function getTransaction(transaction_id) {
         alert(error.message);
       }
     });
+	
     $('#bt-connect').show();
   //--></script>
 {% endif %}

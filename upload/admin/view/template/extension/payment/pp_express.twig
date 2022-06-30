@@ -434,15 +434,19 @@
 </div>
 
 <script type="text/javascript"><!--
-  $('body').on('click', '#show-advanced', function (event) {
-    event.preventDefault();
+  $('body').on('click', '#show-advanced', function (e) {
+    e.preventDefault();
+	
     $('#content-setup').hide();
+	
     $('#content-advanced').show();
   });
 
-  $('body').on('click', '#show-setup', function (event) {
-    event.preventDefault();
+  $('body').on('click', '#show-setup', function (e) {
+    e.preventDefault();
+	
     $('#content-setup').show();
+	
     $('#content-advanced').hide();
   });
 
@@ -454,9 +458,10 @@
       js.id = id;
       js.async = true;
       js.src = "https://www.paypal.com/webapps/merchantboarding/js/lib/lightbox/partner.js";
+	  
       ref.parentNode.insertBefore(js, ref);
     }
   } (document, "script", "paypal-js"));
 --></script>
 
-{{ footer }} 
+{{ footer }}
