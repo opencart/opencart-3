@@ -18,9 +18,19 @@ class ControllerExtensionModuleAccount extends Controller {
 		$data['reward'] = $this->url->link('account/reward', '', true);
 		$data['returns'] = $this->url->link('account/returns', '', true);
 		$data['transaction'] = $this->url->link('account/transaction', '', true);
-		$data['newsletter'] = $this->url->link('account/newsletter', '', true);
-		$data['recurring'] = $this->url->link('account/recurring', '', true);
+		$data['newsletter'] = $this->url->link('account/newsletter', '', true);		
 		$data['subscription'] = $this->url->link('account/subscription', (isset($this->session->data['customer_token']) ? '&customer_token=' . $this->session->data['customer_token'] : ''), true);
+		
+		// Recurring
+		$this->load->model('account/recurring');
+
+		$recurring_total = $this->model_account_recurring->getTotalOrderRecurrings();
+		
+		if ($recurring_total) {
+			$data['recurring'] = $this->url->link('account/recurring', '', true);
+		} else {
+			$data['recurring'] = '';
+		}
 
 		return $this->load->view('extension/module/account', $data);
 	}

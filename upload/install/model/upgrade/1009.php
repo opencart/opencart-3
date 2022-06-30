@@ -304,7 +304,7 @@ class ModelUpgrade1009 extends Model {
 			$this->db->query("ALTER TABLE `" . DB_PREFIX . "cart` ADD COLUMN `subscription_plan_id` int(11) NOT NULL AFTER `product_id`");
 		}
 		
-		// Recurring to Subscription
+		// Recurring to Subscription Plans
 		$query = $this->db->query("SELECT * FROM information_schema.COLUMNS WHERE TABLE_SCHEMA = '" . DB_DATABASE . "' AND TABLE_NAME = '" . DB_PREFIX . "recurring' AND TABLE_NAME = '" . DB_PREFIX . "recurring_description' AND TABLE_NAME = '" . DB_PREFIX . "product_recurring'");
 		
 		if ($query->num_rows) {

@@ -41,14 +41,18 @@ class ControllerAccountRecurring extends Controller {
 		}
 
 		$data['recurrings'] = array();
-
+		
 		$this->load->model('account/recurring');
 
 		$recurring_total = $this->model_account_recurring->getTotalOrderRecurrings();
 
 		$results = $this->model_account_recurring->getOrderRecurrings(($page - 1) * 10, 10);
+		
+		$recurring_flag = array();
 
 		foreach ($results as $result) {
+			$recurring_flag[] = $order_recurring_info['status'];				
+			
 			if ($result['status']) {
 				$status = $this->language->get('text_status_' . $result['status']);
 			} else {
@@ -62,6 +66,12 @@ class ControllerAccountRecurring extends Controller {
 				'date_added'         => date($this->language->get('date_format_short'), strtotime($result['date_added'])),
 				'view'               => $this->url->link('account/recurring/info', 'order_recurring_id=' . $result['order_recurring_id'], true),
 			);
+		}
+		
+		// If none of the recurring statuses are active, we redirect the user
+		// to the account page.
+		if (!in_array(1, $recurring_flag)) {
+			$this->response->redirect($this->url->link('account/account', '', true));
 		}
 
 		$pagination = new Pagination();
@@ -105,6 +115,10 @@ class ControllerAccountRecurring extends Controller {
 		$recurring_info = $this->model_account_recurring->getOrderRecurring($order_recurring_id);
 
 		if ($recurring_info) {
+			if (!$recurring_info['status']) {
+				$this->response->redirect($this->url->link('account/account', '', true));
+			}
+			
 			$this->document->setTitle($this->language->get('text_recurring'));
 
 			$url = '';
