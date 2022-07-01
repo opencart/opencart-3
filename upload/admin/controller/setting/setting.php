@@ -738,7 +738,7 @@ class ControllerSettingSetting extends Controller {
 		} else {
 			$data['icon'] = $this->model_tool_image->resize('no_image.png', 100, 100);
 		}
-		
+
 		if (isset($this->request->post['config_mail_engine'])) {
 			$data['config_mail_engine'] = $this->request->post['config_mail_engine'];
 		} else {
