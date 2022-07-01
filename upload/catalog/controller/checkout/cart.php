@@ -289,7 +289,7 @@ class ControllerCheckoutCart extends Controller {
 				$option = array_filter($this->request->post['option']);
 			} else {
 				$option = array();
-			}\
+			}
 
 			$product_options = $this->model_catalog_product->getProductOptions($this->request->post['product_id']);
 
