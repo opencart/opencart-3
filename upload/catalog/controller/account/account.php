@@ -54,6 +54,7 @@ class ControllerAccountAccount extends Controller {
 		
 		$data['wishlist'] = $this->url->link('account/wishlist', 'customer_token=' . $this->session->data['customer_token']);
 		$data['order'] = $this->url->link('account/order', 'customer_token=' . $this->session->data['customer_token'], true);
+		$data['recurring'] = $this->url->link('account/recurring', 'customer_token=' . $this->session->data['customer_token'], true);
 		$data['subscription'] = $this->url->link('account/subscription', 'customer_token=' . $this->session->data['customer_token'], true);
 		$data['download'] = $this->url->link('account/download', 'customer_token=' . $this->session->data['customer_token'], true);
 		
@@ -83,20 +84,6 @@ class ControllerAccountAccount extends Controller {
 		} else {
 			$data['affiliate'] = '';
 		}
-		
-		// Subscription Information
-		$this->load->model('account/subscription');
-		$this->load->model('catalog/information');
-		
-		$data['config_information_subscription_id'] = (!$this->model_account_subscription->getTotalSubscriptions() && $this->config->get('config_information_subscription_id') ? true : false);
-
-		$information_info = $this->model_catalog_information->getInformation($this->config->get('config_information_subscription_id'));
-
-		if ($information_info) {
-			$data['text_subscription_marketing'] = sprintf($this->language->get('text_subscription_marketing'), $this->url->link('information/information', 'information_id=' . $this->config->get('config_information_subscription_id'), true), $information_info['title']);			
-		} else {
-			$data['text_subscription_marketing'] = '';
-		}		
 		
 		$data['column_left'] = $this->load->controller('common/column_left');
 		$data['column_right'] = $this->load->controller('common/column_right');

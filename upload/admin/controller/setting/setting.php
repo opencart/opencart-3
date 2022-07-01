@@ -358,29 +358,6 @@ class ControllerSettingSetting extends Controller {
 			$data['config_currency'] = $this->config->get('config_currency');
 		}
 
-		$data['currency_engines'] = array();
-
-		$this->load->model('setting/extension');
-
-		$extensions = $this->model_setting_extension->getInstalled('currency');
-
-		foreach ($extensions as $code) {
-			if ($this->config->get('currency_' . $code . '_status')) {
-				$this->load->language('extension/currency/' . $code, 'extension');
-
-				$data['currency_engines'][] = array(
-					'text'  => $this->language->get('extension')->get('heading_title'),
-					'value' => $code
-				);
-			}
-		}
-
-		if (isset($this->request->post['config_currency_engine'])) {
-			$data['config_currency_engine'] = $this->request->post['config_currency_engine'];
-		} else {
-			$data['config_currency_engine'] = $this->config->get('config_currency_engine');
-		}
-
 		if (isset($this->request->post['config_currency_auto'])) {
 			$data['config_currency_auto'] = $this->request->post['config_currency_auto'];
 		} else {
@@ -445,24 +422,6 @@ class ControllerSettingSetting extends Controller {
 			$data['config_voucher_max'] = $this->request->post['config_voucher_max'];
 		} else {
 			$data['config_voucher_max'] = $this->config->get('config_voucher_max');
-		}
-		
-		if (isset($this->request->post['config_cookie_id'])) {
-			$data['config_cookie_id'] = $this->request->post['config_cookie_id'];
-		} else {
-			$data['config_cookie_id'] = $this->config->get('config_cookie_id');
-		}
-		
-		if (isset($this->request->post['config_gdpr_id'])) {
-			$data['config_gdpr_id'] = $this->request->post['config_gdpr_id'];
-		} else {
-			$data['config_gdpr_id'] = $this->config->get('config_gdpr_id');
-		}
-		
-		if (isset($this->request->post['config_gdpr_limit'])) {
-			$data['config_gdpr_limit'] = $this->request->post['config_gdpr_limit'];
-		} else {
-			$data['config_gdpr_limit'] = $this->config->get('config_gdpr_limit');
 		}
 
 		if (isset($this->request->post['config_tax'])) {
@@ -560,12 +519,6 @@ class ControllerSettingSetting extends Controller {
 		} else {
 			$data['config_checkout_id'] = $this->config->get('config_checkout_id');
 		}
-		
-		if (isset($this->request->post['config_information_subscription_id'])) {
-			$data['config_information_subscription_id'] = $this->request->post['config_information_subscription_id'];
-		} else {
-			$data['config_information_subscription_id'] = $this->config->get('config_information_subscription_id');
-		}
 
 		if (isset($this->request->post['config_invoice_prefix'])) {
 			$data['config_invoice_prefix'] = $this->request->post['config_invoice_prefix'];
@@ -595,47 +548,6 @@ class ControllerSettingSetting extends Controller {
 			$data['config_complete_status'] = $this->config->get('config_complete_status');
 		} else {
 			$data['config_complete_status'] = array();
-		}
-		
-		// Subscription
-		$this->load->model('localisation/subscription_status');
-
-		$data['subscription_statuses'] = $this->model_localisation_subscription_status->getSubscriptionStatuses();
-
-		if (isset($this->request->post['config_subscription_status_id'])) {
-			$data['config_subscription_status_id'] = $this->request->post['config_subscription_status_id'];
-		} else {
-			$data['config_subscription_status_id'] = $this->config->get('config_subscription_status_id');
-		}
-		
-		if (isset($this->request->post['config_subscription_active_status_id'])) {
-			$data['config_subscription_active_status_id'] = $this->request->post['config_subscription_active_status_id'];
-		} else {
-			$data['config_subscription_active_status_id'] = $this->config->get('config_subscription_active_status_id');
-		}
-		
-		if (isset($this->request->post['config_subscription_expired_status_id'])) {
-			$data['config_subscription_expired_status_id'] = $this->request->post['config_subscription_expired_status_id'];
-		} else {
-			$data['config_subscription_expired_status_id'] = $this->config->get('config_subscription_expired_status_id');
-		}
-		
-		if (isset($this->request->post['config_subscription_canceled_status_id'])) {
-			$data['config_subscription_canceled_status_id'] = $this->request->post['config_subscription_canceled_status_id'];
-		} else {
-			$data['config_subscription_canceled_status_id'] = $this->config->get('config_subscription_canceled_status_id');
-		}
-		
-		if (isset($this->request->post['config_subscription_failed_status_id'])) {
-			$data['config_subscription_failed_status_id'] = $this->request->post['config_subscription_failed_status_id'];
-		} else {
-			$data['config_subscription_failed_status_id'] = $this->config->get('config_subscription_failed_status_id');
-		}
-		
-		if (isset($this->request->post['config_subscription_denied_status_id'])) {
-			$data['config_subscription_denied_status_id'] = $this->request->post['config_subscription_denied_status_id'];
-		} else {
-			$data['config_subscription_denied_status_id'] = $this->config->get('config_subscription_denied_status_id');
 		}
 
 		if (isset($this->request->post['config_fraud_status_id'])) {
@@ -674,18 +586,6 @@ class ControllerSettingSetting extends Controller {
 			$data['config_stock_checkout'] = $this->request->post['config_stock_checkout'];
 		} else {
 			$data['config_stock_checkout'] = $this->config->get('config_stock_checkout');
-		}
-		
-		if (isset($this->request->post['config_affiliate_status'])) {
-			$data['config_affiliate_status'] = $this->request->post['config_affiliate_status'];
-		} else {
-			$data['config_affiliate_status'] = $this->config->get('config_affiliate_status');
-		}
-		
-		if (isset($this->request->post['config_affiliate_expire'])) {
-			$data['config_affiliate_expire'] = $this->request->post['config_affiliate_expire'];
-		} else {
-			$data['config_affiliate_expire'] = $this->config->get('config_affiliate_expire');
 		}
 
 		if (isset($this->request->post['config_affiliate_group_id'])) {
@@ -791,7 +691,7 @@ class ControllerSettingSetting extends Controller {
 
 		$data['captcha_pages'][] = array(
 			'text'  => $this->language->get('text_return'),
-			'value' => 'return'
+			'value' => 'returns'
 		);
 
 		$data['captcha_pages'][] = array(
@@ -804,6 +704,8 @@ class ControllerSettingSetting extends Controller {
 		} else {
 			$data['config_logo'] = $this->config->get('config_logo');
 		}
+		
+		$this->load->model('tool/image');
 
 		if (isset($this->request->post['config_logo']) && is_file(DIR_IMAGE . $this->request->post['config_logo'])) {
 			$data['logo'] = $this->model_tool_image->resize($this->request->post['config_logo'], 100, 100);
@@ -819,6 +721,16 @@ class ControllerSettingSetting extends Controller {
 			$data['config_icon'] = $this->config->get('config_icon');
 		}
 
+		if (isset($this->request->post['config_image']) && is_file(DIR_IMAGE . $this->request->post['config_image'])) {
+			$data['thumb'] = $this->model_tool_image->resize($this->request->post['config_image'], 100, 100);
+		} elseif ($this->config->get('config_image') && is_file(DIR_IMAGE . $this->config->get('config_image'))) {
+			$data['thumb'] = $this->model_tool_image->resize($this->config->get('config_image'), 100, 100);
+		} else {
+			$data['thumb'] = $this->model_tool_image->resize('no_image.png', 100, 100);
+		}
+
+		$data['placeholder'] = $this->model_tool_image->resize('no_image.png', 100, 100);
+
 		if (isset($this->request->post['config_icon']) && is_file(DIR_IMAGE . $this->request->post['config_icon'])) {
 			$data['icon'] = $this->model_tool_image->resize($this->request->post['config_icon'], 100, 100);
 		} elseif ($this->config->get('config_icon') && is_file(DIR_IMAGE . $this->config->get('config_icon'))) {
@@ -826,7 +738,7 @@ class ControllerSettingSetting extends Controller {
 		} else {
 			$data['icon'] = $this->model_tool_image->resize('no_image.png', 100, 100);
 		}
-
+		
 		if (isset($this->request->post['config_mail_engine'])) {
 			$data['config_mail_engine'] = $this->request->post['config_mail_engine'];
 		} else {
@@ -995,6 +907,20 @@ class ControllerSettingSetting extends Controller {
 			$data['config_error_filename'] = $this->config->get('config_error_filename');
 		}
 		
+		// Affiliates
+		if (isset($this->request->post['config_affiliate_status'])) {
+			$data['config_affiliate_status'] = $this->request->post['config_affiliate_status'];
+		} else {
+			$data['config_affiliate_status'] = $this->config->get('config_affiliate_status');
+		}
+		
+		if (isset($this->request->post['config_affiliate_expire'])) {
+			$data['config_affiliate_expire'] = $this->request->post['config_affiliate_expire'];
+		} else {
+			$data['config_affiliate_expire'] = $this->config->get('config_affiliate_expire');
+		}
+		
+		// Sessions
 		if (isset($this->request->post['config_session_expire'])) {
 			$data['config_session_expire'] = $this->request->post['config_session_expire'];
 		} else {
@@ -1005,6 +931,95 @@ class ControllerSettingSetting extends Controller {
 			$data['config_session_samesite'] = $this->request->post['config_session_samesite'];
 		} else {
 			$data['config_session_samesite'] = $this->config->get('config_session_samesite');
+		}
+		
+		// Subscriptions
+		$this->load->model('localisation/subscription_status');
+
+		$data['subscription_statuses'] = $this->model_localisation_subscription_status->getSubscriptionStatuses();
+
+		if (isset($this->request->post['config_subscription_status_id'])) {
+			$data['config_subscription_status_id'] = $this->request->post['config_subscription_status_id'];
+		} else {
+			$data['config_subscription_status_id'] = $this->config->get('config_subscription_status_id');
+		}
+		
+		if (isset($this->request->post['config_subscription_active_status_id'])) {
+			$data['config_subscription_active_status_id'] = $this->request->post['config_subscription_active_status_id'];
+		} else {
+			$data['config_subscription_active_status_id'] = $this->config->get('config_subscription_active_status_id');
+		}
+		
+		if (isset($this->request->post['config_subscription_expired_status_id'])) {
+			$data['config_subscription_expired_status_id'] = $this->request->post['config_subscription_expired_status_id'];
+		} else {
+			$data['config_subscription_expired_status_id'] = $this->config->get('config_subscription_expired_status_id');
+		}
+		
+		if (isset($this->request->post['config_subscription_canceled_status_id'])) {
+			$data['config_subscription_canceled_status_id'] = $this->request->post['config_subscription_canceled_status_id'];
+		} else {
+			$data['config_subscription_canceled_status_id'] = $this->config->get('config_subscription_canceled_status_id');
+		}		
+		
+		if (isset($this->request->post['config_subscription_failed_status_id'])) {
+			$data['config_subscription_failed_status_id'] = $this->request->post['config_subscription_failed_status_id'];
+		} else {
+			$data['config_subscription_failed_status_id'] = $this->config->get('config_subscription_failed_status_id');
+		}
+		
+		if (isset($this->request->post['config_subscription_denied_status_id'])) {
+			$data['config_subscription_denied_status_id'] = $this->request->post['config_subscription_denied_status_id'];
+		} else {
+			$data['config_subscription_denied_status_id'] = $this->config->get('config_subscription_denied_status_id');
+		}
+		
+		if (isset($this->request->post['config_information_subscription_id'])) {
+			$data['config_information_subscription_id'] = $this->request->post['config_information_subscription_id'];
+		} else {
+			$data['config_information_subscription_id'] = $this->config->get('config_information_subscription_id');
+		}
+		
+		// Cookies
+		if (isset($this->request->post['config_cookie_id'])) {
+			$data['config_cookie_id'] = $this->request->post['config_cookie_id'];
+		} else {
+			$data['config_cookie_id'] = $this->config->get('config_cookie_id');
+		}
+		
+		if (isset($this->request->post['config_gdpr_id'])) {
+			$data['config_gdpr_id'] = $this->request->post['config_gdpr_id'];
+		} else {
+			$data['config_gdpr_id'] = $this->config->get('config_gdpr_id');
+		}
+		
+		if (isset($this->request->post['config_gdpr_limit'])) {
+			$data['config_gdpr_limit'] = $this->request->post['config_gdpr_limit'];
+		} else {
+			$data['config_gdpr_limit'] = $this->config->get('config_gdpr_limit');
+		}
+		
+		$data['currency_engines'] = array();
+
+		$this->load->model('setting/extension');
+
+		$extensions = $this->model_setting_extension->getInstalled('currency');
+
+		foreach ($extensions as $code) {
+			if ($this->config->get('currency_' . $code . '_status')) {
+				$this->load->language('extension/currency/' . $code, 'extension');
+
+				$data['currency_engines'][] = array(
+					'text'  => $this->language->get('extension')->get('heading_title'),
+					'value' => $code
+				);
+			}
+		}
+
+		if (isset($this->request->post['config_currency_engine'])) {
+			$data['config_currency_engine'] = $this->request->post['config_currency_engine'];
+		} else {
+			$data['config_currency_engine'] = $this->config->get('config_currency_engine');
 		}
 
 		$data['header'] = $this->load->controller('common/header');

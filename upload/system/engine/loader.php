@@ -2,7 +2,7 @@
 /**
  * @package		OpenCart
  * @author		Daniel Kerr
- * @copyright	Copyright (c) 2005 - 2022, OpenCart, Ltd. (https://www.opencart.com/)
+ * @copyright	Copyright (c) 2005 - 2017, OpenCart, Ltd. (https://www.opencart.com/)
  * @license		https://opensource.org/licenses/GPL-3.0
  * @link		https://www.opencart.com
 */
@@ -81,7 +81,9 @@ final class Loader {
 				// Overriding models is a little harder so we have to use PHP's magic methods
 				// In future version we can use runkit
 				foreach (get_class_methods($class) as $method) {
-					$proxy->{$method} = $this->callback($this->registry, $route . '/' . $method);
+					if ((substr($method, 0, 2) != '__') && is_callable($class, $method))  {
+						$proxy->{$method} = $this->callback($this->registry, $route . '/' . $method);
+					}
 				}
 				
 				$this->registry->set('model_' . str_replace('/', '_', (string)$route), $proxy);
@@ -162,10 +164,7 @@ final class Loader {
 	 * @param	string	$route
  	*/	
 	public function helper($route) {
-		// Sanitize the call
-		$route = preg_replace('/[^a-zA-Z0-9_\/]/', '', (string)$route);
-
-		$file = DIR_SYSTEM . 'helper/' . $route . '.php';
+		$file = DIR_SYSTEM . 'helper/' . preg_replace('/[^a-zA-Z0-9_\/]/', '', (string)$route) . '.php';
 
 		if (is_file($file)) {
 			include_once($file);
@@ -180,9 +179,6 @@ final class Loader {
 	 * @param	string	$route
  	*/	
 	public function config($route) {
-		// Sanitize the call
-		$route = preg_replace('/[^a-zA-Z0-9_\-\/]/', '', (string)$route);
-		
 		$this->registry->get('event')->trigger('config/' . $route . '/before', array(&$route));
 		
 		$this->registry->get('config')->load($route);
@@ -226,7 +222,6 @@ final class Loader {
 		return function($args) use($registry, $route) {
 			static $model;
 			
-			// Sanitize the call
 			$route = preg_replace('/[^a-zA-Z0-9_\/]/', '', (string)$route);
 
 			// Keep the original trigger
