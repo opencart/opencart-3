@@ -66,7 +66,7 @@ class ControllerExtensionCurrencyECB extends Controller {
 	}
 
 	// Parametered string won't work on current engine.
-	public function currency($default = ''): void {
+	public function currency(string $default = ''): void {
 		if ($this->config->get('currency_ecb_status')) {
 			$curl = curl_init();
 
