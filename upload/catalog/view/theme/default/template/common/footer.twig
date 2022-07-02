@@ -7,7 +7,7 @@
         <ul class="list-unstyled">
          {% for information in informations %}
           <li><a href="{{ information.href }}">{{ information.title }}</a></li>
-          {% endfor %}
+         {% endfor %}
         </ul>
       </div>
       {% endif %}
@@ -24,7 +24,9 @@
         <ul class="list-unstyled">
           <li><a href="{{ manufacturer }}">{{ text_manufacturer }}</a></li>
           <li><a href="{{ voucher }}">{{ text_voucher }}</a></li>
-          <li><a href="{{ affiliate }}">{{ text_affiliate }}</a></li>
+          {% if affiliate %}
+            <li><a href="{{ affiliate }}">{{ text_affiliate }}</a></li>
+          {% endif %}
           <li><a href="{{ special }}">{{ text_special }}</a></li>
         </ul>
       </div>

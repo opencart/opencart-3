@@ -588,6 +588,12 @@ class ControllerSettingSetting extends Controller {
 			$data['config_stock_checkout'] = $this->config->get('config_stock_checkout');
 		}
 
+		if ($this->config->has('config_affiliate_status')) {
+			$data['config_affiliate_status'] = $this->config->get('config_affiliate_status');
+		} else {
+			$data['config_affiliate_status'] = '';
+		}
+
 		if (isset($this->request->post['config_affiliate_group_id'])) {
 			$data['config_affiliate_group_id'] = $this->request->post['config_affiliate_group_id'];
 		} else {
