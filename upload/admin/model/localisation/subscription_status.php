@@ -81,7 +81,7 @@ class ModelLocalisationSubscriptionStatus extends Model {
 	}
 
 	public function getDescriptions($subscription_status_id) {
-		$subscription_status_data = [];
+		$subscription_status_data = array();
 
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "subscription_status` WHERE `subscription_status_id` = '" . (int)$subscription_status_id . "'");
 
