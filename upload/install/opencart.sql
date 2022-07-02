@@ -1004,7 +1004,8 @@ CREATE TABLE `oc_cron` (
 --
 
 INSERT INTO `oc_cron` (`cron_id`, `code`, `cycle`, `action`, `status`, `date_added`, `date_modified`) VALUES
-(1, 'currency', 'day', 'cron/currency', 1, '2014-09-25 14:40:00', '2019-08-25 21:12:59');
+(1, 'currency', 'day', 'cron/currency', 1, '2014-09-25 14:40:00', '2019-08-25 21:12:59'),
+(2, 'gdpr', 'day', 'cron/gdpr', 1, '2014-09-25 14:40:00', '2014-09-25 14:40:00');
 
 -----------------------------------------------------------
 
@@ -1697,6 +1698,25 @@ CREATE TABLE `oc_filter_group_description` (
   `language_id` int(11) NOT NULL,
   `name` varchar(64) NOT NULL,
   PRIMARY KEY (`filter_group_id`,`language_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+
+-----------------------------------------------------------
+
+--
+-- Table structure for table `oc_gdpr`
+--
+
+DROP TABLE IF EXISTS `oc_gdpr`;
+CREATE TABLE `oc_gdpr` (
+  `gdpr_id` int(11) NOT NULL AUTO_INCREMENT,
+  `store_id` int(11) NOT NULL,
+  `language_id` int(11) NOT NULL,
+  `code` varchar(40) NOT NULL,
+  `email` varchar(96) NOT NULL,
+  `action` varchar(6) NOT NULL,
+  `status` tinyint(1) NOT NULL,
+  `date_added` datetime NOT NULL,
+  PRIMARY KEY (`gdpr_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 -----------------------------------------------------------

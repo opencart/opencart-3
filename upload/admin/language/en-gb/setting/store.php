@@ -45,6 +45,7 @@ $_['entry_country']                = 'Country';
 $_['entry_zone']                   = 'Region / State';
 $_['entry_language']               = 'Language';
 $_['entry_currency']               = 'Currency';
+$_['entry_gdpr']                   = 'GDPR Policy';
 $_['entry_cookie']                 = 'Cookie Policy';
 $_['entry_tax']                    = 'Display Prices With Tax';
 $_['entry_tax_default']            = 'Use Store Tax Address';
