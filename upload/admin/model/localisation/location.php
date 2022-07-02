@@ -1,30 +1,28 @@
 <?php
 class ModelLocalisationLocation extends Model {
-	public function addLocation($data) {
+	public function addLocation(array $data): int {
 		$this->db->query("INSERT INTO `" . DB_PREFIX . "location` SET `name` = '" . $this->db->escape($data['name']) . "', `address` = '" . $this->db->escape($data['address']) . "', `geocode` = '" . $this->db->escape($data['geocode']) . "', `telephone` = '" . $this->db->escape($data['telephone']) . "', `fax` = '" . $this->db->escape($data['fax']) . "', `image` = '" . $this->db->escape($data['image']) . "', `open` = '" . $this->db->escape($data['open']) . "', `comment` = '" . $this->db->escape($data['comment']) . "'");
 	
 		return $this->db->getLastId();
 	}
 
-	public function editLocation($location_id, $data) {
+	public function editLocation(int $location_id, array $data): void {
 		$this->db->query("UPDATE `" . DB_PREFIX . "location` SET `name` = '" . $this->db->escape($data['name']) . "', `address` = '" . $this->db->escape($data['address']) . "', `geocode` = '" . $this->db->escape($data['geocode']) . "', `telephone` = '" . $this->db->escape($data['telephone']) . "', `fax` = '" . $this->db->escape($data['fax']) . "', `image` = '" . $this->db->escape($data['image']) . "', `open` = '" . $this->db->escape($data['open']) . "', `comment` = '" . $this->db->escape($data['comment']) . "' WHERE `location_id` = '" . (int)$location_id . "'");
 	}
 
-	public function deleteLocation($location_id) {
+	public function deleteLocation(int $location_id): void {
 		$this->db->query("DELETE FROM `" . DB_PREFIX . "location` WHERE `location_id` = '" . (int)$location_id . "'");
 	}
 
-	public function getLocation($location_id) {
+	public function getLocation(int $location_id): array {
 		$query = $this->db->query("SELECT DISTINCT * FROM `" . DB_PREFIX . "location` WHERE `location_id` = '" . (int)$location_id . "'");
 
 		return $query->row;
 	}
 
-	public function getLocations($data = array()) {
+	public function getLocations(array $data = array()): array {
 		$sql = "SELECT `location_id`, `name`, `address` FROM `" . DB_PREFIX . "location`";
 		
-		$sort_data = array();
-
 		$sort_data = array(
 			'name',
 			'address',
@@ -59,7 +57,7 @@ class ModelLocalisationLocation extends Model {
 		return $query->rows;
 	}
 
-	public function getTotalLocations() {
+	public function getTotalLocations(): int {
 		$query = $this->db->query("SELECT COUNT(*) AS `total` FROM `" . DB_PREFIX . "location`");
 
 		return (int)$query->row['total'];

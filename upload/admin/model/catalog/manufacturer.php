@@ -1,6 +1,6 @@
 <?php
 class ModelCatalogManufacturer extends Model {
-	public function addManufacturer($data) {
+	public function addManufacturer(array $data): int {
 		$this->db->query("INSERT INTO `" . DB_PREFIX . "manufacturer` SET `name` = '" . $this->db->escape($data['name']) . "', `sort_order` = '" . (int)$data['sort_order'] . "'");
 
 		$manufacturer_id = $this->db->getLastId();
@@ -31,7 +31,7 @@ class ModelCatalogManufacturer extends Model {
 		return $manufacturer_id;
 	}
 
-	public function editManufacturer($manufacturer_id, $data) {
+	public function editManufacturer(int $manufacturer_id, array $data): void {
 		$this->db->query("UPDATE `" . DB_PREFIX . "manufacturer` SET `name` = '" . $this->db->escape($data['name']) . "', `sort_order` = '" . (int)$data['sort_order'] . "' WHERE `manufacturer_id` = '" . (int)$manufacturer_id . "'");
 
 		if (isset($data['image'])) {
@@ -61,7 +61,7 @@ class ModelCatalogManufacturer extends Model {
 		$this->cache->delete('manufacturer');
 	}
 
-	public function deleteManufacturer($manufacturer_id) {
+	public function deleteManufacturer(int $manufacturer_id): void {
 		$this->db->query("DELETE FROM `" . DB_PREFIX . "manufacturer` WHERE `manufacturer_id` = '" . (int)$manufacturer_id . "'");
 		$this->db->query("DELETE FROM `" . DB_PREFIX . "manufacturer_to_store` WHERE `manufacturer_id` = '" . (int)$manufacturer_id . "'");
 		$this->db->query("DELETE FROM `" . DB_PREFIX . "seo_url` WHERE `query` = 'manufacturer_id=" . (int)$manufacturer_id . "'");
@@ -69,21 +69,19 @@ class ModelCatalogManufacturer extends Model {
 		$this->cache->delete('manufacturer');
 	}
 
-	public function getManufacturer($manufacturer_id) {
+	public function getManufacturer(int $manufacturer_id): array {
 		$query = $this->db->query("SELECT DISTINCT * FROM `" . DB_PREFIX . "manufacturer` WHERE `manufacturer_id` = '" . (int)$manufacturer_id . "'");
 
 		return $query->row;
 	}
 
-	public function getManufacturers($data = array()) {
+	public function getManufacturers(array $data = array()): array {
 		$sql = "SELECT * FROM `" . DB_PREFIX . "manufacturer`";
 
 		if (!empty($data['filter_name'])) {
 			$sql .= " WHERE `name` LIKE '" . $this->db->escape($data['filter_name']) . "%'";
 		}
 		
-		$sort_data = array();
-
 		$sort_data = array(
 			'name',
 			'sort_order'
@@ -118,7 +116,7 @@ class ModelCatalogManufacturer extends Model {
 		return $query->rows;
 	}
 
-	public function getManufacturerStores($manufacturer_id) {
+	public function getManufacturerStores(int $manufacturer_id): array {
 		$manufacturer_store_data = array();
 
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "manufacturer_to_store` WHERE `manufacturer_id` = '" . (int)$manufacturer_id . "'");
@@ -130,7 +128,7 @@ class ModelCatalogManufacturer extends Model {
 		return $manufacturer_store_data;
 	}
 	
-	public function getManufacturerSeoUrls($manufacturer_id) {
+	public function getManufacturerSeoUrls(array $manufacturer_id): array {
 		$manufacturer_seo_url_data = array();
 		
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "seo_url` WHERE `query` = 'manufacturer_id=" . (int)$manufacturer_id . "'");
@@ -142,7 +140,7 @@ class ModelCatalogManufacturer extends Model {
 		return $manufacturer_seo_url_data;
 	}
 	
-	public function getTotalManufacturers() {
+	public function getTotalManufacturers(): int {
 		$query = $this->db->query("SELECT COUNT(*) AS `total` FROM `" . DB_PREFIX . "manufacturer`");
 
 		return (int)$query->row['total'];

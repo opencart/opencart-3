@@ -1,49 +1,47 @@
 <?php
 class ModelSettingEvent extends Model {
-	public function addEvent($code, $trigger, $action, $status = 1, $sort_order = 0) {
+	public function addEvent(string $code, string $trigger, string $action, int $status = 1, int $sort_order = 0): int {
 		$this->db->query("INSERT INTO `" . DB_PREFIX . "event` SET `code` = '" . $this->db->escape($code) . "', `trigger` = '" . $this->db->escape($trigger) . "', `action` = '" . $this->db->escape($action) . "', `sort_order` = '" . (int)$sort_order . "', `status` = '" . (int)$status . "'");
 	
 		return $this->db->getLastId();
 	}
 
-	public function deleteEvent($event_id) {
+	public function deleteEvent(int $event_id): void {
 		$this->db->query("DELETE FROM `" . DB_PREFIX . "event` WHERE `event_id` = '" . (int)$event_id . "'");
 	}
 	
-	public function deleteEventByCode($code) {
+	public function deleteEventByCode(string $code): void {
 		$this->db->query("DELETE FROM `" . DB_PREFIX . "event` WHERE `code` = '" . $this->db->escape($code) . "'");
 	}
 
-	public function enableEvent($event_id) {
+	public function enableEvent(int $event_id): void {
 		$this->db->query("UPDATE `" . DB_PREFIX . "event` SET `status` = '1' WHERE `event_id` = '" . (int)$event_id . "'");
 	}
 	
-	public function disableEvent($event_id) {
+	public function disableEvent(int $event_id): void {
 		$this->db->query("UPDATE `" . DB_PREFIX . "event` SET `status` = '0' WHERE `event_id` = '" . (int)$event_id . "'");
 	}
 	
-	public function uninstall($type, $code) {
+	public function uninstall(string $type, string $code): void {
 		$this->db->query("DELETE FROM `" . DB_PREFIX . "extension` WHERE `type` = '" . $this->db->escape($type) . "' AND `code` = '" . $this->db->escape($code) . "'");
 		$this->db->query("DELETE FROM `" . DB_PREFIX . "setting` WHERE `code` = '" . $this->db->escape($code) . "'");
 	}
 
-	public function getEvent($event_id) {
+	public function getEvent(int $event_id): array {
 		$query = $this->db->query("SELECT DISTINCT * FROM `" . DB_PREFIX . "event` WHERE `event_id` = '" . (int)$event_id . "' LIMIT 1");
 
 		return $query->row;
 	}
 
-	public function getEventByCode($code) {
+	public function getEventByCode(string $code): array {
 		$query = $this->db->query("SELECT DISTINCT * FROM `" . DB_PREFIX . "event` WHERE `code` = '" . $this->db->escape($code) . "' LIMIT 1");
 
 		return $query->row;
 	}
 		
-	public function getEvents($data = array()) {
+	public function getEvents(array $data = array()): array {
 		$sql = "SELECT * FROM `" . DB_PREFIX . "event`";
 		
-		$sort_data = array();
-
 		$sort_data = array(
 			'code',
 			'trigger',
@@ -82,7 +80,7 @@ class ModelSettingEvent extends Model {
 		return $query->rows;
 	}
 
-	public function getTotalEvents() {
+	public function getTotalEvents(): int {
 		$query = $this->db->query("SELECT COUNT(*) AS `total` FROM `" . DB_PREFIX . "event`");
 
 		return (int)$query->row['total'];

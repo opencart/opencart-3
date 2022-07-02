@@ -1,37 +1,40 @@
 <?php
 class ModelSettingCron extends Model {
-	public function addCron($code, $cycle, $action, $status) {
+	public function addCron(string $code, string $cycle, string $action, int $status): int {
 		$this->db->query("INSERT INTO `" . DB_PREFIX . "cron` SET `code` = '" . $this->db->escape($code) . "', `cycle` = '" . $this->db->escape($cycle) . "', `action` = '" . $this->db->escape($action) . "', `status` = '" . (int)$status . "', `date_added` = NOW(), `date_modified` = NOW()");
+		
 		return $this->db->getLastId();
 	}
 
-	public function deleteCron($cron_id) {
+	public function deleteCron(int $cron_id): void {
 		$this->db->query("DELETE FROM `" . DB_PREFIX . "cron` WHERE `cron_id` = '" . (int)$cron_id . "'");
 	}
 
-	public function deleteCronByCode($code) {
+	public function deleteCronByCode(string $code): void {
 		$this->db->query("DELETE FROM `" . DB_PREFIX . "cron` WHERE `code` = '" . $this->db->escape($code) . "'");
 	}
 
-	public function editCron($cron_id) {
+	public function editCron(int $cron_id): void {
 		$this->db->query("UPDATE `" . DB_PREFIX . "cron` SET `date_modified` = NOW() WHERE `cron_id` = '" . (int)$cron_id . "'");
 	}
 
-	public function editStatus($cron_id, $status) {
+	public function editStatus(int $cron_id, int $status): void {
 		$this->db->query("UPDATE `" . DB_PREFIX . "cron` SET `status` = '" . (int)$status . "' WHERE `cron_id` = '" . (int)$cron_id . "'");
 	}
 
-	public function getCron($cron_id) {
+	public function getCron(int $cron_id): array {
 		$query = $this->db->query("SELECT DISTINCT * FROM `" . DB_PREFIX . "cron` WHERE `cron_id` = '" . (int)$cron_id . "'");
+		
 		return $query->row;
 	}
 
-	public function getCronByCode($code) {
+	public function getCronByCode(string $code): array {
 		$query = $this->db->query("SELECT DISTINCT * FROM `" . DB_PREFIX . "cron` WHERE `code` = '" . $this->db->escape($code) . "' LIMIT 1");
+		
 		return $query->row;
 	}
 
-	public function getCrons($data = array()) {
+	public function getCrons(array $data = array()): array {
 		$sql = "SELECT * FROM `" . DB_PREFIX . "cron`";
 
 		$sort_data = array(
@@ -72,7 +75,7 @@ class ModelSettingCron extends Model {
 		return $query->rows;
 	}
 
-	public function getTotalCrons() {
+	public function getTotalCrons(): int {
 		$query = $this->db->query("SELECT COUNT(*) AS `total` FROM `" . DB_PREFIX . "cron`");
 
 		return (int)$query->row['total'];

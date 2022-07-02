@@ -1,6 +1,6 @@
 <?php
 class ModelExtensionReportReturns extends Model {
-	public function getReturns($data = array()) {
+	public function getReturns(array $data = array()): array {
 		$sql = "SELECT MIN(r.`date_added`) AS date_start, MAX(r.`date_added`) AS date_end, COUNT(r.`return_id`) AS `returns` FROM `" . DB_PREFIX . "return` r";
 
 		if (!empty($data['filter_return_status_id'])) {
@@ -56,7 +56,7 @@ class ModelExtensionReportReturns extends Model {
 		return $query->rows;
 	}
 
-	public function getTotalReturns($data = array()) {
+	public function getTotalReturns(array $data = array()): int {
 		if (!empty($data['filter_group'])) {
 			$group = $data['filter_group'];
 		} else {

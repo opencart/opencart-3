@@ -1,6 +1,6 @@
 <?php
 class ModelCustomerCustomField extends Model {
-	public function addCustomField($data) {
+	public function addCustomField(array $data): int {
 		$this->db->query("INSERT INTO `" . DB_PREFIX . "custom_field` SET `type` = '" . $this->db->escape($data['type']) . "', `value` = '" . $this->db->escape($data['value']) . "', `validation` = '" . $this->db->escape($data['validation']) . "', `location` = '" . $this->db->escape($data['location']) . "', `status` = '" . (int)$data['status'] . "', `sort_order` = '" . (int)$data['sort_order'] . "'");
 
 		$custom_field_id = $this->db->getLastId();
@@ -32,7 +32,7 @@ class ModelCustomerCustomField extends Model {
 		return $custom_field_id;
 	}
 
-	public function editCustomField($custom_field_id, $data) {
+	public function editCustomField(int $custom_field_id, array $data): void {
 		$this->db->query("UPDATE `" . DB_PREFIX . "custom_field` SET `type` = '" . $this->db->escape($data['type']) . "', `value` = '" . $this->db->escape($data['value']) . "', `validation` = '" . $this->db->escape($data['validation']) . "', `location` = '" . $this->db->escape($data['location']) . "', `status` = '" . (int)$data['status'] . "', `sort_order` = '" . (int)$data['sort_order'] . "' WHERE `custom_field_id` = '" . (int)$custom_field_id . "'");
 
 		$this->db->query("DELETE FROM `" . DB_PREFIX . "custom_field_description` WHERE `custom_field_id` = '" . (int)$custom_field_id . "'");
@@ -71,7 +71,7 @@ class ModelCustomerCustomField extends Model {
 		}
 	}
 
-	public function deleteCustomField($custom_field_id) {
+	public function deleteCustomField(int $custom_field_id): void {
 		$this->db->query("DELETE FROM `" . DB_PREFIX . "custom_field` WHERE `custom_field_id` = '" . (int)$custom_field_id . "'");
 		$this->db->query("DELETE FROM `" . DB_PREFIX . "custom_field_description` WHERE `custom_field_id` = '" . (int)$custom_field_id . "'");
 		$this->db->query("DELETE FROM `" . DB_PREFIX . "custom_field_customer_group` WHERE `custom_field_id` = '" . (int)$custom_field_id . "'");
@@ -79,13 +79,13 @@ class ModelCustomerCustomField extends Model {
 		$this->db->query("DELETE FROM `" . DB_PREFIX . "custom_field_value_description` WHERE `custom_field_id` = '" . (int)$custom_field_id . "'");
 	}
 
-	public function getCustomField($custom_field_id) {
+	public function getCustomField(int $custom_field_id): array {
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "custom_field` cf LEFT JOIN `" . DB_PREFIX . "custom_field_description` cfd ON (cf.`custom_field_id` = cfd.`custom_field_id`) WHERE cf.`custom_field_id` = '" . (int)$custom_field_id . "' AND cfd.`language_id` = '" . (int)$this->config->get('config_language_id') . "'");
 
 		return $query->row;
 	}
 
-	public function getCustomFields($data = array()) {
+	public function getCustomFields(array $data = array()): array {
 		if (empty($data['filter_customer_group_id'])) {
 			$sql = "SELECT * FROM `" . DB_PREFIX . "custom_field` cf LEFT JOIN `" . DB_PREFIX . "custom_field_description` cfd ON (cf.`custom_field_id` = cfd.`custom_field_id`) WHERE cfd.`language_id` = '" . (int)$this->config->get('config_language_id') . "'";
 		} else {
@@ -100,8 +100,6 @@ class ModelCustomerCustomField extends Model {
 			$sql .= " AND cfcg.`customer_group_id` = '" . (int)$data['filter_customer_group_id'] . "'";
 		}
 		
-		$sort_data = array();
-
 		$sort_data = array(
 			'cfd.name',
 			'cf.type',
@@ -139,7 +137,7 @@ class ModelCustomerCustomField extends Model {
 		return $query->rows;
 	}
 
-	public function getCustomFieldDescriptions($custom_field_id) {
+	public function getCustomFieldDescriptions(int $custom_field_id): array {
 		$custom_field_data = array();
 
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "custom_field_description` WHERE `custom_field_id` = '" . (int)$custom_field_id . "'");
@@ -151,13 +149,13 @@ class ModelCustomerCustomField extends Model {
 		return $custom_field_data;
 	}
 	
-	public function getCustomFieldValue($custom_field_value_id) {
+	public function getCustomFieldValue(int $custom_field_value_id): array {
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "custom_field_value` cfv LEFT JOIN `" . DB_PREFIX . "custom_field_value_description` cfvd ON (cfv.`custom_field_value_id` = cfvd.`custom_field_value_id`) WHERE cfv.`custom_field_value_id` = '" . (int)$custom_field_value_id . "' AND cfvd.`language_id` = '" . (int)$this->config->get('config_language_id') . "'");
 
 		return $query->row;
 	}
 	
-	public function getCustomFieldValues($custom_field_id) {
+	public function getCustomFieldValues(int $custom_field_id): array {
 		$custom_field_value_data = array();
 
 		$custom_field_value_query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "custom_field_value` cfv LEFT JOIN `" . DB_PREFIX . "custom_field_value_description` cfvd ON (cfv.`custom_field_value_id` = cfvd.`custom_field_value_id`) WHERE cfv.`custom_field_id` = '" . (int)$custom_field_id . "' AND cfvd.`language_id` = '" . (int)$this->config->get('config_language_id') . "' ORDER BY cfv.`sort_order` ASC");
@@ -172,13 +170,13 @@ class ModelCustomerCustomField extends Model {
 		return $custom_field_value_data;
 	}
 	
-	public function getCustomFieldCustomerGroups($custom_field_id) {
+	public function getCustomFieldCustomerGroups(int $custom_field_id): array {
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "custom_field_customer_group` WHERE `custom_field_id` = '" . (int)$custom_field_id . "'");
 
 		return $query->rows;
 	}
 
-	public function getCustomFieldValueDescriptions($custom_field_id) {
+	public function getCustomFieldValueDescriptions(int $custom_field_id): array {
 		$custom_field_value_data = array();
 
 		$custom_field_value_query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "custom_field_value` WHERE `custom_field_id` = '" . (int)$custom_field_id . "'");
@@ -202,7 +200,7 @@ class ModelCustomerCustomField extends Model {
 		return $custom_field_value_data;
 	}
 
-	public function getTotalCustomFields() {
+	public function getTotalCustomFields(): int {
 		$query = $this->db->query("SELECT COUNT(*) AS `total` FROM `" . DB_PREFIX . "custom_field`");
 
 		return (int)$query->row['total'];

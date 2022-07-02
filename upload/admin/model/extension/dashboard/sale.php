@@ -1,6 +1,6 @@
 <?php
 class ModelExtensionDashboardSale extends Model {
-	public function getTotalSales($data = array()) {
+	public function getTotalSales(array $data = array()): float {
 		$sql = "SELECT SUM(total) AS `total` FROM `" . DB_PREFIX . "order` WHERE `order_status_id` > '0'";
 
 		if (!empty($data['filter_date_added'])) {
@@ -12,13 +12,13 @@ class ModelExtensionDashboardSale extends Model {
 		return isset($query->row['total']) ? $query->row['total'] : 0.00;
 	}
 
-	public function getTotalOrdersByCountry() {
+	public function getTotalOrdersByCountry(): array {
 		$query = $this->db->query("SELECT COUNT(*) AS `total`, SUM(o.`total`) AS amount, c.`iso_code_2` FROM `" . DB_PREFIX . "order` o LEFT JOIN `" . DB_PREFIX . "country` c ON (o.`payment_country_id` = c.`country_id`) WHERE o.`order_status_id` > '0' GROUP BY o.`payment_country_id`");
 
 		return $query->rows;
 	}
 
-	public function getTotalOrdersByDay() {
+	public function getTotalOrdersByDay(): array {
 		$implode = array();
 
 		foreach ((array)$this->config->get('config_complete_status') as $order_status_id) {
@@ -46,7 +46,7 @@ class ModelExtensionDashboardSale extends Model {
 		return $order_data;
 	}
 
-	public function getTotalOrdersByWeek() {
+	public function getTotalOrdersByWeek(): array {
 		$implode = array();
 
 		foreach ((array)$this->config->get('config_complete_status') as $order_status_id) {
@@ -78,7 +78,7 @@ class ModelExtensionDashboardSale extends Model {
 		return $order_data;
 	}
 
-	public function getTotalOrdersByMonth() {
+	public function getTotalOrdersByMonth(): array {
 		$implode = array();
 
 		foreach ((array)$this->config->get('config_complete_status') as $order_status_id) {
@@ -108,7 +108,7 @@ class ModelExtensionDashboardSale extends Model {
 		return $order_data;
 	}
 
-	public function getTotalOrdersByYear() {
+	public function getTotalOrdersByYear(): array {
 		$implode = array();
 
 		foreach ((array)$this->config->get('config_complete_status') as $order_status_id) {
@@ -136,7 +136,7 @@ class ModelExtensionDashboardSale extends Model {
 		return $order_data;
 	}
 
-	public function getOrders($data = array()) {
+	public function getOrders(array $data = array()): array {
 		$sql = "SELECT MIN(o.`date_added`) AS date_start, MAX(o.`date_added`) AS date_end, COUNT(*) AS `orders`, SUM((SELECT SUM(op.`quantity`) FROM `" . DB_PREFIX . "order_product` op WHERE op.`order_id` = o.`order_id` GROUP BY op.`order_id`)) AS products, SUM((SELECT SUM(ot.`value`) FROM `" . DB_PREFIX . "order_total` ot WHERE ot.`order_id` = o.`order_id` AND ot.`code` = 'tax' GROUP BY ot.`order_id`)) AS tax, SUM(o.`total`) AS `total` FROM `" . DB_PREFIX . "order` o";
 
 		if (!empty($data['filter_order_status_id'])) {
@@ -194,7 +194,7 @@ class ModelExtensionDashboardSale extends Model {
 		return $query->rows;
 	}
 
-	public function getTotalOrders($data = array()) {
+	public function getTotalOrders(array $data = array()): int {
 		if (!empty($data['filter_group'])) {
 			$group = $data['filter_group'];
 		} else {
@@ -236,7 +236,7 @@ class ModelExtensionDashboardSale extends Model {
 		return (int)$query->row['total'];
 	}
 
-	public function getTaxes($data = array()) {
+	public function getTaxes(array $data = array()): array {
 		$sql = "SELECT MIN(o.`date_added`) AS `date_start`, MAX(o.`date_added`) AS `date_end`, ot.`title`, SUM(ot.`value`) AS total, COUNT(o.`order_id`) AS `orders` FROM `" . DB_PREFIX . "order` o LEFT JOIN `" . DB_PREFIX . "order_total` ot ON (ot.`order_id` = o.`order_id`) WHERE ot.`code` = 'tax'";
 
 		if (!empty($data['filter_order_status_id'])) {
@@ -292,7 +292,7 @@ class ModelExtensionDashboardSale extends Model {
 		return $query->rows;
 	}
 
-	public function getTotalTaxes($data = array()) {
+	public function getTotalTaxes(array $data = array()): int {
 		if (!empty($data['filter_group'])) {
 			$group = $data['filter_group'];
 		} else {
@@ -336,7 +336,7 @@ class ModelExtensionDashboardSale extends Model {
 		return (int)$query->row['total'];
 	}
 
-	public function getShipping($data = array()) {
+	public function getShipping(array $data = array()): array {
 		$sql = "SELECT MIN(o.`date_added`) AS date_start, MAX(o.`date_added`) AS date_end, ot.`title`, SUM(ot.`value`) AS total, COUNT(o.`order_id`) AS `orders` FROM `" . DB_PREFIX . "order` o LEFT JOIN `" . DB_PREFIX . "order_total` ot ON (o.`order_id` = ot.`order_id`) WHERE ot.`code` = 'shipping'";
 
 		if (!empty($data['filter_order_status_id'])) {
@@ -392,7 +392,7 @@ class ModelExtensionDashboardSale extends Model {
 		return $query->rows;
 	}
 
-	public function getTotalShipping($data = array()) {
+	public function getTotalShipping(array $data = array()): int {
 		if (!empty($data['filter_group'])) {
 			$group = $data['filter_group'];
 		} else {

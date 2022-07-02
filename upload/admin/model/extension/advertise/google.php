@@ -422,9 +422,7 @@ class ModelExtensionAdvertiseGoogle extends Model {
 
         $sql .= " GROUP BY cp.`category_id`";
 		
-		$sort_data = array();
-
-        $sort_data = array(
+		$sort_data = array(
             'name',
             'sort_order'
         );
