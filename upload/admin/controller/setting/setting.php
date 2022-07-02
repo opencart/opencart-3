@@ -313,11 +313,10 @@ class ControllerSettingSetting extends Controller {
 
 		if (isset($this->request->post['config_timezone'])) {
 			$data['config_timezone'] = $this->request->post['config_timezone'];
-		} elseif ($this->config->has('config_timezone')) {
-			$data['config_timezone'] = $this->config->get('config_timezone');
 		} else {
-			$data['config_timezone'] = 'UTC';
+			$data['config_timezone'] = $this->config->get('config_timezone');
 		}
+		
 		// Set Time Zone
 		$data['timezones'] = array();
 
@@ -486,10 +485,8 @@ class ControllerSettingSetting extends Controller {
 
 		if (isset($this->request->post['config_login_attempts'])) {
 			$data['config_login_attempts'] = $this->request->post['config_login_attempts'];
-		} elseif ($this->config->has('config_login_attempts')) {
-			$data['config_login_attempts'] = $this->config->get('config_login_attempts');
 		} else {
-			$data['config_login_attempts'] = 5;
+			$data['config_login_attempts'] = $this->config->get('config_login_attempts');
 		}
 
 		if (isset($this->request->post['config_account_id'])) {
@@ -596,26 +593,20 @@ class ControllerSettingSetting extends Controller {
 
 		if (isset($this->request->post['config_affiliate_approval'])) {
 			$data['config_affiliate_approval'] = $this->request->post['config_affiliate_approval'];
-		} elseif ($this->config->has('config_affiliate_approval')) {
-			$data['config_affiliate_approval'] = $this->config->get('config_affiliate_approval');
 		} else {
-			$data['config_affiliate_approval'] = '';
+			$data['config_affiliate_approval'] = $this->config->get('config_affiliate_approval');
 		}
 
 		if (isset($this->request->post['config_affiliate_auto'])) {
 			$data['config_affiliate_auto'] = $this->request->post['config_affiliate_auto'];
-		} elseif ($this->config->has('config_affiliate_auto')) {
-			$data['config_affiliate_auto'] = $this->config->get('config_affiliate_auto');
 		} else {
-			$data['config_affiliate_auto'] = '';
+			$data['config_affiliate_auto'] = $this->config->get('config_affiliate_auto');
 		}
 
 		if (isset($this->request->post['config_affiliate_commission'])) {
 			$data['config_affiliate_commission'] = $this->request->post['config_affiliate_commission'];
-		} elseif ($this->config->has('config_affiliate_commission')) {
-			$data['config_affiliate_commission'] = $this->config->get('config_affiliate_commission');
 		} else {
-			$data['config_affiliate_commission'] = '5.00';
+			$data['config_affiliate_commission'] = $this->config->get('config_affiliate_commission');
 		}
 
 		if (isset($this->request->post['config_affiliate_id'])) {
@@ -666,10 +657,8 @@ class ControllerSettingSetting extends Controller {
 
 		if (isset($this->request->post['config_captcha_page'])) {
 			$data['config_captcha_page'] = $this->request->post['config_captcha_page'];
-		} elseif ($this->config->has('config_captcha_page')) {
-		   	$data['config_captcha_page'] = $this->config->get('config_captcha_page');
 		} else {
-			$data['config_captcha_page'] = array();
+		   	$data['config_captcha_page'] = (array)$this->config->get('config_captcha_page');
 		}
 
 		$data['captcha_pages'] = array();
@@ -771,26 +760,20 @@ class ControllerSettingSetting extends Controller {
 
 		if (isset($this->request->post['config_mail_smtp_port'])) {
 			$data['config_mail_smtp_port'] = $this->request->post['config_mail_smtp_port'];
-		} elseif ($this->config->has('config_mail_smtp_port')) {
-			$data['config_mail_smtp_port'] = $this->config->get('config_mail_smtp_port');
 		} else {
-			$data['config_mail_smtp_port'] = 25;
+			$data['config_mail_smtp_port'] = $this->config->get('config_mail_smtp_port');
 		}
 
 		if (isset($this->request->post['config_mail_smtp_timeout'])) {
 			$data['config_mail_smtp_timeout'] = $this->request->post['config_mail_smtp_timeout'];
-		} elseif ($this->config->has('config_mail_smtp_timeout')) {
-			$data['config_mail_smtp_timeout'] = $this->config->get('config_mail_smtp_timeout');
 		} else {
-			$data['config_mail_smtp_timeout'] = 5;
+			$data['config_mail_smtp_timeout'] = $this->config->get('config_mail_smtp_timeout');
 		}
 
 		if (isset($this->request->post['config_mail_alert'])) {
 			$data['config_mail_alert'] = $this->request->post['config_mail_alert'];
-		} elseif ($this->config->has('config_mail_alert')) {
-		   	$data['config_mail_alert'] = $this->config->get('config_mail_alert');
 		} else {
-			$data['config_mail_alert'] = array();
+		   	$data['config_mail_alert'] = (array)$this->config->get('config_mail_alert');
 		}
 
 		$data['mail_alerts'] = array();
