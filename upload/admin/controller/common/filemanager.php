@@ -30,6 +30,7 @@ class ControllerCommonFileManager extends Controller {
 		}
 
 		$directories = array();
+		
 		$files = array();
 
 		$data['images'] = array();

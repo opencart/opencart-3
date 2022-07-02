@@ -987,6 +987,7 @@ class ControllerSettingSetting extends Controller {
 			$data['config_cookie_id'] = $this->config->get('config_cookie_id');
 		}
 		
+		// GDPR
 		if (isset($this->request->post['config_gdpr_id'])) {
 			$data['config_gdpr_id'] = $this->request->post['config_gdpr_id'];
 		} else {
@@ -999,6 +1000,7 @@ class ControllerSettingSetting extends Controller {
 			$data['config_gdpr_limit'] = $this->config->get('config_gdpr_limit');
 		}
 		
+		// Currencies
 		$data['currency_engines'] = array();
 
 		$this->load->model('setting/extension');
