@@ -2,7 +2,7 @@
 class ControllerExtensionPaymentWorldpay extends Controller {
 	private $error = array();
 
-	public function index() {
+	public function index(): void {
 		$this->load->language('extension/payment/worldpay');
 
 		$this->document->setTitle($this->language->get('heading_title'));
@@ -122,10 +122,12 @@ class ControllerExtensionPaymentWorldpay extends Controller {
 			$data['payment_worldpay_last_cron_job_run'] = '';
 		}
 		
+		// Geo Zones		
 		$this->load->model('localisation/geo_zone');
 
 		$data['geo_zones'] = $this->model_localisation_geo_zone->getGeoZones();
 		
+		// Order Statuses
 		$this->load->model('localisation/order_status');
 
 		$data['order_statuses'] = $this->model_localisation_order_status->getOrderStatuses();
@@ -191,19 +193,19 @@ class ControllerExtensionPaymentWorldpay extends Controller {
 		$this->response->setOutput($this->load->view('extension/payment/worldpay', $data));
 	}
 
-	public function install() {
+	public function install(): void {
 		$this->load->model('extension/payment/worldpay');
 		
 		$this->model_extension_payment_worldpay->install();
 	}
 
-	public function uninstall() {
+	public function uninstall(): void {
 		$this->load->model('extension/payment/worldpay');
 		
 		$this->model_extension_payment_worldpay->uninstall();
 	}
 
-	public function order() {
+	public function order(): void {
 		if ($this->config->get('payment_worldpay_status')) {
 			$this->load->model('extension/payment/worldpay');
 
@@ -228,7 +230,7 @@ class ControllerExtensionPaymentWorldpay extends Controller {
 		}
 	}
 
-	public function refund() {
+	public function refund(): void {
 		$this->load->language('extension/payment/worldpay');
 		
 		$json = array();

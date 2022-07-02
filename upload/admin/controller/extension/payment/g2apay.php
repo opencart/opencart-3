@@ -2,7 +2,7 @@
 class ControllerExtensionPaymentG2APay extends Controller {
 	private $error = array();
 
-	public function index() {
+	public function index(): void {
 		$this->load->language('extension/payment/g2apay');
 
 		$this->document->setTitle($this->language->get('heading_title'));
@@ -58,6 +58,7 @@ class ControllerExtensionPaymentG2APay extends Controller {
 			'href' => $this->url->link('extension/payment/g2apay', 'user_token=' . $this->session->data['user_token'], true)
 		);
 
+		// Order Statuses
 		$this->load->model('localisation/order_status');
 		
 		$data['order_statuses'] = $this->model_localisation_order_status->getOrderStatuses();
@@ -187,7 +188,7 @@ class ControllerExtensionPaymentG2APay extends Controller {
 		$this->response->setOutput($this->load->view('extension/payment/g2apay', $data));
 	}
 
-	public function order() {
+	public function order(): void {
 		if ($this->config->get('payment_g2apay_status')) {
 			$this->load->model('extension/payment/g2apay');
 
@@ -212,7 +213,7 @@ class ControllerExtensionPaymentG2APay extends Controller {
 		}
 	}
 
-	public function refund() {
+	public function refund(): void {
 		$this->load->language('extension/payment/g2apay');
 		
 		$json = array();
@@ -268,13 +269,13 @@ class ControllerExtensionPaymentG2APay extends Controller {
 		$this->response->setOutput(json_encode($json));
 	}
 
-	public function install() {
+	public function install(): void {
 		$this->load->model('extension/payment/g2apay');
 		
 		$this->model_extension_payment_g2apay->install();
 	}
 
-	public function uninstall() {
+	public function uninstall(): void {
 		$this->load->model('extension/payment/g2apay');
 		
 		$this->model_extension_payment_g2apay->uninstall();

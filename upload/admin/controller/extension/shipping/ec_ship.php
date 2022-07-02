@@ -2,7 +2,7 @@
 class ControllerExtensionShippingECShip extends Controller {
 	private $error = array();
 
-	public function index() {
+	public function index(): void {
 		$this->load->language('extension/shipping/ec_ship');
 
 		$this->document->setTitle($this->language->get('heading_title'));

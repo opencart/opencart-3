@@ -2,7 +2,7 @@
 class ControllerExtensionExtensionTheme extends Controller {
 	private $error = array();
 
-	public function index() {
+	public function index(): void {
 		$this->load->language('extension/extension/theme');
 
 		$this->load->model('setting/extension');
@@ -10,7 +10,7 @@ class ControllerExtensionExtensionTheme extends Controller {
 		$this->getList();
 	}
 
-	public function install() {
+	public function install(): void {
 		$this->load->language('extension/extension/feed');
 
 		$this->load->model('setting/extension');
@@ -32,7 +32,7 @@ class ControllerExtensionExtensionTheme extends Controller {
 		$this->getList();
 	}
 
-	public function uninstall() {
+	public function uninstall(): void {
 		$this->load->language('extension/extension/theme');
 
 		$this->load->model('setting/extension');
@@ -122,7 +122,7 @@ class ControllerExtensionExtensionTheme extends Controller {
 		$this->response->setOutput($this->load->view('extension/extension/theme', $data));
 	}
 
-	protected function validate() {
+	protected function validate(): void {
 		if (!$this->user->hasPermission('modify', 'extension/extension/theme')) {
 			$this->error['warning'] = $this->language->get('error_permission');
 		}

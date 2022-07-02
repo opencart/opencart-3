@@ -2,7 +2,7 @@
 class ControllerExtensionPaymentGlobalpay extends Controller {
 	private $error = array();
 
-	public function index() {
+	public function index(): void {
 		$this->load->language('extension/payment/globalpay');
 
 		$this->document->setTitle($this->language->get('heading_title'));
@@ -219,13 +219,13 @@ class ControllerExtensionPaymentGlobalpay extends Controller {
 		$this->response->setOutput($this->load->view('extension/payment/globalpay', $data));
 	}
 
-	public function install() {
+	public function install(): void {
 		$this->load->model('extension/payment/globalpay');
 
 		$this->model_extension_payment_globalpay->install();
 	}
 
-	public function order() {
+	public function order(): void {
 		if ($this->config->get('payment_globalpay_status')) {
 			$this->load->model('extension/payment/globalpay');
 
@@ -252,7 +252,7 @@ class ControllerExtensionPaymentGlobalpay extends Controller {
 		}
 	}
 
-	public function void() {
+	public function void(): void {
 		$this->load->language('extension/payment/globalpay');
 		
 		$json = array();
@@ -292,7 +292,7 @@ class ControllerExtensionPaymentGlobalpay extends Controller {
 		$this->response->setOutput(json_encode($json));
 	}
 
-	public function capture() {
+	public function capture(): void {
 		$this->load->language('extension/payment/globalpay');
 		
 		$json = array();
@@ -348,7 +348,7 @@ class ControllerExtensionPaymentGlobalpay extends Controller {
 		$this->response->setOutput(json_encode($json));
 	}
 
-	public function rebate() {
+	public function rebate(): void {
 		$this->load->language('extension/payment/globalpay');
 		
 		$json = array();

@@ -2,7 +2,7 @@
 class ControllerSettingSetting extends Controller {
 	private $error = array();
 
-	public function index() {
+	public function index(): void {
 		$this->load->language('setting/setting');
 
 		$this->document->setTitle($this->language->get('heading_title'));
@@ -1090,7 +1090,7 @@ class ControllerSettingSetting extends Controller {
 		return !$this->error;
 	}
 	
-	public function theme() {
+	public function theme(): void {
 		if ($this->request->server['HTTPS']) {
 			$server = HTTPS_CATALOG;
 		} else {

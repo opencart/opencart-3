@@ -1,7 +1,7 @@
 <?php
 class ControllerMailTransaction extends Controller {
 	// admin/model/customer/customer/addTransaction/after
-	public function index(&$route, &$args, &$output) {
+	public function index(&$route, &$args, &$output): void {
 		if (isset($args[0])) {
 			$customer_id = $args[0];
 		} else {
@@ -26,6 +26,7 @@ class ControllerMailTransaction extends Controller {
 			$order_id = 0;
 		}
 			
+		// Customer
 		$this->load->model('customer/customer');
 						
 		$customer_info = $this->model_customer_customer->getCustomer($customer_id);
@@ -33,6 +34,7 @@ class ControllerMailTransaction extends Controller {
 		if ($customer_info) {
 			$this->load->language('mail/transaction');
 
+			// Store
 			$this->load->model('setting/store');
 
 			$store_info = $this->model_setting_store->getStore($customer_info['store_id']);
@@ -45,6 +47,7 @@ class ControllerMailTransaction extends Controller {
 				$store_url = $this->config->get('config_url');
 			}
 
+			// Languages
 			$this->load->model('localisation/language');
 
 			$language_info = $this->model_localisation_language->getLanguage($customer_info['language_id']);
@@ -83,4 +86,4 @@ class ControllerMailTransaction extends Controller {
 			$mail->send();
 		}
 	}		
-}	
+}

@@ -3,8 +3,7 @@ class ControllerExtensionModuleAmazonLogin extends Controller {
 	private $version = '3.2.1';
 	private $error = array();
 
-	public function index() {
-
+	public function index(): void {
 		$this->load->language('extension/module/amazon_login');
 
 		$this->load->model('setting/setting');
@@ -102,14 +101,14 @@ class ControllerExtensionModuleAmazonLogin extends Controller {
 		return !$this->error;
 	}
 
-	public function install() {
+	public function install(): void {
 		$this->load->model('setting/event');
 		
 		$this->model_setting_event->deleteEventByCode('amazon_login');
         $this->model_setting_event->addEvent('amazon_login', 'catalog/controller/account/logout/after', 'extension/module/amazon_login/logout');
 	}
 
-	public function uninstall() {
+	public function uninstall(): void {
 		$this->load->model('setting/event');
 		
 		$this->model_setting_event->deleteEventByCode('amazon_login');

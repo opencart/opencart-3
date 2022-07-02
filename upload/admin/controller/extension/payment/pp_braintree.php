@@ -5,7 +5,7 @@ class ControllerExtensionPaymentPPBraintree extends Controller {
 	private $opencart_connect_url = 'https://www.opencart.com/index.php?route=external/braintree_auth/connect';
 	private $opencart_retrieve_url = 'https://www.opencart.com/index.php?route=external/braintree_auth/retrieve';
 
-	public function index() {
+	public function index(): void {
 		$this->load->language('extension/payment/pp_braintree');
 
 		$this->document->setTitle($this->language->get('heading_title'));
@@ -502,7 +502,7 @@ class ControllerExtensionPaymentPPBraintree extends Controller {
 		$this->response->setOutput($this->load->view('extension/payment/pp_braintree', $data));
 	}
 
-	public function install() {
+	public function install(): void {
 		$this->load->model('setting/setting');
 
 		$defaults = array();
@@ -550,7 +550,7 @@ class ControllerExtensionPaymentPPBraintree extends Controller {
 		$this->model_setting_setting->editSetting('payment_pp_braintree', $defaults);
 	}
 
-	public function order() {
+	public function order(): string {
 		$this->load->language('extension/payment/pp_braintree');
 
 		$data['user_token'] = $this->session->data['user_token'];
@@ -560,7 +560,7 @@ class ControllerExtensionPaymentPPBraintree extends Controller {
 		return $this->load->view('extension/payment/pp_braintree_order', $data);
 	}
 
-	public function getTransaction() {
+	public function getTransaction(): void {
 		$this->load->language('extension/payment/pp_braintree');
 
 		$this->load->model('extension/payment/pp_braintree');
@@ -721,7 +721,7 @@ class ControllerExtensionPaymentPPBraintree extends Controller {
 		}
 	}
 
-	public function transactionCommand() {
+	public function transactionCommand(): void {
 		$this->load->language('extension/payment/pp_braintree');
 		
 		$json = array();
@@ -762,7 +762,7 @@ class ControllerExtensionPaymentPPBraintree extends Controller {
 		$this->response->setOutput(json_encode($json));
 	}
 
-	public function search() {
+	public function search(): void {
 		$this->load->language('extension/payment/pp_braintree');
 		
 		$json = array();
@@ -980,7 +980,7 @@ class ControllerExtensionPaymentPPBraintree extends Controller {
 		$this->response->setOutput(json_encode($json));
 	}
 
-	public function connectRedirect() {
+	public function connectRedirect(): void {
 		if ($this->user->hasPermission('modify', 'extension/extension/payment')) {
 			// Install the module before doing the redirect
 			$this->load->model('setting/extension');
@@ -1025,7 +1025,7 @@ class ControllerExtensionPaymentPPBraintree extends Controller {
 		}
 	}
 
-	public function promotion() {
+	public function promotion(): string {
 		$this->load->language('extension/payment/pp_braintree');
 
 		$data['connect_link'] = '';

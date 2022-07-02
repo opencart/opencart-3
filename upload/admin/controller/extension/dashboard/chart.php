@@ -2,7 +2,7 @@
 class ControllerExtensionDashboardChart extends Controller {
 	private $error = array();
 
-	public function index() {
+	public function index(): void {
 		$this->load->language('extension/dashboard/chart');
 
 		$this->document->setTitle($this->language->get('heading_title'));
@@ -83,7 +83,7 @@ class ControllerExtensionDashboardChart extends Controller {
 		return !$this->error;
 	}	
 	
-	public function dashboard() {
+	public function dashboard(): string {
 		$this->load->language('extension/dashboard/chart');
 
 		$data['user_token'] = $this->session->data['user_token'];
@@ -91,7 +91,7 @@ class ControllerExtensionDashboardChart extends Controller {
 		return $this->load->view('extension/dashboard/chart_info', $data);
 	}
 
-	public function chart() {
+	public function chart(): void {
 		$this->load->language('extension/dashboard/chart');
 
 		$json = array();

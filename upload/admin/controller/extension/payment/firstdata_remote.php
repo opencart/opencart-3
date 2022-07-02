@@ -2,7 +2,7 @@
 class ControllerExtensionPaymentFirstdataRemote extends Controller {
 	private $error = array();
 
-	public function index() {
+	public function index(): void {
 		$this->load->language('extension/payment/firstdata_remote');
 
 		$this->document->setTitle($this->language->get('heading_title'));
@@ -240,19 +240,19 @@ class ControllerExtensionPaymentFirstdataRemote extends Controller {
 		$this->response->setOutput($this->load->view('extension/payment/firstdata_remote', $data));
 	}
 
-	public function install() {
+	public function install(): void {
 		$this->load->model('extension/payment/firstdata_remote');
 		
 		$this->model_extension_payment_firstdata_remote->install();
 	}
 
-	public function uninstall() {
+	public function uninstall(): void {
 		$this->load->model('extension/payment/firstdata_remote');
 		
 		$this->model_extension_payment_firstdata_remote->uninstall();
 	}
 
-	public function order() {
+	public function order(): void {
 		if ($this->config->get('payment_firstdata_remote_status')) {
 			$this->load->model('extension/payment/firstdata_remote');
 
@@ -276,7 +276,7 @@ class ControllerExtensionPaymentFirstdataRemote extends Controller {
 		}
 	}
 
-	public function void() {
+	public function void(): void {
 		$this->load->language('extension/payment/firstdata_remote');
 
 		$json = array();
@@ -317,7 +317,7 @@ class ControllerExtensionPaymentFirstdataRemote extends Controller {
 		$this->response->setOutput(json_encode($json));
 	}
 
-	public function capture() {
+	public function capture(): void {
 		$this->load->language('extension/payment/firstdata');
 		
 		$json = array();
@@ -367,7 +367,7 @@ class ControllerExtensionPaymentFirstdataRemote extends Controller {
 		$this->response->setOutput(json_encode($json));
 	}
 
-	public function refund() {
+	public function refund(): void {
 		$this->load->language('extension/payment/firstdata_remote');
 
 		$json = array();

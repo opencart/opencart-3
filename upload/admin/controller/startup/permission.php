@@ -1,6 +1,6 @@
 <?php
 class ControllerStartupPermission extends Controller {
-	public function index() {
+	public function index(): void {
 		if (isset($this->request->get['route'])) {
 			$route = '';
 

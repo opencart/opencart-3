@@ -2,7 +2,7 @@
 class ControllerDesignTranslation extends Controller {
 	private $error = array();
 
-	public function index() {
+	public function index(): void {
 		$this->load->language('design/translation');
 
 		$this->document->setTitle($this->language->get('heading_title'));
@@ -12,7 +12,7 @@ class ControllerDesignTranslation extends Controller {
 		$this->getList();
 	}
 
-	public function add() {
+	public function add(): void {
 		$this->load->language('design/translation');
 
 		$this->document->setTitle($this->language->get('heading_title'));
@@ -44,7 +44,7 @@ class ControllerDesignTranslation extends Controller {
 		$this->getForm();
 	}
 
-	public function edit() {
+	public function edit(): void {
 		$this->load->language('design/translation');
 
 		$this->document->setTitle($this->language->get('heading_title'));
@@ -76,7 +76,7 @@ class ControllerDesignTranslation extends Controller {
 		$this->getForm();
 	}
 
-	public function delete() {
+	public function delete(): void {
 		$this->load->language('design/translation');
 
 		$this->document->setTitle($this->language->get('heading_title'));
@@ -426,18 +426,18 @@ class ControllerDesignTranslation extends Controller {
 		return !$this->error;
 	}
 
-	public function path() {
+	public function path(): void {
 		$this->load->language('design/translation');
 
 		$json = array();
+		
+		$this->load->model('localisation/language');
 
 		if (isset($this->request->get['language_id'])) {
 			$language_id = (int)$this->request->get['language_id'];
 		} else {
 			$language_id = 0;
 		}
-
-		$this->load->model('localisation/language');
 
 		$language_info = $this->model_localisation_language->getLanguage($language_id);
 
@@ -463,7 +463,7 @@ class ControllerDesignTranslation extends Controller {
 		$this->response->setOutput(json_encode($json));
 	}
 
-	public function translation() {
+	public function translation(): void {
 		$this->load->language('design/translation');
 
 		$json = array();

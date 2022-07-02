@@ -2,7 +2,7 @@
 class ControllerExtensionPaymentDivido extends Controller {
 	private $error = array();
 
-	public function index() {
+	public function index(): void {
 		$this->load->language('extension/payment/divido');
 		
 		$this->document->setTitle($this->language->get('heading_title'));
@@ -172,7 +172,7 @@ class ControllerExtensionPaymentDivido extends Controller {
 		$this->response->setOutput($this->load->view('extension/payment/divido', $data));
 	}
 
-	public function order() {
+	public function order(): string {
 		if (!$this->config->get('payment_divido_status')) {
 			return null;
 		}
@@ -207,19 +207,19 @@ class ControllerExtensionPaymentDivido extends Controller {
 		return $this->load->view('extension/payment/divido_order', $data);
 	}
 
-	public function install() {
+	public function install(): void {
 		$this->load->model('extension/payment/divido');
 		
 		$this->model_extension_payment_divido->install();
 	}
 
-	public function uninstall() {
+	public function uninstall(): void {
 		$this->load->model('extension/payment/divido');
 		
 		$this->model_extension_payment_divido->uninstall();
 	}
 
-	protected function validate() {
+	protected function validate(): void {
 		if (!$this->user->hasPermission('modify', 'extension/payment/divido')) {
 			$this->error['warning'] = $this->language->get('error_permission');
 		}

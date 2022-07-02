@@ -1,6 +1,6 @@
 <?php
 class ControllerMarketplaceInstaller extends Controller {
-	public function index() {
+	public function index(): void {
 		$this->load->language('marketplace/installer');
 
 		$this->document->setTitle($this->language->get('heading_title'));
@@ -26,7 +26,7 @@ class ControllerMarketplaceInstaller extends Controller {
 		$this->response->setOutput($this->load->view('marketplace/installer', $data));
 	}
 
-	public function history() {
+	public function history(): void {
 		$this->load->language('marketplace/installer');
 		
 		if (isset($this->request->get['page'])) {
@@ -64,7 +64,7 @@ class ControllerMarketplaceInstaller extends Controller {
 		$this->response->setOutput($this->load->view('marketplace/installer_history', $data));
 	}	
 		
-	public function upload() {
+	public function upload(): void {
 		$this->load->language('marketplace/installer');
 
 		$json = array();

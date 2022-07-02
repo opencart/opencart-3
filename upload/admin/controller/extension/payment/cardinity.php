@@ -2,7 +2,7 @@
 class ControllerExtensionPaymentCardinity extends Controller {
 	private $error = array();
 
-	public function index() {
+	public function index(): void {
 		$this->load->language('extension/payment/cardinity');
 
 		$this->document->setTitle($this->language->get('heading_title'));
@@ -119,7 +119,7 @@ class ControllerExtensionPaymentCardinity extends Controller {
 		$this->response->setOutput($this->load->view('extension/payment/cardinity', $data));
 	}
 
-	public function order() {
+	public function order(): string {
 		$this->load->language('extension/payment/cardinity');
 
 		$data['user_token'] = $this->session->data['user_token'];
@@ -129,7 +129,7 @@ class ControllerExtensionPaymentCardinity extends Controller {
 		return $this->load->view('extension/payment/cardinity_order', $data);
 	}
 
-	public function getPayment() {
+	public function getPayment(): void {
 		$this->load->language('extension/payment/cardinity');
 
 		$this->load->model('extension/payment/cardinity');
@@ -209,7 +209,7 @@ class ControllerExtensionPaymentCardinity extends Controller {
 		$this->response->setOutput($this->load->view('extension/payment/cardinity_order_ajax', $data));
 	}
 
-	public function refund() {
+	public function refund(): void {
 		$this->load->language('extension/payment/cardinity');
 		
 		$json = array();
@@ -292,13 +292,13 @@ class ControllerExtensionPaymentCardinity extends Controller {
 		return !$this->error;
 	}
 
-	public function install() {
+	public function install(): void {
 		$this->load->model('extension/payment/cardinity');
 
 		$this->model_extension_payment_cardinity->install();
 	}
 
-	public function uninstall() {
+	public function uninstall(): void {
 		$this->load->model('extension/payment/cardinity');
 
 		$this->model_extension_payment_cardinity->uninstall();

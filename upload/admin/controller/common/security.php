@@ -1,6 +1,6 @@
 <?php
 class ControllerCommonSecurity extends Controller {
-	public function index() {
+	public function index(): string {
 		$this->load->language('common/security');
 
 		$data['user_token'] = $this->session->data['user_token'];
@@ -26,7 +26,7 @@ class ControllerCommonSecurity extends Controller {
 		return $this->load->view('common/security', $data);
 	}
 
-	public function move() {
+	public function move(): void {
 		$this->load->language('common/security');
 
 		$json = array();

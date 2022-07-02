@@ -2,13 +2,11 @@
 class ControllerExtensionPaymentSecureTradingPp extends Controller {
 	private $error = array();
 
-	public function index() {
+	public function index(): void {
 		$this->load->language('extension/payment/securetrading_pp');
 		
-		$this->load->model('setting/setting');
-		
-		$this->load->model('localisation/geo_zone');
-		
+		$this->load->model('setting/setting');		
+		$this->load->model('localisation/geo_zone');		
 		$this->load->model('localisation/order_status');
 
 		if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validate()) {
@@ -218,8 +216,6 @@ class ControllerExtensionPaymentSecureTradingPp extends Controller {
 		
 		$data['order_statuses'] = $this->model_localisation_order_status->getOrderStatuses();
 		
-		$data['cards'] = array();
-		
 		$data['cards'] = array(
 			'AMEX' 				=> 'American Express',
 			'VISA' 				=> 'Visa',
@@ -253,19 +249,19 @@ class ControllerExtensionPaymentSecureTradingPp extends Controller {
 		$this->response->setOutput($this->load->view('extension/payment/securetrading_pp', $data));
 	}
 
-	public function install() {
+	public function install(): void {
 		$this->load->model('extension/payment/securetrading_pp');
 		
 		$this->model_extension_payment_securetrading_pp->install();
 	}
 
-	public function uninstall() {
+	public function uninstall(): void {
 		$this->load->model('extension/payment/securetrading_pp');
 		
 		$this->model_extension_payment_securetrading_pp->uninstall();
 	}
 
-	public function order() {
+	public function order(): void {
 		if ($this->config->get('payment_securetrading_pp_status')) {
 			$this->load->model('extension/payment/securetrading_pp');
 
@@ -292,7 +288,7 @@ class ControllerExtensionPaymentSecureTradingPp extends Controller {
 		}
 	}
 
-	public function void() {
+	public function void(): void {
 		$this->load->language('extension/payment/securetrading_pp');
 		
 		$json = array();
@@ -348,7 +344,7 @@ class ControllerExtensionPaymentSecureTradingPp extends Controller {
 		$this->response->setOutput(json_encode($json));
 	}
 
-	public function release() {
+	public function release(): void {
 		$this->load->language('extension/payment/securetrading_pp');
 		
 		$json = array();
@@ -421,7 +417,7 @@ class ControllerExtensionPaymentSecureTradingPp extends Controller {
 		$this->response->setOutput(json_encode($json));
 	}
 
-	public function rebate() {
+	public function rebate(): void {
 		$this->load->language('extension/payment/securetrading_pp');
 		
 		$json = array();

@@ -1,6 +1,6 @@
 <?php
 class ControllerStartupEvent extends Controller {
-	public function index() {
+	public function index(): void {
 		// Add events from the DB
 		$this->load->model('setting/event');
 		

@@ -2,7 +2,7 @@
 class ControllerExtensionPaymentPPPayflowIframe extends Controller {
 	private $error = array();
 
-	public function index() {
+	public function index(): void {
 		$this->load->language('extension/payment/pp_payflow_iframe');
 
 		$this->document->setTitle($this->language->get('heading_title'));
@@ -166,19 +166,19 @@ class ControllerExtensionPaymentPPPayflowIframe extends Controller {
 		$this->response->setOutput($this->load->view('extension/payment/pp_payflow_iframe', $data));
 	}
 
-	public function install() {
+	public function install(): void {
 		$this->load->model('extension/payment/pp_payflow_iframe');
 
 		$this->model_extension_payment_pp_payflow_iframe->install();
 	}
 
-	public function uninstall() {
+	public function uninstall(): void {
 		$this->load->model('extension/payment/pp_payflow_iframe');
 
 		$this->model_extension_payment_pp_payflow_iframe->uninstall();
 	}
 
-	public function refund() {
+	public function refund(): void {
 		$this->load->language('extension/payment/pp_payflow_iframe');
 		
 		$this->load->model('extension/payment/pp_payflow_iframe');
@@ -228,7 +228,7 @@ class ControllerExtensionPaymentPPPayflowIframe extends Controller {
 		}
 	}
 
-	public function doRefund() {
+	public function doRefund(): void {
 		$this->load->language('extension/payment/pp_payflow_iframe');
 		
 		$json = array();
@@ -273,7 +273,7 @@ class ControllerExtensionPaymentPPPayflowIframe extends Controller {
 		$this->response->setOutput(json_encode($json));
 	}
 
-	public function capture() {
+	public function capture(): void {
 		$this->load->language('extension/payment/pp_payflow_iframe');
 		
 		$json = array();
@@ -351,7 +351,7 @@ class ControllerExtensionPaymentPPPayflowIframe extends Controller {
 		$this->response->setOutput(json_encode($json));
 	}
 
-	public function void() {
+	public function void(): void {
 		$this->load->language('extension/payment/pp_payflow_iframe');
 		
 		$json = array();
@@ -411,7 +411,7 @@ class ControllerExtensionPaymentPPPayflowIframe extends Controller {
 		$this->response->setOutput(json_encode($json));
 	}
 
-	public function order() {
+	public function order(): void {
 		$this->load->language('extension/payment/pp_payflow_iframe');
 		
 		$this->load->model('extension/payment/pp_payflow_iframe');		

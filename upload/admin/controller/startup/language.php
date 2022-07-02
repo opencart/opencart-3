@@ -1,6 +1,6 @@
 <?php
 class ControllerStartupLanguage extends Controller {
-	public function index() {
+	public function index(): void {
 		// Language
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "language` WHERE `code` = '" . $this->db->escape($this->config->get('config_admin_language')) . "'");
 		

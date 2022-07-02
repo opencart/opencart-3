@@ -2,7 +2,7 @@
 class ControllerExtensionExtensionModule extends Controller {
 	private $error = array();
 
-	public function index() {
+	public function index(): void {
 		$this->load->language('extension/extension/module');
 
 		$this->load->model('setting/extension');
@@ -12,7 +12,7 @@ class ControllerExtensionExtensionModule extends Controller {
 		$this->getList();
 	}
 
-	public function install() {
+	public function install(): void {
 		$this->load->language('extension/extension/module');
 
 		$this->load->model('setting/extension');
@@ -38,7 +38,7 @@ class ControllerExtensionExtensionModule extends Controller {
 		$this->getList();
 	}
 
-	public function uninstall() {
+	public function uninstall(): void {
 		$this->load->language('extension/extension/module');
 
 		$this->load->model('setting/extension');
@@ -59,11 +59,10 @@ class ControllerExtensionExtensionModule extends Controller {
 		$this->getList();
 	}
 	
-	public function add() {
+	public function add(): void {
 		$this->load->language('extension/extension/module');
 
-		$this->load->model('setting/extension');
-		
+		$this->load->model('setting/extension');		
 		$this->load->model('setting/module');
 
 		if ($this->validate()) {
@@ -77,11 +76,10 @@ class ControllerExtensionExtensionModule extends Controller {
 		$this->getList();
 	}
 
-	public function delete() {
+	public function delete(): void {
 		$this->load->language('extension/extension/module');
 
-		$this->load->model('setting/extension');
-		
+		$this->load->model('setting/extension');		
 		$this->load->model('setting/module');
 
 		if (isset($this->request->get['module_id']) && $this->validate()) {

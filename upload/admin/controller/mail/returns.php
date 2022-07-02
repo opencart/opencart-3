@@ -1,7 +1,7 @@
 <?php
 class ControllerMailReturns extends Controller {
 	// admin/model/sale/returns/addReturnHistory/after
-	public function index(&$route, &$args, &$output) {
+	public function index(&$route, &$args, &$output): void {
 		if (isset($args[0])) {
 			$return_id = $args[0];
 		} else {
@@ -85,4 +85,4 @@ class ControllerMailReturns extends Controller {
 			}
 		}
 	}
-}	
+}

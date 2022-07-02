@@ -2,7 +2,7 @@
 class ControllerExtensionExtensionAnalytics extends Controller {
 	private $error = array();
 
-	public function index() {
+	public function index(): void {
 		$this->load->language('extension/extension/analytics');
 
 		$this->load->model('setting/extension');
@@ -10,7 +10,7 @@ class ControllerExtensionExtensionAnalytics extends Controller {
 		$this->getList();
 	}
 
-	public function install() {
+	public function install(): void {
 		$this->load->language('extension/extension/analytics');
 
 		$this->load->model('setting/extension');
@@ -36,7 +36,7 @@ class ControllerExtensionExtensionAnalytics extends Controller {
 		$this->getList();
 	}
 
-	public function uninstall() {
+	public function uninstall(): void {
 		$this->load->language('extension/extension/analytics');
 
 		$this->load->model('setting/extension');

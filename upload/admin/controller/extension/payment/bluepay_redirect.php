@@ -2,8 +2,7 @@
 class ControllerExtensionPaymentBluepayredirect extends Controller {
 	private $error = array();
 
-	public function index() {
-
+	public function index(): void {
 		$this->load->language('extension/payment/bluepay_redirect');
 
 		$this->document->setTitle($this->language->get('heading_title'));
@@ -140,19 +139,19 @@ class ControllerExtensionPaymentBluepayredirect extends Controller {
 		$this->response->setOutput($this->load->view('extension/payment/bluepay_redirect', $data));
 	}
 
-	public function install() {
+	public function install(): void {
 		$this->load->model('extension/payment/bluepay_redirect');
 
 		$this->model_extension_payment_bluepay_redirect->install();
 	}
 
-	public function uninstall() {
+	public function uninstall(): void {
 		$this->load->model('extension/payment/bluepay_redirect');
 
 		$this->model_extension_payment_bluepay_redirect->uninstall();
 	}
 
-	public function order() {
+	public function order(): void {
 		if ($this->config->get('payment_bluepay_redirect_status')) {
 			$this->load->model('extension/payment/bluepay_redirect');
 
@@ -176,7 +175,7 @@ class ControllerExtensionPaymentBluepayredirect extends Controller {
 		}
 	}
 
-	public function void() {
+	public function void(): void {
 		$this->load->language('extension/payment/bluepay_redirect');
 		
 		$json = array();
@@ -217,7 +216,7 @@ class ControllerExtensionPaymentBluepayredirect extends Controller {
 		$this->response->setOutput(json_encode($json));
 	}
 
-	public function release() {
+	public function release(): void {
 		$this->load->language('extension/payment/bluepay_redirect');
 		
 		$json = array();
@@ -273,7 +272,7 @@ class ControllerExtensionPaymentBluepayredirect extends Controller {
 		$this->response->setOutput(json_encode($json));
 	}
 
-	public function rebate() {
+	public function rebate(): void {
 		$this->load->language('extension/payment/bluepay_redirect');
 		
 		$json = array();
@@ -342,7 +341,7 @@ class ControllerExtensionPaymentBluepayredirect extends Controller {
 		return !$this->error;
 	}
 
-	public function callback() {
+	public function callback(): void {
 		$this->response->addHeader('Content-Type: application/json');
 		$this->response->setOutput(json_encode($this->request->get));
 	}

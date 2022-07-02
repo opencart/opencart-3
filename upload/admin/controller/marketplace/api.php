@@ -1,6 +1,6 @@
 <?php
 class ControllerMarketplaceApi extends Controller {
-	public function index() {	
+	public function index(): void {	
 		$this->load->language('marketplace/api');
 			
 		$data['user_token'] = $this->session->data['user_token'];	
@@ -8,7 +8,7 @@ class ControllerMarketplaceApi extends Controller {
 		$this->response->setOutput($this->load->view('marketplace/api', $data));
 	}
 	
-	public function save() {
+	public function save(): void {
 		$this->load->language('marketplace/api');
 
 		$json = array();

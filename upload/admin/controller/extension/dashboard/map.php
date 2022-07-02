@@ -2,7 +2,7 @@
 class ControllerExtensionDashboardMap extends Controller {
 	private $error = array();
 
-	public function index() {
+	public function index(): void {
 		$this->load->language('extension/dashboard/map');
 
 		$this->document->setTitle($this->language->get('heading_title'));
@@ -83,7 +83,7 @@ class ControllerExtensionDashboardMap extends Controller {
 		return !$this->error;
 	}
 		
-	public function dashboard() {
+	public function dashboard(): string {
 		$this->load->language('extension/dashboard/map');
 
 		$data['user_token'] = $this->session->data['user_token'];
@@ -91,7 +91,7 @@ class ControllerExtensionDashboardMap extends Controller {
 		return $this->load->view('extension/dashboard/map_info', $data);
 	}
 
-	public function map() {
+	public function map(): void {
 		$json = array();
 
 		$this->load->model('extension/dashboard/map');

@@ -1,6 +1,6 @@
 <?php
 class ControllerCommonFooter extends Controller {
-	public function index() {
+	public function index(): string {
 		$this->load->language('common/footer');
 
 		if ($this->user->isLogged() && isset($this->request->get['user_token']) && ($this->request->get['user_token'] == $this->session->data['user_token'])) {

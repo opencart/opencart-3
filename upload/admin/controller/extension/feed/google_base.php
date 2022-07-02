@@ -2,7 +2,7 @@
 class ControllerExtensionFeedGoogleBase extends Controller {
 	private $error = array();
 
-	public function index() {
+	public function index(): void {
 		$this->load->language('extension/feed/google_base');
 
 		$this->document->setTitle($this->language->get('heading_title'));
@@ -69,19 +69,19 @@ class ControllerExtensionFeedGoogleBase extends Controller {
 		return !$this->error;
 	}
 
-	public function install() {
+	public function install(): void {
 		$this->load->model('extension/feed/google_base');
 
 		$this->model_extension_feed_google_base->install();
 	}
 
-	public function uninstall() {
+	public function uninstall(): void {
 		$this->load->model('extension/feed/google_base');
 
 		$this->model_extension_feed_google_base->uninstall();
 	}
 
-	public function import() {
+	public function import(): void {
 		$this->load->language('extension/feed/google_base');
 
 		$json = array();
@@ -132,7 +132,7 @@ class ControllerExtensionFeedGoogleBase extends Controller {
 		$this->response->setOutput(json_encode($json));
 	}
 
-	public function category() {
+	public function category(): void {
 		$this->load->language('extension/feed/google_base');
 
 		if (isset($this->request->get['page'])) {
@@ -171,7 +171,7 @@ class ControllerExtensionFeedGoogleBase extends Controller {
 		$this->response->setOutput($this->load->view('extension/feed/google_base_category', $data));
 	}
 
-	public function addCategory() {
+	public function addCategory(): void {
 		$this->load->language('extension/feed/google_base');
 
 		$json = array();
@@ -190,7 +190,7 @@ class ControllerExtensionFeedGoogleBase extends Controller {
 		$this->response->setOutput(json_encode($json));
 	}
 
-	public function removeCategory() {
+	public function removeCategory(): void {
 		$this->load->language('extension/feed/google_base');
 
 		$json = array();
@@ -209,7 +209,7 @@ class ControllerExtensionFeedGoogleBase extends Controller {
 		$this->response->setOutput(json_encode($json));
 	}
 
-	public function autocomplete() {
+	public function autocomplete(): void {
 		$json = array();
 
 		if (isset($this->request->get['filter_name'])) {

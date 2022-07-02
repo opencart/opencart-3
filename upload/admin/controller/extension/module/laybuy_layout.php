@@ -2,7 +2,7 @@
 class ControllerExtensionModuleLaybuyLayout extends Controller {
 	private $error = array();
 
-	public function index() {
+	public function index(): void {
 		$this->load->language('extension/module/laybuy_layout');
 		
 		$this->load->model('setting/setting');

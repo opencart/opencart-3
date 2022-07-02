@@ -1,6 +1,6 @@
 <?php
 class ControllerDesignTheme extends Controller {
-	public function index() {
+	public function index(): void {
 		$this->load->language('design/theme');
 
 		$this->document->setTitle($this->language->get('heading_title'));
@@ -39,7 +39,7 @@ class ControllerDesignTheme extends Controller {
 		$this->response->setOutput($this->load->view('design/theme', $data));
 	}
 
-	public function history() {
+	public function history(): void {
 		$this->load->language('design/theme');
 
 		if (isset($this->request->get['page'])) {
@@ -91,7 +91,7 @@ class ControllerDesignTheme extends Controller {
 		$this->response->setOutput($this->load->view('design/theme_history', $data));
 	}
 
-	public function path() {
+	public function path(): void {
 		$this->load->language('design/theme');
 
 		$json = array();
@@ -157,7 +157,7 @@ class ControllerDesignTheme extends Controller {
 		$this->response->setOutput(json_encode($json));
 	}
 
-	public function template() {
+	public function template(): void {
 		$this->load->language('design/theme');
 
 		$json = array();
@@ -199,7 +199,7 @@ class ControllerDesignTheme extends Controller {
 		$this->response->setOutput(json_encode($json));
 	}
 
-	public function save() {
+	public function save(): void {
 		$this->load->language('design/theme');
 
 		$json = array();
@@ -248,7 +248,7 @@ class ControllerDesignTheme extends Controller {
 		$this->response->setOutput(json_encode($json));
 	}
 
-	public function reset() {
+	public function reset(): void {
 		$this->load->language('design/theme');
 
 		$json = array();
@@ -282,7 +282,7 @@ class ControllerDesignTheme extends Controller {
 		$this->response->setOutput(json_encode($json));
 	}
 
-	public function delete() {
+	public function delete(): void {
 		$this->load->language('design/theme');
 
 		$json = array();

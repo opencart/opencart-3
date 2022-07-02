@@ -2,7 +2,7 @@
 class ControllerExtensionPaymentRealexRemote extends Controller {
 	private $error = array();
 
-	public function index() {
+	public function index(): void {
 		$this->load->language('extension/payment/realex_remote');
 
 		$this->document->setTitle($this->language->get('heading_title'));
@@ -191,13 +191,13 @@ class ControllerExtensionPaymentRealexRemote extends Controller {
 		$this->response->setOutput($this->load->view('extension/payment/realex_remote', $data));
 	}
 
-	public function install() {
+	public function install(): void {
 		$this->load->model('extension/payment/realex_remote');
 		
 		$this->model_extension_payment_realex_remote->install();
 	}
 
-	public function order() {
+	public function order(): void {
 		if ($this->config->get('payment_realex_remote_status')) {
 			$this->load->model('extension/payment/realex_remote');
 
@@ -224,7 +224,7 @@ class ControllerExtensionPaymentRealexRemote extends Controller {
 		}
 	}
 
-	public function void() {
+	public function void(): void {
 		$this->load->language('extension/payment/realex_remote');
 		
 		$json = array();
@@ -322,7 +322,7 @@ class ControllerExtensionPaymentRealexRemote extends Controller {
 		$this->response->setOutput(json_encode($json));
 	}
 
-	public function rebate() {
+	public function rebate(): void {
 		$this->load->language('extension/payment/realex_remote');
 		
 		$json = array();

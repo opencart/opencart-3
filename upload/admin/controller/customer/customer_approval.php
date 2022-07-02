@@ -1,6 +1,6 @@
 <?php
 class ControllerCustomerCustomerApproval extends Controller {
-	public function index() {
+	public function index(): void {
 		$this->load->language('customer/customer_approval');
 
 		$this->document->setTitle($this->language->get('heading_title'));
@@ -92,7 +92,7 @@ class ControllerCustomerCustomerApproval extends Controller {
 		$this->response->setOutput($this->load->view('customer/customer_approval', $data));
 	}
 
-	public function customer_approval() {
+	public function customer_approval(): void {
 		$this->load->language('customer/customer_approval');
 
 		if (isset($this->request->get['filter_name'])) {
@@ -198,7 +198,7 @@ class ControllerCustomerCustomerApproval extends Controller {
 		$this->response->setOutput($this->load->view('customer/customer_approval_list', $data));
 	}
 
-	public function approve() {
+	public function approve(): void {
 		$this->load->language('customer/customer_approval');
 
 		$json = array();
@@ -221,7 +221,7 @@ class ControllerCustomerCustomerApproval extends Controller {
 		$this->response->setOutput(json_encode($json));
 	}
 
-	public function deny() {
+	public function deny(): void {
 		$this->load->language('customer/customer_approval');
 
 		$json = array();

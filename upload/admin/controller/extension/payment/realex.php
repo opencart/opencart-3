@@ -2,7 +2,7 @@
 class ControllerExtensionPaymentRealex extends Controller {
 	private $error = array();
 
-	public function index() {
+	public function index(): void {
 		$this->load->language('extension/payment/realex');
 
 		$this->document->setTitle($this->language->get('heading_title'));
@@ -219,13 +219,13 @@ class ControllerExtensionPaymentRealex extends Controller {
 		$this->response->setOutput($this->load->view('extension/payment/realex', $data));
 	}
 
-	public function install() {
+	public function install(): void {
 		$this->load->model('extension/payment/realex');
 
 		$this->model_extension_payment_realex->install();
 	}
 
-	public function order() {
+	public function order(): void {
 		if ($this->config->get('payment_realex_status')) {
 			$this->load->model('extension/payment/realex');
 
@@ -251,7 +251,7 @@ class ControllerExtensionPaymentRealex extends Controller {
 		}
 	}
 
-	public function void() {
+	public function void(): void {
 		$this->load->language('extension/payment/realex');
 		
 		$json = array();
@@ -291,7 +291,7 @@ class ControllerExtensionPaymentRealex extends Controller {
 		$this->response->setOutput(json_encode($json));
 	}
 
-	public function capture() {
+	public function capture(): void {
 		$this->load->language('extension/payment/realex');
 		
 		$json = array();
@@ -347,7 +347,7 @@ class ControllerExtensionPaymentRealex extends Controller {
 		$this->response->setOutput(json_encode($json));
 	}
 
-	public function rebate() {
+	public function rebate(): void {
 		$this->load->language('extension/payment/realex');
 		
 		$json = array();

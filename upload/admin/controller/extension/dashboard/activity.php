@@ -2,7 +2,7 @@
 class ControllerExtensionDashboardActivity extends Controller {
 	private $error = array();
 
-	public function index() {
+	public function index(): void {
 		$this->load->language('extension/dashboard/activity');
 
 		$this->document->setTitle($this->language->get('heading_title'));
@@ -83,7 +83,7 @@ class ControllerExtensionDashboardActivity extends Controller {
 		return !$this->error;
 	}
 	
-	public function dashboard() {
+	public function dashboard(): string {
 		$this->load->language('extension/dashboard/activity');
 
 		$data['user_token'] = $this->session->data['user_token'];

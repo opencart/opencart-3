@@ -2,13 +2,12 @@
 class ControllerExtensionPaymentCardConnect extends Controller {
 	private $error = array();
 
-	public function index() {
+	public function index(): void {
 		$this->load->language('extension/payment/cardconnect');
 
 		$this->document->setTitle($this->language->get('heading_title'));
 		
-		$this->load->model('setting/setting');
-		
+		$this->load->model('setting/setting');		
 		$this->load->model('extension/payment/cardconnect');
 
 		if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validate()) {
@@ -196,10 +195,12 @@ class ControllerExtensionPaymentCardConnect extends Controller {
 			$data['error_cardconnect_site'] = '';
 		}
 
+		// Order Statuses
 		$this->load->model('localisation/order_status');
 
 		$data['order_statuses'] = $this->model_localisation_order_status->getOrderStatuses();
 
+		// Geo Zones
 		$this->load->model('localisation/geo_zone');
 
 		$data['geo_zones'] = $this->model_localisation_geo_zone->getGeoZones();
@@ -213,7 +214,7 @@ class ControllerExtensionPaymentCardConnect extends Controller {
 		$this->response->setOutput($this->load->view('extension/payment/cardconnect', $data));
 	}
 
-	public function install() {
+	public function install(): void {
 		if ($this->user->hasPermission('modify', 'marketplace/extension')) {
 			$this->load->model('extension/payment/cardconnect');
 
@@ -221,7 +222,7 @@ class ControllerExtensionPaymentCardConnect extends Controller {
 		}
 	}
 
-	public function uninstall() {
+	public function uninstall(): void {
 		if ($this->user->hasPermission('modify', 'marketplace/extension')) {
 			$this->load->model('extension/payment/cardconnect');
 
@@ -229,7 +230,7 @@ class ControllerExtensionPaymentCardConnect extends Controller {
 		}
 	}
 
-	public function order() {
+	public function order(): void {
 		if ($this->config->get('payment_cardconnect_status')) {
 			$this->load->model('extension/payment/cardconnect');
 			
@@ -296,7 +297,7 @@ class ControllerExtensionPaymentCardConnect extends Controller {
 		}
 	}
 
-	public function inquire() {
+	public function inquire(): void {
 		$this->load->language('extension/payment/cardconnect');
 
 		$json = array();
@@ -333,7 +334,7 @@ class ControllerExtensionPaymentCardConnect extends Controller {
 		$this->response->setOutput(json_encode($json));
 	}
 
-	public function capture() {
+	public function capture(): void {
 		$this->load->language('extension/payment/cardconnect');
 
 		$json = array();
@@ -383,7 +384,7 @@ class ControllerExtensionPaymentCardConnect extends Controller {
 		$this->response->setOutput(json_encode($json));
 	}
 
-	public function refund() {
+	public function refund(): void {
 		$this->load->language('extension/payment/cardconnect');
 
 		$json = array();
@@ -433,7 +434,7 @@ class ControllerExtensionPaymentCardConnect extends Controller {
 		$this->response->setOutput(json_encode($json));
 	}
 
-	public function void() {
+	public function void(): void {
 		$this->load->language('extension/payment/cardconnect');
 
 		$json = array();

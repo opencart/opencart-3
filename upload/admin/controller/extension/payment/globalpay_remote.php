@@ -2,7 +2,7 @@
 class ControllerExtensionPaymentGlobalpayRemote extends Controller {
 	private $error = array();
 
-	public function index() {
+	public function index(): void {
 		$this->load->language('extension/payment/globalpay_remote');
 
 		$this->document->setTitle($this->language->get('heading_title'));
@@ -191,13 +191,13 @@ class ControllerExtensionPaymentGlobalpayRemote extends Controller {
 		$this->response->setOutput($this->load->view('extension/payment/globalpay_remote', $data));
 	}
 
-	public function install() {
+	public function install(): void {
 		$this->load->model('extension/payment/globalpay_remote');
 		
 		$this->model_extension_payment_globalpay_remote->install();
 	}
 
-	public function order() {
+	public function order(): void {
 		if ($this->config->get('payment_globalpay_remote_status')) {
 			$this->load->model('extension/payment/globalpay_remote');
 
@@ -224,7 +224,7 @@ class ControllerExtensionPaymentGlobalpayRemote extends Controller {
 		}
 	}
 
-	public function void() {
+	public function void(): void {
 		$this->load->language('extension/payment/globalpay_remote');
 		
 		$json = array();
@@ -244,8 +244,7 @@ class ControllerExtensionPaymentGlobalpayRemote extends Controller {
 
 				$json['msg'] = $this->language->get('text_void_ok');
 				
-				$json['data'] = array();
-				
+				$json['data'] = array();				
 				$json['data']['date_added'] = date('Y-m-d H:i:s');
 				
 				$json['error'] = false;
@@ -264,7 +263,7 @@ class ControllerExtensionPaymentGlobalpayRemote extends Controller {
 		$this->response->setOutput(json_encode($json));
 	}
 
-	public function capture() {
+	public function capture(): void {
 		$this->load->language('extension/payment/globalpay');
 		
 		$json = array();
@@ -323,7 +322,7 @@ class ControllerExtensionPaymentGlobalpayRemote extends Controller {
 		$this->response->setOutput(json_encode($json));
 	}
 
-	public function rebate() {
+	public function rebate(): void {
 		$this->load->language('extension/payment/globalpay_remote');
 		
 		$json = array();

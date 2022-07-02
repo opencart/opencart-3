@@ -1,7 +1,7 @@
 <?php
 class ControllerMailCustomer extends Controller {
 	// admin/model/customer/customer_approval/approveCustomer/after
-	public function approve(&$route, &$args, &$output) {
+	public function approve(&$route, &$args, &$output): void {
 		$this->load->model('customer/customer');
 
 		$customer_info = $this->model_customer_customer->getCustomer($args[0]);
@@ -72,7 +72,7 @@ class ControllerMailCustomer extends Controller {
 	}
 
 	// admin/model/customer/customer_approval/denyCustomer/after
-	public function deny(&$route, &$args, &$output) {
+	public function deny(&$route, &$args, &$output): void {
 		$this->load->model('customer/customer');
 
 		$customer_info = $this->model_customer_customer->getCustomer($args[0]);

@@ -1,6 +1,6 @@
 <?php
 class ControllerExtensionModulePPBraintreeButton extends Controller {
-	public function index() {
+	public function index(): void {
 		$this->load->language('extension/module/pp_braintree_button');
 
 		$this->load->model('setting/setting');
@@ -57,7 +57,7 @@ class ControllerExtensionModulePPBraintreeButton extends Controller {
 		$this->response->setOutput($this->load->view('extension/module/pp_braintree_button', $data));
 	}
 
-	public function install() {
+	public function install(): void {
 		$this->load->model('setting/setting');
 
 		$settings['module_pp_braintree_button_status'] = 1;
@@ -65,7 +65,7 @@ class ControllerExtensionModulePPBraintreeButton extends Controller {
 		$this->model_setting_setting->editSetting('module_pp_braintree_button', $settings);
 	}
 
-	public function configure() {
+	public function configure(): void {
 		$this->load->language('extension/extension/module');
 
 		if (!$this->user->hasPermission('modify', 'extension/extension/module')) {

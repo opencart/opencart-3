@@ -4,7 +4,7 @@ class ControllerExtensionPaymentPPExpress extends Controller {
 	private $opencart_connect_url = 'https://www.opencart.com/index.php?route=external/paypal_auth/connect';
 	private $opencart_retrieve_url = 'https://www.opencart.com/index.php?route=external/paypal_auth/retrieve';
 
-	public function index() {
+	public function index(): void {
 		$this->load->language('extension/payment/pp_express');
 
 		$this->document->setTitle($this->language->get('heading_title'));
@@ -440,19 +440,19 @@ class ControllerExtensionPaymentPPExpress extends Controller {
 		return !$this->error;
 	}
 
-	public function install() {
+	public function install(): void {
 		$this->load->model('extension/payment/pp_express');
 
 		$this->model_extension_payment_pp_express->install();
 	}
 
-	public function uninstall() {
+	public function uninstall(): void {
 		$this->load->model('extension/payment/pp_express');
 
 		$this->model_extension_payment_pp_express->uninstall();
 	}
 
-	public function order() {
+	public function order(): void {
 		if ($this->config->get('payment_pp_express_status')) {
 			$this->load->language('extension/payment/pp_express_order');
 
@@ -490,7 +490,7 @@ class ControllerExtensionPaymentPPExpress extends Controller {
 		}
 	}
 
-	public function transaction() {
+	public function transaction(): void {
 		$this->load->language('extension/payment/pp_express_order');
 
 		$data['transactions'] = array();
@@ -526,7 +526,7 @@ class ControllerExtensionPaymentPPExpress extends Controller {
 		$this->response->setOutput($this->load->view('extension/payment/pp_express_transaction', $data));
 	}
 
-	public function capture() {
+	public function capture(): void {
 		$this->load->language('extension/payment/pp_express_order');
 		
 		$json = array();
@@ -609,7 +609,7 @@ class ControllerExtensionPaymentPPExpress extends Controller {
 		$this->response->setOutput(json_encode($json));
 	}
 
-	public function refund() {
+	public function refund(): void {
 		$this->load->language('extension/payment/pp_express_refund');
 
 		$this->document->setTitle($this->language->get('heading_title'));
@@ -672,7 +672,7 @@ class ControllerExtensionPaymentPPExpress extends Controller {
 		$this->response->setOutput($this->load->view('extension/payment/pp_express_refund', $data));
 	}
 
-	public function doRefund() {
+	public function doRefund(): void {
 		/**
 		 * used to issue a refund for a captured payment
 		 *
@@ -771,7 +771,7 @@ class ControllerExtensionPaymentPPExpress extends Controller {
 	/**
 	 * used to void an authorised payment
 	 */
-	public function void() {
+	public function void(): void {
 		$this->load->language('extension/payment/pp_express_order');
 		
 		$json = array();
@@ -830,7 +830,7 @@ class ControllerExtensionPaymentPPExpress extends Controller {
 	}
 
 	// Cancel an active recurring
-	public function recurringCancel() {
+	public function recurringCancel(): void {
 		$this->load->language('extension/recurring/pp_express');
 		
 		$json = array();
@@ -908,7 +908,7 @@ class ControllerExtensionPaymentPPExpress extends Controller {
 		$this->response->setOutput(json_encode($json));
 	}
 
-	public function resend() {
+	public function resend(): void {
 		$this->load->language('extension/payment/pp_express');
 		
 		$json = array();
@@ -977,7 +977,7 @@ class ControllerExtensionPaymentPPExpress extends Controller {
 		$this->response->setOutput(json_encode($json));
 	}
 
-	public function search() {
+	public function search(): void {
 		$this->load->language('extension/payment/pp_express_search');
 
 		$this->document->setTitle($this->language->get('heading_title'));
@@ -1018,7 +1018,7 @@ class ControllerExtensionPaymentPPExpress extends Controller {
 		$this->response->setOutput($this->load->view('extension/payment/pp_express_search', $data));
 	}
 
-	public function info() {
+	public function info(): void {
 		$this->load->language('extension/payment/pp_express_view');
 
 		$this->document->setTitle($this->language->get('heading_title'));
@@ -1057,7 +1057,7 @@ class ControllerExtensionPaymentPPExpress extends Controller {
 		$this->response->setOutput($this->load->view('extension/payment/pp_express_view', $data));
 	}
 
-	public function doSearch() {
+	public function doSearch(): void {
 		/**
 		 * used to search for transactions from a user account
 		 */
@@ -1157,7 +1157,7 @@ class ControllerExtensionPaymentPPExpress extends Controller {
 		}
 	}
 
-	public function live() {
+	public function live(): void {
 		if (isset($this->request->get['merchantId'])) {
 			$this->load->language('extension/payment/pp_express');
 
@@ -1185,7 +1185,7 @@ class ControllerExtensionPaymentPPExpress extends Controller {
 		$this->response->redirect($this->url->link('extension/payment/pp_express', 'user_token=' . $this->session->data['user_token'], true));
 	}
 
-	public function sandbox() {
+	public function sandbox(): void {
 		if (isset($this->request->get['merchantId'])) {
 			$this->load->language('extension/payment/pp_express');
 
@@ -1231,7 +1231,7 @@ class ControllerExtensionPaymentPPExpress extends Controller {
 		return $return;
 	}
 
-	public function recurringButtons() {
+	public function recurringButtons(): string {
 		$this->load->model('sale/recurring');
 
 		$recurring = $this->model_sale_recurring->getRecurring($this->request->get['order_recurring_id']);
@@ -1248,7 +1248,7 @@ class ControllerExtensionPaymentPPExpress extends Controller {
 		return $this->load->view('sale/recurring_button', $data);
 	}
 
-	public function connectRedirect() {
+	public function connectRedirect(): void {
 		if ($this->user->hasPermission('modify', 'extension/extension/payment') && $this->user->hasPermission('modify', 'extension/payment/pp_express')) {
 			// Install the module before doing the redirect
 			$this->load->model('setting/extension');
@@ -1296,7 +1296,7 @@ class ControllerExtensionPaymentPPExpress extends Controller {
 		}
 	}
 
-	public function preferredSolution() {
+	public function preferredSolution(): string {
 		$this->load->language('extension/payment/pp_express');
 
 		$data['connect_link'] = '';

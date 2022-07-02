@@ -2,8 +2,7 @@
 class ControllerExtensionPaymentSagepayServer extends Controller {
 	private $error = array();
 
-	public function index() {
-
+	public function index(): void {
 		$this->load->language('extension/payment/sagepay_server');
 
 		$this->document->setTitle($this->language->get('heading_title'));
@@ -142,19 +141,19 @@ class ControllerExtensionPaymentSagepayServer extends Controller {
 		$this->response->setOutput($this->load->view('extension/payment/sagepay_server', $data));
 	}
 
-	public function install() {
+	public function install(): void {
 		$this->load->model('extension/payment/sagepay_server');
 		
 		$this->model_extension_payment_sagepay_server->install();
 	}
 
-	public function uninstall() {
+	public function uninstall(): void {
 		$this->load->model('extension/payment/sagepay_server');
 		
 		$this->model_extension_payment_sagepay_server->uninstall();
 	}
 
-	public function order() {
+	public function order(): void {
 		if ($this->config->get('payment_sagepay_server_status')) {
 			$this->load->model('extension/payment/sagepay_server');
 
@@ -181,7 +180,7 @@ class ControllerExtensionPaymentSagepayServer extends Controller {
 		}
 	}
 
-	public function void() {
+	public function void(): void {
 		$this->load->language('extension/payment/sagepay_server');
 		
 		$json = array();
@@ -221,7 +220,7 @@ class ControllerExtensionPaymentSagepayServer extends Controller {
 		$this->response->setOutput(json_encode($json));
 	}
 
-	public function release() {
+	public function release(): void {
 		$this->load->language('extension/payment/sagepay_server');
 		
 		$json = array();
@@ -275,7 +274,7 @@ class ControllerExtensionPaymentSagepayServer extends Controller {
 		$this->response->setOutput(json_encode($json));
 	}
 
-	public function rebate() {
+	public function rebate(): void {
 		$this->load->language('extension/payment/sagepay_server');
 		
 		$json = array();

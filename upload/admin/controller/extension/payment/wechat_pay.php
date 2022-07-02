@@ -10,7 +10,7 @@
 class ControllerExtensionPaymentWechatPay extends Controller {
 	private $error = array();
 
-	public function index() {
+	public function index(): void {
 		$this->load->language('extension/payment/wechat_pay');
 
 		$this->document->setTitle($this->language->get('heading_title'));

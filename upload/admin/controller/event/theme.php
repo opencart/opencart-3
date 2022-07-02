@@ -1,6 +1,6 @@
 <?php
 class ControllerEventTheme extends Controller {
-	public function index(&$route, &$args) {
+	public function index(&$route, &$args): void {
 		// This is only here for compatibility with old templates
 		if (substr($route, -3) == 'tpl') {
 			$view = substr($route, 0, -3);

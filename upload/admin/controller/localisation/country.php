@@ -2,7 +2,7 @@
 class ControllerLocalisationCountry extends Controller {
 	private $error = array();
 
-	public function index() {
+	public function index(): void {
 		$this->load->language('localisation/country');
 
 		$this->document->setTitle($this->language->get('heading_title'));
@@ -12,7 +12,7 @@ class ControllerLocalisationCountry extends Controller {
 		$this->getList();
 	}
 
-	public function add() {
+	public function add(): void {
 		$this->load->language('localisation/country');
 
 		$this->document->setTitle($this->language->get('heading_title'));
@@ -44,7 +44,7 @@ class ControllerLocalisationCountry extends Controller {
 		$this->getForm();
 	}
 
-	public function edit() {
+	public function edit(): void {
 		$this->load->language('localisation/country');
 
 		$this->document->setTitle($this->language->get('heading_title'));
@@ -76,7 +76,7 @@ class ControllerLocalisationCountry extends Controller {
 		$this->getForm();
 	}
 
-	public function delete() {
+	public function delete(): void {
 		$this->load->language('localisation/country');
 
 		$this->document->setTitle($this->language->get('heading_title'));
@@ -415,12 +415,18 @@ class ControllerLocalisationCountry extends Controller {
 		return !$this->error;
 	}
 	
-	public function country() {
+	public function country(): void {
 		$json = array();
 
 		$this->load->model('localisation/country');
+		
+		if (isset($this->request->get['country_id'])) {
+			$country_id = (int)$this->request->get['country_id'];
+		} else {
+			$country_id = 0;
+		}
 
-		$country_info = $this->model_localisation_country->getCountry($this->request->get['country_id']);
+		$country_info = $this->model_localisation_country->getCountry($country_id);
 
 		if ($country_info) {
 			$this->load->model('localisation/zone');

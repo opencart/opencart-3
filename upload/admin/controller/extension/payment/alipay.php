@@ -2,7 +2,7 @@
 class ControllerExtensionPaymentAlipay extends Controller {
 	private $error = array();
 
-	public function index() {
+	public function index(): void {
 		$this->load->language('extension/payment/alipay');
 
 		$this->document->setTitle($this->language->get('heading_title'));

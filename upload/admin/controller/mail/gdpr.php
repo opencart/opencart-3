@@ -1,7 +1,7 @@
 <?php
 class ControllerMailGdpr extends Controller {
 	// admin/model/customer/gdpr/editStatus
-	public function index(&$route, &$args, &$output) {
+	public function index(&$route, &$args, &$output): void {
 		$this->load->model('customer/gdpr');
 
 		$gdpr_info = $this->model_customer_gdpr->getGdpr($args[0]);
@@ -31,7 +31,7 @@ class ControllerMailGdpr extends Controller {
 		}
 	}
 
-	public function export($gdpr_info) {
+	public function export($gdpr_info): void {
 		$this->load->model('setting/store');
 
 		$store_info = $this->model_setting_store->getStore($gdpr_info['store_id']);
@@ -187,7 +187,7 @@ class ControllerMailGdpr extends Controller {
 		$mail->send();
 	}
 
-	public function approve($gdpr_info) {
+	public function approve($gdpr_info): void {
 		$this->load->model('setting/store');
 
 		$store_info = $this->model_setting_store->getStore($gdpr_info['store_id']);
@@ -262,7 +262,7 @@ class ControllerMailGdpr extends Controller {
 		$mail->send();
 	}
 
-	public function deny($gdpr_info) {
+	public function deny($gdpr_info): void {
 		$this->load->model('setting/store');
 
 		$store_info = $this->model_setting_store->getStore($gdpr_info['store_id']);
@@ -337,7 +337,7 @@ class ControllerMailGdpr extends Controller {
 		$mail->send();
 	}
 
-	public function remove($gdpr_info) {
+	public function remove($gdpr_info): void {
 		$this->load->model('setting/store');
 
 		$store_info = $this->model_setting_store->getStore($gdpr_info['store_id']);

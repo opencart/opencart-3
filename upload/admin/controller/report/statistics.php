@@ -2,7 +2,7 @@
 class ControllerReportStatistics extends Controller {
 	private $error = array();
 	
-	public function index() {
+	public function index(): void {
 		$this->load->language('report/statistics');
 
 		$this->document->setTitle($this->language->get('heading_title'));
@@ -12,7 +12,7 @@ class ControllerReportStatistics extends Controller {
 		$this->getList();	
 	}
 	
-	public function ordersale() {
+	public function ordersale(): void {
 		$this->load->language('report/statistics');
 
 		$this->document->setTitle($this->language->get('heading_title'));
@@ -32,7 +32,7 @@ class ControllerReportStatistics extends Controller {
 		$this->getList();	
 	}
 		
-	public function orderprocessing() {
+	public function orderprocessing(): void {
 		$this->load->language('report/statistics');
 
 		$this->document->setTitle($this->language->get('heading_title'));
@@ -52,7 +52,7 @@ class ControllerReportStatistics extends Controller {
 		$this->getList();	
 	}
 	
-	public function ordercomplete() {
+	public function ordercomplete(): void {
 		$this->load->language('report/statistics');
 
 		$this->document->setTitle($this->language->get('heading_title'));		
@@ -72,7 +72,7 @@ class ControllerReportStatistics extends Controller {
 		$this->getList();	
 	}
 	
-	public function orderother() {
+	public function orderother(): void {
 		$this->load->language('report/statistics');
 
 		$this->document->setTitle($this->language->get('heading_title'));	
@@ -104,7 +104,7 @@ class ControllerReportStatistics extends Controller {
 		$this->getList();	
 	}
 
-	public function returns() {
+	public function returns(): void {
 		$this->load->language('report/statistics');
 
 		$this->document->setTitle($this->language->get('heading_title'));	
@@ -124,7 +124,7 @@ class ControllerReportStatistics extends Controller {
 		$this->getList();	
 	}
 	
-	public function customer() {
+	public function customer(): void {
 		$this->load->language('report/statistics');
 
 		$this->document->setTitle($this->language->get('heading_title'));	
@@ -144,7 +144,7 @@ class ControllerReportStatistics extends Controller {
 		$this->getList();	
 	}	
 		
-	public function affiliate() {
+	public function affiliate(): void {
 		$this->load->language('report/statistics');
 
 		$this->document->setTitle($this->language->get('heading_title'));	
@@ -164,7 +164,7 @@ class ControllerReportStatistics extends Controller {
 		$this->getList();				
 	}
 
-	public function product() {
+	public function product(): void {
 		$this->load->language('report/statistics');
 
 		$this->document->setTitle($this->language->get('heading_title'));	
@@ -184,7 +184,7 @@ class ControllerReportStatistics extends Controller {
 		$this->getList();
 	}	
 	
-	public function review() {
+	public function review(): void {
 		$this->load->language('report/statistics');
 
 		$this->document->setTitle($this->language->get('heading_title'));	
@@ -204,7 +204,7 @@ class ControllerReportStatistics extends Controller {
 		$this->getList();
 	}
 	
-	public function getList() {
+	protected function getList() {
 		$data['breadcrumbs'] = array();
 
 		$data['breadcrumbs'][] = array(

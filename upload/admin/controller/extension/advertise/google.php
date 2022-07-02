@@ -21,7 +21,7 @@ class ControllerExtensionAdvertiseGoogle extends Controller {
         $this->loadLibrary($this->store_id);
     }
 
-    public function index() {
+    public function index(): void {
         $this->load->language('extension/advertise/google');
 
         $this->load->model('extension/advertise/google');
@@ -226,7 +226,7 @@ class ControllerExtensionAdvertiseGoogle extends Controller {
         $this->response->setOutput($this->load->view('extension/advertise/google', $data));
     }
 
-    public function debug_log_download() {
+    public function debug_log_download(): void {
         $filename = sprintf(Googleshopping::DEBUG_LOG_FILENAME, $this->store_id);
 
         header('Pragma: no-cache');
@@ -245,7 +245,7 @@ class ControllerExtensionAdvertiseGoogle extends Controller {
         exit;
     }
 
-    public function advertise() {
+    public function advertise(): void {
         $this->load->language('extension/advertise/google');
 
         $json = array(
@@ -305,7 +305,7 @@ class ControllerExtensionAdvertiseGoogle extends Controller {
         $this->response->setOutput(json_encode($json));
     }
 
-    public function list_ads() {
+    public function list_ads(): void {
         $json = array();
 
         $this->load->model('extension/advertise/google');
@@ -349,7 +349,7 @@ class ControllerExtensionAdvertiseGoogle extends Controller {
         $this->response->setOutput(json_encode($json));
     }
 
-    public function merchant() {
+    public function merchant(): void {
         $this->load->language('extension/advertise/google');
 
         $this->document->setTitle($this->language->get('heading_merchant'));
@@ -436,7 +436,7 @@ class ControllerExtensionAdvertiseGoogle extends Controller {
         $this->response->setOutput($this->load->view('extension/advertise/google_merchant', $data));
     }
 
-    public function shipping_taxes() {
+    public function shipping_taxes(): void {
         $this->load->language('extension/advertise/google');
 
         $this->document->setTitle($this->language->get('heading_shipping_taxes'));
@@ -601,7 +601,7 @@ class ControllerExtensionAdvertiseGoogle extends Controller {
         $this->response->setOutput($this->load->view('extension/advertise/google_shipping_taxes', $data));
     }
 
-    public function mapping() {
+    public function mapping(): void {
         $this->load->language('extension/advertise/google');
 
         $this->document->setTitle($this->language->get('heading_mapping'));
@@ -733,7 +733,7 @@ class ControllerExtensionAdvertiseGoogle extends Controller {
         $this->response->setOutput($this->load->view('extension/advertise/google_mapping', $data));
     }
 
-    public function mapping_verify() {
+    public function mapping_verify(): void {
         $this->load->language('extension/advertise/google');
 
         $this->load->model('extension/advertise/google');
@@ -749,7 +749,7 @@ class ControllerExtensionAdvertiseGoogle extends Controller {
         $this->response->setOutput(json_encode($json));
     }
 
-    public function campaign_test() {
+    public function campaign_test(): void {
         $json = array(
             'status' 	=> false,
             'redirect' 	=> null,
@@ -780,7 +780,7 @@ class ControllerExtensionAdvertiseGoogle extends Controller {
         $this->response->setOutput(json_encode($json));
     }
 
-    public function campaign() {
+    public function campaign(): void {
         $this->load->language('extension/advertise/google');
 
         $this->document->setTitle($this->language->get('heading_campaign'));
@@ -896,7 +896,7 @@ class ControllerExtensionAdvertiseGoogle extends Controller {
         $this->response->setOutput($this->load->view('extension/advertise/google_campaign', $data));
     }
 
-    public function target_add() {
+    public function target_add(): void {
         $this->load->language('extension/advertise/google');
 
         $json = array(
@@ -959,7 +959,7 @@ class ControllerExtensionAdvertiseGoogle extends Controller {
         $this->response->setOutput(json_encode($json));
     }
 
-    public function target_edit() {
+    public function target_edit(): void {
         $this->load->language('extension/advertise/google');
 
         $json = array(
@@ -1021,7 +1021,7 @@ class ControllerExtensionAdvertiseGoogle extends Controller {
         $this->response->setOutput(json_encode($json));
     }
 
-    public function target_delete() {
+    public function target_delete(): void {
         $this->load->language('extension/advertise/google');
 
         $json = array(
@@ -1060,7 +1060,7 @@ class ControllerExtensionAdvertiseGoogle extends Controller {
         $this->response->setOutput(json_encode($json));
     }
 
-    public function target_list() {
+    public function target_list(): void {
         $this->load->language('extension/advertise/google');
 
         $json = array(
@@ -1086,11 +1086,8 @@ class ControllerExtensionAdvertiseGoogle extends Controller {
         $this->response->setOutput(json_encode($json));
     }
 
-    public function callback_merchant() {
-        $state_verified =
-            !empty($this->session->data['advertise_google']['state']) &&
-            !empty($this->request->get['state']) && 
-            $this->request->get['state'] == $this->session->data['advertise_google']['state'];
+    public function callback_merchant(): void {
+        $state_verified = !empty($this->session->data['advertise_google']['state']) && !empty($this->request->get['state']) && $this->request->get['state'] == $this->session->data['advertise_google']['state'];
 
         $error = (isset($this->request->get['error']) ? $this->request->get['error'] : null);
         $merchant_id = (isset($this->request->get['merchant_id']) ? $this->request->get['merchant_id'] : null);
@@ -1160,11 +1157,8 @@ class ControllerExtensionAdvertiseGoogle extends Controller {
         $this->response->redirect($this->url->link('extension/advertise/google', 'store_id=' . $this->store_id . '&user_token=' . $this->session->data['user_token'], true));
     }
 
-    public function callback_connect() {
-        $state_verified =
-            !empty($this->session->data['advertise_google']['state']) &&
-            !empty($this->request->get['state']) && 
-            $this->request->get['state'] == $this->session->data['advertise_google']['state'];
+    public function callback_connect(): void {
+        $state_verified = !empty($this->session->data['advertise_google']['state']) && !empty($this->request->get['state']) && $this->request->get['state'] == $this->session->data['advertise_google']['state'];
 
         if ($state_verified) {
             $this->load->language('extension/advertise/google');
@@ -1211,7 +1205,7 @@ class ControllerExtensionAdvertiseGoogle extends Controller {
         }
     }
 
-    public function connect() {
+    public function connect(): void {
         $this->load->language('extension/advertise/google');
 
         $this->document->setTitle($this->language->get('heading_title'));
@@ -1326,7 +1320,7 @@ class ControllerExtensionAdvertiseGoogle extends Controller {
         $this->response->setOutput($this->load->view('extension/advertise/google_connect', $data));
     }
 
-    public function disconnect() {
+    public function disconnect(): void {
         $this->load->language('extension/advertise/google');
 
         if ($this->validatePermission()) {
@@ -1366,7 +1360,7 @@ class ControllerExtensionAdvertiseGoogle extends Controller {
         $this->response->redirect($this->url->link('extension/advertise/google', 'store_id=' . $this->store_id . '&user_token=' . $this->session->data['user_token'], true));
     }
 
-    public function checklist() {
+    public function checklist(): void {
         $this->load->language('extension/advertise/google');
 
         $this->document->setTitle($this->language->get('heading_title'));
@@ -1417,7 +1411,7 @@ class ControllerExtensionAdvertiseGoogle extends Controller {
         $this->response->setOutput($this->load->view('extension/advertise/google_checklist', $data));
     }
 
-    public function popup_product() {
+    public function popup_product(): void {
         $json = array(
             'body' 				=> '',
             'title' 			=> '',
@@ -1690,7 +1684,7 @@ class ControllerExtensionAdvertiseGoogle extends Controller {
         $this->response->setOutput(json_encode($json));
     }
 
-    public function popup_issues() {
+    public function popup_issues(): void {
         $json = array(
             'body' => '',
             'title' => ''
@@ -1721,7 +1715,7 @@ class ControllerExtensionAdvertiseGoogle extends Controller {
         $this->response->setOutput(json_encode($json));
     }
 
-    public function admin_link(&$route, &$data, &$template) {
+    public function admin_link(&$route, &$data, &$template): void {
         if (!$this->user->hasPermission('access', 'extension/advertise/google')) {
             return;
         }
@@ -1758,9 +1752,8 @@ class ControllerExtensionAdvertiseGoogle extends Controller {
     }
 
 	// admin/model/catalog/product/addProduct/after
-    public function addProduct(&$route, &$args, &$output) {
-        $this->load->model('extension/advertise/google');
-		
+    public function addProduct(&$route, &$args, &$output): void {
+        $this->load->model('extension/advertise/google');		
         $this->load->model('catalog/product');
 
         foreach ($this->model_catalog_product->getProductStores($output) as $store_id) {
@@ -1769,9 +1762,8 @@ class ControllerExtensionAdvertiseGoogle extends Controller {
     }
 
 	// admin/model/catalog/product/copyProduct/after
-    public function copyProduct(&$route, &$args, &$output) {
-        $this->load->model('extension/advertise/google');
-		
+    public function copyProduct(&$route, &$args, &$output): void {
+        $this->load->model('extension/advertise/google');		
         $this->load->model('catalog/product');
 
         $final_product_id = $this->model_extension_advertise_google->getFinalProductId();
@@ -1784,27 +1776,27 @@ class ControllerExtensionAdvertiseGoogle extends Controller {
     }
 
 	// admin/model/catalog/product/deleteProduct/after
-    public function deleteProduct(&$route, &$args, &$output) {
+    public function deleteProduct(&$route, &$args, &$output): void {
         $this->load->model('extension/advertise/google');
 
         $this->model_extension_advertise_google->deleteProducts(array((int)$args[0]));
     }
 
-    public function install() {
+    public function install(): void {
         $this->load->model('extension/advertise/google');
 
         $this->model_extension_advertise_google->createTables();
         $this->model_extension_advertise_google->createEvents();
     }
 
-    public function uninstall() {
+    public function uninstall(): void {
         $this->load->model('extension/advertise/google');
 
         $this->model_extension_advertise_google->dropTables();
         $this->model_extension_advertise_google->deleteEvents();
     }
 
-    public function category_autocomplete() {
+    public function category_autocomplete(): void {
         $json = array();
 
         if (isset($this->request->get['filter_name'])) {

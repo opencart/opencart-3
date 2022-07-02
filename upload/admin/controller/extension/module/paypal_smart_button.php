@@ -2,11 +2,10 @@
 class ControllerExtensionModulePayPalSmartButton extends Controller {
 	private $error = array();
 	
-	public function index() {
+	public function index(): void {
 		$this->load->language('extension/module/paypal_smart_button');
 
-		$this->load->model('extension/module/paypal_smart_button');
-		
+		$this->load->model('extension/module/paypal_smart_button');		
 		$this->load->model('setting/setting');
 
 		$this->document->setTitle($this->language->get('heading_title'));
@@ -71,9 +70,8 @@ class ControllerExtensionModulePayPalSmartButton extends Controller {
 		$this->response->setOutput($this->load->view('extension/module/paypal_smart_button', $data));
 	}
 
-	public function install() {
-		$this->load->model('extension/module/paypal_smart_button');
-		
+	public function install(): void {
+		$this->load->model('extension/module/paypal_smart_button');		
 		$this->load->model('setting/setting');
 
 		$this->model_extension_module_paypal_smart_button->install();

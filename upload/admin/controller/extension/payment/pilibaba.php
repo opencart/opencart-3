@@ -2,7 +2,7 @@
 class ControllerExtensionPaymentPilibaba extends Controller {
 	private $error = array();
 
-	public function index() {
+	public function index(): void {
 		$this->load->language('extension/payment/pilibaba');
 		
 		$this->document->setTitle($this->language->get('heading_title'));
@@ -177,7 +177,7 @@ class ControllerExtensionPaymentPilibaba extends Controller {
 		$this->response->setOutput($this->load->view('extension/payment/pilibaba', $data));
 	}
 
-	public function install() {
+	public function install(): void {
 		if ($this->user->hasPermission('modify', 'marketplace/extension')) {
 			$this->load->model('extension/payment/pilibaba');
 
@@ -185,7 +185,7 @@ class ControllerExtensionPaymentPilibaba extends Controller {
 		}
 	}
 
-	public function uninstall() {
+	public function uninstall(): void {
 		if ($this->user->hasPermission('modify', 'marketplace/extension')) {
 			$this->load->model('extension/payment/pilibaba');
 
@@ -193,7 +193,7 @@ class ControllerExtensionPaymentPilibaba extends Controller {
 		}
 	}
 
-	public function register() {
+	public function register(): void {
 		$this->load->language('extension/payment/pilibaba');
 
 		$json = array();
@@ -240,7 +240,7 @@ class ControllerExtensionPaymentPilibaba extends Controller {
 		$this->response->setOutput(json_encode($json));
 	}
 
-	public function order() {
+	public function order(): void {
 		if ($this->config->get('payment_pilibaba_status')) {
 			$this->load->model('extension/payment/pilibaba');
 
@@ -276,7 +276,7 @@ class ControllerExtensionPaymentPilibaba extends Controller {
 		}
 	}
 
-	public function tracking() {
+	public function tracking(): void {
 		$this->load->language('extension/payment/pilibaba');
 
 		$json = array();
@@ -303,7 +303,7 @@ class ControllerExtensionPaymentPilibaba extends Controller {
 		$this->response->setOutput(json_encode($json));
 	}
 
-	public function barcode() {
+	public function barcode(): void {
 		if ($this->config->get('payment_pilibaba_status')) {
 			if (isset($this->request->get['order_id'])) {
 				if ($this->config->get('payment_pilibaba_environment') == 'live') {

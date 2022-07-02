@@ -2,7 +2,7 @@
 class ControllerExtensionPaymentWebPaymentSoftware extends Controller {
 	private $error = array();
 
-	public function index() {
+	public function index(): void {
 		$this->load->language('extension/payment/web_payment_software');
 
 		$this->document->setTitle($this->language->get('heading_title'));
@@ -86,6 +86,7 @@ class ControllerExtensionPaymentWebPaymentSoftware extends Controller {
 			$data['payment_web_payment_software_order_status_id'] = $this->config->get('payment_web_payment_software_order_status_id');
 		}
 
+		// Order Statuses
 		$this->load->model('localisation/order_status');
 
 		$data['order_statuses'] = $this->model_localisation_order_status->getOrderStatuses();
@@ -96,6 +97,7 @@ class ControllerExtensionPaymentWebPaymentSoftware extends Controller {
 			$data['payment_web_payment_software_geo_zone_id'] = $this->config->get('payment_web_payment_software_geo_zone_id');
 		}
 
+		// Geo Zones
 		$this->load->model('localisation/geo_zone');
 
 		$data['geo_zones'] = $this->model_localisation_geo_zone->getGeoZones();

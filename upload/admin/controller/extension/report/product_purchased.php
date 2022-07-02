@@ -1,6 +1,6 @@
 <?php
 class ControllerExtensionReportProductPurchased extends Controller {
-	public function index() {
+	public function index(): void {
 		$this->load->language('extension/report/product_purchased');
 
 		$this->document->setTitle($this->language->get('heading_title'));
@@ -69,7 +69,7 @@ class ControllerExtensionReportProductPurchased extends Controller {
 		return !$this->error;
 	}
 		
-	public function report() {
+	public function report(): string {
 		$this->load->language('extension/report/product_purchased');
 
 		if (isset($this->request->get['filter_date_start'])) {

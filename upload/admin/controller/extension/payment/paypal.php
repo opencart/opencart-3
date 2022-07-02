@@ -2,7 +2,7 @@
 class ControllerExtensionPaymentPayPal extends Controller {
 	private $error = array();
 	
-	public function index() {
+	public function index(): void {
 		$this->load->language('extension/payment/paypal');
 
 		$this->document->setTitle($this->language->get('heading_title'));
@@ -315,7 +315,7 @@ class ControllerExtensionPaymentPayPal extends Controller {
 		$this->response->setOutput($this->load->view('extension/payment/paypal', $data));
 	}
 		
-	public function callback() {
+	public function callback(): void {
 		if (isset($this->request->post['environment']) && isset($this->request->post['authorization_code']) && isset($this->request->post['shared_id']) && isset($this->request->post['seller_nonce'])) {
 			$this->session->data['environment'] = $this->request->post['environment'];
 			$this->session->data['authorization_code'] = $this->request->post['authorization_code'];
@@ -328,7 +328,7 @@ class ControllerExtensionPaymentPayPal extends Controller {
 		$this->response->setOutput(json_encode($data));
     }
 	
-	public function configureSmartButton() {
+	public function configureSmartButton(): void {
 		$this->load->model('extension/payment/paypal');
 		
 		$this->model_extension_payment_paypal->configureSmartButton();

@@ -2,7 +2,7 @@
 class ControllerToolUpload extends Controller {
 	private $error = array();
 
-	public function index() {
+	public function index(): void {
 		$this->load->language('tool/upload');
 
 		$this->document->setTitle($this->language->get('heading_title'));
@@ -12,7 +12,7 @@ class ControllerToolUpload extends Controller {
 		$this->getList();
 	}
 
-	public function delete() {
+	public function delete(): void {
 		$this->load->language('tool/upload');
 
 		$this->document->setTitle($this->language->get('heading_title'));
@@ -252,7 +252,7 @@ class ControllerToolUpload extends Controller {
 		return !$this->error;
 	}
 
-	public function download() {
+	public function download(): void {
 		$this->load->language('tool/upload');
 		
 		$this->load->model('tool/upload');
@@ -312,7 +312,7 @@ class ControllerToolUpload extends Controller {
 		}
 	}
 
-	public function upload() {
+	public function upload(): void {
 		$this->load->language('sale/order');
 
 		$json = array();

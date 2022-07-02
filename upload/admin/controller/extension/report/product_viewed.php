@@ -1,6 +1,6 @@
 <?php
 class ControllerExtensionReportProductViewed extends Controller {
-	public function index() {
+	public function index(): void {
 		$this->load->language('extension/report/product_viewed');
 
 		$this->document->setTitle($this->language->get('heading_title'));
@@ -69,7 +69,7 @@ class ControllerExtensionReportProductViewed extends Controller {
 		return !$this->error;
 	}
 		
-	public function report() {
+	public function report(): string {
 		$this->load->language('extension/report/product_viewed');
 
 		if (isset($this->request->get['page'])) {
@@ -131,7 +131,7 @@ class ControllerExtensionReportProductViewed extends Controller {
 		return $this->load->view('extension/report/product_viewed_info', $data);
 	}
 
-	public function reset() {
+	public function reset(): void {
 		$this->load->language('extension/report/product_viewed');
 
 		if (!$this->user->hasPermission('modify', 'extension/report/product_viewed')) {

@@ -1,6 +1,6 @@
 <?php
 class ControllerCommonDeveloper extends Controller {
-	public function index() {
+	public function index(): void {
 		$this->load->language('common/developer');
 
 		$data['user_token'] = $this->session->data['user_token'];
@@ -27,7 +27,7 @@ class ControllerCommonDeveloper extends Controller {
 		$this->response->setOutput($this->load->view('common/developer', $data));
 	}
 
-	public function edit() {
+	public function edit(): void {
 		$this->load->language('common/developer');
 
 		$json = array();
@@ -46,7 +46,7 @@ class ControllerCommonDeveloper extends Controller {
 		$this->response->setOutput(json_encode($json));
 	}
 
-	public function theme() {
+	public function theme(): void {
 		$this->load->language('common/developer');
 
 		$json = array();
@@ -79,7 +79,7 @@ class ControllerCommonDeveloper extends Controller {
 		$this->response->setOutput(json_encode($json));
 	}
 
-	public function sass() {
+	public function sass(): void {
 		$this->load->language('common/developer');
 
 		$json = array();

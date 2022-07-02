@@ -2,7 +2,7 @@
 class ControllerMarketplaceCron extends Controller {
 	private $error = array();
 	
-	public function index() {
+	public function index(): void {
 		$this->load->language('marketplace/cron');
 
 		$this->document->setTitle($this->language->get('heading_title'));
@@ -12,7 +12,7 @@ class ControllerMarketplaceCron extends Controller {
 		$this->getList();
 	}
 
-	public function delete() {
+	public function delete(): void {
 		$this->load->language('marketplace/cron');
 
 		$this->document->setTitle($this->language->get('heading_title'));
@@ -46,7 +46,7 @@ class ControllerMarketplaceCron extends Controller {
 		$this->getList();
 	}
 
-	public function getList() {
+	protected function getList() {
 		if (isset($this->request->get['sort'])) {
 			$sort = $this->request->get['sort'];
 		} else {
@@ -198,7 +198,7 @@ class ControllerMarketplaceCron extends Controller {
 		return !$this->error;
 	}
 
-	public function run() {
+	public function run(): void {
 		$this->load->language('marketplace/cron');
 
 		$json = array();
@@ -229,7 +229,7 @@ class ControllerMarketplaceCron extends Controller {
 		$this->response->setOutput(json_encode($json));
 	}
 
-	public function enable() {
+	public function enable(): void {
 		$this->load->language('marketplace/cron');
 
 		$json = array();
@@ -254,7 +254,7 @@ class ControllerMarketplaceCron extends Controller {
 		$this->response->setOutput(json_encode($json));
 	}
 
-	public function disable() {
+	public function disable(): void {
 		$this->load->language('marketplace/cron');
 
 		$json = array();

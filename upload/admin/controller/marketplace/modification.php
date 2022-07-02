@@ -7,7 +7,7 @@
 class ControllerMarketplaceModification extends Controller {
 	private $error = array();
 
-	public function index() {
+	public function index(): void {
 		$this->load->language('marketplace/modification');
 
 		$this->document->setTitle($this->language->get('heading_title'));
@@ -17,7 +17,7 @@ class ControllerMarketplaceModification extends Controller {
 		$this->getList();
 	}
 
-	public function delete() {
+	public function delete(): void {
 		$this->load->language('marketplace/modification');
 
 		$this->document->setTitle($this->language->get('heading_title'));
@@ -51,7 +51,7 @@ class ControllerMarketplaceModification extends Controller {
 		$this->getList();
 	}
 
-	public function refresh($data = array()) {
+	public function refresh($data = array()): void {
 		$this->load->language('marketplace/modification');
 
 		$this->document->setTitle($this->language->get('heading_title'));
@@ -450,7 +450,7 @@ class ControllerMarketplaceModification extends Controller {
 		$this->getList();
 	}
 
-	public function clear() {
+	public function clear(): void {
 		$this->load->language('marketplace/modification');
 
 		$this->document->setTitle($this->language->get('heading_title'));
@@ -519,7 +519,7 @@ class ControllerMarketplaceModification extends Controller {
 		$this->getList();
 	}
 
-	public function enable() {
+	public function enable(): void {
 		$this->load->language('marketplace/modification');
 
 		$this->document->setTitle($this->language->get('heading_title'));
@@ -551,7 +551,7 @@ class ControllerMarketplaceModification extends Controller {
 		$this->getList();
 	}
 
-	public function disable() {
+	public function disable(): void {
 		$this->load->language('marketplace/modification');
 
 		$this->document->setTitle($this->language->get('heading_title'));
@@ -583,7 +583,7 @@ class ControllerMarketplaceModification extends Controller {
 		$this->getList();
 	}
 
-	public function clearlog() {
+	public function clearlog(): void {
 		$this->load->language('marketplace/modification');
 		
 		$this->document->setTitle($this->language->get('heading_title'));

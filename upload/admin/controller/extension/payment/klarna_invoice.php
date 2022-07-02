@@ -2,7 +2,7 @@
 class ControllerExtensionPaymentKlarnaInvoice extends Controller {
 	private $error = array();
 
-	public function index() {
+	public function index(): void {
 		$this->load->language('extension/payment/klarna_invoice');
 		
 		$this->load->model('setting/setting');
@@ -178,7 +178,7 @@ class ControllerExtensionPaymentKlarnaInvoice extends Controller {
 		return $value;
 	}
 
-	public function clear() {
+	public function clear(): void {
 		$this->load->language('extension/payment/klarna_invoice');
 
 		$file = DIR_LOGS . 'klarna_invoice.log';

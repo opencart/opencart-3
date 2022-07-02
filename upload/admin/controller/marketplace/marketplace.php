@@ -1,6 +1,6 @@
 <?php
 class ControllerMarketplaceMarketplace extends Controller {
-	public function index() {
+	public function index(): void {
 		$this->load->language('marketplace/marketplace');
 
 		$this->document->setTitle($this->language->get('heading_title'));
@@ -506,7 +506,7 @@ class ControllerMarketplaceMarketplace extends Controller {
 		$this->response->setOutput($this->load->view('marketplace/marketplace_list', $data));
 	}
 
-	public function info() {
+	public function info(): void {
 		if (isset($this->request->get['extension_id'])) {
 			$extension_id = (int)$this->request->get['extension_id'];
 		} else {
@@ -674,7 +674,7 @@ class ControllerMarketplaceMarketplace extends Controller {
 		}
 	}
 
-	public function purchase() {
+	public function purchase(): void {
 		$this->load->language('marketplace/marketplace');
 
 		$json = array();
@@ -745,7 +745,7 @@ class ControllerMarketplaceMarketplace extends Controller {
 		$this->response->setOutput(json_encode($json));
 	}
 
-	public function download() {
+	public function download(): void {
 		$this->load->language('marketplace/marketplace');
 
 		$json = array();
@@ -893,7 +893,7 @@ class ControllerMarketplaceMarketplace extends Controller {
 		$this->response->setOutput(json_encode($json));
 	}
 
-	public function addComment() {
+	public function addComment(): void {
 		$this->load->language('marketplace/marketplace');
 
 		$json = array();
@@ -970,7 +970,7 @@ class ControllerMarketplaceMarketplace extends Controller {
 		$this->response->setOutput(json_encode($json));
 	}
 
-	public function comment() {
+	public function comment(): void {
 		$this->load->language('marketplace/marketplace');
 
 		if (isset($this->request->get['extension_id'])) {
@@ -1043,7 +1043,7 @@ class ControllerMarketplaceMarketplace extends Controller {
 		$this->response->setOutput($this->load->view('marketplace/marketplace_comment', $data));
 	}
 
-	public function reply() {
+	public function reply(): void {
 		$this->load->language('marketplace/marketplace');
 
 		if (isset($this->request->get['extension_id'])) {

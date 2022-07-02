@@ -1,6 +1,6 @@
 <?php
 class ControllerMarketplaceInstall extends Controller {
-	public function install() {
+	public function install(): void {
 		$this->load->language('marketplace/install');
 
 		$json = array();
@@ -32,7 +32,7 @@ class ControllerMarketplaceInstall extends Controller {
 		$this->response->setOutput(json_encode($json));
 	}
 
-	public function unzip() {
+	public function unzip(): void {
 		$this->load->language('marketplace/install');
 
 		$json = array();
@@ -79,7 +79,7 @@ class ControllerMarketplaceInstall extends Controller {
 		$this->response->setOutput(json_encode($json));
 	}
 
-	public function move() {
+	public function move(): void {
 		$this->load->language('marketplace/install');
 		
 		$json = array();
@@ -236,7 +236,7 @@ class ControllerMarketplaceInstall extends Controller {
 		$this->response->setOutput(json_encode($json));
 	}
 
-	public function xml() {
+	public function xml(): void {
 		$this->load->language('marketplace/install');
 
 		$json = array();
@@ -349,7 +349,7 @@ class ControllerMarketplaceInstall extends Controller {
 		$this->response->setOutput(json_encode($json));
 	}
 
-	public function remove() {
+	public function remove(): void {
 		$this->load->language('marketplace/install');
 
 		$json = array();
@@ -414,7 +414,7 @@ class ControllerMarketplaceInstall extends Controller {
 		$this->response->setOutput(json_encode($json));
 	}
 
-	public function uninstall() {
+	public function uninstall(): void {
 		$this->load->language('marketplace/install');
 
 		$json = array();
@@ -520,16 +520,17 @@ class ControllerMarketplaceInstall extends Controller {
 		$this->response->setOutput(json_encode($json));
 	}
 	
-	private function isDirEmpty ($dir_name) {
+	protected function isDirEmpty($dir_name) {
 		if (!is_dir($dir_name)) {
 			return false;
 		}
-		foreach (scandir($dir_name) as $dir_file)
-		{
+		
+		foreach (scandir($dir_name) as $dir_file) {
 			if (!in_array($dir_file, array('.','..'))) {
 				return false;
 			}
 		}
+		
 		return true;
 	}
 }

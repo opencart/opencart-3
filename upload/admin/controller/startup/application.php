@@ -1,6 +1,6 @@
 <?php
 class ControllerStartupApplication extends Controller {
-	public function index() {
+	public function index(): void {
 		// Url
 		$this->registry->set('url', new \Url($this->config->get('site_url')));
 

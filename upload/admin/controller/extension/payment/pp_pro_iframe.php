@@ -2,7 +2,7 @@
 class ControllerExtensionPaymentPPProIframe extends Controller {
 	private $error = array();
 
-	public function index() {
+	public function index(): void {
 		$this->load->language('extension/payment/pp_pro_iframe');
 
 		$this->document->setTitle($this->language->get('heading_title'));
@@ -189,13 +189,13 @@ class ControllerExtensionPaymentPPProIframe extends Controller {
 		$this->response->setOutput($this->load->view('extension/payment/pp_pro_iframe', $data));
 	}
 
-	public function install() {
+	public function install(): void {
 		$this->load->model('extension/payment/pp_pro_iframe');
 
 		$this->model_extension_payment_pp_pro_iframe->install();
 	}
 
-	public function uninstall() {
+	public function uninstall(): void {
 		$this->load->model('extension/payment/pp_pro_iframe');
 
 		$this->model_extension_payment_pp_pro_iframe->uninstall();
@@ -221,7 +221,7 @@ class ControllerExtensionPaymentPPProIframe extends Controller {
 		return !$this->error;
 	}
 
-	public function order() {
+	public function order(): void {
 		$this->load->language('extension/payment/pp_pro_iframe');
 		
 		$this->load->model('extension/payment/pp_pro_iframe');		
@@ -278,7 +278,7 @@ class ControllerExtensionPaymentPPProIframe extends Controller {
 		}
 	}
 
-	public function refund() {
+	public function refund(): void {
 		$this->load->language('extension/payment/pp_pro_iframe');
 		
 		$this->load->model('extension/payment/pp_pro_iframe');
@@ -345,7 +345,7 @@ class ControllerExtensionPaymentPPProIframe extends Controller {
 		$this->response->setOutput($this->load->view('extension/payment/pp_pro_iframe_refund', $data));
 	}
 
-	public function doRefund() {
+	public function doRefund(): void {
 		/**
 		 * used to issue a refund for a captured payment
 		 *
@@ -445,7 +445,7 @@ class ControllerExtensionPaymentPPProIframe extends Controller {
 		}
 	}
 
-	public function reauthorise() {
+	public function reauthorise(): void {
 		$this->load->language('extension/payment/pp_pro_iframe');
 		
 		$json = array();
@@ -506,7 +506,7 @@ class ControllerExtensionPaymentPPProIframe extends Controller {
 		$this->response->setOutput(json_encode($json));
 	}
 
-	public function info() {
+	public function info(): void {
 		$this->load->language('extension/payment/pp_pro_iframe');
 		
 		$this->load->model('extension/payment/pp_pro_iframe');		
@@ -551,7 +551,7 @@ class ControllerExtensionPaymentPPProIframe extends Controller {
 		$this->response->setOutput($this->load->view('extension/payment/pp_pro_iframe_transaction', $data));
 	}
 
-	public function capture() {
+	public function capture(): void {
 		$this->load->language('extension/payment/pp_pro_iframe');
 		
 		$json = array();
@@ -680,7 +680,7 @@ class ControllerExtensionPaymentPPProIframe extends Controller {
 		$this->response->setOutput(json_encode($json));
 	}
 
-	public function void() {
+	public function void(): void {
 		$this->load->language('extension/payment/pp_pro_iframe');
 		
 		$json = array();
@@ -740,7 +740,7 @@ class ControllerExtensionPaymentPPProIframe extends Controller {
 		$this->response->setOutput(json_encode($json));
 	}
 
-	public function resend() {
+	public function resend(): void {
 		$this->load->language('extension/payment/pp_pro_iframe');
 		
 		$json = array();

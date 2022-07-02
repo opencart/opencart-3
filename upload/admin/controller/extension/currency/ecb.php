@@ -2,7 +2,7 @@
 class ControllerExtensionCurrencyECB extends Controller {
 	private $error = array();
 
-	public function index() {
+	public function index(): void {
 		$this->load->language('extension/currency/ecb');
 
 		$this->document->setTitle($this->language->get('heading_title'));
@@ -65,7 +65,8 @@ class ControllerExtensionCurrencyECB extends Controller {
 		return !$this->error;
 	}
 
-	public function currency($default = '') {
+	// Parametered string won't work on current engine.
+	public function currency($default = ''): void {
 		if ($this->config->get('currency_ecb_status')) {
 			$curl = curl_init();
 
