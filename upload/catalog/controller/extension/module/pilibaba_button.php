@@ -1,6 +1,6 @@
 <?php
 class ControllerExtensionModulePilibabaButton extends Controller {
-	public function index() {
+	public function index(): string {
 		$this->load->language('extension/module/pilibaba_button');
 		$status = true;
 

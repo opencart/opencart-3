@@ -1,6 +1,6 @@
 <?php
 class ControllerExtensionPaymentGlobalpay extends Controller {
-	public function index() {
+	public function index(): string {
 		if (!isset($this->session->data['order_id'])) {
 			return false;
 		}
@@ -83,7 +83,7 @@ class ControllerExtensionPaymentGlobalpay extends Controller {
 		return $this->load->view('extension/payment/globalpay', $data);
 	}
 
-	public function notify() {
+	public function notify(): void {
 		$this->load->language('extension/payment/globalpay');
 		
 		$this->load->model('extension/payment/globalpay');

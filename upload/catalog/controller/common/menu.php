@@ -1,6 +1,6 @@
 <?php
 class ControllerCommonMenu extends Controller {
-	public function index() {
+	public function index(): string {
 		$this->load->language('common/menu');
 
 		// Menu

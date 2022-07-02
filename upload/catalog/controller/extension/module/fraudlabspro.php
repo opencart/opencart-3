@@ -1,7 +1,7 @@
 <?php
 class ControllerExtensionModuleFraudlabspro extends Controller {
 	// catalog/model/checkout/order/addOrderHistory/after
-	public function addOrderHistory(&$route, &$args, &$output) {
+	public function addOrderHistory(string &$route, array &$args, srring &$output): void {
 		if (isset($args[0])) {
 			$order_id = $args[0];
 		} else {

@@ -1,6 +1,6 @@
 <?php
 class ControllerExtensionFeedGoogleBase extends Controller {
-	public function index() {
+	public function index(): void {
 		if ($this->config->get('feed_google_base_status')) {
 			$output  = '<?xml version="1.0" encoding="UTF-8" ?>';
 			$output .= '<rss version="2.0" xmlns:g="http://base.google.com/ns/1.0">';

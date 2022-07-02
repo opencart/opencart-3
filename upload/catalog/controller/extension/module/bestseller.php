@@ -1,10 +1,9 @@
 <?php
 class ControllerExtensionModuleBestSeller extends Controller {
-	public function index($setting) {
+	public function index(array $setting): string {
 		$this->load->language('extension/module/bestseller');
 
-		$this->load->model('catalog/product');
-		
+		$this->load->model('catalog/product');		
 		$this->load->model('tool/image');
 
 		$data['products'] = array();

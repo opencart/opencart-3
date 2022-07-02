@@ -21,7 +21,7 @@ class ControllerExtensionAdvertiseGoogle extends Controller {
     }
 
 	// catalog/view/common/header/after
-    public function google_global_site_tag(&$route, &$data, &$output) {
+    public function google_global_site_tag(string &$route, array &$data, string &$output): string {
         // In case the extension is disabled, do nothing
         if (!$this->setting->get('advertise_google_status')) {
             return;
@@ -39,7 +39,7 @@ class ControllerExtensionAdvertiseGoogle extends Controller {
     }
 
 	// catalog/controller/checkout/success/before
-    public function before_checkout_success(&$route, &$data) {
+    public function before_checkout_success(string &$route, array &$data): void {
         // In case the extension is disabled, do nothing
         if (!$this->setting->get('advertise_google_status')) {
             return;
@@ -59,8 +59,7 @@ class ControllerExtensionAdvertiseGoogle extends Controller {
             $this->loadLibrary($this->store_id);
         }
 
-        $this->load->model('checkout/order');
-		
+        $this->load->model('checkout/order');		
         $this->load->model('extension/advertise/google');
 
         $order_info = $this->model_checkout_order->getOrder($this->session->data['order_id']);
@@ -122,7 +121,7 @@ class ControllerExtensionAdvertiseGoogle extends Controller {
     }
 
 	// catalog/view/common/success/after
-    public function google_dynamic_remarketing_purchase(&$route, &$data, &$output) {
+    public function google_dynamic_remarketing_purchase(string &$route, array &$data, string &$output): string {
         // In case the extension is disabled, do nothing
         if (!$this->setting->get('advertise_google_status')) {
             return;
@@ -153,7 +152,7 @@ class ControllerExtensionAdvertiseGoogle extends Controller {
     }
 
 	// catalog/view/common/home/after
-    public function google_dynamic_remarketing_home(&$route, &$data, &$output) {
+    public function google_dynamic_remarketing_home(string &$route, array &$data, string &$output): string {
         // In case the extension is disabled, do nothing
         if (!$this->setting->get('advertise_google_status')) {
             return;
@@ -181,7 +180,7 @@ class ControllerExtensionAdvertiseGoogle extends Controller {
     }
 
 	// catalog/view/product/search/after
-    public function google_dynamic_remarketing_searchresults(&$route, &$data, &$output) {
+    public function google_dynamic_remarketing_searchresults(string &$route, array &$data, string &$output): string {
         // In case the extension is disabled, do nothing
         if (!$this->setting->get('advertise_google_status')) {
             return;
@@ -210,7 +209,7 @@ class ControllerExtensionAdvertiseGoogle extends Controller {
     }
 
 	// catalog/view/product/category/after
-    public function google_dynamic_remarketing_category(&$route, &$data, &$output) {
+    public function google_dynamic_remarketing_category(string &$route, array &$data, string &$output): string {
         // In case the extension is disabled, do nothing
         if (!$this->setting->get('advertise_google_status')) {
             return;
@@ -251,7 +250,7 @@ class ControllerExtensionAdvertiseGoogle extends Controller {
     }
 
 	// catalog/view/product/product/after
-    public function google_dynamic_remarketing_product(&$route, &$data, &$output) {
+    public function google_dynamic_remarketing_product(string &$route, array &$data, string &$output): string {
         // In case the extension is disabled, do nothing
         if (!$this->setting->get('advertise_google_status')) {
             return;
@@ -298,7 +297,7 @@ class ControllerExtensionAdvertiseGoogle extends Controller {
     }
 
 	// catalog/view/checkout/cart/after
-    public function google_dynamic_remarketing_cart(&$route, &$data, &$output) {
+    public function google_dynamic_remarketing_cart(string &$route, array &$data, string &$output): string {
         // In case the extension is disabled, do nothing
         if (!$this->setting->get('advertise_google_status')) {
             return;
@@ -333,7 +332,7 @@ class ControllerExtensionAdvertiseGoogle extends Controller {
         $output = str_replace('</body>', $snippet . '</body>', $output);
     }
 
-    public function cron($cron_id = null, $code = null, $cycle = null, $date_added = null, $date_modified = null) {
+    public function cron(int $cron_id = null, string $code = null, string $cycle = null, string $date_added = null, string $date_modified = null) {
         $this->loadLibrary($this->store_id);
 
         if (!$this->validateCRON()) {

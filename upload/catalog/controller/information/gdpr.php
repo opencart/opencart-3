@@ -1,6 +1,6 @@
 <?php
 class ControllerInformationGdpr extends Controller {
-	public function index() {
+	public function index(): void {
 		$this->load->model('catalog/information');
 
 		$information_info = $this->model_catalog_information->getInformation($this->config->get('config_gdpr_id'));
@@ -73,7 +73,7 @@ class ControllerInformationGdpr extends Controller {
 	 *	processing = 2
 	 *	denied     = -1
 	*/
-	public function action() {
+	public function action(): void {
 		$this->load->language('information/gdpr');
 
 		$json = array();
@@ -132,7 +132,7 @@ class ControllerInformationGdpr extends Controller {
 		$this->response->setOutput(json_encode($json));
 	}
 
-	public function success() {
+	public function success(): void {
 		if (isset($this->request->get['code'])) {
 			$code = $this->request->get['code'];
 		} else {

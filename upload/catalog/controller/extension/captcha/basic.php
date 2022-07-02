@@ -1,6 +1,6 @@
 <?php
 class ControllerExtensionCaptchaBasic extends Controller {
-	public function index($error = array()) {
+	public function index($error = array()): string {
 		$this->load->language('extension/captcha/basic');
 
 		if (isset($error['captcha'])) {
@@ -24,7 +24,7 @@ class ControllerExtensionCaptchaBasic extends Controller {
 		}
 	}
 
-	public function captcha() {
+	public function captcha(): void {
 		$image = imagecreatetruecolor(150, 35);
 
 		$width = imagesx($image);

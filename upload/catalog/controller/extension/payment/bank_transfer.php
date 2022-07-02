@@ -1,6 +1,6 @@
 <?php
 class ControllerExtensionPaymentBankTransfer extends Controller {
-	public function index() {
+	public function index(): string {
 		$this->load->language('extension/payment/bank_transfer');
 
 		$data['bank'] = nl2br($this->config->get('payment_bank_transfer_bank' . $this->config->get('config_language_id')));
@@ -8,7 +8,7 @@ class ControllerExtensionPaymentBankTransfer extends Controller {
 		return $this->load->view('extension/payment/bank_transfer', $data);
 	}
 
-	public function confirm() {
+	public function confirm(): void {
 		$json = array();
 		
 		if (isset($this->session->data['payment_method']['code']) && $this->session->data['payment_method']['code'] == 'bank_transfer') {

@@ -1,6 +1,6 @@
 <?php
 class ControllerExtensionPaymentSquareup extends Controller {
-    public function index() {
+    public function index(): string {
         $this->load->language('extension/payment/squareup');
 
         $this->load->library('squareup');
@@ -44,7 +44,7 @@ class ControllerExtensionPaymentSquareup extends Controller {
         return $this->load->view('extension/payment/squareup', $data);
     }
 
-    public function checkout() {
+    public function checkout(): void {
         $this->load->language('extension/payment/squareup');
 
         $this->load->model('extension/payment/squareup');		

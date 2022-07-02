@@ -1,10 +1,9 @@
 <?php
 class ControllerExtensionPaymentKlarnaCheckout extends Controller {
-	public function index() {
+	public function index(): void {
 		$this->load->language('extension/payment/klarna_checkout');
 
-		$this->load->model('extension/payment/klarna_checkout');
-		
+		$this->load->model('extension/payment/klarna_checkout');		
 		$this->load->model('localisation/country');
 
 		$this->document->setTitle($this->language->get('heading_title'));
@@ -19,11 +18,10 @@ class ControllerExtensionPaymentKlarnaCheckout extends Controller {
 		$this->response->setOutput($this->load->view('extension/payment/klarna_checkout', $data));
 	}
 
-	public function main() {
+	public function main(): void {
 		$this->load->language('extension/payment/klarna_checkout');
 
-		$this->load->model('extension/payment/klarna_checkout');
-		
+		$this->load->model('extension/payment/klarna_checkout');		
 		$this->load->model('localisation/country');
 
 		$redirect = false;
@@ -239,16 +237,15 @@ class ControllerExtensionPaymentKlarnaCheckout extends Controller {
 		}
 	}
 
-	public function sidebar() {
-		$this->load->language('checkout/checkout');
-		
-		$this->load->language('extension/payment/klarna_checkout');
-
-		$this->load->model('extension/payment/klarna_checkout');
-
+	public function sidebar(): void{
 		if (!$this->config->get('payment_klarna_checkout_status')) {
 			return false;
 		}
+		
+		$this->load->language('checkout/checkout');		
+		$this->load->language('extension/payment/klarna_checkout');
+
+		$this->load->model('extension/payment/klarna_checkout');
 
 		$this->setPayment();
 		$this->setShipping();
@@ -445,13 +442,12 @@ class ControllerExtensionPaymentKlarnaCheckout extends Controller {
 		$this->response->setOutput($this->load->view('extension/payment/klarna_checkout_sidebar', $data));
 	}
 
-	public function shippingAddress() {
+	public function shippingAddress(): void {
 		if (!$this->config->get('payment_klarna_checkout_status')) {
 			return false;
 		}
 		
-		$this->load->model('extension/payment/klarna_checkout');
-		
+		$this->load->model('extension/payment/klarna_checkout');		
 		$this->load->model('localisation/zone');
 
 		$json = array();
@@ -505,7 +501,7 @@ class ControllerExtensionPaymentKlarnaCheckout extends Controller {
 		$this->response->setOutput(json_encode($json));
 	}
 
-	public function cartTotal() {
+	public function cartTotal(): void {
 		$this->load->language('checkout/cart');
 
 		if (!$this->config->get('payment_klarna_checkout_status')) {
@@ -562,7 +558,7 @@ class ControllerExtensionPaymentKlarnaCheckout extends Controller {
 		$this->response->setOutput(json_encode($total));
 	}
 
-	public function addressUpdate() {
+	public function addressUpdate(): void {
 		if (!$this->config->get('payment_klarna_checkout_status')) {
 			return false;
 		}
@@ -571,12 +567,9 @@ class ControllerExtensionPaymentKlarnaCheckout extends Controller {
 		
 		$json = array();
 
-		$this->load->model('account/customer');
-		
-		$this->load->model('checkout/order');
-		
-		$this->load->model('extension/payment/klarna_checkout');
-		
+		$this->load->model('account/customer');		
+		$this->load->model('checkout/order');		
+		$this->load->model('extension/payment/klarna_checkout');		
 		$this->load->model('localisation/zone');
 
 		$process = true;
@@ -863,13 +856,12 @@ class ControllerExtensionPaymentKlarnaCheckout extends Controller {
 		$this->response->setOutput(json_encode($json));
 	}
 
-	public function notification() {
+	public function notification(): void {
 		if (!$this->config->get('payment_klarna_checkout_status')) {
 			return false;
 		}
 		
-		$this->load->model('extension/payment/klarna_checkout');
-		
+		$this->load->model('extension/payment/klarna_checkout');		
 		$this->load->model('checkout/order');
 
 		$request = json_decode(file_get_contents('php://input'));
@@ -914,7 +906,7 @@ class ControllerExtensionPaymentKlarnaCheckout extends Controller {
 		}
 	}
 
-	public function validation() {
+	public function validation(): void {
 		if (!$this->config->get('payment_klarna_checkout_status')) {
 			return false;
 		}
@@ -1139,7 +1131,7 @@ class ControllerExtensionPaymentKlarnaCheckout extends Controller {
 		$this->response->setOutput(json_encode($json));
 	}
 
-	public function confirmation() {
+	public function confirmation(): void {
 		if (!$this->config->get('payment_klarna_checkout_status')) {
 			return false;
 		}
@@ -1199,8 +1191,7 @@ class ControllerExtensionPaymentKlarnaCheckout extends Controller {
 		$data['footer'] = $this->load->controller('common/footer');
 		$data['header'] = $this->load->controller('common/header');
 
-		$this->load->model('extension/payment/klarna_checkout');
-		
+		$this->load->model('extension/payment/klarna_checkout');		
 		$this->load->model('checkout/order');
 
 		$klarna_checkout = false;
@@ -1246,13 +1237,12 @@ class ControllerExtensionPaymentKlarnaCheckout extends Controller {
 		$this->response->setOutput($this->load->view('extension/payment/klarna_checkout_success', $data));
 	}
 
-	public function push() {
+	public function push(): void {
 		if (!$this->config->get('payment_klarna_checkout_status')) {
 			return false;
 		}
 		
-		$this->load->model('extension/payment/klarna_checkout');
-		
+		$this->load->model('extension/payment/klarna_checkout');		
 		$this->load->model('checkout/order');
 
 		if (isset($this->request->get['klarna_order_id'])) {
@@ -1354,11 +1344,9 @@ class ControllerExtensionPaymentKlarnaCheckout extends Controller {
 		}
 	}
 
-	private function setPayment() {
-		$this->load->model('account/address');
-		
-		$this->load->model('localisation/country');
-		
+	private function setPayment(): void {
+		$this->load->model('account/address');		
+		$this->load->model('localisation/country');		
 		$this->load->model('localisation/zone');
 
 		if (isset($this->session->data['payment_address']) && $this->session->data['payment_address'] != '') {
@@ -1395,11 +1383,9 @@ class ControllerExtensionPaymentKlarnaCheckout extends Controller {
 		$this->tax->setStoreAddress($this->config->get('config_country_id'), $this->config->get('config_zone_id'));
 	}
 
-	private function setShipping() {
-		$this->load->model('account/address');
-		
-		$this->load->model('localisation/country');
-		
+	private function setShipping(): void {
+		$this->load->model('account/address');		
+		$this->load->model('localisation/country');		
 		$this->load->model('localisation/zone');
 
 		if (isset($this->session->data['shipping_address']) && $this->session->data['shipping_address'] != '') {

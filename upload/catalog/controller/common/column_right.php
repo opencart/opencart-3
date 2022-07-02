@@ -1,6 +1,6 @@
 <?php
 class ControllerCommonColumnRight extends Controller {
-	public function index() {
+	public function index(): void {
 		$this->load->model('design/layout');
 
 		if (isset($this->request->get['route'])) {

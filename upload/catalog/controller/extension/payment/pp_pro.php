@@ -1,6 +1,6 @@
 <?php
 class ControllerExtensionPaymentPPPro extends Controller {
-	public function index() {
+	public function index(): string {
 		$this->load->language('extension/payment/pp_pro');
 
 		$data['cards'] = array();
@@ -67,18 +67,18 @@ class ControllerExtensionPaymentPPPro extends Controller {
 		return $this->load->view('extension/payment/pp_pro', $data);
 	}
 
-	public function send() {
+	public function send(): void {
+		if (!isset($this->session->data['order_id'])) {
+			return false;
+		}
+		
 		if (!$this->config->get('payment_pp_pro_transaction')) {
 			$payment_type = 'Authorization';
 		} else {
 			$payment_type = 'Sale';
-		}
+		}		
 
 		$this->load->model('checkout/order');
-
-		if (!isset($this->session->data['order_id'])) {
-			return false;
-		}
 
 		$order_info = $this->model_checkout_order->getOrder($this->session->data['order_id']);
 

@@ -1,6 +1,6 @@
 <?php
 class ControllerExtensionPaymentPaymate extends Controller {
-	public function index() {
+	public function index(): string {
 		if (!$this->config->get('payment_paymate_test')) {
 			$data['action'] = 'https://www.paymate.com/PayMate/ExpressPayment';
 		} else {
@@ -38,7 +38,7 @@ class ControllerExtensionPaymentPaymate extends Controller {
 		return $this->load->view('extension/payment/paymate', $data);
 	}
 
-	public function callback() {
+	public function callback(): void {
 		$this->load->language('extension/payment/paymate');
 
 		if (isset($this->request->post['ref'])) {

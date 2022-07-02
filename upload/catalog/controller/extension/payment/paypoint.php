@@ -1,6 +1,6 @@
 <?php
 class ControllerExtensionPaymentPaypoint extends Controller {
-	public function index() {
+	public function index(): string {
 		$data['button_confirm'] = $this->language->get('button_confirm');
 
 		$this->load->model('checkout/order');
@@ -70,7 +70,7 @@ class ControllerExtensionPaymentPaypoint extends Controller {
 		return $this->load->view('extension/payment/paypoint', $data);
 	}
 
-	public function callback() {
+	public function callback(): void {
 		if (isset($this->request->get['trans_id'])) {
 			$order_id = $this->request->get['trans_id'];
 		} else {

@@ -1,6 +1,6 @@
 <?php
 class ControllerExtensionModuleSlideshow extends Controller {
-	public function index($setting) {
+	public function index(array $setting): string {
 		static $module = 0;		
 
 		$this->load->model('design/banner');

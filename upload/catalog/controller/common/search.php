@@ -1,6 +1,6 @@
 <?php
 class ControllerCommonSearch extends Controller {
-	public function index() {
+	public function index(): string {
 		$this->load->language('common/search');
 
 		$data['text_search'] = $this->language->get('text_search');

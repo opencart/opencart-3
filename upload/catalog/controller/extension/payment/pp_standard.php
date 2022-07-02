@@ -1,6 +1,6 @@
 <?php
 class ControllerExtensionPaymentPPStandard extends Controller {
-	public function index() {
+	public function index(): string {
 		$this->load->language('extension/payment/pp_standard');
 
 		$data['testmode'] = $this->config->get('payment_pp_standard_test');
@@ -90,11 +90,13 @@ class ControllerExtensionPaymentPPStandard extends Controller {
 				$data['address1'] = $order_info['shipping_address_1'];
 				$data['address2'] = $order_info['shipping_address_2'];
 				$data['city'] = $order_info['shipping_city'];
+				
 				if (in_array($order_info['shipping_iso_code_2'], $ship_to_state_codes)) {
 					$data['state'] = $order_info['shipping_zone_code'];
 				} else {
 					$data['state'] = $order_info['shipping_zone'];
 				}
+				
 				$data['zip'] = $order_info['shipping_postcode'];
 				$data['country'] = $order_info['shipping_iso_code_2'];
 			} else {
@@ -105,11 +107,13 @@ class ControllerExtensionPaymentPPStandard extends Controller {
 				$data['address1'] = $order_info['payment_address_1'];
 				$data['address2'] = $order_info['payment_address_2'];
 				$data['city'] = $order_info['payment_city'];
+				
 				if (in_array($order_info['payment_iso_code_2'], $ship_to_state_codes)) {
 					$data['state'] = $order_info['payment_zone_code'];
 				} else {
 					$data['state'] = $order_info['payment_zone'];
 				}
+				
 				$data['zip'] = $order_info['payment_postcode'];
 				$data['country'] = $order_info['payment_iso_code_2'];
 			}
@@ -134,7 +138,7 @@ class ControllerExtensionPaymentPPStandard extends Controller {
 		}
 	}
 
-	public function callback() {
+	public function callback(): void {
 		if (isset($this->request->post['custom'])) {
 			$order_id = $this->request->post['custom'];
 		} else {

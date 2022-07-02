@@ -1,6 +1,6 @@
 <?php
 class ControllerApiVoucher extends Controller {
-	public function index() {
+	public function index(): void {
 		$this->load->language('api/voucher');
 
 		// Delete past voucher in case there is an error
@@ -34,7 +34,7 @@ class ControllerApiVoucher extends Controller {
 		$this->response->setOutput(json_encode($json));
 	}
 
-	public function add() {
+	public function add(): void {
 		$this->load->language('api/voucher');
 
 		$json = array();

@@ -1,6 +1,6 @@
 <?php
 class ControllerExtensionPaymentTwoCheckout extends Controller {
-	public function index() {
+	public function index(): string {
 		$data['button_confirm'] = $this->language->get('button_confirm');
 
 		$this->load->model('checkout/order');
@@ -79,7 +79,7 @@ class ControllerExtensionPaymentTwoCheckout extends Controller {
 		return $this->load->view('extension/payment/twocheckout', $data);
 	}
 
-	public function callback() {
+	public function callback(): void {
 		$this->load->model('checkout/order');
 
 		$order_info = $this->model_checkout_order->getOrder($this->request->post['cart_order_id']);

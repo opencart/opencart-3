@@ -1,6 +1,6 @@
 <?php
 class ControllerCheckoutFailure extends Controller {
-	public function index() {
+	public function index(): void {
 		$this->load->language('checkout/failure');
 
 		$this->document->setTitle($this->language->get('heading_title'));

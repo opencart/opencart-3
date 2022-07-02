@@ -2,7 +2,7 @@
 class ControllerProductProduct extends Controller {
 	private $error = array();
 
-	public function index() {
+	public function index(): void {
 		$this->load->language('product/product');
 
 		$data['breadcrumbs'] = array();
@@ -541,7 +541,7 @@ class ControllerProductProduct extends Controller {
 		}
 	}
 
-	public function review() {
+	public function review(): void {
 		$this->load->language('product/product');
 
 		$this->load->model('catalog/review');
@@ -580,7 +580,7 @@ class ControllerProductProduct extends Controller {
 		$this->response->setOutput($this->load->view('product/review', $data));
 	}
 
-	public function write() {
+	public function write(): void {
 		$this->load->language('product/product');
 
 		$json = array();
@@ -636,7 +636,7 @@ class ControllerProductProduct extends Controller {
 		$this->response->setOutput(json_encode($json));
 	}
 
-	public function getSubscriptionDescription() {
+	public function getSubscriptionDescription(): void {
 		$this->load->language('product/product');
 		
 		$json = array();

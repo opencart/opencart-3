@@ -1,6 +1,6 @@
 <?php
 class ControllerExtensionModuleKlarnaCheckoutModule extends Controller {
-	public function index() {
+	public function index(): string {
 		$this->load->model('extension/payment/klarna_checkout');
 
 		// If Payment Method or Module is disabled

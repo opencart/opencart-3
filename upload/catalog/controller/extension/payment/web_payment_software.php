@@ -1,6 +1,6 @@
 <?php
 class ControllerExtensionPaymentWebPaymentSoftware extends Controller {
-	public function index() {
+	public function index(): string {
 		$this->load->language('extension/payment/web_payment_software');
 
 		$data['months'] = array();
@@ -26,7 +26,7 @@ class ControllerExtensionPaymentWebPaymentSoftware extends Controller {
 		return $this->load->view('extension/payment/web_payment_software', $data);
 	}
 
-	public function send() {
+	public function send(): void {
 		if (!isset($this->session->data['order_id'])) {
 			return false;
 		}

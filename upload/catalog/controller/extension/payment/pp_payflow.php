@@ -1,6 +1,6 @@
 <?php
 class ControllerExtensionPaymentPPPayflow extends Controller {
-	public function index() {
+	public function index(): string {
 		$this->load->language('extension/payment/pp_payflow');
 
 		$this->load->model('checkout/order');
@@ -67,7 +67,7 @@ class ControllerExtensionPaymentPPPayflow extends Controller {
 		return $this->load->view('extension/payment/pp_payflow', $data);
 	}
 
-	public function send() {
+	public function send(): void {
 		$this->load->language('extension/payment/pp_payflow');
 
 		$this->load->model('checkout/order');

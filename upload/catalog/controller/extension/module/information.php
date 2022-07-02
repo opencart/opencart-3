@@ -1,6 +1,6 @@
 <?php
 class ControllerExtensionModuleInformation extends Controller {
-	public function index() {
+	public function index(): string {
 		$this->load->language('extension/module/information');
 
 		$this->load->model('catalog/information');

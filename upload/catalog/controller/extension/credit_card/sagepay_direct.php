@@ -1,6 +1,6 @@
 <?php
 class ControllerExtensionCreditCardSagepayDirect extends Controller {
-	public function index() {
+	public function index(): void {
 		if (!$this->customer->isLogged()) {
 			$this->session->data['redirect'] = $this->url->link('account/account', '', true);
 
@@ -81,7 +81,7 @@ class ControllerExtensionCreditCardSagepayDirect extends Controller {
 		$this->response->setOutput($this->load->view('extension/credit_card/sagepay_direct_list', $data));
 	}
 
-	public function add() {
+	public function add(): void {
 		if (!$this->customer->isLogged()) {
 			$this->session->data['redirect'] = $this->url->link('account/account', '', true);
 
@@ -195,7 +195,7 @@ class ControllerExtensionCreditCardSagepayDirect extends Controller {
 		$this->response->setOutput($this->load->view('extension/credit_card/sagepay_direct_form', $data));
 	}
 
-	public function delete() {
+	public function delete(): void {
 		$this->load->language('extension/credit_card/sagepay_direct');
 		
 		$this->load->model('extension/payment/sagepay_direct');
@@ -230,7 +230,7 @@ class ControllerExtensionCreditCardSagepayDirect extends Controller {
 		$this->response->redirect($this->url->link('acredit_card/sagepay_direct', '', true));
 	}
 
-	public function addCard() {
+	public function addCard(): void {
 		$this->load->language('extension/credit_card/sagepay_direct');
 		
 		$this->load->model('checkout/order');

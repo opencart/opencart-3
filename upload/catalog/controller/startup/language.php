@@ -1,6 +1,6 @@
 <?php
 class ControllerStartupLanguage extends Controller {
-	public function index() {
+	public function index(): void {
 		// Language
 		$code = '';
 		
@@ -63,7 +63,7 @@ class ControllerStartupLanguage extends Controller {
 		}
 				
 		// Overwrite the default language object
-		$language = new Language($code);
+		$language = new \Language($code);
 		$language->load($code);
 		
 		$this->registry->set('language', $language);

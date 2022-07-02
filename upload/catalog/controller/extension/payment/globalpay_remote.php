@@ -1,6 +1,6 @@
 <?php
 class ControllerExtensionPaymentGlobalpayRemote extends Controller {
-	public function index() {
+	public function index(): string {
 		$this->load->language('extension/payment/globalpay_remote');
 
 		$accounts = $this->config->get('payment_globalpay_remote_account');
@@ -48,13 +48,12 @@ class ControllerExtensionPaymentGlobalpayRemote extends Controller {
 		return $this->load->view('extension/payment/globalpay_remote', $data);
 	}
 
-	public function send() {
+	public function send(): void {
 		$this->load->language('extension/payment/globalpay_remote');
 		
 		$json = array();
 		
-		$this->load->model('checkout/order');
-		
+		$this->load->model('checkout/order');		
 		$this->load->model('extension/payment/globalpay_remote');
 
 		if ($this->request->post['cc_number'] == '') {
@@ -219,10 +218,9 @@ class ControllerExtensionPaymentGlobalpayRemote extends Controller {
 		$this->response->setOutput(json_encode($json));
 	}
 
-	public function acsReturn() {
+	public function acsReturn(): void {
 		if (isset($this->session->data['order_id'])) {
-			$this->load->model('checkout/order');
-			
+			$this->load->model('checkout/order');			
 			$this->load->model('extension/payment/globalpay_remote');
 
 			$post = $this->request->post;

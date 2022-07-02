@@ -1,6 +1,6 @@
 <?php
 class ControllerCheckoutRegister extends Controller {
-	public function index() {
+	public function index(): void {
 		$this->load->language('checkout/checkout');
 		
 		$data['entry_newsletter'] = sprintf($this->language->get('entry_newsletter'), $this->config->get('config_name'));
@@ -76,7 +76,7 @@ class ControllerCheckoutRegister extends Controller {
 		$this->response->setOutput($this->load->view('checkout/register', $data));
 	}
 
-	public function save() {
+	public function save(): void {
 		$this->load->language('checkout/checkout');
 
 		$json = array();

@@ -1,6 +1,6 @@
 <?php
 class ControllerExtensionPaymentWorldpay extends Controller {
-	public function index() {
+	public function index(): string {
 		$this->load->language('extension/payment/worldpay');
 
 		$data['worldpay_script'] = 'https://cdn.worldpay.com/v1/worldpay.js';
@@ -31,13 +31,11 @@ class ControllerExtensionPaymentWorldpay extends Controller {
 		return $this->load->view('extension/payment/worldpay', $data);
 	}
 
-	public function send() {
+	public function send(): void {
 		$this->load->language('extension/payment/worldpay');
 		
-		$this->load->model('checkout/order');
-		
-		$this->load->model('localisation/country');
-		
+		$this->load->model('checkout/order');		
+		$this->load->model('localisation/country');		
 		$this->load->model('extension/payment/worldpay');
 
 		if (!isset($this->session->data['order_id'])) {
@@ -123,7 +121,7 @@ class ControllerExtensionPaymentWorldpay extends Controller {
 		}
 	}
 
-	public function deleteCard() {
+	public function deleteCard(): void {
 		$this->load->language('extension/payment/worldpay');
 		
 		$json = array();
@@ -148,9 +146,10 @@ class ControllerExtensionPaymentWorldpay extends Controller {
 		$this->response->setOutput(json_encode($json));
 	}
 
-	public function webhook() {
+	public function webhook(): void {
 		if (isset($this->request->get['token']) && hash_equals($this->config->get('payment_worldpay_secret_token'), $this->request->get['token'])) {
 			$this->load->model('extension/payment/worldpay');
+			
 			$message = json_decode(file_get_contents('php://input'), true);
 
 			if (isset($message['orderCode'])) {
@@ -198,7 +197,7 @@ class ControllerExtensionPaymentWorldpay extends Controller {
 		$this->response->addHeader('Content-Type: application/json');
 	}
 
-	public function cron() {
+	public function cron(): void {
 		if ($this->request->get['token'] == $this->config->get('payment_worldpay_secret_token')) {
 			$this->load->model('extension/payment/worldpay');
 

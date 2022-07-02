@@ -1,6 +1,6 @@
 <?php
 class ControllerExtensionCaptchaGoogle extends Controller {
-    public function index($error = array()) {
+    public function index($error = array()): string {
         $this->load->language('extension/captcha/google');
 
         if (isset($error['captcha'])) {
@@ -16,7 +16,7 @@ class ControllerExtensionCaptchaGoogle extends Controller {
 		return $this->load->view('extension/captcha/google', $data);
     }
 
-    public function validate() {
+    public function validate(): void {
 		if (empty($this->session->data['gcapcha'])) {
 			$this->load->language('extension/captcha/google');
 

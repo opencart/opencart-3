@@ -1,6 +1,6 @@
 <?php
 class ControllerExtensionPaymentBluePayHosted extends Controller {
-	public function index() {
+	public function index(): string {
 		$this->load->language('extension/payment/bluepay_hosted');
 		
 		$this->load->model('checkout/order');
@@ -57,11 +57,10 @@ class ControllerExtensionPaymentBluePayHosted extends Controller {
 		return $this->load->view('extension/payment/bluepay_hosted', $data);
 	}
 
-	public function callback() {
+	public function callback(): void {
 		$this->load->language('extension/payment/bluepay_hosted');
 
-		$this->load->model('checkout/order');
-		
+		$this->load->model('checkout/order');		
 		$this->load->model('extension/payment/bluepay_hosted');
 
 		$response_data = $this->request->get;
@@ -91,7 +90,7 @@ class ControllerExtensionPaymentBluePayHosted extends Controller {
 		}
 	}
 
-	public function adminCallback() {
+	public function adminCallback(): void {
 		$this->response->addHeader('Content-Type: application/json');
 		$this->response->setOutput(json_encode($this->request->get));
 	}

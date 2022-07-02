@@ -1,6 +1,6 @@
 <?php
 class ControllerExtensionModuleCategory extends Controller {
-	public function index() {
+	public function index(): string {
 		$this->load->language('extension/module/category');
 
 		if (isset($this->request->get['path'])) {

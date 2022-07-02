@@ -1,6 +1,6 @@
 <?php
 class ControllerExtensionModuleLaybuyLayout extends Controller {
-	public function index() {
+	public function index(): string {
 		$this->load->model('extension/module/laybuy_layout');
 
 		$status = $this->config->get('module_laybuy_layout_status');

@@ -1,6 +1,6 @@
 <?php
 class ControllerExtensionPaymentAlipay extends Controller {
-	public function index() {
+	public function index(): string {
 		$data['button_confirm'] = $this->language->get('button_confirm');
 
 		$this->load->model('checkout/order');
@@ -48,7 +48,7 @@ class ControllerExtensionPaymentAlipay extends Controller {
 		return $this->load->view('extension/payment/alipay', $data);
 	}
 
-	public function callback() {
+	public function callback(): string {
 		$this->log->write('alipay pay notify:');
 		
 		$this->load->model('extension/payment/alipay');

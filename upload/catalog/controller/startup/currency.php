@@ -1,6 +1,6 @@
 <?php
 class ControllerStartupCurrency extends Controller {
-	public function index() {
+	public function index(): void {
 		$code = '';
 
 		$this->load->model('localisation/currency');

@@ -1,9 +1,9 @@
 <?php
 class ControllerExtensionPaymentPPBraintree extends Controller {
-	private $customer_id_prefix = 'braintree_oc_';
-	private $gateway = null;
+	private string $customer_id_prefix = 'braintree_oc_';
+	private string $gateway = null;
 
-	public function index() {
+	public function index(): string {
 		$this->initialise();
 
 		$this->load->language('extension/payment/pp_braintree');
@@ -140,15 +140,14 @@ class ControllerExtensionPaymentPPBraintree extends Controller {
 		return $this->load->view('extension/payment/pp_braintree', $data);
 	}
 
-	public function payment() {
+	public function payment(): void {
 		//set_time_limit(120);
 
 		$this->initialise();
 
 		$this->load->language('extension/payment/pp_braintree');
 
-		$this->load->model('checkout/order');
-		
+		$this->load->model('checkout/order');		
 		$this->load->model('extension/payment/pp_braintree');
 
 		$this->model_extension_payment_pp_braintree->log('Starting payment');
@@ -347,6 +346,7 @@ class ControllerExtensionPaymentPPBraintree extends Controller {
 				}
 			}
 		}
+		
 		$this->model_extension_payment_pp_braintree->log("Success:" . (int)$success);
 
 		// Create transaction
@@ -456,7 +456,7 @@ class ControllerExtensionPaymentPPBraintree extends Controller {
 		$this->response->setOutput(json_encode($json));
 	}
 
-	public function remove() {
+	public function remove(): void {
 		$this->initialise();
 
 		$this->load->language('extension/payment/pp_braintree');
@@ -500,7 +500,7 @@ class ControllerExtensionPaymentPPBraintree extends Controller {
 		$this->response->setOutput(json_encode($json));
 	}
 
-	public function expressSetup() {
+	public function expressSetup(): void {
 		// check checkout can continue due to stock checks or vouchers
 		if ((!$this->cart->hasProducts() && empty($this->session->data['vouchers'])) || (!$this->cart->hasStock() && !$this->config->get('config_stock_checkout'))) {
 			$json = array();
@@ -752,17 +752,15 @@ class ControllerExtensionPaymentPPBraintree extends Controller {
 		$this->response->setOutput(json_encode($json));
 	}
 
-	public function expressConfirm() {
+	public function expressConfirm(): void {
 		if (!isset($this->session->data['paypal_braintree']) || !isset($this->session->data['paypal_braintree']['nonce'])) {
 			$this->response->redirect($this->url->link('checkout/cart', '', true));
 		}
 
-		$this->load->language('extension/payment/pp_braintree');
-		
+		$this->load->language('extension/payment/pp_braintree');		
 		$this->load->language('checkout/cart');
 
-		$this->load->model('tool/image');
-		
+		$this->load->model('tool/image');		
 		$this->load->model('extension/payment/pp_braintree');
 
 		// Coupon
@@ -1138,7 +1136,7 @@ class ControllerExtensionPaymentPPBraintree extends Controller {
 		$this->response->setOutput($this->load->view('extension/payment/pp_braintree_confirm', $data));
 	}
 
-	public function expressComplete() {
+	public function expressComplete(): void {
 		if (!isset($this->session->data['paypal_braintree']) || !isset($this->session->data['paypal_braintree']['nonce'])) {
 			$this->response->redirect($this->url->link('checkout/cart', '', true));
 		}
@@ -1473,14 +1471,12 @@ class ControllerExtensionPaymentPPBraintree extends Controller {
 				$data['accept_language'] = '';
 			}
 
+			$this->load->model('extension/payment/pp_braintree');
 			$this->load->model('account/custom_field');
-			
 			$this->load->model('checkout/order');
 
 			$order_id = $this->model_checkout_order->addOrder($data);
 			$this->session->data['order_id'] = $order_id;
-
-			$this->load->model('extension/payment/pp_braintree');
 
 			$this->initialise();
 
