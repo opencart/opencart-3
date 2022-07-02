@@ -1,6 +1,6 @@
 <?php
 class ControllerExtensionPaymentSquareup extends Controller {
-    private $error = array();
+    private array $error = array();
 
     public function index(): void {
         $this->load->language('extension/payment/squareup');

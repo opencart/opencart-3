@@ -1,7 +1,7 @@
 <?php
 class ControllerExtensionModuleAmazonPay extends Controller {
-	private $version = '3.2.1';
-	private $error = array();
+	private string $version = '3.2.1';
+	private array $error = array();
 
 	public function index(): void {
 		$this->load->language('extension/module/amazon_pay');

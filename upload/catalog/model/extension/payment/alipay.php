@@ -1,20 +1,20 @@
 <?php
 class ModelExtensionPaymentAlipay extends Model {
-	private $apiMethodName="alipay.trade.page.pay";
-	private $postCharset = "UTF-8";
-	private $alipaySdkVersion = "alipay-sdk-php-20161101";
-	private $apiVersion="1.0";
-	private $logFileName = "alipay.log";
-	private $gateway_url = "https://openapi.alipay.com/gateway.do";
-	private $alipay_public_key;
-	private $private_key;
-	private $appid;
-	private $notifyUrl;
-	private $returnUrl;
-	private $format = "json";
-	private $signtype = "RSA2";
+	private string $apiMethodName = 'alipay.trade.page.pay';
+	private string $postCharset = 'UTF-8';
+	private string $alipaySdkVersion = 'alipay-sdk-php-20161101';
+	private string $apiVersion = '1.0';
+	private string $logFileName = 'alipay.log';
+	private string $gateway_url = 'https://openapi.alipay.com/gateway.do';
+	private string $alipay_public_key;
+	private string $private_key;
+	private string $appid;
+	private string $notifyUrl;
+	private string $returnUrl;
+	private string $format = "json";
+	private string $signtype = "RSA2";
 
-	private $apiParas = array();
+	private array $apiParas = array();
 
 	public function getMethod($address, $total) {
 		$this->load->language('extension/payment/alipay');

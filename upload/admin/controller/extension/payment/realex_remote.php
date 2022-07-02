@@ -1,6 +1,6 @@
 <?php
 class ControllerExtensionPaymentRealexRemote extends Controller {
-	private $error = array();
+	private array $error = array();
 
 	public function index(): void {
 		$this->load->language('extension/payment/realex_remote');

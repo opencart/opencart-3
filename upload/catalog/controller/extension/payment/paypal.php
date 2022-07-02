@@ -1,6 +1,6 @@
 <?php
 class ControllerExtensionPaymentPayPal extends Controller {
-	private $error = array();
+	private array $error = array();
 		
 	public function __construct($registry) {
 		parent::__construct($registry);

@@ -1,6 +1,6 @@
 <?php
 class ControllerExtensionPaymentAmazonLoginPay extends Controller {
-    private $version = "3.2.1";
+    private string $version = '3.2.1';
 	
     public function session_expired(): void {
         $this->load->language('extension/payment/amazon_login_pay');

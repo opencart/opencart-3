@@ -1,6 +1,6 @@
 <?php
 class ControllerLocalisationWeightClass extends Controller {
-	private $error = array();
+	private array $error = array();
 
 	public function index(): void {
 		$this->load->language('localisation/weight_class');

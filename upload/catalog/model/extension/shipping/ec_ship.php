@@ -527,11 +527,11 @@ class ModelExtensionShippingECShip extends Model {
 }
 
 class api01Req {
-	private $ecshipUsername;
-	private $integratorUsername;
-	private $countryCode;
-	private $shipCode;
-	private $weight;
+	private string $ecshipUsername;
+	private string $integratorUsername;
+	private string $countryCode;
+	private string $shipCode;
+	private float $weight;
 
     function __construct($ecshipUsername, $integratorUsername, $countryCode, $shipCode, $weight) {
 		$this->ecshipUsername 		= $ecshipUsername;

@@ -1,6 +1,6 @@
 <?php
 class ControllerExtensionModuleSagepayDirectCards extends Controller {
-	private $error = array();
+	private array $error = array();
 
 	public function index(): void {
 		$this->load->language('extension/module/sagepay_direct_cards');

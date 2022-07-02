@@ -1,6 +1,6 @@
 <?php
 class ControllerAccountRegister extends Controller {
-	private $error = array();
+	private array $error = array();
 
 	public function index(): void {
 		if ($this->customer->isLogged()) {

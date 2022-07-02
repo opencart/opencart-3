@@ -1,6 +1,6 @@
 <?php
 class ControllerExtensionAnalyticsGoogle extends Controller {
-	private $error = array();
+	private array $error = array();
 
 	public function index(): void {
 		$this->load->language('extension/analytics/google');

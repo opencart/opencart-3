@@ -1,6 +1,6 @@
 <?php
 class ControllerUserUser extends Controller {
-	private $error = array();
+	private array $error = array();
 
 	public function index(): void {
 		$this->load->language('user/user');
