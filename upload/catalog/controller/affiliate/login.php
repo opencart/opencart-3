@@ -3,7 +3,7 @@ class ControllerAffiliateLogin extends Controller {
 	private array $error = array();
 
 	public function index(): void {
-		if ($this->customer->isLogged()) {
+		if (!$this->customer->isLogged() || (!isset($this->request->get['customer_token']) || !isset($this->session->data['customer_token']) || ($this->request->get['customer_token'] != $this->session->data['customer_token']))) {
 			$this->response->redirect($this->url->link('account/account', '', true));
 		}
 
@@ -31,12 +31,12 @@ class ControllerAffiliateLogin extends Controller {
 
 		$data['breadcrumbs'][] = array(
 			'text' => $this->language->get('text_account'),
-			'href' => $this->url->link('account/account', '', true)
+			'href' => $this->url->link('account/account', 'customer_token=' . $this->session->data['customer_token'], true)
 		);
 
 		$data['breadcrumbs'][] = array(
 			'text' => $this->language->get('text_login'),
-			'href' => $this->url->link('affiliate/login', '', true)
+			'href' => $this->url->link('affiliate/login', 'customer_token=' . $this->session->data['customer_token'], true)
 		);
 
 		$data['text_description'] = sprintf($this->language->get('text_description'), $this->config->get('config_name'), $this->config->get('config_name'), $this->config->get('config_affiliate_commission') . '%');
@@ -47,9 +47,9 @@ class ControllerAffiliateLogin extends Controller {
 			$data['error_warning'] = '';
 		}
 
-		$data['action'] = $this->url->link('affiliate/login', '', true);
-		$data['register'] = $this->url->link('affiliate/register', '', true);
-		$data['forgotten'] = $this->url->link('account/forgotten', '', true);
+		$data['action'] = $this->url->link('affiliate/login', 'customer_token=' . $this->session->data['customer_token'], true);
+		$data['register'] = $this->url->link('affiliate/register', 'customer_token=' . $this->session->data['customer_token'], true);
+		$data['forgotten'] = $this->url->link('account/forgotten', 'customer_token=' . $this->session->data['customer_token'], true);
 
 		if (isset($this->request->post['redirect'])) {
 			$data['redirect'] = $this->request->post['redirect'];

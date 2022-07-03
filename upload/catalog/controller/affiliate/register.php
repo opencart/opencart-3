@@ -3,7 +3,7 @@ class ControllerAffiliateRegister extends Controller {
 	private array $error = array();
 
 	public function index(): void {
-		if ($this->customer->isLogged()) {
+		if (!$this->customer->isLogged() || (!isset($this->request->get['customer_token']) || !isset($this->session->data['customer_token']) || ($this->request->get['customer_token'] != $this->session->data['customer_token']))) {
 			$this->response->redirect($this->url->link('account/account', '', true));
 		}
 
@@ -48,7 +48,7 @@ class ControllerAffiliateRegister extends Controller {
 			'href' => $this->url->link('affiliate/register', '', true)
 		);
 
-		$data['text_account_already'] = sprintf($this->language->get('text_account_already'), $this->url->link('affiliate/login', '', true));
+		$data['text_account_already'] = sprintf($this->language->get('text_account_already'), $this->url->link('affiliate/login', 'customer_token=' . $this->session->data['customer_token'], true));
 
 		if (isset($this->error['warning'])) {
 			$data['error_warning'] = $this->error['warning'];
