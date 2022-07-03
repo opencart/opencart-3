@@ -25,7 +25,7 @@ class MySQLi {
 			$query = $this->connection->query($sql);
 
 			if ($query instanceof \mysqli_result) {
-				$data = [];
+				$data = array();
 
 				while ($row = $query->fetch_assoc()) {
 					$data[] = $row;

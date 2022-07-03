@@ -66,8 +66,6 @@ class ControllerExtensionPaymentPPExpress extends Controller {
 		$max_amount = $this->cart->getTotal() * 1.5;
 		$max_amount = $this->currency->format($max_amount, $this->session->data['currency'], '', false);
 		
-		$post_data = array();
-
 		$post_data = array(
 			'METHOD'             => 'SetExpressCheckout',
 			'MAXAMT'             => $max_amount,
@@ -1325,8 +1323,6 @@ class ControllerExtensionPaymentPPExpress extends Controller {
 			$shipping = 1;			
 		}
 		
-		$post_data = array();
-
 		$post_data = array(
 			'METHOD'             => 'SetExpressCheckout',
 			'MAXAMT'             => $max_amount,

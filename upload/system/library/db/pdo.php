@@ -29,7 +29,7 @@ class PDO {
 
 		try {
 			if ($statement && $statement->execute($this->data)) {
-				$this->data = [];
+				$this->data = array();
 
 				if ($statement->columnCount()) {
 					$data = $statement->fetchAll(\PDO::FETCH_ASSOC);

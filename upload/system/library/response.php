@@ -14,7 +14,7 @@
  *
 */
 class Response {
-	private array $headers = [];
+	private array $headers = array();
 	private int $level = 0;
 	private string $output = '';
 

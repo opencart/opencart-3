@@ -219,8 +219,6 @@ class ModelExtensionPaymentCardConnect extends Model {
 		$this->log('Posting refund to CardConnect');
 		$this->log('Order ID: ' . $order_info['order_id']);
 		
-		$post_data = array();
-
 		$post_data = array(
 			'merchid'   => $this->config->get('payment_cardconnect_merchant_id'),
 			'amount'    => round(floatval($amount), 2, PHP_ROUND_HALF_DOWN),
@@ -271,8 +269,6 @@ class ModelExtensionPaymentCardConnect extends Model {
 		$this->log('Posting void to CardConnect');
 		$this->log('Order ID: ' . $order_info['order_id']);
 		
-		$post_data = array();
-
 		$post_data = array(
 			'merchid'   => $this->config->get('payment_cardconnect_merchant_id'),
 			'amount'    => 0,

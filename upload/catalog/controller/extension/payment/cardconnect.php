@@ -109,8 +109,6 @@ class ControllerExtensionPaymentCardConnect extends Controller {
 							$order_status_id = $this->config->get('payment_cardconnect_order_status_id_pending');
 						}
 						
-						$post_data = array();
-
 						$post_data = array(
 							'merchid'    => $this->config->get('payment_cardconnect_merchant_id'),
 							'accttype'   => $accttype,

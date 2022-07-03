@@ -19,7 +19,7 @@ class Mail {
 	protected string $subject = '';
 	protected string $text = '';
 	protected string $html = '';
-	protected array $attachments = [];
+	protected array $attachments = array();
 
 	/**
 	 * Constructor
@@ -134,7 +134,7 @@ class Mail {
 			throw new \Exception('Error: E-Mail message required!');
 		}
 
-		$mail_data = [];
+		$mail_data = array();
 
 		foreach (get_object_vars($this) as $key => $value) $mail_data[$key] = $value;
 

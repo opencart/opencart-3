@@ -8,7 +8,7 @@ class Mail {
 	protected string $subject = '';
 	protected string $text = '';
 	protected string $html = '';
-	protected array $attachments = [];
+	protected array $attachments = array();
 	protected string $parameter;
 
 	public function __construct(array $args) {

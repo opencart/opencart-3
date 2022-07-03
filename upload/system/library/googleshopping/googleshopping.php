@@ -1343,9 +1343,7 @@ class Googleshopping extends Library {
 
         $post = array();
 		
-		$post_data = array();
-		
-        $post_data = array(
+		$post_data = array(
             'product_ids' => $product_ids
         );
 

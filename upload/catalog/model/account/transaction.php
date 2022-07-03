@@ -3,8 +3,6 @@ class ModelAccountTransaction extends Model {
 	public function getTransactions(array $data = array()): array {
 		$sql = "SELECT * FROM `" . DB_PREFIX . "customer_transaction` WHERE `customer_id` = '" . (int)$this->customer->getId() . "'";
 		
-		$sort_data = array();
-
 		$sort_data = array(
 			'amount',
 			'description',

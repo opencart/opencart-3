@@ -8,7 +8,7 @@ class Smtp {
 	protected string $subject = '';
 	protected string $text = '';
 	protected string $html = '';
-	protected array $attachments = [];
+	protected array $attachments = array();
 	protected string $smtp_hostname = '';
 	protected string $smtp_username = '';
 	protected string $smtp_password = '';
