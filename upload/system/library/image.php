@@ -11,12 +11,12 @@
 * Image class
 */
 class Image {
-	private int $width;
-	private int $height;
+	private int $width = 0;
+	private int $height = 0;
 	private string $file;
-	private string $image;	
-	private string $bits;
-	private string $mime;
+	private object $image;	
+	private string $bits = '';
+	private string $mime = '';
 
 	/**
 	 * Constructor
