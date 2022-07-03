@@ -3,8 +3,7 @@ class ControllerExtensionModuleCarousel extends Controller {
 	public function index(array $setting): string {
 		static $module = 0;
 
-		$this->load->model('design/banner');
-		
+		$this->load->model('design/banner');		
 		$this->load->model('tool/image');
 		
 		$this->document->addStyle('catalog/view/javascript/jquery/swiper/css/swiper.min.css');

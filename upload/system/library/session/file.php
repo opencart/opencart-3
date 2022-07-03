@@ -1,7 +1,7 @@
 <?php
 namespace Session;
 class File {
-	public function __construct($registry) {
+	public function __construct(\Opencart\System\Engine\Registry $registry) {
 		$this->config = $registry->get('config');
 	}
 
@@ -24,11 +24,11 @@ class File {
 
 				return json_decode($data, true);
 			} else {
-				return array();
+				return [];
 			}
 		}
 
-		return array();
+		return [];
 	}
 
 	public function write(string $session_id, array $data): bool {

@@ -1,7 +1,7 @@
 <?php
 namespace Session;
 class DB {
-	public function __construct($registry) {
+	public function __construct(object $registry) {
 		$this->db = $registry->get('db');
 		$this->config = $registry->get('config');
 	}
@@ -12,7 +12,7 @@ class DB {
 		if ($query->num_rows) {
 			return json_decode($query->row['data'], true);
 		} else {
-			return [];
+			return array();
 		}
 	}
 

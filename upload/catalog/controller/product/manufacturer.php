@@ -52,7 +52,7 @@ class ControllerProductManufacturer extends Controller {
 		$this->response->setOutput($this->load->view('product/manufacturer_list', $data));
 	}
 
-	public function info() {
+	public function info(): void {
 		$this->load->language('product/manufacturer');
 
 		$this->load->model('catalog/manufacturer');		

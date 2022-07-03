@@ -1,7 +1,7 @@
 <?php
 class ControllerExtensionModuleFraudlabspro extends Controller {
 	// catalog/model/checkout/order/addOrderHistory/after
-	public function addOrderHistory(string &$route, array &$args, srring &$output): void {
+	public function addOrderHistory(string &$route, array &$args, mixed &$output): void {
 		if (isset($args[0])) {
 			$order_id = $args[0];
 		} else {
@@ -35,7 +35,7 @@ class ControllerExtensionModuleFraudlabspro extends Controller {
 		}
 	}
 	
-	private function getStatus($order_id, $order_status_id, $notify) {
+	protected function getStatus($order_id, $order_status_id, $notify) {
 		// Only pull the comment if we don't notify the customer and when there's an order status ID 
 		// for service information security purposes between store owners and the customers.
 		if ($this->config->get('fraud_fraudlabspro_status')) {

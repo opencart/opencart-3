@@ -48,7 +48,7 @@ class ModelCustomerCustomerApproval extends Model {
 		return $query->row;
 	}
 	
-	public function getTotalCustomerApprovals($data = array()) {
+	public function getTotalCustomerApprovals(array $data = array()): int {
 		$sql = "SELECT COUNT(*) AS `total` FROM `" . DB_PREFIX . "customer_approval` ca LEFT JOIN `" . DB_PREFIX . "customer` c ON (ca.`customer_id` = c.`customer_id`)";
 
 		$implode = array();

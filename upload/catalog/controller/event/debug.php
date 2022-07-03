@@ -13,7 +13,7 @@ class ControllerEventDebug extends Controller {
 		*/
 	}
 	
-	public function after(string $route, array &$args, string &$output): void {
+	public function after(string $route, array &$args, mixed &$output): void {
 		// add the route you want to test
 		/*
 		if ($route == 'common/home') {

@@ -1,6 +1,6 @@
 <?php
 class ModelExtensionPaymentBluepayredirect extends Model {
-	public function install() {
+	public function install(): void {
 		$this->db->query("
 			CREATE TABLE IF NOT EXISTS `" . DB_PREFIX . "bluepay_redirect_order` (
 			  `bluepay_redirect_order_id` INT(11) NOT NULL AUTO_INCREMENT,
@@ -38,13 +38,13 @@ class ModelExtensionPaymentBluepayredirect extends Model {
 			) ENGINE=MyISAM DEFAULT COLLATE=utf8_general_ci;");
 	}
 
-	public function uninstall() {
+	public function uninstall(): void {
 		$this->db->query("DROP TABLE IF EXISTS `" . DB_PREFIX . "bluepay_redirect_order`;");
 		$this->db->query("DROP TABLE IF EXISTS `" . DB_PREFIX . "bluepay_redirect_order_transaction`;");
 		$this->db->query("DROP TABLE IF EXISTS `" . DB_PREFIX . "bluepay_redirect_card`;");
 	}
 
-	public function void($order_id) {
+	public function void(int $order_id): void {
 		$bluepay_redirect_order = $this->getOrder($order_id);
 
 		if (!empty($bluepay_redirect_order) && $bluepay_redirect_order['release_status'] == 1) {
@@ -75,11 +75,11 @@ class ModelExtensionPaymentBluepayredirect extends Model {
 		}
 	}
 
-	public function updateVoidStatus($bluepay_redirect_order_id, $status) {
+	public function updateVoidStatus(int $bluepay_redirect_order_id, int $status): void {
 		$this->db->query("UPDATE `" . DB_PREFIX . "bluepay_redirect_order` SET `void_status` = '" . (int)$status . "' WHERE `bluepay_redirect_order_id` = '" . (int)$bluepay_redirect_order_id . "'");
 	}
 
-	public function release($order_id, $amount) {
+	public function release(int $order_id, float $amount): array {
 		$bluepay_redirect_order = $this->getOrder($order_id);
 		
 		$total_released = $this->getTotalReleased($bluepay_redirect_order['bluepay_redirect_order_id']);
@@ -108,15 +108,15 @@ class ModelExtensionPaymentBluepayredirect extends Model {
 
 			return $response_data;
 		} else {
-			return false;
+			return array();
 		}
 	}
 
-	public function updateReleaseStatus($bluepay_redirect_order_id, $status) {
+	public function updateReleaseStatus(int $bluepay_redirect_order_id, int $status): void {
 		$this->db->query("UPDATE `" . DB_PREFIX . "bluepay_redirect_order` SET `release_status` = '" . (int)$status . "' WHERE `bluepay_redirect_order_id` = '" . (int)$bluepay_redirect_order_id . "'");
 	}
 
-	public function rebate($order_id, $amount) {
+	public function rebate(int $order_id, float $amount): array {
 		$bluepay_redirect_order = $this->getOrder($order_id);
 
 		if (!empty($bluepay_redirect_order) && $bluepay_redirect_order['rebate_status'] != 1) {
@@ -143,19 +143,19 @@ class ModelExtensionPaymentBluepayredirect extends Model {
 
 			return $response_data;
 		} else {
-			return false;
+			return array();
 		}
 	}
 
-	public function updateRebateStatus($bluepay_redirect_order_id, $status) {
+	public function updateRebateStatus(int $bluepay_redirect_order_id, int $status): void {
 		$this->db->query("UPDATE `" . DB_PREFIX . "bluepay_redirect_order` SET `rebate_status` = '" . (int)$status . "' WHERE `bluepay_redirect_order_id` = '" . (int)$bluepay_redirect_order_id . "'");
 	}
 
-	public function updateTransactionId($bluepay_redirect_order_id, $transaction_id) {
+	public function updateTransactionId(int $bluepay_redirect_order_id, int $transaction_id): void {
 		$this->db->query("UPDATE `" . DB_PREFIX . "bluepay_redirect_order` SET `transaction_id` = '" . (int)$transaction_id . "' WHERE `bluepay_redirect_order_id` = '" . (int)$bluepay_redirect_order_id . "'");
 	}
 
-	public function getOrder($order_id) {
+	public function getOrder(int $order_id): array {
 		$qry = $this->db->query("SELECT * FROM `" . DB_PREFIX . "bluepay_redirect_order` WHERE `order_id` = '" . (int)$order_id . "' LIMIT 1");
 
 		if ($qry->num_rows) {
@@ -164,37 +164,37 @@ class ModelExtensionPaymentBluepayredirect extends Model {
 
 			return $order;
 		} else {
-			return false;
+			return array();
 		}
 	}
 
-	private function getTransactions($bluepay_redirect_order_id) {
+	private function getTransactions(int $bluepay_redirect_order_id): array {
 		$qry = $this->db->query("SELECT * FROM `" . DB_PREFIX . "bluepay_redirect_order_transaction` WHERE `bluepay_redirect_order_id` = '" . (int)$bluepay_redirect_order_id . "'");
 
 		if ($qry->num_rows) {
 			return $qry->rows;
 		} else {
-			return false;
+			return array();
 		}
 	}
 
-	public function addTransaction($bluepay_redirect_order_id, $type, $total) {
+	public function addTransaction(int $bluepay_redirect_order_id, string $type, float $total): void {
 		$this->db->query("INSERT INTO `" . DB_PREFIX . "bluepay_redirect_order_transaction` SET `bluepay_redirect_order_id` = '" . (int)$bluepay_redirect_order_id . "', `date_added` = NOW(), `type` = '" . $this->db->escape($type) . "', `amount` = '" . (float)$total . "'");
 	}
 
-	public function getTotalReleased($bluepay_redirect_order_id) {
+	public function getTotalReleased(int $bluepay_redirect_order_id): int {
 		$query = $this->db->query("SELECT SUM(`amount`) AS `total` FROM `" . DB_PREFIX . "bluepay_redirect_order_transaction` WHERE `bluepay_redirect_order_id` = '" . (int)$bluepay_redirect_order_id . "' AND (`type` = 'payment' OR `type` = 'rebate')");
 
 		return (float)$query->row['total'];
 	}
 
-	public function getTotalRebated($bluepay_redirect_order_id) {
+	public function getTotalRebated(int $bluepay_redirect_order_id): float {
 		$query = $this->db->query("SELECT SUM(`amount`) AS `total` FROM `" . DB_PREFIX . "bluepay_redirect_order_transaction` WHERE `bluepay_redirect_order_id` = '" . (int)$bluepay_redirect_order_id . "' AND `type` = 'rebate'");
 
 		return (float)$query->row['total'];
 	}
 
-	public function sendCurl($url, $post_data) {
+	public function sendCurl(string $url, array $post_data): array {
 		$curl = curl_init($url);
 
 		curl_setopt($curl, CURLOPT_PORT, 443);
@@ -213,12 +213,12 @@ class ModelExtensionPaymentBluepayredirect extends Model {
 		return json_decode($response_data, true);
 	}
 
-	public function callback() {
+	public function callback(): void {
 		$this->response->addHeader('Content-Type: application/json');
 		$this->response->setOutput(json_encode($this->request->get));
 	}
 
-	public function logger($message) {
+	public function logger($message): void {
 		if ($this->config->get('payment_bluepay_redirect_debug') == 1) {
 			$log = new \Log('bluepay_redirect.log');
 			$log->write($message);

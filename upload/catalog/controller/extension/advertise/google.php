@@ -8,7 +8,7 @@ class ControllerExtensionAdvertiseGoogle extends Controller {
 
     private int $store_id = 0;
 
-    public function __construct($registry) {
+    public function __construct(object $registry) {
         parent::__construct($registry);
 
         if (getenv("ADVERTISE_GOOGLE_STORE_ID")) {
@@ -21,7 +21,7 @@ class ControllerExtensionAdvertiseGoogle extends Controller {
     }
 
 	// catalog/view/common/header/after
-    public function google_global_site_tag(&$route, &$data, &$output) {
+    public function google_global_site_tag(string &$route, array &$data, mixed &$output): void {
         // In case the extension is disabled, do nothing
         if (!$this->setting->get('advertise_google_status')) {
             return;

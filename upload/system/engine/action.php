@@ -20,7 +20,7 @@ class Action {
 	 *
 	 * @param	string	$route
  	*/
-	public function __construct($route) {
+	public function __construct(string $route) {
 		$this->id = $route;
 		
 		$parts = explode('/', preg_replace('/[^a-zA-Z0-9_\/]/', '', (string)$route));
@@ -55,7 +55,7 @@ class Action {
 	 * @param	object	$registry
 	 * @param	array	$args
  	*/	
-	public function execute($registry, array $args = array()) {
+	public function execute(object $registry, array $args = array()): mixed {
 		// Stop any magical methods being called
 		if (substr($this->method, 0, 2) == '__') {
 			return new \Exception('Error: Calls to magic methods are not allowed!');

@@ -10,15 +10,15 @@
 /**
 * Loader class
 */
-final class Loader {
-	protected $registry;
+class Loader {
+	protected object $registry;
 
 	/**
 	 * Constructor
 	 *
 	 * @param	object	$registry
  	*/
-	public function __construct($registry) {
+	public function __construct(object $registry) {
 		$this->registry = $registry;
 	}
 
@@ -30,7 +30,7 @@ final class Loader {
 	 *
 	 * @return	mixed
  	*/	
-	public function controller($route, $data = array()) {
+	public function controller(string $route, array $data = array()): mixed {
 		// Sanitize the call
 		$route = preg_replace('/[^a-zA-Z0-9_\/]/', '', (string)$route);
 		
@@ -65,7 +65,7 @@ final class Loader {
 	 *
 	 * @param	string	$route
  	*/	
-	public function model($route) {
+	public function model(string $route): void {
 		// Sanitize the call
 		$route = preg_replace('/[^a-zA-Z0-9_\/]/', '', (string)$route);
 		
@@ -101,7 +101,7 @@ final class Loader {
 	 *
 	 * @return	string
  	*/
-	public function view($route, $data = array()) {
+	public function view(string $route, array $data = array(), string $code = ''): string {
 		// Sanitize the call
 		$route = preg_replace('/[^a-zA-Z0-9_\/]/', '', (string)$route);
 		
@@ -142,7 +142,7 @@ final class Loader {
 	 *
 	 * @param	string	$route
  	*/
-	public function library($route) {
+	public function library(string $route, array &...$args): object {
 		// Sanitize the call
 		$route = preg_replace('/[^a-zA-Z0-9_\/]/', '', (string)$route);
 			
@@ -163,7 +163,7 @@ final class Loader {
 	 *
 	 * @param	string	$route
  	*/	
-	public function helper($route) {
+	public function helper(string $route): void {
 		$file = DIR_SYSTEM . 'helper/' . preg_replace('/[^a-zA-Z0-9_\/]/', '', (string)$route) . '.php';
 
 		if (is_file($file)) {
@@ -178,7 +178,7 @@ final class Loader {
 	 *
 	 * @param	string	$route
  	*/	
-	public function config($route) {
+	public function config(string $route): array {
 		$this->registry->get('event')->trigger('config/' . $route . '/before', array(&$route));
 		
 		$this->registry->get('config')->load($route);
@@ -194,7 +194,7 @@ final class Loader {
 	 *
 	 * @return	array
  	*/
-	public function language($route, $key = '') {
+	public function language(string $route, string $key = '') {
 		// Sanitize the call
 		$route = preg_replace('/[^a-zA-Z0-9_\/]/', '', (string)$route);
 		
@@ -218,7 +218,7 @@ final class Loader {
 		return $output;
 	}
 	
-	protected function callback($registry, $route) {
+	protected function callback(object $registry, $route) {
 		return function($args) use($registry, $route) {
 			static $model;
 			
@@ -262,5 +262,5 @@ final class Loader {
 						
 			return $output;
 		};
-	}	
+	}
 }

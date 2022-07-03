@@ -10,17 +10,17 @@
 /**
 * Router class
 */
-final class Router {
-	private $registry;
-	private $pre_action = array();
-	private $error;
+class Router {
+	private object $registry;
+	private array $pre_action = array();
+	private object $error;
 	
 	/**
 	 * Constructor
 	 *
 	 * @param	object	$route
  	*/
-	public function __construct($registry) {
+	public function __construct(object $registry) {
 		$this->registry = $registry;
 	}
 	
@@ -29,7 +29,7 @@ final class Router {
 	 *
 	 * @param	object	$pre_action
  	*/	
-	public function addPreAction(Action $pre_action) {
+	public function addPreAction(Action $pre_action): void {
 		$this->pre_action[] = $pre_action;
 	}
 
@@ -39,7 +39,7 @@ final class Router {
 	 * @param	object	$action
 	 * @param	object	$error
  	*/		
-	public function dispatch(Action $action, Action $error) {
+	public function dispatch(Action $action, Action $error): void {
 		$this->error = $error;
 
 		foreach ($this->pre_action as $pre_action) {

@@ -1,6 +1,6 @@
 <?php
 class ModelExtensionPaymentPPPayflowIFrame extends Model {
-	public function install() {
+	public function install(): void {
 		$this->db->query("
 			CREATE TABLE `" . DB_PREFIX . "paypal_payflow_iframe_order` (
 				`order_id` int(11) NOT NULL,
@@ -24,73 +24,57 @@ class ModelExtensionPaymentPPPayflowIFrame extends Model {
 			) ENGINE=MyISAM DEFAULT CHARSET=utf8;");
 	}
 
-	public function uninstall() {
+	public function uninstall(): void {
 		$this->db->query("DROP TABLE IF EXISTS `" . DB_PREFIX . "paypal_payflow_iframe_order`;");
 		$this->db->query("DROP TABLE IF EXISTS `" . DB_PREFIX . "paypal_payflow_iframe_order_transaction`;");
 	}
 
-	public function log($message) {
+	public function log(string $message): void {
 		if ($this->config->get('payment_pp_payflow_iframe_debug')) {
 			$log = new \Log('payflow-iframe.log');
 			$log->write($message);
 		}
 	}
 
-	public function getOrder($order_id) {
+	public function getOrder(int $order_id): array {
 		$result = $this->db->query("SELECT * FROM `" . DB_PREFIX . "paypal_payflow_iframe_order` WHERE `order_id` = '" . (int)$order_id . "'");
 
 		if ($result->num_rows) {
 			$order = $result->row;
 		} else {
-			$order = false;
+			$order = array();
 		}
 
 		return $order;
 	}
 
-	public function updateOrderStatus($order_id, $status) {
-		$this->db->query("
-			UPDATE `" . DB_PREFIX . "paypal_payflow_iframe_order`
-			SET `complete` = '" . (int)$status . "'
-			WHERE order_id = '" . (int)$order_id . "'
-		");
+	public function updateOrderStatus(int $order_id, int $status): void {
+		$this->db->query("UPDATE `" . DB_PREFIX . "paypal_payflow_iframe_order` SET `complete` = '" . (int)$status . "' WHERE order_id = '" . (int)$order_id . "'");
 	}
 
-	public function addTransaction($data) {
-		$this->db->query("
-			INSERT INTO `" . DB_PREFIX . "paypal_payflow_iframe_order_transaction`
-			SET `order_id` = '" . (int)$data['order_id'] . "',
-				`transaction_reference` = '" . $this->db->escape($data['transaction_reference']) . "',
-				`transaction_type` = '" . $this->db->escape($data['type']) . "',
-				`time` = NOW(),
-				`amount` = '" . $this->db->escape($data['amount']) . "'
-		");
+	public function addTransaction(array $data): void {
+		$this->db->query("INSERT INTO `" . DB_PREFIX . "paypal_payflow_iframe_order_transaction` SET `order_id` = '" . (int)$data['order_id'] . "', `transaction_reference` = '" . $this->db->escape($data['transaction_reference']) . "', `transaction_type` = '" . $this->db->escape($data['type']) . "', `time` = NOW(),`amount` = '" . $this->db->escape($data['amount']) . "'");
 	}
 
-	public function getTransactions($order_id) {
-		return $this->db->query("
-			SELECT *
-			FROM `" . DB_PREFIX . "paypal_payflow_iframe_order_transaction`
-			WHERE `order_id` = '" . (int)$order_id . "'
-			ORDER BY `time` ASC")->rows;
+	public function getTransactions(int $order_id): array {
+		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "paypal_payflow_iframe_order_transaction` WHERE `order_id` = '" . (int)$order_id . "' ORDER BY `time` ASC");
+		
+		return $query->rows;
 	}
 
-	public function getTransaction($transaction_reference) {
-		$result = $this->db->query("
-			SELECT *
-			FROM `" . DB_PREFIX . "paypal_payflow_iframe_order_transaction`
-			WHERE `transaction_reference` = '" . $this->db->escape($transaction_reference) . "'")->row;
+	public function getTransaction(string $transaction_reference): array {
+		$result = $this->db->query("SELECT * FROM `" . DB_PREFIX . "paypal_payflow_iframe_order_transaction` WHERE `transaction_reference` = '" . $this->db->escape($transaction_reference) . "'");
 
-		if ($result) {
-			$transaction = $result;
+		if ($result->num_rows) {
+			$transaction = $result->row;
 		} else {
-			$transaction = false;
+			$transaction = array();
 		}
 
 		return $transaction;
 	}
 
-	public function call($data) {
+	public function call(array $data): array {
 		$default_parameters = array(
 			'USER' 			=> $this->config->get('payment_pp_payflow_iframe_user'),
 			'VENDOR' 		=> $this->config->get('payment_pp_payflow_iframe_vendor'),

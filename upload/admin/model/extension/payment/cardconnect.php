@@ -1,6 +1,6 @@
 <?php
 class ModelExtensionPaymentCardConnect extends Model {
-	public function install() {
+	public function install(): void {
 		$this->db->query("
 			CREATE TABLE IF NOT EXISTS `" . DB_PREFIX . "cardconnect_card` (
 			  `cardconnect_card_id` INT(11) NOT NULL AUTO_INCREMENT,
@@ -43,7 +43,7 @@ class ModelExtensionPaymentCardConnect extends Model {
 			) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci");
 	}
 
-	public function uninstall() {
+	public function uninstall(): void {
 		$this->db->query("DROP TABLE IF EXISTS `" . DB_PREFIX . "cardconnect_card`");
 		$this->db->query("DROP TABLE IF EXISTS `" . DB_PREFIX . "cardconnect_order`");
 		$this->db->query("DROP TABLE IF EXISTS `" . DB_PREFIX . "cardconnect_order_transaction`");
@@ -51,7 +51,7 @@ class ModelExtensionPaymentCardConnect extends Model {
 		$this->log('Module uninstalled');
 	}
 
-	public function getOrder($order_id) {
+	public function getOrder(int $order_id): array {
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "cardconnect_order` WHERE `order_id` = '" . (int)$order_id . "' LIMIT 1");
 
 		if ($query->num_rows) {
@@ -61,11 +61,11 @@ class ModelExtensionPaymentCardConnect extends Model {
 
 			return $order;
 		} else {
-			return false;
+			return array();
 		}
 	}
 
-	private function getTransactions($cardconnect_order_id) {
+	private function getTransactions(int $cardconnect_order_id): array {
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "cardconnect_order_transaction` WHERE `cardconnect_order_id` = '" . (int)$cardconnect_order_id . "'");
 
 		if ($query->num_rows) {
@@ -75,13 +75,13 @@ class ModelExtensionPaymentCardConnect extends Model {
 		}
 	}
 
-	public function getTotalCaptured($cardconnect_order_id) {
+	public function getTotalCaptured(int $cardconnect_order_id): int {
 		$query = $this->db->query("SELECT SUM(`amount`) AS `total` FROM `" . DB_PREFIX . "cardconnect_order_transaction` WHERE `cardconnect_order_id` = '" . (int)$cardconnect_order_id . "' AND (`type` = 'payment' OR `type` = 'refund')");
 
 		return (float)$query->row['total'];
 	}
 
-	public function inquire($order_info, $retref) {
+	public function inquire(array $order_info, string $retref): array {
 		$this->log('Posting inquire to CardConnect');
 
 		$this->log('Order ID: ' . $order_info['order_id']);
@@ -120,11 +120,10 @@ class ModelExtensionPaymentCardConnect extends Model {
 		return $response_data;
 	}
 
-	public function capture($order_info, $amount) {
+	public function capture(array $order_info, float $amount): array {
 		$this->load->model('sale/order');
 
 		$this->log('Posting capture to CardConnect');
-
 		$this->log('Order ID: ' . $order_info['order_id']);
 
 		$order    = $this->model_sale_order->getOrder($order_info['order_id']);
@@ -215,7 +214,7 @@ class ModelExtensionPaymentCardConnect extends Model {
 		return $response_data;
 	}
 
-	public function refund($order_info, $amount) {
+	public function refund(array $order_info, float $amount): array {
 		$this->log('Posting refund to CardConnect');
 		$this->log('Order ID: ' . $order_info['order_id']);
 		
@@ -265,7 +264,7 @@ class ModelExtensionPaymentCardConnect extends Model {
 		return $response_data;
 	}
 
-	public function void($order_info, $retref) {
+	public function void(array $order_info, string $retref): array {
 		$this->log('Posting void to CardConnect');
 		$this->log('Order ID: ' . $order_info['order_id']);
 		
@@ -315,15 +314,15 @@ class ModelExtensionPaymentCardConnect extends Model {
 		return $response_data;
 	}
 
-	public function updateTransactionStatusByRetref($retref, $status) {
+	public function updateTransactionStatusByRetref(string $retref, string $status): void {
 		$this->db->query("UPDATE `" . DB_PREFIX . "cardconnect_order_transaction` SET `status` = '" . $this->db->escape($status) . "', `date_modified` = NOW() WHERE `retref` = '" . $this->db->escape($retref) . "'");
 	}
 
-	public function addTransaction($cardconnect_order_id, $type, $retref, $amount, $status) {
+	public function addTransaction(int $cardconnect_order_id, string $type, string $retref, float $amount, string $status): void {
 		$this->db->query("INSERT INTO `" . DB_PREFIX . "cardconnect_order_transaction` SET `cardconnect_order_id` = '" . (int)$cardconnect_order_id . "', `type` = '" . $this->db->escape($type) . "', `retref` = '" . $this->db->escape($retref) . "', `amount` = '" . (float)$amount . "', `status` = '" . $this->db->escape($status) . "', `date_modified` = NOW(), `date_added` = NOW()");
 	}
 
-	public function log($data) {
+	public function log(string $data): void {
 		if ($this->config->get('payment_cardconnect_logging')) {
 			$log = new \Log('cardconnect.log');
 			$log->write($data);

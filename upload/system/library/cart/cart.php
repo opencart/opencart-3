@@ -272,33 +272,41 @@ class Cart {
 		return $product_data;
 	}
 
-	public function add($product_id, $quantity = 1, $option = array(), $subscription_plan_id = 0) {
-		$query = $this->db->query("SELECT COUNT(*) AS total FROM " . DB_PREFIX . "cart WHERE api_id = '" . (isset($this->session->data['api_id']) ? (int)$this->session->data['api_id'] : 0) . "' AND customer_id = '" . (int)$this->customer->getId() . "' AND session_id = '" . $this->db->escape($this->session->getId()) . "' AND product_id = '" . (int)$product_id . "' AND subscription_plan_id = '" . (int)$subscription_plan_id . "' AND `option` = '" . $this->db->escape(json_encode($option)) . "'");
+	public function add(int $product_id, int $quantity = 1, array $option = [], int $subscription_plan_id = 0): void {
+		$query = $this->db->query("SELECT COUNT(*) AS `total` FROM `" . DB_PREFIX . "cart` WHERE `api_id` = '" . (isset($this->session->data['api_id']) ? (int)$this->session->data['api_id'] : 0) . "' AND `customer_id` = '" . (int)$this->customer->getId() . "' AND `session_id` = '" . $this->db->escape($this->session->getId()) . "' AND `product_id` = '" . (int)$product_id . "' AND `subscription_plan_id` = '" . (int)$subscription_plan_id . "' AND `option` = '" . $this->db->escape(json_encode($option)) . "'");
 
 		if (!$query->row['total']) {
-			$this->db->query("INSERT INTO " . DB_PREFIX . "cart SET api_id = '" . (isset($this->session->data['api_id']) ? (int)$this->session->data['api_id'] : 0) . "', customer_id = '" . (int)$this->customer->getId() . "', session_id = '" . $this->db->escape($this->session->getId()) . "', product_id = '" . (int)$product_id . "', subscription_plan_id = '" . (int)$subscription_plan_id . "', `option` = '" . $this->db->escape(json_encode($option)) . "', quantity = '" . (int)$quantity . "', date_added = NOW()");
+			$this->db->query("INSERT INTO `" . DB_PREFIX . "cart` SET `api_id` = '" . (isset($this->session->data['api_id']) ? (int)$this->session->data['api_id'] : 0) . "', `customer_id` = '" . (int)$this->customer->getId() . "', `session_id` = '" . $this->db->escape($this->session->getId()) . "', `product_id` = '" . (int)$product_id . "', `subscription_plan_id` = '" . (int)$subscription_plan_id . "', `option` = '" . $this->db->escape(json_encode($option)) . "', `quantity` = '" . (int)$quantity . "', `date_added` = NOW()");
 		} else {
-			$this->db->query("UPDATE " . DB_PREFIX . "cart SET quantity = (quantity + " . (int)$quantity . ") WHERE api_id = '" . (isset($this->session->data['api_id']) ? (int)$this->session->data['api_id'] : 0) . "' AND customer_id = '" . (int)$this->customer->getId() . "' AND session_id = '" . $this->db->escape($this->session->getId()) . "' AND product_id = '" . (int)$product_id . "' AND subscription_plan_id = '" . (int)$subscription_plan_id . "' AND `option` = '" . $this->db->escape(json_encode($option)) . "'");
+			$this->db->query("UPDATE `" . DB_PREFIX . "cart` SET `quantity` = (`quantity` + " . (int)$quantity . ") WHERE `api_id` = '" . (isset($this->session->data['api_id']) ? (int)$this->session->data['api_id'] : 0) . "' AND `customer_id` = '" . (int)$this->customer->getId() . "' AND `session_id` = '" . $this->db->escape($this->session->getId()) . "' AND `product_id` = '" . (int)$product_id . "' AND `subscription_plan_id` = '" . (int)$subscription_plan_id . "' AND `option` = '" . $this->db->escape(json_encode($option)) . "'");
 		}
+
+		$this->data = [];
 	}
 
-	public function update($cart_id, $quantity) {
-		$this->db->query("UPDATE " . DB_PREFIX . "cart SET quantity = '" . (int)$quantity . "' WHERE cart_id = '" . (int)$cart_id . "' AND api_id = '" . (isset($this->session->data['api_id']) ? (int)$this->session->data['api_id'] : 0) . "' AND customer_id = '" . (int)$this->customer->getId() . "' AND session_id = '" . $this->db->escape($this->session->getId()) . "'");
+	public function update(int $cart_id, int $quantity): void {
+		$this->db->query("UPDATE `" . DB_PREFIX . "cart` SET `quantity` = '" . (int)$quantity . "' WHERE `cart_id` = '" . (int)$cart_id . "' AND `api_id` = '" . (isset($this->session->data['api_id']) ? (int)$this->session->data['api_id'] : 0) . "' AND `customer_id` = '" . (int)$this->customer->getId() . "' AND `session_id` = '" . $this->db->escape($this->session->getId()) . "'");
+
+		$this->data = [];
 	}
 
-	public function remove($cart_id) {
-		$this->db->query("DELETE FROM " . DB_PREFIX . "cart WHERE cart_id = '" . (int)$cart_id . "' AND api_id = '" . (isset($this->session->data['api_id']) ? (int)$this->session->data['api_id'] : 0) . "' AND customer_id = '" . (int)$this->customer->getId() . "' AND session_id = '" . $this->db->escape($this->session->getId()) . "'");
+	public function remove(int $cart_id): void {
+		$this->db->query("DELETE FROM `" . DB_PREFIX . "cart` WHERE `cart_id` = '" . (int)$cart_id . "' AND `api_id` = '" . (isset($this->session->data['api_id']) ? (int)$this->session->data['api_id'] : 0) . "' AND `customer_id` = '" . (int)$this->customer->getId() . "' AND `session_id` = '" . $this->db->escape($this->session->getId()) . "'");
+
+		$this->data = [];
 	}
 
-	public function clear() {
-		$this->db->query("DELETE FROM " . DB_PREFIX . "cart WHERE api_id = '" . (isset($this->session->data['api_id']) ? (int)$this->session->data['api_id'] : 0) . "' AND customer_id = '" . (int)$this->customer->getId() . "' AND session_id = '" . $this->db->escape($this->session->getId()) . "'");
+	public function clear(): void {
+		$this->db->query("DELETE FROM `" . DB_PREFIX . "cart` WHERE `api_id` = '" . (isset($this->session->data['api_id']) ? (int)$this->session->data['api_id'] : 0) . "' AND `customer_id` = '" . (int)$this->customer->getId() . "' AND `session_id` = '" . $this->db->escape($this->session->getId()) . "'");
+
+		$this->data = [];
 	}
 
-	public function getRecurringProducts() {
-		$product_data = array();
+	public function getSubscription(): array {
+		$product_data = [];
 
 		foreach ($this->getProducts() as $value) {
-			if ($value['recurring']) {
+			if ($value['subscription']) {
 				$product_data[] = $value;
 			}
 		}
@@ -306,7 +314,7 @@ class Cart {
 		return $product_data;
 	}
 
-	public function getWeight() {
+	public function getWeight(): float {
 		$weight = 0;
 
 		foreach ($this->getProducts() as $product) {
@@ -318,7 +326,7 @@ class Cart {
 		return $weight;
 	}
 
-	public function getSubTotal() {
+	public function getSubTotal(): float {
 		$total = 0;
 
 		foreach ($this->getProducts() as $product) {
@@ -328,8 +336,8 @@ class Cart {
 		return $total;
 	}
 
-	public function getTaxes() {
-		$tax_data = array();
+	public function getTaxes(): array {
+		$tax_data = [];
 
 		foreach ($this->getProducts() as $product) {
 			if ($product['tax_class_id']) {
@@ -348,7 +356,7 @@ class Cart {
 		return $tax_data;
 	}
 
-	public function getTotal() {
+	public function getTotal(): float {
 		$total = 0;
 
 		foreach ($this->getProducts() as $product) {
@@ -358,7 +366,7 @@ class Cart {
 		return $total;
 	}
 
-	public function countProducts() {
+	public function countProducts(): int {
 		$product_total = 0;
 
 		$products = $this->getProducts();
@@ -370,15 +378,15 @@ class Cart {
 		return $product_total;
 	}
 
-	public function hasProducts() {
+	public function hasProducts(): bool {
 		return count($this->getProducts());
 	}
 
-	public function hasRecurringProducts() {
-		return count($this->getRecurringProducts());
+	public function hasSubscription(): bool {
+		return count($this->getSubscription());
 	}
 
-	public function hasStock() {
+	public function hasStock(): bool {
 		foreach ($this->getProducts() as $product) {
 			if (!$product['stock']) {
 				return false;
@@ -388,7 +396,7 @@ class Cart {
 		return true;
 	}
 
-	public function hasShipping() {
+	public function hasShipping(): bool {
 		foreach ($this->getProducts() as $product) {
 			if ($product['shipping']) {
 				return true;
@@ -398,7 +406,7 @@ class Cart {
 		return false;
 	}
 
-	public function hasDownload() {
+	public function hasDownload(): bool {
 		foreach ($this->getProducts() as $product) {
 			if ($product['download']) {
 				return true;

@@ -14,11 +14,11 @@ class ModelExtensionFraudIp extends Model {
 		$this->db->query("DROP TABLE IF EXISTS `" . DB_PREFIX . "fraud_ip`");
 	}
 
-    public function addIp($ip): void {
+    public function addIp(string $ip): void {
         $this->db->query("INSERT INTO `" . DB_PREFIX . "fraud_ip` SET `ip` = '" . $this->db->escape($ip) . "', `date_added` = NOW()");
     }
 
-    public function removeIp($ip): void {
+    public function removeIp(string $ip): void {
         $this->db->query("DELETE FROM `" . DB_PREFIX . "fraud_ip` WHERE `ip` = '" . $this->db->escape($ip) . "'");
     }
 

@@ -158,7 +158,7 @@ class ModelExtensionPaymentPPBraintree extends Model {
 		return new \Braintree_Gateway(array('accessToken' => $access_token));
 	}
 
-	public function log($data) {
+	public function log(array $data): void {
 		if ($this->config->get('payment_pp_braintree_debug')) {
 			$backtrace = debug_backtrace();
 			

@@ -3,7 +3,7 @@ namespace Cart;
 class Tax {
 	private array $tax_rates = array();
 
-	public function __construct($registry) {
+	public function __construct(object $registry) {
 		$this->config = $registry->get('config');
 		$this->db = $registry->get('db');
 	}

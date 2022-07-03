@@ -1,6 +1,6 @@
 <?php
 class ModelExtensionPaymentFirstdata extends Model {
-	public function install() {
+	public function install(): void {
 		$this->db->query("
 			CREATE TABLE IF NOT EXISTS `" . DB_PREFIX . "firstdata_order` (
 			  `firstdata_order_id` INT(11) NOT NULL AUTO_INCREMENT,
@@ -44,7 +44,7 @@ class ModelExtensionPaymentFirstdata extends Model {
 			) ENGINE=MyISAM DEFAULT COLLATE=utf8_general_ci;");
 	}
 
-	public function uninstall() {
+	public function uninstall(): void {
 		$this->db->query("DROP TABLE IF EXISTS `" . DB_PREFIX . "firstdata_order`;");
 		$this->db->query("DROP TABLE IF EXISTS `" . DB_PREFIX . "firstdata_order_transaction`;");
 		$this->db->query("DROP TABLE IF EXISTS `" . DB_PREFIX . "firstdata_card`;");
@@ -96,7 +96,7 @@ class ModelExtensionPaymentFirstdata extends Model {
 		}
 	}
 
-	public function updateVoidStatus($firstdata_order_id, $status) {
+	public function updateVoidStatus(int $firstdata_order_id, int $status): void {
 		$this->db->query("UPDATE `" . DB_PREFIX . "firstdata_order` SET `void_status` = '" . (int)$status . "' WHERE `firstdata_order_id` = '" . (int)$firstdata_order_id . "'");
 	}
 
@@ -164,11 +164,11 @@ class ModelExtensionPaymentFirstdata extends Model {
 		}
 	}
 
-	public function updateCaptureStatus($firstdata_order_id, $status) {
+	public function updateCaptureStatus(int $firstdata_order_id, int $status): void {
 		$this->db->query("UPDATE `" . DB_PREFIX . "firstdata_order` SET `capture_status` = '" . (int)$status . "' WHERE `firstdata_order_id` = '" . (int)$firstdata_order_id . "'");
 	}
 
-	public function getOrder($order_id) {
+	public function getOrder(int $order_id): array {
 		$this->logger('getOrder - ' . $order_id);
 
 		$qry = $this->db->query("SELECT * FROM `" . DB_PREFIX . "firstdata_order` WHERE `order_id` = '" . (int)$order_id . "' LIMIT 1");
@@ -182,40 +182,38 @@ class ModelExtensionPaymentFirstdata extends Model {
 
 			return $order;
 		} else {
-			return false;
+			return array();
 		}
 	}
 
-	private function getTransactions($firstdata_order_id) {
+	private function getTransactions(int $firstdata_order_id): array {
 		$qry = $this->db->query("SELECT * FROM `" . DB_PREFIX . "firstdata_order_transaction` WHERE `firstdata_order_id` = '" . (int)$firstdata_order_id . "'");
 
 		if ($qry->num_rows) {
 			return $qry->rows;
 		} else {
-			return false;
+			return array();
 		}
 	}
 
-	public function addTransaction($firstdata_order_id, $type, $total) {
+	public function addTransaction(int $firstdata_order_id, string $type, float $total): void {
 		$this->db->query("INSERT INTO `" . DB_PREFIX . "firstdata_order_transaction` SET `firstdata_order_id` = '" . (int)$firstdata_order_id . "', `date_added` = NOW(), `type` = '" . $this->db->escape($type) . "', `amount` = '" . (float)$total . "'");
 	}
 
-	public function logger($message) {
+	public function logger(string $message): void {
 		if ($this->config->get('payment_firstdata_debug') == 1) {
 			$log = new \Log('firstdata.log');
 			$log->write($message);
 		}
 	}
 
-	public function getTotalCaptured($firstdata_order_id) {
+	public function getTotalCaptured(int $firstdata_order_id): int {
 		$query = $this->db->query("SELECT SUM(`amount`) AS `total` FROM `" . DB_PREFIX . "firstdata_order_transaction` WHERE `firstdata_order_id` = '" . (int)$firstdata_order_id . "' AND (`type` = 'payment' OR `type` = 'refund')");
 
 		return (float)$query->row['total'];
 	}
 
-	public function mapCurrency($code) {
-		$currency = array();
-		
+	public function mapCurrency(string $code): string {
 		$currency = array(
 			'GBP' => 826,
 			'USD' => 840,
@@ -225,7 +223,7 @@ class ModelExtensionPaymentFirstdata extends Model {
 		if (array_key_exists($code, $currency)) {
 			return $currency[$code];
 		} else {
-			return false;
+			return '';
 		}
 	}
 }

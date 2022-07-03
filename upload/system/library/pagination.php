@@ -2,7 +2,7 @@
 /**
  * @package		OpenCart
  * @author		Daniel Kerr
- * @copyright	Copyright (c) 2005 - 2022, OpenCart, Ltd. (https://www.opencart.com/)
+ * @copyright	Copyright (c) 2005 - 2017, OpenCart, Ltd. (https://www.opencart.com/)
  * @license		https://opensource.org/licenses/GPL-3.0
  * @link		https://www.opencart.com
 */
@@ -11,22 +11,22 @@
 * Pagination class
 */
 class Pagination {
-	public $total = 0;
-	public $page = 1;
-	public $limit = 20;
-	public $num_links = 8;
-	public $url = '';
-	public $text_first = '|&lt;';
-	public $text_last = '&gt;|';
-	public $text_next = '&gt;';
-	public $text_prev = '&lt;';
+	public int $total = 0;
+	public int $page = 1;
+	public int $limit = 20;
+	public int $num_links = 8;
+	public string $url = '';
+	public string $text_first = '|&lt;';
+	public string $text_last = '&gt;|';
+	public string $text_next = '&gt;';
+	public string $text_prev = '&lt;';
 
 	/**
      * 
      *
      * @return	text
      */
-	public function render() {
+	public function render(): string {
 		$total = $this->total;
 
 		if ($this->page < 1) {

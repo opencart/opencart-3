@@ -193,17 +193,19 @@ class ModelExtensionPaymentKlarnaCheckout extends Model {
 		return array($klarna_account, $connector);
 	}
 
-	public function getOrder($order_id) {
-		return $this->db->query("SELECT * FROM `" . DB_PREFIX . "klarna_checkout_order` WHERE `order_id` = '" . (int)$order_id . "' LIMIT 1")->row;
+	public function getOrder(int $order_id): array {
+		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "klarna_checkout_order` WHERE `order_id` = '" . (int)$order_id . "' LIMIT 1");
+		
+		return $query->row;
 	}
 
-	public function checkForPaymentTaxes() {
+	public function checkForPaymentTaxes(): int {
 		$query = $this->db->query("SELECT COUNT(*) AS `total` FROM `" . DB_PREFIX . "product` p LEFT JOIN `" . DB_PREFIX . "tax_rule` tr ON (`tr`.`tax_class_id` = `p`.`tax_class_id`) WHERE `tr`.`based` = 'payment'");
 
 		return (int)$query->row['total'];
 	}
 
-	public function install() {
+	public function install(): void {
 		$this->db->query("
 			CREATE TABLE IF NOT EXISTS `" . DB_PREFIX . "klarna_checkout_order` (
 			  `klarna_checkout_order_id` INT(11) NOT NULL AUTO_INCREMENT,
@@ -214,11 +216,11 @@ class ModelExtensionPaymentKlarnaCheckout extends Model {
 			) ENGINE=MyISAM DEFAULT COLLATE=utf8_general_ci;");
 	}
 
-	public function uninstall() {
+	public function uninstall(): void {
 		$this->db->query("DROP TABLE IF EXISTS `" . DB_PREFIX . "klarna_checkout_order`;");
 	}
 
-	public function log($data) {
+	public function log(array $data): void {
 		if ($this->config->get('payment_klarna_checkout_debug')) {
 			$backtrace = debug_backtrace();
 			

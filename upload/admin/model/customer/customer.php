@@ -342,7 +342,7 @@ class ModelCustomerCustomer extends Model {
 		return (int)$query->row['total'];
 	}
 
-	public function addReward($customer_id, $description = '', $points = 0, $order_id = 0) {
+	public function addReward(int $customer_id, string $description = '', int $points = 0, int $order_id = 0): void {
 		$this->db->query("INSERT INTO `" . DB_PREFIX . "customer_reward` SET `customer_id` = '" . (int)$customer_id . "', `order_id` = '" . (int)$order_id . "', `points` = '" . (int)$points . "', `description` = '" . $this->db->escape($description) . "', `date_added` = NOW()");
 	}
 
@@ -356,7 +356,7 @@ class ModelCustomerCustomer extends Model {
 		return $query->rows;
 	}
 
-	public function getTotalRewards($customer_id) {
+	public function getTotalRewards(int $customer_id): int {
 		$query = $this->db->query("SELECT COUNT(*) AS `total` FROM `" . DB_PREFIX . "customer_reward` WHERE `customer_id` = '" . (int)$customer_id . "'");
 
 		return (int)$query->row['total'];
@@ -394,19 +394,19 @@ class ModelCustomerCustomer extends Model {
 		return (int)$query->row['total'];
 	}
 
-	public function getTotalCustomersByIp($ip) {
+	public function getTotalCustomersByIp(string $ip): int {
 		$query = $this->db->query("SELECT COUNT(*) AS `total` FROM `" . DB_PREFIX . "customer_ip` WHERE `ip` = '" . $this->db->escape($ip) . "'");
 
 		return (int)$query->row['total'];
 	}
 
-	public function getTotalLoginAttempts($email) {
+	public function getTotalLoginAttempts(string $email): array {
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "customer_login` WHERE `email` = '" . $this->db->escape($email) . "'");
 
 		return $query->row;
 	}
 
-	public function deleteLoginAttempts($email) {
+	public function deleteLoginAttempts(string $email): void {
 		$this->db->query("DELETE FROM `" . DB_PREFIX . "customer_login` WHERE `email` = '" . $this->db->escape($email) . "'");
 	}
 }

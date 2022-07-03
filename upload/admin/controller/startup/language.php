@@ -1,33 +1,16 @@
 <?php
 class ControllerStartupLanguage extends Controller {
 	public function index(): void {
-		$this->load->model('localisation/language');
-
-		$languages = $this->model_localisation_language->getLanguages();
-
-		$language_codes = array_column($languages, 'language_id', 'code');
-
-		$code = '';
-
-		if (isset($this->session->data['language'])) {
-			$code = $this->session->data['language'];
-		}
-
-		// Language not available then use default
-		if (!array_key_exists($code, $language_codes)) {
-			$code = $this->config->get('config_language_admin');
-		}
-
-		// Set the config language_id
-		$this->config->set('config_language_id', $language_codes[$code]);
-		$this->config->set('config_language_admin', $code);
-
-		$this->session->data['language'] = $code;
-
 		// Language
-		$language = new \Language($code);		
-		$language->load($code);
+		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "language` WHERE code = '" . $this->db->escape($this->config->get('config_admin_language')) . "'");
 		
+		if ($query->num_rows) {
+			$this->config->set('config_language_id', $query->row['language_id']);
+		}
+		
+		// Language
+		$language = new \Language($this->config->get('config_admin_language'));
+		$language->load($this->config->get('config_admin_language'));
 		$this->registry->set('language', $language);
 	}
 }

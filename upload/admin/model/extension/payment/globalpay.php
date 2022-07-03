@@ -1,6 +1,6 @@
 <?php
 class ModelExtensionPaymentGlobalpay extends Model {
-	public function install() {
+	public function install(): void {
 		$this->db->query("
 			CREATE TABLE IF NOT EXISTS `" . DB_PREFIX . "globalpay_order` (
 			  `globalpay_order_id` INT(11) NOT NULL AUTO_INCREMENT,
@@ -79,7 +79,7 @@ class ModelExtensionPaymentGlobalpay extends Model {
 		}
 	}
 
-	public function updateVoidStatus($globalpay_order_id, $status) {
+	public function updateVoidStatus(int $globalpay_order_id, int $status): void {
 		$this->db->query("UPDATE `" . DB_PREFIX . "globalpay_order` SET `void_status` = '" . (int)$status . "' WHERE `globalpay_order_id` = '" . (int)$globalpay_order_id . "'");
 	}
 
@@ -147,11 +147,11 @@ class ModelExtensionPaymentGlobalpay extends Model {
 		}
 	}
 
-	public function updateCaptureStatus($globalpay_order_id, $status) {
+	public function updateCaptureStatus(int $globalpay_order_id, int $status): void {
 		$this->db->query("UPDATE `" . DB_PREFIX . "globalpay_order` SET `capture_status` = '" . (int)$status . "' WHERE `globalpay_order_id` = '" . (int)$globalpay_order_id . "'");
 	}
 
-	public function updateForRebate($globalpay_order_id, $pas_ref, $order_ref) {
+	public function updateForRebate(int $globalpay_order_id, string $pas_ref, string $order_ref): void {
 		$this->db->query("UPDATE `" . DB_PREFIX . "globalpay_order` SET `order_ref_previous` = '_multisettle_" . $this->db->escape($order_ref) . "', `pasref_previous` = '" . $this->db->escape($pas_ref) . "' WHERE `globalpay_order_id` = '" . (int)$globalpay_order_id . "' LIMIT 1");
 	}
 
@@ -218,11 +218,11 @@ class ModelExtensionPaymentGlobalpay extends Model {
 		}
 	}
 
-	public function updateRebateStatus($globalpay_order_id, $status) {
+	public function updateRebateStatus(int $globalpay_order_id, int $status): void {
 		$this->db->query("UPDATE `" . DB_PREFIX . "globalpay_order` SET `rebate_status` = '" . (int)$status . "' WHERE `globalpay_order_id` = '" . (int)$globalpay_order_id . "'");
 	}
 
-	public function getOrder($order_id) {
+	public function getOrder(int $order_id): array {
 		$this->logger('getOrder - ' . $order_id);
 
 		$qry = $this->db->query("SELECT * FROM `" . DB_PREFIX . "globalpay_order` WHERE `order_id` = '" . (int)$order_id . "' LIMIT 1");
@@ -235,38 +235,38 @@ class ModelExtensionPaymentGlobalpay extends Model {
 
 			return $order;
 		} else {
-			return false;
+			return array();
 		}
 	}
 
-	private function getTransactions($globalpay_order_id) {
+	private function getTransactions(int $globalpay_order_id): array {
 		$qry = $this->db->query("SELECT * FROM `" . DB_PREFIX . "globalpay_order_transaction` WHERE `globalpay_order_id` = '" . (int)$globalpay_order_id . "'");
 
 		if ($qry->num_rows) {
 			return $qry->rows;
 		} else {
-			return false;
+			return array();
 		}
 	}
 
-	public function addTransaction($globalpay_order_id, $type, $total) {
+	public function addTransaction(int $globalpay_order_id, string $type, float $total): void {
 		$this->db->query("INSERT INTO `" . DB_PREFIX . "globalpay_order_transaction` SET `globalpay_order_id` = '" . (int)$globalpay_order_id . "', `date_added` = NOW(), `type` = '" . $this->db->escape($type) . "', `amount` = '" . (float)$total . "'");
 	}
 
-	public function logger($message) {
+	public function logger(string $message): void {
 		if ($this->config->get('payment_globalpay_debug') == 1) {
 			$log = new \Log('globalpay.log');
 			$log->write($message);
 		}
 	}
 
-	public function getTotalCaptured($globalpay_order_id) {
+	public function getTotalCaptured(int $globalpay_order_id): float {
 		$query = $this->db->query("SELECT SUM(`amount`) AS `total` FROM `" . DB_PREFIX . "globalpay_order_transaction` WHERE `globalpay_order_id` = '" . (int)$globalpay_order_id . "' AND (`type` = 'payment' OR `type` = 'rebate')");
 
 		return (float)$query->row['total'];
 	}
 
-	public function getTotalRebated($globalpay_order_id) {
+	public function getTotalRebated(int $globalpay_order_id): float {
 		$query = $this->db->query("SELECT SUM(`amount`) AS `total` FROM `" . DB_PREFIX . "globalpay_order_transaction` WHERE `globalpay_order_id` = '" . (int)$globalpay_order_id . "' AND `type` = 'rebate'");
 
 		return (float)$query->row['total'];

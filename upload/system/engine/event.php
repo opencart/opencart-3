@@ -23,7 +23,7 @@ class Event {
 	 *
 	 * @param	object	$route
  	*/
-	public function __construct($registry) {
+	public function __construct(object $registry) {
 		$this->registry = $registry;
 	}
 	
@@ -34,7 +34,7 @@ class Event {
 	 * @param	object	$action
 	 * @param	int		$priority
  	*/	
-	public function register($trigger, Action $action, $priority = 0) {
+	public function register(string $trigger, object $action, int $priority = 0): void {
 		$this->data[] = array(
 			'trigger'  => $trigger,
 			'action'   => $action,
@@ -56,7 +56,7 @@ class Event {
 	 * @param	string	$event
 	 * @param	array	$args
  	*/		
-	public function trigger($event, array $args = array()) {
+	public function trigger(string $event, array $args = array()) {
 		foreach ($this->data as $value) {
 			if (preg_match('/^' . str_replace(array('\*', '\?'), array('.*', '.'), preg_quote($value['trigger'], '/')) . '/', $event)) {
 				$result = $value['action']->execute($this->registry, $args);
@@ -74,7 +74,7 @@ class Event {
 	 * @param	string	$trigger
 	 * @param	string	$route
  	*/	
-	public function unregister($trigger, $route) {
+	public function unregister(string $trigger, string $route): void {
 		foreach ($this->data as $key => $value) {
 			if ($trigger == $value['trigger'] && $value['action']->getId() == $route) {
 				unset($this->data[$key]);
@@ -87,7 +87,7 @@ class Event {
 	 *
 	 * @param	string	$trigger
  	*/		
-	public function clear($trigger) {
+	public function clear(string $trigger): void {
 		foreach ($this->data as $key => $value) {
 			if ($trigger == $value['trigger']) {
 				unset($this->data[$key]);

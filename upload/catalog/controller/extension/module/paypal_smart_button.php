@@ -2,7 +2,7 @@
 class ControllerExtensionModulePayPalSmartButton extends Controller {
 	private array $error = array();
 		
-	public function __construct($registry) {
+	public function __construct(object $registry) {
 		parent::__construct($registry);
 
 		if (version_compare(phpversion(), '7.1', '>=')) {

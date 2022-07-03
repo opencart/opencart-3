@@ -11,7 +11,7 @@ class ControllerExtensionAdvertiseGoogle extends Controller {
     private array $error = array();
     private int $store_id = 0;
 
-    public function __construct($registry) {
+    public function __construct(object $registry) {
         parent::__construct($registry);
 
         $this->store_id = (isset($this->request->get['store_id']) ? (int)$this->request->get['store_id'] : 0);

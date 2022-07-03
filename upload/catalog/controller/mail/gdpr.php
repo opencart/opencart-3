@@ -1,7 +1,7 @@
 <?php
 class ControllerMailGdpr extends Controller {
 	// catalog/model/account/gdpr/addGdpr
-	public function index(string &$route, array &$args, string &$output): void {
+	public function index(string &$route, array &$args, mixed &$output): void {
 		// $args[0] $code
 		// $args[1] $email
 		// $args[2] $action

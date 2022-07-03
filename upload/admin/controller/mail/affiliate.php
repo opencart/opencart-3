@@ -1,7 +1,7 @@
 <?php
 class ControllerMailAffiliate extends Controller {
 	// admin/model/customer/customer_approval/approveAffiliate/after
-	public function approve(&$route, &$args, &$output): void {
+	public function approve(string &$route, array &$args, mixed &$output): void {
 		$this->load->model('customer/customer');
 
 		$customer_info = $this->model_customer_customer->getCustomer($args[0]);
@@ -60,7 +60,7 @@ class ControllerMailAffiliate extends Controller {
 	}
 
 	// admin/model/customer/customer_approval/denyAffiliate/after
-	public function deny(&$route, &$args, &$output): void {
+	public function deny(string &$route, array &$args, mixed &$output): void {
 		$this->load->model('customer/customer');
 
 		$customer_info = $this->model_customer_customer->getCustomer($args[0]);

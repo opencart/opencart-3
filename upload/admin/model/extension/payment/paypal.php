@@ -1,6 +1,6 @@
 <?php
 class ModelExtensionPaymentPayPal extends Model {		
-	public function configureSmartButton() {
+	public function configureSmartButton(): void {
 		$this->load->model('user/user_group');
 		
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "extension` WHERE `code` = 'paypal_smart_button'");
@@ -17,7 +17,7 @@ class ModelExtensionPaymentPayPal extends Model {
         }
 	}
 	
-	public function log($data, $title = null) {
+	public function log(array $data, string $title = null): void {
 		if ($this->config->get('payment_paypal_debug')) {
 			$log = new \Log('paypal.log');
 			$log->write('PayPal debug (' . $title . '): ' . json_encode($data));

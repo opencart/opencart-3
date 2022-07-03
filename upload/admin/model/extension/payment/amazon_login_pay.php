@@ -1,6 +1,6 @@
 <?php
 class ModelExtensionPaymentAmazonLoginPay extends Model {
-	public function install() {
+	public function install(): void {
 		$this->db->query("
 			CREATE TABLE IF NOT EXISTS `" . DB_PREFIX . "amazon_login_pay_order` (
 				`amazon_login_pay_order_id` INT(11) NOT NULL AUTO_INCREMENT,
@@ -36,27 +36,27 @@ class ModelExtensionPaymentAmazonLoginPay extends Model {
 			");
 	}
 
-	public function uninstall() {
+	public function uninstall(): void {
 		$this->db->query("DROP TABLE IF EXISTS `" . DB_PREFIX . "amazon_login_pay_order`;");
 		$this->db->query("DROP TABLE IF EXISTS `" . DB_PREFIX . "amazon_login_pay_order_total_tax`;");
 		$this->db->query("DROP TABLE IF EXISTS `" . DB_PREFIX . "amazon_login_pay_order_transaction`;");
 	}
 
-	public function deleteEvents() {
+	public function deleteEvents(): void {
 		$this->load->model('setting/event');
 		
 		$this->model_setting_event->deleteEventByCode('amazon_edit_capture');
 		$this->model_setting_event->deleteEventByCode('amazon_history_capture');
 	}
 
-	public function addEvents() {
+	public function addEvents(): void {
 		$this->load->model('setting/event');
 		
 		$this->model_setting_event->addEvent('amazon_edit_capture', 'catalog/model/checkout/order/editOrder/after', 'extension/payment/amazon_login_pay/capture');
 		$this->model_setting_event->addEvent('amazon_history_capture', 'catalog/model/checkout/order/addOrderHistory/after', 'extension/payment/amazon_login_pay/capture');
 	}
 
-	public function getOrder($order_id) {
+	public function getOrder(int $order_id): array {
 		$qry = $this->db->query("SELECT * FROM `" . DB_PREFIX . "amazon_login_pay_order` WHERE `order_id` = '" . (int)$order_id . "' LIMIT 1");
 
 		if ($qry->num_rows) {
@@ -64,11 +64,11 @@ class ModelExtensionPaymentAmazonLoginPay extends Model {
 			$order['transactions'] = $this->getTransactions($order['amazon_login_pay_order_id'], $qry->row['currency_code']);
 			return $order;
 		} else {
-			return false;
+			return array();
 		}
 	}
 
-	public function cancel($amazon_login_pay_order) {
+	public function cancel(array $amazon_login_pay_order): array {
 		$total_captured = $this->getTotalCaptured($amazon_login_pay_order['amazon_login_pay_order_id']);
 
 		if (!empty($amazon_login_pay_order) && $total_captured == 0) {
@@ -89,15 +89,15 @@ class ModelExtensionPaymentAmazonLoginPay extends Model {
 			}
 			return $cancel_response;
 		} else {
-			return false;
+			return array();
 		}
 	}
 
-	public function updateCancelStatus($amazon_login_pay_order_id, $status) {
+	public function updateCancelStatus(int $amazon_login_pay_order_id, $status): void {
 		$this->db->query("UPDATE `" . DB_PREFIX . "amazon_login_pay_order` SET `cancel_status` = '" . (int)$status . "' WHERE `amazon_login_pay_order_id` = '" . (int)$amazon_login_pay_order_id . "'");
 	}
 
-	public function hasOpenAuthorization($transactions) {
+	public function hasOpenAuthorization(array $transactions): bool {
 		foreach ($transactions as $transaction) {
 			if ($transaction['type'] == 'authorization' && $transaction['status'] == 'Open') {
 				return true;
@@ -107,7 +107,7 @@ class ModelExtensionPaymentAmazonLoginPay extends Model {
 		return false;
 	}
 
-	public function capture($amazon_login_pay_order, $amount) {
+	public function capture(array $amazon_login_pay_order, float $amount): array {
 		$total_captured = $this->getTotalCaptured($amazon_login_pay_order['amazon_login_pay_order_id']);
 
 		if (!empty($amazon_login_pay_order) && $amazon_login_pay_order['capture_status'] == 0 && ($total_captured + $amount <= $amazon_login_pay_order['total'])) {
@@ -138,11 +138,11 @@ class ModelExtensionPaymentAmazonLoginPay extends Model {
 			
 			return $capture_response;
 		} else {
-			return false;
+			return array();
 		}
 	}
 
-	private function authorize($amazon_login_pay_order, $amount) {
+	private function authorize(array $amazon_login_pay_order, float $amount): array {
 		$authorize_parameter_data = array();
 		
 		$authorize_parameter_data['AmazonOrderReferenceId'] = $amazon_login_pay_order['amazon_order_reference_id'];
@@ -156,7 +156,7 @@ class ModelExtensionPaymentAmazonLoginPay extends Model {
 		return $this->validateResponse('Authorize', $authorize_details);
 	}
 
-	public function closeOrderRef($amazon_order_reference_id) {
+	public function closeOrderRef($amazon_order_reference_id): void {
 		$close_parameter_data = array();
 		
 		$close_parameter_data['AmazonOrderReferenceId'] = $amazon_order_reference_id;
@@ -168,11 +168,11 @@ class ModelExtensionPaymentAmazonLoginPay extends Model {
 		$this->logger($close_details);
 	}
 
-	public function updateCaptureStatus($amazon_login_pay_order_id, $status) {
+	public function updateCaptureStatus(int $amazon_login_pay_order_id, int $status): void {
 		$this->db->query("UPDATE `" . DB_PREFIX . "amazon_login_pay_order` SET `capture_status` = '" . (int)$status . "' WHERE `amazon_login_pay_order_id` = '" . (int)$amazon_login_pay_order_id . "'");
 	}
 
-	public function refund($amazon_login_pay_order, $amount) {
+	public function refund(array $amazon_login_pay_order, float $amount): array {
 		if (!empty($amazon_login_pay_order) && $amazon_login_pay_order['refund_status'] != 1) {
 			$amazon_captures_remaining = $this->getUnCaptured($amazon_login_pay_order['amazon_login_pay_order_id']);
 
@@ -207,11 +207,11 @@ class ModelExtensionPaymentAmazonLoginPay extends Model {
 
 			return $refund_response;
 		} else {
-			return false;
+			return array();
 		}
 	}
 
-	public function getUnCaptured($amazon_login_pay_order_id) {
+	public function getUnCaptured(int $amazon_login_pay_order_id): array {
 		$qry = $this->db->query("SELECT * FROM `" . DB_PREFIX . "amazon_login_pay_order_transaction` WHERE (`type` = 'refund' OR `type` = 'capture') AND `amazon_login_pay_order_id` = '" . (int)$amazon_login_pay_order_id . "' ORDER BY `date_added`");
 		
 		$uncaptured = array();
@@ -233,7 +233,7 @@ class ModelExtensionPaymentAmazonLoginPay extends Model {
 		return array_values($uncaptured);
 	}
 
-	public function updateRefundStatus($amazon_login_pay_order_id, $status) {
+	public function updateRefundStatus(int $amazon_login_pay_order_id, int $status): void {
 		$this->db->query("UPDATE `" . DB_PREFIX . "amazon_login_pay_order` SET `refund_status` = '" . (int)$status . "' WHERE `amazon_login_pay_order_id` = '" . (int)$amazon_login_pay_order_id . "'");
 	}
 
@@ -247,7 +247,7 @@ class ModelExtensionPaymentAmazonLoginPay extends Model {
 		}
 	}
 
-	private function getTransactions($amazon_login_pay_order_id, $currency_code) {
+	private function getTransactions(int $amazon_login_pay_order_id, string $currency_code): array {
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "amazon_login_pay_order_transaction` WHERE `amazon_login_pay_order_id` = '" . (int)$amazon_login_pay_order_id . "' ORDER BY `date_added` DESC");
 
 		$transactions = array();
@@ -259,15 +259,15 @@ class ModelExtensionPaymentAmazonLoginPay extends Model {
 			}
 			return $transactions;
 		} else {
-			return false;
+			return array();
 		}
 	}
 
-	public function addTransaction($amazon_login_pay_order_id, $type, $status, $total, $amazon_authorization_id = null, $amazon_capture_id = null, $amazon_refund_id = null) {
-		$this->db->query("INSERT INTO `" . DB_PREFIX . "amazon_login_pay_order_transaction` SET `amazon_login_pay_order_id` = '" . (int)$amazon_login_pay_order_id . "',`amazon_authorization_id` = '" . $this->db->escape($amazon_authorization_id) . "', `amazon_capture_id` = '" . $this->db->escape($amazon_capture_id) . "', `amazon_refund_id` = '" . $this->db->escape($amazon_refund_id) . "', `date_added` = NOW(), `type` = '" . $this->db->escape($type) . "', `amount` = '" . (double)$total . "', `status` = '" . $this->db->escape($status) . "'");
+	public function addTransaction(int $amazon_login_pay_order_id, string $type, string $status, float $total, string $amazon_authorization_id = null, string $amazon_capture_id = null, string $amazon_refund_id = null): void {
+		$this->db->query("INSERT INTO `" . DB_PREFIX . "amazon_login_pay_order_transaction` SET `amazon_login_pay_order_id` = '" . (int)$amazon_login_pay_order_id . "',`amazon_authorization_id` = '" . $this->db->escape($amazon_authorization_id) . "', `amazon_capture_id` = '" . $this->db->escape($amazon_capture_id) . "', `amazon_refund_id` = '" . $this->db->escape($amazon_refund_id) . "', `date_added` = NOW(), `type` = '" . $this->db->escape($type) . "', `amount` = '" . (float)$total . "', `status` = '" . $this->db->escape($status) . "'");
 	}
 
-	public function updateAuthorizationStatus($amazon_authorization_id, $status) {
+	public function updateAuthorizationStatus(string $amazon_authorization_id, string $status): void {
 		$this->db->query("UPDATE `" . DB_PREFIX . "amazon_login_pay_order_transaction` SET `status` = '" . $this->db->escape($status) . "' WHERE `amazon_authorization_id` = '" . $this->db->escape($amazon_authorization_id) . "' AND `type` = 'authorization'");
 	}
 
@@ -289,19 +289,19 @@ class ModelExtensionPaymentAmazonLoginPay extends Model {
             ->OrderReferenceDetails;
     }
 
-	public function getTotalCaptured($amazon_login_pay_order_id) {
+	public function getTotalCaptured(int $amazon_login_pay_order_id): int {
 		$query = $this->db->query("SELECT SUM(`amount`) AS `total` FROM `" . DB_PREFIX . "amazon_login_pay_order_transaction` WHERE `amazon_login_pay_order_id` = '" . (int)$amazon_login_pay_order_id . "' AND (`type` = 'capture' OR `type` = 'refund') AND (`status` = 'Completed' OR `status` = 'Closed')");
 
 		return (double)$query->row['total'];
 	}
 
-	public function getTotalRefunded($amazon_login_pay_order_id) {
+	public function getTotalRefunded(int $amazon_login_pay_order_id): int {
 		$query = $this->db->query("SELECT SUM(`amount`) AS `total` FROM `" . DB_PREFIX . "amazon_login_pay_order_transaction` WHERE `amazon_login_pay_order_id` = '" . (int)$amazon_login_pay_order_id . "' AND `type` = 'refund'");
 
 		return (double)$query->row['total'];
 	}
 
-	public function validateDetails($data) {
+	public function validateDetails(array $data): array {
 		$validate_parameter_data = array();
 		
 		$validate_parameter_data['AWSAccessKeyId'] = $data['payment_amazon_login_pay_access_key'];
@@ -412,7 +412,7 @@ class ModelExtensionPaymentAmazonLoginPay extends Model {
 		return $response;
 	}
 
-	public function sendCurl($url, $parameters) {
+	public function sendCurl(array $url, array $parameters): array {
 		$query = $this->getParametersAsString($parameters);
 
 		$curl = curl_init($url);
@@ -439,7 +439,7 @@ class ModelExtensionPaymentAmazonLoginPay extends Model {
 		return array('status' => (int)$code, 'ResponseBody' => $responseBody);
 	}
 
-	private function getParametersAsString(array $parameters) {
+	private function getParametersAsString(array $parameters): string {
 		$queryParameters = array();
 		
 		foreach ($parameters as $key => $value) {
@@ -473,7 +473,7 @@ class ModelExtensionPaymentAmazonLoginPay extends Model {
 		return str_replace('%7E', '~', rawurlencode($value));
 	}
 
-	public function logger($message) {
+	public function logger(string $message): void {
 		if ($this->config->get('payment_amazon_login_pay_debug') == 1) {
 			$log = new \Log('amazon_login_pay_admin.log');
 			

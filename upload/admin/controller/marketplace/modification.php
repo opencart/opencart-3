@@ -51,7 +51,7 @@ class ControllerMarketplaceModification extends Controller {
 		$this->getList();
 	}
 
-	public function refresh($data = array()): void {
+	public function refresh(array $data = array()): void {
 		$this->load->language('marketplace/modification');
 
 		$this->document->setTitle($this->language->get('heading_title'));

@@ -8,12 +8,12 @@
 */
 
 /**
-* Session
+* Session class
 */
 class Session {
 	protected object $adaptor;
 	protected string $session_id;
-	public array $data = array();
+	public array $data = [];
 
 	/**
 	 * Constructor
@@ -21,7 +21,7 @@ class Session {
 	 * @param	string	$adaptor
 	 * @param	object	$registry
  	*/
-	public function __construct(string $adaptor, $registry) {
+	public function __construct(string $adaptor, object $registry) {
 		$class = 'Session\\' . $adaptor;
 		
 		if (class_exists($class)) {
@@ -91,7 +91,7 @@ class Session {
 	 * Deletes the current session from storage
  	*/
 	public function destroy(): void {
-		$this->data = array();
+		$this->data = [];
 
 		$this->adaptor->destroy($this->session_id);
 	}

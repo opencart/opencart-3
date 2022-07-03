@@ -1,13 +1,13 @@
 <?php
 namespace Template;
-final class Twig {
+class Twig {
 	private $data = array();
 
-	public function set($key, $value) {
+	public function set(string $key, mixed $value): void {
 		$this->data[$key] = $value;
 	}
 	
-	public function render(string $filename, string $code = '') {
+	public function render(string $filename, string $code = ''): mixed {
 		if (!$code) {
 			$file = DIR_TEMPLATE . $filename . '.twig';
 

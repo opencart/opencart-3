@@ -87,7 +87,7 @@ class ModelExtensionFraudFraudLabsPro extends Model {
 		$this->model_setting_event->deleteEventByCode('fraud_fraudlabspro_history');
 	}
 
-	public function getOrder($order_id): void {
+	public function getOrder(int $order_id): void {
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "fraudlabspro` WHERE `order_id` = '" . (int)$order_id . "'");
 
 		return $query->row;

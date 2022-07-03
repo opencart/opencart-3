@@ -11,13 +11,13 @@
 * Model class
 */
 abstract class Model {
-	protected $registry;
+	protected object $registry;
 
-	public function __construct($registry) {
+	public function __construct(object $registry) {
 		$this->registry = $registry;
 	}
 
-	public function __get($key) {
+	public function __get(string $key): object {
 		if ($this->registry->has($key)) {
 			return $this->registry->get($key);
 		} else {
@@ -25,7 +25,7 @@ abstract class Model {
 		}
 	}
 
-	public function __set($key, $value) {
+	public function __set(string $key, object $value): void {
 		$this->registry->set($key, $value);
 	}
 }

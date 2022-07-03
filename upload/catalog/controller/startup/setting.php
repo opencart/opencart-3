@@ -1,6 +1,6 @@
 <?php
 class ControllerStartupSetting extends Controller {
-	public function index() {
+	public function index(): void {
 		$this->load->model('setting/store');
 
 		$hostname = ($this->request->server['HTTPS'] ? 'https://' : 'http://') . str_replace('www.', '', $this->request->server['HTTP_HOST']) . rtrim(dirname($this->request->server['PHP_SELF']), '/.\\') . '/';
