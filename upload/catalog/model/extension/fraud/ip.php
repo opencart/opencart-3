@@ -1,6 +1,6 @@
 <?php
 class ModelExtensionFraudIp extends Model {
-    public function check($order_info) {
+    public function check(array $order_info): int {
         $status = false;
 
 		if ($order_info['customer_id']) {
@@ -26,6 +26,8 @@ class ModelExtensionFraudIp extends Model {
 
 		if ($status) {
 			return (int)$this->config->get('fraud_ip_order_status_id');
+		} else {
+			return 0;
 		}
     }
 }

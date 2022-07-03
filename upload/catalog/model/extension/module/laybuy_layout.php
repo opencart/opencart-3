@@ -1,6 +1,6 @@
 <?php
 class ModelExtensionModuleLaybuyLayout extends Model {
-	public function getStatusLabel($id) {
+	public function getStatusLabel(int $id): string {
 		$statuses = $this->getTransactionStatuses();
 
 		foreach ($statuses as $status) {
@@ -9,17 +9,17 @@ class ModelExtensionModuleLaybuyLayout extends Model {
 				break;
 			}
 		}
-
-		return $id;
+		
+		return '';
 	}
 
-	public function getTransactionByOrderId($order_id) {
+	public function getTransactionByOrderId(int $order_id): array {
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "laybuy_transaction` WHERE `order_id` = '" . (int)$order_id . "' ORDER BY `laybuy_ref_no` DESC LIMIT 1");
 
 		return $query->row;
 	}
 
-	public function getTransactionStatuses() {
+	public function getTransactionStatuses(): array {
 		$this->load->language('extension/payment/laybuy');
 
 		$transaction_statuses = array(
@@ -48,7 +48,7 @@ class ModelExtensionModuleLaybuyLayout extends Model {
 		return $transaction_statuses;
 	}
 
-	public function isLayBuyOrder($order_id) {
+	public function isLayBuyOrder(int $order_id): bool {
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "laybuy_transaction` WHERE `order_id` = '" . (int)$order_id . "'");
 
 		if ($query->num_rows) {

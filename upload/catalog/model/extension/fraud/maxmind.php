@@ -1,6 +1,6 @@
 <?php
 class ModelExtensionFraudMaxMind extends Model {
-	public function check($order_info) {
+	public function check(array $order_info): int {
 		$risk_score = 0;
 
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "maxmind` WHERE `order_id` = '" . (int)$order_info['order_id'] . "'");
@@ -376,6 +376,8 @@ class ModelExtensionFraudMaxMind extends Model {
 
 		if ($risk_score > $this->config->get('fraud_maxmind_score') && $this->config->get('fraud_maxmind_key')) {
 			return $this->config->get('maxmind_order_status_id');
+		} else {
+			return 0;
 		}
 	}
 }

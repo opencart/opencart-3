@@ -1,6 +1,6 @@
 <?php
 class ModelAccountReward extends Model {
-	public function getRewards($data = array()) {
+	public function getRewards(array $data = array()): array {
 		$sql = "SELECT * FROM `" . DB_PREFIX . "customer_reward` WHERE `customer_id` = '" . (int)$this->customer->getId() . "'";
 
 		$sort_data = array(
@@ -38,13 +38,13 @@ class ModelAccountReward extends Model {
 		return $query->rows;
 	}
 
-	public function getTotalRewards() {
+	public function getTotalRewards(): int {
 		$query = $this->db->query("SELECT COUNT(*) AS `total` FROM `" . DB_PREFIX . "customer_reward` WHERE `customer_id` = '" . (int)$this->customer->getId() . "'");
 
 		return (int)$query->row['total'];
 	}
 
-	public function getTotalPoints() {
+	public function getTotalPoints(): int {
 		$query = $this->db->query("SELECT SUM(`points`) AS `total` FROM `" . DB_PREFIX . "customer_reward` WHERE `customer_id` = '" . (int)$this->customer->getId() . "' GROUP BY `customer_id`");
 
 		if ($query->num_rows) {

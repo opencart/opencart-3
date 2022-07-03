@@ -1,6 +1,6 @@
 <?php
 class ModelAccountActivity extends Model {
-	public function addActivity($key, $data) {
+	public function addActivity(string $key, array $data): void {
 		if (isset($data['customer_id'])) {
 			$customer_id = $data['customer_id'];
 		} else {

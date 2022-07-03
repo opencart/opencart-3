@@ -1,6 +1,6 @@
 <?php
 class ModelExtensionTotalReward extends Model {
-	public function getTotal($total) {
+	public function getTotal(float $total): array {
 		if (isset($this->session->data['reward'])) {
 			$this->load->language('extension/total/reward', 'reward');
 
