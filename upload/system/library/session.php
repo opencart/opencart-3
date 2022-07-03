@@ -22,7 +22,7 @@ class Session {
 	 * @param	object	$registry
  	*/
 	public function __construct(string $adaptor, $registry) {
-		$class = 'Opencart\System\Library\Session\\' . $adaptor;
+		$class = 'Session\\' . $adaptor;
 		
 		if (class_exists($class)) {
 			if ($registry) {
