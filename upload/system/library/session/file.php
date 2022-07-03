@@ -1,7 +1,7 @@
 <?php
 namespace Session;
 class File {
-	public function __construct(\Opencart\System\Engine\Registry $registry) {
+	public function __construct(object $registry) {
 		$this->config = $registry->get('config');
 	}
 
