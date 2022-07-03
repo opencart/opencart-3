@@ -111,7 +111,7 @@ class ModelAccountAddress extends Model {
 				'default'        => $address_query->row['default']
 			];
 		} else {
-			return [];
+			return array();
 		}
 	}
 

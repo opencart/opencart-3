@@ -13,7 +13,7 @@
 class Session {
 	protected object $adaptor;
 	protected string $session_id;
-	public array $data = [];
+	public array $data = array();
 
 	/**
 	 * Constructor
@@ -91,7 +91,7 @@ class Session {
 	 * Deletes the current session from storage
  	*/
 	public function destroy(): void {
-		$this->data = [];
+		$this->data = array();
 
 		$this->adaptor->destroy($this->session_id);
 	}

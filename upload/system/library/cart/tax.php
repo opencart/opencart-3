@@ -93,7 +93,7 @@ class Tax {
 	}
 
 	public function getRates(float $value, int $tax_class_id): array {
-		$tax_rate_data = [];
+		$tax_rate_data = array();
 
 		if (isset($this->tax_rates[$tax_class_id])) {
 			foreach ($this->tax_rates[$tax_class_id] as $tax_rate) {
@@ -123,6 +123,6 @@ class Tax {
 	}
 
 	public function clear(): void {
-		$this->tax_rates = [];
+		$this->tax_rates = array();
 	}
 }
