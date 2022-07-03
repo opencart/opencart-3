@@ -17,7 +17,7 @@ class ControllerStartupLanguage extends Controller {
 		if (!$code) {
 			$detect = '';
 
-			$browser_codes = [];
+			$browser_codes = array();
 
 			if (!empty($this->request->server['HTTP_ACCEPT_LANGUAGE'])) {
 				$browser_languages = explode(',', strtolower($this->request->server['HTTP_ACCEPT_LANGUAGE']));
@@ -34,7 +34,7 @@ class ControllerStartupLanguage extends Controller {
 				}
 			}
 
-			$sort_order = [];
+			$sort_order = array();
 
 			foreach ($browser_codes as $key => $value) {
 				$sort_order[$key] = $value[key($value)];

@@ -8,8 +8,8 @@ class Memcached {
 
 	public function __construct(int $expire = 3600) {
 		$this->expire = $expire;
-
 		$this->memcached = new \Memcached();
+
 		$this->memcached->addServer(CACHE_HOSTNAME, CACHE_PORT);
 	}
 
@@ -17,12 +17,8 @@ class Memcached {
 		return $this->memcached->get(CACHE_PREFIX . $key);
 	}
 
-	public function set(string $key, array|string|null $value, int $expire = 0) {
-		if (!$expire) {
-			$expire = $this->expire;
-		}
-
-		$this->memcached->set(CACHE_PREFIX . $key, $value, $expire);
+	public function set(string $key, array|string|null $value) {
+		return $this->memcached->set(CACHE_PREFIX . $key, $value, $this->expire);
 	}
 
 	public function delete(string $key) {

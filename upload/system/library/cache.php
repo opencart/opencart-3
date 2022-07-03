@@ -42,23 +42,23 @@ class Cache {
 	}
 	
     /**
-     * Sets a cache by key value.
+     * 
      *
      * @param	string	$key	The cache key
 	 * @param	string	$value	The cache value
 	 * 
 	 * @return	string
      */
-	public function set(string $key, array|string|null $value, int $expire = 0): void {
-		$this->adaptor->set($key, $value, $expire);
+	public function set(string $key, array|string|null $value, int $expire = 0): mixed {
+		return $this->adaptor->set($key, $value);
 	}
    
     /**
-     * Deletes a cache by key name.
+     * 
      *
      * @param	string	$key	The cache key
      */
-	public function delete(string $key): void {
-		$this->adaptor->delete($key);
+	public function delete(string $key): string {
+		return $this->adaptor->delete($key);
 	}
 }

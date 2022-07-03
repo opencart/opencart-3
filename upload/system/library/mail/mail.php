@@ -1,24 +1,6 @@
 <?php
 namespace Mail;
 class Mail {
-	protected string $to = '';
-	protected string $from = '';
-	protected string $sender = '';
-	protected string $reply_to = '';
-	protected string $subject = '';
-	protected string $text = '';
-	protected string $html = '';
-	protected array $attachments = array();
-	protected string $parameter;
-
-	public function __construct(array $args) {
-		foreach ($args as $key => $value) {
-			if (property_exists($this, $key)) {
-				$this->{$key} = $value;
-			}
-		}
-	}
-
 	public function send(): bool {
 		if (is_array($this->to)) {
 			$to = implode(',', $this->to);

@@ -1,13 +1,13 @@
 <?php
 namespace Template;
-class Template {
-	private array $data = array();
+final class Template {
+	private $data = array();
 		
-	public function set(string $key, object $value): void {
+	public function set(string $key, string $value): void {
 		$this->data[$key] = $value;
 	}
 	
-	public function render(string $template): void {
+	public function render(string $template): string {
 		$file = DIR_TEMPLATE . $template . '.tpl';
 
 		if (is_file($file)) {

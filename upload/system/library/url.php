@@ -11,9 +11,9 @@
 * URL class
 */
 class Url {
-	private $url;
-	private $ssl;
-	private $rewrite = array();
+	private string $url;
+	private string $ssl;
+	private array $rewrite = array();
 	
 	/**
 	 * Constructor
@@ -22,7 +22,7 @@ class Url {
 	 * @param	string	$ssl
 	 *
  	*/
-	public function __construct($url, $ssl = '') {
+	public function __construct(string $url, string $ssl = '') {
 		$this->url = $url;
 		$this->ssl = $ssl;
 	}
@@ -32,7 +32,7 @@ class Url {
 	 *
 	 * @param	object	$rewrite
  	*/	
-	public function addRewrite($rewrite) {
+	public function addRewrite($rewrite): void {
 		$this->rewrite[] = $rewrite;
 	}
 
@@ -45,7 +45,7 @@ class Url {
 	 *
 	 * @return	string
  	*/
-	public function link($route, $args = '', $secure = false) {
+	public function link(string $route, string|array $args = '', bool $secure = false): string {
 		if ($this->ssl && $secure) {
 			$url = $this->ssl . 'index.php?route=' . $route;
 		} else {

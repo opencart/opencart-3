@@ -30,7 +30,10 @@ class Loader {
 	 *
 	 * @return	mixed
  	*/	
-	public function controller(string $route, array $data = array()): mixed {
+	
+	// Removing the mixed output as a temporary workaround since admin extension
+	// installers don't seem to like that really much.
+	public function controller(string $route, array $data = array()) {
 		// Sanitize the call
 		$route = preg_replace('/[^a-zA-Z0-9_\/]/', '', (string)$route);
 		

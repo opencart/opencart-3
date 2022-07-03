@@ -1,7 +1,7 @@
 <?php
 namespace Cache;
 class Mem {
-	private int $expire;
+		private int $expire;
 	private object $memcache;
 
 	const CACHEDUMP_LIMIT = 9999;
@@ -17,15 +17,11 @@ class Mem {
 		return $this->memcache->get(CACHE_PREFIX . $key);
 	}
 
-	public function set(string $key, array|string|null $value, int $expire = 0) {
-		if (!$expire) {
-			$expire = $this->expire;
-		}
-
-		$this->memcache->set(CACHE_PREFIX . $key, $value, MEMCACHE_COMPRESSED, $expire);
+	public function set(string $key, array|string|null $value) {
+		return $this->memcache->set(CACHE_PREFIX . $key, $value, MEMCACHE_COMPRESSED, $this->expire);
 	}
 
-	public function delete(string $key) {
+	public function delete($key) {
 		$this->memcache->delete(CACHE_PREFIX . $key);
 	}
 }

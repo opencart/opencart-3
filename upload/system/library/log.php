@@ -13,7 +13,7 @@
 class Log {
 	private string $file;
 	private string $message = '';
-
+	
 	/**
 	 * Constructor
 	 *

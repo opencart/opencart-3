@@ -17,16 +17,14 @@ class Redis {
 		return json_decode($data, true);
 	}
 
-	public function set(string $key, array|string|null $value, int $expire = 0) {
-		if (!$expire) {
-			$expire = $this->expire;
-		}
-
+	public function set(string $key, array|string|null $value) {
 		$status = $this->cache->set(CACHE_PREFIX . $key, json_encode($value));
 
 		if ($status) {
-			$this->cache->expire(CACHE_PREFIX . $key, $expire);
+			$this->cache->expire(CACHE_PREFIX . $key, $this->expire);
 		}
+
+		return $status;
 	}
 
 	public function delete(string $key): bool {

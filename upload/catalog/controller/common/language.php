@@ -21,7 +21,7 @@ class ControllerCommonLanguage extends Controller {
 			$url = '&' . urldecode(http_build_query($url_data));
 		}
 
-		$data['languages'] = [];
+		$data['languages'] = array();
 
 		$this->load->model('localisation/language');
 

@@ -10,53 +10,41 @@ class File {
 
 		if ($files) {
 			foreach ($files as $file) {
-				$filename = basename($file);
-
 				$time = substr(strrchr($file, '.'), 1);
 
 				if ($time < time()) {
-					$this->delete(substr($filename, 6, strrpos($filename, '.') - 6));
+					if (file_exists($file)) {
+						unlink($file);
+					}
 				}
 			}
 		}
 	}
 
 	public function get(string $key): array|string|null {
-		$files = glob(DIR_CACHE . 'cache.' . basename($key) . '.*');
+		$files = glob(DIR_CACHE . 'cache.' . preg_replace('/[^A-Z0-9\._-]/i', '', $key) . '.*');
 
 		if ($files) {
 			$handle = fopen($files[0], 'r');
 
-			if (is_resource($handle)) {
-				flock($handle, LOCK_SH);
+			flock($handle, LOCK_SH);
 
-				$size = filesize($files[0]);
+			$data = fread($handle, filesize($files[0]));
 
-				if ($size > 0) {
-					$data = fread($handle, $size);
-				} else {
-					$data = '';
-				}
+			flock($handle, LOCK_UN);
 
-				flock($handle, LOCK_UN);
+			fclose($handle);
 
-				fclose($handle);
-
-				return json_decode($data, true);
-			}
+			return json_decode($data, true);
 		}
 
-		return [];
+		return false;
 	}
 
 	public function set(string $key, array|string|null $value, int $expire = 0): void {
 		$this->delete($key);
 
-		if (!$expire) {
-			$expire = $this->expire;
-		}
-
-		$file = DIR_CACHE . 'cache.' . basename($key) . '.' . (time() + $expire);
+		$file = DIR_CACHE . 'cache.' . preg_replace('/[^A-Z0-9\._-]/i', '', $key) . '.' . (time() + $this->expire);
 
 		$handle = fopen($file, 'w');
 
@@ -72,12 +60,12 @@ class File {
 	}
 
 	public function delete(string $key): void {
-		$files = glob(DIR_CACHE . 'cache.' . basename($key) . '.*');
+		$files = glob(DIR_CACHE . 'cache.' . preg_replace('/[^A-Z0-9\._-]/i', '', $key) . '.*');
 
 		if ($files) {
 			foreach ($files as $file) {
-				if (!@unlink($file)) {
-					clearstatcache(false, $file);
+				if (file_exists($file)) {
+					unlink($file);
 				}
 			}
 		}

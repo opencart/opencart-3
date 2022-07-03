@@ -21,7 +21,7 @@ class Language {
 	 * @param	string	$file
 	 *
  	*/
-	public function __construct($directory = '') {
+	public function __construct(string $directory = '') {
 		$this->directory = $directory;
 	}
 	
@@ -32,11 +32,11 @@ class Language {
 	 * 
 	 * @return	string
      */
-	public function get($key) {
+	public function get(string $key) {
 		return isset($this->data[$key]) ? $this->data[$key] : $key;
 	}
 	
-	public function set($key, $value) {
+	public function set(string $key, array|string $value): void {
 		$this->data[$key] = $value;
 	}
 	
@@ -45,7 +45,7 @@ class Language {
      *
 	 * @return	array
      */	
-	public function all() {
+	public function all(): array {
 		return $this->data;
 	}
 	
@@ -57,7 +57,7 @@ class Language {
 	 * 
 	 * @return	array
      */	
-	public function load($filename, $key = '') {
+	public function load(string $filename, string $key = ''): array {
 		if (!$key) {
 			$_ = array();
 	
@@ -76,7 +76,7 @@ class Language {
 			$this->data = array_merge($this->data, $_);
 		} else {
 			// Put the language into a sub key
-			$this->data[$key] = new \Language($this->directory);
+			$this->data[$key] = new Language($this->directory);
 			$this->data[$key]->load($filename);
 		}
 		
