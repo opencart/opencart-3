@@ -178,7 +178,7 @@ class ControllerExtensionPaymentPPPayflowIframe extends Controller {
 		$this->model_extension_payment_pp_payflow_iframe->uninstall();
 	}
 
-	public function refund(): void {
+	public function refund() {
 		$this->load->language('extension/payment/pp_payflow_iframe');
 		
 		$this->load->model('extension/payment/pp_payflow_iframe');
@@ -411,7 +411,7 @@ class ControllerExtensionPaymentPPPayflowIframe extends Controller {
 		$this->response->setOutput(json_encode($json));
 	}
 
-	public function order(): void {
+	public function order(): string {
 		$this->load->language('extension/payment/pp_payflow_iframe');
 		
 		$this->load->model('extension/payment/pp_payflow_iframe');		

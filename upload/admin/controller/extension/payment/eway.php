@@ -174,16 +174,16 @@ class ControllerExtensionPaymentEway extends Controller {
 	}
 
 	// Legacy 2.0.0
-	public function orderAction(): void {
+	public function orderAction() {
 		return $this->order();
 	}
 
 	// Legacy 2.0.3
-	public function action(): void {
+	public function action() {
 		return $this->order();
 	}
 
-	public function order(): void {
+	public function order(): string {
 		if ($this->config->get('payment_eway_status')) {
 			$this->load->model('extension/payment/eway');
 

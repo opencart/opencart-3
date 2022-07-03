@@ -271,15 +271,15 @@ class ModelExtensionPaymentLaybuy extends Model {
 			`months` int(11) NOT NULL,
 			`downpayment_amount` double NOT NULL,
 			`payment_amounts` double NOT NULL,
-			`first_payment_due` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
-			`last_payment_due` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
+			`first_payment_due` datetime NOT NULL,
+			`last_payment_due` datetime NOT NULL,
 			`store_id` int(11) NOT NULL DEFAULT '0',
 			`status` int(11) NOT NULL DEFAULT '1',
 			`report` text,
 			`transaction` int(11) NOT NULL DEFAULT '2',
 			`paypal_profile_id` varchar(250) NOT NULL DEFAULT '',
 			`laybuy_ref_no` int(11) NOT NULL DEFAULT '0',
-			`date_added` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
+			`date_added` datetime NOT NULL,
 			PRIMARY KEY (`laybuy_transaction_id`)
 		) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci");
 
@@ -302,8 +302,8 @@ class ModelExtensionPaymentLaybuy extends Model {
 			`months` int(11) NOT NULL,
 			`downpayment_amount` double NOT NULL,
 			`payment_amounts` double NOT NULL,
-			`first_payment_due` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
-			`last_payment_due` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
+			`first_payment_due` datetime NOT NULL,
+			`last_payment_due` datetime NOT NULL,
 			`store_id` int(11) NOT NULL DEFAULT '0',
 			`status` int(11) NOT NULL DEFAULT '1',
 			`report` text,
@@ -311,7 +311,7 @@ class ModelExtensionPaymentLaybuy extends Model {
 			`paypal_profile_id` varchar(250) NOT NULL DEFAULT '',
 			`laybuy_ref_no` int(11) NOT NULL DEFAULT '0',
 			`payment_type` tinyint(1) NOT NULL DEFAULT '1',
-			`date_added` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
+			`date_added` datetime NOT NULL,
 			PRIMARY KEY (`laybuy_revise_request_id`)
 		) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci");
 

@@ -221,7 +221,7 @@ class ControllerExtensionPaymentPPProIframe extends Controller {
 		return !$this->error;
 	}
 
-	public function order(): void {
+	public function order(): string {
 		$this->load->language('extension/payment/pp_pro_iframe');
 		
 		$this->load->model('extension/payment/pp_pro_iframe');		
@@ -427,8 +427,18 @@ class ControllerExtensionPaymentPPProIframe extends Controller {
 							$log = new \Log('pp_pro_iframe.log');
 							$log->write(json_encode($result));
 						}
+						
+						$error = '';
+						
+						if (isset($result['L_SHORTMESSAGE0'])) {
+							$error .= $result['L_SHORTMESSAGE0'];
+						} elseif (isset($result['L_LONGMESSAGE0'])) {
+							$error .= '<br/>' . sprintf($this->language->get('error_status'), $result['L_LONGMESSAGE0']);
+						}
 
-						$this->session->data['error'] = (isset($result['L_SHORTMESSAGE0']) ? $result['L_SHORTMESSAGE0'] : isset($result['L_LONGMESSAGE0']) ? '<br/>' . sprintf($this->language->get('error_status'), $result['L_LONGMESSAGE0']) : '');
+						if ($error) {
+							$this->session->data['error'] = $error;
+						}
 						
 						$this->response->redirect($this->url->link('extension/payment/pp_pro_iframe/refund', 'user_token=' . $this->session->data['user_token'] . '&transaction_id=' . $this->request->post['transaction_id'], true));
 					}

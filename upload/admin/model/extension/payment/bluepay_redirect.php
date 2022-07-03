@@ -44,7 +44,7 @@ class ModelExtensionPaymentBluepayredirect extends Model {
 		$this->db->query("DROP TABLE IF EXISTS `" . DB_PREFIX . "bluepay_redirect_card`;");
 	}
 
-	public function void(int $order_id): void {
+	public function void(int $order_id): array {
 		$bluepay_redirect_order = $this->getOrder($order_id);
 
 		if (!empty($bluepay_redirect_order) && $bluepay_redirect_order['release_status'] == 1) {
@@ -71,7 +71,7 @@ class ModelExtensionPaymentBluepayredirect extends Model {
 
 			return $response_data;
 		} else {
-			return false;
+			return array();
 		}
 	}
 

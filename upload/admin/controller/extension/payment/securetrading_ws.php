@@ -337,7 +337,7 @@ class ControllerExtensionPaymentSecureTradingWs extends Controller {
 		return $this->load->view('extension/payment/securetrading_ws_transactions', $data);
 	}
 
-	public function order(): void {
+	public function order(): string {
 		if ($this->config->get('payment_securetrading_ws_status')) {
 			$this->load->model('extension/payment/securetrading_ws');
 

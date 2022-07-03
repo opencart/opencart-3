@@ -230,7 +230,7 @@ class ControllerExtensionPaymentCardConnect extends Controller {
 		}
 	}
 
-	public function order(): void {
+	public function order(): string {
 		if ($this->config->get('payment_cardconnect_status')) {
 			$this->load->model('extension/payment/cardconnect');
 			

@@ -385,7 +385,7 @@ class ControllerExtensionPaymentAmazonLoginPay extends Controller {
 		$this->model_extension_payment_amazon_login_pay->deleteEvents();
 	}
 
-	public function order(): void {
+	public function order(): string {
 		if ($this->config->get('payment_amazon_login_pay_status')) {
 			$this->load->model('extension/payment/amazon_login_pay');
 

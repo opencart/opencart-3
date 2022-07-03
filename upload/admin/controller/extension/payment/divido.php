@@ -219,7 +219,7 @@ class ControllerExtensionPaymentDivido extends Controller {
 		$this->model_extension_payment_divido->uninstall();
 	}
 
-	protected function validate(): void {
+	protected function validate() {
 		if (!$this->user->hasPermission('modify', 'extension/payment/divido')) {
 			$this->error['warning'] = $this->language->get('error_permission');
 		}

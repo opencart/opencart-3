@@ -830,7 +830,7 @@ class ControllerExtensionPaymentSquareup extends Controller {
         $this->model_extension_payment_squareup->dropTables();
     }
 
-    public function recurringButtons(): string {
+    public function recurringButtons() {
         if (!$this->user->hasPermission('modify', 'sale/recurring')) {
             return;
         }

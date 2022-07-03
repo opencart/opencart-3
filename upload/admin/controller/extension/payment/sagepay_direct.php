@@ -153,7 +153,7 @@ class ControllerExtensionPaymentSagepayDirect extends Controller {
 		$this->model_extension_payment_sagepay_direct->uninstall();
 	}
 
-	public function order(): void {
+	public function order(): string {
 		if ($this->config->get('payment_sagepay_direct_status')) {
 			$this->load->model('extension/payment/sagepay_direct');
 

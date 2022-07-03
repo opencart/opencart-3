@@ -657,7 +657,7 @@ class ControllerExtensionPaymentLaybuy extends Controller {
 		}
 	}
 
-	public function transaction($order_page = false): void {
+	public function transaction($order_page = false) {
 		$this->load->language('extension/payment/laybuy');
 		
 		$this->load->model('extension/payment/laybuy');
@@ -1067,7 +1067,7 @@ class ControllerExtensionPaymentLaybuy extends Controller {
 		$this->response->setOutput(json_encode($json));
 	}
 
-	public function order(): void {
+	public function order(): string {
 		if ($this->config->get('payment_laybuy_status')) {
 			$this->load->language('extension/payment/laybuy');
 			
