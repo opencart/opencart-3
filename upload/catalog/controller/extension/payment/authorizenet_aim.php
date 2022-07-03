@@ -1,6 +1,6 @@
 <?php
 class ControllerExtensionPaymentAuthorizeNetAim extends Controller {
-	public function index() {
+	public function index(): string {
 		$this->load->language('extension/payment/authorizenet_aim');
 
 		$data['months'] = array();
@@ -26,7 +26,7 @@ class ControllerExtensionPaymentAuthorizeNetAim extends Controller {
 		return $this->load->view('extension/payment/authorizenet_aim', $data);
 	}
 
-	public function send() {
+	public function send(): void {
 		if ($this->config->get('payment_authorizenet_aim_server') == 'live') {
 			$url = 'https://secure.authorize.net/gateway/transact.dll';
 		} elseif ($this->config->get('payment_authorizenet_aim_server') == 'test') {

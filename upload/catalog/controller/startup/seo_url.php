@@ -1,6 +1,6 @@
 <?php
 class ControllerStartupSeoUrl extends Controller {
-	public function index() {
+	public function index(): void {
 		// Add rewrite to url class
 		if ($this->config->get('config_seo_url')) {
 			$this->url->addRewrite($this);

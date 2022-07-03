@@ -1,10 +1,10 @@
 <?php
 class ControllerEventDebug extends Controller {
-	public function index(&$route, &$args) {
+	public function index(string &$route, array &$args): void {
 		//echo $route;
 	}
 	
-	public function before(&$route, &$args) {
+	public function before(string &$route, array &$args): void {
 		// add the route you want to test
 		/*
 		if ($route == 'common/home') {
@@ -13,7 +13,7 @@ class ControllerEventDebug extends Controller {
 		*/
 	}
 	
-	public function after($route, &$args, &$output) {
+	public function after(string $route, array &$args, string &$output): void {
 		// add the route you want to test
 		/*
 		if ($route == 'common/home') {

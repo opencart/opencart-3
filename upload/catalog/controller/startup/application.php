@@ -1,6 +1,6 @@
 <?php
 class ControllerStartupApplication extends Controller {
-	public function index() {
+	public function index(): void {
 		// Weight
 		$this->registry->set('weight', new \Cart\Weight($this->registry));
 

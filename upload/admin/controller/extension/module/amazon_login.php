@@ -1,13 +1,12 @@
 <?php
 class ControllerExtensionModuleAmazonLogin extends Controller {
-	private $version = '3.2.1';
-	private $error = array();
+	private string $version = '3.2.1';
+	private array $error = array();
 
 	public function index(): void {
 		$this->load->language('extension/module/amazon_login');
 
-		$this->load->model('setting/setting');
-		
+		$this->load->model('setting/setting');		
 		$this->load->model('design/layout');
 
 		$this->document->setTitle($this->language->get('heading_title'));

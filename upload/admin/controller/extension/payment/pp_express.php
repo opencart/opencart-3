@@ -1,8 +1,8 @@
 <?php
 class ControllerExtensionPaymentPPExpress extends Controller {
-	private $error = array();
-	private $opencart_connect_url = 'https://www.opencart.com/index.php?route=external/paypal_auth/connect';
-	private $opencart_retrieve_url = 'https://www.opencart.com/index.php?route=external/paypal_auth/retrieve';
+	private array $error = array();
+	private string $opencart_connect_url = 'https://www.opencart.com/index.php?route=external/paypal_auth/connect';
+	private string $opencart_retrieve_url = 'https://www.opencart.com/index.php?route=external/paypal_auth/retrieve';
 
 	public function index(): void {
 		$this->load->language('extension/payment/pp_express');

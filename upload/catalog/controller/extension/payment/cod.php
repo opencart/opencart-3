@@ -1,10 +1,10 @@
 <?php
 class ControllerExtensionPaymentCod extends Controller {
-	public function index() {
+	public function index(): string {
 		return $this->load->view('extension/payment/cod');
 	}
 
-	public function confirm() {
+	public function confirm(): void {
 		$json = array();
 		
 		if (isset($this->session->data['payment_method']['code']) && $this->session->data['payment_method']['code'] == 'cod') {

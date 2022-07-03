@@ -1,6 +1,6 @@
 <?php
 class ControllerExtensionModuleAmazonPay extends Controller {
-    public function index() {
+    public function index(): string {
         $this->load->model('extension/payment/amazon_login_pay');
 
         if ($this->config->get('payment_amazon_login_pay_status') && $this->config->get('module_amazon_pay_status') && !empty($this->request->server['HTTPS']) && !($this->config->get('payment_amazon_login_pay_minimum_total') > 0 && $this->config->get('payment_amazon_login_pay_minimum_total') > $this->cart->getSubTotal()) && $this->model_extension_payment_amazon_login_pay->isTotalPositive()) {

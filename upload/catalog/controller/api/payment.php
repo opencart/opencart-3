@@ -1,6 +1,6 @@
 <?php
 class ControllerApiPayment extends Controller {
-	public function address() {
+	public function address(): void {
 		$this->load->language('api/payment');
 
 		// Delete old payment address, payment methods and method so not to cause any issues if there is an error
@@ -138,7 +138,7 @@ class ControllerApiPayment extends Controller {
 		$this->response->setOutput(json_encode($json));
 	}
 
-	public function methods() {
+	public function methods(): void {
 		$this->load->language('api/payment');
 		
 		// Delete past shipping methods and method just in case there is an error
@@ -236,7 +236,7 @@ class ControllerApiPayment extends Controller {
 		$this->response->setOutput(json_encode($json));
 	}
 
-	public function method() {
+	public function method(): void {
 		$this->load->language('api/payment');
 
 		// Delete old payment method so not to cause any issues if there is an error

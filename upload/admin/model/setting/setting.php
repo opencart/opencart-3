@@ -1,12 +1,12 @@
 <?php
 class ModelSettingSetting extends Model {
-	public function getSettings($store_id = 0) {
+	public function getSettings(int $store_id = 0): array {
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "setting` WHERE `store_id` = '" . (int)$store_id . "' OR `store_id` = '0' ORDER BY `store_id` ASC");
 
 		return $query->rows;
 	}
 	
-	public function getSetting($code, $store_id = 0) {
+	public function getSetting(string $code, int $store_id = 0): array {
 		$setting_data = array();
 
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "setting` WHERE `store_id` = '" . (int)$store_id . "' AND `code` = '" . $this->db->escape($code) . "'");
@@ -22,7 +22,7 @@ class ModelSettingSetting extends Model {
 		return $setting_data;
 	}
 
-	public function editSetting($code, $data, $store_id = 0) {
+	public function editSetting(string $code, array $data, int $store_id = 0): void {
 		$this->db->query("DELETE FROM `" . DB_PREFIX . "setting` WHERE `store_id` = '" . (int)$store_id . "' AND `code` = '" . $this->db->escape($code) . "'");
 
 		foreach ($data as $key => $value) {
@@ -36,7 +36,7 @@ class ModelSettingSetting extends Model {
 		}
 	}
 
-	public function deleteSetting($code, $store_id = 0) {
+	public function deleteSetting(string $code, int $store_id = 0): void {
 		$this->db->query("DELETE FROM `" . DB_PREFIX . "setting` WHERE `store_id` = '" . (int)$store_id . "' AND `code` = '" . $this->db->escape($code) . "'");
 	}
 	
@@ -46,7 +46,7 @@ class ModelSettingSetting extends Model {
 		if ($query->num_rows) {
 			return $query->row['value'];
 		} else {
-			return null;	
+			return 0;
 		}
 	}
 	

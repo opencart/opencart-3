@@ -1,23 +1,23 @@
 <?php
 namespace Mail;
 class Smtp {
-	protected $to = '';
-	protected $from = '';
-	protected $sender = '';
-	protected $reply_to = '';
-	protected $subject = '';
-	protected $text = '';
-	protected $html = '';
-	protected $attachments = array();
-	protected $smtp_hostname = '';
-	protected $smtp_username = '';
-	protected $smtp_password = '';
-	protected $smtp_port = 25;
-	protected $smtp_timeout = 5;
-	protected $max_attempts = 3;
-	protected $verp = false;
+	protected string $to = '';
+	protected string $from = '';
+	protected string $sender = '';
+	protected string $reply_to = '';
+	protected string $subject = '';
+	protected string $text = '';
+	protected string $html = '';
+	protected array $attachments = array();
+	protected string $smtp_hostname = '';
+	protected string $smtp_username = '';
+	protected string $smtp_password = '';
+	protected int $smtp_port = 25;
+	protected int $smtp_timeout = 5;
+	protected int $max_attempts = 3;
+	protected bool $verp = false;
 
-	public function __construct($args) {
+	public function __construct(array $args) {
 		foreach ($args as $key => $value) {
 			if (property_exists($this, $key)) {
 				$this->{$key} = $value;
@@ -25,7 +25,7 @@ class Smtp {
 		}
 	}
 
-	public function send() {
+	public function send(): bool {
 		if (is_array($this->to)) {
 			$to = implode(',', $this->to);
 		} else {
@@ -123,12 +123,12 @@ class Smtp {
 			while ($line = fgets($handle, 515)) {
 				$reply .= $line;
 
-				// Some SMTP servers respond with 220 code before responding with 250. hence, we need to ignore 220 response string.
+				//some SMTP servers respond with 220 code before responding with 250. hence, we need to ignore 220 response string
 				if (substr($reply, 0, 3) == 220 && substr($line, 3, 1) == ' ') {
 					$reply = '';
 
 					continue;
-				} elseif (substr($line, 3, 1) == ' ') {
+				} else if (substr($line, 3, 1) == ' ') {
 					break;
 				}
 			}
@@ -161,6 +161,7 @@ class Smtp {
 				fputs($handle, base64_encode($this->smtp_password) . "\r\n");
 
 				$this->handleReply($handle, 235, 'Error: Password not accepted from server!');
+
 			} else {
 				fputs($handle, 'HELO ' . getenv('SERVER_NAME') . "\r\n");
 

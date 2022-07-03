@@ -1,6 +1,6 @@
 <?php
 class ControllerExtensionRecurringPPExpress extends Controller {
-	public function index() {
+	public function index(): string {
 		$this->load->language('extension/recurring/pp_express');
 		
 		if (isset($this->request->get['subscription_id'])) {
@@ -26,7 +26,7 @@ class ControllerExtensionRecurringPPExpress extends Controller {
 		}
 	}
 	
-	public function cancel() {
+	public function cancel(): void {
 		$this->load->language('extension/recurring/pp_express');
 		
 		$json = array();

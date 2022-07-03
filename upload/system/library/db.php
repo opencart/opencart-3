@@ -8,10 +8,10 @@
 */
 
 /**
-* DB class
+* DB
 */
 class DB {
-	private $adaptor;
+	private object $adaptor;
 
 	/**
 	 * Constructor
@@ -24,7 +24,7 @@ class DB {
 	 * @param	int		$port
 	 *
  	*/
-	public function __construct($adaptor, $hostname, $username, $password, $database, $port = NULL) {
+	public function __construct(string $adaptor, string $hostname, string $username, string $password, string $database, string $port = '') {
 		$class = 'DB\\' . $adaptor;
 
 		if (class_exists($class)) {
@@ -35,51 +35,57 @@ class DB {
 	}
 
 	/**
-     * 
+     * Query
      *
      * @param	string	$sql
 	 * 
 	 * @return	array
      */
-	public function query($sql) {
+	public function query(string $sql): bool|object {
 		return $this->adaptor->query($sql);
 	}
 
 	/**
-     * 
+     * Escape
      *
      * @param	string	$value
 	 * 
 	 * @return	string
      */
-	public function escape($value) {
+	public function escape(string $value): string {
 		return $this->adaptor->escape($value);
 	}
 
 	/**
-     * 
-	 * 
-	 * @return	int
+     * Count Affected
+	 *
+	 * Gets the total number of affected rows from the last query
+	 *
+	 * @return	int	returns the total number of affected rows.
      */
-	public function countAffected() {
+	public function countAffected(): int {
 		return $this->adaptor->countAffected();
 	}
 
 	/**
-     * 
-	 * 
-	 * @return	int
+     * Get Last ID
+	 *
+	 * Get the last ID gets the primary key that was returned after creating a row in a table.
+	 *
+	 * @return	int returns last ID
      */
-	public function getLastId() {
+	public function getLastId(): int {
 		return $this->adaptor->getLastId();
 	}
 	
 	/**
-     * 
-	 * 
+     * Is Connected
+	 *
+	 * Checks if a DB connection is active.
+	 *
 	 * @return	bool
      */	
-	public function isConnected() {
+	public function isConnected(): bool {
 		return $this->adaptor->isConnected();
 	}
 }

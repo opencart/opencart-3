@@ -1,6 +1,6 @@
 <?php
 class ControllerExtensionPaymentBluepayredirect extends Controller {
-	private $error = array();
+	private array $error = array();
 
 	public function index(): void {
 		$this->load->language('extension/payment/bluepay_redirect');

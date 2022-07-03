@@ -1,6 +1,6 @@
 <?php
 class ControllerExtensionExtensionTheme extends Controller {
-	private $error = array();
+	private array $error = array();
 
 	public function index(): void {
 		$this->load->language('extension/extension/theme');
@@ -122,7 +122,7 @@ class ControllerExtensionExtensionTheme extends Controller {
 		$this->response->setOutput($this->load->view('extension/extension/theme', $data));
 	}
 
-	protected function validate(): void {
+	protected function validate() {
 		if (!$this->user->hasPermission('modify', 'extension/extension/theme')) {
 			$this->error['warning'] = $this->language->get('error_permission');
 		}

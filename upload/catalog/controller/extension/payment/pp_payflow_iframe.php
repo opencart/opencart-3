@@ -1,12 +1,9 @@
 <?php
 class ControllerExtensionPaymentPPPayflowIframe extends Controller {
-	public function index() {
-		$this->load->model('checkout/order');
-		
-		$this->load->model('extension/payment/pp_payflow_iframe');
-		
-		$this->load->model('localisation/country');
-		
+	public function index(): string {
+		$this->load->model('checkout/order');		
+		$this->load->model('extension/payment/pp_payflow_iframe');		
+		$this->load->model('localisation/country');		
 		$this->load->model('localisation/zone');
 
 		if (!isset($this->session->data['order_id'])) {
@@ -87,27 +84,26 @@ class ControllerExtensionPaymentPPPayflowIframe extends Controller {
 		return $this->load->view('extension/payment/pp_payflow_iframe', $data);
 	}
 
-	public function paymentReturn() {
+	public function paymentReturn(): void {
 		$data['url'] = $this->url->link('checkout/success');
 
 		$this->response->setOutput($this->load->view('extension/payment/pp_payflow_iframe_return', $data));
 	}
 
-	public function paymentCancel() {
+	public function paymentCancel(): void {
 		$data['url'] = $this->url->link('checkout/checkout');
 
 		$this->response->setOutput($this->load->view('extension/payment/pp_payflow_iframe_return', $data));
 	}
 
-	public function paymentError() {
+	public function paymentError(): void {
 		$data['url'] = $this->url->link('checkout/checkout');
 
 		$this->response->setOutput($this->load->view('extension/payment/pp_payflow_iframe_return', $data));
 	}
 
-	public function paymentIpn() {
-		$this->load->model('extension/payment/pp_payflow_iframe');
-		
+	public function paymentIpn(): string {
+		$this->load->model('extension/payment/pp_payflow_iframe');		
 		$this->load->model('checkout/order');
 
 		if ($this->config->get('payment_pp_pro_iframe_debug')) {
@@ -137,8 +133,6 @@ class ControllerExtensionPaymentPPPayflowIframe extends Controller {
 					$complete = 0;
 				}
 				
-				$post_data = array();
-
 				$post_data = array(
 					'secure_token_id'       => $this->request->post['SECURETOKENID'],
 					'transaction_reference' => $this->request->post['PNREF'],

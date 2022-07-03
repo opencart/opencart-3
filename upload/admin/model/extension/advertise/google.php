@@ -3,7 +3,7 @@ use \googleshopping\exception\Connection as ConnectionException;
 use \googleshopping\Googleshopping;
 
 class ModelExtensionAdvertiseGoogle extends Model {
-    private $events = array(
+    private array $events = array(
         'admin/view/common/column_left/before' => array(
             'extension/advertise/google/admin_link',
         ),
@@ -42,7 +42,7 @@ class ModelExtensionAdvertiseGoogle extends Model {
         )
     );
 
-    private $rename_tables = array(
+    private array $rename_tables = array(
         'advertise_google_target' 				=> 'googleshopping_target',
         'category_to_google_product_category' 	=> 'googleshopping_category',
         'product_advertise_google_status' 		=> 'googleshopping_product_status',
@@ -50,7 +50,7 @@ class ModelExtensionAdvertiseGoogle extends Model {
         'product_advertise_google' 				=> 'googleshopping_product'
     );
 
-    private $table_columns = array(
+    private array $table_columns = array(
         'googleshopping_target' => array(
             'advertise_google_target_id',
             'store_id',
@@ -422,9 +422,7 @@ class ModelExtensionAdvertiseGoogle extends Model {
 
         $sql .= " GROUP BY cp.`category_id`";
 		
-		$sort_data = array();
-
-        $sort_data = array(
+		$sort_data = array(
             'name',
             'sort_order'
         );

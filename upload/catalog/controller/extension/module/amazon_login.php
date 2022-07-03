@@ -1,6 +1,6 @@
 <?php
 class ControllerExtensionModuleAmazonLogin extends Controller {
-    public function index() {
+    public function index(): string {
         if ($this->config->get('payment_amazon_login_pay_status') && $this->config->get('module_amazon_login_status') && !$this->customer->isLogged() && !empty($this->request->server['HTTPS'])) {
             $this->load->model('extension/payment/amazon_login_pay');
 
@@ -71,7 +71,7 @@ class ControllerExtensionModuleAmazonLogin extends Controller {
         }
     }
 
-    public function login() {
+    public function login(): object|null {
         $this->load->language('extension/payment/amazon_login_pay');
 		
         $this->load->language('account/login');
@@ -138,7 +138,7 @@ class ControllerExtensionModuleAmazonLogin extends Controller {
         }
     }
 
-    public function error() {
+    public function error(): void {
         $this->load->language('extension/payment/amazon_login_pay');
 
         $continue = $this->url->link('common/home', '', true);
@@ -179,7 +179,7 @@ class ControllerExtensionModuleAmazonLogin extends Controller {
         }
     }
 
-    public function logout() {
+    public function logout(): void {
         unset($this->session->data['apalwa']);
 
         // capital L in Amazon cookie name is required, do not alter for coding standards

@@ -1,6 +1,6 @@
 <?php
 class ControllerExtensionPaymentPayPal extends Controller {
-	private $error = array();
+	private array $error = array();
 		
 	public function __construct($registry) {
 		parent::__construct($registry);
@@ -11,7 +11,7 @@ class ControllerExtensionPaymentPayPal extends Controller {
 		}
 	}
 	
-	public function index() {
+	public function index(): string {
 		$this->load->language('extension/payment/paypal');
 		
 		$this->load->model('extension/payment/paypal');
@@ -124,7 +124,7 @@ class ControllerExtensionPaymentPayPal extends Controller {
 		return $this->load->view('extension/payment/paypal', $data);
 	}
 		
-	public function createOrder() {					
+	public function createOrder(): void {					
 		$this->load->language('extension/payment/paypal');
 		
 		$this->load->model('extension/payment/paypal');
@@ -335,7 +335,7 @@ class ControllerExtensionPaymentPayPal extends Controller {
 		$this->response->setOutput(json_encode($data));
 	}
 	
-	public function approveOrder() {
+	public function approveOrder(): void {
 		$this->load->language('extension/payment/paypal');
 		
 		$this->load->model('extension/payment/paypal');
@@ -459,7 +459,7 @@ class ControllerExtensionPaymentPayPal extends Controller {
 		$this->response->setOutput(json_encode($data));		
 	}
 	
-	public function webhook() {
+	public function webhook(): void {
 		$this->load->model('extension/payment/paypal');
 				
 		$webhook_data = json_decode(html_entity_decode(file_get_contents('php://input')), true);

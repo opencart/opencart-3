@@ -1,7 +1,7 @@
 <?php
 class ControllerMailRegister extends Controller {
 	// catalog/model/account/customer/addCustomer/after
-	public function index(&$route, &$args, &$output) {
+	public function index(string &$route, array &$args, string &$output): void {
 		$this->load->language('mail/register');
 
 		$store_name = html_entity_decode($this->config->get('config_name'), ENT_QUOTES, 'UTF-8');
@@ -48,7 +48,7 @@ class ControllerMailRegister extends Controller {
 	}
 	
 	// catalog/model/account/customer/addCustomer/after
-	public function alert(&$route, &$args, &$output) {
+	public function alert(string &$route, array &$args, string &$output): void {
 		// Send to main admin email if new account email is enabled
 		if (in_array('account', (array)$this->config->get('config_mail_alert'))) {
 			$this->load->language('mail/register');

@@ -1,32 +1,32 @@
 <?php
 class ModelMarketingMarketing extends Model {
-	public function addMarketing($data) {
+	public function addMarketing(array $data): int {
 		$this->db->query("INSERT INTO `" . DB_PREFIX . "marketing` SET `name` = '" . $this->db->escape($data['name']) . "', `description` = '" . $this->db->escape($data['description']) . "', `code` = '" . $this->db->escape($data['code']) . "', `date_added` = NOW()");
 
 		return $this->db->getLastId();
 	}
 
-	public function editMarketing($marketing_id, $data) {
+	public function editMarketing(int $marketing_id, array $data): void {
 		$this->db->query("UPDATE `" . DB_PREFIX . "marketing` SET `name` = '" . $this->db->escape($data['name']) . "', `description` = '" . $this->db->escape($data['description']) . "', `code` = '" . $this->db->escape($data['code']) . "' WHERE `marketing_id` = '" . (int)$marketing_id . "'");
 	}
 
-	public function deleteMarketing($marketing_id) {
+	public function deleteMarketing(int $marketing_id): void {
 		$this->db->query("DELETE FROM `" . DB_PREFIX . "marketing` WHERE `marketing_id` = '" . (int)$marketing_id . "'");
 	}
 
-	public function getMarketing($marketing_id) {
+	public function getMarketing(int $marketing_id): array {
 		$query = $this->db->query("SELECT DISTINCT * FROM `" . DB_PREFIX . "marketing` WHERE `marketing_id` = '" . (int)$marketing_id . "'");
 
 		return $query->row;
 	}
 
-	public function getMarketingByCode($code) {
+	public function getMarketingByCode(string $code): array {
 		$query = $this->db->query("SELECT DISTINCT * FROM `" . DB_PREFIX . "marketing` WHERE `code` = '" . $this->db->escape($code) . "'");
 
 		return $query->row;
 	}
 
-	public function getMarketings($data = array()) {
+	public function getMarketings(array $data = array()): array {
 		$implode = array();
 
 		$order_statuses = (array)$this->config->get('config_complete_status');

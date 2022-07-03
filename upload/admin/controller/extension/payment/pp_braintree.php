@@ -1,9 +1,9 @@
 <?php
 class ControllerExtensionPaymentPPBraintree extends Controller {
-	private $error = array();
-	private $gateway = null;
-	private $opencart_connect_url = 'https://www.opencart.com/index.php?route=external/braintree_auth/connect';
-	private $opencart_retrieve_url = 'https://www.opencart.com/index.php?route=external/braintree_auth/retrieve';
+	private array $error = array();
+	private string $gateway = null;
+	private string $opencart_connect_url = 'https://www.opencart.com/index.php?route=external/braintree_auth/connect';
+	private string $opencart_retrieve_url = 'https://www.opencart.com/index.php?route=external/braintree_auth/retrieve';
 
 	public function index(): void {
 		$this->load->language('extension/payment/pp_braintree');
@@ -29,15 +29,18 @@ class ControllerExtensionPaymentPPBraintree extends Controller {
 		$data['button_configure'] = $this->url->link('extension/module/pp_braintree_button/configure', 'user_token=' . $this->session->data['user_token'], true);
 
 		$data['user_token'] = $this->session->data['user_token'];
-
+		
+		// Order Statuses
 		$this->load->model('localisation/order_status');
 
 		$data['order_statuses'] = $this->model_localisation_order_status->getOrderStatuses();
 
+		// Geo Zones
 		$this->load->model('localisation/geo_zone');
 
 		$data['geo_zones'] = $this->model_localisation_geo_zone->getGeoZones();
 
+		// Currencies
 		$this->load->model('localisation/currency');
 
 		$data['currencies'] = $this->model_localisation_currency->getCurrencies();

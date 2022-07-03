@@ -1,6 +1,6 @@
 <?php
 class ControllerExtensionPaymentCardinity extends Controller {
-	public function index() {
+	public function index(): string {
 		$this->load->language('extension/payment/cardinity');
 
 		$data['months'] = array();
@@ -26,13 +26,12 @@ class ControllerExtensionPaymentCardinity extends Controller {
 		return $this->load->view('extension/payment/cardinity', $data);
 	}
 
-	public function send() {
+	public function send(): void {
 		$this->load->language('extension/payment/cardinity');
 
 		$json = array();
 		
-		$this->load->model('checkout/order');
-		
+		$this->load->model('checkout/order');		
 		$this->load->model('extension/payment/cardinity');		
 
 		$json['error'] = $json['success'] = $json['3ds'] = '';
@@ -131,7 +130,7 @@ class ControllerExtensionPaymentCardinity extends Controller {
 		$this->response->setOutput(json_encode($json));
 	}
 
-	public function threeDSecureForm() {
+	public function threeDSecureForm(): void {
 		$this->load->language('extension/payment/cardinity');
 		
 		$this->load->model('extension/payment/cardinity');
@@ -165,7 +164,7 @@ class ControllerExtensionPaymentCardinity extends Controller {
 		$this->response->setOutput($this->load->view('extension/payment/cardinity_3ds', $data));
 	}
 
-	public function threeDSecureCallback() {
+	public function threeDSecureCallback(): void {
 		$this->load->language('extension/payment/cardinity');
 		
 		$this->load->model('extension/payment/cardinity');
@@ -210,7 +209,7 @@ class ControllerExtensionPaymentCardinity extends Controller {
 		}
 	}
 
-	private function finalizeOrder($payment) {
+	private function finalizeOrder(string $payment): void {
 		$this->load->language('extension/payment/cardinity');
 		
 		$this->load->model('checkout/order');
@@ -221,7 +220,7 @@ class ControllerExtensionPaymentCardinity extends Controller {
 		$this->model_extension_payment_cardinity->log($payment);
 	}
 
-	private function failedOrder($log = null, $alert = null) {
+	private function failedOrder(string $log = null, string $alert = null) {
 		$this->load->language('extension/payment/cardinity');
 
 		$this->model_extension_payment_cardinity->log($this->language->get('text_payment_failed'));

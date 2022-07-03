@@ -1,6 +1,6 @@
 <?php
 class ControllerExtensionExtensionMenu extends Controller {
-	private $error = array();
+	private array $error = array();
 
 	public function index(): void {
 		$this->load->language('extension/extension/menu');
@@ -118,5 +118,4 @@ class ControllerExtensionExtensionMenu extends Controller {
 
 		return !$this->error;
 	}
-}
 }

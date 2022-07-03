@@ -6,7 +6,7 @@ class ControllerExtensionAdvertiseGoogle extends Controller {
     use StoreLoader;
     use LibraryLoader;
 
-    private $store_id = 0;
+    private int $store_id = 0;
 
     public function __construct($registry) {
         parent::__construct($registry);
@@ -39,7 +39,7 @@ class ControllerExtensionAdvertiseGoogle extends Controller {
     }
 
 	// catalog/controller/checkout/success/before
-    public function before_checkout_success(&$route, &$data) {
+    public function before_checkout_success(string &$route, array &$data): void {
         // In case the extension is disabled, do nothing
         if (!$this->setting->get('advertise_google_status')) {
             return;
@@ -59,8 +59,7 @@ class ControllerExtensionAdvertiseGoogle extends Controller {
             $this->loadLibrary($this->store_id);
         }
 
-        $this->load->model('checkout/order');
-		
+        $this->load->model('checkout/order');		
         $this->load->model('extension/advertise/google');
 
         $order_info = $this->model_checkout_order->getOrder($this->session->data['order_id']);
@@ -333,7 +332,7 @@ class ControllerExtensionAdvertiseGoogle extends Controller {
         $output = str_replace('</body>', $snippet . '</body>', $output);
     }
 
-    public function cron($cron_id = null, $code = null, $cycle = null, $date_added = null, $date_modified = null) {
+    public function cron(int $cron_id = null, string $code = null, string $cycle = null, string $date_added = null, string $date_modified = null) {
         $this->loadLibrary($this->store_id);
 
         if (!$this->validateCRON()) {

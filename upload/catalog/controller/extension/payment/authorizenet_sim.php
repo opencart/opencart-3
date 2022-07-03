@@ -1,6 +1,6 @@
 <?php
 class ControllerExtensionPaymentAuthorizeNetSim extends Controller {
-	public function index() {
+	public function index(): string {
 		$this->load->language('extension/payment/authorizenet_sim');
 
 		$data['button_confirm'] = $this->language->get('button_confirm');
@@ -47,7 +47,7 @@ class ControllerExtensionPaymentAuthorizeNetSim extends Controller {
 		return $this->load->view('extension/payment/authorizenet_sim', $data);
 	}
 
-	public function callback() {
+	public function callback(): void {
 		if (isset($this->request->post['x_SHA2_Hash']) && ($this->request->post['x_SHA2_Hash'] == $this->generateResponseHash($this->request->post, $this->config->get('payment_authorizenet_sim_hash')))) {
 			$this->load->model('checkout/order');
 

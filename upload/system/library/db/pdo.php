@@ -1,17 +1,17 @@
 <?php
 namespace DB;
 class PDO {
-	private $connection;
-	private $data = array();
-	private $affected;
+	private object $connection;
+	private array $data = array();
+	private int $affected;
 
-	public function __construct($hostname, $username, $password, $database, $port = '3306') {
+	public function __construct(string $hostname, string $username, string $password, string $database, string $port = '') {
 		if (!$port) {
 			$port = '3306';
 		}
 
 		try {
-			$pdo = @new \PDO('mysql:host=' . $hostname . ';port=' . $port . ';dbname=' . $database, $username, $password, array(\PDO::ATTR_PERSISTENT => false));
+			$pdo = @new \PDO('mysql:host=' . $hostname . ';port=' . $port . ';dbname=' . $database . ';charset=utf8mb4', $username, $password, array(\PDO::ATTR_PERSISTENT => false, \PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8mb4 COLLATE utf8mb4_general_ci'));
 		} catch (\PDOException $e) {
 			throw new \Exception('Error: Could not make a database link using ' . $username . '@' . $hostname . '!');
 		}
@@ -22,7 +22,7 @@ class PDO {
 		}
 	}
 
-	public function query($sql, $params = array()) {
+	public function query(string $sql): bool|object {
 		$sql = preg_replace('/(?:\'\:)([a-z0-9]*.)(?:\')/', ':$1', $sql);
 
 		$statement = $this->connection->prepare($sql);
@@ -35,7 +35,7 @@ class PDO {
 					$data = $statement->fetchAll(\PDO::FETCH_ASSOC);
 
 					$result = new \stdClass();
-					$result->row = isset($data[0]) ? $data[0] : array();
+					$result->row = isset($data[0]) ? $data[0] : [];
 					$result->rows = $data;
 					$result->num_rows = count($data);
 					$this->affected = 0;
@@ -58,7 +58,7 @@ class PDO {
 		return false;
 	}
 
-	public function escape($value) {
+	public function escape(string $value): string {
 		$key = ':' . count($this->data);
 
 		$this->data[$key] = $value;
@@ -66,22 +66,28 @@ class PDO {
 		return $key;
 	}
 
-	public function countAffected() {
+	public function countAffected(): int {
 		return $this->affected;
 	}
 
-	public function getLastId() {
+	public function getLastId(): int {
 		return $this->connection->lastInsertId();
 	}
-	
-	public function isConnected() {
+
+	public function isConnected(): bool {
 		if ($this->connection) {
 			return true;
 		} else {
 			return false;
 		}
 	}
-	
+
+	/**
+	 * __destruct
+	 *
+	 * Closes the DB connection when this object is destroyed.
+	 *
+	 */
 	public function __destruct() {
 		unset($this->connection);
 	}

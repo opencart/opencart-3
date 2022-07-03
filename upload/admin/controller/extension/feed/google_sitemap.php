@@ -1,6 +1,6 @@
 <?php
 class ControllerExtensionFeedGoogleSitemap extends Controller {
-	private $error = array();
+	private array $error = array();
 
 	public function index(): void {
 		$this->load->language('extension/feed/google_sitemap');

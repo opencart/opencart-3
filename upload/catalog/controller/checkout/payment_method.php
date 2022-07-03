@@ -1,6 +1,6 @@
 <?php
 class ControllerCheckoutPaymentMethod extends Controller {
-	public function index() {
+	public function index(): void {
 		$this->load->language('checkout/checkout');
 
 		if (isset($this->session->data['payment_address'])) {
@@ -124,7 +124,7 @@ class ControllerCheckoutPaymentMethod extends Controller {
 		$this->response->setOutput($this->load->view('checkout/payment_method', $data));
 	}
 
-	public function save() {
+	public function save(): void {
 		$this->load->language('checkout/checkout');
 
 		$json = array();

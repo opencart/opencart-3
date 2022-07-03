@@ -1,6 +1,6 @@
 <?php
 class ModelSettingStore extends Model {
-	public function addStore($data) {
+	public function addStore(array $data): int {
 		$this->db->query("INSERT INTO `" . DB_PREFIX . "store` SET `name` = '" . $this->db->escape($data['config_name']) . "', `url` = '" . $this->db->escape($data['config_url']) . "', `ssl` = '" . $this->db->escape($data['config_ssl']) . "'");
 
 		$store_id = $this->db->getLastId();
@@ -17,26 +17,26 @@ class ModelSettingStore extends Model {
 		return $store_id;
 	}
 
-	public function editStore($store_id, $data) {
+	public function editStore(int $store_id, array $data): void {
 		$this->db->query("UPDATE `" . DB_PREFIX . "store` SET `name` = '" . $this->db->escape($data['config_name']) . "', `url` = '" . $this->db->escape($data['config_url']) . "', `ssl` = '" . $this->db->escape($data['config_ssl']) . "' WHERE `store_id` = '" . (int)$store_id . "'");
 
 		$this->cache->delete('store');
 	}
 
-	public function deleteStore($store_id) {
+	public function deleteStore(int $store_id): void {
 		$this->db->query("DELETE FROM `" . DB_PREFIX . "store` WHERE `store_id` = '" . (int)$store_id . "'");
 		$this->db->query("DELETE FROM `" . DB_PREFIX . "layout_route` WHERE `store_id` = '" . (int)$store_id . "'");
 
 		$this->cache->delete('store');
 	}
 
-	public function getStore($store_id) {
+	public function getStore(int $store_id): array {
 		$query = $this->db->query("SELECT DISTINCT * FROM `" . DB_PREFIX . "store` WHERE `store_id` = '" . (int)$store_id . "'");
 
 		return $query->row;
 	}
 
-	public function getStores($data = array()) {
+	public function getStores(array $data = array()): array {
 		$store_data = $this->cache->get('store');
 
 		if (!$store_data) {

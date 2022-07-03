@@ -12,7 +12,7 @@ class ControllerExtensionPaymentDivido extends Controller {
 		STATUS_FULFILLED = 'FULFILLED',
 		STATUS_SIGNED = 'SIGNED';
 
-	private $status_id = array(
+	private array $status_id = array(
 		self::STATUS_ACCEPTED 		=> 1,
 		self::STATUS_ACTION_LENDER 	=> 2,
 		self::STATUS_CANCELED 		=> 0,
@@ -25,7 +25,7 @@ class ControllerExtensionPaymentDivido extends Controller {
 		self::STATUS_SIGNED 		=> 2,
 	);
 
-	private $history_messages = array(
+	private array $history_messages = array(
 		self::STATUS_ACCEPTED 		=> 'Credit request accepted',
 		self::STATUS_ACTION_LENDER 	=> 'Lender notified',
 		self::STATUS_CANCELED 		=> 'Credit request canceled',
@@ -38,7 +38,7 @@ class ControllerExtensionPaymentDivido extends Controller {
 		self::STATUS_SIGNED 		=> 'Contract signed',
 	);
 
-	public function index() {
+	public function index(): string {
 		$this->load->language('extension/payment/divido');
 		
 		$this->load->model('extension/payment/divido');
@@ -80,7 +80,7 @@ class ControllerExtensionPaymentDivido extends Controller {
 		return $this->load->view('extension/payment/divido', $data);
 	}
 
-	public function update() {
+	public function update(): string {
 		$this->load->language('extension/payment/divido');
 		
 		$this->load->model('extension/payment/divido');
@@ -139,7 +139,7 @@ class ControllerExtensionPaymentDivido extends Controller {
 		$this->response->setOutput('ok');
 	}
 
-	public function confirm() {
+	public function confirm(): void {
 		$this->load->language('extension/payment/divido');
 
 		$this->load->model('extension/payment/divido');
@@ -273,7 +273,7 @@ class ControllerExtensionPaymentDivido extends Controller {
 		$this->response->setOutput(json_encode($data));
 	}
 
-	public function calculator($args) {
+	public function calculator(array $args): string {
 		$this->load->language('extension/payment/divido');
 
 		$this->load->model('extension/payment/divido');

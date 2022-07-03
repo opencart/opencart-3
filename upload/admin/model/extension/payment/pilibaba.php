@@ -85,8 +85,6 @@ class ModelExtensionPaymentPilibaba extends Model {
 
 		$app_secret = strtoupper(md5((($warehouse) ? $warehouse : $country) . '0210000574' . '0b8l3ww5' . $currency . $email . md5($password)));
 		
-		$post_data = array();
-
 		$post_data = array(
 			'platformNo'  => '0210000574',
 			'appSecret'   => $app_secret,

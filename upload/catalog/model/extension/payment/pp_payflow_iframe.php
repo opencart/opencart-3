@@ -1,6 +1,6 @@
 <?php
 class ModelExtensionPaymentPPPayflowIframe extends Model {
-	public function getMethod($address, $total) {
+	public function getMethod(array $address, float $total) {
 		$this->load->language('extension/payment/pp_payflow_iframe');
 
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "zone_to_geo_zone` WHERE `geo_zone_id` = '" . (int)$this->config->get('payment_pp_payflow_iframe_geo_zone_id') . "' AND `country_id` = '" . (int)$address['country_id'] . "' AND (`zone_id` = '" . (int)$address['zone_id'] . "' OR `zone_id` = '0')");
@@ -29,7 +29,7 @@ class ModelExtensionPaymentPPPayflowIframe extends Model {
 		return $method_data;
 	}
 
-	public function getOrderId($secure_token_id) {
+	public function getOrderId(string $secure_token_id): array {
 		$result = $this->db->query("SELECT `order_id` FROM `" . DB_PREFIX . "paypal_payflow_iframe_order` WHERE `secure_token_id` = '" . $this->db->escape($secure_token_id) . "'")->row;
 
 		if ($result) {
@@ -41,21 +41,15 @@ class ModelExtensionPaymentPPPayflowIframe extends Model {
 		return $order_id;
 	}
 
-	public function addOrder($order_id, $secure_token_id) {
+	public function addOrder(int $order_id, string $secure_token_id): void {
 		$this->db->query("INSERT INTO `" . DB_PREFIX . "paypal_payflow_iframe_order` SET `order_id` = '" . (int)$order_id . "', `secure_token_id` = '" . $this->db->escape($secure_token_id) . "'");
 	}
 
-	public function updateOrder($data) {
-		$this->db->query("
-			UPDATE `" . DB_PREFIX . "paypal_payflow_iframe_order`
-			SET `transaction_reference` = '" . $this->db->escape($data['transaction_reference']) . "',
-				`transaction_type` = '" . $this->db->escape($data['transaction_type']) . "',
-				`complete` = '" . (int)$data['complete'] . "'
-			WHERE `secure_token_id` = '" . $this->db->escape($data['secure_token_id']) . "'
-		");
+	public function updateOrder(array $data): void {
+		$this->db->query("UPDATE `" . DB_PREFIX . "paypal_payflow_iframe_order` SET `transaction_reference` = '" . $this->db->escape($data['transaction_reference']) . "', `transaction_type` = '" . $this->db->escape($data['transaction_type']) . "', `complete` = '" . (int)$data['complete'] . "' WHERE `secure_token_id` = '" . $this->db->escape($data['secure_token_id']) . "'");
 	}
 
-	public function call($data) {
+	public function call(array $data): array {
 		$default_parameters = array();
 		
 		$default_parameters = array(
@@ -102,18 +96,11 @@ class ModelExtensionPaymentPPPayflowIframe extends Model {
 		return $response_params;
 	}
 
-	public function addTransaction($data) {
-		$this->db->query("
-			INSERT INTO `" . DB_PREFIX . "paypal_payflow_iframe_order_transaction`
-			SET `order_id` = '" . (int)$data['order_id'] . "',
-				`transaction_reference` = '" . $this->db->escape($data['transaction_reference']) . "',
-				`transaction_type` = '" . $this->db->escape($data['type']) . "',
-				`time` = NOW(),
-				`amount` = '" . $this->db->escape($data['amount']) . "'
-		");
+	public function addTransaction(array $data): void {
+		$this->db->query("INSERT INTO `" . DB_PREFIX . "paypal_payflow_iframe_order_transaction` SET `order_id` = '" . (int)$data['order_id'] . "', `transaction_reference` = '" . $this->db->escape($data['transaction_reference']) . "', `transaction_type` = '" . $this->db->escape($data['type']) . "', `time` = NOW(), `amount` = '" . $this->db->escape($data['amount']) . "'");
 	}
 
-	public function log($message) {
+	public function log(string $message): void {
 		if ($this->config->get('payment_pp_payflow_iframe_debug')) {
 			$log = new \Log('payflow-iframe.log');
 			$log->write($message);

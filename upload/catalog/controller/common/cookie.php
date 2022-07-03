@@ -1,6 +1,6 @@
 <?php
 class ControllerCommonCookie extends Controller {
-	public function index() {
+	public function index(): string {
 		if ($this->config->get('config_cookie_id') && !isset($this->request->cookie['policy'])) {
 			$this->load->model('catalog/information');
 
@@ -21,7 +21,7 @@ class ControllerCommonCookie extends Controller {
 		return '';
 	}
 
-	public function confirm() {
+	public function confirm(): void {
 		$json = array();
 
 		if ($this->config->get('config_cookie_id') && !isset($this->request->cookie['policy'])) {

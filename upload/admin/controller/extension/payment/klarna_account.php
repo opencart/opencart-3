@@ -1,7 +1,7 @@
 <?php
 class ControllerExtensionPaymentKlarnaAccount extends Controller {
-	private $error = array();
-	private $pclasses = array();
+	private array $error = array();
+	private array $pclasses = array();
 
 	public function index(): void {
 		$this->load->language('extension/payment/klarna_account');

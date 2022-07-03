@@ -1,8 +1,8 @@
 <?php
 class ControllerAccountReturns extends Controller {
-	private $error = array();
+	private array $error = array();
 
-	public function index() {
+	public function index(): void {
 		if (!$this->customer->isLogged()) {
 			$this->session->data['redirect'] = $this->url->link('account/returns', '', true);
 
@@ -83,7 +83,7 @@ class ControllerAccountReturns extends Controller {
 		$this->response->setOutput($this->load->view('account/returns_list', $data));
 	}
 
-	public function info() {
+	public function info(): void {
 		$this->load->language('account/returns');
 
 		if (isset($this->request->get['return_id'])) {
@@ -215,7 +215,7 @@ class ControllerAccountReturns extends Controller {
 		}
 	}
 
-	public function add() {
+	public function add(): void {
 		$this->load->language('account/returns');
 
 		$this->load->model('account/returns');
@@ -511,7 +511,7 @@ class ControllerAccountReturns extends Controller {
 		return !$this->error;
 	}
 
-	public function success() {
+	public function success(): void {
 		$this->load->language('account/returns');
 
 		$this->document->setTitle($this->language->get('heading_title'));

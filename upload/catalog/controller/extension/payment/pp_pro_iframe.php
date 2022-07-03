@@ -1,10 +1,9 @@
 <?php
 class ControllerExtensionPaymentPPProIframe extends Controller {
-	public function index() {
+	public function index(): string {
 		$this->load->language('extension/payment/pp_pro_iframe');
 		
-		$this->load->model('checkout/order');
-		
+		$this->load->model('checkout/order');		
 		$this->load->model('extension/payment/pp_pro_iframe');
 
 		if ($this->config->get('payment_pp_pro_iframe_checkout_method') == 'redirect') {
@@ -37,7 +36,7 @@ class ControllerExtensionPaymentPPProIframe extends Controller {
 		return $this->load->view('extension/payment/pp_pro_iframe', $data);
 	}
 
-	public function create() {
+	public function create(): void {
 		if (!isset($this->session->data['order_id'])) {
 			return false;
 		}
@@ -45,7 +44,6 @@ class ControllerExtensionPaymentPPProIframe extends Controller {
 		$this->load->language('extension/payment/pp_pro_iframe');
 		
 		$this->load->model('checkout/order');
-		
 		$this->load->model('extension/payment/pp_pro_iframe');
 
 		$order_info = $this->model_checkout_order->getOrder($this->session->data['order_id']);
@@ -75,7 +73,7 @@ class ControllerExtensionPaymentPPProIframe extends Controller {
 		$this->response->setOutput($this->load->view('extension/payment/pp_pro_iframe_body', $data));
 	}
 
-	public function notify() {
+	public function notify(): void {
 		$this->load->model('extension/payment/pp_pro_iframe');
 
 		if (isset($this->request->post['custom'])) {

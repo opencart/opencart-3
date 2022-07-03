@@ -11,15 +11,15 @@
 * Log class
 */
 class Log {
-	private $file;
-	private $message = '';
+	private string $file;
+	private string $message = '';
 
 	/**
 	 * Constructor
 	 *
 	 * @param	string	$filename
  	*/
-	public function __construct($filename) {
+	public function __construct(string $filename) {
 		$this->file = DIR_LOGS . $filename;
 	}
 	
@@ -28,7 +28,7 @@ class Log {
      *
      * @param	string	$message
      */
-	public function write($message) {
+	public function write(string|array $message): void {
 		$this->message .= date('Y-m-d H:i:s') . ' - ' . print_r($message, true) . "\n";
 	}
 	

@@ -1,6 +1,6 @@
 <?php
 class ControllerExtensionPaymentBluePayRedirect extends Controller {
-	public function index() {
+	public function index(): string {
 		$this->load->language('extension/payment/bluepay_redirect');
 
 		$data['months'] = array();
@@ -41,7 +41,7 @@ class ControllerExtensionPaymentBluePayRedirect extends Controller {
 		return $this->load->view('extension/payment/bluepay_redirect', $data);
 	}
 
-	public function send() {
+	public function send(): void {
 		if (!isset($this->session->data['order_id'])) {
 			return false;
 		}
@@ -50,8 +50,7 @@ class ControllerExtensionPaymentBluePayRedirect extends Controller {
 		
 		$json = array();
 		
-		$this->load->model('checkout/order');
-		
+		$this->load->model('checkout/order');		
 		$this->load->model('extension/payment/bluepay_redirect');
 
 		$order_info = $this->model_checkout_order->getOrder($this->session->data['order_id']);
@@ -122,7 +121,7 @@ class ControllerExtensionPaymentBluePayRedirect extends Controller {
 		$this->response->setOutput(json_encode($json));
 	}
 
-	public function callback() {
+	public function callback(): void {
 		$this->response->addHeader('Content-Type: application/json');
 		$this->response->setOutput(json_encode($this->request->get));
 	}

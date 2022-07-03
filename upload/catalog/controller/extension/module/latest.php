@@ -1,10 +1,9 @@
 <?php
 class ControllerExtensionModuleLatest extends Controller {
-	public function index($setting) {
+	public function index(array $setting): string {
 		$this->load->language('extension/module/latest');
 
-		$this->load->model('catalog/product');
-		
+		$this->load->model('catalog/product');		
 		$this->load->model('tool/image');
 
 		$data['products'] = array();

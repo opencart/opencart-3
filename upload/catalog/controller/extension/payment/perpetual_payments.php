@@ -1,6 +1,6 @@
 <?php
 class ControllerExtensionPaymentPerpetualPayments extends Controller {
-	public function index() {
+	public function index(): string {
 		$this->load->language('extension/payment/perpetual_payments');
 
 		$data['months'] = array();
@@ -35,16 +35,16 @@ class ControllerExtensionPaymentPerpetualPayments extends Controller {
 		return $this->load->view('extension/payment/perpetual_payments', $data);
 	}
 
-	public function send() {
+	public function send(): void {
+		if (!isset($this->session->data['order_id'])) {
+			return false;
+		}
+		
 		$this->load->language('extension/payment/perpetual_payments');
 		
 		$json = array();
 
-		$this->load->model('checkout/order');
-
-		if (!isset($this->session->data['order_id'])) {
-			return false;
-		}
+		$this->load->model('checkout/order');		
 
 		$order_info = $this->model_checkout_order->getOrder($this->session->data['order_id']);
 

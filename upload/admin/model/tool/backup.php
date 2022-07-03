@@ -1,6 +1,6 @@
 <?php
 class ModelToolBackup extends Model {
-	public function getTables() {
+	public function getTables(): array {
 		$table_data = array();
 
 		$query = $this->db->query("SHOW TABLES FROM `" . DB_DATABASE . "`");
@@ -15,7 +15,7 @@ class ModelToolBackup extends Model {
 		return $table_data;
 	}
 
-	public function backup($tables) {
+	public function backup(array $tables): string {
 		$output = '';
 
 		foreach ($tables as $table) {

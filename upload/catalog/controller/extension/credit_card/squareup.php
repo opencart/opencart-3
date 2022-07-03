@@ -1,6 +1,6 @@
 <?php
 class ControllerExtensionCreditCardSquareup extends Controller {
-    public function index() {
+    public function index(): void {
         if (!$this->customer->isLogged()) {
             $this->session->data['redirect'] = $this->url->link('account/account', '', true);
 
@@ -69,7 +69,7 @@ class ControllerExtensionCreditCardSquareup extends Controller {
         $this->response->setOutput($this->load->view('extension/credit_card/squareup', $data));
     }
 
-    public function forget() {
+    public function forget(): void {
         if (!$this->customer->isLogged()) {
             $this->session->data['redirect'] = $this->url->link('account/account', '', true);
 

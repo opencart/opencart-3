@@ -1,16 +1,17 @@
 <?php
 class PayPal {
-	private $server = array(
+	private array $server = array(
 		'sandbox' 		=> 'https://api.sandbox.paypal.com',
 		'production' 	=> 'https://api.paypal.com'
 	);
-	private $environment = 'sandbox';
-	private $partner_id = '';
-	private $client_id = '';
-	private $secret = '';
-	private $access_token = '';
-	private $errors = array();
-	private $last_response = array();
+	
+	private string $environment = 'sandbox';
+	private string $partner_id = '';
+	private string $client_id = '';
+	private string $secret = '';
+	private string $access_token = '';
+	private array $errors = array();
+	private array $last_response = array();
 		
 	// IN:  paypal info
 	public function __construct($paypal_info) {
@@ -33,7 +34,7 @@ class PayPal {
 	
 	// IN:  token info
 	// OUT: access token, if no return - check errors
-	public function setAccessToken($token_info) {
+	public function setAccessToken(array $token_info): string {
 		$command = '/v1/oauth2/token';
 		
 		$params = $token_info;
@@ -47,12 +48,12 @@ class PayPal {
 		} else {
 			$this->errors[] = $result;
 						
-			return false;
+			return '';
 		}
 	}
 	
 	// OUT: access token
-	public function getAccessToken() {
+	public function getAccessToken(): string {
 		return $this->access_token;
 	}
 	
@@ -67,13 +68,13 @@ class PayPal {
 		} else {
 			$this->errors[] = $result;
 			
-			return false;
+			return '';
 		}
 	}
 					
 	// IN:  partner id
 	// OUT: merchant info, if no return - check errors
-	public function getSellerCredentials($partner_id) {
+	public function getSellerCredentials(string $partner_id): array() {
 		$command = '/v1/customer/partners/' . $partner_id . '/merchant-integrations/credentials';
 				
 		$result = $this->execute('GET', $command);
@@ -83,12 +84,12 @@ class PayPal {
 		} else {
 			$this->errors[] = $result;
 			
-			return false;
+			return array();
 		}
 	}
 		
 	// IN:  webhook info
-	public function createWebhook($webhook_info) {
+	public function createWebhook(array $webhook_info): array {
 		$command = '/v1/notifications/webhooks';
 		
 		$params = $webhook_info;
@@ -100,13 +101,13 @@ class PayPal {
 		} else {
 			$this->errors[] = $result;
 			
-			return false;
+			return array();
 		}
 	}
 	
 	// IN:  webhook id
 	// OUT: webhook info, if no return - check errors
-	public function updateWebhook($webhook_id, $webhook_info) {
+	public function updateWebhook(string $webhook_id, array $webhook_info): array {
 		$command = '/v1/notifications/webhooks/' . $webhook_id;
 		
 		$params = $webhook_info;
@@ -118,12 +119,12 @@ class PayPal {
 		} else {
 			$this->errors[] = $result;
 			
-			return false;
+			return array();
 		}
 	}
 	
 	// IN:  webhook id
-	public function deleteWebhook($webhook_id) {
+	public function deleteWebhook(string $webhook_id): bool {
 		$command = '/v1/notifications/webhooks/' . $webhook_id;
 				
 		$result = $this->execute('DELETE', $command);
@@ -133,7 +134,7 @@ class PayPal {
 	
 	// IN:  webhook id
 	// OUT: webhook info, if no return - check errors
-	public function getWebhook($webhook_id) {
+	public function getWebhook(string $webhook_id): array {
 		$command = '/v1/notifications/webhooks/' . $webhook_id;
 				
 		$result = $this->execute('GET', $command);
@@ -143,12 +144,12 @@ class PayPal {
 		} else {
 			$this->errors[] = $result;
 			
-			return false;
+			return array();
 		}
 	}
 	
 	// OUT: webhooks info, if no return - check errors
-	public function getWebhooks() {
+	public function getWebhooks(): array {
 		$command = '/v1/notifications/webhooks';
 				
 		$result = $this->execute('GET', $command);
@@ -158,12 +159,12 @@ class PayPal {
 		} else {
 			$this->errors[] = $result;
 			
-			return false;
+			return array();
 		}
 	}
 	
 	// IN:  order info
-	public function createOrder($order_info) {
+	public function createOrder(array $order_info): array {
 		$command = '/v2/checkout/orders';
 		
 		$params = $order_info;
@@ -175,13 +176,13 @@ class PayPal {
 		} else {
 			$this->errors[] = $result;
 			
-			return false;
+			return array;
 		}
 	}
 	
 	// IN:  order id
 	// OUT: order info, if no return - check errors
-	public function updateOrder($order_id, $order_info) {
+	public function updateOrder(int $order_id, array $order_info) {
 		$command = '/v2/checkout/orders/' . $order_id;
 		
 		$params = $order_info;
@@ -193,13 +194,13 @@ class PayPal {
 		} else {
 			$this->errors[] = $result;
 			
-			return false;
+			return array();
 		}
 	}
 	
 	// IN:  order id
 	// OUT: order info, if no return - check errors
-	public function getOrder($order_id) {
+	public function getOrder(int $order_id): array {
 		$command = '/v2/checkout/orders/' . $order_id;
 				
 		$result = $this->execute('GET', $command);
@@ -209,12 +210,12 @@ class PayPal {
 		} else {
 			$this->errors[] = $result;
 			
-			return false;
+			return array();
 		}
 	}
 	
 	// IN:  order id
-	public function setOrderAuthorize($order_id) {
+	public function setOrderAuthorize(int $order_id): array {
 		$command = '/v2/checkout/orders/' . $order_id . '/authorize';
 						
 		$result = $this->execute('POST', $command);
@@ -224,12 +225,12 @@ class PayPal {
 		} else {
 			$this->errors[] = $result;
 			
-			return false;
+			return array();
 		}
 	}
 	
 	// IN:  order id
-	public function setOrderCapture($order_id) {
+	public function setOrderCapture(int $order_id) {
 		$command = '/v2/checkout/orders/' . $order_id . '/capture';
 						
 		$result = $this->execute('POST', $command);
@@ -239,26 +240,26 @@ class PayPal {
 		} else {
 			$this->errors[] = $result;
 			
-			return false;
+			return array();
 		}
 	}
 				
 	// OUT: number of errors
-	public function hasErrors()	{
+	public function hasErrors(): int {
 		return count($this->errors);
 	}
 	
 	// OUT: array of errors
-	public function getErrors()	{
+	public function getErrors(): array {
 		return $this->errors;
 	}
 	
 	// OUT: last response
-	public function getResponse() {
+	public function getResponse(): array {
 		return $this->last_response;
 	}
 	
-	private function execute($method, $command, $params = array(), $json = false) {
+	private function execute(string $method, string $command, array $params = array(), bool $json = false): array {
 		$this->errors = array();
 
 		if ($method && $command) {

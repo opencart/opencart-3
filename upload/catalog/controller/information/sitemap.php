@@ -1,6 +1,6 @@
 <?php
 class ControllerInformationSitemap extends Controller {
-	public function index() {
+	public function index(): void {
 		$this->load->language('information/sitemap');
 
 		$this->document->setTitle($this->language->get('heading_title'));

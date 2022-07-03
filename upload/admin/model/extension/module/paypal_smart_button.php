@@ -1,7 +1,6 @@
 <?php
-class ModelExtensionModulePayPalSmartButton extends Model {
-		
-	public function install() {
+class ModelExtensionModulePayPalSmartButton extends Model {		
+	public function install(): void {
 		$query = $this->db->query("SELECT DISTINCT `layout_id` FROM `" . DB_PREFIX . "layout_route` WHERE `route` = 'product/product' OR `route` LIKE 'checkout/%'");
 		
 		$layouts = $query->rows;

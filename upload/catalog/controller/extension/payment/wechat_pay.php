@@ -8,7 +8,7 @@
  */
 
 class ControllerExtensionPaymentWechatPay extends Controller {
-	public function index() {
+	public function index(): string {
 		$data['button_confirm'] = $this->language->get('button_confirm');
 
 		$data['redirect'] = $this->url->link('extension/payment/wechat_pay/qrcode');
@@ -16,7 +16,7 @@ class ControllerExtensionPaymentWechatPay extends Controller {
 		return $this->load->view('extension/payment/wechat_pay', $data);
 	}
 
-	public function qrcode() {
+	public function qrcode(): void {
 		$this->load->language('extension/payment/wechat_pay');
 
 		$this->document->setTitle($this->language->get('heading_title'));
@@ -87,7 +87,7 @@ class ControllerExtensionPaymentWechatPay extends Controller {
 		$this->response->setOutput($this->load->view('extension/payment/wechat_pay_qrcode', $data));
 	}
 
-	public function isOrderPaid() {
+	public function isOrderPaid(): void {
 		$json = array();
 
 		$json['result'] = false;
@@ -108,10 +108,10 @@ class ControllerExtensionPaymentWechatPay extends Controller {
 		$this->response->setOutput(json_encode($json));
 	}
 
-	public function callback() {
+	public function callback(): void {
 		$options = array(
-			'appid'			 =>  $this->config->get('payment_wechat_pay_app_id'),
-			'appsecret'		 =>  $this->config->get('payment_wechat_pay_app_secret'),
+			'appid'			 	=>  $this->config->get('payment_wechat_pay_app_id'),
+			'appsecret'		 	=>  $this->config->get('payment_wechat_pay_app_secret'),
 			'mch_id'			=>  $this->config->get('payment_wechat_pay_mch_id'),
 			'partnerkey'		=>  $this->config->get('payment_wechat_pay_api_secret')
 		);

@@ -1,9 +1,9 @@
 <?php
 namespace DB;
 class PgSQL {
-	private $connection;
+	private object $connection;
 
-	public function __construct($hostname, $username, $password, $database, $port = '5432') {
+	public function __construct(string $hostname, string $username, string $password, string $database, string $port = '') {
 		if (!$port) {
 			$port = '5432';
 		}
@@ -16,12 +16,11 @@ class PgSQL {
 
 		if ($pg) {
 			$this->connection = $pg;
-			
 			pg_query($this->connection, "SET CLIENT_ENCODING TO 'UTF8'");
 		}
 	}
 
-	public function query($sql) {
+	public function query(string $sql): bool|object {
 		$resource = pg_query($this->connection, $sql);
 
 		if ($resource) {
@@ -39,7 +38,7 @@ class PgSQL {
 				pg_free_result($resource);
 
 				$query = new \stdClass();
-				$query->row = isset($data[0]) ? $data[0] : array();
+				$query->row = isset($data[0]) ? $data[0] : [];
 				$query->rows = $data;
 				$query->num_rows = $i;
 
@@ -54,15 +53,15 @@ class PgSQL {
 		}
 	}
 
-	public function escape($value) {
+	public function escape(string $value): string  {
 		return pg_escape_string($this->connection, $value);
 	}
 
-	public function countAffected() {
+	public function countAffected(): int {
 		return pg_affected_rows($this->connection);
 	}
-	
-	public function isConnected() {
+
+	public function isConnected(): bool {
 		if (pg_connection_status($this->connection) == PGSQL_CONNECTION_OK) {
 			return true;
 		} else {
@@ -70,7 +69,7 @@ class PgSQL {
 		}
 	}
 
-	public function getLastId() {
+	public function getLastId(): int {
 		$query = $this->query("SELECT LASTVAL() AS `id`");
 
 		return $query->row['id'];

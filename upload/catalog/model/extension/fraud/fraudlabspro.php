@@ -1,9 +1,9 @@
 <?php
 class ModelExtensionFraudFraudLabsPro extends Model {
-	public function check($data) {
+	public function check(array $data): int {
 		// Do not perform fraud check if FraudLabs Pro is disabled or API key is not provided.
 		if (!$this->config->get('fraud_fraudlabspro_status') ||!$this->config->get('fraud_fraudlabspro_key')) {
-			return;
+			return 0;
 		}
 
 		$risk_score = 0;
@@ -153,13 +153,13 @@ class ModelExtensionFraudFraudLabsPro extends Model {
 		}
 	}
 	
-	public function getStatus($order_id) {
+	public function getStatus(int $order_id): int {
 		$query = $this->db->query("SELECT `fraudlabspro_status` FROM `" . DB_PREFIX . "fraudlabspro` WHERE `order_id` = '" . (int)$order_id . "'");
 		
 		if ($query->num_rows) {
 			return $query->row['fraudlabspro_status'];
 		} else {
-			return false;
+			return 0;
 		}
 	}
 

@@ -1,6 +1,6 @@
 <?php
 class ControllerExtensionModuleSpecial extends Controller {
-	public function index($setting) {
+	public function index(array $setting): string {
 		$this->load->language('extension/module/special');
 
 		$this->load->model('catalog/product');

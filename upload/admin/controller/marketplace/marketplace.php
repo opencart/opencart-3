@@ -506,7 +506,7 @@ class ControllerMarketplaceMarketplace extends Controller {
 		$this->response->setOutput($this->load->view('marketplace/marketplace_list', $data));
 	}
 
-	public function info(): void {
+	public function info() {
 		if (isset($this->request->get['extension_id'])) {
 			$extension_id = (int)$this->request->get['extension_id'];
 		} else {

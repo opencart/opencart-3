@@ -1,6 +1,6 @@
 <?php
 class ControllerExtensionPaymentEway extends Controller {
-	public function index() {
+	public function index(): string {
 		$this->load->language('extension/payment/eway');
 
 		$data['payment_type'] = $this->config->get('payment_eway_payment_type');
@@ -181,7 +181,7 @@ class ControllerExtensionPaymentEway extends Controller {
 		return $this->load->view('extension/payment/' . $template, $data);
 	}
 
-	public function lowestDenomination($value, $currency) {
+	public function lowestDenomination(float $value, float $currency): float {
 		$power = $this->currency->getDecimalPlace($currency);
 
 		$value = (float)$value;
@@ -189,7 +189,7 @@ class ControllerExtensionPaymentEway extends Controller {
 		return (int)($value * pow(10, $power));
 	}
 
-	public function ValidateDenomination($value, $currency) {
+	public function ValidateDenomination(float $value, float $currency): float {
 		$power = $this->currency->getDecimalPlace($currency);
 
 		$value = (float)$value;
@@ -197,7 +197,7 @@ class ControllerExtensionPaymentEway extends Controller {
 		return (int)($value * pow(10, '-' . $power));
 	}
 
-	public function callback() {
+	public function callback(): void {
 		$this->load->language('extension/payment/eway');
 
 		if (isset($this->request->get['AccessCode']) || isset($this->request->get['amp;AccessCode'])) {

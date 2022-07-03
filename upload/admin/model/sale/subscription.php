@@ -1,32 +1,32 @@
 <?php
 class ModelSaleSubscription extends Model {
-	public function editSubscription($subscription_id, $data) {
+	public function editSubscription(int $subscription_id, array $data): void {
 		$this->db->query("UPDATE `" . DB_PREFIX . "subscription` SET `subscription_plan_id` = '" . (int)$data['subscription_plan_id'] . "', `customer_payment_id` = '" . (int)$data['customer_payment_id'] . "' WHERE `subscription_id` = '" . (int)$subscription_id . "'");
 	}
 
-	public function editPaymentMethod($subscription_id, $customer_payment_id) {
+	public function editPaymentMethod(int $subscription_id, int $customer_payment_id): void {
 		$this->db->query("UPDATE `" . DB_PREFIX . "subscription` SET `customer_payment_id ` = '" . (int)$customer_payment_id . "' WHERE `subscription_id` = '" . (int)$subscription_id . "'");
 	}
 
-	public function editRemaining($subscription_id, $remaining) {
+	public function editRemaining(int $subscription_id, int $remaining): void {
 		$this->db->query("UPDATE `" . DB_PREFIX . "subscription` SET `remaining` = '" .  (int)$remaining .  "' WHERE `subscription_id` = '" . (int)$subscription_id . "'");
 	}
 
-	public function editTrialRemaining($subscription_id, $trial_remaining) {
+	public function editTrialRemaining(int $subscription_id, int $trial_remaining): void {
 		$this->db->query("UPDATE `" . DB_PREFIX . "subscription` SET `trial_remaining` = '" .  (int)$trial_remaining .  "' WHERE `subscription_id` = '" . (int)$subscription_id . "'");
 	}
 
-	public function editDateNext($subscription_id, $date_next) {
+	public function editDateNext(int $subscription_id, string $date_next): void {
 		$this->db->query("UPDATE `" . DB_PREFIX . "subscription` SET `date_next` = '" . $this->db->escape($date_next) . "' WHERE `subscription_id` = '" . (int)$subscription_id . "'");
 	}
 
-	public function getSubscription(int $subscription_id) {
+	public function getSubscription(int $subscription_id): array {
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "subscription` WHERE `subscription_id` = '" . (int)$subscription_id . "'");
 
 		return $query->row;
 	}
 
-	public function getSubscriptions($data) {
+	public function getSubscriptions(array $data): array {
 		$sql = "SELECT `s`.`subscription_id`, `s`.*, CONCAT(o.`firstname`, ' ', o.`lastname`) AS customer, (SELECT ss.`name` FROM `" . DB_PREFIX . "subscription_status` ss WHERE ss.`subscription_status_id` = s.`subscription_status_id` AND ss.`language_id` = '" . (int)$this->config->get('config_language_id') . "') AS subscription_status FROM `" . DB_PREFIX . "subscription` `s` LEFT JOIN `" . DB_PREFIX . "order` `o` ON (`s`.`order_id` = `o`.`order_id`)";
 
 		$implode = array();
@@ -109,7 +109,7 @@ class ModelSaleSubscription extends Model {
 		return $query->rows;
 	}
 
-	public function getTotalSubscriptions($data = array()) {
+	public function getTotalSubscriptions(array $data = array()): int {
 		$sql = "SELECT COUNT(*) AS `total` FROM `" . DB_PREFIX . "subscription` `s` LEFT JOIN `" . DB_PREFIX . "order` `o` ON (`s`.`order_id` = o.`order_id`)";
 
 		$implode = array();
@@ -151,17 +151,17 @@ class ModelSaleSubscription extends Model {
 		return (int)$query->row['total'];
 	}
 
-	public function getTotalSubscriptionsBySubscriptionStatusId($subscription_status_id) {
+	public function getTotalSubscriptionsBySubscriptionStatusId(int $subscription_status_id): int {
 		$query = $this->db->query("SELECT COUNT(*) AS `total` FROM `" . DB_PREFIX . "subscription` WHERE `subscription_status_id` = '" . (int)$subscription_status_id . "'");
 
 		return (int)$query->row['total'];
 	}
 
-	public function addTransaction($subscription_id, $description = '', $amount = 0) {
+	public function addTransaction(int $subscription_id, string $description = '', float $amount = 0): void {
 		$this->db->query("INSERT INTO `" . DB_PREFIX . "subscription_transaction` SET `subscription_id` = '" . (int)$subscription_id . "', `description` = '" . $this->db->escape($description) . "', `amount` = '" . (float)$amount . "', `date_added` = NOW()");
 	}
 
-	public function getTransactions($subscription_id) {
+	public function getTransactions(int $subscription_id): array {
 		$transaction_data = array();
 
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "subscription_transaction` WHERE `subscription_id` = '" . (int)$subscription_id . "' ORDER BY `date_added` DESC");
@@ -178,19 +178,19 @@ class ModelSaleSubscription extends Model {
 		return $transaction_data;
 	}
 
-	public function getTotalTransactions($subscription_id) {
+	public function getTotalTransactions(int $subscription_id): int {
 		$query = $this->db->query("SELECT COUNT(*) AS `total` FROM `" . DB_PREFIX . "subscription_transaction` WHERE `subscription_id` = '" . (int)$subscription_id . "'");
 
 		return (int)$query->row['total'];
 	}
 
-	public function addHistory($subscription_id, $subscription_status_id, $comment = '', $notify = false) {
+	public function addHistory(int $subscription_id, int $subscription_status_id, string $comment = '', bool $notify = false): void {
 		$this->db->query("INSERT INTO `" . DB_PREFIX . "subscription_history` SET `subscription_id` = '" . (int)$subscription_id . "', `subscription_status_id` = '" . (int)$subscription_status_id . "', `comment` = '" . $this->db->escape($comment) . "', `notify` = '" . (int)$notify . "', `date_added` = NOW()");
 
 		$this->db->query("UPDATE `" . DB_PREFIX . "subscription` SET `subscription_status_id` = '" . (int)$subscription_status_id . "' WHERE `subscription_id` = '" . (int)$subscription_id . "'");
 	}
 
-	public function getHistories($subscription_id, $start = 0, $limit = 10) {
+	public function getHistories(int $subscription_id, int $start = 0, int $limit = 10): array {
 		if ($start < 0) {
 			$start = 0;
 		}
@@ -204,13 +204,13 @@ class ModelSaleSubscription extends Model {
 		return $query->rows;
 	}
 
-	public function getTotalHistories($subscription_id) {
+	public function getTotalHistories(int $subscription_id): int {
 		$query = $this->db->query("SELECT COUNT(*) AS `total` FROM `" . DB_PREFIX . "subscription_history` WHERE `subscription_id` = '" . (int)$subscription_id . "'");
 
 		return (int)$query->row['total'];
 	}
 
-	public function getTotalHistoriesBySubscriptionStatusId($subscription_status_id) {
+	public function getTotalHistoriesBySubscriptionStatusId(int $subscription_status_id): int {
 		$query = $this->db->query("SELECT COUNT(*) AS `total` FROM `" . DB_PREFIX . "subscription_history` WHERE `subscription_status_id` = '" . (int)$subscription_status_id . "'");
 
 		return (int)$query->row['total'];

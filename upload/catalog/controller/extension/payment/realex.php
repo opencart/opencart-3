@@ -1,6 +1,6 @@
 <?php
 class ControllerExtensionPaymentRealex extends Controller {
-	public function index() {
+	public function index(): string {
 		if (!isset($this->session->data['order_id'])) {
 			return false;
 		}
@@ -84,7 +84,7 @@ class ControllerExtensionPaymentRealex extends Controller {
 		return $this->load->view('extension/payment/realex', $data);
 	}
 
-	public function notify() {
+	public function notify(): void {
 		$this->load->language('extension/payment/realex');
 		
 		$this->load->model('extension/payment/realex');

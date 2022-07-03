@@ -1,6 +1,6 @@
 <?php
 class ControllerExtensionPaymentPPExpress extends Controller {
-	public function index() {
+	public function index(): string {
 		$this->load->language('extension/payment/pp_express');
 		
 		$data['payment_pp_express_incontext_disable'] = $this->config->get('payment_pp_express_incontext_disable');
@@ -18,7 +18,7 @@ class ControllerExtensionPaymentPPExpress extends Controller {
 		return $this->load->view('extension/payment/pp_express', $data);
 	}
 
-	public function express() {
+	public function express(): void {
 		$this->load->model('extension/payment/pp_express');
 
 		if ((!$this->cart->hasProducts() && empty($this->session->data['vouchers'])) || (!$this->cart->hasStock() && !$this->config->get('config_stock_checkout'))) {
@@ -66,8 +66,6 @@ class ControllerExtensionPaymentPPExpress extends Controller {
 		$max_amount = $this->cart->getTotal() * 1.5;
 		$max_amount = $this->currency->format($max_amount, $this->session->data['currency'], '', false);
 		
-		$post_data = array();
-
 		$post_data = array(
 			'METHOD'             => 'SetExpressCheckout',
 			'MAXAMT'             => $max_amount,
@@ -116,15 +114,13 @@ class ControllerExtensionPaymentPPExpress extends Controller {
 		}
 	}
 
-	public function expressReturn() {
+	public function expressReturn(): void {
 		/**
 		 * This is the url when PayPal has completed the auth.
 		 *
 		 * It has no output, instead it sets the data and locates to checkout
 		 */
 		$this->load->model('extension/payment/pp_express');
-		
-		$post_data = array();
 		
 		$post_data = array(
 			'METHOD' => 'GetExpressCheckoutDetails',
@@ -359,7 +355,7 @@ class ControllerExtensionPaymentPPExpress extends Controller {
 		$this->response->redirect($this->url->link('extension/payment/pp_express/expressConfirm', '', true));
 	}
 
-	public function expressConfirm() {
+	public function expressConfirm(): void {
 		$this->load->language('extension/payment/pp_express');		
 		$this->load->language('checkout/cart');
 
@@ -743,7 +739,7 @@ class ControllerExtensionPaymentPPExpress extends Controller {
 		$this->response->setOutput($this->load->view('extension/payment/pp_express_confirm', $data));
 	}
 
-	public function expressComplete() {
+	public function expressComplete(): void {
 		$this->load->language('extension/payment/pp_express');
 		
 		$redirect = '';
@@ -1275,7 +1271,7 @@ class ControllerExtensionPaymentPPExpress extends Controller {
 		}
 	}
 
-	public function checkout() {
+	public function checkout(): void {
 		if ((!$this->cart->hasProducts() && empty($this->session->data['vouchers'])) || (!$this->cart->hasStock() && !$this->config->get('config_stock_checkout'))) {
 			$this->response->redirect($this->url->link('checkout/cart'));
 		}
@@ -1327,8 +1323,6 @@ class ControllerExtensionPaymentPPExpress extends Controller {
 			$shipping = 1;			
 		}
 		
-		$post_data = array();
-
 		$post_data = array(
 			'METHOD'             => 'SetExpressCheckout',
 			'MAXAMT'             => $max_amount,
@@ -1378,15 +1372,12 @@ class ControllerExtensionPaymentPPExpress extends Controller {
 		}
 	}
 
-	public function checkoutReturn() {
+	public function checkoutReturn(): void {
 		$this->load->language('extension/payment/pp_express');
 
-		$this->load->model('extension/payment/pp_express');
-		
+		$this->load->model('extension/payment/pp_express');		
 		$this->load->model('checkout/order');
 		
-		$post_data = array();
-
 		$post_data = array(
 			'METHOD' => 'GetExpressCheckoutDetails',
 			'TOKEN'  => $this->session->data['paypal']['token']
@@ -1611,7 +1602,7 @@ class ControllerExtensionPaymentPPExpress extends Controller {
 		}
 	}
 
-	public function ipn() {
+	public function ipn(): void {
 		$this->load->model('extension/payment/pp_express');		
 		$this->load->model('account/subscription');
 
@@ -1903,7 +1894,7 @@ class ControllerExtensionPaymentPPExpress extends Controller {
 		header("HTTP/1.1 200 Ok");
 	}
 
-	public function shipping() {
+	public function shipping(): void {
 		$this->shippingValidate($this->request->post['shipping_method']);
 
 		$this->response->redirect($this->url->link('extension/payment/pp_express/expressConfirm'));

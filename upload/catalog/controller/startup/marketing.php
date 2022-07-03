@@ -1,6 +1,6 @@
 <?php
 class ControllerStartupMarketing extends Controller {
-	public function index() {
+	public function index(): void {
 		$tracking = '';
 
 		if (isset($this->request->get['tracking'])) {

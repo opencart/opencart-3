@@ -1,6 +1,6 @@
 <?php
 class ControllerExtensionPaymentG2APay extends Controller {
-	private $error = array();
+	private array $error = array();
 
 	public function index(): void {
 		$this->load->language('extension/payment/g2apay');

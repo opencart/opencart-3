@@ -1,6 +1,6 @@
 <?php
 class ControllerCommonProfile extends Controller {
-	private $error = array();
+	private array $error = array();
 
 	public function index(): void {
 		$this->load->language('common/profile');

@@ -1,6 +1,6 @@
 <?php
 class ModelExtensionDashboardChart extends Model {
-	public function getTotalOrdersByDay() {
+	public function getTotalOrdersByDay(): array {
 		$implode = array();
 
 		foreach ((array)$this->config->get('config_complete_status') as $order_status_id) {
@@ -28,7 +28,7 @@ class ModelExtensionDashboardChart extends Model {
 		return $order_data;
 	}
 
-	public function getTotalOrdersByWeek() {
+	public function getTotalOrdersByWeek(): array {
 		$implode = array();
 
 		foreach ((array)$this->config->get('config_complete_status') as $order_status_id) {
@@ -60,7 +60,7 @@ class ModelExtensionDashboardChart extends Model {
 		return $order_data;
 	}
 
-	public function getTotalOrdersByMonth() {
+	public function getTotalOrdersByMonth(): array {
 		$implode = array();
 
 		foreach ((array)$this->config->get('config_complete_status') as $order_status_id) {
@@ -90,7 +90,7 @@ class ModelExtensionDashboardChart extends Model {
 		return $order_data;
 	}
 
-	public function getTotalOrdersByYear() {
+	public function getTotalOrdersByYear(): array {
 		$implode = array();
 
 		foreach ((array)$this->config->get('config_complete_status') as $order_status_id) {
@@ -118,7 +118,7 @@ class ModelExtensionDashboardChart extends Model {
 		return $order_data;
 	}
 	
-	public function getTotalCustomersByDay() {
+	public function getTotalCustomersByDay(): array {
 		$customer_data = array();
 
 		for ($i = 0; $i < 24; $i++) {
@@ -140,7 +140,7 @@ class ModelExtensionDashboardChart extends Model {
 		return $customer_data;
 	}
 
-	public function getTotalCustomersByWeek() {
+	public function getTotalCustomersByWeek(): array {
 		$customer_data = array();
 
 		$date_start = strtotime('-' . date('w') . ' days');
@@ -166,7 +166,7 @@ class ModelExtensionDashboardChart extends Model {
 		return $customer_data;
 	}
 
-	public function getTotalCustomersByMonth() {
+	public function getTotalCustomersByMonth(): array {
 		$customer_data = array();
 
 		for ($i = 1; $i <= date('t'); $i++) {
@@ -190,7 +190,7 @@ class ModelExtensionDashboardChart extends Model {
 		return $customer_data;
 	}
 
-	public function getTotalCustomersByYear() {
+	public function getTotalCustomersByYear(): array {
 		$customer_data = array();
 
 		for ($i = 1; $i <= 12; $i++) {

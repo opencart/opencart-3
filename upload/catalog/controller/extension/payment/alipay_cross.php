@@ -3,7 +3,7 @@ class ControllerExtensionPaymentAlipayCross extends Controller {
 	var $alipay_gateway = 'https://mapi.alipay.com/gateway.do?';
 	var $alipay_gateway_test = 'https://openapi.alipaydev.com/gateway.do?';
 
-	public function index() {
+	public function index(): string {
 		$data['button_confirm'] = $this->language->get('button_confirm');
 
 		$this->load->model('checkout/order');
@@ -21,8 +21,6 @@ class ControllerExtensionPaymentAlipayCross extends Controller {
 		$total_fee_cny = trim($this->currency->format($order_info['total'], 'CNY', '', false));
 		$body = trim($this->config->get('config_name'));
 		
-		$alipay_config = array();
-
 		$alipay_config = array(
 			'partner'              => $this->config->get('payment_alipay_cross_app_id'),
 			'key'                  => $this->config->get('payment_alipay_cross_merchant_private_key'),
@@ -35,8 +33,6 @@ class ControllerExtensionPaymentAlipayCross extends Controller {
 			'service'              => 'create_forex_trade'
 		);
 		
-		$parameter = array();
-
 		$parameter = array(
 			"service"        => $alipay_config['service'],
 			"partner"        => $alipay_config['partner'],
@@ -63,12 +59,10 @@ class ControllerExtensionPaymentAlipayCross extends Controller {
 		return $this->load->view('extension/payment/alipay_cross', $data);
 	}
 
-	public function callback() {
+	public function callback(): string {
 		$this->log->write('alipay cross payment notify:');
 		
 		$this->load->model('extension/payment/alipay_cross');
-		
-		$alipay_config = array();
 		
 		$alipay_config = array(
 			'partner'              => $this->config->get('payment_alipay_cross_app_id'),

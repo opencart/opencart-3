@@ -1,6 +1,6 @@
 <?php
 class ControllerExtensionModuleGoogleHangouts extends Controller {
-	public function index() {
+	public function index(): string {
 		$this->load->language('extension/module/google_hangouts');
 
 		if ($this->request->server['HTTPS']) {

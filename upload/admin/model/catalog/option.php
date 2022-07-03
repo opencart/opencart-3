@@ -1,6 +1,6 @@
 <?php
 class ModelCatalogOption extends Model {
-	public function addOption($data) {
+	public function addOption(array $data): int {
 		$this->db->query("INSERT INTO `" . DB_PREFIX . "option` SET type = '" . $this->db->escape($data['type']) . "', sort_order = '" . (int)$data['sort_order'] . "'");
 
 		$option_id = $this->db->getLastId();
@@ -24,7 +24,7 @@ class ModelCatalogOption extends Model {
 		return $option_id;
 	}
 
-	public function editOption($option_id, $data) {
+	public function editOption(int $option_id, array $data): void {
 		$this->db->query("UPDATE `" . DB_PREFIX . "option` SET `type` = '" . $this->db->escape($data['type']) . "', `sort_order` = '" . (int)$data['sort_order'] . "' WHERE `option_id` = '" . (int)$option_id . "'");
 
 		$this->db->query("DELETE FROM `" . DB_PREFIX . "option_description` WHERE `option_id` = '" . (int)$option_id . "'");
@@ -53,28 +53,26 @@ class ModelCatalogOption extends Model {
 		}
 	}
 
-	public function deleteOption($option_id) {
+	public function deleteOption(int $option_id): void {
 		$this->db->query("DELETE FROM `" . DB_PREFIX . "option` WHERE `option_id` = '" . (int)$option_id . "'");
 		$this->db->query("DELETE FROM `" . DB_PREFIX . "option_description` WHERE `option_id` = '" . (int)$option_id . "'");
 		$this->db->query("DELETE FROM `" . DB_PREFIX . "option_value` WHERE `option_id` = '" . (int)$option_id . "'");
 		$this->db->query("DELETE FROM `" . DB_PREFIX . "option_value_description` WHERE `option_id` = '" . (int)$option_id . "'");
 	}
 
-	public function getOption($option_id) {
+	public function getOption(int $option_id): array {
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "option` o LEFT JOIN `" . DB_PREFIX . "option_description` od ON (o.`option_id` = od.`option_id`) WHERE o.`option_id` = '" . (int)$option_id . "' AND od.`language_id` = '" . (int)$this->config->get('config_language_id') . "'");
 
 		return $query->row;
 	}
 
-	public function getOptions($data = array()) {
+	public function getOptions(array $data = array()): array {
 		$sql = "SELECT * FROM `" . DB_PREFIX . "option` o LEFT JOIN `" . DB_PREFIX . "option_description` od ON (o.`option_id` = od.`option_id`) WHERE od.`language_id` = '" . (int)$this->config->get('config_language_id') . "'";
 
 		if (!empty($data['filter_name'])) {
 			$sql .= " AND od.`name` LIKE '" . $this->db->escape($data['filter_name']) . "%'";
 		}
 		
-		$sort_data = array();
-
 		$sort_data = array(
 			'od.name',
 			'o.type',
@@ -110,7 +108,7 @@ class ModelCatalogOption extends Model {
 		return $query->rows;
 	}
 
-	public function getOptionDescriptions($option_id) {
+	public function getOptionDescriptions(int $option_id): array {
 		$option_data = array();
 
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "option_description` WHERE `option_id` = '" . (int)$option_id . "'");
@@ -122,13 +120,13 @@ class ModelCatalogOption extends Model {
 		return $option_data;
 	}
 
-	public function getOptionValue($option_value_id) {
+	public function getOptionValue(int $option_value_id): array {
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "option_value` ov LEFT JOIN `" . DB_PREFIX . "option_value_description` ovd ON (ov.`option_value_id` = ovd.`option_value_id`) WHERE ov.`option_value_id` = '" . (int)$option_value_id . "' AND ovd.`language_id` = '" . (int)$this->config->get('config_language_id') . "'");
 
 		return $query->row;
 	}
 
-	public function getOptionValues($option_id) {
+	public function getOptionValues(int $option_id): array {
 		$option_value_data = array();
 
 		$option_value_query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "option_value` ov LEFT JOIN `" . DB_PREFIX . "option_value_description` ovd ON (ov.`option_value_id` = ovd.`option_value_id`) WHERE ov.`option_id` = '" . (int)$option_id . "' AND ovd.`language_id` = '" . (int)$this->config->get('config_language_id') . "' ORDER BY ov.`sort_order`, ovd.`name`");
@@ -145,7 +143,7 @@ class ModelCatalogOption extends Model {
 		return $option_value_data;
 	}
 
-	public function getOptionValueDescriptions($option_id) {
+	public function getOptionValueDescriptions(int $option_id): array {
 		$option_value_data = array();
 
 		$option_value_query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "option_value` WHERE `option_id` = '" . (int)$option_id . "' ORDER BY `sort_order`");
@@ -170,7 +168,7 @@ class ModelCatalogOption extends Model {
 		return $option_value_data;
 	}
 
-	public function getTotalOptions() {
+	public function getTotalOptions(): int {
 		$query = $this->db->query("SELECT COUNT(*) AS `total` FROM `" . DB_PREFIX . "option`");
 
 		return (int)$query->row['total'];

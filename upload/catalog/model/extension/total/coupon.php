@@ -1,6 +1,6 @@
 <?php
 class ModelExtensionTotalCoupon extends Model {
-	public function getCoupon($code) {
+	public function getCoupon(string $code): array {
 		$status = true;
 
 		$coupon_query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "coupon` WHERE `code` = '" . $this->db->escape($code) . "' AND ((`date_start` = '0000-00-00' OR `date_start` < NOW()) AND (`date_end` = '0000-00-00' OR `date_end` > NOW())) AND `status` = '1'");
@@ -92,6 +92,8 @@ class ModelExtensionTotalCoupon extends Model {
 				'status'        => $coupon_query->row['status'],
 				'date_added'    => $coupon_query->row['date_added']
 			);
+		} else {
+			return array();
 		}
 	}
 

@@ -1,6 +1,6 @@
 <?php
 class ControllerExtensionRecurringSquareup extends Controller {
-    public function index() {
+    public function index(): string {
         $this->load->language('extension/recurring/squareup');
 
 		$this->load->model('extension/payment/squareup');
@@ -29,7 +29,7 @@ class ControllerExtensionRecurringSquareup extends Controller {
         }
     }
 
-    public function cancel() {
+    public function cancel(): void {
         $this->load->language('extension/recurring/squareup');
 		
 		$json = array();
@@ -63,7 +63,7 @@ class ControllerExtensionRecurringSquareup extends Controller {
         $this->response->setOutput(json_encode($json));
     }
 
-    public function recurring() {
+    public function recurring(): void {
         $this->load->language('extension/payment/squareup');
 
         $this->load->model('extension/payment/squareup');

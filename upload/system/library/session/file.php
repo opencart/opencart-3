@@ -4,8 +4,8 @@ class File {
 	public function __construct($registry) {
 		$this->config = $registry->get('config');
 	}
-	
-	public function read($session_id) {
+
+	public function read(string $session_id): array {
 		$file = DIR_SESSION . 'sess_' . basename($session_id);
 
 		if (is_file($file)) {
@@ -31,7 +31,7 @@ class File {
 		return array();
 	}
 
-	public function write($session_id, $data) {
+	public function write(string $session_id, array $data): bool {
 		$file = DIR_SESSION . 'sess_' . basename($session_id);
 
 		$handle = fopen($file, 'c');
@@ -51,7 +51,7 @@ class File {
 		return true;
 	}
 
-	public function destroy($session_id) {
+	public function destroy(string $session_id): void {
 		$file = DIR_SESSION . 'sess_' . basename($session_id);
 
 		if (is_file($file)) {
@@ -59,7 +59,7 @@ class File {
 		}
 	}
 
-	public function gc() {
+	public function gc(): void {
 		if (round(rand(1, $this->config->get('session_divisor') / $this->config->get('session_probability'))) == 1) {
 			$expire = time() - $this->config->get('session_expire');
 

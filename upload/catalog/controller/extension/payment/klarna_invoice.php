@@ -1,6 +1,6 @@
 <?php
 class ControllerExtensionPaymentKlarnaInvoice extends Controller {
-	public function index() {
+	public function index(): string {
 		$this->load->model('checkout/order');
 
 		$order_info = $this->model_checkout_order->getOrder($this->session->data['order_id']);
@@ -137,7 +137,7 @@ class ControllerExtensionPaymentKlarnaInvoice extends Controller {
 		}
 	}
 
-	public function send() {
+	public function send(): void {
 		$this->load->language('extension/payment/klarna_invoice');
 
 		$json = array();
@@ -486,11 +486,9 @@ class ControllerExtensionPaymentKlarnaInvoice extends Controller {
 		$num_pos = $this->strposArr($address, $numbers, 2);
 
 		$street_name = substr($address, 0, $num_pos);
-
 		$street_name = trim($street_name);
 
 		$number_part = substr($address, $num_pos);
-
 		$number_part = trim($number_part);
 
 		$ext_pos = $this->strposArr($number_part, $characters, 0);
@@ -499,7 +497,6 @@ class ControllerExtensionPaymentKlarnaInvoice extends Controller {
 			$house_number = substr($number_part, 0, $ext_pos);
 
 			$house_extension = substr($number_part, $ext_pos);
-
 			$house_extension = str_replace($specialchars, '', $house_extension);
 		} else {
 			$house_number = $number_part;

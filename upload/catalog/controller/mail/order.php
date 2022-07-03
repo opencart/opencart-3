@@ -1,7 +1,7 @@
 <?php
 class ControllerMailOrder extends Controller {
 	// catalog/model/checkout/order/addOrderHistory/before
-	public function index(&$route, &$args) {
+	public function index(string &$route, array &$args): void {
 		if (isset($args[0])) {
 			$order_id = $args[0];
 		} else {
@@ -42,7 +42,7 @@ class ControllerMailOrder extends Controller {
 		}
 	}
 		
-	public function add($order_info, $order_status_id, $comment, $notify) {
+	public function add(array $order_info, int $order_status_id, string $comment, bool $notify): void {
 		// Check for any downloadable products
 		$download_status = false;
 
@@ -276,7 +276,7 @@ class ControllerMailOrder extends Controller {
 		$mail->send();
 	}
 	
-	public function edit($order_info, $order_status_id, $comment) {
+	public function edit(array $order_info, int $order_status_id, string $comment): void {
 		$language = new \Language($order_info['language_code']);
 		$language->load($order_info['language_code']);
 		$language->load('mail/order_edit');
@@ -333,7 +333,7 @@ class ControllerMailOrder extends Controller {
 	
 	// Admin Alert Mail
 	// catalog/model/checkout/order/addOrderHistory/before
-	public function alert(&$route, &$args) {
+	public function alert(string &$route, array &$args): void {
 		if (isset($args[0])) {
 			$order_id = $args[0];
 		} else {

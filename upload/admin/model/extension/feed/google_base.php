@@ -1,6 +1,6 @@
 <?php
 class ModelExtensionFeedGoogleBase extends Model {
-	public function install() {
+	public function install(): void {
 		$this->db->query("
 			CREATE TABLE `" . DB_PREFIX . "google_base_category` (
 				`google_base_category_id` INT(11) NOT NULL AUTO_INCREMENT,
@@ -18,12 +18,12 @@ class ModelExtensionFeedGoogleBase extends Model {
 		");
 	}
 
-	public function uninstall() {
+	public function uninstall(): void {
 		$this->db->query("DROP TABLE IF EXISTS `" . DB_PREFIX . "google_base_category`");
 		$this->db->query("DROP TABLE IF EXISTS `" . DB_PREFIX . "google_base_category_to_category`");
 	}
 
-    public function import($string) {
+    public function import(string $string): void {
         $this->db->query("DELETE FROM `" . DB_PREFIX . "google_base_category`");
 
         $lines = explode("\n", $string);
@@ -39,7 +39,7 @@ class ModelExtensionFeedGoogleBase extends Model {
         }
     }
 
-    public function getGoogleBaseCategories($data = array()) {
+    public function getGoogleBaseCategories(array $data = array()): void {
         $sql = "SELECT * FROM `" . DB_PREFIX . "google_base_category` WHERE `name` LIKE '%" . $this->db->escape($data['filter_name']) . "%' ORDER BY `name` ASC";
 
 		if (isset($data['start']) || isset($data['limit'])) {
@@ -59,17 +59,17 @@ class ModelExtensionFeedGoogleBase extends Model {
 		return $query->rows;
     }
 
-	public function addCategory($data) {
+	public function addCategory(array $data): void {
 		$this->db->query("DELETE FROM `" . DB_PREFIX . "google_base_category_to_category` WHERE `category_id` = '" . (int)$data['category_id'] . "'");
 
 		$this->db->query("INSERT INTO `" . DB_PREFIX . "google_base_category_to_category` SET `google_base_category_id` = '" . (int)$data['google_base_category_id'] . "', `category_id` = '" . (int)$data['category_id'] . "'");
 	}
 
-	public function deleteCategory($category_id) {
+	public function deleteCategory($category_id): void {
 		$this->db->query("DELETE FROM `" . DB_PREFIX . "google_base_category_to_category` WHERE `category_id` = '" . (int)$category_id . "'");
 	}
 
-    public function getCategories($data = array()) {
+    public function getCategories(data $data = array()): array {
         $sql = "SELECT `google_base_category_id`, (SELECT `name` FROM `" . DB_PREFIX . "google_base_category` gbc WHERE gbc.`google_base_category_id` = gbc2c.`google_base_category_id`) AS google_base_category, `category_id`, (SELECT `name` FROM `" . DB_PREFIX . "category_description` cd WHERE cd.`category_id` = gbc2c.`category_id` AND cd.`language_id` = '" . (int)$this->config->get('config_language_id') . "') AS category FROM `" . DB_PREFIX . "google_base_category_to_category` gbc2c ORDER BY `google_base_category` ASC";
 
 		if (isset($data['start']) || isset($data['limit'])) {
@@ -89,7 +89,7 @@ class ModelExtensionFeedGoogleBase extends Model {
 		return $query->rows;
     }
 
-	public function getTotalCategories() {
+	public function getTotalCategories(): int {
 		$query = $this->db->query("SELECT COUNT(*) AS `total` FROM `" . DB_PREFIX . "google_base_category_to_category`");
 
 		return (int)$query->row['total'];

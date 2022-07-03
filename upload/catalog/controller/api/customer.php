@@ -1,6 +1,6 @@
 <?php
 class ControllerApiCustomer extends Controller {
-	public function index() {
+	public function index(): void {
 		$this->load->language('api/customer');
 
 		// Delete past customer in case there is an error

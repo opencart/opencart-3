@@ -1,6 +1,6 @@
 <?php
 class ControllerStartupCustomer extends Controller {
-	public function index() {
+	public function index(): void {
 		$this->registry->set('customer', new \Cart\Customer($this->registry));
 
 		// Customer Group		

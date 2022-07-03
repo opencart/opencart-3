@@ -1,6 +1,6 @@
 <?php
 class ControllerApiCoupon extends Controller {
-	public function index() {
+	public function index(): void {
 		$this->load->language('api/coupon');
 
 		// Delete past coupon in case there is an error

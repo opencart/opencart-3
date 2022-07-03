@@ -1,6 +1,6 @@
 <?php
 class ControllerExtensionTotalCoupon extends Controller {
-	public function index() {
+	public function index(): string {
 		if ($this->config->get('total_coupon_status')) {
 			$this->load->language('extension/total/coupon');
 
@@ -14,7 +14,7 @@ class ControllerExtensionTotalCoupon extends Controller {
 		}
 	}
 
-	public function coupon() {
+	public function coupon(): void {
 		$this->load->language('extension/total/coupon');
 
 		$json = array();

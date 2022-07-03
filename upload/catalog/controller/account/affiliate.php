@@ -1,8 +1,8 @@
 <?php
 class ControllerAccountAffiliate extends Controller {
-	private $error = array();
+	private array $error = array();
 
-	public function add() {
+	public function add(): void {
 		if (!$this->customer->isLogged() || (!isset($this->request->get['customer_token']) || !isset($this->session->data['customer_token']) || ($this->request->get['customer_token'] != $this->session->data['customer_token']))) {
 			$this->session->data['redirect'] = $this->url->link('account/affiliate', 'customer_token=' . $this->session->data['customer_token'], true);
 
@@ -30,7 +30,7 @@ class ControllerAccountAffiliate extends Controller {
 		$this->getForm();
 	}
 	
-	public function edit() {
+	public function edit(): void {
 		if (!$this->customer->isLogged()) {
 			$this->session->data['redirect'] = $this->url->link('account/affiliate', 'customer_token=' . $this->session->data['customer_token'], true);
 
@@ -54,7 +54,7 @@ class ControllerAccountAffiliate extends Controller {
 		$this->getForm();
 	}
 		
-	public function getForm() {
+	public function getForm(): void {
 		$data['breadcrumbs'] = array();
 
 		$data['breadcrumbs'][] = array(

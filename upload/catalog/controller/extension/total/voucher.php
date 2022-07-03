@@ -1,6 +1,6 @@
 <?php
 class ControllerExtensionTotalVoucher extends Controller {
-	public function index() {
+	public function index(): string {
 		if ($this->config->get('total_voucher_status')) {
 			$this->load->language('extension/total/voucher');
 
@@ -14,7 +14,7 @@ class ControllerExtensionTotalVoucher extends Controller {
 		}
 	}
 
-	public function voucher() {
+	public function voucher(): void {
 		$this->load->language('extension/total/voucher');
 
 		$json = array();
@@ -46,7 +46,7 @@ class ControllerExtensionTotalVoucher extends Controller {
 	}
 
 	// catalog/model/checkout/order/addOrderHistory/after
-	public function send(&$route, &$args, &$output) {
+	public function send(string &$route, array &$args, string &$output): void {
 		$this->load->model('checkout/order');
 
 		$order_info = $this->model_checkout_order->getOrder($args[0]);

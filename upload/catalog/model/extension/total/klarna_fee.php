@@ -1,6 +1,6 @@
 <?php
 class ModelExtensionTotalKlarnaFee extends Model {
-	public function getTotal($totals) {
+	public function getTotal(float $totals): array {
 		extract($totals);
 		
 		$this->load->language('extension/total/klarna_fee');

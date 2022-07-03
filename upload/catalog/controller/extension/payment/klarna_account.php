@@ -1,6 +1,6 @@
 <?php
 class ControllerExtensionPaymentKlarnaAccount extends Controller {
-	public function index() {
+	public function index(): string {
 		$this->load->model('checkout/order');
 
 		if (!isset($this->session->data['order_id'])) {
@@ -268,7 +268,7 @@ class ControllerExtensionPaymentKlarnaAccount extends Controller {
 		}
 	}
 
-	public function send() {
+	public function send(): void {
 		$this->load->language('extension/payment/klarna_account');
 
 		$json = array();

@@ -1,6 +1,6 @@
 <?php
 class ControllerStartupTax extends Controller {
-	public function index() {
+	public function index(): void {
 		$this->registry->set('tax', new \Cart\Tax($this->registry));
 
 		// PHP v7.4+ validation compatibility.

@@ -1,6 +1,6 @@
 <?php
 class ControllerExtensionPaymentSagepayUS extends Controller {
-	public function index() {
+	public function index(): string {
 		$this->load->language('extension/payment/sagepay_us');
 
 		$data['months'] = array();
@@ -26,7 +26,7 @@ class ControllerExtensionPaymentSagepayUS extends Controller {
 		return $this->load->view('extension/payment/sagepay_us', $data);
 	}
 
-	public function send() {
+	public function send(): void {
 		if (!isset($this->session->data['order_id'])) {
 			return false;
 		}

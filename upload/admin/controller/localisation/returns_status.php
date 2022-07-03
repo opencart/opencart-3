@@ -1,6 +1,6 @@
 <?php
-class ControllerLocalisationReturnStatus extends Controller {
-	private $error = array();
+class ControllerLocalisationReturnsStatus extends Controller {
+	private array $error = array();
 
 	public function index(): void {
 		$this->load->language('localisation/returns_status');

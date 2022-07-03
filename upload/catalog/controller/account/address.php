@@ -1,8 +1,8 @@
 <?php
 class ControllerAccountAddress extends Controller {
-	private $error = array();
+	private array $error = array();
 
-	public function index() {
+	public function index(): void {
 		if (!$this->customer->isLogged() || (!isset($this->request->get['customer_token']) || !isset($this->session->data['customer_token']) || ($this->request->get['customer_token'] != $this->session->data['customer_token']))) {
 			$this->session->data['redirect'] = $this->url->link('account/address', '', true);
 
@@ -18,7 +18,7 @@ class ControllerAccountAddress extends Controller {
 		$this->getList();
 	}
 
-	public function add() {
+	public function add(): void {
 		if (!$this->customer->isLogged() || (!isset($this->request->get['customer_token']) || !isset($this->session->data['customer_token']) || ($this->request->get['customer_token'] != $this->session->data['customer_token']))) {
 			$this->session->data['redirect'] = $this->url->link('account/address', '', true);
 
@@ -47,7 +47,7 @@ class ControllerAccountAddress extends Controller {
 		$this->getForm();
 	}
 
-	public function edit() {
+	public function edit(): void {
 		if (!$this->customer->isLogged() || (!isset($this->request->get['customer_token']) || !isset($this->session->data['customer_token']) || ($this->request->get['customer_token'] != $this->session->data['customer_token']))) {
 			$this->session->data['redirect'] = $this->url->link('account/address', '', true);
 
@@ -92,7 +92,7 @@ class ControllerAccountAddress extends Controller {
 		$this->getForm();
 	}
 
-	public function delete() {
+	public function delete(): void {
 		$json = array();
 		
 		if (!$this->customer->isLogged() || (!isset($this->request->get['customer_token']) || !isset($this->session->data['customer_token']) || ($this->request->get['customer_token'] != $this->session->data['customer_token']))) {
@@ -364,15 +364,13 @@ class ControllerAccountAddress extends Controller {
 		}
 
 		$this->load->model('localisation/country');
+		$this->load->model('tool/upload');		
+		$this->load->model('account/custom_field');
 
 		$data['countries'] = $this->model_localisation_country->getCountries();
 
 		// Custom fields
 		$data['custom_fields'] = array();
-		
-		$this->load->model('tool/upload');
-		
-		$this->load->model('account/custom_field');
 
 		$custom_fields = $this->model_account_custom_field->getCustomFields($this->config->get('config_customer_group_id'));
 
@@ -471,7 +469,7 @@ class ControllerAccountAddress extends Controller {
 		return !$this->error;
 	}
 	
-	public function editAddress() {
+	public function editAddress(): void {
 		$json = array();
 		
 		if (!$this->customer->isLogged() || (!isset($this->request->get['customer_token']) || !isset($this->session->data['customer_token']) || ($this->request->get['customer_token'] != $this->session->data['customer_token']))) {

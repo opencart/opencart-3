@@ -1,6 +1,6 @@
 <?php
-class ControllerLocalisationReturnReason extends Controller {
-	private $error = array();
+class ControllerLocalisationReturnsReason extends Controller {
+	private array $error = array();
 
 	public function index(): void {
 		$this->load->language('localisation/returns_reason');

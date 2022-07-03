@@ -1,8 +1,8 @@
 <?php
 class ControllerAccountRegister extends Controller {
-	private $error = array();
+	private array $error = array();
 
-	public function index() {
+	public function index(): void {
 		if ($this->customer->isLogged()) {
 			$this->response->redirect($this->url->link('account/account', 'customer_token=' . $this->session->data['customer_token'], true));
 		}
@@ -294,7 +294,7 @@ class ControllerAccountRegister extends Controller {
 		return !$this->error;
 	}
 
-	public function customfield() {
+	public function customfield(): void {
 		$json = array();
 
 		$this->load->model('account/custom_field');

@@ -1,25 +1,25 @@
 <?php
 namespace Mail;
 class Mail {
-	protected $to = '';
-	protected $from = '';
-	protected $sender = '';
-	protected $reply_to = '';
-	protected $subject = '';
-	protected $text = '';
-	protected $html = '';
-	protected $attachments = array();
+	protected string $to = '';
+	protected string $from = '';
+	protected string $sender = '';
+	protected string $reply_to = '';
+	protected string $subject = '';
+	protected string $text = '';
+	protected string $html = '';
+	protected array $attachments = array();
 	protected string $parameter;
 
-	public function __construct($args) {
+	public function __construct(array $args) {
 		foreach ($args as $key => $value) {
 			if (property_exists($this, $key)) {
 				$this->{$key} = $value;
 			}
 		}
 	}
-	
-	public function send() {
+
+	public function send(): bool {
 		if (is_array($this->to)) {
 			$to = implode(',', $this->to);
 		} else {
@@ -37,13 +37,13 @@ class Mail {
 		$header  = 'MIME-Version: 1.0' . $eol;
 		$header .= 'Date: ' . date('D, d M Y H:i:s O') . $eol;
 		$header .= 'From: =?UTF-8?B?' . base64_encode($this->sender) . '?= <' . $this->from . '>' . $eol;
-		
+
 		if (!$this->reply_to) {
 			$header .= 'Reply-To: =?UTF-8?B?' . base64_encode($this->sender) . '?= <' . $this->from . '>' . $eol;
 		} else {
 			$header .= 'Reply-To: =?UTF-8?B?' . base64_encode($this->reply_to) . '?= <' . $this->reply_to . '>' . $eol;
 		}
-		
+
 		$header .= 'Return-Path: ' . $this->from . $eol;
 		$header .= 'X-Mailer: PHP/' . phpversion() . $eol;
 		$header .= 'Content-Type: multipart/mixed; boundary="' . $boundary . '"' . $eol . $eol;

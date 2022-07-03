@@ -1,6 +1,6 @@
 <?php
 class ModelUserApi extends Model {
-	public function addApi($data) {
+	public function addApi(array $data): int {
 		$this->db->query("INSERT INTO `" . DB_PREFIX . "api` SET `username` = '" . $this->db->escape($data['username']) . "', `key` = '" . $this->db->escape($data['key']) . "', `status` = '" . (int)$data['status'] . "', `date_added` = NOW(), `date_modified` = NOW()");
 
 		$api_id = $this->db->getLastId();
@@ -16,7 +16,7 @@ class ModelUserApi extends Model {
 		return $api_id;
 	}
 
-	public function editApi($api_id, $data) {
+	public function editApi(int $api_id, array $data): void {
 		$this->db->query("UPDATE `" . DB_PREFIX . "api` SET `username` = '" . $this->db->escape($data['username']) . "', `key` = '" . $this->db->escape($data['key']) . "', `status` = '" . (int)$data['status'] . "', `date_modified` = NOW() WHERE `api_id` = '" . (int)$api_id . "'");
 
 		$this->db->query("DELETE FROM `" . DB_PREFIX . "api_ip` WHERE `api_id` = '" . (int)$api_id . "'");
@@ -30,17 +30,17 @@ class ModelUserApi extends Model {
 		}
 	}
 
-	public function deleteApi($api_id) {
+	public function deleteApi(int $api_id): void {
 		$this->db->query("DELETE FROM `" . DB_PREFIX . "api` WHERE `api_id` = '" . (int)$api_id . "'");
 	}
 
-	public function getApi($api_id) {
+	public function getApi(int $api_id): array {
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "api` WHERE `api_id` = '" . (int)$api_id . "'");
 
 		return $query->row;
 	}
 
-	public function getApis($data = array()) {
+	public function getApis(array $data = array()): array {
 		$sql = "SELECT * FROM `" . DB_PREFIX . "api`";
 
 		$sort_data = array(
@@ -79,13 +79,13 @@ class ModelUserApi extends Model {
 		return $query->rows;
 	}
 
-	public function getTotalApis() {
+	public function getTotalApis(): int {
 		$query = $this->db->query("SELECT COUNT(*) AS `total` FROM `" . DB_PREFIX . "api`");
 
 		return (int)$query->row['total'];
 	}
 
-	public function addApiIp($api_id, $ip) {
+	public function addApiIp(int $api_id, string $ip): void {
 		$this->db->query("INSERT INTO `" . DB_PREFIX . "api_ip` SET `api_id` = '" . (int)$api_id . "', `ip` = '" . $this->db->escape($ip) . "'");
 	}
 

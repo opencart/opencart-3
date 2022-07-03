@@ -1,6 +1,6 @@
 <?php
 class ModelLocalisationLanguage extends Model {
-	public function addLanguage($data) {
+	public function addLanguage(array $data): int {
 		$this->db->query("INSERT INTO `" . DB_PREFIX . "language` SET `name` = '" . $this->db->escape($data['name']) . "', `code` = '" . $this->db->escape($data['code']) . "', `locale` = '" . $this->db->escape($data['locale']) . "', `sort_order` = '" . (int)$data['sort_order'] . "', `status` = '" . (int)$data['status'] . "'");
 
 		$this->cache->delete('catalog.language');
@@ -199,7 +199,7 @@ class ModelLocalisationLanguage extends Model {
 		return $language_id;
 	}
 
-	public function editLanguage($language_id, $data) {
+	public function editLanguage(int $language_id, array $data): void {
 		$language_query = $this->db->query("SELECT `code` FROM `" . DB_PREFIX . "language` WHERE `language_id` = '" . (int)$language_id . "'");
 		
 		$this->db->query("UPDATE `" . DB_PREFIX . "language` SET `name` = '" . $this->db->escape($data['name']) . "', `code` = '" . $this->db->escape($data['code']) . "', `locale` = '" . $this->db->escape($data['locale']) . "', `sort_order` = '" . (int)$data['sort_order'] . "', `status` = '" . (int)$data['status'] . "' WHERE `language_id` = '" . (int)$language_id . "'");
@@ -213,7 +213,7 @@ class ModelLocalisationLanguage extends Model {
 		$this->cache->delete('admin.language');
 	}
 	
-	public function deleteLanguage($language_id) {
+	public function deleteLanguage(int $language_id): void {
 		$this->db->query("DELETE FROM `" . DB_PREFIX . "language` WHERE `language_id` = '" . (int)$language_id . "'");
  		$this->db->query("DELETE FROM `" . DB_PREFIX . "seo_url` WHERE `language_id` = '" . (int)$language_id . "'"); 
 		
@@ -222,18 +222,16 @@ class ModelLocalisationLanguage extends Model {
 
 	}
 
-	public function getLanguage($language_id) {
+	public function getLanguage(int $language_id): array {
 		$query = $this->db->query("SELECT DISTINCT * FROM `" . DB_PREFIX . "language` WHERE `language_id` = '" . (int)$language_id . "'");
 
 		return $query->row;
 	}
 
-	public function getLanguages($data = array()) {
+	public function getLanguages(array $data = array()): array {
 		if ($data) {
 			$sql = "SELECT * FROM `" . DB_PREFIX . "language`";
 			
-			$sort_data = array();
-
 			$sort_data = array(
 				'name',
 				'code',
@@ -295,13 +293,13 @@ class ModelLocalisationLanguage extends Model {
 		}
 	}
 
-	public function getLanguageByCode($code) {
+	public function getLanguageByCode(string $code): array {
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "language` WHERE `code` = '" . $this->db->escape($code) . "'");
 
 		return $query->row;
 	}
 
-	public function getTotalLanguages() {
+	public function getTotalLanguages(): int {
 		$query = $this->db->query("SELECT COUNT(*) AS `total` FROM `" . DB_PREFIX . "language`");
 
 		return (int)$query->row['total'];
