@@ -732,7 +732,7 @@ class ControllerSaleOrder extends Controller {
 		$this->response->setOutput($this->load->view('sale/order_form', $data));
 	}
 
-	public function info(): void {
+	public function info() {
 		$this->load->model('sale/order');
 
 		if (isset($this->request->get['order_id'])) {

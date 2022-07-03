@@ -119,4 +119,3 @@ class ControllerExtensionExtensionMenu extends Controller {
 		return !$this->error;
 	}
 }
-}

@@ -172,7 +172,7 @@ class ControllerEventActivity extends Controller {
 	}
 	
 	// catalog/model/account/address/deleteAddress/after
-	public function deleteAddress(string &$route, array &$args, string &$output: void {
+	public function deleteAddress(&$route, &$args, &$output) {
 		if ($this->config->get('config_customer_activity')) {
 			$this->load->model('account/activity');
 

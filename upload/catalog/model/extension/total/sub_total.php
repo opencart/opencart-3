@@ -1,6 +1,6 @@
 <?php
 class ModelExtensionTotalSubTotal extends Model {
-	public function getTotal(float $total): array {
+	public function getTotal($total) {
 		$this->load->language('extension/total/sub_total');
 
 		$sub_total = $this->cart->getSubTotal();

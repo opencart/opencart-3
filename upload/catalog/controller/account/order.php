@@ -85,7 +85,7 @@ class ControllerAccountOrder extends Controller {
 		$this->response->setOutput($this->load->view('account/order_list', $data));
 	}
 
-	public function info(): void {
+	public function info() {
 		$this->load->language('account/order');
 
 		if (isset($this->request->get['order_id'])) {

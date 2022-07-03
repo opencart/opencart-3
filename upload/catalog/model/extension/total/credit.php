@@ -1,6 +1,6 @@
 <?php
 class ModelExtensionTotalCredit extends Model {
-	public function getTotal(float $total): array {
+	public function getTotal($total) {
 		$this->load->language('extension/total/credit');
 
 		$balance = $this->customer->getBalance();

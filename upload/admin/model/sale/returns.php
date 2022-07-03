@@ -102,7 +102,7 @@ class ModelSaleReturns extends Model {
 		return $query->rows;
 	}
 
-	public function getTotalReturns(array $data = array()): array {
+	public function getTotalReturns($data = array()) {
 		$sql = "SELECT COUNT(*) AS `total` FROM `" . DB_PREFIX . "return` r";
 
 		$implode = array();

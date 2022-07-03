@@ -1,6 +1,6 @@
 <?php
 class ControllerExtensionModuleFeatured extends Controller {
-	public function index(array setting): string {
+	public function index(array $setting): string {
 		$this->load->language('extension/module/featured');
 
 		$this->load->model('catalog/product');		

@@ -1,5 +1,5 @@
 <?php
-class ControllerLocalisationReturnAction extends Controller {
+class ControllerLocalisationReturnsAction extends Controller {
 	private array $error = array();
 
 	public function index(): void {

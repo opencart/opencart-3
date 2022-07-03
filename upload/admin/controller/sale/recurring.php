@@ -290,7 +290,7 @@ class ControllerSaleRecurring extends Controller {
 		$this->response->setOutput($this->load->view('sale/recurring_list', $data));
 	}
 
-	public function info(): void {
+	public function info() {
 		$this->load->model('sale/recurring');
 		
 		if (isset($this->request->get['order_recurring_id'])) {

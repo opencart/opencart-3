@@ -1,6 +1,6 @@
 <?php
 class ControllerEventTranslation extends Controller {
-	public function index(string &$route, array &$key): void {
+	public function index(&$route, &$key) {
 		$this->load->model('design/translation');
 		
 		$results = $this->model_design_translation->getTranslations($route);

@@ -302,7 +302,7 @@ class ModelCustomerCustomer extends Model {
 		return (int)$query->row['total'];
 	}
 
-	public function addTransaction(int $customer_id, string $description = '', float $amount = 0, int $order_id = 0): void {
+	public function addTransaction($customer_id, $description = '', $amount = 0, $order_id = 0) {
 		$this->db->query("INSERT INTO `" . DB_PREFIX . "customer_transaction` SET `customer_id` = '" . (int)$customer_id . "', `order_id` = '" . (int)$order_id . "', `description` = '" . $this->db->escape($description) . "', `amount` = '" . (float)$amount . "', `date_added` = NOW()");
 	}
 
@@ -342,7 +342,7 @@ class ModelCustomerCustomer extends Model {
 		return (int)$query->row['total'];
 	}
 
-	public function addReward(int $customer_id, string $description = '', int $points = 0, int $order_id = 0): void {
+	public function addReward($customer_id, $description = '', $points = 0, $order_id = 0) {
 		$this->db->query("INSERT INTO `" . DB_PREFIX . "customer_reward` SET `customer_id` = '" . (int)$customer_id . "', `order_id` = '" . (int)$order_id . "', `points` = '" . (int)$points . "', `description` = '" . $this->db->escape($description) . "', `date_added` = NOW()");
 	}
 
@@ -356,7 +356,7 @@ class ModelCustomerCustomer extends Model {
 		return $query->rows;
 	}
 
-	public function getTotalRewards(int $customer_id): void {
+	public function getTotalRewards($customer_id) {
 		$query = $this->db->query("SELECT COUNT(*) AS `total` FROM `" . DB_PREFIX . "customer_reward` WHERE `customer_id` = '" . (int)$customer_id . "'");
 
 		return (int)$query->row['total'];

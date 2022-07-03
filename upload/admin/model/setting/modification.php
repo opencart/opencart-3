@@ -20,7 +20,7 @@ class ModelSettingModification extends Model {
 		$this->db->query("UPDATE `" . DB_PREFIX . "modification` SET `status` = '0' WHERE `modification_id` = '" . (int)$modification_id . "'");
 	}
 
-	public function getModification(int $modification_id): void {
+	public function getModification($modification_id) {
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "modification` WHERE `modification_id` = '" . (int)$modification_id . "'");
 
 		return $query->row;
