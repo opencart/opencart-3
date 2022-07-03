@@ -11,7 +11,7 @@
 * Cache class
 */
 class Cache {
-	private $adaptor;
+	private object $adaptor;
 	
 	/**
 	 * Constructor
@@ -20,7 +20,7 @@ class Cache {
 	 * @param	int		$expire		Optional parameters
 	 *
  	*/
-	public function __construct($adaptor, $expire = 3600) {
+	public function __construct(string $adaptor, int $expire = 3600) {
 		$class = 'Cache\\' . $adaptor;
 
 		if (class_exists($class)) {
@@ -37,28 +37,28 @@ class Cache {
      *
      * @return	string
      */
-	public function get($key) {
+	public function get(string $key): array|string|null {
 		return $this->adaptor->get($key);
 	}
 	
     /**
-     * 
+     * Sets a cache by key value.
      *
      * @param	string	$key	The cache key
 	 * @param	string	$value	The cache value
 	 * 
 	 * @return	string
      */
-	public function set($key, $value) {
-		return $this->adaptor->set($key, $value);
+	public function set(string $key, array|string|null $value, int $expire = 0): void {
+		$this->adaptor->set($key, $value, $expire);
 	}
-
+   
     /**
-     * 
+     * Deletes a cache by key name.
      *
      * @param	string	$key	The cache key
      */
-	public function delete($key) {
-		return $this->adaptor->delete($key);
+	public function delete(string $key): void {
+		$this->adaptor->delete($key);
 	}
 }

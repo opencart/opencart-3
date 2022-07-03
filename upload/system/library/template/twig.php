@@ -3,11 +3,11 @@ namespace Template;
 final class Twig {
 	private $data = array();
 
-	public function set($key, $value) {
+	public function set(string $key, object $value): void {
 		$this->data[$key] = $value;
 	}
 	
-	public function render($filename, $code = '') {
+	public function render(string $filename, string $code = ''): void {
 		if (!$code) {
 			$file = DIR_TEMPLATE . $filename . '.twig';
 

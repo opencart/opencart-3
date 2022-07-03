@@ -5,11 +5,11 @@ class Exception extends \Exception {
     const ERR_CODE_ACCESS_TOKEN_REVOKED = 'ACCESS_TOKEN_REVOKED';
     const ERR_CODE_ACCESS_TOKEN_EXPIRED = 'ACCESS_TOKEN_EXPIRED';
 
-    private $config;
-    private $log;
-    private $language;
-    private $errors;
-    private $isCurlError;
+    private object $config;
+    private object $log;
+    private object $language;
+    private object $errors;
+    private bool $isCurlError;
 
     private $overrideFields = array(
         'billing_address.country',
@@ -34,19 +34,19 @@ class Exception extends \Exception {
         parent::__construct($message);
     }
 
-    public function isCurlError() {
+    public function isCurlError(): bool {
         return $this->isCurlError;
     }
 
-    public function isAccessTokenRevoked() {
+    public function isAccessTokenRevoked(): bool {
         return $this->errorCodeExists(self::ERR_CODE_ACCESS_TOKEN_REVOKED);
     }
 
-    public function isAccessTokenExpired() {
+    public function isAccessTokenExpired(): bool {
         return $this->errorCodeExists(self::ERR_CODE_ACCESS_TOKEN_EXPIRED);
     }
 
-    protected function errorCodeExists($code) {
+    protected function errorCodeExists(string $code): bool {
         if (!empty($this->errors) && is_array($this->errors)) {
             foreach ($this->errors as $error) {
                 if ($error['code'] == $code) {
@@ -58,11 +58,11 @@ class Exception extends \Exception {
         return false;
     }
 
-    protected function overrideError($field) {
+    protected function overrideError(string $field): string {
         return $this->language->get('squareup_override_error_' . $field);
     }
 
-    protected function parseError($error) {
+    protected function parseError(array $error): string {
         if (!empty($error['field']) && in_array($error['field'], $this->overrideFields)) {
             return $this->overrideError($error['field']);
         }
@@ -76,7 +76,7 @@ class Exception extends \Exception {
         return $message;
     }
 
-    protected function concatErrors() {
+    protected function concatErrors(): string {
         $messages = array();
 
         if (is_array($this->errors)) {

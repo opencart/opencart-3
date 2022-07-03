@@ -2,18 +2,18 @@
 /**
  * @package		OpenCart
  * @author		Daniel Kerr
- * @copyright	Copyright (c) 2005 - 2022, OpenCart, Ltd. (https://www.opencart.com/)
+ * @copyright	Copyright (c) 2005 - 2017, OpenCart, Ltd. (https://www.opencart.com/)
  * @license		https://opensource.org/licenses/GPL-3.0
  * @link		https://www.opencart.com
 */
 
 /**
-* Session class
+* Session
 */
 class Session {
-	protected $adaptor;
-	protected $session_id;
-	public $data = array();
+	protected object $adaptor;
+	protected string $session_id;
+	public array $data = array();
 
 	/**
 	 * Constructor
@@ -21,8 +21,8 @@ class Session {
 	 * @param	string	$adaptor
 	 * @param	object	$registry
  	*/
-	public function __construct($adaptor, $registry = '') {
-		$class = 'Session\\' . $adaptor;
+	public function __construct(string $adaptor, $registry) {
+		$class = 'Opencart\System\Library\Session\\' . $adaptor;
 		
 		if (class_exists($class)) {
 			if ($registry) {
@@ -42,11 +42,11 @@ class Session {
 	 * Get Session ID
 	 *
 	 * @return	string
- 	*/
-	public function getId() {
+ 	*/	
+	public function getId(): string {
 		return $this->session_id;
 	}
-	
+
 	/**
 	 * Start
 	 *
@@ -56,7 +56,7 @@ class Session {
 	 *
 	 * @return	string	Returns the current session ID.
  	*/	
-	public function start($session_id = '') {
+	public function start(string $session_id = ''): string {
 		if (!$session_id) {
 			if (function_exists('random_bytes')) {
 				$session_id = substr(bin2hex(random_bytes(26)), 0, 26);
@@ -75,27 +75,27 @@ class Session {
 		
 		return $session_id;
 	}
-	
+
 	/**
 	 * Close
 	 *
 	 * Writes the session data to storage
  	*/
-	public function close() {
+	public function close(): void {
 		$this->adaptor->write($this->session_id, $this->data);
 	}
-	
+
 	/**
 	 * Destroy
 	 *
 	 * Deletes the current session from storage
  	*/
-	public function destroy() {
+	public function destroy(): void {
 		$this->data = array();
 
 		$this->adaptor->destroy($this->session_id);
 	}
-	
+
 	/**
 	 * GC
 	 *
