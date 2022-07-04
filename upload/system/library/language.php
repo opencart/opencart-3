@@ -36,7 +36,7 @@ class Language {
 		return isset($this->data[$key]) ? $this->data[$key] : $key;
 	}
 	
-	public function set(string $key, array|string $value): void {
+	public function set(string $key, $value): void {
 		$this->data[$key] = $value;
 	}
 	

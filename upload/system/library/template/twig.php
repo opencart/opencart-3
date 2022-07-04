@@ -6,11 +6,11 @@ final class Twig {
 	protected string $directory;
 	protected array $path = array();
 
-	public function set(string $key, array|string $value): void {
+	public function set(string $key, mixed $value): void {
 		$this->data[$key] = $value;
 	}
 	
-	public function render(string $filename, string $code = ''): string {
+	public function render(string $filename, $code = ''): string {
 		if (!$code) {
 			$file = DIR_TEMPLATE . $filename . '.twig';
 
