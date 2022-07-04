@@ -1,7 +1,7 @@
 <?php
 namespace Cart;
 class Cart {
-	private array $data = [];
+	private array $data = array();
 
 	public function __construct(object $registry) {
 		$this->config = $registry->get('config');
