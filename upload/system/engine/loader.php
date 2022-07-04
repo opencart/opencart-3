@@ -181,7 +181,7 @@ class Loader {
 	 *
 	 * @param	string	$route
  	*/	
-	public function config(string $route): array {
+	public function config(string $route) {
 		$this->registry->get('event')->trigger('config/' . $route . '/before', array(&$route));
 		
 		$this->registry->get('config')->load($route);

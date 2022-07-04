@@ -109,7 +109,7 @@ class ControllerExtensionFraudMaxMind extends Controller {
 		return !$this->error;
 	}
 
-	public function order(): void {
+	public function order(): string {
 		$this->load->language('extension/fraud/maxmind');
 
 		$this->load->model('extension/fraud/maxmind');

@@ -1752,7 +1752,7 @@ class ControllerExtensionAdvertiseGoogle extends Controller {
     }
 
 	// admin/model/catalog/product/addProduct/after
-    public function addProduct(&$route, &$args, &$output): void {
+    public function addProduct(string &$route, array &$args, mixed &$output): void {
         $this->load->model('extension/advertise/google');		
         $this->load->model('catalog/product');
 
@@ -1762,7 +1762,7 @@ class ControllerExtensionAdvertiseGoogle extends Controller {
     }
 
 	// admin/model/catalog/product/copyProduct/after
-    public function copyProduct(&$route, &$args, &$output): void {
+    public function copyProduct(string &$route, array &$args, mixed &$output): void {
         $this->load->model('extension/advertise/google');		
         $this->load->model('catalog/product');
 
@@ -1776,7 +1776,7 @@ class ControllerExtensionAdvertiseGoogle extends Controller {
     }
 
 	// admin/model/catalog/product/deleteProduct/after
-    public function deleteProduct(&$route, &$args, &$output): void {
+    public function deleteProduct(string &$route, array &$args, mixed &$output): void {
         $this->load->model('extension/advertise/google');
 
         $this->model_extension_advertise_google->deleteProducts(array((int)$args[0]));

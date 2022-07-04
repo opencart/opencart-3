@@ -121,7 +121,7 @@ class ControllerExtensionFraudFraudLabsPro extends Controller {
 		$this->model_extension_fraud_fraudlabspro->uninstall();
 	}
 
-	protected function validate(): void {
+	protected function validate() {
 		if (!$this->user->hasPermission('modify', 'extension/fraud/fraudlabspro')) {
 			$this->error['warning'] = $this->language->get('error_permission');
 		}
@@ -133,7 +133,7 @@ class ControllerExtensionFraudFraudLabsPro extends Controller {
 		return !$this->error;
 	}
 
-	public function order(): void {
+	public function order(): string {
 		$this->load->language('extension/fraud/fraudlabspro');
 
 		$this->load->model('extension/fraud/fraudlabspro');

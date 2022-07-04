@@ -22,7 +22,7 @@ class ModelExtensionFraudIp extends Model {
         $this->db->query("DELETE FROM `" . DB_PREFIX . "fraud_ip` WHERE `ip` = '" . $this->db->escape($ip) . "'");
     }
 
-	public function getIps(int $start = 0, int $limit = 10): void {
+	public function getIps(int $start = 0, int $limit = 10): array {
         if ($start < 0) {
 			$start = 0;
 		}

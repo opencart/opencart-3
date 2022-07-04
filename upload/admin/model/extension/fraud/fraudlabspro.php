@@ -77,7 +77,8 @@ class ModelExtensionFraudFraudLabsPro extends Model {
 	}
 
 	public function uninstall(): void {
-		//$this->db->query("DROP TABLE IF EXISTS `" . DB_PREFIX . "fraudlabspro`");
+		//$this->db->query("DROP TABLE IF EXISTS `" . DB_PREFIX . "fraudlabspro`");		
+		
 		$this->db->query("DELETE FROM `" . DB_PREFIX . "order_status` WHERE `name` = 'Fraud'");
 		$this->db->query("DELETE FROM `" . DB_PREFIX . "order_status` WHERE `name` = 'Fraud Review'");
 		
@@ -87,7 +88,7 @@ class ModelExtensionFraudFraudLabsPro extends Model {
 		$this->model_setting_event->deleteEventByCode('fraud_fraudlabspro_history');
 	}
 
-	public function getOrder(int $order_id): void {
+	public function getOrder(int $order_id): array {
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "fraudlabspro` WHERE `order_id` = '" . (int)$order_id . "'");
 
 		return $query->row;
