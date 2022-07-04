@@ -71,14 +71,14 @@ class ModelSaleSubscription extends Model {
 			$sql .= " WHERE " . implode(" AND ", $implode);
 		}
 
-		$sort_data = [
+		$sort_data = array(
 			's.subscription_id',
 			's.order_id',
 			's.reference',
 			'customer',
 			's.subscription_status',
 			's.date_added'
-		];
+		);
 
 		if (isset($data['sort']) && in_array($data['sort'], $sort_data)) {
 			$sql .= " ORDER BY " . $data['sort'];
@@ -167,12 +167,12 @@ class ModelSaleSubscription extends Model {
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "subscription_transaction` WHERE `subscription_id` = '" . (int)$subscription_id . "' ORDER BY `date_added` DESC");
 
 		foreach ($query->rows as $result) {
-			$transaction_data[] = [
+			$transaction_data[] = array(
 				'date_added'  => $result['date_added'],
 				'description' => $result['description'],
 				'amount'      => $result['amount'],
 				'order_id'    => $result['order_id']
-			];
+			);
 		}
 
 		return $transaction_data;

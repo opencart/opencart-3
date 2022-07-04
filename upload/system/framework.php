@@ -99,14 +99,14 @@ if ($config->get('session_autostart')) {
 	$session->start($session_id);
 
 	// Require higher security for session cookies
-	$option = [
+	$option = array(
 		'expires'  => 0,
 		'path'     => !empty($request->server['PHP_SELF']) ? rtrim(dirname($request->server['PHP_SELF']), '/') . '/' : '/',
 		'domain'   => $config->get('session_domain'),
 		'secure'   => $request->server['HTTPS'],
 		'httponly' => false,
 		'SameSite' => $config->get('session_samesite')
-	];
+	);
 
 	setcookie($config->get('session_name'), $session->getId(), $option);
 }

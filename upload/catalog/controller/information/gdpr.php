@@ -96,10 +96,10 @@ class ControllerInformationGdpr extends Controller {
 		}
 
 		// Validate Action
-		$allowed = [
+		$allowed = array(
 			'export',
 			'remove'
-		];
+		);
 
 		if (!in_array($action, $allowed)) {
 			$json['error']['action'] = $this->language->get('error_action');

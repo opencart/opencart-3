@@ -9,10 +9,10 @@ class ControllerStartupMaintenance extends Controller {
 				$route = $this->config->get('action_default');
 			}
 
-			$ignore = [
+			$ignore = array(
 				'common/language/language',
 				'common/currency/currency'
-			];
+			);
 
 			// Show site if logged in as admin
 			$user = new \Cart\User($this->registry);

@@ -596,11 +596,11 @@ class ControllerCommonColumnLeft extends Controller {
 			}
 			
 			if ($this->user->hasPermission('access', 'localisation/address_format')) {
-				$localisation[] = [
+				$localisation[] = array(
 					'name'	   => $this->language->get('text_address_format'),
 					'href'     => $this->url->link('localisation/address_format', 'user_token=' . $this->session->data['user_token']),
 					'children' => []
-				];
+				);
 			}
 
 			if ($localisation) {

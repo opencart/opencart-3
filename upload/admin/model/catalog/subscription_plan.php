@@ -50,10 +50,10 @@ class ModelCatalogSubscriptionPlan extends Model {
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "subscription_plan_description` WHERE `subscription_plan_id` = '" . (int)$subscription_plan_id . "'");
 
 		foreach ($query->rows as $result) {
-			$subscription_plan_description_data[$result['language_id']] = [
+			$subscription_plan_description_data[$result['language_id']] = array(
 				'name'        => $result['name'],
 				'description' => $result['description']
-			];
+			);
 		}
 
 		return $subscription_plan_description_data;
@@ -66,10 +66,10 @@ class ModelCatalogSubscriptionPlan extends Model {
 			$sql .= " AND spd.`name` LIKE '" . $this->db->escape($data['filter_name'] . '%') . "'";
 		}
 
-		$sort_data = [
+		$sort_data = array(
 			'spd.name',
 			'sp.sort_order'
-		];
+		);
 
 		if (isset($data['sort']) && in_array($data['sort'], $sort_data)) {
 			$sql .= " ORDER BY " . $data['sort'];

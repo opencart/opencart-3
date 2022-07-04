@@ -51,13 +51,13 @@ class ModelCatalogReview extends Model {
 			$sql .= " AND DATE(r.`date_added`) <= DATE('" . $this->db->escape((string)$data['filter_date_to']) . "')";
 		}
 
-		$sort_data = [
+		$sort_data = array(
 			'pd.name',
 			'r.author',
 			'r.rating',
 			'r.status',
 			'r.date_added'
-		];
+		);
 
 		if (isset($data['sort']) && in_array($data['sort'], $sort_data)) {
 			$sql .= " ORDER BY " . $data['sort'];

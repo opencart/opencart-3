@@ -62,7 +62,7 @@ class ModelAccountAddress extends Model {
 				$zone_code = '';
 			}
 
-			$find = [
+			$find = array(
 				'{firstname}',
 				'{lastname}',
 				'{company}',
@@ -73,9 +73,9 @@ class ModelAccountAddress extends Model {
 				'{zone}',
 				'{zone_code}',
 				'{country}'
-			];
+			);
 
-			$replace = [
+			$replace = array(
 				'firstname' => $address_query->row['firstname'],
 				'lastname'  => $address_query->row['lastname'],
 				'company'   => $address_query->row['company'],
@@ -86,7 +86,7 @@ class ModelAccountAddress extends Model {
 				'zone'      => $zone,
 				'zone_code' => $zone_code,
 				'country'   => $country
-			];
+			);
 
 			$address_format = str_replace(["\r\n", "\r", "\n"], '<br/>', preg_replace(["/\s\s+/", "/\r\r+/", "/\n\n+/"], '<br/>', trim(str_replace($find, $replace, $address_format))));
 

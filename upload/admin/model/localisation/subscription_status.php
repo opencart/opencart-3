@@ -86,7 +86,7 @@ class ModelLocalisationSubscriptionStatus extends Model {
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "subscription_status` WHERE `subscription_status_id` = '" . (int)$subscription_status_id . "'");
 
 		foreach ($query->rows as $result) {
-			$subscription_status_data[$result['language_id']] = ['name' => $result['name']];
+			$subscription_status_data[$result['language_id']] = array('name' => $result['name']);
 		}
 
 		return $subscription_status_data;
