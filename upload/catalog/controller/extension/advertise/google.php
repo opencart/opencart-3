@@ -21,15 +21,15 @@ class ControllerExtensionAdvertiseGoogle extends Controller {
     }
 
 	// catalog/view/common/header/after
-    public function google_global_site_tag(string &$route, array &$data, mixed &$output): void {
+    public function google_global_site_tag(string &$route, array &$args, mixed &$output): bool|string {
         // In case the extension is disabled, do nothing
         if (!$this->setting->get('advertise_google_status')) {
-            return;
+            return false;
         }
 
         // If there is no tracker, do nothing
         if (!$this->setting->has('advertise_google_conversion_tracker')) {
-            return;
+            return false;
         }
 
         $tracker = $this->setting->get('advertise_google_conversion_tracker');
@@ -121,15 +121,15 @@ class ControllerExtensionAdvertiseGoogle extends Controller {
     }
 
 	// catalog/view/common/success/after
-    public function google_dynamic_remarketing_purchase(&$route, &$data, &$output) {
+    public function google_dynamic_remarketing_purchase(string &$route, array &$data, mixed &$output): bool|string {
         // In case the extension is disabled, do nothing
         if (!$this->setting->get('advertise_google_status')) {
-            return;
+            return false;
         }
 
         // If the library has not been loaded, or if there is no snippet, do nothing
         if (!$this->registry->has('googleshopping') || $this->googleshopping->getEventSnippet() === null || $this->googleshopping->getPurchaseData() === null) {
-            return;
+            return false;
         }
 
         $data['send_to'] = $this->googleshopping->getEventSnippetSendTo();
@@ -152,15 +152,15 @@ class ControllerExtensionAdvertiseGoogle extends Controller {
     }
 
 	// catalog/view/common/home/after
-    public function google_dynamic_remarketing_home(&$route, &$data, &$output) {
+    public function google_dynamic_remarketing_home(string &$route, array &$data, mixed &$output): bool|string {
         // In case the extension is disabled, do nothing
         if (!$this->setting->get('advertise_google_status')) {
-            return;
+            return false;
         }
 
         // If we are not on the home page, do nothing
         if (isset($this->request->get['route']) && $this->request->get['route'] != $this->config->get('action_default')) {
-            return;
+            return false;
         }
 
         if (!$this->registry->has('googleshopping')) {
@@ -168,7 +168,7 @@ class ControllerExtensionAdvertiseGoogle extends Controller {
         }
 
         if (null === $this->googleshopping->getEventSnippetSendTo()) {
-            return;
+            return false;
         }
 
         $data['send_to'] = $this->googleshopping->getEventSnippetSendTo();
@@ -180,15 +180,15 @@ class ControllerExtensionAdvertiseGoogle extends Controller {
     }
 
 	// catalog/view/product/search/after
-    public function google_dynamic_remarketing_searchresults(&$route, &$data, &$output) {
+    public function google_dynamic_remarketing_searchresults(string &$route, array &$data, mixed &$output): bool|string {
         // In case the extension is disabled, do nothing
         if (!$this->setting->get('advertise_google_status')) {
-            return;
+            return false;
         }
 
         // If we are not on the search page, do nothing
         if (!isset($this->request->get['route']) || $this->request->get['route'] != 'product/search' || !isset($this->request->get['search'])) {
-            return;
+            return false;
         }
 
         if (!$this->registry->has('googleshopping')) {
@@ -196,7 +196,7 @@ class ControllerExtensionAdvertiseGoogle extends Controller {
         }
 
         if (null === $this->googleshopping->getEventSnippetSendTo()) {
-            return;
+            return false;
         }
 
         $data['send_to'] = $this->googleshopping->getEventSnippetSendTo();
@@ -209,15 +209,15 @@ class ControllerExtensionAdvertiseGoogle extends Controller {
     }
 
 	// catalog/view/product/category/after
-    public function google_dynamic_remarketing_category(&$route, &$data, &$output) {
+    public function google_dynamic_remarketing_category(string &$route, array &$data, mixed &$output): bool|string {
         // In case the extension is disabled, do nothing
         if (!$this->setting->get('advertise_google_status')) {
-            return;
+            return false;
         }
 
         // If we are not on the search page, do nothing
         if (!isset($this->request->get['route']) || $this->request->get['route'] != 'product/category') {
-            return;
+            return false;
         }
 
         if (!$this->registry->has('googleshopping')) {
@@ -225,7 +225,7 @@ class ControllerExtensionAdvertiseGoogle extends Controller {
         }
 
         if (null === $this->googleshopping->getEventSnippetSendTo()) {
-            return;
+            return false;
         }
 
         if (isset($this->request->get['path'])) {
@@ -240,6 +240,7 @@ class ControllerExtensionAdvertiseGoogle extends Controller {
         $this->load->model('extension/advertise/google');
 
         $data = array();
+		
         $data['send_to'] = $this->googleshopping->getEventSnippetSendTo();
         $data['description'] = str_replace('"', '\\"', $this->model_extension_advertise_google->getHumanReadableOpenCartCategory($category_id));
 
@@ -250,15 +251,15 @@ class ControllerExtensionAdvertiseGoogle extends Controller {
     }
 
 	// catalog/view/product/product/after
-    public function google_dynamic_remarketing_product(&$route, &$data, &$output) {
+    public function google_dynamic_remarketing_product(string &$route, array &$data, mixed &$output): bool|string {
         // In case the extension is disabled, do nothing
         if (!$this->setting->get('advertise_google_status')) {
-            return;
+            return false;
         }
 
         // If we do not know the viewed product, do nothing
         if (!isset($this->request->get['product_id']) || !isset($this->request->get['route']) || $this->request->get['route'] != 'product/product') {
-            return;
+            return false;
         }
 
         $this->load->model('catalog/product');
@@ -267,7 +268,7 @@ class ControllerExtensionAdvertiseGoogle extends Controller {
 
         // If product does not exist, do nothing
         if (!$product_info) {
-            return;
+            return false;
         }
 
         if (!$this->registry->has('googleshopping')) {
@@ -275,7 +276,7 @@ class ControllerExtensionAdvertiseGoogle extends Controller {
         }
 
         if (null === $this->googleshopping->getEventSnippetSendTo()) {
-            return;
+            return false;
         }
 
         $this->load->model('extension/advertise/google');
@@ -283,6 +284,8 @@ class ControllerExtensionAdvertiseGoogle extends Controller {
         $category_name = $this->model_extension_advertise_google->getHumanReadableCategory($product_info['product_id'], $this->store_id);
 
         $option_map = $this->model_extension_advertise_google->getSizeAndColorOptionMap($product_info['product_id'], $this->store_id);
+		
+		$data = array();
 
         $data['send_to'] = $this->googleshopping->getEventSnippetSendTo();
         $data['option_map'] = json_encode($option_map);
@@ -297,15 +300,15 @@ class ControllerExtensionAdvertiseGoogle extends Controller {
     }
 
 	// catalog/view/checkout/cart/after
-    public function google_dynamic_remarketing_cart(&$route, &$data, &$output) {
+    public function google_dynamic_remarketing_cart(string &$route, array &$data, mixed &$output): bool|string {
         // In case the extension is disabled, do nothing
         if (!$this->setting->get('advertise_google_status')) {
-            return;
+            return false;
         }
 
         // If we are not on the cart page, do nothing
         if (!isset($this->request->get['route']) || $this->request->get['route'] != 'checkout/cart') {
-            return;
+            return false;
         }
 
         if (!$this->registry->has('googleshopping')) {
@@ -313,14 +316,14 @@ class ControllerExtensionAdvertiseGoogle extends Controller {
         }
 
         if (null === $this->googleshopping->getEventSnippetSendTo()) {
-            return;
+            return false;
         }
 
-        $this->load->model('catalog/product');
-		
-        $this->load->model('extension/advertise/google');
+		$this->load->model('extension/advertise/google');
+        $this->load->model('catalog/product');        
 
         $data = array();
+		
         $data['send_to'] = $this->googleshopping->getEventSnippetSendTo();
         $data['ecomm_totalvalue'] = $this->cart->getTotal();
         $data['ecomm_prodid'] = json_encode($this->model_extension_advertise_google->getRemarketingProductIds($this->cart->getProducts(), $this->store_id));
@@ -337,7 +340,7 @@ class ControllerExtensionAdvertiseGoogle extends Controller {
 
         if (!$this->validateCRON()) {
             // In case this is not a CRON task
-            return;
+            return false;
         }
 
         $this->load->language('extension/advertise/google');

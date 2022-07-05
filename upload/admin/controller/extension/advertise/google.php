@@ -8,8 +8,8 @@ class ControllerExtensionAdvertiseGoogle extends Controller {
     use StoreLoader;
     use LibraryLoader;
 
-    private array $error = array();
-    private int $store_id = 0;
+    private array $error;
+    private int $store_id;
 
     public function __construct(object $registry) {
         parent::__construct($registry);
@@ -110,8 +110,8 @@ class ControllerExtensionAdvertiseGoogle extends Controller {
             $data['error'] = $this->error['warning'];
         }
 
-        $data['error_cron_email']                   = $this->getValidationError('cron_email');
-        $data['error_cron_acknowledge']             = $this->getValidationError('cron_acknowledge');
+        $data['error_cron_email'] = $this->getValidationError('cron_email');
+        $data['error_cron_acknowledge'] = $this->getValidationError('cron_acknowledge');
 
         $data['success'] = '';
 
@@ -306,13 +306,13 @@ class ControllerExtensionAdvertiseGoogle extends Controller {
     }
 
     public function list_ads(): void {
+		$this->load->language('extension/advertise/google');
+		
         $json = array();
 
         $this->load->model('extension/advertise/google');
 
         $this->model_extension_advertise_google->insertNewProducts(array(), $this->store_id);
-
-        $this->load->language('extension/advertise/google');
 
         $page = (int)$this->request->post['page'];
 
@@ -416,9 +416,9 @@ class ControllerExtensionAdvertiseGoogle extends Controller {
             'href' => $this->url->link('extension/advertise/google/merchant', 'store_id=' . $this->store_id . '&user_token=' . $this->session->data['user_token'], true),
         );
 
-		$data['action']       = $this->url->link('extension/advertise/google/merchant', 'store_id=' . $this->store_id . '&user_token=' . $this->session->data['user_token'], true);
+		$data['action'] = $this->url->link('extension/advertise/google/merchant', 'store_id=' . $this->store_id . '&user_token=' . $this->session->data['user_token'], true);
 		
-        $data['cancel']       = $this->url->link('marketplace/extension', 'user_token=' . $this->session->data['user_token'] . '&type=advertise', true);        
+        $data['cancel'] = $this->url->link('marketplace/extension', 'user_token=' . $this->session->data['user_token'] . '&type=advertise', true);        
 
         if (isset($this->request->post['advertise_google_gmc_account_type'])) {
             $data['advertise_google_gmc_account_type'] = $this->request->post['advertise_google_gmc_account_type'];
@@ -539,7 +539,8 @@ class ControllerExtensionAdvertiseGoogle extends Controller {
 
         $data['from_dashboard'] = isset($this->request->get['from_dashboard']);
 
-        $data['breadcrumbs']   = array();
+        $data['breadcrumbs'] = array();
+		
         $data['breadcrumbs'][] = array(
             'text' => $this->language->get('text_home'),
             'href' => $this->url->link('common/dashboard', 'user_token=' . $this->session->data['user_token'], true),
@@ -596,6 +597,7 @@ class ControllerExtensionAdvertiseGoogle extends Controller {
         $data['footer']       = $this->load->controller('common/footer');
 
         $data['current_step'] = 4;
+		
         $data['steps'] = $this->load->view('extension/advertise/google_steps', $data);
 
         $this->response->setOutput($this->load->view('extension/advertise/google_shipping_taxes', $data));
@@ -1040,7 +1042,6 @@ class ControllerExtensionAdvertiseGoogle extends Controller {
             if (!empty($target_info)) {
                 try {
                     $this->googleshopping->deleteCampaign($target_info['campaign_name']);
-
                     $this->googleshopping->deleteTarget($advertise_google_target_id);
 
                     $json['success'] = $this->language->get('success_target_delete');
@@ -1089,8 +1090,8 @@ class ControllerExtensionAdvertiseGoogle extends Controller {
     public function callback_merchant(): void {
         $state_verified = !empty($this->session->data['advertise_google']['state']) && !empty($this->request->get['state']) && $this->request->get['state'] == $this->session->data['advertise_google']['state'];
 
-        $error = (isset($this->request->get['error']) ? $this->request->get['error'] : null);
-        $merchant_id = (isset($this->request->get['merchant_id']) ? $this->request->get['merchant_id'] : null);
+		$merchant_id = (isset($this->request->get['merchant_id']) ? $this->request->get['merchant_id'] : null);
+        $error = (isset($this->request->get['error']) ? $this->request->get['error'] : null);        
 
         if ($state_verified && is_null($error)) {
             $this->load->language('extension/advertise/google');
@@ -1267,7 +1268,7 @@ class ControllerExtensionAdvertiseGoogle extends Controller {
             unset($this->session->data['success']);
         }
 
-        $data['breadcrumbs']   = array();
+        $data['breadcrumbs'] = array();
 		
         $data['breadcrumbs'][] = array(
             'text' => $this->language->get('text_home'),
@@ -1386,6 +1387,7 @@ class ControllerExtensionAdvertiseGoogle extends Controller {
         }
 
         $data['breadcrumbs']   = array();
+		
         $data['breadcrumbs'][] = array(
             'text' => $this->language->get('text_home'),
             'href' => $this->url->link('common/dashboard', 'user_token=' . $this->session->data['user_token'], true),
@@ -1416,7 +1418,7 @@ class ControllerExtensionAdvertiseGoogle extends Controller {
             'body' 				=> '',
             'title' 			=> '',
             'success' 			=> false,
-            'required_fields' 	=> [],
+            'required_fields' 	=> array(),
             'success_message' 	=> ''
         );
 
