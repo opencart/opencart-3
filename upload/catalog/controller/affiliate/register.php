@@ -3,7 +3,7 @@ class ControllerAffiliateRegister extends Controller {
 	private array $error = array();
 
 	public function index(): void {
-		if (!$this->customer->isLogged() || (!isset($this->request->get['customer_token']) || !isset($this->session->data['customer_token']) || ($this->request->get['customer_token'] != $this->session->data['customer_token']))) {
+		if ($this->customer->isLogged()) {
 			$this->response->redirect($this->url->link('account/account', '', true));
 		}
 
