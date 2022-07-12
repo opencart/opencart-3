@@ -70,11 +70,16 @@ class ControllerAccountAccount extends Controller {
 		
 		// Affiliate
 		if ($this->config->get('config_affiliate_status')) {
-			$data['affiliate'] = $this->url->link('account/affiliate', 'customer_token=' . $this->session->data['customer_token'], true);
-
+			
 			$this->load->model('account/customer');
 
 			$affiliate_info = $this->model_account_customer->getAffiliate($this->customer->getId());
+
+			if($affiliate_info) {
+				$data['affiliate'] = $this->url->link('account/affiliate/edit', 'customer_token=' . $this->session->data['customer_token'], true);
+			} else {
+				$data['affiliate'] = $this->url->link('account/affiliate/add', 'customer_token=' . $this->session->data['customer_token'], true);
+			}
 
 			if ($affiliate_info) {
 				$data['tracking'] = $this->url->link('account/tracking', 'customer_token=' . $this->session->data['customer_token'], true);
