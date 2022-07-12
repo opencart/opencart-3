@@ -139,6 +139,6 @@ class Mail {
 			$this->adaptor->$key = $value;
 		}
 		
-		$this->adaptor->send();
+		return $this->adaptor->send();
 	}
 }
