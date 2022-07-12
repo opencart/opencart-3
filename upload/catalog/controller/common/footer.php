@@ -36,7 +36,7 @@ class ControllerCommonFooter extends Controller {
 		
 		// Affiliate
 		if ($this->config->get('config_affiliate_status')) {
-			$data['affiliate'] = $this->url->link('account/affiliate', (isset($this->session->data['customer_token']) ? '&customer_token=' . $this->session->data['customer_token'] : ''), true);
+			$data['affiliate'] = $this->url->link('affiliate/login', (isset($this->session->data['customer_token']) ? '&customer_token=' . $this->session->data['customer_token'] : ''), true);
 		} else {
 			$data['affiliate'] = '';
 		}
