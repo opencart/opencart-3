@@ -122,7 +122,7 @@ class ControllerAffiliateRegister extends Controller {
 			$data['error_bank_account_number'] = '';
 		}
 				
-		$data['action'] = $this->url->link('affiliate/register', '', true);
+		$data['action'] = $this->url->link('affiliate/register', 'customer_token=' . $this->session->data['customer_token'], true);
 
 		$data['customer_groups'] = array();
 

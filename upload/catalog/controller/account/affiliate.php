@@ -115,7 +115,7 @@ class ControllerAccountAffiliate extends Controller {
 			$data['error_custom_field'] = array();
 		}
 				
-		$data['action'] = $this->url->link($this->request->get['route'], '', true);
+		$data['action'] = $this->url->link($this->request->get['route'], 'customer_token=' . $this->session->data['customer_token'], true);
 		
 		if ($this->request->get['route'] == 'account/affiliate/edit' && $this->request->server['REQUEST_METHOD'] != 'POST') {
 			$affiliate_info = $this->model_account_customer->getAffiliate($this->customer->getId());
