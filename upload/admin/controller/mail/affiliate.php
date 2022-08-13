@@ -42,20 +42,22 @@ class ControllerMailAffiliate extends Controller {
 			$data['store'] = $store_name;
 			$data['store_url'] = $store_url;
 
-			$mail = new \Mail($this->config->get('config_mail_engine'));
-			$mail->parameter = $this->config->get('config_mail_parameter');
-			$mail->smtp_hostname = $this->config->get('config_mail_smtp_hostname');
-			$mail->smtp_username = $this->config->get('config_mail_smtp_username');
-			$mail->smtp_password = html_entity_decode($this->config->get('config_mail_smtp_password'), ENT_QUOTES, 'UTF-8');
-			$mail->smtp_port = $this->config->get('config_mail_smtp_port');
-			$mail->smtp_timeout = $this->config->get('config_mail_smtp_timeout');
+			if ($this->config->get('config_mail_engine')) {
+				$mail = new \Mail($this->config->get('config_mail_engine'));
+				$mail->parameter = $this->config->get('config_mail_parameter');
+				$mail->smtp_hostname = $this->config->get('config_mail_smtp_hostname');
+				$mail->smtp_username = $this->config->get('config_mail_smtp_username');
+				$mail->smtp_password = html_entity_decode($this->config->get('config_mail_smtp_password'), ENT_QUOTES, 'UTF-8');
+				$mail->smtp_port = $this->config->get('config_mail_smtp_port');
+				$mail->smtp_timeout = $this->config->get('config_mail_smtp_timeout');
 
-			$mail->setTo($customer_info['email']);
-			$mail->setFrom($this->config->get('config_email'));
-			$mail->setSender($store_name);
-			$mail->setSubject($subject);
-			$mail->setText($this->load->view('mail/affiliate_approve', $data));
-			$mail->send();
+				$mail->setTo($customer_info['email']);
+				$mail->setFrom($this->config->get('config_email'));
+				$mail->setSender($store_name);
+				$mail->setSubject($subject);
+				$mail->setText($this->load->view('mail/affiliate_approve', $data));
+				$mail->send();
+			}
 		}
 	}
 
@@ -101,20 +103,22 @@ class ControllerMailAffiliate extends Controller {
 			$data['store'] = $store_name;
 			$data['store_url'] = $store_url;
 
-			$mail = new \Mail($this->config->get('config_mail_engine'));
-			$mail->parameter = $this->config->get('config_mail_parameter');
-			$mail->smtp_hostname = $this->config->get('config_mail_smtp_hostname');
-			$mail->smtp_username = $this->config->get('config_mail_smtp_username');
-			$mail->smtp_password = html_entity_decode($this->config->get('config_mail_smtp_password'), ENT_QUOTES, 'UTF-8');
-			$mail->smtp_port = $this->config->get('config_mail_smtp_port');
-			$mail->smtp_timeout = $this->config->get('config_mail_smtp_timeout');
+			if ($this->config->get('config_mail_engine')) {
+				$mail = new \Mail($this->config->get('config_mail_engine'));
+				$mail->parameter = $this->config->get('config_mail_parameter');
+				$mail->smtp_hostname = $this->config->get('config_mail_smtp_hostname');
+				$mail->smtp_username = $this->config->get('config_mail_smtp_username');
+				$mail->smtp_password = html_entity_decode($this->config->get('config_mail_smtp_password'), ENT_QUOTES, 'UTF-8');
+				$mail->smtp_port = $this->config->get('config_mail_smtp_port');
+				$mail->smtp_timeout = $this->config->get('config_mail_smtp_timeout');
 
-			$mail->setTo($customer_info['email']);
-			$mail->setFrom($this->config->get('config_email'));
-			$mail->setSender($store_name);
-			$mail->setSubject($subject);
-			$mail->setText($this->load->view('mail/affiliate_deny', $data));
-			$mail->send();
+				$mail->setTo($customer_info['email']);
+				$mail->setFrom($this->config->get('config_email'));
+				$mail->setSender($store_name);
+				$mail->setSubject($subject);
+				$mail->setText($this->load->view('mail/affiliate_deny', $data));
+				$mail->send();
+			}
 		}
 	}
 }

@@ -70,114 +70,119 @@ class ModelExtensionPaymentSquareup extends Model {
             return;
         }
 
-        $mail = new \Mail();
+		if ($this->config->get('config_mail_engine')) {
+			$subject = $this->language->get('text_token_expired_subject');
+			$message = $this->language->get('text_token_expired_message');	
+				
+			$mail = new \Mail($this->config->get('config_mail_engine'));
 
-        $mail->protocol = $this->config->get('config_mail_protocol');
-        $mail->parameter = $this->config->get('config_mail_parameter');
+			$mail->protocol = $this->config->get('config_mail_protocol');
+			$mail->parameter = $this->config->get('config_mail_parameter');
 
-        $mail->smtp_hostname = $this->config->get('config_mail_smtp_hostname');
-        $mail->smtp_username = $this->config->get('config_mail_smtp_username');
-        $mail->smtp_password = html_entity_decode($this->config->get('config_mail_smtp_password'), ENT_QUOTES, 'UTF-8');
-        $mail->smtp_port = $this->config->get('config_mail_smtp_port');
-        $mail->smtp_timeout = $this->config->get('config_mail_smtp_timeout');
+			$mail->smtp_hostname = $this->config->get('config_mail_smtp_hostname');
+			$mail->smtp_username = $this->config->get('config_mail_smtp_username');
+			$mail->smtp_password = html_entity_decode($this->config->get('config_mail_smtp_password'), ENT_QUOTES, 'UTF-8');
+			$mail->smtp_port = $this->config->get('config_mail_smtp_port');
+			$mail->smtp_timeout = $this->config->get('config_mail_smtp_timeout');
 
-        $subject = $this->language->get('text_token_expired_subject');
-        $message = $this->language->get('text_token_expired_message');
-
-        $mail->setTo($this->config->get('config_email'));
-        $mail->setFrom($this->config->get('config_email'));
-        $mail->setSender($this->config->get('config_name'));
-        $mail->setSubject(html_entity_decode($subject, ENT_QUOTES, 'UTF-8'));
-        $mail->setText(strip_tags($message));
-        $mail->setHtml($message);
-
-        $mail->send();
+			$mail->setTo($this->config->get('config_email'));
+			$mail->setFrom($this->config->get('config_email'));
+			$mail->setSender($this->config->get('config_name'));
+			$mail->setSubject(html_entity_decode($subject, ENT_QUOTES, 'UTF-8'));
+			$mail->setText(strip_tags($message));
+			$mail->setHtml($message);
+			$mail->send();
+		}
     }
 
     public function tokenRevokedEmail() {
         if (!$this->mailResendPeriodExpired('token_revoked')) {
             return;
         }
+		
+		if ($this->config->get('config_mail_engine')) {
+			$subject = $this->language->get('text_token_revoked_subject');
+			$message = $this->language->get('text_token_revoked_message');
 
-        $mail = new \Mail();
+			$mail = new \Mail($this->config->get('config_mail_engine'));
 
-        $mail->protocol = $this->config->get('config_mail_protocol');
-        $mail->parameter = $this->config->get('config_mail_parameter');
+			$mail->protocol = $this->config->get('config_mail_protocol');
+			$mail->parameter = $this->config->get('config_mail_parameter');
 
-        $mail->smtp_hostname = $this->config->get('config_mail_smtp_hostname');
-        $mail->smtp_username = $this->config->get('config_mail_smtp_username');
-        $mail->smtp_password = html_entity_decode($this->config->get('config_mail_smtp_password'), ENT_QUOTES, 'UTF-8');
-        $mail->smtp_port = $this->config->get('config_mail_smtp_port');
-        $mail->smtp_timeout = $this->config->get('config_mail_smtp_timeout');
+			$mail->smtp_hostname = $this->config->get('config_mail_smtp_hostname');
+			$mail->smtp_username = $this->config->get('config_mail_smtp_username');
+			$mail->smtp_password = html_entity_decode($this->config->get('config_mail_smtp_password'), ENT_QUOTES, 'UTF-8');
+			$mail->smtp_port = $this->config->get('config_mail_smtp_port');
+			$mail->smtp_timeout = $this->config->get('config_mail_smtp_timeout');
 
-        $subject = $this->language->get('text_token_revoked_subject');
-        $message = $this->language->get('text_token_revoked_message');
+			$mail->setTo($this->config->get('config_email'));
+			$mail->setFrom($this->config->get('config_email'));
+			$mail->setSender($this->config->get('config_name'));
+			$mail->setSubject(html_entity_decode($subject, ENT_QUOTES, 'UTF-8'));
+			$mail->setText(strip_tags($message));
+			$mail->setHtml($message);
 
-        $mail->setTo($this->config->get('config_email'));
-        $mail->setFrom($this->config->get('config_email'));
-        $mail->setSender($this->config->get('config_name'));
-        $mail->setSubject(html_entity_decode($subject, ENT_QUOTES, 'UTF-8'));
-        $mail->setText(strip_tags($message));
-        $mail->setHtml($message);
-
-        $mail->send();
+			$mail->send();
+		}
     }
 
     public function cronEmail($result) {
-        $mail = new \Mail();
+		if ($this->config->get('config_mail_engine')) {
+			$mail = new \Mail($this->config->get('config_mail_engine'));
 
-        $mail->protocol = $this->config->get('config_mail_protocol');
-        $mail->parameter = $this->config->get('config_mail_parameter');
+			$mail->protocol = $this->config->get('config_mail_protocol');
+			$mail->parameter = $this->config->get('config_mail_parameter');
 
-        $mail->smtp_hostname = $this->config->get('config_mail_smtp_hostname');
-        $mail->smtp_username = $this->config->get('config_mail_smtp_username');
-        $mail->smtp_password = html_entity_decode($this->config->get('config_mail_smtp_password'), ENT_QUOTES, 'UTF-8');
-        $mail->smtp_port = $this->config->get('config_mail_smtp_port');
-        $mail->smtp_timeout = $this->config->get('config_mail_smtp_timeout');
+			$mail->smtp_hostname = $this->config->get('config_mail_smtp_hostname');
+			$mail->smtp_username = $this->config->get('config_mail_smtp_username');
+			$mail->smtp_password = html_entity_decode($this->config->get('config_mail_smtp_password'), ENT_QUOTES, 'UTF-8');
+			$mail->smtp_port = $this->config->get('config_mail_smtp_port');
+			$mail->smtp_timeout = $this->config->get('config_mail_smtp_timeout');
 
-        $br = '<br/>';
+			$br = '<br/>';
 
-        $subject = $this->language->get('text_cron_subject');
+			$subject = $this->language->get('text_cron_subject');
 
-        $message = $this->language->get('text_cron_message') . $br . $br;
+			$message = $this->language->get('text_cron_message') . $br . $br;
 
-        $message .= '<strong>' . $this->language->get('text_cron_summary_token_heading') . '</strong>' . $br;
+			$message .= '<strong>' . $this->language->get('text_cron_summary_token_heading') . '</strong>' . $br;
 
-        if ($result['token_update_error']) {
-            $message .= $result['token_update_error'] . $br . $br;
-        } else {
-            $message .= $this->language->get('text_cron_summary_token_updated') . $br . $br;
-        }
+			if ($result['token_update_error']) {
+				$message .= $result['token_update_error'] . $br . $br;
+			} else {
+				$message .= $this->language->get('text_cron_summary_token_updated') . $br . $br;
+			}
 
-        if (!empty($result['transaction_error'])) {
-            $message .= '<strong>' . $this->language->get('text_cron_summary_error_heading') . '</strong>' . $br;
+			if (!empty($result['transaction_error'])) {
+				$message .= '<strong>' . $this->language->get('text_cron_summary_error_heading') . '</strong>' . $br;
 
-            $message .= implode($br, $result['transaction_error']) . $br . $br;
-        }
+				$message .= implode($br, $result['transaction_error']) . $br . $br;
+			}
 
-        if (!empty($result['transaction_fail'])) {
-            $message .= '<strong>' . $this->language->get('text_cron_summary_fail_heading') . '</strong>' . $br;
+			if (!empty($result['transaction_fail'])) {
+				$message .= '<strong>' . $this->language->get('text_cron_summary_fail_heading') . '</strong>' . $br;
 
-            foreach ($result['transaction_fail'] as $order_recurring_id => $amount) {
-                $message .= sprintf($this->language->get('text_cron_fail_charge'), $order_recurring_id, $amount) . $br;
-            }
-        }
+				foreach ($result['transaction_fail'] as $order_recurring_id => $amount) {
+					$message .= sprintf($this->language->get('text_cron_fail_charge'), $order_recurring_id, $amount) . $br;
+				}
+			}
 
-        if (!empty($result['transaction_success'])) {
-            $message .= '<strong>' . $this->language->get('text_cron_summary_success_heading') . '</strong>' . $br;
+			if (!empty($result['transaction_success'])) {
+				$message .= '<strong>' . $this->language->get('text_cron_summary_success_heading') . '</strong>' . $br;
 
-            foreach ($result['transaction_success'] as $order_recurring_id => $amount) {
-                $message .= sprintf($this->language->get('text_cron_success_charge'), $order_recurring_id, $amount) . $br;
-            }
-        }
+				foreach ($result['transaction_success'] as $order_recurring_id => $amount) {
+					$message .= sprintf($this->language->get('text_cron_success_charge'), $order_recurring_id, $amount) . $br;
+				}
+			}
 
-        $mail->setTo($this->config->get('payment_squareup_cron_email'));
-        $mail->setFrom($this->config->get('config_email'));
-        $mail->setSender($this->config->get('config_name'));
-        $mail->setSubject(html_entity_decode($subject, ENT_QUOTES, 'UTF-8'));
-        $mail->setText(strip_tags($message));
-        $mail->setHtml($message);
-        $mail->send();
+			$mail->setTo($this->config->get('payment_squareup_cron_email'));
+			$mail->setFrom($this->config->get('config_email'));
+			$mail->setSender($this->config->get('config_name'));
+			$mail->setSubject(html_entity_decode($subject, ENT_QUOTES, 'UTF-8'));
+			$mail->setText(strip_tags($message));
+			$mail->setHtml($message);
+			$mail->send();
+		}
     }
 
     public function subscriptionPayments() {

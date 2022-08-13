@@ -171,20 +171,22 @@ class ControllerMailGdpr extends Controller {
 		$data['store_name'] = $store_name;
 		$data['store_url'] = $store_url;
 
-		$mail = new \Mail($this->config->get('config_mail_engine'));
-		$mail->parameter = $this->config->get('config_mail_parameter');
-		$mail->smtp_hostname = $this->config->get('config_mail_smtp_hostname');
-		$mail->smtp_username = $this->config->get('config_mail_smtp_username');
-		$mail->smtp_password = html_entity_decode($this->config->get('config_mail_smtp_password'), ENT_QUOTES, 'UTF-8');
-		$mail->smtp_port = $this->config->get('config_mail_smtp_port');
-		$mail->smtp_timeout = $this->config->get('config_mail_smtp_timeout');
+		if ($this->config->get('config_mail_engine')) {
+			$mail = new \Mail($this->config->get('config_mail_engine'));
+			$mail->parameter = $this->config->get('config_mail_parameter');
+			$mail->smtp_hostname = $this->config->get('config_mail_smtp_hostname');
+			$mail->smtp_username = $this->config->get('config_mail_smtp_username');
+			$mail->smtp_password = html_entity_decode($this->config->get('config_mail_smtp_password'), ENT_QUOTES, 'UTF-8');
+			$mail->smtp_port = $this->config->get('config_mail_smtp_port');
+			$mail->smtp_timeout = $this->config->get('config_mail_smtp_timeout');
 
-		$mail->setTo($gdpr_info['email']);
-		$mail->setFrom($this->config->get('config_email'));
-		$mail->setSender($store_name);
-		$mail->setSubject($subject);
-		$mail->setHtml($this->load->view('mail/gdpr_export', $data));
-		$mail->send();
+			$mail->setTo($gdpr_info['email']);
+			$mail->setFrom($this->config->get('config_email'));
+			$mail->setSender($store_name);
+			$mail->setSubject($subject);
+			$mail->setHtml($this->load->view('mail/gdpr_export', $data));
+			$mail->send();
+		}
 	}
 
 	public function approve(array $gdpr_info): void {
@@ -246,20 +248,22 @@ class ControllerMailGdpr extends Controller {
 		$data['store_name'] = $store_name;
 		$data['store_url'] = $store_url;
 
-		$mail = new \Mail($this->config->get('config_mail_engine'));
-		$mail->parameter = $this->config->get('config_mail_parameter');
-		$mail->smtp_hostname = $this->config->get('config_mail_smtp_hostname');
-		$mail->smtp_username = $this->config->get('config_mail_smtp_username');
-		$mail->smtp_password = html_entity_decode($this->config->get('config_mail_smtp_password'), ENT_QUOTES, 'UTF-8');
-		$mail->smtp_port = $this->config->get('config_mail_smtp_port');
-		$mail->smtp_timeout = $this->config->get('config_mail_smtp_timeout');
+		if ($this->config->get('config_mail_engine')) {
+			$mail = new \Mail($this->config->get('config_mail_engine'));
+			$mail->parameter = $this->config->get('config_mail_parameter');
+			$mail->smtp_hostname = $this->config->get('config_mail_smtp_hostname');
+			$mail->smtp_username = $this->config->get('config_mail_smtp_username');
+			$mail->smtp_password = html_entity_decode($this->config->get('config_mail_smtp_password'), ENT_QUOTES, 'UTF-8');
+			$mail->smtp_port = $this->config->get('config_mail_smtp_port');
+			$mail->smtp_timeout = $this->config->get('config_mail_smtp_timeout');
 
-		$mail->setTo($gdpr_info['email']);
-		$mail->setFrom($this->config->get('config_email'));
-		$mail->setSender($store_name);
-		$mail->setSubject($subject);
-		$mail->setHtml($this->load->view('mail/gdpr_approve', $data));
-		$mail->send();
+			$mail->setTo($gdpr_info['email']);
+			$mail->setFrom($this->config->get('config_email'));
+			$mail->setSender($store_name);
+			$mail->setSubject($subject);
+			$mail->setHtml($this->load->view('mail/gdpr_approve', $data));
+			$mail->send();
+		}
 	}
 
 	public function deny(array $gdpr_info): void {
@@ -321,20 +325,22 @@ class ControllerMailGdpr extends Controller {
 		$data['store_url'] = $store_url;
 		$data['contact'] = $store_url . 'index.php?route=information/contact';
 
-		$mail = new \Mail($this->config->get('config_mail_engine'));
-		$mail->parameter = $this->config->get('config_mail_parameter');
-		$mail->smtp_hostname = $this->config->get('config_mail_smtp_hostname');
-		$mail->smtp_username = $this->config->get('config_mail_smtp_username');
-		$mail->smtp_password = html_entity_decode($this->config->get('config_mail_smtp_password'), ENT_QUOTES, 'UTF-8');
-		$mail->smtp_port = $this->config->get('config_mail_smtp_port');
-		$mail->smtp_timeout = $this->config->get('config_mail_smtp_timeout');
+		if ($this->config->get('config_mail_engine')) {
+			$mail = new \Mail($this->config->get('config_mail_engine'));
+			$mail->parameter = $this->config->get('config_mail_parameter');
+			$mail->smtp_hostname = $this->config->get('config_mail_smtp_hostname');
+			$mail->smtp_username = $this->config->get('config_mail_smtp_username');
+			$mail->smtp_password = html_entity_decode($this->config->get('config_mail_smtp_password'), ENT_QUOTES, 'UTF-8');
+			$mail->smtp_port = $this->config->get('config_mail_smtp_port');
+			$mail->smtp_timeout = $this->config->get('config_mail_smtp_timeout');
 
-		$mail->setTo($gdpr_info['email']);
-		$mail->setFrom($this->config->get('config_email'));
-		$mail->setSender($store_name);
-		$mail->setSubject($subject);
-		$mail->setHtml($this->load->view('mail/gdpr_deny', $data));
-		$mail->send();
+			$mail->setTo($gdpr_info['email']);
+			$mail->setFrom($this->config->get('config_email'));
+			$mail->setSender($store_name);
+			$mail->setSubject($subject);
+			$mail->setHtml($this->load->view('mail/gdpr_deny', $data));
+			$mail->send();
+		}
 	}
 
 	public function remove(array $gdpr_info): void {
@@ -394,19 +400,21 @@ class ControllerMailGdpr extends Controller {
 		$data['store_url'] = $store_url;
 		$data['contact'] = $store_url . 'index.php?route=information/contact';
 
-		$mail = new \Mail($this->config->get('config_mail_engine'));
-		$mail->parameter = $this->config->get('config_mail_parameter');
-		$mail->smtp_hostname = $this->config->get('config_mail_smtp_hostname');
-		$mail->smtp_username = $this->config->get('config_mail_smtp_username');
-		$mail->smtp_password = html_entity_decode($this->config->get('config_mail_smtp_password'), ENT_QUOTES, 'UTF-8');
-		$mail->smtp_port = $this->config->get('config_mail_smtp_port');
-		$mail->smtp_timeout = $this->config->get('config_mail_smtp_timeout');
+		if ($this->config->get('config_mail_engine')) {
+			$mail = new \Mail($this->config->get('config_mail_engine'));
+			$mail->parameter = $this->config->get('config_mail_parameter');
+			$mail->smtp_hostname = $this->config->get('config_mail_smtp_hostname');
+			$mail->smtp_username = $this->config->get('config_mail_smtp_username');
+			$mail->smtp_password = html_entity_decode($this->config->get('config_mail_smtp_password'), ENT_QUOTES, 'UTF-8');
+			$mail->smtp_port = $this->config->get('config_mail_smtp_port');
+			$mail->smtp_timeout = $this->config->get('config_mail_smtp_timeout');
 
-		$mail->setTo($gdpr_info['email']);
-		$mail->setFrom($this->config->get('config_email'));
-		$mail->setSender($store_name);
-		$mail->setSubject($subject);
-		$mail->setHtml($this->load->view('mail/gdpr_delete', $data));
-		$mail->send();
+			$mail->setTo($gdpr_info['email']);
+			$mail->setFrom($this->config->get('config_email'));
+			$mail->setSender($store_name);
+			$mail->setSubject($subject);
+			$mail->setHtml($this->load->view('mail/gdpr_delete', $data));
+			$mail->send();
+		}
 	}
 }

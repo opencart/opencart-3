@@ -21,28 +21,30 @@ class ModelCatalogReview extends Model {
 			$message .= $this->language->get('text_review') . "\n";
 			$message .= html_entity_decode($data['text'], ENT_QUOTES, 'UTF-8') . "\n\n";
 
-			$mail = new \Mail($this->config->get('config_mail_engine'));
-			$mail->parameter = $this->config->get('config_mail_parameter');
-			$mail->smtp_hostname = $this->config->get('config_mail_smtp_hostname');
-			$mail->smtp_username = $this->config->get('config_mail_smtp_username');
-			$mail->smtp_password = html_entity_decode($this->config->get('config_mail_smtp_password'), ENT_QUOTES, 'UTF-8');
-			$mail->smtp_port = $this->config->get('config_mail_smtp_port');
-			$mail->smtp_timeout = $this->config->get('config_mail_smtp_timeout');
+			if ($this->config->get('config_mail_engine')) {
+				$mail = new \Mail($this->config->get('config_mail_engine'));
+				$mail->parameter = $this->config->get('config_mail_parameter');
+				$mail->smtp_hostname = $this->config->get('config_mail_smtp_hostname');
+				$mail->smtp_username = $this->config->get('config_mail_smtp_username');
+				$mail->smtp_password = html_entity_decode($this->config->get('config_mail_smtp_password'), ENT_QUOTES, 'UTF-8');
+				$mail->smtp_port = $this->config->get('config_mail_smtp_port');
+				$mail->smtp_timeout = $this->config->get('config_mail_smtp_timeout');
 
-			$mail->setTo($this->config->get('config_email'));
-			$mail->setFrom($this->config->get('config_email'));
-			$mail->setSender(html_entity_decode($this->config->get('config_name'), ENT_QUOTES, 'UTF-8'));
-			$mail->setSubject($subject);
-			$mail->setText($message);
-			$mail->send();
+				$mail->setTo($this->config->get('config_email'));
+				$mail->setFrom($this->config->get('config_email'));
+				$mail->setSender(html_entity_decode($this->config->get('config_name'), ENT_QUOTES, 'UTF-8'));
+				$mail->setSubject($subject);
+				$mail->setText($message);
+				$mail->send();
 
-			// Send to additional alert emails
-			$emails = explode(',', $this->config->get('config_mail_alert_email'));
+				// Send to additional alert emails
+				$emails = explode(',', $this->config->get('config_mail_alert_email'));
 
-			foreach ($emails as $email) {
-				if ($email && filter_var($email, FILTER_VALIDATE_EMAIL)) {
-					$mail->setTo($email);
-					$mail->send();
+				foreach ($emails as $email) {
+					if ($email && filter_var($email, FILTER_VALIDATE_EMAIL)) {
+						$mail->setTo($email);
+						$mail->send();
+					}
 				}
 			}
 		}

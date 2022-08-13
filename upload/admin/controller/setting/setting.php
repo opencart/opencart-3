@@ -124,6 +124,12 @@ class ControllerSettingSetting extends Controller {
 		} else {
 			$data['error_encryption'] = '';
 		}
+		
+		if (isset($this->error['mail_engine'])) {
+			$data['error_mail_engine'] = $this->error['mail_engine'];
+		} else {
+			$data['error_mail_engine'] = '';
+		}
 
 		$data['breadcrumbs'] = array();
 
@@ -1081,6 +1087,10 @@ class ControllerSettingSetting extends Controller {
 		
 		if ((utf8_strlen($this->request->post['config_encryption']) < 32) || (utf8_strlen($this->request->post['config_encryption']) > 1024)) {
 			$this->error['encryption'] = $this->language->get('error_encryption');
+		}
+		
+		if (!$this->request->post['config_mail_engine']) {
+			$this->error['mail_engine'] = $this->language->get('error_mail_engine');
 		}
 
 		if ($this->error && !isset($this->error['warning'])) {

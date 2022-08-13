@@ -963,29 +963,31 @@ class Googleshopping extends Library {
         }
 
         $this->load->language('extension/advertise/google');
+		
+		if ($this->config->get('config_mail_engine')) {
+			$subject = $this->language->get('text_cron_email_subject');
+			$message = sprintf($this->language->get('text_cron_email_message'), implode('<br/>', $report));
 
-        $subject = $this->language->get('text_cron_email_subject');
-        $message = sprintf($this->language->get('text_cron_email_message'), implode('<br/>', $report));
+			$mail = new \Mail($this->config->get('config_mail_engine'));
 
-        $mail = new \Mail();
+			$mail->protocol = $this->config->get('config_mail_protocol');
+			$mail->parameter = $this->config->get('config_mail_parameter');
 
-        $mail->protocol = $this->config->get('config_mail_protocol');
-        $mail->parameter = $this->config->get('config_mail_parameter');
+			$mail->smtp_hostname = $this->config->get('config_mail_smtp_hostname');
+			$mail->smtp_username = $this->config->get('config_mail_smtp_username');
+			$mail->smtp_password = html_entity_decode($this->config->get('config_mail_smtp_password'), ENT_QUOTES, "UTF-8");
+			$mail->smtp_port = $this->config->get('config_mail_smtp_port');
+			$mail->smtp_timeout = $this->config->get('config_mail_smtp_timeout');
 
-        $mail->smtp_hostname = $this->config->get('config_mail_smtp_hostname');
-        $mail->smtp_username = $this->config->get('config_mail_smtp_username');
-        $mail->smtp_password = html_entity_decode($this->config->get('config_mail_smtp_password'), ENT_QUOTES, "UTF-8");
-        $mail->smtp_port = $this->config->get('config_mail_smtp_port');
-        $mail->smtp_timeout = $this->config->get('config_mail_smtp_timeout');
+			$mail->setTo($this->setting->get('advertise_google_cron_email'));
+			$mail->setFrom($this->config->get('config_email'));
+			$mail->setSender($this->config->get('config_name'));
+			$mail->setSubject(html_entity_decode($subject, ENT_QUOTES, "UTF-8"));
+			$mail->setText(strip_tags($message));
+			$mail->setHtml($message);
 
-        $mail->setTo($this->setting->get('advertise_google_cron_email'));
-        $mail->setFrom($this->config->get('config_email'));
-        $mail->setSender($this->config->get('config_name'));
-        $mail->setSubject(html_entity_decode($subject, ENT_QUOTES, "UTF-8"));
-        $mail->setText(strip_tags($message));
-        $mail->setHtml($message);
-
-        $mail->send();
+			$mail->send();
+		}
     }
 
     protected function getOptionValueName($row) {
