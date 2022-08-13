@@ -112,7 +112,7 @@ class ControllerMarketplaceMarketplace extends Controller {
 
 		$url  = '&username=' . urlencode((string)$this->config->get('opencart_username'));
 		$url .= '&domain=' . $this->request->server['HTTP_HOST'];
-		$url .= '&version=' . urlencode(VERSION);
+		$url .= '&version=' . VERSION;
 		$url .= '&time=' . $time;
 		$url .= '&signature=' . rawurlencode($signature);
 
@@ -527,7 +527,7 @@ class ControllerMarketplaceMarketplace extends Controller {
 
 		$url  = '&username=' . urlencode((string)$this->config->get('opencart_username'));
 		$url .= '&domain=' . $this->request->server['HTTP_HOST'];
-		$url .= '&version=' . urlencode(VERSION);
+		$url .= '&version=' . VERSION;
 		$url .= '&extension_id=' . $extension_id;
 		$url .= '&time=' . $time;
 		$url .= '&signature=' . rawurlencode($signature);
@@ -713,7 +713,7 @@ class ControllerMarketplaceMarketplace extends Controller {
 
 			$url  = '&username=' . urlencode($this->config->get('opencart_username'));
 			$url .= '&domain=' . $this->request->server['HTTP_HOST'];
-			$url .= '&version=' . urlencode(VERSION);
+			$url .= '&version=' . VERSION;
 			$url .= '&extension_id=' . $extension_id;
 			$url .= '&time=' . $time;
 			$url .= '&signature=' . rawurlencode($signature);
@@ -840,7 +840,7 @@ class ControllerMarketplaceMarketplace extends Controller {
 
 			$url  = '&username=' . urlencode($this->config->get('opencart_username'));
 			$url .= '&domain=' . $this->request->server['HTTP_HOST'];
-			$url .= '&version=' . urlencode(VERSION);
+			$url .= '&version=' . VERSION;
 			$url .= '&extension_id=' . $extension_id;
 			$url .= '&extension_download_id=' . $extension_download_id;
 			$url .= '&time=' . $time;
@@ -925,7 +925,7 @@ class ControllerMarketplaceMarketplace extends Controller {
 			$string  = 'marketplace/api/addcomment' . "\n";
 			$string .= urlencode($this->config->get('opencart_username')) . "\n";
 			$string .= $this->request->server['HTTP_HOST'] . "\n";
-			$string .= urlencode(VERSION) . "\n";
+			$string .= VERSION . "\n";
 			$string .= $extension_id . "\n";
 			$string .= $parent_id . "\n";
 			$string .= urlencode(base64_encode($this->request->post['comment'])) . "\n";
