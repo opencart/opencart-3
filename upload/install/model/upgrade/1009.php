@@ -145,21 +145,6 @@ class ModelUpgrade1009 extends Model {
 			$this->db->query("INSERT INTO `" . DB_PREFIX . "event` SET `code` = 'account_customer_subscription', `trigger` = 'catalog/controller/account/account/after', `action` = 'extension/module/account/subscription', `status` = '1', `sort_order` = '0'");
 		}
 		
-		// Config - Captcha Returns
-		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "setting` WHERE `key` = 'config_captcha_page'");
-
-		if ($query->num_rows) {
-			$config_captcha_page = json_decode($query->row['value'], true);
-
-			$search = array_search('return', $config_captcha_page);
-
-			if ($search) {
-				$config_captcha_page[$search] = str_replace($config_captcha_page[$search], 'returns', $config_captcha_page[$search]);
-
-				$this->db->query("UPDATE `" . DB_PREFIX . "setting` SET `value` = '" . json_encode($this->db->escape($config_captcha_page)) . "' WHERE `key` = 'config_captcha_page'");
-			}
-		}
-		
 		// Config Session Expire
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "setting` WHERE `key` = 'config_session_expire'");
 
