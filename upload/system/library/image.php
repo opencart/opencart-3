@@ -68,7 +68,7 @@ class Image {
 	 *
 	 * @return    array
 	 */
-	public function getImage(): string {
+	public function getImage(): object {
 		return $this->image;
 	}
 
