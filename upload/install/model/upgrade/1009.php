@@ -149,7 +149,7 @@ class ModelUpgrade1009 extends Model {
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "setting` WHERE `key` = 'config_session_expire'");
 
 		if (!$query->num_rows) {
-			$this->db->query("INSERT INTO `" . DB_PREFIX . "setting` SET `store_id` = '0', `code` = 'config', `key` = 'config_session_expire', `value` = '3600000000', `serialized` = '0'");
+			$this->db->query("INSERT INTO `" . DB_PREFIX . "setting` SET `store_id` = '0', `code` = 'config', `key` = 'config_session_expire', `value` = '86400', `serialized` = '0'");
 		}
 		
 		// Config - SameSite
@@ -190,7 +190,7 @@ class ModelUpgrade1009 extends Model {
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "setting` WHERE `key` = 'config_affiliate_expire'");
 
 		if (!$query->num_rows) {
-			$this->db->query("INSERT INTO `" . DB_PREFIX . "setting` SET `store_id` = '0', `code` = 'config', `key` = 'config_affiliate_expire', `value` = '3600000000', `serialized` = '0'");
+			$this->db->query("INSERT INTO `" . DB_PREFIX . "setting` SET `store_id` = '0', `code` = 'config', `key` = 'config_affiliate_expire', `value` = '86400', `serialized` = '0'");
 		}
 
 		// Config Subscriptions
@@ -313,9 +313,9 @@ class ModelUpgrade1009 extends Model {
 				}
 				
 				if (isset($subscription_plan_id)) {
-					$this->db->query("DROP TABLE `" . DB_PREFIX . "recurring`");
-					$this->db->query("DROP TABLE `" . DB_PREFIX . "recurring_description`");
-					$this->db->query("DROP TABLE `" . DB_PREFIX . "product_recurring`");
+					$this->db->query("DROP TABLE IF EXISTS `" . DB_PREFIX . "recurring_description`");
+					$this->db->query("DROP TABLE IF EXISTS `" . DB_PREFIX . "product_recurring`");
+					$this->db->query("DROP TABLE IF EXISTS `" . DB_PREFIX . "recurring`");
 				}
 			}
 		}
