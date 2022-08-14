@@ -75,7 +75,7 @@ $_['text_amazon_signup']				= 'Sign-up to Amazon Pay';
 $_['text_credentials']					= 'Please paste your keys here (in JSON format)';
 $_['text_validate_credentials']			= 'Validate and Use Credentials';
 $_['text_extension']                	= 'Extensions';
-$_['text_info_ssl']                 	= '<strong>Important:</strong> SSL (https://) is a requirement and must be enabled on your website for the Amazon Pay and Login with Amazon buttons to work.';
+$_['text_info_ssl']                 	= '<strong>Important:</strong> SSL (https://) is a requirement. It must be enabled on your website for the Amazon Pay and Login with Amazon buttons to work.';
 $_['text_info_buyer_multi_currencies'] 	= 'This extension supports the Multi-Currency functionality. If you would like to use it, please make sure you have enabled at least one of the <a href="https://pay.amazon.co.uk/help/5BDCWHCUC27485L"><b>Amazon Pay supported currencies</b></a> in your on-line store settings <b><a href="index.php?route=localisation/currency&user_token=%s">( %s > %s > %s )</b></a>, and then enable the <b>Multi-Currency function</b>';
 
 // Columns

@@ -94,12 +94,13 @@ class ControllerExtensionPaymentTwoCheckout extends Controller {
 			if ($this->currency->format($order_info['total'], $order_info['currency_code'], $order_info['currency_value'], false) == $this->request->post['total']) {
 				$this->model_checkout_order->addOrderHistory($this->request->post['cart_order_id'], $this->config->get('payment_twocheckout_order_status_id'));
 			} else {
-				$this->model_checkout_order->addOrderHistory($this->request->post['cart_order_id'], $this->config->get('config_order_status_id'));// Ugh. Some one've faked the sum. What should we do? Probably drop a mail to the shop owner?
+				// Ugh. Some one has faked the sum. What should we do? Probably drop an mail to the shop owner?
+				$this->model_checkout_order->addOrderHistory($this->request->post['cart_order_id'], $this->config->get('config_order_status_id'));
 			}
 
 			// We can't use $this->response->redirect() here, because of 2CO behavior. It fetches this page
 			// on behalf of the user and thus user (and his browser) see this as located at 2checkout.com
-			// domain. So user's cookies are not here and he will see empty basket and probably other
+			// domain. So user's cookies are not here. They might see empty basket and probably other
 			// weird things.
 
 			echo '<html>' . "\n";

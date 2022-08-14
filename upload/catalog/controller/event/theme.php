@@ -5,7 +5,7 @@ class ControllerEventTheme extends Controller {
 			exit('Error: A theme has not been assigned to this store!');
 		}
 
-		// If the default theme is selected we need to know which directory its pointing to
+		// If the default theme is selected we need to know which directory it's pointing to
 		if ($this->config->get('config_theme') == 'default') {
 			$directory = $this->config->get('theme_default_directory');
 		} else {

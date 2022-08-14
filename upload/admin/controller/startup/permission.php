@@ -14,7 +14,7 @@ class ControllerStartupPermission extends Controller {
 				$route .= '/' . $part[1];
 			}
 
-			// If a 3rd part is found we need to check if its under one of the extension folders.
+			// If a 3rd part is found, we need to check if it's under one of the extension folders.
 			$extension = array(
 				'extension/advertise',
 				'extension/dashboard',

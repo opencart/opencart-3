@@ -59,10 +59,10 @@ class ControllerExtensionAdvertiseGoogle extends Controller {
             } elseif (count($this->googleshopping->getTargets($this->store_id)) == 0) {
                 $this->response->redirect($this->url->link('extension/advertise/google/campaign', 'store_id=' . $this->store_id . '&user_token=' . $this->session->data['user_token'], true));
             } elseif (!$this->setting->has('advertise_google_gmc_shipping_taxes_configured')) {
-                // In case the merchant has not set up shipping and taxes, redirect them to the form for shipping and taxes
+                // In case the merchant has not set up shipping and taxes, we redirect the user to that location.
                 $this->response->redirect($this->url->link('extension/advertise/google/shipping_taxes', 'store_id=' . $this->store_id . '&user_token=' . $this->session->data['user_token'], true));
             } elseif (count($this->model_extension_advertise_google->getMapping($this->store_id)) == 0) {
-                // In case the merchant has not set up mapping, redirect them to the form for mapping
+                // In case the merchant has not set up mapping, we redirect the user to that location.
                 $this->response->redirect($this->url->link('extension/advertise/google/mapping', 'store_id=' . $this->store_id . '&user_token=' . $this->session->data['user_token'], true));
             }
 

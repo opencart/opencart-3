@@ -1739,7 +1739,7 @@ class ControllerExtensionPaymentPPExpress extends Controller {
 			/*
 			 * Subscription payments
 			 *
-			 * subscription ID should always exist if its a subscription payment transaction.
+			 * subscription ID should always exist if it's a subscription payment transaction.
 			 *
 			 * also the reference will match a subscription payment ID
 			 */
