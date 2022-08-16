@@ -8,7 +8,6 @@ $_['text_attribute_group']      = 'Attribute Groups';
 $_['text_backup']               = 'Backup / Restore';
 $_['text_banner']               = 'Banners';
 $_['text_catalog']              = 'Catalog';
-$_['text_cron']                 = 'Cron Jobs';
 $_['text_category']             = 'Categories';
 $_['text_country']              = 'Countries';
 $_['text_coupon']               = 'Coupons';
