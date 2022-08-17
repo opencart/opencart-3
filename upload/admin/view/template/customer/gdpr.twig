@@ -1,0 +1,193 @@
+{{ header }}{{ column_left }}
+<div id="content">
+  <div class="page-header">
+    <div class="container-fluid">
+      <div class="pull-right"><button type="button" data-toggle="tooltip" title="{{ button_filter }}" onclick="$('#filter-customer').toggleClass('hidden-sm hidden-xs');" class="btn btn-default hidden-md hidden-lg"><i class="fa fa-filter"></i></button></div>
+      <h1>{{ heading_title }}</h1>
+      <ul class="breadcrumb">
+        {% for breadcrumb in breadcrumbs %}
+        <li><a href="{{ breadcrumb.href }}">{{ breadcrumb.text }}</a></li>
+        {% endfor %}
+      </ul>
+    </div>
+  </div>
+  <div class="container-fluid">{% if error_warning %}
+    <div class="alert alert-danger alert-dismissible"><i class="fa fa-exclamation-circle"></i> {{ error_warning }}
+      <button type="button" class="close" data-dismiss="alert">&times;</button>
+    </div>
+    {% endif %}
+    {% if success %}
+    <div class="alert alert-success alert-dismissible"><i class="fa fa-check-circle"></i> {{ success }}
+      <button type="button" class="close" data-dismiss="alert">&times;</button>
+    </div>
+    {% endif %}
+    <div class="row">
+      <div id="filter-customer" class="col-md-3 col-md-push-9 col-sm-12 hidden-sm hidden-xs">
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h3 class="panel-title"><i class="fa fa-filter"></i> {{ text_filter }}</h3>
+          </div>
+          <div class="panel-body">
+            <div class="form-group">
+              <label class="control-label" for="input-email">{{ entry_email }}</label>
+              <input type="text" name="filter_email" value="{{ filter_email }}" placeholder="{{ entry_email }}" id="input-email" class="form-control"/>
+            </div>
+            <div class="form-group">
+              <label class="control-label" for="input-action">{{ entry_action }}</label>
+              <select name="filter_action" id="input-action" class="form-control">
+				<option value=""></option>
+				<option value="export">{{ text_export }}</option>
+				<option value="remove">{{ text_remove }}</option>
+			  </select>
+            </div>
+			<div class="form-group">
+              <label class="control-label" for="input-status">{{ entry_status }}</label>
+               <select name="filter_status" id="input-status" class="form-control">
+				 <option value=""></option>
+				 <option value="0">{{ text_unverified }}</option>
+			 	 <option value="1">{{ text_pending }}</option>
+				 <option value="2">{{ text_processing }}</option>
+				 <option value="3">{{ text_complete }}</option>
+				 <option value="-1">{{ text_denied }}</option>
+			   </select>
+            </div>
+            <div class="form-group">
+              <label class="control-label" for="input-date-from">{{ entry_date_from }}</label>
+              <div class="input-group date">
+                <input type="text" name="filter_date_from" value="{{ filter_date_from }}" placeholder="{{ entry_date_from }}" data-date-format="YYYY-MM-DD" id="input-date-from" class="form-control"/>
+                <span class="input-group-btn">
+                <button type="button" class="btn btn-default"><i class="fa fa-calendar"></i></button>
+                </span></div>
+            </div>
+			<div class="form-group">
+              <label class="control-label" for="input-date-to">{{ entry_date_to }}</label>
+              <div class="input-group date">
+                <input type="text" name="filter_date_to" value="{{ filter_date_to }}" placeholder="{{ entry_date_to }}" data-date-format="YYYY-MM-DD" id="input-date-to" class="form-control"/>
+                <span class="input-group-btn">
+                <button type="button" class="btn btn-default"><i class="fa fa-calendar"></i></button>
+                </span></div>
+            </div>
+            <div class="form-group text-right">
+              <button type="button" id="button-filter" class="btn btn-default"><i class="fa fa-filter"></i> {{ button_filter }}</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-9 col-md-pull-3 col-sm-12">
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h3 class="panel-title"><i class="fa fa-list"></i> {{ text_list }}</h3>
+          </div>
+          <div class="panel-body">
+            <div id="gdpr"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script type="text/javascript"><!--
+	$('#gdpr').delegate('.pagination a', 'click', function (e) {
+		e.preventDefault();
+
+		$('#gdpr').load(this.href);
+	});
+
+	$('#gdpr').load('index.php?route=customer/gdpr/gdpr&user_token={{ user_token }}');
+
+	$('#gdpr').on('click', '.btn-success, .btn-danger', function (e) {
+		e.preventDefault();
+
+		var element = this;
+
+		$.ajax({
+			url: $(element).attr('href'),
+			dataType: 'json',
+			beforeSend: function() {
+				$(element).button('loading');
+			},
+			complete: function() {
+				$(element).button('reset');
+			},
+			success: function (json) {
+				$('.alert-dismissible').remove();
+
+				if (json['error']) {
+					$('#gdpr').before('<div class="alert alert-danger alert-dismissible"><i class="fa fa-exclamation-circle"></i> ' + json['error'] + ' <button type="button" class="close" data-dismiss="alert">&times;</button></div>');
+				}
+
+				if (json['success']) {
+					$('#gdpr').load('index.php?route=customer/gdpr/gdpr&user_token={{ user_token }}');
+
+					$('#gdpr').before('<div class="alert alert-success alert-dismissible"><i class="fa fa-check-circle"></i> ' + json['success'] + ' <button type="button" class="close" data-dismiss="alert">&times;</button></div>');
+				}
+			},
+			error: function (xhr, ajaxOptions, thrownError) {
+				alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
+			}
+		});
+	});
+
+	$('#button-filter').on('click', function() {
+		url = '';
+
+		var filter_email = $('input[name=\'filter_email\']').val();
+
+		if (filter_email) {
+			url += '&filter_email=' + encodeURIComponent(filter_email);
+		}	
+
+		var filter_action = $('select[name=\'filter_action\']').val();
+
+		if (filter_action !== '') {
+			url += '&filter_action=' + encodeURIComponent(filter_action);
+		}	
+
+		var filter_status = $('select[name=\'filter_status\']').val();
+
+		if (filter_status !== '') {
+			url += '&filter_status=' + encodeURIComponent(filter_status);
+		}
+
+		var filter_date_from = $('input[name=\'filter_date_from\']').val();
+
+		if (filter_date_from) {
+			url += '&filter_date_from=' + encodeURIComponent(filter_date_from);
+		}
+		
+		var filter_date_to = $('input[name=\'filter_date_to\']').val();
+
+		if (filter_date_to) {
+			url += '&filter_date_to=' + encodeURIComponent(filter_date_to);
+		}
+
+		$('#gdpr').load('index.php?route=customer/gdpr/gdpr&user_token={{ user_token }}' + url);
+	});
+//--></script> 
+<script type="text/javascript"><!--
+	$('input[name=\'filter_email\']').autocomplete({
+		'source': function (request, response) {
+			$.ajax({
+				url: 'index.php?route=customer/customer/autocomplete&user_token={{ user_token }}&filter_email=' +  encodeURIComponent(request),
+				dataType: 'json',			
+				success: function (json) {
+					response($.map(json, function (item) {
+						return {
+							label: item['email'],
+							value: item['customer_id']
+						}
+					}));
+				}
+			});
+		},
+		'select': function (item) {
+			$('input[name=\'filter_email\']').val(item['label']);
+		}	
+	});
+//--></script> 
+  <script type="text/javascript"><!--
+	$('.date').datetimepicker({
+		language: '{{ datepicker }}',
+		pickTime: false
+	});
+//--></script></div>
+{{ footer }}
