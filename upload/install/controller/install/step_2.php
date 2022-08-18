@@ -121,9 +121,10 @@ class ControllerInstallStep2 extends Controller {
 		}
 
 		$data['php_version'] = phpversion();
-		$data['register_globals'] = ini_get('register_globals');
-		$data['magic_quotes_gpc'] = ini_get('magic_quotes_gpc');
-		$data['file_uploads'] = ini_get('file_uploads');
+		
+		$data['register_globals'] 	= ini_get('register_globals');
+		$data['magic_quotes_gpc'] 	= ini_get('magic_quotes_gpc');
+		$data['file_uploads'] 		= ini_get('file_uploads');
 		$data['session_auto_start'] = ini_get('session_auto_start');
 
 		$db = array(
@@ -167,7 +168,7 @@ class ControllerInstallStep2 extends Controller {
 	}
 
 	private function validate() {
-		if (phpversion() < '7.3') {
+		if (phpversion() < '8.1') {
 			$this->error['warning'] = $this->language->get('error_version');
 		}
 

@@ -829,11 +829,10 @@ class ControllerExtensionPaymentKlarnaCheckout extends Controller {
 	}
 
 	protected function validate() {		
-		$this->load->model('localisation/geo_zone');
-		
+		$this->load->model('localisation/geo_zone');		
 		$this->load->model('extension/payment/klarna_checkout');
 
-		if (version_compare(phpversion(), '7.3', '<')) {
+		if (version_compare(phpversion(), '8.1', '<')) {
 			$this->error['warning'] = $this->language->get('error_php_version');
 		}
 

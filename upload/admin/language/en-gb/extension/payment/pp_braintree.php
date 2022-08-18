@@ -167,7 +167,7 @@ $_['button_filter']					 	= 'Filter';
 
 // Error
 $_['error_permission']				 	= 'Warning: You do not have permission to modify payment Braintree!';
-$_['error_php_version']				 	= 'Minimum version of PHP 5.4.0 is required!';
+$_['error_php_version']				 	= 'Minimum version of PHP 8.1.0 is required!';
 $_['error_merchant_id']				 	= 'Merchant ID Required!';
 $_['error_public_key']				 	= 'Public Key Required!';
 $_['error_private_key']				 	= 'Private Key Required!';

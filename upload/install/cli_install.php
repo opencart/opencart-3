@@ -153,7 +153,7 @@ function install($options) {
 function check_requirements() {
 	$error = null;
 	
-	if (phpversion() < '7.3') {
+	if (phpversion() < '8.1') {
 		$error = 'Warning: You need to use PHP7.3+ or above for OpenCart to work!';
 	}
 
