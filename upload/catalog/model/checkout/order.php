@@ -20,20 +20,22 @@ class ModelCheckoutOrder extends Model {
 				
 				if ($product['subscription']) {
 					$subscription_data = array(
-						'order_product_id' => $order_product_id,
-						'name'             => $product['subscription']['name'],
-						'description'      => $product['subscription']['description'],
-						'trial_price'      => $product['subscription']['trial_price'],
-						'trial_frequency'  => $product['subscription']['trial_frequency'],
-						'trial_cycle'      => $product['subscription']['trial_cycle'],
-						'trial_duration'   => $product['subscription']['trial_duration'],
-						'trial_status'     => $product['subscription']['trial_status'],
-						'price'            => $product['subscription']['price'],
-						'frequency'        => $product['subscription']['frequency'],
-						'cycle'            => $product['subscription']['cycle'],
-						'duration'         => $product['subscription']['duration'],
-						'remaining'        => $product['subscription']['duration'],
-						'date_next'        => $product['subscription']['date_next']
+						'order_product_id' 		=> $order_product_id,
+						'customer_id'			=> $data['customer_id'],
+						'subscription_plan_id' 	=> $product['subscription']['subscription_plan_id'],
+						'name'              	=> $product['subscription']['name'],
+						'description'       	=> $product['subscription']['description'],
+						'trial_price'       	=> $product['subscription']['trial_price'],
+						'trial_frequency'   	=> $product['subscription']['trial_frequency'],
+						'trial_cycle'       	=> $product['subscription']['trial_cycle'],
+						'trial_duration'    	=> $product['subscription']['trial_duration'],
+						'trial_status'      	=> $product['subscription']['trial_status'],
+						'price'             	=> $product['subscription']['price'],
+						'frequency'         	=> $product['subscription']['frequency'],
+						'cycle'             	=> $product['subscription']['cycle'],
+						'duration'          	=> $product['subscription']['duration'],
+						'remaining'         	=> $product['subscription']['duration'],
+						'status'				=> $product['subscription']['status']
 					);
 
 					$this->model_checkout_subscription->addSubscription($order_id, $subscription_data);
@@ -92,7 +94,7 @@ class ModelCheckoutOrder extends Model {
 				}
 				
 				if ($product['subscription']) {
-					$this->model_checkout_subscription->addSubscription($order_id, $product['subscription'] + ['order_product_id' => $order_product_id]);
+					$this->model_checkout_subscription->addSubscription($order_id, $product['subscription'] + array('order_product_id' => $order_product_id, 'customer_id' => $data['customer_id']));
 				}
 			}
 		}
