@@ -3642,7 +3642,7 @@ CREATE TABLE `oc_subscription` (
   `order_id` int(11) NOT NULL,
   `order_product_id` int(11) NOT NULL,
   `subscription_plan_id` int(11) NOT NULL,
-  `customer_plan_id` int(11) NOT NULL,
+  `customer_payment_id` int(11) NOT NULL,
   `order_subscription_transaction_id` int(11) NOT NULL,
   `name` varchar(32) NOT NULL,
   `description` text NOT NULL,
