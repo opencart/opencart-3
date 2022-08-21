@@ -172,13 +172,13 @@ class ControllerDesignSeoUrl extends Controller {
 		}
 
 		if (isset($this->request->get['filter_store_id'])) {
-			$filter_store_id = $this->request->get['filter_store_id'];
+			$filter_store_id = (int)$this->request->get['filter_store_id'];
 		} else {
 			$filter_store_id = '';
 		}
 
 		if (isset($this->request->get['filter_language_id'])) {
-			$filter_language_id = $this->request->get['filter_language_id'];
+			$filter_language_id = (int)$this->request->get['filter_language_id'];
 		} else {
 			$filter_language_id = '';
 		}
@@ -482,7 +482,7 @@ class ControllerDesignSeoUrl extends Controller {
 		}
 
 		if (isset($this->request->post['store_id'])) {
-			$data['store_id'] = $this->request->post['store_id'];
+			$data['store_id'] = (int)$this->request->post['store_id'];
 		} elseif (!empty($seo_url_info)) {
 			$data['store_id'] = $seo_url_info['store_id'];
 		} else {
@@ -494,7 +494,7 @@ class ControllerDesignSeoUrl extends Controller {
 		$data['languages'] = $this->model_localisation_language->getLanguages();
 
 		if (isset($this->request->post['language_id'])) {
-			$data['language_id'] = $this->request->post['language_id'];
+			$data['language_id'] = (int)$this->request->post['language_id'];
 		} elseif (!empty($seo_url_info)) {
 			$data['language_id'] = $seo_url_info['language_id'];
 		} else {

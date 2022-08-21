@@ -344,7 +344,7 @@ class ControllerExtensionModulePayPalSmartButton extends Controller {
 		$this->load->model('extension/module/paypal_smart_button');
 		
 		if (isset($this->request->post['order_id'])) {
-			$this->session->data['paypal_order_id'] = $this->request->post['order_id'];
+			$this->session->data['paypal_order_id'] = (int)$this->request->post['order_id'];
 		} else {	
 			$data['url'] = $this->url->link('checkout/cart', '', true);
 			
@@ -382,7 +382,7 @@ class ControllerExtensionModulePayPalSmartButton extends Controller {
 		$partner_id = $setting['partner'][$environment]['partner_id'];
 		$transaction_method = $this->config->get('payment_paypal_transaction_method');
 
-		$order_id = $this->session->data['paypal_order_id'];
+		$order_id = (int)$this->session->data['paypal_order_id'];
 
 		require_once DIR_SYSTEM . 'library/paypal/paypal.php';
 		
@@ -466,10 +466,10 @@ class ControllerExtensionModulePayPalSmartButton extends Controller {
 				$this->session->data['payment_address']['city'] = '';
 				$this->session->data['payment_address']['postcode'] = '';
 				$this->session->data['payment_address']['country'] = '';
-				$this->session->data['payment_address']['country_id'] = '';
+				$this->session->data['payment_address']['country_id'] = 0;
 				$this->session->data['payment_address']['address_format'] = '';
 				$this->session->data['payment_address']['zone'] = '';
-				$this->session->data['payment_address']['zone_id'] = '';
+				$this->session->data['payment_address']['zone_id'] = 0;
 				$this->session->data['payment_address']['custom_field'] = array();
 			
 				if (isset($order_info['payer']['address']['country_code'])) {
@@ -501,10 +501,10 @@ class ControllerExtensionModulePayPalSmartButton extends Controller {
 					$this->session->data['shipping_address']['city'] = isset($order_info['purchase_units'][0]['shipping']['address']['admin_area_2']) ? $order_info['purchase_units'][0]['shipping']['address']['admin_area_2'] : '';
 					$this->session->data['shipping_address']['postcode'] = isset($order_info['purchase_units'][0]['shipping']['address']['postal_code']) ? $order_info['purchase_units'][0]['shipping']['address']['postal_code'] : '';
 					$this->session->data['shipping_address']['country'] = '';
-					$this->session->data['shipping_address']['country_id'] = '';
+					$this->session->data['shipping_address']['country_id'] = 0;
 					$this->session->data['shipping_address']['address_format'] = '';
 					$this->session->data['shipping_address']['zone'] = '';
-					$this->session->data['shipping_address']['zone_id'] = '';
+					$this->session->data['shipping_address']['zone_id'] = 0;
 					$this->session->data['shipping_address']['custom_field'] = array();
 									
 					if (isset($order_info['purchase_units'][0]['shipping']['address']['country_code'])) {
@@ -1029,7 +1029,7 @@ class ControllerExtensionModulePayPalSmartButton extends Controller {
 			}
 										
 			$order_data['customer_id'] = $this->session->data['guest']['customer_id'];
-			$order_data['customer_group_id'] = $this->session->data['guest']['customer_group_id'];
+			$order_data['customer_group_id'] = (int)$this->session->data['guest']['customer_group_id'];
 			$order_data['firstname'] = $this->session->data['guest']['firstname'];
 			$order_data['lastname'] = $this->session->data['guest']['lastname'];
 			$order_data['email'] = $this->session->data['guest']['email'];
@@ -1044,9 +1044,9 @@ class ControllerExtensionModulePayPalSmartButton extends Controller {
 			$order_data['payment_city'] = $this->session->data['payment_address']['city'];
 			$order_data['payment_postcode'] = $this->session->data['payment_address']['postcode'];
 			$order_data['payment_zone'] = $this->session->data['payment_address']['zone'];
-			$order_data['payment_zone_id'] = $this->session->data['payment_address']['zone_id'];
+			$order_data['payment_zone_id'] = (int)$this->session->data['payment_address']['zone_id'];
 			$order_data['payment_country'] = $this->session->data['payment_address']['country'];
-			$order_data['payment_country_id'] = $this->session->data['payment_address']['country_id'];
+			$order_data['payment_country_id'] = (int)$this->session->data['payment_address']['country_id'];
 			$order_data['payment_address_format'] = $this->session->data['payment_address']['address_format'];
 			$order_data['payment_custom_field'] = isset($this->session->data['payment_address']['custom_field']) ? $this->session->data['payment_address']['custom_field'] : array();
 
@@ -1097,9 +1097,9 @@ class ControllerExtensionModulePayPalSmartButton extends Controller {
 				$order_data['shipping_city'] = '';
 				$order_data['shipping_postcode'] = '';
 				$order_data['shipping_zone'] = '';
-				$order_data['shipping_zone_id'] = '';
+				$order_data['shipping_zone_id'] = 0;
 				$order_data['shipping_country'] = '';
-				$order_data['shipping_country_id'] = '';
+				$order_data['shipping_country_id'] = 0;
 				$order_data['shipping_address_format'] = '';
 				$order_data['shipping_custom_field'] = array();
 				$order_data['shipping_method'] = '';
@@ -1501,8 +1501,8 @@ class ControllerExtensionModulePayPalSmartButton extends Controller {
 			$this->session->data['payment_address']['address_2'] = $this->request->post['address_2'];
 			$this->session->data['payment_address']['postcode'] = $this->request->post['postcode'];
 			$this->session->data['payment_address']['city'] = $this->request->post['city'];
-			$this->session->data['payment_address']['country_id'] = $this->request->post['country_id'];
-			$this->session->data['payment_address']['zone_id'] = $this->request->post['zone_id'];
+			$this->session->data['payment_address']['country_id'] = (int)$this->request->post['country_id'];
+			$this->session->data['payment_address']['zone_id'] = (int)$this->request->post['zone_id'];
 
 			$this->load->model('localisation/country');
 

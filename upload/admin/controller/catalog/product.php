@@ -718,7 +718,7 @@ class ControllerCatalogProduct extends Controller {
 		$data['tax_classes'] = $this->model_localisation_tax_class->getTaxClasses();
 
 		if (isset($this->request->post['tax_class_id'])) {
-			$data['tax_class_id'] = $this->request->post['tax_class_id'];
+			$data['tax_class_id'] = (int)$this->request->post['tax_class_id'];
 		} elseif (!empty($product_info)) {
 			$data['tax_class_id'] = $product_info['tax_class_id'];
 		} else {
@@ -734,7 +734,7 @@ class ControllerCatalogProduct extends Controller {
 		}
 
 		if (isset($this->request->post['quantity'])) {
-			$data['quantity'] = $this->request->post['quantity'];
+			$data['quantity'] = (int)$this->request->post['quantity'];
 		} elseif (!empty($product_info)) {
 			$data['quantity'] = $product_info['quantity'];
 		} else {
@@ -742,7 +742,7 @@ class ControllerCatalogProduct extends Controller {
 		}
 
 		if (isset($this->request->post['minimum'])) {
-			$data['minimum'] = $this->request->post['minimum'];
+			$data['minimum'] = (int)$this->request->post['minimum'];
 		} elseif (!empty($product_info)) {
 			$data['minimum'] = $product_info['minimum'];
 		} else {
@@ -750,7 +750,7 @@ class ControllerCatalogProduct extends Controller {
 		}
 
 		if (isset($this->request->post['subtract'])) {
-			$data['subtract'] = $this->request->post['subtract'];
+			$data['subtract'] = (int)$this->request->post['subtract'];
 		} elseif (!empty($product_info)) {
 			$data['subtract'] = $product_info['subtract'];
 		} else {
@@ -771,7 +771,7 @@ class ControllerCatalogProduct extends Controller {
 		$data['stock_statuses'] = $this->model_localisation_stock_status->getStockStatuses();
 
 		if (isset($this->request->post['stock_status_id'])) {
-			$data['stock_status_id'] = $this->request->post['stock_status_id'];
+			$data['stock_status_id'] = (int)$this->request->post['stock_status_id'];
 		} elseif (!empty($product_info)) {
 			$data['stock_status_id'] = $product_info['stock_status_id'];
 		} else {
@@ -779,7 +779,7 @@ class ControllerCatalogProduct extends Controller {
 		}
 
 		if (isset($this->request->post['status'])) {
-			$data['status'] = $this->request->post['status'];
+			$data['status'] = (int)$this->request->post['status'];
 		} elseif (!empty($product_info)) {
 			$data['status'] = $product_info['status'];
 		} else {
@@ -800,7 +800,7 @@ class ControllerCatalogProduct extends Controller {
 		$data['weight_classes'] = $this->model_localisation_weight_class->getWeightClasses();
 
 		if (isset($this->request->post['weight_class_id'])) {
-			$data['weight_class_id'] = $this->request->post['weight_class_id'];
+			$data['weight_class_id'] = (int)$this->request->post['weight_class_id'];
 		} elseif (!empty($product_info)) {
 			$data['weight_class_id'] = $product_info['weight_class_id'];
 		} else {
@@ -837,7 +837,7 @@ class ControllerCatalogProduct extends Controller {
 		$data['length_classes'] = $this->model_localisation_length_class->getLengthClasses();
 
 		if (isset($this->request->post['length_class_id'])) {
-			$data['length_class_id'] = $this->request->post['length_class_id'];
+			$data['length_class_id'] = (int)$this->request->post['length_class_id'];
 		} elseif (!empty($product_info)) {
 			$data['length_class_id'] = $product_info['length_class_id'];
 		} else {
@@ -848,7 +848,7 @@ class ControllerCatalogProduct extends Controller {
 		$this->load->model('catalog/manufacturer');
 
 		if (isset($this->request->post['manufacturer_id'])) {
-			$data['manufacturer_id'] = $this->request->post['manufacturer_id'];
+			$data['manufacturer_id'] = (int)$this->request->post['manufacturer_id'];
 		} elseif (!empty($product_info)) {
 			$data['manufacturer_id'] = $product_info['manufacturer_id'];
 		} else {

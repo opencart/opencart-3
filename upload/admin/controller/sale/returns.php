@@ -208,13 +208,13 @@ class ControllerSaleReturns extends Controller {
 
 	protected function getList() {
 		if (isset($this->request->get['filter_return_id'])) {
-			$filter_return_id = $this->request->get['filter_return_id'];
+			$filter_return_id = (int)$this->request->get['filter_return_id'];
 		} else {
 			$filter_return_id = '';
 		}
 
 		if (isset($this->request->get['filter_order_id'])) {
-			$filter_order_id = $this->request->get['filter_order_id'];
+			$filter_order_id = (int)$this->request->get['filter_order_id'];
 		} else {
 			$filter_order_id = '';
 		}
@@ -238,7 +238,7 @@ class ControllerSaleReturns extends Controller {
 		}
 
 		if (isset($this->request->get['filter_return_status_id'])) {
-			$filter_return_status_id = $this->request->get['filter_return_status_id'];
+			$filter_return_status_id = (int)$this->request->get['filter_return_status_id'];
 		} else {
 			$filter_return_status_id = '';
 		}

@@ -86,7 +86,7 @@ class ControllerSaleOrder extends Controller {
 			
 	protected function getList() {
 		if (isset($this->request->get['filter_order_id'])) {
-			$filter_order_id = $this->request->get['filter_order_id'];
+			$filter_order_id = (int)$this->request->get['filter_order_id'];
 		} else {
 			$filter_order_id = '';
 		}
@@ -104,7 +104,7 @@ class ControllerSaleOrder extends Controller {
 		}
 		
 		if (isset($this->request->get['filter_order_status_id'])) {
-			$filter_order_status_id = $this->request->get['filter_order_status_id'];
+			$filter_order_status_id = (int)$this->request->get['filter_order_status_id'];
 		} else {
 			$filter_order_status_id = '';
 		}
@@ -575,8 +575,8 @@ class ControllerSaleOrder extends Controller {
 			$data['payment_address_2'] = '';
 			$data['payment_city'] = '';
 			$data['payment_postcode'] = '';
-			$data['payment_country_id'] = '';
-			$data['payment_zone_id'] = '';
+			$data['payment_country_id'] = 0;
+			$data['payment_zone_id'] = 0;
 			$data['payment_custom_field'] = array();
 			$data['payment_method'] = '';
 			$data['payment_code'] = '';
@@ -588,8 +588,8 @@ class ControllerSaleOrder extends Controller {
 			$data['shipping_address_2'] = '';
 			$data['shipping_city'] = '';
 			$data['shipping_postcode'] = '';
-			$data['shipping_country_id'] = '';
-			$data['shipping_zone_id'] = '';
+			$data['shipping_country_id'] = 0;
+			$data['shipping_zone_id'] = 0;
 			$data['shipping_custom_field'] = array();
 			$data['shipping_method'] = '';
 			$data['shipping_code'] = '';
@@ -600,7 +600,7 @@ class ControllerSaleOrder extends Controller {
 
 			$data['order_status_id'] = $this->config->get('config_order_status_id');
 			$data['comment'] = '';
-			$data['affiliate_id'] = '';
+			$data['affiliate_id'] = 0;
 			$data['affiliate'] = '';
 			$data['currency_code'] = $this->config->get('config_currency');
 

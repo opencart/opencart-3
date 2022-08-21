@@ -122,7 +122,7 @@ class ControllerAccountVoucher extends Controller {
 		$data['voucher_themes'] = $this->model_extension_total_voucher_theme->getVoucherThemes();
 
 		if (isset($this->request->post['voucher_theme_id'])) {
-			$data['voucher_theme_id'] = $this->request->post['voucher_theme_id'];
+			$data['voucher_theme_id'] = (int)$this->request->post['voucher_theme_id'];
 		} else {
 			$data['voucher_theme_id'] = '';
 		}

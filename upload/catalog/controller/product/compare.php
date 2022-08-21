@@ -161,7 +161,7 @@ class ControllerProductCompare extends Controller {
 					array_shift($this->session->data['compare']);
 				}
 
-				$this->session->data['compare'][] = $this->request->post['product_id'];
+				$this->session->data['compare'][] = (int)$this->request->post['product_id'];
 			}
 
 			$json['success'] = sprintf($this->language->get('text_success'), $this->url->link('product/product', 'product_id=' . $this->request->post['product_id']), $product_info['name'], $this->url->link('product/compare'));

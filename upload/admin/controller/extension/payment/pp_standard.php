@@ -81,61 +81,61 @@ class ControllerExtensionPaymentPPStandard extends Controller {
 		}
 
 		if (isset($this->request->post['payment_pp_standard_canceled_reversal_status_id'])) {
-			$data['payment_pp_standard_canceled_reversal_status_id'] = $this->request->post['payment_pp_standard_canceled_reversal_status_id'];
+			$data['payment_pp_standard_canceled_reversal_status_id'] = (int)$this->request->post['payment_pp_standard_canceled_reversal_status_id'];
 		} else {
 			$data['payment_pp_standard_canceled_reversal_status_id'] = $this->config->get('payment_pp_standard_canceled_reversal_status_id');
 		}
 
 		if (isset($this->request->post['payment_pp_standard_completed_status_id'])) {
-			$data['payment_pp_standard_completed_status_id'] = $this->request->post['payment_pp_standard_completed_status_id'];
+			$data['payment_pp_standard_completed_status_id'] = (int)$this->request->post['payment_pp_standard_completed_status_id'];
 		} else {
 			$data['payment_pp_standard_completed_status_id'] = $this->config->get('payment_pp_standard_completed_status_id');
 		}
 
 		if (isset($this->request->post['payment_pp_standard_denied_status_id'])) {
-			$data['payment_pp_standard_denied_status_id'] = $this->request->post['payment_pp_standard_denied_status_id'];
+			$data['payment_pp_standard_denied_status_id'] = (int)$this->request->post['payment_pp_standard_denied_status_id'];
 		} else {
 			$data['payment_pp_standard_denied_status_id'] = $this->config->get('payment_pp_standard_denied_status_id');
 		}
 
 		if (isset($this->request->post['payment_pp_standard_expired_status_id'])) {
-			$data['payment_pp_standard_expired_status_id'] = $this->request->post['payment_pp_standard_expired_status_id'];
+			$data['payment_pp_standard_expired_status_id'] = (int)$this->request->post['payment_pp_standard_expired_status_id'];
 		} else {
 			$data['payment_pp_standard_expired_status_id'] = $this->config->get('payment_pp_standard_expired_status_id');
 		}
 
 		if (isset($this->request->post['payment_pp_standard_failed_status_id'])) {
-			$data['payment_pp_standard_failed_status_id'] = $this->request->post['payment_pp_standard_failed_status_id'];
+			$data['payment_pp_standard_failed_status_id'] = (int)$this->request->post['payment_pp_standard_failed_status_id'];
 		} else {
 			$data['payment_pp_standard_failed_status_id'] = $this->config->get('payment_pp_standard_failed_status_id');
 		}
 
 		if (isset($this->request->post['payment_pp_standard_pending_status_id'])) {
-			$data['payment_pp_standard_pending_status_id'] = $this->request->post['payment_pp_standard_pending_status_id'];
+			$data['payment_pp_standard_pending_status_id'] = (int)$this->request->post['payment_pp_standard_pending_status_id'];
 		} else {
 			$data['payment_pp_standard_pending_status_id'] = $this->config->get('payment_pp_standard_pending_status_id');
 		}
 
 		if (isset($this->request->post['payment_pp_standard_processed_status_id'])) {
-			$data['payment_pp_standard_processed_status_id'] = $this->request->post['payment_pp_standard_processed_status_id'];
+			$data['payment_pp_standard_processed_status_id'] = (int)$this->request->post['payment_pp_standard_processed_status_id'];
 		} else {
 			$data['payment_pp_standard_processed_status_id'] = $this->config->get('payment_pp_standard_processed_status_id');
 		}
 
 		if (isset($this->request->post['payment_pp_standard_refunded_status_id'])) {
-			$data['payment_pp_standard_refunded_status_id'] = $this->request->post['payment_pp_standard_refunded_status_id'];
+			$data['payment_pp_standard_refunded_status_id'] = (int)$this->request->post['payment_pp_standard_refunded_status_id'];
 		} else {
 			$data['payment_pp_standard_refunded_status_id'] = $this->config->get('payment_pp_standard_refunded_status_id');
 		}
 
 		if (isset($this->request->post['payment_pp_standard_reversed_status_id'])) {
-			$data['payment_pp_standard_reversed_status_id'] = $this->request->post['payment_pp_standard_reversed_status_id'];
+			$data['payment_pp_standard_reversed_status_id'] = (int)$this->request->post['payment_pp_standard_reversed_status_id'];
 		} else {
 			$data['payment_pp_standard_reversed_status_id'] = $this->config->get('payment_pp_standard_reversed_status_id');
 		}
 
 		if (isset($this->request->post['payment_pp_standard_voided_status_id'])) {
-			$data['payment_pp_standard_voided_status_id'] = $this->request->post['payment_pp_standard_voided_status_id'];
+			$data['payment_pp_standard_voided_status_id'] = (int)$this->request->post['payment_pp_standard_voided_status_id'];
 		} else {
 			$data['payment_pp_standard_voided_status_id'] = $this->config->get('payment_pp_standard_voided_status_id');
 		}

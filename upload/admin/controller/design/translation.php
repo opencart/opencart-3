@@ -305,7 +305,7 @@ class ControllerDesignTranslation extends Controller {
 		$data['stores'] = $this->model_setting_store->getStores();
 
 		if (isset($this->request->post['store_id'])) {
-			$data['store_id'] = $this->request->post['store_id'];
+			$data['store_id'] = (int)$this->request->post['store_id'];
 		} elseif (!empty($translation_info)) {
 			$data['store_id'] = $translation_info['store_id'];
 		} else {
@@ -318,14 +318,16 @@ class ControllerDesignTranslation extends Controller {
 
 		if (!empty($translation_info)) {
 			$language = $this->model_localisation_language->getLanguage($translation_info['language_id']);
+			
 			$code = $language['code'];
 		} else {
 			$code = $this->config->get('config_language');
+			
 			$language = $this->model_localisation_language->getLanguageByCode($code);
 		}
 
 		if (isset($this->request->post['language_id'])) {
-			$data['language_id'] = $this->request->post['language_id'];
+			$data['language_id'] = (int)$this->request->post['language_id'];
 		} elseif (!empty($translation_info)) {
 			$data['language_id'] = $translation_info['language_id'];
 		} else {

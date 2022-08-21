@@ -211,17 +211,17 @@ class ControllerExtensionPaymentPPExpress extends Controller {
 					$this->session->data['guest']['payment']['address_format'] = $country_info['address_format'];
 					$this->session->data['shipping_country_id'] = $country_info['country_id'];
 				} else {
-					$this->session->data['guest']['shipping']['country_id'] = '';
+					$this->session->data['guest']['shipping']['country_id'] = 0;
 					$this->session->data['guest']['shipping']['country'] = '';
 					$this->session->data['guest']['shipping']['iso_code_2'] = '';
 					$this->session->data['guest']['shipping']['iso_code_3'] = '';
 					$this->session->data['guest']['shipping']['address_format'] = '';
-					$this->session->data['guest']['payment']['country_id'] = '';
+					$this->session->data['guest']['payment']['country_id'] = 0;
 					$this->session->data['guest']['payment']['country'] = '';
 					$this->session->data['guest']['payment']['iso_code_2'] = '';
 					$this->session->data['guest']['payment']['iso_code_3'] = '';
 					$this->session->data['guest']['payment']['address_format'] = '';
-					$this->session->data['shipping_country_id'] = '';
+					$this->session->data['shipping_country_id'] = 0;
 				}
 
 				if (isset($result['PAYMENTREQUEST_0_SHIPTOSTATE'])) {
@@ -243,11 +243,11 @@ class ControllerExtensionPaymentPPExpress extends Controller {
 				} else {
 					$this->session->data['guest']['shipping']['zone'] = '';
 					$this->session->data['guest']['shipping']['zone_code'] = '';
-					$this->session->data['guest']['shipping']['zone_id'] = '';
+					$this->session->data['guest']['shipping']['zone_id'] = 0;
 					$this->session->data['guest']['payment']['zone'] = '';
 					$this->session->data['guest']['payment']['zone_code'] = '';
-					$this->session->data['guest']['payment']['zone_id'] = '';
-					$this->session->data['shipping_zone_id'] = '';
+					$this->session->data['guest']['payment']['zone_id'] = 0;
+					$this->session->data['shipping_zone_id'] = 0;
 				}
 
 				$this->session->data['guest']['shipping_address'] = true;
@@ -256,14 +256,14 @@ class ControllerExtensionPaymentPPExpress extends Controller {
 				$this->session->data['guest']['payment']['address_2'] = '';
 				$this->session->data['guest']['payment']['postcode'] = '';
 				$this->session->data['guest']['payment']['city'] = '';
-				$this->session->data['guest']['payment']['country_id'] = '';
+				$this->session->data['guest']['payment']['country_id'] = 0;
 				$this->session->data['guest']['payment']['country'] = '';
 				$this->session->data['guest']['payment']['iso_code_2'] = '';
 				$this->session->data['guest']['payment']['iso_code_3'] = '';
 				$this->session->data['guest']['payment']['address_format'] = '';
 				$this->session->data['guest']['payment']['zone'] = '';
 				$this->session->data['guest']['payment']['zone_code'] = '';
-				$this->session->data['guest']['payment']['zone_id'] = '';
+				$this->session->data['guest']['payment']['zone_id'] = 0;
 				$this->session->data['guest']['shipping_address'] = false;
 			}
 
@@ -288,6 +288,7 @@ class ControllerExtensionPaymentPPExpress extends Controller {
 				 * Compare all of the user addresses and see if there is a match
 				 */
 				$match = false;
+				
 				foreach ($addresses as $address) {
 					if (trim(strtolower($address['address_1'])) == trim(strtolower($result['PAYMENTREQUEST_0_SHIPTOSTREET'])) && trim(strtolower($address['postcode'])) == trim(strtolower($result['PAYMENTREQUEST_0_SHIPTOZIP']))) {
 						$match = true;
@@ -318,8 +319,6 @@ class ControllerExtensionPaymentPPExpress extends Controller {
 					$country_info = $this->db->query("SELECT * FROM `" . DB_PREFIX . "country` WHERE `iso_code_2` = '" . $this->db->escape($result['PAYMENTREQUEST_0_SHIPTOCOUNTRYCODE']) . "' AND `status` = '1' LIMIT 1")->row;
 					$zone_info = $this->db->query("SELECT * FROM `" . DB_PREFIX . "zone` WHERE (`name` = '" . $this->db->escape($result['PAYMENTREQUEST_0_SHIPTOSTATE']) . "' OR `code` = '" . $this->db->escape($result['PAYMENTREQUEST_0_SHIPTOSTATE']) . "') AND `status` = '1' AND `country_id` = '" . (int)$country_info['country_id'] . "'")->row;
 					
-					$address_data = array();
-
 					$address_data = array(
 						'firstname'  => $shipping_first_name,
 						'lastname'   => $shipping_last_name,
@@ -346,9 +345,9 @@ class ControllerExtensionPaymentPPExpress extends Controller {
 					$this->session->data['shipping_postcode'] = $address_data['postcode'];
 				}
 			} else {
-				$this->session->data['payment_address_id'] = '';
-				$this->session->data['payment_country_id'] = '';
-				$this->session->data['payment_zone_id'] = '';
+				$this->session->data['payment_address_id'] = 0;
+				$this->session->data['payment_country_id'] = 0;
+				$this->session->data['payment_zone_id'] = 0;
 			}
 		}
 
@@ -848,6 +847,7 @@ class ControllerExtensionPaymentPPExpress extends Controller {
 			$this->load->language('checkout/checkout');
 
 			$data['invoice_prefix'] = $this->config->get('config_invoice_prefix');
+			
 			$data['store_id'] = $this->config->get('config_store_id');
 			$data['store_name'] = $this->config->get('config_name');
 
@@ -870,7 +870,7 @@ class ControllerExtensionPaymentPPExpress extends Controller {
 				$payment_address = $this->model_account_address->getAddress($this->session->data['payment_address_id']);
 			} elseif (isset($this->session->data['guest'])) {
 				$data['customer_id'] = 0;
-				$data['customer_group_id'] = $this->session->data['guest']['customer_group_id'];
+				$data['customer_group_id'] = (int)$this->session->data['guest']['customer_group_id'];
 				$data['firstname'] = $this->session->data['guest']['firstname'];
 				$data['lastname'] = $this->session->data['guest']['lastname'];
 				$data['email'] = $this->session->data['guest']['email'];
@@ -889,9 +889,9 @@ class ControllerExtensionPaymentPPExpress extends Controller {
 			$data['payment_city'] = isset($payment_address['city']) ? $payment_address['city'] : '';
 			$data['payment_postcode'] = isset($payment_address['postcode']) ? $payment_address['postcode'] : '';
 			$data['payment_zone'] = isset($payment_address['zone']) ? $payment_address['zone'] : '';
-			$data['payment_zone_id'] = isset($payment_address['zone_id']) ? $payment_address['zone_id'] : '';
+			$data['payment_zone_id'] = isset($payment_address['zone_id']) ? $payment_address['zone_id'] : 0;
 			$data['payment_country'] = isset($payment_address['country']) ? $payment_address['country'] : '';
-			$data['payment_country_id'] = isset($payment_address['country_id']) ? $payment_address['country_id'] : '';
+			$data['payment_country_id'] = isset($payment_address['country_id']) ? $payment_address['country_id'] : 0;
 			$data['payment_address_format'] = isset($payment_address['address_format']) ? $payment_address['address_format'] : '';
 
 			$data['payment_method'] = '';
@@ -948,9 +948,9 @@ class ControllerExtensionPaymentPPExpress extends Controller {
 				$data['shipping_city'] = '';
 				$data['shipping_postcode'] = '';
 				$data['shipping_zone'] = '';
-				$data['shipping_zone_id'] = '';
+				$data['shipping_zone_id'] = 0;
 				$data['shipping_country'] = '';
-				$data['shipping_country_id'] = '';
+				$data['shipping_country_id'] = 0;
 				$data['shipping_address_format'] = '';
 				$data['shipping_method'] = '';
 				$data['shipping_code'] = '';

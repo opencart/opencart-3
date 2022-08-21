@@ -12,7 +12,9 @@ class ControllerExtensionPaymentPaypoint extends Controller {
 		$order_info = $this->model_checkout_order->getOrder($this->session->data['order_id']);
 
 		$data['merchant'] = $this->config->get('payment_paypoint_merchant');
-		$data['trans_id'] = $this->session->data['order_id'];
+		
+		$data['trans_id'] = (int)$this->session->data['order_id'];
+		
 		$data['amount'] = $this->currency->format($order_info['total'], $order_info['currency_code'], $order_info['currency_value'], false);
 
 		if ($this->config->get('payment_paypoint_password')) {
@@ -50,6 +52,7 @@ class ControllerExtensionPaymentPaypoint extends Controller {
 		}
 
 		$data['currency'] = $this->session->data['currency'];
+		
 		$data['callback'] = $this->url->link('extension/payment/paypoint/callback', '', true);
 
 		switch ($this->config->get('payment_paypoint_test')) {
@@ -72,7 +75,7 @@ class ControllerExtensionPaymentPaypoint extends Controller {
 
 	public function callback(): void {
 		if (isset($this->request->get['trans_id'])) {
-			$order_id = $this->request->get['trans_id'];
+			$order_id = (int)$this->request->get['trans_id'];
 		} else {
 			$order_id = 0;
 		}

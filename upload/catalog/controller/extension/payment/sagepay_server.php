@@ -164,7 +164,8 @@ class ControllerExtensionPaymentSagepayServer extends Controller {
 			$json['Status'] = $response_data['Status'];
 			$json['StatusDetail'] = $response_data['StatusDetail'];
 
-			$response_data['order_id'] = $this->session->data['order_id'];
+			$response_data['order_id'] = (int)$this->session->data['order_id'];
+			
 			$response_data['VendorTxCode'] = $payment_data['VendorTxCode'];
 
 			$order_info = array_merge($order_info, $response_data);

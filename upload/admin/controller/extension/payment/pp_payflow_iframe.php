@@ -115,13 +115,13 @@ class ControllerExtensionPaymentPPPayflowIframe extends Controller {
 		$data['order_statuses'] = $this->model_localisation_order_status->getOrderStatuses();
 
 		if (isset($this->request->post['payment_pp_payflow_iframe_order_status_id'])) {
-			$data['payment_pp_payflow_iframe_order_status_id'] = $this->request->post['payment_pp_payflow_iframe_order_status_id'];
+			$data['payment_pp_payflow_iframe_order_status_id'] = (int)$this->request->post['payment_pp_payflow_iframe_order_status_id'];
 		} else {
 			$data['payment_pp_payflow_iframe_order_status_id'] = $this->config->get('payment_pp_payflow_iframe_order_status_id');
 		}
 
 		if (isset($this->request->post['payment_pp_payflow_iframe_geo_zone_id'])) {
-			$data['payment_pp_payflow_iframe_geo_zone_id'] = $this->request->post['payment_pp_payflow_iframe_geo_zone_id'];
+			$data['payment_pp_payflow_iframe_geo_zone_id'] = (int)$this->request->post['payment_pp_payflow_iframe_geo_zone_id'];
 		} else {
 			$data['payment_pp_payflow_iframe_geo_zone_id'] = $this->config->get('payment_pp_payflow_iframe_geo_zone_id');
 		}

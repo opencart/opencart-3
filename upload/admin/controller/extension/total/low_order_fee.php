@@ -57,7 +57,7 @@ class ControllerExtensionTotalLowOrderFee extends Controller {
 		}
 
 		if (isset($this->request->post['total_low_order_fee_tax_class_id'])) {
-			$data['total_low_order_fee_tax_class_id'] = $this->request->post['total_low_order_fee_tax_class_id'];
+			$data['total_low_order_fee_tax_class_id'] = (int)$this->request->post['total_low_order_fee_tax_class_id'];
 		} else {
 			$data['total_low_order_fee_tax_class_id'] = $this->config->get('total_low_order_fee_tax_class_id');
 		}

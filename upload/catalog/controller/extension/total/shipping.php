@@ -5,7 +5,7 @@ class ControllerExtensionTotalShipping extends Controller {
 			$this->load->language('extension/total/shipping');
 
 			if (isset($this->session->data['shipping_address']['country_id'])) {
-				$data['country_id'] = $this->session->data['shipping_address']['country_id'];
+				$data['country_id'] = (int)$this->session->data['shipping_address']['country_id'];
 			} else {
 				$data['country_id'] = $this->config->get('config_country_id');
 			}
@@ -15,7 +15,7 @@ class ControllerExtensionTotalShipping extends Controller {
 			$data['countries'] = $this->model_localisation_country->getCountries();
 
 			if (isset($this->session->data['shipping_address']['zone_id'])) {
-				$data['zone_id'] = $this->session->data['shipping_address']['zone_id'];
+				$data['zone_id'] = (int)$this->session->data['shipping_address']['zone_id'];
 			} else {
 				$data['zone_id'] = '';
 			}

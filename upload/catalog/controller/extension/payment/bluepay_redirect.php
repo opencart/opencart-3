@@ -74,7 +74,7 @@ class ControllerExtensionPaymentBluePayRedirect extends Controller {
 		$post_data['STATE'] = $order_info['payment_zone_code'];
 		$post_data['PHONE'] = substr($order_info['telephone'], 0, 20);
 		$post_data['EMAIL'] = substr($order_info['email'], 0, 255);
-		$post_data['ORDER_ID'] = $this->session->data['order_id'];
+		$post_data['ORDER_ID'] = (int)$this->session->data['order_id'];
 		$post_data['ZIPCODE'] = substr($order_info['payment_postcode'], 0, 10);
 
 		$post_data['APPROVED_URL'] = $this->url->link('extension/payment/bluepay_redirect/callback', '', true);

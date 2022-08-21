@@ -16,7 +16,7 @@ class ControllerExtensionPaymentTwoCheckout extends Controller {
 		$data['sid'] = $this->config->get('payment_twocheckout_account');
 		$data['currency_code'] = $order_info['currency_code'];
 		$data['total'] = $this->currency->format($order_info['total'], $order_info['currency_code'], $order_info['currency_value'], false);
-		$data['cart_order_id'] = $this->session->data['order_id'];
+		$data['cart_order_id'] = (int)$this->session->data['order_id'];
 		$data['card_holder_name'] = $order_info['payment_firstname'] . ' ' . $order_info['payment_lastname'];
 		$data['street_address'] = $order_info['payment_address_1'];
 		$data['city'] = $order_info['payment_city'];

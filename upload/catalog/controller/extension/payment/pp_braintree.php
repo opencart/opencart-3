@@ -607,17 +607,17 @@ class ControllerExtensionPaymentPPBraintree extends Controller {
 
 					$zone_info = $this->db->query("SELECT * FROM `" . DB_PREFIX . "zone` WHERE (`name` = '" . $this->db->escape($returned_shipping_zone) . "' OR `code` = '" . $this->db->escape($returned_shipping_zone) . "') AND `status` = '1' AND `country_id` = '" . (int)$country_info['country_id'] . "' LIMIT 1")->row;
 				} else {
-					$this->session->data['guest']['shipping']['country_id'] = '';
+					$this->session->data['guest']['shipping']['country_id'] = 0;
 					$this->session->data['guest']['shipping']['country'] = '';
 					$this->session->data['guest']['shipping']['iso_code_2'] = '';
 					$this->session->data['guest']['shipping']['iso_code_3'] = '';
 					$this->session->data['guest']['shipping']['address_format'] = '';
-					$this->session->data['guest']['payment']['country_id'] = '';
+					$this->session->data['guest']['payment']['country_id'] = 0;
 					$this->session->data['guest']['payment']['country'] = '';
 					$this->session->data['guest']['payment']['iso_code_2'] = '';
 					$this->session->data['guest']['payment']['iso_code_3'] = '';
 					$this->session->data['guest']['payment']['address_format'] = '';
-					$this->session->data['shipping_country_id'] = '';
+					$this->session->data['shipping_country_id'] = 0;
 
 					$zone_info = array();
 				}
@@ -633,11 +633,11 @@ class ControllerExtensionPaymentPPBraintree extends Controller {
 				} else {
 					$this->session->data['guest']['shipping']['zone'] = '';
 					$this->session->data['guest']['shipping']['zone_code'] = '';
-					$this->session->data['guest']['shipping']['zone_id'] = '';
+					$this->session->data['guest']['shipping']['zone_id'] = 0;
 					$this->session->data['guest']['payment']['zone'] = '';
 					$this->session->data['guest']['payment']['zone_code'] = '';
-					$this->session->data['guest']['payment']['zone_id'] = '';
-					$this->session->data['shipping_zone_id'] = '';
+					$this->session->data['guest']['payment']['zone_id'] = 0;
+					$this->session->data['shipping_zone_id'] = 0;
 				}
 
 				$this->session->data['guest']['shipping_address'] = true;
@@ -646,14 +646,14 @@ class ControllerExtensionPaymentPPBraintree extends Controller {
 				$this->session->data['guest']['payment']['address_2'] = '';
 				$this->session->data['guest']['payment']['postcode'] = '';
 				$this->session->data['guest']['payment']['city'] = '';
-				$this->session->data['guest']['payment']['country_id'] = '';
+				$this->session->data['guest']['payment']['country_id'] = 0;
 				$this->session->data['guest']['payment']['country'] = '';
 				$this->session->data['guest']['payment']['iso_code_2'] = '';
 				$this->session->data['guest']['payment']['iso_code_3'] = '';
 				$this->session->data['guest']['payment']['address_format'] = '';
 				$this->session->data['guest']['payment']['zone'] = '';
 				$this->session->data['guest']['payment']['zone_code'] = '';
-				$this->session->data['guest']['payment']['zone_id'] = '';
+				$this->session->data['guest']['payment']['zone_id'] = 0;
 				$this->session->data['guest']['shipping_address'] = false;
 			}
 
@@ -736,8 +736,8 @@ class ControllerExtensionPaymentPPBraintree extends Controller {
 				}
 			} else {
 				$this->session->data['payment_address_id'] = '';
-				$this->session->data['payment_country_id'] = '';
-				$this->session->data['payment_zone_id'] = '';
+				$this->session->data['payment_country_id'] = 0;
+				$this->session->data['payment_zone_id'] = 0;
 			}
 		}
 
@@ -1271,7 +1271,7 @@ class ControllerExtensionPaymentPPBraintree extends Controller {
 				$payment_address = $this->model_account_address->getAddress($this->session->data['payment_address_id']);
 			} elseif (isset($this->session->data['guest'])) {
 				$data['customer_id'] = 0;
-				$data['customer_group_id'] = $this->session->data['guest']['customer_group_id'];
+				$data['customer_group_id'] = (int)$this->session->data['guest']['customer_group_id'];
 				$data['firstname'] = $this->session->data['guest']['firstname'];
 				$data['lastname'] = $this->session->data['guest']['lastname'];
 				$data['email'] = $this->session->data['guest']['email'];
@@ -1345,9 +1345,9 @@ class ControllerExtensionPaymentPPBraintree extends Controller {
 				$data['shipping_city'] = '';
 				$data['shipping_postcode'] = '';
 				$data['shipping_zone'] = '';
-				$data['shipping_zone_id'] = '';
+				$data['shipping_zone_id'] = 0;
 				$data['shipping_country'] = '';
-				$data['shipping_country_id'] = '';
+				$data['shipping_country_id'] = 0;
 				$data['shipping_address_format'] = '';
 				$data['shipping_method'] = '';
 				$data['shipping_code'] = '';

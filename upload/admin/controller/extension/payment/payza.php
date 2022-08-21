@@ -77,7 +77,7 @@ class ControllerExtensionPaymentPayza extends Controller {
 		}
 
 		if (isset($this->request->post['payment_payza_order_status_id'])) {
-			$data['payment_payza_order_status_id'] = $this->request->post['payment_payza_order_status_id'];
+			$data['payment_payza_order_status_id'] = (int)$this->request->post['payment_payza_order_status_id'];
 		} else {
 			$data['payment_payza_order_status_id'] = $this->config->get('payment_payza_order_status_id');
 		}
@@ -87,7 +87,7 @@ class ControllerExtensionPaymentPayza extends Controller {
 		$data['order_statuses'] = $this->model_localisation_order_status->getOrderStatuses();
 
 		if (isset($this->request->post['payment_payza_geo_zone_id'])) {
-			$data['payment_payza_geo_zone_id'] = $this->request->post['payment_payza_geo_zone_id'];
+			$data['payment_payza_geo_zone_id'] = (int)$this->request->post['payment_payza_geo_zone_id'];
 		} else {
 			$data['payment_payza_geo_zone_id'] = $this->config->get('payment_payza_geo_zone_id');
 		}

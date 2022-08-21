@@ -391,7 +391,7 @@ class ControllerExtensionPaymentLaybuy extends Controller {
 
 						$transaction = $this->model_extension_payment_laybuy->getTransactionByLayBuyRefId($laybuy_ref_id);
 
-						$order_id = $transaction['order_id'];
+						$order_id = (int)$transaction['order_id'];
 
 						$paypal_profile_id = $transaction['paypal_profile_id'];
 

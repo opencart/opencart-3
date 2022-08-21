@@ -104,7 +104,7 @@ class ControllerExtensionPaymentCardConnect extends Controller {
 		}
 
 		if (isset($this->request->post['payment_cardconnect_geo_zone_id'])) {
-			$data['payment_cardconnect_geo_zone_id'] = $this->request->post['payment_cardconnect_geo_zone_id'];
+			$data['payment_cardconnect_geo_zone_id'] = (int)$this->request->post['payment_cardconnect_geo_zone_id'];
 		} else {
 			$data['payment_cardconnect_geo_zone_id'] = $this->config->get('payment_cardconnect_geo_zone_id');
 		}

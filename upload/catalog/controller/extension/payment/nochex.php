@@ -25,7 +25,9 @@ class ControllerExtensionPaymentNochex extends Controller {
 		}
 
 		$data['amount'] = $this->currency->format($order_info['total'], 'GBP', false, false);
-		$data['order_id'] = $this->session->data['order_id'];
+		
+		$data['order_id'] = (int)$this->session->data['order_id'];
+		
 		$data['description'] = $this->config->get('config_name');
 
 		$data['billing_fullname'] = $order_info['payment_firstname'] . ' ' . $order_info['payment_lastname'];

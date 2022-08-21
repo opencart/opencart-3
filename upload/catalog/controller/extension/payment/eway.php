@@ -104,6 +104,7 @@ class ControllerExtensionPaymentEway extends Controller {
 
 		if ($shipping > 0) {
 			$item = new \stdClass();
+			
 			$item->SKU = '';
 			$item->Description = (string)substr($this->language->get('text_shipping'), 0, 26);
 			$item->Quantity = 1;
@@ -118,8 +119,9 @@ class ControllerExtensionPaymentEway extends Controller {
 		$request->Options = array($opt1);
 
 		$request->Payment = new \stdClass();
+		
 		$request->Payment->TotalAmount = $this->lowestDenomination($amount, $order_info['currency_code']);
-		$request->Payment->InvoiceNumber = $this->session->data['order_id'];
+		$request->Payment->InvoiceNumber = (int)$this->session->data['order_id'];
 		$request->Payment->InvoiceDescription = $invoice_desc;
 		$request->Payment->InvoiceReference = (string)substr($this->config->get('config_name'), 0, 40) . ' - #' . $order_info['order_id'];
 		$request->Payment->CurrencyCode = $order_info['currency_code'];

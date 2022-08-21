@@ -474,7 +474,7 @@ class ControllerCatalogReview extends Controller {
 		$this->load->model('catalog/product');
 
 		if (isset($this->request->post['product_id'])) {
-			$data['product_id'] = $this->request->post['product_id'];
+			$data['product_id'] = (int)$this->request->post['product_id'];
 		} elseif (!empty($review_info)) {
 			$data['product_id'] = $review_info['product_id'];
 		} else {

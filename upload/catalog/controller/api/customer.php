@@ -78,7 +78,7 @@ class ControllerApiCustomer extends Controller {
 
 			if (!$json) {
 				$this->session->data['customer'] = array(
-					'customer_id'       => $this->request->post['customer_id'],
+					'customer_id'       => (int)$this->request->post['customer_id'],
 					'customer_group_id' => $customer_group_id,
 					'firstname'         => $this->request->post['firstname'],
 					'lastname'          => $this->request->post['lastname'],

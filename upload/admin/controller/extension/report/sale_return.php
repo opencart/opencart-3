@@ -91,7 +91,7 @@ class ControllerExtensionReportSaleReturn extends Controller {
 		}
 
 		if (isset($this->request->get['filter_return_status_id'])) {
-			$filter_return_status_id = $this->request->get['filter_return_status_id'];
+			$filter_return_status_id = (int)$this->request->get['filter_return_status_id'];
 		} else {
 			$filter_return_status_id = 0;
 		}

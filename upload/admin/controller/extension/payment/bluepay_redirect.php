@@ -93,7 +93,7 @@ class ControllerExtensionPaymentBluepayredirect extends Controller {
 		}
 
 		if (isset($this->request->post['payment_bluepay_redirect_order_status_id'])) {
-			$data['payment_bluepay_redirect_order_status_id'] = $this->request->post['payment_bluepay_redirect_order_status_id'];
+			$data['payment_bluepay_redirect_order_status_id'] = (int)$this->request->post['payment_bluepay_redirect_order_status_id'];
 		} elseif ($this->config->get('payment_bluepay_redirect_order_status_id')) {
 			$data['payment_bluepay_redirect_order_status_id'] = $this->config->get('payment_bluepay_redirect_order_status_id');
 		} else {
@@ -105,7 +105,7 @@ class ControllerExtensionPaymentBluepayredirect extends Controller {
 		$data['order_statuses'] = $this->model_localisation_order_status->getOrderStatuses();
 
 		if (isset($this->request->post['payment_bluepay_redirect_geo_zone_id'])) {
-			$data['payment_bluepay_redirect_geo_zone_id'] = $this->request->post['payment_bluepay_redirect_geo_zone_id'];
+			$data['payment_bluepay_redirect_geo_zone_id'] = (int)$this->request->post['payment_bluepay_redirect_geo_zone_id'];
 		} else {
 			$data['payment_bluepay_redirect_geo_zone_id'] = $this->config->get('payment_bluepay_redirect_geo_zone_id');
 		}

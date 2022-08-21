@@ -199,49 +199,49 @@ class ControllerExtensionPaymentKlarnaCheckout extends Controller {
 		}
 
 		if (isset($this->request->post['payment_klarna_checkout_order_status_authorised_id'])) {
-			$data['payment_klarna_checkout_order_status_authorised_id'] = $this->request->post['payment_klarna_checkout_order_status_authorised_id'];
+			$data['payment_klarna_checkout_order_status_authorised_id'] = (int)$this->request->post['payment_klarna_checkout_order_status_authorised_id'];
 		} else {
 			$data['payment_klarna_checkout_order_status_authorised_id'] = $this->config->get('payment_klarna_checkout_order_status_authorised_id');
 		}
 
 		if (isset($this->request->post['payment_klarna_checkout_order_status_part_captured_id'])) {
-			$data['payment_klarna_checkout_order_status_part_captured_id'] = $this->request->post['payment_klarna_checkout_order_status_part_captured_id'];
+			$data['payment_klarna_checkout_order_status_part_captured_id'] = (int)$this->request->post['payment_klarna_checkout_order_status_part_captured_id'];
 		} else {
 			$data['payment_klarna_checkout_order_status_part_captured_id'] = $this->config->get('payment_klarna_checkout_order_status_part_captured_id');
 		}
 
 		if (isset($this->request->post['payment_klarna_checkout_order_status_captured_id'])) {
-			$data['payment_klarna_checkout_order_status_captured_id'] = $this->request->post['payment_klarna_checkout_order_status_captured_id'];
+			$data['payment_klarna_checkout_order_status_captured_id'] = (int)$this->request->post['payment_klarna_checkout_order_status_captured_id'];
 		} else {
 			$data['payment_klarna_checkout_order_status_captured_id'] = $this->config->get('payment_klarna_checkout_order_status_captured_id');
 		}
 
 		if (isset($this->request->post['payment_klarna_checkout_order_status_cancelled_id'])) {
-			$data['payment_klarna_checkout_order_status_cancelled_id'] = $this->request->post['payment_klarna_checkout_order_status_cancelled_id'];
+			$data['payment_klarna_checkout_order_status_cancelled_id'] = (int)$this->request->post['payment_klarna_checkout_order_status_cancelled_id'];
 		} else {
 			$data['payment_klarna_checkout_order_status_cancelled_id'] = $this->config->get('payment_klarna_checkout_order_status_cancelled_id');
 		}
 
 		if (isset($this->request->post['payment_klarna_checkout_order_status_refund_id'])) {
-			$data['payment_klarna_checkout_order_status_refund_id'] = $this->request->post['payment_klarna_checkout_order_status_refund_id'];
+			$data['payment_klarna_checkout_order_status_refund_id'] = (int)$this->request->post['payment_klarna_checkout_order_status_refund_id'];
 		} else {
 			$data['payment_klarna_checkout_order_status_refund_id'] = $this->config->get('payment_klarna_checkout_order_status_refund_id');
 		}
 
 		if (isset($this->request->post['payment_klarna_checkout_order_status_fraud_rejected_id'])) {
-			$data['payment_klarna_checkout_order_status_fraud_rejected_id'] = $this->request->post['payment_klarna_checkout_order_status_fraud_rejected_id'];
+			$data['payment_klarna_checkout_order_status_fraud_rejected_id'] = (int)$this->request->post['payment_klarna_checkout_order_status_fraud_rejected_id'];
 		} else {
 			$data['payment_klarna_checkout_order_status_fraud_rejected_id'] = $this->config->get('payment_klarna_checkout_order_status_fraud_rejected_id');
 		}
 
 		if (isset($this->request->post['payment_klarna_checkout_order_status_fraud_pending_id'])) {
-			$data['payment_klarna_checkout_order_status_fraud_pending_id'] = $this->request->post['payment_klarna_checkout_order_status_fraud_pending_id'];
+			$data['payment_klarna_checkout_order_status_fraud_pending_id'] = (int)$this->request->post['payment_klarna_checkout_order_status_fraud_pending_id'];
 		} else {
 			$data['payment_klarna_checkout_order_status_fraud_pending_id'] = $this->config->get('payment_klarna_checkout_order_status_fraud_pending_id');
 		}
 
 		if (isset($this->request->post['payment_klarna_checkout_order_status_fraud_accepted_id'])) {
-			$data['payment_klarna_checkout_order_status_fraud_accepted_id'] = $this->request->post['payment_klarna_checkout_order_status_fraud_accepted_id'];
+			$data['payment_klarna_checkout_order_status_fraud_accepted_id'] = (int)$this->request->post['payment_klarna_checkout_order_status_fraud_accepted_id'];
 		} else {
 			$data['payment_klarna_checkout_order_status_fraud_accepted_id'] = $this->config->get('payment_klarna_checkout_order_status_fraud_accepted_id');
 		}
@@ -829,7 +829,8 @@ class ControllerExtensionPaymentKlarnaCheckout extends Controller {
 	}
 
 	protected function validate() {		
-		$this->load->model('localisation/geo_zone');		
+		$this->load->model('localisation/geo_zone');
+		
 		$this->load->model('extension/payment/klarna_checkout');
 
 		if (version_compare(phpversion(), '8.1', '<')) {

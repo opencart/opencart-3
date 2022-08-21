@@ -610,7 +610,7 @@ class ControllerExtensionShippingUPS extends Controller {
 		}
 
 		if (isset($this->request->post['shipping_ups_weight_class_id'])) {
-			$data['shipping_ups_weight_class_id'] = $this->request->post['shipping_ups_weight_class_id'];
+			$data['shipping_ups_weight_class_id'] = (int)$this->request->post['shipping_ups_weight_class_id'];
 		} else {
 			$data['shipping_ups_weight_class_id'] = $this->config->get('shipping_ups_weight_class_id');
 		}
@@ -626,7 +626,7 @@ class ControllerExtensionShippingUPS extends Controller {
 		}
 
 		if (isset($this->request->post['shipping_ups_length_class_id'])) {
-			$data['shipping_ups_length_class_id'] = $this->request->post['shipping_ups_length_class_id'];
+			$data['shipping_ups_length_class_id'] = (int)$this->request->post['shipping_ups_length_class_id'];
 		} else {
 			$data['shipping_ups_length_class_id'] = $this->config->get('shipping_ups_length_class_id');
 		}
@@ -654,7 +654,7 @@ class ControllerExtensionShippingUPS extends Controller {
 		}
 
 		if (isset($this->request->post['shipping_ups_tax_class_id'])) {
-			$data['shipping_ups_tax_class_id'] = $this->request->post['shipping_ups_tax_class_id'];
+			$data['shipping_ups_tax_class_id'] = (int)$this->request->post['shipping_ups_tax_class_id'];
 		} else {
 			$data['shipping_ups_tax_class_id'] = $this->config->get('shipping_ups_tax_class_id');
 		}
@@ -664,7 +664,7 @@ class ControllerExtensionShippingUPS extends Controller {
 		$data['tax_classes'] = $this->model_localisation_tax_class->getTaxClasses();
 
 		if (isset($this->request->post['shipping_ups_geo_zone_id'])) {
-			$data['shipping_ups_geo_zone_id'] = $this->request->post['shipping_ups_geo_zone_id'];
+			$data['shipping_ups_geo_zone_id'] = (int)$this->request->post['shipping_ups_geo_zone_id'];
 		} else {
 			$data['shipping_ups_geo_zone_id'] = $this->config->get('shipping_ups_geo_zone_id');
 		}

@@ -16,7 +16,7 @@ class ControllerExtensionPaymentSkrill extends Controller {
 		$data['pay_to_email'] = $this->config->get('payment_skrill_email');
 		$data['platform'] = '31974336';
 		$data['description'] = $this->config->get('config_name');
-		$data['transaction_id'] = $this->session->data['order_id'];
+		$data['transaction_id'] = (int)$this->session->data['order_id'];
 		$data['return_url'] = $this->url->link('checkout/success');
 		$data['cancel_url'] = $this->url->link('checkout/checkout', '', true);
 		$data['status_url'] = $this->url->link('extension/payment/skrill/callback');
@@ -46,7 +46,7 @@ class ControllerExtensionPaymentSkrill extends Controller {
 
 		$data['detail1_text'] = $products;
 
-		$data['order_id'] = $this->session->data['order_id'];
+		$data['order_id'] = (int)$this->session->data['order_id'];
 
 		return $this->load->view('extension/payment/skrill', $data);
 	}

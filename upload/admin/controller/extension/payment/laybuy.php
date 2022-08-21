@@ -187,7 +187,7 @@ class ControllerExtensionPaymentLaybuy extends Controller {
 		}
 
 		if (isset($this->request->post['payment_laybuy_geo_zone_id'])) {
-			$data['payment_laybuy_geo_zone_id'] = $this->request->post['payment_laybuy_geo_zone_id'];
+			$data['payment_laybuy_geo_zone_id'] = (int)$this->request->post['payment_laybuy_geo_zone_id'];
 		} else {
 			$data['payment_laybuy_geo_zone_id'] = $this->config->get('payment_laybuy_geo_zone_id');
 		}

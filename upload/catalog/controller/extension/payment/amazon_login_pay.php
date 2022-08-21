@@ -193,8 +193,8 @@ class ControllerExtensionPaymentAmazonLoginPay extends Controller {
             $this->session->data['shipping_method'] = $this->session->data['apalwa']['pay']['shipping_method'];
             $this->session->data['payment_address'] = $this->session->data['apalwa']['pay']['address'];
             $this->session->data['shipping_address'] = $this->session->data['apalwa']['pay']['address'];
-            $this->session->data['shipping_country_id'] = $this->session->data['apalwa']['pay']['address']['country_id'];
-            $this->session->data['shipping_zone_id'] = $this->session->data['apalwa']['pay']['address']['zone_id'];
+            $this->session->data['shipping_country_id'] = (int)$this->session->data['apalwa']['pay']['address']['country_id'];
+            $this->session->data['shipping_zone_id'] = (int)$this->session->data['apalwa']['pay']['address']['zone_id'];
 
             $this->model_extension_module_amazon_login->persistAddress($this->session->data['apalwa']['pay']['address']);
 

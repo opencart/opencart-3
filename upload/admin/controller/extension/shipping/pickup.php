@@ -45,7 +45,7 @@ class ControllerExtensionShippingPickup extends Controller {
 		$data['cancel'] = $this->url->link('marketplace/extension', 'user_token=' . $this->session->data['user_token'] . '&type=shipping', true);
 
 		if (isset($this->request->post['shipping_pickup_geo_zone_id'])) {
-			$data['shipping_pickup_geo_zone_id'] = $this->request->post['shipping_pickup_geo_zone_id'];
+			$data['shipping_pickup_geo_zone_id'] = (int)$this->request->post['shipping_pickup_geo_zone_id'];
 		} else {
 			$data['shipping_pickup_geo_zone_id'] = $this->config->get('shipping_pickup_geo_zone_id');
 		}

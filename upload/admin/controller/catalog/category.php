@@ -373,7 +373,7 @@ class ControllerCatalogCategory extends Controller {
 		}
 
 		if (isset($this->request->post['parent_id'])) {
-			$data['parent_id'] = $this->request->post['parent_id'];
+			$data['parent_id'] = (int)$this->request->post['parent_id'];
 		} elseif (!empty($category_info)) {
 			$data['parent_id'] = $category_info['parent_id'];
 		} else {

@@ -360,7 +360,7 @@ class ControllerAccountOrder extends Controller {
 
 		if ($order_info) {
 			if (isset($this->request->get['order_product_id'])) {
-				$order_product_id = $this->request->get['order_product_id'];
+				$order_product_id = (int)$this->request->get['order_product_id'];
 			} else {
 				$order_product_id = 0;
 			}

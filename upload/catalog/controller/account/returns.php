@@ -57,7 +57,7 @@ class ControllerAccountReturns extends Controller {
 				'name'       => $result['firstname'] . ' ' . $result['lastname'],
 				'status'     => $result['status'],
 				'date_added' => date($this->language->get('date_format_short'), strtotime($result['date_added'])),
-				'href'       => $this->url->link('account/returns/info', 'customer_token=' . $this->session->data['customer_token'] . '&return_id=' . $result['return_id'] . $url, true)
+				'href'       => $this->url->link('account/returns/info', 'return_id=' . $result['return_id'] . $url, true)
 			);
 		}
 
@@ -93,7 +93,7 @@ class ControllerAccountReturns extends Controller {
 		}
 
 		if (!$this->customer->isLogged() || (!isset($this->request->get['customer_token']) || !isset($this->session->data['customer_token']) || ($this->request->get['customer_token'] != $this->session->data['customer_token']))) {
-			$this->session->data['redirect'] = $this->url->link('account/returns/info', 'customer_token=' . $this->session->data['customer_token'] . '&return_id=' . $return_id, true);
+			$this->session->data['redirect'] = $this->url->link('account/returns/info', 'return_id=' . $return_id, true);
 
 			$this->response->redirect($this->url->link('account/login', '', true));
 		}
@@ -319,7 +319,7 @@ class ControllerAccountReturns extends Controller {
 		}
 
 		if (isset($this->request->post['order_id'])) {
-			$data['order_id'] = $this->request->post['order_id'];
+			$data['order_id'] = (int)$this->request->post['order_id'];
 		} elseif (!empty($order_info)) {
 			$data['order_id'] = $order_info['order_id'];
 		} else {
@@ -327,7 +327,7 @@ class ControllerAccountReturns extends Controller {
 		}
 
 		if (isset($this->request->post['product_id'])) {
-			$data['product_id'] = $this->request->post['product_id'];
+			$data['product_id'] = (int)$this->request->post['product_id'];
 		} elseif (!empty($product_info)) {
 			$data['product_id'] = $product_info['product_id'];
 		} else {
@@ -403,7 +403,7 @@ class ControllerAccountReturns extends Controller {
 		}
 
 		if (isset($this->request->post['return_reason_id'])) {
-			$data['return_reason_id'] = $this->request->post['return_reason_id'];
+			$data['return_reason_id'] = (int)$this->request->post['return_reason_id'];
 		} else {
 			$data['return_reason_id'] = '';
 		}

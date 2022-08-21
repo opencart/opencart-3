@@ -57,7 +57,7 @@ class ModelExtensionPaymentLaybuy extends Model {
 				$customer = $this->model_account_customer->getCustomer($this->session->data['customer_id']);
 
 				if (in_array($customer['customer_group_id'], (array)$this->config->get('payment_laybuy_customer_group'))) {
-					$this->session->data['customer_group_id'] = $customer['customer_group_id'];
+					$this->session->data['customer_group_id'] = (int)$customer['customer_group_id'];
 
 					$status = true;
 				} else {

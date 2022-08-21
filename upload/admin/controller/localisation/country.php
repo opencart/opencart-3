@@ -330,7 +330,7 @@ class ControllerLocalisationCountry extends Controller {
 		$data['address_formats'] = $this->model_localisation_address_format->getAddressFormats();
 
 		if (isset($this->request->post['address_format_id'])) {
-			$data['address_format_id'] = $this->request->post['address_format_id'];
+			$data['address_format_id'] = (int)$this->request->post['address_format_id'];
 		} elseif (!empty($country_info)) {
 			$data['address_format_id'] = $country_info['address_format_id'];
 		} else {

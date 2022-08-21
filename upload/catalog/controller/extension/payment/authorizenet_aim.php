@@ -71,7 +71,7 @@ class ControllerExtensionPaymentAuthorizeNetAim extends Controller {
 		$post_data['x_card_num'] = str_replace(' ', '', $this->request->post['cc_number']);
 		$post_data['x_exp_date'] = $this->request->post['cc_expire_date_month'] . $this->request->post['cc_expire_date_year'];
 		$post_data['x_card_code'] = $this->request->post['cc_cvv2'];
-		$post_data['x_invoice_num'] = $this->session->data['order_id'];
+		$post_data['x_invoice_num'] = (int)$this->session->data['order_id'];
 		$post_data['x_solution_id'] = 'A1000015';
 
 		/* Customer Shipping Address Fields */

@@ -196,20 +196,20 @@ class ModelExtensionPaymentAmazonLoginPay extends Model {
         $order_data['custom_field'] = array();
 
         // The payment address details are empty, and shall be provided later when the order gets authorized
-        $order_data['payment_firstname'] = ""; //$address['firstname'];
-        $order_data['payment_lastname'] = ""; //$address['lastname'];
-        $order_data['payment_company'] = ""; //$address['company'];
-        $order_data['payment_company_id'] = ""; //$address['company_id'];
-        $order_data['payment_tax_id'] = ""; //$address['tax_id'];
-        $order_data['payment_address_1'] = ""; //$address['address_1'];
-        $order_data['payment_address_2'] = ""; //$address['address_2'];
-        $order_data['payment_city'] = ""; //$address['city'];
-        $order_data['payment_postcode'] = ""; //$address['postcode'];
-        $order_data['payment_zone'] = ""; //$address['zone'];
-        $order_data['payment_zone_id'] = 0; //$address['zone_id'];
-        $order_data['payment_country'] = ""; //$address['country'];
-        $order_data['payment_country_id'] = 0; //$address['country_id'];
-        $order_data['payment_address_format'] = ""; //$address['address_format'];
+        $order_data['payment_firstname'] = ""; // $address['firstname'];
+        $order_data['payment_lastname'] = ""; // $address['lastname'];
+        $order_data['payment_company'] = ""; // $address['company'];
+        $order_data['payment_company_id'] = ""; // $address['company_id'];
+        $order_data['payment_tax_id'] = ""; // $address['tax_id'];
+        $order_data['payment_address_1'] = ""; // $address['address_1'];
+        $order_data['payment_address_2'] = ""; // $address['address_2'];
+        $order_data['payment_city'] = ""; // $address['city'];
+        $order_data['payment_postcode'] = ""; // $address['postcode'];
+        $order_data['payment_zone'] = ""; // $address['zone'];
+        $order_data['payment_zone_id'] = 0; // $address['zone_id'];
+        $order_data['payment_country'] = ""; // $address['country'];
+        $order_data['payment_country_id'] = 0; // $address['country_id'];
+        $order_data['payment_address_format'] = ""; // $address['address_format'];
         $order_data['payment_custom_field'] = array();
 
         $order_data['payment_method'] = $this->language->get('text_lpa');
@@ -633,7 +633,7 @@ class ModelExtensionPaymentAmazonLoginPay extends Model {
         $result = $this->db->query($sql);
 		
         if ($result->num_rows > 0) {
-			return (int) $result->row['order_id'];
+			return (int)$result->row['order_id'];
         }
     }
 	
@@ -643,7 +643,7 @@ class ModelExtensionPaymentAmazonLoginPay extends Model {
         $result = $this->db->query($sql);
 		
         if ($result->num_rows > 0) {
-          return (int) $result->row['amazon_login_pay_order_id'];
+          return (int)$result->row['amazon_login_pay_order_id'];
         }
     }
 	

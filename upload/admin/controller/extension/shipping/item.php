@@ -51,7 +51,7 @@ class ControllerExtensionShippingItem extends Controller {
 		}
 
 		if (isset($this->request->post['shipping_item_tax_class_id'])) {
-			$data['shipping_item_tax_class_id'] = $this->request->post['shipping_item_tax_class_id'];
+			$data['shipping_item_tax_class_id'] = (int)$this->request->post['shipping_item_tax_class_id'];
 		} else {
 			$data['shipping_item_tax_class_id'] = $this->config->get('shipping_item_tax_class_id');
 		}
@@ -61,7 +61,7 @@ class ControllerExtensionShippingItem extends Controller {
 		$data['tax_classes'] = $this->model_localisation_tax_class->getTaxClasses();
 
 		if (isset($this->request->post['shipping_item_geo_zone_id'])) {
-			$data['shipping_item_geo_zone_id'] = $this->request->post['shipping_item_geo_zone_id'];
+			$data['shipping_item_geo_zone_id'] = (int)$this->request->post['shipping_item_geo_zone_id'];
 		} else {
 			$data['shipping_item_geo_zone_id'] = $this->config->get('shipping_item_geo_zone_id');
 		}

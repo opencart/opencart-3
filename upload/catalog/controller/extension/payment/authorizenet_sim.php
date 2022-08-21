@@ -10,7 +10,7 @@ class ControllerExtensionPaymentAuthorizeNetSim extends Controller {
 		$order_info = $this->model_checkout_order->getOrder($this->session->data['order_id']);
 
 		$data['x_login'] = $this->config->get('payment_authorizenet_sim_merchant');
-		$data['x_fp_sequence'] = $this->session->data['order_id'];
+		$data['x_fp_sequence'] = (int)$this->session->data['order_id'];
 		$data['x_fp_timestamp'] = time();
 		$data['x_amount'] = $this->currency->format($order_info['total'], $order_info['currency_code'], $order_info['currency_value'], false);
 		$data['x_fp_hash'] = null; // calculated later, once all fields are populated
@@ -18,7 +18,7 @@ class ControllerExtensionPaymentAuthorizeNetSim extends Controller {
 		$data['x_test_request'] = $this->config->get('payment_authorizenet_sim_mode');
 		$data['x_type'] = 'AUTH_CAPTURE';
 		$data['x_currency_code'] = $this->session->data['currency'];
-		$data['x_invoice_num'] = $this->session->data['order_id'];
+		$data['x_invoice_num'] = (int)$this->session->data['order_id'];
 		$data['x_description'] = html_entity_decode($this->config->get('config_name'), ENT_QUOTES, 'UTF-8');
 		$data['x_first_name'] = $order_info['payment_firstname'];
 		$data['x_last_name'] = $order_info['payment_lastname'];

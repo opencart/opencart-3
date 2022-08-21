@@ -219,7 +219,7 @@ class ControllerExtensionPaymentPayPal extends Controller {
 		$data['order_statuses'] = $this->model_localisation_order_status->getOrderStatuses();
 
 		if (isset($this->request->post['payment_paypal_geo_zone_id'])) {
-			$data['geo_zone_id'] = $this->request->post['payment_paypal_geo_zone_id'];
+			$data['geo_zone_id'] = (int)$this->request->post['payment_paypal_geo_zone_id'];
 		} else {
 			$data['geo_zone_id'] = $this->config->get('payment_paypal_geo_zone_id');
 		}

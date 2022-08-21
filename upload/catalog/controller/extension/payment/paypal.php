@@ -74,7 +74,7 @@ class ControllerExtensionPaymentPayPal extends Controller {
 		$data['message_flex_ratio'] = $setting['checkout']['message']['message_flex_ratio'];
 		$data['message_placement'] = 'payment';
 				
-		$data['order_id'] = $this->session->data['order_id'];
+		$data['order_id'] = (int)$this->session->data['order_id'];
 		
 		$order_info = $this->model_checkout_order->getOrder($this->session->data['order_id']);
 		
@@ -349,9 +349,9 @@ class ControllerExtensionPaymentPayPal extends Controller {
 		$setting = array_replace_recursive((array)$config_setting, (array)$this->config->get('payment_paypal_setting'));
 				
 		if (isset($this->request->post['order_id'])) {
-			$order_id = $this->request->post['order_id'];
+			$order_id = (int)$this->request->post['order_id'];
 		} else {
-			$order_id = '';
+			$order_id = 0;
 		}
 		
 		if (isset($this->request->post['payload'])) {
