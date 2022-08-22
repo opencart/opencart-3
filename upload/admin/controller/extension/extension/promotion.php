@@ -20,4 +20,14 @@ class ControllerExtensionExtensionPromotion extends Controller {
 			return '';
 		}
 	}
+	
+	public function getList() {
+		if ($this->request->get['route'] == 'extension/extension/promotion') {
+			$this->load->language('extension/extension/promotion');
+		
+			$data['promotion'] = '';
+		
+			$this->response->setOutput($this->load->view('extension/extension/promotion', $data));
+		}
+	}
 }

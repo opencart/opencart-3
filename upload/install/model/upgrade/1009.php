@@ -104,6 +104,13 @@ class ModelUpgrade1009 extends Model {
 			$this->db->query("INSERT INTO `" . DB_PREFIX . "event` SET `code` = 'mail_gdpr', `trigger` = 'catalog/model/account/gdpr/addGdpr/after', `action` = 'mail/gdpr', `status` = '1', `sort_order` = '0'");
 		}
 		
+		// Events - Promotion
+		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "event` WHERE `trigger` = 'admin/controller/extension/extension/promotion/after'");
+		
+		if (!$query->num_rows) {
+			$this->db->query("INSERT INTO `" . DB_PREFIX . "event` SET `code` = 'admin_promotion', `trigger` = 'admin/controller/extension/extension/promotion/after', `action` = 'extension/extension/promotion/getList', `status` = '1', `sort_order` = '0'");
+		}
+		
 		// Layouts - GDPR Information
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "layout` WHERE `name` = 'Account'");
 		
