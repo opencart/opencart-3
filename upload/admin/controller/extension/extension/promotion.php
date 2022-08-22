@@ -21,7 +21,8 @@ class ControllerExtensionExtensionPromotion extends Controller {
 		}
 	}
 	
-	public function getList() {
+	// admin/controller/extension/extension/promotion/after
+	public function getList(&$route, &$args, &$output) {
 		if ($this->request->get['route'] == 'extension/extension/promotion') {
 			$this->load->language('extension/extension/promotion');
 		
