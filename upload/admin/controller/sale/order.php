@@ -86,7 +86,7 @@ class ControllerSaleOrder extends Controller {
 			
 	protected function getList() {
 		if (isset($this->request->get['filter_order_id'])) {
-			$filter_order_id = (int)$this->request->get['filter_order_id'];
+			$filter_order_id = $this->request->get['filter_order_id'];
 		} else {
 			$filter_order_id = '';
 		}
