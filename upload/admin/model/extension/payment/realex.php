@@ -225,10 +225,10 @@ class ModelExtensionPaymentRealex extends Model {
 	public function getOrder(int $order_id): array {
 		$this->logger('getOrder - ' . $order_id);
 
-		$qry = $this->db->query("SELECT * FROM `" . DB_PREFIX . "realex_order` WHERE `order_id` = '" . (int)$order_id . "' LIMIT 1");
+		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "realex_order` WHERE `order_id` = '" . (int)$order_id . "' LIMIT 1");
 
-		if ($qry->num_rows) {
-			$order = $qry->row;
+		if ($query->num_rows) {
+			$order = $query->row;
 			$order['transactions'] = $this->getTransactions($order['realex_order_id']);
 
 			$this->logger(print_r($order, 1));
@@ -240,10 +240,10 @@ class ModelExtensionPaymentRealex extends Model {
 	}
 
 	private function getTransactions(int $realex_order_id): array {
-		$qry = $this->db->query("SELECT * FROM `" . DB_PREFIX . "realex_order_transaction` WHERE `realex_order_id` = '" . (int)$realex_order_id . "'");
+		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "realex_order_transaction` WHERE `realex_order_id` = '" . (int)$realex_order_id . "'");
 
-		if ($qry->num_rows) {
-			return $qry->rows;
+		if ($query->num_rows) {
+			return $query->rows;
 		} else {
 			return array;
 		}

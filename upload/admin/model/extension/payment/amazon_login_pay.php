@@ -57,11 +57,12 @@ class ModelExtensionPaymentAmazonLoginPay extends Model {
 	}
 
 	public function getOrder(int $order_id): array {
-		$qry = $this->db->query("SELECT * FROM `" . DB_PREFIX . "amazon_login_pay_order` WHERE `order_id` = '" . (int)$order_id . "' LIMIT 1");
+		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "amazon_login_pay_order` WHERE `order_id` = '" . (int)$order_id . "' LIMIT 1");
 
-		if ($qry->num_rows) {
-			$order = $qry->row;
-			$order['transactions'] = $this->getTransactions($order['amazon_login_pay_order_id'], $qry->row['currency_code']);
+		if ($query->num_rows) {
+			$order = $query->row;
+			$order['transactions'] = $this->getTransactions($order['amazon_login_pay_order_id'], $query->row['currency_code']);
+			
 			return $order;
 		} else {
 			return array();
@@ -87,6 +88,7 @@ class ModelExtensionPaymentAmazonLoginPay extends Model {
 			} else {
 				$cancel_response['status'] = 'Completed';
 			}
+			
 			return $cancel_response;
 		} else {
 			return array();
@@ -212,11 +214,11 @@ class ModelExtensionPaymentAmazonLoginPay extends Model {
 	}
 
 	public function getUnCaptured(int $amazon_login_pay_order_id): array {
-		$qry = $this->db->query("SELECT * FROM `" . DB_PREFIX . "amazon_login_pay_order_transaction` WHERE (`type` = 'refund' OR `type` = 'capture') AND `amazon_login_pay_order_id` = '" . (int)$amazon_login_pay_order_id . "' ORDER BY `date_added`");
+		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "amazon_login_pay_order_transaction` WHERE (`type` = 'refund' OR `type` = 'capture') AND `amazon_login_pay_order_id` = '" . (int)$amazon_login_pay_order_id . "' ORDER BY `date_added`");
 		
 		$uncaptured = array();
 		
-		foreach ($qry->rows as $row) {
+		foreach ($query->rows as $row) {
 			$uncaptured[$row['amazon_capture_id']]['amazon_authorization_id'] = $row['amazon_authorization_id'];
 			$uncaptured[$row['amazon_capture_id']]['amazon_capture_id'] = $row['amazon_capture_id'];
 			
@@ -230,6 +232,7 @@ class ModelExtensionPaymentAmazonLoginPay extends Model {
 				unset($uncaptured[$row['amazon_capture_id']]);
 			}
 		}
+		
 		return array_values($uncaptured);
 	}
 
@@ -257,6 +260,7 @@ class ModelExtensionPaymentAmazonLoginPay extends Model {
 				$row['amount'] = $this->currency->format($row['amount'], $currency_code, true, true);
 				$transactions[] = $row;
 			}
+			
 			return $transactions;
 		} else {
 			return array();
@@ -284,9 +288,7 @@ class ModelExtensionPaymentAmazonLoginPay extends Model {
 
 	    $details_xml = simplexml_load_string($responseBody);
 
-        return $details_xml
-            ->GetOrderReferenceDetailsResult
-            ->OrderReferenceDetails;
+        return $details_xml->GetOrderReferenceDetailsResult->OrderReferenceDetails;
     }
 
 	public function getTotalCaptured(int $amazon_login_pay_order_id): int {
@@ -395,6 +397,7 @@ class ModelExtensionPaymentAmazonLoginPay extends Model {
 		}
 
 		$details_xml->registerXPathNamespace('m', 'http://mws.amazonservices.com/schema/OffAmazonPayments/2013-01-01');
+		
 		$error_set = $details_xml->xpath('//m:ReasonCode');
 
 		if (isset($details_xml->Error)) {
@@ -432,6 +435,7 @@ class ModelExtensionPaymentAmazonLoginPay extends Model {
 		curl_close($curl);
 
 		list($other, $responseBody) = explode("\r\n\r\n", $response, 2);
+		
 		$other = preg_split("/\r\n|\n|\r/", $other);
 
 		list($protocol, $code, $text) = explode(' ', trim(array_shift($other)), 3);
@@ -462,10 +466,14 @@ class ModelExtensionPaymentAmazonLoginPay extends Model {
 		}
 		
 		$uriencoded = implode("/", array_map(array($this, "urlencode"), explode("/", $uri)));
+		
 		$data .= $uriencoded;
 		$data .= "\n";
+		
 		uksort($parameters, 'strcmp');
+		
 		$data .= $this->getParametersAsString($parameters);
+		
 		return $data;
 	}
 
