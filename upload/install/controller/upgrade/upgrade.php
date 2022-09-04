@@ -38,7 +38,7 @@ class ControllerUpgradeUpgrade extends Controller {
 		$json = array();
 
 		if (isset($this->request->get['step'])) {
-			$step = $this->request->get['step'];
+			$step = (int)$this->request->get['step'];
 		} else {
 			$step = 1;
 		}
