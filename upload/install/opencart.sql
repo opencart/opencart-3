@@ -2450,6 +2450,7 @@ CREATE TABLE `oc_order_shipment` (
 DROP TABLE IF EXISTS `oc_order_subscription_transaction`;
 CREATE TABLE `oc_order_subscription_transaction` (
   `order_subscription_transaction_id` int(11) NOT NULL AUTO_INCREMENT,
+  `order_id` int(11) NOT NULL,
   `transaction_id` varchar(100) NOT NULL,
   PRIMARY KEY (`order_subscription_transaction_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
@@ -3644,8 +3645,7 @@ CREATE TABLE `oc_subscription` (
   `order_id` int(11) NOT NULL,
   `order_product_id` int(11) NOT NULL,
   `subscription_plan_id` int(11) NOT NULL,
-  `customer_payment_id` int(11) NOT NULL,
-  `order_subscription_transaction_id` int(11) NOT NULL,
+  `customer_payment_id` int(11) NOT NULL,  
   `name` varchar(32) NOT NULL,
   `description` text NOT NULL,
   `reference` varchar(255) NOT NULL,
@@ -3761,8 +3761,8 @@ CREATE TABLE `oc_subscription_transaction` (
   `subscription_transaction_id` int(11) NOT NULL AUTO_INCREMENT,
   `subscription_id` int(11) NOT NULL,
   `order_id` int(11) NOT NULL,
-  `transaction_id` int(11) NOT NULL,
   `description` text NOT NULL,
+  `order_subscription_transaction_id` int(11) NOT NULL,
   `amount` decimal(10,4) NOT NULL,
   `type` tinyint(2) NOT NULL,
   `payment_method` varchar(128) NOT NULL,
