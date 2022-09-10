@@ -215,15 +215,15 @@ class ModelExtensionPaymentEway extends Model {
 		$this->db->query("INSERT INTO `" . DB_PREFIX . "eway_transactions` SET `eway_order_id` = '" . (int)$eway_order_id . "', `created` = NOW(), `transaction_id` = '" . $this->db->escape($transactionid) . "', `type` = '" . $this->db->escape($type) . "', `amount` = '" . $this->currency->format($total, $currency, false, false) . "'");
 	}
 
-	public function getTotalCaptured(int $eway_order_id): int {
+	public function getTotalCaptured(int $eway_order_id): float {
 		$query = $this->db->query("SELECT SUM(`amount`) AS `total` FROM `" . DB_PREFIX . "eway_transactions` WHERE `eway_order_id` = '" . (int)$eway_order_id . "' AND `type` = 'payment' ");
 
-		return (double)$query->row['total'];
+		return (float)$query->row['total'];
 	}
 
-	public function getTotalRefunded(int $eway_order_id): int {
+	public function getTotalRefunded(int $eway_order_id): float {
 		$query = $this->db->query("SELECT SUM(`amount`) AS `total` FROM `" . DB_PREFIX . "eway_transactions` WHERE `eway_order_id` = '" . (int)$eway_order_id . "' AND `type` = 'refund'");
 
-		return (double)$query->row['total'];
+		return (float)$query->row['total'];
 	}
 }

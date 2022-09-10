@@ -330,10 +330,10 @@ class ModelCustomerCustomer extends Model {
 		return (int)$query->row['total'];
 	}
 
-	public function getTransactionTotal(int $customer_id): int {
+	public function getTransactionTotal(int $customer_id): float {
 		$query = $this->db->query("SELECT SUM(`amount`) AS `total` FROM `" . DB_PREFIX . "customer_transaction` WHERE `customer_id` = '" . (int)$customer_id . "'");
 
-		return (int)$query->row['total'];
+		return (float)$query->row['total'];
 	}
 
 	public function getTotalTransactionsByOrderId(int $order_id): int {
@@ -362,10 +362,10 @@ class ModelCustomerCustomer extends Model {
 		return (int)$query->row['total'];
 	}
 
-	public function getRewardTotal(int $customer_id): int {
+	public function getRewardTotal(int $customer_id): float {
 		$query = $this->db->query("SELECT SUM(`points`) AS `total` FROM `" . DB_PREFIX . "customer_reward` WHERE `customer_id` = '" . (int)$customer_id . "'");
 
-		return (int)$query->row['total'];
+		return (float)$query->row['total'];
 	}
 
 	public function getTotalCustomerRewardsByOrderId(int $order_id): int {

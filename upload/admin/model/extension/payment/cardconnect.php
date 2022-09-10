@@ -75,7 +75,7 @@ class ModelExtensionPaymentCardConnect extends Model {
 		}
 	}
 
-	public function getTotalCaptured(int $cardconnect_order_id): int {
+	public function getTotalCaptured(int $cardconnect_order_id): float {
 		$query = $this->db->query("SELECT SUM(`amount`) AS `total` FROM `" . DB_PREFIX . "cardconnect_order_transaction` WHERE `cardconnect_order_id` = '" . (int)$cardconnect_order_id . "' AND (`type` = 'payment' OR `type` = 'refund')");
 
 		return (float)$query->row['total'];

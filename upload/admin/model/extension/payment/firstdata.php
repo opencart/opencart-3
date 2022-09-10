@@ -207,7 +207,7 @@ class ModelExtensionPaymentFirstdata extends Model {
 		}
 	}
 
-	public function getTotalCaptured(int $firstdata_order_id): int {
+	public function getTotalCaptured(int $firstdata_order_id): float {
 		$query = $this->db->query("SELECT SUM(`amount`) AS `total` FROM `" . DB_PREFIX . "firstdata_order_transaction` WHERE `firstdata_order_id` = '" . (int)$firstdata_order_id . "' AND (`type` = 'payment' OR `type` = 'refund')");
 
 		return (float)$query->row['total'];

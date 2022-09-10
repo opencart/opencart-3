@@ -291,16 +291,16 @@ class ModelExtensionPaymentAmazonLoginPay extends Model {
         return $details_xml->GetOrderReferenceDetailsResult->OrderReferenceDetails;
     }
 
-	public function getTotalCaptured(int $amazon_login_pay_order_id): int {
+	public function getTotalCaptured(int $amazon_login_pay_order_id): float {
 		$query = $this->db->query("SELECT SUM(`amount`) AS `total` FROM `" . DB_PREFIX . "amazon_login_pay_order_transaction` WHERE `amazon_login_pay_order_id` = '" . (int)$amazon_login_pay_order_id . "' AND (`type` = 'capture' OR `type` = 'refund') AND (`status` = 'Completed' OR `status` = 'Closed')");
 
-		return (double)$query->row['total'];
+		return (float)$query->row['total'];
 	}
 
-	public function getTotalRefunded(int $amazon_login_pay_order_id): int {
+	public function getTotalRefunded(int $amazon_login_pay_order_id): float {
 		$query = $this->db->query("SELECT SUM(`amount`) AS `total` FROM `" . DB_PREFIX . "amazon_login_pay_order_transaction` WHERE `amazon_login_pay_order_id` = '" . (int)$amazon_login_pay_order_id . "' AND `type` = 'refund'");
 
-		return (double)$query->row['total'];
+		return (float)$query->row['total'];
 	}
 
 	public function validateDetails(array $data): array {
