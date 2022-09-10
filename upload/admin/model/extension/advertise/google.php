@@ -160,7 +160,7 @@ class ModelExtensionAdvertiseGoogle extends Model {
     }
 
     public function getMappedCategory($google_product_category, $store_id) {
-        $sql = "SELECT GROUP_CONCAT(cd.`name` ORDER BY cp.`level` SEPARATOR '&nbsp;&nbsp;&gt;&nbsp;&nbsp;') AS name, cp.`category_id` FROM `" . DB_PREFIX . "category_path` cp LEFT JOIN `" . DB_PREFIX . "category_description` cd ON (cp.`path_id` = cd.`category_id`) LEFT JOIN `" . DB_PREFIX . "googleshopping_category` c2gpc ON (c2gpc.`category_id` = cp.`category_id`) WHERE cd.`language_id` = '" . (int)$this->config->get('config_language_id') . "' AND c2gpc.`google_product_category` = '" . $this->db->escape($google_product_category) . "' AND c2gpc.`store_id` = '" . (int)$store_id . "'";
+        $sql = "SELECT GROUP_CONCAT(cd.`name` ORDER BY cp.`level` SEPARATOR '&nbsp;&nbsp;&gt;&nbsp;&nbsp;') AS `name`, cp.`category_id` FROM `" . DB_PREFIX . "category_path` cp LEFT JOIN `" . DB_PREFIX . "category_description` cd ON (cp.`path_id` = cd.`category_id`) LEFT JOIN `" . DB_PREFIX . "googleshopping_category` c2gpc ON (c2gpc.`category_id` = cp.`category_id`) WHERE cd.`language_id` = '" . (int)$this->config->get('config_language_id') . "' AND c2gpc.`google_product_category` = '" . $this->db->escape($google_product_category) . "' AND c2gpc.`store_id` = '" . (int)$store_id . "'";
 
         $result = $this->db->query($sql);
 
@@ -327,7 +327,7 @@ class ModelExtensionAdvertiseGoogle extends Model {
         if (!empty($post_target_ids)) {
             $target_ids = array_map(array($this->googleshopping, 'integer'), $post_target_ids);
 
-            $insert_sql = "SELECT p.`product_id`, " . (int)$store_id . " AS `store_id`, '{TARGET_ID}' AS advertise_google_target_id FROM `" . DB_PREFIX . "product` p LEFT JOIN `" . DB_PREFIX . "product_description` pd ON (pd.`product_id` = p.`product_id`) WHERE pd.`language_id` = '" . (int)$this->config->get('config_language_id') . "'";
+            $insert_sql = "SELECT p.`product_id`, " . (int)$store_id . " AS `store_id`, '{TARGET_ID}' AS `advertise_google_target_id` FROM `" . DB_PREFIX . "product` p LEFT JOIN `" . DB_PREFIX . "product_description` pd ON (pd.`product_id` = p.`product_id`) WHERE pd.`language_id` = '" . (int)$this->config->get('config_language_id') . "'";
 
             $this->googleshopping->applyFilter($insert_sql, $data);
 
@@ -350,7 +350,7 @@ class ModelExtensionAdvertiseGoogle extends Model {
     }
 
     public function updateGoogleProductCategoryMapping($store_id) {
-        $sql = "INSERT INTO `" . DB_PREFIX . "googleshopping_product` (`product_id`, `store_id`, `google_product_category`) SELECT p.`product_id`, " . (int)$store_id . " AS store_id, (SELECT c2gpc.`google_product_category` FROM `" . DB_PREFIX . "product_to_category` p2c LEFT JOIN `" . DB_PREFIX . "category_path` cp ON (p2c.`category_id` = cp.`category_id`) LEFT JOIN `" . DB_PREFIX . "googleshopping_category` c2gpc ON (c2gpc.`category_id` = cp.`path_id` AND c2gpc.`store_id` = '" . (int)$store_id . "') WHERE p2c.`product_id` = p.`product_id` AND c2gpc.`google_product_category` IS NOT NULL ORDER BY cp.`level` DESC LIMIT 0,1) AS `google_product_category` FROM `" . DB_PREFIX . "product` p LEFT JOIN `" . DB_PREFIX . "googleshopping_product` pag ON (pag.`product_id` = p.`product_id`) WHERE pag.`product_id` IS NOT NULL ON DUPLICATE KEY UPDATE `google_product_category`=VALUES(`google_product_category`)";
+        $sql = "INSERT INTO `" . DB_PREFIX . "googleshopping_product` (`product_id`, `store_id`, `google_product_category`) SELECT p.`product_id`, " . (int)$store_id . " AS `store_id`, (SELECT c2gpc.`google_product_category` FROM `" . DB_PREFIX . "product_to_category` p2c LEFT JOIN `" . DB_PREFIX . "category_path` cp ON (p2c.`category_id` = cp.`category_id`) LEFT JOIN `" . DB_PREFIX . "googleshopping_category` c2gpc ON (c2gpc.`category_id` = cp.`path_id` AND c2gpc.`store_id` = '" . (int)$store_id . "') WHERE p2c.`product_id` = p.`product_id` AND c2gpc.`google_product_category` IS NOT NULL ORDER BY cp.`level` DESC LIMIT 0,1) AS `google_product_category` FROM `" . DB_PREFIX . "product` p LEFT JOIN `" . DB_PREFIX . "googleshopping_product` pag ON (pag.`product_id` = p.`product_id`) WHERE pag.`product_id` IS NOT NULL ON DUPLICATE KEY UPDATE `google_product_category` = VALUES(`google_product_category`)";
 
         $this->db->query($sql);
     }
@@ -414,7 +414,7 @@ class ModelExtensionAdvertiseGoogle extends Model {
     }
 
     public function getCategories($data, $store_id) {
-        $sql = "SELECT cp.`category_id` AS category_id, GROUP_CONCAT(cd1.`name` ORDER BY cp.`level` SEPARATOR '&nbsp;&nbsp;&gt;&nbsp;&nbsp;') AS name, c1.`parent_id`, c1.`sort_order` FROM `" . DB_PREFIX . "category_path` cp LEFT JOIN `" . DB_PREFIX . "category_to_store` c2s ON (c2s.`category_id` = cp.`category_id` AND c2s.`store_id` = '" . (int)$store_id . "') LEFT JOIN `" . DB_PREFIX . "category` c1 ON (cp.`category_id` = c1.`category_id`) LEFT JOIN `" . DB_PREFIX . "category` c2 ON (cp.`path_id` = c2.`category_id`) LEFT JOIN `" . DB_PREFIX . "category_description` cd1 ON (cp.`path_id` = cd1.`category_id`) LEFT JOIN `" . DB_PREFIX . "category_description` cd2 ON (cp.`category_id` = cd2.`category_id`) WHERE c2s.`store_id` IS NOT NULL AND cd1.`language_id` = '" . (int)$this->config->get('config_language_id') . "' AND cd2.`language_id` = '" . (int)$this->config->get('config_language_id') . "'";
+        $sql = "SELECT cp.`category_id` AS `category_id`, GROUP_CONCAT(cd1.`name` ORDER BY cp.`level` SEPARATOR '&nbsp;&nbsp;&gt;&nbsp;&nbsp;') AS `name`, c1.`parent_id`, c1.`sort_order` FROM `" . DB_PREFIX . "category_path` cp LEFT JOIN `" . DB_PREFIX . "category_to_store` c2s ON (c2s.`category_id` = cp.`category_id` AND c2s.`store_id` = '" . (int)$store_id . "') LEFT JOIN `" . DB_PREFIX . "category` c1 ON (cp.`category_id` = c1.`category_id`) LEFT JOIN `" . DB_PREFIX . "category` c2 ON (cp.`path_id` = c2.`category_id`) LEFT JOIN `" . DB_PREFIX . "category_description` cd1 ON (cp.`path_id` = cd1.`category_id`) LEFT JOIN `" . DB_PREFIX . "category_description` cd2 ON (cp.`category_id` = cd2.`category_id`) WHERE c2s.`store_id` IS NOT NULL AND cd1.`language_id` = '" . (int)$this->config->get('config_language_id') . "' AND cd2.`language_id` = '" . (int)$this->config->get('config_language_id') . "'";
 
         if (!empty($data['filter_name'])) {
             $sql .= " AND cd2.`name` LIKE '%" . $this->db->escape($data['filter_name']) . "%'";

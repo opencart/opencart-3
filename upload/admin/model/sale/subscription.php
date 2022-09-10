@@ -27,24 +27,24 @@ class ModelSaleSubscription extends Model {
 	}
 
 	public function getSubscriptions(array $data): array {
-		$sql = "SELECT `s`.`subscription_id`, `s`.*, CONCAT(o.`firstname`, ' ', o.`lastname`) AS customer, (SELECT ss.`name` FROM `" . DB_PREFIX . "subscription_status` ss WHERE ss.`subscription_status_id` = s.`subscription_status_id` AND ss.`language_id` = '" . (int)$this->config->get('config_language_id') . "') AS subscription_status FROM `" . DB_PREFIX . "subscription` `s` LEFT JOIN `" . DB_PREFIX . "order` `o` ON (`s`.`order_id` = `o`.`order_id`)";
+		$sql = "SELECT s.`subscription_id`, s.*, CONCAT(o.`firstname`, ' ', o.`lastname`) AS `customer`, (SELECT ss.`name` FROM `" . DB_PREFIX . "subscription_status` ss WHERE ss.`subscription_status_id` = s.`subscription_status_id` AND ss.`language_id` = '" . (int)$this->config->get('config_language_id') . "') AS `subscription_status` FROM `" . DB_PREFIX . "subscription` s LEFT JOIN `" . DB_PREFIX . "order` o ON (s.`order_id` = o.`order_id`)";
 
 		$implode = array();
 
 		if (!empty($data['filter_subscription_id'])) {
-			$implode[] = "`s`.`subscription_id` = '" . (int)$data['filter_subscription_id'] . "'";
+			$implode[] = "s.`subscription_id` = '" . (int)$data['filter_subscription_id'] . "'";
 		}
 
 		if (!empty($data['filter_order_id'])) {
-			$implode[] = "`s`.`order_id` = '" . (int)$data['filter_order_id'] . "'";
+			$implode[] = "s.`order_id` = '" . (int)$data['filter_order_id'] . "'";
 		}
 		
 		if (!empty($data['filter_order_product_id'])) {
-			$implode[] = "`s`.`order_product_id` = '" . (int)$data['filter_order_product_id'] . "'";
+			$implode[] = "s.`order_product_id` = '" . (int)$data['filter_order_product_id'] . "'";
 		}
 
 		if (!empty($data['filter_reference'])) {
-			$implode[] = "`s`.`reference` LIKE '" . $this->db->escape($data['filter_reference'] . '%') . "'";
+			$implode[] = "s.`reference` LIKE '" . $this->db->escape($data['filter_reference'] . '%') . "'";
 		}
 
 		if (!empty($data['filter_customer'])) {
@@ -52,11 +52,11 @@ class ModelSaleSubscription extends Model {
 		}
 
 		if (!empty($data['filter_date_next'])) {
-			$implode[] = "DATE(`s`.`date_next`) = DATE('" . $this->db->escape($data['filter_date_next']) . "')";
+			$implode[] = "DATE(s.`date_next`) = DATE('" . $this->db->escape($data['filter_date_next']) . "')";
 		}
 
 		if (!empty($data['filter_subscription_status_id'])) {
-			$implode[] = "`s`.`subscription_status_id` = '" . (int)$data['filter_subscription_status_id'] . "'";
+			$implode[] = "s.`subscription_status_id` = '" . (int)$data['filter_subscription_status_id'] . "'";
 		}
 
 		if (!empty($data['filter_date_from'])) {
@@ -83,7 +83,7 @@ class ModelSaleSubscription extends Model {
 		if (isset($data['sort']) && in_array($data['sort'], $sort_data)) {
 			$sql .= " ORDER BY " . $data['sort'];
 		} else {
-			$sql .= " ORDER BY `s`.`subscription_id`";
+			$sql .= " ORDER BY s.`subscription_id`";
 		}
 
 		if (isset($data['order']) && ($data['order'] == 'DESC')) {
@@ -110,28 +110,28 @@ class ModelSaleSubscription extends Model {
 	}
 
 	public function getTotalSubscriptions(array $data = array()): int {
-		$sql = "SELECT COUNT(*) AS `total` FROM `" . DB_PREFIX . "subscription` `s` LEFT JOIN `" . DB_PREFIX . "order` `o` ON (`s`.`order_id` = o.`order_id`)";
+		$sql = "SELECT COUNT(*) AS `total` FROM `" . DB_PREFIX . "subscription` s LEFT JOIN `" . DB_PREFIX . "order` o ON (s.`order_id` = o.`order_id`)";
 
 		$implode = array();
 
 		if (!empty($data['filter_subscription_id'])) {
-			$implode[] .= "`s`.`subscription_id` = '" . (int)$data['filter_subscription_id'] . "'";
+			$implode[] = "s.`subscription_id` = '" . (int)$data['filter_subscription_id'] . "'";
 		}
 
 		if (!empty($data['filter_order_id'])) {
-			$implode[] .= "`s`.`order_id` = '" . (int)$data['filter_order_id'] . "'";
+			$implode[] = "s.`order_id` = '" . (int)$data['filter_order_id'] . "'";
 		}
 
 		if (!empty($data['filter_reference'])) {
-			$implode[] .= "`s`.`reference` LIKE '" . $this->db->escape($data['filter_reference'] . '%') . "'";
+			$implode[] = "s.`reference` LIKE '" . $this->db->escape($data['filter_reference'] . '%') . "'";
 		}
 
 		if (!empty($data['filter_customer'])) {
-			$implode[] .= "CONCAT(o.`firstname`, ' ', o.`lastname`) LIKE '" . $this->db->escape($data['filter_customer'] . '%') . "'";
+			$implode[] = "CONCAT(o.`firstname`, ' ', o.`lastname`) LIKE '" . $this->db->escape($data['filter_customer'] . '%') . "'";
 		}
 
 		if (!empty($data['filter_subscription_status_id'])) {
-			$implode[] .= "`s`.`subscription_status_id` = '" . (int)$data['filter_subscription_status_id'] . "'";
+			$implode[] = "s.`subscription_status_id` = '" . (int)$data['filter_subscription_status_id'] . "'";
 		}
 
 		if (!empty($data['filter_date_from'])) {
@@ -199,7 +199,7 @@ class ModelSaleSubscription extends Model {
 			$limit = 10;
 		}
 
-		$query = $this->db->query("SELECT sh.`date_added`, ss.`name` AS status, sh.`comment`, sh.`notify` FROM `" . DB_PREFIX . "subscription_history` sh LEFT JOIN `" . DB_PREFIX . "subscription_status` ss ON sh.`subscription_status_id` = ss.`subscription_status_id` WHERE sh.`subscription_id` = '" . (int)$subscription_id . "' AND ss.`language_id` = '" . (int)$this->config->get('config_language_id') . "' ORDER BY sh.`date_added` DESC LIMIT " . (int)$start . "," . (int)$limit);
+		$query = $this->db->query("SELECT sh.`date_added`, ss.`name` AS `status`, sh.`comment`, sh.`notify` FROM `" . DB_PREFIX . "subscription_history` sh LEFT JOIN `" . DB_PREFIX . "subscription_status` ss ON sh.`subscription_status_id` = ss.`subscription_status_id` WHERE sh.`subscription_id` = '" . (int)$subscription_id . "' AND ss.`language_id` = '" . (int)$this->config->get('config_language_id') . "' ORDER BY sh.`date_added` DESC LIMIT " . (int)$start . "," . (int)$limit);
 
 		return $query->rows;
 	}

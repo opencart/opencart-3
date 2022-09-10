@@ -27,7 +27,7 @@ class ModelLocalisationZone extends Model {
 	}
 
 	public function getZones(array $data = array()): array {
-		$sql = "SELECT *, z.`name`, c.`name` AS country FROM `" . DB_PREFIX . "zone` z LEFT JOIN `" . DB_PREFIX . "country` c ON (z.`country_id` = c.`country_id`)";
+		$sql = "SELECT *, z.`name`, c.`name` AS `country` FROM `" . DB_PREFIX . "zone` z LEFT JOIN `" . DB_PREFIX . "country` c ON (z.`country_id` = c.`country_id`)";
 
 		$sort_data = array(
 			'c.name',
