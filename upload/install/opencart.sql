@@ -23,7 +23,7 @@ CREATE TABLE `oc_address` (
   `postcode` varchar(10) NOT NULL,
   `country_id` int(11) NOT NULL DEFAULT '0',
   `zone_id` int(11) NOT NULL DEFAULT '0',
-  `custom_field` fulltext NOT NULL,
+  `custom_field` TEXT NOT NULL,
   PRIMARY KEY (`address_id`),
   KEY `customer_id` (`customer_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
@@ -41,7 +41,7 @@ CREATE TABLE `oc_googleshopping_target` (
   `campaign_name` varchar(255) NOT NULL DEFAULT '',
   `country` varchar(2) NOT NULL DEFAULT '',
   `budget` decimal(15,4) NOT NULL DEFAULT '0.0000',
-  `feeds` fulltext NOT NULL,
+  `feeds` TEXT NOT NULL,
   `status` enum('paused','active') NOT NULL DEFAULT 'paused',
   `date_added` DATE,
   `roas` INT(11) NOT NULL DEFAULT '0',
@@ -59,10 +59,10 @@ DROP TABLE IF EXISTS `oc_api`;
 CREATE TABLE `oc_api` (
   `api_id` int(11) NOT NULL AUTO_INCREMENT,
   `username` varchar(64) NOT NULL,
-  `key` fulltext NOT NULL,
+  `key` TEXT NOT NULL,
   `status` tinyint(1) NOT NULL,
-  `date_added` datetime NOT NULL,
-  `date_modified` datetime NOT NULL,
+  `date_added` datetime DEFAULT (CURRENT_TIMESTAMP),
+  `date_modified` datetime DEFAULT (CURRENT_TIMESTAMP),
   PRIMARY KEY (`api_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
@@ -92,8 +92,8 @@ CREATE TABLE `oc_api_session` (
   `api_id` int(11) NOT NULL,
   `session_id` varchar(32) NOT NULL,
   `ip` varchar(40) NOT NULL,
-  `date_added` datetime NOT NULL,
-  `date_modified` datetime NOT NULL,
+  `date_added` datetime DEFAULT (CURRENT_TIMESTAMP),
+  `date_modified` datetime DEFAULT (CURRENT_TIMESTAMP),
   PRIMARY KEY (`api_session_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
@@ -281,9 +281,9 @@ CREATE TABLE `oc_cart` (
   `session_id` varchar(32) NOT NULL,
   `product_id` int(11) NOT NULL,
   `recurring_id` int(11) NOT NULL,
-  `option` fulltext NOT NULL,
+  `option` TEXT NOT NULL,
   `quantity` int(5) NOT NULL,
-  `date_added` datetime NOT NULL,
+  `date_added` datetime DEFAULT (CURRENT_TIMESTAMP),
   PRIMARY KEY (`cart_id`),
   KEY `cart_id` (`api_id`,`customer_id`,`session_id`,`product_id`,`recurring_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
@@ -303,8 +303,8 @@ CREATE TABLE `oc_category` (
   `column` int(3) NOT NULL,
   `sort_order` int(3) NOT NULL DEFAULT '0',
   `status` tinyint(1) NOT NULL,
-  `date_added` datetime NOT NULL,
-  `date_modified` datetime NOT NULL,
+  `date_added` datetime DEFAULT (CURRENT_TIMESTAMP),
+  `date_modified` datetime DEFAULT (CURRENT_TIMESTAMP),
   PRIMARY KEY (`category_id`),
   KEY `parent_id` (`parent_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
@@ -364,7 +364,7 @@ CREATE TABLE `oc_category_description` (
   `category_id` int(11) NOT NULL,
   `language_id` int(11) NOT NULL,
   `name` varchar(255) NOT NULL,
-  `description` fulltext NOT NULL,
+  `description` TEXT NOT NULL,
   `meta_title` varchar(255) NOT NULL,
   `meta_description` varchar(255) NOT NULL,
   `meta_keyword` varchar(255) NOT NULL,
@@ -618,7 +618,7 @@ CREATE TABLE `oc_country` (
   `name` varchar(128) NOT NULL,
   `iso_code_2` varchar(2) NOT NULL,
   `iso_code_3` varchar(3) NOT NULL,
-  `address_format` fulltext NOT NULL,
+  `address_format` TEXT NOT NULL,
   `postcode_required` tinyint(1) NOT NULL,
   `status` tinyint(1) NOT NULL DEFAULT '1',
   PRIMARY KEY (`country_id`)
@@ -899,12 +899,12 @@ CREATE TABLE `oc_coupon` (
   `logged` tinyint(1) NOT NULL,
   `shipping` tinyint(1) NOT NULL,
   `total` decimal(15,4) NOT NULL,
-  `date_start` date NOT NULL DEFAULT '0000-00-00',
-  `date_end` date NOT NULL DEFAULT '0000-00-00',
+  `date_start` date DEFAULT (CURRENT_DATE),
+  `date_end` date DEFAULT (CURRENT_DATE + 365),
   `uses_total` int(11) NOT NULL,
   `uses_customer` varchar(11) NOT NULL,
   `status` tinyint(1) NOT NULL,
-  `date_added` datetime NOT NULL,
+  `date_added` datetime DEFAULT (CURRENT_TIMESTAMP),
   PRIMARY KEY (`coupon_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
@@ -943,7 +943,7 @@ CREATE TABLE `oc_coupon_history` (
   `order_id` int(11) NOT NULL,
   `customer_id` int(11) NOT NULL,
   `amount` decimal(15,4) NOT NULL,
-  `date_added` datetime NOT NULL,
+  `date_added` datetime DEFAULT (CURRENT_TIMESTAMP),
   PRIMARY KEY (`coupon_history_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
@@ -977,7 +977,7 @@ CREATE TABLE `oc_currency` (
   `decimal_place` char(1) NOT NULL,
   `value` double(15,8) NOT NULL,
   `status` tinyint(1) NOT NULL,
-  `date_modified` datetime NOT NULL,
+  `date_modified` datetime DEFAULT (CURRENT_TIMESTAMP),
   PRIMARY KEY (`currency_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
@@ -1009,17 +1009,17 @@ CREATE TABLE `oc_customer` (
   `fax` varchar(32) NOT NULL,
   `password` varchar(40) NOT NULL,
   `salt` varchar(9) NOT NULL,
-  `cart` fulltext,
-  `wishlist` fulltext,
+  `cart` TEXT,
+  `wishlist` TEXT,
   `newsletter` tinyint(1) NOT NULL DEFAULT '0',
   `address_id` int(11) NOT NULL DEFAULT '0',
-  `custom_field` fulltext NOT NULL,
+  `custom_field` TEXT NOT NULL,
   `ip` varchar(40) NOT NULL,
   `status` tinyint(1) NOT NULL,
   `safe` tinyint(1) NOT NULL,
-  `token` fulltext NOT NULL,
+  `token` TEXT NOT NULL,
   `code` varchar(40) NOT NULL,
-  `date_added` datetime NOT NULL,
+  `date_added` datetime DEFAULT (CURRENT_TIMESTAMP),
   PRIMARY KEY (`customer_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
@@ -1034,9 +1034,9 @@ CREATE TABLE `oc_customer_activity` (
   `customer_activity_id` int(11) NOT NULL AUTO_INCREMENT,
   `customer_id` int(11) NOT NULL,
   `key` varchar(64) NOT NULL,
-  `data` fulltext NOT NULL,
+  `data` TEXT NOT NULL,
   `ip` varchar(40) NOT NULL,
-  `date_added` datetime NOT NULL,
+  `date_added` datetime DEFAULT (CURRENT_TIMESTAMP),
   PRIMARY KEY (`customer_activity_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
@@ -1062,9 +1062,9 @@ CREATE TABLE `oc_customer_affiliate` (
   `bank_swift_code` varchar(64) NOT NULL,
   `bank_account_name` varchar(64) NOT NULL,
   `bank_account_number` varchar(64) NOT NULL,
-  `custom_field` fulltext NOT NULL,
+  `custom_field` TEXT NOT NULL,
   `status` tinyint(1) NOT NULL,
-  `date_added` datetime NOT NULL,
+  `date_added` datetime DEFAULT (CURRENT_TIMESTAMP),
   PRIMARY KEY (`customer_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
@@ -1079,7 +1079,7 @@ CREATE TABLE `oc_customer_approval` (
   `customer_approval_id` int(11) NOT NULL AUTO_INCREMENT,
   `customer_id` int(11) NOT NULL,
   `type` varchar(9) NOT NULL,
-  `date_added` datetime NOT NULL,
+  `date_added` datetime DEFAULT (CURRENT_TIMESTAMP),
   PRIMARY KEY (`customer_approval_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
@@ -1115,7 +1115,7 @@ CREATE TABLE `oc_customer_group_description` (
   `customer_group_id` int(11) NOT NULL,
   `language_id` int(11) NOT NULL,
   `name` varchar(32) NOT NULL,
-  `description` fulltext NOT NULL,
+  `description` TEXT NOT NULL,
   PRIMARY KEY (`customer_group_id`,`language_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
@@ -1136,8 +1136,8 @@ DROP TABLE IF EXISTS `oc_customer_history`;
 CREATE TABLE `oc_customer_history` (
   `customer_history_id` int(11) NOT NULL AUTO_INCREMENT,
   `customer_id` int(11) NOT NULL,
-  `comment` fulltext NOT NULL,
-  `date_added` datetime NOT NULL,
+  `comment` TEXT NOT NULL,
+  `date_added` datetime DEFAULT (CURRENT_TIMESTAMP),
   PRIMARY KEY (`customer_history_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
@@ -1153,8 +1153,8 @@ CREATE TABLE `oc_customer_login` (
   `email` varchar(96) NOT NULL,
   `ip` varchar(40) NOT NULL,
   `total` int(4) NOT NULL,
-  `date_added` datetime NOT NULL,
-  `date_modified` datetime NOT NULL,
+  `date_added` datetime DEFAULT (CURRENT_TIMESTAMP),
+  `date_modified` datetime DEFAULT (CURRENT_TIMESTAMP),
   PRIMARY KEY (`customer_login_id`),
   KEY `email` (`email`),
   KEY `ip` (`ip`)
@@ -1171,7 +1171,7 @@ CREATE TABLE `oc_customer_ip` (
   `customer_ip_id` int(11) NOT NULL AUTO_INCREMENT,
   `customer_id` int(11) NOT NULL,
   `ip` varchar(40) NOT NULL,
-  `date_added` datetime NOT NULL,
+  `date_added` datetime DEFAULT (CURRENT_TIMESTAMP),
   PRIMARY KEY (`customer_ip_id`),
   KEY `ip` (`ip`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
@@ -1186,9 +1186,9 @@ DROP TABLE IF EXISTS `oc_customer_online`;
 CREATE TABLE `oc_customer_online` (
   `ip` varchar(40) NOT NULL,
   `customer_id` int(11) NOT NULL,
-  `url` fulltext NOT NULL,
-  `referer` fulltext NOT NULL,
-  `date_added` datetime NOT NULL,
+  `url` TEXT NOT NULL,
+  `referer` TEXT NOT NULL,
+  `date_added` datetime DEFAULT (CURRENT_TIMESTAMP),
   PRIMARY KEY (`ip`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
@@ -1203,9 +1203,9 @@ CREATE TABLE `oc_customer_reward` (
   `customer_reward_id` int(11) NOT NULL AUTO_INCREMENT,
   `customer_id` int(11) NOT NULL DEFAULT '0',
   `order_id` int(11) NOT NULL DEFAULT '0',
-  `description` fulltext NOT NULL,
+  `description` TEXT NOT NULL,
   `points` int(8) NOT NULL DEFAULT '0',
-  `date_added` datetime NOT NULL,
+  `date_added` datetime DEFAULT (CURRENT_TIMESTAMP),
   PRIMARY KEY (`customer_reward_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
@@ -1220,9 +1220,9 @@ CREATE TABLE `oc_customer_transaction` (
   `customer_transaction_id` int(11) NOT NULL AUTO_INCREMENT,
   `customer_id` int(11) NOT NULL,
   `order_id` int(11) NOT NULL,
-  `description` fulltext NOT NULL,
+  `description` TEXT NOT NULL,
   `amount` decimal(15,4) NOT NULL,
-  `date_added` datetime NOT NULL,
+  `date_added` datetime DEFAULT (CURRENT_TIMESTAMP),
   PRIMARY KEY (`customer_transaction_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
@@ -1244,7 +1244,7 @@ CREATE TABLE `oc_customer_search` (
   `description` tinyint(1) NOT NULL,
   `products` int(11) NOT NULL,
   `ip` varchar(40) NOT NULL,
-  `date_added` datetime NOT NULL,
+  `date_added` datetime DEFAULT (CURRENT_TIMESTAMP),
   PRIMARY KEY (`customer_search_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
@@ -1258,7 +1258,7 @@ DROP TABLE IF EXISTS `oc_customer_wishlist`;
 CREATE TABLE `oc_customer_wishlist` (
   `customer_id` int(11) NOT NULL,
   `product_id` int(11) NOT NULL,
-  `date_added` datetime NOT NULL,
+  `date_added` datetime DEFAULT (CURRENT_TIMESTAMP),
   PRIMARY KEY (`customer_id`,`product_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
@@ -1272,7 +1272,7 @@ DROP TABLE IF EXISTS `oc_custom_field`;
 CREATE TABLE `oc_custom_field` (
   `custom_field_id` int(11) NOT NULL AUTO_INCREMENT,
   `type` varchar(32) NOT NULL,
-  `value` fulltext NOT NULL,
+  `value` TEXT NOT NULL,
   `validation` varchar(255) NOT NULL,
   `location` varchar(10) NOT NULL,
   `status` tinyint(1) NOT NULL,
@@ -1348,7 +1348,7 @@ CREATE TABLE `oc_download` (
   `download_id` int(11) NOT NULL AUTO_INCREMENT,
   `filename` varchar(160) NOT NULL,
   `mask` varchar(128) NOT NULL,
-  `date_added` datetime NOT NULL,
+  `date_added` datetime DEFAULT (CURRENT_TIMESTAMP),
   PRIMARY KEY (`download_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
@@ -1376,8 +1376,8 @@ DROP TABLE IF EXISTS `oc_event`;
 CREATE TABLE `oc_event` (
   `event_id` int(11) NOT NULL AUTO_INCREMENT,
   `code` varchar(64) NOT NULL,
-  `trigger` fulltext NOT NULL,
-  `action` fulltext NOT NULL,
+  `trigger` TEXT NOT NULL,
+  `action` TEXT NOT NULL,
   `status` tinyint(1) NOT NULL,
   `sort_order` int(3) NOT NULL,
   PRIMARY KEY (`event_id`)
@@ -1550,7 +1550,7 @@ CREATE TABLE `oc_extension_install` (
   `extension_install_id` int(11) NOT NULL AUTO_INCREMENT,
   `extension_download_id` int(11) NOT NULL,
   `filename` varchar(255) NOT NULL,
-  `date_added` datetime NOT NULL,
+  `date_added` datetime DEFAULT (CURRENT_TIMESTAMP),
   PRIMARY KEY (`extension_install_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
@@ -1565,7 +1565,7 @@ CREATE TABLE `oc_extension_path` (
   `extension_path_id` int(11) NOT NULL AUTO_INCREMENT,
   `extension_install_id` int(11) NOT NULL,
   `path` varchar(255) NOT NULL,
-  `date_added` datetime NOT NULL,
+  `date_added` datetime DEFAULT (CURRENT_TIMESTAMP),
   PRIMARY KEY (`extension_path_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
@@ -1636,8 +1636,8 @@ CREATE TABLE `oc_geo_zone` (
   `geo_zone_id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(32) NOT NULL,
   `description` varchar(255) NOT NULL,
-  `date_added` datetime NOT NULL,
-  `date_modified` datetime NOT NULL,
+  `date_added` datetime DEFAULT (CURRENT_TIMESTAMP),
+  `date_modified` datetime DEFAULT (CURRENT_TIMESTAMP),
   PRIMARY KEY (`geo_zone_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
@@ -1920,13 +1920,13 @@ DROP TABLE IF EXISTS `oc_location`;
 CREATE TABLE `oc_location` (
   `location_id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(32) NOT NULL,
-  `address` fulltext NOT NULL,
+  `address` TEXT NOT NULL,
   `telephone` varchar(32) NOT NULL,
   `fax` varchar(32) NOT NULL,
   `geocode` varchar(32) NOT NULL,
   `image` varchar(255) DEFAULT NULL,
-  `open` fulltext NOT NULL,
-  `comment` fulltext NOT NULL,
+  `open` TEXT NOT NULL,
+  `comment` TEXT NOT NULL,
   PRIMARY KEY (`location_id`),
   KEY `name` (`name`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
@@ -1993,10 +1993,10 @@ DROP TABLE IF EXISTS `oc_marketing`;
 CREATE TABLE `oc_marketing` (
   `marketing_id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(32) NOT NULL,
-  `description` fulltext NOT NULL,
+  `description` TEXT NOT NULL,
   `code` varchar(64) NOT NULL,
   `clicks` int(5) NOT NULL DEFAULT '0',
-  `date_added` datetime NOT NULL,
+  `date_added` datetime DEFAULT (CURRENT_TIMESTAMP),
   PRIMARY KEY (`marketing_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
@@ -2017,7 +2017,7 @@ CREATE TABLE `oc_modification` (
   `link` varchar(255) NOT NULL,
   `xml` mediumtext NOT NULL,
   `status` tinyint(1) NOT NULL,
-  `date_added` datetime NOT NULL,
+  `date_added` datetime DEFAULT (CURRENT_TIMESTAMP),
   PRIMARY KEY (`modification_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
@@ -2031,7 +2031,7 @@ CREATE TABLE `oc_module` (
   `module_id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(64) NOT NULL,
   `code` varchar(32) NOT NULL,
-  `setting` fulltext NOT NULL,
+  `setting` TEXT NOT NULL,
   PRIMARY KEY (`module_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
@@ -2199,7 +2199,7 @@ CREATE TABLE `oc_order` (
   `email` varchar(96) NOT NULL,
   `telephone` varchar(32) NOT NULL,
   `fax` varchar(32) NOT NULL,
-  `custom_field` fulltext NOT NULL,
+  `custom_field` TEXT NOT NULL,
   `payment_firstname` varchar(32) NOT NULL,
   `payment_lastname` varchar(32) NOT NULL,
   `payment_company` varchar(60) NOT NULL,
@@ -2211,8 +2211,8 @@ CREATE TABLE `oc_order` (
   `payment_country_id` int(11) NOT NULL,
   `payment_zone` varchar(128) NOT NULL,
   `payment_zone_id` int(11) NOT NULL,
-  `payment_address_format` fulltext NOT NULL,
-  `payment_custom_field` fulltext NOT NULL,
+  `payment_address_format` TEXT NOT NULL,
+  `payment_custom_field` TEXT NOT NULL,
   `payment_method` varchar(128) NOT NULL,
   `payment_code` varchar(128) NOT NULL,
   `shipping_firstname` varchar(32) NOT NULL,
@@ -2226,11 +2226,11 @@ CREATE TABLE `oc_order` (
   `shipping_country_id` int(11) NOT NULL,
   `shipping_zone` varchar(128) NOT NULL,
   `shipping_zone_id` int(11) NOT NULL,
-  `shipping_address_format` fulltext NOT NULL,
-  `shipping_custom_field` fulltext NOT NULL,
+  `shipping_address_format` TEXT NOT NULL,
+  `shipping_custom_field` TEXT NOT NULL,
   `shipping_method` varchar(128) NOT NULL,
   `shipping_code` varchar(128) NOT NULL,
-  `comment` fulltext NOT NULL,
+  `comment` TEXT NOT NULL,
   `total` decimal(15,4) NOT NULL DEFAULT '0.0000',
   `order_status_id` int(11) NOT NULL DEFAULT '0',
   `affiliate_id` int(11) NOT NULL,
@@ -2245,8 +2245,8 @@ CREATE TABLE `oc_order` (
   `forwarded_ip` varchar(40) NOT NULL,
   `user_agent` varchar(255) NOT NULL,
   `accept_language` varchar(255) NOT NULL,
-  `date_added` datetime NOT NULL,
-  `date_modified` datetime NOT NULL,
+  `date_added` datetime DEFAULT (CURRENT_TIMESTAMP),
+  `date_modified` datetime DEFAULT (CURRENT_TIMESTAMP),
   PRIMARY KEY (`order_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
@@ -2262,8 +2262,8 @@ CREATE TABLE `oc_order_history` (
   `order_id` int(11) NOT NULL,
   `order_status_id` int(11) NOT NULL,
   `notify` tinyint(1) NOT NULL DEFAULT '0',
-  `comment` fulltext NOT NULL,
-  `date_added` datetime NOT NULL,
+  `comment` TEXT NOT NULL,
+  `date_added` datetime DEFAULT (CURRENT_TIMESTAMP),
   PRIMARY KEY (`order_history_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
@@ -2281,7 +2281,7 @@ CREATE TABLE `oc_order_option` (
   `product_option_id` int(11) NOT NULL,
   `product_option_value_id` int(11) NOT NULL DEFAULT '0',
   `name` varchar(255) NOT NULL,
-  `value` fulltext NOT NULL,
+  `value` TEXT NOT NULL,
   `type` varchar(32) NOT NULL,
   PRIMARY KEY (`order_option_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
@@ -2335,7 +2335,7 @@ CREATE TABLE `oc_order_recurring` (
   `trial_duration` smallint(6) NOT NULL,
   `trial_price` decimal(10,4) NOT NULL,
   `status` tinyint(4) NOT NULL,
-  `date_added` datetime NOT NULL,
+  `date_added` datetime DEFAULT (CURRENT_TIMESTAMP),
   PRIMARY KEY (`order_recurring_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
@@ -2352,7 +2352,7 @@ CREATE TABLE `oc_order_recurring_transaction` (
   `reference` varchar(255) NOT NULL,
   `type` varchar(255) NOT NULL,
   `amount` decimal(10,4) NOT NULL,
-  `date_added` datetime NOT NULL,
+  `date_added` datetime DEFAULT (CURRENT_TIMESTAMP),
   PRIMARY KEY (`order_recurring_transaction_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
@@ -2366,7 +2366,7 @@ DROP TABLE IF EXISTS `oc_order_shipment`;
 CREATE TABLE `oc_order_shipment` (
   `order_shipment_id` int(11) NOT NULL AUTO_INCREMENT,
   `order_id` int(11) NOT NULL,
-  `date_added` datetime NOT NULL,
+  `date_added` datetime DEFAULT (CURRENT_TIMESTAMP),
   `shipping_courier_id` varchar(255) NOT NULL DEFAULT '',
   `tracking_number` varchar(255) NOT NULL DEFAULT '',
   PRIMARY KEY (`order_shipment_id`)
@@ -2468,7 +2468,7 @@ CREATE TABLE `oc_order_voucher` (
   `to_name` varchar(64) NOT NULL,
   `to_email` varchar(96) NOT NULL,
   `voucher_theme_id` int(11) NOT NULL,
-  `message` fulltext NOT NULL,
+  `message` TEXT NOT NULL,
   `amount` decimal(15,4) NOT NULL,
   PRIMARY KEY (`order_voucher_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
@@ -2498,7 +2498,7 @@ CREATE TABLE `oc_product` (
   `price` decimal(15,4) NOT NULL DEFAULT '0.0000',
   `points` int(8) NOT NULL DEFAULT '0',
   `tax_class_id` int(11) NOT NULL,
-  `date_available` date NOT NULL DEFAULT '0000-00-00',
+  `date_available` date DEFAULT (CURRENT_DATE),
   `weight` decimal(15,8) NOT NULL DEFAULT '0.00000000',
   `weight_class_id` int(11) NOT NULL DEFAULT '0',
   `length` decimal(15,8) NOT NULL DEFAULT '0.00000000',
@@ -2510,8 +2510,8 @@ CREATE TABLE `oc_product` (
   `sort_order` int(11) NOT NULL DEFAULT '0',
   `status` tinyint(1) NOT NULL DEFAULT '0',
   `viewed` int(5) NOT NULL DEFAULT '0',
-  `date_added` datetime NOT NULL,
-  `date_modified` datetime NOT NULL,
+  `date_added` datetime DEFAULT (CURRENT_TIMESTAMP),
+  `date_modified` datetime DEFAULT (CURRENT_TIMESTAMP),
   PRIMARY KEY (`product_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
@@ -2585,9 +2585,9 @@ CREATE TABLE `oc_googleshopping_product_status` (
   `product_id` int(11) NOT NULL DEFAULT '0',
   `store_id` int(11) NOT NULL DEFAULT '0',
   `product_variation_id` varchar(64) NOT NULL DEFAULT '',
-  `destination_statuses` fulltext NOT NULL,
-  `data_quality_issues` fulltext NOT NULL,
-  `item_level_issues` fulltext NOT NULL,
+  `destination_statuses` TEXT NOT NULL,
+  `data_quality_issues` TEXT NOT NULL,
+  `item_level_issues` TEXT NOT NULL,
   `google_expiration_date` int(11) NOT NULL DEFAULT '0',
   PRIMARY KEY (`product_id`,`store_id`,`product_variation_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
@@ -2617,7 +2617,7 @@ CREATE TABLE `oc_product_attribute` (
   `product_id` int(11) NOT NULL,
   `attribute_id` int(11) NOT NULL,
   `language_id` int(11) NOT NULL,
-  `text` fulltext NOT NULL,
+  `text` TEXT NOT NULL,
   PRIMARY KEY (`product_id`,`attribute_id`,`language_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
@@ -2643,8 +2643,8 @@ CREATE TABLE `oc_product_description` (
   `product_id` int(11) NOT NULL,
   `language_id` int(11) NOT NULL,
   `name` varchar(255) NOT NULL,
-  `description` fulltext NOT NULL,
-  `tag` fulltext NOT NULL,
+  `description` TEXT NOT NULL,
+  `tag` TEXT NOT NULL,
   `meta_title` varchar(255) NOT NULL,
   `meta_description` varchar(255) NOT NULL,
   `meta_keyword` varchar(255) NOT NULL,
@@ -2691,8 +2691,8 @@ CREATE TABLE `oc_product_discount` (
   `quantity` int(4) NOT NULL DEFAULT '0',
   `priority` int(5) NOT NULL DEFAULT '1',
   `price` decimal(15,4) NOT NULL DEFAULT '0.0000',
-  `date_start` date NOT NULL DEFAULT '0000-00-00',
-  `date_end` date NOT NULL DEFAULT '0000-00-00',
+  `date_start` date DEFAULT (CURRENT_DATE),
+  `date_end` date DEFAULT (CURRENT_DATE + 365),
   PRIMARY KEY (`product_discount_id`),
   KEY `product_id` (`product_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
@@ -2813,7 +2813,7 @@ CREATE TABLE `oc_product_option` (
   `product_option_id` int(11) NOT NULL AUTO_INCREMENT,
   `product_id` int(11) NOT NULL,
   `option_id` int(11) NOT NULL,
-  `value` fulltext NOT NULL,
+  `value` TEXT NOT NULL,
   `required` tinyint(1) NOT NULL,
   PRIMARY KEY (`product_option_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
@@ -2972,8 +2972,8 @@ CREATE TABLE `oc_product_special` (
   `customer_group_id` int(11) NOT NULL,
   `priority` int(5) NOT NULL DEFAULT '1',
   `price` decimal(15,4) NOT NULL DEFAULT '0.0000',
-  `date_start` date NOT NULL DEFAULT '0000-00-00',
-  `date_end` date NOT NULL DEFAULT '0000-00-00',
+  `date_start` date DEFAULT (CURRENT_DATE),
+  `date_end` date DEFAULT (CURRENT_DATE + 365),
   PRIMARY KEY (`product_special_id`),
   KEY `product_id` (`product_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
@@ -3162,10 +3162,10 @@ CREATE TABLE `oc_return` (
   `return_reason_id` int(11) NOT NULL,
   `return_action_id` int(11) NOT NULL,
   `return_status_id` int(11) NOT NULL,
-  `comment` fulltext,
-  `date_ordered` date NOT NULL DEFAULT '0000-00-00',
-  `date_added` datetime NOT NULL,
-  `date_modified` datetime NOT NULL,
+  `comment` TEXT,
+  `date_ordered` date DEFAULT (CURRENT_DATE),
+  `date_added` datetime DEFAULT (CURRENT_TIMESTAMP),
+  `date_modified` datetime DEFAULT (CURRENT_TIMESTAMP),
   PRIMARY KEY (`return_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
@@ -3204,8 +3204,8 @@ CREATE TABLE `oc_return_history` (
   `return_id` int(11) NOT NULL,
   `return_status_id` int(11) NOT NULL,
   `notify` tinyint(1) NOT NULL,
-  `comment` fulltext NOT NULL,
-  `date_added` datetime NOT NULL,
+  `comment` TEXT NOT NULL,
+  `date_added` datetime DEFAULT (CURRENT_TIMESTAMP),
   PRIMARY KEY (`return_history_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
@@ -3269,11 +3269,11 @@ CREATE TABLE `oc_review` (
   `product_id` int(11) NOT NULL,
   `customer_id` int(11) NOT NULL,
   `author` varchar(64) NOT NULL,
-  `text` fulltext NOT NULL,
+  `text` TEXT NOT NULL,
   `rating` int(1) NOT NULL,
   `status` tinyint(1) NOT NULL DEFAULT '0',
-  `date_added` datetime NOT NULL,
-  `date_modified` datetime NOT NULL,
+  `date_added` datetime DEFAULT (CURRENT_TIMESTAMP),
+  `date_modified` datetime DEFAULT (CURRENT_TIMESTAMP),
   PRIMARY KEY (`review_id`),
   KEY `product_id` (`product_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
@@ -3315,7 +3315,7 @@ INSERT INTO `oc_statistics` (`statistics_id`, `code`, `value`) VALUES
 DROP TABLE IF EXISTS `oc_session`;
 CREATE TABLE `oc_session` (
   `session_id` varchar(32) NOT NULL,
-  `data` fulltext NOT NULL,
+  `data` TEXT NOT NULL,
   `expire` datetime NOT NULL,
   PRIMARY KEY (`session_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
@@ -3332,7 +3332,7 @@ CREATE TABLE `oc_setting` (
   `store_id` int(11) NOT NULL DEFAULT '0',
   `code` varchar(128) NOT NULL,
   `key` varchar(128) NOT NULL,
-  `value` fulltext NOT NULL,
+  `value` TEXT NOT NULL,
   `serialized` tinyint(1) NOT NULL,
   PRIMARY KEY (`setting_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
@@ -3594,8 +3594,8 @@ CREATE TABLE `oc_tax_class` (
   `tax_class_id` int(11) NOT NULL AUTO_INCREMENT,
   `title` varchar(32) NOT NULL,
   `description` varchar(255) NOT NULL,
-  `date_added` datetime NOT NULL,
-  `date_modified` datetime NOT NULL,
+  `date_added` datetime DEFAULT (CURRENT_TIMESTAMP),
+  `date_modified` datetime DEFAULT (CURRENT_TIMESTAMP),
   PRIMARY KEY (`tax_class_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
@@ -3620,8 +3620,8 @@ CREATE TABLE `oc_tax_rate` (
   `name` varchar(32) NOT NULL,
   `rate` decimal(15,4) NOT NULL DEFAULT '0.0000',
   `type` char(1) NOT NULL,
-  `date_added` datetime NOT NULL,
-  `date_modified` datetime NOT NULL,
+  `date_added` datetime DEFAULT (CURRENT_TIMESTAMP),
+  `date_modified` datetime DEFAULT (CURRENT_TIMESTAMP),
   PRIMARY KEY (`tax_rate_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
@@ -3693,7 +3693,7 @@ CREATE TABLE `oc_theme` (
   `theme` varchar(64) NOT NULL,
   `route` varchar(64) NOT NULL,
   `code` mediumtext NOT NULL,
-  `date_added` datetime NOT NULL,
+  `date_added` datetime DEFAULT (CURRENT_TIMESTAMP),
   PRIMARY KEY (`theme_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
@@ -3710,8 +3710,8 @@ CREATE TABLE `oc_translation` (
   `language_id` int(11) NOT NULL,
   `route` varchar(64) NOT NULL,
   `key` varchar(64) NOT NULL,
-  `value` fulltext NOT NULL,
-  `date_added` datetime NOT NULL,
+  `value` TEXT NOT NULL,
+  `date_added` datetime DEFAULT (CURRENT_TIMESTAMP),
   PRIMARY KEY (`translation_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
@@ -3727,7 +3727,7 @@ CREATE TABLE `oc_upload` (
   `name` varchar(255) NOT NULL,
   `filename` varchar(255) NOT NULL,
   `code` varchar(255) NOT NULL,
-  `date_added` datetime NOT NULL,
+  `date_added` datetime DEFAULT (CURRENT_TIMESTAMP),
   PRIMARY KEY (`upload_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
@@ -3842,7 +3842,7 @@ CREATE TABLE `oc_user` (
   `code` varchar(40) NOT NULL,
   `ip` varchar(40) NOT NULL,
   `status` tinyint(1) NOT NULL,
-  `date_added` datetime NOT NULL,
+  `date_added` datetime DEFAULT (CURRENT_TIMESTAMP),
   PRIMARY KEY (`user_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
@@ -3856,7 +3856,7 @@ DROP TABLE IF EXISTS `oc_user_group`;
 CREATE TABLE `oc_user_group` (
   `user_group_id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(64) NOT NULL,
-  `permission` fulltext NOT NULL,
+  `permission` TEXT NOT NULL,
   PRIMARY KEY (`user_group_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
@@ -3884,10 +3884,10 @@ CREATE TABLE `oc_voucher` (
   `to_name` varchar(64) NOT NULL,
   `to_email` varchar(96) NOT NULL,
   `voucher_theme_id` int(11) NOT NULL,
-  `message` fulltext NOT NULL,
+  `message` TEXT NOT NULL,
   `amount` decimal(15,4) NOT NULL,
   `status` tinyint(1) NOT NULL,
-  `date_added` datetime NOT NULL,
+  `date_added` datetime DEFAULT (CURRENT_TIMESTAMP),
   PRIMARY KEY (`voucher_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
@@ -3903,7 +3903,7 @@ CREATE TABLE `oc_voucher_history` (
   `voucher_id` int(11) NOT NULL,
   `order_id` int(11) NOT NULL,
   `amount` decimal(15,4) NOT NULL,
-  `date_added` datetime NOT NULL,
+  `date_added` datetime DEFAULT (CURRENT_TIMESTAMP),
   PRIMARY KEY (`voucher_history_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
@@ -8144,8 +8144,8 @@ CREATE TABLE `oc_zone_to_geo_zone` (
   `country_id` int(11) NOT NULL,
   `zone_id` int(11) NOT NULL DEFAULT '0',
   `geo_zone_id` int(11) NOT NULL,
-  `date_added` datetime NOT NULL,
-  `date_modified` datetime NOT NULL,
+  `date_added` datetime DEFAULT (CURRENT_TIMESTAMP),
+  `date_modified` datetime DEFAULT (CURRENT_TIMESTAMP),
   PRIMARY KEY (`zone_to_geo_zone_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
@@ -8154,112 +8154,112 @@ CREATE TABLE `oc_zone_to_geo_zone` (
 --
 
 INSERT INTO `oc_zone_to_geo_zone` (`zone_to_geo_zone_id`, `country_id`, `zone_id`, `geo_zone_id`, `date_added`, `date_modified`) VALUES
-(1, 222, 0, 4, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
-(2, 222, 3513, 3, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
-(3, 222, 3514, 3, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
-(4, 222, 3515, 3, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
-(5, 222, 3516, 3, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
-(6, 222, 3517, 3, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
-(7, 222, 3518, 3, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
-(8, 222, 3519, 3, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
-(9, 222, 3520, 3, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
-(10, 222, 3521, 3, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
-(11, 222, 3522, 3, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
-(12, 222, 3523, 3, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
-(13, 222, 3524, 3, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
-(14, 222, 3525, 3, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
-(15, 222, 3526, 3, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
-(16, 222, 3527, 3, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
-(17, 222, 3528, 3, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
-(18, 222, 3529, 3, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
-(19, 222, 3530, 3, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
-(20, 222, 3531, 3, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
-(21, 222, 3532, 3, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
-(22, 222, 3533, 3, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
-(23, 222, 3534, 3, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
-(24, 222, 3535, 3, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
-(25, 222, 3536, 3, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
-(26, 222, 3537, 3, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
-(27, 222, 3538, 3, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
-(28, 222, 3539, 3, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
-(29, 222, 3540, 3, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
-(30, 222, 3541, 3, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
-(31, 222, 3542, 3, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
-(32, 222, 3543, 3, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
-(33, 222, 3544, 3, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
-(34, 222, 3545, 3, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
-(35, 222, 3546, 3, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
-(36, 222, 3547, 3, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
-(37, 222, 3548, 3, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
-(38, 222, 3549, 3, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
-(39, 222, 3550, 3, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
-(40, 222, 3551, 3, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
-(41, 222, 3552, 3, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
-(42, 222, 3553, 3, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
-(43, 222, 3554, 3, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
-(44, 222, 3555, 3, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
-(45, 222, 3556, 3, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
-(46, 222, 3557, 3, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
-(47, 222, 3558, 3, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
-(48, 222, 3559, 3, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
-(49, 222, 3560, 3, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
-(50, 222, 3561, 3, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
-(51, 222, 3562, 3, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
-(52, 222, 3563, 3, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
-(53, 222, 3564, 3, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
-(54, 222, 3565, 3, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
-(55, 222, 3566, 3, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
-(56, 222, 3567, 3, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
-(57, 222, 3568, 3, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
-(58, 222, 3569, 3, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
-(59, 222, 3570, 3, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
-(60, 222, 3571, 3, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
-(61, 222, 3572, 3, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
-(62, 222, 3573, 3, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
-(63, 222, 3574, 3, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
-(64, 222, 3575, 3, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
-(65, 222, 3576, 3, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
-(66, 222, 3577, 3, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
-(67, 222, 3578, 3, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
-(68, 222, 3579, 3, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
-(69, 222, 3580, 3, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
-(70, 222, 3581, 3, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
-(71, 222, 3582, 3, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
-(72, 222, 3583, 3, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
-(73, 222, 3584, 3, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
-(74, 222, 3585, 3, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
-(75, 222, 3586, 3, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
-(76, 222, 3587, 3, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
-(77, 222, 3588, 3, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
-(78, 222, 3589, 3, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
-(79, 222, 3590, 3, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
-(80, 222, 3591, 3, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
-(81, 222, 3592, 3, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
-(82, 222, 3593, 3, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
-(83, 222, 3594, 3, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
-(84, 222, 3595, 3, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
-(85, 222, 3596, 3, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
-(86, 222, 3597, 3, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
-(87, 222, 3598, 3, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
-(88, 222, 3599, 3, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
-(89, 222, 3600, 3, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
-(90, 222, 3601, 3, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
-(91, 222, 3602, 3, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
-(92, 222, 3603, 3, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
-(93, 222, 3604, 3, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
-(94, 222, 3605, 3, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
-(95, 222, 3606, 3, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
-(96, 222, 3607, 3, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
-(97, 222, 3608, 3, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
-(98, 222, 3609, 3, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
-(99, 222, 3610, 3, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
-(100, 222, 3611, 3, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
-(101, 222, 3612, 3, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
-(102, 222, 3949, 3, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
-(103, 222, 3950, 3, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
-(104, 222, 3951, 3, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
-(105, 222, 3952, 3, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
-(106, 222, 3953, 3, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
-(107, 222, 3954, 3, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
-(108, 222, 3955, 3, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
-(109, 222, 3972, 3, '0000-00-00 00:00:00', '0000-00-00 00:00:00');
+(1, 222, 0, 4, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+(2, 222, 3513, 3, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+(3, 222, 3514, 3, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+(4, 222, 3515, 3, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+(5, 222, 3516, 3, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+(6, 222, 3517, 3, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+(7, 222, 3518, 3, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+(8, 222, 3519, 3, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+(9, 222, 3520, 3, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+(10, 222, 3521, 3, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+(11, 222, 3522, 3, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+(12, 222, 3523, 3, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+(13, 222, 3524, 3, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+(14, 222, 3525, 3, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+(15, 222, 3526, 3, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+(16, 222, 3527, 3, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+(17, 222, 3528, 3, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+(18, 222, 3529, 3, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+(19, 222, 3530, 3, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+(20, 222, 3531, 3, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+(21, 222, 3532, 3, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+(22, 222, 3533, 3, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+(23, 222, 3534, 3, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+(24, 222, 3535, 3, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+(25, 222, 3536, 3, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+(26, 222, 3537, 3, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+(27, 222, 3538, 3, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+(28, 222, 3539, 3, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+(29, 222, 3540, 3, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+(30, 222, 3541, 3, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+(31, 222, 3542, 3, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+(32, 222, 3543, 3, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+(33, 222, 3544, 3, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+(34, 222, 3545, 3, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+(35, 222, 3546, 3, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+(36, 222, 3547, 3, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+(37, 222, 3548, 3, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+(38, 222, 3549, 3, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+(39, 222, 3550, 3, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+(40, 222, 3551, 3, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+(41, 222, 3552, 3, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+(42, 222, 3553, 3, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+(43, 222, 3554, 3, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+(44, 222, 3555, 3, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+(45, 222, 3556, 3, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+(46, 222, 3557, 3, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+(47, 222, 3558, 3, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+(48, 222, 3559, 3, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+(49, 222, 3560, 3, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+(50, 222, 3561, 3, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+(51, 222, 3562, 3, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+(52, 222, 3563, 3, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+(53, 222, 3564, 3, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+(54, 222, 3565, 3, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+(55, 222, 3566, 3, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+(56, 222, 3567, 3, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+(57, 222, 3568, 3, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+(58, 222, 3569, 3, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+(59, 222, 3570, 3, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+(60, 222, 3571, 3, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+(61, 222, 3572, 3, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+(62, 222, 3573, 3, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+(63, 222, 3574, 3, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+(64, 222, 3575, 3, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+(65, 222, 3576, 3, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+(66, 222, 3577, 3, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+(67, 222, 3578, 3, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+(68, 222, 3579, 3, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+(69, 222, 3580, 3, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+(70, 222, 3581, 3, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+(71, 222, 3582, 3, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+(72, 222, 3583, 3, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+(73, 222, 3584, 3, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+(74, 222, 3585, 3, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+(75, 222, 3586, 3, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+(76, 222, 3587, 3, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+(77, 222, 3588, 3, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+(78, 222, 3589, 3, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+(79, 222, 3590, 3, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+(80, 222, 3591, 3, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+(81, 222, 3592, 3, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+(82, 222, 3593, 3, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+(83, 222, 3594, 3, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+(84, 222, 3595, 3, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+(85, 222, 3596, 3, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+(86, 222, 3597, 3, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+(87, 222, 3598, 3, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+(88, 222, 3599, 3, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+(89, 222, 3600, 3, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+(90, 222, 3601, 3, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+(91, 222, 3602, 3, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+(92, 222, 3603, 3, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+(93, 222, 3604, 3, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+(94, 222, 3605, 3, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+(95, 222, 3606, 3, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+(96, 222, 3607, 3, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+(97, 222, 3608, 3, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+(98, 222, 3609, 3, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+(99, 222, 3610, 3, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+(100, 222, 3611, 3, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+(101, 222, 3612, 3, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+(102, 222, 3949, 3, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+(103, 222, 3950, 3, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+(104, 222, 3951, 3, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+(105, 222, 3952, 3, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+(106, 222, 3953, 3, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+(107, 222, 3954, 3, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+(108, 222, 3955, 3, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+(109, 222, 3972, 3, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
