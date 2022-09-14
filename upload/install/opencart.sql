@@ -23,32 +23,12 @@ CREATE TABLE `oc_address` (
   `postcode` varchar(10) NOT NULL,
   `country_id` int(11) NOT NULL DEFAULT '0',
   `zone_id` int(11) NOT NULL DEFAULT '0',
-  `custom_field` text NOT NULL,
-  `default` tinyint(1) NOT NULL,
+  `custom_field` fulltext NOT NULL,
   PRIMARY KEY (`address_id`),
   KEY `customer_id` (`customer_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -----------------------------------------------------------
-
---
--- Table structure for table `oc_address_format`
---
-
-DROP TABLE IF EXISTS `oc_address_format`;
-CREATE TABLE `oc_address_format` (
-  `address_format_id` int(11) NOT NULL AUTO_INCREMENT,
-  `name` varchar(128) NOT NULL,
-  `address_format` text NOT NULL,
-  PRIMARY KEY (`address_format_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
-
---
--- Dumping data for table `oc_address_format`
---
-
-INSERT INTO `oc_address_format` (`address_format_id`, `name`, `address_format`) VALUES
-(1, 'Address Format', '{firstname} {lastname}\r\n{company}\r\n{address_1}\r\n{address_2}\r\n{city}, {zone} {postcode}\r\n{country}');
 
 --
 -- Table structure for table `oc_googleshopping_target`
@@ -61,32 +41,13 @@ CREATE TABLE `oc_googleshopping_target` (
   `campaign_name` varchar(255) NOT NULL DEFAULT '',
   `country` varchar(2) NOT NULL DEFAULT '',
   `budget` decimal(15,4) NOT NULL DEFAULT '0.0000',
-  `feeds` text NOT NULL,
+  `feeds` fulltext NOT NULL,
   `status` enum('paused','active') NOT NULL DEFAULT 'paused',
   `date_added` DATE,
   `roas` INT(11) NOT NULL DEFAULT '0',
   PRIMARY KEY (`advertise_google_target_id`),
   KEY `store_id` (`store_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
-
------------------------------------------------------------
-
---
--- Table structure for table `oc_gdpr`
---
-
-DROP TABLE IF EXISTS `oc_gdpr`;
-CREATE TABLE `oc_gdpr` (
-  `gdpr_id` int(11) NOT NULL AUTO_INCREMENT,
-  `store_id` int(11) NOT NULL,
-  `language_id` int(11) NOT NULL,
-  `code` VARCHAR(40) NOT NULL,
-  `email` VARCHAR(96) NOT NULL,
-  `action` VARCHAR(6) NOT NULL,
-  `status` TINYINT(1) NOT NULL,
-  `date_added` DATETIME NOT NULL,
-  PRIMARY KEY (`gdpr_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -----------------------------------------------------------
 
@@ -98,12 +59,12 @@ DROP TABLE IF EXISTS `oc_api`;
 CREATE TABLE `oc_api` (
   `api_id` int(11) NOT NULL AUTO_INCREMENT,
   `username` varchar(64) NOT NULL,
-  `key` text NOT NULL,
+  `key` fulltext NOT NULL,
   `status` tinyint(1) NOT NULL,
   `date_added` datetime NOT NULL,
   `date_modified` datetime NOT NULL,
   PRIMARY KEY (`api_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -----------------------------------------------------------
 
@@ -117,7 +78,7 @@ CREATE TABLE `oc_api_ip` (
   `api_id` int(11) NOT NULL,
   `ip` varchar(40) NOT NULL,
   PRIMARY KEY (`api_ip_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -----------------------------------------------------------
 
@@ -134,7 +95,7 @@ CREATE TABLE `oc_api_session` (
   `date_added` datetime NOT NULL,
   `date_modified` datetime NOT NULL,
   PRIMARY KEY (`api_session_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -----------------------------------------------------------
 
@@ -148,7 +109,7 @@ CREATE TABLE `oc_attribute` (
   `attribute_group_id` int(11) NOT NULL,
   `sort_order` int(3) NOT NULL,
   PRIMARY KEY (`attribute_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Dumping data for table `oc_attribute`
@@ -179,7 +140,7 @@ CREATE TABLE `oc_attribute_description` (
   `language_id` int(11) NOT NULL,
   `name` varchar(64) NOT NULL,
   PRIMARY KEY (`attribute_id`,`language_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Dumping data for table `oc_attribute_description`
@@ -209,7 +170,7 @@ CREATE TABLE `oc_attribute_group` (
   `attribute_group_id` int(11) NOT NULL AUTO_INCREMENT,
   `sort_order` int(3) NOT NULL,
   PRIMARY KEY (`attribute_group_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Dumping data for table `oc_attribute_group`
@@ -233,7 +194,7 @@ CREATE TABLE `oc_attribute_group_description` (
   `language_id` int(11) NOT NULL,
   `name` varchar(64) NOT NULL,
   PRIMARY KEY (`attribute_group_id`,`language_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Dumping data for table `oc_attribute_group_description`
@@ -257,7 +218,7 @@ CREATE TABLE `oc_banner` (
   `name` varchar(64) NOT NULL,
   `status` tinyint(1) NOT NULL,
   PRIMARY KEY (`banner_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Dumping data for table `oc_banner`
@@ -284,7 +245,7 @@ CREATE TABLE `oc_banner_image` (
   `image` varchar(255) NOT NULL,
   `sort_order` int(3) NOT NULL DEFAULT '0',
   PRIMARY KEY (`banner_image_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Dumping data for table `oc_banner_image`
@@ -319,13 +280,13 @@ CREATE TABLE `oc_cart` (
   `customer_id` int(11) NOT NULL,
   `session_id` varchar(32) NOT NULL,
   `product_id` int(11) NOT NULL,
-  `subscription_plan_id` int(11) NOT NULL,
-  `option` text NOT NULL,
+  `recurring_id` int(11) NOT NULL,
+  `option` fulltext NOT NULL,
   `quantity` int(5) NOT NULL,
   `date_added` datetime NOT NULL,
   PRIMARY KEY (`cart_id`),
-  KEY `cart_id` (`api_id`,`customer_id`,`session_id`,`product_id`,`subscription_plan_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+  KEY `cart_id` (`api_id`,`customer_id`,`session_id`,`product_id`,`recurring_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -----------------------------------------------------------
 
@@ -346,7 +307,7 @@ CREATE TABLE `oc_category` (
   `date_modified` datetime NOT NULL,
   PRIMARY KEY (`category_id`),
   KEY `parent_id` (`parent_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Dumping data for table `oc_category`
@@ -403,13 +364,13 @@ CREATE TABLE `oc_category_description` (
   `category_id` int(11) NOT NULL,
   `language_id` int(11) NOT NULL,
   `name` varchar(255) NOT NULL,
-  `description` text NOT NULL,
+  `description` fulltext NOT NULL,
   `meta_title` varchar(255) NOT NULL,
   `meta_description` varchar(255) NOT NULL,
   `meta_keyword` varchar(255) NOT NULL,
   PRIMARY KEY (`category_id`,`language_id`),
   KEY `name` (`name`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Dumping data for table `oc_category_description`
@@ -466,7 +427,7 @@ CREATE TABLE `oc_category_filter` (
   `category_id` int(11) NOT NULL,
   `filter_id` int(11) NOT NULL,
   PRIMARY KEY (`category_id`,`filter_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -----------------------------------------------------------
 
@@ -480,7 +441,7 @@ CREATE TABLE `oc_category_path` (
   `path_id` int(11) NOT NULL,
   `level` int(11) NOT NULL,
   PRIMARY KEY (`category_id`,`path_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Dumping data for table `oc_category_path`
@@ -572,7 +533,7 @@ CREATE TABLE `oc_googleshopping_category` (
   `category_id` int(11) NOT NULL,
   PRIMARY KEY (`google_product_category`,`store_id`),
   KEY `category_id_store_id` (`category_id`,`store_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -----------------------------------------------------------
 
@@ -586,7 +547,7 @@ CREATE TABLE `oc_category_to_layout` (
   `store_id` int(11) NOT NULL,
   `layout_id` int(11) NOT NULL,
   PRIMARY KEY (`category_id`,`store_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -----------------------------------------------------------
 
@@ -599,7 +560,7 @@ CREATE TABLE `oc_category_to_store` (
   `category_id` int(11) NOT NULL,
   `store_id` int(11) NOT NULL,
   PRIMARY KEY (`category_id`,`store_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Dumping data for table `oc_category_to_store`
@@ -657,270 +618,270 @@ CREATE TABLE `oc_country` (
   `name` varchar(128) NOT NULL,
   `iso_code_2` varchar(2) NOT NULL,
   `iso_code_3` varchar(3) NOT NULL,
-  `address_format_id` int(11) NOT NULL,
+  `address_format` fulltext NOT NULL,
   `postcode_required` tinyint(1) NOT NULL,
   `status` tinyint(1) NOT NULL DEFAULT '1',
   PRIMARY KEY (`country_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Dumping data for table `oc_country`
 --
 
-INSERT INTO `oc_country` (`country_id`, `name`, `iso_code_2`, `iso_code_3`, `address_format_id`, `postcode_required`, `status`) VALUES
-(1, 'Afghanistan', 'AF', 'AFG', 1, 0, 1),
-(2, 'Albania', 'AL', 'ALB', 1, 0, 1),
-(3, 'Algeria', 'DZ', 'DZA', 1, 0, 1),
-(4, 'American Samoa', 'AS', 'ASM', 1, 0, 1),
-(5, 'Andorra', 'AD', 'AND', 1, 0, 1),
-(6, 'Angola', 'AO', 'AGO', 1, 0, 1),
-(7, 'Anguilla', 'AI', 'AIA', 1, 0, 1),
-(8, 'Antarctica', 'AQ', 'ATA', 1, 0, 1),
-(9, 'Antigua and Barbuda', 'AG', 'ATG', 1, 0, 1),
-(10, 'Argentina', 'AR', 'ARG', 1, 0, 1),
-(11, 'Armenia', 'AM', 'ARM', 1, 0, 1),
-(12, 'Aruba', 'AW', 'ABW', 1, 0, 1),
-(13, 'Australia', 'AU', 'AUS', 1, 0, 1),
-(14, 'Austria', 'AT', 'AUT', 1, 0, 1),
-(15, 'Azerbaijan', 'AZ', 'AZE', 1, 0, 1),
-(16, 'Bahamas', 'BS', 'BHS', 1, 0, 1),
-(17, 'Bahrain', 'BH', 'BHR', 1, 0, 1),
-(18, 'Bangladesh', 'BD', 'BGD', 1, 0, 1),
-(19, 'Barbados', 'BB', 'BRB', 1, 0, 1),
-(20, 'Belarus', 'BY', 'BLR', 1, 0, 1),
-(21, 'Belgium', 'BE', 'BEL', 1, 0, 1),
-(22, 'Belize', 'BZ', 'BLZ', 1, 0, 1),
-(23, 'Benin', 'BJ', 'BEN', 1, 0, 1),
-(24, 'Bermuda', 'BM', 'BMU', 1, 0, 1),
-(25, 'Bhutan', 'BT', 'BTN', 1, 0, 1),
-(26, 'Bolivia', 'BO', 'BOL', 1, 0, 1),
-(27, 'Bosnia and Herzegovina', 'BA', 'BIH', 1, 0, 1),
-(28, 'Botswana', 'BW', 'BWA', 1, 0, 1),
-(29, 'Bouvet Island', 'BV', 'BVT', 1, 0, 1),
-(30, 'Brazil', 'BR', 'BRA', 1, 0, 1),
-(31, 'British Indian Ocean Territory', 'IO', 'IOT', 1, 0, 1),
-(32, 'Brunei Darussalam', 'BN', 'BRN', 1, 0, 1),
-(33, 'Bulgaria', 'BG', 'BGR', 1, 0, 1),
-(34, 'Burkina Faso', 'BF', 'BFA', 1, 0, 1),
-(35, 'Burundi', 'BI', 'BDI', 1, 0, 1),
-(36, 'Cambodia', 'KH', 'KHM', 1, 0, 1),
-(37, 'Cameroon', 'CM', 'CMR', 1, 0, 1),
-(38, 'Canada', 'CA', 'CAN', 1, 0, 1),
-(39, 'Cape Verde', 'CV', 'CPV', 1, 0, 1),
-(40, 'Cayman Islands', 'KY', 'CYM', 1, 0, 1),
-(41, 'Central African Republic', 'CF', 'CAF', 1, 0, 1),
-(42, 'Chad', 'TD', 'TCD', 1, 0, 1),
-(43, 'Chile', 'CL', 'CHL', 1, 0, 1),
-(44, 'China', 'CN', 'CHN', 1, 0, 1),
-(45, 'Christmas Island', 'CX', 'CXR', 1, 0, 1),
-(46, 'Cocos (Keeling) Islands', 'CC', 'CCK', 1, 0, 1),
-(47, 'Colombia', 'CO', 'COL', 1, 0, 1),
-(48, 'Comoros', 'KM', 'COM', 1, 0, 1),
-(49, 'Congo', 'CG', 'COG', 1, 0, 1),
-(50, 'Cook Islands', 'CK', 'COK', 1, 0, 1),
-(51, 'Costa Rica', 'CR', 'CRI', 1, 0, 1),
-(52, 'Cote D''Ivoire', 'CI', 'CIV', 1, 0, 1),
-(53, 'Croatia', 'HR', 'HRV', 1, 0, 1),
-(54, 'Cuba', 'CU', 'CUB', 1, 0, 1),
-(55, 'Cyprus', 'CY', 'CYP', 1, 0, 1),
-(56, 'Czech Republic', 'CZ', 'CZE', 1, 0, 1),
-(57, 'Denmark', 'DK', 'DNK', 1, 0, 1),
-(58, 'Djibouti', 'DJ', 'DJI', 1, 0, 1),
-(59, 'Dominica', 'DM', 'DMA', 1, 0, 1),
-(60, 'Dominican Republic', 'DO', 'DOM', 1, 0, 1),
-(61, 'East Timor', 'TL', 'TLS', 1, 0, 1),
-(62, 'Ecuador', 'EC', 'ECU', 1, 0, 1),
-(63, 'Egypt', 'EG', 'EGY', 1, 0, 1),
-(64, 'El Salvador', 'SV', 'SLV', 1, 0, 1),
-(65, 'Equatorial Guinea', 'GQ', 'GNQ', 1, 0, 1),
-(66, 'Eritrea', 'ER', 'ERI', 1, 0, 1),
-(67, 'Estonia', 'EE', 'EST', 1, 0, 1),
-(68, 'Ethiopia', 'ET', 'ETH', 1, 0, 1),
-(69, 'Falkland Islands (Malvinas)', 'FK', 'FLK', 1, 0, 1),
-(70, 'Faroe Islands', 'FO', 'FRO', 1, 0, 1),
-(71, 'Fiji', 'FJ', 'FJI', 1, 0, 1),
-(72, 'Finland', 'FI', 'FIN', 1, 0, 1),
-(74, 'France, Metropolitan', 'FR', 'FRA', 1, 1, 1),
-(75, 'French Guiana', 'GF', 'GUF', 1, 0, 1),
-(76, 'French Polynesia', 'PF', 'PYF', 1, 0, 1),
-(77, 'French Southern Territories', 'TF', 'ATF', 1, 0, 1),
-(78, 'Gabon', 'GA', 'GAB', 1, 0, 1),
-(79, 'Gambia', 'GM', 'GMB', 1, 0, 1),
-(80, 'Georgia', 'GE', 'GEO', 1, 0, 1),
-(81, 'Germany', 'DE', 'DEU', 1, 1, 1),
-(82, 'Ghana', 'GH', 'GHA', 1, 0, 1),
-(83, 'Gibraltar', 'GI', 'GIB', 1, 0, 1),
-(84, 'Greece', 'GR', 'GRC', 1, 0, 1),
-(85, 'Greenland', 'GL', 'GRL', 1, 0, 1),
-(86, 'Grenada', 'GD', 'GRD', 1, 0, 1),
-(87, 'Guadeloupe', 'GP', 'GLP', 1, 0, 1),
-(88, 'Guam', 'GU', 'GUM', 1, 0, 1),
-(89, 'Guatemala', 'GT', 'GTM', 1, 0, 1),
-(90, 'Guinea', 'GN', 'GIN', 1, 0, 1),
-(91, 'Guinea-Bissau', 'GW', 'GNB', 1, 0, 1),
-(92, 'Guyana', 'GY', 'GUY', 1, 0, 1),
-(93, 'Haiti', 'HT', 'HTI', 1, 0, 1),
-(94, 'Heard and Mc Donald Islands', 'HM', 'HMD', 1, 0, 1),
-(95, 'Honduras', 'HN', 'HND', 1, 0, 1),
-(96, 'Hong Kong', 'HK', 'HKG', 1, 0, 1),
-(97, 'Hungary', 'HU', 'HUN', 1, 0, 1),
-(98, 'Iceland', 'IS', 'ISL', 1, 0, 1),
-(99, 'India', 'IN', 'IND', 1, 0, 1),
-(100, 'Indonesia', 'ID', 'IDN', 1, 0, 1),
-(101, 'Iran (Islamic Republic of)', 'IR', 'IRN', 1, 0, 1),
-(102, 'Iraq', 'IQ', 'IRQ', 1, 0, 1),
-(103, 'Ireland', 'IE', 'IRL', 1, 0, 1),
-(104, 'Israel', 'IL', 'ISR', 1, 0, 1),
-(105, 'Italy', 'IT', 'ITA', 1, 0, 1),
-(106, 'Jamaica', 'JM', 'JAM', 1, 0, 1),
-(107, 'Japan', 'JP', 'JPN', 1, 0, 1),
-(108, 'Jordan', 'JO', 'JOR', 1, 0, 1),
-(109, 'Kazakhstan', 'KZ', 'KAZ', 1, 0, 1),
-(110, 'Kenya', 'KE', 'KEN', 1, 0, 1),
-(111, 'Kiribati', 'KI', 'KIR', 1, 0, 1),
-(112, 'North Korea', 'KP', 'PRK', 1, 0, 1),
-(113, 'South Korea', 'KR', 'KOR', 1, 0, 1),
-(114, 'Kuwait', 'KW', 'KWT', 1, 0, 1),
-(115, 'Kyrgyzstan', 'KG', 'KGZ', 1, 0, 1),
-(116, 'Lao People''s Democratic Republic', 'LA', 'LAO', 1, 0, 1),
-(117, 'Latvia', 'LV', 'LVA', 1, 0, 1),
-(118, 'Lebanon', 'LB', 'LBN', 1, 0, 1),
-(119, 'Lesotho', 'LS', 'LSO', 1, 0, 1),
-(120, 'Liberia', 'LR', 'LBR', 1, 0, 1),
-(121, 'Libyan Arab Jamahiriya', 'LY', 'LBY', 1, 0, 1),
-(122, 'Liechtenstein', 'LI', 'LIE', 1, 0, 1),
-(123, 'Lithuania', 'LT', 'LTU', 1, 0, 1),
-(124, 'Luxembourg', 'LU', 'LUX', 1, 0, 1),
-(125, 'Macau', 'MO', 'MAC', 1, 0, 1),
-(126, 'FYROM', 'MK', 'MKD', 1, 0, 1),
-(127, 'Madagascar', 'MG', 'MDG', 1, 0, 1),
-(128, 'Malawi', 'MW', 'MWI', 1, 0, 1),
-(129, 'Malaysia', 'MY', 'MYS', 1, 0, 1),
-(130, 'Maldives', 'MV', 'MDV', 1, 0, 1),
-(131, 'Mali', 'ML', 'MLI', 1, 0, 1),
-(132, 'Malta', 'MT', 'MLT', 1, 0, 1),
-(133, 'Marshall Islands', 'MH', 'MHL', 1, 0, 1),
-(134, 'Martinique', 'MQ', 'MTQ', 1, 0, 1),
-(135, 'Mauritania', 'MR', 'MRT', 1, 0, 1),
-(136, 'Mauritius', 'MU', 'MUS', 1, 0, 1),
-(137, 'Mayotte', 'YT', 'MYT', 1, 0, 1),
-(138, 'Mexico', 'MX', 'MEX', 1, 0, 1),
-(139, 'Micronesia, Federated States of', 'FM', 'FSM', 1, 0, 1),
-(140, 'Moldova, Republic of', 'MD', 'MDA', 1, 0, 1),
-(141, 'Monaco', 'MC', 'MCO', 1, 0, 1),
-(142, 'Mongolia', 'MN', 'MNG', 1, 0, 1),
-(143, 'Montserrat', 'MS', 'MSR', 1, 0, 1),
-(144, 'Morocco', 'MA', 'MAR', 1, 0, 1),
-(145, 'Mozambique', 'MZ', 'MOZ', 1, 0, 1),
-(146, 'Myanmar', 'MM', 'MMR', 1, 0, 1),
-(147, 'Namibia', 'NA', 'NAM', 1, 0, 1),
-(148, 'Nauru', 'NR', 'NRU', 1, 0, 1),
-(149, 'Nepal', 'NP', 'NPL', 1, 0, 1),
-(150, 'Netherlands', 'NL', 'NLD', 1, 0, 1),
-(151, 'Netherlands Antilles', 'AN', 'ANT', 1, 0, 1),
-(152, 'New Caledonia', 'NC', 'NCL', 1, 0, 1),
-(153, 'New Zealand', 'NZ', 'NZL', 1, 0, 1),
-(154, 'Nicaragua', 'NI', 'NIC', 1, 0, 1),
-(155, 'Niger', 'NE', 'NER', 1, 0, 1),
-(156, 'Nigeria', 'NG', 'NGA', 1, 0, 1),
-(157, 'Niue', 'NU', 'NIU', 1, 0, 1),
-(158, 'Norfolk Island', 'NF', 'NFK', 1, 0, 1),
-(159, 'Northern Mariana Islands', 'MP', 'MNP', 1, 0, 1),
-(160, 'Norway', 'NO', 'NOR', 1, 0, 1),
-(161, 'Oman', 'OM', 'OMN', 1, 0, 1),
-(162, 'Pakistan', 'PK', 'PAK', 1, 0, 1),
-(163, 'Palau', 'PW', 'PLW', 1, 0, 1),
-(164, 'Panama', 'PA', 'PAN', 1, 0, 1),
-(165, 'Papua New Guinea', 'PG', 'PNG', 1, 0, 1),
-(166, 'Paraguay', 'PY', 'PRY', 1, 0, 1),
-(167, 'Peru', 'PE', 'PER', 1, 0, 1),
-(168, 'Philippines', 'PH', 'PHL', 1, 0, 1),
-(169, 'Pitcairn', 'PN', 'PCN', 1, 0, 1),
-(170, 'Poland', 'PL', 'POL', 1, 0, 1),
-(171, 'Portugal', 'PT', 'PRT', 1, 0, 1),
-(172, 'Puerto Rico', 'PR', 'PRI', 1, 0, 1),
-(173, 'Qatar', 'QA', 'QAT', 1, 0, 1),
-(174, 'Reunion', 'RE', 'REU', 1, 0, 1),
-(175, 'România', 'RO', 'ROM', 1, 0, 1),
-(176, 'Russian Federation', 'RU', 'RUS', 1, 0, 1),
-(177, 'Rwanda', 'RW', 'RWA', 1, 0, 1),
-(178, 'Saint Kitts and Nevis', 'KN', 'KNA', 1, 0, 1),
-(179, 'Saint Lucia', 'LC', 'LCA', 1, 0, 1),
-(180, 'Saint Vincent and the Grenadines', 'VC', 'VCT', 1, 0, 1),
-(181, 'Samoa', 'WS', 'WSM', 1, 0, 1),
-(182, 'San Marino', 'SM', 'SMR', 1, 0, 1),
-(183, 'Sao Tome and Principe', 'ST', 'STP', 1, 0, 1),
-(184, 'Saudi Arabia', 'SA', 'SAU', 1, 0, 1),
-(185, 'Senegal', 'SN', 'SEN', 1, 0, 1),
-(186, 'Seychelles', 'SC', 'SYC', 1, 0, 1),
-(187, 'Sierra Leone', 'SL', 'SLE', 1, 0, 1),
-(188, 'Singapore', 'SG', 'SGP', 1, 0, 1),
-(189, 'Slovak Republic', 'SK', 'SVK', 1, 0, 1),
-(190, 'Slovenia', 'SI', 'SVN', 1, 0, 1),
-(191, 'Solomon Islands', 'SB', 'SLB', 1, 0, 1),
-(192, 'Somalia', 'SO', 'SOM', 1, 0, 1),
-(193, 'South Africa', 'ZA', 'ZAF', 1, 0, 1),
-(194, 'South Georgia &amp; South Sandwich Islands', 'GS', 'SGS', 1, 0, 1),
-(195, 'Spain', 'ES', 'ESP', 1, 0, 1),
-(196, 'Sri Lanka', 'LK', 'LKA', 1, 0, 1),
-(197, 'St. Helena', 'SH', 'SHN', 1, 0, 1),
-(198, 'St. Pierre and Miquelon', 'PM', 'SPM', 1, 0, 1),
-(199, 'Sudan', 'SD', 'SDN', 1, 0, 1),
-(200, 'Suriname', 'SR', 'SUR', 1, 0, 1),
-(201, 'Svalbard and Jan Mayen Islands', 'SJ', 'SJM', 1, 0, 1),
-(202, 'Swaziland', 'SZ', 'SWZ', 1, 0, 1),
-(203, 'Sweden', 'SE', 'SWE', 1, 1, 1),
-(204, 'Switzerland', 'CH', 'CHE', 1, 0, 1),
-(205, 'Syrian Arab Republic', 'SY', 'SYR', 1, 0, 1),
-(206, 'Taiwan', 'TW', 'TWN', 1, 0, 1),
-(207, 'Tajikistan', 'TJ', 'TJK', 1, 0, 1),
-(208, 'Tanzania, United Republic of', 'TZ', 'TZA', 1, 0, 1),
-(209, 'Thailand', 'TH', 'THA', 1, 0, 1),
-(210, 'Togo', 'TG', 'TGO', 1, 0, 1),
-(211, 'Tokelau', 'TK', 'TKL', 1, 0, 1),
-(212, 'Tonga', 'TO', 'TON', 1, 0, 1),
-(213, 'Trinidad and Tobago', 'TT', 'TTO', 1, 0, 1),
-(214, 'Tunisia', 'TN', 'TUN', 1, 0, 1),
-(215, 'Turkey', 'TR', 'TUR', 1, 0, 1),
-(216, 'Turkmenistan', 'TM', 'TKM', 1, 0, 1),
-(217, 'Turks and Caicos Islands', 'TC', 'TCA', 1, 0, 1),
-(218, 'Tuvalu', 'TV', 'TUV', 1, 0, 1),
-(219, 'Uganda', 'UG', 'UGA', 1, 0, 1),
-(220, 'Ukraine', 'UA', 'UKR', 1, 0, 1),
-(221, 'United Arab Emirates', 'AE', 'ARE', 1, 0, 1),
-(222, 'United Kingdom', 'GB', 'GBR', 1, 1, 1),
-(223, 'United States', 'US', 'USA', 1, 0, 1),
-(224, 'United States Minor Outlying Islands', 'UM', 'UMI', 1, 0, 1),
-(225, 'Uruguay', 'UY', 'URY', 1, 0, 1),
-(226, 'Uzbekistan', 'UZ', 'UZB', 1, 0, 1),
-(227, 'Vanuatu', 'VU', 'VUT', 1, 0, 1),
-(228, 'Vatican City State (Holy See)', 'VA', 'VAT', 1, 0, 1),
-(229, 'Venezuela', 'VE', 'VEN', 1, 0, 1),
-(230, 'Viet Nam', 'VN', 'VNM', 1, 0, 1),
-(231, 'Virgin Islands (British)', 'VG', 'VGB', 1, 0, 1),
-(232, 'Virgin Islands (U.S.)', 'VI', 'VIR', 1, 0, 1),
-(233, 'Wallis and Futuna Islands', 'WF', 'WLF', 1, 0, 1),
-(234, 'Western Sahara', 'EH', 'ESH', 1, 0, 1),
-(235, 'Yemen', 'YE', 'YEM', 1, 0, 1),
-(237, 'Democratic Republic of Congo', 'CD', 'COD', 1, 0, 1),
-(238, 'Zambia', 'ZM', 'ZMB', 1, 0, 1),
-(239, 'Zimbabwe', 'ZW', 'ZWE', 1, 0, 1),
-(242, 'Montenegro', 'ME', 'MNE', 1, 0, 1),
-(243, 'Serbia', 'RS', 'SRB', 1, 0, 1),
-(244, 'Aaland Islands', 'AX', 'ALA', 1, 0, 1),
-(245, 'Bonaire, Sint Eustatius and Saba', 'BQ', 'BES', 1, 0, 1),
-(246, 'Curacao', 'CW', 'CUW', 1, 0, 1),
-(247, 'Palestinian Territory, Occupied', 'PS', 'PSE', 1, 0, 1),
-(248, 'South Sudan', 'SS', 'SSD', 1, 0, 1),
-(249, 'St. Barthelemy', 'BL', 'BLM', 1, 0, 1),
-(250, 'St. Martin (French part)', 'MF', 'MAF', 1, 0, 1),
-(251, 'Canary Islands', 'IC', 'ICA', 1, 0, 1),
-(252, 'Ascension Island (British)', 'AC', 'ASC', 1, 0, 1),
-(253, 'Kosovo, Republic of', 'XK', 'UNK', 1, 0, 1),
-(254, 'Isle of Man', 'IM', 'IMN', 1, 0, 1),
-(255, 'Tristan da Cunha', 'TA', 'SHN', 1, 0, 1),
-(256, 'Guernsey', 'GG', 'GGY', 1, 0, 1),
-(257, 'Jersey', 'JE', 'JEY', 1, 0, 1);
+INSERT INTO `oc_country` (`country_id`, `name`, `iso_code_2`, `iso_code_3`, `address_format`, `postcode_required`, `status`) VALUES
+(1, 'Afghanistan', 'AF', 'AFG', '', 0, 1),
+(2, 'Albania', 'AL', 'ALB', '', 0, 1),
+(3, 'Algeria', 'DZ', 'DZA', '', 0, 1),
+(4, 'American Samoa', 'AS', 'ASM', '', 0, 1),
+(5, 'Andorra', 'AD', 'AND', '', 0, 1),
+(6, 'Angola', 'AO', 'AGO', '', 0, 1),
+(7, 'Anguilla', 'AI', 'AIA', '', 0, 1),
+(8, 'Antarctica', 'AQ', 'ATA', '', 0, 1),
+(9, 'Antigua and Barbuda', 'AG', 'ATG', '', 0, 1),
+(10, 'Argentina', 'AR', 'ARG', '', 0, 1),
+(11, 'Armenia', 'AM', 'ARM', '', 0, 1),
+(12, 'Aruba', 'AW', 'ABW', '', 0, 1),
+(13, 'Australia', 'AU', 'AUS', '', 0, 1),
+(14, 'Austria', 'AT', 'AUT', '', 0, 1),
+(15, 'Azerbaijan', 'AZ', 'AZE', '', 0, 1),
+(16, 'Bahamas', 'BS', 'BHS', '', 0, 1),
+(17, 'Bahrain', 'BH', 'BHR', '', 0, 1),
+(18, 'Bangladesh', 'BD', 'BGD', '', 0, 1),
+(19, 'Barbados', 'BB', 'BRB', '', 0, 1),
+(20, 'Belarus', 'BY', 'BLR', '', 0, 1),
+(21, 'Belgium', 'BE', 'BEL', '{firstname} {lastname}\r\n{company}\r\n{address_1}\r\n{address_2}\r\n{postcode} {city}\r\n{country}', 0, 1),
+(22, 'Belize', 'BZ', 'BLZ', '', 0, 1),
+(23, 'Benin', 'BJ', 'BEN', '', 0, 1),
+(24, 'Bermuda', 'BM', 'BMU', '', 0, 1),
+(25, 'Bhutan', 'BT', 'BTN', '', 0, 1),
+(26, 'Bolivia', 'BO', 'BOL', '', 0, 1),
+(27, 'Bosnia and Herzegovina', 'BA', 'BIH', '', 0, 1),
+(28, 'Botswana', 'BW', 'BWA', '', 0, 1),
+(29, 'Bouvet Island', 'BV', 'BVT', '', 0, 1),
+(30, 'Brazil', 'BR', 'BRA', '', 0, 1),
+(31, 'British Indian Ocean Territory', 'IO', 'IOT', '', 0, 1),
+(32, 'Brunei Darussalam', 'BN', 'BRN', '', 0, 1),
+(33, 'Bulgaria', 'BG', 'BGR', '', 0, 1),
+(34, 'Burkina Faso', 'BF', 'BFA', '', 0, 1),
+(35, 'Burundi', 'BI', 'BDI', '', 0, 1),
+(36, 'Cambodia', 'KH', 'KHM', '', 0, 1),
+(37, 'Cameroon', 'CM', 'CMR', '', 0, 1),
+(38, 'Canada', 'CA', 'CAN', '', 0, 1),
+(39, 'Cape Verde', 'CV', 'CPV', '', 0, 1),
+(40, 'Cayman Islands', 'KY', 'CYM', '', 0, 1),
+(41, 'Central African Republic', 'CF', 'CAF', '', 0, 1),
+(42, 'Chad', 'TD', 'TCD', '', 0, 1),
+(43, 'Chile', 'CL', 'CHL', '', 0, 1),
+(44, 'China', 'CN', 'CHN', '', 0, 1),
+(45, 'Christmas Island', 'CX', 'CXR', '', 0, 1),
+(46, 'Cocos (Keeling) Islands', 'CC', 'CCK', '', 0, 1),
+(47, 'Colombia', 'CO', 'COL', '', 0, 1),
+(48, 'Comoros', 'KM', 'COM', '', 0, 1),
+(49, 'Congo', 'CG', 'COG', '', 0, 1),
+(50, 'Cook Islands', 'CK', 'COK', '', 0, 1),
+(51, 'Costa Rica', 'CR', 'CRI', '', 0, 1),
+(52, 'Cote D''Ivoire', 'CI', 'CIV', '', 0, 1),
+(53, 'Croatia', 'HR', 'HRV', '', 0, 1),
+(54, 'Cuba', 'CU', 'CUB', '', 0, 1),
+(55, 'Cyprus', 'CY', 'CYP', '', 0, 1),
+(56, 'Czech Republic', 'CZ', 'CZE', '', 0, 1),
+(57, 'Denmark', 'DK', 'DNK', '', 0, 1),
+(58, 'Djibouti', 'DJ', 'DJI', '', 0, 1),
+(59, 'Dominica', 'DM', 'DMA', '', 0, 1),
+(60, 'Dominican Republic', 'DO', 'DOM', '', 0, 1),
+(61, 'East Timor', 'TL', 'TLS', '', 0, 1),
+(62, 'Ecuador', 'EC', 'ECU', '', 0, 1),
+(63, 'Egypt', 'EG', 'EGY', '', 0, 1),
+(64, 'El Salvador', 'SV', 'SLV', '', 0, 1),
+(65, 'Equatorial Guinea', 'GQ', 'GNQ', '', 0, 1),
+(66, 'Eritrea', 'ER', 'ERI', '', 0, 1),
+(67, 'Estonia', 'EE', 'EST', '', 0, 1),
+(68, 'Ethiopia', 'ET', 'ETH', '', 0, 1),
+(69, 'Falkland Islands (Malvinas)', 'FK', 'FLK', '', 0, 1),
+(70, 'Faroe Islands', 'FO', 'FRO', '', 0, 1),
+(71, 'Fiji', 'FJ', 'FJI', '', 0, 1),
+(72, 'Finland', 'FI', 'FIN', '', 0, 1),
+(74, 'France, Metropolitan', 'FR', 'FRA', '{firstname} {lastname}\r\n{company}\r\n{address_1}\r\n{address_2}\r\n{postcode} {city}\r\n{country}', 1, 1),
+(75, 'French Guiana', 'GF', 'GUF', '', 0, 1),
+(76, 'French Polynesia', 'PF', 'PYF', '', 0, 1),
+(77, 'French Southern Territories', 'TF', 'ATF', '', 0, 1),
+(78, 'Gabon', 'GA', 'GAB', '', 0, 1),
+(79, 'Gambia', 'GM', 'GMB', '', 0, 1),
+(80, 'Georgia', 'GE', 'GEO', '', 0, 1),
+(81, 'Germany', 'DE', 'DEU', '{company}\r\n{firstname} {lastname}\r\n{address_1}\r\n{address_2}\r\n{postcode} {city}\r\n{country}', 1, 1),
+(82, 'Ghana', 'GH', 'GHA', '', 0, 1),
+(83, 'Gibraltar', 'GI', 'GIB', '', 0, 1),
+(84, 'Greece', 'GR', 'GRC', '', 0, 1),
+(85, 'Greenland', 'GL', 'GRL', '', 0, 1),
+(86, 'Grenada', 'GD', 'GRD', '', 0, 1),
+(87, 'Guadeloupe', 'GP', 'GLP', '', 0, 1),
+(88, 'Guam', 'GU', 'GUM', '', 0, 1),
+(89, 'Guatemala', 'GT', 'GTM', '', 0, 1),
+(90, 'Guinea', 'GN', 'GIN', '', 0, 1),
+(91, 'Guinea-Bissau', 'GW', 'GNB', '', 0, 1),
+(92, 'Guyana', 'GY', 'GUY', '', 0, 1),
+(93, 'Haiti', 'HT', 'HTI', '', 0, 1),
+(94, 'Heard and Mc Donald Islands', 'HM', 'HMD', '', 0, 1),
+(95, 'Honduras', 'HN', 'HND', '', 0, 1),
+(96, 'Hong Kong', 'HK', 'HKG', '', 0, 1),
+(97, 'Hungary', 'HU', 'HUN', '', 0, 1),
+(98, 'Iceland', 'IS', 'ISL', '', 0, 1),
+(99, 'India', 'IN', 'IND', '', 0, 1),
+(100, 'Indonesia', 'ID', 'IDN', '', 0, 1),
+(101, 'Iran (Islamic Republic of)', 'IR', 'IRN', '', 0, 1),
+(102, 'Iraq', 'IQ', 'IRQ', '', 0, 1),
+(103, 'Ireland', 'IE', 'IRL', '', 0, 1),
+(104, 'Israel', 'IL', 'ISR', '', 0, 1),
+(105, 'Italy', 'IT', 'ITA', '', 0, 1),
+(106, 'Jamaica', 'JM', 'JAM', '', 0, 1),
+(107, 'Japan', 'JP', 'JPN', '', 0, 1),
+(108, 'Jordan', 'JO', 'JOR', '', 0, 1),
+(109, 'Kazakhstan', 'KZ', 'KAZ', '', 0, 1),
+(110, 'Kenya', 'KE', 'KEN', '', 0, 1),
+(111, 'Kiribati', 'KI', 'KIR', '', 0, 1),
+(112, 'North Korea', 'KP', 'PRK', '', 0, 1),
+(113, 'South Korea', 'KR', 'KOR', '', 0, 1),
+(114, 'Kuwait', 'KW', 'KWT', '', 0, 1),
+(115, 'Kyrgyzstan', 'KG', 'KGZ', '', 0, 1),
+(116, 'Lao People''s Democratic Republic', 'LA', 'LAO', '', 0, 1),
+(117, 'Latvia', 'LV', 'LVA', '', 0, 1),
+(118, 'Lebanon', 'LB', 'LBN', '', 0, 1),
+(119, 'Lesotho', 'LS', 'LSO', '', 0, 1),
+(120, 'Liberia', 'LR', 'LBR', '', 0, 1),
+(121, 'Libyan Arab Jamahiriya', 'LY', 'LBY', '', 0, 1),
+(122, 'Liechtenstein', 'LI', 'LIE', '', 0, 1),
+(123, 'Lithuania', 'LT', 'LTU', '', 0, 1),
+(124, 'Luxembourg', 'LU', 'LUX', '', 0, 1),
+(125, 'Macau', 'MO', 'MAC', '', 0, 1),
+(126, 'FYROM', 'MK', 'MKD', '', 0, 1),
+(127, 'Madagascar', 'MG', 'MDG', '', 0, 1),
+(128, 'Malawi', 'MW', 'MWI', '', 0, 1),
+(129, 'Malaysia', 'MY', 'MYS', '', 0, 1),
+(130, 'Maldives', 'MV', 'MDV', '', 0, 1),
+(131, 'Mali', 'ML', 'MLI', '', 0, 1),
+(132, 'Malta', 'MT', 'MLT', '', 0, 1),
+(133, 'Marshall Islands', 'MH', 'MHL', '', 0, 1),
+(134, 'Martinique', 'MQ', 'MTQ', '', 0, 1),
+(135, 'Mauritania', 'MR', 'MRT', '', 0, 1),
+(136, 'Mauritius', 'MU', 'MUS', '', 0, 1),
+(137, 'Mayotte', 'YT', 'MYT', '', 0, 1),
+(138, 'Mexico', 'MX', 'MEX', '', 0, 1),
+(139, 'Micronesia, Federated States of', 'FM', 'FSM', '', 0, 1),
+(140, 'Moldova, Republic of', 'MD', 'MDA', '', 0, 1),
+(141, 'Monaco', 'MC', 'MCO', '', 0, 1),
+(142, 'Mongolia', 'MN', 'MNG', '', 0, 1),
+(143, 'Montserrat', 'MS', 'MSR', '', 0, 1),
+(144, 'Morocco', 'MA', 'MAR', '', 0, 1),
+(145, 'Mozambique', 'MZ', 'MOZ', '', 0, 1),
+(146, 'Myanmar', 'MM', 'MMR', '', 0, 1),
+(147, 'Namibia', 'NA', 'NAM', '', 0, 1),
+(148, 'Nauru', 'NR', 'NRU', '', 0, 1),
+(149, 'Nepal', 'NP', 'NPL', '', 0, 1),
+(150, 'Netherlands', 'NL', 'NLD', '', 0, 1),
+(151, 'Netherlands Antilles', 'AN', 'ANT', '', 0, 1),
+(152, 'New Caledonia', 'NC', 'NCL', '', 0, 1),
+(153, 'New Zealand', 'NZ', 'NZL', '', 0, 1),
+(154, 'Nicaragua', 'NI', 'NIC', '', 0, 1),
+(155, 'Niger', 'NE', 'NER', '', 0, 1),
+(156, 'Nigeria', 'NG', 'NGA', '', 0, 1),
+(157, 'Niue', 'NU', 'NIU', '', 0, 1),
+(158, 'Norfolk Island', 'NF', 'NFK', '', 0, 1),
+(159, 'Northern Mariana Islands', 'MP', 'MNP', '', 0, 1),
+(160, 'Norway', 'NO', 'NOR', '', 0, 1),
+(161, 'Oman', 'OM', 'OMN', '', 0, 1),
+(162, 'Pakistan', 'PK', 'PAK', '', 0, 1),
+(163, 'Palau', 'PW', 'PLW', '', 0, 1),
+(164, 'Panama', 'PA', 'PAN', '', 0, 1),
+(165, 'Papua New Guinea', 'PG', 'PNG', '', 0, 1),
+(166, 'Paraguay', 'PY', 'PRY', '', 0, 1),
+(167, 'Peru', 'PE', 'PER', '', 0, 1),
+(168, 'Philippines', 'PH', 'PHL', '', 0, 1),
+(169, 'Pitcairn', 'PN', 'PCN', '', 0, 1),
+(170, 'Poland', 'PL', 'POL', '', 0, 1),
+(171, 'Portugal', 'PT', 'PRT', '', 0, 1),
+(172, 'Puerto Rico', 'PR', 'PRI', '', 0, 1),
+(173, 'Qatar', 'QA', 'QAT', '', 0, 1),
+(174, 'Reunion', 'RE', 'REU', '', 0, 1),
+(175, 'Romania', 'RO', 'ROM', '', 0, 1),
+(176, 'Russian Federation', 'RU', 'RUS', '', 0, 1),
+(177, 'Rwanda', 'RW', 'RWA', '', 0, 1),
+(178, 'Saint Kitts and Nevis', 'KN', 'KNA', '', 0, 1),
+(179, 'Saint Lucia', 'LC', 'LCA', '', 0, 1),
+(180, 'Saint Vincent and the Grenadines', 'VC', 'VCT', '', 0, 1),
+(181, 'Samoa', 'WS', 'WSM', '', 0, 1),
+(182, 'San Marino', 'SM', 'SMR', '', 0, 1),
+(183, 'Sao Tome and Principe', 'ST', 'STP', '', 0, 1),
+(184, 'Saudi Arabia', 'SA', 'SAU', '', 0, 1),
+(185, 'Senegal', 'SN', 'SEN', '', 0, 1),
+(186, 'Seychelles', 'SC', 'SYC', '', 0, 1),
+(187, 'Sierra Leone', 'SL', 'SLE', '', 0, 1),
+(188, 'Singapore', 'SG', 'SGP', '', 0, 1),
+(189, 'Slovak Republic', 'SK', 'SVK', '{firstname} {lastname}\r\n{company}\r\n{address_1}\r\n{address_2}\r\n{city} {postcode}\r\n{zone}\r\n{country}', 0, 1),
+(190, 'Slovenia', 'SI', 'SVN', '', 0, 1),
+(191, 'Solomon Islands', 'SB', 'SLB', '', 0, 1),
+(192, 'Somalia', 'SO', 'SOM', '', 0, 1),
+(193, 'South Africa', 'ZA', 'ZAF', '', 0, 1),
+(194, 'South Georgia &amp; South Sandwich Islands', 'GS', 'SGS', '', 0, 1),
+(195, 'Spain', 'ES', 'ESP', '', 0, 1),
+(196, 'Sri Lanka', 'LK', 'LKA', '', 0, 1),
+(197, 'St. Helena', 'SH', 'SHN', '', 0, 1),
+(198, 'St. Pierre and Miquelon', 'PM', 'SPM', '', 0, 1),
+(199, 'Sudan', 'SD', 'SDN', '', 0, 1),
+(200, 'Suriname', 'SR', 'SUR', '', 0, 1),
+(201, 'Svalbard and Jan Mayen Islands', 'SJ', 'SJM', '', 0, 1),
+(202, 'Swaziland', 'SZ', 'SWZ', '', 0, 1),
+(203, 'Sweden', 'SE', 'SWE', '{company}\r\n{firstname} {lastname}\r\n{address_1}\r\n{address_2}\r\n{postcode} {city}\r\n{country}', 1, 1),
+(204, 'Switzerland', 'CH', 'CHE', '', 0, 1),
+(205, 'Syrian Arab Republic', 'SY', 'SYR', '', 0, 1),
+(206, 'Taiwan', 'TW', 'TWN', '', 0, 1),
+(207, 'Tajikistan', 'TJ', 'TJK', '', 0, 1),
+(208, 'Tanzania, United Republic of', 'TZ', 'TZA', '', 0, 1),
+(209, 'Thailand', 'TH', 'THA', '', 0, 1),
+(210, 'Togo', 'TG', 'TGO', '', 0, 1),
+(211, 'Tokelau', 'TK', 'TKL', '', 0, 1),
+(212, 'Tonga', 'TO', 'TON', '', 0, 1),
+(213, 'Trinidad and Tobago', 'TT', 'TTO', '', 0, 1),
+(214, 'Tunisia', 'TN', 'TUN', '', 0, 1),
+(215, 'Turkey', 'TR', 'TUR', '', 0, 1),
+(216, 'Turkmenistan', 'TM', 'TKM', '', 0, 1),
+(217, 'Turks and Caicos Islands', 'TC', 'TCA', '', 0, 1),
+(218, 'Tuvalu', 'TV', 'TUV', '', 0, 1),
+(219, 'Uganda', 'UG', 'UGA', '', 0, 1),
+(220, 'Ukraine', 'UA', 'UKR', '', 0, 1),
+(221, 'United Arab Emirates', 'AE', 'ARE', '', 0, 1),
+(222, 'United Kingdom', 'GB', 'GBR', '', 1, 1),
+(223, 'United States', 'US', 'USA', '{firstname} {lastname}\r\n{company}\r\n{address_1}\r\n{address_2}\r\n{city}, {zone} {postcode}\r\n{country}', 0, 1),
+(224, 'United States Minor Outlying Islands', 'UM', 'UMI', '', 0, 1),
+(225, 'Uruguay', 'UY', 'URY', '', 0, 1),
+(226, 'Uzbekistan', 'UZ', 'UZB', '', 0, 1),
+(227, 'Vanuatu', 'VU', 'VUT', '', 0, 1),
+(228, 'Vatican City State (Holy See)', 'VA', 'VAT', '', 0, 1),
+(229, 'Venezuela', 'VE', 'VEN', '', 0, 1),
+(230, 'Viet Nam', 'VN', 'VNM', '', 0, 1),
+(231, 'Virgin Islands (British)', 'VG', 'VGB', '', 0, 1),
+(232, 'Virgin Islands (U.S.)', 'VI', 'VIR', '', 0, 1),
+(233, 'Wallis and Futuna Islands', 'WF', 'WLF', '', 0, 1),
+(234, 'Western Sahara', 'EH', 'ESH', '', 0, 1),
+(235, 'Yemen', 'YE', 'YEM', '', 0, 1),
+(237, 'Democratic Republic of Congo', 'CD', 'COD', '', 0, 1),
+(238, 'Zambia', 'ZM', 'ZMB', '', 0, 1),
+(239, 'Zimbabwe', 'ZW', 'ZWE', '', 0, 1),
+(242, 'Montenegro', 'ME', 'MNE', '', 0, 1),
+(243, 'Serbia', 'RS', 'SRB', '', 0, 1),
+(244, 'Aaland Islands', 'AX', 'ALA', '', 0, 1),
+(245, 'Bonaire, Sint Eustatius and Saba', 'BQ', 'BES', '', 0, 1),
+(246, 'Curacao', 'CW', 'CUW', '', 0, 1),
+(247, 'Palestinian Territory, Occupied', 'PS', 'PSE', '', 0, 1),
+(248, 'South Sudan', 'SS', 'SSD', '', 0, 1),
+(249, 'St. Barthelemy', 'BL', 'BLM', '', 0, 1),
+(250, 'St. Martin (French part)', 'MF', 'MAF', '', 0, 1),
+(251, 'Canary Islands', 'IC', 'ICA', '', 0, 1),
+(252, 'Ascension Island (British)', 'AC', 'ASC', '', 0, 1),
+(253, 'Kosovo, Republic of', 'XK', 'UNK', '', 0, 1),
+(254, 'Isle of Man', 'IM', 'IMN', '', 0, 1),
+(255, 'Tristan da Cunha', 'TA', 'SHN', '', 0, 1),
+(256, 'Guernsey', 'GG', 'GGY', '', 0, 1),
+(257, 'Jersey', 'JE', 'JEY', '', 0, 1);
 
 -----------------------------------------------------------
 
@@ -945,7 +906,7 @@ CREATE TABLE `oc_coupon` (
   `status` tinyint(1) NOT NULL,
   `date_added` datetime NOT NULL,
   PRIMARY KEY (`coupon_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Dumping data for table `oc_coupon`
@@ -967,7 +928,7 @@ CREATE TABLE `oc_coupon_category` (
   `coupon_id` int(11) NOT NULL,
   `category_id` int(11) NOT NULL,
   PRIMARY KEY (`coupon_id`,`category_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -----------------------------------------------------------
 
@@ -984,7 +945,7 @@ CREATE TABLE `oc_coupon_history` (
   `amount` decimal(15,4) NOT NULL,
   `date_added` datetime NOT NULL,
   PRIMARY KEY (`coupon_history_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -----------------------------------------------------------
 
@@ -998,7 +959,7 @@ CREATE TABLE `oc_coupon_product` (
   `coupon_id` int(11) NOT NULL,
   `product_id` int(11) NOT NULL,
   PRIMARY KEY (`coupon_product_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -----------------------------------------------------------
 
@@ -1018,7 +979,7 @@ CREATE TABLE `oc_currency` (
   `status` tinyint(1) NOT NULL,
   `date_modified` datetime NOT NULL,
   PRIMARY KEY (`currency_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Dumping data for table `oc_currency`
@@ -1048,19 +1009,19 @@ CREATE TABLE `oc_customer` (
   `fax` varchar(32) NOT NULL,
   `password` varchar(40) NOT NULL,
   `salt` varchar(9) NOT NULL,
-  `cart` text,
-  `wishlist` text,
+  `cart` fulltext,
+  `wishlist` fulltext,
   `newsletter` tinyint(1) NOT NULL DEFAULT '0',
   `address_id` int(11) NOT NULL DEFAULT '0',
-  `custom_field` text NOT NULL,
+  `custom_field` fulltext NOT NULL,
   `ip` varchar(40) NOT NULL,
   `status` tinyint(1) NOT NULL,
   `safe` tinyint(1) NOT NULL,
-  `token` text NOT NULL,
+  `token` fulltext NOT NULL,
   `code` varchar(40) NOT NULL,
   `date_added` datetime NOT NULL,
   PRIMARY KEY (`customer_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -----------------------------------------------------------
 
@@ -1073,11 +1034,11 @@ CREATE TABLE `oc_customer_activity` (
   `customer_activity_id` int(11) NOT NULL AUTO_INCREMENT,
   `customer_id` int(11) NOT NULL,
   `key` varchar(64) NOT NULL,
-  `data` text NOT NULL,
+  `data` fulltext NOT NULL,
   `ip` varchar(40) NOT NULL,
   `date_added` datetime NOT NULL,
   PRIMARY KEY (`customer_activity_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -----------------------------------------------------------
 
@@ -1101,28 +1062,11 @@ CREATE TABLE `oc_customer_affiliate` (
   `bank_swift_code` varchar(64) NOT NULL,
   `bank_account_name` varchar(64) NOT NULL,
   `bank_account_number` varchar(64) NOT NULL,
-  `custom_field` text NOT NULL,
+  `custom_field` fulltext NOT NULL,
   `status` tinyint(1) NOT NULL,
   `date_added` datetime NOT NULL,
   PRIMARY KEY (`customer_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
-
------------------------------------------------------------
-
---
--- Table structure for table `oc_customer_affiliate_report`
---
-
-DROP TABLE IF EXISTS `oc_customer_affiliate_report`;
-CREATE TABLE `oc_customer_affiliate_report` (
-  `customer_affiliate_report_id` int(11) NOT NULL,
-  `customer_id` int(11) NOT NULL,
-  `store_id` int(11) NOT NULL,
-  `ip` varchar(40) NOT NULL,
-  `country` varchar(2) NOT NULL,
-  `date_added` datetime NOT NULL,
-  PRIMARY KEY (`customer_affiliate_report_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -----------------------------------------------------------
 
@@ -1137,7 +1081,7 @@ CREATE TABLE `oc_customer_approval` (
   `type` varchar(9) NOT NULL,
   `date_added` datetime NOT NULL,
   PRIMARY KEY (`customer_approval_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -----------------------------------------------------------
 
@@ -1151,7 +1095,7 @@ CREATE TABLE `oc_customer_group` (
   `approval` int(1) NOT NULL,
   `sort_order` int(3) NOT NULL,
   PRIMARY KEY (`customer_group_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Dumping data for table `oc_customer_group`
@@ -1171,9 +1115,9 @@ CREATE TABLE `oc_customer_group_description` (
   `customer_group_id` int(11) NOT NULL,
   `language_id` int(11) NOT NULL,
   `name` varchar(32) NOT NULL,
-  `description` text NOT NULL,
+  `description` fulltext NOT NULL,
   PRIMARY KEY (`customer_group_id`,`language_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Dumping data for table `oc_customer_group_description`
@@ -1192,10 +1136,10 @@ DROP TABLE IF EXISTS `oc_customer_history`;
 CREATE TABLE `oc_customer_history` (
   `customer_history_id` int(11) NOT NULL AUTO_INCREMENT,
   `customer_id` int(11) NOT NULL,
-  `comment` text NOT NULL,
+  `comment` fulltext NOT NULL,
   `date_added` datetime NOT NULL,
   PRIMARY KEY (`customer_history_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -----------------------------------------------------------
 
@@ -1214,7 +1158,7 @@ CREATE TABLE `oc_customer_login` (
   PRIMARY KEY (`customer_login_id`),
   KEY `email` (`email`),
   KEY `ip` (`ip`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -----------------------------------------------------------
 
@@ -1230,7 +1174,7 @@ CREATE TABLE `oc_customer_ip` (
   `date_added` datetime NOT NULL,
   PRIMARY KEY (`customer_ip_id`),
   KEY `ip` (`ip`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -----------------------------------------------------------
 
@@ -1242,11 +1186,11 @@ DROP TABLE IF EXISTS `oc_customer_online`;
 CREATE TABLE `oc_customer_online` (
   `ip` varchar(40) NOT NULL,
   `customer_id` int(11) NOT NULL,
-  `url` text NOT NULL,
-  `referer` text NOT NULL,
+  `url` fulltext NOT NULL,
+  `referer` fulltext NOT NULL,
   `date_added` datetime NOT NULL,
   PRIMARY KEY (`ip`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -----------------------------------------------------------
 
@@ -1259,11 +1203,11 @@ CREATE TABLE `oc_customer_reward` (
   `customer_reward_id` int(11) NOT NULL AUTO_INCREMENT,
   `customer_id` int(11) NOT NULL DEFAULT '0',
   `order_id` int(11) NOT NULL DEFAULT '0',
-  `description` text NOT NULL,
+  `description` fulltext NOT NULL,
   `points` int(8) NOT NULL DEFAULT '0',
   `date_added` datetime NOT NULL,
   PRIMARY KEY (`customer_reward_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -----------------------------------------------------------
 
@@ -1276,11 +1220,11 @@ CREATE TABLE `oc_customer_transaction` (
   `customer_transaction_id` int(11) NOT NULL AUTO_INCREMENT,
   `customer_id` int(11) NOT NULL,
   `order_id` int(11) NOT NULL,
-  `description` text NOT NULL,
+  `description` fulltext NOT NULL,
   `amount` decimal(15,4) NOT NULL,
   `date_added` datetime NOT NULL,
   PRIMARY KEY (`customer_transaction_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -----------------------------------------------------------
 
@@ -1302,7 +1246,7 @@ CREATE TABLE `oc_customer_search` (
   `ip` varchar(40) NOT NULL,
   `date_added` datetime NOT NULL,
   PRIMARY KEY (`customer_search_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -----------------------------------------------------------
 
@@ -1316,7 +1260,7 @@ CREATE TABLE `oc_customer_wishlist` (
   `product_id` int(11) NOT NULL,
   `date_added` datetime NOT NULL,
   PRIMARY KEY (`customer_id`,`product_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -----------------------------------------------------------
 
@@ -1328,13 +1272,13 @@ DROP TABLE IF EXISTS `oc_custom_field`;
 CREATE TABLE `oc_custom_field` (
   `custom_field_id` int(11) NOT NULL AUTO_INCREMENT,
   `type` varchar(32) NOT NULL,
-  `value` text NOT NULL,
+  `value` fulltext NOT NULL,
   `validation` varchar(255) NOT NULL,
   `location` varchar(10) NOT NULL,
   `status` tinyint(1) NOT NULL,
   `sort_order` int(3) NOT NULL,
   PRIMARY KEY (`custom_field_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -----------------------------------------------------------
 
@@ -1348,7 +1292,7 @@ CREATE TABLE `oc_custom_field_customer_group` (
   `customer_group_id` int(11) NOT NULL,
   `required` tinyint(1) NOT NULL,
   PRIMARY KEY (`custom_field_id`,`customer_group_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -----------------------------------------------------------
 
@@ -1362,7 +1306,7 @@ CREATE TABLE `oc_custom_field_description` (
   `language_id` int(11) NOT NULL,
   `name` varchar(128) NOT NULL,
   PRIMARY KEY (`custom_field_id`,`language_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -----------------------------------------------------------
 
@@ -1376,7 +1320,7 @@ CREATE TABLE `oc_custom_field_value` (
   `custom_field_id` int(11) NOT NULL,
   `sort_order` int(3) NOT NULL,
   PRIMARY KEY (`custom_field_value_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -----------------------------------------------------------
 
@@ -1391,7 +1335,7 @@ CREATE TABLE `oc_custom_field_value_description` (
   `custom_field_id` int(11) NOT NULL,
   `name` varchar(128) NOT NULL,
   PRIMARY KEY (`custom_field_value_id`,`language_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -----------------------------------------------------------
 
@@ -1406,7 +1350,7 @@ CREATE TABLE `oc_download` (
   `mask` varchar(128) NOT NULL,
   `date_added` datetime NOT NULL,
   PRIMARY KEY (`download_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -----------------------------------------------------------
 
@@ -1420,7 +1364,7 @@ CREATE TABLE `oc_download_description` (
   `language_id` int(11) NOT NULL,
   `name` varchar(64) NOT NULL,
   PRIMARY KEY (`download_id`,`language_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -----------------------------------------------------------
 
@@ -1432,117 +1376,107 @@ DROP TABLE IF EXISTS `oc_event`;
 CREATE TABLE `oc_event` (
   `event_id` int(11) NOT NULL AUTO_INCREMENT,
   `code` varchar(64) NOT NULL,
-  `trigger` text NOT NULL,
-  `action` text NOT NULL,
+  `trigger` fulltext NOT NULL,
+  `action` fulltext NOT NULL,
   `status` tinyint(1) NOT NULL,
   `sort_order` int(3) NOT NULL,
   PRIMARY KEY (`event_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Dumping data for table `oc_event`
 --
 
-INSERT INTO `oc_event` (`code`, `trigger`, `action`, `status`, `sort_order`) VALUES
-('activity_customer_add', 'catalog/model/account/customer/addCustomer/after', 'event/activity/addCustomer', 1, 0);
-INSERT INTO `oc_event` (`code`, `trigger`, `action`, `status`, `sort_order`) VALUES
-('activity_customer_edit', 'catalog/model/account/customer/editCustomer/after', 'event/activity/editCustomer', 1, 0);
-INSERT INTO `oc_event` (`code`, `trigger`, `action`, `status`, `sort_order`) VALUES
-('activity_customer_password', 'catalog/model/account/customer/editPassword/after', 'event/activity/editPassword', 1, 0);
-INSERT INTO `oc_event` (`code`, `trigger`, `action`, `status`, `sort_order`) VALUES
-('activity_customer_forgotten', 'catalog/model/account/customer/editCode/after', 'event/activity/forgotten', 1, 0);
-INSERT INTO `oc_event` (`code`, `trigger`, `action`, `status`, `sort_order`) VALUES
-('activity_transaction', 'catalog/model/account/customer/addTransaction/after', 'event/activity/addTransaction', 1, 0);
-INSERT INTO `oc_event` (`code`, `trigger`, `action`, `status`, `sort_order`) VALUES
-('activity_customer_login', 'catalog/model/account/customer/deleteLoginAttempts/after', 'event/activity/login', 1, 0);
-INSERT INTO `oc_event` (`code`, `trigger`, `action`, `status`, `sort_order`) VALUES
-('activity_address_add', 'catalog/model/account/address/addAddress/after', 'event/activity/addAddress', 1, 0);
-INSERT INTO `oc_event` (`code`, `trigger`, `action`, `status`, `sort_order`) VALUES
-('activity_address_edit', 'catalog/model/account/address/editAddress/after', 'event/activity/editAddress', 1, 0);
-INSERT INTO `oc_event` (`code`, `trigger`, `action`, `status`, `sort_order`) VALUES
-('activity_address_delete', 'catalog/model/account/address/deleteAddress/after', 'event/activity/deleteAddress', 1, 0);
-INSERT INTO `oc_event` (`code`, `trigger`, `action`, `status`, `sort_order`) VALUES
-('activity_affiliate_add', 'catalog/model/account/customer/addAffiliate/after', 'event/activity/addAffiliate', 1, 0);
-INSERT INTO `oc_event` (`code`, `trigger`, `action`, `status`, `sort_order`) VALUES
-('activity_affiliate_edit', 'catalog/model/account/customer/editAffiliate/after', 'event/activity/editAffiliate', 1, 0);
-INSERT INTO `oc_event` (`code`, `trigger`, `action`, `status`, `sort_order`) VALUES
-('activity_order_add', 'catalog/model/checkout/order/addOrderHistory/before', 'event/activity/addOrderHistory', 1, 0);
-INSERT INTO `oc_event` (`code`, `trigger`, `action`, `status`, `sort_order`) VALUES
-('activity_return_add', 'catalog/model/account/returns/addReturn/after', 'event/activity/addReturn', 1, 0);
-INSERT INTO `oc_event` (`code`, `trigger`, `action`, `status`, `sort_order`) VALUES
-('mail_transaction', 'catalog/model/account/customer/addTransaction/after', 'mail/transaction', 1, 0);
-INSERT INTO `oc_event` (`code`, `trigger`, `action`, `status`, `sort_order`) VALUES
-('mail_forgotten', 'catalog/model/account/customer/editCode/after', 'mail/forgotten', 1, 0);
-INSERT INTO `oc_event` (`code`, `trigger`, `action`, `status`, `sort_order`) VALUES
-('mail_customer_add', 'catalog/model/account/customer/addCustomer/after', 'mail/register', 1, 0);
-INSERT INTO `oc_event` (`code`, `trigger`, `action`, `status`, `sort_order`) VALUES
-('mail_customer_alert', 'catalog/model/account/customer/addCustomer/after', 'mail/register/alert', 1, 0);
-INSERT INTO `oc_event` (`code`, `trigger`, `action`, `status`, `sort_order`) VALUES
-('mail_affiliate_add', 'catalog/model/account/customer/addAffiliate/after', 'mail/affiliate', 1, 0);
-INSERT INTO `oc_event` (`code`, `trigger`, `action`, `status`, `sort_order`) VALUES
-('mail_affiliate_alert', 'catalog/model/account/customer/addAffiliate/after', 'mail/affiliate/alert', 1, 0);
-INSERT INTO `oc_event` (`code`, `trigger`, `action`, `status`, `sort_order`) VALUES
-('mail_voucher', 'catalog/model/checkout/order/addOrderHistory/after', 'extension/total/voucher/send', 1, 0);
-INSERT INTO `oc_event` (`code`, `trigger`, `action`, `status`, `sort_order`) VALUES
-('mail_order_add', 'catalog/model/checkout/order/addOrderHistory/before', 'mail/order', 1, 0);
-INSERT INTO `oc_event` (`code`, `trigger`, `action`, `status`, `sort_order`) VALUES
-('mail_order_alert', 'catalog/model/checkout/order/addOrderHistory/before', 'mail/order/alert', 1, 0);
-INSERT INTO `oc_event` (`code`, `trigger`, `action`, `status`, `sort_order`) VALUES
-('statistics_review_add', 'catalog/model/catalog/review/addReview/after', 'event/statistics/addReview', 1, 0);
-INSERT INTO `oc_event` (`code`, `trigger`, `action`, `status`, `sort_order`) VALUES
-('statistics_return_add', 'catalog/model/account/returns/addReturn/after', 'event/statistics/addReturn', 1, 0);
-INSERT INTO `oc_event` (`code`, `trigger`, `action`, `status`, `sort_order`) VALUES
-('statistics_order_history', 'catalog/model/checkout/order/addOrderHistory/after', 'event/statistics/addOrderHistory', 1, 0);
-INSERT INTO `oc_event` (`code`, `trigger`, `action`, `status`, `sort_order`) VALUES
-('admin_mail_affiliate_approve', 'admin/model/customer/customer_approval/approveAffiliate/after', 'mail/affiliate/approve', 1, 0);
-INSERT INTO `oc_event` (`code`, `trigger`, `action`, `status`, `sort_order`) VALUES
-('admin_mail_affiliate_deny', 'admin/model/customer/customer_approval/denyAffiliate/after', 'mail/affiliate/deny', 1, 0);
-INSERT INTO `oc_event` (`code`, `trigger`, `action`, `status`, `sort_order`) VALUES
-('admin_mail_customer_approve', 'admin/model/customer/customer_approval/approveCustomer/after', 'mail/customer/approve', 1, 0);
-INSERT INTO `oc_event` (`code`, `trigger`, `action`, `status`, `sort_order`) VALUES
-('admin_mail_customer_deny', 'admin/model/customer/customer_approval/denyCustomer/after', 'mail/customer/deny', 1, 0);
-INSERT INTO `oc_event` (`code`, `trigger`, `action`, `status`, `sort_order`) VALUES
-('admin_mail_reward', 'admin/model/customer/customer/addReward/after', 'mail/reward', 1, 0);
-INSERT INTO `oc_event` (`code`, `trigger`, `action`, `status`, `sort_order`) VALUES
-('admin_mail_transaction', 'admin/model/customer/customer/addTransaction/after', 'mail/transaction', 1, 0);
-INSERT INTO `oc_event` (`code`, `trigger`, `action`, `status`, `sort_order`) VALUES
-('statistics_review_add', 'admin/model/catalog/review/addReview/after', 'event/statistics/addReview', 1, 0);
-INSERT INTO `oc_event` (`code`, `trigger`, `action`, `status`, `sort_order`) VALUES
-('statistics_review_delete', 'admin/model/catalog/review/deleteReview/after', 'event/statistics/deleteReview', 1, 0);
-INSERT INTO `oc_event` (`code`, `trigger`, `action`, `status`, `sort_order`) VALUES
-('statistics_return_add', 'admin/model/sale/returns/addReturn/after', 'event/statistics/addReturn', 1, 0);
-INSERT INTO `oc_event` (`code`, `trigger`, `action`, `status`, `sort_order`) VALUES
-('statistics_return_delete', 'admin/model/sale/returns/deleteReturn/after', 'event/statistics/deleteReturn', 1, 0);
-INSERT INTO `oc_event` (`code`, `trigger`, `action`, `status`, `sort_order`) VALUES
-('admin_mail_return', 'admin/model/sale/returns/addReturnHistory/after', 'mail/returns', 1, 0);
-INSERT INTO `oc_event` (`code`, `trigger`, `action`, `status`, `sort_order`) VALUES
-('admin_mail_forgotten', 'admin/model/user/user/editCode/after', 'mail/forgotten', 1, 0);
-INSERT INTO `oc_event` (`code`, `trigger`, `action`, `status`, `sort_order`) VALUES
-('advertise_google', 'admin/model/catalog/product/deleteProduct/after', 'extension/advertise/google/deleteProduct', 1, 0);
-INSERT INTO `oc_event` (`code`, `trigger`, `action`, `status`, `sort_order`) VALUES
-('advertise_google', 'admin/model/catalog/product/copyProduct/after', 'extension/advertise/google/copyProduct', 1, 0);
-INSERT INTO `oc_event` (`code`, `trigger`, `action`, `status`, `sort_order`) VALUES
-('advertise_google', 'admin/view/common/column_left/before', 'extension/advertise/google/admin_link', 1, 0);
-INSERT INTO `oc_event` (`code`, `trigger`, `action`, `status`, `sort_order`) VALUES
-('advertise_google', 'admin/model/catalog/product/addProduct/after', 'extension/advertise/google/addProduct', 1, 0);
-INSERT INTO `oc_event` (`code`, `trigger`, `action`, `status`, `sort_order`) VALUES
-('admin_promotion', 'admin/controller/extension/extension/promotion/after', 'extension/extension/promotion/getList', 1, 0);
-INSERT INTO `oc_event` (`code`, `trigger`, `action`, `status`, `sort_order`) VALUES
-('advertise_google', 'catalog/controller/checkout/success/before', 'extension/advertise/google/before_checkout_success', 1, 0);
-INSERT INTO `oc_event` (`code`, `trigger`, `action`, `status`, `sort_order`) VALUES
-('advertise_google', 'catalog/view/common/header/after', 'extension/advertise/google/google_global_site_tag', 1, 0);
-INSERT INTO `oc_event` (`code`, `trigger`, `action`, `status`, `sort_order`) VALUES
-('advertise_google', 'catalog/view/common/success/after', 'extension/advertise/google/google_dynamic_remarketing_purchase', 1, 0);
-INSERT INTO `oc_event` (`code`, `trigger`, `action`, `status`, `sort_order`) VALUES
-('advertise_google', 'catalog/view/product/product/after', 'extension/advertise/google/google_dynamic_remarketing_product', 1, 0);
-INSERT INTO `oc_event` (`code`, `trigger`, `action`, `status`, `sort_order`) VALUES
-('advertise_google', 'catalog/view/product/search/after', 'extension/advertise/google/google_dynamic_remarketing_searchresults', 1, 0);
-INSERT INTO `oc_event` (`code`, `trigger`, `action`, `status`, `sort_order`) VALUES
-('advertise_google', 'catalog/view/product/category/after', 'extension/advertise/google/google_dynamic_remarketing_category', 1, 0);
-INSERT INTO `oc_event` (`code`, `trigger`, `action`, `status`, `sort_order`) VALUES
-('advertise_google', 'catalog/view/common/home/after', 'extension/advertise/google/google_dynamic_remarketing_home', 1, 0);
-INSERT INTO `oc_event` (`code`, `trigger`, `action`, `status`, `sort_order`) VALUES
-('advertise_google', 'catalog/view/checkout/cart/after', 'extension/advertise/google/google_dynamic_remarketing_cart', 1, 0);
+INSERT INTO `oc_event` (`event_id`, `code`, `trigger`, `action`, `status`) VALUES
+(1, 'activity_customer_add', 'catalog/model/account/customer/addCustomer/after', 'event/activity/addCustomer', 1);
+INSERT INTO `oc_event` (`event_id`, `code`, `trigger`, `action`, `status`) VALUES
+(2, 'activity_customer_edit', 'catalog/model/account/customer/editCustomer/after', 'event/activity/editCustomer', 1);
+INSERT INTO `oc_event` (`event_id`, `code`, `trigger`, `action`, `status`) VALUES
+(3, 'activity_customer_password', 'catalog/model/account/customer/editPassword/after', 'event/activity/editPassword', 1);
+INSERT INTO `oc_event` (`event_id`, `code`, `trigger`, `action`, `status`) VALUES
+(4, 'activity_customer_forgotten', 'catalog/model/account/customer/editCode/after', 'event/activity/forgotten', 1);
+INSERT INTO `oc_event` (`event_id`, `code`, `trigger`, `action`, `status`) VALUES
+(5, 'activity_transaction', 'catalog/model/account/customer/addTransaction/after', 'event/activity/addTransaction', 1);
+INSERT INTO `oc_event` (`event_id`, `code`, `trigger`, `action`, `status`) VALUES
+(6, 'activity_customer_login', 'catalog/model/account/customer/deleteLoginAttempts/after', 'event/activity/login', 1);
+INSERT INTO `oc_event` (`event_id`, `code`, `trigger`, `action`, `status`) VALUES
+(7, 'activity_address_add', 'catalog/model/account/address/addAddress/after', 'event/activity/addAddress', 1);
+INSERT INTO `oc_event` (`event_id`, `code`, `trigger`, `action`, `status`) VALUES
+(8, 'activity_address_edit', 'catalog/model/account/address/editAddress/after', 'event/activity/editAddress', 1);
+INSERT INTO `oc_event` (`event_id`, `code`, `trigger`, `action`, `status`) VALUES
+(9, 'activity_address_delete', 'catalog/model/account/address/deleteAddress/after', 'event/activity/deleteAddress', 1);
+INSERT INTO `oc_event` (`event_id`, `code`, `trigger`, `action`, `status`) VALUES
+(10, 'activity_affiliate_add', 'catalog/model/account/customer/addAffiliate/after', 'event/activity/addAffiliate', 1);
+INSERT INTO `oc_event` (`event_id`, `code`, `trigger`, `action`, `status`) VALUES
+(11, 'activity_affiliate_edit', 'catalog/model/account/customer/editAffiliate/after', 'event/activity/editAffiliate', 1);
+INSERT INTO `oc_event` (`event_id`, `code`, `trigger`, `action`, `status`) VALUES
+(12, 'activity_order_add', 'catalog/model/checkout/order/addOrderHistory/before', 'event/activity/addOrderHistory', 1);
+INSERT INTO `oc_event` (`event_id`, `code`, `trigger`, `action`, `status`) VALUES
+(13, 'activity_return_add', 'catalog/model/account/return/addReturn/after', 'event/activity/addReturn', 1);
+INSERT INTO `oc_event` (`event_id`, `code`, `trigger`, `action`, `status`) VALUES
+(14, 'mail_transaction', 'catalog/model/account/customer/addTransaction/after', 'mail/transaction', 1);
+INSERT INTO `oc_event` (`event_id`, `code`, `trigger`, `action`, `status`) VALUES
+(15, 'mail_forgotten', 'catalog/model/account/customer/editCode/after', 'mail/forgotten', 1);
+INSERT INTO `oc_event` (`event_id`, `code`, `trigger`, `action`, `status`) VALUES
+(16, 'mail_customer_add', 'catalog/model/account/customer/addCustomer/after', 'mail/register', 1);
+INSERT INTO `oc_event` (`event_id`, `code`, `trigger`, `action`, `status`) VALUES
+(17, 'mail_customer_alert', 'catalog/model/account/customer/addCustomer/after', 'mail/register/alert', 1);
+INSERT INTO `oc_event` (`event_id`, `code`, `trigger`, `action`, `status`) VALUES
+(18, 'mail_affiliate_add', 'catalog/model/account/customer/addAffiliate/after', 'mail/affiliate', 1);
+INSERT INTO `oc_event` (`event_id`, `code`, `trigger`, `action`, `status`) VALUES
+(19, 'mail_affiliate_alert', 'catalog/model/account/customer/addAffiliate/after', 'mail/affiliate/alert', 1);
+INSERT INTO `oc_event` (`event_id`, `code`, `trigger`, `action`, `status`) VALUES
+(20, 'mail_voucher', 'catalog/model/checkout/order/addOrderHistory/after', 'extension/total/voucher/send', 1);
+INSERT INTO `oc_event` (`event_id`, `code`, `trigger`, `action`, `status`) VALUES
+(21, 'mail_order_add', 'catalog/model/checkout/order/addOrderHistory/before', 'mail/order', 1);
+INSERT INTO `oc_event` (`event_id`, `code`, `trigger`, `action`, `status`) VALUES
+(22, 'mail_order_alert', 'catalog/model/checkout/order/addOrderHistory/before', 'mail/order/alert', 1);
+INSERT INTO `oc_event` (`event_id`, `code`, `trigger`, `action`, `status`) VALUES
+(23, 'statistics_review_add', 'catalog/model/catalog/review/addReview/after', 'event/statistics/addReview', 1);
+INSERT INTO `oc_event` (`event_id`, `code`, `trigger`, `action`, `status`) VALUES
+(24, 'statistics_return_add', 'catalog/model/account/return/addReturn/after', 'event/statistics/addReturn', 1);
+INSERT INTO `oc_event` (`event_id`, `code`, `trigger`, `action`, `status`) VALUES
+(25, 'statistics_order_history', 'catalog/model/checkout/order/addOrderHistory/after', 'event/statistics/addOrderHistory', 1);
+INSERT INTO `oc_event` (`event_id`, `code`, `trigger`, `action`, `status`) VALUES
+(26, 'admin_mail_affiliate_approve', 'admin/model/customer/customer_approval/approveAffiliate/after', 'mail/affiliate/approve', 1);
+INSERT INTO `oc_event` (`event_id`, `code`, `trigger`, `action`, `status`) VALUES
+(27, 'admin_mail_affiliate_deny', 'admin/model/customer/customer_approval/denyAffiliate/after', 'mail/affiliate/deny', 1);
+INSERT INTO `oc_event` (`event_id`, `code`, `trigger`, `action`, `status`) VALUES
+(28, 'admin_mail_customer_approve', 'admin/model/customer/customer_approval/approveCustomer/after', 'mail/customer/approve', 1);
+INSERT INTO `oc_event` (`event_id`, `code`, `trigger`, `action`, `status`) VALUES
+(29, 'admin_mail_customer_deny', 'admin/model/customer/customer_approval/denyCustomer/after', 'mail/customer/deny', 1);
+INSERT INTO `oc_event` (`event_id`, `code`, `trigger`, `action`, `status`) VALUES
+(30, 'admin_mail_reward', 'admin/model/customer/customer/addReward/after', 'mail/reward', 1);
+INSERT INTO `oc_event` (`event_id`, `code`, `trigger`, `action`, `status`) VALUES
+(31, 'admin_mail_transaction', 'admin/model/customer/customer/addTransaction/after', 'mail/transaction', 1);
+INSERT INTO `oc_event` (`event_id`, `code`, `trigger`, `action`, `status`) VALUES
+(32, 'admin_mail_return', 'admin/model/sale/return/addReturnHistory/after', 'mail/return', 1);
+INSERT INTO `oc_event` (`event_id`, `code`, `trigger`, `action`, `status`) VALUES
+(33, 'admin_mail_forgotten', 'admin/model/user/user/editCode/after', 'mail/forgotten', 1);
+INSERT INTO `oc_event` (`event_id`, `code`, `trigger`, `action`, `status`, `sort_order`) VALUES
+(34, 'advertise_google', 'admin/model/catalog/product/deleteProduct/after', 'extension/advertise/google/deleteProduct', 1, 0);
+INSERT INTO `oc_event` (`event_id`, `code`, `trigger`, `action`, `status`, `sort_order`) VALUES
+(35, 'advertise_google', 'admin/model/catalog/product/copyProduct/after', 'extension/advertise/google/copyProduct', 1, 0);
+INSERT INTO `oc_event` (`event_id`, `code`, `trigger`, `action`, `status`, `sort_order`) VALUES
+(36, 'advertise_google', 'admin/view/common/column_left/before', 'extension/advertise/google/admin_link', 1, 0);
+INSERT INTO `oc_event` (`event_id`, `code`, `trigger`, `action`, `status`, `sort_order`) VALUES
+(37, 'advertise_google', 'admin/model/catalog/product/addProduct/after', 'extension/advertise/google/addProduct', 1, 0);
+INSERT INTO `oc_event` (`event_id`, `code`, `trigger`, `action`, `status`, `sort_order`) VALUES
+(38, 'advertise_google', 'catalog/controller/checkout/success/before', 'extension/advertise/google/before_checkout_success', 1, 0);
+INSERT INTO `oc_event` (`event_id`, `code`, `trigger`, `action`, `status`, `sort_order`) VALUES
+(39, 'advertise_google', 'catalog/view/common/header/after', 'extension/advertise/google/google_global_site_tag', 1, 0);
+INSERT INTO `oc_event` (`event_id`, `code`, `trigger`, `action`, `status`, `sort_order`) VALUES
+(40, 'advertise_google', 'catalog/view/common/success/after', 'extension/advertise/google/google_dynamic_remarketing_purchase', 1, 0);
+INSERT INTO `oc_event` (`event_id`, `code`, `trigger`, `action`, `status`, `sort_order`) VALUES
+(41, 'advertise_google', 'catalog/view/product/product/after', 'extension/advertise/google/google_dynamic_remarketing_product', 1, 0);
+INSERT INTO `oc_event` (`event_id`, `code`, `trigger`, `action`, `status`, `sort_order`) VALUES
+(42, 'advertise_google', 'catalog/view/product/search/after', 'extension/advertise/google/google_dynamic_remarketing_searchresults', 1, 0);
+INSERT INTO `oc_event` (`event_id`, `code`, `trigger`, `action`, `status`, `sort_order`) VALUES
+(43, 'advertise_google', 'catalog/view/product/category/after', 'extension/advertise/google/google_dynamic_remarketing_category', 1, 0);
+INSERT INTO `oc_event` (`event_id`, `code`, `trigger`, `action`, `status`, `sort_order`) VALUES
+(44, 'advertise_google', 'catalog/view/common/home/after', 'extension/advertise/google/google_dynamic_remarketing_home', 1, 0);
+INSERT INTO `oc_event` (`event_id`, `code`, `trigger`, `action`, `status`, `sort_order`) VALUES
+(45, 'advertise_google', 'catalog/view/checkout/cart/after', 'extension/advertise/google/google_dynamic_remarketing_cart', 1, 0);
 
 -----------------------------------------------------------
 
@@ -1556,7 +1490,7 @@ CREATE TABLE `oc_extension` (
   `type` varchar(32) NOT NULL,
   `code` varchar(32) NOT NULL,
   PRIMARY KEY (`extension_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Dumping data for table `oc_extension`
@@ -1618,7 +1552,7 @@ CREATE TABLE `oc_extension_install` (
   `filename` varchar(255) NOT NULL,
   `date_added` datetime NOT NULL,
   PRIMARY KEY (`extension_install_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -----------------------------------------------------------
 
@@ -1633,7 +1567,7 @@ CREATE TABLE `oc_extension_path` (
   `path` varchar(255) NOT NULL,
   `date_added` datetime NOT NULL,
   PRIMARY KEY (`extension_path_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -----------------------------------------------------------
 
@@ -1647,7 +1581,7 @@ CREATE TABLE `oc_filter` (
   `filter_group_id` int(11) NOT NULL,
   `sort_order` int(3) NOT NULL,
   PRIMARY KEY (`filter_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -----------------------------------------------------------
 
@@ -1662,7 +1596,7 @@ CREATE TABLE `oc_filter_description` (
   `filter_group_id` int(11) NOT NULL,
   `name` varchar(64) NOT NULL,
   PRIMARY KEY (`filter_id`,`language_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -----------------------------------------------------------
 
@@ -1675,7 +1609,7 @@ CREATE TABLE `oc_filter_group` (
   `filter_group_id` int(11) NOT NULL AUTO_INCREMENT,
   `sort_order` int(3) NOT NULL,
   PRIMARY KEY (`filter_group_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -----------------------------------------------------------
 
@@ -1689,7 +1623,7 @@ CREATE TABLE `oc_filter_group_description` (
   `language_id` int(11) NOT NULL,
   `name` varchar(64) NOT NULL,
   PRIMARY KEY (`filter_group_id`,`language_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -----------------------------------------------------------
 
@@ -1705,7 +1639,7 @@ CREATE TABLE `oc_geo_zone` (
   `date_added` datetime NOT NULL,
   `date_modified` datetime NOT NULL,
   PRIMARY KEY (`geo_zone_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Dumping data for table `oc_geo_zone`
@@ -1728,7 +1662,7 @@ CREATE TABLE `oc_information` (
   `sort_order` int(3) NOT NULL DEFAULT '0',
   `status` tinyint(1) NOT NULL DEFAULT '1',
   PRIMARY KEY (`information_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Dumping data for table `oc_information`
@@ -1738,8 +1672,7 @@ INSERT INTO `oc_information` (`information_id`, `bottom`, `sort_order`, `status`
 (3, 1, 3, 1),
 (4, 1, 1, 1),
 (5, 1, 4, 1),
-(6, 1, 2, 1),
-(7, 1, 5, 1);
+(6, 1, 2, 1);
 
 -----------------------------------------------------------
 
@@ -1757,7 +1690,7 @@ CREATE TABLE `oc_information_description` (
   `meta_description` varchar(255) NOT NULL,
   `meta_keyword` varchar(255) NOT NULL,
   PRIMARY KEY (`information_id`,`language_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Dumping data for table `oc_information_description`
@@ -1767,8 +1700,7 @@ INSERT INTO `oc_information_description` (`information_id`, `language_id`, `titl
 (4, 1, 'About Us', '&lt;p&gt;\r\n	About Us&lt;/p&gt;\r\n', 'About Us', '', ''),
 (5, 1, 'Terms &amp; Conditions', '&lt;p&gt;\r\n	Terms &amp;amp; Conditions&lt;/p&gt;\r\n', 'Terms &amp; Conditions', '', ''),
 (3, 1, 'Privacy Policy', '&lt;p&gt;\r\n	Privacy Policy&lt;/p&gt;\r\n', 'Privacy Policy', '', ''),
-(6, 1, 'Delivery Information', '&lt;p&gt;\r\n	Delivery Information&lt;/p&gt;\r\n', 'Delivery Information', '', ''),
-(7, 1, 'Subscriptions', 'Within the next couple of months, our store will be introducing a new subscription system where customers will have the ability to handle customer payments with their accounts and our store to provide better services with larger subscription products.', 'Subscriptions', '', '');
+(6, 1, 'Delivery Information', '&lt;p&gt;\r\n	Delivery Information&lt;/p&gt;\r\n', 'Delivery Information', '', '');
 
 -----------------------------------------------------------
 
@@ -1782,7 +1714,7 @@ CREATE TABLE `oc_information_to_layout` (
   `store_id` int(11) NOT NULL,
   `layout_id` int(11) NOT NULL,
   PRIMARY KEY (`information_id`,`store_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -----------------------------------------------------------
 
@@ -1795,7 +1727,7 @@ CREATE TABLE `oc_information_to_store` (
   `information_id` int(11) NOT NULL,
   `store_id` int(11) NOT NULL,
   PRIMARY KEY (`information_id`,`store_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Dumping data for table `oc_information_to_store`
@@ -1805,8 +1737,7 @@ INSERT INTO `oc_information_to_store` (`information_id`, `store_id`) VALUES
 (3, 0),
 (4, 0),
 (5, 0),
-(6, 0),
-(7, 0);
+(6, 0);
 
 -----------------------------------------------------------
 
@@ -1826,7 +1757,7 @@ CREATE TABLE `oc_language` (
   `status` tinyint(1) NOT NULL,
   PRIMARY KEY (`language_id`),
   KEY `name` (`name`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Dumping data for table `oc_language`
@@ -1846,7 +1777,7 @@ CREATE TABLE `oc_layout` (
   `layout_id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(64) NOT NULL,
   PRIMARY KEY (`layout_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Dumping data for table `oc_layout`
@@ -1881,7 +1812,7 @@ CREATE TABLE `oc_layout_module` (
   `position` varchar(14) NOT NULL,
   `sort_order` int(3) NOT NULL,
   PRIMARY KEY (`layout_module_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Dumping data for table `oc_layout_module`
@@ -1912,7 +1843,7 @@ CREATE TABLE `oc_layout_route` (
   `store_id` int(11) NOT NULL,
   `route` varchar(64) NOT NULL,
   PRIMARY KEY (`layout_route_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Dumping data for table `oc_layout_route`
@@ -1928,10 +1859,10 @@ INSERT INTO `oc_layout_route` (`layout_route_id`, `layout_id`, `store_id`, `rout
 (23, 7, 0, 'checkout/%'),
 (31, 8, 0, 'information/contact'),
 (32, 9, 0, 'information/sitemap'),
+(34, 4, 0, ''),
 (45, 5, 0, 'product/manufacturer'),
 (52, 12, 0, 'product/compare'),
-(53, 13, 0, 'product/search'),
-(54, 6, 0, 'information/gdpr');
+(53, 13, 0, 'product/search');
 
 -----------------------------------------------------------
 
@@ -1944,7 +1875,7 @@ CREATE TABLE `oc_length_class` (
   `length_class_id` int(11) NOT NULL AUTO_INCREMENT,
   `value` decimal(15,8) NOT NULL,
   PRIMARY KEY (`length_class_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Dumping data for table `oc_length_class`
@@ -1968,7 +1899,7 @@ CREATE TABLE `oc_length_class_description` (
   `title` varchar(32) NOT NULL,
   `unit` varchar(4) NOT NULL,
   PRIMARY KEY (`length_class_id`,`language_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Dumping data for table `oc_length_class_description`
@@ -1989,16 +1920,16 @@ DROP TABLE IF EXISTS `oc_location`;
 CREATE TABLE `oc_location` (
   `location_id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(32) NOT NULL,
-  `address` text NOT NULL,
+  `address` fulltext NOT NULL,
   `telephone` varchar(32) NOT NULL,
   `fax` varchar(32) NOT NULL,
   `geocode` varchar(32) NOT NULL,
   `image` varchar(255) DEFAULT NULL,
-  `open` text NOT NULL,
-  `comment` text NOT NULL,
+  `open` fulltext NOT NULL,
+  `comment` fulltext NOT NULL,
   PRIMARY KEY (`location_id`),
   KEY `name` (`name`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -----------------------------------------------------------
 
@@ -2013,7 +1944,7 @@ CREATE TABLE `oc_manufacturer` (
   `image` varchar(255) DEFAULT NULL,
   `sort_order` int(3) NOT NULL,
   PRIMARY KEY (`manufacturer_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Dumping data for table `oc_manufacturer`
@@ -2038,7 +1969,7 @@ CREATE TABLE `oc_manufacturer_to_store` (
   `manufacturer_id` int(11) NOT NULL,
   `store_id` int(11) NOT NULL,
   PRIMARY KEY (`manufacturer_id`,`store_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Dumping data for table `oc_manufacturer_to_store`
@@ -2062,12 +1993,12 @@ DROP TABLE IF EXISTS `oc_marketing`;
 CREATE TABLE `oc_marketing` (
   `marketing_id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(32) NOT NULL,
-  `description` text NOT NULL,
+  `description` fulltext NOT NULL,
   `code` varchar(64) NOT NULL,
   `clicks` int(5) NOT NULL DEFAULT '0',
   `date_added` datetime NOT NULL,
   PRIMARY KEY (`marketing_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -------------------------------------------------------------
 
@@ -2088,7 +2019,7 @@ CREATE TABLE `oc_modification` (
   `status` tinyint(1) NOT NULL,
   `date_added` datetime NOT NULL,
   PRIMARY KEY (`modification_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -------------------------------------------------------------
 
@@ -2100,9 +2031,9 @@ CREATE TABLE `oc_module` (
   `module_id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(64) NOT NULL,
   `code` varchar(32) NOT NULL,
-  `setting` text NOT NULL,
+  `setting` fulltext NOT NULL,
   PRIMARY KEY (`module_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Dumping data for table `oc_module`
@@ -2127,7 +2058,7 @@ CREATE TABLE `oc_option` (
   `type` varchar(32) NOT NULL,
   `sort_order` int(3) NOT NULL,
   PRIMARY KEY (`option_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Dumping data for table `oc_option`
@@ -2158,7 +2089,7 @@ CREATE TABLE `oc_option_description` (
   `language_id` int(11) NOT NULL,
   `name` varchar(128) NOT NULL,
   PRIMARY KEY (`option_id`,`language_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Dumping data for table `oc_option_description`
@@ -2190,7 +2121,7 @@ CREATE TABLE `oc_option_value` (
   `image` varchar(255) NOT NULL,
   `sort_order` int(3) NOT NULL,
   PRIMARY KEY (`option_value_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Dumping data for table `oc_option_value`
@@ -2225,7 +2156,7 @@ CREATE TABLE `oc_option_value_description` (
   `option_id` int(11) NOT NULL,
   `name` varchar(128) NOT NULL,
   PRIMARY KEY (`option_value_id`,`language_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Dumping data for table `oc_option_value_description`
@@ -2255,7 +2186,7 @@ INSERT INTO `oc_option_value_description` (`option_value_id`, `language_id`, `op
 
 DROP TABLE IF EXISTS `oc_order`;
 CREATE TABLE `oc_order` (
-  `order_id` int(11) NOT NULL AUTO_INCREMENT,  
+  `order_id` int(11) NOT NULL AUTO_INCREMENT,
   `invoice_no` int(11) NOT NULL DEFAULT '0',
   `invoice_prefix` varchar(26) NOT NULL,
   `store_id` int(11) NOT NULL DEFAULT '0',
@@ -2268,7 +2199,7 @@ CREATE TABLE `oc_order` (
   `email` varchar(96) NOT NULL,
   `telephone` varchar(32) NOT NULL,
   `fax` varchar(32) NOT NULL,
-  `custom_field` text NOT NULL,
+  `custom_field` fulltext NOT NULL,
   `payment_firstname` varchar(32) NOT NULL,
   `payment_lastname` varchar(32) NOT NULL,
   `payment_company` varchar(60) NOT NULL,
@@ -2280,8 +2211,8 @@ CREATE TABLE `oc_order` (
   `payment_country_id` int(11) NOT NULL,
   `payment_zone` varchar(128) NOT NULL,
   `payment_zone_id` int(11) NOT NULL,
-  `payment_address_format` text NOT NULL,
-  `payment_custom_field` text NOT NULL,
+  `payment_address_format` fulltext NOT NULL,
+  `payment_custom_field` fulltext NOT NULL,
   `payment_method` varchar(128) NOT NULL,
   `payment_code` varchar(128) NOT NULL,
   `shipping_firstname` varchar(32) NOT NULL,
@@ -2295,11 +2226,11 @@ CREATE TABLE `oc_order` (
   `shipping_country_id` int(11) NOT NULL,
   `shipping_zone` varchar(128) NOT NULL,
   `shipping_zone_id` int(11) NOT NULL,
-  `shipping_address_format` text NOT NULL,
-  `shipping_custom_field` text NOT NULL,
+  `shipping_address_format` fulltext NOT NULL,
+  `shipping_custom_field` fulltext NOT NULL,
   `shipping_method` varchar(128) NOT NULL,
   `shipping_code` varchar(128) NOT NULL,
-  `comment` text NOT NULL,
+  `comment` fulltext NOT NULL,
   `total` decimal(15,4) NOT NULL DEFAULT '0.0000',
   `order_status_id` int(11) NOT NULL DEFAULT '0',
   `affiliate_id` int(11) NOT NULL,
@@ -2317,7 +2248,7 @@ CREATE TABLE `oc_order` (
   `date_added` datetime NOT NULL,
   `date_modified` datetime NOT NULL,
   PRIMARY KEY (`order_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -----------------------------------------------------------
 
@@ -2331,10 +2262,10 @@ CREATE TABLE `oc_order_history` (
   `order_id` int(11) NOT NULL,
   `order_status_id` int(11) NOT NULL,
   `notify` tinyint(1) NOT NULL DEFAULT '0',
-  `comment` text NOT NULL,
+  `comment` fulltext NOT NULL,
   `date_added` datetime NOT NULL,
   PRIMARY KEY (`order_history_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -----------------------------------------------------------
 
@@ -2350,10 +2281,10 @@ CREATE TABLE `oc_order_option` (
   `product_option_id` int(11) NOT NULL,
   `product_option_value_id` int(11) NOT NULL DEFAULT '0',
   `name` varchar(255) NOT NULL,
-  `value` text NOT NULL,
+  `value` fulltext NOT NULL,
   `type` varchar(32) NOT NULL,
   PRIMARY KEY (`order_option_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -----------------------------------------------------------
 
@@ -2375,7 +2306,7 @@ CREATE TABLE `oc_order_product` (
   `reward` int(8) NOT NULL,
   PRIMARY KEY (`order_product_id`),
   KEY `order_id` (`order_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -----------------------------------------------------------
 
@@ -2406,7 +2337,7 @@ CREATE TABLE `oc_order_recurring` (
   `status` tinyint(4) NOT NULL,
   `date_added` datetime NOT NULL,
   PRIMARY KEY (`order_recurring_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -----------------------------------------------------------
 
@@ -2423,7 +2354,7 @@ CREATE TABLE `oc_order_recurring_transaction` (
   `amount` decimal(10,4) NOT NULL,
   `date_added` datetime NOT NULL,
   PRIMARY KEY (`order_recurring_transaction_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -----------------------------------------------------------
 
@@ -2439,21 +2370,7 @@ CREATE TABLE `oc_order_shipment` (
   `shipping_courier_id` varchar(255) NOT NULL DEFAULT '',
   `tracking_number` varchar(255) NOT NULL DEFAULT '',
   PRIMARY KEY (`order_shipment_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
-
------------------------------------------------------------
-
---
--- Table structure for table `oc_order_subscription_subscription`
---
-
-DROP TABLE IF EXISTS `oc_order_subscription_transaction`;
-CREATE TABLE `oc_order_subscription_transaction` (
-  `order_subscription_transaction_id` int(11) NOT NULL AUTO_INCREMENT,
-  `order_id` int(11) NOT NULL,
-  `transaction_id` varchar(100) NOT NULL,
-  PRIMARY KEY (`order_subscription_transaction_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -----------------------------------------------------------
 
@@ -2467,7 +2384,7 @@ CREATE TABLE `oc_shipping_courier` (
   `shipping_courier_code` varchar(255) NOT NULL DEFAULT '',
   `shipping_courier_name` varchar(255) NOT NULL DEFAULT '',
   PRIMARY KEY (`shipping_courier_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `oc_shipping_courier`
@@ -2493,7 +2410,7 @@ CREATE TABLE `oc_order_status` (
   `language_id` int(11) NOT NULL,
   `name` varchar(32) NOT NULL,
   PRIMARY KEY (`order_status_id`,`language_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Dumping data for table `oc_order_status`
@@ -2531,7 +2448,7 @@ CREATE TABLE `oc_order_total` (
   `sort_order` int(3) NOT NULL,
   PRIMARY KEY (`order_total_id`),
   KEY `order_id` (`order_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -----------------------------------------------------------
 
@@ -2551,10 +2468,10 @@ CREATE TABLE `oc_order_voucher` (
   `to_name` varchar(64) NOT NULL,
   `to_email` varchar(96) NOT NULL,
   `voucher_theme_id` int(11) NOT NULL,
-  `message` text NOT NULL,
+  `message` fulltext NOT NULL,
   `amount` decimal(15,4) NOT NULL,
   PRIMARY KEY (`order_voucher_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -----------------------------------------------------------
 
@@ -2596,7 +2513,7 @@ CREATE TABLE `oc_product` (
   `date_added` datetime NOT NULL,
   `date_modified` datetime NOT NULL,
   PRIMARY KEY (`product_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Dumping data for table `oc_product`
@@ -2655,7 +2572,7 @@ CREATE TABLE `oc_googleshopping_product` (
   `is_modified` tinyint(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`product_advertise_google_id`),
   UNIQUE KEY `product_id_store_id` (`product_id`,`store_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -----------------------------------------------------------
 
@@ -2668,12 +2585,12 @@ CREATE TABLE `oc_googleshopping_product_status` (
   `product_id` int(11) NOT NULL DEFAULT '0',
   `store_id` int(11) NOT NULL DEFAULT '0',
   `product_variation_id` varchar(64) NOT NULL DEFAULT '',
-  `destination_statuses` text NOT NULL,
-  `data_quality_issues` text NOT NULL,
-  `item_level_issues` text NOT NULL,
+  `destination_statuses` fulltext NOT NULL,
+  `data_quality_issues` fulltext NOT NULL,
+  `item_level_issues` fulltext NOT NULL,
   `google_expiration_date` int(11) NOT NULL DEFAULT '0',
   PRIMARY KEY (`product_id`,`store_id`,`product_variation_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -----------------------------------------------------------
 
@@ -2687,7 +2604,7 @@ CREATE TABLE `oc_googleshopping_product_target` (
   `store_id` int(11) NOT NULL DEFAULT '0',
   `advertise_google_target_id` int(11) UNSIGNED NOT NULL,
   PRIMARY KEY (`product_id`,`advertise_google_target_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -----------------------------------------------------------
 
@@ -2700,9 +2617,9 @@ CREATE TABLE `oc_product_attribute` (
   `product_id` int(11) NOT NULL,
   `attribute_id` int(11) NOT NULL,
   `language_id` int(11) NOT NULL,
-  `text` text NOT NULL,
+  `text` fulltext NOT NULL,
   PRIMARY KEY (`product_id`,`attribute_id`,`language_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Dumping data for table `oc_product_attribute`
@@ -2726,14 +2643,14 @@ CREATE TABLE `oc_product_description` (
   `product_id` int(11) NOT NULL,
   `language_id` int(11) NOT NULL,
   `name` varchar(255) NOT NULL,
-  `description` text NOT NULL,
-  `tag` text NOT NULL,
+  `description` fulltext NOT NULL,
+  `tag` fulltext NOT NULL,
   `meta_title` varchar(255) NOT NULL,
   `meta_description` varchar(255) NOT NULL,
   `meta_keyword` varchar(255) NOT NULL,
   PRIMARY KEY (`product_id`,`language_id`),
   KEY `name` (`name`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Dumping data for table `oc_product_description`
@@ -2778,7 +2695,7 @@ CREATE TABLE `oc_product_discount` (
   `date_end` date NOT NULL DEFAULT '0000-00-00',
   PRIMARY KEY (`product_discount_id`),
   KEY `product_id` (`product_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Dumping data for table `oc_product_discount`
@@ -2800,7 +2717,7 @@ CREATE TABLE `oc_product_filter` (
   `product_id` int(11) NOT NULL,
   `filter_id` int(11) NOT NULL,
   PRIMARY KEY (`product_id`,`filter_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -----------------------------------------------------------
 
@@ -2816,7 +2733,7 @@ CREATE TABLE `oc_product_image` (
   `sort_order` int(3) NOT NULL DEFAULT '0',
   PRIMARY KEY (`product_image_id`),
   KEY `product_id` (`product_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Dumping data for table `oc_product_image`
@@ -2896,10 +2813,10 @@ CREATE TABLE `oc_product_option` (
   `product_option_id` int(11) NOT NULL AUTO_INCREMENT,
   `product_id` int(11) NOT NULL,
   `option_id` int(11) NOT NULL,
-  `value` text NOT NULL,
+  `value` fulltext NOT NULL,
   `required` tinyint(1) NOT NULL,
   PRIMARY KEY (`product_option_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Dumping data for table `oc_product_option`
@@ -2941,7 +2858,7 @@ CREATE TABLE `oc_product_option_value` (
   `weight` decimal(15,8) NOT NULL,
   `weight_prefix` varchar(1) NOT NULL,
   PRIMARY KEY (`product_option_value_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Dumping data for table `oc_product_option_value`
@@ -2968,16 +2885,16 @@ INSERT INTO `oc_product_option_value` (`product_option_value_id`, `product_optio
 -----------------------------------------------------------
 
 --
--- Table structure for table `oc_product_subscription`
+-- Table structure for table `oc_product_recurring`
 --
 
-DROP TABLE IF EXISTS `oc_product_subscription`;
-CREATE TABLE `oc_product_subscription` (
+DROP TABLE IF EXISTS `oc_product_recurring`;
+CREATE TABLE `oc_product_recurring` (
   `product_id` int(11) NOT NULL,
-  `subscription_plan_id` int(11) NOT NULL,
+  `recurring_id` int(11) NOT NULL,
   `customer_group_id` int(11) NOT NULL,
-  PRIMARY KEY (`product_id`,`subscription_plan_id`,`customer_group_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+  PRIMARY KEY (`product_id`,`recurring_id`,`customer_group_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -----------------------------------------------------------
 
@@ -2990,7 +2907,7 @@ CREATE TABLE `oc_product_related` (
   `product_id` int(11) NOT NULL,
   `related_id` int(11) NOT NULL,
   PRIMARY KEY (`product_id`,`related_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Dumping data for table `oc_product_related`
@@ -3015,7 +2932,7 @@ CREATE TABLE `oc_product_reward` (
   `customer_group_id` int(11) NOT NULL DEFAULT '0',
   `points` int(8) NOT NULL DEFAULT '0',
   PRIMARY KEY (`product_reward_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Dumping data for table `oc_product_reward`
@@ -3059,7 +2976,7 @@ CREATE TABLE `oc_product_special` (
   `date_end` date NOT NULL DEFAULT '0000-00-00',
   PRIMARY KEY (`product_special_id`),
   KEY `product_id` (`product_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Dumping data for table `oc_product_special`
@@ -3082,7 +2999,7 @@ CREATE TABLE `oc_product_to_category` (
   `category_id` int(11) NOT NULL,
   PRIMARY KEY (`product_id`,`category_id`),
   KEY `category_id` (`category_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Dumping data for table `oc_product_to_category`
@@ -3131,7 +3048,7 @@ CREATE TABLE `oc_product_to_download` (
   `product_id` int(11) NOT NULL,
   `download_id` int(11) NOT NULL,
   PRIMARY KEY (`product_id`,`download_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -----------------------------------------------------------
 
@@ -3145,7 +3062,7 @@ CREATE TABLE `oc_product_to_layout` (
   `store_id` int(11) NOT NULL,
   `layout_id` int(11) NOT NULL,
   PRIMARY KEY (`product_id`,`store_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -----------------------------------------------------------
 
@@ -3158,7 +3075,7 @@ CREATE TABLE `oc_product_to_store` (
   `product_id` int(11) NOT NULL,
   `store_id` int(11) NOT NULL DEFAULT '0',
   PRIMARY KEY (`product_id`,`store_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Dumping data for table `oc_product_to_store`
@@ -3188,6 +3105,43 @@ INSERT INTO `oc_product_to_store` (`product_id`, `store_id`) VALUES
 -----------------------------------------------------------
 
 --
+-- Table structure for table `oc_recurring`
+--
+
+DROP TABLE IF EXISTS `oc_recurring`;
+CREATE TABLE `oc_recurring` (
+  `recurring_id` int(11) NOT NULL AUTO_INCREMENT,
+  `price` decimal(10,4) NOT NULL,
+  `frequency` enum('day','week','semi_month','month','year') NOT NULL,
+  `duration` int(10) unsigned NOT NULL,
+  `cycle` int(10) unsigned NOT NULL,
+  `trial_status` tinyint(4) NOT NULL,
+  `trial_price` decimal(10,4) NOT NULL,
+  `trial_frequency` enum('day','week','semi_month','month','year') NOT NULL,
+  `trial_duration` int(10) unsigned NOT NULL,
+  `trial_cycle` int(10) unsigned NOT NULL,
+  `status` tinyint(4) NOT NULL,
+  `sort_order` int(11) NOT NULL,
+  PRIMARY KEY (`recurring_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+-----------------------------------------------------------
+
+--
+-- Table structure for table `oc_recurring_description`
+--
+
+DROP TABLE IF EXISTS `oc_recurring_description`;
+CREATE TABLE `oc_recurring_description` (
+  `recurring_id` int(11) NOT NULL,
+  `language_id` int(11) NOT NULL,
+  `name` varchar(255) NOT NULL,
+  PRIMARY KEY (`recurring_id`,`language_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+-----------------------------------------------------------
+
+--
 -- Table structure for table `oc_return`
 --
 
@@ -3208,12 +3162,12 @@ CREATE TABLE `oc_return` (
   `return_reason_id` int(11) NOT NULL,
   `return_action_id` int(11) NOT NULL,
   `return_status_id` int(11) NOT NULL,
-  `comment` text,
+  `comment` fulltext,
   `date_ordered` date NOT NULL DEFAULT '0000-00-00',
   `date_added` datetime NOT NULL,
   `date_modified` datetime NOT NULL,
   PRIMARY KEY (`return_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -----------------------------------------------------------
 
@@ -3227,7 +3181,7 @@ CREATE TABLE `oc_return_action` (
   `language_id` int(11) NOT NULL DEFAULT '0',
   `name` varchar(64) NOT NULL,
   PRIMARY KEY (`return_action_id`,`language_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Dumping data for table `oc_return_action`
@@ -3250,10 +3204,10 @@ CREATE TABLE `oc_return_history` (
   `return_id` int(11) NOT NULL,
   `return_status_id` int(11) NOT NULL,
   `notify` tinyint(1) NOT NULL,
-  `comment` text NOT NULL,
+  `comment` fulltext NOT NULL,
   `date_added` datetime NOT NULL,
   PRIMARY KEY (`return_history_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -----------------------------------------------------------
 
@@ -3267,7 +3221,7 @@ CREATE TABLE `oc_return_reason` (
   `language_id` int(11) NOT NULL DEFAULT '0',
   `name` varchar(128) NOT NULL,
   PRIMARY KEY (`return_reason_id`,`language_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Dumping data for table `oc_return_reason`
@@ -3292,7 +3246,7 @@ CREATE TABLE `oc_return_status` (
   `language_id` int(11) NOT NULL DEFAULT '0',
   `name` varchar(32) NOT NULL,
   PRIMARY KEY (`return_status_id`,`language_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Dumping data for table `oc_return_status`
@@ -3315,14 +3269,14 @@ CREATE TABLE `oc_review` (
   `product_id` int(11) NOT NULL,
   `customer_id` int(11) NOT NULL,
   `author` varchar(64) NOT NULL,
-  `text` text NOT NULL,
+  `text` fulltext NOT NULL,
   `rating` int(1) NOT NULL,
   `status` tinyint(1) NOT NULL DEFAULT '0',
   `date_added` datetime NOT NULL,
   `date_modified` datetime NOT NULL,
   PRIMARY KEY (`review_id`),
   KEY `product_id` (`product_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -----------------------------------------------------------
 
@@ -3336,7 +3290,7 @@ CREATE TABLE `oc_statistics` (
   `code` varchar(64) NOT NULL,
   `value` decimal(15,4) NOT NULL,
   PRIMARY KEY (`statistics_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 
 --
@@ -3361,10 +3315,10 @@ INSERT INTO `oc_statistics` (`statistics_id`, `code`, `value`) VALUES
 DROP TABLE IF EXISTS `oc_session`;
 CREATE TABLE `oc_session` (
   `session_id` varchar(32) NOT NULL,
-  `data` text NOT NULL,
+  `data` fulltext NOT NULL,
   `expire` datetime NOT NULL,
   PRIMARY KEY (`session_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -----------------------------------------------------------
 
@@ -3378,10 +3332,10 @@ CREATE TABLE `oc_setting` (
   `store_id` int(11) NOT NULL DEFAULT '0',
   `code` varchar(128) NOT NULL,
   `key` varchar(128) NOT NULL,
-  `value` text NOT NULL,
+  `value` fulltext NOT NULL,
   `serialized` tinyint(1) NOT NULL,
   PRIMARY KEY (`setting_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Dumping data for table `oc_setting`
@@ -3399,8 +3353,6 @@ INSERT INTO `oc_setting` (`store_id`, `code`, `key`, `value`, `serialized`) VALU
 (0, 'config', 'config_ftp_port', '21', 0),
 (0, 'config', 'config_ftp_hostname', '', 0),
 (0, 'config', 'config_meta_title', 'Your Store', 0),
-(0, 'config', 'config_session_expire', '86400', 0),
-(0, 'config', 'config_session_samesite', 'Strict', 0),
 (0, 'config', 'config_meta_description', 'My Store', 0),
 (0, 'config', 'config_meta_keyword', '', 0),
 (0, 'config', 'config_theme', 'default', 0),
@@ -3412,7 +3364,6 @@ INSERT INTO `oc_setting` (`store_id`, `code`, `key`, `value`, `serialized`) VALU
 (0, 'config', 'config_admin_language', 'en-gb', 0),
 (0, 'config', 'config_currency', 'USD', 0),
 (0, 'config', 'config_currency_auto', '1', 0),
-(0, 'config', 'config_currency_engine', 'ecb', 0),
 (0, 'config', 'config_length_class_id', '1', 0),
 (0, 'config', 'config_weight_class_id', '1', 0),
 (0, 'config', 'config_product_count', '1', 0),
@@ -3421,9 +3372,6 @@ INSERT INTO `oc_setting` (`store_id`, `code`, `key`, `value`, `serialized`) VALU
 (0, 'config', 'config_review_guest', '1', 0),
 (0, 'config', 'config_voucher_min', '1', 0),
 (0, 'config', 'config_voucher_max', '1000', 0),
-(0, 'config', 'config_cookie_id', '0', 0),
-(0, 'config', 'config_gdpr_id', '0', 0),
-(0, 'config', 'config_gdpr_limit', '180', 0),
 (0, 'config', 'config_tax', '1', 0),
 (0, 'config', 'config_tax_default', 'shipping', 0),
 (0, 'config', 'config_tax_customer', 'shipping', 0),
@@ -3433,32 +3381,21 @@ INSERT INTO `oc_setting` (`store_id`, `code`, `key`, `value`, `serialized`) VALU
 (0, 'config', 'config_customer_group_id', '1', 0),
 (0, 'config', 'config_customer_group_display', '["1"]', 1),
 (0, 'config', 'config_customer_price', '0', 0),
-(0, 'config', 'config_address_format_id', '1', 0),
 (0, 'config', 'config_account_id', '3', 0),
 (0, 'config', 'config_invoice_prefix', CONCAT('INV-', YEAR(CURDATE()), '-00'), 0),
 (0, 'config', 'config_api_id', '1', 0),
 (0, 'config', 'config_cart_weight', '1', 0),
 (0, 'config', 'config_checkout_guest', '1', 0),
 (0, 'config', 'config_checkout_id', '5', 0),
-(0, 'config', 'config_information_subscription_id', '7', 0),
 (0, 'config', 'config_order_status_id', '1', 0),
 (0, 'config', 'config_processing_status', '["5","1","2","12","3"]', 1),
 (0, 'config', 'config_complete_status', '["5","3"]', 1),
-(0, 'config', 'config_fraud_status_id', '8', 0),
-(0, 'config', 'config_subscription_status_id', '1', 0),
-(0, 'config', 'config_subscription_active_status_id', '2', 0),
-(0, 'config', 'config_subscription_expired_status_id', '6', 0),
-(0, 'config', 'config_subscription_canceled_status_id', '4', 0),
-(0, 'config', 'config_subscription_failed_status_id', '3', 0),
-(0, 'config', 'config_subscription_denied_status_id', '5', 0),
 (0, 'config', 'config_stock_display', '0', 0),
 (0, 'config', 'config_stock_warning', '0', 0),
 (0, 'config', 'config_stock_checkout', '0', 0),
-(0, 'config', 'config_affiliate_status', '1', 0),
 (0, 'config', 'config_affiliate_approval', '0', 0),
 (0, 'config', 'config_affiliate_auto', '0', 0),
 (0, 'config', 'config_affiliate_commission', '5', 0),
-(0, 'config', 'config_affiliate_expire', '86400', 0),
 (0, 'config', 'config_affiliate_id', '4', 0),
 (0, 'config', 'config_return_id', '0', 0),
 (0, 'config', 'config_return_status_id', '2', 0),
@@ -3486,7 +3423,7 @@ INSERT INTO `oc_setting` (`store_id`, `code`, `key`, `value`, `serialized`) VALU
 (0, 'config', 'config_error_log', '1', 0),
 (0, 'config', 'config_error_filename', 'error.log', 0),
 (0, 'config', 'config_google_analytics', '', 0),
-(0, 'config', 'config_mail_engine', '', 0),
+(0, 'config', 'config_mail_engine', 'mail', 0),
 (0, 'config', 'config_mail_parameter', '', 0),
 (0, 'config', 'config_mail_smtp_hostname', '', 0),
 (0, 'config', 'config_mail_smtp_username', '', 0),
@@ -3496,9 +3433,8 @@ INSERT INTO `oc_setting` (`store_id`, `code`, `key`, `value`, `serialized`) VALU
 (0, 'config', 'config_mail_alert_email', '', 0),
 (0, 'config', 'config_mail_alert', '["order"]', 1),
 (0, 'config', 'config_captcha', 'basic', 0),
-(0, 'config', 'config_captcha_page', '["review","returns","contact"]', 1),
+(0, 'config', 'config_captcha_page', '["review","return","contact"]', 1),
 (0, 'config', 'config_login_attempts', '5', 0),
-(0, 'currency_ecb', 'currency_ecb_status', '1', 0),
 (0, 'payment_free_checkout', 'payment_free_checkout_status', '1', 0),
 (0, 'payment_free_checkout', 'payment_free_checkout_order_status_id', '1', 0),
 (0, 'payment_free_checkout', 'payment_free_checkout_sort_order', '1', 0),
@@ -3620,7 +3556,7 @@ CREATE TABLE `oc_stock_status` (
   `language_id` int(11) NOT NULL,
   `name` varchar(32) NOT NULL,
   PRIMARY KEY (`stock_status_id`,`language_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Dumping data for table `oc_stock_status`
@@ -3635,147 +3571,6 @@ INSERT INTO `oc_stock_status` (`stock_status_id`, `language_id`, `name`) VALUES
 -----------------------------------------------------------
 
 --
--- Table structure for table `oc_subscription`
---
-
-DROP TABLE IF EXISTS `oc_subscription`;
-CREATE TABLE `oc_subscription` (
-  `subscription_id` int(11) NOT NULL AUTO_INCREMENT,
-  `customer_id` int(11) NOT NULL,
-  `order_id` int(11) NOT NULL,
-  `order_product_id` int(11) NOT NULL,
-  `subscription_plan_id` int(11) NOT NULL,
-  `customer_payment_id` int(11) NOT NULL,  
-  `name` varchar(32) NOT NULL,
-  `description` text NOT NULL,
-  `reference` varchar(255) NOT NULL,
-  `trial_price` decimal(10,4) NOT NULL,
-  `trial_frequency` enum('day','week','semi_month','month','year') NOT NULL,
-  `trial_cycle` smallint(6) NOT NULL,
-  `trial_duration` smallint(6) NOT NULL,
-  `trial_remaining` smallint(6) NOT NULL,
-  `trial_status` tinyint(1) NOT NULL,
-  `price` decimal(10,4) NOT NULL,
-  `frequency` enum('day','week','semi_month','month','year') NOT NULL,
-  `cycle` smallint(6) NOT NULL,
-  `duration` smallint(6) NOT NULL,
-  `remaining` smallint(6) NOT NULL,
-  `date_next` datetime NOT NULL,
-  `subscription_status_id` int(11) NOT NULL,
-  `status` tinyint(1) NOT NULL,
-  `date_added` datetime NOT NULL,
-  `date_modified` datetime NOT NULL,
-  PRIMARY KEY (`subscription_id`),
-  KEY `order_id` (`order_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
-
------------------------------------------------------------
-
---
--- Table structure for table `oc_subscription_history`
---
-
-DROP TABLE IF EXISTS `oc_subscription_history`;
-CREATE TABLE `oc_subscription_history` (
-  `subscription_history_id` int(11) NOT NULL AUTO_INCREMENT,
-  `subscription_id` int(11) NOT NULL,
-  `subscription_status_id` int(11) NOT NULL,
-  `notify` tinyint(1) NOT NULL,
-  `comment` text NOT NULL,
-  `date_added` datetime NOT NULL,
-  PRIMARY KEY (`subscription_history_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
-
------------------------------------------------------------
-
---
--- Table structure for table `oc_subscription_plan`
---
-
-DROP TABLE IF EXISTS `oc_subscription_plan`;
-CREATE TABLE `oc_subscription_plan` (
-  `subscription_plan_id` int(11) NOT NULL AUTO_INCREMENT,
-  `trial_price` decimal(10,4) NOT NULL,
-  `trial_frequency` enum('day','week','semi_month','month','year') NOT NULL,
-  `trial_duration` smallint(6) NOT NULL,
-  `trial_cycle` smallint(6) NOT NULL,
-  `trial_status` tinyint(1) NOT NULL,
-  `price` decimal(10,4) NOT NULL,
-  `frequency` enum('day','week','semi_month','month','year') NOT NULL,
-  `duration` smallint(6) NOT NULL,
-  `cycle` smallint(6) NOT NULL,
-  `status` tinyint(1) NOT NULL,
-  `sort_order` int(3) NOT NULL,
-  PRIMARY KEY (`subscription_plan_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
-
------------------------------------------------------------
-
---
--- Table structure for table `oc_subscription_plan_description`
---
-
-DROP TABLE IF EXISTS `oc_subscription_plan_description`;
-CREATE TABLE `oc_subscription_plan_description` (
-  `subscription_plan_id` int(11) NOT NULL,
-  `language_id` int(11) NOT NULL,
-  `name` varchar(255) NOT NULL,
-  `description` text NOT NULL,
-  PRIMARY KEY (`subscription_plan_id`,`language_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
-
------------------------------------------------------------
-
---
--- Table structure for table `oc_subscription_status`
---
-
-DROP TABLE IF EXISTS `oc_subscription_status`;
-CREATE TABLE `oc_subscription_status` (
-  `subscription_status_id` int(11) NOT NULL AUTO_INCREMENT,
-  `language_id` int(11) NOT NULL,
-  `name` varchar(32) NOT NULL,
-  PRIMARY KEY (`subscription_status_id`,`language_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
-
---
--- Dumping data for table `oc_subscription_status`
---
-
-INSERT INTO `oc_subscription_status` (`subscription_status_id`, `language_id`, `name`) VALUES
-(1, 1, 'Pending'),
-(2, 1, 'Active'),
-(3, 1, 'Failed'),
-(4, 1, 'Cancelled'),
-(5, 1, 'Denied'),
-(6, 1, 'Expired');
-
------------------------------------------------------------
-
---
--- Table structure for table `oc_subscription_transaction`
---
-
-DROP TABLE IF EXISTS `oc_subscription_transaction`;
-CREATE TABLE `oc_subscription_transaction` (
-  `subscription_transaction_id` int(11) NOT NULL AUTO_INCREMENT,
-  `subscription_id` int(11) NOT NULL,
-  `order_id` int(11) NOT NULL,
-  `description` text NOT NULL,
-  `order_subscription_transaction_id` int(11) NOT NULL,
-  `amount` decimal(10,4) NOT NULL,
-  `type` tinyint(2) NOT NULL,
-  `payment_method` varchar(128) NOT NULL,
-  `payment_code` varchar(128) NOT NULL,
-  `date_added` datetime NOT NULL,
-  PRIMARY KEY (`subscription_transaction_id`),
-  KEY `subscription_id` (`subscription_id`),
-  KEY `order_id` (`order_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
-
------------------------------------------------------------
-
---
 -- Table structure for table `oc_store`
 --
 
@@ -3786,7 +3581,7 @@ CREATE TABLE `oc_store` (
   `url` varchar(255) NOT NULL,
   `ssl` varchar(255) NOT NULL,
   PRIMARY KEY (`store_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -----------------------------------------------------------
 
@@ -3802,7 +3597,7 @@ CREATE TABLE `oc_tax_class` (
   `date_added` datetime NOT NULL,
   `date_modified` datetime NOT NULL,
   PRIMARY KEY (`tax_class_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Dumping data for table `oc_tax_class`
@@ -3828,7 +3623,7 @@ CREATE TABLE `oc_tax_rate` (
   `date_added` datetime NOT NULL,
   `date_modified` datetime NOT NULL,
   PRIMARY KEY (`tax_rate_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Dumping data for table `oc_tax_rate`
@@ -3849,7 +3644,7 @@ CREATE TABLE `oc_tax_rate_to_customer_group` (
   `tax_rate_id` int(11) NOT NULL,
   `customer_group_id` int(11) NOT NULL,
   PRIMARY KEY (`tax_rate_id`,`customer_group_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Dumping data for table `oc_tax_rate_to_customer_group`
@@ -3873,7 +3668,7 @@ CREATE TABLE `oc_tax_rule` (
   `based` varchar(10) NOT NULL,
   `priority` int(5) NOT NULL DEFAULT '1',
   PRIMARY KEY (`tax_rule_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Dumping data for table `oc_tax_rule`
@@ -3900,7 +3695,7 @@ CREATE TABLE `oc_theme` (
   `code` mediumtext NOT NULL,
   `date_added` datetime NOT NULL,
   PRIMARY KEY (`theme_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -----------------------------------------------------------
 
@@ -3915,10 +3710,10 @@ CREATE TABLE `oc_translation` (
   `language_id` int(11) NOT NULL,
   `route` varchar(64) NOT NULL,
   `key` varchar(64) NOT NULL,
-  `value` text NOT NULL,
+  `value` fulltext NOT NULL,
   `date_added` datetime NOT NULL,
   PRIMARY KEY (`translation_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -----------------------------------------------------------
 
@@ -3934,7 +3729,7 @@ CREATE TABLE `oc_upload` (
   `code` varchar(255) NOT NULL,
   `date_added` datetime NOT NULL,
   PRIMARY KEY (`upload_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -----------------------------------------------------------
 
@@ -3952,7 +3747,7 @@ CREATE TABLE `oc_seo_url` (
   PRIMARY KEY (`seo_url_id`),
   KEY `query` (`query`),
   KEY `keyword` (`keyword`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Dumping data for table `oc_seo_url`
@@ -4049,7 +3844,7 @@ CREATE TABLE `oc_user` (
   `status` tinyint(1) NOT NULL,
   `date_added` datetime NOT NULL,
   PRIMARY KEY (`user_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -----------------------------------------------------------
 
@@ -4061,16 +3856,16 @@ DROP TABLE IF EXISTS `oc_user_group`;
 CREATE TABLE `oc_user_group` (
   `user_group_id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(64) NOT NULL,
-  `permission` text NOT NULL,
+  `permission` fulltext NOT NULL,
   PRIMARY KEY (`user_group_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Dumping data for table `oc_user_group`
 --
 
 INSERT INTO `oc_user_group` (`user_group_id`, `name`, `permission`) VALUES
-(1, 'Administrator', '{"access":["catalog\/attribute","catalog\/attribute_group","catalog\/category","catalog\/download","catalog\/filter","catalog\/information","catalog\/manufacturer","catalog\/option","catalog\/product","catalog\/review","catalog\/subscription_plan","common\/column_left","common\/developer","common\/filemanager","common\/profile","common\/security","customer\/custom_field","customer\/customer","customer\/customer_approval","customer\/customer_group","design\/banner","design\/layout","design\/seo_url","design\/theme","design\/translation","event\/currency","event\/language","event\/statistics","event\/theme","extension\/advertise\/google","extension\/analytics\/google","extension\/captcha\/basic","extension\/captcha\/google","extension\/currency\/ecb","extension\/currency\/fixer","extension\/dashboard\/activity","extension\/dashboard\/chart","extension\/dashboard\/customer","extension\/dashboard\/map","extension\/dashboard\/online","extension\/dashboard\/order","extension\/dashboard\/recent","extension\/dashboard\/sale","extension\/extension\/advertise","extension\/extension\/analytics","extension\/extension\/captcha","extension\/extension\/currency","extension\/extension\/dashboard","extension\/extension\/feed","extension\/extension\/fraud","extension\/extension\/menu","extension\/extension\/module","extension\/extension\/payment","extension\/extension\/promotion","extension\/extension\/report","extension\/extension\/shipping","extension\/extension\/theme","extension\/extension\/total","extension\/feed\/google_base","extension\/feed\/google_sitemap","extension\/fraud\/fraudlabspro","extension\/fraud\/ip","extension\/fraud\/maxmind","extension\/module\/account","extension\/module\/amazon_login","extension\/module\/amazon_pay","extension\/module\/banner","extension\/module\/bestseller","extension\/module\/carousel","extension\/module\/category","extension\/module\/divido_calculator","extension\/module\/featured","extension\/module\/filter","extension\/module\/google_hangouts","extension\/module\/html","extension\/module\/information","extension\/module\/klarna_checkout_module","extension\/module\/latest","extension\/module\/laybuy_layout","extension\/module\/paypal_smart_button","extension\/module\/pilibaba_button","extension\/module\/pp_braintree_button","extension\/module\/sagepay_direct_cards","extension\/module\/sagepay_server_cards","extension\/module\/slideshow","extension\/module\/special","extension\/module\/store","extension\/payment\/alipay","extension\/payment\/alipay_cross","extension\/payment\/amazon_login_pay","extension\/payment\/authorizenet_aim","extension\/payment\/authorizenet_sim","extension\/payment\/bank_transfer","extension\/payment\/bluepay_hosted","extension\/payment\/bluepay_redirect","extension\/payment\/cardconnect","extension\/payment\/cardinity","extension\/payment\/cheque","extension\/payment\/cod","extension\/payment\/divido","extension\/payment\/eway","extension\/payment\/firstdata","extension\/payment\/firstdata_remote","extension\/payment\/free_checkout","extension\/payment\/g2apay","extension\/payment\/globalpay","extension\/payment\/globalpay_remote","extension\/payment\/klarna_account","extension\/payment\/klarna_checkout","extension\/payment\/klarna_invoice","extension\/payment\/laybuy","extension\/payment\/liqpay","extension\/payment\/nochex","extension\/payment\/paymate","extension\/payment\/paypal","extension\/payment\/paypoint","extension\/payment\/payza","extension\/payment\/perpetual_payments","extension\/payment\/pilibaba","extension\/payment\/pp_braintree","extension\/payment\/pp_express","extension\/payment\/pp_payflow","extension\/payment\/pp_payflow_iframe","extension\/payment\/pp_pro","extension\/payment\/pp_pro_iframe","extension\/payment\/pp_standard","extension\/payment\/realex","extension\/payment\/realex_remote","extension\/payment\/sagepay_direct","extension\/payment\/sagepay_server","extension\/payment\/sagepay_us","extension\/payment\/securetrading_pp","extension\/payment\/securetrading_ws","extension\/payment\/skrill","extension\/payment\/squareup","extension\/payment\/twocheckout","extension\/payment\/web_payment_software","extension\/payment\/wechat_pay","extension\/payment\/worldpay","extension\/report\/customer_activity","extension\/report\/customer_order","extension\/report\/customer_reward","extension\/report\/customer_search","extension\/report\/customer_transaction","extension\/report\/marketing","extension\/report\/product_purchased","extension\/report\/product_viewed","extension\/report\/sale_coupon","extension\/report\/sale_order","extension\/report\/sale_return","extension\/report\/sale_shipping","extension\/report\/sale_tax","extension\/shipping\/auspost","extension\/shipping\/ec_ship","extension\/shipping\/fedex","extension\/shipping\/flat","extension\/shipping\/free","extension\/shipping\/item","extension\/shipping\/parcelforce_48","extension\/shipping\/pickup","extension\/shipping\/royal_mail","extension\/shipping\/ups","extension\/shipping\/usps","extension\/shipping\/weight","extension\/theme\/default","extension\/total\/coupon","extension\/total\/credit","extension\/total\/handling","extension\/total\/klarna_fee","extension\/total\/low_order_fee","extension\/total\/reward","extension\/total\/shipping","extension\/total\/sub_total","extension\/total\/tax","extension\/total\/total","extension\/total\/voucher","localisation\/address_format","localisation\/country","localisation\/currency","localisation\/geo_zone","localisation\/language","localisation\/length_class","localisation\/location","localisation\/order_status","localisation\/returns_action","localisation\/returns_reason","localisation\/returns_status","localisation\/stock_status","localisation\/tax_class","localisation\/tax_rate","localisation\/weight_class","localisation\/zone","mail\/affiliate","mail\/customer","mail\/forgotten","mail\/returns","mail\/reward","mail\/transaction","marketing\/affiliate","marketing\/contact","marketing\/coupon","marketing\/marketing","marketplace\/api","marketplace\/event","marketplace\/extension","marketplace\/install","marketplace\/installer","marketplace\/marketplace","marketplace\/modification","report\/online","report\/report","report\/statistics","sale\/order","sale\/recurring","sale\/returns","sale\/voucher","sale\/voucher_theme","setting\/setting","setting\/store","startup\/application","startup\/error","startup\/event","startup\/language","startup\/login","startup\/permission","startup\/router","startup\/sass","startup\/session","startup\/setting","startup\/startup","tool\/backup","tool\/log","tool\/upload","user\/api","user\/user","user\/user_permission"],"modify":["catalog\/attribute","catalog\/attribute_group","catalog\/category","catalog\/download","catalog\/filter","catalog\/information","catalog\/manufacturer","catalog\/option","catalog\/product","catalog\/review","catalog\/subscription_plan","common\/column_left","common\/developer","common\/filemanager","common\/profile","common\/security","customer\/custom_field","customer\/customer","customer\/customer_approval","customer\/customer_group","design\/banner","design\/layout","design\/seo_url","design\/theme","design\/translation","event\/currency","event\/language","event\/statistics","event\/theme","extension\/advertise\/google","extension\/analytics\/google","extension\/captcha\/basic","extension\/captcha\/google","extension\/currency\/ecb","extension\/currency\/fixer","extension\/dashboard\/activity","extension\/dashboard\/chart","extension\/dashboard\/customer","extension\/dashboard\/map","extension\/dashboard\/online","extension\/dashboard\/order","extension\/dashboard\/recent","extension\/dashboard\/sale","extension\/extension\/advertise","extension\/extension\/analytics","extension\/extension\/captcha","extension\/extension\/currency","extension\/extension\/dashboard","extension\/extension\/feed","extension\/extension\/fraud","extension\/extension\/menu","extension\/extension\/module","extension\/extension\/payment","extension\/extension\/promotion","extension\/extension\/report","extension\/extension\/shipping","extension\/extension\/theme","extension\/extension\/total","extension\/feed\/google_base","extension\/feed\/google_sitemap","extension\/fraud\/fraudlabspro","extension\/fraud\/ip","extension\/fraud\/maxmind","extension\/module\/account","extension\/module\/amazon_login","extension\/module\/amazon_pay","extension\/module\/banner","extension\/module\/bestseller","extension\/module\/carousel","extension\/module\/category","extension\/module\/divido_calculator","extension\/module\/featured","extension\/module\/filter","extension\/module\/google_hangouts","extension\/module\/html","extension\/module\/information","extension\/module\/klarna_checkout_module","extension\/module\/latest","extension\/module\/laybuy_layout","extension\/module\/paypal_smart_button","extension\/module\/pilibaba_button","extension\/module\/pp_braintree_button","extension\/module\/sagepay_direct_cards","extension\/module\/sagepay_server_cards","extension\/module\/slideshow","extension\/module\/special","extension\/module\/store","extension\/payment\/alipay","extension\/payment\/alipay_cross","extension\/payment\/amazon_login_pay","extension\/payment\/authorizenet_aim","extension\/payment\/authorizenet_sim","extension\/payment\/bank_transfer","extension\/payment\/bluepay_hosted","extension\/payment\/bluepay_redirect","extension\/payment\/cardconnect","extension\/payment\/cardinity","extension\/payment\/cheque","extension\/payment\/cod","extension\/payment\/divido","extension\/payment\/eway","extension\/payment\/firstdata","extension\/payment\/firstdata_remote","extension\/payment\/free_checkout","extension\/payment\/g2apay","extension\/payment\/globalpay","extension\/payment\/globalpay_remote","extension\/payment\/klarna_account","extension\/payment\/klarna_checkout","extension\/payment\/klarna_invoice","extension\/payment\/laybuy","extension\/payment\/liqpay","extension\/payment\/nochex","extension\/payment\/paymate","extension\/payment\/paypal","extension\/payment\/paypoint","extension\/payment\/payza","extension\/payment\/perpetual_payments","extension\/payment\/pilibaba","extension\/payment\/pp_braintree","extension\/payment\/pp_express","extension\/payment\/pp_payflow","extension\/payment\/pp_payflow_iframe","extension\/payment\/pp_pro","extension\/payment\/pp_pro_iframe","extension\/payment\/pp_standard","extension\/payment\/realex","extension\/payment\/realex_remote","extension\/payment\/sagepay_direct","extension\/payment\/sagepay_server","extension\/payment\/sagepay_us","extension\/payment\/securetrading_pp","extension\/payment\/securetrading_ws","extension\/payment\/skrill","extension\/payment\/squareup","extension\/payment\/twocheckout","extension\/payment\/web_payment_software","extension\/payment\/wechat_pay","extension\/payment\/worldpay","extension\/report\/customer_activity","extension\/report\/customer_order","extension\/report\/customer_reward","extension\/report\/customer_search","extension\/report\/customer_transaction","extension\/report\/marketing","extension\/report\/product_purchased","extension\/report\/product_viewed","extension\/report\/sale_coupon","extension\/report\/sale_order","extension\/report\/sale_return","extension\/report\/sale_shipping","extension\/report\/sale_tax","extension\/shipping\/auspost","extension\/shipping\/ec_ship","extension\/shipping\/fedex","extension\/shipping\/flat","extension\/shipping\/free","extension\/shipping\/item","extension\/shipping\/parcelforce_48","extension\/shipping\/pickup","extension\/shipping\/royal_mail","extension\/shipping\/ups","extension\/shipping\/usps","extension\/shipping\/weight","extension\/theme\/default","extension\/total\/coupon","extension\/total\/credit","extension\/total\/handling","extension\/total\/klarna_fee","extension\/total\/low_order_fee","extension\/total\/reward","extension\/total\/shipping","extension\/total\/sub_total","extension\/total\/tax","extension\/total\/total","extension\/total\/voucher","localisation\/address_format","localisation\/country","localisation\/currency","localisation\/geo_zone","localisation\/language","localisation\/length_class","localisation\/location","localisation\/order_status","localisation\/returns_action","localisation\/returns_reason","localisation\/returns_status","localisation\/stock_status","localisation\/tax_class","localisation\/tax_rate","localisation\/weight_class","localisation\/zone","mail\/affiliate","mail\/customer","mail\/forgotten","mail\/returns","mail\/reward","mail\/transaction","marketing\/affiliate","marketing\/contact","marketing\/coupon","marketing\/marketing","marketplace\/api","marketplace\/event","marketplace\/extension","marketplace\/install","marketplace\/installer","marketplace\/marketplace","marketplace\/modification","report\/online","report\/report","report\/statistics","sale\/order","sale\/recurring","sale\/returns","sale\/voucher","sale\/voucher_theme","setting\/setting","setting\/store","startup\/application","startup\/error","startup\/event","startup\/language","startup\/login","startup\/permission","startup\/router","startup\/sass","startup\/session","startup\/setting","startup\/startup","tool\/backup","tool\/log","tool\/upload","user\/api","user\/user","user\/user_permission"]}'),
+(1, 'Administrator', '{"access":["catalog\\/attribute","catalog\\/attribute_group","catalog\\/category","catalog\\/download","catalog\\/filter","catalog\\/information","catalog\\/manufacturer","catalog\\/option","catalog\\/product","catalog\\/recurring","catalog\\/review","common\\/column_left","common\\/developer","common\\/filemanager","common\\/profile","common\\/security","customer\\/custom_field","customer\\/customer","customer\\/customer_approval","customer\\/customer_group","design\\/banner","design\\/layout","design\\/theme","design\\/translation","design\\/seo_url","event\\/statistics","event\\/theme","extension\\/advertise\\/google","extension\\/analytics\\/google","extension\\/captcha\\/basic","extension\\/captcha\\/google","extension\\/dashboard\\/activity","extension\\/dashboard\\/chart","extension\\/dashboard\\/customer","extension\\/dashboard\\/map","extension\\/dashboard\\/online","extension\\/dashboard\\/order","extension\\/dashboard\\/recent","extension\\/dashboard\\/sale","extension\\/extension\\/advertise","extension\\/extension\\/analytics","extension\\/extension\\/captcha","extension\\/extension\\/dashboard","extension\\/extension\\/feed","extension\\/extension\\/fraud","extension\\/extension\\/menu","extension\\/extension\\/module","extension\\/extension\\/payment","extension\\/extension\\/report","extension\\/extension\\/shipping","extension\\/extension\\/theme","extension\\/extension\\/total","extension\\/feed\\/google_base","extension\\/feed\\/google_sitemap","extension\\/fraud\\/fraudlabspro","extension\\/fraud\\/ip","extension\\/fraud\\/maxmind","extension\\/marketing\\/remarketing","extension\\/module\\/account","extension\\/module\\/amazon_login","extension\\/module\\/amazon_pay","extension\\/module\\/banner","extension\\/module\\/bestseller","extension\\/module\\/carousel","extension\\/module\\/category","extension\\/module\\/divido_calculator","extension\\/module\\/ebay_listing","extension\\/module\\/featured","extension\\/module\\/filter","extension\\/module\\/google_hangouts","extension\\/module\\/html","extension\\/module\\/information","extension\\/module\\/klarna_checkout_module","extension\\/module\\/latest","extension\\/module\\/laybuy_layout","extension\\/module\\/pilibaba_button","extension\\/module\\/sagepay_direct_cards","extension\\/module\\/sagepay_server_cards","extension\\/module\\/slideshow","extension\\/module\\/special","extension\\/module\\/store","extension\\/payment\\/amazon_login_pay","extension\\/payment\\/authorizenet_aim","extension\\/payment\\/authorizenet_sim","extension\\/payment\\/bank_transfer","extension\\/payment\\/bluepay_hosted","extension\\/payment\\/bluepay_redirect","extension\\/payment\\/cardconnect","extension\\/payment\\/cardinity","extension\\/payment\\/cheque","extension\\/payment\\/cod","extension\\/payment\\/divido","extension\\/payment\\/eway","extension\\/payment\\/firstdata","extension\\/payment\\/firstdata_remote","extension\\/payment\\/free_checkout","extension\\/payment\\/g2apay","extension\\/payment\\/globalpay","extension\\/payment\\/globalpay_remote","extension\\/payment\\/klarna_account","extension\\/payment\\/klarna_checkout","extension\\/payment\\/klarna_invoice","extension\\/payment\\/laybuy","extension\\/payment\\/liqpay","extension\\/payment\\/nochex","extension\\/payment\\/paymate","extension\\/payment\\/paypoint","extension\\/payment\\/payza","extension\\/payment\\/perpetual_payments","extension\\/payment\\/pilibaba","extension\\/payment\\/realex","extension\\/payment\\/realex_remote","extension\\/payment\\/sagepay_direct","extension\\/payment\\/sagepay_server","extension\\/payment\\/sagepay_us","extension\\/payment\\/securetrading_pp","extension\\/payment\\/securetrading_ws","extension\\/payment\\/skrill","extension\\/payment\\/twocheckout","extension\\/payment\\/web_payment_software","extension\\/payment\\/worldpay","extension\\/module\\/pp_braintree_button","extension\\/payment\\/pp_braintree","extension\\/report\\/customer_activity","extension\\/report\\/customer_order","extension\\/report\\/customer_reward","extension\\/report\\/customer_search","extension\\/report\\/customer_transaction","extension\\/report\\/marketing","extension\\/report\\/product_purchased","extension\\/report\\/product_viewed","extension\\/report\\/sale_coupon","extension\\/report\\/sale_order","extension\\/report\\/sale_return","extension\\/report\\/sale_shipping","extension\\/report\\/sale_tax","extension\\/shipping\\/auspost","extension\\/shipping\\/ec_ship","extension\\/shipping\\/fedex","extension\\/shipping\\/flat","extension\\/shipping\\/free","extension\\/shipping\\/item","extension\\/shipping\\/parcelforce_48","extension\\/shipping\\/pickup","extension\\/shipping\\/royal_mail","extension\\/shipping\\/ups","extension\\/shipping\\/usps","extension\\/shipping\\/weight","extension\\/theme\\/default","extension\\/total\\/coupon","extension\\/total\\/credit","extension\\/total\\/handling","extension\\/total\\/klarna_fee","extension\\/total\\/low_order_fee","extension\\/total\\/reward","extension\\/total\\/shipping","extension\\/total\\/sub_total","extension\\/total\\/tax","extension\\/total\\/total","extension\\/total\\/voucher","localisation\\/country","localisation\\/currency","localisation\\/geo_zone","localisation\\/language","localisation\\/length_class","localisation\\/location","localisation\\/order_status","localisation\\/return_action","localisation\\/return_reason","localisation\\/return_status","localisation\\/stock_status","localisation\\/tax_class","localisation\\/tax_rate","localisation\\/weight_class","localisation\\/zone","mail\\/affiliate","mail\\/customer","mail\\/forgotten","mail\\/return","mail\\/reward","mail\\/transaction","marketing\\/contact","marketing\\/coupon","marketing\\/marketing","marketplace\\/api","marketplace\\/event","marketplace\\/extension","marketplace\\/install","marketplace\\/installer","marketplace\\/marketplace","marketplace\\/modification","report\\/online","report\\/report","report\\/statistics","sale\\/order","sale\\/recurring","sale\\/return","sale\\/voucher","sale\\/voucher_theme","setting\\/setting","setting\\/store","startup\\/error","startup\\/event","startup\\/login","startup\\/permission","startup\\/router","startup\\/sass","startup\\/startup","tool\\/backup","tool\\/log","tool\\/upload","user\\/api","user\\/user","user\\/user_permission"],"modify":["catalog\\/attribute","catalog\\/attribute_group","catalog\\/category","catalog\\/download","catalog\\/filter","catalog\\/information","catalog\\/manufacturer","catalog\\/option","catalog\\/product","catalog\\/recurring","catalog\\/review","common\\/column_left","common\\/developer","common\\/filemanager","common\\/profile","common\\/security","customer\\/custom_field","customer\\/customer","customer\\/customer_approval","customer\\/customer_group","design\\/banner","design\\/layout","design\\/theme","design\\/translation","design\\/seo_url","event\\/statistics","event\\/theme","extension\\/advertise\\/google","extension\\/analytics\\/google","extension\\/captcha\\/basic","extension\\/captcha\\/google","extension\\/dashboard\\/activity","extension\\/dashboard\\/chart","extension\\/dashboard\\/customer","extension\\/dashboard\\/map","extension\\/dashboard\\/online","extension\\/dashboard\\/order","extension\\/dashboard\\/recent","extension\\/dashboard\\/sale","extension\\/extension\\/advertise","extension\\/extension\\/analytics","extension\\/extension\\/captcha","extension\\/extension\\/dashboard","extension\\/extension\\/feed","extension\\/extension\\/fraud","extension\\/extension\\/menu","extension\\/extension\\/module","extension\\/extension\\/payment","extension\\/extension\\/report","extension\\/extension\\/shipping","extension\\/extension\\/theme","extension\\/extension\\/total","extension\\/feed\\/google_base","extension\\/feed\\/google_sitemap","extension\\/fraud\\/fraudlabspro","extension\\/fraud\\/ip","extension\\/fraud\\/maxmind","extension\\/marketing\\/remarketing","extension\\/module\\/account","extension\\/module\\/amazon_login","extension\\/module\\/amazon_pay","extension\\/module\\/banner","extension\\/module\\/bestseller","extension\\/module\\/carousel","extension\\/module\\/category","extension\\/module\\/divido_calculator","extension\\/module\\/ebay_listing","extension\\/module\\/featured","extension\\/module\\/filter","extension\\/module\\/google_hangouts","extension\\/module\\/html","extension\\/module\\/information","extension\\/module\\/klarna_checkout_module","extension\\/module\\/latest","extension\\/module\\/laybuy_layout","extension\\/module\\/pilibaba_button","extension\\/module\\/sagepay_direct_cards","extension\\/module\\/sagepay_server_cards","extension\\/module\\/slideshow","extension\\/module\\/special","extension\\/module\\/store","extension\\/payment\\/amazon_login_pay","extension\\/payment\\/authorizenet_aim","extension\\/payment\\/authorizenet_sim","extension\\/payment\\/bank_transfer","extension\\/payment\\/bluepay_hosted","extension\\/payment\\/bluepay_redirect","extension\\/payment\\/cardconnect","extension\\/payment\\/cardinity","extension\\/payment\\/cheque","extension\\/payment\\/cod","extension\\/payment\\/divido","extension\\/payment\\/eway","extension\\/payment\\/firstdata","extension\\/payment\\/firstdata_remote","extension\\/payment\\/free_checkout","extension\\/payment\\/g2apay","extension\\/payment\\/globalpay","extension\\/payment\\/globalpay_remote","extension\\/payment\\/klarna_account","extension\\/payment\\/klarna_checkout","extension\\/payment\\/klarna_invoice","extension\\/payment\\/laybuy","extension\\/payment\\/liqpay","extension\\/payment\\/nochex","extension\\/payment\\/paymate","extension\\/payment\\/paypoint","extension\\/payment\\/payza","extension\\/payment\\/perpetual_payments","extension\\/payment\\/pilibaba","extension\\/payment\\/realex","extension\\/payment\\/realex_remote","extension\\/payment\\/sagepay_direct","extension\\/payment\\/sagepay_server","extension\\/payment\\/sagepay_us","extension\\/payment\\/securetrading_pp","extension\\/payment\\/securetrading_ws","extension\\/payment\\/skrill","extension\\/payment\\/twocheckout","extension\\/payment\\/web_payment_software","extension\\/payment\\/worldpay","extension\\/module\\/pp_braintree_button","extension\\/payment\\/pp_braintree","extension\\/report\\/customer_activity","extension\\/report\\/customer_order","extension\\/report\\/customer_reward","extension\\/report\\/customer_search","extension\\/report\\/customer_transaction","extension\\/report\\/marketing","extension\\/report\\/product_purchased","extension\\/report\\/product_viewed","extension\\/report\\/sale_coupon","extension\\/report\\/sale_order","extension\\/report\\/sale_return","extension\\/report\\/sale_shipping","extension\\/report\\/sale_tax","extension\\/shipping\\/auspost","extension\\/shipping\\/ec_ship","extension\\/shipping\\/fedex","extension\\/shipping\\/flat","extension\\/shipping\\/free","extension\\/shipping\\/item","extension\\/shipping\\/parcelforce_48","extension\\/shipping\\/pickup","extension\\/shipping\\/royal_mail","extension\\/shipping\\/ups","extension\\/shipping\\/usps","extension\\/shipping\\/weight","extension\\/theme\\/default","extension\\/total\\/coupon","extension\\/total\\/credit","extension\\/total\\/handling","extension\\/total\\/klarna_fee","extension\\/total\\/low_order_fee","extension\\/total\\/reward","extension\\/total\\/shipping","extension\\/total\\/sub_total","extension\\/total\\/tax","extension\\/total\\/total","extension\\/total\\/voucher","localisation\\/country","localisation\\/currency","localisation\\/geo_zone","localisation\\/language","localisation\\/length_class","localisation\\/location","localisation\\/order_status","localisation\\/return_action","localisation\\/return_reason","localisation\\/return_status","localisation\\/stock_status","localisation\\/tax_class","localisation\\/tax_rate","localisation\\/weight_class","localisation\\/zone","mail\\/affiliate","mail\\/customer","mail\\/forgotten","mail\\/return","mail\\/reward","mail\\/transaction","marketing\\/contact","marketing\\/coupon","marketing\\/marketing","marketplace\\/event","marketplace\\/api","marketplace\\/extension","marketplace\\/install","marketplace\\/installer","marketplace\\/marketplace","marketplace\\/modification","report\\/online","report\\/report","report\\/statistics","sale\\/order","sale\\/recurring","sale\\/return","sale\\/voucher","sale\\/voucher_theme","setting\\/setting","setting\\/store","startup\\/error","startup\\/event","startup\\/login","startup\\/permission","startup\\/router","startup\\/sass","startup\\/startup","tool\\/backup","tool\\/log","tool\\/upload","user\\/api","user\\/user","user\\/user_permission"]}'),
 (10, 'Demonstration', '');
 
 -----------------------------------------------------------
@@ -4089,12 +3884,12 @@ CREATE TABLE `oc_voucher` (
   `to_name` varchar(64) NOT NULL,
   `to_email` varchar(96) NOT NULL,
   `voucher_theme_id` int(11) NOT NULL,
-  `message` text NOT NULL,
+  `message` fulltext NOT NULL,
   `amount` decimal(15,4) NOT NULL,
   `status` tinyint(1) NOT NULL,
   `date_added` datetime NOT NULL,
   PRIMARY KEY (`voucher_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -----------------------------------------------------------
 
@@ -4110,7 +3905,7 @@ CREATE TABLE `oc_voucher_history` (
   `amount` decimal(15,4) NOT NULL,
   `date_added` datetime NOT NULL,
   PRIMARY KEY (`voucher_history_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -----------------------------------------------------------
 
@@ -4123,7 +3918,7 @@ CREATE TABLE `oc_voucher_theme` (
   `voucher_theme_id` int(11) NOT NULL AUTO_INCREMENT,
   `image` varchar(255) NOT NULL,
   PRIMARY KEY (`voucher_theme_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Dumping data for table `oc_voucher_theme`
@@ -4146,7 +3941,7 @@ CREATE TABLE `oc_voucher_theme_description` (
   `language_id` int(11) NOT NULL,
   `name` varchar(32) NOT NULL,
   PRIMARY KEY (`voucher_theme_id`,`language_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Dumping data for table `oc_voucher_theme_description`
@@ -4168,7 +3963,7 @@ CREATE TABLE `oc_weight_class` (
   `weight_class_id` int(11) NOT NULL AUTO_INCREMENT,
   `value` decimal(15,8) NOT NULL DEFAULT '0.00000000',
   PRIMARY KEY (`weight_class_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Dumping data for table `oc_weight_class`
@@ -4193,7 +3988,7 @@ CREATE TABLE `oc_weight_class_description` (
   `title` varchar(32) NOT NULL,
   `unit` varchar(4) NOT NULL,
   PRIMARY KEY (`weight_class_id`,`language_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Dumping data for table `oc_weight_class_description`
@@ -4219,7 +4014,7 @@ CREATE TABLE `oc_zone` (
   `code` varchar(32) NOT NULL,
   `status` tinyint(1) NOT NULL DEFAULT '1',
   PRIMARY KEY (`zone_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Dumping data for table `oc_zone`
@@ -4294,54 +4089,54 @@ INSERT INTO `oc_zone` (`zone_id`, `country_id`, `name`, `code`, `status`) VALUES
 (66, 2, 'Tropoje', 'TP', 1),
 (67, 2, 'Tirane', 'TR', 1),
 (68, 2, 'Vlore', 'VL', 1),
-(69, 3, 'Adrar', '01', 1),
-(70, 3, 'Ain Defla', '44', 1),
-(71, 3, 'Ain Temouchent', '46', 1),
-(72, 3, 'Alger', '16', 1),
-(73, 3, 'Annaba', '23', 1),
-(74, 3, 'Batna', '05', 1),
-(75, 3, 'Bechar', '08', 1),
-(76, 3, 'Bejaia', '06', 1),
-(77, 3, 'Biskra', '07', 1),
-(78, 3, 'Blida', '09', 1),
-(79, 3, 'Bordj Bou Arreridj', '34', 1),
-(80, 3, 'Bouira', '10', 1),
-(81, 3, 'Boumerdes', '35', 1),
-(82, 3, 'Chlef', '02', 1),
-(83, 3, 'Constantine', '26', 1),
-(84, 3, 'Djelfa', '17', 1),
-(85, 3, 'El Bayadh', '32', 1),
-(86, 3, 'El Oued', '39', 1),
-(87, 3, 'El Tarf', '36', 1),
-(88, 3, 'Ghardaia', '47', 1),
-(89, 3, 'Guelma', '24', 1),
-(90, 3, 'Illizi', '33', 1),
-(91, 3, 'Jijel', '18', 1),
-(92, 3, 'Khenchela', '40', 1),
-(93, 3, 'Laghouat', '03', 1),
-(94, 3, 'Mascara', '29', 1),
-(95, 3, 'Medea', '26', 1),
-(96, 3, 'Mila', '43', 1),
-(97, 3, 'Mostaganem', '27', 1),
-(98, 3, 'M''Sila', '28', 1),
-(99, 3, 'Naama', '45', 1),
-(100, 3, 'Oran', '31', 1),
-(101, 3, 'Ouargla', '30', 1),
-(102, 3, 'Oum el-Bouaghi', '04', 1),
-(103, 3, 'Relizane', '48', 1),
-(104, 3, 'Saida', '20', 1),
-(105, 3, 'Setif', '19', 1),
-(106, 3, 'Sidi Bel Abbes', '22', 1),
-(107, 3, 'Skikda', '21', 1),
-(108, 3, 'Souk Ahras', '41', 1),
-(109, 3, 'Tamanrasset', '11', 1),
-(110, 3, 'Tebessa', '12', 1),
-(111, 3, 'Tiaret', '14', 1),
-(112, 3, 'Tindouf', '37', 1),
-(113, 3, 'Tipaza', '42', 1),
-(114, 3, 'Tissemsilt', '38', 1),
-(115, 3, 'Tizi Ouzou', '15', 1),
-(116, 3, 'Tlemcen', '13', 1),
+(69, 3, 'Adrar', 'ADR', 1),
+(70, 3, 'Ain Defla', 'ADE', 1),
+(71, 3, 'Ain Temouchent', 'ATE', 1),
+(72, 3, 'Alger', 'ALG', 1),
+(73, 3, 'Annaba', 'ANN', 1),
+(74, 3, 'Batna', 'BAT', 1),
+(75, 3, 'Bechar', 'BEC', 1),
+(76, 3, 'Bejaia', 'BEJ', 1),
+(77, 3, 'Biskra', 'BIS', 1),
+(78, 3, 'Blida', 'BLI', 1),
+(79, 3, 'Bordj Bou Arreridj', 'BBA', 1),
+(80, 3, 'Bouira', 'BOA', 1),
+(81, 3, 'Boumerdes', 'BMD', 1),
+(82, 3, 'Chlef', 'CHL', 1),
+(83, 3, 'Constantine', 'CON', 1),
+(84, 3, 'Djelfa', 'DJE', 1),
+(85, 3, 'El Bayadh', 'EBA', 1),
+(86, 3, 'El Oued', 'EOU', 1),
+(87, 3, 'El Tarf', 'ETA', 1),
+(88, 3, 'Ghardaia', 'GHA', 1),
+(89, 3, 'Guelma', 'GUE', 1),
+(90, 3, 'Illizi', 'ILL', 1),
+(91, 3, 'Jijel', 'JIJ', 1),
+(92, 3, 'Khenchela', 'KHE', 1),
+(93, 3, 'Laghouat', 'LAG', 1),
+(94, 3, 'Muaskar', 'MUA', 1),
+(95, 3, 'Medea', 'MED', 1),
+(96, 3, 'Mila', 'MIL', 1),
+(97, 3, 'Mostaganem', 'MOS', 1),
+(98, 3, 'M''Sila', 'MSI', 1),
+(99, 3, 'Naama', 'NAA', 1),
+(100, 3, 'Oran', 'ORA', 1),
+(101, 3, 'Ouargla', 'OUA', 1),
+(102, 3, 'Oum el-Bouaghi', 'OEB', 1),
+(103, 3, 'Relizane', 'REL', 1),
+(104, 3, 'Saida', 'SAI', 1),
+(105, 3, 'Setif', 'SET', 1),
+(106, 3, 'Sidi Bel Abbes', 'SBA', 1),
+(107, 3, 'Skikda', 'SKI', 1),
+(108, 3, 'Souk Ahras', 'SAH', 1),
+(109, 3, 'Tamanghasset', 'TAM', 1),
+(110, 3, 'Tebessa', 'TEB', 1),
+(111, 3, 'Tiaret', 'TIA', 1),
+(112, 3, 'Tindouf', 'TIN', 1),
+(113, 3, 'Tipaza', 'TIP', 1),
+(114, 3, 'Tissemsilt', 'TIS', 1),
+(115, 3, 'Tizi Ouzou', 'TOU', 1),
+(116, 3, 'Tlemcen', 'TLE', 1),
 (117, 4, 'Eastern', 'E', 1),
 (118, 4, 'Manu''a', 'M', 1),
 (119, 4, 'Rose Island', 'R', 1),
@@ -4381,30 +4176,30 @@ INSERT INTO `oc_zone` (`zone_id`, `country_id`, `name`, `code`, `status`) VALUES
 (153, 9, 'Barbuda', 'BAR', 1),
 (154, 9, 'Redonda', 'RED', 1),
 (155, 10, 'Antartida e Islas del Atlantico', 'AN', 1),
-(156, 10, 'Buenos Aires', 'B', 1),
-(157, 10, 'Catamarca', 'K', 1),
-(158, 10, 'Chaco', 'H', 1),
-(159, 10, 'Chubut', 'U', 1),
-(160, 10, 'Cordoba', 'X', 1),
-(161, 10, 'Corrientes', 'W', 1),
-(162, 10, 'Ciudad Autónoma de Buenos Aires', 'C', 1),
-(163, 10, 'Entre Rios', 'E', 1),
-(164, 10, 'Formosa', 'P', 1),
-(165, 10, 'Jujuy', 'Y', 1),
-(166, 10, 'La Pampa', 'L', 1),
-(167, 10, 'La Rioja', 'F', 1),
-(168, 10, 'Mendoza', 'M', 1),
-(169, 10, 'Misiones', 'N', 1),
-(170, 10, 'Neuquen', 'Q', 1),
-(171, 10, 'Rio Negro', 'R', 1),
-(172, 10, 'Salta', 'A', 1),
-(173, 10, 'San Juan', 'J', 1),
-(174, 10, 'San Luis', 'D', 1),
-(175, 10, 'Santa Cruz', 'Z', 1),
-(176, 10, 'Santa Fe', 'S', 1),
-(177, 10, 'Santiago del Estero', 'G', 1),
-(178, 10, 'Tierra del Fuego', 'V', 1),
-(179, 10, 'Tucuman', 'T', 1),
+(156, 10, 'Buenos Aires', 'BA', 1),
+(157, 10, 'Catamarca', 'CA', 1),
+(158, 10, 'Chaco', 'CH', 1),
+(159, 10, 'Chubut', 'CU', 1),
+(160, 10, 'Cordoba', 'CO', 1),
+(161, 10, 'Corrientes', 'CR', 1),
+(162, 10, 'Distrito Federal', 'DF', 1),
+(163, 10, 'Entre Rios', 'ER', 1),
+(164, 10, 'Formosa', 'FO', 1),
+(165, 10, 'Jujuy', 'JU', 1),
+(166, 10, 'La Pampa', 'LP', 1),
+(167, 10, 'La Rioja', 'LR', 1),
+(168, 10, 'Mendoza', 'ME', 1),
+(169, 10, 'Misiones', 'MI', 1),
+(170, 10, 'Neuquen', 'NE', 1),
+(171, 10, 'Rio Negro', 'RN', 1),
+(172, 10, 'Salta', 'SA', 1),
+(173, 10, 'San Juan', 'SJ', 1),
+(174, 10, 'San Luis', 'SL', 1),
+(175, 10, 'Santa Cruz', 'SC', 1),
+(176, 10, 'Santa Fe', 'SF', 1),
+(177, 10, 'Santiago del Estero', 'SD', 1),
+(178, 10, 'Tierra del Fuego', 'TF', 1),
+(179, 10, 'Tucuman', 'TU', 1),
 (180, 11, 'Aragatsotn', 'AGT', 1),
 (181, 11, 'Ararat', 'ARR', 1),
 (182, 11, 'Armavir', 'ARM', 1),
@@ -4424,15 +4219,15 @@ INSERT INTO `oc_zone` (`zone_id`, `country_id`, `name`, `code`, `status`) VALUES
 (196, 13, 'Tasmania', 'TAS', 1),
 (197, 13, 'Victoria', 'VIC', 1),
 (198, 13, 'Western Australia', 'WA', 1),
-(199, 14, 'Burgenland', '1', 1),
-(200, 14, 'Kärnten', '2', 1),
-(201, 14, 'Niederösterreich', '3', 1),
-(202, 14, 'Oberösterreich', '4', 1),
-(203, 14, 'Salzburg', '5', 1),
-(204, 14, 'Steiermark', '6', 1),
-(205, 14, 'Tirol', '7', 1),
-(206, 14, 'Vorarlberg', '8', 1),
-(207, 14, 'Wien', '9', 1),
+(199, 14, 'Burgenland', 'BUR', 1),
+(200, 14, 'Kärnten', 'KAR', 1),
+(201, 14, 'Niederösterreich', 'NOS', 1),
+(202, 14, 'Oberösterreich', 'OOS', 1),
+(203, 14, 'Salzburg', 'SAL', 1),
+(204, 14, 'Steiermark', 'STE', 1),
+(205, 14, 'Tirol', 'TIR', 1),
+(206, 14, 'Vorarlberg', 'VOR', 1),
+(207, 14, 'Wien', 'WIE', 1),
 (208, 15, 'Ali Bayramli', 'AB', 1),
 (209, 15, 'Abseron', 'ABS', 1),
 (210, 15, 'AgcabAdi', 'AGC', 1),
@@ -4945,11 +4740,11 @@ INSERT INTO `oc_zone` (`zone_id`, `country_id`, `name`, `code`, `status`) VALUES
 (717, 46, 'Horsburgh Island', 'O', 1),
 (718, 46, 'South Island', 'S', 1),
 (719, 46, 'West Island', 'W', 1),
-(720, 47, 'Amazonas', 'AMA', 1),
+(720, 47, 'Amazonas', 'AMZ', 1),
 (721, 47, 'Antioquia', 'ANT', 1),
 (722, 47, 'Arauca', 'ARA', 1),
 (723, 47, 'Atlantico', 'ATL', 1),
-(724, 47, 'Bogota D.C.', 'DC', 1),
+(724, 47, 'Bogota D.C.', 'BDC', 1),
 (725, 47, 'Bolivar', 'BOL', 1),
 (726, 47, 'Boyaca', 'BOY', 1),
 (727, 47, 'Caldas', 'CAL', 1),
@@ -4959,15 +4754,15 @@ INSERT INTO `oc_zone` (`zone_id`, `country_id`, `name`, `code`, `status`) VALUES
 (731, 47, 'Cesar', 'CES', 1),
 (732, 47, 'Choco', 'CHO', 1),
 (733, 47, 'Cordoba', 'COR', 1),
-(734, 47, 'Cundinamarca', 'CUN', 1),
+(734, 47, 'Cundinamarca', 'CAM', 1),
 (735, 47, 'Guainia', 'GNA', 1),
 (736, 47, 'Guajira', 'GJR', 1),
-(737, 47, 'Guaviare', 'GUV', 1),
+(737, 47, 'Guaviare', 'GVR', 1),
 (738, 47, 'Huila', 'HUI', 1),
 (739, 47, 'Magdalena', 'MAG', 1),
 (740, 47, 'Meta', 'MET', 1),
 (741, 47, 'Narino', 'NAR', 1),
-(742, 47, 'Norte de Santander', 'NSA', 1),
+(742, 47, 'Norte de Santander', 'NDS', 1),
 (743, 47, 'Putumayo', 'PUT', 1),
 (744, 47, 'Quindio', 'QUI', 1),
 (745, 47, 'Risaralda', 'RIS', 1),
@@ -4975,9 +4770,9 @@ INSERT INTO `oc_zone` (`zone_id`, `country_id`, `name`, `code`, `status`) VALUES
 (747, 47, 'Santander', 'SAN', 1),
 (748, 47, 'Sucre', 'SUC', 1),
 (749, 47, 'Tolima', 'TOL', 1),
-(750, 47, 'Valle del Cauca', 'VAC', 1),
+(750, 47, 'Valle del Cauca', 'VDC', 1),
 (751, 47, 'Vaupes', 'VAU', 1),
-(752, 47, 'Vichada', 'VID', 1),
+(752, 47, 'Vichada', 'VIC', 1),
 (753, 48, 'Grande Comore', 'G', 1),
 (754, 48, 'Anjouan', 'A', 1),
 (755, 48, 'Moheli', 'M', 1),
@@ -5128,12 +4923,22 @@ INSERT INTO `oc_zone` (`zone_id`, `country_id`, `name`, `code`, `status`) VALUES
 (900, 56, 'Středočeský', 'S', 1),
 (901, 56, 'Vysočina', 'J', 1),
 (902, 56, 'Zlínský', 'Z', 1),
-(903, 57, 'Nordjyland', '81', 1),
-(904, 57, 'Midtjylland', '82', 1),
-(905, 57, 'Syddanmark', '83', 1),
+(903, 57, 'Arhus', 'AR', 1),
+(904, 57, 'Bornholm', 'BH', 1),
+(905, 57, 'Copenhagen', 'CO', 1),
 (906, 57, 'Faroe Islands', 'FO', 1),
-(907, 57, 'Hovedstaden', '84', 1),
-(908, 57, 'Sjælland', '85', 1),
+(907, 57, 'Frederiksborg', 'FR', 1),
+(908, 57, 'Fyn', 'FY', 1),
+(909, 57, 'Kobenhavn', 'KO', 1),
+(910, 57, 'Nordjylland', 'NO', 1),
+(911, 57, 'Ribe', 'RI', 1),
+(912, 57, 'Ringkobing', 'RK', 1),
+(913, 57, 'Roskilde', 'RO', 1),
+(914, 57, 'Sonderjylland', 'SO', 1),
+(915, 57, 'Storstrom', 'ST', 1),
+(916, 57, 'Vejle', 'VK', 1),
+(917, 57, 'Vestj&aelig;lland', 'VJ', 1),
+(918, 57, 'Viborg', 'VB', 1),
 (919, 58, '''Ali Sabih', 'S', 1),
 (920, 58, 'Dikhil', 'K', 1),
 (921, 58, 'Djibouti', 'J', 1),
@@ -5446,22 +5251,22 @@ INSERT INTO `oc_zone` (`zone_id`, `country_id`, `name`, `code`, `status`) VALUES
 (1251, 80, 'Samegrelo-Zemo Svaneti', 'SZ', 1),
 (1252, 80, 'Samtskhe-Javakheti', 'SJ', 1),
 (1253, 80, 'Shida Kartli', 'SK', 1),
-(1254, 81, 'Baden-Württemberg', 'BW', 1),
-(1255, 81, 'Bayern', 'BY', 1),
-(1256, 81, 'Berlin', 'BE', 1),
-(1257, 81, 'Brandenburg', 'BB', 1),
-(1258, 81, 'Bremen', 'HB', 1),
-(1259, 81, 'Hamburg', 'HH', 1),
-(1260, 81, 'Hessen', 'HE', 1),
-(1261, 81, 'Mecklenburg-Vorpommern', 'MV', 1),
-(1262, 81, 'Niedersachsen', 'NI', 1),
-(1263, 81, 'Nordrhein-Westfalen', 'NW', 1),
-(1264, 81, 'Rheinland-Pfalz', 'RP', 1),
-(1265, 81, 'Saarland', 'SL', 1),
-(1266, 81, 'Sachsen', 'SN', 1),
-(1267, 81, 'Sachsen-Anhalt', 'ST', 1),
-(1268, 81, 'Schleswig-Holstein', 'SH', 1),
-(1269, 81, 'Thüringen', 'TH', 1),
+(1254, 81, 'Baden-Württemberg', 'BAW', 1),
+(1255, 81, 'Bayern', 'BAY', 1),
+(1256, 81, 'Berlin', 'BER', 1),
+(1257, 81, 'Brandenburg', 'BRG', 1),
+(1258, 81, 'Bremen', 'BRE', 1),
+(1259, 81, 'Hamburg', 'HAM', 1),
+(1260, 81, 'Hessen', 'HES', 1),
+(1261, 81, 'Mecklenburg-Vorpommern', 'MEC', 1),
+(1262, 81, 'Niedersachsen', 'NDS', 1),
+(1263, 81, 'Nordrhein-Westfalen', 'NRW', 1),
+(1264, 81, 'Rheinland-Pfalz', 'RHE', 1),
+(1265, 81, 'Saarland', 'SAR', 1),
+(1266, 81, 'Sachsen', 'SAS', 1),
+(1267, 81, 'Sachsen-Anhalt', 'SAC', 1),
+(1268, 81, 'Schleswig-Holstein', 'SCN', 1),
+(1269, 81, 'Thüringen', 'THE', 1),
 (1270, 82, 'Ashanti Region', 'AS', 1),
 (1271, 82, 'Brong-Ahafo Region', 'BA', 1),
 (1272, 82, 'Central Region', 'CE', 1),
@@ -5632,29 +5437,30 @@ INSERT INTO `oc_zone` (`zone_id`, `country_id`, `name`, `code`, `status`) VALUES
 (1476, 99, 'Andhra Pradesh', 'AP', 1),
 (1477, 99, 'Arunachal Pradesh', 'AR', 1),
 (1478, 99, 'Assam', 'AS', 1),
-(1479, 99, 'Bihar', 'BR', 1),
+(1479, 99, 'Bihar', 'BI', 1),
 (1480, 99, 'Chandigarh', 'CH', 1),
-(1481, 99, 'Dadra and Nagar Haveli and Davan and Diu', 'DH', 1),
-(1483, 99, 'Delhi', 'DL', 1),
-(1484, 99, 'Goa', 'GA', 1),
-(1485, 99, 'Gujarat', 'GJ', 1),
-(1486, 99, 'Haryana', 'HR', 1),
+(1481, 99, 'Dadra and Nagar Haveli', 'DA', 1),
+(1482, 99, 'Daman and Diu', 'DM', 1),
+(1483, 99, 'Delhi', 'DE', 1),
+(1484, 99, 'Goa', 'GO', 1),
+(1485, 99, 'Gujarat', 'GU', 1),
+(1486, 99, 'Haryana', 'HA', 1),
 (1487, 99, 'Himachal Pradesh', 'HP', 1),
-(1488, 99, 'Jammu and Kashmir', 'JK', 1),
+(1488, 99, 'Jammu and Kashmir', 'JA', 1),
 (1489, 99, 'Karnataka', 'KA', 1),
-(1490, 99, 'Kerala', 'KL', 1),
-(1491, 99, 'Lakshadweep', 'LD', 1),
+(1490, 99, 'Kerala', 'KE', 1),
+(1491, 99, 'Lakshadweep Islands', 'LI', 1),
 (1492, 99, 'Madhya Pradesh', 'MP', 1),
-(1493, 99, 'Maharashtra', 'MH', 1),
+(1493, 99, 'Maharashtra', 'MA', 1),
 (1494, 99, 'Manipur', 'MN', 1),
-(1495, 99, 'Meghalaya', 'ML', 1),
-(1496, 99, 'Mizoram', 'MZ', 1),
-(1497, 99, 'Nagaland', 'NL', 1),
-(1498, 99, 'Odisha', 'OR', 1),
-(1499, 99, 'Puducherry', 'PY', 1),
-(1500, 99, 'Punjab', 'PB', 1),
-(1501, 99, 'Rajasthan', 'RJ', 1),
-(1502, 99, 'Sikkim', 'SK', 1),
+(1495, 99, 'Meghalaya', 'ME', 1),
+(1496, 99, 'Mizoram', 'MI', 1),
+(1497, 99, 'Nagaland', 'NA', 1),
+(1498, 99, 'Orissa', 'OR', 1),
+(1499, 99, 'Puducherry', 'PO', 1),
+(1500, 99, 'Punjab', 'PU', 1),
+(1501, 99, 'Rajasthan', 'RA', 1),
+(1502, 99, 'Sikkim', 'SI', 1),
 (1503, 99, 'Tamil Nadu', 'TN', 1),
 (1504, 99, 'Tripura', 'TR', 1),
 (1505, 99, 'Uttar Pradesh', 'UP', 1),
@@ -5737,7 +5543,7 @@ INSERT INTO `oc_zone` (`zone_id`, `country_id`, `name`, `code`, `status`) VALUES
 (1581, 102, 'Ninawa', 'NN', 1),
 (1582, 102, 'Dahuk', 'DH', 1),
 (1583, 102, 'Arbil', 'AL', 1),
-(1584, 102, 'Kirkuk', 'KI', 1),
+(1584, 102, 'At Ta''mim', 'TM', 1),
 (1585, 102, 'As Sulaymaniyah', 'SL', 1),
 (1586, 103, 'Carlow', 'CA', 1),
 (1587, 103, 'Cavan', 'CV', 1),
@@ -5925,6 +5731,21 @@ INSERT INTO `oc_zone` (`zone_id`, `country_id`, `name`, `code`, `status`) VALUES
 (1770, 112, 'Ryanggang-do (Yanggang-do)', 'YAN', 1),
 (1771, 112, 'Rason Directly Governed City', 'NAJ', 1),
 (1772, 112, 'P''yongyang Special City', 'PYO', 1),
+(1773, 113, 'Ch''ungch''ong-bukto', 'CO', 1),
+(1774, 113, 'Ch''ungch''ong-namdo', 'CH', 1),
+(1775, 113, 'Cheju-do', 'CD', 1),
+(1776, 113, 'Cholla-bukto', 'CB', 1),
+(1777, 113, 'Cholla-namdo', 'CN', 1),
+(1778, 113, 'Inch''on-gwangyoksi', 'IG', 1),
+(1779, 113, 'Kangwon-do', 'KA', 1),
+(1780, 113, 'Kwangju-gwangyoksi', 'KG', 1),
+(1781, 113, 'Kyonggi-do', 'KD', 1),
+(1782, 113, 'Kyongsang-bukto', 'KB', 1),
+(1783, 113, 'Kyongsang-namdo', 'KN', 1),
+(1784, 113, 'Pusan-gwangyoksi', 'PG', 1),
+(1785, 113, 'Soul-t''ukpyolsi', 'SO', 1),
+(1786, 113, 'Taegu-gwangyoksi', 'TA', 1),
+(1787, 113, 'Taejon-gwangyoksi', 'TG', 1),
 (1788, 114, 'Al ''Asimah', 'AL', 1),
 (1789, 114, 'Al Ahmadi', 'AA', 1),
 (1790, 114, 'Al Farwaniyah', 'AF', 1),
@@ -6251,37 +6072,37 @@ INSERT INTO `oc_zone` (`zone_id`, `country_id`, `name`, `code`, `status`) VALUES
 (2143, 136, 'Port Louis', 'PL', 1),
 (2144, 136, 'Riviere du Rempart', 'RR', 1),
 (2145, 136, 'Savanne', 'SA', 1),
-(2146, 138, 'Baja California', 'BCN', 1),
-(2147, 138, 'Baja California Sur', 'BCS', 1),
-(2148, 138, 'Campeche', 'CAM', 1),
-(2149, 138, 'Chiapas', 'CHP', 1),
-(2150, 138, 'Chihuahua', 'CHH', 1),
-(2151, 138, 'Coahuila de Zaragoza', 'COA', 1),
-(2152, 138, 'Colima', 'COL', 1),
-(2153, 138, 'Cuidad de Mexico', 'CMX', 1),
-(2154, 138, 'Durango', 'DUR', 1),
-(2155, 138, 'Guanajuato', 'GUA', 1),
-(2156, 138, 'Guerrero', 'GRO', 1),
-(2157, 138, 'Hidalgo', 'HID', 1),
-(2158, 138, 'Jalisco', 'JAL', 1),
-(2159, 138, 'Mexico', 'MEX', 1),
-(2160, 138, 'Michoacan de Ocampo', 'MIC', 1),
-(2161, 138, 'Morelos', 'MOR', 1),
-(2162, 138, 'Nayarit', 'NAY', 1),
-(2163, 138, 'Nuevo Leon', 'NLE', 1),
-(2164, 138, 'Oaxaca', 'OAX', 1),
-(2165, 138, 'Puebla', 'PUE', 1),
-(2166, 138, 'Queretaro', 'QUE', 1),
-(2167, 138, 'Quintana Roo', 'ROO', 1),
-(2168, 138, 'San Luis Potosi', 'SLP', 1),
-(2169, 138, 'Sinaloa', 'SIN', 1),
-(2170, 138, 'Sonora', 'SON', 1),
-(2171, 138, 'Tabasco', 'TAB', 1),
-(2172, 138, 'Tamaulipas', 'TAM', 1),
-(2173, 138, 'Tlaxcala', 'TLA', 1),
-(2174, 138, 'Veracruz de Ignacio de la Llave', 'VER', 1),
-(2175, 138, 'Yucatan', 'YUC', 1),
-(2176, 138, 'Zacatecas', 'ZAC', 1),
+(2146, 138, 'Baja California Norte', 'BN', 1),
+(2147, 138, 'Baja California Sur', 'BS', 1),
+(2148, 138, 'Campeche', 'CA', 1),
+(2149, 138, 'Chiapas', 'CI', 1),
+(2150, 138, 'Chihuahua', 'CH', 1),
+(2151, 138, 'Coahuila de Zaragoza', 'CZ', 1),
+(2152, 138, 'Colima', 'CL', 1),
+(2153, 138, 'Distrito Federal', 'DF', 1),
+(2154, 138, 'Durango', 'DU', 1),
+(2155, 138, 'Guanajuato', 'GA', 1),
+(2156, 138, 'Guerrero', 'GE', 1),
+(2157, 138, 'Hidalgo', 'HI', 1),
+(2158, 138, 'Jalisco', 'JA', 1),
+(2159, 138, 'Mexico', 'ME', 1),
+(2160, 138, 'Michoacan de Ocampo', 'MI', 1),
+(2161, 138, 'Morelos', 'MO', 1),
+(2162, 138, 'Nayarit', 'NA', 1),
+(2163, 138, 'Nuevo Leon', 'NL', 1),
+(2164, 138, 'Oaxaca', 'OA', 1),
+(2165, 138, 'Puebla', 'PU', 1),
+(2166, 138, 'Queretaro de Arteaga', 'QA', 1),
+(2167, 138, 'Quintana Roo', 'QR', 1),
+(2168, 138, 'San Luis Potosi', 'SA', 1),
+(2169, 138, 'Sinaloa', 'SI', 1),
+(2170, 138, 'Sonora', 'SO', 1),
+(2171, 138, 'Tabasco', 'TB', 1),
+(2172, 138, 'Tamaulipas', 'TM', 1),
+(2173, 138, 'Tlaxcala', 'TL', 1),
+(2174, 138, 'Veracruz-Llave', 'VE', 1),
+(2175, 138, 'Yucatan', 'YU', 1),
+(2176, 138, 'Zacatecas', 'ZA', 1),
 (2177, 139, 'Chuuk', 'C', 1),
 (2178, 139, 'Kosrae', 'K', 1),
 (2179, 139, 'Pohnpei', 'P', 1),
@@ -6754,25 +6575,25 @@ INSERT INTO `oc_zone` (`zone_id`, `country_id`, `name`, `code`, `status`) VALUES
 (2646, 170, 'Zachodniopomorskie', 'ZA', 1),
 (2647, 198, 'Saint Pierre', 'P', 1),
 (2648, 198, 'Miquelon', 'M', 1),
-(2649, 171, 'A&ccedil;ores', '20', 1),
-(2650, 171, 'Aveiro', '01', 1),
-(2651, 171, 'Beja', '02', 1),
-(2652, 171, 'Braga', '03', 1),
-(2653, 171, 'Bragan&ccedil;a', '04', 1),
-(2654, 171, 'Castelo Branco', '05', 1),
-(2655, 171, 'Coimbra', '06', 1),
-(2656, 171, '&Eacute;vora', '07', 1),
-(2657, 171, 'Faro', '08', 1),
-(2658, 171, 'Guarda', '09', 1),
-(2659, 171, 'Leiria', '10', 1),
-(2660, 171, 'Lisboa', '11', 1),
-(2661, 171, 'Madeira', '30', 1),
-(2662, 171, 'Portalegre', '12', 1),
-(2663, 171, 'Porto', '13', 1),
-(2664, 171, 'Santar&eacute;m', '14', 1),
-(2665, 171, 'Set&uacute;bal', '15', 1),
-(2666, 171, 'Viana do Castelo', '16', 1),
-(2667, 171, 'Vila Real', '17', 1),
+(2649, 171, 'A&ccedil;ores', 'AC', 1),
+(2650, 171, 'Aveiro', 'AV', 1),
+(2651, 171, 'Beja', 'BE', 1),
+(2652, 171, 'Braga', 'BR', 1),
+(2653, 171, 'Bragan&ccedil;a', 'BA', 1),
+(2654, 171, 'Castelo Branco', 'CB', 1),
+(2655, 171, 'Coimbra', 'CO', 1),
+(2656, 171, '&Eacute;vora', 'EV', 1),
+(2657, 171, 'Faro', 'FA', 1),
+(2658, 171, 'Guarda', 'GU', 1),
+(2659, 171, 'Leiria', 'LE', 1),
+(2660, 171, 'Lisboa', 'LI', 1),
+(2661, 171, 'Madeira', 'ME', 1),
+(2662, 171, 'Portalegre', 'PO', 1),
+(2663, 171, 'Porto', 'PR', 1),
+(2664, 171, 'Santar&eacute;m', 'SA', 1),
+(2665, 171, 'Set&uacute;bal', 'SE', 1),
+(2666, 171, 'Viana do Castelo', 'VC', 1),
+(2667, 171, 'Vila Real', 'VR', 1),
 (2668, 171, 'Viseu', 'VI', 1),
 (2669, 173, 'Ad Dawhah', 'DW', 1),
 (2670, 173, 'Al Ghuwayriyah', 'GW', 1),
@@ -6786,46 +6607,133 @@ INSERT INTO `oc_zone` (`zone_id`, `country_id`, `name`, `code`, `status`) VALUES
 (2678, 173, 'Umm Salal', 'UL', 1),
 (2679, 175, 'Alba', 'AB', 1),
 (2680, 175, 'Arad', 'AR', 1),
-(2681, 175, 'Argeș', 'AG', 1),
-(2682, 175, 'Bacău', 'BC', 1),
+(2681, 175, 'Arges', 'AG', 1),
+(2682, 175, 'Bacau', 'BC', 1),
 (2683, 175, 'Bihor', 'BH', 1),
-(2684, 175, 'Bistrița-Năsăud', 'BN', 1),
-(2685, 175, 'Botoșani', 'BT', 1),
-(2686, 175, 'Brașov', 'BV', 1),
-(2687, 175, 'Brăila', 'BR', 1),
-(2688, 175, 'București', 'B', 1),
-(2689, 175, 'Buzău', 'BZ', 1),
-(2690, 175, 'Caraș-Severin', 'CS', 1),
-(2691, 175, 'Călărași', 'CL', 1),
+(2684, 175, 'Bistrita-Nasaud', 'BN', 1),
+(2685, 175, 'Botosani', 'BT', 1),
+(2686, 175, 'Brasov', 'BV', 1),
+(2687, 175, 'Braila', 'BR', 1),
+(2688, 175, 'Bucuresti', 'B', 1),
+(2689, 175, 'Buzau', 'BZ', 1),
+(2690, 175, 'Caras-Severin', 'CS', 1),
+(2691, 175, 'Calarasi', 'CL', 1),
 (2692, 175, 'Cluj', 'CJ', 1),
-(2693, 175, 'Constanța', 'CT', 1),
+(2693, 175, 'Constanta', 'CT', 1),
 (2694, 175, 'Covasna', 'CV', 1),
-(2695, 175, 'Dâmbovița', 'DB', 1),
+(2695, 175, 'Dimbovita', 'DB', 1),
 (2696, 175, 'Dolj', 'DJ', 1),
-(2697, 175, 'Galați', 'GL', 1),
+(2697, 175, 'Galati', 'GL', 1),
 (2698, 175, 'Giurgiu', 'GR', 1),
 (2699, 175, 'Gorj', 'GJ', 1),
 (2700, 175, 'Harghita', 'HR', 1),
 (2701, 175, 'Hunedoara', 'HD', 1),
-(2702, 175, 'Ialomița', 'IL', 1),
-(2703, 175, 'Iași', 'IS', 1),
+(2702, 175, 'Ialomita', 'IL', 1),
+(2703, 175, 'Iasi', 'IS', 1),
 (2704, 175, 'Ilfov', 'IF', 1),
-(2705, 175, 'Maramureș', 'MM', 1),
-(2706, 175, 'Mehedinți', 'MH', 1),
-(2707, 175, 'Mureș', 'MS', 1),
-(2708, 175, 'Neamț', 'NT', 1),
+(2705, 175, 'Maramures', 'MM', 1),
+(2706, 175, 'Mehedinti', 'MH', 1),
+(2707, 175, 'Mures', 'MS', 1),
+(2708, 175, 'Neamt', 'NT', 1),
 (2709, 175, 'Olt', 'OT', 1),
 (2710, 175, 'Prahova', 'PH', 1),
 (2711, 175, 'Satu-Mare', 'SM', 1),
-(2712, 175, 'Sălaj', 'SJ', 1),
+(2712, 175, 'Salaj', 'SJ', 1),
 (2713, 175, 'Sibiu', 'SB', 1),
 (2714, 175, 'Suceava', 'SV', 1),
 (2715, 175, 'Teleorman', 'TR', 1),
-(2716, 175, 'Timiș', 'TM', 1),
+(2716, 175, 'Timis', 'TM', 1),
 (2717, 175, 'Tulcea', 'TL', 1),
 (2718, 175, 'Vaslui', 'VS', 1),
-(2719, 175, 'Vâlcea', 'VL', 1),
+(2719, 175, 'Valcea', 'VL', 1),
 (2720, 175, 'Vrancea', 'VN', 1),
+(2721, 176, 'Abakan', 'AB', 1),
+(2722, 176, 'Aginskoye', 'AG', 1),
+(2723, 176, 'Anadyr', 'AN', 1),
+(2724, 176, 'Arkahangelsk', 'AR', 1),
+(2725, 176, 'Astrakhan', 'AS', 1),
+(2726, 176, 'Barnaul', 'BA', 1),
+(2727, 176, 'Belgorod', 'BE', 1),
+(2728, 176, 'Birobidzhan', 'BI', 1),
+(2729, 176, 'Blagoveshchensk', 'BL', 1),
+(2730, 176, 'Bryansk', 'BR', 1),
+(2731, 176, 'Cheboksary', 'CH', 1),
+(2732, 176, 'Chelyabinsk', 'CL', 1),
+(2733, 176, 'Cherkessk', 'CR', 1),
+(2734, 176, 'Chita', 'CI', 1),
+(2735, 176, 'Dudinka', 'DU', 1),
+(2736, 176, 'Elista', 'EL', 1),
+(2738, 176, 'Gorno-Altaysk', 'GA', 1),
+(2739, 176, 'Groznyy', 'GR', 1),
+(2740, 176, 'Irkutsk', 'IR', 1),
+(2741, 176, 'Ivanovo', 'IV', 1),
+(2742, 176, 'Izhevsk', 'IZ', 1),
+(2743, 176, 'Kalinigrad', 'KA', 1),
+(2744, 176, 'Kaluga', 'KL', 1),
+(2745, 176, 'Kasnodar', 'KS', 1),
+(2746, 176, 'Kazan', 'KZ', 1),
+(2747, 176, 'Kemerovo', 'KE', 1),
+(2748, 176, 'Khabarovsk', 'KH', 1),
+(2749, 176, 'Khanty-Mansiysk', 'KM', 1),
+(2750, 176, 'Kostroma', 'KO', 1),
+(2751, 176, 'Krasnodar', 'KR', 1),
+(2752, 176, 'Krasnoyarsk', 'KN', 1),
+(2753, 176, 'Kudymkar', 'KU', 1),
+(2754, 176, 'Kurgan', 'KG', 1),
+(2755, 176, 'Kursk', 'KK', 1),
+(2756, 176, 'Kyzyl', 'KY', 1),
+(2757, 176, 'Lipetsk', 'LI', 1),
+(2758, 176, 'Magadan', 'MA', 1),
+(2759, 176, 'Makhachkala', 'MK', 1),
+(2760, 176, 'Maykop', 'MY', 1),
+(2761, 176, 'Moscow', 'MO', 1),
+(2762, 176, 'Murmansk', 'MU', 1),
+(2763, 176, 'Nalchik', 'NA', 1),
+(2764, 176, 'Naryan Mar', 'NR', 1),
+(2765, 176, 'Nazran', 'NZ', 1),
+(2766, 176, 'Nizhniy Novgorod', 'NI', 1),
+(2767, 176, 'Novgorod', 'NO', 1),
+(2768, 176, 'Novosibirsk', 'NV', 1),
+(2769, 176, 'Omsk', 'OM', 1),
+(2770, 176, 'Orel', 'OR', 1),
+(2771, 176, 'Orenburg', 'OE', 1),
+(2772, 176, 'Palana', 'PA', 1),
+(2773, 176, 'Penza', 'PE', 1),
+(2774, 176, 'Perm', 'PR', 1),
+(2775, 176, 'Petropavlovsk-Kamchatskiy', 'PK', 1),
+(2776, 176, 'Petrozavodsk', 'PT', 1),
+(2777, 176, 'Pskov', 'PS', 1),
+(2778, 176, 'Rostov-na-Donu', 'RO', 1),
+(2779, 176, 'Ryazan', 'RY', 1),
+(2780, 176, 'Salekhard', 'SL', 1),
+(2781, 176, 'Samara', 'SA', 1),
+(2782, 176, 'Saransk', 'SR', 1),
+(2783, 176, 'Saratov', 'SV', 1),
+(2784, 176, 'Smolensk', 'SM', 1),
+(2785, 176, 'St. Petersburg', 'SP', 1),
+(2786, 176, 'Stavropol', 'ST', 1),
+(2787, 176, 'Syktyvkar', 'SY', 1),
+(2788, 176, 'Tambov', 'TA', 1),
+(2789, 176, 'Tomsk', 'TO', 1),
+(2790, 176, 'Tula', 'TU', 1),
+(2791, 176, 'Tura', 'TR', 1),
+(2792, 176, 'Tver', 'TV', 1),
+(2793, 176, 'Tyumen', 'TY', 1),
+(2794, 176, 'Ufa', 'UF', 1),
+(2795, 176, 'Ul''yanovsk', 'UL', 1),
+(2796, 176, 'Ulan-Ude', 'UU', 1),
+(2797, 176, 'Ust''-Ordynskiy', 'US', 1),
+(2798, 176, 'Vladikavkaz', 'VL', 1),
+(2799, 176, 'Vladimir', 'VA', 1),
+(2800, 176, 'Vladivostok', 'VV', 1),
+(2801, 176, 'Volgograd', 'VG', 1),
+(2802, 176, 'Vologda', 'VD', 1),
+(2803, 176, 'Voronezh', 'VO', 1),
+(2804, 176, 'Vyatka', 'VY', 1),
+(2805, 176, 'Yakutsk', 'YA', 1),
+(2806, 176, 'Yaroslavl', 'YR', 1),
+(2807, 176, 'Yekaterinburg', 'YE', 1),
+(2808, 176, 'Yoshkar-Ola', 'YO', 1),
 (2809, 177, 'Butare', 'BU', 1),
 (2810, 177, 'Byumba', 'BY', 1),
 (2811, 177, 'Cyangugu', 'CY', 1),
@@ -6942,13 +6850,13 @@ INSERT INTO `oc_zone` (`zone_id`, `country_id`, `name`, `code`, `status`) VALUES
 (2922, 187, 'Northern', 'N', 1),
 (2923, 187, 'Southern', 'S', 1),
 (2924, 187, 'Western', 'W', 1),
-(2925, 189, 'Banskobystrický', 'BC', 1),
-(2926, 189, 'Bratislavský', 'BL', 1),
-(2927, 189, 'Košický', 'KI', 1),
+(2925, 189, 'Banskobystrický', 'BA', 1),
+(2926, 189, 'Bratislavský', 'BR', 1),
+(2927, 189, 'Košický', 'KO', 1),
 (2928, 189, 'Nitriansky', 'NI', 1),
-(2929, 189, 'Prešovský', 'PV', 1),
+(2929, 189, 'Prešovský', 'PR', 1),
 (2930, 189, 'Trenčiansky', 'TC', 1),
-(2931, 189, 'Trnavský', 'TA', 1),
+(2931, 189, 'Trnavský', 'TV', 1),
 (2932, 189, 'Žilinský', 'ZI', 1),
 (2933, 191, 'Central', 'CE', 1),
 (2934, 191, 'Choiseul', 'CH', 1),
@@ -6980,65 +6888,65 @@ INSERT INTO `oc_zone` (`zone_id`, `country_id`, `name`, `code`, `status`) VALUES
 (2960, 192, 'Woqooyi Galbeed', 'WG', 1),
 (2961, 193, 'Eastern Cape', 'EC', 1),
 (2962, 193, 'Free State', 'FS', 1),
-(2963, 193, 'Gauteng', 'GP', 1),
-(2964, 193, 'KwaZulu-Natal', 'KZN', 1),
+(2963, 193, 'Gauteng', 'GT', 1),
+(2964, 193, 'KwaZulu-Natal', 'KN', 1),
 (2965, 193, 'Limpopo', 'LP', 1),
 (2966, 193, 'Mpumalanga', 'MP', 1),
 (2967, 193, 'North West', 'NW', 1),
 (2968, 193, 'Northern Cape', 'NC', 1),
 (2969, 193, 'Western Cape', 'WC', 1),
-(2970, 195, 'La Coru&ntilde;a', 'C', 1),
-(2971, 195, '&Aacute;lava', 'VI', 1),
+(2970, 195, 'La Coru&ntilde;a', 'CA', 1),
+(2971, 195, '&Aacute;lava', 'AL', 1),
 (2972, 195, 'Albacete', 'AB', 1),
-(2973, 195, 'Alicante', 'A', 1),
-(2974, 195, 'Almeria', 'AL', 1),
-(2975, 195, 'Asturias', 'O', 1),
+(2973, 195, 'Alicante', 'AC', 1),
+(2974, 195, 'Almeria', 'AM', 1),
+(2975, 195, 'Asturias', 'AS', 1),
 (2976, 195, '&Aacute;vila', 'AV', 1),
-(2977, 195, 'Badajoz', 'BA', 1),
+(2977, 195, 'Badajoz', 'BJ', 1),
 (2978, 195, 'Baleares', 'IB', 1),
-(2979, 195, 'Barcelona', 'B', 1),
+(2979, 195, 'Barcelona', 'BA', 1),
 (2980, 195, 'Burgos', 'BU', 1),
 (2981, 195, 'C&aacute;ceres', 'CC', 1),
-(2982, 195, 'C&aacute;diz', 'CA', 1),
-(2983, 195, 'Cantabria', 'S', 1),
-(2984, 195, 'Castell&oacute;n', 'CS', 1),
+(2982, 195, 'C&aacute;diz', 'CZ', 1),
+(2983, 195, 'Cantabria', 'CT', 1),
+(2984, 195, 'Castell&oacute;n', 'CL', 1),
 (2985, 195, 'Ceuta', 'CE', 1),
 (2986, 195, 'Ciudad Real', 'CR', 1),
-(2987, 195, 'C&oacute;rdoba', 'CO', 1),
+(2987, 195, 'C&oacute;rdoba', 'CD', 1),
 (2988, 195, 'Cuenca', 'CU', 1),
 (2989, 195, 'Girona', 'GI', 1),
-(2990, 195, 'Granada', 'GR', 1),
-(2991, 195, 'Guadalajara', 'GU', 1),
-(2992, 195, 'Guip&uacute;zcoa', 'SS', 1),
-(2993, 195, 'Huelva', 'H', 1),
-(2994, 195, 'Huesca', 'HU', 1),
-(2995, 195, 'Ja&eacute;n', 'J', 1),
-(2996, 195, 'La Rioja', 'LO', 1),
-(2997, 195, 'Las Palmas', 'GC', 1),
-(2998, 195, 'Leon', 'CL', 1),
-(2999, 195, 'Lleida', 'L', 1),
-(3000, 195, 'Lugo', 'LU', 1),
-(3001, 195, 'Madrid', 'M', 1),
+(2990, 195, 'Granada', 'GD', 1),
+(2991, 195, 'Guadalajara', 'GJ', 1),
+(2992, 195, 'Guip&uacute;zcoa', 'GP', 1),
+(2993, 195, 'Huelva', 'HL', 1),
+(2994, 195, 'Huesca', 'HS', 1),
+(2995, 195, 'Ja&eacute;n', 'JN', 1),
+(2996, 195, 'La Rioja', 'RJ', 1),
+(2997, 195, 'Las Palmas', 'PM', 1),
+(2998, 195, 'Leon', 'LE', 1),
+(2999, 195, 'Lleida', 'LL', 1),
+(3000, 195, 'Lugo', 'LG', 1),
+(3001, 195, 'Madrid', 'MD', 1),
 (3002, 195, 'Malaga', 'MA', 1),
 (3003, 195, 'Melilla', 'ML', 1),
 (3004, 195, 'Murcia', 'MU', 1),
-(3005, 195, 'Navarra', 'NA', 1),
-(3006, 195, 'Ourense', 'OR', 1),
-(3007, 195, 'Palencia', 'P', 1),
+(3005, 195, 'Navarra', 'NV', 1),
+(3006, 195, 'Ourense', 'OU', 1),
+(3007, 195, 'Palencia', 'PL', 1),
 (3008, 195, 'Pontevedra', 'PO', 1),
-(3009, 195, 'Salamanca', 'SA', 1),
-(3010, 195, 'Santa Cruz de Tenerife', 'TF', 1),
+(3009, 195, 'Salamanca', 'SL', 1),
+(3010, 195, 'Santa Cruz de Tenerife', 'SC', 1),
 (3011, 195, 'Segovia', 'SG', 1),
-(3012, 195, 'Sevilla', 'SE', 1),
+(3012, 195, 'Sevilla', 'SV', 1),
 (3013, 195, 'Soria', 'SO', 1),
-(3014, 195, 'Tarragona', 'T', 1),
+(3014, 195, 'Tarragona', 'TA', 1),
 (3015, 195, 'Teruel', 'TE', 1),
 (3016, 195, 'Toledo', 'TO', 1),
-(3017, 195, 'Valencia', 'V', 1),
-(3018, 195, 'Valladolid', 'VA', 1),
-(3019, 195, 'Bizkaia', 'BI', 1),
-(3020, 195, 'Zamora', 'ZA', 1),
-(3021, 195, 'Zaragoza', 'Z', 1),
+(3017, 195, 'Valencia', 'VC', 1),
+(3018, 195, 'Valladolid', 'VD', 1),
+(3019, 195, 'Vizcaya', 'VZ', 1),
+(3020, 195, 'Zamora', 'ZM', 1),
+(3021, 195, 'Zaragoza', 'ZR', 1),
 (3022, 196, 'Central', 'CE', 1),
 (3023, 196, 'Eastern', 'EA', 1),
 (3024, 196, 'North Central', 'NC', 1),
@@ -7205,81 +7113,82 @@ INSERT INTO `oc_zone` (`zone_id`, `country_id`, `name`, `code`, `status`) VALUES
 (3186, 208, 'Zanzibar Central/South', 'ZC', 1),
 (3187, 208, 'Zanzibar North', 'ZN', 1),
 (3188, 208, 'Zanzibar Urban/West', 'ZU', 1),
-(3189, 209, 'Amnat Charoen', '37', 1),
-(3190, 209, 'Ang Thong', '15', 1),
-(3192, 209, 'Bangkok', '10', 1),
-(3193, 209, 'Buri Ram', '31', 1),
-(3194, 209, 'Chachoengsao', '24', 1),
-(3195, 209, 'Chai Nat', '18', 1),
-(3196, 209, 'Chaiyaphum', '36', 1),
-(3197, 209, 'Chanthaburi', '22', 1),
-(3198, 209, 'Chiang Mai', '50', 1),
-(3199, 209, 'Chiang Rai', '57', 1),
-(3200, 209, 'Chon Buri', '20', 1),
-(3201, 209, 'Chumphon', '86', 1),
-(3202, 209, 'Kalasin', '46', 1),
-(3203, 209, 'Kamphaeng Phet', '62', 1),
-(3204, 209, 'Kanchanaburi', '71', 1),
-(3205, 209, 'Khon Kaen', '40', 1),
-(3206, 209, 'Krabi', '81', 1),
-(3207, 209, 'Lampang', '52', 1),
-(3208, 209, 'Lamphun', '51', 1),
-(3209, 209, 'Loei', '42', 1),
-(3210, 209, 'Lop Buri', '1', 1),
-(3211, 209, 'Mae Hong Son', '55', 1),
-(3212, 209, 'Maha Sarakham', '44', 1),
-(3213, 209, 'Mukdahan', '49', 1),
-(3214, 209, 'Nakhon Nayok', '26', 1),
-(3215, 209, 'Nakhon Pathom', '73', 1),
-(3216, 209, 'Nakhon Phanom', '48', 1),
-(3217, 209, 'Nakhon Ratchasima', '30', 1),
-(3218, 209, 'Nakhon Sawan', '60', 1),
-(3219, 209, 'Nakhon Si Thammarat', '80', 1),
-(3220, 209, 'Nan', '55', 1),
-(3221, 209, 'Narathiwat', '96', 1),
-(3222, 209, 'Nong Bua Lamphu', '39', 1),
-(3223, 209, 'Nong Khai', '43', 1),
-(3224, 209, 'Nonthaburi', '12', 1),
-(3225, 209, 'Pathum Thani', '13', 1),
-(3226, 209, 'Pattani', '94', 1),
-(3227, 209, 'Phangnga', '82', 1),
-(3228, 209, 'Phatthalung', '93', 1),
+(3189, 209, 'Amnat Charoen', 'Amnat Charoen', 1),
+(3190, 209, 'Ang Thong', 'Ang Thong', 1),
+(3191, 209, 'Ayutthaya', 'Ayutthaya', 1),
+(3192, 209, 'Bangkok', 'Bangkok', 1),
+(3193, 209, 'Buriram', 'Buriram', 1),
+(3194, 209, 'Chachoengsao', 'Chachoengsao', 1),
+(3195, 209, 'Chai Nat', 'Chai Nat', 1),
+(3196, 209, 'Chaiyaphum', 'Chaiyaphum', 1),
+(3197, 209, 'Chanthaburi', 'Chanthaburi', 1),
+(3198, 209, 'Chiang Mai', 'Chiang Mai', 1),
+(3199, 209, 'Chiang Rai', 'Chiang Rai', 1),
+(3200, 209, 'Chon Buri', 'Chon Buri', 1),
+(3201, 209, 'Chumphon', 'Chumphon', 1),
+(3202, 209, 'Kalasin', 'Kalasin', 1),
+(3203, 209, 'Kamphaeng Phet', 'Kamphaeng Phet', 1),
+(3204, 209, 'Kanchanaburi', 'Kanchanaburi', 1),
+(3205, 209, 'Khon Kaen', 'Khon Kaen', 1),
+(3206, 209, 'Krabi', 'Krabi', 1),
+(3207, 209, 'Lampang', 'Lampang', 1),
+(3208, 209, 'Lamphun', 'Lamphun', 1),
+(3209, 209, 'Loei', 'Loei', 1),
+(3210, 209, 'Lop Buri', 'Lop Buri', 1),
+(3211, 209, 'Mae Hong Son', 'Mae Hong Son', 1),
+(3212, 209, 'Maha Sarakham', 'Maha Sarakham', 1),
+(3213, 209, 'Mukdahan', 'Mukdahan', 1),
+(3214, 209, 'Nakhon Nayok', 'Nakhon Nayok', 1),
+(3215, 209, 'Nakhon Pathom', 'Nakhon Pathom', 1),
+(3216, 209, 'Nakhon Phanom', 'Nakhon Phanom', 1),
+(3217, 209, 'Nakhon Ratchasima', 'Nakhon Ratchasima', 1),
+(3218, 209, 'Nakhon Sawan', 'Nakhon Sawan', 1),
+(3219, 209, 'Nakhon Si Thammarat', 'Nakhon Si Thammarat', 1),
+(3220, 209, 'Nan', 'Nan', 1),
+(3221, 209, 'Narathiwat', 'Narathiwat', 1),
+(3222, 209, 'Nong Bua Lamphu', 'Nong Bua Lamphu', 1),
+(3223, 209, 'Nong Khai', 'Nong Khai', 1),
+(3224, 209, 'Nonthaburi', 'Nonthaburi', 1),
+(3225, 209, 'Pathum Thani', 'Pathum Thani', 1),
+(3226, 209, 'Pattani', 'Pattani', 1),
+(3227, 209, 'Phangnga', 'Phangnga', 1),
+(3228, 209, 'Phatthalung', 'Phatthalung', 1),
 (3229, 209, 'Phayao', 'Phayao', 1),
-(3230, 209, 'Phetchabun', '67', 1),
-(3231, 209, 'Phetchaburi', '76', 1),
-(3232, 209, 'Phichit', '66', 1),
-(3233, 209, 'Phitsanulok', '65', 1),
-(3234, 209, 'Phrae', '54', 1),
-(3235, 209, 'Phuket', '83', 1),
-(3236, 209, 'Prachin Buri', '25', 1),
-(3237, 209, 'Prachuap Khiri Khan', '77', 1),
-(3238, 209, 'Ranong', '21', 1),
-(3239, 209, 'Ratchaburi', '70', 1),
-(3240, 209, 'Rayong', '21', 1),
-(3241, 209, 'Roi Et', '45', 1),
-(3242, 209, 'Sa Kaeo', '27', 1),
-(3243, 209, 'Sakon Nakhon', '47', 1),
-(3244, 209, 'Samut Prakan', '11', 1),
-(3245, 209, 'Samut Sakhon', '74', 1),
-(3246, 209, 'Samut Songkhram', '75', 1),
-(3247, 209, 'Saraburi', '19', 1),
-(3248, 209, 'Satun', '91', 1),
-(3249, 209, 'Sing Buri', '17', 1),
-(3250, 209, 'Si Sa Ket', '33', 1),
-(3251, 209, 'Songkhla', '90', 1),
-(3252, 209, 'Sukhothai', '64', 1),
-(3253, 209, 'Suphan Buri', '72', 1),
-(3254, 209, 'Surat Thani', '84', 1),
-(3255, 209, 'Surin', '32', 1),
-(3256, 209, 'Tak', '63', 1),
-(3257, 209, 'Trang', '92', 1),
-(3258, 209, 'Trat', '23', 1),
-(3259, 209, 'Ubon Ratchathani', '34', 1),
-(3260, 209, 'Udon Thani', '41', 1),
-(3261, 209, 'Uthai Thani', '61', 1),
-(3262, 209, 'Uttaradit', '53', 1),
-(3263, 209, 'Yala', '95', 1),
-(3264, 209, 'Yasothon', '35', 1),
+(3230, 209, 'Phetchabun', 'Phetchabun', 1),
+(3231, 209, 'Phetchaburi', 'Phetchaburi', 1),
+(3232, 209, 'Phichit', 'Phichit', 1),
+(3233, 209, 'Phitsanulok', 'Phitsanulok', 1),
+(3234, 209, 'Phrae', 'Phrae', 1),
+(3235, 209, 'Phuket', 'Phuket', 1),
+(3236, 209, 'Prachin Buri', 'Prachin Buri', 1),
+(3237, 209, 'Prachuap Khiri Khan', 'Prachuap Khiri Khan', 1),
+(3238, 209, 'Ranong', 'Ranong', 1),
+(3239, 209, 'Ratchaburi', 'Ratchaburi', 1),
+(3240, 209, 'Rayong', 'Rayong', 1),
+(3241, 209, 'Roi Et', 'Roi Et', 1),
+(3242, 209, 'Sa Kaeo', 'Sa Kaeo', 1),
+(3243, 209, 'Sakon Nakhon', 'Sakon Nakhon', 1),
+(3244, 209, 'Samut Prakan', 'Samut Prakan', 1),
+(3245, 209, 'Samut Sakhon', 'Samut Sakhon', 1),
+(3246, 209, 'Samut Songkhram', 'Samut Songkhram', 1),
+(3247, 209, 'Sara Buri', 'Sara Buri', 1),
+(3248, 209, 'Satun', 'Satun', 1),
+(3249, 209, 'Sing Buri', 'Sing Buri', 1),
+(3250, 209, 'Sisaket', 'Sisaket', 1),
+(3251, 209, 'Songkhla', 'Songkhla', 1),
+(3252, 209, 'Sukhothai', 'Sukhothai', 1),
+(3253, 209, 'Suphan Buri', 'Suphan Buri', 1),
+(3254, 209, 'Surat Thani', 'Surat Thani', 1),
+(3255, 209, 'Surin', 'Surin', 1),
+(3256, 209, 'Tak', 'Tak', 1),
+(3257, 209, 'Trang', 'Trang', 1),
+(3258, 209, 'Trat', 'Trat', 1),
+(3259, 209, 'Ubon Ratchathani', 'Ubon Ratchathani', 1),
+(3260, 209, 'Udon Thani', 'Udon Thani', 1),
+(3261, 209, 'Uthai Thani', 'Uthai Thani', 1),
+(3262, 209, 'Uttaradit', 'Uttaradit', 1),
+(3263, 209, 'Yala', 'Yala', 1),
+(3264, 209, 'Yasothon', 'Yasothon', 1),
 (3265, 210, 'Kara', 'K', 1),
 (3266, 210, 'Plateaux', 'P', 1),
 (3267, 210, 'Savanes', 'S', 1),
@@ -7330,87 +7239,87 @@ INSERT INTO `oc_zone` (`zone_id`, `country_id`, `name`, `code`, `status`) VALUES
 (3312, 214, 'Tozeur', 'TO', 1),
 (3313, 214, 'Tunis', 'TU', 1),
 (3314, 214, 'Zaghouan', 'ZA', 1),
-(3315, 215, 'Adana', 'TR-01', 1),
-(3316, 215, 'Adıyaman', 'TR-02', 1),
-(3317, 215, 'Afyonkarahisar', 'TR-03', 1),
-(3318, 215, 'Ağrı', 'TR-04', 1),
-(3319, 215, 'Aksaray', 'TR-68', 1),
-(3320, 215, 'Amasya', 'TR-05', 1),
-(3321, 215, 'Ankara', 'TR-06', 1),
-(3322, 215, 'Antalya', 'TR-07', 1),
-(3323, 215, 'Ardahan', 'TR-75', 1),
-(3324, 215, 'Artvin', 'TR-08', 1),
-(3325, 215, 'Aydın', 'TR-09', 1),
-(3326, 215, 'Balıkesir', 'TR-10', 1),
-(3327, 215, 'Bartın', 'TR-74', 1),
-(3328, 215, 'Batman', 'TR-72', 1),
-(3329, 215, 'Bayburt', 'TR-69', 1),
-(3330, 215, 'Bilecik', 'TR-11', 1),
-(3331, 215, 'Bingöl', 'TR-12', 1),
-(3332, 215, 'Bitlis', 'TR-13', 1),
-(3333, 215, 'Bolu', 'TR-14', 1),
-(3334, 215, 'Burdur', 'TR-15', 1),
-(3335, 215, 'Bursa', 'TR-16', 1),
-(3336, 215, 'Çanakkale', 'TR-17', 1),
-(3337, 215, 'Çankırı', 'TR-18', 1),
-(3338, 215, 'Çorum', 'TR-19', 1),
-(3339, 215, 'Denizli', 'TR-20', 1),
-(3340, 215, 'Diyarbakır', 'TR-21', 1),
-(3341, 215, 'Düzce', 'TR-81', 1),
-(3342, 215, 'Edirne', 'TR-22', 1),
-(3343, 215, 'Elazığ', 'TR-23', 1),
-(3344, 215, 'Erzincan', 'TR-24', 1),
-(3345, 215, 'Erzurum', 'TR-25', 1),
-(3346, 215, 'Eskişehir', 'TR-26', 1),
-(3347, 215, 'Gaziantep', 'TR-27', 1),
-(3348, 215, 'Giresun', 'TR-28', 1),
-(3349, 215, 'Gümüşhane', 'TR-29', 1),
-(3350, 215, 'Hakkari', 'TR-30', 1),
-(3351, 215, 'Hatay', 'TR-31', 1),
-(3352, 215, 'Iğdır', 'TR-76', 1),
-(3353, 215, 'Isparta', 'TR-32', 1),
-(3354, 215, 'İstanbul', 'TR-34', 1),
-(3355, 215, 'İzmir', 'TR-35', 1),
-(3356, 215, 'Kahramanmaraş', 'TR-46', 1),
-(3357, 215, 'Karabük', 'TR-78', 1),
-(3358, 215, 'Karaman', 'TR-70', 1),
-(3359, 215, 'Kars', 'TR-36', 1),
-(3360, 215, 'Kastamonu', 'TR-37', 1),
-(3361, 215, 'Kayseri', 'TR-38', 1),
-(3362, 215, 'Kilis', 'TR-79', 1),
-(3363, 215, 'Kırıkkale', 'TR-71', 1),
-(3364, 215, 'Kırklareli', 'TR-39', 1),
-(3365, 215, 'Kırşehir', 'TR-40', 1),
-(3366, 215, 'Kocaeli', 'TR-41', 1),
-(3367, 215, 'Konya', 'TR-42', 1),
-(3368, 215, 'Kütahya', 'TR-43', 1),
-(3369, 215, 'Malatya', 'TR-44', 1),
-(3370, 215, 'Manisa', 'TR-45', 1),
-(3371, 215, 'Mardin', 'TR-47', 1),
-(3372, 215, 'Mersin', 'TR-33', 1),
-(3373, 215, 'Muğla', 'TR-48', 1),
-(3374, 215, 'Muş', 'TR-49', 1),
-(3375, 215, 'Nevşehir', 'TR-50', 1),
-(3376, 215, 'Niğde', 'TR-51', 1),
-(3377, 215, 'Ordu', 'TR-52', 1),
-(3378, 215, 'Osmaniye', 'TR-80', 1),
-(3379, 215, 'Rize', 'TR-53', 1),
-(3380, 215, 'Sakarya', 'TR-54', 1),
-(3381, 215, 'Samsun', 'TR-55', 1),
-(3382, 215, 'Şanlıurfa', 'TR-63', 1),
-(3383, 215, 'Siirt', 'TR-56', 1),
-(3384, 215, 'Sinop', 'TR-57', 1),
-(3385, 215, 'Şırnak', 'TR-73', 1),
-(3386, 215, 'Sivas', 'TR-58', 1),
-(3387, 215, 'Tekirdağ', 'TR-59', 1),
-(3388, 215, 'Tokat', 'TR-60', 1),
-(3389, 215, 'Trabzon', 'TR-61', 1),
-(3390, 215, 'Tunceli', 'TR-62', 1),
-(3391, 215, 'Uşak', 'TR-64', 1),
-(3392, 215, 'Van', 'TR-65', 1),
-(3393, 215, 'Yalova', 'TR-77', 1),
-(3394, 215, 'Yozgat', 'TR-66', 1),
-(3395, 215, 'Zonguldak', 'TR-67', 1),
+(3315, 215, 'Adana', 'ADA', 1),
+(3316, 215, 'Adıyaman', 'ADI', 1),
+(3317, 215, 'Afyonkarahisar', 'AFY', 1),
+(3318, 215, 'Ağrı', 'AGR', 1),
+(3319, 215, 'Aksaray', 'AKS', 1),
+(3320, 215, 'Amasya', 'AMA', 1),
+(3321, 215, 'Ankara', 'ANK', 1),
+(3322, 215, 'Antalya', 'ANT', 1),
+(3323, 215, 'Ardahan', 'ARD', 1),
+(3324, 215, 'Artvin', 'ART', 1),
+(3325, 215, 'Aydın', 'AYI', 1),
+(3326, 215, 'Balıkesir', 'BAL', 1),
+(3327, 215, 'Bartın', 'BAR', 1),
+(3328, 215, 'Batman', 'BAT', 1),
+(3329, 215, 'Bayburt', 'BAY', 1),
+(3330, 215, 'Bilecik', 'BIL', 1),
+(3331, 215, 'Bingöl', 'BIN', 1),
+(3332, 215, 'Bitlis', 'BIT', 1),
+(3333, 215, 'Bolu', 'BOL', 1),
+(3334, 215, 'Burdur', 'BRD', 1),
+(3335, 215, 'Bursa', 'BRS', 1),
+(3336, 215, 'Çanakkale', 'CKL', 1),
+(3337, 215, 'Çankırı', 'CKR', 1),
+(3338, 215, 'Çorum', 'COR', 1),
+(3339, 215, 'Denizli', 'DEN', 1),
+(3340, 215, 'Diyarbakır', 'DIY', 1),
+(3341, 215, 'Düzce', 'DUZ', 1),
+(3342, 215, 'Edirne', 'EDI', 1),
+(3343, 215, 'Elazığ', 'ELA', 1),
+(3344, 215, 'Erzincan', 'EZC', 1),
+(3345, 215, 'Erzurum', 'EZR', 1),
+(3346, 215, 'Eskişehir', 'ESK', 1),
+(3347, 215, 'Gaziantep', 'GAZ', 1),
+(3348, 215, 'Giresun', 'GIR', 1),
+(3349, 215, 'Gümüşhane', 'GMS', 1),
+(3350, 215, 'Hakkari', 'HKR', 1),
+(3351, 215, 'Hatay', 'HTY', 1),
+(3352, 215, 'Iğdır', 'IGD', 1),
+(3353, 215, 'Isparta', 'ISP', 1),
+(3354, 215, 'İstanbul', 'IST', 1),
+(3355, 215, 'İzmir', 'IZM', 1),
+(3356, 215, 'Kahramanmaraş', 'KAH', 1),
+(3357, 215, 'Karabük', 'KRB', 1),
+(3358, 215, 'Karaman', 'KRM', 1),
+(3359, 215, 'Kars', 'KRS', 1),
+(3360, 215, 'Kastamonu', 'KAS', 1),
+(3361, 215, 'Kayseri', 'KAY', 1),
+(3362, 215, 'Kilis', 'KLS', 1),
+(3363, 215, 'Kırıkkale', 'KRK', 1),
+(3364, 215, 'Kırklareli', 'KLR', 1),
+(3365, 215, 'Kırşehir', 'KRH', 1),
+(3366, 215, 'Kocaeli', 'KOC', 1),
+(3367, 215, 'Konya', 'KON', 1),
+(3368, 215, 'Kütahya', 'KUT', 1),
+(3369, 215, 'Malatya', 'MAL', 1),
+(3370, 215, 'Manisa', 'MAN', 1),
+(3371, 215, 'Mardin', 'MAR', 1),
+(3372, 215, 'Mersin', 'MER', 1),
+(3373, 215, 'Muğla', 'MUG', 1),
+(3374, 215, 'Muş', 'MUS', 1),
+(3375, 215, 'Nevşehir', 'NEV', 1),
+(3376, 215, 'Niğde', 'NIG', 1),
+(3377, 215, 'Ordu', 'ORD', 1),
+(3378, 215, 'Osmaniye', 'OSM', 1),
+(3379, 215, 'Rize', 'RIZ', 1),
+(3380, 215, 'Sakarya', 'SAK', 1),
+(3381, 215, 'Samsun', 'SAM', 1),
+(3382, 215, 'Şanlıurfa', 'SAN', 1),
+(3383, 215, 'Siirt', 'SII', 1),
+(3384, 215, 'Sinop', 'SIN', 1),
+(3385, 215, 'Şırnak', 'SIR', 1),
+(3386, 215, 'Sivas', 'SIV', 1),
+(3387, 215, 'Tekirdağ', 'TEL', 1),
+(3388, 215, 'Tokat', 'TOK', 1),
+(3389, 215, 'Trabzon', 'TRA', 1),
+(3390, 215, 'Tunceli', 'TUN', 1),
+(3391, 215, 'Uşak', 'USK', 1),
+(3392, 215, 'Van', 'VAN', 1),
+(3393, 215, 'Yalova', 'YAL', 1),
+(3394, 215, 'Yozgat', 'YOZ', 1),
+(3395, 215, 'Zonguldak', 'ZON', 1),
 (3396, 216, 'Ahal Welayaty', 'A', 1),
 (3397, 216, 'Balkan Welayaty', 'B', 1),
 (3398, 216, 'Dashhowuz Welayaty', 'D', 1),
@@ -7495,34 +7404,34 @@ INSERT INTO `oc_zone` (`zone_id`, `country_id`, `name`, `code`, `status`) VALUES
 (3477, 219, 'Mbarara', 'MBR', 1),
 (3478, 219, 'Ntungamo', 'NTU', 1),
 (3479, 219, 'Rukungiri', 'RUK', 1),
-(3480, 220, 'Cherkaska', '23', 1),
-(3481, 220, 'Chernihivska', '25', 1),
-(3482, 220, 'Chernivetska', '24', 1),
-(3483, 220, 'Avtonomna Respublika Krym', '27', 1),
-(3484, 220, 'Dnipropetrovska', '04', 1),
-(3485, 220, 'Donetska', '05', 1),
-(3486, 220, 'Ivano-Frankivska', '09', 1),
-(3487, 220, 'Khersonska', '21', 1),
-(3488, 220, 'Khmelnytska', '22', 1),
-(3489, 220, 'Kirovohradska', '35', 1),
-(3490, 220, 'Kyiv', '26', 1),
-(3491, 220, 'Kyivska', '10', 1),
-(3492, 220, 'Luhanska', '12', 1),
-(3493, 220, 'Lvivska', '13', 1),
-(3494, 220, 'Mykolaivska', '14', 1),
-(3495, 220, 'Odeska', '15', 1),
-(3496, 220, 'Poltavska', '16', 1),
-(3497, 220, 'Rivnenska', '17', 1),
-(3498, 220, 'Sevastopol', '28', 1),
-(3499, 220, 'Sumska', '18', 1),
-(3500, 220, 'Ternopilska', '19', 1),
-(3501, 220, 'Vinnytska', '02', 1),
-(3502, 220, 'Volynska', '03', 1),
-(3503, 220, 'Zakarpatska', '07', 1),
-(3504, 220, 'Zaporizka', '08', 1),
-(3505, 220, 'Zhytomyrskа', '06', 1),
-(3506, 221, 'Abu Dhabi', 'ADH', 1),
-(3507, 221, '''Ajman', 'AJ', 1),
+(3480, 220, 'Cherkas''ka Oblast''', '71', 1),
+(3481, 220, 'Chernihivs''ka Oblast''', '74', 1),
+(3482, 220, 'Chernivets''ka Oblast''', '77', 1),
+(3483, 220, 'Crimea', '43', 1),
+(3484, 220, 'Dnipropetrovs''ka Oblast''', '12', 1),
+(3485, 220, 'Donets''ka Oblast''', '14', 1),
+(3486, 220, 'Ivano-Frankivs''ka Oblast''', '26', 1),
+(3487, 220, 'Khersons''ka Oblast''', '65', 1),
+(3488, 220, 'Khmel''nyts''ka Oblast''', '68', 1),
+(3489, 220, 'Kirovohrads''ka Oblast''', '35', 1),
+(3490, 220, 'Kyiv', '30', 1),
+(3491, 220, 'Kyivs''ka Oblast''', '32', 1),
+(3492, 220, 'Luhans''ka Oblast''', '09', 1),
+(3493, 220, 'L''vivs''ka Oblast''', '46', 1),
+(3494, 220, 'Mykolayivs''ka Oblast''', '48', 1),
+(3495, 220, 'Odes''ka Oblast''', '51', 1),
+(3496, 220, 'Poltavs''ka Oblast''', '53', 1),
+(3497, 220, 'Rivnens''ka Oblast''', '56', 1),
+(3498, 220, 'Sevastopol''', '40', 1),
+(3499, 220, 'Sums''ka Oblast''', '59', 1),
+(3500, 220, 'Ternopil''s''ka Oblast''', '61', 1),
+(3501, 220, 'Vinnyts''ka Oblast''', '05', 1),
+(3502, 220, 'Volyns''ka Oblast''', '07', 1),
+(3503, 220, 'Zakarpats''ka Oblast''', '21', 1),
+(3504, 220, 'Zaporiz''ka Oblast''', '23', 1),
+(3505, 220, 'Zhytomyrs''ka oblast''', '18', 1),
+(3506, 221, 'Abū Z̧aby', 'AZ', 1),
+(3507, 221, '‘Ajmān', 'AJ', 1),
 (3508, 221, 'Al Fujayrah', 'FU', 1),
 (3509, 221, 'Ash Shāriqah', 'SH', 1),
 (3510, 221, 'Dubai', 'DU', 1),
@@ -7741,31 +7650,31 @@ INSERT INTO `oc_zone` (`zone_id`, `country_id`, `name`, `code`, `status`) VALUES
 (3723, 227, 'Shefa', 'SH', 1),
 (3724, 227, 'Tafea', 'TA', 1),
 (3725, 227, 'Torba', 'TO', 1),
-(3726, 229, 'Amazonas', 'Z', 1),
-(3727, 229, 'Anzoategui', 'B', 1),
-(3728, 229, 'Apure', 'C', 1),
-(3729, 229, 'Aragua', 'D', 1),
-(3730, 229, 'Barinas', 'E', 1),
-(3731, 229, 'Bolivar', 'F', 1),
-(3732, 229, 'Carabobo', 'G', 1),
-(3733, 229, 'Cojedes', 'H', 1),
-(3734, 229, 'Delta Amacuro', 'Y', 1),
-(3735, 229, 'Dependencias Federales', 'W', 1),
-(3736, 229, 'Distrito Capital', 'A', 1),
-(3737, 229, 'Falcon', 'I', 1),
-(3738, 229, 'Guarico', 'J', 1),
-(3739, 229, 'Lara', 'K', 1),
-(3740, 229, 'Merida', 'L', 1),
-(3741, 229, 'Miranda', 'M', 1),
-(3742, 229, 'Monagas', 'N', 1),
-(3743, 229, 'Nueva Esparta', 'O', 1),
-(3744, 229, 'Portuguesa', 'P', 1),
-(3745, 229, 'Sucre', 'R', 1),
-(3746, 229, 'Tachira', 'S', 1),
-(3747, 229, 'Trujillo', 'T', 1),
-(3748, 229, 'Vargas', 'X', 1),
-(3749, 229, 'Yaracuy', 'U', 1),
-(3750, 229, 'Zulia', 'V', 1),
+(3726, 229, 'Amazonas', 'AM', 1),
+(3727, 229, 'Anzoategui', 'AN', 1),
+(3728, 229, 'Apure', 'AP', 1),
+(3729, 229, 'Aragua', 'AR', 1),
+(3730, 229, 'Barinas', 'BA', 1),
+(3731, 229, 'Bolivar', 'BO', 1),
+(3732, 229, 'Carabobo', 'CA', 1),
+(3733, 229, 'Cojedes', 'CO', 1),
+(3734, 229, 'Delta Amacuro', 'DA', 1),
+(3735, 229, 'Dependencias Federales', 'DF', 1),
+(3736, 229, 'Distrito Federal', 'DI', 1),
+(3737, 229, 'Falcon', 'FA', 1),
+(3738, 229, 'Guarico', 'GU', 1),
+(3739, 229, 'Lara', 'LA', 1),
+(3740, 229, 'Merida', 'ME', 1),
+(3741, 229, 'Miranda', 'MI', 1),
+(3742, 229, 'Monagas', 'MO', 1),
+(3743, 229, 'Nueva Esparta', 'NE', 1),
+(3744, 229, 'Portuguesa', 'PO', 1),
+(3745, 229, 'Sucre', 'SU', 1),
+(3746, 229, 'Tachira', 'TA', 1),
+(3747, 229, 'Trujillo', 'TR', 1),
+(3748, 229, 'Vargas', 'VA', 1),
+(3749, 229, 'Yaracuy', 'YA', 1),
+(3750, 229, 'Zulia', 'ZU', 1),
 (3751, 230, 'An Giang', 'AG', 1),
 (3752, 230, 'Bac Giang', 'BG', 1),
 (3753, 230, 'Bac Kan', 'BK', 1),
@@ -8019,124 +7928,192 @@ INSERT INTO `oc_zone` (`zone_id`, `country_id`, `name`, `code`, `status`) VALUES
 (4030, 248, 'Warrap', 'WR', 1),
 (4031, 248, 'Western Bahr el-Ghazal', 'BW', 1),
 (4032, 248, 'Western Equatoria', 'EW', 1),
-(4038, 117, 'Aizkraukles novads', '002', 1),
-(4040, 117, 'Aizputes novads', '003', 1),
-(4042, 117, 'Aknīstes novads', '004', 1),
-(4044, 117, 'Alojas novads', '005', 1),
-(4045, 117, 'Alsungas novads', '006', 1),
-(4047, 117, 'Alūksnes novads', '007', 1),
-(4048, 117, 'Amatas novads', '008', 1),
-(4050, 117, 'Apes novads', '008', 1),
-(4052, 117, 'Auces novads', '010', 1),
-(4053, 117, 'Ādažu novads', '011', 1),
-(4054, 117, 'Babītes novads', '012', 1),
-(4056, 117, 'Baldones novads', '013', 1),
-(4058, 117, 'Baltinavas novads', '014', 1),
-(4060, 117, 'Balvu novads', '015', 1),
-(4062, 117, 'Bauskas novads', '016', 1),
-(4063, 117, 'Beverīnas novads', '017', 1),
-(4065, 117, 'Brocēnu novads', '018', 1),
-(4066, 117, 'Burtnieku novads', '019', 1),
-(4067, 117, 'Carnikavas novads', '020', 1),
-(4069, 117, 'Cesvaines novads', '021', 1),
-(4071, 117, 'Cēsu novads', '022', 1),
-(4072, 117, 'Ciblas novads', '023', 1),
-(4074, 117, 'Dagdas novads', '024', 1),
-(4075, 117, 'Daugavpils', 'DGV', 1),
-(4076, 117, 'Daugavpils novads', '025', 1),
-(4078, 117, 'Dobeles novads', '026', 1),
-(4079, 117, 'Dundagas novads', '027', 1),
-(4081, 117, 'Durbes novads', '028', 1),
-(4082, 117, 'Engures novads', '029', 1),
-(4083, 117, 'Ērgļu novads', '030', 1),
-(4084, 117, 'Garkalnes novads', '031', 1),
-(4086, 117, 'Grobiņas novads', '032', 1),
-(4088, 117, 'Gulbenes novads', '033', 1),
-(4089, 117, 'Iecavas novads', '034', 1),
-(4091, 117, 'Ikšķiles novads', '035', 1),
-(4093, 117, 'Ilūkstes novads', '036', 1),
-(4094, 117, 'Inčukalna novads', '037', 1),
-(4096, 117, 'Jaunjelgavas novads', '038', 1),
-(4097, 117, 'Jaunpiebalgas novads', '039', 1),
-(4098, 117, 'Jaunpils novads', '040', 1),
-(4099, 117, 'Jelgava', 'JEL', 1),
-(4100, 117, 'Jelgavas novads', '041', 1),
-(4101, 117, 'Jēkabpils', 'JKB', 1),
-(4102, 117, 'Jēkabpils novads', '042', 1),
-(4103, 117, 'Jūrmala', 'JUR', 1),
-(4106, 117, 'Kandavas novads', '043', 1),
-(4108, 117, 'Kārsavas novads', '044', 1),
-(4110, 117, 'Kokneses novads', '046', 1),
-(4112, 117, 'Krāslavas novads', '047', 1),
-(4113, 117, 'Krimuldas novads', '048', 1),
-(4114, 117, 'Krustpils novads', '049', 1),
-(4116, 117, 'Kuldīgas novads', '050', 1),
-(4117, 117, 'Ķeguma novads', '051', 1),
-(4119, 117, 'Ķekavas novads', '052', 1),
-(4121, 117, 'Lielvārdes novads', '053', 1),
-(4122, 117, 'Liepāja', 'LPX', 1),
-(4124, 117, 'Limbažu novads', '054', 1),
-(4126, 117, 'Līgatnes novads', '055', 1),
-(4128, 117, 'Līvānu novads', '056', 1),
-(4130, 117, 'Lubānas novads', '057', 1),
-(4132, 117, 'Ludzas novads', '058', 1),
-(4134, 117, 'Madonas novads', '059', 1),
-(4136, 117, 'Mazsalacas novads', '060', 1),
-(4137, 117, 'Mālpils novads', '061', 1),
-(4138, 117, 'Mārupes novads', '062', 1),
-(4139, 117, 'Mērsraga novads', '063', 1),
-(4140, 117, 'Naukšēnu novads', '064', 1),
-(4141, 117, 'Neretas novads', '065', 1),
-(4142, 117, 'Nīcas novads', '066', 1),
-(4144, 117, 'Ogres novads', '067', 1),
-(4146, 117, 'Olaines novads', '068', 1),
-(4147, 117, 'Ozolnieku novads', '069', 1),
-(4148, 117, 'Pārgaujas novads', '070', 1),
-(4150, 117, 'Pāvilostas novads', '071', 1),
-(4153, 117, 'Pļaviņu novads', '072', 1),
-(4155, 117, 'Preiļu novads', '073', 1),
-(4157, 117, 'Priekules novads', '074', 1),
-(4158, 117, 'Priekuļu novads', '075', 1),
-(4159, 117, 'Raunas novads', '076', 1),
-(4160, 117, 'Rēzekne', 'REZ', 1),
-(4161, 117, 'Rēzeknes novads', '077', 1),
-(4162, 117, 'Riebiņu novads', '078', 1),
-(4163, 117, 'Rīga', 'RIX', 1),
-(4164, 117, 'Rojas novads', '079', 1),
-(4165, 117, 'Ropažu novads', '080', 1),
-(4166, 117, 'Rucavas novads', '081', 1),
-(4167, 117, 'Rugāju novads', '082', 1),
-(4168, 117, 'Rundāles novads', '083', 1),
-(4170, 117, 'Rūjienas novads', '084', 1),
-(4173, 117, 'Salacgrīvas novads', '086', 1),
-(4174, 117, 'Salas novads', '085', 1),
-(4175, 117, 'Salaspils novads', '087', 1),
-(4177, 117, 'Saldus novads', '088', 1),
+(4036, 117, 'Ainaži, Salacgrīvas novads', '0661405', 1),
+(4037, 117, 'Aizkraukle, Aizkraukles novads', '0320201', 1),
+(4038, 117, 'Aizkraukles novads', '0320200', 1),
+(4039, 117, 'Aizpute, Aizputes novads', '0640605', 1),
+(4040, 117, 'Aizputes novads', '0640600', 1),
+(4041, 117, 'Aknīste, Aknīstes novads', '0560805', 1),
+(4042, 117, 'Aknīstes novads', '0560800', 1),
+(4043, 117, 'Aloja, Alojas novads', '0661007', 1),
+(4044, 117, 'Alojas novads', '0661000', 1),
+(4045, 117, 'Alsungas novads', '0624200', 1),
+(4046, 117, 'Alūksne, Alūksnes novads', '0360201', 1),
+(4047, 117, 'Alūksnes novads', '0360200', 1),
+(4048, 117, 'Amatas novads', '0424701', 1),
+(4049, 117, 'Ape, Apes novads', '0360805', 1),
+(4050, 117, 'Apes novads', '0360800', 1),
+(4051, 117, 'Auce, Auces novads', '0460805', 1),
+(4052, 117, 'Auces novads', '0460800', 1),
+(4053, 117, 'Ādažu novads', '0804400', 1),
+(4054, 117, 'Babītes novads', '0804900', 1),
+(4055, 117, 'Baldone, Baldones novads', '0800605', 1),
+(4056, 117, 'Baldones novads', '0800600', 1),
+(4057, 117, 'Baloži, Ķekavas novads', '0800807', 1),
+(4058, 117, 'Baltinavas novads', '0384400', 1),
+(4059, 117, 'Balvi, Balvu novads', '0380201', 1),
+(4060, 117, 'Balvu novads', '0380200', 1),
+(4061, 117, 'Bauska, Bauskas novads', '0400201', 1),
+(4062, 117, 'Bauskas novads', '0400200', 1),
+(4063, 117, 'Beverīnas novads', '0964700', 1),
+(4064, 117, 'Brocēni, Brocēnu novads', '0840605', 1),
+(4065, 117, 'Brocēnu novads', '0840601', 1),
+(4066, 117, 'Burtnieku novads', '0967101', 1),
+(4067, 117, 'Carnikavas novads', '0805200', 1),
+(4068, 117, 'Cesvaine, Cesvaines novads', '0700807', 1),
+(4069, 117, 'Cesvaines novads', '0700800', 1),
+(4070, 117, 'Cēsis, Cēsu novads', '0420201', 1),
+(4071, 117, 'Cēsu novads', '0420200', 1),
+(4072, 117, 'Ciblas novads', '0684901', 1),
+(4073, 117, 'Dagda, Dagdas novads', '0601009', 1),
+(4074, 117, 'Dagdas novads', '0601000', 1),
+(4075, 117, 'Daugavpils', '0050000', 1),
+(4076, 117, 'Daugavpils novads', '0440200', 1),
+(4077, 117, 'Dobele, Dobeles novads', '0460201', 1),
+(4078, 117, 'Dobeles novads', '0460200', 1),
+(4079, 117, 'Dundagas novads', '0885100', 1),
+(4080, 117, 'Durbe, Durbes novads', '0640807', 1),
+(4081, 117, 'Durbes novads', '0640801', 1),
+(4082, 117, 'Engures novads', '0905100', 1),
+(4083, 117, 'Ērgļu novads', '0705500', 1),
+(4084, 117, 'Garkalnes novads', '0806000', 1),
+(4085, 117, 'Grobiņa, Grobiņas novads', '0641009', 1),
+(4086, 117, 'Grobiņas novads', '0641000', 1),
+(4087, 117, 'Gulbene, Gulbenes novads', '0500201', 1),
+(4088, 117, 'Gulbenes novads', '0500200', 1),
+(4089, 117, 'Iecavas novads', '0406400', 1),
+(4090, 117, 'Ikšķile, Ikšķiles novads', '0740605', 1),
+(4091, 117, 'Ikšķiles novads', '0740600', 1),
+(4092, 117, 'Ilūkste, Ilūkstes novads', '0440807', 1),
+(4093, 117, 'Ilūkstes novads', '0440801', 1),
+(4094, 117, 'Inčukalna novads', '0801800', 1),
+(4095, 117, 'Jaunjelgava, Jaunjelgavas novads', '0321007', 1),
+(4096, 117, 'Jaunjelgavas novads', '0321000', 1),
+(4097, 117, 'Jaunpiebalgas novads', '0425700', 1),
+(4098, 117, 'Jaunpils novads', '0905700', 1),
+(4099, 117, 'Jelgava', '0090000', 1),
+(4100, 117, 'Jelgavas novads', '0540200', 1),
+(4101, 117, 'Jēkabpils', '0110000', 1),
+(4102, 117, 'Jēkabpils novads', '0560200', 1),
+(4103, 117, 'Jūrmala', '0130000', 1),
+(4104, 117, 'Kalnciems, Jelgavas novads', '0540211', 1),
+(4105, 117, 'Kandava, Kandavas novads', '0901211', 1),
+(4106, 117, 'Kandavas novads', '0901201', 1),
+(4107, 117, 'Kārsava, Kārsavas novads', '0681009', 1),
+(4108, 117, 'Kārsavas novads', '0681000', 1),
+(4109, 117, 'Kocēnu novads ,bij. Valmieras)', '0960200', 1),
+(4110, 117, 'Kokneses novads', '0326100', 1),
+(4111, 117, 'Krāslava, Krāslavas novads', '0600201', 1),
+(4112, 117, 'Krāslavas novads', '0600202', 1),
+(4113, 117, 'Krimuldas novads', '0806900', 1),
+(4114, 117, 'Krustpils novads', '0566900', 1),
+(4115, 117, 'Kuldīga, Kuldīgas novads', '0620201', 1),
+(4116, 117, 'Kuldīgas novads', '0620200', 1),
+(4117, 117, 'Ķeguma novads', '0741001', 1),
+(4118, 117, 'Ķegums, Ķeguma novads', '0741009', 1),
+(4119, 117, 'Ķekavas novads', '0800800', 1),
+(4120, 117, 'Lielvārde, Lielvārdes novads', '0741413', 1),
+(4121, 117, 'Lielvārdes novads', '0741401', 1),
+(4122, 117, 'Liepāja', '0170000', 1),
+(4123, 117, 'Limbaži, Limbažu novads', '0660201', 1),
+(4124, 117, 'Limbažu novads', '0660200', 1),
+(4125, 117, 'Līgatne, Līgatnes novads', '0421211', 1),
+(4126, 117, 'Līgatnes novads', '0421200', 1),
+(4127, 117, 'Līvāni, Līvānu novads', '0761211', 1),
+(4128, 117, 'Līvānu novads', '0761201', 1),
+(4129, 117, 'Lubāna, Lubānas novads', '0701413', 1),
+(4130, 117, 'Lubānas novads', '0701400', 1),
+(4131, 117, 'Ludza, Ludzas novads', '0680201', 1),
+(4132, 117, 'Ludzas novads', '0680200', 1),
+(4133, 117, 'Madona, Madonas novads', '0700201', 1),
+(4134, 117, 'Madonas novads', '0700200', 1),
+(4135, 117, 'Mazsalaca, Mazsalacas novads', '0961011', 1),
+(4136, 117, 'Mazsalacas novads', '0961000', 1),
+(4137, 117, 'Mālpils novads', '0807400', 1),
+(4138, 117, 'Mārupes novads', '0807600', 1),
+(4139, 117, 'Mērsraga novads', '0887600', 1),
+(4140, 117, 'Naukšēnu novads', '0967300', 1),
+(4141, 117, 'Neretas novads', '0327100', 1),
+(4142, 117, 'Nīcas novads', '0647900', 1),
+(4143, 117, 'Ogre, Ogres novads', '0740201', 1),
+(4144, 117, 'Ogres novads', '0740202', 1),
+(4145, 117, 'Olaine, Olaines novads', '0801009', 1),
+(4146, 117, 'Olaines novads', '0801000', 1),
+(4147, 117, 'Ozolnieku novads', '0546701', 1),
+(4148, 117, 'Pārgaujas novads', '0427500', 1),
+(4149, 117, 'Pāvilosta, Pāvilostas novads', '0641413', 1),
+(4150, 117, 'Pāvilostas novads', '0641401', 1),
+(4151, 117, 'Piltene, Ventspils novads', '0980213', 1),
+(4152, 117, 'Pļaviņas, Pļaviņu novads', '0321413', 1),
+(4153, 117, 'Pļaviņu novads', '0321400', 1),
+(4154, 117, 'Preiļi, Preiļu novads', '0760201', 1),
+(4155, 117, 'Preiļu novads', '0760202', 1),
+(4156, 117, 'Priekule, Priekules novads', '0641615', 1),
+(4157, 117, 'Priekules novads', '0641600', 1),
+(4158, 117, 'Priekuļu novads', '0427300', 1),
+(4159, 117, 'Raunas novads', '0427700', 1),
+(4160, 117, 'Rēzekne', '0210000', 1),
+(4161, 117, 'Rēzeknes novads', '0780200', 1),
+(4162, 117, 'Riebiņu novads', '0766300', 1),
+(4163, 117, 'Rīga', '0010000', 1),
+(4164, 117, 'Rojas novads', '0888300', 1),
+(4165, 117, 'Ropažu novads', '0808400', 1),
+(4166, 117, 'Rucavas novads', '0648500', 1),
+(4167, 117, 'Rugāju novads', '0387500', 1),
+(4168, 117, 'Rundāles novads', '0407700', 1),
+(4169, 117, 'Rūjiena, Rūjienas novads', '0961615', 1),
+(4170, 117, 'Rūjienas novads', '0961600', 1),
+(4171, 117, 'Sabile, Talsu novads', '0880213', 1),
+(4172, 117, 'Salacgrīva, Salacgrīvas novads', '0661415', 1),
+(4173, 117, 'Salacgrīvas novads', '0661400', 1),
+(4174, 117, 'Salas novads', '0568700', 1),
+(4175, 117, 'Salaspils novads', '0801200', 1),
+(4176, 117, 'Salaspils, Salaspils novads', '0801211', 1),
+(4177, 117, 'Saldus novads', '0840200', 1),
 (4178, 117, 'Saldus, Saldus novads', '0840201', 1),
-(4180, 117, 'Saulkrastu novads', '089', 1),
-(4182, 117, 'Sējas novads', '090', 1),
-(4184, 117, 'Siguldas novads', '091', 1),
-(4185, 117, 'Skrīveru novads', '092', 1),
-(4187, 117, 'Skrundas novads', '093', 1),
-(4189, 117, 'Smiltenes novads', '094', 1),
-(4192, 117, 'Stopiņu novads', '095', 1),
-(4194, 117, 'Strenču novads', '096', 1),
-(4197, 117, 'Talsu novads', '097', 1),
-(4198, 117, 'Tērvetes novads', '098', 1),
-(4199, 117, 'Tukuma novads', '099', 1),
-(4201, 117, 'Vaiņodes novads', '100', 1),
-(4204, 117, 'Valkas novads', '101', 1),
-(4205, 117, 'Valmiera', 'VMR', 1),
-(4208, 117, 'Varakļānu novads', '102', 1),
-(4209, 117, 'Vārkavas novads', '103', 1),
-(4210, 117, 'Vecpiebalgas novads', '104', 1),
-(4211, 117, 'Vecumnieku novads', '105', 1),
-(4212, 117, 'Ventspils', 'VEN', 1),
-(4213, 117, 'Ventspils novads', '106', 1),
-(4215, 117, 'Viesītes novads', '107', 1),
-(4217, 117, 'Viļakas novads', '108', 1),
-(4219, 117, 'Viļānu novads', '109', 1),
-(4221, 117, 'Zilupes novads', '110', 1),
+(4179, 117, 'Saulkrasti, Saulkrastu novads', '0801413', 1),
+(4180, 117, 'Saulkrastu novads', '0801400', 1),
+(4181, 117, 'Seda, Strenču novads', '0941813', 1),
+(4182, 117, 'Sējas novads', '0809200', 1),
+(4183, 117, 'Sigulda, Siguldas novads', '0801615', 1),
+(4184, 117, 'Siguldas novads', '0801601', 1),
+(4185, 117, 'Skrīveru novads', '0328200', 1),
+(4186, 117, 'Skrunda, Skrundas novads', '0621209', 1),
+(4187, 117, 'Skrundas novads', '0621200', 1),
+(4188, 117, 'Smiltene, Smiltenes novads', '0941615', 1),
+(4189, 117, 'Smiltenes novads', '0941600', 1),
+(4190, 117, 'Staicele, Alojas novads', '0661017', 1),
+(4191, 117, 'Stende, Talsu novads', '0880215', 1),
+(4192, 117, 'Stopiņu novads', '0809600', 1),
+(4193, 117, 'Strenči, Strenču novads', '0941817', 1),
+(4194, 117, 'Strenču novads', '0941800', 1),
+(4195, 117, 'Subate, Ilūkstes novads', '0440815', 1),
+(4196, 117, 'Talsi, Talsu novads', '0880201', 1),
+(4197, 117, 'Talsu novads', '0880200', 1),
+(4198, 117, 'Tērvetes novads', '0468900', 1),
+(4199, 117, 'Tukuma novads', '0900200', 1),
+(4200, 117, 'Tukums, Tukuma novads', '0900201', 1),
+(4201, 117, 'Vaiņodes novads', '0649300', 1),
+(4202, 117, 'Valdemārpils, Talsu novads', '0880217', 1),
+(4203, 117, 'Valka, Valkas novads', '0940201', 1),
+(4204, 117, 'Valkas novads', '0940200', 1),
+(4205, 117, 'Valmiera', '0250000', 1),
+(4206, 117, 'Vangaži, Inčukalna novads', '0801817', 1),
+(4207, 117, 'Varakļāni, Varakļānu novads', '0701817', 1),
+(4208, 117, 'Varakļānu novads', '0701800', 1),
+(4209, 117, 'Vārkavas novads', '0769101', 1),
+(4210, 117, 'Vecpiebalgas novads', '0429300', 1),
+(4211, 117, 'Vecumnieku novads', '0409500', 1),
+(4212, 117, 'Ventspils', '0270000', 1),
+(4213, 117, 'Ventspils novads', '0980200', 1),
+(4214, 117, 'Viesīte, Viesītes novads', '0561815', 1),
+(4215, 117, 'Viesītes novads', '0561800', 1),
+(4216, 117, 'Viļaka, Viļakas novads', '0381615', 1),
+(4217, 117, 'Viļakas novads', '0381600', 1),
+(4218, 117, 'Viļāni, Viļānu novads', '0781817', 1),
+(4219, 117, 'Viļānu novads', '0781800', 1),
+(4220, 117, 'Zilupe, Zilupes novads', '0681817', 1),
+(4221, 117, 'Zilupes novads', '0681801', 1),
 (4222, 43, 'Arica y Parinacota', 'AP', 1),
 (4223, 43, 'Los Rios', 'LR', 1),
 (4224, 220, 'Kharkivs''ka Oblast''', '63', 1),
@@ -8153,112 +8130,8 @@ INSERT INTO `oc_zone` (`zone_id`, `country_id`, `name`, `code`, `status`) VALUES
 (4235, 100, 'Kepulauan Riau', 'KR', 1),
 (4236, 105, 'Barletta-Andria-Trani', 'BT', 1),
 (4237, 105, 'Fermo', 'FM', 1),
-(4238, 105, 'Monza Brianza', 'MB', 1),
-(4239, 113, 'Seoul-teukbyeolsi', '11', 1),
-(4240, 113, 'Busan-gwangyeoksi', '26', 1),
-(4241, 113, 'Daegu-gwangyeoksi', '27', 1),
-(4242, 113, 'Daejeon-gwangyeoksi', '30', 1),
-(4243, 113, 'Gwangju-gwangyeoksi', '29', 1),
-(4244, 113, 'Incheon-gwangyeoksi', '28', 1),
-(4245, 113, 'Ulsan-gwangyeoksi', '31', 1),
-(4246, 113, 'Chungcheongbuk-do', '43', 1),
-(4247, 113, 'Chungcheongnam-do', '44', 1),
-(4248, 113, 'Gangwon-do', '42', 1),
-(4249, 113, 'Gyeonggi-do', '41', 1),
-(4250, 113, 'Gyeongsangbuk-do', '47', 1),
-(4251, 113, 'Gyeongsangnam-do', '48', 1),
-(4252, 113, 'Jeollabuk-do', '45', 1),
-(4253, 113, 'Jeollanam-do', '46', 1),
-(4254, 113, 'Jeju-teukbyeoljachido', '49', 1),
-(4255, 113, 'Sejong-teukbyeoljachisi', '50', 1),
-(4256, 209, 'Phra Nakhon Si Ayutthaya', '14', 1),
-(4257, 176, 'Adygea, Republic of', 'RU-AD', 1),
-(4258, 176, 'Bashkortostan, Republic of', 'RU-BA', 1),
-(4259, 176, 'Buryatia, Republic of', 'RU-BU', 1),
-(4260, 176, 'Altai Republic', 'RU-AL', 1),
-(4261, 176, 'Dagestan, Republic of', 'RU-DA', 1),
-(4262, 176, 'Ingushetia, Republic of', 'RU-IN', 1),
-(4263, 176, 'Kabardino-Balkar Republic', 'RU-KB', 1),
-(4264, 176, 'Kalmykia, Republic of', 'RU-KL', 1),
-(4265, 176, 'Karachay-Cherkess Republic', 'RU-KC', 1),
-(4266, 176, 'Karelia, Republic of', 'RU-KR', 1),
-(4267, 176, 'Komi Republic', 'RU-KO', 1),
-(4268, 176, 'Mari El Republic', 'RU-ME', 1),
-(4269, 176, 'Mordovia, Republic of', 'RU-MO', 1),
-(4270, 176, 'Sakha (Yakutia) Republic', 'RU-SA', 1),
-(4271, 176, 'North Ossetia-Alania, Republic of', 'RU-SE', 1),
-(4272, 176, 'Tatarstan, Republic of', 'RU-TA', 1),
-(4273, 176, 'Tuva Republic', 'RU-TY', 1),
-(4274, 176, 'Udmurt Republic', 'RU-UD', 1),
-(4275, 176, 'Khakassia, Republic of', 'RU-KK', 1),
-(4276, 176, 'Chechen Republic', 'RU-CE', 1),
-(4277, 176, 'Chuvash Republic', 'RU-CU', 1),
-(4278, 176, 'Altai Krai', 'RU-ALT', 1),
-(4279, 176, 'Krasnodar Krai', 'RU-KDA', 1),
-(4280, 176, 'Krasnoyarsk Krai', 'RU-KYA', 1),
-(4281, 176, 'Primorsky Krai', 'RU-PRI', 1),
-(4282, 176, 'Stavropol Krai', 'RU-STA', 1),
-(4283, 176, 'Khabarovsk Krai', 'RU-KHA', 1),
-(4284, 176, 'Amur Oblast', 'RU-AMU', 1),
-(4285, 176, 'Arkhangelsk Oblast', 'RU-ARK', 1),
-(4286, 176, 'Astrakhan Oblast', 'RU-AST', 1),
-(4287, 176, 'Belgorod Oblast', 'RU-BEL', 1),
-(4288, 176, 'Bryansk Oblast', 'RU-BRY', 1),
-(4289, 176, 'Vladimir Oblast', 'RU-VLA', 1),
-(4290, 176, 'Volgograd Oblast', 'RU-VGG', 1),
-(4291, 176, 'Vologda Oblast', 'RU-VLG', 1),
-(4292, 176, 'Voronezh Oblast', 'RU-VOR', 1),
-(4293, 176, 'Ivanovo Oblast', 'RU-IVA', 1),
-(4294, 176, 'Irkutsk Oblast', 'RU-IRK', 1),
-(4295, 176, 'Kaliningrad Oblast', 'RU-KGD', 1),
-(4296, 176, 'Kaluga Oblast', 'RU-KLU', 1),
-(4297, 176, 'Kamchatka Krai', 'RU-KAM', 1),
-(4298, 176, 'Kemerovo Oblast', 'RU-KEM', 1),
-(4299, 176, 'Kirov Oblast', 'RU-KIR', 1),
-(4300, 176, 'Kostroma Oblast', 'RU-KOS', 1),
-(4301, 176, 'Kurgan Oblast', 'RU-KGN', 1),
-(4302, 176, 'Kursk Oblast', 'RU-KRS', 1),
-(4303, 176, 'Leningrad Oblast', 'RU-LEN', 1),
-(4304, 176, 'Lipetsk Oblast', 'RU-LIP', 1),
-(4305, 176, 'Magadan Oblast', 'RU-MAG', 1),
-(4306, 176, 'Moscow Oblast', 'RU-MOS', 1),
-(4307, 176, 'Murmansk Oblast', 'RU-MUR', 1),
-(4308, 176, 'Nizhny Novgorod Oblast', 'RU-NIZ', 1),
-(4309, 176, 'Novgorod Oblast', 'RU-NGR', 1),
-(4310, 176, 'Novosibirsk Oblast', 'RU-NVS', 1),
-(4311, 176, 'Omsk Oblast', 'RU-OMS', 1),
-(4312, 176, 'Orenburg Oblast', 'RU-ORE', 1),
-(4313, 176, 'Oryol Oblast', 'RU-ORL', 1),
-(4314, 176, 'Penza Oblast', 'RU-PNZ', 1),
-(4315, 176, 'Perm Krai', 'RU-PER', 1),
-(4316, 176, 'Pskov Oblast', 'RU-PSK', 1),
-(4317, 176, 'Rostov Oblast', 'RU-ROS', 1),
-(4318, 176, 'Ryazan Oblast', 'RU-RYA', 1),
-(4319, 176, 'Samara Oblast', 'RU-SAM', 1),
-(4320, 176, 'Saratov Oblast', 'RU-SAR', 1),
-(4321, 176, 'Sakhalin Oblast', 'RU-SAK', 1),
-(4322, 176, 'Sverdlovsk Oblast', 'RU-SVE', 1),
-(4323, 176, 'Smolensk Oblast', 'RU-SMO', 1),
-(4324, 176, 'Tambov Oblast', 'RU-TAM', 1),
-(4325, 176, 'Tver Oblast', 'RU-TVE', 1),
-(4326, 176, 'Tomsk Oblast', 'RU-TOM', 1),
-(4327, 176, 'Tula Oblast', 'RU-TUL', 1),
-(4328, 176, 'Tyumen Oblast', 'RU-TYU', 1),
-(4329, 176, 'Ulyanovsk Oblast', 'RU-ULY', 1),
-(4330, 176, 'Chelyabinsk Oblast', 'RU-CHE', 1),
-(4331, 176, 'Zabaykalsky Krai', 'RU-ZAB', 1),
-(4332, 176, 'Yaroslavl Oblast', 'RU-YAR', 1),
-(4333, 176, 'Moscow', 'RU-MOW', 1),
-(4334, 176, 'Saint Petersburg', 'RU-SPE', 1),
-(4335, 176, 'Jewish Autonomous Oblast', 'RU-YEV', 1),
-(4336, 176, 'Nenets Autonomous Okrug', 'RU-NEN', 1),
-(4337, 176, 'Khanty–Mansi Autonomous Okrug – Yugra', 'RU-KHM', 1),
-(4338, 176, 'Chukotka Autonomous Okrug', 'RU-CHU', 1),
-(4339, 176, 'Yamalo-Nenets Autonomous Okrug', 'RU-YAN', 1),
-(4340, 117, 'Aglonas novads', '001', 1),
-(4341, 99, 'Chhattisgarh', 'CT', 1),
-(4342, 99, 'Ladakh', 'LA', 1),
-(4343, 99, 'Uttarakhand', 'UT', 1);
+(4238, 105, 'Monza Brianza', 'MB', 1);
+
 -----------------------------------------------------------
 
 --
@@ -8274,7 +8147,7 @@ CREATE TABLE `oc_zone_to_geo_zone` (
   `date_added` datetime NOT NULL,
   `date_modified` datetime NOT NULL,
   PRIMARY KEY (`zone_to_geo_zone_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Dumping data for table `oc_zone_to_geo_zone`
@@ -8388,4 +8261,5 @@ INSERT INTO `oc_zone_to_geo_zone` (`zone_to_geo_zone_id`, `country_id`, `zone_id
 (105, 222, 3952, 3, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
 (106, 222, 3953, 3, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
 (107, 222, 3954, 3, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
-(108, 222, 3955, 3, '0000-00-00 00:00:00', '0000-00-00 00:00:00');
+(108, 222, 3955, 3, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(109, 222, 3972, 3, '0000-00-00 00:00:00', '0000-00-00 00:00:00');
