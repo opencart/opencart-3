@@ -80,7 +80,7 @@ class ModelLocalisationOrderStatus extends Model {
 		}
 	}
 
-	public function getOrderStatusDescriptions(imnt $order_status_id): array {
+	public function getOrderStatusDescriptions(int $order_status_id): array {
 		$order_status_data = array();
 
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "order_status` WHERE `order_status_id` = '" . (int)$order_status_id . "'");
