@@ -1,194 +1,197 @@
 <?php
+
 class ControllerExtensionPaymentKlarnaInvoice extends Controller {
-	private array $error = array();
+    private array $error = array();
 
-	public function index(): void {
-		$this->load->language('extension/payment/klarna_invoice');
-		
-		$this->load->model('setting/setting');
+    public function index(): void {
+        $this->load->language('extension/payment/klarna_invoice');
 
-		$this->document->setTitle($this->language->get('heading_title'));
+        $this->load->model('setting/setting');
 
-		if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validate()) {
-			$status = false;
+        $this->document->setTitle($this->language->get('heading_title'));
 
-			foreach ($this->request->post['payment_klarna_invoice'] as $klarna_invoice) {
-				if ($klarna_invoice['status']) {
-					$status = true;
-					break;
-				}
-			}
-			
-			$klarna_data = array(
-				'klarna_invoice_pclasses' => $this->pclasses,
-				'klarna_invoice_status'   => $status
-			);
+        if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validate()) {
+            $status = false;
 
-			$this->model_setting_setting->editSetting('payment_klarna_invoice', array_merge($this->request->post, $klarna_data));
+            foreach ($this->request->post['payment_klarna_invoice'] as $klarna_invoice) {
+                if ($klarna_invoice['status']) {
+                    $status = true;
+                    break;
+                }
+            }
 
-			$this->session->data['success'] = $this->language->get('text_success');
+            $klarna_data = array(
+                'klarna_invoice_pclasses' => $this->pclasses,
+                'klarna_invoice_status'   => $status
+            );
 
-			$this->response->redirect($this->url->link('marketplace/extension', 'user_token=' . $this->session->data['user_token'] . '&type=payment', true));
-		}
+            $this->model_setting_setting->editSetting('payment_klarna_invoice', array_merge($this->request->post, $klarna_data));
 
-		if (isset($this->error['warning'])) {
-			$data['error_warning'] = $this->error['warning'];
-		} else {
-			$data['error_warning'] = '';
-		}
+            $this->session->data['success'] = $this->language->get('text_success');
 
-		if (isset($this->session->data['success'])) {
-			$data['success'] = $this->session->data['success'];
+            $this->response->redirect($this->url->link('marketplace/extension', 'user_token=' . $this->session->data['user_token'] . '&type=payment', true));
+        }
 
-			unset($this->session->data['success']);
-		} else {
-			$data['success'] = '';
-		}
+        if (isset($this->error['warning'])) {
+            $data['error_warning'] = $this->error['warning'];
+        } else {
+            $data['error_warning'] = '';
+        }
 
-		$data['breadcrumbs'] = array();
+        if (isset($this->session->data['success'])) {
+            $data['success'] = $this->session->data['success'];
 
-		$data['breadcrumbs'][] = array(
-			'text' => $this->language->get('text_home'),
-			'href' => $this->url->link('common/dashboard', 'user_token=' . $this->session->data['user_token'], true)
-		);
+            unset($this->session->data['success']);
+        } else {
+            $data['success'] = '';
+        }
 
-		$data['breadcrumbs'][] = array(
-			'text' => $this->language->get('text_extension'),
-			'href' => $this->url->link('marketplace/extension', 'user_token=' . $this->session->data['user_token'] . '&type=payment', true)
-		);
+        $data['breadcrumbs'] = array();
 
-		$data['breadcrumbs'][] = array(
-			'text' => $this->language->get('heading_title'),
-			'href' => $this->url->link('extension/payment/klarna_invoice', 'user_token=' . $this->session->data['user_token'], true)
-		);
+        $data['breadcrumbs'][] = array(
+            'text' => $this->language->get('text_home'),
+            'href' => $this->url->link('common/dashboard', 'user_token=' . $this->session->data['user_token'], true)
+        );
 
-		$data['action'] = $this->url->link('extension/payment/klarna_invoice', 'user_token=' . $this->session->data['user_token'], true);
+        $data['breadcrumbs'][] = array(
+            'text' => $this->language->get('text_extension'),
+            'href' => $this->url->link('marketplace/extension', 'user_token=' . $this->session->data['user_token'] . '&type=payment', true)
+        );
 
-		$data['cancel'] = $this->url->link('marketplace/extension', 'user_token=' . $this->session->data['user_token'] . '&type=payment', true);
+        $data['breadcrumbs'][] = array(
+            'text' => $this->language->get('heading_title'),
+            'href' => $this->url->link('extension/payment/klarna_invoice', 'user_token=' . $this->session->data['user_token'], true)
+        );
 
-		$data['countries'] = array();
+        $data['action'] = $this->url->link('extension/payment/klarna_invoice', 'user_token=' . $this->session->data['user_token'], true);
 
-		$data['countries'][] = array(
-			'name' => $this->language->get('text_germany'),
-			'code' => 'DEU'
-		);
+        $data['cancel'] = $this->url->link('marketplace/extension', 'user_token=' . $this->session->data['user_token'] . '&type=payment', true);
 
-		$data['countries'][] = array(
-			'name' => $this->language->get('text_netherlands'),
-			'code' => 'NLD'
-		);
+        $data['countries'] = array();
 
-		$data['countries'][] = array(
-			'name' => $this->language->get('text_denmark'),
-			'code' => 'DNK'
-		);
+        $data['countries'][] = array(
+            'name' => $this->language->get('text_germany'),
+            'code' => 'DEU'
+        );
 
-		$data['countries'][] = array(
-			'name' => $this->language->get('text_sweden'),
-			'code' => 'SWE'
-		);
+        $data['countries'][] = array(
+            'name' => $this->language->get('text_netherlands'),
+            'code' => 'NLD'
+        );
 
-		$data['countries'][] = array(
-			'name' => $this->language->get('text_norway'),
-			'code' => 'NOR'
-		);
+        $data['countries'][] = array(
+            'name' => $this->language->get('text_denmark'),
+            'code' => 'DNK'
+        );
 
-		$data['countries'][] = array(
-			'name' => $this->language->get('text_finland'),
-			'code' => 'FIN'
-		);
+        $data['countries'][] = array(
+            'name' => $this->language->get('text_sweden'),
+            'code' => 'SWE'
+        );
 
-		if (isset($this->request->post['payment_klarna_invoice'])) {
-			$data['payment_klarna_invoice'] = $this->request->post['payment_klarna_invoice'];
-		} else {
-			$data['payment_klarna_invoice'] = $this->config->get('payment_klarna_invoice');
-		}
+        $data['countries'][] = array(
+            'name' => $this->language->get('text_norway'),
+            'code' => 'NOR'
+        );
 
-		$this->load->model('localisation/geo_zone');
+        $data['countries'][] = array(
+            'name' => $this->language->get('text_finland'),
+            'code' => 'FIN'
+        );
 
-		$data['geo_zones'] = $this->model_localisation_geo_zone->getGeoZones();
+        if (isset($this->request->post['payment_klarna_invoice'])) {
+            $data['payment_klarna_invoice'] = $this->request->post['payment_klarna_invoice'];
+        } else {
+            $data['payment_klarna_invoice'] = $this->config->get('payment_klarna_invoice');
+        }
 
-		$this->load->model('localisation/order_status');
+        // Geo Zones
+        $this->load->model('localisation/geo_zone');
 
-		$data['order_statuses'] = $this->model_localisation_order_status->getOrderStatuses();
+        $data['geo_zones'] = $this->model_localisation_geo_zone->getGeoZones();
 
-		$file = DIR_LOGS . 'klarna_invoice.log';
+        // Order Statuses
+        $this->load->model('localisation/order_status');
 
-		if (file_exists($file)) {
-			$data['log'] = file_get_contents($file, FILE_USE_INCLUDE_PATH, null);
-		} else {
-			$data['log'] = '';
-		}
+        $data['order_statuses'] = $this->model_localisation_order_status->getOrderStatuses();
 
-		$data['clear'] = $this->url->link('extension/payment/klarna_invoice/clear', 'user_token=' . $this->session->data['user_token'], true);
+        $file = DIR_LOGS . 'klarna_invoice.log';
 
-		$data['header'] = $this->load->controller('common/header');
-		$data['column_left'] = $this->load->controller('common/column_left');
-		$data['footer'] = $this->load->controller('common/footer');
+        if (file_exists($file)) {
+            $data['log'] = file_get_contents($file, FILE_USE_INCLUDE_PATH, null);
+        } else {
+            $data['log'] = '';
+        }
 
-		$this->response->setOutput($this->load->view('extension/payment/klarna_invoice', $data));
-	}
+        $data['clear'] = $this->url->link('extension/payment/klarna_invoice/clear', 'user_token=' . $this->session->data['user_token'], true);
 
-	private function validate() {
-		if (!$this->user->hasPermission('modify', 'extension/payment/klarna_invoice')) {
-			$this->error['warning'] = $this->language->get('error_permission');
-		}
+        $data['header']      = $this->load->controller('common/header');
+        $data['column_left'] = $this->load->controller('common/column_left');
+        $data['footer']      = $this->load->controller('common/footer');
 
-		return !$this->error;
-	}
+        $this->response->setOutput($this->load->view('extension/payment/klarna_invoice', $data));
+    }
 
-	private function parseResponse($node, $document) {
-		$child = $node;
+    private function validate() {
+        if (!$this->user->hasPermission('modify', 'extension/payment/klarna_invoice')) {
+            $this->error['warning'] = $this->language->get('error_permission');
+        }
 
-		switch ($child->nodeName) {
-			case 'string':
-				$value = $child->nodeValue;
-				break;
-			case 'boolean':
-				$value = (string)$child->nodeValue;
+        return !$this->error;
+    }
 
-				if ($value == '0') {
-					$value = false;
-				} elseif ($value == '1') {
-					$value = true;
-				} else {
-					$value = null;
-				}
-				break;
-			case 'integer':
-			case 'int':
-			case 'i4':
-			case 'i8':
-				$value = (int)$child->nodeValue;
-				break;
-			case 'array':
-				$value = array();
+    private function parseResponse($node, $document) {
+        $child = $node;
 
-				$xpath = new \DOMXPath($document);
-				$entries = $xpath->query('.//array/data/value', $child);
+        switch ($child->nodeName) {
+            case 'string':
+                $value = $child->nodeValue;
+                break;
+            case 'boolean':
+                $value = (string)$child->nodeValue;
 
-				for ($i = 0; $i < $entries->length; $i++) {
-					$value[] = $this->parseResponse($entries->item($i)->firstChild, $document);
-				}
-				break;
-			default:
-				$value = null;
-		}
+                if ($value == '0') {
+                    $value = false;
+                } elseif ($value == '1') {
+                    $value = true;
+                } else {
+                    $value = null;
+                }
+                break;
+            case 'integer':
+            case 'int':
+            case 'i4':
+            case 'i8':
+                $value = (int)$child->nodeValue;
+                break;
+            case 'array':
+                $value = array();
 
-		return $value;
-	}
+                $xpath   = new \DOMXPath($document);
+                $entries = $xpath->query('.//array/data/value', $child);
 
-	public function clear(): void {
-		$this->load->language('extension/payment/klarna_invoice');
+                for ($i = 0; $i < $entries->length; $i++) {
+                    $value[] = $this->parseResponse($entries->item($i)->firstChild, $document);
+                }
+                break;
+            default:
+                $value = null;
+        }
 
-		$file = DIR_LOGS . 'klarna_invoice.log';
+        return $value;
+    }
 
-		$handle = fopen($file, 'w+');
+    public function clear(): void {
+        $this->load->language('extension/payment/klarna_invoice');
 
-		fclose($handle);
+        $file = DIR_LOGS . 'klarna_invoice.log';
 
-		$this->session->data['success'] = $this->language->get('text_success');
+        $handle = fopen($file, 'w+');
 
-		$this->response->redirect($this->url->link('extension/payment/klarna_invoice', 'user_token=' . $this->session->data['user_token'], true));
-	}
+        fclose($handle);
+
+        $this->session->data['success'] = $this->language->get('text_success');
+
+        $this->response->redirect($this->url->link('extension/payment/klarna_invoice', 'user_token=' . $this->session->data['user_token'], true));
+    }
 }

@@ -1,91 +1,92 @@
 <?php
+
 class ControllerCommonHeader extends Controller {
-	public function index(): string {
-		$data['title'] = $this->document->getTitle();
+    public function index(): string {
+        $data['title'] = $this->document->getTitle();
 
-		if ($this->request->server['HTTPS']) {
-			$data['base'] = HTTPS_SERVER;
-		} else {
-			$data['base'] = HTTP_SERVER;
-		}
+        if ($this->request->server['HTTPS']) {
+            $data['base'] = HTTPS_SERVER;
+        } else {
+            $data['base'] = HTTP_SERVER;
+        }
 
-		if ($this->request->server['HTTPS']) {
-            		$server = HTTPS_CATALOG;
-        	} else {
-            		$server = HTTP_CATALOG;
-        	}
+        if ($this->request->server['HTTPS']) {
+            $server = HTTPS_CATALOG;
+        } else {
+            $server = HTTP_CATALOG;
+        }
 
-        	if (is_file(DIR_IMAGE . $this->config->get('config_icon'))) {
-			$this->document->addLink($server . 'image/' . $this->config->get('config_icon'), 'icon');
-        	}
+        if (is_file(DIR_IMAGE . $this->config->get('config_icon'))) {
+            $this->document->addLink($server . 'image/' . $this->config->get('config_icon'), 'icon');
+        }
 
-		$data['description'] = $this->document->getDescription();
-		$data['keywords'] = $this->document->getKeywords();
-		$data['links'] = $this->document->getLinks();
-		$data['styles'] = $this->document->getStyles();
-		$data['scripts'] = $this->document->getScripts();
-		$data['lang'] = $this->language->get('code');
-		$data['direction'] = $this->language->get('direction');
+        $data['description'] = $this->document->getDescription();
+        $data['keywords']    = $this->document->getKeywords();
+        $data['links']       = $this->document->getLinks();
+        $data['styles']      = $this->document->getStyles();
+        $data['scripts']     = $this->document->getScripts();
+        $data['lang']        = $this->language->get('code');
+        $data['direction']   = $this->language->get('direction');
 
-		$this->load->language('common/header');
+        $this->load->language('common/header');
 
-		$data['text_logged'] = sprintf($this->language->get('text_logged'), $this->user->getUserName());
+        $data['text_logged'] = sprintf($this->language->get('text_logged'), $this->user->getUserName());
 
-		if (!isset($this->request->get['user_token']) || !isset($this->session->data['user_token']) || ($this->request->get['user_token'] != $this->session->data['user_token'])) {
-			$data['logged'] = '';
+        if (!isset($this->request->get['user_token']) || !isset($this->session->data['user_token']) || ($this->request->get['user_token'] != $this->session->data['user_token'])) {
+            $data['logged'] = '';
 
-			$data['home'] = $this->url->link('common/login', '', true);
-		} else {
-			$data['logged'] = true;
+            $data['home'] = $this->url->link('common/login', '', true);
+        } else {
+            $data['logged'] = true;
 
-			$data['home'] = $this->url->link('common/dashboard', 'user_token=' . $this->session->data['user_token'], true);
-			$data['logout'] = $this->url->link('common/logout', 'user_token=' . $this->session->data['user_token'], true);
-			$data['profile'] = $this->url->link('common/profile', 'user_token=' . $this->session->data['user_token'], true);
+            $data['home']    = $this->url->link('common/dashboard', 'user_token=' . $this->session->data['user_token'], true);
+            $data['logout']  = $this->url->link('common/logout', 'user_token=' . $this->session->data['user_token'], true);
+            $data['profile'] = $this->url->link('common/profile', 'user_token=' . $this->session->data['user_token'], true);
 
-			$this->load->model('user/user');
-			
-			$this->load->model('tool/image');
+            $this->load->model('user/user');
 
-			$user_info = $this->model_user_user->getUser($this->user->getId());
+            $this->load->model('tool/image');
 
-			if ($user_info) {
-				$data['firstname'] = $user_info['firstname'];
-				$data['lastname'] = $user_info['lastname'];
-				$data['username']  = $user_info['username'];
-				$data['user_group'] = $user_info['user_group'];
+            $user_info = $this->model_user_user->getUser($this->user->getId());
 
-				if (is_file(DIR_IMAGE . $user_info['image'])) {
-					$data['image'] = $this->model_tool_image->resize($user_info['image'], 45, 45);
-				} else {
-					$data['image'] = $this->model_tool_image->resize('profile.png', 45, 45);
-				}
-			} else {
-				$data['firstname'] = '';
-				$data['lastname'] = '';
-				$data['user_group'] = '';
-				$data['image'] = '';
-			}
+            if ($user_info) {
+                $data['firstname']  = $user_info['firstname'];
+                $data['lastname']   = $user_info['lastname'];
+                $data['username']   = $user_info['username'];
+                $data['user_group'] = $user_info['user_group'];
 
-			// Online Stores
-			$data['stores'] = array();
+                if (is_file(DIR_IMAGE . $user_info['image'])) {
+                    $data['image'] = $this->model_tool_image->resize($user_info['image'], 45, 45);
+                } else {
+                    $data['image'] = $this->model_tool_image->resize('profile.png', 45, 45);
+                }
+            } else {
+                $data['firstname']  = '';
+                $data['lastname']   = '';
+                $data['user_group'] = '';
+                $data['image']      = '';
+            }
 
-			$data['stores'][] = array(
-				'name' => $this->config->get('config_name'),
-				'href' => HTTP_CATALOG
-			);
+            // Online Stores
+            $data['stores'] = array();
 
-			$this->load->model('setting/store');
+            $data['stores'][] = array(
+                'name' => $this->config->get('config_name'),
+                'href' => HTTP_CATALOG
+            );
 
-			$results = $this->model_setting_store->getStores();
+            $this->load->model('setting/store');
 
-			foreach ($results as $result) {
-				$data['stores'][] = array(
-					'name' => $result['name'],
-					'href' => $result['url']
-				);
-			}
-		}
+            $results = $this->model_setting_store->getStores();
 
-		return $this->load->view('common/header', $data);
-	}
+            foreach ($results as $result) {
+                $data['stores'][] = array(
+                    'name' => $result['name'],
+                    'href' => $result['url']
+                );
+            }
+        }
+
+        return $this->load->view('common/header', $data);
+    }
 }

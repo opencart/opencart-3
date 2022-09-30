@@ -1,4 +1,5 @@
 <?php
+
 class ControllerExtensionExtensionAdvertise extends Controller {
     private array $error = array();
 
@@ -79,7 +80,6 @@ class ControllerExtensionExtensionAdvertise extends Controller {
         }
 
         $this->load->model('setting/store');
-		
         $this->load->model('setting/setting');
 
         $stores = $this->model_setting_store->getStores();

@@ -1,115 +1,116 @@
 <?php
+
 class ControllerExtensionExtensionCurrency extends Controller {
-	private array $error = array();
+    private array $error = array();
 
-	public function index(): void {
-		$this->load->language('extension/extension/currency');
+    public function index(): void {
+        $this->load->language('extension/extension/currency');
 
-		$this->load->model('setting/extension');
+        $this->load->model('setting/extension');
 
-		$this->getList();
-	}
+        $this->getList();
+    }
 
-	public function install(): void {
-		$this->load->language('extension/extension/currency');
+    public function install(): void {
+        $this->load->language('extension/extension/currency');
 
-		$this->load->model('setting/extension');
+        $this->load->model('setting/extension');
 
-		if ($this->validate()) {
-			$this->model_setting_extension->install('currency', $this->request->get['extension']);
+        if ($this->validate()) {
+            $this->model_setting_extension->install('currency', $this->request->get['extension']);
 
-			$this->load->model('user/user_group');
+            $this->load->model('user/user_group');
 
-			$this->model_user_user_group->addPermission($this->user->getGroupId(), 'access', 'extension/currency/' . $this->request->get['extension']);
-			$this->model_user_user_group->addPermission($this->user->getGroupId(), 'modify', 'extension/currency/' . $this->request->get['extension']);
+            $this->model_user_user_group->addPermission($this->user->getGroupId(), 'access', 'extension/currency/' . $this->request->get['extension']);
+            $this->model_user_user_group->addPermission($this->user->getGroupId(), 'modify', 'extension/currency/' . $this->request->get['extension']);
 
-			// Compatibility
-			$this->model_user_user_group->addPermission($this->user->getGroupId(), 'access', 'currency/' . $this->request->get['extension']);
-			$this->model_user_user_group->addPermission($this->user->getGroupId(), 'modify', 'currency/' . $this->request->get['extension']);
+            // Compatibility
+            $this->model_user_user_group->addPermission($this->user->getGroupId(), 'access', 'currency/' . $this->request->get['extension']);
+            $this->model_user_user_group->addPermission($this->user->getGroupId(), 'modify', 'currency/' . $this->request->get['extension']);
 
-			// Call install method if it exsits
-			$this->load->controller('extension/currency/' . $this->request->get['extension'] . '/install');
+            // Call install method if it exsits
+            $this->load->controller('extension/currency/' . $this->request->get['extension'] . '/install');
 
-			$this->session->data['success'] = $this->language->get('text_success');
-		}
+            $this->session->data['success'] = $this->language->get('text_success');
+        }
 
-		$this->getList();
-	}
+        $this->getList();
+    }
 
-	public function uninstall(): void {
-		$this->load->language('extension/extension/currency');
+    public function uninstall(): void {
+        $this->load->language('extension/extension/currency');
 
-		$this->load->model('setting/extension');
+        $this->load->model('setting/extension');
 
-		if ($this->validate()) {
-			$this->model_setting_extension->uninstall('currency', $this->request->get['extension']);
+        if ($this->validate()) {
+            $this->model_setting_extension->uninstall('currency', $this->request->get['extension']);
 
-			// Call uninstall method if it exsits
-			$this->load->controller('extension/currency/' . $this->request->get['extension'] . '/uninstall');
+            // Call uninstall method if it exsits
+            $this->load->controller('extension/currency/' . $this->request->get['extension'] . '/uninstall');
 
-			$this->session->data['success'] = $this->language->get('text_success');
-		}
+            $this->session->data['success'] = $this->language->get('text_success');
+        }
 
-		$this->getList();
-	}
+        $this->getList();
+    }
 
-	protected function getList() {
-		if (isset($this->error['warning'])) {
-			$data['error_warning'] = $this->error['warning'];
-		} else {
-			$data['error_warning'] = '';
-		}
+    protected function getList() {
+        if (isset($this->error['warning'])) {
+            $data['error_warning'] = $this->error['warning'];
+        } else {
+            $data['error_warning'] = '';
+        }
 
-		if (isset($this->session->data['success'])) {
-			$data['success'] = $this->session->data['success'];
+        if (isset($this->session->data['success'])) {
+            $data['success'] = $this->session->data['success'];
 
-			unset($this->session->data['success']);
-		} else {
-			$data['success'] = '';
-		}
+            unset($this->session->data['success']);
+        } else {
+            $data['success'] = '';
+        }
 
-		$extensions = $this->model_setting_extension->getInstalled('currency');
+        $extensions = $this->model_setting_extension->getInstalled('currency');
 
-		foreach ($extensions as $key => $value) {
-			if (!is_file(DIR_APPLICATION . 'controller/extension/currency/' . $value . '.php') && !is_file(DIR_APPLICATION . 'controller/currency/' . $value . '.php')) {
-				$this->model_setting_extension->uninstall('currency', $value);
+        foreach ($extensions as $key => $value) {
+            if (!is_file(DIR_APPLICATION . 'controller/extension/currency/' . $value . '.php') && !is_file(DIR_APPLICATION . 'controller/currency/' . $value . '.php')) {
+                $this->model_setting_extension->uninstall('currency', $value);
 
-				unset($extensions[$key]);
-			}
-		}
+                unset($extensions[$key]);
+            }
+        }
 
-		$data['extensions'] = array();
+        $data['extensions'] = array();
 
-		// Compatibility code for old extension folders
-		$files = glob(DIR_APPLICATION . 'controller/extension/currency/*.php');
+        // Compatibility code for old extension folders
+        $files = glob(DIR_APPLICATION . 'controller/extension/currency/*.php');
 
-		if ($files) {
-			foreach ($files as $file) {
-				$extension = basename($file, '.php');
+        if ($files) {
+            foreach ($files as $file) {
+                $extension = basename($file, '.php');
 
-				if ($this->user->hasPermission('access', 'extension/currency/' . $extension)) {
-					$this->load->language('extension/currency/' . $extension, 'extension');
+                if ($this->user->hasPermission('access', 'extension/currency/' . $extension)) {
+                    $this->load->language('extension/currency/' . $extension, 'extension');
 
-					$data['extensions'][] = array(
-						'name'      => $this->language->get('extension')->get('heading_title') . (($extension == $this->config->get('config_currency')) ? $this->language->get('text_default') : null),
-						'status'    => $this->config->get('currency_' . $extension . '_status') ? $this->language->get('text_enabled') : $this->language->get('text_disabled'),
-						'install'   => $this->url->link('extension/extension/currency/install', 'user_token=' . $this->session->data['user_token'] . '&extension=' . $extension, true),
-						'uninstall' => $this->url->link('extension/extension/currency/uninstall', 'user_token=' . $this->session->data['user_token'] . '&extension=' . $extension, true),
-						'installed' => in_array($extension, $extensions),
-						'edit'      => $this->url->link('extension/currency/' . $extension, 'user_token=' . $this->session->data['user_token'], true)
-					);
-				}
-			}
-		}
+                    $data['extensions'][] = array(
+                        'name'      => $this->language->get('extension')->get('heading_title') . (($extension == $this->config->get('config_currency')) ? $this->language->get('text_default') : null),
+                        'status'    => $this->config->get('currency_' . $extension . '_status') ? $this->language->get('text_enabled') : $this->language->get('text_disabled'),
+                        'install'   => $this->url->link('extension/extension/currency/install', 'user_token=' . $this->session->data['user_token'] . '&extension=' . $extension, true),
+                        'uninstall' => $this->url->link('extension/extension/currency/uninstall', 'user_token=' . $this->session->data['user_token'] . '&extension=' . $extension, true),
+                        'installed' => in_array($extension, $extensions),
+                        'edit'      => $this->url->link('extension/currency/' . $extension, 'user_token=' . $this->session->data['user_token'], true)
+                    );
+                }
+            }
+        }
 
-		$this->response->setOutput($this->load->view('extension/extension/currency', $data));
-	}
+        $this->response->setOutput($this->load->view('extension/extension/currency', $data));
+    }
 
-	protected function validate() {
-		if (!$this->user->hasPermission('modify', 'extension/extension/currency')) {
-			$this->error['warning'] = $this->language->get('error_permission');
-		}
+    protected function validate() {
+        if (!$this->user->hasPermission('modify', 'extension/extension/currency')) {
+            $this->error['warning'] = $this->language->get('error_permission');
+        }
 
-		return !$this->error;
-	}
+        return !$this->error;
+    }
 }

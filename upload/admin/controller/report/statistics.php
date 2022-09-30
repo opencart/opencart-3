@@ -1,262 +1,263 @@
 <?php
+
 class ControllerReportStatistics extends Controller {
-	private array $error = array();
-	
-	public function index(): void {
-		$this->load->language('report/statistics');
+    private array $error = array();
 
-		$this->document->setTitle($this->language->get('heading_title'));
+    public function index(): void {
+        $this->load->language('report/statistics');
 
-		$this->load->model('report/statistics');
+        $this->document->setTitle($this->language->get('heading_title'));
 
-		$this->getList();	
-	}
-	
-	public function ordersale(): void {
-		$this->load->language('report/statistics');
+        $this->load->model('report/statistics');
 
-		$this->document->setTitle($this->language->get('heading_title'));
+        $this->getList();
+    }
 
-		$this->load->model('report/statistics');		
+    public function ordersale(): void {
+        $this->load->language('report/statistics');
 
-		if ($this->validate()) {
-			$this->load->model('sale/order');
-			
-			$this->model_report_statistics->editValue('order_sale', $this->model_sale_order->getTotalSales(array('filter_order_status' => implode(',', array_merge($this->config->get('config_complete_status'), $this->config->get('config_processing_status'))))));		
-		
-			$this->session->data['success'] = $this->language->get('text_success');
-			
-			$this->response->redirect($this->url->link('report/statistics', 'user_token=' . $this->session->data['user_token'], true));
-		}
-		
-		$this->getList();	
-	}
-		
-	public function orderprocessing(): void {
-		$this->load->language('report/statistics');
+        $this->document->setTitle($this->language->get('heading_title'));
 
-		$this->document->setTitle($this->language->get('heading_title'));
+        $this->load->model('report/statistics');
 
-		$this->load->model('report/statistics');		
+        if ($this->validate()) {
+            $this->load->model('sale/order');
 
-		if ($this->validate()) {
-			$this->load->model('sale/order');
-			
-			$this->model_report_statistics->editValue('order_processing', $this->model_sale_order->getTotalOrders(array('filter_order_status' => implode(',', $this->config->get('config_processing_status')))));		
-		
-			$this->session->data['success'] = $this->language->get('text_success');
-			
-			$this->response->redirect($this->url->link('report/statistics', 'user_token=' . $this->session->data['user_token'], true));
-		}
-		
-		$this->getList();	
-	}
-	
-	public function ordercomplete(): void {
-		$this->load->language('report/statistics');
+            $this->model_report_statistics->editValue('order_sale', $this->model_sale_order->getTotalSales(array('filter_order_status' => implode(',', array_merge($this->config->get('config_complete_status'), $this->config->get('config_processing_status'))))));
 
-		$this->document->setTitle($this->language->get('heading_title'));		
-		
-		$this->load->model('report/statistics');
-		
-		if ($this->validate()) {
-			$this->load->model('sale/order');
-			
-			$this->model_report_statistics->editValue('order_complete', $this->model_sale_order->getTotalOrders(array('filter_order_status' => implode(',', $this->config->get('config_complete_status')))));		
-		
-			$this->session->data['success'] = $this->language->get('text_success');
+            $this->session->data['success'] = $this->language->get('text_success');
 
-			$this->response->redirect($this->url->link('report/statistics', 'user_token=' . $this->session->data['user_token'], true));
-		}		
-		
-		$this->getList();	
-	}
-	
-	public function orderother(): void {
-		$this->load->language('report/statistics');
+            $this->response->redirect($this->url->link('report/statistics', 'user_token=' . $this->session->data['user_token'], true));
+        }
 
-		$this->document->setTitle($this->language->get('heading_title'));	
-		
-		$this->load->model('report/statistics');
-		
-		if ($this->validate()) {
-			$this->load->model('localisation/order_status');
-				
-			$order_status_data = array();
-	
-			$results = $this->model_localisation_order_status->getOrderStatuses();
-	
-			foreach ($results as $result) {
-				if (!in_array($result['order_status_id'], array_merge((array)$this->config->get('config_complete_status'), (array)$this->config->get('config_processing_status')))) {
-					$order_status_data[] = $result['order_status_id'];
-				}
-			}		
-			
-			$this->load->model('sale/order');
-			
-			$this->model_report_statistics->editValue('order_other', $this->model_sale_order->getTotalOrders(array('filter_order_status' => implode(',', $order_status_data))));
-		
-			$this->session->data['success'] = $this->language->get('text_success');
-			
-			$this->response->redirect($this->url->link('report/statistics', 'user_token=' . $this->session->data['user_token'], true));
-		}
-		
-		$this->getList();	
-	}
+        $this->getList();
+    }
 
-	public function returns(): void {
-		$this->load->language('report/statistics');
+    public function orderprocessing(): void {
+        $this->load->language('report/statistics');
 
-		$this->document->setTitle($this->language->get('heading_title'));	
-				
-		$this->load->model('report/statistics');
-		
-		if ($this->validate()) {
-			$this->load->model('sale/returns');
-			
-			$this->model_report_statistics->editValue('returns', $this->model_sale_returns->getTotalReturns(array('filter_return_status_id' => $this->config->get('config_return_status_id'))));
-		
-			$this->session->data['success'] = $this->language->get('text_success');
+        $this->document->setTitle($this->language->get('heading_title'));
 
-			$this->response->redirect($this->url->link('report/statistics', 'user_token=' . $this->session->data['user_token'], true));		
-		}
-		
-		$this->getList();	
-	}
-	
-	public function customer(): void {
-		$this->load->language('report/statistics');
+        $this->load->model('report/statistics');
 
-		$this->document->setTitle($this->language->get('heading_title'));	
-				
-		$this->load->model('report/statistics');
-		
-		if ($this->validate()) {	
-			$this->load->model('customer/customer');
-			
-			$this->model_report_statistics->editValue('customer', $this->model_customer_customer->getTotalCustomers(array('filter_approved' => 0)));
-		
-			$this->session->data['success'] = $this->language->get('text_success');
+        if ($this->validate()) {
+            $this->load->model('sale/order');
 
-			$this->response->redirect($this->url->link('report/statistics', 'user_token=' . $this->session->data['user_token'], true));		
-		}
-		
-		$this->getList();	
-	}	
-		
-	public function affiliate(): void {
-		$this->load->language('report/statistics');
+            $this->model_report_statistics->editValue('order_processing', $this->model_sale_order->getTotalOrders(array('filter_order_status' => implode(',', $this->config->get('config_processing_status')))));
 
-		$this->document->setTitle($this->language->get('heading_title'));	
-				
-		$this->load->model('report/statistics');
-		
-		if ($this->validate()) {
-			$this->load->model('customer/customer');
-	
-			$this->model_report_statistics->editValue('affiliate', $this->model_customer_customer->getTotalAffiliates(array('filter_approved' => 0)));
-			
-			$this->session->data['success'] = $this->language->get('text_success');
-			
-			$this->response->redirect($this->url->link('report/statistics', 'user_token=' . $this->session->data['user_token'], true));
-		}
-		
-		$this->getList();				
-	}
+            $this->session->data['success'] = $this->language->get('text_success');
 
-	public function product(): void {
-		$this->load->language('report/statistics');
+            $this->response->redirect($this->url->link('report/statistics', 'user_token=' . $this->session->data['user_token'], true));
+        }
 
-		$this->document->setTitle($this->language->get('heading_title'));	
-				
-		$this->load->model('report/statistics');
-		
-		if ($this->validate()) {		
-			$this->load->model('catalog/product');
-			
-			$this->model_report_statistics->editValue('product', $this->model_catalog_product->getTotalProducts(array('filter_quantity' => 0)));
+        $this->getList();
+    }
 
-			$this->session->data['success'] = $this->language->get('text_success');
+    public function ordercomplete(): void {
+        $this->load->language('report/statistics');
 
-			$this->response->redirect($this->url->link('report/statistics', 'user_token=' . $this->session->data['user_token'], true));
-		}
-		
-		$this->getList();
-	}	
-	
-	public function review(): void {
-		$this->load->language('report/statistics');
+        $this->document->setTitle($this->language->get('heading_title'));
 
-		$this->document->setTitle($this->language->get('heading_title'));	
-				
-		$this->load->model('report/statistics');	
-		
-		if ($this->validate()) {	
-			$this->load->model('catalog/review');
-				
-			$this->model_report_statistics->editValue('review', $this->model_catalog_review->getTotalReviews(array('filter_status' => 0)));
-			
-			$this->session->data['success'] = $this->language->get('text_success');
+        $this->load->model('report/statistics');
 
-			$this->response->redirect($this->url->link('report/statistics', 'user_token=' . $this->session->data['user_token'], true));
-		}
+        if ($this->validate()) {
+            $this->load->model('sale/order');
 
-		$this->getList();
-	}
-	
-	protected function getList() {
-		$data['breadcrumbs'] = array();
+            $this->model_report_statistics->editValue('order_complete', $this->model_sale_order->getTotalOrders(array('filter_order_status' => implode(',', $this->config->get('config_complete_status')))));
 
-		$data['breadcrumbs'][] = array(
-			'text' => $this->language->get('text_home'),
-			'href' => $this->url->link('common/dashboard', 'user_token=' . $this->session->data['user_token'], true)
-		);
+            $this->session->data['success'] = $this->language->get('text_success');
 
-		$data['breadcrumbs'][] = array(
-			'text' => $this->language->get('heading_title'),
-			'href' => $this->url->link('report/statistics', 'user_token=' . $this->session->data['user_token'], true)
-		);
+            $this->response->redirect($this->url->link('report/statistics', 'user_token=' . $this->session->data['user_token'], true));
+        }
 
-		$data['statistics'] = array();
-		
-		$this->load->model('report/statistics');
-		
-		$results = $this->model_report_statistics->getStatistics();
-		
-		foreach ($results as $result) {
-			$data['statistics'][] = array(
-				'name'  => $this->language->get('text_' . $result['code']),
-				'value' => $result['value'],
-				'href'  => $this->url->link('report/statistics/' . str_replace('_', '', $result['code']), 'user_token=' . $this->session->data['user_token'], true)
-			);
-		}
-				
-		if (isset($this->error['warning'])) {
-			$data['error_warning'] = $this->error['warning'];
-		} else {
-			$data['error_warning'] = '';
-		}
+        $this->getList();
+    }
 
-		if (isset($this->session->data['success'])) {
-			$data['success'] = $this->session->data['success'];
+    public function orderother(): void {
+        $this->load->language('report/statistics');
 
-			unset($this->session->data['success']);
-		} else {
-			$data['success'] = '';
-		}
-							
-		$data['header'] = $this->load->controller('common/header');
-		$data['column_left'] = $this->load->controller('common/column_left');
-		$data['footer'] = $this->load->controller('common/footer');
+        $this->document->setTitle($this->language->get('heading_title'));
 
-		$this->response->setOutput($this->load->view('report/statistics', $data));
-	}
-	
-	protected function validate() {
-		if (!$this->user->hasPermission('modify', 'report/statistics')) {
-			$this->error['warning'] = $this->language->get('error_permission');
-		}
-		
-		return !$this->error;
-	}	
+        $this->load->model('report/statistics');
+
+        if ($this->validate()) {
+            $this->load->model('localisation/order_status');
+
+            $order_status_data = array();
+
+            $results = $this->model_localisation_order_status->getOrderStatuses();
+
+            foreach ($results as $result) {
+                if (!in_array($result['order_status_id'], array_merge((array)$this->config->get('config_complete_status'), (array)$this->config->get('config_processing_status')))) {
+                    $order_status_data[] = $result['order_status_id'];
+                }
+            }
+
+            $this->load->model('sale/order');
+
+            $this->model_report_statistics->editValue('order_other', $this->model_sale_order->getTotalOrders(array('filter_order_status' => implode(',', $order_status_data))));
+
+            $this->session->data['success'] = $this->language->get('text_success');
+
+            $this->response->redirect($this->url->link('report/statistics', 'user_token=' . $this->session->data['user_token'], true));
+        }
+
+        $this->getList();
+    }
+
+    public function returns(): void {
+        $this->load->language('report/statistics');
+
+        $this->document->setTitle($this->language->get('heading_title'));
+
+        $this->load->model('report/statistics');
+
+        if ($this->validate()) {
+            $this->load->model('sale/returns');
+
+            $this->model_report_statistics->editValue('returns', $this->model_sale_returns->getTotalReturns(array('filter_return_status_id' => $this->config->get('config_return_status_id'))));
+
+            $this->session->data['success'] = $this->language->get('text_success');
+
+            $this->response->redirect($this->url->link('report/statistics', 'user_token=' . $this->session->data['user_token'], true));
+        }
+
+        $this->getList();
+    }
+
+    public function customer(): void {
+        $this->load->language('report/statistics');
+
+        $this->document->setTitle($this->language->get('heading_title'));
+
+        $this->load->model('report/statistics');
+
+        if ($this->validate()) {
+            $this->load->model('customer/customer');
+
+            $this->model_report_statistics->editValue('customer', $this->model_customer_customer->getTotalCustomers(array('filter_approved' => 0)));
+
+            $this->session->data['success'] = $this->language->get('text_success');
+
+            $this->response->redirect($this->url->link('report/statistics', 'user_token=' . $this->session->data['user_token'], true));
+        }
+
+        $this->getList();
+    }
+
+    public function affiliate(): void {
+        $this->load->language('report/statistics');
+
+        $this->document->setTitle($this->language->get('heading_title'));
+
+        $this->load->model('report/statistics');
+
+        if ($this->validate()) {
+            $this->load->model('customer/customer');
+
+            $this->model_report_statistics->editValue('affiliate', $this->model_customer_customer->getTotalAffiliates(array('filter_approved' => 0)));
+
+            $this->session->data['success'] = $this->language->get('text_success');
+
+            $this->response->redirect($this->url->link('report/statistics', 'user_token=' . $this->session->data['user_token'], true));
+        }
+
+        $this->getList();
+    }
+
+    public function product(): void {
+        $this->load->language('report/statistics');
+
+        $this->document->setTitle($this->language->get('heading_title'));
+
+        $this->load->model('report/statistics');
+
+        if ($this->validate()) {
+            $this->load->model('catalog/product');
+
+            $this->model_report_statistics->editValue('product', $this->model_catalog_product->getTotalProducts(array('filter_quantity' => 0)));
+
+            $this->session->data['success'] = $this->language->get('text_success');
+
+            $this->response->redirect($this->url->link('report/statistics', 'user_token=' . $this->session->data['user_token'], true));
+        }
+
+        $this->getList();
+    }
+
+    public function review(): void {
+        $this->load->language('report/statistics');
+
+        $this->document->setTitle($this->language->get('heading_title'));
+
+        $this->load->model('report/statistics');
+
+        if ($this->validate()) {
+            $this->load->model('catalog/review');
+
+            $this->model_report_statistics->editValue('review', $this->model_catalog_review->getTotalReviews(array('filter_status' => 0)));
+
+            $this->session->data['success'] = $this->language->get('text_success');
+
+            $this->response->redirect($this->url->link('report/statistics', 'user_token=' . $this->session->data['user_token'], true));
+        }
+
+        $this->getList();
+    }
+
+    protected function getList() {
+        $data['breadcrumbs'] = array();
+
+        $data['breadcrumbs'][] = array(
+            'text' => $this->language->get('text_home'),
+            'href' => $this->url->link('common/dashboard', 'user_token=' . $this->session->data['user_token'], true)
+        );
+
+        $data['breadcrumbs'][] = array(
+            'text' => $this->language->get('heading_title'),
+            'href' => $this->url->link('report/statistics', 'user_token=' . $this->session->data['user_token'], true)
+        );
+
+        $data['statistics'] = array();
+
+        $this->load->model('report/statistics');
+
+        $results = $this->model_report_statistics->getStatistics();
+
+        foreach ($results as $result) {
+            $data['statistics'][] = array(
+                'name'  => $this->language->get('text_' . $result['code']),
+                'value' => $result['value'],
+                'href'  => $this->url->link('report/statistics/' . str_replace('_', '', $result['code']), 'user_token=' . $this->session->data['user_token'], true)
+            );
+        }
+
+        if (isset($this->error['warning'])) {
+            $data['error_warning'] = $this->error['warning'];
+        } else {
+            $data['error_warning'] = '';
+        }
+
+        if (isset($this->session->data['success'])) {
+            $data['success'] = $this->session->data['success'];
+
+            unset($this->session->data['success']);
+        } else {
+            $data['success'] = '';
+        }
+
+        $data['header']      = $this->load->controller('common/header');
+        $data['column_left'] = $this->load->controller('common/column_left');
+        $data['footer']      = $this->load->controller('common/footer');
+
+        $this->response->setOutput($this->load->view('report/statistics', $data));
+    }
+
+    protected function validate() {
+        if (!$this->user->hasPermission('modify', 'report/statistics')) {
+            $this->error['warning'] = $this->language->get('error_permission');
+        }
+
+        return !$this->error;
+    }
 }
