@@ -42,7 +42,6 @@ class ControllerExtensionShippingRoyalMail extends Controller {
         );
 
         $data['action'] = $this->url->link('extension/shipping/royal_mail', 'user_token=' . $this->session->data['user_token'], true);
-
         $data['cancel'] = $this->url->link('marketplace/extension', 'user_token=' . $this->session->data['user_token'] . '&type=shipping', true);
 
         // Special Delivery < 500

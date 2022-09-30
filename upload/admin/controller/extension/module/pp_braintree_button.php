@@ -39,10 +39,8 @@ class ControllerExtensionModulePPBraintreeButton extends Controller {
             'href' => $this->url->link('extension/module/pp_braintree_button', 'user_token=' . $this->session->data['user_token'], true)
         );
 
-        $data['action'] = $this->url->link('extension/module/pp_braintree_button', 'user_token=' . $this->session->data['user_token'], true);
-
-        $data['cancel'] = $this->url->link('marketplace/extension', 'user_token=' . $this->session->data['user_token'] . '&type=module', true);
-
+        $data['action']  = $this->url->link('extension/module/pp_braintree_button', 'user_token=' . $this->session->data['user_token'], true);
+        $data['cancel']  = $this->url->link('marketplace/extension', 'user_token=' . $this->session->data['user_token'] . '&type=module', true);
         $data['layouts'] = $this->url->link('design/layout', 'user_token=' . $this->session->data['user_token'], true);
 
         if (isset($this->request->post['module_pp_braintree_button_status'])) {

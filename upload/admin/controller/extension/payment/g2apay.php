@@ -70,7 +70,6 @@ class ControllerExtensionPaymentG2APay extends Controller {
         $data['geo_zones'] = $this->model_localisation_geo_zone->getGeoZones();
 
         $data['action'] = $this->url->link('extension/payment/g2apay', 'user_token=' . $this->session->data['user_token'], true);
-
         $data['cancel'] = $this->url->link('marketplace/extension', 'user_token=' . $this->session->data['user_token'] . '&type=payment', true);
 
         if (isset($this->request->post['payment_g2apay_order_status_id'])) {

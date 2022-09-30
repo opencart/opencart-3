@@ -42,7 +42,6 @@ class ControllerExtensionFeedGoogleBase extends Controller {
         );
 
         $data['action'] = $this->url->link('extension/feed/google_base', 'user_token=' . $this->session->data['user_token'], true);
-
         $data['cancel'] = $this->url->link('marketplace/extension', 'user_token=' . $this->session->data['user_token'] . '&type=feed', true);
 
         $data['user_token'] = $this->session->data['user_token'];

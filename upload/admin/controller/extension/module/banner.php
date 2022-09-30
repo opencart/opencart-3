@@ -71,8 +71,7 @@ class ControllerExtensionModuleBanner extends Controller {
         }
 
         if (!isset($this->request->get['module_id'])) {
-            $data['action'] = $this->url->link('extension/module/banner', 'user_token=' . $this->session->data['user_token'], true);
-        } else {
+            $data['action'] = $this->url->link('extension/module/banner', 'user_token=' . $this->session->data['user_token'], true);        } else {
             $data['action'] = $this->url->link('extension/module/banner', 'user_token=' . $this->session->data['user_token'] . '&module_id=' . $this->request->get['module_id'], true);
         }
 

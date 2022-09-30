@@ -43,7 +43,6 @@ class ControllerExtensionModulePayPalSmartButton extends Controller {
         );
 
         $data['action'] = $this->url->link('extension/module/paypal_smart_button', 'user_token=' . $this->session->data['user_token'], true);
-
         $data['cancel'] = $this->url->link('marketplace/extension', 'user_token=' . $this->session->data['user_token'] . '&type=module', true);
 
         if (isset($this->request->post['module_paypal_smart_button_status'])) {

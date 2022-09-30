@@ -86,7 +86,6 @@ class ControllerCommonProfile extends Controller {
         );
 
         $data['action'] = $this->url->link('common/profile', 'user_token=' . $this->session->data['user_token'], true);
-
         $data['cancel'] = $this->url->link('common/dashboard', 'user_token=' . $this->session->data['user_token'], true);
 
         if ($this->request->server['REQUEST_METHOD'] != 'POST') {

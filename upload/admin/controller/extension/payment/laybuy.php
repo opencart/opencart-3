@@ -39,10 +39,8 @@ class ControllerExtensionPaymentLaybuy extends Controller {
         );
 
         $data['action'] = $this->url->link('extension/payment/laybuy', 'user_token=' . $this->session->data['user_token'], true);
-
         $data['cancel'] = $this->url->link('marketplace/extension', 'user_token=' . $this->session->data['user_token'] . '&type=payment', true);
-
-        $data['fetch'] = $this->url->link('extension/payment/laybuy/fetch', 'user_token=' . $this->session->data['user_token'] . '#reportstab', true);
+        $data['fetch']  = $this->url->link('extension/payment/laybuy/fetch', 'user_token=' . $this->session->data['user_token'] . '#reportstab', true);
 
         if (isset($this->request->post['payment_laybuys_membership_id'])) {
             $data['payment_laybuys_membership_id'] = $this->request->post['payment_laybuys_membership_id'];

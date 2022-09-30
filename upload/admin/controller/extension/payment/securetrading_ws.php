@@ -219,13 +219,10 @@ class ControllerExtensionPaymentSecureTradingWs extends Controller {
             '100' => $this->language->get('text_pending_settled'),
         );
 
-        $data['action'] = $this->url->link('extension/payment/securetrading_ws', 'user_token=' . $this->session->data['user_token'], true);
-
-        $data['cancel'] = $this->url->link('marketplace/extension', 'user_token=' . $this->session->data['user_token'] . '&type=payment', true);
-
+        $data['action']      = $this->url->link('extension/payment/securetrading_ws', 'user_token=' . $this->session->data['user_token'], true);
+        $data['cancel']      = $this->url->link('marketplace/extension', 'user_token=' . $this->session->data['user_token'] . '&type=payment', true);
         $data['myst_status'] = !empty($data['securetrading_ws_csv_username']) && !empty($data['securetrading_ws_csv_password']);
-
-        $data['hours'] = array();
+        $data['hours']       = array();
 
         for ($i = 0; $i < 24; $i++) {
             $data['hours'][] = str_pad($i, 2, '0', STR_PAD_LEFT);

@@ -4,14 +4,11 @@ class ControllerCommonDeveloper extends Controller {
     public function index(): void {
         $this->load->language('common/developer');
 
-        $data['user_token'] = $this->session->data['user_token'];
-
+        $data['user_token']      = $this->session->data['user_token'];
         $data['developer_theme'] = $this->config->get('developer_theme');
         $data['developer_sass']  = $this->config->get('developer_sass');
-
-        $eval = false;
-
-        $eval = '$eval = true;';
+        $eval                    = false;
+        $eval                    = '$eval = true;';
 
         eval($eval);
 

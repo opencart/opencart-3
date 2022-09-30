@@ -37,7 +37,6 @@ class ControllerExtensionPaymentCardConnect extends Controller {
         );
 
         $data['action'] = $this->url->link('extension/payment/cardconnect', 'user_token=' . $this->session->data['user_token'], true);
-
         $data['cancel'] = $this->url->link('marketplace/extension', 'user_token=' . $this->session->data['user_token'] . '&type=payment', true);
 
         if (isset($this->request->post['payment_cardconnect_merchant_id'])) {

@@ -48,7 +48,6 @@ class ControllerExtensionCurrencyFixer extends Controller {
         );
 
         $data['action'] = $this->url->link('extension/currency/fixer', 'user_token=' . $this->session->data['user_token'], true);
-
         $data['cancel'] = $this->url->link('marketplace/extension', 'user_token=' . $this->session->data['user_token'] . '&type=currency', true);
 
         if (isset($this->request->post['currency_fixer_api'])) {

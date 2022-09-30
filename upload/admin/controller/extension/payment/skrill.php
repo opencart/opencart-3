@@ -48,7 +48,6 @@ class ControllerExtensionPaymentSkrill extends Controller {
         );
 
         $data['action'] = $this->url->link('extension/payment/skrill', 'user_token=' . $this->session->data['user_token'], true);
-
         $data['cancel'] = $this->url->link('marketplace/extension', 'user_token=' . $this->session->data['user_token'] . '&type=payment', true);
 
         if (isset($this->request->post['payment_skrill_email'])) {

@@ -62,7 +62,6 @@ class ControllerCommonReset extends Controller {
             }
 
             $data['action'] = $this->url->link('common/reset', 'code=' . $code, true);
-
             $data['cancel'] = $this->url->link('common/login', '', true);
 
             if (isset($this->request->post['password'])) {

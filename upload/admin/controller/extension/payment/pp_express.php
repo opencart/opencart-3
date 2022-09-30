@@ -84,9 +84,7 @@ class ControllerExtensionPaymentPPExpress extends Controller {
         );
 
         $data['action'] = $this->url->link('extension/payment/pp_express', 'user_token=' . $this->session->data['user_token'], true);
-
         $data['cancel'] = $this->url->link('marketplace/extension', 'user_token=' . $this->session->data['user_token'] . '&type=payment', true);
-
         $data['search'] = $this->url->link('extension/payment/pp_express/search', 'user_token=' . $this->session->data['user_token'], true);
 
         if (isset($this->request->post['payment_pp_express_username'])) {

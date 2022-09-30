@@ -51,7 +51,6 @@ class ControllerExtensionTotalKlarnaFee extends Controller {
         );
 
         $data['action'] = $this->url->link('extension/total/klarna_fee', 'user_token=' . $this->session->data['user_token'], true);
-
         $data['cancel'] = $this->url->link('marketplace/extension', 'user_token=' . $this->session->data['user_token'] . '&type=total', true);
 
         $data['countries'] = array();

@@ -37,7 +37,6 @@ class ControllerExtensionPaymentPayPal extends Controller {
         );
 
         $data['action'] = $this->url->link('extension/payment/paypal', 'user_token=' . $this->session->data['user_token'], true);
-
         $data['cancel'] = $this->url->link('marketplace/extension', 'user_token=' . $this->session->data['user_token'] . '&type=payment', true);
 
         $data['partner_url']                = str_replace('&amp;', '%26', $this->url->link('extension/payment/paypal', 'user_token=' . $this->session->data['user_token'], true));

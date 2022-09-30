@@ -42,7 +42,6 @@ class ControllerExtensionDashboardOrder extends Controller {
         );
 
         $data['action'] = $this->url->link('extension/dashboard/order', 'user_token=' . $this->session->data['user_token'], true);
-
         $data['cancel'] = $this->url->link('marketplace/extension', 'user_token=' . $this->session->data['user_token'] . '&type=dashboard', true);
 
         if (isset($this->request->post['dashboard_order_width'])) {
@@ -92,10 +91,8 @@ class ControllerExtensionDashboardOrder extends Controller {
         // Total Orders
         $this->load->model('sale/order');
 
-        $today = $this->model_sale_order->getTotalOrders(array('filter_date_added' => date('Y-m-d', strtotime('-1 day'))));
-
-        $yesterday = $this->model_sale_order->getTotalOrders(array('filter_date_added' => date('Y-m-d', strtotime('-2 day'))));
-
+        $today      = $this->model_sale_order->getTotalOrders(array('filter_date_added' => date('Y-m-d', strtotime('-1 day'))));
+        $yesterday  = $this->model_sale_order->getTotalOrders(array('filter_date_added' => date('Y-m-d', strtotime('-2 day'))));
         $difference = $today - $yesterday;
 
         if ($difference && $today) {

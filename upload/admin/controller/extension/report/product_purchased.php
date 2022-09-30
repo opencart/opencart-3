@@ -40,7 +40,6 @@ class ControllerExtensionReportProductPurchased extends Controller {
         );
 
         $data['action'] = $this->url->link('extension/report/product_purchased', 'user_token=' . $this->session->data['user_token'], true);
-
         $data['cancel'] = $this->url->link('marketplace/extension', 'user_token=' . $this->session->data['user_token'] . '&type=report', true);
 
         if (isset($this->request->post['report_product_purchased_status'])) {

@@ -51,7 +51,6 @@ class ControllerExtensionModuleAmazonLogin extends Controller {
         );
 
         $data['action'] = $this->url->link('extension/module/amazon_login', 'user_token=' . $this->session->data['user_token'], true);
-
         $data['cancel'] = $this->url->link('marketplace/extension', 'user_token=' . $this->session->data['user_token'] . '&type=module', true);
 
         $data['user_token'] = $this->session->data['user_token'];

@@ -48,7 +48,6 @@ class ControllerExtensionPaymentSagepayServer extends Controller {
         );
 
         $data['action'] = $this->url->link('extension/payment/sagepay_server', 'user_token=' . $this->session->data['user_token'], true);
-
         $data['cancel'] = $this->url->link('marketplace/extension', 'user_token=' . $this->session->data['user_token'] . '&type=payment', true);
 
         if (isset($this->request->post['payment_sagepay_server_vendor'])) {

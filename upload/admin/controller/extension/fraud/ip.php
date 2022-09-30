@@ -44,7 +44,6 @@ class ControllerExtensionFraudIp extends Controller {
         );
 
         $data['action'] = $this->url->link('extension/fraud/ip', 'user_token=' . $this->session->data['user_token'], true);
-
         $data['cancel'] = $this->url->link('marketplace/extension', 'user_token=' . $this->session->data['user_token'] . '&type=fraud', true);
 
         if (isset($this->request->post['fraud_ip_order_status_id'])) {

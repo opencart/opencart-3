@@ -157,10 +157,8 @@ class ControllerSettingSetting extends Controller {
             $data['success'] = '';
         }
 
-        $data['action'] = $this->url->link('setting/setting', 'user_token=' . $this->session->data['user_token'], true);
-
-        $data['cancel'] = $this->url->link('setting/store', 'user_token=' . $this->session->data['user_token'], true);
-
+        $data['action']     = $this->url->link('setting/setting', 'user_token=' . $this->session->data['user_token'], true);
+        $data['cancel']     = $this->url->link('setting/store', 'user_token=' . $this->session->data['user_token'], true);
         $data['user_token'] = $this->session->data['user_token'];
 
         if (isset($this->request->post['config_meta_title'])) {

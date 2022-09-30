@@ -45,7 +45,6 @@ class ControllerCommonForgotten extends Controller {
         );
 
         $data['action'] = $this->url->link('common/forgotten', '', true);
-
         $data['cancel'] = $this->url->link('common/login', '', true);
 
         if (isset($this->request->post['email'])) {

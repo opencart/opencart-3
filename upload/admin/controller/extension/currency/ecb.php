@@ -42,7 +42,6 @@ class ControllerExtensionCurrencyECB extends Controller {
         );
 
         $data['action'] = $this->url->link('extension/currency/ecb', 'user_token=' . $this->session->data['user_token'], true);
-
         $data['cancel'] = $this->url->link('marketplace/extension', 'user_token=' . $this->session->data['user_token'] . '&type=currency', true);
 
         if (isset($this->request->post['currency_ecb_status'])) {

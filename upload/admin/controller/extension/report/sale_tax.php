@@ -40,7 +40,6 @@ class ControllerExtensionReportSaleTax extends Controller {
         );
 
         $data['action'] = $this->url->link('extension/report/sale_tax', 'user_token=' . $this->session->data['user_token'], true);
-
         $data['cancel'] = $this->url->link('marketplace/extension', 'user_token=' . $this->session->data['user_token'] . '&type=report', true);
 
         if (isset($this->request->post['report_sale_tax_status'])) {

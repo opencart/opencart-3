@@ -60,7 +60,6 @@ class ControllerExtensionShippingECShip extends Controller {
         );
 
         $data['action'] = $this->url->link('extension/shipping/ec_ship', 'user_token=' . $this->session->data['user_token'], true);
-
         $data['cancel'] = $this->url->link('marketplace/extension', 'user_token=' . $this->session->data['user_token'] . '&type=shipping', true);
 
         if (isset($this->request->post['shipping_ec_ship_api_key'])) {

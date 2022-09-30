@@ -114,7 +114,6 @@ class ControllerExtensionThemeDefault extends Controller {
         );
 
         $data['action'] = $this->url->link('extension/theme/default', 'user_token=' . $this->session->data['user_token'] . '&store_id=' . $this->request->get['store_id'], true);
-
         $data['cancel'] = $this->url->link('marketplace/extension', 'user_token=' . $this->session->data['user_token'] . '&type=theme', true);
 
         if (isset($this->request->get['store_id']) && ($this->request->server['REQUEST_METHOD'] != 'POST')) {

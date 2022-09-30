@@ -42,7 +42,6 @@ class ControllerExtensionTotalTax extends Controller {
         );
 
         $data['action'] = $this->url->link('extension/total/tax', 'user_token=' . $this->session->data['user_token'], true);
-
         $data['cancel'] = $this->url->link('marketplace/extension', 'user_token=' . $this->session->data['user_token'] . '&type=total', true);
 
         if (isset($this->request->post['total_tax_status'])) {

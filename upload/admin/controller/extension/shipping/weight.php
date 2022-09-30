@@ -42,7 +42,6 @@ class ControllerExtensionShippingWeight extends Controller {
         );
 
         $data['action'] = $this->url->link('extension/shipping/weight', 'user_token=' . $this->session->data['user_token'], true);
-
         $data['cancel'] = $this->url->link('marketplace/extension', 'user_token=' . $this->session->data['user_token'] . '&type=shipping', true);
 
         $this->load->model('localisation/geo_zone');

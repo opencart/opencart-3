@@ -48,7 +48,6 @@ class ControllerExtensionAnalyticsGoogle extends Controller {
         );
 
         $data['action'] = $this->url->link('extension/analytics/google', 'user_token=' . $this->session->data['user_token'] . '&store_id=' . $this->request->get['store_id'], true);
-
         $data['cancel'] = $this->url->link('marketplace/extension', 'user_token=' . $this->session->data['user_token'] . '&type=analytics', true);
 
         $data['user_token'] = $this->session->data['user_token'];

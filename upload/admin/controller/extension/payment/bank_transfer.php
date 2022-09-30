@@ -48,7 +48,6 @@ class ControllerExtensionPaymentBankTransfer extends Controller {
         );
 
         $data['action'] = $this->url->link('extension/payment/bank_transfer', 'user_token=' . $this->session->data['user_token'], true);
-
         $data['cancel'] = $this->url->link('marketplace/extension', 'user_token=' . $this->session->data['user_token'] . '&type=payment', true);
 
         $this->load->model('localisation/language');

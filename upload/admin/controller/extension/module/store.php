@@ -42,7 +42,6 @@ class ControllerExtensionModuleStore extends Controller {
         );
 
         $data['action'] = $this->url->link('extension/module/store', 'user_token=' . $this->session->data['user_token'], true);
-
         $data['cancel'] = $this->url->link('marketplace/extension', 'user_token=' . $this->session->data['user_token'] . '&type=module', true);
 
         if (isset($this->request->post['module_store_admin'])) {

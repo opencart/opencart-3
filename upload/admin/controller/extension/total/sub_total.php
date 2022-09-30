@@ -42,7 +42,6 @@ class ControllerExtensionTotalSubTotal extends Controller {
         );
 
         $data['action'] = $this->url->link('extension/total/sub_total', 'user_token=' . $this->session->data['user_token'], true);
-
         $data['cancel'] = $this->url->link('marketplace/extension', 'user_token=' . $this->session->data['user_token'] . '&type=total', true);
 
         if (isset($this->request->post['total_sub_total_status'])) {

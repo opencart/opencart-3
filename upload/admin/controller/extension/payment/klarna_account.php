@@ -65,7 +65,6 @@ class ControllerExtensionPaymentKlarnaAccount extends Controller {
         );
 
         $data['action'] = $this->url->link('extension/payment/klarna_account', 'user_token=' . $this->session->data['user_token'], true);
-
         $data['cancel'] = $this->url->link('marketplace/extension', 'user_token=' . $this->session->data['user_token'] . '&type=payment', true);
 
         $data['countries'] = array();

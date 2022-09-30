@@ -42,7 +42,6 @@ class ControllerExtensionFeedGoogleSitemap extends Controller {
         );
 
         $data['action'] = $this->url->link('extension/feed/google_sitemap', 'user_token=' . $this->session->data['user_token'], true);
-
         $data['cancel'] = $this->url->link('marketplace/extension', 'user_token=' . $this->session->data['user_token'] . '&type=feed', true);
 
         if (isset($this->request->post['feed_google_sitemap_status'])) {

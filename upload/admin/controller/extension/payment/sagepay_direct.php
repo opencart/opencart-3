@@ -48,7 +48,6 @@ class ControllerExtensionPaymentSagepayDirect extends Controller {
         );
 
         $data['action'] = $this->url->link('extension/payment/sagepay_direct', 'user_token=' . $this->session->data['user_token'], true);
-
         $data['cancel'] = $this->url->link('marketplace/extension', 'user_token=' . $this->session->data['user_token'] . '&type=payment', true);
 
         if (isset($this->request->post['payment_sagepay_direct_vendor'])) {
