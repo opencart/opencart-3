@@ -44,6 +44,7 @@ class ControllerExtensionShippingWeight extends Controller {
         $data['action'] = $this->url->link('extension/shipping/weight', 'user_token=' . $this->session->data['user_token'], true);
         $data['cancel'] = $this->url->link('marketplace/extension', 'user_token=' . $this->session->data['user_token'] . '&type=shipping', true);
 
+        // Geo Zones
         $this->load->model('localisation/geo_zone');
 
         $geo_zones = $this->model_localisation_geo_zone->getGeoZones();
@@ -70,6 +71,7 @@ class ControllerExtensionShippingWeight extends Controller {
             $data['shipping_weight_tax_class_id'] = $this->config->get('shipping_weight_tax_class_id');
         }
 
+        // Tax Classes
         $this->load->model('localisation/tax_class');
 
         $data['tax_classes'] = $this->model_localisation_tax_class->getTaxClasses();

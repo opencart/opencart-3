@@ -572,6 +572,7 @@ class ControllerExtensionAdvertiseGoogle extends Controller {
         } elseif ($this->setting->has('advertise_google_shipping_taxes')) {
             $data['advertise_google_shipping_taxes'] = $this->setting->get('advertise_google_shipping_taxes');
         } else {
+            // Countries
             $this->load->model('localisation/country');
 
             $country_info = $this->model_localisation_country->getCountry($this->config->get('config_country_id'));

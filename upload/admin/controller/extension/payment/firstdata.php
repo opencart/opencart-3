@@ -20,11 +20,12 @@ class ControllerExtensionPaymentFirstdata extends Controller {
 
         $data['notify_url'] = HTTPS_CATALOG . 'index.php?route=extension/payment/firstdata/notify';
 
+        // Order Statuses
         $this->load->model('localisation/order_status');
 
-        // Order Statuses
         $data['order_statuses'] = $this->model_localisation_order_status->getOrderStatuses();
 
+        // Geo Zones
         $this->load->model('localisation/geo_zone');
 
         $data['geo_zones'] = $this->model_localisation_geo_zone->getGeoZones();

@@ -323,6 +323,7 @@ class ControllerDesignBanner extends Controller {
             $data['status'] = true;
         }
 
+        // Languages
         $this->load->model('localisation/language');
 
         $data['languages'] = $this->model_localisation_language->getLanguages();

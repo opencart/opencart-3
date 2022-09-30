@@ -826,8 +826,8 @@ class ControllerExtensionPaymentKlarnaCheckout extends Controller {
     }
 
     protected function validate() {
+        // Geo Zones
         $this->load->model('localisation/geo_zone');
-
         $this->load->model('extension/payment/klarna_checkout');
 
         if (version_compare(phpversion(), '8.1', '<')) {

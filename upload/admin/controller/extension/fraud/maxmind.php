@@ -68,6 +68,7 @@ class ControllerExtensionFraudMaxMind extends Controller {
             $data['fraud_maxmind_order_status_id'] = $this->config->get('fraud_maxmind_order_status_id');
         }
 
+        // Order Statuses
         $this->load->model('localisation/order_status');
 
         $data['order_statuses'] = $this->model_localisation_order_status->getOrderStatuses();

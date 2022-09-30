@@ -369,6 +369,7 @@ class ControllerCatalogManufacturer extends Controller {
             $data['sort_order'] = '';
         }
 
+        // Languages
         $this->load->model('localisation/language');
 
         $data['languages'] = $this->model_localisation_language->getLanguages();

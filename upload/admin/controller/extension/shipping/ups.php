@@ -615,6 +615,7 @@ class ControllerExtensionShippingUPS extends Controller {
             $data['shipping_ups_weight_class_id'] = $this->config->get('shipping_ups_weight_class_id');
         }
 
+        // Weight Classes
         $this->load->model('localisation/weight_class');
 
         $data['weight_classes'] = $this->model_localisation_weight_class->getWeightClasses();
@@ -631,6 +632,7 @@ class ControllerExtensionShippingUPS extends Controller {
             $data['shipping_ups_length_class_id'] = $this->config->get('shipping_ups_length_class_id');
         }
 
+        // Length Classes
         $this->load->model('localisation/length_class');
 
         $data['length_classes'] = $this->model_localisation_length_class->getLengthClasses();
@@ -659,6 +661,7 @@ class ControllerExtensionShippingUPS extends Controller {
             $data['shipping_ups_tax_class_id'] = $this->config->get('shipping_ups_tax_class_id');
         }
 
+        // Tax Classes
         $this->load->model('localisation/tax_class');
 
         $data['tax_classes'] = $this->model_localisation_tax_class->getTaxClasses();
@@ -669,6 +672,7 @@ class ControllerExtensionShippingUPS extends Controller {
             $data['shipping_ups_geo_zone_id'] = $this->config->get('shipping_ups_geo_zone_id');
         }
 
+        // Geo Zones
         $this->load->model('localisation/geo_zone');
 
         $data['geo_zones'] = $this->model_localisation_geo_zone->getGeoZones();

@@ -50,6 +50,7 @@ class ControllerExtensionPaymentFreeCheckout extends Controller {
             $data['payment_free_checkout_order_status_id'] = $this->config->get('payment_free_checkout_order_status_id');
         }
 
+        // Order Statuses
         $this->load->model('localisation/order_status');
 
         $data['order_statuses'] = $this->model_localisation_order_status->getOrderStatuses();

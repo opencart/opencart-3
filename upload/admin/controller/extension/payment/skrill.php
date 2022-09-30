@@ -98,6 +98,7 @@ class ControllerExtensionPaymentSkrill extends Controller {
             $data['payment_skrill_chargeback_status_id'] = $this->config->get('payment_skrill_chargeback_status_id');
         }
 
+        // Order Statuses
         $this->load->model('localisation/order_status');
 
         $data['order_statuses'] = $this->model_localisation_order_status->getOrderStatuses();
@@ -108,6 +109,7 @@ class ControllerExtensionPaymentSkrill extends Controller {
             $data['payment_skrill_geo_zone_id'] = $this->config->get('payment_skrill_geo_zone_id');
         }
 
+        // Geo Zones
         $this->load->model('localisation/geo_zone');
 
         $data['geo_zones'] = $this->model_localisation_geo_zone->getGeoZones();

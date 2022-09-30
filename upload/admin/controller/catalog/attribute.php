@@ -307,6 +307,7 @@ class ControllerCatalogAttribute extends Controller {
             $attribute_info = $this->model_catalog_attribute->getAttribute($this->request->get['attribute_id']);
         }
 
+        // Languages
         $this->load->model('localisation/language');
 
         $data['languages'] = $this->model_localisation_language->getLanguages();

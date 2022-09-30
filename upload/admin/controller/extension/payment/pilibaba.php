@@ -146,6 +146,7 @@ class ControllerExtensionPaymentPilibaba extends Controller {
 
             $data['warehouses'] = $this->model_extension_payment_pilibaba->getWarehouses();
 
+            // Countries
             $this->load->model('localisation/country');
 
             $data['countries'] = $this->model_localisation_country->getCountries();

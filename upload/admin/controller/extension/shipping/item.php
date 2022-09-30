@@ -56,6 +56,7 @@ class ControllerExtensionShippingItem extends Controller {
             $data['shipping_item_tax_class_id'] = $this->config->get('shipping_item_tax_class_id');
         }
 
+        // Tax Classes
         $this->load->model('localisation/tax_class');
 
         $data['tax_classes'] = $this->model_localisation_tax_class->getTaxClasses();
@@ -66,6 +67,7 @@ class ControllerExtensionShippingItem extends Controller {
             $data['shipping_item_geo_zone_id'] = $this->config->get('shipping_item_geo_zone_id');
         }
 
+        // Geo Zones
         $this->load->model('localisation/geo_zone');
 
         $data['geo_zones'] = $this->model_localisation_geo_zone->getGeoZones();

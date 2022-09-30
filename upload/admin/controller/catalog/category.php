@@ -353,6 +353,7 @@ class ControllerCatalogCategory extends Controller {
 
         $data['user_token'] = $this->session->data['user_token'];
 
+        // Languages
         $this->load->model('localisation/language');
 
         $data['languages'] = $this->model_localisation_language->getLanguages();

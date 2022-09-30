@@ -86,6 +86,7 @@ class ControllerExtensionModuleHTML extends Controller {
             $data['module_description'] = array();
         }
 
+        // Languages
         $this->load->model('localisation/language');
 
         $data['languages'] = $this->model_localisation_language->getLanguages();

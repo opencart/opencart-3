@@ -105,10 +105,12 @@ class ControllerExtensionPaymentKlarnaAccount extends Controller {
             $data['payment_klarna_account'] = $this->config->get('payment_klarna_account');
         }
 
+        // Geo Zones
         $this->load->model('localisation/geo_zone');
 
         $data['geo_zones'] = $this->model_localisation_geo_zone->getGeoZones();
 
+        // Order Statuses
         $this->load->model('localisation/order_status');
 
         $data['order_statuses'] = $this->model_localisation_order_status->getOrderStatuses();

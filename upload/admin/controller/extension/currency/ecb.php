@@ -98,6 +98,7 @@ class ControllerExtensionCurrencyECB extends Controller {
                 }
 
                 if ($currencies) {
+                    // Currencies
                     $this->load->model('localisation/currency');
 
                     $results = $this->model_localisation_currency->getCurrencies();

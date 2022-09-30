@@ -177,6 +177,7 @@ class ControllerExtensionPaymentPPExpress extends Controller {
             $data['payment_pp_express_geo_zone_id'] = $this->config->get('payment_pp_express_geo_zone_id');
         }
 
+        // Geo Zones
         $this->load->model('localisation/geo_zone');
 
         $data['geo_zones'] = $this->model_localisation_geo_zone->getGeoZones();
@@ -253,6 +254,7 @@ class ControllerExtensionPaymentPPExpress extends Controller {
             $data['payment_pp_express_voided_status_id'] = $this->config->get('payment_pp_express_voided_status_id');
         }
 
+        // Order Statuses
         $this->load->model('localisation/order_status');
 
         $data['order_statuses'] = $this->model_localisation_order_status->getOrderStatuses();
@@ -339,6 +341,7 @@ class ControllerExtensionPaymentPPExpress extends Controller {
             }
         }
 
+        // Countries
         $this->load->model('localisation/country');
 
         $country = $this->model_localisation_country->getCountry($this->config->get('config_country_id'));
@@ -1268,6 +1271,7 @@ class ControllerExtensionPaymentPPExpress extends Controller {
 
             $this->install();
 
+            // Countries
             $this->load->model('localisation/country');
 
             $country = $this->model_localisation_country->getCountry($this->config->get('config_country_id'));

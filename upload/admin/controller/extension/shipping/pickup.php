@@ -50,6 +50,7 @@ class ControllerExtensionShippingPickup extends Controller {
             $data['shipping_pickup_geo_zone_id'] = $this->config->get('shipping_pickup_geo_zone_id');
         }
 
+        // Geo Zones
         $this->load->model('localisation/geo_zone');
 
         $data['geo_zones'] = $this->model_localisation_geo_zone->getGeoZones();

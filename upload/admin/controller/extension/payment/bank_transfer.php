@@ -50,6 +50,7 @@ class ControllerExtensionPaymentBankTransfer extends Controller {
         $data['action'] = $this->url->link('extension/payment/bank_transfer', 'user_token=' . $this->session->data['user_token'], true);
         $data['cancel'] = $this->url->link('marketplace/extension', 'user_token=' . $this->session->data['user_token'] . '&type=payment', true);
 
+        // Languages
         $this->load->model('localisation/language');
 
         $data['payment_bank_transfer_bank'] = array();
@@ -78,6 +79,7 @@ class ControllerExtensionPaymentBankTransfer extends Controller {
             $data['payment_bank_transfer_order_status_id'] = $this->config->get('payment_bank_transfer_order_status_id');
         }
 
+        // Order Statuses
         $this->load->model('localisation/order_status');
 
         $data['order_statuses'] = $this->model_localisation_order_status->getOrderStatuses();
@@ -88,6 +90,7 @@ class ControllerExtensionPaymentBankTransfer extends Controller {
             $data['payment_bank_transfer_geo_zone_id'] = $this->config->get('payment_bank_transfer_geo_zone_id');
         }
 
+        // Geo Zones
         $this->load->model('localisation/geo_zone');
 
         $data['geo_zones'] = $this->model_localisation_geo_zone->getGeoZones();
@@ -116,6 +119,7 @@ class ControllerExtensionPaymentBankTransfer extends Controller {
             $this->error['warning'] = $this->language->get('error_permission');
         }
 
+        // Languages
         $this->load->model('localisation/language');
 
         $languages = $this->model_localisation_language->getLanguages();

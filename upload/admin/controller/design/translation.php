@@ -156,6 +156,7 @@ class ControllerDesignTranslation extends Controller {
             'href' => $this->url->link('design/translation', 'user_token=' . $this->session->data['user_token'], true)
         );
 
+        // Languages
         $this->load->model('localisation/language');
 
         $data['add']    = $this->url->link('design/translation/add', 'user_token=' . $this->session->data['user_token'] . $url, true);
@@ -313,6 +314,7 @@ class ControllerDesignTranslation extends Controller {
             $data['store_id'] = '';
         }
 
+        // Languages
         $this->load->model('localisation/language');
 
         $data['languages'] = $this->model_localisation_language->getLanguages();
@@ -434,6 +436,7 @@ class ControllerDesignTranslation extends Controller {
 
         $json = array();
 
+        // Languages
         $this->load->model('localisation/language');
 
         if (isset($this->request->get['language_id'])) {
@@ -489,6 +492,7 @@ class ControllerDesignTranslation extends Controller {
             $route = '';
         }
 
+        // Languages
         $this->load->model('localisation/language');
 
         $language_info = $this->model_localisation_language->getLanguage($language_id);

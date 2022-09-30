@@ -91,6 +91,7 @@ class ControllerExtensionTotalKlarnaFee extends Controller {
             $data['total_klarna_fee'] = $this->config->get('total_klarna_fee');
         }
 
+        // Tax Classes
         $this->load->model('localisation/tax_class');
 
         $data['tax_classes'] = $this->model_localisation_tax_class->getTaxClasses();

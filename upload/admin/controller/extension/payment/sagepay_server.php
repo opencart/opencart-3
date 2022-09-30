@@ -102,6 +102,7 @@ class ControllerExtensionPaymentSagepayServer extends Controller {
             $data['payment_sagepay_server_last_cron_job_run'] = '';
         }
 
+        // Order Statuses
         $this->load->model('localisation/order_status');
 
         $data['order_statuses'] = $this->model_localisation_order_status->getOrderStatuses();
@@ -112,6 +113,7 @@ class ControllerExtensionPaymentSagepayServer extends Controller {
             $data['payment_sagepay_server_geo_zone_id'] = $this->config->get('payment_sagepay_server_geo_zone_id');
         }
 
+        // Geo Zones
         $this->load->model('localisation/geo_zone');
 
         $data['geo_zones'] = $this->model_localisation_geo_zone->getGeoZones();

@@ -258,7 +258,7 @@ class ControllerExtensionPaymentAmazonLoginPay extends Controller {
             $data['payment_amazon_login_pay_buyer_multi_currency'] = '0';
         }
 
-        // List available currencies for buyer multi-currency feature
+        // Currencies
         $this->load->model('localisation/currency');
 
         $store_buyer_currencies      = array();
@@ -605,6 +605,7 @@ class ControllerExtensionPaymentAmazonLoginPay extends Controller {
     }
 
     protected function validate() {
+        // Currencies
         $this->load->model('localisation/currency');
 
         if (!$this->user->hasPermission('modify', 'extension/payment/amazon_login_pay')) {

@@ -7,8 +7,14 @@ class ControllerExtensionPaymentSecureTradingWs extends Controller {
         $this->load->language('extension/payment/securetrading_ws');
 
         $this->load->model('setting/setting');
+
+        // Geo Zones
         $this->load->model('localisation/geo_zone');
+
+        // Order Statuses
         $this->load->model('localisation/order_status');
+
+        // Currencies
         $this->load->model('localisation/currency');
 
         if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validate()) {

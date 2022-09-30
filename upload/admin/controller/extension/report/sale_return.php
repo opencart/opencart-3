@@ -129,6 +129,7 @@ class ControllerExtensionReportSaleReturn extends Controller {
 
         $data['user_token'] = $this->session->data['user_token'];
 
+        // Return Statuses
         $this->load->model('localisation/returns_status');
 
         $data['return_statuses'] = $this->model_localisation_returns_status->getReturnStatuses();

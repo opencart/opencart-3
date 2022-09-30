@@ -92,6 +92,7 @@ class ControllerExtensionFraudFraudLabsPro extends Controller {
             $data['fraud_fraudlabspro_simulate_ip'] = $this->config->get('fraud_fraudlabspro_simulate_ip');
         }
 
+        // Order Statuses
         $this->load->model('localisation/order_status');
 
         $data['order_statuses'] = $this->model_localisation_order_status->getOrderStatuses();

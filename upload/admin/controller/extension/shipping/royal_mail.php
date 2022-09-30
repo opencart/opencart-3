@@ -350,6 +350,7 @@ class ControllerExtensionShippingRoyalMail extends Controller {
             $data['shipping_royal_mail_weight_class_id'] = $this->config->get('shipping_royal_mail_weight_class_id');
         }
 
+        // Weight Classes
         $this->load->model('localisation/weight_class');
 
         $data['weight_classes'] = $this->model_localisation_weight_class->getWeightClasses();
@@ -360,6 +361,7 @@ class ControllerExtensionShippingRoyalMail extends Controller {
             $data['shipping_royal_mail_tax_class_id'] = $this->config->get('shipping_royal_mail_tax_class_id');
         }
 
+        // Tax Classes
         $this->load->model('localisation/tax_class');
 
         $data['tax_classes'] = $this->model_localisation_tax_class->getTaxClasses();
@@ -370,6 +372,7 @@ class ControllerExtensionShippingRoyalMail extends Controller {
             $data['shipping_royal_mail_geo_zone_id'] = $this->config->get('shipping_royal_mail_geo_zone_id');
         }
 
+        // Geo Zones
         $this->load->model('localisation/geo_zone');
 
         $data['geo_zones'] = $this->model_localisation_geo_zone->getGeoZones();

@@ -62,6 +62,7 @@ class ControllerExtensionTotalHandling extends Controller {
             $data['total_handling_tax_class_id'] = $this->config->get('total_handling_tax_class_id');
         }
 
+        // Tax Classes
         $this->load->model('localisation/tax_class');
 
         $data['tax_classes'] = $this->model_localisation_tax_class->getTaxClasses();

@@ -299,6 +299,7 @@ class ControllerCustomerCustomerGroup extends Controller {
             $customer_group_info = $this->model_customer_customer_group->getCustomerGroup($this->request->get['customer_group_id']);
         }
 
+        // Languages
         $this->load->model('localisation/language');
 
         $data['languages'] = $this->model_localisation_language->getLanguages();

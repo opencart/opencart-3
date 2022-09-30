@@ -56,6 +56,7 @@ class ControllerExtensionShippingFree extends Controller {
             $data['shipping_free_geo_zone_id'] = $this->config->get('shipping_free_geo_zone_id');
         }
 
+        // Geo Zones
         $this->load->model('localisation/geo_zone');
 
         $data['geo_zones'] = $this->model_localisation_geo_zone->getGeoZones();

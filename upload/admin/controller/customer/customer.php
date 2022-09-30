@@ -850,6 +850,7 @@ class ControllerCustomerCustomer extends Controller {
             $data['confirm'] = '';
         }
 
+        // Countries
         $this->load->model('localisation/country');
 
         $data['countries'] = $this->model_localisation_country->getCountries();
@@ -930,6 +931,9 @@ class ControllerCustomerCustomer extends Controller {
         }
 
         if (isset($this->request->post['address'])) {
+            // Countries
+            $this->load->model('localisation/country');
+
             foreach ($this->request->post['address'] as $key => $value) {
                 if ((utf8_strlen($value['firstname']) < 1) || (utf8_strlen($value['firstname']) > 32)) {
                     $this->error['address'][$key]['firstname'] = $this->language->get('error_firstname');
@@ -946,8 +950,6 @@ class ControllerCustomerCustomer extends Controller {
                 if ((utf8_strlen($value['city']) < 2) || (utf8_strlen($value['city']) > 128)) {
                     $this->error['address'][$key]['city'] = $this->language->get('error_city');
                 }
-
-                $this->load->model('localisation/country');
 
                 $country_info = $this->model_localisation_country->getCountry($value['country_id']);
 
