@@ -229,12 +229,12 @@ class ControllerExtensionPaymentPPProIframe extends Controller {
 
         $paypal_order = $this->model_extension_payment_pp_pro_iframe->getOrder($this->request->get['order_id']);
 
+        $view = '';
+
         if ($paypal_order) {
             $data['paypal_order'] = $paypal_order;
-
-            $data['user_token'] = $this->session->data['user_token'];
-
-            $data['order_id'] = (int)$this->request->get['order_id'];
+            $data['user_token']   = $this->session->data['user_token'];
+            $data['order_id']     = (int)$this->request->get['order_id'];
 
             $captured = number_format($this->model_extension_payment_pp_pro_iframe->getTotalCaptured($data['paypal_order']['paypal_iframe_order_id']), 2);
             $refunded = number_format($this->model_extension_payment_pp_pro_iframe->getTotalRefunded($data['paypal_order']['paypal_iframe_order_id']), 2);
@@ -243,8 +243,6 @@ class ControllerExtensionPaymentPPProIframe extends Controller {
             $data['paypal_order']['refunded']  = $refunded;
             $data['paypal_order']['remaining'] = number_format($data['paypal_order']['total'] - $captured, 2);
 
-            $data['transactions'] = [];
-
             $data['view_link']   = $this->url->link('extension/payment/pp_pro_iframe/info', 'user_token=' . $this->session->data['user_token'], true);
             $data['refund_link'] = $this->url->link('extension/payment/pp_pro_iframe/refund', 'user_token=' . $this->session->data['user_token'], true);
             $data['resend_link'] = $this->url->link('extension/payment/pp_pro_iframe/resend', 'user_token=' . $this->session->data['user_token'], true);
@@ -252,11 +250,12 @@ class ControllerExtensionPaymentPPProIframe extends Controller {
             $captured = number_format($this->model_extension_payment_pp_pro_iframe->getTotalCaptured($paypal_order['paypal_iframe_order_id']), 2);
             $refunded = number_format($this->model_extension_payment_pp_pro_iframe->getTotalRefunded($paypal_order['paypal_iframe_order_id']), 2);
 
-            $data['paypal_order'] = $paypal_order;
-
+            $data['paypal_order']              = $paypal_order;
             $data['paypal_order']['captured']  = $captured;
             $data['paypal_order']['refunded']  = $refunded;
             $data['paypal_order']['remaining'] = number_format($paypal_order['total'] - $captured, 2);
+
+            $data['transactions'] = [];
 
             foreach ($paypal_order['transactions'] as $transaction) {
                 $data['transactions'][] = [
@@ -275,8 +274,10 @@ class ControllerExtensionPaymentPPProIframe extends Controller {
 
             $data['reauthorise_link'] = $this->url->link('extension/payment/pp_pro_iframe/reauthorise', 'user_token=' . $this->session->data['user_token'], true);
 
-            return $this->load->view('extension/payment/pp_pro_iframe_order', $data);
+            $view = $this->load->view('extension/payment/pp_pro_iframe_order', $data);
         }
+
+        return $view;
     }
 
     public function refund(): void {
@@ -361,13 +362,11 @@ class ControllerExtensionPaymentPPProIframe extends Controller {
 
                 $this->response->redirect($this->url->link('extension/payment/pp_pro_iframe/refund', 'user_token=' . $this->session->data['user_token'] . '&transaction_id=' . $this->request->post['transaction_id'], true));
             } else {
-                $order_id = $this->model_extension_payment_pp_pro_iframe->getOrderId($this->request->post['transaction_id']);
-
+                $order_id     = $this->model_extension_payment_pp_pro_iframe->getOrderId($this->request->post['transaction_id']);
                 $paypal_order = $this->model_extension_payment_pp_pro_iframe->getOrder($order_id);
 
                 if ($paypal_order) {
-                    $call_data = [];
-
+                    $call_data                  = [];
                     $call_data['METHOD']        = 'RefundTransaction';
                     $call_data['TRANSACTIONID'] = $this->request->post['transaction_id'];
                     $call_data['NOTE']          = urlencode($this->request->post['refund_message']);
@@ -465,8 +464,7 @@ class ControllerExtensionPaymentPPProIframe extends Controller {
         if (isset($this->request->post['order_id'])) {
             $paypal_order = $this->model_extension_payment_pp_pro_iframe->getOrder($this->request->post['order_id']);
 
-            $call_data = [];
-
+            $call_data                    = [];
             $call_data['METHOD']          = 'DoReauthorization';
             $call_data['AUTHORIZATIONID'] = $paypal_order['authorization_id'];
             $call_data['AMT']             = number_format($paypal_order['total'], 2);
@@ -495,21 +493,16 @@ class ControllerExtensionPaymentPPProIframe extends Controller {
                 $this->model_extension_payment_pp_pro_iframe->addTransaction($transaction);
 
                 $transaction['date_added'] = date('Y-m-d H:i:s');
-
-                $json['data'] = $transaction;
-
-                $json['error'] = false;
-
-                $json['msg'] = $this->language->get('text_reauthorise_ok');
+                $json['data']              = $transaction;
+                $json['error']             = false;
+                $json['msg']               = $this->language->get('text_reauthorise_ok');
             } else {
                 $json['error'] = true;
-
-                $json['msg'] = (isset($result['L_SHORTMESSAGE0']) ? sprintf($this->language->get('error_status_short'), $result['L_SHORTMESSAGE0']) : $this->language->get('error_general'));
+                $json['msg']   = (isset($result['L_SHORTMESSAGE0']) ? sprintf($this->language->get('error_status_short'), $result['L_SHORTMESSAGE0']) : $this->language->get('error_general'));
             }
         } else {
             $json['error'] = true;
-
-            $json['msg'] = $this->language->get('error_missing_data');
+            $json['msg']   = $this->language->get('error_missing_data');
         }
 
         $this->response->addHeader('Content-Type: application/json');
@@ -538,9 +531,8 @@ class ControllerExtensionPaymentPPProIframe extends Controller {
             'href' => $this->url->link('extension/payment/pp_pro_iframe/info', 'user_token=' . $this->session->data['user_token'] . '&transaction_id=' . $this->request->get['transaction_id'], true)
         ];
 
-        $transaction = $this->model_extension_payment_pp_pro_iframe->getTransaction($this->request->get['transaction_id']);
-
-        $transaction = array_map('urldecode', $transaction);
+        $transaction         = $this->model_extension_payment_pp_pro_iframe->getTransaction($this->request->get['transaction_id']);
+        $transaction         = array_map('urldecode', $transaction);
 
         $data['transaction'] = $transaction;
         $data['view_link']   = $this->url->link('extension/payment/pp_pro_iframe/info', 'user_token=' . $this->session->data['user_token'], true);
@@ -581,8 +573,7 @@ class ControllerExtensionPaymentPPProIframe extends Controller {
                 $complete = 'NotComplete';
             }
 
-            $call_data = [];
-
+            $call_data                    = [];
             $call_data['METHOD']          = 'DoCapture';
             $call_data['AUTHORIZATIONID'] = $paypal_order['authorization_id'];
             $call_data['AMT']             = number_format($this->request->post['amount'], 2);
@@ -609,10 +600,10 @@ class ControllerExtensionPaymentPPProIframe extends Controller {
 
             if ($result == false) {
                 $transaction['amount']              = number_format($this->request->post['amount'], 2);
+
                 $paypal_iframe_order_transaction_id = $this->model_extension_payment_pp_pro_iframe->addTransaction($transaction, $call_data);
 
-                $json['error'] = true;
-
+                $json['error']                                                    = true;
                 $json['failed_transaction']['paypal_iframe_order_transaction_id'] = $paypal_iframe_order_transaction_id;
                 $json['failed_transaction']['amount']                             = $transaction['amount'];
                 $json['failed_transaction']['date_added']                         = date('Y-m-d H:i:s');
@@ -670,20 +661,16 @@ class ControllerExtensionPaymentPPProIframe extends Controller {
                     $transaction['status']             = 1;
                 }
 
-                $json['data'] = $transaction;
-
+                $json['data']  = $transaction;
                 $json['error'] = false;
-
-                $json['msg'] = $this->language->get('text_capture_ok');
+                $json['msg']   = $this->language->get('text_capture_ok');
             } else {
                 $json['error'] = true;
-
-                $json['msg'] = (isset($result['L_SHORTMESSAGE0']) ? sprintf($this->language->get('error_status_short'), $result['L_SHORTMESSAGE0']) : $this->language->get('error_general'));
+                $json['msg']   = (isset($result['L_SHORTMESSAGE0']) ? sprintf($this->language->get('error_status_short'), $result['L_SHORTMESSAGE0']) : $this->language->get('error_general'));
             }
         } else {
             $json['error'] = true;
-
-            $json['msg'] = $this->language->get('error_data_missing');
+            $json['msg']   = $this->language->get('error_data_missing');
         }
 
         $this->response->addHeader('Content-Type: application/json');
@@ -700,8 +687,7 @@ class ControllerExtensionPaymentPPProIframe extends Controller {
 
             $paypal_order = $this->model_extension_payment_pp_pro_iframe->getOrder($this->request->post['order_id']);
 
-            $call_data = [];
-
+            $call_data                    = [];
             $call_data['METHOD']          = 'DoVoid';
             $call_data['AUTHORIZATIONID'] = $paypal_order['authorization_id'];
 
@@ -730,20 +716,16 @@ class ControllerExtensionPaymentPPProIframe extends Controller {
 
                 $transaction['date_added'] = date('Y-m-d H:i:s');
 
-                $json['data'] = $transaction;
-
-                $json['error'] = false;
-
-                $json['msg'] = $this->language->get('text_void_ok');
+                $json['data']              = $transaction;
+                $json['error']             = false;
+                $json['msg']               = $this->language->get('text_void_ok');
             } else {
                 $json['error'] = true;
-
-                $json['msg'] = (isset($result['L_SHORTMESSAGE0']) ? sprintf($this->language->get('error_status_short'), $result['L_SHORTMESSAGE0']) : $this->language->get('error_general'));
+                $json['msg']   = (isset($result['L_SHORTMESSAGE0']) ? sprintf($this->language->get('error_status_short'), $result['L_SHORTMESSAGE0']) : $this->language->get('error_general'));
             }
         } else {
             $json['error'] = true;
-
-            $json['msg'] = $this->language->get('error_missing_data');
+            $json['msg']   = $this->language->get('error_missing_data');
         }
 
         $this->response->addHeader('Content-Type: application/json');

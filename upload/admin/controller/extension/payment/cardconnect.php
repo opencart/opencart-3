@@ -230,6 +230,8 @@ class ControllerExtensionPaymentCardConnect extends Controller {
     }
 
     public function order(): string {
+        $view = '';
+
         if ($this->config->get('payment_cardconnect_status')) {
             $this->load->model('extension/payment/cardconnect');
 
@@ -281,19 +283,18 @@ class ControllerExtensionPaymentCardConnect extends Controller {
                     }
 
                     $transaction['date_modified'] = date($this->language->get('datetime_format'), strtotime($transaction['date_modified']));
-
-                    $transaction['date_added'] = date($this->language->get('datetime_format'), strtotime($transaction['date_added']));
+                    $transaction['date_added']    = date($this->language->get('datetime_format'), strtotime($transaction['date_added']));
                 }
 
                 $data['payment_cardconnect_order'] = $payment_cardconnect_order;
+                $data['order_id']                  = (int)$this->request->get['order_id'];
+                $data['user_token']                = $this->session->data['user_token'];
 
-                $data['order_id'] = (int)$this->request->get['order_id'];
-
-                $data['user_token'] = $this->session->data['user_token'];
-
-                return $this->load->view('extension/payment/cardconnect_order', $data);
+                $view = $this->load->view('extension/payment/cardconnect_order', $data);
             }
         }
+
+        return $view;
     }
 
     public function inquire(): void {
