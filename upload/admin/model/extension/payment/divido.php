@@ -31,7 +31,7 @@ class ModelExtensionPaymentDivido extends Model {
 
         // OpenCart 2.1 switched to json for their file storage cache, so
         // we need to convert to a simple object.
-        $plans_plain = array();
+        $plans_plain = [];
 
         foreach ($plans as $plan) {
             $plan_copy                     = new \stdClass();

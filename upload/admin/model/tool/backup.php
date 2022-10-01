@@ -1,7 +1,7 @@
 <?php
 class ModelToolBackup extends Model {
     public function getTables(): array {
-        $table_data = array();
+        $table_data = [];
 
         $query = $this->db->query("SHOW TABLES FROM `" . DB_DATABASE . "`");
 
@@ -44,8 +44,8 @@ class ModelToolBackup extends Model {
                     $values = '';
 
                     foreach (array_values($result) as $value) {
-                        $value = str_replace(array("\x00", "\x0a", "\x0d", "\x1a"), array('\0', '\n', '\r', '\Z'), $value);
-                        $value = str_replace(array("\n", "\r", "\t"), array('\n', '\r', '\t'), $value);
+                        $value = str_replace(["\x00", "\x0a", "\x0d", "\x1a"], ['\0', '\n', '\r', '\Z'], $value);
+                        $value = str_replace(["\n", "\r", "\t"], ['\n', '\r', '\t'], $value);
                         $value = str_replace('\\', '\\\\', $value);
                         $value = str_replace('\'', '\\\'', $value);
                         $value = str_replace('\\\n', '\n', $value);

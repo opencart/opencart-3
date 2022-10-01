@@ -20,7 +20,7 @@ class ModelLocalisationAddressFormat extends Model {
         return $query->row;
     }
 
-    public function getAddressFormats(array $data = array()): array {
+    public function getAddressFormats(array $data = []): array {
         $sql = "SELECT * FROM `" . DB_PREFIX . "address_format`";
 
         if (isset($data['start']) || isset($data['limit'])) {
@@ -40,7 +40,7 @@ class ModelLocalisationAddressFormat extends Model {
         return $query->rows;
     }
 
-    public function getTotalAddressFormats(array $data = array()): int {
+    public function getTotalAddressFormats(array $data = []): int {
         $query = $this->db->query("SELECT COUNT(*) AS `total` FROM `" . DB_PREFIX . "address_format`");
 
         return (int)$query->row['total'];

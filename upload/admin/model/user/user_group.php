@@ -1,5 +1,4 @@
 <?php
-
 class ModelUserUserGroup extends Model {
     public function addUserGroup(array $data): int {
         $this->db->query("INSERT INTO `" . DB_PREFIX . "user_group` SET `name` = '" . $this->db->escape($data['name']) . "', `permission` = '" . $this->db->escape(isset($data['permission']) ? json_encode($data['permission']) : '') . "'");
@@ -18,15 +17,15 @@ class ModelUserUserGroup extends Model {
     public function getUserGroup(int $user_group_id): array {
         $query = $this->db->query("SELECT DISTINCT * FROM `" . DB_PREFIX . "user_group` WHERE `user_group_id` = '" . (int)$user_group_id . "'");
 
-        $user_group = array(
+        $user_group = [
             'name'       => $query->row['name'],
             'permission' => json_decode($query->row['permission'], true)
-        );
+        ];
 
         return $user_group;
     }
 
-    public function getUserGroups(array $data = array()): array {
+    public function getUserGroups(array $data = []): array {
         $sql = "SELECT * FROM `" . DB_PREFIX . "user_group`";
 
         $sql .= " ORDER BY `name`";
@@ -77,7 +76,7 @@ class ModelUserUserGroup extends Model {
         if ($user_group_query->num_rows) {
             $data = json_decode($user_group_query->row['permission'], true);
 
-            $data[$type] = array_diff($data[$type], array($route));
+            $data[$type] = array_diff($data[$type], [$route]);
 
             $this->db->query("UPDATE `" . DB_PREFIX . "user_group` SET `permission` = '" . $this->db->escape(json_encode($data)) . "' WHERE `user_group_id` = '" . (int)$user_group_id . "'");
         }

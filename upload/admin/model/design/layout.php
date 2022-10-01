@@ -55,10 +55,10 @@ class ModelDesignLayout extends Model {
         return $query->row;
     }
 
-    public function getLayouts(array $data = array()): array {
+    public function getLayouts(array $data = []): array {
         $sql = "SELECT * FROM `" . DB_PREFIX . "layout`";
 
-        $sort_data = array('name');
+        $sort_data = ['name'];
 
         if (isset($data['sort']) && in_array($data['sort'], $sort_data)) {
             $sql .= " ORDER BY " . $data['sort'];

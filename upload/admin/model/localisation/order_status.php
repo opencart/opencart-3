@@ -38,7 +38,7 @@ class ModelLocalisationOrderStatus extends Model {
         return $query->row;
     }
 
-    public function getOrderStatuses(array $data = array()): array {
+    public function getOrderStatuses(array $data = []): array {
         if ($data) {
             $sql = "SELECT * FROM `" . DB_PREFIX . "order_status` WHERE `language_id` = '" . (int)$this->config->get('config_language_id') . "'";
 
@@ -81,12 +81,12 @@ class ModelLocalisationOrderStatus extends Model {
     }
 
     public function getOrderStatusDescriptions(int $order_status_id): array {
-        $order_status_data = array();
+        $order_status_data = [];
 
         $query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "order_status` WHERE `order_status_id` = '" . (int)$order_status_id . "'");
 
         foreach ($query->rows as $result) {
-            $order_status_data[$result['language_id']] = array('name' => $result['name']);
+            $order_status_data[$result['language_id']] = ['name' => $result['name']];
         }
 
         return $order_status_data;

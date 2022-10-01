@@ -36,7 +36,7 @@ class ModelSettingStore extends Model {
         return $query->row;
     }
 
-    public function getStores(array $data = array()): array {
+    public function getStores(array $data = []): array {
         $store_data = $this->cache->get('store');
 
         if (!$store_data) {

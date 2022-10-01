@@ -50,14 +50,14 @@ class ModelUserUser extends Model {
         return $query->row;
     }
 
-    public function getUsers(array $data = array()): array {
+    public function getUsers(array $data = []): array {
         $sql = "SELECT * FROM `" . DB_PREFIX . "user`";
 
-        $sort_data = array(
+        $sort_data = [
             'username',
             'status',
             'date_added'
-        );
+        ];
 
         if (isset($data['sort']) && in_array($data['sort'], $sort_data)) {
             $sql .= " ORDER BY " . $data['sort'];

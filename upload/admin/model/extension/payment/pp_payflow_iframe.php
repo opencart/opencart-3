@@ -42,7 +42,7 @@ class ModelExtensionPaymentPPPayflowIFrame extends Model {
         if ($result->num_rows) {
             $order = $result->row;
         } else {
-            $order = array();
+            $order = [];
         }
 
         return $order;
@@ -68,22 +68,22 @@ class ModelExtensionPaymentPPPayflowIFrame extends Model {
         if ($result->num_rows) {
             $transaction = $result->row;
         } else {
-            $transaction = array();
+            $transaction = [];
         }
 
         return $transaction;
     }
 
     public function call(array $data): array {
-        $default_parameters = array(
+        $default_parameters = [
             'USER'         => $this->config->get('payment_pp_payflow_iframe_user'),
             'VENDOR'       => $this->config->get('payment_pp_payflow_iframe_vendor'),
             'PWD'          => $this->config->get('payment_pp_payflow_iframe_password'),
             'PARTNER'      => $this->config->get('payment_pp_payflow_iframe_partner'),
             'BUTTONSOURCE' => 'OpenCart_Cart_PFP'
-        );
+        ];
 
-        $call_parameters    = array_merge($data, $default_parameters);
+        $call_parameters = array_merge($data, $default_parameters);
 
         if ($this->config->get('payment_pp_payflow_iframe_test')) {
             $url = 'https://pilot-payflowpro.paypal.com';
@@ -91,7 +91,7 @@ class ModelExtensionPaymentPPPayflowIFrame extends Model {
             $url = 'https://payflowpro.paypal.com';
         }
 
-        $query_params = array();
+        $query_params = [];
 
         foreach ($call_parameters as $key => $value) {
             $query_params[] = $key . '=' . utf8_decode($value);
@@ -112,7 +112,7 @@ class ModelExtensionPaymentPPPayflowIFrame extends Model {
 
         $this->log('Response data: ' . $response);
 
-        $response_params = array();
+        $response_params = [];
 
         parse_str($response, $response_params);
 

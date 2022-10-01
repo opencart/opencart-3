@@ -7,7 +7,7 @@ class ModelSettingSetting extends Model {
     }
 
     public function getSetting(string $code, int $store_id = 0): array {
-        $setting_data = array();
+        $setting_data = [];
 
         $query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "setting` WHERE `store_id` = '" . (int)$store_id . "' AND `code` = '" . $this->db->escape($code) . "'");
 

@@ -71,7 +71,7 @@ class ModelCustomerCustomer extends Model {
         return $query->row;
     }
 
-    public function getCustomers(array $data = array()): array {
+    public function getCustomers(array $data = []): array {
         $sql = "SELECT *, CONCAT(c.`firstname`, ' ', c.`lastname`) AS `name`, cgd.`name` AS `customer_group` FROM `" . DB_PREFIX . "customer` c LEFT JOIN `" . DB_PREFIX . "customer_group_description` cgd ON (c.`customer_group_id` = cgd.`customer_group_id`)";
 
         $sql .= " WHERE cgd.`language_id` = '" . (int)$this->config->get('config_language_id') . "'";
@@ -104,8 +104,14 @@ class ModelCustomerCustomer extends Model {
             $sql .= " AND DATE(c.`date_added`) = DATE('" . $this->db->escape($data['filter_date_added']) . "')";
         }
 
-        $sort_data = array(
-            'name', 'c.email', 'customer_group', 'c.status', 'c.ip', 'c.date_added');
+        $sort_data = [
+            'name',
+            'c.email',
+            'customer_group',
+            'c.status',
+            'c.ip',
+            'c.date_added'
+        ];
 
         if (isset($data['sort']) && in_array($data['sort'], $sort_data)) {
             $sql .= " ORDER BY " . $data['sort'];
@@ -164,15 +170,34 @@ class ModelCustomerCustomer extends Model {
                 $zone_code = '';
             }
 
-            return array(
-                'address_id' => $address_query->row['address_id'], 'customer_id' => $address_query->row['customer_id'], 'firstname' => $address_query->row['firstname'], 'lastname' => $address_query->row['lastname'], 'company' => $address_query->row['company'], 'address_1' => $address_query->row['address_1'], 'address_2' => $address_query->row['address_2'], 'postcode' => $address_query->row['postcode'], 'city' => $address_query->row['city'], 'zone_id' => $address_query->row['zone_id'], 'zone' => $zone, 'zone_code' => $zone_code, 'country_id' => $address_query->row['country_id'], 'country' => $country, 'iso_code_2' => $iso_code_2, 'iso_code_3' => $iso_code_3, 'address_format' => $address_format, 'custom_field' => json_decode($address_query->row['custom_field'], true), 'default' => $address_query->row['default']);
+            return [
+                'address_id'     => $address_query->row['address_id'],
+                'customer_id'    => $address_query->row['customer_id'],
+                'firstname'      => $address_query->row['firstname'],
+                'lastname'       => $address_query->row['lastname'],
+                'company'        => $address_query->row['company'],
+                'address_1'      => $address_query->row['address_1'],
+                'address_2'      => $address_query->row['address_2'],
+                'postcode'       => $address_query->row['postcode'],
+                'city'           => $address_query->row['city'],
+                'zone_id'        => $address_query->row['zone_id'],
+                'zone'           => $zone,
+                'zone_code'      => $zone_code,
+                'country_id'     => $address_query->row['country_id'],
+                'country'        => $country,
+                'iso_code_2'     => $iso_code_2,
+                'iso_code_3'     => $iso_code_3,
+                'address_format' => $address_format,
+                'custom_field'   => json_decode($address_query->row['custom_field'], true),
+                'default'        => $address_query->row['default']
+            ];
         }
 
-        return array();
+        return [];
     }
 
     public function getAddresses(int $customer_id): array {
-        $address_data = array();
+        $address_data = [];
 
         $query = $this->db->query("SELECT `address_id` FROM `" . DB_PREFIX . "address` WHERE `customer_id` = '" . (int)$customer_id . "'");
 
@@ -187,10 +212,10 @@ class ModelCustomerCustomer extends Model {
         return $address_data;
     }
 
-    public function getTotalCustomers(array $data = array()): int {
+    public function getTotalCustomers(array $data = []): int {
         $sql = "SELECT COUNT(*) AS `total` FROM `" . DB_PREFIX . "customer` c";
 
-        $implode = array();
+        $implode = [];
 
         if (!empty($data['filter_name'])) {
             $implode[] = "CONCAT(`firstname`, ' ', `lastname`) LIKE '%" . $this->db->escape($data['filter_name']) . "%'";

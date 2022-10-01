@@ -75,15 +75,17 @@ class ModelCatalogManufacturer extends Model {
         return $query->row;
     }
 
-    public function getManufacturers(array $data = array()): array {
+    public function getManufacturers(array $data = []): array {
         $sql = "SELECT * FROM `" . DB_PREFIX . "manufacturer`";
 
         if (!empty($data['filter_name'])) {
             $sql .= " WHERE `name` LIKE '" . $this->db->escape($data['filter_name']) . "%'";
         }
 
-        $sort_data = array(
-            'name', 'sort_order');
+        $sort_data = [
+            'name',
+            'sort_order'
+        ];
 
         if (isset($data['sort']) && in_array($data['sort'], $sort_data)) {
             $sql .= " ORDER BY " . $data['sort'];
@@ -115,7 +117,7 @@ class ModelCatalogManufacturer extends Model {
     }
 
     public function getManufacturerStores(int $manufacturer_id): array {
-        $manufacturer_store_data = array();
+        $manufacturer_store_data = [];
 
         $query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "manufacturer_to_store` WHERE `manufacturer_id` = '" . (int)$manufacturer_id . "'");
 
@@ -127,7 +129,7 @@ class ModelCatalogManufacturer extends Model {
     }
 
     public function getManufacturerSeoUrls(array $manufacturer_id): array {
-        $manufacturer_seo_url_data = array();
+        $manufacturer_seo_url_data = [];
 
         $query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "seo_url` WHERE `query` = 'manufacturer_id=" . (int)$manufacturer_id . "'");
 

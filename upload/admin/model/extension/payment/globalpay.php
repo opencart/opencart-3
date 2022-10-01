@@ -48,15 +48,15 @@ class ModelExtensionPaymentGlobalpay extends Model {
             $tmp  = $hash . '.' . $secret;
             $hash = sha1($tmp);
 
-            $xml  = '';
-            $xml  .= '<request type="void" timestamp="' . $timestamp . '">';
-            $xml  .= '<merchantid>' . $merchant_id . '</merchantid>';
-            $xml  .= '<account>' . $globalpay_order['account'] . '</account>';
-            $xml  .= '<orderid>' . $globalpay_order['order_ref'] . '</orderid>';
-            $xml  .= '<pasref>' . $globalpay_order['pasref'] . '</pasref>';
-            $xml  .= '<authcode>' . $globalpay_order['authcode'] . '</authcode>';
-            $xml  .= '<sha1hash>' . $hash . '</sha1hash>';
-            $xml  .= '</request>';
+            $xml = '';
+            $xml .= '<request type="void" timestamp="' . $timestamp . '">';
+            $xml .= '<merchantid>' . $merchant_id . '</merchantid>';
+            $xml .= '<account>' . $globalpay_order['account'] . '</account>';
+            $xml .= '<orderid>' . $globalpay_order['order_ref'] . '</orderid>';
+            $xml .= '<pasref>' . $globalpay_order['pasref'] . '</pasref>';
+            $xml .= '<authcode>' . $globalpay_order['authcode'] . '</authcode>';
+            $xml .= '<sha1hash>' . $hash . '</sha1hash>';
+            $xml .= '</request>';
 
             $this->logger('Void XML request:\r\n' . print_r(simplexml_load_string($xml), 1));
 
@@ -182,17 +182,17 @@ class ModelExtensionPaymentGlobalpay extends Model {
             $hash        = sha1($tmp);
             $rebate_hash = sha1($this->config->get('payment_globalpay_rebate_password'));
 
-            $xml         = '';
-            $xml         .= '<request type="rebate" timestamp="' . $timestamp . '">';
-            $xml         .= '<merchantid>' . $merchant_id . '</merchantid>';
-            $xml         .= '<account>' . $globalpay_order['account'] . '</account>';
-            $xml         .= '<orderid>' . $order_ref . '</orderid>';
-            $xml         .= '<pasref>' . $pas_ref . '</pasref>';
-            $xml         .= '<authcode>' . $globalpay_order['authcode'] . '</authcode>';
-            $xml         .= '<amount currency="' . (string)$globalpay_order['currency_code'] . '">' . (int)round($amount * 100) . '</amount>';
-            $xml         .= '<refundhash>' . $rebate_hash . '</refundhash>';
-            $xml         .= '<sha1hash>' . $hash . '</sha1hash>';
-            $xml         .= '</request>';
+            $xml = '';
+            $xml .= '<request type="rebate" timestamp="' . $timestamp . '">';
+            $xml .= '<merchantid>' . $merchant_id . '</merchantid>';
+            $xml .= '<account>' . $globalpay_order['account'] . '</account>';
+            $xml .= '<orderid>' . $order_ref . '</orderid>';
+            $xml .= '<pasref>' . $pas_ref . '</pasref>';
+            $xml .= '<authcode>' . $globalpay_order['authcode'] . '</authcode>';
+            $xml .= '<amount currency="' . (string)$globalpay_order['currency_code'] . '">' . (int)round($amount * 100) . '</amount>';
+            $xml .= '<refundhash>' . $rebate_hash . '</refundhash>';
+            $xml .= '<sha1hash>' . $hash . '</sha1hash>';
+            $xml .= '</request>';
 
             $this->logger('Rebate XML request:\r\n' . print_r(simplexml_load_string($xml), 1));
 
@@ -232,7 +232,7 @@ class ModelExtensionPaymentGlobalpay extends Model {
 
             return $order;
         } else {
-            return array();
+            return [];
         }
     }
 
@@ -242,7 +242,7 @@ class ModelExtensionPaymentGlobalpay extends Model {
         if ($query->num_rows) {
             return $query->rows;
         } else {
-            return array();
+            return [];
         }
     }
 

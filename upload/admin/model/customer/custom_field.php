@@ -85,7 +85,7 @@ class ModelCustomerCustomField extends Model {
         return $query->row;
     }
 
-    public function getCustomFields(array $data = array()): array {
+    public function getCustomFields(array $data = []): array {
         if (empty($data['filter_customer_group_id'])) {
             $sql = "SELECT * FROM `" . DB_PREFIX . "custom_field` cf LEFT JOIN `" . DB_PREFIX . "custom_field_description` cfd ON (cf.`custom_field_id` = cfd.`custom_field_id`) WHERE cfd.`language_id` = '" . (int)$this->config->get('config_language_id') . "'";
         } else {
@@ -100,13 +100,13 @@ class ModelCustomerCustomField extends Model {
             $sql .= " AND cfcg.`customer_group_id` = '" . (int)$data['filter_customer_group_id'] . "'";
         }
 
-        $sort_data = array(
+        $sort_data = [
             'cfd.name',
             'cf.type',
             'cf.location',
             'cf.status',
             'cf.sort_order'
-        );
+        ];
 
         if (isset($data['sort']) && in_array($data['sort'], $sort_data)) {
             $sql .= " ORDER BY " . $data['sort'];
@@ -138,12 +138,12 @@ class ModelCustomerCustomField extends Model {
     }
 
     public function getCustomFieldDescriptions(int $custom_field_id): array {
-        $custom_field_data = array();
+        $custom_field_data = [];
 
         $query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "custom_field_description` WHERE `custom_field_id` = '" . (int)$custom_field_id . "'");
 
         foreach ($query->rows as $result) {
-            $custom_field_data[$result['language_id']] = array('name' => $result['name']);
+            $custom_field_data[$result['language_id']] = ['name' => $result['name']];
         }
 
         return $custom_field_data;
@@ -156,13 +156,15 @@ class ModelCustomerCustomField extends Model {
     }
 
     public function getCustomFieldValues(int $custom_field_id): array {
-        $custom_field_value_data = array();
+        $custom_field_value_data = [];
 
         $custom_field_value_query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "custom_field_value` cfv LEFT JOIN `" . DB_PREFIX . "custom_field_value_description` cfvd ON (cfv.`custom_field_value_id` = cfvd.`custom_field_value_id`) WHERE cfv.`custom_field_id` = '" . (int)$custom_field_id . "' AND cfvd.`language_id` = '" . (int)$this->config->get('config_language_id') . "' ORDER BY cfv.`sort_order` ASC");
 
         foreach ($custom_field_value_query->rows as $custom_field_value) {
-            $custom_field_value_data[$custom_field_value['custom_field_value_id']] = array(
-                'custom_field_value_id' => $custom_field_value['custom_field_value_id'], 'name' => $custom_field_value['name']);
+            $custom_field_value_data[$custom_field_value['custom_field_value_id']] = [
+                'custom_field_value_id' => $custom_field_value['custom_field_value_id'],
+                'name'                  => $custom_field_value['name']
+            ];
         }
 
         return $custom_field_value_data;
@@ -175,24 +177,24 @@ class ModelCustomerCustomField extends Model {
     }
 
     public function getCustomFieldValueDescriptions(int $custom_field_id): array {
-        $custom_field_value_data  = array();
+        $custom_field_value_data = [];
 
         $custom_field_value_query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "custom_field_value` WHERE `custom_field_id` = '" . (int)$custom_field_id . "'");
 
         foreach ($custom_field_value_query->rows as $custom_field_value) {
-            $custom_field_value_description_data  = array();
+            $custom_field_value_description_data = [];
 
             $custom_field_value_description_query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "custom_field_value_description` WHERE `custom_field_value_id` = '" . (int)$custom_field_value['custom_field_value_id'] . "'");
 
             foreach ($custom_field_value_description_query->rows as $custom_field_value_description) {
-                $custom_field_value_description_data[$custom_field_value_description['language_id']] = array('name' => $custom_field_value_description['name']);
+                $custom_field_value_description_data[$custom_field_value_description['language_id']] = ['name' => $custom_field_value_description['name']];
             }
 
-            $custom_field_value_data[] = array(
+            $custom_field_value_data[] = [
                 'custom_field_value_id'          => $custom_field_value['custom_field_value_id'],
                 'custom_field_value_description' => $custom_field_value_description_data,
                 'sort_order'                     => $custom_field_value['sort_order']
-            );
+            ];
         }
 
         return $custom_field_value_data;

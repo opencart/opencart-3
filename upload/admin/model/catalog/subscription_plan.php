@@ -45,31 +45,31 @@ class ModelCatalogSubscriptionPlan extends Model {
     }
 
     public function getDescription(int $subscription_plan_id): array {
-		$subscription_plan_description_data = array();
+        $subscription_plan_description_data = [];
 
-		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "subscription_plan_description` WHERE `subscription_plan_id` = '" . (int)$subscription_plan_id . "'");
+        $query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "subscription_plan_description` WHERE `subscription_plan_id` = '" . (int)$subscription_plan_id . "'");
 
-		foreach ($query->rows as $result) {
-			$subscription_plan_description_data[$result['language_id']] = array(
-				'name'        => $result['name'],
-				'description' => $result['description']
-			);
-		}
+        foreach ($query->rows as $result) {
+            $subscription_plan_description_data[$result['language_id']] = [
+                'name'        => $result['name'],
+                'description' => $result['description']
+            ];
+        }
 
         return $subscription_plan_description_data;
     }
 
-    public function getSubscriptionPlans(array $data = array()): array {
+    public function getSubscriptionPlans(array $data = []): array {
         $sql = "SELECT * FROM `" . DB_PREFIX . "subscription_plan` sp LEFT JOIN `" . DB_PREFIX . "subscription_plan_description` spd ON (sp.`subscription_plan_id` = spd.`subscription_plan_id`) WHERE spd.`language_id` = '" . (int)$this->config->get('config_language_id') . "'";
 
         if (!empty($data['filter_name'])) {
             $sql .= " AND spd.`name` LIKE '" . $this->db->escape($data['filter_name'] . '%') . "'";
         }
 
-        $sort_data = array(
+        $sort_data = [
             'spd.name',
             'sp.sort_order'
-        );
+        ];
 
         if (isset($data['sort']) && in_array($data['sort'], $sort_data)) {
             $sql .= " ORDER BY " . $data['sort'];

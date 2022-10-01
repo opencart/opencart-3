@@ -48,7 +48,7 @@ class ModelExtensionPaymentBluepayredirect extends Model {
         $bluepay_redirect_order = $this->getOrder($order_id);
 
         if (!empty($bluepay_redirect_order) && $bluepay_redirect_order['release_status'] == 1) {
-            $void_data                      = array();
+            $void_data                      = [];
             $void_data['MERCHANT']          = $this->config->get('payment_bluepay_redirect_account_id');
             $void_data['TRANSACTION_TYPE']  = 'VOID';
             $void_data['MODE']              = strtoupper($this->config->get('payment_bluepay_redirect_test'));
@@ -67,7 +67,7 @@ class ModelExtensionPaymentBluepayredirect extends Model {
 
             return $response_data;
         } else {
-            return array();
+            return [];
         }
     }
 
@@ -81,7 +81,7 @@ class ModelExtensionPaymentBluepayredirect extends Model {
         $total_released = $this->getTotalReleased($bluepay_redirect_order['bluepay_redirect_order_id']);
 
         if (!empty($bluepay_redirect_order) && $bluepay_redirect_order['release_status'] == 0 && ($total_released + $amount <= $bluepay_redirect_order['total'])) {
-            $release_data                      = array();
+            $release_data                      = [];
             $release_data['MERCHANT']          = $this->config->get('payment_bluepay_redirect_account_id');
             $release_data['TRANSACTION_TYPE']  = 'CAPTURE';
             $release_data['MODE']              = strtoupper($this->config->get('payment_bluepay_redirect_test'));
@@ -101,7 +101,7 @@ class ModelExtensionPaymentBluepayredirect extends Model {
 
             return $response_data;
         } else {
-            return array();
+            return [];
         }
     }
 
@@ -113,7 +113,7 @@ class ModelExtensionPaymentBluepayredirect extends Model {
         $bluepay_redirect_order = $this->getOrder($order_id);
 
         if (!empty($bluepay_redirect_order) && $bluepay_redirect_order['rebate_status'] != 1) {
-            $rebate_data                      = array();
+            $rebate_data                      = [];
             $rebate_data['MERCHANT']          = $this->config->get('payment_bluepay_redirect_account_id');
             $rebate_data['TRANSACTION_TYPE']  = 'REFUND';
             $rebate_data['MODE']              = strtoupper($this->config->get('payment_bluepay_redirect_test'));
@@ -133,7 +133,7 @@ class ModelExtensionPaymentBluepayredirect extends Model {
 
             return $response_data;
         } else {
-            return array();
+            return [];
         }
     }
 
@@ -154,7 +154,7 @@ class ModelExtensionPaymentBluepayredirect extends Model {
 
             return $order;
         } else {
-            return array();
+            return [];
         }
     }
 
@@ -164,7 +164,7 @@ class ModelExtensionPaymentBluepayredirect extends Model {
         if ($query->num_rows) {
             return $query->rows;
         } else {
-            return array();
+            return [];
         }
     }
 

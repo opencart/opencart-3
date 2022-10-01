@@ -73,7 +73,7 @@ class ModelExtensionPaymentSagepayDirect extends Model {
         $sagepay_direct_order = $this->getOrder($order_id);
 
         if (!empty($sagepay_direct_order) && $sagepay_direct_order['release_status'] == 0) {
-            $void_data = array();
+            $void_data = [];
 
             if ($this->config->get('payment_sagepay_direct_test') == 'live') {
                 $url                      = 'https://live.sagepay.com/gateway/service/void.vsp';
@@ -97,7 +97,7 @@ class ModelExtensionPaymentSagepayDirect extends Model {
 
             return $response_data;
         } else {
-            return array();
+            return [];
         }
     }
 
@@ -110,7 +110,7 @@ class ModelExtensionPaymentSagepayDirect extends Model {
         $total_released       = $this->getTotalReleased($sagepay_direct_order['sagepay_direct_order_id']);
 
         if (!empty($sagepay_direct_order) && $sagepay_direct_order['release_status'] == 0 && ($total_released + $amount <= $sagepay_direct_order['total'])) {
-            $release_data = array();
+            $release_data = [];
 
             if ($this->config->get('payment_sagepay_direct_test') == 'live') {
                 $url                         = 'https://live.sagepay.com/gateway/service/release.vsp';
@@ -135,7 +135,7 @@ class ModelExtensionPaymentSagepayDirect extends Model {
 
             return $response_data;
         } else {
-            return array();
+            return [];
         }
     }
 
@@ -147,7 +147,7 @@ class ModelExtensionPaymentSagepayDirect extends Model {
         $sagepay_direct_order = $this->getOrder($order_id);
 
         if (!empty($sagepay_direct_order) && $sagepay_direct_order['rebate_status'] != 1) {
-            $refund_data = array();
+            $refund_data = [];
 
             if ($this->config->get('payment_sagepay_direct_test') == 'live') {
                 $url                        = 'https://live.sagepay.com/gateway/service/refund.vsp';
@@ -175,7 +175,7 @@ class ModelExtensionPaymentSagepayDirect extends Model {
 
             return $response_data;
         } else {
-            return array();
+            return [];
         }
     }
 
@@ -192,7 +192,7 @@ class ModelExtensionPaymentSagepayDirect extends Model {
 
             return $order;
         } else {
-            return array();
+            return [];
         }
     }
 
@@ -202,7 +202,7 @@ class ModelExtensionPaymentSagepayDirect extends Model {
         if ($query->num_rows) {
             return $query->rows;
         } else {
-            return array();
+            return [];
         }
     }
 
@@ -223,7 +223,7 @@ class ModelExtensionPaymentSagepayDirect extends Model {
     }
 
     public function sendCurl(string $url, array $payment_data): array {
-        $data = array();
+        $data = [];
 
         $curl = curl_init($url);
 

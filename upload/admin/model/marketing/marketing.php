@@ -26,8 +26,8 @@ class ModelMarketingMarketing extends Model {
         return $query->row;
     }
 
-    public function getMarketings(array $data = array()): array {
-        $implode = array();
+    public function getMarketings(array $data = []): array {
+        $implode = [];
 
         $order_statuses = (array)$this->config->get('config_complete_status');
 
@@ -37,7 +37,7 @@ class ModelMarketingMarketing extends Model {
 
         $sql = "SELECT *, (SELECT COUNT(*) FROM `" . DB_PREFIX . "order` o WHERE (" . implode(" OR ", $implode) . ") AND o.`marketing_id` = m.`marketing_id`) AS `orders` FROM `" . DB_PREFIX . "marketing` m";
 
-        $implode = array();
+        $implode = [];
 
         if (!empty($data['filter_name'])) {
             $implode[] = "m.`name` LIKE '" . $this->db->escape($data['filter_name']) . "%'";
@@ -55,11 +55,11 @@ class ModelMarketingMarketing extends Model {
             $sql .= " WHERE " . implode(" AND ", $implode);
         }
 
-        $sort_data = array(
+        $sort_data = [
             'm.name',
             'm.code',
             'm.date_added'
-        );
+        ];
 
         if (isset($data['sort']) && in_array($data['sort'], $sort_data)) {
             $sql .= " ORDER BY " . $data['sort'];
@@ -90,10 +90,10 @@ class ModelMarketingMarketing extends Model {
         return $query->rows;
     }
 
-    public function getTotalMarketings($data = array()) {
+    public function getTotalMarketings($data = []) {
         $sql = "SELECT COUNT(*) AS `total` FROM `" . DB_PREFIX . "marketing`";
 
-        $implode = array();
+        $implode = [];
 
         if (!empty($data['filter_name'])) {
             $implode[] = "`name` LIKE '" . $this->db->escape($data['filter_name']) . "'";

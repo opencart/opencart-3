@@ -33,11 +33,13 @@ class ModelCatalogAttributeGroup extends Model {
         return $query->row;
     }
 
-    public function getAttributeGroups(array $data = array()): array {
+    public function getAttributeGroups(array $data = []): array {
         $sql = "SELECT * FROM `" . DB_PREFIX . "attribute_group` ag LEFT JOIN `" . DB_PREFIX . "attribute_group_description` agd ON (ag.`attribute_group_id` = agd.`attribute_group_id`) WHERE agd.`language_id` = '" . (int)$this->config->get('config_language_id') . "'";
 
-        $sort_data = array(
-            'agd.name', 'ag.sort_order');
+        $sort_data = [
+            'agd.name',
+            'ag.sort_order'
+        ];
 
         if (isset($data['sort']) && in_array($data['sort'], $sort_data)) {
             $sql .= " ORDER BY " . $data['sort'];
@@ -69,12 +71,12 @@ class ModelCatalogAttributeGroup extends Model {
     }
 
     public function getAttributeGroupDescriptions(int $attribute_group_id): array {
-        $attribute_group_data = array();
+        $attribute_group_data = [];
 
         $query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "attribute_group_description` WHERE `attribute_group_id` = '" . (int)$attribute_group_id . "'");
 
         foreach ($query->rows as $result) {
-            $attribute_group_data[$result['language_id']] = array('name' => $result['name']);
+            $attribute_group_data[$result['language_id']] = ['name' => $result['name']];
         }
 
         return $attribute_group_data;

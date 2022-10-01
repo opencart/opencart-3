@@ -59,17 +59,17 @@ class ModelMarketingCoupon extends Model {
         return $query->row;
     }
 
-    public function getCoupons(array $data = array()): array {
+    public function getCoupons(array $data = []): array {
         $sql = "SELECT `coupon_id`, `name`, `code`, `discount`, `date_start`, `date_end`, `status` FROM `" . DB_PREFIX . "coupon`";
 
-        $sort_data = array(
+        $sort_data = [
             'name',
             'code',
             'discount',
             'date_start',
             'date_end',
             'status'
-        );
+        ];
 
         if (isset($data['sort']) && in_array($data['sort'], $sort_data)) {
             $sql .= " ORDER BY " . $data['sort'];
@@ -101,7 +101,7 @@ class ModelMarketingCoupon extends Model {
     }
 
     public function getCouponProducts(int $coupon_id): array {
-        $coupon_product_data = array();
+        $coupon_product_data = [];
 
         $query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "coupon_product` WHERE `coupon_id` = '" . (int)$coupon_id . "'");
 
@@ -113,7 +113,7 @@ class ModelMarketingCoupon extends Model {
     }
 
     public function getCouponCategories(int $coupon_id): array {
-        $coupon_category_data = array();
+        $coupon_category_data = [];
 
         $query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "coupon_category` WHERE `coupon_id` = '" . (int)$coupon_id . "'");
 

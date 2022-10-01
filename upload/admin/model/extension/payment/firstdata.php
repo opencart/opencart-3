@@ -65,15 +65,15 @@ class ModelExtensionPaymentFirstdata extends Model {
             $tmp  = $hash . ' . ' . $secret;
             $hash = sha1($tmp);
 
-            $xml  = '';
-            $xml  .= '<request type="void" timestamp="' . $timestamp . '">';
-            $xml  .= '<merchantid>' . $merchant_id . '</merchantid>';
-            $xml  .= '<account>' . $firstdata_order['account'] . '</account>';
-            $xml  .= '<orderid>' . $firstdata_order['order_ref'] . '</orderid>';
-            $xml  .= '<pasref>' . $firstdata_order['pasref'] . '</pasref>';
-            $xml  .= '<authcode>' . $firstdata_order['authcode'] . '</authcode>';
-            $xml  .= '<sha1hash>' . $hash . '</sha1hash>';
-            $xml  .= '</request>';
+            $xml = '';
+            $xml .= '<request type="void" timestamp="' . $timestamp . '">';
+            $xml .= '<merchantid>' . $merchant_id . '</merchantid>';
+            $xml .= '<account>' . $firstdata_order['account'] . '</account>';
+            $xml .= '<orderid>' . $firstdata_order['order_ref'] . '</orderid>';
+            $xml .= '<pasref>' . $firstdata_order['pasref'] . '</pasref>';
+            $xml .= '<authcode>' . $firstdata_order['authcode'] . '</authcode>';
+            $xml .= '<sha1hash>' . $hash . '</sha1hash>';
+            $xml .= '</request>';
 
             $this->logger('Void XML request:\r\n' . print_r(simplexml_load_string($xml), 1));
 
@@ -181,7 +181,7 @@ class ModelExtensionPaymentFirstdata extends Model {
 
             return $order;
         } else {
-            return array();
+            return [];
         }
     }
 
@@ -191,7 +191,7 @@ class ModelExtensionPaymentFirstdata extends Model {
         if ($query->num_rows) {
             return $query->rows;
         } else {
-            return array();
+            return [];
         }
     }
 
@@ -213,11 +213,11 @@ class ModelExtensionPaymentFirstdata extends Model {
     }
 
     public function mapCurrency(string $code): string {
-        $currency = array(
+        $currency = [
             'GBP' => 826,
             'USD' => 840,
             'EUR' => 978
-        );
+        ];
 
         if (array_key_exists($code, $currency)) {
             return $currency[$code];

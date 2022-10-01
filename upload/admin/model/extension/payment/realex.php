@@ -182,17 +182,17 @@ class ModelExtensionPaymentRealex extends Model {
             $hash        = sha1($tmp);
             $rebate_hash = sha1($this->config->get('payment_realex_rebate_password'));
 
-            $xml         = '';
-            $xml         .= '<request type="rebate" timestamp="' . $timestamp . '">';
-            $xml         .= '<merchantid>' . $merchant_id . '</merchantid>';
-            $xml         .= '<account>' . $realex_order['account'] . '</account>';
-            $xml         .= '<orderid>' . $order_ref . '</orderid>';
-            $xml         .= '<pasref>' . $pas_ref . '</pasref>';
-            $xml         .= '<authcode>' . $realex_order['authcode'] . '</authcode>';
-            $xml         .= '<amount currency="' . (string)$realex_order['currency_code'] . '">' . (int)round($amount * 100) . '</amount>';
-            $xml         .= '<refundhash>' . $rebate_hash . '</refundhash>';
-            $xml         .= '<sha1hash>' . $hash . '</sha1hash>';
-            $xml         .= '</request>';
+            $xml = '';
+            $xml .= '<request type="rebate" timestamp="' . $timestamp . '">';
+            $xml .= '<merchantid>' . $merchant_id . '</merchantid>';
+            $xml .= '<account>' . $realex_order['account'] . '</account>';
+            $xml .= '<orderid>' . $order_ref . '</orderid>';
+            $xml .= '<pasref>' . $pas_ref . '</pasref>';
+            $xml .= '<authcode>' . $realex_order['authcode'] . '</authcode>';
+            $xml .= '<amount currency="' . (string)$realex_order['currency_code'] . '">' . (int)round($amount * 100) . '</amount>';
+            $xml .= '<refundhash>' . $rebate_hash . '</refundhash>';
+            $xml .= '<sha1hash>' . $hash . '</sha1hash>';
+            $xml .= '</request>';
 
             $this->logger('Rebate XML request:\r\n' . print_r(simplexml_load_string($xml), 1));
 
@@ -232,7 +232,7 @@ class ModelExtensionPaymentRealex extends Model {
 
             return $order;
         } else {
-            return array();
+            return [];
         }
     }
 
@@ -242,7 +242,7 @@ class ModelExtensionPaymentRealex extends Model {
         if ($query->num_rows) {
             return $query->rows;
         } else {
-            return array();
+            return [];
         }
     }
 

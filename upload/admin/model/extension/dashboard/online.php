@@ -1,9 +1,9 @@
 <?php
 class ModelExtensionDashboardOnline extends Model {
-    public function getTotalOnline(array $data = array()): int {
+    public function getTotalOnline(array $data = []): int {
         $sql = "SELECT COUNT(*) AS `total` FROM `" . DB_PREFIX . "customer_online` co LEFT JOIN `" . DB_PREFIX . "customer` c ON (co.`customer_id` = c.`customer_id`)";
 
-        $implode = array();
+        $implode = [];
 
         if (!empty($data['filter_ip'])) {
             $implode[] = "co.`ip` LIKE '" . $this->db->escape($data['filter_ip']) . "'";

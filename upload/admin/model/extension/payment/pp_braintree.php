@@ -1,6 +1,6 @@
 <?php
 class ModelExtensionPaymentPPBraintree extends Model {
-    public function generateToken($gateway, $data = array()) {
+    public function generateToken($gateway, $data = []) {
         try {
             if ($gateway != null) {
                 $client_token = $gateway->clientToken()->generate($data);
@@ -36,7 +36,7 @@ class ModelExtensionPaymentPPBraintree extends Model {
         }
     }
 
-    public function getTransactions($gateway, $data = array()) {
+    public function getTransactions($gateway, $data = []) {
         try {
             if ($gateway != null) {
                 $transactions = $gateway->transaction()->search($data);
@@ -155,7 +155,7 @@ class ModelExtensionPaymentPPBraintree extends Model {
     }
 
     public function setGateway($access_token) {
-        return new \Braintree_Gateway(array('accessToken' => $access_token));
+        return new \Braintree_Gateway(['accessToken' => $access_token]);
     }
 
     public function log(array $data): void {

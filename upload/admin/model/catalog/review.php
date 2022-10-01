@@ -28,7 +28,7 @@ class ModelCatalogReview extends Model {
         return $query->row;
     }
 
-    public function getReviews(array $data = array()): array {
+    public function getReviews(array $data = []): array {
         $sql = "SELECT r.`review_id`, pd.`name`, r.`author`, r.`rating`, r.`status`, r.`date_added` FROM `" . DB_PREFIX . "review` r LEFT JOIN `" . DB_PREFIX . "product_description` pd ON (r.`product_id` = pd.`product_id`) WHERE pd.`language_id` = '" . (int)$this->config->get('config_language_id') . "'";
 
         if (!empty($data['filter_product'])) {
@@ -51,13 +51,13 @@ class ModelCatalogReview extends Model {
             $sql .= " AND DATE(r.`date_added`) <= DATE('" . $this->db->escape((string)$data['filter_date_to']) . "')";
         }
 
-        $sort_data = array(
+        $sort_data = [
             'pd.name',
             'r.author',
             'r.rating',
             'r.status',
             'r.date_added'
-        );
+        ];
 
         if (isset($data['sort']) && in_array($data['sort'], $sort_data)) {
             $sql .= " ORDER BY " . $data['sort'];
@@ -88,7 +88,7 @@ class ModelCatalogReview extends Model {
         return $query->rows;
     }
 
-    public function getTotalReviews(array $data = array()): int {
+    public function getTotalReviews(array $data = []): int {
         $sql = "SELECT COUNT(*) AS `total` FROM `" . DB_PREFIX . "review` r LEFT JOIN `" . DB_PREFIX . "product_description` pd ON (r.`product_id` = pd.`product_id`) WHERE pd.`language_id` = '" . (int)$this->config->get('config_language_id') . "'";
 
         if (!empty($data['filter_product'])) {

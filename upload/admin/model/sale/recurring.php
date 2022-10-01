@@ -3,7 +3,7 @@ class ModelSaleRecurring extends Model {
     public function getRecurrings(array $data): array {
         $sql = "SELECT `or`.`order_recurring_id`, `or`.`order_id`, `or`.`reference`, `or`.`status`, `or`.`date_added`, CONCAT(o.`firstname`, ' ', o.`lastname`) AS `customer` FROM `" . DB_PREFIX . "order_recurring` `or` LEFT JOIN `" . DB_PREFIX . "order` o ON (`or`.`order_id` = o.`order_id`)";
 
-        $implode = array();
+        $implode = [];
 
         if (!empty($data['filter_order_recurring_id'])) {
             $implode[] = "`or`.`order_recurring_id` = '" . (int)$data['filter_order_recurring_id'] . "'";
@@ -37,14 +37,14 @@ class ModelSaleRecurring extends Model {
             $sql .= " WHERE " . implode(" AND ", $implode);
         }
 
-        $sort_data = array(
+        $sort_data = [
             'or.order_recurring_id',
             'or.order_id',
             'or.reference',
             'customer',
             'or.status',
             'or.date_added'
-        );
+        ];
 
         if (isset($data['sort']) && in_array($data['sort'], $sort_data)) {
             $sql .= " ORDER BY " . $data['sort'];
@@ -82,7 +82,7 @@ class ModelSaleRecurring extends Model {
     }
 
     public function getRecurringTransactions(int $order_recurring_id): array {
-        $transactions = array();
+        $transactions = [];
 
         $query = $this->db->query("SELECT `amount`, `type`, `date_added` FROM `" . DB_PREFIX . "order_recurring_transaction` WHERE `order_recurring_id` = '" . (int)$order_recurring_id . "' ORDER BY `date_added` DESC");
 
@@ -123,11 +123,11 @@ class ModelSaleRecurring extends Model {
                     break;
             }
 
-            $transactions[] = array(
+            $transactions[] = [
                 'date_added' => $result['date_added'],
                 'amount'     => $result['amount'],
                 'type'       => $type
-            );
+            ];
         }
 
         return $transactions;
@@ -164,7 +164,7 @@ class ModelSaleRecurring extends Model {
     public function getTotalRecurrings(array $data): int {
         $sql = "SELECT COUNT(*) AS `total` FROM `" . DB_PREFIX . "order_recurring` `or` LEFT JOIN `" . DB_PREFIX . "order` o ON (`or`.`order_id` = o.`order_id`)";
 
-        $implode = array();
+        $implode = [];
 
         if (!empty($data['filter_order_recurring_id'])) {
             $implode[] = "`or`.`order_recurring_id` = '" . (int)$data['filter_order_recurring_id'] . "'";

@@ -29,7 +29,7 @@ class ModelSaleSubscription extends Model {
     public function getSubscriptions(array $data): array {
         $sql = "SELECT s.`subscription_id`, s.*, CONCAT(o.`firstname`, ' ', o.`lastname`) AS `customer`, (SELECT ss.`name` FROM `" . DB_PREFIX . "subscription_status` ss WHERE ss.`subscription_status_id` = s.`subscription_status_id` AND ss.`language_id` = '" . (int)$this->config->get('config_language_id') . "') AS `subscription_status` FROM `" . DB_PREFIX . "subscription` s LEFT JOIN `" . DB_PREFIX . "order` o ON (s.`order_id` = o.`order_id`)";
 
-        $implode = array();
+        $implode = [];
 
         if (!empty($data['filter_subscription_id'])) {
             $implode[] = "s.`subscription_id` = '" . (int)$data['filter_subscription_id'] . "'";
@@ -71,14 +71,14 @@ class ModelSaleSubscription extends Model {
             $sql .= " WHERE " . implode(" AND ", $implode);
         }
 
-        $sort_data = array(
+        $sort_data = [
             's.subscription_id',
             's.order_id',
             's.reference',
             'customer',
             's.subscription_status',
             's.date_added'
-        );
+        ];
 
         if (isset($data['sort']) && in_array($data['sort'], $sort_data)) {
             $sql .= " ORDER BY " . $data['sort'];
@@ -109,10 +109,10 @@ class ModelSaleSubscription extends Model {
         return $query->rows;
     }
 
-    public function getTotalSubscriptions(array $data = array()): int {
+    public function getTotalSubscriptions(array $data = []): int {
         $sql = "SELECT COUNT(*) AS `total` FROM `" . DB_PREFIX . "subscription` s LEFT JOIN `" . DB_PREFIX . "order` o ON (s.`order_id` = o.`order_id`)";
 
-        $implode = array();
+        $implode = [];
 
         if (!empty($data['filter_subscription_id'])) {
             $implode[] = "s.`subscription_id` = '" . (int)$data['filter_subscription_id'] . "'";
@@ -162,17 +162,17 @@ class ModelSaleSubscription extends Model {
     }
 
     public function getTransactions(int $subscription_id): array {
-        $transaction_data = array();
+        $transaction_data = [];
 
         $query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "subscription_transaction` WHERE `subscription_id` = '" . (int)$subscription_id . "' ORDER BY `date_added` DESC");
 
         foreach ($query->rows as $result) {
-            $transaction_data[] = array(
+            $transaction_data[] = [
                 'date_added'  => $result['date_added'],
                 'description' => $result['description'],
                 'amount'      => $result['amount'],
                 'order_id'    => $result['order_id']
-            );
+            ];
         }
 
         return $transaction_data;

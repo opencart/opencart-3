@@ -21,10 +21,10 @@ class ModelSaleReturns extends Model {
         return $query->row;
     }
 
-    public function getReturns(array $data = array()): array {
+    public function getReturns(array $data = []): array {
         $sql = "SELECT *, CONCAT(r.`firstname`, ' ', r.`lastname`) AS `customer`, (SELECT rs.`name` FROM `" . DB_PREFIX . "return_status` rs WHERE rs.`return_status_id` = r.`return_status_id` AND rs.`language_id` = '" . (int)$this->config->get('config_language_id') . "') AS `return_status` FROM `" . DB_PREFIX . "return` r";
 
-        $implode = array();
+        $implode = [];
 
         if (!empty($data['filter_return_id'])) {
             $implode[] = "r.`return_id` = '" . (int)$data['filter_return_id'] . "'";
@@ -62,7 +62,7 @@ class ModelSaleReturns extends Model {
             $sql .= " WHERE " . implode(" AND ", $implode);
         }
 
-        $sort_data = array(
+        $sort_data = [
             'r.return_id',
             'r.order_id',
             'customer',
@@ -71,7 +71,7 @@ class ModelSaleReturns extends Model {
             'return_status',
             'r.date_added',
             'r.date_modified'
-        );
+        ];
 
         if (isset($data['sort']) && in_array($data['sort'], $sort_data)) {
             $sql .= " ORDER BY " . $data['sort'];
@@ -102,10 +102,10 @@ class ModelSaleReturns extends Model {
         return $query->rows;
     }
 
-    public function getTotalReturns($data = array()) {
+    public function getTotalReturns($data = []) {
         $sql = "SELECT COUNT(*) AS `total` FROM `" . DB_PREFIX . "return` r";
 
-        $implode = array();
+        $implode = [];
 
         if (!empty($data['filter_return_id'])) {
             $implode[] = "r.`return_id` = '" . (int)$data['filter_return_id'] . "'";

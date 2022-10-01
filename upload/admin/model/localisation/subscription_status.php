@@ -38,7 +38,7 @@ class ModelLocalisationSubscriptionStatus extends Model {
         return $query->row;
     }
 
-    public function getSubscriptionStatuses(array $data = array()): array {
+    public function getSubscriptionStatuses(array $data = []): array {
         if ($data) {
             $sql = "SELECT * FROM `" . DB_PREFIX . "subscription_status` WHERE `language_id` = '" . (int)$this->config->get('config_language_id') . "'";
 
@@ -81,12 +81,12 @@ class ModelLocalisationSubscriptionStatus extends Model {
     }
 
     public function getDescriptions(int $subscription_status_id): array {
-        $subscription_status_data = array();
+        $subscription_status_data = [];
 
         $query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "subscription_status` WHERE `subscription_status_id` = '" . (int)$subscription_status_id . "'");
 
         foreach ($query->rows as $result) {
-            $subscription_status_data[$result['language_id']] = array('name' => $result['name']);
+            $subscription_status_data[$result['language_id']] = ['name' => $result['name']];
         }
 
         return $subscription_status_data;

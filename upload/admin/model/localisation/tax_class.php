@@ -43,7 +43,7 @@ class ModelLocalisationTaxClass extends Model {
         return $query->row;
     }
 
-    public function getTaxClasses(array $data = array()): array {
+    public function getTaxClasses(array $data = []): array {
         if ($data) {
             $sql = "SELECT * FROM `" . DB_PREFIX . "tax_class`";
 

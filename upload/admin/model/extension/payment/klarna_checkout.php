@@ -181,7 +181,7 @@ class ModelExtensionPaymentKlarnaCheckout extends Model {
             }
         }
 
-        return array($klarna_account, $connector);
+        return [$klarna_account, $connector];
     }
 
     public function getOrder(int $order_id): array {

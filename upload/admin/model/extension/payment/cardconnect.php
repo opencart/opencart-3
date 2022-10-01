@@ -61,7 +61,7 @@ class ModelExtensionPaymentCardConnect extends Model {
 
             return $order;
         } else {
-            return array();
+            return [];
         }
     }
 
@@ -71,7 +71,7 @@ class ModelExtensionPaymentCardConnect extends Model {
         if ($query->num_rows) {
             return $query->rows;
         } else {
-            return array();
+            return [];
         }
     }
 
@@ -85,9 +85,9 @@ class ModelExtensionPaymentCardConnect extends Model {
         $this->log('Posting inquire to CardConnect');
         $this->log('Order ID: ' . $order_info['order_id']);
 
-        $url      = 'https://' . $this->config->get('payment_cardconnect_site') . '.cardconnect.com:' . (($this->config->get('payment_cardconnect_environment') == 'live') ? 8443 : 6443) . '/cardconnect/rest/inquire/' . $retref . '/' . $this->config->get('payment_cardconnect_merchant_id');
+        $url = 'https://' . $this->config->get('payment_cardconnect_site') . '.cardconnect.com:' . (($this->config->get('payment_cardconnect_environment') == 'live') ? 8443 : 6443) . '/cardconnect/rest/inquire/' . $retref . '/' . $this->config->get('payment_cardconnect_merchant_id');
 
-        $header   = array();
+        $header   = [];
         $header[] = 'Content-type: application/json';
         $header[] = 'Authorization: Basic ' . base64_encode($this->config->get('payment_cardconnect_api_username') . ':' . $this->config->get('payment_cardconnect_api_password'));
 
@@ -135,24 +135,45 @@ class ModelExtensionPaymentCardConnect extends Model {
             }
         }
 
-        $items = array();
+        $items = [];
         $i     = 1;
 
         foreach ($products as $product) {
-            $items[] = array(
-                'lineno' => $i, 'material' => '', 'description' => $product['name'], 'upc' => '', 'quantity' => $product['quantity'], 'uom' => '', 'unitcost' => $product['price'], 'netamnt' => $product['total'], 'taxamnt' => $product['tax'], 'discamnt' => ''
-            );
+            $items[] = [
+                'lineno'      => $i,
+                'material'    => '',
+                'description' => $product['name'],
+                'upc'         => '',
+                'quantity'    => $product['quantity'],
+                'uom'         => '',
+                'unitcost'    => $product['price'],
+                'netamnt'     => $product['total'],
+                'taxamnt'     => $product['tax'],
+                'discamnt'    => ''
+            ];
 
             $i++;
         }
 
-        $data = array(
-            'merchid' => $this->config->get('payment_cardconnect_merchant_id'), 'retref' => $order_info['retref'], 'authcode' => $order_info['authcode'], 'ponumber' => $order_info['order_id'], 'amount' => round(floatval($amount), 2, PHP_ROUND_HALF_DOWN), 'currency' => $order_info['currency_code'], 'frtamnt' => $shipping_cost, 'dutyamnt' => '', 'orderdate' => '', 'shiptozip' => $order['shipping_postcode'], 'shipfromzip' => '', 'shiptocountry' => $order['shipping_iso_code_2'], 'Items' => $items
-        );
+        $data = [
+            'merchid'       => $this->config->get('payment_cardconnect_merchant_id'),
+            'retref'        => $order_info['retref'],
+            'authcode'      => $order_info['authcode'],
+            'ponumber'      => $order_info['order_id'],
+            'amount'        => round(floatval($amount), 2, PHP_ROUND_HALF_DOWN),
+            'currency'      => $order_info['currency_code'],
+            'frtamnt'       => $shipping_cost,
+            'dutyamnt'      => '',
+            'orderdate'     => '',
+            'shiptozip'     => $order['shipping_postcode'],
+            'shipfromzip'   => '',
+            'shiptocountry' => $order['shipping_iso_code_2'],
+            'Items'         => $items
+        ];
 
         $data_json = json_encode($data);
         $url       = 'https://' . $this->config->get('payment_cardconnect_site') . '.cardconnect.com:' . (($this->config->get('payment_cardconnect_environment') == 'live') ? 8443 : 6443) . '/cardconnect/rest/capture';
-        $header    = array();
+        $header    = [];
         $header[]  = 'Content-type: application/json';
         $header[]  = 'Content-length: ' . strlen($data_json);
         $header[]  = 'Authorization: Basic ' . base64_encode($this->config->get('payment_cardconnect_api_username') . ':' . $this->config->get('payment_cardconnect_api_password'));
@@ -190,18 +211,21 @@ class ModelExtensionPaymentCardConnect extends Model {
         $this->log('Posting refund to CardConnect');
         $this->log('Order ID: ' . $order_info['order_id']);
 
-        $post_data = array(
-            'merchid' => $this->config->get('payment_cardconnect_merchant_id'), 'amount' => round(floatval($amount), 2, PHP_ROUND_HALF_DOWN), 'currency' => $order_info['currency_code'], 'retref' => $order_info['retref']
-        );
+        $post_data = [
+            'merchid'  => $this->config->get('payment_cardconnect_merchant_id'),
+            'amount'   => round(floatval($amount), 2, PHP_ROUND_HALF_DOWN),
+            'currency' => $order_info['currency_code'],
+            'retref'   => $order_info['retref']
+        ];
 
         $data_json = json_encode($post_data);
 
-        $url       = 'https://' . $this->config->get('payment_cardconnect_site') . '.cardconnect.com:' . (($this->config->get('payment_cardconnect_environment') == 'live') ? 8443 : 6443) . '/cardconnect/rest/refund';
+        $url = 'https://' . $this->config->get('payment_cardconnect_site') . '.cardconnect.com:' . (($this->config->get('payment_cardconnect_environment') == 'live') ? 8443 : 6443) . '/cardconnect/rest/refund';
 
-        $header    = array();
-        $header[]  = 'Content-type: application/json';
-        $header[]  = 'Content-length: ' . strlen($data_json);
-        $header[]  = 'Authorization: Basic ' . base64_encode($this->config->get('payment_cardconnect_api_username') . ':' . $this->config->get('payment_cardconnect_api_password'));
+        $header   = [];
+        $header[] = 'Content-type: application/json';
+        $header[] = 'Content-length: ' . strlen($data_json);
+        $header[] = 'Authorization: Basic ' . base64_encode($this->config->get('payment_cardconnect_api_username') . ':' . $this->config->get('payment_cardconnect_api_password'));
 
         $this->model_extension_payment_cardconnect->log('Header: ' . print_r($header, true));
         $this->model_extension_payment_cardconnect->log('Post Data: ' . print_r($data, true));
@@ -236,18 +260,21 @@ class ModelExtensionPaymentCardConnect extends Model {
         $this->log('Posting void to CardConnect');
         $this->log('Order ID: ' . $order_info['order_id']);
 
-        $post_data = array(
-            'merchid' => $this->config->get('payment_cardconnect_merchant_id'), 'amount' => 0, 'currency' => $order_info['currency_code'], 'retref' => $retref
-        );
+        $post_data = [
+            'merchid'  => $this->config->get('payment_cardconnect_merchant_id'),
+            'amount'   => 0,
+            'currency' => $order_info['currency_code'],
+            'retref'   => $retref
+        ];
 
         $data_json = json_encode($post_data);
 
-        $url       = 'https://' . $this->config->get('payment_cardconnect_site') . '.cardconnect.com:' . (($this->config->get('payment_cardconnect_environment') == 'live') ? 8443 : 6443) . '/cardconnect/rest/void';
+        $url = 'https://' . $this->config->get('payment_cardconnect_site') . '.cardconnect.com:' . (($this->config->get('payment_cardconnect_environment') == 'live') ? 8443 : 6443) . '/cardconnect/rest/void';
 
-        $header    = array();
-        $header[]  = 'Content-type: application/json';
-        $header[]  = 'Content-length: ' . strlen($data_json);
-        $header[]  = 'Authorization: Basic ' . base64_encode($this->config->get('payment_cardconnect_api_username') . ':' . $this->config->get('payment_cardconnect_api_password'));
+        $header   = [];
+        $header[] = 'Content-type: application/json';
+        $header[] = 'Content-length: ' . strlen($data_json);
+        $header[] = 'Authorization: Basic ' . base64_encode($this->config->get('payment_cardconnect_api_username') . ':' . $this->config->get('payment_cardconnect_api_password'));
 
         $this->model_extension_payment_cardconnect->log('Header: ' . print_r($header, true));
         $this->model_extension_payment_cardconnect->log('Post Data: ' . print_r($data, true));

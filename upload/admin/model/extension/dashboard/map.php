@@ -1,7 +1,7 @@
 <?php
 class ModelExtensionDashboardMap extends Model {
     public function getTotalOrdersByCountry(): array {
-        $implode = array();
+        $implode = [];
 
         foreach ((array)$this->config->get('config_complete_status') as $order_status_id) {
             $implode[] = (int)$order_status_id;
@@ -12,7 +12,7 @@ class ModelExtensionDashboardMap extends Model {
 
             return $query->rows;
         } else {
-            return array();
+            return [];
         }
     }
 }

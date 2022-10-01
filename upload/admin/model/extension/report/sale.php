@@ -1,6 +1,6 @@
 <?php
 class ModelExtensionReportSale extends Model {
-    public function getTotalSales(array $data = array()): int {
+    public function getTotalSales(array $data = []): int {
         $sql = "SELECT SUM(`total`) AS `total` FROM `" . DB_PREFIX . "order` WHERE `order_status_id` > '0'";
 
         if (!empty($data['filter_date_added'])) {
@@ -19,121 +19,121 @@ class ModelExtensionReportSale extends Model {
     }
 
     public function getTotalOrdersByDay(): array {
-        $implode = array();
+        $implode = [];
 
         foreach ((array)$this->config->get('config_complete_status') as $order_status_id) {
             $implode[] = "'" . (int)$order_status_id . "'";
         }
 
-        $order_data = array();
+        $order_data = [];
 
         for ($i = 0; $i < 24; $i++) {
-            $order_data[$i] = array(
+            $order_data[$i] = [
                 'hour'  => $i,
                 'total' => 0
-            );
+            ];
         }
 
         $query = $this->db->query("SELECT COUNT(*) AS `total`, HOUR(`date_added`) AS `hour` FROM `" . DB_PREFIX . "order` WHERE `order_status_id` IN(" . implode(",", $implode) . ") AND DATE(`date_added`) = DATE(NOW()) GROUP BY HOUR(`date_added`) ORDER BY `date_added` ASC");
 
         foreach ($query->rows as $result) {
-            $order_data[$result['hour']] = array(
+            $order_data[$result['hour']] = [
                 'hour'  => $result['hour'],
                 'total' => $result['total']
-            );
+            ];
         }
 
         return $order_data;
     }
 
     public function getTotalOrdersByWeek(): array {
-        $implode = array();
+        $implode = [];
 
         foreach ((array)$this->config->get('config_complete_status') as $order_status_id) {
             $implode[] = "'" . (int)$order_status_id . "'";
         }
 
-        $order_data = array();
+        $order_data = [];
         $date_start = strtotime('-' . date('w') . ' days');
 
         for ($i = 0; $i < 7; $i++) {
             $date                                    = date('Y-m-d', $date_start + ($i * 86400));
-            $order_data[date('w', strtotime($date))] = array(
+            $order_data[date('w', strtotime($date))] = [
                 'day'   => date('D', strtotime($date)),
                 'total' => 0
-            );
+            ];
         }
 
         $query = $this->db->query("SELECT COUNT(*) AS `total`, `date_added` FROM `" . DB_PREFIX . "order` WHERE `order_status_id` IN(" . implode(",", $implode) . ") AND DATE(`date_added`) >= DATE('" . $this->db->escape(date('Y-m-d', $date_start)) . "') GROUP BY DAYNAME(`date_added`)");
 
         foreach ($query->rows as $result) {
-            $order_data[date('w', strtotime($result['date_added']))] = array(
+            $order_data[date('w', strtotime($result['date_added']))] = [
                 'day'   => date('D', strtotime($result['date_added'])),
                 'total' => $result['total']
-            );
+            ];
         }
 
         return $order_data;
     }
 
     public function getTotalOrdersByMonth(): array {
-        $implode = array();
+        $implode = [];
 
         foreach ((array)$this->config->get('config_complete_status') as $order_status_id) {
             $implode[] = "'" . (int)$order_status_id . "'";
         }
 
-        $order_data = array();
+        $order_data = [];
 
         for ($i = 1; $i <= date('t'); $i++) {
             $date                                    = date('Y') . '-' . date('m') . '-' . $i;
-            $order_data[date('j', strtotime($date))] = array(
+            $order_data[date('j', strtotime($date))] = [
                 'day'   => date('d', strtotime($date)),
                 'total' => 0
-            );
+            ];
         }
 
         $query = $this->db->query("SELECT COUNT(*) AS `total`, `date_added` FROM `" . DB_PREFIX . "order` WHERE `order_status_id` IN(" . implode(",", $implode) . ") AND DATE(`date_added`) >= DATE('" . $this->db->escape(date('Y') . '-' . date('m') . '-1') . "') GROUP BY DATE(`date_added`)");
 
         foreach ($query->rows as $result) {
-            $order_data[date('j', strtotime($result['date_added']))] = array(
+            $order_data[date('j', strtotime($result['date_added']))] = [
                 'day'   => date('d', strtotime($result['date_added'])),
                 'total' => $result['total']
-            );
+            ];
         }
 
         return $order_data;
     }
 
     public function getTotalOrdersByYear(): array {
-        $implode = array();
+        $implode = [];
 
         foreach ((array)$this->config->get('config_complete_status') as $order_status_id) {
             $implode[] = "'" . (int)$order_status_id . "'";
         }
 
-        $order_data = array();
+        $order_data = [];
 
         for ($i = 1; $i <= 12; $i++) {
-            $order_data[$i] = array(
+            $order_data[$i] = [
                 'month' => date('M', mktime(0, 0, 0, $i)),
                 'total' => 0
-            );
+            ];
         }
 
         $query = $this->db->query("SELECT COUNT(*) AS `total`, `date_added` FROM `" . DB_PREFIX . "order` WHERE `order_status_id` IN(" . implode(",", $implode) . ") AND YEAR(`date_added`) = YEAR(NOW()) GROUP BY MONTH(`date_added`)");
 
         foreach ($query->rows as $result) {
-            $order_data[date('n', strtotime($result['date_added']))] = array(
+            $order_data[date('n', strtotime($result['date_added']))] = [
                 'month' => date('M', strtotime($result['date_added'])),
                 'total' => $result['total']
-            );
+            ];
         }
 
         return $order_data;
     }
 
-    public function getOrders(array $data = array()): array {
+    public function getOrders(array $data = []): array {
         $sql = "SELECT MIN(o.`date_added`) AS `date_start`, MAX(o.`date_added`) AS `date_end`, COUNT(*) AS `orders`, SUM((SELECT SUM(op.`quantity`) FROM `" . DB_PREFIX . "order_product` op WHERE op.`order_id` = o.`order_id` GROUP BY op.`order_id`)) AS `products`, SUM((SELECT SUM(ot.`value`) FROM `" . DB_PREFIX . "order_total` ot WHERE ot.`order_id` = o.`order_id` AND ot.`code` = 'tax' GROUP BY ot.`order_id`)) AS `tax`, SUM(o.`total`) AS `total` FROM `" . DB_PREFIX . "order` o";
 
         if (!empty($data['filter_order_status_id'])) {
@@ -191,7 +191,7 @@ class ModelExtensionReportSale extends Model {
         return $query->rows;
     }
 
-    public function getTotalOrders(array $data = array()): int {
+    public function getTotalOrders(array $data = []): int {
         if (!empty($data['filter_group'])) {
             $group = $data['filter_group'];
         } else {
@@ -233,7 +233,7 @@ class ModelExtensionReportSale extends Model {
         return (int)$query->row['total'];
     }
 
-    public function getTaxes(array $data = array()): array {
+    public function getTaxes(array $data = []): array {
         $sql = "SELECT MIN(o.`date_added`) AS `date_start`, MAX(o.`date_added`) AS `date_end`, ot.`title`, SUM(ot.`value`) AS `total`, COUNT(o.`order_id`) AS `orders` FROM `" . DB_PREFIX . "order` o LEFT JOIN `" . DB_PREFIX . "order_total` ot ON (ot.`order_id` = o.`order_id`) WHERE ot.`code` = 'tax'";
 
         if (!empty($data['filter_order_status_id'])) {
@@ -289,7 +289,7 @@ class ModelExtensionReportSale extends Model {
         return $query->rows;
     }
 
-    public function getTotalTaxes(array $data = array()): int {
+    public function getTotalTaxes(array $data = []): int {
         if (!empty($data['filter_group'])) {
             $group = $data['filter_group'];
         } else {
@@ -333,7 +333,7 @@ class ModelExtensionReportSale extends Model {
         return (int)$query->row['total'];
     }
 
-    public function getShipping(array $data = array()): array {
+    public function getShipping(array $data = []): array {
         $sql = "SELECT MIN(o.`date_added`) AS `date_start`, MAX(o.`date_added`) AS `date_end`, ot.`title`, SUM(ot.`value`) AS `total`, COUNT(o.`order_id`) AS `orders` FROM `" . DB_PREFIX . "order` o LEFT JOIN `" . DB_PREFIX . "order_total` ot ON (o.`order_id` = ot.`order_id`) WHERE ot.`code` = 'shipping'";
 
         if (!empty($data['filter_order_status_id'])) {
@@ -389,7 +389,7 @@ class ModelExtensionReportSale extends Model {
         return $query->rows;
     }
 
-    public function getTotalShipping(array $data = array()): int {
+    public function getTotalShipping(array $data = []): int {
         if (!empty($data['filter_group'])) {
             $group = $data['filter_group'];
         } else {

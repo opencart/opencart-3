@@ -38,7 +38,7 @@ class ModelLocalisationReturnsAction extends Model {
         return $query->row;
     }
 
-    public function getReturnActions(array $data = array()): array {
+    public function getReturnActions(array $data = []): array {
         if ($data) {
             $sql = "SELECT * FROM `" . DB_PREFIX . "return_action` WHERE `language_id` = '" . (int)$this->config->get('config_language_id') . "'";
 
@@ -81,12 +81,12 @@ class ModelLocalisationReturnsAction extends Model {
     }
 
     public function getReturnActionDescriptions(int $return_action_id): array {
-        $return_action_data = array();
+        $return_action_data = [];
 
         $query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "return_action` WHERE `return_action_id` = '" . (int)$return_action_id . "'");
 
         foreach ($query->rows as $result) {
-            $return_action_data[$result['language_id']] = array('name' => $result['name']);
+            $return_action_data[$result['language_id']] = ['name' => $result['name']];
         }
 
         return $return_action_data;

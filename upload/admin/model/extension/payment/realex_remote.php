@@ -48,15 +48,15 @@ class ModelExtensionPaymentRealexRemote extends Model {
             $tmp  = $hash . '.' . $secret;
             $hash = sha1($tmp);
 
-            $xml  = '';
-            $xml  .= '<request type="void" timestamp="' . $timestamp . '">';
-            $xml  .= '<merchantid>' . $merchant_id . '</merchantid>';
-            $xml  .= '<account>' . $realex_order['account'] . '</account>';
-            $xml  .= '<orderid>' . $realex_order['order_ref'] . '</orderid>';
-            $xml  .= '<pasref>' . $realex_order['pasref'] . '</pasref>';
-            $xml  .= '<authcode>' . $realex_order['authcode'] . '</authcode>';
-            $xml  .= '<sha1hash>' . $hash . '</sha1hash>';
-            $xml  .= '</request>';
+            $xml = '';
+            $xml .= '<request type="void" timestamp="' . $timestamp . '">';
+            $xml .= '<merchantid>' . $merchant_id . '</merchantid>';
+            $xml .= '<account>' . $realex_order['account'] . '</account>';
+            $xml .= '<orderid>' . $realex_order['order_ref'] . '</orderid>';
+            $xml .= '<pasref>' . $realex_order['pasref'] . '</pasref>';
+            $xml .= '<authcode>' . $realex_order['authcode'] . '</authcode>';
+            $xml .= '<sha1hash>' . $hash . '</sha1hash>';
+            $xml .= '</request>';
 
             $this->logger('Void XML request:\r\n' . print_r(simplexml_load_string($xml), 1));
 
@@ -225,7 +225,7 @@ class ModelExtensionPaymentRealexRemote extends Model {
 
             return $order;
         } else {
-            return array();
+            return [];
         }
     }
 
@@ -235,7 +235,7 @@ class ModelExtensionPaymentRealexRemote extends Model {
         if ($query->num_rows) {
             return $query->rows;
         } else {
-            return array();
+            return [];
         }
     }
 
