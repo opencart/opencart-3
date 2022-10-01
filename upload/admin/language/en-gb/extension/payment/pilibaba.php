@@ -2,7 +2,7 @@
 // Heading
 $_['heading_title']         = 'Pilibaba for Chinese Checkout';
 
-// Tab
+// Tabs
 $_['tab_register']          = 'Register';
 $_['tab_settings']          = 'Settings';
 
@@ -17,7 +17,7 @@ $_['text_payment_info']     = 'Payment Info';
 $_['text_orders_id']        = 'Order ID';
 $_['text_amount']           = 'Amount';
 $_['text_fee']              = 'Fee';
-$_['text_status']			= 'Success';
+$_['text_status']           = 'Success';
 $_['text_date_added']       = 'Date Added';
 $_['text_tracking']         = 'Tracking';
 $_['text_barcode']          = 'Barcode';
@@ -27,9 +27,9 @@ $_['text_register_success'] = 'You have successfully registered. You should rece
 $_['text_tracking_success'] = 'The tracking number was successfully updated.';
 $_['text_other']            = 'Other';
 $_['text_email']            = 'The registered email address for your Pilibaba account is %s';
-$_['text_select_country']	= 'Select Country';
-$_['text_select_currency']	= 'Select Currency';
-$_['text_select_warehouse']	= 'Select Warehouse';
+$_['text_select_country']   = 'Select Country';
+$_['text_select_currency']  = 'Select Currency';
+$_['text_select_warehouse'] = 'Select Warehouse';
 
 // Entry
 $_['entry_email_address']   = 'Email Address';
@@ -59,6 +59,11 @@ $_['help_order_status']     = 'The order status after the customer has placed th
 $_['help_total']            = 'The checkout total the order must reach before this payment method becomes active. Must be a value with no currency sign.';
 $_['help_logging']          = 'Enabling debug will write sensitive data to a log file. You should always disable unless instructed otherwise.';
 
+// Button
+$_['button_register']       = 'Register';
+$_['button_tracking']       = 'Update Tracking Number';
+$_['button_barcode']        = 'Generate Barcode';
+
 // Error
 $_['error_warning']         = 'Warning: Please check the form carefully for errors!';
 $_['error_permission']      = 'Warning: You do not have permission to modify payment Pilibaba!';
@@ -76,8 +81,3 @@ $_['error_warehouse']       = 'Please select a warehouse!';
 $_['error_country']         = 'Please select a country!';
 $_['error_weight']          = 'Please change your <a href="%s">Weight Class</a> setting to grams. It\'s in \'System -> Settings\' in the \'Local\' tab.';
 $_['error_bad_response']    = 'An invalid response was received. Please try again later.';
-
-// Button
-$_['button_register']       = 'Register';
-$_['button_tracking']       = 'Update Tracking Number';
-$_['button_barcode']        = 'Generate Barcode';

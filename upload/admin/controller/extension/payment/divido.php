@@ -174,7 +174,7 @@ class ControllerExtensionPaymentDivido extends Controller {
 
     public function order(): string {
         if (!$this->config->get('payment_divido_status')) {
-            return null;
+            return '';
         }
 
         $this->load->language('extension/payment/divido');

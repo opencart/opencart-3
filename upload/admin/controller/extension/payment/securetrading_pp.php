@@ -236,7 +236,7 @@ class ControllerExtensionPaymentSecureTradingPp extends Controller {
 
         $data['settlement_statuses'] = array(
             '0'   => $this->language->get('text_pending_settlement'),
-            '1'   => $this->language->get('text_pending_settlement_manually_overriden'),
+            '1'   => $this->language->get('text_pending_settlement_manually_overridden'),
             '2'   => $this->language->get('text_pending_suspended'),
             '100' => $this->language->get('text_pending_settled'),
         );

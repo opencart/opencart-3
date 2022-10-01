@@ -2,7 +2,7 @@
 // Heading
 $_['heading_title']                 = 'CardConnect';
 
-// Tab
+// Tabs
 $_['tab_settings']                  = 'Settings';
 $_['tab_order_status']              = 'Order Status';
 

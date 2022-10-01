@@ -73,10 +73,10 @@ class ControllerExtensionPaymentAmazonLoginPay extends Controller {
             $data['error_minimum_total'] = '';
         }
 
-        if (isset($this->error['error_curreny'])) {
-            $data['error_curreny'] = $this->error['error_curreny'];
+        if (isset($this->error['error_currency'])) {
+            $data['error_currency'] = $this->error['error_currency'];
         } else {
-            $data['error_curreny'] = '';
+            $data['error_currency'] = '';
         }
 
         $data['heading_title'] = $this->language->get('heading_title') . ' ' . $this->version;
@@ -654,7 +654,7 @@ class ControllerExtensionPaymentAmazonLoginPay extends Controller {
             $currency = $this->model_localisation_currency->getCurrency($this->currency->getId($currency_code));
 
             if (empty($currency) || $currency['status'] != '1') {
-                $this->error['error_curreny'] = sprintf($this->language->get('error_curreny'), $currency_code);
+                $this->error['error_currency'] = sprintf($this->language->get('error_currency'), $currency_code);
             }
         }
 

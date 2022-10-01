@@ -2,6 +2,7 @@
 // Heading
 $_['heading_title']    = 'Sagepay Direct Card Management';
 
+// Text
 $_['text_extension']   = 'Extensions';
 $_['text_success']     = 'Success: You have modified Sagepay Direct Card Management module!';
 $_['text_edit']        = 'Edit Sagepay Direct Card Management Module';

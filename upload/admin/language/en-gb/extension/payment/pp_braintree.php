@@ -133,7 +133,6 @@ $_['entry_paypal_button_shape']		 = 'Button Shape';
 $_['entry_paypal_button_size']		 = 'Button Size';
 $_['entry_paypal_billing_agreement'] = 'Billing agreement description';
 $_['entry_3ds_status']				 = 'Enable 3-D Secure';
-
 $_['entry_3ds_unsupported_card'] 		= 'Unsupported Card<br/>Default: Accept';
 $_['entry_3ds_lookup_error'] 			= 'Lookup Error<br/>Default: Accept';
 $_['entry_3ds_lookup_enrolled'] 		= 'Lookup Enrolled<br/>Default: Accept';
@@ -165,6 +164,15 @@ $_['button_settle']					 	= 'Settle';
 $_['button_refund']					 	= 'Refund';
 $_['button_filter']					 	= 'Filter';
 
+// Tabs
+$_['tab_setting']					 	= 'Settings';
+$_['tab_currency']					 	= 'Currencies';
+$_['tab_order_status']				 	= 'Order Statuses (New Orders)';
+$_['tab_3ds']						 	= '3-D Secure';
+$_['tab_transaction']				 	= 'Transaction Search';
+$_['tab_vault']				 	 	 	= 'Vault';
+$_['tab_paypal']				 	 	= 'PayPal';
+
 // Error
 $_['error_permission']				 	= 'Warning: You do not have permission to modify payment Braintree!';
 $_['error_php_version']				 	= 'Minimum version of PHP 8.1.0 is required!';
@@ -181,12 +189,3 @@ $_['error_braintree_account_3ds'] 	 	= '3DS is not enabled in your Braintree acc
 $_['error_braintree_account_paypal'] 	= 'PayPal is not enabled in your Braintree account yet. Please check your <a href="https://www.braintreegateway.com/login" title="Braintree login" target="_blank">Braintree Control Panel</a> or contact Braintree support';
 $_['error_braintree_account_billing']	= 'Billing agreements are not enabled in your Braintree account yet. Please check your <a href="https://www.braintreegateway.com/login" title="Braintree login" target="_blank">Braintree Control Panel</a> or contact Braintree support';
 $_['error_environment']					= 'You cannot set your environment to %s when your credentials are for the %s environment in Braintree';
-
-// Tab
-$_['tab_setting']					 	= 'Settings';
-$_['tab_currency']					 	= 'Currencies';
-$_['tab_order_status']				 	= 'Order Statuses (New Orders)';
-$_['tab_3ds']						 	= '3-D Secure';
-$_['tab_transaction']				 	= 'Transaction Search';
-$_['tab_vault']				 	 	 	= 'Vault';
-$_['tab_paypal']				 	 	= 'PayPal';

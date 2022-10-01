@@ -35,8 +35,8 @@ $_['text_flp_upgrade']           = '<a href="http://www.fraudlabspro.com/plan" t
 $_['text_flp_merchant_area']     = 'Please login to <a href="http://www.fraudlabspro.com/merchant/login" target="_blank">FraudLabs Pro Merchant Area</a> for more information about this order.';
 $_['text_rule_validation']       = 'Rules Validation';
 $_['text_testing']               = 'Testing Purpose';
-$_['text_approve']				 = 'Approve';
-$_['text_reject']				 = 'Reject';
+$_['text_approve']               = 'Approve';
+$_['text_reject']                = 'Reject';
 
 // Entry
 $_['entry_status']               = 'Status';

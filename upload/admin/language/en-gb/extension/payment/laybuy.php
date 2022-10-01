@@ -3,7 +3,7 @@
 $_['heading_title']                 = 'Lay-Buy';
 $_['heading_transaction_title']     = 'Transaction';
 
-// Tab
+// Tabs
 $_['tab_settings']                  = 'Settings';
 $_['tab_reports']                   = 'Reports';
 $_['tab_reference']                 = 'Reference Information';
@@ -60,12 +60,12 @@ $_['text_suburb']                   = 'Suburb';
 $_['text_state']                    = 'State';
 $_['text_country']                  = 'Country';
 $_['text_postcode']                 = 'Postcode';
-$_['text_payment_info']		     	= 'Payment Information';
+$_['text_payment_info']             = 'Payment Information';
 $_['text_no_cron_time']             = 'The cron has not yet been executed';
-$_['text_comment'] 	                = 'Updated by Lay-Buy';
-$_['text_comment_canceled'] 	    = 'Order canceled and recurring PayPal Profile #%s canceled.';
-$_['text_remaining'] 	            = 'Remaining:';
-$_['text_payment'] 	                = 'Payment';
+$_['text_comment']                  = 'Updated by Lay-Buy';
+$_['text_comment_canceled']         = 'Order canceled and recurring PayPal Profile #%s canceled.';
+$_['text_remaining']                = 'Remaining:';
+$_['text_payment']                  = 'Payment';
 
 // Column
 $_['column_order_id']               = 'Order ID';
@@ -124,13 +124,13 @@ $_['help_order_status_processing']  = 'The order status after the customer\'s or
 $_['help_cron_url']                 = 'Set a cron job to call this URL so that the reports are auto fetched.';
 $_['help_cron_time']                = 'This is the last time that the cron job URL was executed.';
 
+// Button
+$_['button_fetch']                  = 'Fetch';
+$_['button_revise_plan']            = 'Revise Plan';
+$_['button_cancel_plan']            = 'Cancel Plan';
+
 // Error
 $_['error_permission']              = 'Warning: You do not have permission to modify payment Lay-buy!';
 $_['error_membership_id']           = 'Lay-Buys Membership ID Required!';
 $_['error_token']                   = 'Lay-Buy Secret Token Required!';
 $_['error_min_deposit']             = 'Cannot exceed the Maximum Down Payment amount!';
-
-// Button
-$_['button_fetch']                  = 'Fetch';
-$_['button_revise_plan']            = 'Revise Plan';
-$_['button_cancel_plan']            = 'Cancel Plan';

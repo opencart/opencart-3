@@ -112,4 +112,4 @@ $_['error_cheque']              = 'Cheque Payee Name required!';
 $_['error_paypal']              = 'PayPal Email Address does not appear to be valid!';
 $_['error_bank_account_name']   = 'Account Name required!';
 $_['error_bank_account_number'] = 'Account Number required!';
-$_['error_regex']				= '%s is not a valid input!';
+$_['error_regex']               = '%s is not a valid input!';

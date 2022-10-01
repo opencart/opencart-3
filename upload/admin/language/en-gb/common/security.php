@@ -2,7 +2,7 @@
 // Heading
 $_['heading_title']    = 'Important Security Notification!';
 
-// Text
+// Texy
 $_['text_success']     = 'Success: You have modified the storage folder!';
 $_['text_admin']       = 'Edit admin/config.php and change';
 $_['text_security']    = 'It is very important that you move the storage directory outside of the web directory (e.g. public_html, www or htdocs).';
