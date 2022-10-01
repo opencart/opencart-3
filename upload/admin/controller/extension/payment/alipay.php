@@ -1,7 +1,6 @@
 <?php
-
 class ControllerExtensionPaymentAlipay extends Controller {
-    private array $error = array();
+    private array $error = [];
 
     public function index(): void {
         $this->load->language('extension/payment/alipay');
@@ -42,22 +41,22 @@ class ControllerExtensionPaymentAlipay extends Controller {
             $data['error_alipay_public_key'] = '';
         }
 
-        $data['breadcrumbs'] = array();
+        $data['breadcrumbs'] = [];
 
-        $data['breadcrumbs'][] = array(
+        $data['breadcrumbs'][] = [
             'text' => $this->language->get('text_home'),
             'href' => $this->url->link('common/dashboard', 'user_token=' . $this->session->data['user_token'], true)
-        );
+        ];
 
-        $data['breadcrumbs'][] = array(
+        $data['breadcrumbs'][] = [
             'text' => $this->language->get('text_extension'),
             'href' => $this->url->link('marketplace/extension', 'user_token=' . $this->session->data['user_token'] . '&type=payment', true)
-        );
+        ];
 
-        $data['breadcrumbs'][] = array(
+        $data['breadcrumbs'][] = [
             'text' => $this->language->get('heading_title'),
             'href' => $this->url->link('extension/payment/alipay', 'user_token=' . $this->session->data['user_token'], true)
-        );
+        ];
 
         $data['action'] = $this->url->link('extension/payment/alipay', 'user_token=' . $this->session->data['user_token'], true);
         $data['cancel'] = $this->url->link('marketplace/extension', 'user_token=' . $this->session->data['user_token'] . '&type=payment', true);

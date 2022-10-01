@@ -1,8 +1,7 @@
 <?php
-
 class ControllerMailGdpr extends Controller {
     // admin/model/customer/gdpr/editStatus
-    public function deny(string &$route, array &$args, mixed &$output): void {
+    public function allow(string &$route, array &$args, mixed &$output): void {
         $this->load->model('customer/gdpr');
 
         $gdpr_info = $this->model_customer_gdpr->getGdpr($args[0]);
@@ -61,8 +60,8 @@ class ControllerMailGdpr extends Controller {
         }
 
         // Load the language for any mails using a different country code and prefixing it so it does not pollute the main data pool.
-        $language = new \Language($order_info['language_code']);
-        $language->load($order_info['language_code']);
+        $language = new \Language($language_code);
+        $language->load($language_code);
         $language->load('mail/gdpr_export');
 
         $subject = sprintf($language->get('text_subject'), $store_name);
@@ -93,13 +92,13 @@ class ControllerMailGdpr extends Controller {
         }
 
         // Addresses
-        $data['addresses'] = array();
+        $data['addresses'] = [];
 
         if ($customer_info) {
             $results = $this->model_customer_customer->getAddresses($customer_info['customer_id']);
 
             foreach ($results as $result) {
-                $address = array(
+                $address = [
                     'firstname' => $result['firstname'],
                     'lastname'  => $result['lastname'],
                     'address_1' => $result['address_1'],
@@ -108,7 +107,7 @@ class ControllerMailGdpr extends Controller {
                     'postcode'  => $result['postcode'],
                     'country'   => $result['country'],
                     'zone'      => $result['zone']
-                );
+                ];
 
                 if (!in_array($address, $data['addresses'])) {
                     $data['addresses'][] = $address;
@@ -124,7 +123,7 @@ class ControllerMailGdpr extends Controller {
         foreach ($results as $result) {
             $order_info = $this->model_sale_order->getOrder($result['order_id']);
 
-            $address = array(
+            $address = [
                 'firstname' => $order_info['payment_firstname'],
                 'lastname'  => $order_info['payment_lastname'],
                 'address_1' => $order_info['payment_address_1'],
@@ -133,13 +132,13 @@ class ControllerMailGdpr extends Controller {
                 'postcode'  => $order_info['payment_postcode'],
                 'country'   => $order_info['payment_country'],
                 'zone'      => $order_info['payment_zone']
-            );
+            ];
 
             if (!in_array($address, $data['addresses'])) {
                 $data['addresses'][] = $address;
             }
 
-            $address = array(
+            $address = [
                 'firstname' => $order_info['shipping_firstname'],
                 'lastname'  => $order_info['shipping_lastname'],
                 'address_1' => $order_info['shipping_address_1'],
@@ -148,7 +147,7 @@ class ControllerMailGdpr extends Controller {
                 'postcode'  => $order_info['shipping_postcode'],
                 'country'   => $order_info['shipping_country'],
                 'zone'      => $order_info['shipping_zone']
-            );
+            ];
 
             if (!in_array($address, $data['addresses'])) {
                 $data['addresses'][] = $address;
@@ -156,16 +155,16 @@ class ControllerMailGdpr extends Controller {
         }
 
         // Ip's
-        $data['ips'] = array();
+        $data['ips'] = [];
 
         if ($customer_info) {
             $results = $this->model_customer_customer->getIps($customer_info['customer_id']);
 
             foreach ($results as $result) {
-                $data['ips'][] = array(
+                $data['ips'][] = [
                     'ip'         => $result['ip'],
                     'date_added' => date($language->get('datetime_format'), strtotime($result['date_added']))
-                );
+                ];
             }
         }
 
@@ -219,8 +218,8 @@ class ControllerMailGdpr extends Controller {
         }
 
         // Load the language for any mails using a different country code and prefixing it so it does not pollute the main data pool.
-        $language = new \Language($order_info['language_code']);
-        $language->load($order_info['language_code']);
+        $language = new \Language($language_code);
+        $language->load($language_code);
         $language->load('mail/gdpr_approve');
 
         $subject = sprintf($language->get('text_subject'), $store_name);
@@ -243,9 +242,8 @@ class ControllerMailGdpr extends Controller {
             $data['text_hello'] = sprintf($language->get('text_hello'), $language->get('text_user'));
         }
 
-        $data['text_gdpr'] = sprintf($language->get('text_gdpr'), $this->config->get('config_gdpr_limit'));
-        $data['text_a']    = sprintf($language->get('text_a'), $this->config->get('config_gdpr_limit'));
-
+        $data['text_gdpr']  = sprintf($language->get('text_gdpr'), $this->config->get('config_gdpr_limit'));
+        $data['text_a']     = sprintf($language->get('text_a'), $this->config->get('config_gdpr_limit'));
         $data['store_name'] = $store_name;
         $data['store_url']  = $store_url;
 
@@ -296,8 +294,8 @@ class ControllerMailGdpr extends Controller {
         }
 
         // Load the language for any mails using a different country code and prefixing it so it does not pollute the main data pool.
-        $language = new \Language($order_info['language_code']);
-        $language->load($order_info['language_code']);
+        $language = new \Language($language_code);
+        $language->load($language_code);
         $language->load('mail/gdpr_deny');
 
         $subject = sprintf($language->get('text_subject'), $store_name);
@@ -373,8 +371,8 @@ class ControllerMailGdpr extends Controller {
         }
 
         // Load the language for any mails using a different country code and prefixing it so it does not pollute the main data pool.
-        $language = new \Language($order_info['language_code']);
-        $language->load($order_info['language_code']);
+        $language = new \Language($language_code);
+        $language->load($language_code);
         $language->load('mail/gdpr_delete');
 
         $subject = sprintf($language->get('text_subject'), $store_name);

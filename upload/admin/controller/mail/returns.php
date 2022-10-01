@@ -1,5 +1,4 @@
 <?php
-
 class ControllerMailReturns extends Controller {
     // admin/model/sale/returns/addReturnHistory/after
     public function deny(string &$route, array &$args, mixed &$output): void {

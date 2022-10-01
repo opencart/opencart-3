@@ -1,7 +1,6 @@
 <?php
-
 class ControllerExtensionPaymentBankTransfer extends Controller {
-    private array $error = array();
+    private array $error = [];
 
     public function index(): void {
         $this->load->language('extension/payment/bank_transfer');
@@ -27,25 +26,25 @@ class ControllerExtensionPaymentBankTransfer extends Controller {
         if (isset($this->error['bank'])) {
             $data['error_bank'] = $this->error['bank'];
         } else {
-            $data['error_bank'] = array();
+            $data['error_bank'] = [];
         }
 
-        $data['breadcrumbs'] = array();
+        $data['breadcrumbs'] = [];
 
-        $data['breadcrumbs'][] = array(
+        $data['breadcrumbs'][] = [
             'text' => $this->language->get('text_home'),
             'href' => $this->url->link('common/dashboard', 'user_token=' . $this->session->data['user_token'], true)
-        );
+        ];
 
-        $data['breadcrumbs'][] = array(
+        $data['breadcrumbs'][] = [
             'text' => $this->language->get('text_extension'),
             'href' => $this->url->link('marketplace/extension', 'user_token=' . $this->session->data['user_token'] . '&type=payment', true)
-        );
+        ];
 
-        $data['breadcrumbs'][] = array(
+        $data['breadcrumbs'][] = [
             'text' => $this->language->get('heading_title'),
             'href' => $this->url->link('extension/payment/bank_transfer', 'user_token=' . $this->session->data['user_token'], true)
-        );
+        ];
 
         $data['action'] = $this->url->link('extension/payment/bank_transfer', 'user_token=' . $this->session->data['user_token'], true);
         $data['cancel'] = $this->url->link('marketplace/extension', 'user_token=' . $this->session->data['user_token'] . '&type=payment', true);
@@ -53,7 +52,7 @@ class ControllerExtensionPaymentBankTransfer extends Controller {
         // Languages
         $this->load->model('localisation/language');
 
-        $data['payment_bank_transfer_bank'] = array();
+        $data['payment_bank_transfer_bank'] = [];
 
         $languages = $this->model_localisation_language->getLanguages();
 

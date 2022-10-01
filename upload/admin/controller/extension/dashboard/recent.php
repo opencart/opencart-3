@@ -1,7 +1,6 @@
 <?php
-
 class ControllerExtensionDashboardRecent extends Controller {
-    private array $error = array();
+    private array $error = [];
 
     public function index(): void {
         $this->load->language('extension/dashboard/recent');
@@ -24,22 +23,22 @@ class ControllerExtensionDashboardRecent extends Controller {
             $data['error_warning'] = '';
         }
 
-        $data['breadcrumbs'] = array();
+        $data['breadcrumbs'] = [];
 
-        $data['breadcrumbs'][] = array(
+        $data['breadcrumbs'][] = [
             'text' => $this->language->get('text_home'),
             'href' => $this->url->link('common/dashboard', 'user_token=' . $this->session->data['user_token'], true)
-        );
+        ];
 
-        $data['breadcrumbs'][] = array(
+        $data['breadcrumbs'][] = [
             'text' => $this->language->get('text_extension'),
             'href' => $this->url->link('marketplace/extension', 'user_token=' . $this->session->data['user_token'] . '&type=dashboard', true)
-        );
+        ];
 
-        $data['breadcrumbs'][] = array(
+        $data['breadcrumbs'][] = [
             'text' => $this->language->get('heading_title'),
             'href' => $this->url->link('extension/dashboard/recent', 'user_token=' . $this->session->data['user_token'], true)
-        );
+        ];
 
         $data['action'] = $this->url->link('extension/dashboard/recent', 'user_token=' . $this->session->data['user_token'], true);
         $data['cancel'] = $this->url->link('marketplace/extension', 'user_token=' . $this->session->data['user_token'] . '&type=dashboard', true);
@@ -50,7 +49,7 @@ class ControllerExtensionDashboardRecent extends Controller {
             $data['dashboard_recent_width'] = $this->config->get('dashboard_recent_width');
         }
 
-        $data['columns'] = array();
+        $data['columns'] = [];
 
         for ($i = 3; $i <= 12; $i++) {
             $data['columns'][] = $i;
@@ -89,28 +88,28 @@ class ControllerExtensionDashboardRecent extends Controller {
         $data['user_token'] = $this->session->data['user_token'];
 
         // Last 5 Orders
-        $data['orders'] = array();
+        $data['orders'] = [];
 
-        $filter_data = array(
+        $filter_data = [
             'sort'  => 'o.date_added',
             'order' => 'DESC',
             'start' => 0,
             'limit' => 5
-        );
+        ];
 
         $this->load->model('sale/order');
 
         $results = $this->model_sale_order->getOrders($filter_data);
 
         foreach ($results as $result) {
-            $data['orders'][] = array(
+            $data['orders'][] = [
                 'order_id'   => $result['order_id'],
                 'customer'   => $result['customer'],
                 'status'     => $result['order_status'],
                 'date_added' => date($this->language->get('date_format_short'), strtotime($result['date_added'])),
                 'total'      => $this->currency->format($result['total'], $result['currency_code'], $result['currency_value']),
                 'view'       => $this->url->link('sale/order/info', 'user_token=' . $this->session->data['user_token'] . '&order_id=' . $result['order_id'], true),
-            );
+            ];
         }
 
         return $this->load->view('extension/dashboard/recent_info', $data);

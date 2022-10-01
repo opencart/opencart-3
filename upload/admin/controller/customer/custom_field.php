@@ -1,7 +1,6 @@
 <?php
-
 class ControllerCustomerCustomField extends Controller {
-    private array $error = array();
+    private array $error = [];
 
     public function index(): void {
         $this->load->language('customer/custom_field');
@@ -144,29 +143,29 @@ class ControllerCustomerCustomField extends Controller {
             $url .= '&page=' . $this->request->get['page'];
         }
 
-        $data['breadcrumbs'] = array();
+        $data['breadcrumbs'] = [];
 
-        $data['breadcrumbs'][] = array(
+        $data['breadcrumbs'][] = [
             'text' => $this->language->get('text_home'),
             'href' => $this->url->link('common/dashboard', 'user_token=' . $this->session->data['user_token'], true)
-        );
+        ];
 
-        $data['breadcrumbs'][] = array(
+        $data['breadcrumbs'][] = [
             'text' => $this->language->get('heading_title'),
             'href' => $this->url->link('customer/custom_field', 'user_token=' . $this->session->data['user_token'] . $url, true)
-        );
+        ];
 
         $data['add']    = $this->url->link('customer/custom_field/add', 'user_token=' . $this->session->data['user_token'] . $url, true);
         $data['delete'] = $this->url->link('customer/custom_field/delete', 'user_token=' . $this->session->data['user_token'] . $url, true);
 
-        $data['custom_fields'] = array();
+        $data['custom_fields'] = [];
 
-        $filter_data = array(
+        $filter_data = [
             'sort'  => $sort,
             'order' => $order,
             'start' => ($page - 1) * $this->config->get('config_limit_admin'),
             'limit' => $this->config->get('config_limit_admin')
-        );
+        ];
 
         $custom_field_total = $this->model_customer_custom_field->getTotalCustomFields();
 
@@ -208,7 +207,7 @@ class ControllerCustomerCustomField extends Controller {
                     break;
             }
 
-            $data['custom_fields'][] = array(
+            $data['custom_fields'][] = [
                 'custom_field_id' => $result['custom_field_id'],
                 'name'            => $result['name'],
                 'location'        => $this->language->get('text_' . $result['location']),
@@ -216,7 +215,7 @@ class ControllerCustomerCustomField extends Controller {
                 'status'          => $result['status'],
                 'sort_order'      => $result['sort_order'],
                 'edit'            => $this->url->link('customer/custom_field/edit', 'user_token=' . $this->session->data['user_token'] . '&custom_field_id=' . $result['custom_field_id'] . $url, true)
-            );
+            ];
         }
 
         if (isset($this->error['warning'])) {
@@ -236,7 +235,7 @@ class ControllerCustomerCustomField extends Controller {
         if (isset($this->request->post['selected'])) {
             $data['selected'] = (array)$this->request->post['selected'];
         } else {
-            $data['selected'] = array();
+            $data['selected'] = [];
         }
 
         $url = '';
@@ -299,13 +298,13 @@ class ControllerCustomerCustomField extends Controller {
         if (isset($this->error['name'])) {
             $data['error_name'] = $this->error['name'];
         } else {
-            $data['error_name'] = array();
+            $data['error_name'] = [];
         }
 
         if (isset($this->error['custom_field_value'])) {
             $data['error_custom_field_value'] = $this->error['custom_field_value'];
         } else {
-            $data['error_custom_field_value'] = array();
+            $data['error_custom_field_value'] = [];
         }
 
         $url = '';
@@ -322,17 +321,17 @@ class ControllerCustomerCustomField extends Controller {
             $url .= '&page=' . $this->request->get['page'];
         }
 
-        $data['breadcrumbs'] = array();
+        $data['breadcrumbs'] = [];
 
-        $data['breadcrumbs'][] = array(
+        $data['breadcrumbs'][] = [
             'text' => $this->language->get('text_home'),
             'href' => $this->url->link('common/dashboard', 'user_token=' . $this->session->data['user_token'], true)
-        );
+        ];
 
-        $data['breadcrumbs'][] = array(
+        $data['breadcrumbs'][] = [
             'text' => $this->language->get('heading_title'),
             'href' => $this->url->link('customer/custom_field', 'user_token=' . $this->session->data['user_token'] . $url, true)
-        );
+        ];
 
         if (!isset($this->request->get['custom_field_id'])) {
             $data['action'] = $this->url->link('customer/custom_field/add', 'user_token=' . $this->session->data['user_token'] . $url, true);
@@ -358,7 +357,7 @@ class ControllerCustomerCustomField extends Controller {
         } elseif (isset($this->request->get['custom_field_id'])) {
             $data['custom_field_description'] = $this->model_customer_custom_field->getCustomFieldDescriptions($this->request->get['custom_field_id']);
         } else {
-            $data['custom_field_description'] = array();
+            $data['custom_field_description'] = [];
         }
 
         if (isset($this->request->post['location'])) {
@@ -414,17 +413,17 @@ class ControllerCustomerCustomField extends Controller {
         } elseif (isset($this->request->get['custom_field_id'])) {
             $custom_field_values = $this->model_customer_custom_field->getCustomFieldValueDescriptions($this->request->get['custom_field_id']);
         } else {
-            $custom_field_values = array();
+            $custom_field_values = [];
         }
 
-        $data['custom_field_values'] = array();
+        $data['custom_field_values'] = [];
 
         foreach ($custom_field_values as $custom_field_value) {
-            $data['custom_field_values'][] = array(
+            $data['custom_field_values'][] = [
                 'custom_field_value_id'          => $custom_field_value['custom_field_value_id'],
                 'custom_field_value_description' => $custom_field_value['custom_field_value_description'],
                 'sort_order'                     => $custom_field_value['sort_order']
-            );
+            ];
         }
 
         if (isset($this->request->post['custom_field_customer_group'])) {
@@ -432,16 +431,16 @@ class ControllerCustomerCustomField extends Controller {
         } elseif (isset($this->request->get['custom_field_id'])) {
             $custom_field_customer_groups = $this->model_customer_custom_field->getCustomFieldCustomerGroups($this->request->get['custom_field_id']);
         } else {
-            $custom_field_customer_groups = array();
+            $custom_field_customer_groups = [];
         }
 
-        $data['custom_field_customer_group'] = array();
+        $data['custom_field_customer_group'] = [];
 
         foreach ($custom_field_customer_groups as $custom_field_customer_group) {
             $data['custom_field_customer_group'][] = $custom_field_customer_group['customer_group_id'];
         }
 
-        $data['custom_field_required'] = array();
+        $data['custom_field_required'] = [];
 
         foreach ($custom_field_customer_groups as $custom_field_customer_group) {
             if (isset($custom_field_customer_group['required']) && $custom_field_customer_group['required'] && isset($custom_field_customer_group['customer_group_id'])) {

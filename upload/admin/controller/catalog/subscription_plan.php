@@ -1,7 +1,6 @@
 <?php
-
 class ControllerCatalogSubscriptionPlan extends Controller {
-    private array $error = array();
+    private array $error = [];
 
     public function index(): void {
         $this->load->language('catalog/subscription_plan');
@@ -178,42 +177,42 @@ class ControllerCatalogSubscriptionPlan extends Controller {
             $url .= '&page=' . $this->request->get['page'];
         }
 
-        $data['breadcrumbs'] = array();
+        $data['breadcrumbs'] = [];
 
-        $data['breadcrumbs'][] = array(
+        $data['breadcrumbs'][] = [
             'text' => $this->language->get('text_home'),
             'href' => $this->url->link('common/dashboard', 'user_token=' . $this->session->data['user_token'], true)
-        );
+        ];
 
-        $data['breadcrumbs'][] = array(
+        $data['breadcrumbs'][] = [
             'text' => $this->language->get('heading_title'),
             'href' => $this->url->link('catalog/subscription_plan', 'user_token=' . $this->session->data['user_token'] . $url, true)
-        );
+        ];
 
         $data['add']    = $this->url->link('catalog/subscription_plan/add', 'user_token=' . $this->session->data['user_token'] . $url, true);
         $data['copy']   = $this->url->link('catalog/subscription_plan/copy', 'user_token=' . $this->session->data['user_token'] . $url, true);
         $data['delete'] = $this->url->link('catalog/subscription_plan/delete', 'user_token=' . $this->session->data['user_token'] . $url, true);
 
-        $data['subscription_plans'] = array();
+        $data['subscription_plans'] = [];
 
-        $filter_data = array(
+        $filter_data = [
             'sort'  => $sort,
             'order' => $order,
             'start' => ($page - 1) * $this->config->get('config_limit_admin'),
             'limit' => $this->config->get('config_limit_admin')
-        );
+        ];
 
         $subscription_plan_total = $this->model_catalog_subscription_plan->getTotalsubscription_plans();
 
         $results = $this->model_catalog_subscription_plan->getsubscription_plans($filter_data);
 
         foreach ($results as $result) {
-            $data['subscription_plans'][] = array(
+            $data['subscription_plans'][] = [
                 'subscription_plan_id' => $result['subscription_plan_id'],
                 'name'                 => $result['name'],
                 'sort_order'           => $result['sort_order'],
                 'edit'                 => $this->url->link('catalog/subscription_plan/edit', 'user_token=' . $this->session->data['user_token'] . '&subscription_plan_id=' . $result['subscription_plan_id'] . $url, true)
-            );
+            ];
         }
 
         if (isset($this->error['warning'])) {
@@ -233,7 +232,7 @@ class ControllerCatalogSubscriptionPlan extends Controller {
         if (isset($this->request->post['selected'])) {
             $data['selected'] = (array)$this->request->post['selected'];
         } else {
-            $data['selected'] = array();
+            $data['selected'] = [];
         }
 
         $url = '';
@@ -293,7 +292,7 @@ class ControllerCatalogSubscriptionPlan extends Controller {
         if (isset($this->error['name'])) {
             $data['error_name'] = $this->error['name'];
         } else {
-            $data['error_name'] = array();
+            $data['error_name'] = [];
         }
 
         $url = '';
@@ -310,17 +309,17 @@ class ControllerCatalogSubscriptionPlan extends Controller {
             $url .= '&page=' . $this->request->get['page'];
         }
 
-        $data['breadcrumbs'] = array();
+        $data['breadcrumbs'] = [];
 
-        $data['breadcrumbs'][] = array(
+        $data['breadcrumbs'][] = [
             'text' => $this->language->get('text_home'),
             'href' => $this->url->link('common/dashboard', 'user_token=' . $this->session->data['user_token'], true)
-        );
+        ];
 
-        $data['breadcrumbs'][] = array(
+        $data['breadcrumbs'][] = [
             'text' => $this->language->get('heading_title'),
             'href' => $this->url->link('catalog/subscription_plan', 'user_token=' . $this->session->data['user_token'] . $url, true)
-        );
+        ];
 
         if (!isset($this->request->get['subscription_plan_id'])) {
             $data['action'] = $this->url->link('catalog/subscription_plan/add', 'user_token=' . $this->session->data['user_token'] . $url, true);
@@ -346,7 +345,7 @@ class ControllerCatalogSubscriptionPlan extends Controller {
         } elseif (!empty($subscription_plan_info)) {
             $data['subscription_plan_description'] = $this->model_catalog_subscription_plan->getSubscriptionPlanDescription($subscription_plan_info['subscription_plan_id']);
         } else {
-            $data['subscription_plan_description'] = array();
+            $data['subscription_plan_description'] = [];
         }
 
         if (isset($this->request->post['price'])) {
@@ -357,32 +356,32 @@ class ControllerCatalogSubscriptionPlan extends Controller {
             $data['price'] = 0;
         }
 
-        $data['frequencies'] = array();
+        $data['frequencies'] = [];
 
-        $data['frequencies'][] = array(
+        $data['frequencies'][] = [
             'text'  => $this->language->get('text_day'),
             'value' => 'day'
-        );
+        ];
 
-        $data['frequencies'][] = array(
+        $data['frequencies'][] = [
             'text'  => $this->language->get('text_week'),
             'value' => 'week'
-        );
+        ];
 
-        $data['frequencies'][] = array(
+        $data['frequencies'][] = [
             'text'  => $this->language->get('text_semi_month'),
             'value' => 'semi_month'
-        );
+        ];
 
-        $data['frequencies'][] = array(
+        $data['frequencies'][] = [
             'text'  => $this->language->get('text_month'),
             'value' => 'month'
-        );
+        ];
 
-        $data['frequencies'][] = array(
+        $data['frequencies'][] = [
             'text'  => $this->language->get('text_year'),
             'value' => 'year'
-        );
+        ];
 
         if (isset($this->request->post['frequency'])) {
             $data['frequency'] = $this->request->post['frequency'];

@@ -1,8 +1,7 @@
 <?php
-
 class ControllerExtensionPaymentAmazonLoginPay extends Controller {
     private string $version = '3.2.1';
-    private array  $error   = array();
+    private array  $error   = [];
 
     public function index(): void {
         $this->load->language('extension/payment/amazon_login_pay');
@@ -83,22 +82,22 @@ class ControllerExtensionPaymentAmazonLoginPay extends Controller {
 
         $data['https_catalog'] = HTTPS_CATALOG;
 
-        $data['breadcrumbs'] = array();
+        $data['breadcrumbs'] = [];
 
-        $data['breadcrumbs'][] = array(
+        $data['breadcrumbs'][] = [
             'text' => $this->language->get('text_home'),
             'href' => $this->url->link('common/dashboard', 'user_token=' . $this->session->data['user_token'], true)
-        );
+        ];
 
-        $data['breadcrumbs'][] = array(
+        $data['breadcrumbs'][] = [
             'text' => $this->language->get('text_extension'),
             'href' => $this->url->link('marketplace/extension', 'user_token=' . $this->session->data['user_token'] . '&type=payment', true)
-        );
+        ];
 
-        $data['breadcrumbs'][] = array(
+        $data['breadcrumbs'][] = [
             'text' => $this->language->get('heading_title'),
             'href' => $this->url->link('extension/payment/amazon_login_pay', 'user_token=' . $this->session->data['user_token'], true)
-        );
+        ];
 
         $data['action'] = $this->url->link('extension/payment/amazon_login_pay', 'user_token=' . $this->session->data['user_token'], true);
         $data['cancel'] = $this->url->link('marketplace/extension', 'user_token=' . $this->session->data['user_token'] . '&type=payment', true);
@@ -171,7 +170,7 @@ class ControllerExtensionPaymentAmazonLoginPay extends Controller {
             $data['payment_amazon_login_pay_payment_region'] = $this->request->post['payment_amazon_login_pay_payment_region'];
         } elseif ($this->config->get('payment_amazon_login_pay_payment_region')) {
             $data['payment_amazon_login_pay_payment_region'] = $this->config->get('payment_amazon_login_pay_payment_region');
-        } elseif (in_array($this->config->get('config_currency'), array('EUR', 'GBP', 'USD'))) {
+        } elseif (in_array($this->config->get('config_currency'), ['EUR', 'GBP', 'USD'])) {
             $data['payment_amazon_login_pay_payment_region'] = $this->config->get('config_currency');
         } else {
             $data['payment_amazon_login_pay_payment_region'] = 'USD';
@@ -261,10 +260,10 @@ class ControllerExtensionPaymentAmazonLoginPay extends Controller {
         // Currencies
         $this->load->model('localisation/currency');
 
-        $store_buyer_currencies      = array();
-        $oc_currencies               = $this->model_localisation_currency->getCurrencies();
+        $store_buyer_currencies = [];
+        $oc_currencies          = $this->model_localisation_currency->getCurrencies();
 
-        $amazon_supported_currencies = array(
+        $amazon_supported_currencies = [
             'AUD',
             'GBP',
             'DKK',
@@ -277,7 +276,7 @@ class ControllerExtensionPaymentAmazonLoginPay extends Controller {
             'SEK',
             'CHF',
             'USD'
-        );
+        ];
 
         foreach ($amazon_supported_currencies as $amazon_supported_currency) {
             if (isset($oc_currencies[$amazon_supported_currency]) && $oc_currencies[$amazon_supported_currency]['status'] == '1') {
@@ -333,7 +332,11 @@ class ControllerExtensionPaymentAmazonLoginPay extends Controller {
 
         $data['order_statuses'] = $this->model_localisation_order_status->getOrderStatuses();
 
-        $data['declined_codes'] = array($this->language->get('text_amazon_invalid'), $this->language->get('text_amazon_rejected'), $this->language->get('text_amazon_timeout'));
+        $data['declined_codes'] = [
+            $this->language->get('text_amazon_invalid'),
+            $this->language->get('text_amazon_rejected'),
+            $this->language->get('text_amazon_timeout')
+        ];
 
         $data['unique_id']             = 'oc-' . str_replace(' ', '-', strtolower($this->config->get('config_name'))) . '_' . mt_rand();
         $data['allowed_login_domain']  = html_entity_decode(HTTPS_CATALOG);
@@ -342,33 +345,33 @@ class ControllerExtensionPaymentAmazonLoginPay extends Controller {
         $data['store_name']            = $this->config->get('config_name');
         $data['simple_path_language']  = str_replace('-', '_', $data['payment_amazon_login_pay_language']);
 
-        $data['languages'] = array();
+        $data['languages'] = [];
 
         if ($data['payment_amazon_login_pay_payment_region'] == 'USD') {
             $data['registration_url'] = "https://payments.amazon.com/register?registration_source=SPPL&spId=" . $ld;
 
-            $data['languages'] = array(
+            $data['languages'] = [
                 'en-US' => $this->language->get('text_us')
-            );
+            ];
         } else {
             $data['registration_url'] = "https://payments-eu.amazon.com/register?registration_source=SPPL&spId=" . $ld;
 
-            $data['languages'] = array(
+            $data['languages'] = [
                 'de-DE' => $this->language->get('text_de'),
                 'es-ES' => $this->language->get('text_es'),
                 'fr-FR' => $this->language->get('text_fr'),
                 'it-IT' => $this->language->get('text_it'),
                 'en-GB' => $this->language->get('text_uk')
-            );
+            ];
         }
 
-        $data['payment_regions'] = array();
+        $data['payment_regions'] = [];
 
-        $data['payment_regions'] = array(
+        $data['payment_regions'] = [
             'EUR' => $this->language->get('text_eu_region'),
             'GBP' => $this->language->get('text_uk_region'),
             'USD' => $this->language->get('text_us_region')
-        );
+        ];
 
         $data['has_ssl'] = !empty($this->request->server['HTTPS']);
 
@@ -401,6 +404,8 @@ class ControllerExtensionPaymentAmazonLoginPay extends Controller {
     }
 
     public function order(): string {
+        $view = '';
+
         if ($this->config->get('payment_amazon_login_pay_status')) {
             $this->load->model('extension/payment/amazon_login_pay');
 
@@ -419,15 +424,17 @@ class ControllerExtensionPaymentAmazonLoginPay extends Controller {
                 $data['order_id']   = (int)$this->request->get['order_id'];
                 $data['user_token'] = $this->session->data['user_token'];
 
-                return $this->load->view('extension/payment/amazon_login_pay_order', $data);
+                $view = $this->load->view('extension/payment/amazon_login_pay_order', $data);
             }
         }
+
+        return $view;
     }
 
     public function cancel(): void {
         $this->load->language('extension/payment/amazon_login_pay');
 
-        $json = array();
+        $json = [];
 
         if (isset($this->request->post['order_id']) && $this->request->post['order_id'] != '') {
             $this->load->model('extension/payment/amazon_login_pay');
@@ -444,7 +451,7 @@ class ControllerExtensionPaymentAmazonLoginPay extends Controller {
 
                 $json['msg'] = $this->language->get('text_cancel_ok');
 
-                $json['data'] = array();
+                $json['data'] = [];
 
                 $json['data']['date_added'] = date('Y-m-d H:i:s');
                 $json['data']['type']       = 'cancel';
@@ -470,7 +477,7 @@ class ControllerExtensionPaymentAmazonLoginPay extends Controller {
     public function capture() {
         $this->load->language('extension/payment/amazon_login_pay');
 
-        $json = array();
+        $json = [];
 
         if (isset($this->request->post['order_id']) && $this->request->post['order_id'] != '' && isset($this->request->post['amount']) && $this->request->post['amount'] > 0) {
             $this->load->model('extension/payment/amazon_login_pay');
@@ -490,7 +497,10 @@ class ControllerExtensionPaymentAmazonLoginPay extends Controller {
                 if ($total_captured > 0) {
                     $order_reference_id = $amazon_login_pay_order['amazon_order_reference_id'];
 
-                    if ($this->model_extension_payment_amazon_login_pay->isOrderInState($order_reference_id, array('Open', 'Suspended'))) {
+                    if ($this->model_extension_payment_amazon_login_pay->isOrderInState($order_reference_id, [
+                        'Open',
+                        'Suspended'
+                    ])) {
                         $this->model_extension_payment_amazon_login_pay->closeOrderRef($order_reference_id);
                     }
                 }
@@ -507,7 +517,7 @@ class ControllerExtensionPaymentAmazonLoginPay extends Controller {
                     $json['msg'] = $this->language->get('text_capture_ok');
                 }
 
-                $json['data'] = array();
+                $json['data'] = [];
 
                 $json['data']['date_added']              = date('Y-m-d H:i:s');
                 $json['data']['type']                    = 'capture';
@@ -537,7 +547,7 @@ class ControllerExtensionPaymentAmazonLoginPay extends Controller {
     public function refund(): void {
         $this->load->language('extension/payment/amazon_login_pay');
 
-        $json = array();
+        $json = [];
 
         if (isset($this->request->post['order_id'])) {
             $this->load->model('extension/payment/amazon_login_pay');
@@ -571,7 +581,7 @@ class ControllerExtensionPaymentAmazonLoginPay extends Controller {
                         $json['msg'][] = $this->language->get('text_refund_ok') . '<br/>';
                     }
 
-                    $post_data = array();
+                    $post_data = [];
 
                     $post_data['date_added']              = date('Y-m-d H:i:s');
                     $post_data['type']                    = 'refund';
@@ -603,13 +613,13 @@ class ControllerExtensionPaymentAmazonLoginPay extends Controller {
     }
 
     protected function trimIntegrationDetails() {
-        $integration_keys = array(
+        $integration_keys = [
             'payment_amazon_login_pay_merchant_id',
             'payment_amazon_login_pay_access_key',
             'payment_amazon_login_pay_access_secret',
             'payment_amazon_login_pay_client_id',
             'payment_amazon_login_pay_client_secret'
-        );
+        ];
 
         foreach ($this->request->post as $key => $value) {
             if (in_array($key, $integration_keys)) {

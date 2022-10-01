@@ -1,7 +1,6 @@
 <?php
-
 class ControllerExtensionShippingUsps extends Controller {
-    private array $error = array();
+    private array $error = [];
 
     public function index(): void {
         $this->load->language('extension/shipping/usps');
@@ -42,22 +41,22 @@ class ControllerExtensionShippingUsps extends Controller {
             $data['error_dimension'] = '';
         }
 
-        $data['breadcrumbs'] = array();
+        $data['breadcrumbs'] = [];
 
-        $data['breadcrumbs'][] = array(
+        $data['breadcrumbs'][] = [
             'text' => $this->language->get('text_home'),
             'href' => $this->url->link('common/dashboard', 'user_token=' . $this->session->data['user_token'], true)
-        );
+        ];
 
-        $data['breadcrumbs'][] = array(
+        $data['breadcrumbs'][] = [
             'text' => $this->language->get('text_extension'),
             'href' => $this->url->link('marketplace/extension', 'user_token=' . $this->session->data['user_token'] . '&type=shipping', true)
-        );
+        ];
 
-        $data['breadcrumbs'][] = array(
+        $data['breadcrumbs'][] = [
             'text' => $this->language->get('heading_title'),
             'href' => $this->url->link('extension/shipping/usps', 'user_token=' . $this->session->data['user_token'], true)
-        );
+        ];
 
         $data['action'] = $this->url->link('extension/shipping/usps', 'user_token=' . $this->session->data['user_token'], true);
         $data['cancel'] = $this->url->link('marketplace/extension', 'user_token=' . $this->session->data['user_token'] . '&type=shipping', true);
@@ -308,17 +307,17 @@ class ControllerExtensionShippingUsps extends Controller {
             $data['shipping_usps_size'] = $this->config->get('shipping_usps_size');
         }
 
-        $data['sizes'] = array();
+        $data['sizes'] = [];
 
-        $data['sizes'][] = array(
+        $data['sizes'][] = [
             'text'  => $this->language->get('text_regular'),
             'value' => 'REGULAR'
-        );
+        ];
 
-        $data['sizes'][] = array(
+        $data['sizes'][] = [
             'text'  => $this->language->get('text_large'),
             'value' => 'LARGE'
-        );
+        ];
 
         if (isset($this->request->post['shipping_usps_container'])) {
             $data['shipping_usps_container'] = $this->request->post['shipping_usps_container'];
@@ -326,22 +325,22 @@ class ControllerExtensionShippingUsps extends Controller {
             $data['shipping_usps_container'] = $this->config->get('shipping_usps_container');
         }
 
-        $data['containers'] = array();
+        $data['containers'] = [];
 
-        $data['containers'][] = array(
+        $data['containers'][] = [
             'text'  => $this->language->get('text_rectangular'),
             'value' => 'RECTANGULAR'
-        );
+        ];
 
-        $data['containers'][] = array(
+        $data['containers'][] = [
             'text'  => $this->language->get('text_non_rectangular'),
             'value' => 'NONRECTANGULAR'
-        );
+        ];
 
-        $data['containers'][] = array(
+        $data['containers'][] = [
             'text'  => $this->language->get('text_variable'),
             'value' => 'VARIABLE'
-        );
+        ];
 
         if (isset($this->request->post['shipping_usps_machinable'])) {
             $data['shipping_usps_machinable'] = $this->request->post['shipping_usps_machinable'];

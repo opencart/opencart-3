@@ -1,5 +1,4 @@
 <?php
-
 class ControllerExtensionPaymentCardConnect extends Controller {
     private array $error = array();
 

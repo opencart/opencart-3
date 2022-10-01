@@ -1,7 +1,6 @@
 <?php
-
 class ControllerMarketingContact extends Controller {
-    private array $error = array();
+    private array $error = [];
 
     public function index(): void {
         $this->load->language('marketing/contact');
@@ -10,17 +9,17 @@ class ControllerMarketingContact extends Controller {
 
         $data['user_token'] = $this->session->data['user_token'];
 
-        $data['breadcrumbs'] = array();
+        $data['breadcrumbs'] = [];
 
-        $data['breadcrumbs'][] = array(
+        $data['breadcrumbs'][] = [
             'text' => $this->language->get('text_home'),
             'href' => $this->url->link('common/dashboard', 'user_token=' . $this->session->data['user_token'], true)
-        );
+        ];
 
-        $data['breadcrumbs'][] = array(
+        $data['breadcrumbs'][] = [
             'text' => $this->language->get('heading_title'),
             'href' => $this->url->link('marketing/contact', 'user_token=' . $this->session->data['user_token'], true)
-        );
+        ];
 
         $data['cancel'] = $this->url->link('common/dashboard', 'user_token=' . $this->session->data['user_token'], true);
 
@@ -42,7 +41,7 @@ class ControllerMarketingContact extends Controller {
     public function send(): void {
         $this->load->language('marketing/contact');
 
-        $json = array();
+        $json = [];
 
         if ($this->request->server['REQUEST_METHOD'] == 'POST') {
             if (!$this->user->hasPermission('modify', 'marketing/contact')) {
@@ -83,15 +82,15 @@ class ControllerMarketingContact extends Controller {
 
                 $email_total = 0;
 
-                $emails = array();
+                $emails = [];
 
                 switch ($this->request->post['to']) {
                     case 'newsletter':
-                        $customer_data = array(
+                        $customer_data = [
                             'filter_newsletter' => 1,
                             'start'             => ($page - 1) * 10,
                             'limit'             => 10
-                        );
+                        ];
 
                         $email_total = $this->model_customer_customer->getTotalCustomers($customer_data);
 
@@ -102,10 +101,10 @@ class ControllerMarketingContact extends Controller {
                         }
                         break;
                     case 'customer_all':
-                        $customer_data = array(
+                        $customer_data = [
                             'start' => ($page - 1) * 10,
                             'limit' => 10
-                        );
+                        ];
 
                         $email_total = $this->model_customer_customer->getTotalCustomers($customer_data);
 
@@ -116,11 +115,11 @@ class ControllerMarketingContact extends Controller {
                         }
                         break;
                     case 'customer_group':
-                        $customer_data = array(
+                        $customer_data = [
                             'filter_customer_group_id' => $this->request->post['customer_group_id'],
                             'start'                    => ($page - 1) * 10,
                             'limit'                    => 10
-                        );
+                        ];
 
                         $email_total = $this->model_customer_customer->getTotalCustomers($customer_data);
 
@@ -146,11 +145,11 @@ class ControllerMarketingContact extends Controller {
                         }
                         break;
                     case 'affiliate_all':
-                        $affiliate_data = array(
+                        $affiliate_data = [
                             'filter_affiliate' => 1,
                             'start'            => ($page - 1) * 10,
                             'limit'            => 10
-                        );
+                        ];
 
                         $email_total = $this->model_customer_customer->getTotalCustomers($affiliate_data);
 

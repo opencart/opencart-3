@@ -1,8 +1,7 @@
 <?php
-
 class ControllerMailCustomer extends Controller {
     // admin/model/customer/customer_approval/approveCustomer/after
-    public function deny(string &$route, array &$args, mixed &$output): void {
+    public function allow(string &$route, array &$args, mixed &$output): void {
         $this->load->model('customer/customer');
 
         $customer_info = $this->model_customer_customer->getCustomer($args[0]);
@@ -49,11 +48,9 @@ class ControllerMailCustomer extends Controller {
             $subject = sprintf($language->get('text_subject'), $store_name);
 
             $data['text_welcome'] = sprintf($language->get('text_welcome'), $store_name);
-
-            $data['login'] = $store_url . 'index.php?route=account/login';
-
-            $data['store']     = $store_name;
-            $data['store_url'] = $store_url;
+            $data['login']        = $store_url . 'index.php?route=account/login';
+            $data['store']        = $store_name;
+            $data['store_url']    = $store_url;
 
             if ($this->config->get('config_mail_engine')) {
                 $mail                = new \Mail($this->config->get('config_mail_engine'));
@@ -122,11 +119,9 @@ class ControllerMailCustomer extends Controller {
             $subject = sprintf($language->get('text_subject'), $store_name);
 
             $data['text_welcome'] = sprintf($language->get('text_welcome'), $store_name);
-
-            $data['contact'] = $store_url . 'index.php?route=information/contact';
-
-            $data['store']     = $store_name;
-            $data['store_url'] = $store_url;
+            $data['contact']      = $store_url . 'index.php?route=information/contact';
+            $data['store']        = $store_name;
+            $data['store_url']    = $store_url;
 
             if ($this->config->get('config_mail_engine')) {
                 $mail                = new \Mail($this->config->get('config_mail_engine'));

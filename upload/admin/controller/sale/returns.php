@@ -1,7 +1,6 @@
 <?php
-
 class ControllerSaleReturns extends Controller {
-    private array $error = array();
+    private array $error = [];
 
     public function index(): void {
         $this->load->language('sale/returns');
@@ -320,24 +319,24 @@ class ControllerSaleReturns extends Controller {
             $url .= '&page=' . $this->request->get['page'];
         }
 
-        $data['breadcrumbs'] = array();
+        $data['breadcrumbs'] = [];
 
-        $data['breadcrumbs'][] = array(
+        $data['breadcrumbs'][] = [
             'text' => $this->language->get('text_home'),
             'href' => $this->url->link('common/dashboard', 'user_token=' . $this->session->data['user_token'], true)
-        );
+        ];
 
-        $data['breadcrumbs'][] = array(
+        $data['breadcrumbs'][] = [
             'text' => $this->language->get('heading_title'),
             'href' => $this->url->link('sale/returns', 'user_token=' . $this->session->data['user_token'] . $url, true)
-        );
+        ];
 
         $data['add']    = $this->url->link('sale/returns/add', 'user_token=' . $this->session->data['user_token'] . $url, true);
         $data['delete'] = $this->url->link('sale/returns/delete', 'user_token=' . $this->session->data['user_token'] . $url, true);
 
-        $data['returns'] = array();
+        $data['returns'] = [];
 
-        $filter_data = array(
+        $filter_data = [
             'filter_return_id'        => $filter_return_id,
             'filter_order_id'         => $filter_order_id,
             'filter_customer'         => $filter_customer,
@@ -350,14 +349,14 @@ class ControllerSaleReturns extends Controller {
             'order'                   => $order,
             'start'                   => ($page - 1) * $this->config->get('config_limit_admin'),
             'limit'                   => $this->config->get('config_limit_admin')
-        );
+        ];
 
         $return_total = $this->model_sale_returns->getTotalReturns($filter_data);
 
         $results = $this->model_sale_returns->getReturns($filter_data);
 
         foreach ($results as $result) {
-            $data['returns'][] = array(
+            $data['returns'][] = [
                 'return_id'     => $result['return_id'],
                 'order_id'      => $result['order_id'],
                 'customer'      => $result['customer'],
@@ -367,7 +366,7 @@ class ControllerSaleReturns extends Controller {
                 'date_added'    => date($this->language->get('date_format_short'), strtotime($result['date_added'])),
                 'date_modified' => date($this->language->get('date_format_short'), strtotime($result['date_modified'])),
                 'edit'          => $this->url->link('sale/returns/edit', 'user_token=' . $this->session->data['user_token'] . '&return_id=' . $result['return_id'] . $url, true)
-            );
+            ];
         }
 
         $data['user_token'] = $this->session->data['user_token'];
@@ -393,7 +392,7 @@ class ControllerSaleReturns extends Controller {
         if (isset($this->request->post['selected'])) {
             $data['selected'] = (array)$this->request->post['selected'];
         } else {
-            $data['selected'] = array();
+            $data['selected'] = [];
         }
 
         $url = '';
@@ -595,17 +594,17 @@ class ControllerSaleReturns extends Controller {
             $url .= '&page=' . $this->request->get['page'];
         }
 
-        $data['breadcrumbs'] = array();
+        $data['breadcrumbs'] = [];
 
-        $data['breadcrumbs'][] = array(
+        $data['breadcrumbs'][] = [
             'text' => $this->language->get('text_home'),
             'href' => $this->url->link('common/dashboard', 'user_token=' . $this->session->data['user_token'])
-        );
+        ];
 
-        $data['breadcrumbs'][] = array(
+        $data['breadcrumbs'][] = [
             'text' => $this->language->get('heading_title'),
             'href' => $this->url->link('sale/returns', 'user_token=' . $this->session->data['user_token'] . $url, true)
-        );
+        ];
 
         if (!isset($this->request->get['return_id'])) {
             $data['action'] = $this->url->link('sale/returns/add', 'user_token=' . $this->session->data['user_token'] . $url, true);
@@ -811,17 +810,17 @@ class ControllerSaleReturns extends Controller {
             $page = 1;
         }
 
-        $data['histories'] = array();
+        $data['histories'] = [];
 
         $results = $this->model_sale_returns->getReturnHistories($this->request->get['return_id'], ($page - 1) * 10, 10);
 
         foreach ($results as $result) {
-            $data['histories'][] = array(
+            $data['histories'][] = [
                 'notify'     => $result['notify'] ? $this->language->get('text_yes') : $this->language->get('text_no'),
                 'status'     => $result['status'],
                 'comment'    => nl2br($result['comment']),
                 'date_added' => date($this->language->get('date_format_short'), strtotime($result['date_added']))
-            );
+            ];
         }
 
         $history_total = $this->model_sale_returns->getTotalReturnHistories($this->request->get['return_id']);
@@ -842,7 +841,7 @@ class ControllerSaleReturns extends Controller {
     public function addHistory(): void {
         $this->load->language('sale/returns');
 
-        $json = array();
+        $json = [];
 
         if (!$this->user->hasPermission('modify', 'sale/returns')) {
             $json['error'] = $this->language->get('error_permission');

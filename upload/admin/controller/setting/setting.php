@@ -1,7 +1,6 @@
 <?php
-
 class ControllerSettingSetting extends Controller {
-    private array $error = array();
+    private array $error = [];
 
     public function index(): void {
         $this->load->language('setting/setting');
@@ -132,22 +131,22 @@ class ControllerSettingSetting extends Controller {
             $data['error_mail_engine'] = '';
         }
 
-        $data['breadcrumbs'] = array();
+        $data['breadcrumbs'] = [];
 
-        $data['breadcrumbs'][] = array(
+        $data['breadcrumbs'][] = [
             'text' => $this->language->get('text_home'),
             'href' => $this->url->link('common/dashboard', 'user_token=' . $this->session->data['user_token'], true)
-        );
+        ];
 
-        $data['breadcrumbs'][] = array(
+        $data['breadcrumbs'][] = [
             'text' => $this->language->get('text_stores'),
             'href' => $this->url->link('setting/store', 'user_token=' . $this->session->data['user_token'], true)
-        );
+        ];
 
-        $data['breadcrumbs'][] = array(
+        $data['breadcrumbs'][] = [
             'text' => $this->language->get('heading_title'),
             'href' => $this->url->link('setting/setting', 'user_token=' . $this->session->data['user_token'], true)
-        );
+        ];
 
         if (isset($this->session->data['success'])) {
             $data['success'] = $this->session->data['success'];
@@ -191,7 +190,7 @@ class ControllerSettingSetting extends Controller {
             $data['store_url'] = HTTP_CATALOG;
         }
 
-        $data['themes'] = array();
+        $data['themes'] = [];
 
         $this->load->model('setting/extension');
 
@@ -200,10 +199,10 @@ class ControllerSettingSetting extends Controller {
         foreach ($extensions as $code) {
             $this->load->language('extension/theme/' . $code, 'extension');
 
-            $data['themes'][] = array(
+            $data['themes'][] = [
                 'text'  => $this->language->get('extension')->get('heading_title'),
                 'value' => $code
-            );
+            ];
         }
 
         if (isset($this->request->post['config_layout_id'])) {
@@ -297,7 +296,7 @@ class ControllerSettingSetting extends Controller {
         } elseif ($this->config->get('config_location')) {
             $data['config_location'] = $this->config->get('config_location');
         } else {
-            $data['config_location'] = array();
+            $data['config_location'] = [];
         }
 
         if (isset($this->request->post['config_country_id'])) {
@@ -323,7 +322,7 @@ class ControllerSettingSetting extends Controller {
         }
 
         // Set Time Zone
-        $data['timezones'] = array();
+        $data['timezones'] = [];
 
         $timestamp = date_create('now');
 
@@ -334,10 +333,10 @@ class ControllerSettingSetting extends Controller {
 
             $hour = ' (' . date_format($timestamp, 'P') . ')';
 
-            $data['timezones'][] = array(
+            $data['timezones'][] = [
                 'text'  => $timezone . $hour,
                 'value' => $timezone
-            );
+            ];
         }
 
         if (isset($this->request->post['config_language'])) {
@@ -479,7 +478,7 @@ class ControllerSettingSetting extends Controller {
         } elseif ($this->config->get('config_customer_group_display')) {
             $data['config_customer_group_display'] = $this->config->get('config_customer_group_display');
         } else {
-            $data['config_customer_group_display'] = array();
+            $data['config_customer_group_display'] = [];
         }
 
         if (isset($this->request->post['config_customer_price'])) {
@@ -541,7 +540,7 @@ class ControllerSettingSetting extends Controller {
         } elseif ($this->config->get('config_processing_status')) {
             $data['config_processing_status'] = $this->config->get('config_processing_status');
         } else {
-            $data['config_processing_status'] = array();
+            $data['config_processing_status'] = [];
         }
 
         if (isset($this->request->post['config_complete_status'])) {
@@ -549,7 +548,7 @@ class ControllerSettingSetting extends Controller {
         } elseif ($this->config->get('config_complete_status')) {
             $data['config_complete_status'] = $this->config->get('config_complete_status');
         } else {
-            $data['config_complete_status'] = array();
+            $data['config_complete_status'] = [];
         }
 
         if (isset($this->request->post['config_fraud_status_id'])) {
@@ -644,7 +643,7 @@ class ControllerSettingSetting extends Controller {
 
         $this->load->model('setting/extension');
 
-        $data['captchas'] = array();
+        $data['captchas'] = [];
 
         // Get a list of installed captchas
         $extensions = $this->model_setting_extension->getInstalled('captcha');
@@ -653,10 +652,10 @@ class ControllerSettingSetting extends Controller {
             $this->load->language('extension/captcha/' . $code, 'extension');
 
             if ($this->config->get('captcha_' . $code . '_status')) {
-                $data['captchas'][] = array(
+                $data['captchas'][] = [
                     'text'  => $this->language->get('extension')->get('heading_title'),
                     'value' => $code
-                );
+                ];
             }
         }
 
@@ -666,32 +665,32 @@ class ControllerSettingSetting extends Controller {
             $data['config_captcha_page'] = (array)$this->config->get('config_captcha_page');
         }
 
-        $data['captcha_pages'] = array();
+        $data['captcha_pages'] = [];
 
-        $data['captcha_pages'][] = array(
+        $data['captcha_pages'][] = [
             'text'  => $this->language->get('text_register'),
             'value' => 'register'
-        );
+        ];
 
-        $data['captcha_pages'][] = array(
+        $data['captcha_pages'][] = [
             'text'  => $this->language->get('text_guest'),
             'value' => 'guest'
-        );
+        ];
 
-        $data['captcha_pages'][] = array(
+        $data['captcha_pages'][] = [
             'text'  => $this->language->get('text_review'),
             'value' => 'review'
-        );
+        ];
 
-        $data['captcha_pages'][] = array(
+        $data['captcha_pages'][] = [
             'text'  => $this->language->get('text_return'),
             'value' => 'returns'
-        );
+        ];
 
-        $data['captcha_pages'][] = array(
+        $data['captcha_pages'][] = [
             'text'  => $this->language->get('text_contact'),
             'value' => 'contact'
-        );
+        ];
 
         if (isset($this->request->post['config_logo'])) {
             $data['config_logo'] = $this->request->post['config_logo'];
@@ -781,27 +780,27 @@ class ControllerSettingSetting extends Controller {
             $data['config_mail_alert'] = (array)$this->config->get('config_mail_alert');
         }
 
-        $data['mail_alerts'] = array();
+        $data['mail_alerts'] = [];
 
-        $data['mail_alerts'][] = array(
+        $data['mail_alerts'][] = [
             'text'  => $this->language->get('text_mail_account'),
             'value' => 'account'
-        );
+        ];
 
-        $data['mail_alerts'][] = array(
+        $data['mail_alerts'][] = [
             'text'  => $this->language->get('text_mail_affiliate'),
             'value' => 'affiliate'
-        );
+        ];
 
-        $data['mail_alerts'][] = array(
+        $data['mail_alerts'][] = [
             'text'  => $this->language->get('text_mail_order'),
             'value' => 'order'
-        );
+        ];
 
-        $data['mail_alerts'][] = array(
+        $data['mail_alerts'][] = [
             'text'  => $this->language->get('text_mail_review'),
             'value' => 'review'
-        );
+        ];
 
         if (isset($this->request->post['config_mail_alert_email'])) {
             $data['config_mail_alert_email'] = $this->request->post['config_mail_alert_email'];
@@ -989,7 +988,7 @@ class ControllerSettingSetting extends Controller {
         }
 
         // Currencies
-        $data['currency_engines'] = array();
+        $data['currency_engines'] = [];
 
         $this->load->model('setting/extension');
 
@@ -999,10 +998,10 @@ class ControllerSettingSetting extends Controller {
             if ($this->config->get('currency_' . $code . '_status')) {
                 $this->load->language('extension/currency/' . $code, 'extension');
 
-                $data['currency_engines'][] = array(
+                $data['currency_engines'][] = [
                     'text'  => $this->language->get('extension')->get('heading_title'),
                     'value' => $code
-                );
+                ];
             }
         }
 

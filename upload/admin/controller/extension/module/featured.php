@@ -1,7 +1,6 @@
 <?php
-
 class ControllerExtensionModuleFeatured extends Controller {
-    private array $error = array();
+    private array $error = [];
 
     public function index(): void {
         $this->load->language('extension/module/featured');
@@ -46,28 +45,28 @@ class ControllerExtensionModuleFeatured extends Controller {
             $data['error_height'] = '';
         }
 
-        $data['breadcrumbs'] = array();
+        $data['breadcrumbs'] = [];
 
-        $data['breadcrumbs'][] = array(
+        $data['breadcrumbs'][] = [
             'text' => $this->language->get('text_home'),
             'href' => $this->url->link('common/dashboard', 'user_token=' . $this->session->data['user_token'], true)
-        );
+        ];
 
-        $data['breadcrumbs'][] = array(
+        $data['breadcrumbs'][] = [
             'text' => $this->language->get('text_extension'),
             'href' => $this->url->link('marketplace/extension', 'user_token=' . $this->session->data['user_token'] . '&type=module', true)
-        );
+        ];
 
         if (!isset($this->request->get['module_id'])) {
-            $data['breadcrumbs'][] = array(
+            $data['breadcrumbs'][] = [
                 'text' => $this->language->get('heading_title'),
                 'href' => $this->url->link('extension/module/featured', 'user_token=' . $this->session->data['user_token'], true)
-            );
+            ];
         } else {
-            $data['breadcrumbs'][] = array(
+            $data['breadcrumbs'][] = [
                 'text' => $this->language->get('heading_title'),
                 'href' => $this->url->link('extension/module/featured', 'user_token=' . $this->session->data['user_token'] . '&module_id=' . $this->request->get['module_id'], true)
-            );
+            ];
         }
 
         if (!isset($this->request->get['module_id'])) {
@@ -94,24 +93,24 @@ class ControllerExtensionModuleFeatured extends Controller {
 
         $this->load->model('catalog/product');
 
-        $data['products'] = array();
+        $data['products'] = [];
 
         if (!empty($this->request->post['product'])) {
             $products = $this->request->post['product'];
         } elseif (!empty($module_info['product'])) {
             $products = $module_info['product'];
         } else {
-            $products = array();
+            $products = [];
         }
 
         foreach ($products as $product_id) {
             $product_info = $this->model_catalog_product->getProduct($product_id);
 
             if ($product_info) {
-                $data['products'][] = array(
+                $data['products'][] = [
                     'product_id' => $product_info['product_id'],
                     'name'       => $product_info['name']
-                );
+                ];
             }
         }
 

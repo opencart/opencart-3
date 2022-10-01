@@ -1,7 +1,6 @@
 <?php
-
 class ControllerSaleVoucher extends Controller {
-    private array $error = array();
+    private array $error = [];
 
     public function index(): void {
         $this->load->language('sale/voucher');
@@ -144,29 +143,29 @@ class ControllerSaleVoucher extends Controller {
             $url .= '&page=' . $this->request->get['page'];
         }
 
-        $data['breadcrumbs'] = array();
+        $data['breadcrumbs'] = [];
 
-        $data['breadcrumbs'][] = array(
+        $data['breadcrumbs'][] = [
             'text' => $this->language->get('text_home'),
             'href' => $this->url->link('common/dashboard', 'user_token=' . $this->session->data['user_token'], true)
-        );
+        ];
 
-        $data['breadcrumbs'][] = array(
+        $data['breadcrumbs'][] = [
             'text' => $this->language->get('heading_title'),
             'href' => $this->url->link('sale/voucher', 'user_token=' . $this->session->data['user_token'] . $url, true)
-        );
+        ];
 
         $data['add']    = $this->url->link('sale/voucher/add', 'user_token=' . $this->session->data['user_token'] . $url, true);
         $data['delete'] = $this->url->link('sale/voucher/delete', 'user_token=' . $this->session->data['user_token'] . $url, true);
 
-        $data['vouchers'] = array();
+        $data['vouchers'] = [];
 
-        $filter_data = array(
+        $filter_data = [
             'sort'  => $sort,
             'order' => $order,
             'start' => ($page - 1) * $this->config->get('config_limit_admin'),
             'limit' => $this->config->get('config_limit_admin')
-        );
+        ];
 
         $voucher_total = $this->model_sale_voucher->getTotalVouchers();
 
@@ -179,7 +178,7 @@ class ControllerSaleVoucher extends Controller {
                 $order_href = '';
             }
 
-            $data['vouchers'][] = array(
+            $data['vouchers'][] = [
                 'voucher_id' => $result['voucher_id'],
                 'code'       => $result['code'],
                 'from'       => $result['from_name'],
@@ -190,7 +189,7 @@ class ControllerSaleVoucher extends Controller {
                 'date_added' => date($this->language->get('date_format_short'), strtotime($result['date_added'])),
                 'edit'       => $this->url->link('sale/voucher/edit', 'user_token=' . $this->session->data['user_token'] . '&voucher_id=' . $result['voucher_id'] . $url, true),
                 'order'      => $order_href
-            );
+            ];
         }
 
         $data['user_token'] = $this->session->data['user_token'];
@@ -212,7 +211,7 @@ class ControllerSaleVoucher extends Controller {
         if (isset($this->request->post['selected'])) {
             $data['selected'] = (array)$this->request->post['selected'];
         } else {
-            $data['selected'] = array();
+            $data['selected'] = [];
         }
 
         $url = '';
@@ -330,17 +329,17 @@ class ControllerSaleVoucher extends Controller {
             $url .= '&page=' . $this->request->get['page'];
         }
 
-        $data['breadcrumbs'] = array();
+        $data['breadcrumbs'] = [];
 
-        $data['breadcrumbs'][] = array(
+        $data['breadcrumbs'][] = [
             'text' => $this->language->get('text_home'),
             'href' => $this->url->link('common/dashboard', 'user_token=' . $this->session->data['user_token'], true)
-        );
+        ];
 
-        $data['breadcrumbs'][] = array(
+        $data['breadcrumbs'][] = [
             'text' => $this->language->get('heading_title'),
             'href' => $this->url->link('sale/voucher', 'user_token=' . $this->session->data['user_token'] . $url, true)
-        );
+        ];
 
         if (!isset($this->request->get['voucher_id'])) {
             $data['action'] = $this->url->link('sale/voucher/add', 'user_token=' . $this->session->data['user_token'] . $url, true);
@@ -511,17 +510,17 @@ class ControllerSaleVoucher extends Controller {
             $page = 1;
         }
 
-        $data['histories'] = array();
+        $data['histories'] = [];
 
         $results = $this->model_sale_voucher->getVoucherHistories($this->request->get['voucher_id'], ($page - 1) * 10, 10);
 
         foreach ($results as $result) {
-            $data['histories'][] = array(
+            $data['histories'][] = [
                 'order_id'   => $result['order_id'],
                 'customer'   => $result['customer'],
                 'amount'     => $this->currency->format($result['amount'], $this->config->get('config_currency')),
                 'date_added' => date($this->language->get('date_format_short'), strtotime($result['date_added']))
-            );
+            ];
         }
 
         $history_total = $this->model_sale_voucher->getTotalVoucherHistories($this->request->get['voucher_id']);
@@ -542,7 +541,7 @@ class ControllerSaleVoucher extends Controller {
     public function send(): void {
         $this->load->language('mail/voucher');
 
-        $json = array();
+        $json = [];
 
         if (!$this->user->hasPermission('modify', 'sale/voucher')) {
             $json['error'] = $this->language->get('error_permission');
@@ -551,7 +550,7 @@ class ControllerSaleVoucher extends Controller {
         if (!$json) {
             $this->load->model('sale/voucher');
 
-            $vouchers = array();
+            $vouchers = [];
 
             if (isset($this->request->post['selected'])) {
                 $vouchers = (array)$this->request->post['selected'];

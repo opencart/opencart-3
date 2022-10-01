@@ -1,7 +1,6 @@
 <?php
-
 class ControllerLocalisationStockStatus extends Controller {
-    private array $error = array();
+    private array $error = [];
 
     public function index(): void {
         $this->load->language('localisation/stock_status');
@@ -144,40 +143,40 @@ class ControllerLocalisationStockStatus extends Controller {
             $url .= '&page=' . $this->request->get['page'];
         }
 
-        $data['breadcrumbs'] = array();
+        $data['breadcrumbs'] = [];
 
-        $data['breadcrumbs'][] = array(
+        $data['breadcrumbs'][] = [
             'text' => $this->language->get('text_home'),
             'href' => $this->url->link('common/dashboard', 'user_token=' . $this->session->data['user_token'], true)
-        );
+        ];
 
-        $data['breadcrumbs'][] = array(
+        $data['breadcrumbs'][] = [
             'text' => $this->language->get('heading_title'),
             'href' => $this->url->link('localisation/stock_status', 'user_token=' . $this->session->data['user_token'] . $url, true)
-        );
+        ];
 
         $data['add']    = $this->url->link('localisation/stock_status/add', 'user_token=' . $this->session->data['user_token'] . $url, true);
         $data['delete'] = $this->url->link('localisation/stock_status/delete', 'user_token=' . $this->session->data['user_token'] . $url, true);
 
-        $data['stock_statuses'] = array();
+        $data['stock_statuses'] = [];
 
-        $filter_data = array(
+        $filter_data = [
             'sort'  => $sort,
             'order' => $order,
             'start' => ($page - 1) * $this->config->get('config_limit_admin'),
             'limit' => $this->config->get('config_limit_admin')
-        );
+        ];
 
         $stock_status_total = $this->model_localisation_stock_status->getTotalStockStatuses();
 
         $results = $this->model_localisation_stock_status->getStockStatuses($filter_data);
 
         foreach ($results as $result) {
-            $data['stock_statuses'][] = array(
+            $data['stock_statuses'][] = [
                 'stock_status_id' => $result['stock_status_id'],
                 'name'            => $result['name'],
                 'edit'            => $this->url->link('localisation/stock_status/edit', 'user_token=' . $this->session->data['user_token'] . '&stock_status_id=' . $result['stock_status_id'] . $url, true)
-            );
+            ];
         }
 
         if (isset($this->error['warning'])) {
@@ -197,7 +196,7 @@ class ControllerLocalisationStockStatus extends Controller {
         if (isset($this->request->post['selected'])) {
             $data['selected'] = (array)$this->request->post['selected'];
         } else {
-            $data['selected'] = array();
+            $data['selected'] = [];
         }
 
         $url = '';
@@ -256,7 +255,7 @@ class ControllerLocalisationStockStatus extends Controller {
         if (isset($this->error['name'])) {
             $data['error_name'] = $this->error['name'];
         } else {
-            $data['error_name'] = array();
+            $data['error_name'] = [];
         }
 
         $url = '';
@@ -273,17 +272,17 @@ class ControllerLocalisationStockStatus extends Controller {
             $url .= '&page=' . $this->request->get['page'];
         }
 
-        $data['breadcrumbs'] = array();
+        $data['breadcrumbs'] = [];
 
-        $data['breadcrumbs'][] = array(
+        $data['breadcrumbs'][] = [
             'text' => $this->language->get('text_home'),
             'href' => $this->url->link('common/dashboard', 'user_token=' . $this->session->data['user_token'], true)
-        );
+        ];
 
-        $data['breadcrumbs'][] = array(
+        $data['breadcrumbs'][] = [
             'text' => $this->language->get('heading_title'),
             'href' => $this->url->link('localisation/stock_status', 'user_token=' . $this->session->data['user_token'] . $url, true)
-        );
+        ];
 
         if (!isset($this->request->get['stock_status_id'])) {
             $data['action'] = $this->url->link('localisation/stock_status/add', 'user_token=' . $this->session->data['user_token'] . $url, true);
@@ -302,7 +301,7 @@ class ControllerLocalisationStockStatus extends Controller {
         } elseif (isset($this->request->get['stock_status_id'])) {
             $data['stock_status'] = $this->model_localisation_stock_status->getStockStatusDescriptions($this->request->get['stock_status_id']);
         } else {
-            $data['stock_status'] = array();
+            $data['stock_status'] = [];
         }
 
         $data['header']      = $this->load->controller('common/header');

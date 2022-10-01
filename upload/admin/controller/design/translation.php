@@ -1,7 +1,6 @@
 <?php
-
 class ControllerDesignTranslation extends Controller {
-    private array $error = array();
+    private array $error = [];
 
     public function index(): void {
         $this->load->language('design/translation');
@@ -144,17 +143,17 @@ class ControllerDesignTranslation extends Controller {
             $url .= '&page=' . $this->request->get['page'];
         }
 
-        $data['breadcrumbs'] = array();
+        $data['breadcrumbs'] = [];
 
-        $data['breadcrumbs'][] = array(
+        $data['breadcrumbs'][] = [
             'text' => $this->language->get('text_home'),
             'href' => $this->url->link('common/dashboard', 'user_token=' . $this->session->data['user_token'], true)
-        );
+        ];
 
-        $data['breadcrumbs'][] = array(
+        $data['breadcrumbs'][] = [
             'text' => $this->language->get('heading_title'),
             'href' => $this->url->link('design/translation', 'user_token=' . $this->session->data['user_token'], true)
-        );
+        ];
 
         // Languages
         $this->load->model('localisation/language');
@@ -162,21 +161,21 @@ class ControllerDesignTranslation extends Controller {
         $data['add']    = $this->url->link('design/translation/add', 'user_token=' . $this->session->data['user_token'] . $url, true);
         $data['delete'] = $this->url->link('design/translation/delete', 'user_token=' . $this->session->data['user_token'] . $url, true);
 
-        $data['translations'] = array();
+        $data['translations'] = [];
 
-        $filter_data = array(
+        $filter_data = [
             'sort'  => $sort,
             'order' => $order,
             'start' => ($page - 1) * $this->config->get('config_limit_admin'),
             'limit' => $this->config->get('config_limit_admin')
-        );
+        ];
 
         $translation_total = $this->model_design_translation->getTotalTranslations();
 
         $results = $this->model_design_translation->getTranslations($filter_data);
 
         foreach ($results as $result) {
-            $data['translations'][] = array(
+            $data['translations'][] = [
                 'translation_id' => $result['translation_id'],
                 'store'          => ($result['store_id'] ? $result['store'] : $this->language->get('text_default')),
                 'route'          => $result['route'],
@@ -184,7 +183,7 @@ class ControllerDesignTranslation extends Controller {
                 'key'            => $result['key'],
                 'value'          => $result['value'],
                 'edit'           => $this->url->link('design/translation/edit', 'user_token=' . $this->session->data['user_token'] . '&translation_id=' . $result['translation_id'], true),
-            );
+            ];
         }
 
         $data['user_token'] = $this->session->data['user_token'];
@@ -206,7 +205,7 @@ class ControllerDesignTranslation extends Controller {
         if (isset($this->request->post['selected'])) {
             $data['selected'] = (array)$this->request->post['selected'];
         } else {
-            $data['selected'] = array();
+            $data['selected'] = [];
         }
 
         $url = '';
@@ -276,17 +275,17 @@ class ControllerDesignTranslation extends Controller {
             $url .= '&page=' . $this->request->get['page'];
         }
 
-        $data['breadcrumbs'] = array();
+        $data['breadcrumbs'] = [];
 
-        $data['breadcrumbs'][] = array(
+        $data['breadcrumbs'][] = [
             'text' => $this->language->get('text_home'),
             'href' => $this->url->link('common/dashboard', 'user_token=' . $this->session->data['user_token'], true)
-        );
+        ];
 
-        $data['breadcrumbs'][] = array(
+        $data['breadcrumbs'][] = [
             'text' => $this->language->get('heading_title'),
             'href' => $this->url->link('design/translation', 'user_token=' . $this->session->data['user_token'] . $url, true)
-        );
+        ];
 
         if (!isset($this->request->get['translation_id'])) {
             $data['action'] = $this->url->link('design/translation/add', 'user_token=' . $this->session->data['user_token'] . $url, true);
@@ -339,7 +338,7 @@ class ControllerDesignTranslation extends Controller {
 
         if (empty($translation_info)) {
             // Get a list of files ready to upload
-            $data['paths'] = array();
+            $data['paths'] = [];
 
             $path = glob(DIR_CATALOG . 'language/' . $code . '/*');
 
@@ -380,7 +379,7 @@ class ControllerDesignTranslation extends Controller {
             $directory = DIR_CATALOG . 'language/';
 
             if (is_file($directory . $code . '/' . $translation_info['route'] . '.php') && substr(str_replace('\\', '/', realpath($directory . $code . '/' . $translation_info['route'] . '.php')), 0, strlen($directory)) == str_replace('\\', '/', $directory)) {
-                $_ = array();
+                $_ = [];
 
                 include($directory . $code . '/' . $translation_info['route'] . '.php');
 
@@ -434,7 +433,7 @@ class ControllerDesignTranslation extends Controller {
     public function path(): void {
         $this->load->language('design/translation');
 
-        $json = array();
+        $json = [];
 
         // Languages
         $this->load->model('localisation/language');
@@ -472,7 +471,7 @@ class ControllerDesignTranslation extends Controller {
     public function translation(): void {
         $this->load->language('design/translation');
 
-        $json = array();
+        $json = [];
 
         if (isset($this->request->get['store_id'])) {
             $store_id = (int)$this->request->get['store_id'];
@@ -500,15 +499,15 @@ class ControllerDesignTranslation extends Controller {
         $directory = DIR_CATALOG . 'language/';
 
         if ($language_info && is_file($directory . $language_info['code'] . '/' . $route . '.php') && substr(str_replace('\\', '/', realpath($directory . $language_info['code'] . '/' . $route . '.php')), 0, strlen($directory)) == str_replace('\\', '/', $directory)) {
-            $_ = array();
+            $_ = [];
 
             include($directory . $language_info['code'] . '/' . $route . '.php');
 
             foreach ($_ as $key => $value) {
-                $json[] = array(
+                $json[] = [
                     'key'   => $key,
                     'value' => $value
-                );
+                ];
             }
         }
 

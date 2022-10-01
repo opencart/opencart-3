@@ -1,7 +1,6 @@
 <?php
-
 class ControllerExtensionPaymentEway extends Controller {
-    private array $error = array();
+    private array $error = [];
 
     public function index(): void {
         $this->load->language('extension/payment/eway');
@@ -52,22 +51,22 @@ class ControllerExtensionPaymentEway extends Controller {
             $data['error_payment_type'] = '';
         }
 
-        $data['breadcrumbs'] = array();
+        $data['breadcrumbs'] = [];
 
-        $data['breadcrumbs'][] = array(
+        $data['breadcrumbs'][] = [
             'text' => $this->language->get('text_home'),
             'href' => $this->url->link('common/dashboard', 'user_token=' . $this->session->data['user_token'], true)
-        );
+        ];
 
-        $data['breadcrumbs'][] = array(
+        $data['breadcrumbs'][] = [
             'text' => $this->language->get('text_extension'),
             'href' => $this->url->link('marketplace/extension', 'user_token=' . $this->session->data['user_token'], true)
-        );
+        ];
 
-        $data['breadcrumbs'][] = array(
+        $data['breadcrumbs'][] = [
             'text' => $this->language->get('heading_title'),
             'href' => $this->url->link('extension/payment/eway', 'user_token=' . $this->session->data['user_token'], true)
-        );
+        ];
 
         $data['action'] = $this->url->link('extension/payment/eway', 'user_token=' . $this->session->data['user_token'], true);
         $data['cancel'] = $this->url->link('marketplace/extension', 'user_token=' . $this->session->data['user_token'], true);
@@ -186,6 +185,8 @@ class ControllerExtensionPaymentEway extends Controller {
     }
 
     public function order(): string {
+        $view = '';
+
         if ($this->config->get('payment_eway_status')) {
             $this->load->model('extension/payment/eway');
 
@@ -211,15 +212,17 @@ class ControllerExtensionPaymentEway extends Controller {
                 $data['user_token'] = $this->session->data['user_token'];
                 $data['order_id']   = (int)$this->request->get['order_id'];
 
-                return $this->load->view('extension/payment/eway_order', $data);
+                $view = $this->load->view('extension/payment/eway_order', $data);
             }
         }
+
+        return $view;
     }
 
     public function refund(): void {
         $this->load->language('extension/payment/eway');
 
-        $json = array();
+        $json = [];
 
         if (isset($this->request->get['order_id'])) {
             $order_id = (int)$this->request->get['order_id'];
@@ -267,7 +270,7 @@ class ControllerExtensionPaymentEway extends Controller {
                     $this->model_extension_payment_eway->updateRefundStatus($eway_order['eway_order_id'], $refund_status);
                 }
 
-                $json['data'] = array();
+                $json['data'] = [];
 
                 $json['data']['transactionid']            = $result->TransactionID;
                 $json['data']['created']                  = date('Y-m-d H:i:s');
@@ -293,7 +296,7 @@ class ControllerExtensionPaymentEway extends Controller {
     public function capture(): void {
         $this->load->language('extension/payment/eway');
 
-        $json = array();
+        $json = [];
 
         if (isset($this->request->get['order_id'])) {
             $order_id = (int)$this->request->get['order_id'];
@@ -342,7 +345,7 @@ class ControllerExtensionPaymentEway extends Controller {
                 $this->model_extension_payment_eway->updateCaptureStatus($eway_order['eway_order_id'], 1);
                 $this->model_extension_payment_eway->updateTransactionId($eway_order['eway_order_id'], $result->TransactionID);
 
-                $json['data'] = array();
+                $json['data'] = [];
 
                 $json['data']['transactionid']            = $result->TransactionID;
                 $json['data']['created']                  = date('Y-m-d H:i:s');

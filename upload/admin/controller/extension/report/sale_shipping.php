@@ -1,5 +1,4 @@
 <?php
-
 class ControllerExtensionReportSaleShipping extends Controller {
     public function index(): void {
         $this->load->language('extension/report/sale_shipping');
@@ -22,22 +21,22 @@ class ControllerExtensionReportSaleShipping extends Controller {
             $data['error_warning'] = '';
         }
 
-        $data['breadcrumbs'] = array();
+        $data['breadcrumbs'] = [];
 
-        $data['breadcrumbs'][] = array(
+        $data['breadcrumbs'][] = [
             'text' => $this->language->get('text_home'),
             'href' => $this->url->link('common/dashboard', 'user_token=' . $this->session->data['user_token'], true)
-        );
+        ];
 
-        $data['breadcrumbs'][] = array(
+        $data['breadcrumbs'][] = [
             'text' => $this->language->get('text_extension'),
             'href' => $this->url->link('marketplace/extension', 'user_token=' . $this->session->data['user_token'] . '&type=report', true)
-        );
+        ];
 
-        $data['breadcrumbs'][] = array(
+        $data['breadcrumbs'][] = [
             'text' => $this->language->get('heading_title'),
             'href' => $this->url->link('extension/report/sale_shipping', 'user_token=' . $this->session->data['user_token'], true)
-        );
+        ];
 
         $data['action'] = $this->url->link('extension/report/sale_shipping', 'user_token=' . $this->session->data['user_token'], true);
         $data['cancel'] = $this->url->link('marketplace/extension', 'user_token=' . $this->session->data['user_token'] . '&type=report', true);
@@ -104,29 +103,29 @@ class ControllerExtensionReportSaleShipping extends Controller {
 
         $this->load->model('extension/report/sale');
 
-        $data['orders'] = array();
+        $data['orders'] = [];
 
-        $filter_data = array(
+        $filter_data = [
             'filter_date_start'      => $filter_date_start,
             'filter_date_end'        => $filter_date_end,
             'filter_group'           => $filter_group,
             'filter_order_status_id' => $filter_order_status_id,
             'start'                  => ($page - 1) * $this->config->get('config_limit_admin'),
             'limit'                  => $this->config->get('config_limit_admin')
-        );
+        ];
 
         $order_total = $this->model_extension_report_sale->getTotalShipping($filter_data);
 
         $results = $this->model_extension_report_sale->getShipping($filter_data);
 
         foreach ($results as $result) {
-            $data['orders'][] = array(
+            $data['orders'][] = [
                 'date_start' => date($this->language->get('date_format_short'), strtotime($result['date_start'])),
                 'date_end'   => date($this->language->get('date_format_short'), strtotime($result['date_end'])),
                 'title'      => $result['title'],
                 'orders'     => $result['orders'],
                 'total'      => $this->currency->format($result['total'], $this->config->get('config_currency'))
-            );
+            ];
         }
 
         $data['user_token'] = $this->session->data['user_token'];
@@ -136,27 +135,27 @@ class ControllerExtensionReportSaleShipping extends Controller {
 
         $data['order_statuses'] = $this->model_localisation_order_status->getOrderStatuses();
 
-        $data['groups'] = array();
+        $data['groups'] = [];
 
-        $data['groups'][] = array(
+        $data['groups'][] = [
             'text'  => $this->language->get('text_year'),
             'value' => 'year',
-        );
+        ];
 
-        $data['groups'][] = array(
+        $data['groups'][] = [
             'text'  => $this->language->get('text_month'),
             'value' => 'month',
-        );
+        ];
 
-        $data['groups'][] = array(
+        $data['groups'][] = [
             'text'  => $this->language->get('text_week'),
             'value' => 'week',
-        );
+        ];
 
-        $data['groups'][] = array(
+        $data['groups'][] = [
             'text'  => $this->language->get('text_day'),
             'value' => 'day',
-        );
+        ];
 
         $url = '';
 

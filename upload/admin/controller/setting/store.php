@@ -1,7 +1,6 @@
 <?php
-
 class ControllerSettingStore extends Controller {
-    private array $error = array();
+    private array $error = [];
 
     public function index(): void {
         $this->load->language('setting/store');
@@ -89,41 +88,41 @@ class ControllerSettingStore extends Controller {
             $url .= '&page=' . $this->request->get['page'];
         }
 
-        $data['breadcrumbs'] = array();
+        $data['breadcrumbs'] = [];
 
-        $data['breadcrumbs'][] = array(
+        $data['breadcrumbs'][] = [
             'text' => $this->language->get('text_home'),
             'href' => $this->url->link('common/dashboard', 'user_token=' . $this->session->data['user_token'], true)
-        );
+        ];
 
-        $data['breadcrumbs'][] = array(
+        $data['breadcrumbs'][] = [
             'text' => $this->language->get('heading_title'),
             'href' => $this->url->link('setting/store', 'user_token=' . $this->session->data['user_token'], true)
-        );
+        ];
 
         $data['add']    = $this->url->link('setting/store/add', 'user_token=' . $this->session->data['user_token'], true);
         $data['delete'] = $this->url->link('setting/store/delete', 'user_token=' . $this->session->data['user_token'], true);
 
-        $data['stores'] = array();
+        $data['stores'] = [];
 
-        $data['stores'][] = array(
+        $data['stores'][] = [
             'store_id' => 0,
             'name'     => $this->config->get('config_name') . $this->language->get('text_default'),
             'url'      => $this->config->get('config_secure') ? HTTPS_CATALOG : HTTP_CATALOG,
             'edit'     => $this->url->link('setting/setting', 'user_token=' . $this->session->data['user_token'], true)
-        );
+        ];
 
         $store_total = $this->model_setting_store->getTotalStores();
 
         $results = $this->model_setting_store->getStores();
 
         foreach ($results as $result) {
-            $data['stores'][] = array(
+            $data['stores'][] = [
                 'store_id' => $result['store_id'],
                 'name'     => $result['name'],
                 'url'      => $result['url'],
                 'edit'     => $this->url->link('setting/store/edit', 'user_token=' . $this->session->data['user_token'] . '&store_id=' . $result['store_id'], true)
-            );
+            ];
         }
 
         if (isset($this->error['warning'])) {
@@ -143,7 +142,7 @@ class ControllerSettingStore extends Controller {
         if (isset($this->request->post['selected'])) {
             $data['selected'] = (array)$this->request->post['selected'];
         } else {
-            $data['selected'] = array();
+            $data['selected'] = [];
         }
 
         $data['header']      = $this->load->controller('common/header');
@@ -210,28 +209,28 @@ class ControllerSettingStore extends Controller {
             $data['error_customer_group_display'] = '';
         }
 
-        $data['breadcrumbs'] = array();
+        $data['breadcrumbs'] = [];
 
-        $data['breadcrumbs'][] = array(
+        $data['breadcrumbs'][] = [
             'text' => $this->language->get('text_home'),
             'href' => $this->url->link('common/dashboard', 'user_token=' . $this->session->data['user_token'], true)
-        );
+        ];
 
-        $data['breadcrumbs'][] = array(
+        $data['breadcrumbs'][] = [
             'text' => $this->language->get('heading_title'),
             'href' => $this->url->link('setting/store', 'user_token=' . $this->session->data['user_token'], true)
-        );
+        ];
 
         if (!isset($this->request->get['store_id'])) {
-            $data['breadcrumbs'][] = array(
+            $data['breadcrumbs'][] = [
                 'text' => $this->language->get('text_settings'),
                 'href' => $this->url->link('setting/store/add', 'user_token=' . $this->session->data['user_token'], true)
-            );
+            ];
         } else {
-            $data['breadcrumbs'][] = array(
+            $data['breadcrumbs'][] = [
                 'text' => $this->language->get('text_settings'),
                 'href' => $this->url->link('setting/store/edit', 'user_token=' . $this->session->data['user_token'] . '&store_id=' . $this->request->get['store_id'], true)
-            );
+            ];
         }
 
         if (isset($this->session->data['success'])) {
@@ -306,7 +305,7 @@ class ControllerSettingStore extends Controller {
             $data['config_theme'] = '';
         }
 
-        $data['themes'] = array();
+        $data['themes'] = [];
 
         // Create a new language container so we don't pollute the current one
         $language = new \Language($this->config->get('config_language'));
@@ -318,10 +317,10 @@ class ControllerSettingStore extends Controller {
         foreach ($extensions as $code) {
             $this->load->language('extension/theme/' . $code, 'extension');
 
-            $data['themes'][] = array(
+            $data['themes'][] = [
                 'text'  => $this->language->get('extension')->get('heading_title'),
                 'value' => $code
-            );
+            ];
         }
 
         if (isset($this->request->post['config_layout_id'])) {
@@ -437,7 +436,7 @@ class ControllerSettingStore extends Controller {
         } elseif (isset($store_info['config_location'])) {
             $data['config_location'] = $store_info['config_location'];
         } else {
-            $data['config_location'] = array();
+            $data['config_location'] = [];
         }
 
         if (isset($this->request->post['config_country_id'])) {
@@ -541,7 +540,7 @@ class ControllerSettingStore extends Controller {
         } elseif (isset($store_info['config_customer_group_display'])) {
             $data['config_customer_group_display'] = $store_info['config_customer_group_display'];
         } else {
-            $data['config_customer_group_display'] = array();
+            $data['config_customer_group_display'] = [];
         }
 
         if (isset($this->request->post['config_customer_price'])) {

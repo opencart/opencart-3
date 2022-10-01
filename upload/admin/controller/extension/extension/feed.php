@@ -1,7 +1,6 @@
 <?php
-
 class ControllerExtensionExtensionFeed extends Controller {
-    private array $error = array();
+    private array $error = [];
 
     public function index(): void {
         $this->load->language('extension/extension/feed');
@@ -75,7 +74,7 @@ class ControllerExtensionExtensionFeed extends Controller {
             }
         }
 
-        $data['extensions'] = array();
+        $data['extensions'] = [];
 
         // Compatibility code for old extension folders
         $files = glob(DIR_APPLICATION . 'controller/extension/feed/*.php');
@@ -86,14 +85,14 @@ class ControllerExtensionExtensionFeed extends Controller {
 
                 $this->load->language('extension/feed/' . $extension, 'extension');
 
-                $data['extensions'][] = array(
+                $data['extensions'][] = [
                     'name'      => $this->language->get('extension')->get('heading_title'),
                     'status'    => $this->config->get('feed_' . $extension . '_status') ? $this->language->get('text_enabled') : $this->language->get('text_disabled'),
                     'install'   => $this->url->link('extension/extension/feed/install', 'user_token=' . $this->session->data['user_token'] . '&extension=' . $extension, true),
                     'uninstall' => $this->url->link('extension/extension/feed/uninstall', 'user_token=' . $this->session->data['user_token'] . '&extension=' . $extension, true),
                     'installed' => in_array($extension, $extensions),
                     'edit'      => $this->url->link('extension/feed/' . $extension, 'user_token=' . $this->session->data['user_token'], true)
-                );
+                ];
             }
         }
 

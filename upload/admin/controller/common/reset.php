@@ -1,7 +1,6 @@
 <?php
-
 class ControllerCommonReset extends Controller {
-    private array $error = array();
+    private array $error = [];
 
     public function index() {
         if ($this->user->isLogged() && isset($this->request->get['user_token']) && ($this->request->get['user_token'] == $this->session->data['user_token'])) {
@@ -37,17 +36,17 @@ class ControllerCommonReset extends Controller {
                 $this->response->redirect($this->url->link('common/login', '', true));
             }
 
-            $data['breadcrumbs'] = array();
+            $data['breadcrumbs'] = [];
 
-            $data['breadcrumbs'][] = array(
+            $data['breadcrumbs'][] = [
                 'text' => $this->language->get('text_home'),
                 'href' => $this->url->link('common/dashboard', '', true)
-            );
+            ];
 
-            $data['breadcrumbs'][] = array(
+            $data['breadcrumbs'][] = [
                 'text' => $this->language->get('heading_title'),
                 'href' => $this->url->link('common/reset', '', true)
-            );
+            ];
 
             if (isset($this->error['password'])) {
                 $data['error_password'] = $this->error['password'];

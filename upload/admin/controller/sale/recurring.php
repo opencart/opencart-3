@@ -1,7 +1,6 @@
 <?php
-
 class ControllerSaleRecurring extends Controller {
-    private array $error = array();
+    private array $error = [];
 
     public function index(): void {
         $this->load->language('sale/recurring');
@@ -106,21 +105,21 @@ class ControllerSaleRecurring extends Controller {
             $url .= '&page=' . $this->request->get['page'];
         }
 
-        $data['breadcrumbs'] = array();
+        $data['breadcrumbs'] = [];
 
-        $data['breadcrumbs'][] = array(
+        $data['breadcrumbs'][] = [
             'text' => $this->language->get('text_home'),
             'href' => $this->url->link('common/dashboard', 'user_token=' . $this->session->data['user_token'], true)
-        );
+        ];
 
-        $data['breadcrumbs'][] = array(
+        $data['breadcrumbs'][] = [
             'text' => $this->language->get('heading_title'),
             'href' => $this->url->link('sale/recurring', 'user_token=' . $this->session->data['user_token'] . $url, true)
-        );
+        ];
 
-        $data['recurrings'] = array();
+        $data['recurrings'] = [];
 
-        $filter_data = array(
+        $filter_data = [
             'filter_order_recurring_id' => $filter_order_recurring_id,
             'filter_order_id'           => $filter_order_id,
             'filter_reference'          => $filter_reference,
@@ -131,7 +130,7 @@ class ControllerSaleRecurring extends Controller {
             'sort'                      => $sort,
             'start'                     => ($page - 1) * $this->config->get('config_limit_admin'),
             'limit'                     => $this->config->get('config_limit_admin')
-        );
+        ];
 
         $recurrings_total = $this->model_sale_recurring->getTotalRecurrings($filter_data);
 
@@ -144,7 +143,7 @@ class ControllerSaleRecurring extends Controller {
                 $status = '';
             }
 
-            $data['recurrings'][] = array(
+            $data['recurrings'][] = [
                 'order_recurring_id' => $result['order_recurring_id'],
                 'order_id'           => $result['order_id'],
                 'reference'          => $result['reference'],
@@ -153,7 +152,7 @@ class ControllerSaleRecurring extends Controller {
                 'date_added'         => date($this->language->get('date_format_short'), strtotime($result['date_added'])),
                 'view'               => $this->url->link('sale/recurring/info', 'user_token=' . $this->session->data['user_token'] . '&order_recurring_id=' . $result['order_recurring_id'] . $url, true),
                 'order'              => $this->url->link('sale/order/info', 'user_token=' . $this->session->data['user_token'] . '&order_id=' . $result['order_id'], true)
-            );
+            ];
         }
 
         $data['user_token'] = $this->session->data['user_token'];
@@ -270,18 +269,18 @@ class ControllerSaleRecurring extends Controller {
         $data['sort']  = $sort;
         $data['order'] = $order;
 
-        $data['recurring_statuses'] = array();
+        $data['recurring_statuses'] = [];
 
-        $data['recurring_statuses'][0] = array(
+        $data['recurring_statuses'][0] = [
             'text'  => '',
             'value' => 0
-        );
+        ];
 
         for ($i = 1; $i <= 6; $i++) {
-            $data['recurring_statuses'][$i] = array(
+            $data['recurring_statuses'][$i] = [
                 'text'  => $this->language->get('text_status_' . $i),
                 'value' => $i,
-            );
+            ];
         }
 
         $data['header']      = $this->load->controller('common/header');
@@ -347,17 +346,17 @@ class ControllerSaleRecurring extends Controller {
                 $url .= '&page=' . $this->request->get['page'];
             }
 
-            $data['breadcrumbs'] = array();
+            $data['breadcrumbs'] = [];
 
-            $data['breadcrumbs'][] = array(
+            $data['breadcrumbs'][] = [
                 'text' => $this->language->get('text_home'),
                 'href' => $this->url->link('common/dashboard', 'user_token=' . $this->session->data['user_token'], true)
-            );
+            ];
 
-            $data['breadcrumbs'][] = array(
+            $data['breadcrumbs'][] = [
                 'text' => $this->language->get('heading_title'),
                 'href' => $this->url->link('sale/recurring', 'user_token=' . $this->session->data['user_token'] . $url, true)
-            );
+            ];
 
             $data['cancel'] = $this->url->link('sale/recurring', 'user_token=' . $this->session->data['user_token'] . $url, true);
 
@@ -407,16 +406,16 @@ class ControllerSaleRecurring extends Controller {
             $data['quantity'] = $order_recurring_info['product_quantity'];
 
             // Transactions
-            $data['transactions'] = array();
+            $data['transactions'] = [];
 
             $transactions = $this->model_sale_recurring->getRecurringTransactions($order_recurring_info['order_recurring_id']);
 
             foreach ($transactions as $transaction) {
-                $data['transactions'][] = array(
+                $data['transactions'][] = [
                     'date_added' => $transaction['date_added'],
                     'type'       => $transaction['type'],
                     'amount'     => $this->currency->format($transaction['amount'], $order_info['currency_code'], $order_info['currency_value'])
-                );
+                ];
             }
 
             $data['buttons'] = $this->load->controller('extension/payment/' . $order_info['payment_code'] . '/recurringButtons');

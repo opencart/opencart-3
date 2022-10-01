@@ -1,7 +1,6 @@
 <?php
-
 class ControllerExtensionTotalKlarnaFee extends Controller {
-    private array $error = array();
+    private array $error = [];
 
     public function index(): void {
         $this->load->language('extension/total/klarna_fee');
@@ -20,7 +19,7 @@ class ControllerExtensionTotalKlarnaFee extends Controller {
                 }
             }
 
-            $this->model_setting_setting->editSetting('total_klarna_fee', array_merge($this->request->post, array('klarna_fee_status' => $status)));
+            $this->model_setting_setting->editSetting('total_klarna_fee', array_merge($this->request->post, ['klarna_fee_status' => $status]));
 
             $this->session->data['success'] = $this->language->get('text_success');
 
@@ -33,57 +32,57 @@ class ControllerExtensionTotalKlarnaFee extends Controller {
             $data['error_warning'] = '';
         }
 
-        $data['breadcrumbs'] = array();
+        $data['breadcrumbs'] = [];
 
-        $data['breadcrumbs'][] = array(
+        $data['breadcrumbs'][] = [
             'text' => $this->language->get('text_home'),
             'href' => $this->url->link('common/dashboard', 'user_token=' . $this->session->data['user_token'], true)
-        );
+        ];
 
-        $data['breadcrumbs'][] = array(
+        $data['breadcrumbs'][] = [
             'text' => $this->language->get('text_extension'),
             'href' => $this->url->link('marketplace/extension', 'user_token=' . $this->session->data['user_token'] . '&type=total', true)
-        );
+        ];
 
-        $data['breadcrumbs'][] = array(
+        $data['breadcrumbs'][] = [
             'text' => $this->language->get('heading_title'),
             'href' => $this->url->link('extension/total/klarna_fee', 'user_token=' . $this->session->data['user_token'], true)
-        );
+        ];
 
         $data['action'] = $this->url->link('extension/total/klarna_fee', 'user_token=' . $this->session->data['user_token'], true);
         $data['cancel'] = $this->url->link('marketplace/extension', 'user_token=' . $this->session->data['user_token'] . '&type=total', true);
 
-        $data['countries'] = array();
+        $data['countries'] = [];
 
-        $data['countries'][] = array(
+        $data['countries'][] = [
             'name' => $this->language->get('text_germany'),
             'code' => 'DEU'
-        );
+        ];
 
-        $data['countries'][] = array(
+        $data['countries'][] = [
             'name' => $this->language->get('text_netherlands'),
             'code' => 'NLD'
-        );
+        ];
 
-        $data['countries'][] = array(
+        $data['countries'][] = [
             'name' => $this->language->get('text_denmark'),
             'code' => 'DNK'
-        );
+        ];
 
-        $data['countries'][] = array(
+        $data['countries'][] = [
             'name' => $this->language->get('text_sweden'),
             'code' => 'SWE'
-        );
+        ];
 
-        $data['countries'][] = array(
+        $data['countries'][] = [
             'name' => $this->language->get('text_norway'),
             'code' => 'NOR'
-        );
+        ];
 
-        $data['countries'][] = array(
+        $data['countries'][] = [
             'name' => $this->language->get('text_finland'),
             'code' => 'FIN'
-        );
+        ];
 
         if (isset($this->request->post['total_klarna_fee'])) {
             $data['total_klarna_fee'] = $this->request->post['total_klarna_fee'];

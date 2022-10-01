@@ -1,5 +1,4 @@
 <?php
-
 class ControllerEventCurrency extends Controller {
     // admin/model/setting/setting/editSetting
     // admin/model/localisation/currency/addCurrency
@@ -11,9 +10,9 @@ class ControllerEventCurrency extends Controller {
             $currency = $this->config->get('config_currency');
         }
 
-        $currency_data = array(
+        $currency_data = [
             'config_currency' => $currency
-        );
+        ];
 
         $this->load->model('setting/extension');
 

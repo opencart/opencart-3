@@ -1,10 +1,9 @@
 <?php
-
 class ControllerMarketplaceInstall extends Controller {
     public function install(): void {
         $this->load->language('marketplace/install');
 
-        $json = array();
+        $json = [];
 
         if (isset($this->request->get['extension_install_id'])) {
             $extension_install_id = (int)$this->request->get['extension_install_id'];
@@ -36,7 +35,7 @@ class ControllerMarketplaceInstall extends Controller {
     public function unzip(): void {
         $this->load->language('marketplace/install');
 
-        $json = array();
+        $json = [];
 
         if (isset($this->request->get['extension_install_id'])) {
             $extension_install_id = (int)$this->request->get['extension_install_id'];
@@ -83,7 +82,7 @@ class ControllerMarketplaceInstall extends Controller {
     public function move(): void {
         $this->load->language('marketplace/install');
 
-        $json = array();
+        $json = [];
 
         if (isset($this->request->get['extension_install_id'])) {
             $extension_install_id = (int)$this->request->get['extension_install_id'];
@@ -105,10 +104,10 @@ class ControllerMarketplaceInstall extends Controller {
             $directory = DIR_UPLOAD . 'tmp-' . $this->session->data['install'] . '/';
 
             if (is_dir($directory . 'upload/')) {
-                $files = array();
+                $files = [];
 
                 // Get a list of files ready to upload
-                $path = array($directory . 'upload/*');
+                $path = [$directory . 'upload/*'];
 
                 while (count($path) != 0) {
                     $next = array_shift($path);
@@ -125,7 +124,7 @@ class ControllerMarketplaceInstall extends Controller {
                 }
 
                 // A list of allowed directories to be written to
-                $allowed = array(
+                $allowed = [
                     'admin/controller/extension/',
                     'admin/language/',
                     'admin/model/extension/',
@@ -141,7 +140,7 @@ class ControllerMarketplaceInstall extends Controller {
                     'system/config/',
                     'system/library/',
                     'image/catalog/'
-                );
+                ];
 
                 // First we need to do some checks
                 foreach ($files as $file) {
@@ -240,7 +239,7 @@ class ControllerMarketplaceInstall extends Controller {
     public function xml(): void {
         $this->load->language('marketplace/install');
 
-        $json = array();
+        $json = [];
 
         if (isset($this->request->get['extension_install_id'])) {
             $extension_install_id = (int)$this->request->get['extension_install_id'];
@@ -320,7 +319,7 @@ class ControllerMarketplaceInstall extends Controller {
                         }
 
                         if (!$json) {
-                            $modification_data = array(
+                            $modification_data = [
                                 'extension_install_id' => $extension_install_id,
                                 'name'                 => $name,
                                 'code'                 => $code,
@@ -329,7 +328,7 @@ class ControllerMarketplaceInstall extends Controller {
                                 'link'                 => $link,
                                 'xml'                  => $xml,
                                 'status'               => 1
-                            );
+                            ];
 
                             $this->model_setting_modification->addModification($modification_data);
                         }
@@ -353,7 +352,7 @@ class ControllerMarketplaceInstall extends Controller {
     public function remove(): void {
         $this->load->language('marketplace/install');
 
-        $json = array();
+        $json = [];
 
         if (!$this->user->hasPermission('modify', 'marketplace/install')) {
             $json['error'] = $this->language->get('error_permission');
@@ -368,15 +367,15 @@ class ControllerMarketplaceInstall extends Controller {
 
             if (is_dir($directory)) {
                 // Get a list of files ready to upload
-                $files = array();
+                $files = [];
 
-                $path = array($directory);
+                $path = [$directory];
 
                 while (count($path) != 0) {
                     $next = array_shift($path);
 
                     // We have to use scandir function because glob will not pick up dot files.
-                    foreach (array_diff(scandir($next), array('.', '..')) as $file) {
+                    foreach (array_diff(scandir($next), ['.', '..']) as $file) {
                         $file = $next . '/' . $file;
 
                         if (is_dir($file)) {
@@ -418,7 +417,7 @@ class ControllerMarketplaceInstall extends Controller {
     public function uninstall(): void {
         $this->load->language('marketplace/install');
 
-        $json = array();
+        $json = [];
 
         if (isset($this->request->get['extension_install_id'])) {
             $extension_install_id = (int)$this->request->get['extension_install_id'];
@@ -463,15 +462,15 @@ class ControllerMarketplaceInstall extends Controller {
 
                 if (is_dir($source)) {
                     // Get a list of files ready to upload
-                    $files = array();
+                    $files = [];
 
-                    $path = array($source);
+                    $path = [$source];
 
                     while (count($path) != 0) {
                         $next = array_shift($path);
 
                         // We have to use scandir function because glob will not pick up dot files.
-                        foreach (array_diff(scandir($next), array('.', '..')) as $file) {
+                        foreach (array_diff(scandir($next), ['.', '..']) as $file) {
                             $file = $next . '/' . $file;
 
                             if (is_dir($file)) {
@@ -527,7 +526,7 @@ class ControllerMarketplaceInstall extends Controller {
         }
 
         foreach (scandir($dir_name) as $dir_file) {
-            if (!in_array($dir_file, array('.', '..'))) {
+            if (!in_array($dir_file, ['.', '..'])) {
                 return false;
             }
         }

@@ -1,22 +1,21 @@
 <?php
-
 class ControllerMarketplaceInstaller extends Controller {
     public function index(): void {
         $this->load->language('marketplace/installer');
 
         $this->document->setTitle($this->language->get('heading_title'));
 
-        $data['breadcrumbs'] = array();
+        $data['breadcrumbs'] = [];
 
-        $data['breadcrumbs'][] = array(
+        $data['breadcrumbs'][] = [
             'text' => $this->language->get('text_home'),
             'href' => $this->url->link('common/dashboard', 'user_token=' . $this->session->data['user_token'], true)
-        );
+        ];
 
-        $data['breadcrumbs'][] = array(
+        $data['breadcrumbs'][] = [
             'text' => $this->language->get('heading_title'),
             'href' => $this->url->link('marketplace/installer', 'user_token=' . $this->session->data['user_token'], true)
-        );
+        ];
 
         $data['user_token'] = $this->session->data['user_token'];
 
@@ -36,18 +35,18 @@ class ControllerMarketplaceInstaller extends Controller {
             $page = 1;
         }
 
-        $data['histories'] = array();
+        $data['histories'] = [];
 
         $this->load->model('setting/extension');
 
         $results = $this->model_setting_extension->getExtensionInstalls(($page - 1) * 10, 10);
 
         foreach ($results as $result) {
-            $data['histories'][] = array(
+            $data['histories'][] = [
                 'extension_install_id' => $result['extension_install_id'],
                 'filename'             => $result['filename'],
                 'date_added'           => date($this->language->get('date_format_short'), strtotime($result['date_added']))
-            );
+            ];
         }
 
         $history_total = $this->model_setting_extension->getTotalExtensionInstalls();
@@ -68,7 +67,7 @@ class ControllerMarketplaceInstaller extends Controller {
     public function upload(): void {
         $this->load->language('marketplace/installer');
 
-        $json = array();
+        $json = [];
 
         // Check user has permission
         if (!$this->user->hasPermission('modify', 'marketplace/installer')) {
@@ -96,15 +95,15 @@ class ControllerMarketplaceInstaller extends Controller {
         foreach ($directories as $directory) {
             if (is_dir($directory) && (filectime($directory) < (time() - 5))) {
                 // Get a list of files ready to upload
-                $files = array();
+                $files = [];
 
-                $path = array($directory);
+                $path = [$directory];
 
                 while (count($path) != 0) {
                     $next = array_shift($path);
 
                     // We have to use scandir function because glob will not pick up dot files.
-                    foreach (array_diff(scandir($next), array('.', '..')) as $file) {
+                    foreach (array_diff(scandir($next), ['.', '..']) as $file) {
                         $file = $next . '/' . $file;
 
                         if (is_dir($file)) {

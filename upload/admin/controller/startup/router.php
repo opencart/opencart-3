@@ -1,5 +1,4 @@
 <?php
-
 class ControllerStartupRouter extends Controller {
     public function index() {
         // Route
@@ -9,13 +8,13 @@ class ControllerStartupRouter extends Controller {
             $route = $this->config->get('action_default');
         }
 
-        $data = array();
+        $data = [];
 
         // Sanitize the call
         $route = preg_replace('/[^a-zA-Z0-9_\/]/', '', (string)$route);
 
         // Trigger the pre events
-        $result = $this->event->trigger('controller/' . $route . '/before', array(&$route, &$data));
+        $result = $this->event->trigger('controller/' . $route . '/before', [&$route, &$data]);
 
         if (!is_null($result)) {
             return $result;
@@ -27,7 +26,7 @@ class ControllerStartupRouter extends Controller {
         $output = $action->execute($this->registry, $data);
 
         // Trigger the post events
-        $result = $this->event->trigger('controller/' . $route . '/after', array(&$route, &$output));
+        $result = $this->event->trigger('controller/' . $route . '/after', [&$route, &$output]);
 
         if (!is_null($result)) {
             return $result;

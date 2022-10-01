@@ -1,7 +1,6 @@
 <?php
-
 class ControllerExtensionPaymentPilibaba extends Controller {
-    private array $error = array();
+    private array $error = [];
 
     public function index(): void {
         $this->load->language('extension/payment/pilibaba');
@@ -25,22 +24,22 @@ class ControllerExtensionPaymentPilibaba extends Controller {
             $this->response->redirect($this->url->link('marketplace/extension', 'user_token=' . $this->session->data['user_token'] . '&type=payment', true));
         }
 
-        $data['breadcrumbs'] = array();
+        $data['breadcrumbs'] = [];
 
-        $data['breadcrumbs'][] = array(
+        $data['breadcrumbs'][] = [
             'text' => $this->language->get('text_home'),
             'href' => $this->url->link('common/dashboard', 'user_token=' . $this->session->data['user_token'], true)
-        );
+        ];
 
-        $data['breadcrumbs'][] = array(
+        $data['breadcrumbs'][] = [
             'text' => $this->language->get('text_extension'),
             'href' => $this->url->link('marketplace/extension', 'user_token=' . $this->session->data['user_token'] . '&type=payment', true)
-        );
+        ];
 
-        $data['breadcrumbs'][] = array(
+        $data['breadcrumbs'][] = [
             'text' => $this->language->get('heading_title'),
             'href' => $this->url->link('extension/payment/pilibaba', 'user_token=' . $this->session->data['user_token'], true)
-        );
+        ];
 
         $data['action'] = $this->url->link('extension/payment/pilibaba', 'user_token=' . $this->session->data['user_token'], true);
         $data['cancel'] = $this->url->link('marketplace/extension', 'user_token=' . $this->session->data['user_token'] . '&type=payment', true);
@@ -138,7 +137,7 @@ class ControllerExtensionPaymentPilibaba extends Controller {
         if (isset($data['payment_pilibaba_merchant_number']) && $data['payment_pilibaba_merchant_number'] && isset($data['payment_pilibaba_secret_key']) && $data['payment_pilibaba_secret_key']) {
             $data['show_register'] = false;
 
-            $data['currencies'] = $data['warehouses'] = $data['countries'] = array();
+            $data['currencies'] = $data['warehouses'] = $data['countries'] = [];
         } else {
             $data['show_register'] = true;
 
@@ -197,7 +196,7 @@ class ControllerExtensionPaymentPilibaba extends Controller {
     public function register(): void {
         $this->load->language('extension/payment/pilibaba');
 
-        $json = array();
+        $json = [];
 
         if (isset($this->request->post['email_address']) && isset($this->request->post['password']) && isset($this->request->post['currency']) && isset($this->request->post['warehouse']) && isset($this->request->post['country']) && isset($this->request->post['environment'])) {
             if (utf8_strlen($this->request->post['email_address']) < 1) {
@@ -221,7 +220,11 @@ class ControllerExtensionPaymentPilibaba extends Controller {
                     if ($response['code'] == '0') {
                         $this->load->model('setting/setting');
 
-                        $this->model_setting_setting->editSetting('payment_pilibaba', array('pilibaba_merchant_number' => $response['data']['merchantNo'], 'pilibaba_secret_key' => $response['data']['privateKey'], 'pilibaba_email_address' => $this->request->post['email_address'], 'payment_pilibaba_environment' => $this->request->post['environment']), 0);
+                        $this->model_setting_setting->editSetting('payment_pilibaba', ['pilibaba_merchant_number'     => $response['data']['merchantNo'],
+                                                                                       'pilibaba_secret_key'          => $response['data']['privateKey'],
+                                                                                       'pilibaba_email_address'       => $this->request->post['email_address'],
+                                                                                       'payment_pilibaba_environment' => $this->request->post['environment']
+                        ], 0);
 
                         $this->session->data['success'] = $this->language->get('text_register_success');
 
@@ -242,6 +245,8 @@ class ControllerExtensionPaymentPilibaba extends Controller {
     }
 
     public function order(): string {
+        $view = '';
+
         if ($this->config->get('payment_pilibaba_status')) {
             $this->load->model('extension/payment/pilibaba');
 
@@ -252,35 +257,28 @@ class ControllerExtensionPaymentPilibaba extends Controller {
             if ($pilibaba_order) {
                 $this->load->language('extension/payment/pilibaba');
 
-                $order_info['order_id'] = $pilibaba_order['order_id'];
-
-                $order_info['amount'] = '&yen;' . $pilibaba_order['amount'];
-
-                $order_info['fee'] = '&yen;' . $pilibaba_order['fee'];
-
-                $order_info['status'] = $this->language->get('text_status');
-
+                $order_info['order_id']   = $pilibaba_order['order_id'];
+                $order_info['amount']     = '&yen;' . $pilibaba_order['amount'];
+                $order_info['fee']        = '&yen;' . $pilibaba_order['fee'];
+                $order_info['status']     = $this->language->get('text_status');
                 $order_info['date_added'] = date($this->language->get('datetime_format'), strtotime($pilibaba_order['date_added']));
+                $order_info['tracking']   = $pilibaba_order['tracking'];
+                $data['pilibaba_order']   = $order_info;
+                $data['barcode']          = $this->url->link('extension/payment/pilibaba/barcode', 'user_token=' . $this->session->data['user_token'] . '&order_id=' . $this->request->get['order_id'], true);
+                $data['order_id']         = $order_id;
+                $data['user_token']       = $this->session->data['user_token'];
 
-                $order_info['tracking'] = $pilibaba_order['tracking'];
-
-                $data['pilibaba_order'] = $order_info;
-
-                $data['barcode'] = $this->url->link('extension/payment/pilibaba/barcode', 'user_token=' . $this->session->data['user_token'] . '&order_id=' . $this->request->get['order_id'], true);
-
-                $data['order_id'] = $order_id;
-
-                $data['user_token'] = $this->session->data['user_token'];
-
-                return $this->load->view('extension/payment/pilibaba_order', $data);
+                $view = $this->load->view('extension/payment/pilibaba_order', $data);
             }
         }
+
+        return $view;
     }
 
     public function tracking(): void {
         $this->load->language('extension/payment/pilibaba');
 
-        $json = array();
+        $json = [];
 
         if ($this->config->get('payment_pilibaba_status')) {
             if (isset($this->request->post['order_id']) && isset($this->request->post['tracking'])) {

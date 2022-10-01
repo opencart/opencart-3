@@ -1,7 +1,6 @@
 <?php
-
 class ControllerExtensionPaymentWorldpay extends Controller {
-    private array $error = array();
+    private array $error = [];
 
     public function index(): void {
         $this->load->language('extension/payment/worldpay');
@@ -30,22 +29,22 @@ class ControllerExtensionPaymentWorldpay extends Controller {
             $data['error_client_key'] = '';
         }
 
-        $data['breadcrumbs'] = array();
+        $data['breadcrumbs'] = [];
 
-        $data['breadcrumbs'][] = array(
+        $data['breadcrumbs'][] = [
             'text' => $this->language->get('text_home'),
             'href' => $this->url->link('common/dashboard', 'user_token=' . $this->session->data['user_token'], true)
-        );
+        ];
 
-        $data['breadcrumbs'][] = array(
+        $data['breadcrumbs'][] = [
             'text' => $this->language->get('text_extension'),
             'href' => $this->url->link('marketplace/extension', 'user_token=' . $this->session->data['user_token'] . '&type=payment', true)
-        );
+        ];
 
-        $data['breadcrumbs'][] = array(
+        $data['breadcrumbs'][] = [
             'text' => $this->language->get('heading_title'),
             'href' => $this->url->link('extension/payment/worldpay', 'user_token=' . $this->session->data['user_token'], true)
-        );
+        ];
 
         $data['action'] = $this->url->link('extension/payment/worldpay', 'user_token=' . $this->session->data['user_token'], true);
         $data['cancel'] = $this->url->link('marketplace/extension', 'user_token=' . $this->session->data['user_token'] . '&type=payment', true);
@@ -237,7 +236,7 @@ class ControllerExtensionPaymentWorldpay extends Controller {
     public function refund(): void {
         $this->load->language('extension/payment/worldpay');
 
-        $json = array();
+        $json = [];
 
         if (isset($this->request->post['order_id'])) {
             $this->load->model('extension/payment/worldpay');
@@ -258,7 +257,7 @@ class ControllerExtensionPaymentWorldpay extends Controller {
 
                 $json['msg'] = $this->language->get('text_refund_ok_order');
 
-                $json['data'] = array();
+                $json['data'] = [];
 
                 $json['data']['created']        = date('Y-m-d H:i:s');
                 $json['data']['amount']         = $this->currency->format(($this->request->post['amount'] * -1), $worldpay_order['currency_code'], false);

@@ -1,5 +1,4 @@
 <?php
-
 class ControllerStartupSetting extends Controller {
     public function index(): void {
         $this->load->model('setting/setting');

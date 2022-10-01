@@ -1,7 +1,6 @@
 <?php
-
 class ControllerDesignLayout extends Controller {
-    private array $error = array();
+    private array $error = [];
 
     public function index(): void {
         $this->load->language('design/layout');
@@ -144,40 +143,40 @@ class ControllerDesignLayout extends Controller {
             $url .= '&page=' . $this->request->get['page'];
         }
 
-        $data['breadcrumbs'] = array();
+        $data['breadcrumbs'] = [];
 
-        $data['breadcrumbs'][] = array(
+        $data['breadcrumbs'][] = [
             'text' => $this->language->get('text_home'),
             'href' => $this->url->link('common/dashboard', 'user_token=' . $this->session->data['user_token'], true)
-        );
+        ];
 
-        $data['breadcrumbs'][] = array(
+        $data['breadcrumbs'][] = [
             'text' => $this->language->get('heading_title'),
             'href' => $this->url->link('design/layout', 'user_token=' . $this->session->data['user_token'] . $url, true)
-        );
+        ];
 
         $data['add']    = $this->url->link('design/layout/add', 'user_token=' . $this->session->data['user_token'] . $url, true);
         $data['delete'] = $this->url->link('design/layout/delete', 'user_token=' . $this->session->data['user_token'] . $url, true);
 
-        $data['layouts'] = array();
+        $data['layouts'] = [];
 
-        $filter_data = array(
+        $filter_data = [
             'sort'  => $sort,
             'order' => $order,
             'start' => ($page - 1) * $this->config->get('config_limit_admin'),
             'limit' => $this->config->get('config_limit_admin')
-        );
+        ];
 
         $layout_total = $this->model_design_layout->getTotalLayouts();
 
         $results = $this->model_design_layout->getLayouts($filter_data);
 
         foreach ($results as $result) {
-            $data['layouts'][] = array(
+            $data['layouts'][] = [
                 'layout_id' => $result['layout_id'],
                 'name'      => $result['name'],
                 'edit'      => $this->url->link('design/layout/edit', 'user_token=' . $this->session->data['user_token'] . '&layout_id=' . $result['layout_id'] . $url, true)
-            );
+            ];
         }
 
         if (isset($this->error['warning'])) {
@@ -197,7 +196,7 @@ class ControllerDesignLayout extends Controller {
         if (isset($this->request->post['selected'])) {
             $data['selected'] = (array)$this->request->post['selected'];
         } else {
-            $data['selected'] = array();
+            $data['selected'] = [];
         }
 
         $url = '';
@@ -273,17 +272,17 @@ class ControllerDesignLayout extends Controller {
             $url .= '&page=' . $this->request->get['page'];
         }
 
-        $data['breadcrumbs'] = array();
+        $data['breadcrumbs'] = [];
 
-        $data['breadcrumbs'][] = array(
+        $data['breadcrumbs'][] = [
             'text' => $this->language->get('text_home'),
             'href' => $this->url->link('common/dashboard', 'user_token=' . $this->session->data['user_token'], true)
-        );
+        ];
 
-        $data['breadcrumbs'][] = array(
+        $data['breadcrumbs'][] = [
             'text' => $this->language->get('heading_title'),
             'href' => $this->url->link('design/layout', 'user_token=' . $this->session->data['user_token'] . $url, true)
-        );
+        ];
 
         if (!isset($this->request->get['layout_id'])) {
             $data['action'] = $this->url->link('design/layout/add', 'user_token=' . $this->session->data['user_token'] . $url, true);
@@ -316,14 +315,14 @@ class ControllerDesignLayout extends Controller {
         } elseif (isset($this->request->get['layout_id'])) {
             $data['layout_routes'] = $this->model_design_layout->getLayoutRoutes($this->request->get['layout_id']);
         } else {
-            $data['layout_routes'] = array();
+            $data['layout_routes'] = [];
         }
 
         $this->load->model('setting/extension');
 
         $this->load->model('setting/module');
 
-        $data['extensions'] = array();
+        $data['extensions'] = [];
 
         // Get a list of installed modules
         $extensions = $this->model_setting_extension->getInstalled('module');
@@ -332,23 +331,23 @@ class ControllerDesignLayout extends Controller {
         foreach ($extensions as $code) {
             $this->load->language('extension/module/' . $code, 'extension');
 
-            $module_data = array();
+            $module_data = [];
 
             $modules = $this->model_setting_module->getModulesByCode($code);
 
             foreach ($modules as $module) {
-                $module_data[] = array(
+                $module_data[] = [
                     'name' => strip_tags($module['name']),
                     'code' => $code . '.' . $module['module_id']
-                );
+                ];
             }
 
             if ($this->config->has('module_' . $code . '_status') || $module_data) {
-                $data['extensions'][] = array(
+                $data['extensions'][] = [
                     'name'   => strip_tags($this->language->get('extension')->get('heading_title')),
                     'code'   => $code,
                     'module' => $module_data
-                );
+                ];
             }
         }
 
@@ -358,32 +357,32 @@ class ControllerDesignLayout extends Controller {
         } elseif (isset($this->request->get['layout_id'])) {
             $layout_modules = $this->model_design_layout->getLayoutModules($this->request->get['layout_id']);
         } else {
-            $layout_modules = array();
+            $layout_modules = [];
         }
 
-        $data['layout_modules'] = array();
+        $data['layout_modules'] = [];
 
         // Add all the modules which have multiple settings for each module
         foreach ($layout_modules as $layout_module) {
             $part = explode('.', $layout_module['code']);
 
             if (!isset($part[1])) {
-                $data['layout_modules'][] = array(
+                $data['layout_modules'][] = [
                     'code'       => $layout_module['code'],
                     'edit'       => $this->url->link('extension/module/' . $part[0], 'user_token=' . $this->session->data['user_token'], true),
                     'position'   => $layout_module['position'],
                     'sort_order' => $layout_module['sort_order']
-                );
+                ];
             } else {
                 $module_info = $this->model_setting_module->getModule($part[1]);
 
                 if ($module_info) {
-                    $data['layout_modules'][] = array(
+                    $data['layout_modules'][] = [
                         'code'       => $layout_module['code'],
                         'edit'       => $this->url->link('extension/module/' . $part[0], 'user_token=' . $this->session->data['user_token'] . '&module_id=' . $part[1], true),
                         'position'   => $layout_module['position'],
                         'sort_order' => $layout_module['sort_order']
-                    );
+                    ];
                 }
             }
         }

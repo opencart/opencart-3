@@ -1,7 +1,6 @@
 <?php
-
 class ControllerExtensionDashboardOrder extends Controller {
-    private array $error = array();
+    private array $error = [];
 
     public function index(): void {
         $this->load->language('extension/dashboard/order');
@@ -24,22 +23,22 @@ class ControllerExtensionDashboardOrder extends Controller {
             $data['error_warning'] = '';
         }
 
-        $data['breadcrumbs'] = array();
+        $data['breadcrumbs'] = [];
 
-        $data['breadcrumbs'][] = array(
+        $data['breadcrumbs'][] = [
             'text' => $this->language->get('text_home'),
             'href' => $this->url->link('common/dashboard', 'user_token=' . $this->session->data['user_token'], true)
-        );
+        ];
 
-        $data['breadcrumbs'][] = array(
+        $data['breadcrumbs'][] = [
             'text' => $this->language->get('text_extension'),
             'href' => $this->url->link('marketplace/extension', 'user_token=' . $this->session->data['user_token'] . '&type=dashboard', true)
-        );
+        ];
 
-        $data['breadcrumbs'][] = array(
+        $data['breadcrumbs'][] = [
             'text' => $this->language->get('heading_title'),
             'href' => $this->url->link('extension/dashboard/order', 'user_token=' . $this->session->data['user_token'], true)
-        );
+        ];
 
         $data['action'] = $this->url->link('extension/dashboard/order', 'user_token=' . $this->session->data['user_token'], true);
         $data['cancel'] = $this->url->link('marketplace/extension', 'user_token=' . $this->session->data['user_token'] . '&type=dashboard', true);
@@ -50,7 +49,7 @@ class ControllerExtensionDashboardOrder extends Controller {
             $data['dashboard_order_width'] = $this->config->get('dashboard_order_width');
         }
 
-        $data['columns'] = array();
+        $data['columns'] = [];
 
         for ($i = 3; $i <= 12; $i++) {
             $data['columns'][] = $i;
@@ -91,8 +90,8 @@ class ControllerExtensionDashboardOrder extends Controller {
         // Total Orders
         $this->load->model('sale/order');
 
-        $today      = $this->model_sale_order->getTotalOrders(array('filter_date_added' => date('Y-m-d', strtotime('-1 day'))));
-        $yesterday  = $this->model_sale_order->getTotalOrders(array('filter_date_added' => date('Y-m-d', strtotime('-2 day'))));
+        $today      = $this->model_sale_order->getTotalOrders(['filter_date_added' => date('Y-m-d', strtotime('-1 day'))]);
+        $yesterday  = $this->model_sale_order->getTotalOrders(['filter_date_added' => date('Y-m-d', strtotime('-2 day'))]);
         $difference = $today - $yesterday;
 
         if ($difference && $today) {

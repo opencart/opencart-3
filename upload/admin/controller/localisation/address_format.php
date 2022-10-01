@@ -1,7 +1,6 @@
 <?php
-
 class ControllerLocalisationAddressFormat extends Controller {
-    private array $error = array();
+    private array $error = [];
 
     public function index(): void {
         $this->load->language('localisation/address_format');
@@ -103,27 +102,27 @@ class ControllerLocalisationAddressFormat extends Controller {
             $url .= '&page=' . $this->request->get['page'];
         }
 
-        $data['breadcrumbs'] = array();
+        $data['breadcrumbs'] = [];
 
-        $data['breadcrumbs'][] = array(
+        $data['breadcrumbs'][] = [
             'text' => $this->language->get('text_home'),
             'href' => $this->url->link('common/dashboard', 'user_token=' . $this->session->data['user_token'], true)
-        );
+        ];
 
-        $data['breadcrumbs'][] = array(
+        $data['breadcrumbs'][] = [
             'text' => $this->language->get('heading_title'),
             'href' => $this->url->link('localisation/address_format', 'user_token=' . $this->session->data['user_token'] . $url, true)
-        );
+        ];
 
         $data['add']    = $this->url->link('localisation/address_format/add', 'user_token=' . $this->session->data['user_token'] . $url, true);
         $data['delete'] = $this->url->link('localisation/address_format/delete', 'user_token=' . $this->session->data['user_token'] . $url, true);
 
-        $data['address_formats'] = array();
+        $data['address_formats'] = [];
 
-        $filter_data = array(
+        $filter_data = [
             'start' => ($page - 1) * $this->config->get('config_pagination_admin'),
             'limit' => $this->config->get('config_pagination_admin')
-        );
+        ];
 
         $this->load->model('localisation/address_format');
 
@@ -132,12 +131,12 @@ class ControllerLocalisationAddressFormat extends Controller {
         $results = $this->model_localisation_address_format->getAddressFormats($filter_data);
 
         foreach ($results as $result) {
-            $data['address_formats'][] = array(
+            $data['address_formats'][] = [
                 'address_format_id' => $result['address_format_id'],
                 'name'              => $result['name'] . (($result['address_format_id'] == $this->config->get('config_address_format_id')) ? $this->language->get('text_default') : ''),
                 'address_format'    => nl2br($result['address_format']),
                 'edit'              => $this->url->link('localisation/address_format/edit', 'user_token=' . $this->session->data['user_token'] . '&address_format_id=' . $result['address_format_id'] . $url, true)
-            );
+            ];
         }
 
         $pagination        = new \Pagination();
@@ -172,17 +171,17 @@ class ControllerLocalisationAddressFormat extends Controller {
             $data['error_name'] = '';
         }
 
-        $data['breadcrumbs'] = array();
+        $data['breadcrumbs'] = [];
 
-        $data['breadcrumbs'][] = array(
+        $data['breadcrumbs'][] = [
             'text' => $this->language->get('text_home'),
             'href' => $this->url->link('common/dashboard', 'user_token=' . $this->session->data['user_token'], true)
-        );
+        ];
 
-        $data['breadcrumbs'][] = array(
+        $data['breadcrumbs'][] = [
             'text' => $this->language->get('heading_title'),
             'href' => $this->url->link('localisation/address_format', 'user_token=' . $this->session->data['user_token'], true)
-        );
+        ];
 
         if (!isset($this->request->get['address_format_id'])) {
             $data['action'] = $this->url->link('localisation/address_format/add', 'user_token=' . $this->session->data['user_token'], true);

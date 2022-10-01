@@ -1,24 +1,23 @@
 <?php
-
 class ControllerMarketplaceExtension extends Controller {
-    private array $error = array();
+    private array $error = [];
 
     public function index(): void {
         $this->load->language('marketplace/extension');
 
         $this->document->setTitle($this->language->get('heading_title'));
 
-        $data['breadcrumbs'] = array();
+        $data['breadcrumbs'] = [];
 
-        $data['breadcrumbs'][] = array(
+        $data['breadcrumbs'][] = [
             'text' => $this->language->get('text_home'),
             'href' => $this->url->link('common/dashboard', 'user_token=' . $this->session->data['user_token'], true)
-        );
+        ];
 
-        $data['breadcrumbs'][] = array(
+        $data['breadcrumbs'][] = [
             'text' => $this->language->get('heading_title'),
             'href' => $this->url->link('marketplace/extension', 'user_token=' . $this->session->data['user_token'], true)
-        );
+        ];
 
         $data['user_token'] = $this->session->data['user_token'];
 
@@ -28,7 +27,7 @@ class ControllerMarketplaceExtension extends Controller {
             $data['type'] = '';
         }
 
-        $data['categories'] = array();
+        $data['categories'] = [];
 
         $files = glob(DIR_APPLICATION . 'controller/extension/extension/*.php', GLOB_BRACE);
 
@@ -41,11 +40,11 @@ class ControllerMarketplaceExtension extends Controller {
             if ($this->user->hasPermission('access', 'extension/extension/' . $extension)) {
                 $files = glob(DIR_APPLICATION . 'controller/extension/' . $extension . '/*.php', GLOB_BRACE);
 
-                $data['categories'][] = array(
+                $data['categories'][] = [
                     'code' => $extension,
                     'text' => $this->language->get('extension')->get('heading_title') . ' (' . count($files) . ')',
                     'href' => $this->url->link('extension/extension/' . $extension, 'user_token=' . $this->session->data['user_token'], true)
-                );
+                ];
             }
         }
 

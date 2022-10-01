@@ -1,7 +1,6 @@
 <?php
-
 class ControllerExtensionPaymentKlarnaInvoice extends Controller {
-    private array $error = array();
+    private array $error = [];
 
     public function index(): void {
         $this->load->language('extension/payment/klarna_invoice');
@@ -20,10 +19,10 @@ class ControllerExtensionPaymentKlarnaInvoice extends Controller {
                 }
             }
 
-            $klarna_data = array(
+            $klarna_data = [
                 'klarna_invoice_pclasses' => $this->pclasses,
                 'klarna_invoice_status'   => $status
-            );
+            ];
 
             $this->model_setting_setting->editSetting('payment_klarna_invoice', array_merge($this->request->post, $klarna_data));
 
@@ -46,57 +45,57 @@ class ControllerExtensionPaymentKlarnaInvoice extends Controller {
             $data['success'] = '';
         }
 
-        $data['breadcrumbs'] = array();
+        $data['breadcrumbs'] = [];
 
-        $data['breadcrumbs'][] = array(
+        $data['breadcrumbs'][] = [
             'text' => $this->language->get('text_home'),
             'href' => $this->url->link('common/dashboard', 'user_token=' . $this->session->data['user_token'], true)
-        );
+        ];
 
-        $data['breadcrumbs'][] = array(
+        $data['breadcrumbs'][] = [
             'text' => $this->language->get('text_extension'),
             'href' => $this->url->link('marketplace/extension', 'user_token=' . $this->session->data['user_token'] . '&type=payment', true)
-        );
+        ];
 
-        $data['breadcrumbs'][] = array(
+        $data['breadcrumbs'][] = [
             'text' => $this->language->get('heading_title'),
             'href' => $this->url->link('extension/payment/klarna_invoice', 'user_token=' . $this->session->data['user_token'], true)
-        );
+        ];
 
         $data['action'] = $this->url->link('extension/payment/klarna_invoice', 'user_token=' . $this->session->data['user_token'], true);
         $data['cancel'] = $this->url->link('marketplace/extension', 'user_token=' . $this->session->data['user_token'] . '&type=payment', true);
 
-        $data['countries'] = array();
+        $data['countries'] = [];
 
-        $data['countries'][] = array(
+        $data['countries'][] = [
             'name' => $this->language->get('text_germany'),
             'code' => 'DEU'
-        );
+        ];
 
-        $data['countries'][] = array(
+        $data['countries'][] = [
             'name' => $this->language->get('text_netherlands'),
             'code' => 'NLD'
-        );
+        ];
 
-        $data['countries'][] = array(
+        $data['countries'][] = [
             'name' => $this->language->get('text_denmark'),
             'code' => 'DNK'
-        );
+        ];
 
-        $data['countries'][] = array(
+        $data['countries'][] = [
             'name' => $this->language->get('text_sweden'),
             'code' => 'SWE'
-        );
+        ];
 
-        $data['countries'][] = array(
+        $data['countries'][] = [
             'name' => $this->language->get('text_norway'),
             'code' => 'NOR'
-        );
+        ];
 
-        $data['countries'][] = array(
+        $data['countries'][] = [
             'name' => $this->language->get('text_finland'),
             'code' => 'FIN'
-        );
+        ];
 
         if (isset($this->request->post['payment_klarna_invoice'])) {
             $data['payment_klarna_invoice'] = $this->request->post['payment_klarna_invoice'];
@@ -164,7 +163,7 @@ class ControllerExtensionPaymentKlarnaInvoice extends Controller {
                 $value = (int)$child->nodeValue;
                 break;
             case 'array':
-                $value = array();
+                $value = [];
 
                 $xpath   = new \DOMXPath($document);
                 $entries = $xpath->query('.//array/data/value', $child);

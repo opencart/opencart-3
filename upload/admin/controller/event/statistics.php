@@ -1,5 +1,4 @@
 <?php
-
 class ControllerEventStatistics extends Controller {
     // admin/model/catalog/review/addReview/after
     public function addReview(string &$route, array &$args, mixed &$output): void {

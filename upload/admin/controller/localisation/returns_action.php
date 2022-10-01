@@ -1,7 +1,6 @@
 <?php
-
 class ControllerLocalisationReturnsAction extends Controller {
-    private array $error = array();
+    private array $error = [];
 
     public function index(): void {
         $this->load->language('localisation/returns_action');
@@ -144,40 +143,40 @@ class ControllerLocalisationReturnsAction extends Controller {
             $url .= '&page=' . $this->request->get['page'];
         }
 
-        $data['breadcrumbs'] = array();
+        $data['breadcrumbs'] = [];
 
-        $data['breadcrumbs'][] = array(
+        $data['breadcrumbs'][] = [
             'text' => $this->language->get('text_home'),
             'href' => $this->url->link('common/dashboard', 'user_token=' . $this->session->data['user_token'], true)
-        );
+        ];
 
-        $data['breadcrumbs'][] = array(
+        $data['breadcrumbs'][] = [
             'text' => $this->language->get('heading_title'),
             'href' => $this->url->link('localisation/returns_action', 'user_token=' . $this->session->data['user_token'] . $url, true)
-        );
+        ];
 
         $data['add']    = $this->url->link('localisation/returns_action/add', 'user_token=' . $this->session->data['user_token'] . $url, true);
         $data['delete'] = $this->url->link('localisation/returns_action/delete', 'user_token=' . $this->session->data['user_token'] . $url, true);
 
-        $data['return_actions'] = array();
+        $data['return_actions'] = [];
 
-        $filter_data = array(
+        $filter_data = [
             'sort'  => $sort,
             'order' => $order,
             'start' => ($page - 1) * $this->config->get('config_limit_admin'),
             'limit' => $this->config->get('config_limit_admin')
-        );
+        ];
 
         $return_action_total = $this->model_localisation_returns_action->getTotalReturnActions();
 
         $results = $this->model_localisation_returns_action->getReturnActions($filter_data);
 
         foreach ($results as $result) {
-            $data['return_actions'][] = array(
+            $data['return_actions'][] = [
                 'return_action_id' => $result['return_action_id'],
                 'name'             => $result['name'],
                 'edit'             => $this->url->link('localisation/returns_action/edit', 'user_token=' . $this->session->data['user_token'] . '&return_action_id=' . $result['return_action_id'] . $url, true)
-            );
+            ];
         }
 
         if (isset($this->error['warning'])) {
@@ -197,7 +196,7 @@ class ControllerLocalisationReturnsAction extends Controller {
         if (isset($this->request->post['selected'])) {
             $data['selected'] = (array)$this->request->post['selected'];
         } else {
-            $data['selected'] = array();
+            $data['selected'] = [];
         }
 
         $url = '';
@@ -256,7 +255,7 @@ class ControllerLocalisationReturnsAction extends Controller {
         if (isset($this->error['name'])) {
             $data['error_name'] = $this->error['name'];
         } else {
-            $data['error_name'] = array();
+            $data['error_name'] = [];
         }
 
         $url = '';
@@ -273,17 +272,17 @@ class ControllerLocalisationReturnsAction extends Controller {
             $url .= '&page=' . $this->request->get['page'];
         }
 
-        $data['breadcrumbs'] = array();
+        $data['breadcrumbs'] = [];
 
-        $data['breadcrumbs'][] = array(
+        $data['breadcrumbs'][] = [
             'text' => $this->language->get('text_home'),
             'href' => $this->url->link('common/dashboard', 'user_token=' . $this->session->data['user_token'], true)
-        );
+        ];
 
-        $data['breadcrumbs'][] = array(
+        $data['breadcrumbs'][] = [
             'text' => $this->language->get('heading_title'),
             'href' => $this->url->link('localisation/returns_action', 'user_token=' . $this->session->data['user_token'] . $url, true)
-        );
+        ];
 
         if (!isset($this->request->get['return_action_id'])) {
             $data['action'] = $this->url->link('localisation/returns_action/add', 'user_token=' . $this->session->data['user_token'] . $url, true);
@@ -302,7 +301,7 @@ class ControllerLocalisationReturnsAction extends Controller {
         } elseif (isset($this->request->get['return_action_id'])) {
             $data['return_action'] = $this->model_localisation_returns_action->getReturnActionDescriptions($this->request->get['return_action_id']);
         } else {
-            $data['return_action'] = array();
+            $data['return_action'] = [];
         }
 
         $data['header']      = $this->load->controller('common/header');

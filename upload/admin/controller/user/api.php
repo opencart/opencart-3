@@ -1,7 +1,6 @@
 <?php
-
 class ControllerUserApi extends Controller {
-    private array $error = array();
+    private array $error = [];
 
     public function index(): void {
         $this->load->language('user/api');
@@ -144,43 +143,43 @@ class ControllerUserApi extends Controller {
             $url .= '&page=' . $this->request->get['page'];
         }
 
-        $data['breadcrumbs'] = array();
+        $data['breadcrumbs'] = [];
 
-        $data['breadcrumbs'][] = array(
+        $data['breadcrumbs'][] = [
             'text' => $this->language->get('text_home'),
             'href' => $this->url->link('common/dashboard', 'user_token=' . $this->session->data['user_token'], true)
-        );
+        ];
 
-        $data['breadcrumbs'][] = array(
+        $data['breadcrumbs'][] = [
             'text' => $this->language->get('heading_title'),
             'href' => $this->url->link('user/api', 'user_token=' . $this->session->data['user_token'] . $url, true)
-        );
+        ];
 
         $data['add']    = $this->url->link('user/api/add', 'user_token=' . $this->session->data['user_token'] . $url, true);
         $data['delete'] = $this->url->link('user/api/delete', 'user_token=' . $this->session->data['user_token'] . $url, true);
 
-        $data['apis'] = array();
+        $data['apis'] = [];
 
-        $filter_data = array(
+        $filter_data = [
             'sort'  => $sort,
             'order' => $order,
             'start' => ($page - 1) * $this->config->get('config_limit_admin'),
             'limit' => $this->config->get('config_limit_admin')
-        );
+        ];
 
         $user_total = $this->model_user_api->getTotalApis();
 
         $results = $this->model_user_api->getApis($filter_data);
 
         foreach ($results as $result) {
-            $data['apis'][] = array(
+            $data['apis'][] = [
                 'api_id'        => $result['api_id'],
                 'username'      => $result['username'],
                 'status'        => ($result['status'] ? $this->language->get('text_enabled') : $this->language->get('text_disabled')),
                 'date_added'    => date($this->language->get('date_format_short'), strtotime($result['date_added'])),
                 'date_modified' => date($this->language->get('date_format_short'), strtotime($result['date_modified'])),
                 'edit'          => $this->url->link('user/api/edit', 'user_token=' . $this->session->data['user_token'] . '&api_id=' . $result['api_id'] . $url, true)
-            );
+            ];
         }
 
         if (isset($this->error['warning'])) {
@@ -200,7 +199,7 @@ class ControllerUserApi extends Controller {
         if (isset($this->request->post['selected'])) {
             $data['selected'] = (array)$this->request->post['selected'];
         } else {
-            $data['selected'] = array();
+            $data['selected'] = [];
         }
 
         $url = '';
@@ -288,17 +287,17 @@ class ControllerUserApi extends Controller {
             $url .= '&page=' . $this->request->get['page'];
         }
 
-        $data['breadcrumbs'] = array();
+        $data['breadcrumbs'] = [];
 
-        $data['breadcrumbs'][] = array(
+        $data['breadcrumbs'][] = [
             'text' => $this->language->get('text_home'),
             'href' => $this->url->link('common/dashboard', 'user_token=' . $this->session->data['user_token'], true)
-        );
+        ];
 
-        $data['breadcrumbs'][] = array(
+        $data['breadcrumbs'][] = [
             'text' => $this->language->get('heading_title'),
             'href' => $this->url->link('user/api', 'user_token=' . $this->session->data['user_token'] . $url, true)
-        );
+        ];
 
         if (!isset($this->request->get['api_id'])) {
             $data['action'] = $this->url->link('user/api/add', 'user_token=' . $this->session->data['user_token'] . $url, true);
@@ -342,23 +341,23 @@ class ControllerUserApi extends Controller {
         } elseif (isset($this->request->get['api_id'])) {
             $data['api_ips'] = $this->model_user_api->getApiIps($this->request->get['api_id']);
         } else {
-            $data['api_ips'] = array();
+            $data['api_ips'] = [];
         }
 
         // Session
-        $data['api_sessions'] = array();
+        $data['api_sessions'] = [];
 
         if (isset($this->request->get['api_id'])) {
             $results = $this->model_user_api->getApiSessions($this->request->get['api_id']);
 
             foreach ($results as $result) {
-                $data['api_sessions'][] = array(
+                $data['api_sessions'][] = [
                     'api_session_id' => $result['api_session_id'],
                     'session_id'     => $result['session_id'],
                     'ip'             => $result['ip'],
                     'date_added'     => date($this->language->get('datetime_format'), strtotime($result['date_added'])),
                     'date_modified'  => date($this->language->get('datetime_format'), strtotime($result['date_modified']))
-                );
+                ];
             }
         }
 
@@ -400,7 +399,7 @@ class ControllerUserApi extends Controller {
     public function deleteSession(): void {
         $this->load->language('user/api');
 
-        $json = array();
+        $json = [];
 
         if (!$this->user->hasPermission('modify', 'user/api')) {
             $json['error'] = $this->language->get('error_permission');

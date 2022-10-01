@@ -1,5 +1,4 @@
 <?php
-
 class ControllerStartupLanguage extends Controller {
     public function index(): void {
         // Language

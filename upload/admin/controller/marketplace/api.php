@@ -1,5 +1,4 @@
 <?php
-
 class ControllerMarketplaceApi extends Controller {
     public function index(): void {
         $this->load->language('marketplace/api');
@@ -12,7 +11,7 @@ class ControllerMarketplaceApi extends Controller {
     public function save(): void {
         $this->load->language('marketplace/api');
 
-        $json = array();
+        $json = [];
 
         if (!$this->user->hasPermission('modify', 'marketplace/api')) {
             $json['error']['warning'] = $this->language->get('error_permission');

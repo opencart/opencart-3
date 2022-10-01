@@ -1,7 +1,6 @@
 <?php
-
 class ControllerSaleVoucherTheme extends Controller {
-    private array $error = array();
+    private array $error = [];
 
     public function index(): void {
         $this->load->language('sale/voucher_theme');
@@ -144,40 +143,40 @@ class ControllerSaleVoucherTheme extends Controller {
             $url .= '&page=' . $this->request->get['page'];
         }
 
-        $data['breadcrumbs'] = array();
+        $data['breadcrumbs'] = [];
 
-        $data['breadcrumbs'][] = array(
+        $data['breadcrumbs'][] = [
             'text' => $this->language->get('text_home'),
             'href' => $this->url->link('common/dashboard', 'user_token=' . $this->session->data['user_token'], true)
-        );
+        ];
 
-        $data['breadcrumbs'][] = array(
+        $data['breadcrumbs'][] = [
             'text' => $this->language->get('heading_title'),
             'href' => $this->url->link('sale/voucher_theme', 'user_token=' . $this->session->data['user_token'] . $url, true)
-        );
+        ];
 
         $data['add']    = $this->url->link('sale/voucher_theme/add', 'user_token=' . $this->session->data['user_token'] . $url, true);
         $data['delete'] = $this->url->link('sale/voucher_theme/delete', 'user_token=' . $this->session->data['user_token'] . $url, true);
 
-        $data['voucher_themes'] = array();
+        $data['voucher_themes'] = [];
 
-        $filter_data = array(
+        $filter_data = [
             'sort'  => $sort,
             'order' => $order,
             'start' => ($page - 1) * $this->config->get('config_limit_admin'),
             'limit' => $this->config->get('config_limit_admin')
-        );
+        ];
 
         $voucher_theme_total = $this->model_sale_voucher_theme->getTotalVoucherThemes();
 
         $results = $this->model_sale_voucher_theme->getVoucherThemes($filter_data);
 
         foreach ($results as $result) {
-            $data['voucher_themes'][] = array(
+            $data['voucher_themes'][] = [
                 'voucher_theme_id' => $result['voucher_theme_id'],
                 'name'             => $result['name'],
                 'edit'             => $this->url->link('sale/voucher_theme/edit', 'user_token=' . $this->session->data['user_token'] . '&voucher_theme_id=' . $result['voucher_theme_id'] . $url, true)
-            );
+            ];
         }
 
         if (isset($this->error['warning'])) {
@@ -197,7 +196,7 @@ class ControllerSaleVoucherTheme extends Controller {
         if (isset($this->request->post['selected'])) {
             $data['selected'] = (array)$this->request->post['selected'];
         } else {
-            $data['selected'] = array();
+            $data['selected'] = [];
         }
 
         $url = '';
@@ -256,7 +255,7 @@ class ControllerSaleVoucherTheme extends Controller {
         if (isset($this->error['name'])) {
             $data['error_name'] = $this->error['name'];
         } else {
-            $data['error_name'] = array();
+            $data['error_name'] = [];
         }
 
         if (isset($this->error['image'])) {
@@ -279,17 +278,17 @@ class ControllerSaleVoucherTheme extends Controller {
             $url .= '&page=' . $this->request->get['page'];
         }
 
-        $data['breadcrumbs'] = array();
+        $data['breadcrumbs'] = [];
 
-        $data['breadcrumbs'][] = array(
+        $data['breadcrumbs'][] = [
             'text' => $this->language->get('text_home'),
             'href' => $this->url->link('common/dashboard', 'user_token=' . $this->session->data['user_token'], true)
-        );
+        ];
 
-        $data['breadcrumbs'][] = array(
+        $data['breadcrumbs'][] = [
             'text' => $this->language->get('heading_title'),
             'href' => $this->url->link('sale/voucher_theme', 'user_token=' . $this->session->data['user_token'] . $url, true)
-        );
+        ];
 
         if (!isset($this->request->get['voucher_theme_id'])) {
             $data['action'] = $this->url->link('sale/voucher_theme/add', 'user_token=' . $this->session->data['user_token'] . $url, true);
@@ -314,7 +313,7 @@ class ControllerSaleVoucherTheme extends Controller {
         } elseif (isset($this->request->get['voucher_theme_id'])) {
             $data['voucher_theme_description'] = $this->model_sale_voucher_theme->getVoucherThemeDescriptions($this->request->get['voucher_theme_id']);
         } else {
-            $data['voucher_theme_description'] = array();
+            $data['voucher_theme_description'] = [];
         }
 
         if (isset($this->request->post['image'])) {

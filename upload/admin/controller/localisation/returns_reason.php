@@ -1,7 +1,6 @@
 <?php
-
 class ControllerLocalisationReturnsReason extends Controller {
-    private array $error = array();
+    private array $error = [];
 
     public function index(): void {
         $this->load->language('localisation/returns_reason');
@@ -144,40 +143,40 @@ class ControllerLocalisationReturnsReason extends Controller {
             $url .= '&page=' . $this->request->get['page'];
         }
 
-        $data['breadcrumbs'] = array();
+        $data['breadcrumbs'] = [];
 
-        $data['breadcrumbs'][] = array(
+        $data['breadcrumbs'][] = [
             'text' => $this->language->get('text_home'),
             'href' => $this->url->link('common/dashboard', 'user_token=' . $this->session->data['user_token'], true)
-        );
+        ];
 
-        $data['breadcrumbs'][] = array(
+        $data['breadcrumbs'][] = [
             'text' => $this->language->get('heading_title'),
             'href' => $this->url->link('localisation/returns_reason', 'user_token=' . $this->session->data['user_token'] . $url, true)
-        );
+        ];
 
         $data['add']    = $this->url->link('localisation/returns_reason/add', 'user_token=' . $this->session->data['user_token'] . $url, true);
         $data['delete'] = $this->url->link('localisation/returns_reason/delete', 'user_token=' . $this->session->data['user_token'] . $url, true);
 
-        $data['return_reasons'] = array();
+        $data['return_reasons'] = [];
 
-        $filter_data = array(
+        $filter_data = [
             'sort'  => $sort,
             'order' => $order,
             'start' => ($page - 1) * $this->config->get('config_limit_admin'),
             'limit' => $this->config->get('config_limit_admin')
-        );
+        ];
 
         $return_reason_total = $this->model_localisation_returns_reason->getTotalReturnReasons();
 
         $results = $this->model_localisation_returns_reason->getReturnReasons($filter_data);
 
         foreach ($results as $result) {
-            $data['return_reasons'][] = array(
+            $data['return_reasons'][] = [
                 'return_reason_id' => $result['return_reason_id'],
                 'name'             => $result['name'],
                 'edit'             => $this->url->link('localisation/returns_reason/edit', 'user_token=' . $this->session->data['user_token'] . '&return_reason_id=' . $result['return_reason_id'] . $url, true)
-            );
+            ];
         }
 
         if (isset($this->error['warning'])) {
@@ -197,7 +196,7 @@ class ControllerLocalisationReturnsReason extends Controller {
         if (isset($this->request->post['selected'])) {
             $data['selected'] = (array)$this->request->post['selected'];
         } else {
-            $data['selected'] = array();
+            $data['selected'] = [];
         }
 
         $url = '';
@@ -256,7 +255,7 @@ class ControllerLocalisationReturnsReason extends Controller {
         if (isset($this->error['name'])) {
             $data['error_name'] = $this->error['name'];
         } else {
-            $data['error_name'] = array();
+            $data['error_name'] = [];
         }
 
         $url = '';
@@ -273,17 +272,17 @@ class ControllerLocalisationReturnsReason extends Controller {
             $url .= '&page=' . $this->request->get['page'];
         }
 
-        $data['breadcrumbs'] = array();
+        $data['breadcrumbs'] = [];
 
-        $data['breadcrumbs'][] = array(
+        $data['breadcrumbs'][] = [
             'text' => $this->language->get('text_home'),
             'href' => $this->url->link('common/dashboard', 'user_token=' . $this->session->data['user_token'], true)
-        );
+        ];
 
-        $data['breadcrumbs'][] = array(
+        $data['breadcrumbs'][] = [
             'text' => $this->language->get('heading_title'),
             'href' => $this->url->link('localisation/returns_reason', 'user_token=' . $this->session->data['user_token'] . $url, true)
-        );
+        ];
 
         if (!isset($this->request->get['return_reason_id'])) {
             $data['action'] = $this->url->link('localisation/returns_reason/add', 'user_token=' . $this->session->data['user_token'] . $url, true);
@@ -302,7 +301,7 @@ class ControllerLocalisationReturnsReason extends Controller {
         } elseif (isset($this->request->get['return_reason_id'])) {
             $data['return_reason'] = $this->model_localisation_returns_reason->getReturnReasonDescriptions($this->request->get['return_reason_id']);
         } else {
-            $data['return_reason'] = array();
+            $data['return_reason'] = [];
         }
 
         $data['header']      = $this->load->controller('common/header');

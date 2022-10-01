@@ -1,5 +1,4 @@
 <?php
-
 class ControllerEventTheme extends Controller {
     public function index(string &$route, array &$args): void {
         // This is only here for compatibility with old templates

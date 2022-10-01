@@ -1,7 +1,6 @@
 <?php
-
 class ControllerExtensionExtensionReport extends Controller {
-    private array $error = array();
+    private array $error = [];
 
     public function index(): void {
         $this->load->language('extension/extension/report');
@@ -75,7 +74,7 @@ class ControllerExtensionExtensionReport extends Controller {
             }
         }
 
-        $data['extensions'] = array();
+        $data['extensions'] = [];
 
         // Compatibility code for old extension folders
         $files = glob(DIR_APPLICATION . 'controller/extension/report/*.php');
@@ -86,7 +85,7 @@ class ControllerExtensionExtensionReport extends Controller {
 
                 $this->load->language('extension/report/' . $extension, 'extension');
 
-                $data['extensions'][] = array(
+                $data['extensions'][] = [
                     'name'       => $this->language->get('extension')->get('heading_title'),
                     'status'     => $this->config->get('report_' . $extension . '_status') ? $this->language->get('text_enabled') : $this->language->get('text_disabled'),
                     'sort_order' => $this->config->get('report_' . $extension . '_sort_order'),
@@ -94,7 +93,7 @@ class ControllerExtensionExtensionReport extends Controller {
                     'uninstall'  => $this->url->link('extension/extension/report/uninstall', 'user_token=' . $this->session->data['user_token'] . '&extension=' . $extension, true),
                     'installed'  => in_array($extension, $extensions),
                     'edit'       => $this->url->link('extension/report/' . $extension, 'user_token=' . $this->session->data['user_token'], true)
-                );
+                ];
             }
         }
 

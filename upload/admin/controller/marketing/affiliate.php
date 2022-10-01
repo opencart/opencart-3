@@ -1,7 +1,6 @@
 <?php
-
 class ControllerMarketingAffiliate extends Controller {
-    private array $error = array();
+    private array $error = [];
 
     public function index(): void {
         $this->load->language('marketing/affiliate');
@@ -254,26 +253,26 @@ class ControllerMarketingAffiliate extends Controller {
             $url .= '&page=' . $this->request->get['page'];
         }
 
-        $data['breadcrumbs'] = array();
+        $data['breadcrumbs'] = [];
 
-        $data['breadcrumbs'][] = array(
+        $data['breadcrumbs'][] = [
             'text' => $this->language->get('text_home'),
             'href' => $this->url->link('common/dashboard', 'user_token=' . $this->session->data['user_token'], true)
-        );
+        ];
 
-        $data['breadcrumbs'][] = array(
+        $data['breadcrumbs'][] = [
             'text' => $this->language->get('heading_title'),
             'href' => $this->url->link('marketing/affiliate', 'user_token=' . $this->session->data['user_token'] . $url, true)
-        );
+        ];
 
         $data['add']    = $this->url->link('marketing/affiliate/add', 'user_token=' . $this->session->data['user_token'] . $url, true);
         $data['delete'] = $this->url->link('marketing/affiliate/delete', 'user_token=' . $this->session->data['user_token'] . $url, true);
 
         $this->load->model('customer/customer');
 
-        $data['affiliates'] = array();
+        $data['affiliates'] = [];
 
-        $filter_data = array(
+        $filter_data = [
             'filter_name'       => $filter_customer,
             'filter_tracking'   => $filter_tracking,
             'filter_commission' => $filter_commission,
@@ -283,14 +282,14 @@ class ControllerMarketingAffiliate extends Controller {
             'order'             => $order,
             'start'             => ($page - 1) * $this->config->get('config_limit_admin'),
             'limit'             => $this->config->get('config_limit_admin')
-        );
+        ];
 
         $affiliate_total = $this->model_marketing_affiliate->getTotalAffiliates($filter_data);
 
         $results = $this->model_marketing_affiliate->getAffiliates($filter_data);
 
         foreach ($results as $result) {
-            $data['affiliates'][] = array(
+            $data['affiliates'][] = [
                 'customer_id' => $result['customer_id'],
                 'name'        => $result['name'],
                 'tracking'    => $result['tracking'],
@@ -300,7 +299,7 @@ class ControllerMarketingAffiliate extends Controller {
                 'date_added'  => date($this->language->get('date_format_short'), strtotime($result['date_added'])),
                 'customer'    => $this->url->link('customer/customer/edit', 'user_token=' . $this->session->data['user_token'] . '&customer_id=' . $result['customer_id']),
                 'edit'        => $this->url->link('marketing/affiliate/edit', 'user_token=' . $this->session->data['user_token'] . '&customer_id=' . $result['customer_id'] . $url, true)
-            );
+            ];
         }
 
         $data['user_token'] = $this->session->data['user_token'];
@@ -322,7 +321,7 @@ class ControllerMarketingAffiliate extends Controller {
         if (isset($this->request->post['selected'])) {
             $data['selected'] = (array)$this->request->post['selected'];
         } else {
-            $data['selected'] = array();
+            $data['selected'] = [];
         }
 
         $url = '';
@@ -463,7 +462,7 @@ class ControllerMarketingAffiliate extends Controller {
         if (isset($this->error['custom_field'])) {
             $data['error_custom_field'] = $this->error['custom_field'];
         } else {
-            $data['error_custom_field'] = array();
+            $data['error_custom_field'] = [];
         }
 
         $url = '';
@@ -500,17 +499,17 @@ class ControllerMarketingAffiliate extends Controller {
             $url .= '&page=' . $this->request->get['page'];
         }
 
-        $data['breadcrumbs'] = array();
+        $data['breadcrumbs'] = [];
 
-        $data['breadcrumbs'][] = array(
+        $data['breadcrumbs'][] = [
             'text' => $this->language->get('text_home'),
             'href' => $this->url->link('common/dashboard', 'user_token=' . $this->session->data['user_token'], true)
-        );
+        ];
 
-        $data['breadcrumbs'][] = array(
+        $data['breadcrumbs'][] = [
             'text' => $this->language->get('heading_title'),
             'href' => $this->url->link('marketing/affiliate', 'user_token=' . $this->session->data['user_token'] . $url, true)
-        );
+        ];
 
         if (!isset($this->request->get['customer_id'])) {
             $data['action'] = $this->url->link('marketing/affiliate/add', 'user_token=' . $this->session->data['user_token'] . $url, true);
@@ -662,18 +661,18 @@ class ControllerMarketingAffiliate extends Controller {
         // Custom Fields
         $this->load->model('customer/custom_field');
 
-        $data['custom_fields'] = array();
+        $data['custom_fields'] = [];
 
-        $filter_data = array(
+        $filter_data = [
             'sort'  => 'cf.sort_order',
             'order' => 'ASC'
-        );
+        ];
 
         $custom_fields = $this->model_customer_custom_field->getCustomFields($filter_data);
 
         foreach ($custom_fields as $custom_field) {
             if ($custom_field['status']) {
-                $data['custom_fields'][] = array(
+                $data['custom_fields'][] = [
                     'custom_field_id'    => $custom_field['custom_field_id'],
                     'custom_field_value' => $this->model_customer_custom_field->getCustomFieldValues($custom_field['custom_field_id']),
                     'name'               => $custom_field['name'],
@@ -681,7 +680,7 @@ class ControllerMarketingAffiliate extends Controller {
                     'type'               => $custom_field['type'],
                     'location'           => $custom_field['location'],
                     'sort_order'         => $custom_field['sort_order']
-                );
+                ];
             }
         }
 
@@ -690,7 +689,7 @@ class ControllerMarketingAffiliate extends Controller {
         } elseif (!empty($affiliate_info)) {
             $data['affiliate_custom_field'] = json_decode($affiliate_info['custom_field'], true);
         } else {
-            $data['affiliate_custom_field'] = array();
+            $data['affiliate_custom_field'] = [];
         }
 
         $data['header']      = $this->load->controller('common/header');
@@ -794,7 +793,7 @@ class ControllerMarketingAffiliate extends Controller {
             $page = 1;
         }
 
-        $data['reports'] = array();
+        $data['reports'] = [];
 
         $this->load->model('marketing/affiliate');
         $this->load->model('customer/customer');
@@ -813,14 +812,14 @@ class ControllerMarketingAffiliate extends Controller {
                 $store = '';
             }
 
-            $data['reports'][] = array(
+            $data['reports'][] = [
                 'ip'         => $result['ip'],
                 'account'    => $this->model_customer_customer->getTotalCustomersByIp($result['ip']),
                 'store'      => $store,
                 'country'    => $result['country'],
                 'date_added' => date($this->language->get('datetime_format'), strtotime($result['date_added'])),
                 'filter_ip'  => $this->url->link('customer/customer', 'user_token=' . $this->session->data['user_token'] . '&filter_ip=' . $result['ip'])
-            );
+            ];
         }
 
         $report_total = $this->model_marketing_affiliate->getTotalReports($customer_id);

@@ -1,7 +1,6 @@
 <?php
-
 class ControllerLocalisationLengthClass extends Controller {
-    private array $error = array();
+    private array $error = [];
 
     public function index(): void {
         $this->load->language('localisation/length_class');
@@ -144,42 +143,42 @@ class ControllerLocalisationLengthClass extends Controller {
             $url .= '&page=' . $this->request->get['page'];
         }
 
-        $data['breadcrumbs'] = array();
+        $data['breadcrumbs'] = [];
 
-        $data['breadcrumbs'][] = array(
+        $data['breadcrumbs'][] = [
             'text' => $this->language->get('text_home'),
             'href' => $this->url->link('common/dashboard', 'user_token=' . $this->session->data['user_token'], true)
-        );
+        ];
 
-        $data['breadcrumbs'][] = array(
+        $data['breadcrumbs'][] = [
             'text' => $this->language->get('heading_title'),
             'href' => $this->url->link('localisation/length_class', 'user_token=' . $this->session->data['user_token'] . $url, true)
-        );
+        ];
 
         $data['add']    = $this->url->link('localisation/length_class/add', 'user_token=' . $this->session->data['user_token'] . $url, true);
         $data['delete'] = $this->url->link('localisation/length_class/delete', 'user_token=' . $this->session->data['user_token'] . $url, true);
 
-        $data['length_classes'] = array();
+        $data['length_classes'] = [];
 
-        $filter_data = array(
+        $filter_data = [
             'sort'  => $sort,
             'order' => $order,
             'start' => ($page - 1) * $this->config->get('config_limit_admin'),
             'limit' => $this->config->get('config_limit_admin')
-        );
+        ];
 
         $length_class_total = $this->model_localisation_length_class->getTotalLengthClasses();
 
         $results = $this->model_localisation_length_class->getLengthClasses($filter_data);
 
         foreach ($results as $result) {
-            $data['length_classes'][] = array(
+            $data['length_classes'][] = [
                 'length_class_id' => $result['length_class_id'],
                 'title'           => $result['title'] . (($result['length_class_id'] == $this->config->get('config_length_class_id')) ? $this->language->get('text_default') : null),
                 'unit'            => $result['unit'],
                 'value'           => $result['value'],
                 'edit'            => $this->url->link('localisation/length_class/edit', 'user_token=' . $this->session->data['user_token'] . '&length_class_id=' . $result['length_class_id'] . $url, true)
-            );
+            ];
         }
 
         if (isset($this->error['warning'])) {
@@ -199,7 +198,7 @@ class ControllerLocalisationLengthClass extends Controller {
         if (isset($this->request->post['selected'])) {
             $data['selected'] = (array)$this->request->post['selected'];
         } else {
-            $data['selected'] = array();
+            $data['selected'] = [];
         }
 
         $url = '';
@@ -260,13 +259,13 @@ class ControllerLocalisationLengthClass extends Controller {
         if (isset($this->error['title'])) {
             $data['error_title'] = $this->error['title'];
         } else {
-            $data['error_title'] = array();
+            $data['error_title'] = [];
         }
 
         if (isset($this->error['unit'])) {
             $data['error_unit'] = $this->error['unit'];
         } else {
-            $data['error_unit'] = array();
+            $data['error_unit'] = [];
         }
 
         $url = '';
@@ -283,17 +282,17 @@ class ControllerLocalisationLengthClass extends Controller {
             $url .= '&page=' . $this->request->get['page'];
         }
 
-        $data['breadcrumbs'] = array();
+        $data['breadcrumbs'] = [];
 
-        $data['breadcrumbs'][] = array(
+        $data['breadcrumbs'][] = [
             'text' => $this->language->get('text_home'),
             'href' => $this->url->link('common/dashboard', 'user_token=' . $this->session->data['user_token'], true)
-        );
+        ];
 
-        $data['breadcrumbs'][] = array(
+        $data['breadcrumbs'][] = [
             'text' => $this->language->get('heading_title'),
             'href' => $this->url->link('localisation/length_class', 'user_token=' . $this->session->data['user_token'] . $url, true)
-        );
+        ];
 
         if (!isset($this->request->get['length_class_id'])) {
             $data['action'] = $this->url->link('localisation/length_class/add', 'user_token=' . $this->session->data['user_token'] . $url, true);
@@ -316,7 +315,7 @@ class ControllerLocalisationLengthClass extends Controller {
         } elseif (isset($this->request->get['length_class_id'])) {
             $data['length_class_description'] = $this->model_localisation_length_class->getLengthClassDescriptions($this->request->get['length_class_id']);
         } else {
-            $data['length_class_description'] = array();
+            $data['length_class_description'] = [];
         }
 
         if (isset($this->request->post['value'])) {

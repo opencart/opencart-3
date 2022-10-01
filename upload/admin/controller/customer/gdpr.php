@@ -1,5 +1,4 @@
 <?php
-
 class ControllerCustomerGdpr extends Controller {
     public function index(): void {
         $this->load->language('customer/gdpr');
@@ -62,17 +61,17 @@ class ControllerCustomerGdpr extends Controller {
             $url .= '&page=' . $this->request->get['page'];
         }
 
-        $data['breadcrumbs'] = array();
+        $data['breadcrumbs'] = [];
 
-        $data['breadcrumbs'][] = array(
+        $data['breadcrumbs'][] = [
             'text' => $this->language->get('text_home'),
             'href' => $this->url->link('common/dashboard', 'user_token=' . $this->session->data['user_token'], true)
-        );
+        ];
 
-        $data['breadcrumbs'][] = array(
+        $data['breadcrumbs'][] = [
             'text' => $this->language->get('heading_title'),
             'href' => $this->url->link('customer/gdpr', 'user_token=' . $this->session->data['user_token'], true)
-        );
+        ];
 
         $data['filter_email']     = $filter_email;
         $data['filter_action']    = $filter_action;
@@ -132,9 +131,9 @@ class ControllerCustomerGdpr extends Controller {
             $page = 1;
         }
 
-        $data['gdprs'] = array();
+        $data['gdprs'] = [];
 
-        $filter_data = array(
+        $filter_data = [
             'filter_email'     => $filter_email,
             'filter_action'    => $filter_action,
             'filter_status'    => $filter_status,
@@ -142,7 +141,7 @@ class ControllerCustomerGdpr extends Controller {
             'filter_date_to'   => $filter_date_to,
             'start'            => ($page - 1) * $this->config->get('config_limit_admin'),
             'limit'            => $this->config->get('config_limit_admin')
-        );
+        ];
 
         $this->load->model('customer/gdpr');
         $this->load->model('customer/customer');
@@ -160,7 +159,7 @@ class ControllerCustomerGdpr extends Controller {
                 $edit = '';
             }
 
-            $data['gdprs'][] = array(
+            $data['gdprs'][] = [
                 'gdpr_id'    => $result['gdpr_id'],
                 'email'      => $result['email'],
                 'action'     => $this->language->get('text_' . $result['action']),
@@ -170,7 +169,7 @@ class ControllerCustomerGdpr extends Controller {
                 'deny'       => $this->url->link('customer/gdpr/deny', 'user_token=' . $this->session->data['user_token'] . '&gdpr_id=' . $result['gdpr_id'], true),
                 'edit'       => $edit,
                 'delete'     => $this->url->link('customer/gdpr/delete', 'user_token=' . $this->session->data['user_token'] . '&gdpr_id=' . $result['gdpr_id'], true)
-            );
+            ];
         }
 
         $url = '';
@@ -234,14 +233,14 @@ class ControllerCustomerGdpr extends Controller {
     public function approve(): void {
         $this->load->language('customer/gdpr');
 
-        $json = array();
+        $json = [];
 
         if (!$this->user->hasPermission('modify', 'customer/gdpr')) {
             $json['error'] = $this->language->get('error_permission');
         }
 
         if (!$json) {
-            $gdprs = array();
+            $gdprs = [];
 
             if (isset($this->request->post['selected'])) {
                 $gdprs = $this->request->post['selected'];
@@ -277,14 +276,14 @@ class ControllerCustomerGdpr extends Controller {
     public function deny(): void {
         $this->load->language('customer/gdpr');
 
-        $json = array();
+        $json = [];
 
         if (!$this->user->hasPermission('modify', 'customer/gdpr')) {
             $json['error'] = $this->language->get('error_permission');
         }
 
         if (!$json) {
-            $gdprs = array();
+            $gdprs = [];
 
             if (isset($this->request->post['selected'])) {
                 $gdprs = $this->request->post['selected'];
@@ -310,14 +309,14 @@ class ControllerCustomerGdpr extends Controller {
     public function delete(): void {
         $this->load->language('customer/gdpr');
 
-        $json = array();
+        $json = [];
 
         if (!$this->user->hasPermission('modify', 'customer/gdpr')) {
             $json['error'] = $this->language->get('error_permission');
         }
 
         if (!$json) {
-            $gdprs = array();
+            $gdprs = [];
 
             if (isset($this->request->post['selected'])) {
                 $gdprs = $this->request->post['selected'];

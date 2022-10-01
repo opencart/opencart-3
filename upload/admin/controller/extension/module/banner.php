@@ -1,7 +1,6 @@
 <?php
-
 class ControllerExtensionModuleBanner extends Controller {
-    private array $error = array();
+    private array $error = [];
 
     public function index(): void {
         $this->load->language('extension/module/banner');
@@ -46,32 +45,33 @@ class ControllerExtensionModuleBanner extends Controller {
             $data['error_height'] = '';
         }
 
-        $data['breadcrumbs'] = array();
+        $data['breadcrumbs'] = [];
 
-        $data['breadcrumbs'][] = array(
+        $data['breadcrumbs'][] = [
             'text' => $this->language->get('text_home'),
             'href' => $this->url->link('common/dashboard', 'user_token=' . $this->session->data['user_token'], true)
-        );
+        ];
 
-        $data['breadcrumbs'][] = array(
+        $data['breadcrumbs'][] = [
             'text' => $this->language->get('text_extension'),
             'href' => $this->url->link('marketplace/extension', 'user_token=' . $this->session->data['user_token'] . '&type=module', true)
-        );
+        ];
 
         if (!isset($this->request->get['module_id'])) {
-            $data['breadcrumbs'][] = array(
+            $data['breadcrumbs'][] = [
                 'text' => $this->language->get('heading_title'),
                 'href' => $this->url->link('extension/module/banner', 'user_token=' . $this->session->data['user_token'], true)
-            );
+            ];
         } else {
-            $data['breadcrumbs'][] = array(
+            $data['breadcrumbs'][] = [
                 'text' => $this->language->get('heading_title'),
                 'href' => $this->url->link('extension/module/banner', 'user_token=' . $this->session->data['user_token'] . '&module_id=' . $this->request->get['module_id'], true)
-            );
+            ];
         }
 
         if (!isset($this->request->get['module_id'])) {
-            $data['action'] = $this->url->link('extension/module/banner', 'user_token=' . $this->session->data['user_token'], true);        } else {
+            $data['action'] = $this->url->link('extension/module/banner', 'user_token=' . $this->session->data['user_token'], true);
+        } else {
             $data['action'] = $this->url->link('extension/module/banner', 'user_token=' . $this->session->data['user_token'] . '&module_id=' . $this->request->get['module_id'], true);
         }
 

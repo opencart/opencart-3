@@ -1,7 +1,6 @@
 <?php
-
 class ControllerExtensionDashboardMap extends Controller {
-    private array $error = array();
+    private array $error = [];
 
     public function index(): void {
         $this->load->language('extension/dashboard/map');
@@ -24,22 +23,22 @@ class ControllerExtensionDashboardMap extends Controller {
             $data['error_warning'] = '';
         }
 
-        $data['breadcrumbs'] = array();
+        $data['breadcrumbs'] = [];
 
-        $data['breadcrumbs'][] = array(
+        $data['breadcrumbs'][] = [
             'text' => $this->language->get('text_home'),
             'href' => $this->url->link('common/dashboard', 'user_token=' . $this->session->data['user_token'], true)
-        );
+        ];
 
-        $data['breadcrumbs'][] = array(
+        $data['breadcrumbs'][] = [
             'text' => $this->language->get('text_extension'),
             'href' => $this->url->link('marketplace/extension', 'user_token=' . $this->session->data['user_token'] . '&type=dashboard', true)
-        );
+        ];
 
-        $data['breadcrumbs'][] = array(
+        $data['breadcrumbs'][] = [
             'text' => $this->language->get('heading_title'),
             'href' => $this->url->link('extension/dashboard/map', 'user_token=' . $this->session->data['user_token'], true)
-        );
+        ];
 
         $data['action'] = $this->url->link('extension/dashboard/map', 'user_token=' . $this->session->data['user_token'], true);
         $data['cancel'] = $this->url->link('marketplace/extension', 'user_token=' . $this->session->data['user_token'] . '&type=dashboard', true);
@@ -50,7 +49,7 @@ class ControllerExtensionDashboardMap extends Controller {
             $data['dashboard_map_width'] = $this->config->get('dashboard_map_width');
         }
 
-        $data['columns'] = array();
+        $data['columns'] = [];
 
         for ($i = 3; $i <= 12; $i++) {
             $data['columns'][] = $i;
@@ -92,17 +91,17 @@ class ControllerExtensionDashboardMap extends Controller {
     }
 
     public function map(): void {
-        $json = array();
+        $json = [];
 
         $this->load->model('extension/dashboard/map');
 
         $results = $this->model_extension_dashboard_map->getTotalOrdersByCountry();
 
         foreach ($results as $result) {
-            $json[strtolower($result['iso_code_2'])] = array(
+            $json[strtolower($result['iso_code_2'])] = [
                 'total'  => $result['total'],
                 'amount' => $this->currency->format($result['amount'], $this->config->get('config_currency'))
-            );
+            ];
         }
 
         $this->response->addHeader('Content-Type: application/json');

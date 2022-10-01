@@ -1,5 +1,4 @@
 <?php
-
 class ControllerMailTransaction extends Controller {
     // admin/model/customer/customer/addTransaction/after
     public function deny(string &$route, array &$args, mixed &$output): void {

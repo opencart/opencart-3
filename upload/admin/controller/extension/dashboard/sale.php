@@ -1,7 +1,6 @@
 <?php
-
 class ControllerExtensionDashboardSale extends Controller {
-    private array $error = array();
+    private array $error = [];
 
     public function index(): void {
         $this->load->language('extension/dashboard/sale');
@@ -24,22 +23,22 @@ class ControllerExtensionDashboardSale extends Controller {
             $data['error_warning'] = '';
         }
 
-        $data['breadcrumbs'] = array();
+        $data['breadcrumbs'] = [];
 
-        $data['breadcrumbs'][] = array(
+        $data['breadcrumbs'][] = [
             'text' => $this->language->get('text_home'),
             'href' => $this->url->link('common/dashboard', 'user_token=' . $this->session->data['user_token'], true)
-        );
+        ];
 
-        $data['breadcrumbs'][] = array(
+        $data['breadcrumbs'][] = [
             'text' => $this->language->get('text_extension'),
             'href' => $this->url->link('marketplace/extension', 'user_token=' . $this->session->data['user_token'] . '&type=dashboard', true)
-        );
+        ];
 
-        $data['breadcrumbs'][] = array(
+        $data['breadcrumbs'][] = [
             'text' => $this->language->get('heading_title'),
             'href' => $this->url->link('extension/dashboard/sale', 'user_token=' . $this->session->data['user_token'], true)
-        );
+        ];
 
         $data['action'] = $this->url->link('extension/dashboard/sale', 'user_token=' . $this->session->data['user_token'], true);
         $data['cancel'] = $this->url->link('marketplace/extension', 'user_token=' . $this->session->data['user_token'] . '&type=dashboard', true);
@@ -50,7 +49,7 @@ class ControllerExtensionDashboardSale extends Controller {
             $data['dashboard_sale_width'] = $this->config->get('dashboard_sale_width');
         }
 
-        $data['columns'] = array();
+        $data['columns'] = [];
 
         for ($i = 3; $i <= 12; $i++) {
             $data['columns'][] = $i;
@@ -90,8 +89,8 @@ class ControllerExtensionDashboardSale extends Controller {
 
         $this->load->model('extension/dashboard/sale');
 
-        $today      = $this->model_extension_dashboard_sale->getTotalSales(array('filter_date_added' => date('Y-m-d', strtotime('-1 day'))));
-        $yesterday  = $this->model_extension_dashboard_sale->getTotalSales(array('filter_date_added' => date('Y-m-d', strtotime('-2 day'))));
+        $today      = $this->model_extension_dashboard_sale->getTotalSales(['filter_date_added' => date('Y-m-d', strtotime('-1 day'))]);
+        $yesterday  = $this->model_extension_dashboard_sale->getTotalSales(['filter_date_added' => date('Y-m-d', strtotime('-2 day'))]);
         $difference = $today - $yesterday;
 
         if ($difference && (int)$today) {

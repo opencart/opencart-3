@@ -1,5 +1,4 @@
 <?php
-
 class ControllerStartupApplication extends Controller {
     public function index(): void {
         // Url

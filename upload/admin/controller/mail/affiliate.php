@@ -1,5 +1,4 @@
 <?php
-
 class ControllerMailAffiliate extends Controller {
     // admin/model/customer/customer_approval/approveAffiliate/after
     public function approve(string &$route, array &$args, mixed &$output): void {
@@ -37,11 +36,9 @@ class ControllerMailAffiliate extends Controller {
             $subject = sprintf($language->get('text_subject'), $store_name);
 
             $data['text_welcome'] = sprintf($language->get('text_welcome'), $store_name);
-
-            $data['login'] = $store_url . 'index.php?route=affiliate/login';
-
-            $data['store']     = $store_name;
-            $data['store_url'] = $store_url;
+            $data['login']        = $store_url . 'index.php?route=affiliate/login';
+            $data['store']        = $store_name;
+            $data['store_url']    = $store_url;
 
             if ($this->config->get('config_mail_engine')) {
                 $mail                = new \Mail($this->config->get('config_mail_engine'));
@@ -98,11 +95,9 @@ class ControllerMailAffiliate extends Controller {
             $subject = sprintf($language->get('text_subject'), $store_name);
 
             $data['text_welcome'] = sprintf($language->get('text_welcome'), $store_name);
-
-            $data['contact'] = $store_url . 'index.php?route=information/contact';
-
-            $data['store']     = $store_name;
-            $data['store_url'] = $store_url;
+            $data['contact']      = $store_url . 'index.php?route=information/contact';
+            $data['store']        = $store_name;
+            $data['store_url']    = $store_url;
 
             if ($this->config->get('config_mail_engine')) {
                 $mail                = new \Mail($this->config->get('config_mail_engine'));

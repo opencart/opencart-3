@@ -1,7 +1,6 @@
 <?php
-
 class ControllerExtensionDashboardActivity extends Controller {
-    private array $error = array();
+    private array $error = [];
 
     public function index(): void {
         $this->load->language('extension/dashboard/activity');
@@ -24,22 +23,22 @@ class ControllerExtensionDashboardActivity extends Controller {
             $data['error_warning'] = '';
         }
 
-        $data['breadcrumbs'] = array();
+        $data['breadcrumbs'] = [];
 
-        $data['breadcrumbs'][] = array(
+        $data['breadcrumbs'][] = [
             'text' => $this->language->get('text_home'),
             'href' => $this->url->link('common/dashboard', 'user_token=' . $this->session->data['user_token'], true)
-        );
+        ];
 
-        $data['breadcrumbs'][] = array(
+        $data['breadcrumbs'][] = [
             'text' => $this->language->get('text_extension'),
             'href' => $this->url->link('marketplace/extension', 'user_token=' . $this->session->data['user_token'] . '&type=dashboard', true)
-        );
+        ];
 
-        $data['breadcrumbs'][] = array(
+        $data['breadcrumbs'][] = [
             'text' => $this->language->get('heading_title'),
             'href' => $this->url->link('extension/dashboard/activity', 'user_token=' . $this->session->data['user_token'], true)
-        );
+        ];
 
         $data['action'] = $this->url->link('extension/dashboard/activity', 'user_token=' . $this->session->data['user_token'], true);
         $data['cancel'] = $this->url->link('marketplace/extension', 'user_token=' . $this->session->data['user_token'] . '&type=dashboard', true);
@@ -50,7 +49,7 @@ class ControllerExtensionDashboardActivity extends Controller {
             $data['dashboard_activity_width'] = $this->config->get('dashboard_activity_width');
         }
 
-        $data['columns'] = array();
+        $data['columns'] = [];
 
         for ($i = 3; $i <= 12; $i++) {
             $data['columns'][] = $i;
@@ -88,7 +87,7 @@ class ControllerExtensionDashboardActivity extends Controller {
 
         $data['user_token'] = $this->session->data['user_token'];
 
-        $data['activities'] = array();
+        $data['activities'] = [];
 
         $this->load->model('extension/dashboard/activity');
 
@@ -97,22 +96,22 @@ class ControllerExtensionDashboardActivity extends Controller {
         foreach ($results as $result) {
             $comment = vsprintf($this->language->get('text_activity_' . $result['key']), json_decode($result['data'], true));
 
-            $find = array(
+            $find = [
                 'customer_id=',
                 'order_id=',
                 'return_id='
-            );
+            ];
 
-            $replace = array(
+            $replace = [
                 $this->url->link('customer/customer/edit', 'user_token=' . $this->session->data['user_token'] . '&customer_id=', true),
                 $this->url->link('sale/order/info', 'user_token=' . $this->session->data['user_token'] . '&order_id=', true),
                 $this->url->link('sale/returns/edit', 'user_token=' . $this->session->data['user_token'] . '&return_id=', true)
-            );
+            ];
 
-            $data['activities'][] = array(
+            $data['activities'][] = [
                 'comment'    => str_replace($find, $replace, $comment),
                 'date_added' => date($this->language->get('datetime_format'), strtotime($result['date_added']))
-            );
+            ];
         }
 
         return $this->load->view('extension/dashboard/activity_info', $data);

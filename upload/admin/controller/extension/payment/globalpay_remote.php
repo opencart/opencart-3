@@ -1,7 +1,6 @@
 <?php
-
 class ControllerExtensionPaymentGlobalpayRemote extends Controller {
-    private array $error = array();
+    private array $error = [];
 
     public function index(): void {
         $this->load->language('extension/payment/globalpay_remote');
@@ -36,22 +35,22 @@ class ControllerExtensionPaymentGlobalpayRemote extends Controller {
             $data['error_secret'] = '';
         }
 
-        $data['breadcrumbs'] = array();
+        $data['breadcrumbs'] = [];
 
-        $data['breadcrumbs'][] = array(
+        $data['breadcrumbs'][] = [
             'text' => $this->language->get('text_home'),
             'href' => $this->url->link('common/dashboard', 'user_token=' . $this->session->data['user_token'], true)
-        );
+        ];
 
-        $data['breadcrumbs'][] = array(
+        $data['breadcrumbs'][] = [
             'text' => $this->language->get('text_extension'),
             'href' => $this->url->link('marketplace/extension', 'user_token=' . $this->session->data['user_token'] . '&type=payment', true)
-        );
+        ];
 
-        $data['breadcrumbs'][] = array(
+        $data['breadcrumbs'][] = [
             'text' => $this->language->get('heading_title'),
             'href' => $this->url->link('extension/payment/globalpay_remote', 'user_token=' . $this->session->data['user_token'], true)
-        );
+        ];
 
         $data['action'] = $this->url->link('extension/payment/globalpay_remote', 'user_token=' . $this->session->data['user_token'], true);
         $data['cancel'] = $this->url->link('marketplace/extension', 'user_token=' . $this->session->data['user_token'] . '&type=payment', true);
@@ -200,6 +199,8 @@ class ControllerExtensionPaymentGlobalpayRemote extends Controller {
     }
 
     public function order(): string {
+        $view = '';
+
         if ($this->config->get('payment_globalpay_remote_status')) {
             $this->load->model('extension/payment/globalpay_remote');
 
@@ -221,15 +222,17 @@ class ControllerExtensionPaymentGlobalpayRemote extends Controller {
 
                 $data['user_token'] = $this->session->data['user_token'];
 
-                return $this->load->view('extension/payment/globalpay_remote_order', $data);
+                $view = $this->load->view('extension/payment/globalpay_remote_order', $data);
             }
         }
+
+        return $view;
     }
 
     public function void(): void {
         $this->load->language('extension/payment/globalpay_remote');
 
-        $json = array();
+        $json = [];
 
         if (isset($this->request->post['order_id']) && $this->request->post['order_id'] != '') {
             $this->load->model('extension/payment/globalpay_remote');
@@ -246,7 +249,7 @@ class ControllerExtensionPaymentGlobalpayRemote extends Controller {
 
                 $json['msg'] = $this->language->get('text_void_ok');
 
-                $json['data']               = array();
+                $json['data']               = [];
                 $json['data']['date_added'] = date('Y-m-d H:i:s');
 
                 $json['error'] = false;
@@ -268,7 +271,7 @@ class ControllerExtensionPaymentGlobalpayRemote extends Controller {
     public function capture(): void {
         $this->load->language('extension/payment/globalpay');
 
-        $json = array();
+        $json = [];
 
         if (isset($this->request->post['order_id']) && $this->request->post['order_id'] != '' && isset($this->request->post['amount']) && $this->request->post['amount'] > 0) {
             $this->load->model('extension/payment/globalpay_remote');
@@ -299,7 +302,7 @@ class ControllerExtensionPaymentGlobalpayRemote extends Controller {
 
                 $this->model_extension_payment_globalpay_remote->updateForRebate($globalpay_order['globalpay_remote_order_id'], $capture_response->pasref, $capture_response->orderid);
 
-                $json['data'] = array();
+                $json['data'] = [];
 
                 $json['data']['date_added']      = date('Y-m-d H:i:s');
                 $json['data']['amount']          = (float)$this->request->post['amount'];
@@ -327,7 +330,7 @@ class ControllerExtensionPaymentGlobalpayRemote extends Controller {
     public function rebate(): void {
         $this->load->language('extension/payment/globalpay_remote');
 
-        $json = array();
+        $json = [];
 
         if (isset($this->request->post['order_id']) && $this->request->post['order_id'] != '') {
             $this->load->model('extension/payment/globalpay_remote');
@@ -356,7 +359,7 @@ class ControllerExtensionPaymentGlobalpayRemote extends Controller {
                     $json['msg'] = $this->language->get('text_rebate_ok');
                 }
 
-                $json['data'] = array();
+                $json['data'] = [];
 
                 $json['data']['date_added']     = date('Y-m-d H:i:s');
                 $json['data']['amount']         = $this->request->post['amount'] * -1;

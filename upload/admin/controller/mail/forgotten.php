@@ -1,5 +1,4 @@
 <?php
-
 class ControllerMailForgotten extends Controller {
     // admin/model/user/user/editCode/after
     public function deny(string &$route, array &$args, mixed &$output): void {
