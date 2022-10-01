@@ -180,9 +180,63 @@ class ModelExtensionPaymentSecureTradingWs extends Model {
         $post_data['accounttypedescriptions'] = 'ECOM';
 
         if ($data['detail']) {
-            $post_data['optionalfields'] = array('parenttransactionreference', 'accounttypedescription', 'requesttypedescription', 'mainamount', 'currencyiso3a', 'errorcode', 'authcode', 'customerip', 'fraudrating', 'orderreference', 'paymenttypedescription', 'maskedpan', 'expirydate', 'settlestatus', 'settlemainamount', 'settleduedate', 'securityresponsesecuritycode', 'securityresponseaddress', 'securityresponsepostcode', 'billingprefixname', 'billingfirstname', 'billingmiddlename', 'billinglastname', 'billingpremise', 'billingstreet', 'billingtown', 'billingcounty', 'billingemail', 'billingcountryiso2a', 'billingpostcode', 'billingtelephones', 'customerprefixname', 'customerfirstname', 'customermiddlename', 'customerlastname', 'customerpremise', 'customerstreet', 'customertown', 'customercounty', 'customeremail', 'customercountryiso2a', 'customerpostcode', 'customertelephones');
+            $post_data['optionalfields'] = array(
+                'parenttransactionreference',
+                'accounttypedescription',
+                'requesttypedescription',
+                'mainamount',
+                'currencyiso3a',
+                'errorcode',
+                'authcode',
+                'customerip',
+                'fraudrating',
+                'orderreference',
+                'paymenttypedescription',
+                'maskedpan',
+                'expirydate',
+                'settlestatus',
+                'settlemainamount',
+                'settleduedate',
+                'securityresponsesecuritycode',
+                'securityresponseaddress',
+                'securityresponsepostcode',
+                'billingprefixname',
+                'billingfirstname',
+                'billingmiddlename',
+                'billinglastname',
+                'billingpremise',
+                'billingstreet',
+                'billingtown',
+                'billingcounty',
+                'billingemail',
+                'billingcountryiso2a',
+                'billingpostcode',
+                'billingtelephones',
+                'customerprefixname',
+                'customerfirstname',
+                'customermiddlename',
+                'customerlastname',
+                'customerpremise',
+                'customerstreet',
+                'customertown',
+                'customercounty',
+                'customeremail',
+                'customercountryiso2a',
+                'customerpostcode',
+                'customertelephones'
+            );
         } else {
-            $post_data['optionalfields'] = array('orderreference', 'currencyiso3a', 'errorcode', 'paymenttypedescription', 'settlestatus', 'requesttypedescription', 'mainamount', 'billingfirstname', 'billinglastname');
+            $post_data['optionalfields'] = array(
+                'orderreference',
+                'currencyiso3a',
+                'errorcode',
+                'paymenttypedescription',
+                'settlestatus',
+                'requesttypedescription',
+                'mainamount',
+                'billingfirstname',
+                'billinglastname'
+            );
         }
 
         if (isset($data['currency']) && $data['currency'] != '') {
@@ -205,7 +259,21 @@ class ModelExtensionPaymentSecureTradingWs extends Model {
             $post_data['settlestatuss'] = $data['settle_status'];
         }
 
-        $defaults = array(CURLOPT_POST => 1, CURLOPT_HEADER => 0, CURLOPT_SSL_VERIFYPEER => 0, CURLOPT_URL => 'https://myst.securetrading.net/auto/transactions/transactionsearch', CURLOPT_FRESH_CONNECT => 1, CURLOPT_RETURNTRANSFER => 1, CURLOPT_FORBID_REUSE => 1, CURLOPT_TIMEOUT => 15, CURLOPT_HTTPHEADER => array('User-Agent: OpenCart - Secure Trading WS', 'Authorization: Basic ' . base64_encode($this->config->get('payment_securetrading_ws_csv_username') . ':' . $this->config->get('payment_securetrading_ws_csv_password'))), CURLOPT_POSTFIELDS => $this->encodePost($post_data));
+        $defaults = array(
+            CURLOPT_POST           => 1,
+            CURLOPT_HEADER         => 0,
+            CURLOPT_SSL_VERIFYPEER => 0,
+            CURLOPT_URL            => 'https://myst.securetrading.net/auto/transactions/transactionsearch',
+            CURLOPT_FRESH_CONNECT  => 1,
+            CURLOPT_RETURNTRANSFER => 1,
+            CURLOPT_FORBID_REUSE   => 1,
+            CURLOPT_TIMEOUT        => 15,
+            CURLOPT_HTTPHEADER     => array(
+                'User-Agent: OpenCart - Secure Trading WS',
+                'Authorization: Basic ' . base64_encode($this->config->get('payment_securetrading_ws_csv_username') . ':' . $this->config->get('payment_securetrading_ws_csv_password'))
+            ),
+            CURLOPT_POSTFIELDS     => $this->encodePost($post_data)
+        );
 
         curl_setopt_array($ch, $defaults);
 
@@ -247,7 +315,22 @@ class ModelExtensionPaymentSecureTradingWs extends Model {
     public function call($data) {
         $ch       = curl_init();
 
-        $defaults = array(CURLOPT_POST => 1, CURLOPT_HEADER => 0, CURLOPT_SSL_VERIFYPEER => 0, CURLOPT_URL => 'https://webservices.securetrading.net/xml/', CURLOPT_FRESH_CONNECT => 1, CURLOPT_RETURNTRANSFER => 1, CURLOPT_FORBID_REUSE => 1, CURLOPT_TIMEOUT => 15, CURLOPT_HTTPHEADER => array('User-Agent: OpenCart - Secure Trading WS', 'Content-Length: ' . strlen($data), 'Authorization: Basic ' . base64_encode($this->config->get('payment_securetrading_ws_username') . ':' . $this->config->get('payment_securetrading_ws_password'))), CURLOPT_POSTFIELDS => $data);
+        $defaults = array(
+            CURLOPT_POST           => 1,
+            CURLOPT_HEADER         => 0,
+            CURLOPT_SSL_VERIFYPEER => 0,
+            CURLOPT_URL            => 'https://webservices.securetrading.net/xml/',
+            CURLOPT_FRESH_CONNECT  => 1,
+            CURLOPT_RETURNTRANSFER => 1,
+            CURLOPT_FORBID_REUSE   => 1,
+            CURLOPT_TIMEOUT        => 15,
+            CURLOPT_HTTPHEADER     => array(
+                'User-Agent: OpenCart - Secure Trading WS',
+                'Content-Length: ' . strlen($data),
+                'Authorization: Basic ' . base64_encode($this->config->get('payment_securetrading_ws_username') . ':' . $this->config->get('payment_securetrading_ws_password'))
+            ),
+            CURLOPT_POSTFIELDS     => $data
+        );
 
         curl_setopt_array($ch, $defaults);
 

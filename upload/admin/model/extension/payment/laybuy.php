@@ -45,7 +45,10 @@ class ModelExtensionPaymentLaybuy extends Model {
         $months = array();
 
         for ($i = 1; $i <= $max_months; $i++) {
-            $months[] = array('value' => $i, 'label' => $i . ' ' . (($i > 1) ? $this->language->get('text_months') : $this->language->get('text_month')));
+            $months[] = array(
+                'value' => $i,
+                'label' => $i . ' ' . (($i > 1) ? $this->language->get('text_months') : $this->language->get('text_month'))
+            );
         }
 
         return $months;

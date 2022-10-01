@@ -63,8 +63,12 @@ class ModelExtensionPaymentG2aPay extends Model {
             $refunded_amount = round($amount, 2);
             $string          = $g2apay_order['g2apay_transaction_id'] . $g2apay_order['order_id'] . round($g2apay_order['total'], 2) . $refunded_amount . html_entity_decode($this->config->get('payment_g2apay_secret'));
             $hash            = hash('sha256', $string);
-            $fields          = array();
-            $fields          = array('action' => 'refund', 'amount' => $refunded_amount, 'hash' => $hash);
+
+            $fields          = array(
+                'action' => 'refund',
+                'amount' => $refunded_amount,
+                'hash'   => $hash
+            );
 
             return $this->sendCurl($url, $fields);
         } else {

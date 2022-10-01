@@ -44,7 +44,12 @@ class ModelLocalisationCurrency extends Model {
         if ($data) {
             $sql = "SELECT * FROM `" . DB_PREFIX . "currency`";
 
-            $sort_data = array('title', 'code', 'value', 'date_modified');
+            $sort_data = array(
+                'title',
+                'code',
+                'value',
+                'date_modified'
+            );
 
             if (isset($data['sort']) && in_array($data['sort'], $sort_data)) {
                 $sql .= " ORDER BY " . $data['sort'];
@@ -82,7 +87,17 @@ class ModelLocalisationCurrency extends Model {
                 $query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "currency` ORDER BY `title` ASC");
 
                 foreach ($query->rows as $result) {
-                    $currency_data[$result['code']] = array('currency_id' => $result['currency_id'], 'title' => $result['title'], 'code' => $result['code'], 'symbol_left' => $result['symbol_left'], 'symbol_right' => $result['symbol_right'], 'decimal_place' => $result['decimal_place'], 'value' => $result['value'], 'status' => $result['status'], 'date_modified' => $result['date_modified']);
+                    $currency_data[$result['code']] = array(
+                        'currency_id'   => $result['currency_id'],
+                        'title'         => $result['title'],
+                        'code'          => $result['code'],
+                        'symbol_left'   => $result['symbol_left'],
+                        'symbol_right'  => $result['symbol_right'],
+                        'decimal_place' => $result['decimal_place'],
+                        'value'         => $result['value'],
+                        'status'        => $result['status'],
+                        'date_modified' => $result['date_modified']
+                    );
                 }
 
                 $this->cache->set('currency', $currency_data);

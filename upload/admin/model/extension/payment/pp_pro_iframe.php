@@ -90,7 +90,13 @@ class ModelExtensionPaymentPPProIframe extends Model {
             $api_endpoint = 'https://api-3t.paypal.com/nvp';
         }
 
-        $settings = array('USER' => $this->config->get('payment_pp_pro_iframe_user'), 'PWD' => $this->config->get('payment_pp_pro_iframe_password'), 'SIGNATURE' => $this->config->get('payment_pp_pro_iframe_sig'), 'VERSION' => '84', 'BUTTONSOURCE' => 'WM_PRO_OPENCART_UK_' . VERSION);
+        $settings = array(
+            'USER'         => $this->config->get('payment_pp_pro_iframe_user'),
+            'PWD'          => $this->config->get('payment_pp_pro_iframe_password'),
+            'SIGNATURE'    => $this->config->get('payment_pp_pro_iframe_sig'),
+            'VERSION'      => '84',
+            'BUTTONSOURCE' => 'WM_PRO_OPENCART_UK_' . VERSION
+        );
 
         $this->log($data, 'Call data');
 
@@ -101,7 +107,10 @@ class ModelExtensionPaymentPPProIframe extends Model {
         curl_setopt_array($ch, $defaults);
 
         if (!$result = curl_exec($ch)) {
-           $log_data = array('curl_error' => curl_error($ch), 'curl_errno' => curl_errno($ch));
+           $log_data = array(
+               'curl_error' => curl_error($ch),
+               'curl_errno' => curl_errno($ch)
+           );
 
             $this->log($log_data, 'CURL failed');
 
@@ -167,7 +176,10 @@ class ModelExtensionPaymentPPProIframe extends Model {
     }
 
     public function getTransaction($transaction_id) {
-        $call_data = array('METHOD' => 'GetTransactionDetails', 'TRANSACTIONID' => $transaction_id);
+        $call_data = array(
+            'METHOD'        => 'GetTransactionDetails',
+            'TRANSACTIONID' => $transaction_id
+        );
 
         return $this->call($call_data);
     }

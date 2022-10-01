@@ -111,13 +111,41 @@ class ModelExtensionPaymentPPExpress extends Model {
     }
 
     public function getTransaction($transaction_id) {
-        $call_data = array('METHOD' => 'GetTransactionDetails', 'TRANSACTIONID' => $transaction_id);
+        $call_data = array(
+            'METHOD'        => 'GetTransactionDetails',
+            'TRANSACTIONID' => $transaction_id
+        );
 
         return $this->call($call_data);
     }
 
     public function getCurrencies() {
-        return array('AUD', 'BRL', 'CAD', 'CZK', 'DKK', 'EUR', 'HKD', 'HUF', 'ILS', 'JPY', 'MYR', 'MXN', 'NOK', 'NZD', 'PHP', 'PLN', 'GBP', 'SGD', 'SEK', 'CHF', 'TWD', 'THB', 'TRY', 'USD');
+        return array(
+            'AUD',
+            'BRL',
+            'CAD',
+            'CZK',
+            'DKK',
+            'EUR',
+            'HKD',
+            'HUF',
+            'ILS',
+            'JPY',
+            'MYR',
+            'MXN',
+            'NOK',
+            'NZD',
+            'PHP',
+            'PLN',
+            'GBP',
+            'SGD',
+            'SEK',
+            'CHF',
+            'TWD',
+            'THB',
+            'TRY',
+            'USD'
+        );
     }
 
     public function getOrderId(string $transaction_id): int {
@@ -205,7 +233,7 @@ class ModelExtensionPaymentPPExpress extends Model {
         $request         .= 'client_id=' . $client_id;
         $request         .= '&client_secret=' . $client_secret;
         $request         .= '&grant_type=client_credentials';
-        $additional_opts = array();
+
         $additional_opts = array(CURLOPT_USERPWD => $client_id . ':' . $client_secret, CURLOPT_POST => true, CURLOPT_POSTFIELDS => $request);
 
         $curl = $this->curl($endpoint, $additional_opts);
@@ -223,11 +251,11 @@ class ModelExtensionPaymentPPExpress extends Model {
         }
 
         $endpoint1       = $endpoint . '?tracking_id=' . $merchant_id;
+
         $header          = array();
         $header[]        = 'Content-Type: application/json';
         $header[]        = 'Authorization: Bearer ' . $access_token;
         $header[]        = 'PAYPAL_SERVICE_VERSION:1.2.0';
-        $additional_opts = array();
         $additional_opts = array(CURLOPT_HTTPHEADER => $header);
         $curl            = $this->curl($endpoint1, $additional_opts);
 
@@ -262,18 +290,39 @@ class ModelExtensionPaymentPPExpress extends Model {
             $signature    = $this->config->get('payment_pp_express_signature');
         }
 
-        $settings = array('USER' => $user, 'PWD' => $password, 'SIGNATURE' => $signature, 'VERSION' => '84', 'BUTTONSOURCE' => 'OpenCart_Cart_EC');
+        $settings = array(
+            'USER'         => $user,
+            'PWD'          => $password,
+            'SIGNATURE'    => $signature,
+            'VERSION'      => '84',
+            'BUTTONSOURCE' => 'OpenCart_Cart_EC'
+        );
 
         $this->log($data, 'Call data');
 
-        $defaults = array(CURLOPT_POST => 1, CURLOPT_HEADER => 0, CURLOPT_URL => $api_endpoint, CURLOPT_USERAGENT => "Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US; rv:1.8.1.1) Gecko/20061204 Firefox/2.0.0.1", CURLOPT_FRESH_CONNECT => 1, CURLOPT_RETURNTRANSFER => 1, CURLOPT_FORBID_REUSE => 1, CURLOPT_TIMEOUT => 0, CURLOPT_SSL_VERIFYPEER => 0, CURLOPT_SSL_VERIFYHOST => 0, CURLOPT_POSTFIELDS => http_build_query(array_merge($data, $settings), '', "&"));
+        $defaults = array(
+            CURLOPT_POST           => 1,
+            CURLOPT_HEADER         => 0,
+            CURLOPT_URL            => $api_endpoint,
+            CURLOPT_USERAGENT      => "Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US; rv:1.8.1.1) Gecko/20061204 Firefox/2.0.0.1",
+            CURLOPT_FRESH_CONNECT  => 1,
+            CURLOPT_RETURNTRANSFER => 1,
+            CURLOPT_FORBID_REUSE   => 1,
+            CURLOPT_TIMEOUT        => 0,
+            CURLOPT_SSL_VERIFYPEER => 0,
+            CURLOPT_SSL_VERIFYHOST => 0,
+            CURLOPT_POSTFIELDS     => http_build_query(array_merge($data, $settings), '', "&")
+        );
 
         $ch = curl_init();
 
         curl_setopt_array($ch, $defaults);
 
         if (!$result = curl_exec($ch)) {
-            $log_data = array('curl_error' => curl_error($ch), 'curl_errno' => curl_errno($ch));
+            $log_data = array(
+                'curl_error' => curl_error($ch),
+                'curl_errno' => curl_errno($ch)
+            );
 
             $this->log($log_data, 'CURL failed');
 
@@ -288,7 +337,16 @@ class ModelExtensionPaymentPPExpress extends Model {
     }
 
     private function curl($endpoint, $additional_opts = array()) {
-        $default_opts = array(CURLOPT_PORT => 443, CURLOPT_HEADER => 0, CURLOPT_SSL_VERIFYPEER => 0, CURLOPT_RETURNTRANSFER => 1, CURLOPT_FORBID_REUSE => 1, CURLOPT_FRESH_CONNECT => 1, CURLOPT_URL => $endpoint);
+        $default_opts = array(
+            CURLOPT_PORT           => 443,
+            CURLOPT_HEADER         => 0,
+            CURLOPT_SSL_VERIFYPEER => 0,
+            CURLOPT_RETURNTRANSFER => 1,
+            CURLOPT_FORBID_REUSE   => 1,
+            CURLOPT_FRESH_CONNECT  => 1,
+            CURLOPT_URL            => $endpoint
+        );
+
         $opts         = $default_opts + $additional_opts;
 
         $ch           = curl_init($endpoint);

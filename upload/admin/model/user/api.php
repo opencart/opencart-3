@@ -43,7 +43,12 @@ class ModelUserApi extends Model {
     public function getApis(array $data = array()): array {
         $sql = "SELECT * FROM `" . DB_PREFIX . "api`";
 
-        $sort_data = array('username', 'status', 'date_added', 'date_modified');
+        $sort_data = array(
+            'username',
+            'status',
+            'date_added',
+            'date_modified'
+        );
 
         if (isset($data['sort']) && in_array($data['sort'], $sort_data)) {
             $sql .= " ORDER BY " . $data['sort'];

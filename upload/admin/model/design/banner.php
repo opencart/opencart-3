@@ -45,7 +45,9 @@ class ModelDesignBanner extends Model {
         $sql = "SELECT * FROM `" . DB_PREFIX . "banner`";
 
         $sort_data = array(
-            'name', 'status');
+            'name',
+            'status'
+        );
 
         if (isset($data['sort']) && in_array($data['sort'], $sort_data)) {
             $sql .= " ORDER BY " . $data['sort'];

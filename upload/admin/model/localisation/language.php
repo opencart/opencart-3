@@ -232,7 +232,11 @@ class ModelLocalisationLanguage extends Model {
         if ($data) {
             $sql = "SELECT * FROM `" . DB_PREFIX . "language`";
 
-            $sort_data = array('name', 'code', 'sort_order');
+            $sort_data = array(
+                'name',
+                'code',
+                'sort_order'
+            );
 
             if (isset($data['sort']) && in_array($data['sort'], $sort_data)) {
                 $sql .= " ORDER BY " . $data['sort'];
@@ -270,7 +274,16 @@ class ModelLocalisationLanguage extends Model {
                 $query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "language` ORDER BY `sort_order`, `name`");
 
                 foreach ($query->rows as $result) {
-                    $language_data[$result['code']] = array('language_id' => $result['language_id'], 'name' => $result['name'], 'code' => $result['code'], 'locale' => $result['locale'], 'image' => $result['image'], 'directory' => $result['directory'], 'sort_order' => $result['sort_order'], 'status' => $result['status']);
+                    $language_data[$result['code']] = array(
+                        'language_id' => $result['language_id'],
+                        'name'        => $result['name'],
+                        'code'        => $result['code'],
+                        'locale'      => $result['locale'],
+                        'image'       => $result['image'],
+                        'directory'   => $result['directory'],
+                        'sort_order'  => $result['sort_order'],
+                        'status'      => $result['status']
+                    );
                 }
 
                 $this->cache->set('admin.language', $language_data);

@@ -44,7 +44,11 @@ class ModelDesignSeoUrl extends Model {
         }
 
         $sort_data = array(
-            'query', 'keyword', 'language_id', 'store_id');
+            'query',
+            'keyword',
+            'language_id',
+            'store_id'
+        );
 
         if (isset($data['sort']) && in_array($data['sort'], $sort_data)) {
             $sql .= " ORDER BY " . $data['sort'];

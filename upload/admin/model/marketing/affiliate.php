@@ -54,7 +54,13 @@ class ModelMarketingAffiliate extends Model {
             $sql .= " WHERE " . implode(" AND ", $implode);
         }
 
-        $sort_data = array('`name`', 'ca.`tracking`', 'ca.`commission`', 'ca.`status`', 'ca.`date_added`');
+        $sort_data = array(
+            'name',
+            'ca.tracking',
+            'ca.commission',
+            'ca.status',
+            'ca.date_added'
+        );
 
         if (isset($data['sort']) && in_array($data['sort'], $sort_data)) {
             $sql .= " ORDER BY " . $data['sort'];

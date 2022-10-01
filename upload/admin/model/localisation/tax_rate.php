@@ -40,7 +40,14 @@ class ModelLocalisationTaxRate extends Model {
     public function getTaxRates(array $data = array()): array {
         $sql = "SELECT tr.`tax_rate_id`, tr.`name` AS `name`, tr.`rate`, tr.`type`, gz.`name` AS `geo_zone`, tr.`date_added`, tr.`date_modified` FROM `" . DB_PREFIX . "tax_rate` tr LEFT JOIN `" . DB_PREFIX . "geo_zone` gz ON (tr.`geo_zone_id` = gz.`geo_zone_id`)";
 
-        $sort_data = array('tr.name', 'tr.rate', 'tr.type', 'gz.name', 'tr.date_added', 'tr.date_modified');
+        $sort_data = array(
+            'tr.name',
+            'tr.rate',
+            'tr.type',
+            'gz.name',
+            'tr.date_added',
+            'tr.date_modified'
+        );
 
         if (isset($data['sort']) && in_array($data['sort'], $sort_data)) {
             $sql .= " ORDER BY " . $data['sort'];

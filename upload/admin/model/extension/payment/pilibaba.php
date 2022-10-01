@@ -84,11 +84,24 @@ class ModelExtensionPaymentPilibaba extends Model {
         $this->log('URL: ' . $url);
 
         $app_secret = strtoupper(md5((($warehouse) ? $warehouse : $country) . '0210000574' . '0b8l3ww5' . $currency . $email . md5($password)));
-        $post_data  = array('platformNo' => '0210000574', 'appSecret' => $app_secret, 'email' => $email, 'password' => md5($password), 'currency' => $currency, 'logistics' => $warehouse, 'countryCode' => $country);
+
+        $post_data  = array(
+            'platformNo'  => '0210000574',
+            'appSecret'   => $app_secret,
+            'email'       => $email,
+            'password'    => md5($password),
+            'currency'    => $currency,
+            'logistics'   => $warehouse,
+            'countryCode' => $country
+        );
 
         $this->log('Data: ' . print_r($post_data, true));
 
-        $headers = array('Accept: application/json', 'Content-Type: application/json');
+        $headers = array(
+            'Accept: application/json',
+            'Content-Type: application/json'
+        );
+
         $ch      = curl_init();
 
         curl_setopt($ch, CURLOPT_URL, $url);

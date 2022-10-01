@@ -79,7 +79,9 @@ class ModelCustomerCustomerGroup extends Model {
 
         foreach ($query->rows as $result) {
             $customer_group_data[$result['language_id']] = array(
-                'name' => $result['name'], 'description' => $result['description']);
+                'name'        => $result['name'],
+                'description' => $result['description']
+            );
         }
 
         return $customer_group_data;

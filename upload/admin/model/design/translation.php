@@ -22,7 +22,12 @@ class ModelDesignTranslation extends Model {
         $sql = "SELECT *, (SELECT s.`name` FROM `" . DB_PREFIX . "store` s WHERE s.`store_id` = t.`store_id`) AS `store`, (SELECT l.`name` FROM `" . DB_PREFIX . "language` l WHERE l.`language_id` = t.`language_id`) AS `language` FROM `" . DB_PREFIX . "translation` t";
 
         $sort_data = array(
-            'store', 'language', 'route', 'key', 'value');
+            'store',
+            'language',
+            'route',
+            'key',
+            'value'
+        );
 
         if (isset($data['sort']) && in_array($data['sort'], $sort_data)) {
             $sql .= " ORDER BY `" . $data['sort'] . "`";

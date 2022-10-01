@@ -263,7 +263,21 @@ class ControllerExtensionPaymentAmazonLoginPay extends Controller {
 
         $store_buyer_currencies      = array();
         $oc_currencies               = $this->model_localisation_currency->getCurrencies();
-        $amazon_supported_currencies = array('AUD', 'GBP', 'DKK', 'EUR', 'HKD', 'JPY', 'NZD', 'NOK', 'ZAR', 'SEK', 'CHF', 'USD');
+
+        $amazon_supported_currencies = array(
+            'AUD',
+            'GBP',
+            'DKK',
+            'EUR',
+            'HKD',
+            'JPY',
+            'NZD',
+            'NOK',
+            'ZAR',
+            'SEK',
+            'CHF',
+            'USD'
+        );
 
         foreach ($amazon_supported_currencies as $amazon_supported_currency) {
             if (isset($oc_currencies[$amazon_supported_currency]) && $oc_currencies[$amazon_supported_currency]['status'] == '1') {

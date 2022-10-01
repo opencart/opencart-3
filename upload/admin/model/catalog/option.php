@@ -74,7 +74,10 @@ class ModelCatalogOption extends Model {
         }
 
         $sort_data = array(
-            'od.name', 'o.type', 'o.sort_order');
+            'od.name',
+            'o.type',
+            'o.sort_order'
+        );
 
         if (isset($data['sort']) && in_array($data['sort'], $sort_data)) {
             $sql .= " ORDER BY " . $data['sort'];
@@ -130,7 +133,11 @@ class ModelCatalogOption extends Model {
 
         foreach ($option_value_query->rows as $option_value) {
             $option_value_data[] = array(
-                'option_value_id' => $option_value['option_value_id'], 'name' => $option_value['name'], 'image' => $option_value['image'], 'sort_order' => $option_value['sort_order']);
+                'option_value_id' => $option_value['option_value_id'],
+                'name'            => $option_value['name'],
+                'image'           => $option_value['image'],
+                'sort_order'      => $option_value['sort_order']
+            );
         }
 
         return $option_value_data;
@@ -151,7 +158,11 @@ class ModelCatalogOption extends Model {
             }
 
             $option_value_data[] = array(
-                'option_value_id' => $option_value['option_value_id'], 'option_value_description' => $option_value_description_data, 'image' => $option_value['image'], 'sort_order' => $option_value['sort_order']);
+                'option_value_id'          => $option_value['option_value_id'],
+                'option_value_description' => $option_value_description_data,
+                'image'                    => $option_value['image'],
+                'sort_order'               => $option_value['sort_order']
+            );
         }
 
         return $option_value_data;

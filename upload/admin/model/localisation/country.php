@@ -60,7 +60,11 @@ class ModelLocalisationCountry extends Model {
                 $sql .= " WHERE " . implode(" AND ", $implode);
             }
 
-            $sort_data = array('name', 'iso_code_2', 'iso_code_3');
+            $sort_data = array(
+                'name',
+                'iso_code_2',
+                'iso_code_3'
+            );
 
             if (isset($data['sort']) && in_array($data['sort'], $sort_data)) {
                 $sql .= " ORDER BY `" . $data['sort'] . "`";

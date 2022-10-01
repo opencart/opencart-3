@@ -101,7 +101,12 @@ class ModelCustomerCustomField extends Model {
         }
 
         $sort_data = array(
-            'cfd.name', 'cf.type', 'cf.location', 'cf.status', 'cf.sort_order');
+            'cfd.name',
+            'cf.type',
+            'cf.location',
+            'cf.status',
+            'cf.sort_order'
+        );
 
         if (isset($data['sort']) && in_array($data['sort'], $sort_data)) {
             $sql .= " ORDER BY " . $data['sort'];
@@ -170,12 +175,12 @@ class ModelCustomerCustomField extends Model {
     }
 
     public function getCustomFieldValueDescriptions(int $custom_field_id): array {
-        $custom_field_value_data = array();
+        $custom_field_value_data  = array();
 
         $custom_field_value_query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "custom_field_value` WHERE `custom_field_id` = '" . (int)$custom_field_id . "'");
 
         foreach ($custom_field_value_query->rows as $custom_field_value) {
-            $custom_field_value_description_data = array();
+            $custom_field_value_description_data  = array();
 
             $custom_field_value_description_query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "custom_field_value_description` WHERE `custom_field_value_id` = '" . (int)$custom_field_value['custom_field_value_id'] . "'");
 
@@ -184,7 +189,10 @@ class ModelCustomerCustomField extends Model {
             }
 
             $custom_field_value_data[] = array(
-                'custom_field_value_id' => $custom_field_value['custom_field_value_id'], 'custom_field_value_description' => $custom_field_value_description_data, 'sort_order' => $custom_field_value['sort_order']);
+                'custom_field_value_id'          => $custom_field_value['custom_field_value_id'],
+                'custom_field_value_description' => $custom_field_value_description_data,
+                'sort_order'                     => $custom_field_value['sort_order']
+            );
         }
 
         return $custom_field_value_data;

@@ -62,7 +62,16 @@ class ModelSaleReturns extends Model {
             $sql .= " WHERE " . implode(" AND ", $implode);
         }
 
-        $sort_data = array('r.return_id', 'r.order_id', 'customer', 'r.product', 'r.model', 'return_status', 'r.date_added', 'r.date_modified');
+        $sort_data = array(
+            'r.return_id',
+            'r.order_id',
+            'customer',
+            'r.product',
+            'r.model',
+            'return_status',
+            'r.date_added',
+            'r.date_modified'
+        );
 
         if (isset($data['sort']) && in_array($data['sort'], $sort_data)) {
             $sql .= " ORDER BY " . $data['sort'];

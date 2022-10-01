@@ -67,7 +67,9 @@ class ModelCatalogSubscriptionPlan extends Model {
         }
 
         $sort_data = array(
-            'spd.name', 'sp.sort_order');
+            'spd.name',
+            'sp.sort_order'
+        );
 
         if (isset($data['sort']) && in_array($data['sort'], $sort_data)) {
             $sql .= " ORDER BY " . $data['sort'];

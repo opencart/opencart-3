@@ -117,7 +117,14 @@ class ModelSaleOrder extends Model {
             $sql .= " AND o.`total` = '" . (float)$data['filter_total'] . "'";
         }
 
-        $sort_data = array('o.order_id', 'customer', 'order_status', 'o.date_added', 'o.date_modified', 'o.total');
+        $sort_data = array(
+            'o.order_id',
+            'customer',
+            'order_status',
+            'o.date_added',
+            'o.date_modified',
+            'o.total'
+        );
 
         if (isset($data['sort']) && in_array($data['sort'], $sort_data)) {
             $sql .= " ORDER BY " . $data['sort'];

@@ -390,7 +390,13 @@ class ModelCatalogProduct extends Model {
         $sql .= " GROUP BY p.`product_id`";
 
         $sort_data = array(
-            'pd.name', 'p.model', 'p.price', 'p.quantity', 'p.status', 'p.sort_order');
+            'pd.name',
+            'p.model',
+            'p.price',
+            'p.quantity',
+            'p.status',
+            'p.sort_order'
+        );
 
         if (isset($data['sort']) && in_array($data['sort'], $sort_data)) {
             $sql .= " ORDER BY " . $data['sort'];
@@ -434,7 +440,13 @@ class ModelCatalogProduct extends Model {
 
         foreach ($query->rows as $result) {
             $product_description_data[$result['language_id']] = array(
-                'name' => $result['name'], 'description' => $result['description'], 'meta_title' => $result['meta_title'], 'meta_description' => $result['meta_description'], 'meta_keyword' => $result['meta_keyword'], 'tag' => $result['tag']);
+                'name'             => $result['name'],
+                'description'      => $result['description'],
+                'meta_title'       => $result['meta_title'],
+                'meta_description' => $result['meta_description'],
+                'meta_keyword'     => $result['meta_keyword'],
+                'tag'              => $result['tag']
+            );
         }
 
         return $product_description_data;
@@ -479,7 +491,9 @@ class ModelCatalogProduct extends Model {
             }
 
             $product_attribute_data[] = array(
-                'attribute_id' => $product_attribute['attribute_id'], 'product_attribute_description' => $product_attribute_description_data);
+                'attribute_id'                  => $product_attribute['attribute_id'],
+                'product_attribute_description' => $product_attribute_description_data
+            );
         }
 
         return $product_attribute_data;
@@ -497,11 +511,28 @@ class ModelCatalogProduct extends Model {
 
             foreach ($product_option_value_query->rows as $product_option_value) {
                 $product_option_value_data[] = array(
-                    'product_option_value_id' => $product_option_value['product_option_value_id'], 'option_value_id' => $product_option_value['option_value_id'], 'quantity' => $product_option_value['quantity'], 'subtract' => $product_option_value['subtract'], 'price' => $product_option_value['price'], 'price_prefix' => $product_option_value['price_prefix'], 'points' => $product_option_value['points'], 'points_prefix' => $product_option_value['points_prefix'], 'weight' => $product_option_value['weight'], 'weight_prefix' => $product_option_value['weight_prefix']);
+                    'product_option_value_id' => $product_option_value['product_option_value_id'],
+                    'option_value_id'         => $product_option_value['option_value_id'],
+                    'quantity'                => $product_option_value['quantity'],
+                    'subtract'                => $product_option_value['subtract'],
+                    'price'                   => $product_option_value['price'],
+                    'price_prefix'            => $product_option_value['price_prefix'],
+                    'points'                  => $product_option_value['points'],
+                    'points_prefix'           => $product_option_value['points_prefix'],
+                    'weight'                  => $product_option_value['weight'],
+                    'weight_prefix'           => $product_option_value['weight_prefix']
+                );
             }
 
             $product_option_data[] = array(
-                'product_option_id' => $product_option['product_option_id'], 'product_option_value' => $product_option_value_data, 'option_id' => $product_option['option_id'], 'name' => $product_option['name'], 'type' => $product_option['type'], 'value' => $product_option['value'], 'required' => $product_option['required']);
+                'product_option_id'    => $product_option['product_option_id'],
+                'product_option_value' => $product_option_value_data,
+                'option_id'            => $product_option['option_id'],
+                'name'                 => $product_option['name'],
+                'type'                 => $product_option['type'],
+                'value'                => $product_option['value'],
+                'required'             => $product_option['required']
+            );
         }
 
         return $product_option_data;

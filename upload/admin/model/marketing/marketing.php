@@ -55,7 +55,11 @@ class ModelMarketingMarketing extends Model {
             $sql .= " WHERE " . implode(" AND ", $implode);
         }
 
-        $sort_data = array('m.name', 'm.code', 'm.date_added');
+        $sort_data = array(
+            'm.name',
+            'm.code',
+            'm.date_added'
+        );
 
         if (isset($data['sort']) && in_array($data['sort'], $sort_data)) {
             $sql .= " ORDER BY " . $data['sort'];

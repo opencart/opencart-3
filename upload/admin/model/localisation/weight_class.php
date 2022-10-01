@@ -37,7 +37,11 @@ class ModelLocalisationWeightClass extends Model {
         if ($data) {
             $sql = "SELECT * FROM `" . DB_PREFIX . "weight_class` wc LEFT JOIN `" . DB_PREFIX . "weight_class_description` wcd ON (wc.`weight_class_id` = wcd.`weight_class_id`) WHERE wcd.`language_id` = '" . (int)$this->config->get('config_language_id') . "'";
 
-            $sort_data = array('title', 'unit', 'value');
+            $sort_data = array(
+                'title',
+                'unit',
+                'value'
+            );
 
             if (isset($data['sort']) && in_array($data['sort'], $sort_data)) {
                 $sql .= " ORDER BY " . $data['sort'];
@@ -99,7 +103,10 @@ class ModelLocalisationWeightClass extends Model {
         $query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "weight_class_description` WHERE `weight_class_id` = '" . (int)$weight_class_id . "'");
 
         foreach ($query->rows as $result) {
-            $weight_class_data[$result['language_id']] = array('title' => $result['title'], 'unit' => $result['unit']);
+            $weight_class_data[$result['language_id']] = array(
+                'title' => $result['title'],
+                'unit'  => $result['unit']
+            );
         }
 
         return $weight_class_data;
