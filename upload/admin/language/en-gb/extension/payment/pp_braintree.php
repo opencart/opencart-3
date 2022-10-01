@@ -4,7 +4,7 @@ $_['heading_title']					 = 'PayPal (Powered by Braintree)';
 
 // Text
 $_['text_extension']		 		 = 'Extensions';
-$_['text_pp_braintree']				 = '<img src="view/image/payment/paypal.png" alt="PayPal (Powered by Braintree)" title="PayPal (Powered by Braintree)" style="border: 1px solid #EEEEEE;" />';
+$_['text_pp_braintree']				 = '<img src="view/image/payment/paypal.png" alt="PayPal (Powered by Braintree)" title="PayPal (Powered by Braintree)" style="border: 1px solid #EEEEEE;"/>';
 $_['text_payment']					 = 'Payment';
 $_['text_success']					 = 'Success: You have modified Braintree account details!';
 $_['text_success_connect']			 = 'Success: You have connected your PayPal (Powered by Braintree) account!';
