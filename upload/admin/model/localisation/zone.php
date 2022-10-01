@@ -1,92 +1,88 @@
 <?php
 class ModelLocalisationZone extends Model {
-	public function addZone(array $data): int {
-		$this->db->query("INSERT INTO `" . DB_PREFIX . "zone` SET `status` = '" . (int)$data['status'] . "', `name` = '" . $this->db->escape($data['name']) . "', `code` = '" . $this->db->escape($data['code']) . "', `country_id` = '" . (int)$data['country_id'] . "'");
+    public function addZone(array $data): int {
+        $this->db->query("INSERT INTO `" . DB_PREFIX . "zone` SET `status` = '" . (int)$data['status'] . "', `name` = '" . $this->db->escape($data['name']) . "', `code` = '" . $this->db->escape($data['code']) . "', `country_id` = '" . (int)$data['country_id'] . "'");
 
-		$this->cache->delete('zone');
-		
-		return $this->db->getLastId();
-	}
+        $this->cache->delete('zone');
 
-	public function editZone(int $zone_id, array $data): void {
-		$this->db->query("UPDATE `" . DB_PREFIX . "zone` SET `status` = '" . (int)$data['status'] . "', `name` = '" . $this->db->escape($data['name']) . "', `code` = '" . $this->db->escape($data['code']) . "', `country_id` = '" . (int)$data['country_id'] . "' WHERE `zone_id` = '" . (int)$zone_id . "'");
+        return $this->db->getLastId();
+    }
 
-		$this->cache->delete('zone');
-	}
+    public function editZone(int $zone_id, array $data): void {
+        $this->db->query("UPDATE `" . DB_PREFIX . "zone` SET `status` = '" . (int)$data['status'] . "', `name` = '" . $this->db->escape($data['name']) . "', `code` = '" . $this->db->escape($data['code']) . "', `country_id` = '" . (int)$data['country_id'] . "' WHERE `zone_id` = '" . (int)$zone_id . "'");
 
-	public function deleteZone(int $zone_id): void {
-		$this->db->query("DELETE FROM `" . DB_PREFIX . "zone` WHERE `zone_id` = '" . (int)$zone_id . "'");
+        $this->cache->delete('zone');
+    }
 
-		$this->cache->delete('zone');
-	}
+    public function deleteZone(int $zone_id): void {
+        $this->db->query("DELETE FROM `" . DB_PREFIX . "zone` WHERE `zone_id` = '" . (int)$zone_id . "'");
 
-	public function getZone(int $zone_id): array {
-		$query = $this->db->query("SELECT DISTINCT * FROM `" . DB_PREFIX . "zone` WHERE `zone_id` = '" . (int)$zone_id . "'");
+        $this->cache->delete('zone');
+    }
 
-		return $query->row;
-	}
+    public function getZone(int $zone_id): array {
+        $query = $this->db->query("SELECT DISTINCT * FROM `" . DB_PREFIX . "zone` WHERE `zone_id` = '" . (int)$zone_id . "'");
 
-	public function getZones(array $data = array()): array {
-		$sql = "SELECT *, z.`name`, c.`name` AS `country` FROM `" . DB_PREFIX . "zone` z LEFT JOIN `" . DB_PREFIX . "country` c ON (z.`country_id` = c.`country_id`)";
+        return $query->row;
+    }
 
-		$sort_data = array(
-			'c.name',
-			'z.name',
-			'z.code'
-		);
+    public function getZones(array $data = array()): array {
+        $sql = "SELECT *, z.`name`, c.`name` AS `country` FROM `" . DB_PREFIX . "zone` z LEFT JOIN `" . DB_PREFIX . "country` c ON (z.`country_id` = c.`country_id`)";
 
-		if (isset($data['sort']) && in_array($data['sort'], $sort_data)) {
-			$sql .= " ORDER BY " . $data['sort'];
-		} else {
-			$sql .= " ORDER BY c.`name`";
-		}
+        $sort_data = array('c.name', 'z.name', 'z.code');
 
-		if (isset($data['order']) && ($data['order'] == 'DESC')) {
-			$sql .= " DESC";
-		} else {
-			$sql .= " ASC";
-		}
+        if (isset($data['sort']) && in_array($data['sort'], $sort_data)) {
+            $sql .= " ORDER BY " . $data['sort'];
+        } else {
+            $sql .= " ORDER BY c.`name`";
+        }
 
-		if (isset($data['start']) || isset($data['limit'])) {
-			if ($data['start'] < 0) {
-				$data['start'] = 0;
-			}
+        if (isset($data['order']) && ($data['order'] == 'DESC')) {
+            $sql .= " DESC";
+        } else {
+            $sql .= " ASC";
+        }
 
-			if ($data['limit'] < 1) {
-				$data['limit'] = 20;
-			}
+        if (isset($data['start']) || isset($data['limit'])) {
+            if ($data['start'] < 0) {
+                $data['start'] = 0;
+            }
 
-			$sql .= " LIMIT " . (int)$data['start'] . "," . (int)$data['limit'];
-		}
+            if ($data['limit'] < 1) {
+                $data['limit'] = 20;
+            }
 
-		$query = $this->db->query($sql);
+            $sql .= " LIMIT " . (int)$data['start'] . "," . (int)$data['limit'];
+        }
 
-		return $query->rows;
-	}
+        $query = $this->db->query($sql);
 
-	public function getZonesByCountryId(int $country_id): array {
-		$zone_data = $this->cache->get('zone.' . (int)$country_id);
+        return $query->rows;
+    }
 
-		if (!$zone_data) {
-			$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "zone` WHERE `country_id` = '" . (int)$country_id . "' AND `status` = '1' ORDER BY `name`");
+    public function getZonesByCountryId(int $country_id): array {
+        $zone_data = $this->cache->get('zone.' . (int)$country_id);
 
-			$zone_data = $query->rows;
+        if (!$zone_data) {
+            $query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "zone` WHERE `country_id` = '" . (int)$country_id . "' AND `status` = '1' ORDER BY `name`");
 
-			$this->cache->set('zone.' . (int)$country_id, $zone_data);
-		}
+            $zone_data = $query->rows;
 
-		return $zone_data;
-	}
+            $this->cache->set('zone.' . (int)$country_id, $zone_data);
+        }
 
-	public function getTotalZones(): int {
-		$query = $this->db->query("SELECT COUNT(*) AS `total` FROM `" . DB_PREFIX . "zone`");
+        return $zone_data;
+    }
 
-		return (int)$query->row['total'];
-	}
+    public function getTotalZones(): int {
+        $query = $this->db->query("SELECT COUNT(*) AS `total` FROM `" . DB_PREFIX . "zone`");
 
-	public function getTotalZonesByCountryId(int $country_id): int {
-		$query = $this->db->query("SELECT COUNT(*) AS `total` FROM `" . DB_PREFIX . "zone` WHERE `country_id` = '" . (int)$country_id . "'");
+        return (int)$query->row['total'];
+    }
 
-		return (int)$query->row['total'];
-	}
+    public function getTotalZonesByCountryId(int $country_id): int {
+        $query = $this->db->query("SELECT COUNT(*) AS `total` FROM `" . DB_PREFIX . "zone` WHERE `country_id` = '" . (int)$country_id . "'");
+
+        return (int)$query->row['total'];
+    }
 }

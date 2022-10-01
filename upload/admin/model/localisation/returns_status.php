@@ -1,100 +1,100 @@
 <?php
 class ModelLocalisationReturnsStatus extends Model {
-	public function addReturnStatus(array $data): int {
-		foreach ($data['return_status'] as $language_id => $value) {
-			if (isset($return_status_id)) {
-				$this->db->query("INSERT INTO `" . DB_PREFIX . "return_status` SET `return_status_id` = '" . (int)$return_status_id . "', `language_id` = '" . (int)$language_id . "', `name` = '" . $this->db->escape($value['name']) . "'");
-			} else {
-				$this->db->query("INSERT INTO `" . DB_PREFIX . "return_status` SET `language_id` = '" . (int)$language_id . "', `name` = '" . $this->db->escape($value['name']) . "'");
+    public function addReturnStatus(array $data): int {
+        foreach ($data['return_status'] as $language_id => $value) {
+            if (isset($return_status_id)) {
+                $this->db->query("INSERT INTO `" . DB_PREFIX . "return_status` SET `return_status_id` = '" . (int)$return_status_id . "', `language_id` = '" . (int)$language_id . "', `name` = '" . $this->db->escape($value['name']) . "'");
+            } else {
+                $this->db->query("INSERT INTO `" . DB_PREFIX . "return_status` SET `language_id` = '" . (int)$language_id . "', `name` = '" . $this->db->escape($value['name']) . "'");
 
-				$return_status_id = $this->db->getLastId();
-			}
-		}
+                $return_status_id = $this->db->getLastId();
+            }
+        }
 
-		$this->cache->delete('return_status');
-		
-		return $return_status_id;
-	}
+        $this->cache->delete('return_status');
 
-	public function editReturnStatus(int $return_status_id, array $data): void {
-		$this->db->query("DELETE FROM `" . DB_PREFIX . "return_status` WHERE `return_status_id` = '" . (int)$return_status_id . "'");
+        return $return_status_id;
+    }
 
-		foreach ($data['return_status'] as $language_id => $value) {
-			$this->db->query("INSERT INTO `" . DB_PREFIX . "return_status` SET `return_status_id` = '" . (int)$return_status_id . "', `language_id` = '" . (int)$language_id . "', `name` = '" . $this->db->escape($value['name']) . "'");
-		}
+    public function editReturnStatus(int $return_status_id, array $data): void {
+        $this->db->query("DELETE FROM `" . DB_PREFIX . "return_status` WHERE `return_status_id` = '" . (int)$return_status_id . "'");
 
-		$this->cache->delete('return_status');
-	}
+        foreach ($data['return_status'] as $language_id => $value) {
+            $this->db->query("INSERT INTO `" . DB_PREFIX . "return_status` SET `return_status_id` = '" . (int)$return_status_id . "', `language_id` = '" . (int)$language_id . "', `name` = '" . $this->db->escape($value['name']) . "'");
+        }
 
-	public function deleteReturnStatus(int $return_status_id) : void {
-		$this->db->query("DELETE FROM `" . DB_PREFIX . "return_status` WHERE `return_status_id` = '" . (int)$return_status_id . "'");
+        $this->cache->delete('return_status');
+    }
 
-		$this->cache->delete('return_status');
-	}
+    public function deleteReturnStatus(int $return_status_id): void {
+        $this->db->query("DELETE FROM `" . DB_PREFIX . "return_status` WHERE `return_status_id` = '" . (int)$return_status_id . "'");
 
-	public function getReturnStatus(int $return_status_id): array {
-		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "return_status` WHERE `return_status_id` = '" . (int)$return_status_id . "' AND `language_id` = '" . (int)$this->config->get('config_language_id') . "'");
+        $this->cache->delete('return_status');
+    }
 
-		return $query->row;
-	}
+    public function getReturnStatus(int $return_status_id): array {
+        $query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "return_status` WHERE `return_status_id` = '" . (int)$return_status_id . "' AND `language_id` = '" . (int)$this->config->get('config_language_id') . "'");
 
-	public function getReturnStatuses(array $data = array()): array {
-		if ($data) {
-			$sql = "SELECT * FROM `" . DB_PREFIX . "return_status` WHERE `language_id` = '" . (int)$this->config->get('config_language_id') . "'";
+        return $query->row;
+    }
 
-			$sql .= " ORDER BY `name`";
+    public function getReturnStatuses(array $data = array()): array {
+        if ($data) {
+            $sql = "SELECT * FROM `" . DB_PREFIX . "return_status` WHERE `language_id` = '" . (int)$this->config->get('config_language_id') . "'";
 
-			if (isset($data['order']) && ($data['order'] == 'DESC')) {
-				$sql .= " DESC";
-			} else {
-				$sql .= " ASC";
-			}
+            $sql .= " ORDER BY `name`";
 
-			if (isset($data['start']) || isset($data['limit'])) {
-				if ($data['start'] < 0) {
-					$data['start'] = 0;
-				}
+            if (isset($data['order']) && ($data['order'] == 'DESC')) {
+                $sql .= " DESC";
+            } else {
+                $sql .= " ASC";
+            }
 
-				if ($data['limit'] < 1) {
-					$data['limit'] = 20;
-				}
+            if (isset($data['start']) || isset($data['limit'])) {
+                if ($data['start'] < 0) {
+                    $data['start'] = 0;
+                }
 
-				$sql .= " LIMIT " . (int)$data['start'] . "," . (int)$data['limit'];
-			}
+                if ($data['limit'] < 1) {
+                    $data['limit'] = 20;
+                }
 
-			$query = $this->db->query($sql);
+                $sql .= " LIMIT " . (int)$data['start'] . "," . (int)$data['limit'];
+            }
 
-			return $query->rows;
-		} else {
-			$return_status_data = $this->cache->get('return_status.' . (int)$this->config->get('config_language_id'));
+            $query = $this->db->query($sql);
 
-			if (!$return_status_data) {
-				$query = $this->db->query("SELECT `return_status_id`, `name` FROM `" . DB_PREFIX . "return_status` WHERE `language_id` = '" . (int)$this->config->get('config_language_id') . "' ORDER BY `name`");
+            return $query->rows;
+        } else {
+            $return_status_data = $this->cache->get('return_status.' . (int)$this->config->get('config_language_id'));
 
-				$return_status_data = $query->rows;
+            if (!$return_status_data) {
+                $query = $this->db->query("SELECT `return_status_id`, `name` FROM `" . DB_PREFIX . "return_status` WHERE `language_id` = '" . (int)$this->config->get('config_language_id') . "' ORDER BY `name`");
 
-				$this->cache->set('return_status.' . (int)$this->config->get('config_language_id'), $return_status_data);
-			}
+                $return_status_data = $query->rows;
 
-			return $return_status_data;
-		}
-	}
+                $this->cache->set('return_status.' . (int)$this->config->get('config_language_id'), $return_status_data);
+            }
 
-	public function getReturnStatusDescriptions(int $return_status_id): array {
-		$return_status_data = array();
+            return $return_status_data;
+        }
+    }
 
-		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "return_status` WHERE `return_status_id` = '" . (int)$return_status_id . "'");
+    public function getReturnStatusDescriptions(int $return_status_id): array {
+        $return_status_data = array();
 
-		foreach ($query->rows as $result) {
-			$return_status_data[$result['language_id']] = array('name' => $result['name']);
-		}
+        $query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "return_status` WHERE `return_status_id` = '" . (int)$return_status_id . "'");
 
-		return $return_status_data;
-	}
+        foreach ($query->rows as $result) {
+            $return_status_data[$result['language_id']] = array('name' => $result['name']);
+        }
 
-	public function getTotalReturnStatuses(): int {
-		$query = $this->db->query("SELECT COUNT(*) AS `total` FROM `" . DB_PREFIX . "return_status` WHERE `language_id` = '" . (int)$this->config->get('config_language_id') . "'");
+        return $return_status_data;
+    }
 
-		return (int)$query->row['total'];
-	}
+    public function getTotalReturnStatuses(): int {
+        $query = $this->db->query("SELECT COUNT(*) AS `total` FROM `" . DB_PREFIX . "return_status` WHERE `language_id` = '" . (int)$this->config->get('config_language_id') . "'");
+
+        return (int)$query->row['total'];
+    }
 }

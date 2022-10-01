@@ -1,7 +1,7 @@
 <?php
 class ModelExtensionPaymentPPProIframe extends Model {
-	public function install(): void {
-		$this->db->query("
+    public function install(): void {
+        $this->db->query("
 			CREATE TABLE IF NOT EXISTS `" . DB_PREFIX . "paypal_iframe_order` (
 			  `paypal_iframe_order_id` int(11) NOT NULL AUTO_INCREMENT,
 			  `order_id` int(11) NOT NULL,
@@ -14,7 +14,7 @@ class ModelExtensionPaymentPPProIframe extends Model {
 			  PRIMARY KEY (`paypal_iframe_order_id`)
 			) ENGINE=MyISAM DEFAULT COLLATE=utf8_general_ci;");
 
-		$this->db->query("
+        $this->db->query("
 			CREATE TABLE IF NOT EXISTS `" . DB_PREFIX . "paypal_iframe_order_transaction` (
 			  `paypal_iframe_order_transaction_id` int(11) NOT NULL AUTO_INCREMENT,
 			  `paypal_iframe_order_id` int(11) NOT NULL,
@@ -33,117 +33,94 @@ class ModelExtensionPaymentPPProIframe extends Model {
 			  `call_data` TEXT NOT NULL,
 			  PRIMARY KEY (`paypal_iframe_order_transaction_id`)
 			) ENGINE=MyISAM DEFAULT COLLATE=utf8_general_ci;");
-	}
+    }
 
-	public function uninstall(): void {
-		$this->db->query("DROP TABLE IF EXISTS `" . DB_PREFIX . "paypal_iframe_order_transaction`;");
-		$this->db->query("DROP TABLE IF EXISTS `" . DB_PREFIX . "paypal_iframe_order`;");
-	}
+    public function uninstall(): void {
+        $this->db->query("DROP TABLE IF EXISTS `" . DB_PREFIX . "paypal_iframe_order_transaction`;");
+        $this->db->query("DROP TABLE IF EXISTS `" . DB_PREFIX . "paypal_iframe_order`;");
+    }
 
-	private function getTransactions(int $paypal_iframe_order_id): array {
-		$query = $this->db->query("SELECT `ot`.*, (SELECT COUNT(`ot2`.`paypal_iframe_order_id`) FROM `" . DB_PREFIX . "paypal_iframe_order_transaction` `ot2` WHERE `ot2`.`parent_id` = `ot`.`transaction_id`) AS `children` FROM `" . DB_PREFIX . "paypal_iframe_order_transaction` `ot` WHERE `paypal_iframe_order_id` = '" . (int)$paypal_iframe_order_id . "'");
+    private function getTransactions(int $paypal_iframe_order_id): array {
+        $query = $this->db->query("SELECT `ot`.*, (SELECT COUNT(`ot2`.`paypal_iframe_order_id`) FROM `" . DB_PREFIX . "paypal_iframe_order_transaction` `ot2` WHERE `ot2`.`parent_id` = `ot`.`transaction_id`) AS `children` FROM `" . DB_PREFIX . "paypal_iframe_order_transaction` `ot` WHERE `paypal_iframe_order_id` = '" . (int)$paypal_iframe_order_id . "'");
 
-		if ($query->num_rows) {
-			return $query->rows;
-		} else {
-			return array();
-		}
-	}
+        if ($query->num_rows) {
+            return $query->rows;
+        } else {
+            return array();
+        }
+    }
 
-	public function getTotalCaptured(int $paypal_iframe_order_id): float {
-		$query = $this->db->query("SELECT SUM(`amount`) AS `amount` FROM `" . DB_PREFIX . "paypal_iframe_order_transaction` WHERE `paypal_iframe_order_id` = '" . (int)$paypal_iframe_order_id . "' AND `pending_reason` != 'authorization' AND (`payment_status` = 'Partially-Refunded' OR `payment_status` = 'Completed' OR `payment_status` = 'Pending') AND `transaction_entity` = 'payment'");
+    public function getTotalCaptured(int $paypal_iframe_order_id): float {
+        $query = $this->db->query("SELECT SUM(`amount`) AS `amount` FROM `" . DB_PREFIX . "paypal_iframe_order_transaction` WHERE `paypal_iframe_order_id` = '" . (int)$paypal_iframe_order_id . "' AND `pending_reason` != 'authorization' AND (`payment_status` = 'Partially-Refunded' OR `payment_status` = 'Completed' OR `payment_status` = 'Pending') AND `transaction_entity` = 'payment'");
 
-		return (float)$query->row['amount'];
-	}
+        return (float)$query->row['amount'];
+    }
 
-	public function getTotalRefunded(int $paypal_iframe_order_id): float {
-		$query = $this->db->query("SELECT SUM(`amount`) AS `amount` FROM `" . DB_PREFIX . "paypal_iframe_order_transaction` WHERE `paypal_iframe_order_id` = '" . (int)$paypal_iframe_order_id . "' AND `payment_status` = 'Refunded'");
+    public function getTotalRefunded(int $paypal_iframe_order_id): float {
+        $query = $this->db->query("SELECT SUM(`amount`) AS `amount` FROM `" . DB_PREFIX . "paypal_iframe_order_transaction` WHERE `paypal_iframe_order_id` = '" . (int)$paypal_iframe_order_id . "' AND `payment_status` = 'Refunded'");
 
-		return (float)$query->row['amount'];
-	}
+        return (float)$query->row['amount'];
+    }
 
-	public function getTotalRefundedTransaction(string $transaction_id): float {
-		$query = $this->db->query("SELECT SUM(`amount`) AS `amount` FROM `" . DB_PREFIX . "paypal_iframe_order_transaction` WHERE `parent_id` = '" . $this->db->escape($transaction_id) . "' AND `payment_type` = 'refund'");
+    public function getTotalRefundedTransaction(string $transaction_id): float {
+        $query = $this->db->query("SELECT SUM(`amount`) AS `amount` FROM `" . DB_PREFIX . "paypal_iframe_order_transaction` WHERE `parent_id` = '" . $this->db->escape($transaction_id) . "' AND `payment_type` = 'refund'");
 
-		return (float)$query->row['amount'];
-	}
+        return (float)$query->row['amount'];
+    }
 
-	public function getOrder(int $order_id): array {
-		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "paypal_iframe_order` WHERE `order_id` = '" . (int)$order_id . "' LIMIT 1");
+    public function getOrder(int $order_id): array {
+        $query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "paypal_iframe_order` WHERE `order_id` = '" . (int)$order_id . "' LIMIT 1");
 
-		if ($query->num_rows) {
-			$order = $query->row;
-			
-			$order['transactions'] = $this->getTransactions($order['paypal_iframe_order_id']);
-			$order['captured'] = $this->getTotalCaptured($order['paypal_iframe_order_id']);
-			
-			return $order;
-		} else {
-			return array();
-		}
-	}
+        if ($query->num_rows) {
+            $order = $query->row;
 
-	public function call($data) {
-		if ($this->config->get('payment_pp_pro_iframe_test') == 1) {
-			$api_endpoint = 'https://api-3t.sandbox.paypal.com/nvp';
-		} else {
-			$api_endpoint = 'https://api-3t.paypal.com/nvp';
-		}
-		
-		$settings = array(
-			'USER' 			=> $this->config->get('payment_pp_pro_iframe_user'),
-			'PWD' 			=> $this->config->get('payment_pp_pro_iframe_password'),
-			'SIGNATURE' 	=> $this->config->get('payment_pp_pro_iframe_sig'),
-			'VERSION' 		=> '84',
-			'BUTTONSOURCE' 	=> 'WM_PRO_OPENCART_UK_' . VERSION,
-		);
+            $order['transactions'] = $this->getTransactions($order['paypal_iframe_order_id']);
+            $order['captured']     = $this->getTotalCaptured($order['paypal_iframe_order_id']);
 
-		$this->log($data, 'Call data');
-		
-		$defaults = array(
-			CURLOPT_POST 			=> 1,
-			CURLOPT_HEADER 			=> 0,
-			CURLOPT_URL 			=> $api_endpoint,
-			CURLOPT_USERAGENT 		=> "Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US; rv:1.8.1.1) Gecko/20061204 Firefox/2.0.0.1",
-			CURLOPT_FRESH_CONNECT 	=> 1,
-			CURLOPT_RETURNTRANSFER 	=> 1,
-			CURLOPT_FORBID_REUSE 	=> 1,
-			CURLOPT_TIMEOUT 		=> 0,
-			CURLOPT_SSL_VERIFYPEER 	=> 0,
-			CURLOPT_SSL_VERIFYHOST 	=> 0,
-			CURLOPT_POSTFIELDS 		=> http_build_query(array_merge($data, $settings), '', "&")
-		);
+            return $order;
+        } else {
+            return array();
+        }
+    }
 
-		$ch = curl_init();
+    public function call($data) {
+        if ($this->config->get('payment_pp_pro_iframe_test') == 1) {
+            $api_endpoint = 'https://api-3t.sandbox.paypal.com/nvp';
+        } else {
+            $api_endpoint = 'https://api-3t.paypal.com/nvp';
+        }
 
-		curl_setopt_array($ch, $defaults);
+        $settings = array('USER' => $this->config->get('payment_pp_pro_iframe_user'), 'PWD' => $this->config->get('payment_pp_pro_iframe_password'), 'SIGNATURE' => $this->config->get('payment_pp_pro_iframe_sig'), 'VERSION' => '84', 'BUTTONSOURCE' => 'WM_PRO_OPENCART_UK_' . VERSION);
 
-		if (!$result = curl_exec($ch)) {
-			$log_data = array();
-			
-			$log_data = array(
-				'curl_error' => curl_error($ch),
-				'curl_errno' => curl_errno($ch)
-			);
+        $this->log($data, 'Call data');
 
-			$this->log($log_data, 'CURL failed');
+        $defaults = array(CURLOPT_POST => 1, CURLOPT_HEADER => 0, CURLOPT_URL => $api_endpoint, CURLOPT_USERAGENT => "Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US; rv:1.8.1.1) Gecko/20061204 Firefox/2.0.0.1", CURLOPT_FRESH_CONNECT => 1, CURLOPT_RETURNTRANSFER => 1, CURLOPT_FORBID_REUSE => 1, CURLOPT_TIMEOUT => 0, CURLOPT_SSL_VERIFYPEER => 0, CURLOPT_SSL_VERIFYHOST => 0, CURLOPT_POSTFIELDS => http_build_query(array_merge($data, $settings), '', "&"));
 
-			return false;
-		}
+        $ch = curl_init();
 
-		$this->log($result, 'Result');
+        curl_setopt_array($ch, $defaults);
 
-		curl_close($ch);
+        if (!$result = curl_exec($ch)) {
+           $log_data = array('curl_error' => curl_error($ch), 'curl_errno' => curl_errno($ch));
 
-		return $this->cleanReturn($result);
-	}
+            $this->log($log_data, 'CURL failed');
 
-	public function updateOrder(string $capture_status, int $order_id): void {
-		$this->db->query("UPDATE `" . DB_PREFIX . "paypal_iframe_order` SET `date_modified` = NOW(), `capture_status` = '" . $this->db->escape($capture_status) . "' WHERE `order_id` = '" . (int)$order_id . "'");
-	}
+            return false;
+        }
 
-	public function updateTransaction(array $transaction): void {
-		$this->db->query("
+        $this->log($result, 'Result');
+
+        curl_close($ch);
+
+        return $this->cleanReturn($result);
+    }
+
+    public function updateOrder(string $capture_status, int $order_id): void {
+        $this->db->query("UPDATE `" . DB_PREFIX . "paypal_iframe_order` SET `date_modified` = NOW(), `capture_status` = '" . $this->db->escape($capture_status) . "' WHERE `order_id` = '" . (int)$order_id . "'");
+    }
+
+    public function updateTransaction(array $transaction): void {
+        $this->db->query("
 			UPDATE `" . DB_PREFIX . "paypal_iframe_order_transaction`
 			SET `paypal_iframe_order_id` = '" . (int)$transaction['paypal_iframe_order_id'] . "',
 				`transaction_id` = '" . $this->db->escape($transaction['transaction_id']) . "',
@@ -161,91 +138,87 @@ class ModelExtensionPaymentPPProIframe extends Model {
 				`call_data` = '" . $this->db->escape($transaction['call_data']) . "'
 			WHERE `paypal_iframe_order_transaction_id` = '" . (int)$transaction['paypal_iframe_order_transaction_id'] . "'
 		");
-	}
+    }
 
-	public function addTransaction(int $transaction_data, array $request_data = array()): int {
-		$this->db->query("INSERT INTO `" . DB_PREFIX . "paypal_iframe_order_transaction` SET `paypal_iframe_order_id` = '" . (int)$transaction_data['paypal_iframe_order_id'] . "', `transaction_id` = '" . $this->db->escape($transaction_data['transaction_id']) . "', `parent_id` = '" . $this->db->escape($transaction_data['parent_id']) . "', `date_added` = NOW(), `note` = '" . $this->db->escape($transaction_data['note']) . "', `msgsubid` = '" . $this->db->escape($transaction_data['msgsubid']) . "', `receipt_id` = '" . $this->db->escape($transaction_data['receipt_id']) . "', `payment_type` = '" . $this->db->escape($transaction_data['payment_type']) . "', `payment_status` = '" . $this->db->escape($transaction_data['payment_status']) . "', `pending_reason` = '" . $this->db->escape($transaction_data['pending_reason']) . "', `transaction_entity` = '" . $this->db->escape($transaction_data['transaction_entity']) . "', `amount` = '" . (float)$transaction_data['amount'] . "', `debug_data` = '" . $this->db->escape($transaction_data['debug_data']) . "'");
+    public function addTransaction(int $transaction_data, array $request_data = array()): int {
+        $this->db->query("INSERT INTO `" . DB_PREFIX . "paypal_iframe_order_transaction` SET `paypal_iframe_order_id` = '" . (int)$transaction_data['paypal_iframe_order_id'] . "', `transaction_id` = '" . $this->db->escape($transaction_data['transaction_id']) . "', `parent_id` = '" . $this->db->escape($transaction_data['parent_id']) . "', `date_added` = NOW(), `note` = '" . $this->db->escape($transaction_data['note']) . "', `msgsubid` = '" . $this->db->escape($transaction_data['msgsubid']) . "', `receipt_id` = '" . $this->db->escape($transaction_data['receipt_id']) . "', `payment_type` = '" . $this->db->escape($transaction_data['payment_type']) . "', `payment_status` = '" . $this->db->escape($transaction_data['payment_status']) . "', `pending_reason` = '" . $this->db->escape($transaction_data['pending_reason']) . "', `transaction_entity` = '" . $this->db->escape($transaction_data['transaction_entity']) . "', `amount` = '" . (float)$transaction_data['amount'] . "', `debug_data` = '" . $this->db->escape($transaction_data['debug_data']) . "'");
 
-		$paypal_iframe_order_transaction_id = $this->db->getLastId();
+        $paypal_iframe_order_transaction_id = $this->db->getLastId();
 
-		if ($request_data) {
-			$serialized_data = json_encode($request_data);
+        if ($request_data) {
+            $serialized_data = json_encode($request_data);
 
-			$this->db->query("
+            $this->db->query("
 				UPDATE `" . DB_PREFIX . "paypal_iframe_order_transaction`
 				SET `call_data` = '" . $this->db->escape($serialized_data) . "'
 				WHERE `paypal_iframe_order_transaction_id` = '" . (int)$paypal_iframe_order_transaction_id . "'
 				LIMIT 1
 			");
-		}
+        }
 
-		return $paypal_iframe_order_transaction_id;
-	}
+        return $paypal_iframe_order_transaction_id;
+    }
 
-	public function log(array $data, string $title = null): void {
-		if ($this->config->get('payment_pp_pro_iframe_debug')) {
-			$log = new \Log('pp_pro_iframe.log');
-			$log->write($title . ': ' . json_encode($data));
-		}
-	}
+    public function log(array $data, string $title = null): void {
+        if ($this->config->get('payment_pp_pro_iframe_debug')) {
+            $log = new \Log('pp_pro_iframe.log');
+            $log->write($title . ': ' . json_encode($data));
+        }
+    }
 
-	public function getTransaction($transaction_id) {
-		$call_data = array(
-			'METHOD' 		=> 'GetTransactionDetails',
-			'TRANSACTIONID' => $transaction_id,
-		);
+    public function getTransaction($transaction_id) {
+        $call_data = array('METHOD' => 'GetTransactionDetails', 'TRANSACTIONID' => $transaction_id);
 
-		return $this->call($call_data);
-	}
+        return $this->call($call_data);
+    }
 
-	public function getOrderId(string $transaction_id): int {
-		$query = $this->db->query("SELECT o.`order_id` FROM `" . DB_PREFIX . "paypal_iframe_order_transaction` `ot` LEFT JOIN `" . DB_PREFIX . "paypal_iframe_order` o ON o.`paypal_iframe_order_id` = `ot`.`paypal_iframe_order_id` WHERE `ot`.`transaction_id` = '" . $this->db->escape($transaction_id) . "' LIMIT 1");
+    public function getOrderId(string $transaction_id): int {
+        $query = $this->db->query("SELECT o.`order_id` FROM `" . DB_PREFIX . "paypal_iframe_order_transaction` `ot` LEFT JOIN `" . DB_PREFIX . "paypal_iframe_order` o ON o.`paypal_iframe_order_id` = `ot`.`paypal_iframe_order_id` WHERE `ot`.`transaction_id` = '" . $this->db->escape($transaction_id) . "' LIMIT 1");
 
-		if ($query->num_rows) {
-			return $query->row['order_id'];
-		} else {
-			return 0;
-		}
-	}
+        if ($query->num_rows) {
+            return $query->row['order_id'];
+        } else {
+            return 0;
+        }
+    }
 
-	public function updateAuthorizationId(string $paypal_iframe_order_id, string $authorization_id): void {
-		$this->db->query("UPDATE `" . DB_PREFIX . "paypal_iframe_order` SET `authorization_id` = '" . $this->db->escape($authorization_id) . "' WHERE `paypal_iframe_order_id` = '" . $this->db->escape($paypal_iframe_order_id) . "'");
-	}
+    public function updateAuthorizationId(string $paypal_iframe_order_id, string $authorization_id): void {
+        $this->db->query("UPDATE `" . DB_PREFIX . "paypal_iframe_order` SET `authorization_id` = '" . $this->db->escape($authorization_id) . "' WHERE `paypal_iframe_order_id` = '" . $this->db->escape($paypal_iframe_order_id) . "'");
+    }
 
-	public function updateRefundTransaction(string $transaction_id, string $transaction_type): void {
-		$this->db->query("UPDATE `" . DB_PREFIX . "paypal_iframe_order_transaction` SET `payment_status` = '" . $this->db->escape($transaction_type) . "' WHERE `transaction_id` = '" . $this->db->escape($transaction_id) . "' LIMIT 1");
-	}
+    public function updateRefundTransaction(string $transaction_id, string $transaction_type): void {
+        $this->db->query("UPDATE `" . DB_PREFIX . "paypal_iframe_order_transaction` SET `payment_status` = '" . $this->db->escape($transaction_type) . "' WHERE `transaction_id` = '" . $this->db->escape($transaction_id) . "' LIMIT 1");
+    }
 
-	public function getFailedTransaction(int $paypal_iframe_order_transaction_id): array {
-		$result = $this->db->query("SELECT * FROM `" . DB_PREFIX . "paypal_iframe_order_transaction`WHERE paypal_iframe_order_transaction_id = '" . (int)$paypal_iframe_order_transaction_id . "'");
-		
-		if ($result->num_rows) {
-			return $result->row;
-		} else {
-			return array();
-		}
-	}
+    public function getFailedTransaction(int $paypal_iframe_order_transaction_id): array {
+        $result = $this->db->query("SELECT * FROM `" . DB_PREFIX . "paypal_iframe_order_transaction`WHERE paypal_iframe_order_transaction_id = '" . (int)$paypal_iframe_order_transaction_id . "'");
 
-	public function getLocalTransaction(string $transaction_id): array {
-		$result = $this->db->query("SELECT * FROM `" . DB_PREFIX . "paypal_iframe_order_transaction` WHERE `transaction_id` = '" . $this->db->escape($transaction_id) . "'");
+        if ($result->num_rows) {
+            return $result->row;
+        } else {
+            return array();
+        }
+    }
 
-		if ($result->num_rows) {
-			return $result->row;
-		} else {
-			return array();
-		}
-	}
+    public function getLocalTransaction(string $transaction_id): array {
+        $result = $this->db->query("SELECT * FROM `" . DB_PREFIX . "paypal_iframe_order_transaction` WHERE `transaction_id` = '" . $this->db->escape($transaction_id) . "'");
 
-	protected function cleanReturn(string $data): array {
-		$data = explode('&', $data);
+        if ($result->num_rows) {
+            return $result->row;
+        } else {
+            return array();
+        }
+    }
 
-		$arr = array();
+    protected function cleanReturn(string $data): array {
+        $data = explode('&', $data);
+        $arr  = array();
 
-		foreach ($data as $k => $v) {
-			$tmp = explode('=', $v);
-			$arr[$tmp[0]] = urldecode($tmp[1]);
-		}
+        foreach ($data as $k => $v) {
+            $tmp          = explode('=', $v);
+            $arr[$tmp[0]] = urldecode($tmp[1]);
+        }
 
-		return $arr;
-	}
+        return $arr;
+    }
 }

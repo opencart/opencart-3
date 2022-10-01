@@ -1,120 +1,113 @@
 <?php
 class ModelLocalisationLengthClass extends Model {
-	public function addLengthClass(array $data): int {
-		$this->db->query("INSERT INTO `" . DB_PREFIX . "length_class` SET `value` = '" . (float)$data['value'] . "'");
+    public function addLengthClass(array $data): int {
+        $this->db->query("INSERT INTO `" . DB_PREFIX . "length_class` SET `value` = '" . (float)$data['value'] . "'");
 
-		$length_class_id = $this->db->getLastId();
+        $length_class_id = $this->db->getLastId();
 
-		foreach ($data['length_class_description'] as $language_id => $value) {
-			$this->db->query("INSERT INTO `" . DB_PREFIX . "length_class_description` SET `length_class_id` = '" . (int)$length_class_id . "', `language_id` = '" . (int)$language_id . "', `title` = '" . $this->db->escape($value['title']) . "', `unit` = '" . $this->db->escape($value['unit']) . "'");
-		}
+        foreach ($data['length_class_description'] as $language_id => $value) {
+            $this->db->query("INSERT INTO `" . DB_PREFIX . "length_class_description` SET `length_class_id` = '" . (int)$length_class_id . "', `language_id` = '" . (int)$language_id . "', `title` = '" . $this->db->escape($value['title']) . "', `unit` = '" . $this->db->escape($value['unit']) . "'");
+        }
 
-		$this->cache->delete('length_class');
-		
-		return $length_class_id;
-	}
+        $this->cache->delete('length_class');
 
-	public function editLengthClass(int $length_class_id, array $data): void {
-		$this->db->query("UPDATE `" . DB_PREFIX . "length_class` SET `value` = '" . (float)$data['value'] . "' WHERE `length_class_id` = '" . (int)$length_class_id . "'");
+        return $length_class_id;
+    }
 
-		$this->db->query("DELETE FROM `" . DB_PREFIX . "length_class_description` WHERE `length_class_id` = '" . (int)$length_class_id . "'");
+    public function editLengthClass(int $length_class_id, array $data): void {
+        $this->db->query("UPDATE `" . DB_PREFIX . "length_class` SET `value` = '" . (float)$data['value'] . "' WHERE `length_class_id` = '" . (int)$length_class_id . "'");
 
-		foreach ($data['length_class_description'] as $language_id => $value) {
-			$this->db->query("INSERT INTO `" . DB_PREFIX . "length_class_description` SET `length_class_id` = '" . (int)$length_class_id . "', `language_id` = '" . (int)$language_id . "', `title` = '" . $this->db->escape($value['title']) . "', `unit` = '" . $this->db->escape($value['unit']) . "'");
-		}
+        $this->db->query("DELETE FROM `" . DB_PREFIX . "length_class_description` WHERE `length_class_id` = '" . (int)$length_class_id . "'");
 
-		$this->cache->delete('length_class');
-	}
+        foreach ($data['length_class_description'] as $language_id => $value) {
+            $this->db->query("INSERT INTO `" . DB_PREFIX . "length_class_description` SET `length_class_id` = '" . (int)$length_class_id . "', `language_id` = '" . (int)$language_id . "', `title` = '" . $this->db->escape($value['title']) . "', `unit` = '" . $this->db->escape($value['unit']) . "'");
+        }
 
-	public function deleteLengthClass(int $length_class_id): void {
-		$this->db->query("DELETE FROM `" . DB_PREFIX . "length_class` WHERE `length_class_id` = '" . (int)$length_class_id . "'");
-		$this->db->query("DELETE FROM `" . DB_PREFIX . "length_class_description` WHERE `length_class_id` = '" . (int)$length_class_id . "'");
+        $this->cache->delete('length_class');
+    }
 
-		$this->cache->delete('length_class');
-	}
+    public function deleteLengthClass(int $length_class_id): void {
+        $this->db->query("DELETE FROM `" . DB_PREFIX . "length_class` WHERE `length_class_id` = '" . (int)$length_class_id . "'");
+        $this->db->query("DELETE FROM `" . DB_PREFIX . "length_class_description` WHERE `length_class_id` = '" . (int)$length_class_id . "'");
 
-	public function getLengthClasses(array $data = array()): array {
-		if ($data) {
-			$sql = "SELECT * FROM `" . DB_PREFIX . "length_class` lc LEFT JOIN `" . DB_PREFIX . "length_class_description` lcd ON (lc.`length_class_id` = lcd.`length_class_id`) WHERE lcd.`language_id` = '" . (int)$this->config->get('config_language_id') . "'";
-			
-			$sort_data = array(
-				'title',
-				'unit',
-				'value'
-			);
+        $this->cache->delete('length_class');
+    }
 
-			if (isset($data['sort']) && in_array($data['sort'], $sort_data)) {
-				$sql .= " ORDER BY " . $data['sort'];
-			} else {
-				$sql .= " ORDER BY `title`";
-			}
+    public function getLengthClasses(array $data = array()): array {
+        if ($data) {
+            $sql = "SELECT * FROM `" . DB_PREFIX . "length_class` lc LEFT JOIN `" . DB_PREFIX . "length_class_description` lcd ON (lc.`length_class_id` = lcd.`length_class_id`) WHERE lcd.`language_id` = '" . (int)$this->config->get('config_language_id') . "'";
 
-			if (isset($data['order']) && ($data['order'] == 'DESC')) {
-				$sql .= " DESC";
-			} else {
-				$sql .= " ASC";
-			}
+            $sort_data = array('title', 'unit', 'value');
 
-			if (isset($data['start']) || isset($data['limit'])) {
-				if ($data['start'] < 0) {
-					$data['start'] = 0;
-				}
+            if (isset($data['sort']) && in_array($data['sort'], $sort_data)) {
+                $sql .= " ORDER BY " . $data['sort'];
+            } else {
+                $sql .= " ORDER BY `title`";
+            }
 
-				if ($data['limit'] < 1) {
-					$data['limit'] = 20;
-				}
+            if (isset($data['order']) && ($data['order'] == 'DESC')) {
+                $sql .= " DESC";
+            } else {
+                $sql .= " ASC";
+            }
 
-				$sql .= " LIMIT " . (int)$data['start'] . "," . (int)$data['limit'];
-			}
+            if (isset($data['start']) || isset($data['limit'])) {
+                if ($data['start'] < 0) {
+                    $data['start'] = 0;
+                }
 
-			$query = $this->db->query($sql);
+                if ($data['limit'] < 1) {
+                    $data['limit'] = 20;
+                }
 
-			return $query->rows;
-		} else {
-			$length_class_data = $this->cache->get('length_class.' . (int)$this->config->get('config_language_id'));
+                $sql .= " LIMIT " . (int)$data['start'] . "," . (int)$data['limit'];
+            }
 
-			if (!$length_class_data) {
-				$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "length_class` lc LEFT JOIN `" . DB_PREFIX . "length_class_description` lcd ON (lc.`length_class_id` = lcd.`length_class_id`) WHERE lcd.`language_id` = '" . (int)$this->config->get('config_language_id') . "'");
+            $query = $this->db->query($sql);
 
-				$length_class_data = $query->rows;
+            return $query->rows;
+        } else {
+            $length_class_data = $this->cache->get('length_class.' . (int)$this->config->get('config_language_id'));
 
-				$this->cache->set('length_class.' . (int)$this->config->get('config_language_id'), $length_class_data);
-			}
+            if (!$length_class_data) {
+                $query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "length_class` lc LEFT JOIN `" . DB_PREFIX . "length_class_description` lcd ON (lc.`length_class_id` = lcd.`length_class_id`) WHERE lcd.`language_id` = '" . (int)$this->config->get('config_language_id') . "'");
 
-			return $length_class_data;
-		}
-	}
+                $length_class_data = $query->rows;
 
-	public function getLengthClass(int $length_class_id): array {
-		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "length_class` lc LEFT JOIN `" . DB_PREFIX . "length_class_description` lcd ON (lc.`length_class_id` = lcd.`length_class_id`) WHERE lc.`length_class_id` = '" . (int)$length_class_id . "' AND lcd.`language_id` = '" . (int)$this->config->get('config_language_id') . "'");
+                $this->cache->set('length_class.' . (int)$this->config->get('config_language_id'), $length_class_data);
+            }
 
-		return $query->row;
-	}
+            return $length_class_data;
+        }
+    }
 
-	public function getLengthClassDescriptionByUnit(string $unit): array {
-		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "length_class_description` WHERE `unit` = '" . $this->db->escape($unit) . "' AND `language_id` = '" . (int)$this->config->get('config_language_id') . "'");
+    public function getLengthClass(int $length_class_id): array {
+        $query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "length_class` lc LEFT JOIN `" . DB_PREFIX . "length_class_description` lcd ON (lc.`length_class_id` = lcd.`length_class_id`) WHERE lc.`length_class_id` = '" . (int)$length_class_id . "' AND lcd.`language_id` = '" . (int)$this->config->get('config_language_id') . "'");
 
-		return $query->row;
-	}
+        return $query->row;
+    }
 
-	public function getLengthClassDescriptions(int $length_class_id): array {
-		$length_class_data = array();
+    public function getLengthClassDescriptionByUnit(string $unit): array {
+        $query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "length_class_description` WHERE `unit` = '" . $this->db->escape($unit) . "' AND `language_id` = '" . (int)$this->config->get('config_language_id') . "'");
 
-		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "length_class_description` WHERE `length_class_id` = '" . (int)$length_class_id . "'");
+        return $query->row;
+    }
 
-		foreach ($query->rows as $result) {
-			$length_class_data[$result['language_id']] = array(
-				'title' => $result['title'],
-				'unit'  => $result['unit']
-			);
-		}
+    public function getLengthClassDescriptions(int $length_class_id): array {
+        $length_class_data = array();
 
-		return $length_class_data;
-	}
+        $query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "length_class_description` WHERE `length_class_id` = '" . (int)$length_class_id . "'");
 
-	public function getTotalLengthClasses(): int {
-		$query = $this->db->query("SELECT COUNT(*) AS `total` FROM `" . DB_PREFIX . "length_class`");
+        foreach ($query->rows as $result) {
+            $length_class_data[$result['language_id']] = array('title' => $result['title'], 'unit' => $result['unit']);
+        }
 
-		return (int)$query->row['total'];
-	}
+        return $length_class_data;
+    }
+
+    public function getTotalLengthClasses(): int {
+        $query = $this->db->query("SELECT COUNT(*) AS `total` FROM `" . DB_PREFIX . "length_class`");
+
+        return (int)$query->row['total'];
+    }
 }

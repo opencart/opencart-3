@@ -1,7 +1,7 @@
 <?php
 class ModelExtensionPaymentPilibaba extends Model {
-	public function install(): void {
-		$this->db->query("CREATE TABLE IF NOT EXISTS `" . DB_PREFIX . "pilibaba_order` (
+    public function install(): void {
+        $this->db->query("CREATE TABLE IF NOT EXISTS `" . DB_PREFIX . "pilibaba_order` (
 			`pilibaba_order_id` int(11) NOT NULL AUTO_INCREMENT,
 			`order_id` int(11) NOT NULL DEFAULT '0',
 			`amount` double NOT NULL,
@@ -10,169 +10,159 @@ class ModelExtensionPaymentPilibaba extends Model {
 			`date_added` datetime NOT NULL,
 			PRIMARY KEY (`pilibaba_order_id`)
 		) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci");
-	}
+    }
 
-	public function uninstall(): void {
-		$this->db->query("DROP TABLE IF EXISTS `" . DB_PREFIX . "pilibaba_order`");
+    public function uninstall(): void {
+        $this->db->query("DROP TABLE IF EXISTS `" . DB_PREFIX . "pilibaba_order`");
 
-		$this->disablePiliExpress();
+        $this->disablePiliExpress();
 
-		$this->log('Module uninstalled');
-	}
+        $this->log('Module uninstalled');
+    }
 
-	public function getCurrencies(): array {
-		$ch = curl_init();
-		
-		curl_setopt($ch, CURLOPT_URL, 'http://www.pilibaba.com/pilipay/getCurrency');
-		curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'GET');
-		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-		curl_setopt($ch, CURLOPT_HEADER, false);
-		curl_setopt($ch, CURLOPT_TIMEOUT, 30);
-		curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
-		
-		$response = curl_exec($ch);
-		
-		curl_close($ch);
+    public function getCurrencies(): array {
+        $ch = curl_init();
 
-		return json_decode($response, true);
-	}
+        curl_setopt($ch, CURLOPT_URL, 'http://www.pilibaba.com/pilipay/getCurrency');
+        curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'GET');
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_HEADER, false);
+        curl_setopt($ch, CURLOPT_TIMEOUT, 30);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
 
-	public function getWarehouses(): array {
-		$ch = curl_init();
-		
-		curl_setopt($ch, CURLOPT_URL, 'http://www.pilibaba.com/pilipay/getAddressList');
-		curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'GET');
-		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-		curl_setopt($ch, CURLOPT_HEADER, false);
-		curl_setopt($ch, CURLOPT_TIMEOUT, 30);
-		curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
-		
-		$response = curl_exec($ch);
-		
-		curl_close($ch);
+        $response = curl_exec($ch);
 
-		return json_decode($response, true);
-	}
+        curl_close($ch);
 
-	public function getOrder(int $order_id): array {
-		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "pilibaba_order` WHERE `order_id` = '" . (int)$order_id . "' LIMIT 1");
+        return json_decode($response, true);
+    }
 
-		if ($query->num_rows) {
-			return $query->row;
-		} else {
-			return array();
-		}
-	}
+    public function getWarehouses(): array {
+        $ch = curl_init();
 
-	public function register(string $email, string $password, string $currency, string $warehouse, string $country, string $environment): array {
-		$this->log('Posting register');
+        curl_setopt($ch, CURLOPT_URL, 'http://www.pilibaba.com/pilipay/getAddressList');
+        curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'GET');
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_HEADER, false);
+        curl_setopt($ch, CURLOPT_TIMEOUT, 30);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
 
-		if ($warehouse == 'other') {
-			$warehouse = '';
-		}
+        $response = curl_exec($ch);
 
-		if ($warehouse) {
-			$country = '';
-		}
+        curl_close($ch);
 
-		if ($environment == 'live') {
-			$url = 'http://en.pilibaba.com/autoRegist';
-		} else {
-			$url = 'http://preen.pilibaba.com/autoRegist';
-		}
+        return json_decode($response, true);
+    }
 
-		$this->log('URL: ' . $url);
+    public function getOrder(int $order_id): array {
+        $query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "pilibaba_order` WHERE `order_id` = '" . (int)$order_id . "' LIMIT 1");
 
-		$app_secret = strtoupper(md5((($warehouse) ? $warehouse : $country) . '0210000574' . '0b8l3ww5' . $currency . $email . md5($password)));
-		
-		$post_data = array(
-			'platformNo'  => '0210000574',
-			'appSecret'   => $app_secret,
-			'email'       => $email,
-			'password'    => md5($password),
-			'currency'    => $currency,
-			'logistics'   => $warehouse,
-			'countryCode' => $country
-		);
+        if ($query->num_rows) {
+            return $query->row;
+        } else {
+            return array();
+        }
+    }
 
-		$this->log('Data: ' . print_r($post_data, true));
+    public function register(string $email, string $password, string $currency, string $warehouse, string $country, string $environment): array {
+        $this->log('Posting register');
 
-		$headers = array('Accept: application/json','Content-Type: application/json');
+        if ($warehouse == 'other') {
+            $warehouse = '';
+        }
 
-		$ch = curl_init();
-		
-		curl_setopt($ch, CURLOPT_URL, $url);
-		curl_setopt($ch, CURLOPT_POST, true);
-		curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($post_data));
-		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-		curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
-		curl_setopt($ch, CURLOPT_TIMEOUT, 30);
-		curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
-		
-		$response = curl_exec($ch);
-		
-		if (curl_errno($ch)) {
-			$this->log('cURL error: ' . curl_errno($ch));
-		}
-		curl_close($ch);
+        if ($warehouse) {
+            $country = '';
+        }
 
-		$this->log('Response: ' . print_r($response, true));
+        if ($environment == 'live') {
+            $url = 'http://en.pilibaba.com/autoRegist';
+        } else {
+            $url = 'http://preen.pilibaba.com/autoRegist';
+        }
 
-		return json_decode($response, true);
-	}
+        $this->log('URL: ' . $url);
 
-	public function updateTrackingNumber(int $order_id, string $tracking_number, string $merchant_number): void {
-		$this->log('Posting tracking');
+        $app_secret = strtoupper(md5((($warehouse) ? $warehouse : $country) . '0210000574' . '0b8l3ww5' . $currency . $email . md5($password)));
+        $post_data  = array('platformNo' => '0210000574', 'appSecret' => $app_secret, 'email' => $email, 'password' => md5($password), 'currency' => $currency, 'logistics' => $warehouse, 'countryCode' => $country);
 
-		$sign_msg = strtoupper(md5($order_id . $tracking_number . $merchant_number . $this->config->get('payment_pilibaba_secret_key')));
+        $this->log('Data: ' . print_r($post_data, true));
 
-		if ($this->config->get('payment_pilibaba_environment') == 'live') {
-			$url = 'https://www.pilibaba.com/pilipay/updateTrackNo';
-		} else {
-			$url = 'http://pre.pilibaba.com/pilipay/updateTrackNo';
-		}
+        $headers = array('Accept: application/json', 'Content-Type: application/json');
+        $ch      = curl_init();
 
-		$url .= '?orderNo=' . $order_id . '&logisticsNo=' . $tracking_number . '&merchantNo=' . $merchant_number . '&signMsg=' . $sign_msg;
+        curl_setopt($ch, CURLOPT_URL, $url);
+        curl_setopt($ch, CURLOPT_POST, true);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($post_data));
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+        curl_setopt($ch, CURLOPT_TIMEOUT, 30);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
 
-		$this->log('URL: ' . $url);
+        $response = curl_exec($ch);
 
-		$ch = curl_init();
-		
-		curl_setopt($ch, CURLOPT_URL, $url);
-		curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'GET');
-		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-		curl_setopt($ch, CURLOPT_HEADER, false);
-		curl_setopt($ch, CURLOPT_TIMEOUT, 30);
-		curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
-		
-		$response = curl_exec($ch);
-		
-		if (curl_errno($ch)) {
-			$this->log('cURL error: ' . curl_errno($ch));
-		}
-		
-		curl_close($ch);
+        if (curl_errno($ch)) {
+            $this->log('cURL error: ' . curl_errno($ch));
+        }
+        curl_close($ch);
 
-		$this->db->query("UPDATE `" . DB_PREFIX . "pilibaba_order` SET `tracking` = '" . $this->db->escape($tracking_number) . "' WHERE `order_id` = '" . (int)$order_id . "'");
-	}
+        $this->log('Response: ' . print_r($response, true));
 
-	public function enablePiliExpress(): void {
-		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "extension` WHERE `type` = 'shipping' AND `code` = 'pilibaba'");
+        return json_decode($response, true);
+    }
 
-		if (!$query->num_rows) {
-			$this->db->query("INSERT INTO `" . DB_PREFIX . "extension` SET `type` = 'shipping', `code` = 'pilibaba'");
-		}
-	}
+    public function updateTrackingNumber(int $order_id, string $tracking_number, string $merchant_number): void {
+        $this->log('Posting tracking');
 
-	public function disablePiliExpress(): void {
-		$this->db->query("DELETE FROM `" . DB_PREFIX . "extension` WHERE `type` = 'shipping' AND `code` = 'pilibaba'");
-	}
+        $sign_msg = strtoupper(md5($order_id . $tracking_number . $merchant_number . $this->config->get('payment_pilibaba_secret_key')));
 
-	public function log(string $data): void {
-		if ($this->config->has('payment_pilibaba_logging') && $this->config->get('payment_pilibaba_logging')) {
-			$log = new \Log('pilibaba.log');
+        if ($this->config->get('payment_pilibaba_environment') == 'live') {
+            $url = 'https://www.pilibaba.com/pilipay/updateTrackNo';
+        } else {
+            $url = 'http://pre.pilibaba.com/pilipay/updateTrackNo';
+        }
 
-			$log->write($data);
-		}
-	}
+        $url .= '?orderNo=' . $order_id . '&logisticsNo=' . $tracking_number . '&merchantNo=' . $merchant_number . '&signMsg=' . $sign_msg;
+
+        $this->log('URL: ' . $url);
+
+        $ch = curl_init();
+
+        curl_setopt($ch, CURLOPT_URL, $url);
+        curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'GET');
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_HEADER, false);
+        curl_setopt($ch, CURLOPT_TIMEOUT, 30);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+
+        $response = curl_exec($ch);
+
+        if (curl_errno($ch)) {
+            $this->log('cURL error: ' . curl_errno($ch));
+        }
+
+        curl_close($ch);
+
+        $this->db->query("UPDATE `" . DB_PREFIX . "pilibaba_order` SET `tracking` = '" . $this->db->escape($tracking_number) . "' WHERE `order_id` = '" . (int)$order_id . "'");
+    }
+
+    public function enablePiliExpress(): void {
+        $query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "extension` WHERE `type` = 'shipping' AND `code` = 'pilibaba'");
+
+        if (!$query->num_rows) {
+            $this->db->query("INSERT INTO `" . DB_PREFIX . "extension` SET `type` = 'shipping', `code` = 'pilibaba'");
+        }
+    }
+
+    public function disablePiliExpress(): void {
+        $this->db->query("DELETE FROM `" . DB_PREFIX . "extension` WHERE `type` = 'shipping' AND `code` = 'pilibaba'");
+    }
+
+    public function log(string $data): void {
+        if ($this->config->has('payment_pilibaba_logging') && $this->config->get('payment_pilibaba_logging')) {
+            $log = new \Log('pilibaba.log');
+
+            $log->write($data);
+        }
+    }
 }

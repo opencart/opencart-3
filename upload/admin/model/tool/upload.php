@@ -1,108 +1,104 @@
 <?php
 class ModelToolUpload extends Model {
-	public function addUpload(string $name, string $filename): string {
-		$code = sha1(uniqid(mt_rand(), true));
+    public function addUpload(string $name, string $filename): string {
+        $code = sha1(uniqid(mt_rand(), true));
 
-		$this->db->query("INSERT INTO `" . DB_PREFIX . "upload` SET `name` = '" . $this->db->escape($name) . "', `filename` = '" . $this->db->escape($filename) . "', `code` = '" . $this->db->escape($code) . "', `date_added` = NOW()");
+        $this->db->query("INSERT INTO `" . DB_PREFIX . "upload` SET `name` = '" . $this->db->escape($name) . "', `filename` = '" . $this->db->escape($filename) . "', `code` = '" . $this->db->escape($code) . "', `date_added` = NOW()");
 
-		return $code;
-	}
-		
-	public function deleteUpload(int $upload_id): void {
-		$this->db->query("DELETE FROM `" . DB_PREFIX . "upload` WHERE `upload_id` = '" . (int)$upload_id . "'");
-	}
+        return $code;
+    }
 
-	public function getUpload(int $upload_id): array {
-		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "upload` WHERE `upload_id` = '" . (int)$upload_id . "'");
+    public function deleteUpload(int $upload_id): void {
+        $this->db->query("DELETE FROM `" . DB_PREFIX . "upload` WHERE `upload_id` = '" . (int)$upload_id . "'");
+    }
 
-		return $query->row;
-	}
+    public function getUpload(int $upload_id): array {
+        $query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "upload` WHERE `upload_id` = '" . (int)$upload_id . "'");
 
-	public function getUploadByCode(string $code): array {
-		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "upload` WHERE `code` = '" . $this->db->escape($code) . "'");
+        return $query->row;
+    }
 
-		return $query->row;
-	}
+    public function getUploadByCode(string $code): array {
+        $query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "upload` WHERE `code` = '" . $this->db->escape($code) . "'");
 
-	public function getUploads(array $data = array()): array {
-		$sql = "SELECT * FROM `" . DB_PREFIX . "upload`";
+        return $query->row;
+    }
 
-		$implode = array();
+    public function getUploads(array $data = array()): array {
+        $sql = "SELECT * FROM `" . DB_PREFIX . "upload`";
 
-		if (!empty($data['filter_name'])) {
-			$implode[] = "`name` LIKE '" . $this->db->escape($data['filter_name']) . "%'";
-		}
+        $implode = array();
 
-		if (!empty($data['filter_filename'])) {
-			$implode[] = "`filename` LIKE '" . $this->db->escape($data['filter_filename']) . "%'";
-		}
+        if (!empty($data['filter_name'])) {
+            $implode[] = "`name` LIKE '" . $this->db->escape($data['filter_name']) . "%'";
+        }
 
-		if (!empty($data['filter_date_added'])) {
-			$implode[] = "DATE(`date_added`) = DATE('" . $this->db->escape($data['filter_date_added']) . "')";
-		}
+        if (!empty($data['filter_filename'])) {
+            $implode[] = "`filename` LIKE '" . $this->db->escape($data['filter_filename']) . "%'";
+        }
 
-		if ($implode) {
-			$sql .= " WHERE " . implode(" AND ", $implode);
-		}
+        if (!empty($data['filter_date_added'])) {
+            $implode[] = "DATE(`date_added`) = DATE('" . $this->db->escape($data['filter_date_added']) . "')";
+        }
 
-		$sort_data = array(
-			'name',
-			'filename',
-			'date_added'
-		);
+        if ($implode) {
+            $sql .= " WHERE " . implode(" AND ", $implode);
+        }
 
-		if (isset($data['sort']) && in_array($data['sort'], $sort_data)) {
-			$sql .= " ORDER BY " . $data['sort'];
-		} else {
-			$sql .= " ORDER BY `date_added`";
-		}
+        $sort_data = array('name', 'filename', 'date_added');
 
-		if (isset($data['order']) && ($data['order'] == 'DESC')) {
-			$sql .= " DESC";
-		} else {
-			$sql .= " ASC";
-		}
+        if (isset($data['sort']) && in_array($data['sort'], $sort_data)) {
+            $sql .= " ORDER BY " . $data['sort'];
+        } else {
+            $sql .= " ORDER BY `date_added`";
+        }
 
-		if (isset($data['start']) || isset($data['limit'])) {
-			if ($data['start'] < 0) {
-				$data['start'] = 0;
-			}
+        if (isset($data['order']) && ($data['order'] == 'DESC')) {
+            $sql .= " DESC";
+        } else {
+            $sql .= " ASC";
+        }
 
-			if ($data['limit'] < 1) {
-				$data['limit'] = 20;
-			}
+        if (isset($data['start']) || isset($data['limit'])) {
+            if ($data['start'] < 0) {
+                $data['start'] = 0;
+            }
 
-			$sql .= " LIMIT " . (int)$data['start'] . "," . (int)$data['limit'];
-		}
+            if ($data['limit'] < 1) {
+                $data['limit'] = 20;
+            }
 
-		$query = $this->db->query($sql);
+            $sql .= " LIMIT " . (int)$data['start'] . "," . (int)$data['limit'];
+        }
 
-		return $query->rows;
-	}
+        $query = $this->db->query($sql);
 
-	public function getTotalUploads(): int {
-		$sql = "SELECT COUNT(*) AS `total` FROM `" . DB_PREFIX . "upload`";
+        return $query->rows;
+    }
 
-		$implode = array();
+    public function getTotalUploads(): int {
+        $sql = "SELECT COUNT(*) AS `total` FROM `" . DB_PREFIX . "upload`";
 
-		if (!empty($data['filter_name'])) {
-			$implode[] = "`name` LIKE '" . $this->db->escape($data['filter_name']) . "%'";
-		}
+        $implode = array();
 
-		if (!empty($data['filter_filename'])) {
-			$implode[] = "`filename` LIKE '" . $this->db->escape($data['filter_filename']) . "%'";
-		}
+        if (!empty($data['filter_name'])) {
+            $implode[] = "`name` LIKE '" . $this->db->escape($data['filter_name']) . "%'";
+        }
 
-		if (!empty($data['filter_date_added'])) {
-			$implode[] = "DATE(`date_added`) = DATE('" . $this->db->escape($data['filter_date_added']) . "')";
-		}
+        if (!empty($data['filter_filename'])) {
+            $implode[] = "`filename` LIKE '" . $this->db->escape($data['filter_filename']) . "%'";
+        }
 
-		if ($implode) {
-			$sql .= " WHERE " . implode(" AND ", $implode);
-		}
+        if (!empty($data['filter_date_added'])) {
+            $implode[] = "DATE(`date_added`) = DATE('" . $this->db->escape($data['filter_date_added']) . "')";
+        }
 
-		$query = $this->db->query($sql);
+        if ($implode) {
+            $sql .= " WHERE " . implode(" AND ", $implode);
+        }
 
-		return (int)$query->row['total'];
-	}
+        $query = $this->db->query($sql);
+
+        return (int)$query->row['total'];
+    }
 }

@@ -1,90 +1,88 @@
 <?php
 class ModelCatalogAttributeGroup extends Model {
-	public function addAttributeGroup(array $data): int {
-		$this->db->query("INSERT INTO `" . DB_PREFIX . "attribute_group` SET `sort_order` = '" . (int)$data['sort_order'] . "'");
+    public function addAttributeGroup(array $data): int {
+        $this->db->query("INSERT INTO `" . DB_PREFIX . "attribute_group` SET `sort_order` = '" . (int)$data['sort_order'] . "'");
 
-		$attribute_group_id = $this->db->getLastId();
+        $attribute_group_id = $this->db->getLastId();
 
-		foreach ($data['attribute_group_description'] as $language_id => $value) {
-			$this->db->query("INSERT INTO `" . DB_PREFIX . "attribute_group_description` SET `attribute_group_id` = '" . (int)$attribute_group_id . "', `language_id` = '" . (int)$language_id . "', `name` = '" . $this->db->escape($value['name']) . "'");
-		}
+        foreach ($data['attribute_group_description'] as $language_id => $value) {
+            $this->db->query("INSERT INTO `" . DB_PREFIX . "attribute_group_description` SET `attribute_group_id` = '" . (int)$attribute_group_id . "', `language_id` = '" . (int)$language_id . "', `name` = '" . $this->db->escape($value['name']) . "'");
+        }
 
-		return $attribute_group_id;
-	}
+        return $attribute_group_id;
+    }
 
-	public function editAttributeGroup(int $attribute_group_id, array $data): void {
-		$this->db->query("UPDATE `" . DB_PREFIX . "attribute_group` SET `sort_order` = '" . (int)$data['sort_order'] . "' WHERE `attribute_group_id` = '" . (int)$attribute_group_id . "'");
+    public function editAttributeGroup(int $attribute_group_id, array $data): void {
+        $this->db->query("UPDATE `" . DB_PREFIX . "attribute_group` SET `sort_order` = '" . (int)$data['sort_order'] . "' WHERE `attribute_group_id` = '" . (int)$attribute_group_id . "'");
 
-		$this->db->query("DELETE FROM `" . DB_PREFIX . "attribute_group_description` WHERE `attribute_group_id` = '" . (int)$attribute_group_id . "'");
+        $this->db->query("DELETE FROM `" . DB_PREFIX . "attribute_group_description` WHERE `attribute_group_id` = '" . (int)$attribute_group_id . "'");
 
-		foreach ($data['attribute_group_description'] as $language_id => $value) {
-			$this->db->query("INSERT INTO `" . DB_PREFIX . "attribute_group_description` SET `attribute_group_id` = '" . (int)$attribute_group_id . "', `language_id` = '" . (int)$language_id . "', `name` = '" . $this->db->escape($value['name']) . "'");
-		}
-	}
+        foreach ($data['attribute_group_description'] as $language_id => $value) {
+            $this->db->query("INSERT INTO `" . DB_PREFIX . "attribute_group_description` SET `attribute_group_id` = '" . (int)$attribute_group_id . "', `language_id` = '" . (int)$language_id . "', `name` = '" . $this->db->escape($value['name']) . "'");
+        }
+    }
 
-	public function deleteAttributeGroup(int $attribute_group_id): void {
-		$this->db->query("DELETE FROM `" . DB_PREFIX . "attribute_group` WHERE `attribute_group_id` = '" . (int)$attribute_group_id . "'");
-		$this->db->query("DELETE FROM `" . DB_PREFIX . "attribute_group_description` WHERE `attribute_group_id` = '" . (int)$attribute_group_id . "'");
-	}
+    public function deleteAttributeGroup(int $attribute_group_id): void {
+        $this->db->query("DELETE FROM `" . DB_PREFIX . "attribute_group` WHERE `attribute_group_id` = '" . (int)$attribute_group_id . "'");
+        $this->db->query("DELETE FROM `" . DB_PREFIX . "attribute_group_description` WHERE `attribute_group_id` = '" . (int)$attribute_group_id . "'");
+    }
 
-	public function getAttributeGroup(int $attribute_group_id): array {
-		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "attribute_group` WHERE `attribute_group_id` = '" . (int)$attribute_group_id . "'");
+    public function getAttributeGroup(int $attribute_group_id): array {
+        $query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "attribute_group` WHERE `attribute_group_id` = '" . (int)$attribute_group_id . "'");
 
-		return $query->row;
-	}
+        return $query->row;
+    }
 
-	public function getAttributeGroups(array $data = array()): array {
-		$sql = "SELECT * FROM `" . DB_PREFIX . "attribute_group` ag LEFT JOIN `" . DB_PREFIX . "attribute_group_description` agd ON (ag.`attribute_group_id` = agd.`attribute_group_id`) WHERE agd.`language_id` = '" . (int)$this->config->get('config_language_id') . "'";
-		
-		$sort_data = array(
-			'agd.name',
-			'ag.sort_order'
-		);
+    public function getAttributeGroups(array $data = array()): array {
+        $sql = "SELECT * FROM `" . DB_PREFIX . "attribute_group` ag LEFT JOIN `" . DB_PREFIX . "attribute_group_description` agd ON (ag.`attribute_group_id` = agd.`attribute_group_id`) WHERE agd.`language_id` = '" . (int)$this->config->get('config_language_id') . "'";
 
-		if (isset($data['sort']) && in_array($data['sort'], $sort_data)) {
-			$sql .= " ORDER BY " . $data['sort'];
-		} else {
-			$sql .= " ORDER BY agd.`name`";
-		}
+        $sort_data = array(
+            'agd.name', 'ag.sort_order');
 
-		if (isset($data['order']) && ($data['order'] == 'DESC')) {
-			$sql .= " DESC";
-		} else {
-			$sql .= " ASC";
-		}
+        if (isset($data['sort']) && in_array($data['sort'], $sort_data)) {
+            $sql .= " ORDER BY " . $data['sort'];
+        } else {
+            $sql .= " ORDER BY agd.`name`";
+        }
 
-		if (isset($data['start']) || isset($data['limit'])) {
-			if ($data['start'] < 0) {
-				$data['start'] = 0;
-			}
+        if (isset($data['order']) && ($data['order'] == 'DESC')) {
+            $sql .= " DESC";
+        } else {
+            $sql .= " ASC";
+        }
 
-			if ($data['limit'] < 1) {
-				$data['limit'] = 20;
-			}
+        if (isset($data['start']) || isset($data['limit'])) {
+            if ($data['start'] < 0) {
+                $data['start'] = 0;
+            }
 
-			$sql .= " LIMIT " . (int)$data['start'] . "," . (int)$data['limit'];
-		}
+            if ($data['limit'] < 1) {
+                $data['limit'] = 20;
+            }
 
-		$query = $this->db->query($sql);
+            $sql .= " LIMIT " . (int)$data['start'] . "," . (int)$data['limit'];
+        }
 
-		return $query->rows;
-	}
+        $query = $this->db->query($sql);
 
-	public function getAttributeGroupDescriptions(int $attribute_group_id): array {
-		$attribute_group_data = array();
+        return $query->rows;
+    }
 
-		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "attribute_group_description` WHERE `attribute_group_id` = '" . (int)$attribute_group_id . "'");
+    public function getAttributeGroupDescriptions(int $attribute_group_id): array {
+        $attribute_group_data = array();
 
-		foreach ($query->rows as $result) {
-			$attribute_group_data[$result['language_id']] = array('name' => $result['name']);
-		}
+        $query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "attribute_group_description` WHERE `attribute_group_id` = '" . (int)$attribute_group_id . "'");
 
-		return $attribute_group_data;
-	}
+        foreach ($query->rows as $result) {
+            $attribute_group_data[$result['language_id']] = array('name' => $result['name']);
+        }
 
-	public function getTotalAttributeGroups(): int {
-		$query = $this->db->query("SELECT COUNT(*) AS `total` FROM `" . DB_PREFIX . "attribute_group`");
+        return $attribute_group_data;
+    }
 
-		return (int)$query->row['total'];
-	}
+    public function getTotalAttributeGroups(): int {
+        $query = $this->db->query("SELECT COUNT(*) AS `total` FROM `" . DB_PREFIX . "attribute_group`");
+
+        return (int)$query->row['total'];
+    }
 }

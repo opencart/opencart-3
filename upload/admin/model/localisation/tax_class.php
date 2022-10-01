@@ -1,105 +1,105 @@
 <?php
 class ModelLocalisationTaxClass extends Model {
-	public function addTaxClass(array $data): int {
-		$this->db->query("INSERT INTO `" . DB_PREFIX . "tax_class` SET `title` = '" . $this->db->escape($data['title']) . "', `description` = '" . $this->db->escape($data['description']) . "', `date_added` = NOW()");
+    public function addTaxClass(array $data): int {
+        $this->db->query("INSERT INTO `" . DB_PREFIX . "tax_class` SET `title` = '" . $this->db->escape($data['title']) . "', `description` = '" . $this->db->escape($data['description']) . "', `date_added` = NOW()");
 
-		$tax_class_id = $this->db->getLastId();
+        $tax_class_id = $this->db->getLastId();
 
-		if (isset($data['tax_rule'])) {
-			foreach ($data['tax_rule'] as $tax_rule) {
-				$this->db->query("INSERT INTO `" . DB_PREFIX . "tax_rule` SET `tax_class_id` = '" . (int)$tax_class_id . "', `tax_rate_id` = '" . (int)$tax_rule['tax_rate_id'] . "', `based` = '" . $this->db->escape($tax_rule['based']) . "', `priority` = '" . (int)$tax_rule['priority'] . "'");
-			}
-		}
+        if (isset($data['tax_rule'])) {
+            foreach ($data['tax_rule'] as $tax_rule) {
+                $this->db->query("INSERT INTO `" . DB_PREFIX . "tax_rule` SET `tax_class_id` = '" . (int)$tax_class_id . "', `tax_rate_id` = '" . (int)$tax_rule['tax_rate_id'] . "', `based` = '" . $this->db->escape($tax_rule['based']) . "', `priority` = '" . (int)$tax_rule['priority'] . "'");
+            }
+        }
 
-		$this->cache->delete('tax_class');
-		
-		return $tax_class_id;
-	}
+        $this->cache->delete('tax_class');
 
-	public function editTaxClass(int $tax_class_id, array $data): void {
-		$this->db->query("UPDATE `" . DB_PREFIX . "tax_class` SET `title` = '" . $this->db->escape($data['title']) . "', `description` = '" . $this->db->escape($data['description']) . "', `date_modified` = NOW() WHERE `tax_class_id` = '" . (int)$tax_class_id . "'");
+        return $tax_class_id;
+    }
 
-		$this->db->query("DELETE FROM `" . DB_PREFIX . "tax_rule` WHERE `tax_class_id` = '" . (int)$tax_class_id . "'");
+    public function editTaxClass(int $tax_class_id, array $data): void {
+        $this->db->query("UPDATE `" . DB_PREFIX . "tax_class` SET `title` = '" . $this->db->escape($data['title']) . "', `description` = '" . $this->db->escape($data['description']) . "', `date_modified` = NOW() WHERE `tax_class_id` = '" . (int)$tax_class_id . "'");
 
-		if (isset($data['tax_rule'])) {
-			foreach ($data['tax_rule'] as $tax_rule) {
-				$this->db->query("INSERT INTO `" . DB_PREFIX . "tax_rule` SET `tax_class_id` = '" . (int)$tax_class_id . "', `tax_rate_id` = '" . (int)$tax_rule['tax_rate_id'] . "', `based` = '" . $this->db->escape($tax_rule['based']) . "', `priority` = '" . (int)$tax_rule['priority'] . "'");
-			}
-		}
+        $this->db->query("DELETE FROM `" . DB_PREFIX . "tax_rule` WHERE `tax_class_id` = '" . (int)$tax_class_id . "'");
 
-		$this->cache->delete('tax_class');
-	}
+        if (isset($data['tax_rule'])) {
+            foreach ($data['tax_rule'] as $tax_rule) {
+                $this->db->query("INSERT INTO `" . DB_PREFIX . "tax_rule` SET `tax_class_id` = '" . (int)$tax_class_id . "', `tax_rate_id` = '" . (int)$tax_rule['tax_rate_id'] . "', `based` = '" . $this->db->escape($tax_rule['based']) . "', `priority` = '" . (int)$tax_rule['priority'] . "'");
+            }
+        }
 
-	public function deleteTaxClass(int $tax_class_id): void {
-		$this->db->query("DELETE FROM `" . DB_PREFIX . "tax_class` WHERE `tax_class_id` = '" . (int)$tax_class_id . "'");
-		$this->db->query("DELETE FROM `" . DB_PREFIX . "tax_rule` WHERE `tax_class_id` = '" . (int)$tax_class_id . "'");
+        $this->cache->delete('tax_class');
+    }
 
-		$this->cache->delete('tax_class');
-	}
+    public function deleteTaxClass(int $tax_class_id): void {
+        $this->db->query("DELETE FROM `" . DB_PREFIX . "tax_class` WHERE `tax_class_id` = '" . (int)$tax_class_id . "'");
+        $this->db->query("DELETE FROM `" . DB_PREFIX . "tax_rule` WHERE `tax_class_id` = '" . (int)$tax_class_id . "'");
 
-	public function getTaxClass(int $tax_class_id): array {
-		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "tax_class` WHERE `tax_class_id` = '" . (int)$tax_class_id . "'");
+        $this->cache->delete('tax_class');
+    }
 
-		return $query->row;
-	}
+    public function getTaxClass(int $tax_class_id): array {
+        $query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "tax_class` WHERE `tax_class_id` = '" . (int)$tax_class_id . "'");
 
-	public function getTaxClasses(array $data = array()): array {
-		if ($data) {
-			$sql = "SELECT * FROM `" . DB_PREFIX . "tax_class`";
+        return $query->row;
+    }
 
-			$sql .= " ORDER BY `title`";
+    public function getTaxClasses(array $data = array()): array {
+        if ($data) {
+            $sql = "SELECT * FROM `" . DB_PREFIX . "tax_class`";
 
-			if (isset($data['order']) && ($data['order'] == 'DESC')) {
-				$sql .= " DESC";
-			} else {
-				$sql .= " ASC";
-			}
+            $sql .= " ORDER BY `title`";
 
-			if (isset($data['start']) || isset($data['limit'])) {
-				if ($data['start'] < 0) {
-					$data['start'] = 0;
-				}
+            if (isset($data['order']) && ($data['order'] == 'DESC')) {
+                $sql .= " DESC";
+            } else {
+                $sql .= " ASC";
+            }
 
-				if ($data['limit'] < 1) {
-					$data['limit'] = 20;
-				}
+            if (isset($data['start']) || isset($data['limit'])) {
+                if ($data['start'] < 0) {
+                    $data['start'] = 0;
+                }
 
-				$sql .= " LIMIT " . (int)$data['start'] . "," . (int)$data['limit'];
-			}
+                if ($data['limit'] < 1) {
+                    $data['limit'] = 20;
+                }
 
-			$query = $this->db->query($sql);
+                $sql .= " LIMIT " . (int)$data['start'] . "," . (int)$data['limit'];
+            }
 
-			return $query->rows;
-		} else {
-			$tax_class_data = $this->cache->get('tax_class');
+            $query = $this->db->query($sql);
 
-			if (!$tax_class_data) {
-				$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "tax_class`");
+            return $query->rows;
+        } else {
+            $tax_class_data = $this->cache->get('tax_class');
 
-				$tax_class_data = $query->rows;
+            if (!$tax_class_data) {
+                $query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "tax_class`");
 
-				$this->cache->set('tax_class', $tax_class_data);
-			}
+                $tax_class_data = $query->rows;
 
-			return $tax_class_data;
-		}
-	}
+                $this->cache->set('tax_class', $tax_class_data);
+            }
 
-	public function getTotalTaxClasses(): int {
-		$query = $this->db->query("SELECT COUNT(*) AS `total` FROM `" . DB_PREFIX . "tax_class`");
+            return $tax_class_data;
+        }
+    }
 
-		return (int)$query->row['total'];
-	}
+    public function getTotalTaxClasses(): int {
+        $query = $this->db->query("SELECT COUNT(*) AS `total` FROM `" . DB_PREFIX . "tax_class`");
 
-	public function getTaxRules(int $tax_class_id): array {
-		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "tax_rule` WHERE `tax_class_id` = '" . (int)$tax_class_id . "' ORDER BY `priority` ASC");
+        return (int)$query->row['total'];
+    }
 
-		return $query->rows;
-	}
+    public function getTaxRules(int $tax_class_id): array {
+        $query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "tax_rule` WHERE `tax_class_id` = '" . (int)$tax_class_id . "' ORDER BY `priority` ASC");
 
-	public function getTotalTaxRulesByTaxRateId(int $tax_rate_id): int {
-		$query = $this->db->query("SELECT COUNT(DISTINCT `tax_class_id`) AS `total` FROM `" . DB_PREFIX . "tax_rule` WHERE `tax_rate_id` = '" . (int)$tax_rate_id . "'");
+        return $query->rows;
+    }
 
-		return (int)$query->row['total'];
-	}
+    public function getTotalTaxRulesByTaxRateId(int $tax_rate_id): int {
+        $query = $this->db->query("SELECT COUNT(DISTINCT `tax_class_id`) AS `total` FROM `" . DB_PREFIX . "tax_rule` WHERE `tax_rate_id` = '" . (int)$tax_rate_id . "'");
+
+        return (int)$query->row['total'];
+    }
 }

@@ -1,48 +1,48 @@
 <?php
 class ModelLocalisationAddressFormat extends Model {
-	public function addAddressFormat(array $data): int {
-		$this->db->query("INSERT INTO `" . DB_PREFIX . "address_format` SET `name` = '" . $this->db->escape($data['name']) . "', `address_format` = '" . $this->db->escape($data['address_format']) . "'");
+    public function addAddressFormat(array $data): int {
+        $this->db->query("INSERT INTO `" . DB_PREFIX . "address_format` SET `name` = '" . $this->db->escape($data['name']) . "', `address_format` = '" . $this->db->escape($data['address_format']) . "'");
 
-		return $this->db->getLastId();
-	}
+        return $this->db->getLastId();
+    }
 
-	public function editAddressFormat(int $address_format_id, array $data): void {
-		$this->db->query("UPDATE `" . DB_PREFIX . "address_format` SET `name` = '" . $this->db->escape($data['name']) . "', `address_format` = '" . $this->db->escape($data['address_format']) . "' WHERE `address_format_id` = '" . (int)$address_format_id . "'");
-	}
+    public function editAddressFormat(int $address_format_id, array $data): void {
+        $this->db->query("UPDATE `" . DB_PREFIX . "address_format` SET `name` = '" . $this->db->escape($data['name']) . "', `address_format` = '" . $this->db->escape($data['address_format']) . "' WHERE `address_format_id` = '" . (int)$address_format_id . "'");
+    }
 
-	public function deleteAddressFormat(int $address_format_id): void {
-		$this->db->query("DELETE FROM `" . DB_PREFIX . "address_format` WHERE `address_format_id` = '" . (int)$address_format_id . "'");
-	}
+    public function deleteAddressFormat(int $address_format_id): void {
+        $this->db->query("DELETE FROM `" . DB_PREFIX . "address_format` WHERE `address_format_id` = '" . (int)$address_format_id . "'");
+    }
 
-	public function getAddressFormat(int $address_format_id): array {
-		$query = $this->db->query("SELECT DISTINCT * FROM `" . DB_PREFIX . "address_format` WHERE `address_format_id` = '" . (int)$address_format_id . "'");
+    public function getAddressFormat(int $address_format_id): array {
+        $query = $this->db->query("SELECT DISTINCT * FROM `" . DB_PREFIX . "address_format` WHERE `address_format_id` = '" . (int)$address_format_id . "'");
 
-		return $query->row;
-	}
+        return $query->row;
+    }
 
-	public function getAddressFormats(array $data = array()): array {
-		$sql = "SELECT * FROM `" . DB_PREFIX . "address_format`";
+    public function getAddressFormats(array $data = array()): array {
+        $sql = "SELECT * FROM `" . DB_PREFIX . "address_format`";
 
-		if (isset($data['start']) || isset($data['limit'])) {
-			if ($data['start'] < 0) {
-				$data['start'] = 0;
-			}
+        if (isset($data['start']) || isset($data['limit'])) {
+            if ($data['start'] < 0) {
+                $data['start'] = 0;
+            }
 
-			if ($data['limit'] < 1) {
-				$data['limit'] = 20;
-			}
+            if ($data['limit'] < 1) {
+                $data['limit'] = 20;
+            }
 
-			$sql .= " LIMIT " . (int)$data['start'] . "," . (int)$data['limit'];
-		}
+            $sql .= " LIMIT " . (int)$data['start'] . "," . (int)$data['limit'];
+        }
 
-		$query = $this->db->query($sql);
+        $query = $this->db->query($sql);
 
-		return $query->rows;
-	}
+        return $query->rows;
+    }
 
-	public function getTotalAddressFormats(array $data = array()): int {
-		$query = $this->db->query("SELECT COUNT(*) AS `total` FROM `" . DB_PREFIX . "address_format`");
+    public function getTotalAddressFormats(array $data = array()): int {
+        $query = $this->db->query("SELECT COUNT(*) AS `total` FROM `" . DB_PREFIX . "address_format`");
 
-		return (int)$query->row['total'];
-	}
+        return (int)$query->row['total'];
+    }
 }

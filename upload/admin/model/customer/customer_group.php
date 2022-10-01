@@ -1,97 +1,93 @@
 <?php
 class ModelCustomerCustomerGroup extends Model {
-	public function addCustomerGroup(array $data): int {
-		$this->db->query("INSERT INTO `" . DB_PREFIX . "customer_group` SET `approval` = '" . (int)$data['approval'] . "', `sort_order` = '" . (int)$data['sort_order'] . "'");
+    public function addCustomerGroup(array $data): int {
+        $this->db->query("INSERT INTO `" . DB_PREFIX . "customer_group` SET `approval` = '" . (int)$data['approval'] . "', `sort_order` = '" . (int)$data['sort_order'] . "'");
 
-		$customer_group_id = $this->db->getLastId();
+        $customer_group_id = $this->db->getLastId();
 
-		foreach ($data['customer_group_description'] as $language_id => $value) {
-			$this->db->query("INSERT INTO `" . DB_PREFIX . "customer_group_description` SET `customer_group_id` = '" . (int)$customer_group_id . "', `language_id` = '" . (int)$language_id . "', `name` = '" . $this->db->escape($value['name']) . "', `description` = '" . $this->db->escape($value['description']) . "'");
-		}
-		
-		return $customer_group_id;
-	}
+        foreach ($data['customer_group_description'] as $language_id => $value) {
+            $this->db->query("INSERT INTO `" . DB_PREFIX . "customer_group_description` SET `customer_group_id` = '" . (int)$customer_group_id . "', `language_id` = '" . (int)$language_id . "', `name` = '" . $this->db->escape($value['name']) . "', `description` = '" . $this->db->escape($value['description']) . "'");
+        }
 
-	public function editCustomerGroup(int $customer_group_id, array $data): void {
-		$this->db->query("UPDATE `" . DB_PREFIX . "customer_group` SET `approval` = '" . (int)$data['approval'] . "', `sort_order` = '" . (int)$data['sort_order'] . "' WHERE `customer_group_id` = '" . (int)$customer_group_id . "'");
+        return $customer_group_id;
+    }
 
-		$this->db->query("DELETE FROM `" . DB_PREFIX . "customer_group_description` WHERE `customer_group_id` = '" . (int)$customer_group_id . "'");
+    public function editCustomerGroup(int $customer_group_id, array $data): void {
+        $this->db->query("UPDATE `" . DB_PREFIX . "customer_group` SET `approval` = '" . (int)$data['approval'] . "', `sort_order` = '" . (int)$data['sort_order'] . "' WHERE `customer_group_id` = '" . (int)$customer_group_id . "'");
 
-		foreach ($data['customer_group_description'] as $language_id => $value) {
-			$this->db->query("INSERT INTO `" . DB_PREFIX . "customer_group_description` SET `customer_group_id` = '" . (int)$customer_group_id . "', `language_id` = '" . (int)$language_id . "', `name` = '" . $this->db->escape($value['name']) . "', `description` = '" . $this->db->escape($value['description']) . "'");
-		}
-	}
+        $this->db->query("DELETE FROM `" . DB_PREFIX . "customer_group_description` WHERE `customer_group_id` = '" . (int)$customer_group_id . "'");
 
-	public function deleteCustomerGroup(int $customer_group_id): void {
-		$this->db->query("DELETE FROM `" . DB_PREFIX . "customer_group` WHERE `customer_group_id` = '" . (int)$customer_group_id . "'");
-		$this->db->query("DELETE FROM `" . DB_PREFIX . "customer_group_description` WHERE customer_group_id = '" . (int)$customer_group_id . "'");
-		$this->db->query("DELETE FROM `" . DB_PREFIX . "product_discount` WHERE `customer_group_id` = '" . (int)$customer_group_id . "'");
-		$this->db->query("DELETE FROM `" . DB_PREFIX . "product_special` WHERE `customer_group_id` = '" . (int)$customer_group_id . "'");
-		$this->db->query("DELETE FROM `" . DB_PREFIX . "product_reward` WHERE `customer_group_id` = '" . (int)$customer_group_id . "'");
-		$this->db->query("DELETE FROM `" . DB_PREFIX . "tax_rate_to_customer_group` WHERE `customer_group_id` = '" . (int)$customer_group_id . "'");
-	}
+        foreach ($data['customer_group_description'] as $language_id => $value) {
+            $this->db->query("INSERT INTO `" . DB_PREFIX . "customer_group_description` SET `customer_group_id` = '" . (int)$customer_group_id . "', `language_id` = '" . (int)$language_id . "', `name` = '" . $this->db->escape($value['name']) . "', `description` = '" . $this->db->escape($value['description']) . "'");
+        }
+    }
 
-	public function getCustomerGroup(int $customer_group_id): array {
-		$query = $this->db->query("SELECT DISTINCT * FROM `" . DB_PREFIX . "customer_group` cg LEFT JOIN `" . DB_PREFIX . "customer_group_description` cgd ON (cg.`customer_group_id` = cgd.`customer_group_id`) WHERE cg.`customer_group_id` = '" . (int)$customer_group_id . "' AND cgd.`language_id` = '" . (int)$this->config->get('config_language_id') . "'");
+    public function deleteCustomerGroup(int $customer_group_id): void {
+        $this->db->query("DELETE FROM `" . DB_PREFIX . "customer_group` WHERE `customer_group_id` = '" . (int)$customer_group_id . "'");
+        $this->db->query("DELETE FROM `" . DB_PREFIX . "customer_group_description` WHERE customer_group_id = '" . (int)$customer_group_id . "'");
+        $this->db->query("DELETE FROM `" . DB_PREFIX . "product_discount` WHERE `customer_group_id` = '" . (int)$customer_group_id . "'");
+        $this->db->query("DELETE FROM `" . DB_PREFIX . "product_special` WHERE `customer_group_id` = '" . (int)$customer_group_id . "'");
+        $this->db->query("DELETE FROM `" . DB_PREFIX . "product_reward` WHERE `customer_group_id` = '" . (int)$customer_group_id . "'");
+        $this->db->query("DELETE FROM `" . DB_PREFIX . "tax_rate_to_customer_group` WHERE `customer_group_id` = '" . (int)$customer_group_id . "'");
+    }
 
-		return $query->row;
-	}
+    public function getCustomerGroup(int $customer_group_id): array {
+        $query = $this->db->query("SELECT DISTINCT * FROM `" . DB_PREFIX . "customer_group` cg LEFT JOIN `" . DB_PREFIX . "customer_group_description` cgd ON (cg.`customer_group_id` = cgd.`customer_group_id`) WHERE cg.`customer_group_id` = '" . (int)$customer_group_id . "' AND cgd.`language_id` = '" . (int)$this->config->get('config_language_id') . "'");
 
-	public function getCustomerGroups(array $data = array()): array {
-		$sql = "SELECT * FROM `" . DB_PREFIX . "customer_group` cg LEFT JOIN `" . DB_PREFIX . "customer_group_description` cgd ON (cg.`customer_group_id` = cgd.`customer_group_id`) WHERE cgd.`language_id` = '" . (int)$this->config->get('config_language_id') . "'";
-		
-		$sort_data = array(
-			'cgd.name',
-			'cg.sort_order'
-		);
+        return $query->row;
+    }
 
-		if (isset($data['sort']) && in_array($data['sort'], $sort_data)) {
-			$sql .= " ORDER BY " . $data['sort'];
-		} else {
-			$sql .= " ORDER BY cgd.`name`";
-		}
+    public function getCustomerGroups(array $data = array()): array {
+        $sql = "SELECT * FROM `" . DB_PREFIX . "customer_group` cg LEFT JOIN `" . DB_PREFIX . "customer_group_description` cgd ON (cg.`customer_group_id` = cgd.`customer_group_id`) WHERE cgd.`language_id` = '" . (int)$this->config->get('config_language_id') . "'";
 
-		if (isset($data['order']) && ($data['order'] == 'DESC')) {
-			$sql .= " DESC";
-		} else {
-			$sql .= " ASC";
-		}
+        $sort_data = array(
+            'cgd.name', 'cg.sort_order');
 
-		if (isset($data['start']) || isset($data['limit'])) {
-			if ($data['start'] < 0) {
-				$data['start'] = 0;
-			}
+        if (isset($data['sort']) && in_array($data['sort'], $sort_data)) {
+            $sql .= " ORDER BY " . $data['sort'];
+        } else {
+            $sql .= " ORDER BY cgd.`name`";
+        }
 
-			if ($data['limit'] < 1) {
-				$data['limit'] = 20;
-			}
+        if (isset($data['order']) && ($data['order'] == 'DESC')) {
+            $sql .= " DESC";
+        } else {
+            $sql .= " ASC";
+        }
 
-			$sql .= " LIMIT " . (int)$data['start'] . "," . (int)$data['limit'];
-		}
+        if (isset($data['start']) || isset($data['limit'])) {
+            if ($data['start'] < 0) {
+                $data['start'] = 0;
+            }
 
-		$query = $this->db->query($sql);
+            if ($data['limit'] < 1) {
+                $data['limit'] = 20;
+            }
 
-		return $query->rows;
-	}
+            $sql .= " LIMIT " . (int)$data['start'] . "," . (int)$data['limit'];
+        }
 
-	public function getCustomerGroupDescriptions(int $customer_group_id): array {
-		$customer_group_data = array();
+        $query = $this->db->query($sql);
 
-		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "customer_group_description` WHERE `customer_group_id` = '" . (int)$customer_group_id . "'");
+        return $query->rows;
+    }
 
-		foreach ($query->rows as $result) {
-			$customer_group_data[$result['language_id']] = array(
-				'name'        => $result['name'],
-				'description' => $result['description']
-			);
-		}
+    public function getCustomerGroupDescriptions(int $customer_group_id): array {
+        $customer_group_data = array();
 
-		return $customer_group_data;
-	}
+        $query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "customer_group_description` WHERE `customer_group_id` = '" . (int)$customer_group_id . "'");
 
-	public function getTotalCustomerGroups(): int {
-		$query = $this->db->query("SELECT COUNT(*) AS `total` FROM `" . DB_PREFIX . "customer_group`");
+        foreach ($query->rows as $result) {
+            $customer_group_data[$result['language_id']] = array(
+                'name' => $result['name'], 'description' => $result['description']);
+        }
 
-		return (int)$query->row['total'];
-	}
+        return $customer_group_data;
+    }
+
+    public function getTotalCustomerGroups(): int {
+        $query = $this->db->query("SELECT COUNT(*) AS `total` FROM `" . DB_PREFIX . "customer_group`");
+
+        return (int)$query->row['total'];
+    }
 }

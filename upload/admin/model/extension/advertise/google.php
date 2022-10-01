@@ -1,7 +1,6 @@
 <?php
 use \googleshopping\exception\Connection as ConnectionException;
 use \googleshopping\Googleshopping;
-
 class ModelExtensionAdvertiseGoogle extends Model {
     private array $events = array(
         'admin/view/common/column_left/before' => array(
@@ -199,7 +198,7 @@ class ModelExtensionAdvertiseGoogle extends Model {
         $this->load->config('googleshopping/googleshopping');
 
         $result = array();
-		
+
         $countries = $this->getTargetCountriesByProductIds($product_ids, $store_id);
 
         foreach ($countries as $country) {
@@ -221,7 +220,7 @@ class ModelExtensionAdvertiseGoogle extends Model {
         $this->load->config('googleshopping/googleshopping');
 
         $result = array();
-		
+
         $countries = $this->getTargetCountriesByFilter($data, $store_id);
 
         foreach ($countries as $country) {
@@ -359,7 +358,7 @@ class ModelExtensionAdvertiseGoogle extends Model {
         $values = array();
 
         $entry = array();
-		
+
         $entry['product_id'] = (int)$data['product_id'];
         $entry = array_merge($entry, $this->makeInsertData($data));
 
@@ -376,7 +375,7 @@ class ModelExtensionAdvertiseGoogle extends Model {
         $this->googleshopping->applyFilter($insert_sql, $filter_data);
 
         $insert_data = array();
-		
+
         $keys[] = "`product_id`";
 
         foreach ($this->makeInsertData($data) as $key => $value) {
@@ -421,7 +420,7 @@ class ModelExtensionAdvertiseGoogle extends Model {
         }
 
         $sql .= " GROUP BY cp.`category_id`";
-		
+
 		$sort_data = array(
             'name',
             'sort_order'
@@ -464,16 +463,16 @@ class ModelExtensionAdvertiseGoogle extends Model {
 
     public function getProductIssues($product_id, $store_id) {
 		$this->load->language('extension/advertise/google');
-		
+
         $this->load->model('localisation/language');
 
         $sql = "SELECT pag.`color`, pag.`size`, pd.`name`, p.`model` FROM `" . DB_PREFIX . "googleshopping_product` pag LEFT JOIN `" . DB_PREFIX . "product` p ON (p.`product_id` = pag.`product_id`) LEFT JOIN `" . DB_PREFIX . "product_description` pd ON (pd.`product_id` = pag.`product_id` AND pd.`language_id` = '" . (int)$this->config->get('config_language_id') . "') WHERE pag.`product_id` = '" . (int)$product_id . "' AND pag.`store_id` = '" . (int)$store_id . "'";
-		
+
         $product_info = $this->db->query($sql)->row;
 
         if (!empty($product_info)) {
             $result = array();
-			
+
             $result['name'] = $product_info['name'];
             $result['model'] = $product_info['model'];
             $result['entries'] = array();
@@ -513,9 +512,9 @@ class ModelExtensionAdvertiseGoogle extends Model {
     }
 
     /*
-     * Shortly after releasing the extension, 
-     * we learned that the table names are actually 
-     * clashing with third-party extensions. 
+     * Shortly after releasing the extension,
+     * we learned that the table names are actually
+     * clashing with third-party extensions.
      * Hence, this renaming script was created.
      */
     public function renameTables() {

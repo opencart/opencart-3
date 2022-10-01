@@ -1,16 +1,16 @@
 <?php
 class ModelExtensionPaymentSquareup extends Model {
-    const RECURRING_ACTIVE = 1;
-    const RECURRING_INACTIVE = 2;
+    const RECURRING_ACTIVE    = 1;
+    const RECURRING_INACTIVE  = 2;
     const RECURRING_CANCELLED = 3;
     const RECURRING_SUSPENDED = 4;
-    const RECURRING_EXPIRED = 5;
-    const RECURRING_PENDING = 6;
+    const RECURRING_EXPIRED   = 5;
+    const RECURRING_PENDING   = 6;
 
     public function getTransaction(int $squareup_transaction_id): array {
         $query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "squareup_transaction` WHERE `squareup_transaction_id` = '" . (int)$squareup_transaction_id . "'");
-		
-		return $query->row;
+
+        return $query->row;
     }
 
     public function getTransactions(array $data): array {
