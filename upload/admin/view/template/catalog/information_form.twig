@@ -147,7 +147,8 @@
                     {% for store in stores %}
                       <tr>
                         <td class="text-left">{{ store.name }}</td>
-                        <td class="text-left">{% for language in languages %}
+                        <td class="text-left">
+                          {% for language in languages %}
                             <div class="input-group">
                               <span class="input-group-addon"><img src="language/{{ language.code }}/{{ language.code }}.png" title="{{ language.name }}"/></span>
                               <input type="text" name="information_seo_url[{{ store.store_id }}][{{ language.language_id }}]" value="{% if information_seo_url[store.store_id][language.language_id] %}{{ information_seo_url[store.store_id][language.language_id] }}{% endif %}" placeholder="{{ entry_keyword }}" class="form-control"/>
@@ -206,6 +207,7 @@
   <link href="view/javascript/summernote/summernote.min.css" rel="stylesheet"/>
   <script type="text/javascript" src="view/javascript/summernote/summernote-image-attributes.js"></script>
   <script type="text/javascript" src="view/javascript/summernote/opencart.js"></script>
+  
   <script type="text/javascript"><!--
       $('#language a:first').tab('show');
   //--></script>

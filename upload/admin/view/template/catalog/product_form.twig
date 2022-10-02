@@ -396,7 +396,8 @@
                           <input type="text" name="product_attribute[{{ attribute_row }}][name]" value="{{ product_attribute.name }}" placeholder="{{ entry_attribute }}" class="form-control"/>
                           <input type="hidden" name="product_attribute[{{ attribute_row }}][attribute_id]" value="{{ product_attribute.attribute_id }}"/>
                         </td>
-                        <td class="text-left">{% for language in languages %}
+                        <td class="text-left">
+                          {% for language in languages %}
                             <div class="input-group">
                               <span class="input-group-addon"><img src="language/{{ language.code }}/{{ language.code }}.png" title="{{ language.name }}"/></span>
                               <textarea name="product_attribute[{{ attribute_row }}][product_attribute_description][{{ language.language_id }}][text]" rows="5" placeholder="{{ entry_text }}" class="form-control">{{ product_attribute.product_attribute_description[language.language_id] ? product_attribute.product_attribute_description[language.language_id].text }}</textarea>
@@ -907,7 +908,8 @@
                     {% for store in stores %}
                       <tr>
                         <td class="text-left">{{ store.name }}</td>
-                        <td class="text-left">{% for language in languages %}
+                        <td class="text-left">
+                          {% for language in languages %}
                             <div class="input-group">
                               <span class="input-group-addon"><img src="language/{{ language.code }}/{{ language.code }}.png" title="{{ language.name }}"/></span>
                               <input type="text" name="product_seo_url[{{ store.store_id }}][{{ language.language_id }}]" value="{% if product_seo_url[store.store_id][language.language_id] %}{{ product_seo_url[store.store_id][language.language_id] }}{% endif %}" placeholder="{{ entry_keyword }}" class="form-control"/>

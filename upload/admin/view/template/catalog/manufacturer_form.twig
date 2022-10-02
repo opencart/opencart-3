@@ -84,7 +84,8 @@
                     {% for store in stores %}
                       <tr>
                         <td class="text-left">{{ store.name }}</td>
-                        <td class="text-left">{% for language in languages %}
+                        <td class="text-left">
+                          {% for language in languages %}
                             <div class="input-group">
                               <span class="input-group-addon"><img src="language/{{ language.code }}/{{ language.code }}.png" title="{{ language.name }}"/></span>
                               <input type="text" name="manufacturer_seo_url[{{ store.store_id }}][{{ language.language_id }}]" value="{% if manufacturer_seo_url[store.store_id][language.language_id] %}{{ manufacturer_seo_url[store.store_id][language.language_id] }}{% endif %}" placeholder="{{ entry_keyword }}" class="form-control"/>
