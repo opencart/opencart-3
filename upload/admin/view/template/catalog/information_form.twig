@@ -15,7 +15,8 @@
       </ul>
     </div>
   </div>
-  <div class="container-fluid">{% if error_warning %}
+  <div class="container-fluid">
+    {% if error_warning %}
       <div class="alert alert-danger alert-dismissible"><i class="fa fa-exclamation-circle"></i> {{ error_warning }}
         <button type="button" class="close" data-dismiss="alert">&times;</button>
       </div>
@@ -41,7 +42,8 @@
                     </a></li>
                 {% endfor %}
               </ul>
-              <div class="tab-content">{% for language in languages %}
+              <div class="tab-content">
+                {% for language in languages %}
                   <div class="tab-pane" id="language{{ language.language_id }}">
                     <div class="form-group required">
                       <label class="col-sm-2 control-label" for="input-title{{ language.language_id }}">{{ entry_title }}</label>
@@ -86,9 +88,11 @@
               <div class="form-group">
                 <label class="col-sm-2 control-label">{{ entry_store }}</label>
                 <div class="col-sm-10">
-                  <div class="well well-sm" style="height: 150px; overflow: auto;"> {% for store in stores %}
+                  <div class="well well-sm" style="height: 150px; overflow: auto;">
+                    {% for store in stores %}
                       <div class="checkbox">
-                        <label> {% if store.store_id in information_store %}
+                        <label>
+                          {% if store.store_id in information_store %}
                             <input type="checkbox" name="information_store[]" value="{{ store.store_id }}" checked="checked"/>
                             {{ store.name }}
                           {% else %}
@@ -103,12 +107,12 @@
                 <label class="col-sm-2 control-label" for="input-bottom"><span data-toggle="tooltip" title="{{ help_bottom }}">{{ entry_bottom }}</span></label>
                 <div class="col-sm-10">
                   <div class="checkbox">
-                    <label>{% if bottom %}
+                    <label>
+                      {% if bottom %}
                         <input type="checkbox" name="bottom" value="1" checked="checked" id="input-bottom"/>
                       {% else %}
                         <input type="checkbox" name="bottom" value="1" id="input-bottom"/>
-                      {% endif %}
-                      &nbsp;</label>
+                      {% endif %}&nbsp;</label>
                   </div>
                 </div>
               </div>

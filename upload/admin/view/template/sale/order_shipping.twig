@@ -72,28 +72,29 @@
         {% for product in order.product %}
         <tr>
           <td>{{ product.location }}</td>
-          <td>{% if product.sku %}
-            {{ text_sku }} {{ product.sku }}<br/>
+          <td>
+            {% if product.sku %}
+              {{ text_sku }} {{ product.sku }}<br/>
             {% endif %}
             {% if product.upc %}
-            {{ text_upc }} {{ product.upc }}<br/>
+              {{ text_upc }} {{ product.upc }}<br/>
             {% endif %}
             {% if product.ean %}
-            {{ text_ean }} {{ product.ean }}<br/>
+              {{ text_ean }} {{ product.ean }}<br/>
             {% endif %}
             {% if product.jan %}
-            {{ text_jan }} {{ product.jan }}<br/>
+              {{ text_jan }} {{ product.jan }}<br/>
             {% endif %}
             {% if product.isbn %}
-            {{ text_isbn }} {{ product.isbn }}<br/>
+              {{ text_isbn }} {{ product.isbn }}<br/>
             {% endif %}
             {% if product.mpn %}
-            {{ text_mpn }}{{ product.mpn }}<br/>
+              {{ text_mpn }}{{ product.mpn }}<br/>
             {% endif %}</td>
           <td>{{ product.name }}
             {% for option in product.option %}
-            <br/>
-            &nbsp;<small> - {{ option.name }}: {{ option.value }}</small>
+              <br/>
+              &nbsp;<small> - {{ option.name }}: {{ option.value }}</small>
             {% endfor %}</td>
           <td>{{ product.weight }}</td>
           <td>{{ product.model }}</td>
@@ -103,18 +104,18 @@
       </tbody>
     </table>
     {% if order.comment %}
-    <table class="table table-bordered">
-      <thead>
-        <tr>
-          <td><b>{{ text_comment }}</b></td>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>{{ order.comment }}</td>
-        </tr>
-      </tbody>
-    </table>
+      <table class="table table-bordered">
+        <thead>
+          <tr>
+            <td><b>{{ text_comment }}</b></td>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>{{ order.comment }}</td>
+          </tr>
+        </tbody>
+      </table>
     {% endif %}
   </div>
   {% endfor %}

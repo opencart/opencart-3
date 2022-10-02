@@ -2,7 +2,8 @@
 <div id="content">
   <div class="page-header">
     <div class="container-fluid">
-      <div class="pull-right">{% if not error_signature %}
+      <div class="pull-right">
+        {% if not error_signature %}
           <button type="button" id="button-opencart" data-toggle="tooltip" title="{{ button_opencart }}" class="btn btn-info"><i class="fa fa-cog"></i></button>
         {% else %}
           <button type="button" id="button-opencart" data-toggle="tooltip" title="{{ error_signature }}" data-placement="left" class="btn btn-danger">
@@ -18,7 +19,8 @@
       </ul>
     </div>
   </div>
-  <div id="marketplace-extension-info" class="container-fluid">{% if error_warning %}
+  <div id="marketplace-extension-info" class="container-fluid">
+    {% if error_warning %}
       <div class="alert alert-danger alert-dismissible"><i class="fa fa-exclamation-circle"></i> {{ error_warning }}
         <button type="button" class="close" data-dismiss="alert">&times;</button>
       </div>
@@ -29,11 +31,13 @@
       </div>
       <div class="panel-body">
         <div class="row extension-info">
-          <div class="col-sm-8">{% if banner %}
+          <div class="col-sm-8">
+            {% if banner %}
               <div id="banner" class="text-center thumbnail">
                 <img src="{{ banner }}" title="{{ name }}" alt="{{ name }}" class="img-responsive"/></div>
             {% endif %}
-            <div class="row thumbnails">{% for image in images %}
+            <div class="row thumbnails">
+              {% for image in images %}
                 <div class="col-xs-4 col-sm-2">
                   <a href="{{ image.popup }}" class="thumbnail"><img src="{{ image.thumb }}" alt="{{ image.name }}" title="{{ image.name }}" class="img-responsive"/></a>
                 </div>
@@ -72,7 +76,8 @@
                           <tr>
                             <td>{{ download.name }}</td>
                             <td>{{ download.date_added }}</td>
-                            <td class="text-right">{% if download.extension_install_id %}
+                            <td class="text-right">
+                              {% if download.extension_install_id %}
                                 <button type="button" data-install="{{ download.extension_download_id }}" data-uninstall="{{ download.extension_install_id }}" data-loading="{{ text_loading }}" class="btn btn-danger">
                                   <i class="fa fa-trash-o"></i> {{ button_uninstall }}</button>
                               {% elseif download.filename|slice(-10) == '.ocmod.zip' %}
@@ -112,12 +117,14 @@
             </div>
           </div>
           <div class="col-sm-4">
-            <div id="buy" class="well">{% if license == '1' and not purchased %}
+            <div id="buy" class="well">
+              {% if license == '1' and not purchased %}
                 <button id="button-buy" class="btn btn-success btn-lg btn-block">{{ button_purchase }}</button>
               {% endif %}
               <div id="price" class="row">
                 <div class="col-xs-5"><strong>{{ text_price }}</strong></div>
-                <div class="col-xs-7 text-right">{% if license %}
+                <div class="col-xs-7 text-right">
+                  {% if license %}
                     {{ price }}
                   {% else %}
                     {{ text_free }}
@@ -132,10 +139,14 @@
               <hr>
               <div class="row">
                 <div class="col-xs-5"><strong>{{ text_rating }}</strong></div>
-                <div class="col-xs-7 text-right">{% for i in 1..5 %}
-                    {% if rating >= i %}<i class="fa fa-star"></i>{% else %}<i class="fa fa-star-o"></i>{% endif %}
-                  {% endfor %} ({{ rating_total }})
-                </div>
+                <div class="col-xs-7 text-right">
+                  {% for i in 1..5 %}
+                    {% if rating >= i %}
+                      <i class="fa fa-star"></i>
+                    {% else %}
+                      <i class="fa fa-star-o"></i>
+                    {% endif %}
+                  {% endfor %} ({{ rating_total }}) </div>
               </div>
               <hr>
               <div class="row">

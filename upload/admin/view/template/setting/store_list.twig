@@ -45,7 +45,8 @@
                 {% if stores %}
                   {% for store in stores %}
                     <tr>
-                      <td class="text-center">{% if store.store_id in selected %}
+                      <td class="text-center">
+                        {% if store.store_id in selected %}
                           <input type="checkbox" name="selected[]" value="{{ store.store_id }}" checked="checked"/>
                         {% else %}
                           <input type="checkbox" name="selected[]" value="{{ store.store_id }}"/>

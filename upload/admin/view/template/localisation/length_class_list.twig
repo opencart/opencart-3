@@ -37,17 +37,20 @@
                 <tr>
                   <td style="width: 1px;" class="text-center">
                     <input type="checkbox" onclick="$('input[name*=\'selected\']').prop('checked', this.checked);"/></td>
-                  <td class="text-left">{% if sort == 'title' %}
+                  <td class="text-left">
+                    {% if sort == 'title' %}
                       <a href="{{ sort_title }}" class="{{ order|lower }}">{{ column_title }}</a>
                     {% else %}
                       <a href="{{ sort_title }}">{{ column_title }}</a>
                     {% endif %}</td>
-                  <td class="text-left">{% if sort == 'unit' %}
+                  <td class="text-left">
+                    {% if sort == 'unit' %}
                       <a href="{{ sort_unit }}" class="{{ order|lower }}">{{ column_unit }}</a>
                     {% else %}
                       <a href="{{ sort_unit }}">{{ column_unit }}</a>
                     {% endif %}</td>
-                  <td class="text-right">{% if sort == 'value' %}
+                  <td class="text-right">
+                    {% if sort == 'value' %}
                       <a href="{{ sort_value }}" class="{{ order|lower }}">{{ column_value }}</a>
                     {% else %}
                       <a href="{{ sort_value }}">{{ column_value }}</a>
@@ -59,7 +62,8 @@
                 {% if length_classes %}
                   {% for length_class in length_classes %}
                     <tr>
-                      <td class="text-center">{% if length_class.length_class_id in selected %}
+                      <td class="text-center">
+                        {% if length_class.length_class_id in selected %}
                           <input type="checkbox" name="selected[]" value="{{ length_class.length_class_id }}" checked="checked"/>
                         {% else %}
                           <input type="checkbox" name="selected[]" value="{{ length_class.length_class_id }}"/>

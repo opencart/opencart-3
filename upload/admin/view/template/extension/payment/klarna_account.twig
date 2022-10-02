@@ -14,7 +14,8 @@
       </ul>
     </div>
   </div>
-  <div class="container-fluid"> {% if error_warning %}
+  <div class="container-fluid">
+    {% if error_warning %}
       <div class="alert alert-danger alert-dismissible"><i class="fa fa-exclamation-circle"></i> {{ error_warning }}
         <button type="button" class="close" data-dismiss="alert">&times;</button>
       </div>
@@ -42,7 +43,8 @@
                   <li><a href="#tab-{{ country.code }}" data-toggle="tab">{{ country.name }}</a></li>
                 {% endfor %}
               </ul>
-              <div class="tab-content"> {% for country in countries %}
+              <div class="tab-content">
+                {% for country in countries %}
                   <div class="tab-pane" id="tab-{{ country.code }}">
                     <div class="form-group">
                       <label class="col-sm-2 control-label" for="input-merchant{{ country.code }}"><span data-toggle="tooltip" title="{{ help_merchant }}">{{ entry_merchant }}</span></label>

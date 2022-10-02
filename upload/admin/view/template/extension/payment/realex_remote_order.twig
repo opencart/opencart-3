@@ -29,7 +29,8 @@
   </tr>
   <tr>
     <td>{{ text_void_status }}</td>
-    <td id="void_status">{% if payment_realex_order.void_status == 1 %}
+    <td id="void_status">
+      {% if payment_realex_order.void_status == 1 %}
         <span class="void_text">{{ text_yes }}</span>
       {% else %}
         <span class="void_text">{{ text_no }}</span>&nbsp;&nbsp;

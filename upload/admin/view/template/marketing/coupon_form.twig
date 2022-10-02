@@ -14,7 +14,8 @@
       </ul>
     </div>
   </div>
-  <div class="container-fluid"> {% if error_warning %}
+  <div class="container-fluid">
+    {% if error_warning %}
       <div class="alert alert-danger alert-dismissible"><i class="fa fa-exclamation-circle"></i> {{ error_warning }}
         <button type="button" class="close" data-dismiss="alert">&times;</button>
       </div>
@@ -81,14 +82,16 @@
               <div class="form-group">
                 <label class="col-sm-2 control-label"><span data-toggle="tooltip" title="{{ help_logged }}">{{ entry_logged }}</span></label>
                 <div class="col-sm-10">
-                  <label class="radio-inline"> {% if logged %}
+                  <label class="radio-inline">
+                    {% if logged %}
                       <input type="radio" name="logged" value="1" checked="checked"/>
                       {{ text_yes }}
                     {% else %}
                       <input type="radio" name="logged" value="1"/>
                       {{ text_yes }}
                     {% endif %} </label>
-                  <label class="radio-inline"> {% if not logged %}
+                  <label class="radio-inline">
+                    {% if not logged %}
                       <input type="radio" name="logged" value="0" checked="checked"/>
                       {{ text_no }}
                     {% else %}
@@ -100,14 +103,16 @@
               <div class="form-group">
                 <label class="col-sm-2 control-label">{{ entry_shipping }}</label>
                 <div class="col-sm-10">
-                  <label class="radio-inline"> {% if shipping %}
+                  <label class="radio-inline">
+                    {% if shipping %}
                       <input type="radio" name="shipping" value="1" checked="checked"/>
                       {{ text_yes }}
                     {% else %}
                       <input type="radio" name="shipping" value="1"/>
                       {{ text_yes }}
                     {% endif %} </label>
-                  <label class="radio-inline"> {% if not shipping %}
+                  <label class="radio-inline">
+                    {% if not shipping %}
                       <input type="radio" name="shipping" value="0" checked="checked"/>
                       {{ text_no }}
                     {% else %}
@@ -120,7 +125,8 @@
                 <label class="col-sm-2 control-label" for="input-product"><span data-toggle="tooltip" title="{{ help_product }}">{{ entry_product }}</span></label>
                 <div class="col-sm-10">
                   <input type="text" name="product" value="" placeholder="{{ entry_product }}" id="input-product" class="form-control"/>
-                  <div id="coupon-product" class="well well-sm" style="height: 150px; overflow: auto;"> {% for coupon_product in coupon_product %}
+                  <div id="coupon-product" class="well well-sm" style="height: 150px; overflow: auto;">
+                    {% for coupon_product in coupon_product %}
                       <div id="coupon-product{{ coupon_product.product_id }}">
                         <i class="fa fa-minus-circle"></i> {{ coupon_product.name }}
                         <input type="hidden" name="coupon_product[]" value="{{ coupon_product.product_id }}"/>
@@ -132,7 +138,8 @@
                 <label class="col-sm-2 control-label" for="input-category"><span data-toggle="tooltip" title="{{ help_category }}">{{ entry_category }}</span></label>
                 <div class="col-sm-10">
                   <input type="text" name="category" value="" placeholder="{{ entry_category }}" id="input-category" class="form-control"/>
-                  <div id="coupon-category" class="well well-sm" style="height: 150px; overflow: auto;"> {% for coupon_category in coupon_category %}
+                  <div id="coupon-category" class="well well-sm" style="height: 150px; overflow: auto;">
+                    {% for coupon_category in coupon_category %}
                       <div id="coupon-category{{ coupon_category.category_id }}">
                         <i class="fa fa-minus-circle"></i> {{ coupon_category.name }}
                         <input type="hidden" name="coupon_category[]" value="{{ coupon_category.category_id }}"/>

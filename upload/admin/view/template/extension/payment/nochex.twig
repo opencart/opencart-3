@@ -14,7 +14,8 @@
       </ul>
     </div>
   </div>
-  <div class="container-fluid"> {% if error_warning %}
+  <div class="container-fluid">
+    {% if error_warning %}
       <div class="alert alert-danger alert-dismissible"><i class="fa fa-exclamation-circle"></i> {{ error_warning }}
         <button type="button" class="close" data-dismiss="alert">&times;</button>
       </div>
@@ -61,14 +62,16 @@
           <div class="form-group">
             <label class="col-sm-2 control-label">{{ entry_template }}</label>
             <div class="col-sm-10">
-              <label class="radio-inline"> {% if payment_nochex_template %}
+              <label class="radio-inline">
+                {% if payment_nochex_template %}
                   <input type="radio" name="payment_nochex_template" value="1" checked="checked"/>
                   {{ text_yes }}
                 {% else %}
                   <input type="radio" name="payment_nochex_template" value="1"/>
                   {{ text_yes }}
                 {% endif %} </label>
-              <label class="radio-inline"> {% if not payment_nochex_template %}
+              <label class="radio-inline">
+                {% if not payment_nochex_template %}
                   <input type="radio" name="payment_nochex_template" value="0" checked="checked"/>
                   {{ text_no }}
                 {% else %}
@@ -80,14 +83,16 @@
           <div class="form-group">
             <label class="col-sm-2 control-label">{{ entry_test }}</label>
             <div class="col-sm-10">
-              <label class="radio-inline"> {% if payment_nochex_test %}
+              <label class="radio-inline">
+                {% if payment_nochex_test %}
                   <input type="radio" name="payment_nochex_test" value="1" checked="checked"/>
                   {{ text_yes }}
                 {% else %}
                   <input type="radio" name="payment_nochex_test" value="1"/>
                   {{ text_yes }}
                 {% endif %} </label>
-              <label class="radio-inline"> {% if not payment_nochex_test %}
+              <label class="radio-inline">
+                {% if not payment_nochex_test %}
                   <input type="radio" name="payment_nochex_test" value="0" checked="checked"/>
                   {{ text_no }}
                 {% else %}

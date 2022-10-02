@@ -10,7 +10,8 @@
       </ul>
     </div>
   </div>
-  <div class="container-fluid"> {% if error_warning %}
+  <div class="container-fluid">
+    {% if error_warning %}
       <div class="alert alert-danger alert-dismissible"><i class="fa fa-exclamation-circle"></i> {{ error_warning }}
         <button type="button" class="close" data-dismiss="alert">&times;</button>
       </div>
@@ -35,7 +36,8 @@
               <div class="form-group">
                 <label class="col-sm-2 control-label">{{ entry_export }}</label>
                 <div class="col-sm-10">
-                  <div class="well well-sm" style="height: 150px; overflow: auto;"> {% for table in tables %}
+                  <div class="well well-sm" style="height: 150px; overflow: auto;">
+                    {% for table in tables %}
                       <div class="checkbox">
                         <label>
                           <input type="checkbox" name="backup[]" value="{{ table }}" checked="checked"/>

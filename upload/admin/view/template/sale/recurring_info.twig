@@ -30,7 +30,8 @@
               </tr>
               <tr>
                 <td>{{ text_recurring_name }}</td>
-                <td>{% if recurring %}
+                <td>
+                  {% if recurring %}
                     <a href="{{ recurring }}">{{ recurring_name }}</a>
                   {% else %}
                     {{ recurring_name }}
@@ -65,7 +66,8 @@
               </tr>
               <tr>
                 <td>{{ text_customer }}</td>
-                <td>{% if customer %}
+                <td>
+                  {% if customer %}
                     <a href="{{ customer }}">{{ firstname }} {{ lastname }}</a>
                   {% else %}
                     {{ firstname }} {{ lastname }}

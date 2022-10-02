@@ -15,7 +15,8 @@
       </ul>
     </div>
   </div>
-  <div class="container-fluid"> {% if error_warning %}
+  <div class="container-fluid">
+    {% if error_warning %}
       <div class="alert alert-danger alert-dismissible"><i class="fa fa-exclamation-circle"></i> {{ error_warning }}
         <button type="button" class="close" data-dismiss="alert">&times;</button>
       </div>
@@ -43,9 +44,11 @@
               <div class="form-group">
                 <label class="col-sm-2 control-label">{{ entry_store }}</label>
                 <div class="col-sm-10">
-                  <div class="well well-sm" style="height: 150px; overflow: auto;"> {% for store in stores %}
+                  <div class="well well-sm" style="height: 150px; overflow: auto;">
+                    {% for store in stores %}
                       <div class="checkbox">
-                        <label>{% if store.store_id in manufacturer_store %}
+                        <label>
+                          {% if store.store_id in manufacturer_store %}
                             <input type="checkbox" name="manufacturer_store[]" value="{{ store.store_id }}" checked="checked"/>
                             {{ store.name }}
                           {% else %}

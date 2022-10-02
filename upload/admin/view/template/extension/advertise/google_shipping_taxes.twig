@@ -36,11 +36,12 @@
       <div class="panel-heading">
         <h3 class="panel-title">
           <i class="fa fa-truck"></i>&nbsp;
-          <span>{% if from_dashboard %}
-            {{ text_panel_heading_shipping_taxes_2 }}
-          {% else %}
-            {{ text_panel_heading_shipping_taxes }}
-          {% endif %}
+          <span>
+            {% if from_dashboard %}
+              {{ text_panel_heading_shipping_taxes_2 }}
+            {% else %}
+              {{ text_panel_heading_shipping_taxes }}
+            {% endif %}
           </span>
         </h3>
       </div>

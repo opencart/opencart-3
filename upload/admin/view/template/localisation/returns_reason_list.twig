@@ -37,7 +37,8 @@
                 <tr>
                   <td style="width: 1px;" class="text-center">
                     <input type="checkbox" onclick="$('input[name*=\'selected\']').prop('checked', this.checked);"/></td>
-                  <td class="text-left">{% if sort == 'name' %}
+                  <td class="text-left">
+                    {% if sort == 'name' %}
                       <a href="{{ sort_name }}" class="{{ order|lower }}">{{ column_name }}</a>
                     {% else %}
                       <a href="{{ sort_name }}">{{ column_name }}</a>
@@ -49,15 +50,14 @@
                 {% if return_reasons %}
                   {% for return_reason in return_reasons %}
                     <tr>
-                      <td class="text-center">{% if return_reason.return_reason_id in selected %}
+                      <td class="text-center">
+                        {% if return_reason.return_reason_id in selected %}
                           <input type="checkbox" name="selected[]" value="{{ return_reason.return_reason_id }}" checked="checked"/>
                         {% else %}
                           <input type="checkbox" name="selected[]" value="{{ return_reason.return_reason_id }}"/>
                         {% endif %}</td>
                       <td class="text-left">{{ return_reason.name }}</td>
-                      <td class="text-right">
-                        <a href="{{ return_reason.edit }}" data-toggle="tooltip" title="{{ button_edit }}" class="btn btn-primary"><i class="fa fa-pencil"></i></a>
-                      </td>
+                      <td class="text-right"><a href="{{ return_reason.edit }}" data-toggle="tooltip" title="{{ button_edit }}" class="btn btn-primary"><i class="fa fa-pencil"></i></a></td>
                     </tr>
                   {% endfor %}
                 {% else %}

@@ -29,7 +29,8 @@
   </tr>
   <tr>
     <td>{{ text_void_status }}</td>
-    <td id="void_status">{% if sagepay_server_order.void_status == 1 %}
+    <td id="void_status">
+      {% if sagepay_server_order.void_status == 1 %}
         <span class="void_text">{{ text_yes }}</span>
       {% elseif sagepay_server_order.void_status == 0 and sagepay_server_order.release_status != 1 and sagepay_server_order.rebate_status != 1 %}
         <span class="void_text">{{ text_no }}</span>&nbsp;&nbsp;

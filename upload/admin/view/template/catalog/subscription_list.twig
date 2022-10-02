@@ -40,12 +40,14 @@
                 <tr>
                   <td class="text-center" width="1">
                     <input type="checkbox" onclick="$('input[name*=\'selected\']').prop('checked', this.checked);"/></td>
-                  <td class="text-left">{% if sort == 'pd.name' %}
+                  <td class="text-left">
+                    {% if sort == 'pd.name' %}
                       <a href="{{ sort_name }}" class="{{ order|lower }}">{{ column_name }}</a>
                     {% else %}
                       <a href="{{ sort_name }}">{{ column_name }}</a>
                     {% endif %}</td>
-                  <td class="text-right">{% if sort == 'p.sort_order' %}
+                  <td class="text-right">
+                    {% if sort == 'p.sort_order' %}
                       <a href="{{ sort_sort_order }}" class="{{ order|lower }}">{{ column_sort_order }}</a>
                     {% else %}
                       <a href="{{ sort_sort_order }}">{{ column_sort_order }}</a>
@@ -57,7 +59,8 @@
                 {% if subscriptions %}
                   {% for subscription in subscriptions %}
                     <tr>
-                      <td class="text-center">{% if subscription.subscription_plan_id in selected %}
+                      <td class="text-center">
+                        {% if subscription.subscription_plan_id in selected %}
                           <input type="checkbox" name="selected[]" value="{{ subscription.subscription_plan_id }}" checked="checked"/>
                         {% else %}
                           <input type="checkbox" name="selected[]" value="{{ subscription.subscription_plan_id }}"/>

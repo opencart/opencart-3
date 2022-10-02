@@ -36,14 +36,15 @@
             <table class="table table-bordered table-hover">
               <thead>
                 <tr>
-                  <td style="width: 1px;" class="text-center">
-                    <input type="checkbox" onclick="$('input[name*=\'selected\']').prop('checked', this.checked);"/></td>
-                  <td class="text-left">{% if sort == 'agd.name' %}
+                  <td style="width: 1px;" class="text-center"><input type="checkbox" onclick="$('input[name*=\'selected\']').prop('checked', this.checked);"/></td>
+                  <td class="text-left">
+                    {% if sort == 'agd.name' %}
                       <a href="{{ sort_name }}" class="{{ order|lower }}">{{ column_name }}</a>
                     {% else %}
                       <a href="{{ sort_name }}">{{ column_name }}</a>
                     {% endif %}</td>
-                  <td class="text-right">{% if sort == 'ag.sort_order' %}
+                  <td class="text-right">
+                    {% if sort == 'ag.sort_order' %}
                       <a href="{{ sort_sort_order }}" class="{{ order|lower }}">{{ column_sort_order }}</a>
                     {% else %}
                       <a href="{{ sort_sort_order }}">{{ column_sort_order }}</a>
@@ -55,16 +56,15 @@
                 {% if attribute_groups %}
                   {% for attribute_group in attribute_groups %}
                     <tr>
-                      <td class="text-center">{% if attribute_group.attribute_group_id in selected %}
+                      <td class="text-center">
+                        {% if attribute_group.attribute_group_id in selected %}
                           <input type="checkbox" name="selected[]" value="{{ attribute_group.attribute_group_id }}" checked="checked"/>
                         {% else %}
                           <input type="checkbox" name="selected[]" value="{{ attribute_group.attribute_group_id }}"/>
                         {% endif %}</td>
                       <td class="text-left">{{ attribute_group.name }}</td>
                       <td class="text-right">{{ attribute_group.sort_order }}</td>
-                      <td class="text-right">
-                        <a href="{{ attribute_group.edit }}" data-toggle="tooltip" title="{{ button_edit }}" class="btn btn-primary"><i class="fa fa-pencil"></i></a>
-                      </td>
+                      <td class="text-right"><a href="{{ attribute_group.edit }}" data-toggle="tooltip" title="{{ button_edit }}" class="btn btn-primary"><i class="fa fa-pencil"></i></a></td>
                     </tr>
                   {% endfor %}
                 {% else %}
