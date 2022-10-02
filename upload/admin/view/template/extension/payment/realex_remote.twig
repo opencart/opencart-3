@@ -4,20 +4,21 @@
     <div class="container-fluid">
       <div class="pull-right">
         <button type="submit" form="form-payment" data-toggle="tooltip" title="{{ button_save }}" class="btn btn-primary"><i class="fa fa-save"></i></button>
-        <a href="{{ cancel }}" data-toggle="tooltip" title="{{ button_cancel }}" class="btn btn-default"><i class="fa fa-reply"></i></a></div>
+        <a href="{{ cancel }}" data-toggle="tooltip" title="{{ button_cancel }}" class="btn btn-default"><i class="fa fa-reply"></i></a>
+      </div>
       <h1>{{ heading_title }}</h1>
       <ul class="breadcrumb">
         {% for breadcrumb in breadcrumbs %}
-        <li><a href="{{ breadcrumb.href }}">{{ breadcrumb.text }}</a></li>
+          <li><a href="{{ breadcrumb.href }}">{{ breadcrumb.text }}</a></li>
         {% endfor %}
       </ul>
     </div>
   </div>
   <div class="container-fluid">
     {% if error_warning %}
-    <div class="alert alert-danger alert-dismissible"><i class="fa fa-exclamation-circle"></i> {{ error_warning }}
-      <button type="button" class="close" data-dismiss="alert">&times;</button>
-    </div>
+      <div class="alert alert-danger alert-dismissible"><i class="fa fa-exclamation-circle"></i> {{ error_warning }}
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+      </div>
     {% endif %}
     <div class="panel panel-default">
       <div class="panel-heading">
@@ -39,7 +40,7 @@
                 <div class="col-sm-10">
                   <input type="text" name="payment_realex_remote_merchant_id" value="{{ payment_realex_remote_merchant_id }}" placeholder="{{ entry_merchant_id }}" id="input-merchant-id" class="form-control"/>
                   {% if error_merchant_id %}
-                  <div class="text-danger">{{ error_merchant_id }}</div>
+                    <div class="text-danger">{{ error_merchant_id }}</div>
                   {% endif %}
                 </div>
               </div>
@@ -48,7 +49,7 @@
                 <div class="col-sm-10">
                   <input type="password" name="payment_realex_remote_secret" value="{{ payment_realex_remote_secret }}" placeholder="{{ entry_secret }}" id="input-secret" class="form-control"/>
                   {% if error_secret %}
-                  <div class="text-danger">{{ error_secret }}</div>
+                    <div class="text-danger">{{ error_secret }}</div>
                   {% endif %}
                 </div>
               </div>
@@ -64,11 +65,11 @@
                   <select name="payment_realex_remote_geo_zone_id" id="input-geo-zone" class="form-control">
                     <option value="0">{{ text_all_zones }}</option>
                     {% for geo_zone in geo_zones %}
-                    {% if geo_zone.geo_zone_id == payment_realex_remote_geo_zone_id %}
-                    <option value="{{ geo_zone.geo_zone_id }}" selected="selected">{{ geo_zone.name }}</option>
-                    {% else %}
-                    <option value="{{ geo_zone.geo_zone_id }}">{{ geo_zone.name }}</option>
-                    {% endif %}
+                      {% if geo_zone.geo_zone_id == payment_realex_remote_geo_zone_id %}
+                        <option value="{{ geo_zone.geo_zone_id }}" selected="selected">{{ geo_zone.name }}</option>
+                      {% else %}
+                        <option value="{{ geo_zone.geo_zone_id }}">{{ geo_zone.name }}</option>
+                      {% endif %}
                     {% endfor %}
                   </select>
                 </div>
@@ -78,11 +79,11 @@
                 <div class="col-sm-10">
                   <select name="payment_realex_remote_debug" id="input-debug" class="form-control">
                     {% if payment_realex_remote_debug %}
-                    <option value="1" selected="selected">{{ text_enabled }}</option>
-                    <option value="0">{{ text_disabled }}</option>
+                      <option value="1" selected="selected">{{ text_enabled }}</option>
+                      <option value="0">{{ text_disabled }}</option>
                     {% else %}
-                    <option value="1">{{ text_enabled }}</option>
-                    <option value="0" selected="selected">{{ text_disabled }}</option>
+                      <option value="1">{{ text_enabled }}</option>
+                      <option value="0" selected="selected">{{ text_disabled }}</option>
                     {% endif %}
                   </select>
                 </div>
@@ -92,11 +93,11 @@
                 <div class="col-sm-10">
                   <select name="payment_realex_remote_status" id="input-status" class="form-control">
                     {% if payment_realex_remote_status %}
-                    <option value="1" selected="selected">{{ text_enabled }}</option>
-                    <option value="0">{{ text_disabled }}</option>
+                      <option value="1" selected="selected">{{ text_enabled }}</option>
+                      <option value="0">{{ text_disabled }}</option>
                     {% else %}
-                    <option value="1">{{ text_enabled }}</option>
-                    <option value="0" selected="selected">{{ text_disabled }}</option>
+                      <option value="1">{{ text_enabled }}</option>
+                      <option value="0" selected="selected">{{ text_disabled }}</option>
                     {% endif %}
                   </select>
                 </div>
@@ -106,11 +107,11 @@
                 <div class="col-sm-10">
                   <select name="payment_realex_remote_card_data_status" id="input-card" class="form-control">
                     {% if payment_realex_remote_card_data_status %}
-                    <option value="1" selected="selected">{{ text_enabled }}</option>
-                    <option value="0">{{ text_disabled }}</option>
+                      <option value="1" selected="selected">{{ text_enabled }}</option>
+                      <option value="0">{{ text_disabled }}</option>
                     {% else %}
-                    <option value="1">{{ text_enabled }}</option>
-                    <option value="0" selected="selected">{{ text_disabled }}</option>
+                      <option value="1">{{ text_enabled }}</option>
+                      <option value="0" selected="selected">{{ text_disabled }}</option>
                     {% endif %}
                   </select>
                 </div>
@@ -142,39 +143,75 @@
                   <tbody>
                     <tr>
                       <td class="text-left">{{ text_card_visa }}</td>
-                      <td class="text-center"><input type="checkbox" name="payment_realex_remote_account[visa][enabled]" value="1" {% if payment_realex_remote_account.visa.enabled is defined and payment_realex_remote_account.visa.enabled == 1 %} checked="checked" {% endif %}/></td>
-                      <td class="text-center"><input type="checkbox" name="payment_realex_remote_account[visa][default]" value="1" {% if payment_realex_remote_account.visa.default is defined and payment_realex_remote_account.visa.default == 1 %} checked="checked" {% endif %}/></td>
-                      <td class="text-right"><input type="text" name="payment_realex_remote_account[visa][merchant_id]" value="{{ payment_realex_remote_account.visa.merchant_id is defined ? payment_realex_remote_account.visa.merchant_id : '' }}" placeholder="{{ text_subaccount }}" class="form-control"/></td>
+                      <td class="text-center">
+                        <input type="checkbox" name="payment_realex_remote_account[visa][enabled]" value="1" {% if payment_realex_remote_account.visa.enabled is defined and payment_realex_remote_account.visa.enabled == 1 %} checked="checked" {% endif %}/>
+                      </td>
+                      <td class="text-center">
+                        <input type="checkbox" name="payment_realex_remote_account[visa][default]" value="1" {% if payment_realex_remote_account.visa.default is defined and payment_realex_remote_account.visa.default == 1 %} checked="checked" {% endif %}/>
+                      </td>
+                      <td class="text-right">
+                        <input type="text" name="payment_realex_remote_account[visa][merchant_id]" value="{{ payment_realex_remote_account.visa.merchant_id is defined ? payment_realex_remote_account.visa.merchant_id : '' }}" placeholder="{{ text_subaccount }}" class="form-control"/>
+                      </td>
                     </tr>
                     <tr>
                       <td class="text-left">{{ text_card_master }}</td>
-                      <td class="text-center"><input type="checkbox" name="payment_realex_remote_account[mc][enabled]" value="1" {% if payment_realex_remote_account.mc.enabled is defined and payment_realex_remote_account.mc.enabled == 1 %} checked="checked" {% endif %}/></td>
-                      <td class="text-center"><input type="checkbox" name="payment_realex_remote_account[mc][default]" value="1" {% if payment_realex_remote_account.mc.default is defined and payment_realex_remote_account.mc.default == 1 %} checked="checked" {% endif %}/></td>
-                      <td class="text-right"><input type="text" name="payment_realex_remote_account[mc][merchant_id]" value="{{ payment_realex_remote_account.mc.merchant_id is defined ? payment_realex_remote_account.mc.merchant_id : '' }}" placeholder="{{ text_subaccount }}" class="form-control"/></td>
+                      <td class="text-center">
+                        <input type="checkbox" name="payment_realex_remote_account[mc][enabled]" value="1" {% if payment_realex_remote_account.mc.enabled is defined and payment_realex_remote_account.mc.enabled == 1 %} checked="checked" {% endif %}/>
+                      </td>
+                      <td class="text-center">
+                        <input type="checkbox" name="payment_realex_remote_account[mc][default]" value="1" {% if payment_realex_remote_account.mc.default is defined and payment_realex_remote_account.mc.default == 1 %} checked="checked" {% endif %}/>
+                      </td>
+                      <td class="text-right">
+                        <input type="text" name="payment_realex_remote_account[mc][merchant_id]" value="{{ payment_realex_remote_account.mc.merchant_id is defined ? payment_realex_remote_account.mc.merchant_id : '' }}" placeholder="{{ text_subaccount }}" class="form-control"/>
+                      </td>
                     </tr>
                     <tr>
                       <td class="text-left">{{ text_card_amex }}</td>
-                      <td class="text-center"><input type="checkbox" name="payment_realex_remote_account[amex][enabled]" value="1" {% if payment_realex_remote_account.amex.enabled is defined and payment_realex_remote_account.amex.enabled == 1 %} checked="checked" {% endif %}/></td>
-                      <td class="text-center"><input type="checkbox" name="payment_realex_remote_account[amex][default]" value="1" {% if payment_realex_remote_account.amex.default is defined and payment_realex_remote_account.amex.default == 1 %} checked="checked" {% endif %}/></td>
-                      <td class="text-right"><input type="text" name="payment_realex_remote_account[amex][merchant_id]" value="{{ payment_realex_remote_account.amex.merchant_id is defined ? payment_realex_remote_account.amex.merchant_id : '' }}" placeholder="{{ text_subaccount }}" class="form-control"/></td>
+                      <td class="text-center">
+                        <input type="checkbox" name="payment_realex_remote_account[amex][enabled]" value="1" {% if payment_realex_remote_account.amex.enabled is defined and payment_realex_remote_account.amex.enabled == 1 %} checked="checked" {% endif %}/>
+                      </td>
+                      <td class="text-center">
+                        <input type="checkbox" name="payment_realex_remote_account[amex][default]" value="1" {% if payment_realex_remote_account.amex.default is defined and payment_realex_remote_account.amex.default == 1 %} checked="checked" {% endif %}/>
+                      </td>
+                      <td class="text-right">
+                        <input type="text" name="payment_realex_remote_account[amex][merchant_id]" value="{{ payment_realex_remote_account.amex.merchant_id is defined ? payment_realex_remote_account.amex.merchant_id : '' }}" placeholder="{{ text_subaccount }}" class="form-control"/>
+                      </td>
                     </tr>
                     <tr>
                       <td class="text-left">{{ text_card_switch }}</td>
-                      <td class="text-center"><input type="checkbox" name="payment_realex_remote_account[switch][enabled]" value="1" {% if payment_realex_remote_account.switch.enabled is defined and payment_realex_remote_account.switch.enabled == 1 %} checked="checked" {% endif %}/></td>
-                      <td class="text-center"><input type="checkbox" name="payment_realex_remote_account[switch][default]" value="1" {% if payment_realex_remote_account.switch.default is defined and payment_realex_remote_account.switch.default == 1 %} checked="checked" {% endif %}/></td>
-                      <td class="text-right"><input type="text" name="payment_realex_remote_account[switch][merchant_id]" value="{{ payment_realex_remote_account.switch.merchant_id is defined ? payment_realex_remote_account.switch.merchant_id : '' }}" placeholder="{{ text_subaccount }}" class="form-control"/></td>
+                      <td class="text-center">
+                        <input type="checkbox" name="payment_realex_remote_account[switch][enabled]" value="1" {% if payment_realex_remote_account.switch.enabled is defined and payment_realex_remote_account.switch.enabled == 1 %} checked="checked" {% endif %}/>
+                      </td>
+                      <td class="text-center">
+                        <input type="checkbox" name="payment_realex_remote_account[switch][default]" value="1" {% if payment_realex_remote_account.switch.default is defined and payment_realex_remote_account.switch.default == 1 %} checked="checked" {% endif %}/>
+                      </td>
+                      <td class="text-right">
+                        <input type="text" name="payment_realex_remote_account[switch][merchant_id]" value="{{ payment_realex_remote_account.switch.merchant_id is defined ? payment_realex_remote_account.switch.merchant_id : '' }}" placeholder="{{ text_subaccount }}" class="form-control"/>
+                      </td>
                     </tr>
                     <tr>
                       <td class="text-left">{{ text_card_laser }}</td>
-                      <td class="text-center"><input type="checkbox" name="payment_realex_remote_account[laser][enabled]" value="1" {% if payment_realex_remote_account.laser.enabled is defined and payment_realex_remote_account.laser.enabled == 1 %} checked="checked" {% endif %}/></td>
-                      <td class="text-center"><input type="checkbox" name="payment_realex_remote_account[laser][default]" value="1" {% if payment_realex_remote_account.laser.default is defined and payment_realex_remote_account.laser.default == 1 %} checked="checked" {% endif %}/></td>
-                      <td class="text-right"><input type="text" name="payment_realex_remote_account[laser][merchant_id]" value="{{ payment_realex_remote_account.laser.merchant_id is defined ? payment_realex_remote_account.laser.merchant_id : '' }}" placeholder="{{ text_subaccount }}" class="form-control"/></td>
+                      <td class="text-center">
+                        <input type="checkbox" name="payment_realex_remote_account[laser][enabled]" value="1" {% if payment_realex_remote_account.laser.enabled is defined and payment_realex_remote_account.laser.enabled == 1 %} checked="checked" {% endif %}/>
+                      </td>
+                      <td class="text-center">
+                        <input type="checkbox" name="payment_realex_remote_account[laser][default]" value="1" {% if payment_realex_remote_account.laser.default is defined and payment_realex_remote_account.laser.default == 1 %} checked="checked" {% endif %}/>
+                      </td>
+                      <td class="text-right">
+                        <input type="text" name="payment_realex_remote_account[laser][merchant_id]" value="{{ payment_realex_remote_account.laser.merchant_id is defined ? payment_realex_remote_account.laser.merchant_id : '' }}" placeholder="{{ text_subaccount }}" class="form-control"/>
+                      </td>
                     </tr>
                     <tr>
                       <td class="text-left">{{ text_card_diners }}</td>
-                      <td class="text-center"><input type="checkbox" name="payment_realex_remote_account[diners][enabled]" value="1" {% if payment_realex_remote_account.diners.enabled is defined and payment_realex_remote_account.diners.enabled == 1 %} checked="checked" {% endif %}/></td>
-                      <td class="text-center"><input type="checkbox" name="payment_realex_remote_account[diners][default]" value="1" {% if payment_realex_remote_account.diners.default is defined and payment_realex_remote_account.diners.default == 1 %} checked="checked" {% endif %}/></td>
-                      <td class="text-right"><input type="text" name="payment_realex_remote_account[diners][merchant_id]" value="{{ payment_realex_remote_account.diners.merchant_id is defined ? payment_realex_remote_account.diners.merchant_id : '' }}" placeholder="{{ text_subaccount }}" class="form-control"/></td>
+                      <td class="text-center">
+                        <input type="checkbox" name="payment_realex_remote_account[diners][enabled]" value="1" {% if payment_realex_remote_account.diners.enabled is defined and payment_realex_remote_account.diners.enabled == 1 %} checked="checked" {% endif %}/>
+                      </td>
+                      <td class="text-center">
+                        <input type="checkbox" name="payment_realex_remote_account[diners][default]" value="1" {% if payment_realex_remote_account.diners.default is defined and payment_realex_remote_account.diners.default == 1 %} checked="checked" {% endif %}/>
+                      </td>
+                      <td class="text-right">
+                        <input type="text" name="payment_realex_remote_account[diners][merchant_id]" value="{{ payment_realex_remote_account.diners.merchant_id is defined ? payment_realex_remote_account.diners.merchant_id : '' }}" placeholder="{{ text_subaccount }}" class="form-control"/>
+                      </td>
                     </tr>
                   </tbody>
                 </table>
@@ -186,11 +223,11 @@
                 <div class="col-sm-10">
                   <select name="payment_realex_remote_order_status_success_settled_id" id="input-order-status-success-settled" class="form-control">
                     {% for order_status in order_statuses %}
-                    {% if order_status.order_status_id == payment_realex_remote_order_status_success_settled_id %}
-                    <option value="{{ order_status.order_status_id }}" selected="selected">{{ order_status.name }}</option>
-                    {% else %}
-                    <option value="{{ order_status.order_status_id }}">{{ order_status.name }}</option>
-                    {% endif %}
+                      {% if order_status.order_status_id == payment_realex_remote_order_status_success_settled_id %}
+                        <option value="{{ order_status.order_status_id }}" selected="selected">{{ order_status.name }}</option>
+                      {% else %}
+                        <option value="{{ order_status.order_status_id }}">{{ order_status.name }}</option>
+                      {% endif %}
                     {% endfor %}
                   </select>
                 </div>
@@ -200,11 +237,11 @@
                 <div class="col-sm-10">
                   <select name="payment_realex_remote_order_status_success_unsettled_id" id="input-order-status-success-unsettled" class="form-control">
                     {% for order_status in order_statuses %}
-                    {% if order_status.order_status_id == payment_realex_remote_order_status_success_unsettled_id %}
-                    <option value="{{ order_status.order_status_id }}" selected="selected">{{ order_status.name }}</option>
-                    {% else %}
-                    <option value="{{ order_status.order_status_id }}">{{ order_status.name }}</option>
-                    {% endif %}
+                      {% if order_status.order_status_id == payment_realex_remote_order_status_success_unsettled_id %}
+                        <option value="{{ order_status.order_status_id }}" selected="selected">{{ order_status.name }}</option>
+                      {% else %}
+                        <option value="{{ order_status.order_status_id }}">{{ order_status.name }}</option>
+                      {% endif %}
                     {% endfor %}
                   </select>
                 </div>
@@ -214,11 +251,11 @@
                 <div class="col-sm-10">
                   <select name="payment_realex_remote_order_status_decline_id" id="input-order-status-decline" class="form-control">
                     {% for order_status in order_statuses %}
-                    {% if order_status.order_status_id == payment_realex_remote_order_status_decline_id %}
-                    <option value="{{ order_status.order_status_id }}" selected="selected">{{ order_status.name }}</option>
-                    {% else %}
-                    <option value="{{ order_status.order_status_id }}">{{ order_status.name }}</option>
-                    {% endif %}
+                      {% if order_status.order_status_id == payment_realex_remote_order_status_decline_id %}
+                        <option value="{{ order_status.order_status_id }}" selected="selected">{{ order_status.name }}</option>
+                      {% else %}
+                        <option value="{{ order_status.order_status_id }}">{{ order_status.name }}</option>
+                      {% endif %}
                     {% endfor %}
                   </select>
                 </div>
@@ -228,11 +265,11 @@
                 <div class="col-sm-10">
                   <select name="payment_realex_remote_order_status_decline_pending_id" id="input-order-status-decline-pending" class="form-control">
                     {% for order_status in order_statuses %}
-                    {% if order_status.order_status_id == payment_realex_remote_order_status_decline_pending_id %}
-                    <option value="{{ order_status.order_status_id }}" selected="selected">{{ order_status.name }}</option>
-                    {% else %}
-                    <option value="{{ order_status.order_status_id }}">{{ order_status.name }}</option>
-                    {% endif %}
+                      {% if order_status.order_status_id == payment_realex_remote_order_status_decline_pending_id %}
+                        <option value="{{ order_status.order_status_id }}" selected="selected">{{ order_status.name }}</option>
+                      {% else %}
+                        <option value="{{ order_status.order_status_id }}">{{ order_status.name }}</option>
+                      {% endif %}
                     {% endfor %}
                   </select>
                 </div>
@@ -242,11 +279,11 @@
                 <div class="col-sm-10">
                   <select name="payment_realex_remote_order_status_decline_stolen_id" id="input-order-status-decline-stolen" class="form-control">
                     {% for order_status in order_statuses %}
-                    {% if order_status.order_status_id == payment_realex_remote_order_status_decline_stolen_id %}
-                    <option value="{{ order_status.order_status_id }}" selected="selected">{{ order_status.name }}</option>
-                    {% else %}
-                    <option value="{{ order_status.order_status_id }}">{{ order_status.name }}</option>
-                    {% endif %}
+                      {% if order_status.order_status_id == payment_realex_remote_order_status_decline_stolen_id %}
+                        <option value="{{ order_status.order_status_id }}" selected="selected">{{ order_status.name }}</option>
+                      {% else %}
+                        <option value="{{ order_status.order_status_id }}">{{ order_status.name }}</option>
+                      {% endif %}
                     {% endfor %}
                   </select>
                 </div>
@@ -256,11 +293,11 @@
                 <div class="col-sm-10">
                   <select name="payment_realex_remote_order_status_decline_bank_id" id="input-order-status-decline-bank" class="form-control">
                     {% for order_status in order_statuses %}
-                    {% if order_status.order_status_id == payment_realex_remote_order_status_decline_bank_id %}
-                    <option value="{{ order_status.order_status_id }}" selected="selected">{{ order_status.name }}</option>
-                    {% else %}
-                    <option value="{{ order_status.order_status_id }}">{{ order_status.name }}</option>
-                    {% endif %}
+                      {% if order_status.order_status_id == payment_realex_remote_order_status_decline_bank_id %}
+                        <option value="{{ order_status.order_status_id }}" selected="selected">{{ order_status.name }}</option>
+                      {% else %}
+                        <option value="{{ order_status.order_status_id }}">{{ order_status.name }}</option>
+                      {% endif %}
                     {% endfor %}
                   </select>
                 </div>
@@ -282,11 +319,11 @@
                 <div class="col-sm-10">
                   <select name="payment_realex_remote_tss_check" id="input-tss-check" class="form-control">
                     {% if payment_realex_remote_tss_check %}
-                    <option value="1" selected="selected">{{ text_yes }}</option>
-                    <option value="0">{{ text_no }}</option>
+                      <option value="1" selected="selected">{{ text_yes }}</option>
+                      <option value="0">{{ text_no }}</option>
                     {% else %}
-                    <option value="1">{{ text_yes }}</option>
-                    <option value="0" selected="selected">{{ text_no }}</option>
+                      <option value="1">{{ text_yes }}</option>
+                      <option value="0" selected="selected">{{ text_no }}</option>
                     {% endif %}
                   </select>
                 </div>
@@ -296,11 +333,11 @@
                 <div class="col-sm-10">
                   <select name="payment_realex_remote_3d" id="input-3d" class="form-control">
                     {% if payment_realex_remote_3d %}
-                    <option value="1" selected="selected">{{ text_yes }}</option>
-                    <option value="0">{{ text_no }}</option>
+                      <option value="1" selected="selected">{{ text_yes }}</option>
+                      <option value="0">{{ text_no }}</option>
                     {% else %}
-                    <option value="1">{{ text_yes }}</option>
-                    <option value="0" selected="selected">{{ text_no }}</option>
+                      <option value="1">{{ text_yes }}</option>
+                      <option value="0" selected="selected">{{ text_no }}</option>
                     {% endif %}
                   </select>
                 </div>
@@ -310,11 +347,11 @@
                 <div class="col-sm-10">
                   <select name="payment_realex_remote_liability" id="input-liability" class="form-control">
                     {% if payment_realex_remote_liability %}
-                    <option value="1" selected="selected">{{ text_yes }}</option>
-                    <option value="0">{{ text_no }}</option>
+                      <option value="1" selected="selected">{{ text_yes }}</option>
+                      <option value="0">{{ text_no }}</option>
                     {% else %}
-                    <option value="1">{{ text_yes }}</option>
-                    <option value="0" selected="selected">{{ text_no }}</option>
+                      <option value="1">{{ text_yes }}</option>
+                      <option value="0" selected="selected">{{ text_no }}</option>
                     {% endif %}
                   </select>
                 </div>
@@ -326,6 +363,7 @@
     </div>
   </div>
   <script type="text/javascript"><!--
-$('#tabs a:first').tab('show');
-//--></script></div>
+      $('#tabs a:first').tab('show');
+  //--></script>
+</div>
 {{ footer }}

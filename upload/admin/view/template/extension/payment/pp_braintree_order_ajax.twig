@@ -68,8 +68,8 @@
 	<td>
 		<table class="table table-bordered">
 		  <thead>
-				<tr>
-					<td class="text-left">{{ column_date }}</td>
+			  <tr>
+				  <td class="text-left">{{ column_date }}</td>
 					<td class="text-left">{{ column_status }}</td>
 				</tr>
 		  </thead>
@@ -89,7 +89,7 @@
 	<td>
 		<table class="table table-bordered">
 		  <thead>
-				<tr>
+			  <tr>
 					<td class="text-left">{{ column_date }}</td>
 					<td class="text-left">{{ column_amount }}</td>
 					<td class="text-left">{{ column_status }}</td>
@@ -98,17 +98,17 @@
 		  <tbody>
 				{% if refunds is not empty %}
 					{% for refund in refunds %}
-					<tr>
-						<td>{{ refund.date_added }}</td>
-						<td>{{ refund.amount }}</td>
-						<td>{{ refund.status }}</td>
-					</tr>
+						<tr>
+							<td>{{ refund.date_added }}</td>
+							<td>{{ refund.amount }}</td>
+							<td>{{ refund.status }}</td>
+						</tr>
 					{% endfor %}
 				{% else %}
-			<tr>
-			  <td class="text-center" colspan="3">{{ text_no_refund }}</td>
-			</tr>
-			{% endif %}
+					<tr>
+						<td class="text-center" colspan="3">{{ text_no_refund }}</td>
+					</tr>
+				{% endif %}
 		  </tbody>
 		</table>
 	</td>
@@ -155,7 +155,6 @@
 	</td>
   </tr>
 </table>
-
 <script type="text/javascript"><!--
 $('.button-command').on('click', function() {
 	var type = $(this).attr('data-type');

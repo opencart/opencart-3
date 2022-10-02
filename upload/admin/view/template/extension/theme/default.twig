@@ -4,20 +4,21 @@
     <div class="container-fluid">
       <div class="pull-right">
         <button type="submit" form="form-theme" data-toggle="tooltip" title="{{ button_save }}" class="btn btn-primary"><i class="fa fa-save"></i></button>
-        <a href="{{ cancel }}" data-toggle="tooltip" title="{{ button_cancel }}" class="btn btn-default"><i class="fa fa-reply"></i></a></div>
+        <a href="{{ cancel }}" data-toggle="tooltip" title="{{ button_cancel }}" class="btn btn-default"><i class="fa fa-reply"></i></a>
+      </div>
       <h1>{{ heading_title }}</h1>
       <ul class="breadcrumb">
         {% for breadcrumb in breadcrumbs %}
-        <li><a href="{{ breadcrumb.href }}">{{ breadcrumb.text }}</a></li>
+          <li><a href="{{ breadcrumb.href }}">{{ breadcrumb.text }}</a></li>
         {% endfor %}
       </ul>
     </div>
   </div>
   <div class="container-fluid">
     {% if error_warning %}
-    <div class="alert alert-danger alert-dismissible"><i class="fa fa-exclamation-circle"></i> {{ error_warning }}
-      <button type="button" class="close" data-dismiss="alert">&times;</button>
-    </div>
+      <div class="alert alert-danger alert-dismissible"><i class="fa fa-exclamation-circle"></i> {{ error_warning }}
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+      </div>
     {% endif %}
     <div class="panel panel-default">
       <div class="panel-heading">
@@ -32,11 +33,11 @@
               <div class="col-sm-10">
                 <select name="theme_default_directory" id="input-directory" class="form-control">
                   {% for directory in directories %}
-                  {% if directory == theme_default_directory %}
-                  <option value="{{ directory }}" selected="selected">{{ directory }}</option>
-                  {% else %}
-                  <option value="{{ directory }}">{{ directory }}</option>
-                  {% endif %}
+                    {% if directory == theme_default_directory %}
+                      <option value="{{ directory }}" selected="selected">{{ directory }}</option>
+                    {% else %}
+                      <option value="{{ directory }}">{{ directory }}</option>
+                    {% endif %}
                   {% endfor %}
                 </select>
               </div>
@@ -46,11 +47,11 @@
               <div class="col-sm-10">
                 <select name="theme_default_status" id="input-status" class="form-control">
                   {% if theme_default_status %}
-                  <option value="1" selected="selected">{{ text_enabled }}</option>
-                  <option value="0">{{ text_disabled }}</option>
+                    <option value="1" selected="selected">{{ text_enabled }}</option>
+                    <option value="0">{{ text_disabled }}</option>
                   {% else %}
-                  <option value="1">{{ text_enabled }}</option>
-                  <option value="0" selected="selected">{{ text_disabled }}</option>
+                    <option value="1">{{ text_enabled }}</option>
+                    <option value="0" selected="selected">{{ text_disabled }}</option>
                   {% endif %}
                 </select>
               </div>
@@ -63,7 +64,7 @@
               <div class="col-sm-10">
                 <input type="text" name="theme_default_product_limit" value="{{ theme_default_product_limit }}" placeholder="{{ entry_product_limit }}" id="input-catalog-limit" class="form-control"/>
                 {% if error_product_limit %}
-                <div class="text-danger">{{ error_product_limit }}</div>
+                  <div class="text-danger">{{ error_product_limit }}</div>
                 {% endif %}
               </div>
             </div>
@@ -72,7 +73,7 @@
               <div class="col-sm-10">
                 <input type="text" name="theme_default_product_description_length" value="{{ theme_default_product_description_length }}" placeholder="{{ entry_product_description_length }}" id="input-description-limit" class="form-control"/>
                 {% if error_product_description_length %}
-                <div class="text-danger">{{ error_product_description_length }}</div>
+                  <div class="text-danger">{{ error_product_description_length }}</div>
                 {% endif %}
               </div>
             </div>
@@ -91,7 +92,7 @@
                   </div>
                 </div>
                 {% if error_image_category %}
-                <div class="text-danger">{{ error_image_category }}</div>
+                  <div class="text-danger">{{ error_image_category }}</div>
                 {% endif %}
               </div>
             </div>
@@ -107,7 +108,7 @@
                   </div>
                 </div>
                 {% if error_image_thumb %}
-                <div class="text-danger">{{ error_image_thumb }}</div>
+                  <div class="text-danger">{{ error_image_thumb }}</div>
                 {% endif %}
               </div>
             </div>
@@ -123,7 +124,7 @@
                   </div>
                 </div>
                 {% if error_image_popup %}
-                <div class="text-danger">{{ error_image_popup }}</div>
+                  <div class="text-danger">{{ error_image_popup }}</div>
                 {% endif %}
               </div>
             </div>
@@ -139,7 +140,7 @@
                   </div>
                 </div>
                 {% if error_image_product %}
-                <div class="text-danger">{{ error_image_product }}</div>
+                  <div class="text-danger">{{ error_image_product }}</div>
                 {% endif %}
               </div>
             </div>
@@ -155,7 +156,7 @@
                   </div>
                 </div>
                 {% if error_image_additional %}
-                <div class="text-danger">{{ error_image_additional }}</div>
+                  <div class="text-danger">{{ error_image_additional }}</div>
                 {% endif %}
               </div>
             </div>
@@ -171,7 +172,7 @@
                   </div>
                 </div>
                 {% if error_image_related %}
-                <div class="text-danger">{{ error_image_related }}</div>
+                  <div class="text-danger">{{ error_image_related }}</div>
                 {% endif %}
               </div>
             </div>
@@ -187,7 +188,7 @@
                   </div>
                 </div>
                 {% if error_image_compare %}
-                <div class="text-danger">{{ error_image_compare }}</div>
+                  <div class="text-danger">{{ error_image_compare }}</div>
                 {% endif %}
               </div>
             </div>
@@ -203,7 +204,7 @@
                   </div>
                 </div>
                 {% if error_image_wishlist %}
-                <div class="text-danger">{{ error_image_wishlist }}</div>
+                  <div class="text-danger">{{ error_image_wishlist }}</div>
                 {% endif %}
               </div>
             </div>
@@ -219,7 +220,7 @@
                   </div>
                 </div>
                 {% if error_image_cart %}
-                <div class="text-danger">{{ error_image_cart }}</div>
+                  <div class="text-danger">{{ error_image_cart }}</div>
                 {% endif %}
               </div>
             </div>
@@ -235,7 +236,7 @@
                   </div>
                 </div>
                 {% if error_image_location %}
-                <div class="text-danger">{{ error_image_location }}</div>
+                  <div class="text-danger">{{ error_image_location }}</div>
                 {% endif %}
               </div>
             </div>

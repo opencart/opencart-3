@@ -4,7 +4,8 @@
     <div class="container-fluid">
       <div class="pull-right">
         <button type="submit" form="form-braintree" data-toggle="tooltip" title="{{ button_save }}" class="btn btn-primary"><i class="fa fa-save"></i></button>
-        <a href="{{ cancel }}" data-toggle="tooltip" title="{{ button_cancel }}" class="btn btn-default"><i class="fa fa-reply"></i></a></div>
+        <a href="{{ cancel }}" data-toggle="tooltip" title="{{ button_cancel }}" class="btn btn-default"><i class="fa fa-reply"></i></a>
+      </div>
       <h1>{{ heading_title }}</h1>
       <ul class="breadcrumb">
         {% for breadcrumb in breadcrumbs %}
@@ -35,7 +36,7 @@
             {% if payment_pp_braintree_access_token is empty %}
               <li><a href="#tab-currency" data-toggle="tab">{{ tab_currency }}</a></li>
             {% endif %}
-			<li><a href="#tab-order-status" data-toggle="tab">{{ tab_order_status }}</a></li>
+            <li><a href="#tab-order-status" data-toggle="tab">{{ tab_order_status }}</a></li>
             <li><a href="#tab-3ds" data-toggle="tab">{{ tab_3ds }}</a></li>
             <li><a href="#tab-vault" data-toggle="tab">{{ tab_vault }}</a></li>
             <li><a href="#tab-paypal" data-toggle="tab">{{ tab_paypal }}</a></li>
@@ -49,11 +50,13 @@
                 <input type="hidden" name="payment_pp_braintree_merchant_id" value="{{ payment_pp_braintree_merchant_id }}"/>
                 <input type="hidden" name="payment_pp_braintree_public_key" value=""/>
                 <input type="hidden" name="payment_pp_braintree_private_key" value=""/>
-
                 <div class="form-group">
                   <label class="col-sm-2 control-label">{{ entry_connection }}</label>
                   <div class="col-sm-10">
-                    <div class="alert alert-info"><i class="fa fa-check"></i> {{ text_app_connected }} ({{ text_merchant_connected }}{{ payment_pp_braintree_merchant_id }}) <div class="btn btn-sm btn-danger pull-right" id="delete-link">{{ text_unlink }}</div></div>
+                    <div class="alert alert-info">
+                      <i class="fa fa-check"></i> {{ text_app_connected }} ({{ text_merchant_connected }}{{ payment_pp_braintree_merchant_id }})
+                      <div class="btn btn-sm btn-danger pull-right" id="delete-link">{{ text_unlink }}</div>
+                    </div>
                   </div>
                 </div>
               {% else %}
@@ -106,10 +109,10 @@
                 <div class="col-sm-10">
                   <select name="payment_pp_braintree_settlement_immediate" id="input-settlement-immediate" class="form-control">
                     {% if payment_pp_braintree_settlement_immediate == 1 %}
-					  <option value="1" selected="selected">{{ text_immediate }}</option>
+                      <option value="1" selected="selected">{{ text_immediate }}</option>
                       <option value="0">{{ text_deferred }}</option>
                     {% else %}
-					  <option value="1">{{ text_immediate }}</option>
+                      <option value="1">{{ text_immediate }}</option>
                       <option value="0" selected="selected">{{ text_deferred }}</option>
                     {% endif %}
                   </select>
@@ -139,14 +142,14 @@
                 <label class="col-sm-2 control-label" for="input-geo-zone">{{ entry_geo_zone }}</label>
                 <div class="col-sm-10">
                   <select name="payment_pp_braintree_geo_zone_id" id="input-geo-zone" class="form-control">
-                  <option value="0">{{ text_all_zones }}</option>
-                  {% for geo_zone in geo_zones %}
-                    {% if geo_zone.geo_zone_id == payment_pp_braintree_geo_zone_id %}
-                      <option value="{{ geo_zone.geo_zone_id }}" selected="selected">{{ geo_zone.name }}</option>
-                     {% else %}
-                      <option value="{{ geo_zone.geo_zone_id }}">{{ geo_zone.name }}</option>
-                    {% endif %}
-                  {% endfor %}
+                    <option value="0">{{ text_all_zones }}</option>
+                    {% for geo_zone in geo_zones %}
+                      {% if geo_zone.geo_zone_id == payment_pp_braintree_geo_zone_id %}
+                        <option value="{{ geo_zone.geo_zone_id }}" selected="selected">{{ geo_zone.name }}</option>
+                      {% else %}
+                        <option value="{{ geo_zone.geo_zone_id }}">{{ geo_zone.name }}</option>
+                      {% endif %}
+                    {% endfor %}
                   </select>
                 </div>
               </div>
@@ -172,11 +175,11 @@
               </div>
             </div>
             <div class="tab-pane" id="tab-currency">
-			  <div class="table-responsive">
+              <div class="table-responsive">
                 <table class="table table-striped table-bordered table-hover">
                   <thead>
                     <tr>
-					  <td class="text-left">{{ text_enabled }}</td>
+                      <td class="text-left">{{ text_enabled }}</td>
                       <td class="text-left">{{ text_currency }}</td>
                       <td class="text-center">{{ text_merchant_account_id }}</td>
                     </tr>
@@ -365,189 +368,189 @@
                 <div class="alert alert-info">{{ error_braintree_account_3ds }}</div>
                 <input type="hidden" name="payment_pp_braintree_3ds_status" value="0"/>
               {% else %}
-			        <div class="form-group">
-                <label class="col-sm-2 control-label" for="input-3ds-status">{{ entry_3ds_status }}</label>
-                <div class="col-sm-10">
-                  <select name="payment_pp_braintree_3ds_status" id="input-3ds-status" class="form-control">
-                    {% if payment_pp_braintree_3ds_status == 1 %}
-                      <option value="1" selected="selected">{{ text_enabled }}</option>
-                      <option value="0">{{ text_disabled }}</option>
-                    {% else %}
-                      <option value="1">{{ text_enabled }}</option>
-                      <option value="0" selected="selected">{{ text_disabled }}</option>
-                    {% endif %}
-                  </select>
-                  <p>{{ text_3ds_ssl }}</p>
+                <div class="form-group">
+                  <label class="col-sm-2 control-label" for="input-3ds-status">{{ entry_3ds_status }}</label>
+                  <div class="col-sm-10">
+                    <select name="payment_pp_braintree_3ds_status" id="input-3ds-status" class="form-control">
+                      {% if payment_pp_braintree_3ds_status == 1 %}
+                        <option value="1" selected="selected">{{ text_enabled }}</option>
+                        <option value="0">{{ text_disabled }}</option>
+                      {% else %}
+                        <option value="1">{{ text_enabled }}</option>
+                        <option value="0" selected="selected">{{ text_disabled }}</option>
+                      {% endif %}
+                    </select>
+                    <p>{{ text_3ds_ssl }}</p>
+                  </div>
                 </div>
-              </div>
-              <div class="form-group three-ds-status">
-                <label class="col-sm-2 control-label" for="input-3ds-unsupported-card">{{ entry_3ds_unsupported_card }}</label>
-                <div class="col-sm-10">
-                  <select name="payment_pp_braintree_3ds_unsupported_card" id="input-3ds-unsupported-card" class="form-control">
-                    {% if payment_pp_braintree_3ds_unsupported_card == 1 %}
-                      <option value="1" selected="selected">{{ text_accept }}</option>
-                      <option value="0">{{ text_decline }}</option>
-                    {% else %}
-                      <option value="1">{{ text_accept }}</option>
-                      <option value="0" selected="selected">{{ text_decline }}</option>
-                    {% endif %}
-                  </select>
+                <div class="form-group three-ds-status">
+                  <label class="col-sm-2 control-label" for="input-3ds-unsupported-card">{{ entry_3ds_unsupported_card }}</label>
+                  <div class="col-sm-10">
+                    <select name="payment_pp_braintree_3ds_unsupported_card" id="input-3ds-unsupported-card" class="form-control">
+                      {% if payment_pp_braintree_3ds_unsupported_card == 1 %}
+                        <option value="1" selected="selected">{{ text_accept }}</option>
+                        <option value="0">{{ text_decline }}</option>
+                      {% else %}
+                        <option value="1">{{ text_accept }}</option>
+                        <option value="0" selected="selected">{{ text_decline }}</option>
+                      {% endif %}
+                    </select>
+                  </div>
                 </div>
-              </div>
-              <div class="form-group three-ds-status">
-                <label class="col-sm-2 control-label" for="input-3ds-lookup-error">{{ entry_3ds_lookup_error }}</label>
-                <div class="col-sm-10">
-                  <select name="payment_pp_braintree_3ds_lookup_error" id="input-3ds-lookup-error" class="form-control">
-                    {% if payment_pp_braintree_3ds_lookup_error == 1 %}
-                      <option value="1" selected="selected">{{ text_accept }}</option>
-                      <option value="0">{{ text_decline }}</option>
-                    {% else %}
-                      <option value="1">{{ text_accept }}</option>
-                      <option value="0" selected="selected">{{ text_decline }}</option>
-                    {% endif %}
-                  </select>
+                <div class="form-group three-ds-status">
+                  <label class="col-sm-2 control-label" for="input-3ds-lookup-error">{{ entry_3ds_lookup_error }}</label>
+                  <div class="col-sm-10">
+                    <select name="payment_pp_braintree_3ds_lookup_error" id="input-3ds-lookup-error" class="form-control">
+                      {% if payment_pp_braintree_3ds_lookup_error == 1 %}
+                        <option value="1" selected="selected">{{ text_accept }}</option>
+                        <option value="0">{{ text_decline }}</option>
+                      {% else %}
+                        <option value="1">{{ text_accept }}</option>
+                        <option value="0" selected="selected">{{ text_decline }}</option>
+                      {% endif %}
+                    </select>
+                  </div>
                 </div>
-              </div>
-              <div class="form-group three-ds-status">
-                <label class="col-sm-2 control-label" for="input-3ds-lookup-enrolled">{{ entry_3ds_lookup_enrolled }}</label>
-                <div class="col-sm-10">
-                  <select name="payment_pp_braintree_3ds_lookup_enrolled" id="input-3ds-lookup-enrolled" class="form-control">
-                    {% if payment_pp_braintree_3ds_lookup_enrolled == 1 %}
-                      <option value="1" selected="selected">{{ text_accept }}</option>
-                      <option value="0">{{ text_decline }}</option>
-                    {% else %}
-                      <option value="1">{{ text_accept }}</option>
-                      <option value="0" selected="selected">{{ text_decline }}</option>
-                    {% endif %}
-                  </select>
+                <div class="form-group three-ds-status">
+                  <label class="col-sm-2 control-label" for="input-3ds-lookup-enrolled">{{ entry_3ds_lookup_enrolled }}</label>
+                  <div class="col-sm-10">
+                    <select name="payment_pp_braintree_3ds_lookup_enrolled" id="input-3ds-lookup-enrolled" class="form-control">
+                      {% if payment_pp_braintree_3ds_lookup_enrolled == 1 %}
+                        <option value="1" selected="selected">{{ text_accept }}</option>
+                        <option value="0">{{ text_decline }}</option>
+                      {% else %}
+                        <option value="1">{{ text_accept }}</option>
+                        <option value="0" selected="selected">{{ text_decline }}</option>
+                      {% endif %}
+                    </select>
+                  </div>
                 </div>
-              </div>
-              <div class="form-group three-ds-status">
-                <label class="col-sm-2 control-label" for="input-3ds-lookup-not-enrolled">{{ entry_3ds_lookup_not_enrolled }}</label>
-                <div class="col-sm-10">
-                  <select name="payment_pp_braintree_3ds_lookup_not_enrolled" id="input-3ds-lookup-not-enrolled" class="form-control">
-                    {% if payment_pp_braintree_3ds_lookup_not_enrolled == 1 %}
-                      <option value="1" selected="selected">{{ text_accept }}</option>
-                      <option value="0">{{ text_decline }}</option>
-                    {% else %}
-                      <option value="1">{{ text_accept }}</option>
-                      <option value="0" selected="selected">{{ text_decline }}</option>
-                    {% endif %}
-                  </select>
+                <div class="form-group three-ds-status">
+                  <label class="col-sm-2 control-label" for="input-3ds-lookup-not-enrolled">{{ entry_3ds_lookup_not_enrolled }}</label>
+                  <div class="col-sm-10">
+                    <select name="payment_pp_braintree_3ds_lookup_not_enrolled" id="input-3ds-lookup-not-enrolled" class="form-control">
+                      {% if payment_pp_braintree_3ds_lookup_not_enrolled == 1 %}
+                        <option value="1" selected="selected">{{ text_accept }}</option>
+                        <option value="0">{{ text_decline }}</option>
+                      {% else %}
+                        <option value="1">{{ text_accept }}</option>
+                        <option value="0" selected="selected">{{ text_decline }}</option>
+                      {% endif %}
+                    </select>
+                  </div>
                 </div>
-              </div>
-              <div class="form-group three-ds-status">
-                <label class="col-sm-2 control-label" for="input-3ds-not-participating">{{ entry_3ds_not_participating }}</label>
-                <div class="col-sm-10">
-                  <select name="payment_pp_braintree_3ds_not_participating" id="input-3ds-not-participating" class="form-control">
-                    {% if payment_pp_braintree_3ds_not_participating == 1 %}
-                      <option value="1" selected="selected">{{ text_accept }}</option>
-                      <option value="0">{{ text_decline }}</option>
-                    {% else %}
-                      <option value="1">{{ text_accept }}</option>
-                      <option value="0" selected="selected">{{ text_decline }}</option>
-                    {% endif %}
-                  </select>
+                <div class="form-group three-ds-status">
+                  <label class="col-sm-2 control-label" for="input-3ds-not-participating">{{ entry_3ds_not_participating }}</label>
+                  <div class="col-sm-10">
+                    <select name="payment_pp_braintree_3ds_not_participating" id="input-3ds-not-participating" class="form-control">
+                      {% if payment_pp_braintree_3ds_not_participating == 1 %}
+                        <option value="1" selected="selected">{{ text_accept }}</option>
+                        <option value="0">{{ text_decline }}</option>
+                      {% else %}
+                        <option value="1">{{ text_accept }}</option>
+                        <option value="0" selected="selected">{{ text_decline }}</option>
+                      {% endif %}
+                    </select>
+                  </div>
                 </div>
-              </div>
-              <div class="form-group three-ds-status">
-                <label class="col-sm-2 control-label" for="input-3ds-unavailable">{{ entry_3ds_unavailable }}</label>
-                <div class="col-sm-10">
-                  <select name="payment_pp_braintree_3ds_unavailable" id="input-3ds-unavailable" class="form-control">
-                    {% if payment_pp_braintree_3ds_unavailable == 1 %}
-                      <option value="1" selected="selected">{{ text_accept }}</option>
-                      <option value="0">{{ text_decline }}</option>
-                    {% else %}
-                      <option value="1">{{ text_accept }}</option>
-                      <option value="0" selected="selected">{{ text_decline }}</option>
-                    {% endif %}
-                  </select>
+                <div class="form-group three-ds-status">
+                  <label class="col-sm-2 control-label" for="input-3ds-unavailable">{{ entry_3ds_unavailable }}</label>
+                  <div class="col-sm-10">
+                    <select name="payment_pp_braintree_3ds_unavailable" id="input-3ds-unavailable" class="form-control">
+                      {% if payment_pp_braintree_3ds_unavailable == 1 %}
+                        <option value="1" selected="selected">{{ text_accept }}</option>
+                        <option value="0">{{ text_decline }}</option>
+                      {% else %}
+                        <option value="1">{{ text_accept }}</option>
+                        <option value="0" selected="selected">{{ text_decline }}</option>
+                      {% endif %}
+                    </select>
+                  </div>
                 </div>
-              </div>
-              <div class="form-group three-ds-status">
-                <label class="col-sm-2 control-label" for="input-3ds-signature-failed">{{ entry_3ds_signature_failed }}</label>
-                <div class="col-sm-10">
-                  <select name="payment_pp_braintree_3ds_signature_failed" id="input-3ds-signature-failed" class="form-control">
-                    {% if payment_pp_braintree_3ds_signature_failed == 1 %}
-                      <option value="1" selected="selected">{{ text_accept }}</option>
-                      <option value="0">{{ text_decline }}</option>
-                    {% else %}
-                      <option value="1">{{ text_accept }}</option>
-                      <option value="0" selected="selected">{{ text_decline }}</option>
-                    {% endif %}
-                  </select>
+                <div class="form-group three-ds-status">
+                  <label class="col-sm-2 control-label" for="input-3ds-signature-failed">{{ entry_3ds_signature_failed }}</label>
+                  <div class="col-sm-10">
+                    <select name="payment_pp_braintree_3ds_signature_failed" id="input-3ds-signature-failed" class="form-control">
+                      {% if payment_pp_braintree_3ds_signature_failed == 1 %}
+                        <option value="1" selected="selected">{{ text_accept }}</option>
+                        <option value="0">{{ text_decline }}</option>
+                      {% else %}
+                        <option value="1">{{ text_accept }}</option>
+                        <option value="0" selected="selected">{{ text_decline }}</option>
+                      {% endif %}
+                    </select>
+                  </div>
                 </div>
-              </div>
-              <div class="form-group three-ds-status">
-                <label class="col-sm-2 control-label" for="input-3ds-successful">{{ entry_3ds_successful }}</label>
-                <div class="col-sm-10">
-                  <select name="payment_pp_braintree_3ds_successful" id="input-3ds-successful" class="form-control">
-                    {% if payment_pp_braintree_3ds_successful == 1 %}
-                      <option value="1" selected="selected">{{ text_accept }}</option>
-                      <option value="0">{{ text_decline }}</option>
-                    {% else %}
-                      <option value="1">{{ text_accept }}</option>
-                      <option value="0" selected="selected">{{ text_decline }}</option>
-                    {% endif %}
-                  </select>
+                <div class="form-group three-ds-status">
+                  <label class="col-sm-2 control-label" for="input-3ds-successful">{{ entry_3ds_successful }}</label>
+                  <div class="col-sm-10">
+                    <select name="payment_pp_braintree_3ds_successful" id="input-3ds-successful" class="form-control">
+                      {% if payment_pp_braintree_3ds_successful == 1 %}
+                        <option value="1" selected="selected">{{ text_accept }}</option>
+                        <option value="0">{{ text_decline }}</option>
+                      {% else %}
+                        <option value="1">{{ text_accept }}</option>
+                        <option value="0" selected="selected">{{ text_decline }}</option>
+                      {% endif %}
+                    </select>
+                  </div>
                 </div>
-              </div>
-              <div class="form-group three-ds-status">
-                <label class="col-sm-2 control-label" for="input-3ds-attempt-successful">{{ entry_3ds_attempt_successful }}</label>
-                <div class="col-sm-10">
-                  <select name="payment_pp_braintree_3ds_attempt_successful" id="input-3ds-attempt-successful" class="form-control">
-                    {% if payment_pp_braintree_3ds_attempt_successful == 1 %}
-                      <option value="1" selected="selected">{{ text_accept }}</option>
-                      <option value="0">{{ text_decline }}</option>
-                    {% else %}
-                      <option value="1">{{ text_accept }}</option>
-                      <option value="0" selected="selected">{{ text_decline }}</option>
-                    {% endif %}
-                  </select>
+                <div class="form-group three-ds-status">
+                  <label class="col-sm-2 control-label" for="input-3ds-attempt-successful">{{ entry_3ds_attempt_successful }}</label>
+                  <div class="col-sm-10">
+                    <select name="payment_pp_braintree_3ds_attempt_successful" id="input-3ds-attempt-successful" class="form-control">
+                      {% if payment_pp_braintree_3ds_attempt_successful == 1 %}
+                        <option value="1" selected="selected">{{ text_accept }}</option>
+                        <option value="0">{{ text_decline }}</option>
+                      {% else %}
+                        <option value="1">{{ text_accept }}</option>
+                        <option value="0" selected="selected">{{ text_decline }}</option>
+                      {% endif %}
+                    </select>
+                  </div>
                 </div>
-              </div>
-              <div class="form-group three-ds-status">
-                <label class="col-sm-2 control-label" for="input-3ds-failed">{{ entry_3ds_failed }}</label>
-                <div class="col-sm-10">
-                  <select name="payment_pp_braintree_3ds_failed" id="input-3ds-failed" class="form-control">
-                    {% if payment_pp_braintree_3ds_failed == 1 %}
-                      <option value="1" selected="selected">{{ text_accept }}</option>
-                      <option value="0">{{ text_decline }}</option>
-                    {% else %}
-                      <option value="1">{{ text_accept }}</option>
-                      <option value="0" selected="selected">{{ text_decline }}</option>
-                    {% endif %}
-                  </select>
+                <div class="form-group three-ds-status">
+                  <label class="col-sm-2 control-label" for="input-3ds-failed">{{ entry_3ds_failed }}</label>
+                  <div class="col-sm-10">
+                    <select name="payment_pp_braintree_3ds_failed" id="input-3ds-failed" class="form-control">
+                      {% if payment_pp_braintree_3ds_failed == 1 %}
+                        <option value="1" selected="selected">{{ text_accept }}</option>
+                        <option value="0">{{ text_decline }}</option>
+                      {% else %}
+                        <option value="1">{{ text_accept }}</option>
+                        <option value="0" selected="selected">{{ text_decline }}</option>
+                      {% endif %}
+                    </select>
+                  </div>
                 </div>
-              </div>
-              <div class="form-group three-ds-status">
-                <label class="col-sm-2 control-label" for="input-3ds-unable-to-auth">{{ entry_3ds_unable_to_auth }}</label>
-                <div class="col-sm-10">
-                  <select name="payment_pp_braintree_3ds_unable_to_auth" id="input-3ds-unable-to-auth" class="form-control">
-                    {% if payment_pp_braintree_3ds_unable_to_auth == 1 %}
-                      <option value="1" selected="selected">{{ text_accept }}</option>
-                      <option value="0">{{ text_decline }}</option>
-                    {% else %}
-                      <option value="1">{{ text_accept }}</option>
-                      <option value="0" selected="selected">{{ text_decline }}</option>
-                    {% endif %}
-                  </select>
+                <div class="form-group three-ds-status">
+                  <label class="col-sm-2 control-label" for="input-3ds-unable-to-auth">{{ entry_3ds_unable_to_auth }}</label>
+                  <div class="col-sm-10">
+                    <select name="payment_pp_braintree_3ds_unable_to_auth" id="input-3ds-unable-to-auth" class="form-control">
+                      {% if payment_pp_braintree_3ds_unable_to_auth == 1 %}
+                        <option value="1" selected="selected">{{ text_accept }}</option>
+                        <option value="0">{{ text_decline }}</option>
+                      {% else %}
+                        <option value="1">{{ text_accept }}</option>
+                        <option value="0" selected="selected">{{ text_decline }}</option>
+                      {% endif %}
+                    </select>
+                  </div>
                 </div>
-              </div>
-              <div class="form-group three-ds-status">
-                <label class="col-sm-2 control-label" for="input-3ds-error">{{ entry_3ds_error }}</label>
-                <div class="col-sm-10">
-                  <select name="payment_pp_braintree_3ds_error" id="input-3ds-error" class="form-control">
-                    {% if payment_pp_braintree_3ds_error == 1 %}
-                      <option value="1" selected="selected">{{ text_accept }}</option>
-                      <option value="0">{{ text_decline }}</option>
-                    {% else %}
-                      <option value="1">{{ text_accept }}</option>
-                      <option value="0" selected="selected">{{ text_decline }}</option>
-                    {% endif %}
-                  </select>
+                <div class="form-group three-ds-status">
+                  <label class="col-sm-2 control-label" for="input-3ds-error">{{ entry_3ds_error }}</label>
+                  <div class="col-sm-10">
+                    <select name="payment_pp_braintree_3ds_error" id="input-3ds-error" class="form-control">
+                      {% if payment_pp_braintree_3ds_error == 1 %}
+                        <option value="1" selected="selected">{{ text_accept }}</option>
+                        <option value="0">{{ text_decline }}</option>
+                      {% else %}
+                        <option value="1">{{ text_accept }}</option>
+                        <option value="0" selected="selected">{{ text_decline }}</option>
+                      {% endif %}
+                    </select>
+                  </div>
                 </div>
-              </div>
               {% endif %}
             </div>
             <div class="tab-pane" id="tab-vault">
@@ -599,7 +602,7 @@
                   </select>
                 </div>
               </div>
-
+              
               {% if braintree_config.paypal_enabled == 1 %}
                 <div class="form-group">
                   <label class="col-sm-2 control-label" for="input-paypal-vault"><span data-toggle="tooltip" title="{{ help_paypal_vault }}">{{ entry_paypal_vault }}</span></label>
@@ -653,10 +656,8 @@
                     </select>
                   </div>
                 </div>
-
                 {# required at a later date but must be empty #}
                 <input type="hidden" name="payment_pp_braintree_billing_agreement" value=""/>
-
                 <div class="form-group">
                   <label class="col-sm-2 control-label" for="input-paypal-button-colour">{{ entry_paypal_button_colour }}</label>
                   <div class="col-sm-10">
@@ -690,19 +691,21 @@
                   <label class="col-sm-2 control-label">{{ text_paypal_preview }}</label>
                   <div class="col-sm-10">
                     <script src="https://www.paypalobjects.com/api/button.js?"
-                       data-merchant="braintree"
-                       data-id="paypal-button"
-                       data-button="checkout"
-                       data-color="{{ payment_pp_braintree_paypal_button_colour }}"
-                       data-size="{{ payment_pp_braintree_paypal_button_size }}"
-                       data-shape="{{ payment_pp_braintree_paypal_button_shape }}"
-                       data-button_type="submit"
-                       data-button_disabled="true"
-                   ></script>
+                            data-merchant="braintree"
+                            data-id="paypal-button"
+                            data-button="checkout"
+                            data-color="{{ payment_pp_braintree_paypal_button_colour }}"
+                            data-size="{{ payment_pp_braintree_paypal_button_size }}"
+                            data-shape="{{ payment_pp_braintree_paypal_button_shape }}"
+                            data-button_type="submit"
+                            data-button_disabled="true"
+                    ></script>
                   </div>
                 </div>
                 <div class="form-group">
-                  <div class="col-sm-2"><a href="{{ button_configure }}" target="_blank" class="btn btn-primary pull-right">{{ button_enable }}</a></div>
+                  <div class="col-sm-2">
+                    <a href="{{ button_configure }}" target="_blank" class="btn btn-primary pull-right">{{ button_enable }}</a>
+                  </div>
                   <div class="col-sm-10"><p>{{ text_enable_button }}</p></div>
                 </div>
               {% endif %}
@@ -712,102 +715,103 @@
                 <div class="alert alert-info">{{ error_braintree_account_paypal }}</div>
               {% else %}
                 {% if payment_pp_braintree_status == 1 %}
-                <div class="well">
-                  <div class="row">
-                    <div class="col-sm-3">
-                      <div class="form-group">
-                      <label class="control-label" for="input-transaction-id">{{ entry_transaction_id }}</label>
-                      <input type="text" name="filter_transaction_id" value="" placeholder="Transaction ID" id="input-transaction-id" class="form-control"/>
-                    </div>
-                    <div class="form-group">
-                      <label class="control-label" for="input-transaction-type">{{ entry_transaction_type }}</label>
-                      <select name="filter_transaction_type" id="input-transaction-type" class="form-control">
-                        <option value="*" selected="selected">{{ text_all }}</option>
-                        <option value="sale">{{ text_sale }}</option>
-                        <option value="credit">{{ text_credit }}</option>
-                      </select>
-                    </div>
-                    <div class="form-group">
-                      <div class="col-sm-6" style="padding-left: 0;">
-                        <label class="control-label" for="input-date-from">{{ entry_date_from }}</label>
-                        <div class="input-group date">
-                          <input type="text" name="filter_date_from" value="" placeholder="From" data-date-format="YYYY-MM-DD" id="input-date-from" class="form-control"/>
-                          <span class="input-group-btn">
+                  <div class="well">
+                    <div class="row">
+                      <div class="col-sm-3">
+                        <div class="form-group">
+                          <label class="control-label" for="input-transaction-id">{{ entry_transaction_id }}</label>
+                          <input type="text" name="filter_transaction_id" value="" placeholder="Transaction ID" id="input-transaction-id" class="form-control"/>
+                        </div>
+                        <div class="form-group">
+                          <label class="control-label" for="input-transaction-type">{{ entry_transaction_type }}</label>
+                          <select name="filter_transaction_type" id="input-transaction-type" class="form-control">
+                            <option value="*" selected="selected">{{ text_all }}</option>
+                            <option value="sale">{{ text_sale }}</option>
+                            <option value="credit">{{ text_credit }}</option>
+                          </select>
+                        </div>
+                        <div class="form-group">
+                          <div class="col-sm-6" style="padding-left: 0;">
+                            <label class="control-label" for="input-date-from">{{ entry_date_from }}</label>
+                            <div class="input-group date">
+                              <input type="text" name="filter_date_from" value="" placeholder="From" data-date-format="YYYY-MM-DD" id="input-date-from" class="form-control"/>
+                              <span class="input-group-btn">
                             <button class="btn btn-default" type="button"><i class="fa fa-calendar"></i></button>
                           </span>
-                        </div>					  
-                      </div>
-                      <div class="col-sm-6" style="padding-right: 0;">
-                        <label class="control-label" for="input-date-to">{{ entry_date_to }}</label>
-                        <div class="input-group date">
-                          <input type="text" name="filter_date_to" value="" placeholder="To" data-date-format="YYYY-MM-DD" id="input-date-to" class="form-control"/>
-                          <span class="input-group-btn">
+                            </div>
+                          </div>
+                          <div class="col-sm-6" style="padding-right: 0;">
+                            <label class="control-label" for="input-date-to">{{ entry_date_to }}</label>
+                            <div class="input-group date">
+                              <input type="text" name="filter_date_to" value="" placeholder="To" data-date-format="YYYY-MM-DD" id="input-date-to" class="form-control"/>
+                              <span class="input-group-btn">
                             <button class="btn btn-default" type="button"><i class="fa fa-calendar"></i></button>
                           </span>
+                            </div>
+                          </div>
                         </div>
                       </div>
-                    </div>
-                  </div>
-                  <div class="col-sm-3">
-                    <div class="form-group">
-                      <label class="control-label" for="input-payment-type">{{ entry_payment_type }}</label>
-                      <select name="filter_payment_type" id="input-payment-type" class="form-control">
-                        <option value="*" selected="selected">{{ text_all }}</option>
-                        <option value="Credit Card">{{ text_credit_card }}</option>
-                        <option value="PayPal">{{ text_paypal }}</option>
-                      </select>
-                    </div>
-                    <div class="form-group">
-                      <label class="control-label" for="input-card-type">{{ entry_card_type }}</label>
-                      <select name="filter_card_type" id="input-card-type" class="form-control">
-                        <option value="*">{{ text_all }}</option>
-                        {% for card_type in card_types %}
-                          <option value="{{ card_type }}">{{ card_type }}</option>
-                        {% endfor %}
-                      </select>
-                    </div>
-                    <div class="form-group">
-                      <div class="col-sm-6" style="padding-left: 0;">
-                        <label class="control-label" for="input-amount-from">{{ entry_amount_from }}</label>
-                        <input type="text" name="filter_amount_from" value="" placeholder="From" id="input-amount-from" class="form-control"/>
-                      </div>
-                      <div class="col-sm-6" style="padding-right: 0;">
-                        <label class="control-label" for="input-amount-to">{{ entry_amount_to }}</label>
-                        <input type="text" name="filter_amount_to" value="" placeholder="To" id="input-amount-to" class="form-control"/>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="col-sm-3">
-                    <div class="form-group">
-                      <label class="control-label" for="input-card-type">{{ entry_transaction_status }}</label>
-                      <div class="well well-sm" style="height: 190px; overflow: auto; margin-bottom: 0;">
-                        {% for transaction_status in transaction_statuses %}
-                          <div class="checkbox">
-                            <label>
-                              <input class="filter-transaction-status" type="checkbox" name="filter_transaction_status[]" value="{{ transaction_status }}" checked="checked"/> {{ transaction_status }}
-                            </label>
+                      <div class="col-sm-3">
+                        <div class="form-group">
+                          <label class="control-label" for="input-payment-type">{{ entry_payment_type }}</label>
+                          <select name="filter_payment_type" id="input-payment-type" class="form-control">
+                            <option value="*" selected="selected">{{ text_all }}</option>
+                            <option value="Credit Card">{{ text_credit_card }}</option>
+                            <option value="PayPal">{{ text_paypal }}</option>
+                          </select>
+                        </div>
+                        <div class="form-group">
+                          <label class="control-label" for="input-card-type">{{ entry_card_type }}</label>
+                          <select name="filter_card_type" id="input-card-type" class="form-control">
+                            <option value="*">{{ text_all }}</option>
+                            {% for card_type in card_types %}
+                              <option value="{{ card_type }}">{{ card_type }}</option>
+                            {% endfor %}
+                          </select>
+                        </div>
+                        <div class="form-group">
+                          <div class="col-sm-6" style="padding-left: 0;">
+                            <label class="control-label" for="input-amount-from">{{ entry_amount_from }}</label>
+                            <input type="text" name="filter_amount_from" value="" placeholder="From" id="input-amount-from" class="form-control"/>
                           </div>
-                        {% endfor %}
+                          <div class="col-sm-6" style="padding-right: 0;">
+                            <label class="control-label" for="input-amount-to">{{ entry_amount_to }}</label>
+                            <input type="text" name="filter_amount_to" value="" placeholder="To" id="input-amount-to" class="form-control"/>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-sm-3">
+                        <div class="form-group">
+                          <label class="control-label" for="input-card-type">{{ entry_transaction_status }}</label>
+                          <div class="well well-sm" style="height: 190px; overflow: auto; margin-bottom: 0;">
+                            {% for transaction_status in transaction_statuses %}
+                              <div class="checkbox">
+                                <label>
+                                  <input class="filter-transaction-status" type="checkbox" name="filter_transaction_status[]" value="{{ transaction_status }}" checked="checked"/> {{ transaction_status }}
+                                </label>
+                              </div>
+                            {% endfor %}
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-sm-3">
+                        <div class="form-group">
+                          <label class="control-label" for="input-merchant-account-id">{{ entry_merchant_account_id }}</label>
+                          <select name="filter_merchant_account_id" id="input-merchant-account-id" class="form-control">
+                            <option value="*">{{ text_all }}</option>
+                            {% for pp_braintree_account_value in payment_pp_braintree_account %}
+                              {% if pp_braintree_account_value.merchant_account_id %}
+                                <option value="{{ pp_braintree_account_value.merchant_account_id }}">{{ pp_braintree_account_value.merchant_account_id }}</option>
+                              {% endif %}
+                            {% endfor %}
+                          </select>
+                        </div>
+                        <button type="button" id="button-filter" class="btn btn-primary pull-right">
+                          <i class="fa fa-search"></i> {{ button_filter }}</button>
                       </div>
                     </div>
                   </div>
-                  <div class="col-sm-3">
-                    <div class="form-group">
-                      <label class="control-label" for="input-merchant-account-id">{{ entry_merchant_account_id }}</label>
-                      <select name="filter_merchant_account_id" id="input-merchant-account-id" class="form-control">
-                        <option value="*">{{ text_all }}</option>
-                        {% for pp_braintree_account_value in payment_pp_braintree_account %}
-                          {% if pp_braintree_account_value.merchant_account_id %}
-                            <option value="{{ pp_braintree_account_value.merchant_account_id }}">{{ pp_braintree_account_value.merchant_account_id }}</option>
-                          {% endif %}
-                        {% endfor %}
-                      </select>
-                      </div>
-                      <button type="button" id="button-filter" class="btn btn-primary pull-right"><i class="fa fa-search"></i> {{ button_filter }}</button>
-                    </div>
-                  </div>
-                </div>
-                <div id="table-action"></div>
+                  <div id="table-action"></div>
                 {% else %}
                   {{ text_enable_transactions }}
                 {% endif %}
@@ -820,212 +824,214 @@
   </div>
 </div>
 <style>
-	#tab-transaction .form-group {
-		margin-left: 0;
-		margin-right: 0;
-	}
+    #tab-transaction .form-group {
+        margin-left: 0;
+        margin-right: 0;
+    }
 </style>
 <script type="text/javascript"><!--
-$('#tabs a:first').tab('show');
+    $('#tabs a:first').tab('show');
 
-$('.date').datetimepicker({
-	language: '{{ datepicker }}',
-	pickTime: false
-});
+    $('.date').datetimepicker({
+        language: '{{ datepicker }}',
+        pickTime: false
+    });
 
-$('#button-filter').on('click', function (e) {
-	e.preventDefault();
+    $('#button-filter').on('click', function (e) {
+        e.preventDefault();
 
-	var url = 'index.php?route=extension/payment/pp_braintree/search&user_token={{ user_token }}';
+        var url = 'index.php?route=extension/payment/pp_braintree/search&user_token={{ user_token }}';
 
-	var filter_transaction_id = $('input[name=\'filter_transaction_id\']').val();
+        var filter_transaction_id = $('input[name=\'filter_transaction_id\']').val();
 
-	if (filter_transaction_id) {
-		url += '&filter_transaction_id=' + encodeURIComponent(filter_transaction_id);
-	}
+        if (filter_transaction_id) {
+            url += '&filter_transaction_id=' + encodeURIComponent(filter_transaction_id);
+        }
 
-	var filter_transaction_type = $('select[name=\'filter_transaction_type\']').val();
+        var filter_transaction_type = $('select[name=\'filter_transaction_type\']').val();
 
-	if (filter_transaction_type != '*') {
-		url += '&filter_transaction_type=' + encodeURIComponent(filter_transaction_type);
-	}
+        if (filter_transaction_type != '*') {
+            url += '&filter_transaction_type=' + encodeURIComponent(filter_transaction_type);
+        }
 
-	var filter_payment_type = $('select[name=\'filter_payment_type\']').val();
+        var filter_payment_type = $('select[name=\'filter_payment_type\']').val();
 
-	if (filter_payment_type != '*') {
-		url += '&filter_payment_type=' + encodeURIComponent(filter_payment_type);
-	}
+        if (filter_payment_type != '*') {
+            url += '&filter_payment_type=' + encodeURIComponent(filter_payment_type);
+        }
 
-	var filter_card_type = $('select[name=\'filter_card_type\']').val();
+        var filter_card_type = $('select[name=\'filter_card_type\']').val();
 
-	if (filter_card_type != '*') {
-		url += '&filter_card_type=' + encodeURIComponent(filter_card_type);
-	}
+        if (filter_card_type != '*') {
+            url += '&filter_card_type=' + encodeURIComponent(filter_card_type);
+        }
 
-	var filter_merchant_account_id = $('select[name=\'filter_merchant_account_id\']').val();
+        var filter_merchant_account_id = $('select[name=\'filter_merchant_account_id\']').val();
 
-	if (filter_merchant_account_id != '*') {
-		url += '&filter_merchant_account_id=' + encodeURIComponent(filter_merchant_account_id);
-	}
+        if (filter_merchant_account_id != '*') {
+            url += '&filter_merchant_account_id=' + encodeURIComponent(filter_merchant_account_id);
+        }
 
-	$('.filter-transaction-status:checked').each(function (i) {
-		url += '&filter_transaction_status[' + i + ']=' + encodeURIComponent($(this).val());
-	});
+        $('.filter-transaction-status:checked').each(function (i) {
+            url += '&filter_transaction_status[' + i + ']=' + encodeURIComponent($(this).val());
+        });
 
-	var filter_date_from = $('input[name=\'filter_date_from\']').val();
+        var filter_date_from = $('input[name=\'filter_date_from\']').val();
 
-	if (filter_date_from) {
-		url += '&filter_date_from=' + encodeURIComponent(filter_date_from);
-	}
+        if (filter_date_from) {
+            url += '&filter_date_from=' + encodeURIComponent(filter_date_from);
+        }
 
-	var filter_date_to = $('input[name=\'filter_date_to\']').val();
+        var filter_date_to = $('input[name=\'filter_date_to\']').val();
 
-	if (filter_date_to) {
-		url += '&filter_date_to=' + encodeURIComponent(filter_date_to);
-	}
+        if (filter_date_to) {
+            url += '&filter_date_to=' + encodeURIComponent(filter_date_to);
+        }
 
-	var filter_amount_from = $('input[name=\'filter_amount_from\']').val();
+        var filter_amount_from = $('input[name=\'filter_amount_from\']').val();
 
-	if (filter_amount_from) {
-		url += '&filter_amount_from=' + encodeURIComponent(filter_amount_from);
-	}
+        if (filter_amount_from) {
+            url += '&filter_amount_from=' + encodeURIComponent(filter_amount_from);
+        }
 
-	var filter_amount_to = $('input[name=\'filter_amount_to\']').val();
+        var filter_amount_to = $('input[name=\'filter_amount_to\']').val();
 
-	if (filter_amount_to) {
-		url += '&filter_amount_to=' + encodeURIComponent(filter_amount_to);
-	}
+        if (filter_amount_to) {
+            url += '&filter_amount_to=' + encodeURIComponent(filter_amount_to);
+        }
 
-	$.ajax({
-		url: url,
-		dataType: 'json',
-		beforeSend: function() {
-			$('#button-filter').button('loading');
+        $.ajax({
+            url: url,
+            dataType: 'json',
+            beforeSend: function () {
+                $('#button-filter').button('loading');
 
-			$('#table-action').html('<div style="width: 5em; margin: 0px auto;"><i class="braintree-loading fa fa-spinner fa-spin fa-5x" style="text-align: center; margin: 0 auto; width: 100%; font-size: 5em;"></i></div>');
-		},
-		complete: function() {
-			$('#button-filter').button('reset');
-		},
-		success: function (json) {
-			var html = '';
+                $('#table-action').html('<div style="width: 5em; margin: 0px auto;"><i class="braintree-loading fa fa-spinner fa-spin fa-5x" style="text-align: center; margin: 0 auto; width: 100%; font-size: 5em;"></i></div>');
+            },
+            complete: function () {
+                $('#button-filter').button('reset');
+            },
+            success: function (json) {
+                var html = '';
 
-			html += '<table class="table table-bordered">';
-			html +=   '<thead>';
-			html +=     '<tr>';
-			html +=       '<td class="text-left">{{ column_transaction_id }}</td>';
-			html +=       '<td class="text-left">{{ column_amount }}</td>';
-			html +=       '<td class="text-left">{{ column_status }}</td>';
-			html +=       '<td class="text-left">{{ column_type }}</td>';
-			html +=       '<td class="text-left">{{ column_customer }}</td>';
-			html +=       '<td class="text-left">{{ column_order }}</td>';
-			html +=       '<td class="text-left">{{ column_date_added }}</td>';
-			html +=     '</tr>';
-			html +=   '</thead>';
-			html +=   '<tbody>';
-			if (json.transactions) {
-				$(json.transactions).each(function (i) {
-					html += '<tr>';
-					html += '<td><a href="#" class="transaction-id" data-id="' + this.transaction_id + '">' + this.transaction_id + '</a></td>';
-					html += '<td>' + this.amount + ' ' + this.currency_iso + '</td>';
-					html += '<td>' + this.status + '</td>';
-					html += '<td>' + this.type + '</td>';
+                html += '<table class="table table-bordered">';
+                html += '<thead>';
+                  html += '<tr>';
+                  html += '<td class="text-left">{{ column_transaction_id }}</td>';
+                  html += '<td class="text-left">{{ column_amount }}</td>';
+                  html += '<td class="text-left">{{ column_status }}</td>';
+                  html += '<td class="text-left">{{ column_type }}</td>';
+                  html += '<td class="text-left">{{ column_customer }}</td>';
+                  html += '<td class="text-left">{{ column_order }}</td>';
+                  html += '<td class="text-left">{{ column_date_added }}</td>';
+                  html += '</tr>';
+                html += '</thead>';
+                html += '<tbody>';
+                if (json.transactions) {
+                    $(json.transactions).each(function (i) {
+                        html += '<tr>';
+                        html += '<td><a href="#" class="transaction-id" data-id="' + this.transaction_id + '">' + this.transaction_id + '</a></td>';
+                        html += '<td>' + this.amount + ' ' + this.currency_iso + '</td>';
+                        html += '<td>' + this.status + '</td>';
+                        html += '<td>' + this.type + '</td>';
 
-					if (this.customer_url) {
-						html += '<td><a href="' + this.customer_url + '">' + this.customer + '</a></td>';
-					} else {
-						html += '<td>' + this.customer + '</td>';
-					}
+                        if (this.customer_url) {
+                            html += '<td><a href="' + this.customer_url + '">' + this.customer + '</a></td>';
+                        } else {
+                            html += '<td>' + this.customer + '</td>';
+                        }
 
-					if (this.order) {
-						html += '<td><a href="' + this.order + '">View</a></td>';
-					} else {
-						html += '<td></td>';
-					}
+                        if (this.order) {
+                            html += '<td><a href="' + this.order + '">View</a></td>';
+                        } else {
+                            html += '<td></td>';
+                        }
 
-					html += '<td>' + this.date_added + '</td>';
-				});
-			} else {
-				html += '<tr><td class="text-center" colspan="8">{{ text_no_results }}</td></tr>';
-			}
+                        html += '<td>' + this.date_added + '</td>';
+                    });
+                } else {
+                    html += '<tr><td class="text-center" colspan="8">{{ text_no_results }}</td></tr>';
+                }
 
-			html +=   '</tbody>';
-			html += '</table>';
+                html += '</tbody>';
+                html += '</table>';
 
-			$('#table-action').html(html);
-		}
-	});
-});
+                $('#table-action').html(html);
+            }
+        });
+    });
 
-$(document).on('click', '.transaction-id', function (e) {
-  e.preventDefault();
+    $(document).on('click', '.transaction-id', function (e) {
+        e.preventDefault();
 
-  getTransaction($(this).attr('data-id'));
-});
+        getTransaction($(this).attr('data-id'));
+    });
 
-$(document).on('click', '#delete-link', function (e) {
-  e.preventDefault();
+    $(document).on('click', '#delete-link', function (e) {
+        e.preventDefault();
 
-  $('input[name="payment_pp_braintree_access_token"]').val('');
-  $('input[name="payment_pp_braintree_refresh_token"]').val('');
-  $('input[name="payment_pp_braintree_merchant_id"]').val('');
-  $('input[name="payment_pp_braintree_public_key"]').val('');
+        $('input[name="payment_pp_braintree_access_token"]').val('');
+        $('input[name="payment_pp_braintree_refresh_token"]').val('');
+        $('input[name="payment_pp_braintree_merchant_id"]').val('');
+        $('input[name="payment_pp_braintree_public_key"]').val('');
 
-  $('select[name="payment_pp_braintree_status"]').val(0);
+        $('select[name="payment_pp_braintree_status"]').val(0);
 
-  $('#form-braintree').submit();
-});
+        $('#form-braintree').submit();
+    });
 
-$(document).ready(function() {
-    if ($('#input-3ds-status').val() == 1) {
-        $('.three-ds-status').show();
-    } else {
-        $('.three-ds-status').hide();
+    $(document).ready(function () {
+        if ($('#input-3ds-status').val() == 1) {
+            $('.three-ds-status').show();
+        } else {
+            $('.three-ds-status').hide();
+        }
+    });
+
+    $('#input-3ds-status').on('change', function () {
+        if ($(this).val() == 1) {
+            $('.three-ds-status').show();
+        } else {
+            $('.three-ds-status').hide();
+        }
+    });
+
+    function getTransaction(transaction_id) {
+        $.ajax({
+            url: 'index.php?route=extension/payment/pp_braintree/getTransaction&user_token={{ user_token }}',
+            dataType: 'html',
+            data: {
+                transaction_id: transaction_id
+            },
+            beforeSend: function () {
+                $('#button-filter').button('loading');
+
+                $('#table-action').html('<div style="width: 5em; margin: 0px auto;"><i class="braintree-loading fa fa-spinner fa-spin fa-5x" style="text-align: center; margin: 0 auto; width: 100%; font-size: 5em;"></i></div>');
+            },
+            complete: function () {
+                $('#button-filter').button('reset');
+            },
+            success: function (html) {
+                $('#table-action').html(html);
+            }
+        });
     }
-});
 
-$('#input-3ds-status').on('change', function() {
-    if ($(this).val() == 1) {
-        $('.three-ds-status').show();
-    } else {
-        $('.three-ds-status').hide();
-    }
-});
-
-function getTransaction(transaction_id) {
-	$.ajax({
-		url: 'index.php?route=extension/payment/pp_braintree/getTransaction&user_token={{ user_token }}',
-		dataType: 'html',
-		data: {
-			transaction_id: transaction_id
-		},
-		beforeSend: function() {
-			$('#button-filter').button('loading');
-
-			$('#table-action').html('<div style="width: 5em; margin: 0px auto;"><i class="braintree-loading fa fa-spinner fa-spin fa-5x" style="text-align: center; margin: 0 auto; width: 100%; font-size: 5em;"></i></div>');
-		},
-		complete: function() {
-			$('#button-filter').button('reset');
-		},
-		success: function (html) {
-			$('#table-action').html(html);
-		}
-	});
-}
-//--></script>
+  //--></script>
 
 {% if auth_connect_url %}
   <script src="https://assets.braintreegateway.com/v1/braintree-oauth-connect.js"></script>
+  
   <script type="text/javascript"><!--
-    new BraintreeOAuthConnect({
-      connectUrl: '{{ auth_connect_url }}',
-      container: 'bt-connect',
-      onError: function (error) {
-        alert(error.message);
-      }
-    });
-	
-    $('#bt-connect').show();
+      new BraintreeOAuthConnect({
+          connectUrl: '{{ auth_connect_url }}',
+          container: 'bt-connect',
+          onError: function (error) {
+              alert(error.message);
+          }
+      });
+
+      $('#bt-connect').show();
   //--></script>
 {% endif %}
 {{ footer }}

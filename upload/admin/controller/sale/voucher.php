@@ -560,7 +560,6 @@ class ControllerSaleVoucher extends Controller {
 
             if ($vouchers) {
                 $this->load->model('sale/order');
-
                 $this->load->model('sale/voucher_theme');
 
                 foreach ($vouchers as $voucher_id) {
@@ -591,6 +590,8 @@ class ControllerSaleVoucher extends Controller {
                             $data['text_message']  = $language->get('text_message');
                             $data['text_redeem']   = sprintf($language->get('text_redeem'), $voucher_info['code']);
                             $data['text_footer']   = $language->get('text_footer');
+                            $data['lang']          = $language->get('code');
+                            $data['direction']     = $language->get('direction');
 
                             $voucher_theme_info = $this->model_sale_voucher_theme->getVoucherTheme($voucher_info['voucher_theme_id']);
 
@@ -621,7 +622,7 @@ class ControllerSaleVoucher extends Controller {
                                 $mail->send();
                             }
 
-                            // If voucher does not belong to an order
+                        // If voucher does not belong to an order
                         } else {
                             $this->language->load('mail/voucher');
 
