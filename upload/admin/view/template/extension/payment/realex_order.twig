@@ -89,7 +89,9 @@
         data: {'order_id': '{{ order_id }}'},
         beforeSend: function () {
           $('#button-void').hide();
+          
           $('#loading-void').show();
+          
           $('#realex-transaction-msg').hide();
         },
         success: function (data) {
@@ -102,8 +104,11 @@
             html += '</tr>';
             
             $('.void_text').text('{{ text_yes }}');
+            
             $('#realex-transactions').append(html);
+            
             $('#button-capture').hide();
+            
             $('#capture-amount').hide();
             
             if (data.msg != '') {
@@ -130,8 +135,11 @@
         data: {'order_id': '{{ order_id }}', 'amount': $('#capture-amount').val()},
         beforeSend: function () {
           $('#button-capture').hide();
+          
           $('#capture-amount').hide();
+          
           $('#loading-capture').show();
+          
           $('#realex-transaction-msg').hide();
         },
         success: function (data) {
@@ -186,8 +194,11 @@
         data: {'order_id': '{{ order_id }}', 'amount': $('#rebate-amount').val()},
         beforeSend: function () {
           $('#button-rebate').hide();
+          
           $('#rebate-amount').hide();
+          
           $('#loading-rebate').show();
+          
           $('#realex-transaction-msg').hide();
         },
         success: function (data) {
@@ -200,12 +211,14 @@
             html += '</tr>';
             
             $('#realex-transactions').append(html);
+            
             $('#realex-total-captured').text(data.data.total_captured);
             
             if (data.data.rebate_status == 1) {
               $('.rebate_text').text('{{ text_yes }}');
             } else {
               $('#button-rebate').show();
+              
               $('#rebate-amount').val(0.00).show();
             }
             

@@ -92,9 +92,9 @@
           if (data.error == false) {
             html = '';
             html += '<tr>';
-            html += '<td class="text-left">' + data.data.date_added + '</td>';
-            html += '<td class="text-left">{{ text_void }}</td>';
-            html += '<td class="text-left">' + data.data.total + '</td>';
+              html += '<td class="text-left">' + data.data.date_added + '</td>';
+              html += '<td class="text-left">{{ text_void }}</td>';
+              html += '<td class="text-left">' + data.data.total + '</td>';
             html += '</tr>';
             
             $('.void_text').text('{{ text_yes }}');
@@ -137,9 +137,9 @@
           if (data.error == false) {
             html = '';
             html += '<tr>';
-            html += '<td class="text-left">' + data.data.date_added + '</td>';
-            html += '<td class="text-left">{{ text_payment }}</td>';
-            html += '<td class="text-left">' + data.data.amount + '</td>';
+              html += '<td class="text-left">' + data.data.date_added + '</td>';
+              html += '<td class="text-left">{{ text_payment }}</td>';
+              html += '<td class="text-left">' + data.data.amount + '</td>';
             html += '</tr>';
             
             $('#bluepay_redirect_transactions').append(html);
@@ -192,9 +192,9 @@
           if (data.error == false) {
             html = '';
             html += '<tr>';
-            html += '<td class="text-left">' + data.data.date_added + '</td>';
-            html += '<td class="text-left">{{ text_rebate }}</td>';
-            html += '<td class="text-left">' + data.data.amount + '</td>';
+              html += '<td class="text-left">' + data.data.date_added + '</td>';
+              html += '<td class="text-left">{{ text_rebate }}</td>';
+              html += '<td class="text-left">' + data.data.amount + '</td>';
             html += '</tr>';
             
             $('#bluepay_redirect_transactions').append(html);

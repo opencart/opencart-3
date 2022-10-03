@@ -86,7 +86,9 @@
         data: {'order_id': {{ order_id }} },
         beforeSend: function () {
           $('#button-void').hide();
+          
           $('#img_loading_void').show();
+          
           $('#realex_transaction_msg').hide();
         },
         success: function (data) {
@@ -99,8 +101,11 @@
             html += '</tr>';
             
             $('.void_text').text('{{ text_yes }}');
+            
             $('#realex_transactions').append(html);
+            
             $('#button_capture').hide();
+            
             $('#capture_amount').hide();
             
             if (data.msg != '') {
@@ -127,8 +132,11 @@
         data: {'order_id': {{ order_id }}, 'amount': $('#capture_amount').val()},
         beforeSend: function () {
           $('#button_capture').hide();
+          
           $('#capture_amount').hide();
+          
           $('#img_loading_capture').show();
+          
           $('#realex_transaction_msg').hide();
         },
         success: function (data) {
@@ -145,9 +153,11 @@
             
             if (data.data.capture_status == 1) {
               $('#button-void').hide();
+              
               $('.capture_text').text('{{ text_yes }}');
             } else {
               $('#button_capture').show();
+              
               $('#capture_amount').val(0.00);
             }
             
@@ -160,11 +170,13 @@
             }
             
             $('#button-rebate').show();
+            
             $('#rebate_amount').val(0.00).show();
           }
           if (data.error == true) {
             alert(data.msg);
             $('#button_capture').show();
+            
             $('#capture_amount').show();
           }
           
@@ -183,8 +195,11 @@
         data: {'order_id': {{ order_id }}, 'amount': $('#rebate_amount').val()},
         beforeSend: function () {
           $('#button-rebate').hide();
+          
           $('#rebate_amount').hide();
+          
           $('#img_loading_rebate').show();
+          
           $('#realex_transaction_msg').hide();
         },
         success: function (data) {
@@ -197,12 +212,14 @@
             html += '</tr>';
             
             $('#realex_transactions').append(html);
+            
             $('#payment_realex_total_captured').text(data.data.total_captured);
             
             if (data.data.rebate_status == 1) {
               $('.rebate_text').text('{{ text_yes }}');
             } else {
               $('#button-rebate').show();
+              
               $('#rebate_amount').val(0.00).show();
             }
             

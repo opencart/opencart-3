@@ -86,16 +86,18 @@
         data: 'order_id={{ order_id }}',
         beforeSend: function () {
           $('#button-void').hide();
+          
           $('#img_loading_void').show();
+          
           $('#firstdata_transaction_msg').hide();
         },
         success: function (data) {
           if (data['error'] == false) {
             html = '';
             html += '<tr>';
-            html += '<td class="text-left">' + data.data.date_added + '</td>';
-            html += '<td class="text-left">{{ text_void }}</td>';
-            html += '<td class="text-left">0.00</td>';
+              html += '<td class="text-left">' + data.data.date_added + '</td>';
+              html += '<td class="text-left">{{ text_void }}</td>';
+              html += '<td class="text-left">0.00</td>';
             html += '</tr>';
             
             $('. void_text').text('{{ text_yes }}');
@@ -130,24 +132,29 @@
         data: {'order_id': {{ order_id }} },
         beforeSend: function () {
           $('#button-capture').hide();
+          
           $('#img_loading_capture').show();
+          
           $('#firstdata_transaction_msg').hide();
         },
         success: function (data) {
           if (data.error == false) {
             html = '';
             html += '<tr>';
-            html += '<td class="text-left">' + data.data.date_added + '</td>';
-            html += '<td class="text-left"{{ text_payment }}</td>';
-            html += '<td class="text-left">' + data.data.amount + '</td>';
+              html += '<td class="text-left">' + data.data.date_added + '</td>';
+              html += '<td class="text-left"{{ text_payment }}</td>';
+              html += '<td class="text-left">' + data.data.amount + '</td>';
             html += '</tr>';
             
             $('#firstdata_transactions').append(html);
+            
             $('#firstdata_total_captured').text(data.data.total_formatted);
             
             if (data.data.capture_status == 1) {
               $('#button-void').hide();
+              
               $('#button-refund').show();
+              
               $(' . capture_text').text('{{ text_yes }}');
             } else {
               $('#button-capture').show();
@@ -185,9 +192,9 @@
           if (data.error == false) {
             html = '';
             html += '<tr>';
-            html += '<td class="text-left">' + data.data.date_added + '</td>';
-            html += '<td class="text-left">{{ text_refund }}</td>';
-            html += '<td class="text-left">' + data.data.amount + '</td>';
+              html += '<td class="text-left">' + data.data.date_added + '</td>';
+              html += '<td class="text-left">{{ text_refund }}</td>';
+              html += '<td class="text-left">' + data.data.amount + '</td>';
             html += '</tr>';
             
             $('#firstdata_transactions').append(html);

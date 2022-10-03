@@ -66,6 +66,7 @@
 <script type="text/javascript"><!--
   function markAsComplete() {
     $('#complete-entry, #reauthorise-entry, #reauthorise-entry').html('-');
+    
     $('#capture-status').html('{{ text_complete }}');
   }
   
@@ -86,12 +87,13 @@
             
             var html = '';
             html += '<tr>';
-            html += ' <td class="left">' + data.success.transaction_reference + '</td>';
-            html += ' <td class="left">' + data.success.transaction_type + '</td>';
-            html += ' <td class="left">' + data.success.amount + '</td>';
-            html += ' <td class="left">' + data.success.time + '</td>';
-            html += ' <td class="left"></td>';
+              html += ' <td class="left">' + data.success.transaction_reference + '</td>';
+              html += ' <td class="left">' + data.success.transaction_type + '</td>';
+              html += ' <td class="left">' + data.success.amount + '</td>';
+              html += ' <td class="left">' + data.success.time + '</td>';
+              html += ' <td class="left"></td>';
             html += '</tr>';
+            
             $('#transaction-table tbody').append(html);
             
             markAsComplete();
@@ -129,17 +131,17 @@
         if (!data.error) {
           var html = '';
           html += '<tr>';
-          html += ' <td class="left">' + data.success.transaction_reference + '</td>';
-          html += ' <td class="left">' + data.success.transaction_type + '</td>';
-          html += ' <td class="left">' + data.success.amount + '</td>';
-          html += ' <td class="left">' + data.success.time + '</td>';
-          html += ' <td class="left">';
+            html += ' <td class="left">' + data.success.transaction_reference + '</td>';
+            html += ' <td class="left">' + data.success.transaction_type + '</td>';
+            html += ' <td class="left">' + data.success.amount + '</td>';
+            html += ' <td class="left">' + data.success.time + '</td>';
+            html += ' <td class="left">';
           
           $.each(data.success.actions, function (index, value) {
             html += ' [<a href="' + value.href + '">' + value.title + '</a>] ';
           });
           
-          html += '</td>';
+            html += '</td>';
           html += '</tr>';
           $('#transaction-table tbody').append(html);
           

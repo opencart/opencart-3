@@ -480,7 +480,7 @@
                               html += '<td class="text-left hidden-xs">' + row.num_refunds + '</td>';
                               html += '<td class="text-left hidden-xs hidden-sm">' + row.ip + '</td>';
                               html += '<td class="text-left">' + row.date_created + '</td>';
-                            html += '<td class="text-right">';
+                              html += '<td class="text-right">';
 
                             switch (row.type) {
                                 case "AUTHORIZED" : {
@@ -495,8 +495,8 @@
                                     break;
                             }
 
-                            html += ' <a class="btn btn-info" href="' + row.url_info + '">{{ text_view }}</a>';
-                            html += '</td>';
+                              html += ' <a class="btn btn-info" href="' + row.url_info + '">{{ text_view }}</a>';
+                              html += '</td>';
                             html += '</tr>';
                         }
                     } else {
@@ -673,11 +673,15 @@
             .change(function () {
                 if ($(this).val() == '0') {
                     $('#sandbox_settings').slideUp();
+                    
                     $('#dropdown_payment_squareup_location_id').show();
+                    
                     $('#dropdown_payment_squareup_sandbox_location_id').hide();
                 } else {
                     $('#sandbox_settings').slideDown();
+                    
                     $('#dropdown_payment_squareup_location_id').hide();
+                    
                     $('#dropdown_payment_squareup_sandbox_location_id').show();
                 }
             })

@@ -182,17 +182,17 @@
         } else {
           if (data.result != '') {
             html += '<thead><tr>';
-            html += '<td class="left">{{ column_date }}</td>';
-            html += '<td class="left">{{ column_type }}</td>';
-            html += '<td class="left">{{ column_email }}</td>';
-            html += '<td class="left">{{ column_name }}</td>';
-            html += '<td class="left">{{ column_transid }}</td>';
-            html += '<td class="left">{{ column_status }}</td>';
-            html += '<td class="left">{{ column_currency }}</td>';
-            html += '<td class="right">{{ column_amount }}</td>';
-            html += '<td class="right">{{ column_fee }}</td>';
-            html += '<td class="right">{{ column_netamt }}</td>';
-            html += '<td class="center">{{ column_action }}</td>';
+              html += '<td class="left">{{ column_date }}</td>';
+              html += '<td class="left">{{ column_type }}</td>';
+              html += '<td class="left">{{ column_email }}</td>';
+              html += '<td class="left">{{ column_name }}</td>';
+              html += '<td class="left">{{ column_transid }}</td>';
+              html += '<td class="left">{{ column_status }}</td>';
+              html += '<td class="left">{{ column_currency }}</td>';
+              html += '<td class="right">{{ column_amount }}</td>';
+              html += '<td class="right">{{ column_fee }}</td>';
+              html += '<td class="right">{{ column_netamt }}</td>';
+              html += '<td class="center">{{ column_action }}</td>';
             html += '</tr></thead>';
   
               $.each(data.result, function (k, v) {
@@ -204,19 +204,19 @@
                 }
   
                 html += '<tr>';
-                html += '<td class="left">' + v.L_TIMESTAMP + '</td>';
-                html += '<td class="left">' + v.L_TYPE + '</td>';
-                html += '<td class="left">' + v.L_EMAIL + '</td>';
-                html += '<td class="left">' + v.L_NAME + '</td>';
-                html += '<td class="left">' + v.L_TRANSACTIONID + '</td>';
-                html += '<td class="left">' + v.L_STATUS + '</td>';
-                html += '<td class="left">' + v.L_CURRENCYCODE + '</td>';
-                html += '<td class="right">' + v.L_AMT + '</td>';
-                html += '<td class="right">' + v.L_FEEAMT + '</td>';
-                html += '<td class="right">' + v.L_NETAMT + '</td>';
-                html += '<td class="center">';
-                html += '<a href="{{ view_link }}&transaction_id=' + v.L_TRANSACTIONID + '">{{ text_view }}</a>';
-                html += '</td>';
+                  html += '<td class="left">' + v.L_TIMESTAMP + '</td>';
+                  html += '<td class="left">' + v.L_TYPE + '</td>';
+                  html += '<td class="left">' + v.L_EMAIL + '</td>';
+                  html += '<td class="left">' + v.L_NAME + '</td>';
+                  html += '<td class="left">' + v.L_TRANSACTIONID + '</td>';
+                  html += '<td class="left">' + v.L_STATUS + '</td>';
+                  html += '<td class="left">' + v.L_CURRENCYCODE + '</td>';
+                  html += '<td class="right">' + v.L_AMT + '</td>';
+                  html += '<td class="right">' + v.L_FEEAMT + '</td>';
+                  html += '<td class="right">' + v.L_NETAMT + '</td>';
+                  html += '<td class="center">';
+                  html += '<a href="{{ view_link }}&transaction_id=' + v.L_TRANSACTIONID + '">{{ text_view }}</a>';
+                  html += '</td>';
                 html += '</tr>';
               }
             });

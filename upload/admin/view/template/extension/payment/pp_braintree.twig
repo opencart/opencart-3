@@ -912,23 +912,23 @@
                 html += '<table class="table table-bordered">';
                 html += '<thead>';
                   html += '<tr>';
-                  html += '<td class="text-left">{{ column_transaction_id }}</td>';
-                  html += '<td class="text-left">{{ column_amount }}</td>';
-                  html += '<td class="text-left">{{ column_status }}</td>';
-                  html += '<td class="text-left">{{ column_type }}</td>';
-                  html += '<td class="text-left">{{ column_customer }}</td>';
-                  html += '<td class="text-left">{{ column_order }}</td>';
-                  html += '<td class="text-left">{{ column_date_added }}</td>';
+                    html += '<td class="text-left">{{ column_transaction_id }}</td>';
+                    html += '<td class="text-left">{{ column_amount }}</td>';
+                    html += '<td class="text-left">{{ column_status }}</td>';
+                    html += '<td class="text-left">{{ column_type }}</td>';
+                    html += '<td class="text-left">{{ column_customer }}</td>';
+                    html += '<td class="text-left">{{ column_order }}</td>';
+                    html += '<td class="text-left">{{ column_date_added }}</td>';
                   html += '</tr>';
                 html += '</thead>';
                 html += '<tbody>';
                 if (json.transactions) {
                     $(json.transactions).each(function (i) {
                         html += '<tr>';
-                        html += '<td><a href="#" class="transaction-id" data-id="' + this.transaction_id + '">' + this.transaction_id + '</a></td>';
-                        html += '<td>' + this.amount + ' ' + this.currency_iso + '</td>';
-                        html += '<td>' + this.status + '</td>';
-                        html += '<td>' + this.type + '</td>';
+                          html += '<td><a href="#" class="transaction-id" data-id="' + this.transaction_id + '">' + this.transaction_id + '</a></td>';
+                          html += '<td>' + this.amount + ' ' + this.currency_iso + '</td>';
+                          html += '<td>' + this.status + '</td>';
+                          html += '<td>' + this.type + '</td>';
 
                         if (this.customer_url) {
                             html += '<td><a href="' + this.customer_url + '">' + this.customer + '</a></td>';

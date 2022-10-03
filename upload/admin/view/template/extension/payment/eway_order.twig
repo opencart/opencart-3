@@ -63,18 +63,21 @@
         data: {'order_id': {{ order_id }}, 'refund_amount': $('#eway-refund-amount').val()},
         beforeSend: function (xhr, opts) {
           $('#btn-refund').hide();
+          
           $('#img-loading-refund').show();
+          
           $('#eway-transaction-msg').hide();
+          
           $('#eway-refund-amount').hide();
         },
         success: function (data) {
           if (data.error == false) {
             html = '';
             html += '<tr>';
-            html += '<td class="text-left">' + data.data.transactionid + '</td>';
-            html += '<td class="text-left">' + data.data.created + '</td>';
-            html += '<td class="text-left">{{ text_refund }}</td>';
-            html += '<td class="text-left">' + data.data.amount + '</td>';
+              html += '<td class="text-left">' + data.data.transactionid + '</td>';
+              html += '<td class="text-left">' + data.data.created + '</td>';
+              html += '<td class="text-left">{{ text_refund }}</td>';
+              html += '<td class="text-left">' + data.data.amount + '</td>';
             html += '</tr>';
             $('#eway-transactions tr:last').after(html);
             
@@ -93,6 +96,7 @@
           if (data.error == true) {
             alert(data.message);
             $('#btn-refund').show();
+            
             $('#eway-refund-amount').show();
           }
           
@@ -112,18 +116,21 @@
         data: {'order_id': {{ order_id }}, 'capture_amount': $('#eway-capture-amount').val()},
         beforeSend: function (xhr, opts) {
           $('#btn-capture').hide();
+          
           $('#img-loading-capture').show();
+          
           $('#eway-transaction-msg').hide();
+          
           $('#eway-capture-amount').hide();
         },
         success: function (data) {
           if (data.error == false) {
             html = '';
             html += '<tr>';
-            html += '<td class="text-left">' + data.data.transactionid + '</td>';
-            html += '<td class="text-left">' + data.data.created + '</td>';
-            html += '<td class="text-left">{{ text_payment }}</td>';
-            html += '<td class="text-left">' + data.data.amount + '</td>';
+              html += '<td class="text-left">' + data.data.transactionid + '</td>';
+              html += '<td class="text-left">' + data.data.created + '</td>';
+              html += '<td class="text-left">{{ text_payment }}</td>';
+              html += '<td class="text-left">' + data.data.amount + '</td>';
             html += '</tr>';
             $('#eway-transactions tr:last').after(html);
             

@@ -68,7 +68,9 @@
                 dataType: 'json',
                 beforeSend: function () {
                     $('#refresh_transactions').button('loading');
+                    
                     $('#transactions_pagination').empty();
+                    
                     $('#transactions').html('<tr><td colspan="9" class="text-center"><i class="fa fa-circle-o-notch fa-spin"></i>&nbsp;{{ text_loading }}</td></tr>');
                 },
                 success: function (data) {
@@ -92,16 +94,16 @@
                                     html += '<a class="btn btn-success" data-url-transaction-capture="' + row.url_capture + '" data-confirm-capture="' + row.confirm_capture + '">{{ text_capture }}</a> ';
                                     html += '<a class="btn btn-warning" data-url-transaction-void="' + row.url_void + '" data-confirm-void="' + row.confirm_void + '">{{ text_void }}</a> ';
                                 }
-                                    break;
+                                break;
 
                                 case "CAPTURED" : {
                                     html += '<a class="btn btn-danger" data-url-transaction-refund="' + row.url_refund + '" data-confirm-refund="' + row.confirm_refund + '" data-insert-amount="' + row.insert_amount + '">{{ text_refund }}</a> ';
                                 }
-                                    break;
+                                break;
                             }
 
-                            html += ' <a class="btn btn-info" href="' + row.url_info + '">{{ text_view }}</a>';
-                            html += '</td>';
+                              html += ' <a class="btn btn-info" href="' + row.url_info + '">{{ text_view }}</a>';
+                              html += '</td>';
                             html += '</tr>';
                         }
                     } else {

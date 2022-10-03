@@ -87,21 +87,26 @@
         data: {'order_id': {{ order_id }} },
         beforeSend: function () {
           $('#button-void').hide();
+          
           $('#img_loading_void').show();
+          
           $('#sagepay_direct_transaction_msg').hide();
         },
         success: function (data) {
           if (data.error == false) {
             html = '';
             html += '<tr>';
-            html += '<td class="text-left">' + data.data.date_added + '</td>';
-            html += '<td class="text-left">{{ text_void }}</td>';
-            html += '<td class="text-left">0.00</td>';
+              html += '<td class="text-left">' + data.data.date_added + '</td>';
+              html += '<td class="text-left">{{ text_void }}</td>';
+              html += '<td class="text-left">0.00</td>';
             html += '</tr>';
             
             $('.void_text').text('{{ text_yes }}');
+            
             $('#sagepay_direct_transactions').append(html);
+            
             $('#button-release').hide();
+            
             $('#release_amount').hide();
             
             if (data.msg != '') {
@@ -128,8 +133,11 @@
         data: {'order_id': {{ order_id }}, 'amount': $('#release_amount').val()},
         beforeSend: function () {
           $('#button-release').hide();
+          
           $('#release_amount').hide();
+          
           $('#img_loading_release').show();
+          
           $('#sagepay_direct_transaction_msg').hide();
         },
         success: function (data) {
@@ -142,6 +150,7 @@
             html += '</tr>';
             
             $('#sagepay_direct_transactions').append(html);
+            
             $('#sagepay_direct_total_released').text(data.data.total);
             
             if (data.data.release_status == 1) {
@@ -188,8 +197,11 @@
         data: {'order_id': {{ order_id }}, 'amount': $('#rebate_amount').val()},
         beforeSend: function () {
           $('#button-rebate').hide();
+          
           $('#rebate_amount').hide();
+          
           $('#img_loading_rebate').show();
+          
           $('#sagepay_direct_transaction_msg').hide();
         },
         success: function (data) {
@@ -202,12 +214,14 @@
             html += '</tr>';
             
             $('#sagepay_direct_transactions').append(html);
+            
             $('#sagepay_direct_total_released').text(data.data.total_released);
             
             if (data.data.rebate_status == 1) {
               $('.rebate_text').text('{{ text_yes }}');
             } else {
               $('#button-rebate').show();
+              
               $('#rebate_amount').val(0.00).show();
             }
             
