@@ -6,8 +6,7 @@
         {% if not error_signature %}
           <button type="button" id="button-opencart" data-toggle="tooltip" title="{{ button_opencart }}" class="btn btn-info"><i class="fa fa-cog"></i></button>
         {% else %}
-          <button type="button" id="button-opencart" data-toggle="tooltip" title="{{ error_signature }}" data-placement="left" class="btn btn-danger">
-            <i class="fa fa-exclamation-triangle"></i></button>
+          <button type="button" id="button-opencart" data-toggle="tooltip" title="{{ error_signature }}" data-placement="left" class="btn btn-danger"><i class="fa fa-exclamation-triangle"></i></button>
         {% endif %}
         <a href="{{ cancel }}" data-toggle="tooltip" title="{{ button_cancel }}" class="btn btn-default"><i class="fa fa-reply"></i></a>
       </div>
@@ -41,7 +40,8 @@
                 <div class="col-xs-4 col-sm-2">
                   <a href="{{ image.popup }}" class="thumbnail"><img src="{{ image.thumb }}" alt="{{ image.name }}" title="{{ image.name }}" class="img-responsive"/></a>
                 </div>
-              {% endfor %} </div>
+              {% endfor %}
+            </div>
             <ul class="nav nav-tabs">
               <li class="active"><a href="#tab-description" data-toggle="tab">{{ tab_general }}</a></li>
               <li><a href="#tab-documentation" data-toggle="tab">{{ tab_documentation }}</a></li>
@@ -128,7 +128,8 @@
                     {{ price }}
                   {% else %}
                     {{ text_free }}
-                  {% endif %} </div>
+                  {% endif %}
+                </div>
               </div>
               <hr>
               <ul class="list-check">
@@ -146,7 +147,8 @@
                     {% else %}
                       <i class="fa fa-star-o"></i>
                     {% endif %}
-                  {% endfor %} ({{ rating_total }}) </div>
+                  {% endfor %} ({{ rating_total }})
+                </div>
               </div>
               <hr>
               <div class="row">
@@ -283,6 +285,7 @@
           // Reset everything
           $('#progress-bar').css('width', '0%');
           $('#progress-bar').removeClass('progress-bar-success');
+          
           $('#progress-text').html('');
 
           $.ajax({
@@ -307,6 +310,7 @@
 
                   if (json['text']) {
                       $('#progress-bar').css('width', '20%');
+                      
                       $('#progress-text').html(json['text']);
                   }
 
@@ -335,11 +339,13 @@
 
                   if (json['error']) {
                       $('#progress-bar').addClass('progress-bar-danger');
+                      
                       $('#progress-text').html('<div class="text-danger">' + json['error'] + '</div>');
                   }
 
                   if (json['success']) {
                       $('#progress-bar').addClass('progress-bar-success');
+                      
                       $('#progress-text').html('<span class="text-success">' + json['success'] + '</span>');
                   }
 
@@ -365,6 +371,7 @@
 
           $('#progress-bar').css('width', '0%');
           $('#progress-bar').removeClass('progress-bar-danger progress-bar-success');
+          
           $('#progress-text').html('');
 
           $.ajax({
@@ -379,12 +386,14 @@
               success: function (json) {
                   if (json['error']) {
                       $('#progress-bar').addClass('progress-bar-danger');
+                      
                       $('#progress-text').html(json['error']);
                   }
 
                   if (json['success']) {
                       $('#progress-bar').css('width', '100%');
                       $('#progress-bar').addClass('progress-bar-success');
+                      
                       $('#progress-text').html(json['success']);
 
                       $(element).replaceWith('<button type="button" data-install="' + $(element).attr('data-install') + '" data-uninstall="" data-loading="{{ text_loading }}" class="btn btn-primary"><i class="fa fa-download"></i> {{ button_install }}</button>');
@@ -498,9 +507,7 @@
 
                   if (json['success']) {
                       $(element).parents('.reply-input-box').before('<div class="alert alert-success alert-dismissible"><i class="fa fa-check-circle"></i> ' + json['success'] + ' <button type="button" class="close" data-dismiss="alert">&times;</button></div>');
-
                       $(element).parents('.reply-input-box').parents('.media').find('.reply-refresh').last().trigger('click');
-
                       $(element).parents('.reply-input-box').find('textarea[name=\'comment\']').val('');
                   }
               },

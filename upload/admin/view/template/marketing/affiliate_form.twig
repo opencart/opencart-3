@@ -4,8 +4,7 @@
     <div class="container-fluid">
       <div class="pull-right">
         <button type="submit" form="form-affiliate" data-toggle="tooltip" title="{{ button_save }}" class="btn btn-primary"><i class="fa fa-save"></i></button>
-        <a href="{{ cancel }}" data-toggle="tooltip" title="{{ button_cancel }}" class="btn btn-default"><i class="fa fa-reply"></i></a>
-      </div>
+        <a href="{{ cancel }}" data-toggle="tooltip" title="{{ button_cancel }}" class="btn btn-default"><i class="fa fa-reply"></i></a></div>
       <h1>{{ heading_title }}</h1>
       <ul class="breadcrumb">
         {% for breadcrumb in breadcrumbs %}
@@ -108,12 +107,16 @@
                               <div class="radio">
                                 {% if affiliate_custom_field[custom_field.custom_field_id] and custom_field_value.custom_field_value_id == affiliate_custom_field[custom_field.custom_field_id] %}
                                   <label><input type="radio" name="custom_field[{{ custom_field.custom_field_id }}]" value="{{ custom_field_value.custom_field_value_id }}" checked="checked"/>
-                                    {{ custom_field_value.name }}</label>
+                                    {{ custom_field_value.name }}
+                                  </label>
                                 {% else %}
                                   <label><input type="radio" name="custom_field[{{ custom_field.custom_field_id }}]" value="{{ custom_field_value.custom_field_value_id }}"/>
-                                    {{ custom_field_value.name }}</label>
-                                {% endif %}</div>
-                            {% endfor %} </div>
+                                    {{ custom_field_value.name }}
+                                  </label>
+                                {% endif %}
+                              </div>
+                            {% endfor %}
+                          </div>
                             {% if error_custom_field[custom_field.custom_field_id] %}
                               <div class="text-danger">{{ error_custom_field[custom_field.custom_field_id] }}</div>
                             {% endif %}
@@ -129,15 +132,20 @@
                               <div class="checkbox">
                                 {% if affiliate_custom_field[custom_field.custom_field_id] and custom_field_value.custom_field_value_id in affiliate_custom_field[custom_field.custom_field_id] %}
                                   <label><input type="checkbox" name="custom_field[{{ custom_field.custom_field_id }}][]" value="{{ custom_field_value.custom_field_value_id }}" checked="checked"/>
-                                    {{ custom_field_value.name }}</label>
+                                    {{ custom_field_value.name }}
+                                  </label>
                                 {% else %}
                                   <label><input type="checkbox" name="custom_field[{{ custom_field.custom_field_id }}][]" value="{{ custom_field_value.custom_field_value_id }}"/>
-                                    {{ custom_field_value.name }}</label>
-                                {% endif %}</div>
-                            {% endfor %} </div>
+                                    {{ custom_field_value.name }}
+                                  </label>
+                                {% endif %}
+                              </div>
+                            {% endfor %}
+                          </div>
                           {% if error_custom_field[custom_field.custom_field_id] %}
                             <div class="text-danger">{{ error_custom_field[custom_field.custom_field_id] }}</div>
-                          {% endif %}</div>
+                          {% endif %}
+                        </div>
                       </div>
                     {% endif %}
                     {% if custom_field.type == 'text' %}
@@ -147,7 +155,8 @@
                           <input type="text" name="custom_field[{{ custom_field.custom_field_id }}]" value="{{ affiliate_custom_field[custom_field.custom_field_id] ? affiliate_custom_field[custom_field.custom_field_id] : custom_field.value }}" placeholder="{{ custom_field.name }}" id="input-custom-field{{ custom_field.custom_field_id }}" class="form-control"/>
                           {% if error_custom_field[custom_field.custom_field_id] %}
                             <div class="text-danger">{{ error_custom_field[custom_field.custom_field_id] }}</div>
-                          {% endif %}</div>
+                          {% endif %}
+                        </div>
                       </div>
                     {% endif %}
                     {% if custom_field.type == 'textarea' %}
@@ -157,7 +166,8 @@
                           <textarea name="custom_field[{{ custom_field.custom_field_id }}]" rows="5" placeholder="{{ custom_field.name }}" id="input-custom-field{{ custom_field.custom_field_id }}" class="form-control">{{ affiliate_custom_field[custom_field.custom_field_id] ? affiliate_custom_field[custom_field.custom_field_id] : custom_field.value }}</textarea>
                           {% if error_custom_field[custom_field.custom_field_id] %}
                             <div class="text-danger">{{ error_custom_field[custom_field.custom_field_id] }}</div>
-                          {% endif %}</div>
+                          {% endif %}
+                        </div>
                       </div>
                     {% endif %}
                     {% if custom_field.type == 'file' %}
@@ -169,7 +179,8 @@
                           <input type="hidden" name="custom_field[{{ custom_field.custom_field_id }}]" value="{{ affiliate_custom_field[custom_field.custom_field_id] ? affiliate_custom_field[custom_field.custom_field_id] }}" id="input-custom-field{{ custom_field.custom_field_id }}"/>
                           {% if error_custom_field[custom_field.custom_field_id] %}
                             <div class="text-danger">{{ error_custom_field[custom_field.custom_field_id] }}</div>
-                          {% endif %}</div>
+                          {% endif %}
+                        </div>
                       </div>
                     {% endif %}
                     {% if custom_field.type == 'date' %}
@@ -178,12 +189,12 @@
                         <div class="col-sm-10">
                           <div class="input-group date">
                             <input type="text" name="custom_field[{{ custom_field.custom_field_id }}]" value="{{ affiliate_custom_field[custom_field.custom_field_id] ? affiliate_custom_field[custom_field.custom_field_id] : custom_field.value }}" placeholder="{{ custom_field.name }}" data-date-format="YYYY-MM-DD" id="input-custom-field{{ custom_field.custom_field_id }}" class="form-control"/>
-                            <span class="input-group-btn">
-                              <button type="button" class="btn btn-default"><i class="fa fa-calendar"></i></button>
-                              </span></div>
+                            <span class="input-group-btn"><button type="button" class="btn btn-default"><i class="fa fa-calendar"></i></button></span>
+                          </div>
                           {% if error_custom_field[custom_field.custom_field_id] %}
                             <div class="text-danger">{{ error_custom_field[custom_field.custom_field_id] }}</div>
-                          {% endif %}</div>
+                          {% endif %}
+                        </div>
                       </div>
                     {% endif %}
                     {% if custom_field.type == 'time' %}
@@ -192,12 +203,12 @@
                         <div class="col-sm-10">
                           <div class="input-group time">
                             <input type="text" name="custom_field[{{ custom_field.custom_field_id }}]" value="{{ affiliate_custom_field[custom_field.custom_field_id] ? affiliate_custom_field[custom_field.custom_field_id] : custom_field.value }}" placeholder="{{ custom_field.name }}" data-date-format="HH:mm" id="input-custom-field{{ custom_field.custom_field_id }}" class="form-control"/>
-                            <span class="input-group-btn">
-                              <button type="button" class="btn btn-default"><i class="fa fa-calendar"></i></button>
-                              </span></div>
+                            <span class="input-group-btn"><button type="button" class="btn btn-default"><i class="fa fa-calendar"></i></button></span>
+                          </div>
                           {% if error_custom_field[custom_field.custom_field_id] %}
                             <div class="text-danger">{{ error_custom_field[custom_field.custom_field_id] }}</div>
-                          {% endif %}</div>
+                          {% endif %}
+                        </div>
                       </div>
                     {% endif %}
                     {% if custom_field.type == 'datetime' %}
@@ -206,12 +217,12 @@
                         <div class="col-sm-10">
                           <div class="input-group datetime">
                             <input type="text" name="custom_field[{{ custom_field.custom_field_id }}]" value="{{ affiliate_custom_field[custom_field.custom_field_id] ? affiliate_custom_field[custom_field.custom_field_id] : custom_field.value }}" placeholder="{{ custom_field.name }}" data-date-format="YYYY-MM-DD HH:mm" id="input-custom-field{{ custom_field.custom_field_id }}" class="form-control"/>
-                            <span class="input-group-btn">
-                              <button type="button" class="btn btn-default"><i class="fa fa-calendar"></i></button>
-                              </span></div>
+                            <span class="input-group-btn"><button type="button" class="btn btn-default"><i class="fa fa-calendar"></i></button></span>
+                          </div>
                           {% if error_custom_field[custom_field.custom_field_id] %}
                             <div class="text-danger">{{ error_custom_field[custom_field.custom_field_id] }}</div>
-                          {% endif %}</div>
+                          {% endif %}
+                        </div>
                       </div>
                     {% endif %}
                   {% endif %}

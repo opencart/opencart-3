@@ -52,11 +52,8 @@
     <div class="form-group">
       <label class="col-sm-2 control-label"><span data-toggle="tooltip" data-original-title="{{ help_remote_cron }}">{{ text_remote_cron }}</span></label>
       <div class="col-sm-10">
-        <div class="input-group">
-          <input readonly type="text" name="advertise_google_cron_url" id="input_advertise_google_cron_url" class="form-control" value=""/>
-          <div data-toggle="tooltip" data-original-title="{{ text_refresh_token }}" class="input-group-addon btn btn-primary" id="refresh-cron-token">
-            <i class="fa fa-refresh"></i>
-          </div>
+        <div class="input-group"><input readonly type="text" name="advertise_google_cron_url" id="input_advertise_google_cron_url" class="form-control" value=""/>
+          <div data-toggle="tooltip" data-original-title="{{ text_refresh_token }}" class="input-group-addon btn btn-primary" id="refresh-cron-token"><i class="fa fa-refresh"></i></div>
         </div>
         <input id="input_advertise_google_cron_token" type="hidden" name="advertise_google_cron_token" value="{{ advertise_google_cron_token }}"/>
       </div>
@@ -104,7 +101,7 @@
     top: 0;
   }
 </style>
-<script type="text/javascript">
+<script type="text/javascript"><!--
   (function ($) {
     var randomString = function () {
       return (Math.random() * 100).toString(16).replace('.', '');
@@ -133,4 +130,4 @@
       setCronUrl();
     });
   })(jQuery);
-</script>
+//--></script>

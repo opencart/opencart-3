@@ -156,57 +156,57 @@
   </tr>
 </table>
 <script type="text/javascript"><!--
-$('.button-command').on('click', function() {
-	var type = $(this).attr('data-type');
-	var confirm_text = '';
-	var clicked_button = $(this);
-
-	if (type === 'void') {
-		confirm_text = '{{ text_confirm_void }}';
-	} else if (type === 'settle') {
-		{% if symbol_left is not empty %}
-			confirm_text = '{{ text_confirm_settle }} ' + '{{ symbol_left }}' + $('#settle-amount').val();
-		{% elseif symbol_right is not empty %}
-			confirm_text = '{{ text_confirm_settle }} ' + $('#settle-amount').val() + '{{ symbol_right }}';
-		{% endif %}
-	} else if (type === 'refund') {
-		{% if symbol_left is not empty %}
-			confirm_text = '{{ text_confirm_refund }} ' + '{{ symbol_left }}' + $('#refund-amount').val();
-		{% elseif symbol_right is not empty %}
-			confirm_text = '{{ text_confirm_refund }} ' + $('#refund-amount').val() + '{{ symbol_right }}';
-		{% endif %}
-	}
-
-	if (confirm(confirm_text)) {
-		$.ajax({
-			url: 'index.php?route=extension/payment/pp_braintree/transactionCommand&user_token={{ user_token }}',
-			type: 'post',
-			data: {
-				type: type,
-				transaction_id: '{{ transaction_id }}',
-				amount: $(this).prev('input').val()
-			},
-			dataType: 'json',
-			beforeSend: function() {
-				clicked_button.button('loading');
-
-				$('.alert').hide().removeClass('alert-success alert-danger');
-			},
-			complete: function() {
-				clicked_button.button('reset');
-			},
-			success: function (json) {
-				if (json.error) {
-					$('.alert').show().addClass('alert-danger').html('<i class="fa fa-check-circle"></i> ' + json.error);
+	$('.button-command').on('click', function() {
+		var type = $(this).attr('data-type');
+		var confirm_text = '';
+		var clicked_button = $(this);
+	
+		if (type === 'void') {
+			confirm_text = '{{ text_confirm_void }}';
+		} else if (type === 'settle') {
+			{% if symbol_left is not empty %}
+				confirm_text = '{{ text_confirm_settle }} ' + '{{ symbol_left }}' + $('#settle-amount').val();
+			{% elseif symbol_right is not empty %}
+				confirm_text = '{{ text_confirm_settle }} ' + $('#settle-amount').val() + '{{ symbol_right }}';
+			{% endif %}
+		} else if (type === 'refund') {
+			{% if symbol_left is not empty %}
+				confirm_text = '{{ text_confirm_refund }} ' + '{{ symbol_left }}' + $('#refund-amount').val();
+			{% elseif symbol_right is not empty %}
+				confirm_text = '{{ text_confirm_refund }} ' + $('#refund-amount').val() + '{{ symbol_right }}';
+			{% endif %}
+		}
+	
+		if (confirm(confirm_text)) {
+			$.ajax({
+				url: 'index.php?route=extension/payment/pp_braintree/transactionCommand&user_token={{ user_token }}',
+				type: 'post',
+				data: {
+					type: type,
+					transaction_id: '{{ transaction_id }}',
+					amount: $(this).prev('input').val()
+				},
+				dataType: 'json',
+				beforeSend: function() {
+					clicked_button.button('loading');
+	
+					$('.alert').hide().removeClass('alert-success alert-danger');
+				},
+				complete: function() {
+					clicked_button.button('reset');
+				},
+				success: function (json) {
+					if (json.error) {
+						$('.alert').show().addClass('alert-danger').html('<i class="fa fa-check-circle"></i> ' + json.error);
+					}
+	
+					if (json.success) {
+						$('.alert').show().addClass('alert-success').html('<i class="fa fa-exclamation-circle"></i> ' + json.success);
+					}
+	
+					getTransaction('{{ transaction_id }}');
 				}
-
-				if (json.success) {
-					$('.alert').show().addClass('alert-success').html('<i class="fa fa-exclamation-circle"></i> ' + json.success);
-				}
-
-				getTransaction('{{ transaction_id }}');
-			}
-		});
-	}
-});
+			});
+		}
+	});
 //--></script>

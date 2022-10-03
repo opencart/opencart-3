@@ -4,8 +4,7 @@
     <div class="container-fluid">
       <div class="pull-right">
         <button type="submit" form="form-payment" data-toggle="tooltip" title="{{ button_save }}" class="btn btn-primary"><i class="fa fa-save"></i></button>
-        <a href="{{ cancel }}" data-toggle="tooltip" title="{{ button_cancel }}" class="btn btn-default"><i class="fa fa-reply"></i></a>
-      </div>
+        <a href="{{ cancel }}" data-toggle="tooltip" title="{{ button_cancel }}" class="btn btn-default"><i class="fa fa-reply"></i></a></div>
       <h1>{{ heading_title }}</h1>
       <ul class="breadcrumb">
         {% for breadcrumb in breadcrumbs %}
@@ -41,7 +40,8 @@
                   <input type="text" name="payment_globalpay_remote_merchant_id" value="{{ payment_globalpay_remote_merchant_id }}" placeholder="{{ entry_merchant_id }}" id="input-merchant-id" class="form-control"/>
                   {% if error_merchant_id %}
                     <div class="text-danger">{{ error_merchant_id }}</div>
-                  {% endif %} </div>
+                  {% endif %}
+                </div>
               </div>
               <div class="form-group required">
                 <label class="col-sm-2 control-label" for="input-secret">{{ entry_secret }}</label>
@@ -49,7 +49,8 @@
                   <input type="password" name="payment_globalpay_remote_secret" value="{{ payment_globalpay_remote_secret }}" placeholder="{{ entry_secret }}" id="input-secret" class="form-control"/>
                   {% if error_secret %}
                     <div class="text-danger">{{ error_secret }}</div>
-                  {% endif %} </div>
+                  {% endif %}
+                </div>
               </div>
               <div class="form-group">
                 <label class="col-sm-2 control-label" for="input-secret">{{ entry_rebate_password }}</label>
@@ -141,75 +142,41 @@
                   <tbody>
                     <tr>
                       <td class="text-left">{{ text_card_visa }}</td>
-                      <td class="text-center">
-                        <input type="checkbox" name="payment_globalpay_remote_account[visa][enabled]" value="1" {{ payment_globalpay_remote_account.visa.enabled and payment_globalpay_remote_account.visa.enabled == 1 ? 'checked="checked" ' : '' }}/>
-                      </td>
-                      <td class="text-center">
-                        <input type="checkbox" name="payment_globalpay_remote_account[visa][default]" value="1" {{ payment_globalpay_remote_account.visa.default and payment_globalpay_remote_account.visa.default == 1 ? 'checked="checked" ' : '' }}/>
-                      </td>
-                      <td class="text-right">
-                        <input type="text" name="payment_globalpay_remote_account[visa][merchant_id]" value="{{ payment_globalpay_remote_account.visa.merchant_id ? payment_globalpay_remote_account.visa.merchant_id : '' }}" placeholder="{{ text_subaccount }}" class="form-control"/>
-                      </td>
+                      <td class="text-center"><input type="checkbox" name="payment_globalpay_remote_account[visa][enabled]" value="1" {{ payment_globalpay_remote_account.visa.enabled and payment_globalpay_remote_account.visa.enabled == 1 ? 'checked="checked" ' : '' }}/></td>
+                      <td class="text-center"><input type="checkbox" name="payment_globalpay_remote_account[visa][default]" value="1" {{ payment_globalpay_remote_account.visa.default and payment_globalpay_remote_account.visa.default == 1 ? 'checked="checked" ' : '' }}/></td>
+                      <td class="text-right"><input type="text" name="payment_globalpay_remote_account[visa][merchant_id]" value="{{ payment_globalpay_remote_account.visa.merchant_id ? payment_globalpay_remote_account.visa.merchant_id : '' }}" placeholder="{{ text_subaccount }}" class="form-control"/></td>
                     </tr>
                     <tr>
                       <td class="text-left">{{ text_card_master }}</td>
-                      <td class="text-center">
-                        <input type="checkbox" name="payment_globalpay_remote_account[mc][enabled]" value="1" {{ payment_globalpay_remote_account.mc.enabled and payment_globalpay_remote_account.mc.enabled == 1 ? 'checked="checked" ' : '' }}/>
-                      </td>
-                      <td class="text-center">
-                        <input type="checkbox" name="payment_globalpay_remote_account[mc][default]" value="1" {{ payment_globalpay_remote_account.mc.default and payment_globalpay_remote_account.mc.default == 1 ? 'checked="checked" ' : '' }}/>
-                      </td>
-                      <td class="text-right">
-                        <input type="text" name="payment_globalpay_remote_account[mc][merchant_id]" value="{{ payment_globalpay_remote_account.mc.merchant_id ? payment_globalpay_remote_account.mc.merchant_id : '' }}" placeholder="{{ text_subaccount }}" class="form-control"/>
-                      </td>
+                      <td class="text-center"><input type="checkbox" name="payment_globalpay_remote_account[mc][enabled]" value="1" {{ payment_globalpay_remote_account.mc.enabled and payment_globalpay_remote_account.mc.enabled == 1 ? 'checked="checked" ' : '' }}/></td>
+                      <td class="text-center"><input type="checkbox" name="payment_globalpay_remote_account[mc][default]" value="1" {{ payment_globalpay_remote_account.mc.default and payment_globalpay_remote_account.mc.default == 1 ? 'checked="checked" ' : '' }}/></td>
+                      <td class="text-right"><input type="text" name="payment_globalpay_remote_account[mc][merchant_id]" value="{{ payment_globalpay_remote_account.mc.merchant_id ? payment_globalpay_remote_account.mc.merchant_id : '' }}" placeholder="{{ text_subaccount }}" class="form-control"/></td>
                     </tr>
                     <tr>
                       <td class="text-left">{{ text_card_amex }}</td>
-                      <td class="text-center">
-                        <input type="checkbox" name="payment_globalpay_remote_account[amex][enabled]" value="1" {{ payment_globalpay_remote_account.amex.enabled and payment_globalpay_remote_account.amex.enabled == 1 ? 'checked="checked" ' : '' }}/>
-                      </td>
-                      <td class="text-center">
-                        <input type="checkbox" name="payment_globalpay_remote_account[amex][default]" value="1" {{ payment_globalpay_remote_account.amex.default and payment_globalpay_remote_account.amex.default == 1 ? 'checked="checked" ' : '' }}/>
-                      </td>
-                      <td class="text-right">
-                        <input type="text" name="payment_globalpay_remote_account[amex][merchant_id]" value="{{ payment_globalpay_remote_account.amex.merchant_id ? payment_globalpay_remote_account.amex.merchant_id : '' }}" placeholder="{{ text_subaccount }}" class="form-control"/>
-                      </td>
+                      <td class="text-center"><input type="checkbox" name="payment_globalpay_remote_account[amex][enabled]" value="1" {{ payment_globalpay_remote_account.amex.enabled and payment_globalpay_remote_account.amex.enabled == 1 ? 'checked="checked" ' : '' }}/></td>
+                      <td class="text-center"><input type="checkbox" name="payment_globalpay_remote_account[amex][default]" value="1" {{ payment_globalpay_remote_account.amex.default and payment_globalpay_remote_account.amex.default == 1 ? 'checked="checked" ' : '' }}/></td>
+                      <td class="text-right"><input type="text" name="payment_globalpay_remote_account[amex][merchant_id]" value="{{ payment_globalpay_remote_account.amex.merchant_id ? payment_globalpay_remote_account.amex.merchant_id : '' }}" placeholder="{{ text_subaccount }}" class="form-control"/></td>
                     </tr>
                     <tr>
                       <td class="text-left">{{ text_card_switch }}</td>
-                      <td class="text-center">
-                        <input type="checkbox" name="payment_globalpay_remote_account[switch][enabled]" value="1" {{ payment_globalpay_remote_account.switch.enabled and payment_globalpay_remote_account.switch.enabled == 1 ? 'checked="checked" ' : '' }}/>
-                      </td>
-                      <td class="text-center">
-                        <input type="checkbox" name="payment_globalpay_remote_account[switch][default]" value="1" {{ payment_globalpay_remote_account.switch.default and payment_globalpay_remote_account.switch.default == 1 ? 'checked="checked" ' : '' }}/>
-                      </td>
+                      <td class="text-center"><input type="checkbox" name="payment_globalpay_remote_account[switch][enabled]" value="1" {{ payment_globalpay_remote_account.switch.enabled and payment_globalpay_remote_account.switch.enabled == 1 ? 'checked="checked" ' : '' }}/></td>
+                      <td class="text-center"><input type="checkbox" name="payment_globalpay_remote_account[switch][default]" value="1" {{ payment_globalpay_remote_account.switch.default and payment_globalpay_remote_account.switch.default == 1 ? 'checked="checked" ' : '' }}/></td>
                       <td class="text-right">
                         <input type="text" name="payment_globalpay_remote_account[switch][merchant_id]" value="{{ payment_globalpay_remote_account.switch.merchant_id ? payment_globalpay_remote_account.switch.merchant_id : '' }}" placeholder="{{ text_subaccount }}" class="form-control"/>
                       </td>
                     </tr>
                     <tr>
                       <td class="text-left">{{ text_card_laser }}</td>
-                      <td class="text-center">
-                        <input type="checkbox" name="payment_globalpay_remote_account[laser][enabled]" value="1" {{ payment_globalpay_remote_account.laser.enabled and payment_globalpay_remote_account.laser.enabled == 1 ? 'checked="checked" ' : '' }}/>
-                      </td>
-                      <td class="text-center">
-                        <input type="checkbox" name="payment_globalpay_remote_account[laser][default]" value="1" {{ payment_globalpay_remote_account.laser.default and payment_globalpay_remote_account.laser.default == 1 ? 'checked="checked" ' : '' }}/>
-                      </td>
-                      <td class="text-right">
-                        <input type="text" name="payment_globalpay_remote_account[laser][merchant_id]" value="{{ payment_globalpay_remote_account.laser.merchant_id ? payment_globalpay_remote_account.laser.merchant_id : '' }}" placeholder="{{ text_subaccount }}" class="form-control"/>
-                      </td>
+                      <td class="text-center"><input type="checkbox" name="payment_globalpay_remote_account[laser][enabled]" value="1" {{ payment_globalpay_remote_account.laser.enabled and payment_globalpay_remote_account.laser.enabled == 1 ? 'checked="checked" ' : '' }}/></td>
+                      <td class="text-center"><input type="checkbox" name="payment_globalpay_remote_account[laser][default]" value="1" {{ payment_globalpay_remote_account.laser.default and payment_globalpay_remote_account.laser.default == 1 ? 'checked="checked" ' : '' }}/></td>
+                      <td class="text-right"><input type="text" name="payment_globalpay_remote_account[laser][merchant_id]" value="{{ payment_globalpay_remote_account.laser.merchant_id ? payment_globalpay_remote_account.laser.merchant_id : '' }}" placeholder="{{ text_subaccount }}" class="form-control"/></td>
                     </tr>
                     <tr>
                       <td class="text-left">{{ text_card_diners }}</td>
-                      <td class="text-center">
-                        <input type="checkbox" name="payment_globalpay_remote_account[diners][enabled]" value="1" {{ payment_globalpay_remote_account.diners.enabled and payment_globalpay_remote_account.diners.enabled == 1 ? 'checked="checked" ' : '' }}/>
-                      </td>
-                      <td class="text-center">
-                        <input type="checkbox" name="payment_globalpay_remote_account[diners][default]" value="1" {{ payment_globalpay_remote_account.diners.default and payment_globalpay_remote_account.diners.default == 1 ? 'checked="checked" ' : '' }}/>
-                      </td>
-                      <td class="text-right">
-                        <input type="text" name="payment_globalpay_remote_account[diners][merchant_id]" value="{{ payment_globalpay_remote_account.diners.merchant_id ? payment_globalpay_remote_account.diners.merchant_id : '' }}" placeholder="{{ text_subaccount }}" class="form-control"/>
-                      </td>
+                      <td class="text-center"><input type="checkbox" name="payment_globalpay_remote_account[diners][enabled]" value="1" {{ payment_globalpay_remote_account.diners.enabled and payment_globalpay_remote_account.diners.enabled == 1 ? 'checked="checked" ' : '' }}/></td>
+                      <td class="text-center"><input type="checkbox" name="payment_globalpay_remote_account[diners][default]" value="1" {{ payment_globalpay_remote_account.diners.default and payment_globalpay_remote_account.diners.default == 1 ? 'checked="checked" ' : '' }}/></td>
+                      <td class="text-right"><input type="text" name="payment_globalpay_remote_account[diners][merchant_id]" value="{{ payment_globalpay_remote_account.diners.merchant_id ? payment_globalpay_remote_account.diners.merchant_id : '' }}" placeholder="{{ text_subaccount }}" class="form-control"/></td>
                     </tr>
                   </tbody>
                 </table>

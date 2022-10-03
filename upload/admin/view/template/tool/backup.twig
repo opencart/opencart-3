@@ -39,11 +39,10 @@
                   <div class="well well-sm" style="height: 150px; overflow: auto;">
                     {% for table in tables %}
                       <div class="checkbox">
-                        <label>
-                          <input type="checkbox" name="backup[]" value="{{ table }}" checked="checked"/>
-                          {{ table }}</label>
+                        <label><input type="checkbox" name="backup[]" value="{{ table }}" checked="checked"/> {{ table }}</label>
                       </div>
-                    {% endfor %} </div>
+                    {% endfor %}
+                  </div>
                   <button type="button" onclick="$(this).parent().find(':checkbox').prop('checked', true);" class="btn btn-link">{{ text_select_all }}</button>
                   /
                   <button type="button" onclick="$(this).parent().find(':checkbox').prop('checked', false);" class="btn btn-link">{{ text_unselect_all }}</button>

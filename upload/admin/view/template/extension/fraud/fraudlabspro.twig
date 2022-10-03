@@ -5,8 +5,7 @@
       <div class="pull-right">
         <button type="submit" form="form-fraud" data-toggle="tooltip" title="{{ button_save }}" class="btn btn-primary">
           <i class="fa fa-save"></i></button>
-        <a href="{{ cancel }}" data-toggle="tooltip" title="{{ button_cancel }}" class="btn btn-default"><i class="fa fa-reply"></i></a>
-      </div>
+        <a href="{{ cancel }}" data-toggle="tooltip" title="{{ button_cancel }}" class="btn btn-default"><i class="fa fa-reply"></i></a></div>
       <h1>{{ heading_title }}</h1>
       <ul class="breadcrumb">
         {% for breadcrumb in breadcrumbs %}
@@ -48,7 +47,8 @@
               <input type="text" name="fraud_fraudlabspro_key" value="{{ fraud_fraudlabspro_key }}" placeholder="{{ entry_key }}" id="input-key" class="form-control"/>
               {% if error_key %}
                 <div class="text-danger">{{ error_key }}</div>
-              {% endif %} </div>
+              {% endif %}
+            </div>
           </div>
           <div class="form-group">
             <label class="col-sm-2 control-label" for="input-score"><span data-toggle="tooltip" title="{{ help_score }}">{{ entry_score }}</span></label>

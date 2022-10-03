@@ -4,8 +4,7 @@
     <div class="container-fluid">
       <div class="pull-right">
         <button type="submit" form="form-braintree" data-toggle="tooltip" title="{{ button_save }}" class="btn btn-primary"><i class="fa fa-save"></i></button>
-        <a href="{{ cancel }}" data-toggle="tooltip" title="{{ button_cancel }}" class="btn btn-default"><i class="fa fa-reply"></i></a>
-      </div>
+        <a href="{{ cancel }}" data-toggle="tooltip" title="{{ button_cancel }}" class="btn btn-default"><i class="fa fa-reply"></i></a></div>
       <h1>{{ heading_title }}</h1>
       <ul class="breadcrumb">
         {% for breadcrumb in breadcrumbs %}
@@ -735,18 +734,14 @@
                             <label class="control-label" for="input-date-from">{{ entry_date_from }}</label>
                             <div class="input-group date">
                               <input type="text" name="filter_date_from" value="" placeholder="From" data-date-format="YYYY-MM-DD" id="input-date-from" class="form-control"/>
-                              <span class="input-group-btn">
-                            <button class="btn btn-default" type="button"><i class="fa fa-calendar"></i></button>
-                          </span>
+                              <span class="input-group-btn"><button class="btn btn-default" type="button"><i class="fa fa-calendar"></i></button></span>
                             </div>
                           </div>
                           <div class="col-sm-6" style="padding-right: 0;">
                             <label class="control-label" for="input-date-to">{{ entry_date_to }}</label>
                             <div class="input-group date">
                               <input type="text" name="filter_date_to" value="" placeholder="To" data-date-format="YYYY-MM-DD" id="input-date-to" class="form-control"/>
-                              <span class="input-group-btn">
-                            <button class="btn btn-default" type="button"><i class="fa fa-calendar"></i></button>
-                          </span>
+                              <span class="input-group-btn"><button class="btn btn-default" type="button"><i class="fa fa-calendar"></i></button></span>
                             </div>
                           </div>
                         </div>
@@ -1018,7 +1013,6 @@
     }
 
   //--></script>
-
 {% if auth_connect_url %}
   <script src="https://assets.braintreegateway.com/v1/braintree-oauth-connect.js"></script>
   

@@ -4,8 +4,7 @@
     <div class="container-fluid">
       <div class="pull-right">
         <button type="submit" form="form_payment" data-toggle="tooltip" title="{{ button_save }}" class="btn btn-primary"><i class="fa fa-save"></i></button>
-        <a href="{{ cancel }}" data-toggle="tooltip" title="{{ button_cancel }}" class="btn btn-default"><i class="fa fa-reply"></i></a>
-      </div>
+        <a href="{{ cancel }}" data-toggle="tooltip" title="{{ button_cancel }}" class="btn btn-default"><i class="fa fa-reply"></i></a></div>
       <h1>{{ heading_title }}</h1>
       <ul class="breadcrumb">
         {% for breadcrumb in breadcrumbs %}
@@ -489,7 +488,7 @@
 {% if client_id and secret and merchant_id %}
   <script type="text/javascript" src="https://www.paypal.com/sdk/js?components=hosted-fields&client-id={{ client_id }}&merchant-id={{ merchant_id }}" data-partner-attribution-id="{{ setting['partner'][environment]['partner_id'] }}" data-client-token="{{ client_token }}"></script>
   
-  <script type="text/javascript">
+  <script type="text/javascript"><!--
       try {
           if (paypal.HostedFields.isEligible() === true) {
               $('[href="#tab_checkout_card"]').parents('.nav-tab').removeClass('hidden');
@@ -501,9 +500,9 @@
       } catch (error) {
           console.error('PayPal Card failed during startup', error);
       }
-  </script>
+  //--></script>
 {% endif %}
-<script type="text/javascript">
+<script type="text/javascript"><!--
     function onBoardedCallback(authorization_code, shared_id) {
         var environment = $('#input_environment').val();
 
@@ -520,8 +519,8 @@
             }
         });
     }
-</script>
-<script type="text/javascript">
+//--></script>
+<script type="text/javascript"><!--
     $('#button_disconnect').on('click', function () {
         if (confirm('{{ text_confirm }}')) {
             $('#input_client_id').val('');
@@ -565,6 +564,6 @@
             $('#input_checkout_message_flex_ratio').parents('.form-group').removeClass('hidden');
         }
     });
-</script>
+//--></script>
 <script id="paypal-js" src="https://www.paypal.com/webapps/merchantboarding/js/lib/lightbox/partner.js"></script>
 {{ footer }}

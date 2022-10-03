@@ -30,13 +30,11 @@
         </select>
       </div>
       <div class="form-group text-right">
-        <button type="button" id="button-filter" class="btn btn-default"><i class="fa fa-filter"></i> {{ text_filter }}
-        </button>
+        <button type="button" id="button-filter" class="btn btn-default"><i class="fa fa-filter"></i> {{ text_filter }}</button>
       </div>
     </div>
   </div>
 </div>
-
 {# The ads #}
 <div class="col-lg-9 col-lg-pull-3 col-md-12">
   <div class="alert alert-info">
@@ -50,8 +48,7 @@
           <i class="fa fa-cog"></i> {{ button_bulk_edit_google_fields }}</button>
         <div class="btn-group form-control-static">
           <button type="button" class="btn btn-default dropdown-toggle button-advertise" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            {{ button_select_campaigns }} <span class="caret"></span>
-          </button>
+            {{ button_select_campaigns }} <span class="caret"></span></button>
           <ul class="dropdown-menu dropdown-menu-right campaign-dropdown">
             {% for campaign in campaigns %}
               <li class="text-pre-line"><a><input type="checkbox" name="target_ids[]" value="{{ campaign.target_id }}"/>&nbsp;&nbsp;<span class="form-control-static">{{ campaign.campaign_name }}</span></a>
@@ -73,33 +70,22 @@
   <div class="table-responsive">
     <table class="table table-bordered table-hover">
       <thead id="list-head">
-      <tr>
-        <th class="text-center"><input type="checkbox" name="select_all"/></th>
-        <th class="text-center">{{ text_image }}</th>
-        <th class="text-left visible-lg"><a href="javascript:void(0)" data-sort="name">{{ text_product_name }}</a></th>
-        <th class="text-left"><a href="javascript:void(0)" data-sort="model">{{ text_product_model }}</a></th>
-        <th class="text-center">
-          <a href="javascript:void(0)" data-sort="impressions"><i data-toggle="tooltip" data-original-title="{{ text_impressions }}" class="fa fa-eye"></i></a>
-        </th>
-        <th class="text-center">
-          <a href="javascript:void(0)" data-sort="clicks"><i data-toggle="tooltip" data-original-title="{{ text_clicks }}" class="fa fa-hand-pointer-o"></i></a>
-        </th>
-        <th class="text-center">
-          <a href="javascript:void(0)" data-sort="cost"><i data-toggle="tooltip" data-original-title="{{ text_cost }}" class="fa fa-dollar"></i></a>
-        </th>
-        <th class="text-center">
-          <a href="javascript:void(0)" data-sort="conversions"><i data-toggle="tooltip" data-original-title="{{ text_conversions }}" class="fa fa-handshake-o"></i></a>
-        </th>
-        <th class="text-center">
-          <a href="javascript:void(0)" data-sort="conversion_value"><i data-toggle="tooltip" data-original-title="{{ text_conversion_value }}" class="fa fa-line-chart"></i></a>
-        </th>
-        </a></th>
-        <th class="text-left">{{ text_campaigns }}</th>
-        <th class="text-center">
-          <a href="javascript:void(0)" data-sort="destination_status">{{ text_destination_status }}</a></th>
-        <th class="text-center"><a href="javascript:void(0)" data-sort="has_issues">{{ text_issues }}</a></th>
-        <th class="text-right">{{ text_action }}</th>
-      </tr>
+        <tr>
+          <th class="text-center"><input type="checkbox" name="select_all"/></th>
+          <th class="text-center">{{ text_image }}</th>
+          <th class="text-left visible-lg"><a href="javascript:void(0)" data-sort="name">{{ text_product_name }}</a></th>
+          <th class="text-left"><a href="javascript:void(0)" data-sort="model">{{ text_product_model }}</a></th>
+          <th class="text-center"><a href="javascript:void(0)" data-sort="impressions"><i data-toggle="tooltip" data-original-title="{{ text_impressions }}" class="fa fa-eye"></i></a></th>
+          <th class="text-center"><a href="javascript:void(0)" data-sort="clicks"><i data-toggle="tooltip" data-original-title="{{ text_clicks }}" class="fa fa-hand-pointer-o"></i></a></th>
+          <th class="text-center"><a href="javascript:void(0)" data-sort="cost"><i data-toggle="tooltip" data-original-title="{{ text_cost }}" class="fa fa-dollar"></i></a></th>
+          <th class="text-center"><a href="javascript:void(0)" data-sort="conversions"><i data-toggle="tooltip" data-original-title="{{ text_conversions }}" class="fa fa-handshake-o"></i></a></th>
+          <th class="text-center"><a href="javascript:void(0)" data-sort="conversion_value"><i data-toggle="tooltip" data-original-title="{{ text_conversion_value }}" class="fa fa-line-chart"></i></a></th>
+          </a></th>
+          <th class="text-left">{{ text_campaigns }}</th>
+          <th class="text-center"><a href="javascript:void(0)" data-sort="destination_status">{{ text_destination_status }}</a></th>
+          <th class="text-center"><a href="javascript:void(0)" data-sort="has_issues">{{ text_issues }}</a></th>
+          <th class="text-right">{{ text_action }}</th>
+        </tr>
       </thead>
       <tbody id="list">
       </tbody>
@@ -133,14 +119,10 @@
   <hr>
   <div class="row">
     <div class="col-md-6">
-      <div class="list-pagination">
-      
-      </div>
+      <div class="list-pagination"></div>
     </div>
     <div class="col-md-6">
-      <div class="pull-right list-showing form-control-static">
-      
-      </div>
+      <div class="pull-right list-showing form-control-static"></div>
     </div>
   </div>
 </div>
@@ -175,36 +157,27 @@
 <script id="template-success" type="text/template">
   <div class="alert alert-success alert-dismissible" role="alert">
     <button type="button" class="close" data-dismiss="alert" aria-label="{{ text_close }}">
-      <span aria-hidden="true"><i class="fa fa-close"></i></span></button>
-    <i class="fa fa-check-circle" aria-hidden="true"></i>&nbsp;{message}
-  </div>
+      <span aria-hidden="true"><i class="fa fa-close"></i></span></button><i class="fa fa-check-circle" aria-hidden="true"></i>&nbsp;{message}</div>
 </script>
 <script id="template-error" type="text/template">
   <div class="alert alert-danger alert-dismissible" role="alert">
     <button type="button" class="close" data-dismiss="alert" aria-label="{{ text_close }}">
-      <span aria-hidden="true"><i class="fa fa-close"></i></span></button>
-    <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>&nbsp;{message}
-  </div>
+      <span aria-hidden="true"><i class="fa fa-close"></i></span></button> <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>&nbsp;{message}</div>
 </script>
 <script id="template-warning" type="text/template">
   <div class="alert alert-warning alert-dismissible" role="alert">
     <button type="button" class="close" data-dismiss="alert" aria-label="{{ text_close }}">
-      <span aria-hidden="true"><i class="fa fa-close"></i></span></button>
-    <i class="fa fa-info-circle" aria-hidden="true"></i>&nbsp;{message}
-  </div>
+      <span aria-hidden="true"><i class="fa fa-close"></i></span></button><i class="fa fa-info-circle" aria-hidden="true"></i>&nbsp;{message}</div>
 </script>
 <script id="template-popup-product" type="text/template">
   <div class="modal fade" tabindex="-1" role="dialog">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal" aria-label="{{ text_close }}">
-            <span aria-hidden="true"><i class="fa fa-close"></i></span></button>
+          <button type="button" class="close" data-dismiss="modal" aria-label="{{ text_close }}"><span aria-hidden="true"><i class="fa fa-close"></i></span></button>
           <h4 class="modal-title">{title}</h4>
         </div>
-        <div class="modal-body">
-          {body}
-        </div>
+        <div class="modal-body">{body}</div>
         <div class="modal-footer">
           <button type="button" class="btn btn-default" data-dismiss="modal">{{ button_close }}</button>
           <button type="button" class="btn btn-primary" id="button-popup-product-save">{{ button_save }}</button>
@@ -218,13 +191,9 @@
     <div class="modal-dialog modal-lg" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal" aria-label="{{ text_close }}">
-            <span aria-hidden="true"><i class="fa fa-close"></i></span></button>
-          <h4 class="modal-title">{title}</h4>
-        </div>
-        <div class="modal-body">
-          {body}
-        </div>
+          <button type="button" class="close" data-dismiss="modal" aria-label="{{ text_close }}"><span aria-hidden="true"><i class="fa fa-close"></i></span></button>
+          <h4 class="modal-title">{title}</h4></div>
+        <div class="modal-body">{body}</div>
         <div class="modal-footer">
           <button type="button" class="btn btn-default" data-dismiss="modal">{{ button_close }}</button>
         </div>

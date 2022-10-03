@@ -4,8 +4,7 @@
     <div class="container-fluid">
       <div class="pull-right">
         <a href="{{ text_video_tutorial_url_install }}" target="_blank" class="btn btn-info" data-toggle="tooltip" title="{{ button_video_tutorial_install }}"><i class="fa fa-video-camera"></i></a>
-        <a href="{{ cancel }}" class="btn btn-default" data-toggle="tooltip" title="{{ button_cancel }}"><i class="fa fa-reply"></i></a>
-      </div>
+        <a href="{{ cancel }}" class="btn btn-default" data-toggle="tooltip" title="{{ button_cancel }}"><i class="fa fa-reply"></i></a></div>
       <h1>{{ heading_title }}</h1>
       <ul class="breadcrumb">
         {% for breadcrumb in breadcrumbs %}
@@ -20,16 +19,12 @@
     {% endif %}
     {% if success %}
       <div class="alert alert-success alert-dismissible" role="alert">
-        <button type="button" class="close" data-dismiss="alert" aria-label="{{ text_close }}"><span aria-hidden="true"><i class="fa fa-close"></i></span>
-        </button>
-        <i class="fa fa-check-circle" aria-hidden="true"></i>&nbsp;{{ success }}
+        <button type="button" class="close" data-dismiss="alert" aria-label="{{ text_close }}"><span aria-hidden="true"><i class="fa fa-close"></i></span></button><i class="fa fa-check-circle" aria-hidden="true"></i>&nbsp;{{ success }}
       </div>
     {% endif %}
     {% if error %}
       <div class="alert alert-danger alert-dismissible" role="alert">
-        <button type="button" class="close" data-dismiss="alert" aria-label="{{ text_close }}"><span aria-hidden="true"><i class="fa fa-close"></i></span>
-        </button>
-        <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>&nbsp;{{ error }}
+        <button type="button" class="close" data-dismiss="alert" aria-label="{{ text_close }}"><span aria-hidden="true"><i class="fa fa-close"></i></span></button><i class="fa fa-exclamation-triangle" aria-hidden="true"></i>&nbsp;{{ error }}
       </div>
     {% endif %}
     <div class="panel panel-default">
@@ -78,8 +73,7 @@
                 </label>
               </div>
               <div class="col-sm-9" data-shipping-visible-on="flat">
-                <div class="input-group">
-                  <div class="input-group-addon"><i class="fa fa-dollar"></i></div>
+                <div class="input-group"><div class="input-group-addon"><i class="fa fa-dollar"></i></div>
                   <input type="number" class="form-control" name="advertise_google_shipping_taxes[flat_rate]" value="{{ advertise_google_shipping_taxes.flat_rate }}"/>
                   <div class="input-group-addon">{{ text_usd }}</div>
                 </div>
@@ -96,8 +90,7 @@
                 </label>
               </div>
               <div class="col-sm-9" data-shipping-visible-on="carrier">
-                <div class="input-group">
-                  <div class="input-group-addon">{{ text_carrier_postcode }}</div>
+                <div class="input-group"><div class="input-group-addon">{{ text_carrier_postcode }}</div>
                   <input type="text" class="form-control" name="advertise_google_shipping_taxes[carrier_postcode]" value="{{ advertise_google_shipping_taxes.carrier_postcode }}"/>
                 </div>
                 {% if error_carrier_postcode %}
@@ -196,7 +189,7 @@
         margin-top: 10px;
     }
 </style>
-<script type="text/javascript">
+<script type="text/javascript"><!--
     (function ($) {
         var selector = {
             shipping_type: '[name="advertise_google_shipping_taxes[shipping_type]"]',
@@ -230,5 +223,5 @@
             $(selector.form).submit();
         });
     })(jQuery);
-</script>
+//--></script>
 {{ footer }}

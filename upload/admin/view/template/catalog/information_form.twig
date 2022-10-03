@@ -3,10 +3,8 @@
   <div class="page-header">
     <div class="container-fluid">
       <div class="pull-right">
-        <button type="submit" form="form-information" data-toggle="tooltip" title="{{ button_save }}" class="btn btn-primary">
-          <i class="fa fa-save"></i></button>
-        <a href="{{ cancel }}" data-toggle="tooltip" title="{{ button_cancel }}" class="btn btn-default"><i class="fa fa-reply"></i></a>
-      </div>
+        <button type="submit" form="form-information" data-toggle="tooltip" title="{{ button_save }}" class="btn btn-primary"><i class="fa fa-save"></i></button>
+        <a href="{{ cancel }}" data-toggle="tooltip" title="{{ button_cancel }}" class="btn btn-default"><i class="fa fa-reply"></i></a></div>
       <h1>{{ heading_title }}</h1>
       <ul class="breadcrumb">
         {% for breadcrumb in breadcrumbs %}
@@ -51,7 +49,8 @@
                         <input type="text" name="information_description[{{ language.language_id }}][title]" value="{{ information_description[language.language_id] ? information_description[language.language_id].title }}" placeholder="{{ entry_title }}" id="input-title{{ language.language_id }}" class="form-control"/>
                         {% if error_title[language.language_id] %}
                           <div class="text-danger">{{ error_title[language.language_id] }}</div>
-                        {% endif %} </div>
+                        {% endif %}
+                      </div>
                     </div>
                     <div class="form-group required">
                       <label class="col-sm-2 control-label" for="input-description{{ language.language_id }}">{{ entry_description }}</label>
@@ -59,7 +58,8 @@
                         <textarea name="information_description[{{ language.language_id }}][description]" placeholder="{{ entry_description }}" id="input-description{{ language.language_id }}" data-toggle="summernote" data-lang="{{ summernote }}" class="form-control">{{ information_description[language.language_id] ? information_description[language.language_id].description }}</textarea>
                         {% if error_description[language.language_id] %}
                           <div class="text-danger">{{ error_description[language.language_id] }}</div>
-                        {% endif %} </div>
+                        {% endif %}
+                      </div>
                     </div>
                     <div class="form-group required">
                       <label class="col-sm-2 control-label" for="input-meta-title{{ language.language_id }}">{{ entry_meta_title }}</label>
@@ -67,7 +67,8 @@
                         <input type="text" name="information_description[{{ language.language_id }}][meta_title]" value="{{ information_description[language.language_id] ? information_description[language.language_id].meta_title }}" placeholder="{{ entry_meta_title }}" id="input-meta-title{{ language.language_id }}" class="form-control"/>
                         {% if error_meta_title[language.language_id] %}
                           <div class="text-danger">{{ error_meta_title[language.language_id] }}</div>
-                        {% endif %} </div>
+                        {% endif %}
+                      </div>
                     </div>
                     <div class="form-group">
                       <label class="col-sm-2 control-label" for="input-meta-description{{ language.language_id }}">{{ entry_meta_description }}</label>
@@ -82,7 +83,8 @@
                       </div>
                     </div>
                   </div>
-                {% endfor %} </div>
+                {% endfor %}
+              </div>
             </div>
             <div class="tab-pane" id="tab-data">
               <div class="form-group">
@@ -98,9 +100,11 @@
                           {% else %}
                             <input type="checkbox" name="information_store[]" value="{{ store.store_id }}"/>
                             {{ store.name }}
-                          {% endif %}</label>
+                          {% endif %}
+                        </label>
                       </div>
-                    {% endfor %} </div>
+                    {% endfor %}
+                  </div>
                 </div>
               </div>
               <div class="form-group">
@@ -153,14 +157,14 @@
                         <td class="text-left">{{ store.name }}</td>
                         <td class="text-left">
                           {% for language in languages %}
-                            <div class="input-group">
-                              <span class="input-group-addon"><img src="language/{{ language.code }}/{{ language.code }}.png" title="{{ language.name }}"/></span>
+                            <div class="input-group"><span class="input-group-addon"><img src="language/{{ language.code }}/{{ language.code }}.png" title="{{ language.name }}"/></span>
                               <input type="text" name="information_seo_url[{{ store.store_id }}][{{ language.language_id }}]" value="{% if information_seo_url[store.store_id][language.language_id] %}{{ information_seo_url[store.store_id][language.language_id] }}{% endif %}" placeholder="{{ entry_keyword }}" class="form-control"/>
                             </div>
                             {% if error_keyword[store.store_id][language.language_id] %}
                               <div class="text-danger">{{ error_keyword[store.store_id][language.language_id] }}</div>
                             {% endif %}
-                          {% endfor %}</td>
+                          {% endfor %}
+                        </td>
                       </tr>
                     {% endfor %}
                   </tbody>

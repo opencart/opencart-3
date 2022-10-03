@@ -53,7 +53,7 @@
                 {% endif %}
               {% else %}
                 {{ text_na }}
-              {% endfor %}
+              {% endif %}
             </td>
             <td class="text-left">
               {% for item_issue in issue.item_level_issues %}
@@ -62,9 +62,9 @@
                   <i class="fa fa-external-link"></i></a>
                 {% if not loop.last %}
                   <hr>
+                {% else %}
+                  {{ text_na }}
                 {% endif %}
-              {% else %}
-                {{ text_na }}
               {% endfor %}
             </td>
             <td class="text-left">{{ issue.google_expiration_date }}</td>

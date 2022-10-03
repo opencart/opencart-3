@@ -4,8 +4,7 @@
     <div class="container-fluid">
       <div class="pull-right">
         <button type="submit" form="form-payment" data-toggle="tooltip" title="{{ button_save }}" class="btn btn-primary"><i class="fa fa-save"></i></button>
-        <a href="{{ cancel }}" data-toggle="tooltip" title="{{ button_cancel }}" class="btn btn-default"><i class="fa fa-reply"></i></a>
-      </div>
+        <a href="{{ cancel }}" data-toggle="tooltip" title="{{ button_cancel }}" class="btn btn-default"><i class="fa fa-reply"></i></a></div>
       <h1>{{ heading_title }}</h1>
       <ul class="breadcrumb">
         {% for breadcrumb in breadcrumbs %}
@@ -32,7 +31,8 @@
               <input type="text" name="payment_securetrading_ws_site_reference" value="{{ payment_securetrading_ws_site_reference }}" placeholder="{{ entry_site_reference }}" id="securetrading_ws_site_reference" class="form-control"/>
               {% if error_site_reference %}
                 <div class="text-danger">{{ error_site_reference }}</div>
-              {% endif %} </div>
+              {% endif %}
+            </div>
           </div>
           <div class="form-group required">
             <label class="col-sm-2 control-label" for="securetrading_ws_username">{{ entry_username }}</label>
@@ -40,7 +40,8 @@
               <input type="text" name="payment_securetrading_ws_username" value="{{ payment_securetrading_ws_username }}" placeholder="{{ entry_username }}" id="securetrading_ws_username" class="form-control"/>
               {% if error_username %}
                 <div class="text-danger">{{ error_username }}</div>
-              {% endif %} </div>
+              {% endif %}
+            </div>
           </div>
           <div class="form-group required">
             <label class="col-sm-2 control-label" for="securetrading_ws_password">{{ entry_password }}</label>
@@ -48,7 +49,8 @@
               <input type="text" name="payment_securetrading_ws_password" value="{{ payment_securetrading_ws_password }}" placeholder="{{ entry_password }}" id="securetrading_ws_password" class="form-control"/>
               {% if error_password %}
                 <div class="text-danger">{{ error_password }}</div>
-              {% endif %} </div>
+              {% endif %}
+            </div>
           </div>
           <div class="form-group">
             <label class="col-sm-2 control-label" for="securetrading_ws_csv_username">{{ entry_csv_username }}</label>
@@ -73,12 +75,14 @@
                     {% else %}
                       <input type="checkbox" name="payment_securetrading_ws_cards_accepted[]" value="{{ key }}"/>
                     {% endif %}
-                    {{ value }} </label>
+                    {{ value }}
+                  </label>
                 </div>
               {% endfor %}
               {% if error_cards_accepted %}
                 <div class="text-danger">{{ error_cards_accepted }}</div>
-              {% endif %} </div>
+              {% endif %}
+            </div>
           </div>
           <div class="form-group">
             <label class="col-sm-2 control-label" for="securetrading_ws_settle_status">{{ entry_settle_status }}</label>
@@ -267,9 +271,8 @@
                     <label class="control-label" for="date-from">{{ entry_date_from }}</label>
                     <div class="input-group date">
                       <input type="text" name="date_from" value="<?php echo date('Y-m-d'); ?>" placeholder="{{ entry_date_from }}" data-date-format="YYYY-MM-DD" id="date-from" class="form-control"/>
-                      <span class="input-group-btn">
-                    <button type="button" class="btn btn-default"><i class="fa fa-calendar"></i></button>
-                    </span></div>
+                      <span class="input-group-btn"><button type="button" class="btn btn-default"><i class="fa fa-calendar"></i></button></span>
+                    </div>
                   </div>
                 </div>
                 <div class="col-sm-1 col-sm-offset-2">
@@ -301,9 +304,8 @@
                     <label class="control-label" for="date-to">{{ entry_date_to }}</label>
                     <div class="input-group date">
                       <input type="text" name="date_to" value="<?php echo date('Y-m-d'); ?>" placeholder="{{ entry_date_to }}" data-date-format="YYYY-MM-DD" id="date-to" class="form-control"/>
-                      <span class="input-group-btn">
-                    <button type="button" class="btn btn-default"><i class="fa fa-calendar"></i></button>
-                    </span></div>
+                      <span class="input-group-btn"><button type="button" class="btn btn-default"><i class="fa fa-calendar"></i></button></span>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -367,7 +369,8 @@
                               {{ currency.title }}
                             </label>
                           </div>
-                        {% endfor %} </div>
+                        {% endfor %}
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -460,7 +463,7 @@
     </div>
   </div>
 </div>
-<script type="text/javascript">
+<script type="text/javascript"><!--
     function downloadTransactions() {
         $('#download-iframe').remove();
         $('#transaction-form').after('<iframe name="download-iframe" id="download-iframe" style="display: none;" src=""/>');
@@ -495,5 +498,5 @@
         language: '{{ datepicker }}',
         pickTime: false
     });
-</script>
+//--></script>
 {{ footer }}

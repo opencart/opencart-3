@@ -4,8 +4,7 @@
     <div class="container-fluid">
       <div class="pull-right">
         <button type="submit" form="form-payment" data-toggle="tooltip" title="{{ button_save }}" class="btn btn-primary"><i class="fa fa-save"></i></button>
-        <a href="{{ cancel }}" data-toggle="tooltip" title="{{ button_cancel }}" class="btn btn-default"><i class="fa fa-reply"></i></a>
-      </div>
+        <a href="{{ cancel }}" data-toggle="tooltip" title="{{ button_cancel }}" class="btn btn-default"><i class="fa fa-reply"></i></a></div>
       <h1>{{ heading_title }}</h1>
       <ul class="breadcrumb">
         {% for breadcrumb in breadcrumbs %}
@@ -108,8 +107,7 @@
           <div class="form-group required">
             <label class="col-sm-2 control-label" for="amazon-login-pay-access-secret">{{ entry_access_secret }}</label>
             <div class="col-sm-10">
-              <div class="input-group">
-                <input data-toggle-password type="password" name="payment_amazon_login_pay_access_secret" value="{{ has_modify_permission ? payment_amazon_login_pay_access_secret : text_generic_password }}" placeholder="{{ entry_access_secret }}" id="amazon-login-pay-access-secret" class="form-control" autocomplete="new-password"/>
+              <div class="input-group"><input data-toggle-password type="password" name="payment_amazon_login_pay_access_secret" value="{{ has_modify_permission ? payment_amazon_login_pay_access_secret : text_generic_password }}" placeholder="{{ entry_access_secret }}" id="amazon-login-pay-access-secret" class="form-control" autocomplete="new-password"/>
                 <div class="input-group-addon btn btn-default toggle-password">
                   <i class="fa fa-eye"></i>
                 </div>
@@ -131,8 +129,7 @@
           <div class="form-group required">
             <label class="col-sm-2 control-label" for="amazon-login-pay-client-secret">{{ entry_client_secret }}</label>
             <div class="col-sm-10">
-              <div class="input-group">
-                <input data-toggle-password type="password" name="payment_amazon_login_pay_client_secret" value="{{ has_modify_permission ? payment_amazon_login_pay_client_secret : text_generic_password }}" placeholder="{{ entry_client_secret }}" id="amazon-login-pay-client-secret" class="form-control" autocomplete="new-password"/>
+              <div class="input-group"><input data-toggle-password type="password" name="payment_amazon_login_pay_client_secret" value="{{ has_modify_permission ? payment_amazon_login_pay_client_secret : text_generic_password }}" placeholder="{{ entry_client_secret }}" id="amazon-login-pay-client-secret" class="form-control" autocomplete="new-password"/>
                 <div class="input-group-addon btn btn-default toggle-password">
                   <i class="fa fa-eye"></i>
                 </div>
@@ -354,7 +351,7 @@
       </div>
     </div>
   </div>
-  <script type="text/javascript">
+  <script type="text/javascript"><!--
       $('#button-credentials').on('click', function () {
           var json = $('#input-credentials').val();
           try {
@@ -374,8 +371,8 @@
               $('.container-fluid:eq(1)').prepend('<div class="alert alert-danger alert-dismissible"><button type="button" class="close" data-dismiss="alert">&times;</button><i class="fa fa-exclamation-circle"></i> {{ error_credentials }}</div>')
           }
       });
-      //</script>
-  <script type="text/javascript">
+  //--></script>
+  <script type="text/javascript"><!--
       $('input[name=\'payment_amazon_login_pay_ipn_token\']').change(function () {
           var base = '{{ https_catalog }}index.php?route=extension/payment/amazon_login_pay/ipn&token=';
           var allowedLength = 150 - base.length;
@@ -383,8 +380,8 @@
           $(this).val(newVal);
           $('#input-ipn-url').val(base + newVal);
       });
-      //</script>
-  <script type="text/javascript">
+  //--></script>
+  <script type="text/javascript"><!--
       $('#amazon-login-pay-payment_region').on('change', function () {
           switch ($(this).val()) {
               case 'EUR':
@@ -407,21 +404,21 @@
 
           $('#form-amazon-login-pay').submit();
       });
-      //</script>
-  <script type="text/javascript">
+  //--></script>
+  <script type="text/javascript"><!--
       $('#amazon-login-pay-language').on('change', function () {
           var language = $(this).val();
           var mod_lang = language.replace("-", "_");
           $('input[name="language"]').val(mod_lang);
       });
-      //</script>
-  <script type="text/javascript">
+  //--></script>
+  <script type="text/javascript"><!--
       $('#sign-up').on('click', function () {
           $('#registration-form').submit();
           $('#container-credentials').show();
       });
-      //</script>
-  <script type="text/javascript">
+  //--></script>
+  <script type="text/javascript"><!--
       $(document).on('click', '.toggle-password', function (e) {
           let target = $(this).closest('.form-group').find('input[data-toggle-password]');
 
@@ -438,6 +435,6 @@
               $('#buyer-multi-currency').hide();
           }
       });
-  </script>
+  //--></script>
 </div>
 {{ footer }}

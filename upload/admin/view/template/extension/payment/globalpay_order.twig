@@ -153,7 +153,7 @@
               $('#capture-amount').val('0.00');
               
               {% if auto_settle == 2 %}
-              $('#capture-amount').show();
+                $('#capture-amount').show();
               {% endif %}
             }
             
@@ -166,6 +166,7 @@
           }
           if (data.error == true) {
             alert(data.msg);
+            
             $('#button-capture').show();
             $('#capture-amount').show();
           }

@@ -6,8 +6,7 @@
         <a href="{{ invoice }}" target="_blank" data-toggle="tooltip" title="{{ button_invoice_print }}" class="btn btn-info"><i class="fa fa-print"></i></a>
         <a href="{{ shipping }}" target="_blank" data-toggle="tooltip" title="{{ button_shipping_print }}" class="btn btn-info"><i class="fa fa-truck"></i></a>
         <a href="{{ edit }}" data-toggle="tooltip" title="{{ button_edit }}" class="btn btn-primary"><i class="fa fa-pencil"></i></a>
-        <a href="{{ cancel }}" data-toggle="tooltip" title="{{ button_cancel }}" class="btn btn-default"><i class="fa fa-reply"></i></a>
-      </div>
+        <a href="{{ cancel }}" data-toggle="tooltip" title="{{ button_cancel }}" class="btn btn-default"><i class="fa fa-reply"></i></a></div>
       <h1>{{ heading_title }}</h1>
       <ul class="breadcrumb">
         {% for breadcrumb in breadcrumbs %}
@@ -26,32 +25,20 @@
           <table class="table">
             <tbody>
               <tr>
-                <td style="width: 1%;">
-                  <button data-toggle="tooltip" title="{{ text_store }}" class="btn btn-info btn-xs">
-                    <i class="fa fa-shopping-cart fa-fw"></i></button>
-                </td>
+                <td style="width: 1%;"><button data-toggle="tooltip" title="{{ text_store }}" class="btn btn-info btn-xs"><i class="fa fa-shopping-cart fa-fw"></i></button></td>
                 <td><a href="{{ store_url }}" target="_blank">{{ store_name }}</a></td>
               </tr>
               <tr>
-                <td>
-                  <button data-toggle="tooltip" title="{{ text_date_added }}" class="btn btn-info btn-xs">
-                    <i class="fa fa-calendar fa-fw"></i></button>
-                </td>
+                <td><button data-toggle="tooltip" title="{{ text_date_added }}" class="btn btn-info btn-xs"><i class="fa fa-calendar fa-fw"></i></button></td>
                 <td>{{ date_added }}</td>
               </tr>
               <tr>
-                <td>
-                  <button data-toggle="tooltip" title="{{ text_payment_method }}" class="btn btn-info btn-xs">
-                    <i class="fa fa-credit-card fa-fw"></i></button>
-                </td>
+                <td><button data-toggle="tooltip" title="{{ text_payment_method }}" class="btn btn-info btn-xs"><i class="fa fa-credit-card fa-fw"></i></button></td>
                 <td>{{ payment_method }}</td>
               </tr>
               {% if shipping_method %}
                 <tr>
-                  <td>
-                    <button data-toggle="tooltip" title="{{ text_shipping_method }}" class="btn btn-info btn-xs">
-                      <i class="fa fa-truck fa-fw"></i></button>
-                  </td>
+                  <td><button data-toggle="tooltip" title="{{ text_shipping_method }}" class="btn btn-info btn-xs"><i class="fa fa-truck fa-fw"></i></button></td>
                   <td>{{ shipping_method }}</td>
                 </tr>
               {% endif %}
@@ -66,10 +53,7 @@
           </div>
           <table class="table">
             <tr>
-              <td style="width: 1%;">
-                <button data-toggle="tooltip" title="{{ text_customer }}" class="btn btn-info btn-xs">
-                  <i class="fa fa-user fa-fw"></i></button>
-              </td>
+              <td style="width: 1%;"><button data-toggle="tooltip" title="{{ text_customer }}" class="btn btn-info btn-xs"><i class="fa fa-user fa-fw"></i></button></td>
               <td>
                 {% if customer %}
                   <a href="{{ customer }}" target="_blank">{{ firstname }} {{ lastname }}</a>
@@ -78,21 +62,15 @@
                 {% endif %}</td>
             </tr>
             <tr>
-              <td>
-                <button data-toggle="tooltip" title="{{ text_customer_group }}" class="btn btn-info btn-xs"><i class="fa fa-group fa-fw"></i></button>
-              </td>
+              <td><button data-toggle="tooltip" title="{{ text_customer_group }}" class="btn btn-info btn-xs"><i class="fa fa-group fa-fw"></i></button></td>
               <td>{{ customer_group }}</td>
             </tr>
             <tr>
-              <td>
-                <button data-toggle="tooltip" title="{{ text_email }}" class="btn btn-info btn-xs"><i class="fa fa-envelope-o fa-fw"></i></button>
-              </td>
+              <td><button data-toggle="tooltip" title="{{ text_email }}" class="btn btn-info btn-xs"><i class="fa fa-envelope-o fa-fw"></i></button></td>
               <td><a href="mailto:{{ email }}">{{ email }}</a></td>
             </tr>
             <tr>
-              <td>
-                <button data-toggle="tooltip" title="{{ text_telephone }}" class="btn btn-info btn-xs"><i class="fa fa-phone fa-fw"></i></button>
-              </td>
+              <td><button data-toggle="tooltip" title="{{ text_telephone }}" class="btn btn-info btn-xs"><i class="fa fa-phone fa-fw"></i></button></td>
               <td>{{ telephone }}</td>
             </tr>
           </table>
@@ -198,7 +176,8 @@
                       &nbsp;
                       <small> - {{ option.name }}: <a href="{{ option.href }}">{{ option.value }}</a></small>
                     {% endif %}
-                  {% endfor %}</td>
+                  {% endfor %}
+                </td>
                 <td class="text-left">{{ product.model }}</td>
                 <td class="text-right">{{ product.quantity }}</td>
                 <td class="text-right">{{ product.price }}</td>
@@ -235,7 +214,8 @@
               </tr>
             </tbody>
           </table>
-        {% endif %} </div>
+        {% endif %}
+      </div>
     </div>
     <div class="panel panel-default">
       <div class="panel-heading">
@@ -388,7 +368,8 @@
           </div>
           {% for tab in tabs %}
             <div class="tab-pane" id="tab-{{ tab.code }}">{{ tab.content }}</div>
-          {% endfor %} </div>
+          {% endfor %}
+        </div>
       </div>
     </div>
   </div>

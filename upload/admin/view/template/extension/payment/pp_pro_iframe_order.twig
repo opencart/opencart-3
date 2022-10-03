@@ -227,13 +227,13 @@
         if (data.error == false) {
           html = '';
           html += '<tr>';
-          html += '<td class="text-left">' + data.data.transaction_id + '</td>';
-          html += '<td class="text-left">0.00</td>';
-          html += '<td class="text-left">' + data.data.payment_type + '</td>';
-          html += '<td class="text-left">' + data.data.payment_status + '</td>';
-          html += '<td class="text-left">' + data.data.pending_reason + '</td>';
-          html += '<td class="text-left">' + data.data.date_added + '</td>';
-          html += '<td class="text-left"></td>';
+            html += '<td class="text-left">' + data.data.transaction_id + '</td>';
+            html += '<td class="text-left">0.00</td>';
+            html += '<td class="text-left">' + data.data.payment_type + '</td>';
+            html += '<td class="text-left">' + data.data.payment_status + '</td>';
+            html += '<td class="text-left">' + data.data.pending_reason + '</td>';
+            html += '<td class="text-left">' + data.data.date_added + '</td>';
+            html += '<td class="text-left"></td>';
           html += '</tr>';
           
           $('#paypal_transactions').append(html);

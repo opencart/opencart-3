@@ -4,8 +4,7 @@
     <div class="container-fluid">
       <div class="pull-right">
         <button type="submit" form="form-module" data-toggle="tooltip" title="{{ button_save }}" class="btn btn-primary"><i class="fa fa-save"></i></button>
-        <a href="{{ cancel }}" data-toggle="tooltip" title="{{ button_cancel }}" class="btn btn-default"><i class="fa fa-reply"></i></a>
-      </div>
+        <a href="{{ cancel }}" data-toggle="tooltip" title="{{ button_cancel }}" class="btn btn-default"><i class="fa fa-reply"></i></a></div>
       <h1>{{ heading_title }}</h1>
       <ul class="breadcrumb">
         {% for breadcrumb in breadcrumbs %}
@@ -82,16 +81,19 @@
   </div>
   <link href="view/javascript/codemirror/lib/codemirror.css" rel="stylesheet"/>
   <link href="view/javascript/codemirror/theme/monokai.css" rel="stylesheet"/>
+  
   <script type="text/javascript" src="view/javascript/codemirror/lib/codemirror.js"></script>
   <script type="text/javascript" src="view/javascript/codemirror/lib/xml.js"></script>
   <script type="text/javascript" src="view/javascript/codemirror/lib/formatting.js"></script>
-  
   <script type="text/javascript" src="view/javascript/summernote/summernote.min.js"></script>
+  
   <link href="view/javascript/summernote/summernote.min.css" rel="stylesheet"/>
+  
   <script type="text/javascript" src="view/javascript/summernote/summernote-image-attributes.js"></script>
   <script type="text/javascript" src="view/javascript/summernote/opencart.js"></script>
+  
   <script type="text/javascript"><!--
       $('#language a:first').tab('show');
-      //--></script>
+  //--></script>
 </div>
 {{ footer }}

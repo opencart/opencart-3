@@ -3,9 +3,7 @@
   <div class="page-header">
     <div class="container-fluid">
       <div class="pull-right">
-        <button type="button" data-toggle="tooltip" title="{{ button_filter }}" onclick="$('#filter-customer').toggleClass('hidden-sm hidden-xs');" class="btn btn-default hidden-md hidden-lg">
-          <i class="fa fa-filter"></i></button>
-      </div>
+        <button type="button" data-toggle="tooltip" title="{{ button_filter }}" onclick="$('#filter-customer').toggleClass('hidden-sm hidden-xs');" class="btn btn-default hidden-md hidden-lg"><i class="fa fa-filter"></i></button></div>
       <h1>{{ heading_title }}</h1>
       <ul class="breadcrumb">
         {% for breadcrumb in breadcrumbs %}
@@ -59,21 +57,18 @@
               <label class="control-label" for="input-date-from">{{ entry_date_from }}</label>
               <div class="input-group date">
                 <input type="text" name="filter_date_from" value="{{ filter_date_from }}" placeholder="{{ entry_date_from }}" data-date-format="YYYY-MM-DD" id="input-date-from" class="form-control"/>
-                <span class="input-group-btn">
-                <button type="button" class="btn btn-default"><i class="fa fa-calendar"></i></button>
-                </span></div>
+                <span class="input-group-btn"><button type="button" class="btn btn-default"><i class="fa fa-calendar"></i></button></span>
+              </div>
             </div>
             <div class="form-group">
               <label class="control-label" for="input-date-to">{{ entry_date_to }}</label>
               <div class="input-group date">
                 <input type="text" name="filter_date_to" value="{{ filter_date_to }}" placeholder="{{ entry_date_to }}" data-date-format="YYYY-MM-DD" id="input-date-to" class="form-control"/>
-                <span class="input-group-btn">
-                <button type="button" class="btn btn-default"><i class="fa fa-calendar"></i></button>
-                </span></div>
+                <span class="input-group-btn"><button type="button" class="btn btn-default"><i class="fa fa-calendar"></i></button></span>
+              </div>
             </div>
             <div class="form-group text-right">
-              <button type="button" id="button-filter" class="btn btn-default">
-                <i class="fa fa-filter"></i> {{ button_filter }}</button>
+              <button type="button" id="button-filter" class="btn btn-default"><i class="fa fa-filter"></i> {{ button_filter }}</button>
             </div>
           </div>
         </div>
@@ -167,7 +162,7 @@
 
           $('#gdpr').load('index.php?route=customer/gdpr/gdpr&user_token={{ user_token }}' + url);
       });
-      //--></script>
+  //--></script>
   <script type="text/javascript"><!--
       $('input[name=\'filter_email\']').autocomplete({
           'source': function (request, response) {
@@ -188,12 +183,12 @@
               $('input[name=\'filter_email\']').val(item['label']);
           }
       });
-      //--></script>
+  //--></script>
   <script type="text/javascript"><!--
       $('.date').datetimepicker({
           language: '{{ datepicker }}',
           pickTime: false
       });
-      //--></script>
+  //--></script>
 </div>
 {{ footer }}

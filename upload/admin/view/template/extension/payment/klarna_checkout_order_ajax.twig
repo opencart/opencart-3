@@ -4,7 +4,7 @@
     <td>
       {{ transaction.order_id }}
       {% if cancel_action %}
-      <a class="btn btn-primary button-command" data-type="cancel">{{ button_cancel }}</a>
+        <a class="btn btn-primary button-command" data-type="cancel">{{ button_cancel }}</a>
       {% endif %}
     </td>
   </tr>
@@ -28,10 +28,10 @@
     <td>{{ column_merchant_reference_1 }}</td>
     <td>
       {% if merchant_reference_action %}
-      <div class="col-sm-2"><input class="form-control" type="text" name="merchant_reference_1" value="{{ transaction.merchant_reference_1 }}"/></div>
-      <a class="btn btn-primary button-command" data-type="merchant_reference">{{ button_update }}</a>
+        <div class="col-sm-2"><input class="form-control" type="text" name="merchant_reference_1" value="{{ transaction.merchant_reference_1 }}"/></div>
+        <a class="btn btn-primary button-command" data-type="merchant_reference">{{ button_update }}</a>
       {% else %}
-      {{ transaction.merchant_reference_1 }}
+        {{ transaction.merchant_reference_1 }}
       {% endif %}
     </td>
   </tr>
@@ -51,14 +51,10 @@
 						<td>{{ transaction.shipping_address_formatted }}</td>
 					</tr>
 					{% if address_action %}
-					<tr>
-						<td>
-							<a class="btn btn-primary" data-toggle="modal" data-target="#billing_address">{{ button_edit }}</a>
-						</td>
-						<td>
-							<a class="btn btn-primary" data-toggle="modal" data-target="#shipping_address">{{ button_edit }}</a>
-						</td>
-					</tr>
+            <tr>
+              <td><a class="btn btn-primary" data-toggle="modal" data-target="#billing_address">{{ button_edit }}</a></td>
+              <td><a class="btn btn-primary" data-toggle="modal" data-target="#shipping_address">{{ button_edit }}</a></td>
+            </tr>
 					{% endif %}
 				</tbody>
       </table>
@@ -110,7 +106,7 @@
     <td>
       {{ transaction.authorization_remaining }}
       {% if release_authorization_action %}
-      <a class="btn btn-primary button-command" data-type="release_authorization">{{ button_release_authorization }}</a>
+        <a class="btn btn-primary button-command" data-type="release_authorization">{{ button_release_authorization }}</a>
       {% endif %}
     </td>
   </tr>
@@ -120,7 +116,7 @@
     <td>
       {{ transaction.authorization_expiry }}
       {% if extend_authorization_action %}
-      <a class="btn btn-primary button-command" data-type="extend_authorization">{{ button_extend_authorization }}</a>
+        <a class="btn btn-primary button-command" data-type="extend_authorization">{{ button_extend_authorization }}</a>
       {% endif %}
     </td>
   </tr>
@@ -646,7 +642,6 @@
 					clicked_button.button('loading');
 					
 					$('.kc-alert').hide();
-					
 					$('.kc-alert').removeClass('alert alert-success alert-danger');
 				},
 				complete: function () {
@@ -684,7 +679,6 @@
 								
 								if (json['success']) {
 									$('#history').load('index.php?route=sale/order/history&user_token={{ user_token }}&order_id={{ order_id }}');
-									
 									$('#history').before('<div class="alert alert-success alert-dismissible"><i class="fa fa-check-circle"></i> ' + json['success'] + ' <button type="button" class="close" data-dismiss="alert">&times;</button></div>');
 									
 									$('textarea[name=\'comment\']').val('');
@@ -711,7 +705,7 @@
 		
 		html = '  <td><div class="col-sm-12"><select name="shipping_info[' + shipping_info_row + '][shipping_method]" class="form-control">';
 		{% for shipping_method in allowed_shipping_methods %}
-		html += '    <option value="{{ shipping_method }}">{{ shipping_method|escape('js') }}</option>';
+		  html += '    <option value="{{ shipping_method }}">{{ shipping_method|escape('js') }}</option>';
 		{% endfor %}
 		html += '  </select></div></td>';
 		
@@ -723,6 +717,7 @@
 		$(id + ' .shipping-info-data tbody tr:nth-child(7)').append('<td><div class="col-sm-12"><input class="form-control" type="text" name="shipping_info[' + shipping_info_row + '][return_tracking_uri]" value="" data-id="' + shipping_info_row + '" placeholder="{{ entry_return_tracking_uri }}"/></div></td>');
 		
 		var colspan = $(id + ' .shipping-info-data tfoot tr td:nth-child(1)').attr('colspan');
+  
 		$(id + ' .shipping-info-data tfoot tr td:nth-child(1)').attr('colspan', colspan + 1);
 		
 		shipping_info_row++;

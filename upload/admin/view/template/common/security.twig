@@ -22,23 +22,20 @@
             <div class="form-group">
               <div class="input-group">
                 <div class="input-group-btn dropdown">
-                  <button type="button" id="button-path" data-toggle="dropdown" class="btn btn-default">{{ document_root }}
-                    <span class="caret"></span></button>
+                  <button type="button" id="button-path" data-toggle="dropdown" class="btn btn-default">{{ document_root }}<span class="caret"></span></button>
                   <ul class="dropdown-menu">
                     {% for path in paths %}
-                    {% if path|length > document_root|length %}
-                    <li><a href="{{ path }}"><i class="fa fa-exclamation-triangle fa-fw text-danger"></i> {{ path }}</a>
-                    </li>
-                    {% else %}
-                    <li><a href="{{ path }}"><i class="fa fa-check-circle fa-fw text-success"></i> {{ path }}</a></li>
-                    {% endif %}
+                      {% if path|length > document_root|length %}
+                        <li><a href="{{ path }}"><i class="fa fa-exclamation-triangle fa-fw text-danger"></i> {{ path }}</a></li>
+                      {% else %}
+                        <li><a href="{{ path }}"><i class="fa fa-check-circle fa-fw text-success"></i> {{ path }}</a></li>
+                      {% endif %}
                     {% endfor %}
                   </ul>
                 </div>
                 <input type="text" name="directory" value="storage" placeholder="{{ entry_directory }}" class="form-control"/>
                 <div class="input-group-btn">
-                  <button type="button" id="button-move" data-loading-text="{{ text_loading }}" class="btn btn-danger">
-                    <i class="fa fa-exclamation-triangle"></i> {{ button_move }}</button>
+                  <button type="button" id="button-move" data-loading-text="{{ text_loading }}" class="btn btn-danger"><i class="fa fa-exclamation-triangle"></i> {{ button_move }}</button>
                 </div>
               </div>
               <input type="hidden" name="path" value="{{ document_root }}"/>

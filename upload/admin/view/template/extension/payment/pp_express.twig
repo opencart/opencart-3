@@ -5,8 +5,7 @@
       <div class="pull-right">
         <button type="submit" form="form-pp-express" data-toggle="tooltip" title="{{ button_save }}" class="btn btn-primary"><i class="fa fa-save"></i></button>
         <a href="{{ cancel }}" data-toggle="tooltip" title="{{ button_cancel }}" class="btn btn-default"><i class="fa fa-reply"></i></a>
-        <a href="{{ search }}" data-toggle="tooltip" title="{{ button_search }}" class="btn btn-info"><i class="fa fa-search"></i></a>
-      </div>
+        <a href="{{ search }}" data-toggle="tooltip" title="{{ button_search }}" class="btn btn-info"><i class="fa fa-search"></i></a></div>
       <h1>{{ heading_title }}</h1>
       <ul class="breadcrumb">
         {% for breadcrumb in breadcrumbs %}
@@ -439,7 +438,6 @@
     </div>
   </div>
 </div>
-
 <script type="text/javascript"><!--
     $('body').on('click', '#show-advanced', function (e) {
         e.preventDefault();
@@ -470,5 +468,4 @@
         }
     }(document, "script", "paypal-js"));
 --></script>
-
 {{ footer }}

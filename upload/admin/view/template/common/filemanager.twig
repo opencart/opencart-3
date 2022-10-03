@@ -14,11 +14,9 @@
           <button type="button" data-toggle="tooltip" title="{{ button_delete }}" id="button-delete" class="btn btn-danger"><i class="fa fa-trash-o"></i></button>
         </div>
         <div class="col-sm-7">
-          <div class="input-group">
-            <input type="text" name="search" value="{{ filter_name }}" placeholder="{{ entry_search }}" class="form-control">
-            <span class="input-group-btn">
-            <button type="button" data-toggle="tooltip" title="{{ button_search }}" id="button-search" class="btn btn-primary"><i class="fa fa-search"></i></button>
-            </span></div>
+          <div class="input-group"><input type="text" name="search" value="{{ filter_name }}" placeholder="{{ entry_search }}" class="form-control">
+            <span class="input-group-btn"><button type="button" data-toggle="tooltip" title="{{ button_search }}" id="button-search" class="btn btn-primary"><i class="fa fa-search"></i></button></span>
+          </div>
         </div>
       </div>
       <hr>
@@ -32,13 +30,15 @@
                 </div>
                 <label>
                   <input type="checkbox" name="path[]" value="{{ image.path }}"/>
-                  {{ image.name }}</label>
+                  {{ image.name }}
+                </label>
               {% endif %}
               {% if image.type == 'image' %}
                 <a href="{{ image.href }}" class="thumbnail"><img src="{{ image.thumb }}" alt="{{ image.name }}" title="{{ image.name }}"/></a>
                 <label>
                   <input type="checkbox" name="path[]" value="{{ image.path }}"/>
-                  {{ image.name }}</label>
+                  {{ image.name }}
+                </label>
               {% endif %}
             </div>
           {% endfor %}
@@ -51,17 +51,17 @@
 </div>
 <script type="text/javascript"><!--
 {% if target %}
-$('a.thumbnail').on('click', function (e) {
-  e.preventDefault();
-  
-  {% if thumb %}
-  $('#{{ thumb|escape('js') }}').find('img').attr('src', $(this).find('img').attr('src'));
-  {% endif %}
-  
-  $('#{{ target|escape('js') }}').val($(this).parent().find('input').val());
-  
-  $('#modal-image').modal('hide');
-});
+  $('a.thumbnail').on('click', function (e) {
+    e.preventDefault();
+    
+    {% if thumb %}
+    $('#{{ thumb|escape('js') }}').find('img').attr('src', $(this).find('img').attr('src'));
+    {% endif %}
+    
+    $('#{{ target|escape('js') }}').val($(this).parent().find('input').val());
+    
+    $('#modal-image').modal('hide');
+  });
 {% endif %}
 
 $('a.directory').on('click', function (e) {
@@ -104,11 +104,11 @@ $('#button-search').on('click', function (e) {
   }
   
   {% if thumb %}
-  url += '&thumb=' + '{{ thumb|escape('js') }}';
+    url += '&thumb=' + '{{ thumb|escape('js') }}';
   {% endif %}
   
   {% if target %}
-  url += '&target=' + '{{ target|escape('js') }}';
+    url += '&target=' + '{{ target|escape('js') }}';
   {% endif %}
   
   $('#modal-image').load(url);

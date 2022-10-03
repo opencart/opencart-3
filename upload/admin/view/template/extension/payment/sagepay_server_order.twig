@@ -95,9 +95,9 @@
           if (data.error == false) {
             html = '';
             html += '<tr>';
-            html += '<td class="text-left">' + data.data.date_added + '</td>';
-            html += '<td class="text-left">{{ text_void }}</td>';
-            html += '<td class="text-left">0.00</td>';
+              html += '<td class="text-left">' + data.data.date_added + '</td>';
+              html += '<td class="text-left">{{ text_void }}</td>';
+              html += '<td class="text-left">0.00</td>';
             html += '</tr>';
             
             $('.void_text').text('{{ text_yes }}');
@@ -129,27 +129,33 @@
         data: {'order_id': {{ order_id }}, 'amount': $('#release_amount').val()},
         beforeSend: function () {
           $('#button-release').hide();
+          
           $('#release_amount').hide();
+          
           $('#img_loading_release').show();
+          
           $('#sagepay_server_transaction_msg').hide();
         },
         success: function (data) {
           if (data.error == false) {
             html = '';
             html += '<tr>';
-            html += '<td class="text-left">' + data.data.date_added + '</td>';
-            html += '<td class="text-left">{{ text_payment }}</td>';
-            html += '<td class="text-left">' + data.data.amount + '</td>';
+              html += '<td class="text-left">' + data.data.date_added + '</td>';
+              html += '<td class="text-left">{{ text_payment }}</td>';
+              html += '<td class="text-left">' + data.data.amount + '</td>';
             html += '</tr>';
             
             $('#sagepay_server_transactions').append(html);
+            
             $('#sagepay_server_total_released').text(data.data.total);
             
             if (data.data.release_status == 1) {
               $('#button-void').hide();
+              
               $('.release_text').text('{{ text_yes }}');
             } else {
               $('#button-release').show();
+              
               $('#release_amount').val(0.00);
               
               {% if auto_settle == 2 %}
@@ -162,11 +168,14 @@
             }
             
             $('#button-rebate').show();
+            
             $('#rebate_amount').val(0.00).show();
           }
           if (data.error == true) {
             alert(data.msg);
+            
             $('#button-release').show();
+            
             $('#release_amount').show();
           }
           
@@ -185,26 +194,31 @@
         data: {'order_id': {{ order_id }}, 'amount': $('#rebate_amount').val()},
         beforeSend: function () {
           $('#button-rebate').hide();
+          
           $('#rebate_amount').hide();
+          
           $('#img_loading_rebate').show();
+          
           $('#sagepay_server_transaction_msg').hide();
         },
         success: function (data) {
           if (data.error == false) {
             html = '';
             html += '<tr>';
-            html += '<td class="text-left">' + data.data.date_added + '</td>';
-            html += '<td class="text-left">{{ text_rebate }}</td>';
-            html += '<td class="text-left">' + data.data.amount + '</td>';
+              html += '<td class="text-left">' + data.data.date_added + '</td>';
+              html += '<td class="text-left">{{ text_rebate }}</td>';
+              html += '<td class="text-left">' + data.data.amount + '</td>';
             html += '</tr>';
             
             $('#sagepay_server_transactions').append(html);
+            
             $('#sagepay_server_total_released').text(data.data.total_released);
             
             if (data.data.rebate_status == 1) {
               $('.rebate_text').text('{{ text_yes }}');
             } else {
               $('#button-rebate').show();
+              
               $('#rebate_amount').val(0.00).show();
             }
             
@@ -214,6 +228,7 @@
           }
           if (data.error == true) {
             alert(data.msg);
+            
             $('#button-rebate').show();
           }
           

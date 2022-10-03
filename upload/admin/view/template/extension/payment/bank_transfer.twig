@@ -4,8 +4,7 @@
     <div class="container-fluid">
       <div class="pull-right">
         <button type="submit" form="form-payment" data-toggle="tooltip" title="{{ button_save }}" class="btn btn-primary"><i class="fa fa-save"></i></button>
-        <a href="{{ cancel }}" data-toggle="tooltip" title="{{ button_cancel }}" class="btn btn-default"><i class="fa fa-reply"></i></a>
-      </div>
+        <a href="{{ cancel }}" data-toggle="tooltip" title="{{ button_cancel }}" class="btn btn-default"><i class="fa fa-reply"></i></a></div>
       <h1>{{ heading_title }}</h1>
       <ul class="breadcrumb">
         {% for breadcrumb in breadcrumbs %}
@@ -30,8 +29,7 @@
             <div class="form-group required">
               <label class="col-sm-2 control-label" for="input-bank{{ language.language_id }}">{{ entry_bank }}</label>
               <div class="col-sm-10">
-                <div class="input-group">
-                  <span class="input-group-addon"><img src="language/{{ language.code }}/{{ language.code }}.png" title="{{ language.name }}"/></span>
+                <div class="input-group"><span class="input-group-addon"><img src="language/{{ language.code }}/{{ language.code }}.png" title="{{ language.name }}"/></span>
                   <textarea name="payment_bank_transfer_bank{{ language.language_id }}" cols="80" rows="10" placeholder="{{ entry_bank }}" id="input-bank{{ language.language_id }}" class="form-control">{% if payment_bank_transfer_bank[language.language_id] %}{{ payment_bank_transfer_bank[language.language_id] }}{% endif %}</textarea>
                 </div>
                 {% if error_bank[language.language_id] %}

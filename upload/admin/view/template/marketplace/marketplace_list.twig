@@ -6,9 +6,9 @@
         {% if not error_signature %}
           <button type="button" id="button-opencart" data-toggle="tooltip" title="{{ button_opencart }}" class="btn btn-info"><i class="fa fa-cog"></i></button>
         {% else %}
-          <button type="button" id="button-opencart" data-toggle="tooltip" title="{{ error_signature }}" data-placement="left" class="btn btn-danger">
-            <i class="fa fa-exclamation-triangle"></i></button>
-        {% endif %} </div>
+          <button type="button" id="button-opencart" data-toggle="tooltip" title="{{ error_signature }}" data-placement="left" class="btn btn-danger"><i class="fa fa-exclamation-triangle"></i></button>
+        {% endif %}
+      </div>
       <h1>{{ heading_title }}</h1>
       <ul class="breadcrumb">
         {% for breadcrumb in breadcrumbs %}
@@ -57,7 +57,8 @@
                 {% else %}
                   <a href="{{ license.href }}" class="btn btn-default">{{ license.text }}</a>
                 {% endif %}
-              {% endfor %} </div>
+              {% endfor %}
+            </div>
           </div>
           <div class="col-sm-3 col-xs-5">
             <div class="input-group pull-right">
@@ -99,7 +100,8 @@
                               {% else %}
                                 <i class="fa fa-star-o"></i>
                               {% endif %}
-                            {% endfor %} </div>
+                            {% endfor %}
+                          </div>
                           <div class="col-xs-6">
                             <div class="text-right">{{ extension.rating_total }} {{ text_reviews }}</div>
                           </div>
@@ -108,7 +110,8 @@
                     </section>
                   </div>
                 {% endif %}
-              {% endfor %} </div>
+              {% endfor %}
+            </div>
             <hr>
           {% endif %}
           {% if extensions %}
@@ -133,7 +136,8 @@
                               {% else %}
                                 <i class="fa fa-star-o"></i>
                               {% endif %}
-                            {% endfor %} </div>
+                            {% endfor %}
+                          </div>
                           <div class="col-xs-6">
                             <div class="text-right">{{ extension.rating_total }} {{ text_reviews }}</div>
                           </div>
@@ -142,10 +146,12 @@
                     </section>
                   </div>
                 {% endif %}
-              {% endfor %} </div>
+              {% endfor %}
+            </div>
           {% else %}
             <p class="text-center">{{ text_no_results }}</p>
-          {% endif %} </div>
+          {% endif %}
+        </div>
         <div class="row">
           <div class="col-sm-12 text-center">{{ pagination }}</div>
         </div>
@@ -200,4 +206,4 @@
       });
  //--></script>
 </div>
-{{ footer }} 
+{{ footer }}

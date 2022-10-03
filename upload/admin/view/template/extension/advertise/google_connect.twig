@@ -4,8 +4,7 @@
     <div class="container-fluid">
       <div class="pull-right">
         <a href="{{ text_video_tutorial_url_install }}" target="_blank" class="btn btn-info" data-toggle="tooltip" title="{{ button_video_tutorial_install }}"><i class="fa fa-video-camera"></i></a>
-        <a href="{{ cancel }}" class="btn btn-default" data-toggle="tooltip" title="{{ button_cancel }}"><i class="fa fa-reply"></i></a>
-      </div>
+        <a href="{{ cancel }}" class="btn btn-default" data-toggle="tooltip" title="{{ button_cancel }}"><i class="fa fa-reply"></i></a></div>
       <h1>{{ heading_title }}</h1>
       <ul class="breadcrumb">
         {% for breadcrumb in breadcrumbs %}
@@ -17,22 +16,16 @@
   <div class="container-fluid">
     {{ steps }}
     <div class="alert alert-info alert-dismissible" role="alert">
-      <button type="button" class="close" data-dismiss="alert" aria-label="{{ text_close }}">
-        <span aria-hidden="true"><i class="fa fa-close"></i></span></button>
-      <i class="fa fa-info-circle" aria-hidden="true"></i>&nbsp;{{ text_connect_intro }}
+      <button type="button" class="close" data-dismiss="alert" aria-label="{{ text_close }}"><span aria-hidden="true"><i class="fa fa-close"></i></span></button><i class="fa fa-info-circle" aria-hidden="true"></i>&nbsp;{{ text_connect_intro }}
     </div>
     {% if success %}
       <div class="alert alert-success alert-dismissible" role="alert">
-        <button type="button" class="close" data-dismiss="alert" aria-label="{{ text_close }}"><span aria-hidden="true"><i class="fa fa-close"></i></span>
-        </button>
-        <i class="fa fa-check-circle" aria-hidden="true"></i>&nbsp;{{ success }}
+        <button type="button" class="close" data-dismiss="alert" aria-label="{{ text_close }}"><span aria-hidden="true"><i class="fa fa-close"></i></span></button>
       </div>
     {% endif %}
     {% if error %}
       <div class="alert alert-danger alert-dismissible" role="alert">
-        <button type="button" class="close" data-dismiss="alert" aria-label="{{ text_close }}"><span aria-hidden="true"><i class="fa fa-close"></i></span>
-        </button>
-        <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>&nbsp;{{ error }}
+        <button type="button" class="close" data-dismiss="alert" aria-label="{{ text_close }}"><span aria-hidden="true"><i class="fa fa-close"></i></span></button><i class="fa fa-exclamation-triangle" aria-hidden="true"></i>&nbsp;{{ error }}
       </div>
     {% endif %}
     <div class="panel panel-default">
@@ -83,11 +76,8 @@
             <div class="form-group">
               <label class="col-sm-2 control-label"><span data-toggle="tooltip" data-original-title="{{ help_remote_cron }}">{{ text_remote_cron }}</span></label>
               <div class="col-sm-10">
-                <div class="input-group">
-                  <input readonly type="text" name="advertise_google_cron_url" id="input_advertise_google_cron_url" class="form-control" value=""/>
-                  <div data-toggle="tooltip" data-original-title="{{ text_refresh_token }}" class="input-group-addon btn btn-primary" id="refresh-cron-token">
-                    <i class="fa fa-refresh"></i>
-                  </div>
+                <div class="input-group"><input readonly type="text" name="advertise_google_cron_url" id="input_advertise_google_cron_url" class="form-control" value=""/>
+                  <div data-toggle="tooltip" data-original-title="{{ text_refresh_token }}" class="input-group-addon btn btn-primary" id="refresh-cron-token"><i class="fa fa-refresh"></i></div>
                 </div>
                 <input id="input_advertise_google_cron_token" type="hidden" name="advertise_google_cron_token" value="{{ advertise_google_cron_token }}"/>
               </div>
@@ -130,7 +120,7 @@
     </div>
   </div>
 </div>
-<script type="text/javascript">
+<script type="text/javascript"><!--
     (function ($) {
         var selector = {
             save: '#connect',
@@ -165,5 +155,5 @@
             setCronUrl();
         });
     })(jQuery);
-</script>
+//--></script>
 {{ footer }}

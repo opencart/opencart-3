@@ -4,11 +4,8 @@
     <div class="container-fluid">
       <div class="pull-right">
         <a href="{{ add }}" data-toggle="tooltip" title="{{ button_add }}" class="btn btn-primary"><i class="fa fa-plus"></i></a>
-        <button type="submit" form="form-subscription" formaction="{{ copy }}" data-toggle="tooltip" title="{{ button_copy }}" class="btn btn-default">
-          <i class="fa fa-copy"></i></button>
-        <button type="button" data-toggle="tooltip" title="{{ button_delete }}" class="btn btn-danger" onclick="confirm('{{ text_confirm }}') ? $('#form-subscription').submit() : false;">
-          <i class="fa fa-trash-o"></i></button>
-      </div>
+        <button type="submit" form="form-subscription" formaction="{{ copy }}" data-toggle="tooltip" title="{{ button_copy }}" class="btn btn-default"><i class="fa fa-copy"></i></button>
+        <button type="button" data-toggle="tooltip" title="{{ button_delete }}" class="btn btn-danger" onclick="confirm('{{ text_confirm }}') ? $('#form-subscription').submit() : false;"><i class="fa fa-trash-o"></i></button></div>
       <h1>{{ heading_title }}</h1>
       <ul class="breadcrumb">
         {% for breadcrumb in breadcrumbs %}

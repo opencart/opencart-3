@@ -3,10 +3,8 @@
   <div class="page-header">
     <div class="container-fluid">
       <div class="pull-right">
-        <button type="submit" form="form-customer" data-toggle="tooltip" title="{{ button_save }}" class="btn btn-primary">
-          <i class="fa fa-save"></i></button>
-        <a href="{{ cancel }}" data-toggle="tooltip" title="{{ button_cancel }}" class="btn btn-default"><i class="fa fa-reply"></i></a>
-      </div>
+        <button type="submit" form="form-customer" data-toggle="tooltip" title="{{ button_save }}" class="btn btn-primary"><i class="fa fa-save"></i></button>
+        <a href="{{ cancel }}" data-toggle="tooltip" title="{{ button_cancel }}" class="btn btn-default"><i class="fa fa-reply"></i></a></div>
       <h1>{{ heading_title }}</h1>
       <ul class="breadcrumb">
         {% for breadcrumb in breadcrumbs %}
@@ -45,8 +43,8 @@
                     {% set address_row = 1 %}
                     {% for address in addresses %}
                       <li>
-                        <a href="#tab-address{{ address_row }}" data-toggle="tab"><i class="fa fa-minus-circle" onclick="$('#address a:first').tab('show'); $('#address a[href=\'#tab-address{{ address_row }}\']').parent().remove(); $('#tab-address{{ address_row }}').remove();"></i> {{ tab_address }} {{ address_row }}
-                        </a></li>
+                        <a href="#tab-address{{ address_row }}" data-toggle="tab"><i class="fa fa-minus-circle" onclick="$('#address a:first').tab('show'); $('#address a[href=\'#tab-address{{ address_row }}\']').parent().remove(); $('#tab-address{{ address_row }}').remove();"></i> {{ tab_address }} {{ address_row }}</a>
+                      </li>
                       {% set address_row = address_row + 1 %}
                     {% endfor %}
                     <li id="address-add">
@@ -78,7 +76,8 @@
                             <input type="text" name="firstname" value="{{ firstname }}" placeholder="{{ entry_firstname }}" id="input-firstname" class="form-control"/>
                             {% if error_firstname %}
                               <div class="text-danger">{{ error_firstname }}</div>
-                            {% endif %} </div>
+                            {% endif %}
+                          </div>
                         </div>
                         <div class="form-group required">
                           <label class="col-sm-2 control-label" for="input-lastname">{{ entry_lastname }}</label>
@@ -86,7 +85,8 @@
                             <input type="text" name="lastname" value="{{ lastname }}" placeholder="{{ entry_lastname }}" id="input-lastname" class="form-control"/>
                             {% if error_lastname %}
                               <div class="text-danger">{{ error_lastname }}</div>
-                            {% endif %} </div>
+                            {% endif %}
+                          </div>
                         </div>
                         <div class="form-group required">
                           <label class="col-sm-2 control-label" for="input-email">{{ entry_email }}</label>
@@ -94,7 +94,8 @@
                             <input type="text" name="email" value="{{ email }}" placeholder="{{ entry_email }}" id="input-email" class="form-control"/>
                             {% if error_email %}
                               <div class="text-danger">{{ error_email }}</div>
-                            {% endif %} </div>
+                            {% endif %}
+                          </div>
                         </div>
                         <div class="form-group required">
                           <label class="col-sm-2 control-label" for="input-telephone">{{ entry_telephone }}</label>
@@ -102,7 +103,8 @@
                             <input type="text" name="telephone" value="{{ telephone }}" placeholder="{{ entry_telephone }}" id="input-telephone" class="form-control"/>
                             {% if error_telephone %}
                               <div class="text-danger">{{ error_telephone }}</div>
-                            {% endif %} </div>
+                            {% endif %}
+                          </div>
                         </div>
                         {% for custom_field in custom_fields %}
                           {% if custom_field.location == 'account' %}
@@ -122,7 +124,8 @@
                                   </select>
                                   {% if error_custom_field[custom_field.custom_field_id] %}
                                     <div class="text-danger">{{ error_custom_field[custom_field.custom_field_id] }}</div>
-                                  {% endif %} </div>
+                                  {% endif %}
+                                </div>
                               </div>
                             {% endif %}
                             {% if custom_field.type == 'radio' %}
@@ -135,16 +138,21 @@
                                         {% if account_custom_field[custom_field.custom_field_id] and custom_field_value.custom_field_value_id == account_custom_field[custom_field.custom_field_id] %}
                                           <label>
                                             <input type="radio" name="custom_field[{{ custom_field.custom_field_id }}]" value="{{ custom_field_value.custom_field_value_id }}" checked="checked"/>
-                                            {{ custom_field_value.name }}</label>
+                                            {{ custom_field_value.name }}
+                                          </label>
                                         {% else %}
                                           <label>
                                             <input type="radio" name="custom_field[{{ custom_field.custom_field_id }}]" value="{{ custom_field_value.custom_field_value_id }}"/>
-                                            {{ custom_field_value.name }}</label>
-                                        {% endif %} </div>
-                                    {% endfor %} </div>
+                                            {{ custom_field_value.name }}
+                                          </label>
+                                        {% endif %}
+                                      </div>
+                                    {% endfor %}
+                                  </div>
                                   {% if error_custom_field[custom_field.custom_field_id] %}
                                     <div class="text-danger">{{ error_custom_field[custom_field.custom_field_id] }}</div>
-                                  {% endif %} </div>
+                                  {% endif %}
+                                </div>
                               </div>
                             {% endif %}
                             {% if custom_field.type == 'checkbox' %}
@@ -157,16 +165,21 @@
                                         {% if account_custom_field[custom_field.custom_field_id] and custom_field_value.custom_field_value_id in account_custom_field[custom_field.custom_field_id] %}
                                           <label>
                                             <input type="checkbox" name="custom_field[{{ custom_field.custom_field_id }}][]" value="{{ custom_field_value.custom_field_value_id }}" checked="checked"/>
-                                            {{ custom_field_value.name }}</label>
+                                            {{ custom_field_value.name }}
+                                          </label>
                                         {% else %}
                                           <label>
                                             <input type="checkbox" name="custom_field[{{ custom_field.custom_field_id }}][]" value="{{ custom_field_value.custom_field_value_id }}"/>
-                                            {{ custom_field_value.name }}</label>
-                                        {% endif %} </div>
-                                    {% endfor %} </div>
+                                            {{ custom_field_value.name }}
+                                          </label>
+                                        {% endif %}
+                                      </div>
+                                    {% endfor %}
+                                  </div>
                                   {% if error_custom_field[custom_field.custom_field_id] %}
                                     <div class="text-danger">{{ error_custom_field[custom_field.custom_field_id] }}</div>
-                                  {% endif %} </div>
+                                  {% endif %}
+                                </div>
                               </div>
                             {% endif %}
                             {% if custom_field.type == 'text' %}
@@ -176,7 +189,8 @@
                                   <input type="text" name="custom_field[{{ custom_field.custom_field_id }}]" value="{{ account_custom_field[custom_field.custom_field_id] ? account_custom_field[custom_field.custom_field_id] : custom_field.value }}" placeholder="{{ custom_field.name }}" id="input-custom-field{{ custom_field.custom_field_id }}" class="form-control"/>
                                   {% if error_custom_field[custom_field.custom_field_id] %}
                                     <div class="text-danger">{{ error_custom_field[custom_field.custom_field_id] }}</div>
-                                  {% endif %} </div>
+                                  {% endif %}
+                                </div>
                               </div>
                             {% endif %}
                             {% if custom_field.type == 'textarea' %}
@@ -186,20 +200,21 @@
                                   <textarea name="custom_field[{{ custom_field.custom_field_id }}]" rows="5" placeholder="{{ custom_field.name }}" id="input-custom-field{{ custom_field.custom_field_id }}" class="form-control">{{ account_custom_field[custom_field.custom_field_id] ? account_custom_field[custom_field.custom_field_id] : custom_field.value }}</textarea>
                                   {% if error_custom_field[custom_field.custom_field_id] %}
                                     <div class="text-danger">{{ error_custom_field[custom_field.custom_field_id] }}</div>
-                                  {% endif %} </div>
+                                  {% endif %}
+                                </div>
                               </div>
                             {% endif %}
                             {% if custom_field.type == 'file' %}
                               <div class="form-group custom-field custom-field{{ custom_field.custom_field_id }}" data-sort="{{ custom_field.sort_order }}">
                                 <label class="col-sm-2 control-label">{{ custom_field.name }}</label>
                                 <div class="col-sm-10">
-                                  <button type="button" id="button-custom-field{{ custom_field.custom_field_id }}" data-loading-text="{{ text_loading }}" class="btn btn-default">
-                                    <i class="fa fa-upload"></i> {{ button_upload }}</button>
+                                  <button type="button" id="button-custom-field{{ custom_field.custom_field_id }}" data-loading-text="{{ text_loading }}" class="btn btn-default"><i class="fa fa-upload"></i> {{ button_upload }}</button>
                                   <input type="hidden" name="custom_field[{{ custom_field.custom_field_id }}]" value="{{ account_custom_field[custom_field.custom_field_id]['code'] ? account_custom_field[custom_field.custom_field_id]['code'] }}" id="input-custom-field{{ custom_field.custom_field_id }}"/>
                                   <span>{{ account_custom_field[custom_field.custom_field_id]['name'] }}</span>
                                   {% if error_custom_field[custom_field.custom_field_id] %}
                                     <div class="text-danger">{{ error_custom_field[custom_field.custom_field_id] }}</div>
-                                  {% endif %} </div>
+                                  {% endif %}
+                                </div>
                               </div>
                             {% endif %}
                             {% if custom_field.type == 'date' %}
@@ -208,12 +223,12 @@
                                 <div class="col-sm-10">
                                   <div class="input-group date">
                                     <input type="text" name="custom_field[{{ custom_field.custom_field_id }}]" value="{{ account_custom_field[custom_field.custom_field_id] ? account_custom_field[custom_field.custom_field_id] : custom_field.value }}" placeholder="{{ custom_field.name }}" data-date-format="YYYY-MM-DD" id="input-custom-field{{ custom_field.custom_field_id }}" class="form-control"/>
-                                    <span class="input-group-btn">
-                              <button type="button" class="btn btn-default"><i class="fa fa-calendar"></i></button>
-                              </span></div>
+                                    <span class="input-group-btn"><button type="button" class="btn btn-default"><i class="fa fa-calendar"></i></button></span>
+                                  </div>
                                   {% if error_custom_field[custom_field.custom_field_id] %}
                                     <div class="text-danger">{{ error_custom_field[custom_field.custom_field_id] }}</div>
-                                  {% endif %} </div>
+                                  {% endif %}
+                                </div>
                               </div>
                             {% endif %}
                             {% if custom_field.type == 'time' %}
@@ -222,12 +237,12 @@
                                 <div class="col-sm-10">
                                   <div class="input-group time">
                                     <input type="text" name="custom_field[{{ custom_field.custom_field_id }}]" value="{{ account_custom_field[custom_field.custom_field_id] ? account_custom_field[custom_field.custom_field_id] : custom_field.value }}" placeholder="{{ custom_field.name }}" data-date-format="HH:mm" id="input-custom-field{{ custom_field.custom_field_id }}" class="form-control"/>
-                                    <span class="input-group-btn">
-                              <button type="button" class="btn btn-default"><i class="fa fa-calendar"></i></button>
-                              </span></div>
+                                    <span class="input-group-btn"><button type="button" class="btn btn-default"><i class="fa fa-calendar"></i></button></span>
+                                  </div>
                                   {% if error_custom_field[custom_field.custom_field_id] %}
                                     <div class="text-danger">{{ error_custom_field[custom_field.custom_field_id] }}</div>
-                                  {% endif %} </div>
+                                  {% endif %}
+                                </div>
                               </div>
                             {% endif %}
                             {% if custom_field.type == 'datetime' %}
@@ -236,12 +251,12 @@
                                 <div class="col-sm-10">
                                   <div class="input-group datetime">
                                     <input type="text" name="custom_field[{{ custom_field.custom_field_id }}]" value="{{ account_custom_field[custom_field.custom_field_id] ? account_custom_field[custom_field.custom_field_id] : custom_field.value }}" placeholder="{{ custom_field.name }}" data-date-format="YYYY-MM-DD HH:mm" id="input-custom-field{{ custom_field.custom_field_id }}" class="form-control"/>
-                                    <span class="input-group-btn">
-                              <button type="button" class="btn btn-default"><i class="fa fa-calendar"></i></button>
-                              </span></div>
+                                    <span class="input-group-btn"><button type="button" class="btn btn-default"><i class="fa fa-calendar"></i></button></span>
+                                  </div>
                                   {% if error_custom_field[custom_field.custom_field_id] %}
                                     <div class="text-danger">{{ error_custom_field[custom_field.custom_field_id] }}</div>
-                                  {% endif %} </div>
+                                  {% endif %}
+                                </div>
                               </div>
                             {% endif %}
                           {% endif %}
@@ -255,7 +270,8 @@
                             <input type="password" name="password" value="{{ password }}" placeholder="{{ entry_password }}" id="input-password" class="form-control" autocomplete="off"/>
                             {% if error_password %}
                               <div class="text-danger">{{ error_password }}</div>
-                            {% endif %} </div>
+                            {% endif %}
+                          </div>
                         </div>
                         <div class="form-group required">
                           <label class="col-sm-2 control-label" for="input-confirm">{{ entry_confirm }}</label>
@@ -263,7 +279,8 @@
                             <input type="password" name="confirm" value="{{ confirm }}" placeholder="{{ entry_confirm }}" autocomplete="off" id="input-confirm" class="form-control"/>
                             {% if error_confirm %}
                               <div class="text-danger">{{ error_confirm }}</div>
-                            {% endif %} </div>
+                            {% endif %}
+                          </div>
                         </div>
                       </fieldset>
                       <fieldset>
@@ -322,7 +339,8 @@
                             <input type="text" name="address[{{ address_row }}][firstname]" value="{{ address.firstname }}" placeholder="{{ entry_firstname }}" id="input-firstname{{ address_row }}" class="form-control"/>
                             {% if error_address[address_row].firstname %}
                               <div class="text-danger">{{ error_address[address_row].firstname }}</div>
-                            {% endif %} </div>
+                            {% endif %}
+                          </div>
                         </div>
                         <div class="form-group required">
                           <label class="col-sm-2 control-label" for="input-lastname{{ address_row }}">{{ entry_lastname }}</label>
@@ -330,7 +348,8 @@
                             <input type="text" name="address[{{ address_row }}][lastname]" value="{{ address.lastname }}" placeholder="{{ entry_lastname }}" id="input-lastname{{ address_row }}" class="form-control"/>
                             {% if error_address[address_row].lastname %}
                               <div class="text-danger">{{ error_address[address_row].lastname }}</div>
-                            {% endif %} </div>
+                            {% endif %}
+                          </div>
                         </div>
                         <div class="form-group">
                           <label class="col-sm-2 control-label" for="input-company{{ address_row }}">{{ entry_company }}</label>
@@ -344,7 +363,8 @@
                             <input type="text" name="address[{{ address_row }}][address_1]" value="{{ address.address_1 }}" placeholder="{{ entry_address_1 }}" id="input-address-1{{ address_row }}" class="form-control"/>
                             {% if error_address[address_row].address_1 %}
                               <div class="text-danger">{{ error_address[address_row].address_1 }}</div>
-                            {% endif %} </div>
+                            {% endif %}
+                          </div>
                         </div>
                         <div class="form-group">
                           <label class="col-sm-2 control-label" for="input-address-2{{ address_row }}">{{ entry_address_2 }}</label>
@@ -358,7 +378,8 @@
                             <input type="text" name="address[{{ address_row }}][city]" value="{{ address.city }}" placeholder="{{ entry_city }}" id="input-city{{ address_row }}" class="form-control"/>
                             {% if error_address[address_row].city %}
                               <div class="text-danger">{{ error_address[address_row].city }}</div>
-                            {% endif %} </div>
+                            {% endif %}
+                          </div>
                         </div>
                         <div class="form-group required">
                           <label class="col-sm-2 control-label" for="input-postcode{{ address_row }}">{{ entry_postcode }}</label>
@@ -366,7 +387,8 @@
                             <input type="text" name="address[{{ address_row }}][postcode]" value="{{ address.postcode }}" placeholder="{{ entry_postcode }}" id="input-postcode{{ address_row }}" class="form-control"/>
                             {% if error_address[address_row].postcode %}
                               <div class="text-danger">{{ error_address[address_row].postcode }}</div>
-                            {% endif %} </div>
+                            {% endif %}
+                          </div>
                         </div>
                         <div class="form-group required">
                           <label class="col-sm-2 control-label" for="input-country{{ address_row }}">{{ entry_country }}</label>
@@ -383,7 +405,8 @@
                             </select>
                             {% if error_address[address_row].country %}
                               <div class="text-danger">{{ error_address[address_row].country }}</div>
-                            {% endif %} </div>
+                            {% endif %}
+                          </div>
                         </div>
                         <div class="form-group required">
                           <label class="col-sm-2 control-label" for="input-zone{{ address_row }}">{{ entry_zone }}</label>
@@ -392,7 +415,8 @@
                             </select>
                             {% if error_address[address_row].zone %}
                               <div class="text-danger">{{ error_address[address_row].zone }}</div>
-                            {% endif %} </div>
+                            {% endif %}
+                          </div>
                         </div>
                         {% for custom_field in custom_fields %}
                           {% if custom_field.location == 'address' %}
@@ -412,7 +436,8 @@
                                   </select>
                                   {% if error_address[address_row]['custom_field'][custom_field.custom_field_id] %}
                                     <div class="text-danger">{{ error_address[address_row].custom_field[custom_field.custom_field_id] }}</div>
-                                  {% endif %} </div>
+                                  {% endif %}
+                                </div>
                               </div>
                             {% endif %}
                             {% if custom_field.type == 'radio' %}
@@ -425,16 +450,21 @@
                                         {% if address.custom_field[custom_field.custom_field_id] and custom_field_value.custom_field_value_id == address.custom_field[custom_field.custom_field_id] %}
                                           <label>
                                             <input type="radio" name="address[{{ address_row }}][custom_field][{{ custom_field.custom_field_id }}]" value="{{ custom_field_value.custom_field_value_id }}" checked="checked"/>
-                                            {{ custom_field_value.name }}</label>
+                                            {{ custom_field_value.name }}
+                                          </label>
                                         {% else %}
                                           <label>
                                             <input type="radio" name="address[{{ address_row }}][custom_field][{{ custom_field.custom_field_id }}]" value="{{ custom_field_value.custom_field_value_id }}"/>
-                                            {{ custom_field_value.name }}</label>
-                                        {% endif %} </div>
-                                    {% endfor %} </div>
+                                            {{ custom_field_value.name }}
+                                          </label>
+                                        {% endif %}
+                                      </div>
+                                    {% endfor %}
+                                  </div>
                                   {% if error_address[address_row].custom_field[custom_field.custom_field_id] %}
                                     <div class="text-danger">{{ error_address[address_row].custom_field[custom_field.custom_field_id] }}</div>
-                                  {% endif %} </div>
+                                  {% endif %}
+                                </div>
                               </div>
                             {% endif %}
                             {% if custom_field.type == 'checkbox' %}
@@ -447,16 +477,21 @@
                                         {% if address.custom_field[custom_field.custom_field_id] and custom_field_value.custom_field_value_id in address.custom_field[custom_field.custom_field_id] %}
                                           <label>
                                             <input type="checkbox" name="address[{{ address_row }}][custom_field][{{ custom_field.custom_field_id }}][]" value="{{ custom_field_value.custom_field_value_id }}" checked="checked"/>
-                                            {{ custom_field_value.name }}</label>
+                                            {{ custom_field_value.name }}
+                                          </label>
                                         {% else %}
                                           <label>
                                             <input type="checkbox" name="address[{{ address_row }}][custom_field][{{ custom_field.custom_field_id }}][]" value="{{ custom_field_value.custom_field_value_id }}"/>
-                                            {{ custom_field_value.name }}</label>
-                                        {% endif %} </div>
-                                    {% endfor %} </div>
+                                            {{ custom_field_value.name }}
+                                          </label>
+                                        {% endif %}
+                                      </div>
+                                    {% endfor %}
+                                  </div>
                                   {% if error_address[address_row]['custom_field'][custom_field.custom_field_id] %}
                                     <div class="text-danger">{{ error_address[address_row].custom_field[custom_field.custom_field_id] }}</div>
-                                  {% endif %} </div>
+                                  {% endif %}
+                                </div>
                               </div>
                             {% endif %}
                             {% if custom_field.type == 'text' %}
@@ -466,7 +501,8 @@
                                   <input type="text" name="address[{{ address_row }}][custom_field][{{ custom_field.custom_field_id }}]" value="{{ address.custom_field[custom_field.custom_field_id] ? address.custom_field[custom_field.custom_field_id] : custom_field.value }}" placeholder="{{ custom_field.name }}" id="input-address{{ address_row }}-custom-field{{ custom_field.custom_field_id }}" class="form-control"/>
                                   {% if error_address[address_row]['custom_field'][custom_field.custom_field_id] %}
                                     <div class="text-danger">{{ error_address[address_row].custom_field[custom_field.custom_field_id] }}</div>
-                                  {% endif %} </div>
+                                  {% endif %}
+                                </div>
                               </div>
                             {% endif %}
                             {% if custom_field.type == 'textarea' %}
@@ -476,7 +512,8 @@
                                   <textarea name="address[{{ address_row }}][custom_field][{{ custom_field.custom_field_id }}]" rows="5" placeholder="{{ custom_field.name }}" id="input-address{{ address_row }}-custom-field{{ custom_field.custom_field_id }}" class="form-control">{{ address.custom_field[custom_field.custom_field_id] ? address.custom_field[custom_field.custom_field_id] : custom_field.value }}</textarea>
                                   {% if error_address[address_row]['custom_field'][custom_field.custom_field_id] %}
                                     <div class="text-danger">{{ error_address[address_row].custom_field[custom_field.custom_field_id] }}</div>
-                                  {% endif %} </div>
+                                  {% endif %}
+                                </div>
                               </div>
                             {% endif %}
                             {% if custom_field.type == 'file' %}
@@ -489,7 +526,8 @@
                                   <span>{{ address.custom_field[custom_field.custom_field_id]['name'] }}</span>
                                   {% if error_address[address_row]['custom_field'][custom_field.custom_field_id] %}
                                     <div class="text-danger">{{ error_address[address_row].custom_field[custom_field.custom_field_id] }}</div>
-                                  {% endif %} </div>
+                                  {% endif %}
+                                </div>
                               </div>
                             {% endif %}
                             {% if custom_field.type == 'date' %}
@@ -498,12 +536,12 @@
                                 <div class="col-sm-10">
                                   <div class="input-group date">
                                     <input type="text" name="address[{{ address_row }}][custom_field][{{ custom_field.custom_field_id }}]" value="{{ address.custom_field[custom_field.custom_field_id] ? address.custom_field[custom_field.custom_field_id] : custom_field.value }}" placeholder="{{ custom_field.name }}" data-date-format="YYYY-MM-DD" id="input-address{{ address_row }}-custom-field{{ custom_field.custom_field_id }}" class="form-control"/>
-                                    <span class="input-group-btn">
-                            <button type="button" class="btn btn-default"><i class="fa fa-calendar"></i></button>
-                            </span></div>
+                                    <span class="input-group-btn"><button type="button" class="btn btn-default"><i class="fa fa-calendar"></i></button></span>
+                                  </div>
                                   {% if error_address[address_row]['custom_field'][custom_field.custom_field_id] %}
                                     <div class="text-danger">{{ error_address[address_row].custom_field[custom_field.custom_field_id] }}</div>
-                                  {% endif %} </div>
+                                  {% endif %}
+                                </div>
                               </div>
                             {% endif %}
                             {% if custom_field.type == 'time' %}
@@ -512,12 +550,12 @@
                                 <div class="col-sm-10">
                                   <div class="input-group time">
                                     <input type="text" name="address[{{ address_row }}][custom_field][{{ custom_field.custom_field_id }}]" value="{{ address.custom_field[custom_field.custom_field_id] ? address.custom_field[custom_field.custom_field_id] : custom_field.value }}" placeholder="{{ custom_field.name }}" data-date-format="HH:mm" id="input-address{{ address_row }}-custom-field{{ custom_field.custom_field_id }}" class="form-control"/>
-                                    <span class="input-group-btn">
-                            <button type="button" class="btn btn-default"><i class="fa fa-calendar"></i></button>
-                            </span></div>
+                                    <span class="input-group-btn"><button type="button" class="btn btn-default"><i class="fa fa-calendar"></i></button></span>
+                                  </div>
                                   {% if error_address[address_row]['custom_field'][custom_field.custom_field_id] %}
                                     <div class="text-danger">{{ error_address[address_row].custom_field[custom_field.custom_field_id] }}</div>
-                                  {% endif %} </div>
+                                  {% endif %}
+                                </div>
                               </div>
                             {% endif %}
                             {% if custom_field.type == 'datetime' %}
@@ -526,12 +564,12 @@
                                 <div class="col-sm-10">
                                   <div class="input-group datetime">
                                     <input type="text" name="address[{{ address_row }}][custom_field][{{ custom_field.custom_field_id }}]" value="{{ address.custom_field[custom_field.custom_field_id] ? address.custom_field[custom_field.custom_field_id] : custom_field.value }}" placeholder="{{ custom_field.name }}" data-date-format="YYYY-MM-DD HH:mm" id="input-address{{ address_row }}-custom-field{{ custom_field.custom_field_id }}" class="form-control"/>
-                                    <span class="input-group-btn">
-                            <button type="button" class="btn btn-default"><i class="fa fa-calendar"></i></button>
-                            </span></div>
+                                    <span class="input-group-btn"><button type="button" class="btn btn-default"><i class="fa fa-calendar"></i></button></span>
+                                  </div>
                                   {% if error_address[address_row]['custom_field'][custom_field.custom_field_id] %}
                                     <div class="text-danger">{{ error_address[address_row].custom_field[custom_field.custom_field_id] }}</div>
-                                  {% endif %} </div>
+                                  {% endif %}
+                                </div>
                               </div>
                             {% endif %}
                           {% endif %}
@@ -544,7 +582,8 @@
                                 <input type="radio" name="address[{{ address_row }}][default]" value="{{ address_row }}" checked="checked"/>
                               {% else %}
                                 <input type="radio" name="address[{{ address_row }}][default]" value="{{ address_row }}"/>
-                              {% endif %}</label>
+                              {% endif %}
+                            </label>
                           </div>
                         </div>
                       </div>
@@ -639,7 +678,6 @@
       </div>
     </div>
   </div>
-  
   <script type="text/javascript"><!--
       $('select[name=\'customer_group_id\']').on('change', function () {
           $.ajax({
@@ -666,7 +704,7 @@
       });
 
       $('select[name=\'customer_group_id\']').trigger('change');
-      //--></script>
+  //--></script>
   <script type="text/javascript"><!--
       var address_row = {{ address_row }};
 
@@ -882,7 +920,7 @@
           address_row++;
       }
 
-      //--></script>
+  //--></script>
   <script type="text/javascript"><!--
       function country(element, index, zone_id) {
           $.ajax({
@@ -926,7 +964,7 @@
       }
 
       $('select[name$=\'[country_id]\']').trigger('change');
-      //--></script>
+  //--></script>
   <script type="text/javascript"><!--
       $('#history').delegate('.pagination a', 'click', function (e) {
           e.preventDefault();
@@ -970,7 +1008,7 @@
               }
           });
       });
-      //--></script>
+  //--></script>
   <script type="text/javascript"><!--
       $('#transaction').delegate('.pagination a', 'click', function (e) {
           e.preventDefault();
@@ -1015,7 +1053,7 @@
               }
           });
       });
-      //--></script>
+  //--></script>
   <script type="text/javascript"><!--
       $('#reward').delegate('.pagination a', 'click', function (e) {
           e.preventDefault();
@@ -1139,7 +1177,7 @@
           pickDate: false
       });
 
-      // Sort the custom fields
+    // Sort the custom fields
     {% set address_row = 1 %}
     {% for address in addresses %}
       $('#tab-address{{ address_row }} .form-group[data-sort]').detach().each(function () {
@@ -1155,7 +1193,8 @@
               $('#tab-address{{ address_row }} .form-group:first').before(this);
           }
       });
-    {% set address_row = address_row + 1 %}
+      
+      {% set address_row = address_row + 1 %}
     {% endfor %}
 
       $('#tab-customer .form-group[data-sort]').detach().each(function () {
@@ -1171,7 +1210,7 @@
               $('#tab-customer .form-group:first').before(this);
           }
       });
-      //--></script>
+  //--></script>
   <script type="text/javascript"><!--
       $('input[name=\'payment\']').on('change', function () {
           $('.payment').hide();
@@ -1180,6 +1219,6 @@
       });
 
       $('input[name=\'payment\']:checked').trigger('change');
-      //--></script>
+  //--></script>
 </div>
 {{ footer }}

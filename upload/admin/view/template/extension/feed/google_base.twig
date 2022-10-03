@@ -7,8 +7,7 @@
           <i class="fa fa fa-upload"></i></button>
         <button type="submit" form="form-feed" data-toggle="tooltip" title="{{ button_save }}" class="btn btn-primary">
           <i class="fa fa-save"></i></button>
-        <a href="{{ cancel }}" data-toggle="tooltip" title="{{ button_cancel }}" class="btn btn-default"><i class="fa fa-reply"></i></a>
-      </div>
+        <a href="{{ cancel }}" data-toggle="tooltip" title="{{ button_cancel }}" class="btn btn-default"><i class="fa fa-reply"></i></a></div>
       <h1>{{ heading_title }}</h1>
       <ul class="breadcrumb">
         {% for breadcrumb in breadcrumbs %}
@@ -39,8 +38,7 @@
             <div class="col-sm-10">
               <input type="text" name="google_base_category" value="" placeholder="{{ entry_google_category }}" id="input-google-category" class="form-control"/>
               <input type="hidden" name="google_base_category_id" value=""/>
-              <div class="input-group">
-                <input type="text" name="category" value="" placeholder="{{ entry_category }}" id="input-category" class="form-control"/>
+              <div class="input-group"><input type="text" name="category" value="" placeholder="{{ entry_category }}" id="input-category" class="form-control"/>
                 <input type="hidden" name="category_id" value=""/>
                 <span class="input-group-btn"><button type="button" id="button-category-add" data-toggle="tooltip" title="{{ button_category_add }}" class="btn btn-primary"><i class="fa fa-plus"></i></button></span>
               </div>
@@ -247,6 +245,6 @@
               }
           }, 500);
       });
-      //--></script>
+  //--></script>
 </div>
 {{ footer }}
