@@ -1,54 +1,56 @@
 <?php
 class ControllerExtensionModuleDividoCalculator extends Controller {
-	public function index(): string {
-		$this->load->language('extension/module/divido_calculator');
-		
-		$this->load->model('extension/payment/divido');		
-		$this->load->model('catalog/product');
+    public function index(): string {
+        if (!isset($this->request->get['product_id']) || !$this->config->get('payment_divido_status') || !$this->config->get('module_divido_calculator_status')) {
+            return false;
+        }
 
-		$product_selection = $this->config->get('payment_divido_productselection');
-		$product_threshold = $this->config->get('payment_divido_price_threshold');
+        $this->load->language('extension/module/divido_calculator');
 
-		if (!isset($this->request->get['product_id']) || !$this->config->get('payment_divido_status') || !$this->config->get('module_divido_calculator_status')) {
-			return false;
-		}
+        $this->load->model('catalog/product');
+        $this->load->model('extension/payment/divido');
 
-		$product_info = $this->model_catalog_product->getProduct($this->request->get['product_id']);
+        $product_selection = $this->config->get('payment_divido_productselection');
+        $product_threshold = $this->config->get('payment_divido_price_threshold');
 
-		$price = 0;
-		if (($this->config->get('config_customer_price') && $this->customer->isLogged()) || !$this->config->get('config_customer_price')) {
-			$base_price = !empty($product_info['special']) ? $product_info['special'] : $product_info['price'];
-			$price = $this->tax->calculate($base_price, $product_info['tax_class_id'], $this->config->get('config_tax'));
-		}
+        $product_info      = $this->model_catalog_product->getProduct($this->request->get['product_id']);
 
-		if ($product_selection == 'threshold' && $product_threshold > $price) {
-			return false;
-		}
+        $price             = 0;
 
-		$api_key = $this->config->get('payment_divido_api_key');
-		$key_parts = explode('.', $api_key);
-		$js_key = strtolower(array_shift($key_parts));
+        if (($this->config->get('config_customer_price') && $this->customer->isLogged()) || !$this->config->get('config_customer_price')) {
+            $base_price = !empty($product_info['special']) ? $product_info['special'] : $product_info['price'];
+            $price      = $this->tax->calculate($base_price, $product_info['tax_class_id'], $this->config->get('config_tax'));
+        }
 
-		$this->model_extension_payment_divido->setMerchant($api_key);
-		$plans = $this->model_extension_payment_divido->getProductPlans($this->request->get['product_id']);
+        if ($product_selection == 'threshold' && $product_threshold > $price) {
+            return false;
+        }
 
-		if (!$plans) {
-			return false;
-		}
+        $api_key   = $this->config->get('payment_divido_api_key');
+        $key_parts = explode('.', $api_key);
+        $js_key    = strtolower(array_shift($key_parts));
 
-		$plans_ids = array_map(function ($plan) {
-			return $plan->id;
-		}, $plans);
-		$plans_ids = array_unique($plans_ids);
-		$plans_list = implode(',', $plans_ids);
+        $this->model_extension_payment_divido->setMerchant($api_key);
 
-		$data = array(
-			'merchant_script'			=> "//cdn.divido.com/calculator/{$js_key}.js",
-			'product_price'				=> $price,
-			'plan_list'					=> $plans_list,
-			'generic_credit_req_error'	=> 'Credit request could not be initiated',
-		);
+        $plans     = $this->model_extension_payment_divido->getProductPlans($this->request->get['product_id']);
 
-		return $this->load->view('extension/module/divido_calculator', $data);
-	}
+        if (!$plans) {
+            return false;
+        }
+
+        $plans_ids  = array_map(function($plan) {
+            return $plan->id;
+        }, $plans);
+        $plans_ids  = array_unique($plans_ids);
+        $plans_list = implode(',', $plans_ids);
+
+        $post_data = [
+            'merchant_script'          => "//cdn.divido.com/calculator/{$js_key}.js",
+            'product_price'            => $price,
+            'plan_list'                => $plans_list,
+            'generic_credit_req_error' => 'Credit request could not be initiated',
+        ];
+
+        return $this->load->view('extension/module/divido_calculator', $post_data);
+    }
 }

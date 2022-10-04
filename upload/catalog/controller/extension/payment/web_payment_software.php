@@ -1,138 +1,137 @@
 <?php
 class ControllerExtensionPaymentWebPaymentSoftware extends Controller {
-	public function index(): string {
-		$this->load->language('extension/payment/web_payment_software');
+    public function index(): string {
+        $this->load->language('extension/payment/web_payment_software');
 
-		$data['months'] = array();
+        $data['months'] = [];
 
-		for ($i = 1; $i <= 12; $i++) {
-			$data['months'][] = array(
-				'text'  => sprintf('%02d', $i),
-				'value' => sprintf('%02d', $i)
-			);
-		}
+        for ($i = 1; $i <= 12; $i++) {
+            $data['months'][] = [
+                'text'  => sprintf('%02d', $i),
+                'value' => sprintf('%02d', $i)
+            ];
+        }
 
-		$today = getdate();
+        $today = getdate();
 
-		$data['year_expire'] = array();
+        $data['year_expire'] = [];
 
-		for ($i = $today['year']; $i < $today['year'] + 11; $i++) {
-			$data['year_expire'][] = array(
-				'text'  => sprintf('%02d', $i % 100),
-				'value' => sprintf('%04d', $i)
-			);
-		}
+        for ($i = $today['year']; $i < $today['year'] + 11; $i++) {
+            $data['year_expire'][] = [
+                'text'  => sprintf('%02d', $i % 100),
+                'value' => sprintf('%04d', $i)
+            ];
+        }
 
-		return $this->load->view('extension/payment/web_payment_software', $data);
-	}
+        return $this->load->view('extension/payment/web_payment_software', $data);
+    }
 
-	public function send(): void {
-		if (!isset($this->session->data['order_id'])) {
-			return false;
-		}
-		
-		// Create object to use as json
-		$json = array();
-		
-		$this->load->model('checkout/order');
+    public function send(): void {
+        if (!isset($this->session->data['order_id'])) {
+            return;
+        }
 
-		$order_info = $this->model_checkout_order->getOrder($this->session->data['order_id']);
+        // Create object to use as json
+        $json = [];
 
-		$request  = 'MERCHANT_ID=' . urlencode($this->config->get('payment_web_payment_software_merchant_name'));
-		$request .= '&MERCHANT_KEY=' . urlencode($this->config->get('payment_web_payment_software_merchant_key'));
-		$request .= '&TRANS_TYPE=' . urlencode($this->config->get('payment_web_payment_software_method') == 'capture' ? 'AuthCapture' : 'AuthOnly');
-		$request .= '&AMOUNT=' . urlencode($this->currency->format($order_info['total'], $order_info['currency_code'], 1.00000, false));
-		$request .= '&CC_NUMBER=' . urlencode(str_replace(' ', '', $this->request->post['cc_number']));
-		$request .= '&CC_EXP=' . urlencode($this->request->post['cc_expire_date_month'] . substr($this->request->post['cc_expire_date_year'], 2));
-		$request .= '&CC_CVV=' . urlencode($this->request->post['cc_cvv2']);
-		$request .= '&CC_NAME=' . urlencode($order_info['payment_firstname'] . ' ' . $order_info['payment_lastname']);
-		$request .= '&CC_COMPANY=' . urlencode($order_info['payment_company']);
-		$request .= '&CC_ADDRESS=' . urlencode($order_info['payment_address_1']);
-		$request .= '&CC_CITY=' . urlencode($order_info['payment_city']);
-		$request .= '&CC_STATE=' . urlencode($order_info['payment_iso_code_2'] != 'US' ? $order_info['payment_zone'] : $order_info['payment_zone_code']);
-		$request .= '&CC_ZIP=' . urlencode($order_info['payment_postcode']);
-		$request .= '&CC_COUNTRY=' . urlencode($order_info['payment_country']);
-		$request .= '&CC_PHONE=' . urlencode($order_info['telephone']);
-		$request .= '&CC_EMAIL=' . urlencode($order_info['email']);
-		$request .= '&INVOICE_NUM=' . urlencode($this->session->data['order_id']);
+        $this->load->model('checkout/order');
 
-		if ($this->config->get('payment_web_payment_software_mode') == 'test') {
-			$request .= '&TEST_MODE=1';
-		}
+        $order_info = $this->model_checkout_order->getOrder($this->session->data['order_id']);
 
-		$curl = curl_init('https://secure.web-payment-software.com/gateway');
+        $request = 'MERCHANT_ID=' . urlencode($this->config->get('payment_web_payment_software_merchant_name'));
+        $request .= '&MERCHANT_KEY=' . urlencode($this->config->get('payment_web_payment_software_merchant_key'));
+        $request .= '&TRANS_TYPE=' . urlencode($this->config->get('payment_web_payment_software_method') == 'capture' ? 'AuthCapture' : 'AuthOnly');
+        $request .= '&AMOUNT=' . urlencode($this->currency->format($order_info['total'], $order_info['currency_code'], 1.00000, false));
+        $request .= '&CC_NUMBER=' . urlencode(str_replace(' ', '', $this->request->post['cc_number']));
+        $request .= '&CC_EXP=' . urlencode($this->request->post['cc_expire_date_month'] . substr($this->request->post['cc_expire_date_year'], 2));
+        $request .= '&CC_CVV=' . urlencode($this->request->post['cc_cvv2']);
+        $request .= '&CC_NAME=' . urlencode($order_info['payment_firstname'] . ' ' . $order_info['payment_lastname']);
+        $request .= '&CC_COMPANY=' . urlencode($order_info['payment_company']);
+        $request .= '&CC_ADDRESS=' . urlencode($order_info['payment_address_1']);
+        $request .= '&CC_CITY=' . urlencode($order_info['payment_city']);
+        $request .= '&CC_STATE=' . urlencode($order_info['payment_iso_code_2'] != 'US' ? $order_info['payment_zone'] : $order_info['payment_zone_code']);
+        $request .= '&CC_ZIP=' . urlencode($order_info['payment_postcode']);
+        $request .= '&CC_COUNTRY=' . urlencode($order_info['payment_country']);
+        $request .= '&CC_PHONE=' . urlencode($order_info['telephone']);
+        $request .= '&CC_EMAIL=' . urlencode($order_info['email']);
+        $request .= '&INVOICE_NUM=' . urlencode($this->session->data['order_id']);
 
-		curl_setopt($curl, CURLOPT_PORT, 443);
-		curl_setopt($curl, CURLOPT_HEADER, 0);
-		curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, 0);
-		curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
-		curl_setopt($curl, CURLOPT_FORBID_REUSE, 1);
-		curl_setopt($curl, CURLOPT_FRESH_CONNECT, 1);
-		curl_setopt($curl, CURLOPT_POST, 1);
-		curl_setopt($curl, CURLOPT_POSTFIELDS, $request);
+        if ($this->config->get('payment_web_payment_software_mode') == 'test') {
+            $request .= '&TEST_MODE=1';
+        }
 
-		$response = curl_exec($curl);
+        $curl = curl_init('https://secure.web-payment-software.com/gateway');
 
-		curl_close($curl);
+        curl_setopt($curl, CURLOPT_PORT, 443);
+        curl_setopt($curl, CURLOPT_HEADER, 0);
+        curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, 0);
+        curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
+        curl_setopt($curl, CURLOPT_FORBID_REUSE, 1);
+        curl_setopt($curl, CURLOPT_FRESH_CONNECT, 1);
+        curl_setopt($curl, CURLOPT_POST, 1);
+        curl_setopt($curl, CURLOPT_POSTFIELDS, $request);
 
-		// If in test mode strip results to only contain xml data
-		if ($this->config->get('payment_web_payment_software_mode') == 'test') {
-			$end_index = strpos($response, '</WebPaymentSoftwareResponse>');
-			$debug = substr($response, $end_index + 30);
-			$response = substr($response, 0, $end_index) . '</WebPaymentSoftwareResponse>';
-		}
+        $response = curl_exec($curl);
 
-		// Get response xml
-		$xml = simplexml_load_string($response);
+        curl_close($curl);
 
-		// If successful log transaction in opencart system
-		if ('00' === (string)$xml->response_code) {
-			$message = '';
+        // If in test mode strip results to only contain xml data
+        if ($this->config->get('payment_web_payment_software_mode') == 'test') {
+            $end_index = strpos($response, '</WebPaymentSoftwareResponse>');
+            $debug     = substr($response, $end_index + 30);
+            $response  = substr($response, 0, $end_index) . '</WebPaymentSoftwareResponse>';
+        }
 
-			$message .= 'Response Code: ';
+        // Get response xml
+        $xml = simplexml_load_string($response);
 
-			if (isset($xml->response_code)) {
-				$message .= (string)$xml->response_code . "\n";
-			}
+        // If successful log transaction in opencart system
+        if ('00' === (string)$xml->response_code) {
+            $message = '';
+            $message .= 'Response Code: ';
 
-			$message .= 'Approval Code: ';
+            if (isset($xml->response_code)) {
+                $message .= (string)$xml->response_code . "\n";
+            }
 
-			if (isset($xml->approval_code)) {
-				$message .= (string)$xml->approval_code . "\n";
-			}
+            $message .= 'Approval Code: ';
 
-			$message .= 'AVS Result Code: ';
+            if (isset($xml->approval_code)) {
+                $message .= (string)$xml->approval_code . "\n";
+            }
 
-			if (isset($xml->avs_result_code)) {
-				$message .= (string)$xml->avs_result_code . "\n";
-			}
+            $message .= 'AVS Result Code: ';
 
-			$message .= 'Transaction ID (web payment software order id): ';
+            if (isset($xml->avs_result_code)) {
+                $message .= (string)$xml->avs_result_code . "\n";
+            }
 
-			if (isset($xml->order_id)) {
-				$message .= (string)$xml->order_id . "\n";
-			}
+            $message .= 'Transaction ID (web payment software order id): ';
 
-			$message .= 'CVV Result Code: ';
+            if (isset($xml->order_id)) {
+                $message .= (string)$xml->order_id . "\n";
+            }
 
-			if (isset($xml->cvv_result_code)) {
-				$message .= (string)$xml->cvv_result_code . "\n";
-			}
+            $message .= 'CVV Result Code: ';
 
-			$message .= 'Response Text: ';
+            if (isset($xml->cvv_result_code)) {
+                $message .= (string)$xml->cvv_result_code . "\n";
+            }
 
-			if (isset($xml->response_text)) {
-				$message .= (string)$xml->response_text . "\n";
-			}
+            $message .= 'Response Text: ';
 
-			$this->model_checkout_order->addOrderHistory($this->session->data['order_id'], $this->config->get('payment_web_payment_software_order_status_id'), $message, false);
+            if (isset($xml->response_text)) {
+                $message .= (string)$xml->response_text . "\n";
+            }
 
-			$json['redirect'] = $this->url->link('checkout/success', '', true);
-		} else {
-			$json['error'] = (string)$xml->response_text;
-		}
+            $this->model_checkout_order->addOrderHistory($this->session->data['order_id'], $this->config->get('payment_web_payment_software_order_status_id'), $message, false);
 
-		$this->response->addHeader('Content-Type: application/json');
-		$this->response->setOutput(json_encode($json));
-	}
+            $json['redirect'] = $this->url->link('checkout/success', '', true);
+        } else {
+            $json['error'] = (string)$xml->response_text;
+        }
+
+        $this->response->addHeader('Content-Type: application/json');
+        $this->response->setOutput(json_encode($json));
+    }
 }

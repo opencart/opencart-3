@@ -1,94 +1,91 @@
 <?php
+
 class ControllerInformationInformation extends Controller {
-	public function index(): void {
-		$this->load->language('information/information');
+    public function index(): void {
+        $this->load->language('information/information');
 
-		$this->load->model('catalog/information');
+        $this->load->model('catalog/information');
 
-		$data['breadcrumbs'] = array();
+        $data['breadcrumbs'] = [];
 
-		$data['breadcrumbs'][] = array(
-			'text' => $this->language->get('text_home'),
-			'href' => $this->url->link('common/home')
-		);
+        $data['breadcrumbs'][] = [
+            'text' => $this->language->get('text_home'),
+            'href' => $this->url->link('common/home')
+        ];
 
-		if (isset($this->request->get['information_id'])) {
-			$information_id = (int)$this->request->get['information_id'];
-		} else {
-			$information_id = 0;
-		}
+        if (isset($this->request->get['information_id'])) {
+            $information_id = (int)$this->request->get['information_id'];
+        } else {
+            $information_id = 0;
+        }
 
-		$information_info = $this->model_catalog_information->getInformation($information_id);
+        $information_info = $this->model_catalog_information->getInformation($information_id);
 
-		if ($information_info) {
-			$this->document->setTitle($information_info['meta_title']);
-			$this->document->setDescription($information_info['meta_description']);
-			$this->document->setKeywords($information_info['meta_keyword']);
+        if ($information_info) {
+            $this->document->setTitle($information_info['meta_title']);
+            $this->document->setDescription($information_info['meta_description']);
+            $this->document->setKeywords($information_info['meta_keyword']);
 
-			$data['breadcrumbs'][] = array(
-				'text' => $information_info['title'],
-				'href' => $this->url->link('information/information', 'information_id=' . $information_id)
-			);
+            $data['breadcrumbs'][] = [
+                'text' => $information_info['title'],
+                'href' => $this->url->link('information/information', 'information_id=' . $information_id)
+            ];
 
-			$data['heading_title'] = $information_info['title'];
+            $data['heading_title'] = $information_info['title'];
+            $data['description']   = html_entity_decode($information_info['description'], ENT_QUOTES, 'UTF-8');
+            $data['continue']      = $this->url->link('common/home');
 
-			$data['description'] = html_entity_decode($information_info['description'], ENT_QUOTES, 'UTF-8');
+            $data['column_left']    = $this->load->controller('common/column_left');
+            $data['column_right']   = $this->load->controller('common/column_right');
+            $data['content_top']    = $this->load->controller('common/content_top');
+            $data['content_bottom'] = $this->load->controller('common/content_bottom');
+            $data['footer']         = $this->load->controller('common/footer');
+            $data['header']         = $this->load->controller('common/header');
 
-			$data['continue'] = $this->url->link('common/home');
+            $this->response->setOutput($this->load->view('information/information', $data));
+        } else {
+            $data['breadcrumbs'][] = [
+                'text' => $this->language->get('text_error'),
+                'href' => $this->url->link('information/information', 'information_id=' . $information_id)
+            ];
 
-			$data['column_left'] = $this->load->controller('common/column_left');
-			$data['column_right'] = $this->load->controller('common/column_right');
-			$data['content_top'] = $this->load->controller('common/content_top');
-			$data['content_bottom'] = $this->load->controller('common/content_bottom');
-			$data['footer'] = $this->load->controller('common/footer');
-			$data['header'] = $this->load->controller('common/header');
+            $this->document->setTitle($this->language->get('text_error'));
 
-			$this->response->setOutput($this->load->view('information/information', $data));
-		} else {
-			$data['breadcrumbs'][] = array(
-				'text' => $this->language->get('text_error'),
-				'href' => $this->url->link('information/information', 'information_id=' . $information_id)
-			);
+            $data['heading_title'] = $this->language->get('text_error');
+            $data['text_error']    = $this->language->get('text_error');
+            $data['continue']      = $this->url->link('common/home');
 
-			$this->document->setTitle($this->language->get('text_error'));
+            $this->response->addHeader($this->request->server['SERVER_PROTOCOL'] . ' 404 Not Found');
 
-			$data['heading_title'] = $this->language->get('text_error');
+            $data['column_left']    = $this->load->controller('common/column_left');
+            $data['column_right']   = $this->load->controller('common/column_right');
+            $data['content_top']    = $this->load->controller('common/content_top');
+            $data['content_bottom'] = $this->load->controller('common/content_bottom');
+            $data['footer']         = $this->load->controller('common/footer');
+            $data['header']         = $this->load->controller('common/header');
 
-			$data['text_error'] = $this->language->get('text_error');
+            $this->response->setOutput($this->load->view('error/not_found', $data));
+        }
+    }
 
-			$data['continue'] = $this->url->link('common/home');
+    public function agree(): void {
+        $this->load->model('catalog/information');
 
-			$this->response->addHeader($this->request->server['SERVER_PROTOCOL'] . ' 404 Not Found');
+        if (isset($this->request->get['information_id'])) {
+            $information_id = (int)$this->request->get['information_id'];
+        } else {
+            $information_id = 0;
+        }
 
-			$data['column_left'] = $this->load->controller('common/column_left');
-			$data['column_right'] = $this->load->controller('common/column_right');
-			$data['content_top'] = $this->load->controller('common/content_top');
-			$data['content_bottom'] = $this->load->controller('common/content_bottom');
-			$data['footer'] = $this->load->controller('common/footer');
-			$data['header'] = $this->load->controller('common/header');
+        $output = '';
 
-			$this->response->setOutput($this->load->view('error/not_found', $data));
-		}
-	}
+        $information_info = $this->model_catalog_information->getInformation($information_id);
 
-	public function agree(): void {
-		$this->load->model('catalog/information');
+        if ($information_info) {
+            $output .= html_entity_decode($information_info['description'], ENT_QUOTES, 'UTF-8') . "\n";
+        }
 
-		if (isset($this->request->get['information_id'])) {
-			$information_id = (int)$this->request->get['information_id'];
-		} else {
-			$information_id = 0;
-		}
-
-		$output = '';
-
-		$information_info = $this->model_catalog_information->getInformation($information_id);
-
-		if ($information_info) {
-			$output .= html_entity_decode($information_info['description'], ENT_QUOTES, 'UTF-8') . "\n";
-		}
-
-		$this->response->addHeader('X-Robots-Tag: noindex');
-		$this->response->setOutput($output);
-	}
+        $this->response->addHeader('X-Robots-Tag: noindex');
+        $this->response->setOutput($output);
+    }
 }

@@ -10,12 +10,13 @@ class ControllerExtensionModuleAmazonPay extends Controller {
             }
 
             $amazon_payment_js = $this->model_extension_payment_amazon_login_pay->getWidgetJs();
+
             $this->document->addScript($amazon_payment_js);
 
-            $data['client_id'] = $this->config->get('payment_amazon_login_pay_client_id');
+            $data['client_id']   = $this->config->get('payment_amazon_login_pay_client_id');
             $data['merchant_id'] = $this->config->get('payment_amazon_login_pay_merchant_id');
-            $data['return_url'] = html_entity_decode($this->url->link('extension/module/amazon_login/login', 'from_amazon_pay=1', true), ENT_COMPAT, "UTF-8");
-            $data['button_id'] = 'AmazonPayButton';
+            $data['return_url']  = html_entity_decode($this->url->link('extension/module/amazon_login/login', 'from_amazon_pay=1', true), ENT_COMPAT, "UTF-8");
+            $data['button_id']   = 'AmazonPayButton';
 
             if ($this->config->get('payment_amazon_login_pay_test') == 'sandbox') {
                 $data['sandbox'] = isset($this->session->data['user_id']); // Require an active admin panel session to show debug messages
@@ -40,33 +41,33 @@ class ControllerExtensionModuleAmazonPay extends Controller {
             }
 
             if (!empty($this->session->data['language'])) {
-				$session_lang = $this->session->data['language'];
-				
-				$session_lang_code = current(explode('-', $session_lang));
-				
-				$language_region_mapping = array(
-					'EUR' => array('de-De', 'es-ES','fr-FR', 'it-IT', 'en-GB'),
-					'GBP' => array('de-De', 'es-ES','fr-FR', 'it-IT', 'en-GB'),
-					'USD' => array('en-US')
-				);
+                $session_lang = $this->session->data['language'];
+
+                $session_lang_code = current(explode('-', $session_lang));
+
+                $language_region_mapping = [
+                    'EUR' => ['de-De', 'es-ES', 'fr-FR', 'it-IT', 'en-GB'],
+                    'GBP' => ['de-De', 'es-ES', 'fr-FR', 'it-IT', 'en-GB'],
+                    'USD' => ['en-US']
+                ];
 
                 if ($this->config->get('payment_amazon_login_pay_payment_region')) {
-					$merchant_location = $this->config->get('payment_amazon_login_pay_payment_region');
-					
-					$available_codes = $language_region_mapping[$merchant_location];
-					
-					$data['language'] = ($this->config->get('payment_amazon_login_pay_language')) ? $this->config->get('payment_amazon_login_pay_language') : 'en-US';
-					
-					foreach ($available_codes as $l_code) {
-						$l_code_short = current(explode('-', $l_code));
-						
-						if ($session_lang_code == $l_code_short) {
-							$data['language'] = $l_code;
-						}
-					}
-				}
+                    $merchant_location = $this->config->get('payment_amazon_login_pay_payment_region');
+
+                    $available_codes = $language_region_mapping[$merchant_location];
+
+                    $data['language'] = ($this->config->get('payment_amazon_login_pay_language')) ? $this->config->get('payment_amazon_login_pay_language') : 'en-US';
+
+                    foreach ($available_codes as $l_code) {
+                        $l_code_short = current(explode('-', $l_code));
+
+                        if ($session_lang_code == $l_code_short) {
+                            $data['language'] = $l_code;
+                        }
+                    }
+                }
             } else {
-              $data['language'] = ($this->config->get('payment_amazon_login_pay_language')) ? $this->config->get('payment_amazon_login_pay_language') : 'en-US';
+                $data['language'] = ($this->config->get('payment_amazon_login_pay_language')) ? $this->config->get('payment_amazon_login_pay_language') : 'en-US';
             }
 
             return $this->load->view('extension/module/amazon_login', $data);

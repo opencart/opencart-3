@@ -13,10 +13,10 @@ class ControllerExtensionModuleAmazonLogin extends Controller {
 
             $this->document->addScript($amazon_payment_js);
 
-            $data['client_id'] = trim($this->config->get('payment_amazon_login_pay_client_id'));
+            $data['client_id']   = trim($this->config->get('payment_amazon_login_pay_client_id'));
             $data['merchant_id'] = $this->config->get('payment_amazon_login_pay_merchant_id');
-            $data['return_url'] = html_entity_decode($this->url->link('extension/module/amazon_login/login', '', true), ENT_COMPAT, "UTF-8");
-            $data['button_id'] = 'AmazonLoginButton';
+            $data['return_url']  = html_entity_decode($this->url->link('extension/module/amazon_login/login', '', true), ENT_COMPAT, "UTF-8");
+            $data['button_id']   = 'AmazonLoginButton';
 
             if ($this->config->get('payment_amazon_login_pay_test') == 'sandbox') {
                 $data['sandbox'] = isset($this->session->data['user_id']); // Require an active admin panel session to show debug messages
@@ -41,30 +41,31 @@ class ControllerExtensionModuleAmazonLogin extends Controller {
             }
 
             if (!empty($this->session->data['language'])) {
-              $session_lang = $this->session->data['language'];
-              $session_lang_code = current(explode('-', $session_lang));
-			  
-              $language_region_mapping = array(
-                'EUR' => array('de-De', 'es-ES','fr-FR', 'it-IT', 'en-GB'),
-                'GBP' => array('de-De', 'es-ES','fr-FR', 'it-IT', 'en-GB'),
-                'USD' => array('en-US')
-              );
+                $session_lang      = $this->session->data['language'];
+                $session_lang_code = current(explode('-', $session_lang));
 
-              if ($this->config->get('payment_amazon_login_pay_payment_region')) {
-                $merchant_location = $this->config->get('payment_amazon_login_pay_payment_region');
-                $available_codes = $language_region_mapping[$merchant_location];
-                $data['language'] = ($this->config->get('payment_amazon_login_pay_language')) ? $this->config->get('payment_amazon_login_pay_language') : 'en-US';
-				
-                foreach ($available_codes as $l_code) {
-                  $l_code_short = current(explode('-', $l_code));
-				  
-                  if ($session_lang_code == $l_code_short) {
-                    $data['language'] = $l_code;
-                  }
+                $language_region_mapping = [
+                    'EUR' => ['de-De', 'es-ES', 'fr-FR', 'it-IT', 'en-GB'],
+                    'GBP' => ['de-De', 'es-ES', 'fr-FR', 'it-IT', 'en-GB'],
+                    'USD' => ['en-US']
+                ];
+
+                if ($this->config->get('payment_amazon_login_pay_payment_region')) {
+                    $merchant_location = $this->config->get('payment_amazon_login_pay_payment_region');
+                    $available_codes   = $language_region_mapping[$merchant_location];
+
+                    $data['language']  = ($this->config->get('payment_amazon_login_pay_language')) ? $this->config->get('payment_amazon_login_pay_language') : 'en-US';
+
+                    foreach ($available_codes as $l_code) {
+                        $l_code_short = current(explode('-', $l_code));
+
+                        if ($session_lang_code == $l_code_short) {
+                            $data['language'] = $l_code;
+                        }
+                    }
                 }
-              }
             } else {
-              $data['language'] = ($this->config->get('payment_amazon_login_pay_language')) ? $this->config->get('payment_amazon_login_pay_language') : 'en-US';
+                $data['language'] = ($this->config->get('payment_amazon_login_pay_language')) ? $this->config->get('payment_amazon_login_pay_language') : 'en-US';
             }
 
             return $this->load->view('extension/module/amazon_login', $data);
@@ -72,8 +73,8 @@ class ControllerExtensionModuleAmazonLogin extends Controller {
     }
 
     public function login(): void {
-        $this->load->language('extension/payment/amazon_login_pay');		
         $this->load->language('account/login');
+        $this->load->language('extension/payment/amazon_login_pay');
 
         $this->load->model('extension/module/amazon_login');
 
@@ -99,19 +100,18 @@ class ControllerExtensionModuleAmazonLogin extends Controller {
             // No issues found, and the Amazon profile has been fetched
             if ($from_amazon_pay) {
                 unset($this->session->data['guest']);
-				
                 unset($this->session->data['account']);
 
                 if ($this->config->get('payment_amazon_login_pay_checkout') == 'guest') {
-                    $this->session->data['account'] = 'guest';
+                    $this->session->data['account']                    = 'guest';
 
                     $this->session->data['guest']['customer_group_id'] = $this->config->get('config_customer_group_id');
-                    $this->session->data['guest']['firstname'] = (string)$amazon_profile->first_name;
-                    $this->session->data['guest']['lastname'] = (string)$amazon_profile->last_name;
-                    $this->session->data['guest']['email'] = (string)$amazon_profile->email;
-                    $this->session->data['guest']['telephone'] = '0000000';
+                    $this->session->data['guest']['firstname']         = (string)$amazon_profile->first_name;
+                    $this->session->data['guest']['lastname']          = (string)$amazon_profile->last_name;
+                    $this->session->data['guest']['email']             = (string)$amazon_profile->email;
+                    $this->session->data['guest']['telephone']         = '0000000';
 
-                    $this->session->data['apalwa']['pay']['profile'] = $this->session->data['guest'];
+                    $this->session->data['apalwa']['pay']['profile']   = $this->session->data['guest'];
                 } else {
                     // The payment button must log in a customer
                     $this->session->data['account'] = 'register';
@@ -121,7 +121,7 @@ class ControllerExtensionModuleAmazonLogin extends Controller {
                     $this->session->data['apalwa']['pay']['profile'] = $profile;
 
                     // If a customer is already logged in, we must overwrite their data with amazon data
-                    // Therefore, at the end of the day, we will have a 
+                    // Therefore, at the end of the day, we will have a
                 }
 
                 $this->response->redirect($this->url->link('extension/payment/amazon_login_pay/address', '', true));
@@ -143,34 +143,34 @@ class ControllerExtensionModuleAmazonLogin extends Controller {
         $continue = $this->url->link('common/home', '', true);
 
         if (isset($this->session->data['apalwa']['login']['error'])) {
-            $data['error'] = $this->session->data['apalwa']['login']['error'];
-            $data['continue'] = $continue;
+            $data['error']         = $this->session->data['apalwa']['login']['error'];
+            $data['continue']      = $continue;
             $data['heading_title'] = $this->language->get('error_login');
 
             $this->document->setTitle($this->language->get('error_login'));
 
             unset($this->session->data['apalwa']);
 
-            $data['breadcrumbs'] = array();
+            $data['breadcrumbs'] = [];
 
-            $data['breadcrumbs'][] = array(
+            $data['breadcrumbs'][] = [
                 'href' => $this->url->link('common/home', '', true),
                 'text' => $this->language->get('text_home')
-            );
+            ];
 
-            $data['breadcrumbs'][] = array(
-                'href' 		=> null,
-                'current' 	=> true,
-                'text' 		=> $this->language->get('error_login')
-            );
+            $data['breadcrumbs'][] = [
+                'href'    => null,
+                'current' => true,
+                'text'    => $this->language->get('error_login')
+            ];
 
-            $data['content_main'] = $this->load->view('extension/module/amazon_login_error', $data);
-            $data['column_left'] = $this->load->controller('common/column_left');
-            $data['column_right'] = $this->load->controller('common/column_right');
-            $data['content_top'] = $this->load->controller('common/content_top');
+            $data['content_main']   = $this->load->view('extension/module/amazon_login_error', $data);
+            $data['column_left']    = $this->load->controller('common/column_left');
+            $data['column_right']   = $this->load->controller('common/column_right');
+            $data['content_top']    = $this->load->controller('common/content_top');
             $data['content_bottom'] = $this->load->controller('common/content_bottom');
-            $data['footer'] = $this->load->controller('common/footer');
-            $data['header'] = $this->load->controller('common/header');
+            $data['footer']         = $this->load->controller('common/footer');
+            $data['header']         = $this->load->controller('common/header');
 
             $this->response->setOutput($this->load->view('extension/payment/amazon_login_pay_generic', $data));
         } else {

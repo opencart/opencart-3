@@ -1,34 +1,34 @@
 <?php
 class ControllerExtensionPaymentCheque extends Controller {
-	public function index(): string {
-		$this->load->language('extension/payment/cheque');
+    public function index(): string {
+        $this->load->language('extension/payment/cheque');
 
-		$data['payable'] = $this->config->get('payment_cheque_payable');
-		$data['address'] = nl2br($this->config->get('config_address'));
+        $data['payable'] = $this->config->get('payment_cheque_payable');
+        $data['address'] = nl2br($this->config->get('config_address'));
 
-		return $this->load->view('extension/payment/cheque', $data);
-	}
+        return $this->load->view('extension/payment/cheque', $data);
+    }
 
-	public function confirm(): void {
-		$json = array();
-		
-		if (isset($this->session->data['payment_method']['code']) && $this->session->data['payment_method']['code'] == 'cheque') {
-			$this->load->language('extension/payment/cheque');
+    public function confirm(): void {
+        $json = [];
 
-			$this->load->model('checkout/order');
+        if (isset($this->session->data['payment_method']['code']) && $this->session->data['payment_method']['code'] == 'cheque') {
+            $this->load->language('extension/payment/cheque');
 
-			$comment  = $this->language->get('text_payable') . "\n";
-			$comment .= $this->config->get('payment_cheque_payable') . "\n\n";
-			$comment .= $this->language->get('text_address') . "\n";
-			$comment .= $this->config->get('config_address') . "\n\n";
-			$comment .= $this->language->get('text_payment') . "\n";
-			
-			$this->model_checkout_order->addOrderHistory($this->session->data['order_id'], $this->config->get('payment_cheque_order_status_id'), $comment, true);
-			
-			$json['redirect'] = $this->url->link('checkout/success');
-		}
-		
-		$this->response->addHeader('Content-Type: application/json');
-		$this->response->setOutput(json_encode($json));
-	}
+            $this->load->model('checkout/order');
+
+            $comment = $this->language->get('text_payable') . "\n";
+            $comment .= $this->config->get('payment_cheque_payable') . "\n\n";
+            $comment .= $this->language->get('text_address') . "\n";
+            $comment .= $this->config->get('config_address') . "\n\n";
+            $comment .= $this->language->get('text_payment') . "\n";
+
+            $this->model_checkout_order->addOrderHistory($this->session->data['order_id'], $this->config->get('payment_cheque_order_status_id'), $comment, true);
+
+            $json['redirect'] = $this->url->link('checkout/success');
+        }
+
+        $this->response->addHeader('Content-Type: application/json');
+        $this->response->setOutput(json_encode($json));
+    }
 }

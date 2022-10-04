@@ -1,192 +1,187 @@
 <?php
 class ControllerInformationGdpr extends Controller {
-	public function index(): void {
-		$this->load->model('catalog/information');
+    public function index(): void {
+        $this->load->model('catalog/information');
 
-		$information_info = $this->model_catalog_information->getInformation($this->config->get('config_gdpr_id'));
+        $information_info = $this->model_catalog_information->getInformation($this->config->get('config_gdpr_id'));
 
-		if ($information_info) {
-			$this->load->language('information/gdpr');
+        if ($information_info) {
+            $this->load->language('information/gdpr');
 
-			$this->document->setTitle($this->language->get('heading_title'));
+            $this->document->setTitle($this->language->get('heading_title'));
 
-			$data['breadcrumbs'] = array();
+            $data['breadcrumbs'] = [];
 
-			$data['breadcrumbs'][] = array(
-				'text' => $this->language->get('text_home'),
-				'href' => $this->url->link('common/home')
-			);
+            $data['breadcrumbs'][] = [
+                'text' => $this->language->get('text_home'),
+                'href' => $this->url->link('common/home')
+            ];
 
-			$data['breadcrumbs'][] = array(
-				'text' => $this->language->get('heading_title'),
-				'href' => $this->url->link('information/gdpr')
-			);
+            $data['breadcrumbs'][] = [
+                'text' => $this->language->get('heading_title'),
+                'href' => $this->url->link('information/gdpr')
+            ];
 
-			$data['action'] = $this->url->link('information/gdpr/action');
+            $data['action'] = $this->url->link('information/gdpr/action');
+            $data['title']  = $information_info['title'];
+            $data['gdpr']   = $this->url->link('information/information' . '&information_id=' . $information_info['information_id']);
+            $data['email']  = $this->customer->getEmail();
+            $data['store']  = $this->config->get('config_name');
+            $data['limit']  = $this->config->get('config_gdpr_limit');
+            $data['cancel'] = $this->url->link('account/account');
 
-			$data['title'] = $information_info['title'];
+            $data['column_left']    = $this->load->controller('common/column_left');
+            $data['column_right']   = $this->load->controller('common/column_right');
+            $data['content_top']    = $this->load->controller('common/content_top');
+            $data['content_bottom'] = $this->load->controller('common/content_bottom');
+            $data['footer']         = $this->load->controller('common/footer');
+            $data['header']         = $this->load->controller('common/header');
 
-			$data['gdpr'] = $this->url->link('information/information' . '&information_id=' . $information_info['information_id']);
+            $this->response->setOutput($this->load->view('information/gdpr', $data));
 
-			$data['email'] = $this->customer->getEmail();
-			
-			$data['store'] = $this->config->get('config_name');
-			$data['limit'] = $this->config->get('config_gdpr_limit');
+            return;
+        } else {
+            return new \Action('error/not_found');
+        }
+    }
 
-			$data['cancel'] = $this->url->link('account/account');
+    /*
+     *  Action Statuses
+     *
+     *	EXPORT
+     *
+     *  unverified = 0
+     *	pending    = 1
+     *	complete   = 3
+     *
+     *	REMOVE
+     *
+     *  unverified = 0
+     *	pending    = 1
+     *	processing = 2
+     *	delete     = 3
+     *
+     *	DENY
+     *
+     *  unverified = 0
+     *	pending    = 1
+     *	processing = 2
+     *	denied     = -1
+    */
+    public function action(): void {
+        $this->load->language('information/gdpr');
 
-			$data['column_left'] = $this->load->controller('common/column_left');
-			$data['column_right'] = $this->load->controller('common/column_right');
-			$data['content_top'] = $this->load->controller('common/content_top');
-			$data['content_bottom'] = $this->load->controller('common/content_bottom');
-			$data['footer'] = $this->load->controller('common/footer');
-			$data['header'] = $this->load->controller('common/header');
+        $json = [];
 
-			$this->response->setOutput($this->load->view('information/gdpr', $data));
+        if (isset($this->request->post['email'])) {
+            $email = $this->request->post['email'];
+        } else {
+            $email = '';
+        }
 
-			return null;
-		} else {
-			return new \Action('error/not_found');
-		}
-	}
+        if (isset($this->request->post['action'])) {
+            $action = $this->request->post['action'];
+        } else {
+            $action = '';
+        }
 
-	/*
-	 *  Action Statuses
-	 *
-	 *	EXPORT
-	 *
-	 *  unverified = 0
-	 *	pending    = 1
-	 *	complete   = 3
-	 *
-	 *	REMOVE
-	 *
-	 *  unverified = 0
-	 *	pending    = 1
-	 *	processing = 2
-	 *	delete     = 3
-	 *
-	 *	DENY
-	 *
-	 *  unverified = 0
-	 *	pending    = 1
-	 *	processing = 2
-	 *	denied     = -1
-	*/
-	public function action(): void {
-		$this->load->language('information/gdpr');
+        // Validate E-Mail
+        if ((utf8_strlen($email) > 96) || !filter_var($email, FILTER_VALIDATE_EMAIL)) {
+            $json['error']['email'] = $this->language->get('error_email');
+        }
 
-		$json = array();
+        // Validate Action
+        $allowed = [
+            'export',
+            'remove'
+        ];
 
-		if (isset($this->request->post['email'])) {
-			$email = $this->request->post['email'];
-		} else {
-			$email = '';
-		}
+        if (!in_array($action, $allowed)) {
+            $json['error']['action'] = $this->language->get('error_action');
+        }
 
-		if (isset($this->request->post['action'])) {
-			$action = $this->request->post['action'];
-		} else {
-			$action = '';
-		}
+        if (!$json) {
+            // Added additional check so people are not spamming requests
+            $status = true;
 
-		// Validate E-Mail
-		if ((utf8_strlen($email) > 96) || !filter_var($email, FILTER_VALIDATE_EMAIL)) {
-			$json['error']['email'] = $this->language->get('error_email');
-		}
+            $this->load->model('account/gdpr');
 
-		// Validate Action
-		$allowed = array(
-			'export',
-			'remove'
-		);
+            $results = $this->model_account_gdpr->getGdprsByEmail($email);
 
-		if (!in_array($action, $allowed)) {
-			$json['error']['action'] = $this->language->get('error_action');
-		}
+            foreach ($results as $result) {
+                if ($result['action'] == $action) {
+                    $status = false;
 
-		if (!$json) {
-			// Added additional check so people are not spamming requests
-			$status = true;
+                    break;
+                }
+            }
 
-			$this->load->model('account/gdpr');
+            if ($status) {
+                $this->model_account_gdpr->addGdpr(token(32), $email, $action);
+            }
 
-			$results = $this->model_account_gdpr->getGdprsByEmail($email);
+            $json['success'] = $this->language->get('text_success');
+        }
 
-			foreach ($results as $result) {
-				if ($result['action'] == $action) {
-					$status = false;
+        $this->response->addHeader('Content-Type: application/json');
+        $this->response->setOutput(json_encode($json));
+    }
 
-					break;
-				}
-			}
+    public function success(): void {
+        if (isset($this->request->get['code'])) {
+            $code = $this->request->get['code'];
+        } else {
+            $code = '';
+        }
 
-			if ($status) {
-				$this->model_account_gdpr->addGdpr(token(32), $email, $action);
-			}
+        $this->load->model('account/gdpr');
 
-			$json['success'] = $this->language->get('text_success');
-		}
+        $gdpr_info = $this->model_account_gdpr->getGdprByCode($code);
 
-		$this->response->addHeader('Content-Type: application/json');
-		$this->response->setOutput(json_encode($json));
-	}
+        if ($gdpr_info) {
+            $this->load->language('information/gdpr_success');
 
-	public function success(): void {
-		if (isset($this->request->get['code'])) {
-			$code = $this->request->get['code'];
-		} else {
-			$code = '';
-		}
+            $this->document->setTitle($this->language->get('heading_title'));
 
-		$this->load->model('account/gdpr');
+            $data['breadcrumbs'] = [];
 
-		$gdpr_info = $this->model_account_gdpr->getGdprByCode($code);
+            $data['breadcrumbs'][] = [
+                'text' => $this->language->get('text_home'),
+                'href' => $this->url->link('common/home')
+            ];
 
-		if ($gdpr_info) {
-			$this->load->language('information/gdpr_success');
+            $data['breadcrumbs'][] = [
+                'text' => $this->language->get('text_account'),
+                'href' => $this->url->link('information/gdpr')
+            ];
 
-			$this->document->setTitle($this->language->get('heading_title'));
+            $data['breadcrumbs'][] = [
+                'text' => $this->language->get('heading_title'),
+                'href' => $this->url->link('information/gdpr/success')
+            ];
 
-			$data['breadcrumbs'] = array();
+            if ($gdpr_info['status'] == 0) {
+                $this->model_account_gdpr->editStatus($code, 1);
+            }
 
-			$data['breadcrumbs'][] = array(
-				'text' => $this->language->get('text_home'),
-				'href' => $this->url->link('common/home')
-			);
+            if ($gdpr_info['action'] == 'export') {
+                $data['text_message'] = $this->language->get('text_export');
+            } else {
+                $data['text_message'] = sprintf($this->language->get('text_remove'), $this->config->get('config_gdpr_limit'));
+            }
 
-			$data['breadcrumbs'][] = array(
-				'text' => $this->language->get('text_account'),
-				'href' => $this->url->link('information/gdpr')
-			);
+            $data['column_left']    = $this->load->controller('common/column_left');
+            $data['column_right']   = $this->load->controller('common/column_right');
+            $data['content_top']    = $this->load->controller('common/content_top');
+            $data['content_bottom'] = $this->load->controller('common/content_bottom');
+            $data['footer']         = $this->load->controller('common/footer');
+            $data['header']         = $this->load->controller('common/header');
 
-			$data['breadcrumbs'][] = array(
-				'text' => $this->language->get('heading_title'),
-				'href' => $this->url->link('information/gdpr/success')
-			);
+            $this->response->setOutput($this->load->view('common/success', $data));
 
-			if ($gdpr_info['status'] == 0) {
-				$this->model_account_gdpr->editStatus($code, 1);
-			}
-
-			if ($gdpr_info['action'] == 'export') {
-				$data['text_message'] = $this->language->get('text_export');
-			} else {
-				$data['text_message'] = sprintf($this->language->get('text_remove'), $this->config->get('config_gdpr_limit'));
-			}
-
-			$data['column_left'] = $this->load->controller('common/column_left');
-			$data['column_right'] = $this->load->controller('common/column_right');
-			$data['content_top'] = $this->load->controller('common/content_top');
-			$data['content_bottom'] = $this->load->controller('common/content_bottom');
-			$data['footer'] = $this->load->controller('common/footer');
-			$data['header'] = $this->load->controller('common/header');
-
-			$this->response->setOutput($this->load->view('common/success', $data));
-
-			return null;
-		} else {
-			return new \Action('error/not_found');
-		}
-	}
+            return;
+        } else {
+            return new \Action('error/not_found');
+        }
+    }
 }

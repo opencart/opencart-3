@@ -1,31 +1,31 @@
 <?php
 class ControllerExtensionPaymentBankTransfer extends Controller {
-	public function index(): string {
-		$this->load->language('extension/payment/bank_transfer');
+    public function index(): string {
+        $this->load->language('extension/payment/bank_transfer');
 
-		$data['bank'] = nl2br($this->config->get('payment_bank_transfer_bank' . $this->config->get('config_language_id')));
+        $data['bank'] = nl2br($this->config->get('payment_bank_transfer_bank' . $this->config->get('config_language_id')));
 
-		return $this->load->view('extension/payment/bank_transfer', $data);
-	}
+        return $this->load->view('extension/payment/bank_transfer', $data);
+    }
 
-	public function confirm(): void {
-		$json = array();
-		
-		if (isset($this->session->data['payment_method']['code']) && $this->session->data['payment_method']['code'] == 'bank_transfer') {
-			$this->load->language('extension/payment/bank_transfer');
+    public function confirm(): void {
+        $json = [];
 
-			$this->load->model('checkout/order');
+        if (isset($this->session->data['payment_method']['code']) && $this->session->data['payment_method']['code'] == 'bank_transfer') {
+            $this->load->language('extension/payment/bank_transfer');
 
-			$comment  = $this->language->get('text_instruction') . "\n\n";
-			$comment .= $this->config->get('payment_bank_transfer_bank' . $this->config->get('config_language_id')) . "\n\n";
-			$comment .= $this->language->get('text_payment');
+            $this->load->model('checkout/order');
 
-			$this->model_checkout_order->addOrderHistory($this->session->data['order_id'], $this->config->get('payment_bank_transfer_order_status_id'), $comment, true);
-		
-			$json['redirect'] = $this->url->link('checkout/success');
-		}
-		
-		$this->response->addHeader('Content-Type: application/json');
-		$this->response->setOutput(json_encode($json));		
-	}
+            $comment = $this->language->get('text_instruction') . "\n\n";
+            $comment .= $this->config->get('payment_bank_transfer_bank' . $this->config->get('config_language_id')) . "\n\n";
+            $comment .= $this->language->get('text_payment');
+
+            $this->model_checkout_order->addOrderHistory($this->session->data['order_id'], $this->config->get('payment_bank_transfer_order_status_id'), $comment, true);
+
+            $json['redirect'] = $this->url->link('checkout/success');
+        }
+
+        $this->response->addHeader('Content-Type: application/json');
+        $this->response->setOutput(json_encode($json));
+    }
 }

@@ -1,73 +1,71 @@
 <?php
+
 class ControllerExtensionTotalReward extends Controller {
-	public function index() {
-		$points = $this->customer->getRewardPoints();
+    public function index() {
+        $points       = $this->customer->getRewardPoints();
+        $points_total = 0;
 
-		$points_total = 0;
+        foreach ($this->cart->getProducts() as $product) {
+            if ($product['points']) {
+                $points_total += $product['points'];
+            }
+        }
 
-		foreach ($this->cart->getProducts() as $product) {
-			if ($product['points']) {
-				$points_total += $product['points'];
-			}
-		}
+        if ($points && $points_total && $this->config->get('total_reward_status')) {
+            $this->load->language('extension/total/reward');
 
-		if ($points && $points_total && $this->config->get('total_reward_status')) {
-			$this->load->language('extension/total/reward');
+            $data['heading_title'] = sprintf($this->language->get('heading_title'), $points);
+            $data['entry_reward']  = sprintf($this->language->get('entry_reward'), $points_total);
 
-			$data['heading_title'] = sprintf($this->language->get('heading_title'), $points);
+            if (isset($this->session->data['reward'])) {
+                $data['reward'] = $this->session->data['reward'];
+            } else {
+                $data['reward'] = '';
+            }
 
-			$data['entry_reward'] = sprintf($this->language->get('entry_reward'), $points_total);
+            return $this->load->view('extension/total/reward', $data);
+        }
+    }
 
-			if (isset($this->session->data['reward'])) {
-				$data['reward'] = $this->session->data['reward'];
-			} else {
-				$data['reward'] = '';
-			}
+    public function reward(): void {
+        $this->load->language('extension/total/reward');
 
-			return $this->load->view('extension/total/reward', $data);
-		}
-	}
+        $json = [];
 
-	public function reward(): void {
-		$this->load->language('extension/total/reward');
+        $points       = $this->customer->getRewardPoints();
 
-		$json = array();
+        $points_total = 0;
 
-		$points = $this->customer->getRewardPoints();
+        foreach ($this->cart->getProducts() as $product) {
+            if ($product['points']) {
+                $points_total += $product['points'];
+            }
+        }
 
-		$points_total = 0;
+        if (!isset($this->request->post['reward']) || !filter_var($this->request->post['reward'], FILTER_VALIDATE_INT) || ($this->request->post['reward'] <= 0)) {
+            $json['error'] = $this->language->get('error_reward');
+        }
 
-		foreach ($this->cart->getProducts() as $product) {
-			if ($product['points']) {
-				$points_total += $product['points'];
-			}
-		}
+        if ($this->request->post['reward'] > $points) {
+            $json['error'] = sprintf($this->language->get('error_points'), $this->request->post['reward']);
+        }
 
-		if (!isset($this->request->post['reward']) || !filter_var($this->request->post['reward'], FILTER_VALIDATE_INT) || ($this->request->post['reward'] <= 0)) {
-			$json['error'] = $this->language->get('error_reward');
-		}
+        if ($this->request->post['reward'] > $points_total) {
+            $json['error'] = sprintf($this->language->get('error_maximum'), $points_total);
+        }
 
-		if ($this->request->post['reward'] > $points) {
-			$json['error'] = sprintf($this->language->get('error_points'), $this->request->post['reward']);
-		}
+        if (!$json) {
+            $this->session->data['reward']  = abs($this->request->post['reward']);
+            $this->session->data['success'] = $this->language->get('text_success');
 
-		if ($this->request->post['reward'] > $points_total) {
-			$json['error'] = sprintf($this->language->get('error_maximum'), $points_total);
-		}
+            if (isset($this->request->post['redirect'])) {
+                $json['redirect'] = $this->url->link($this->request->post['redirect']);
+            } else {
+                $json['redirect'] = $this->url->link('checkout/cart');
+            }
+        }
 
-		if (!$json) {
-			$this->session->data['reward'] = abs($this->request->post['reward']);
-
-			$this->session->data['success'] = $this->language->get('text_success');
-
-			if (isset($this->request->post['redirect'])) {
-				$json['redirect'] = $this->url->link($this->request->post['redirect']);
-			} else {
-				$json['redirect'] = $this->url->link('checkout/cart');
-			}
-		}
-
-		$this->response->addHeader('Content-Type: application/json');
-		$this->response->setOutput(json_encode($json));
-	}
+        $this->response->addHeader('Content-Type: application/json');
+        $this->response->setOutput(json_encode($json));
+    }
 }

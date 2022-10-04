@@ -1,14 +1,14 @@
 <?php
 class ControllerExtensionPaymentPPPayflowIframe extends Controller {
 	public function index(): string {
-		$this->load->model('checkout/order');		
-		$this->load->model('extension/payment/pp_payflow_iframe');		
-		$this->load->model('localisation/country');		
-		$this->load->model('localisation/zone');
+        if (!isset($this->session->data['order_id'])) {
+            return false;
+        }
 
-		if (!isset($this->session->data['order_id'])) {
-			return false;
-		}
+		$this->load->model('checkout/order');
+		$this->load->model('localisation/zone');
+        $this->load->model('localisation/country');
+        $this->load->model('extension/payment/pp_payflow_iframe');
 
 		$order_info = $this->model_checkout_order->getOrder($this->session->data['order_id']);
 
@@ -26,15 +26,15 @@ class ControllerExtensionPaymentPPPayflowIframe extends Controller {
 			$transaction_type = 'A';
 		}
 
-		$secure_token_id = md5($this->session->data['order_id'] . mt_rand() . microtime());
+        $secure_token_id  = md5($this->session->data['order_id'] . mt_rand() . microtime());
 
 		$this->model_extension_payment_pp_payflow_iframe->addOrder($order_info['order_id'], $secure_token_id);
 
-		$shipping_country = $this->model_localisation_country->getCountry($order_info['shipping_country_id']);
-		$shipping_zone = $this->model_localisation_zone->getZone($order_info['shipping_zone_id']);
+        $shipping_country = $this->model_localisation_country->getCountry($order_info['shipping_country_id']);
+        $shipping_zone    = $this->model_localisation_zone->getZone($order_info['shipping_zone_id']);
 
-		$payment_country = $this->model_localisation_country->getCountry($order_info['payment_country_id']);
-		$payment_zone = $this->model_localisation_zone->getZone($order_info['payment_zone_id']);
+        $payment_country  = $this->model_localisation_country->getCountry($order_info['payment_country_id']);
+        $payment_zone     = $this->model_localisation_zone->getZone($order_info['payment_zone_id']);
 
 		$url_params = array(
 			'TENDER'            => 'C',
@@ -103,8 +103,8 @@ class ControllerExtensionPaymentPPPayflowIframe extends Controller {
 	}
 
 	public function paymentIpn(): string {
+        $this->load->model('checkout/order');
 		$this->load->model('extension/payment/pp_payflow_iframe');		
-		$this->load->model('checkout/order');
 
 		if ($this->config->get('payment_pp_pro_iframe_debug')) {
 			$log = new \Log('pp_pro_iframe.log');

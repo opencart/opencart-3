@@ -1,79 +1,76 @@
 <?php
 class ControllerStartupLanguage extends Controller {
-	public function index(): void {
-		$this->load->model('localisation/language');
+    public function index(): void {
+        $this->load->model('localisation/language');
 
-		$languages = $this->model_localisation_language->getLanguages();
+        $languages      = $this->model_localisation_language->getLanguages();
+        $language_codes = array_column($languages, 'language_id', 'code');
+        $code           = '';
 
-		$language_codes = array_column($languages, 'language_id', 'code');
+        if (isset($this->request->get['language'])) {
+            $code = $this->request->get['language'];
+        }
 
-		$code = '';
+        // Language Detection
+        if (!$code) {
+            $detect        = '';
+            $browser_codes = [];
 
-		if (isset($this->request->get['language'])) {
-			$code = $this->request->get['language'];
-		}
+            if (!empty($this->request->server['HTTP_ACCEPT_LANGUAGE'])) {
+                $browser_languages = explode(',', strtolower($this->request->server['HTTP_ACCEPT_LANGUAGE']));
 
-		// Language Detection
-		if (!$code) {
-			$detect = '';
+                // Try using local to detect the language
+                foreach ($browser_languages as $browser_language) {
+                    $position = strpos($browser_language, ';q=');
 
-			$browser_codes = array();
+                    if ($position !== false) {
+                        $browser_codes[][substr($browser_language, 0, $position)] = (float)substr($browser_language, $position + 3);
+                    } else {
+                        $browser_codes[][$browser_language] = 1.0;
+                    }
+                }
+            }
 
-			if (!empty($this->request->server['HTTP_ACCEPT_LANGUAGE'])) {
-				$browser_languages = explode(',', strtolower($this->request->server['HTTP_ACCEPT_LANGUAGE']));
+            $sort_order = [];
 
-				// Try using local to detect the language
-				foreach ($browser_languages as $browser_language) {
-					$position = strpos($browser_language, ';q=');
+            foreach ($browser_codes as $key => $value) {
+                $sort_order[$key] = $value[key($value)];
+            }
 
-					if ($position !== false) {
-						$browser_codes[][substr($browser_language, 0, $position)] = (float)substr($browser_language, $position + 3);
-					} else {
-						$browser_codes[][$browser_language] = 1.0;
-					}
-				}
-			}
+            array_multisort($sort_order, SORT_ASC, $browser_codes);
 
-			$sort_order = array();
+            $browser_codes = array_reverse($browser_codes);
 
-			foreach ($browser_codes as $key => $value) {
-				$sort_order[$key] = $value[key($value)];
-			}
+            foreach (array_values($browser_codes) as $browser_code) {
+                foreach ($languages as $key => $value) {
+                    if ($value['status']) {
+                        $locale = explode(',', $value['locale']);
 
-			array_multisort($sort_order, SORT_ASC, $browser_codes);
+                        if (in_array(key($browser_code), $locale)) {
+                            $detect = $value['code'];
 
-			$browser_codes = array_reverse($browser_codes);
+                            break 2;
+                        }
+                    }
+                }
+            }
 
-			foreach (array_values($browser_codes) as $browser_code) {
-				foreach ($languages as $key => $value) {
-					if ($value['status']) {
-						$locale = explode(',', $value['locale']);
+            $code = ($detect) ? $detect : '';
+        }
 
-						if (in_array(key($browser_code), $locale)) {
-							$detect = $value['code'];
+        // Language not available then use default
+        if (!array_key_exists($code, $language_codes)) {
+            $code = $this->config->get('config_language');
+        }
 
-							break 2;
-						}
-					}
-				}
-			}
+        // Set the config language_id
+        $this->config->set('config_language_id', $language_codes[$code]);
+        $this->config->set('config_language', $code);
 
-			$code = ($detect) ? $detect : '';
-		}
+        // Language
+        $language = new \Language($code);
+        $language->load($code);
 
-		// Language not available then use default
-		if (!array_key_exists($code, $language_codes)) {
-			$code = $this->config->get('config_language');
-		}
-
-		// Set the config language_id
-		$this->config->set('config_language_id', $language_codes[$code]);
-		$this->config->set('config_language', $code);
-
-		// Language
-		$language = new \Language($code);		
-		$language->load($code);
-
-		$this->registry->set('language', $language);
-	}
+        $this->registry->set('language', $language);
+    }
 }

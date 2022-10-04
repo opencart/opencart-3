@@ -1,484 +1,460 @@
 <?php
 class ControllerExtensionPaymentLaybuy extends Controller {
-	public function index(): string {
-		$this->load->language('extension/payment/laybuy');
+    public function index(): string {
+        if (!isset($this->session->data['order_id'])) {
+            return false;
+        }
 
-		$this->load->model('extension/payment/laybuy');
-		
-		$this->load->model('checkout/order');
+        $this->load->language('extension/payment/laybuy');
 
-		if (!isset($this->session->data['order_id'])) {
-			return false;
-		}
+        $this->load->model('checkout/order');
+        $this->load->model('extension/payment/laybuy');
 
-		$data['action'] = $this->url->link('extension/payment/laybuy/postToLaybuy', '', true);
+        $order_info                    = $this->model_checkout_order->getOrder($this->session->data['order_id']);
 
-		$order_info = $this->model_checkout_order->getOrder($this->session->data['order_id']);
+        $data['action']                = $this->url->link('extension/payment/laybuy/postToLaybuy', '', true);
+        $data['order_info']            = $order_info;
+        $data['total']                 = $order_info['total'];
+        $data['currency_symbol_left']  = $this->currency->getSymbolLeft($this->session->data['currency']);
+        $data['currency_symbol_right'] = $this->currency->getSymbolRight($this->session->data['currency']);
+        $data['initial_payments']      = $this->model_extension_payment_laybuy->getInitialPayments();
+        $data['months']                = $this->model_extension_payment_laybuy->getMonths();
 
-		$data['order_info'] = $order_info;
+        return $this->load->view('extension/payment/laybuy', $data);
+    }
 
-		$data['total'] = $order_info['total'];
+    public function postToLaybuy(): void {
+        $this->load->model('extension/payment/laybuy');
 
-		$data['currency_symbol_left'] = $this->currency->getSymbolLeft($this->session->data['currency']);
-		$data['currency_symbol_right'] = $this->currency->getSymbolRight($this->session->data['currency']);
+        $this->model_extension_payment_laybuy->log('Posting to Laybuy');
 
-		$data['initial_payments'] = $this->model_extension_payment_laybuy->getInitialPayments();
+        if ($this->request->server['REQUEST_METHOD'] == 'POST') {
+            $this->load->model('checkout/order');
 
-		$data['months'] = $this->model_extension_payment_laybuy->getMonths();
+            $order_info = $this->model_checkout_order->getOrder($this->session->data['order_id']);
 
-		return $this->load->view('extension/payment/laybuy', $data);
-	}
+            if ($order_info) {
+                $this->model_extension_payment_laybuy->log('Order ID: ' . $order_info['order_id']);
 
-	public function postToLaybuy(): void {
-		$this->load->model('extension/payment/laybuy');
+                $post_data              = [];
+                $post_data['VERSION']   = '0.2';
+                $post_data['MEMBER']    = $this->config->get('payment_laybuys_membership_id');
+                $post_data['RETURNURL'] = $this->url->link('extension/payment/laybuy/callback', '', true);
+                $post_data['CANCELURL'] = $this->url->link('extension/payment/laybuy/cancel', '', true);
+                $post_data['AMOUNT']    = round(floatval($order_info['total']), 2, PHP_ROUND_HALF_DOWN);
+                $post_data['CURRENCY']  = $order_info['currency_code'];
+                $post_data['INIT']      = (int)$this->request->post['INIT'];
+                $post_data['MONTHS']    = (int)$this->request->post['MONTHS'];
+                $post_data['MIND']      = ((int)$this->config->get('payment_laybuy_min_deposit')) ? (int)$this->config->get('payment_laybuy_min_deposit') : 20;
+                $post_data['MAXD']      = ((int)$this->config->get('payment_laybuy_max_deposit')) ? (int)$this->config->get('payment_laybuy_max_deposit') : 50;
+                $post_data['CUSTOM']    = $order_info['order_id'] . ':' . md5($this->config->get('payment_laybuy_token'));
+                $post_data['EMAIL']     = $order_info['email'];
 
-		$this->model_extension_payment_laybuy->log('Posting to Laybuy');
+                $data_string = '';
 
-		if ($this->request->server['REQUEST_METHOD'] == 'POST') {
-			$this->load->model('checkout/order');
+                foreach ($post_data as $param => $value) {
+                    $data_string .= $param . '=' . $value . '&';
+                }
 
-			$order_info = $this->model_checkout_order->getOrder($this->session->data['order_id']);
+                $data_string = rtrim($data_string, '&');
 
-			if ($order_info) {
-				$this->model_extension_payment_laybuy->log('Order ID: ' . $order_info['order_id']);
+                $this->model_extension_payment_laybuy->log('Data String: ' . $data_string);
+                $this->model_extension_payment_laybuy->log('Gateway URL: ' . $this->config->get('payment_laybuy_gateway_url'));
 
-				$post_data = array();
+                $ch     = curl_init();
 
-				$post_data['VERSION']      = '0.2';
-				$post_data['MEMBER']       = $this->config->get('payment_laybuys_membership_id');
-				$post_data['RETURNURL']    = $this->url->link('extension/payment/laybuy/callback', '', true);
-				$post_data['CANCELURL']    = $this->url->link('extension/payment/laybuy/cancel', '', true);
-				$post_data['AMOUNT']       = round(floatval($order_info['total']), 2, PHP_ROUND_HALF_DOWN);
-				$post_data['CURRENCY']     = $order_info['currency_code'];
-				$post_data['INIT']         = (int)$this->request->post['INIT'];
-				$post_data['MONTHS']       = (int)$this->request->post['MONTHS'];
-				$post_data['MIND']         = ((int)$this->config->get('payment_laybuy_min_deposit')) ? (int)$this->config->get('payment_laybuy_min_deposit') : 20;
-				$post_data['MAXD']         = ((int)$this->config->get('payment_laybuy_max_deposit')) ? (int)$this->config->get('payment_laybuy_max_deposit') : 50;
-				$post_data['CUSTOM']       = $order_info['order_id'] . ':' . md5($this->config->get('payment_laybuy_token'));
-				$post_data['EMAIL']        = $order_info['email'];
+                curl_setopt($ch, CURLOPT_URL, $this->config->get('payment_laybuy_gateway_url'));
+                curl_setopt($ch, CURLOPT_POST, true);
+                curl_setopt($ch, CURLOPT_POSTFIELDS, $data_string);
+                curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+                curl_setopt($ch, CURLOPT_HEADER, false);
+                curl_setopt($ch, CURLOPT_TIMEOUT, 30);
+                curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
 
-				$data_string = '';
+                $result = curl_exec($ch);
 
-				foreach ($post_data as $param => $value) {
-					$data_string .= $param . '=' . $value . '&';
-				}
+                if (curl_errno($ch)) {
+                    $this->model_extension_payment_laybuy->log('cURL error: ' . curl_errno($ch));
+                }
 
-				$data_string = rtrim($data_string, '&');
+                curl_close($ch);
 
-				$this->model_extension_payment_laybuy->log('Data String: ' . $data_string);
-				$this->model_extension_payment_laybuy->log('Gateway URL: ' . $this->config->get('payment_laybuy_gateway_url'));
+                $result = json_decode($result, true);
 
-				$ch = curl_init();
-				
-				curl_setopt($ch, CURLOPT_URL, $this->config->get('payment_laybuy_gateway_url'));
-				curl_setopt($ch, CURLOPT_POST, true);
-				curl_setopt($ch, CURLOPT_POSTFIELDS, $data_string);
-				curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-				curl_setopt($ch, CURLOPT_HEADER, false);
-				curl_setopt($ch, CURLOPT_TIMEOUT, 30);
-				curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
-				
-				$result = curl_exec($ch);
-				
-				if (curl_errno($ch)) {
-					$this->model_extension_payment_laybuy->log('cURL error: ' . curl_errno($ch));
-				}
-				
-				curl_close($ch);
+                $this->model_extension_payment_laybuy->log('Response: ' . print_r($result, true));
 
-				$result = json_decode($result, true);
+                if (isset($result['ACK']) && isset($result['TOKEN']) && $result['ACK'] == 'SUCCESS') {
+                    $this->model_extension_payment_laybuy->log('Success response. Redirecting to PayPal.');
 
-				$this->model_extension_payment_laybuy->log('Response: ' . print_r($result, true));
+                    $this->response->redirect($this->config->get('payment_laybuy_gateway_url') . '?TOKEN=' . $result['TOKEN']);
+                } else {
+                    $this->model_extension_payment_laybuy->log('Failure response. Redirecting to checkout/failure.');
 
-			 	if (isset($result['ACK']) && isset($result['TOKEN']) && $result['ACK'] == 'SUCCESS') {
-					$this->model_extension_payment_laybuy->log('Success response. Redirecting to PayPal.');
+                    $this->response->redirect($this->url->link('checkout/failure', '', true));
+                }
+            } else {
+                $this->model_extension_payment_laybuy->log('No matching order. Redirecting to checkout/failure.');
 
-					$this->response->redirect($this->config->get('payment_laybuy_gateway_url') . '?TOKEN=' . $result['TOKEN']);
-				} else {
-					$this->model_extension_payment_laybuy->log('Failure response. Redirecting to checkout/failure.');
+                $this->response->redirect($this->url->link('checkout/failure', '', true));
+            }
+        } else {
+            $this->model_extension_payment_laybuy->log('No $_POST data. Redirecting to checkout/failure.');
 
-					$this->response->redirect($this->url->link('checkout/failure', '', true));
-				}
-			} else {
-				$this->model_extension_payment_laybuy->log('No matching order. Redirecting to checkout/failure.');
+            $this->response->redirect($this->url->link('checkout/failure', '', true));
+        }
+    }
 
-				$this->response->redirect($this->url->link('checkout/failure', '', true));
-			}
-		} else {
-			$this->model_extension_payment_laybuy->log('No $_POST data. Redirecting to checkout/failure.');
+    public function callback(): void {
+        $this->load->model('extension/payment/laybuy');
 
-			$this->response->redirect($this->url->link('checkout/failure', '', true));
-		}
-	}
+        $this->model_extension_payment_laybuy->log('Receiving callback');
 
-	public function callback(): void {
-		$this->load->model('extension/payment/laybuy');
+        if ($this->request->server['REQUEST_METHOD'] == 'POST' && isset($this->request->post['RESULT']) && $this->request->post['RESULT'] == 'SUCCESS') {
+            $this->load->model('checkout/order');
 
-		$this->model_extension_payment_laybuy->log('Receiving callback');
+            $custom   = $this->request->post['CUSTOM'];
+            $custom   = explode(':', $custom);
+            $order_id = $custom[0];
+            $token    = $custom[1];
 
-		if ($this->request->server['REQUEST_METHOD'] == 'POST' && isset($this->request->post['RESULT']) && $this->request->post['RESULT'] == 'SUCCESS') {
-			$this->load->model('checkout/order');
+            $this->model_extension_payment_laybuy->log('Received Token: ' . $token);
+            $this->model_extension_payment_laybuy->log('Actual Token: ' . md5($this->config->get('payment_laybuy_token')));
 
-			$custom = $this->request->post['CUSTOM'];
+            if (hash_equals(md5($this->config->get('payment_laybuy_token')), $token)) {
+                $this->model_extension_payment_laybuy->log('Order ID: ' . $order_id);
 
-			$custom = explode(':', $custom);
+                $order_info = $this->model_checkout_order->getOrder($order_id);
 
-			$order_id = $custom[0];
+                if ($order_info) {
+                    $this->model_checkout_order->addOrderHistory($order_id, $this->config->get('payment_laybuy_order_status_id_pending'));
 
-			$token = $custom[1];
+                    $transaction_report = $this->model_extension_payment_laybuy->prepareTransactionReport($this->request->post);
 
-			$this->model_extension_payment_laybuy->log('Received Token: ' . $token);
-			$this->model_extension_payment_laybuy->log('Actual Token: ' . md5($this->config->get('payment_laybuy_token')));
+                    $this->model_extension_payment_laybuy->addTransaction($transaction_report, 1);
+                    $this->model_extension_payment_laybuy->log('Success. Redirecting to checkout/success.');
 
-			if (hash_equals(md5($this->config->get('payment_laybuy_token')), $token)) {
-				$this->model_extension_payment_laybuy->log('Order ID: ' . $order_id);
+                    $this->response->redirect($this->url->link('checkout/success', '', true));
+                } else {
+                    $this->model_extension_payment_laybuy->log('No matching order. Redirecting to checkout/failure.');
 
-				$order_info = $this->model_checkout_order->getOrder($order_id);
+                    $this->response->redirect($this->url->link('checkout/failure', '', true));
+                }
+            } else {
+                $this->model_extension_payment_laybuy->log('Token does not match. Redirecting to checkout/failure.');
 
-				if ($order_info) {
-					$this->model_checkout_order->addOrderHistory($order_id, $this->config->get('payment_laybuy_order_status_id_pending'));
+                $this->response->redirect($this->url->link('checkout/failure', '', true));
+            }
+        } elseif ($this->request->server['REQUEST_METHOD'] == 'POST' && isset($this->request->post['RESULT']) && $this->request->post['RESULT'] == 'FAILURE') {
+            $this->model_extension_payment_laybuy->log('Failure Response: ' . $this->request->post);
+            $this->model_extension_payment_laybuy->log('Redirecting to checkout/failure.');
 
-					$transaction_report = $this->model_extension_payment_laybuy->prepareTransactionReport($this->request->post);
+            $this->response->redirect($this->url->link('checkout/failure', '', true));
+        } else {
+            $this->model_extension_payment_laybuy->log('Either no $_POST data or unknown response. Redirecting to checkout/failure.');
 
-					$this->model_extension_payment_laybuy->addTransaction($transaction_report, 1);
-					$this->model_extension_payment_laybuy->log('Success. Redirecting to checkout/success.');
+            $this->response->redirect($this->url->link('checkout/failure', '', true));
+        }
+    }
 
-					$this->response->redirect($this->url->link('checkout/success', '', true));
-				} else {
-					$this->model_extension_payment_laybuy->log('No matching order. Redirecting to checkout/failure.');
+    public function cancel(): void {
+        $this->load->model('extension/payment/laybuy');
 
-					$this->response->redirect($this->url->link('checkout/failure', '', true));
-				}
-			} else {
-				$this->model_extension_payment_laybuy->log('Token does not match. Redirecting to checkout/failure.');
+        $this->model_extension_payment_laybuy->log('Transaction canceled by user. Redirecting to checkout/checkout.');
 
-				$this->response->redirect($this->url->link('checkout/failure', '', true));
-			}
-		} elseif ($this->request->server['REQUEST_METHOD'] == 'POST' && isset($this->request->post['RESULT']) && $this->request->post['RESULT'] == 'FAILURE') {
-			$this->model_extension_payment_laybuy->log('Failure Response: ' . $this->request->post);
-			$this->model_extension_payment_laybuy->log('Redirecting to checkout/failure.');
+        $this->response->redirect($this->url->link('checkout/checkout', '', true));
+    }
 
-			$this->response->redirect($this->url->link('checkout/failure', '', true));
-		} else {
-			$this->model_extension_payment_laybuy->log('Either no $_POST data or unknown response. Redirecting to checkout/failure.');
+    public function reviseCallback(): void {
+        $this->load->language('extension/payment/laybuy');
 
-			$this->response->redirect($this->url->link('checkout/failure', '', true));
-		}
-	}
+        $this->load->model('extension/payment/laybuy');
 
-	public function cancel(): void {
-		$this->load->model('extension/payment/laybuy');
+        $this->model_extension_payment_laybuy->log('Receiving callback');
 
-		$this->model_extension_payment_laybuy->log('Transaction canceled by user. Redirecting to checkout/checkout.');
+        if ($this->request->server['REQUEST_METHOD'] == 'POST') {
+            if (isset($this->request->post['RESULT']) && $this->request->post['RESULT'] == 'SUCCESS') {
+                $this->load->model('checkout/order');
 
-		$this->response->redirect($this->url->link('checkout/checkout', '', true));
-	}
+                $custom   = $this->request->post['CUSTOM'];
+                $custom   = explode(':', $custom);
+                $order_id = $custom[0];
+                $token    = $custom[1];
 
-	public function reviseCallback(): void {		
-		$this->load->language('extension/payment/laybuy');
-		
-		$this->load->model('extension/payment/laybuy');
+                $this->model_extension_payment_laybuy->log('Received Token: ' . $token);
+                $this->model_extension_payment_laybuy->log('Actual Token: ' . md5($this->config->get('payment_laybuy_token')));
 
-		$this->model_extension_payment_laybuy->log('Receiving callback');
+                if (hash_equals(md5($this->config->get('payment_laybuy_token')), $token)) {
+                    $this->model_extension_payment_laybuy->log('Order ID: ' . $order_id);
 
-		if ($this->request->server['REQUEST_METHOD'] == 'POST') {
-			if (isset($this->request->post['RESULT']) && $this->request->post['RESULT'] == 'SUCCESS') {
-				$this->load->model('checkout/order');
+                    $order_info = $this->model_checkout_order->getOrder($order_id);
 
-				$custom = $this->request->post['CUSTOM'];
+                    if ($order_info) {
+                        $response = $this->request->post;
 
-				$custom = explode(':', $custom);
+                        $this->model_extension_payment_laybuy->log('Response: ' . print_r($response, true));
 
-				$order_id = $custom[0];
+                        $status                 = 1;
+                        $revised_transaction_id = $response['MERCHANTS_REF_NO'];
+                        $current_date           = date('Y-m-d h:i:s');
+                        $revised_transaction    = $this->model_extension_payment_laybuy->getRevisedTransaction($revised_transaction_id);
 
-				$token = $custom[1];
+                        $this->model_extension_payment_laybuy->log('Revised transaction: ' . print_r($revised_transaction, true));
 
-				$this->model_extension_payment_laybuy->log('Received Token: ' . $token);
-				$this->model_extension_payment_laybuy->log('Actual Token: ' . md5($this->config->get('payment_laybuy_token')));
+                        if (!isset($response['DOWNPAYMENT']) && !$revised_transaction['payment_type']) {
+                            $this->model_extension_payment_laybuy->log('Buy-Now');
 
-				if (hash_equals(md5($this->config->get('payment_laybuy_token')), $token)) {
-					$this->model_extension_payment_laybuy->log('Order ID: ' . $order_id);
+                            $response['DOWNPAYMENT']        = 100;
+                            $response['MONTHS']             = 0;
+                            $response['DOWNPAYMENT_AMOUNT'] = $response['AMOUNT'];
+                            $response['PAYMENT_AMOUNTS']    = 0;
+                            $response['FIRST_PAYMENT_DUE']  = $current_date;
+                            $response['LAST_PAYMENT_DUE']   = $current_date;
+                            $response['PAYPAL_PROFILE_ID']  = '';
 
-					$order_info = $this->model_checkout_order->getOrder($order_id);
+                            $status                         = 5;
 
-					if ($order_info) {
-						$response = $this->request->post;
+                            $this->model_checkout_order->addOrderHistory($order_id, $this->config->get('payment_laybuy_order_status_id_processing'), $this->language->get('text_comment'));
+                        } else {
+                            $this->model_extension_payment_laybuy->log('Lay-Buy');
+                        }
 
-						$this->model_extension_payment_laybuy->log('Response: ' . print_r($response, true));
+                        $this->session->data['order_id'] = $order_id;
 
-						$revised_transaction_id = $response['MERCHANTS_REF_NO'];
+                        $transaction_report              = $this->model_extension_payment_laybuy->prepareTransactionReport($response);
+                        $transaction_report['order_id']  = $order_id;
 
-						$revised_transaction = $this->model_extension_payment_laybuy->getRevisedTransaction($revised_transaction_id);
+                        $this->model_extension_payment_laybuy->addTransaction($transaction_report, $status);
 
-						$this->model_extension_payment_laybuy->log('Revised transaction: ' . print_r($revised_transaction, true));
+                        $old_transaction = $this->model_extension_payment_laybuy->getTransaction($revised_transaction['laybuy_transaction_id']);
+                        $report_content  = json_decode($old_transaction['report'], true);
 
-						$status = 1;
+                        foreach ($report_content as &$array) {
+                            $array['status'] = str_replace('Pending', 'Canceled', $array['status']);
+                        }
 
-						$current_date = date('Y-m-d h:i:s');
+                        $report_content = json_encode($report_content);
 
-						if (!isset($response['DOWNPAYMENT']) && !$revised_transaction['payment_type']) {
-							$this->model_extension_payment_laybuy->log('Buy-Now');
+                        if ($old_transaction['paypal_profile_id']) {
+                            $this->model_extension_payment_laybuy->log('Canceling transaction');
 
-							$response['DOWNPAYMENT'] = 100;
-							$response['MONTHS'] = 0;
-							$response['DOWNPAYMENT_AMOUNT'] = $response['AMOUNT'];
-							$response['PAYMENT_AMOUNTS'] = 0;
-							$response['FIRST_PAYMENT_DUE'] = $current_date;
-							$response['LAST_PAYMENT_DUE'] = $current_date;
-							$response['PAYPAL_PROFILE_ID'] = '';
+                            $data_string = 'mid=' . $this->config->get('payment_laybuys_membership_id') . '&' . 'paypal_profile_id=' . $old_transaction['paypal_profile_id'];
 
-							$status = 5;
+                            $this->model_extension_payment_laybuy->log('Data String: ' . $data_string);
 
-							$this->model_checkout_order->addOrderHistory($order_id, $this->config->get('payment_laybuy_order_status_id_processing'), $this->language->get('text_comment'));
-						} else {
-							$this->model_extension_payment_laybuy->log('Lay-Buy');
-						}
+                            $ch  = curl_init();
 
-						$this->session->data['order_id'] = $order_id;
+                            $url    = 'https://lay-buys.com/vtmob/deal5cancel.php';
 
-						$transaction_report = $this->model_extension_payment_laybuy->prepareTransactionReport($response);
+                            curl_setopt($ch, CURLOPT_URL, $url);
+                            curl_setopt($ch, CURLOPT_POST, true);
+                            curl_setopt($ch, CURLOPT_POSTFIELDS, $data_string);
+                            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+                            curl_setopt($ch, CURLOPT_HEADER, false);
+                            curl_setopt($ch, CURLOPT_TIMEOUT, 30);
+                            curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
 
-						$transaction_report['order_id'] = $order_id;
+                            $result = curl_exec($ch);
 
-						$this->model_extension_payment_laybuy->addTransaction($transaction_report, $status);
+                            if (curl_errno($ch)) {
+                                $this->model_extension_payment_laybuy->log('cURL error: ' . curl_errno($ch));
+                            }
 
-						$old_transaction = $this->model_extension_payment_laybuy->getTransaction($revised_transaction['laybuy_transaction_id']);
+                            curl_close($ch);
 
-						$report_content = json_decode($old_transaction['report'], true);
+                            $this->model_extension_payment_laybuy->log('Response: ' . $result);
 
-						foreach ($report_content as &$array) {
-							$array['status'] = str_replace('Pending', 'Canceled', $array['status']);
-						}
+                            if ($result == 'success') {
+                                $this->model_extension_payment_laybuy->log('Success');
+                            } else {
+                                $this->model_extension_payment_laybuy->log('Failure');
+                            }
+                        } else {
+                            $this->model_extension_payment_laybuy->log('Transaction has no paypal_profile_id');
+                        }
 
-						$report_content = json_encode($report_content);
+                        $this->model_extension_payment_laybuy->updateTransaction($old_transaction['laybuy_transaction_id'], '51', $report_content, $old_transaction['transaction']);
+                        $this->model_extension_payment_laybuy->deleteRevisedTransaction($revised_transaction['laybuy_revise_request_id']);
 
-						if ($old_transaction['paypal_profile_id']) {
-							$this->model_extension_payment_laybuy->log('Canceling transaction');
+                        $this->response->redirect($this->url->link('checkout/success', '', true));
+                    } else {
+                        $this->model_extension_payment_laybuy->log('No matching order. Redirecting to checkout/failure.');
 
-							$data_string = 'mid=' . $this->config->get('payment_laybuys_membership_id') . '&' . 'paypal_profile_id=' . $old_transaction['paypal_profile_id'];
+                        $this->response->redirect($this->url->link('checkout/failure', '', true));
+                    }
+                } else {
+                    $this->model_extension_payment_laybuy->log('Token does not match. Redirecting to checkout/failure.');
 
-							$this->model_extension_payment_laybuy->log('Data String: ' . $data_string);
+                    $this->response->redirect($this->url->link('checkout/failure', '', true));
+                }
+            } else {
+                $this->model_extension_payment_laybuy->log('No success response');
 
-							$ch = curl_init();
-							
-							$url = 'https://lay-buys.com/vtmob/deal5cancel.php';
-							
-							curl_setopt($ch, CURLOPT_URL, $url);
-							curl_setopt($ch, CURLOPT_POST, true);
-							curl_setopt($ch, CURLOPT_POSTFIELDS, $data_string);
-							curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-							curl_setopt($ch, CURLOPT_HEADER, false);
-							curl_setopt($ch, CURLOPT_TIMEOUT, 30);
-							curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
-							
-							$result = curl_exec($ch);
-							
-							if (curl_errno($ch)) {
-								$this->model_extension_payment_laybuy->log('cURL error: ' . curl_errno($ch));
-							}
-							
-							curl_close($ch);
+                $this->response->redirect($this->url->link('checkout/failure', '', true));
+            }
+        } else {
+            $this->model_extension_payment_laybuy->log('No $_POST data');
 
-							$this->model_extension_payment_laybuy->log('Response: ' . $result);
+            $this->response->redirect($this->url->link('checkout/failure', '', true));
+        }
+    }
 
-							if ($result == 'success') {
-								$this->model_extension_payment_laybuy->log('Success');
-							} else {
-								$this->model_extension_payment_laybuy->log('Failure');
-							}
-						} else {
-							$this->model_extension_payment_laybuy->log('Transaction has no paypal_profile_id');
-						}
+    public function reviseCancel(): void {
+        $this->load->model('extension/payment/laybuy');
 
-						$this->model_extension_payment_laybuy->updateTransaction($old_transaction['laybuy_transaction_id'], '51', $report_content, $old_transaction['transaction']);
-						$this->model_extension_payment_laybuy->deleteRevisedTransaction($revised_transaction['laybuy_revise_request_id']);
+        $this->model_extension_payment_laybuy->log('Revise canceled. Redirecting to checkout/checkout.');
 
-						$this->response->redirect($this->url->link('checkout/success', '', true));
-					} else {
-						$this->model_extension_payment_laybuy->log('No matching order. Redirecting to checkout/failure.');
+        $this->response->redirect($this->url->link('checkout/checkout', '', true));
+    }
 
-						$this->response->redirect($this->url->link('checkout/failure', '', true));
-					}
-				} else {
-					$this->model_extension_payment_laybuy->log('Token does not match. Redirecting to checkout/failure.');
+    public function deleteOrder(string $route = '', string $output = '', int $order_id = 0, int $order_status_id = 0): void {
+        $this->load->model('extension/payment/laybuy');
 
-					$this->response->redirect($this->url->link('checkout/failure', '', true));
-				}
-			} else {
-				$this->model_extension_payment_laybuy->log('No success response');
+        if (isset($this->session->data['api_id'])) {
+            $this->model_extension_payment_laybuy->log('Deleting order #' . $order_id);
+            $this->model_extension_payment_laybuy->deleteTransactionByOrderId($order_id);
+        } else {
+            $this->model_extension_payment_laybuy->log('No API ID in session');
+        }
+    }
 
-				$this->response->redirect($this->url->link('checkout/failure', '', true));
-			}
-		} else {
-			$this->model_extension_payment_laybuy->log('No $_POST data');
+    public function cron(): void {
+        $this->load->language('extension/payment/laybuy');
 
-			$this->response->redirect($this->url->link('checkout/failure', '', true));
-		}
-	}
+        $this->load->model('extension/payment/laybuy');
 
-	public function reviseCancel(): void {
-		$this->load->model('extension/payment/laybuy');
+        $this->model_extension_payment_laybuy->log('Running cron');
 
-		$this->model_extension_payment_laybuy->log('Revise canceled. Redirecting to checkout/checkout.');
+        if (isset($this->request->get['token']) && hash_equals($this->config->get('payment_laybuy_token'), $this->request->get['token'])) {
+            $paypal_profile_id_array = $this->model_extension_payment_laybuy->getPayPalProfileIds();
 
-		$this->response->redirect($this->url->link('checkout/checkout', '', true));
-	}
+            if ($paypal_profile_id_array) {
+                $paypal_profile_ids = '';
 
-	public function deleteOrder(string $route = '', string $output = '', int $order_id = 0, int $order_status_id = 0): void {
-		$this->load->model('extension/payment/laybuy');
+                foreach ($paypal_profile_id_array as $profile_id) {
+                    $paypal_profile_ids .= $profile_id['paypal_profile_id'] . ',';
+                }
 
-		if (isset($this->session->data['api_id'])) {
-			$this->model_extension_payment_laybuy->log('Deleting order #' . $order_id);
-			$this->model_extension_payment_laybuy->deleteTransactionByOrderId($order_id);
-		} else {
-			$this->model_extension_payment_laybuy->log('No API ID in session');
-		}
-	}
+                $paypal_profile_ids = rtrim($paypal_profile_ids, ',');
 
-	public function cron(): void {
-		$this->load->language('extension/payment/laybuy');
-		
-		$this->load->model('extension/payment/laybuy');
+                $data_string = 'mid=' . $this->config->get('payment_laybuys_membership_id') . '&' . 'profileIds=' . $paypal_profile_ids;
 
-		$this->model_extension_payment_laybuy->log('Running cron');
+                $this->model_extension_payment_laybuy->log('Data String: ' . $data_string);
+                $this->model_extension_payment_laybuy->log('API URL: ' . $this->config->get('payment_laybuy_api_url'));
 
-		if (isset($this->request->get['token']) && hash_equals($this->config->get('payment_laybuy_token'), $this->request->get['token'])) {
-			$paypal_profile_id_array = $this->model_extension_payment_laybuy->getPayPalProfileIds();
+                $ch      = curl_init();
 
-			if ($paypal_profile_id_array) {
-				$paypal_profile_ids = '';
+                curl_setopt($ch, CURLOPT_URL, $this->config->get('payment_laybuy_api_url'));
+                curl_setopt($ch, CURLOPT_POST, true);
+                curl_setopt($ch, CURLOPT_POSTFIELDS, $data_string);
+                curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+                curl_setopt($ch, CURLOPT_HEADER, false);
+                curl_setopt($ch, CURLOPT_TIMEOUT, 30);
+                curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
 
-				foreach ($paypal_profile_id_array as $profile_id) {
-					$paypal_profile_ids .= $profile_id['paypal_profile_id'] . ',';
-				}
+                $result  = curl_exec($ch);
 
-				$paypal_profile_ids = rtrim($paypal_profile_ids, ',');
+                if (curl_errno($ch)) {
+                    $this->model_extension_payment_laybuy->log('cURL error: ' . curl_errno($ch));
+                }
 
-				$data_string = 'mid=' . $this->config->get('payment_laybuys_membership_id') . '&' . 'profileIds=' . $paypal_profile_ids;
+                curl_close($ch);
 
-				$this->model_extension_payment_laybuy->log('Data String: ' . $data_string);
-				$this->model_extension_payment_laybuy->log('API URL: ' . $this->config->get('payment_laybuy_api_url'));
+                $results = json_decode($result, true);
 
-				$ch = curl_init();
-				
-				curl_setopt($ch, CURLOPT_URL, $this->config->get('payment_laybuy_api_url'));
-				curl_setopt($ch, CURLOPT_POST, true);
-				curl_setopt($ch, CURLOPT_POSTFIELDS, $data_string);
-				curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-				curl_setopt($ch, CURLOPT_HEADER, false);
-				curl_setopt($ch, CURLOPT_TIMEOUT, 30);
-				curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
-				
-				$result = curl_exec($ch);
-				
-				if (curl_errno($ch)) {
-					$this->model_extension_payment_laybuy->log('cURL error: ' . curl_errno($ch));
-				}
-				
-				curl_close($ch);
+                $this->model_extension_payment_laybuy->log('Response: ' . print_r($results, true));
 
-				$results = json_decode($result, true);
+                if ($results) {
+                    $this->load->model('checkout/order');
 
-				$this->model_extension_payment_laybuy->log('Response: ' . print_r($results, true));
+                    foreach ($results as $laybuy_ref_id => $reports) {
+                        $status              = $reports['status'];
+                        $report              = $reports['report'];
+                        $transaction         = $this->model_extension_payment_laybuy->getTransactionByLayBuyRefId($laybuy_ref_id);
+                        $order_id            = (int)$transaction['order_id'];
+                        $paypal_profile_id   = $transaction['paypal_profile_id'];
+                        $months              = $transaction['months'];
+                        $report_content      = [];
+                        $pending_flag        = false;
+                        $next_payment_status = $this->language->get('text_status_1');
 
-				if ($results) {
-					$this->load->model('checkout/order');
+                        foreach ($report as $month => $payment) {
+                            $payment['paymentDate'] = date('Y-m-d h:i:s', strtotime(str_replace('/', '-', $payment['paymentDate'])));
+                            $date                   = date($this->language->get('date_format_short'), strtotime($payment['paymentDate']));
+                            $next_payment_date      = $payment['paymentDate'];
 
-					foreach ($results as $laybuy_ref_id => $reports) {
-						$status = $reports['status'];
+                            if ($payment['type'] == 'd') {
+                                $report_content[] = [
+                                    'instalment'  => 0,
+                                    'amount'      => $this->currency->format($payment['amount'], $transaction['currency']),
+                                    'date'        => $date,
+                                    'pp_trans_id' => $payment['txnID'],
+                                    'status'      => $payment['paymentStatus']
+                                ];
+                            } elseif ($payment['type'] == 'p') {
+                                $pending_flag = true;
 
-						$report = $reports['report'];
+                                $report_content[] = [
+                                    'instalment'  => $month,
+                                    'amount'      => $this->currency->format($payment['amount'], $transaction['currency']),
+                                    'date'        => $date,
+                                    'pp_trans_id' => $payment['txnID'],
+                                    'status'      => $payment['paymentStatus']
+                                ];
 
-						$transaction = $this->model_extension_payment_laybuy->getTransactionByLayBuyRefId($laybuy_ref_id);
+                                $next_payment_status = $payment['paymentStatus'];
+                            }
+                        }
 
-						$order_id = (int)$transaction['order_id'];
+                        if ($pending_flag) {
+                            $start_index = $month + 1;
+                        } else {
+                            $start_index = $month + 2;
+                        }
 
-						$paypal_profile_id = $transaction['paypal_profile_id'];
+                        if ($month < $months) {
+                            for ($month = 1; $month <= $months; $month++) {
+                                $next_payment_date = date('Y-m-d h:i:s', strtotime($next_payment_date . ' +1 month'));
+                                $date              = date($this->language->get('date_format_short'), strtotime($next_payment_date));
 
-						$months = $transaction['months'];
+                                $report_content[] = [
+                                    'instalment'  => $month,
+                                    'amount'      => $this->currency->format($transaction['payment_amounts'], $transaction['currency']),
+                                    'date'        => $date,
+                                    'pp_trans_id' => '',
+                                    'status'      => $next_payment_status
+                                ];
+                            }
+                        }
 
-						$report_content = array();
+                        $report_content = json_encode($report_content);
 
-						$pending_flag = false;
+                        switch ($status) {
+                            case -1: // Cancel
+                                $this->model_checkout_order->addOrderHistory($order_id, $this->config->get('payment_laybuy_order_status_id_canceled'), $this->language->get('text_comment'), false, false);
 
-						$next_payment_status = $this->language->get('text_status_1');
+                                $this->model_extension_payment_laybuy->updateTransaction($transaction['laybuy_transaction_id'], '7', $report_content, $start_index);
+                                $this->model_extension_payment_laybuy->log('Transaction #' . $transaction['laybuy_transaction_id'] . ' canceled');
+                                break;
+                            case 0: // Pending
+                                $this->model_extension_payment_laybuy->updateTransaction($transaction['laybuy_transaction_id'], $transaction['status'], $report_content, $start_index);
+                                $this->model_extension_payment_laybuy->log('Transaction #' . $transaction['laybuy_transaction_id'] . ' still pending');
+                                break;
+                            case 1: // Paid
+                                $this->model_checkout_order->addOrderHistory($order_id, $this->config->get('payment_laybuy_order_status_id_processing'), $this->language->get('text_comment'), false, false);
 
-						foreach ($report as $month => $payment) {
-							$payment['paymentDate'] = date('Y-m-d h:i:s', strtotime(str_replace('/', '-', $payment['paymentDate'])));
-							$date = date($this->language->get('date_format_short'), strtotime($payment['paymentDate']));
-							$next_payment_date = $payment['paymentDate'];
+                                $this->model_extension_payment_laybuy->updateTransaction($transaction['laybuy_transaction_id'], '5', $report_content, $start_index);
+                                $this->model_extension_payment_laybuy->log('Transaction #' . $transaction['laybuy_transaction_id'] . ' paid');
+                                break;
+                        }
+                    }
+                }
+            } else {
+                $this->model_extension_payment_laybuy->log('No PayPal Profile IDs to update');
+            }
 
-							if ($payment['type'] == 'd') {
-								$report_content[] = array(
-									'instalment'	=> 0,
-									'amount'		=> $this->currency->format($payment['amount'], $transaction['currency']),
-									'date'			=> $date,
-									'pp_trans_id'	=> $payment['txnID'],
-									'status'		=> $payment['paymentStatus']
-								);
-							} elseif ($payment['type'] == 'p') {
-								$pending_flag = true;
-
-								$report_content[] = array(
-									'instalment'	=> $month,
-									'amount'		=> $this->currency->format($payment['amount'], $transaction['currency']),
-									'date'			=> $date,
-									'pp_trans_id'	=> $payment['txnID'],
-									'status'		=> $payment['paymentStatus']
-								);
-
-								$next_payment_status = $payment['paymentStatus'];
-							}
-						}
-
-						if ($pending_flag) {
-							$start_index = $month + 1;
-						} else {
-							$start_index = $month + 2;
-						}
-
-						if ($month < $months) {
-							for ($month = 1; $month <= $months; $month++) {
-								$next_payment_date = date('Y-m-d h:i:s', strtotime($next_payment_date . ' +1 month'));
-								$date = date($this->language->get('date_format_short'), strtotime($next_payment_date));
-
-								$report_content[] = array(
-									'instalment'	=> $month,
-									'amount'		=> $this->currency->format($transaction['payment_amounts'], $transaction['currency']),
-									'date'			=> $date,
-									'pp_trans_id'	=> '',
-									'status'		=> $next_payment_status
-								);
-							}
-						}
-
-						$report_content = json_encode($report_content);
-
-						switch ($status) {
-							case -1: // Cancel
-								$this->model_checkout_order->addOrderHistory($order_id, $this->config->get('payment_laybuy_order_status_id_canceled'), $this->language->get('text_comment'), false, false);
-								$this->model_extension_payment_laybuy->updateTransaction($transaction['laybuy_transaction_id'], '7', $report_content, $start_index);
-								$this->model_extension_payment_laybuy->log('Transaction #' . $transaction['laybuy_transaction_id'] . ' canceled');																
-								break;
-							case 0: // Pending
-								$this->model_extension_payment_laybuy->updateTransaction($transaction['laybuy_transaction_id'], $transaction['status'], $report_content, $start_index);
-								$this->model_extension_payment_laybuy->log('Transaction #' . $transaction['laybuy_transaction_id'] . ' still pending');								
-								break;
-							case 1: // Paid
-								$this->model_checkout_order->addOrderHistory($order_id, $this->config->get('payment_laybuy_order_status_id_processing'), $this->language->get('text_comment'), false, false);
-								$this->model_extension_payment_laybuy->updateTransaction($transaction['laybuy_transaction_id'], '5', $report_content, $start_index);
-								$this->model_extension_payment_laybuy->log('Transaction #' . $transaction['laybuy_transaction_id'] . ' paid');																
-								break;
-						}
-					}
-				}
-			} else {
-				$this->model_extension_payment_laybuy->log('No PayPal Profile IDs to update');
-			}
-
-			$this->model_extension_payment_laybuy->updateCronRunTime();
-		} else {
-			$this->model_extension_payment_laybuy->log('Token does not match.');
-		}
-	}
+            $this->model_extension_payment_laybuy->updateCronRunTime();
+        } else {
+            $this->model_extension_payment_laybuy->log('Token does not match.');
+        }
+    }
 }
