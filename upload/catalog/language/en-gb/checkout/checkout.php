@@ -29,16 +29,16 @@ $_['text_address_existing']          = 'I want to use an existing address';
 $_['text_shipping_method']           = 'Please select the preferred shipping method to use on this order.';
 $_['text_payment_method']            = 'Please select the preferred payment method to use on this order.';
 $_['text_comment']                   = 'Add Comments About Your Order';
-$_['text_subscription']          	 = 'Subscription';
+$_['text_subscription']              = 'Subscription';
 $_['text_subscription_item']         = 'Recurring Item';
-$_['text_subscription_trial']    	 = '%s every %d %s(s) for %d payment(s) then ';
-$_['text_subscription_cancel']   	 = '%s every %d %s(s) until canceled';
-$_['text_subscription_duration'] 	 = '%s every %d %s(s) for %d payment(s)';
-$_['text_day']                   	 = 'day';
-$_['text_week']                  	 = 'week';
-$_['text_semi_month']            	 = 'half-month';
-$_['text_month']                 	 = 'month';
-$_['text_year']                  	 = 'year';
+$_['text_subscription_trial']        = '%s every %d %s(s) for %d payment(s) then ';
+$_['text_subscription_cancel']       = '%s every %d %s(s) until canceled';
+$_['text_subscription_duration']     = '%s every %d %s(s) for %d payment(s)';
+$_['text_day']                       = 'day';
+$_['text_week']                      = 'week';
+$_['text_semi_month']                = 'half-month';
+$_['text_month']                     = 'month';
+$_['text_year']                      = 'year';
 
 // Column
 $_['column_name']                    = 'Product Name';
@@ -68,7 +68,7 @@ $_['entry_newsletter']               = 'I wish to subscribe to the %s newsletter
 $_['entry_shipping']                 = 'My delivery and billing addresses are the same.';
 
 // Error
-$_['error_guest']             		 = 'Warning: Items in your shopping cart require you to register for an account!';
+$_['error_guest']                    = 'Warning: Items in your shopping cart require you to register for an account!';
 $_['error_login']                    = 'Warning: No match for E-Mail Address and/or Password.';
 $_['error_attempts']                 = 'Warning: Your account has exceeded allowed number of login attempts. Please try again in 1 hour.';
 $_['error_approved']                 = 'Warning: Your account requires approval before you can login.';
@@ -92,4 +92,4 @@ $_['error_postcode']                 = 'Postcode must be between 2 and 10 charac
 $_['error_country']                  = 'Please select a country!';
 $_['error_zone']                     = 'Please select a region / state!';
 $_['error_custom_field']             = '%s required!';
-$_['error_regex']        			 = '%s is not a valid input!';
+$_['error_regex']                    = '%s is not a valid input!';

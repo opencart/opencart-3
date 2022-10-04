@@ -1,6 +1,8 @@
 <?php
-// Text
+// Heading
 $_['text_title']                               = 'EC-Ship';
+
+// Text
 $_['text_weight']                              = 'Weight:';
 $_['text_air_registered_mail']                 = 'Air Registered Mail';
 $_['text_air_parcel']                          = 'Air Parcel';
@@ -14,6 +16,4 @@ $_['text_speed_post']                          = 'SpeedPost (Standard Service)';
 $_['text_smart_post']                          = 'Smart Post';
 $_['text_local_courier_post']                  = 'Local Courier Post (Counter Collection)';
 $_['text_local_parcel']                        = 'Local Parcel';
-
-// Error
 $_['text_unavailable']                         = 'No shipping service available';

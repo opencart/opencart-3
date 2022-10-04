@@ -11,8 +11,12 @@ $_['text_amount_payable']      = 'Total payable';
 $_['text_total_interest']      = 'Total interest APR';
 $_['text_monthly_installment'] = 'Monthly installment';
 $_['text_redirection']         = 'You will be redirected to Divido to complete this finance application when you confirm your order';
+$_['text_divido']              = 'Divido';
+
+// Divido
 $_['divido_checkout']          = 'Confirm and checkout with Divido';
 $_['deposit_to_low']           = 'Deposit to low';
 $_['credit_amount_to_low']     = 'Credit amount to low';
+
+// Error
 $_['no_country']               = 'Country not accepted';
-$_['text_divido']              = 'Divido';

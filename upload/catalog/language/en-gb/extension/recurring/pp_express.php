@@ -1,6 +1,8 @@
 <?php
-// Text
+// Heading
 $_['text_title']          = 'PayPal Express Checkout';
+
+// Text
 $_['text_canceled']       = 'Success: You have succesfully caneled this payment!';
 
 // Button

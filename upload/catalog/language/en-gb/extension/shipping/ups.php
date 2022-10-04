@@ -1,6 +1,8 @@
 <?php
-// Text
+// Heading
 $_['text_title']           = 'United Parcel Service';
+
+// Text
 $_['text_weight']          = 'Weight:';
 $_['text_us_origin_01']    = 'UPS Next Day Air';
 $_['text_us_origin_02']    = 'UPS 2nd Day Air';

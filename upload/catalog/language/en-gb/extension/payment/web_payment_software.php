@@ -1,6 +1,8 @@
 <?php
-// Text
+// Heading
 $_['text_title']           = 'Credit Card / Debit Card (Web Payment Software)';
+
+// Text
 $_['text_credit_card']     = 'Credit Card Details';
 
 // Entry

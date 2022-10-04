@@ -3,8 +3,8 @@
 $_['heading_title']      = 'Address Book';
 
 // Column
-$_['column_address']	 = 'Address';
-$_['column_action']		 = 'Action';
+$_['column_address']     = 'Address';
+$_['column_action']      = 'Action';
 
 // Text
 $_['text_account']       = 'Account';

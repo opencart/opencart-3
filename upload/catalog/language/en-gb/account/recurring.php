@@ -44,9 +44,9 @@ $_['column_status']                        = 'Status';
 $_['column_product']                       = 'Product';
 $_['column_order_recurring_id']            = 'Recurring ID';
 
+// Button
+$_['button_return']                        = 'Return';
+
 // Error
 $_['error_not_cancelled']                  = 'Error: %s';
 $_['error_not_found']                      = 'Could not cancel recurring';
-
-// Button
-$_['button_return']                        = 'Return';
