@@ -26,7 +26,7 @@ class ControllerAccountVoucher extends Controller {
             $this->response->redirect($this->url->link('account/voucher/success'));
         }
 
-        $data['breadcrumbs'] = [];
+        $data['breadcrumbs']   = [];
 
         $data['breadcrumbs'][] = [
             'text' => $this->language->get('text_home'),

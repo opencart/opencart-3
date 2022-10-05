@@ -7,7 +7,7 @@ class ControllerProductManufacturer extends Controller {
 
         $this->document->setTitle($this->language->get('heading_title'));
 
-        $data['breadcrumbs'] = [];
+        $data['breadcrumbs']   = [];
 
         $data['breadcrumbs'][] = [
             'text' => $this->language->get('text_home'),
@@ -89,7 +89,7 @@ class ControllerProductManufacturer extends Controller {
             $limit = (int)$this->config->get('theme_' . $this->config->get('config_theme') . '_product_limit');
         }
 
-        $data['breadcrumbs'] = [];
+        $data['breadcrumbs']   = [];
 
         $data['breadcrumbs'][] = [
             'text' => $this->language->get('text_home'),
@@ -270,7 +270,7 @@ class ControllerProductManufacturer extends Controller {
 
             $data['limits'] = [];
 
-            $limits = array_unique([
+            $limits         = array_unique([
                 $this->config->get('theme_' . $this->config->get('config_theme') . '_product_limit'),
                 25,
                 50,
@@ -326,11 +326,11 @@ class ControllerProductManufacturer extends Controller {
                 $this->document->addLink($this->url->link('product/manufacturer/info', 'manufacturer_id=' . $this->request->get['manufacturer_id'] . '&page=' . ($page + 1)), 'next');
             }
 
-            $data['sort']  = $sort;
-            $data['order'] = $order;
-            $data['limit'] = $limit;
+            $data['sort']           = $sort;
+            $data['order']          = $order;
+            $data['limit']          = $limit;
 
-            $data['continue'] = $this->url->link('common/home');
+            $data['continue']       = $this->url->link('common/home');
 
             $data['column_left']    = $this->load->controller('common/column_left');
             $data['column_right']   = $this->load->controller('common/column_right');

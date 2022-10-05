@@ -23,7 +23,7 @@ class ControllerAccountPassword extends Controller {
             $this->response->redirect($this->url->link('account/account', 'customer_token=' . $this->session->data['customer_token'], true));
         }
 
-        $data['breadcrumbs'] = [];
+        $data['breadcrumbs']   = [];
 
         $data['breadcrumbs'][] = [
             'text' => $this->language->get('text_home'),

@@ -35,7 +35,7 @@ class ControllerAccountRegister extends Controller {
             $this->response->redirect($this->url->link('account/success', 'customer_token=' . $this->session->data['customer_token']));
         }
 
-        $data['breadcrumbs'] = [];
+        $data['breadcrumbs']   = [];
 
         $data['breadcrumbs'][] = [
             'text' => $this->language->get('text_home'),

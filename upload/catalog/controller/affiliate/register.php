@@ -32,7 +32,7 @@ class ControllerAffiliateRegister extends Controller {
             $this->response->redirect($this->url->link('affiliate/success'));
         }
 
-        $data['breadcrumbs'] = [];
+        $data['breadcrumbs']   = [];
 
         $data['breadcrumbs'][] = [
             'text' => $this->language->get('text_home'),

@@ -136,7 +136,7 @@ class ControllerAccountAddress extends Controller {
 
             $this->session->data['success'] = $this->language->get('text_delete');
 
-            $json['success'] = str_replace('&amp;', '&', $this->url->link('account/address', 'customer_token=' . $this->session->data['customer_token'], true));
+            $json['success']                = str_replace('&amp;', '&', $this->url->link('account/address', 'customer_token=' . $this->session->data['customer_token'], true));
         }
 
         $this->response->addHeader('Content-Type: application/json');
@@ -171,7 +171,7 @@ class ControllerAccountAddress extends Controller {
 
         $data['addresses'] = [];
 
-        $results = $this->model_account_address->getAddresses();
+        $results           = $this->model_account_address->getAddresses();
 
         foreach ($results as $result) {
             $data['addresses'][] = [
@@ -198,7 +198,7 @@ class ControllerAccountAddress extends Controller {
     }
 
     protected function getForm() {
-        $data['breadcrumbs'] = [];
+        $data['breadcrumbs']   = [];
 
         $data['breadcrumbs'][] = [
             'text' => $this->language->get('text_home'),

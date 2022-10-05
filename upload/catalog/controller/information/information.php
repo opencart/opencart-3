@@ -6,7 +6,7 @@ class ControllerInformationInformation extends Controller {
 
         $this->load->model('catalog/information');
 
-        $data['breadcrumbs'] = [];
+        $data['breadcrumbs']   = [];
 
         $data['breadcrumbs'][] = [
             'text' => $this->language->get('text_home'),

@@ -37,7 +37,7 @@ class ControllerProductCategory extends Controller {
             $limit = $this->config->get('theme_' . $this->config->get('config_theme') . '_product_limit');
         }
 
-        $data['breadcrumbs'] = [];
+        $data['breadcrumbs']   = [];
 
         $data['breadcrumbs'][] = [
             'text' => $this->language->get('text_home'),
@@ -210,7 +210,7 @@ class ControllerProductCategory extends Controller {
                 $url .= '&limit=' . $this->request->get['limit'];
             }
 
-            $data['sorts'] = [];
+            $data['sorts']   = [];
 
             $data['sorts'][] = [
                 'text'  => $this->language->get('text_default'),

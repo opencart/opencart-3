@@ -21,7 +21,7 @@ class ControllerAccountForgotten extends Controller {
             $this->response->redirect($this->url->link('account/login', '', true));
         }
 
-        $data['breadcrumbs'] = [];
+        $data['breadcrumbs']   = [];
 
         $data['breadcrumbs'][] = [
             'text' => $this->language->get('text_home'),

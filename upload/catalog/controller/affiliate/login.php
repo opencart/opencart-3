@@ -22,7 +22,7 @@ class ControllerAffiliateLogin extends Controller {
             }
         }
 
-        $data['breadcrumbs'] = [];
+        $data['breadcrumbs']   = [];
 
         $data['breadcrumbs'][] = [
             'text' => $this->language->get('text_home'),

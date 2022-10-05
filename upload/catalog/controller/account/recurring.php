@@ -17,7 +17,7 @@ class ControllerAccountRecurring extends Controller {
             $url .= '&page=' . $this->request->get['page'];
         }
 
-        $data['breadcrumbs'] = [];
+        $data['breadcrumbs']   = [];
 
         $data['breadcrumbs'][] = [
             'text' => $this->language->get('text_home'),

@@ -32,8 +32,7 @@ class ControllerProductSpecial extends Controller {
 
         $this->document->setTitle($this->language->get('heading_title'));
 
-        $data['breadcrumbs'] = [];
-
+        $data['breadcrumbs']   = [];
         $data['breadcrumbs'][] = [
             'text' => $this->language->get('text_home'),
             'href' => $this->url->link('common/home')
@@ -131,7 +130,7 @@ class ControllerProductSpecial extends Controller {
             $url .= '&limit=' . $this->request->get['limit'];
         }
 
-        $data['sorts'] = [];
+        $data['sorts']   = [];
 
         $data['sorts'][] = [
             'text'  => $this->language->get('text_default'),
