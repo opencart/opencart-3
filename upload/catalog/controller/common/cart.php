@@ -55,6 +55,17 @@ class ControllerCommonCart extends Controller {
         $data['products'] = [];
 
         foreach ($this->cart->getProducts() as $product) {
+            // Display prices
+            if ($this->customer->isLogged() || !$this->config->get('config_customer_price')) {
+                $unit_price = (float)$this->tax->calculate($product['price'], $product['tax_class_id'], $this->config->get('config_tax'));
+
+                $price      = $this->currency->format($unit_price, $this->session->data['currency']);
+                $total      = $this->currency->format($unit_price * $product['quantity'], $this->session->data['currency']);
+            } else {
+                $price = false;
+                $total = false;
+            }
+
             if ($product['image']) {
                 $image = $this->model_tool_image->resize($product['image'], $this->config->get('theme_' . $this->config->get('config_theme') . '_image_cart_width'), $this->config->get('theme_' . $this->config->get('config_theme') . '_image_cart_height'));
             } else {
@@ -81,17 +92,6 @@ class ControllerCommonCart extends Controller {
                     'value' => (utf8_strlen($value) > 20 ? utf8_substr($value, 0, 20) . '..' : $value),
                     'type'  => $option['type']
                 ];
-            }
-
-            // Display prices
-            if ($this->customer->isLogged() || !$this->config->get('config_customer_price')) {
-                $unit_price = $this->tax->calculate($product['price'], $product['tax_class_id'], $this->config->get('config_tax'));
-
-                $price = $this->currency->format($unit_price, $this->session->data['currency']);
-                $total = $this->currency->format($unit_price * $product['quantity'], $this->session->data['currency']);
-            } else {
-                $price = false;
-                $total = false;
             }
 
             // Subscription
