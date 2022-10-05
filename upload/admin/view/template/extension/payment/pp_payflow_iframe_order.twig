@@ -34,32 +34,34 @@
   <tr>
     <td>{{ entry_transactions }}</td>
     <td>
-      <table id="transaction-table" class="table table-striped table-bordered">
-        <thead>
-          <tr>
-            <td class="text-left">{{ column_transaction_id }}</td>
-            <td class="text-left">{{ column_transaction_type }}</td>
-            <td class="text-left">{{ column_amount }}</td>
-            <td class="text-left">{{ column_time }}</td>
-            <td class="text-left">{{ column_actions }}</td>
-          </tr>
-        </thead>
-        <tbody>
-          {% for transaction in transactions %}
+      <div class="table-responsive">
+        <table id="transaction-table" class="table table-striped table-bordered table-hover">
+          <thead>
             <tr>
-              <td class="text-left">{{ transaction.transaction_reference }}</td>
-              <td class="text-left">{{ transaction.transaction_type }}</td>
-              <td class="text-left">{{ transaction.amount|number_format(2) }}</td>
-              <td class="text-left">{{ transaction.time }}</td>
-              <td class="text-left">
-                {% for action in transaction.actions %}
-                  [<a href="{{ action.href }}">{{ action.title }}</a>]
-                {% endfor %}
-              </td>
+              <td class="text-left">{{ column_transaction_id }}</td>
+              <td class="text-left">{{ column_transaction_type }}</td>
+              <td class="text-left">{{ column_amount }}</td>
+              <td class="text-left">{{ column_time }}</td>
+              <td class="text-left">{{ column_actions }}</td>
             </tr>
-          {% endfor %}
-        </tbody>
-      </table>
+          </thead>
+          <tbody>
+            {% for transaction in transactions %}
+              <tr>
+                <td class="text-left">{{ transaction.transaction_reference }}</td>
+                <td class="text-left">{{ transaction.transaction_type }}</td>
+                <td class="text-left">{{ transaction.amount|number_format(2) }}</td>
+                <td class="text-left">{{ transaction.time }}</td>
+                <td class="text-left">
+                  {% for action in transaction.actions %}
+                    [<a href="{{ action.href }}">{{ action.title }}</a>]
+                  {% endfor %}
+                </td>
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
     </td>
   </tr>
 </table>

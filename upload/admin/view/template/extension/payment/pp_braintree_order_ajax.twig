@@ -64,25 +64,27 @@
   </tr>
 {% endif %}
   <tr>
-	<td>{{ column_transaction_history }}</td>
-	<td>
-		<table class="table table-bordered">
-		  <thead>
-			  <tr>
-				  <td class="text-left">{{ column_date }}</td>
-					<td class="text-left">{{ column_status }}</td>
-				</tr>
-		  </thead>
-		  <tbody>
-				{% for status in statuses %}
-					<tr>
-						<td>{{ status.date_added }}</td>
-						<td>{{ status.status }}</td>
-					</tr>
-				{% endfor %}
-		  </tbody>
-		</table>
-	</td>
+		<td>{{ column_transaction_history }}</td>
+		<td>
+			<div class="table-responsive">
+				<table class="table table-bordered table-hover">
+					<thead>
+						<tr>
+							<td class="text-left">{{ column_date }}</td>
+							<td class="text-left">{{ column_status }}</td>
+						</tr>
+					</thead>
+					<tbody>
+						{% for status in statuses %}
+							<tr>
+								<td>{{ status.date_added }}</td>
+								<td>{{ status.status }}</td>
+							</tr>
+						{% endfor %}
+					</tbody>
+				</table>
+			</div>
+		</td>
   </tr>
   <tr>
 	<td>{{ column_refund_history }}</td>

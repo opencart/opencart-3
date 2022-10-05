@@ -38,26 +38,28 @@
   <tr>
     <td>{{ column_customer_details }}</td>
     <td>
-      <table class="table table-bordered">
-        <thead>
-					<tr>
-						<td>{{ column_billing_address }}</td>
-						<td>{{ column_shipping_address }}</td>
-					</tr>
-        </thead>
-				<tbody>
-					<tr>
-						<td>{{ transaction.billing_address_formatted }}</td>
-						<td>{{ transaction.shipping_address_formatted }}</td>
-					</tr>
-					{% if address_action %}
+      <div class="table-responsive">
+        <table class="table table-bordered table-hover">
+          <thead>
             <tr>
-              <td><a class="btn btn-primary" data-toggle="modal" data-target="#billing_address">{{ button_edit }}</a></td>
-              <td><a class="btn btn-primary" data-toggle="modal" data-target="#shipping_address">{{ button_edit }}</a></td>
+              <td>{{ column_billing_address }}</td>
+              <td>{{ column_shipping_address }}</td>
             </tr>
-					{% endif %}
-				</tbody>
-      </table>
+          </thead>
+          <tbody>
+            <tr>
+              <td>{{ transaction.billing_address_formatted }}</td>
+              <td>{{ transaction.shipping_address_formatted }}</td>
+            </tr>
+            {% if address_action %}
+              <tr>
+                <td><a class="btn btn-primary" data-toggle="modal" data-target="#billing_address">{{ button_edit }}</a></td>
+                <td><a class="btn btn-primary" data-toggle="modal" data-target="#shipping_address">{{ button_edit }}</a></td>
+              </tr>
+            {% endif %}
+          </tbody>
+        </table>
+      </div>
     </td>
   </tr>
   <tr>

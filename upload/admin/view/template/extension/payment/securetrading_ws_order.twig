@@ -60,24 +60,26 @@
   <tr>
     <td>{{ text_transactions }}:</td>
     <td>
-      <table class="table table-bordered" id="securetrading_ws_transactions">
-        <thead>
-					<tr>
-						<td class="text-left"><strong>{{ text_column_created }}</strong></td>
-						<td class="text-left"><strong>{{ text_column_type }}</strong></td>
-						<td class="text-left"><strong>{{ text_column_amount }}</strong></td>
-					</tr>
-        </thead>
-        <tbody>
-					{% for transaction in securetrading_ws_order.transactions %}
-						<tr>
-							<td class="text-left">{{ transaction.created }}</td>
-							<td class="text-left">{{ transaction.type }}</td>
-							<td class="text-left">{{ transaction.amount }}</td>
-						</tr>
-					{% endfor %}
-        </tbody>
-      </table>
+      <div class="table-responsive">
+        <table class="table table-bordered table-hover" id="securetrading_ws_transactions">
+          <thead>
+            <tr>
+              <td class="text-left"><strong>{{ text_column_created }}</strong></td>
+              <td class="text-left"><strong>{{ text_column_type }}</strong></td>
+              <td class="text-left"><strong>{{ text_column_amount }}</strong></td>
+            </tr>
+          </thead>
+          <tbody>
+            {% for transaction in securetrading_ws_order.transactions %}
+              <tr>
+                <td class="text-left">{{ transaction.created }}</td>
+                <td class="text-left">{{ transaction.type }}</td>
+                <td class="text-left">{{ transaction.amount }}</td>
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
     </td>
   </tr>
 </table>

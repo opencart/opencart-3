@@ -64,38 +64,40 @@
                 </fieldset>
                 <fieldset>
                   <legend>{{ text_available }}</legend>
-                  <table class="table table-bordered">
-                    <thead>
-                      <th>{{ text_name }}</th>
-                      <th>{{ text_date_added }}</th>
-                      <th class="text-right">{{ text_action }}</th>
-                    </thead>
-                    <tbody>
-                      {% if downloads %}
-                        {% for download in downloads %}
+                  <div class="table-responsive">
+                    <table class="table table-bordered table-hover">
+                      <thead>
+                        <th>{{ text_name }}</th>
+                        <th>{{ text_date_added }}</th>
+                        <th class="text-right">{{ text_action }}</th>
+                      </thead>
+                      <tbody>
+                        {% if downloads %}
+                          {% for download in downloads %}
+                            <tr>
+                              <td>{{ download.name }}</td>
+                              <td>{{ download.date_added }}</td>
+                              <td class="text-right">
+                                {% if download.extension_install_id %}
+                                  <button type="button" data-install="{{ download.extension_download_id }}" data-uninstall="{{ download.extension_install_id }}" data-loading="{{ text_loading }}" class="btn btn-danger">
+                                    <i class="fa fa-trash-o"></i> {{ button_uninstall }}</button>
+                                {% elseif download.filename|slice(-10) == '.ocmod.zip' %}
+                                  <button type="button" data-install="{{ download.extension_download_id }}" data-uninstall="" data-loading="{{ text_loading }}" class="btn btn-primary"{% if not download.status %} disabled{% endif %}>
+                                    <i class="fa fa-download"></i> {{ button_install }}</button>
+                                {% else %}
+                                  <button type="button" data-install="{{ download.extension_download_id }}" data-uninstall="" data-loading="{{ text_loading }}" class="btn btn-primary"{% if not download.status %} disabled{% endif %}>
+                                    <i class="fa fa-download"></i> {{ button_download }}</button>
+                                {% endif %}</td>
+                            </tr>
+                          {% endfor %}
+                        {% else %}
                           <tr>
-                            <td>{{ download.name }}</td>
-                            <td>{{ download.date_added }}</td>
-                            <td class="text-right">
-                              {% if download.extension_install_id %}
-                                <button type="button" data-install="{{ download.extension_download_id }}" data-uninstall="{{ download.extension_install_id }}" data-loading="{{ text_loading }}" class="btn btn-danger">
-                                  <i class="fa fa-trash-o"></i> {{ button_uninstall }}</button>
-                              {% elseif download.filename|slice(-10) == '.ocmod.zip' %}
-                                <button type="button" data-install="{{ download.extension_download_id }}" data-uninstall="" data-loading="{{ text_loading }}" class="btn btn-primary"{% if not download.status %} disabled{% endif %}>
-                                  <i class="fa fa-download"></i> {{ button_install }}</button>
-                              {% else %}
-                                <button type="button" data-install="{{ download.extension_download_id }}" data-uninstall="" data-loading="{{ text_loading }}" class="btn btn-primary"{% if not download.status %} disabled{% endif %}>
-                                  <i class="fa fa-download"></i> {{ button_download }}</button>
-                              {% endif %}</td>
+                            <td colspan="3" class="text-center">{{ text_no_results }}</td>
                           </tr>
-                        {% endfor %}
-                      {% else %}
-                        <tr>
-                          <td colspan="3" class="text-center">{{ text_no_results }}</td>
-                        </tr>
-                      {% endif %}
-                    </tbody>
-                  </table>
+                        {% endif %}
+                      </tbody>
+                    </table>
+                  </div>
                 </fieldset>
               </div>
               <div id="tab-comment" class="tab-pane">
