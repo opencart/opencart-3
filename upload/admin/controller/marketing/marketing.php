@@ -213,7 +213,7 @@ class ControllerMarketingMarketing extends Controller {
             $url .= '&page=' . $this->request->get['page'];
         }
 
-        $data['breadcrumbs'] = [];
+        $data['breadcrumbs']   = [];
 
         $data['breadcrumbs'][] = [
             'text' => $this->language->get('text_home'),
@@ -225,8 +225,8 @@ class ControllerMarketingMarketing extends Controller {
             'href' => $this->url->link('marketing/marketing', 'user_token=' . $this->session->data['user_token'] . $url, true)
         ];
 
-        $data['add']    = $this->url->link('marketing/marketing/add', 'user_token=' . $this->session->data['user_token'] . $url, true);
-        $data['delete'] = $this->url->link('marketing/marketing/delete', 'user_token=' . $this->session->data['user_token'] . $url, true);
+        $data['add']        = $this->url->link('marketing/marketing/add', 'user_token=' . $this->session->data['user_token'] . $url, true);
+        $data['delete']     = $this->url->link('marketing/marketing/delete', 'user_token=' . $this->session->data['user_token'] . $url, true);
 
         $data['marketings'] = [];
 
@@ -242,7 +242,7 @@ class ControllerMarketingMarketing extends Controller {
 
         $marketing_total = $this->model_marketing_marketing->getTotalMarketings($filter_data);
 
-        $results = $this->model_marketing_marketing->getMarketings($filter_data);
+        $results         = $this->model_marketing_marketing->getMarketings($filter_data);
 
         foreach ($results as $result) {
             $data['marketings'][] = [
@@ -328,26 +328,25 @@ class ControllerMarketingMarketing extends Controller {
             $url .= '&order=' . $this->request->get['order'];
         }
 
-        $pagination        = new \Pagination();
-        $pagination->total = $marketing_total;
-        $pagination->page  = $page;
-        $pagination->limit = $this->config->get('config_limit_admin');
-        $pagination->url   = $this->url->link('marketing/marketing', 'user_token=' . $this->session->data['user_token'] . $url . '&page={page}', true);
+        $pagination                = new \Pagination();
+        $pagination->total         = $marketing_total;
+        $pagination->page          = $page;
+        $pagination->limit         = $this->config->get('config_limit_admin');
+        $pagination->url           = $this->url->link('marketing/marketing', 'user_token=' . $this->session->data['user_token'] . $url . '&page={page}', true);
 
-        $data['pagination'] = $pagination->render();
-
-        $data['results'] = sprintf($this->language->get('text_pagination'), ($marketing_total) ? (($page - 1) * $this->config->get('config_limit_admin')) + 1 : 0, ((($page - 1) * $this->config->get('config_limit_admin')) > ($marketing_total - $this->config->get('config_limit_admin'))) ? $marketing_total : ((($page - 1) * $this->config->get('config_limit_admin')) + $this->config->get('config_limit_admin')), $marketing_total, ceil($marketing_total / $this->config->get('config_limit_admin')));
+        $data['pagination']        = $pagination->render();
+        $data['results']           = sprintf($this->language->get('text_pagination'), ($marketing_total) ? (($page - 1) * $this->config->get('config_limit_admin')) + 1 : 0, ((($page - 1) * $this->config->get('config_limit_admin')) > ($marketing_total - $this->config->get('config_limit_admin'))) ? $marketing_total : ((($page - 1) * $this->config->get('config_limit_admin')) + $this->config->get('config_limit_admin')), $marketing_total, ceil($marketing_total / $this->config->get('config_limit_admin')));
 
         $data['filter_name']       = $filter_name;
         $data['filter_code']       = $filter_code;
         $data['filter_date_added'] = $filter_date_added;
 
-        $data['sort']  = $sort;
-        $data['order'] = $order;
+        $data['sort']              = $sort;
+        $data['order']             = $order;
 
-        $data['header']      = $this->load->controller('common/header');
-        $data['column_left'] = $this->load->controller('common/column_left');
-        $data['footer']      = $this->load->controller('common/footer');
+        $data['header']            = $this->load->controller('common/header');
+        $data['column_left']       = $this->load->controller('common/column_left');
+        $data['footer']            = $this->load->controller('common/footer');
 
         $this->response->setOutput($this->load->view('marketing/marketing_list', $data));
     }
@@ -399,7 +398,7 @@ class ControllerMarketingMarketing extends Controller {
             $url .= '&page=' . $this->request->get['page'];
         }
 
-        $data['breadcrumbs'] = [];
+        $data['breadcrumbs']   = [];
 
         $data['breadcrumbs'][] = [
             'text' => $this->language->get('text_home'),
@@ -425,7 +424,7 @@ class ControllerMarketingMarketing extends Controller {
 
         $data['user_token'] = $this->session->data['user_token'];
 
-        $data['store'] = HTTP_CATALOG;
+        $data['store']      = HTTP_CATALOG;
 
         if (isset($this->request->post['name'])) {
             $data['name'] = $this->request->post['name'];

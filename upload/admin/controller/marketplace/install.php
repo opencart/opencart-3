@@ -228,7 +228,6 @@ class ControllerMarketplaceInstall extends Controller {
 
         if (!$json) {
             $json['text'] = $this->language->get('text_xml');
-
             $json['next'] = str_replace('&amp;', '&', $this->url->link('marketplace/install/xml', 'user_token=' . $this->session->data['user_token'] . '&extension_install_id=' . $extension_install_id, true));
         }
 
@@ -341,7 +340,6 @@ class ControllerMarketplaceInstall extends Controller {
 
         if (!$json) {
             $json['text'] = $this->language->get('text_remove');
-
             $json['next'] = str_replace('&amp;', '&', $this->url->link('marketplace/install/remove', 'user_token=' . $this->session->data['user_token'], true));
         }
 
@@ -464,7 +462,7 @@ class ControllerMarketplaceInstall extends Controller {
                     // Get a list of files ready to upload
                     $files = [];
 
-                    $path = [$source];
+                    $path  = [$source];
 
                     while (count($path) != 0) {
                         $next = array_shift($path);

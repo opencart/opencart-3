@@ -143,7 +143,7 @@ class ControllerLocalisationTaxClass extends Controller {
             $url .= '&page=' . $this->request->get['page'];
         }
 
-        $data['breadcrumbs'] = [];
+        $data['breadcrumbs']   = [];
 
         $data['breadcrumbs'][] = [
             'text' => $this->language->get('text_home'),
@@ -155,8 +155,8 @@ class ControllerLocalisationTaxClass extends Controller {
             'href' => $this->url->link('localisation/tax_class', 'user_token=' . $this->session->data['user_token'] . $url, true)
         ];
 
-        $data['add']    = $this->url->link('localisation/tax_class/add', 'user_token=' . $this->session->data['user_token'] . $url, true);
-        $data['delete'] = $this->url->link('localisation/tax_class/delete', 'user_token=' . $this->session->data['user_token'] . $url, true);
+        $data['add']         = $this->url->link('localisation/tax_class/add', 'user_token=' . $this->session->data['user_token'] . $url, true);
+        $data['delete']      = $this->url->link('localisation/tax_class/delete', 'user_token=' . $this->session->data['user_token'] . $url, true);
 
         $data['tax_classes'] = [];
 
@@ -213,7 +213,7 @@ class ControllerLocalisationTaxClass extends Controller {
 
         $data['sort_title'] = $this->url->link('localisation/tax_class', 'user_token=' . $this->session->data['user_token'] . '&sort=title' . $url, true);
 
-        $url = '';
+        $url                = '';
 
         if (isset($this->request->get['sort'])) {
             $url .= '&sort=' . $this->request->get['sort'];
@@ -223,18 +223,17 @@ class ControllerLocalisationTaxClass extends Controller {
             $url .= '&order=' . $this->request->get['order'];
         }
 
-        $pagination        = new \Pagination();
-        $pagination->total = $tax_class_total;
-        $pagination->page  = $page;
-        $pagination->limit = $this->config->get('config_limit_admin');
-        $pagination->url   = $this->url->link('localisation/tax_class', 'user_token=' . $this->session->data['user_token'] . $url . '&page={page}', true);
+        $pagination          = new \Pagination();
+        $pagination->total   = $tax_class_total;
+        $pagination->page    = $page;
+        $pagination->limit   = $this->config->get('config_limit_admin');
+        $pagination->url     = $this->url->link('localisation/tax_class', 'user_token=' . $this->session->data['user_token'] . $url . '&page={page}', true);
 
-        $data['pagination'] = $pagination->render();
+        $data['pagination']  = $pagination->render();
+        $data['results']     = sprintf($this->language->get('text_pagination'), ($tax_class_total) ? (($page - 1) * $this->config->get('config_limit_admin')) + 1 : 0, ((($page - 1) * $this->config->get('config_limit_admin')) > ($tax_class_total - $this->config->get('config_limit_admin'))) ? $tax_class_total : ((($page - 1) * $this->config->get('config_limit_admin')) + $this->config->get('config_limit_admin')), $tax_class_total, ceil($tax_class_total / $this->config->get('config_limit_admin')));
 
-        $data['results'] = sprintf($this->language->get('text_pagination'), ($tax_class_total) ? (($page - 1) * $this->config->get('config_limit_admin')) + 1 : 0, ((($page - 1) * $this->config->get('config_limit_admin')) > ($tax_class_total - $this->config->get('config_limit_admin'))) ? $tax_class_total : ((($page - 1) * $this->config->get('config_limit_admin')) + $this->config->get('config_limit_admin')), $tax_class_total, ceil($tax_class_total / $this->config->get('config_limit_admin')));
-
-        $data['sort']  = $sort;
-        $data['order'] = $order;
+        $data['sort']        = $sort;
+        $data['order']       = $order;
 
         $data['header']      = $this->load->controller('common/header');
         $data['column_left'] = $this->load->controller('common/column_left');
@@ -278,7 +277,7 @@ class ControllerLocalisationTaxClass extends Controller {
             $url .= '&page=' . $this->request->get['page'];
         }
 
-        $data['breadcrumbs'] = [];
+        $data['breadcrumbs']   = [];
 
         $data['breadcrumbs'][] = [
             'text' => $this->language->get('text_home'),
@@ -318,10 +317,6 @@ class ControllerLocalisationTaxClass extends Controller {
             $data['description'] = '';
         }
 
-        $this->load->model('localisation/tax_rate');
-
-        $data['tax_rates'] = $this->model_localisation_tax_rate->getTaxRates();
-
         if (isset($this->request->post['tax_rule'])) {
             $data['tax_rules'] = $this->request->post['tax_rule'];
         } elseif (isset($this->request->get['tax_class_id'])) {
@@ -329,6 +324,10 @@ class ControllerLocalisationTaxClass extends Controller {
         } else {
             $data['tax_rules'] = [];
         }
+
+        $this->load->model('localisation/tax_rate');
+
+        $data['tax_rates']   = $this->model_localisation_tax_rate->getTaxRates();
 
         $data['header']      = $this->load->controller('common/header');
         $data['column_left'] = $this->load->controller('common/column_left');

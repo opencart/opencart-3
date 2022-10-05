@@ -61,7 +61,7 @@ class ControllerCustomerGdpr extends Controller {
             $url .= '&page=' . $this->request->get['page'];
         }
 
-        $data['breadcrumbs'] = [];
+        $data['breadcrumbs']   = [];
 
         $data['breadcrumbs'][] = [
             'text' => $this->language->get('text_home'),
@@ -73,21 +73,21 @@ class ControllerCustomerGdpr extends Controller {
             'href' => $this->url->link('customer/gdpr', 'user_token=' . $this->session->data['user_token'], true)
         ];
 
+        $this->load->model('customer/gdpr');
+
+        $data['gdprs']            = $this->model_customer_gdpr->getGdprs();
+
+        $data['user_token']       = $this->session->data['user_token'];
+
         $data['filter_email']     = $filter_email;
         $data['filter_action']    = $filter_action;
         $data['filter_status']    = $filter_status;
         $data['filter_date_from'] = $filter_date_from;
         $data['filter_date_to']   = $filter_date_to;
 
-        $data['user_token'] = $this->session->data['user_token'];
-
-        $this->load->model('customer/gdpr');
-
-        $data['gdprs'] = $this->model_customer_gdpr->getGdprs();
-
-        $data['header']      = $this->load->controller('common/header');
-        $data['column_left'] = $this->load->controller('common/column_left');
-        $data['footer']      = $this->load->controller('common/footer');
+        $data['header']           = $this->load->controller('common/header');
+        $data['column_left']      = $this->load->controller('common/column_left');
+        $data['footer']           = $this->load->controller('common/footer');
 
         $this->response->setOutput($this->load->view('customer/gdpr', $data));
     }

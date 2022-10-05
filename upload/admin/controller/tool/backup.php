@@ -13,7 +13,7 @@ class ControllerToolBackup extends Controller {
             $data['error_warning'] = '';
         }
 
-        $data['breadcrumbs'] = [];
+        $data['breadcrumbs']   = [];
 
         $data['breadcrumbs'][] = [
             'text' => $this->language->get('text_home'),
@@ -27,7 +27,7 @@ class ControllerToolBackup extends Controller {
 
         $data['user_token'] = $this->session->data['user_token'];
 
-        $data['export'] = $this->url->link('tool/backup/export', 'user_token=' . $this->session->data['user_token'], true);
+        $data['export']     = $this->url->link('tool/backup/export', 'user_token=' . $this->session->data['user_token'], true);
 
         $this->load->model('tool/backup');
 
@@ -72,6 +72,7 @@ class ControllerToolBackup extends Controller {
         if (!$json) {
             // We set $i so we can batch execute the queries rather than do them all at once.
             $i     = 0;
+
             $start = false;
 
             $handle = fopen($filename, 'r');
@@ -119,7 +120,6 @@ class ControllerToolBackup extends Controller {
                 fclose($handle);
             } else {
                 fclose($handle);
-
                 unlink($filename);
 
                 $json['success'] = $this->language->get('text_success');

@@ -143,7 +143,7 @@ class ControllerDesignBanner extends Controller {
             $url .= '&page=' . $this->request->get['page'];
         }
 
-        $data['breadcrumbs'] = [];
+        $data['breadcrumbs']   = [];
 
         $data['breadcrumbs'][] = [
             'text' => $this->language->get('text_home'),
@@ -155,8 +155,8 @@ class ControllerDesignBanner extends Controller {
             'href' => $this->url->link('design/banner', 'user_token=' . $this->session->data['user_token'] . $url, true)
         ];
 
-        $data['add']    = $this->url->link('design/banner/add', 'user_token=' . $this->session->data['user_token'] . $url, true);
-        $data['delete'] = $this->url->link('design/banner/delete', 'user_token=' . $this->session->data['user_token'] . $url, true);
+        $data['add']     = $this->url->link('design/banner/add', 'user_token=' . $this->session->data['user_token'] . $url, true);
+        $data['delete']  = $this->url->link('design/banner/delete', 'user_token=' . $this->session->data['user_token'] . $url, true);
 
         $data['banners'] = [];
 
@@ -169,7 +169,7 @@ class ControllerDesignBanner extends Controller {
 
         $banner_total = $this->model_design_banner->getTotalBanners();
 
-        $results = $this->model_design_banner->getBanners($filter_data);
+        $results      = $this->model_design_banner->getBanners($filter_data);
 
         foreach ($results as $result) {
             $data['banners'][] = [
@@ -225,18 +225,17 @@ class ControllerDesignBanner extends Controller {
             $url .= '&order=' . $this->request->get['order'];
         }
 
-        $pagination        = new \Pagination();
-        $pagination->total = $banner_total;
-        $pagination->page  = $page;
-        $pagination->limit = $this->config->get('config_limit_admin');
-        $pagination->url   = $this->url->link('design/banner', 'user_token=' . $this->session->data['user_token'] . $url . '&page={page}', true);
+        $pagination          = new \Pagination();
+        $pagination->total   = $banner_total;
+        $pagination->page    = $page;
+        $pagination->limit   = $this->config->get('config_limit_admin');
+        $pagination->url     = $this->url->link('design/banner', 'user_token=' . $this->session->data['user_token'] . $url . '&page={page}', true);
 
-        $data['pagination'] = $pagination->render();
+        $data['pagination']  = $pagination->render();
+        $data['results']     = sprintf($this->language->get('text_pagination'), ($banner_total) ? (($page - 1) * $this->config->get('config_limit_admin')) + 1 : 0, ((($page - 1) * $this->config->get('config_limit_admin')) > ($banner_total - $this->config->get('config_limit_admin'))) ? $banner_total : ((($page - 1) * $this->config->get('config_limit_admin')) + $this->config->get('config_limit_admin')), $banner_total, ceil($banner_total / $this->config->get('config_limit_admin')));
 
-        $data['results'] = sprintf($this->language->get('text_pagination'), ($banner_total) ? (($page - 1) * $this->config->get('config_limit_admin')) + 1 : 0, ((($page - 1) * $this->config->get('config_limit_admin')) > ($banner_total - $this->config->get('config_limit_admin'))) ? $banner_total : ((($page - 1) * $this->config->get('config_limit_admin')) + $this->config->get('config_limit_admin')), $banner_total, ceil($banner_total / $this->config->get('config_limit_admin')));
-
-        $data['sort']  = $sort;
-        $data['order'] = $order;
+        $data['sort']        = $sort;
+        $data['order']       = $order;
 
         $data['header']      = $this->load->controller('common/header');
         $data['column_left'] = $this->load->controller('common/column_left');
@@ -280,7 +279,7 @@ class ControllerDesignBanner extends Controller {
             $url .= '&page=' . $this->request->get['page'];
         }
 
-        $data['breadcrumbs'] = [];
+        $data['breadcrumbs']   = [];
 
         $data['breadcrumbs'][] = [
             'text' => $this->language->get('text_home'),
@@ -315,11 +314,11 @@ class ControllerDesignBanner extends Controller {
         }
 
         if (isset($this->request->post['status'])) {
-            $data['status'] = $this->request->post['status'];
+            $data['status'] = (int)$this->request->post['status'];
         } elseif (!empty($banner_info)) {
             $data['status'] = $banner_info['status'];
         } else {
-            $data['status'] = true;
+            $data['status'] = 1;
         }
 
         // Languages

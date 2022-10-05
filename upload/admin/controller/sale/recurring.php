@@ -105,7 +105,7 @@ class ControllerSaleRecurring extends Controller {
             $url .= '&page=' . $this->request->get['page'];
         }
 
-        $data['breadcrumbs'] = [];
+        $data['breadcrumbs']   = [];
 
         $data['breadcrumbs'][] = [
             'text' => $this->language->get('text_home'),
@@ -119,7 +119,7 @@ class ControllerSaleRecurring extends Controller {
 
         $data['recurrings'] = [];
 
-        $filter_data = [
+        $filter_data        = [
             'filter_order_recurring_id' => $filter_order_recurring_id,
             'filter_order_id'           => $filter_order_id,
             'filter_reference'          => $filter_reference,
@@ -134,7 +134,7 @@ class ControllerSaleRecurring extends Controller {
 
         $recurrings_total = $this->model_sale_recurring->getTotalRecurrings($filter_data);
 
-        $results = $this->model_sale_recurring->getRecurrings($filter_data);
+        $results          = $this->model_sale_recurring->getRecurrings($filter_data);
 
         foreach ($results as $result) {
             if ($result['status']) {
@@ -248,16 +248,15 @@ class ControllerSaleRecurring extends Controller {
             $url .= '&order=' . $this->request->get['order'];
         }
 
-        $pagination        = new \Pagination();
-        $pagination->total = $recurrings_total;
-        $pagination->page  = $page;
-        $pagination->limit = $this->config->get('config_limit_admin');
-        $pagination->text  = $this->language->get('text_pagination');
-        $pagination->url   = $this->url->link('sale/recurring', 'user_token=' . $this->session->data['user_token'] . '&page={page}' . $url, true);
+        $pagination                        = new \Pagination();
+        $pagination->total                 = $recurrings_total;
+        $pagination->page                  = $page;
+        $pagination->limit                 = $this->config->get('config_limit_admin');
+        $pagination->text                  = $this->language->get('text_pagination');
+        $pagination->url                   = $this->url->link('sale/recurring', 'user_token=' . $this->session->data['user_token'] . '&page={page}' . $url, true);
 
-        $data['pagination'] = $pagination->render();
-
-        $data['results'] = sprintf($this->language->get('text_pagination'), ($recurrings_total) ? (($page - 1) * $this->config->get('config_limit_admin')) + 1 : 0, ((($page - 1) * $this->config->get('config_limit_admin')) > ($recurrings_total - $this->config->get('config_limit_admin'))) ? $recurrings_total : ((($page - 1) * $this->config->get('config_limit_admin')) + $this->config->get('config_limit_admin')), $recurrings_total, ceil($recurrings_total / $this->config->get('config_limit_admin')));
+        $data['pagination']                = $pagination->render();
+        $data['results']                   = sprintf($this->language->get('text_pagination'), ($recurrings_total) ? (($page - 1) * $this->config->get('config_limit_admin')) + 1 : 0, ((($page - 1) * $this->config->get('config_limit_admin')) > ($recurrings_total - $this->config->get('config_limit_admin'))) ? $recurrings_total : ((($page - 1) * $this->config->get('config_limit_admin')) + $this->config->get('config_limit_admin')), $recurrings_total, ceil($recurrings_total / $this->config->get('config_limit_admin')));
 
         $data['filter_order_recurring_id'] = $filter_order_recurring_id;
         $data['filter_order_id']           = $filter_order_id;
@@ -266,10 +265,10 @@ class ControllerSaleRecurring extends Controller {
         $data['filter_status']             = $filter_status;
         $data['filter_date_added']         = $filter_date_added;
 
-        $data['sort']  = $sort;
-        $data['order'] = $order;
+        $data['sort']                      = $sort;
+        $data['order']                     = $order;
 
-        $data['recurring_statuses'] = [];
+        $data['recurring_statuses']    = [];
 
         $data['recurring_statuses'][0] = [
             'text'  => '',
@@ -346,7 +345,7 @@ class ControllerSaleRecurring extends Controller {
                 $url .= '&page=' . $this->request->get['page'];
             }
 
-            $data['breadcrumbs'] = [];
+            $data['breadcrumbs']   = [];
 
             $data['breadcrumbs'][] = [
                 'text' => $this->language->get('text_home'),
@@ -381,7 +380,7 @@ class ControllerSaleRecurring extends Controller {
 
             $this->load->model('sale/order');
 
-            $order_info = $this->model_sale_order->getOrder($order_recurring_info['order_id']);
+            $order_info             = $this->model_sale_order->getOrder($order_recurring_info['order_id']);
 
             $data['payment_method'] = $order_info['payment_method'];
 
@@ -402,13 +401,13 @@ class ControllerSaleRecurring extends Controller {
             $data['date_added']   = date($this->language->get('date_format_short'), strtotime($order_info['date_added']));
 
             // Product
-            $data['product']  = $order_recurring_info['product_name'];
-            $data['quantity'] = $order_recurring_info['product_quantity'];
+            $data['product']      = $order_recurring_info['product_name'];
+            $data['quantity']     = $order_recurring_info['product_quantity'];
 
             // Transactions
             $data['transactions'] = [];
 
-            $transactions = $this->model_sale_recurring->getRecurringTransactions($order_recurring_info['order_recurring_id']);
+            $transactions         = $this->model_sale_recurring->getRecurringTransactions($order_recurring_info['order_recurring_id']);
 
             foreach ($transactions as $transaction) {
                 $data['transactions'][] = [
@@ -418,7 +417,7 @@ class ControllerSaleRecurring extends Controller {
                 ];
             }
 
-            $data['buttons'] = $this->load->controller('extension/payment/' . $order_info['payment_code'] . '/recurringButtons');
+            $data['buttons']     = $this->load->controller('extension/payment/' . $order_info['payment_code'] . '/recurringButtons');
 
             $data['header']      = $this->load->controller('common/header');
             $data['column_left'] = $this->load->controller('common/column_left');

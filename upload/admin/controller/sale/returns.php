@@ -319,8 +319,7 @@ class ControllerSaleReturns extends Controller {
             $url .= '&page=' . $this->request->get['page'];
         }
 
-        $data['breadcrumbs'] = [];
-
+        $data['breadcrumbs']   = [];
         $data['breadcrumbs'][] = [
             'text' => $this->language->get('text_home'),
             'href' => $this->url->link('common/dashboard', 'user_token=' . $this->session->data['user_token'], true)
@@ -331,8 +330,8 @@ class ControllerSaleReturns extends Controller {
             'href' => $this->url->link('sale/returns', 'user_token=' . $this->session->data['user_token'] . $url, true)
         ];
 
-        $data['add']    = $this->url->link('sale/returns/add', 'user_token=' . $this->session->data['user_token'] . $url, true);
-        $data['delete'] = $this->url->link('sale/returns/delete', 'user_token=' . $this->session->data['user_token'] . $url, true);
+        $data['add']     = $this->url->link('sale/returns/add', 'user_token=' . $this->session->data['user_token'] . $url, true);
+        $data['delete']  = $this->url->link('sale/returns/delete', 'user_token=' . $this->session->data['user_token'] . $url, true);
 
         $data['returns'] = [];
 
@@ -352,8 +351,7 @@ class ControllerSaleReturns extends Controller {
         ];
 
         $return_total = $this->model_sale_returns->getTotalReturns($filter_data);
-
-        $results = $this->model_sale_returns->getReturns($filter_data);
+        $results      = $this->model_sale_returns->getReturns($filter_data);
 
         foreach ($results as $result) {
             $data['returns'][] = [
@@ -447,25 +445,27 @@ class ControllerSaleReturns extends Controller {
             $url .= '&page=' . $this->request->get['page'];
         }
 
-        $data['sort_return_id']     = $this->url->link('sale/returns', 'user_token=' . $this->session->data['user_token'] . '&sort=r.return_id' . $url, true);
-        $data['sort_order_id']      = $this->url->link('sale/returns', 'user_token=' . $this->session->data['user_token'] . '&sort=r.order_id' . $url, true);
-        $data['sort_customer']      = $this->url->link('sale/returns', 'user_token=' . $this->session->data['user_token'] . '&sort=customer' . $url, true);
-        $data['sort_product']       = $this->url->link('sale/returns', 'user_token=' . $this->session->data['user_token'] . '&sort=r.product' . $url, true);
-        $data['sort_model']         = $this->url->link('sale/returns', 'user_token=' . $this->session->data['user_token'] . '&sort=r.model' . $url, true);
-        $data['sort_status']        = $this->url->link('sale/returns', 'user_token=' . $this->session->data['user_token'] . '&sort=status' . $url, true);
-        $data['sort_date_added']    = $this->url->link('sale/returns', 'user_token=' . $this->session->data['user_token'] . '&sort=r.date_added' . $url, true);
-        $data['sort_date_modified'] = $this->url->link('sale/returns', 'user_token=' . $this->session->data['user_token'] . '&sort=r.date_modified' . $url, true);
+        $this->load->model('localisation/returns_status');
 
-        $pagination        = new \Pagination();
-        $pagination->total = $return_total;
-        $pagination->page  = $page;
-        $pagination->limit = $this->config->get('config_limit_admin');
-        $pagination->url   = $this->url->link('sale/returns', 'user_token=' . $this->session->data['user_token'] . $url . '&page={page}', true);
+        $data['return_statuses']         = $this->model_localisation_returns_status->getReturnStatuses();
 
-        $data['pagination'] = $pagination->render();
+        $data['sort_return_id']          = $this->url->link('sale/returns', 'user_token=' . $this->session->data['user_token'] . '&sort=r.return_id' . $url, true);
+        $data['sort_order_id']           = $this->url->link('sale/returns', 'user_token=' . $this->session->data['user_token'] . '&sort=r.order_id' . $url, true);
+        $data['sort_customer']           = $this->url->link('sale/returns', 'user_token=' . $this->session->data['user_token'] . '&sort=customer' . $url, true);
+        $data['sort_product']            = $this->url->link('sale/returns', 'user_token=' . $this->session->data['user_token'] . '&sort=r.product' . $url, true);
+        $data['sort_model']              = $this->url->link('sale/returns', 'user_token=' . $this->session->data['user_token'] . '&sort=r.model' . $url, true);
+        $data['sort_status']             = $this->url->link('sale/returns', 'user_token=' . $this->session->data['user_token'] . '&sort=status' . $url, true);
+        $data['sort_date_added']         = $this->url->link('sale/returns', 'user_token=' . $this->session->data['user_token'] . '&sort=r.date_added' . $url, true);
+        $data['sort_date_modified']      = $this->url->link('sale/returns', 'user_token=' . $this->session->data['user_token'] . '&sort=r.date_modified' . $url, true);
 
-        $data['results'] = sprintf($this->language->get('text_pagination'), ($return_total) ? (($page - 1) * $this->config->get('config_limit_admin')) + 1 : 0, ((($page - 1) * $this->config->get('config_limit_admin')) > ($return_total - $this->config->get('config_limit_admin'))) ? $return_total : ((($page - 1) * $this->config->get('config_limit_admin')) + $this->config->get('config_limit_admin')), $return_total, ceil($return_total / $this->config->get('config_limit_admin')));
+        $pagination                      = new \Pagination();
+        $pagination->total               = $return_total;
+        $pagination->page                = $page;
+        $pagination->limit               = $this->config->get('config_limit_admin');
+        $pagination->url                 = $this->url->link('sale/returns', 'user_token=' . $this->session->data['user_token'] . $url . '&page={page}', true);
 
+        $data['pagination']              = $pagination->render();
+        $data['results']                 = sprintf($this->language->get('text_pagination'), ($return_total) ? (($page - 1) * $this->config->get('config_limit_admin')) + 1 : 0, ((($page - 1) * $this->config->get('config_limit_admin')) > ($return_total - $this->config->get('config_limit_admin'))) ? $return_total : ((($page - 1) * $this->config->get('config_limit_admin')) + $this->config->get('config_limit_admin')), $return_total, ceil($return_total / $this->config->get('config_limit_admin')));
         $data['filter_return_id']        = $filter_return_id;
         $data['filter_order_id']         = $filter_order_id;
         $data['filter_customer']         = $filter_customer;
@@ -475,22 +475,18 @@ class ControllerSaleReturns extends Controller {
         $data['filter_date_added']       = $filter_date_added;
         $data['filter_date_modified']    = $filter_date_modified;
 
-        $this->load->model('localisation/returns_status');
+        $data['sort']                    = $sort;
+        $data['order']                   = $order;
 
-        $data['return_statuses'] = $this->model_localisation_returns_status->getReturnStatuses();
-
-        $data['sort']  = $sort;
-        $data['order'] = $order;
-
-        $data['header']      = $this->load->controller('common/header');
-        $data['column_left'] = $this->load->controller('common/column_left');
-        $data['footer']      = $this->load->controller('common/footer');
+        $data['header']                  = $this->load->controller('common/header');
+        $data['column_left']             = $this->load->controller('common/column_left');
+        $data['footer']                  = $this->load->controller('common/footer');
 
         $this->response->setOutput($this->load->view('sale/returns_list', $data));
     }
 
     protected function getForm() {
-        $data['text_form'] = !isset($this->request->get['return_id']) ? $this->language->get('text_add') : $this->language->get('text_edit');
+        $data['text_form']  = !isset($this->request->get['return_id']) ? $this->language->get('text_add') : $this->language->get('text_edit');
 
         $data['user_token'] = $this->session->data['user_token'];
 
@@ -594,7 +590,7 @@ class ControllerSaleReturns extends Controller {
             $url .= '&page=' . $this->request->get['page'];
         }
 
-        $data['breadcrumbs'] = [];
+        $data['breadcrumbs']   = [];
 
         $data['breadcrumbs'][] = [
             'text' => $this->language->get('text_home'),
@@ -738,7 +734,7 @@ class ControllerSaleReturns extends Controller {
             $data['return_status_id'] = '';
         }
 
-        $data['user_token'] = $this->session->data['user_token'];
+        $data['user_token']  = $this->session->data['user_token'];
 
         $data['header']      = $this->load->controller('common/header');
         $data['column_left'] = $this->load->controller('common/column_left');
@@ -812,7 +808,7 @@ class ControllerSaleReturns extends Controller {
 
         $data['histories'] = [];
 
-        $results = $this->model_sale_returns->getReturnHistories($this->request->get['return_id'], ($page - 1) * 10, 10);
+        $results           = $this->model_sale_returns->getReturnHistories($this->request->get['return_id'], ($page - 1) * 10, 10);
 
         foreach ($results as $result) {
             $data['histories'][] = [
@@ -823,7 +819,7 @@ class ControllerSaleReturns extends Controller {
             ];
         }
 
-        $history_total = $this->model_sale_returns->getTotalReturnHistories($this->request->get['return_id']);
+        $history_total     = $this->model_sale_returns->getTotalReturnHistories($this->request->get['return_id']);
 
         $pagination        = new \Pagination();
         $pagination->total = $history_total;
@@ -832,7 +828,6 @@ class ControllerSaleReturns extends Controller {
         $pagination->url   = $this->url->link('sale/returns/history', 'user_token=' . $this->session->data['user_token'] . '&return_id=' . $this->request->get['return_id'] . '&page={page}', true);
 
         $data['pagination'] = $pagination->render();
-
         $data['results'] = sprintf($this->language->get('text_pagination'), ($history_total) ? (($page - 1) * 10) + 1 : 0, ((($page - 1) * 10) > ($history_total - 10)) ? $history_total : ((($page - 1) * 10) + 10), $history_total, ceil($history_total / 10));
 
         $this->response->setOutput($this->load->view('sale/returns_history', $data));

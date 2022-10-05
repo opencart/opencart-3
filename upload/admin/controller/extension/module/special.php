@@ -116,11 +116,11 @@ class ControllerExtensionModuleSpecial extends Controller {
         }
 
         if (isset($this->request->post['status'])) {
-            $data['status'] = $this->request->post['status'];
+            $data['status'] = (int)$this->request->post['status'];
         } elseif (!empty($module_info)) {
             $data['status'] = $module_info['status'];
         } else {
-            $data['status'] = '';
+            $data['status'] = 1;
         }
 
         $data['header']      = $this->load->controller('common/header');

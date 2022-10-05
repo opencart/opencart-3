@@ -143,7 +143,7 @@ class ControllerLocalisationLengthClass extends Controller {
             $url .= '&page=' . $this->request->get['page'];
         }
 
-        $data['breadcrumbs'] = [];
+        $data['breadcrumbs']   = [];
 
         $data['breadcrumbs'][] = [
             'text' => $this->language->get('text_home'),
@@ -155,8 +155,8 @@ class ControllerLocalisationLengthClass extends Controller {
             'href' => $this->url->link('localisation/length_class', 'user_token=' . $this->session->data['user_token'] . $url, true)
         ];
 
-        $data['add']    = $this->url->link('localisation/length_class/add', 'user_token=' . $this->session->data['user_token'] . $url, true);
-        $data['delete'] = $this->url->link('localisation/length_class/delete', 'user_token=' . $this->session->data['user_token'] . $url, true);
+        $data['add']            = $this->url->link('localisation/length_class/add', 'user_token=' . $this->session->data['user_token'] . $url, true);
+        $data['delete']         = $this->url->link('localisation/length_class/delete', 'user_token=' . $this->session->data['user_token'] . $url, true);
 
         $data['length_classes'] = [];
 
@@ -169,7 +169,7 @@ class ControllerLocalisationLengthClass extends Controller {
 
         $length_class_total = $this->model_localisation_length_class->getTotalLengthClasses();
 
-        $results = $this->model_localisation_length_class->getLengthClasses($filter_data);
+        $results            = $this->model_localisation_length_class->getLengthClasses($filter_data);
 
         foreach ($results as $result) {
             $data['length_classes'][] = [
@@ -227,18 +227,17 @@ class ControllerLocalisationLengthClass extends Controller {
             $url .= '&order=' . $this->request->get['order'];
         }
 
-        $pagination        = new \Pagination();
-        $pagination->total = $length_class_total;
-        $pagination->page  = $page;
-        $pagination->limit = $this->config->get('config_limit_admin');
-        $pagination->url   = $this->url->link('localisation/length_class', 'user_token=' . $this->session->data['user_token'] . $url . '&page={page}', true);
+        $pagination          = new \Pagination();
+        $pagination->total   = $length_class_total;
+        $pagination->page    = $page;
+        $pagination->limit   = $this->config->get('config_limit_admin');
+        $pagination->url     = $this->url->link('localisation/length_class', 'user_token=' . $this->session->data['user_token'] . $url . '&page={page}', true);
 
-        $data['pagination'] = $pagination->render();
+        $data['pagination']  = $pagination->render();
+        $data['results']     = sprintf($this->language->get('text_pagination'), ($length_class_total) ? (($page - 1) * $this->config->get('config_limit_admin')) + 1 : 0, ((($page - 1) * $this->config->get('config_limit_admin')) > ($length_class_total - $this->config->get('config_limit_admin'))) ? $length_class_total : ((($page - 1) * $this->config->get('config_limit_admin')) + $this->config->get('config_limit_admin')), $length_class_total, ceil($length_class_total / $this->config->get('config_limit_admin')));
 
-        $data['results'] = sprintf($this->language->get('text_pagination'), ($length_class_total) ? (($page - 1) * $this->config->get('config_limit_admin')) + 1 : 0, ((($page - 1) * $this->config->get('config_limit_admin')) > ($length_class_total - $this->config->get('config_limit_admin'))) ? $length_class_total : ((($page - 1) * $this->config->get('config_limit_admin')) + $this->config->get('config_limit_admin')), $length_class_total, ceil($length_class_total / $this->config->get('config_limit_admin')));
-
-        $data['sort']  = $sort;
-        $data['order'] = $order;
+        $data['sort']        = $sort;
+        $data['order']       = $order;
 
         $data['header']      = $this->load->controller('common/header');
         $data['column_left'] = $this->load->controller('common/column_left');
@@ -282,7 +281,7 @@ class ControllerLocalisationLengthClass extends Controller {
             $url .= '&page=' . $this->request->get['page'];
         }
 
-        $data['breadcrumbs'] = [];
+        $data['breadcrumbs']   = [];
 
         $data['breadcrumbs'][] = [
             'text' => $this->language->get('text_home'),

@@ -143,7 +143,7 @@ class ControllerDesignTranslation extends Controller {
             $url .= '&page=' . $this->request->get['page'];
         }
 
-        $data['breadcrumbs'] = [];
+        $data['breadcrumbs']   = [];
 
         $data['breadcrumbs'][] = [
             'text' => $this->language->get('text_home'),
@@ -158,8 +158,8 @@ class ControllerDesignTranslation extends Controller {
         // Languages
         $this->load->model('localisation/language');
 
-        $data['add']    = $this->url->link('design/translation/add', 'user_token=' . $this->session->data['user_token'] . $url, true);
-        $data['delete'] = $this->url->link('design/translation/delete', 'user_token=' . $this->session->data['user_token'] . $url, true);
+        $data['add']          = $this->url->link('design/translation/add', 'user_token=' . $this->session->data['user_token'] . $url, true);
+        $data['delete']       = $this->url->link('design/translation/delete', 'user_token=' . $this->session->data['user_token'] . $url, true);
 
         $data['translations'] = [];
 
@@ -226,22 +226,21 @@ class ControllerDesignTranslation extends Controller {
         $data['sort_key']      = $this->url->link('design/translation', 'user_token=' . $this->session->data['user_token'] . '&sort=key' . $url, true);
         $data['sort_value']    = $this->url->link('design/translation', 'user_token=' . $this->session->data['user_token'] . '&sort=value' . $url, true);
 
-        $pagination        = new \Pagination();
-        $pagination->total = $translation_total;
-        $pagination->page  = $page;
-        $pagination->limit = 10;
-        $pagination->url   = $this->url->link('design/translation/history', 'user_token=' . $this->session->data['user_token'] . '&page={page}', true);
+        $pagination            = new \Pagination();
+        $pagination->total     = $translation_total;
+        $pagination->page      = $page;
+        $pagination->limit     = 10;
+        $pagination->url       = $this->url->link('design/translation/history', 'user_token=' . $this->session->data['user_token'] . '&page={page}', true);
 
-        $data['pagination'] = $pagination->render();
+        $data['pagination']    = $pagination->render();
+        $data['results']       = sprintf($this->language->get('text_pagination'), ($translation_total) ? (($page - 1) * $this->config->get('config_limit_admin')) + 1 : 0, ((($page - 1) * $this->config->get('config_limit_admin')) > ($translation_total - $this->config->get('config_limit_admin'))) ? $translation_total : ((($page - 1) * $this->config->get('config_limit_admin')) + $this->config->get('config_limit_admin')), $translation_total, ceil($translation_total / $this->config->get('config_limit_admin')));
 
-        $data['results'] = sprintf($this->language->get('text_pagination'), ($translation_total) ? (($page - 1) * $this->config->get('config_limit_admin')) + 1 : 0, ((($page - 1) * $this->config->get('config_limit_admin')) > ($translation_total - $this->config->get('config_limit_admin'))) ? $translation_total : ((($page - 1) * $this->config->get('config_limit_admin')) + $this->config->get('config_limit_admin')), $translation_total, ceil($translation_total / $this->config->get('config_limit_admin')));
+        $data['sort']          = $sort;
+        $data['order']         = $order;
 
-        $data['sort']  = $sort;
-        $data['order'] = $order;
-
-        $data['header']      = $this->load->controller('common/header');
-        $data['column_left'] = $this->load->controller('common/column_left');
-        $data['footer']      = $this->load->controller('common/footer');
+        $data['header']        = $this->load->controller('common/header');
+        $data['column_left']   = $this->load->controller('common/column_left');
+        $data['footer']        = $this->load->controller('common/footer');
 
         $this->response->setOutput($this->load->view('design/translation_list', $data));
     }
@@ -275,7 +274,7 @@ class ControllerDesignTranslation extends Controller {
             $url .= '&page=' . $this->request->get['page'];
         }
 
-        $data['breadcrumbs'] = [];
+        $data['breadcrumbs']   = [];
 
         $data['breadcrumbs'][] = [
             'text' => $this->language->get('text_home'),
@@ -496,7 +495,7 @@ class ControllerDesignTranslation extends Controller {
 
         $language_info = $this->model_localisation_language->getLanguage($language_id);
 
-        $directory = DIR_CATALOG . 'language/';
+        $directory     = DIR_CATALOG . 'language/';
 
         if ($language_info && is_file($directory . $language_info['code'] . '/' . $route . '.php') && substr(str_replace('\\', '/', realpath($directory . $language_info['code'] . '/' . $route . '.php')), 0, strlen($directory)) == str_replace('\\', '/', $directory)) {
             $_ = [];

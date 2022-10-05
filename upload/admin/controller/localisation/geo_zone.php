@@ -143,7 +143,7 @@ class ControllerLocalisationGeoZone extends Controller {
             $url .= '&page=' . $this->request->get['page'];
         }
 
-        $data['breadcrumbs'] = [];
+        $data['breadcrumbs']   = [];
 
         $data['breadcrumbs'][] = [
             'text' => $this->language->get('text_home'),
@@ -155,8 +155,8 @@ class ControllerLocalisationGeoZone extends Controller {
             'href' => $this->url->link('localisation/geo_zone', 'user_token=' . $this->session->data['user_token'] . $url, true)
         ];
 
-        $data['add']    = $this->url->link('localisation/geo_zone/add', 'user_token=' . $this->session->data['user_token'] . $url, true);
-        $data['delete'] = $this->url->link('localisation/geo_zone/delete', 'user_token=' . $this->session->data['user_token'] . $url, true);
+        $data['add']       = $this->url->link('localisation/geo_zone/add', 'user_token=' . $this->session->data['user_token'] . $url, true);
+        $data['delete']    = $this->url->link('localisation/geo_zone/delete', 'user_token=' . $this->session->data['user_token'] . $url, true);
 
         $data['geo_zones'] = [];
 
@@ -225,18 +225,17 @@ class ControllerLocalisationGeoZone extends Controller {
             $url .= '&order=' . $this->request->get['order'];
         }
 
-        $pagination        = new \Pagination();
-        $pagination->total = $geo_zone_total;
-        $pagination->page  = $page;
-        $pagination->limit = $this->config->get('config_limit_admin');
-        $pagination->url   = $this->url->link('localisation/geo_zone', 'user_token=' . $this->session->data['user_token'] . $url . '&page={page}', true);
+        $pagination          = new \Pagination();
+        $pagination->total   = $geo_zone_total;
+        $pagination->page    = $page;
+        $pagination->limit   = $this->config->get('config_limit_admin');
+        $pagination->url     = $this->url->link('localisation/geo_zone', 'user_token=' . $this->session->data['user_token'] . $url . '&page={page}', true);
 
-        $data['pagination'] = $pagination->render();
+        $data['pagination']  = $pagination->render();
+        $data['results']     = sprintf($this->language->get('text_pagination'), ($geo_zone_total) ? (($page - 1) * $this->config->get('config_limit_admin')) + 1 : 0, ((($page - 1) * $this->config->get('config_limit_admin')) > ($geo_zone_total - $this->config->get('config_limit_admin'))) ? $geo_zone_total : ((($page - 1) * $this->config->get('config_limit_admin')) + $this->config->get('config_limit_admin')), $geo_zone_total, ceil($geo_zone_total / $this->config->get('config_limit_admin')));
 
-        $data['results'] = sprintf($this->language->get('text_pagination'), ($geo_zone_total) ? (($page - 1) * $this->config->get('config_limit_admin')) + 1 : 0, ((($page - 1) * $this->config->get('config_limit_admin')) > ($geo_zone_total - $this->config->get('config_limit_admin'))) ? $geo_zone_total : ((($page - 1) * $this->config->get('config_limit_admin')) + $this->config->get('config_limit_admin')), $geo_zone_total, ceil($geo_zone_total / $this->config->get('config_limit_admin')));
-
-        $data['sort']  = $sort;
-        $data['order'] = $order;
+        $data['sort']        = $sort;
+        $data['order']       = $order;
 
         $data['header']      = $this->load->controller('common/header');
         $data['column_left'] = $this->load->controller('common/column_left');
@@ -280,7 +279,7 @@ class ControllerLocalisationGeoZone extends Controller {
             $url .= '&page=' . $this->request->get['page'];
         }
 
-        $data['breadcrumbs'] = [];
+        $data['breadcrumbs']   = [];
 
         $data['breadcrumbs'][] = [
             'text' => $this->language->get('text_home'),
@@ -322,10 +321,6 @@ class ControllerLocalisationGeoZone extends Controller {
             $data['description'] = '';
         }
 
-        $this->load->model('localisation/country');
-
-        $data['countries'] = $this->model_localisation_country->getCountries();
-
         if (isset($this->request->post['zone_to_geo_zone'])) {
             $data['zone_to_geo_zones'] = $this->request->post['zone_to_geo_zone'];
         } elseif (isset($this->request->get['geo_zone_id'])) {
@@ -333,6 +328,10 @@ class ControllerLocalisationGeoZone extends Controller {
         } else {
             $data['zone_to_geo_zones'] = [];
         }
+
+        $this->load->model('localisation/country');
+
+        $data['countries']   = $this->model_localisation_country->getCountries();
 
         $data['header']      = $this->load->controller('common/header');
         $data['column_left'] = $this->load->controller('common/column_left');

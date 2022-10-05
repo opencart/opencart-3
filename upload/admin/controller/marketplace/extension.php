@@ -7,7 +7,7 @@ class ControllerMarketplaceExtension extends Controller {
 
         $this->document->setTitle($this->language->get('heading_title'));
 
-        $data['breadcrumbs'] = [];
+        $data['breadcrumbs']   = [];
 
         $data['breadcrumbs'][] = [
             'text' => $this->language->get('text_home'),
@@ -29,7 +29,7 @@ class ControllerMarketplaceExtension extends Controller {
 
         $data['categories'] = [];
 
-        $files = glob(DIR_APPLICATION . 'controller/extension/extension/*.php', GLOB_BRACE);
+        $files              = glob(DIR_APPLICATION . 'controller/extension/extension/*.php', GLOB_BRACE);
 
         foreach ($files as $file) {
             $extension = basename($file, '.php');

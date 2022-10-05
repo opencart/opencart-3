@@ -143,7 +143,7 @@ class ControllerLocalisationLanguage extends Controller {
             $url .= '&page=' . $this->request->get['page'];
         }
 
-        $data['breadcrumbs'] = [];
+        $data['breadcrumbs']   = [];
 
         $data['breadcrumbs'][] = [
             'text' => $this->language->get('text_home'),
@@ -155,8 +155,8 @@ class ControllerLocalisationLanguage extends Controller {
             'href' => $this->url->link('localisation/language', 'user_token=' . $this->session->data['user_token'] . $url, true)
         ];
 
-        $data['add']    = $this->url->link('localisation/language/add', 'user_token=' . $this->session->data['user_token'] . $url, true);
-        $data['delete'] = $this->url->link('localisation/language/delete', 'user_token=' . $this->session->data['user_token'] . $url, true);
+        $data['add']       = $this->url->link('localisation/language/add', 'user_token=' . $this->session->data['user_token'] . $url, true);
+        $data['delete']    = $this->url->link('localisation/language/delete', 'user_token=' . $this->session->data['user_token'] . $url, true);
 
         $data['languages'] = [];
 
@@ -169,7 +169,7 @@ class ControllerLocalisationLanguage extends Controller {
 
         $language_total = $this->model_localisation_language->getTotalLanguages();
 
-        $results = $this->model_localisation_language->getLanguages($filter_data);
+        $results        = $this->model_localisation_language->getLanguages($filter_data);
 
         foreach ($results as $result) {
             $data['languages'][] = [
@@ -227,18 +227,17 @@ class ControllerLocalisationLanguage extends Controller {
             $url .= '&order=' . $this->request->get['order'];
         }
 
-        $pagination        = new \Pagination();
-        $pagination->total = $language_total;
-        $pagination->page  = $page;
-        $pagination->limit = $this->config->get('config_limit_admin');
-        $pagination->url   = $this->url->link('localisation/language', 'user_token=' . $this->session->data['user_token'] . $url . '&page={page}', true);
+        $pagination          = new \Pagination();
+        $pagination->total   = $language_total;
+        $pagination->page    = $page;
+        $pagination->limit   = $this->config->get('config_limit_admin');
+        $pagination->url     = $this->url->link('localisation/language', 'user_token=' . $this->session->data['user_token'] . $url . '&page={page}', true);
 
-        $data['pagination'] = $pagination->render();
+        $data['pagination']  = $pagination->render();
+        $data['results']     = sprintf($this->language->get('text_pagination'), ($language_total) ? (($page - 1) * $this->config->get('config_limit_admin')) + 1 : 0, ((($page - 1) * $this->config->get('config_limit_admin')) > ($language_total - $this->config->get('config_limit_admin'))) ? $language_total : ((($page - 1) * $this->config->get('config_limit_admin')) + $this->config->get('config_limit_admin')), $language_total, ceil($language_total / $this->config->get('config_limit_admin')));
 
-        $data['results'] = sprintf($this->language->get('text_pagination'), ($language_total) ? (($page - 1) * $this->config->get('config_limit_admin')) + 1 : 0, ((($page - 1) * $this->config->get('config_limit_admin')) > ($language_total - $this->config->get('config_limit_admin'))) ? $language_total : ((($page - 1) * $this->config->get('config_limit_admin')) + $this->config->get('config_limit_admin')), $language_total, ceil($language_total / $this->config->get('config_limit_admin')));
-
-        $data['sort']  = $sort;
-        $data['order'] = $order;
+        $data['sort']        = $sort;
+        $data['order']       = $order;
 
         $data['header']      = $this->load->controller('common/header');
         $data['column_left'] = $this->load->controller('common/column_left');
@@ -288,7 +287,7 @@ class ControllerLocalisationLanguage extends Controller {
             $url .= '&page=' . $this->request->get['page'];
         }
 
-        $data['breadcrumbs'] = [];
+        $data['breadcrumbs']   = [];
 
         $data['breadcrumbs'][] = [
             'text' => $this->language->get('text_home'),
@@ -353,11 +352,11 @@ class ControllerLocalisationLanguage extends Controller {
         }
 
         if (isset($this->request->post['status'])) {
-            $data['status'] = $this->request->post['status'];
+            $data['status'] = (int)$this->request->post['status'];
         } elseif (!empty($language_info)) {
             $data['status'] = $language_info['status'];
         } else {
-            $data['status'] = true;
+            $data['status'] = 1;
         }
 
         $data['header']      = $this->load->controller('common/header');
@@ -404,9 +403,8 @@ class ControllerLocalisationLanguage extends Controller {
             $this->error['warning'] = $this->language->get('error_permission');
         }
 
-        $this->load->model('setting/store');
-
         $this->load->model('sale/order');
+        $this->load->model('setting/store');
 
         foreach ((array)$this->request->post['selected'] as $language_id) {
             $language_info = $this->model_localisation_language->getLanguage($language_id);

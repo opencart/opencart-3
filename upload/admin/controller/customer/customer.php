@@ -331,7 +331,7 @@ class ControllerCustomerCustomer extends Controller {
             $url .= '&page=' . $this->request->get['page'];
         }
 
-        $data['breadcrumbs'] = [];
+        $data['breadcrumbs']   = [];
 
         $data['breadcrumbs'][] = [
             'text' => $this->language->get('text_home'),
@@ -343,14 +343,14 @@ class ControllerCustomerCustomer extends Controller {
             'href' => $this->url->link('customer/customer', 'user_token=' . $this->session->data['user_token'] . $url, true)
         ];
 
-        $data['add']    = $this->url->link('customer/customer/add', 'user_token=' . $this->session->data['user_token'] . $url, true);
-        $data['delete'] = $this->url->link('customer/customer/delete', 'user_token=' . $this->session->data['user_token'] . $url, true);
+        $data['add']       = $this->url->link('customer/customer/add', 'user_token=' . $this->session->data['user_token'] . $url, true);
+        $data['delete']    = $this->url->link('customer/customer/delete', 'user_token=' . $this->session->data['user_token'] . $url, true);
+
+        $data['customers'] = [];
 
         $this->load->model('setting/store');
 
         $stores = $this->model_setting_store->getStores();
-
-        $data['customers'] = [];
 
         $filter_data = [
             'filter_name'              => $filter_name,
@@ -504,15 +504,21 @@ class ControllerCustomerCustomer extends Controller {
             $url .= '&order=' . $this->request->get['order'];
         }
 
-        $pagination        = new \Pagination();
-        $pagination->total = $customer_total;
-        $pagination->page  = $page;
-        $pagination->limit = $this->config->get('config_limit_admin');
-        $pagination->url   = $this->url->link('customer/customer', 'user_token=' . $this->session->data['user_token'] . $url . '&page={page}', true);
+        $this->load->model('customer/customer_group');
 
-        $data['pagination'] = $pagination->render();
+        $data['customer_groups']          = $this->model_customer_customer_group->getCustomerGroups();
 
-        $data['results'] = sprintf($this->language->get('text_pagination'), ($customer_total) ? (($page - 1) * $this->config->get('config_limit_admin')) + 1 : 0, ((($page - 1) * $this->config->get('config_limit_admin')) > ($customer_total - $this->config->get('config_limit_admin'))) ? $customer_total : ((($page - 1) * $this->config->get('config_limit_admin')) + $this->config->get('config_limit_admin')), $customer_total, ceil($customer_total / $this->config->get('config_limit_admin')));
+        $data['sort']                     = $sort;
+        $data['order']                    = $order;
+
+        $pagination                       = new \Pagination();
+        $pagination->total                = $customer_total;
+        $pagination->page                 = $page;
+        $pagination->limit                = $this->config->get('config_limit_admin');
+        $pagination->url                  = $this->url->link('customer/customer', 'user_token=' . $this->session->data['user_token'] . $url . '&page={page}', true);
+
+        $data['pagination']               = $pagination->render();
+        $data['results']                  = sprintf($this->language->get('text_pagination'), ($customer_total) ? (($page - 1) * $this->config->get('config_limit_admin')) + 1 : 0, ((($page - 1) * $this->config->get('config_limit_admin')) > ($customer_total - $this->config->get('config_limit_admin'))) ? $customer_total : ((($page - 1) * $this->config->get('config_limit_admin')) + $this->config->get('config_limit_admin')), $customer_total, ceil($customer_total / $this->config->get('config_limit_admin')));
 
         $data['filter_name']              = $filter_name;
         $data['filter_email']             = $filter_email;
@@ -521,16 +527,9 @@ class ControllerCustomerCustomer extends Controller {
         $data['filter_ip']                = $filter_ip;
         $data['filter_date_added']        = $filter_date_added;
 
-        $this->load->model('customer/customer_group');
-
-        $data['customer_groups'] = $this->model_customer_customer_group->getCustomerGroups();
-
-        $data['sort']  = $sort;
-        $data['order'] = $order;
-
-        $data['header']      = $this->load->controller('common/header');
-        $data['column_left'] = $this->load->controller('common/column_left');
-        $data['footer']      = $this->load->controller('common/footer');
+        $data['header']                   = $this->load->controller('common/header');
+        $data['column_left']              = $this->load->controller('common/column_left');
+        $data['footer']                   = $this->load->controller('common/footer');
 
         $this->response->setOutput($this->load->view('customer/customer_list', $data));
     }
@@ -822,11 +821,11 @@ class ControllerCustomerCustomer extends Controller {
         }
 
         if (isset($this->request->post['status'])) {
-            $data['status'] = $this->request->post['status'];
+            $data['status'] = (int)$this->request->post['status'];
         } elseif (!empty($customer_info)) {
             $data['status'] = $customer_info['status'];
         } else {
-            $data['status'] = true;
+            $data['status'] = 1;
         }
 
         if (isset($this->request->post['safe'])) {

@@ -177,7 +177,7 @@ class ControllerCatalogSubscriptionPlan extends Controller {
             $url .= '&page=' . $this->request->get['page'];
         }
 
-        $data['breadcrumbs'] = [];
+        $data['breadcrumbs']   = [];
 
         $data['breadcrumbs'][] = [
             'text' => $this->language->get('text_home'),
@@ -189,9 +189,9 @@ class ControllerCatalogSubscriptionPlan extends Controller {
             'href' => $this->url->link('catalog/subscription_plan', 'user_token=' . $this->session->data['user_token'] . $url, true)
         ];
 
-        $data['add']    = $this->url->link('catalog/subscription_plan/add', 'user_token=' . $this->session->data['user_token'] . $url, true);
-        $data['copy']   = $this->url->link('catalog/subscription_plan/copy', 'user_token=' . $this->session->data['user_token'] . $url, true);
-        $data['delete'] = $this->url->link('catalog/subscription_plan/delete', 'user_token=' . $this->session->data['user_token'] . $url, true);
+        $data['add']                = $this->url->link('catalog/subscription_plan/add', 'user_token=' . $this->session->data['user_token'] . $url, true);
+        $data['copy']               = $this->url->link('catalog/subscription_plan/copy', 'user_token=' . $this->session->data['user_token'] . $url, true);
+        $data['delete']             = $this->url->link('catalog/subscription_plan/delete', 'user_token=' . $this->session->data['user_token'] . $url, true);
 
         $data['subscription_plans'] = [];
 
@@ -204,7 +204,7 @@ class ControllerCatalogSubscriptionPlan extends Controller {
 
         $subscription_plan_total = $this->model_catalog_subscription_plan->getTotalsubscription_plans();
 
-        $results = $this->model_catalog_subscription_plan->getsubscription_plans($filter_data);
+        $results                 = $this->model_catalog_subscription_plan->getsubscription_plans($filter_data);
 
         foreach ($results as $result) {
             $data['subscription_plans'][] = [
@@ -260,18 +260,17 @@ class ControllerCatalogSubscriptionPlan extends Controller {
             $url .= '&order=' . $this->request->get['order'];
         }
 
-        $pagination        = new \Pagination();
-        $pagination->total = $subscription_plan_total;
-        $pagination->page  = $page;
-        $pagination->limit = $this->config->get('config_limit_admin');
-        $pagination->url   = $this->url->link('catalog/subscription_plan', 'user_token=' . $this->session->data['user_token'] . $url . '&page={page}', true);
+        $pagination          = new \Pagination();
+        $pagination->total   = $subscription_plan_total;
+        $pagination->page    = $page;
+        $pagination->limit   = $this->config->get('config_limit_admin');
+        $pagination->url     = $this->url->link('catalog/subscription_plan', 'user_token=' . $this->session->data['user_token'] . $url . '&page={page}', true);
 
-        $data['pagination'] = $pagination->render();
+        $data['pagination']  = $pagination->render();
+        $data['results']     = sprintf($this->language->get('text_pagination'), ($subscription_plan_total) ? (($page - 1) * $this->config->get('config_limit_admin')) + 1 : 0, ((($page - 1) * $this->config->get('config_limit_admin')) > ($subscription_plan_total - $this->config->get('config_limit_admin'))) ? $subscription_plan_total : ((($page - 1) * $this->config->get('config_limit_admin')) + $this->config->get('config_limit_admin')), $subscription_plan_total, ceil($subscription_plan_total / $this->config->get('config_limit_admin')));
 
-        $data['results'] = sprintf($this->language->get('text_pagination'), ($subscription_plan_total) ? (($page - 1) * $this->config->get('config_limit_admin')) + 1 : 0, ((($page - 1) * $this->config->get('config_limit_admin')) > ($subscription_plan_total - $this->config->get('config_limit_admin'))) ? $subscription_plan_total : ((($page - 1) * $this->config->get('config_limit_admin')) + $this->config->get('config_limit_admin')), $subscription_plan_total, ceil($subscription_plan_total / $this->config->get('config_limit_admin')));
-
-        $data['sort']  = $sort;
-        $data['order'] = $order;
+        $data['sort']        = $sort;
+        $data['order']       = $order;
 
         $data['header']      = $this->load->controller('common/header');
         $data['column_left'] = $this->load->controller('common/column_left');
@@ -309,7 +308,7 @@ class ControllerCatalogSubscriptionPlan extends Controller {
             $url .= '&page=' . $this->request->get['page'];
         }
 
-        $data['breadcrumbs'] = [];
+        $data['breadcrumbs']   = [];
 
         $data['breadcrumbs'][] = [
             'text' => $this->language->get('text_home'),
@@ -356,7 +355,7 @@ class ControllerCatalogSubscriptionPlan extends Controller {
             $data['price'] = 0;
         }
 
-        $data['frequencies'] = [];
+        $data['frequencies']   = [];
 
         $data['frequencies'][] = [
             'text'  => $this->language->get('text_day'),
@@ -408,7 +407,7 @@ class ControllerCatalogSubscriptionPlan extends Controller {
         }
 
         if (isset($this->request->post['status'])) {
-            $data['status'] = $this->request->post['status'];
+            $data['status'] = (int)$this->request->post['status'];
         } elseif (!empty($subscription_plan_info)) {
             $data['status'] = $subscription_plan_info['status'];
         } else {

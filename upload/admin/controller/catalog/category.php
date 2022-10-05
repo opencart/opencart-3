@@ -175,8 +175,7 @@ class ControllerCatalogCategory extends Controller {
             $url .= '&page=' . $this->request->get['page'];
         }
 
-        $data['breadcrumbs'] = [];
-
+        $data['breadcrumbs']   = [];
         $data['breadcrumbs'][] = [
             'text' => $this->language->get('text_home'),
             'href' => $this->url->link('common/dashboard', 'user_token=' . $this->session->data['user_token'], true)
@@ -187,9 +186,9 @@ class ControllerCatalogCategory extends Controller {
             'href' => $this->url->link('catalog/category', 'user_token=' . $this->session->data['user_token'] . $url, true)
         ];
 
-        $data['add']    = $this->url->link('catalog/category/add', 'user_token=' . $this->session->data['user_token'] . $url, true);
-        $data['delete'] = $this->url->link('catalog/category/delete', 'user_token=' . $this->session->data['user_token'] . $url, true);
-        $data['repair'] = $this->url->link('catalog/category/repair', 'user_token=' . $this->session->data['user_token'] . $url, true);
+        $data['add']        = $this->url->link('catalog/category/add', 'user_token=' . $this->session->data['user_token'] . $url, true);
+        $data['delete']     = $this->url->link('catalog/category/delete', 'user_token=' . $this->session->data['user_token'] . $url, true);
+        $data['repair']     = $this->url->link('catalog/category/repair', 'user_token=' . $this->session->data['user_token'] . $url, true);
 
         $data['categories'] = [];
 
@@ -259,18 +258,17 @@ class ControllerCatalogCategory extends Controller {
             $url .= '&order=' . $this->request->get['order'];
         }
 
-        $pagination        = new \Pagination();
-        $pagination->total = $category_total;
-        $pagination->page  = $page;
-        $pagination->limit = $this->config->get('config_limit_admin');
-        $pagination->url   = $this->url->link('catalog/category', 'user_token=' . $this->session->data['user_token'] . $url . '&page={page}', true);
+        $pagination          = new \Pagination();
+        $pagination->total   = $category_total;
+        $pagination->page    = $page;
+        $pagination->limit   = $this->config->get('config_limit_admin');
+        $pagination->url     = $this->url->link('catalog/category', 'user_token=' . $this->session->data['user_token'] . $url . '&page={page}', true);
 
-        $data['pagination'] = $pagination->render();
+        $data['pagination']  = $pagination->render();
+        $data['results']     = sprintf($this->language->get('text_pagination'), ($category_total) ? (($page - 1) * $this->config->get('config_limit_admin')) + 1 : 0, ((($page - 1) * $this->config->get('config_limit_admin')) > ($category_total - $this->config->get('config_limit_admin'))) ? $category_total : ((($page - 1) * $this->config->get('config_limit_admin')) + $this->config->get('config_limit_admin')), $category_total, ceil($category_total / $this->config->get('config_limit_admin')));
 
-        $data['results'] = sprintf($this->language->get('text_pagination'), ($category_total) ? (($page - 1) * $this->config->get('config_limit_admin')) + 1 : 0, ((($page - 1) * $this->config->get('config_limit_admin')) > ($category_total - $this->config->get('config_limit_admin'))) ? $category_total : ((($page - 1) * $this->config->get('config_limit_admin')) + $this->config->get('config_limit_admin')), $category_total, ceil($category_total / $this->config->get('config_limit_admin')));
-
-        $data['sort']  = $sort;
-        $data['order'] = $order;
+        $data['sort']        = $sort;
+        $data['order']       = $order;
 
         $data['header']      = $this->load->controller('common/header');
         $data['column_left'] = $this->load->controller('common/column_left');
@@ -326,7 +324,7 @@ class ControllerCatalogCategory extends Controller {
             $url .= '&page=' . $this->request->get['page'];
         }
 
-        $data['breadcrumbs'] = [];
+        $data['breadcrumbs']   = [];
 
         $data['breadcrumbs'][] = [
             'text' => $this->language->get('text_home'),
@@ -406,7 +404,7 @@ class ControllerCatalogCategory extends Controller {
 
         $this->load->model('setting/store');
 
-        $data['stores'] = [];
+        $data['stores']   = [];
 
         $data['stores'][] = [
             'store_id' => 0,
@@ -475,11 +473,11 @@ class ControllerCatalogCategory extends Controller {
         }
 
         if (isset($this->request->post['status'])) {
-            $data['status'] = $this->request->post['status'];
+            $data['status'] = (int)$this->request->post['status'];
         } elseif (!empty($category_info)) {
             $data['status'] = $category_info['status'];
         } else {
-            $data['status'] = true;
+            $data['status'] = 1;
         }
 
         if (isset($this->request->post['category_seo_url'])) {
@@ -500,7 +498,7 @@ class ControllerCatalogCategory extends Controller {
 
         $this->load->model('design/layout');
 
-        $data['layouts'] = $this->model_design_layout->getLayouts();
+        $data['layouts']     = $this->model_design_layout->getLayouts();
 
         $data['header']      = $this->load->controller('common/header');
         $data['column_left'] = $this->load->controller('common/column_left');

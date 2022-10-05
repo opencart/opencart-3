@@ -53,8 +53,8 @@ class ControllerLocalisationAddressFormat extends Controller {
 
         $this->document->setTitle($this->language->get('heading_title'));
 
-        $this->load->model('localisation/address_format');
         $this->load->model('localisation/country');
+        $this->load->model('localisation/address_format');
 
         if (isset($this->request->post['selected']) && $this->validateDelete()) {
             foreach ((array)$this->request->post['selected'] as $address_format_id) {
@@ -102,7 +102,7 @@ class ControllerLocalisationAddressFormat extends Controller {
             $url .= '&page=' . $this->request->get['page'];
         }
 
-        $data['breadcrumbs'] = [];
+        $data['breadcrumbs']   = [];
 
         $data['breadcrumbs'][] = [
             'text' => $this->language->get('text_home'),
@@ -114,8 +114,8 @@ class ControllerLocalisationAddressFormat extends Controller {
             'href' => $this->url->link('localisation/address_format', 'user_token=' . $this->session->data['user_token'] . $url, true)
         ];
 
-        $data['add']    = $this->url->link('localisation/address_format/add', 'user_token=' . $this->session->data['user_token'] . $url, true);
-        $data['delete'] = $this->url->link('localisation/address_format/delete', 'user_token=' . $this->session->data['user_token'] . $url, true);
+        $data['add']             = $this->url->link('localisation/address_format/add', 'user_token=' . $this->session->data['user_token'] . $url, true);
+        $data['delete']          = $this->url->link('localisation/address_format/delete', 'user_token=' . $this->session->data['user_token'] . $url, true);
 
         $data['address_formats'] = [];
 
@@ -128,7 +128,7 @@ class ControllerLocalisationAddressFormat extends Controller {
 
         $address_format_total = $this->model_localisation_address_format->getTotalAddressFormats($filter_data);
 
-        $results = $this->model_localisation_address_format->getAddressFormats($filter_data);
+        $results              = $this->model_localisation_address_format->getAddressFormats($filter_data);
 
         foreach ($results as $result) {
             $data['address_formats'][] = [
@@ -139,15 +139,14 @@ class ControllerLocalisationAddressFormat extends Controller {
             ];
         }
 
-        $pagination        = new \Pagination();
-        $pagination->total = $address_format_total;
-        $pagination->page  = $page;
-        $pagination->limit = $this->config->get('config_limit_admin');
-        $pagination->url   = $this->url->link('localisation/address_format', 'user_token=' . $this->session->data['user_token'] . $url . '&page={page}', true);
+        $pagination          = new \Pagination();
+        $pagination->total   = $address_format_total;
+        $pagination->page    = $page;
+        $pagination->limit   = $this->config->get('config_limit_admin');
+        $pagination->url     = $this->url->link('localisation/address_format', 'user_token=' . $this->session->data['user_token'] . $url . '&page={page}', true);
 
-        $data['pagination'] = $pagination->render();
-
-        $data['results'] = sprintf($this->language->get('text_pagination'), ($address_format_total) ? (($page - 1) * $this->config->get('config_limit_admin')) + 1 : 0, ((($page - 1) * $this->config->get('config_limit_admin')) > ($address_format_total - $this->config->get('config_limit_admin'))) ? $address_format_total : ((($page - 1) * $this->config->get('config_limit_admin')) + $this->config->get('config_limit_admin')), $address_format_total, ceil($address_format_total / $this->config->get('config_limit_admin')));
+        $data['pagination']  = $pagination->render();
+        $data['results']     = sprintf($this->language->get('text_pagination'), ($address_format_total) ? (($page - 1) * $this->config->get('config_limit_admin')) + 1 : 0, ((($page - 1) * $this->config->get('config_limit_admin')) > ($address_format_total - $this->config->get('config_limit_admin'))) ? $address_format_total : ((($page - 1) * $this->config->get('config_limit_admin')) + $this->config->get('config_limit_admin')), $address_format_total, ceil($address_format_total / $this->config->get('config_limit_admin')));
 
         $data['header']      = $this->load->controller('common/header');
         $data['column_left'] = $this->load->controller('common/column_left');
@@ -171,7 +170,7 @@ class ControllerLocalisationAddressFormat extends Controller {
             $data['error_name'] = '';
         }
 
-        $data['breadcrumbs'] = [];
+        $data['breadcrumbs']   = [];
 
         $data['breadcrumbs'][] = [
             'text' => $this->language->get('text_home'),

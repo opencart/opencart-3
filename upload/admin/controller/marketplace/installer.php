@@ -5,7 +5,7 @@ class ControllerMarketplaceInstaller extends Controller {
 
         $this->document->setTitle($this->language->get('heading_title'));
 
-        $data['breadcrumbs'] = [];
+        $data['breadcrumbs']   = [];
 
         $data['breadcrumbs'][] = [
             'text' => $this->language->get('text_home'),
@@ -17,7 +17,7 @@ class ControllerMarketplaceInstaller extends Controller {
             'href' => $this->url->link('marketplace/installer', 'user_token=' . $this->session->data['user_token'], true)
         ];
 
-        $data['user_token'] = $this->session->data['user_token'];
+        $data['user_token']  = $this->session->data['user_token'];
 
         $data['header']      = $this->load->controller('common/header');
         $data['column_left'] = $this->load->controller('common/column_left');
@@ -58,7 +58,6 @@ class ControllerMarketplaceInstaller extends Controller {
         $pagination->url   = $this->url->link('marketplace/installer/history', 'user_token=' . $this->session->data['user_token'] . '&page={page}', true);
 
         $data['pagination'] = $pagination->render();
-
         $data['results'] = sprintf($this->language->get('text_pagination'), ($history_total) ? (($page - 1) * 10) + 1 : 0, ((($page - 1) * 10) > ($history_total - 10)) ? $history_total : ((($page - 1) * 10) + 10), $history_total, ceil($history_total / 10));
 
         $this->response->setOutput($this->load->view('marketplace/installer_history', $data));
@@ -84,7 +83,6 @@ class ControllerMarketplaceInstaller extends Controller {
 
             if (is_file($file)) {
                 $json['error'] = $this->language->get('error_install');
-
                 break;
             }
         }
@@ -97,7 +95,7 @@ class ControllerMarketplaceInstaller extends Controller {
                 // Get a list of files ready to upload
                 $files = [];
 
-                $path = [$directory];
+                $path  = [$directory];
 
                 while (count($path) != 0) {
                     $next = array_shift($path);
@@ -129,7 +127,6 @@ class ControllerMarketplaceInstaller extends Controller {
 
             if (is_dir($directory)) {
                 $json['error'] = $this->language->get('error_install');
-
                 break;
             }
         }
@@ -158,9 +155,8 @@ class ControllerMarketplaceInstaller extends Controller {
 
                 $extension_install_id = $this->model_setting_extension->addExtensionInstall($this->request->files['file']['name']);
 
-                $json['text'] = $this->language->get('text_install');
-
-                $json['next'] = str_replace('&amp;', '&', $this->url->link('marketplace/install/install', 'user_token=' . $this->session->data['user_token'] . '&extension_install_id=' . $extension_install_id, true));
+                $json['text']         = $this->language->get('text_install');
+                $json['next']         = str_replace('&amp;', '&', $this->url->link('marketplace/install/install', 'user_token=' . $this->session->data['user_token'] . '&extension_install_id=' . $extension_install_id, true));
             } else {
                 $json['error'] = $this->language->get('error_file');
             }

@@ -143,7 +143,7 @@ class ControllerDesignLayout extends Controller {
             $url .= '&page=' . $this->request->get['page'];
         }
 
-        $data['breadcrumbs'] = [];
+        $data['breadcrumbs']   = [];
 
         $data['breadcrumbs'][] = [
             'text' => $this->language->get('text_home'),
@@ -155,8 +155,8 @@ class ControllerDesignLayout extends Controller {
             'href' => $this->url->link('design/layout', 'user_token=' . $this->session->data['user_token'] . $url, true)
         ];
 
-        $data['add']    = $this->url->link('design/layout/add', 'user_token=' . $this->session->data['user_token'] . $url, true);
-        $data['delete'] = $this->url->link('design/layout/delete', 'user_token=' . $this->session->data['user_token'] . $url, true);
+        $data['add']     = $this->url->link('design/layout/add', 'user_token=' . $this->session->data['user_token'] . $url, true);
+        $data['delete']  = $this->url->link('design/layout/delete', 'user_token=' . $this->session->data['user_token'] . $url, true);
 
         $data['layouts'] = [];
 
@@ -169,7 +169,7 @@ class ControllerDesignLayout extends Controller {
 
         $layout_total = $this->model_design_layout->getTotalLayouts();
 
-        $results = $this->model_design_layout->getLayouts($filter_data);
+        $results      = $this->model_design_layout->getLayouts($filter_data);
 
         foreach ($results as $result) {
             $data['layouts'][] = [
@@ -223,18 +223,17 @@ class ControllerDesignLayout extends Controller {
             $url .= '&order=' . $this->request->get['order'];
         }
 
-        $pagination        = new \Pagination();
-        $pagination->total = $layout_total;
-        $pagination->page  = $page;
-        $pagination->limit = $this->config->get('config_limit_admin');
-        $pagination->url   = $this->url->link('design/layout', 'user_token=' . $this->session->data['user_token'] . $url . '&page={page}', true);
+        $pagination          = new \Pagination();
+        $pagination->total   = $layout_total;
+        $pagination->page    = $page;
+        $pagination->limit   = $this->config->get('config_limit_admin');
+        $pagination->url     = $this->url->link('design/layout', 'user_token=' . $this->session->data['user_token'] . $url . '&page={page}', true);
 
-        $data['pagination'] = $pagination->render();
+        $data['pagination']  = $pagination->render();
+        $data['results']     = sprintf($this->language->get('text_pagination'), ($layout_total) ? (($page - 1) * $this->config->get('config_limit_admin')) + 1 : 0, ((($page - 1) * $this->config->get('config_limit_admin')) > ($layout_total - $this->config->get('config_limit_admin'))) ? $layout_total : ((($page - 1) * $this->config->get('config_limit_admin')) + $this->config->get('config_limit_admin')), $layout_total, ceil($layout_total / $this->config->get('config_limit_admin')));
 
-        $data['results'] = sprintf($this->language->get('text_pagination'), ($layout_total) ? (($page - 1) * $this->config->get('config_limit_admin')) + 1 : 0, ((($page - 1) * $this->config->get('config_limit_admin')) > ($layout_total - $this->config->get('config_limit_admin'))) ? $layout_total : ((($page - 1) * $this->config->get('config_limit_admin')) + $this->config->get('config_limit_admin')), $layout_total, ceil($layout_total / $this->config->get('config_limit_admin')));
-
-        $data['sort']  = $sort;
-        $data['order'] = $order;
+        $data['sort']        = $sort;
+        $data['order']       = $order;
 
         $data['header']      = $this->load->controller('common/header');
         $data['column_left'] = $this->load->controller('common/column_left');
@@ -272,7 +271,7 @@ class ControllerDesignLayout extends Controller {
             $url .= '&page=' . $this->request->get['page'];
         }
 
-        $data['breadcrumbs'] = [];
+        $data['breadcrumbs']   = [];
 
         $data['breadcrumbs'][] = [
             'text' => $this->language->get('text_home'),
@@ -290,7 +289,7 @@ class ControllerDesignLayout extends Controller {
             $data['action'] = $this->url->link('design/layout/edit', 'user_token=' . $this->session->data['user_token'] . '&layout_id=' . $this->request->get['layout_id'] . $url, true);
         }
 
-        $data['cancel'] = $this->url->link('design/layout', 'user_token=' . $this->session->data['user_token'] . $url, true);
+        $data['cancel']     = $this->url->link('design/layout', 'user_token=' . $this->session->data['user_token'] . $url, true);
 
         $data['user_token'] = $this->session->data['user_token'];
 
@@ -319,13 +318,12 @@ class ControllerDesignLayout extends Controller {
         }
 
         $this->load->model('setting/extension');
-
         $this->load->model('setting/module');
 
         $data['extensions'] = [];
 
         // Get a list of installed modules
-        $extensions = $this->model_setting_extension->getInstalled('module');
+        $extensions         = $this->model_setting_extension->getInstalled('module');
 
         // Add all the modules which have multiple settings for each module
         foreach ($extensions as $code) {
@@ -333,7 +331,7 @@ class ControllerDesignLayout extends Controller {
 
             $module_data = [];
 
-            $modules = $this->model_setting_module->getModulesByCode($code);
+            $modules     = $this->model_setting_module->getModulesByCode($code);
 
             foreach ($modules as $module) {
                 $module_data[] = [
@@ -412,11 +410,8 @@ class ControllerDesignLayout extends Controller {
         }
 
         $this->load->model('setting/store');
-
         $this->load->model('catalog/product');
-
         $this->load->model('catalog/category');
-
         $this->load->model('catalog/information');
 
         foreach ((array)$this->request->post['selected'] as $layout_id) {

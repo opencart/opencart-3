@@ -5,7 +5,7 @@ class ControllerDesignTheme extends Controller {
 
         $this->document->setTitle($this->language->get('heading_title'));
 
-        $data['breadcrumbs'] = [];
+        $data['breadcrumbs']   = [];
 
         $data['breadcrumbs'][] = [
             'text' => $this->language->get('text_home'),
@@ -19,7 +19,7 @@ class ControllerDesignTheme extends Controller {
 
         $data['user_token'] = $this->session->data['user_token'];
 
-        $data['stores'] = [];
+        $data['stores']     = [];
 
         $this->load->model('setting/store');
 
@@ -51,12 +51,10 @@ class ControllerDesignTheme extends Controller {
         $data['histories'] = [];
 
         $this->load->model('design/theme');
-
         $this->load->model('setting/store');
 
-        $history_total = $this->model_design_theme->getTotalThemes();
-
-        $results = $this->model_design_theme->getThemes(($page - 1) * 10, 10);
+        $history_total     = $this->model_design_theme->getTotalThemes();
+        $results           = $this->model_design_theme->getThemes(($page - 1) * 10, 10);
 
         foreach ($results as $result) {
             $store_info = $this->model_setting_store->getStore($result['store_id']);
@@ -78,15 +76,14 @@ class ControllerDesignTheme extends Controller {
             ];
         }
 
-        $pagination        = new \Pagination();
-        $pagination->total = $history_total;
-        $pagination->page  = $page;
-        $pagination->limit = 10;
-        $pagination->url   = $this->url->link('design/theme/history', 'user_token=' . $this->session->data['user_token'] . '&page={page}', true);
+        $pagination         = new \Pagination();
+        $pagination->total  = $history_total;
+        $pagination->page   = $page;
+        $pagination->limit  = 10;
+        $pagination->url    = $this->url->link('design/theme/history', 'user_token=' . $this->session->data['user_token'] . '&page={page}', true);
 
         $data['pagination'] = $pagination->render();
-
-        $data['results'] = sprintf($this->language->get('text_pagination'), ($history_total) ? (($page - 1) * 10) + 1 : 0, ((($page - 1) * 10) > ($history_total - 10)) ? $history_total : ((($page - 1) * 10) + 10), $history_total, ceil($history_total / 10));
+        $data['results']    = sprintf($this->language->get('text_pagination'), ($history_total) ? (($page - 1) * 10) + 1 : 0, ((($page - 1) * 10) > ($history_total - 10)) ? $history_total : ((($page - 1) * 10) + 10), $history_total, ceil($history_total / 10));
 
         $this->response->setOutput($this->load->view('design/theme_history', $data));
     }

@@ -143,7 +143,7 @@ class ControllerLocalisationZone extends Controller {
             $url .= '&page=' . $this->request->get['page'];
         }
 
-        $data['breadcrumbs'] = [];
+        $data['breadcrumbs']   = [];
 
         $data['breadcrumbs'][] = [
             'text' => $this->language->get('text_home'),
@@ -158,7 +158,7 @@ class ControllerLocalisationZone extends Controller {
         $data['add']    = $this->url->link('localisation/zone/add', 'user_token=' . $this->session->data['user_token'] . $url, true);
         $data['delete'] = $this->url->link('localisation/zone/delete', 'user_token=' . $this->session->data['user_token'] . $url, true);
 
-        $data['zones'] = [];
+        $data['zones']  = [];
 
         $filter_data = [
             'sort'  => $sort,
@@ -169,7 +169,7 @@ class ControllerLocalisationZone extends Controller {
 
         $zone_total = $this->model_localisation_zone->getTotalZones();
 
-        $results = $this->model_localisation_zone->getZones($filter_data);
+        $results    = $this->model_localisation_zone->getZones($filter_data);
 
         foreach ($results as $result) {
             $data['zones'][] = [
@@ -227,18 +227,17 @@ class ControllerLocalisationZone extends Controller {
             $url .= '&order=' . $this->request->get['order'];
         }
 
-        $pagination        = new \Pagination();
-        $pagination->total = $zone_total;
-        $pagination->page  = $page;
-        $pagination->limit = $this->config->get('config_limit_admin');
-        $pagination->url   = $this->url->link('localisation/zone', 'user_token=' . $this->session->data['user_token'] . $url . '&page={page}', true);
+        $pagination          = new \Pagination();
+        $pagination->total   = $zone_total;
+        $pagination->page    = $page;
+        $pagination->limit   = $this->config->get('config_limit_admin');
+        $pagination->url     = $this->url->link('localisation/zone', 'user_token=' . $this->session->data['user_token'] . $url . '&page={page}', true);
 
-        $data['pagination'] = $pagination->render();
+        $data['pagination']  = $pagination->render();
+        $data['results']     = sprintf($this->language->get('text_pagination'), ($zone_total) ? (($page - 1) * $this->config->get('config_limit_admin')) + 1 : 0, ((($page - 1) * $this->config->get('config_limit_admin')) > ($zone_total - $this->config->get('config_limit_admin'))) ? $zone_total : ((($page - 1) * $this->config->get('config_limit_admin')) + $this->config->get('config_limit_admin')), $zone_total, ceil($zone_total / $this->config->get('config_limit_admin')));
 
-        $data['results'] = sprintf($this->language->get('text_pagination'), ($zone_total) ? (($page - 1) * $this->config->get('config_limit_admin')) + 1 : 0, ((($page - 1) * $this->config->get('config_limit_admin')) > ($zone_total - $this->config->get('config_limit_admin'))) ? $zone_total : ((($page - 1) * $this->config->get('config_limit_admin')) + $this->config->get('config_limit_admin')), $zone_total, ceil($zone_total / $this->config->get('config_limit_admin')));
-
-        $data['sort']  = $sort;
-        $data['order'] = $order;
+        $data['sort']        = $sort;
+        $data['order']       = $order;
 
         $data['header']      = $this->load->controller('common/header');
         $data['column_left'] = $this->load->controller('common/column_left');
@@ -276,7 +275,7 @@ class ControllerLocalisationZone extends Controller {
             $url .= '&page=' . $this->request->get['page'];
         }
 
-        $data['breadcrumbs'] = [];
+        $data['breadcrumbs']   = [];
 
         $data['breadcrumbs'][] = [
             'text' => $this->language->get('text_home'),
@@ -301,11 +300,11 @@ class ControllerLocalisationZone extends Controller {
         }
 
         if (isset($this->request->post['status'])) {
-            $data['status'] = $this->request->post['status'];
+            $data['status'] = (int)$this->request->post['status'];
         } elseif (!empty($zone_info)) {
             $data['status'] = $zone_info['status'];
         } else {
-            $data['status'] = '1';
+            $data['status'] = 1;
         }
 
         if (isset($this->request->post['name'])) {
@@ -334,7 +333,7 @@ class ControllerLocalisationZone extends Controller {
 
         $this->load->model('localisation/country');
 
-        $data['countries'] = $this->model_localisation_country->getCountries();
+        $data['countries']   = $this->model_localisation_country->getCountries();
 
         $data['header']      = $this->load->controller('common/header');
         $data['column_left'] = $this->load->controller('common/column_left');

@@ -25,7 +25,7 @@ class ControllerToolLog extends Controller {
             $data['success'] = '';
         }
 
-        $data['breadcrumbs'] = [];
+        $data['breadcrumbs']   = [];
 
         $data['breadcrumbs'][] = [
             'text' => $this->language->get('text_home'),
@@ -40,7 +40,7 @@ class ControllerToolLog extends Controller {
         $data['download'] = $this->url->link('tool/log/download', 'user_token=' . $this->session->data['user_token'], true);
         $data['clear']    = $this->url->link('tool/log/clear', 'user_token=' . $this->session->data['user_token'], true);
 
-        $data['log'] = '';
+        $data['log']      = '';
 
         $file = DIR_LOGS . $this->config->get('config_error_filename');
 

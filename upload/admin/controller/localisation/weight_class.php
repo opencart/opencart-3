@@ -143,7 +143,7 @@ class ControllerLocalisationWeightClass extends Controller {
             $url .= '&page=' . $this->request->get['page'];
         }
 
-        $data['breadcrumbs'] = [];
+        $data['breadcrumbs']   = [];
 
         $data['breadcrumbs'][] = [
             'text' => $this->language->get('text_home'),
@@ -155,8 +155,8 @@ class ControllerLocalisationWeightClass extends Controller {
             'href' => $this->url->link('localisation/weight_class', 'user_token=' . $this->session->data['user_token'] . $url, true)
         ];
 
-        $data['add']    = $this->url->link('localisation/weight_class/add', 'user_token=' . $this->session->data['user_token'] . $url, true);
-        $data['delete'] = $this->url->link('localisation/weight_class/delete', 'user_token=' . $this->session->data['user_token'] . $url, true);
+        $data['add']            = $this->url->link('localisation/weight_class/add', 'user_token=' . $this->session->data['user_token'] . $url, true);
+        $data['delete']         = $this->url->link('localisation/weight_class/delete', 'user_token=' . $this->session->data['user_token'] . $url, true);
 
         $data['weight_classes'] = [];
 
@@ -169,7 +169,7 @@ class ControllerLocalisationWeightClass extends Controller {
 
         $weight_class_total = $this->model_localisation_weight_class->getTotalWeightClasses();
 
-        $results = $this->model_localisation_weight_class->getWeightClasses($filter_data);
+        $results            = $this->model_localisation_weight_class->getWeightClasses($filter_data);
 
         foreach ($results as $result) {
             $data['weight_classes'][] = [
@@ -227,18 +227,17 @@ class ControllerLocalisationWeightClass extends Controller {
             $url .= '&order=' . $this->request->get['order'];
         }
 
-        $pagination        = new \Pagination();
-        $pagination->total = $weight_class_total;
-        $pagination->page  = $page;
-        $pagination->limit = $this->config->get('config_limit_admin');
-        $pagination->url   = $this->url->link('localisation/weight_class', 'user_token=' . $this->session->data['user_token'] . $url . '&page={page}', true);
+        $pagination          = new \Pagination();
+        $pagination->total   = $weight_class_total;
+        $pagination->page    = $page;
+        $pagination->limit   = $this->config->get('config_limit_admin');
+        $pagination->url     = $this->url->link('localisation/weight_class', 'user_token=' . $this->session->data['user_token'] . $url . '&page={page}', true);
 
-        $data['pagination'] = $pagination->render();
+        $data['pagination']  = $pagination->render();
+        $data['results']     = sprintf($this->language->get('text_pagination'), ($weight_class_total) ? (($page - 1) * $this->config->get('config_limit_admin')) + 1 : 0, ((($page - 1) * $this->config->get('config_limit_admin')) > ($weight_class_total - $this->config->get('config_limit_admin'))) ? $weight_class_total : ((($page - 1) * $this->config->get('config_limit_admin')) + $this->config->get('config_limit_admin')), $weight_class_total, ceil($weight_class_total / $this->config->get('config_limit_admin')));
 
-        $data['results'] = sprintf($this->language->get('text_pagination'), ($weight_class_total) ? (($page - 1) * $this->config->get('config_limit_admin')) + 1 : 0, ((($page - 1) * $this->config->get('config_limit_admin')) > ($weight_class_total - $this->config->get('config_limit_admin'))) ? $weight_class_total : ((($page - 1) * $this->config->get('config_limit_admin')) + $this->config->get('config_limit_admin')), $weight_class_total, ceil($weight_class_total / $this->config->get('config_limit_admin')));
-
-        $data['sort']  = $sort;
-        $data['order'] = $order;
+        $data['sort']        = $sort;
+        $data['order']       = $order;
 
         $data['header']      = $this->load->controller('common/header');
         $data['column_left'] = $this->load->controller('common/column_left');
@@ -282,7 +281,7 @@ class ControllerLocalisationWeightClass extends Controller {
             $url .= '&page=' . $this->request->get['page'];
         }
 
-        $data['breadcrumbs'] = [];
+        $data['breadcrumbs']   = [];
 
         $data['breadcrumbs'][] = [
             'text' => $this->language->get('text_home'),
@@ -306,10 +305,6 @@ class ControllerLocalisationWeightClass extends Controller {
             $weight_class_info = $this->model_localisation_weight_class->getWeightClass($this->request->get['weight_class_id']);
         }
 
-        $this->load->model('localisation/language');
-
-        $data['languages'] = $this->model_localisation_language->getLanguages();
-
         if (isset($this->request->post['weight_class_description'])) {
             $data['weight_class_description'] = $this->request->post['weight_class_description'];
         } elseif (isset($this->request->get['weight_class_id'])) {
@@ -325,6 +320,10 @@ class ControllerLocalisationWeightClass extends Controller {
         } else {
             $data['value'] = '';
         }
+
+        $this->load->model('localisation/language');
+
+        $data['languages']   = $this->model_localisation_language->getLanguages();
 
         $data['header']      = $this->load->controller('common/header');
         $data['column_left'] = $this->load->controller('common/column_left');

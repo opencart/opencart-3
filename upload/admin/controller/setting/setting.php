@@ -131,8 +131,7 @@ class ControllerSettingSetting extends Controller {
             $data['error_mail_engine'] = '';
         }
 
-        $data['breadcrumbs'] = [];
-
+        $data['breadcrumbs']   = [];
         $data['breadcrumbs'][] = [
             'text' => $this->language->get('text_home'),
             'href' => $this->url->link('common/dashboard', 'user_token=' . $this->session->data['user_token'], true)
@@ -158,6 +157,7 @@ class ControllerSettingSetting extends Controller {
 
         $data['action']     = $this->url->link('setting/setting', 'user_token=' . $this->session->data['user_token'], true);
         $data['cancel']     = $this->url->link('setting/store', 'user_token=' . $this->session->data['user_token'], true);
+
         $data['user_token'] = $this->session->data['user_token'];
 
         if (isset($this->request->post['config_meta_title'])) {
