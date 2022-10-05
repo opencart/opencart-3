@@ -47,6 +47,8 @@ class ControllerCommonCart extends Controller {
             array_multisort($sort_order, SORT_ASC, $totals);
         }
 
+        $data['text_items'] = sprintf($this->language->get('text_items'), $this->cart->countProducts() + (isset($this->session->data['vouchers']) ? count($this->session->data['vouchers']) : 0), $this->currency->format($total, $this->session->data['currency']));
+
         $this->load->model('tool/image');
         $this->load->model('tool/upload');
 
@@ -155,7 +157,6 @@ class ControllerCommonCart extends Controller {
 
         $data['cart']       = $this->url->link('checkout/cart');
         $data['checkout']   = $this->url->link('checkout/checkout', '', true);
-        $data['text_items'] = sprintf($this->language->get('text_items'), $this->cart->countProducts() + (isset($this->session->data['vouchers']) ? count($this->session->data['vouchers']) : 0), $this->currency->format($total, $this->session->data['currency']));
 
         return $this->load->view('common/cart', $data);
     }
