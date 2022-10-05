@@ -7,9 +7,9 @@ class ModelExtensionModuleAmazonLogin extends Model {
     public function fetchProfile($access_token) {
         $url = sprintf(self::URL_PROFILE, $this->getApiDomainName());
 
-        $profile = $this->curlGet($url, array(
+        $profile = $this->curlGet($url, [
             'Authorization: bearer ' . $access_token
-        ));
+        ]);
 
         if (!empty($profile->error)) {
             $this->debugLog("ERROR", $this->language->get('error_login'));
@@ -17,9 +17,9 @@ class ModelExtensionModuleAmazonLogin extends Model {
             throw new \RuntimeException($this->language->get('error_login'));
         }
 
-        $full_name = explode(' ', $profile->name);
+        $full_name           = explode(' ', $profile->name);
         $profile->first_name = array_shift($full_name);
-        $profile->last_name = implode(' ', $full_name);
+        $profile->last_name  = implode(' ', $full_name);
 
         return $profile;
     }
@@ -40,23 +40,23 @@ class ModelExtensionModuleAmazonLogin extends Model {
 
     public function loginProfile($amazon_profile) {
         $this->load->model('account/address');
-		
+
         $this->load->model('account/customer');
-		
+
         $this->load->model('account/customer_group');
 
         $customer_info = $this->model_account_customer->getCustomerByEmail((string)$amazon_profile->email);
 
         // Create non-existing customer
         if (empty($customer_info)) {
-            $data = array(
-                'customer_group_id' 	=> (int)$this->config->get('config_customer_group_id'),
-                'firstname' 			=> (string)$amazon_profile->first_name,
-                'lastname' 				=> (string)$amazon_profile->last_name,
-                'email' 				=> (string)$amazon_profile->email,
-                'telephone' 			=> '0000000',
-                'password' 				=> uniqid(rand(), true)
-            );
+            $data = [
+                'customer_group_id' => (int)$this->config->get('config_customer_group_id'),
+                'firstname'         => (string)$amazon_profile->first_name,
+                'lastname'          => (string)$amazon_profile->last_name,
+                'email'             => (string)$amazon_profile->email,
+                'telephone'         => '0000000',
+                'password'          => uniqid(rand(), true)
+            ];
 
             $customer_id = $this->model_account_customer->addCustomer($data);
 
@@ -122,10 +122,7 @@ class ModelExtensionModuleAmazonLogin extends Model {
         // Skip comparison of custom_field. TODO introduce comparison for custom_field
         unset($keys[array_search('custom_field', $keys)]);
 
-        $diff = array_diff_assoc(
-            array_intersect_key($a1, array_flip($keys)),
-            array_intersect_key($a2, array_flip($keys))
-        );
+        $diff = array_diff_assoc(array_intersect_key($a1, array_flip($keys)), array_intersect_key($a2, array_flip($keys)));
 
         return empty($diff);
     }
@@ -149,10 +146,10 @@ class ModelExtensionModuleAmazonLogin extends Model {
             if ($this->config->get('config_customer_activity')) {
                 $this->load->model('account/activity');
 
-                $activity_data = array(
+                $activity_data = [
                     'customer_id' => $customer_info['customer_id'],
                     'name'        => $customer_info['firstname'] . ' ' . $customer_info['lastname']
-                );
+                ];
 
                 $this->model_account_activity->addActivity('login', $activity_data);
             }
@@ -181,7 +178,7 @@ class ModelExtensionModuleAmazonLogin extends Model {
         }
     }
 
-    public function curlGet($url, $headers = array()) {
+    public function curlGet($url, $headers = []) {
         $this->debugLog('URL', $url);
 
         $ch = curl_init($url);
@@ -194,20 +191,20 @@ class ModelExtensionModuleAmazonLogin extends Model {
 
         if (!empty($headers)) {
             $this->debugLog('HEADERS', $headers);
-			
+
             curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
         }
 
         $response = curl_exec($ch);
 
         if (empty($response)) {
-            $debug = array(
-                'curl_getinfo' 	=> curl_getinfo($ch),
-                'curl_errno' 	=> curl_errno($ch),
-                'curl_error' 	=> curl_error($ch)
-            );
-			
-			curl_close($ch);
+            $debug = [
+                'curl_getinfo' => curl_getinfo($ch),
+                'curl_errno'   => curl_errno($ch),
+                'curl_error'   => curl_error($ch)
+            ];
+
+            curl_close($ch);
 
             $this->debugLog('ERROR', $debug);
 
@@ -233,8 +230,8 @@ class ModelExtensionModuleAmazonLogin extends Model {
         }
 
         ob_start();
-            debug_print_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS);
-            $message .= PHP_EOL . ob_get_contents();
+        debug_print_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS);
+        $message .= PHP_EOL . ob_get_contents();
         ob_end_clean();
 
         $log = new \Log(self::LOG_FILENAME);

@@ -1,122 +1,122 @@
 <?php
 class ModelExtensionPaymentBluePayRedirect extends Model {
-	public function getMethod($address, $total) {
-		$this->load->language('extension/payment/bluepay_redirect');
+    public function getMethod($address, $total) {
+        $this->load->language('extension/payment/bluepay_redirect');
 
-		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "zone_to_geo_zone` WHERE `geo_zone_id` = '" . (int)$this->config->get('payment_bluepay_redirect_geo_zone_id') . "' AND `country_id` = '" . (int)$address['country_id'] . "' AND (`zone_id` = '" . (int)$address['zone_id'] . "' OR `zone_id` = '0')");
+        $query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "zone_to_geo_zone` WHERE `geo_zone_id` = '" . (int)$this->config->get('payment_bluepay_redirect_geo_zone_id') . "' AND `country_id` = '" . (int)$address['country_id'] . "' AND (`zone_id` = '" . (int)$address['zone_id'] . "' OR `zone_id` = '0')");
 
-		if ($this->config->get('payment_bluepay_redirect_total') > 0 && $this->config->get('payment_bluepay_redirect_total') > $total) {
-			$status = false;
-		} elseif (!$this->config->get('payment_bluepay_redirect_geo_zone_id')) {
-			$status = true;
-		} elseif ($query->num_rows) {
-			$status = true;
-		} else {
-			$status = false;
-		}
+        if ($this->config->get('payment_bluepay_redirect_total') > 0 && $this->config->get('payment_bluepay_redirect_total') > $total) {
+            $status = false;
+        } elseif (!$this->config->get('payment_bluepay_redirect_geo_zone_id')) {
+            $status = true;
+        } elseif ($query->num_rows) {
+            $status = true;
+        } else {
+            $status = false;
+        }
 
-		$method_data = array();
+        $method_data = [];
 
-		if ($status) {
-			$method_data = array(
-				'code' 			=> 'bluepay_redirect',
-				'title' 		=> $this->language->get('text_title'),
-				'terms' 		=> '',
-				'sort_order' 	=> $this->config->get('payment_bluepay_redirect_sort_order')
-			);
-		}
+        if ($status) {
+            $method_data = [
+                'code'       => 'bluepay_redirect',
+                'title'      => $this->language->get('text_title'),
+                'terms'      => '',
+                'sort_order' => $this->config->get('payment_bluepay_redirect_sort_order')
+            ];
+        }
 
-		return $method_data;
-	}
+        return $method_data;
+    }
 
-	public function getCards($customer_id) {
-		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "bluepay_redirect_card` WHERE `customer_id` = '" . (int)$customer_id . "'");
+    public function getCards($customer_id) {
+        $query     = $this->db->query("SELECT * FROM `" . DB_PREFIX . "bluepay_redirect_card` WHERE `customer_id` = '" . (int)$customer_id . "'");
 
-		$card_data = array();
+        $card_data = [];
 
-		$this->load->model('account/address');
+        $this->load->model('account/address');
 
-		foreach ($query->rows as $row) {
-			$card_data[] = array(
-				'card_id' 		=> $row['card_id'],
-				'customer_id' 	=> $row['customer_id'],
-				'token' 		=> $row['token'],
-				'digits' 		=> '**** ' . $row['digits'],
-				'expiry' 		=> $row['expiry'],
-				'type' 			=> $row['type'],
-			);
-		}
-		
-		return $card_data;
-	}
+        foreach ($query->rows as $row) {
+            $card_data[] = [
+                'card_id'     => $row['card_id'],
+                'customer_id' => $row['customer_id'],
+                'token'       => $row['token'],
+                'digits'      => '**** ' . $row['digits'],
+                'expiry'      => $row['expiry'],
+                'type'        => $row['type'],
+            ];
+        }
 
-	public function addCard($card_data) {
-		$this->db->query("INSERT INTO `" . DB_PREFIX . "bluepay_redirect_card` SET `customer_id` = '" . (int)$card_data['customer_id'] . "', `token` = '" . $this->db->escape($card_data['Token']) . "', `digits` = '" . $this->db->escape($card_data['Last4Digits']) . "', `expiry` = '" . $this->db->escape($card_data['ExpiryDate']) . "', `type` = '" . $this->db->escape($card_data['CardType']) . "'");
-	}
+        return $card_data;
+    }
 
-	public function addOrder($order_info, $response_data) {
-		if ($this->config->get('payment_bluepay_redirect_transaction') == 'SALE') {
-			$release_status = 1;
-		} else {
-			$release_status = null;
-		}
+    public function addCard($card_data) {
+        $this->db->query("INSERT INTO `" . DB_PREFIX . "bluepay_redirect_card` SET `customer_id` = '" . (int)$card_data['customer_id'] . "', `token` = '" . $this->db->escape($card_data['Token']) . "', `digits` = '" . $this->db->escape($card_data['Last4Digits']) . "', `expiry` = '" . $this->db->escape($card_data['ExpiryDate']) . "', `type` = '" . $this->db->escape($card_data['CardType']) . "'");
+    }
 
-		$this->db->query("INSERT INTO `" . DB_PREFIX . "bluepay_redirect_order` SET `order_id` = '" . (int)$order_info['order_id'] . "', `transaction_id` = '" . $this->db->escape($response_data['RRNO']) . "', `date_added` = NOW(), `date_modified` = NOW(), `release_status` = '" . (int)$release_status . "', `currency_code` = '" . $this->db->escape($order_info['currency_code']) . "', `total` = '" . $this->currency->format($order_info['total'], $order_info['currency_code'], false, false) . "'");
+    public function addOrder($order_info, $response_data) {
+        if ($this->config->get('payment_bluepay_redirect_transaction') == 'SALE') {
+            $release_status = 1;
+        } else {
+            $release_status = 0;
+        }
 
-		return $this->db->getLastId();
-	}
+        $this->db->query("INSERT INTO `" . DB_PREFIX . "bluepay_redirect_order` SET `order_id` = '" . (int)$order_info['order_id'] . "', `transaction_id` = '" . $this->db->escape($response_data['RRNO']) . "', `date_added` = NOW(), `date_modified` = NOW(), `release_status` = '" . (int)$release_status . "', `currency_code` = '" . $this->db->escape($order_info['currency_code']) . "', `total` = '" . $this->currency->format($order_info['total'], $order_info['currency_code'], false, false) . "'");
 
-	public function getOrder($order_id) {
-		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "bluepay_redirect_order` WHERE `order_id` = '" . (int)$order_id . "' LIMIT 1");
+        return $this->db->getLastId();
+    }
 
-		if ($query->num_rows) {
-			$order = $query->row;
-			$order['transactions'] = $this->getTransactions($order['bluepay_redirect_order_id']);
+    public function getOrder($order_id) {
+        $query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "bluepay_redirect_order` WHERE `order_id` = '" . (int)$order_id . "' LIMIT 1");
 
-			return $order;
-		} else {
-			return false;
-		}
-	}
+        if ($query->num_rows) {
+            $order                 = $query->row;
+            $order['transactions'] = $this->getTransactions($order['bluepay_redirect_order_id']);
 
-	public function addTransaction($bluepay_redirect_order_id, $type, $order_info) {
-		$this->db->query("INSERT INTO `" . DB_PREFIX . "bluepay_redirect_order_transaction` SET `bluepay_redirect_order_id` = '" . (int)$bluepay_redirect_order_id . "', `date_added` = NOW(), `type` = '" . $this->db->escape($type) . "', `amount` = '" . $this->currency->format($order_info['total'], $order_info['currency_code'], false, false) . "'");
-	}
+            return $order;
+        } else {
+            return [];
+        }
+    }
 
-	private function getTransactions($bluepay_redirect_order_id) {
-		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "bluepay_redirect_order_transaction` WHERE `bluepay_redirect_order_id` = '" . (int)$bluepay_redirect_order_id . "'");
+    public function addTransaction($bluepay_redirect_order_id, $type, $order_info) {
+        $this->db->query("INSERT INTO `" . DB_PREFIX . "bluepay_redirect_order_transaction` SET `bluepay_redirect_order_id` = '" . (int)$bluepay_redirect_order_id . "', `date_added` = NOW(), `type` = '" . $this->db->escape($type) . "', `amount` = '" . $this->currency->format($order_info['total'], $order_info['currency_code'], false, false) . "'");
+    }
 
-		if ($query->num_rows) {
-			return $query->rows;
-		} else {
-			return false;
-		}
-	}
+    private function getTransactions($bluepay_redirect_order_id) {
+        $query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "bluepay_redirect_order_transaction` WHERE `bluepay_redirect_order_id` = '" . (int)$bluepay_redirect_order_id . "'");
 
-	public function logger($message) {
-		if ($this->config->get('payment_bluepay_redirect_debug') == 1) {
-			$log = new \Log('bluepay_redirect.log');
-			$log->write($message);
-		}
-	}
+        if ($query->num_rows) {
+            return $query->rows;
+        } else {
+            return [];
+        }
+    }
 
-	public function sendCurl($url, $post_data) {
-		$curl = curl_init($url);
+    public function logger($message) {
+        if ($this->config->get('payment_bluepay_redirect_debug') == 1) {
+            $log = new \Log('bluepay_redirect.log');
+            $log->write($message);
+        }
+    }
 
-		curl_setopt($curl, CURLOPT_PORT, 443);
-		curl_setopt($curl, CURLOPT_HEADER, 0);
-		curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, 0);
-		curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
-		curl_setopt($curl, CURLOPT_FOLLOWLOCATION, true);
-		curl_setopt($curl, CURLOPT_FORBID_REUSE, 1);
-		curl_setopt($curl, CURLOPT_FRESH_CONNECT, 1);
-		curl_setopt($curl, CURLOPT_POST, 1);
-		curl_setopt($curl, CURLOPT_POSTFIELDS, http_build_query($post_data));
+    public function sendCurl($url, $post_data) {
+        $curl = curl_init($url);
 
-		$response_data = curl_exec($curl);
-		
-		curl_close($curl);
+        curl_setopt($curl, CURLOPT_PORT, 443);
+        curl_setopt($curl, CURLOPT_HEADER, 0);
+        curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, 0);
+        curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
+        curl_setopt($curl, CURLOPT_FOLLOWLOCATION, true);
+        curl_setopt($curl, CURLOPT_FORBID_REUSE, 1);
+        curl_setopt($curl, CURLOPT_FRESH_CONNECT, 1);
+        curl_setopt($curl, CURLOPT_POST, 1);
+        curl_setopt($curl, CURLOPT_POSTFIELDS, http_build_query($post_data));
 
-		return json_decode($response_data, true);
-	}
+        $response_data = curl_exec($curl);
+
+        curl_close($curl);
+
+        return json_decode($response_data, true);
+    }
 }

@@ -1,6 +1,6 @@
 <?php
 class ModelSettingStore extends Model {
-	public function getStores() {
+	public function getStores(): array {
 		$store_data = $this->cache->get('store');
 
 		if (!$store_data) {
@@ -14,7 +14,7 @@ class ModelSettingStore extends Model {
 		return $store_data;
 	}
 	
-	public function getStoreByHostname(string $url) {
+	public function getStoreByHostname(string $url): array {
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "store` WHERE REPLACE(`url`, 'www.', '') = '" . $this->db->escape($url) . "'");
 
 		return $query->row;

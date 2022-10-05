@@ -7,7 +7,7 @@ class ModelExtensionAdvertiseGoogle extends Model {
 
         if ($google_category_result->num_rows > 0) {
             $google_category_id = $google_category_result->row['google_product_category'];
-            $google_categories = $this->config->get('advertise_google_google_product_categories');
+            $google_categories  = $this->config->get('advertise_google_google_product_categories');
 
             if (!empty($google_category_id) && isset($google_categories[$google_category_id])) {
                 return $google_categories[$google_category_id];
@@ -37,18 +37,17 @@ class ModelExtensionAdvertiseGoogle extends Model {
 
     public function getSizeAndColorOptionMap($product_id, $store_id) {
         $color_id = $this->getOptionId($product_id, $store_id, 'color');
-        $size_id = $this->getOptionId($product_id, $store_id, 'size');
+        $size_id  = $this->getOptionId($product_id, $store_id, 'size');
 
         $groups = $this->googleshopping->getGroups($product_id, $this->config->get('config_language_id'), $color_id, $size_id);
-
         $colors = $this->googleshopping->getProductOptionValueNames($product_id, $this->config->get('config_language_id'), $color_id);
-        $sizes = $this->googleshopping->getProductOptionValueNames($product_id, $this->config->get('config_language_id'), $size_id);
+        $sizes  = $this->googleshopping->getProductOptionValueNames($product_id, $this->config->get('config_language_id'), $size_id);
 
-        $map = array(
-            'groups' 	=> $groups,
-            'colors' 	=> count($colors) > 1 ? $colors : null,
-            'sizes' 	=> count($sizes) > 1 ? $sizes : null,
-        );
+        $map = [
+            'groups' => $groups,
+            'colors' => count($colors) > 1 ? $colors : null,
+            'sizes'  => count($sizes) > 1 ? $sizes : null,
+        ];
 
         return $map;
     }
@@ -66,7 +65,7 @@ class ModelExtensionAdvertiseGoogle extends Model {
     }
 
     public function getRemarketingProductIds($products, $store_id) {
-        $ecomm_prodid = array();
+        $ecomm_prodid = [];
 
         foreach ($products as $product) {
             if (null !== $id = $this->getRemarketingProductId($product, $store_id)) {
@@ -78,16 +77,16 @@ class ModelExtensionAdvertiseGoogle extends Model {
     }
 
     public function getRemarketingItems($products, $store_id) {
-        $items = array();
+        $items = [];
 
         foreach ($products as $product) {
             if (null !== $id = $this->getRemarketingProductId($product, $store_id)) {
-                $items[] = array(
-                    'google_business_vertical' 	=> 'retail',
-                    'id' 						=> (string)$id,
-                    'name' 						=> (string)$product['name'],
-                    'quantity' 					=> (int)$product['quantity']
-                );
+                $items[] = [
+                    'google_business_vertical' => 'retail',
+                    'id'                       => (string)$id,
+                    'name'                     => (string)$product['name'],
+                    'quantity'                 => (int)$product['quantity']
+                ];
             }
         }
 
@@ -95,9 +94,9 @@ class ModelExtensionAdvertiseGoogle extends Model {
     }
 
     protected function getRemarketingProductId($product, $store_id) {
-        $option_map = $this->getSizeAndColorOptionMap($product['product_id'], $store_id);
         $found_color = '';
-        $found_size = '';
+        $found_size  = '';
+        $option_map  = $this->getSizeAndColorOptionMap($product['product_id'], $store_id);
 
         foreach ($product['option'] as $option) {
             if (!empty($option_map['colors']) && is_array($option_map['colors'])) {

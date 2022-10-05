@@ -1,109 +1,109 @@
 <?php
 class ModelExtensionPaymentPPPayflowIframe extends Model {
-	public function getMethod(array $address, float $total) {
-		$this->load->language('extension/payment/pp_payflow_iframe');
+    public function getMethod(array $address, float $total) {
+        $this->load->language('extension/payment/pp_payflow_iframe');
 
-		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "zone_to_geo_zone` WHERE `geo_zone_id` = '" . (int)$this->config->get('payment_pp_payflow_iframe_geo_zone_id') . "' AND `country_id` = '" . (int)$address['country_id'] . "' AND (`zone_id` = '" . (int)$address['zone_id'] . "' OR `zone_id` = '0')");
+        $query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "zone_to_geo_zone` WHERE `geo_zone_id` = '" . (int)$this->config->get('payment_pp_payflow_iframe_geo_zone_id') . "' AND `country_id` = '" . (int)$address['country_id'] . "' AND (`zone_id` = '" . (int)$address['zone_id'] . "' OR `zone_id` = '0')");
 
-		if ($this->config->get('payment_pp_payflow_iframe_total') > $total) {
-			$status = false;
-		} elseif (!$this->config->get('payment_pp_payflow_iframe_geo_zone_id')) {
-			$status = true;
-		} elseif ($query->num_rows) {
-			$status = true;
-		} else {
-			$status = false;
-		}
+        if ($this->config->get('payment_pp_payflow_iframe_total') > $total) {
+            $status = false;
+        } elseif (!$this->config->get('payment_pp_payflow_iframe_geo_zone_id')) {
+            $status = true;
+        } elseif ($query->num_rows) {
+            $status = true;
+        } else {
+            $status = false;
+        }
 
-		$method_data = array();
+        $method_data = [];
 
-		if ($status) {
-			$method_data = array(
-				'code' 			=> 'pp_payflow_iframe',
-				'title' 		=> $this->language->get('text_title'),
-				'terms'      	=> '',
-				'sort_order' 	=> $this->config->get('payment_pp_payflow_iframe_sort_order')
-			);
-		}
+        if ($status) {
+            $method_data = [
+                'code'       => 'pp_payflow_iframe',
+                'title'      => $this->language->get('text_title'),
+                'terms'      => '',
+                'sort_order' => $this->config->get('payment_pp_payflow_iframe_sort_order')
+            ];
+        }
 
-		return $method_data;
-	}
+        return $method_data;
+    }
 
-	public function getOrderId(string $secure_token_id): array {
-		$result = $this->db->query("SELECT `order_id` FROM `" . DB_PREFIX . "paypal_payflow_iframe_order` WHERE `secure_token_id` = '" . $this->db->escape($secure_token_id) . "'")->row;
+    public function getOrderId(string $secure_token_id): array {
+        $result = $this->db->query("SELECT `order_id` FROM `" . DB_PREFIX . "paypal_payflow_iframe_order` WHERE `secure_token_id` = '" . $this->db->escape($secure_token_id) . "'")->row;
 
-		if ($result) {
-			$order_id = $result['order_id'];
-		} else {
-			$order_id = false;
-		}
+        if ($result) {
+            $order_id = $result['order_id'];
+        } else {
+            $order_id = false;
+        }
 
-		return $order_id;
-	}
+        return $order_id;
+    }
 
-	public function addOrder(int $order_id, string $secure_token_id): void {
-		$this->db->query("INSERT INTO `" . DB_PREFIX . "paypal_payflow_iframe_order` SET `order_id` = '" . (int)$order_id . "', `secure_token_id` = '" . $this->db->escape($secure_token_id) . "'");
-	}
+    public function addOrder(int $order_id, string $secure_token_id): void {
+        $this->db->query("INSERT INTO `" . DB_PREFIX . "paypal_payflow_iframe_order` SET `order_id` = '" . (int)$order_id . "', `secure_token_id` = '" . $this->db->escape($secure_token_id) . "'");
+    }
 
-	public function updateOrder(array $data): void {
-		$this->db->query("UPDATE `" . DB_PREFIX . "paypal_payflow_iframe_order` SET `transaction_reference` = '" . $this->db->escape($data['transaction_reference']) . "', `transaction_type` = '" . $this->db->escape($data['transaction_type']) . "', `complete` = '" . (int)$data['complete'] . "' WHERE `secure_token_id` = '" . $this->db->escape($data['secure_token_id']) . "'");
-	}
+    public function updateOrder(array $data): void {
+        $this->db->query("UPDATE `" . DB_PREFIX . "paypal_payflow_iframe_order` SET `transaction_reference` = '" . $this->db->escape($data['transaction_reference']) . "', `transaction_type` = '" . $this->db->escape($data['transaction_type']) . "', `complete` = '" . (int)$data['complete'] . "' WHERE `secure_token_id` = '" . $this->db->escape($data['secure_token_id']) . "'");
+    }
 
-	public function call(array $data): array {
-		$default_parameters = array();
-		
-		$default_parameters = array(
-			'USER' 			=> $this->config->get('payment_pp_payflow_iframe_user'),
-			'VENDOR' 		=> $this->config->get('payment_pp_payflow_iframe_vendor'),
-			'PWD' 			=> $this->config->get('payment_pp_payflow_iframe_password'),
-			'PARTNER' 		=> $this->config->get('payment_pp_payflow_iframe_partner'),
-			'BUTTONSOURCE' 	=> 'OpenCart_Cart_PFP',
-		);
+    public function call(array $data): array {
+        $default_parameters = [];
 
-		$call_parameters = array_merge($data, $default_parameters);
+        $default_parameters = [
+            'USER'         => $this->config->get('payment_pp_payflow_iframe_user'),
+            'VENDOR'       => $this->config->get('payment_pp_payflow_iframe_vendor'),
+            'PWD'          => $this->config->get('payment_pp_payflow_iframe_password'),
+            'PARTNER'      => $this->config->get('payment_pp_payflow_iframe_partner'),
+            'BUTTONSOURCE' => 'OpenCart_Cart_PFP',
+        ];
 
-		if ($this->config->get('payment_pp_payflow_iframe_test')) {
-			$url = 'https://pilot-payflowpro.paypal.com';
-		} else {
-			$url = 'https://payflowpro.paypal.com';
-		}
+        $call_parameters = array_merge($data, $default_parameters);
 
-		$query_params = array();
+        if ($this->config->get('payment_pp_payflow_iframe_test')) {
+            $url = 'https://pilot-payflowpro.paypal.com';
+        } else {
+            $url = 'https://payflowpro.paypal.com';
+        }
 
-		foreach ($call_parameters as $key => $value) {
-			$query_params[] = $key . '=' . utf8_decode($value);
-		}
+        $query_params = [];
 
-		$this->log('Call data: ' . implode('&', $query_params));
+        foreach ($call_parameters as $key => $value) {
+            $query_params[] = $key . '=' . utf8_decode($value);
+        }
 
-		$curl = curl_init($url);
+        $this->log('Call data: ' . implode('&', $query_params));
 
-		curl_setopt($curl, CURLOPT_POST, true);
-		curl_setopt($curl, CURLOPT_POSTFIELDS, implode('&', $query_params));
-		curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
-		curl_setopt($curl, CURLOPT_HEADER, false);
-		curl_setopt($curl, CURLOPT_TIMEOUT, 30);
-		curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
+        $curl = curl_init($url);
 
-		$response = curl_exec($curl);
+        curl_setopt($curl, CURLOPT_POST, true);
+        curl_setopt($curl, CURLOPT_POSTFIELDS, implode('&', $query_params));
+        curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($curl, CURLOPT_HEADER, false);
+        curl_setopt($curl, CURLOPT_TIMEOUT, 30);
+        curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
 
-		$this->log('Response data: ' . $response);
+        $response = curl_exec($curl);
 
-		$response_params = array();
-		
-		parse_str($response, $response_params);
+        $this->log('Response data: ' . $response);
 
-		return $response_params;
-	}
+        $response_params = [];
 
-	public function addTransaction(array $data): void {
-		$this->db->query("INSERT INTO `" . DB_PREFIX . "paypal_payflow_iframe_order_transaction` SET `order_id` = '" . (int)$data['order_id'] . "', `transaction_reference` = '" . $this->db->escape($data['transaction_reference']) . "', `transaction_type` = '" . $this->db->escape($data['type']) . "', `time` = NOW(), `amount` = '" . $this->db->escape($data['amount']) . "'");
-	}
+        parse_str($response, $response_params);
 
-	public function log(string $message): void {
-		if ($this->config->get('payment_pp_payflow_iframe_debug')) {
-			$log = new \Log('payflow-iframe.log');
-			$log->write($message);
-		}
-	}
+        return $response_params;
+    }
+
+    public function addTransaction(array $data): void {
+        $this->db->query("INSERT INTO `" . DB_PREFIX . "paypal_payflow_iframe_order_transaction` SET `order_id` = '" . (int)$data['order_id'] . "', `transaction_reference` = '" . $this->db->escape($data['transaction_reference']) . "', `transaction_type` = '" . $this->db->escape($data['type']) . "', `time` = NOW(), `amount` = '" . $this->db->escape($data['amount']) . "'");
+    }
+
+    public function log(string $message): void {
+        if ($this->config->get('payment_pp_payflow_iframe_debug')) {
+            $log = new \Log('payflow-iframe.log');
+            $log->write($message);
+        }
+    }
 }

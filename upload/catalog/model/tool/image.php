@@ -1,8 +1,8 @@
 <?php
 class ModelToolImage extends Model {
-	public function resize(string $filename, int $width, int $height) {
+	public function resize(string $filename, int $width, int $height): string {
 		if (!is_file(DIR_IMAGE . $filename) || substr(str_replace('\\', '/', realpath(DIR_IMAGE . $filename)), 0, strlen(DIR_IMAGE)) != str_replace('\\', '/', DIR_IMAGE)) {
-			return;
+			return '';
 		}
 
 		$extension = pathinfo($filename, PATHINFO_EXTENSION);

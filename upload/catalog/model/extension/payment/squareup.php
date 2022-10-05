@@ -1,27 +1,26 @@
 <?php
 class ModelExtensionPaymentSquareup extends Model {
-    const RECURRING_ACTIVE = 1;
-    const RECURRING_INACTIVE = 2;
-    const RECURRING_CANCELLED = 3;
-    const RECURRING_SUSPENDED = 4;
-    const RECURRING_EXPIRED = 5;
-    const RECURRING_PENDING = 6;
-
-    const TRANSACTION_DATE_ADDED = 0;
-    const TRANSACTION_PAYMENT = 1;
+    const RECURRING_ACTIVE                = 1;
+    const RECURRING_INACTIVE              = 2;
+    const RECURRING_CANCELLED             = 3;
+    const RECURRING_SUSPENDED             = 4;
+    const RECURRING_EXPIRED               = 5;
+    const RECURRING_PENDING               = 6;
+    const TRANSACTION_DATE_ADDED          = 0;
+    const TRANSACTION_PAYMENT             = 1;
     const TRANSACTION_OUTSTANDING_PAYMENT = 2;
-    const TRANSACTION_SKIPPED = 3;
-    const TRANSACTION_FAILED = 4;
-    const TRANSACTION_CANCELLED = 5;
-    const TRANSACTION_SUSPENDED = 6;
-    const TRANSACTION_SUSPENDED_FAILED = 7;
-    const TRANSACTION_OUTSTANDING_FAILED = 8;
-    const TRANSACTION_EXPIRED = 9;
+    const TRANSACTION_SKIPPED             = 3;
+    const TRANSACTION_FAILED              = 4;
+    const TRANSACTION_CANCELLED           = 5;
+    const TRANSACTION_SUSPENDED           = 6;
+    const TRANSACTION_SUSPENDED_FAILED    = 7;
+    const TRANSACTION_OUTSTANDING_FAILED  = 8;
+    const TRANSACTION_EXPIRED             = 9;
 
     public function getMethod($address, $total) {
-		$this->load->language('extension/payment/squareup');
-		
-        $geo_zone_query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "zone_to_geo_zone` WHERE `geo_zone_id` = '" . (int)$this->config->get('payment_squareup_geo_zone_id') . "' AND `country_id` = '" . (int)$address['country_id'] . "' AND (`zone_id` = '" . (int)$address['zone_id'] . "' OR `zone_id` = '0')");
+        $this->load->language('extension/payment/squareup');
+
+        $geo_zone_query        = $this->db->query("SELECT * FROM `" . DB_PREFIX . "zone_to_geo_zone` WHERE `geo_zone_id` = '" . (int)$this->config->get('payment_squareup_geo_zone_id') . "' AND `country_id` = '" . (int)$address['country_id'] . "' AND (`zone_id` = '" . (int)$address['zone_id'] . "' OR `zone_id` = '0')");
 
         $squareup_display_name = $this->config->get('payment_squareup_display_name');
 
@@ -31,10 +30,8 @@ class ModelExtensionPaymentSquareup extends Model {
             $title = $this->language->get('text_default_squareup_name');
         }
 
-        $status = true;
-
-        $minimum_total = (float)$this->config->get('payment_squareup_total');
-
+        $status               = true;
+        $minimum_total        = (float)$this->config->get('payment_squareup_total');
         $squareup_geo_zone_id = $this->config->get('payment_squareup_geo_zone_id');
 
         if ($minimum_total > 0 && $minimum_total > $total) {
@@ -45,15 +42,15 @@ class ModelExtensionPaymentSquareup extends Model {
             $status = false;
         }
 
-        $method_data = array();
+        $method_data = [];
 
         if ($status) {
-            $method_data = array(
-                'code'      	=> 'squareup',
-                'title'     	=> $title,
-                'terms'     	=> '',
-                'sort_order' 	=> (int)$this->config->get('payment_squareup_sort_order')
-            );
+            $method_data = [
+                'code'       => 'squareup',
+                'title'      => $title,
+                'terms'      => '',
+                'sort_order' => (int)$this->config->get('payment_squareup_sort_order')
+            ];
         }
 
         return $method_data;
@@ -62,7 +59,7 @@ class ModelExtensionPaymentSquareup extends Model {
     public function addTransaction($transaction, $merchant_id, $address, $order_id, $user_agent, $ip) {
         $amount = $this->squareup->standardDenomination($transaction['tenders'][0]['amount_money']['amount'], $transaction['tenders'][0]['amount_money']['currency']);
 
-        $this->db->query("INSERT INTO `" . DB_PREFIX . "squareup_transaction` SET `transaction_id` = '" . $this->db->escape($transaction['id']) . "', `merchant_id` = '" . $this->db->escape($merchant_id) . "', `location_id` = '" . $this->db->escape($transaction['location_id']) . "', `order_id` = '" . (int)$order_id . "', `transaction_type` = '" . $this->db->escape($transaction['tenders'][0]['card_details']['status']) . "', `transaction_amount` = '" . (float)$amount . "', `transaction_currency` = '" . $this->db->escape($transaction['tenders'][0]['amount_money']['currency']) . "', `billing_address_city` = '" . $this->db->escape($address['locality']) . "', `billing_address_country` = '" . $this->db->escape($address['country']) . "', `billing_address_postcode` = '" . $this->db->escape($address['postal_code']) . "', `billing_address_province` = '" . $this->db->escape($address['sublocality']) . "', `billing_address_street_1` = '" . $this->db->escape($address['address_line_1']) . "', `billing_address_street_2` = '" . $this->db->escape($address['address_line_2']) . "', `device_browser` = '" . $this->db->escape($user_agent) . "', `device_ip` = '" . $this->db->escape($ip) . "', `created_at` = '" . $this->db->escape($transaction['created_at']) . "', `is_refunded` = '" . (int)(!empty($transaction['refunds'])) . "', `refunded_at` = '" . $this->db->escape(!empty($transaction['refunds']) ? $transaction['refunds'][0]['created_at'] : '') . "', `tenders` = '" . $this->db->escape(json_encode($transaction['tenders'])) . "', `refunds` = '" . $this->db->escape(json_encode(!empty($transaction['refunds']) ? $transaction['refunds'] : array())) . "'");
+        $this->db->query("INSERT INTO `" . DB_PREFIX . "squareup_transaction` SET `transaction_id` = '" . $this->db->escape($transaction['id']) . "', `merchant_id` = '" . $this->db->escape($merchant_id) . "', `location_id` = '" . $this->db->escape($transaction['location_id']) . "', `order_id` = '" . (int)$order_id . "', `transaction_type` = '" . $this->db->escape($transaction['tenders'][0]['card_details']['status']) . "', `transaction_amount` = '" . (float)$amount . "', `transaction_currency` = '" . $this->db->escape($transaction['tenders'][0]['amount_money']['currency']) . "', `billing_address_city` = '" . $this->db->escape($address['locality']) . "', `billing_address_country` = '" . $this->db->escape($address['country']) . "', `billing_address_postcode` = '" . $this->db->escape($address['postal_code']) . "', `billing_address_province` = '" . $this->db->escape($address['sublocality']) . "', `billing_address_street_1` = '" . $this->db->escape($address['address_line_1']) . "', `billing_address_street_2` = '" . $this->db->escape($address['address_line_2']) . "', `device_browser` = '" . $this->db->escape($user_agent) . "', `device_ip` = '" . $this->db->escape($ip) . "', `created_at` = '" . $this->db->escape($transaction['created_at']) . "', `is_refunded` = '" . (int)(!empty($transaction['refunds'])) . "', `refunded_at` = '" . $this->db->escape(!empty($transaction['refunds']) ? $transaction['refunds'][0]['created_at'] : '') . "', `tenders` = '" . $this->db->escape(json_encode($transaction['tenders'])) . "', `refunds` = '" . $this->db->escape(json_encode(!empty($transaction['refunds']) ? $transaction['refunds'] : [])) . "'");
     }
 
     public function tokenExpiredEmail() {
@@ -70,137 +67,126 @@ class ModelExtensionPaymentSquareup extends Model {
             return;
         }
 
-		if ($this->config->get('config_mail_engine')) {
-			$subject = $this->language->get('text_token_expired_subject');
-			$message = $this->language->get('text_token_expired_message');	
-				
-			$mail = new \Mail($this->config->get('config_mail_engine'));
+        if ($this->config->get('config_mail_engine')) {
+            $subject             = $this->language->get('text_token_expired_subject');
+            $message             = $this->language->get('text_token_expired_message');
 
-			$mail->protocol = $this->config->get('config_mail_protocol');
-			$mail->parameter = $this->config->get('config_mail_parameter');
+            $mail                = new \Mail($this->config->get('config_mail_engine'));
+            $mail->protocol      = $this->config->get('config_mail_protocol');
+            $mail->parameter     = $this->config->get('config_mail_parameter');
+            $mail->smtp_hostname = $this->config->get('config_mail_smtp_hostname');
+            $mail->smtp_username = $this->config->get('config_mail_smtp_username');
+            $mail->smtp_password = html_entity_decode($this->config->get('config_mail_smtp_password'), ENT_QUOTES, 'UTF-8');
+            $mail->smtp_port     = $this->config->get('config_mail_smtp_port');
+            $mail->smtp_timeout  = $this->config->get('config_mail_smtp_timeout');
 
-			$mail->smtp_hostname = $this->config->get('config_mail_smtp_hostname');
-			$mail->smtp_username = $this->config->get('config_mail_smtp_username');
-			$mail->smtp_password = html_entity_decode($this->config->get('config_mail_smtp_password'), ENT_QUOTES, 'UTF-8');
-			$mail->smtp_port = $this->config->get('config_mail_smtp_port');
-			$mail->smtp_timeout = $this->config->get('config_mail_smtp_timeout');
-
-			$mail->setTo($this->config->get('config_email'));
-			$mail->setFrom($this->config->get('config_email'));
-			$mail->setSender($this->config->get('config_name'));
-			$mail->setSubject(html_entity_decode($subject, ENT_QUOTES, 'UTF-8'));
-			$mail->setText(strip_tags($message));
-			$mail->setHtml($message);
-			$mail->send();
-		}
+            $mail->setTo($this->config->get('config_email'));
+            $mail->setFrom($this->config->get('config_email'));
+            $mail->setSender($this->config->get('config_name'));
+            $mail->setSubject(html_entity_decode($subject, ENT_QUOTES, 'UTF-8'));
+            $mail->setText(strip_tags($message));
+            $mail->setHtml($message);
+            $mail->send();
+        }
     }
 
     public function tokenRevokedEmail() {
         if (!$this->mailResendPeriodExpired('token_revoked')) {
             return;
         }
-		
-		if ($this->config->get('config_mail_engine')) {
-			$subject = $this->language->get('text_token_revoked_subject');
-			$message = $this->language->get('text_token_revoked_message');
 
-			$mail = new \Mail($this->config->get('config_mail_engine'));
+        if ($this->config->get('config_mail_engine')) {
+            $subject             = $this->language->get('text_token_revoked_subject');
+            $message             = $this->language->get('text_token_revoked_message');
 
-			$mail->protocol = $this->config->get('config_mail_protocol');
-			$mail->parameter = $this->config->get('config_mail_parameter');
+            $mail                = new \Mail($this->config->get('config_mail_engine'));
+            $mail->protocol      = $this->config->get('config_mail_protocol');
+            $mail->parameter     = $this->config->get('config_mail_parameter');
+            $mail->smtp_hostname = $this->config->get('config_mail_smtp_hostname');
+            $mail->smtp_username = $this->config->get('config_mail_smtp_username');
+            $mail->smtp_password = html_entity_decode($this->config->get('config_mail_smtp_password'), ENT_QUOTES, 'UTF-8');
+            $mail->smtp_port     = $this->config->get('config_mail_smtp_port');
+            $mail->smtp_timeout  = $this->config->get('config_mail_smtp_timeout');
 
-			$mail->smtp_hostname = $this->config->get('config_mail_smtp_hostname');
-			$mail->smtp_username = $this->config->get('config_mail_smtp_username');
-			$mail->smtp_password = html_entity_decode($this->config->get('config_mail_smtp_password'), ENT_QUOTES, 'UTF-8');
-			$mail->smtp_port = $this->config->get('config_mail_smtp_port');
-			$mail->smtp_timeout = $this->config->get('config_mail_smtp_timeout');
-
-			$mail->setTo($this->config->get('config_email'));
-			$mail->setFrom($this->config->get('config_email'));
-			$mail->setSender($this->config->get('config_name'));
-			$mail->setSubject(html_entity_decode($subject, ENT_QUOTES, 'UTF-8'));
-			$mail->setText(strip_tags($message));
-			$mail->setHtml($message);
-
-			$mail->send();
-		}
+            $mail->setTo($this->config->get('config_email'));
+            $mail->setFrom($this->config->get('config_email'));
+            $mail->setSender($this->config->get('config_name'));
+            $mail->setSubject(html_entity_decode($subject, ENT_QUOTES, 'UTF-8'));
+            $mail->setText(strip_tags($message));
+            $mail->setHtml($message);
+            $mail->send();
+        }
     }
 
     public function cronEmail($result) {
-		if ($this->config->get('config_mail_engine')) {
-			$mail = new \Mail($this->config->get('config_mail_engine'));
+        if ($this->config->get('config_mail_engine')) {
+            $mail                = new \Mail($this->config->get('config_mail_engine'));
+            $mail->protocol      = $this->config->get('config_mail_protocol');
+            $mail->parameter     = $this->config->get('config_mail_parameter');
+            $mail->smtp_hostname = $this->config->get('config_mail_smtp_hostname');
+            $mail->smtp_username = $this->config->get('config_mail_smtp_username');
+            $mail->smtp_password = html_entity_decode($this->config->get('config_mail_smtp_password'), ENT_QUOTES, 'UTF-8');
+            $mail->smtp_port     = $this->config->get('config_mail_smtp_port');
+            $mail->smtp_timeout  = $this->config->get('config_mail_smtp_timeout');
 
-			$mail->protocol = $this->config->get('config_mail_protocol');
-			$mail->parameter = $this->config->get('config_mail_parameter');
+            $br                  = '<br/>';
+            $subject             = $this->language->get('text_cron_subject');
+            $message             = $this->language->get('text_cron_message') . $br . $br;
+            $message             .= '<strong>' . $this->language->get('text_cron_summary_token_heading') . '</strong>' . $br;
 
-			$mail->smtp_hostname = $this->config->get('config_mail_smtp_hostname');
-			$mail->smtp_username = $this->config->get('config_mail_smtp_username');
-			$mail->smtp_password = html_entity_decode($this->config->get('config_mail_smtp_password'), ENT_QUOTES, 'UTF-8');
-			$mail->smtp_port = $this->config->get('config_mail_smtp_port');
-			$mail->smtp_timeout = $this->config->get('config_mail_smtp_timeout');
+            if ($result['token_update_error']) {
+                $message .= $result['token_update_error'] . $br . $br;
+            } else {
+                $message .= $this->language->get('text_cron_summary_token_updated') . $br . $br;
+            }
 
-			$br = '<br/>';
+            if (!empty($result['transaction_error'])) {
+                $message .= '<strong>' . $this->language->get('text_cron_summary_error_heading') . '</strong>' . $br;
 
-			$subject = $this->language->get('text_cron_subject');
+                $message .= implode($br, $result['transaction_error']) . $br . $br;
+            }
 
-			$message = $this->language->get('text_cron_message') . $br . $br;
+            if (!empty($result['transaction_fail'])) {
+                $message .= '<strong>' . $this->language->get('text_cron_summary_fail_heading') . '</strong>' . $br;
 
-			$message .= '<strong>' . $this->language->get('text_cron_summary_token_heading') . '</strong>' . $br;
+                foreach ($result['transaction_fail'] as $order_recurring_id => $amount) {
+                    $message .= sprintf($this->language->get('text_cron_fail_charge'), $order_recurring_id, $amount) . $br;
+                }
+            }
 
-			if ($result['token_update_error']) {
-				$message .= $result['token_update_error'] . $br . $br;
-			} else {
-				$message .= $this->language->get('text_cron_summary_token_updated') . $br . $br;
-			}
+            if (!empty($result['transaction_success'])) {
+                $message .= '<strong>' . $this->language->get('text_cron_summary_success_heading') . '</strong>' . $br;
 
-			if (!empty($result['transaction_error'])) {
-				$message .= '<strong>' . $this->language->get('text_cron_summary_error_heading') . '</strong>' . $br;
+                foreach ($result['transaction_success'] as $order_recurring_id => $amount) {
+                    $message .= sprintf($this->language->get('text_cron_success_charge'), $order_recurring_id, $amount) . $br;
+                }
+            }
 
-				$message .= implode($br, $result['transaction_error']) . $br . $br;
-			}
-
-			if (!empty($result['transaction_fail'])) {
-				$message .= '<strong>' . $this->language->get('text_cron_summary_fail_heading') . '</strong>' . $br;
-
-				foreach ($result['transaction_fail'] as $order_recurring_id => $amount) {
-					$message .= sprintf($this->language->get('text_cron_fail_charge'), $order_recurring_id, $amount) . $br;
-				}
-			}
-
-			if (!empty($result['transaction_success'])) {
-				$message .= '<strong>' . $this->language->get('text_cron_summary_success_heading') . '</strong>' . $br;
-
-				foreach ($result['transaction_success'] as $order_recurring_id => $amount) {
-					$message .= sprintf($this->language->get('text_cron_success_charge'), $order_recurring_id, $amount) . $br;
-				}
-			}
-
-			$mail->setTo($this->config->get('payment_squareup_cron_email'));
-			$mail->setFrom($this->config->get('config_email'));
-			$mail->setSender($this->config->get('config_name'));
-			$mail->setSubject(html_entity_decode($subject, ENT_QUOTES, 'UTF-8'));
-			$mail->setText(strip_tags($message));
-			$mail->setHtml($message);
-			$mail->send();
-		}
+            $mail->setTo($this->config->get('payment_squareup_cron_email'));
+            $mail->setFrom($this->config->get('config_email'));
+            $mail->setSender($this->config->get('config_name'));
+            $mail->setSubject(html_entity_decode($subject, ENT_QUOTES, 'UTF-8'));
+            $mail->setText(strip_tags($message));
+            $mail->setHtml($message);
+            $mail->send();
+        }
     }
 
     public function subscriptionPayments() {
-		/*
-		 * Used by the checkout to state the module
-		 * supports subscriptions.
-		 */
+        /*
+         * Used by the checkout to state the module
+         * supports subscriptions.
+         */
         return (bool)$this->config->get('payment_squareup_recurring_status');
     }
 
     public function createRecurring($order_id, $data) {
-		$this->load->model('checkout/subscription');
-		
-		$status = self::RECURRING_ACTIVE;
-		
-		$data = array_merge($data, array('status', $status));
-		
-		return $this->model_checkout_subscription->addSubscription($order_id, $data);
+        $this->load->model('checkout/subscription');
+
+        $status = self::RECURRING_ACTIVE;
+        $data   = array_merge($data, ['status', $status]);
+
+        return $this->model_checkout_subscription->addSubscription($order_id, $data);
     }
 
     public function validateCRON() {
@@ -226,10 +212,10 @@ class ModelExtensionPaymentSquareup extends Model {
             if (!isset($response['access_token']) || !isset($response['token_type']) || !isset($response['expires_at']) || !isset($response['merchant_id']) || $response['merchant_id'] != $this->config->get('payment_squareup_merchant_id')) {
                 return $this->language->get('error_squareup_cron_token');
             } else {
-                $this->editTokenSetting(array(
-                    'payment_squareup_access_token' 		=> $response['access_token'],
+                $this->editTokenSetting([
+                    'payment_squareup_access_token'         => $response['access_token'],
                     'payment_squareup_access_token_expires' => $response['expires_at']
-                ));
+                ]);
             }
         } catch (\Squareup\Exception $e) {
             return $e->getMessage();
@@ -239,7 +225,7 @@ class ModelExtensionPaymentSquareup extends Model {
     }
 
     public function nextRecurringPayments() {
-        $payments = array();
+        $payments = [];
 
         $this->load->library('squareup');
 
@@ -254,75 +240,75 @@ class ModelExtensionPaymentSquareup extends Model {
 
             $order_info = $this->model_checkout_order->getOrder($subscription['order_id']);
 
-            $billing_address = array(
-                'first_name' 		=> $order_info['payment_firstname'],
-                'last_name' 		=> $order_info['payment_lastname'],
-                'address_line_1' 	=> $subscription['billing_address_street_1'],
-                'address_line_2' 	=> $subscription['billing_address_street_2'],
-                'locality' 			=> $subscription['billing_address_city'],
-                'sublocality' 		=> $subscription['billing_address_province'],
-                'postal_code' 		=> $subscription['billing_address_postcode'],
-                'country' 			=> $subscription['billing_address_country'],
-                'organization' 		=> $subscription['billing_address_company']
-            );
+            $billing_address = [
+                'first_name'     => $order_info['payment_firstname'],
+                'last_name'      => $order_info['payment_lastname'],
+                'address_line_1' => $subscription['billing_address_street_1'],
+                'address_line_2' => $subscription['billing_address_street_2'],
+                'locality'       => $subscription['billing_address_city'],
+                'sublocality'    => $subscription['billing_address_province'],
+                'postal_code'    => $subscription['billing_address_postcode'],
+                'country'        => $subscription['billing_address_country'],
+                'organization'   => $subscription['billing_address_company']
+            ];
 
             $transaction_tenders = @json_decode($subscription['tenders'], true);
 
             $price = (int)($subscription['trial_status'] ? $subscription['trial_price'] : $subscription['price']);
 
-            $transaction = array(
-                'idempotency_key' 		=> uniqid(),
-                'amount_money' 				=> array(
-                    'amount' 					=> $this->squareup->lowestDenomination($price * $subscription['product_quantity'], $subscription['transaction_currency']),
-                    'currency' 					=> $subscription['transaction_currency']
-                ),
-                'billing_address' 		=> $billing_address,
-                'buyer_email_address' 	=> $order_info['email'],
-                'delay_capture' 		=> false,
-                'customer_id' 			=> $transaction_tenders[0]['customer_id'],
-                'customer_card_id' 		=> $transaction_tenders[0]['card_details']['card']['id'],
-                'integration_id' 		=> Squareup::SQUARE_INTEGRATION_ID
-            );
+            $transaction = [
+                'idempotency_key'     => uniqid(),
+                'amount_money'        => [
+                    'amount'   => $this->squareup->lowestDenomination($price * $subscription['product_quantity'], $subscription['transaction_currency']),
+                    'currency' => $subscription['transaction_currency']
+                ],
+                'billing_address'     => $billing_address,
+                'buyer_email_address' => $order_info['email'],
+                'delay_capture'       => false,
+                'customer_id'         => $transaction_tenders[0]['customer_id'],
+                'customer_card_id'    => $transaction_tenders[0]['card_details']['card']['id'],
+                'integration_id'      => Squareup::SQUARE_INTEGRATION_ID
+            ];
 
-            $payments[] = array(
-                'is_free' 				=> $price == 0,
-                'order_id' 				=> $subscription['order_id'],
-                'order_recurring_id' 	=> $subscription['subscription_id'],
-                'billing_address' 		=> $billing_address,
-                'transaction' 			=> $transaction
-            );
+            $payments[] = [
+                'is_free'            => $price == 0,
+                'order_id'           => $subscription['order_id'],
+                'order_recurring_id' => $subscription['subscription_id'],
+                'billing_address'    => $billing_address,
+                'transaction'        => $transaction
+            ];
         }
 
         return $payments;
     }
 
     public function addRecurringTransaction($subscription_id, $response_data, $transaction, $status) {
-		$this->load->model('checkout/order');
-		
-		$order_info = $this->model_checkout_order->getOrder($response_data['order_id']);
-		
-		if ($order_info) {
-			$this->load->model('checkout/subscription');
-			$this->load->model('account/subscription');
-			
-			if ($status) {
-				$type = self::TRANSACTION_PAYMENT;
-			} else {
-				$type = self::TRANSACTION_FAILED;
-			}		
-				
-			$this->model_checkout_subscription->editReference($subscription_id, $reference);
-			
-			$this->model_account_subscription->addOrderSubscriptionTransaction($transaction['id']);
-			
-			$order_subscription_transaction_info = $this->db->query("SELECT `order_subscription_transaction_id` FROM `" . DB_PREFIX . "order_subscription_transaction` WHERE `transaction_id` = '" . $this->db->escape($transaction['id']) . "'");
-			
-			if ($order_subscription_transaction_info->num_rows) {
-				$amount = $this->squareup->standardDenomination($transaction['tenders'][0]['amount_money']['amount'], $transaction['tenders'][0]['amount_money']['currency']);
-					
-				$this->model_account_subscription->addTransaction($subscription_id, $order_info['order_id'], 0, $order_subscription_transaction_info->row['order_subscription_transaction_id'], $response_data['description'], $amount, $type, $order_info['payment_method'], $order_info['payment_code']);
-			}
-		}
+        $this->load->model('checkout/order');
+
+        $order_info = $this->model_checkout_order->getOrder($response_data['order_id']);
+
+        if ($order_info) {
+            $this->load->model('account/subscription');
+            $this->load->model('checkout/subscription');
+
+            if ($status) {
+                $type = self::TRANSACTION_PAYMENT;
+            } else {
+                $type = self::TRANSACTION_FAILED;
+            }
+
+            $this->model_checkout_subscription->editReference($subscription_id, $reference);
+
+            $this->model_account_subscription->addOrderSubscriptionTransaction($transaction['id']);
+
+            $order_subscription_transaction_info = $this->db->query("SELECT `order_subscription_transaction_id` FROM `" . DB_PREFIX . "order_subscription_transaction` WHERE `transaction_id` = '" . $this->db->escape($transaction['id']) . "'");
+
+            if ($order_subscription_transaction_info->num_rows) {
+                $amount = $this->squareup->standardDenomination($transaction['tenders'][0]['amount_money']['amount'], $transaction['tenders'][0]['amount_money']['currency']);
+
+                $this->model_account_subscription->addTransaction($subscription_id, $order_info['order_id'], 0, $order_subscription_transaction_info->row['order_subscription_transaction_id'], $response_data['description'], $amount, $type, $order_info['payment_method'], $order_info['payment_code']);
+            }
+        }
     }
 
     public function updateRecurringExpired($subscription_id) {
@@ -339,8 +325,7 @@ class ModelExtensionPaymentSquareup extends Model {
         // If recurring payment can expire (trial_duration > 0 AND duration > 0)
         if ($expirable) {
             $number_of_successful_payments = $this->getTotalSuccessfulPayments($subscription_id);
-
-            $total_duration = (int)$subscription_info['trial_duration'] + (int)$subscription_info['duration'];
+            $total_duration                = (int)$subscription_info['trial_duration'] + (int)$subscription_info['duration'];
 
             // If successful payments exceed total_duration
             if ($number_of_successful_payments >= $total_duration) {
@@ -383,8 +368,8 @@ class ModelExtensionPaymentSquareup extends Model {
 
     private function getSubscription($subscription_id) {
         $this->load->model('account/subscription');
-		
-		return $this->model_account_subscription->getSubscription($subscription_id);
+
+        return $this->model_account_subscription->getSubscription($subscription_id);
     }
 
     private function getTotalSuccessfulPayments($subscription_id) {
@@ -397,10 +382,10 @@ class ModelExtensionPaymentSquareup extends Model {
 
         if ($subscription_info['trial_status']) {
             $frequency = $subscription_info['trial_frequency'];
-            $cycle = (int)$subscription_info['trial_cycle'];
+            $cycle     = (int)$subscription_info['trial_cycle'];
         } else {
             $frequency = $subscription_info['frequency'];
-            $cycle = (int)$subscription_info['cycle'];
+            $cycle     = (int)$subscription_info['cycle'];
         }
         // Find date of last payment
         if (!$this->getTotalSuccessfulPayments($subscription_id)) {
@@ -410,15 +395,24 @@ class ModelExtensionPaymentSquareup extends Model {
         }
 
         switch ($frequency) {
-            case 'day' : $time_interval = 24 * 3600; break;
-            case 'week' : $time_interval = 7 * 24 * 3600; break;
-            case 'semi_month' : $time_interval = 15 * 24 * 3600; break;
-            case 'month' : $time_interval = 30 * 24 * 3600; break;
-            case 'year' : $time_interval = 365 * 24 * 3600; break;
+            case 'day' :
+                $time_interval = 24 * 3600;
+                break;
+            case 'week' :
+                $time_interval = 7 * 24 * 3600;
+                break;
+            case 'semi_month' :
+                $time_interval = 15 * 24 * 3600;
+                break;
+            case 'month' :
+                $time_interval = 30 * 24 * 3600;
+                break;
+            case 'year' :
+                $time_interval = 365 * 24 * 3600;
+                break;
         }
 
-        $due_date = date('Y-m-d', $previous_time + ($time_interval * $cycle));
-
+        $due_date  = date('Y-m-d', $previous_time + ($time_interval * $cycle));
         $this_date = date('Y-m-d');
 
         return $this_date >= $due_date;
