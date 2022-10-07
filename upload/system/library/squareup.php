@@ -1,4 +1,5 @@
 <?php
+
 class Squareup {
     private $session;
     private $url;
@@ -8,30 +9,30 @@ class Squareup {
     private $currency;
     private $registry;
 
-    const API_URL = 'https://connect.squareup.com';
-    const API_VERSION = 'v2';
-    const ENDPOINT_ADD_CARD = 'customers/%s/cards';
-    const ENDPOINT_AUTH = 'oauth2/authorize';
+    const API_URL                      = 'https://connect.squareup.com';
+    const API_VERSION                  = 'v2';
+    const ENDPOINT_ADD_CARD            = 'customers/%s/cards';
+    const ENDPOINT_AUTH                = 'oauth2/authorize';
     const ENDPOINT_CAPTURE_TRANSACTION = 'locations/%s/transactions/%s/capture';
-    const ENDPOINT_CUSTOMERS = 'customers';
-    const ENDPOINT_DELETE_CARD = 'customers/%s/cards/%s';
-    const ENDPOINT_GET_TRANSACTION = 'locations/%s/transactions/%s';
-    const ENDPOINT_LOCATIONS = 'locations';
-    const ENDPOINT_REFRESH_TOKEN = 'oauth2/clients/%s/access-token/renew';
-    const ENDPOINT_REFUND_TRANSACTION = 'locations/%s/transactions/%s/refund';
-    const ENDPOINT_TOKEN = 'oauth2/token';
-    const ENDPOINT_TRANSACTIONS = 'locations/%s/transactions';
-    const ENDPOINT_VOID_TRANSACTION = 'locations/%s/transactions/%s/void';
-    const PAYMENT_FORM_URL = 'https://js.squareup.com/v2/paymentform';
-    const SCOPE = 'MERCHANT_PROFILE_READ PAYMENTS_READ SETTLEMENTS_READ CUSTOMERS_READ CUSTOMERS_WRITE';
-    const VIEW_TRANSACTION_URL = 'https://squareup.com/dashboard/sales/transactions/%s/by-unit/%s';
-    const SQUARE_INTEGRATION_ID = 'sqi_65a5ac54459940e3600a8561829fd970';
+    const ENDPOINT_CUSTOMERS           = 'customers';
+    const ENDPOINT_DELETE_CARD         = 'customers/%s/cards/%s';
+    const ENDPOINT_GET_TRANSACTION     = 'locations/%s/transactions/%s';
+    const ENDPOINT_LOCATIONS           = 'locations';
+    const ENDPOINT_REFRESH_TOKEN       = 'oauth2/clients/%s/access-token/renew';
+    const ENDPOINT_REFUND_TRANSACTION  = 'locations/%s/transactions/%s/refund';
+    const ENDPOINT_TOKEN               = 'oauth2/token';
+    const ENDPOINT_TRANSACTIONS        = 'locations/%s/transactions';
+    const ENDPOINT_VOID_TRANSACTION    = 'locations/%s/transactions/%s/void';
+    const PAYMENT_FORM_URL             = 'https://js.squareup.com/v2/paymentform';
+    const SCOPE                        = 'MERCHANT_PROFILE_READ PAYMENTS_READ SETTLEMENTS_READ CUSTOMERS_READ CUSTOMERS_WRITE';
+    const VIEW_TRANSACTION_URL         = 'https://squareup.com/dashboard/sales/transactions/%s/by-unit/%s';
+    const SQUARE_INTEGRATION_ID        = 'sqi_65a5ac54459940e3600a8561829fd970';
 
     public function __construct($registry) {
-        $this->session = $registry->get('session');
-        $this->url = $registry->get('url');
-        $this->config = $registry->get('config');
-        $this->log = $registry->get('log');
+        $this->session  = $registry->get('session');
+        $this->url      = $registry->get('url');
+        $this->config   = $registry->get('config');
+        $this->log      = $registry->get('log');
         $this->customer = $registry->get('customer');
         $this->currency = $registry->get('currency');
         $this->registry = $registry;
@@ -46,10 +47,10 @@ class Squareup {
 
         $url .= '/' . $request_data['endpoint'];
 
-        $curl_options = array(
-            CURLOPT_URL 			=> $url,
-            CURLOPT_RETURNTRANSFER 	=> true
-        );
+        $curl_options = [
+            CURLOPT_URL            => $url,
+            CURLOPT_RETURNTRANSFER => true
+        ];
 
         if (!empty($request_data['content_type'])) {
             $content_type = $request_data['content_type'];
@@ -79,7 +80,7 @@ class Squareup {
                     $curl_options[CURLOPT_POSTFIELDS] = $params;
                 }
                 break;
-            default : 
+            default :
                 $curl_options[CURLOPT_CUSTOMREQUEST] = $request_data['method'];
 
                 if ($params !== null) {
@@ -89,7 +90,7 @@ class Squareup {
         }
 
         // handle headers
-        $added_headers = array();
+        $added_headers = [];
 
         if (!empty($request_data['auth_type'])) {
             if (empty($request_data['token'])) {
@@ -124,9 +125,9 @@ class Squareup {
 
         // Fire off the request
         $ch = curl_init();
-		
+
         curl_setopt_array($ch, $curl_options);
-		
+
         $result = curl_exec($ch);
 
         if ($result) {
@@ -152,12 +153,12 @@ class Squareup {
 
     public function verifyToken($access_token) {
         try {
-            $request_data = array(
-                'method' 		=> 'GET',
-                'endpoint' 		=> self::ENDPOINT_LOCATIONS,
-                'auth_type' 	=> 'Bearer',
-                'token' 		=> $access_token
-            );
+            $request_data = [
+                'method'    => 'GET',
+                'endpoint'  => self::ENDPOINT_LOCATIONS,
+                'auth_type' => 'Bearer',
+                'token'     => $access_token
+            ];
 
             $this->api($request_data);
         } catch (\Squareup\Exception $e) {
@@ -179,33 +180,33 @@ class Squareup {
 
         $this->session->data['payment_squareup_oauth_redirect'] = $redirect_uri;
 
-        $params = array(
-            'client_id' 	=> $client_id,
+        $params = [
+            'client_id'     => $client_id,
             'response_type' => 'code',
-            'scope' 		=> self::SCOPE,
-            'locale' 		=> 'en-US',
-            'session' 		=> 'false',
-            'state' 		=> $state,
-            'redirect_uri' 	=> $redirect_uri
-        );
+            'scope'         => self::SCOPE,
+            'locale'        => 'en-US',
+            'session'       => 'false',
+            'state'         => $state,
+            'redirect_uri'  => $redirect_uri
+        ];
 
         return self::API_URL . '/' . self::ENDPOINT_AUTH . '?' . http_build_query($params);
     }
 
     public function fetchLocations($access_token, &$first_location_id) {
-        $request_data = array(
-            'method' 	=> 'GET',
-            'endpoint' 	=> self::ENDPOINT_LOCATIONS,
+        $request_data = [
+            'method'    => 'GET',
+            'endpoint'  => self::ENDPOINT_LOCATIONS,
             'auth_type' => 'Bearer',
-            'token' 	=> $access_token
-        );
+            'token'     => $access_token
+        ];
 
         $api_result = $this->api($request_data);
 
-        $locations = array_filter($api_result['locations'], array($this, 'filterLocation'));
+        $locations = array_filter($api_result['locations'], [$this, 'filterLocation']);
 
         if (!empty($locations)) {
-            $first_location = current($locations);
+            $first_location    = current($locations);
             $first_location_id = $first_location['id'];
         } else {
             $first_location_id = null;
@@ -215,17 +216,17 @@ class Squareup {
     }
 
     public function exchangeCodeForAccessToken($code) {
-        $request_data = array(
-            'method' 		=> 'POST',
-            'endpoint' 		=> self::ENDPOINT_TOKEN,
-            'no_version' 	=> true,
-            'parameters' 		=> array(
-                'client_id' 		=> $this->config->get('payment_squareup_client_id'),
-                'client_secret' 	=> $this->config->get('payment_squareup_client_secret'),
-                'redirect_uri' 		=> $this->session->data['payment_squareup_oauth_redirect'],
-                'code' 				=> $code
-            )
-        );
+        $request_data = [
+            'method'     => 'POST',
+            'endpoint'   => self::ENDPOINT_TOKEN,
+            'no_version' => true,
+            'parameters' => [
+                'client_id'     => $this->config->get('payment_squareup_client_id'),
+                'client_secret' => $this->config->get('payment_squareup_client_secret'),
+                'redirect_uri'  => $this->session->data['payment_squareup_oauth_redirect'],
+                'code'          => $code
+            ]
+        ];
 
         return $this->api($request_data);
     }
@@ -237,68 +238,68 @@ class Squareup {
     }
 
     public function refreshToken() {
-        $request_data = array(
-            'method' 		=> 'POST',
-            'endpoint' 		=> sprintf(self::ENDPOINT_REFRESH_TOKEN, $this->config->get('payment_squareup_client_id')),
-            'no_version' 	=> true,
-            'auth_type' 	=> 'Client',
-            'token' 		=> $this->config->get('payment_squareup_client_secret'),
-            'parameters' 		=> array(
-                'access_token' 		=> $this->config->get('payment_squareup_access_token')
-            )
-        );
+        $request_data = [
+            'method'     => 'POST',
+            'endpoint'   => sprintf(self::ENDPOINT_REFRESH_TOKEN, $this->config->get('payment_squareup_client_id')),
+            'no_version' => true,
+            'auth_type'  => 'Client',
+            'token'      => $this->config->get('payment_squareup_client_secret'),
+            'parameters' => [
+                'access_token' => $this->config->get('payment_squareup_access_token')
+            ]
+        ];
 
         return $this->api($request_data);
     }
 
     public function addCard($square_customer_id, $card_data) {
-        $request_data = array(
-            'method' 		=> 'POST',
-            'endpoint' 		=> sprintf(self::ENDPOINT_ADD_CARD, $square_customer_id),
-            'auth_type' 	=> 'Bearer',
-            'parameters' 	=> $card_data
-        );
+        $request_data = [
+            'method'     => 'POST',
+            'endpoint'   => sprintf(self::ENDPOINT_ADD_CARD, $square_customer_id),
+            'auth_type'  => 'Bearer',
+            'parameters' => $card_data
+        ];
 
         $result = $this->api($request_data);
 
-        return array(
-            'id' 			=> $result['card']['id'],
-            'card_brand' 	=> $result['card']['card_brand'],
-            'last_4' 		=> $result['card']['last_4']
-        );
+        return [
+            'id'         => $result['card']['id'],
+            'card_brand' => $result['card']['card_brand'],
+            'last_4'     => $result['card']['last_4']
+        ];
     }
 
     public function deleteCard($square_customer_id, $card) {
-        $request_data = array(
-            'method' 	=> 'DELETE',
-            'endpoint' 	=> sprintf(self::ENDPOINT_DELETE_CARD, $square_customer_id, $card),
+        $request_data = [
+            'method'    => 'DELETE',
+            'endpoint'  => sprintf(self::ENDPOINT_DELETE_CARD, $square_customer_id, $card),
             'auth_type' => 'Bearer'
-        );
+        ];
 
         return $this->api($request_data);
     }
 
     public function addLoggedInCustomer() {
-        $request_data = array(
-            'method' 		=> 'POST',
-            'endpoint' 		=> self::ENDPOINT_CUSTOMERS,
-            'auth_type' 	=> 'Bearer',
-            'parameters' 		=> array(
-                'given_name' 		=> $this->customer->getFirstName(),
-                'family_name' 		=> $this->customer->getLastName(),
-                'email_address' 	=> $this->customer->getEmail(),
-                'phone_number' 		=> $this->customer->getTelephone(),
-                'reference_id' 		=> $this->customer->getId()
-            )
-        );
+        $request_data = [
+            'method'     => 'POST',
+            'endpoint'   => self::ENDPOINT_CUSTOMERS,
+            'auth_type'  => 'Bearer',
+            'parameters' => [
+                'given_name'    => $this->customer->getFirstName(),
+                'family_name'   => $this->customer->getLastName(),
+                'email_address' => $this->customer->getEmail(),
+                'phone_number'  => $this->customer->getTelephone(),
+                'reference_id'  => $this->customer->getId()
+            ]
+        ];
 
         $result = $this->api($request_data);
 
-        return array(
-            'customer_id' 			=> $this->customer->getId(),
-            'sandbox' 				=> $this->config->get('payment_squareup_enable_sandbox'),
-            'square_customer_id' 	=> $result['customer']['id']
-        );
+        return [
+            'customer_id'        => $this->customer->getId(),
+            'sandbox'            => $this->config->get('payment_squareup_enable_sandbox'),
+            'square_customer_id' => $result['customer']['id']
+        ];
     }
 
     public function addTransaction($data) {
@@ -308,12 +309,12 @@ class Squareup {
             $location_id = $this->config->get('payment_squareup_location_id');
         }
 
-        $request_data = array(
-            'method' 		=> 'POST',
-            'endpoint' 		=> sprintf(self::ENDPOINT_TRANSACTIONS, $location_id),
-            'auth_type' 	=> 'Bearer',
-            'parameters' 	=> $data
-        );
+        $request_data = [
+            'method'     => 'POST',
+            'endpoint'   => sprintf(self::ENDPOINT_TRANSACTIONS, $location_id),
+            'auth_type'  => 'Bearer',
+            'parameters' => $data
+        ];
 
         $result = $this->api($request_data);
 
@@ -321,11 +322,11 @@ class Squareup {
     }
 
     public function getTransaction($location_id, $transaction_id) {
-        $request_data = array(
-            'method' 	=> 'GET',
-            'endpoint' 	=> sprintf(self::ENDPOINT_GET_TRANSACTION, $location_id, $transaction_id),
+        $request_data = [
+            'method'    => 'GET',
+            'endpoint'  => sprintf(self::ENDPOINT_GET_TRANSACTION, $location_id, $transaction_id),
             'auth_type' => 'Bearer'
-        );
+        ];
 
         $result = $this->api($request_data);
 
@@ -333,11 +334,11 @@ class Squareup {
     }
 
     public function captureTransaction($location_id, $transaction_id) {
-        $request_data = array(
-            'method' 	=> 'POST',
-            'endpoint' 	=> sprintf(self::ENDPOINT_CAPTURE_TRANSACTION, $location_id, $transaction_id),
+        $request_data = [
+            'method'    => 'POST',
+            'endpoint'  => sprintf(self::ENDPOINT_CAPTURE_TRANSACTION, $location_id, $transaction_id),
             'auth_type' => 'Bearer'
-        );
+        ];
 
         $this->api($request_data);
 
@@ -345,11 +346,11 @@ class Squareup {
     }
 
     public function voidTransaction($location_id, $transaction_id) {
-        $request_data = array(
-            'method' 	=> 'POST',
-            'endpoint' 	=> sprintf(self::ENDPOINT_VOID_TRANSACTION, $location_id, $transaction_id),
+        $request_data = [
+            'method'    => 'POST',
+            'endpoint'  => sprintf(self::ENDPOINT_VOID_TRANSACTION, $location_id, $transaction_id),
             'auth_type' => 'Bearer'
-        );
+        ];
 
         $this->api($request_data);
 
@@ -357,20 +358,20 @@ class Squareup {
     }
 
     public function refundTransaction($location_id, $transaction_id, $reason, $amount, $currency, $tender_id) {
-        $request_data = array(
-            'method' 		=> 'POST',
-            'endpoint' 		=> sprintf(self::ENDPOINT_REFUND_TRANSACTION, $location_id, $transaction_id),
-            'auth_type' 	=> 'Bearer',
-            'parameters' 		=> array(
-                'idempotency_key' 	=> uniqid(),
-                'tender_id' 		=> $tender_id,
-                'reason' 			=> $reason,
-                'amount_money' 		=> array(
-                    'amount' 			=> $this->lowestDenomination($amount, $currency),
-                    'currency' => 		$currency
-                )
-            )
-        );
+        $request_data = [
+            'method'     => 'POST',
+            'endpoint'   => sprintf(self::ENDPOINT_REFUND_TRANSACTION, $location_id, $transaction_id),
+            'auth_type'  => 'Bearer',
+            'parameters' => [
+                'idempotency_key' => uniqid(),
+                'tender_id'       => $tender_id,
+                'reason'          => $reason,
+                'amount_money'    => [
+                    'amount'   => $this->lowestDenomination($amount, $currency),
+                    'currency' => $currency
+                ]
+            ]
+        ];
 
         $this->api($request_data);
 

@@ -1,26 +1,26 @@
 <?php
 namespace Template;
 final class Template {
-	private $data = array();
-		
-	public function set(string $key, string $value): void {
-		$this->data[$key] = $value;
-	}
-	
-	public function render(string $template): string {
-		$file = DIR_TEMPLATE . $template . '.tpl';
+    private $data = [];
 
-		if (is_file($file)) {
-			extract($this->data);
+    public function set(string $key, string $value): void {
+        $this->data[$key] = $value;
+    }
 
-			ob_start();
+    public function render(string $template): string {
+        $file = DIR_TEMPLATE . $template . '.tpl';
 
-			require($file);
+        if (is_file($file)) {
+            extract($this->data);
 
-			return ob_get_clean();
-		}
+            ob_start();
 
-		throw new \Exception('Error: Could not load template ' . $file . '!');
-		exit();
-	}	
+            require($file);
+
+            return ob_get_clean();
+        }
+
+        throw new \Exception('Error: Could not load template ' . $file . '!');
+        exit();
+    }
 }

@@ -1,70 +1,70 @@
 <?php
-$_['advertise_google_push_limit'] = 1000; // No more than 1000
-$_['advertise_google_report_limit'] = 1000; // No more than 1000
+$_['advertise_google_push_limit']           = 1000; // No more than 1000
+$_['advertise_google_report_limit']         = 1000; // No more than 1000
 $_['advertise_google_product_status_limit'] = 1000; // No more than 1000
 
 // An empty array means it is always required.
 // An array with values means it is required only in these specific cases
-$_['advertise_google_country_required_fields'] = array(
-    'google_product_category' => array(
-        'countries' => array(),
-        'selected_field' => NULL
-    ),
-    'condition' => array(
-        'countries' => array(),
-        'selected_field' => NULL
-    ),
-    'adult' => array(
-        'countries' => array(),
-        'selected_field' => NULL
-    ),
-    'multipack' => array(
-        'countries' => array('AU', 'BR', 'CZ', 'FR', 'DE', 'IT', 'JP', 'NL', 'ES', 'CH', 'GB', 'US'),
-        'selected_field' => NULL
-    ),
-    'is_bundle' => array(
-        'countries' => array('AU', 'BR', 'CZ', 'FR', 'DE', 'IT', 'JP', 'NL', 'ES', 'CH', 'GB', 'US'),
-        'selected_field' => NULL
-    ),
-    'age_group' => array(
-        'countries' => array('BR', 'FR', 'DE', 'JP', 'GB', 'US'),
-        'selected_field' => array(
-            'google_product_category' => array('1604', '178', '3032', '201', '187')
-        )
-    ),
-    'color' => array(
-        'countries' => array('BR', 'FR', 'DE', 'JP', 'GB', 'US'),
-        'selected_field' => array(
-            'google_product_category' => array('1604', '178', '3032', '201', '187')
-        )
-    ),
-    'gender' => array(
-        'countries' => array('BR', 'FR', 'DE', 'JP', 'GB', 'US'),
-        'selected_field' => array(
-            'google_product_category' => array('1604', '178', '3032', '201', '187')
-        )
-    ),
-    'size' => array(
-        'countries' => array('BR', 'FR', 'DE', 'JP', 'GB', 'US'),
-        'selected_field' => array(
-            'google_product_category' => array('1604', '187')
-        )
-    ),
-    'size_type' => array(
-        'countries' => array('BR', 'FR', 'DE', 'JP', 'GB', 'US'),
-        'selected_field' => array(
-            'google_product_category' => array('1604', '187')
-        )
-    ),
-    'size_system' => array(
-        'countries' => array('BR', 'FR', 'DE', 'JP', 'GB', 'US'),
-        'selected_field' => array(
-            'google_product_category' => array('1604', '187')
-        )
-    )
-);
+$_['advertise_google_country_required_fields'] = [
+    'google_product_category' => [
+        'countries'      => [],
+        'selected_field' => null
+    ],
+    'condition'               => [
+        'countries'      => [],
+        'selected_field' => null
+    ],
+    'adult'                   => [
+        'countries'      => [],
+        'selected_field' => null
+    ],
+    'multipack'               => [
+        'countries'      => ['AU', 'BR', 'CZ', 'FR', 'DE', 'IT', 'JP', 'NL', 'ES', 'CH', 'GB', 'US'],
+        'selected_field' => null
+    ],
+    'is_bundle'               => [
+        'countries'      => ['AU', 'BR', 'CZ', 'FR', 'DE', 'IT', 'JP', 'NL', 'ES', 'CH', 'GB', 'US'],
+        'selected_field' => null
+    ],
+    'age_group'               => [
+        'countries'      => ['BR', 'FR', 'DE', 'JP', 'GB', 'US'],
+        'selected_field' => [
+            'google_product_category' => ['1604', '178', '3032', '201', '187']
+        ]
+    ],
+    'color'                   => [
+        'countries'      => ['BR', 'FR', 'DE', 'JP', 'GB', 'US'],
+        'selected_field' => [
+            'google_product_category' => ['1604', '178', '3032', '201', '187']
+        ]
+    ],
+    'gender'                  => [
+        'countries'      => ['BR', 'FR', 'DE', 'JP', 'GB', 'US'],
+        'selected_field' => [
+            'google_product_category' => ['1604', '178', '3032', '201', '187']
+        ]
+    ],
+    'size'                    => [
+        'countries'      => ['BR', 'FR', 'DE', 'JP', 'GB', 'US'],
+        'selected_field' => [
+            'google_product_category' => ['1604', '187']
+        ]
+    ],
+    'size_type'               => [
+        'countries'      => ['BR', 'FR', 'DE', 'JP', 'GB', 'US'],
+        'selected_field' => [
+            'google_product_category' => ['1604', '187']
+        ]
+    ],
+    'size_system'             => [
+        'countries'      => ['BR', 'FR', 'DE', 'JP', 'GB', 'US'],
+        'selected_field' => [
+            'google_product_category' => ['1604', '187']
+        ]
+    ]
+];
 
-$_['advertise_google_tax_usa_states'] = array(
+$_['advertise_google_tax_usa_states'] = [
     '21132' => 'Alaska',
     '21133' => 'Alabama',
     '21135' => 'Arkansas',
@@ -116,24 +116,24 @@ $_['advertise_google_tax_usa_states'] = array(
     '21182' => 'Wisconsin',
     '21183' => 'West Virginia',
     '21184' => 'Wyoming'
-);
+];
 
-$_['advertise_google_google_product_categories'] = array(
-    '0' => 'Other (Not on the list)',
+$_['advertise_google_google_product_categories'] = [
+    '0'    => 'Other (Not on the list)',
     '1604' => 'Apparel & Accessories > Clothing',
-    '178' => 'Apparel & Accessories > Clothing Accessories > Sunglasses',
+    '178'  => 'Apparel & Accessories > Clothing Accessories > Sunglasses',
     '3032' => 'Apparel & Accessories > Handbags, Wallets & Cases > Handbags',
-    '201' => 'Apparel & Accessories > Jewelry > Watches',
-    '187' => 'Apparel & Accessories > Shoes',
-    '784' => 'Media > Books',
-    '839' => 'Media > DVDs & Videos',
-    '855' => 'Media > Music & Sound Recordings',
+    '201'  => 'Apparel & Accessories > Jewelry > Watches',
+    '187'  => 'Apparel & Accessories > Shoes',
+    '784'  => 'Media > Books',
+    '839'  => 'Media > DVDs & Videos',
+    '855'  => 'Media > Music & Sound Recordings',
     '1279' => 'Software > Video Game Software'
-);
+];
 
-$_['advertise_google_size_systems'] = array('AU','BR','CN','DE','EU','FR','IT','JP','MEX','UK','US');
+$_['advertise_google_size_systems'] = ['AU', 'BR', 'CN', 'DE', 'EU', 'FR', 'IT', 'JP', 'MEX', 'UK', 'US'];
 
-$_['advertise_google_reporting_intervals'] = array(
+$_['advertise_google_reporting_intervals'] = [
     'TODAY',
     'YESTERDAY',
     'LAST_7_DAYS',
@@ -145,12 +145,12 @@ $_['advertise_google_reporting_intervals'] = array(
     'THIS_WEEK_MON_TODAY',
     'THIS_WEEK_SUN_TODAY',
     'THIS_MONTH'
-);
+];
 
 $_['advertise_google_reporting_intervals_default'] = 'LAST_30_DAYS';
 
 // https://support.google.com/adwords/answer/2454022?hl=en&co=ADWORDS.IsAWNCustomer%3Dfalse
-$_['advertise_google_countries'] = array(
+$_['advertise_google_countries'] = [
     'AR' => "Argentina",
     'AU' => "Australia",
     'AT' => "Austria",
@@ -194,10 +194,10 @@ $_['advertise_google_countries'] = array(
     'GB' => "United Kingdom",
     'US' => "United States",
     'VN' => "Vietnam"
-);
+];
 
 // https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes
-$_['advertise_google_languages'] = array(
+$_['advertise_google_languages'] = [
     'ab' => "Abkhazian",
     'aa' => "Afar",
     'af' => "Afrikaans",
@@ -383,391 +383,391 @@ $_['advertise_google_languages'] = array(
     'yo' => "Yoruba",
     'za' => "Zhuang, Chuang",
     'zu' => "Zulu"
-);
+];
 
-$_['advertise_google_currencies'] = array(
-    "AED" => "United Arab Emirates Dirham",
-    "AFN" => "Afghanistan Afghani",
-    "ALL" => "Albania Lek",
-    "AMD" => "Armenia Dram",
-    "ANG" => "Netherlands Antilles Guilder",
-    "AOA" => "Angola Kwanza",
-    "ARS" => "Argentina Peso",
-    "AUD" => "Australia Dollar",
-    "AWG" => "Aruba Guilder",
-    "AZN" => "Azerbaijan Manat",
-    "BAM" => "Bosnia and Herzegovina Convertible Marka",
-    "BBD" => "Barbados Dollar",
-    "BDT" => "Bangladesh Taka",
-    "BGN" => "Bulgaria Lev",
-    "BHD" => "Bahrain Dinar",
-    "BIF" => "Burundi Franc",
-    "BMD" => "Bermuda Dollar",
-    "BND" => "Brunei Darussalam Dollar",
-    "BOB" => "Bolivia Bolíviano",
-    "BRL" => "Brazil Real",
-    "BSD" => "Bahamas Dollar",
-    "BTN" => "Bhutan Ngultrum",
-    "BWP" => "Botswana Pula",
-    "BYN" => "Belarus Ruble",
-    "BZD" => "Belize Dollar",
-    "CAD" => "Canada Dollar",
-    "CDF" => "Congo/Kinshasa Franc",
-    "CHF" => "Switzerland Franc",
-    "CLP" => "Chile Peso",
-    "CNY" => "China Yuan Renminbi",
-    "COP" => "Colombia Peso",
-    "CRC" => "Costa Rica Colon",
-    "CUC" => "Cuba Convertible Peso",
-    "CUP" => "Cuba Peso",
-    "CVE" => "Cape Verde Escudo",
-    "CZK" => "Czech Republic Koruna",
-    "DJF" => "Djibouti Franc",
-    "DKK" => "Denmark Krone",
-    "DOP" => "Dominican Republic Peso",
-    "DZD" => "Algeria Dinar",
-    "EGP" => "Egypt Pound",
-    "ERN" => "Eritrea Nakfa",
-    "ETB" => "Ethiopia Birr",
-    "EUR" => "Euro Member Countries",
-    "FJD" => "Fiji Dollar",
-    "FKP" => "Falkland Islands (Malvinas) Pound",
-    "GBP" => "United Kingdom Pound",
-    "GEL" => "Georgia Lari",
-    "GGP" => "Guernsey Pound",
-    "GHS" => "Ghana Cedi",
-    "GIP" => "Gibraltar Pound",
-    "GMD" => "Gambia Dalasi",
-    "GNF" => "Guinea Franc",
-    "GTQ" => "Guatemala Quetzal",
-    "GYD" => "Guyana Dollar",
-    "HKD" => "Hong Kong Dollar",
-    "HNL" => "Honduras Lempira",
-    "HRK" => "Croatia Kuna",
-    "HTG" => "Haiti Gourde",
-    "HUF" => "Hungary Forint",
-    "IDR" => "Indonesia Rupiah",
-    "ILS" => "Israel Shekel",
-    "IMP" => "Isle of Man Pound",
-    "INR" => "India Rupee",
-    "IQD" => "Iraq Dinar",
-    "IRR" => "Iran Rial",
-    "ISK" => "Iceland Krona",
-    "JEP" => "Jersey Pound",
-    "JMD" => "Jamaica Dollar",
-    "JOD" => "Jordan Dinar",
-    "JPY" => "Japan Yen",
-    "KES" => "Kenya Shilling",
-    "KGS" => "Kyrgyzstan Som",
-    "KHR" => "Cambodia Riel",
-    "KMF" => "Comorian Franc",
-    "KPW" => "Korea (North) Won",
-    "KRW" => "Korea (South) Won",
-    "KWD" => "Kuwait Dinar",
-    "KYD" => "Cayman Islands Dollar",
-    "KZT" => "Kazakhstan Tenge",
-    "LAK" => "Laos Kip",
-    "LBP" => "Lebanon Pound",
-    "LKR" => "Sri Lanka Rupee",
-    "LRD" => "Liberia Dollar",
-    "LSL" => "Lesotho Loti",
-    "LYD" => "Libya Dinar",
-    "MAD" => "Morocco Dirham",
-    "MDL" => "Moldova Leu",
-    "MGA" => "Madagascar Ariary",
-    "MKD" => "Macedonia Denar",
-    "MMK" => "Myanmar (Burma) Kyat",
-    "MNT" => "Mongolia Tughrik",
-    "MOP" => "Macau Pataca",
-    "MRU" => "Mauritania Ouguiya",
-    "MUR" => "Mauritius Rupee",
-    "MVR" => "Maldives (Maldive Islands) Rufiyaa",
-    "MWK" => "Malawi Kwacha",
-    "MXN" => "Mexico Peso",
-    "MYR" => "Malaysia Ringgit",
-    "MZN" => "Mozambique Metical",
-    "NAD" => "Namibia Dollar",
-    "NGN" => "Nigeria Naira",
-    "NIO" => "Nicaragua Cordoba",
-    "NOK" => "Norway Krone",
-    "NPR" => "Nepal Rupee",
-    "NZD" => "New Zealand Dollar",
-    "OMR" => "Oman Rial",
-    "PAB" => "Panama Balboa",
-    "PEN" => "Peru Sol",
-    "PGK" => "Papua New Guinea Kina",
-    "PHP" => "Philippines Piso",
-    "PKR" => "Pakistan Rupee",
-    "PLN" => "Poland Zloty",
-    "PYG" => "Paraguay Guarani",
-    "QAR" => "Qatar Riyal",
-    "RON" => "Romania Leu",
-    "RSD" => "Serbia Dinar",
-    "RUB" => "Russia Ruble",
-    "RWF" => "Rwanda Franc",
-    "SAR" => "Saudi Arabia Riyal",
-    "SBD" => "Solomon Islands Dollar",
-    "SCR" => "Seychelles Rupee",
-    "SDG" => "Sudan Pound",
-    "SEK" => "Sweden Krona",
-    "SGD" => "Singapore Dollar",
-    "SHP" => "Saint Helena Pound",
-    "SLL" => "Sierra Leone Leone",
-    "SOS" => "Somalia Shilling",
+$_['advertise_google_currencies'] = [
+    "AED"  => "United Arab Emirates Dirham",
+    "AFN"  => "Afghanistan Afghani",
+    "ALL"  => "Albania Lek",
+    "AMD"  => "Armenia Dram",
+    "ANG"  => "Netherlands Antilles Guilder",
+    "AOA"  => "Angola Kwanza",
+    "ARS"  => "Argentina Peso",
+    "AUD"  => "Australia Dollar",
+    "AWG"  => "Aruba Guilder",
+    "AZN"  => "Azerbaijan Manat",
+    "BAM"  => "Bosnia and Herzegovina Convertible Marka",
+    "BBD"  => "Barbados Dollar",
+    "BDT"  => "Bangladesh Taka",
+    "BGN"  => "Bulgaria Lev",
+    "BHD"  => "Bahrain Dinar",
+    "BIF"  => "Burundi Franc",
+    "BMD"  => "Bermuda Dollar",
+    "BND"  => "Brunei Darussalam Dollar",
+    "BOB"  => "Bolivia Bolíviano",
+    "BRL"  => "Brazil Real",
+    "BSD"  => "Bahamas Dollar",
+    "BTN"  => "Bhutan Ngultrum",
+    "BWP"  => "Botswana Pula",
+    "BYN"  => "Belarus Ruble",
+    "BZD"  => "Belize Dollar",
+    "CAD"  => "Canada Dollar",
+    "CDF"  => "Congo/Kinshasa Franc",
+    "CHF"  => "Switzerland Franc",
+    "CLP"  => "Chile Peso",
+    "CNY"  => "China Yuan Renminbi",
+    "COP"  => "Colombia Peso",
+    "CRC"  => "Costa Rica Colon",
+    "CUC"  => "Cuba Convertible Peso",
+    "CUP"  => "Cuba Peso",
+    "CVE"  => "Cape Verde Escudo",
+    "CZK"  => "Czech Republic Koruna",
+    "DJF"  => "Djibouti Franc",
+    "DKK"  => "Denmark Krone",
+    "DOP"  => "Dominican Republic Peso",
+    "DZD"  => "Algeria Dinar",
+    "EGP"  => "Egypt Pound",
+    "ERN"  => "Eritrea Nakfa",
+    "ETB"  => "Ethiopia Birr",
+    "EUR"  => "Euro Member Countries",
+    "FJD"  => "Fiji Dollar",
+    "FKP"  => "Falkland Islands (Malvinas) Pound",
+    "GBP"  => "United Kingdom Pound",
+    "GEL"  => "Georgia Lari",
+    "GGP"  => "Guernsey Pound",
+    "GHS"  => "Ghana Cedi",
+    "GIP"  => "Gibraltar Pound",
+    "GMD"  => "Gambia Dalasi",
+    "GNF"  => "Guinea Franc",
+    "GTQ"  => "Guatemala Quetzal",
+    "GYD"  => "Guyana Dollar",
+    "HKD"  => "Hong Kong Dollar",
+    "HNL"  => "Honduras Lempira",
+    "HRK"  => "Croatia Kuna",
+    "HTG"  => "Haiti Gourde",
+    "HUF"  => "Hungary Forint",
+    "IDR"  => "Indonesia Rupiah",
+    "ILS"  => "Israel Shekel",
+    "IMP"  => "Isle of Man Pound",
+    "INR"  => "India Rupee",
+    "IQD"  => "Iraq Dinar",
+    "IRR"  => "Iran Rial",
+    "ISK"  => "Iceland Krona",
+    "JEP"  => "Jersey Pound",
+    "JMD"  => "Jamaica Dollar",
+    "JOD"  => "Jordan Dinar",
+    "JPY"  => "Japan Yen",
+    "KES"  => "Kenya Shilling",
+    "KGS"  => "Kyrgyzstan Som",
+    "KHR"  => "Cambodia Riel",
+    "KMF"  => "Comorian Franc",
+    "KPW"  => "Korea (North) Won",
+    "KRW"  => "Korea (South) Won",
+    "KWD"  => "Kuwait Dinar",
+    "KYD"  => "Cayman Islands Dollar",
+    "KZT"  => "Kazakhstan Tenge",
+    "LAK"  => "Laos Kip",
+    "LBP"  => "Lebanon Pound",
+    "LKR"  => "Sri Lanka Rupee",
+    "LRD"  => "Liberia Dollar",
+    "LSL"  => "Lesotho Loti",
+    "LYD"  => "Libya Dinar",
+    "MAD"  => "Morocco Dirham",
+    "MDL"  => "Moldova Leu",
+    "MGA"  => "Madagascar Ariary",
+    "MKD"  => "Macedonia Denar",
+    "MMK"  => "Myanmar (Burma) Kyat",
+    "MNT"  => "Mongolia Tughrik",
+    "MOP"  => "Macau Pataca",
+    "MRU"  => "Mauritania Ouguiya",
+    "MUR"  => "Mauritius Rupee",
+    "MVR"  => "Maldives (Maldive Islands) Rufiyaa",
+    "MWK"  => "Malawi Kwacha",
+    "MXN"  => "Mexico Peso",
+    "MYR"  => "Malaysia Ringgit",
+    "MZN"  => "Mozambique Metical",
+    "NAD"  => "Namibia Dollar",
+    "NGN"  => "Nigeria Naira",
+    "NIO"  => "Nicaragua Cordoba",
+    "NOK"  => "Norway Krone",
+    "NPR"  => "Nepal Rupee",
+    "NZD"  => "New Zealand Dollar",
+    "OMR"  => "Oman Rial",
+    "PAB"  => "Panama Balboa",
+    "PEN"  => "Peru Sol",
+    "PGK"  => "Papua New Guinea Kina",
+    "PHP"  => "Philippines Piso",
+    "PKR"  => "Pakistan Rupee",
+    "PLN"  => "Poland Zloty",
+    "PYG"  => "Paraguay Guarani",
+    "QAR"  => "Qatar Riyal",
+    "RON"  => "Romania Leu",
+    "RSD"  => "Serbia Dinar",
+    "RUB"  => "Russia Ruble",
+    "RWF"  => "Rwanda Franc",
+    "SAR"  => "Saudi Arabia Riyal",
+    "SBD"  => "Solomon Islands Dollar",
+    "SCR"  => "Seychelles Rupee",
+    "SDG"  => "Sudan Pound",
+    "SEK"  => "Sweden Krona",
+    "SGD"  => "Singapore Dollar",
+    "SHP"  => "Saint Helena Pound",
+    "SLL"  => "Sierra Leone Leone",
+    "SOS"  => "Somalia Shilling",
     "SPL*" => "Seborga Luigino",
-    "SRD" => "Suriname Dollar",
-    "STN" => "São Tomé and Príncipe Dobra",
-    "SVC" => "El Salvador Colon",
-    "SYP" => "Syria Pound",
-    "SZL" => "Swaziland Lilangeni",
-    "THB" => "Thailand Baht",
-    "TJS" => "Tajikistan Somoni",
-    "TMT" => "Turkmenistan Manat",
-    "TND" => "Tunisia Dinar",
-    "TOP" => "Tonga Pa'anga",
-    "TRY" => "Turkey Lira",
-    "TTD" => "Trinidad and Tobago Dollar",
-    "TVD" => "Tuvalu Dollar",
-    "TWD" => "Taiwan New Dollar",
-    "TZS" => "Tanzania Shilling",
-    "UAH" => "Ukraine Hryvnia",
-    "UGX" => "Uganda Shilling",
-    "USD" => "United States Dollar",
-    "UYU" => "Uruguay Peso",
-    "UZS" => "Uzbekistan Som",
-    "VEF" => "Venezuela Bolívar",
-    "VND" => "Viet Nam Dong",
-    "VUV" => "Vanuatu Vatu",
-    "WST" => "Samoa Tala",
-    "XAF" => "Communauté Financière Africaine (BEAC) CFA Franc BEAC",
-    "XCD" => "East Caribbean Dollar",
-    "XDR" => "International Monetary Fund (IMF) Special Drawing Rights",
-    "XOF" => "Communauté Financière Africaine (BCEAO) Franc",
-    "XPF" => "Comptoirs Français du Pacifique (CFP) Franc",
-    "YER" => "Yemen Rial",
-    "ZAR" => "South Africa Rand",
-    "ZMW" => "Zambia Kwacha",
-    "ZWD" => "Zimbabwe Dollar"
-);
+    "SRD"  => "Suriname Dollar",
+    "STN"  => "São Tomé and Príncipe Dobra",
+    "SVC"  => "El Salvador Colon",
+    "SYP"  => "Syria Pound",
+    "SZL"  => "Swaziland Lilangeni",
+    "THB"  => "Thailand Baht",
+    "TJS"  => "Tajikistan Somoni",
+    "TMT"  => "Turkmenistan Manat",
+    "TND"  => "Tunisia Dinar",
+    "TOP"  => "Tonga Pa'anga",
+    "TRY"  => "Turkey Lira",
+    "TTD"  => "Trinidad and Tobago Dollar",
+    "TVD"  => "Tuvalu Dollar",
+    "TWD"  => "Taiwan New Dollar",
+    "TZS"  => "Tanzania Shilling",
+    "UAH"  => "Ukraine Hryvnia",
+    "UGX"  => "Uganda Shilling",
+    "USD"  => "United States Dollar",
+    "UYU"  => "Uruguay Peso",
+    "UZS"  => "Uzbekistan Som",
+    "VEF"  => "Venezuela Bolívar",
+    "VND"  => "Viet Nam Dong",
+    "VUV"  => "Vanuatu Vatu",
+    "WST"  => "Samoa Tala",
+    "XAF"  => "Communauté Financière Africaine (BEAC) CFA Franc BEAC",
+    "XCD"  => "East Caribbean Dollar",
+    "XDR"  => "International Monetary Fund (IMF) Special Drawing Rights",
+    "XOF"  => "Communauté Financière Africaine (BCEAO) Franc",
+    "XPF"  => "Comptoirs Français du Pacifique (CFP) Franc",
+    "YER"  => "Yemen Rial",
+    "ZAR"  => "South Africa Rand",
+    "ZMW"  => "Zambia Kwacha",
+    "ZWD"  => "Zimbabwe Dollar"
+];
 
 /*
  * These entries are defined based on this help article:
  * https://support.google.com/merchants/answer/160637?hl=en
  */
-$_['advertise_google_targets'] = array(
-    array(
-        'country' => 'AR',
-        'languages' => array('es'),
-        'currencies' => array('ARS')
-    ),
-    array(
-        'country' => 'AU',
-        'languages' => array('en', 'zh'),
-        'currencies' => array('AUD')
-    ),
-    array(
-        'country' => 'AT',
-        'languages' => array('de', 'en'),
-        'currencies' => array('EUR')
-    ),
-    array(
-        'country' => 'BE',
-        'languages' => array('fr', 'nl', 'en'),
-        'currencies' => array('EUR')
-    ),
-    array(
-        'country' => 'BR',
-        'languages' => array('pt'),
-        'currencies' => array('BRL')
-    ),
-    array(
-        'country' => 'CA',
-        'languages' => array('en', 'fr', 'zh'),
-        'currencies' => array('CAD')
-    ),
-    array(
-        'country' => 'CL',
-        'languages' => array('es'),
-        'currencies' => array('CLP')
-    ),
-    array(
-        'country' => 'CO',
-        'languages' => array('es'),
-        'currencies' => array('COP')
-    ),
-    array(
-        'country' => 'CZ',
-        'languages' => array('cs', 'en'),
-        'currencies' => array('CZK')
-    ),
-    array(
-        'country' => 'DK',
-        'languages' => array('da', 'en'),
-        'currencies' => array('DKK')
-    ),
-    array(
-        'country' => 'FR',
-        'languages' => array('fr'),
-        'currencies' => array('EUR')
-    ),
-    array(
-        'country' => 'DE',
-        'languages' => array('de', 'en'),
-        'currencies' => array('EUR')
-    ),
-    array(
-        'country' => 'HK',
-        'languages' => array('zh', 'en'),
-        'currencies' => array('HKD')
-    ),
-    array(
-        'country' => 'IN',
-        'languages' => array('en'),
-        'currencies' => array('INR')
-    ),
-    array(
-        'country' => 'ID',
-        'languages' => array('id', 'en'),
-        'currencies' => array('IDR')
-    ),
-    array(
-        'country' => 'IE',
-        'languages' => array('en'),
-        'currencies' => array('EUR')
-    ),
-    array(
-        'country' => 'IL',
-        'languages' => array('he', 'en'),
-        'currencies' => array('ILS')
-    ),
-    array(
-        'country' => 'IT',
-        'languages' => array('it'),
-        'currencies' => array('EUR')
-    ),
-    array(
-        'country' => 'JP',
-        'languages' => array('ja'),
-        'currencies' => array('JPY')
-    ),
-    array(
-        'country' => 'MY',
-        'languages' => array('en', 'zh'),
-        'currencies' => array('MYR')
-    ),
-    array(
-        'country' => 'MX',
-        'languages' => array('es', 'en'),
-        'currencies' => array('MXN')
-    ),
-    array(
-        'country' => 'NL',
-        'languages' => array('nl', 'en'),
-        'currencies' => array('EUR')
-    ),
-    array(
-        'country' => 'NZ',
-        'languages' => array('en'),
-        'currencies' => array('NZD')
-    ),
-    array(
-        'country' => 'NO',
-        'languages' => array('no', 'en'),
-        'currencies' => array('NOK')
-    ),
-    array(
-        'country' => 'PH',
-        'languages' => array('en'),
-        'currencies' => array('PHP')
-    ),
-    array(
-        'country' => 'PL',
-        'languages' => array('pl'),
-        'currencies' => array('PLN')
-    ),
-    array(
-        'country' => 'PT',
-        'languages' => array('pt'),
-        'currencies' => array('EUR')
-    ),
-    array(
-        'country' => 'RU',
-        'languages' => array('ru'),
-        'currencies' => array('RUB')
-    ),
-    array(
-        'country' => 'SA',
-        'languages' => array('ar', 'en'),
-        'currencies' => array('SAR')
-    ),
-    array(
-        'country' => 'SG',
-        'languages' => array('en', 'zh'),
-        'currencies' => array('SGD')
-    ),
-    array(
-        'country' => 'ZA',
-        'languages' => array('en'),
-        'currencies' => array('ZAR')
-    ),
-    array(
-        'country' => 'KR',
-        'languages' => array('ko', 'en'),
-        'currencies' => array('KRW')
-    ),
-    array(
-        'country' => 'ES',
-        'languages' => array('es'),
-        'currencies' => array('EUR')
-    ),
-    array(
-        'country' => 'SE',
-        'languages' => array('sv', 'en'),
-        'currencies' => array('SEK')
-    ),
-    array(
-        'country' => 'CH',
-        'languages' => array('en', 'de', 'fr', 'it'),
-        'currencies' => array('CHF')
-    ),
-    array(
-        'country' => 'TW',
-        'languages' => array('zh', 'en'),
-        'currencies' => array('TWD')
-    ),
-    array(
-        'country' => 'TH',
-        'languages' => array('th', 'en'),
-        'currencies' => array('THB')
-    ),
-    array(
-        'country' => 'TR',
-        'languages' => array('tr', 'en'),
-        'currencies' => array('TRY')
-    ),
-    array(
-        'country' => 'UA',
-        'languages' => array('uk', 'ru'),
-        'currencies' => array('UAH')
-    ),
-    array(
-        'country' => 'AE',
-        'languages' => array('en'),
-        'currencies' => array('AED')
-    ),
-    array(
-        'country' => 'GB',
-        'languages' => array('en'),
-        'currencies' => array('GBP')
-    ),
-    array(
-        'country' => 'US',
-        'languages' => array('en', 'es', 'zh'),
-        'currencies' => array('USD')
-    ),
-    array(
-        'country' => 'VN',
-        'languages' => array('vi', 'en'),
-        'currencies' => array('VND')
-    )
-);
+$_['advertise_google_targets'] = [
+    [
+        'country'    => 'AR',
+        'languages'  => ['es'],
+        'currencies' => ['ARS']
+    ],
+    [
+        'country'    => 'AU',
+        'languages'  => ['en', 'zh'],
+        'currencies' => ['AUD']
+    ],
+    [
+        'country'    => 'AT',
+        'languages'  => ['de', 'en'],
+        'currencies' => ['EUR']
+    ],
+    [
+        'country'    => 'BE',
+        'languages'  => ['fr', 'nl', 'en'],
+        'currencies' => ['EUR']
+    ],
+    [
+        'country'    => 'BR',
+        'languages'  => ['pt'],
+        'currencies' => ['BRL']
+    ],
+    [
+        'country'    => 'CA',
+        'languages'  => ['en', 'fr', 'zh'],
+        'currencies' => ['CAD']
+    ],
+    [
+        'country'    => 'CL',
+        'languages'  => ['es'],
+        'currencies' => ['CLP']
+    ],
+    [
+        'country'    => 'CO',
+        'languages'  => ['es'],
+        'currencies' => ['COP']
+    ],
+    [
+        'country'    => 'CZ',
+        'languages'  => ['cs', 'en'],
+        'currencies' => ['CZK']
+    ],
+    [
+        'country'    => 'DK',
+        'languages'  => ['da', 'en'],
+        'currencies' => ['DKK']
+    ],
+    [
+        'country'    => 'FR',
+        'languages'  => ['fr'],
+        'currencies' => ['EUR']
+    ],
+    [
+        'country'    => 'DE',
+        'languages'  => ['de', 'en'],
+        'currencies' => ['EUR']
+    ],
+    [
+        'country'    => 'HK',
+        'languages'  => ['zh', 'en'],
+        'currencies' => ['HKD']
+    ],
+    [
+        'country'    => 'IN',
+        'languages'  => ['en'],
+        'currencies' => ['INR']
+    ],
+    [
+        'country'    => 'ID',
+        'languages'  => ['id', 'en'],
+        'currencies' => ['IDR']
+    ],
+    [
+        'country'    => 'IE',
+        'languages'  => ['en'],
+        'currencies' => ['EUR']
+    ],
+    [
+        'country'    => 'IL',
+        'languages'  => ['he', 'en'],
+        'currencies' => ['ILS']
+    ],
+    [
+        'country'    => 'IT',
+        'languages'  => ['it'],
+        'currencies' => ['EUR']
+    ],
+    [
+        'country'    => 'JP',
+        'languages'  => ['ja'],
+        'currencies' => ['JPY']
+    ],
+    [
+        'country'    => 'MY',
+        'languages'  => ['en', 'zh'],
+        'currencies' => ['MYR']
+    ],
+    [
+        'country'    => 'MX',
+        'languages'  => ['es', 'en'],
+        'currencies' => ['MXN']
+    ],
+    [
+        'country'    => 'NL',
+        'languages'  => ['nl', 'en'],
+        'currencies' => ['EUR']
+    ],
+    [
+        'country'    => 'NZ',
+        'languages'  => ['en'],
+        'currencies' => ['NZD']
+    ],
+    [
+        'country'    => 'NO',
+        'languages'  => ['no', 'en'],
+        'currencies' => ['NOK']
+    ],
+    [
+        'country'    => 'PH',
+        'languages'  => ['en'],
+        'currencies' => ['PHP']
+    ],
+    [
+        'country'    => 'PL',
+        'languages'  => ['pl'],
+        'currencies' => ['PLN']
+    ],
+    [
+        'country'    => 'PT',
+        'languages'  => ['pt'],
+        'currencies' => ['EUR']
+    ],
+    [
+        'country'    => 'RU',
+        'languages'  => ['ru'],
+        'currencies' => ['RUB']
+    ],
+    [
+        'country'    => 'SA',
+        'languages'  => ['ar', 'en'],
+        'currencies' => ['SAR']
+    ],
+    [
+        'country'    => 'SG',
+        'languages'  => ['en', 'zh'],
+        'currencies' => ['SGD']
+    ],
+    [
+        'country'    => 'ZA',
+        'languages'  => ['en'],
+        'currencies' => ['ZAR']
+    ],
+    [
+        'country'    => 'KR',
+        'languages'  => ['ko', 'en'],
+        'currencies' => ['KRW']
+    ],
+    [
+        'country'    => 'ES',
+        'languages'  => ['es'],
+        'currencies' => ['EUR']
+    ],
+    [
+        'country'    => 'SE',
+        'languages'  => ['sv', 'en'],
+        'currencies' => ['SEK']
+    ],
+    [
+        'country'    => 'CH',
+        'languages'  => ['en', 'de', 'fr', 'it'],
+        'currencies' => ['CHF']
+    ],
+    [
+        'country'    => 'TW',
+        'languages'  => ['zh', 'en'],
+        'currencies' => ['TWD']
+    ],
+    [
+        'country'    => 'TH',
+        'languages'  => ['th', 'en'],
+        'currencies' => ['THB']
+    ],
+    [
+        'country'    => 'TR',
+        'languages'  => ['tr', 'en'],
+        'currencies' => ['TRY']
+    ],
+    [
+        'country'    => 'UA',
+        'languages'  => ['uk', 'ru'],
+        'currencies' => ['UAH']
+    ],
+    [
+        'country'    => 'AE',
+        'languages'  => ['en'],
+        'currencies' => ['AED']
+    ],
+    [
+        'country'    => 'GB',
+        'languages'  => ['en'],
+        'currencies' => ['GBP']
+    ],
+    [
+        'country'    => 'US',
+        'languages'  => ['en', 'es', 'zh'],
+        'currencies' => ['USD']
+    ],
+    [
+        'country'    => 'VN',
+        'languages'  => ['vi', 'en'],
+        'currencies' => ['VND']
+    ]
+];

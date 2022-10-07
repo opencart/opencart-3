@@ -20,7 +20,7 @@ $_['session_engine']    = 'db'; // db or file
 $_['template_cache']    = true;
 
 // Actions
-$_['action_pre_action'] = array(
+$_['action_pre_action'] = [
 	'startup/setting',
 	'startup/session',
 	'startup/language',
@@ -31,24 +31,24 @@ $_['action_pre_action'] = array(
 	'startup/sass',
 	'startup/login',
 	'startup/permission'
-);
+];
 
 // Actions
 $_['action_default'] 	= 'common/dashboard';
 
 // Action Events
-$_['action_event'] 		= array(
-	'controller/*/before' => array(
+$_['action_event'] 		= [
+	'controller/*/before' => [
 		'event/language/before'
-	),
-	'controller/*/after' => array(
+	],
+	'controller/*/after' => [
 		'event/language/after'
-	),
-	'view/*/before' => array(
+	],
+	'view/*/before' => [
 		999  => 'event/language',
 		1000 => 'event/theme'
-	),
-	'view/*/before' => array(
+	],
+	'view/*/after' => [
 		'event/language'
-	)
-);
+	]
+];
