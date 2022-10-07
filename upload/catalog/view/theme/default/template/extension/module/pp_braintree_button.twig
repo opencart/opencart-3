@@ -1,5 +1,4 @@
 <div id="braintree-alert" class="alert alert-danger" style="display:none;"></div>
-
 <div class="buttons clearfix">
   <form method="POST" action="{{ action }}" id="braintree-express-form"></form>
   <div class="pull-right">
@@ -10,10 +9,10 @@
   var device_data_value = '';
   var data_collector_instance;
   var client_instance;
-
-  $.getScript('https://js.braintreegateway.com/web/3.6.3/js/client.min.js', function() {
+  
+  $.getScript('https://js.braintreegateway.com/web/3.6.3/js/client.min.js', function () {
     $.getScript('https://js.braintreegateway.com/web/3.6.3/js/paypal.min.js');
-
+    
     braintree.client.create({
       authorization: '{{ client_token }}'
     }, function (client_error, braintree_client_button) {
@@ -21,7 +20,7 @@
         console.error(client_error);
         return;
       }
-
+      
       braintree.paypal.create({
         client: braintree_client_button
       }, function (error, instance) {
@@ -29,20 +28,20 @@
           console.error(error);
           return;
         }
-
+        
         $('#paypal-button-module').prop('disabled', false);
-
+        
         $('body').on('click', '#paypal-button-module', function (event) {
           event.preventDefault();
-
+          
           $('#paypal-button-module').attr('disabled', true);
-
+          
           instance.tokenize({
             flow: "checkout",
             {% if payment_pp_braintree_settlement_immediate == 1 %}
-            intent: "sale",
+              intent: "sale",
             {% else %}
-            intent: "authorize",
+              intent: "authorize",
             {% endif %}
             amount: {{ auth_total }},
             currency: '{{ currency_code }}',
@@ -51,7 +50,7 @@
           }, function (tokenize_error, payload) {
             if (tokenize_error) {
               $('#paypal-button-module').prop('disabled', false);
-
+              
               switch (tokenize_error.code) {
                 case 'PAYPAL_POPUP_CLOSED':
                   console.error('Customer closed PayPal popup.');
@@ -65,7 +64,7 @@
                 default:
                   console.error('Error!', tokenize_error);
               }
-
+              
               return;
             } else {
               $.ajax({
@@ -75,16 +74,16 @@
                 dataType: 'json',
                 success: function (json) {
                   if (json.error) {
-                      $('#paypal-button-module').prop('disabled', false);
-
-                      window.location.href = json.url;
+                    $('#paypal-button-module').prop('disabled', false);
+                    
+                    window.location.href = json.url;
                   } else {
-                      $('#paypal-button-module').prop('disabled', false);
-                      $('<input>').attr('type', 'hidden').attr('name', 'nonce').val(payload.nonce).appendTo('#braintree-express-form');
-                      $('#braintree-express-form').submit();
+                    $('#paypal-button-module').prop('disabled', false);
+                    $('<input>').attr('type', 'hidden').attr('name', 'nonce').val(payload.nonce).appendTo('#braintree-express-form');
+                    $('#braintree-express-form').submit();
                   }
                 },
-                failure: function() {
+                failure: function () {
                   console.log('Failed to setup payment');
                   $('#paypal-button-module').prop('disabled', false);
                 }

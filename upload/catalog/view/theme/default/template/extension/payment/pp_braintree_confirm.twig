@@ -2,7 +2,7 @@
 <div class="container">
   <ul class="breadcrumb">
     {% for breadcrumb in breadcrumbs %}
-    <li><a href="{{ breadcrumb.href }}">{{ breadcrumb.text }}</a></li>
+      <li><a href="{{ breadcrumb.href }}">{{ breadcrumb.text }}</a></li>
     {% endfor %}
   </ul>
   {% if attention %}
@@ -25,19 +25,17 @@
 
   <div class="row">{{ column_left }}
     {% if column_left and column_right %}
-    {% set class = 'col-sm-6' %}
+      {% set class = 'col-sm-6' %}
     {% elseif column_left or column_right %}
-    {% set class = 'col-sm-9' %}
+      {% set class = 'col-sm-9' %}
     {% else %}
-    {% set class = 'col-sm-12' %}
+      {% set class = 'col-sm-12' %}
     {% endif %}
     <div id="content" class="{{ class }}">{{ content_top }}
       <h1>{{ heading_title }}</h1>
-
       {% if coupon or voucher or reward %}
         <div class="panel-group" id="accordion">{{ coupon }}{{ voucher }}{{ reward }}</div>
       {% endif %}
-
       {% if has_shipping %}
         {% if not shipping_methods %}
           <div class="warning">{{ error_no_shipping }}</div>
@@ -87,9 +85,10 @@
                 {% for option in product.option %} <br/>
                   <small> - {{ option.name }}: {{ option.value }}</small>
                 {% endfor %}                
-				{% if product.subscription %}
-        		  <br/>
-        		  - <small>{{ text_subscription }} {{ product.subscription }}</small>
+				        {% if product.subscription %}
+        		      <br/>
+        		      - <small>{{ text_subscription }} {{ product.subscription }}</small>
+                {% endif %}
               </td>
               <td class="text-left">{{ product.model }}</td>
               <td class="text-center">{{ product.quantity }}</td>
@@ -114,10 +113,10 @@
         <div class="col-sm-4 col-sm-offset-8">
           <table class="table table-bordered">
             {% for total in totals %}
-            <tr>
-              <td class="text-right"><strong>{{ total.title }}:</strong></td>
-              <td class="text-right">{{ total.text }}</td>
-            </tr>
+              <tr>
+                <td class="text-right"><strong>{{ total.title }}:</strong></td>
+                <td class="text-right">{{ total.text }}</td>
+              </tr>
             {% endfor %}
           </table>
         </div>
@@ -125,22 +124,24 @@
       <div class="buttons">
         <div class="pull-right"><a href="{{ action_confirm }}" class="btn btn-primary" id="paypal-confirm">{{ button_confirm }}</a></div>
       </div>
-      {{ content_bottom }}</div>
-    {{ column_right }}</div>
+      {{ content_bottom }}
+    </div>
+    {{ column_right }}
+  </div>
 </div>
 {{ footer }}
 <script type="text/javascript"><!--
-$('input[name=\'shipping_method\']').change(function() {
-	$('#shipping_form').submit();
-});
-
-$('input[name=\'next\']').bind('change', function() {
-	$('.cart-discounts > div').hide();
-
-	$('#' + this.value).show();
-});
-
-$('#paypal-confirm').bind('click', function() {
-    $('#paypal-confirm').prop('disabled', true).button('loading');
-});
+  $('input[name=\'shipping_method\']').change(function() {
+    $('#shipping_form').submit();
+  });
+  
+  $('input[name=\'next\']').bind('change', function() {
+    $('.cart-discounts > div').hide();
+  
+    $('#' + this.value).show();
+  });
+  
+  $('#paypal-confirm').bind('click', function() {
+      $('#paypal-confirm').prop('disabled', true).button('loading');
+  });
 //--></script>

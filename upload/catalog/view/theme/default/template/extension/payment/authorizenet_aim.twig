@@ -17,16 +17,16 @@
       <label class="col-sm-2 control-label" for="input-cc-expire-date">{{ entry_cc_expire_date }}</label>
       <div class="col-sm-3">
         <select name="cc_expire_date_month" id="input-cc-expire-date" class="form-control">
-         {% for month in months %}          
-          <option value="{{ month.value }}">{{ month.text }}</option>          
-          {% endfor %}        
+          {% for month in months %}
+            <option value="{{ month.value }}">{{ month.text }}</option>
+          {% endfor %}
         </select>
       </div>
       <div class="col-sm-3">
-        <select name="cc_expire_date_year" class="form-control">          
-         {% for year in year_expire %}          
-          <option value="{{ year.value }}">{{ year.text }}</option>          
-          {% endfor %}        
+        <select name="cc_expire_date_year" class="form-control">
+          {% for year in year_expire %}
+            <option value="{{ year.value }}">{{ year.text }}</option>
+          {% endfor %}
         </select>
       </div>
     </div>
@@ -44,28 +44,28 @@
   </div>
 </div>
 <script type="text/javascript"><!--
-	$('#button-confirm').on('click', function() {
-		$.ajax({
-			url: 'index.php?route=extension/payment/authorizenet_aim/send',
-			type: 'post',
-			data: $('#payment :input'),
-			dataType: 'json',
-			cache: false,
-			beforeSend: function() {
-				$('#button-confirm').button('loading');
-			},
-			complete: function() {
-				$('#button-confirm').button('reset');
-			},
-			success: function (json) {
-				if (json['error']) {
-					alert(json['error']);
-				}
-
-				if (json['redirect']) {
-					location = json['redirect'];
-				}
-			}
-		});
-	});
+$('#button-confirm').on('click', function () {
+  $.ajax({
+    url: 'index.php?route=extension/payment/authorizenet_aim/send',
+    type: 'post',
+    data: $('#payment :input'),
+    dataType: 'json',
+    cache: false,
+    beforeSend: function () {
+      $('#button-confirm').button('loading');
+    },
+    complete: function () {
+      $('#button-confirm').button('reset');
+    },
+    success: function (json) {
+      if (json['error']) {
+        alert(json['error']);
+      }
+      
+      if (json['redirect']) {
+        location = json['redirect'];
+      }
+    }
+  });
+});
 //--></script>

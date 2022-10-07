@@ -2,14 +2,14 @@
   <div class="container">
     <div class="row">
       {% if informations %}
-      <div class="col-sm-3">
-        <h5>{{ text_information }}</h5>
-        <ul class="list-unstyled">
-         {% for information in informations %}
-          <li><a href="{{ information.href }}">{{ information.title }}</a></li>
-          {% endfor %}
-        </ul>
-      </div>
+        <div class="col-sm-3">
+          <h5>{{ text_information }}</h5>
+          <ul class="list-unstyled">
+            {% for information in informations %}
+              <li><a href="{{ information.href }}">{{ information.title }}</a></li>
+            {% endfor %}
+          </ul>
+        </div>
       {% endif %}
       <div class="col-sm-3">
         <h5>{{ text_service }}</h5>
@@ -44,12 +44,12 @@
 </footer>
 {{ cookie }}
 {% for style in styles %}
-<link href="{{ style.href }}" type="text/css" rel="{{ style.rel }}" media="{{ style.media }}"/>
+  <link href="{{ style.href }}" type="text/css" rel="{{ style.rel }}" media="{{ style.media }}"/>
 {% endfor %}
 {% for script in scripts %}
-<script src="{{ script.href }}" type="text/javascript"></script>
+  <script src="{{ script.href }}" type="text/javascript"></script>
 {% endfor %}
-{# 
+{#
 OpenCart is open source software and you are free to remove the powered by OpenCart if you want, but its generally accepted practise to make a small donation.
 Please donate via PayPal to donate@opencart.com
 #}

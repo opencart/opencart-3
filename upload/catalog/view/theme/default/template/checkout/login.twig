@@ -3,21 +3,25 @@
     <h2>{{ text_new_customer }}</h2>
     <p>{{ text_checkout }}</p>
     <div class="radio">
-      <label> {% if account == 'register' %}
-        <input type="radio" name="account" value="register" checked="checked"/>
+      <label>
+        {% if account == 'register' %}
+          <input type="radio" name="account" value="register" checked="checked"/>
         {% else %}
-        <input type="radio" name="account" value="register"/>
+          <input type="radio" name="account" value="register"/>
         {% endif %}
-        {{ text_register }}</label>
+        {{ text_register }}
+      </label>
     </div>
     {% if checkout_guest %}
     <div class="radio">
-      <label> {% if account == 'guest' %}
-        <input type="radio" name="account" value="guest" checked="checked"/>
+      <label>
+        {% if account == 'guest' %}
+          <input type="radio" name="account" value="guest" checked="checked"/>
         {% else %}
-        <input type="radio" name="account" value="guest"/>
+          <input type="radio" name="account" value="guest"/>
         {% endif %}
-        {{ text_guest }}</label>
+        {{ text_guest }}
+      </label>
     </div>
     {% endif %}
     <p>{{ text_register_account }}</p>

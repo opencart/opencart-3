@@ -1,9 +1,9 @@
 {% if auto_submit %}
-<!DOCTYPE html>
-<html>
-<head>
-</head>
-<body>
+  <!DOCTYPE html>
+  <html>
+  <head>
+  </head>
+  <body>
 {% endif %}
 <form action="{{ url }}" id="pilibaba-form" method="post">
   <input type="hidden" name="version" value="{{ version }}">
@@ -23,24 +23,24 @@
   <input type="hidden" name="goodsList" value="{{ goodsList }}">
 </form>
 {% if not auto_submit %}
-<div class="buttons">
-  <div class="pull-right">
-    <input type="button" value="{{ button_confirm }}" id="button-confirm" data-loading-text="{{ text_loading }}" class="btn btn-primary"/>
+  <div class="buttons">
+    <div class="pull-right">
+      <input type="button" value="{{ button_confirm }}" id="button-confirm" data-loading-text="{{ text_loading }}" class="btn btn-primary"/>
+    </div>
   </div>
-</div>
-<script type="text/javascript"><!--
-  $('#button-confirm').bind('click', function() {
-	$('#button-confirm').button('loading');
-
-    $('#pilibaba-form').submit();
-  });
-//--></script> 
+  <script type="text/javascript"><!--
+    $('#button-confirm').bind('click', function() {
+    $('#button-confirm').button('loading');
+  
+      $('#pilibaba-form').submit();
+    });
+  //--></script>
 {% endif %}
 
 {% if auto_submit %}
   {{ text_redirecting }} 
-<script>
-  document.getElementById('pilibaba-form').submit();
+  <script>
+    document.getElementById('pilibaba-form').submit();
   </script>
 </body>
 </html>

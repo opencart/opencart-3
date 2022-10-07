@@ -43,23 +43,23 @@
   </thead>
   <tbody>  
   {% for report in transaction.report %}
-  {% if report.instalment == '0' %}
-  <tr>
-    <td>{{ text_downpayment }}</td>
-    <td>{{ report.amount }}</td>
-    <td>{{ report.date }}</td>
-    <td>{{ report.pp_trans_id }}</td>
-    <td>{{ report.status }}</td>
-  </tr>
-  {% else %}
-  <tr>
-    <td>{{ text_month }} {{ report.instalment }}</td>
-    <td>{{ report.amount }}</td>
-    <td>{{ report.date }}</td>
-    <td>{{ report.pp_trans_id }}</td>
-    <td>{{ report.status }}</td>
-  </tr>
-  {% endif %}
+    {% if report.instalment == '0' %}
+      <tr>
+        <td>{{ text_downpayment }}</td>
+        <td>{{ report.amount }}</td>
+        <td>{{ report.date }}</td>
+        <td>{{ report.pp_trans_id }}</td>
+        <td>{{ report.status }}</td>
+      </tr>
+    {% else %}
+      <tr>
+        <td>{{ text_month }} {{ report.instalment }}</td>
+        <td>{{ report.amount }}</td>
+        <td>{{ report.date }}</td>
+        <td>{{ report.pp_trans_id }}</td>
+        <td>{{ report.status }}</td>
+      </tr>
+    {% endif %}
   {% endfor %}
   </tbody>  
 </table>

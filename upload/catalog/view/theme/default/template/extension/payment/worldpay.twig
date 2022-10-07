@@ -74,21 +74,20 @@
   <div id="payment-errors">
   </div>
   <script type="text/javascript"><!--
-
       //Load Worldpay.js and run script functions
       $.getScript("{{ worldpay_script }}", function (data, textStatus, jqxhr) {
         Worldpay.setClientKey("{{ worldpay_client_key }}");
 
         // disable new card form if existing cards
-{% if existing_cards %}
+        {% if existing_cards %}
 	        $('#payment-new-form :input').prop('disabled', true);
-{% endif %}
+        {% endif %}
 
         // Set if token is reusable, remove first value when Worldpay update
         Worldpay.reusable = true;
-{% if subscription_products %}
+        {% if subscription_products %}
 	        Worldpay.reusable = true;
-{% else %}
+        {% else %}
 	        $('input[name=\'save-card\']').on('change', function() {
 	          if ($(this).is(':checked')) {
 	            Worldpay.reusable = true;
@@ -96,8 +95,7 @@
 	            Worldpay.reusable = false;
 	          }
 	        });
-{% endif %}
-
+        {% endif %}
         Worldpay.templateSaveButton = false;
         Worldpay.useTemplate('payment-new-form', 'paymentDetailsHere', 'inline', function (obj) {
           var _el = document.createElement('input');
@@ -105,7 +103,7 @@
           _el.type = 'hidden';
           _el.name = 'token';
           document.getElementById('payment-new-form').appendChild(_el);
-		  document.getElementById('payment-new-form').submit();
+		      document.getElementById('payment-new-form').submit();
         });
 
         //Submit form
@@ -176,4 +174,4 @@
           $('#payment-existing-form :input').prop('disabled', true);
         }
       });
-      //--></script>
+  //--></script>

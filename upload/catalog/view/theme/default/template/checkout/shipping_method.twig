@@ -1,26 +1,27 @@
 {% if error_warning %}
-<div class="alert alert-warning alert-dismissible"><i class="fa fa-exclamation-circle"></i> {{ error_warning }}</div>
+  <div class="alert alert-warning alert-dismissible"><i class="fa fa-exclamation-circle"></i> {{ error_warning }}</div>
 {% endif %}
 {% if shipping_methods %}
-<p>{{ text_shipping_method }}</p>
-{% for shipping_method in shipping_methods %}
-<p><strong>{{ shipping_method.title }}</strong></p>
-{% if not shipping_method.error %}
-{% for quote in shipping_method.quote %}
-<div class="radio">
-  <label> {% if quote.code == code or not code %}
-    {% set code = quote.code %}
-    <input type="radio" name="shipping_method" value="{{ quote.code }}" checked="checked"/>
+  <p>{{ text_shipping_method }}</p>
+  {% for shipping_method in shipping_methods %}
+    <p><strong>{{ shipping_method.title }}</strong></p>
+    {% if not shipping_method.error %}
+      {% for quote in shipping_method.quote %}
+        <div class="radio">
+          <label>
+            {% if quote.code == code or not code %}
+              {% set code = quote.code %}
+              <input type="radio" name="shipping_method" value="{{ quote.code }}" checked="checked"/>
+            {% else %}
+              <input type="radio" name="shipping_method" value="{{ quote.code }}"/>
+            {% endif %}
+            {{ quote.title }} - {{ quote.text }}</label>
+        </div>
+      {% endfor %}
     {% else %}
-    <input type="radio" name="shipping_method" value="{{ quote.code }}"/>
+      <div class="alert alert-danger alert-dismissible">{{ shipping_method.error }}</div>
     {% endif %}
-    {{ quote.title }} - {{ quote.text }}</label>
-</div>
-{% endfor %}
-{% else %}
-<div class="alert alert-danger alert-dismissible">{{ shipping_method.error }}</div>
-{% endif %}
-{% endfor %}
+  {% endfor %}
 {% endif %}
 <p><strong>{{ text_comments }}</strong></p>
 <p>

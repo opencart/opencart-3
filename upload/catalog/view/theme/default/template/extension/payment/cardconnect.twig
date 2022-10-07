@@ -2,15 +2,15 @@
   <fieldset id="payment">
     <legend>{{ text_card_details }}</legend>
     {% if echeck %}
-    <div class="form-group">
-      <label class="col-sm-2 control-label" for="input-method">{{ entry_method }}</label>
-      <div class="col-sm-10">
-        <select name="method" id="input-method" class="form-control">
-          <option value="card">{{ text_card }}</option>
-          <option value="echeck">{{ text_echeck }}</option>
-        </select>
+      <div class="form-group">
+        <label class="col-sm-2 control-label" for="input-method">{{ entry_method }}</label>
+        <div class="col-sm-10">
+          <select name="method" id="input-method" class="form-control">
+            <option value="card">{{ text_card }}</option>
+            <option value="echeck">{{ text_echeck }}</option>
+          </select>
+        </div>
       </div>
-    </div>
     {% endif %}
     <div class="card_container">
       <div class="form-group" {% if not store_cards %} style="display: none;" {% endif %}>
@@ -30,7 +30,7 @@
           <div class="col-sm-10">
             <select name="card_type" id="input-card-type" class="form-control">
              {% for card_type in card_types %}
-              <option value="{{ card_type.value }}">{{ card_type.text }}</option>
+                <option value="{{ card_type.value }}">{{ card_type.text }}</option>
               {% endfor %}
             </select>
           </div>
@@ -46,14 +46,14 @@
           <div class="col-sm-3">
             <select name="card_expiry_month" id="input-card-expiry" class="form-control">
              {% for month in months %}
-              <option value="{{ month.value }}">{{ month.text }}</option>
+                <option value="{{ month.value }}">{{ month.text }}</option>
               {% endfor %}
             </select>
           </div>
           <div class="col-sm-3">
             <select name="card_expiry_year" class="form-control">
              {% for year in years %}
-              <option value="{{ year.value }}">{{ year.text }}</option>
+                <option value="{{ year.value }}">{{ year.text }}</option>
               {% endfor %}
             </select>
           </div>
@@ -65,25 +65,26 @@
           </div>
         </div>
         {% if store_cards %}
-        <div class="form-group">
-          <label class="col-sm-2 control-label" for="input-card-save" style="padding-top:0">{{ entry_card_save }}</label>
-          <div class="col-sm-10">
-            <input type="checkbox" name="card_save" value="1" id="input-card-save"/>
+          <div class="form-group">
+            <label class="col-sm-2 control-label" for="input-card-save" style="padding-top:0">{{ entry_card_save }}</label>
+            <div class="col-sm-10">
+              <input type="checkbox" name="card_save" value="1" id="input-card-save"/>
+            </div>
           </div>
-        </div>
-        {% endif %} </div>
+        {% endif %}
+      </div>
       <div class="card_old_container" style="display: none">
         <div class="form-group">
           <label class="col-sm-2 control-label" for="input-card-choice">{{ entry_card_choice }}</label>
           <div class="col-sm-8">
             <select name="card_choice" id="input-card-choice" class="form-control" {% if not cards %} disabled {% endif %}>
           	  {% if cards %}
-              <option value="">{{ text_select_card }}</option>
-               {% for card in cards %}
-              <option value="{{ card.token }}">{{ card.type }}, &nbsp; {{ card.account }}, &nbsp; {{ card.expiry }}</option>
+                <option value="">{{ text_select_card }}</option>
+                {% for card in cards %}
+                  <option value="{{ card.token }}">{{ card.type }}, &nbsp; {{ card.account }}, &nbsp; {{ card.expiry }}</option>
                 {% endfor %}
               {% else %}
-              <option value="">{{ text_no_cards }}</option>
+                <option value="">{{ text_no_cards }}</option>
               {% endif %}
             </select>
           </div>
