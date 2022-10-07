@@ -1,25 +1,25 @@
 <?php
 class ControllerErrorNotFound extends Controller {
-	public function index() {
-		/*
-		$this->load->language('error/not_found');
+    public function index() {
+        /*
+        $this->load->language('error/not_found');
 
-		$this->document->setTitle($this->language->get('heading_title'));
-		
-		$data['heading_title'] = $this->language->get('heading_title');
+        $this->document->setTitle($this->language->get('heading_title'));
 
-		$data['text_error'] = $this->language->get('text_error');
+        $data['heading_title'] = $this->language->get('heading_title');
 
-		$data['button_continue'] = $this->language->get('button_continue');
+        $data['text_error'] = $this->language->get('text_error');
 
-		$data['continue'] = $this->url->link('common/home');
+        $data['button_continue'] = $this->language->get('button_continue');
 
-		$data['footer'] = $this->load->controller('common/footer');
-		$data['header'] = $this->load->controller('common/header');
+        $data['continue'] = $this->url->link('common/home');
 
-		$this->response->addHeader($this->request->server['SERVER_PROTOCOL'] . ' 404 Not Found');
+        $data['footer'] = $this->load->controller('common/footer');
+        $data['header'] = $this->load->controller('common/header');
 
-		$this->response->setOutput($this->load->view('error/not_found', $data));
-		*/
-	}
+        $this->response->addHeader($this->request->server['SERVER_PROTOCOL'] . ' 404 Not Found');
+
+        $this->response->setOutput($this->load->view('error/not_found', $data));
+        */
+    }
 }
