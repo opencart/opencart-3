@@ -273,14 +273,14 @@
                     <div class="form-group">
                       <label class="control-label" for="input-status">{{ entry_status }}</label>
                       <select name="filter_status" id="input-status" class="form-control"/>
-                      <option value="*"></option>
-                      {% for transaction_status in transaction_statuses %}
-                        {% if transaction_status.status_id == filter_status %}
-                          <option value="{{ transaction_status.status_id }}" selected="selected">{{ transaction_status.status_name }}</option>
-                        {% else %}
-                          <option value="{{ transaction_status.status_id }}">{{ transaction_status.status_name }}</option>
-                        {% endif %}
-                      {% endfor %}
+                        <option value="*"></option>
+                        {% for transaction_status in transaction_statuses %}
+                          {% if transaction_status.status_id == filter_status %}
+                            <option value="{{ transaction_status.status_id }}" selected="selected">{{ transaction_status.status_name }}</option>
+                          {% else %}
+                            <option value="{{ transaction_status.status_id }}">{{ transaction_status.status_name }}</option>
+                          {% endif %}
+                        {% endfor %}
                       </select>
                     </div>
                   </div>

@@ -87,12 +87,14 @@
                   <label>
                     <input type="checkbox" name="payment_divido_plans_selected[]" value="{{ plan.id }}" checked="checked">
                     {{ plan.text }} {{ plan.interest_rate }}% APR
-                  </label><br/>
+                  </label>
+                  <br/>
                 {% else %}
                   <label>
                     <input type="checkbox" name="payment_divido_plans_selected[]" value="{{ plan.id }}">
                     {{ plan.text }} {{ plan.interest_rate }}% APR
-                  </label><br/>
+                  </label>
+                  <br/>
                 {% endif %}
               {% endfor %}
             </div>

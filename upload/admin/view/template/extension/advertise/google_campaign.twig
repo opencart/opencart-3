@@ -127,10 +127,16 @@
               {% if not from_dashboard %}
                 <div class="alert alert-info text-left">
                   <div class="checkbox">
-                    <label><input type="checkbox" class="acknowledge"/> {{ text_acknowledge_add_campaign_1 }}</label>
+                    <label>
+                      <input type="checkbox" class="acknowledge"/>
+                      {{ text_acknowledge_add_campaign_1 }}
+                    </label>
                   </div>
                   <div class="checkbox">
-                    <label><input type="checkbox" class="acknowledge"/> {{ text_acknowledge_add_campaign_2 }}</label>
+                    <label>
+                      <input type="checkbox" class="acknowledge"/>
+                      {{ text_acknowledge_add_campaign_2 }}
+                    </label>
                   </div>
                 </div>
               {% endif %}
@@ -144,12 +150,9 @@
       <div class="col-md-3">
         <div class="panel panel-default">
           <div class="panel-heading">
-            <h3 class="panel-title">
-              <i class="fa fa-info-circle"></i>&nbsp;<span>{{ text_panel_heading_more_info }}</span></h3>
+            <h3 class="panel-title"><i class="fa fa-info-circle"></i>&nbsp;<span>{{ text_panel_heading_more_info }}</span></h3>
           </div>
-          <div class="panel-body">
-            {{ text_campaign_more_info }}
-          </div>
+          <div class="panel-body">{{ text_campaign_more_info }}</div>
         </div>
         <div class="panel panel-default">
           <div class="panel-heading">
