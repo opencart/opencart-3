@@ -30,6 +30,14 @@ class ModelAccountSubscription extends Model {
         return $query->row;
     }
 
+    // Since there are core extension payment modules installed,
+    // we need this method.
+    public function getSubscriptionByOrderTransactionId(int $order_subscription_transaction_id): array {
+        $query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "order_subscription_transaction` WHERE `order_subscription_transaction_id` = '" . (int)$order_subscription_transaction_id . "'");
+
+        return $query->row;
+    }
+
     public function getTotalSubscriptions(): int {
         $query = $this->db->query("SELECT COUNT(*) AS `total` FROM `" . DB_PREFIX . "subscription` s LEFT JOIN `" . DB_PREFIX . "order` o ON (s.`order_id` = o.`order_id`) WHERE o.`customer_id` = '" . (int)$this->customer->getId() . "'");
 
