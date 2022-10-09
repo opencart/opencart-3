@@ -47,9 +47,9 @@ $_['button_refund']         = 'Refund';
 // Error
 $_['error_key']             = 'Key Required!';
 $_['error_secret']          = 'Secret Required!';
-$_['error_composer']        = 'Unable to load Cardinity SDK. Please download a compiled vendor folder or run composer.';
+$_['error_composer']        = 'Unable to load Cardinity SDK. Please download a compiled vendor folder or run composer!';
 $_['error_php_version']     = 'Minimum version of PHP 8.1 is required!';
 $_['error_permission']      = 'Warning: You do not have permission to modify payment Cardinity!';
-$_['error_connection']      = 'There was a problem establishing a connection to the Cardinity API. Please check your Key and Secret settings.';
-$_['error_transaction']     = 'Unable to find transaction for this order.';
+$_['error_connection']      = 'There was a problem establishing a connection to the Cardinity API. Please check your Key and Secret settings!';
+$_['error_transaction']     = 'Unable to find the transaction for this order!';
 $_['error_warning']         = 'Warning: Please check the form carefully for errors!';

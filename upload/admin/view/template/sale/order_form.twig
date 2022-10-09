@@ -951,6 +951,8 @@
   <script type="text/javascript"><!--
       // Disable the tabs
       $('#order a[data-toggle=\'tab\']').on('click', function (e) {
+          e.preventDefault();
+          
           return false;
       });
 
@@ -2377,7 +2379,7 @@
                               }
                           }
 
-                          html += '</td>';
+                          html += '  </td>';
                           html += '  <td class="text-left">' + product['model'] + '</td>';
                           html += '  <td class="text-right"><div class="input-group btn-block" style="max-width: 200px;"><input type="text" name="product[' + i + '][quantity]" value="' + product['quantity'] + '" class="form-control"/><span class="input-group-btn"><button type="button" data-toggle="tooltip" title="{{ button_refresh }}" data-loading-text="{{ text_loading }}" class="btn btn-primary"><i class="fa fa-refresh"></i></button></span></div></td>';
                           html += '  <td class="text-right">' + product['price'] + '</td>';

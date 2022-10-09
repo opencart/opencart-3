@@ -46,7 +46,7 @@ $_['button_capture']         = 'Capture';
 $_['button_refund']          = 'Issue refund';
 
 // Error
-$_['error_capture']          = 'Enter an amount to capture';
+$_['error_capture']          = 'Enter an amount to capture!';
 $_['error_transaction']      = 'Transaction could not be carried out!';
 $_['error_not_found']        = 'Transaction could not be found!';
-$_['error_partial_amt']      = 'You must enter a partial refund amount';
+$_['error_partial_amt']      = 'You must enter a partial refund amount!';
