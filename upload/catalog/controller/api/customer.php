@@ -149,8 +149,8 @@ class ControllerApiCustomer extends Controller {
                 if (!$reference && !$order_subscription_transaction_info) {
                     $json['error']['transaction']        = $this->language->get('error_transaction');
                 } else {
-                    if (isset($this->request->post['order_id'])) {
-                        $order_id = (int)$this->request->post['order_id'];
+                    if (isset($this->session->data['order_id'])) {
+                        $order_id = (int)$this->session->data['order_id'];
                     } else {
                         $order_id = 0;
                     }
@@ -170,6 +170,10 @@ class ControllerApiCustomer extends Controller {
                             $json['error']['type'] = $this->language->get('error_type');
                         }
 
+                        if (empty($this->request->post['amount'])) {
+                            $this->request->post['amount'] = 0;
+                        }
+
                         if (empty($this->request->post['payment_method'])) {
                             $json['error']['payment_method'] = $this->language->get('error_payment_method');
                         }
@@ -181,17 +185,17 @@ class ControllerApiCustomer extends Controller {
                         if (!$json) {
                             $this->model_account_subscription->addTransaction($subscription_id, $order_id, $order_subscription_transaction_id, $this->request->post['description'], $this->request->post['amount'], $this->session->data['type'], $this->request->post['payment_method'], $this->request->post['payment_code']);
 
-                            $json['success'] = $this->language->get('text_transaction_success');
-
-                            unset($this->session->data['subscription_id']);
-                            unset($this->session->data['reference']);
-                            unset($this->session->data['order_subscription_transaction_id']);
-                            unset($this->session->data['type']);
+                            $json['success'] = true;
                         }
                     }
                 }
             }
         }
+
+        unset($this->session->data['subscription_id']);
+        unset($this->session->data['reference']);
+        unset($this->session->data['order_subscription_transaction_id']);
+        unset($this->session->data['type']);
 
         $this->response->addHeader('Content-Type: application/json');
         $this->response->setOutput(json_encode($json));

@@ -385,7 +385,6 @@ class ControllerSaleOrder extends Controller {
 
             $session->data['api_id'] = $api_info['api_id'];
             $data['api_token']       = $session->getId();
-
         } else {
             $data['api_token']       = '';
             $data['api_key']         = '';
@@ -401,7 +400,7 @@ class ControllerSaleOrder extends Controller {
     protected function getForm() {
         $data['text_form'] = !isset($this->request->get['order_id']) ? $this->language->get('text_add') : $this->language->get('text_edit');
 
-        $url = '';
+        $url               = '';
 
         if (isset($this->request->get['filter_order_id'])) {
             $url .= '&filter_order_id=' . $this->request->get['filter_order_id'];
@@ -464,9 +463,9 @@ class ControllerSaleOrder extends Controller {
         }
 
         if (!empty($order_info)) {
-            $data['order_id']  = (int)$this->request->get['order_id'];
-            $data['store_id']  = $order_info['store_id'];
-            $data['store_url'] = $this->request->server['HTTPS'] ? HTTPS_CATALOG : HTTP_CATALOG;
+            $data['order_id']             = (int)$this->request->get['order_id'];
+            $data['store_id']             = $order_info['store_id'];
+            $data['store_url']            = $this->request->server['HTTPS'] ? HTTPS_CATALOG : HTTP_CATALOG;
 
             $data['customer']             = $order_info['customer'];
             $data['customer_id']          = $order_info['customer_id'];
@@ -510,8 +509,7 @@ class ControllerSaleOrder extends Controller {
 
             // Products
             $data['order_products'] = [];
-
-            $products = $this->model_sale_order->getOrderProducts($this->request->get['order_id']);
+            $products               = $this->model_sale_order->getOrderProducts($this->request->get['order_id']);
 
             foreach ($products as $product) {
                 $data['order_products'][] = [
@@ -546,11 +544,11 @@ class ControllerSaleOrder extends Controller {
                 }
             }
 
-            $data['order_status_id'] = $order_info['order_status_id'];
-            $data['comment']         = $order_info['comment'];
-            $data['affiliate_id']    = $order_info['affiliate_id'];
-            $data['affiliate']       = $order_info['affiliate_firstname'] . ' ' . $order_info['affiliate_lastname'];
-            $data['currency_code']   = $order_info['currency_code'];
+            $data['order_status_id']       = $order_info['order_status_id'];
+            $data['comment']               = $order_info['comment'];
+            $data['affiliate_id']          = $order_info['affiliate_id'];
+            $data['affiliate']             = $order_info['affiliate_firstname'] . ' ' . $order_info['affiliate_lastname'];
+            $data['currency_code']         = $order_info['currency_code'];
         } else {
             $data['order_id']              = 0;
             $data['store_id']              = 0;
@@ -639,6 +637,7 @@ class ControllerSaleOrder extends Controller {
             'payment_custom_field',
             'shipping_custom_field'
         ];
+
         $filter_data            = [
             'sort'  => 'cf.sort_order',
             'order' => 'ASC'
@@ -714,7 +713,6 @@ class ControllerSaleOrder extends Controller {
 
             $session->data['api_id'] = $api_info['api_id'];
             $data['api_token']       = $session->getId();
-
         } else {
             $data['api_token']       = '';
             $data['api_key']         = '';
@@ -746,7 +744,7 @@ class ControllerSaleOrder extends Controller {
             $data['text_ip_add'] = sprintf($this->language->get('text_ip_add'), $this->request->server['REMOTE_ADDR']);
             $data['text_order']  = sprintf($this->language->get('text_order'), $this->request->get['order_id']);
 
-            $url = '';
+            $url                 = '';
 
             if (isset($this->request->get['filter_order_id'])) {
                 $url .= '&filter_order_id=' . $this->request->get['filter_order_id'];
@@ -1196,7 +1194,7 @@ class ControllerSaleOrder extends Controller {
             $data['accept_language'] = $order_info['accept_language'];
 
             // Additional Tabs
-            $data['tabs'] = [];
+            $data['tabs']            = [];
 
             if ($this->user->hasPermission('access', 'extension/payment/' . $order_info['payment_code'])) {
                 if (is_file(DIR_CATALOG . 'controller/extension/payment/' . $order_info['payment_code'] . '.php')) {
@@ -1253,7 +1251,6 @@ class ControllerSaleOrder extends Controller {
 
                 $session->data['api_id'] = $api_info['api_id'];
                 $data['api_token']       = $session->getId();
-
             } else {
                 $data['api_token']       = '';
                 $data['api_key']         = '';
