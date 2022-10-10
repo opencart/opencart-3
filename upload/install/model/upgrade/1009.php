@@ -296,37 +296,6 @@ class ModelUpgrade1009 extends Model {
             $this->db->query("ALTER TABLE `" . DB_PREFIX . "cart` ADD COLUMN `subscription_plan_id` int(11) NOT NULL AFTER `product_id`");
         }
 
-        // Recurring to Subscription Plans
-        $query = $this->db->query("SELECT * FROM information_schema.COLUMNS WHERE TABLE_SCHEMA = '" . DB_DATABASE . "' AND TABLE_NAME = '" . DB_PREFIX . "recurring' AND TABLE_NAME = '" . DB_PREFIX . "recurring_description' AND TABLE_NAME = '" . DB_PREFIX . "product_recurring'");
-
-        if ($query->num_rows) {
-            $languages = $this->db->query("SELECT * FROM `" . DB_PREFIX . "language`");
-
-            if ($languages->num_rows) {
-                foreach ($languages->rows as $language) {
-                    $recurrings = $this->db->query("SELECT * FROM `" . DB_PREFIX . "recurring` r LEFT JOIN `" . DB_PREFIX . "recurring_description` rd ON (r.`recurring_id` = rd.`recurring_id`) WHERE rd.`language_id` = '" . (int)$language['language_id'] . "'");
-
-                    if ($recurrings->num_rows) {
-                        $recurring_data = [];
-
-                        foreach ($recurrings->rows as $recurring) {
-                            $this->db->query("INSERT INTO `" . DB_PREFIX . "subscription_plan` SET `trial_price` = '" . (float)$recurring['trial_price'] . "', `trial_frequency` = '" . $this->db->escape($recurring['trial_frequency']) . "', `trial_duration` = '" . (int)$recurring['trial_duration'] . "', `trial_cycle` = '" . (int)$recurring['trial_cycle'] . "', `trial_status` = '" . (int)$recurring['trial_status'] . "', `price` = '" . (float)$recurring['price'] . "', `frequency` = '" . $this->db->escape($recurring['frequency']) . "', `duration` = '" . (int)$recurring['duration'] . "', `cycle` = '" . (int)$recurring['cycle'] . "', `status` = '" . (bool)$recurring['status'] . "', `sort_order` = '" . (int)$recurring['sort_order'] . "'");
-
-                            $subscription_plan_id = $this->db->getLastId();
-
-                            $this->db->query("INSERT INTO `" . DB_PREFIX . "subscription_plan_description` SET `subscription_plan_id` = '" . (int)$subscription_plan_id . "', `name` = '" . $this->db->escape($recurring['recurring_name']) . "', `description` = '" . $this->db->escape($recurring['recurring_description']) . "', `language_id` = '" . (int)$language['language_id'] . "'");
-                        }
-                    }
-                }
-
-                if (isset($subscription_plan_id)) {
-                    $this->db->query("DROP TABLE IF EXISTS `" . DB_PREFIX . "recurring_description`");
-                    $this->db->query("DROP TABLE IF EXISTS `" . DB_PREFIX . "product_recurring`");
-                    $this->db->query("DROP TABLE IF EXISTS `" . DB_PREFIX . "recurring`");
-                }
-            }
-        }
-
         // OPENCART_SERVER
         $upgrade = true;
 
