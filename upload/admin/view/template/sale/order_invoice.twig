@@ -91,6 +91,10 @@
               <br/>
               &nbsp;<small> - {{ option.name }}: {{ option.value }}</small>
             {% endfor %}
+            {% if product.subscription %}
+              <br/>
+              <small> - {{ text_subscription }} {{ product.subscription }} </small>
+            {% endif %}
           </td>
           <td>{{ product.model }}</td>
           <td class="text-right">{{ product.quantity }}</td>
