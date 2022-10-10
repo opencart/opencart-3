@@ -237,9 +237,9 @@ class ControllerApiOrder extends Controller {
                 // Order Totals
                 $this->load->model('setting/extension');
 
-                $totals = [];
-                $taxes  = $this->cart->getTaxes();
-                $total  = 0;
+                $totals     = [];
+                $taxes      = $this->cart->getTaxes();
+                $total      = 0;
 
                 // Because __call can not keep var references so we put them into an array.
                 $total_data = [
@@ -250,7 +250,7 @@ class ControllerApiOrder extends Controller {
 
                 $sort_order = [];
 
-                $results = $this->model_setting_extension->getExtensions('total');
+                $results    = $this->model_setting_extension->getExtensions('total');
 
                 foreach ($results as $key => $value) {
                     $sort_order[$key] = $this->config->get('total_' . $value['code'] . '_sort_order');
@@ -607,9 +607,9 @@ class ControllerApiOrder extends Controller {
                     // Order Totals
                     $this->load->model('setting/extension');
 
-                    $totals = [];
-                    $taxes  = $this->cart->getTaxes();
-                    $total  = 0;
+                    $totals     = [];
+                    $taxes      = $this->cart->getTaxes();
+                    $total      = 0;
 
                     // Because __call can not keep var references so we put them into an array.
                     $total_data = [
@@ -620,7 +620,7 @@ class ControllerApiOrder extends Controller {
 
                     $sort_order = [];
 
-                    $results = $this->model_setting_extension->getExtensions('total');
+                    $results    = $this->model_setting_extension->getExtensions('total');
 
                     foreach ($results as $key => $value) {
                         $sort_order[$key] = $this->config->get('total_' . $value['code'] . '_sort_order');
@@ -721,7 +721,7 @@ class ControllerApiOrder extends Controller {
 
                 $json['success'] = $this->language->get('text_success');
             } else {
-                $json['error'] = $this->language->get('error_not_found');
+                $json['error']   = $this->language->get('error_not_found');
             }
         }
 
@@ -751,7 +751,7 @@ class ControllerApiOrder extends Controller {
                 $json['order']   = $order_info;
                 $json['success'] = $this->language->get('text_success');
             } else {
-                $json['error'] = $this->language->get('error_not_found');
+                $json['error']   = $this->language->get('error_not_found');
             }
         }
 
@@ -796,7 +796,7 @@ class ControllerApiOrder extends Controller {
 
                 $json['success'] = $this->language->get('text_success');
             } else {
-                $json['error'] = $this->language->get('error_not_found');
+                $json['error']   = $this->language->get('error_not_found');
             }
         }
 

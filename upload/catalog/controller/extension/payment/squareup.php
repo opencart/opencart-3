@@ -161,7 +161,7 @@ class ControllerExtensionPaymentSquareup extends Controller {
                 $transaction_data['customer_card_id'] = $square_card_id;
                 $transaction_data['customer_id']      = $square_customer['square_customer_id'];
             } else {
-                $transaction_data['card_nonce'] = $this->request->post['squareup_nonce'];
+                $transaction_data['card_nonce']       = $this->request->post['squareup_nonce'];
             }
 
             $transaction = $this->squareup->addTransaction($transaction_data);
