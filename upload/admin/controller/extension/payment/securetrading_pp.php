@@ -496,28 +496,28 @@ class ControllerExtensionPaymentSecureTradingPp extends Controller {
         }
 
         if (!$this->user->hasPermission('modify', 'extension/payment/securetrading_pp')) {
-            $json['error'] = $this->language->get('error_permission');
-        }
+            $this->log->write($this->language->get('heading_transaction') . ' ' . $this->language->get('error_permission'));
+        } else {
+            $this->load->model('sale/subscription');
 
-        $this->load->model('sale/subscription');
+            $subscription_info = $this->model_sale_subscription->getSubscription($subscription_id);
 
-        $subscription_info = $this->model_sale_subscription->getSubscription($subscription_id);
-
-        if (!$subscription_info) {
-            $json['error'] = $this->language->get('error_subscription');
-        }
-
-        if (!$json) {
-            $this->load->model('extension/payment/securetrading_pp');
-
-            $order_info = $this->model_extension_payment_securetrading_pp->getOrder($subscription_info['order_id']);
-
-            if (!$order_info) {
-                $json['error'] = $this->language->get('error_order');
-            } elseif (!empty($subscription_info['reference']) && $subscription_info['reference'] == $order_info['transaction_reference']) {
-                $json['error'] = $this->language->get('error_transaction_reference');
+            if (!$subscription_info) {
+                $this->log->write($this->language->get('heading_transaction') . ' ' . $this->language->get('error_subscription'));
             } else {
-                $this->model_sale_subscription->addTransaction($subscription_id, $subscription_info['order_id'], (string)$this->request->post['description'], (float)$this->request->post['amount'], $order_info['settle_type'], '', '');
+                $this->load->model('extension/payment/securetrading_pp');
+
+                $order_info = $this->model_extension_payment_securetrading_pp->getOrder($subscription_info['order_id']);
+
+                if (!$order_info) {
+                    $this->log->write($this->language->get('heading_transaction') . ' ' . $this->language->get('error_order'));
+                } elseif (!empty($subscription_info['reference']) && $subscription_info['reference'] == $order_info['transaction_reference']) {
+                    $this->log->write($this->language->get('heading_transaction') . ' ' . $this->language->get('error_transaction_reference'));
+                } else {
+                    $this->model_sale_subscription->addTransaction($subscription_id, $subscription_info['order_id'], (string)$this->request->post['description'], (float)$this->request->post['amount'], $order_info['settle_type'], '', '');
+
+                    $this->log->write($this->language->get('heading_transaction') . ' ' . $this->language->get('text_subscription_success'));
+                }
             }
         }
 

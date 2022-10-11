@@ -1,6 +1,7 @@
 <?php
 // Heading
 $_['heading_title']                               = 'Secure Trading Payment Pages';
+$_['heading_transaction']                         = ':: SECURETRADING_PP SUBSCRIPTION TRANSACTION ::';
 
 // Text
 $_['text_securetrading_pp']                       = '<a href="http://www.securetradingfs.com/partner/open-cart/" target="_blank"><img src="view/image/payment/secure_trading.png" alt="Secure Trading" title="Secure Trading" style="border: 1px solid #EEEEEE;" /></a>';
@@ -37,6 +38,7 @@ $_['text_void_ok']                                = 'Void was successful, order 
 $_['text_confirm_void']                           = 'Are you sure you want to reverse the authorisation?';
 $_['text_confirm_release']                        = 'Are you sure you want to release the payment?';
 $_['text_confirm_rebate']                         = 'Are you sure you want to rebate the payment?';
+$_['text_transaction_success']                    = 'Success: The subscription transaction has been successfully added!';
 
 // Entry
 $_['entry_site_reference']                        = 'Site reference';

@@ -916,36 +916,42 @@ class ControllerExtensionPaymentSquareup extends Controller {
         }
 
         if (!$this->user->hasPermission('modify', 'extension/payment/squareup')) {
-            $json['error'] = $this->language->get('error_permission');
-        }
+            $this->log->write($this->language->get('heading_transaction') . ' ' . $this->language->get('error_permission'));
+        } else {
+            $this->load->model('sale/subscription');
 
-        $this->load->model('sale/subscription');
+            $subscription_info = $this->model_sale_subscription->getSubscription($subscription_id);
 
-        $subscription_info = $this->model_sale_subscription->getSubscription($subscription_id);
-
-        if (!$subscription_info) {
-            $json['error'] = $this->language->get('error_subscription');
-        }
-
-        if (!$json) {
-            $this->load->model('extension/payment/squareup');
-
-            $filter_data = [
-                'order_id'  => $subscription_info['order_id']
-            ];
-
-            $orders = $this->model_extension_payment_squareup->getTransactions($filter_data);
-
-            if (!$orders) {
-                $json['error'] = $this->language->get('error_order');
+            if (!$subscription_info) {
+                $this->log->write($this->language->get('heading_transaction') . ' ' . $this->language->get('error_subscription'));
             } else {
-                $transaction_ids = array_column($orders, 'transaction_id');
+                $this->load->model('extension/payment/squareup');
 
-                if (in_array($subscription_info['reference'], $transaction_ids)) {
-                    $json['error'] = $this->language->get('error_transaction_reference');
+                $filter_data = [
+                    'order_id'  => $subscription_info['order_id']
+                ];
+
+                $orders = $this->model_extension_payment_squareup->getTransactions($filter_data);
+
+                if (!$orders) {
+                    $this->log->write($this->language->get('heading_transaction') . ' ' . $this->language->get('error_order'));
                 } else {
-                    foreach ($orders as $order) {
-                        $this->model_sale_subscription->addTransaction($subscription_id, $order['order_id'], (string)$this->request->post['description'], (float)$this->request->post['amount'], $order['transaction_type'], '', '');
+                    $transaction_ids = array_column($orders, 'transaction_id');
+
+                    if (in_array($subscription_info['reference'], $transaction_ids)) {
+                        $this->log->write($this->language->get('heading_transaction') . ' ' . $this->language->get('error_transaction_reference'));
+                    } else {
+                        $flag = [];
+
+                        foreach ($orders as $order) {
+                            $this->model_sale_subscription->addTransaction($subscription_id, $order['order_id'], (string)$this->request->post['description'], (float)$this->request->post['amount'], $order['transaction_type'], '', '');
+
+                            $flag[] = true;
+                        }
+
+                        if ($flag) {
+                            $this->log->write($this->language->get('heading_transaction') . ' ' . $this->language->get('text_subscription_success'));
+                        }
                     }
                 }
             }

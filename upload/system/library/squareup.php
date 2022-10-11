@@ -58,7 +58,7 @@ class Squareup {
             $content_type = 'application/json';
         }
 
-        // handle method and parameters
+        // Handle method and parameters
         if (!empty($request_data['parameters']) && is_array($request_data['parameters']) && $request_data['parameters']) {
             $params = $this->encodeParameters($request_data['parameters'], $content_type);
         } else {

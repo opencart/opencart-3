@@ -186,7 +186,7 @@ class ModelExtensionPaymentSquareup extends Model {
         $status = self::RECURRING_ACTIVE;
         $data   = array_merge($data, ['status', $status]);
 
-        return $this->model_checkout_subscription->addSubscription($order_id, $data);
+        $this->model_checkout_subscription->addSubscription($order_id, $data);
     }
 
     public function validateCRON(): bool {
@@ -297,9 +297,7 @@ class ModelExtensionPaymentSquareup extends Model {
                 $type = self::TRANSACTION_FAILED;
             }
 
-            $this->model_checkout_subscription->editReference($subscription_id, $reference);
-
-            $this->model_account_subscription->addOrderSubscriptionTransaction($transaction['id']);
+            $this->model_checkout_subscription->editReference($subscription_id, $transaction['id']);
 
             $amount = $this->squareup->standardDenomination($transaction['tenders'][0]['amount_money']['amount'], $transaction['tenders'][0]['amount_money']['currency']);
 

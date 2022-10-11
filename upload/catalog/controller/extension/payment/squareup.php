@@ -118,9 +118,10 @@ class ControllerExtensionPaymentSquareup extends Controller {
                     throw new \Squareup\Exception($this->registry, $this->language->get('error_card_invalid'));
                 }
 
-                $card = $this->model_extension_credit_card_squareup->getCard($this->request->post['squareup_select_card']);
+                $card           = $this->model_extension_credit_card_squareup->getCard($this->request->post['squareup_select_card']);
 
                 $use_saved      = true;
+
                 $square_card_id = $card['token'];
             } elseif ($this->customer->isLogged() && isset($this->request->post['squareup_save_card'])) {
                 // Save the card

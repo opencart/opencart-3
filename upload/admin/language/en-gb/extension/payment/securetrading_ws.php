@@ -1,6 +1,7 @@
 <?php
 // Heading
 $_['heading_title']                               = 'Secure Trading Web Service';
+$_['heading_transaction']                         = ':: SECURETRADING_WS SUBSCRIPTION TRANSACTION ::';
 
 // Tabs
 $_['tab_settings']                                = 'Settings';
@@ -68,6 +69,7 @@ $_['text_paypal']                                 = 'PAYPAL';
 $_['text_purchasing']                             = 'PURCHASING';
 $_['text_visa']                                   = 'VISA';
 $_['text_vpay']                                   = 'VPAY';
+$_['text_transaction_success']                    = 'Success: The subscription transaction has been successfully added!';
 
 // Entry
 $_['entry_site_reference']                        = 'Site reference';

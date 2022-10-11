@@ -2,6 +2,7 @@
 // Heading
 $_['heading_title']                         = 'Square';
 $_['heading_title_transaction']             = 'View Transaction #%s';
+$_['heading_transaction']                   = ':: SQUAREUP SUBSCRIPTION TRANSACTION ::';
 
 // Help
 $_['help_total']                            = 'The checkout total the order must reach before this payment method becomes active.';
@@ -124,6 +125,7 @@ $_['text_view']                             = 'View More';
 $_['text_void']                             = 'Void';
 $_['text_na']                               = 'N/A';
 $_['text_no_reason_provided']               = 'Reason not provided.';
+$_['text_transaction_success']              = 'Success: The subscription transaction has been successfully added!';
 
 // Squareup
 $_['squareup_status_comment_authorized']    = 'The card transaction has been authorized but not yet captured.';
