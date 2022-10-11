@@ -556,6 +556,7 @@ class ControllerExtensionPaymentSecureTradingWs extends Controller {
         $this->response->setOutput(json_encode($json));
     }
 
+    // admin/controller/sale/subscription/before
     public function addSubscriptionTransaction(&$route, &$args) {
         $this->load->language('extension/payment/securetrading_ws');
 
