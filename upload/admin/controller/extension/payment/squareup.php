@@ -792,16 +792,26 @@ class ControllerExtensionPaymentSquareup extends Controller {
         $this->load->model('extension/payment/squareup');
 
         $this->model_extension_payment_squareup->createTables();
+
+        // Events
+        $this->load->model('setting/event');
+
+        $this->model_setting_event->addEvent('squareup', 'admin/controller/sale/subscription/addTransaction/before', 'extension/payment/squareup/addSubscriptionTransaction');
     }
 
     public function uninstall(): void {
         $this->load->model('extension/payment/squareup');
 
         $this->model_extension_payment_squareup->dropTables();
+
+        // Events
+        $this->load->model('setting/event');
+
+        $this->model_setting_event->deleteEventByCode('squareup');
     }
 
     public function recurringButtons() {
-        if (!$this->user->hasPermission('modify', 'sale/recurring')) {
+        if (!$this->user->hasPermission('modify', 'extension/payment/squareup')) {
             return null;
         }
 
@@ -850,8 +860,7 @@ class ControllerExtensionPaymentSquareup extends Controller {
             $this->model_user_api->addApiSession($api_info['api_id'], $session->getId(), $this->request->server['REMOTE_ADDR']);
 
             $session->data['api_id'] = $api_info['api_id'];
-
-            $data['api_token'] = $session->getId();
+            $data['api_token']       = $session->getId();
         } else {
             $data['api_token'] = '';
         }
@@ -891,6 +900,56 @@ class ControllerExtensionPaymentSquareup extends Controller {
         }
 
         $this->response->addHeader('Content-Type: application/json');
+        $this->response->setOutput(json_encode($json));
+    }
+
+    public function addSubscriptionTransaction(&$route, &$args) {
+        $this->load->language('extension/payment/squareup');
+
+        $json = [];
+
+        if (isset($this->request->get['subscription_id'])) {
+            $subscription_id = (int)$this->request->get['subscription_id'];
+        } else {
+            $subscription_id = 0;
+        }
+
+        if (!$this->user->hasPermission('modify', 'extension/payment/squareup')) {
+            $json['error'] = $this->language->get('error_permission');
+        }
+
+        $this->load->model('sale/subscription');
+
+        $subscription_info = $this->model_sale_subscription->getSubscription($subscription_id);
+
+        if (!$subscription_info) {
+            $json['error'] = $this->language->get('error_subscription');
+        }
+
+        if (!$json) {
+            $this->load->model('extension/payment/squareup');
+
+            $filter_data = [
+                'order_id'  => $subscription_info['order_id']
+            ];
+
+            $orders = $this->model_extension_payment_squareup->getTransactions($filter_data);
+
+            if (!$orders) {
+                $json['error'] = $this->language->get('error_order');
+            } else {
+                $transaction_ids = array_column($orders, 'transaction_id');
+
+                if (in_array($subscription_info['reference'], $transaction_ids)) {
+                    $json['error'] = $this->language->get('error_transaction_reference');
+                } else {
+                    foreach ($orders as $order) {
+                        $this->model_sale_subscription->addTransaction($subscription_id, $order['order_id'], (string)$this->request->post['description'], (float)$this->request->post['amount'], $order['transaction_type'], '', '');
+                    }
+                }
+            }
+        }
+
         $this->response->setOutput(json_encode($json));
     }
 

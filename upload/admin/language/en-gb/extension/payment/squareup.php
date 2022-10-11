@@ -157,25 +157,6 @@ $_['entry_status_voided']                   = 'Voided';
 $_['entry_status_failed']                   = 'Failed';
 $_['entry_setup_confirmation']              = 'Setup confirmation:';
 
-// Error
-$_['error_permission']                      = '<strong>Warning:</strong> You do not have permission to modify payment Square!';
-$_['error_permission_recurring']            = '<strong>Warning:</strong> You do not have permission to modify recurring payments!';
-$_['error_transaction_missing']             = 'Transaction not found!';
-$_['error_no_ssl']                          = '<strong>Warning:</strong> SSL is not enabled on your admin panel. Please enable it to finish your configuration.';
-$_['error_user_rejected_connect_attempt']   = 'Connection attempt was canceled by the user.';
-$_['error_possible_xss']                    = 'We detected a possible cross site attack (CSRF) and have terminated your connection attempt. Please verify your application ID and secret key. Then, try again using the buttons in the admin panel.';
-$_['error_invalid_email']                   = 'The provided e-mail address is not valid!';
-$_['error_cron_acknowledge']                = 'Please confirm you have set up a CRON job.';
-$_['error_client_id']                       = 'The app client ID is a required field';
-$_['error_client_secret']                   = 'The app client secret is a required field';
-$_['error_sandbox_client_id']               = 'The sandbox client ID is a required field when sandbox mode is enabled';
-$_['error_sandbox_token']                   = 'The sandbox token is a required field when sandbox mode is enabled';
-$_['error_no_location_selected']            = 'The location is a required field';
-$_['error_refresh_access_token']            = "An error occurred when trying to refresh the extension's connection to your Square account. Please verify your application credentials and try again.";
-$_['error_form']                            = 'Please check the form for errors and try to save agian.';
-$_['error_token']                           = 'An error was encountered while refreshing the token: %s';
-$_['error_no_refund']                       = 'Refund failed.';
-
 // Column
 $_['column_transaction_id']                 = 'Transaction ID';
 $_['column_order_id']                       = 'Order ID';
@@ -197,3 +178,25 @@ $_['button_capture']                        = 'Capture';
 $_['button_connect']                        = 'Connect';
 $_['button_reconnect']                      = 'Reconnect';
 $_['button_refresh']                        = 'Refresh token';
+
+// Error
+$_['error_permission']                      = '<strong>Warning:</strong> You do not have permission to modify payment Square!';
+$_['error_permission_recurring']            = '<strong>Warning:</strong> You do not have permission to modify recurring payments!';
+$_['error_transaction_missing']             = 'Transaction not found!';
+$_['error_no_ssl']                          = '<strong>Warning:</strong> SSL is not enabled on your admin panel. Please enable it to finish your configuration.';
+$_['error_user_rejected_connect_attempt']   = 'Connection attempt was canceled by the user.';
+$_['error_possible_xss']                    = 'We detected a possible cross site attack (CSRF) and have terminated your connection attempt. Please verify your application ID and secret key. Then, try again using the buttons in the admin panel.';
+$_['error_invalid_email']                   = 'The provided e-mail address is not valid!';
+$_['error_cron_acknowledge']                = 'Please confirm you have set up a CRON job.';
+$_['error_client_id']                       = 'The app client ID is a required field';
+$_['error_client_secret']                   = 'The app client secret is a required field';
+$_['error_sandbox_client_id']               = 'The sandbox client ID is a required field when sandbox mode is enabled';
+$_['error_sandbox_token']                   = 'The sandbox token is a required field when sandbox mode is enabled';
+$_['error_no_location_selected']            = 'The location is a required field';
+$_['error_refresh_access_token']            = "An error occurred when trying to refresh the extension's connection to your Square account. Please verify your application credentials and try again.";
+$_['error_form']                            = 'Please check the form for errors and try to save agian.';
+$_['error_token']                           = 'An error was encountered while refreshing the token: %s';
+$_['error_no_refund']                       = 'Refund failed.';
+$_['error_subscription']                    = 'The specified subscription ID could not be found!';
+$_['error_order']                           = 'The order ID, with the specified subscription ID, could not be found!';
+$_['error_transaction_reference']           = 'The transaction reference, with this subscription ID, already exists in the transaction data!';

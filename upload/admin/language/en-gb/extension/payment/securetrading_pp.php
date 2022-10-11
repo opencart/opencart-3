@@ -87,3 +87,6 @@ $_['error_username']                              = 'Username is required';
 $_['error_password']                              = 'Password is required';
 $_['error_connection']                            = 'Could not connect to Secure Trading';
 $_['error_data_missing']                          = 'Data missing';
+$_['error_subscription']                          = 'The specified subscription ID could not be found!';
+$_['error_order']                                 = 'The order ID, with the specified subscription ID, could not be found!';
+$_['error_transaction_reference']                 = 'The transaction reference, with this subscription ID, already exists in the transaction data!';

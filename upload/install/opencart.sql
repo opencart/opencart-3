@@ -2444,20 +2444,6 @@ CREATE TABLE `oc_order_shipment` (
 -----------------------------------------------------------
 
 --
--- Table structure for table `oc_order_subscription_subscription`
---
-
-DROP TABLE IF EXISTS `oc_order_subscription_transaction`;
-CREATE TABLE `oc_order_subscription_transaction` (
-  `order_subscription_transaction_id` int(11) NOT NULL AUTO_INCREMENT,
-  `order_id` int(11) NOT NULL,
-  `transaction_id` varchar(100) NOT NULL,
-  PRIMARY KEY (`order_subscription_transaction_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
-
------------------------------------------------------------
-
---
 -- Table structure for table `oc_shipping_courier`
 --
 
@@ -3762,7 +3748,6 @@ CREATE TABLE `oc_subscription_transaction` (
   `subscription_id` int(11) NOT NULL,
   `order_id` int(11) NOT NULL,
   `description` text NOT NULL,
-  `order_subscription_transaction_id` int(11) NOT NULL,
   `amount` decimal(10,4) NOT NULL,
   `type` tinyint(2) NOT NULL,
   `payment_method` varchar(128) NOT NULL,

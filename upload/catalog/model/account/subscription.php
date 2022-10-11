@@ -30,15 +30,7 @@ class ModelAccountSubscription extends Model {
         return $query->row;
     }
 
-    // Since there are core extension payment modules installed,
-    // we need this method.
-    public function getSubscriptionByOrderTransactionId(int $order_subscription_transaction_id): array {
-        $query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "order_subscription_transaction` WHERE `order_subscription_transaction_id` = '" . (int)$order_subscription_transaction_id . "'");
-
-        return $query->row;
-    }
-
-    public function getTotalSubscriptions(): int {
+   public function getTotalSubscriptions(): int {
         $query = $this->db->query("SELECT COUNT(*) AS `total` FROM `" . DB_PREFIX . "subscription` s LEFT JOIN `" . DB_PREFIX . "order` o ON (s.`order_id` = o.`order_id`) WHERE o.`customer_id` = '" . (int)$this->customer->getId() . "'");
 
         return (int)$query->row['total'];
@@ -50,11 +42,7 @@ class ModelAccountSubscription extends Model {
         return $query->rows;
     }
 
-    public function addTransaction(int $subscription_id, int $order_id, int $order_subscription_transaction_id, string $description, float $amount, int $type, string $payment_method, string $payment_code): void {
-        $this->db->query("INSERT INTO `" . DB_PREFIX . "subscription_transaction` SET `subscription_id` = '" . (int)$subscription_id . "', `order_id` = '" . (int)$order_id . "', `order_subscription_transaction_id` = '" . (int)$order_subscription_transaction_id . "', `description` = '" . $this->db->escape($description) . "', `amount` = '" . (float)$amount . "', `type` = '" . (int)$type . "', `payment_method` = '" . $this->db->escape($payment_method) . "', `payment_code` = '" . $this->db->escape($payment_code) . "', `date_added` = NOW()");
-    }
-
-    public function addOrderSubscriptionTransaction(string $transaction_id): void {
-        $this->db->query("INSERT INTO `" . DB_PREFIX . "order_subscription_transaction` SET `transaction_id` = '" . $this->db->escape($transaction_id) . "'");
+    public function addTransaction(int $subscription_id, int $order_id, string $description, float $amount, int $type, string $payment_method, string $payment_code): void {
+        $this->db->query("INSERT INTO `" . DB_PREFIX . "subscription_transaction` SET `subscription_id` = '" . (int)$subscription_id . "', `order_id` = '" . (int)$order_id . "', `description` = '" . $this->db->escape($description) . "', `amount` = '" . (float)$amount . "', `type` = '" . (int)$type . "', `payment_method` = '" . $this->db->escape($payment_method) . "', `payment_code` = '" . $this->db->escape($payment_code) . "', `date_added` = NOW()");
     }
 }

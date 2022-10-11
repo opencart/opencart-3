@@ -26,11 +26,21 @@ class ModelExtensionPaymentSecureTradingPp extends Model {
 			  `amount` DECIMAL( 10, 2 ) NOT NULL,
 			  PRIMARY KEY (`securetrading_pp_order_transaction_id`)
 			) ENGINE=MyISAM DEFAULT COLLATE=utf8_general_ci;");
+
+        // Events
+        $this->load->model('setting/event');
+
+        $this->model_setting_event->addEvent('securetrading_pp_transaction', 'admin/controller/sale/subscription/addTransaction/before', 'extension/payment/securetrading_pp/addSubscriptionTransaction');
     }
 
     public function uninstall(): void {
-        $this->db->query("DROP TABLE IF EXISTS " . DB_PREFIX . "securetrading_pp_order");
+        $this->db->query("DROP TABLE IF EXISTS `" . DB_PREFIX . "securetrading_pp_order`");
         $this->db->query("DROP TABLE IF EXISTS `" . DB_PREFIX . "securetrading_pp_order_transaction`;");
+
+        // Events
+        $this->load->model('setting/event');
+
+        $this->model_setting_event->deleteEventByCode('securetrading_pp_transaction');
     }
 
     public function void($order_id) {

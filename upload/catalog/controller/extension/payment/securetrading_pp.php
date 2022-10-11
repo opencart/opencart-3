@@ -2,7 +2,7 @@
 class ControllerExtensionPaymentSecureTradingPp extends Controller {
     public function index(): string {
         if (!isset($this->session->data['order_id'])) {
-            return false;
+            return '';
         }
 
         $this->load->language('extension/payment/securetrading_pp');
@@ -24,13 +24,11 @@ class ControllerExtensionPaymentSecureTradingPp extends Controller {
             $data['settle_due_date'] = date('Y-m-d', strtotime(date('Y-m-d') . ' +' . $this->config->get('payment_securetrading_pp_settle_due_date') . ' days'));
             $data['settle_status']   = $this->config->get('payment_securetrading_pp_settle_status');
 
-            $payment_country  = $this->model_localisation_country->getCountry($order_info['payment_country_id']);
+            $payment_country         = $this->model_localisation_country->getCountry($order_info['payment_country_id']);
+            $payment_zone            = $this->model_localisation_zone->getZone($order_info['payment_zone_id']);
 
-            $payment_zone     = $this->model_localisation_zone->getZone($order_info['payment_zone_id']);
-
-            $shipping_country = $this->model_localisation_country->getCountry($order_info['shipping_country_id']);
-
-            $shipping_zone    = $this->model_localisation_zone->getZone($order_info['shipping_zone_id']);
+            $shipping_country        = $this->model_localisation_country->getCountry($order_info['shipping_country_id']);
+            $shipping_zone           = $this->model_localisation_zone->getZone($order_info['shipping_zone_id']);
 
             if ($payment_country['iso_code_3'] == 'USA') {
                 $data['billing_county'] = $payment_zone['code'];
@@ -121,29 +119,29 @@ class ControllerExtensionPaymentSecureTradingPp extends Controller {
                         4 => $this->language->get('text_not_match'),
                     ];
 
-                    $shipping_country = $this->model_extension_payment_securetrading_pp->getCountry($this->request->post['customercountryiso2a']);
                     $payment_country  = $this->model_extension_payment_securetrading_pp->getCountry($this->request->post['billingcountryiso2a']);
+                    $shipping_country = $this->model_extension_payment_securetrading_pp->getCountry($this->request->post['customercountryiso2a']);
 
                     // Payment Details
+                    $order_info['payment_zone_id']    = 0;
                     $order_info['payment_firstname']  = $this->request->post['billingfirstname'];
                     $order_info['payment_lastname']   = $this->request->post['billinglastname'];
                     $order_info['payment_address_1']  = $this->request->post['billingpremise'];
                     $order_info['payment_address_2']  = $this->request->post['billingstreet'];
                     $order_info['payment_city']       = $this->request->post['billingtown'];
                     $order_info['payment_zone']       = $this->request->post['billingcounty'];
-                    $order_info['payment_zone_id']    = 0;
                     $order_info['payment_country']    = $payment_country['name'];
                     $order_info['payment_country_id'] = $payment_country['country_id'];
                     $order_info['payment_postcode']   = $this->request->post['billingpostcode'];
 
                     // Shipping Details
+                    $order_info['shipping_zone_id']    = 0;
                     $order_info['shipping_firstname']  = $this->request->post['customerfirstname'];
                     $order_info['shipping_lastname']   = $this->request->post['customerlastname'];
                     $order_info['shipping_address_1']  = $this->request->post['customerpremise'];
                     $order_info['shipping_address_2']  = $this->request->post['customerstreet'];
                     $order_info['shipping_city']       = $this->request->post['customertown'];
                     $order_info['shipping_zone']       = $this->request->post['customercounty'];
-                    $order_info['shipping_zone_id']    = 0;
                     $order_info['shipping_country']    = $shipping_country['name'];
                     $order_info['shipping_country_id'] = $shipping_country['country_id'];
                     $order_info['shipping_postcode']   = $this->request->post['customerpostcode'];

@@ -26,7 +26,9 @@ class ModelExtensionPaymentSquareup extends Model {
             $sql .= " LIMIT " . $data['start'] . ',' . $data['limit'];
         }
 
-        return $this->db->query($sql)->rows;
+        $query = $this->db->query($sql);
+
+        return $query->rows;
     }
 
     public function getTotalTransactions(array $data): int {
@@ -51,7 +53,7 @@ class ModelExtensionPaymentSquareup extends Model {
 
             $order_info = $this->model_sale_order->getOrder($order_id);
 
-            return $order_info['order_status_id'];
+            return (int)$order_info['order_status_id'];
         }
     }
 

@@ -3,16 +3,45 @@ class ModelToolBackup extends Model {
     public function getTables(): array {
         $table_data = [];
 
-        $query = $this->db->query("SHOW TABLES FROM `" . DB_DATABASE . "`");
+        $query      = $this->db->query("SHOW TABLES FROM `" . DB_DATABASE . "`");
 
         foreach ($query->rows as $result) {
             $table = reset($result);
+
             if ($table && utf8_substr($table, 0, strlen(DB_PREFIX)) == DB_PREFIX) {
                 $table_data[] = $table;
             }
         }
 
         return $table_data;
+    }
+
+    public function getRecords(string $table, int $start = 0, int $limit = 100): array {
+        if ($start < 0) {
+            $start = 0;
+        }
+
+        if ($limit < 1) {
+            $limit = 10;
+        }
+
+        $query = $this->db->query("SELECT * FROM `" . $table . "` LIMIT " . (int)$start . "," . (int)$limit);
+
+        if ($query->num_rows) {
+            return $query->rows;
+        } else {
+            return [];
+        }
+    }
+
+    public function getTotalRecords(string $table): int {
+        $query = $this->db->query("SELECT COUNT(*) AS `total` FROM `" . $table . "`");
+
+        if ($query->num_rows) {
+            return (int)$query->row['total'];
+        } else {
+            return 0;
+        }
     }
 
     public function backup(array $tables): string {
@@ -32,7 +61,7 @@ class ModelToolBackup extends Model {
             if ($status) {
                 $output .= 'TRUNCATE TABLE `' . $table . '`;' . "\n\n";
 
-                $query = $this->db->query("SELECT * FROM `" . $table . "`");
+                $query  = $this->db->query("SELECT * FROM `" . $table . "`");
 
                 foreach ($query->rows as $result) {
                     $fields = '';

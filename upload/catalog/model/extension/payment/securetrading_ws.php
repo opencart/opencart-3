@@ -119,29 +119,33 @@ class ModelExtensionPaymentSecureTradingWs extends Model {
         $this->model_checkout_order->addOrderHistory($order_id, $order_status_id, $comment, $notify);
 
         $order_info             = $this->model_checkout_order->getOrder($order_id);
-        $securetrading_ws_order = $this->getOrder($order_info['order_id']);
-        $amount                 = $this->currency->format($order_info['total'], $order_info['currency_code'], false, false);
 
-        switch ($this->config->get('payment_securetrading_ws_settle_status')) {
-            case 0:
-                $trans_type = 'auth';
-                break;
-            case 1:
-                $trans_type = 'auth';
-                break;
-            case 2:
-                $trans_type = 'suspended';
-                break;
-            case 100:
-                $trans_type = 'payment';
-                break;
-            default :
-                $trans_type = '';
+        if ($order_info) {
+            $securetrading_ws_order = $this->getOrder($order_info['order_id']);
+            
+            $amount                 = $this->currency->format($order_info['total'], $order_info['currency_code'], false, false);
+
+            switch ($this->config->get('payment_securetrading_ws_settle_status')) {
+                case 0:
+                    $trans_type = 'auth';
+                    break;
+                case 1:
+                    $trans_type = 'auth';
+                    break;
+                case 2:
+                    $trans_type = 'suspended';
+                    break;
+                case 100:
+                    $trans_type = 'payment';
+                    break;
+                default :
+                    $trans_type = '';
+            }
+
+            $this->db->query("UPDATE `" . DB_PREFIX . "securetrading_ws_order` SET `settle_type` = '" . $this->config->get('payment_securetrading_ws_settle_status') . "', `modified` = NOW(), `currency_code` = '" . $this->db->escape($order_info['currency_code']) . "', `total` = '" . $amount . "' WHERE `order_id` = '" . (int)$order_info['order_id'] . "'");
+
+            $this->db->query("INSERT INTO `" . DB_PREFIX . "securetrading_ws_order_transaction` SET `securetrading_ws_order_id` = '" . (int)$securetrading_ws_order['securetrading_ws_order_id'] . "', `amount` = '" . $amount . "', `type` = '" . $trans_type . "', `created` = NOW()");
         }
-
-        $this->db->query("UPDATE `" . DB_PREFIX . "securetrading_ws_order` SET `settle_type` = '" . $this->config->get('payment_securetrading_ws_settle_status') . "', `modified` = NOW(), `currency_code` = '" . $this->db->escape($order_info['currency_code']) . "', `total` = '" . $amount . "' WHERE `order_id` = '" . (int)$order_info['order_id'] . "'");
-
-        $this->db->query("INSERT INTO `" . DB_PREFIX . "securetrading_ws_order_transaction` SET `securetrading_ws_order_id` = '" . (int)$securetrading_ws_order['securetrading_ws_order_id'] . "', `amount` = '" . $amount . "', `type` = '" . $trans_type . "', `created` = NOW()");
     }
 
     public function updateOrder($order_id, $order_status_id, $comment = '', $notify = false) {

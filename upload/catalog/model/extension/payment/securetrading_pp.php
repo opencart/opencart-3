@@ -48,37 +48,38 @@ class ModelExtensionPaymentSecureTradingPp extends Model {
 
         $this->load->model('checkout/order');
 
-        $this->db->query("UPDATE `" . DB_PREFIX . "order` SET `order_status_id` = '0' WHERE `order_id` = '" . (int)$order_id . "'");
+        $order_info = $this->model_checkout_order->getOrder($order_id);
 
-        $this->model_checkout_order->addOrderHistory($order_id, $order_status_id, $comment, $notify);
+        if ($order_info) {
+            $this->db->query("UPDATE `" . DB_PREFIX . "order` SET `order_status_id` = '0' WHERE `order_id` = '" . (int)$order_id . "'");
 
-        $amount                 = $this->currency->format($order_info['total'], $order_info['currency_code'], false, false);
+            $this->model_checkout_order->addOrderHistory($order_id, $order_status_id, $comment, $notify);
 
-        $order_info             = $this->model_checkout_order->getOrder($order_id);
-        
-        $securetrading_pp_order = $this->getOrder($order_id);
+            $amount = $this->currency->format($order_info['total'], $order_info['currency_code'], false, false);
 
-        switch ($this->config->get('payment_securetrading_pp_settle_status')) {
-            case 0:
-                $trans_type = 'auth';
-                break;
-            case 1:
-                $trans_type = 'auth';
-                break;
-            case 2:
-                $trans_type = 'suspended';
-                break;
-            case 100:
-                $trans_type = 'payment';
-                break;
-            default :
-                $trans_type = 'default';
+            $securetrading_pp_order = $this->getOrder($order_id);
+
+            switch ($this->config->get('payment_securetrading_pp_settle_status')) {
+                case 0:
+                    $trans_type = 'auth';
+                    break;
+                case 1:
+                    $trans_type = 'auth';
+                    break;
+                case 2:
+                    $trans_type = 'suspended';
+                    break;
+                case 100:
+                    $trans_type = 'payment';
+                    break;
+                default :
+                    $trans_type = 'default';
+            }
+
+            $this->db->query("UPDATE `" . DB_PREFIX . "securetrading_pp_order` SET `settle_type` = '" . $this->config->get('payment_securetrading_pp_settle_status') . "', `modified` = NOW(), `currency_code` = '" . $this->db->escape($order_info['currency_code']) . "', `total` = '" . $amount . "' WHERE `order_id` = '" . (int)$order_info['order_id'] . "'");
+
+            $this->db->query("INSERT INTO `" . DB_PREFIX . "securetrading_pp_order_transaction` SET `securetrading_pp_order_id` = '" . (int)$securetrading_pp_order['securetrading_pp_order_id'] . "', `amount` = '" . $amount . "', `type` = '" . $trans_type . "', `created` = NOW()");
         }
-
-        $this->db->query("UPDATE `" . DB_PREFIX . "securetrading_pp_order` SET `settle_type` = '" . $this->config->get('payment_securetrading_pp_settle_status') . "', `modified` = NOW(), `currency_code` = '" . $this->db->escape($order_info['currency_code']) . "', `total` = '" . $amount . "' WHERE `order_id` = '" . (int)$order_info['order_id'] . "'");
-
-        $this->db->query("INSERT INTO `" . DB_PREFIX . "securetrading_pp_order_transaction` SET `securetrading_pp_order_id` = '" . (int)$securetrading_pp_order['securetrading_pp_order_id'] . "', `amount` = '" . $amount . "', `type` = '" . $trans_type . "', `created` = NOW()");
-
     }
 
     public function updateOrder($order_id, $order_status_id, $comment = '', $notify = false) {

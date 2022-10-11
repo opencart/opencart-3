@@ -71,9 +71,9 @@ class ControllerToolBackup extends Controller {
 
         if (!$json) {
             // We set $i so we can batch execute the queries rather than do them all at once.
-            $i     = 0;
+            $i      = 0;
 
-            $start = false;
+            $start  = false;
 
             $handle = fopen($filename, 'r');
 
@@ -108,9 +108,9 @@ class ControllerToolBackup extends Controller {
                 $i++;
             }
 
-            $position = ftell($handle);
+            $position      = ftell($handle);
 
-            $size = filesize($filename);
+            $size          = filesize($filename);
 
             $json['total'] = round(($position / $size) * 100);
 
