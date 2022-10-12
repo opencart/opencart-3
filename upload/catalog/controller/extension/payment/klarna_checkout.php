@@ -488,7 +488,7 @@ class ControllerExtensionPaymentKlarnaCheckout extends Controller {
                         'custom_field'   => [],
                     ];
 
-                    $this->tax->unsetRates();
+                    $this->tax->clear();
                     $this->tax->setShippingAddress($this->session->data['shipping_address']['country_id'], $this->session->data['shipping_address']['zone_id']);
                     $this->tax->setStoreAddress($this->config->get('config_country_id'), $this->config->get('config_zone_id'));
                 }
@@ -703,7 +703,7 @@ class ControllerExtensionPaymentKlarnaCheckout extends Controller {
                     ];
 
                     // Unset $tax_rates
-                    $this->tax->unsetRates();
+                    $this->tax->clear();
                     $this->tax->setShippingAddress($country_info['country_id'], ($zone ? $zone['zone_id'] : $zones[0]['zone_id']));
                     $this->tax->setStoreAddress($this->config->get('config_country_id'), $this->config->get('config_zone_id'));
 
@@ -1027,7 +1027,7 @@ class ControllerExtensionPaymentKlarnaCheckout extends Controller {
 
             if ($order_info) {
                 // Unset $tax_rates and set them again using correct shipping data
-                $this->tax->unsetRates();
+                $this->tax->clear();
                 $this->tax->setShippingAddress($this->session->data['shipping_address']['country_id'], $this->session->data['shipping_address']['zone_id']);
                 $this->tax->setStoreAddress($this->config->get('config_country_id'), $this->config->get('config_zone_id'));
 
@@ -1413,7 +1413,7 @@ class ControllerExtensionPaymentKlarnaCheckout extends Controller {
             ];
         }
 
-        $this->tax->unsetRates();
+        $this->tax->clear();
         $this->tax->setShippingAddress($this->session->data['shipping_address']['country_id'], $this->session->data['shipping_address']['zone_id']);
         $this->tax->setStoreAddress($this->config->get('config_country_id'), $this->config->get('config_zone_id'));
 

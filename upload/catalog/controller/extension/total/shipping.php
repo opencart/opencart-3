@@ -68,7 +68,7 @@ class ControllerExtensionTotalShipping extends Controller {
         }
 
         if (!$json) {
-            $this->tax->unsetRates();
+            $this->tax->clear();
             $this->tax->setShippingAddress($this->request->post['country_id'], $this->request->post['zone_id']);
 
             if (isset($this->session->data['payment_address']['country_id']) && isset($this->session->data['payment_address']['zone_id'])) {
