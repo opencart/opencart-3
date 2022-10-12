@@ -38,7 +38,7 @@ class ControllerExtensionAdvertiseGoogle extends Controller {
     }
 
     // catalog/controller/checkout/success/before
-    public function before_checkout_success(string &$route, array &$data): void {
+    public function before_checkout_success(string &$route, &$data): void {
         // In case the extension is disabled, do nothing
         if (!$this->setting->get('advertise_google_status')) {
             return;
@@ -130,7 +130,6 @@ class ControllerExtensionAdvertiseGoogle extends Controller {
         }
 
         $purchase_data            = $this->googleshopping->getPurchaseData();
-
         $data['send_to']          = $this->googleshopping->getEventSnippetSendTo();
         $data['transaction_id']   = $purchase_data['transaction_id'];
         $data['value']            = $purchase_data['value'];
@@ -141,10 +140,10 @@ class ControllerExtensionAdvertiseGoogle extends Controller {
         $data['ecomm_prodid']     = json_encode($purchase_data['ecomm_prodid']);
         $data['ecomm_totalvalue'] = $purchase_data['value'];
 
-        $purchase_snippet = $this->load->view('extension/advertise/google_dynamic_remarketing_purchase', $data);
+        $purchase_snippet         = $this->load->view('extension/advertise/google_dynamic_remarketing_purchase', $data);
 
         // Insert the snippet after the output
-        $output           = str_replace('</body>', $this->googleshopping->getEventSnippet() . $purchase_snippet . '</body>', $output);
+        $output                   = str_replace('</body>', $this->googleshopping->getEventSnippet() . $purchase_snippet . '</body>', $output);
     }
 
     // catalog/view/common/home/after
