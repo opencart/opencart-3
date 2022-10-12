@@ -116,6 +116,7 @@ $_['tab_design']                    = 'Design';
 $_['tab_discount']                  = 'Discount';
 $_['tab_documentation']             = 'Documentation';
 $_['tab_general']                   = 'General';
+$_['tab_payment_method']            = 'Payment Methods';
 $_['tab_history']                   = 'History';
 $_['tab_ftp']                       = 'FTP';
 $_['tab_ip']                        = 'IP Addresses';
