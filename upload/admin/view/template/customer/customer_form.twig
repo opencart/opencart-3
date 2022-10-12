@@ -28,6 +28,7 @@
           <ul class="nav nav-tabs">
             <li class="active"><a href="#tab-general" data-toggle="tab">{{ tab_general }}</a></li>
             {% if customer_id %}
+              <li><a href="#tab-payment" data-toggle="tab">{{ tab_payment_method }}</a></li>
               <li><a href="#tab-history" data-toggle="tab">{{ tab_history }}</a></li>
               <li><a href="#tab-transaction" data-toggle="tab">{{ tab_transaction }}</a></li>
               <li><a href="#tab-reward" data-toggle="tab">{{ tab_reward }}</a></li>
@@ -594,6 +595,17 @@
               </div>
             </div>
             {% if customer_id %}
+              <div class="tab-pane" id="tab-payment">
+                <fieldset>
+                  <legend>{{ text_payment_method }}</legend>
+                  <div class="form-group required">
+                    <label class="col-sm-2 control-label" for="input-password">{{ entry_payment_method }}</label>
+                    <div class="col-sm-10">
+                      {{ text_customer_payment }}
+                    </div>
+                  </div>
+                </fieldset>
+              </div>
               <div class="tab-pane" id="tab-history">
                 <fieldset>
                   <legend>{{ text_history }}</legend>
@@ -918,7 +930,7 @@
           });
 
           address_row++;
-      }
+      }}
 
   //--></script>
   <script type="text/javascript"><!--

@@ -350,7 +350,7 @@ class ControllerCustomerCustomer extends Controller {
 
         $this->load->model('setting/store');
 
-        $stores = $this->model_setting_store->getStores();
+        $stores            = $this->model_setting_store->getStores();
 
         $filter_data = [
             'filter_name'              => $filter_name,
@@ -667,7 +667,7 @@ class ControllerCustomerCustomer extends Controller {
             $url .= '&page=' . $this->request->get['page'];
         }
 
-        $data['breadcrumbs'] = [];
+        $data['breadcrumbs']   = [];
 
         $data['breadcrumbs'][] = [
             'text' => $this->language->get('text_home'),
@@ -752,8 +752,8 @@ class ControllerCustomerCustomer extends Controller {
         }
 
         // Custom Fields
-        $this->load->model('customer/custom_field');
         $this->load->model('tool/upload');
+        $this->load->model('customer/custom_field');
 
         $data['custom_fields'] = [];
 
@@ -777,9 +777,9 @@ class ControllerCustomerCustomer extends Controller {
 
             if ($custom_field['type'] == 'file') {
                 if (isset($data['account_custom_field'][$custom_field['custom_field_id']])) {
-                    $code = $data['account_custom_field'][$custom_field['custom_field_id']];
+                    $code                                                           = $data['account_custom_field'][$custom_field['custom_field_id']];
 
-                    $upload_info = $this->model_tool_upload->getUploadByCode($code);
+                    $upload_info                                                    = $this->model_tool_upload->getUploadByCode($code);
 
                     $data['account_custom_field'][$custom_field['custom_field_id']] = [];
 
@@ -794,9 +794,9 @@ class ControllerCustomerCustomer extends Controller {
 
                 foreach ($data['addresses'] as $address_id => $address) {
                     if (isset($address['custom_field'][$custom_field['custom_field_id']])) {
-                        $code = $address['custom_field'][$custom_field['custom_field_id']];
+                        $code                                                                             = $address['custom_field'][$custom_field['custom_field_id']];
 
-                        $upload_info = $this->model_tool_upload->getUploadByCode($code);
+                        $upload_info                                                                      = $this->model_tool_upload->getUploadByCode($code);
 
                         $data['addresses'][$address_id]['custom_field'][$custom_field['custom_field_id']] = [];
 
@@ -854,16 +854,20 @@ class ControllerCustomerCustomer extends Controller {
         $data['countries'] = $this->model_localisation_country->getCountries();
 
         if (isset($this->request->post['address_id'])) {
-            $data['address_id'] = $this->request->post['address_id'];
+            $data['address_id'] = (int)$this->request->post['address_id'];
         } elseif (!empty($customer_info)) {
             $data['address_id'] = $customer_info['address_id'];
         } else {
             $data['address_id'] = '';
         }
 
-        $data['header']      = $this->load->controller('common/header');
-        $data['column_left'] = $this->load->controller('common/column_left');
-        $data['footer']      = $this->load->controller('common/footer');
+        if (!empty($customer_info)) {
+            $data['customer_payment'] = sprintf($this->language->get('text_customer_payment'), $this->url->link('customer/customer_payment', 'user_token=' . $this->session->data['user_token'] . '&customer_id=' . $customer_info['customer_id'], true));
+        }
+
+        $data['header']           = $this->load->controller('common/header');
+        $data['column_left']      = $this->load->controller('common/column_left');
+        $data['footer']           = $this->load->controller('common/footer');
 
         $this->response->setOutput($this->load->view('customer/customer_form', $data));
     }
@@ -1039,7 +1043,7 @@ class ControllerCustomerCustomer extends Controller {
 
             $this->document->setTitle($this->language->get('heading_title'));
 
-            $data['breadcrumbs'] = [];
+            $data['breadcrumbs']   = [];
 
             $data['breadcrumbs'][] = [
                 'text' => $this->language->get('text_home'),

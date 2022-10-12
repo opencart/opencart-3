@@ -1321,6 +1321,29 @@ CREATE TABLE `oc_customer_wishlist` (
 -----------------------------------------------------------
 
 --
+-- Table structure for table `oc_customer_payment`
+--
+
+DROP TABLE IF EXISTS `oc_customer_payment`;
+CREATE TABLE `oc_customer_payment` (
+  `customer_payment_id` int(11) NOT NULL AUTO_INCREMENT,
+  `customer_id` int(11) NOT NULL,
+  `name` varchar(32) NOT NULL,
+  `image` varchar(255) NOT NULL,
+  `type` varchar(64) NOT NULL,
+  `code` varchar(32) NOT NULL,
+  `token` varchar(96) NOT NULL,
+  `date_expire` date NOT NULL,
+  `default` tinyint(1) NOT NULL,
+  `status` tinyint(1) NOT NULL,
+  `date_added` datetime NOT NULL,
+  PRIMARY KEY (`customer_payment_id`),
+  KEY `customer_id` (`customer_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+
+-----------------------------------------------------------
+
+--
 -- Table structure for table `oc_custom_field`
 --
 
