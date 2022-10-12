@@ -144,7 +144,7 @@ class ModelMarketingCoupon extends Model {
         return $query->rows;
     }
 
-    public function getTotalCouponHistories(int $coupon_id): array {
+    public function getTotalCouponHistories(int $coupon_id): int {
         $query = $this->db->query("SELECT COUNT(*) AS `total` FROM `" . DB_PREFIX . "coupon_history` WHERE `coupon_id` = '" . (int)$coupon_id . "'");
 
         return (int)$query->row['total'];

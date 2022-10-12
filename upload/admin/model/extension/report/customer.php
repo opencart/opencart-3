@@ -296,7 +296,7 @@ class ModelExtensionReportCustomer extends Model {
         return (int)$query->row['total'];
     }
 
-    public function getCustomerSearches(array $data = []): int {
+    public function getCustomerSearches(array $data = []): array {
         $sql = "SELECT cs.`customer_id`, cs.`keyword`, cs.`category_id`, cs.`products`, cs.`ip`, cs.`date_added`, CONCAT(c.`firstname`, ' ', c.`lastname`) AS `customer` FROM `" . DB_PREFIX . "customer_search` cs LEFT JOIN `" . DB_PREFIX . "customer` c ON (cs.`customer_id` = c.`customer_id`)";
 
         $implode = [];
