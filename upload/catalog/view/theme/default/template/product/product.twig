@@ -45,7 +45,7 @@
           <div class="tab-content">
             <div class="tab-pane active" id="tab-description">{{ description }}</div>
             {% if attribute_groups %}
-              <div class="tab-pane" id="tab-specification">
+              <div id="tab-specification" class="tab-pane">
                 <table class="table table-bordered">
                   {% for attribute_group in attribute_groups %}
                     <thead>
@@ -66,7 +66,7 @@
               </div>
             {% endif %}
             {% if review_status %}
-              <div class="tab-pane" id="tab-review">
+              <div id="tab-review" class="tab-pane">
                 <form class="form-horizontal" id="form-review">
                   <div id="review"></div>
                   <h2>{{ text_write }}</h2>

@@ -226,7 +226,7 @@
                 </div>
               </div>
             </div>
-            <div class="tab-pane" id="tab_order_status">
+            <div id="tab_order_status" class="tab-pane">
               {% for paypal_order_status in setting['order_status'] %}
                 <div class="form-group">
                   <label class="col-sm-2 control-label" for="input_order_status_{{ paypal_order_status['code'] }}">{{ attribute(_context, paypal_order_status['name']) }}</label>
@@ -244,7 +244,7 @@
                 </div>
               {% endfor %}
             </div>
-            <div class="tab-pane" id="tab_checkout_express">
+            <div id="tab_checkout_express" class="tab-pane">
               <div class="form-group">
                 <label class="col-sm-2 control-label" for="input_checkout_express_button_align">{{ entry_button_align }}</label>
                 <div class="col-sm-10">
@@ -379,7 +379,7 @@
                 </div>
               </div>
             </div>
-            <div class="tab-pane" id="tab_checkout_message">
+            <div id="tab_checkout_message" class="tab-pane">
               <div class="form-group">
                 <label class="col-sm-2 control-label" for="input_checkout_message_align">{{ entry_message_align }}</label>
                 <div class="col-sm-10">

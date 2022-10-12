@@ -173,7 +173,7 @@
 
                           $('.nav-tabs').append('<li><a href="#tab-' + tab_id + '" data-toggle="tab">' + $(element).attr('href').split('/').join(' / ') + '&nbsp;&nbsp;<i class="fa fa-minus-circle"></i></a></li>');
 
-                          html = '<div class="tab-pane" id="tab-' + tab_id + '">';
+                          html = '<div id="tab-' + tab_id + '" class="tab-pane">';
                           html += '  <textarea name="code" rows="10"></textarea>';
                           html += '  <input type="hidden" name="store_id" value="' + $('select[name="store_id"]').val() + '"/>';
                           html += '  <input type="hidden" name="path" value="' + $(element).attr('href') + '"/>';
@@ -335,7 +335,7 @@
 
                           $('.nav-tabs').append('<li><a href="#tab-' + tab_id + '" data-toggle="tab">' + $(element).parent().parent().find('input[name="path"]').val().split('/').join(' / ') + '&nbsp;&nbsp;<i class="fa fa-minus-circle"></i></a></li>');
 
-                          html = '<div class="tab-pane" id="tab-' + tab_id + '">';
+                          html = '<div id="tab-' + tab_id + '" class="tab-pane">';
                           html += '  <textarea name="code" rows="10"></textarea>';
                           html += '  <input type="hidden" name="store_id" value="' + $(element).parent().parent().find('input[name="store_id"]').val() + '"/>';
                           html += '  <input type="hidden" name="path" value="' + $(element).parent().parent().find('input[name="path"]').val() + '.twig"/>';

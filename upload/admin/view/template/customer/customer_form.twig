@@ -332,7 +332,7 @@
                     </div>
                     {% set address_row = 1 %}
                     {% for address in addresses %}
-                      <div class="tab-pane" id="tab-address{{ address_row }}">
+                      <div id="tab-address{{ address_row }}" class="tab-pane">
                         <input type="hidden" name="address[{{ address_row }}][address_id]" value="{{ address.address_id }}"/>
                         <div class="form-group required">
                           <label class="col-sm-2 control-label" for="input-firstname{{ address_row }}">{{ entry_firstname }}</label>
@@ -595,7 +595,7 @@
               </div>
             </div>
             {% if customer_id %}
-              <div class="tab-pane" id="tab-payment">
+              <div id="tab-payment" class="tab-pane">
                 <fieldset>
                   <legend>{{ text_payment_method }}</legend>
                   <div class="form-group required">
@@ -606,7 +606,7 @@
                   </div>
                 </fieldset>
               </div>
-              <div class="tab-pane" id="tab-history">
+              <div id="tab-history" class="tab-pane">
                 <fieldset>
                   <legend>{{ text_history }}</legend>
                   <div id="history"></div>
@@ -626,7 +626,7 @@
                     <i class="fa fa-plus-circle"></i> {{ button_history_add }}</button>
                 </div>
               </div>
-              <div class="tab-pane" id="tab-transaction">
+              <div id="tab-transaction" class="tab-pane">
                 <fieldset>
                   <legend>{{ text_transaction }}</legend>
                   <div id="transaction"></div>
@@ -652,7 +652,7 @@
                     <i class="fa fa-plus-circle"></i> {{ button_transaction_add }}</button>
                 </div>
               </div>
-              <div class="tab-pane" id="tab-reward">
+              <div id="tab-reward" class="tab-pane">
                 <fieldset>
                   <legend>{{ text_reward }}</legend>
                   <div id="reward"></div>
@@ -679,7 +679,7 @@
                 </div>
               </div>
             {% endif %}
-            <div class="tab-pane" id="tab-ip">
+            <div id="tab-ip" class="tab-pane">
               <fieldset>
                 <legend>{{ text_ip }}</legend>
                 <div id="ip"></div>
@@ -721,7 +721,7 @@
       var address_row = {{ address_row }};
 
       function addAddress() {
-          html = '<div class="tab-pane" id="tab-address' + address_row + '">';
+          html = '<div id="tab-address' + address_row + '" class="tab-pane">';
           html += '  <input type="hidden" name="address[' + address_row + '][address_id]" value=""/>';
 
           html += '  <div class="form-group required">';

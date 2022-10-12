@@ -45,7 +45,7 @@
               </ul>
               <div class="tab-content">
                 {% for country in countries %}
-                  <div class="tab-pane" id="tab-{{ country.code }}">
+                  <div id="tab-{{ country.code }}" class="tab-pane">
                     <div class="form-group">
                       <label class="col-sm-2 control-label" for="input-merchant{{ country.code }}"><span data-toggle="tooltip" title="{{ help_merchant }}">{{ entry_merchant }}</span></label>
                       <div class="col-sm-10">
@@ -148,7 +148,7 @@
                 {% endfor %}
               </div>
             </div>
-            <div class="tab-pane" id="tab-log">
+            <div id="tab-log" class="tab-pane">
               <p>
                 <textarea wrap="off" rows="15" class="form-control">{{ log }}</textarea>
               </p>

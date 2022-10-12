@@ -278,7 +278,7 @@
               <button id="button-history" data-loading-text="{{ text_loading }}" class="btn btn-primary"><i class="fa fa-plus-circle"></i> {{ button_history_add }}</button>
             </div>
           </div>
-          <div class="tab-pane" id="tab-additional">
+          <div id="tab-additional" class="tab-pane">
             {% if account_custom_fields %}
               <div class="table-responsive">
                 <table class="table table-bordered">
@@ -367,7 +367,7 @@
             </div>
           </div>
           {% for tab in tabs %}
-            <div class="tab-pane" id="tab-{{ tab.code }}">{{ tab.content }}</div>
+            <div id="tab-{{ tab.code }}" class="tab-pane">{{ tab.content }}</div>
           {% endfor %}
         </div>
       </div>

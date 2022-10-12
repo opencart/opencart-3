@@ -96,7 +96,7 @@
             <div class="form-group">
               <label class="control-label col-sm-2" for="dropdown_advertise_google_cron_email_status"><span data-toggle="tooltip" data-original-title="{{ help_cron_email_status }}">{{ text_cron_email_status }}</span></label>
               <div class="col-sm-10">
-                <select id="dropdown_advertise_google_cron_email_status" name="advertise_google_cron_email_status" class="form-control">
+                <select name="advertise_google_cron_email_status" id="dropdown_advertise_google_cron_email_status" class="form-control">
                   <option value="1" {% if advertise_google_cron_email_status == '1' %} selected {% endif %}>{{ text_enabled }}</option>
                   <option value="0" {% if advertise_google_cron_email_status == '0' %} selected {% endif %}>{{ text_disabled }}</option>
                 </select>

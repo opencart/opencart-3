@@ -31,7 +31,7 @@
     <div class="form-group">
       <label for="select-color" class="col-xs-12 control-label control-label-left"><span data-toggle="tooltip" title="{{ help_color }}">{{ entry_color }}</span></label>
       <div class="col-xs-12">
-        <select id="select-color" name="color" class="form-control">
+        <select name="color" id="select-color" class="form-control">
           {% for id, name in options %}
             <option value="{{ id }}" {{ id == color ? 'selected' }}>{{ name }}</option>
           {% endfor %}
@@ -46,7 +46,7 @@
         <div class="row">
           <div class="col-sm-4 margin-top-10">
             <label for="select-size-system" class="control-label control-label-left"><span data-toggle="tooltip" title="{{ help_size_system }}">{{ entry_size_system }}</span></label>
-            <select id="select-size-system" name="size_system" class="form-control">
+            <select name="size_system" id="select-size-system" class="form-control">
               {% for id, name in size_systems %}
                 <option value="{{ id }}" {{ id == size_system ? 'selected' }}>{{ name }}</option>
               {% endfor %}
@@ -57,7 +57,7 @@
           </div>
           <div class="col-sm-4 margin-top-10">
             <label for="select-size-type" class="control-label control-label-left"><span data-toggle="tooltip" title="{{ help_size_type }}">{{ entry_size_type }}</span></label>
-            <select id="select-size-type" name="size_type" class="form-control">
+            <select name="size_type" id="select-size-type" class="form-control">
               {% for id, name in size_types %}
                 <option value="{{ id }}" {{ id == size_type ? 'selected' }}>{{ name }}</option>
               {% endfor %}
@@ -68,7 +68,7 @@
           </div>
           <div class="col-sm-4 margin-top-10">
             <label for="select-size" class="control-label control-label-left"><span data-toggle="tooltip" title="{{ help_size }}">{{ entry_size }}</span></label>
-            <select id="select-size" name="size" class="form-control">
+            <select name="size" id="select-size" class="form-control">
               {% for id, name in options %}
                 <option value="{{ id }}" {{ id == size ? 'selected' }}>{{ name }}</option>
               {% endfor %}
