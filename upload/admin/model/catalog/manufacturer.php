@@ -128,7 +128,7 @@ class ModelCatalogManufacturer extends Model {
         return $manufacturer_store_data;
     }
 
-    public function getManufacturerSeoUrls(array $manufacturer_id): array {
+    public function getManufacturerSeoUrls(int $manufacturer_id): array {
         $manufacturer_seo_url_data = [];
 
         $query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "seo_url` WHERE `query` = 'manufacturer_id=" . (int)$manufacturer_id . "'");
