@@ -78,7 +78,7 @@ class ControllerCheckoutPaymentMethod extends Controller {
             $payment_methods = $this->model_account_payment_method->getPaymentMethods($this->customer->getId());
 
             foreach ($payment_methods as $payment_method) {
-                $method_data[$payment_method['code']] = [
+                $method_data[$result['code']] = [
                     'name' => $payment_method['name'],
                     'code' => $payment_method['code']
                 ];

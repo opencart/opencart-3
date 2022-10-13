@@ -229,10 +229,10 @@ class ControllerApiPayment extends Controller {
 
                 $payment_methods = $this->model_account_payment_method->getPaymentMethods($this->session->data['customer']['customer_id']);
 
-                foreach ($payment_methods as $result) {
+                foreach ($payment_methods as $payment_method) {
                     $json['payment_methods'][$result['code']] = [
-                        'name' => $result['name'],
-                        'code' => $result['code']
+                        'name' => $payment_method['name'],
+                        'code' => $payment_method['code']
                     ];
                 }
 

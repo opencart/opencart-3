@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="PhpIncludePathManager">
+    <include_path>
+      <path value="$PROJECT_DIR$/upload/system/storage/vendor/klarna/kco_rest" />
+      <path value="$PROJECT_DIR$/upload/system/storage/vendor/composer" />
+      <path value="$PROJECT_DIR$/upload/system/storage/vendor/psr/log" />
+      <path value="$PROJECT_DIR$/upload/system/storage/vendor/react/promise" />
+      <path value="$PROJECT_DIR$/upload/system/storage/vendor/guzzlehttp/log-subscriber" />
+      <path value="$PROJECT_DIR$/upload/system/storage/vendor/guzzlehttp/guzzle" />
+      <path value="$PROJECT_DIR$/upload/system/storage/vendor/guzzlehttp/streams" />
+      <path value="$PROJECT_DIR$/upload/system/storage/vendor/guzzlehttp/oauth-subscriber" />
+      <path value="$PROJECT_DIR$/upload/system/storage/vendor/scssphp/scssphp" />
+      <path value="$PROJECT_DIR$/upload/system/storage/vendor/zoujingli/wechat-php-sdk" />
+      <path value="$PROJECT_DIR$/upload/system/storage/vendor/guzzlehttp/ringphp" />
+      <path value="$PROJECT_DIR$/upload/system/storage/vendor/braintree/braintree_php" />
+      <path value="$PROJECT_DIR$/upload/system/storage/vendor/twig/twig" />
+      <path value="$PROJECT_DIR$/upload/system/storage/vendor/symfony/polyfill-mbstring" />
+      <path value="$PROJECT_DIR$/upload/system/storage/vendor/cardinity/cardinity-sdk-php" />
+      <path value="$PROJECT_DIR$/upload/system/storage/vendor/symfony/translation" />
+      <path value="$PROJECT_DIR$/upload/system/storage/vendor/symfony/validator" />
+      <path value="$PROJECT_DIR$/upload/system/storage/vendor/divido/divido-php" />
+      <path value="$PROJECT_DIR$/upload/system/storage/vendor/symfony/polyfill-ctype" />
+    </include_path>
+  </component>
+  <component name="PhpProjectSharedConfiguration" php_language_level="8.1">
+    <option name="suggestChangeDefaultLanguageLevel" value="false" />
+  </component>
+</project>
