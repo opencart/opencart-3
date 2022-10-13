@@ -38,53 +38,14 @@ class ControllerCheckoutPaymentMethod extends Controller {
             }
 
             // Payment Methods
-            $method_data  = [];
+            $this->load->model('checkout/payment_method');
 
-            $this->load->model('setting/extension');
+            $payment_methods = $this->model_checkout_payment_method->getMethods($this->session->data['payment_address']);
 
-            $results      = $this->model_setting_extension->getExtensions('payment');
-
-            $subscription = $this->cart->hasSubscription();
-
-            foreach ($results as $result) {
-                if ($this->config->get('payment_' . $result['code'] . '_status')) {
-                    $this->load->model('extension/payment/' . $result['code']);
-
-                    $method = $this->{'model_extension_payment_' . $result['code']}->getMethod($this->session->data['payment_address'], $total);
-
-                    if ($method) {
-                        if ($subscription) {
-                            if (property_exists($this->{'model_extension_payment_' . $result['code']}, 'subscriptionPayments') && $this->{'model_extension_payment_' . $result['code']}->subscriptionPayments()) {
-                                $method_data[$result['code']] = $method;
-                            }
-                        } else {
-                            $method_data[$result['code']] = $method;
-                        }
-                    }
-                }
+            if ($payment_methods) {
+                // Store payment methods in session
+                $this->session->data['payment_methods'] = $payment_methods;
             }
-
-            $sort_order = [];
-
-            foreach ($method_data as $key => $value) {
-                $sort_order[$key] = $value['sort_order'];
-            }
-
-            array_multisort($sort_order, SORT_ASC, $method_data);
-
-            // Stored payment methods
-            $this->load->model('account/payment_method');
-
-            $payment_methods = $this->model_account_payment_method->getPaymentMethods($this->customer->getId());
-
-            foreach ($payment_methods as $payment_method) {
-                $method_data[$result['code']] = [
-                    'name' => $payment_method['name'],
-                    'code' => $payment_method['code']
-                ];
-            }
-
-            $this->session->data['payment_methods'] = $method_data;
         }
 
         if (empty($this->session->data['payment_methods'])) {

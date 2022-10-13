@@ -157,9 +157,9 @@ class ControllerApiPayment extends Controller {
 
             if (!$json) {
                 // Totals
+                $total  = 0;
                 $totals = [];
                 $taxes  = $this->cart->getTaxes();
-                $total  = 0;
 
                 // Because __call can not keep var references so we put them into an array.
                 $total_data = [
@@ -172,7 +172,7 @@ class ControllerApiPayment extends Controller {
 
                 $sort_order = [];
 
-                $results = $this->model_setting_extension->getExtensions('total');
+                $results    = $this->model_setting_extension->getExtensions('total');
 
                 foreach ($results as $key => $value) {
                     $sort_order[$key] = $this->config->get('total_' . $value['code'] . '_sort_order');
@@ -192,54 +192,19 @@ class ControllerApiPayment extends Controller {
                 // Payment Methods
                 $json['payment_methods'] = [];
 
-                $this->load->model('setting/extension');
+                $this->load->model('checkout/payment_method');
 
-                $results = $this->model_setting_extension->getExtensions('payment');
+                $payment_methods         = $this->model_checkout_payment_method->getMethods($this->session->data['payment_address']);
 
-                $subscription = $this->cart->hasSubscription();
-
-                foreach ($results as $result) {
-                    if ($this->config->get('payment_' . $result['code'] . '_status')) {
-                        $this->load->model('extension/payment/' . $result['code']);
-
-                        $method = $this->{'model_extension_payment_' . $result['code']}->getMethod($this->session->data['payment_address'], $total);
-
-                        if ($method) {
-                            if ($subscription) {
-                                if (property_exists($this->{'model_extension_payment_' . $result['code']}, 'subscriptionPayments') && $this->{'model_extension_payment_' . $result['code']}->subscriptionPayments()) {
-                                    $json['payment_methods'][$result['code']] = $method;
-                                }
-                            } else {
-                                $json['payment_methods'][$result['code']] = $method;
-                            }
-                        }
-                    }
-                }
-
-                $sort_order = [];
-
-                foreach ($json['payment_methods'] as $key => $value) {
-                    $sort_order[$key] = $value['sort_order'];
-                }
-
-                array_multisort($sort_order, SORT_ASC, $json['payment_methods']);
-
-                // Stored payment methods
-                $this->load->model('account/payment_method');
-
-                $payment_methods = $this->model_account_payment_method->getPaymentMethods($this->session->data['customer']['customer_id']);
-
-                foreach ($payment_methods as $payment_method) {
-                    $json['payment_methods'][$result['code']] = [
-                        'name' => $payment_method['name'],
-                        'code' => $payment_method['code']
-                    ];
+                if ($payment_methods) {
+                    // Store payment methods in session
+                    $json['payment_methods'] = $payment_methods;
                 }
 
                 if ($json['payment_methods']) {
                     $this->session->data['payment_methods'] = $json['payment_methods'];
                 } else {
-                    $json['error'] = $this->language->get('error_no_payment');
+                    $json['error']                          = $this->language->get('error_no_payment');
                 }
             }
         }

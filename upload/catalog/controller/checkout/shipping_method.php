@@ -5,38 +5,14 @@ class ControllerCheckoutShippingMethod extends Controller {
 
         if (isset($this->session->data['shipping_address'])) {
             // Shipping Methods
-            $method_data = [];
+            $this->load->model('checkout/shipping_method');
 
-            $this->load->model('setting/extension');
+            $shipping_methods = $this->model_checkout_shipping_method->getMethods($this->session->data['shipping_address']);
 
-            $results = $this->model_setting_extension->getExtensions('shipping');
-
-            foreach ($results as $result) {
-                if ($this->config->get('shipping_' . $result['code'] . '_status')) {
-                    $this->load->model('extension/shipping/' . $result['code']);
-
-                    $quote = $this->{'model_extension_shipping_' . $result['code']}->getQuote($this->session->data['shipping_address']);
-
-                    if ($quote) {
-                        $method_data[$result['code']] = [
-                            'title'      => $quote['title'],
-                            'quote'      => $quote['quote'],
-                            'sort_order' => $quote['sort_order'],
-                            'error'      => $quote['error']
-                        ];
-                    }
-                }
+            if ($shipping_methods) {
+                // Store shipping methods in session
+                $this->session->data['shipping_methods'] = $shipping_methods;
             }
-
-            $sort_order = [];
-
-            foreach ($method_data as $key => $value) {
-                $sort_order[$key] = $value['sort_order'];
-            }
-
-            array_multisort($sort_order, SORT_ASC, $method_data);
-
-            $this->session->data['shipping_methods'] = $method_data;
         }
 
         if (empty($this->session->data['shipping_methods'])) {
