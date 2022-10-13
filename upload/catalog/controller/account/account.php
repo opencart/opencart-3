@@ -74,6 +74,7 @@ class ControllerAccountAccount extends Controller {
         $data['edit']           = $this->url->link('account/edit', 'customer_token=' . $this->session->data['customer_token'], true);
         $data['password']       = $this->url->link('account/password', 'customer_token=' . $this->session->data['customer_token'], true);
         $data['address']        = $this->url->link('account/address', 'customer_token=' . $this->session->data['customer_token'], true);
+        $data['payment_method'] = $this->url->link('account/payment_method', 'customer_token=' . $this->session->data['customer_token'], true);
         $data['wishlist']       = $this->url->link('account/wishlist', 'customer_token=' . $this->session->data['customer_token']);
         $data['order']          = $this->url->link('account/order', 'customer_token=' . $this->session->data['customer_token'], true);
         $data['recurring']      = $this->url->link('account/recurring', 'customer_token=' . $this->session->data['customer_token'], true);
