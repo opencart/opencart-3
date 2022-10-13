@@ -27,10 +27,20 @@ class ModelCheckoutPaymentMethod extends Model {
 
 		array_multisort($sort_order, SORT_ASC, $method_data);
 
+        // Since the API does not use the same session super globals
+        // as the one during checkout, we need to validate both.
+        if (isset($this->session->data['customer']['customer_id'])) {
+            $customer_id = (int)$this->session->data['customer']['customer_id'];
+        } elseif ($this->customer->getId()) {
+            $customer_id = $this->customer->getId();
+        } else {
+            $customer_id = 0;
+        }
+
 		// Stored payment methods
 		$this->load->model('account/payment_method');
 
-		$payment_methods = $this->model_account_payment_method->getPaymentMethods($this->customer->getId());
+		$payment_methods = $this->model_account_payment_method->getPaymentMethods($customer_id);
 
 		foreach ($payment_methods as $payment_method) {
 			$method_data[$result['code'] . '_' . $result['code']] = [
