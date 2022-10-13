@@ -224,6 +224,18 @@ class ControllerApiPayment extends Controller {
 
                 array_multisort($sort_order, SORT_ASC, $json['payment_methods']);
 
+                // Stored payment methods
+                $this->load->model('account/payment_method');
+
+                $payment_methods = $this->model_account_payment_method->getPaymentMethods($this->session->data['customer']['customer_id']);
+
+                foreach ($payment_methods as $result) {
+                    $json['payment_methods'][$result['code']] = [
+                        'name' => $result['name'],
+                        'code' => $result['code']
+                    ];
+                }
+
                 if ($json['payment_methods']) {
                     $this->session->data['payment_methods'] = $json['payment_methods'];
                 } else {

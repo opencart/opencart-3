@@ -5,9 +5,9 @@ class ControllerCheckoutPaymentMethod extends Controller {
 
         if (isset($this->session->data['payment_address'])) {
             // Totals
+            $total  = 0;
             $totals = [];
             $taxes  = $this->cart->getTaxes();
-            $total  = 0;
 
             // Because __call can not keep var references so we put them into an array.
             $total_data = [
@@ -20,7 +20,7 @@ class ControllerCheckoutPaymentMethod extends Controller {
 
             $sort_order = [];
 
-            $results = $this->model_setting_extension->getExtensions('total');
+            $results    = $this->model_setting_extension->getExtensions('total');
 
             foreach ($results as $key => $value) {
                 $sort_order[$key] = $this->config->get('total_' . $value['code'] . '_sort_order');
@@ -38,11 +38,11 @@ class ControllerCheckoutPaymentMethod extends Controller {
             }
 
             // Payment Methods
-            $method_data = [];
+            $method_data  = [];
 
             $this->load->model('setting/extension');
 
-            $results = $this->model_setting_extension->getExtensions('payment');
+            $results      = $this->model_setting_extension->getExtensions('payment');
 
             $subscription = $this->cart->hasSubscription();
 
@@ -71,6 +71,18 @@ class ControllerCheckoutPaymentMethod extends Controller {
             }
 
             array_multisort($sort_order, SORT_ASC, $method_data);
+
+            // Stored payment methods
+            $this->load->model('account/payment_method');
+
+            $payment_methods = $this->model_account_payment_method->getPaymentMethods($this->customer->getId());
+
+            foreach ($payment_methods as $payment_method) {
+                $method_data[$payment_method['code']] = [
+                    'name' => $payment_method['name'],
+                    'code' => $payment_method['code']
+                ];
+            }
 
             $this->session->data['payment_methods'] = $method_data;
         }
