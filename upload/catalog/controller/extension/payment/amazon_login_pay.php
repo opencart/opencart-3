@@ -427,7 +427,7 @@ class ControllerExtensionPaymentAmazonLoginPay extends Controller {
         $data['is_coupon_change_allowed']       = $this->model_extension_payment_amazon_login_pay->isOrderInState($this->session->data['apalwa']['pay']['order_reference_id'], ['Draft']);
         $data['error_unexpected_network_error'] = $this->language->get('error_unexpected_network_error');
 
-        $data['breadcrumbs']                    = [];
+        $data['breadcrumbs']   = [];
 
         $data['breadcrumbs'][] = [
             'href' => $this->url->link('common/home', '', true),
@@ -502,6 +502,7 @@ class ControllerExtensionPaymentAmazonLoginPay extends Controller {
         }
 
         $data['content_main']   = $this->load->view('extension/payment/amazon_login_pay_confirm', $data);
+
         $data['column_left']    = $this->load->controller('common/column_left');
         $data['column_right']   = $this->load->controller('common/column_right');
         $data['content_top']    = $this->load->controller('common/content_top');
@@ -954,7 +955,7 @@ class ControllerExtensionPaymentAmazonLoginPay extends Controller {
 
     // catalog/model/checkout/order/editOrder/after
     // catalog/model/checkout/order/addOrderHistory/after
-    public function capture(string &$route, array &$args, string &$output): void {
+    public function capture(string &$route, array &$args, mixed &$output): void {
         $this->load->language('extension/payment/amazon_login_pay');
 
         $this->load->model('extension/payment/amazon_login_pay');

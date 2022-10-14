@@ -93,9 +93,10 @@ class ModelExtensionPaymentBluePayHosted extends Model {
             $release_data['APPROVED_URL']      = HTTP_CATALOG . 'index.php?route=extension/payment/bluepay_hosted/adminCallback';
             $release_data['DECLINED_URL']      = HTTP_CATALOG . 'index.php?route=extension/payment/bluepay_hosted/adminCallback';
             $release_data['MISSING_URL']       = HTTP_CATALOG . 'index.php?route=extension/payment/bluepay_hosted/adminCallback';
-            $release_data['TAMPER_PROOF_SEAL'] = md5($tamper_proof_data);
 
             $tamper_proof_data = $this->config->get('payment_bluepay_hosted_secret_key') . $release_data['MERCHANT'] . $release_data['TRANSACTION_TYPE'] . $release_data['RRNO'] . $release_data['MODE'];
+
+            $release_data['TAMPER_PROOF_SEAL'] = md5($tamper_proof_data);
 
             if (isset($this->request->server['REMOTE_ADDR'])) {
                 $release_data['REMOTE_IP'] = $this->request->server['REMOTE_ADDR'];
