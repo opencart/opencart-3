@@ -56,7 +56,7 @@ class ControllerDesignLayout extends Controller {
 
             $this->session->data['success'] = $this->language->get('text_success');
 
-            $url = '';
+            $url                            = '';
 
             if (isset($this->request->get['sort'])) {
                 $url .= '&sort=' . $this->request->get['sort'];
@@ -90,7 +90,7 @@ class ControllerDesignLayout extends Controller {
 
             $this->session->data['success'] = $this->language->get('text_success');
 
-            $url = '';
+            $url                            = '';
 
             if (isset($this->request->get['sort'])) {
                 $url .= '&sort=' . $this->request->get['sort'];
@@ -160,16 +160,16 @@ class ControllerDesignLayout extends Controller {
 
         $data['layouts'] = [];
 
-        $filter_data = [
+        $filter_data     = [
             'sort'  => $sort,
             'order' => $order,
             'start' => ($page - 1) * $this->config->get('config_limit_admin'),
             'limit' => $this->config->get('config_limit_admin')
         ];
 
-        $layout_total = $this->model_design_layout->getTotalLayouts();
+        $layout_total    = $this->model_design_layout->getTotalLayouts();
 
-        $results      = $this->model_design_layout->getLayouts($filter_data);
+        $results         = $this->model_design_layout->getLayouts($filter_data);
 
         foreach ($results as $result) {
             $data['layouts'][] = [
@@ -213,7 +213,7 @@ class ControllerDesignLayout extends Controller {
 
         $data['sort_name'] = $this->url->link('design/layout', 'user_token=' . $this->session->data['user_token'] . '&sort=name' . $url, true);
 
-        $url = '';
+        $url               = '';
 
         if (isset($this->request->get['sort'])) {
             $url .= '&sort=' . $this->request->get['sort'];
@@ -317,8 +317,8 @@ class ControllerDesignLayout extends Controller {
             $data['layout_routes'] = [];
         }
 
-        $this->load->model('setting/extension');
         $this->load->model('setting/module');
+        $this->load->model('setting/extension');
 
         $data['extensions'] = [];
 

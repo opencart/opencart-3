@@ -24,7 +24,7 @@ class ControllerCatalogDownload extends Controller {
 
             $this->session->data['success'] = $this->language->get('text_success');
 
-            $url = '';
+            $url                            = '';
 
             if (isset($this->request->get['sort'])) {
                 $url .= '&sort=' . $this->request->get['sort'];
@@ -56,7 +56,7 @@ class ControllerCatalogDownload extends Controller {
 
             $this->session->data['success'] = $this->language->get('text_success');
 
-            $url = '';
+            $url                            = '';
 
             if (isset($this->request->get['sort'])) {
                 $url .= '&sort=' . $this->request->get['sort'];
@@ -90,7 +90,7 @@ class ControllerCatalogDownload extends Controller {
 
             $this->session->data['success'] = $this->language->get('text_success');
 
-            $url = '';
+            $url                            = '';
 
             if (isset($this->request->get['sort'])) {
                 $url .= '&sort=' . $this->request->get['sort'];
@@ -151,21 +151,21 @@ class ControllerCatalogDownload extends Controller {
             'href' => $this->url->link('catalog/download', 'user_token=' . $this->session->data['user_token'] . $url, true)
         ];
 
-        $data['add']    = $this->url->link('catalog/download/add', 'user_token=' . $this->session->data['user_token'] . $url, true);
-        $data['delete'] = $this->url->link('catalog/download/delete', 'user_token=' . $this->session->data['user_token'] . $url, true);
+        $data['add']       = $this->url->link('catalog/download/add', 'user_token=' . $this->session->data['user_token'] . $url, true);
+        $data['delete']    = $this->url->link('catalog/download/delete', 'user_token=' . $this->session->data['user_token'] . $url, true);
 
         $data['downloads'] = [];
 
-        $filter_data = [
+        $filter_data       = [
             'sort'  => $sort,
             'order' => $order,
             'start' => ($page - 1) * $this->config->get('config_limit_admin'),
             'limit' => $this->config->get('config_limit_admin')
         ];
 
-        $download_total = $this->model_catalog_download->getTotalDownloads();
+        $download_total    = $this->model_catalog_download->getTotalDownloads();
 
-        $results = $this->model_catalog_download->getDownloads($filter_data);
+        $results           = $this->model_catalog_download->getDownloads($filter_data);
 
         foreach ($results as $result) {
             $data['downloads'][] = [
@@ -415,11 +415,10 @@ class ControllerCatalogDownload extends Controller {
                 }
 
                 // Allowed file extension types
-                $allowed = [];
+                $allowed           = [];
 
                 $extension_allowed = preg_replace('~\r?\n~', "\n", $this->config->get('config_file_ext_allowed'));
-
-                $filetypes = explode("\n", $extension_allowed);
+                $filetypes         = explode("\n", $extension_allowed);
 
                 foreach ($filetypes as $filetype) {
                     $allowed[] = trim($filetype);
@@ -430,11 +429,10 @@ class ControllerCatalogDownload extends Controller {
                 }
 
                 // Allowed file mime types
-                $allowed = [];
+                $allowed      = [];
 
                 $mime_allowed = preg_replace('~\r?\n~', "\n", $this->config->get('config_file_mime_allowed'));
-
-                $filetypes = explode("\n", $mime_allowed);
+                $filetypes    = explode("\n", $mime_allowed);
 
                 foreach ($filetypes as $filetype) {
                     $allowed[] = trim($filetype);
@@ -461,7 +459,7 @@ class ControllerCatalogDownload extends Controller {
         }
 
         if (!$json) {
-            $file = $filename . '.' . token(32);
+            $file             = $filename . '.' . token(32);
 
             move_uploaded_file($this->request->files['file']['tmp_name'], DIR_DOWNLOAD . $file);
 

@@ -24,7 +24,7 @@ class ControllerCustomerCustomerGroup extends Controller {
 
             $this->session->data['success'] = $this->language->get('text_success');
 
-            $url = '';
+            $url                            = '';
 
             if (isset($this->request->get['sort'])) {
                 $url .= '&sort=' . $this->request->get['sort'];
@@ -56,7 +56,7 @@ class ControllerCustomerCustomerGroup extends Controller {
 
             $this->session->data['success'] = $this->language->get('text_success');
 
-            $url = '';
+            $url                            = '';
 
             if (isset($this->request->get['sort'])) {
                 $url .= '&sort=' . $this->request->get['sort'];
@@ -90,7 +90,7 @@ class ControllerCustomerCustomerGroup extends Controller {
 
             $this->session->data['success'] = $this->language->get('text_success');
 
-            $url = '';
+            $url                            = '';
 
             if (isset($this->request->get['sort'])) {
                 $url .= '&sort=' . $this->request->get['sort'];
@@ -143,7 +143,7 @@ class ControllerCustomerCustomerGroup extends Controller {
             $url .= '&page=' . $this->request->get['page'];
         }
 
-        $data['breadcrumbs'] = [];
+        $data['breadcrumbs']   = [];
 
         $data['breadcrumbs'][] = [
             'text' => $this->language->get('text_home'),
@@ -160,16 +160,16 @@ class ControllerCustomerCustomerGroup extends Controller {
 
         $data['customer_groups'] = [];
 
-        $filter_data = [
+        $filter_data             = [
             'sort'  => $sort,
             'order' => $order,
             'start' => ($page - 1) * $this->config->get('config_limit_admin'),
             'limit' => $this->config->get('config_limit_admin')
         ];
 
-        $customer_group_total = $this->model_customer_customer_group->getTotalCustomerGroups();
+        $customer_group_total    = $this->model_customer_customer_group->getTotalCustomerGroups();
 
-        $results              = $this->model_customer_customer_group->getCustomerGroups($filter_data);
+        $results                 = $this->model_customer_customer_group->getCustomerGroups($filter_data);
 
         foreach ($results as $result) {
             $data['customer_groups'][] = [
@@ -360,7 +360,7 @@ class ControllerCustomerCustomerGroup extends Controller {
                 $this->error['warning'] = $this->language->get('error_default');
             }
 
-            $store_total = $this->model_setting_store->getTotalStoresByCustomerGroupId($customer_group_id);
+            $store_total    = $this->model_setting_store->getTotalStoresByCustomerGroupId($customer_group_id);
 
             if ($store_total) {
                 $this->error['warning'] = sprintf($this->language->get('error_store'), $store_total);

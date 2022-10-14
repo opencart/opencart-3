@@ -100,10 +100,10 @@ class ControllerSettingStore extends Controller {
             'href' => $this->url->link('setting/store', 'user_token=' . $this->session->data['user_token'], true)
         ];
 
-        $data['add']    = $this->url->link('setting/store/add', 'user_token=' . $this->session->data['user_token'], true);
-        $data['delete'] = $this->url->link('setting/store/delete', 'user_token=' . $this->session->data['user_token'], true);
+        $data['add']      = $this->url->link('setting/store/add', 'user_token=' . $this->session->data['user_token'], true);
+        $data['delete']   = $this->url->link('setting/store/delete', 'user_token=' . $this->session->data['user_token'], true);
 
-        $data['stores'] = [];
+        $data['stores']   = [];
 
         $data['stores'][] = [
             'store_id' => 0,
@@ -112,9 +112,9 @@ class ControllerSettingStore extends Controller {
             'edit'     => $this->url->link('setting/setting', 'user_token=' . $this->session->data['user_token'], true)
         ];
 
-        $store_total = $this->model_setting_store->getTotalStores();
+        $store_total      = $this->model_setting_store->getTotalStores();
 
-        $results = $this->model_setting_store->getStores();
+        $results          = $this->model_setting_store->getStores();
 
         foreach ($results as $result) {
             $data['stores'][] = [
@@ -247,7 +247,7 @@ class ControllerSettingStore extends Controller {
             $data['action'] = $this->url->link('setting/store/edit', 'user_token=' . $this->session->data['user_token'] . '&store_id=' . $this->request->get['store_id'], true);
         }
 
-        $data['cancel'] = $this->url->link('setting/store', 'user_token=' . $this->session->data['user_token'], true);
+        $data['cancel']     = $this->url->link('setting/store', 'user_token=' . $this->session->data['user_token'], true);
 
         if (isset($this->request->get['store_id']) && ($this->request->server['REQUEST_METHOD'] != 'POST')) {
             $this->load->model('setting/setting');
@@ -312,7 +312,7 @@ class ControllerSettingStore extends Controller {
 
         $this->load->model('setting/extension');
 
-        $extensions = $this->model_setting_extension->getInstalled('theme');
+        $extensions      = $this->model_setting_extension->getInstalled('theme');
 
         foreach ($extensions as $code) {
             $this->load->language('extension/theme/' . $code, 'extension');

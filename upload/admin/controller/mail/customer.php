@@ -45,7 +45,7 @@ class ControllerMailCustomer extends Controller {
                 $data['logo'] = '';
             }
 
-            $subject = sprintf($language->get('text_subject'), $store_name);
+            $subject              = sprintf($language->get('text_subject'), $store_name);
 
             $data['text_welcome'] = sprintf($language->get('text_welcome'), $store_name);
             $data['login']        = $store_url . 'index.php?route=account/login';
@@ -80,7 +80,7 @@ class ControllerMailCustomer extends Controller {
         if ($customer_info) {
             $this->load->model('setting/store');
 
-            $store_info = $this->model_setting_store->getStore($customer_info['store_id']);
+            $store_info    = $this->model_setting_store->getStore($customer_info['store_id']);
 
             if ($store_info) {
                 $this->load->model('setting/setting');
@@ -116,7 +116,7 @@ class ControllerMailCustomer extends Controller {
                 $data['logo'] = '';
             }
 
-            $subject = sprintf($language->get('text_subject'), $store_name);
+            $subject              = sprintf($language->get('text_subject'), $store_name);
 
             $data['text_welcome'] = sprintf($language->get('text_welcome'), $store_name);
             $data['contact']      = $store_url . 'index.php?route=information/contact';

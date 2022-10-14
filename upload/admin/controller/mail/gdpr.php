@@ -34,7 +34,7 @@ class ControllerMailGdpr extends Controller {
     public function export(array $gdpr_info): void {
         $this->load->model('setting/store');
 
-        $store_info = $this->model_setting_store->getStore($gdpr_info['store_id']);
+        $store_info    = $this->model_setting_store->getStore($gdpr_info['store_id']);
 
         if ($store_info) {
             $this->load->model('setting/setting');
@@ -64,7 +64,7 @@ class ControllerMailGdpr extends Controller {
         $language->load($language_code);
         $language->load('mail/gdpr_export');
 
-        $subject = sprintf($language->get('text_subject'), $store_name);
+        $subject       = sprintf($language->get('text_subject'), $store_name);
 
         if (is_file(DIR_IMAGE . $store_logo)) {
             $data['logo'] = $store_url . 'image/' . $store_logo;
@@ -192,7 +192,7 @@ class ControllerMailGdpr extends Controller {
     public function approve(array $gdpr_info): void {
         $this->load->model('setting/store');
 
-        $store_info = $this->model_setting_store->getStore($gdpr_info['store_id']);
+        $store_info    = $this->model_setting_store->getStore($gdpr_info['store_id']);
 
         if ($store_info) {
             $this->load->model('setting/setting');
@@ -312,7 +312,7 @@ class ControllerMailGdpr extends Controller {
 
         $this->load->model('customer/customer');
 
-        $customer_info = $this->model_customer_customer->getCustomerByEmail($gdpr_info['email']);
+        $customer_info        = $this->model_customer_customer->getCustomerByEmail($gdpr_info['email']);
 
         if ($customer_info) {
             $data['text_hello'] = sprintf($language->get('text_hello'), html_entity_decode($customer_info['firstname'], ENT_QUOTES, 'UTF-8'));

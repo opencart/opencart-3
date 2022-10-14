@@ -49,16 +49,16 @@ class ControllerMarketplaceInstaller extends Controller {
             ];
         }
 
-        $history_total = $this->model_setting_extension->getTotalExtensionInstalls();
+        $history_total      = $this->model_setting_extension->getTotalExtensionInstalls();
 
-        $pagination        = new \Pagination();
-        $pagination->total = $history_total;
-        $pagination->page  = $page;
-        $pagination->limit = 10;
-        $pagination->url   = $this->url->link('marketplace/installer/history', 'user_token=' . $this->session->data['user_token'] . '&page={page}', true);
+        $pagination         = new \Pagination();
+        $pagination->total  = $history_total;
+        $pagination->page   = $page;
+        $pagination->limit  = 10;
+        $pagination->url    = $this->url->link('marketplace/installer/history', 'user_token=' . $this->session->data['user_token'] . '&page={page}', true);
 
         $data['pagination'] = $pagination->render();
-        $data['results'] = sprintf($this->language->get('text_pagination'), ($history_total) ? (($page - 1) * 10) + 1 : 0, ((($page - 1) * 10) > ($history_total - 10)) ? $history_total : ((($page - 1) * 10) + 10), $history_total, ceil($history_total / 10));
+        $data['results']    = sprintf($this->language->get('text_pagination'), ($history_total) ? (($page - 1) * 10) + 1 : 0, ((($page - 1) * 10) > ($history_total - 10)) ? $history_total : ((($page - 1) * 10) + 10), $history_total, ceil($history_total / 10));
 
         $this->response->setOutput($this->load->view('marketplace/installer_history', $data));
     }
@@ -74,7 +74,7 @@ class ControllerMarketplaceInstaller extends Controller {
         }
 
         // Check if there is a install zip already there
-        $files = glob(DIR_UPLOAD . '*.tmp');
+        $files       = glob(DIR_UPLOAD . '*.tmp');
 
         foreach ($files as $file) {
             if (is_file($file) && (filectime($file) < (time() - 5))) {

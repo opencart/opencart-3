@@ -24,7 +24,7 @@ class ControllerCatalogManufacturer extends Controller {
 
             $this->session->data['success'] = $this->language->get('text_success');
 
-            $url = '';
+            $url                            = '';
 
             if (isset($this->request->get['sort'])) {
                 $url .= '&sort=' . $this->request->get['sort'];
@@ -56,7 +56,7 @@ class ControllerCatalogManufacturer extends Controller {
 
             $this->session->data['success'] = $this->language->get('text_success');
 
-            $url = '';
+            $url                            = '';
 
             if (isset($this->request->get['sort'])) {
                 $url .= '&sort=' . $this->request->get['sort'];
@@ -90,7 +90,7 @@ class ControllerCatalogManufacturer extends Controller {
 
             $this->session->data['success'] = $this->language->get('text_success');
 
-            $url = '';
+            $url                            = '';
 
             if (isset($this->request->get['sort'])) {
                 $url .= '&sort=' . $this->request->get['sort'];
@@ -160,16 +160,16 @@ class ControllerCatalogManufacturer extends Controller {
 
         $data['manufacturers'] = [];
 
-        $filter_data = [
+        $filter_data           = [
             'sort'  => $sort,
             'order' => $order,
             'start' => ($page - 1) * $this->config->get('config_limit_admin'),
             'limit' => $this->config->get('config_limit_admin')
         ];
 
-        $manufacturer_total = $this->model_catalog_manufacturer->getTotalManufacturers();
+        $manufacturer_total    = $this->model_catalog_manufacturer->getTotalManufacturers();
 
-        $results            = $this->model_catalog_manufacturer->getManufacturers($filter_data);
+        $results               = $this->model_catalog_manufacturer->getManufacturers($filter_data);
 
         foreach ($results as $result) {
             $data['manufacturers'][] = [
@@ -322,7 +322,7 @@ class ControllerCatalogManufacturer extends Controller {
             'name'     => $this->language->get('text_default')
         ];
 
-        $stores = $this->model_setting_store->getStores();
+        $stores           = $this->model_setting_store->getStores();
 
         foreach ($stores as $store) {
             $data['stores'][] = [

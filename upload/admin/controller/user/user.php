@@ -24,7 +24,7 @@ class ControllerUserUser extends Controller {
 
             $this->session->data['success'] = $this->language->get('text_success');
 
-            $url = '';
+            $url                            = '';
 
             if (isset($this->request->get['sort'])) {
                 $url .= '&sort=' . $this->request->get['sort'];

@@ -24,7 +24,7 @@ class ControllerMarketplaceEvent extends Controller {
 
             $this->session->data['success'] = $this->language->get('text_success');
 
-            $url = '';
+            $url                            = '';
 
             if (isset($this->request->get['sort'])) {
                 $url .= '&sort=' . $this->request->get['sort'];
@@ -56,7 +56,7 @@ class ControllerMarketplaceEvent extends Controller {
 
             $this->session->data['success'] = $this->language->get('text_success');
 
-            $url = '';
+            $url                            = '';
 
             if (isset($this->request->get['sort'])) {
                 $url .= '&sort=' . $this->request->get['sort'];
@@ -90,7 +90,7 @@ class ControllerMarketplaceEvent extends Controller {
 
             $this->session->data['success'] = $this->language->get('text_success');
 
-            $url = '';
+            $url                            = '';
 
             if (isset($this->request->get['sort'])) {
                 $url .= '&sort=' . $this->request->get['sort'];
@@ -166,9 +166,9 @@ class ControllerMarketplaceEvent extends Controller {
             'limit' => $this->config->get('config_limit_admin')
         ];
 
-        $event_total = $this->model_setting_event->getTotalEvents();
+        $event_total    = $this->model_setting_event->getTotalEvents();
 
-        $results     = $this->model_setting_event->getEvents($filter_data);
+        $results        = $this->model_setting_event->getEvents($filter_data);
 
         foreach ($results as $result) {
             $data['events'][] = [
@@ -220,7 +220,7 @@ class ControllerMarketplaceEvent extends Controller {
         $data['sort_sort_order'] = $this->url->link('marketplace/event', 'user_token=' . $this->session->data['user_token'] . '&sort=sort_order' . $url, true);
         $data['sort_status']     = $this->url->link('marketplace/event', 'user_token=' . $this->session->data['user_token'] . '&sort=status' . $url, true);
 
-        $url = '';
+        $url                     = '';
 
         if (isset($this->request->get['sort'])) {
             $url .= '&sort=' . $this->request->get['sort'];

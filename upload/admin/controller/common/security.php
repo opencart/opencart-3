@@ -8,6 +8,7 @@ class ControllerCommonSecurity extends Controller {
         $data['storage'] = DIR_SYSTEM . 'storage/';
 
         $path          = '';
+
         $data['paths'] = [];
 
         $parts = explode('/', str_replace('\\', '/', rtrim(DIR_SYSTEM, '/')));
@@ -66,7 +67,7 @@ class ControllerCommonSecurity extends Controller {
             }
 
             if (!$json) {
-                $files = [];
+                $files  = [];
 
                 // Make path into an array
                 $source = [DIR_SYSTEM . 'storage/'];
@@ -115,7 +116,7 @@ class ControllerCommonSecurity extends Controller {
                 foreach ($files as $file) {
                     $output = '';
 
-                    $lines = file($file);
+                    $lines  = file($file);
 
                     foreach ($lines as $line_id => $line) {
                         if (strpos($line, 'define(\'DIR_STORAGE') !== false) {
@@ -126,9 +127,7 @@ class ControllerCommonSecurity extends Controller {
                     }
 
                     $file = fopen($file, 'w');
-
                     fwrite($file, $output);
-
                     fclose($file);
                 }
 

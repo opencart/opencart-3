@@ -133,7 +133,7 @@ class ControllerCustomerCustomerApproval extends Controller {
 
         $data['customer_approvals'] = [];
 
-        $filter_data = [
+        $filter_data                = [
             'filter_name'              => $filter_name,
             'filter_email'             => $filter_email,
             'filter_customer_group_id' => $filter_customer_group_id,
@@ -145,9 +145,9 @@ class ControllerCustomerCustomerApproval extends Controller {
 
         $this->load->model('customer/customer_approval');
 
-        $customer_approval_total = $this->model_customer_customer_approval->getTotalCustomerApprovals($filter_data);
+        $customer_approval_total    = $this->model_customer_customer_approval->getTotalCustomerApprovals($filter_data);
 
-        $results                 = $this->model_customer_customer_approval->getCustomerApprovals($filter_data);
+        $results                    = $this->model_customer_customer_approval->getCustomerApprovals($filter_data);
 
         foreach ($results as $result) {
             $data['customer_approvals'][] = [

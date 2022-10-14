@@ -25,13 +25,13 @@ class ControllerToolBackup extends Controller {
             'href' => $this->url->link('tool/backup', 'user_token=' . $this->session->data['user_token'], true)
         ];
 
-        $data['user_token'] = $this->session->data['user_token'];
+        $data['user_token']  = $this->session->data['user_token'];
 
-        $data['export']     = $this->url->link('tool/backup/export', 'user_token=' . $this->session->data['user_token'], true);
+        $data['export']      = $this->url->link('tool/backup/export', 'user_token=' . $this->session->data['user_token'], true);
 
         $this->load->model('tool/backup');
 
-        $data['tables'] = $this->model_tool_backup->getTables();
+        $data['tables']      = $this->model_tool_backup->getTables();
 
         $data['header']      = $this->load->controller('common/header');
         $data['column_left'] = $this->load->controller('common/column_left');
@@ -76,7 +76,6 @@ class ControllerToolBackup extends Controller {
             $start  = false;
 
             $handle = fopen($filename, 'r');
-
             fseek($handle, $position, SEEK_SET);
 
             while (!feof($handle) && ($i < 100)) {
@@ -120,6 +119,7 @@ class ControllerToolBackup extends Controller {
                 fclose($handle);
             } else {
                 fclose($handle);
+
                 unlink($filename);
 
                 $json['success'] = $this->language->get('text_success');

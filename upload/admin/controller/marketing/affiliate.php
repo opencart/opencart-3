@@ -24,7 +24,7 @@ class ControllerMarketingAffiliate extends Controller {
 
             $this->session->data['success'] = $this->language->get('text_success');
 
-            $url = '';
+            $url                            = '';
 
             if (isset($this->request->get['filter_customer'])) {
                 $url .= '&filter_customer=' . urlencode(html_entity_decode($this->request->get['filter_customer'], ENT_QUOTES, 'UTF-8'));
@@ -76,7 +76,7 @@ class ControllerMarketingAffiliate extends Controller {
 
             $this->session->data['success'] = $this->language->get('text_success');
 
-            $url = '';
+            $url                            = '';
 
             if (isset($this->request->get['filter_customer'])) {
                 $url .= '&filter_customer=' . urlencode(html_entity_decode($this->request->get['filter_customer'], ENT_QUOTES, 'UTF-8'));
@@ -130,7 +130,7 @@ class ControllerMarketingAffiliate extends Controller {
 
             $this->session->data['success'] = $this->language->get('text_success');
 
-            $url = '';
+            $url                            = '';
 
             if (isset($this->request->get['filter_customer'])) {
                 $url .= '&filter_customer=' . urlencode(html_entity_decode($this->request->get['filter_customer'], ENT_QUOTES, 'UTF-8'));
@@ -272,7 +272,7 @@ class ControllerMarketingAffiliate extends Controller {
 
         $this->load->model('customer/customer');
 
-        $filter_data = [
+        $filter_data        = [
             'filter_name'       => $filter_customer,
             'filter_tracking'   => $filter_tracking,
             'filter_commission' => $filter_commission,
@@ -284,9 +284,9 @@ class ControllerMarketingAffiliate extends Controller {
             'limit'             => $this->config->get('config_limit_admin')
         ];
 
-        $affiliate_total = $this->model_marketing_affiliate->getTotalAffiliates($filter_data);
+        $affiliate_total    = $this->model_marketing_affiliate->getTotalAffiliates($filter_data);
 
-        $results         = $this->model_marketing_affiliate->getAffiliates($filter_data);
+        $results            = $this->model_marketing_affiliate->getAffiliates($filter_data);
 
         foreach ($results as $result) {
             $data['affiliates'][] = [
@@ -362,7 +362,7 @@ class ControllerMarketingAffiliate extends Controller {
         $data['sort_status']     = $this->url->link('marketing/affiliate', 'user_token=' . $this->session->data['user_token'] . '&sort=ca.status' . $url, true);
         $data['sort_date_added'] = $this->url->link('marketing/affiliate', 'user_token=' . $this->session->data['user_token'] . '&sort=ca.date_added' . $url, true);
 
-        $url = '';
+        $url                     = '';
 
         if (isset($this->request->get['filter_customer'])) {
             $url .= '&filter_customer=' . urlencode(html_entity_decode($this->request->get['filter_customer'], ENT_QUOTES, 'UTF-8'));
@@ -662,12 +662,12 @@ class ControllerMarketingAffiliate extends Controller {
 
         $data['custom_fields'] = [];
 
-        $filter_data = [
+        $filter_data           = [
             'sort'  => 'cf.sort_order',
             'order' => 'ASC'
         ];
 
-        $custom_fields = $this->model_customer_custom_field->getCustomFields($filter_data);
+        $custom_fields         = $this->model_customer_custom_field->getCustomFields($filter_data);
 
         foreach ($custom_fields as $custom_field) {
             if ($custom_field['status']) {

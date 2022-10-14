@@ -24,7 +24,7 @@ class ControllerDesignSeoUrl extends Controller {
 
             $this->session->data['success'] = $this->language->get('text_success');
 
-            $url = '';
+            $url                            = '';
 
             if (isset($this->request->get['filter_query'])) {
                 $url .= '&filter_query=' . urlencode(html_entity_decode($this->request->get['filter_query'], ENT_QUOTES, 'UTF-8'));
@@ -72,7 +72,7 @@ class ControllerDesignSeoUrl extends Controller {
 
             $this->session->data['success'] = $this->language->get('text_success');
 
-            $url = '';
+            $url                            = '';
 
             if (isset($this->request->get['filter_query'])) {
                 $url .= '&filter_query=' . urlencode(html_entity_decode($this->request->get['filter_query'], ENT_QUOTES, 'UTF-8'));
@@ -122,7 +122,7 @@ class ControllerDesignSeoUrl extends Controller {
 
             $this->session->data['success'] = $this->language->get('text_success');
 
-            $url = '';
+            $url                            = '';
 
             if (isset($this->request->get['filter_query'])) {
                 $url .= '&filter_query=' . urlencode(html_entity_decode($this->request->get['filter_query'], ENT_QUOTES, 'UTF-8'));
@@ -248,7 +248,7 @@ class ControllerDesignSeoUrl extends Controller {
 
         $data['seo_urls'] = [];
 
-        $filter_data = [
+        $filter_data      = [
             'filter_query'       => $filter_query,
             'filter_keyword'     => $filter_keyword,
             'filter_store_id'    => $filter_store_id,
@@ -259,9 +259,9 @@ class ControllerDesignSeoUrl extends Controller {
             'limit'              => $this->config->get('config_limit_admin')
         ];
 
-        $seo_url_total = $this->model_design_seo_url->getTotalSeoUrls($filter_data);
+        $seo_url_total    = $this->model_design_seo_url->getTotalSeoUrls($filter_data);
 
-        $results       = $this->model_design_seo_url->getSeoUrls($filter_data);
+        $results          = $this->model_design_seo_url->getSeoUrls($filter_data);
 
         foreach ($results as $result) {
             $data['seo_urls'][] = [
@@ -329,7 +329,7 @@ class ControllerDesignSeoUrl extends Controller {
         $data['sort_store']    = $this->url->link('design/seo_url', 'user_token=' . $this->session->data['user_token'] . '&sort=store' . $url, true);
         $data['sort_language'] = $this->url->link('design/seo_url', 'user_token=' . $this->session->data['user_token'] . '&sort=language' . $url, true);
 
-        $url = '';
+        $url                   = '';
 
         if (isset($this->request->get['filter_query'])) {
             $url .= '&filter_query=' . urlencode(html_entity_decode($this->request->get['filter_query'], ENT_QUOTES, 'UTF-8'));
@@ -423,7 +423,7 @@ class ControllerDesignSeoUrl extends Controller {
             $url .= '&page=' . $this->request->get['page'];
         }
 
-        $data['breadcrumbs'] = [];
+        $data['breadcrumbs']   = [];
 
         $data['breadcrumbs'][] = [
             'text' => $this->language->get('text_home'),
@@ -465,14 +465,14 @@ class ControllerDesignSeoUrl extends Controller {
 
         $this->load->model('setting/store');
 
-        $data['stores'] = [];
+        $data['stores']   = [];
 
         $data['stores'][] = [
             'store_id' => 0,
             'name'     => $this->language->get('text_default')
         ];
 
-        $stores = $this->model_setting_store->getStores();
+        $stores           = $this->model_setting_store->getStores();
 
         foreach ($stores as $store) {
             $data['stores'][] = [

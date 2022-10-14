@@ -24,7 +24,7 @@ class ControllerMarketingMarketing extends Controller {
 
             $this->session->data['success'] = $this->language->get('text_success');
 
-            $url = '';
+            $url                            = '';
 
             if (isset($this->request->get['filter_name'])) {
                 $url .= '&filter_name=' . urlencode(html_entity_decode($this->request->get['filter_name'], ENT_QUOTES, 'UTF-8'));
@@ -68,7 +68,7 @@ class ControllerMarketingMarketing extends Controller {
 
             $this->session->data['success'] = $this->language->get('text_success');
 
-            $url = '';
+            $url                            = '';
 
             if (isset($this->request->get['filter_name'])) {
                 $url .= '&filter_name=' . urlencode(html_entity_decode($this->request->get['filter_name'], ENT_QUOTES, 'UTF-8'));
@@ -114,7 +114,7 @@ class ControllerMarketingMarketing extends Controller {
 
             $this->session->data['success'] = $this->language->get('text_success');
 
-            $url = '';
+            $url                            = '';
 
             if (isset($this->request->get['filter_name'])) {
                 $url .= '&filter_name=' . urlencode(html_entity_decode($this->request->get['filter_name'], ENT_QUOTES, 'UTF-8'));
@@ -230,7 +230,7 @@ class ControllerMarketingMarketing extends Controller {
 
         $data['marketings'] = [];
 
-        $filter_data = [
+        $filter_data        = [
             'filter_name'       => $filter_name,
             'filter_code'       => $filter_code,
             'filter_date_added' => $filter_date_added,
@@ -240,9 +240,9 @@ class ControllerMarketingMarketing extends Controller {
             'limit'             => $this->config->get('config_limit_admin')
         ];
 
-        $marketing_total = $this->model_marketing_marketing->getTotalMarketings($filter_data);
+        $marketing_total    = $this->model_marketing_marketing->getTotalMarketings($filter_data);
 
-        $results         = $this->model_marketing_marketing->getMarketings($filter_data);
+        $results            = $this->model_marketing_marketing->getMarketings($filter_data);
 
         foreach ($results as $result) {
             $data['marketings'][] = [
@@ -306,7 +306,7 @@ class ControllerMarketingMarketing extends Controller {
         $data['sort_code']       = $this->url->link('marketing/marketing', 'user_token=' . $this->session->data['user_token'] . '&sort=m.code' . $url, true);
         $data['sort_date_added'] = $this->url->link('marketing/marketing', 'user_token=' . $this->session->data['user_token'] . '&sort=m.date_added' . $url, true);
 
-        $url = '';
+        $url                     = '';
 
         if (isset($this->request->get['filter_name'])) {
             $url .= '&filter_name=' . urlencode(html_entity_decode($this->request->get['filter_name'], ENT_QUOTES, 'UTF-8'));
@@ -416,15 +416,15 @@ class ControllerMarketingMarketing extends Controller {
             $data['action'] = $this->url->link('marketing/marketing/edit', 'user_token=' . $this->session->data['user_token'] . '&marketing_id=' . $this->request->get['marketing_id'] . $url, true);
         }
 
-        $data['cancel'] = $this->url->link('marketing/marketing', 'user_token=' . $this->session->data['user_token'] . $url, true);
-
-        if (isset($this->request->get['marketing_id']) && ($this->request->server['REQUEST_METHOD'] != 'POST')) {
-            $marketing_info = $this->model_marketing_marketing->getMarketing($this->request->get['marketing_id']);
-        }
+        $data['cancel']     = $this->url->link('marketing/marketing', 'user_token=' . $this->session->data['user_token'] . $url, true);
 
         $data['user_token'] = $this->session->data['user_token'];
 
         $data['store']      = HTTP_CATALOG;
+
+        if (isset($this->request->get['marketing_id']) && ($this->request->server['REQUEST_METHOD'] != 'POST')) {
+            $marketing_info = $this->model_marketing_marketing->getMarketing($this->request->get['marketing_id']);
+        }
 
         if (isset($this->request->post['name'])) {
             $data['name'] = $this->request->post['name'];

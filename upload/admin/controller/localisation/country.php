@@ -24,7 +24,7 @@ class ControllerLocalisationCountry extends Controller {
 
             $this->session->data['success'] = $this->language->get('text_success');
 
-            $url = '';
+            $url                            = '';
 
             if (isset($this->request->get['sort'])) {
                 $url .= '&sort=' . $this->request->get['sort'];
@@ -56,7 +56,7 @@ class ControllerLocalisationCountry extends Controller {
 
             $this->session->data['success'] = $this->language->get('text_success');
 
-            $url = '';
+            $url                            = '';
 
             if (isset($this->request->get['sort'])) {
                 $url .= '&sort=' . $this->request->get['sort'];
@@ -90,7 +90,7 @@ class ControllerLocalisationCountry extends Controller {
 
             $this->session->data['success'] = $this->language->get('text_success');
 
-            $url = '';
+            $url                            = '';
 
             if (isset($this->request->get['sort'])) {
                 $url .= '&sort=' . $this->request->get['sort'];
@@ -155,21 +155,21 @@ class ControllerLocalisationCountry extends Controller {
             'href' => $this->url->link('localisation/country', 'user_token=' . $this->session->data['user_token'] . $url, true)
         ];
 
-        $data['add']    = $this->url->link('localisation/country/add', 'user_token=' . $this->session->data['user_token'] . $url, true);
-        $data['delete'] = $this->url->link('localisation/country/delete', 'user_token=' . $this->session->data['user_token'] . $url, true);
+        $data['add']       = $this->url->link('localisation/country/add', 'user_token=' . $this->session->data['user_token'] . $url, true);
+        $data['delete']    = $this->url->link('localisation/country/delete', 'user_token=' . $this->session->data['user_token'] . $url, true);
 
         $data['countries'] = [];
 
-        $filter_data = [
+        $filter_data       = [
             'sort'  => $sort,
             'order' => $order,
             'start' => ($page - 1) * $this->config->get('config_limit_admin'),
             'limit' => $this->config->get('config_limit_admin')
         ];
 
-        $country_total = $this->model_localisation_country->getTotalCountries();
+        $country_total     = $this->model_localisation_country->getTotalCountries();
 
-        $results       = $this->model_localisation_country->getCountries($filter_data);
+        $results           = $this->model_localisation_country->getCountries($filter_data);
 
         foreach ($results as $result) {
             $data['countries'][] = [
@@ -218,7 +218,7 @@ class ControllerLocalisationCountry extends Controller {
         $data['sort_iso_code_2'] = $this->url->link('localisation/country', 'user_token=' . $this->session->data['user_token'] . '&sort=iso_code_2' . $url, true);
         $data['sort_iso_code_3'] = $this->url->link('localisation/country', 'user_token=' . $this->session->data['user_token'] . '&sort=iso_code_3' . $url, true);
 
-        $url = '';
+        $url                     = '';
 
         if (isset($this->request->get['sort'])) {
             $url .= '&sort=' . $this->request->get['sort'];

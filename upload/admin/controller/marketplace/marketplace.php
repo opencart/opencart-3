@@ -99,7 +99,7 @@ class ControllerMarketplaceMarketplace extends Controller {
             'href' => $this->url->link('marketplace/marketplace', 'user_token=' . $this->session->data['user_token'] . $url, true)
         ];
 
-        $time   = time();
+        $time = time();
 
         // We create a hash from the data in a similar method to how amazon does things.
         $string    = 'marketplace/api/list' . "\n";
@@ -559,7 +559,7 @@ class ControllerMarketplaceMarketplace extends Controller {
 
             $data['user_token'] = $this->session->data['user_token'];
 
-            $url = '';
+            $url                = '';
 
             if (isset($this->request->get['filter_search'])) {
                 $url .= '&filter_search=' . $this->request->get['filter_search'];
@@ -860,7 +860,6 @@ class ControllerMarketplaceMarketplace extends Controller {
 
                     $download = file_get_contents($response_info['download']);
                     $handle   = fopen(DIR_UPLOAD . $this->session->data['install'] . '.tmp', 'w');
-
                     fwrite($handle, $download);
                     fclose($handle);
 

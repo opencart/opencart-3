@@ -71,7 +71,6 @@ class ControllerMarketplaceInstall extends Controller {
             unlink($file);
 
             $json['text'] = $this->language->get('text_move');
-
             $json['next'] = str_replace('&amp;', '&', $this->url->link('marketplace/install/move', 'user_token=' . $this->session->data['user_token'] . '&extension_install_id=' . $extension_install_id, true));
         }
 
@@ -151,13 +150,11 @@ class ControllerMarketplaceInstall extends Controller {
                     foreach ($allowed as $value) {
                         if (strlen($destination) < strlen($value) && substr($value, 0, strlen($destination)) == $destination) {
                             $safe = true;
-
                             break;
                         }
 
                         if (strlen($destination) > strlen($value) && substr($destination, 0, strlen($value)) == $value) {
                             $safe = true;
-
                             break;
                         }
                     }
@@ -181,7 +178,6 @@ class ControllerMarketplaceInstall extends Controller {
                         }
                     } else {
                         $json['error'] = sprintf($this->language->get('error_allowed'), $destination);
-
                         break;
                     }
                 }
@@ -192,7 +188,7 @@ class ControllerMarketplaceInstall extends Controller {
                     foreach ($files as $file) {
                         $destination = str_replace('\\', '/', substr($file, strlen($directory . 'upload/')));
 
-                        $path = '';
+                        $path        = '';
 
                         if (substr($destination, 0, 5) == 'admin') {
                             $path = DIR_APPLICATION . substr($destination, 6);
@@ -269,7 +265,6 @@ class ControllerMarketplaceInstall extends Controller {
                     try {
                         $dom = new \DOMDocument('1.0', 'UTF-8');
                         $dom->loadXml($xml);
-
                         $name = $dom->getElementsByTagName('name')->item(0);
 
                         if ($name) {
@@ -281,7 +276,7 @@ class ControllerMarketplaceInstall extends Controller {
                         $code = $dom->getElementsByTagName('code')->item(0);
 
                         if ($code) {
-                            $code = $code->nodeValue;
+                            $code              = $code->nodeValue;
 
                             // Check to see if the modification is already installed or not.
                             $modification_info = $this->model_setting_modification->getModificationByCode($code);
@@ -309,7 +304,7 @@ class ControllerMarketplaceInstall extends Controller {
                             $version = '';
                         }
 
-                        $link = $dom->getElementsByTagName('link')->item(0);
+                        $link    = $dom->getElementsByTagName('link')->item(0);
 
                         if ($link) {
                             $link = $link->nodeValue;

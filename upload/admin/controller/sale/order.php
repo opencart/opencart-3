@@ -39,7 +39,7 @@ class ControllerSaleOrder extends Controller {
 
         $this->session->data['success'] = $this->language->get('text_success');
 
-        $url = '';
+        $url                            = '';
 
         if (isset($this->request->get['filter_order_id'])) {
             $url .= '&filter_order_id=' . $this->request->get['filter_order_id'];
@@ -204,9 +204,9 @@ class ControllerSaleOrder extends Controller {
         $data['add']      = $this->url->link('sale/order/add', 'user_token=' . $this->session->data['user_token'] . $url, true);
         $data['delete']   = str_replace('&amp;', '&', $this->url->link('sale/order/delete', 'user_token=' . $this->session->data['user_token'] . $url, true));
 
-        $data['orders']   = [];
+        $data['orders'] = [];
 
-        $filter_data = [
+        $filter_data    = [
             'filter_order_id'        => $filter_order_id,
             'filter_customer'        => $filter_customer,
             'filter_order_status'    => $filter_order_status,
@@ -220,9 +220,9 @@ class ControllerSaleOrder extends Controller {
             'limit'                  => $this->config->get('config_limit_admin')
         ];
 
-        $order_total = $this->model_sale_order->getTotalOrders($filter_data);
+        $order_total    = $this->model_sale_order->getTotalOrders($filter_data);
 
-        $results     = $this->model_sale_order->getOrders($filter_data);
+        $results        = $this->model_sale_order->getOrders($filter_data);
 
         foreach ($results as $result) {
             $data['orders'][] = [
@@ -307,7 +307,7 @@ class ControllerSaleOrder extends Controller {
         $data['sort_date_added']    = $this->url->link('sale/order', 'user_token=' . $this->session->data['user_token'] . '&sort=o.date_added' . $url, true);
         $data['sort_date_modified'] = $this->url->link('sale/order', 'user_token=' . $this->session->data['user_token'] . '&sort=o.date_modified' . $url, true);
 
-        $url = '';
+        $url                        = '';
 
         if (isset($this->request->get['filter_order_id'])) {
             $url .= '&filter_order_id=' . $this->request->get['filter_order_id'];
@@ -367,14 +367,15 @@ class ControllerSaleOrder extends Controller {
 
         $this->load->model('localisation/order_status');
 
-        $data['order_statuses'] = $this->model_localisation_order_status->getOrderStatuses();
+        $data['order_statuses']         = $this->model_localisation_order_status->getOrderStatuses();
+
 
         // API login
         $this->load->model('user/api');
 
-        $data['catalog']        = $this->request->server['HTTPS'] ? HTTPS_CATALOG : HTTP_CATALOG;
+        $data['catalog']                = $this->request->server['HTTPS'] ? HTTPS_CATALOG : HTTP_CATALOG;
 
-        $api_info               = $this->model_user_api->getApi($this->config->get('config_api_id'));
+        $api_info                       = $this->model_user_api->getApi($this->config->get('config_api_id'));
 
         if ($api_info && $this->user->hasPermission('modify', 'sale/order')) {
             $session = new \Session($this->config->get('session_engine'), $this->registry);
@@ -384,6 +385,7 @@ class ControllerSaleOrder extends Controller {
             $this->model_user_api->addApiSession($api_info['api_id'], $session->getId(), $this->request->server['REMOTE_ADDR']);
 
             $session->data['api_id'] = $api_info['api_id'];
+
             $data['api_token']       = $session->getId();
         } else {
             $data['api_token']       = '';
@@ -478,7 +480,7 @@ class ControllerSaleOrder extends Controller {
 
             $this->load->model('customer/customer');
 
-            $data['addresses'] = $this->model_customer_customer->getAddresses($order_info['customer_id']);
+            $data['addresses']            = $this->model_customer_customer->getAddresses($order_info['customer_id']);
 
             // Payment Details
             $data['payment_firstname']     = $order_info['payment_firstname'];
@@ -493,6 +495,7 @@ class ControllerSaleOrder extends Controller {
             $data['payment_custom_field']  = $order_info['payment_custom_field'];
             $data['payment_method']        = $order_info['payment_method'];
             $data['payment_code']          = $order_info['payment_code'];
+
             // Shipping Details
             $data['shipping_firstname']    = $order_info['shipping_firstname'];
             $data['shipping_lastname']     = $order_info['shipping_lastname'];
@@ -508,8 +511,9 @@ class ControllerSaleOrder extends Controller {
             $data['shipping_code']         = $order_info['shipping_code'];
 
             // Products
-            $data['order_products'] = [];
-            $products               = $this->model_sale_order->getOrderProducts($this->request->get['order_id']);
+            $data['order_products']        = [];
+
+            $products                      = $this->model_sale_order->getOrderProducts($this->request->get['order_id']);
 
             foreach ($products as $product) {
                 $data['order_products'][] = [
@@ -562,6 +566,7 @@ class ControllerSaleOrder extends Controller {
             $data['customer_group_id']     = $this->config->get('config_customer_group_id');
             $data['customer_custom_field'] = [];
             $data['addresses']             = [];
+
             // Payment Details
             $data['payment_country_id']    = 0;
             $data['payment_zone_id']       = 0;
@@ -575,6 +580,7 @@ class ControllerSaleOrder extends Controller {
             $data['payment_method']        = '';
             $data['payment_code']          = '';
             $data['payment_custom_field']  = [];
+
             // Shipping Details
             $data['shipping_country_id']   = 0;
             $data['shipping_zone_id']      = 0;
@@ -588,12 +594,13 @@ class ControllerSaleOrder extends Controller {
             $data['shipping_method']       = '';
             $data['shipping_code']         = '';
             $data['shipping_custom_field'] = [];
+
             // Order Details
+            $data['affiliate_id']          = 0;
             $data['order_products']        = [];
             $data['order_vouchers']        = [];
             $data['order_totals']          = [];
             $data['order_status_id']       = $this->config->get('config_order_status_id');
-            $data['affiliate_id']          = 0;
             $data['comment']               = '';
             $data['affiliate']             = '';
             $data['coupon']                = '';
@@ -683,35 +690,37 @@ class ControllerSaleOrder extends Controller {
         // Countries
         $this->load->model('localisation/country');
 
-        $data['countries'] = $this->model_localisation_country->getCountries();
+        $data['countries']      = $this->model_localisation_country->getCountries();
+
 
         // Currencies
         $this->load->model('localisation/currency');
 
-        $data['currencies']  = $this->model_localisation_currency->getCurrencies();
+        $data['currencies']     = $this->model_localisation_currency->getCurrencies();
 
-        $data['voucher_min'] = $this->config->get('config_voucher_min');
+        // Voucher
+        $data['voucher_min']    = $this->config->get('config_voucher_min');
 
         $this->load->model('sale/voucher_theme');
 
         $data['voucher_themes'] = $this->model_sale_voucher_theme->getVoucherThemes();
 
         // API login
-        $data['catalog'] = $this->request->server['HTTPS'] ? HTTPS_CATALOG : HTTP_CATALOG;
+        $data['catalog']        = $this->request->server['HTTPS'] ? HTTPS_CATALOG : HTTP_CATALOG;
 
-        // API login
         $this->load->model('user/api');
 
-        $api_info = $this->model_user_api->getApi($this->config->get('config_api_id'));
+        $api_info               = $this->model_user_api->getApi($this->config->get('config_api_id'));
 
         if ($api_info && $this->user->hasPermission('modify', 'sale/order')) {
-            $session = new \Session($this->config->get('session_engine'), $this->registry);
+            $session                 = new \Session($this->config->get('session_engine'), $this->registry);
             $session->start();
 
             $this->model_user_api->deleteApiSessionBySessionId($session->getId());
             $this->model_user_api->addApiSession($api_info['api_id'], $session->getId(), $this->request->server['REMOTE_ADDR']);
 
             $session->data['api_id'] = $api_info['api_id'];
+
             $data['api_token']       = $session->getId();
         } else {
             $data['api_token']       = '';
@@ -1240,7 +1249,7 @@ class ControllerSaleOrder extends Controller {
             // API login
             $this->load->model('user/api');
 
-            $api_info = $this->model_user_api->getApi($this->config->get('config_api_id'));
+            $api_info        = $this->model_user_api->getApi($this->config->get('config_api_id'));
 
             if ($api_info && $this->user->hasPermission('modify', 'sale/order')) {
                 $session = new \Session($this->config->get('session_engine'), $this->registry);
@@ -1250,6 +1259,7 @@ class ControllerSaleOrder extends Controller {
                 $this->model_user_api->addApiSession($api_info['api_id'], $session->getId(), $this->request->server['REMOTE_ADDR']);
 
                 $session->data['api_id'] = $api_info['api_id'];
+
                 $data['api_token']       = $session->getId();
             } else {
                 $data['api_token']       = '';
@@ -1599,20 +1609,20 @@ class ControllerSaleOrder extends Controller {
                     "/\s\s+/",
                     "/\r\r+/",
                     "/\n\n+/"
-                ], '<br/>', trim(str_replace($find, $replace, $format))));
+                ], '<br>', trim(str_replace($find, $replace, $format))));
 
                 // Subscription
-                $filter_data = [
-                    'order_id'	=> $order_id
+                $filter_data      = [
+                    'order_id' => $order_id
                 ];
 
-                $subscriptions = $this->model_sale_subscription->getSubscriptions($filter_data);
+                $subscriptions    = $this->model_sale_subscription->getSubscriptions($filter_data);
 
-                $product_data = [];
+                $product_data     = [];
 
                 $this->load->model('tool/upload');
 
-                $products     = $this->model_sale_order->getOrderProducts($order_id);
+                $products         = $this->model_sale_order->getOrderProducts($order_id);
 
                 foreach ($products as $product) {
                     $option_data = [];
@@ -1804,17 +1814,17 @@ class ControllerSaleOrder extends Controller {
                 ], '<br/>', trim(str_replace($find, $replace, $format))));
 
                 // Subscription
-                $filter_data = [
-                    'order_id'	=> $order_id
+                $filter_data      = [
+                    'order_id' => $order_id
                 ];
 
-                $subscriptions = $this->model_sale_subscription->getSubscriptions($filter_data);
+                $subscriptions    = $this->model_sale_subscription->getSubscriptions($filter_data);
 
-                $product_data = [];
+                $product_data     = [];
 
                 $this->load->model('tool/upload');
 
-                $products     = $this->model_sale_order->getOrderProducts($order_id);
+                $products         = $this->model_sale_order->getOrderProducts($order_id);
 
                 foreach ($products as $product) {
                     $option_weight = 0;

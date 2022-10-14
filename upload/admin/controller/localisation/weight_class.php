@@ -24,7 +24,7 @@ class ControllerLocalisationWeightClass extends Controller {
 
             $this->session->data['success'] = $this->language->get('text_success');
 
-            $url = '';
+            $url                            = '';
 
             if (isset($this->request->get['sort'])) {
                 $url .= '&sort=' . $this->request->get['sort'];
@@ -56,7 +56,7 @@ class ControllerLocalisationWeightClass extends Controller {
 
             $this->session->data['success'] = $this->language->get('text_success');
 
-            $url = '';
+            $url                            = '';
 
             if (isset($this->request->get['sort'])) {
                 $url .= '&sort=' . $this->request->get['sort'];
@@ -90,7 +90,7 @@ class ControllerLocalisationWeightClass extends Controller {
 
             $this->session->data['success'] = $this->language->get('text_success');
 
-            $url = '';
+            $url                            = '';
 
             if (isset($this->request->get['sort'])) {
                 $url .= '&sort=' . $this->request->get['sort'];
@@ -160,16 +160,16 @@ class ControllerLocalisationWeightClass extends Controller {
 
         $data['weight_classes'] = [];
 
-        $filter_data = [
+        $filter_data            = [
             'sort'  => $sort,
             'order' => $order,
             'start' => ($page - 1) * $this->config->get('config_limit_admin'),
             'limit' => $this->config->get('config_limit_admin')
         ];
 
-        $weight_class_total = $this->model_localisation_weight_class->getTotalWeightClasses();
+        $weight_class_total     = $this->model_localisation_weight_class->getTotalWeightClasses();
 
-        $results            = $this->model_localisation_weight_class->getWeightClasses($filter_data);
+        $results                = $this->model_localisation_weight_class->getWeightClasses($filter_data);
 
         foreach ($results as $result) {
             $data['weight_classes'][] = [
@@ -217,7 +217,7 @@ class ControllerLocalisationWeightClass extends Controller {
         $data['sort_unit']  = $this->url->link('localisation/weight_class', 'user_token=' . $this->session->data['user_token'] . '&sort=unit' . $url, true);
         $data['sort_value'] = $this->url->link('localisation/weight_class', 'user_token=' . $this->session->data['user_token'] . '&sort=value' . $url, true);
 
-        $url = '';
+        $url                = '';
 
         if (isset($this->request->get['sort'])) {
             $url .= '&sort=' . $this->request->get['sort'];

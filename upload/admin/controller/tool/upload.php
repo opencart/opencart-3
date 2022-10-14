@@ -33,7 +33,7 @@ class ControllerToolUpload extends Controller {
 
             $this->session->data['success'] = $this->language->get('text_success');
 
-            $url = '';
+            $url                            = '';
 
             if (isset($this->request->get['filter_name'])) {
                 $url .= '&filter_name=' . urlencode(html_entity_decode($this->request->get['filter_name'], ENT_QUOTES, 'UTF-8'));
@@ -114,7 +114,7 @@ class ControllerToolUpload extends Controller {
             $url .= '&page=' . $this->request->get['page'];
         }
 
-        $data['breadcrumbs'] = [];
+        $data['breadcrumbs']   = [];
 
         $data['breadcrumbs'][] = [
             'text' => $this->language->get('text_home'),
@@ -126,11 +126,11 @@ class ControllerToolUpload extends Controller {
             'href' => $this->url->link('tool/upload', 'user_token=' . $this->session->data['user_token'] . $url, true)
         ];
 
-        $data['delete']  = $this->url->link('tool/upload/delete', 'user_token=' . $this->session->data['user_token'] . $url, true);
+        $data['delete']        = $this->url->link('tool/upload/delete', 'user_token=' . $this->session->data['user_token'] . $url, true);
 
-        $data['uploads'] = [];
+        $data['uploads']       = [];
 
-        $filter_data     = [
+        $filter_data           = [
             'filter_name'       => $filter_name,
             'filter_date_added' => $filter_date_added,
             'sort'              => $sort,
@@ -139,9 +139,9 @@ class ControllerToolUpload extends Controller {
             'limit'             => $this->config->get('config_limit_admin')
         ];
 
-        $upload_total = $this->model_tool_upload->getTotalUploads($filter_data);
+        $upload_total          = $this->model_tool_upload->getTotalUploads($filter_data);
 
-        $results      = $this->model_tool_upload->getUploads($filter_data);
+        $results               = $this->model_tool_upload->getUploads($filter_data);
 
         foreach ($results as $result) {
             $data['uploads'][] = [
@@ -203,7 +203,7 @@ class ControllerToolUpload extends Controller {
         $data['sort_filename']   = $this->url->link('tool/upload', 'user_token=' . $this->session->data['user_token'] . '&sort=filename' . $url, true);
         $data['sort_date_added'] = $this->url->link('tool/upload', 'user_token=' . $this->session->data['user_token'] . '&sort=date_added' . $url, true);
 
-        $url = '';
+        $url                     = '';
 
         if (isset($this->request->get['filter_name'])) {
             $url .= '&filter_name=' . urlencode(html_entity_decode($this->request->get['filter_name'], ENT_QUOTES, 'UTF-8'));
@@ -324,7 +324,7 @@ class ControllerToolUpload extends Controller {
         if (!$json) {
             if (!empty($this->request->files['file']['name']) && is_file($this->request->files['file']['tmp_name'])) {
                 // Sanitize the filename
-                $filename = html_entity_decode($this->request->files['file']['name'], ENT_QUOTES, 'UTF-8');
+                $filename          = html_entity_decode($this->request->files['file']['name'], ENT_QUOTES, 'UTF-8');
 
                 if ((utf8_strlen($filename) < 3) || (utf8_strlen($filename) > 128)) {
                     $json['error'] = $this->language->get('error_filename');
@@ -344,9 +344,9 @@ class ControllerToolUpload extends Controller {
                 }
 
                 // Allowed file mime types
-                $allowed      = [];
-                $mime_allowed = preg_replace('~\r?\n~', "\n", $this->config->get('config_file_mime_allowed'));
-                $filetypes    = explode("\n", $mime_allowed);
+                $allowed           = [];
+                $mime_allowed      = preg_replace('~\r?\n~', "\n", $this->config->get('config_file_mime_allowed'));
+                $filetypes         = explode("\n", $mime_allowed);
 
                 foreach ($filetypes as $filetype) {
                     $allowed[] = trim($filetype);
@@ -376,7 +376,7 @@ class ControllerToolUpload extends Controller {
             // Hide the uploaded file name so people can not link to it directly.
             $this->load->model('tool/upload');
 
-            $file = $filename . '.' . token(32);
+            $file            = $filename . '.' . token(32);
 
             move_uploaded_file($this->request->files['file']['tmp_name'], DIR_UPLOAD . $file);
 

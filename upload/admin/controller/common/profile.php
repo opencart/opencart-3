@@ -72,7 +72,7 @@ class ControllerCommonProfile extends Controller {
             $data['error_email'] = '';
         }
 
-        $data['breadcrumbs'] = [];
+        $data['breadcrumbs']   = [];
 
         $data['breadcrumbs'][] = [
             'text' => $this->language->get('text_home'),

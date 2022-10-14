@@ -132,6 +132,7 @@ class ControllerSettingSetting extends Controller {
         }
 
         $data['breadcrumbs']   = [];
+
         $data['breadcrumbs'][] = [
             'text' => $this->language->get('text_home'),
             'href' => $this->url->link('common/dashboard', 'user_token=' . $this->session->data['user_token'], true)
@@ -190,11 +191,11 @@ class ControllerSettingSetting extends Controller {
             $data['store_url'] = HTTP_CATALOG;
         }
 
-        $data['themes'] = [];
+        $data['themes']  = [];
 
         $this->load->model('setting/extension');
 
-        $extensions = $this->model_setting_extension->getInstalled('theme');
+        $extensions      = $this->model_setting_extension->getInstalled('theme');
 
         foreach ($extensions as $code) {
             $this->load->language('extension/theme/' . $code, 'extension');
@@ -324,9 +325,9 @@ class ControllerSettingSetting extends Controller {
         // Set Time Zone
         $data['timezones'] = [];
 
-        $timestamp = date_create('now');
+        $timestamp         = date_create('now');
 
-        $timezones = timezone_identifiers_list();
+        $timezones         = timezone_identifiers_list();
 
         foreach ($timezones as $timezone) {
             date_timezone_set($timestamp, timezone_open($timezone));
@@ -646,7 +647,7 @@ class ControllerSettingSetting extends Controller {
         $data['captchas'] = [];
 
         // Get a list of installed captchas
-        $extensions = $this->model_setting_extension->getInstalled('captcha');
+        $extensions       = $this->model_setting_extension->getInstalled('captcha');
 
         foreach ($extensions as $code) {
             $this->load->language('extension/captcha/' . $code, 'extension');
@@ -665,8 +666,7 @@ class ControllerSettingSetting extends Controller {
             $data['config_captcha_page'] = (array)$this->config->get('config_captcha_page');
         }
 
-        $data['captcha_pages'] = [];
-
+        $data['captcha_pages']   = [];
         $data['captcha_pages'][] = [
             'text'  => $this->language->get('text_register'),
             'value' => 'register'
@@ -780,8 +780,7 @@ class ControllerSettingSetting extends Controller {
             $data['config_mail_alert'] = (array)$this->config->get('config_mail_alert');
         }
 
-        $data['mail_alerts'] = [];
-
+        $data['mail_alerts']   = [];
         $data['mail_alerts'][] = [
             'text'  => $this->language->get('text_mail_account'),
             'value' => 'account'

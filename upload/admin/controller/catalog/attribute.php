@@ -90,7 +90,7 @@ class ControllerCatalogAttribute extends Controller {
 
             $this->session->data['success'] = $this->language->get('text_success');
 
-            $url = '';
+            $url                            = '';
 
             if (isset($this->request->get['sort'])) {
                 $url .= '&sort=' . $this->request->get['sort'];
@@ -155,12 +155,12 @@ class ControllerCatalogAttribute extends Controller {
             'href' => $this->url->link('catalog/attribute', 'user_token=' . $this->session->data['user_token'] . $url, true)
         ];
 
-        $data['add']    = $this->url->link('catalog/attribute/add', 'user_token=' . $this->session->data['user_token'] . $url, true);
-        $data['delete'] = $this->url->link('catalog/attribute/delete', 'user_token=' . $this->session->data['user_token'] . $url, true);
+        $data['add']        = $this->url->link('catalog/attribute/add', 'user_token=' . $this->session->data['user_token'] . $url, true);
+        $data['delete']     = $this->url->link('catalog/attribute/delete', 'user_token=' . $this->session->data['user_token'] . $url, true);
 
         $data['attributes'] = [];
 
-        $filter_data = [
+        $filter_data        = [
             'sort'  => $sort,
             'order' => $order,
             'start' => ($page - 1) * $this->config->get('config_limit_admin'),
@@ -169,7 +169,7 @@ class ControllerCatalogAttribute extends Controller {
 
         $attribute_total = $this->model_catalog_attribute->getTotalAttributes();
 
-        $results = $this->model_catalog_attribute->getAttributes($filter_data);
+        $results         = $this->model_catalog_attribute->getAttributes($filter_data);
 
         foreach ($results as $result) {
             $data['attributes'][] = [

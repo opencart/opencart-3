@@ -38,7 +38,7 @@ class ControllerSaleRecurring extends Controller {
         }
 
         if (isset($this->request->get['filter_status'])) {
-            $filter_status = $this->request->get['filter_status'];
+            $filter_status = (int)$this->request->get['filter_status'];
         } else {
             $filter_status = 0;
         }
@@ -132,9 +132,9 @@ class ControllerSaleRecurring extends Controller {
             'limit'                     => $this->config->get('config_limit_admin')
         ];
 
-        $recurrings_total = $this->model_sale_recurring->getTotalRecurrings($filter_data);
+        $recurrings_total   = $this->model_sale_recurring->getTotalRecurrings($filter_data);
 
-        $results          = $this->model_sale_recurring->getRecurrings($filter_data);
+        $results            = $this->model_sale_recurring->getRecurrings($filter_data);
 
         foreach ($results as $result) {
             if ($result['status']) {
@@ -214,7 +214,7 @@ class ControllerSaleRecurring extends Controller {
         $data['sort_status']          = $this->url->link('sale/recurring', 'user_token=' . $this->session->data['user_token'] . '&sort=or.status' . $url, true);
         $data['sort_date_added']      = $this->url->link('sale/recurring', 'user_token=' . $this->session->data['user_token'] . '&sort=or.date_added' . $url, true);
 
-        $url = '';
+        $url                          = '';
 
         if (isset($this->request->get['filter_order_recurring_id'])) {
             $url .= '&filter_order_recurring_id=' . $this->request->get['filter_order_recurring_id'];
@@ -268,9 +268,9 @@ class ControllerSaleRecurring extends Controller {
         $data['sort']                      = $sort;
         $data['order']                     = $order;
 
-        $data['recurring_statuses']    = [];
+        $data['recurring_statuses']        = [];
 
-        $data['recurring_statuses'][0] = [
+        $data['recurring_statuses'][0]     = [
             'text'  => '',
             'value' => 0
         ];
@@ -307,7 +307,7 @@ class ControllerSaleRecurring extends Controller {
 
             $data['user_token'] = $this->session->data['user_token'];
 
-            $url = '';
+            $url                = '';
 
             if (isset($this->request->get['filter_order_recurring_id'])) {
                 $url .= '&filter_order_recurring_id=' . $this->request->get['filter_order_recurring_id'];
@@ -357,7 +357,7 @@ class ControllerSaleRecurring extends Controller {
                 'href' => $this->url->link('sale/recurring', 'user_token=' . $this->session->data['user_token'] . $url, true)
             ];
 
-            $data['cancel'] = $this->url->link('sale/recurring', 'user_token=' . $this->session->data['user_token'] . $url, true);
+            $data['cancel']             = $this->url->link('sale/recurring', 'user_token=' . $this->session->data['user_token'] . $url, true);
 
             // Recurring
             $data['order_recurring_id'] = $order_recurring_info['order_recurring_id'];

@@ -21,7 +21,7 @@ class ControllerMailAffiliate extends Controller {
 
             $this->load->model('localisation/language');
 
-            $language_info = $this->model_localisation_language->getLanguage($customer_info['language_id']);
+            $language_info        = $this->model_localisation_language->getLanguage($customer_info['language_id']);
 
             if ($language_info) {
                 $language_code = $language_info['code'];
@@ -33,7 +33,7 @@ class ControllerMailAffiliate extends Controller {
             $language->load($language_code);
             $language->load('mail/affiliate_approve');
 
-            $subject = sprintf($language->get('text_subject'), $store_name);
+            $subject              = sprintf($language->get('text_subject'), $store_name);
 
             $data['text_welcome'] = sprintf($language->get('text_welcome'), $store_name);
             $data['login']        = $store_url . 'index.php?route=affiliate/login';
@@ -92,7 +92,7 @@ class ControllerMailAffiliate extends Controller {
             $language->load($language_code);
             $language->load('mail/affiliate_deny');
 
-            $subject = sprintf($language->get('text_subject'), $store_name);
+            $subject              = sprintf($language->get('text_subject'), $store_name);
 
             $data['text_welcome'] = sprintf($language->get('text_welcome'), $store_name);
             $data['contact']      = $store_url . 'index.php?route=information/contact';

@@ -24,7 +24,7 @@ class ControllerLocalisationCurrency extends Controller {
 
             $this->session->data['success'] = $this->language->get('text_success');
 
-            $url = '';
+            $url                            = '';
 
             if (isset($this->request->get['sort'])) {
                 $url .= '&sort=' . $this->request->get['sort'];
@@ -56,7 +56,7 @@ class ControllerLocalisationCurrency extends Controller {
 
             $this->session->data['success'] = $this->language->get('text_success');
 
-            $url = '';
+            $url                            = '';
 
             if (isset($this->request->get['sort'])) {
                 $url .= '&sort=' . $this->request->get['sort'];
@@ -90,7 +90,7 @@ class ControllerLocalisationCurrency extends Controller {
 
             $this->session->data['success'] = $this->language->get('text_success');
 
-            $url = '';
+            $url                            = '';
 
             if (isset($this->request->get['sort'])) {
                 $url .= '&sort=' . $this->request->get['sort'];
@@ -122,7 +122,7 @@ class ControllerLocalisationCurrency extends Controller {
 
             $this->session->data['success'] = $this->language->get('text_success');
 
-            $url = '';
+            $url                            = '';
 
             if (isset($this->request->get['sort'])) {
                 $url .= '&sort=' . $this->request->get['sort'];
@@ -135,8 +135,6 @@ class ControllerLocalisationCurrency extends Controller {
             if (isset($this->request->get['page'])) {
                 $url .= '&page=' . $this->request->get['page'];
             }
-
-            //$this->response->redirect($this->url->link('localisation/currency', 'user_token=' . $this->session->data['user_token'] . $url, true));
         }
 
         $this->getList();
@@ -193,16 +191,16 @@ class ControllerLocalisationCurrency extends Controller {
 
         $data['currencies'] = [];
 
-        $filter_data = [
+        $filter_data        = [
             'sort'  => $sort,
             'order' => $order,
             'start' => ($page - 1) * $this->config->get('config_limit_admin'),
             'limit' => $this->config->get('config_limit_admin')
         ];
 
-        $currency_total = $this->model_localisation_currency->getTotalCurrencies();
+        $currency_total     = $this->model_localisation_currency->getTotalCurrencies();
 
-        $results        = $this->model_localisation_currency->getCurrencies($filter_data);
+        $results            = $this->model_localisation_currency->getCurrencies($filter_data);
 
         foreach ($results as $result) {
             $data['currencies'][] = [
@@ -252,7 +250,7 @@ class ControllerLocalisationCurrency extends Controller {
         $data['sort_value']         = $this->url->link('localisation/currency', 'user_token=' . $this->session->data['user_token'] . '&sort=value' . $url, true);
         $data['sort_date_modified'] = $this->url->link('localisation/currency', 'user_token=' . $this->session->data['user_token'] . '&sort=date_modified' . $url, true);
 
-        $url = '';
+        $url                        = '';
 
         if (isset($this->request->get['sort'])) {
             $url .= '&sort=' . $this->request->get['sort'];

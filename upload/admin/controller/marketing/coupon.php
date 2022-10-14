@@ -24,7 +24,7 @@ class ControllerMarketingCoupon extends Controller {
 
             $this->session->data['success'] = $this->language->get('text_success');
 
-            $url = '';
+            $url                            = '';
 
             if (isset($this->request->get['sort'])) {
                 $url .= '&sort=' . $this->request->get['sort'];
@@ -56,7 +56,7 @@ class ControllerMarketingCoupon extends Controller {
 
             $this->session->data['success'] = $this->language->get('text_success');
 
-            $url = '';
+            $url                            = '';
 
             if (isset($this->request->get['sort'])) {
                 $url .= '&sort=' . $this->request->get['sort'];
@@ -90,7 +90,7 @@ class ControllerMarketingCoupon extends Controller {
 
             $this->session->data['success'] = $this->language->get('text_success');
 
-            $url = '';
+            $url                            = '';
 
             if (isset($this->request->get['sort'])) {
                 $url .= '&sort=' . $this->request->get['sort'];
@@ -160,16 +160,16 @@ class ControllerMarketingCoupon extends Controller {
 
         $data['coupons'] = [];
 
-        $filter_data = [
+        $filter_data     = [
             'sort'  => $sort,
             'order' => $order,
             'start' => ($page - 1) * $this->config->get('config_limit_admin'),
             'limit' => $this->config->get('config_limit_admin')
         ];
 
-        $coupon_total = $this->model_marketing_coupon->getTotalCoupons();
+        $coupon_total    = $this->model_marketing_coupon->getTotalCoupons();
 
-        $results      = $this->model_marketing_coupon->getCoupons($filter_data);
+        $results         = $this->model_marketing_coupon->getCoupons($filter_data);
 
         foreach ($results as $result) {
             $data['coupons'][] = [
@@ -223,7 +223,7 @@ class ControllerMarketingCoupon extends Controller {
         $data['sort_date_end']   = $this->url->link('marketing/coupon', 'user_token=' . $this->session->data['user_token'] . '&sort=date_end' . $url, true);
         $data['sort_status']     = $this->url->link('marketing/coupon', 'user_token=' . $this->session->data['user_token'] . '&sort=status' . $url, true);
 
-        $url = '';
+        $url                     = '';
 
         if (isset($this->request->get['sort'])) {
             $url .= '&sort=' . $this->request->get['sort'];

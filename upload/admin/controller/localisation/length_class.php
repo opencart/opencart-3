@@ -24,7 +24,7 @@ class ControllerLocalisationLengthClass extends Controller {
 
             $this->session->data['success'] = $this->language->get('text_success');
 
-            $url = '';
+            $url                            = '';
 
             if (isset($this->request->get['sort'])) {
                 $url .= '&sort=' . $this->request->get['sort'];
@@ -56,7 +56,7 @@ class ControllerLocalisationLengthClass extends Controller {
 
             $this->session->data['success'] = $this->language->get('text_success');
 
-            $url = '';
+            $url                            = '';
 
             if (isset($this->request->get['sort'])) {
                 $url .= '&sort=' . $this->request->get['sort'];
@@ -90,7 +90,7 @@ class ControllerLocalisationLengthClass extends Controller {
 
             $this->session->data['success'] = $this->language->get('text_success');
 
-            $url = '';
+            $url                            = '';
 
             if (isset($this->request->get['sort'])) {
                 $url .= '&sort=' . $this->request->get['sort'];
@@ -160,16 +160,16 @@ class ControllerLocalisationLengthClass extends Controller {
 
         $data['length_classes'] = [];
 
-        $filter_data = [
+        $filter_data            = [
             'sort'  => $sort,
             'order' => $order,
             'start' => ($page - 1) * $this->config->get('config_limit_admin'),
             'limit' => $this->config->get('config_limit_admin')
         ];
 
-        $length_class_total = $this->model_localisation_length_class->getTotalLengthClasses();
+        $length_class_total     = $this->model_localisation_length_class->getTotalLengthClasses();
 
-        $results            = $this->model_localisation_length_class->getLengthClasses($filter_data);
+        $results                = $this->model_localisation_length_class->getLengthClasses($filter_data);
 
         foreach ($results as $result) {
             $data['length_classes'][] = [
@@ -217,7 +217,7 @@ class ControllerLocalisationLengthClass extends Controller {
         $data['sort_unit']  = $this->url->link('localisation/length_class', 'user_token=' . $this->session->data['user_token'] . '&sort=unit' . $url, true);
         $data['sort_value'] = $this->url->link('localisation/length_class', 'user_token=' . $this->session->data['user_token'] . '&sort=value' . $url, true);
 
-        $url = '';
+        $url                = '';
 
         if (isset($this->request->get['sort'])) {
             $url .= '&sort=' . $this->request->get['sort'];
@@ -299,7 +299,7 @@ class ControllerLocalisationLengthClass extends Controller {
             $data['action'] = $this->url->link('localisation/length_class/edit', 'user_token=' . $this->session->data['user_token'] . '&length_class_id=' . $this->request->get['length_class_id'] . $url, true);
         }
 
-        $data['cancel'] = $this->url->link('localisation/length_class', 'user_token=' . $this->session->data['user_token'] . $url, true);
+        $data['cancel']    = $this->url->link('localisation/length_class', 'user_token=' . $this->session->data['user_token'] . $url, true);
 
         if (isset($this->request->get['length_class_id']) && ($this->request->server['REQUEST_METHOD'] != 'POST')) {
             $length_class_info = $this->model_localisation_length_class->getLengthClass($this->request->get['length_class_id']);

@@ -23,7 +23,7 @@ class ControllerDesignTheme extends Controller {
 
         $this->load->model('setting/store');
 
-        $results = $this->model_setting_store->getStores();
+        $results            = $this->model_setting_store->getStores();
 
         foreach ($results as $result) {
             $data['stores'][] = [
@@ -118,7 +118,7 @@ class ControllerDesignTheme extends Controller {
             $path_data = [];
 
             // We grab the files from the default theme directory first as the custom themes drops back to the default theme if selected theme files can not be found.
-            $files = glob(rtrim(DIR_CATALOG . 'view/theme/{default,' . $theme . '}/template/' . $path, '/') . '/*', GLOB_BRACE);
+            $files     = glob(rtrim(DIR_CATALOG . 'view/theme/{default,' . $theme . '}/template/' . $path, '/') . '/*', GLOB_BRACE);
 
             if ($files) {
                 foreach ($files as $file) {
@@ -234,7 +234,7 @@ class ControllerDesignTheme extends Controller {
         if (!$json) {
             $this->load->model('design/theme');
 
-            $pos = strpos($path, '.');
+            $pos             = strpos($path, '.');
 
             $this->model_design_theme->editTheme($store_id, $theme, ($pos !== false) ? substr($path, 0, $pos) : $path, $this->request->post['code']);
 

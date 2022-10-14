@@ -24,7 +24,7 @@ class ControllerSaleReturns extends Controller {
 
             $this->session->data['success'] = $this->language->get('text_success');
 
-            $url = '';
+            $url                            = '';
 
             if (isset($this->request->get['filter_return_id'])) {
                 $url .= '&filter_return_id=' . $this->request->get['filter_return_id'];
@@ -88,7 +88,7 @@ class ControllerSaleReturns extends Controller {
 
             $this->session->data['success'] = $this->language->get('text_success');
 
-            $url = '';
+            $url                            = '';
 
             if (isset($this->request->get['filter_return_id'])) {
                 $url .= '&filter_return_id=' . $this->request->get['filter_return_id'];
@@ -154,7 +154,7 @@ class ControllerSaleReturns extends Controller {
 
             $this->session->data['success'] = $this->language->get('text_success');
 
-            $url = '';
+            $url                            = '';
 
             if (isset($this->request->get['filter_return_id'])) {
                 $url .= '&filter_return_id=' . $this->request->get['filter_return_id'];
@@ -320,6 +320,7 @@ class ControllerSaleReturns extends Controller {
         }
 
         $data['breadcrumbs']   = [];
+
         $data['breadcrumbs'][] = [
             'text' => $this->language->get('text_home'),
             'href' => $this->url->link('common/dashboard', 'user_token=' . $this->session->data['user_token'], true)
@@ -335,7 +336,7 @@ class ControllerSaleReturns extends Controller {
 
         $data['returns'] = [];
 
-        $filter_data = [
+        $filter_data     = [
             'filter_return_id'        => $filter_return_id,
             'filter_order_id'         => $filter_order_id,
             'filter_customer'         => $filter_customer,
@@ -350,8 +351,8 @@ class ControllerSaleReturns extends Controller {
             'limit'                   => $this->config->get('config_limit_admin')
         ];
 
-        $return_total = $this->model_sale_returns->getTotalReturns($filter_data);
-        $results      = $this->model_sale_returns->getReturns($filter_data);
+        $return_total       = $this->model_sale_returns->getTotalReturns($filter_data);
+        $results            = $this->model_sale_returns->getReturns($filter_data);
 
         foreach ($results as $result) {
             $data['returns'][] = [

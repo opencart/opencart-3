@@ -24,7 +24,7 @@ class ControllerCatalogCategory extends Controller {
 
             $this->session->data['success'] = $this->language->get('text_success');
 
-            $url = '';
+            $url                            = '';
 
             if (isset($this->request->get['sort'])) {
                 $url .= '&sort=' . $this->request->get['sort'];
@@ -56,7 +56,7 @@ class ControllerCatalogCategory extends Controller {
 
             $this->session->data['success'] = $this->language->get('text_success');
 
-            $url = '';
+            $url                            = '';
 
             if (isset($this->request->get['sort'])) {
                 $url .= '&sort=' . $this->request->get['sort'];
@@ -90,7 +90,7 @@ class ControllerCatalogCategory extends Controller {
 
             $this->session->data['success'] = $this->language->get('text_success');
 
-            $url = '';
+            $url                            = '';
 
             if (isset($this->request->get['sort'])) {
                 $url .= '&sort=' . $this->request->get['sort'];
@@ -122,7 +122,7 @@ class ControllerCatalogCategory extends Controller {
 
             $this->session->data['success'] = $this->language->get('text_success');
 
-            $url = '';
+            $url                            = '';
 
             if (isset($this->request->get['sort'])) {
                 $url .= '&sort=' . $this->request->get['sort'];
@@ -176,6 +176,7 @@ class ControllerCatalogCategory extends Controller {
         }
 
         $data['breadcrumbs']   = [];
+
         $data['breadcrumbs'][] = [
             'text' => $this->language->get('text_home'),
             'href' => $this->url->link('common/dashboard', 'user_token=' . $this->session->data['user_token'], true)
@@ -192,16 +193,16 @@ class ControllerCatalogCategory extends Controller {
 
         $data['categories'] = [];
 
-        $filter_data = [
+        $filter_data        = [
             'sort'  => $sort,
             'order' => $order,
             'start' => ($page - 1) * $this->config->get('config_limit_admin'),
             'limit' => $this->config->get('config_limit_admin')
         ];
 
-        $category_total = $this->model_catalog_category->getTotalCategories();
+        $category_total     = $this->model_catalog_category->getTotalCategories();
 
-        $results = $this->model_catalog_category->getCategories($filter_data);
+        $results            = $this->model_catalog_category->getCategories($filter_data);
 
         foreach ($results as $result) {
             $data['categories'][] = [

@@ -56,16 +56,16 @@ class ControllerReportOnline extends Controller {
 
         $data['customers'] = [];
 
-        $filter_data = [
+        $filter_data       = [
             'filter_ip'       => $filter_ip,
             'filter_customer' => $filter_customer,
             'start'           => ($page - 1) * $this->config->get('config_limit_admin'),
             'limit'           => $this->config->get('config_limit_admin')
         ];
 
-        $customer_total = $this->model_report_online->getTotalOnline($filter_data);
+        $customer_total    = $this->model_report_online->getTotalOnline($filter_data);
 
-        $results        = $this->model_report_online->getOnline($filter_data);
+        $results           = $this->model_report_online->getOnline($filter_data);
 
         foreach ($results as $result) {
             $customer_info = $this->model_customer_customer->getCustomer($result['customer_id']);

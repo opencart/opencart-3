@@ -24,7 +24,7 @@ class ControllerUserApi extends Controller {
 
             $this->session->data['success'] = $this->language->get('text_success');
 
-            $url = '';
+            $url                            = '';
 
             if (isset($this->request->get['sort'])) {
                 $url .= '&sort=' . $this->request->get['sort'];
@@ -56,7 +56,7 @@ class ControllerUserApi extends Controller {
 
             $this->session->data['success'] = $this->language->get('text_success');
 
-            $url = '';
+            $url                            = '';
 
             if (isset($this->request->get['sort'])) {
                 $url .= '&sort=' . $this->request->get['sort'];
@@ -90,7 +90,7 @@ class ControllerUserApi extends Controller {
 
             $this->session->data['success'] = $this->language->get('text_success');
 
-            $url = '';
+            $url                            = '';
 
             if (isset($this->request->get['sort'])) {
                 $url .= '&sort=' . $this->request->get['sort'];
@@ -155,21 +155,21 @@ class ControllerUserApi extends Controller {
             'href' => $this->url->link('user/api', 'user_token=' . $this->session->data['user_token'] . $url, true)
         ];
 
-        $data['add']    = $this->url->link('user/api/add', 'user_token=' . $this->session->data['user_token'] . $url, true);
-        $data['delete'] = $this->url->link('user/api/delete', 'user_token=' . $this->session->data['user_token'] . $url, true);
+        $data['add']           = $this->url->link('user/api/add', 'user_token=' . $this->session->data['user_token'] . $url, true);
+        $data['delete']        = $this->url->link('user/api/delete', 'user_token=' . $this->session->data['user_token'] . $url, true);
 
-        $data['apis']   = [];
+        $data['apis']          = [];
 
-        $filter_data    = [
+        $filter_data           = [
             'sort'  => $sort,
             'order' => $order,
             'start' => ($page - 1) * $this->config->get('config_limit_admin'),
             'limit' => $this->config->get('config_limit_admin')
         ];
 
-        $user_total = $this->model_user_api->getTotalApis();
+        $user_total            = $this->model_user_api->getTotalApis();
 
-        $results    = $this->model_user_api->getApis($filter_data);
+        $results               = $this->model_user_api->getApis($filter_data);
 
         foreach ($results as $result) {
             $data['apis'][] = [
@@ -219,7 +219,7 @@ class ControllerUserApi extends Controller {
         $data['sort_date_added']    = $this->url->link('user/api', 'user_token=' . $this->session->data['user_token'] . '&sort=date_added' . $url, true);
         $data['sort_date_modified'] = $this->url->link('user/api', 'user_token=' . $this->session->data['user_token'] . '&sort=date_modified' . $url, true);
 
-        $url = '';
+        $url                        = '';
 
         if (isset($this->request->get['sort'])) {
             $url .= '&sort=' . $this->request->get['sort'];

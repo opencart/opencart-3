@@ -52,13 +52,13 @@ class ControllerCommonFileManager extends Controller {
         }
 
         // Merge directories and files
-        $images = array_merge($directories, $files);
+        $images      = array_merge($directories, $files);
 
         // Get total number of files and directories
         $image_total = count($images);
 
         // Split the array based on current page number and max number of items per page of 10
-        $images = array_splice($images, ($page - 1) * 16, 16);
+        $images      = array_splice($images, ($page - 1) * 16, 16);
 
         foreach ($images as $image) {
             $name = str_split(basename($image), 14);
@@ -142,7 +142,7 @@ class ControllerCommonFileManager extends Controller {
         $data['parent'] = $this->url->link('common/filemanager', 'user_token=' . $this->session->data['user_token'] . $url, true);
 
         // Refresh
-        $url = '';
+        $url            = '';
 
         if (isset($this->request->get['directory'])) {
             $url .= '&directory=' . urlencode($this->request->get['directory']);
@@ -176,11 +176,11 @@ class ControllerCommonFileManager extends Controller {
             $url .= '&thumb=' . $this->request->get['thumb'];
         }
 
-        $pagination        = new \Pagination();
-        $pagination->total = $image_total;
-        $pagination->page  = $page;
-        $pagination->limit = 16;
-        $pagination->url   = $this->url->link('common/filemanager', 'user_token=' . $this->session->data['user_token'] . $url . '&page={page}', true);
+        $pagination         = new \Pagination();
+        $pagination->total  = $image_total;
+        $pagination->page   = $page;
+        $pagination->limit  = 16;
+        $pagination->url    = $this->url->link('common/filemanager', 'user_token=' . $this->session->data['user_token'] . $url . '&page={page}', true);
 
         $data['pagination'] = $pagination->render();
 
@@ -326,7 +326,6 @@ class ControllerCommonFileManager extends Controller {
         if (!$json) {
             mkdir($directory . '/' . $folder, 0777);
             chmod($directory . '/' . $folder, 0777);
-
             @touch($directory . '/' . $folder . '/' . 'index.html');
 
             $json['success'] = $this->language->get('text_directory');

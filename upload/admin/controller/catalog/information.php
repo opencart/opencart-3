@@ -24,7 +24,7 @@ class ControllerCatalogInformation extends Controller {
 
             $this->session->data['success'] = $this->language->get('text_success');
 
-            $url = '';
+            $url                            = '';
 
             if (isset($this->request->get['sort'])) {
                 $url .= '&sort=' . $this->request->get['sort'];
@@ -56,7 +56,7 @@ class ControllerCatalogInformation extends Controller {
 
             $this->session->data['success'] = $this->language->get('text_success');
 
-            $url = '';
+            $url                            = '';
 
             if (isset($this->request->get['sort'])) {
                 $url .= '&sort=' . $this->request->get['sort'];
@@ -90,7 +90,7 @@ class ControllerCatalogInformation extends Controller {
 
             $this->session->data['success'] = $this->language->get('text_success');
 
-            $url = '';
+            $url                            = '';
 
             if (isset($this->request->get['sort'])) {
                 $url .= '&sort=' . $this->request->get['sort'];
@@ -160,16 +160,16 @@ class ControllerCatalogInformation extends Controller {
 
         $data['informations'] = [];
 
-        $filter_data = [
+        $filter_data          = [
             'sort'  => $sort,
             'order' => $order,
             'start' => ($page - 1) * $this->config->get('config_limit_admin'),
             'limit' => $this->config->get('config_limit_admin')
         ];
 
-        $information_total = $this->model_catalog_information->getTotalInformations();
+        $information_total    = $this->model_catalog_information->getTotalInformations();
 
-        $results           = $this->model_catalog_information->getInformations($filter_data);
+        $results              = $this->model_catalog_information->getInformations($filter_data);
 
         foreach ($results as $result) {
             $data['informations'][] = [
@@ -357,7 +357,7 @@ class ControllerCatalogInformation extends Controller {
         }
 
         if (isset($this->request->post['bottom'])) {
-            $data['bottom'] = $this->request->post['bottom'];
+            $data['bottom'] = (int)$this->request->post['bottom'];
         } elseif (!empty($information_info)) {
             $data['bottom'] = $information_info['bottom'];
         } else {

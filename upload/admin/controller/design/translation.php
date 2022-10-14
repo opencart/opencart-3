@@ -24,7 +24,7 @@ class ControllerDesignTranslation extends Controller {
 
             $this->session->data['success'] = $this->language->get('text_success');
 
-            $url = '';
+            $url                            = '';
 
             if (isset($this->request->get['sort'])) {
                 $url .= '&sort=' . $this->request->get['sort'];
@@ -56,7 +56,7 @@ class ControllerDesignTranslation extends Controller {
 
             $this->session->data['success'] = $this->language->get('text_success');
 
-            $url = '';
+            $url                            = '';
 
             if (isset($this->request->get['sort'])) {
                 $url .= '&sort=' . $this->request->get['sort'];
@@ -90,7 +90,7 @@ class ControllerDesignTranslation extends Controller {
 
             $this->session->data['success'] = $this->language->get('text_success');
 
-            $url = '';
+            $url                            = '';
 
             if (isset($this->request->get['sort'])) {
                 $url .= '&sort=' . $this->request->get['sort'];
@@ -163,16 +163,16 @@ class ControllerDesignTranslation extends Controller {
 
         $data['translations'] = [];
 
-        $filter_data = [
+        $filter_data          = [
             'sort'  => $sort,
             'order' => $order,
             'start' => ($page - 1) * $this->config->get('config_limit_admin'),
             'limit' => $this->config->get('config_limit_admin')
         ];
 
-        $translation_total = $this->model_design_translation->getTotalTranslations();
+        $translation_total    = $this->model_design_translation->getTotalTranslations();
 
-        $results = $this->model_design_translation->getTranslations($filter_data);
+        $results              = $this->model_design_translation->getTranslations($filter_data);
 
         foreach ($results as $result) {
             $data['translations'][] = [
@@ -292,7 +292,7 @@ class ControllerDesignTranslation extends Controller {
             $data['action'] = $this->url->link('design/translation/edit', 'user_token=' . $this->session->data['user_token'] . '&translation_id=' . $this->request->get['translation_id'] . $url, true);
         }
 
-        $data['cancel'] = $this->url->link('design/translation', 'user_token=' . $this->session->data['user_token'] . $url, true);
+        $data['cancel']     = $this->url->link('design/translation', 'user_token=' . $this->session->data['user_token'] . $url, true);
 
         $data['user_token'] = $this->session->data['user_token'];
 
@@ -302,7 +302,7 @@ class ControllerDesignTranslation extends Controller {
 
         $this->load->model('setting/store');
 
-        $data['stores'] = $this->model_setting_store->getStores();
+        $data['stores']    = $this->model_setting_store->getStores();
 
         if (isset($this->request->post['store_id'])) {
             $data['store_id'] = (int)$this->request->post['store_id'];
@@ -319,11 +319,9 @@ class ControllerDesignTranslation extends Controller {
 
         if (!empty($translation_info)) {
             $language = $this->model_localisation_language->getLanguage($translation_info['language_id']);
-
-            $code = $language['code'];
+            $code     = $language['code'];
         } else {
-            $code = $this->config->get('config_language');
-
+            $code     = $this->config->get('config_language');
             $language = $this->model_localisation_language->getLanguageByCode($code);
         }
 
@@ -339,7 +337,7 @@ class ControllerDesignTranslation extends Controller {
             // Get a list of files ready to upload
             $data['paths'] = [];
 
-            $path = glob(DIR_CATALOG . 'language/' . $code . '/*');
+            $path          = glob(DIR_CATALOG . 'language/' . $code . '/*');
 
             while (count($path) != 0) {
                 $next = array_shift($path);

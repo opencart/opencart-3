@@ -24,7 +24,7 @@ class ControllerLocalisationZone extends Controller {
 
             $this->session->data['success'] = $this->language->get('text_success');
 
-            $url = '';
+            $url                            = '';
 
             if (isset($this->request->get['sort'])) {
                 $url .= '&sort=' . $this->request->get['sort'];
@@ -56,7 +56,7 @@ class ControllerLocalisationZone extends Controller {
 
             $this->session->data['success'] = $this->language->get('text_success');
 
-            $url = '';
+            $url                            = '';
 
             if (isset($this->request->get['sort'])) {
                 $url .= '&sort=' . $this->request->get['sort'];
@@ -90,7 +90,7 @@ class ControllerLocalisationZone extends Controller {
 
             $this->session->data['success'] = $this->language->get('text_success');
 
-            $url = '';
+            $url                            = '';
 
             if (isset($this->request->get['sort'])) {
                 $url .= '&sort=' . $this->request->get['sort'];
@@ -160,16 +160,16 @@ class ControllerLocalisationZone extends Controller {
 
         $data['zones']  = [];
 
-        $filter_data = [
+        $filter_data    = [
             'sort'  => $sort,
             'order' => $order,
             'start' => ($page - 1) * $this->config->get('config_limit_admin'),
             'limit' => $this->config->get('config_limit_admin')
         ];
 
-        $zone_total = $this->model_localisation_zone->getTotalZones();
+        $zone_total     = $this->model_localisation_zone->getTotalZones();
 
-        $results    = $this->model_localisation_zone->getZones($filter_data);
+        $results        = $this->model_localisation_zone->getZones($filter_data);
 
         foreach ($results as $result) {
             $data['zones'][] = [
@@ -368,13 +368,13 @@ class ControllerLocalisationZone extends Controller {
                 $this->error['warning'] = $this->language->get('error_default');
             }
 
-            $store_total = $this->model_setting_store->getTotalStoresByZoneId($zone_id);
+            $store_total            = $this->model_setting_store->getTotalStoresByZoneId($zone_id);
 
             if ($store_total) {
                 $this->error['warning'] = sprintf($this->language->get('error_store'), $store_total);
             }
 
-            $address_total = $this->model_customer_customer->getTotalAddressesByZoneId($zone_id);
+            $address_total          = $this->model_customer_customer->getTotalAddressesByZoneId($zone_id);
 
             if ($address_total) {
                 $this->error['warning'] = sprintf($this->language->get('error_address'), $address_total);

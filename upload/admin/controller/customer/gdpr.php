@@ -133,7 +133,7 @@ class ControllerCustomerGdpr extends Controller {
 
         $data['gdprs'] = [];
 
-        $filter_data = [
+        $filter_data   = [
             'filter_email'     => $filter_email,
             'filter_action'    => $filter_action,
             'filter_status'    => $filter_status,
@@ -148,7 +148,7 @@ class ControllerCustomerGdpr extends Controller {
 
         $gdpr_total = $this->model_customer_gdpr->getTotalGdprs($filter_data);
 
-        $results = $this->model_customer_gdpr->getGdprs($filter_data);
+        $results    = $this->model_customer_gdpr->getGdprs($filter_data);
 
         foreach ($results as $result) {
             $customer_info = $this->model_customer_customer->getCustomerByEmail($result['email']);
@@ -243,7 +243,7 @@ class ControllerCustomerGdpr extends Controller {
             $gdprs = [];
 
             if (isset($this->request->post['selected'])) {
-                $gdprs = $this->request->post['selected'];
+                $gdprs   = $this->request->post['selected'];
             }
 
             if (isset($this->request->get['gdpr_id'])) {
@@ -286,7 +286,7 @@ class ControllerCustomerGdpr extends Controller {
             $gdprs = [];
 
             if (isset($this->request->post['selected'])) {
-                $gdprs = $this->request->post['selected'];
+                $gdprs   = $this->request->post['selected'];
             }
 
             if (isset($this->request->get['gdpr_id'])) {
@@ -319,7 +319,7 @@ class ControllerCustomerGdpr extends Controller {
             $gdprs = [];
 
             if (isset($this->request->post['selected'])) {
-                $gdprs = $this->request->post['selected'];
+                $gdprs   = $this->request->post['selected'];
             }
 
             if (isset($this->request->get['gdpr_id'])) {

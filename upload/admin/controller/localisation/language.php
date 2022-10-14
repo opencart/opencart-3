@@ -24,7 +24,7 @@ class ControllerLocalisationLanguage extends Controller {
 
             $this->session->data['success'] = $this->language->get('text_success');
 
-            $url = '';
+            $url                            = '';
 
             if (isset($this->request->get['sort'])) {
                 $url .= '&sort=' . $this->request->get['sort'];
@@ -56,7 +56,7 @@ class ControllerLocalisationLanguage extends Controller {
 
             $this->session->data['success'] = $this->language->get('text_success');
 
-            $url = '';
+            $url                            = '';
 
             if (isset($this->request->get['sort'])) {
                 $url .= '&sort=' . $this->request->get['sort'];
@@ -90,7 +90,7 @@ class ControllerLocalisationLanguage extends Controller {
 
             $this->session->data['success'] = $this->language->get('text_success');
 
-            $url = '';
+            $url                            = '';
 
             if (isset($this->request->get['sort'])) {
                 $url .= '&sort=' . $this->request->get['sort'];
@@ -160,16 +160,16 @@ class ControllerLocalisationLanguage extends Controller {
 
         $data['languages'] = [];
 
-        $filter_data = [
+        $filter_data       = [
             'sort'  => $sort,
             'order' => $order,
             'start' => ($page - 1) * $this->config->get('config_limit_admin'),
             'limit' => $this->config->get('config_limit_admin')
         ];
 
-        $language_total = $this->model_localisation_language->getTotalLanguages();
+        $language_total    = $this->model_localisation_language->getTotalLanguages();
 
-        $results        = $this->model_localisation_language->getLanguages($filter_data);
+        $results           = $this->model_localisation_language->getLanguages($filter_data);
 
         foreach ($results as $result) {
             $data['languages'][] = [
@@ -217,7 +217,7 @@ class ControllerLocalisationLanguage extends Controller {
         $data['sort_code']       = $this->url->link('localisation/language', 'user_token=' . $this->session->data['user_token'] . '&sort=code' . $url, true);
         $data['sort_sort_order'] = $this->url->link('localisation/language', 'user_token=' . $this->session->data['user_token'] . '&sort=sort_order' . $url, true);
 
-        $url = '';
+        $url                     = '';
 
         if (isset($this->request->get['sort'])) {
             $url .= '&sort=' . $this->request->get['sort'];
@@ -329,7 +329,7 @@ class ControllerLocalisationLanguage extends Controller {
 
         $data['languages'] = [];
 
-        $folders = glob(DIR_LANGUAGE . '*', GLOB_ONLYDIR);
+        $folders           = glob(DIR_LANGUAGE . '*', GLOB_ONLYDIR);
 
         foreach ($folders as $folder) {
             $data['languages'][] = basename($folder);

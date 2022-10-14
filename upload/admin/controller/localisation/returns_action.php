@@ -24,7 +24,7 @@ class ControllerLocalisationReturnsAction extends Controller {
 
             $this->session->data['success'] = $this->language->get('text_success');
 
-            $url = '';
+            $url                            = '';
 
             if (isset($this->request->get['sort'])) {
                 $url .= '&sort=' . $this->request->get['sort'];
@@ -56,7 +56,7 @@ class ControllerLocalisationReturnsAction extends Controller {
 
             $this->session->data['success'] = $this->language->get('text_success');
 
-            $url = '';
+            $url                            = '';
 
             if (isset($this->request->get['sort'])) {
                 $url .= '&sort=' . $this->request->get['sort'];
@@ -90,7 +90,7 @@ class ControllerLocalisationReturnsAction extends Controller {
 
             $this->session->data['success'] = $this->language->get('text_success');
 
-            $url = '';
+            $url                            = '';
 
             if (isset($this->request->get['sort'])) {
                 $url .= '&sort=' . $this->request->get['sort'];
@@ -160,16 +160,16 @@ class ControllerLocalisationReturnsAction extends Controller {
 
         $data['return_actions'] = [];
 
-        $filter_data = [
+        $filter_data            = [
             'sort'  => $sort,
             'order' => $order,
             'start' => ($page - 1) * $this->config->get('config_limit_admin'),
             'limit' => $this->config->get('config_limit_admin')
         ];
 
-        $return_action_total = $this->model_localisation_returns_action->getTotalReturnActions();
+        $return_action_total    = $this->model_localisation_returns_action->getTotalReturnActions();
 
-        $results = $this->model_localisation_returns_action->getReturnActions($filter_data);
+        $results                = $this->model_localisation_returns_action->getReturnActions($filter_data);
 
         foreach ($results as $result) {
             $data['return_actions'][] = [
@@ -213,7 +213,7 @@ class ControllerLocalisationReturnsAction extends Controller {
 
         $data['sort_name'] = $this->url->link('localisation/returns_action', 'user_token=' . $this->session->data['user_token'] . '&sort=name' . $url, true);
 
-        $url = '';
+        $url               = '';
 
         if (isset($this->request->get['sort'])) {
             $url .= '&sort=' . $this->request->get['sort'];

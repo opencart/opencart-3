@@ -24,7 +24,7 @@ class ControllerSaleVoucher extends Controller {
 
             $this->session->data['success'] = $this->language->get('text_success');
 
-            $url = '';
+            $url                            = '';
 
             if (isset($this->request->get['sort'])) {
                 $url .= '&sort=' . $this->request->get['sort'];
@@ -56,7 +56,7 @@ class ControllerSaleVoucher extends Controller {
 
             $this->session->data['success'] = $this->language->get('text_success');
 
-            $url = '';
+            $url                            = '';
 
             if (isset($this->request->get['sort'])) {
                 $url .= '&sort=' . $this->request->get['sort'];
@@ -90,7 +90,7 @@ class ControllerSaleVoucher extends Controller {
 
             $this->session->data['success'] = $this->language->get('text_success');
 
-            $url = '';
+            $url                            = '';
 
             if (isset($this->request->get['sort'])) {
                 $url .= '&sort=' . $this->request->get['sort'];
@@ -160,15 +160,16 @@ class ControllerSaleVoucher extends Controller {
 
         $data['vouchers'] = [];
 
-        $filter_data = [
+        $filter_data      = [
             'sort'  => $sort,
             'order' => $order,
             'start' => ($page - 1) * $this->config->get('config_limit_admin'),
             'limit' => $this->config->get('config_limit_admin')
         ];
 
-        $voucher_total = $this->model_sale_voucher->getTotalVouchers();
-        $results       = $this->model_sale_voucher->getVouchers($filter_data);
+        $voucher_total    = $this->model_sale_voucher->getTotalVouchers();
+
+        $results          = $this->model_sale_voucher->getVouchers($filter_data);
 
         foreach ($results as $result) {
             if ($result['order_id']) {
@@ -345,13 +346,13 @@ class ControllerSaleVoucher extends Controller {
             $data['action'] = $this->url->link('sale/voucher/edit', 'user_token=' . $this->session->data['user_token'] . '&voucher_id=' . $this->request->get['voucher_id'] . $url, true);
         }
 
-        $data['cancel'] = $this->url->link('sale/voucher', 'user_token=' . $this->session->data['user_token'] . $url, true);
+        $data['cancel']     = $this->url->link('sale/voucher', 'user_token=' . $this->session->data['user_token'] . $url, true);
+
+        $data['user_token'] = $this->session->data['user_token'];
 
         if (isset($this->request->get['voucher_id']) && (!$this->request->server['REQUEST_METHOD'] != 'POST')) {
             $voucher_info = $this->model_sale_voucher->getVoucher($this->request->get['voucher_id']);
         }
-
-        $data['user_token'] = $this->session->data['user_token'];
 
         if (isset($this->request->post['code'])) {
             $data['code'] = $this->request->post['code'];

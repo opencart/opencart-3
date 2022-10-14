@@ -24,7 +24,7 @@ class ControllerCatalogSubscriptionPlan extends Controller {
 
             $this->session->data['success'] = $this->language->get('text_success');
 
-            $url = '';
+            $url                            = '';
 
             if (isset($this->request->get['sort'])) {
                 $url .= '&sort=' . $this->request->get['sort'];
@@ -56,7 +56,7 @@ class ControllerCatalogSubscriptionPlan extends Controller {
 
             $this->session->data['success'] = $this->language->get('text_success');
 
-            $url = '';
+            $url                            = '';
 
             if (isset($this->request->get['sort'])) {
                 $url .= '&sort=' . $this->request->get['sort'];
@@ -90,7 +90,7 @@ class ControllerCatalogSubscriptionPlan extends Controller {
 
             $this->session->data['success'] = $this->language->get('text_success');
 
-            $url = '';
+            $url                            = '';
 
             if (isset($this->request->get['sort'])) {
                 $url .= '&sort=' . $this->request->get['sort'];
@@ -124,7 +124,7 @@ class ControllerCatalogSubscriptionPlan extends Controller {
 
             $this->session->data['success'] = $this->language->get('text_success');
 
-            $url = '';
+            $url                            = '';
 
             if (isset($this->request->get['sort'])) {
                 $url .= '&sort=' . $this->request->get['sort'];
@@ -195,16 +195,16 @@ class ControllerCatalogSubscriptionPlan extends Controller {
 
         $data['subscription_plans'] = [];
 
-        $filter_data = [
+        $filter_data                = [
             'sort'  => $sort,
             'order' => $order,
             'start' => ($page - 1) * $this->config->get('config_limit_admin'),
             'limit' => $this->config->get('config_limit_admin')
         ];
 
-        $subscription_plan_total = $this->model_catalog_subscription_plan->getTotalsubscription_plans();
+        $subscription_plan_total    = $this->model_catalog_subscription_plan->getTotalsubscription_plans();
 
-        $results                 = $this->model_catalog_subscription_plan->getsubscription_plans($filter_data);
+        $results                    = $this->model_catalog_subscription_plan->getsubscription_plans($filter_data);
 
         foreach ($results as $result) {
             $data['subscription_plans'][] = [

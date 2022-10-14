@@ -24,7 +24,7 @@ class ControllerCatalogReview extends Controller {
 
             $this->session->data['success'] = $this->language->get('text_success');
 
-            $url = '';
+            $url                            = '';
 
             if (isset($this->request->get['filter_product'])) {
                 $url .= '&filter_product=' . urlencode(html_entity_decode($this->request->get['filter_product'], ENT_QUOTES, 'UTF-8'));
@@ -72,7 +72,7 @@ class ControllerCatalogReview extends Controller {
 
             $this->session->data['success'] = $this->language->get('text_success');
 
-            $url = '';
+            $url                            = '';
 
             if (isset($this->request->get['filter_product'])) {
                 $url .= '&filter_product=' . urlencode(html_entity_decode($this->request->get['filter_product'], ENT_QUOTES, 'UTF-8'));
@@ -122,7 +122,7 @@ class ControllerCatalogReview extends Controller {
 
             $this->session->data['success'] = $this->language->get('text_success');
 
-            $url = '';
+            $url                            = '';
 
             if (isset($this->request->get['filter_product'])) {
                 $url .= '&filter_product=' . urlencode(html_entity_decode($this->request->get['filter_product'], ENT_QUOTES, 'UTF-8'));
@@ -248,7 +248,7 @@ class ControllerCatalogReview extends Controller {
 
         $data['reviews'] = [];
 
-        $filter_data = [
+        $filter_data     = [
             'filter_product'    => $filter_product,
             'filter_author'     => $filter_author,
             'filter_status'     => $filter_status,
@@ -259,9 +259,9 @@ class ControllerCatalogReview extends Controller {
             'limit'             => $this->config->get('config_limit_admin')
         ];
 
-        $review_total = $this->model_catalog_review->getTotalReviews($filter_data);
+        $review_total    = $this->model_catalog_review->getTotalReviews($filter_data);
 
-        $results      = $this->model_catalog_review->getReviews($filter_data);
+        $results         = $this->model_catalog_review->getReviews($filter_data);
 
         foreach ($results as $result) {
             $data['reviews'][] = [

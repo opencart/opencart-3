@@ -37,7 +37,7 @@ class ControllerMailTransaction extends Controller {
             // Store
             $this->load->model('setting/store');
 
-            $store_info = $this->model_setting_store->getStore($customer_info['store_id']);
+            $store_info    = $this->model_setting_store->getStore($customer_info['store_id']);
 
             if ($store_info) {
                 $store_name = html_entity_decode($store_info['name'], ENT_QUOTES, 'UTF-8');
@@ -62,7 +62,7 @@ class ControllerMailTransaction extends Controller {
             $language->load($language_code);
             $language->load('mail/transaction');
 
-            $subject = sprintf($language->get('text_subject'), $store_name);
+            $subject               = sprintf($language->get('text_subject'), $store_name);
 
             $data['text_received'] = sprintf($language->get('text_received'), $this->currency->format($amount, $this->config->get('config_currency')));
             $data['text_total']    = sprintf($language->get('text_total'), $this->currency->format($this->model_customer_customer->getTransactionTotal($customer_id), $this->config->get('config_currency')));

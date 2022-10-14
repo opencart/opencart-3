@@ -24,7 +24,7 @@ class ControllerLocalisationTaxClass extends Controller {
 
             $this->session->data['success'] = $this->language->get('text_success');
 
-            $url = '';
+            $url                            = '';
 
             if (isset($this->request->get['sort'])) {
                 $url .= '&sort=' . $this->request->get['sort'];
@@ -56,7 +56,7 @@ class ControllerLocalisationTaxClass extends Controller {
 
             $this->session->data['success'] = $this->language->get('text_success');
 
-            $url = '';
+            $url                            = '';
 
             if (isset($this->request->get['sort'])) {
                 $url .= '&sort=' . $this->request->get['sort'];
@@ -160,16 +160,16 @@ class ControllerLocalisationTaxClass extends Controller {
 
         $data['tax_classes'] = [];
 
-        $filter_data = [
+        $filter_data         = [
             'sort'  => $sort,
             'order' => $order,
             'start' => ($page - 1) * $this->config->get('config_limit_admin'),
             'limit' => $this->config->get('config_limit_admin')
         ];
 
-        $tax_class_total = $this->model_localisation_tax_class->getTotalTaxClasses();
+        $tax_class_total     = $this->model_localisation_tax_class->getTotalTaxClasses();
 
-        $results = $this->model_localisation_tax_class->getTaxClasses($filter_data);
+        $results             = $this->model_localisation_tax_class->getTaxClasses($filter_data);
 
         foreach ($results as $result) {
             $data['tax_classes'][] = [

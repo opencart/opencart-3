@@ -24,7 +24,7 @@ class ControllerCatalogAttributeGroup extends Controller {
 
             $this->session->data['success'] = $this->language->get('text_success');
 
-            $url = '';
+            $url                            = '';
 
             if (isset($this->request->get['sort'])) {
                 $url .= '&sort=' . $this->request->get['sort'];
@@ -56,7 +56,7 @@ class ControllerCatalogAttributeGroup extends Controller {
 
             $this->session->data['success'] = $this->language->get('text_success');
 
-            $url = '';
+            $url                            = '';
 
             if (isset($this->request->get['sort'])) {
                 $url .= '&sort=' . $this->request->get['sort'];
@@ -90,7 +90,7 @@ class ControllerCatalogAttributeGroup extends Controller {
 
             $this->session->data['success'] = $this->language->get('text_success');
 
-            $url = '';
+            $url                            = '';
 
             if (isset($this->request->get['sort'])) {
                 $url .= '&sort=' . $this->request->get['sort'];
@@ -160,16 +160,16 @@ class ControllerCatalogAttributeGroup extends Controller {
 
         $data['attribute_groups'] = [];
 
-        $filter_data = [
+        $filter_data              = [
             'sort'  => $sort,
             'order' => $order,
             'start' => ($page - 1) * $this->config->get('config_limit_admin'),
             'limit' => $this->config->get('config_limit_admin')
         ];
 
-        $attribute_group_total = $this->model_catalog_attribute_group->getTotalAttributeGroups();
+        $attribute_group_total    = $this->model_catalog_attribute_group->getTotalAttributeGroups();
 
-        $results = $this->model_catalog_attribute_group->getAttributeGroups($filter_data);
+        $results                  = $this->model_catalog_attribute_group->getAttributeGroups($filter_data);
 
         foreach ($results as $result) {
             $data['attribute_groups'][] = [

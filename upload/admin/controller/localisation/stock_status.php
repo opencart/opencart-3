@@ -24,7 +24,7 @@ class ControllerLocalisationStockStatus extends Controller {
 
             $this->session->data['success'] = $this->language->get('text_success');
 
-            $url = '';
+            $url                            = '';
 
             if (isset($this->request->get['sort'])) {
                 $url .= '&sort=' . $this->request->get['sort'];
@@ -56,7 +56,7 @@ class ControllerLocalisationStockStatus extends Controller {
 
             $this->session->data['success'] = $this->language->get('text_success');
 
-            $url = '';
+            $url                            = '';
 
             if (isset($this->request->get['sort'])) {
                 $url .= '&sort=' . $this->request->get['sort'];
@@ -90,7 +90,7 @@ class ControllerLocalisationStockStatus extends Controller {
 
             $this->session->data['success'] = $this->language->get('text_success');
 
-            $url = '';
+            $url                            = '';
 
             if (isset($this->request->get['sort'])) {
                 $url .= '&sort=' . $this->request->get['sort'];
@@ -160,16 +160,16 @@ class ControllerLocalisationStockStatus extends Controller {
 
         $data['stock_statuses'] = [];
 
-        $filter_data = [
+        $filter_data            = [
             'sort'  => $sort,
             'order' => $order,
             'start' => ($page - 1) * $this->config->get('config_limit_admin'),
             'limit' => $this->config->get('config_limit_admin')
         ];
 
-        $stock_status_total = $this->model_localisation_stock_status->getTotalStockStatuses();
+        $stock_status_total     = $this->model_localisation_stock_status->getTotalStockStatuses();
 
-        $results            = $this->model_localisation_stock_status->getStockStatuses($filter_data);
+        $results                = $this->model_localisation_stock_status->getStockStatuses($filter_data);
 
         foreach ($results as $result) {
             $data['stock_statuses'][] = [

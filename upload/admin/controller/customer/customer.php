@@ -24,7 +24,7 @@ class ControllerCustomerCustomer extends Controller {
 
             $this->session->data['success'] = $this->language->get('text_success');
 
-            $url = '';
+            $url                            = '';
 
             if (isset($this->request->get['filter_name'])) {
                 $url .= '&filter_name=' . urlencode(html_entity_decode($this->request->get['filter_name'], ENT_QUOTES, 'UTF-8'));
@@ -80,7 +80,7 @@ class ControllerCustomerCustomer extends Controller {
 
             $this->session->data['success'] = $this->language->get('text_success');
 
-            $url = '';
+            $url                            = '';
 
             if (isset($this->request->get['filter_name'])) {
                 $url .= '&filter_name=' . urlencode(html_entity_decode($this->request->get['filter_name'], ENT_QUOTES, 'UTF-8'));
@@ -138,7 +138,7 @@ class ControllerCustomerCustomer extends Controller {
 
             $this->session->data['success'] = $this->language->get('text_success');
 
-            $url = '';
+            $url                            = '';
 
             if (isset($this->request->get['filter_name'])) {
                 $url .= '&filter_name=' . urlencode(html_entity_decode($this->request->get['filter_name'], ENT_QUOTES, 'UTF-8'));
@@ -194,7 +194,7 @@ class ControllerCustomerCustomer extends Controller {
 
             $this->session->data['success'] = $this->language->get('text_success');
 
-            $url = '';
+            $url                            = '';
 
             if (isset($this->request->get['filter_name'])) {
                 $url .= '&filter_name=' . urlencode(html_entity_decode($this->request->get['filter_name'], ENT_QUOTES, 'UTF-8'));
@@ -350,9 +350,9 @@ class ControllerCustomerCustomer extends Controller {
 
         $this->load->model('setting/store');
 
-        $stores            = $this->model_setting_store->getStores();
+        $stores         = $this->model_setting_store->getStores();
 
-        $filter_data = [
+        $filter_data    = [
             'filter_name'              => $filter_name,
             'filter_email'             => $filter_email,
             'filter_customer_group_id' => $filter_customer_group_id,
@@ -366,6 +366,7 @@ class ControllerCustomerCustomer extends Controller {
         ];
 
         $customer_total = $this->model_customer_customer->getTotalCustomers($filter_data);
+
         $results        = $this->model_customer_customer->getCustomers($filter_data);
 
         foreach ($results as $result) {
@@ -377,7 +378,7 @@ class ControllerCustomerCustomer extends Controller {
                 $unlock = '';
             }
 
-            $store_data = [];
+            $store_data   = [];
 
             $store_data[] = [
                 'name' => $this->config->get('config_name'),
@@ -470,7 +471,7 @@ class ControllerCustomerCustomer extends Controller {
         $data['sort_ip']             = $this->url->link('customer/customer', 'user_token=' . $this->session->data['user_token'] . '&sort=c.ip' . $url, true);
         $data['sort_date_added']     = $this->url->link('customer/customer', 'user_token=' . $this->session->data['user_token'] . '&sort=c.date_added' . $url, true);
 
-        $url = '';
+        $url                         = '';
 
         if (isset($this->request->get['filter_name'])) {
             $url .= '&filter_name=' . urlencode(html_entity_decode($this->request->get['filter_name'], ENT_QUOTES, 'UTF-8'));
@@ -535,7 +536,7 @@ class ControllerCustomerCustomer extends Controller {
     }
 
     protected function getForm() {
-        $data['text_form'] = !isset($this->request->get['customer_id']) ? $this->language->get('text_add') : $this->language->get('text_edit');
+        $data['text_form']  = !isset($this->request->get['customer_id']) ? $this->language->get('text_add') : $this->language->get('text_edit');
 
         $data['user_token'] = $this->session->data['user_token'];
 
@@ -757,12 +758,12 @@ class ControllerCustomerCustomer extends Controller {
 
         $data['custom_fields'] = [];
 
-        $filter_data = [
+        $filter_data           = [
             'sort'  => 'cf.sort_order',
             'order' => 'ASC'
         ];
 
-        $custom_fields = $this->model_customer_custom_field->getCustomFields($filter_data);
+        $custom_fields         = $this->model_customer_custom_field->getCustomFields($filter_data);
 
         foreach ($custom_fields as $custom_field) {
             $data['custom_fields'][] = [
@@ -1089,15 +1090,14 @@ class ControllerCustomerCustomer extends Controller {
 
         $history_total = $this->model_customer_customer->getTotalHistories($this->request->get['customer_id']);
 
-        $pagination        = new \Pagination();
-        $pagination->total = $history_total;
-        $pagination->page  = $page;
-        $pagination->limit = $limit;
-        $pagination->url   = $this->url->link('customer/customer/history', 'user_token=' . $this->session->data['user_token'] . '&customer_id=' . $this->request->get['customer_id'] . '&page={page}', true);
+        $pagination         = new \Pagination();
+        $pagination->total  = $history_total;
+        $pagination->page   = $page;
+        $pagination->limit  = $limit;
+        $pagination->url    = $this->url->link('customer/customer/history', 'user_token=' . $this->session->data['user_token'] . '&customer_id=' . $this->request->get['customer_id'] . '&page={page}', true);
 
         $data['pagination'] = $pagination->render();
-
-        $data['results'] = sprintf($this->language->get('text_pagination'), ($history_total) ? (($page - 1) * $limit) + 1 : 0, ((($page - 1) * $limit) > ($history_total - $limit)) ? $history_total : ((($page - 1) * $limit) + $limit), $history_total, ceil($history_total / $limit));
+        $data['results']    = sprintf($this->language->get('text_pagination'), ($history_total) ? (($page - 1) * $limit) + 1 : 0, ((($page - 1) * $limit) > ($history_total - $limit)) ? $history_total : ((($page - 1) * $limit) + $limit), $history_total, ceil($history_total / $limit));
 
         $this->response->setOutput($this->load->view('customer/customer_history', $data));
     }
@@ -1108,7 +1108,7 @@ class ControllerCustomerCustomer extends Controller {
         $json = [];
 
         if (!$this->user->hasPermission('modify', 'customer/customer')) {
-            $json['error'] = $this->language->get('error_permission');
+            $json['error']   = $this->language->get('error_permission');
         } else {
             $this->load->model('customer/customer');
 
@@ -1132,11 +1132,11 @@ class ControllerCustomerCustomer extends Controller {
             $page = 1;
         }
 
-        $limit = $this->config->get('config_limit_admin');
+        $limit                = $this->config->get('config_limit_admin');
 
         $data['transactions'] = [];
 
-        $results = $this->model_customer_customer->getTransactions($this->request->get['customer_id'], ($page - 1) * $limit, $limit);
+        $results              = $this->model_customer_customer->getTransactions($this->request->get['customer_id'], ($page - 1) * $limit, $limit);
 
         foreach ($results as $result) {
             $data['transactions'][] = [
@@ -1146,19 +1146,18 @@ class ControllerCustomerCustomer extends Controller {
             ];
         }
 
-        $data['balance'] = $this->currency->format($this->model_customer_customer->getTransactionTotal($this->request->get['customer_id']), $this->config->get('config_currency'));
+        $data['balance']   = $this->currency->format($this->model_customer_customer->getTransactionTotal($this->request->get['customer_id']), $this->config->get('config_currency'));
 
         $transaction_total = $this->model_customer_customer->getTotalTransactions($this->request->get['customer_id']);
 
-        $pagination        = new \Pagination();
-        $pagination->total = $transaction_total;
-        $pagination->page  = $page;
-        $pagination->limit = $limit;
-        $pagination->url   = $this->url->link('customer/customer/transaction', 'user_token=' . $this->session->data['user_token'] . '&customer_id=' . $this->request->get['customer_id'] . '&page={page}', true);
+        $pagination         = new \Pagination();
+        $pagination->total  = $transaction_total;
+        $pagination->page   = $page;
+        $pagination->limit  = $limit;
+        $pagination->url    = $this->url->link('customer/customer/transaction', 'user_token=' . $this->session->data['user_token'] . '&customer_id=' . $this->request->get['customer_id'] . '&page={page}', true);
 
         $data['pagination'] = $pagination->render();
-
-        $data['results'] = sprintf($this->language->get('text_pagination'), ($transaction_total) ? (($page - 1) * $limit) + 1 : 0, ((($page - 1) * $limit) > ($transaction_total - $limit)) ? $transaction_total : ((($page - 1) * $limit) + $limit), $transaction_total, ceil($transaction_total / $limit));
+        $data['results']    = sprintf($this->language->get('text_pagination'), ($transaction_total) ? (($page - 1) * $limit) + 1 : 0, ((($page - 1) * $limit) > ($transaction_total - $limit)) ? $transaction_total : ((($page - 1) * $limit) + $limit), $transaction_total, ceil($transaction_total / $limit));
 
         $this->response->setOutput($this->load->view('customer/customer_transaction', $data));
     }
@@ -1193,11 +1192,11 @@ class ControllerCustomerCustomer extends Controller {
             $page = 1;
         }
 
-        $limit = $this->config->get('config_limit_admin');
+        $limit           = $this->config->get('config_limit_admin');
 
         $data['rewards'] = [];
 
-        $results = $this->model_customer_customer->getRewards($this->request->get['customer_id'], ($page - 1) * $limit, $limit);
+        $results         = $this->model_customer_customer->getRewards($this->request->get['customer_id'], ($page - 1) * $limit, $limit);
 
         foreach ($results as $result) {
             $data['rewards'][] = [
@@ -1207,19 +1206,18 @@ class ControllerCustomerCustomer extends Controller {
             ];
         }
 
-        $data['balance'] = $this->model_customer_customer->getRewardTotal($this->request->get['customer_id']);
+        $data['balance']    = $this->model_customer_customer->getRewardTotal($this->request->get['customer_id']);
 
-        $reward_total = $this->model_customer_customer->getTotalRewards($this->request->get['customer_id']);
+        $reward_total       = $this->model_customer_customer->getTotalRewards($this->request->get['customer_id']);
 
-        $pagination        = new \Pagination();
-        $pagination->total = $reward_total;
-        $pagination->page  = $page;
-        $pagination->limit = $limit;
-        $pagination->url   = $this->url->link('customer/customer/reward', 'user_token=' . $this->session->data['user_token'] . '&customer_id=' . $this->request->get['customer_id'] . '&page={page}', true);
+        $pagination         = new \Pagination();
+        $pagination->total  = $reward_total;
+        $pagination->page   = $page;
+        $pagination->limit  = $limit;
+        $pagination->url    = $this->url->link('customer/customer/reward', 'user_token=' . $this->session->data['user_token'] . '&customer_id=' . $this->request->get['customer_id'] . '&page={page}', true);
 
         $data['pagination'] = $pagination->render();
-
-        $data['results'] = sprintf($this->language->get('text_pagination'), ($reward_total) ? (($page - 1) * $limit) + 1 : 0, ((($page - 1) * $limit) > ($reward_total - $limit)) ? $reward_total : ((($page - 1) * $limit) + $limit), $reward_total, ceil($reward_total / $limit));
+        $data['results']    = sprintf($this->language->get('text_pagination'), ($reward_total) ? (($page - 1) * $limit) + 1 : 0, ((($page - 1) * $limit) > ($reward_total - $limit)) ? $reward_total : ((($page - 1) * $limit) + $limit), $reward_total, ceil($reward_total / $limit));
 
         $this->response->setOutput($this->load->view('customer/customer_reward', $data));
     }
@@ -1254,11 +1252,11 @@ class ControllerCustomerCustomer extends Controller {
             $page = 1;
         }
 
-        $limit = $this->config->get('config_limit_admin');
+        $limit       = $this->config->get('config_limit_admin');
 
         $data['ips'] = [];
 
-        $results = $this->model_customer_customer->getIps($this->request->get['customer_id'], ($page - 1) * $limit, $limit);
+        $results     = $this->model_customer_customer->getIps($this->request->get['customer_id'], ($page - 1) * $limit, $limit);
 
         foreach ($results as $result) {
             $data['ips'][] = [
@@ -1269,17 +1267,16 @@ class ControllerCustomerCustomer extends Controller {
             ];
         }
 
-        $ip_total = $this->model_customer_customer->getTotalIps($this->request->get['customer_id']);
+        $ip_total           = $this->model_customer_customer->getTotalIps($this->request->get['customer_id']);
 
-        $pagination        = new \Pagination();
-        $pagination->total = $ip_total;
-        $pagination->page  = $page;
-        $pagination->limit = $limit;
-        $pagination->url   = $this->url->link('customer/customer/ip', 'user_token=' . $this->session->data['user_token'] . '&customer_id=' . $this->request->get['customer_id'] . '&page={page}', true);
+        $pagination         = new \Pagination();
+        $pagination->total  = $ip_total;
+        $pagination->page   = $page;
+        $pagination->limit  = $limit;
+        $pagination->url    = $this->url->link('customer/customer/ip', 'user_token=' . $this->session->data['user_token'] . '&customer_id=' . $this->request->get['customer_id'] . '&page={page}', true);
 
         $data['pagination'] = $pagination->render();
-
-        $data['results'] = sprintf($this->language->get('text_pagination'), ($ip_total) ? (($page - 1) * $limit) + 1 : 0, ((($page - 1) * $limit) > ($ip_total - $limit)) ? $ip_total : ((($page - 1) * $limit) + $limit), $ip_total, ceil($ip_total / $limit));
+        $data['results']    = sprintf($this->language->get('text_pagination'), ($ip_total) ? (($page - 1) * $limit) + 1 : 0, ((($page - 1) * $limit) > ($ip_total - $limit)) ? $ip_total : ((($page - 1) * $limit) + $limit), $ip_total, ceil($ip_total / $limit));
 
         $this->response->setOutput($this->load->view('customer/customer_ip', $data));
     }
@@ -1351,7 +1348,9 @@ class ControllerCustomerCustomer extends Controller {
             $customer_group_id = $this->config->get('config_customer_group_id');
         }
 
-        $custom_fields = $this->model_customer_custom_field->getCustomFields(['filter_customer_group_id' => $customer_group_id]);
+        $custom_fields = $this->model_customer_custom_field->getCustomFields([
+            'filter_customer_group_id' => $customer_group_id
+        ]);
 
         foreach ($custom_fields as $custom_field) {
             $json[] = [

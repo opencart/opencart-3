@@ -30,7 +30,7 @@ class ControllerMarketplaceModification extends Controller {
 
             $this->session->data['success'] = $this->language->get('text_success');
 
-            $url = '';
+            $url                            = '';
 
             if (isset($this->request->get['sort'])) {
                 $url .= '&sort=' . $this->request->get['sort'];
@@ -66,13 +66,13 @@ class ControllerMarketplaceModification extends Controller {
             $this->model_setting_setting->editSettingValue('config', 'config_maintenance', true);
 
             // Log
-            $log = [];
+            $log   = [];
 
             // Clear all modification files
             $files = [];
 
             // Make path into an array
-            $path = [DIR_MODIFICATION . '*'];
+            $path  = [DIR_MODIFICATION . '*'];
 
             // While the path array is still populated keep looping through
             while (count($path) != 0) {
@@ -109,7 +109,7 @@ class ControllerMarketplaceModification extends Controller {
             }
 
             // Begin
-            $xml = [];
+            $xml   = [];
 
             // Load the default modification XML
             $xml[] = file_get_contents(DIR_SYSTEM . 'modification.xml');
@@ -144,7 +144,7 @@ class ControllerMarketplaceModification extends Controller {
                 $dom->loadXml($xml);
 
                 // Log
-                $log[] = 'MOD: ' . $dom->getElementsByTagName('name')->item(0)->textContent;
+                $log[]    = 'MOD: ' . $dom->getElementsByTagName('name')->item(0)->textContent;
 
                 // Wipe the past modification store in the backup array
                 $recovery = [];
@@ -154,7 +154,7 @@ class ControllerMarketplaceModification extends Controller {
                     $recovery = $modification;
                 }
 
-                $files = $dom->getElementsByTagName('modification')->item(0)->getElementsByTagName('file');
+                $files    = $dom->getElementsByTagName('modification')->item(0)->getElementsByTagName('file');
 
                 foreach ($files as $file) {
                     $operations = $file->getElementsByTagName('operation');
@@ -205,12 +205,12 @@ class ControllerMarketplaceModification extends Controller {
                                         $log[]              = PHP_EOL . 'FILE: ' . $key;
                                     } else {
                                         // Log
-                                        $log[] = PHP_EOL . 'FILE: (sub modification) ' . $key;
+                                        $log[]              = PHP_EOL . 'FILE: (sub modification) ' . $key;
 
                                     }
 
                                     foreach ($operations as $operation) {
-                                        $error = $operation->getAttribute('error');
+                                        $error    = $operation->getAttribute('error');
 
                                         // Ignoreif
                                         $ignoreif = $operation->getElementsByTagName('ignoreif')->item(0);
@@ -309,14 +309,14 @@ class ControllerMarketplaceModification extends Controller {
 
                                                             array_splice($lines, $line_id - $offset, 0, $new_lines);
 
-                                                            $line_id += count($new_lines);
+                                                            $line_id   += count($new_lines);
                                                             break;
                                                         case 'after':
                                                             $new_lines = explode("\n", $add);
 
                                                             array_splice($lines, ($line_id + 1) + $offset, 0, $new_lines);
 
-                                                            $line_id += count($new_lines);
+                                                            $line_id   += count($new_lines);
                                                             break;
                                                     }
 
@@ -339,7 +339,7 @@ class ControllerMarketplaceModification extends Controller {
                                             }
 
                                             // Log
-                                            $match = [];
+                                            $match   = [];
 
                                             preg_match_all($search, $modification[$key], $match, PREG_OFFSET_CAPTURE);
 
@@ -368,17 +368,17 @@ class ControllerMarketplaceModification extends Controller {
                                                 $modification = $recovery;
 
                                                 // Log
-                                                $log[] = 'NOT FOUND - ABORTING!';
+                                                $log[]        = 'NOT FOUND - ABORTING!';
                                                 break 5;
-                                            } // Skip current operation or break
-                                            elseif ($error == 'skip') {
+                                            // Skip current operation or break
+                                            } elseif ($error == 'skip') {
                                                 // Log
-                                                $log[] = 'NOT FOUND - OPERATION SKIPPED!';
+                                                $log[]        = 'NOT FOUND - OPERATION SKIPPED!';
                                                 continue;
-                                            } // Break current operations
-                                            else {
+                                            // Break current operations
+                                            } else {
                                                 // Log
-                                                $log[] = 'NOT FOUND - OPERATIONS ABORTED!';
+                                                $log[]        = 'NOT FOUND - OPERATIONS ABORTED!';
                                                 break;
                                             }
                                         }
@@ -414,7 +414,6 @@ class ControllerMarketplaceModification extends Controller {
                     }
 
                     $handle = fopen(DIR_MODIFICATION . $key, 'w');
-
                     fwrite($handle, $value);
                     fclose($handle);
                 }
@@ -495,7 +494,7 @@ class ControllerMarketplaceModification extends Controller {
 
             $this->session->data['success'] = $this->language->get('text_success');
 
-            $url = '';
+            $url                            = '';
 
             if (isset($this->request->get['sort'])) {
                 $url .= '&sort=' . $this->request->get['sort'];
@@ -527,7 +526,7 @@ class ControllerMarketplaceModification extends Controller {
 
             $this->session->data['success'] = $this->language->get('text_success');
 
-            $url = '';
+            $url                            = '';
 
             if (isset($this->request->get['sort'])) {
                 $url .= '&sort=' . $this->request->get['sort'];
@@ -559,7 +558,7 @@ class ControllerMarketplaceModification extends Controller {
 
             $this->session->data['success'] = $this->language->get('text_success');
 
-            $url = '';
+            $url                            = '';
 
             if (isset($this->request->get['sort'])) {
                 $url .= '&sort=' . $this->request->get['sort'];
@@ -587,13 +586,11 @@ class ControllerMarketplaceModification extends Controller {
         $this->load->model('setting/modification');
 
         if ($this->validate()) {
-            $handle = fopen(DIR_LOGS . 'ocmod.log', 'w+');
-
+            $handle                         = fopen(DIR_LOGS . 'ocmod.log', 'w+');
             fclose($handle);
 
             $this->session->data['success'] = $this->language->get('text_success');
-
-            $url = '';
+            $url                            = '';
 
             if (isset($this->request->get['sort'])) {
                 $url .= '&sort=' . $this->request->get['sort'];
@@ -664,16 +661,16 @@ class ControllerMarketplaceModification extends Controller {
 
         $data['modifications'] = [];
 
-        $filter_data = [
+        $filter_data           = [
             'sort'  => $sort,
             'order' => $order,
             'start' => ($page - 1) * $this->config->get('config_limit_admin'),
             'limit' => $this->config->get('config_limit_admin')
         ];
 
-        $modification_total = $this->model_setting_modification->getTotalModifications();
+        $modification_total    = $this->model_setting_modification->getTotalModifications();
 
-        $results            = $this->model_setting_modification->getModifications($filter_data);
+        $results               = $this->model_setting_modification->getModifications($filter_data);
 
         foreach ($results as $result) {
             $data['modifications'][] = [

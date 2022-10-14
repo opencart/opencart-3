@@ -70,8 +70,7 @@ class ControllerMarketingContact extends Controller {
                     $store_name = $this->config->get('config_name');
                 }
 
-                $setting = $this->model_setting_setting->getSetting('config', $this->request->post['store_id']);
-
+                $setting     = $this->model_setting_setting->getSetting('config', $this->request->post['store_id']);
                 $store_email = (isset($setting['config_email']) ? $setting['config_email'] : $this->config->get('config_email'));
 
                 if (isset($this->request->get['page'])) {
@@ -189,9 +188,8 @@ class ControllerMarketingContact extends Controller {
 
                 if ($emails) {
                     $json['success'] = $this->language->get('text_success');
-
-                    $start = ($page - 1) * 10;
-                    $end   = $start + 10;
+                    $start           = ($page - 1) * 10;
+                    $end             = $start + 10;
 
                     $json['success'] = sprintf($this->language->get('text_sent'), $start ? $start : 1, $email_total);
 
@@ -201,13 +199,13 @@ class ControllerMarketingContact extends Controller {
                         $json['next'] = '';
                     }
 
-                    $message = '<html dir="ltr" lang="' . $this->language->get('code') . '">' . "\n";
-                    $message .= '  <head>' . "\n";
-                    $message .= '    <title>' . $this->request->post['subject'] . '</title>' . "\n";
-                    $message .= '    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">' . "\n";
-                    $message .= '  </head>' . "\n";
-                    $message .= '  <body>' . html_entity_decode($this->request->post['message'], ENT_QUOTES, 'UTF-8') . '</body>' . "\n";
-                    $message .= '</html>' . "\n";
+                    $message         = '<html dir="ltr" lang="' . $this->language->get('code') . '">' . "\n";
+                    $message         .= '  <head>' . "\n";
+                    $message         .= '    <title>' . $this->request->post['subject'] . '</title>' . "\n";
+                    $message         .= '    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">' . "\n";
+                    $message         .= '  </head>' . "\n";
+                    $message         .= '  <body>' . html_entity_decode($this->request->post['message'], ENT_QUOTES, 'UTF-8') . '</body>' . "\n";
+                    $message         .= '</html>' . "\n";
 
                     if ($this->config->get('config_mail_engine')) {
                         $mail                = new \Mail($this->config->get('config_mail_engine'));

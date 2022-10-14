@@ -24,7 +24,7 @@ class ControllerLocalisationGeoZone extends Controller {
 
             $this->session->data['success'] = $this->language->get('text_success');
 
-            $url = '';
+            $url                            = '';
 
             if (isset($this->request->get['sort'])) {
                 $url .= '&sort=' . $this->request->get['sort'];
@@ -56,7 +56,7 @@ class ControllerLocalisationGeoZone extends Controller {
 
             $this->session->data['success'] = $this->language->get('text_success');
 
-            $url = '';
+            $url                            = '';
 
             if (isset($this->request->get['sort'])) {
                 $url .= '&sort=' . $this->request->get['sort'];
@@ -90,7 +90,7 @@ class ControllerLocalisationGeoZone extends Controller {
 
             $this->session->data['success'] = $this->language->get('text_success');
 
-            $url = '';
+            $url                            = '';
 
             if (isset($this->request->get['sort'])) {
                 $url .= '&sort=' . $this->request->get['sort'];
@@ -160,16 +160,16 @@ class ControllerLocalisationGeoZone extends Controller {
 
         $data['geo_zones'] = [];
 
-        $filter_data = [
+        $filter_data       = [
             'sort'  => $sort,
             'order' => $order,
             'start' => ($page - 1) * $this->config->get('config_limit_admin'),
             'limit' => $this->config->get('config_limit_admin')
         ];
 
-        $geo_zone_total = $this->model_localisation_geo_zone->getTotalGeoZones();
+        $geo_zone_total    = $this->model_localisation_geo_zone->getTotalGeoZones();
 
-        $results = $this->model_localisation_geo_zone->getGeoZones($filter_data);
+        $results           = $this->model_localisation_geo_zone->getGeoZones($filter_data);
 
         foreach ($results as $result) {
             $data['geo_zones'][] = [
@@ -297,7 +297,7 @@ class ControllerLocalisationGeoZone extends Controller {
             $data['action'] = $this->url->link('localisation/geo_zone/edit', 'user_token=' . $this->session->data['user_token'] . '&geo_zone_id=' . $this->request->get['geo_zone_id'] . $url, true);
         }
 
-        $data['cancel'] = $this->url->link('localisation/geo_zone', 'user_token=' . $this->session->data['user_token'] . $url, true);
+        $data['cancel']     = $this->url->link('localisation/geo_zone', 'user_token=' . $this->session->data['user_token'] . $url, true);
 
         if (isset($this->request->get['geo_zone_id']) && ($this->request->server['REQUEST_METHOD'] != 'POST')) {
             $geo_zone_info = $this->model_localisation_geo_zone->getGeoZone($this->request->get['geo_zone_id']);

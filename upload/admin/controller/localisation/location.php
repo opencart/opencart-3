@@ -24,7 +24,7 @@ class ControllerLocalisationLocation extends Controller {
 
             $this->session->data['success'] = $this->language->get('text_success');
 
-            $url = '';
+            $url                            = '';
 
             if (isset($this->request->get['sort'])) {
                 $url .= '&sort=' . $this->request->get['sort'];
@@ -56,7 +56,7 @@ class ControllerLocalisationLocation extends Controller {
 
             $this->session->data['success'] = $this->language->get('text_success');
 
-            $url = '';
+            $url                            = '';
 
             if (isset($this->request->get['sort'])) {
                 $url .= '&sort=' . $this->request->get['sort'];
@@ -90,7 +90,7 @@ class ControllerLocalisationLocation extends Controller {
 
             $this->session->data['success'] = $this->language->get('text_success');
 
-            $url = '';
+            $url                            = '';
 
             if (isset($this->request->get['sort'])) {
                 $url .= '&sort=' . $this->request->get['sort'];
@@ -160,16 +160,16 @@ class ControllerLocalisationLocation extends Controller {
 
         $data['locations'] = [];
 
-        $filter_data = [
+        $filter_data       = [
             'sort'  => $sort,
             'order' => $order,
             'start' => ($page - 1) * $this->config->get('config_limit_admin'),
             'limit' => $this->config->get('config_limit_admin')
         ];
 
-        $location_total = $this->model_localisation_location->getTotalLocations();
+        $location_total    = $this->model_localisation_location->getTotalLocations();
 
-        $results        = $this->model_localisation_location->getLocations($filter_data);
+        $results           = $this->model_localisation_location->getLocations($filter_data);
 
         foreach ($results as $result) {
             $data['locations'][] = [
