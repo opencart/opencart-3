@@ -55,7 +55,7 @@ class ControllerAccountAffiliate extends Controller {
     }
 
     public function getForm(): void {
-        $data['breadcrumbs'] = [];
+        $data['breadcrumbs']   = [];
 
         $data['breadcrumbs'][] = [
             'text' => $this->language->get('text_home'),
@@ -212,7 +212,7 @@ class ControllerAccountAffiliate extends Controller {
 
         $this->load->model('account/custom_field');
 
-        $custom_fields = $this->model_account_custom_field->getCustomFields($this->customer->getGroupId());
+        $custom_fields         = $this->model_account_custom_field->getCustomFields($this->customer->getGroupId());
 
         foreach ($custom_fields as $custom_field) {
             if ($custom_field['location'] == 'affiliate') {

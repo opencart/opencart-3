@@ -40,7 +40,7 @@ class ControllerAccountTransaction extends Controller {
 
         $data['transactions'] = [];
 
-        $filter_data = [
+        $filter_data          = [
             'sort'  => 'date_added',
             'order' => 'DESC',
             'start' => ($page - 1) * 10,

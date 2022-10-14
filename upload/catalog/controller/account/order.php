@@ -44,13 +44,14 @@ class ControllerAccountOrder extends Controller {
 
         $this->load->model('account/order');
 
-        $order_total = $this->model_account_order->getTotalOrders();
+        $order_total    = $this->model_account_order->getTotalOrders();
 
-        $results = $this->model_account_order->getOrders(($page - 1) * 10, 10);
+        $results        = $this->model_account_order->getOrders(($page - 1) * 10, 10);
 
         foreach ($results as $result) {
-            $product_total = $this->model_account_order->getTotalOrderProductsByOrderId($result['order_id']);
-            $voucher_total = $this->model_account_order->getTotalOrderVouchersByOrderId($result['order_id']);
+            $product_total    = $this->model_account_order->getTotalOrderProductsByOrderId($result['order_id']);
+
+            $voucher_total    = $this->model_account_order->getTotalOrderVouchersByOrderId($result['order_id']);
 
             $data['orders'][] = [
                 'order_id'   => $result['order_id'],
@@ -111,7 +112,7 @@ class ControllerAccountOrder extends Controller {
                 $url .= '&page=' . $this->request->get['page'];
             }
 
-            $data['breadcrumbs'] = [];
+            $data['breadcrumbs']   = [];
 
             $data['breadcrumbs'][] = [
                 'text' => $this->language->get('text_home'),
@@ -238,19 +239,18 @@ class ControllerAccountOrder extends Controller {
 
             $data['shipping_method'] = $order_info['shipping_method'];
 
+            $this->load->model('tool/upload');
             $this->load->model('catalog/product');
 
-            $this->load->model('tool/upload');
-
             // Products
-            $data['products'] = [];
+            $data['products']        = [];
 
-            $products = $this->model_account_order->getOrderProducts($this->request->get['order_id']);
+            $products                = $this->model_account_order->getOrderProducts($this->request->get['order_id']);
 
             foreach ($products as $product) {
                 $option_data = [];
 
-                $options = $this->model_account_order->getOrderOptions($this->request->get['order_id'], $product['order_product_id']);
+                $options     = $this->model_account_order->getOrderOptions($this->request->get['order_id'], $product['order_product_id']);
 
                 foreach ($options as $option) {
                     if ($option['type'] != 'file') {
@@ -294,7 +294,7 @@ class ControllerAccountOrder extends Controller {
             // Voucher
             $data['vouchers'] = [];
 
-            $vouchers = $this->model_account_order->getOrderVouchers($this->request->get['order_id']);
+            $vouchers         = $this->model_account_order->getOrderVouchers($this->request->get['order_id']);
 
             foreach ($vouchers as $voucher) {
                 $data['vouchers'][] = [
@@ -306,7 +306,7 @@ class ControllerAccountOrder extends Controller {
             // Totals
             $data['totals'] = [];
 
-            $totals = $this->model_account_order->getOrderTotals($this->request->get['order_id']);
+            $totals         = $this->model_account_order->getOrderTotals($this->request->get['order_id']);
 
             foreach ($totals as $total) {
                 $data['totals'][] = [
@@ -315,12 +315,12 @@ class ControllerAccountOrder extends Controller {
                 ];
             }
 
-            $data['comment'] = nl2br($order_info['comment']);
+            $data['comment']   = nl2br($order_info['comment']);
 
             // History
             $data['histories'] = [];
 
-            $results = $this->model_account_order->getOrderHistories($this->request->get['order_id']);
+            $results           = $this->model_account_order->getOrderHistories($this->request->get['order_id']);
 
             foreach ($results as $result) {
                 $data['histories'][] = [
@@ -330,7 +330,7 @@ class ControllerAccountOrder extends Controller {
                 ];
             }
 
-            $data['continue'] = $this->url->link('account/order', 'customer_token=' . $this->session->data['customer_token'], true);
+            $data['continue']       = $this->url->link('account/order', 'customer_token=' . $this->session->data['customer_token'], true);
 
             $data['column_left']    = $this->load->controller('common/column_left');
             $data['column_right']   = $this->load->controller('common/column_right');
@@ -379,7 +379,7 @@ class ControllerAccountOrder extends Controller {
                 $product_info = $this->model_catalog_product->getProduct($order_product_info['product_id']);
 
                 if ($product_info) {
-                    $option_data = [];
+                    $option_data   = [];
 
                     $order_options = $this->model_account_order->getOrderOptions($order_product_info['order_id'], $order_product_id);
 

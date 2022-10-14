@@ -15,7 +15,7 @@ class ControllerApiShipping extends Controller {
                 $json['error']['warning'] = $this->language->get('error_permission');
             } else {
                 // Add keys for missing post vars
-                $keys = [
+                $keys                     = [
                     'firstname',
                     'lastname',
                     'company',
@@ -162,7 +162,7 @@ class ControllerApiShipping extends Controller {
 
                 $this->load->model('checkout/shipping_method');
 
-                $shipping_methods = $this->model_checkout_shipping_method->getMethods($this->session->data['shipping_address']);
+                $shipping_methods         = $this->model_checkout_shipping_method->getMethods($this->session->data['shipping_address']);
 
                 if ($shipping_methods) {
                     // Store shipping methods in session

@@ -1,6 +1,6 @@
 <?php
 class ControllerAccountTracking extends Controller {
-    public function index(): void {
+    public function index(): object|null {
         if (!$this->customer->isLogged() || (!isset($this->request->get['customer_token']) || !isset($this->session->data['customer_token']) || ($this->request->get['customer_token'] != $this->session->data['customer_token']))) {
             $this->session->data['redirect'] = $this->url->link('account/tracking', '', true);
 
@@ -53,6 +53,8 @@ class ControllerAccountTracking extends Controller {
         } else {
             return new \Action('error/not_found');
         }
+
+        return null;
     }
 
     public function autocomplete(): void {
@@ -73,7 +75,7 @@ class ControllerAccountTracking extends Controller {
         if (!$this->customer->isLogged() || (!isset($this->request->get['customer_token']) || !isset($this->session->data['customer_token']) || ($this->request->get['customer_token'] != $this->session->data['customer_token']))) {
             $this->session->data['redirect'] = $this->url->link('account/password', '', true);
 
-            $json['redirect'] = $this->url->link('account/login', '', true);
+            $json['redirect']                = $this->url->link('account/login', '', true);
         }
 
         if (!$json) {

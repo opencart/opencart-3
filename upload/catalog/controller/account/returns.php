@@ -14,6 +14,7 @@ class ControllerAccountReturns extends Controller {
         $this->document->setTitle($this->language->get('heading_title'));
 
         $data['breadcrumbs']   = [];
+
         $data['breadcrumbs'][] = [
             'text' => $this->language->get('text_home'),
             'href' => $this->url->link('common/home')
@@ -45,9 +46,9 @@ class ControllerAccountReturns extends Controller {
 
         $data['returns'] = [];
 
-        $return_total = $this->model_account_returns->getTotalReturns();
+        $return_total    = $this->model_account_returns->getTotalReturns();
 
-        $results = $this->model_account_returns->getReturns(($page - 1) * 10, 10);
+        $results         = $this->model_account_returns->getReturns(($page - 1) * 10, 10);
 
         foreach ($results as $result) {
             $data['returns'][] = [
@@ -102,7 +103,7 @@ class ControllerAccountReturns extends Controller {
         if ($return_info) {
             $this->document->setTitle($this->language->get('text_return'));
 
-            $data['breadcrumbs'] = [];
+            $data['breadcrumbs']   = [];
 
             $data['breadcrumbs'][] = [
                 'text' => $this->language->get('text_home'),
@@ -146,9 +147,9 @@ class ControllerAccountReturns extends Controller {
             $data['comment']      = nl2br($return_info['comment']);
             $data['action']       = $return_info['action'];
 
-            $data['histories'] = [];
+            $data['histories']    = [];
 
-            $results = $this->model_account_returns->getReturnHistories($this->request->get['return_id']);
+            $results              = $this->model_account_returns->getReturnHistories($this->request->get['return_id']);
 
             foreach ($results as $result) {
                 $data['histories'][] = [
@@ -158,7 +159,7 @@ class ControllerAccountReturns extends Controller {
                 ];
             }
 
-            $data['continue'] = $this->url->link('account/returns', $url, true);
+            $data['continue']       = $this->url->link('account/returns', $url, true);
 
             $data['column_left']    = $this->load->controller('common/column_left');
             $data['column_right']   = $this->load->controller('common/column_right');
@@ -171,7 +172,7 @@ class ControllerAccountReturns extends Controller {
         } else {
             $this->document->setTitle($this->language->get('text_return'));
 
-            $data['breadcrumbs'] = [];
+            $data['breadcrumbs']   = [];
 
             $data['breadcrumbs'][] = [
                 'text' => $this->language->get('text_home'),
@@ -199,7 +200,7 @@ class ControllerAccountReturns extends Controller {
                 'href' => $this->url->link('account/returns/info', 'return_id=' . $return_id . $url, true)
             ];
 
-            $data['continue'] = $this->url->link('account/returns', '', true);
+            $data['continue']       = $this->url->link('account/returns', '', true);
 
             $data['column_left']    = $this->load->controller('common/column_left');
             $data['column_right']   = $this->load->controller('common/column_right');
@@ -230,7 +231,7 @@ class ControllerAccountReturns extends Controller {
         $this->document->addScript('catalog/view/javascript/jquery/datetimepicker/bootstrap-datetimepicker.min.js');
         $this->document->addStyle('catalog/view/javascript/jquery/datetimepicker/bootstrap-datetimepicker.min.css');
 
-        $data['breadcrumbs'] = [];
+        $data['breadcrumbs']   = [];
 
         $data['breadcrumbs'][] = [
             'text' => $this->language->get('text_home'),
@@ -442,7 +443,7 @@ class ControllerAccountReturns extends Controller {
             $data['agree'] = false;
         }
 
-        $data['back'] = $this->url->link('account/account', '', true);
+        $data['back']           = $this->url->link('account/account', '', true);
 
         $data['column_left']    = $this->load->controller('common/column_left');
         $data['column_right']   = $this->load->controller('common/column_right');
@@ -513,7 +514,7 @@ class ControllerAccountReturns extends Controller {
 
         $this->document->setTitle($this->language->get('heading_title'));
 
-        $data['breadcrumbs'] = [];
+        $data['breadcrumbs']   = [];
 
         $data['breadcrumbs'][] = [
             'text' => $this->language->get('text_home'),
@@ -525,7 +526,7 @@ class ControllerAccountReturns extends Controller {
             'href' => $this->url->link('account/returns', '', true)
         ];
 
-        $data['continue'] = $this->url->link('common/home');
+        $data['continue']       = $this->url->link('common/home');
 
         $data['column_left']    = $this->load->controller('common/column_left');
         $data['column_right']   = $this->load->controller('common/column_right');

@@ -3,9 +3,8 @@ class ControllerCheckoutRegister extends Controller {
     public function index(): void {
         $this->load->language('checkout/checkout');
 
-        $data['entry_newsletter'] = sprintf($this->language->get('entry_newsletter'), $this->config->get('config_name'));
-
-        $data['customer_groups'] = [];
+        $data['entry_newsletter']      = sprintf($this->language->get('entry_newsletter'), $this->config->get('config_name'));
+        $data['customer_groups']       = [];
 
         if (is_array($this->config->get('config_customer_group_display'))) {
             $this->load->model('account/customer_group');
@@ -42,7 +41,7 @@ class ControllerCheckoutRegister extends Controller {
 
         $this->load->model('localisation/country');
 
-        $data['countries'] = $this->model_localisation_country->getCountries();
+        $data['countries']     = $this->model_localisation_country->getCountries();
 
         // Custom Fields
         $this->load->model('account/custom_field');
@@ -209,12 +208,12 @@ class ControllerCheckoutRegister extends Controller {
         }
 
         if (!$json) {
-            $customer_id = $this->model_account_customer->addCustomer($this->request->post);
+            $customer_id                    = $this->model_account_customer->addCustomer($this->request->post);
 
             // Default Payment Address
             $this->load->model('account/address');
 
-            $address_id = $this->model_account_address->addAddress($customer_id, $this->request->post);
+            $address_id                     = $this->model_account_address->addAddress($customer_id, $this->request->post);
 
             // Set the address as default
             $this->model_account_customer->editAddressId($customer_id, $address_id);
@@ -230,7 +229,7 @@ class ControllerCheckoutRegister extends Controller {
 
             if ($customer_group_info && !$customer_group_info['approval']) {
                 // Create customer token
-                $this->session->data['customer_token'] = token(26);
+                $this->session->data['customer_token']  = token(26);
 
                 $this->customer->login($this->request->post['email'], $this->request->post['password']);
 
@@ -240,7 +239,7 @@ class ControllerCheckoutRegister extends Controller {
                     $this->session->data['shipping_address'] = $this->model_account_address->getAddress($this->customer->getAddressId());
                 }
             } else {
-                $json['redirect'] = $this->url->link('account/success');
+                $json['redirect']                       = $this->url->link('account/success');
             }
 
             unset($this->session->data['guest']);

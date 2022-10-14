@@ -6,7 +6,7 @@ class ControllerCommonHeader extends Controller {
 
         $data['analytics'] = [];
 
-        $analytics = $this->model_setting_extension->getExtensions('analytics');
+        $analytics         = $this->model_setting_extension->getExtensions('analytics');
 
         foreach ($analytics as $analytic) {
             if ($this->config->get('analytics_' . $analytic['code'] . '_status')) {
@@ -68,7 +68,7 @@ class ControllerCommonHeader extends Controller {
             $data['text_wishlist'] = sprintf($this->language->get('text_wishlist'), isset($this->session->data['wishlist']) ? count($this->session->data['wishlist']) : 0);
         }
 
-        $data['text_logged'] = sprintf($this->language->get('text_logged'), $this->url->link('account/account', '', true), $this->customer->getFirstName(), $this->url->link('account/logout', '', true));
+        $data['text_logged']   = sprintf($this->language->get('text_logged'), $this->url->link('account/account', '', true), $this->customer->getFirstName(), $this->url->link('account/logout', '', true));
 
         $data['home']          = $this->url->link('common/home');
         $data['wishlist']      = $this->url->link('account/wishlist', (isset($this->session->data['customer_token']) ? '&customer_token=' . $this->session->data['customer_token'] : ''), true);

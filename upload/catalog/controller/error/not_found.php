@@ -17,11 +17,11 @@ class ControllerErrorNotFound extends Controller {
 
             unset($url_data['_route_']);
 
-            $route = $url_data['route'];
+            $route    = $url_data['route'];
 
             unset($url_data['route']);
 
-            $url = '';
+            $url      = '';
 
             if ($url_data) {
                 $url = '&' . urldecode(http_build_query($url_data, '', '&'));

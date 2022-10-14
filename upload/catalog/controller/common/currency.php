@@ -18,7 +18,7 @@ class ControllerCommonCurrency extends Controller {
 
         $this->load->model('localisation/currency');
 
-        $results = $this->model_localisation_currency->getCurrencies();
+        $results            = $this->model_localisation_currency->getCurrencies();
 
         foreach ($results as $result) {
             if ($result['status']) {

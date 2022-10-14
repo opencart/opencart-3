@@ -44,9 +44,9 @@ class ControllerAccountRecurring extends Controller {
 
         $this->load->model('account/recurring');
 
-        $recurring_total = $this->model_account_recurring->getTotalOrderRecurrings();
+        $recurring_total    = $this->model_account_recurring->getTotalOrderRecurrings();
 
-        $results = $this->model_account_recurring->getOrderRecurrings(($page - 1) * 10, 10);
+        $results            = $this->model_account_recurring->getOrderRecurrings(($page - 1) * 10, 10);
 
         foreach ($results as $result) {
             if ($result['status']) {
@@ -112,7 +112,7 @@ class ControllerAccountRecurring extends Controller {
                 $url .= '&page=' . $this->request->get['page'];
             }
 
-            $data['breadcrumbs'] = [];
+            $data['breadcrumbs']   = [];
 
             $data['breadcrumbs'][] = [
                 'text' => $this->language->get('text_home'),
@@ -136,7 +136,7 @@ class ControllerAccountRecurring extends Controller {
 
             $data['order_recurring_id'] = (int)$this->request->get['order_recurring_id'];
 
-            $data['date_added'] = date($this->language->get('date_format_short'), strtotime($recurring_info['date_added']));
+            $data['date_added']         = date($this->language->get('date_format_short'), strtotime($recurring_info['date_added']));
 
             if ($recurring_info['status']) {
                 $data['status'] = $this->language->get('text_status_' . $recurring_info['status']);
@@ -144,7 +144,7 @@ class ControllerAccountRecurring extends Controller {
                 $data['status'] = '';
             }
 
-            $data['payment_method'] = $recurring_info['payment_method'];
+            $data['payment_method']        = $recurring_info['payment_method'];
 
             $data['order_id']              = $recurring_info['order_id'];
             $data['product_name']          = $recurring_info['product_name'];
@@ -153,9 +153,9 @@ class ControllerAccountRecurring extends Controller {
             $data['reference']             = $recurring_info['reference'];
 
             // Transactions
-            $data['transactions'] = [];
+            $data['transactions']          = [];
 
-            $results = $this->model_account_recurring->getOrderRecurringTransactions($this->request->get['order_recurring_id']);
+            $results                       = $this->model_account_recurring->getOrderRecurringTransactions($this->request->get['order_recurring_id']);
 
             foreach ($results as $result) {
                 $data['transactions'][] = [
@@ -180,7 +180,7 @@ class ControllerAccountRecurring extends Controller {
         } else {
             $this->document->setTitle($this->language->get('text_recurring'));
 
-            $data['breadcrumbs'] = [];
+            $data['breadcrumbs']   = [];
 
             $data['breadcrumbs'][] = [
                 'text' => $this->language->get('text_home'),
@@ -202,7 +202,7 @@ class ControllerAccountRecurring extends Controller {
                 'href' => $this->url->link('account/recurring/info', 'customer_token=' . $this->session->data['customer_token'] . '&order_recurring_id=' . $order_recurring_id, true)
             ];
 
-            $data['continue'] = $this->url->link('account/recurring', 'customer_token=' . $this->session->data['customer_token'], true);
+            $data['continue']       = $this->url->link('account/recurring', 'customer_token=' . $this->session->data['customer_token'], true);
 
             $data['column_left']    = $this->load->controller('common/column_left');
             $data['column_right']   = $this->load->controller('common/column_right');

@@ -11,7 +11,7 @@ class ControllerApiReward extends Controller {
         if (!isset($this->session->data['api_id'])) {
             $json['error'] = $this->language->get('error_permission');
         } else {
-            $points = $this->customer->getRewardPoints();
+            $points       = $this->customer->getRewardPoints();
 
             $points_total = 0;
 
@@ -50,7 +50,7 @@ class ControllerApiReward extends Controller {
         $json = [];
 
         if (!isset($this->session->data['api_id'])) {
-            $json['error'] = $this->language->get('error_permission');
+            $json['error']   = $this->language->get('error_permission');
         } else {
             $json['maximum'] = 0;
 
@@ -71,7 +71,7 @@ class ControllerApiReward extends Controller {
         $json = [];
 
         if (!isset($this->session->data['api_id'])) {
-            $json['error'] = $this->language->get('error_permission');
+            $json['error']  = $this->language->get('error_permission');
         } else {
             $json['points'] = $this->customer->getRewardPoints();
         }

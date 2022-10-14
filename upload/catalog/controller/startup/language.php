@@ -31,7 +31,7 @@ class ControllerStartupLanguage extends Controller {
                 }
             }
 
-            $sort_order = [];
+            $sort_order    = [];
 
             foreach ($browser_codes as $key => $value) {
                 $sort_order[$key] = $value[key($value)];

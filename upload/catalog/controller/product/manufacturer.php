@@ -19,9 +19,9 @@ class ControllerProductManufacturer extends Controller {
             'href' => $this->url->link('product/manufacturer')
         ];
 
-        $data['categories'] = [];
+        $data['categories']  = [];
 
-        $results = $this->model_catalog_manufacturer->getManufacturers();
+        $results             = $this->model_catalog_manufacturer->getManufacturers();
 
         foreach ($results as $result) {
             if (is_numeric(utf8_substr($result['name'], 0, 1))) {
@@ -40,7 +40,7 @@ class ControllerProductManufacturer extends Controller {
             ];
         }
 
-        $data['continue'] = $this->url->link('common/home');
+        $data['continue']       = $this->url->link('common/home');
 
         $data['column_left']    = $this->load->controller('common/column_left');
         $data['column_right']   = $this->load->controller('common/column_right');
@@ -101,7 +101,7 @@ class ControllerProductManufacturer extends Controller {
             'href' => $this->url->link('product/manufacturer')
         ];
 
-        $manufacturer_info = $this->model_catalog_manufacturer->getManufacturer($manufacturer_id);
+        $manufacturer_info   = $this->model_catalog_manufacturer->getManufacturer($manufacturer_id);
 
         if ($manufacturer_info) {
             $this->document->setTitle($manufacturer_info['name']);
@@ -130,12 +130,13 @@ class ControllerProductManufacturer extends Controller {
             ];
 
             $data['heading_title'] = $manufacturer_info['name'];
+
             $data['text_compare']  = sprintf($this->language->get('text_compare'), isset($this->session->data['compare']) ? count($this->session->data['compare']) : 0);
             $data['compare']       = $this->url->link('product/compare');
 
             $data['products']      = [];
 
-            $filter_data = [
+            $filter_data           = [
                 'filter_manufacturer_id' => $manufacturer_id,
                 'sort'                   => $sort,
                 'order'                  => $order,
@@ -143,9 +144,9 @@ class ControllerProductManufacturer extends Controller {
                 'limit'                  => $limit
             ];
 
-            $product_total = $this->model_catalog_product->getTotalProducts($filter_data);
+            $product_total         = $this->model_catalog_product->getTotalProducts($filter_data);
 
-            $results = $this->model_catalog_product->getProducts($filter_data);
+            $results               = $this->model_catalog_product->getProducts($filter_data);
 
             foreach ($results as $result) {
                 if ($result['image']) {
@@ -200,7 +201,7 @@ class ControllerProductManufacturer extends Controller {
                 $url .= '&limit=' . $this->request->get['limit'];
             }
 
-            $data['sorts'] = [];
+            $data['sorts']   = [];
 
             $data['sorts'][] = [
                 'text'  => $this->language->get('text_default'),

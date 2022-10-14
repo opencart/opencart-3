@@ -6,6 +6,7 @@ class ControllerMailAffiliate extends Controller {
 
         $store_name           = html_entity_decode($this->config->get('config_name'), ENT_QUOTES, 'UTF-8');
         $subject              = sprintf($this->language->get('text_subject'), $store_name);
+
         $data['text_welcome'] = sprintf($this->language->get('text_welcome'), $store_name);
 
         $this->load->model('account/customer_group');
@@ -16,7 +17,7 @@ class ControllerMailAffiliate extends Controller {
             $customer_group_id = (int)$args[1]['customer_group_id'];
         }
 
-        $customer_group_info = $this->model_account_customer_group->getCustomerGroup($customer_group_id);
+        $customer_group_info  = $this->model_account_customer_group->getCustomerGroup($customer_group_id);
 
         if ($customer_group_info) {
             $data['approval'] = ($this->config->get('config_affiliate_approval') || $customer_group_info['approval']);
@@ -24,9 +25,9 @@ class ControllerMailAffiliate extends Controller {
             $data['approval'] = '';
         }
 
-        $data['login']     = $this->url->link('affiliate/login', '', true);
-        $data['store']     = $store_name;
-        $data['store_url'] = $this->config->get('config_url');
+        $data['login']        = $this->url->link('affiliate/login', '', true);
+        $data['store']        = $store_name;
+        $data['store_url']    = $this->config->get('config_url');
 
         if ($this->config->get('config_mail_engine')) {
             $mail                = new \Mail($this->config->get('config_mail_engine'));
@@ -57,8 +58,8 @@ class ControllerMailAffiliate extends Controller {
         if (in_array('affiliate', (array)$this->config->get('config_mail_alert'))) {
             $this->load->language('mail/affiliate');
 
-            $store_name = html_entity_decode($this->config->get('config_name'), ENT_QUOTES, 'UTF-8');
-            $subject    = $this->language->get('text_new_affiliate');
+            $store_name          = html_entity_decode($this->config->get('config_name'), ENT_QUOTES, 'UTF-8');
+            $subject             = $this->language->get('text_new_affiliate');
 
             if ($this->customer->isLogged()) {
                 $customer_group_id = $this->customer->getGroupId();
@@ -86,11 +87,11 @@ class ControllerMailAffiliate extends Controller {
                 $data['customer_group'] = '';
             }
 
-            $data['website']   = html_entity_decode($args[1]['website'], ENT_QUOTES, 'UTF-8');
-            $data['company']   = $args[1]['company'];
-            
-            $data['store']     = $store_name;
-            $data['store_url'] = $this->config->get('config_url');
+            $data['website']     = html_entity_decode($args[1]['website'], ENT_QUOTES, 'UTF-8');
+            $data['company']     = $args[1]['company'];
+
+            $data['store']       = $store_name;
+            $data['store_url']   = $this->config->get('config_url');
 
             if ($this->config->get('config_mail_engine')) {
                 $mail                = new \Mail($this->config->get('config_mail_engine'));
@@ -120,4 +121,4 @@ class ControllerMailAffiliate extends Controller {
             }
         }
     }
-}		
+}

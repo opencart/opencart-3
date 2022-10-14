@@ -1,6 +1,6 @@
 <?php
 class ControllerInformationGdpr extends Controller {
-    public function index(): void {
+    public function index(): object|null {
         $this->load->model('catalog/information');
 
         $information_info = $this->model_catalog_information->getInformation($this->config->get('config_gdpr_id'));
@@ -22,13 +22,13 @@ class ControllerInformationGdpr extends Controller {
                 'href' => $this->url->link('information/gdpr')
             ];
 
-            $data['action'] = $this->url->link('information/gdpr/action');
-            $data['title']  = $information_info['title'];
-            $data['gdpr']   = $this->url->link('information/information' . '&information_id=' . $information_info['information_id']);
-            $data['email']  = $this->customer->getEmail();
-            $data['store']  = $this->config->get('config_name');
-            $data['limit']  = $this->config->get('config_gdpr_limit');
-            $data['cancel'] = $this->url->link('account/account');
+            $data['action']         = $this->url->link('information/gdpr/action');
+            $data['title']          = $information_info['title'];
+            $data['gdpr']           = $this->url->link('information/information' . '&information_id=' . $information_info['information_id']);
+            $data['email']          = $this->customer->getEmail();
+            $data['store']          = $this->config->get('config_name');
+            $data['limit']          = $this->config->get('config_gdpr_limit');
+            $data['cancel']         = $this->url->link('account/account');
 
             $data['column_left']    = $this->load->controller('common/column_left');
             $data['column_right']   = $this->load->controller('common/column_right');
@@ -38,11 +38,11 @@ class ControllerInformationGdpr extends Controller {
             $data['header']         = $this->load->controller('common/header');
 
             $this->response->setOutput($this->load->view('information/gdpr', $data));
-
-            return;
         } else {
             return new \Action('error/not_found');
         }
+
+        return null;
     }
 
     /*
@@ -111,7 +111,6 @@ class ControllerInformationGdpr extends Controller {
             foreach ($results as $result) {
                 if ($result['action'] == $action) {
                     $status = false;
-
                     break;
                 }
             }
@@ -127,7 +126,7 @@ class ControllerInformationGdpr extends Controller {
         $this->response->setOutput(json_encode($json));
     }
 
-    public function success(): void {
+    public function success(): object|null {
         if (isset($this->request->get['code'])) {
             $code = $this->request->get['code'];
         } else {
@@ -143,8 +142,7 @@ class ControllerInformationGdpr extends Controller {
 
             $this->document->setTitle($this->language->get('heading_title'));
 
-            $data['breadcrumbs'] = [];
-
+            $data['breadcrumbs']   = [];
             $data['breadcrumbs'][] = [
                 'text' => $this->language->get('text_home'),
                 'href' => $this->url->link('common/home')
@@ -178,10 +176,10 @@ class ControllerInformationGdpr extends Controller {
             $data['header']         = $this->load->controller('common/header');
 
             $this->response->setOutput($this->load->view('common/success', $data));
-
-            return;
         } else {
             return new \Action('error/not_found');
         }
+
+        return null;
     }
 }

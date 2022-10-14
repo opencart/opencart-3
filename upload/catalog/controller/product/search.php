@@ -72,6 +72,7 @@ class ControllerProductSearch extends Controller {
         }
 
         $data['breadcrumbs']   = [];
+
         $data['breadcrumbs'][] = [
             'text' => $this->language->get('text_home'),
             'href' => $this->url->link('common/home')
@@ -199,9 +200,11 @@ class ControllerProductSearch extends Controller {
 
                 if (!is_null($result['special']) && (float)$result['special'] >= 0) {
                     $special   = $this->currency->format($this->tax->calculate($result['special'], $result['tax_class_id'], $this->config->get('config_tax')), $this->session->data['currency']);
+
                     $tax_price = (float)$result['special'];
                 } else {
                     $special   = false;
+
                     $tax_price = (float)$result['price'];
                 }
 

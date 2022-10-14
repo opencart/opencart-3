@@ -6,7 +6,7 @@ class ControllerStartupSass extends Controller {
         if ($files) {
             foreach ($files as $file) {
                 // Get the filename
-                $filename = basename($file, '.scss');
+                $filename   = basename($file, '.scss');
 
                 $stylesheet = DIR_APPLICATION . 'view/stylesheet/' . $filename . '.css';
 
@@ -18,13 +18,9 @@ class ControllerStartupSass extends Controller {
                     $handle = fopen($stylesheet, 'w');
 
                     flock($handle, LOCK_EX);
-
                     fwrite($handle, $output);
-
                     fflush($handle);
-
                     flock($handle, LOCK_UN);
-
                     fclose($handle);
                 }
             }

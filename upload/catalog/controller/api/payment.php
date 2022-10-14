@@ -14,7 +14,7 @@ class ControllerApiPayment extends Controller {
             $json['error']['warning'] = $this->language->get('error_permission');
         } else {
             // Add keys for missing post vars
-            $keys = [
+            $keys                     = [
                 'firstname',
                 'lastname',
                 'company',
@@ -241,7 +241,7 @@ class ControllerApiPayment extends Controller {
             if (!$json) {
                 $this->session->data['payment_method'] = $this->session->data['payment_methods'][$this->request->post['payment_method']];
 
-                $json['success'] = $this->language->get('text_method');
+                $json['success']                       = $this->language->get('text_method');
             }
         }
 

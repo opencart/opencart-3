@@ -66,7 +66,7 @@ class ControllerApiCart extends Controller {
                         $subscription_plan_ids = [];
 
                         foreach ($subscriptions as $subscription) {
-                            $subscription_plan_ids[] = $subscription['subscription_plan_id'];
+                            $subscription_plan_ids[]       = $subscription['subscription_plan_id'];
                         }
 
                         if (!in_array($subscription_plan_id, $subscription_plan_ids)) {
@@ -100,7 +100,7 @@ class ControllerApiCart extends Controller {
         $json = [];
 
         if (!isset($this->session->data['api_id'])) {
-            $json['error'] = $this->language->get('error_permission');
+            $json['error']   = $this->language->get('error_permission');
         } else {
             $this->cart->update($this->request->post['key'], $this->request->post['quantity']);
 
@@ -161,7 +161,7 @@ class ControllerApiCart extends Controller {
             // Products
             $json['products'] = [];
 
-            $products = $this->cart->getProducts();
+            $products         = $this->cart->getProducts();
 
             foreach ($products as $product) {
                 $product_total = 0;
@@ -252,9 +252,9 @@ class ControllerApiCart extends Controller {
             // Totals
             $this->load->model('setting/extension');
 
+            $total  = 0;
             $totals = [];
             $taxes  = $this->cart->getTaxes();
-            $total  = 0;
 
             // Because __call can not keep var references so we put them into an array.
             $total_data = [
@@ -265,7 +265,7 @@ class ControllerApiCart extends Controller {
 
             $sort_order = [];
 
-            $results = $this->model_setting_extension->getExtensions('total');
+            $results    = $this->model_setting_extension->getExtensions('total');
 
             foreach ($results as $key => $value) {
                 $sort_order[$key] = $this->config->get('total_' . $value['code'] . '_sort_order');

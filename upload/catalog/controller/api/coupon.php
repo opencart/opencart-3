@@ -23,10 +23,10 @@ class ControllerApiCoupon extends Controller {
 
             if ($coupon_info) {
                 $this->session->data['coupon'] = $this->request->post['coupon'];
-
-                $json['success'] = $this->language->get('text_success');
+                
+                $json['success']               = $this->language->get('text_success');
             } else {
-                $json['error'] = $this->language->get('error_coupon');
+                $json['error']                 = $this->language->get('error_coupon');
             }
         }
 

@@ -43,7 +43,7 @@ class ControllerApiVoucher extends Controller {
             $json['error']['warning'] = $this->language->get('error_permission');
         } else {
             // Add keys for missing post vars
-            $keys = [
+            $keys                     = [
                 'from_name',
                 'from_email',
                 'to_name',
@@ -107,7 +107,7 @@ class ControllerApiVoucher extends Controller {
                 }
 
                 if (!$json) {
-                    $code = mt_rand();
+                    $code                                   = mt_rand();
 
                     $this->session->data['vouchers'][$code] = [
                         'code'             => $code,
@@ -121,7 +121,7 @@ class ControllerApiVoucher extends Controller {
                         'amount'           => $this->currency->convert($this->request->post['amount'], $this->session->data['currency'], $this->config->get('config_currency'))
                     ];
 
-                    $json['success'] = $this->language->get('text_cart');
+                    $json['success']                        = $this->language->get('text_cart');
 
                     unset($this->session->data['shipping_method']);
                     unset($this->session->data['shipping_methods']);

@@ -9,7 +9,7 @@ class ControllerCommonMenu extends Controller {
 
         $data['categories'] = [];
 
-        $categories = $this->model_catalog_category->getCategories(0);
+        $categories         = $this->model_catalog_category->getCategories(0);
 
         foreach ($categories as $category) {
             if ($category['top']) {

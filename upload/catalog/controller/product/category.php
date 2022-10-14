@@ -59,10 +59,9 @@ class ControllerProductCategory extends Controller {
                 $url .= '&limit=' . $this->request->get['limit'];
             }
 
-            $path = '';
+            $path        = '';
 
-            $parts = explode('_', (string)$this->request->get['path']);
-
+            $parts       = explode('_', (string)$this->request->get['path']);
             $category_id = (int)array_pop($parts);
 
             foreach ($parts as $path_id) {
@@ -124,7 +123,7 @@ class ControllerProductCategory extends Controller {
 
             $data['categories'] = [];
 
-            $results = $this->model_catalog_category->getCategories($category_id);
+            $results            = $this->model_catalog_category->getCategories($category_id);
 
             foreach ($results as $result) {
                 $filter_data = [
@@ -140,7 +139,7 @@ class ControllerProductCategory extends Controller {
 
             $data['products'] = [];
 
-            $filter_data = [
+            $filter_data      = [
                 'filter_category_id' => $category_id,
                 'filter_filter'      => $filter,
                 'sort'               => $sort,
@@ -149,9 +148,9 @@ class ControllerProductCategory extends Controller {
                 'limit'              => $limit
             ];
 
-            $product_total = $this->model_catalog_product->getTotalProducts($filter_data);
+            $product_total    = $this->model_catalog_product->getTotalProducts($filter_data);
 
-            $results = $this->model_catalog_product->getProducts($filter_data);
+            $results          = $this->model_catalog_product->getProducts($filter_data);
 
             foreach ($results as $result) {
                 if ($result['image']) {
@@ -284,7 +283,7 @@ class ControllerProductCategory extends Controller {
 
             $data['limits'] = [];
 
-            $limits = array_unique([
+            $limits         = array_unique([
                 $this->config->get('theme_' . $this->config->get('config_theme') . '_product_limit'),
                 25,
                 50,

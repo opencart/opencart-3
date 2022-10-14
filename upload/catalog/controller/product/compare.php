@@ -78,7 +78,7 @@ class ControllerProductCompare extends Controller {
                     $availability = $this->language->get('text_instock');
                 }
 
-                $attribute_data = [];
+                $attribute_data   = [];
 
                 $attribute_groups = $this->model_catalog_product->getProductAttributes($product_id);
 
@@ -122,7 +122,7 @@ class ControllerProductCompare extends Controller {
             }
         }
 
-        $data['continue'] = $this->url->link('common/home');
+        $data['continue']       = $this->url->link('common/home');
 
         $data['column_left']    = $this->load->controller('common/column_left');
         $data['column_right']   = $this->load->controller('common/column_right');

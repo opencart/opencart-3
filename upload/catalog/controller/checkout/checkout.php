@@ -97,7 +97,7 @@ class ControllerCheckoutCheckout extends Controller {
     }
 
     public function country(): void {
-        $json = [];
+        $json         = [];
 
         $this->load->model('localisation/country');
 

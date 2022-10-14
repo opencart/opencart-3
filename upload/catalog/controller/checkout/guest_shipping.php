@@ -64,7 +64,7 @@ class ControllerCheckoutGuestShipping extends Controller {
         // Custom Fields
         $this->load->model('account/custom_field');
 
-        $custom_fields = $this->model_account_custom_field->getCustomFields($this->session->data['guest']['customer_group_id']);
+        $custom_fields     = $this->model_account_custom_field->getCustomFields($this->session->data['guest']['customer_group_id']);
 
         foreach ($custom_fields as $custom_field) {
             if ($custom_field['location'] == 'address') {

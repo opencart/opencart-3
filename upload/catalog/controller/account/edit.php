@@ -128,10 +128,11 @@ class ControllerAccountEdit extends Controller {
             $data['account_custom_field'] = [];
         }
 
+        $this->load->model('tool/upload');
+
         // Custom Fields
         $data['custom_fields'] = [];
 
-        $this->load->model('tool/upload');
         $this->load->model('account/custom_field');
 
         $custom_fields = $this->model_account_custom_field->getCustomFields($this->config->get('config_customer_group_id'));
@@ -139,11 +140,11 @@ class ControllerAccountEdit extends Controller {
         foreach ($custom_fields as $custom_field) {
             if ($custom_field['location'] == 'account') {
                 if ($custom_field['type'] == 'file' && isset($data['account_custom_field'][$custom_field['custom_field_id']])) {
-                    $code = $data['account_custom_field'][$custom_field['custom_field_id']];
+                    $code                                                           = $data['account_custom_field'][$custom_field['custom_field_id']];
+
+                    $upload_info                                                    = $this->model_tool_upload->getUploadByCode($code);
 
                     $data['account_custom_field'][$custom_field['custom_field_id']] = [];
-
-                    $upload_info = $this->model_tool_upload->getUploadByCode($code);
 
                     if ($upload_info) {
                         $data['account_custom_field'][$custom_field['custom_field_id']]['name'] = $upload_info['name'];

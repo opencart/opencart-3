@@ -11,7 +11,7 @@ class ControllerMailTransaction extends Controller {
         if ($customer_info) {
             $this->load->model('setting/store');
 
-            $store_info = $this->model_setting_store->getStore($customer_info['store_id']);
+            $store_info    = $this->model_setting_store->getStore($customer_info['store_id']);
 
             if ($store_info) {
                 $store_name = html_entity_decode($store_info['name'], ENT_QUOTES, 'UTF-8');

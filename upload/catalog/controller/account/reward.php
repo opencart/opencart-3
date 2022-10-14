@@ -38,16 +38,16 @@ class ControllerAccountReward extends Controller {
 
         $data['rewards'] = [];
 
-        $filter_data = [
+        $filter_data     = [
             'sort'  => 'date_added',
             'order' => 'DESC',
             'start' => ($page - 1) * 10,
             'limit' => 10
         ];
 
-        $reward_total = $this->model_account_reward->getTotalRewards();
+        $reward_total    = $this->model_account_reward->getTotalRewards();
 
-        $results = $this->model_account_reward->getRewards($filter_data);
+        $results         = $this->model_account_reward->getRewards($filter_data);
 
         foreach ($results as $result) {
             $data['rewards'][] = [

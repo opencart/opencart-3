@@ -45,7 +45,7 @@ class ControllerCheckoutShippingMethod extends Controller {
     public function save(): void {
         $this->load->language('checkout/checkout');
 
-        $json = [];
+        $json     = [];
 
         // Validate if shipping is required. If not the customer should not have reached this page.
         if (!$this->cart->hasShipping()) {

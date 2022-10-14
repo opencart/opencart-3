@@ -51,9 +51,9 @@ class ControllerInformationInformation extends Controller {
 
             $this->document->setTitle($this->language->get('text_error'));
 
-            $data['heading_title'] = $this->language->get('text_error');
-            $data['text_error']    = $this->language->get('text_error');
-            $data['continue']      = $this->url->link('common/home');
+            $data['heading_title']  = $this->language->get('text_error');
+            $data['text_error']     = $this->language->get('text_error');
+            $data['continue']       = $this->url->link('common/home');
 
             $this->response->addHeader($this->request->server['SERVER_PROTOCOL'] . ' 404 Not Found');
 
@@ -77,7 +77,7 @@ class ControllerInformationInformation extends Controller {
             $information_id = 0;
         }
 
-        $output = '';
+        $output           = '';
 
         $information_info = $this->model_catalog_information->getInformation($information_id);
 

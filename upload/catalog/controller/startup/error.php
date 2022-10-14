@@ -57,4 +57,4 @@ class ControllerStartupError extends Controller {
             exit();
         }
     }
-} 
+}

@@ -5,11 +5,11 @@ class ControllerCommonSecurity extends Controller {
 
         $data['user_token'] = $this->session->data['user_token'];
 
-        $data['storage'] = DIR_SYSTEM . 'storage/';
+        $data['storage']    = DIR_SYSTEM . 'storage/';
 
-        $path          = '';
+        $path               = '';
 
-        $data['paths'] = [];
+        $data['paths']      = [];
 
         $parts = explode('/', str_replace('\\', '/', rtrim(DIR_SYSTEM, '/')));
 

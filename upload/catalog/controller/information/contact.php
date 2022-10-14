@@ -172,7 +172,7 @@ class ControllerInformationContact extends Controller {
 
         $this->document->setTitle($this->language->get('heading_title'));
 
-        $data['breadcrumbs'] = [];
+        $data['breadcrumbs']   = [];
 
         $data['breadcrumbs'][] = [
             'text' => $this->language->get('text_home'),
@@ -184,8 +184,9 @@ class ControllerInformationContact extends Controller {
             'href' => $this->url->link('information/contact')
         ];
 
-        $data['text_message'] = $this->language->get('text_message');
-        $data['continue']     = $this->url->link('common/home');
+        $data['text_message']   = $this->language->get('text_message');
+
+        $data['continue']       = $this->url->link('common/home');
 
         $data['column_left']    = $this->load->controller('common/column_left');
         $data['column_right']   = $this->load->controller('common/column_right');

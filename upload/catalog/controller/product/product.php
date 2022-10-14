@@ -15,11 +15,10 @@ class ControllerProductProduct extends Controller {
         $this->load->model('catalog/category');
 
         if (isset($this->request->get['path'])) {
-            $path = '';
+            $path          = '';
 
-            $parts = explode('_', (string)$this->request->get['path']);
-
-            $category_id = (int)array_pop($parts);
+            $parts         = explode('_', (string)$this->request->get['path']);
+            $category_id   = (int)array_pop($parts);
 
             foreach ($parts as $path_id) {
                 if (!$path) {
@@ -302,9 +301,11 @@ class ControllerProductProduct extends Controller {
 
             if (!is_null($product_info['special']) && (float)$product_info['special'] >= 0) {
                 $data['special'] = $this->currency->format($this->tax->calculate($product_info['special'], $product_info['tax_class_id'], $this->config->get('config_tax')), $this->session->data['currency']);
+
                 $tax_price       = (float)$product_info['special'];
             } else {
                 $data['special'] = false;
+
                 $tax_price       = (float)$product_info['price'];
             }
 
@@ -314,7 +315,7 @@ class ControllerProductProduct extends Controller {
                 $data['tax'] = false;
             }
 
-            $discounts = $this->model_catalog_product->getProductDiscounts($this->request->get['product_id']);
+            $discounts         = $this->model_catalog_product->getProductDiscounts($this->request->get['product_id']);
 
             $data['discounts'] = [];
 
@@ -390,11 +391,12 @@ class ControllerProductProduct extends Controller {
             $data['reviews']          = sprintf($this->language->get('text_reviews'), (int)$product_info['reviews']);
             $data['rating']           = (int)$product_info['rating'];
             $data['share']            = $this->url->link('product/product', 'product_id=' . (int)$this->request->get['product_id']);
+
             $data['attribute_groups'] = $this->model_catalog_product->getProductAttributes($this->request->get['product_id']);
 
-            $data['products'] = [];
+            $data['products']         = [];
 
-            $results = $this->model_catalog_product->getProductRelated($this->request->get['product_id']);
+            $results                  = $this->model_catalog_product->getProductRelated($this->request->get['product_id']);
 
             foreach ($results as $result) {
                 if ($result['image']) {
@@ -411,9 +413,11 @@ class ControllerProductProduct extends Controller {
 
                 if (!is_null($result['special']) && (float)$result['special'] >= 0) {
                     $special   = $this->currency->format($this->tax->calculate($result['special'], $result['tax_class_id'], $this->config->get('config_tax')), $this->session->data['currency']);
+
                     $tax_price = (float)$result['special'];
                 } else {
                     $special   = false;
+
                     $tax_price = (float)$result['price'];
                 }
 
@@ -581,7 +585,7 @@ class ControllerProductProduct extends Controller {
     public function write(): void {
         $this->load->language('product/product');
 
-        $json = [];
+        $json         = [];
 
         if (isset($this->request->get['product_id'])) {
             $product_id = (int)$this->request->get['product_id'];

@@ -101,6 +101,7 @@ class ControllerApiOrder extends Controller {
                 $order_data['store_id']               = $this->config->get('config_store_id');
                 $order_data['store_name']             = $this->config->get('config_name');
                 $order_data['store_url']              = $this->config->get('config_url');
+
                 // Customer Details
                 $order_data['customer_id']            = (int)$this->session->data['customer']['customer_id'];
                 $order_data['customer_group_id']      = (int)$this->session->data['customer']['customer_group_id'];
@@ -109,6 +110,7 @@ class ControllerApiOrder extends Controller {
                 $order_data['email']                  = $this->session->data['customer']['email'];
                 $order_data['telephone']              = $this->session->data['customer']['telephone'];
                 $order_data['custom_field']           = $this->session->data['customer']['custom_field'];
+
                 // Payment Details
                 $order_data['payment_firstname']      = $this->session->data['payment_address']['firstname'];
                 $order_data['payment_lastname']       = $this->session->data['payment_address']['lastname'];
@@ -237,9 +239,9 @@ class ControllerApiOrder extends Controller {
                 // Order Totals
                 $this->load->model('setting/extension');
 
+                $total      = 0;
                 $totals     = [];
                 $taxes      = $this->cart->getTaxes();
-                $total      = 0;
 
                 // Because __call can not keep var references so we put them into an array.
                 $total_data = [
@@ -415,7 +417,7 @@ class ControllerApiOrder extends Controller {
                         if (empty($this->session->data['shipping_methods'])) {
                             $json['error'] = $this->language->get('error_no_shipping');
                         } else {
-                            $shipping = explode('.', $this->request->post['shipping_method']);
+                            $shipping      = explode('.', $this->request->post['shipping_method']);
 
                             if (!isset($shipping[0]) || !isset($shipping[1]) || !isset($this->session->data['shipping_methods'][$shipping[0]]['quote'][$shipping[1]])) {
                                 $json['error'] = $this->language->get('error_shipping_method');
@@ -607,9 +609,9 @@ class ControllerApiOrder extends Controller {
                     // Order Totals
                     $this->load->model('setting/extension');
 
+                    $total      = 0;
                     $totals     = [];
                     $taxes      = $this->cart->getTaxes();
-                    $total      = 0;
 
                     // Because __call can not keep var references so we put them into an array.
                     $total_data = [
@@ -654,12 +656,12 @@ class ControllerApiOrder extends Controller {
                     }
 
                     if (isset($this->request->post['affiliate_id'])) {
-                        $subtotal = $this->cart->getSubTotal();
+                        $subtotal                   = $this->cart->getSubTotal();
 
                         // Affiliate
                         $this->load->model('account/customer');
 
-                        $affiliate_info = $this->model_account_customer->getAffiliate($this->request->post['affiliate_id']);
+                        $affiliate_info             = $this->model_account_customer->getAffiliate($this->request->post['affiliate_id']);
 
                         if ($affiliate_info) {
                             $order_data['affiliate_id'] = $affiliate_info['customer_id'];

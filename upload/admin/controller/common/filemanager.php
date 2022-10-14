@@ -52,7 +52,7 @@ class ControllerCommonFileManager extends Controller {
         }
 
         // Merge directories and files
-        $images      = array_merge($directories, $files);
+        $images      = array_merge((array)$directories, (array)$files);
 
         // Get total number of files and directories
         $image_total = count($images);

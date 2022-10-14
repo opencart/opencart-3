@@ -33,7 +33,7 @@ class ControllerAccountAccount extends Controller {
 
         $data['credit_cards'] = [];
 
-        $files = glob(DIR_APPLICATION . 'controller/extension/credit_card/*.php');
+        $files                = glob(DIR_APPLICATION . 'controller/extension/credit_card/*.php');
 
         foreach ($files as $file) {
             $code = basename($file, '.php');
@@ -95,7 +95,7 @@ class ControllerAccountAccount extends Controller {
     }
 
     public function country(): void {
-        $json = [];
+        $json         = [];
 
         $this->load->model('localisation/country');
 

@@ -2,7 +2,7 @@
 class ControllerAccountReset extends Controller {
     private array $error = [];
 
-    public function index(): void {
+    public function index(): object|null {
         if ($this->customer->isLogged()) {
             $this->response->redirect($this->url->link('account/account', '', true));
         }
@@ -89,6 +89,8 @@ class ControllerAccountReset extends Controller {
 
             return new \Action('account/login');
         }
+
+        return null;
     }
 
     protected function validate() {

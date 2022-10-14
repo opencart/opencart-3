@@ -162,7 +162,7 @@ class ControllerMailOrder extends Controller {
             $format = '{firstname} {lastname}' . "\n" . '{company}' . "\n" . '{address_1}' . "\n" . '{address_2}' . "\n" . '{city} {postcode}' . "\n" . '{zone}' . "\n" . '{country}';
         }
 
-        $find = [
+        $find    = [
             '{firstname}',
             '{lastname}',
             '{company}',
@@ -248,7 +248,7 @@ class ControllerMailOrder extends Controller {
         // Order Totals
         $data['totals'] = [];
 
-        $order_totals = $this->model_checkout_order->getOrderTotals($order_info['order_id']);
+        $order_totals   = $this->model_checkout_order->getOrderTotals($order_info['order_id']);
 
         foreach ($order_totals as $order_total) {
             $data['totals'][] = [
@@ -433,7 +433,7 @@ class ControllerMailOrder extends Controller {
 
             $data['vouchers'] = [];
 
-            $order_vouchers = $this->model_checkout_order->getOrderVouchers($order_id);
+            $order_vouchers   = $this->model_checkout_order->getOrderVouchers($order_id);
 
             foreach ($order_vouchers as $order_voucher) {
                 $data['vouchers'][] = [
@@ -442,9 +442,8 @@ class ControllerMailOrder extends Controller {
                 ];
             }
 
-            $data['totals'] = [];
-
-            $order_totals = $this->model_checkout_order->getOrderTotals($order_id);
+            $data['totals']   = [];
+            $order_totals     = $this->model_checkout_order->getOrderTotals($order_id);
 
             foreach ($order_totals as $order_total) {
                 $data['totals'][] = [
@@ -453,7 +452,7 @@ class ControllerMailOrder extends Controller {
                 ];
             }
 
-            $data['comment'] = strip_tags($order_info['comment']);
+            $data['comment']  = strip_tags($order_info['comment']);
 
             if ($this->config->get('config_mail_engine')) {
                 $mail                = new \Mail($this->config->get('config_mail_engine'));

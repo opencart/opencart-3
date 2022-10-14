@@ -271,7 +271,7 @@ class ModelCatalogProduct extends Model {
             $this->cache->set('product.latest.' . (int)$this->config->get('config_language_id') . '.' . (int)$this->config->get('config_store_id') . '.' . $this->config->get('config_customer_group_id') . '.' . (int)$limit, $product_data);
         }
 
-        return $product_data;
+        return (array)$product_data;
     }
 
     public function getPopularProducts(int $limit): array {
@@ -289,7 +289,7 @@ class ModelCatalogProduct extends Model {
             $this->cache->set('product.popular.' . (int)$this->config->get('config_language_id') . '.' . (int)$this->config->get('config_store_id') . '.' . $this->config->get('config_customer_group_id') . '.' . (int)$limit, $product_data);
         }
 
-        return $product_data;
+        return (array)$product_data;
     }
 
     public function getBestSellerProducts(int $limit): array {
@@ -307,7 +307,7 @@ class ModelCatalogProduct extends Model {
             $this->cache->set('product.bestseller.' . (int)$this->config->get('config_language_id') . '.' . (int)$this->config->get('config_store_id') . '.' . $this->config->get('config_customer_group_id') . '.' . (int)$limit, $product_data);
         }
 
-        return $product_data;
+        return (array)$product_data;
     }
 
     public function getProductAttributes(int $product_id): array {

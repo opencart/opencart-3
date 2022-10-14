@@ -29,7 +29,7 @@ class ControllerApiLogin extends Controller {
             }
 
             if (!$json) {
-                $json['success'] = $this->language->get('text_success');
+                $json['success']         = $this->language->get('text_success');
 
                 $session = new \Session($this->config->get('session_engine'), $this->registry);
                 $session->start();
@@ -39,9 +39,9 @@ class ControllerApiLogin extends Controller {
                 $session->data['api_id'] = $api_info['api_id'];
 
                 // Create Token
-                $json['api_token'] = $session->getId();
+                $json['api_token']       = $session->getId();
             } else {
-                $json['error']['key'] = $this->language->get('error_key');
+                $json['error']['key']    = $this->language->get('error_key');
             }
         }
 

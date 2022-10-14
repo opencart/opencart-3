@@ -232,7 +232,7 @@ class ControllerCheckoutGuest extends Controller {
         }
 
         if (!$json) {
-            $this->session->data['account'] = 'guest';
+            $this->session->data['account']                    = 'guest';
 
             $this->session->data['guest']['customer_group_id'] = $customer_group_id;
             $this->session->data['guest']['firstname']         = $this->request->post['firstname'];

@@ -57,9 +57,9 @@ class ControllerCheckoutConfirm extends Controller {
 
             $order_data = [];
 
-            $totals = [];
-            $taxes  = $this->cart->getTaxes();
-            $total  = 0;
+            $total      = 0;
+            $totals     = [];
+            $taxes      = $this->cart->getTaxes();
 
             // Because __call can not keep var references so we put them into an array.
             $total_data = [
@@ -71,8 +71,7 @@ class ControllerCheckoutConfirm extends Controller {
             $this->load->model('setting/extension');
 
             $sort_order = [];
-
-            $results = $this->model_setting_extension->getExtensions('total');
+            $results    = $this->model_setting_extension->getExtensions('total');
 
             foreach ($results as $key => $value) {
                 $sort_order[$key] = $this->config->get('total_' . $value['code'] . '_sort_order');
@@ -257,6 +256,7 @@ class ControllerCheckoutConfirm extends Controller {
             }
 
             $order_data['comment'] = $this->session->data['comment'];
+
             $order_data['total']   = $total_data['total'];
 
             // Affiliate
@@ -266,7 +266,7 @@ class ControllerCheckoutConfirm extends Controller {
             $order_data['tracking']     = '';
 
             if ($this->config->get('config_affiliate_status') && isset($this->session->data['tracking'])) {
-                $subtotal = $this->cart->getSubTotal();
+                $subtotal       = $this->cart->getSubTotal();
 
                 $this->load->model('account/affiliate');
 

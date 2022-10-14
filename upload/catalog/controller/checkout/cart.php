@@ -53,7 +53,7 @@ class ControllerCheckoutCart extends Controller {
 
             $data['products'] = [];
 
-            $products = $this->cart->getProducts();
+            $products         = $this->cart->getProducts();
 
             foreach ($products as $product) {
                 $product_total = 0;
@@ -99,8 +99,8 @@ class ControllerCheckoutCart extends Controller {
                 if ($this->customer->isLogged() || !$this->config->get('config_customer_price')) {
                     $unit_price = $this->tax->calculate($product['price'], $product['tax_class_id'], $this->config->get('config_tax'));
 
-                    $price = $this->currency->format($unit_price, $this->session->data['currency']);
-                    $total = $this->currency->format($unit_price * $product['quantity'], $this->session->data['currency']);
+                    $price      = $this->currency->format($unit_price, $this->session->data['currency']);
+                    $total      = $this->currency->format($unit_price * $product['quantity'], $this->session->data['currency']);
                 } else {
                     $price = false;
                     $total = false;
@@ -164,9 +164,9 @@ class ControllerCheckoutCart extends Controller {
             // Totals
             $this->load->model('setting/extension');
 
-            $totals = [];
-            $taxes  = $this->cart->getTaxes();
-            $total  = 0;
+            $total      = 0;
+            $totals     = [];
+            $taxes      = $this->cart->getTaxes();
 
             // Because __call can not keep var references so we put them into an array.
             $total_data = [
@@ -179,7 +179,7 @@ class ControllerCheckoutCart extends Controller {
             if ($this->customer->isLogged() || !$this->config->get('config_customer_price')) {
                 $sort_order = [];
 
-                $results = $this->model_setting_extension->getExtensions('total');
+                $results    = $this->model_setting_extension->getExtensions('total');
 
                 foreach ($results as $key => $value) {
                     $sort_order[$key] = $this->config->get('total_' . $value['code'] . '_sort_order');
@@ -218,7 +218,7 @@ class ControllerCheckoutCart extends Controller {
 
             $data['modules'] = [];
 
-            $files = glob(DIR_APPLICATION . '/controller/extension/total/*.php');
+            $files           = glob(DIR_APPLICATION . '/controller/extension/total/*.php');
 
             if ($files) {
                 foreach ($files as $file) {
@@ -330,9 +330,9 @@ class ControllerCheckoutCart extends Controller {
                 // Totals
                 $this->load->model('setting/extension');
 
-                $totals = [];
-                $taxes  = $this->cart->getTaxes();
-                $total  = 0;
+                $total      = 0;
+                $totals     = [];
+                $taxes      = $this->cart->getTaxes();
 
                 // Because __call can not keep var references so we put them into an array.
                 $total_data = [
@@ -345,7 +345,7 @@ class ControllerCheckoutCart extends Controller {
                 if ($this->customer->isLogged() || !$this->config->get('config_customer_price')) {
                     $sort_order = [];
 
-                    $results = $this->model_setting_extension->getExtensions('total');
+                    $results    = $this->model_setting_extension->getExtensions('total');
 
                     foreach ($results as $key => $value) {
                         $sort_order[$key] = $this->config->get('total_' . $value['code'] . '_sort_order');
@@ -429,9 +429,9 @@ class ControllerCheckoutCart extends Controller {
             // Totals
             $this->load->model('setting/extension');
 
-            $totals = [];
-            $taxes  = $this->cart->getTaxes();
-            $total  = 0;
+            $total      = 0;
+            $totals     = [];
+            $taxes      = $this->cart->getTaxes();
 
             // Because __call can not keep var references so we put them into an array.
             $total_data = [
@@ -444,7 +444,7 @@ class ControllerCheckoutCart extends Controller {
             if ($this->customer->isLogged() || !$this->config->get('config_customer_price')) {
                 $sort_order = [];
 
-                $results = $this->model_setting_extension->getExtensions('total');
+                $results    = $this->model_setting_extension->getExtensions('total');
 
                 foreach ($results as $key => $value) {
                     $sort_order[$key] = $this->config->get('total_' . $value['code'] . '_sort_order');

@@ -33,6 +33,7 @@ class ControllerProductSpecial extends Controller {
         $this->document->setTitle($this->language->get('heading_title'));
 
         $data['breadcrumbs']   = [];
+
         $data['breadcrumbs'][] = [
             'text' => $this->language->get('text_home'),
             'href' => $this->url->link('common/home')
@@ -64,18 +65,18 @@ class ControllerProductSpecial extends Controller {
         $data['text_compare'] = sprintf($this->language->get('text_compare'), isset($this->session->data['compare']) ? count($this->session->data['compare']) : 0);
         $data['compare']      = $this->url->link('product/compare');
 
-        $data['products'] = [];
+        $data['products']     = [];
 
-        $filter_data = [
+        $filter_data          = [
             'sort'  => $sort,
             'order' => $order,
             'start' => ($page - 1) * $limit,
             'limit' => $limit
         ];
 
-        $product_total = $this->model_catalog_product->getTotalProductSpecials();
+        $product_total        = $this->model_catalog_product->getTotalProductSpecials();
 
-        $results       = $this->model_catalog_product->getProductSpecials($filter_data);
+        $results              = $this->model_catalog_product->getProductSpecials($filter_data);
 
         foreach ($results as $result) {
             if ($result['image']) {
@@ -92,9 +93,11 @@ class ControllerProductSpecial extends Controller {
 
             if (!is_null($result['special']) && (float)$result['special'] >= 0) {
                 $special   = $this->currency->format($this->tax->calculate($result['special'], $result['tax_class_id'], $this->config->get('config_tax')), $this->session->data['currency']);
+
                 $tax_price = (float)$result['special'];
             } else {
                 $special   = false;
+
                 $tax_price = (float)$result['price'];
             }
 
@@ -200,7 +203,7 @@ class ControllerProductSpecial extends Controller {
 
         $data['limits'] = [];
 
-        $limits = array_unique([
+        $limits         = array_unique([
             $this->config->get('theme_' . $this->config->get('config_theme') . '_product_limit'),
             25,
             50,

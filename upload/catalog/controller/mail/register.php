@@ -15,7 +15,7 @@ class ControllerMailRegister extends Controller {
             $customer_group_id = $this->config->get('config_customer_group_id');
         }
 
-        $customer_group_info = $this->model_account_customer_group->getCustomerGroup($customer_group_id);
+        $customer_group_info  = $this->model_account_customer_group->getCustomerGroup($customer_group_id);
 
         if ($customer_group_info) {
             $data['approval'] = $customer_group_info['approval'];
@@ -108,4 +108,4 @@ class ControllerMailRegister extends Controller {
             }
         }
     }
-}		
+}
