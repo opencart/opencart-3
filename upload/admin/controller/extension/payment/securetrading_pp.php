@@ -14,11 +14,11 @@ class ControllerExtensionPaymentSecureTradingPp extends Controller {
         $this->load->model('localisation/order_status');
 
         if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validate()) {
-            $this->request->post['payment_securetrading_pp_site_reference'] = trim($this->request->post['payment_securetrading_pp_site_reference']);
+            $this->request->post['payment_securetrading_pp_site_reference'] = $this->request->post['payment_securetrading_pp_site_reference'];
 
             $this->model_setting_setting->editSetting('payment_securetrading_pp', $this->request->post);
 
-            $this->session->data['success'] = $this->language->get('text_success');
+            $this->session->data['success']                                 = $this->language->get('text_success');
 
             $this->response->redirect($this->url->link('marketplace/extension', 'user_token=' . $this->session->data['user_token'] . '&type=payment', true));
         }

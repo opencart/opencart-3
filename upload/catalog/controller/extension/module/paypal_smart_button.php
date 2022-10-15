@@ -12,6 +12,8 @@ class ControllerExtensionModulePayPalSmartButton extends Controller {
     }
 
     public function index(): string {
+        $view = '';
+
         if ($this->config->get('payment_paypal_status') && isset($this->request->get['route'])) {
             $status = false;
 
@@ -73,6 +75,7 @@ class ControllerExtensionModulePayPalSmartButton extends Controller {
             if ($setting['page']['cart']['status'] && ($this->request->get['route'] == 'checkout/cart') && $this->cart->getTotal()) {
                 $data['insert_tag']         = html_entity_decode($setting['page']['cart']['insert_tag']);
                 $data['insert_type']        = $setting['page']['cart']['insert_type'];
+
                 $data['button_align']       = $setting['page']['cart']['button_align'];
                 $data['button_size']        = $setting['page']['cart']['button_size'];
                 $data['button_color']       = $setting['page']['cart']['button_color'];
@@ -97,19 +100,19 @@ class ControllerExtensionModulePayPalSmartButton extends Controller {
                     $item_total    += $product_price * $product['quantity'];
                 }
 
-                $item_total             = number_format($item_total, $decimal_place, '.', '');
-                $sub_total              = $this->cart->getSubTotal();
-                $total                  = $this->cart->getTotal();
-                $tax_total              = number_format(($total - $sub_total) * $currency_value, $decimal_place, '.', '');
-                $data['message_amount'] = number_format($item_total + $tax_total, $decimal_place, '.', '');
+                $item_total                 = number_format($item_total, $decimal_place, '.', '');
+                $sub_total                  = $this->cart->getSubTotal();
+                $total                      = $this->cart->getTotal();
+                $tax_total                  = number_format(($total - $sub_total) * $currency_value, $decimal_place, '.', '');
+                $data['message_amount']     = number_format($item_total + $tax_total, $decimal_place, '.', '');
 
-                $status = true;
+                $status                     = true;
             }
 
             if ($status) {
                 $this->load->model('localisation/country');
 
-                $country = $this->model_localisation_country->getCountry($this->config->get('config_country_id'));
+                $country                    = $this->model_localisation_country->getCountry($this->config->get('config_country_id'));
 
                 $data['client_id']          = $this->config->get('payment_paypal_client_id');
                 $data['merchant_id']        = $this->config->get('payment_paypal_merchant_id');
@@ -118,13 +121,14 @@ class ControllerExtensionModulePayPalSmartButton extends Controller {
                 $data['transaction_method'] = $this->config->get('payment_paypal_transaction_method');
                 $data['locale']             = preg_replace('/-(.+?)+/', '', $this->config->get('config_language')) . '_' . $country['iso_code_2'];
                 $data['currency_code']      = $this->config->get('payment_paypal_currency_code');
-
                 $data['button_width']       = $setting['button_width'][$data['button_size']];
                 $data['message_width']      = $setting['message_width'][$data['message_size']];
 
-                return $this->load->view('extension/module/paypal_smart_button', $data);
+                $view = $this->load->view('extension/module/paypal_smart_button', $data);
             }
         }
+
+        return $view;
     }
 
     public function createOrder(): void {
@@ -1618,11 +1622,11 @@ class ControllerExtensionModulePayPalSmartButton extends Controller {
     }
 
     private function validatePaymentAddress() {
-        if ((utf8_strlen(trim($this->request->post['firstname'])) < 1) || (utf8_strlen(trim($this->request->post['firstname'])) > 32)) {
+        if ((utf8_strlen($this->request->post['firstname']) < 1) || (utf8_strlen($this->request->post['firstname']) > 32)) {
             $this->error['firstname'] = $this->language->get('error_firstname');
         }
 
-        if ((utf8_strlen(trim($this->request->post['lastname'])) < 1) || (utf8_strlen(trim($this->request->post['lastname'])) > 32)) {
+        if ((utf8_strlen($this->request->post['lastname']) < 1) || (utf8_strlen($this->request->post['lastname']) > 32)) {
             $this->error['lastname'] = $this->language->get('error_lastname');
         }
 
@@ -1634,11 +1638,11 @@ class ControllerExtensionModulePayPalSmartButton extends Controller {
             $this->error['telephone'] = $this->language->get('error_telephone');
         }
 
-        if ((utf8_strlen(trim($this->request->post['address_1'])) < 3) || (utf8_strlen(trim($this->request->post['address_1'])) > 128)) {
+        if ((utf8_strlen($this->request->post['address_1']) < 3) || (utf8_strlen($this->request->post['address_1']) > 128)) {
             $this->error['address_1'] = $this->language->get('error_address_1');
         }
 
-        if ((utf8_strlen(trim($this->request->post['city'])) < 2) || (utf8_strlen(trim($this->request->post['city'])) > 128)) {
+        if ((utf8_strlen($this->request->post['city']) < 2) || (utf8_strlen($this->request->post['city']) > 128)) {
             $this->error['city'] = $this->language->get('error_city');
         }
 
@@ -1646,7 +1650,7 @@ class ControllerExtensionModulePayPalSmartButton extends Controller {
 
         $country_info = $this->model_localisation_country->getCountry($this->request->post['country_id']);
 
-        if ($country_info && $country_info['postcode_required'] && (utf8_strlen(trim($this->request->post['postcode'])) < 2 || utf8_strlen(trim($this->request->post['postcode'])) > 10)) {
+        if ($country_info && $country_info['postcode_required'] && (utf8_strlen($this->request->post['postcode']) < 2 || utf8_strlen($this->request->post['postcode']) > 10)) {
             $this->error['postcode'] = $this->language->get('error_postcode');
         }
 
@@ -1682,19 +1686,19 @@ class ControllerExtensionModulePayPalSmartButton extends Controller {
     }
 
     private function validateShippingAddress() {
-        if ((utf8_strlen(trim($this->request->post['firstname'])) < 1) || (utf8_strlen(trim($this->request->post['firstname'])) > 32)) {
+        if ((utf8_strlen($this->request->post['firstname']) < 1) || (utf8_strlen($this->request->post['firstname']) > 32)) {
             $this->error['firstname'] = $this->language->get('error_firstname');
         }
 
-        if ((utf8_strlen(trim($this->request->post['lastname'])) < 1) || (utf8_strlen(trim($this->request->post['lastname'])) > 32)) {
+        if ((utf8_strlen($this->request->post['lastname']) < 1) || (utf8_strlen($this->request->post['lastname']) > 32)) {
             $this->error['lastname'] = $this->language->get('error_lastname');
         }
 
-        if ((utf8_strlen(trim($this->request->post['address_1'])) < 3) || (utf8_strlen(trim($this->request->post['address_1'])) > 128)) {
+        if ((utf8_strlen($this->request->post['address_1']) < 3) || (utf8_strlen($this->request->post['address_1']) > 128)) {
             $this->error['address_1'] = $this->language->get('error_address_1');
         }
 
-        if ((utf8_strlen(trim($this->request->post['city'])) < 2) || (utf8_strlen(trim($this->request->post['city'])) > 128)) {
+        if ((utf8_strlen($this->request->post['city']) < 2) || (utf8_strlen($this->request->post['city']) > 128)) {
             $this->error['city'] = $this->language->get('error_city');
         }
 
@@ -1702,7 +1706,7 @@ class ControllerExtensionModulePayPalSmartButton extends Controller {
 
         $country_info = $this->model_localisation_country->getCountry($this->request->post['country_id']);
 
-        if ($country_info && $country_info['postcode_required'] && (utf8_strlen(trim($this->request->post['postcode'])) < 2 || utf8_strlen(trim($this->request->post['postcode'])) > 10)) {
+        if ($country_info && $country_info['postcode_required'] && (utf8_strlen($this->request->post['postcode']) < 2 || utf8_strlen($this->request->post['postcode']) > 10)) {
             $this->error['postcode'] = $this->language->get('error_postcode');
         }
 

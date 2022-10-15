@@ -909,7 +909,7 @@ class ControllerExtensionAdvertiseGoogle extends Controller {
 
                 $target = [
                     'store_id'      => $this->store_id,
-                    'campaign_name' => str_replace(',', '&#44;', trim($this->request->post['campaign_name'])),
+                    'campaign_name' => str_replace(',', '&#44;', $this->request->post['campaign_name']),
                     'country'       => $this->request->post['country'],
                     'status'        => $this->request->post['status'] == 'active' ? 'active' : 'paused',
                     'budget'        => (float)preg_replace('~[^0-9\.]~i', '', $this->request->post['budget']),
@@ -971,7 +971,7 @@ class ControllerExtensionAdvertiseGoogle extends Controller {
                 $this->load->model('extension/advertise/google');
 
                 $target = [
-                    'campaign_name' => str_replace(',', '&#44;', trim($this->request->post['campaign_name'])),
+                    'campaign_name' => str_replace(',', '&#44;', $this->request->post['campaign_name']),
                     'country'       => $this->request->post['country'],
                     'status'        => $this->request->post['status'] == 'active' ? 'active' : 'paused',
                     'budget'        => (float)preg_replace('~[^0-9\.]~i', '', $this->request->post['budget']),
@@ -2050,13 +2050,13 @@ class ControllerExtensionAdvertiseGoogle extends Controller {
     protected function validateConnect() {
         $this->validatePermission();
 
-        if (!isset($this->request->post['advertise_google_app_id']) || trim($this->request->post['advertise_google_app_id']) == '') {
+        if (!isset($this->request->post['advertise_google_app_id']) || $this->request->post['advertise_google_app_id'] == '') {
             $this->error['app_id'] = $this->language->get('error_empty_app_id');
         } elseif ($this->model_extension_advertise_google->isAppIdUsed($this->request->post['advertise_google_app_id'], $this->store_id)) {
             $this->error['app_id'] = $this->language->get('error_used_app_id');
         }
 
-        if (!isset($this->request->post['advertise_google_app_secret']) || trim($this->request->post['advertise_google_app_secret']) == '') {
+        if (!isset($this->request->post['advertise_google_app_secret']) || $this->request->post['advertise_google_app_secret'] == '') {
             $this->error['app_secret'] = $this->language->get('error_empty_app_secret');
         }
 
@@ -2089,7 +2089,7 @@ class ControllerExtensionAdvertiseGoogle extends Controller {
             $this->error['country'] = $this->language->get('error_empty_country');
         }
 
-        if (empty($this->request->post['campaign_name']) || trim($this->request->post['campaign_name']) == '') {
+        if (!isset($this->request->post['campaign_name']) || $this->request->post['campaign_name'] == '') {
             $this->error['campaign_name'] = $this->language->get('error_empty_campaign_name');
         } else {
             $disallowed_names = [];
@@ -2105,11 +2105,11 @@ class ControllerExtensionAdvertiseGoogle extends Controller {
                 $disallowed_names[] = strtolower(str_replace('&#44;', ',', trim($existing_target['campaign_name'])));
             }
 
-            if (in_array(trim(strtolower($this->request->post['campaign_name'])), $disallowed_names)) {
+            if (in_array(strtolower($this->request->post['campaign_name']), $disallowed_names)) {
                 $this->error['campaign_name'] = $this->language->get('error_campaign_name_in_use');
             }
 
-            if (strtolower(trim($this->request->post['campaign_name'])) == 'total') {
+            if (strtolower($this->request->post['campaign_name']) == 'total') {
                 $this->error['campaign_name'] = $this->language->get('error_campaign_name_total');
             }
         }

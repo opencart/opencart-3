@@ -690,7 +690,7 @@ class ControllerExtensionPaymentPPBraintree extends Controller {
                 $match = false;
 
                 foreach ($addresses as $address) {
-                    if (trim(strtolower($address['address_1'])) == trim(strtolower($this->request->post['details']['shippingAddress']['line1'])) && trim(strtolower($address['postcode'])) == trim(strtolower($this->request->post['details']['shippingAddress']['postalCode']))) {
+                    if (trim(strtolower($address['address_1'])) == strtolower($this->request->post['details']['shippingAddress']['line1']) && trim(strtolower($address['postcode'])) == strtolower($this->request->post['details']['shippingAddress']['postalCode'])) {
                         $match                                     = true;
 
                         $this->session->data['payment_address_id'] = $address['address_id'];
@@ -709,7 +709,7 @@ class ControllerExtensionPaymentPPBraintree extends Controller {
                  * If there is no address match add the address and set the info.
                  */
                 if ($match == false) {
-                    $shipping_name       = explode(' ', trim($this->request->post['details']['shippingAddress']['recipientName']));
+                    $shipping_name       = explode(' ', $this->request->post['details']['shippingAddress']['recipientName']);
                     $shipping_first_name = $shipping_name[0];
 
                     unset($shipping_name[0]);

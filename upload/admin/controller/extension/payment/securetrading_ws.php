@@ -17,8 +17,8 @@ class ControllerExtensionPaymentSecureTradingWs extends Controller {
         $this->load->model('localisation/currency');
 
         if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validate()) {
-            $this->request->post['payment_securetrading_ws_site_reference'] = trim($this->request->post['payment_securetrading_ws_site_reference']);
-            $this->request->post['payment_securetrading_ws_username']       = trim($this->request->post['payment_securetrading_ws_username']);
+            $this->request->post['payment_securetrading_ws_site_reference'] = $this->request->post['payment_securetrading_ws_site_reference'];
+            $this->request->post['payment_securetrading_ws_username']       = $this->request->post['payment_securetrading_ws_username'];
 
             $this->model_setting_setting->editSetting('payment_securetrading_ws', $this->request->post);
 

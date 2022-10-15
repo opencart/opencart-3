@@ -870,7 +870,7 @@ class ControllerExtensionPaymentAmazonLoginPay extends Controller {
                 throw new \RuntimeException('GET variable "token" is missing.');
             }
 
-            if (trim($this->request->get['token']) == '') {
+            if ($this->request->get['token'] == '') {
                 throw new \RuntimeException('GET variable "token" set, but is empty.');
             }
 
@@ -878,7 +878,7 @@ class ControllerExtensionPaymentAmazonLoginPay extends Controller {
                 throw new \RuntimeException('CONFIG variable "payment_amazon_login_pay_ipn_token" is empty.');
             }
 
-            if (!hash_equals(trim($this->config->get('payment_amazon_login_pay_ipn_token')), trim($this->request->get['token']))) {
+            if (!hash_equals(trim($this->config->get('payment_amazon_login_pay_ipn_token')), $this->request->get['token'])) {
                 throw new \RuntimeException('Token values are different.');
             }
 
