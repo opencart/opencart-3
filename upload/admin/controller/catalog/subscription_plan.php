@@ -202,9 +202,9 @@ class ControllerCatalogSubscriptionPlan extends Controller {
             'limit' => $this->config->get('config_limit_admin')
         ];
 
-        $subscription_plan_total    = $this->model_catalog_subscription_plan->getTotalsubscription_plans();
+        $subscription_plan_total    = $this->model_catalog_subscription_plan->getTotalSubscriptionPlans();
 
-        $results                    = $this->model_catalog_subscription_plan->getsubscription_plans($filter_data);
+        $results                    = $this->model_catalog_subscription_plan->getSubscriptionPlans($filter_data);
 
         foreach ($results as $result) {
             $data['subscription_plans'][] = [
