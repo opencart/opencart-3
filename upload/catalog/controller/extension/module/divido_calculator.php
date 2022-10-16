@@ -1,6 +1,6 @@
 <?php
 class ControllerExtensionModuleDividoCalculator extends Controller {
-    public function index(): string {
+    public function index(): bool|string {
         if (!isset($this->request->get['product_id']) || !$this->config->get('payment_divido_status') || !$this->config->get('module_divido_calculator_status')) {
             return false;
         }
@@ -41,6 +41,7 @@ class ControllerExtensionModuleDividoCalculator extends Controller {
         $plans_ids  = array_map(function($plan) {
             return $plan->id;
         }, $plans);
+
         $plans_ids  = array_unique($plans_ids);
         $plans_list = implode(',', $plans_ids);
 

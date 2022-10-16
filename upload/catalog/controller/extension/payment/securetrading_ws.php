@@ -52,6 +52,8 @@ class ControllerExtensionPaymentSecureTradingWs extends Controller {
             }
 
             return $this->load->view('extension/payment/securetrading_ws', $data);
+        } else {
+            return '';
         }
     }
 

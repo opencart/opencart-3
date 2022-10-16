@@ -134,6 +134,8 @@ class ControllerExtensionPaymentKlarnaInvoice extends Controller {
             }
 
             return $this->load->view('extension/payment/klarna_invoice', $data);
+        } else {
+            return '';
         }
     }
 

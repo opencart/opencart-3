@@ -30,9 +30,17 @@ class ControllerExtensionModuleLaybuyLayout extends Controller {
                         ];
 
                         return $this->load->view('extension/module/laybuy_layout', $data);
+                    } else {
+                        return '';
                     }
+                } else {
+                    return '';
                 }
+            } else {
+                return '';
             }
+        } else {
+            return '';
         }
     }
 }

@@ -1066,8 +1066,6 @@ class ControllerExtensionPaymentLaybuy extends Controller {
     }
 
     public function order(): string {
-        $view = '';
-
         if ($this->config->get('payment_laybuy_status')) {
             $this->load->language('extension/payment/laybuy');
 
@@ -1087,10 +1085,10 @@ class ControllerExtensionPaymentLaybuy extends Controller {
             $data['store_url']        = HTTPS_CATALOG;
             $data['api_key']          = $this->getApiKey();
 
-            $view = $this->load->view('extension/payment/laybuy_order', $data);
+            return $this->load->view('extension/payment/laybuy_order', $data);
+        } else {
+            return '';
         }
-
-        return $view;
     }
 
     private function getApiKey() {

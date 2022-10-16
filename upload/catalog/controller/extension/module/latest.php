@@ -8,7 +8,7 @@ class ControllerExtensionModuleLatest extends Controller {
 
         $data['products'] = [];
 
-        $results = $this->model_catalog_product->getLatestProducts($setting['limit']);
+        $results          = $this->model_catalog_product->getLatestProducts($setting['limit']);
 
         if ($results) {
             foreach ($results as $result) {
@@ -58,6 +58,8 @@ class ControllerExtensionModuleLatest extends Controller {
             }
 
             return $this->load->view('extension/module/latest', $data);
+        } else {
+            return '';
         }
     }
 }

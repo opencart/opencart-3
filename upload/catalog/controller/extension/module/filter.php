@@ -70,5 +70,7 @@ class ControllerExtensionModuleFilter extends Controller {
                 return $this->load->view('extension/module/filter', $data);
             }
         }
+
+        return '';
     }
 }

@@ -1,6 +1,6 @@
 <?php
 class ControllerExtensionModuleKlarnaCheckoutModule extends Controller {
-    public function index(): string {
+    public function index(): bool|string {
         $this->load->model('extension/payment/klarna_checkout');
 
         // If Payment Method or Module is disabled
@@ -56,10 +56,7 @@ class ControllerExtensionModuleKlarnaCheckoutModule extends Controller {
 
         $this->setShipping();
 
-        [
-            $klarna_account,
-            $connector
-        ] = $this->model_extension_payment_klarna_checkout->getConnector($this->config->get('klarna_checkout_account'), $this->session->data['currency']);
+        [$klarna_account, $connector] = $this->model_extension_payment_klarna_checkout->getConnector($this->config->get('klarna_checkout_account'), $this->session->data['currency']);
 
         if (!$klarna_account || !$connector) {
             $this->model_extension_payment_klarna_checkout->log('Couldn\'t secure connection to Klarna API.');
@@ -112,7 +109,7 @@ class ControllerExtensionModuleKlarnaCheckoutModule extends Controller {
 
             $this->load->model('setting/extension');
 
-            $results = $this->model_setting_extension->getExtensions('shipping');
+            $results     = $this->model_setting_extension->getExtensions('shipping');
 
             foreach ($results as $result) {
                 if ($this->config->get('shipping_' . $result['code'] . '_status')) {

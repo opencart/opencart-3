@@ -24,6 +24,8 @@ class ControllerExtensionTotalReward extends Controller {
             }
 
             return $this->load->view('extension/total/reward', $data);
+        } else {
+            return '';
         }
     }
 

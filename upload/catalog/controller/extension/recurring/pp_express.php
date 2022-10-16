@@ -23,6 +23,8 @@ class ControllerExtensionRecurringPPExpress extends Controller {
             }
 
             return $this->load->view('extension/recurring/pp_express', $data);
+        } else {
+            return '';
         }
     }
 

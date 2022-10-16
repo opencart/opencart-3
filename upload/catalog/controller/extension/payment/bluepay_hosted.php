@@ -1,6 +1,6 @@
 <?php
 class ControllerExtensionPaymentBluePayHosted extends Controller {
-	public function index(): string {
+	public function index(): bool|string {
         if (!isset($this->session->data['order_id'])) {
             return false;
         }

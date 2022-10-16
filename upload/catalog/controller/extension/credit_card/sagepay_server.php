@@ -162,7 +162,7 @@ class ControllerExtensionCreditCardSagepayServer extends Controller {
         $this->response->setOutput(json_encode($json));
     }
 
-    public function callback(): string {
+    public function callback() {
         $this->load->model('checkout/order');
         $this->load->model('extension/payment/sagepay_server');
 

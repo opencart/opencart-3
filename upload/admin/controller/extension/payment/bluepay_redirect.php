@@ -153,8 +153,6 @@ class ControllerExtensionPaymentBluepayredirect extends Controller {
     }
 
     public function order(): string {
-        $view = '';
-
         if ($this->config->get('payment_bluepay_redirect_status')) {
             $this->load->model('extension/payment/bluepay_redirect');
 
@@ -173,11 +171,13 @@ class ControllerExtensionPaymentBluepayredirect extends Controller {
                 $data['order_id']   = (int)$this->request->get['order_id'];
                 $data['user_token'] = $this->session->data['user_token'];
 
-                $view = $this->load->view('extension/payment/bluepay_redirect_order', $data);
+                return $this->load->view('extension/payment/bluepay_redirect_order', $data);
+            } else {
+                return '';
             }
+        } else {
+            return '';
         }
-
-        return $view;
     }
 
     public function void(): void {

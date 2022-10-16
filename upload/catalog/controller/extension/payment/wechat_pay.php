@@ -140,5 +140,7 @@ class ControllerExtensionPaymentWechatPay extends Controller {
                 ]);
             }
         }
+
+        return [];
     }
 }

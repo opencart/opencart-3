@@ -454,8 +454,6 @@ class ControllerExtensionPaymentPPExpress extends Controller {
     }
 
     public function order(): string {
-        $view = '';
-
         if ($this->config->get('payment_pp_express_status')) {
             $this->load->language('extension/payment/pp_express_order');
 
@@ -480,11 +478,13 @@ class ControllerExtensionPaymentPPExpress extends Controller {
                 $refunded                  = number_format($this->model_extension_payment_pp_express->getRefundedTotal($paypal_info['paypal_order_id']), 2);
                 $data['refunded']          = $refunded;
 
-                $view = $this->load->view('extension/payment/pp_express_order', $data);
+                return $this->load->view('extension/payment/pp_express_order', $data);
+            } else {
+                return '';
             }
+        } else {
+            return '';
         }
-
-        return $view;
     }
 
     public function transaction(): void {

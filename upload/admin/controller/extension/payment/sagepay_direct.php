@@ -155,8 +155,6 @@ class ControllerExtensionPaymentSagepayDirect extends Controller {
     }
 
     public function order(): string {
-        $view = '';
-
         if ($this->config->get('payment_sagepay_direct_status')) {
             $this->load->model('extension/payment/sagepay_direct');
 
@@ -178,11 +176,13 @@ class ControllerExtensionPaymentSagepayDirect extends Controller {
 
                 $data['user_token'] = $this->session->data['user_token'];
 
-                $view = $this->load->view('extension/payment/sagepay_direct_order', $data);
+                return $this->load->view('extension/payment/sagepay_direct_order', $data);
+            } else {
+                return '';
             }
+        } else {
+            return '';
         }
-
-        return $view;
     }
 
     public function void(): void {

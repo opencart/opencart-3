@@ -35,7 +35,11 @@ class ControllerExtensionModulePPBraintreeButton extends Controller {
                 $data['action']                                    = $this->url->link('extension/payment/pp_braintree/expressConfirm', '', true);
 
                 return $this->load->view('extension/module/pp_braintree_button', $data);
+            } else {
+                return '';
             }
+        } else {
+            return '';
         }
     }
 

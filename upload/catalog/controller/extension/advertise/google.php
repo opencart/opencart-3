@@ -324,7 +324,7 @@ class ControllerExtensionAdvertiseGoogle extends Controller {
         $output                   = str_replace('</body>', $snippet . '</body>', $output);
     }
 
-    public function cron(int $cron_id = null, string $code = null, string $cycle = null, string $date_added = null, string $date_modified = null) {
+    public function cron(int $cron_id = null, string $code = null, string $cycle = null, string $date_added = null, string $date_modified = null): bool|object {
         $this->loadLibrary($this->store_id);
 
         if (!$this->validateCRON()) {

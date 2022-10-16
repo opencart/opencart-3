@@ -205,8 +205,6 @@ class ControllerExtensionPaymentWorldpay extends Controller {
     }
 
     public function order(): string {
-        $view = '';
-
         if ($this->config->get('payment_worldpay_status')) {
             $this->load->model('extension/payment/worldpay');
 
@@ -226,11 +224,13 @@ class ControllerExtensionPaymentWorldpay extends Controller {
 
                 $data['user_token'] = $this->session->data['user_token'];
 
-                $view = $this->load->view('extension/payment/worldpay_order', $data);
+                return $this->load->view('extension/payment/worldpay_order', $data);
+            } else {
+                return '';
             }
+        } else {
+            return '';
         }
-
-        return $view;
     }
 
     public function refund(): void {

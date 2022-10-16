@@ -185,8 +185,6 @@ class ControllerExtensionPaymentG2APay extends Controller {
     }
 
     public function order(): string {
-        $view = '';
-
         if ($this->config->get('payment_g2apay_status')) {
             $this->load->model('extension/payment/g2apay');
 
@@ -206,11 +204,13 @@ class ControllerExtensionPaymentG2APay extends Controller {
 
                 $data['user_token'] = $this->session->data['user_token'];
 
-                $view = $this->load->view('extension/payment/g2apay_order', $data);
+                return $this->load->view('extension/payment/g2apay_order', $data);
+            } else {
+                return '';
             }
+        } else {
+            return '';
         }
-
-        return $view;
     }
 
     public function refund(): void {

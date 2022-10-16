@@ -102,7 +102,7 @@ class ControllerExtensionPaymentPPPayflowIframe extends Controller {
 		$this->response->setOutput($this->load->view('extension/payment/pp_payflow_iframe_return', $data));
 	}
 
-	public function paymentIpn(): string {
+	public function paymentIpn(): void {
         $this->load->model('checkout/order');
 		$this->load->model('extension/payment/pp_payflow_iframe');		
 

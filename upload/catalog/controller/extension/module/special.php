@@ -65,6 +65,8 @@ class ControllerExtensionModuleSpecial extends Controller {
             }
 
             return $this->load->view('extension/module/special', $data);
+        } else {
+            return '';
         }
     }
 }

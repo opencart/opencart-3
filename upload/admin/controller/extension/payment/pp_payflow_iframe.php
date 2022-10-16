@@ -425,8 +425,6 @@ class ControllerExtensionPaymentPPPayflowIframe extends Controller {
 
         $paypal_order = $this->model_extension_payment_pp_payflow_iframe->getOrder($order_id);
 
-        $view = '';
-
         if ($paypal_order) {
             $data['complete']     = $paypal_order['complete'];
             $data['order_id']     = (int)$this->request->get['order_id'];
@@ -480,10 +478,10 @@ class ControllerExtensionPaymentPPPayflowIframe extends Controller {
                 ];
             }
 
-            $view = $this->load->view('extension/payment/pp_payflow_iframe_order', $data);
+            return $this->load->view('extension/payment/pp_payflow_iframe_order', $data);
+        } else {
+            return '';
         }
-
-        return $view;
     }
 
     protected function validate() {

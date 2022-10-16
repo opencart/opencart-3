@@ -12,7 +12,7 @@ class ControllerExtensionPaymentBluePayRedirect extends Controller {
             ];
         }
 
-        $today = getdate();
+        $today               = getdate();
 
         $data['year_expire'] = [];
 

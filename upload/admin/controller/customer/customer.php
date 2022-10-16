@@ -1062,6 +1062,8 @@ class ControllerCustomerCustomer extends Controller {
 
             $this->response->setOutput($this->load->view('error/not_found', $data));
         }
+
+        return null;
     }
 
     public function history(): void {

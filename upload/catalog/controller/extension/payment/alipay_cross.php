@@ -60,7 +60,7 @@ class ControllerExtensionPaymentAlipayCross extends Controller {
         return $this->load->view('extension/payment/alipay_cross', $data);
     }
 
-    public function callback(): string {
+    public function callback(): void {
         $this->log->write('alipay cross payment notify:');
 
         $this->load->model('extension/payment/alipay_cross');

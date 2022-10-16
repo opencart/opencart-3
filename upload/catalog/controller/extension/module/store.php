@@ -35,6 +35,8 @@ class ControllerExtensionModuleStore extends Controller {
             }
 
             return $this->load->view('extension/module/store', $data);
+        } else {
+            return '';
         }
     }
 }

@@ -185,8 +185,6 @@ class ControllerExtensionPaymentEway extends Controller {
     }
 
     public function order(): string {
-        $view = '';
-
         if ($this->config->get('payment_eway_status')) {
             $this->load->model('extension/payment/eway');
 
@@ -212,11 +210,13 @@ class ControllerExtensionPaymentEway extends Controller {
                 $data['user_token'] = $this->session->data['user_token'];
                 $data['order_id']   = (int)$this->request->get['order_id'];
 
-                $view = $this->load->view('extension/payment/eway_order', $data);
+                return $this->load->view('extension/payment/eway_order', $data);
+            } else {
+                return '';
             }
+        } else {
+            return '';
         }
-
-        return $view;
     }
 
     public function refund(): void {

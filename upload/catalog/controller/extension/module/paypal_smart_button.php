@@ -12,8 +12,6 @@ class ControllerExtensionModulePayPalSmartButton extends Controller {
     }
 
     public function index(): string {
-        $view = '';
-
         if ($this->config->get('payment_paypal_status') && isset($this->request->get['route'])) {
             $status = false;
 
@@ -51,7 +49,7 @@ class ControllerExtensionModulePayPalSmartButton extends Controller {
                 $data['message_flex_ratio'] = $setting['page']['product']['message_flex_ratio'];
                 $data['message_placement']  = 'product';
 
-                $product_id = (int)$this->request->get['product_id'];
+                $product_id   = (int)$this->request->get['product_id'];
 
                 $this->load->model('catalog/product');
 
@@ -124,11 +122,13 @@ class ControllerExtensionModulePayPalSmartButton extends Controller {
                 $data['button_width']       = $setting['button_width'][$data['button_size']];
                 $data['message_width']      = $setting['message_width'][$data['message_size']];
 
-                $view = $this->load->view('extension/module/paypal_smart_button', $data);
+                return $this->load->view('extension/module/paypal_smart_button', $data);
+            } else {
+                return '';
             }
+        } else {
+            return '';
         }
-
-        return $view;
     }
 
     public function createOrder(): void {

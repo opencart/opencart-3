@@ -77,6 +77,8 @@ class ControllerExtensionPaymentSecureTradingPp extends Controller {
             $data['shipping_country'] = $shipping_country;
 
             return $this->load->view('extension/payment/securetrading_pp', $data);
+        } else {
+            return '';
         }
     }
 

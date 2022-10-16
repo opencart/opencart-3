@@ -199,8 +199,6 @@ class ControllerExtensionPaymentGlobalpayRemote extends Controller {
     }
 
     public function order(): string {
-        $view = '';
-
         if ($this->config->get('payment_globalpay_remote_status')) {
             $this->load->model('extension/payment/globalpay_remote');
 
@@ -222,11 +220,13 @@ class ControllerExtensionPaymentGlobalpayRemote extends Controller {
 
                 $data['user_token'] = $this->session->data['user_token'];
 
-                $view = $this->load->view('extension/payment/globalpay_remote_order', $data);
+                return $this->load->view('extension/payment/globalpay_remote_order', $data);
+            } else {
+                return '';
             }
+        } else {
+            return '';
         }
-
-        return $view;
     }
 
     public function void(): void {

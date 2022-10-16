@@ -1,6 +1,6 @@
 <?php
 class ControllerExtensionPaymentAlipay extends Controller {
-    public function index(): string {
+    public function index(): bool|string {
         if (!isset($this->session->data['order_id'])) {
             return false;
         }
@@ -45,7 +45,7 @@ class ControllerExtensionPaymentAlipay extends Controller {
         return $this->load->view('extension/payment/alipay', $data);
     }
 
-    public function callback(): string {
+    public function callback(): void {
         $this->log->write('alipay pay notify:');
 
         $this->load->model('extension/payment/alipay');
@@ -67,8 +67,9 @@ class ControllerExtensionPaymentAlipay extends Controller {
 
         $result = $this->model_extension_payment_alipay->check($arr, $config);
 
-        if ($result) {//check successed
-            $this->log->write('Alipay check successed');
+        // Check success
+        if ($result) {
+            $this->log->write('Alipay check success');
 
             $order_id = $_POST['out_trade_no'];
 

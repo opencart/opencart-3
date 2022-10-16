@@ -7,6 +7,8 @@ class ControllerExtensionModuleSagepayDirectCards extends Controller {
             $data['card'] = $this->url->link('account/sagepay_direct_cards', '', true);
 
             return $this->load->view('extension/module/sagepay_direct_cards', $data);
+        } else {
+            return '';
         }
     }
 }

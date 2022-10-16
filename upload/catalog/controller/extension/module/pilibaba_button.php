@@ -12,6 +12,8 @@ class ControllerExtensionModulePilibabaButton extends Controller {
             $data['payment_url'] = $this->url->link('extension/payment/pilibaba/express', '', true);
 
             return $this->load->view('extension/module/pilibaba_button', $data);
+        } else {
+            return '';
         }
     }
 }

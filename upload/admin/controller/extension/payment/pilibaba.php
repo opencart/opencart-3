@@ -245,8 +245,6 @@ class ControllerExtensionPaymentPilibaba extends Controller {
     }
 
     public function order(): string {
-        $view = '';
-
         if ($this->config->get('payment_pilibaba_status')) {
             $this->load->model('extension/payment/pilibaba');
 
@@ -268,11 +266,13 @@ class ControllerExtensionPaymentPilibaba extends Controller {
                 $data['order_id']         = $order_id;
                 $data['user_token']       = $this->session->data['user_token'];
 
-                $view = $this->load->view('extension/payment/pilibaba_order', $data);
+                return $this->load->view('extension/payment/pilibaba_order', $data);
+            } else {
+                return '';
             }
+        } else {
+            return '';
         }
-
-        return $view;
     }
 
     public function tracking(): void {

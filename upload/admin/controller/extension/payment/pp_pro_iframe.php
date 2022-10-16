@@ -229,8 +229,6 @@ class ControllerExtensionPaymentPPProIframe extends Controller {
 
         $paypal_order = $this->model_extension_payment_pp_pro_iframe->getOrder($this->request->get['order_id']);
 
-        $view = '';
-
         if ($paypal_order) {
             $data['paypal_order'] = $paypal_order;
             $data['user_token']   = $this->session->data['user_token'];
@@ -274,10 +272,10 @@ class ControllerExtensionPaymentPPProIframe extends Controller {
 
             $data['reauthorise_link'] = $this->url->link('extension/payment/pp_pro_iframe/reauthorise', 'user_token=' . $this->session->data['user_token'], true);
 
-            $view = $this->load->view('extension/payment/pp_pro_iframe_order', $data);
+            return $this->load->view('extension/payment/pp_pro_iframe_order', $data);
+        } else {
+            return '';
         }
-
-        return $view;
     }
 
     public function refund(): void {

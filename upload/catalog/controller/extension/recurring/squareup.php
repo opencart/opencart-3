@@ -25,6 +25,8 @@ class ControllerExtensionRecurringSquareup extends Controller {
             }
 
             return $this->load->view('extension/recurring/squareup', $data);
+        } else {
+            return '';
         }
     }
 

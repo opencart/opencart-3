@@ -13,7 +13,7 @@ class ControllerExtensionModuleCarousel extends Controller {
 
         $data['banners'] = [];
 
-        $results = $this->model_design_banner->getBanner($setting['banner_id']);
+        $results         = $this->model_design_banner->getBanner($setting['banner_id']);
 
         foreach ($results as $result) {
             if (is_file(DIR_IMAGE . $result['image'])) {

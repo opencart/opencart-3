@@ -1,6 +1,6 @@
 <?php
 class ControllerStartupPermission extends Controller {
-    public function index() {
+    public function index(): object|null {
         if (isset($this->request->get['route'])) {
             $route = '';
 
@@ -51,5 +51,7 @@ class ControllerStartupPermission extends Controller {
                 return new \Action('error/permission');
             }
         }
+
+        return null;
     }
 }

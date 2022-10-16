@@ -7,7 +7,7 @@ class ControllerExtensionPaymentTwoCheckout extends Controller {
 
         $this->load->model('checkout/order');
 
-        $order_info               = $this->model_checkout_order->getOrder($this->session->data['order_id']);
+        $order_info = $this->model_checkout_order->getOrder($this->session->data['order_id']);
 
         if ($order_info['payment_iso_code_2'] == 'US' || $order_info['payment_iso_code_2'] == 'CA') {
             $data['state'] = $order_info['payment_zone'];
