@@ -93,7 +93,7 @@
                         {% else %}
                           <a href="{{ sort_order }}">{{ column_order_id }}</a>
                         {% endif %}</td>
-                      <td class="text-left">
+                      <td class="text-center">
                         {% if sort == 'or.reference' %}
                           <a href="{{ sort_reference }}" class="{{ order|lower }}">{{ column_reference }}</a>
                         {% else %}
@@ -126,7 +126,7 @@
                         <tr>
                           <td class="text-right">{{ recurring.order_recurring_id }}</td>
                           <td class="text-right">{{ recurring.order_id }}</td>
-                          <td class="text-left">{{ recurring.reference }}</td>
+                          <td class="text-center">{{ recurring.reference }}</td>
                           <td class="text-left">{{ recurring.customer }}</td>
                           <td class="text-left">{{ recurring.status }}</td>
                           <td class="text-left">{{ recurring.date_added }}</td>
