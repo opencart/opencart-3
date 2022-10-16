@@ -14,7 +14,7 @@ function squareup_chdir($current_dir) {
 }
 
 function squareup_define_route() {
-    define('SQUAREUP_ROUTE', 'extension/recurring/squareup/recurring');
+    define('SQUAREUP_ROUTE', 'extension/subscription/squareup/recurring');
 
     $_GET['route'] = SQUAREUP_ROUTE;
 }

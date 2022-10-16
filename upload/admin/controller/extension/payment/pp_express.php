@@ -839,7 +839,7 @@ class ControllerExtensionPaymentPPExpress extends Controller {
 
     // Cancel an active recurring
     public function recurringCancel(): void {
-        $this->load->language('extension/recurring/pp_express');
+        $this->load->language('extension/subscription/pp_express');
 
         $json = [];
 

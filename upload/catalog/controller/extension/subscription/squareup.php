@@ -1,7 +1,7 @@
 <?php
 class ControllerExtensionRecurringSquareup extends Controller {
     public function index(): string {
-        $this->load->language('extension/recurring/squareup');
+        $this->load->language('extension/subscription/squareup');
 
         $this->load->model('account/subscription');
         $this->load->model('extension/payment/squareup');
@@ -15,7 +15,7 @@ class ControllerExtensionRecurringSquareup extends Controller {
         $subscription_info = $this->model_account_subscription->getSubscription($subscription_id);
 
         if ($subscription_info) {
-            $data['cancel_url'] = html_entity_decode($this->url->link('extension/recurring/squareup/cancel', 'subscription_id=' . $subscription_id, 'SSL'));
+            $data['cancel_url'] = html_entity_decode($this->url->link('extension/subscription/squareup/cancel', 'subscription_id=' . $subscription_id, 'SSL'));
             $data['continue']   = $this->url->link('account/subscription', '', true);
 
             if ($subscription_info['status'] == ModelExtensionPaymentSquareup::RECURRING_ACTIVE) {
@@ -24,14 +24,14 @@ class ControllerExtensionRecurringSquareup extends Controller {
                 $data['subscription_id'] = 0;
             }
 
-            return $this->load->view('extension/recurring/squareup', $data);
+            return $this->load->view('extension/subscription/squareup', $data);
         } else {
             return '';
         }
     }
 
     public function cancel(): void {
-        $this->load->language('extension/recurring/squareup');
+        $this->load->language('extension/subscription/squareup');
 
         $json = [];
 

@@ -1,7 +1,7 @@
 <?php
 class ControllerExtensionRecurringPPExpress extends Controller {
     public function index(): string {
-        $this->load->language('extension/recurring/pp_express');
+        $this->load->language('extension/subscription/pp_express');
 
         if (isset($this->request->get['subscription_id'])) {
             $subscription_id = (int)$this->request->get['subscription_id'];
@@ -22,14 +22,14 @@ class ControllerExtensionRecurringPPExpress extends Controller {
                 $data['subscription_id'] = '';
             }
 
-            return $this->load->view('extension/recurring/pp_express', $data);
+            return $this->load->view('extension/subscription/pp_express', $data);
         } else {
             return '';
         }
     }
 
     public function cancel(): void {
-        $this->load->language('extension/recurring/pp_express');
+        $this->load->language('extension/subscription/pp_express');
 
         $json = [];
 

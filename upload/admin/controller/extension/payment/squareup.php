@@ -266,7 +266,7 @@ class ControllerExtensionPaymentSquareup extends Controller {
             $data['payment_squareup_cron_token'] = md5(mt_rand());
         }
 
-        $data['payment_squareup_cron_url'] = 'https://' . parse_url($server, PHP_URL_HOST) . dirname(parse_url($server, PHP_URL_PATH)) . '/index.php?route=extension/recurring/squareup/recurring&cron_token={CRON_TOKEN}';
+        $data['payment_squareup_cron_url'] = 'https://' . parse_url($server, PHP_URL_HOST) . dirname(parse_url($server, PHP_URL_PATH)) . '/index.php?route=extension/subscription/squareup/recurring&cron_token={CRON_TOKEN}';
 
         $data['catalog'] = $this->request->server['HTTPS'] ? HTTPS_CATALOG : HTTP_CATALOG;
 

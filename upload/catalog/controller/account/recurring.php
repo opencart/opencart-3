@@ -64,7 +64,7 @@ class ControllerAccountRecurring extends Controller {
             ];
         }
 
-        $pagination             = new Pagination();
+        $pagination             = new \Pagination();
         $pagination->total      = $recurring_total;
         $pagination->page       = $page;
         $pagination->limit      = 10;
@@ -167,7 +167,8 @@ class ControllerAccountRecurring extends Controller {
 
             $data['order']          = $this->url->link('account/order/info', 'customer_token=' . $this->session->data['customer_token'] . '&order_id=' . $recurring_info['order_id'], true);
             $data['product']        = $this->url->link('product/product', 'customer_token=' . $this->session->data['customer_token'] . '&product_id=' . $recurring_info['product_id'], true);
-            $data['recurring']      = $this->load->controller('extension/recurring/' . $recurring_info['payment_code']);
+
+            $data['recurring']      = $this->load->controller('extension/subscription/' . $recurring_info['payment_code']);
             
             $data['column_left']    = $this->load->controller('common/column_left');
             $data['column_right']   = $this->load->controller('common/column_right');

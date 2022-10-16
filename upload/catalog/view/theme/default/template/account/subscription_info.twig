@@ -62,23 +62,26 @@
             </tr>
           </thead>
           <tbody>
-          {% if transactions %}
-            {% for transaction in transactions %}
+            {% if transactions %}
+              {% for transaction in transactions %}
+                <tr>
+                  <td class="text-left">{{ transaction.date_added }}</td>
+                  <td class="text-left">{{ transaction.type }}</td>
+                  <td class="text-right">{{ transaction.amount }}</td>
+                </tr>
+              {% endfor %}
+            {% else %}
               <tr>
-                <td class="text-left">{{ transaction.date_added }}</td>
-                <td class="text-left">{{ transaction.type }}</td>
-                <td class="text-right">{{ transaction.amount }}</td>
+                <td colspan="3" class="text-center">{{ text_no_results }}</td>
               </tr>
-            {% endfor %}
-          {% else %}
-            <tr>
-              <td colspan="3" class="text-center">{{ text_no_results }}</td>
-            </tr>
-          {% endif %}
+            {% endif %}
           </tbody>
         </table>
       </div>
-      {{ recurring }}{{ content_bottom }}</div>
-    {{ column_right }}</div>
+      {{ subscription }}
+      {{ content_bottom }}
+    </div>
+    {{ column_right }}
+  </div>
 </div>
 {{ footer }}
