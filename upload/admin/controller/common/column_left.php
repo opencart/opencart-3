@@ -37,10 +37,10 @@ class ControllerCommonColumnLeft extends Controller {
                 ];
             }
 
-            if ($this->user->hasPermission('access', 'catalog/subscription')) {
+            if ($this->user->hasPermission('access', 'catalog/subscription_plan')) {
                 $catalog[] = [
-                    'name'     => $this->language->get('text_subscription'),
-                    'href'     => $this->url->link('catalog/subscription', 'user_token=' . $this->session->data['user_token'], true),
+                    'name'     => $this->language->get('text_subscription_plan'),
+                    'href'     => $this->url->link('catalog/subscription_plan', 'user_token=' . $this->session->data['user_token'], true),
                     'children' => []
                 ];
             }
