@@ -112,13 +112,13 @@
                         {% else %}
                           <a href="{{ sort_order_id }}">{{ column_order_id }}</a>
                         {% endif %}</td>
-                      <td class="text-left">
+                      <td class="text-right">
                         {% if sort == 'customer' %}
                           <a href="{{ sort_customer }}" class="{{ order|lower }}">{{ column_customer }}</a>
                         {% else %}
                           <a href="{{ sort_customer }}">{{ column_customer }}</a>
                         {% endif %}</td>
-                      <td class="text-left">
+                      <td class="text-right">
                         {% if sort == 'r.product' %}
                           <a href="{{ sort_product }}" class="{{ order|lower }}">{{ column_product }}</a>
                         {% else %}
@@ -163,8 +163,8 @@
                             {% endif %}</td>
                           <td class="text-right">{{ return.return_id }}</td>
                           <td class="text-right">{{ return.order_id }}</td>
-                          <td class="text-left">{{ return.customer }}</td>
-                          <td class="text-left">{{ return.product }}</td>
+                          <td class="text-right">{{ return.customer }}</td>
+                          <td class="text-right">{{ return.product }}</td>
                           <td class="text-left">{{ return.model }}</td>
                           <td class="text-left">{{ return.return_status }}</td>
                           <td class="text-left">{{ return.date_added }}</td>
