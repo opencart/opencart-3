@@ -711,7 +711,6 @@ class ControllerCatalogProduct extends Controller {
             $data['product_subscriptions'] = [];
         }
 
-
         // Tax Classes
         $this->load->model('localisation/tax_class');
 
