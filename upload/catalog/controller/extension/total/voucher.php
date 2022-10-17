@@ -1,6 +1,6 @@
 <?php
 class ControllerExtensionTotalVoucher extends Controller {
-    public function index(): string|bool {
+    public function index(): string {
         if ($this->config->get('total_voucher_status')) {
             $this->load->language('extension/total/voucher');
 
@@ -12,7 +12,7 @@ class ControllerExtensionTotalVoucher extends Controller {
 
             return $this->load->view('extension/total/voucher', $data);
         } else {
-            return false;
+            return '';
         }
     }
 

@@ -163,10 +163,18 @@ class ControllerAccountSubscription extends Controller {
                 ];
             }
 
-            $data['order']          = $this->url->link('account/order.info', 'language=' . $this->config->get('config_language') . '&customer_token=' . $this->session->data['customer_token'] . '&order_id=' . $subscription_info['order_id']);
-            $data['product']        = $this->url->link('product/product', 'language=' . $this->config->get('config_language') . '&customer_token=' . $this->session->data['customer_token'] . '&product_id=' . $subscription_info['product_id']);
+            $data['order']   = $this->url->link('account/order.info', 'language=' . $this->config->get('config_language') . '&customer_token=' . $this->session->data['customer_token'] . '&order_id=' . $subscription_info['order_id']);
+            $data['product'] = $this->url->link('product/product', 'language=' . $this->config->get('config_language') . '&customer_token=' . $this->session->data['customer_token'] . '&product_id=' . $subscription_info['product_id']);
 
-            $data['subscription']   = $this->load->controller('extension/subscription/' . $subscription_info['payment_code']);
+            $this->load->model('setting/extension');
+
+            $extension_info  = $this->model_setting_extension->getExtensionByCode($subscription_info['payment_code']);
+
+            if ($extension_info) {
+                $data['subscription'] = $this->load->controller('extension/subscription/' . $subscription_info['payment_code']);
+            } else {
+                $data['subscription'] = '';
+            }
 
             $data['column_left']    = $this->load->controller('common/column_left');
             $data['column_right']   = $this->load->controller('common/column_right');
