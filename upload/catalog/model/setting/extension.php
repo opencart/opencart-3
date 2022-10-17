@@ -10,7 +10,6 @@ class ModelSettingExtension extends Model {
         $query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "extension` WHERE `type` = '" . $this->db->escape($type) . "'");
 
         return $query->rows;
-
     }
 
     public function getExtensionByCode(string $type, string $code): array {
