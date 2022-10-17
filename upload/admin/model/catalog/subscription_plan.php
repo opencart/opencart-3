@@ -25,7 +25,7 @@ class ModelCatalogSubscriptionPlan extends Model {
     public function copySubscriptionPlan(int $subscription_plan_id): void {
         $data                                  = $this->getSubscriptionPlan($subscription_plan_id);
 
-        $data['subscription_plan_description'] = $this->getDescription($subscription_plan_id);
+        $data['subscription_plan_description'] = $this->getSubscriptionDescription($subscription_plan_id);
 
         $this->addSubscriptionPlan($data);
     }

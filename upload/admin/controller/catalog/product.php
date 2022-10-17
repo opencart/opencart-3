@@ -706,7 +706,7 @@ class ControllerCatalogProduct extends Controller {
         if (isset($this->request->post['product_subscriptions'])) {
             $data['product_subscriptions'] = $this->request->post['product_subscriptions'];
         } elseif (!empty($product_info)) {
-            $data['product_subscriptions'] = $this->model_catalog_product->getSubscriptions($product_info['product_id']);
+            $data['product_subscriptions'] = $this->model_catalog_product->getProductSubscriptions($product_info['product_id']);
         } else {
             $data['product_subscriptions'] = [];
         }
@@ -1006,7 +1006,7 @@ class ControllerCatalogProduct extends Controller {
         $data['subscription_plans'] = $this->model_catalog_subscription_plan->getSubscriptionPlans();
 
         if (isset($this->request->get['product_id'])) {
-            $data['product_subscriptions'] = $this->model_catalog_product->getSubscriptions($this->request->get['product_id']);
+            $data['product_subscriptions'] = $this->model_catalog_product->getProductSubscriptions($this->request->get['product_id']);
         } else {
             $data['product_subscriptions'] = [];
         }
@@ -1334,7 +1334,7 @@ class ControllerCatalogProduct extends Controller {
             // Subscriptions
             $subscription_data     = [];
 
-            $product_subscriptions = $this->model_catalog_product->getSubscriptions($result['product_id']);
+            $product_subscriptions = $this->model_catalog_product->getProductSubscriptions($result['product_id']);
 
             foreach ($product_subscriptions as $product_subscription) {
                 $subscription_plan_info = $this->model_catalog_subscription_plan->getSubscriptionPlan($product_subscription['subscription_plan_id']);
