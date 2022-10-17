@@ -470,7 +470,7 @@ class ControllerCatalogSubscriptionPlan extends Controller {
     }
 
     protected function validateForm() {
-        if (!$this->user->hasPermission('modify', 'catalog/subscription')) {
+        if (!$this->user->hasPermission('modify', 'catalog/subscription_plan')) {
             $this->error['warning'] = $this->language->get('error_permission');
         }
 
@@ -488,7 +488,7 @@ class ControllerCatalogSubscriptionPlan extends Controller {
     }
 
     protected function validateDelete() {
-        if (!$this->user->hasPermission('modify', 'catalog/subscription')) {
+        if (!$this->user->hasPermission('modify', 'catalog/subscription_plan')) {
             $this->error['warning'] = $this->language->get('error_permission');
         }
 
@@ -506,7 +506,7 @@ class ControllerCatalogSubscriptionPlan extends Controller {
     }
 
     protected function validateCopy() {
-        if (!$this->user->hasPermission('modify', 'catalog/subscription')) {
+        if (!$this->user->hasPermission('modify', 'catalog/subscription_plan')) {
             $this->error['warning'] = $this->language->get('error_permission');
         }
 
