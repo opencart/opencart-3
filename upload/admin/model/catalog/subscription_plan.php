@@ -25,7 +25,7 @@ class ModelCatalogSubscriptionPlan extends Model {
     public function copySubscriptionPlan(int $subscription_plan_id): void {
         $data                                  = $this->getSubscriptionPlan($subscription_plan_id);
 
-        $data['subscription_plan_description'] = $this->getDescription($subscription_plan_id);
+        $data['subscription_plan_description'] = $this->getSubscriptionPlanDescription($subscription_plan_id);
 
         $this->addSubscriptionPlan($data);
     }
@@ -44,7 +44,7 @@ class ModelCatalogSubscriptionPlan extends Model {
         return $query->row;
     }
 
-    public function getDescription(int $subscription_plan_id): array {
+    public function getSubscriptionPlanDescription(int $subscription_plan_id): array {
         $subscription_plan_description_data = [];
 
         $query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "subscription_plan_description` WHERE `subscription_plan_id` = '" . (int)$subscription_plan_id . "'");
