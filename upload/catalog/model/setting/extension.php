@@ -7,7 +7,6 @@ class ModelSettingExtension extends Model {
     }
 
     public function getExtensionsByType(string $type): array {
-
         $query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "extension` WHERE `type` = '" . $this->db->escape($type) . "'");
 
         return $query->rows;
