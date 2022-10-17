@@ -327,7 +327,7 @@ class ModelCatalogProduct extends Model {
             $data['product_download']      = $this->getProductDownloads($product_id);
             $data['product_layout']        = $this->getProductLayouts($product_id);
             $data['product_store']         = $this->getProductStores($product_id);
-            $data['product_subscriptions'] = $this->getSubscriptions($product_id);
+            $data['product_subscription_plans'] = $this->getSubscriptionPlans($product_id);
 
             $this->addProduct($data);
         }
@@ -634,7 +634,7 @@ class ModelCatalogProduct extends Model {
         return $product_related_data;
     }
 
-    public function getSubscriptions(int $product_id): array {
+    public function getSubscriptionPlans(int $product_id): array {
         $query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "product_subscription` WHERE `product_id` = '" . (int)$product_id . "'");
 
         return $query->rows;
