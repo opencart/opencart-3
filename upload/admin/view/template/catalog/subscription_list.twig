@@ -53,18 +53,18 @@
                 </tr>
               </thead>
               <tbody>
-                {% if subscriptions %}
-                  {% for subscription in subscriptions %}
+                {% if subscription_plans %}
+                  {% for subscription_plan in subscription_plans %}
                     <tr>
                       <td class="text-center">
-                        {% if subscription.subscription_plan_id in selected %}
-                          <input type="checkbox" name="selected[]" value="{{ subscription.subscription_plan_id }}" checked="checked"/>
+                        {% if subscription_plan.subscription_plan_id in selected %}
+                          <input type="checkbox" name="selected[]" value="{{ subscription_plan.subscription_plan_id }}" checked="checked"/>
                         {% else %}
-                          <input type="checkbox" name="selected[]" value="{{ subscription.subscription_plan_id }}"/>
+                          <input type="checkbox" name="selected[]" value="{{ subscription_plan.subscription_plan_id }}"/>
                         {% endif %}</td>
-                      <td class="text-left">{{ subscription.name }}</td>
-                      <td class="text-right">{{ subscription.sort_order }}</td>
-                      <td class="text-right"><a href="{{ subscription.edit }}" data-toggle="tooltip" title="{{ button_edit }}" class="btn btn-primary"><i class="fa fa-pencil"></i></a></td>
+                      <td class="text-left">{{ subscription_plan.name }}</td>
+                      <td class="text-right">{{ subscription_plan.sort_order }}</td>
+                      <td class="text-right"><a href="{{ subscription_plan.edit }}" data-toggle="tooltip" title="{{ button_edit }}" class="btn btn-primary"><i class="fa fa-pencil"></i></a></td>
                     </tr>
                   {% endfor %}
                 {% else %}
