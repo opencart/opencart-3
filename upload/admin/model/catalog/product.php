@@ -330,6 +330,7 @@ class ModelCatalogProduct extends Model {
             $data['product_store']         = $this->getProductStores($product_id);
             $data['product_subscriptions'] = $this->getProductSubscriptions($product_id);
 
+
             $this->addProduct($data);
         }
     }
