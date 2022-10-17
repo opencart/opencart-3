@@ -699,9 +699,9 @@ class ControllerCatalogProduct extends Controller {
         }
 
         // Subscription
-        $this->load->model('catalog/subscription');
+        $this->load->model('catalog/subscription_plan');
 
-        $data['subscriptions'] = $this->model_catalog_subscriptions->getSubscriptions();
+        $data['subscriptions'] = $this->model_catalog_subscription_plan->getSubscriptionPlans();
 
         if (isset($this->request->post['product_subscriptions'])) {
             $data['product_subscriptions'] = $this->request->post['product_subscriptions'];
