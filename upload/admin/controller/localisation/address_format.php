@@ -120,8 +120,8 @@ class ControllerLocalisationAddressFormat extends Controller {
         $data['address_formats'] = [];
 
         $filter_data = [
-            'start' => ($page - 1) * $this->config->get('config_pagination_admin'),
-            'limit' => $this->config->get('config_pagination_admin')
+            'start' => ($page - 1) * $this->config->get('config_limit_admin'),
+            'limit' => $this->config->get('config_limit_admin')
         ];
 
         $this->load->model('localisation/address_format');
