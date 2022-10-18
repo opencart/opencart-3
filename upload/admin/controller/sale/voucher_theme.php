@@ -348,7 +348,7 @@ class ControllerSaleVoucherTheme extends Controller {
         }
 
         foreach ($this->request->post['voucher_theme_description'] as $language_id => $value) {
-            if ((utf8_strlen($value['name']) < 3) || (utf8_strlen($value['name']) > 32)) {
+            if ((strlen($value['name']) < 3) || (strlen($value['name']) > 32)) {
                 $this->error['name'][$language_id] = $this->language->get('error_name');
             }
         }

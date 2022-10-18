@@ -544,11 +544,11 @@ class ControllerCatalogReview extends Controller {
             $this->error['product'] = $this->language->get('error_product');
         }
 
-        if ((utf8_strlen($this->request->post['author']) < 3) || (utf8_strlen($this->request->post['author']) > 64)) {
+        if ((strlen($this->request->post['author']) < 3) || (strlen($this->request->post['author']) > 64)) {
             $this->error['author'] = $this->language->get('error_author');
         }
 
-        if (utf8_strlen($this->request->post['text']) < 1) {
+        if (strlen($this->request->post['text']) < 1) {
             $this->error['text'] = $this->language->get('error_text');
         }
 

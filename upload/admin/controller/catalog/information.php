@@ -413,15 +413,15 @@ class ControllerCatalogInformation extends Controller {
         }
 
         foreach ($this->request->post['information_description'] as $language_id => $value) {
-            if ((utf8_strlen($value['title']) < 1) || (utf8_strlen($value['title']) > 64)) {
+            if ((strlen($value['title']) < 1) || (strlen($value['title']) > 64)) {
                 $this->error['title'][$language_id] = $this->language->get('error_title');
             }
 
-            if (utf8_strlen($value['description']) < 3) {
+            if (strlen($value['description']) < 3) {
                 $this->error['description'][$language_id] = $this->language->get('error_description');
             }
 
-            if ((utf8_strlen($value['meta_title']) < 1) || (utf8_strlen($value['meta_title']) > 255)) {
+            if ((strlen($value['meta_title']) < 1) || (strlen($value['meta_title']) > 255)) {
                 $this->error['meta_title'][$language_id] = $this->language->get('error_meta_title');
             }
         }

@@ -21,7 +21,7 @@ class ModelExtensionFraudMaxMind extends Model {
             $request .= '&region=' . urlencode($order_info['payment_zone']);
             $request .= '&postal=' . urlencode($order_info['payment_postcode']);
             $request .= '&country=' . urlencode($order_info['payment_country']);
-            $request .= '&domain=' . urlencode(utf8_substr(strrchr($order_info['email'], '@'), 1));
+            $request .= '&domain=' . urlencode(substr(strrchr($order_info['email'], '@'), 1));
             $request .= '&custPhone=' . urlencode($order_info['telephone']);
             $request .= '&license_key=' . urlencode($this->config->get('fraud_maxmind_key'));
 
@@ -35,7 +35,7 @@ class ModelExtensionFraudMaxMind extends Model {
 
             $request .= '&user_agent=' . urlencode($order_info['user_agent']);
             $request .= '&forwardedIP=' . urlencode($order_info['forwarded_ip']);
-            $request .= '&emailMD5=' . urlencode(md5(utf8_strtolower($order_info['email'])));
+            $request .= '&emailMD5=' . urlencode(md5(strtolower($order_info['email'])));
             //$request .= '&passwordMD5=' . urlencode($order_info['password']);
             $request .= '&accept_language=' . urlencode($order_info['accept_language']);
             $request .= '&order_amount=' . urlencode($this->currency->format($order_info['total'], $order_info['currency_code'], $order_info['currency_value'], false));

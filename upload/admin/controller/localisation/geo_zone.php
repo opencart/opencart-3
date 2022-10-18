@@ -345,11 +345,11 @@ class ControllerLocalisationGeoZone extends Controller {
             $this->error['warning'] = $this->language->get('error_permission');
         }
 
-        if ((utf8_strlen($this->request->post['name']) < 3) || (utf8_strlen($this->request->post['name']) > 32)) {
+        if ((strlen($this->request->post['name']) < 3) || (strlen($this->request->post['name']) > 32)) {
             $this->error['name'] = $this->language->get('error_name');
         }
 
-        if ((utf8_strlen($this->request->post['description']) < 3) || (utf8_strlen($this->request->post['description']) > 255)) {
+        if ((strlen($this->request->post['description']) < 3) || (strlen($this->request->post['description']) > 255)) {
             $this->error['description'] = $this->language->get('error_description');
         }
 

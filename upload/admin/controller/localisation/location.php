@@ -401,15 +401,15 @@ class ControllerLocalisationLocation extends Controller {
             $this->error['warning'] = $this->language->get('error_permission');
         }
 
-        if ((utf8_strlen($this->request->post['name']) < 3) || (utf8_strlen($this->request->post['name']) > 32)) {
+        if ((strlen($this->request->post['name']) < 3) || (strlen($this->request->post['name']) > 32)) {
             $this->error['name'] = $this->language->get('error_name');
         }
 
-        if ((utf8_strlen($this->request->post['address']) < 3) || (utf8_strlen($this->request->post['address']) > 128)) {
+        if ((strlen($this->request->post['address']) < 3) || (strlen($this->request->post['address']) > 128)) {
             $this->error['address'] = $this->language->get('error_address');
         }
 
-        if ((utf8_strlen($this->request->post['telephone']) < 3) || (utf8_strlen($this->request->post['telephone']) > 32)) {
+        if ((strlen($this->request->post['telephone']) < 3) || (strlen($this->request->post['telephone']) > 32)) {
             $this->error['telephone'] = $this->language->get('error_telephone');
         }
 

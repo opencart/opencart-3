@@ -143,7 +143,7 @@ class ControllerInformationContact extends Controller {
     }
 
     protected function validate() {
-        if ((utf8_strlen($this->request->post['name']) < 3) || (utf8_strlen($this->request->post['name']) > 32)) {
+        if ((strlen($this->request->post['name']) < 3) || (strlen($this->request->post['name']) > 32)) {
             $this->error['name'] = $this->language->get('error_name');
         }
 
@@ -151,7 +151,7 @@ class ControllerInformationContact extends Controller {
             $this->error['email'] = $this->language->get('error_email');
         }
 
-        if ((utf8_strlen($this->request->post['enquiry']) < 10) || (utf8_strlen($this->request->post['enquiry']) > 3000)) {
+        if ((strlen($this->request->post['enquiry']) < 10) || (strlen($this->request->post['enquiry']) > 3000)) {
             $this->error['enquiry'] = $this->language->get('error_enquiry');
         }
 

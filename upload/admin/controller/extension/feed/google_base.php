@@ -96,7 +96,7 @@ class ControllerExtensionFeedGoogleBase extends Controller {
                 $filename = basename(html_entity_decode($this->request->files['file']['name'], ENT_QUOTES, 'UTF-8'));
 
                 // Allowed file extension types
-                if (utf8_strtolower(utf8_substr(strrchr($filename, '.'), 1)) != 'txt') {
+                if (strtolower(substr(strrchr($filename, '.'), 1)) != 'txt') {
                     $json['error'] = $this->language->get('error_filetype');
                 }
 

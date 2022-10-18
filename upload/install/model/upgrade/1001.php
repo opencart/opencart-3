@@ -153,7 +153,7 @@ class ModelUpgrade1001 extends Model {
 
                 if ($query->num_rows) {
                     foreach ($query->rows as $row) {
-                        $this->db->query("UPDATE `" . DB_PREFIX . "product_description` SET `tag` = '" . $this->db->escape(utf8_strtolower($row['tags'])) . "' WHERE `product_id` = '" . (int)$row['product_id'] . "' AND `language_id` = '" . (int)$language['language_id'] . "'");
+                        $this->db->query("UPDATE `" . DB_PREFIX . "product_description` SET `tag` = '" . $this->db->escape(strtolower($row['tags'])) . "' WHERE `product_id` = '" . (int)$row['product_id'] . "' AND `language_id` = '" . (int)$language['language_id'] . "'");
 
                         $this->db->query("DELETE FROM `" . DB_PREFIX . "product_tag` WHERE `product_id` = '" . (int)$row['product_id'] . "' AND `language_id` = '" . (int)$language['language_id'] . "'");
                     }

@@ -8,7 +8,7 @@ class ModelToolBackup extends Model {
         foreach ($query->rows as $result) {
             $table = reset($result);
 
-            if ($table && utf8_substr($table, 0, strlen(DB_PREFIX)) == DB_PREFIX) {
+            if ($table && substr($table, 0, strlen(DB_PREFIX)) == DB_PREFIX) {
                 $table_data[] = $table;
             }
         }

@@ -7,7 +7,7 @@ class ModelToolImage extends Model {
 
         $extension = pathinfo($filename, PATHINFO_EXTENSION);
         $image_old = $filename;
-        $image_new = 'cache/' . utf8_substr($filename, 0, utf8_strrpos($filename, '.')) . '-' . $width . 'x' . $height . '.' . $extension;
+        $image_new = 'cache/' . substr($filename, 0, strrpos($filename, '.')) . '-' . $width . 'x' . $height . '.' . $extension;
 
         if (!is_file(DIR_IMAGE . $image_new) || (filemtime(DIR_IMAGE . $image_old) > filemtime(DIR_IMAGE . $image_new))) {
             [$width_orig, $height_orig, $image_type] = getimagesize(DIR_IMAGE . $image_old);

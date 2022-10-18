@@ -286,11 +286,11 @@ class ControllerExtensionPaymentCardConnect extends Controller {
 
         if (!isset($this->request->post['method']) || $this->request->post['method'] == 'card') {
             if ($this->request->post['card_new']) {
-                if (!isset($this->request->post['card_number']) || utf8_strlen($this->request->post['card_number']) < 1 || utf8_strlen($this->request->post['card_number']) > 19) {
+                if (!isset($this->request->post['card_number']) || strlen($this->request->post['card_number']) < 1 || strlen($this->request->post['card_number']) > 19) {
                     $error['card_number'] = $this->language->get('error_card_number');
                 }
 
-                if (!isset($this->request->post['card_cvv2']) || utf8_strlen($this->request->post['card_cvv2']) < 1 || utf8_strlen($this->request->post['card_cvv2']) > 4) {
+                if (!isset($this->request->post['card_cvv2']) || strlen($this->request->post['card_cvv2']) < 1 || strlen($this->request->post['card_cvv2']) > 4) {
                     $error['card_cvv2'] = $this->language->get('error_card_cvv2');
                 }
             } else {
@@ -306,11 +306,11 @@ class ControllerExtensionPaymentCardConnect extends Controller {
             }
         } else {
             if ($this->config->get('payment_cardconnect_echeck')) {
-                if (!isset($this->request->post['account_number']) || utf8_strlen($this->request->post['account_number']) < 1 || utf8_strlen($this->request->post['account_number']) > 19) {
+                if (!isset($this->request->post['account_number']) || strlen($this->request->post['account_number']) < 1 || strlen($this->request->post['account_number']) > 19) {
                     $error['account_number'] = $this->language->get('error_account_number');
                 }
 
-                if (!isset($this->request->post['routing_number']) || utf8_strlen($this->request->post['routing_number']) < 1 || utf8_strlen($this->request->post['routing_number']) > 9) {
+                if (!isset($this->request->post['routing_number']) || strlen($this->request->post['routing_number']) < 1 || strlen($this->request->post['routing_number']) > 9) {
                     $error['routing_number'] = $this->language->get('error_routing_number');
                 }
             } else {

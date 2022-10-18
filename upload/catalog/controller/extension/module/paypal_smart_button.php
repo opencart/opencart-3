@@ -651,7 +651,7 @@ class ControllerExtensionModulePayPalSmartButton extends Controller {
 
                 $option_data[] = [
                     'name'  => $option['name'],
-                    'value' => (utf8_strlen($value) > 20 ? utf8_substr($value, 0, 20) . '..' : $value)
+                    'value' => (strlen($value) > 20 ? substr($value, 0, 20) . '..' : $value)
                 ];
             }
 
@@ -1622,27 +1622,27 @@ class ControllerExtensionModulePayPalSmartButton extends Controller {
     }
 
     private function validatePaymentAddress() {
-        if ((utf8_strlen($this->request->post['firstname']) < 1) || (utf8_strlen($this->request->post['firstname']) > 32)) {
+        if ((strlen($this->request->post['firstname']) < 1) || (strlen($this->request->post['firstname']) > 32)) {
             $this->error['firstname'] = $this->language->get('error_firstname');
         }
 
-        if ((utf8_strlen($this->request->post['lastname']) < 1) || (utf8_strlen($this->request->post['lastname']) > 32)) {
+        if ((strlen($this->request->post['lastname']) < 1) || (strlen($this->request->post['lastname']) > 32)) {
             $this->error['lastname'] = $this->language->get('error_lastname');
         }
 
-        if ((utf8_strlen($this->request->post['email']) > 96) || !filter_var($this->request->post['email'], FILTER_VALIDATE_EMAIL)) {
+        if ((strlen($this->request->post['email']) > 96) || !filter_var($this->request->post['email'], FILTER_VALIDATE_EMAIL)) {
             $this->error['email'] = $this->language->get('error_email');
         }
 
-        if ((utf8_strlen($this->request->post['telephone']) < 3) || (utf8_strlen($this->request->post['telephone']) > 32)) {
+        if ((strlen($this->request->post['telephone']) < 3) || (strlen($this->request->post['telephone']) > 32)) {
             $this->error['telephone'] = $this->language->get('error_telephone');
         }
 
-        if ((utf8_strlen($this->request->post['address_1']) < 3) || (utf8_strlen($this->request->post['address_1']) > 128)) {
+        if ((strlen($this->request->post['address_1']) < 3) || (strlen($this->request->post['address_1']) > 128)) {
             $this->error['address_1'] = $this->language->get('error_address_1');
         }
 
-        if ((utf8_strlen($this->request->post['city']) < 2) || (utf8_strlen($this->request->post['city']) > 128)) {
+        if ((strlen($this->request->post['city']) < 2) || (strlen($this->request->post['city']) > 128)) {
             $this->error['city'] = $this->language->get('error_city');
         }
 
@@ -1650,7 +1650,7 @@ class ControllerExtensionModulePayPalSmartButton extends Controller {
 
         $country_info = $this->model_localisation_country->getCountry($this->request->post['country_id']);
 
-        if ($country_info && $country_info['postcode_required'] && (utf8_strlen($this->request->post['postcode']) < 2 || utf8_strlen($this->request->post['postcode']) > 10)) {
+        if ($country_info && $country_info['postcode_required'] && (strlen($this->request->post['postcode']) < 2 || strlen($this->request->post['postcode']) > 10)) {
             $this->error['postcode'] = $this->language->get('error_postcode');
         }
 
@@ -1686,19 +1686,19 @@ class ControllerExtensionModulePayPalSmartButton extends Controller {
     }
 
     private function validateShippingAddress() {
-        if ((utf8_strlen($this->request->post['firstname']) < 1) || (utf8_strlen($this->request->post['firstname']) > 32)) {
+        if ((strlen($this->request->post['firstname']) < 1) || (strlen($this->request->post['firstname']) > 32)) {
             $this->error['firstname'] = $this->language->get('error_firstname');
         }
 
-        if ((utf8_strlen($this->request->post['lastname']) < 1) || (utf8_strlen($this->request->post['lastname']) > 32)) {
+        if ((strlen($this->request->post['lastname']) < 1) || (strlen($this->request->post['lastname']) > 32)) {
             $this->error['lastname'] = $this->language->get('error_lastname');
         }
 
-        if ((utf8_strlen($this->request->post['address_1']) < 3) || (utf8_strlen($this->request->post['address_1']) > 128)) {
+        if ((strlen($this->request->post['address_1']) < 3) || (strlen($this->request->post['address_1']) > 128)) {
             $this->error['address_1'] = $this->language->get('error_address_1');
         }
 
-        if ((utf8_strlen($this->request->post['city']) < 2) || (utf8_strlen($this->request->post['city']) > 128)) {
+        if ((strlen($this->request->post['city']) < 2) || (strlen($this->request->post['city']) > 128)) {
             $this->error['city'] = $this->language->get('error_city');
         }
 
@@ -1706,7 +1706,7 @@ class ControllerExtensionModulePayPalSmartButton extends Controller {
 
         $country_info = $this->model_localisation_country->getCountry($this->request->post['country_id']);
 
-        if ($country_info && $country_info['postcode_required'] && (utf8_strlen($this->request->post['postcode']) < 2 || utf8_strlen($this->request->post['postcode']) > 10)) {
+        if ($country_info && $country_info['postcode_required'] && (strlen($this->request->post['postcode']) < 2 || strlen($this->request->post['postcode']) > 10)) {
             $this->error['postcode'] = $this->language->get('error_postcode');
         }
 

@@ -141,7 +141,7 @@ class ModelUpgrade1000 extends Model {
         $table_query    = $this->db->query("SHOW TABLES FROM `" . DB_DATABASE . "`");
 
         foreach ($table_query->rows as $table) {
-            if (utf8_substr($table['Tables_in_' . DB_DATABASE], 0, strlen(DB_PREFIX)) == DB_PREFIX) {
+            if (substr($table['Tables_in_' . DB_DATABASE], 0, strlen(DB_PREFIX)) == DB_PREFIX) {
                 $field_data          = [];
                 $extended_field_data = [];
 

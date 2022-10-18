@@ -199,17 +199,17 @@ class ControllerExtensionPaymentPilibaba extends Controller {
         $json = [];
 
         if (isset($this->request->post['email_address']) && isset($this->request->post['password']) && isset($this->request->post['currency']) && isset($this->request->post['warehouse']) && isset($this->request->post['country']) && isset($this->request->post['environment'])) {
-            if (utf8_strlen($this->request->post['email_address']) < 1) {
+            if (strlen($this->request->post['email_address']) < 1) {
                 $json['error'] = $this->language->get('error_email_address');
             } elseif (!filter_var($this->request->post['email_address'], FILTER_VALIDATE_EMAIL)) {
                 $json['error'] = $this->language->get('error_email_invalid');
-            } elseif (utf8_strlen($this->request->post['password']) < 8) {
+            } elseif (strlen($this->request->post['password']) < 8) {
                 $json['error'] = $this->language->get('error_password');
-            } elseif (utf8_strlen($this->request->post['currency']) < 1) {
+            } elseif (strlen($this->request->post['currency']) < 1) {
                 $json['error'] = $this->language->get('error_currency');
-            } elseif (utf8_strlen($this->request->post['warehouse']) < 1) {
+            } elseif (strlen($this->request->post['warehouse']) < 1) {
                 $json['error'] = $this->language->get('error_warehouse');
-            } elseif ($this->request->post['warehouse'] == 'other' && utf8_strlen($this->request->post['country']) < 1) {
+            } elseif ($this->request->post['warehouse'] == 'other' && strlen($this->request->post['country']) < 1) {
                 $json['error'] = $this->language->get('error_country');
             } else {
                 $this->load->model('extension/payment/pilibaba');
@@ -282,7 +282,7 @@ class ControllerExtensionPaymentPilibaba extends Controller {
 
         if ($this->config->get('payment_pilibaba_status')) {
             if (isset($this->request->post['order_id']) && isset($this->request->post['tracking'])) {
-                if (utf8_strlen($this->request->post['tracking']) > 0 && utf8_strlen($this->request->post['tracking']) <= 50) {
+                if (strlen($this->request->post['tracking']) > 0 && strlen($this->request->post['tracking']) <= 50) {
                     $this->load->model('extension/payment/pilibaba');
 
                     $this->model_extension_payment_pilibaba->updateTrackingNumber($this->request->post['order_id'], $this->request->post['tracking'], $this->config->get('payment_pilibaba_merchant_number'));

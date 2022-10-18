@@ -320,7 +320,7 @@ class ControllerExtensionPaymentKlarnaCheckout extends Controller {
 
                 $option_data[] = [
                     'name'  => $option['name'],
-                    'value' => (utf8_strlen($value) > 20 ? utf8_substr($value, 0, 20) . '..' : $value),
+                    'value' => (strlen($value) > 20 ? substr($value, 0, 20) . '..' : $value),
                     'type'  => $option['type']
                 ];
             }
@@ -470,13 +470,13 @@ class ControllerExtensionPaymentKlarnaCheckout extends Controller {
                 if ($zone || $zones) {
                     $this->session->data['shipping_address'] = [
                         'address_id'     => null,
-                        'firstname'      => utf8_substr($this->request->post['given_name'], 0, 32),
-                        'lastname'       => utf8_substr($this->request->post['family_name'], 0, 32),
+                        'firstname'      => substr($this->request->post['given_name'], 0, 32),
+                        'lastname'       => substr($this->request->post['family_name'], 0, 32),
                         'company'        => null,
-                        'address_1'      => utf8_substr($this->request->post['street_address'], 0, 128),
-                        'address_2'      => utf8_substr($this->request->post['street_address'], 129, 256),
-                        'postcode'       => utf8_substr($this->request->post['postal_code'], 0, 10),
-                        'city'           => utf8_substr($this->request->post['city'], 0, 128),
+                        'address_1'      => substr($this->request->post['street_address'], 0, 128),
+                        'address_2'      => substr($this->request->post['street_address'], 129, 256),
+                        'postcode'       => substr($this->request->post['postal_code'], 0, 10),
+                        'city'           => substr($this->request->post['city'], 0, 128),
                         'zone_id'        => ($zone ? $zone['zone_id'] : $zones[0]['zone_id']),
                         'zone'           => ($zone ? $zone['name'] : $zones[0]['name']),
                         'zone_code'      => ($zone ? $zone['code'] : $zones[0]['code']),
@@ -1062,7 +1062,7 @@ class ControllerExtensionPaymentKlarnaCheckout extends Controller {
         // If validates, add customer's email (if guest checkout) and then send 200 response
         if ($validate) {
             if (!$this->customer->isLogged()) {
-                $this->model_extension_payment_klarna_checkout->updateOcOrderEmail($order_id, utf8_substr($request->shipping_address->email, 0, 96));
+                $this->model_extension_payment_klarna_checkout->updateOcOrderEmail($order_id, substr($request->shipping_address->email, 0, 96));
             }
 
             // Update OpenCart order with payment and shipping details
@@ -1083,26 +1083,26 @@ class ControllerExtensionPaymentKlarnaCheckout extends Controller {
             }
 
             $order_data = [
-                'firstname'               => utf8_substr($request->billing_address->given_name, 0, 32),
-                'lastname'                => utf8_substr($request->billing_address->family_name, 0, 32),
-                'telephone'               => utf8_substr($request->billing_address->phone, 0, 32),
-                'payment_firstname'       => utf8_substr($request->billing_address->given_name, 0, 32),
-                'payment_lastname'        => utf8_substr($request->billing_address->family_name, 0, 32),
-                'payment_address_1'       => utf8_substr($request->billing_address->street_address, 0, 128),
-                'payment_address_2'       => isset($request->billing_address->street_address2) ? utf8_substr($request->billing_address->street_address2, 0, 128) : '',
-                'payment_city'            => utf8_substr($request->billing_address->city, 0, 128),
-                'payment_postcode'        => utf8_substr($request->billing_address->postal_code, 0, 10),
+                'firstname'               => substr($request->billing_address->given_name, 0, 32),
+                'lastname'                => substr($request->billing_address->family_name, 0, 32),
+                'telephone'               => substr($request->billing_address->phone, 0, 32),
+                'payment_firstname'       => substr($request->billing_address->given_name, 0, 32),
+                'payment_lastname'        => substr($request->billing_address->family_name, 0, 32),
+                'payment_address_1'       => substr($request->billing_address->street_address, 0, 128),
+                'payment_address_2'       => isset($request->billing_address->street_address2) ? substr($request->billing_address->street_address2, 0, 128) : '',
+                'payment_city'            => substr($request->billing_address->city, 0, 128),
+                'payment_postcode'        => substr($request->billing_address->postal_code, 0, 10),
                 'payment_zone'            => ($payment_zone_info ? $payment_zone_info['name'] : ''),
                 'payment_zone_id'         => ($payment_zone_info ? $payment_zone_info['zone_id'] : ''),
                 'payment_country'         => ($payment_country_info ? $payment_country_info['name'] : ''),
                 'payment_country_id'      => ($payment_country_info ? $payment_country_info['country_id'] : ''),
                 'payment_address_format'  => ($payment_country_info ? $payment_country_info['address_format'] : ''),
-                'shipping_firstname'      => utf8_substr($request->shipping_address->given_name, 0, 32),
-                'shipping_lastname'       => utf8_substr($request->shipping_address->family_name, 0, 32),
-                'shipping_address_1'      => utf8_substr($request->shipping_address->street_address, 0, 128),
-                'shipping_address_2'      => isset($request->shipping_address->street_address2) ? utf8_substr($request->shipping_address->street_address2, 0, 128) : '',
-                'shipping_city'           => utf8_substr($request->shipping_address->city, 0, 128),
-                'shipping_postcode'       => utf8_substr($request->shipping_address->postal_code, 0, 10),
+                'shipping_firstname'      => substr($request->shipping_address->given_name, 0, 32),
+                'shipping_lastname'       => substr($request->shipping_address->family_name, 0, 32),
+                'shipping_address_1'      => substr($request->shipping_address->street_address, 0, 128),
+                'shipping_address_2'      => isset($request->shipping_address->street_address2) ? substr($request->shipping_address->street_address2, 0, 128) : '',
+                'shipping_city'           => substr($request->shipping_address->city, 0, 128),
+                'shipping_postcode'       => substr($request->shipping_address->postal_code, 0, 10),
                 'shipping_zone'           => ($shipping_zone_info ? $shipping_zone_info['name'] : ''),
                 'shipping_zone_id'        => ($shipping_zone_info ? $shipping_zone_info['zone_id'] : ''),
                 'shipping_country'        => ($shipping_country_info ? $shipping_country_info['name'] : ''),
@@ -1275,26 +1275,26 @@ class ControllerExtensionPaymentKlarnaCheckout extends Controller {
                                 }
 
                                 $order_data = [
-                                    'firstname'               => utf8_substr($order['billing_address']['given_name'], 0, 32),
-                                    'lastname'                => utf8_substr($order['billing_address']['family_name'], 0, 32),
-                                    'telephone'               => utf8_substr($order['billing_address']['phone'], 0, 32),
-                                    'payment_firstname'       => utf8_substr($order['billing_address']['given_name'], 0, 32),
-                                    'payment_lastname'        => utf8_substr($order['billing_address']['family_name'], 0, 32),
-                                    'payment_address_1'       => utf8_substr($order['billing_address']['street_address'], 0, 128),
-                                    'payment_address_2'       => isset($order['billing_address']['street_address2']) ? utf8_substr($order['billing_address']['street_address2'], 0, 128) : '',
-                                    'payment_city'            => utf8_substr($order['billing_address']['city'], 0, 128),
-                                    'payment_postcode'        => utf8_substr($order['billing_address']['postal_code'], 0, 10),
+                                    'firstname'               => substr($order['billing_address']['given_name'], 0, 32),
+                                    'lastname'                => substr($order['billing_address']['family_name'], 0, 32),
+                                    'telephone'               => substr($order['billing_address']['phone'], 0, 32),
+                                    'payment_firstname'       => substr($order['billing_address']['given_name'], 0, 32),
+                                    'payment_lastname'        => substr($order['billing_address']['family_name'], 0, 32),
+                                    'payment_address_1'       => substr($order['billing_address']['street_address'], 0, 128),
+                                    'payment_address_2'       => isset($order['billing_address']['street_address2']) ? substr($order['billing_address']['street_address2'], 0, 128) : '',
+                                    'payment_city'            => substr($order['billing_address']['city'], 0, 128),
+                                    'payment_postcode'        => substr($order['billing_address']['postal_code'], 0, 10),
                                     'payment_zone'            => ($payment_zone_info ? $payment_zone_info['name'] : ''),
                                     'payment_zone_id'         => ($payment_zone_info ? $payment_zone_info['zone_id'] : ''),
                                     'payment_country'         => ($payment_country_info ? $payment_country_info['name'] : ''),
                                     'payment_country_id'      => ($payment_country_info ? $payment_country_info['country_id'] : ''),
                                     'payment_address_format'  => ($payment_country_info ? $payment_country_info['address_format'] : ''),
-                                    'shipping_firstname'      => utf8_substr($order['shipping_address']['given_name'], 0, 32),
-                                    'shipping_lastname'       => utf8_substr($order['shipping_address']['family_name'], 0, 32),
-                                    'shipping_address_1'      => utf8_substr($order['shipping_address']['street_address'], 0, 128),
-                                    'shipping_address_2'      => isset($order['shipping_address']['street_address2']) ? utf8_substr($order['shipping_address']['street_address2'], 0, 128) : '',
-                                    'shipping_city'           => utf8_substr($order['shipping_address']['city'], 0, 128),
-                                    'shipping_postcode'       => utf8_substr($order['shipping_address']['postal_code'], 0, 10),
+                                    'shipping_firstname'      => substr($order['shipping_address']['given_name'], 0, 32),
+                                    'shipping_lastname'       => substr($order['shipping_address']['family_name'], 0, 32),
+                                    'shipping_address_1'      => substr($order['shipping_address']['street_address'], 0, 128),
+                                    'shipping_address_2'      => isset($order['shipping_address']['street_address2']) ? substr($order['shipping_address']['street_address2'], 0, 128) : '',
+                                    'shipping_city'           => substr($order['shipping_address']['city'], 0, 128),
+                                    'shipping_postcode'       => substr($order['shipping_address']['postal_code'], 0, 10),
                                     'shipping_zone'           => ($shipping_zone_info ? $shipping_zone_info['name'] : ''),
                                     'shipping_zone_id'        => ($shipping_zone_info ? $shipping_zone_info['zone_id'] : ''),
                                     'shipping_country'        => ($shipping_country_info ? $shipping_country_info['name'] : ''),

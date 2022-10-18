@@ -86,7 +86,7 @@ class ControllerInformationGdpr extends Controller {
         }
 
         // Validate E-Mail
-        if ((utf8_strlen($email) > 96) || !filter_var($email, FILTER_VALIDATE_EMAIL)) {
+        if ((strlen($email) > 96) || !filter_var($email, FILTER_VALIDATE_EMAIL)) {
             $json['error']['email'] = $this->language->get('error_email');
         }
 

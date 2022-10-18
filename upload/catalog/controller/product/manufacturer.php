@@ -24,10 +24,10 @@ class ControllerProductManufacturer extends Controller {
         $results             = $this->model_catalog_manufacturer->getManufacturers();
 
         foreach ($results as $result) {
-            if (is_numeric(utf8_substr($result['name'], 0, 1))) {
+            if (is_numeric(substr($result['name'], 0, 1))) {
                 $key = '0 - 9';
             } else {
-                $key = utf8_substr(utf8_strtoupper($result['name']), 0, 1);
+                $key = substr(strtoupper($result['name']), 0, 1);
             }
 
             if (!isset($data['categories'][$key])) {
@@ -185,7 +185,7 @@ class ControllerProductManufacturer extends Controller {
                     'product_id'  => $result['product_id'],
                     'thumb'       => $image,
                     'name'        => $result['name'],
-                    'description' => utf8_substr(trim(strip_tags(html_entity_decode($result['description'], ENT_QUOTES, 'UTF-8'))), 0, $this->config->get('theme_' . $this->config->get('config_theme') . '_product_description_length')) . '..',
+                    'description' => substr(trim(strip_tags(html_entity_decode($result['description'], ENT_QUOTES, 'UTF-8'))), 0, $this->config->get('theme_' . $this->config->get('config_theme') . '_product_description_length')) . '..',
                     'price'       => $price,
                     'special'     => $special,
                     'tax'         => $tax,

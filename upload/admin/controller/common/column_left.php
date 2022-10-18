@@ -257,7 +257,7 @@ class ControllerCommonColumnLeft extends Controller {
 
             if ($this->user->hasPermission('access', 'sale/subscription')) {
                 $sale[] = [
-                    'name'     => $this->language->get('text_order_subscription'),
+                    'name'     => $this->language->get('text_subscription'),
                     'href'     => $this->url->link('sale/subscription', 'user_token=' . $this->session->data['user_token'], true),
                     'children' => []
                 ];

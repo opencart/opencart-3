@@ -1030,19 +1030,19 @@ class ControllerSettingSetting extends Controller {
             $this->error['name'] = $this->language->get('error_name');
         }
 
-        if ((utf8_strlen($this->request->post['config_owner']) < 3) || (utf8_strlen($this->request->post['config_owner']) > 64)) {
+        if ((strlen($this->request->post['config_owner']) < 3) || (strlen($this->request->post['config_owner']) > 64)) {
             $this->error['owner'] = $this->language->get('error_owner');
         }
 
-        if ((utf8_strlen($this->request->post['config_address']) < 3) || (utf8_strlen($this->request->post['config_address']) > 256)) {
+        if ((strlen($this->request->post['config_address']) < 3) || (strlen($this->request->post['config_address']) > 256)) {
             $this->error['address'] = $this->language->get('error_address');
         }
 
-        if ((utf8_strlen($this->request->post['config_email']) > 96) || !filter_var($this->request->post['config_email'], FILTER_VALIDATE_EMAIL)) {
+        if ((strlen($this->request->post['config_email']) > 96) || !filter_var($this->request->post['config_email'], FILTER_VALIDATE_EMAIL)) {
             $this->error['email'] = $this->language->get('error_email');
         }
 
-        if ((utf8_strlen($this->request->post['config_telephone']) < 3) || (utf8_strlen($this->request->post['config_telephone']) > 32)) {
+        if ((strlen($this->request->post['config_telephone']) < 3) || (strlen($this->request->post['config_telephone']) > 32)) {
             $this->error['telephone'] = $this->language->get('error_telephone');
         }
 
@@ -1082,7 +1082,7 @@ class ControllerSettingSetting extends Controller {
             $this->error['log'] = $this->language->get('error_log_extension');
         }
 
-        if ((utf8_strlen($this->request->post['config_encryption']) < 32) || (utf8_strlen($this->request->post['config_encryption']) > 1024)) {
+        if ((strlen($this->request->post['config_encryption']) < 32) || (strlen($this->request->post['config_encryption']) > 1024)) {
             $this->error['encryption'] = $this->language->get('error_encryption');
         }
 

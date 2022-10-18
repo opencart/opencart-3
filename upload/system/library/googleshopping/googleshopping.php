@@ -1023,7 +1023,7 @@ class Googleshopping extends Library {
         $extension = pathinfo($filename, PATHINFO_EXTENSION);
 
         $image_old = $filename;
-        $image_new = 'cache/' . utf8_substr($filename, 0, utf8_strrpos($filename, '.')) . '-' . (int)$width . 'x' . (int)$height . '.' . $extension;
+        $image_new = 'cache/' . substr($filename, 0, strrpos($filename, '.')) . '-' . (int)$width . 'x' . (int)$height . '.' . $extension;
 
         if (!is_file(DIR_IMAGE . $image_new) || (filemtime(DIR_IMAGE . $image_old) > filemtime(DIR_IMAGE . $image_new))) {
             list($width_orig, $height_orig, $image_type) = getimagesize(DIR_IMAGE . $image_old);
@@ -1063,7 +1063,7 @@ class Googleshopping extends Library {
     }
 
     protected function sanitizeText($text, $limit) {
-        return utf8_substr(
+        return substr(
             trim(
                 preg_replace(
                     '~\s+~', 

@@ -256,11 +256,11 @@ class ControllerExtensionPaymentCardinity extends Controller {
             $error['warning'] = $this->language->get('error_invalid_currency');
         }
 
-        if (!isset($this->request->post['holder']) || utf8_strlen($this->request->post['holder']) < 1 || utf8_strlen($this->request->post['holder']) > 32) {
+        if (!isset($this->request->post['holder']) || strlen($this->request->post['holder']) < 1 || strlen($this->request->post['holder']) > 32) {
             $error['holder'] = true;
         }
 
-        if (!isset($this->request->post['pan']) || utf8_strlen($this->request->post['pan']) < 1 || utf8_strlen($this->request->post['pan']) > 19) {
+        if (!isset($this->request->post['pan']) || strlen($this->request->post['pan']) < 1 || strlen($this->request->post['pan']) > 19) {
             $error['pan'] = true;
         }
 
@@ -283,7 +283,7 @@ class ControllerExtensionPaymentCardinity extends Controller {
             }
         }
 
-        if (!isset($this->request->post['cvc']) || utf8_strlen($this->request->post['cvc']) < 1 || utf8_strlen($this->request->post['cvc']) > 4) {
+        if (!isset($this->request->post['cvc']) || strlen($this->request->post['cvc']) < 1 || strlen($this->request->post['cvc']) > 4) {
             $error['cvc'] = true;
         }
 

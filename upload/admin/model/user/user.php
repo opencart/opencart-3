@@ -19,7 +19,7 @@ class ModelUserUser extends Model {
     }
 
     public function editCode(string $email, string $code): void {
-        $this->db->query("UPDATE `" . DB_PREFIX . "user` SET `code` = '" . $this->db->escape($code) . "' WHERE LCASE(`email`) = '" . $this->db->escape(utf8_strtolower($email)) . "'");
+        $this->db->query("UPDATE `" . DB_PREFIX . "user` SET `code` = '" . $this->db->escape($code) . "' WHERE LCASE(`email`) = '" . $this->db->escape(strtolower($email)) . "'");
     }
 
     public function deleteUser(int $user_id): void {
@@ -39,7 +39,7 @@ class ModelUserUser extends Model {
     }
 
     public function getUserByEmail(string $email): array {
-        $query = $this->db->query("SELECT DISTINCT * FROM `" . DB_PREFIX . "user` WHERE LCASE(`email`) = '" . $this->db->escape(utf8_strtolower($email)) . "'");
+        $query = $this->db->query("SELECT DISTINCT * FROM `" . DB_PREFIX . "user` WHERE LCASE(`email`) = '" . $this->db->escape(strtolower($email)) . "'");
 
         return $query->row;
     }
@@ -101,28 +101,28 @@ class ModelUserUser extends Model {
     }
 
     public function getTotalUsersByEmail(string $email): int {
-        $query = $this->db->query("SELECT COUNT(*) AS `total` FROM `" . DB_PREFIX . "user` WHERE LCASE(`email`) = '" . $this->db->escape(utf8_strtolower($email)) . "'");
+        $query = $this->db->query("SELECT COUNT(*) AS `total` FROM `" . DB_PREFIX . "user` WHERE LCASE(`email`) = '" . $this->db->escape(strtolower($email)) . "'");
 
         return (int)$query->row['total'];
     }
 
     public function addLoginAttempt(string $username): void {
-        $query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "customer_login` WHERE LCASE(`email`) = '" . $this->db->escape(utf8_strtolower((string)$username)) . "'");
+        $query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "customer_login` WHERE LCASE(`email`) = '" . $this->db->escape(strtolower((string)$username)) . "'");
 
         if (!$query->num_rows) {
-            $this->db->query("INSERT INTO `" . DB_PREFIX . "customer_login` SET `email` = '" . $this->db->escape(utf8_strtolower((string)$username)) . "', `ip` = '" . $this->db->escape($this->request->server['REMOTE_ADDR']) . "', `total` = '1', `date_added` = '" . $this->db->escape(date('Y-m-d H:i:s')) . "', `date_modified` = '" . $this->db->escape(date('Y-m-d H:i:s')) . "'");
+            $this->db->query("INSERT INTO `" . DB_PREFIX . "customer_login` SET `email` = '" . $this->db->escape(strtolower((string)$username)) . "', `ip` = '" . $this->db->escape($this->request->server['REMOTE_ADDR']) . "', `total` = '1', `date_added` = '" . $this->db->escape(date('Y-m-d H:i:s')) . "', `date_modified` = '" . $this->db->escape(date('Y-m-d H:i:s')) . "'");
         } else {
             $this->db->query("UPDATE `" . DB_PREFIX . "customer_login` SET `total` = (`total` + 1), `date_modified` = '" . $this->db->escape(date('Y-m-d H:i:s')) . "' WHERE `customer_login_id` = '" . (int)$query->row['customer_login_id'] . "'");
         }
     }
 
     public function getLoginAttempts(string $username): array {
-        $query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "customer_login` WHERE LCASE(`email`) = '" . $this->db->escape(utf8_strtolower($username)) . "'");
+        $query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "customer_login` WHERE LCASE(`email`) = '" . $this->db->escape(strtolower($username)) . "'");
 
         return $query->row;
     }
 
     public function deleteLoginAttempts(string $username): void {
-        $this->db->query("DELETE FROM `" . DB_PREFIX . "customer_login` WHERE `email` = '" . $this->db->escape(utf8_strtolower($username)) . "'");
+        $this->db->query("DELETE FROM `" . DB_PREFIX . "customer_login` WHERE `email` = '" . $this->db->escape(strtolower($username)) . "'");
     }
 }
