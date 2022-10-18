@@ -50,7 +50,7 @@ class ModelExtensionModuleAmazonLogin extends Model {
         // Create non-existing customer
         if (empty($customer_info)) {
             $data = [
-                'customer_group_id' => (int)$this->config->get('config_customer_group_id'),
+                'customer_group_id' => $this->config->get('config_customer_group_id'),
                 'firstname'         => (string)$amazon_profile->first_name,
                 'lastname'          => (string)$amazon_profile->last_name,
                 'email'             => (string)$amazon_profile->email,

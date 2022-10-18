@@ -541,7 +541,7 @@ class ControllerExtensionPaymentPPBraintree extends Controller {
         if (!$this->customer->isLogged()) {
             $this->session->data['paypal_braintree']['guest'] = true;
 
-            $this->session->data['guest']['customer_group_id'] = (int)$this->config->get('config_customer_group_id');
+            $this->session->data['guest']['customer_group_id'] = $this->config->get('config_customer_group_id');
             $this->session->data['guest']['firstname']         = $this->request->post['details']['firstName'];
             $this->session->data['guest']['lastname']          = $this->request->post['details']['lastName'];
             $this->session->data['guest']['email']             = $this->request->post['details']['email'];
@@ -1266,7 +1266,7 @@ class ControllerExtensionPaymentPPBraintree extends Controller {
 
             if ($this->customer->isLogged() && isset($this->session->data['payment_address_id'])) {
                 $data['customer_id']       = $this->customer->getId();
-                $data['customer_group_id'] = (int)$this->config->get('config_customer_group_id');
+                $data['customer_group_id'] = $this->config->get('config_customer_group_id');
                 $data['firstname']         = $this->customer->getFirstName();
                 $data['lastname']          = $this->customer->getLastName();
                 $data['email']             = $this->customer->getEmail();
