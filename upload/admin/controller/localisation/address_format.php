@@ -119,7 +119,7 @@ class ControllerLocalisationAddressFormat extends Controller {
 
         $data['address_formats'] = [];
 
-        $filter_data = [
+        $filter_data             = [
             'start' => ($page - 1) * $this->config->get('config_limit_admin'),
             'limit' => $this->config->get('config_limit_admin')
         ];
