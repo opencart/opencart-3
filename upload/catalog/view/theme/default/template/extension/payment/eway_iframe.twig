@@ -22,9 +22,9 @@
 			 * eWAY Rapid IFrame callback
 			 */
 			function resultCallback(result, transactionID, errors) {
-				if (result == "Complete") {
+				if (result == 'Complete') {
 					window.location.href = "{{ callback }}";
-				} else if (result == "Error") {
+				} else if (result == 'Error') {
 					$('#button-confirm').button('reset');
 					alert("{{ error_payment_text }}: " + result);
 				} else {

@@ -585,11 +585,11 @@
                 <label class="col-sm-2 control-label" for="input-vault-cvv-3ds"><span data-toggle="tooltip" title="{{ help_vault_cvv_3ds }}">{{ entry_vault_cvv_3ds }}</span></label>
                 <div class="col-sm-10">
                   <select name="payment_pp_braintree_vault_cvv_3ds" id="input-vault-cvv-3ds" class="form-control">
-                    {% if payment_pp_braintree_vault_cvv_3ds == "cvv" %}
+                    {% if payment_pp_braintree_vault_cvv_3ds == 'cvv' %}
                       <option value="0">{{ text_disabled }}</option>
                       <option value="cvv" selected="selected">{{ text_cvv }}</option>
                       <option value="3ds">{{ text_3ds }}</option>
-                    {% elseif payment_pp_braintree_vault_cvv_3ds == "3ds" %}
+                    {% elseif payment_pp_braintree_vault_cvv_3ds == '3ds' %}
                       <option value="0">{{ text_disabled }}</option>
                       <option value="cvv">{{ text_cvv }}</option>
                       <option value="3ds" selected="selected">{{ text_3ds }}</option>
@@ -661,9 +661,9 @@
                   <label class="col-sm-2 control-label" for="input-paypal-button-colour">{{ entry_paypal_button_colour }}</label>
                   <div class="col-sm-10">
                     <select name="payment_pp_braintree_paypal_button_colour" id="input-paypal-button-colour" class="form-control">
-                      <option value="gold"{% if payment_pp_braintree_paypal_button_colour == "gold" %} selected="selected"{% endif %}>{{ text_paypal_gold }}</option>
-                      <option value="blue"{% if payment_pp_braintree_paypal_button_colour == "blue" %} selected="selected"{% endif %}>{{ text_paypal_blue }}</option>
-                      <option value="silver"{% if payment_pp_braintree_paypal_button_colour == "silver" %} selected="selected"{% endif %}>{{ text_paypal_silver }}</option>
+                      <option value="gold"{% if payment_pp_braintree_paypal_button_colour == 'gold' %} selected="selected"{% endif %}>{{ text_paypal_gold }}</option>
+                      <option value="blue"{% if payment_pp_braintree_paypal_button_colour == 'blue' %} selected="selected"{% endif %}>{{ text_paypal_blue }}</option>
+                      <option value="silver"{% if payment_pp_braintree_paypal_button_colour == 'silver' %} selected="selected"{% endif %}>{{ text_paypal_silver }}</option>
                     </select>
                   </div>
                 </div>
@@ -671,9 +671,9 @@
                   <label class="col-sm-2 control-label" for="input-paypal-button-size">{{ entry_paypal_button_size }}</label>
                   <div class="col-sm-10">
                     <select name="payment_pp_braintree_paypal_button_size" id="input-paypal-button-size" class="form-control">
-                      <option value="tiny"{% if payment_pp_braintree_paypal_button_size == "tiny" %} selected="selected"{% endif %}>{{ text_paypal_tiny }}</option>
-                      <option value="small"{% if payment_pp_braintree_paypal_button_size == "small" %} selected="selected"{% endif %}>{{ text_paypal_small }}</option>
-                      <option value="medium"{% if payment_pp_braintree_paypal_button_size == "medium" %} selected="selected"{% endif %}>{{ text_paypal_medium }}</option>
+                      <option value="tiny"{% if payment_pp_braintree_paypal_button_size == 'tiny' %} selected="selected"{% endif %}>{{ text_paypal_tiny }}</option>
+                      <option value="small"{% if payment_pp_braintree_paypal_button_size == 'small' %} selected="selected"{% endif %}>{{ text_paypal_small }}</option>
+                      <option value="medium"{% if payment_pp_braintree_paypal_button_size == 'medium' %} selected="selected"{% endif %}>{{ text_paypal_medium }}</option>
                     </select>
                   </div>
                 </div>
@@ -681,8 +681,8 @@
                   <label class="col-sm-2 control-label" for="input-paypal-button-shape">{{ entry_paypal_button_shape }}</label>
                   <div class="col-sm-10">
                     <select name="payment_pp_braintree_paypal_button_shape" id="input-paypal-button-shape" class="form-control">
-                      <option value="pill"{% if payment_pp_braintree_paypal_button_shape == "pill" %} selected="selected"{% endif %}>{{ text_paypal_pill }}</option>
-                      <option value="rect"{% if payment_pp_braintree_paypal_button_shape == "rect" %} selected="selected"{% endif %}>{{ text_paypal_rectangular }}</option>
+                      <option value="pill"{% if payment_pp_braintree_paypal_button_shape == 'pill' %} selected="selected"{% endif %}>{{ text_paypal_pill }}</option>
+                      <option value="rect"{% if payment_pp_braintree_paypal_button_shape == 'rect' %} selected="selected"{% endif %}>{{ text_paypal_rectangular }}</option>
                     </select>
                   </div>
                 </div>
