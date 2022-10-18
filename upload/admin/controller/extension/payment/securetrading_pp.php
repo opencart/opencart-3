@@ -483,47 +483,6 @@ class ControllerExtensionPaymentSecureTradingPp extends Controller {
         $this->response->setOutput(json_encode($json));
     }
 
-    // admin/controller/sale/subscription/before
-    public function addSubscriptionTransaction(&$route, &$args) {
-        $this->load->language('extension/payment/securetrading_pp');
-
-        $json = [];
-
-        if (isset($this->request->get['subscription_id'])) {
-            $subscription_id = (int)$this->request->get['subscription_id'];
-        } else {
-            $subscription_id = 0;
-        }
-
-        if (!$this->user->hasPermission('modify', 'extension/payment/securetrading_pp')) {
-            $this->log->write($this->language->get('heading_transaction') . ' ' . $this->language->get('error_permission'));
-        } else {
-            $this->load->model('sale/subscription');
-
-            $subscription_info = $this->model_sale_subscription->getSubscription($subscription_id);
-
-            if (!$subscription_info) {
-                $this->log->write($this->language->get('heading_transaction') . ' ' . $this->language->get('error_subscription'));
-            } else {
-                $this->load->model('extension/payment/securetrading_pp');
-
-                $order_info = $this->model_extension_payment_securetrading_pp->getOrder($subscription_info['order_id']);
-
-                if (!$order_info) {
-                    $this->log->write($this->language->get('heading_transaction') . ' ' . $this->language->get('error_order'));
-                } elseif (!empty($subscription_info['reference']) && $subscription_info['reference'] == $order_info['transaction_reference']) {
-                    $this->log->write($this->language->get('heading_transaction') . ' ' . $this->language->get('error_transaction_reference'));
-                } else {
-                    $this->model_sale_subscription->addTransaction($subscription_id, $subscription_info['order_id'], (string)$this->request->post['description'], (float)$this->request->post['amount'], $order_info['settle_type'], '', '');
-
-                    $this->log->write($this->language->get('heading_transaction') . ' ' . $this->language->get('text_subscription_success'));
-                }
-            }
-        }
-
-        $this->response->setOutput(json_encode($json));
-    }
-
     protected function validate() {
         if (!$this->user->hasPermission('modify', 'extension/payment/securetrading_pp')) {
             $this->error['warning'] = $this->language->get('error_permission');

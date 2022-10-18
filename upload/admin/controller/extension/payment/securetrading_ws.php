@@ -10,11 +10,11 @@ class ControllerExtensionPaymentSecureTradingWs extends Controller {
         // Geo Zones
         $this->load->model('localisation/geo_zone');
 
-        // Order Statuses
-        $this->load->model('localisation/order_status');
-
         // Currencies
         $this->load->model('localisation/currency');
+
+        // Order Statuses
+        $this->load->model('localisation/order_status');
 
         if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validate()) {
             $this->request->post['payment_securetrading_ws_site_reference'] = $this->request->post['payment_securetrading_ws_site_reference'];
@@ -553,45 +553,6 @@ class ControllerExtensionPaymentSecureTradingWs extends Controller {
         }
 
         $this->response->addHeader('Content-Type: application/json');
-        $this->response->setOutput(json_encode($json));
-    }
-
-    // admin/controller/sale/subscription/before
-    public function addSubscriptionTransaction(&$route, &$args) {
-        $this->load->language('extension/payment/securetrading_ws');
-
-        $json = [];
-
-        if (isset($this->request->get['subscription_id'])) {
-            $subscription_id = (int)$this->request->get['subscription_id'];
-        } else {
-            $subscription_id = 0;
-        }
-
-        if (!$this->user->hasPermission('modify', 'extension/payment/securetrading_ws')) {
-            $this->log->write($this->language->get('heading_transaction') . ' ' . $this->language->get('error_permission'));
-        } else {
-            $this->load->model('sale/subscription');
-
-            $subscription_info = $this->model_sale_subscription->getSubscription($subscription_id);
-
-            if (!$subscription_info) {
-                $this->log->write($this->language->get('heading_transaction') . ' ' . $this->language->get('error_subscription'));
-            } else {
-                $this->load->model('extension/payment/securetrading_ws');
-
-                $order_info = $this->model_extension_payment_securetrading_ws->getOrder($subscription_info['order_id']);
-
-                if (!$order_info) {
-                    $this->log->write($this->language->get('heading_transaction') . ' ' . $this->language->get('error_order'));
-                } elseif (!empty($subscription_info['reference']) && $subscription_info['reference'] == $order_info['transaction_reference']) {
-                    $this->log->write($this->language->get('heading_transaction') . ' ' . $this->language->get('error_transaction_reference'));
-                } else {
-                    $this->model_sale_subscription->addTransaction($subscription_id, $subscription_info['order_id'], (string)$this->request->post['description'], (float)$this->request->post['amount'], $order_info['settle_type'], '', '');
-                }
-            }
-        }
-
         $this->response->setOutput(json_encode($json));
     }
 

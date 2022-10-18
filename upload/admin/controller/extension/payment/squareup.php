@@ -792,22 +792,12 @@ class ControllerExtensionPaymentSquareup extends Controller {
         $this->load->model('extension/payment/squareup');
 
         $this->model_extension_payment_squareup->createTables();
-
-        // Events
-        $this->load->model('setting/event');
-
-        $this->model_setting_event->addEvent('squareup', 'admin/controller/sale/subscription/addTransaction/before', 'extension/payment/squareup/addSubscriptionTransaction');
     }
 
     public function uninstall(): void {
         $this->load->model('extension/payment/squareup');
 
         $this->model_extension_payment_squareup->dropTables();
-
-        // Events
-        $this->load->model('setting/event');
-
-        $this->model_setting_event->deleteEventByCode('squareup');
     }
 
     public function recurringButtons() {
@@ -900,63 +890,6 @@ class ControllerExtensionPaymentSquareup extends Controller {
         }
 
         $this->response->addHeader('Content-Type: application/json');
-        $this->response->setOutput(json_encode($json));
-    }
-
-    // admin/controller/sale/subscription/before
-    public function addSubscriptionTransaction(&$route, &$args) {
-        $this->load->language('extension/payment/squareup');
-
-        $json = [];
-
-        if (isset($this->request->get['subscription_id'])) {
-            $subscription_id = (int)$this->request->get['subscription_id'];
-        } else {
-            $subscription_id = 0;
-        }
-
-        if (!$this->user->hasPermission('modify', 'extension/payment/squareup')) {
-            $this->log->write($this->language->get('heading_transaction') . ' ' . $this->language->get('error_permission'));
-        } else {
-            $this->load->model('sale/subscription');
-
-            $subscription_info = $this->model_sale_subscription->getSubscription($subscription_id);
-
-            if (!$subscription_info) {
-                $this->log->write($this->language->get('heading_transaction') . ' ' . $this->language->get('error_subscription'));
-            } else {
-                $this->load->model('extension/payment/squareup');
-
-                $filter_data = [
-                    'order_id'  => $subscription_info['order_id']
-                ];
-
-                $orders = $this->model_extension_payment_squareup->getTransactions($filter_data);
-
-                if (!$orders) {
-                    $this->log->write($this->language->get('heading_transaction') . ' ' . $this->language->get('error_order'));
-                } else {
-                    $transaction_ids = array_column($orders, 'transaction_id');
-
-                    if (in_array($subscription_info['reference'], $transaction_ids)) {
-                        $this->log->write($this->language->get('heading_transaction') . ' ' . $this->language->get('error_transaction_reference'));
-                    } else {
-                        $flag = [];
-
-                        foreach ($orders as $order) {
-                            $this->model_sale_subscription->addTransaction($subscription_id, $order['order_id'], (string)$this->request->post['description'], (float)$this->request->post['amount'], $order['transaction_type'], '', '');
-
-                            $flag[] = true;
-                        }
-
-                        if ($flag) {
-                            $this->log->write($this->language->get('heading_transaction') . ' ' . $this->language->get('text_subscription_success'));
-                        }
-                    }
-                }
-            }
-        }
-
         $this->response->setOutput(json_encode($json));
     }
 

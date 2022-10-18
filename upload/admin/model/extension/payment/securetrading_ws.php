@@ -27,21 +27,11 @@ class ModelExtensionPaymentSecureTradingWs extends Model {
 			  `amount` DECIMAL( 10, 2 ) NOT NULL,
 			  PRIMARY KEY (`securetrading_ws_order_transaction_id`)
 			) ENGINE=MyISAM DEFAULT COLLATE=utf8_general_ci;");
-
-        // Events
-        $this->load->model('setting/event');
-
-        $this->model_setting_event->addEvent('securetrading_ws_transaction', 'admin/controller/sale/subscription/addTransaction/before', 'extension/payment/securetrading_ws/addSubscriptionTransaction');
     }
 
     public function uninstall(): void {
         $this->db->query("DROP TABLE IF EXISTS `" . DB_PREFIX . "securetrading_ws_order`;");
         $this->db->query("DROP TABLE IF EXISTS `" . DB_PREFIX . "securetrading_ws_order_transaction`;");
-
-        // Events
-        $this->load->model('setting/event');
-
-        $this->model_setting_event->deleteEventByCode('securetrading_ws_transaction');
     }
 
     public function void($order_id) {
