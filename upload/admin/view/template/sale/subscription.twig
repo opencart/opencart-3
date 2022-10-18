@@ -1,0 +1,186 @@
+{{ header }}{{ column_left }}
+<div id="content">
+  <div class="page-header">
+    <div class="container-fluid">
+      <div class="pull-right">
+        <button type="submit" form="form-information" data-toggle="tooltip" title="{{ button_save }}" class="btn btn-primary"><i class="fa fa-save"></i></button>
+        <a href="{{ cancel }}" data-toggle="tooltip" title="{{ button_cancel }}" class="btn btn-default"><i class="fa fa-reply"></i></a></div>
+      <h1>{{ heading_title }}</h1>
+      <ul class="breadcrumb">
+        {% for breadcrumb in breadcrumbs %}
+          <li><a href="{{ breadcrumb.href }}">{{ breadcrumb.text }}</a></li>
+        {% endfor %}
+      </ul>
+    </div>
+  </div>
+  <div class="container-fluid">
+    {% if error_warning %}
+      <div class="alert alert-danger alert-dismissible"><i class="fa fa-exclamation-circle"></i> {{ error_warning }}
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+      </div>
+    {% endif %}
+    <div class="row">
+      <div id="filter-subscription" class="col-md-3 col-md-push-9 col-sm-12 hidden-sm hidden-xs">
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h3 class="panel-title"><i class="fa fa-filter"></i> {{ text_list }}</h3>
+          </div>
+          <div class="panel-body">
+            <div class="form-group">
+              <label for="input-subscription-id" class="control-label">{{ entry_subscription_id }}</label>
+              <input type="text" name="filter_subscription_id" value="{{ filter_subscription_id }}" placeholder="{{ entry_subscription_id }}" id="input-subscription-id" class="form-control"/>
+            </div>
+            <div class="form-group">
+              <label for="input-order-id" class="control-label">{{ entry_order_id }}</label>
+              <input type="text" name="filter_order_id" value="{{ filter_order_id }}" placeholder="{{ entry_order_id }}" id="input-order-id" class="form-control"/>
+            </div>
+            <div class="form-group">
+              <label for="input-customer" class="control-label">{{ entry_customer }}</label>
+              <input type="text" name="filter_customer" value="{{ filter_customer }}" placeholder="{{ entry_customer }}" id="input-customer" class="form-control"/>
+            </div>
+            <div class="form-group">
+              <label for="input-subscription-status" class="control-label">{{ entry_subscription_status }}</label>
+              <select name="filter_subscription_status_id" id="input-subscription-status" class="form-control"/>
+                <option value=""></option>
+                {% for subscription_status in subscription_statuses %}
+                  <option value="{{ subscription_status.subscription_status_id }}"{% if subscription_status.subscription_status_id == filter_subscription_status_id %} selected="selected"{% endif %}>{{ subscription_status.name }}</option>
+                {% endfor %}
+              </select>
+            </div>
+            <div class="form-group text-right">
+              <button type="button" id="button-filter" class="btn btn-default"><i class="fa fa-filter"></i> {{ button_filter }}</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-9 col-md-pull-3 col-sm-12">
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h3 class="panel-title"><i class="fa fa-bar-chart"></i> {{ heading_title }}</h3>
+          </div>
+          <div class="panel-body">
+            <fieldset>
+              <legend>{{ text_subscription }}</legend>
+              <div class="table-responsive">
+                <table class="table table-bordered table-hover">
+                  <thead>
+                    <tr>
+                      <td class="text-center"><a href="{{ sort_subscription }}"{% if sort == 's.subscription_id' %} class="{{ order|lower }}"{% endif %}>{{ column_subscription_id }}</a></td>
+                      <td class="text-left"><a href="{{ sort_order }}"{% if sort == 's.order_id' %} class="{{ order|lower }}"{% endif %}>{{ column_order_id }}</a></td>
+                      <td class="text-left"><a href="{{ sort_customer }}"{% if sort == 'customer' %} class="{{ order|lower }}"{% endif %}>{{ column_customer }}</a></td>
+                      <td class="text-right"><a href="{{ sort_status }}"{% if sort == 'subscription_status' %} class="{{ order|lower }}"{% endif %}>{{ column_status }}</a></td>
+                      <td class="text-left"><a href="{{ sort_date_added }}"{% if sort == 's.date_added' %} class="{{ order|lower }}"{% endif %}>{{ column_date_added }}</a></td>
+                      <td class="text-right">{{ column_action }}</td>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {% if subscriptions %}
+                      {% for subscription in subscriptions %}
+                        <tr>
+                          <td class="text-center">{{ subscription.subscription_id }}</td>
+                          <td class="text-left">{{ subscription.order_id }}</td>
+                          <td class="text-left">{{ subscription.customer }}</td>
+                          <td class="text-right">{{ subscription.status }}</td>
+                          <td class="text-left">{{ subscription.date_added }}</td>
+                          <td class="text-right"><a href="{{ subscription.view }}" data-bs-toggle="tooltip" title="{{ button_view }}" class="btn btn-primary"><i class="fa-solid fa-eye"></i></a> <a href="{{ subscription.order }}" data-bs-toggle="tooltip" title="{{ button_order }}" class="btn btn-light"><i class="fa-solid fa-shopping-cart"></i></a></td>
+                        </tr>
+                      {% endfor %}
+                    {% else %}
+                      <tr>
+                        <td class="text-center" colspan="6">{{ text_no_results }}</td>
+                      </tr>
+                    {% endif %}
+                  </tbody>
+                </table>
+              </div>
+              <div class="row">
+                <div class="col-sm-6 text-left">{{ pagination }}</div>
+                <div class="col-sm-6 text-right">{{ results }}</div>
+              </div>
+            </fieldset>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script type="text/javascript"><!--
+      $('#button-filter').on('click', function () {
+          url = 'index.php?route=sale/subscription&user_token={{ user_token }}';
+          
+          var filter_subscription_id = $('#input-subscription-id').val();
+          
+          if (filter_subscription_id !== '') {
+              url += '&filter_subscription_id=' + filter_subscription_id;
+          }
+          
+          var filter_order_id = $('#input-order-id').val();
+          
+          if (filter_order_id !== '') {
+              url += '&filter_order_id=' + filter_order_id;
+          }
+          
+          var filter_customer = $('#input-customer').val();
+          
+          if (filter_customer) {
+              url += '&filter_customer=' + encodeURIComponent(filter_customer);
+          }
+          
+          var filter_subscription_status_id = $('#input-subscription-status').val();
+          
+          if (filter_subscription_status_id !== '') {
+              url += '&filter_subscription_status_id=' + filter_subscription_status_id;
+          }
+          
+          var filter_date_from = $('#input-date-from').val();
+          
+          if (filter_date_from) {
+              url += '&filter_date_from=' + encodeURIComponent(filter_date_from);
+          }
+          
+          var filter_date_to = $('#input-date-to').val();
+          
+          if (filter_date_to) {
+              url += '&filter_date_to=' + encodeURIComponent(filter_date_to);
+          }
+          
+          location = url;
+      });
+
+      $('.date').datetimepicker({
+          language: '{{ datepicker }}',
+          pickTime: false
+      });
+
+      $('.datetime').datetimepicker({
+          language: '{{ datepicker }}',
+          pickDate: true,
+          pickTime: true
+      });
+
+      $('.time').datetimepicker({
+          language: '{{ datepicker }}',
+          pickDate: false
+      });
+
+      $('input[name=\'filter_customer\']').autocomplete({
+          'source': function (request, response) {
+              $.ajax({
+                  url: 'index.php?route=customer/customer/autocomplete&user_token={{ user_token }}&filter_name=' + encodeURIComponent(request),
+                  dataType: 'json',
+                  success: function (json) {
+                      response($.map(json, function (item) {
+                          return {
+                              label: item['name'],
+                              value: item['customer_id']
+                          }
+                      }));
+                  }
+              });
+          },
+          'select': function (item) {
+              $('input[name=\'filter_customer\']').val(item['label']);
+          }
+      });
+  //--></script>
+</div>
+{{ footer }}

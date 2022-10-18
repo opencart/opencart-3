@@ -475,7 +475,7 @@ class ControllerCatalogSubscriptionPlan extends Controller {
         }
 
         foreach ($this->request->post['subscription_plan_description'] as $language_id => $value) {
-            if ((utf8_strlen($value['name']) < 3) || (utf8_strlen($value['name']) > 255)) {
+            if ((strlen($value['name']) < 3) || (strlen($value['name']) > 255)) {
                 $this->error['name'][$language_id] = $this->language->get('error_name');
             }
         }

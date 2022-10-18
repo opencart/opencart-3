@@ -105,21 +105,9 @@ class ControllerSaleSubscription extends Controller {
             $url .= '&page=' . $this->request->get['page'];
         }
 
-        $data['breadcrumbs']   = [];
-
-        $data['breadcrumbs'][] = [
-            'text' => $this->language->get('text_home'),
-            'href' => $this->url->link('common/dashboard', 'user_token=' . $this->session->data['user_token'], true)
-        ];
-
-        $data['breadcrumbs'][] = [
-            'text' => $this->language->get('heading_title'),
-            'href' => $this->url->link('sale/subscription', 'user_token=' . $this->session->data['user_token'] . $url, true)
-        ];
-
         $data['subscriptions'] = [];
 
-        $filter_data           = [
+        $filter_data = [
             'filter_subscription_id'        => $filter_subscription_id,
             'filter_order_id'               => $filter_order_id,
             'filter_customer'               => $filter_customer,
@@ -136,40 +124,18 @@ class ControllerSaleSubscription extends Controller {
 
         $subscription_total = $this->model_sale_subscription->getTotalSubscriptions($filter_data);
 
-        $results            = $this->model_sale_subscription->getSubscriptions($filter_data);
+        $results = $this->model_sale_subscription->getSubscriptions($filter_data);
 
         foreach ($results as $result) {
-            if ($result['status']) {
-                $status = $this->language->get('text_status_' . $result['status']);
-            } else {
-                $status = '';
-            }
-
             $data['subscriptions'][] = [
                 'subscription_id' => $result['subscription_id'],
                 'order_id'        => $result['order_id'],
                 'customer'        => $result['customer'],
                 'status'          => $result['subscription_status'],
-                'date_added'      => date($this->language->get('date_format_short'), strtotime($result['date_added'])),
-                'view'            => $this->url->link('sale/subscription/info', 'user_token=' . $this->session->data['user_token'] . '&subscription_id=' . $result['subscription_id'] . $url),
-                'order'           => $this->url->link('sale/order/info', 'user_token=' . $this->session->data['user_token'] . '&order_id=' . $result['order_id'])
+                'date_added'      => date($this->language->get('datetime_format'), strtotime($result['date_added'])),
+                'view'            => $this->url->link('sale/subscription/info', 'user_token=' . $this->session->data['user_token'] . '&subscription_id=' . $result['subscription_id'] . $url, true),
+                'order'           => $this->url->link('sale/order/info', 'user_token=' . $this->session->data['user_token'] . '&order_id=' . $result['order_id'], true)
             ];
-        }
-
-        $data['user_token'] = $this->session->data['user_token'];
-
-        if (isset($this->error['warning'])) {
-            $data['error_warning'] = $this->error['warning'];
-        } else {
-            $data['error_warning'] = '';
-        }
-
-        if (isset($this->session->data['success'])) {
-            $data['success'] = $this->session->data['success'];
-
-            unset($this->session->data['success']);
-        } else {
-            $data['success'] = '';
         }
 
         $url = '';
@@ -208,11 +174,11 @@ class ControllerSaleSubscription extends Controller {
             $url .= '&page=' . $this->request->get['page'];
         }
 
-        $data['sort_subscription'] = $this->url->link('sale/subscription/getlist', 'user_token=' . $this->session->data['user_token'] . '&sort=s.subscription_id' . $url);
-        $data['sort_order'] = $this->url->link('sale/subscription/getlist', 'user_token=' . $this->session->data['user_token'] . '&sort=s.order_id' . $url);
-        $data['sort_customer'] = $this->url->link('sale/subscription.list', 'user_token=' . $this->session->data['user_token'] . '&sort=customer' . $url);
-        $data['sort_status'] = $this->url->link('sale/subscription.list', 'user_token=' . $this->session->data['user_token'] . '&sort=subscription_status' . $url);
-        $data['sort_date_added'] = $this->url->link('sale/subscription.list', 'user_token=' . $this->session->data['user_token'] . '&sort=s.date_added' . $url);
+        $data['sort_subscription'] = $this->url->link('sale/subscription', 'user_token=' . $this->session->data['user_token'] . '&sort=s.subscription_id' . $url, true);
+        $data['sort_order'] = $this->url->link('sale/subscription', 'user_token=' . $this->session->data['user_token'] . '&sort=s.order_id' . $url, true);
+        $data['sort_customer'] = $this->url->link('sale/subscription', 'user_token=' . $this->session->data['user_token'] . '&sort=customer' . $url, true);
+        $data['sort_status'] = $this->url->link('sale/subscription', 'user_token=' . $this->session->data['user_token'] . '&sort=subscription_status' . $url, true);
+        $data['sort_date_added'] = $this->url->link('sale/subscription', 'user_token=' . $this->session->data['user_token'] . '&sort=s.date_added' . $url, true);
 
         $url = '';
 
@@ -228,8 +194,8 @@ class ControllerSaleSubscription extends Controller {
             $url .= '&filter_customer=' . urlencode(html_entity_decode($this->request->get['filter_customer'], ENT_QUOTES, 'UTF-8'));
         }
 
-        if (isset($this->request->get['filter_status'])) {
-            $url .= '&filter_status=' . $this->request->get['filter_status'];
+        if (isset($this->request->get['filter_subscription_status_id'])) {
+            $url .= '&filter_subscription_status_id=' . $this->request->get['filter_subscription_status_id'];
         }
 
         if (isset($this->request->get['filter_date_from'])) {
@@ -248,31 +214,37 @@ class ControllerSaleSubscription extends Controller {
             $url .= '&order=' . $this->request->get['order'];
         }
 
-        $pagination                        = new \Pagination();
-        $pagination->total                 = $subscription_total;
-        $pagination->page                  = $page;
-        $pagination->limit                 = $this->config->get('config_limit_admin');
-        $pagination->text                  = $this->language->get('text_pagination');
-        $pagination->url                   = $this->url->link('sale/subscription', 'user_token=' . $this->session->data['user_token'] . '&page={page}' . $url, true);
+        $this->load->model('localisation/subscription_status');
 
-        $data['pagination']                = $pagination->render();
-        $data['results']                   = sprintf($this->language->get('text_pagination'), ($subscription_total) ? (($page - 1) * $this->config->get('config_limit_admin')) + 1 : 0, ((($page - 1) * $this->config->get('config_limit_admin')) > ($subscription_total - $this->config->get('config_limit_admin'))) ? $subscription_total : ((($page - 1) * $this->config->get('config_limit_admin')) + $this->config->get('config_limit_admin')), $subscription_total, ceil($subscription_total / $this->config->get('config_limit_admin')));
+        $data['subscription_statuses']  = $this->model_localisation_subscription_status->getSubscriptionStatuses();
 
-        $data['filter_subscription_id']    = $filter_subscription_id;
-        $data['filter_order_id']           = $filter_order_id;
-        $data['filter_customer']           = $filter_customer;
+        $pagination                            = new \Pagination();
+        $pagination->total                     = $subscription_total;
+        $pagination->page                      = $page;
+        $pagination->limit                     = $this->config->get('config_limit_admin');
+        $pagination->text                      = $this->language->get('text_pagination');
+        $pagination->url                       = $this->url->link('sale/subscription', 'user_token=' . $this->session->data['user_token'] . '&page={page}' . $url, true);
+
+        $data['pagination']                    = $pagination->render();
+        $data['results']                       = sprintf($this->language->get('text_pagination'), ($subscription_total) ? (($page - 1) * $this->config->get('config_limit_admin')) + 1 : 0, ((($page - 1) * $this->config->get('config_limit_admin')) > ($subscription_total - $this->config->get('config_limit_admin'))) ? $subscription_total : ((($page - 1) * $this->config->get('config_limit_admin')) + $this->config->get('config_limit_admin')), $subscription_total, ceil($subscription_total / $this->config->get('config_limit_admin')));
+
+        $data['sort']                          = $sort;
+        $data['order']                         = $order;
+
+        $data['user_token']                    = $this->session->data['user_token'];
+
+        $data['filter_subscription_id']        = $filter_subscription_id;
+        $data['filter_order_id']               = $filter_order_id;
+        $data['filter_customer']               = $filter_customer;
         $data['filter_subscription_status_id'] = $filter_subscription_status_id;
-        $data['filter_date_from'] = $filter_date_from;
-        $data['filter_date_to']         = $filter_date_to;
+        $data['filter_date_from']              = $filter_date_from;
+        $data['filter_date_to']                = $filter_date_to;
 
-        $data['sort']                      = $sort;
-        $data['order']                     = $order;
+        $data['header']                        = $this->load->controller('common/header');
+        $data['column_left']                   = $this->load->controller('common/column_left');
+        $data['footer']                        = $this->load->controller('common/footer');
 
-        $data['header']      = $this->load->controller('common/header');
-        $data['column_left'] = $this->load->controller('common/column_left');
-        $data['footer']      = $this->load->controller('common/footer');
-
-        $this->response->setOutput($this->load->view('sale/subscription_list', $data));
+        $this->response->setOutput($this->load->view('sale/subscription', $data));
     }
 
     public function info(): void {
@@ -333,10 +305,10 @@ class ControllerSaleSubscription extends Controller {
 
         $data['breadcrumbs'][] = [
             'text' => $this->language->get('heading_title'),
-            'href' => $this->url->link('sale/subscription', 'user_token=' . $this->session->data['user_token'] . $url)
+            'href' => $this->url->link('sale/subscription', 'user_token=' . $this->session->data['user_token'] . $url, true)
         ];
 
-        $data['back']      = $this->url->link('sale/subscription', 'user_token=' . $this->session->data['user_token'] . $url);
+        $data['back']      = $this->url->link('sale/subscription', 'user_token=' . $this->session->data['user_token'] . $url, true);
 
         $this->load->model('sale/subscription');
 
@@ -345,7 +317,7 @@ class ControllerSaleSubscription extends Controller {
         if (!empty($subscription_info)) {
             $data['subscription_id'] = $subscription_info['subscription_id'];
         } else {
-            $data['subscription_id'] = '';
+            $data['subscription_id'] = 0;
         }
 
         // Order data
@@ -380,7 +352,7 @@ class ControllerSaleSubscription extends Controller {
         if (!empty($subscription_info)) {
             $data['subscription_plan_id'] = $subscription_info['subscription_plan_id'];
         } else {
-            $data['subscription_plan_id'] = 0;
+            $data['subscription_plan_id'] = '';
         }
 
         $this->load->model('customer/customer');
@@ -431,7 +403,7 @@ class ControllerSaleSubscription extends Controller {
         }
 
         if (!empty($product_info)) {
-            $data['product'] = $this->url->link('catalog/product.form', 'user_token=' . $this->session->data['user_token'] . '&product_id=' . $product_info['product_id']);
+            $data['product'] = $this->url->link('catalog/product/edit', 'user_token=' . $this->session->data['user_token'] . '&product_id=' . $product_info['product_id'], true);
         } else {
             $data['product'] = '';
         }
@@ -476,9 +448,6 @@ class ControllerSaleSubscription extends Controller {
             $data['subscription_status_id'] = '';
         }
 
-        $data['history']     = $this->getHistory();
-        $data['transaction'] = $this->getTransaction();
-
         $data['user_token']  = $this->session->data['user_token'];
 
         $data['header']      = $this->load->controller('common/header');
@@ -486,5 +455,164 @@ class ControllerSaleSubscription extends Controller {
         $data['footer']      = $this->load->controller('common/footer');
 
         $this->response->setOutput($this->load->view('sale/subscription_info', $data));
+    }
+
+    public function history(): void {
+        $this->load->language('sale/subscription');
+
+        if (isset($this->request->get['subscription_id'])) {
+            $subscription_id = (int)$this->request->get['subscription_id'];
+        } else {
+            $subscription_id = 0;
+        }
+
+        if (isset($this->request->get['page'])) {
+            $page = (int)$this->request->get['page'];
+        } else {
+            $page = 1;
+        }
+
+        $data['histories'] = [];
+
+        $this->load->model('sale/subscription');
+
+        $results           = $this->model_sale_subscription->getHistories($subscription_id, ($page - 1) * 10, 10);
+
+        foreach ($results as $result) {
+            $data['histories'][] = [
+                'status'     => $result['status'],
+                'comment'    => nl2br($result['comment']),
+                'notify'     => $result['notify'] ? $this->language->get('text_yes') : $this->language->get('text_no'),
+                'date_added' => date($this->language->get('date_format_short'), strtotime($result['date_added']))
+            ];
+        }
+
+        $subscription_total = $this->model_sale_subscription->getTotalHistories($subscription_id);
+
+        $pagination         = new \Pagination();
+        $pagination->total  = $subscription_total;
+        $pagination->page   = $page;
+        $pagination->limit  = 10;
+        $pagination->url    = $this->url->link('sale/subscription/history', 'user_token=' . $this->session->data['user_token'] . '&subscription_id=' . $subscription_id . '&page={page}', true);
+
+        $data['pagination'] = $pagination->render();
+        $data['results']    = sprintf($this->language->get('text_pagination'), ($subscription_total) ? (($page - 1) * 10) + 1 : 0, ((($page - 1) * 10) > ($subscription_total - 10)) ? $subscription_total : ((($page - 1) * 10) + 10), $subscription_total, ceil($subscription_total / 10));
+
+        $this->response->setOutput($this->load->view('sale/subscription_history', $data));
+    }
+
+    public function addHistory(): void {
+        $this->load->language('sale/subscription');
+
+        $json = [];
+
+        if (isset($this->request->get['subscription_id'])) {
+            $subscription_id = (int)$this->request->get['subscription_id'];
+        } else {
+            $subscription_id = 0;
+        }
+
+        if (!$this->user->hasPermission('modify', 'sale/subscription')) {
+            $json['error'] = $this->language->get('error_permission');
+        }
+
+        if (!$json) {
+            $this->load->model('sale/subscription');
+
+            $this->model_sale_subscription->addHistory($subscription_id, $this->request->post['subscription_status_id'], $this->request->post['comment'], $this->request->post['notify']);
+
+            $json['success'] = $this->language->get('text_success');
+        }
+
+        $this->response->addHeader('Content-Type: application/json');
+        $this->response->setOutput(json_encode($json));
+    }
+
+    public function transaction(): void {
+        $this->load->language('sale/subscription');
+        
+        if (isset($this->request->get['subscription_id'])) {
+            $subscription_id = (int)$this->request->get['subscription_id'];
+        } else {
+            $subscription_id = 0;
+        }
+
+        if (isset($this->request->get['page']) && $this->request->get['route'] == 'sale/subscription.transaction') {
+            $page = (int)$this->request->get['page'];
+        } else {
+            $page = 1;
+        }
+
+        $data['transactions'] = [];
+
+        $this->load->model('sale/subscription');
+
+        $results              = $this->model_sale_subscription->getTransactions($subscription_id, ($page - 1) * 10, 10);
+
+        foreach ($results as $result) {
+            $data['transactions'][] = [
+                'amount'      => $this->currency->format($result['amount'], $this->config->get('config_currency')),
+                'description' => nl2br($result['description']),
+                'date_added'  => date($this->language->get('date_format_short'), strtotime($result['date_added']))
+            ];
+        }
+
+        $data['balance']    = $this->currency->format($this->model_sale_subscription->getTransactionTotal($subscription_id), $this->config->get('config_currency'));
+
+        $transaction_total  = $this->model_sale_subscription->getTotalTransactions($subscription_id);
+
+        $pagination         = new \Pagination();
+        $pagination->total  = $transaction_total;
+        $pagination->page   = $page;
+        $pagination->limit  = 10;
+        $pagination->url    = $this->url->link('sale/subscription.transaction', 'user_token=' . $this->session->data['user_token'] . '&subscription_id=' . $subscription_id . '&page={page}', true);
+
+        $data['pagination'] = $pagination->render();
+        $data['results']    = sprintf($this->language->get('text_pagination'), ($transaction_total) ? (($page - 1) * 10) + 1 : 0, ((($page - 1) * 10) > ($transaction_total - 10)) ? $transaction_total : ((($page - 1) * 10) + 10), $transaction_total, ceil($transaction_total / 10));
+
+        $this->response->setOutput($this->load->view('sale/subscription_transaction', $data));
+    }
+
+    public function addTransaction(): void {
+        $this->load->language('sale/subscription');
+
+        $json = [];
+
+        if (isset($this->request->get['subscription_id'])) {
+            $subscription_id = (int)$this->request->get['subscription_id'];
+        } else {
+            $subscription_id = 0;
+        }
+
+        if (!$this->user->hasPermission('modify', 'sale/subscription')) {
+            $json['error'] = $this->language->get('error_permission');
+        } elseif (!isset($this->request->post['type']) || $this->request->post['type'] == '') {
+            $json['error'] = $this->language->get('error_service_type');
+        }
+
+        $this->load->model('sale/subscription');
+
+        $subscription_info = $this->model_sale_subscription->getSubscription($subscription_id);
+
+        if (!$subscription_info) {
+            $json['error'] = $this->language->get('error_subscription');
+        } else {
+            $this->load->model('sale/order');
+
+            $order_info = $this->model_sale_order->getOrder($subscription_info['order_id']);
+
+            if (!$order_info) {
+                $json['error'] = $this->language->get('error_payment_method');
+            }
+        }
+
+        if (!$json) {
+            $this->model_sale_subscription->addTransaction($subscription_id, $subscription_info['order_id'], (string)$this->request->post['description'], (float)$this->request->post['amount'], $this->request->post['type'], $order_info['payment_method'], $order_info['payment_code']);
+
+            $json['success'] = $this->language->get('text_success');
+        }
+
+        $this->response->addHeader('Content-Type: application/json');
+        $this->response->setOutput(json_encode($json));
     }
 }
