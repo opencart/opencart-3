@@ -76,7 +76,8 @@
                             <input type="text" name="banner_image[{{ language.language_id }}][{{ image_row }}][title]" value="{{ banner_image.title }}" placeholder="{{ entry_title }}" class="form-control"/>
                             {% if error_banner_image[language.language_id][image_row] %}
                               <div class="text-danger">{{ error_banner_image[language.language_id][image_row] }}</div>
-                            {% endif %}</td>
+                            {% endif %}
+                          </td>
                           <td class="text-left" style="width: 30%;">
                             <input type="text" name="banner_image[{{ language.language_id }}][{{ image_row }}][link]" value="{{ banner_image.link }}" placeholder="{{ entry_link }}" class="form-control"/>
                           </td>

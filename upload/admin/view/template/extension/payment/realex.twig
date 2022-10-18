@@ -153,9 +153,7 @@
                     <tr>
                       <td class="text-left">{{ text_card_master }}</td>
                       <td class="text-center"><input type="checkbox" name="payment_realex_account[mc][enabled]" value="1" {{ payment_realex_account.mc.enabled is defined and payment_realex_account.mc.enabled == 1 ? 'checked="checked"' : '' }}/></td>
-                      <td class="text-center">
-                        <input type="checkbox" name="payment_realex_account[mc][default]" value="1" {{ payment_realex_account.mc.default is defined and payment_realex_account.mc.default == 1 ? 'checked="checked"' : '' }}/>
-                      </td>
+                      <td class="text-center"><input type="checkbox" name="payment_realex_account[mc][default]" value="1" {{ payment_realex_account.mc.default is defined and payment_realex_account.mc.default == 1 ? 'checked="checked"' : '' }}/></td>
                       <td class="text-right"><input type="text" name="payment_realex_account[mc][merchant_id]" value="{{ payment_realex_account.mc.merchant_id is defined ? payment_realex_account.mc.merchant_id : '' }}" placeholder="{{ text_subaccount }}" class="form-control"/></td>
                     </tr>
                     <tr>

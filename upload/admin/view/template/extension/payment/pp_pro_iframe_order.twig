@@ -10,7 +10,8 @@
       {% if paypal_order.capture_status != 'Complete' %}
         <a onclick="doVoid();" id="button-void" class="button paypal_capture btn btn-primary">{{ button_void }}</a>
         <span class="btn btn-primary" id="img_loading_void" style="display:none;"><i class="fa fa-circle-o-notch fa-spin fa-lg"></i></span>
-      {% endif %}</td>
+      {% endif %}
+    </td>
   </tr>
   <tr>
     <td>{{ text_amount_captured }}</td>
@@ -72,7 +73,8 @@
                     {% endif %}
                   {% else %}
                     <a onclick="resendTransaction(this); return false;" href="{{ transaction.resend }}">{{ text_resend }}</a>
-                  {% endif %}</td>
+                  {% endif %}
+                </td>
               </tr>
             {% endfor %}
           </tbody>

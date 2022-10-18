@@ -37,8 +37,7 @@
                 <td class="text-left">{{ card.type }}</td>
                 <td class="text-left">{{ card.digits }}</td>
                 <td class="text-right">{{ card.expiry }}</td>
-                <td class="text-right">
-                  <a href="{{ delete }} {{ card.card_id }}" class="btn btn-danger">{{ button_delete }}</a></td>
+                <td class="text-right"><a href="{{ delete }} {{ card.card_id }}" class="btn btn-danger">{{ button_delete }}</a></td>
               </tr>
             {% endfor %}
           {% else %}

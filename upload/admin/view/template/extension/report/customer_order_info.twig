@@ -74,9 +74,7 @@
                     <td class="text-right">{{ customer.orders }}</td>
                     <td class="text-right">{{ customer.products }}</td>
                     <td class="text-right">{{ customer.total }}</td>
-                    <td class="text-right">
-                      <a href="{{ customer.edit }}" data-toggle="tooltip" title="{{ button_edit }}" class="btn btn-primary"><i class="fa fa-pencil"></i></a>
-                    </td>
+                    <td class="text-right"><a href="{{ customer.edit }}" data-toggle="tooltip" title="{{ button_edit }}" class="btn btn-primary"><i class="fa fa-pencil"></i></a></td>
                   </tr>
                 {% endfor %}
               {% else %}

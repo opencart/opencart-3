@@ -119,10 +119,7 @@
                           <td class="text-left">{{ api_session.ip }}</td>
                           <td class="text-left">{{ api_session.date_added }}</td>
                           <td class="text-left">{{ api_session.date_modified }}</td>
-                          <td class="text-right">
-                            <button type="button" value="{{ api_session.api_session_id }}" data-toggle="tooltip" title="{{ button_remove }}" class="btn btn-danger">
-                              <i class="fa fa-minus-circle"></i></button>
-                          </td>
+                          <td class="text-right"><button type="button" value="{{ api_session.api_session_id }}" data-toggle="tooltip" title="{{ button_remove }}" class="btn btn-danger"><i class="fa fa-minus-circle"></i></button></td>
                         </tr>
                       {% endfor %}
                     {% else %}

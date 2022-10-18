@@ -41,19 +41,22 @@
                       <a href="{{ sort_country }}" class="{{ order|lower }}">{{ column_country }}</a>
                     {% else %}
                       <a href="{{ sort_country }}">{{ column_country }}</a>
-                    {% endif %}</td>
+                    {% endif %}
+                  </td>
                   <td class="text-left">
                     {% if sort == 'z.name' %}
                       <a href="{{ sort_name }}" class="{{ order|lower }}">{{ column_name }}</a>
                     {% else %}
                       <a href="{{ sort_name }}">{{ column_name }}</a>
-                    {% endif %}</td>
+                    {% endif %}
+                  </td>
                   <td class="text-left">
                     {% if sort == 'z.code' %}
                       <a href="{{ sort_code }}" class="{{ order|lower }}">{{ column_code }}</a>
                     {% else %}
                       <a href="{{ sort_code }}">{{ column_code }}</a>
-                    {% endif %}</td>
+                    {% endif %}
+                  </td>
                   <td class="text-right">{{ column_action }}</td>
                 </tr>
               </thead>
@@ -66,7 +69,8 @@
                           <input type="checkbox" name="selected[]" value="{{ zone.zone_id }}" checked="checked"/>
                         {% else %}
                           <input type="checkbox" name="selected[]" value="{{ zone.zone_id }}"/>
-                        {% endif %}</td>
+                        {% endif %}
+                      </td>
                       <td class="text-left">{{ zone.country }}</td>
                       <td class="text-left">{{ zone.name }}</td>
                       <td class="text-left">{{ zone.code }}</td>

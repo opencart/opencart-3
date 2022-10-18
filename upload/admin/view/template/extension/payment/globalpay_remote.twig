@@ -162,9 +162,7 @@
                       <td class="text-left">{{ text_card_switch }}</td>
                       <td class="text-center"><input type="checkbox" name="payment_globalpay_remote_account[switch][enabled]" value="1" {{ payment_globalpay_remote_account.switch.enabled and payment_globalpay_remote_account.switch.enabled == 1 ? 'checked="checked" ' : '' }}/></td>
                       <td class="text-center"><input type="checkbox" name="payment_globalpay_remote_account[switch][default]" value="1" {{ payment_globalpay_remote_account.switch.default and payment_globalpay_remote_account.switch.default == 1 ? 'checked="checked" ' : '' }}/></td>
-                      <td class="text-right">
-                        <input type="text" name="payment_globalpay_remote_account[switch][merchant_id]" value="{{ payment_globalpay_remote_account.switch.merchant_id ? payment_globalpay_remote_account.switch.merchant_id : '' }}" placeholder="{{ text_subaccount }}" class="form-control"/>
-                      </td>
+                      <td class="text-right"><input type="text" name="payment_globalpay_remote_account[switch][merchant_id]" value="{{ payment_globalpay_remote_account.switch.merchant_id ? payment_globalpay_remote_account.switch.merchant_id : '' }}" placeholder="{{ text_subaccount }}" class="form-control"/></td>
                     </tr>
                     <tr>
                       <td class="text-left">{{ text_card_laser }}</td>

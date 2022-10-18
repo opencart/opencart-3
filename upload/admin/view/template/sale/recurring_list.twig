@@ -86,37 +86,43 @@
                           <a href="{{ sort_order_recurring }}" class="{{ order|lower }}">{{ column_order_recurring_id }}</a>
                         {% else %}
                           <a href="{{ sort_order_recurring }}">{{ column_order_recurring_id }}</a>
-                        {% endif %}</td>
+                        {% endif %}
+                      </td>
                       <td class="text-right">
                         {% if sort == 'or.order_id' %}
                           <a href="{{ sort_order }}" class="{{ order|lower }}">{{ column_order_id }}</a>
                         {% else %}
                           <a href="{{ sort_order }}">{{ column_order_id }}</a>
-                        {% endif %}</td>
+                        {% endif %}
+                      </td>
                       <td class="text-center">
                         {% if sort == 'or.reference' %}
                           <a href="{{ sort_reference }}" class="{{ order|lower }}">{{ column_reference }}</a>
                         {% else %}
                           <a href="{{ sort_reference }}">{{ column_reference }}</a>
-                        {% endif %}</td>
+                        {% endif %}
+                      </td>
                       <td class="text-left">
                         {% if sort == 'customer' %}
                           <a href="{{ sort_customer }}" class="{{ order|lower }}">{{ column_customer }}</a>
                         {% else %}
                           <a href="{{ sort_customer }}">{{ column_customer }}</a>
-                        {% endif %}</td>
+                        {% endif %}
+                      </td>
                       <td class="text-left">
                         {% if sort == 'or.status' %}
                           <a href="{{ sort_status }}" class="{{ order|lower }}">{{ column_status }}</a>
                         {% else %}
                           <a href="{{ sort_status }}">{{ column_status }}</a>
-                        {% endif %}</td>
+                        {% endif %}
+                      </td>
                       <td class="text-left">
                         {% if sort == 'or.date_added' %}
                           <a href="{{ sort_date_added }}" class="{{ order|lower }}">{{ column_date_added }}</a>
                         {% else %}
                           <a href="{{ sort_date_added }}">{{ column_date_added }}</a>
-                        {% endif %}</td>
+                        {% endif %}
+                      </td>
                       <td class="text-right">{{ column_action }}</td>
                     </tr>
                   </thead>

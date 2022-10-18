@@ -87,7 +87,8 @@
                                 {% else %}
                                   <button type="button" data-install="{{ download.extension_download_id }}" data-uninstall="" data-loading="{{ text_loading }}" class="btn btn-primary"{% if not download.status %} disabled{% endif %}>
                                     <i class="fa fa-download"></i> {{ button_download }}</button>
-                                {% endif %}</td>
+                                {% endif %}
+                              </td>
                             </tr>
                           {% endfor %}
                         {% else %}

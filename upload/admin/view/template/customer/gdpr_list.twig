@@ -13,8 +13,7 @@
       {% if gdprs %}
         {% for gdpr in gdpr %}
           <tr>
-            <td style="width: 1px;" class="text-center">
-              <input type="checkbox" onclick="$('input[name*=\'selected\']').prop('checked', this.checked);"/></td>
+            <td style="width: 1px;" class="text-center"><input type="checkbox" onclick="$('input[name*=\'selected\']').prop('checked', this.checked);"/></td>
             <td class="text-center">
               {% if gdpr.edit %}
                 <a href="{{ gdpr.edit }}">{{ gdpr.email }}</a>
@@ -34,7 +33,8 @@
                 <span class="badge bg-info">{{ text_processing }}</span>
               {% elseif gdpr.status == '3' %}
                 <span class="badge bg-success">{{ text_complete }}</span>
-              {% endif %}</td>
+              {% endif %}
+            </td>
             <td class="text-left">{{ customer.date_added }}</td>
             <td class="text-right">{{ column_action }}</td>
           </tr>

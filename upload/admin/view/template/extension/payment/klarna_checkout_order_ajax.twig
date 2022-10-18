@@ -161,8 +161,7 @@
 					<tfoot>
 						<tr>
 							<td colspan="4"></td>
-							<td class="text-left">
-								<a class="btn btn-primary" data-toggle="modal" data-target="#capture">{{ button_new_capture }}</a></td>
+							<td class="text-left"><a class="btn btn-primary" data-toggle="modal" data-target="#capture">{{ button_new_capture }}</a></td>
 						</tr>
 					</tfoot>
         {% endif %}
@@ -194,9 +193,7 @@
 					<tfoot>
             <tr>
               <td colspan="2"></td>
-              <td class="text-left">
-                <a class="btn btn-primary" data-toggle="modal" data-target="#refund">{{ button_new_refund }}</a>
-              </td>
+              <td class="text-left"><a class="btn btn-primary" data-toggle="modal" data-target="#refund">{{ button_new_refund }}</a></td>
             </tr>
 					</tfoot>
         {% endif %}
@@ -472,10 +469,7 @@
 						<tfoot>
 							<tr>
 								<td colspan="{{ capture.shipping_info|length + 1 }}"></td>
-								<td class="text-left">
-									<button id="add-shipping-info" type="button" onclick="addShippingInfo('#capture-shipping-info-{{ capture.capture_id }}');" data-toggle="tooltip" title="{{ button_add_shipping_info }}" class="btn btn-primary">
-										<i class="fa fa-plus-circle"></i></button>
-								</td>
+								<td class="text-left"><button id="add-shipping-info" type="button" onclick="addShippingInfo('#capture-shipping-info-{{ capture.capture_id }}');" data-toggle="tooltip" title="{{ button_add_shipping_info }}" class="btn btn-primary"><i class="fa fa-plus-circle"></i></button></td>
 							</tr>
 						</tfoot>
 					</table>

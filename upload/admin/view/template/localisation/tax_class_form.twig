@@ -69,7 +69,8 @@
                             <option value="{{ tax_rate.tax_rate_id }}">{{ tax_rate.name }}</option>
                           {% endif %}
                         {% endfor %}
-                      </select></td>
+                      </select>
+                    </td>
                     <td class="text-left"><select name="tax_rule[{{ tax_rule_row }}][based]" class="form-control">
                         {% if tax_rule.based == 'shipping' %}
                           <option value="shipping" selected="selected">{{ text_shipping }}</option>
@@ -86,14 +87,11 @@
                         {% else %}
                           <option value="store">{{ text_store }}</option>
                         {% endif %}
-                      </select></td>
-                    <td class="text-left">
-                      <input type="text" name="tax_rule[{{ tax_rule_row }}][priority]" value="{{ tax_rule.priority }}" placeholder="{{ entry_priority }}" class="form-control"/>
+                      </select>
                     </td>
-                    <td class="text-left">
-                      <button type="button" onclick="$('#tax-rule-row{{ tax_rule_row }}').remove();" data-toggle="tooltip" title="{{ button_remove }}" class="btn btn-danger">
-                        <i class="fa fa-minus-circle"></i></button>
+                    <td class="text-left"><input type="text" name="tax_rule[{{ tax_rule_row }}][priority]" value="{{ tax_rule.priority }}" placeholder="{{ entry_priority }}" class="form-control"/>
                     </td>
+                    <td class="text-left"><button type="button" onclick="$('#tax-rule-row{{ tax_rule_row }}').remove();" data-toggle="tooltip" title="{{ button_remove }}" class="btn btn-danger"><i class="fa fa-minus-circle"></i></button></td>
                   </tr>
                   {% set tax_rule_row = tax_rule_row + 1 %}
                 {% endfor %}
@@ -101,10 +99,7 @@
               <tfoot>
                 <tr>
                   <td colspan="3"></td>
-                  <td class="text-left">
-                    <button type="button" onclick="addRule();" data-toggle="tooltip" title="{{ button_rule_add }}" class="btn btn-primary">
-                      <i class="fa fa-plus-circle"></i></button>
-                  </td>
+                  <td class="text-left"><button type="button" onclick="addRule();" data-toggle="tooltip" title="{{ button_rule_add }}" class="btn btn-primary"><i class="fa fa-plus-circle"></i></button></td>
                 </tr>
               </tfoot>
             </table>

@@ -38,7 +38,8 @@
             <b>{{ text_orders_id }}</b> {{ order.order_id }}<br/>
             {% if order.shipping_method %}
             <b>{{ text_shipping_method }}</b> {{ order.shipping_method }}<br/>
-            {% endif %}</td>
+            {% endif %}
+          </td>
         </tr>
       </tbody>
     </table>
@@ -74,24 +75,32 @@
           <td>{{ product.location }}</td>
           <td>
             {% if product.sku %}
-              {{ text_sku }} {{ product.sku }}<br/>
+              {{ text_sku }} {{ product.sku }}
+              <br/>
             {% endif %}
             {% if product.upc %}
-              {{ text_upc }} {{ product.upc }}<br/>
+              {{ text_upc }} {{ product.upc }}
+              <br/>
             {% endif %}
             {% if product.ean %}
-              {{ text_ean }} {{ product.ean }}<br/>
+              {{ text_ean }} {{ product.ean }}
+              <br/>
             {% endif %}
             {% if product.jan %}
-              {{ text_jan }} {{ product.jan }}<br/>
+              {{ text_jan }} {{ product.jan }}
+              <br/>
             {% endif %}
             {% if product.isbn %}
-              {{ text_isbn }} {{ product.isbn }}<br/>
+              {{ text_isbn }} {{ product.isbn }}
+              <br/>
             {% endif %}
             {% if product.mpn %}
-              {{ text_mpn }}{{ product.mpn }}<br/>
-            {% endif %}</td>
-          <td>{{ product.name }}
+              {{ text_mpn }}{{ product.mpn }}
+              <br/>
+            {% endif %}
+          </td>
+          <td>
+            {{ product.name }}
             {% for option in product.option %}
               <br/>
               &nbsp;<small> - {{ option.name }}: {{ option.value }}</small>
