@@ -205,7 +205,7 @@ class ControllerCheckoutGuest extends Controller {
             if (isset($this->request->post['customer_group_id']) && in_array($this->request->post['customer_group_id'], (array)$this->config->get('config_customer_group_display'))) {
                 $customer_group_id = (int)$this->request->post['customer_group_id'];
             } else {
-                $customer_group_id = $this->config->get('config_customer_group_id');
+                $customer_group_id = (int)$this->config->get('config_customer_group_id');
             }
 
             // Custom field validation

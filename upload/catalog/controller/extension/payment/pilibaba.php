@@ -113,7 +113,7 @@ class ControllerExtensionPaymentPilibaba extends Controller {
                     }
                 }
 
-                $sort_order           = [];
+                $sort_order = [];
 
                 foreach ($totals as $key => $value) {
                     $sort_order[$key] = $value['sort_order'];
@@ -135,57 +135,54 @@ class ControllerExtensionPaymentPilibaba extends Controller {
                 }
 
                 // Customer Details
-                $order_data['customer_id']       = 0;
-                $order_data['customer_group_id'] = $this->config->get('config_customer_group_id');
-                $order_data['firstname']         = '';
-                $order_data['lastname']          = '';
-                $order_data['email']             = '';
-                $order_data['telephone']         = '';
-                $order_data['custom_field']      = null;
-
+                $order_data['customer_id']                         = 0;
+                $order_data['customer_group_id']                   = (int)$this->config->get('config_customer_group_id');
+                $order_data['firstname']                           = '';
+                $order_data['lastname']                            = '';
+                $order_data['email']                               = '';
+                $order_data['telephone']                           = '';
+                $order_data['custom_field']                        = null;
                 // Payment Details
-                $order_data['payment_firstname']      = '';
-                $order_data['payment_lastname']       = '';
-                $order_data['payment_company']        = '';
-                $order_data['payment_address_1']      = '';
-                $order_data['payment_address_2']      = '';
-                $order_data['payment_city']           = '';
-                $order_data['payment_postcode']       = '';
-                $order_data['payment_zone']           = '';
-                $order_data['payment_zone_id']        = 0;
-                $order_data['payment_country']        = '';
-                $order_data['payment_country_id']     = 0;
-                $order_data['payment_address_format'] = '';
-                $order_data['payment_custom_field']   = [];
-                $order_data['payment_method']         = $this->language->get('text_title');
-                $order_data['payment_code']           = 'pilibaba';
-
+                $order_data['payment_firstname']                   = '';
+                $order_data['payment_lastname']                    = '';
+                $order_data['payment_company']                     = '';
+                $order_data['payment_address_1']                   = '';
+                $order_data['payment_address_2']                   = '';
+                $order_data['payment_city']                        = '';
+                $order_data['payment_postcode']                    = '';
+                $order_data['payment_zone']                        = '';
+                $order_data['payment_zone_id']                     = 0;
+                $order_data['payment_country']                     = '';
+                $order_data['payment_country_id']                  = 0;
+                $order_data['payment_address_format']              = '';
+                $order_data['payment_custom_field']                = [];
+                $order_data['payment_method']                      = $this->language->get('text_title');
+                $order_data['payment_code']                        = 'pilibaba';
                 // Shipping Details
-                $order_data['shipping_firstname']      = '';
-                $order_data['shipping_lastname']       = '';
-                $order_data['shipping_company']        = '';
-                $order_data['shipping_address_1']      = '';
-                $order_data['shipping_address_2']      = '';
-                $order_data['shipping_city']           = '';
-                $order_data['shipping_postcode']       = '';
-                $order_data['shipping_zone']           = '';
-                $order_data['shipping_zone_id']        = 0;
-                $order_data['shipping_country']        = '';
-                $order_data['shipping_country_id']     = 0;
-                $order_data['shipping_address_format'] = '';
-                $order_data['shipping_custom_field']   = [];
-                $order_data['shipping_method']         = $this->language->get('text_description');
-                $order_data['shipping_code']           = 'pilibaba.pilibaba';
-
+                $order_data['shipping_firstname']                  = '';
+                $order_data['shipping_lastname']                   = '';
+                $order_data['shipping_company']                    = '';
+                $order_data['shipping_address_1']                  = '';
+                $order_data['shipping_address_2']                  = '';
+                $order_data['shipping_city']                       = '';
+                $order_data['shipping_postcode']                   = '';
+                $order_data['shipping_zone']                       = '';
+                $order_data['shipping_zone_id']                    = 0;
+                $order_data['shipping_country']                    = '';
+                $order_data['shipping_country_id']                 = 0;
+                $order_data['shipping_address_format']             = '';
+                $order_data['shipping_custom_field']               = [];
+                $order_data['shipping_method']                     = $this->language->get('text_description');
+                $order_data['shipping_code']                       = 'pilibaba.pilibaba';
                 // Guest Details
-                $this->session->data['guest']['customer_group_id'] = $this->config->get('config_customer_group_id');
+                $this->session->data['guest']['customer_group_id'] = (int)$this->config->get('config_customer_group_id');
                 $this->session->data['guest']['firstname']         = '';
                 $this->session->data['guest']['lastname']          = '';
                 $this->session->data['guest']['email']             = '';
                 $this->session->data['guest']['telephone']         = '';
                 $this->session->data['guest']['custom_field']      = [];
 
-                $order_data['products'] = [];
+                $order_data['products']                            = [];
 
                 foreach ($this->cart->getProducts() as $product) {
                     $option_data = [];

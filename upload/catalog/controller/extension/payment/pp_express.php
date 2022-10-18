@@ -135,7 +135,7 @@ class ControllerExtensionPaymentPPExpress extends Controller {
         }
 
         if ($this->session->data['paypal']['guest'] == true) {
-            $this->session->data['guest']['customer_group_id'] = $this->config->get('config_customer_group_id');
+            $this->session->data['guest']['customer_group_id'] = (int)$this->config->get('config_customer_group_id');
             $this->session->data['guest']['firstname']         = trim($result['FIRSTNAME']);
             $this->session->data['guest']['lastname']          = trim($result['LASTNAME']);
             $this->session->data['guest']['email']             = trim($result['EMAIL']);
@@ -851,7 +851,7 @@ class ControllerExtensionPaymentPPExpress extends Controller {
 
             if ($this->customer->isLogged() && isset($this->session->data['payment_address_id'])) {
                 $data['customer_id']       = $this->customer->getId();
-                $data['customer_group_id'] = $this->config->get('config_customer_group_id');
+                $data['customer_group_id'] = (int)$this->config->get('config_customer_group_id');
                 $data['firstname']         = $this->customer->getFirstName();
                 $data['lastname']          = $this->customer->getLastName();
                 $data['email']             = $this->customer->getEmail();

@@ -439,7 +439,7 @@ class ControllerExtensionModulePayPalSmartButton extends Controller {
                 $this->session->data['guest']['custom_field']      = json_decode($customer_info['custom_field'], true);
             } else {
                 $this->session->data['guest']['customer_id']       = 0;
-                $this->session->data['guest']['customer_group_id'] = $this->config->get('config_customer_group_id');
+                $this->session->data['guest']['customer_group_id'] = (int)$this->config->get('config_customer_group_id');
                 $this->session->data['guest']['firstname']         = isset($order_info['payer']['name']['given_name']) ? $order_info['payer']['name']['given_name'] : '';
                 $this->session->data['guest']['lastname']          = isset($order_info['payer']['name']['surname']) ? $order_info['payer']['name']['surname'] : '';
                 $this->session->data['guest']['email']             = isset($order_info['payer']['email_address']) ? $order_info['payer']['email_address'] : '';
@@ -1666,7 +1666,7 @@ class ControllerExtensionModulePayPalSmartButton extends Controller {
         if (isset($this->request->post['customer_group_id']) && in_array($this->request->post['customer_group_id'], (array)$this->config->get('config_customer_group_display'))) {
             $customer_group_id = (int)$this->request->post['customer_group_id'];
         } else {
-            $customer_group_id = $this->config->get('config_customer_group_id');
+            $customer_group_id = (int)$this->config->get('config_customer_group_id');
         }
 
         // Custom field validation
@@ -1722,7 +1722,7 @@ class ControllerExtensionModulePayPalSmartButton extends Controller {
         if (isset($this->request->post['customer_group_id']) && in_array($this->request->post['customer_group_id'], (array)$this->config->get('config_customer_group_display'))) {
             $customer_group_id = (int)$this->request->post['customer_group_id'];
         } else {
-            $customer_group_id = $this->config->get('config_customer_group_id');
+            $customer_group_id = (int)$this->config->get('config_customer_group_id');
         }
 
         // Custom field validation

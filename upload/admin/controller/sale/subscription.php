@@ -116,8 +116,8 @@ class ControllerSaleSubscription extends Controller {
             'filter_date_to'                => $filter_date_to,
             'order'                         => $order,
             'sort'                          => $sort,
-            'start'                         => ($page - 1) * $this->config->get('config_pagination_admin'),
-            'limit'                         => $this->config->get('config_pagination_admin')
+            'start'                         => ($page - 1) * $this->config->get('config_limit_admin'),
+            'limit'                         => $this->config->get('config_limit_admin')
         ];
 
         $this->load->model('sale/subscription');

@@ -563,7 +563,7 @@ class ControllerSaleOrder extends Controller {
             $data['lastname']              = '';
             $data['email']                 = '';
             $data['telephone']             = '';
-            $data['customer_group_id']     = $this->config->get('config_customer_group_id');
+            $data['customer_group_id']     = (int)$this->config->get('config_customer_group_id');
             $data['customer_custom_field'] = [];
             $data['addresses']             = [];
 

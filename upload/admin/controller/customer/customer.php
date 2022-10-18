@@ -701,7 +701,7 @@ class ControllerCustomerCustomer extends Controller {
         } elseif (!empty($customer_info)) {
             $data['customer_group_id'] = $customer_info['customer_group_id'];
         } else {
-            $data['customer_group_id'] = $this->config->get('config_customer_group_id');
+            $data['customer_group_id'] = (int)$this->config->get('config_customer_group_id');
         }
 
         if (isset($this->request->post['firstname'])) {
@@ -1347,7 +1347,7 @@ class ControllerCustomerCustomer extends Controller {
         if (isset($this->request->get['customer_group_id'])) {
             $customer_group_id = (int)$this->request->get['customer_group_id'];
         } else {
-            $customer_group_id = $this->config->get('config_customer_group_id');
+            $customer_group_id = (int)$this->config->get('config_customer_group_id');
         }
 
         $custom_fields = $this->model_customer_custom_field->getCustomFields([

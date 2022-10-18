@@ -12,7 +12,7 @@ class ControllerMailRegister extends Controller {
         if (isset($args[0]['customer_group_id'])) {
             $customer_group_id = (int)$args[0]['customer_group_id'];
         } else {
-            $customer_group_id = $this->config->get('config_customer_group_id');
+            $customer_group_id = (int)$this->config->get('config_customer_group_id');
         }
 
         $customer_group_info  = $this->model_account_customer_group->getCustomerGroup($customer_group_id);
@@ -64,7 +64,7 @@ class ControllerMailRegister extends Controller {
             if (isset($args[0]['customer_group_id'])) {
                 $customer_group_id = (int)$args[0]['customer_group_id'];
             } else {
-                $customer_group_id = $this->config->get('config_customer_group_id');
+                $customer_group_id = (int)$this->config->get('config_customer_group_id');
             }
 
             $customer_group_info = $this->model_account_customer_group->getCustomerGroup($customer_group_id);
