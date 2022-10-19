@@ -107,6 +107,61 @@ class ModelLocalisationCurrency extends Model {
         }
     }
 
+    public function refresh(): void {
+        $curl     = curl_init();
+
+        curl_setopt($curl, CURLOPT_URL, 'https://www.ecb.europa.eu/stats/eurofxref/eurofxref-daily.xml');
+        curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
+        curl_setopt($curl, CURLOPT_HEADER, false);
+        curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, 0);
+        curl_setopt($curl, CURLOPT_CONNECTTIMEOUT, 30);
+        curl_setopt($curl, CURLOPT_TIMEOUT, 30);
+
+        $response = curl_exec($curl);
+
+        $status   = curl_getinfo($curl, CURLINFO_HTTP_CODE);
+
+        curl_close($curl);
+
+        if ($status == 200) {
+            $dom               = new \DOMDocument('1.0', 'UTF-8');
+            $dom->loadXml($response);
+
+            $cube              = $dom->getElementsByTagName('Cube')->item(0);
+
+            $currencies        = [];
+            $currencies['EUR'] = 1.0000;
+
+            foreach ($cube->getElementsByTagName('Cube') as $currency) {
+                if ($currency->getAttribute('currency')) {
+                    $currencies[$currency->getAttribute('currency')] = $currency->getAttribute('rate');
+                }
+            }
+
+            $currency = $this->config->get('config_currency');
+
+            if ($currencies) {
+                $this->load->model('localisation/currency');
+
+                $results = $this->model_localisation_currency->getCurrencies();
+
+                foreach ($results as $result) {
+                    if (isset($currencies[$result['code']])) {
+                        $from = $currencies['EUR'];
+
+                        $to = $currencies[$result['code']];
+
+                        $this->model_localisation_currency->editValueByCode($result['code'], 1 / ($currencies[$currency] * ($from / $to)));
+                    }
+                }
+            }
+
+            $this->model_localisation_currency->editValueByCode($currency, '1.00000');
+
+            $this->cache->delete('currency');
+        }
+    }
+
     public function getTotalCurrencies(): int {
         $query = $this->db->query("SELECT COUNT(*) AS `total` FROM `" . DB_PREFIX . "currency`");
 
