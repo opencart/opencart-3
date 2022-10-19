@@ -69,7 +69,7 @@
     </td>
   </tr>
 </table>
-<form method="POST" id="voidform" action="{{ action_url }}">
+<form method="post" id="voidform" action="{{ action_url }}">
   <input type="hidden" name="responseSuccessURL" value="{{ void_url }}"/>
   <input type="hidden" name="responseFailURL" value="{{ void_url }}"/>
   <input type="hidden" name="transactionNotificationURL" value="{{ notify_url }}"/>
@@ -84,7 +84,7 @@
   <input type="hidden" name="tdate" value="{{ firstdata_order.tdate }}"/>
   <input type="hidden" name="order_id" value="{{ order_id }}"/>
 </form>
-<form method="POST" id="captureform" action="{{ action_url }}">
+<form method="post" id="captureform" action="{{ action_url }}">
   <input type="hidden" name="responseSuccessURL" value="{{ capture_url }}"/>
   <input type="hidden" name="responseFailURL" value="{{ capture_url }}"/>
   <input type="hidden" name="transactionNotificationURL" value="{{ notify_url }}"/>
