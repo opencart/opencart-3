@@ -3,8 +3,8 @@ namespace Cart;
 class User {
     private int    $user_id       = 0;
     private int    $user_group_id = 0;
-    private string $username      = '';
-    private string $email         = '';
+    private string $username;
+    private string $email;
     private array  $permission    = [];
 
     public function __construct(object $registry) {

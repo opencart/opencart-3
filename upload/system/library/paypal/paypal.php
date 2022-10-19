@@ -7,10 +7,10 @@ class PayPal {
     ];
 
     private string $environment   = 'sandbox';
-    private string $partner_id    = '';
-    private string $client_id     = '';
-    private string $secret        = '';
-    private string $access_token  = '';
+    private string $partner_id;
+    private string $client_id;
+    private string $secret;
+    private string $access_token;
     private array  $errors        = [];
     private array  $last_response = [];
 
