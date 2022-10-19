@@ -1,6 +1,24 @@
 <?php
 namespace Mail;
 class Mail {
+    protected string $to          = '';
+    protected string $from        = '';
+    protected string $sender      = '';
+    protected string $reply_to    = '';
+    protected string $subject     = '';
+    protected string $text        = '';
+    protected string $html        = '';
+    protected array  $attachments = [];
+    protected string $parameter;
+
+    public function __construct(array $args) {
+        foreach ($args as $key => $value) {
+            if (property_exists($this, $key)) {
+                $this->{$key} = $value;
+            }
+        }
+    }
+
     public function send(): bool {
         if (is_array($this->to)) {
             $to = implode(',', $this->to);
@@ -16,7 +34,7 @@ class Mail {
 
         $boundary = '----=_NextPart_' . md5(time());
 
-        $header = 'MIME-Version: 1.0' . $eol;
+        $header  = 'MIME-Version: 1.0' . $eol;
         $header .= 'Date: ' . date('D, d M Y H:i:s O') . $eol;
         $header .= 'From: =?UTF-8?B?' . base64_encode($this->sender) . '?= <' . $this->from . '>' . $eol;
 
@@ -31,12 +49,12 @@ class Mail {
         $header .= 'Content-Type: multipart/mixed; boundary="' . $boundary . '"' . $eol . $eol;
 
         if (!$this->html) {
-            $message = '--' . $boundary . $eol;
+            $message  = '--' . $boundary . $eol;
             $message .= 'Content-Type: text/plain; charset="utf-8"' . $eol;
             $message .= 'Content-Transfer-Encoding: base64' . $eol . $eol;
             $message .= base64_encode($this->text) . $eol;
         } else {
-            $message = '--' . $boundary . $eol;
+            $message  = '--' . $boundary . $eol;
             $message .= 'Content-Type: multipart/alternative; boundary="' . $boundary . '_alt"' . $eol . $eol;
             $message .= '--' . $boundary . '_alt' . $eol;
             $message .= 'Content-Type: text/plain; charset="utf-8"' . $eol;

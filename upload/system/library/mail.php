@@ -11,7 +11,7 @@
  * Mail class
  */
 class Mail {
-    private object   $adaptor;
+    private string   $adaptor;
     protected string $to          = '';
     protected string $from        = '';
     protected string $sender      = '';

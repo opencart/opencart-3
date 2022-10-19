@@ -1,14 +1,40 @@
 <?php
 namespace Mail;
 class Smtp {
-    public $smtp_port    = 25;
-    public $smtp_timeout = 5;
-    public $max_attempts = 3;
-    public $verp         = false;
-    public $smtp_hostname;
-    public $smtp_username;
-    public $smtp_password;
+    protected string $to            = '';
+    protected string $from          = '';
+    protected string $sender        = '';
+    protected string $reply_to      = '';
+    protected string $subject       = '';
+    protected string $text          = '';
+    protected string $html          = '';
+    protected array  $attachments   = [];
+    protected string $smtp_hostname = '';
+    protected string $smtp_username = '';
+    protected string $smtp_password = '';
+    protected int    $smtp_port     = 25;
+    protected int    $smtp_timeout  = 5;
+    protected int    $max_attempts  = 3;
+    protected bool   $verp          = false;
 
+    /**
+     * Constructor
+     *
+     * @param    array  $args
+     */
+    public function __construct(array $args) {
+        foreach ($args as $key => $value) {
+            if (property_exists($this, $key)) {
+                $this->{$key} = $value;
+            }
+        }
+    }
+
+    /**
+     * Send
+     *
+     * @return    bool
+     */
     public function send(): bool {
         if (is_array($this->to)) {
             $to = implode(',', $this->to);
@@ -112,7 +138,7 @@ class Smtp {
                     $reply = '';
 
                     continue;
-                } elseif (substr($line, 3, 1) == ' ') {
+                } else if (substr($line, 3, 1) == ' ') {
                     break;
                 }
             }
@@ -212,6 +238,15 @@ class Smtp {
         return true;
     }
 
+    /**
+     * handleReply
+     *
+     * @param	array	$handle
+     * @param	bool	$status_code
+     * @param	bool	$error_text
+     * @param	int		$counter
+     *
+     */
     private function handleReply($handle, $status_code = false, $error_text = false, $counter = 0) {
         $reply = '';
 
