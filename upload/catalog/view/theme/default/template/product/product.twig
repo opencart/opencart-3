@@ -310,7 +310,9 @@
                 </p>
                 <hr>
                 {# AddThis Button BEGIN #}
-                <div class="addthis_toolbox addthis_default_style" data-url="{{ share }}"><a class="addthis_button_facebook_like" fb:like:layout="button_count"></a> <a class="addthis_button_tweet"></a> <a class="addthis_button_pinterest_pinit"></a> <a class="addthis_counter addthis_pill_style"></a></div>
+                <div class="addthis_toolbox addthis_default_style" data-url="{{ share }}">
+                  <a class="addthis_button_facebook_like" fb:like:layout="button_count"></a> <a class="addthis_button_tweet"></a> <a class="addthis_button_pinterest_pinit"></a> <a class="addthis_counter addthis_pill_style"></a>
+                </div>
                 <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-515eeaf54693130e"></script>
                 {# AddThis Button END #}
               </div>
@@ -404,9 +406,9 @@ $('#input-subscription').on('change', function (e) {
 <script type="text/javascript"><!--
 	$('select[name=\'subscription_plan_id\'], input[name="quantity"]').change(function() {
 		$.ajax({
-			url: 'index.php?route=product/product/getSubscriptionDescription',
+			url: 'index.php?route=product/product/getSubscriptionPlanDescription',
 			type: 'post',
-			data: $('input[name=\'product_id\'], input[name=\'quantity\'], select[name=\'subscription_plan_id\']'),
+      data: 'product_id=' + $('input[name=\'product_id\']').val() + '&quantity=' + $('input[name=\'quantity\']').val() + '&subscription_plan_id=' + $('select[name=\'subscription_plan_id\']').val(),
 			dataType: 'json',
 			beforeSend: function() {
 				$('#subscription-description').html('');

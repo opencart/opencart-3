@@ -638,7 +638,7 @@ class ControllerProductProduct extends Controller {
         $this->response->setOutput(json_encode($json));
     }
 
-    public function getSubscriptionDescription(): void {
+    public function getSubscriptionPlanDescription(): void {
         $this->load->language('product/product');
 
         $json = [];
