@@ -44,7 +44,7 @@ class ModelCatalogSubscriptionPlan extends Model {
         return $query->row;
     }
 
-    public function getDescription(int $subscription_plan_id): array {
+    public function getSubscriptionDescription(int $subscription_plan_id): array {
         $subscription_plan_description_data = [];
 
         $query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "subscription_plan_description` WHERE `subscription_plan_id` = '" . (int)$subscription_plan_id . "'");
