@@ -1,7 +1,7 @@
 <?php
 class ControllerExtensionPaymentPPBraintree extends Controller {
-    private array  $error                 = array();
-    private string $gateway               = '';
+    private array  $error                 = [];
+    private string $gateway;
     private string $opencart_connect_url  = 'https://www.opencart.com/index.php?route=external/braintree_auth/connect';
     private string $opencart_retrieve_url = 'https://www.opencart.com/index.php?route=external/braintree_auth/retrieve';
 
