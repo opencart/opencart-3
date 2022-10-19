@@ -1,4 +1,4 @@
-<form id="alipaysubmit" name="alipaysubmit" action="{{ action }}" method="GET">
+<form method="get" action="{{ action }}" name="alipaysubmit" id="alipaysubmit">
   {% for key, value in params %}
   <input type="hidden" name="{{ key }}" value="{{ value }}"/>
   {% endfor %}

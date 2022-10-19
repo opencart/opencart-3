@@ -36,36 +36,36 @@
   <hr>
   <table class="table table-bordered table-hover">
     <thead>
-    <tr>
-      <th class="text-left">{{ column_name }}</th>
-      <th class="text-left">{{ column_model }}</th>
-      <th class="text-right">{{ column_quantity }}</th>
-      <th class="text-right">{{ column_price }}</th>
-      <th class="text-right">{{ column_total }}</th>
-    </tr>
+      <tr>
+        <th class="text-left">{{ column_name }}</th>
+        <th class="text-left">{{ column_model }}</th>
+        <th class="text-right">{{ column_quantity }}</th>
+        <th class="text-right">{{ column_price }}</th>
+        <th class="text-right">{{ column_total }}</th>
+      </tr>
     </thead>
     <tbody>
-    {% for product in order.products %}
-      <tr>
-        <td class="text-left">{{ product.name }}
-          {% for option in product.option %} <br/>
-            <small>- {{ option.name }}: {{ option.value }}</small>
-          {% endfor %}
-        </td>
-        <td class="text-left">{{ product.model }}</td>
-        <td class="text-right">{{ product.quantity }}</td>
-        <td class="text-right">{{ product.text_price }}</td>
-        <td class="text-right">{{ product.text_total }}</td>
-      </tr>
-    {% endfor %}
+      {% for product in order.products %}
+        <tr>
+          <td class="text-left">{{ product.name }}
+            {% for option in product.option %} <br/>
+              <small>- {{ option.name }}: {{ option.value }}</small>
+            {% endfor %}
+          </td>
+          <td class="text-left">{{ product.model }}</td>
+          <td class="text-right">{{ product.quantity }}</td>
+          <td class="text-right">{{ product.text_price }}</td>
+          <td class="text-right">{{ product.text_total }}</td>
+        </tr>
+      {% endfor %}
     </tbody>
     <tfoot>
-    {% for total in order.totals %}
-      <tr>
-        <td colspan="4" class="text-right"><strong>{{ total.title }}</strong></td>
-        <td class="text-right">{{ total.text }}</td>
-      </tr>
-    {% endfor %}
+      {% for total in order.totals %}
+        <tr>
+          <td colspan="4" class="text-right"><strong>{{ total.title }}</strong></td>
+          <td class="text-right">{{ total.text }}</td>
+        </tr>
+      {% endfor %}
     </tfoot>
   </table>
   <div class="buttons">

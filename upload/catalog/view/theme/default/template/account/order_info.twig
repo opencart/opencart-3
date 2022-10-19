@@ -51,14 +51,16 @@
           <td class="text-left" style="width: 50%; vertical-align: top;">{{ text_payment_address }}</td>
           {% if shipping_address %}
             <td class="text-left" style="width: 50%; vertical-align: top;">{{ text_shipping_address }}</td>
-          {% endif %} </tr>
+          {% endif %}
+        </tr>
         </thead>
         <tbody>
         <tr>
           <td class="text-left">{{ payment_address }}</td>
           {% if shipping_address %}
             <td class="text-left">{{ shipping_address }}</td>
-          {% endif %} </tr>
+          {% endif %}
+        </tr>
         </tbody>
       </table>
       <div class="table-responsive">
@@ -72,7 +74,8 @@
             <td class="text-right">{{ column_total }}</td>
             {% if products %}
               <td style="width: 20px;"></td>
-            {% endif %} </tr>
+            {% endif %}
+          </tr>
           </thead>
           <tbody>
           {% for product in products %}
@@ -99,7 +102,8 @@
               <td class="text-right">{{ voucher.amount }}</td>
               {% if products %}
                 <td></td>
-              {% endif %} </tr>
+              {% endif %}
+            </tr>
           {% endfor %}
           </tbody>
           <tfoot>
@@ -110,7 +114,8 @@
               <td class="text-right">{{ total.text }}</td>
               {% if products %}
                 <td></td>
-              {% endif %} </tr>
+              {% endif %}
+            </tr>
           {% endfor %}
           </tfoot>
         </table>

@@ -350,17 +350,17 @@
                         <div class="input-group">
                           <select class="form-control input-sm">
                             <option value=""></option>
-                              {% for extension in extensions %}
-                                <optgroup label="{{ extension.name }}">
-                                  {% if not extension.module %}
-                                    <option value="{{ extension.code }}">{{ extension.name }}</option>
-                                  {% else %}
-                                    {% for module in extension.module %}
-                                      <option value="{{ module.code }}">{{ module.name }}</option>
-                                    {% endfor %}
-                                  {% endif %}
-                                </optgroup>
-                              {% endfor %}
+                            {% for extension in extensions %}
+                              <optgroup label="{{ extension.name }}">
+                                {% if not extension.module %}
+                                  <option value="{{ extension.code }}">{{ extension.name }}</option>
+                                {% else %}
+                                  {% for module in extension.module %}
+                                    <option value="{{ module.code }}">{{ module.name }}</option>
+                                  {% endfor %}
+                                {% endif %}
+                              </optgroup>
+                            {% endfor %}
                           </select>
                           <div class="input-group-btn"><button type="button" onclick="addModule('column-right');" data-toggle="tooltip" title="{{ button_module_add }}" class="btn btn-primary btn-sm"><i class="fa fa-plus-circle"></i></button></div>
                         </div>
