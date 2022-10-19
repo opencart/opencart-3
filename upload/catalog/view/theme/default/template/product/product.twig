@@ -395,43 +395,13 @@
   </div>
 </div>
 <script type="text/javascript"><!--
-$('#input-subscription').on('change', function (e) {
-    var element = this;
-
-    $('.subscription').addClass('d-none');
-
-    $('#subscription-description-' + $(element).val()).removeClass('d-none');
-});
-//--></script>
-<script type="text/javascript"><!--
-	$('select[name=\'subscription_plan_id\'], input[name="quantity"]').change(function() {
-		$.ajax({
-			url: 'index.php?route=product/product/getSubscriptionPlanDescription',
-			type: 'post',
-      data: 'product_id=' + $('input[name=\'product_id\']').val() + '&quantity=' + $('input[name=\'quantity\']').val() + '&subscription_plan_id=' + $('select[name=\'subscription_plan_id\']').val(),
-			dataType: 'json',
-			beforeSend: function() {
-				$('#subscription-description').html('');
-			},
-			success: function (json) {
-				$('.alert-dismissible, .text-danger').remove();
-				
-				html = '<option value=""></option>';
-
-				if (json['subscription_plans']) {
-					for (i = 0; i < json['subscription_plans'].length; i++) {
-						html += '<option value="' + json['subscription_plans'][i]['subscription_plan_id'] + '">' + json['subscription_plans'][i]['name'] + '</option>';
-						
-						$('#subscription-description-' + json['subscription_plans'][i]['subscription_plan_id']).html(json['subscription_plans'][i]['description']);
-					}
-				}
-
-				$('select[name="subscription_plan_id"]').html(html);
-
-				$('select[name="subscription_plan_id"]').trigger('change');
-			}
-		});
-	});
+  $('#input-subscription').on('change', function (e) {
+      var element = this;
+  
+      $('.subscription').addClass('d-none');
+  
+      $('#subscription-description-' + $(element).val()).removeClass('d-none');
+  });
 //--></script>
 <script type="text/javascript"><!--
 	$('#button-cart').on('click', function() {
@@ -488,125 +458,125 @@ $('#input-subscription').on('change', function (e) {
 	});
 //--></script> 
 <script type="text/javascript"><!--
-$('.date').datetimepicker({
-	language: '{{ datepicker }}',
-	pickTime: false
-});
-
-$('.datetime').datetimepicker({
-	language: '{{ datepicker }}',
-	pickDate: true,
-	pickTime: true
-});
-
-$('.time').datetimepicker({
-	language: '{{ datepicker }}',
-	pickDate: false
-});
-
-$('button[id^=\'button-upload\']').on('click', function() {
-	var element = this;
-
-	$('#form-upload').remove();
-
-	$('body').prepend('<form enctype="multipart/form-data" id="form-upload" style="display: none;"><input type="file" name="file"/></form>');
-
-	$('#form-upload input[name=\'file\']').trigger('click');
-
-	if (typeof timer != 'undefined') {
-    	clearInterval(timer);
-	}
-
-	timer = setInterval(function() {
-		if ($('#form-upload input[name=\'file\']').val() != '') {
-			clearInterval(timer);
-
-			$.ajax({
-				url: 'index.php?route=tool/upload',
-				type: 'post',
-				dataType: 'json',
-				data: new FormData($('#form-upload')[0]),
-				cache: false,
-				contentType: false,
-				processData: false,
-				beforeSend: function() {
-					$(element).button('loading');
-				},
-				complete: function() {
-					$(element).button('reset');
-				},
-				success: function (json) {
-					$('.text-danger').remove();
-
-					if (json['error']) {
-						$(element).parent().find('input').after('<div class="text-danger">' + json['error'] + '</div>');
-					}
-
-					if (json['success']) {
-						alert(json['success']);
-
-						$(element).parent().find('input').val(json['code']);
-					}
-				},
-				error: function (xhr, ajaxOptions, thrownError) {
-					alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
-				}
-			});
-		}
-	}, 500);
-});
+  $('.date').datetimepicker({
+    language: '{{ datepicker }}',
+    pickTime: false
+  });
+  
+  $('.datetime').datetimepicker({
+    language: '{{ datepicker }}',
+    pickDate: true,
+    pickTime: true
+  });
+  
+  $('.time').datetimepicker({
+    language: '{{ datepicker }}',
+    pickDate: false
+  });
+  
+  $('button[id^=\'button-upload\']').on('click', function() {
+    var element = this;
+  
+    $('#form-upload').remove();
+  
+    $('body').prepend('<form enctype="multipart/form-data" id="form-upload" style="display: none;"><input type="file" name="file"/></form>');
+  
+    $('#form-upload input[name=\'file\']').trigger('click');
+  
+    if (typeof timer != 'undefined') {
+        clearInterval(timer);
+    }
+  
+    timer = setInterval(function() {
+      if ($('#form-upload input[name=\'file\']').val() != '') {
+        clearInterval(timer);
+  
+        $.ajax({
+          url: 'index.php?route=tool/upload',
+          type: 'post',
+          dataType: 'json',
+          data: new FormData($('#form-upload')[0]),
+          cache: false,
+          contentType: false,
+          processData: false,
+          beforeSend: function() {
+            $(element).button('loading');
+          },
+          complete: function() {
+            $(element).button('reset');
+          },
+          success: function (json) {
+            $('.text-danger').remove();
+  
+            if (json['error']) {
+              $(element).parent().find('input').after('<div class="text-danger">' + json['error'] + '</div>');
+            }
+  
+            if (json['success']) {
+              alert(json['success']);
+  
+              $(element).parent().find('input').val(json['code']);
+            }
+          },
+          error: function (xhr, ajaxOptions, thrownError) {
+            alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
+          }
+        });
+      }
+    }, 500);
+  });
 //--></script> 
 <script type="text/javascript"><!--
-$('#review').delegate('.pagination a', 'click', function (e) {
-    e.preventDefault();
-
-    $('#review').fadeOut('slow');
-
-    $('#review').load(this.href);
-
-    $('#review').fadeIn('slow');
-});
-
-$('#review').load('index.php?route=product/product/review&product_id={{ product_id }}');
-
-$('#button-review').on('click', function() {
-	$.ajax({
-		url: 'index.php?route=product/product/write&product_id={{ product_id }}',
-		type: 'post',
-		dataType: 'json',
-		data: $('#form-review').serialize(),
-		beforeSend: function() {
-			$('#button-review').button('loading');
-		},
-		complete: function() {
-			$('#button-review').button('reset');
-		},
-		success: function (json) {
-			$('.alert-dismissible').remove();
-
-			if (json['error']) {
-				$('#review').after('<div class="alert alert-danger alert-dismissible"><i class="fa fa-exclamation-circle"></i> ' + json['error'] + '</div>');
-			}
-
-			if (json['success']) {
-				$('#review').after('<div class="alert alert-success alert-dismissible"><i class="fa fa-check-circle"></i> ' + json['success'] + '</div>');
-
-				$('input[name=\'name\']').val('');
-				$('textarea[name=\'text\']').val('');
-				$('input[name=\'rating\']:checked').prop('checked', false);
-			}
-		}
-	});
-});
-
-$(document).ready(function() {
-	$('.thumbnails').magnificPopup({
-		type:'image',
-		delegate: 'a',
-		gallery: {
-			enabled: true
-		}
-	});
-});
+  $('#review').delegate('.pagination a', 'click', function (e) {
+      e.preventDefault();
+  
+      $('#review').fadeOut('slow');
+  
+      $('#review').load(this.href);
+  
+      $('#review').fadeIn('slow');
+  });
+  
+  $('#review').load('index.php?route=product/product/review&product_id={{ product_id }}');
+  
+  $('#button-review').on('click', function() {
+    $.ajax({
+      url: 'index.php?route=product/product/write&product_id={{ product_id }}',
+      type: 'post',
+      dataType: 'json',
+      data: $('#form-review').serialize(),
+      beforeSend: function() {
+        $('#button-review').button('loading');
+      },
+      complete: function() {
+        $('#button-review').button('reset');
+      },
+      success: function (json) {
+        $('.alert-dismissible').remove();
+  
+        if (json['error']) {
+          $('#review').after('<div class="alert alert-danger alert-dismissible"><i class="fa fa-exclamation-circle"></i> ' + json['error'] + '</div>');
+        }
+  
+        if (json['success']) {
+          $('#review').after('<div class="alert alert-success alert-dismissible"><i class="fa fa-check-circle"></i> ' + json['success'] + '</div>');
+  
+          $('input[name=\'name\']').val('');
+          $('textarea[name=\'text\']').val('');
+          $('input[name=\'rating\']:checked').prop('checked', false);
+        }
+      }
+    });
+  });
+  
+  $(document).ready(function() {
+    $('.thumbnails').magnificPopup({
+      type:'image',
+      delegate: 'a',
+      gallery: {
+        enabled: true
+      }
+    });
+  });
 //--></script> 
 {{ footer }}
