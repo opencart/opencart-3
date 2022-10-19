@@ -44,7 +44,7 @@ class ControllerAccountSubscription extends Controller {
 
         $this->load->model('account/subscription');
 
-        $subscription_total    = $this->model_account_Subscription->getTotalSubscriptions();
+        $subscription_total    = $this->model_account_subscription->getTotalSubscriptions();
 
         $results               = $this->model_account_subscription->getSubscriptions(($page - 1) * 10, 10);
 
@@ -60,7 +60,7 @@ class ControllerAccountSubscription extends Controller {
                 'product'         => $result['product'],
                 'status'          => $status,
                 'date_added'      => date($this->language->get('date_format_short'), strtotime($result['date_added'])),
-                'view'            => $this->url->link('account/subscription.info', 'language=' . $this->config->get('config_language') . '&customer_token=' . $this->session->data['customer_token'] . '&subscription_id=' . $result['subscription_id'])
+                'view'            => $this->url->link('account/subscription/info', 'language=' . $this->config->get('config_language') . '&customer_token=' . $this->session->data['customer_token'] . '&subscription_id=' . $result['subscription_id'])
             ];
         }
 
@@ -130,7 +130,7 @@ class ControllerAccountSubscription extends Controller {
 
             $data['breadcrumbs'][] = [
                 'text' => $this->language->get('text_subscription'),
-                'href' => $this->url->link('account/subscription.info', 'language=' . $this->config->get('config_language') . '&customer_token=' . $this->session->data['customer_token'] . '&subscription_id=' . $this->request->get['subscription_id'] . $url)
+                'href' => $this->url->link('account/subscription/info', 'language=' . $this->config->get('config_language') . '&customer_token=' . $this->session->data['customer_token'] . '&subscription_id=' . $this->request->get['subscription_id'] . $url)
             ];
 
             $data['date_added']      = date($this->language->get('date_format_short'), strtotime($subscription_info['date_added']));
@@ -163,7 +163,7 @@ class ControllerAccountSubscription extends Controller {
                 ];
             }
 
-            $data['order']   = $this->url->link('account/order.info', 'language=' . $this->config->get('config_language') . '&customer_token=' . $this->session->data['customer_token'] . '&order_id=' . $subscription_info['order_id']);
+            $data['order']   = $this->url->link('account/order/info', 'language=' . $this->config->get('config_language') . '&customer_token=' . $this->session->data['customer_token'] . '&order_id=' . $subscription_info['order_id']);
             $data['product'] = $this->url->link('product/product', 'language=' . $this->config->get('config_language') . '&customer_token=' . $this->session->data['customer_token'] . '&product_id=' . $subscription_info['product_id']);
 
             $this->load->model('setting/extension');
@@ -206,7 +206,7 @@ class ControllerAccountSubscription extends Controller {
 
             $data['breadcrumbs'][] = [
                 'text' => $this->language->get('text_recurring'),
-                'href' => $this->url->link('account/subscription.info', 'language=' . $this->config->get('config_language') . '&customer_token=' . $this->session->data['customer_token'] . '&subscription_id=' . $subscription_id)
+                'href' => $this->url->link('account/subscription/info', 'language=' . $this->config->get('config_language') . '&customer_token=' . $this->session->data['customer_token'] . '&subscription_id=' . $subscription_id)
             ];
 
             $data['continue']       = $this->url->link('account/subscription', 'language=' . $this->config->get('config_language') . '&customer_token=' . $this->session->data['customer_token']);
