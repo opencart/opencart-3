@@ -62,7 +62,6 @@ $_['entry_language']                 		= 'Language';
 $_['entry_admin_language']           		= 'Administration Language';
 $_['entry_currency']                 		= 'Currency';
 $_['entry_currency_auto']            		= 'Auto Update Currency';
-$_['entry_currency_engine']          		= 'Currency Rate Engine';
 $_['entry_length_class']             		= 'Length Class';
 $_['entry_weight_class']             		= 'Weight Class';
 $_['entry_limit_admin']              		= 'Default Items Per Page (Admin)';

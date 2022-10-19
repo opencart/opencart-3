@@ -986,30 +986,6 @@ class ControllerSettingSetting extends Controller {
             $data['config_gdpr_limit'] = $this->config->get('config_gdpr_limit');
         }
 
-        // Currencies
-        $data['currency_engines'] = [];
-
-        $this->load->model('setting/extension');
-
-        $extensions = $this->model_setting_extension->getInstalled('currency');
-
-        foreach ($extensions as $code) {
-            if ($this->config->get('currency_' . $code . '_status')) {
-                $this->load->language('extension/currency/' . $code, 'extension');
-
-                $data['currency_engines'][] = [
-                    'text'  => $this->language->get('extension')->get('heading_title'),
-                    'value' => $code
-                ];
-            }
-        }
-
-        if (isset($this->request->post['config_currency_engine'])) {
-            $data['config_currency_engine'] = $this->request->post['config_currency_engine'];
-        } else {
-            $data['config_currency_engine'] = $this->config->get('config_currency_engine');
-        }
-
         $data['header']      = $this->load->controller('common/header');
         $data['column_left'] = $this->load->controller('common/column_left');
         $data['footer']      = $this->load->controller('common/footer');
