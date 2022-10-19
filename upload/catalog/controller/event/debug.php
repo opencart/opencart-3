@@ -18,10 +18,10 @@ class ControllerEventDebug extends Controller {
         /*
         if ($route == 'common/home') {
             if (isset($this->session->data['debug'][$route])) {
-                $log_data = array(
+                $log_data = [
                     'route' => $route,
                     'time'  => microtime(true) - $this->session->data['debug'][$route]
-                );
+                ];
 
                 $this->log->write($log_data);
             }
