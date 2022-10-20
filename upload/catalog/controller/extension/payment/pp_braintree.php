@@ -1,7 +1,7 @@
 <?php
 class ControllerExtensionPaymentPPBraintree extends Controller {
     private string $customer_id_prefix = 'braintree_oc_';
-    private string $gateway;
+    private string $gateway            = '';
 
     public function index(): string {
         $this->initialise();

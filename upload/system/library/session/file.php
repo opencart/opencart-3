@@ -16,7 +16,7 @@ class File {
 
                 flock($handle, LOCK_SH);
 
-                $data = fread($handle, $size);
+                $data   = fread($handle, $size);
 
                 flock($handle, LOCK_UN);
 
@@ -32,7 +32,7 @@ class File {
     }
 
     public function write(string $session_id, array $data): bool {
-        $file = DIR_SESSION . 'sess_' . basename($session_id);
+        $file   = DIR_SESSION . 'sess_' . basename($session_id);
 
         $handle = fopen($file, 'c');
 
@@ -58,7 +58,7 @@ class File {
         if (round(rand(1, $this->config->get('session_divisor') / $this->config->get('session_probability'))) == 1) {
             $expire = time() - $this->config->get('session_expire');
 
-            $files = glob(DIR_SESSION . 'sess_*');
+            $files  = glob(DIR_SESSION . 'sess_*');
 
             foreach ($files as $file) {
                 if (is_file($file) && filemtime($file) < $expire) {

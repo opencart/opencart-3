@@ -1,13 +1,13 @@
 <?php
 namespace Cart;
 class Customer {
-	private int $customer_id = 0;
-	private string $firstname = '';
-	private string $lastname = '';
-	private int $customer_group_id = 0;
-	private string $email = '';
-	private string $telephone = '';
-	private bool $newsletter = false;
+    private int    $customer_id       = 0;
+    private int    $customer_group_id = 0;
+    private string $firstname         = '';
+    private string $lastname          = '';
+    private string $email             = '';
+    private string $telephone         = '';
+    private bool   $newsletter        = false;
     
     public function __construct(object $registry) {
         $this->config  = $registry->get('config');

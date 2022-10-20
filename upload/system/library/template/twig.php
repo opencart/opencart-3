@@ -1,10 +1,10 @@
 <?php
 namespace Template;
 final class Twig {
-    protected string $root;
+    protected string $root      = '';
+    protected string $directory = '';
     protected object $loader;
-    protected string $directory;
-    protected array  $path = [];
+    protected array  $path      = [];
 
     public function set(string $key, mixed $value): void {
         $this->data[$key] = $value;

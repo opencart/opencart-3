@@ -1,10 +1,10 @@
 <?php
 /**
- * @package        OpenCart
- * @author         Daniel Kerr
- * @copyright      Copyright (c) 2005 - 2022, OpenCart, Ltd. (https://www.opencart.com/)
- * @license        https://opensource.org/licenses/GPL-3.0
- * @link           https://www.opencart.com
+ * @package		OpenCart
+ * @author		Daniel Kerr
+ * @copyright	Copyright (c) 2005 - 2022, OpenCart, Ltd. (https://www.opencart.com/)
+ * @license		https://opensource.org/licenses/GPL-3.0
+ * @link		https://www.opencart.com
  */
 
 /**
@@ -24,77 +24,111 @@ class Mail {
     /**
      * Constructor
      *
-     * @param    string    $adaptor
+     * @param	string	$adaptor
+     *
      */
     public function __construct(string $adaptor = 'mail') {
-        $class = 'Mail\\' . $adaptor;
+        $class = 'Opencart\System\Library\Mail\\' . $adaptor;
 
         if (class_exists($class)) {
-            $this->adaptor = new $class();
+            $this->adaptor = $class;
         } else {
-            trigger_error('Error: Could not load mail adaptor ' . $adaptor . '!');
-            exit();
+            throw new \Exception('Error: Could not load mail adaptor ' . $adaptor . '!');
         }
     }
 
     /**
-     * @param    mixed    $to
+     * setTo
+     *
+     * @param	string	$to
+     *
+     * @return  void
      */
     public function setTo(string $to): void {
         $this->to = $to;
     }
 
     /**
-     * @param    string    $from
+     * setFrom
+     *
+     * @param	string	$from
+     *
+     * @return  void
      */
-    public function setFrom($from): void {
+    public function setFrom(string $from): void {
         $this->from = $from;
     }
 
     /**
-     * @param    string    $sender
+     * setSender
+     *
+     * @param	string	$sender
+     *
+     * @return  void
      */
-    public function setSender($sender): void {
+    public function setSender(string $sender): void {
         $this->sender = $sender;
     }
 
     /**
-     * @param    string    $reply_to
+     * setReplyTo
+     *
+     * @param	string	$reply_to
+     *
+     * @return  void
      */
-    public function setReplyTo($reply_to): void {
+    public function setReplyTo(string $reply_to): void {
         $this->reply_to = $reply_to;
     }
 
     /**
-     * @param    string    $subject
+     * setSubject
+     *
+     * @param	string	$subject
+     *
+     * @return  void
      */
-    public function setSubject($subject): void {
+    public function setSubject(string $subject): void {
         $this->subject = $subject;
     }
 
     /**
-     * @param    string    $text
+     * setText
+     *
+     * @param	string	$text
+     *
+     * @return  void
      */
-    public function setText($text): void {
+    public function setText(string $text): void {
         $this->text = $text;
     }
 
     /**
-     * @param    string    $html
+     * setHtml
+     *
+     * @param	string	$html
+     *
+     * @return  void
      */
-    public function setHtml($html): void {
+    public function setHtml(string $html): void {
         $this->html = $html;
     }
 
     /**
-     * @param    string    $filename
+     * addAttachment
+     *
+     * @param	string	$filename
+     *
+     * @return  void
      */
-    public function addAttachment($filename): void {
+    public function addAttachment(string $filename): void {
         $this->attachments[] = $filename;
     }
 
     /**
+     * Send
      *
+     * @return  bool
      */
     public function send(): bool {
         if (!$this->to) {
@@ -113,14 +147,16 @@ class Mail {
             throw new \Exception('Error: E-Mail subject required!');
         }
 
-        if ((!$this->text) && (!$this->html)) {
+        if (!$this->text && !$this->html) {
             throw new \Exception('Error: E-Mail message required!');
         }
 
-        foreach (get_object_vars($this) as $key => $value) {
-            $this->adaptor->$key = $value;
-        }
+        $mail_data = [];
 
-        return $this->adaptor->send();
+        foreach (get_object_vars($this) as $key => $value) $mail_data[$key] = $value;
+
+        $mail = new $this->adaptor($mail_data);
+
+        return $mail->send();
     }
 }

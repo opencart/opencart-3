@@ -12,7 +12,7 @@
  */
 class Session {
     protected object $adaptor;
-    protected string $session_id;
+    protected string $session_id = '';
     public array     $data = [];
 
     /**

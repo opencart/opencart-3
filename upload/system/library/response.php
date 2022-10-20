@@ -11,9 +11,9 @@
  * Response class
  */
 class Response {
-    private array $headers = [];
-    private int $level = 0;
-    private string $output = '';
+    private array  $headers = [];
+    private int    $level   = 0;
+    private string $output  = '';
 
     /**
      * Constructor

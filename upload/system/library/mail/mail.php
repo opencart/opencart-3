@@ -8,8 +8,8 @@ class Mail {
     protected string $subject     = '';
     protected string $text        = '';
     protected string $html        = '';
+    protected string $parameter   = '';
     protected array  $attachments = [];
-    protected string $parameter;
 
     public function __construct(array $args) {
         foreach ($args as $key => $value) {

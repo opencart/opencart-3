@@ -1,13 +1,12 @@
 <?php
-
 class Squareup {
-    private $session;
-    private $url;
-    private $config;
-    private $log;
-    private $customer;
-    private $currency;
-    private $registry;
+    private object $session;
+    private object $url;
+    private object $config;
+    private object $log;
+    private object $customer;
+    private object $currency;
+    private object $registry;
 
     const API_URL                      = 'https://connect.squareup.com';
     const API_VERSION                  = 'v2';
@@ -124,7 +123,7 @@ class Squareup {
         $this->debug("SQUAREUP PARAMS: " . $params);
 
         // Fire off the request
-        $ch = curl_init();
+        $ch     = curl_init();
 
         curl_setopt_array($ch, $curl_options);
 
@@ -174,13 +173,13 @@ class Squareup {
     }
 
     public function authLink($client_id) {
-        $state = $this->authState();
+        $state                                                  = $this->authState();
 
-        $redirect_uri = str_replace('&amp;', '&', $this->url->link('extension/payment/squareup/oauth_callback', 'user_token=' . $this->session->data['user_token'], true));
+        $redirect_uri                                           = str_replace('&amp;', '&', $this->url->link('extension/payment/squareup/oauth_callback', 'user_token=' . $this->session->data['user_token'], true));
 
         $this->session->data['payment_squareup_oauth_redirect'] = $redirect_uri;
 
-        $params = [
+        $params                                                 = [
             'client_id'     => $client_id,
             'response_type' => 'code',
             'scope'         => self::SCOPE,
@@ -203,7 +202,7 @@ class Squareup {
 
         $api_result = $this->api($request_data);
 
-        $locations = array_filter($api_result['locations'], [$this, 'filterLocation']);
+        $locations  = array_filter($api_result['locations'], [$this, 'filterLocation']);
 
         if (!empty($locations)) {
             $first_location    = current($locations);
@@ -399,7 +398,7 @@ class Squareup {
             return false;
         }
 
-        return in_array('CREDIT_CARD_PROCESSING', $location['capabilities']);
+        return in_array('CREDIT_CARD_PROCESSING', (array)$location['capabilities']);
     }
 
     protected function encodeParameters($params, $content_type) {

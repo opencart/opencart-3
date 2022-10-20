@@ -11,8 +11,8 @@
  * URL class
  */
 class Url {
-    private string $url;
-    private string $ssl;
+    private string $url     = '';
+    private string $ssl     = '';
     private array  $rewrite = [];
 
     /**

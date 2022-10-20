@@ -1,6 +1,5 @@
 <?php
 namespace Squareup;
-
 class Exception extends \Exception {
     const ERR_CODE_ACCESS_TOKEN_REVOKED = 'ACCESS_TOKEN_REVOKED';
     const ERR_CODE_ACCESS_TOKEN_EXPIRED = 'ACCESS_TOKEN_EXPIRED';
@@ -9,7 +8,7 @@ class Exception extends \Exception {
     private object $log;
     private object $language;
     private object $errors;
-    private bool $isCurlError;
+    private bool $isCurlError = false;
 
     private $overrideFields = array(
         'billing_address.country',

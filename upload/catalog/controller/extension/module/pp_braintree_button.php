@@ -1,6 +1,6 @@
 <?php
 class ControllerExtensionModulePPBraintreeButton extends Controller {
-    private string $gateway;
+    private string $gateway = '';
 
     public function index(): string {
         if ($this->config->get('payment_pp_braintree_status') == 1) {
