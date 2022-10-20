@@ -109,9 +109,9 @@
                 html += '        <button type="button" class="btn btn-default" data-dismiss="modal">{{ button_cancel }}</button>';
         
                 {% if shipping_method %}
-                html += '        <input type="button" value="{{ button_shipping }}" id="button-shipping" data-loading-text="{{ text_loading }}" class="btn btn-primary"/>';
+                  html += '        <input type="button" value="{{ button_shipping }}" id="button-shipping" data-loading-text="{{ text_loading }}" class="btn btn-primary"/>';
                 {% else %}
-                html += '        <input type="button" value="{{ button_shipping }}" id="button-shipping" data-loading-text="{{ text_loading }}" class="btn btn-primary" disabled="disabled"/>';
+                  html += '        <input type="button" value="{{ button_shipping }}" id="button-shipping" data-loading-text="{{ text_loading }}" class="btn btn-primary" disabled="disabled"/>';
                 {% endif %}
         
                 html += '      </div>';

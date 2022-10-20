@@ -18,10 +18,12 @@
         <div class="col-sm-10">
           <label class="radio-inline">
             <input type="radio" name="card_new" value="1" checked="checked"/>
-            {{ entry_card_new }}</label>
+            {{ entry_card_new }}
+          </label>
           <label class="radio-inline">
             <input type="radio" name="card_new" value="0"/>
-            {{ entry_card_old }}</label>
+            {{ entry_card_old }}
+          </label>
         </div>
       </div>
       <div class="card_new_container">
@@ -116,133 +118,133 @@
   </div>
 </div>
 <script type="text/javascript"><!--
-$('select[name="method"]').on('change', function() {
-	if ($(this).val() == 'card') {
-		$('#payment legend').text('{{ text_card_details }}');
-		$('.card_container').show();
-		$('.echeck_container').hide();
-	} else {
-		$('#payment legend').text('{{ text_echeck_details }}');
-		$('.card_container').hide();
-		$('.echeck_container').show();
-	}
-});
+  $('select[name="method"]').on('change', function() {
+    if ($(this).val() == 'card') {
+      $('#payment legend').text('{{ text_card_details }}');
+      $('.card_container').show();
+      $('.echeck_container').hide();
+    } else {
+      $('#payment legend').text('{{ text_echeck_details }}');
+      $('.card_container').hide();
+      $('.echeck_container').show();
+    }
+  });
 //--></script> 
 <script type="text/javascript"><!--
-$('input[name="card_new"]').on('change', function() {
-	if ($(this).val() == '1') {
-		$('.card_new_container').show();
-		$('.card_old_container').hide();
-	} else {
-		$('.card_new_container').hide();
-		$('.card_old_container').show();
-	}
-});
+  $('input[name="card_new"]').on('change', function() {
+    if ($(this).val() == '1') {
+      $('.card_new_container').show();
+      $('.card_old_container').hide();
+    } else {
+      $('.card_new_container').hide();
+      $('.card_old_container').show();
+    }
+  });
 //--></script> 
 <script type="text/javascript"><!--
-$('#button-delete').bind('click', function() {
-	if (confirm('{{ text_confirm_delete }}')) {
-		$.ajax({
-			url: 'index.php?route=extension/payment/cardconnect/delete',
-			type: 'post',
-			data: $('#input-card-choice'),
-			dataType: 'json',
-			beforeSend: function() {
-				$('.cardconnect_message').remove();
-				$('#payment').before('<div class="alert alert-info cardconnect_wait"><i class="fa fa-info-circle"></i> {{ text_wait }}</div>');
-				$('#button-delete').button('loading');
-			},
-			complete: function() {
-				$('.cardconnect_wait').remove();
-				$('#button-delete').button('reset');
-			},
-			success: function (json) {
-				if (json['error']) {
-					$('#cardconnect-form').before('<div class="alert alert-danger cardconnect_message" style="display:none"><i class="fa fa-exclamation-circle"></i> ' + json['error'] + '<button type="button" class="close" data-dismiss="alert">&times;</button></div>');
-
-					$('.cardconnect_message').fadeIn();
-				} else {
-					$.ajax({
-						url: 'index.php?route=checkout/confirm',
-						dataType: 'html',
-						success: function (html) {
-							$('#collapse-checkout-confirm .panel-body').html(html);
-						},
-						error: function (xhr, ajaxOptions, thrownError) {
-							alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
-						}
-					});
-				}
-			}
-		});
-	}
-});
+  $('#button-delete').bind('click', function() {
+    if (confirm('{{ text_confirm_delete }}')) {
+      $.ajax({
+        url: 'index.php?route=extension/payment/cardconnect/delete',
+        type: 'post',
+        data: $('#input-card-choice'),
+        dataType: 'json',
+        beforeSend: function() {
+          $('.cardconnect_message').remove();
+          $('#payment').before('<div class="alert alert-info cardconnect_wait"><i class="fa fa-info-circle"></i> {{ text_wait }}</div>');
+          $('#button-delete').button('loading');
+        },
+        complete: function() {
+          $('.cardconnect_wait').remove();
+          $('#button-delete').button('reset');
+        },
+        success: function (json) {
+          if (json['error']) {
+            $('#cardconnect-form').before('<div class="alert alert-danger cardconnect_message" style="display:none"><i class="fa fa-exclamation-circle"></i> ' + json['error'] + '<button type="button" class="close" data-dismiss="alert">&times;</button></div>');
+  
+            $('.cardconnect_message').fadeIn();
+          } else {
+            $.ajax({
+              url: 'index.php?route=checkout/confirm',
+              dataType: 'html',
+              success: function (html) {
+                $('#collapse-checkout-confirm .panel-body').html(html);
+              },
+              error: function (xhr, ajaxOptions, thrownError) {
+                alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
+              }
+            });
+          }
+        }
+      });
+    }
+  });
 //--></script> 
 <script type="text/javascript"><!--
-$('#button-confirm').bind('click', function() {
-	$.ajax({
-		url: 'index.php?route=extension/payment/cardconnect/send',
-		type: 'post',
-		data: $('#cardconnect-form').serialize(),
-		dataType: 'json',
-		beforeSend: function() {
-			$('.cardconnect_message').remove();
-			$('.text-danger').remove();
-			$('#payment').find('*').removeClass('has-error');
-			$('#payment').before('<div class="alert alert-info cardconnect_wait"><i class="fa fa-info-circle"></i> {{ text_wait }}</div>');
-			$('#button-confirm').button('loading');
-		},
-		complete: function() {
-			$('.cardconnect_wait').remove();
-			$('#button-confirm').button('reset');
-		},
-		success: function (json) {
-			if (json['error']['warning']) {
-				$('#cardconnect-form').before('<div class="alert alert-danger cardconnect_message" style="display:none"><i class="fa fa-exclamation-circle"></i> ' + json['error']['warning'] + '<button type="button" class="close" data-dismiss="alert">&times;</button></div>');
-
-				$('.cardconnect_message').fadeIn();
-			}
-
-			if (json['error']['card_number']) {
-				$('#input-card-number').after('<div class="text-danger">' + json['error']['card_number'] + '</div>');
-
-				$('#input-card-number').closest('.form-group').addClass('has-error');
-			}
-
-			if (json['error']['card_cvv2']) {
-				$('#input-card-cvv2').after('<div class="text-danger">' + json['error']['card_cvv2'] + '</div>');
-
-				$('#input-card-cvv2').closest('.form-group').addClass('has-error');
-			}
-
-			if (json['error']['card_choice']) {
-				$('#input-card-choice').after('<div class="text-danger">' + json['error']['card_choice'] + '</div>');
-
-				$('#input-card-choice').closest('.form-group').addClass('has-error');
-			}
-
-			if (json['error']['method']) {
-				$('#input-method').after('<div class="text-danger">' + json['error']['method'] + '</div>');
-
-				$('#input-method').closest('.form-group').addClass('has-error');
-			}
-
-			if (json['error']['account_number']) {
-				$('#input-account-number').after('<div class="text-danger">' + json['error']['account_number'] + '</div>');
-
-				$('#input-account-number').closest('.form-group').addClass('has-error');
-			}
-
-			if (json['error']['routing_number']) {
-				$('#input-routing-number').after('<div class="text-danger">' + json['error']['routing_number'] + '</div>');
-
-				$('#input-routing-number').closest('.form-group').addClass('has-error');
-			}
-
-			if (json['success']) {
-				location = json['success'];
-			}
-		}
-	});
-});
+  $('#button-confirm').bind('click', function() {
+    $.ajax({
+      url: 'index.php?route=extension/payment/cardconnect/send',
+      type: 'post',
+      data: $('#cardconnect-form').serialize(),
+      dataType: 'json',
+      beforeSend: function() {
+        $('.cardconnect_message').remove();
+        $('.text-danger').remove();
+        $('#payment').find('*').removeClass('has-error');
+        $('#payment').before('<div class="alert alert-info cardconnect_wait"><i class="fa fa-info-circle"></i> {{ text_wait }}</div>');
+        $('#button-confirm').button('loading');
+      },
+      complete: function() {
+        $('.cardconnect_wait').remove();
+        $('#button-confirm').button('reset');
+      },
+      success: function (json) {
+        if (json['error']['warning']) {
+          $('#cardconnect-form').before('<div class="alert alert-danger cardconnect_message" style="display:none"><i class="fa fa-exclamation-circle"></i> ' + json['error']['warning'] + '<button type="button" class="close" data-dismiss="alert">&times;</button></div>');
+  
+          $('.cardconnect_message').fadeIn();
+        }
+  
+        if (json['error']['card_number']) {
+          $('#input-card-number').after('<div class="text-danger">' + json['error']['card_number'] + '</div>');
+  
+          $('#input-card-number').closest('.form-group').addClass('has-error');
+        }
+  
+        if (json['error']['card_cvv2']) {
+          $('#input-card-cvv2').after('<div class="text-danger">' + json['error']['card_cvv2'] + '</div>');
+  
+          $('#input-card-cvv2').closest('.form-group').addClass('has-error');
+        }
+  
+        if (json['error']['card_choice']) {
+          $('#input-card-choice').after('<div class="text-danger">' + json['error']['card_choice'] + '</div>');
+  
+          $('#input-card-choice').closest('.form-group').addClass('has-error');
+        }
+  
+        if (json['error']['method']) {
+          $('#input-method').after('<div class="text-danger">' + json['error']['method'] + '</div>');
+  
+          $('#input-method').closest('.form-group').addClass('has-error');
+        }
+  
+        if (json['error']['account_number']) {
+          $('#input-account-number').after('<div class="text-danger">' + json['error']['account_number'] + '</div>');
+  
+          $('#input-account-number').closest('.form-group').addClass('has-error');
+        }
+  
+        if (json['error']['routing_number']) {
+          $('#input-routing-number').after('<div class="text-danger">' + json['error']['routing_number'] + '</div>');
+  
+          $('#input-routing-number').closest('.form-group').addClass('has-error');
+        }
+  
+        if (json['success']) {
+          location = json['success'];
+        }
+      }
+    });
+  });
 //--></script>

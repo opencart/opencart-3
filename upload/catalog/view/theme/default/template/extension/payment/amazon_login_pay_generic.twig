@@ -35,9 +35,7 @@
     <ul class="breadcrumb">
       {% for breadcrumb in breadcrumbs %}
         {% if breadcrumb.href and not breadcrumb.current %}
-          <li><a href="{{ breadcrumb.href }}">
-              {{ breadcrumb.text }}
-            </a></li>
+          <li><a href="{{ breadcrumb.href }}">{{ breadcrumb.text }}</a></li>
         {% else %}
           <li class="text-muted {{ breadcrumb.current ? 'current' : 'disabled' }}">{{ breadcrumb.text }}</li>
         {% endif %}

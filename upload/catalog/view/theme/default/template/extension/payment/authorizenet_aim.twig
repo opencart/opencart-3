@@ -44,28 +44,28 @@
   </div>
 </div>
 <script type="text/javascript"><!--
-$('#button-confirm').on('click', function () {
-  $.ajax({
-    url: 'index.php?route=extension/payment/authorizenet_aim/send',
-    type: 'post',
-    data: $('#payment :input'),
-    dataType: 'json',
-    cache: false,
-    beforeSend: function () {
-      $('#button-confirm').button('loading');
-    },
-    complete: function () {
-      $('#button-confirm').button('reset');
-    },
-    success: function (json) {
-      if (json['error']) {
-        alert(json['error']);
+  $('#button-confirm').on('click', function () {
+    $.ajax({
+      url: 'index.php?route=extension/payment/authorizenet_aim/send',
+      type: 'post',
+      data: $('#payment :input'),
+      dataType: 'json',
+      cache: false,
+      beforeSend: function () {
+        $('#button-confirm').button('loading');
+      },
+      complete: function () {
+        $('#button-confirm').button('reset');
+      },
+      success: function (json) {
+        if (json['error']) {
+          alert(json['error']);
+        }
+        
+        if (json['redirect']) {
+          location = json['redirect'];
+        }
       }
-      
-      if (json['redirect']) {
-        location = json['redirect'];
-      }
-    }
+    });
   });
-});
 //--></script>

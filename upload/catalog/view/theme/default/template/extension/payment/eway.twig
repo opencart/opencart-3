@@ -47,13 +47,15 @@
 						<label class="col-sm-2 control-label" for="eway-cardname">{{ entry_cc_name }}</label>
 						<div class="col-sm-10">
 							<input name="EWAY_CARDNAME" type="text" value="" id="eway-cardname" placeholder="{{ entry_cc_name }}" autocomplete="off" class="form-control"/>
-							<span id="ewaycard-error" class="text-danger"></span></div>
+							<span id="ewaycard-error" class="text-danger"></span>
+            </div>
 					</div>
 					<div class="form-group required">
 						<label class="col-sm-2 control-label" for="eway-cardnumber">{{ entry_cc_number }}</label>
 						<div class="col-sm-10">
 							<input name="EWAY_CARDNUMBER" type="text" maxlength="19" id="eway-cardnumber" value="" placeholder="{{ entry_cc_number }}" autocomplete="off" class="form-control" pattern="\d*"/>
-							<span id="ewaynumber-error" class="text-danger"></span></div>
+							<span id="ewaynumber-error" class="text-danger"></span>
+            </div>
 					</div>
 					<div class="form-group required">
 						<label class="col-sm-2 control-label" for="eway-card-expiry-month">{{ entry_cc_expire_date }}</label>
@@ -81,9 +83,11 @@
 								{% if 'amex' in payment_type %}
 									<br/>
 									{{ help_cvv_amex }}
-								{% endif %} </span>
+								{% endif %}
+              </span>
 							<br/>
-							<span id="ewaycvn-error" class="text-danger"></span></div>
+							<span id="ewaycvn-error" class="text-danger"></span>
+            </div>
 					</div>
         {% endif %}
     </fieldset>
@@ -118,16 +122,20 @@
       $('#button-confirm').bind('click', function () {
           if ($('#eway-radio-cc').is(':checked')) {
               var eway_error = false;
+              
               if ($('#eway-cardname').val().length < 1) {
                   eway_error = true;
+                  
                   $('#ewaycard-error').html('{{ error_empty_name }}');
               } else {
                   $('#ewaycard-error').empty();
               }
 
               var ccnum_regex = new RegExp("^[0-9]{13,19}$");
+              
               if (!ccnum_regex.test($('#eway-cardnumber').val().replace(/ /g, '')) || !luhn10($('#eway-cardnumber').val())) {
                   eway_error = true;
+                  
                   $('#ewaynumber-error').html('{{ error_invalid_card }}');
               } else {
                   $('#ewaynumber-error').empty();
@@ -142,14 +150,17 @@
 
               if (today.getTime() > cc_expired.getTime()) {
                   eway_error = true;
+                  
                   $('#expiry-error').html('{{ error_expiry_date }}');
               } else {
                   $('#expiry-error').empty();
               }
 
               var ccv_regex = new RegExp("^[0-9]{3,4}$");
+              
               if (!ccv_regex.test($('#eway-cardcvn').val().replace(/ /g, ''))) {
                   eway_error = true;
+                  
                   $('#ewaycvn-error').html('{{ error_cvv }}');
               } else {
                   $('#ewaycvn-error').empty();

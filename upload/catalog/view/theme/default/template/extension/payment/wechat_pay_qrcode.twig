@@ -30,6 +30,7 @@
 </div>
 <script>
   var url = "{{ code_url }}";
+  
   var qrcode = new QRCode('qrcode', {
     text: url,
     width: 256,
@@ -38,6 +39,7 @@
     colorLight : '#ffffff',
     correctLevel : QRCode.CorrectLevel.M
   });
+  
   function chekOrderStatus() {
     var loop=true;
     $.ajax({
@@ -57,6 +59,7 @@
       }
     });
   }
+  
   chekOrderStatus();
 </script>
 {{ footer }}

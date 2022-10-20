@@ -7,54 +7,54 @@
     <div class="text-center alert alert-info"><i class="fa fa-circle-o-notch fa-spin"></i>&nbsp;{{ text_loading }}</div>
 </div>
 <form class="form-horizontal" action="{{ action }}" method="POST" id="squareup_card_details_form" style="display: none;">
-    <fieldset>
-        <legend>{{ text_card_details }}</legend>
-        {% if cards %}
-          <div class="form-group">
-            <label class="col-sm-2 control-label" for="squareup_select_card">{{ text_saved_card }}</label>
-            <div class="col-sm-10">
-              <select class="form-control" name="squareup_select_card" id="squareup_select_card">
-                <option selected value>{{ text_new_card }}</option>
-                  {% for card in cards %}
-                    <option value="{{ card.id }}">{{ card.text }}</option>
-                  {% endfor %}
-              </select>
-            </div>
+  <fieldset>
+      <legend>{{ text_card_details }}</legend>
+      {% if cards %}
+        <div class="form-group">
+          <label class="col-sm-2 control-label" for="squareup_select_card">{{ text_saved_card }}</label>
+          <div class="col-sm-10">
+            <select class="form-control" name="squareup_select_card" id="squareup_select_card">
+              <option selected value>{{ text_new_card }}</option>
+              {% for card in cards %}
+                <option value="{{ card.id }}">{{ card.text }}</option>
+              {% endfor %}
+            </select>
           </div>
-        {% endif %}
-    </fieldset>
-    <fieldset id="hide-card-details">
-        <div class="form-group">
-            <label class="col-sm-2 control-label" for="id_card_number">{{ text_card_number }}</label>
-            <div class="col-sm-10"><div id="id_card_number"></div></div>
         </div>
-        <div class="form-group">
-            <label class="col-sm-2 control-label" for="id_card_expiry">{{ text_card_expiry }}</label>
-            <div class="col-sm-10"><div id="id_card_expiry"></div></div>
-        </div>
-        <div class="form-group">
-            <label class="col-sm-2 control-label" for="id_cvc">{{ text_card_cvc }}</label>
-            <div class="col-sm-10"><div id="id_cvc"></div></div>
-        </div>
-        <div class="form-group">
-            <label class="col-sm-2 control-label" for="id_card_zip_code">{{ text_card_zip }}</label>
-            <div class="col-sm-10"><div id="id_card_zip_code"></div></div>
-        </div>
-        {% if is_logged %}
-          <div class="form-group">
-            <label class="col-sm-2 control-label" for="squareup_save_card">{{ text_card_save }}</label>
-            <div class="col-sm-10">
-              <input type="checkbox" id="squareup_save_card" value="1" name="squareup_save_card"/>
-            </div>
-          </div>
-        {% endif %}
-    </fieldset>
-    <div class="buttons">
-        <div class="pull-right">
-            <input type="button" value="{{ button_confirm }}" id="button-confirm-order" data-loading-text="{{ text_loading }}" class="btn btn-primary">
-        </div>
+      {% endif %}
+  </fieldset>
+  <fieldset id="hide-card-details">
+    <div class="form-group">
+      <label class="col-sm-2 control-label" for="id_card_number">{{ text_card_number }}</label>
+      <div class="col-sm-10"><div id="id_card_number"></div></div>
     </div>
-    <input type="hidden" name="squareup_nonce" id="squareup_nonce"/>
+    <div class="form-group">
+      <label class="col-sm-2 control-label" for="id_card_expiry">{{ text_card_expiry }}</label>
+      <div class="col-sm-10"><div id="id_card_expiry"></div></div>
+    </div>
+    <div class="form-group">
+      <label class="col-sm-2 control-label" for="id_cvc">{{ text_card_cvc }}</label>
+      <div class="col-sm-10"><div id="id_cvc"></div></div>
+    </div>
+    <div class="form-group">
+        <label class="col-sm-2 control-label" for="id_card_zip_code">{{ text_card_zip }}</label>
+        <div class="col-sm-10"><div id="id_card_zip_code"></div></div>
+    </div>
+    {% if is_logged %}
+      <div class="form-group">
+        <label class="col-sm-2 control-label" for="squareup_save_card">{{ text_card_save }}</label>
+        <div class="col-sm-10">
+          <input type="checkbox" id="squareup_save_card" value="1" name="squareup_save_card"/>
+        </div>
+      </div>
+    {% endif %}
+  </fieldset>
+  <div class="buttons">
+    <div class="pull-right">
+      <input type="button" value="{{ button_confirm }}" id="button-confirm-order" data-loading-text="{{ text_loading }}" class="btn btn-primary">
+    </div>
+  </div>
+  <input type="hidden" name="squareup_nonce" id="squareup_nonce"/>
 </form>
 <style>
     .control-label {
@@ -75,7 +75,7 @@
         cursor: pointer;
     }
 </style>
-<script type="text/javascript">
+<script type="text/javascript"><!--
     $(document).ready(function() {
         var app_id = '{{ app_id }}';
 
@@ -219,4 +219,4 @@
 
     initSquareup($.ajaxSetup().cache);
 });
-</script>
+//--></script>

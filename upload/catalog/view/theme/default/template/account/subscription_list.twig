@@ -19,24 +19,24 @@
         <div class="table-responsive">
           <table class="table table-bordered table-hover">
             <thead>
-            <tr>
-              <td class="text-right">{{ column_subscription_id }}</td>
-              <td class="text-left">{{ column_product }}</td>
-              <td class="text-left">{{ column_status }}</td>
-              <td class="text-left">{{ column_date_added }}</td>
-              <td class="text-right"></td>
-            </tr>
+              <tr>
+                <td class="text-right">{{ column_subscription_id }}</td>
+                <td class="text-left">{{ column_product }}</td>
+                <td class="text-left">{{ column_status }}</td>
+                <td class="text-left">{{ column_date_added }}</td>
+                <td class="text-right"></td>
+              </tr>
             </thead>
             <tbody>
-            {% for subscription in subscriptions %}
-              <tr>
-                <td class="text-right">#{{ subscription.subscription_id }}</td>
-                <td class="text-left">{{ subscription.product }}</td>
-                <td class="text-left">{{ subscription.status }}</td>
-                <td class="text-left">{{ subscription.date_added }}</td>
-                <td class="text-right"><a href="{{ subscription.view }}" data-bs-toggle="tooltip" title="{{ button_view }}" class="btn btn-info"><i class="fa-solid fa-eye"></i></a></td>
-              </tr>
-            {% endfor %}
+              {% for subscription in subscriptions %}
+                <tr>
+                  <td class="text-right">#{{ subscription.subscription_id }}</td>
+                  <td class="text-left">{{ subscription.product }}</td>
+                  <td class="text-left">{{ subscription.status }}</td>
+                  <td class="text-left">{{ subscription.date_added }}</td>
+                  <td class="text-right"><a href="{{ subscription.view }}" data-bs-toggle="tooltip" title="{{ button_view }}" class="btn btn-info"><i class="fa-solid fa-eye"></i></a></td>
+                </tr>
+              {% endfor %}
             </tbody>
           </table>
         </div>

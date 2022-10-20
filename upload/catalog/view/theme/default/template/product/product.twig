@@ -173,7 +173,8 @@
                         <option value="{{ option_value.product_option_value_id }}">{{ option_value.name }}
                         {% if option_value.price %}
                           ({{ option_value.price_prefix }}{{ option_value.price }})
-                        {% endif %} </option>
+                        {% endif %}
+                        </option>
                       {% endfor %}
                     </select>
                   </div>
@@ -186,8 +187,10 @@
                         <div class="radio">
                           <label>
                             <input type="radio" name="option[{{ option.product_option_id }}]" value="{{ option_value.product_option_value_id }}"/>
-                            {% if option_value.image %} <img src="{{ option_value.image }}" alt="{{ option_value.name }} {% if option_value.price %} {{ option_value.price_prefix }} {{ option_value.price }} {% endif %}" class="img-thumbnail"/> {% endif %}
-                              {{ option_value.name }}
+                            {% if option_value.image %}
+                              <img src="{{ option_value.image }}" alt="{{ option_value.name }} {% if option_value.price %} {{ option_value.price_prefix }} {{ option_value.price }} {% endif %}" class="img-thumbnail"/>
+                            {% endif %}
+                            {{ option_value.name }}
                             {% if option_value.price %}
                               ({{ option_value.price_prefix }}{{ option_value.price }})
                             {% endif %}
@@ -296,99 +299,103 @@
             </div>
             {% if minimum > 1 %}
               <div class="alert alert-info"><i class="fa fa-info-circle"></i> {{ text_minimum }}</div>
-            {% endif %} </div>
-            {% if review_status %}
-              <div class="rating">
-                <p>
-                  {% for i in 1..5 %}
-                    {% if rating < i %}
-                      <span class="fa fa-stack"><i class="fa fa-star-o fa-stack-1x"></i></span>
-                    {% else %}
-                      <span class="fa fa-stack"><i class="fa fa-star fa-stack-1x"></i><i class="fa fa-star-o fa-stack-1x"></i></span>
-                    {% endif %}
-                  {% endfor %} <a href="" onclick="$('a[href=\'#tab-review\']').trigger('click'); return false;">{{ reviews }}</a> / <a href="" onclick="$('a[href=\'#tab-review\']').trigger('click'); return false;">{{ text_write }}</a>
-                </p>
-                <hr>
-                {# AddThis Button BEGIN #}
-                <div class="addthis_toolbox addthis_default_style" data-url="{{ share }}">
-                  <a class="addthis_button_facebook_like" fb:like:layout="button_count"></a> <a class="addthis_button_tweet"></a> <a class="addthis_button_pinterest_pinit"></a> <a class="addthis_counter addthis_pill_style"></a>
-                </div>
-                <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-515eeaf54693130e"></script>
-                {# AddThis Button END #}
-              </div>
             {% endif %}
           </div>
+          {% if review_status %}
+            <div class="rating">
+              <p>
+                {% for i in 1..5 %}
+                  {% if rating < i %}
+                    <span class="fa fa-stack"><i class="fa fa-star-o fa-stack-1x"></i></span>
+                  {% else %}
+                    <span class="fa fa-stack"><i class="fa fa-star fa-stack-1x"></i><i class="fa fa-star-o fa-stack-1x"></i></span>
+                  {% endif %}
+                {% endfor %}
+                <a href="" onclick="$('a[href=\'#tab-review\']').trigger('click'); return false;">{{ reviews }}</a> / <a href="" onclick="$('a[href=\'#tab-review\']').trigger('click'); return false;">{{ text_write }}</a>
+              </p>
+              <hr>
+              {# AddThis Button BEGIN #}
+              <div class="addthis_toolbox addthis_default_style" data-url="{{ share }}">
+                <a class="addthis_button_facebook_like" fb:like:layout="button_count"></a> <a class="addthis_button_tweet"></a> <a class="addthis_button_pinterest_pinit"></a> <a class="addthis_counter addthis_pill_style"></a>
+              </div>
+              <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-515eeaf54693130e"></script>
+              {# AddThis Button END #}
+            </div>
+          {% endif %}
         </div>
-        {% if products %}
-          <h3>{{ text_related }}</h3>
-          <div class="row"> {% set i = 0 %}
-            {% for product in products %}
-              {% if column_left and column_right %}
-                {% set class = 'col-xs-8 col-sm-6' %}
-              {% elseif column_left or column_right %}
-                {% set class = 'col-xs-6 col-md-4' %}
-              {% else %}
-                {% set class = 'col-xs-6 col-sm-3' %}
-              {% endif %}
-              <div class="{{ class }}">
-                <div class="product-thumb transition">
-                  <div class="image"><a href="{{ product.href }}"><img src="{{ product.thumb }}" alt="{{ product.name }}" title="{{ product.name }}" class="img-responsive"/></a></div>
-                  <div class="caption">
-                    <h4><a href="{{ product.href }}">{{ product.name }}</a></h4>
-                    <p>{{ product.description }}</p>
-                    {% if product.rating %}
-                      <div class="rating">
-                        {% for j in 1..5 %}
-                          {% if product.rating < j %}
-                            <span class="fa fa-stack"><i class="fa fa-star-o fa-stack-1x"></i></span>
-                          {% else %}
-                            <span class="fa fa-stack"><i class="fa fa-star fa-stack-1x"></i><i class="fa fa-star-o fa-stack-1x"></i></span>
-                          {% endif %}
-                        {% endfor %}
-                      </div>
-                    {% endif %}
-                    {% if product.price %}
-                      <p class="price">
-                        {% if not product.special %}
-                          {{ product.price }}
+      </div>
+      {% if products %}
+        <h3>{{ text_related }}</h3>
+        <div class="row"> {% set i = 0 %}
+          {% for product in products %}
+            {% if column_left and column_right %}
+              {% set class = 'col-xs-8 col-sm-6' %}
+            {% elseif column_left or column_right %}
+              {% set class = 'col-xs-6 col-md-4' %}
+            {% else %}
+              {% set class = 'col-xs-6 col-sm-3' %}
+            {% endif %}
+            <div class="{{ class }}">
+              <div class="product-thumb transition">
+                <div class="image">
+                  <a href="{{ product.href }}"><img src="{{ product.thumb }}" alt="{{ product.name }}" title="{{ product.name }}" class="img-responsive"/></a>
+                </div>
+                <div class="caption">
+                  <h4><a href="{{ product.href }}">{{ product.name }}</a></h4>
+                  <p>{{ product.description }}</p>
+                  {% if product.rating %}
+                    <div class="rating">
+                      {% for j in 1..5 %}
+                        {% if product.rating < j %}
+                          <span class="fa fa-stack"><i class="fa fa-star-o fa-stack-1x"></i></span>
                         {% else %}
-                          <span class="price-new">{{ product.special }}</span> <span class="price-old">{{ product.price }}</span>
+                          <span class="fa fa-stack"><i class="fa fa-star fa-stack-1x"></i><i class="fa fa-star-o fa-stack-1x"></i></span>
                         {% endif %}
-                        {% if product.tax %}
-                          <span class="price-tax">{{ text_tax }} {{ product.tax }}</span>
-                        {% endif %}
-                      </p>
-                    {% endif %}
-                  </div>
-                  <div class="button-group">
-                    <button type="button" onclick="cart.add('{{ product.product_id }}', '{{ product.minimum }}');"><span class="hidden-xs hidden-sm hidden-md">{{ button_cart }}</span> <i class="fa fa-shopping-cart"></i></button>
-                    <button type="button" data-toggle="tooltip" title="{{ button_wishlist }}" onclick="wishlist.add('{{ product.product_id }}');"><i class="fa fa-heart"></i></button>
-                    <button type="button" data-toggle="tooltip" title="{{ button_compare }}" onclick="compare.add('{{ product.product_id }}');"><i class="fa fa-exchange"></i></button>
-                  </div>
+                      {% endfor %}
+                    </div>
+                  {% endif %}
+                  {% if product.price %}
+                    <p class="price">
+                      {% if not product.special %}
+                        {{ product.price }}
+                      {% else %}
+                        <span class="price-new">{{ product.special }}</span> <span class="price-old">{{ product.price }}</span>
+                      {% endif %}
+                      {% if product.tax %}
+                        <span class="price-tax">{{ text_tax }} {{ product.tax }}</span>
+                      {% endif %}
+                    </p>
+                  {% endif %}
+                </div>
+                <div class="button-group">
+                  <button type="button" onclick="cart.add('{{ product.product_id }}', '{{ product.minimum }}');"><span class="hidden-xs hidden-sm hidden-md">{{ button_cart }}</span> <i class="fa fa-shopping-cart"></i></button>
+                  <button type="button" data-toggle="tooltip" title="{{ button_wishlist }}" onclick="wishlist.add('{{ product.product_id }}');"><i class="fa fa-heart"></i></button>
+                  <button type="button" data-toggle="tooltip" title="{{ button_compare }}" onclick="compare.add('{{ product.product_id }}');"><i class="fa fa-exchange"></i></button>
                 </div>
               </div>
-              {% if column_left and column_right and (i + 1) % 2 == 0 %}
-                <div class="clearfix visible-md visible-sm"></div>
-              {% elseif column_left or column_right and (i + 1) % 3 == 0 %}
-                <div class="clearfix visible-md"></div>
-              {% elseif (i + 1) % 4 == 0 %}
-                <div class="clearfix visible-md"></div>
-              {% endif %}
-              {% set i = i + 1 %}
-            {% endfor %}
-          </div>
-        {% endif %}
-        {% if tags %}
-          <p>{{ text_tags }}
-          {% for i in 0..tags|length - 1 %}
-            {% if i < (tags|length - 1) %}
-              <a href="{{ tags[i].href }}">{{ tags[i].tag }}</a>,
-            {% else %}
-              <a href="{{ tags[i].href }}">{{ tags[i].tag }}</a>
+            </div>
+            {% if column_left and column_right and (i + 1) % 2 == 0 %}
+              <div class="clearfix visible-md visible-sm"></div>
+            {% elseif column_left or column_right and (i + 1) % 3 == 0 %}
+              <div class="clearfix visible-md"></div>
+            {% elseif (i + 1) % 4 == 0 %}
+              <div class="clearfix visible-md"></div>
             {% endif %}
+            {% set i = i + 1 %}
           {% endfor %}
-          </p>
-        {% endif %}
+        </div>
+      {% endif %}
+      {% if tags %}
+        <p>{{ text_tags }}
+        {% for i in 0..tags|length - 1 %}
+          {% if i < (tags|length - 1) %}
+            <a href="{{ tags[i].href }}">{{ tags[i].tag }}</a>,
+          {% else %}
+            <a href="{{ tags[i].href }}">{{ tags[i].tag }}</a>
+          {% endif %}
+        {% endfor %}
+        </p>
+      {% endif %}
       {{ content_bottom }}
     </div>
     {{ column_right }}

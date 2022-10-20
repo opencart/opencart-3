@@ -9,9 +9,8 @@
     </ul>
   {% endif %}
 </div>
-<form id="braintree-new" style="display:none;" method="post" action="{{ payment_url }}" class="form-horizontal" autocomplete="off">
+<form method="post" action="{{ payment_url }}" style="display:none;" class="form-horizontal" id="braintree-new" autocomplete="off">
   <fieldset>
-
     {% if payment_pp_braintree_paypal_option %}
       <div class="form-group">
         <label class="col-sm-2 control-label">{{ text_pay_by_paypal }}</label>
@@ -417,28 +416,28 @@
         instance.tokenize({
           flow: flow,
           {% if payment_pp_braintree_settlement_immediate == 1 %}
-          intent: "sale",
+            intent: "sale",
           {% else %}
-          intent: "authorize",
+            intent: "authorize",
           {% endif %}
           useraction: "commit",
           amount: {{ total }},
           currency: "{{ currency_code }}",
           {% if payment_pp_braintree_paypal_vault == 1 and payment_pp_braintree_billing_agreement is not empty %}
-          billingAgreementDescription: "{{ payment_pp_braintree_billing_agreement }}",
+            billingAgreementDescription: "{{ payment_pp_braintree_billing_agreement }}",
           {% endif %}
           {% if customer_shipping_address is not empty %}
-          enableShippingAddress: true,
-          shippingAddressOverride: {
-            recipientName: "{{ customer_shipping_address.name }}",
-            line1: "{{ customer_shipping_address.line_1 }}",
-            line2: "{{ customer_shipping_address.line_2 }}",
-            city: "{{ customer_shipping_address.city }}",
-            countryCode: "{{ customer_shipping_address.country_code }}",
-            postalCode: "{{ customer_shipping_address.post_code }}",
-            state: "{{ customer_shipping_address.state }}",
-            phone: "{{ customer_shipping_address.phone }}"
-          },
+            enableShippingAddress: true,
+            shippingAddressOverride: {
+              recipientName: "{{ customer_shipping_address.name }}",
+              line1: "{{ customer_shipping_address.line_1 }}",
+              line2: "{{ customer_shipping_address.line_2 }}",
+              city: "{{ customer_shipping_address.city }}",
+              countryCode: "{{ customer_shipping_address.country_code }}",
+              postalCode: "{{ customer_shipping_address.post_code }}",
+              state: "{{ customer_shipping_address.state }}",
+              phone: "{{ customer_shipping_address.phone }}"
+            },
           {% endif %}
           shippingAddressEditable: false
         }, function (tokenize_error, payload) {
@@ -587,6 +586,7 @@
             } else {
               console.log('Unable to get nonce from payment token');
               $('#submit-vaulted').prop('disabled', false).button('reset');
+              
               return;
             }
           },
@@ -610,15 +610,18 @@
 
     if (token != false) {
       var token_input = $('<input>').attr('type', 'hidden').attr('name', 'payment_method_token').val(token);
+      
       $('#braintree-vaulted').append($(token_input));
     }
 
     if (nonce != false) {
       var nonce_input = $('<input>').attr('type', 'hidden').attr('name', 'payment_method_nonce').val(nonce);
+      
       $('#braintree-vaulted').append($(nonce_input));
     }
 
     var device_data = $('<input>').attr('type', 'hidden').attr('name', 'device_data').val(device_data_value);
+    
     $('#braintree-vaulted').append($(device_data));
 
     $('#braintree-vaulted').submit();
@@ -632,6 +635,7 @@
 
       //Collect form data
     var payment_method_nonce = $('<input>').attr('type', 'hidden').attr('name', 'payment_method_nonce').val(nonce);
+    
     $('#braintree-new').append($(payment_method_nonce));
 
     {% if payment_pp_braintree_paypal_vault == 1 or payment_pp_braintree_card_vault == 1 and guest != true %}

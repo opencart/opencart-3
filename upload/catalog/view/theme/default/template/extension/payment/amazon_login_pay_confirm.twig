@@ -1,8 +1,7 @@
 <div id="amazonContainer">
   {% if success %}
     <div class="alert alert-success">
-      <button type="button" class="close" data-dismiss="alert">&times;</button>
-      <i class="fa fa-exclamation-circle"></i> {{ success }}
+      <button type="button" class="close" data-dismiss="alert">&times;</button><i class="fa fa-exclamation-circle"></i> {{ success }}
     </div>
   {% endif %}
   <h3 class="text-center">{{ heading_confirm }}</h3>
@@ -88,13 +87,12 @@
           {% endif %}
         {% endif %}
       {% else %}
-        <div class="alert alert-warning">
-          <i class="fa fa-exclamation-circle"></i> {{ error_order_total_zero }}
-            <hr>
-            <div class="text-right">
-              <a class="btn btn-primary" href="{{ standard_checkout }}" id="confirm-button">{{ text_continue_checkout }}</a>
-            </div>
+        <div class="alert alert-warning"><i class="fa fa-exclamation-circle"></i> {{ error_order_total_zero }}
+          <hr>
+          <div class="text-right">
+            <a class="btn btn-primary" href="{{ standard_checkout }}" id="confirm-button">{{ text_continue_checkout }}</a>
           </div>
+        </div>
       {% endif %}
     </div>
     <div class="pull-left form-control-static">

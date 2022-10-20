@@ -27,7 +27,8 @@
           <div class="well">
             <h2>{{ text_new_affiliate }}</h2>
             <p>{{ text_register_account }}</p>
-            <a class="btn btn-primary" href="{{ register }}">{{ button_continue }}</a></div>
+            <a class="btn btn-primary" href="{{ register }}">{{ button_continue }}</a>
+          </div>
         </div>
         <div class="col-sm-6">
           <div class="well">
@@ -41,7 +42,8 @@
               <div class="form-group">
                 <label class="control-label" for="input-password">{{ entry_password }}</label>
                 <input type="password" name="password" value="{{ password }}" placeholder="{{ entry_password }}" id="input-password" class="form-control"/>
-                <a href="{{ forgotten }}">{{ text_forgotten }}</a></div>
+                <a href="{{ forgotten }}">{{ text_forgotten }}</a>
+              </div>
               <input type="submit" value="{{ button_login }}" class="btn btn-primary"/>
               {% if redirect %}
                 <input type="hidden" name="redirect" value="{{ redirect }}"/>

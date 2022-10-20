@@ -1,21 +1,31 @@
-{{ text_welcome }}<br/>
+{{ text_welcome }}
+<br/>
 <br/>
 {% if not approval %}
-  {{ text_login }}<br/>
+  {{ text_login }}
   <br/>
-  {{ login }}<br/>
   <br/>
-  {{ text_service }}<br/>
+  {{ login }}
   <br/>
-  {{ text_thanks }}<br/>
-  {{ store }}<br/>
+  <br/>
+  {{ text_service }}
+  <br/>
+  <br/>
+  {{ text_thanks }}
+  <br/>
+  {{ store }}
+  <br/>
   {{ store_url }}
 {% else %}
-  {{ text_approval }}<br/>
+  {{ text_approval }}
   <br/>
-  {{ login }}<br/>
   <br/>
-  {{ text_thanks }}<br/>
-  {{ store }}<br/>
+  {{ login }}
+  <br/>
+  <br/>
+  {{ text_thanks }}
+  <br/>
+  {{ store }}
+  <br/>
   {{ store_url }}
 {% endif %}

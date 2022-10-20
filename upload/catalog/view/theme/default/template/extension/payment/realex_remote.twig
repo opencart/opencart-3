@@ -34,9 +34,9 @@
       </div>
       <div class="col-sm-3">
         <select name="cc_expire_date_year" class="form-control">          
-        {% for year in year_expire %}            
-          <option value="{{ year.value }}">{{ year.text }}</option>
-        {% endfor %}        
+          {% for year in year_expire %}
+            <option value="{{ year.value }}">{{ year.text }}</option>
+          {% endfor %}
         </select>
       </div>
     </div>
