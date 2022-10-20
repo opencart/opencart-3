@@ -54,12 +54,12 @@
                       </tr>
                     </thead>
                     <tbody>
-                    {% for attribute in attribute_group.attribute %}
-                      <tr>
-                        <td>{{ attribute.name }}</td>
-                        <td>{{ attribute.text }}</td>
-                      </tr>
-                    {% endfor %}
+                      {% for attribute in attribute_group.attribute %}
+                        <tr>
+                          <td>{{ attribute.name }}</td>
+                          <td>{{ attribute.text }}</td>
+                        </tr>
+                      {% endfor %}
                     </tbody>
                   {% endfor %}
                 </table>
@@ -538,9 +538,7 @@
       e.preventDefault();
   
       $('#review').fadeOut('slow');
-  
       $('#review').load(this.href);
-  
       $('#review').fadeIn('slow');
   });
   
@@ -569,7 +567,9 @@
           $('#review').after('<div class="alert alert-success alert-dismissible"><i class="fa fa-check-circle"></i> ' + json['success'] + '</div>');
   
           $('input[name=\'name\']').val('');
+          
           $('textarea[name=\'text\']').val('');
+          
           $('input[name=\'rating\']:checked').prop('checked', false);
         }
       }
