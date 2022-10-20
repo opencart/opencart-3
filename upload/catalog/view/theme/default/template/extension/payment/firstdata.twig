@@ -47,15 +47,15 @@
           <input type="hidden" name="hosteddataid" value="{{ new_hosted_id }}"/>
         {% endif %}
       {% endif %}
-    </fieldset>
-  </form>
-  <div class="buttons">
-    <div class="pull-right">
-      <input type="button" value="{{ button_confirm }}" id="button-confirm" class="btn btn-primary"/>
-    </div>
+  </fieldset>
+</form>
+<div class="buttons">
+  <div class="pull-right">
+    <input type="button" value="{{ button_confirm }}" id="button-confirm" class="btn btn-primary"/>
   </div>
-  <script type="text/javascript"><!--
-    $('#button-confirm').bind('click', function () {
-      $('#firstdata_form_redirect').submit();
-    });
-  //--></script>
+</div>
+<script type="text/javascript"><!--
+  $('#button-confirm').bind('click', function () {
+    $('#firstdata_form_redirect').submit();
+});
+//--></script>

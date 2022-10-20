@@ -33,7 +33,6 @@
          {% set i = 0 %}
          {% for card in stored_cards %}
             <p><input type="radio" name="cc_choice" value="{{ card.token }}" class="stored_card" {% if i == 0 %} checked="checked"{% endif %}/> {{ card.card_type }} xxxx {{ card.digits }}, {{ entry_cc_expire_date }}  {{ card.expire_month }} / {{ card.expire_year }}</p>
-            
            {% set i = i + 1 %}
           {% endfor %}
           <p><input type="radio" name="cc_choice" value="new" class="stored_card"/>{{ text_card_new }}</p>
