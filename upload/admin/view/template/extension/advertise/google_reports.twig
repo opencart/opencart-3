@@ -2,33 +2,33 @@
 <div class="table-responsive">
   <table class="table table-bordered table-hover">
     <thead>
-        <tr>
-          <th class="text-left">{{ text_report_campaign_name }}</th>
-          <th class="text-center">{{ text_report_status }}</th>
-          <th class="text-center">{{ text_report_impressions }}</th>
-          <th class="text-center">{{ text_report_clicks }}</th>
-          <th class="text-center">{{ text_report_cost }}</th>
-          <th class="text-center">{{ text_report_conversions }}</th>
-          <th class="text-center">{{ text_report_conversion_value }}</th>
-        </tr>
+      <tr>
+        <th class="text-left">{{ text_report_campaign_name }}</th>
+        <th class="text-center">{{ text_report_status }}</th>
+        <th class="text-center">{{ text_report_impressions }}</th>
+        <th class="text-center">{{ text_report_clicks }}</th>
+        <th class="text-center">{{ text_report_cost }}</th>
+        <th class="text-center">{{ text_report_conversions }}</th>
+        <th class="text-center">{{ text_report_conversion_value }}</th>
+      </tr>
     </thead>
     <tbody>
       {% for campaign in advertise_google_report_campaigns %}
-          <tr>
-            <td class="text-left">{{ campaign.campaign_name }}</td>
-            <td class="text-center">
-              {% if campaign.status == 'paused' %}
-              <span class="label label-warning">{{ text_label_paused }}</span>
-              {% elseif campaign.status == 'active' %}
-              <span class="label label-success">{{ text_label_active }}</span>
-              {% endif %}
-            </td>
-            <td class="text-center">{{ campaign.impressions }}</td>
-            <td class="text-center">{{ campaign.clicks }}</td>
-            <td class="text-center">{{ campaign.cost }}</td>
-            <td class="text-center">{{ campaign.conversions }}</td>
-            <td class="text-center">{{ campaign.conversion_value }}</td>
-          </tr>
+        <tr>
+          <td class="text-left">{{ campaign.campaign_name }}</td>
+          <td class="text-center">
+            {% if campaign.status == 'paused' %}
+            <span class="label label-warning">{{ text_label_paused }}</span>
+            {% elseif campaign.status == 'active' %}
+            <span class="label label-success">{{ text_label_active }}</span>
+            {% endif %}
+          </td>
+          <td class="text-center">{{ campaign.impressions }}</td>
+          <td class="text-center">{{ campaign.clicks }}</td>
+          <td class="text-center">{{ campaign.cost }}</td>
+          <td class="text-center">{{ campaign.conversions }}</td>
+          <td class="text-center">{{ campaign.conversion_value }}</td>
+        </tr>
       {% endfor %}
     </tbody>
   </table>

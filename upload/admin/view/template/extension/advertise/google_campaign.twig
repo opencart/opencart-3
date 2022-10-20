@@ -42,7 +42,8 @@
                   {{ text_panel_heading_campaign_2 }}
                 {% else %}
                   {{ text_panel_heading_campaign }}
-                {% endif %}</span>
+                {% endif %}
+              </span>
             </h3>
           </div>
           <div class="panel-body">
@@ -283,17 +284,14 @@
                 <div class="alert alert-info"><i class="fa fa-info-circle"></i> {{ help_feed }}</div>
                 <div id="feeds">{feeds}</div>
                 <div>
-                  <button id="button-feed-add" class="btn btn-success"><i class="fa fa-plus"></i> {{ button_add_feed }}
-                  </button>
+                  <button id="button-feed-add" class="btn btn-success"><i class="fa fa-plus"></i> {{ button_add_feed }}</button>
                 </div>
               </div>
             </div>
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-default" data-dismiss="modal">
-              <i class="fa fa-close"></i> {{ button_close }}</button>
-            <button type="button" class="btn btn-primary" id="button-target-save" data-text="{{ button_save }}" data-loading="{{ text_loading_please_wait }}" data-url="{url}">
-              <i class="fa fa-save"></i> {{ button_save }}</button>
+            <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-close"></i> {{ button_close }}</button>
+            <button type="button" class="btn btn-primary" id="button-target-save" data-text="{{ button_save }}" data-loading="{{ text_loading_please_wait }}" data-url="{url}"><i class="fa fa-save"></i> {{ button_save }}</button>
           </div>
         </div>
       </div>
@@ -315,15 +313,12 @@
           </select>
         </div>
       </div>
-      <button class="button-feed-delete btn btn-default" data-toggle="tooltip" title="{{ button_delete }}">
-        <i class="fa fa-trash"></i></button>
+      <button class="button-feed-delete btn btn-default" data-toggle="tooltip" title="{{ button_delete }}"><i class="fa fa-trash"></i></button>
     </div>
   </script>
   <script type="text/template" id="template-alert">
     <div class="alert alert-{type} alert-dismissible" role="alert">
-      <button type="button" class="close" data-dismiss="alert" aria-label="{{ text_close }}">
-        <span aria-hidden="true"><i class="fa fa-close"></i></span></button>
-      <i class="fa fa-{icon}" aria-hidden="true"></i>&nbsp;{message}
+      <button type="button" class="close" data-dismiss="alert" aria-label="{{ text_close }}"><span aria-hidden="true"><i class="fa fa-close"></i></span></button><i class="fa fa-{icon}" aria-hidden="true"></i>&nbsp;{message}
     </div>
   </script>
   <script type="text/javascript"><!--
@@ -447,9 +442,11 @@
 
           var makeListElementFeedsHtml = function (feeds) {
               html = '<ul>';
+              
               $(feeds).each(function (index, feed) {
                   html += '<li>' + feed.text + '</li>';
               });
+              
               html += '</ul>';
 
               return html;
@@ -519,14 +516,13 @@
 
                   // Select the current country
                   $(selector.target.country).val($(selector.target.country).attr('data-value')).trigger('change');
-
                   $(selector.target.status).val($(selector.target.status).attr('data-value')).trigger('change');
-
+                  
                   $(selector.target.budget).trigger('change');
-
+                  
                   $(selector.target.roas).attr('disabled', !modalData.roas_status);
                   $(selector.target.roas).attr('data-original-disabled', !modalData.roas_status ? '1' : '0');
-
+                  
                   $(selector.target.warning_roas).toggle(!modalData.roas_status);
               });
 
@@ -704,9 +700,11 @@
                               .attr('disabled', false);
 
                           $(selector.target.modal).find('input,select').attr('disabled', false);
+                          
                           $(selector.target.modal).find('[data-original-disabled]').each(function (index, element) {
                               $(element).attr('disabled', $(element).attr('data-original-disabled') == '1');
                           });
+                          
                           $(selector.target.modal).find(selector.feed.add).attr('disabled', false);
                           $(selector.target.modal).find(selector.feed.delete).attr('disabled', false);
                       },

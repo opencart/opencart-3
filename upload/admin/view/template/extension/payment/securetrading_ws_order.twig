@@ -84,165 +84,161 @@
   </tr>
 </table>
 <script type="text/javascript"><!--
-	$('#btn_void').click(function () {
-		if (confirm('{{ text_confirm_void }}')) {
-			$.ajax({
-				url: 'index.php?route=extension/payment/securetrading_ws/void&user_token={{ user_token }}',
-				type: 'post',
-				dataType: 'json',
-				data: {'order_id': {{ order_id }} },
-				beforeSend: function () {
-					$('#btn_void').hide();
-     
-					$('#img_loading_void').show();
-     
-					$('#securetrading_ws_transaction_msg').hide();
-				},
-				success: function (data) {
-					if (data.error == false) {
-						html = '';
-						html += '<tr>';
-              html += '<td class="text-left">' + data.data.created + '</td>';
-              html += '<td class="text-left">{{ text_reversed }}</td>';
-              html += '<td class="text-left">0.00</td>';
-						html += '</tr>';
-						
-						$('.void_text').text('{{ text_yes }}');
+    $('#btn_void').click(function () {
+        if (confirm('{{ text_confirm_void }}')) {
+            $.ajax({
+                url: 'index.php?route=extension/payment/securetrading_ws/void&user_token={{ user_token }}',
+                type: 'post',
+                dataType: 'json',
+                data: {'order_id': {{ order_id }} },
+                beforeSend: function () {
+                    $('#btn_void').hide();
+                    $('#securetrading_ws_transaction_msg').hide();
+  
+                    $('#img_loading_void').show();
+                },
+                success: function (data) {
+                    if (data.error == false) {
+                        html = '';
+                        html += '<tr>';
+                          html += '<td class="text-left">' + data.data.created + '</td>';
+                          html += '<td class="text-left">{{ text_reversed }}</td>';
+                          html += '<td class="text-left">0.00</td>';
+                        html += '</tr>';
+                        
+                        $('.void_text').text('{{ text_yes }}');
+                  
+                        $('#securetrading_ws_transactions').append(html);
+                  
+                        $('#btn_release').hide();
+                        $('#release_amount').hide();
+                        
+                        if (data.msg != '') {
+                            $('#securetrading_ws_transaction_msg').empty().html(data.msg).fadeIn();
+                        }
+                    }
+                    
+                    if (data.error == true) {
+                        alert(data.msg);
+                  
+                        $('#btn_void').show();
+                    }
+                    
+                    $('#img_loading_void').hide();
+                }
+            });
+        }
+    });
+    
+    $('#btn_release').click(function () {
+        if (confirm('{{ text_confirm_release }}')) {
+            $.ajax({
+                url: 'index.php?route=extension/payment/securetrading_ws/release&user_token={{ user_token }}',
+                type: 'post',
+                dataType: 'json',
+                data: {'order_id': {{ order_id }}, 'amount': $('#release_amount').val()},
+                beforeSend: function () {
+                    $('#btn_release').hide();
+                    $('#release_amount').hide();
+                    $('#securetrading_ws_transaction_msg').hide();
+               
+                    $('#img_loading_release').show();
+                },
+                success: function (data) {
+                    if (data.error == false) {
+                        html = '';
+                        html += '<tr>';
+                          html += '<td class="text-left">' + data.data.created + '</td>';
+                          html += '<td class="text-left">{{ text_payment }}</td>';
+                          html += '<td class="text-left">' + data.data.amount + '</td>';
+                        html += '</tr>';
+                        
+                        $('#securetrading_ws_transactions').append(html);
+                        $('#securetrading_ws_total_released').text(data.data.total);
+                        
+                        if (data.data.release_status == 1) {
+                            $('#btn_void').hide();
+                     
+                            $('.release_text').text('{{ text_yes }}');
+                        } else {
+                            $('#btn_release').show();
+                     
+                            $('#release_amount').val(0.00);
+                            
+                            {% if auto_settle == 2 %}
+                                $('#release_amount').show();
+                            {% endif %}
+                        }
+                        
+                        if (data.msg != '') {
+                            $('#securetrading_ws_transaction_msg').empty().html(data.msg).fadeIn();
+                        }
+                        
+                        $('#btn_rebate').show();
+                        $('#rebate_amount').val(0.00).show();
+                    }
+                    
+                    if (data.error == true) {
+                        alert(data.msg);
+                        
+                        $('#btn_release').show();
+                        $('#release_amount').show();
+                    }
+                  
+                    $('#img_loading_release').hide();
+                }
+            });
+        }
+    });
       
-						$('#securetrading_ws_transactions').append(html);
-      
-						$('#btn_release').hide();
-      
-						$('#release_amount').hide();
-						
-						if (data.msg != '') {
-							$('#securetrading_ws_transaction_msg').empty().html(data.msg).fadeIn();
-						}
-					}
-					if (data.error == true) {
-						alert(data.msg);
-      
-						$('#btn_void').show();
-					}
-					
-					$('#img_loading_void').hide();
-				}
-			});
-		}
-	});
-	
-	$('#btn_release').click(function () {
-		if (confirm('{{ text_confirm_release }}')) {
-			$.ajax({
-				url: 'index.php?route=extension/payment/securetrading_ws/release&user_token={{ user_token }}',
-				type: 'post',
-				dataType: 'json',
-				data: {'order_id': {{ order_id }}, 'amount': $('#release_amount').val()},
-				beforeSend: function () {
-					$('#btn_release').hide();
-     
-					$('#release_amount').hide();
-     
-					$('#img_loading_release').show();
-     
-					$('#securetrading_ws_transaction_msg').hide();
-				},
-				success: function (data) {
-					if (data.error == false) {
-						html = '';
-						html += '<tr>';
-              html += '<td class="text-left">' + data.data.created + '</td>';
-              html += '<td class="text-left">{{ text_payment }}</td>';
-              html += '<td class="text-left">' + data.data.amount + '</td>';
-						html += '</tr>';
-						
-						$('#securetrading_ws_transactions').append(html);
-						$('#securetrading_ws_total_released').text(data.data.total);
-						
-						if (data.data.release_status == 1) {
-							$('#btn_void').hide();
-       
-							$('.release_text').text('{{ text_yes }}');
-						} else {
-							$('#btn_release').show();
-       
-							$('#release_amount').val(0.00);
-							
-							{% if auto_settle == 2 %}
-							  $('#release_amount').show();
-							{% endif %}
-						}
-						
-						if (data.msg != '') {
-							$('#securetrading_ws_transaction_msg').empty().html(data.msg).fadeIn();
-						}
-						
-						$('#btn_rebate').show();
-      
-						$('#rebate_amount').val(0.00).show();
-					}
-					if (data.error == true) {
-						alert(data.msg);
-						$('#btn_release').show();
-      
-						$('#release_amount').show();
-					}
-					
-					$('#img_loading_release').hide();
-				}
-			});
-		}
-	});
-	
-	$('#btn_rebate').click(function () {
-		if (confirm('{{ text_confirm_rebate }}')) {
-			$.ajax({
-				url: 'index.php?route=extension/payment/securetrading_ws/rebate&user_token={{ user_token }}',
-				type: 'post',
-				dataType: 'json',
-				data: {'order_id': {{ order_id }}, 'amount': $('#rebate_amount').val()},
-				beforeSend: function () {
-					$('#btn_rebate').hide();
-     
-					$('#rebate_amount').hide();
-     
-					$('#img_loading_rebate').show();
-     
-					$('#securetrading_ws_transaction_msg').hide();
-				},
-				success: function (data) {
-					if (data.error == false) {
-						html = '';
-						html += '<tr>';
-              html += '<td class="text-left">' + data.data.created + '</td>';
-              html += '<td class="text-left">{{ text_rebate }}</td>';
-              html += '<td class="text-left">' + data.data.amount + '</td>';
-						html += '</tr>';
-						
-						$('#securetrading_ws_transactions').append(html);
-      
-						$('#securetrading_ws_total_released').text(data.data.total_released);
-						
-						if (data.data.rebate_status == 1) {
-							$('.rebate_text').text('{{ text_yes }}');
-						} else {
-							$('#btn_rebate').show();
-							$('#rebate_amount').val(0.00).show();
-						}
-						
-						if (data.msg != '') {
-							$('#securetrading_ws_transaction_msg').empty().html(data.msg).fadeIn();
-						}
-					}
-					if (data.error == true) {
-						alert(data.msg);
-      
-						$('#btn_rebate').show();
-					}
-					
-					$('#img_loading_rebate').hide();
-				}
-			});
-		}
-	});
+    $('#btn_rebate').click(function () {
+        if (confirm('{{ text_confirm_rebate }}')) {
+            $.ajax({
+              url: 'index.php?route=extension/payment/securetrading_ws/rebate&user_token={{ user_token }}',
+              type: 'post',
+              dataType: 'json',
+              data: {'order_id': {{ order_id }}, 'amount': $('#rebate_amount').val()},
+              beforeSend: function () {
+                  $('#btn_rebate').hide();
+                  $('#rebate_amount').hide();
+                  $('#securetrading_ws_transaction_msg').hide();
+           
+                  $('#img_loading_rebate').show();
+              },
+              success: function (data) {
+                  if (data.error == false) {
+                      html = '';
+                      html += '<tr>';
+                          html += '<td class="text-left">' + data.data.created + '</td>';
+                          html += '<td class="text-left">{{ text_rebate }}</td>';
+                          html += '<td class="text-left">' + data.data.amount + '</td>';
+                      html += '</tr>';
+                
+                      $('#securetrading_ws_transactions').append(html);
+          
+                      $('#securetrading_ws_total_released').text(data.data.total_released);
+                
+                      if (data.data.rebate_status == 1) {
+                          $('.rebate_text').text('{{ text_yes }}');
+                      } else {
+                          $('#btn_rebate').show();
+                          $('#rebate_amount').val(0.00).show();
+                      }
+                
+                      if (data.msg != '') {
+                          $('#securetrading_ws_transaction_msg').empty().html(data.msg).fadeIn();
+                      }
+                  }
+           
+                  if (data.error == true) {
+                      alert(data.msg);
+          
+                      $('#btn_rebate').show();
+                  }
+              
+                  $('#img_loading_rebate').hide();
+              }
+          });
+      }
+  });
 //--></script>

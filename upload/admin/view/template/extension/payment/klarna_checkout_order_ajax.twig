@@ -567,155 +567,157 @@
 	</div>
 {% endfor %}
 <script type="text/javascript"><!--
-	$(document).off('click', '.button-command').on('click', '.button-command', function () {
-		var type = $(this).attr('data-type');
-		var id = $(this).attr('data-id');
-		var modal = $(this).attr('data-modal');
-		var confirm_text = '';
-		var clicked_button = $(this);
-		var data = {};
-		
-		if (type === 'cancel') {
-			confirm_text = '{{ text_confirm_cancel }}';
-		} else if (type === 'capture') {
-			data = $('#input-capture-amount').val();
-			
-			{% if symbol_left %}
-			  confirm_text = '{{ text_confirm_capture }} ' + '{{ symbol_left }}' + $('#input-capture-amount').val();
-			{% elseif symbol_right %}
-			  confirm_text = '{{ text_confirm_capture }} ' + $('#input-capture-amount').val() + '{{ symbol_right }}';
-			{% endif %}
-		} else if (type === 'refund') {
-			data = $('#input-refund-amount').val();
-			
-			{% if symbol_left %}
-			  confirm_text = '{{ text_confirm_refund }} ' + '{{ symbol_left }}' + $('#input-refund-amount').val();
-			{% elseif symbol_right %}
-			  confirm_text = '{{ text_confirm_refund }} ' + $('#input-refund-amount').val() + '{{ symbol_right }}';
-			{% endif %}
-		} else if (type === 'extend_authorization') {
-			confirm_text = '{{ text_confirm_extend_authorization }}';
-		} else if (type === 'merchant_reference') {
-			data = $('input[name=\'merchant_reference_1\']').serialize();
-			
-			confirm_text = '{{ text_confirm_merchant_reference }}';
-		} else if (type === 'billing_address') {
-			data = $('#billing_address :input').serialize();
-			
-			confirm_text = '{{ text_confirm_billing_address }}';
-		} else if (type === 'shipping_address') {
-			data = $('#shipping_address :input').serialize();
-			
-			confirm_text = '{{ text_confirm_shipping_address }}';
-		} else if (type === 'release_authorization') {
-			confirm_text = '{{ text_confirm_release_authorization }}';
-		} else if (type === 'capture_shipping_info') {
-			data = $('#capture-shipping-info-' + id + ' :input').serialize();
-			
-			confirm_text = '{{ text_confirm_shipping_info }}';
-		} else if (type === 'capture_billing_address') {
-			data = $('#capture-billing-address-' + id + ' :input').serialize();
-			
-			confirm_text = '{{ text_confirm_billing_address }}';
-		} else if (type === 'trigger_send_out') {
-			confirm_text = '{{ text_confirm_trigger_send_out }}';
-		} else {
-			return;
-		}
-		
-		if (confirm(confirm_text)) {
-			$.ajax({
-				url: 'index.php?route=extension/payment/klarna_checkout/transactionCommand&user_token={{ user_token }}&order_id={{ order_id }}',
-				type: 'post',
-				data: {
-					type: type,
-					id: id,
-					order_ref: '{{ order_ref }}',
-					data: data
-				},
-				dataType: 'json',
-				beforeSend: function () {
-					clicked_button.button('loading');
-					
-					$('.kc-alert').hide();
-					$('.kc-alert').removeClass('alert alert-success alert-danger');
-				},
-				complete: function () {
-					clicked_button.button('reset');
-					
-					$(modal).modal('hide');
-				},
-				success: function (json) {
-					if (json.error) {
-						$('.kc-alert').show().addClass('alert alert-danger').html('<i class="fa fa-check-circle"></i> ' + json.error);
-					}
-					
-					if (json.success) {
-						$('.kc-alert').show().addClass('alert alert-success').html('<i class="fa fa-exclamation-circle"></i> ' + json.success);
-					}
-					
-					if (json.order_status_id) {
-						$.ajax({
-							url: '{{ catalog }}index.php?route=api/order/history&api_token={{ api_token }}&order_id={{ order_id }}',
-							type: 'post',
-							dataType: 'json',
-							data: 'order_status_id=' + encodeURIComponent(json.order_status_id) + '&notify=0&override=1&comment',
-							beforeSend: function () {
-								$('#button-history').button('loading');
-							},
-							complete: function () {
-								$('#button-history').button('reset');
-							},
-							success: function (json) {
-								$('.alert-dismissible').remove();
-								
-								if (json['error']) {
-									$('#history').before('<div class="alert alert-danger alert-dismissible"><i class="fa fa-exclamation-circle"></i> ' + json['error'] + ' <button type="button" class="close" data-dismiss="alert">&times;</button></div>');
-								}
-								
-								if (json['success']) {
-									$('#history').load('index.php?route=sale/order/history&user_token={{ user_token }}&order_id={{ order_id }}');
-									$('#history').before('<div class="alert alert-success alert-dismissible"><i class="fa fa-check-circle"></i> ' + json['success'] + ' <button type="button" class="close" data-dismiss="alert">&times;</button></div>');
-									
-									$('textarea[name=\'comment\']').val('');
-								}
-							},
-							error: function (xhr, ajaxOptions, thrownError) {
-								alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
-							}
-						});
-					}
-					
-					setTimeout(function () {
-						getTransaction('{{ order_id }}');
-					}, 300);
-				}
-			});
-		}
-	});
-	
-	var shipping_info_row = 0;
-	
-	function addShippingInfo(id) {
-		$(id + ' .shipping-info-data tbody tr:nth-child(1)').append('<td><div class="col-sm-12"><input class="form-control" type="text" name="shipping_info[' + shipping_info_row + '][shipping_company]" value="" data-id="' + shipping_info_row + '" placeholder="{{ entry_shipping_company }}"/></div></td>');
-		
-		html = '  <td><div class="col-sm-12"><select name="shipping_info[' + shipping_info_row + '][shipping_method]" class="form-control">';
-		{% for shipping_method in allowed_shipping_methods %}
-		  html += '    <option value="{{ shipping_method }}">{{ shipping_method|escape('js') }}</option>';
-		{% endfor %}
-		html += '  </select></div></td>';
-		
-		$(id + ' .shipping-info-data tbody tr:nth-child(2)').append(html);
-		$(id + ' .shipping-info-data tbody tr:nth-child(3)').append('<td><div class="col-sm-12"><input class="form-control" type="text" name="shipping_info[' + shipping_info_row + '][tracking_number]" value="" data-id="' + shipping_info_row + '" placeholder="{{ entry_tracking_number }}"/></div></td>');
-		$(id + ' .shipping-info-data tbody tr:nth-child(4)').append('<td><div class="col-sm-12"><input class="form-control" type="text" name="shipping_info[' + shipping_info_row + '][tracking_uri]" value="" data-id="' + shipping_info_row + '" placeholder="{{ entry_tracking_uri }}"/></div></td>');
-		$(id + ' .shipping-info-data tbody tr:nth-child(5)').append('<td><div class="col-sm-12"><input class="form-control" type="text" name="shipping_info[' + shipping_info_row + '][return_shipping_company]" value="" data-id="' + shipping_info_row + '" placeholder="{{ entry_return_shipping_company }}"/></div></td>');
-		$(id + ' .shipping-info-data tbody tr:nth-child(6)').append('<td><div class="col-sm-12"><input class="form-control" type="text" name="shipping_info[' + shipping_info_row + '][return_tracking_number]" value="" data-id="' + shipping_info_row + '" placeholder="{{ entry_return_tracking_number }}"/></div></td>');
-		$(id + ' .shipping-info-data tbody tr:nth-child(7)').append('<td><div class="col-sm-12"><input class="form-control" type="text" name="shipping_info[' + shipping_info_row + '][return_tracking_uri]" value="" data-id="' + shipping_info_row + '" placeholder="{{ entry_return_tracking_uri }}"/></div></td>');
-		
-		var colspan = $(id + ' .shipping-info-data tfoot tr td:nth-child(1)').attr('colspan');
-  
-		$(id + ' .shipping-info-data tfoot tr td:nth-child(1)').attr('colspan', colspan + 1);
-		
-		shipping_info_row++;
-	}
+    $(document).off('click', '.button-command').on('click', '.button-command', function () {
+        var type = $(this).attr('data-type');
+        var id = $(this).attr('data-id');
+        var modal = $(this).attr('data-modal');
+        var confirm_text = '';
+        var clicked_button = $(this);
+        var data = {};
+        
+        if (type === 'cancel') {
+            confirm_text = '{{ text_confirm_cancel }}';
+        } else if (type === 'capture') {
+            data = $('#input-capture-amount').val();
+          
+          {% if symbol_left %}
+              confirm_text = '{{ text_confirm_capture }} ' + '{{ symbol_left }}' + $('#input-capture-amount').val();
+          {% elseif symbol_right %}
+              confirm_text = '{{ text_confirm_capture }} ' + $('#input-capture-amount').val() + '{{ symbol_right }}';
+          {% endif %}
+        } else if (type === 'refund') {
+            data = $('#input-refund-amount').val();
+          
+            {% if symbol_left %}
+                confirm_text = '{{ text_confirm_refund }} ' + '{{ symbol_left }}' + $('#input-refund-amount').val();
+            {% elseif symbol_right %}
+                confirm_text = '{{ text_confirm_refund }} ' + $('#input-refund-amount').val() + '{{ symbol_right }}';
+            {% endif %}
+        } else if (type === 'extend_authorization') {
+            confirm_text = '{{ text_confirm_extend_authorization }}';
+        } else if (type === 'merchant_reference') {
+            data = $('input[name=\'merchant_reference_1\']').serialize();
+          
+            confirm_text = '{{ text_confirm_merchant_reference }}';
+        } else if (type === 'billing_address') {
+            data = $('#billing_address :input').serialize();
+          
+            confirm_text = '{{ text_confirm_billing_address }}';
+        } else if (type === 'shipping_address') {
+            data = $('#shipping_address :input').serialize();
+          
+            confirm_text = '{{ text_confirm_shipping_address }}';
+        } else if (type === 'release_authorization') {
+            confirm_text = '{{ text_confirm_release_authorization }}';
+        } else if (type === 'capture_shipping_info') {
+            data = $('#capture-shipping-info-' + id + ' :input').serialize();
+          
+            confirm_text = '{{ text_confirm_shipping_info }}';
+        } else if (type === 'capture_billing_address') {
+            data = $('#capture-billing-address-' + id + ' :input').serialize();
+          
+            confirm_text = '{{ text_confirm_billing_address }}';
+        } else if (type === 'trigger_send_out') {
+            confirm_text = '{{ text_confirm_trigger_send_out }}';
+        } else {
+            return;
+        }
+        
+        if (confirm(confirm_text)) {
+            $.ajax({
+                url: 'index.php?route=extension/payment/klarna_checkout/transactionCommand&user_token={{ user_token }}&order_id={{ order_id }}',
+                type: 'post',
+                data: {
+                    type: type,
+                    id: id,
+                    order_ref: '{{ order_ref }}',
+                    data: data
+                },
+                dataType: 'json',
+                beforeSend: function () {
+                    clicked_button.button('loading');
+                    
+                    $('.kc-alert').hide();
+                    $('.kc-alert').removeClass('alert alert-success alert-danger');
+                },
+                complete: function () {
+                    clicked_button.button('reset');
+                    
+                    $(modal).modal('hide');
+                },
+                success: function (json) {
+                  if (json.error) {
+                      $('.kc-alert').show().addClass('alert alert-danger').html('<i class="fa fa-check-circle"></i> ' + json.error);
+                  }
+                  
+                  if (json.success) {
+                    $('.kc-alert').show().addClass('alert alert-success').html('<i class="fa fa-exclamation-circle"></i> ' + json.success);
+                  }
+                  
+                  if (json.order_status_id) {
+                      $.ajax({
+                          url: '{{ catalog }}index.php?route=api/order/history&api_token={{ api_token }}&order_id={{ order_id }}',
+                          type: 'post',
+                          dataType: 'json',
+                          data: 'order_status_id=' + encodeURIComponent(json.order_status_id) + '&notify=0&override=1&comment',
+                          beforeSend: function () {
+                              $('#button-history').button('loading');
+                          },
+                          complete: function () {
+                              $('#button-history').button('reset');
+                          },
+                          success: function (json) {
+                              $('.alert-dismissible').remove();
+                              
+                              if (json['error']) {
+                                $('#history').before('<div class="alert alert-danger alert-dismissible"><i class="fa fa-exclamation-circle"></i> ' + json['error'] + ' <button type="button" class="close" data-dismiss="alert">&times;</button></div>');
+                              }
+                              
+                              if (json['success']) {
+                                $('#history').load('index.php?route=sale/order/history&user_token={{ user_token }}&order_id={{ order_id }}');
+                                $('#history').before('<div class="alert alert-success alert-dismissible"><i class="fa fa-check-circle"></i> ' + json['success'] + ' <button type="button" class="close" data-dismiss="alert">&times;</button></div>');
+                                
+                                $('textarea[name=\'comment\']').val('');
+                              }
+                          },
+                          error: function (xhr, ajaxOptions, thrownError) {
+                              alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
+                          }
+                      });
+                  }
+                  
+                  setTimeout(function () {
+                      getTransaction('{{ order_id }}');
+                  }, 300);
+                }
+            });
+        }
+    });
+    
+    var shipping_info_row = 0;
+    
+    function addShippingInfo(id) {
+        $(id + ' .shipping-info-data tbody tr:nth-child(1)').append('<td><div class="col-sm-12"><input class="form-control" type="text" name="shipping_info[' + shipping_info_row + '][shipping_company]" value="" data-id="' + shipping_info_row + '" placeholder="{{ entry_shipping_company }}"/></div></td>');
+        
+        html = '  <td><div class="col-sm-12"><select name="shipping_info[' + shipping_info_row + '][shipping_method]" class="form-control">';
+        
+        {% for shipping_method in allowed_shipping_methods %}
+            html += '    <option value="{{ shipping_method }}">{{ shipping_method|escape('js') }}</option>';
+        {% endfor %}
+        
+        html += '  </select></div></td>';
+        
+        $(id + ' .shipping-info-data tbody tr:nth-child(2)').append(html);
+        $(id + ' .shipping-info-data tbody tr:nth-child(3)').append('<td><div class="col-sm-12"><input class="form-control" type="text" name="shipping_info[' + shipping_info_row + '][tracking_number]" value="" data-id="' + shipping_info_row + '" placeholder="{{ entry_tracking_number }}"/></div></td>');
+        $(id + ' .shipping-info-data tbody tr:nth-child(4)').append('<td><div class="col-sm-12"><input class="form-control" type="text" name="shipping_info[' + shipping_info_row + '][tracking_uri]" value="" data-id="' + shipping_info_row + '" placeholder="{{ entry_tracking_uri }}"/></div></td>');
+        $(id + ' .shipping-info-data tbody tr:nth-child(5)').append('<td><div class="col-sm-12"><input class="form-control" type="text" name="shipping_info[' + shipping_info_row + '][return_shipping_company]" value="" data-id="' + shipping_info_row + '" placeholder="{{ entry_return_shipping_company }}"/></div></td>');
+        $(id + ' .shipping-info-data tbody tr:nth-child(6)').append('<td><div class="col-sm-12"><input class="form-control" type="text" name="shipping_info[' + shipping_info_row + '][return_tracking_number]" value="" data-id="' + shipping_info_row + '" placeholder="{{ entry_return_tracking_number }}"/></div></td>');
+        $(id + ' .shipping-info-data tbody tr:nth-child(7)').append('<td><div class="col-sm-12"><input class="form-control" type="text" name="shipping_info[' + shipping_info_row + '][return_tracking_uri]" value="" data-id="' + shipping_info_row + '" placeholder="{{ entry_return_tracking_uri }}"/></div></td>');
+        
+        var colspan = $(id + ' .shipping-info-data tfoot tr td:nth-child(1)').attr('colspan');
+      
+        $(id + ' .shipping-info-data tfoot tr td:nth-child(1)').attr('colspan', colspan + 1);
+        
+        shipping_info_row++;
+    }
 //--></script>

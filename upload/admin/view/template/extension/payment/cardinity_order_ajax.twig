@@ -69,46 +69,45 @@
       var confirm_text = '';
       
       {% if symbol_left %}
-        confirm_text = '{{ text_confirm_refund }} ' + '{{ symbol_left }}' + $('#refund-amount').val();
+          confirm_text = '{{ text_confirm_refund }} ' + '{{ symbol_left }}' + $('#refund-amount').val();
       {% elseif symbol_right %}
-        confirm_text = '{{ text_confirm_refund }} ' + $('#refund-amount').val() + '{{ symbol_right }}';
+          confirm_text = '{{ text_confirm_refund }} ' + $('#refund-amount').val() + '{{ symbol_right }}';
       {% endif %}
 
       if (confirm(confirm_text)) {
-        $.ajax({
-          url: 'index.php?route=extension/payment/cardinity/refund&user_token={{ user_token }}',
-          type: 'post',
-          data: {
-            payment_id: '{{ payment_id }}',
-            amount: $('#refund-amount').val(),
-            description: $('#refund-description').val()
-          },
-          dataType: 'json',
-          beforeSend: function () {
-            $('#button-settle').button('loading');
-
-            $('.alert').hide();
-
-            $('.alert').removeClass('alert-success alert-danger');
-          },
-          complete: function () {
-            $('#button-settle').button('reset');
-          },
-          success: function (json) {
-            if (json.error) {
-              $('.alert').show();
-              $('.alert').addClass('alert-danger');
-              $('.alert').html('<i class="fa fa-check-circle"></i> ' + json.error);
+          $.ajax({
+            url: 'index.php?route=extension/payment/cardinity/refund&user_token={{ user_token }}',
+            type: 'post',
+            data: {
+                payment_id: '{{ payment_id }}',
+                amount: $('#refund-amount').val(),
+                description: $('#refund-description').val()
+            },
+            dataType: 'json',
+            beforeSend: function () {
+                $('#button-settle').button('loading');
+    
+                $('.alert').hide();
+                $('.alert').removeClass('alert-success alert-danger');
+            },
+            complete: function () {
+                $('#button-settle').button('reset');
+            },
+            success: function (json) {
+                if (json.error) {
+                    $('.alert').show();
+                    $('.alert').addClass('alert-danger');
+                    $('.alert').html('<i class="fa fa-check-circle"></i> ' + json.error);
+                }
+    
+                if (json.success) {
+                    $('.alert').show();
+                    $('.alert').addClass('alert-success');
+                    $('.alert').html('<i class="fa fa-exclamation-circle"></i> ' + json.success);
+                }
+    
+                getPayment('{{ payment_id }}');
             }
-
-            if (json.success) {
-              $('.alert').show();
-              $('.alert').addClass('alert-success');
-              $('.alert').html('<i class="fa fa-exclamation-circle"></i> ' + json.success);
-            }
-
-            getPayment('{{ payment_id }}');
-          }
         });
       }
   });

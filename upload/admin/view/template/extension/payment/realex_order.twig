@@ -82,160 +82,158 @@
   </tr>
 </table>
 <script type="text/javascript"><!--
-  $('#button-void').click(function () {
-    if (confirm('{{ text_confirm_void }}')) {
-      $.ajax({
-        url: 'index.php?route=extension/payment/realex/void&user_token={{ user_token }}',
-        type: 'post',
-        dataType: 'json',
-        data: {'order_id': '{{ order_id }}'},
-        beforeSend: function () {
-          $('#button-void').hide();
-          
-          $('#loading-void').show();
-          
-          $('#realex-transaction-msg').hide();
-        },
-        success: function (data) {
-          if (data.error == false) {
-            html = '';
-            html += '<tr>';
-              html += '<td class="text-left">' + data.data.date_added + '</td>';
-              html += '<td class="text-left">{{ text_void }}</td>';
-              html += '<td class="text-left">0.00</td>';
-            html += '</tr>';
-            
-            $('.void_text').text('{{ text_yes }}');
-            
-            $('#realex-transactions').append(html);
-            
-            $('#button-capture').hide();
-            
-            $('#capture-amount').hide();
-            
-            if (data.msg != '') {
-              $('#realex-transaction-msg').empty().html('<i class="fa fa-check-circle"></i> ' + data.msg).fadeIn();
-            }
-          }
-          if (data.error == true) {
-            alert(data.msg);
-            $('#button-void').show();
-          }
-          
-          $('#loading-void').hide();
+    $('#button-void').click(function () {
+        if (confirm('{{ text_confirm_void }}')) {
+            $.ajax({
+                url: 'index.php?route=extension/payment/realex/void&user_token={{ user_token }}',
+                type: 'post',
+                dataType: 'json',
+                data: {'order_id': '{{ order_id }}'},
+                beforeSend: function () {
+                    $('#button-void').hide();
+                    $('#loading-void').show();
+                    
+                    $('#realex-transaction-msg').hide();
+                },
+                success: function (data) {
+                    if (data.error == false) {
+                        html = '';
+                        html += '<tr>';
+                          html += '<td class="text-left">' + data.data.date_added + '</td>';
+                          html += '<td class="text-left">{{ text_void }}</td>';
+                          html += '<td class="text-left">0.00</td>';
+                        html += '</tr>';
+                        
+                        $('.void_text').text('{{ text_yes }}');
+                        
+                        $('#realex-transactions').append(html);
+                        
+                        $('#button-capture').hide();
+                        $('#capture-amount').hide();
+                        
+                        if (data.msg != '') {
+                          $('#realex-transaction-msg').empty().html('<i class="fa fa-check-circle"></i> ' + data.msg).fadeIn();
+                        }
+                    }
+                    
+                    if (data.error == true) {
+                      alert(data.msg);
+                      $('#button-void').show();
+                    }
+                    
+                    $('#loading-void').hide();
+                }
+            });
         }
-      });
-    }
-  });
-  
-  $('#button-capture').click(function () {
-    if (confirm('{{ text_confirm_capture }}')) {
-      $.ajax({
-        url: 'index.php?route=extension/payment/realex/capture&user_token={{ user_token }}',
-        type: 'post',
-        dataType: 'json',
-        data: {'order_id': '{{ order_id }}', 'amount': $('#capture-amount').val()},
-        beforeSend: function () {
-          $('#button-capture').hide();
-          
-          $('#capture-amount').hide();
-          
-          $('#loading-capture').show();
-          
-          $('#realex-transaction-msg').hide();
-        },
-        success: function (data) {
-          if (data.error == false) {
-            html = '';
-            html += '<tr>';
-              html += '<td class="text-left">' + data.data.date_added + '</td>';
-              html += '<td class="text-left">{{ text_payment }}</td>';
-              html += '<td class="text-left">' + data.data.amount + '</td>';
-            html += '</tr>';
-            
-            $('#realex-transactions').append(html);
-            $('#realex-total-captured').text(data.data.total);
-            
-            if (data.data.capture_status == 1) {
-              $('#button-void').hide();
-              $('.capture-text').text('{{ text_yes }}');
-            } else {
-              $('#button-capture').show();
-              $('#capture-amount').val('0.00');
-              
-              {% if auto_settle == 2 %}
-              $('#capture-amount').show();
-              {% endif %}
-            }
-            
-            if (data.msg != '') {
-              $('#realex-transaction-msg').empty().html('<i class="fa fa-check-circle"></i> ' + data.msg).fadeIn();
-            }
-            
-            $('#button-rebate').show();
-            $('#rebate-amount').val(0.00).show();
-          }
-          if (data.error == true) {
-            alert(data.msg);
-            $('#button-capture').show();
-            $('#capture-amount').show();
-          }
-          
-          $('#loading-capture').hide();
+    });
+    
+    $('#button-capture').click(function () {
+        if (confirm('{{ text_confirm_capture }}')) {
+            $.ajax({
+                url: 'index.php?route=extension/payment/realex/capture&user_token={{ user_token }}',
+                type: 'post',
+                dataType: 'json',
+                data: {'order_id': '{{ order_id }}', 'amount': $('#capture-amount').val()},
+                beforeSend: function () {
+                    $('#button-capture').hide();
+                    $('#capture-amount').hide();
+                    $('#realex-transaction-msg').hide();
+                  
+                    $('#loading-capture').show();
+                },
+                success: function (data) {
+                    if (data.error == false) {
+                        html = '';
+                        
+                        html += '<tr>';
+                          html += '<td class="text-left">' + data.data.date_added + '</td>';
+                          html += '<td class="text-left">{{ text_payment }}</td>';
+                          html += '<td class="text-left">' + data.data.amount + '</td>';
+                        html += '</tr>';
+                        
+                        $('#realex-transactions').append(html);
+                        $('#realex-total-captured').text(data.data.total);
+                        
+                        if (data.data.capture_status == 1) {
+                            $('#button-void').hide();
+                            $('.capture-text').text('{{ text_yes }}');
+                        } else {
+                            $('#button-capture').show();
+                            $('#capture-amount').val('0.00');
+                          
+                            {% if auto_settle == 2 %}
+                              $('#capture-amount').show();
+                            {% endif %}
+                        }
+                        
+                        if (data.msg != '') {
+                            $('#realex-transaction-msg').empty().html('<i class="fa fa-check-circle"></i> ' + data.msg).fadeIn();
+                        }
+                        
+                        $('#button-rebate').show();
+                        $('#rebate-amount').val(0.00).show();
+                    }
+                    
+                    if (data.error == true) {
+                        alert(data.msg);
+                        
+                        $('#button-capture').show();
+                        $('#capture-amount').show();
+                    }
+                    
+                    $('#loading-capture').hide();
+                }
+            });
         }
-      });
-    }
-  });
-  
-  $('#button-rebate').click(function () {
-    if (confirm('{{ text_confirm_rebate }}')) {
-      $.ajax({
-        url: 'index.php?route=extension/payment/realex/rebate&user_token={{ user_token }}',
-        type: 'post',
-        dataType: 'json',
-        data: {'order_id': '{{ order_id }}', 'amount': $('#rebate-amount').val()},
-        beforeSend: function () {
-          $('#button-rebate').hide();
-          
-          $('#rebate-amount').hide();
-          
-          $('#loading-rebate').show();
-          
-          $('#realex-transaction-msg').hide();
-        },
-        success: function (data) {
-          if (data.error == false) {
-            html = '';
-            html += '<tr>';
-              html += '<td class="text-left">' + data.data.date_added + '</td>';
-              html += '<td class="text-left">{{ text_rebate }}</td>';
-              html += '<td class="text-left">' + data.data.amount + '</td>';
-            html += '</tr>';
-            
-            $('#realex-transactions').append(html);
-            
-            $('#realex-total-captured').text(data.data.total_captured);
-            
-            if (data.data.rebate_status == 1) {
-              $('.rebate_text').text('{{ text_yes }}');
-            } else {
-              $('#button-rebate').show();
-              
-              $('#rebate-amount').val(0.00).show();
-            }
-            
-            if (data.msg != '') {
-              $('#realex-transaction-msg').empty().html('<i class="fa fa-check-circle"></i> ' + data.msg).fadeIn();
-            }
-          }
-          if (data.error == true) {
-            alert(data.msg);
-            $('#button-rebate').show();
-          }
-          
-          $('#loading-rebate').hide();
+    });
+    
+    $('#button-rebate').click(function () {
+        if (confirm('{{ text_confirm_rebate }}')) {
+            $.ajax({
+                url: 'index.php?route=extension/payment/realex/rebate&user_token={{ user_token }}',
+                type: 'post',
+                dataType: 'json',
+                data: {'order_id': '{{ order_id }}', 'amount': $('#rebate-amount').val()},
+                beforeSend: function () {
+                  $('#button-rebate').hide();
+                  $('#rebate-amount').hide();
+                  $('#realex-transaction-msg').hide();
+                  
+                  $('#loading-rebate').show();
+                },
+                success: function (data) {
+                  if (data.error == false) {
+                    html = '';
+                    html += '<tr>';
+                      html += '<td class="text-left">' + data.data.date_added + '</td>';
+                      html += '<td class="text-left">{{ text_rebate }}</td>';
+                      html += '<td class="text-left">' + data.data.amount + '</td>';
+                    html += '</tr>';
+                    
+                    $('#realex-transactions').append(html);
+                    
+                    $('#realex-total-captured').text(data.data.total_captured);
+                    
+                    if (data.data.rebate_status == 1) {
+                        $('.rebate_text').text('{{ text_yes }}');
+                    } else {
+                        $('#button-rebate').show();
+                        $('#rebate-amount').val(0.00).show();
+                    }
+                    
+                    if (data.msg != '') {
+                        $('#realex-transaction-msg').empty().html('<i class="fa fa-check-circle"></i> ' + data.msg).fadeIn();
+                    }
+                  }
+                  if (data.error == true) {
+                      alert(data.msg);
+                      
+                      $('#button-rebate').show();
+                  }
+                  
+                  $('#loading-rebate').hide();
+                }
+            });
         }
-      });
-    }
-  });
+    });
 //--></script>

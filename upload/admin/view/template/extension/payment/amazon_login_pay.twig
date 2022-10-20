@@ -352,6 +352,7 @@
   <script type="text/javascript"><!--
       $('#button-credentials').on('click', function () {
           var json = $('#input-credentials').val();
+          
           try {
               var credentials = $.parseJSON($('#input-credentials').val());
               $('#amazon-login-pay-merchant-id').val(credentials['merchant_id']);
@@ -364,6 +365,7 @@
                   value: 'true',
                   name: 'language_reload'
               }).appendTo('#form-amazon-login-pay');
+              
               $('.pull-right > .btn-primary').click();
           } catch (e) {
               $('.container-fluid:eq(1)').prepend('<div class="alert alert-danger alert-dismissible"><button type="button" class="close" data-dismiss="alert">&times;</button><i class="fa fa-exclamation-circle"></i> {{ error_credentials }}</div>')
@@ -375,7 +377,9 @@
           var base = '{{ https_catalog }}index.php?route=extension/payment/amazon_login_pay/ipn&token=';
           var allowedLength = 150 - base.length;
           var newVal = $(this).val().substr(0, allowedLength);
+          
           $(this).val(newVal);
+          
           $('#input-ipn-url').val(base + newVal);
       });
   //--></script>
@@ -407,6 +411,7 @@
       $('#amazon-login-pay-language').on('change', function () {
           var language = $(this).val();
           var mod_lang = language.replace("-", "_");
+          
           $('input[name="language"]').val(mod_lang);
       });
   //--></script>
@@ -422,9 +427,11 @@
 
           if ($(target).attr('type') == 'password') {
               $(target).attr('type', 'text');
+              
               $(this).find('.fa-eye').removeClass('fa-eye').addClass('fa-eye-slash');
           } else {
               $(target).attr('type', 'password');
+              
               $(this).find('.fa-eye-slash').removeClass('fa-eye-slash').addClass('fa-eye');
           }
       });

@@ -541,9 +541,9 @@
     });
   
     {% if not klarna_checkout_account %}
-      $(document).ready(function () {
-        addAccount();
-      });
+        $(document).ready(function () {
+          addAccount();
+        });
     {% endif %}
 
     var account_row = {{ account_row }};
@@ -558,25 +558,25 @@
         html += '  </select>';
         html += '  <td class="text-left"><select name="payment_klarna_checkout_account[' + account_row + '][country]" class="form-control">';
       {% for country in countries %}
-        html += '    <option value="{{ country.country_id }}">{{ country.name|escape('js') }}</option>';
+          html += '    <option value="{{ country.country_id }}">{{ country.name|escape('js') }}</option>';
       {% endfor %}
         html += '  </select></td>';
 
         html += '  <td class="text-left"><select name="payment_klarna_checkout_account[' + account_row + '][shipping]" class="form-control">';
       {% for geo_zone in geo_zones %}
-        html += '    <option value="{{ geo_zone.geo_zone_id }}">{{ geo_zone.name|escape('js') }}</option>';
+          html += '    <option value="{{ geo_zone.geo_zone_id }}">{{ geo_zone.name|escape('js') }}</option>';
       {% endfor %}
         html += '  </select></td>';
 
         html += '  <td class="text-left"><select name="payment_klarna_checkout_account[' + account_row + '][currency]" class="form-control">';
       {% for currency in currencies %}
-        html += '    <option value="{{ currency.code }}">{{ currency.title }}</option>';
+          html += '    <option value="{{ currency.code }}">{{ currency.title }}</option>';
       {% endfor %}
         html += '  </select></td>';
         html += '  <td class="text-left"><input type="text" name="payment_klarna_checkout_account[' + account_row + '][locale]" placeholder="{{ entry_locale }}" class="form-control" value=""/></td>';
         html += '  <td class="text-left"><select name="payment_klarna_checkout_account[' + account_row + '][api]" class="form-control">';
       {% for api_location in api_locations %}
-        html += '    <option value="{{ api_location.code }}">{{ api_location.name }}</option>';
+          html += '    <option value="{{ api_location.code }}">{{ api_location.name }}</option>';
       {% endfor %}
         html += '  </select></td>';
         html += '  <td class="text-left"><button type="button" onclick="$(\'#account-row' + account_row + '\').remove();" data-toggle="tooltip" title="{{ button_account_remove }}" class="btn btn-danger"><i class="fa fa-minus-circle"></i></button></td>';

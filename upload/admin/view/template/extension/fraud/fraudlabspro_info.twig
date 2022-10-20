@@ -91,33 +91,35 @@
     <td>{{ flp_message }}</td>
   </tr>
   {% if flp_status == 'review' %}
-  <tr style="background-color: #eee;">
-    <td id="flp_action" colspan="2">
-      <form id="review-action" method="post">
-        <div style=text-align:center>
-          <button type="button" id="button-flp-approve" class="btn btn-primary"><i class="fa fa-check"></i> {{ text_approve }}</button>
-          <button type="button" id="button-flp-reject" class="btn btn-danger"><i class="fa fa-remove"></i> {{ text_reject }}</button>
-        </div>
-        <input type="hidden" id="flp_id" name="flp_id" value="{{ flp_id }}"/>
-        <input type="hidden" id="new_status" name="new_status" value=""/>
-      </form>
-      <script>
-        $(document).ready(function () {
-          $('#button-flp-approve').click(function () {
-            $('#new_status').val("APPROVE");
-            $('#review-action').submit();
-          });
-        });
-        
-        $(document).ready(function () {
-          $('#button-flp-reject').click(function () {
-            $('#new_status').val("REJECT");
-            $('#review-action').submit();
-          });
-        });
-      </script>
-    </td>
-  </tr>
+    <tr style="background-color: #eee;">
+      <td id="flp_action" colspan="2">
+        <form id="review-action" method="post">
+          <div style=text-align:center>
+            <button type="button" id="button-flp-approve" class="btn btn-primary"><i class="fa fa-check"></i> {{ text_approve }}</button>
+            <button type="button" id="button-flp-reject" class="btn btn-danger"><i class="fa fa-remove"></i> {{ text_reject }}</button>
+          </div>
+          <input type="hidden" id="flp_id" name="flp_id" value="{{ flp_id }}"/>
+          <input type="hidden" id="new_status" name="new_status" value=""/>
+        </form>
+        <script>
+            $(document).ready(function () {
+                $('#button-flp-approve').click(function () {
+                    $('#new_status').val("APPROVE");
+                    
+                    $('#review-action').submit();
+                });
+            });
+            
+            $(document).ready(function () {
+                $('#button-flp-reject').click(function () {
+                    $('#new_status').val("REJECT");
+                    
+                    $('#review-action').submit();
+                });
+            });
+        </script>
+      </td>
+    </tr>
   {% endif %}
 </table>
 <div>{{ text_flp_merchant_area }}</div>

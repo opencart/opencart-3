@@ -152,18 +152,18 @@
 </style>
 <script id="template-success" type="text/template">
   <div class="alert alert-success alert-dismissible" role="alert">
-    <button type="button" class="close" data-dismiss="alert" aria-label="{{ text_close }}">
-      <span aria-hidden="true"><i class="fa fa-close"></i></span></button><i class="fa fa-check-circle" aria-hidden="true"></i>&nbsp;{message}</div>
+    <button type="button" class="close" data-dismiss="alert" aria-label="{{ text_close }}"><span aria-hidden="true"><i class="fa fa-close"></i></span></button><i class="fa fa-check-circle" aria-hidden="true"></i>&nbsp;{message}
+  </div>
 </script>
 <script id="template-error" type="text/template">
   <div class="alert alert-danger alert-dismissible" role="alert">
-    <button type="button" class="close" data-dismiss="alert" aria-label="{{ text_close }}">
-      <span aria-hidden="true"><i class="fa fa-close"></i></span></button> <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>&nbsp;{message}</div>
+    <button type="button" class="close" data-dismiss="alert" aria-label="{{ text_close }}"><span aria-hidden="true"><i class="fa fa-close"></i></span></button> <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>&nbsp;{message}
+  </div>
 </script>
 <script id="template-warning" type="text/template">
   <div class="alert alert-warning alert-dismissible" role="alert">
-    <button type="button" class="close" data-dismiss="alert" aria-label="{{ text_close }}">
-      <span aria-hidden="true"><i class="fa fa-close"></i></span></button><i class="fa fa-info-circle" aria-hidden="true"></i>&nbsp;{message}</div>
+    <button type="button" class="close" data-dismiss="alert" aria-label="{{ text_close }}"><span aria-hidden="true"><i class="fa fa-close"></i></span></button><i class="fa fa-info-circle" aria-hidden="true"></i>&nbsp;{message}
+  </div>
 </script>
 <script id="template-popup-product" type="text/template">
   <div class="modal fade" tabindex="-1" role="dialog">
@@ -313,17 +313,14 @@
                     $('[data-sort="' + $(selector.list).data('sort') + '"]').addClass($(selector.list).data('order') == 'ASC' ? 'asc' : 'desc');
 
                     $(selector.list).html('<tr><td colspan="' + $(selector.head).find('th').length + '"><div class="text-center">{{ text_loading }}</div></td></tr>');
-
                     $(selector.button_advertise).attr('disabled', true).toggleClass('btn-info', false).toggleClass('btn-default', true);
-
                     $(selector.button_bulk_edit).attr('disabled', true);
-
                     $(selector.campaign_dropdown.checkboxes).prop('checked', false).trigger('change');
-
                     $(selector.select_all).prop('checked', false);
 
                     total_items = 0;
                     total_pages = 1;
+                    
                     $(selector.deselect_all_pages).trigger('click');
                 },
                 error: function (jqXHR, textStatus, errorThrown) {
@@ -569,190 +566,173 @@
             });
         }
 
-        $(document)
-            .on('click', selector.page, function (e) {
-                e.preventDefault();
+        $(document).on('click', selector.page, function (e) {
+            e.preventDefault();
 
-                $(selector.list).data('page', parseInt($(this).attr('href')));
+            $(selector.list).data('page', parseInt($(this).attr('href')));
 
-                listProducts();
-            })
-            .on('click', '[data-sort]', function (e) {
-                e.preventDefault();
+            listProducts();
+        }).on('click', '[data-sort]', function (e) {
+            e.preventDefault();
 
-                $(selector.list).data('sort', $(this).attr('data-sort'));
-                $(selector.list).data('order', $(selector.list).data('order') == 'ASC' ? 'DESC' : 'ASC');
+            $(selector.list).data('sort', $(this).attr('data-sort'));
+            $(selector.list).data('order', $(selector.list).data('order') == 'ASC' ? 'DESC' : 'ASC');
 
-                listProducts();
-            })
-            .on('click', selector.button_filter, function (e) {
-                e.preventDefault();
+            listProducts();
+        }).on('click', selector.button_filter, function (e) {
+            e.preventDefault();
 
-                $(selector.list).data('page', 1);
+            $(selector.list).data('page', 1);
 
-                listProducts();
-            })
-            .on('change', selector.select_all, function (e) {
-                if ($(this).is(':checked')) {
-                    $(selector.checkboxes).prop('checked', true).trigger('change');
-                } else {
-                    $(selector.checkboxes).prop('checked', false).trigger('change');
+            listProducts();
+        }).on('change', selector.select_all, function (e) {
+            if ($(this).is(':checked')) {
+                $(selector.checkboxes).prop('checked', true).trigger('change');
+            } else {
+                $(selector.checkboxes).prop('checked', false).trigger('change');
+            }
+
+            updateSelected();
+        }).on('click', selector.select_all_pages, function (e) {
+            selected_all_pages = true;
+
+            $(selector.select_all).prop('checked', true).trigger('change').attr('disabled', true);
+            $(selector.checkboxes).attr('disabled', true);
+        }).on('click', selector.deselect_all_pages, function (e) {
+            selected_all_pages = false;
+
+            $(selector.select_all).prop('checked', false).trigger('change').attr('disabled', false);
+            $(selector.checkboxes).attr('disabled', false);
+        }).on('change', selector.checkboxes, function (e) {
+            $(this).closest(selector.row).find(selector.highlightable).removeClass('active');
+
+            if ($(this).is(':checked')) {
+                $(this).closest(selector.row).find(selector.highlightable).addClass('active');
+            }
+
+            var status = $(selector.checkboxes + ":checked").length == 0;
+
+            $(selector.button_advertise).attr('disabled', status).toggleClass('btn-info', !status).toggleClass('btn-default', status);
+            $(selector.button_bulk_edit).attr('disabled', status);
+
+            updateSelected();
+        }).on('hide.bs.dropdown', function (e) {
+            if ($(event.target).closest(selector.campaign_dropdown.container).length > 0) {
+                return false;
+            }
+        }).on('change', selector.campaign_dropdown.checkboxes, function (e) {
+            var this_parent = $(this).closest(selector.campaign_dropdown.container)[0];
+            var this_value = $(this).attr('value');
+            var this_checked = $(this).is(':checked');
+            var remaining_status;
+
+            $(selector.campaign_dropdown.container).each(function (index, element) {
+                if (element != this_parent) {
+                    var other_checkbox = $(element).find('input[type="checkbox"][value="' + this_value + '"]');
+
+                    $(other_checkbox).prop('checked', this_checked);
+
+                    $(other_checkbox).closest(selector.campaign_dropdown.element).toggleClass('active', this_checked);
                 }
-
-                updateSelected();
-            })
-            .on('click', selector.select_all_pages, function (e) {
-                selected_all_pages = true;
-
-                $(selector.select_all).prop('checked', true).trigger('change').attr('disabled', true);
-                
-                $(selector.checkboxes).attr('disabled', true);
-            })
-            .on('click', selector.deselect_all_pages, function (e) {
-                selected_all_pages = false;
-
-                $(selector.select_all).prop('checked', false).trigger('change').attr('disabled', false);
-                
-                $(selector.checkboxes).attr('disabled', false);
-            })
-            .on('change', selector.checkboxes, function (e) {
-                $(this).closest(selector.row).find(selector.highlightable).removeClass('active');
-
-                if ($(this).is(':checked')) {
-                    $(this).closest(selector.row).find(selector.highlightable).addClass('active');
-                }
-
-                var status = $(selector.checkboxes + ":checked").length == 0;
-
-                $(selector.button_advertise).attr('disabled', status).toggleClass('btn-info', !status).toggleClass('btn-default', status);
-                $(selector.button_bulk_edit).attr('disabled', status);
-
-                updateSelected();
-            })
-            .on('hide.bs.dropdown', function (e) {
-                if ($(event.target).closest(selector.campaign_dropdown.container).length > 0) {
-                    return false;
-                }
-            })
-            .on('change', selector.campaign_dropdown.checkboxes, function (e) {
-                var this_parent = $(this).closest(selector.campaign_dropdown.container)[0];
-                var this_value = $(this).attr('value');
-                var this_checked = $(this).is(':checked');
-                var remaining_status;
-
-                $(selector.campaign_dropdown.container).each(function (index, element) {
-                    if (element != this_parent) {
-                        var other_checkbox = $(element).find('input[type="checkbox"][value="' + this_value + '"]');
-
-                        $(other_checkbox).prop('checked', this_checked);
-
-                        $(other_checkbox).closest(selector.campaign_dropdown.element).toggleClass('active', this_checked);
-                    }
-                });
-
-                $(this).closest(selector.campaign_dropdown.element).toggleClass('active', this_checked);
-
-                // Disable/Enable all remaining checkboxes depending on the reached limit
-                remaining_status = $(selector.campaign_dropdown.first_container_checkboxes + ':checked').length == 5;
-
-                $(selector.campaign_dropdown.checkboxes + ":not(:checked)").attr('disabled', remaining_status);
-            })
-            .on('click', selector.button_apply_advertising, function (e) {
-                e.preventDefault();
-                e.stopPropagation();
-
-                advertiseChange();
-            })
-            .on('click', selector.popup.product.button_show, function (e) {
-                e.preventDefault();
-
-                googleFieldsPopup({
-                    operand: {
-                        type: 'single',
-                        data: $(this).attr('data-product-advertise-google-id')
-                    },
-                    success_callback: function (data) {
-                        $(selector.popup.product.button_show + '[data-product-id=' + data.product_id + ']').removeClass('btn-warning').addClass('btn-default');
-                    }
-                });
-            })
-            .on('click', selector.button_bulk_edit, function (e) {
-                e.preventDefault();
-
-                var post_data = {
-                    all_pages: selected_all_pages ? '1' : '0',
-                    filter: getFilterPostData(),
-                    select: []
-                };
-
-                $(selector.checkboxes + ':checked').each(function (index, element) {
-                    post_data.select.push($(element).val());
-                });
-
-                googleFieldsPopup({
-                    operand: {
-                        type: 'multiple',
-                        data: post_data
-                    },
-                    success_callback: function (data) {
-                        listProducts();
-                    }
-                });
-            })
-            .on('click', selector.popup.issues.button_show, function (e) {
-                e.preventDefault();
-
-                var data = {
-                    title: '{{ text_popup_loading_title }}',
-                    body: '<p>{{ text_popup_loading_body }}<p>'
-                };
-
-                var modal = $(getPopupHtml(selector.popup.issues.template, data));
-
-                var url_popup = $(this).attr('data-url-popup-issues');
-
-                $(modal).on('hidden.bs.modal', function (e) {
-                    $(this).remove();
-                });
-
-                var ajaxSuccess = function (data) {
-                    var new_html = getPopupHtml(selector.popup.issues.template, data);
-
-                    $(modal).find('.modal-body').html($(new_html).find('.modal-body').html());
-                    $(modal).find('.modal-title').html($(new_html).find('.modal-title').html());
-                };
-
-                var ajaxError = function (jqXHR, textStatus, errorThrown) {
-                    var new_html = getPopupHtml(selector.popup.issues.template, {
-                        title: '{{ text_popup_error_title }}',
-                        body: '{{ text_popup_error_body }}'.replace(/{error}/g, errorThrown)
-                    });
-
-                    $(modal).find('.modal-body').html($(new_html).find('.modal-body').html());
-                    $(modal).find('.modal-title').html($(new_html).find('.modal-title').html());
-                };
-
-                $.ajax({
-                    url: url_popup,
-                    dataType: 'json',
-                    type: 'get',
-                    beforeSend: function () {
-                        $(modal).modal('show');
-                    },
-                    success: ajaxSuccess,
-                    error: ajaxError
-                });
-            })
-            .on('change', selector.filter.category, function (e) {
-                var has_value = $(this).val() != '';
-
-                $(selector.filter.category_autocomplete).attr('disabled', has_value);
-                $(selector.filter.button_category_remove).attr('disabled', !has_value);
-            })
-            .on('click', selector.filter.button_category_remove, function (e) {
-                $(selector.filter.category_autocomplete).val('');
-                $(selector.filter.category).val('').trigger('change');
             });
+
+            $(this).closest(selector.campaign_dropdown.element).toggleClass('active', this_checked);
+
+            // Disable/Enable all remaining checkboxes depending on the reached limit
+            remaining_status = $(selector.campaign_dropdown.first_container_checkboxes + ':checked').length == 5;
+
+            $(selector.campaign_dropdown.checkboxes + ":not(:checked)").attr('disabled', remaining_status);
+        }).on('click', selector.button_apply_advertising, function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+
+            advertiseChange();
+        }).on('click', selector.popup.product.button_show, function (e) {
+            e.preventDefault();
+
+            googleFieldsPopup({
+                operand: {
+                    type: 'single',
+                    data: $(this).attr('data-product-advertise-google-id')
+                },
+                success_callback: function (data) {
+                    $(selector.popup.product.button_show + '[data-product-id=' + data.product_id + ']').removeClass('btn-warning').addClass('btn-default');
+                }
+            });
+        }).on('click', selector.button_bulk_edit, function (e) {
+            e.preventDefault();
+
+            var post_data = {
+                all_pages: selected_all_pages ? '1' : '0',
+                filter: getFilterPostData(),
+                select: []
+            };
+
+            $(selector.checkboxes + ':checked').each(function (index, element) {
+                post_data.select.push($(element).val());
+            });
+
+            googleFieldsPopup({
+                operand: {
+                    type: 'multiple',
+                    data: post_data
+                },
+                success_callback: function (data) {
+                    listProducts();
+                }
+            });
+        }).on('click', selector.popup.issues.button_show, function (e) {
+            e.preventDefault();
+
+            var data = {
+                title: '{{ text_popup_loading_title }}',
+                body: '<p>{{ text_popup_loading_body }}<p>'
+            };
+
+            var modal = $(getPopupHtml(selector.popup.issues.template, data));
+
+            var url_popup = $(this).attr('data-url-popup-issues');
+
+            $(modal).on('hidden.bs.modal', function (e) {
+                $(this).remove();
+            });
+
+            var ajaxSuccess = function (data) {
+                var new_html = getPopupHtml(selector.popup.issues.template, data);
+
+                $(modal).find('.modal-body').html($(new_html).find('.modal-body').html());
+                $(modal).find('.modal-title').html($(new_html).find('.modal-title').html());
+            };
+
+            var ajaxError = function (jqXHR, textStatus, errorThrown) {
+                var new_html = getPopupHtml(selector.popup.issues.template, {
+                    title: '{{ text_popup_error_title }}',
+                    body: '{{ text_popup_error_body }}'.replace(/{error}/g, errorThrown)
+                });
+
+                $(modal).find('.modal-body').html($(new_html).find('.modal-body').html());
+                $(modal).find('.modal-title').html($(new_html).find('.modal-title').html());
+            };
+
+            $.ajax({
+                url: url_popup,
+                dataType: 'json',
+                type: 'get',
+                beforeSend: function () {
+                    $(modal).modal('show');
+                },
+                success: ajaxSuccess,
+                error: ajaxError
+            });
+        }).on('change', selector.filter.category, function (e) {
+            var has_value = $(this).val() != '';
+
+            $(selector.filter.category_autocomplete).attr('disabled', has_value);
+            $(selector.filter.button_category_remove).attr('disabled', !has_value);
+        }).on('click', selector.filter.button_category_remove, function (e) {
+            $(selector.filter.category_autocomplete).val('');
+            $(selector.filter.category).val('').trigger('change');
+        });
 
         $(document).ready(function () {
             $(selector.list).data('sort', 'name');
@@ -819,7 +799,6 @@
             },
             'select': function (item) {
                 $(selector.filter.category_autocomplete).val(item.label);
-
                 $(selector.filter.category).val(item.value).trigger('change');
             }
         });
@@ -838,6 +817,7 @@
 
             this.build = function (base, key, value) {
                 base[key] = value;
+                
                 return base;
             };
 
@@ -845,11 +825,12 @@
                 if (push_counters[key] === undefined) {
                     push_counters[key] = 0;
                 }
+                
                 return push_counters[key]++;
             };
 
             $.each($(this).serializeArray(), function () {
-                // skip invalid keys
+                // Skip invalid keys
                 if (!patterns.validate.test(this.name)) {
                     return;
                 }
@@ -863,17 +844,17 @@
                     // adjust reverse_key
                     reverse_key = reverse_key.replace(new RegExp("\\[" + k + "\\]$"), '');
 
-                    // push
+                    // Push
                     if (k.match(patterns.push)) {
                         merge = self.build([], self.push_counter(reverse_key), merge);
                     }
 
-                    // fixed
+                    // Fixed
                     else if (k.match(patterns.fixed)) {
                         merge = self.build([], k, merge);
                     }
 
-                    // named
+                    // Named
                     else if (k.match(patterns.named)) {
                         merge = self.build({}, k, merge);
                     }

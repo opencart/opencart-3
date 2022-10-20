@@ -39,7 +39,8 @@
         <span class="btn btn-primary" id="img_loading_void" style="display:none;"><i class="fa fa-circle-o-notch fa-spin fa-lg"></i></span>
       {% else %}
         <span class="void_text">{{ text_no }}</span>
-      {% endif %}/td>
+      {% endif %}
+    </td>
   </tr>
   <tr>
     <td>{{ text_rebate_status }}</td>
@@ -81,157 +82,160 @@
   </tr>
 </table>
 <script type="text/javascript"><!--
-  $(document).on('click', '#button-void', function () {
-    if (confirm('{{ text_confirm_void }}')) {
-      $.ajax({
-        url: 'index.php?route=extension/payment/bluepay_hosted/void&user_token={{ user_token }}',
-        type: 'post',
-        dataType: 'json',
-        data: {'order_id': {{ order_id }} },
-        beforeSend: function () {
-          $('#button-void').hide();
-          $('#img_loading_void').show();
-          $('#bluepay_hosted_transaction_msg').hide();
-        },
-        success: function (data) {
-          if (data.error == false) {
-            html = '';
-            
-            html += '<tr>';
-              html += '<td class="text-left">' + data.data.date_added + '</td>';
-              html += '<td class="text-left">{{ text_void }}</td>';
-              html += '<td class="text-left">' + data.data.total + '</td>';
-            html += '</tr>';
-            
-            $('.void_text').text('{{ text_yes }}');
-            $('.rebate_text').text('{{ text_no }}');
-            $('#bluepay_hosted_transactions').append(html);
-            $('#button-release').hide();
-            $('#release_amount').hide();
-            $('#button-rebate').hide();
-            $('#rebate_amount').hide();
-            
-            if (data.msg != '') {
-              $('#bluepay_hosted_transaction_msg').empty().html('<i class="fa fa-check-circle"></i> ' + data.msg).fadeIn();
-            }
-          }
-          
-          if (data.error == true) {
-            alert(data.msg);
-            $('#button-void').show();
-          }
-          
-          $('#img_loading_void').hide();
+    $(document).on('click', '#button-void', function () {
+        if (confirm('{{ text_confirm_void }}')) {
+            $.ajax({
+                url: 'index.php?route=extension/payment/bluepay_hosted/void&user_token={{ user_token }}',
+                type: 'post',
+                dataType: 'json',
+                data: {'order_id': {{ order_id }} },
+                beforeSend: function () {
+                    $('#button-void').hide();
+                    $('#img_loading_void').show();
+                    $('#bluepay_hosted_transaction_msg').hide();
+                },
+                success: function (data) {
+                    if (data.error == false) {
+                        html = '';
+                        
+                        html += '<tr>';
+                          html += '<td class="text-left">' + data.data.date_added + '</td>';
+                          html += '<td class="text-left">{{ text_void }}</td>';
+                          html += '<td class="text-left">' + data.data.total + '</td>';
+                        html += '</tr>';
+                        
+                        $('.void_text').text('{{ text_yes }}');
+                        $('.rebate_text').text('{{ text_no }}');
+                        $('#bluepay_hosted_transactions').append(html);
+                        $('#button-release').hide();
+                        $('#release_amount').hide();
+                        $('#button-rebate').hide();
+                        $('#rebate_amount').hide();
+                        
+                        if (data.msg != '') {
+                            $('#bluepay_hosted_transaction_msg').empty().html('<i class="fa fa-check-circle"></i> ' + data.msg).fadeIn();
+                        }
+                    }
+                    
+                    if (data.error == true) {
+                        alert(data.msg);
+                        
+                        $('#button-void').show();
+                    }
+                    
+                    $('#img_loading_void').hide();
+                }
+            });
         }
-      });
-    }
-  });
-  
-  $(document).on('click', '#button-release', function () {
-    if (confirm('{{ text_confirm_release }}')) {
-      $.ajax({
-        url: 'index.php?route=extension/payment/bluepay_hosted/release&user_token={{ user_token }}',
-        type: 'post',
-        dataType: 'json',
-        data: {'order_id': {{ order_id }}, 'amount': $('#release_amount').val()},
-        beforeSend: function () {
-          $('#button-release').hide();
-          $('#release_amount').hide();
-          $('#img_loading_release').show();
-          $('#bluepay_hosted_transaction_msg').hide();
-        },
-        success: function (data) {
-          if (data.error == false) {
-            html = '';
-            
-            html += '<tr>';
-              html += '<td class="text-left">' + data.data.date_added + '</td>';
-              html += '<td class="text-left">{{ text_payment }}</td>';
-              html += '<td class="text-left">' + data.data.amount + '</td>';
-            html += '</tr>';
-            
-            $('#bluepay_hosted_transactions').append(html);
-            $('#bluepay_hosted_total_released').text(data.data.total);
-            
-            if (data.data.release_status == 1) {
-              $('.void_text').after('<a style="margin-left: 10px;" id="button-void" class="button btn btn-primary">{{ text_void }}</a>');
-              $('.rebate_text').after('<input style="margin-left: 10px;" width="10" type="text" id="rebate_amount"><a style="margin-left: 5px;" id="button-rebate" class="button btn btn-primary">{{ button_rebate }}</a>');
-              $('.release_text').text('{{ text_yes }}');
-              $('#rebate_amount').val(0.00).show();
-            } else {
-              $('#button-release').show();
-              $('#release_amount').val(0.00);
-            }
-            
-            if (data.msg != '') {
-              $('#bluepay_hosted_transaction_msg').empty().html('<i class="fa fa-check-circle"></i> ' + data.msg).fadeIn();
-            }
-            
-            $('#button-rebate').show();
-            $('#rebate_amount').val(0.00).show();
-          }
-          
-          if (data.error == true) {
-            alert(data.msg);
-            $('#button-release').show();
-            $('#release_amount').show();
-          }
-          
-          $('#img_loading_release').hide();
+    });
+    
+    $(document).on('click', '#button-release', function () {
+        if (confirm('{{ text_confirm_release }}')) {
+            $.ajax({
+                url: 'index.php?route=extension/payment/bluepay_hosted/release&user_token={{ user_token }}',
+                type: 'post',
+                dataType: 'json',
+                data: {'order_id': {{ order_id }}, 'amount': $('#release_amount').val()},
+                beforeSend: function () {
+                    $('#button-release').hide();
+                    $('#release_amount').hide();
+                    $('#img_loading_release').show();
+                    $('#bluepay_hosted_transaction_msg').hide();
+                },
+                success: function (data) {
+                    if (data.error == false) {
+                        html = '';
+                        
+                        html += '<tr>';
+                          html += '<td class="text-left">' + data.data.date_added + '</td>';
+                          html += '<td class="text-left">{{ text_payment }}</td>';
+                          html += '<td class="text-left">' + data.data.amount + '</td>';
+                        html += '</tr>';
+                        
+                        $('#bluepay_hosted_transactions').append(html);
+                        $('#bluepay_hosted_total_released').text(data.data.total);
+                        
+                        if (data.data.release_status == 1) {
+                            $('.void_text').after('<a style="margin-left: 10px;" id="button-void" class="button btn btn-primary">{{ text_void }}</a>');
+                            $('.rebate_text').after('<input style="margin-left: 10px;" width="10" type="text" id="rebate_amount"><a style="margin-left: 5px;" id="button-rebate" class="button btn btn-primary">{{ button_rebate }}</a>');
+                            $('.release_text').text('{{ text_yes }}');
+                            $('#rebate_amount').val(0.00).show();
+                        } else {
+                            $('#button-release').show();
+                            $('#release_amount').val(0.00);
+                        }
+                        
+                        if (data.msg != '') {
+                            $('#bluepay_hosted_transaction_msg').empty().html('<i class="fa fa-check-circle"></i> ' + data.msg).fadeIn();
+                        }
+                        
+                        $('#button-rebate').show();
+                        
+                        $('#rebate_amount').val(0.00).show();
+                    }
+                    
+                    if (data.error == true) {
+                        alert(data.msg);
+                        
+                        $('#button-release').show();
+                        $('#release_amount').show();
+                    }
+                    
+                    $('#img_loading_release').hide();
+                }
+            });
         }
-      });
-    }
-  });
-  
-  $(document).on('click', '#button-rebate', function () {
-    if (confirm('{{ text_confirm_rebate }}')) {
-      $.ajax({
-        url: 'index.php?route=extension/payment/bluepay_hosted/rebate&user_token={{ user_token }}',
-        type: 'post',
-        dataType: 'json',
-        data: {'order_id': {{ order_id }}, 'amount': $('#rebate_amount').val()},
-        beforeSend: function () {
-          $('#button-rebate').hide();
-          $('#rebate_amount').hide();
-          $('#img_loading_rebate').show();
-          $('#bluepay_hosted_transaction_msg').hide();
-        },
-        success: function (data) {
-          if (data.error == false) {
-            html = '';
-            
-            html += '<tr>';
-              html += '<td class="text-left">' + data.data.date_added + '</td>';
-              html += '<td class="text-left">{{ text_rebate }}</td>';
-              html += '<td class="text-left">' + data.data.amount + '</td>';
-            html += '</tr>';
-            
-            $('#bluepay_hosted_transactions').append(html);
-            $('#bluepay_hosted_total_released').text(data.data.total_released);
-            
-            if (data.data.rebate_status == 1) {
-              $('.rebate_text').text('{{ text_yes }}');
-              $('#button-void').hide();
-            } else {
-              $('#button-rebate').show();
-              $('#rebate_amount').show();
-            }
-            
-            if (data.msg != '') {
-              $('#bluepay_hosted_transaction_msg').empty().html('<i class="fa fa-check-circle"></i> ' + data.msg).fadeIn();
-            }
-          }
-          
-          if (data.error == true) {
-            alert(data.msg);
-            
-            $('#button-rebate').show();
-            $('#rebate_amount').show();
-          }
-          
-          $('#img_loading_rebate').hide();
+    });
+    
+    $(document).on('click', '#button-rebate', function () {
+        if (confirm('{{ text_confirm_rebate }}')) {
+            $.ajax({
+                url: 'index.php?route=extension/payment/bluepay_hosted/rebate&user_token={{ user_token }}',
+                type: 'post',
+                dataType: 'json',
+                data: {'order_id': {{ order_id }}, 'amount': $('#rebate_amount').val()},
+                beforeSend: function () {
+                    $('#button-rebate').hide();
+                    $('#rebate_amount').hide();
+                    $('#img_loading_rebate').show();
+                    $('#bluepay_hosted_transaction_msg').hide();
+                },
+                success: function (data) {
+                    if (data.error == false) {
+                        html = '';
+                        
+                        html += '<tr>';
+                          html += '<td class="text-left">' + data.data.date_added + '</td>';
+                          html += '<td class="text-left">{{ text_rebate }}</td>';
+                          html += '<td class="text-left">' + data.data.amount + '</td>';
+                        html += '</tr>';
+                        
+                        $('#bluepay_hosted_transactions').append(html);
+                        $('#bluepay_hosted_total_released').text(data.data.total_released);
+                        
+                        if (data.data.rebate_status == 1) {
+                          $('.rebate_text').text('{{ text_yes }}');
+                          $('#button-void').hide();
+                        } else {
+                          $('#button-rebate').show();
+                          $('#rebate_amount').show();
+                        }
+                        
+                        if (data.msg != '') {
+                          $('#bluepay_hosted_transaction_msg').empty().html('<i class="fa fa-check-circle"></i> ' + data.msg).fadeIn();
+                        }
+                    }
+                    
+                    if (data.error == true) {
+                        alert(data.msg);
+                        
+                        $('#button-rebate').show();
+                        $('#rebate_amount').show();
+                    }
+                    
+                    $('#img_loading_rebate').hide();
+                }
+            });
         }
-      });
-    }
-  });
+    });
 //--></script>

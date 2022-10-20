@@ -57,107 +57,109 @@
   </tr>
 </table>
 <script type="text/javascript"><!--
-  $('#btn-refund').bind('click', function () {
-    if ($('#eway-refund-amount').val() != '' && confirm('{{ text_confirm_refund }}')) {
-      $.ajax({
-        url: 'index.php?route=extension/payment/eway/refund&user_token={{ user_token }}',
-        type: 'post',
-        dataType: 'json',
-        data: {'order_id': {{ order_id }}, 'refund_amount': $('#eway-refund-amount').val()},
-        beforeSend: function (xhr, opts) {
-          $('#btn-refund').hide();
-          
-          $('#img-loading-refund').show();
-          
-          $('#eway-transaction-msg').hide();
-          
-          $('#eway-refund-amount').hide();
-        },
-        success: function (data) {
-          if (data.error == false) {
-            html = '';
-            html += '<tr>';
-              html += '<td class="text-left">' + data.data.transactionid + '</td>';
-              html += '<td class="text-left">' + data.data.created + '</td>';
-              html += '<td class="text-left">{{ text_refund }}</td>';
-              html += '<td class="text-left">' + data.data.amount + '</td>';
-            html += '</tr>';
-            $('#eway-transactions tr:last').after(html);
-            
-            $('#eway-total-refunded').text(data.data.total_refunded_formatted);
-            
-            if (data.data.refund_status != 1) {
-              $('#btn-refund').show();
-              $('#eway-refund-amount').show();
-              $('#eway-refund-amount').val(data.data.remaining);
-            }
-            
-            if (data.message != '') {
-              $('#eway-transaction-msg').empty().html('<i class="fa fa-check-circle"></i> ' + data.message).fadeIn();
-            }
-          }
-          if (data.error == true) {
-            alert(data.message);
-            $('#btn-refund').show();
-            
-            $('#eway-refund-amount').show();
-          }
-          
-          $('#img-loading-refund').hide();
+    $('#btn-refund').bind('click', function () {
+        if ($('#eway-refund-amount').val() != '' && confirm('{{ text_confirm_refund }}')) {
+          $.ajax({
+              url: 'index.php?route=extension/payment/eway/refund&user_token={{ user_token }}',
+              type: 'post',
+              dataType: 'json',
+              data: {'order_id': {{ order_id }}, 'refund_amount': $('#eway-refund-amount').val()},
+              beforeSend: function (xhr, opts) {
+                  $('#btn-refund').hide();
+                  
+                  $('#img-loading-refund').show();
+                  
+                  $('#eway-transaction-msg').hide();
+                  $('#eway-refund-amount').hide();
+              },
+              success: function (data) {
+                  if (data.error == false) {
+                      html = '';
+                      
+                      html += '<tr>';
+                        html += '<td class="text-left">' + data.data.transactionid + '</td>';
+                        html += '<td class="text-left">' + data.data.created + '</td>';
+                        html += '<td class="text-left">{{ text_refund }}</td>';
+                        html += '<td class="text-left">' + data.data.amount + '</td>';
+                      html += '</tr>';
+                      
+                      $('#eway-transactions tr:last').after(html);
+                      $('#eway-total-refunded').text(data.data.total_refunded_formatted);
+                      
+                      if (data.data.refund_status != 1) {
+                          $('#btn-refund').show();
+                          $('#eway-refund-amount').show();
+                          $('#eway-refund-amount').val(data.data.remaining);
+                      }
+                      
+                      if (data.message != '') {
+                          $('#eway-transaction-msg').empty().html('<i class="fa fa-check-circle"></i> ' + data.message).fadeIn();
+                      }
+                  }
+                  
+                  if (data.error == true) {
+                      alert(data.message);
+                      
+                      $('#btn-refund').show();
+                      $('#eway-refund-amount').show();
+                  }
+                  
+                  $('#img-loading-refund').hide();
+                }
+            });
         }
-      });
-    }
-  });
+    });
 //--></script>
 <script type="text/javascript"><!--
-  $('#btn-capture').bind('click', function () {
-    if ($('#eway-capture-amount').val() != '' && confirm('{{ text_confirm_capture }}')) {
-      $.ajax({
-        url: 'index.php?route=extension/payment/eway/capture&user_token={{ user_token }}',
-        type: 'post',
-        dataType: 'json',
-        data: {'order_id': {{ order_id }}, 'capture_amount': $('#eway-capture-amount').val()},
-        beforeSend: function (xhr, opts) {
-          $('#btn-capture').hide();
-          
-          $('#img-loading-capture').show();
-          
-          $('#eway-transaction-msg').hide();
-          
-          $('#eway-capture-amount').hide();
-        },
-        success: function (data) {
-          if (data.error == false) {
-            html = '';
-            html += '<tr>';
-              html += '<td class="text-left">' + data.data.transactionid + '</td>';
-              html += '<td class="text-left">' + data.data.created + '</td>';
-              html += '<td class="text-left">{{ text_payment }}</td>';
-              html += '<td class="text-left">' + data.data.amount + '</td>';
-            html += '</tr>';
-            $('#eway-transactions tr:last').after(html);
-            
-            $('#eway-total-captured').text(data.data.total_captured_formatted);
-            
-            if (data.data.capture_status != 1) {
-              $('#btn-capture').show();
-              $('#eway-capture-amount').show();
-              $('#eway-capture-amount').val(data.data.remaining);
-            }
-            
-            if (data.message != '') {
-              $('#eway-transaction-msg').empty().html('<i class="fa fa-check-circle"></i> ' + data.message).fadeIn();
-            }
-          }
-          if (data.error == true) {
-            alert(data.message);
-            $('#btn-capture').show();
-            $('#eway-capture-amount').show();
-          }
-          
-          $('#img-loading-capture').hide();
+    $('#btn-capture').bind('click', function () {
+        if ($('#eway-capture-amount').val() != '' && confirm('{{ text_confirm_capture }}')) {
+            $.ajax({
+                url: 'index.php?route=extension/payment/eway/capture&user_token={{ user_token }}',
+                type: 'post',
+                dataType: 'json',
+                data: {'order_id': {{ order_id }}, 'capture_amount': $('#eway-capture-amount').val()},
+                beforeSend: function (xhr, opts) {
+                    $('#btn-capture').hide();
+                    
+                    $('#img-loading-capture').show();
+                    
+                    $('#eway-transaction-msg').hide();
+                    $('#eway-capture-amount').hide();
+                },
+                success: function (data) {
+                    if (data.error == false) {
+                        html = '';
+                        
+                        html += '<tr>';
+                          html += '<td class="text-left">' + data.data.transactionid + '</td>';
+                          html += '<td class="text-left">' + data.data.created + '</td>';
+                          html += '<td class="text-left">{{ text_payment }}</td>';
+                          html += '<td class="text-left">' + data.data.amount + '</td>';
+                        html += '</tr>';
+                        
+                        $('#eway-transactions tr:last').after(html);
+                        $('#eway-total-captured').text(data.data.total_captured_formatted);
+                        
+                        if (data.data.capture_status != 1) {
+                          $('#btn-capture').show();
+                            $('#eway-capture-amount').show();
+                            $('#eway-capture-amount').val(data.data.remaining);
+                        }
+                        
+                        if (data.message != '') {
+                            $('#eway-transaction-msg').empty().html('<i class="fa fa-check-circle"></i> ' + data.message).fadeIn();
+                        }
+                    }
+                    
+                    if (data.error == true) {
+                        alert(data.message);
+                        $('#btn-capture').show();
+                        $('#eway-capture-amount').show();
+                    }
+                    
+                    $('#img-loading-capture').hide();
+                }
+            });
         }
-      });
-    }
-  });
+    });
 //--></script>

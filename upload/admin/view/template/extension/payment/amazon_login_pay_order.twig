@@ -95,159 +95,173 @@
   </table>
 </div>
 <script type="text/javascript"><!--
-  $('#button-cancel').click(function () {
-    if (confirm('{{ text_confirm_cancel }}')) {
-      $.ajax({
-        url: 'index.php?route=extension/payment/amazon_login_pay/cancel&user_token={{ user_token }}',
-        type: 'post',
-        dataType: 'json',
-        data: {'order_id': '{{ order_id }}'},
-        beforeSend: function () {
-          $('#button-cancel').hide();
-          $('#loading-cancel').show();
-          $('#amazon_login_pay-transaction-msg').hide();
-        },
-        success: function (data) {
-          if (data.error == false) {
-            var html = '';
-            html += '<tr>';
-              html += '<td class="text-left">' + data.data.date_added + '</td>';
-              html += '<td class="text-left">' + data.data.type + '</td>';
-              html += '<td class="text-left">' + data.data.status + '</td>';
-              html += '<td class="text-left"></td>';
-              html += '<td class="text-left"></td>';
-              html += '<td class="text-left"></td>';
-              html += '<td class="text-left">' + data.data.amount + '</td>';
-            html += '</tr>';
-            
-            $('.cancel_text').text('{{ text_yes }}');
-            $('#amazon_login_pay-transactions').append(html);
-            $('#button-capture').hide();
-            $('#capture-amount').hide();
-            
-            if (data.msg != '') {
-              $('#amazon_login_pay-transaction-msg').empty().html('<i class="fa fa-check-circle"></i> ' + data.msg).fadeIn();
-            }
-          }
-          if (data.error == true) {
-            alert(data.msg);
-            $('#button-cancel').show();
-          }
-          
-          $('#loading-cancel').hide();
-        }
-      });
-    }
-  });
-  
-  $('#button-capture').click(function () {
-    if (confirm('{{ text_confirm_capture }}')) {
-      $.ajax({
-        url: 'index.php?route=extension/payment/amazon_login_pay/capture&user_token={{ user_token }}',
-        type: 'post',
-        dataType: 'json',
-        data: {'order_id': '{{ order_id }}', 'amount': $('#capture-amount').val()},
-        beforeSend: function () {
-          $('#button-capture').hide();
-          $('#capture-amount').hide();
-          $('#loading-capture').show();
-          $('#amazon_login_pay-transaction-msg').hide();
-        },
-        success: function (data) {
-          if (data.error == false) {
-            var html = '';
-            html += '<tr>';
-              html += '<td class="text-left">' + data.data.date_added + '</td>';
-              html += '<td class="text-left">' + data.data.type + '</td>';
-              html += '<td class="text-left">' + data.data.status + '</td>';
-              html += '<td class="text-left">' + data.data.amazon_authorization_id + '</td>';
-              html += '<td class="text-left">' + data.data.amazon_capture_id + '</td>';
-              html += '<td class="text-left"></td>';
-              html += '<td class="text-left">' + data.data.amount + '</td>';
-            html += '</tr>';
-            
-            $('#amazon_login_pay-transactions').append(html);
-            $('#amazon_login_pay-total-captured').text(data.data.total);
-            
-            if (data.data.capture_status == 1) {
-              $('#button-cancel').hide();
-              $('.capture-text').text('{{ text_yes }}');
-            } else {
-              $('#button-capture, #capture-amount').show();
-              $('#capture-amount').val('0.00');
-            }
-            
-            if (data.msg != '') {
-              $('#amazon_login_pay-transaction-msg').empty().html('<i class="fa fa-check-circle"></i> ' + data.msg).fadeIn();
-            }
-            
-            $('#button-refund').show();
-            $('#refund-amount').val(0.00).show();
-          }
-          if (data.error == true) {
-            alert(data.msg);
-            $('#button-capture').show();
-            $('#capture-amount').show();
-          }
-          
-          $('#loading-capture').hide();
-        }
-      });
-    }
-  });
-  
-  $('#button-refund').click(function () {
-    if (confirm('{{ text_confirm_refund }}')) {
-      $.ajax({
-        url: 'index.php?route=extension/payment/amazon_login_pay/refund&user_token={{ user_token }}',
-        type: 'post',
-        dataType: 'json',
-        data: {'order_id': '{{ order_id }}', 'amount': $('#refund-amount').val()},
-        beforeSend: function () {
-          $('#button-refund').hide();
-          $('#refund-amount').hide();
-          $('#loading-refund').show();
-          $('#amazon_login_pay-transaction-msg').hide();
-        },
-        success: function (data) {
-          var html = '';
-          if (data.data != undefined) {
-            $.each(data.data, function (index, value) {
-              html += '<tr>';
-                html += '<td class="text-left">' + value['date_added'] + '</td>';
-                html += '<td class="text-left">' + value['type'] + '</td>';
-                html += '<td class="text-left">' + value['status'] + '</td>';
-                html += '<td class="text-left">' + value['amazon_authorization_id'] + '</td>';
-                html += '<td class="text-left">' + value['amazon_capture_id'] + '</td>';
-                html += '<td class="text-left">' + value['amazon_refund_id'] + '</td>';
-                html += '<td class="text-left">' + value['amount'] + '</td>';
-              html += '</tr>';
+    $('#button-cancel').click(function () {
+        if (confirm('{{ text_confirm_cancel }}')) {
+            $.ajax({
+                url: 'index.php?route=extension/payment/amazon_login_pay/cancel&user_token={{ user_token }}',
+                type: 'post',
+                dataType: 'json',
+                data: {'order_id': '{{ order_id }}'},
+                beforeSend: function () {
+                    $('#button-cancel').hide();
+                    $('#loading-cancel').show();
+                    $('#amazon_login_pay-transaction-msg').hide();
+                },
+                success: function (data) {
+                  if (data.error == false) {
+                      var html = '';
+                      
+                      html += '<tr>';
+                        html += '<td class="text-left">' + data.data.date_added + '</td>';
+                        html += '<td class="text-left">' + data.data.type + '</td>';
+                        html += '<td class="text-left">' + data.data.status + '</td>';
+                        html += '<td class="text-left"></td>';
+                        html += '<td class="text-left"></td>';
+                        html += '<td class="text-left"></td>';
+                        html += '<td class="text-left">' + data.data.amount + '</td>';
+                      html += '</tr>';
+                      
+                      $('.cancel_text').text('{{ text_yes }}');
+                      
+                      $('#amazon_login_pay-transactions').append(html);
+                      
+                      $('#button-capture').hide();
+                      $('#capture-amount').hide();
+                      
+                      if (data.msg != '') {
+                          $('#amazon_login_pay-transaction-msg').empty().html('<i class="fa fa-check-circle"></i> ' + data.msg).fadeIn();
+                      }
+                  }
+                  
+                  if (data.error == true) {
+                      alert(data.msg);
+                      
+                      $('#button-cancel').show();
+                  }
+                  
+                  $('#loading-cancel').hide();
+                }
             });
-            $('#amazon_login_pay-transactions').append(html);
-          }
-          $('#amazon_login_pay-total-captured').text(data.total_captured);
-          
-          if (data.refund_status == 1) {
-            $('.refund_text').text('{{ text_yes }}');
-          } else {
-            $('#button-refund').show();
-            $('#refund-amount').val(0.00).show();
-          }
-          if (data.msg != '' && data.msg != undefined) {
-            $('#amazon_login_pay-transaction-msg').empty().html('<i class="fa fa-check-circle"></i> ' + data.msg).fadeIn();
-          }
-          if (data.error == true) {
-            var msg = '';
-            $.each(data.error_msg, function (index, value) {
-              msg += value + "\n";
-            });
-            alert(msg);
-            $('#button-refund').show();
-          }
-          
-          $('#loading-refund').hide();
         }
-      });
-    }
-  });
+    });
+        
+    $('#button-capture').click(function () {
+        if (confirm('{{ text_confirm_capture }}')) {
+            $.ajax({
+                url: 'index.php?route=extension/payment/amazon_login_pay/capture&user_token={{ user_token }}',
+                type: 'post',
+                dataType: 'json',
+                data: {'order_id': '{{ order_id }}', 'amount': $('#capture-amount').val()},
+                beforeSend: function () {
+                    $('#button-capture').hide();
+                    $('#capture-amount').hide();
+                    $('#loading-capture').show();
+                    $('#amazon_login_pay-transaction-msg').hide();
+                },
+                success: function (data) {
+                    if (data.error == false) {
+                        var html = '';
+                        
+                        html += '<tr>';
+                          html += '<td class="text-left">' + data.data.date_added + '</td>';
+                          html += '<td class="text-left">' + data.data.type + '</td>';
+                          html += '<td class="text-left">' + data.data.status + '</td>';
+                          html += '<td class="text-left">' + data.data.amazon_authorization_id + '</td>';
+                          html += '<td class="text-left">' + data.data.amazon_capture_id + '</td>';
+                          html += '<td class="text-left"></td>';
+                          html += '<td class="text-left">' + data.data.amount + '</td>';
+                        html += '</tr>';
+                        
+                        $('#amazon_login_pay-transactions').append(html);
+                        $('#amazon_login_pay-total-captured').text(data.data.total);
+                        
+                        if (data.data.capture_status == 1) {
+                            $('#button-cancel').hide();
+                            $('.capture-text').text('{{ text_yes }}');
+                        } else {
+                            $('#button-capture, #capture-amount').show();
+                            $('#capture-amount').val('0.00');
+                        }
+                        
+                        if (data.msg != '') {
+                            $('#amazon_login_pay-transaction-msg').empty().html('<i class="fa fa-check-circle"></i> ' + data.msg).fadeIn();
+                        }
+                        
+                        $('#button-refund').show();
+                        $('#refund-amount').val(0.00).show();
+                    }
+                  
+                    if (data.error == true) {
+                        alert(data.msg);
+                        
+                        $('#button-capture').show();
+                        $('#capture-amount').show();
+                    }
+                    
+                    $('#loading-capture').hide();
+                }
+            });
+        }
+    });
+        
+    $('#button-refund').click(function () {
+        if (confirm('{{ text_confirm_refund }}')) {
+            $.ajax({
+                url: 'index.php?route=extension/payment/amazon_login_pay/refund&user_token={{ user_token }}',
+                type: 'post',
+                dataType: 'json',
+                data: {'order_id': '{{ order_id }}', 'amount': $('#refund-amount').val()},
+                beforeSend: function () {
+                    $('#button-refund').hide();
+                    $('#refund-amount').hide();
+                    $('#loading-refund').show();
+                    $('#amazon_login_pay-transaction-msg').hide();
+                },
+                success: function (data) {
+                    var html = '';
+                    
+                    if (data.data != undefined) {
+                        $.each(data.data, function (index, value) {
+                          html += '<tr>';
+                            html += '<td class="text-left">' + value['date_added'] + '</td>';
+                            html += '<td class="text-left">' + value['type'] + '</td>';
+                            html += '<td class="text-left">' + value['status'] + '</td>';
+                            html += '<td class="text-left">' + value['amazon_authorization_id'] + '</td>';
+                            html += '<td class="text-left">' + value['amazon_capture_id'] + '</td>';
+                            html += '<td class="text-left">' + value['amazon_refund_id'] + '</td>';
+                            html += '<td class="text-left">' + value['amount'] + '</td>';
+                          html += '</tr>';
+                        });
+                        
+                        $('#amazon_login_pay-transactions').append(html);
+                    }
+                    
+                    $('#amazon_login_pay-total-captured').text(data.total_captured);
+                    
+                    if (data.refund_status == 1) {
+                        $('.refund_text').text('{{ text_yes }}');
+                    } else {
+                        $('#button-refund').show();
+                        $('#refund-amount').val(0.00).show();
+                    }
+                    if (data.msg != '' && data.msg != undefined) {
+                        $('#amazon_login_pay-transaction-msg').empty().html('<i class="fa fa-check-circle"></i> ' + data.msg).fadeIn();
+                    }
+                    if (data.error == true) {
+                        var msg = '';
+                        
+                        $.each(data.error_msg, function (index, value) {
+                            msg += value + "\n";
+                        });
+                        
+                        alert(msg);
+                        
+                        $('#button-refund').show();
+                    }
+                    
+                    $('#loading-refund').hide();
+                }
+            });
+        }
+    });
 //--></script>

@@ -81,33 +81,33 @@
   </div>
 </div>
 <script type="text/javascript"><!--
-  $('#button-filter').on('click', function () {
-    var url = '';
-    
-    var filter_date_start = $('input[name=\'filter_date_start\']').val();
-    
-    if (filter_date_start) {
-      url += '&filter_date_start=' + encodeURIComponent(filter_date_start);
-    }
-    
-    var filter_date_end = $('input[name=\'filter_date_end\']').val();
-    
-    if (filter_date_end) {
-      url += '&filter_date_end=' + encodeURIComponent(filter_date_end);
-    }
-    
-    var filter_order_status_id = $('select[name=\'filter_order_status_id\']').val();
-    
-    if (filter_order_status_id != 0) {
-      url += '&filter_order_status_id=' + encodeURIComponent(filter_order_status_id);
-    }
-    
-    location = 'index.php?route=report/report&code=product_purchased&user_token={{ user_token }}' + url;
-  });
+    $('#button-filter').on('click', function () {
+        var url = '';
+        
+        var filter_date_start = $('input[name=\'filter_date_start\']').val();
+        
+        if (filter_date_start) {
+            url += '&filter_date_start=' + encodeURIComponent(filter_date_start);
+        }
+        
+        var filter_date_end = $('input[name=\'filter_date_end\']').val();
+        
+        if (filter_date_end) {
+            url += '&filter_date_end=' + encodeURIComponent(filter_date_end);
+        }
+        
+        var filter_order_status_id = $('select[name=\'filter_order_status_id\']').val();
+        
+        if (filter_order_status_id != 0) {
+            url += '&filter_order_status_id=' + encodeURIComponent(filter_order_status_id);
+        }
+        
+        location = 'index.php?route=report/report&code=product_purchased&user_token={{ user_token }}' + url;
+    });
 //--></script>
 <script type="text/javascript"><!--
-  $('.date').datetimepicker({
-    language: '{{ datepicker }}',
-    pickTime: false
-  });
+    $('.date').datetimepicker({
+      language: '{{ datepicker }}',
+      pickTime: false
+    });
 //--></script>

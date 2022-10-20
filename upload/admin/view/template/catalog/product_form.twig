@@ -445,7 +445,8 @@
                     {% for product_option in product_options %}
                       <li>
                         <a href="#tab-option{{ option_row }}" data-toggle="tab"><i class="fa fa-minus-circle" onclick="$('a[href=\'#tab-option{{ option_row }}\']').parent().remove(); $('#tab-option{{ option_row }}').remove(); $('#option a:first').tab('show');"></i> {{ product_option.name }}
-                        </a></li>
+                        </a>
+                      </li>
                       {% set option_row = option_row + 1 %}
                     {% endfor %}
                     <li>
@@ -848,7 +849,7 @@
                         <td class="text-left"><button type="button" onclick="$('#image-row{{ image_row }}').remove();" data-toggle="tooltip" title="{{ button_remove }}" class="btn btn-danger"><i class="fa fa-minus-circle"></i></button></td>
                       </tr>
                       {% set image_row = image_row + 1 %}
-                  {% endfor %}
+                    {% endfor %}
                   </tbody>
                   <tfoot>
                     <tr>

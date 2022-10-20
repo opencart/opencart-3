@@ -248,6 +248,7 @@
                 },
                 error: function (xhr, ajaxSettings, thrownError) {
                     transactionError(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
+                    
                     enableTransactionButtons();
                 }
             });

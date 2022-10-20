@@ -383,7 +383,7 @@
           html += '  <td class="text-left"><select name="layout_route[' + route_row + '][store_id]" class="form-control">';
           html += '  <option value="0">{{ text_default }}</option>';
         {% for store in stores %}
-          html += '<option value="{{ store.store_id }}">{{ store.name|escape('js') }}</option>';
+            html += '<option value="{{ store.store_id }}">{{ store.name|escape('js') }}</option>';
         {% endfor %}
           html += '  </select></td>';
           html += '  <td class="text-left"><input type="text" name="layout_route[' + route_row + '][route]" value="" placeholder="{{ entry_route }}" class="form-control"/></td>';
@@ -400,17 +400,21 @@
       function addModule(type) {
           html = '<tr id="module-row' + module_row + '">';
           html += '  <td class="text-left"><div class="input-group"><select name="layout_module[' + module_row + '][code]" class="form-control input-sm">';
-        {% for extension in extensions %}
-          html += '    <optgroup label="{{ extension.name|escape('js') }}">';
-        {% if not extension.module %}
-          html += '      <option value="{{ extension.code }}">{{ extension.name|escape('js') }}</option>';
-        {% else %}
-        {% for module in extension.module %}
-          html += '      <option value="{{ module.code }}">{{ module.name|escape('js') }}</option>';
-        {% endfor %}
-        {% endif %}
-          html += '    </optgroup>';
-        {% endfor %}
+          
+          {% for extension in extensions %}
+              html += '    <optgroup label="{{ extension.name|escape('js') }}">';
+              
+              {% if not extension.module %}
+                  html += '      <option value="{{ extension.code }}">{{ extension.name|escape('js') }}</option>';
+              {% else %}
+                {% for module in extension.module %}
+                    html += '      <option value="{{ module.code }}">{{ module.name|escape('js') }}</option>';
+                {% endfor %}
+              {% endif %}
+              html += '    </optgroup>';
+            
+          {% endfor %}
+          
           html += '  </select>';
           html += '  <input type="hidden" name="layout_module[' + module_row + '][position]" value="' + type.replace('-', '_') + '"/>';
           html += '  <input type="hidden" name="layout_module[' + module_row + '][sort_order]" value=""/>';
@@ -418,11 +422,8 @@
           html += '</tr>';
 
           $('#module-' + type + ' tbody').append(html);
-
           $('#module-' + type + ' tbody select[name=\'layout_module[' + module_row + '][code]\']').val($('#module-' + type + ' tfoot select').val());
-
           $('#module-' + type + ' select[name*=\'code\']').trigger('change');
-
           $('#module-' + type + ' tbody input[name*=\'sort_order\']').each(function (i, element) {
               $(element).val(i);
           });
