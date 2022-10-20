@@ -113,22 +113,22 @@
             );
         }
       
-      $(document).ready(function () {
-          $('#button_disconnect').click(function (e) {
-              if ($(this).is(':disabled') || !confirm('{{ text_confirm }}')) {
-                  e.preventDefault();
-              } else {
-                  $('#button_disconnect').text('{{ text_disconnecting_please_wait }}').attr('disabled', true);
-              }
-          });
+        $(document).ready(function () {
+            $('#button_disconnect').click(function (e) {
+                if ($(this).is(':disabled') || !confirm('{{ text_confirm }}')) {
+                    e.preventDefault();
+                } else {
+                    $('#button_disconnect').text('{{ text_disconnecting_please_wait }}').attr('disabled', true);
+                }
+            });
           
-          setCronUrl();
-      });
+            setCronUrl();
+        });
       
-      $('#refresh-cron-token').click(function () {
-          $('#input_advertise_google_cron_token').val(randomString() + randomString());
+        $('#refresh-cron-token').click(function () {
+            $('#input_advertise_google_cron_token').val(randomString() + randomString());
         
-          setCronUrl();
-      });
+            setCronUrl();
+        });
     })(jQuery);
 //--></script>
