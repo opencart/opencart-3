@@ -176,7 +176,8 @@
                         <option value="1">{{ text_type_laybuy }}</option>
                         <option value="0">{{ text_type_buynow }}</option>
                       </select>
-                      <div class="laybuy_section"><br/>
+                      <div class="laybuy_section">
+                        <br/>
                         <select name="INIT" id="down-payment">
                           {% for percent in initial_payments %}
                             {% if percent == transaction.downpayment %}

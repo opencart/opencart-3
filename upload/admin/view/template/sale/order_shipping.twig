@@ -25,19 +25,26 @@
         <tr>
           <td>
             <address>
-              <strong>{{ order.store_name }}</strong><br/>
+              <strong>{{ order.store_name }}</strong>
+              <br/>
               {{ order.store_address }}
             </address>
-            <b>{{ text_telephone }}</b> {{ order.store_telephone }}<br/>
-            <b>{{ text_email }}</b> {{ order.store_email }}<br/>
+            <b>{{ text_telephone }}</b> {{ order.store_telephone }}
+            <br/>
+            <b>{{ text_email }}</b> {{ order.store_email }}
+            <br/>
             <b>{{ text_website }}</b> <a href="{{ order.store_url }}">{{ order.store_url }}</a></td>
-          <td style="width: 50%;"><b>{{ text_date_added }}</b> {{ order.date_added }}<br/>
+          <td style="width: 50%;"><b>{{ text_date_added }}</b> {{ order.date_added }}
+            <br/>
             {% if order.invoice_no %}
-            <b>{{ text_invoice_no }}</b> {{ order.invoice_no }}<br/>
+              <b>{{ text_invoice_no }}</b> {{ order.invoice_no }}
+              <br/>
             {% endif %}
-            <b>{{ text_orders_id }}</b> {{ order.order_id }}<br/>
+            <b>{{ text_orders_id }}</b> {{ order.order_id }}
+            <br/>
             {% if order.shipping_method %}
-            <b>{{ text_shipping_method }}</b> {{ order.shipping_method }}<br/>
+              <b>{{ text_shipping_method }}</b> {{ order.shipping_method }}
+              <br/>
             {% endif %}
           </td>
         </tr>
@@ -53,8 +60,10 @@
       <tbody>
         <tr>
           <td>{{ order.shipping_address }}</td>
-          <td>{{ order.email }}<br/>
-            {{ order.telephone }}</td>
+          <td>{{ order.email }}
+            <br/>
+            {{ order.telephone }}
+          </td>
         </tr>
       </tbody>
     </table>

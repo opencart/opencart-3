@@ -21,14 +21,17 @@
               {% for status in issue.destination_statuses %}
                 {% if status.approvalPending %}
                   {{ status.destination }}{{ status.destination ? ': ' : '' }}
-                  <span class="label label-warning">{{ text_label_pending }}</span><br/>
+                  <span class="label label-warning">{{ text_label_pending }}</span>
+                  <br/>
                 {% else %}
                   {% if status.approvalStatus == 'approved' %}
                     {{ status.destination }}{{ status.destination ? ': ' : '' }}
-                    <span class="label label-success">{{ text_label_approved }}</span><br/>
+                    <span class="label label-success">{{ text_label_approved }}</span>
+                    <br/>
                   {% elseif status.approvalStatus == 'disapproved' %}
                     {{ status.destination }}{{ status.destination ? ': ' : '' }}
-                    <span class="label label-danger">{{ text_label_disapproved }}</span><br/>
+                    <span class="label label-danger">{{ text_label_disapproved }}</span>
+                    <br/>
                   {% endif %}
                 {% endif %}
               {% else %}

@@ -252,10 +252,12 @@
                       {% set product_row = 0 %}
                       {% for order_product in order_products %}
                         <tr>
-                          <td class="text-left">{{ order_product.name }}<br/>
+                          <td class="text-left">{{ order_product.name }}
+                            <br/>
                             <input type="hidden" name="product[{{ product_row }}][product_id]" value="{{ order_product.product_id }}"/>
                             {% for option in order_product.option %}
-                              - <small>{{ option.name }}: {{ option.value }}</small><br/>
+                              - <small>{{ option.name }}: {{ option.value }}</small>
+                              <br/>
                               {% if option.type == 'select' or option.type == 'radio' or option.type == 'image' %}
                                 <input type="hidden" name="product[{{ product_row }}][option][{{ option.product_option_id }}]" value="{{ option.product_option_value_id }}"/>
                               {% endif %}
