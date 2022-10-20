@@ -1,12 +1,12 @@
 <?php
 namespace Cart;
 class User {
-    private int    $user_id       = 0;
-    private int    $user_group_id = 0;
-    private string $username;
-    private string $email;
-    private array  $permission    = [];
-
+	private int $user_id = 0;
+	private string $username = '';
+	private int $user_group_id = 0;
+	private string $email = '';
+	private array $permission = [];
+    
     public function __construct(object $registry) {
         $this->db      = $registry->get('db');
         $this->request = $registry->get('request');
