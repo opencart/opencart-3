@@ -46,65 +46,64 @@
 </form>
 <div id="cardinity-3ds"></div>
 <script type="text/javascript"><!--
-  $('#button-confirm').on('click', function () {
-    $.ajax({
-      url: 'index.php?route=extension/payment/cardinity/send',
-      type: 'post',
-      data: $('#payment :input'),
-      dataType: 'json',
-      beforeSend: function () {
-        $('.payment-warning').hide();
-        
-        $('.payment-warning .message').text();
-        
-        $('#payment').find('*').removeClass('has-error');
-        
-        $('#button-confirm').button('loading').attr('disabled', true);
-      },
-      complete: function () {
-        $('#button-confirm').button('reset');
-      },
-      success: function (json) {
-        if (json['error']) {
-          if (json['error']['warning']) {
-            $('.payment-warning').show();
-            
-            $('.payment-warning .message').text(json['error']['warning']);
-          }
-          
-          if (json['error']['holder']) {
-            $('#input-holder').closest('.form-group').addClass('has-error');
-          }
-          
-          if (json['error']['pan']) {
-            $('#input-pan').closest('.form-group').addClass('has-error');
-          }
-          
-          if (json['error']['expiry_date']) {
-            $('#expiry-date-group').addClass('has-error');
-          }
-          
-          if (json['error']['cvc']) {
-            $('#input-cvc').closest('.form-group').addClass('has-error');
-          }
-        }
-        
-        if (json['3ds']) {
-          $.ajax({
-            url: 'index.php?route=extension/payment/cardinity/threeDSecureForm',
+    $('#button-confirm').on('click', function () {
+        $.ajax({
+            url: 'index.php?route=extension/payment/cardinity/send',
             type: 'post',
-            data: json['3ds'],
-            dataType: 'html',
-            success: function (html) {
-              $('#cardinity-3ds').html(html);
+            data: $('#payment :input'),
+            dataType: 'json',
+            beforeSend: function () {
+                $('.payment-warning').hide();
+                $('.payment-warning .message').text();
+                
+                $('#payment').find('*').removeClass('has-error');
+                
+                $('#button-confirm').button('loading').attr('disabled', true);
+            },
+            complete: function () {
+                $('#button-confirm').button('reset');
+            },
+            success: function (json) {
+                if (json['error']) {
+                    if (json['error']['warning']) {
+                      $('.payment-warning').show();
+                      
+                      $('.payment-warning .message').text(json['error']['warning']);
+                    }
+                    
+                    if (json['error']['holder']) {
+                      $('#input-holder').closest('.form-group').addClass('has-error');
+                    }
+                    
+                    if (json['error']['pan']) {
+                      $('#input-pan').closest('.form-group').addClass('has-error');
+                    }
+                    
+                    if (json['error']['expiry_date']) {
+                      $('#expiry-date-group').addClass('has-error');
+                    }
+                    
+                    if (json['error']['cvc']) {
+                      $('#input-cvc').closest('.form-group').addClass('has-error');
+                    }
+                }
+                
+                if (json['3ds']) {
+                    $.ajax({
+                      url: 'index.php?route=extension/payment/cardinity/threeDSecureForm',
+                      type: 'post',
+                      data: json['3ds'],
+                      dataType: 'html',
+                      success: function (html) {
+                        $('#cardinity-3ds').html(html);
+                      }
+                    });
+                }
+                
+                if (json['redirect']) {
+                    location = json['redirect'];
+                }
             }
-          });
-        }
-        
-        if (json['redirect']) {
-          location = json['redirect'];
-        }
-      }
+        });
     });
-  });
 //--></script>

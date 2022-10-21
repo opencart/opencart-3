@@ -24,27 +24,27 @@
       <div class="table-responsive">
         <table class="table table-bordered table-hover">
           <thead>
-          <tr>
-            <td class="text-left">{{ column_type }}</td>
-            <td class="text-left">{{ column_digits }}</td>
-            <td class="text-right">{{ column_expiry }}</td>
-          </tr>
+            <tr>
+              <td class="text-left">{{ column_type }}</td>
+              <td class="text-left">{{ column_digits }}</td>
+              <td class="text-right">{{ column_expiry }}</td>
+            </tr>
           </thead>
           <tbody>
-          {% if cards %}
-            {% for card in cards %}
+            {% if cards %}
+              {% for card in cards %}
+                <tr>
+                  <td class="text-left">{{ card.type }}</td>
+                  <td class="text-left">{{ card.digits }}</td>
+                  <td class="text-right">{{ card.expiry }}</td>
+                  <td class="text-right"><a href="{{ delete }} {{ card.card_id }}" class="btn btn-danger">{{ button_delete }}</a></td>
+                </tr>
+              {% endfor %}
+            {% else %}
               <tr>
-                <td class="text-left">{{ card.type }}</td>
-                <td class="text-left">{{ card.digits }}</td>
-                <td class="text-right">{{ card.expiry }}</td>
-                <td class="text-right"><a href="{{ delete }} {{ card.card_id }}" class="btn btn-danger">{{ button_delete }}</a></td>
+                <td class="text-center" colspan="5">{{ text_no_results }}</td>
               </tr>
-            {% endfor %}
-          {% else %}
-            <tr>
-              <td class="text-center" colspan="5">{{ text_no_results }}</td>
-            </tr>
-          {% endif %}
+            {% endif %}
           </tbody>
         </table>
       </div>

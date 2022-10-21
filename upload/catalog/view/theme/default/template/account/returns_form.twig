@@ -28,7 +28,8 @@
               <input type="text" name="firstname" value="{{ firstname }}" placeholder="{{ entry_firstname }}" id="input-firstname" class="form-control"/>
               {% if error_firstname %}
                 <div class="text-danger">{{ error_firstname }}</div>
-              {% endif %} </div>
+              {% endif %}
+            </div>
           </div>
           <div class="form-group required">
             <label class="col-sm-2 control-label" for="input-lastname">{{ entry_lastname }}</label>
@@ -36,7 +37,8 @@
               <input type="text" name="lastname" value="{{ lastname }}" placeholder="{{ entry_lastname }}" id="input-lastname" class="form-control"/>
               {% if error_lastname %}
                 <div class="text-danger">{{ error_lastname }}</div>
-              {% endif %} </div>
+              {% endif %}
+            </div>
           </div>
           <div class="form-group required">
             <label class="col-sm-2 control-label" for="input-email">{{ entry_email }}</label>
@@ -44,7 +46,8 @@
               <input type="text" name="email" value="{{ email }}" placeholder="{{ entry_email }}" id="input-email" class="form-control"/>
               {% if error_email %}
                 <div class="text-danger">{{ error_email }}</div>
-              {% endif %} </div>
+              {% endif %}
+            </div>
           </div>
           <div class="form-group required">
             <label class="col-sm-2 control-label" for="input-telephone">{{ entry_telephone }}</label>
@@ -52,7 +55,8 @@
               <input type="text" name="telephone" value="{{ telephone }}" placeholder="{{ entry_telephone }}" id="input-telephone" class="form-control"/>
               {% if error_telephone %}
                 <div class="text-danger">{{ error_telephone }}</div>
-              {% endif %} </div>
+              {% endif %}
+            </div>
           </div>
           <div class="form-group required">
             <label class="col-sm-2 control-label" for="input-order-id">{{ entry_order_id }}</label>
@@ -60,7 +64,8 @@
               <input type="text" name="order_id" value="{{ order_id }}" placeholder="{{ entry_order_id }}" id="input-order-id" class="form-control"/>
               {% if error_order_id %}
                 <div class="text-danger">{{ error_order_id }}</div>
-              {% endif %} </div>
+              {% endif %}
+            </div>
           </div>
           <div class="form-group">
             <label class="col-sm-2 control-label" for="input-date-ordered">{{ entry_date_ordered }}</label>
@@ -69,7 +74,8 @@
                 <input type="text" name="date_ordered" value="{{ date_ordered }}" placeholder="{{ entry_date_ordered }}" data-date-format="YYYY-MM-DD" id="input-date-ordered" class="form-control"/>
                 <span class="input-group-btn">
                 <button type="button" class="btn btn-default"><i class="fa fa-calendar"></i></button>
-                </span></div>
+                </span>
+              </div>
             </div>
           </div>
         </fieldset>
@@ -82,7 +88,8 @@
               <input type="hidden" name="product_id" value="{{ product_id }}"/>
               {% if error_product %}
                 <div class="text-danger">{{ error_product }}</div>
-              {% endif %} </div>
+              {% endif %}
+            </div>
           </div>
           <div class="form-group required">
             <label class="col-sm-2 control-label" for="input-model">{{ entry_model }}</label>
@@ -90,7 +97,8 @@
               <input type="text" name="model" value="{{ model }}" placeholder="{{ entry_model }}" id="input-model" class="form-control"/>
               {% if error_model %}
                 <div class="text-danger">{{ error_model }}</div>
-              {% endif %} </div>
+              {% endif %}
+            </div>
           </div>
           <div class="form-group">
             <label class="col-sm-2 control-label" for="input-quantity">{{ entry_quantity }}</label>
@@ -105,19 +113,22 @@
                   <div class="radio">
                     <label>
                       <input type="radio" name="return_reason_id" value="{{ return_reason.return_reason_id }}" checked="checked"/>
-                      {{ return_reason.name }}</label>
+                      {{ return_reason.name }}
+                    </label>
                   </div>
                 {% else %}
                   <div class="radio">
                     <label>
                       <input type="radio" name="return_reason_id" value="{{ return_reason.return_reason_id }}"/>
-                      {{ return_reason.name }}</label>
+                      {{ return_reason.name }}
+                    </label>
                   </div>
                 {% endif %}
               {% endfor %}
               {% if error_reason %}
                 <div class="text-danger">{{ error_reason }}</div>
-              {% endif %} </div>
+              {% endif %}
+            </div>
           </div>
           <div class="form-group required">
             <label class="col-sm-2 control-label">{{ entry_opened }}</label>
@@ -127,13 +138,15 @@
                 {% else %}
                   <input type="radio" name="opened" value="1"/>
                 {% endif %}
-                {{ text_yes }}</label>
+                {{ text_yes }}
+              </label>
               <label class="radio-inline"> {% if not opened %}
                   <input type="radio" name="opened" value="0" checked="checked"/>
                 {% else %}
                   <input type="radio" name="opened" value="0"/>
                 {% endif %}
-                {{ text_no }}</label>
+                {{ text_no }}
+              </label>
             </div>
           </div>
           <div class="form-group">

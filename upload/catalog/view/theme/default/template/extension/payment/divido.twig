@@ -364,50 +364,50 @@
 </div>
 
 <script>
-  (function ($) {
-    $(function () {
-      $.getScript('{{ merchant_script }}', function () {
-        divido_calculator($('#divido-checkout'));
-      });
-      
-      $('#button-confirm').on('click', function () {
-        var finance_elem = $('select[name="divido_finance"]');
-        var deposit = $('[name="divido_deposit"]').val();
-        
-        var finance;
-        if (finance_elem.length > 0) {
-          finance = finance_elem.val();
-        } else {
-          finance = $('[data-divido-calculator]').data('divido-plans');
-        }
-        
-        var data = {
-          finance: finance,
-          deposit: deposit
-        };
-        
-        $.ajax({
-          type: 'post',
-          url: 'index.php?route=extension/payment/divido/confirm',
-          data: data,
-          dataType: 'json',
-          cache: false,
-          beforeSend: function () {
-            $('#button-confirm').button('loading');
-          },
-          complete: function () {
-            $('#button-confirm').button('reset');
-          },
-          success: function (data) {
-            if (data.status == 'ok') {
-              location = data.url;
-            } else {
-              message = data.message || '{{ generic_credit_req_error }}';
-              $('#divido-checkout').prepend('<div class="alert alert-warning alert-dismissible"><i class="fa fa-exclamation-circle"></i> ' + message + ' <button type="button" class="close" data-dismiss="alert">&times;</button></div>');
-            }
-          }
+    (function ($) {
+        $(function () {
+            $.getScript('{{ merchant_script }}', function () {
+              divido_calculator($('#divido-checkout'));
+            });
+            
+            $('#button-confirm').on('click', function () {
+                var finance_elem = $('select[name="divido_finance"]');
+                var deposit = $('[name="divido_deposit"]').val();
+                var finance;
+                
+                if (finance_elem.length > 0) {
+                    finance = finance_elem.val();
+                } else {
+                    finance = $('[data-divido-calculator]').data('divido-plans');
+                }
+                
+                var data = {
+                    finance: finance,
+                    deposit: deposit
+                };
+                
+                $.ajax({
+                    type: 'post',
+                    url: 'index.php?route=extension/payment/divido/confirm',
+                    data: data,
+                    dataType: 'json',
+                    cache: false,
+                    beforeSend: function () {
+                        $('#button-confirm').button('loading');
+                    },
+                    complete: function () {
+                        $('#button-confirm').button('reset');
+                    },
+                    success: function (data) {
+                        if (data.status == 'ok') {
+                          location = data.url;
+                        } else {
+                          message = data.message || '{{ generic_credit_req_error }}';
+                          $('#divido-checkout').prepend('<div class="alert alert-warning alert-dismissible"><i class="fa fa-exclamation-circle"></i> ' + message + ' <button type="button" class="close" data-dismiss="alert">&times;</button></div>');
+                        }
+                    }
+                });
+            });
         });
-      });
-    });
-  })(jQuery);
+    })(jQuery);
 </script>

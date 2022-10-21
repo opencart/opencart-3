@@ -98,30 +98,30 @@
   </div>
 </div>
 <script type="text/javascript"><!--
-	$('#button-confirm').on('click', function() {
-		$.ajax({
-			url: 'index.php?route=extension/payment/klarna_invoice/send',
-			type: 'post',
-			data: $('#payment input[type=\'text\'], #payment input[type=\'checkbox\']:checked, #payment input[type=\'radio\']:checked, #payment select'),
-			dataType: 'json',
-			cache: false,
-			beforeSend: function() {
-				$('#button-confirm').button('loading');
-			},
-			complete: function() {
-				$('#button-confirm').button('reset');
-			},
-			success: function (json) {
-				$('.alert-dismissible').remove();
-
-				if (json['error']) {
-					$('#payment').before('<div class="alert alert-danger alert-dismissible">' + json['error'] + '</div>');
-				}
-
-				if (json['redirect']) {
-					location = json['redirect'];
-				}
-			}
-		});
-	});
+      $('#button-confirm').on('click', function() {
+          $.ajax({
+              url: 'index.php?route=extension/payment/klarna_invoice/send',
+              type: 'post',
+              data: $('#payment input[type=\'text\'], #payment input[type=\'checkbox\']:checked, #payment input[type=\'radio\']:checked, #payment select'),
+              dataType: 'json',
+              cache: false,
+              beforeSend: function() {
+                  $('#button-confirm').button('loading');
+              },
+              complete: function() {
+                  $('#button-confirm').button('reset');
+              },
+              success: function (json) {
+                  $('.alert-dismissible').remove();
+          
+                  if (json['error']) {
+                    $('#payment').before('<div class="alert alert-danger alert-dismissible">' + json['error'] + '</div>');
+                  }
+          
+                  if (json['redirect']) {
+                    location = json['redirect'];
+                  }
+              }
+          });
+      });
 //--></script>

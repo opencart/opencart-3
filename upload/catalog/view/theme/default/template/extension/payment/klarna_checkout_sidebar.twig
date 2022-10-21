@@ -94,133 +94,140 @@
   {% endif %}
 </div>
 <script type="text/javascript"><!--
-  $('#klarna-shipping-method input[type=\'radio\'], #confirm-shipping input[type=\'radio\']').change(function () {
-    window._klarnaCheckout(function (api) {
-      addSidebarOverlay();
-      api.suspend();
-    });
-    
-    $.ajax({
-      url: 'index.php?route=checkout/shipping_method/save',
-      type: 'post',
-      data: $('#klarna-shipping-method input[type=\'radio\']:checked, #klarna-shipping-method input[type=\'hidden\']'),
-      dataType: 'json',
-      success: function (json) {
-        if (json['redirect']) {
-          location = json['redirect'];
-        } else if (json['error']) {
-          console.log(json['error']);
-        } else {
-          $.post('index.php?route=extension/payment/klarna_checkout/main', {response: 'json'}, function () {
-            $('.klarna-checkout-sidebar').load('index.php?route=extension/payment/klarna_checkout/sidebar', function () {
-              window._klarnaCheckout(function (api) {
-                api.resume();
-                removeSidebarOverlay();
-              });
-            });
+    $('#klarna-shipping-method input[type=\'radio\'], #confirm-shipping input[type=\'radio\']').change(function () {
+        window._klarnaCheckout(function (api) {
+            addSidebarOverlay();
             
-            $.get('index.php?route=extension/payment/klarna_checkout/cartTotal', function (total) {
-              setTimeout(function () {
-                $('#cart > button').html('<span id="cart-total"><i class="fa fa-shopping-cart"></i> ' + total + '</span>');
-              }, 100);
+            api.suspend();
+        });
+    
+        $.ajax({
+            url: 'index.php?route=checkout/shipping_method/save',
+            type: 'post',
+            data: $('#klarna-shipping-method input[type=\'radio\']:checked, #klarna-shipping-method input[type=\'hidden\']'),
+            dataType: 'json',
+            success: function (json) {
+                if (json['redirect']) {
+                    location = json['redirect'];
+                } else if (json['error']) {
+                    console.log(json['error']);
+                } else {
+                    $.post('index.php?route=extension/payment/klarna_checkout/main', {response: 'json'}, function () {
+                        $('.klarna-checkout-sidebar').load('index.php?route=extension/payment/klarna_checkout/sidebar', function () {
+                            window._klarnaCheckout(function (api) {
+                                api.resume();
+                                
+                                removeSidebarOverlay();
+                            });
+                        });
+            
+                        $.get('index.php?route=extension/payment/klarna_checkout/cartTotal', function (total) {
+                            setTimeout(function () {
+                                $('#cart > button').html('<span id="cart-total"><i class="fa fa-shopping-cart"></i> ' + total + '</span>');
+                            }, 100);
               
-              $('#cart > ul').load('index.php?route=common/cart/info ul li');
-            });
-          });
-        }
-      },
-      error: function (xhr, ajaxOptions, thrownError) {
-        alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
-      }
+                            $('#cart > ul').load('index.php?route=common/cart/info ul li');
+                        });
+                    });
+                }
+            },
+            error: function (xhr, ajaxOptions, thrownError) {
+                alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
+            }
+        });
     });
-  });
   
-  var kc = {
-    'cartRemove': function (key) {
-      window._klarnaCheckout(function (api) {
-        addSidebarOverlay();
-        api.suspend();
-      });
+    var kc = {
+        'cartRemove': function (key) {
+            window._klarnaCheckout(function (api) {
+                addSidebarOverlay();
+                
+                api.suspend();
+            });
       
-      $.ajax({
-        url: 'index.php?route=checkout/cart/remove',
-        type: 'post',
-        data: 'key=' + key,
-        dataType: 'json',
-        complete: function () {
-          window._klarnaCheckout(function (api) {
-            api.resume();
-            removeSidebarOverlay();
-          });
+            $.ajax({
+                url: 'index.php?route=checkout/cart/remove',
+                type: 'post',
+                data: 'key=' + key,
+                dataType: 'json',
+                complete: function () {
+                    window._klarnaCheckout(function (api) {
+                        api.resume();
+                    
+                        removeSidebarOverlay();
+                    });
+                },
+                success: function (json) {
+                    $.post('index.php?route=extension/payment/klarna_checkout/main', {response: 'json'}, function (data) {
+                        if (data['redirect']) {
+                            location = data['redirect'];
+                        } else {
+                            $('.klarna-checkout-sidebar').load('index.php?route=extension/payment/klarna_checkout/sidebar', function () {
+                                window._klarnaCheckout(function (api) {
+                                    api.resume();
+                                    
+                                    removeSidebarOverlay();
+                                });
+                            });
+              
+                            // Need to set timeout otherwise it wont update the total
+                            setTimeout(function () {
+                                $('#cart > button').html('<span id="cart-total"><i class="fa fa-shopping-cart"></i> ' + json['total'] + '</span>');
+                            }, 100);
+              
+                            $('#cart > ul').load('index.php?route=common/cart/info ul li');
+                        }
+                    });
+                },
+                error: function (xhr, ajaxOptions, thrownError) {
+                    alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
+                }
+            });
         },
-        success: function (json) {
-          $.post('index.php?route=extension/payment/klarna_checkout/main', {response: 'json'}, function (data) {
-            if (data['redirect']) {
-              location = data['redirect'];
-            } else {
-              $('.klarna-checkout-sidebar').load('index.php?route=extension/payment/klarna_checkout/sidebar', function () {
+            'voucherRemove': function (key) {
                 window._klarnaCheckout(function (api) {
-                  api.resume();
-                  removeSidebarOverlay();
+                    addSidebarOverlay();
+                    api.suspend();
                 });
-              });
-              
-              // Need to set timeout otherwise it wont update the total
-              setTimeout(function () {
-                $('#cart > button').html('<span id="cart-total"><i class="fa fa-shopping-cart"></i> ' + json['total'] + '</span>');
-              }, 100);
-              
-              $('#cart > ul').load('index.php?route=common/cart/info ul li');
-            }
-          });
-        },
-        error: function (xhr, ajaxOptions, thrownError) {
-          alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
-        }
-      });
-    },
-    'voucherRemove': function (key) {
-      window._klarnaCheckout(function (api) {
-        addSidebarOverlay();
-        api.suspend();
-      });
       
-      $.ajax({
-        url: 'index.php?route=checkout/cart/remove',
-        type: 'post',
-        data: 'key=' + key,
-        dataType: 'json',
-        complete: function () {
-          window._klarnaCheckout(function (api) {
-            api.resume();
-            removeSidebarOverlay();
-          });
-        },
-        success: function (json) {
-          $.post('index.php?route=extension/payment/klarna_checkout/main', {response: 'json'}, function () {
-            if (data['redirect']) {
-              location = data['redirect'];
-            } else {
-              $('.klarna-checkout-sidebar').load('index.php?route=extension/payment/klarna_checkout/sidebar', function () {
-                window._klarnaCheckout(function (api) {
-                  api.resume();
-                  removeSidebarOverlay();
-                });
-              });
+                $.ajax({
+                    url: 'index.php?route=checkout/cart/remove',
+                    type: 'post',
+                    data: 'key=' + key,
+                    dataType: 'json',
+                    complete: function () {
+                        window._klarnaCheckout(function (api) {
+                            api.resume();
+                            
+                            removeSidebarOverlay();
+                    });
+                },
+                success: function (json) {
+                    $.post('index.php?route=extension/payment/klarna_checkout/main', {response: 'json'}, function () {
+                        if (data['redirect']) {
+                            location = data['redirect'];
+                        } else {
+                            $('.klarna-checkout-sidebar').load('index.php?route=extension/payment/klarna_checkout/sidebar', function () {
+                                window._klarnaCheckout(function (api) {
+                                    api.resume();
+                                    
+                                    removeSidebarOverlay();
+                                });
+                            });
               
-              // Need to set timeout otherwise it wont update the total
-              setTimeout(function () {
-                $('#cart > button').html('<span id="cart-total"><i class="fa fa-shopping-cart"></i> ' + json['total'] + '</span>');
-              }, 100);
+                            // Need to set timeout otherwise it wont update the total
+                            setTimeout(function () {
+                                $('#cart > button').html('<span id="cart-total"><i class="fa fa-shopping-cart"></i> ' + json['total'] + '</span>');
+                            }, 100);
               
-              $('#cart > ul').load('index.php?route=common/cart/info ul li');
-            }
-          });
-        },
-        error: function (xhr, ajaxOptions, thrownError) {
-          alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
+                            $('#cart > ul').load('index.php?route=common/cart/info ul li');
+                        }
+                    });
+                },
+                error: function (xhr, ajaxOptions, thrownError) {
+                    alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
+                }
+            });
         }
-      });
-    }
-  };
+    };
 //--></script>
