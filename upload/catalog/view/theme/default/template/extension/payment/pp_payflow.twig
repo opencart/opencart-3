@@ -77,27 +77,27 @@
   </div>
 </div>
 <script type="text/javascript"><!--
-  $('#button-confirm').bind('click', function() {
-    $.ajax({
-      url: 'index.php?route=extension/payment/pp_payflow/send',
-      type: 'post',
-      data: $('#payment :input'),
-      dataType: 'json',
-      beforeSend: function() {
-        $('#button-confirm').button('loading');
-      },
-      complete: function() {
-        $('#button-confirm').button('reset');
-      },
-      success: function (json) {
-        if (json['error']) {
-          alert(json['error']);
-        }
-  
-        if (json['success']) {
-          location = json['success'];
-        }
-      }
+    $('#button-confirm').bind('click', function() {
+        $.ajax({
+            url: 'index.php?route=extension/payment/pp_payflow/send',
+            type: 'post',
+            data: $('#payment :input'),
+            dataType: 'json',
+            beforeSend: function() {
+                $('#button-confirm').button('loading');
+            },
+            complete: function() {
+                $('#button-confirm').button('reset');
+            },
+            success: function (json) {
+                if (json['error']) {
+                  alert(json['error']);
+                }
+          
+                if (json['success']) {
+                  location = json['success'];
+                }
+            }
+        });
     });
-  });
 //--></script>

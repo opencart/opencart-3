@@ -64,89 +64,89 @@
   </fieldset>
 </form>
 <script type="text/javascript">
-	$('input[name=\'CreateToken\']').on('change', function() {
-		if (this.value === '0') {
-			$('#card-existing').show();
-			$('#card-save').hide();
-			$('.form-control').prop('disabled', false);
-			$('#card-save :input').prop('disabled', true);
-		} else {
-			$('#card-existing').hide();
-			$('#card-save').show();
-			$('.form-control').prop('disabled', true);
-			$('#card-save :input').prop('disabled', false);
-		}
-	});
+    $('input[name=\'CreateToken\']').on('change', function () {
+        if (this.value === '0') {
+            $('#card-existing').show();
+            $('#card-save').hide();
+            $('.form-control').prop('disabled', false);
+            $('#card-save :input').prop('disabled', true);
+        } else {
+            $('#card-existing').hide();
+            $('#card-save').show();
+            $('.form-control').prop('disabled', true);
+            $('#card-save :input').prop('disabled', false);
+        }
+    });
 //</script> 
 <script type="text/javascript"><!--
-  $('#button-confirm').bind('click', function() {
+$('#button-confirm').bind('click', function () {
     $.ajax({
-      url: 'index.php?route=extension/payment/sagepay_server/send',
-      type: 'post',
-      data: $('#card-existing :input:checked, #card-save :input:enabled, #payment select:enabled'),
-      dataType: 'json',
-      cache: false,
-      beforeSend: function() {
-        $('#button-confirm').button('loading');
-      },
-      complete: function() {
-        $('#button-confirm').button('reset');
-      },
-      success: function (json) {
-        // if success
-        if (json['redirect']) {
-          html = '<form action="' + json['redirect'] + '" method="post" id="redirect">';
-          html += '  <input type="hidden" name="Status" value="' + json['Status'] + '"/>';
-          html += '  <input type="hidden" name="StatusDetail" value="' + json['StatusDetail'] + '"/>';
-  
-          html += '</form>';
-  
-          $('#payment').after(html);
-  
-          $('#redirect').submit();
-        }
-  
-        // if error
-        if (json['error']) {
-          $('#payment').before('<div id="sagepay_message_error" class="alert alert-warning"><i class="fa fa-info-circle"></i> ' + json['error'] + '</div>');
-        }
-      }
-    });
-  });
-//--></script> 
-<script type="text/javascript"><!--
-  $('#button-delete').bind('click', function() {
-    if (confirm('{{ text_confirm_delete }}')) {
-      $.ajax({
-        url: 'index.php?route=extension/payment/sagepay_server/delete',
+        url: 'index.php?route=extension/payment/sagepay_server/send',
         type: 'post',
-        data: $('#card-existing :input[name=\'Token\']'),
+        data: $('#card-existing :input:checked, #card-save :input:enabled, #payment select:enabled'),
         dataType: 'json',
-        beforeSend: function() {
-          $('#button-delete').button('loading');
+        cache: false,
+        beforeSend: function () {
+            $('#button-confirm').button('loading');
         },
-        complete: function() {
-          $('#button-delete').button('reset');
+        complete: function () {
+            $('#button-confirm').button('reset');
         },
         success: function (json) {
-          if (json['error']) {
-            alert(json['error']);
-          }
-      
-          if (json['success']) {
-            $.ajax({
-            url: 'index.php?route=checkout/confirm',
-            dataType: 'html',
-            success: function (html) {
-              $('#collapse-checkout-confirm .panel-body').html(html);
-            },
-            error: function (xhr, ajaxOptions, thrownError) {
-              alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
+            // if success
+            if (json['redirect']) {
+                html = '<form action="' + json['redirect'] + '" method="post" id="redirect">';
+                html += '  <input type="hidden" name="Status" value="' + json['Status'] + '"/>';
+                html += '  <input type="hidden" name="StatusDetail" value="' + json['StatusDetail'] + '"/>';
+
+                html += '</form>';
+
+                $('#payment').after(html);
+
+                $('#redirect').submit();
             }
-            });
-          }
+
+            // if error
+            if (json['error']) {
+                $('#payment').before('<div id="sagepay_message_error" class="alert alert-warning"><i class="fa fa-info-circle"></i> ' + json['error'] + '</div>');
+            }
         }
-      });
-    }
-  });
+    });
+});
+//--></script> 
+<script type="text/javascript"><!--
+    $('#button-delete').bind('click', function () {
+        if (confirm('{{ text_confirm_delete }}')) {
+            $.ajax({
+                url: 'index.php?route=extension/payment/sagepay_server/delete',
+                type: 'post',
+                data: $('#card-existing :input[name=\'Token\']'),
+                dataType: 'json',
+                beforeSend: function () {
+                    $('#button-delete').button('loading');
+                },
+                complete: function () {
+                    $('#button-delete').button('reset');
+                },
+                success: function (json) {
+                    if (json['error']) {
+                        alert(json['error']);
+                    }
+    
+                    if (json['success']) {
+                        $.ajax({
+                            url: 'index.php?route=checkout/confirm',
+                            dataType: 'html',
+                            success: function (html) {
+                                $('#collapse-checkout-confirm .panel-body').html(html);
+                            },
+                            error: function (xhr, ajaxOptions, thrownError) {
+                                alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
+                            }
+                        });
+                    }
+                }
+            });
+        }
+    });
 //--></script>

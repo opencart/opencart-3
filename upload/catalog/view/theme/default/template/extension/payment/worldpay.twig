@@ -75,110 +75,110 @@
 <div id="payment-errors"></div>
   
 <script type="text/javascript"><!--
-  // Load Worldpay.js and run script functions
-  $.getScript("{{ worldpay_script }}", function (data, textStatus, jqxhr) {
-    Worldpay.setClientKey("{{ worldpay_client_key }}");
-
-    // Disable new card form if existing cards
-    {% if existing_cards %}
-      $('#payment-new-form :input').prop('disabled', true);
-    {% endif %}
-  
-    // Set if token is reusable, remove first value when Worldpay update
-    Worldpay.reusable = true;
+    // Load Worldpay.js and run script functions
+    $.getScript("{{ worldpay_script }}", function (data, textStatus, jqxhr) {
+        Worldpay.setClientKey("{{ worldpay_client_key }}");
+    
+        // Disable new card form if existing cards
+      {% if existing_cards %}
+        $('#payment-new-form :input').prop('disabled', true);
+      {% endif %}
+    
+        // Set if token is reusable, remove first value when Worldpay update
+        Worldpay.reusable = true;
       
-    {% if subscription_products %}
-      Worldpay.reusable = true;
-    {% else %}
-      $('input[name=\'save-card\']').on('change', function () {
-        if ($(this).is(':checked')) {
-          Worldpay.reusable = true;
-        } else {
-          Worldpay.reusable = false;
-        }
-      });
-    {% endif %}
-
-    Worldpay.templateSaveButton = false;
-
-    Worldpay.useTemplate('payment-new-form', 'paymentDetailsHere', 'inline', function (obj) {
-      var _el = document.createElement('input');
-      _el.value = obj.token;
-      _el.type = 'hidden';
-      _el.name = 'token';
-      document.getElementById('payment-new-form').appendChild(_el);
-      document.getElementById('payment-new-form').submit();
-    });
-
-    // Submit form
-    $('input[type=\'submit\']').on('click', function () {
-      var existing = $('input[name=\'existing-card\']:checked').val();
-      if (existing === '1') {
-        var form = document.getElementById('payment-existing-form');
-
-        Worldpay.useForm(form, function (status, response) {
-          if (response.error || status != 200) {
-            Worldpay.handleError(form, document.getElementById('payment-errors'), response.error);
-          } else {
-            form.submit();
-          }
-        }, true);
-      } else {
-        Worldpay.submitTemplateForm();
-      }
-    });
-  });
-
-  // Delete a card
-  $('#button-delete').on('click', function () {
-    var token = $('select[name=\'token\'] option:selected');
-
-    if (confirm('{{ text_confirm_delete }}\n' + token.text())) {
-      $.ajax({
-        url: 'index.php?route=extension/payment/worldpay/deleteCard',
-        type: 'post',
-        data: {token: token.val()},
-        dataType: 'json',
-        beforeSend: function () {
-          $('#button-delete').button('loading');
-        },
-        complete: function () {
-          $('#button-delete').button('reset');
-        },
-        success: function (json) {
-          if (json['error']) {
-            alert(json['error']);
-          }
-
-          if (json['success']) {
-            alert(json['success']);
-
-            if (json['existing_cards']) {
-              token.remove();
+      {% if subscription_products %}
+        Worldpay.reusable = true;
+      {% else %}
+        $('input[name=\'save-card\']').on('change', function () {
+            if ($(this).is(':checked')) {
+                Worldpay.reusable = true;
             } else {
-              $('input[name=\'existing-card\'][value=0]').click();
-
-              $('#choose-card').remove();
-              $('#payment-existing-form').remove();
+                Worldpay.reusable = false;
             }
-          }
+        });
+      {% endif %}
+    
+        Worldpay.templateSaveButton = false;
+    
+        Worldpay.useTemplate('payment-new-form', 'paymentDetailsHere', 'inline', function (obj) {
+            var _el = document.createElement('input');
+            _el.value = obj.token;
+            _el.type = 'hidden';
+            _el.name = 'token';
+            document.getElementById('payment-new-form').appendChild(_el);
+            document.getElementById('payment-new-form').submit();
+        });
+    
+        // Submit form
+        $('input[type=\'submit\']').on('click', function () {
+            var existing = $('input[name=\'existing-card\']:checked').val();
+            if (existing === '1') {
+                var form = document.getElementById('payment-existing-form');
+    
+                Worldpay.useForm(form, function (status, response) {
+                    if (response.error || status != 200) {
+                        Worldpay.handleError(form, document.getElementById('payment-errors'), response.error);
+                    } else {
+                        form.submit();
+                    }
+                }, true);
+            } else {
+                Worldpay.submitTemplateForm();
+            }
+        });
+    });
+    
+    // Delete a card
+    $('#button-delete').on('click', function () {
+        var token = $('select[name=\'token\'] option:selected');
+    
+        if (confirm('{{ text_confirm_delete }}\n' + token.text())) {
+            $.ajax({
+                url: 'index.php?route=extension/payment/worldpay/deleteCard',
+                type: 'post',
+                data: {token: token.val()},
+                dataType: 'json',
+                beforeSend: function () {
+                    $('#button-delete').button('loading');
+                },
+                complete: function () {
+                    $('#button-delete').button('reset');
+                },
+                success: function (json) {
+                    if (json['error']) {
+                        alert(json['error']);
+                    }
+    
+                    if (json['success']) {
+                        alert(json['success']);
+    
+                        if (json['existing_cards']) {
+                            token.remove();
+                        } else {
+                            $('input[name=\'existing-card\'][value=0]').click();
+    
+                            $('#choose-card').remove();
+                            $('#payment-existing-form').remove();
+                        }
+                    }
+                }
+            });
         }
-      });
-    }
-  });
-
-  // Enable or disable forms based on exiting or new card option
-  $('input[name=\'existing-card\']').on('change', function () {
-    if (this.value === '1') {
-      $('#payment-existing-form').show();
-      $('#payment-new-form').hide();
-      $('#payment-new-form :input').prop('disabled', true);
-      $('#payment-existing-form :input').prop('disabled', false);
-    } else {
-      $('#payment-existing-form').hide();
-      $('#payment-new-form').show();
-      $('#payment-new-form :input').prop('disabled', false);
-      $('#payment-existing-form :input').prop('disabled', true);
-    }
-  });
+    });
+    
+    // Enable or disable forms based on exiting or new card option
+    $('input[name=\'existing-card\']').on('change', function () {
+        if (this.value === '1') {
+            $('#payment-existing-form').show();
+            $('#payment-new-form').hide();
+            $('#payment-new-form :input').prop('disabled', true);
+            $('#payment-existing-form :input').prop('disabled', false);
+        } else {
+            $('#payment-existing-form').hide();
+            $('#payment-new-form').show();
+            $('#payment-new-form :input').prop('disabled', false);
+            $('#payment-existing-form :input').prop('disabled', true);
+        }
+    });
 //--></script>
