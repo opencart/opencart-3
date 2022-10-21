@@ -479,6 +479,7 @@ class ControllerSaleOrder extends Controller {
             $data['account_custom_field'] = $order_info['custom_field'];
 
             $this->load->model('customer/customer');
+            $this->load->model('sale/subscription');
 
             $data['addresses']            = $this->model_customer_customer->getAddresses($order_info['customer_id']);
 
@@ -510,21 +511,45 @@ class ControllerSaleOrder extends Controller {
             $data['shipping_method']       = $order_info['shipping_method'];
             $data['shipping_code']         = $order_info['shipping_code'];
 
-            // Products
-            $data['order_products']        = [];
+            // Subscription
+            $filter_data            = [
+                'order_id' => $order_info['order_id']
+            ];
 
-            $products                      = $this->model_sale_order->getOrderProducts($this->request->get['order_id']);
+            $subscriptions          = $this->model_sale_subscription->getSubscriptions($filter_data);
+
+            $data['order_products'] = [];
+
+            // Products
+            $products               = $this->model_sale_order->getOrderProducts($this->request->get['order_id']);
 
             foreach ($products as $product) {
+                // Subscription
+                $subscription_data = '';
+
+                foreach ($subscriptions as $subscription) {
+                    $filter_data = [
+                        'filter_subscription_id'	=> $subscription['subscription_id'],
+                        'filter_order_product_id'	=> $product['order_product_id']
+                    ];
+
+                    $subscription_info = $this->model_sale_subscription->getSubscriptions($filter_data);
+
+                    if ($subscription_info) {
+                        $subscription_data = $subscription['name'];
+                    }
+                }
+
                 $data['order_products'][] = [
-                    'product_id' => $product['product_id'],
-                    'name'       => $product['name'],
-                    'model'      => $product['model'],
-                    'option'     => $this->model_sale_order->getOrderOptions($this->request->get['order_id'], $product['order_product_id']),
-                    'quantity'   => $product['quantity'],
-                    'price'      => $product['price'],
-                    'total'      => $product['total'],
-                    'reward'     => $product['reward']
+                    'product_id'   => $product['product_id'],
+                    'name'         => $product['name'],
+                    'model'        => $product['model'],
+                    'option'       => $this->model_sale_order->getOrderOptions($this->request->get['order_id'], $product['order_product_id']),
+                    'subscription' => $subscription_data,
+                    'quantity'     => $product['quantity'],
+                    'price'        => $product['price'],
+                    'total'        => $product['total'],
+                    'reward'       => $product['reward']
                 ];
             }
 
@@ -734,7 +759,7 @@ class ControllerSaleOrder extends Controller {
         $this->response->setOutput($this->load->view('sale/order_form', $data));
     }
 
-    public function info() {
+    public function info(): object|null {
         $this->load->model('sale/order');
 
         if (isset($this->request->get['order_id'])) {
@@ -838,6 +863,7 @@ class ControllerSaleOrder extends Controller {
                 $data['customer'] = '';
             }
 
+            $this->load->model('sale/subscription');
             $this->load->model('customer/customer_group');
 
             $customer_group_info = $this->model_customer_customer_group->getCustomerGroup($order_info['customer_group_id']);
@@ -899,7 +925,7 @@ class ControllerSaleOrder extends Controller {
                 $format = '{firstname} {lastname}' . "\n" . '{company}' . "\n" . '{address_1}' . "\n" . '{address_2}' . "\n" . '{city} {postcode}' . "\n" . '{zone}' . "\n" . '{country}';
             }
 
-            $find = [
+            $find                     = [
                 '{firstname}',
                 '{lastname}',
                 '{company}',
@@ -912,7 +938,7 @@ class ControllerSaleOrder extends Controller {
                 '{country}'
             ];
 
-            $replace = [
+            $replace                  = [
                 'firstname' => $order_info['shipping_firstname'],
                 'lastname'  => $order_info['shipping_lastname'],
                 'company'   => $order_info['shipping_company'],
@@ -931,12 +957,19 @@ class ControllerSaleOrder extends Controller {
                 "/\n\n+/"
             ], '<br/>', trim(str_replace($find, $replace, $format))));
 
+            // Subscription
+            $filter_data              = [
+                'order_id' => $this->request->get['order_id']
+            ];
+
+            $subscriptions            = $this->model_sale_subscription->getSubscriptions($filter_data);
+
             // Uploaded files
             $this->load->model('tool/upload');
 
-            $data['products'] = [];
+            $data['products']         = [];
 
-            $products         = $this->model_sale_order->getOrderProducts($this->request->get['order_id']);
+            $products                 = $this->model_sale_order->getOrderProducts($this->request->get['order_id']);
 
             foreach ($products as $product) {
                 $option_data = [];
@@ -964,12 +997,29 @@ class ControllerSaleOrder extends Controller {
                     }
                 }
 
+                // Subscription
+                $subscription_data = '';
+
+                foreach ($subscriptions as $subscription) {
+                    $filter_data = [
+                        'filter_subscription_id'	=> $subscription['subscription_id'],
+                        'filter_order_product_id'	=> $product['order_product_id']
+                    ];
+
+                    $subscription_info = $this->model_sale_subscription->getSubscriptions($filter_data);
+
+                    if ($subscription_info) {
+                        $subscription_data = $subscription['name'];
+                    }
+                }
+
                 $data['products'][] = [
                     'order_product_id' => $product['order_product_id'],
                     'product_id'       => $product['product_id'],
                     'name'             => $product['name'],
                     'model'            => $product['model'],
                     'option'           => $option_data,
+                    'subscription'     => $subscription_data,
                     'quantity'         => $product['quantity'],
                     'price'            => $this->currency->format($product['price'] + ($this->config->get('config_tax') ? $product['tax'] : 0), $order_info['currency_code'], $order_info['currency_value']),
                     'total'            => $this->currency->format($product['total'] + ($this->config->get('config_tax') ? ($product['tax'] * $product['quantity']) : 0), $order_info['currency_code'], $order_info['currency_value']),
@@ -1274,6 +1324,8 @@ class ControllerSaleOrder extends Controller {
         } else {
             return new \Action('error/not_found');
         }
+
+        return null;
     }
 
     protected function validate() {
@@ -1499,8 +1551,10 @@ class ControllerSaleOrder extends Controller {
 
         $this->load->model('sale/order');
         $this->load->model('setting/setting');
+        $this->load->model('sale/subscription');
 
         $data['orders']    = [];
+
         $orders            = [];
 
         if (isset($this->request->post['selected'])) {
@@ -1579,7 +1633,7 @@ class ControllerSaleOrder extends Controller {
                     $format = '{firstname} {lastname}' . "\n" . '{company}' . "\n" . '{address_1}' . "\n" . '{address_2}' . "\n" . '{city} {postcode}' . "\n" . '{zone}' . "\n" . '{country}';
                 }
 
-                $find = [
+                $find             = [
                     '{firstname}',
                     '{lastname}',
                     '{company}',
@@ -1592,7 +1646,7 @@ class ControllerSaleOrder extends Controller {
                     '{country}'
                 ];
 
-                $replace = [
+                $replace          = [
                     'firstname' => $order_info['shipping_firstname'],
                     'lastname'  => $order_info['shipping_lastname'],
                     'company'   => $order_info['shipping_company'],
@@ -1620,14 +1674,15 @@ class ControllerSaleOrder extends Controller {
 
                 $product_data     = [];
 
-                $this->load->model('tool/upload');
-
+                // Products
                 $products         = $this->model_sale_order->getOrderProducts($order_id);
 
-                foreach ($products as $product) {
-                    $option_data = [];
+                $this->load->model('tool/upload');
 
-                    $options     = $this->model_sale_order->getOrderOptions($order_id, $product['order_product_id']);
+                foreach ($products as $product) {
+                    $option_data       = [];
+
+                    $options           = $this->model_sale_order->getOrderOptions($order_id, $product['order_product_id']);
 
                     foreach ($options as $option) {
                         if ($option['type'] != 'file') {
@@ -1742,8 +1797,10 @@ class ControllerSaleOrder extends Controller {
         $this->load->model('sale/order');
         $this->load->model('catalog/product');
         $this->load->model('setting/setting');
+        $this->load->model('sale/subscription');
 
         $data['orders']    = [];
+
         $orders            = [];
 
         if (isset($this->request->post['selected'])) {
@@ -1781,7 +1838,7 @@ class ControllerSaleOrder extends Controller {
                     $format = '{firstname} {lastname}' . "\n" . '{company}' . "\n" . '{address_1}' . "\n" . '{address_2}' . "\n" . '{city} {postcode}' . "\n" . '{zone}' . "\n" . '{country}';
                 }
 
-                $find = [
+                $find             = [
                     '{firstname}',
                     '{lastname}',
                     '{company}',
@@ -1794,7 +1851,7 @@ class ControllerSaleOrder extends Controller {
                     '{country}'
                 ];
 
-                $replace = [
+                $replace          = [
                     'firstname' => $order_info['shipping_firstname'],
                     'lastname'  => $order_info['shipping_lastname'],
                     'company'   => $order_info['shipping_company'],
@@ -1813,6 +1870,8 @@ class ControllerSaleOrder extends Controller {
                     "/\n\n+/"
                 ], '<br/>', trim(str_replace($find, $replace, $format))));
 
+                $product_data     = [];
+
                 // Subscription
                 $filter_data      = [
                     'order_id' => $order_id
@@ -1820,10 +1879,10 @@ class ControllerSaleOrder extends Controller {
 
                 $subscriptions    = $this->model_sale_subscription->getSubscriptions($filter_data);
 
-                $product_data     = [];
-
+                // Uploaded data
                 $this->load->model('tool/upload');
 
+                // Products
                 $products         = $this->model_sale_order->getOrderProducts($order_id);
 
                 foreach ($products as $product) {
