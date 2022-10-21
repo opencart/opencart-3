@@ -1412,9 +1412,9 @@
       function addSubscription() {
           html = '<tr id="subscription-row' + subscription_row + '">';
           html += '  <td class="left">';
-          html += '    <select name="product_subscription[' + subscription_row + '][subscription_id]" class="form-control">>';
-        {% for subscription in subscriptions %}
-          html += '      <option value="{{ subscription.subscription_id }}">{{ subscription.name }}</option>';
+          html += '    <select name="product_subscription[' + subscription_row + '][subscription_plan_id]" class="form-control">>';
+        {% for subscription_plan in subscription_plans %}
+          html += '      <option value="{{ subscription_plan.subscription_plan_id }}">{{ subscription_plan.name }}</option>';
         {% endfor %}
           html += '    </select>';
           html += '  </td>';
