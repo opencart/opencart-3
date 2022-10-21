@@ -173,7 +173,7 @@ class ModelSaleOrder extends Model {
         }
 
         if (!empty($data['filter_customer'])) {
-            $sql .= " AND CONCAT(o.`firstname`, ' ', o.`lastname`) LIKE '%" . $this->db->escape($data['filter_customer']) . "%'";
+            $sql .= " AND CONCAT(o.`firstname`, ' ', o.`lastname`) LIKE '" . $this->db->escape('%' . $data['filter_customer']) . "%'";
         }
 
         if (!empty($data['filter_date_added'])) {
@@ -282,7 +282,7 @@ class ModelSaleOrder extends Model {
         }
 
         if (!empty($data['filter_customer'])) {
-            $sql .= " AND CONCAT(`firstname`, ' ', `lastname`) LIKE '%" . $this->db->escape($data['filter_customer']) . "%'";
+            $sql .= " AND CONCAT(`firstname`, ' ', `lastname`) LIKE '" . $this->db->escape('%' . $data['filter_customer']) . "%'";
         }
 
         if (!empty($data['filter_date_added'])) {
@@ -388,7 +388,7 @@ class ModelSaleOrder extends Model {
         }
 
         if (!empty($data['filter_customer'])) {
-            $sql .= " AND CONCAT(`firstname`, ' ', `lastname`) LIKE '%" . $this->db->escape($data['filter_customer']) . "%'";
+            $sql .= " AND CONCAT(`firstname`, ' ', `lastname`) LIKE '" . $this->db->escape('%' . $data['filter_customer']) . "%'";
         }
 
         if (!empty($data['filter_date_added'])) {

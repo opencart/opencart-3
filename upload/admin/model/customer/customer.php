@@ -78,7 +78,7 @@ class ModelCustomerCustomer extends Model {
         $sql .= " WHERE cgd.`language_id` = '" . (int)$this->config->get('config_language_id') . "'";
 
         if (!empty($data['filter_name'])) {
-            $sql .= " AND CONCAT(c.`firstname`, ' ', c.`lastname`) LIKE '%" . $this->db->escape($data['filter_name']) . "%'";
+            $sql .= " AND CONCAT(c.`firstname`, ' ', c.`lastname`) LIKE '" . $this->db->escape('%' . $data['filter_name']) . "%'";
         }
 
         if (!empty($data['filter_email'])) {
