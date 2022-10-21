@@ -28,7 +28,7 @@ class Mail {
      *
      */
     public function __construct(string $adaptor = 'mail') {
-        $class = 'Opencart\System\Library\Mail\\' . $adaptor;
+        $class = 'Mail\\' . $adaptor;
 
         if (class_exists($class)) {
             $this->adaptor = $class;
