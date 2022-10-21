@@ -276,7 +276,7 @@ class ControllerCatalogSubscriptionPlan extends Controller {
         $data['column_left'] = $this->load->controller('common/column_left');
         $data['footer']      = $this->load->controller('common/footer');
 
-        $this->response->setOutput($this->load->view('catalog/subscription_list', $data));
+        $this->response->setOutput($this->load->view('catalog/subscription_plan_list', $data));
     }
 
     protected function getForm() {
@@ -466,7 +466,7 @@ class ControllerCatalogSubscriptionPlan extends Controller {
         $data['column_left'] = $this->load->controller('common/column_left');
         $data['footer']      = $this->load->controller('common/footer');
 
-        $this->response->setOutput($this->load->view('catalog/subscription_form', $data));
+        $this->response->setOutput($this->load->view('catalog/subscription_plan_form', $data));
     }
 
     protected function validateForm() {
