@@ -370,7 +370,7 @@ class ControllerProductProduct extends Controller {
                 // Subscription
                 $description     = '';
 
-                $trial_price     = $this->currency->format($this->tax->calculate($result['trial_price'], $result['tax_class_id'], $this->config->get('config_tax')), $this->session->data['currency']);
+                $trial_price     = $this->currency->format($this->tax->calculate($result['trial_price'], $product_info['tax_class_id'], $this->config->get('config_tax')), $this->session->data['currency']);
                 $trial_cycle     = $result['trial_cycle'];
                 $trial_frequency = $this->language->get('text_' . $result['trial_frequency']);
                 $trial_duration  = $result['trial_duration'];
@@ -379,7 +379,7 @@ class ControllerProductProduct extends Controller {
                     $description .= sprintf($this->language->get('text_subscription_trial'), $trial_price, $trial_cycle, $trial_frequency, $trial_duration);
                 }
 
-                $price           = $this->currency->format($this->tax->calculate($result['price'], $result['tax_class_id'], $this->config->get('config_tax')), $this->session->data['currency']);
+                $price           = $this->currency->format($this->tax->calculate($result['price'], $product_info['tax_class_id'], $this->config->get('config_tax')), $this->session->data['currency']);
                 $cycle           = $result['cycle'];
                 $frequency       = $this->language->get('text_' . $result['frequency']);
                 $duration        = $result['duration'];
