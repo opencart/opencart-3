@@ -9,9 +9,9 @@ class ModelCheckoutPaymentMethod extends Model {
 
         foreach ($results as $result) {
             if ($this->config->get('payment_' . $result['code'] . '_status')) {
-                $this->load->model('extension/' . $result['extension'] . '/payment/' . $result['code']);
+                $this->load->model('extension/payment/' . $result['code']);
 
-                $payment_method = $this->{'model_extension_' . $result['extension'] . '_payment_' . $result['code']}->getMethod($payment_address);
+                $payment_method = $this->{'model_extension_payment_' . $result['code']}->getMethod($payment_address);
                 if ($payment_method) {
                     $method_data[$result['code']] = $payment_method;
                 }
