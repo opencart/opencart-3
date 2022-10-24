@@ -28,10 +28,10 @@ fieldset {
     border: 1px solid #DBDBDB;
     padding: 10px;
     margin-bottom: 20px;
-    -webkit-border-radius: 5px 5px 5px 5px;
-    -moz-border-radius: 5px 5px 5px 5px;
-    -khtml-border-radius: 5px 5px 5px 5px;
-    border-radius: 5px 5px 5px 5px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    -khtml-border-radius: 5px;
+    border-radius: 5px;
 }
 
 fieldset table {
@@ -49,10 +49,10 @@ fieldset table td {
 
 select, input[type='text'], input[type='password'], textarea {
     background: #FFFFFF;
-    -webkit-border-radius: 5px 5px 5px 5px;
-    -moz-border-radius: 5px 5px 5px 5px;
-    -khtml-border-radius: 5px 5px 5px 5px;
-    border-radius: 5px 5px 5px 5px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    -khtml-border-radius: 5px;
+    border-radius: 5px;
     border: 1px solid #DBDBDB;
     padding: 4px;
     color: #000;
@@ -96,7 +96,7 @@ header h3 {
 }
 
 header h3 small {
-    margin: 10px 0 0 0;
+    margin: 10px 0 0;
     display: block;
 }
 
@@ -145,7 +145,7 @@ footer a {
 
 /* Alert */
 .alert {
-    padding: 8px 14px 8px 14px;
+    padding: 8px 14px;
 }
 
 /* Transitions */
@@ -168,10 +168,10 @@ a.button, input.button {
     border: 1px solid #78883C;
     background: url('../image/button.png') repeat-x;
     text-shadow: 0px -1px #7A8A3D;
-    -webkit-border-radius: 5px 5px 5px 5px;
-    -moz-border-radius: 5px 5px 5px 5px;
-    -khtml-border-radius: 5px 5px 5px 5px;
-    border-radius: 5px 5px 5px 5px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    -khtml-border-radius: 5px;
+    border-radius: 5px;
     -webkit-box-shadow: 1px 2px 2px #DDDDDD;
     -moz-box-shadow: 1px 2px 2px #DDDDDD;
     box-shadow: 1px 2px 2px #DDDDDD;
@@ -235,7 +235,7 @@ a.button, input.button {
 
 /* Visit */
 .visit {
-    padding: 50px 0 50px 0;
+    padding: 50px 0;
     color: #fff;
     background: #23a1d1;
 }
@@ -251,19 +251,19 @@ a.button, input.button {
 
 .visit img {
     height: 71px;
-    margin: 50px auto 25px auto;
+    margin: 50px auto 25px;
     display: block;
 }
 
 /* Core modules */
 .core-modules {
-    padding: 20px 20px 0px 20px;
+    padding: 20px 20px 0px;
     background: #fff;
 }
 
 @media (min-width: 992px) {
     .core-modules {
-        padding: 20px 50px 0px 50px;
+        padding: 20px 50px 0px;
         background: #fff;
     }
 }
@@ -271,7 +271,7 @@ a.button, input.button {
 /* Modules */
 .modules {
     text-align: center;
-    padding: 50px 0px 50px 0px;
+    padding: 50px 0px;
     background: #fff;
 }
 
@@ -313,7 +313,7 @@ a.button, input.button {
 }
 
 .mailing h3 small {
-    margin: 10px 0 0 0;
+    margin: 10px 0 0;
     display: block;
     color: #fff;
 }
@@ -326,14 +326,14 @@ a.button, input.button {
 
 /*Support*/
 .support {
-    padding: 0 50px 50px 50px;
+    padding: 0 50px 50px;
     background: #173642;
     color: #fff;
 }
 
 @media (min-width: 992px) {
     .support {
-        padding: 0 100px 50px 100px;
+        padding: 0 100px 50px;
     }
 }
 
@@ -342,7 +342,7 @@ a.button, input.button {
 }
 
 .support a.icon {
-    margin: 50px auto 0 auto;
+    margin: 50px auto 0;
     width: 100px;
     height: 100px;
     display: block;
@@ -369,7 +369,7 @@ a.button, input.button {
 .terms {
     background: #FFFFFF;
     border: 1px solid #DBDBDB;
-    margin: 3px 0px 10px 0px;
+    margin: 3px 0px 10px;
     padding: 4px;
     height: 250px;
     overflow-y: scroll;
