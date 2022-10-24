@@ -8,7 +8,7 @@ class ModelExtensionPaymentDivido extends Model {
         }
     }
 
-    public function getMethod($payment_address, $total) {
+    public function getMethod(array $payment_address) : array {
         $this->load->language('extension/payment/divido');
 
         $this->load->model('localisation/currency');

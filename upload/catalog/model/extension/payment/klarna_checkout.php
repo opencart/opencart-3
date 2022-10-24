@@ -53,7 +53,7 @@ class ModelExtensionPaymentKlarnaCheckout extends Model {
         }
     }
 
-    public function getMethod($address, $total) {
+    public function getMethod(array $address): array {
         // Not shown in the payment method list
         return [];
     }

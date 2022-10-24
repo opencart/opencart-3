@@ -1,6 +1,6 @@
 <?php
 class ModelExtensionPaymentAuthorizeNetSim extends Model {
-    public function getMethod(array $address, float $total): array {
+    public function getMethod(array $address): array {
         $this->load->language('extension/payment/authorizenet_sim');
 
         $query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "zone_to_geo_zone` WHERE `geo_zone_id` = '" . (int)$this->config->get('payment_authorizenet_sim_geo_zone_id') . "' AND `country_id` = '" . (int)$address['country_id'] . "' AND (`zone_id` = '" . (int)$address['zone_id'] . "' OR `zone_id` = '0')");
