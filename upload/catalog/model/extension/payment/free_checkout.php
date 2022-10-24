@@ -1,8 +1,18 @@
 <?php
 class ModelExtensionPaymentFreeCheckout extends Model {
-    public function getMethod($address, $total) {
+    public function getMethod(array $address): array {
         $this->load->language('extension/payment/free_checkout');
+        
+        $total = $this->cart->getTotal();
 
+        if (!empty($this->session->data['vouchers'])) {
+            $amounts = array_column($this->session->data['vouchers'], 'amount');
+        } else {
+            $amounts = [];
+        }
+
+        $total = $total + array_sum($amounts);
+        
         if ((float)$total <= 0.00) {
             $status = true;
         } elseif ($this->cart->hasSubscription()) {
