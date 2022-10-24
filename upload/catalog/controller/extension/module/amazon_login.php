@@ -40,8 +40,8 @@ class ControllerExtensionModuleAmazonLogin extends Controller {
                 $data['button_size'] = 'medium';
             }
 
-            if (!empty($this->session->data['language'])) {
-                $session_lang      = $this->session->data['language'];
+            if ($this->config->get('config_language')) {
+                $session_lang      = $this->config->get('config_language');
                 $session_lang_code = current(explode('-', $session_lang));
 
                 $language_region_mapping = [
@@ -52,6 +52,7 @@ class ControllerExtensionModuleAmazonLogin extends Controller {
 
                 if ($this->config->get('payment_amazon_login_pay_payment_region')) {
                     $merchant_location = $this->config->get('payment_amazon_login_pay_payment_region');
+
                     $available_codes   = $language_region_mapping[$merchant_location];
 
                     $data['language']  = ($this->config->get('payment_amazon_login_pay_language')) ? $this->config->get('payment_amazon_login_pay_language') : 'en-US';

@@ -40,8 +40,8 @@ class ControllerExtensionModuleAmazonPay extends Controller {
                 $data['button_size'] = 'medium';
             }
 
-            if (!empty($this->session->data['language'])) {
-                $session_lang = $this->session->data['language'];
+            if ($this->config->get('config_language')) {
+                $session_lang      = $this->config->get('config_language');
 
                 $session_lang_code = current(explode('-', $session_lang));
 
