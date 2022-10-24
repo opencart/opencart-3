@@ -17,7 +17,7 @@ class ModelExtensionPaymentSquareup extends Model {
     const TRANSACTION_OUTSTANDING_FAILED  = 8;
     const TRANSACTION_EXPIRED             = 9;
 
-    public function getMethod($address, $total): array {
+    public function getMethod(array $address): array {
         $this->load->language('extension/payment/squareup');
 
         $geo_zone_query        = $this->db->query("SELECT * FROM `" . DB_PREFIX . "zone_to_geo_zone` WHERE `geo_zone_id` = '" . (int)$this->config->get('payment_squareup_geo_zone_id') . "' AND `country_id` = '" . (int)$address['country_id'] . "' AND (`zone_id` = '" . (int)$address['zone_id'] . "' OR `zone_id` = '0')");
