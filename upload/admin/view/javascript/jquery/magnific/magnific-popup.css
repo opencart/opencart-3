@@ -249,7 +249,7 @@ img.mfp-img {
   display: block;
   line-height: 0;
   box-sizing: border-box;
-  padding: 40px 0;
+  padding: 40px 0 40px;
   margin: 0 auto; }
 
 /* The shadow behind the image */
