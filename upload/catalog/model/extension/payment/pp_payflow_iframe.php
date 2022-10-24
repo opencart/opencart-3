@@ -1,6 +1,6 @@
 <?php
 class ModelExtensionPaymentPPPayflowIframe extends Model {
-    public function getMethod(array $address, float $total) {
+    public function getMethod(array $address): array {
         $this->load->language('extension/payment/pp_payflow_iframe');
 
         $query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "zone_to_geo_zone` WHERE `geo_zone_id` = '" . (int)$this->config->get('payment_pp_payflow_iframe_geo_zone_id') . "' AND `country_id` = '" . (int)$address['country_id'] . "' AND (`zone_id` = '" . (int)$address['zone_id'] . "' OR `zone_id` = '0')");
