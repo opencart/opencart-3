@@ -473,7 +473,7 @@ class ControllerProductProduct extends Controller {
                     'product_id'  => $result['product_id'],
                     'thumb'       => $image,
                     'name'        => $result['name'],
-                    'description' => substr(trim(strip_tags(html_entity_decode($result['description'], ENT_QUOTES, 'UTF-8'))), 0, $this->config->get('theme_' . $this->config->get('config_theme') . '_product_description_length')) . '..',
+                    'description' => oc_substr(trim(strip_tags(html_entity_decode($result['description'], ENT_QUOTES, 'UTF-8'))), 0, $this->config->get('theme_' . $this->config->get('config_theme') . '_product_description_length')) . '..',
                     'price'       => $price,
                     'special'     => $special,
                     'tax'         => $tax,
@@ -639,11 +639,11 @@ class ControllerProductProduct extends Controller {
 
         if (!$json) {
             if ($this->request->server['REQUEST_METHOD'] == 'POST') {
-                if ((strlen($this->request->post['name']) < 3) || (strlen($this->request->post['name']) > 25)) {
+                if ((oc_strlen($this->request->post['name']) < 3) || (oc_strlen($this->request->post['name']) > 25)) {
                     $json['error'] = $this->language->get('error_name');
                 }
 
-                if ((strlen($this->request->post['text']) < 25) || (strlen($this->request->post['text']) > 1000)) {
+                if ((oc_strlen($this->request->post['text']) < 25) || (oc_strlen($this->request->post['text']) > 1000)) {
                     $json['error'] = $this->language->get('error_text');
                 }
 

@@ -681,19 +681,19 @@ class ControllerSettingStore extends Controller {
             $this->error['name'] = $this->language->get('error_name');
         }
 
-        if ((strlen($this->request->post['config_owner']) < 3) || (strlen($this->request->post['config_owner']) > 64)) {
+        if ((oc_strlen($this->request->post['config_owner']) < 3) || (oc_strlen($this->request->post['config_owner']) > 64)) {
             $this->error['owner'] = $this->language->get('error_owner');
         }
 
-        if ((strlen($this->request->post['config_address']) < 3) || (strlen($this->request->post['config_address']) > 256)) {
+        if ((oc_strlen($this->request->post['config_address']) < 3) || (oc_strlen($this->request->post['config_address']) > 256)) {
             $this->error['address'] = $this->language->get('error_address');
         }
 
-        if ((strlen($this->request->post['config_email']) > 96) || !filter_var($this->request->post['config_email'], FILTER_VALIDATE_EMAIL)) {
+        if ((oc_strlen($this->request->post['config_email']) > 96) || !filter_var($this->request->post['config_email'], FILTER_VALIDATE_EMAIL)) {
             $this->error['email'] = $this->language->get('error_email');
         }
 
-        if ((strlen($this->request->post['config_telephone']) < 3) || (strlen($this->request->post['config_telephone']) > 32)) {
+        if ((oc_strlen($this->request->post['config_telephone']) < 3) || (oc_strlen($this->request->post['config_telephone']) > 32)) {
             $this->error['telephone'] = $this->language->get('error_telephone');
         }
 

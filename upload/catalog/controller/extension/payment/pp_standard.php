@@ -42,8 +42,8 @@ class ControllerExtensionPaymentPPStandard extends Controller {
                     }
 
                     $option_data[] = [
-                        'name'  => (strlen($option['name']) > 64 ? substr($option['name'], 0, 62) . '..' : $option['name']),
-                        'value' => (strlen($value) > 20 ? substr($value, 0, 20) . '..' : $value)
+                        'name'  => (oc_strlen($option['name']) > 64 ? oc_substr($option['name'], 0, 62) . '..' : $option['name']),
+                        'value' => (oc_strlen($value) > 20 ? oc_substr($value, 0, 20) . '..' : $value)
                     ];
                 }
 

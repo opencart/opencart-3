@@ -38,19 +38,19 @@ class ControllerApiCustomer extends Controller {
                 }
             }
 
-            if ((strlen($this->request->post['firstname']) < 1) || (strlen($this->request->post['firstname']) > 32)) {
+            if ((oc_strlen($this->request->post['firstname']) < 1) || (oc_strlen($this->request->post['firstname']) > 32)) {
                 $json['error']['firstname'] = $this->language->get('error_firstname');
             }
 
-            if ((strlen($this->request->post['lastname']) < 1) || (strlen($this->request->post['lastname']) > 32)) {
+            if ((oc_strlen($this->request->post['lastname']) < 1) || (oc_strlen($this->request->post['lastname']) > 32)) {
                 $json['error']['lastname'] = $this->language->get('error_lastname');
             }
 
-            if ((strlen($this->request->post['email']) > 96) || (!filter_var($this->request->post['email'], FILTER_VALIDATE_EMAIL))) {
+            if ((oc_strlen($this->request->post['email']) > 96) || (!filter_var($this->request->post['email'], FILTER_VALIDATE_EMAIL))) {
                 $json['error']['email'] = $this->language->get('error_email');
             }
 
-            if ((strlen($this->request->post['telephone']) < 3) || (strlen($this->request->post['telephone']) > 32)) {
+            if ((oc_strlen($this->request->post['telephone']) < 3) || (oc_strlen($this->request->post['telephone']) > 32)) {
                 $json['error']['telephone'] = $this->language->get('error_telephone');
             }
 

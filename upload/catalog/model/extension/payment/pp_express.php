@@ -85,7 +85,7 @@ class ModelExtensionPaymentPPExpress extends Model {
                     $value = $option['value'];
                 } else {
                     $filename = $this->encryption->decrypt($this->config->get('config_encryption'), $option['value']);
-                    $value    = substr($filename, 0, strrpos($filename, '.'));
+                    $value    = oc_substr($filename, 0, oc_strrpos($filename, '.'));
                 }
 
                 $data['L_PAYMENTREQUEST_0_DESC' . $i] .= ($option_count > 0 ? ', ' : '') . $option['name'] . ':' . (strlen($value) > 20 ? substr($value, 0, 20) . '..' : $value);

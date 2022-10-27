@@ -326,7 +326,7 @@ class ControllerToolUpload extends Controller {
                 // Sanitize the filename
                 $filename          = html_entity_decode($this->request->files['file']['name'], ENT_QUOTES, 'UTF-8');
 
-                if ((strlen($filename) < 3) || (strlen($filename) > 128)) {
+                if ((oc_strlen($filename) < 3) || (oc_strlen($filename) > 128)) {
                     $json['error'] = $this->language->get('error_filename');
                 }
 

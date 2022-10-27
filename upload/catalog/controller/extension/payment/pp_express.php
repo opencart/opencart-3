@@ -455,7 +455,7 @@ class ControllerExtensionPaymentPPExpress extends Controller {
 
                 $option_data[] = [
                     'name'  => $option['name'],
-                    'value' => (strlen($value) > 20 ? substr($value, 0, 20) . '..' : $value)
+                    'value' => (oc_strlen($value) > 20 ? oc_substr($value, 0, 20) . '..' : $value)
                 ];
             }
 

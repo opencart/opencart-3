@@ -86,19 +86,19 @@ class ControllerApiVoucher extends Controller {
                 unset($this->session->data['payment_methods']);
             } else {
                 // Add a new voucher if set
-                if ((strlen($this->request->post['from_name']) < 1) || (strlen($this->request->post['from_name']) > 64)) {
+                if ((oc_strlen($this->request->post['from_name']) < 1) || (oc_strlen($this->request->post['from_name']) > 64)) {
                     $json['error']['from_name'] = $this->language->get('error_from_name');
                 }
 
-                if ((strlen($this->request->post['from_email']) > 96) || !filter_var($this->request->post['from_email'], FILTER_VALIDATE_EMAIL)) {
+                if ((oc_strlen($this->request->post['from_email']) > 96) || !filter_var($this->request->post['from_email'], FILTER_VALIDATE_EMAIL)) {
                     $json['error']['from_email'] = $this->language->get('error_email');
                 }
 
-                if ((strlen($this->request->post['to_name']) < 1) || (strlen($this->request->post['to_name']) > 64)) {
+                if ((oc_strlen($this->request->post['to_name']) < 1) || (strlen($this->request->post['to_name']) > 64)) {
                     $json['error']['to_name'] = $this->language->get('error_to_name');
                 }
 
-                if ((strlen($this->request->post['to_email']) > 96) || !filter_var($this->request->post['to_email'], FILTER_VALIDATE_EMAIL)) {
+                if ((oc_strlen($this->request->post['to_email']) > 96) || !filter_var($this->request->post['to_email'], FILTER_VALIDATE_EMAIL)) {
                     $json['error']['to_email'] = $this->language->get('error_email');
                 }
 

@@ -181,7 +181,7 @@ class ControllerExtensionExtensionModule extends Controller {
             $this->error['warning'] = $this->language->get('error_permission');
         }
 
-        if (!isset($this->error['warning']) && isset($this->request->get['extension']) && ((strlen($this->request->get['extension']) < 3) || (strlen($this->request->get['extension']) > 32))) {
+        if (!isset($this->error['warning']) && isset($this->request->get['extension']) && ((oc_strlen($this->request->get['extension']) < 3) || (oc_strlen($this->request->get['extension']) > 32))) {
             $this->error['warning'] = $this->language->get('error_code_name');
         }
 

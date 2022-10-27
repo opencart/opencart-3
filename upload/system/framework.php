@@ -2,6 +2,8 @@
 // Registry
 $registry = new \Registry();
 
+require_once(DIR_SYSTEM . 'vendor.php');
+
 // Config
 $config = new \Config();
 $config->load('default');

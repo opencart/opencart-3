@@ -112,15 +112,15 @@ class ControllerCheckoutRegister extends Controller {
         if (!$json) {
             $this->load->model('account/customer');
 
-            if ((strlen($this->request->post['firstname']) < 1) || (strlen($this->request->post['firstname']) > 32)) {
+            if ((oc_strlen($this->request->post['firstname']) < 1) || (oc_strlen($this->request->post['firstname']) > 32)) {
                 $json['error']['firstname'] = $this->language->get('error_firstname');
             }
 
-            if ((strlen($this->request->post['lastname']) < 1) || (strlen($this->request->post['lastname']) > 32)) {
+            if ((oc_strlen($this->request->post['lastname']) < 1) || (oc_strlen($this->request->post['lastname']) > 32)) {
                 $json['error']['lastname'] = $this->language->get('error_lastname');
             }
 
-            if ((strlen($this->request->post['email']) > 96) || !filter_var($this->request->post['email'], FILTER_VALIDATE_EMAIL)) {
+            if ((oc_strlen($this->request->post['email']) > 96) || !filter_var($this->request->post['email'], FILTER_VALIDATE_EMAIL)) {
                 $json['error']['email'] = $this->language->get('error_email');
             }
 
@@ -128,15 +128,15 @@ class ControllerCheckoutRegister extends Controller {
                 $json['error']['warning'] = $this->language->get('error_exists');
             }
 
-            if ((strlen($this->request->post['telephone']) < 3) || (strlen($this->request->post['telephone']) > 32)) {
+            if ((oc_strlen($this->request->post['telephone']) < 3) || (oc_strlen($this->request->post['telephone']) > 32)) {
                 $json['error']['telephone'] = $this->language->get('error_telephone');
             }
 
-            if ((strlen($this->request->post['address_1']) < 3) || (strlen($this->request->post['address_1']) > 128)) {
+            if ((oc_strlen($this->request->post['address_1']) < 3) || (oc_strlen($this->request->post['address_1']) > 128)) {
                 $json['error']['address_1'] = $this->language->get('error_address_1');
             }
 
-            if ((strlen($this->request->post['city']) < 2) || (strlen($this->request->post['city']) > 128)) {
+            if ((oc_strlen($this->request->post['city']) < 2) || (oc_strlen($this->request->post['city']) > 128)) {
                 $json['error']['city'] = $this->language->get('error_city');
             }
 
@@ -144,7 +144,7 @@ class ControllerCheckoutRegister extends Controller {
 
             $country_info = $this->model_localisation_country->getCountry($this->request->post['country_id']);
 
-            if ($country_info && $country_info['postcode_required'] && (strlen($this->request->post['postcode']) < 2 || strlen($this->request->post['postcode']) > 10)) {
+            if ($country_info && $country_info['postcode_required'] && (oc_strlen($this->request->post['postcode']) < 2 || oc_strlen($this->request->post['postcode']) > 10)) {
                 $json['error']['postcode'] = $this->language->get('error_postcode');
             }
 
@@ -156,7 +156,7 @@ class ControllerCheckoutRegister extends Controller {
                 $json['error']['zone'] = $this->language->get('error_zone');
             }
 
-            if ((strlen(html_entity_decode($this->request->post['password'], ENT_QUOTES, 'UTF-8')) < 4) || (strlen(html_entity_decode($this->request->post['password'], ENT_QUOTES, 'UTF-8')) > 40)) {
+            if ((oc_strlen(html_entity_decode($this->request->post['password'], ENT_QUOTES, 'UTF-8')) < 4) || (oc_strlen(html_entity_decode($this->request->post['password'], ENT_QUOTES, 'UTF-8')) > 40)) {
                 $json['error']['password'] = $this->language->get('error_password');
             }
 

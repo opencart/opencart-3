@@ -514,11 +514,11 @@ class ControllerCatalogCategory extends Controller {
         }
 
         foreach ($this->request->post['category_description'] as $language_id => $value) {
-            if ((strlen($value['name']) < 1) || (strlen($value['name']) > 255)) {
+            if ((oc_strlen($value['name']) < 1) || (oc_strlen($value['name']) > 255)) {
                 $this->error['name'][$language_id] = $this->language->get('error_name');
             }
 
-            if ((strlen($value['meta_title']) < 1) || (strlen($value['meta_title']) > 255)) {
+            if ((oc_strlen($value['meta_title']) < 1) || (oc_strlen($value['meta_title']) > 255)) {
                 $this->error['meta_title'][$language_id] = $this->language->get('error_meta_title');
             }
         }

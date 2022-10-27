@@ -424,19 +424,19 @@ class ControllerAccountAddress extends Controller {
     }
 
     protected function validateForm() {
-        if ((strlen($this->request->post['firstname']) < 1) || (strlen($this->request->post['firstname']) > 32)) {
+        if ((oc_strlen($this->request->post['firstname']) < 1) || (oc_strlen($this->request->post['firstname']) > 32)) {
             $this->error['firstname'] = $this->language->get('error_firstname');
         }
 
-        if ((strlen($this->request->post['lastname']) < 1) || (strlen($this->request->post['lastname']) > 32)) {
+        if ((oc_strlen($this->request->post['lastname']) < 1) || (oc_strlen($this->request->post['lastname']) > 32)) {
             $this->error['lastname'] = $this->language->get('error_lastname');
         }
 
-        if ((strlen($this->request->post['address_1']) < 3) || (strlen($this->request->post['address_1']) > 128)) {
+        if ((oc_strlen($this->request->post['address_1']) < 3) || (oc_strlen($this->request->post['address_1']) > 128)) {
             $this->error['address_1'] = $this->language->get('error_address_1');
         }
 
-        if ((strlen($this->request->post['city']) < 2) || (strlen($this->request->post['city']) > 128)) {
+        if ((oc_strlen($this->request->post['city']) < 2) || (oc_strlen($this->request->post['city']) > 128)) {
             $this->error['city'] = $this->language->get('error_city');
         }
 
@@ -444,7 +444,7 @@ class ControllerAccountAddress extends Controller {
 
         $country_info = $this->model_localisation_country->getCountry($this->request->post['country_id']);
 
-        if ($country_info && $country_info['postcode_required'] && (strlen($this->request->post['postcode']) < 2 || strlen($this->request->post['postcode']) > 10)) {
+        if ($country_info && $country_info['postcode_required'] && (oc_strlen($this->request->post['postcode']) < 2 || oc_strlen($this->request->post['postcode']) > 10)) {
             $this->error['postcode'] = $this->language->get('error_postcode');
         }
 

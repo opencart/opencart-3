@@ -11,7 +11,7 @@ class ControllerStartupSeoUrl extends Controller {
             $parts = explode('/', $this->request->get['_route_']);
 
             // remove any empty arrays from trailing
-            if (strlen(end($parts)) == 0) {
+            if (oc_strlen(end($parts)) == 0) {
                 array_pop($parts);
             }
 

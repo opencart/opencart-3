@@ -78,16 +78,16 @@ class ControllerCommonFileManager extends Controller {
                     'thumb' => '',
                     'name'  => implode(' ', $name),
                     'type'  => 'directory',
-                    'path'  => substr($image, strlen(DIR_IMAGE)),
-                    'href'  => $this->url->link('common/filemanager', 'user_token=' . $this->session->data['user_token'] . '&directory=' . urlencode(substr($image, strlen(DIR_IMAGE . 'catalog/'))) . $url, true)
+                    'path'  => oc_substr($image, oc_strlen(DIR_IMAGE)),
+                    'href'  => $this->url->link('common/filemanager', 'user_token=' . $this->session->data['user_token'] . '&directory=' . urlencode(oc_substr($image, oc_strlen(DIR_IMAGE . 'catalog/'))) . $url, true)
                 ];
             } elseif (is_file($image)) {
                 $data['images'][] = [
-                    'thumb' => $this->model_tool_image->resize(substr($image, strlen(DIR_IMAGE)), 100, 100),
+                    'thumb' => $this->model_tool_image->resize(oc_substr($image, oc_strlen(DIR_IMAGE)), 100, 100),
                     'name'  => implode(' ', $name),
                     'type'  => 'image',
-                    'path'  => substr($image, strlen(DIR_IMAGE)),
-                    'href'  => $server . 'image/' . substr($image, strlen(DIR_IMAGE))
+                    'path'  => oc_substr($image, oc_strlen(DIR_IMAGE)),
+                    'href'  => $server . 'image/' . oc_substr($image, oc_strlen(DIR_IMAGE))
                 ];
             }
         }
@@ -231,7 +231,7 @@ class ControllerCommonFileManager extends Controller {
                     $filename = basename(html_entity_decode($file['name'], ENT_QUOTES, 'UTF-8'));
 
                     // Validate the filename length
-                    if ((strlen($filename) < 3) || (strlen($filename) > 255)) {
+                    if ((oc_strlen($filename) < 3) || (oc_strlen($filename) > 255)) {
                         $json['error'] = $this->language->get('error_filename');
                     }
 
@@ -243,7 +243,7 @@ class ControllerCommonFileManager extends Controller {
                         'png'
                     ];
 
-                    if (!in_array(strtolower(substr(strrchr($filename, '.'), 1)), $allowed)) {
+                    if (!in_array(oc_strtolower(oc_substr(strrchr($filename, '.'), 1)), $allowed)) {
                         $json['error'] = $this->language->get('error_filetype');
                     }
 
@@ -313,7 +313,7 @@ class ControllerCommonFileManager extends Controller {
             $folder = basename(html_entity_decode($this->request->post['folder'], ENT_QUOTES, 'UTF-8'));
 
             // Validate the filename length
-            if ((strlen($folder) < 3) || (strlen($folder) > 128)) {
+            if ((oc_strlen($folder) < 3) || (oc_strlen($folder) > 128)) {
                 $json['error'] = $this->language->get('error_folder');
             }
 

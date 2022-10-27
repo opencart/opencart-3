@@ -184,19 +184,19 @@ class ControllerAccountVoucher extends Controller {
     }
 
     protected function validate() {
-        if ((strlen($this->request->post['to_name']) < 1) || (strlen($this->request->post['to_name']) > 64)) {
+        if ((oc_strlen($this->request->post['to_name']) < 1) || (oc_strlen($this->request->post['to_name']) > 64)) {
             $this->error['to_name'] = $this->language->get('error_to_name');
         }
 
-        if ((strlen($this->request->post['to_email']) > 96) || !filter_var($this->request->post['to_email'], FILTER_VALIDATE_EMAIL)) {
+        if ((oc_strlen($this->request->post['to_email']) > 96) || !filter_var($this->request->post['to_email'], FILTER_VALIDATE_EMAIL)) {
             $this->error['to_email'] = $this->language->get('error_email');
         }
 
-        if ((strlen($this->request->post['from_name']) < 1) || (strlen($this->request->post['from_name']) > 64)) {
+        if ((oc_strlen($this->request->post['from_name']) < 1) || (oc_strlen($this->request->post['from_name']) > 64)) {
             $this->error['from_name'] = $this->language->get('error_from_name');
         }
 
-        if ((strlen($this->request->post['from_email']) > 96) || !filter_var($this->request->post['from_email'], FILTER_VALIDATE_EMAIL)) {
+        if ((oc_strlen($this->request->post['from_email']) > 96) || !filter_var($this->request->post['from_email'], FILTER_VALIDATE_EMAIL)) {
             $this->error['from_email'] = $this->language->get('error_email');
         }
 

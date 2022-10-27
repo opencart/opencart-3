@@ -40,7 +40,7 @@ class ModelExtensionFraudFraudLabsPro extends Model {
         $request['bill_state']    = $data['payment_zone'];
         $request['bill_country']  = $data['payment_iso_code_2'];
         $request['bill_zip_code'] = $data['payment_postcode'];
-        $request['email_domain']  = substr(strrchr($data['email'], '@'), 1);
+        $request['email_domain']  = oc_substr(strrchr($data['email'], '@'), 1);
         $request['user_phone']    = $data['telephone'];
 
         if ($data['shipping_method']) {

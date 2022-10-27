@@ -316,7 +316,7 @@ class ControllerLocalisationReturnsAction extends Controller {
         }
 
         foreach ($this->request->post['return_action'] as $language_id => $value) {
-            if ((strlen($value['name']) < 3) || (strlen($value['name']) > 64)) {
+            if ((oc_strlen($value['name']) < 3) || (oc_strlen($value['name']) > 64)) {
                 $this->error['name'][$language_id] = $this->language->get('error_name');
             }
         }

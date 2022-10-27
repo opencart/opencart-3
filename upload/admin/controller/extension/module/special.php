@@ -135,7 +135,7 @@ class ControllerExtensionModuleSpecial extends Controller {
             $this->error['warning'] = $this->language->get('error_permission');
         }
 
-        if ((strlen($this->request->post['name']) < 3) || (strlen($this->request->post['name']) > 64)) {
+        if ((oc_strlen($this->request->post['name']) < 3) || (oc_strlen($this->request->post['name']) > 64)) {
             $this->error['name'] = $this->language->get('error_name');
         }
 

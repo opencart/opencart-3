@@ -6,21 +6,23 @@
       <excludeFolder url="file://$MODULE_DIR$/upload/system/storage/vendor/composer" />
       <excludeFolder url="file://$MODULE_DIR$/upload/system/storage/vendor/psr/log" />
       <excludeFolder url="file://$MODULE_DIR$/upload/system/storage/vendor/react/promise" />
-      <excludeFolder url="file://$MODULE_DIR$/upload/system/storage/vendor/guzzlehttp/log-subscriber" />
       <excludeFolder url="file://$MODULE_DIR$/upload/system/storage/vendor/guzzlehttp/guzzle" />
-      <excludeFolder url="file://$MODULE_DIR$/upload/system/storage/vendor/guzzlehttp/streams" />
-      <excludeFolder url="file://$MODULE_DIR$/upload/system/storage/vendor/guzzlehttp/oauth-subscriber" />
       <excludeFolder url="file://$MODULE_DIR$/upload/system/storage/vendor/scssphp/scssphp" />
       <excludeFolder url="file://$MODULE_DIR$/upload/system/storage/vendor/zoujingli/wechat-php-sdk" />
-      <excludeFolder url="file://$MODULE_DIR$/upload/system/storage/vendor/guzzlehttp/ringphp" />
       <excludeFolder url="file://$MODULE_DIR$/upload/system/storage/vendor/braintree/braintree_php" />
       <excludeFolder url="file://$MODULE_DIR$/upload/system/storage/vendor/twig/twig" />
       <excludeFolder url="file://$MODULE_DIR$/upload/system/storage/vendor/symfony/polyfill-mbstring" />
       <excludeFolder url="file://$MODULE_DIR$/upload/system/storage/vendor/cardinity/cardinity-sdk-php" />
-      <excludeFolder url="file://$MODULE_DIR$/upload/system/storage/vendor/symfony/translation" />
-      <excludeFolder url="file://$MODULE_DIR$/upload/system/storage/vendor/symfony/validator" />
       <excludeFolder url="file://$MODULE_DIR$/upload/system/storage/vendor/divido/divido-php" />
       <excludeFolder url="file://$MODULE_DIR$/upload/system/storage/vendor/symfony/polyfill-ctype" />
+      <excludeFolder url="file://$MODULE_DIR$/upload/system/storage/vendor/psr/http-message" />
+      <excludeFolder url="file://$MODULE_DIR$/upload/system/storage/vendor/psr/http-factory" />
+      <excludeFolder url="file://$MODULE_DIR$/upload/system/storage/vendor/psr/http-client" />
+      <excludeFolder url="file://$MODULE_DIR$/upload/system/storage/vendor/mtdowling/jmespath.php" />
+      <excludeFolder url="file://$MODULE_DIR$/upload/system/storage/vendor/ralouphie/getallheaders" />
+      <excludeFolder url="file://$MODULE_DIR$/upload/system/storage/vendor/guzzlehttp/promises" />
+      <excludeFolder url="file://$MODULE_DIR$/upload/system/storage/vendor/guzzlehttp/psr7" />
+      <excludeFolder url="file://$MODULE_DIR$/upload/system/storage/vendor/symfony/deprecation-contracts" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />

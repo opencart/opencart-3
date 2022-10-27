@@ -372,11 +372,11 @@ class ControllerUserApi extends Controller {
             $this->error['warning'] = $this->language->get('error_permission');
         }
 
-        if ((strlen($this->request->post['username']) < 3) || (strlen($this->request->post['username']) > 64)) {
+        if ((oc_strlen($this->request->post['username']) < 3) || (oc_strlen($this->request->post['username']) > 64)) {
             $this->error['username'] = $this->language->get('error_username');
         }
 
-        if ((strlen($this->request->post['key']) < 64) || (strlen($this->request->post['key']) > 256)) {
+        if ((oc_strlen($this->request->post['key']) < 64) || (oc_strlen($this->request->post['key']) > 256)) {
             $this->error['key'] = $this->language->get('error_key');
         }
 

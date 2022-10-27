@@ -338,11 +338,11 @@ class ControllerLocalisationWeightClass extends Controller {
         }
 
         foreach ($this->request->post['weight_class_description'] as $language_id => $value) {
-            if ((strlen($value['title']) < 3) || (strlen($value['title']) > 32)) {
+            if ((oc_strlen($value['title']) < 3) || (oc_strlen($value['title']) > 32)) {
                 $this->error['title'][$language_id] = $this->language->get('error_title');
             }
 
-            if (!$value['unit'] || (strlen($value['unit']) > 4)) {
+            if (!$value['unit'] || (oc_strlen($value['unit']) > 4)) {
                 $this->error['unit'][$language_id] = $this->language->get('error_unit');
             }
         }

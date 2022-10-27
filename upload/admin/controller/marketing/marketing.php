@@ -462,7 +462,7 @@ class ControllerMarketingMarketing extends Controller {
             $this->error['warning'] = $this->language->get('error_permission');
         }
 
-        if ((strlen($this->request->post['name']) < 1) || (strlen($this->request->post['name']) > 32)) {
+        if ((oc_strlen($this->request->post['name']) < 1) || (oc_strlen($this->request->post['name']) > 32)) {
             $this->error['name'] = $this->language->get('error_name');
         }
 

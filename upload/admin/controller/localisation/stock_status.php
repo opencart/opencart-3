@@ -316,7 +316,7 @@ class ControllerLocalisationStockStatus extends Controller {
         }
 
         foreach ($this->request->post['stock_status'] as $language_id => $value) {
-            if ((strlen($value['name']) < 3) || (strlen($value['name']) > 32)) {
+            if ((oc_strlen($value['name']) < 3) || (oc_strlen($value['name']) > 32)) {
                 $this->error['name'][$language_id] = $this->language->get('error_name');
             }
         }
