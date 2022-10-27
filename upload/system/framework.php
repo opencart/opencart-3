@@ -1,8 +1,11 @@
 <?php
-// Registry
-$registry = new \Registry();
+// Autoloader
+$autoloader = new \Autoloader();
 
 require_once(DIR_SYSTEM . 'vendor.php');
+
+// Registry
+$registry = new \Registry();
 
 // Config
 $config = new \Config();
