@@ -38,7 +38,7 @@ function squareup_init($current_dir) {
 
     putenv("SERVER_NAME=" . $_SERVER['SERVER_NAME']);
 
-    // Change root dir
+    // Change root directory
     $root_dir = squareup_chdir($current_dir);
 
     squareup_define_route();

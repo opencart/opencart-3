@@ -30,7 +30,7 @@ function advertise_google_init($current_dir) {
 
     putenv("SERVER_NAME=" . $_SERVER['SERVER_NAME']);
 
-    // Change root dir
+    // Change root directory
     $root_dir = advertise_google_chdir($current_dir);
 
     advertise_google_define_route();

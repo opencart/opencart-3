@@ -1038,10 +1038,10 @@ class Googleshopping extends Library {
 
             $path = '';
 
-            $directories = explode('/', dirname($image_new));
+            $directoryectories = explode('/', dirname($image_new));
 
-            foreach ($directories as $directory) {
-                $path = $path . '/' . $directory;
+            foreach ($directoryectories as $directoryectory) {
+                $path = $path . '/' . $directoryectory;
 
                 if (!is_dir(DIR_IMAGE . $path)) {
                     @mkdir(DIR_IMAGE . $path, 0777);
@@ -1828,25 +1828,25 @@ class Googleshopping extends Library {
     }
 
     private function createVerificationToken($token) {
-        $dir = dirname(DIR_SYSTEM);
+        $directory = dirname(DIR_SYSTEM);
 
-        if (!is_dir($dir) || !is_writable($dir)) {
-            throw new \RuntimeException("Not a directory, or no permissions to write to: " . $dir);
+        if (!is_dir($directory) || !is_writable($directory)) {
+            throw new \RuntimeException("Not a directory, or no permissions to write to: " . $directory);
         }
 
-        if (!file_put_contents($dir . '/' . $token, 'google-site-verification: ' . $token)) {
-            throw new \RuntimeException("Could not write to: " . $dir . '/' . $token);
+        if (!file_put_contents($directory . '/' . $token, 'google-site-verification: ' . $token)) {
+            throw new \RuntimeException("Could not write to: " . $directory . '/' . $token);
         }
     }
 
     private function deleteVerificationToken($token) {
-        $dir = dirname(DIR_SYSTEM);
+        $directory = dirname(DIR_SYSTEM);
 
-        if (!is_dir($dir) || !is_writable($dir)) {
-            throw new \RuntimeException("Not a directory, or no permissions to write to: " . $dir);
+        if (!is_dir($directory) || !is_writable($directory)) {
+            throw new \RuntimeException("Not a directory, or no permissions to write to: " . $directory);
         }
 
-        $file = $dir . '/' . $token;
+        $file = $directory . '/' . $token;
 
         if (is_file($file) && is_writable($file)) {
             @unlink($file);

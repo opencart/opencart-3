@@ -173,7 +173,7 @@ class ControllerExtensionPaymentKlarnaAccount extends Controller {
 
         foreach ($this->request->post['klarna_account'] as $key => $klarna_account) {
             if ($klarna_account['status']) {
-                $digest = base64_encode(pack("H*", hash('sha256', $klarna_account['merchant'] . ':' . $country[$key]['currency'] . ':' . $klarna_account['secret'])));
+                $digest = base64_encode(pack('H*', hash('sha256', $klarna_account['merchant'] . ':' . $country[$key]['currency'] . ':' . $klarna_account['secret'])));
 
                 $xml = '<methodCall>';
                 $xml .= '  <methodName>get_pclasses</methodName>';

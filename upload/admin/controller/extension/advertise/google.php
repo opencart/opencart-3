@@ -131,9 +131,9 @@ class ControllerExtensionAdvertiseGoogle extends Controller {
         } elseif (!$this->model_extension_advertise_google->hasActiveTarget($this->store_id)) {
             $data['warning'] = sprintf($this->language->get('warning_no_active_campaigns'), $this->url->link('extension/advertise/google/campaign', 'store_id=' . $this->store_id . '&user_token=' . $this->session->data['user_token'] . '&from_dashboard=true', true));
         } elseif ($advertised_count == 0) {
-            $data['warning'] = sprintf($this->language->get("warning_no_advertised_products"), $this->language->get("text_video_tutorial_url_advertise"));
+            $data['warning'] = sprintf($this->language->get('warning_no_advertised_products'), $this->language->get('text_video_tutorial_url_advertise'));
         } elseif ($last_cron_executed + 24 * 60 * 60 <= time()) {
-            $data['warning'] = sprintf($this->language->get("warning_last_cron_executed"), $this->language->get("text_tutorial_cron"));
+            $data['warning'] = sprintf($this->language->get('warning_last_cron_executed'), $this->language->get('text_tutorial_cron'));
         }
 
         $data['breadcrumbs'] = [];
