@@ -11,7 +11,7 @@ class ControllerAccountDownload extends Controller {
 
         $this->document->setTitle($this->language->get('heading_title'));
 
-        $data['breadcrumbs']   = [];
+        $data['breadcrumbs'] = [];
 
         $data['breadcrumbs'][] = [
             'text' => $this->language->get('text_home'),
@@ -38,9 +38,9 @@ class ControllerAccountDownload extends Controller {
 
         $data['downloads'] = [];
 
-        $download_total    = $this->model_account_download->getTotalDownloads();
+        $download_total = $this->model_account_download->getTotalDownloads();
 
-        $results           = $this->model_account_download->getDownloads(($page - 1) * $this->config->get('theme_' . $this->config->get('config_theme') . '_product_limit'), $this->config->get('theme_' . $this->config->get('config_theme') . '_product_limit'));
+        $results = $this->model_account_download->getDownloads(($page - 1) * $this->config->get('theme_' . $this->config->get('config_theme') . '_product_limit'), $this->config->get('theme_' . $this->config->get('config_theme') . '_product_limit'));
 
         foreach ($results as $result) {
             if (file_exists(DIR_DOWNLOAD . $result['filename'])) {
@@ -76,23 +76,23 @@ class ControllerAccountDownload extends Controller {
             }
         }
 
-        $pagination             = new \Pagination();
-        $pagination->total      = $download_total;
-        $pagination->page       = $page;
-        $pagination->limit      = $this->config->get('theme_' . $this->config->get('config_theme') . '_product_limit');
-        $pagination->url        = $this->url->link('account/download', 'customer_token=' . $this->session->data['customer_token'] . '&page={page}', true);
+        $pagination = new \Pagination();
+        $pagination->total = $download_total;
+        $pagination->page = $page;
+        $pagination->limit = $this->config->get('theme_' . $this->config->get('config_theme') . '_product_limit');
+        $pagination->url = $this->url->link('account/download', 'customer_token=' . $this->session->data['customer_token'] . '&page={page}', true);
 
-        $data['pagination']     = $pagination->render();
-        $data['results']        = sprintf($this->language->get('text_pagination'), ($download_total) ? (($page - 1) * 10) + 1 : 0, ((($page - 1) * 10) > ($download_total - 10)) ? $download_total : ((($page - 1) * 10) + 10), $download_total, ceil($download_total / 10));
+        $data['pagination'] = $pagination->render();
+        $data['results'] = sprintf($this->language->get('text_pagination'), ($download_total) ? (($page - 1) * 10) + 1 : 0, ((($page - 1) * 10) > ($download_total - 10)) ? $download_total : ((($page - 1) * 10) + 10), $download_total, ceil($download_total / 10));
 
-        $data['continue']       = $this->url->link('account/account', 'customer_token=' . $this->session->data['customer_token'], true);
+        $data['continue'] = $this->url->link('account/account', 'customer_token=' . $this->session->data['customer_token'], true);
 
-        $data['column_left']    = $this->load->controller('common/column_left');
-        $data['column_right']   = $this->load->controller('common/column_right');
-        $data['content_top']    = $this->load->controller('common/content_top');
+        $data['column_left'] = $this->load->controller('common/column_left');
+        $data['column_right'] = $this->load->controller('common/column_right');
+        $data['content_top'] = $this->load->controller('common/content_top');
         $data['content_bottom'] = $this->load->controller('common/content_bottom');
-        $data['footer']         = $this->load->controller('common/footer');
-        $data['header']         = $this->load->controller('common/header');
+        $data['footer'] = $this->load->controller('common/footer');
+        $data['header'] = $this->load->controller('common/header');
 
         $this->response->setOutput($this->load->view('account/download', $data));
     }

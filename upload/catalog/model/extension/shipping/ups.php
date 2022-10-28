@@ -16,7 +16,7 @@ class ModelExtensionShippingUps extends Model {
         $method_data = [];
 
         if ($status) {
-            $weight      = $this->weight->convert($this->cart->getWeight(), $this->config->get('config_weight_class_id'), $this->config->get('shipping_ups_weight_class_id'));
+            $weight = $this->weight->convert($this->cart->getWeight(), $this->config->get('config_weight_class_id'), $this->config->get('shipping_ups_weight_class_id'));
             $weight_code = strtoupper($this->weight->getUnit($this->config->get('shipping_ups_weight_class_id')));
 
             if ($weight_code == 'KG') {
@@ -25,11 +25,11 @@ class ModelExtensionShippingUps extends Model {
                 $weight_code = 'LBS';
             }
 
-            $weight       = ($weight < 0.1 ? 0.1 : $weight);
-            $length       = $this->length->convert($this->config->get('shipping_ups_length'), $this->config->get('config_length_class_id'), $this->config->get('shipping_ups_length_class_id'));
-            $width        = $this->length->convert($this->config->get('shipping_ups_width'), $this->config->get('config_length_class_id'), $this->config->get('shipping_ups_length_class_id'));
-            $height       = $this->length->convert($this->config->get('shipping_ups_height'), $this->config->get('config_length_class_id'), $this->config->get('shipping_ups_length_class_id'));
-            $length_code  = strtoupper($this->length->getUnit($this->config->get('shipping_ups_length_class_id')));
+            $weight = ($weight < 0.1 ? 0.1 : $weight);
+            $length = $this->length->convert($this->config->get('shipping_ups_length'), $this->config->get('config_length_class_id'), $this->config->get('shipping_ups_length_class_id'));
+            $width = $this->length->convert($this->config->get('shipping_ups_width'), $this->config->get('config_length_class_id'), $this->config->get('shipping_ups_length_class_id'));
+            $height = $this->length->convert($this->config->get('shipping_ups_height'), $this->config->get('config_length_class_id'), $this->config->get('shipping_ups_length_class_id'));
+            $length_code = strtoupper($this->length->getUnit($this->config->get('shipping_ups_length_class_id')));
 
             $service_code = [];
 
@@ -216,7 +216,7 @@ class ModelExtensionShippingUps extends Model {
 
             curl_close($curl);
 
-            $error      = '';
+            $error = '';
             $quote_data = [];
 
             if ($result) {
@@ -237,21 +237,20 @@ class ModelExtensionShippingUps extends Model {
                 }
 
                 $rating_service_selection_response = $dom->getElementsByTagName('RatingServiceSelectionResponse')->item(0);
-                $response                          = $rating_service_selection_response->getElementsByTagName('Response')->item(0);
-                $response_status_code              = $response->getElementsByTagName('ResponseStatusCode');
+                $response = $rating_service_selection_response->getElementsByTagName('Response')->item(0);
+                $response_status_code = $response->getElementsByTagName('ResponseStatusCode');
 
                 if ($response_status_code->item(0)->nodeValue != '1') {
-                    $error           = $response->getElementsByTagName('Error')->item(0)->getElementsByTagName('ErrorCode')->item(0)->nodeValue . ': ' . $response->getElementsByTagName('Error')->item(0)->getElementsByTagName('ErrorDescription')->item(0)->nodeValue;
-
+                    $error = $response->getElementsByTagName('Error')->item(0)->getElementsByTagName('ErrorCode')->item(0)->nodeValue . ': ' . $response->getElementsByTagName('Error')->item(0)->getElementsByTagName('ErrorDescription')->item(0)->nodeValue;
                 } else {
                     $rated_shipments = $rating_service_selection_response->getElementsByTagName('RatedShipment');
 
                     foreach ($rated_shipments as $rated_shipment) {
-                        $service       = $rated_shipment->getElementsByTagName('Service')->item(0);
-                        $code          = $service->getElementsByTagName('Code')->item(0)->nodeValue;
+                        $service = $rated_shipment->getElementsByTagName('Service')->item(0);
+                        $code = $service->getElementsByTagName('Code')->item(0)->nodeValue;
                         $total_charges = $rated_shipment->getElementsByTagName('TotalCharges')->item(0);
-                        $cost          = $total_charges->getElementsByTagName('MonetaryValue')->item(0)->nodeValue;
-                        $currency      = $total_charges->getElementsByTagName('CurrencyCode')->item(0)->nodeValue;
+                        $cost = $total_charges->getElementsByTagName('MonetaryValue')->item(0)->nodeValue;
+                        $currency = $total_charges->getElementsByTagName('CurrencyCode')->item(0)->nodeValue;
 
                         if (!($code && $cost)) {
                             continue;

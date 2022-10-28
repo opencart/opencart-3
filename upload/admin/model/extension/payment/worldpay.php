@@ -66,8 +66,8 @@ class ModelExtensionPaymentWorldpay extends Model {
 
         if (!empty($worldpay_order) && $worldpay_order['refund_status'] != 1) {
             $order['refundAmount'] = (int)($amount * 100);
-            $url                   = $worldpay_order['order_code'] . '/refund';
-            $response_data         = $this->sendCurl($url, $order);
+            $url = $worldpay_order['order_code'] . '/refund';
+            $response_data = $this->sendCurl($url, $order);
 
             return $response_data;
         } else {
@@ -152,8 +152,8 @@ class ModelExtensionPaymentWorldpay extends Model {
         $response = [];
 
         if (isset($result)) {
-            $response['status']       = $result->httpStatusCode;
-            $response['message']      = $result->message;
+            $response['status'] = $result->httpStatusCode;
+            $response['message'] = $result->message;
             $response['full_details'] = $result;
         } else {
             $response['status'] = 'success';

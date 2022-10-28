@@ -20,7 +20,7 @@ class ControllerAccountTracking extends Controller {
 
             $this->document->setTitle($this->language->get('heading_title'));
 
-            $data['breadcrumbs']   = [];
+            $data['breadcrumbs'] = [];
 
             $data['breadcrumbs'][] = [
                 'text' => $this->language->get('text_home'),
@@ -37,17 +37,17 @@ class ControllerAccountTracking extends Controller {
                 'href' => $this->url->link('account/tracking', '', true)
             ];
 
-            $data['code']             = $affiliate_info['tracking'];
-            $data['continue']         = $this->url->link('account/account', 'customer_token=' . $this->session->data['customer_token'], true);
-            $data['customer_token']   = $this->session->data['customer_token'];
+            $data['code'] = $affiliate_info['tracking'];
+            $data['continue'] = $this->url->link('account/account', 'customer_token=' . $this->session->data['customer_token'], true);
+            $data['customer_token'] = $this->session->data['customer_token'];
             $data['text_description'] = sprintf($this->language->get('text_description'), $this->config->get('config_name'));
 
-            $data['column_left']      = $this->load->controller('common/column_left');
-            $data['column_right']     = $this->load->controller('common/column_right');
-            $data['content_top']      = $this->load->controller('common/content_top');
-            $data['content_bottom']   = $this->load->controller('common/content_bottom');
-            $data['footer']           = $this->load->controller('common/footer');
-            $data['header']           = $this->load->controller('common/header');
+            $data['column_left'] = $this->load->controller('common/column_left');
+            $data['column_right'] = $this->load->controller('common/column_right');
+            $data['content_top'] = $this->load->controller('common/content_top');
+            $data['content_bottom'] = $this->load->controller('common/content_bottom');
+            $data['footer'] = $this->load->controller('common/footer');
+            $data['header'] = $this->load->controller('common/header');
 
             $this->response->setOutput($this->load->view('account/tracking', $data));
         } else {
@@ -75,7 +75,7 @@ class ControllerAccountTracking extends Controller {
         if (!$this->customer->isLogged() || (!isset($this->request->get['customer_token']) || !isset($this->session->data['customer_token']) || ($this->request->get['customer_token'] != $this->session->data['customer_token']))) {
             $this->session->data['redirect'] = $this->url->link('account/password', '', true);
 
-            $json['redirect']                = $this->url->link('account/login', '', true);
+            $json['redirect'] = $this->url->link('account/login', '', true);
         }
 
         if (!$json) {
@@ -96,7 +96,6 @@ class ControllerAccountTracking extends Controller {
                 ];
             }
         }
-
 
         $this->response->addHeader('Content-Type: application/json');
         $this->response->setOutput(json_encode($json));

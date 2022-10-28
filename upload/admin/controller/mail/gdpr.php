@@ -34,18 +34,18 @@ class ControllerMailGdpr extends Controller {
     public function export(array $gdpr_info): void {
         $this->load->model('setting/store');
 
-        $store_info    = $this->model_setting_store->getStore($gdpr_info['store_id']);
+        $store_info = $this->model_setting_store->getStore($gdpr_info['store_id']);
 
         if ($store_info) {
             $this->load->model('setting/setting');
 
             $store_logo = html_entity_decode($this->model_setting_setting->getValue('config_logo', $store_info['store_id']), ENT_QUOTES, 'UTF-8');
             $store_name = html_entity_decode($store_info['name'], ENT_QUOTES, 'UTF-8');
-            $store_url  = $store_info['url'];
+            $store_url = $store_info['url'];
         } else {
             $store_logo = html_entity_decode($this->config->get('config_logo'), ENT_QUOTES, 'UTF-8');
             $store_name = html_entity_decode($this->config->get('config_name'), ENT_QUOTES, 'UTF-8');
-            $store_url  = HTTP_CATALOG;
+            $store_url = HTTP_CATALOG;
         }
 
         // Send the email in the correct language
@@ -64,7 +64,7 @@ class ControllerMailGdpr extends Controller {
         $language->load($language_code);
         $language->load('mail/gdpr_export');
 
-        $subject       = sprintf($language->get('text_subject'), $store_name);
+        $subject = sprintf($language->get('text_subject'), $store_name);
 
         if (is_file(DIR_IMAGE . $store_logo)) {
             $data['logo'] = $store_url . 'image/' . $store_logo;
@@ -85,10 +85,10 @@ class ControllerMailGdpr extends Controller {
         // Personal info
         if ($customer_info) {
             $data['customer_id'] = $customer_info['customer_id'];
-            $data['firstname']   = $customer_info['firstname'];
-            $data['lastname']    = $customer_info['lastname'];
-            $data['email']       = $customer_info['email'];
-            $data['telephone']   = $customer_info['telephone'];
+            $data['firstname'] = $customer_info['firstname'];
+            $data['lastname'] = $customer_info['lastname'];
+            $data['email'] = $customer_info['email'];
+            $data['telephone'] = $customer_info['telephone'];
         }
 
         // Addresses
@@ -169,16 +169,16 @@ class ControllerMailGdpr extends Controller {
         }
 
         $data['store_name'] = $store_name;
-        $data['store_url']  = $store_url;
+        $data['store_url'] = $store_url;
 
         if ($this->config->get('config_mail_engine')) {
-            $mail                = new \Mail($this->config->get('config_mail_engine'));
-            $mail->parameter     = $this->config->get('config_mail_parameter');
+            $mail = new \Mail($this->config->get('config_mail_engine'));
+            $mail->parameter = $this->config->get('config_mail_parameter');
             $mail->smtp_hostname = $this->config->get('config_mail_smtp_hostname');
             $mail->smtp_username = $this->config->get('config_mail_smtp_username');
             $mail->smtp_password = html_entity_decode($this->config->get('config_mail_smtp_password'), ENT_QUOTES, 'UTF-8');
-            $mail->smtp_port     = $this->config->get('config_mail_smtp_port');
-            $mail->smtp_timeout  = $this->config->get('config_mail_smtp_timeout');
+            $mail->smtp_port = $this->config->get('config_mail_smtp_port');
+            $mail->smtp_timeout = $this->config->get('config_mail_smtp_timeout');
 
             $mail->setTo($gdpr_info['email']);
             $mail->setFrom($this->config->get('config_email'));
@@ -192,18 +192,18 @@ class ControllerMailGdpr extends Controller {
     public function approve(array $gdpr_info): void {
         $this->load->model('setting/store');
 
-        $store_info    = $this->model_setting_store->getStore($gdpr_info['store_id']);
+        $store_info = $this->model_setting_store->getStore($gdpr_info['store_id']);
 
         if ($store_info) {
             $this->load->model('setting/setting');
 
             $store_logo = html_entity_decode($this->model_setting_setting->getValue('config_logo', $store_info['store_id']), ENT_QUOTES, 'UTF-8');
             $store_name = html_entity_decode($store_info['name'], ENT_QUOTES, 'UTF-8');
-            $store_url  = $store_info['url'];
+            $store_url = $store_info['url'];
         } else {
             $store_logo = html_entity_decode($this->config->get('config_logo'), ENT_QUOTES, 'UTF-8');
             $store_name = html_entity_decode($this->config->get('config_name'), ENT_QUOTES, 'UTF-8');
-            $store_url  = HTTP_CATALOG;
+            $store_url = HTTP_CATALOG;
         }
 
         // Send the email in the correct language
@@ -242,19 +242,19 @@ class ControllerMailGdpr extends Controller {
             $data['text_hello'] = sprintf($language->get('text_hello'), $language->get('text_user'));
         }
 
-        $data['text_gdpr']  = sprintf($language->get('text_gdpr'), $this->config->get('config_gdpr_limit'));
-        $data['text_a']     = sprintf($language->get('text_a'), $this->config->get('config_gdpr_limit'));
+        $data['text_gdpr'] = sprintf($language->get('text_gdpr'), $this->config->get('config_gdpr_limit'));
+        $data['text_a'] = sprintf($language->get('text_a'), $this->config->get('config_gdpr_limit'));
         $data['store_name'] = $store_name;
-        $data['store_url']  = $store_url;
+        $data['store_url'] = $store_url;
 
         if ($this->config->get('config_mail_engine')) {
-            $mail                = new \Mail($this->config->get('config_mail_engine'));
-            $mail->parameter     = $this->config->get('config_mail_parameter');
+            $mail = new \Mail($this->config->get('config_mail_engine'));
+            $mail->parameter = $this->config->get('config_mail_parameter');
             $mail->smtp_hostname = $this->config->get('config_mail_smtp_hostname');
             $mail->smtp_username = $this->config->get('config_mail_smtp_username');
             $mail->smtp_password = html_entity_decode($this->config->get('config_mail_smtp_password'), ENT_QUOTES, 'UTF-8');
-            $mail->smtp_port     = $this->config->get('config_mail_smtp_port');
-            $mail->smtp_timeout  = $this->config->get('config_mail_smtp_timeout');
+            $mail->smtp_port = $this->config->get('config_mail_smtp_port');
+            $mail->smtp_timeout = $this->config->get('config_mail_smtp_timeout');
 
             $mail->setTo($gdpr_info['email']);
             $mail->setFrom($this->config->get('config_email'));
@@ -275,11 +275,11 @@ class ControllerMailGdpr extends Controller {
 
             $store_logo = html_entity_decode($this->model_setting_setting->getValue('config_logo', $store_info['store_id']), ENT_QUOTES, 'UTF-8');
             $store_name = html_entity_decode($store_info['name'], ENT_QUOTES, 'UTF-8');
-            $store_url  = $store_info['url'];
+            $store_url = $store_info['url'];
         } else {
             $store_logo = html_entity_decode($this->config->get('config_logo'), ENT_QUOTES, 'UTF-8');
             $store_name = html_entity_decode($this->config->get('config_name'), ENT_QUOTES, 'UTF-8');
-            $store_url  = HTTP_CATALOG;
+            $store_url = HTTP_CATALOG;
         }
 
         // Send the email in the correct language
@@ -312,7 +312,7 @@ class ControllerMailGdpr extends Controller {
 
         $this->load->model('customer/customer');
 
-        $customer_info        = $this->model_customer_customer->getCustomerByEmail($gdpr_info['email']);
+        $customer_info = $this->model_customer_customer->getCustomerByEmail($gdpr_info['email']);
 
         if ($customer_info) {
             $data['text_hello'] = sprintf($language->get('text_hello'), html_entity_decode($customer_info['firstname'], ENT_QUOTES, 'UTF-8'));
@@ -321,17 +321,17 @@ class ControllerMailGdpr extends Controller {
         }
 
         $data['store_name'] = $store_name;
-        $data['store_url']  = $store_url;
-        $data['contact']    = $store_url . 'index.php?route=information/contact';
+        $data['store_url'] = $store_url;
+        $data['contact'] = $store_url . 'index.php?route=information/contact';
 
         if ($this->config->get('config_mail_engine')) {
-            $mail                = new \Mail($this->config->get('config_mail_engine'));
-            $mail->parameter     = $this->config->get('config_mail_parameter');
+            $mail = new \Mail($this->config->get('config_mail_engine'));
+            $mail->parameter = $this->config->get('config_mail_parameter');
             $mail->smtp_hostname = $this->config->get('config_mail_smtp_hostname');
             $mail->smtp_username = $this->config->get('config_mail_smtp_username');
             $mail->smtp_password = html_entity_decode($this->config->get('config_mail_smtp_password'), ENT_QUOTES, 'UTF-8');
-            $mail->smtp_port     = $this->config->get('config_mail_smtp_port');
-            $mail->smtp_timeout  = $this->config->get('config_mail_smtp_timeout');
+            $mail->smtp_port = $this->config->get('config_mail_smtp_port');
+            $mail->smtp_timeout = $this->config->get('config_mail_smtp_timeout');
 
             $mail->setTo($gdpr_info['email']);
             $mail->setFrom($this->config->get('config_email'));
@@ -352,11 +352,11 @@ class ControllerMailGdpr extends Controller {
 
             $store_logo = html_entity_decode($this->model_setting_setting->getValue('config_logo', $store_info['store_id']), ENT_QUOTES, 'UTF-8');
             $store_name = html_entity_decode($store_info['name'], ENT_QUOTES, 'UTF-8');
-            $store_url  = $store_info['url'];
+            $store_url = $store_info['url'];
         } else {
             $store_logo = html_entity_decode($this->config->get('config_logo'), ENT_QUOTES, 'UTF-8');
             $store_name = html_entity_decode($this->config->get('config_name'), ENT_QUOTES, 'UTF-8');
-            $store_url  = HTTP_CATALOG;
+            $store_url = HTTP_CATALOG;
         }
 
         // Send the email in the correct language
@@ -396,17 +396,17 @@ class ControllerMailGdpr extends Controller {
         }
 
         $data['store_name'] = $store_name;
-        $data['store_url']  = $store_url;
-        $data['contact']    = $store_url . 'index.php?route=information/contact';
+        $data['store_url'] = $store_url;
+        $data['contact'] = $store_url . 'index.php?route=information/contact';
 
         if ($this->config->get('config_mail_engine')) {
-            $mail                = new \Mail($this->config->get('config_mail_engine'));
-            $mail->parameter     = $this->config->get('config_mail_parameter');
+            $mail = new \Mail($this->config->get('config_mail_engine'));
+            $mail->parameter = $this->config->get('config_mail_parameter');
             $mail->smtp_hostname = $this->config->get('config_mail_smtp_hostname');
             $mail->smtp_username = $this->config->get('config_mail_smtp_username');
             $mail->smtp_password = html_entity_decode($this->config->get('config_mail_smtp_password'), ENT_QUOTES, 'UTF-8');
-            $mail->smtp_port     = $this->config->get('config_mail_smtp_port');
-            $mail->smtp_timeout  = $this->config->get('config_mail_smtp_timeout');
+            $mail->smtp_port = $this->config->get('config_mail_smtp_port');
+            $mail->smtp_timeout = $this->config->get('config_mail_smtp_timeout');
 
             $mail->setTo($gdpr_info['email']);
             $mail->setFrom($this->config->get('config_email'));

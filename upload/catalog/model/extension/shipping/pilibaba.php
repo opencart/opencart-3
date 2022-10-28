@@ -3,7 +3,7 @@ class ModelExtensionShippingPilibaba extends Model {
     public function getQuote($address) {
         $this->load->language('extension/shipping/pilibaba');
 
-        $status      = true;
+        $status = true;
         $method_data = [];
 
         if ($status) {

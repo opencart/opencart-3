@@ -5,7 +5,7 @@ class ControllerDesignTheme extends Controller {
 
         $this->document->setTitle($this->language->get('heading_title'));
 
-        $data['breadcrumbs']   = [];
+        $data['breadcrumbs'] = [];
 
         $data['breadcrumbs'][] = [
             'text' => $this->language->get('text_home'),
@@ -19,11 +19,11 @@ class ControllerDesignTheme extends Controller {
 
         $data['user_token'] = $this->session->data['user_token'];
 
-        $data['stores']     = [];
+        $data['stores'] = [];
 
         $this->load->model('setting/store');
 
-        $results            = $this->model_setting_store->getStores();
+        $results = $this->model_setting_store->getStores();
 
         foreach ($results as $result) {
             $data['stores'][] = [
@@ -32,9 +32,9 @@ class ControllerDesignTheme extends Controller {
             ];
         }
 
-        $data['header']      = $this->load->controller('common/header');
+        $data['header'] = $this->load->controller('common/header');
         $data['column_left'] = $this->load->controller('common/column_left');
-        $data['footer']      = $this->load->controller('common/footer');
+        $data['footer'] = $this->load->controller('common/footer');
 
         $this->response->setOutput($this->load->view('design/theme', $data));
     }
@@ -53,8 +53,8 @@ class ControllerDesignTheme extends Controller {
         $this->load->model('design/theme');
         $this->load->model('setting/store');
 
-        $history_total     = $this->model_design_theme->getTotalThemes();
-        $results           = $this->model_design_theme->getThemes(($page - 1) * 10, 10);
+        $history_total = $this->model_design_theme->getTotalThemes();
+        $results = $this->model_design_theme->getThemes(($page - 1) * 10, 10);
 
         foreach ($results as $result) {
             $store_info = $this->model_setting_store->getStore($result['store_id']);
@@ -76,14 +76,14 @@ class ControllerDesignTheme extends Controller {
             ];
         }
 
-        $pagination         = new \Pagination();
-        $pagination->total  = $history_total;
-        $pagination->page   = $page;
-        $pagination->limit  = 10;
-        $pagination->url    = $this->url->link('design/theme/history', 'user_token=' . $this->session->data['user_token'] . '&page={page}', true);
+        $pagination = new \Pagination();
+        $pagination->total = $history_total;
+        $pagination->page = $page;
+        $pagination->limit = 10;
+        $pagination->url = $this->url->link('design/theme/history', 'user_token=' . $this->session->data['user_token'] . '&page={page}', true);
 
         $data['pagination'] = $pagination->render();
-        $data['results']    = sprintf($this->language->get('text_pagination'), ($history_total) ? (($page - 1) * 10) + 1 : 0, ((($page - 1) * 10) > ($history_total - 10)) ? $history_total : ((($page - 1) * 10) + 10), $history_total, ceil($history_total / 10));
+        $data['results'] = sprintf($this->language->get('text_pagination'), ($history_total) ? (($page - 1) * 10) + 1 : 0, ((($page - 1) * 10) > ($history_total - 10)) ? $history_total : ((($page - 1) * 10) + 10), $history_total, ceil($history_total / 10));
 
         $this->response->setOutput($this->load->view('design/theme_history', $data));
     }
@@ -118,7 +118,7 @@ class ControllerDesignTheme extends Controller {
             $path_data = [];
 
             // We grab the files from the default theme directory first as the custom themes drops back to the default theme if selected theme files can not be found.
-            $files     = glob(rtrim(DIR_CATALOG . 'view/theme/{default,' . $theme . '}/template/' . $path, '/') . '/*', GLOB_BRACE);
+            $files = glob(rtrim(DIR_CATALOG . 'view/theme/{default,' . $theme . '}/template/' . $path, '/') . '/*', GLOB_BRACE);
 
             if ($files) {
                 foreach ($files as $file) {
@@ -234,7 +234,7 @@ class ControllerDesignTheme extends Controller {
         if (!$json) {
             $this->load->model('design/theme');
 
-            $pos             = strpos($path, '.');
+            $pos = strpos($path, '.');
 
             $this->model_design_theme->editTheme($store_id, $theme, ($pos !== false) ? substr($path, 0, $pos) : $path, $this->request->post['code']);
 

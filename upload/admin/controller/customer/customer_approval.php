@@ -61,7 +61,7 @@ class ControllerCustomerCustomerApproval extends Controller {
             $url .= '&page=' . $this->request->get['page'];
         }
 
-        $data['breadcrumbs']   = [];
+        $data['breadcrumbs'] = [];
 
         $data['breadcrumbs'][] = [
             'text' => $this->language->get('text_home'),
@@ -75,19 +75,19 @@ class ControllerCustomerCustomerApproval extends Controller {
 
         $this->load->model('customer/customer_group');
 
-        $data['customer_groups']          = $this->model_customer_customer_group->getCustomerGroups();
+        $data['customer_groups'] = $this->model_customer_customer_group->getCustomerGroups();
 
-        $data['filter_name']              = $filter_name;
-        $data['filter_email']             = $filter_email;
+        $data['filter_name'] = $filter_name;
+        $data['filter_email'] = $filter_email;
         $data['filter_customer_group_id'] = $filter_customer_group_id;
-        $data['filter_type']              = $filter_type;
-        $data['filter_date_added']        = $filter_date_added;
+        $data['filter_type'] = $filter_type;
+        $data['filter_date_added'] = $filter_date_added;
 
-        $data['user_token']               = $this->session->data['user_token'];
+        $data['user_token'] = $this->session->data['user_token'];
 
-        $data['header']                   = $this->load->controller('common/header');
-        $data['column_left']              = $this->load->controller('common/column_left');
-        $data['footer']                   = $this->load->controller('common/footer');
+        $data['header'] = $this->load->controller('common/header');
+        $data['column_left'] = $this->load->controller('common/column_left');
+        $data['footer'] = $this->load->controller('common/footer');
 
         $this->response->setOutput($this->load->view('customer/customer_approval', $data));
     }
@@ -133,7 +133,7 @@ class ControllerCustomerCustomerApproval extends Controller {
 
         $data['customer_approvals'] = [];
 
-        $filter_data                = [
+        $filter_data = [
             'filter_name'              => $filter_name,
             'filter_email'             => $filter_email,
             'filter_customer_group_id' => $filter_customer_group_id,
@@ -145,9 +145,9 @@ class ControllerCustomerCustomerApproval extends Controller {
 
         $this->load->model('customer/customer_approval');
 
-        $customer_approval_total    = $this->model_customer_customer_approval->getTotalCustomerApprovals($filter_data);
+        $customer_approval_total = $this->model_customer_customer_approval->getTotalCustomerApprovals($filter_data);
 
-        $results                    = $this->model_customer_customer_approval->getCustomerApprovals($filter_data);
+        $results = $this->model_customer_customer_approval->getCustomerApprovals($filter_data);
 
         foreach ($results as $result) {
             $data['customer_approvals'][] = [
@@ -185,14 +185,14 @@ class ControllerCustomerCustomerApproval extends Controller {
             $url .= '&filter_date_added=' . $this->request->get['filter_date_added'];
         }
 
-        $pagination         = new \Pagination();
-        $pagination->total  = $customer_approval_total;
-        $pagination->page   = $page;
-        $pagination->limit  = $this->config->get('config_limit_admin');
-        $pagination->url    = $this->url->link('customer/customer_approval/customer_approval', 'user_token=' . $this->session->data['user_token'] . $url . '&page={page}', true);
+        $pagination = new \Pagination();
+        $pagination->total = $customer_approval_total;
+        $pagination->page = $page;
+        $pagination->limit = $this->config->get('config_limit_admin');
+        $pagination->url = $this->url->link('customer/customer_approval/customer_approval', 'user_token=' . $this->session->data['user_token'] . $url . '&page={page}', true);
 
         $data['pagination'] = $pagination->render();
-        $data['results']    = sprintf($this->language->get('text_pagination'), ($customer_approval_total) ? (($page - 1) * $this->config->get('config_limit_admin')) + 1 : 0, ((($page - 1) * $this->config->get('config_limit_admin')) > ($customer_approval_total - $this->config->get('config_limit_admin'))) ? $customer_approval_total : ((($page - 1) * $this->config->get('config_limit_admin')) + $this->config->get('config_limit_admin')), $customer_approval_total, ceil($customer_approval_total / $this->config->get('config_limit_admin')));
+        $data['results'] = sprintf($this->language->get('text_pagination'), ($customer_approval_total) ? (($page - 1) * $this->config->get('config_limit_admin')) + 1 : 0, ((($page - 1) * $this->config->get('config_limit_admin')) > ($customer_approval_total - $this->config->get('config_limit_admin'))) ? $customer_approval_total : ((($page - 1) * $this->config->get('config_limit_admin')) + $this->config->get('config_limit_admin')), $customer_approval_total, ceil($customer_approval_total / $this->config->get('config_limit_admin')));
 
         $this->response->setOutput($this->load->view('customer/customer_approval_list', $data));
     }

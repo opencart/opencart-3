@@ -33,7 +33,7 @@ class ControllerToolUpload extends Controller {
 
             $this->session->data['success'] = $this->language->get('text_success');
 
-            $url                            = '';
+            $url = '';
 
             if (isset($this->request->get['filter_name'])) {
                 $url .= '&filter_name=' . urlencode(html_entity_decode($this->request->get['filter_name'], ENT_QUOTES, 'UTF-8'));
@@ -114,7 +114,7 @@ class ControllerToolUpload extends Controller {
             $url .= '&page=' . $this->request->get['page'];
         }
 
-        $data['breadcrumbs']   = [];
+        $data['breadcrumbs'] = [];
 
         $data['breadcrumbs'][] = [
             'text' => $this->language->get('text_home'),
@@ -126,11 +126,11 @@ class ControllerToolUpload extends Controller {
             'href' => $this->url->link('tool/upload', 'user_token=' . $this->session->data['user_token'] . $url, true)
         ];
 
-        $data['delete']        = $this->url->link('tool/upload/delete', 'user_token=' . $this->session->data['user_token'] . $url, true);
+        $data['delete'] = $this->url->link('tool/upload/delete', 'user_token=' . $this->session->data['user_token'] . $url, true);
 
-        $data['uploads']       = [];
+        $data['uploads'] = [];
 
-        $filter_data           = [
+        $filter_data = [
             'filter_name'       => $filter_name,
             'filter_date_added' => $filter_date_added,
             'sort'              => $sort,
@@ -139,9 +139,9 @@ class ControllerToolUpload extends Controller {
             'limit'             => $this->config->get('config_limit_admin')
         ];
 
-        $upload_total          = $this->model_tool_upload->getTotalUploads($filter_data);
+        $upload_total = $this->model_tool_upload->getTotalUploads($filter_data);
 
-        $results               = $this->model_tool_upload->getUploads($filter_data);
+        $results = $this->model_tool_upload->getUploads($filter_data);
 
         foreach ($results as $result) {
             $data['uploads'][] = [
@@ -199,11 +199,11 @@ class ControllerToolUpload extends Controller {
             $url .= '&page=' . $this->request->get['page'];
         }
 
-        $data['sort_name']       = $this->url->link('tool/upload', 'user_token=' . $this->session->data['user_token'] . '&sort=name' . $url, true);
-        $data['sort_filename']   = $this->url->link('tool/upload', 'user_token=' . $this->session->data['user_token'] . '&sort=filename' . $url, true);
+        $data['sort_name'] = $this->url->link('tool/upload', 'user_token=' . $this->session->data['user_token'] . '&sort=name' . $url, true);
+        $data['sort_filename'] = $this->url->link('tool/upload', 'user_token=' . $this->session->data['user_token'] . '&sort=filename' . $url, true);
         $data['sort_date_added'] = $this->url->link('tool/upload', 'user_token=' . $this->session->data['user_token'] . '&sort=date_added' . $url, true);
 
-        $url                     = '';
+        $url = '';
 
         if (isset($this->request->get['filter_name'])) {
             $url .= '&filter_name=' . urlencode(html_entity_decode($this->request->get['filter_name'], ENT_QUOTES, 'UTF-8'));
@@ -221,24 +221,24 @@ class ControllerToolUpload extends Controller {
             $url .= '&order=' . $this->request->get['order'];
         }
 
-        $pagination                = new \Pagination();
-        $pagination->total         = $upload_total;
-        $pagination->page          = $page;
-        $pagination->limit         = $this->config->get('config_limit_admin');
-        $pagination->url           = $this->url->link('tool/upload', 'user_token=' . $this->session->data['user_token'] . $url . '&page={page}', true);
+        $pagination = new \Pagination();
+        $pagination->total = $upload_total;
+        $pagination->page = $page;
+        $pagination->limit = $this->config->get('config_limit_admin');
+        $pagination->url = $this->url->link('tool/upload', 'user_token=' . $this->session->data['user_token'] . $url . '&page={page}', true);
 
-        $data['pagination']        = $pagination->render();
-        $data['results']           = sprintf($this->language->get('text_pagination'), ($upload_total) ? (($page - 1) * $this->config->get('config_limit_admin')) + 1 : 0, ((($page - 1) * $this->config->get('config_limit_admin')) > ($upload_total - $this->config->get('config_limit_admin'))) ? $upload_total : ((($page - 1) * $this->config->get('config_limit_admin')) + $this->config->get('config_limit_admin')), $upload_total, ceil($upload_total / $this->config->get('config_limit_admin')));
+        $data['pagination'] = $pagination->render();
+        $data['results'] = sprintf($this->language->get('text_pagination'), ($upload_total) ? (($page - 1) * $this->config->get('config_limit_admin')) + 1 : 0, ((($page - 1) * $this->config->get('config_limit_admin')) > ($upload_total - $this->config->get('config_limit_admin'))) ? $upload_total : ((($page - 1) * $this->config->get('config_limit_admin')) + $this->config->get('config_limit_admin')), $upload_total, ceil($upload_total / $this->config->get('config_limit_admin')));
 
-        $data['filter_name']       = $filter_name;
+        $data['filter_name'] = $filter_name;
         $data['filter_date_added'] = $filter_date_added;
 
-        $data['sort']              = $sort;
-        $data['order']             = $order;
+        $data['sort'] = $sort;
+        $data['order'] = $order;
 
-        $data['header']            = $this->load->controller('common/header');
-        $data['column_left']       = $this->load->controller('common/column_left');
-        $data['footer']            = $this->load->controller('common/footer');
+        $data['header'] = $this->load->controller('common/header');
+        $data['column_left'] = $this->load->controller('common/column_left');
+        $data['footer'] = $this->load->controller('common/footer');
 
         $this->response->setOutput($this->load->view('tool/upload', $data));
     }
@@ -324,16 +324,16 @@ class ControllerToolUpload extends Controller {
         if (!$json) {
             if (!empty($this->request->files['file']['name']) && is_file($this->request->files['file']['tmp_name'])) {
                 // Sanitize the filename
-                $filename          = html_entity_decode($this->request->files['file']['name'], ENT_QUOTES, 'UTF-8');
+                $filename = html_entity_decode($this->request->files['file']['name'], ENT_QUOTES, 'UTF-8');
 
                 if ((oc_strlen($filename) < 3) || (oc_strlen($filename) > 128)) {
                     $json['error'] = $this->language->get('error_filename');
                 }
 
                 // Allowed file extension types
-                $allowed           = [];
+                $allowed = [];
                 $extension_allowed = preg_replace('~\r?\n~', "\n", $this->config->get('config_file_ext_allowed'));
-                $filetypes         = explode("\n", $extension_allowed);
+                $filetypes = explode("\n", $extension_allowed);
 
                 foreach ($filetypes as $filetype) {
                     $allowed[] = trim($filetype);
@@ -344,9 +344,9 @@ class ControllerToolUpload extends Controller {
                 }
 
                 // Allowed file mime types
-                $allowed           = [];
-                $mime_allowed      = preg_replace('~\r?\n~', "\n", $this->config->get('config_file_mime_allowed'));
-                $filetypes         = explode("\n", $mime_allowed);
+                $allowed = [];
+                $mime_allowed = preg_replace('~\r?\n~', "\n", $this->config->get('config_file_mime_allowed'));
+                $filetypes = explode("\n", $mime_allowed);
 
                 foreach ($filetypes as $filetype) {
                     $allowed[] = trim($filetype);
@@ -376,11 +376,11 @@ class ControllerToolUpload extends Controller {
             // Hide the uploaded file name so people can not link to it directly.
             $this->load->model('tool/upload');
 
-            $file            = $filename . '.' . token(32);
+            $file = $filename . '.' . token(32);
 
             move_uploaded_file($this->request->files['file']['tmp_name'], DIR_UPLOAD . $file);
 
-            $json['code']    = $this->model_tool_upload->addUpload($filename, $file);
+            $json['code'] = $this->model_tool_upload->addUpload($filename, $file);
             $json['success'] = $this->language->get('text_upload');
         }
 

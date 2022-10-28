@@ -37,7 +37,7 @@ class ControllerExtensionTotalVoucher extends Controller {
             $this->session->data['voucher'] = $this->request->post['voucher'];
             $this->session->data['success'] = $this->language->get('text_success');
 
-            $json['redirect']               = $this->url->link('checkout/cart');
+            $json['redirect'] = $this->url->link('checkout/cart');
         } else {
             $json['error'] = $this->language->get('error_voucher');
         }
@@ -64,15 +64,15 @@ class ControllerExtensionTotalVoucher extends Controller {
 
                 foreach ($voucher_query->rows as $voucher) {
                     // HTML Mail
-                    $args['store_name']    = $order_info['store_name'];
-                    $args['store_url']     = $order_info['store_url'];
-                    $args['message']       = nl2br($voucher['message']);
-                    $args['title']         = sprintf($language->get('text_subject'), $voucher['from_name']);
+                    $args['store_name'] = $order_info['store_name'];
+                    $args['store_url'] = $order_info['store_url'];
+                    $args['message'] = nl2br($voucher['message']);
+                    $args['title'] = sprintf($language->get('text_subject'), $voucher['from_name']);
                     $args['text_greeting'] = sprintf($language->get('text_greeting'), $this->currency->format($voucher['amount'], $order_info['currency_code'], $order_info['currency_value']));
-                    $args['text_from']     = sprintf($language->get('text_from'), $voucher['from_name']);
-                    $args['text_message']  = $language->get('text_message');
-                    $args['text_redeem']   = sprintf($language->get('text_redeem'), $voucher['code']);
-                    $args['text_footer']   = $language->get('text_footer');
+                    $args['text_from'] = sprintf($language->get('text_from'), $voucher['from_name']);
+                    $args['text_message'] = $language->get('text_message');
+                    $args['text_redeem'] = sprintf($language->get('text_redeem'), $voucher['code']);
+                    $args['text_footer'] = $language->get('text_footer');
 
                     if (is_file(DIR_IMAGE . $voucher['image'])) {
                         $args['image'] = $this->config->get('config_url') . 'image/' . $voucher['image'];
@@ -81,13 +81,13 @@ class ControllerExtensionTotalVoucher extends Controller {
                     }
 
                     if ($this->config->get('config_mail_engine')) {
-                        $mail                = new \Mail($this->config->get('config_mail_engine'));
-                        $mail->parameter     = $this->config->get('config_mail_parameter');
+                        $mail = new \Mail($this->config->get('config_mail_engine'));
+                        $mail->parameter = $this->config->get('config_mail_parameter');
                         $mail->smtp_hostname = $this->config->get('config_mail_smtp_hostname');
                         $mail->smtp_username = $this->config->get('config_mail_smtp_username');
                         $mail->smtp_password = html_entity_decode($this->config->get('config_mail_smtp_password'), ENT_QUOTES, 'UTF-8');
-                        $mail->smtp_port     = $this->config->get('config_mail_smtp_port');
-                        $mail->smtp_timeout  = $this->config->get('config_mail_smtp_timeout');
+                        $mail->smtp_port = $this->config->get('config_mail_smtp_port');
+                        $mail->smtp_timeout = $this->config->get('config_mail_smtp_timeout');
 
                         $mail->setTo($voucher['to_email']);
                         $mail->setFrom($this->config->get('config_email'));

@@ -63,9 +63,9 @@ class ControllerExtensionAnalyticsGoogle extends Controller {
             $data['analytics_google_status'] = $this->model_setting_setting->getSettingValue('analytics_google_status', $this->request->get['store_id']);
         }
 
-        $data['header']      = $this->load->controller('common/header');
+        $data['header'] = $this->load->controller('common/header');
         $data['column_left'] = $this->load->controller('common/column_left');
-        $data['footer']      = $this->load->controller('common/footer');
+        $data['footer'] = $this->load->controller('common/footer');
 
         $this->response->setOutput($this->load->view('extension/analytics/google', $data));
     }

@@ -1,26 +1,26 @@
 <?php
 class ModelExtensionPaymentSquareup extends Model {
-    const RECURRING_ACTIVE                = 1;
-    const RECURRING_INACTIVE              = 2;
-    const RECURRING_CANCELLED             = 3;
-    const RECURRING_SUSPENDED             = 4;
-    const RECURRING_EXPIRED               = 5;
-    const RECURRING_PENDING               = 6;
-    const TRANSACTION_DATE_ADDED          = 0;
-    const TRANSACTION_PAYMENT             = 1;
+    const RECURRING_ACTIVE = 1;
+    const RECURRING_INACTIVE = 2;
+    const RECURRING_CANCELLED = 3;
+    const RECURRING_SUSPENDED = 4;
+    const RECURRING_EXPIRED = 5;
+    const RECURRING_PENDING = 6;
+    const TRANSACTION_DATE_ADDED = 0;
+    const TRANSACTION_PAYMENT = 1;
     const TRANSACTION_OUTSTANDING_PAYMENT = 2;
-    const TRANSACTION_SKIPPED             = 3;
-    const TRANSACTION_FAILED              = 4;
-    const TRANSACTION_CANCELLED           = 5;
-    const TRANSACTION_SUSPENDED           = 6;
-    const TRANSACTION_SUSPENDED_FAILED    = 7;
-    const TRANSACTION_OUTSTANDING_FAILED  = 8;
-    const TRANSACTION_EXPIRED             = 9;
+    const TRANSACTION_SKIPPED = 3;
+    const TRANSACTION_FAILED = 4;
+    const TRANSACTION_CANCELLED = 5;
+    const TRANSACTION_SUSPENDED = 6;
+    const TRANSACTION_SUSPENDED_FAILED = 7;
+    const TRANSACTION_OUTSTANDING_FAILED = 8;
+    const TRANSACTION_EXPIRED = 9;
 
     public function getMethod($address, $total): array {
         $this->load->language('extension/payment/squareup');
 
-        $geo_zone_query        = $this->db->query("SELECT * FROM `" . DB_PREFIX . "zone_to_geo_zone` WHERE `geo_zone_id` = '" . (int)$this->config->get('payment_squareup_geo_zone_id') . "' AND `country_id` = '" . (int)$address['country_id'] . "' AND (`zone_id` = '" . (int)$address['zone_id'] . "' OR `zone_id` = '0')");
+        $geo_zone_query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "zone_to_geo_zone` WHERE `geo_zone_id` = '" . (int)$this->config->get('payment_squareup_geo_zone_id') . "' AND `country_id` = '" . (int)$address['country_id'] . "' AND (`zone_id` = '" . (int)$address['zone_id'] . "' OR `zone_id` = '0')");
 
         $squareup_display_name = $this->config->get('payment_squareup_display_name');
 
@@ -30,8 +30,8 @@ class ModelExtensionPaymentSquareup extends Model {
             $title = $this->language->get('text_default_squareup_name');
         }
 
-        $status               = true;
-        $minimum_total        = (float)$this->config->get('payment_squareup_total');
+        $status = true;
+        $minimum_total = (float)$this->config->get('payment_squareup_total');
         $squareup_geo_zone_id = $this->config->get('payment_squareup_geo_zone_id');
 
         if ($minimum_total > 0 && $minimum_total > $total) {
@@ -68,17 +68,17 @@ class ModelExtensionPaymentSquareup extends Model {
         }
 
         if ($this->config->get('config_mail_engine')) {
-            $subject             = $this->language->get('text_token_expired_subject');
-            $message             = $this->language->get('text_token_expired_message');
+            $subject = $this->language->get('text_token_expired_subject');
+            $message = $this->language->get('text_token_expired_message');
 
-            $mail                = new \Mail($this->config->get('config_mail_engine'));
-            $mail->protocol      = $this->config->get('config_mail_protocol');
-            $mail->parameter     = $this->config->get('config_mail_parameter');
+            $mail = new \Mail($this->config->get('config_mail_engine'));
+            $mail->protocol = $this->config->get('config_mail_protocol');
+            $mail->parameter = $this->config->get('config_mail_parameter');
             $mail->smtp_hostname = $this->config->get('config_mail_smtp_hostname');
             $mail->smtp_username = $this->config->get('config_mail_smtp_username');
             $mail->smtp_password = html_entity_decode($this->config->get('config_mail_smtp_password'), ENT_QUOTES, 'UTF-8');
-            $mail->smtp_port     = $this->config->get('config_mail_smtp_port');
-            $mail->smtp_timeout  = $this->config->get('config_mail_smtp_timeout');
+            $mail->smtp_port = $this->config->get('config_mail_smtp_port');
+            $mail->smtp_timeout = $this->config->get('config_mail_smtp_timeout');
 
             $mail->setTo($this->config->get('config_email'));
             $mail->setFrom($this->config->get('config_email'));
@@ -96,17 +96,17 @@ class ModelExtensionPaymentSquareup extends Model {
         }
 
         if ($this->config->get('config_mail_engine')) {
-            $subject             = $this->language->get('text_token_revoked_subject');
-            $message             = $this->language->get('text_token_revoked_message');
+            $subject = $this->language->get('text_token_revoked_subject');
+            $message = $this->language->get('text_token_revoked_message');
 
-            $mail                = new \Mail($this->config->get('config_mail_engine'));
-            $mail->protocol      = $this->config->get('config_mail_protocol');
-            $mail->parameter     = $this->config->get('config_mail_parameter');
+            $mail = new \Mail($this->config->get('config_mail_engine'));
+            $mail->protocol = $this->config->get('config_mail_protocol');
+            $mail->parameter = $this->config->get('config_mail_parameter');
             $mail->smtp_hostname = $this->config->get('config_mail_smtp_hostname');
             $mail->smtp_username = $this->config->get('config_mail_smtp_username');
             $mail->smtp_password = html_entity_decode($this->config->get('config_mail_smtp_password'), ENT_QUOTES, 'UTF-8');
-            $mail->smtp_port     = $this->config->get('config_mail_smtp_port');
-            $mail->smtp_timeout  = $this->config->get('config_mail_smtp_timeout');
+            $mail->smtp_port = $this->config->get('config_mail_smtp_port');
+            $mail->smtp_timeout = $this->config->get('config_mail_smtp_timeout');
 
             $mail->setTo($this->config->get('config_email'));
             $mail->setFrom($this->config->get('config_email'));
@@ -120,19 +120,19 @@ class ModelExtensionPaymentSquareup extends Model {
 
     public function cronEmail($result): void {
         if ($this->config->get('config_mail_engine')) {
-            $mail                = new \Mail($this->config->get('config_mail_engine'));
-            $mail->protocol      = $this->config->get('config_mail_protocol');
-            $mail->parameter     = $this->config->get('config_mail_parameter');
+            $mail = new \Mail($this->config->get('config_mail_engine'));
+            $mail->protocol = $this->config->get('config_mail_protocol');
+            $mail->parameter = $this->config->get('config_mail_parameter');
             $mail->smtp_hostname = $this->config->get('config_mail_smtp_hostname');
             $mail->smtp_username = $this->config->get('config_mail_smtp_username');
             $mail->smtp_password = html_entity_decode($this->config->get('config_mail_smtp_password'), ENT_QUOTES, 'UTF-8');
-            $mail->smtp_port     = $this->config->get('config_mail_smtp_port');
-            $mail->smtp_timeout  = $this->config->get('config_mail_smtp_timeout');
+            $mail->smtp_port = $this->config->get('config_mail_smtp_port');
+            $mail->smtp_timeout = $this->config->get('config_mail_smtp_timeout');
 
-            $br                  = '<br/>';
-            $subject             = $this->language->get('text_cron_subject');
-            $message             = $this->language->get('text_cron_message') . $br . $br;
-            $message             .= '<strong>' . $this->language->get('text_cron_summary_token_heading') . '</strong>' . $br;
+            $br = '<br/>';
+            $subject = $this->language->get('text_cron_subject');
+            $message = $this->language->get('text_cron_message') . $br . $br;
+            $message .= '<strong>' . $this->language->get('text_cron_summary_token_heading') . '</strong>' . $br;
 
             if ($result['token_update_error']) {
                 $message .= $result['token_update_error'] . $br . $br;
@@ -184,7 +184,10 @@ class ModelExtensionPaymentSquareup extends Model {
         $this->load->model('checkout/subscription');
 
         $status = self::RECURRING_ACTIVE;
-        $data   = array_merge($data, ['status', $status]);
+        $data = array_merge($data, [
+            'status',
+            $status
+        ]);
 
         $this->model_checkout_subscription->addSubscription($order_id, $data);
     }
@@ -319,7 +322,7 @@ class ModelExtensionPaymentSquareup extends Model {
         // If recurring payment can expire (trial_duration > 0 AND duration > 0)
         if ($expirable) {
             $number_of_successful_payments = $this->getTotalSuccessfulPayments($subscription_id);
-            $total_duration                = (int)$subscription_info['trial_duration'] + (int)$subscription_info['duration'];
+            $total_duration = (int)$subscription_info['trial_duration'] + (int)$subscription_info['duration'];
 
             // If successful payments exceed total_duration
             if ($number_of_successful_payments >= $total_duration) {
@@ -356,8 +359,8 @@ class ModelExtensionPaymentSquareup extends Model {
 
     private function getLastSuccessfulRecurringPaymentDate($subscription_id): string {
         $query = $this->db->query("SELECT `date_added` FROM `" . DB_PREFIX . "subscription_transaction` WHERE `subscription_id` = '" . (int)$subscription_id . "' AND `type` = '" . self::TRANSACTION_PAYMENT . "' ORDER BY `date_added` DESC LIMIT 0,1");
-		
-		return $query->row['date_added'];
+
+        return $query->row['date_added'];
     }
 
     private function getSubscription($subscription_id): array {
@@ -368,8 +371,8 @@ class ModelExtensionPaymentSquareup extends Model {
 
     private function getTotalSuccessfulPayments($subscription_id): int {
         $query = $this->db->query("SELECT COUNT(*) AS `total` FROM `" . DB_PREFIX . "subscription_transaction` WHERE `subscription_id` = '" . (int)$subscription_id . "' AND `type` = '" . self::TRANSACTION_PAYMENT . "'")->row['total'];
-		
-		return (int)$query->row['total'];
+
+        return (int)$query->row['total'];
     }
 
     private function paymentIsDue($subscription_id): bool {
@@ -378,12 +381,12 @@ class ModelExtensionPaymentSquareup extends Model {
 
         if ($subscription_info['trial_status']) {
             $frequency = $subscription_info['trial_frequency'];
-            $cycle     = (int)$subscription_info['trial_cycle'];
+            $cycle = (int)$subscription_info['trial_cycle'];
         } else {
             $frequency = $subscription_info['frequency'];
-            $cycle     = (int)$subscription_info['cycle'];
+            $cycle = (int)$subscription_info['cycle'];
         }
-		
+
         // Find date of last payment
         if (!$this->getTotalSuccessfulPayments($subscription_id)) {
             $previous_time = strtotime($subscription_info['date_added']);
@@ -409,7 +412,7 @@ class ModelExtensionPaymentSquareup extends Model {
                 break;
         }
 
-        $due_date  = date('Y-m-d', $previous_time + ($time_interval * $cycle));
+        $due_date = date('Y-m-d', $previous_time + ($time_interval * $cycle));
         $this_date = date('Y-m-d');
 
         return $this_date >= $due_date;

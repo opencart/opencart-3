@@ -5,7 +5,7 @@ class ControllerExtensionPaymentSquareup extends Controller {
 
         $this->load->library('squareup');
 
-        $data['action']          = $this->url->link('extension/payment/squareup/checkout', '', true);
+        $data['action'] = $this->url->link('extension/payment/squareup/checkout', '', true);
         $data['squareup_js_api'] = Squareup::PAYMENT_FORM_URL;
 
         if (!empty($this->session->data['payment_address']['postcode'])) {
@@ -15,10 +15,10 @@ class ControllerExtensionPaymentSquareup extends Controller {
         }
 
         if ($this->config->get('payment_squareup_enable_sandbox')) {
-            $data['app_id']          = $this->config->get('payment_squareup_sandbox_client_id');
+            $data['app_id'] = $this->config->get('payment_squareup_sandbox_client_id');
             $data['sandbox_message'] = $this->language->get('warning_test_mode');
         } else {
-            $data['app_id']          = $this->config->get('payment_squareup_client_id');
+            $data['app_id'] = $this->config->get('payment_squareup_client_id');
             $data['sandbox_message'] = '';
         }
 
@@ -29,7 +29,7 @@ class ControllerExtensionPaymentSquareup extends Controller {
 
             $this->load->model('extension/credit_card/squareup');
 
-            $cards             = $this->model_extension_credit_card_squareup->getCards($this->customer->getId(), $this->config->get('payment_squareup_enable_sandbox'));
+            $cards = $this->model_extension_credit_card_squareup->getCards($this->customer->getId(), $this->config->get('payment_squareup_enable_sandbox'));
 
             foreach ($cards as $card) {
                 $data['cards'][] = [
@@ -61,9 +61,9 @@ class ControllerExtensionPaymentSquareup extends Controller {
 
         $this->load->library('squareup');
 
-        $order_info            = $this->model_checkout_order->getOrder($this->session->data['order_id']);
+        $order_info = $this->model_checkout_order->getOrder($this->session->data['order_id']);
         $shipping_country_info = $this->model_localisation_country->getCountry($order_info['shipping_country_id']);
-        $billing_country_info  = $this->model_localisation_country->getCountry($order_info['payment_country_id']);
+        $billing_country_info = $this->model_localisation_country->getCountry($order_info['payment_country_id']);
 
         if (!empty($billing_country_info)) {
             $billing_address = [
@@ -107,7 +107,7 @@ class ControllerExtensionPaymentSquareup extends Controller {
                 $this->model_extension_credit_card_squareup->addCustomer($square_customer);
             }
 
-            $use_saved      = false;
+            $use_saved = false;
             $square_card_id = null;
 
             // check if user is logged in and wanted to save this card
@@ -118,8 +118,8 @@ class ControllerExtensionPaymentSquareup extends Controller {
                     throw new \Squareup\Exception($this->registry, $this->language->get('error_card_invalid'));
                 }
 
-                $card          = $this->model_extension_credit_card_squareup->getCard($this->request->post['squareup_select_card']);
-                $use_saved     = true;
+                $card = $this->model_extension_credit_card_squareup->getCard($this->request->post['squareup_select_card']);
+                $use_saved = true;
 
                 $square_card_id = $card['token'];
             } elseif ($this->customer->isLogged() && isset($this->request->post['squareup_save_card'])) {
@@ -136,7 +136,7 @@ class ControllerExtensionPaymentSquareup extends Controller {
                     $this->model_extension_credit_card_squareup->addCard($this->customer->getId(), $this->config->get('payment_squareup_enable_sandbox'), $square_card);
                 }
 
-                $use_saved      = true;
+                $use_saved = true;
                 $square_card_id = $square_card['id'];
             }
 
@@ -159,9 +159,9 @@ class ControllerExtensionPaymentSquareup extends Controller {
 
             if ($use_saved) {
                 $transaction_data['customer_card_id'] = $square_card_id;
-                $transaction_data['customer_id']      = $square_customer['square_customer_id'];
+                $transaction_data['customer_id'] = $square_customer['square_customer_id'];
             } else {
-                $transaction_data['card_nonce']       = $this->request->post['squareup_nonce'];
+                $transaction_data['card_nonce'] = $this->request->post['squareup_nonce'];
             }
 
             $transaction = $this->squareup->addTransaction($transaction_data);
@@ -188,7 +188,7 @@ class ControllerExtensionPaymentSquareup extends Controller {
 
             $order_status_id = $this->config->get('payment_squareup_status_' . $transaction_status);
 
-            $order_products  = $this->model_checkout_order->getOrderProducts($this->session->data['order_id']);
+            $order_products = $this->model_checkout_order->getOrderProducts($this->session->data['order_id']);
 
             if ($order_status_id) {
                 if ($this->cart->hasProducts() && $transaction_status == 'captured') {
@@ -197,17 +197,17 @@ class ControllerExtensionPaymentSquareup extends Controller {
                             if ($item['subscription'] && $order_product['product_id'] == $item['product_id']) {
                                 if ($item['subscription']['trial_status']) {
                                     $trial_price = $this->tax->calculate($item['subscription']['trial_price'] * $item['quantity'], $item['tax_class_id']);
-                                    $trial_amt   = $this->currency->format($trial_price, $this->session->data['currency']);
-                                    $trial_text  = sprintf($this->language->get('text_trial'), $trial_amt, $item['subscription']['trial_cycle'], $item['subscription']['trial_frequency'], $item['subscription']['trial_duration']);
+                                    $trial_amt = $this->currency->format($trial_price, $this->session->data['currency']);
+                                    $trial_text = sprintf($this->language->get('text_trial'), $trial_amt, $item['subscription']['trial_cycle'], $item['subscription']['trial_frequency'], $item['subscription']['trial_duration']);
 
                                     $item['subscription']['trial_price'] = $trial_price;
                                 } else {
                                     $trial_text = '';
                                 }
 
-                                $subscription_price            = $this->tax->calculate($item['subscription']['price'] * $item['quantity'], $item['tax_class_id']);
-                                $subscription_amt              = $this->currency->format($subscription_price, $this->session->data['currency']);
-                                $subscription_description      = $trial_text . sprintf($this->language->get('text_subscription'), $subscription_amt, $item['subscription']['cycle'], $item['subscription']['frequency']);
+                                $subscription_price = $this->tax->calculate($item['subscription']['price'] * $item['quantity'], $item['tax_class_id']);
+                                $subscription_amt = $this->currency->format($subscription_price, $this->session->data['currency']);
+                                $subscription_description = $trial_text . sprintf($this->language->get('text_subscription'), $subscription_amt, $item['subscription']['cycle'], $item['subscription']['frequency']);
 
                                 $item['subscription']['price'] = $subscription_price;
 

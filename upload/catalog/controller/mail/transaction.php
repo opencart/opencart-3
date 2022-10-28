@@ -11,14 +11,14 @@ class ControllerMailTransaction extends Controller {
         if ($customer_info) {
             $this->load->model('setting/store');
 
-            $store_info    = $this->model_setting_store->getStore($customer_info['store_id']);
+            $store_info = $this->model_setting_store->getStore($customer_info['store_id']);
 
             if ($store_info) {
                 $store_name = html_entity_decode($store_info['name'], ENT_QUOTES, 'UTF-8');
-                $store_url  = $store_info['store_url'];
+                $store_url = $store_info['store_url'];
             } else {
                 $store_name = html_entity_decode($this->config->get('config_name'), ENT_QUOTES, 'UTF-8');
-                $store_url  = $this->config->get('config_url');
+                $store_url = $this->config->get('config_url');
             }
 
             $this->load->model('localisation/language');
@@ -36,22 +36,22 @@ class ControllerMailTransaction extends Controller {
             $language->load($language_code);
             $language->load('mail/transaction');
 
-            $subject               = sprintf($language->get('text_subject'), $store_name);
+            $subject = sprintf($language->get('text_subject'), $store_name);
 
             $data['text_received'] = sprintf($language->get('text_received'), $store_name);
-            $data['amount']        = $this->currency->format($args[2], $this->config->get('config_currency'));
-            $data['total']         = $this->currency->format($this->model_account_customer->getTransactionTotal($args[0]), $this->config->get('config_currency'));
-            $data['store']         = $store_name;
-            $data['store_url']     = $store_url;
+            $data['amount'] = $this->currency->format($args[2], $this->config->get('config_currency'));
+            $data['total'] = $this->currency->format($this->model_account_customer->getTransactionTotal($args[0]), $this->config->get('config_currency'));
+            $data['store'] = $store_name;
+            $data['store_url'] = $store_url;
 
             if ($this->config->get('config_mail_engine')) {
-                $mail                = new \Mail($this->config->get('config_mail_engine'));
-                $mail->parameter     = $this->config->get('config_mail_parameter');
+                $mail = new \Mail($this->config->get('config_mail_engine'));
+                $mail->parameter = $this->config->get('config_mail_parameter');
                 $mail->smtp_hostname = $this->config->get('config_mail_smtp_hostname');
                 $mail->smtp_username = $this->config->get('config_mail_smtp_username');
                 $mail->smtp_password = html_entity_decode($this->config->get('config_mail_smtp_password'), ENT_QUOTES, 'UTF-8');
-                $mail->smtp_port     = $this->config->get('config_mail_smtp_port');
-                $mail->smtp_timeout  = $this->config->get('config_mail_smtp_timeout');
+                $mail->smtp_port = $this->config->get('config_mail_smtp_port');
+                $mail->smtp_timeout = $this->config->get('config_mail_smtp_timeout');
 
                 $mail->setTo($customer_info['email']);
                 $mail->setFrom($this->config->get('config_email'));

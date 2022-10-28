@@ -37,7 +37,7 @@ class ModelExtensionPaymentG2aPay extends Model {
         $query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "g2apay_order` WHERE `order_id` = '" . (int)$order_id . "' LIMIT 1");
 
         if ($query->num_rows) {
-            $order                 = $query->row;
+            $order = $query->row;
             $order['transactions'] = $this->getTransactions($order['g2apay_order_id'], $query->row['currency_code']);
 
             return $order;
@@ -61,8 +61,8 @@ class ModelExtensionPaymentG2aPay extends Model {
             }
 
             $refunded_amount = round($amount, 2);
-            $string          = $g2apay_order['g2apay_transaction_id'] . $g2apay_order['order_id'] . round($g2apay_order['total'], 2) . $refunded_amount . html_entity_decode($this->config->get('payment_g2apay_secret'));
-            $hash            = hash('sha256', $string);
+            $string = $g2apay_order['g2apay_transaction_id'] . $g2apay_order['order_id'] . round($g2apay_order['total'], 2) . $refunded_amount . html_entity_decode($this->config->get('payment_g2apay_secret'));
+            $hash = hash('sha256', $string);
 
             $fields = [
                 'action' => 'refund',
@@ -87,7 +87,7 @@ class ModelExtensionPaymentG2aPay extends Model {
 
         if ($query->num_rows) {
             foreach ($query->rows as $row) {
-                $row['amount']  = $this->currency->format($row['amount'], $currency_code, true, true);
+                $row['amount'] = $this->currency->format($row['amount'], $currency_code, true, true);
                 $transactions[] = $row;
             }
 
@@ -115,7 +115,7 @@ class ModelExtensionPaymentG2aPay extends Model {
         curl_setopt($curl, CURLOPT_CUSTOMREQUEST, "PUT");
         curl_setopt($curl, CURLOPT_POSTFIELDS, http_build_query($fields));
 
-        $auth_hash     = hash('sha256', $this->config->get('payment_g2apay_api_hash') . $this->config->get('payment_g2apay_username') . html_entity_decode($this->config->get('payment_g2apay_secret')));
+        $auth_hash = hash('sha256', $this->config->get('payment_g2apay_api_hash') . $this->config->get('payment_g2apay_username') . html_entity_decode($this->config->get('payment_g2apay_secret')));
         $authorization = $this->config->get('payment_g2apay_api_hash') . ";" . $auth_hash;
 
         curl_setopt($curl, CURLOPT_HTTPHEADER, ["Authorization: " . $authorization]);

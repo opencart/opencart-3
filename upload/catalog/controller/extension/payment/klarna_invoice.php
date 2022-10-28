@@ -36,7 +36,7 @@ class ControllerExtensionPaymentKlarnaInvoice extends Controller {
             }
 
             // Store Taxes to send to Klarna
-            $total      = 0;
+            $total = 0;
             $total_data = [];
 
             $this->load->model('setting/extension');
@@ -99,28 +99,28 @@ class ControllerExtensionPaymentKlarnaInvoice extends Controller {
                 $data['error_warning'] = '';
             }
 
-            $klarna_invoice       = $this->config->get('payment_klarna_invoice');
+            $klarna_invoice = $this->config->get('payment_klarna_invoice');
 
-            $data['merchant']     = $klarna_invoice[$order_info['payment_iso_code_3']]['merchant'];
+            $data['merchant'] = $klarna_invoice[$order_info['payment_iso_code_3']]['merchant'];
             $data['phone_number'] = $order_info['telephone'];
 
             if ($order_info['payment_iso_code_3'] == 'DEU' || $order_info['payment_iso_code_3'] == 'NLD') {
-                $address                  = $this->splitAddress($order_info['payment_address_1']);
+                $address = $this->splitAddress($order_info['payment_address_1']);
 
-                $data['street']           = $address[0];
-                $data['street_number']    = $address[1];
+                $data['street'] = $address[0];
+                $data['street_number'] = $address[1];
                 $data['street_extension'] = $address[2];
 
                 if ($order_info['payment_iso_code_3'] == 'DEU') {
                     $data['street_number'] = trim($address[1] . ' ' . $address[2]);
                 }
             } else {
-                $data['street']           = '';
-                $data['street_number']    = '';
+                $data['street'] = '';
+                $data['street_number'] = '';
                 $data['street_extension'] = '';
             }
 
-            $data['company']    = $order_info['payment_company'];
+            $data['company'] = $order_info['payment_company'];
             $data['iso_code_2'] = $order_info['payment_iso_code_2'];
             $data['iso_code_3'] = $order_info['payment_iso_code_3'];
 
@@ -179,42 +179,42 @@ class ControllerExtensionPaymentKlarnaInvoice extends Controller {
                 switch ($order_info['payment_iso_code_3']) {
                     // Sweden
                     case 'SWE':
-                        $country  = 209;
+                        $country = 209;
                         $language = 138;
                         $encoding = 2;
                         $currency = 0;
                         break;
                     // Finland
                     case 'FIN':
-                        $country  = 73;
+                        $country = 73;
                         $language = 37;
                         $encoding = 4;
                         $currency = 2;
                         break;
                     // Denmark
                     case 'DNK':
-                        $country  = 59;
+                        $country = 59;
                         $language = 27;
                         $encoding = 5;
                         $currency = 3;
                         break;
                     // Norway
                     case 'NOR':
-                        $country  = 164;
+                        $country = 164;
                         $language = 97;
                         $encoding = 3;
                         $currency = 1;
                         break;
                     // Germany
                     case 'DEU':
-                        $country  = 81;
+                        $country = 81;
                         $language = 28;
                         $encoding = 6;
                         $currency = 2;
                         break;
                     // Netherlands
                     case 'NLD':
-                        $country  = 154;
+                        $country = 154;
                         $language = 101;
                         $encoding = 7;
                         $currency = 2;
@@ -356,11 +356,11 @@ class ControllerExtensionPaymentKlarnaInvoice extends Controller {
                 $xml .= '  </params>';
                 $xml .= '</methodCall>';
 
-                $header   = [];
+                $header = [];
                 $header[] = 'Content-Type: text/xml';
                 $header[] = 'Content-Length: ' . strlen($xml);
 
-                $curl     = curl_init();
+                $curl = curl_init();
 
                 curl_setopt($curl, CURLOPT_URL, $url);
                 curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
@@ -391,7 +391,7 @@ class ControllerExtensionPaymentKlarnaInvoice extends Controller {
                         $xml = new \DOMDocument();
                         $xml->loadXML($response);
 
-                        $invoice_number      = $xml->getElementsByTagName('string')->item(0)->nodeValue;
+                        $invoice_number = $xml->getElementsByTagName('string')->item(0)->nodeValue;
                         $klarna_order_status = $xml->getElementsByTagName('int')->item(0)->nodeValue;
 
                         if ($klarna_order_status == '1') {
@@ -402,7 +402,7 @@ class ControllerExtensionPaymentKlarnaInvoice extends Controller {
                             $order_status = $this->config->get('config_order_status_id');
                         }
 
-                        $comment          = sprintf($this->language->get('text_comment'), $invoice_number, $this->config->get('config_currency'), $country_to_currency[$order_info['payment_iso_code_3']], $this->currency->getValue($country_to_currency[$order_info['payment_iso_code_3']]));
+                        $comment = sprintf($this->language->get('text_comment'), $invoice_number, $this->config->get('config_currency'), $country_to_currency[$order_info['payment_iso_code_3']], $this->currency->getValue($country_to_currency[$order_info['payment_iso_code_3']]));
 
                         $json['redirect'] = $this->url->link('checkout/success');
 
@@ -554,19 +554,19 @@ class ControllerExtensionPaymentKlarnaInvoice extends Controller {
             '.'
         ];
 
-        $num_pos     = $this->strposArr($address, $numbers, 2);
+        $num_pos = $this->strposArr($address, $numbers, 2);
         $street_name = substr($address, 0, $num_pos);
         $street_name = trim($street_name);
         $number_part = substr($address, $num_pos);
         $number_part = trim($number_part);
-        $ext_pos     = $this->strposArr($number_part, $characters, 0);
+        $ext_pos = $this->strposArr($number_part, $characters, 0);
 
         if ($ext_pos != '') {
-            $house_number    = substr($number_part, 0, $ext_pos);
+            $house_number = substr($number_part, 0, $ext_pos);
             $house_extension = substr($number_part, $ext_pos);
             $house_extension = str_replace($specialchars, '', $house_extension);
         } else {
-            $house_number    = $number_part;
+            $house_number = $number_part;
             $house_extension = '';
         }
 

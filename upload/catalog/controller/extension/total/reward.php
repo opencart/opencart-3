@@ -1,8 +1,7 @@
 <?php
-
 class ControllerExtensionTotalReward extends Controller {
     public function index() {
-        $points       = $this->customer->getRewardPoints();
+        $points = $this->customer->getRewardPoints();
         $points_total = 0;
 
         foreach ($this->cart->getProducts() as $product) {
@@ -15,7 +14,7 @@ class ControllerExtensionTotalReward extends Controller {
             $this->load->language('extension/total/reward');
 
             $data['heading_title'] = sprintf($this->language->get('heading_title'), $points);
-            $data['entry_reward']  = sprintf($this->language->get('entry_reward'), $points_total);
+            $data['entry_reward'] = sprintf($this->language->get('entry_reward'), $points_total);
 
             if (isset($this->session->data['reward'])) {
                 $data['reward'] = $this->session->data['reward'];
@@ -34,7 +33,7 @@ class ControllerExtensionTotalReward extends Controller {
 
         $json = [];
 
-        $points       = $this->customer->getRewardPoints();
+        $points = $this->customer->getRewardPoints();
 
         $points_total = 0;
 
@@ -57,7 +56,7 @@ class ControllerExtensionTotalReward extends Controller {
         }
 
         if (!$json) {
-            $this->session->data['reward']  = abs($this->request->post['reward']);
+            $this->session->data['reward'] = abs($this->request->post['reward']);
             $this->session->data['success'] = $this->language->get('text_success');
 
             if (isset($this->request->post['redirect'])) {

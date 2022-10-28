@@ -5,7 +5,7 @@ class ControllerAffiliateSuccess extends Controller {
 
         $this->document->setTitle($this->language->get('heading_title'));
 
-        $data['breadcrumbs']   = [];
+        $data['breadcrumbs'] = [];
 
         $data['breadcrumbs'][] = [
             'text' => $this->language->get('text_home'),
@@ -32,15 +32,15 @@ class ControllerAffiliateSuccess extends Controller {
             $data['text_message'] = sprintf($this->language->get('text_approval'), $this->config->get('config_name'), $this->url->link('information/contact'));
         }
 
-        $data['continue']        = $this->url->link('account/account', '', true);
+        $data['continue'] = $this->url->link('account/account', '', true);
         $data['button_continue'] = $this->language->get('button_continue');
 
-        $data['column_left']     = $this->load->controller('common/column_left');
-        $data['column_right']    = $this->load->controller('common/column_right');
-        $data['content_top']     = $this->load->controller('common/content_top');
-        $data['content_bottom']  = $this->load->controller('common/content_bottom');
-        $data['footer']          = $this->load->controller('common/footer');
-        $data['header']          = $this->load->controller('common/header');
+        $data['column_left'] = $this->load->controller('common/column_left');
+        $data['column_right'] = $this->load->controller('common/column_right');
+        $data['content_top'] = $this->load->controller('common/content_top');
+        $data['content_bottom'] = $this->load->controller('common/content_bottom');
+        $data['footer'] = $this->load->controller('common/footer');
+        $data['header'] = $this->load->controller('common/header');
 
         $this->response->setOutput($this->load->view('common/success', $data));
     }

@@ -55,7 +55,7 @@ class ModelCheckoutOrder extends Model {
 
                 $order_voucher_id = $this->db->getLastId();
 
-                $voucher_id       = $this->model_extension_total_voucher->addVoucher($order_id, $voucher);
+                $voucher_id = $this->model_extension_total_voucher->addVoucher($order_id, $voucher);
 
                 $this->db->query("UPDATE `" . DB_PREFIX . "order_voucher` SET `voucher_id` = '" . (int)$voucher_id . "' WHERE `order_voucher_id` = '" . (int)$order_voucher_id . "'");
             }
@@ -118,7 +118,7 @@ class ModelCheckoutOrder extends Model {
 
                 $order_voucher_id = $this->db->getLastId();
 
-                $voucher_id       = $this->model_extension_total_voucher->addVoucher($order_id, $voucher);
+                $voucher_id = $this->model_extension_total_voucher->addVoucher($order_id, $voucher);
 
                 $this->db->query("UPDATE `" . DB_PREFIX . "order_voucher` SET `voucher_id` = '" . (int)$voucher_id . "' WHERE `order_voucher_id` = '" . (int)$order_voucher_id . "'");
             }

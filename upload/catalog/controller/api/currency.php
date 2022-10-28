@@ -10,7 +10,7 @@ class ControllerApiCurrency extends Controller {
         } else {
             $this->load->model('localisation/currency');
 
-            $currency_info   = $this->model_localisation_currency->getCurrencyByCode($this->request->post['currency']);
+            $currency_info = $this->model_localisation_currency->getCurrencyByCode($this->request->post['currency']);
 
             if ($currency_info) {
                 $this->session->data['currency'] = $this->request->post['currency'];
@@ -20,7 +20,7 @@ class ControllerApiCurrency extends Controller {
 
                 $json['success'] = $this->language->get('text_success');
             } else {
-                $json['error']   = $this->language->get('error_currency');
+                $json['error'] = $this->language->get('error_currency');
             }
         }
 

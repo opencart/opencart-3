@@ -71,7 +71,7 @@ class ControllerProductSearch extends Controller {
             $this->document->setTitle($this->language->get('heading_title'));
         }
 
-        $data['breadcrumbs']   = [];
+        $data['breadcrumbs'] = [];
 
         $data['breadcrumbs'][] = [
             'text' => $this->language->get('text_home'),
@@ -128,12 +128,12 @@ class ControllerProductSearch extends Controller {
         }
 
         $data['text_compare'] = sprintf($this->language->get('text_compare'), isset($this->session->data['compare']) ? count($this->session->data['compare']) : 0);
-        $data['compare']      = $this->url->link('product/compare');
+        $data['compare'] = $this->url->link('product/compare');
 
-        $data['categories']   = [];
+        $data['categories'] = [];
 
         // 3 Level Category Search
-        $categories_1         = $this->model_catalog_category->getCategories(0);
+        $categories_1 = $this->model_catalog_category->getCategories(0);
 
         foreach ($categories_1 as $category_1) {
             $level_2_data = [];
@@ -183,7 +183,7 @@ class ControllerProductSearch extends Controller {
 
             $product_total = $this->model_catalog_product->getTotalProducts($filter_data);
 
-            $results       = $this->model_catalog_product->getProducts($filter_data);
+            $results = $this->model_catalog_product->getProducts($filter_data);
 
             foreach ($results as $result) {
                 if ($result['image']) {
@@ -199,11 +199,11 @@ class ControllerProductSearch extends Controller {
                 }
 
                 if (!is_null($result['special']) && (float)$result['special'] >= 0) {
-                    $special   = $this->currency->format($this->tax->calculate($result['special'], $result['tax_class_id'], $this->config->get('config_tax')), $this->session->data['currency']);
+                    $special = $this->currency->format($this->tax->calculate($result['special'], $result['tax_class_id'], $this->config->get('config_tax')), $this->session->data['currency']);
 
                     $tax_price = (float)$result['special'];
                 } else {
-                    $special   = false;
+                    $special = false;
 
                     $tax_price = (float)$result['price'];
                 }
@@ -260,7 +260,7 @@ class ControllerProductSearch extends Controller {
                 $url .= '&limit=' . $this->request->get['limit'];
             }
 
-            $data['sorts']   = [];
+            $data['sorts'] = [];
 
             $data['sorts'][] = [
                 'text'  => $this->language->get('text_default'),
@@ -350,7 +350,7 @@ class ControllerProductSearch extends Controller {
 
             $data['limits'] = [];
 
-            $limits         = array_unique([
+            $limits = array_unique([
                 $this->config->get('theme_' . $this->config->get('config_theme') . '_product_limit'),
                 25,
                 50,
@@ -402,14 +402,14 @@ class ControllerProductSearch extends Controller {
                 $url .= '&limit=' . $this->request->get['limit'];
             }
 
-            $pagination         = new \Pagination();
-            $pagination->total  = $product_total;
-            $pagination->page   = $page;
-            $pagination->limit  = $limit;
-            $pagination->url    = $this->url->link('product/search', $url . '&page={page}');
+            $pagination = new \Pagination();
+            $pagination->total = $product_total;
+            $pagination->page = $page;
+            $pagination->limit = $limit;
+            $pagination->url = $this->url->link('product/search', $url . '&page={page}');
 
             $data['pagination'] = $pagination->render();
-            $data['results']    = sprintf($this->language->get('text_pagination'), ($product_total) ? (($page - 1) * $limit) + 1 : 0, ((($page - 1) * $limit) > ($product_total - $limit)) ? $product_total : ((($page - 1) * $limit) + $limit), $product_total, ceil($product_total / $limit));
+            $data['results'] = sprintf($this->language->get('text_pagination'), ($product_total) ? (($page - 1) * $limit) + 1 : 0, ((($page - 1) * $limit) > ($product_total - $limit)) ? $product_total : ((($page - 1) * $limit) + $limit), $product_total, ceil($product_total / $limit));
 
             if (isset($this->request->get['search']) && $this->config->get('config_customer_search')) {
                 $this->load->model('account/search');
@@ -440,21 +440,21 @@ class ControllerProductSearch extends Controller {
             }
         }
 
-        $data['search']         = $search;
-        $data['description']    = $description;
-        $data['category_id']    = $category_id;
-        $data['sub_category']   = $sub_category;
+        $data['search'] = $search;
+        $data['description'] = $description;
+        $data['category_id'] = $category_id;
+        $data['sub_category'] = $sub_category;
 
-        $data['sort']           = $sort;
-        $data['order']          = $order;
-        $data['limit']          = $limit;
+        $data['sort'] = $sort;
+        $data['order'] = $order;
+        $data['limit'] = $limit;
 
-        $data['column_left']    = $this->load->controller('common/column_left');
-        $data['column_right']   = $this->load->controller('common/column_right');
-        $data['content_top']    = $this->load->controller('common/content_top');
+        $data['column_left'] = $this->load->controller('common/column_left');
+        $data['column_right'] = $this->load->controller('common/column_right');
+        $data['content_top'] = $this->load->controller('common/content_top');
         $data['content_bottom'] = $this->load->controller('common/content_bottom');
-        $data['footer']         = $this->load->controller('common/footer');
-        $data['header']         = $this->load->controller('common/header');
+        $data['footer'] = $this->load->controller('common/footer');
+        $data['header'] = $this->load->controller('common/header');
 
         $this->response->setOutput($this->load->view('product/search', $data));
     }

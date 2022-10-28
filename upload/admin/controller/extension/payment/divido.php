@@ -33,7 +33,7 @@ class ControllerExtensionPaymentDivido extends Controller {
             'threshold' => $this->language->get('entry_products_options_threshold'),
         ];
 
-        $data['button_save']   = $this->language->get('button_save');
+        $data['button_save'] = $this->language->get('button_save');
         $data['button_cancel'] = $this->language->get('button_cancel');
 
         // Order Statuses
@@ -164,9 +164,9 @@ class ControllerExtensionPaymentDivido extends Controller {
 
         $data['user_token'] = $this->session->data['user_token'];
 
-        $data['header']      = $this->load->controller('common/header');
+        $data['header'] = $this->load->controller('common/header');
         $data['column_left'] = $this->load->controller('common/column_left');
-        $data['footer']      = $this->load->controller('common/footer');
+        $data['footer'] = $this->load->controller('common/footer');
 
         $this->response->setOutput($this->load->view('extension/payment/divido', $data));
     }
@@ -188,18 +188,18 @@ class ControllerExtensionPaymentDivido extends Controller {
 
         $lookup = $this->model_extension_payment_divido->getLookupByOrderId($order_id);
 
-        $proposal_id    = null;
+        $proposal_id = null;
         $application_id = null;
         $deposit_amount = null;
 
         if ($lookup->num_rows == 1) {
-            $lookup_data    = $lookup->row;
-            $proposal_id    = $lookup_data['proposal_id'];
+            $lookup_data = $lookup->row;
+            $proposal_id = $lookup_data['proposal_id'];
             $application_id = $lookup_data['application_id'];
             $deposit_amount = $lookup_data['deposit_amount'];
         }
 
-        $data['proposal_id']    = $proposal_id;
+        $data['proposal_id'] = $proposal_id;
         $data['application_id'] = $application_id;
         $data['deposit_amount'] = $deposit_amount;
 

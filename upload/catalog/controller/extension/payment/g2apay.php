@@ -24,8 +24,8 @@ class ControllerExtensionPaymentG2APay extends Controller {
         $this->load->model('setting/extension');
 
         $totals = [];
-        $taxes  = $this->cart->getTaxes();
-        $total  = 0;
+        $taxes = $this->cart->getTaxes();
+        $total = 0;
 
         // Because __call can not keep var references so we put them into an array.
         $total_data = [
@@ -34,7 +34,7 @@ class ControllerExtensionPaymentG2APay extends Controller {
             'total'  => &$total
         ];
 
-        $i       = 0;
+        $i = 0;
 
         $results = $this->model_setting_extension->getExtensions('total');
 
@@ -49,13 +49,13 @@ class ControllerExtensionPaymentG2APay extends Controller {
                     if (strstr(strtolower($order_data['totals'][$i]['code']), 'total') === false) {
                         $item = new \stdClass();
 
-                        $item->sku    = $order_data['totals'][$i]['code'];
-                        $item->name   = $order_data['totals'][$i]['title'];
+                        $item->sku = $order_data['totals'][$i]['code'];
+                        $item->name = $order_data['totals'][$i]['title'];
                         $item->amount = number_format($order_data['totals'][$i]['value'], 2);
-                        $item->qty    = 1;
-                        $item->id     = $order_data['totals'][$i]['code'];
-                        $item->price  = $order_data['totals'][$i]['value'];
-                        $item->url    = $this->url->link('common/home', '', true);
+                        $item->qty = 1;
+                        $item->id = $order_data['totals'][$i]['code'];
+                        $item->price = $order_data['totals'][$i]['value'];
+                        $item->url = $this->url->link('common/home', '', true);
 
                         $items[] = $item;
                     }
@@ -68,15 +68,15 @@ class ControllerExtensionPaymentG2APay extends Controller {
         $ordered_products = $this->model_account_order->getOrderProducts($this->session->data['order_id']);
 
         foreach ($ordered_products as $product) {
-            $item         = new \stdClass();
-            $item->sku    = $product['product_id'];
-            $item->name   = $product['name'];
+            $item = new \stdClass();
+            $item->sku = $product['product_id'];
+            $item->name = $product['name'];
             $item->amount = $product['price'] * $product['quantity'];
-            $item->qty    = $product['quantity'];
-            $item->id     = $product['product_id'];
-            $item->price  = $product['price'];
-            $item->url    = $this->url->link('product/product', 'product_id=' . $product['product_id'], true);
-            $items[]      = $item;
+            $item->qty = $product['quantity'];
+            $item->id = $product['product_id'];
+            $item->price = $product['price'];
+            $item->url = $this->url->link('product/product', 'product_id=' . $product['product_id'], true);
+            $items[] = $item;
         }
 
         if ($this->config->get('payment_g2apay_environment') == 1) {
@@ -86,7 +86,7 @@ class ControllerExtensionPaymentG2APay extends Controller {
         }
 
         $order_total = number_format($order_info['total'], 2);
-        $string      = $this->session->data['order_id'] . $order_total . $order_info['currency_code'] . html_entity_decode($this->config->get('payment_g2apay_secret'));
+        $string = $this->session->data['order_id'] . $order_total . $order_info['currency_code'] . html_entity_decode($this->config->get('payment_g2apay_secret'));
 
         $fields = [
             'api_hash'    => $this->config->get('payment_g2apay_api_hash'),
@@ -164,7 +164,7 @@ class ControllerExtensionPaymentG2APay extends Controller {
                 $g2apay_order = $this->model_extension_payment_g2apay->getG2aOrder($this->request->post['userOrderId']);
 
                 $string = $g2apay_order['g2apay_transaction_id'] . $g2apay_order['order_id'] . round($g2apay_order['total'], 2) . html_entity_decode($this->config->get('payment_g2apay_secret'));
-                $hash   = hash('sha256', $string);
+                $hash = hash('sha256', $string);
 
                 if ($hash != $this->request->post['hash']) {
                     $this->model_extension_payment_g2apay->logger('Hashes do not match, possible tampering!');

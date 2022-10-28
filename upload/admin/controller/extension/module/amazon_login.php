@@ -1,7 +1,7 @@
 <?php
 class ControllerExtensionModuleAmazonLogin extends Controller {
     private string $version = '3.2.1';
-    private array  $error   = [];
+    private array $error = [];
 
     public function index(): void {
         $this->load->language('extension/module/amazon_login');
@@ -84,9 +84,9 @@ class ControllerExtensionModuleAmazonLogin extends Controller {
             $data['module_amazon_login_status'] = $this->config->get('module_amazon_login_status');
         }
 
-        $data['header']      = $this->load->controller('common/header');
+        $data['header'] = $this->load->controller('common/header');
         $data['column_left'] = $this->load->controller('common/column_left');
-        $data['footer']      = $this->load->controller('common/footer');
+        $data['footer'] = $this->load->controller('common/footer');
 
         $this->response->setOutput($this->load->view('extension/module/amazon_login', $data));
     }

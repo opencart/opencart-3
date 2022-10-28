@@ -75,7 +75,7 @@ class ModelExtensionPaymentPilibaba extends Model {
     public function updateOrderInfo($data, $order_id) {
         $parts = explode(' ', $data['name']);
 
-        $data['lastname']  = array_pop($parts);
+        $data['lastname'] = array_pop($parts);
         $data['firstname'] = implode(' ', $parts);
 
         $this->db->query("UPDATE `" . DB_PREFIX . "order` SET `firstname` = '" . $this->db->escape($data['firstname']) . "', `lastname` = '" . $this->db->escape($data['lastname']) . "', `email` = '" . $this->db->escape($data['email']) . "', `telephone` = '" . $this->db->escape($data['mobile']) . "', `payment_firstname` = '" . $this->db->escape($data['firstname']) . "', `payment_lastname` = '" . $this->db->escape($data['lastname']) . "', `payment_address_1` = '" . $this->db->escape($data['address']) . "', `payment_city` = '" . $this->db->escape($data['city']) . "', `payment_postcode` = '" . $this->db->escape($data['zipcode']) . "', `payment_country` = '" . $this->db->escape($data['country']) . "', `payment_zone` = '" . $this->db->escape($data['district']) . "', `shipping_firstname` = '" . $this->db->escape($data['firstname']) . "', `shipping_lastname` = '" . $this->db->escape($data['lastname']) . "', `shipping_address_1` = '" . $this->db->escape($data['address']) . "', `shipping_city` = '" . $this->db->escape($data['city']) . "', `shipping_postcode` = '" . $this->db->escape($data['zipcode']) . "', `shipping_country` = '" . $this->db->escape($data['country']) . "', `shipping_zone` = '" . $this->db->escape($data['district']) . "', `date_modified` = NOW() WHERE `order_id` = '" . (int)$order_id . "'");

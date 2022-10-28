@@ -1,10 +1,9 @@
 <?php
-
 class ModelExtensionPaymentKlarnaInvoice extends Model {
     public function getMethod($address, $total) {
         $this->load->language('extension/payment/klarna_invoice');
 
-        $status         = true;
+        $status = true;
         $klarna_invoice = $this->config->get('payment_klarna_invoice');
 
         if (!isset($klarna_invoice[$address['iso_code_3']])) {

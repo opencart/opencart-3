@@ -62,7 +62,7 @@ class ModelExtensionPaymentSecureTradingPp extends Model {
 
     public function release($order_id, $amount) {
         $securetrading_pp_order = $this->getOrder($order_id);
-        $total_released         = $this->getTotalReleased($securetrading_pp_order['securetrading_pp_order_id']);
+        $total_released = $this->getTotalReleased($securetrading_pp_order['securetrading_pp_order_id']);
 
         if (!empty($securetrading_pp_order) && $securetrading_pp_order['release_status'] == 0 && $total_released <= $amount) {
             $requestblock_xml = new \SimpleXMLElement('<requestblock></requestblock>');

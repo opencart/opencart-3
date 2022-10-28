@@ -23,7 +23,7 @@ class ControllerCatalogProduct extends Controller {
             $this->model_catalog_product->addProduct($this->request->post);
 
             $this->session->data['success'] = $this->language->get('text_success');
-            $url                            = '';
+            $url = '';
 
             if (isset($this->request->get['filter_name'])) {
                 $url .= '&filter_name=' . urlencode(html_entity_decode($this->request->get['filter_name'], ENT_QUOTES, 'UTF-8'));
@@ -75,7 +75,7 @@ class ControllerCatalogProduct extends Controller {
 
             $this->session->data['success'] = $this->language->get('text_success');
 
-            $url                            = '';
+            $url = '';
 
             if (isset($this->request->get['filter_name'])) {
                 $url .= '&filter_name=' . urlencode(html_entity_decode($this->request->get['filter_name'], ENT_QUOTES, 'UTF-8'));
@@ -129,7 +129,7 @@ class ControllerCatalogProduct extends Controller {
 
             $this->session->data['success'] = $this->language->get('text_success');
 
-            $url                            = '';
+            $url = '';
 
             if (isset($this->request->get['filter_name'])) {
                 $url .= '&filter_name=' . urlencode(html_entity_decode($this->request->get['filter_name'], ENT_QUOTES, 'UTF-8'));
@@ -183,7 +183,7 @@ class ControllerCatalogProduct extends Controller {
 
             $this->session->data['success'] = $this->language->get('text_success');
 
-            $url                            = '';
+            $url = '';
 
             if (isset($this->request->get['filter_name'])) {
                 $url .= '&filter_name=' . urlencode(html_entity_decode($this->request->get['filter_name'], ENT_QUOTES, 'UTF-8'));
@@ -302,7 +302,7 @@ class ControllerCatalogProduct extends Controller {
             $url .= '&page=' . $this->request->get['page'];
         }
 
-        $data['breadcrumbs']   = [];
+        $data['breadcrumbs'] = [];
 
         $data['breadcrumbs'][] = [
             'text' => $this->language->get('text_home'),
@@ -314,13 +314,13 @@ class ControllerCatalogProduct extends Controller {
             'href' => $this->url->link('catalog/product', 'user_token=' . $this->session->data['user_token'] . $url, true)
         ];
 
-        $data['add']      = $this->url->link('catalog/product/add', 'user_token=' . $this->session->data['user_token'] . $url, true);
-        $data['copy']     = $this->url->link('catalog/product/copy', 'user_token=' . $this->session->data['user_token'] . $url, true);
-        $data['delete']   = $this->url->link('catalog/product/delete', 'user_token=' . $this->session->data['user_token'] . $url, true);
+        $data['add'] = $this->url->link('catalog/product/add', 'user_token=' . $this->session->data['user_token'] . $url, true);
+        $data['copy'] = $this->url->link('catalog/product/copy', 'user_token=' . $this->session->data['user_token'] . $url, true);
+        $data['delete'] = $this->url->link('catalog/product/delete', 'user_token=' . $this->session->data['user_token'] . $url, true);
 
         $data['products'] = [];
 
-        $filter_data      = [
+        $filter_data = [
             'filter_name'     => $filter_name,
             'filter_model'    => $filter_model,
             'filter_price'    => $filter_price,
@@ -332,9 +332,9 @@ class ControllerCatalogProduct extends Controller {
             'limit'           => $this->config->get('config_limit_admin')
         ];
 
-        $product_total    = $this->model_catalog_product->getTotalProducts($filter_data);
+        $product_total = $this->model_catalog_product->getTotalProducts($filter_data);
 
-        $results          = $this->model_catalog_product->getProducts($filter_data);
+        $results = $this->model_catalog_product->getProducts($filter_data);
 
         $this->load->model('tool/image');
 
@@ -345,7 +345,7 @@ class ControllerCatalogProduct extends Controller {
                 $image = $this->model_tool_image->resize('no_image.png', 40, 40);
             }
 
-            $special          = false;
+            $special = false;
 
             $product_specials = $this->model_catalog_product->getProductSpecials($result['product_id']);
 
@@ -423,12 +423,12 @@ class ControllerCatalogProduct extends Controller {
             $url .= '&page=' . $this->request->get['page'];
         }
 
-        $data['sort_name']     = $this->url->link('catalog/product', 'user_token=' . $this->session->data['user_token'] . '&sort=pd.name' . $url, true);
-        $data['sort_model']    = $this->url->link('catalog/product', 'user_token=' . $this->session->data['user_token'] . '&sort=p.model' . $url, true);
-        $data['sort_price']    = $this->url->link('catalog/product', 'user_token=' . $this->session->data['user_token'] . '&sort=p.price' . $url, true);
+        $data['sort_name'] = $this->url->link('catalog/product', 'user_token=' . $this->session->data['user_token'] . '&sort=pd.name' . $url, true);
+        $data['sort_model'] = $this->url->link('catalog/product', 'user_token=' . $this->session->data['user_token'] . '&sort=p.model' . $url, true);
+        $data['sort_price'] = $this->url->link('catalog/product', 'user_token=' . $this->session->data['user_token'] . '&sort=p.price' . $url, true);
         $data['sort_quantity'] = $this->url->link('catalog/product', 'user_token=' . $this->session->data['user_token'] . '&sort=p.quantity' . $url, true);
-        $data['sort_status']   = $this->url->link('catalog/product', 'user_token=' . $this->session->data['user_token'] . '&sort=p.status' . $url, true);
-        $data['sort_order']    = $this->url->link('catalog/product', 'user_token=' . $this->session->data['user_token'] . '&sort=p.sort_order' . $url, true);
+        $data['sort_status'] = $this->url->link('catalog/product', 'user_token=' . $this->session->data['user_token'] . '&sort=p.status' . $url, true);
+        $data['sort_order'] = $this->url->link('catalog/product', 'user_token=' . $this->session->data['user_token'] . '&sort=p.sort_order' . $url, true);
 
         $url = '';
 
@@ -460,27 +460,27 @@ class ControllerCatalogProduct extends Controller {
             $url .= '&order=' . $this->request->get['order'];
         }
 
-        $pagination              = new \Pagination();
-        $pagination->total       = $product_total;
-        $pagination->page        = $page;
-        $pagination->limit       = $this->config->get('config_limit_admin');
-        $pagination->url         = $this->url->link('catalog/product', 'user_token=' . $this->session->data['user_token'] . $url . '&page={page}', true);
+        $pagination = new \Pagination();
+        $pagination->total = $product_total;
+        $pagination->page = $page;
+        $pagination->limit = $this->config->get('config_limit_admin');
+        $pagination->url = $this->url->link('catalog/product', 'user_token=' . $this->session->data['user_token'] . $url . '&page={page}', true);
 
-        $data['pagination']      = $pagination->render();
-        $data['results']         = sprintf($this->language->get('text_pagination'), ($product_total) ? (($page - 1) * $this->config->get('config_limit_admin')) + 1 : 0, ((($page - 1) * $this->config->get('config_limit_admin')) > ($product_total - $this->config->get('config_limit_admin'))) ? $product_total : ((($page - 1) * $this->config->get('config_limit_admin')) + $this->config->get('config_limit_admin')), $product_total, ceil($product_total / $this->config->get('config_limit_admin')));
+        $data['pagination'] = $pagination->render();
+        $data['results'] = sprintf($this->language->get('text_pagination'), ($product_total) ? (($page - 1) * $this->config->get('config_limit_admin')) + 1 : 0, ((($page - 1) * $this->config->get('config_limit_admin')) > ($product_total - $this->config->get('config_limit_admin'))) ? $product_total : ((($page - 1) * $this->config->get('config_limit_admin')) + $this->config->get('config_limit_admin')), $product_total, ceil($product_total / $this->config->get('config_limit_admin')));
 
-        $data['filter_name']     = $filter_name;
-        $data['filter_model']    = $filter_model;
-        $data['filter_price']    = $filter_price;
+        $data['filter_name'] = $filter_name;
+        $data['filter_model'] = $filter_model;
+        $data['filter_price'] = $filter_price;
         $data['filter_quantity'] = $filter_quantity;
-        $data['filter_status']   = $filter_status;
+        $data['filter_status'] = $filter_status;
 
-        $data['sort']            = $sort;
-        $data['order']           = $order;
+        $data['sort'] = $sort;
+        $data['order'] = $order;
 
-        $data['header']          = $this->load->controller('common/header');
-        $data['column_left']     = $this->load->controller('common/column_left');
-        $data['footer']          = $this->load->controller('common/footer');
+        $data['header'] = $this->load->controller('common/header');
+        $data['column_left'] = $this->load->controller('common/column_left');
+        $data['footer'] = $this->load->controller('common/footer');
 
         $this->response->setOutput($this->load->view('catalog/product_list', $data));
     }
@@ -552,7 +552,7 @@ class ControllerCatalogProduct extends Controller {
             $url .= '&page=' . $this->request->get['page'];
         }
 
-        $data['breadcrumbs']   = [];
+        $data['breadcrumbs'] = [];
 
         $data['breadcrumbs'][] = [
             'text' => $this->language->get('text_home'),
@@ -581,7 +581,7 @@ class ControllerCatalogProduct extends Controller {
         // Languages
         $this->load->model('localisation/language');
 
-        $data['languages']  = $this->model_localisation_language->getLanguages();
+        $data['languages'] = $this->model_localisation_language->getLanguages();
 
         if (isset($this->request->post['product_description'])) {
             $data['product_description'] = $this->request->post['product_description'];
@@ -658,7 +658,7 @@ class ControllerCatalogProduct extends Controller {
         // Stores
         $this->load->model('setting/store');
 
-        $data['stores']   = [];
+        $data['stores'] = [];
 
         $data['stores'][] = [
             'store_id' => 0,
@@ -998,7 +998,7 @@ class ControllerCatalogProduct extends Controller {
         // Customer Groups
         $this->load->model('customer/customer_group');
 
-        $data['customer_groups']    = $this->model_customer_customer_group->getCustomerGroups();
+        $data['customer_groups'] = $this->model_customer_customer_group->getCustomerGroups();
 
         // Subscriptions
         $this->load->model('catalog/subscription_plan');
@@ -1186,11 +1186,11 @@ class ControllerCatalogProduct extends Controller {
         // Layouts
         $this->load->model('design/layout');
 
-        $data['layouts']     = $this->model_design_layout->getLayouts();
+        $data['layouts'] = $this->model_design_layout->getLayouts();
 
-        $data['header']      = $this->load->controller('common/header');
+        $data['header'] = $this->load->controller('common/header');
         $data['column_left'] = $this->load->controller('common/column_left');
-        $data['footer']      = $this->load->controller('common/footer');
+        $data['footer'] = $this->load->controller('common/footer');
 
         $this->response->setOutput($this->load->view('catalog/product_form', $data));
     }
@@ -1332,7 +1332,7 @@ class ControllerCatalogProduct extends Controller {
             }
 
             // Subscriptions
-            $subscription_data     = [];
+            $subscription_data = [];
 
             $product_subscriptions = $this->model_catalog_product->getProductSubscriptions($result['product_id']);
 

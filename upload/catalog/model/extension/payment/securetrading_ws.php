@@ -118,12 +118,12 @@ class ModelExtensionPaymentSecureTradingWs extends Model {
 
         $this->model_checkout_order->addOrderHistory($order_id, $order_status_id, $comment, $notify);
 
-        $order_info             = $this->model_checkout_order->getOrder($order_id);
+        $order_info = $this->model_checkout_order->getOrder($order_id);
 
         if ($order_info) {
             $securetrading_ws_order = $this->getOrder($order_info['order_id']);
-            
-            $amount                 = $this->currency->format($order_info['total'], $order_info['currency_code'], false, false);
+
+            $amount = $this->currency->format($order_info['total'], $order_info['currency_code'], false, false);
 
             switch ($this->config->get('payment_securetrading_ws_settle_status')) {
                 case 0:

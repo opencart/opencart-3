@@ -38,8 +38,8 @@ class ControllerExtensionModulePPBraintreeButton extends Controller {
             'href' => $this->url->link('extension/module/pp_braintree_button', 'user_token=' . $this->session->data['user_token'], true)
         ];
 
-        $data['action']  = $this->url->link('extension/module/pp_braintree_button', 'user_token=' . $this->session->data['user_token'], true);
-        $data['cancel']  = $this->url->link('marketplace/extension', 'user_token=' . $this->session->data['user_token'] . '&type=module', true);
+        $data['action'] = $this->url->link('extension/module/pp_braintree_button', 'user_token=' . $this->session->data['user_token'], true);
+        $data['cancel'] = $this->url->link('marketplace/extension', 'user_token=' . $this->session->data['user_token'] . '&type=module', true);
         $data['layouts'] = $this->url->link('design/layout', 'user_token=' . $this->session->data['user_token'], true);
 
         if (isset($this->request->post['module_pp_braintree_button_status'])) {
@@ -48,9 +48,9 @@ class ControllerExtensionModulePPBraintreeButton extends Controller {
             $data['module_pp_braintree_button_status'] = $this->config->get('module_pp_braintree_button_status');
         }
 
-        $data['header']      = $this->load->controller('common/header');
+        $data['header'] = $this->load->controller('common/header');
         $data['column_left'] = $this->load->controller('common/column_left');
-        $data['footer']      = $this->load->controller('common/footer');
+        $data['footer'] = $this->load->controller('common/footer');
 
         $this->response->setOutput($this->load->view('extension/module/pp_braintree_button', $data));
     }

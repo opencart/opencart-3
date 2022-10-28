@@ -57,9 +57,9 @@ class ControllerCheckoutConfirm extends Controller {
 
             $order_data = [];
 
-            $total      = 0;
-            $totals     = [];
-            $taxes      = $this->cart->getTaxes();
+            $total = 0;
+            $totals = [];
+            $taxes = $this->cart->getTaxes();
 
             // Because __call can not keep var references so we put them into an array.
             $total_data = [
@@ -71,7 +71,7 @@ class ControllerCheckoutConfirm extends Controller {
             $this->load->model('setting/extension');
 
             $sort_order = [];
-            $results    = $this->model_setting_extension->getExtensions('total');
+            $results = $this->model_setting_extension->getExtensions('total');
 
             foreach ($results as $key => $value) {
                 $sort_order[$key] = $this->config->get('total_' . $value['code'] . '_sort_order');
@@ -96,10 +96,10 @@ class ControllerCheckoutConfirm extends Controller {
 
             array_multisort($sort_order, SORT_ASC, $totals);
 
-            $order_data['totals']         = $totals;
+            $order_data['totals'] = $totals;
             $order_data['invoice_prefix'] = $this->config->get('config_invoice_prefix');
-            $order_data['store_id']       = $this->config->get('config_store_id');
-            $order_data['store_name']     = $this->config->get('config_name');
+            $order_data['store_id'] = $this->config->get('config_store_id');
+            $order_data['store_name'] = $this->config->get('config_name');
 
             if ($order_data['store_id']) {
                 $order_data['store_url'] = $this->config->get('config_url');
@@ -116,36 +116,36 @@ class ControllerCheckoutConfirm extends Controller {
             if ($this->customer->isLogged()) {
                 $customer_info = $this->model_account_customer->getCustomer($this->customer->getId());
 
-                $order_data['customer_id']       = $this->customer->getId();
+                $order_data['customer_id'] = $this->customer->getId();
                 $order_data['customer_group_id'] = $customer_info['customer_group_id'];
-                $order_data['firstname']         = $customer_info['firstname'];
-                $order_data['lastname']          = $customer_info['lastname'];
-                $order_data['email']             = $customer_info['email'];
-                $order_data['telephone']         = $customer_info['telephone'];
-                $order_data['custom_field']      = json_decode($customer_info['custom_field'], true);
+                $order_data['firstname'] = $customer_info['firstname'];
+                $order_data['lastname'] = $customer_info['lastname'];
+                $order_data['email'] = $customer_info['email'];
+                $order_data['telephone'] = $customer_info['telephone'];
+                $order_data['custom_field'] = json_decode($customer_info['custom_field'], true);
             } elseif (isset($this->session->data['guest'])) {
-                $order_data['customer_id']       = 0;
+                $order_data['customer_id'] = 0;
                 $order_data['customer_group_id'] = (int)$this->session->data['guest']['customer_group_id'];
-                $order_data['firstname']         = $this->session->data['guest']['firstname'];
-                $order_data['lastname']          = $this->session->data['guest']['lastname'];
-                $order_data['email']             = $this->session->data['guest']['email'];
-                $order_data['telephone']         = $this->session->data['guest']['telephone'];
-                $order_data['custom_field']      = $this->session->data['guest']['custom_field'];
+                $order_data['firstname'] = $this->session->data['guest']['firstname'];
+                $order_data['lastname'] = $this->session->data['guest']['lastname'];
+                $order_data['email'] = $this->session->data['guest']['email'];
+                $order_data['telephone'] = $this->session->data['guest']['telephone'];
+                $order_data['custom_field'] = $this->session->data['guest']['custom_field'];
             }
 
-            $order_data['payment_zone_id']        = (int)$this->session->data['payment_address']['zone_id'];
-            $order_data['payment_country_id']     = (int)$this->session->data['payment_address']['country_id'];
-            $order_data['payment_firstname']      = $this->session->data['payment_address']['firstname'];
-            $order_data['payment_lastname']       = $this->session->data['payment_address']['lastname'];
-            $order_data['payment_company']        = $this->session->data['payment_address']['company'];
-            $order_data['payment_address_1']      = $this->session->data['payment_address']['address_1'];
-            $order_data['payment_address_2']      = $this->session->data['payment_address']['address_2'];
-            $order_data['payment_city']           = $this->session->data['payment_address']['city'];
-            $order_data['payment_postcode']       = $this->session->data['payment_address']['postcode'];
-            $order_data['payment_zone']           = $this->session->data['payment_address']['zone'];
-            $order_data['payment_country']        = $this->session->data['payment_address']['country'];
+            $order_data['payment_zone_id'] = (int)$this->session->data['payment_address']['zone_id'];
+            $order_data['payment_country_id'] = (int)$this->session->data['payment_address']['country_id'];
+            $order_data['payment_firstname'] = $this->session->data['payment_address']['firstname'];
+            $order_data['payment_lastname'] = $this->session->data['payment_address']['lastname'];
+            $order_data['payment_company'] = $this->session->data['payment_address']['company'];
+            $order_data['payment_address_1'] = $this->session->data['payment_address']['address_1'];
+            $order_data['payment_address_2'] = $this->session->data['payment_address']['address_2'];
+            $order_data['payment_city'] = $this->session->data['payment_address']['city'];
+            $order_data['payment_postcode'] = $this->session->data['payment_address']['postcode'];
+            $order_data['payment_zone'] = $this->session->data['payment_address']['zone'];
+            $order_data['payment_country'] = $this->session->data['payment_address']['country'];
             $order_data['payment_address_format'] = $this->session->data['payment_address']['address_format'];
-            $order_data['payment_custom_field']   = isset($this->session->data['payment_address']['custom_field']) ? $this->session->data['payment_address']['custom_field'] : [];
+            $order_data['payment_custom_field'] = isset($this->session->data['payment_address']['custom_field']) ? $this->session->data['payment_address']['custom_field'] : [];
 
             if (isset($this->session->data['payment_method']['title'])) {
                 $order_data['payment_method'] = $this->session->data['payment_method']['title'];
@@ -160,19 +160,19 @@ class ControllerCheckoutConfirm extends Controller {
             }
 
             if ($this->cart->hasShipping()) {
-                $order_data['shipping_firstname']      = $this->session->data['shipping_address']['firstname'];
-                $order_data['shipping_lastname']       = $this->session->data['shipping_address']['lastname'];
-                $order_data['shipping_company']        = $this->session->data['shipping_address']['company'];
-                $order_data['shipping_address_1']      = $this->session->data['shipping_address']['address_1'];
-                $order_data['shipping_address_2']      = $this->session->data['shipping_address']['address_2'];
-                $order_data['shipping_city']           = $this->session->data['shipping_address']['city'];
-                $order_data['shipping_postcode']       = $this->session->data['shipping_address']['postcode'];
-                $order_data['shipping_zone']           = $this->session->data['shipping_address']['zone'];
-                $order_data['shipping_zone_id']        = $this->session->data['shipping_address']['zone_id'];
-                $order_data['shipping_country']        = $this->session->data['shipping_address']['country'];
-                $order_data['shipping_country_id']     = $this->session->data['shipping_address']['country_id'];
+                $order_data['shipping_firstname'] = $this->session->data['shipping_address']['firstname'];
+                $order_data['shipping_lastname'] = $this->session->data['shipping_address']['lastname'];
+                $order_data['shipping_company'] = $this->session->data['shipping_address']['company'];
+                $order_data['shipping_address_1'] = $this->session->data['shipping_address']['address_1'];
+                $order_data['shipping_address_2'] = $this->session->data['shipping_address']['address_2'];
+                $order_data['shipping_city'] = $this->session->data['shipping_address']['city'];
+                $order_data['shipping_postcode'] = $this->session->data['shipping_address']['postcode'];
+                $order_data['shipping_zone'] = $this->session->data['shipping_address']['zone'];
+                $order_data['shipping_zone_id'] = $this->session->data['shipping_address']['zone_id'];
+                $order_data['shipping_country'] = $this->session->data['shipping_address']['country'];
+                $order_data['shipping_country_id'] = $this->session->data['shipping_address']['country_id'];
                 $order_data['shipping_address_format'] = $this->session->data['shipping_address']['address_format'];
-                $order_data['shipping_custom_field']   = isset($this->session->data['shipping_address']['custom_field']) ? $this->session->data['shipping_address']['custom_field'] : [];
+                $order_data['shipping_custom_field'] = isset($this->session->data['shipping_address']['custom_field']) ? $this->session->data['shipping_address']['custom_field'] : [];
 
                 if (isset($this->session->data['shipping_method']['title'])) {
                     $order_data['shipping_method'] = $this->session->data['shipping_method']['title'];
@@ -186,21 +186,21 @@ class ControllerCheckoutConfirm extends Controller {
                     $order_data['shipping_code'] = '';
                 }
             } else {
-                $order_data['shipping_zone_id']        = 0;
-                $order_data['shipping_country_id']     = 0;
-                $order_data['shipping_firstname']      = '';
-                $order_data['shipping_lastname']       = '';
-                $order_data['shipping_company']        = '';
-                $order_data['shipping_address_1']      = '';
-                $order_data['shipping_address_2']      = '';
-                $order_data['shipping_city']           = '';
-                $order_data['shipping_postcode']       = '';
-                $order_data['shipping_zone']           = '';
-                $order_data['shipping_country']        = '';
+                $order_data['shipping_zone_id'] = 0;
+                $order_data['shipping_country_id'] = 0;
+                $order_data['shipping_firstname'] = '';
+                $order_data['shipping_lastname'] = '';
+                $order_data['shipping_company'] = '';
+                $order_data['shipping_address_1'] = '';
+                $order_data['shipping_address_2'] = '';
+                $order_data['shipping_city'] = '';
+                $order_data['shipping_postcode'] = '';
+                $order_data['shipping_zone'] = '';
+                $order_data['shipping_country'] = '';
                 $order_data['shipping_address_format'] = '';
-                $order_data['shipping_method']         = '';
-                $order_data['shipping_code']           = '';
-                $order_data['shipping_custom_field']   = [];
+                $order_data['shipping_method'] = '';
+                $order_data['shipping_code'] = '';
+                $order_data['shipping_custom_field'] = [];
             }
 
             $order_data['products'] = [];
@@ -257,16 +257,16 @@ class ControllerCheckoutConfirm extends Controller {
 
             $order_data['comment'] = $this->session->data['comment'];
 
-            $order_data['total']   = $total_data['total'];
+            $order_data['total'] = $total_data['total'];
 
             // Affiliate
             $order_data['affiliate_id'] = 0;
-            $order_data['commission']   = 0;
+            $order_data['commission'] = 0;
             $order_data['marketing_id'] = 0;
-            $order_data['tracking']     = '';
+            $order_data['tracking'] = '';
 
             if ($this->config->get('config_affiliate_status') && isset($this->session->data['tracking'])) {
-                $subtotal       = $this->cart->getSubTotal();
+                $subtotal = $this->cart->getSubTotal();
 
                 $this->load->model('account/affiliate');
 
@@ -274,16 +274,16 @@ class ControllerCheckoutConfirm extends Controller {
 
                 if ($affiliate_info) {
                     $order_data['affiliate_id'] = $affiliate_info['customer_id'];
-                    $order_data['commission']   = ($subtotal / 100) * $affiliate_info['commission'];
-                    $order_data['tracking']     = $this->session->data['tracking'];
+                    $order_data['commission'] = ($subtotal / 100) * $affiliate_info['commission'];
+                    $order_data['tracking'] = $this->session->data['tracking'];
                 }
             }
 
-            $order_data['language_id']    = $this->config->get('config_language_id');
-            $order_data['currency_id']    = $this->currency->getId($this->session->data['currency']);
-            $order_data['currency_code']  = $this->session->data['currency'];
+            $order_data['language_id'] = $this->config->get('config_language_id');
+            $order_data['currency_id'] = $this->currency->getId($this->session->data['currency']);
+            $order_data['currency_code'] = $this->session->data['currency'];
             $order_data['currency_value'] = $this->currency->getValue($this->session->data['currency']);
-            $order_data['ip']             = $this->request->server['REMOTE_ADDR'];
+            $order_data['ip'] = $this->request->server['REMOTE_ADDR'];
 
             if (!empty($this->request->server['HTTP_X_FORWARDED_FOR'])) {
                 $order_data['forwarded_ip'] = $this->request->server['HTTP_X_FORWARDED_FOR'];
@@ -347,19 +347,19 @@ class ControllerCheckoutConfirm extends Controller {
                 $description = '';
 
                 if ($product['subscription']) {
-                    $trial_price     = $this->currency->format($this->tax->calculate($product['subscription']['trial_price'], $product['tax_class_id'], $this->config->get('config_tax')), $this->session->data['currency']);
-                    $trial_cycle     = $product['subscription']['trial_cycle'];
+                    $trial_price = $this->currency->format($this->tax->calculate($product['subscription']['trial_price'], $product['tax_class_id'], $this->config->get('config_tax')), $this->session->data['currency']);
+                    $trial_cycle = $product['subscription']['trial_cycle'];
                     $trial_frequency = $this->language->get('text_' . $product['subscription']['trial_frequency']);
-                    $trial_duration  = $product['subscription']['trial_duration'];
+                    $trial_duration = $product['subscription']['trial_duration'];
 
                     if ($product['subscription']['trial_status']) {
                         $description .= sprintf($this->language->get('text_subscription_trial'), $trial_price, $trial_cycle, $trial_frequency, $trial_duration);
                     }
 
-                    $price     = $this->currency->format($this->tax->calculate($product['subscription']['price'], $product['tax_class_id'], $this->config->get('config_tax')), $this->session->data['currency']);
-                    $cycle     = $product['subscription']['cycle'];
+                    $price = $this->currency->format($this->tax->calculate($product['subscription']['price'], $product['tax_class_id'], $this->config->get('config_tax')), $this->session->data['currency']);
+                    $cycle = $product['subscription']['cycle'];
                     $frequency = $this->language->get('text_' . $product['subscription']['frequency']);
-                    $duration  = $product['subscription']['duration'];
+                    $duration = $product['subscription']['duration'];
 
                     if ($duration) {
                         $description .= sprintf($this->language->get('text_subscription_duration'), $price, $cycle, $frequency, $duration);

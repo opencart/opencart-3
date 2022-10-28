@@ -34,7 +34,7 @@ class ControllerExtensionAdvertiseGoogle extends Controller {
         $tracker = $this->setting->get('advertise_google_conversion_tracker');
 
         // Insert the tags before the closing <head> tag
-        $output  = str_replace('</head>', $tracker['google_global_site_tag'] . '</head>', $output);
+        $output = str_replace('</head>', $tracker['google_global_site_tag'] . '</head>', $output);
     }
 
     // catalog/controller/checkout/success/before
@@ -62,9 +62,9 @@ class ControllerExtensionAdvertiseGoogle extends Controller {
         $this->load->model('extension/advertise/google');
 
         $order_info = $this->model_checkout_order->getOrder($this->session->data['order_id']);
-        $tracker    = $this->setting->get('advertise_google_conversion_tracker');
-        $currency   = $order_info['currency_code'];
-        $total      = $this->googleshopping->convertAndFormat($order_info['total'], $currency);
+        $tracker = $this->setting->get('advertise_google_conversion_tracker');
+        $currency = $order_info['currency_code'];
+        $total = $this->googleshopping->convertAndFormat($order_info['total'], $currency);
 
         $search = [
             '{VALUE}',
@@ -79,9 +79,9 @@ class ControllerExtensionAdvertiseGoogle extends Controller {
         $snippet = str_replace($search, $replace, $tracker['google_event_snippet']);
 
         // Store the snippet to display it in the order success view
-        $tax      = 0;
+        $tax = 0;
         $shipping = 0;
-        $coupon   = $this->model_extension_advertise_google->getCoupon($order_info['order_id']);
+        $coupon = $this->model_extension_advertise_google->getCoupon($order_info['order_id']);
 
         foreach ($this->model_checkout_order->getOrderTotals($order_info['order_id']) as $order_total) {
             if ($order_total['code'] == 'shipping') {
@@ -129,21 +129,21 @@ class ControllerExtensionAdvertiseGoogle extends Controller {
             return false;
         }
 
-        $purchase_data            = $this->googleshopping->getPurchaseData();
-        $data['send_to']          = $this->googleshopping->getEventSnippetSendTo();
-        $data['transaction_id']   = $purchase_data['transaction_id'];
-        $data['value']            = $purchase_data['value'];
-        $data['currency']         = $purchase_data['currency'];
-        $data['tax']              = $purchase_data['tax'];
-        $data['shipping']         = $purchase_data['shipping'];
-        $data['items']            = json_encode($purchase_data['items']);
-        $data['ecomm_prodid']     = json_encode($purchase_data['ecomm_prodid']);
+        $purchase_data = $this->googleshopping->getPurchaseData();
+        $data['send_to'] = $this->googleshopping->getEventSnippetSendTo();
+        $data['transaction_id'] = $purchase_data['transaction_id'];
+        $data['value'] = $purchase_data['value'];
+        $data['currency'] = $purchase_data['currency'];
+        $data['tax'] = $purchase_data['tax'];
+        $data['shipping'] = $purchase_data['shipping'];
+        $data['items'] = json_encode($purchase_data['items']);
+        $data['ecomm_prodid'] = json_encode($purchase_data['ecomm_prodid']);
         $data['ecomm_totalvalue'] = $purchase_data['value'];
 
-        $purchase_snippet         = $this->load->view('extension/advertise/google_dynamic_remarketing_purchase', $data);
+        $purchase_snippet = $this->load->view('extension/advertise/google_dynamic_remarketing_purchase', $data);
 
         // Insert the snippet after the output
-        $output                   = str_replace('</body>', $this->googleshopping->getEventSnippet() . $purchase_snippet . '</body>', $output);
+        $output = str_replace('</body>', $this->googleshopping->getEventSnippet() . $purchase_snippet . '</body>', $output);
     }
 
     // catalog/view/common/home/after
@@ -167,10 +167,10 @@ class ControllerExtensionAdvertiseGoogle extends Controller {
         }
 
         $data['send_to'] = $this->googleshopping->getEventSnippetSendTo();
-        $snippet         = $this->load->view('extension/advertise/google_dynamic_remarketing_home', $data);
+        $snippet = $this->load->view('extension/advertise/google_dynamic_remarketing_home', $data);
 
         // Insert the snippet after the output
-        $output          = str_replace('</body>', $snippet . '</body>', $output);
+        $output = str_replace('</body>', $snippet . '</body>', $output);
     }
 
     // catalog/view/product/search/after
@@ -193,12 +193,12 @@ class ControllerExtensionAdvertiseGoogle extends Controller {
             return false;
         }
 
-        $data['send_to']     = $this->googleshopping->getEventSnippetSendTo();
+        $data['send_to'] = $this->googleshopping->getEventSnippetSendTo();
         $data['search_term'] = $this->request->get['search'];
-        $snippet             = $this->load->view('extension/advertise/google_dynamic_remarketing_searchresults', $data);
+        $snippet = $this->load->view('extension/advertise/google_dynamic_remarketing_searchresults', $data);
 
         // Insert the snippet after the output
-        $output              = str_replace('</body>', $snippet . '</body>', $output);
+        $output = str_replace('</body>', $snippet . '</body>', $output);
     }
 
     // catalog/view/product/category/after
@@ -222,7 +222,7 @@ class ControllerExtensionAdvertiseGoogle extends Controller {
         }
 
         if (isset($this->request->get['path'])) {
-            $parts       = explode('_', $this->request->get['path']);
+            $parts = explode('_', $this->request->get['path']);
             $category_id = (int)end($parts);
         } elseif (isset($this->request->get['category_id'])) {
             $category_id = (int)$this->request->get['category_id'];
@@ -232,14 +232,14 @@ class ControllerExtensionAdvertiseGoogle extends Controller {
 
         $this->load->model('extension/advertise/google');
 
-        $data                = [];
-        $data['send_to']     = $this->googleshopping->getEventSnippetSendTo();
+        $data = [];
+        $data['send_to'] = $this->googleshopping->getEventSnippetSendTo();
         $data['description'] = str_replace('"', '\\"', $this->model_extension_advertise_google->getHumanReadableOpenCartCategory($category_id));
 
-        $snippet             = $this->load->view('extension/advertise/google_dynamic_remarketing_category', $data);
+        $snippet = $this->load->view('extension/advertise/google_dynamic_remarketing_category', $data);
 
         // Insert the snippet after the output
-        $output              = str_replace('</body>', $snippet . '</body>', $output);
+        $output = str_replace('</body>', $snippet . '</body>', $output);
     }
 
     // catalog/view/product/product/after
@@ -273,20 +273,20 @@ class ControllerExtensionAdvertiseGoogle extends Controller {
 
         $this->load->model('extension/advertise/google');
 
-        $category_name      = $this->model_extension_advertise_google->getHumanReadableCategory($product_info['product_id'], $this->store_id);
-        $option_map         = $this->model_extension_advertise_google->getSizeAndColorOptionMap($product_info['product_id'], $this->store_id);
+        $category_name = $this->model_extension_advertise_google->getHumanReadableCategory($product_info['product_id'], $this->store_id);
+        $option_map = $this->model_extension_advertise_google->getSizeAndColorOptionMap($product_info['product_id'], $this->store_id);
 
-        $data               = [];
-        $data['send_to']    = $this->googleshopping->getEventSnippetSendTo();
+        $data = [];
+        $data['send_to'] = $this->googleshopping->getEventSnippetSendTo();
         $data['option_map'] = json_encode($option_map);
-        $data['brand']      = $product_info['manufacturer'];
-        $data['name']       = $product_info['name'];
-        $data['category']   = str_replace('"', '\\"', $category_name);
+        $data['brand'] = $product_info['manufacturer'];
+        $data['name'] = $product_info['name'];
+        $data['category'] = str_replace('"', '\\"', $category_name);
 
-        $snippet            = $this->load->view('extension/advertise/google_dynamic_remarketing_product', $data);
+        $snippet = $this->load->view('extension/advertise/google_dynamic_remarketing_product', $data);
 
         // Insert the snippet after the output
-        $output             = str_replace('</body>', $snippet . '</body>', $output);
+        $output = str_replace('</body>', $snippet . '</body>', $output);
     }
 
     // catalog/view/checkout/cart/after
@@ -312,16 +312,16 @@ class ControllerExtensionAdvertiseGoogle extends Controller {
         $this->load->model('catalog/product');
         $this->load->model('extension/advertise/google');
 
-        $data                     = [];
-        $data['send_to']          = $this->googleshopping->getEventSnippetSendTo();
+        $data = [];
+        $data['send_to'] = $this->googleshopping->getEventSnippetSendTo();
         $data['ecomm_totalvalue'] = $this->cart->getTotal();
-        $data['ecomm_prodid']     = json_encode($this->model_extension_advertise_google->getRemarketingProductIds($this->cart->getProducts(), $this->store_id));
-        $data['items']            = json_encode($this->model_extension_advertise_google->getRemarketingItems($this->cart->getProducts(), $this->store_id));
+        $data['ecomm_prodid'] = json_encode($this->model_extension_advertise_google->getRemarketingProductIds($this->cart->getProducts(), $this->store_id));
+        $data['items'] = json_encode($this->model_extension_advertise_google->getRemarketingItems($this->cart->getProducts(), $this->store_id));
 
-        $snippet                  = $this->load->view('extension/advertise/google_dynamic_remarketing_cart', $data);
+        $snippet = $this->load->view('extension/advertise/google_dynamic_remarketing_cart', $data);
 
         // Insert the snippet after the output
-        $output                   = str_replace('</body>', $snippet . '</body>', $output);
+        $output = str_replace('</body>', $snippet . '</body>', $output);
     }
 
     public function cron(int $cron_id = null, string $code = null, string $cycle = null, string $date_added = null, string $date_modified = null): bool|object {

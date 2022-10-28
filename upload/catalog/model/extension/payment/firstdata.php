@@ -99,7 +99,7 @@ class ModelExtensionPaymentFirstdata extends Model {
     }
 
     public function responseHash($total, $currency, $txn_date, $approval_code) {
-        $tmp   = $total . $this->config->get('payment_firstdata_secret') . $currency . $txn_date . $this->config->get('payment_firstdata_merchant_id') . $approval_code;
+        $tmp = $total . $this->config->get('payment_firstdata_secret') . $currency . $txn_date . $this->config->get('payment_firstdata_merchant_id') . $approval_code;
         $ascii = bin2hex($tmp);
 
         return sha1($ascii);

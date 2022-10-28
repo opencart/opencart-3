@@ -52,18 +52,18 @@ class ControllerExtensionPaymentNochex extends Controller {
             $data['delivery_postcode'] = $order_info['payment_postcode'];
         }
 
-        $data['action']                = 'https://secure.nochex.com/';
-        $data['amount']                = $this->currency->format($order_info['total'], 'GBP', false, false);
-        $data['order_id']              = (int)$this->session->data['order_id'];
-        $data['description']           = $this->config->get('config_name');
-        $data['billing_fullname']      = $order_info['payment_firstname'] . ' ' . $order_info['payment_lastname'];
-        $data['email_address']         = $order_info['email'];
+        $data['action'] = 'https://secure.nochex.com/';
+        $data['amount'] = $this->currency->format($order_info['total'], 'GBP', false, false);
+        $data['order_id'] = (int)$this->session->data['order_id'];
+        $data['description'] = $this->config->get('config_name');
+        $data['billing_fullname'] = $order_info['payment_firstname'] . ' ' . $order_info['payment_lastname'];
+        $data['email_address'] = $order_info['email'];
         $data['customer_phone_number'] = $order_info['telephone'];
-        $data['test']                  = $this->config->get('payment_nochex_test');
-        $data['success_url']           = $this->url->link('checkout/success', '', true);
-        $data['cancel_url']            = $this->url->link('checkout/payment', '', true);
-        $data['declined_url']          = $this->url->link('extension/payment/nochex/callback', 'method=decline', true);
-        $data['callback_url']          = $this->url->link('extension/payment/nochex/callback', 'order=' . $this->session->data['order_id'], true);
+        $data['test'] = $this->config->get('payment_nochex_test');
+        $data['success_url'] = $this->url->link('checkout/success', '', true);
+        $data['cancel_url'] = $this->url->link('checkout/payment', '', true);
+        $data['declined_url'] = $this->url->link('extension/payment/nochex/callback', 'method=decline', true);
+        $data['callback_url'] = $this->url->link('extension/payment/nochex/callback', 'order=' . $this->session->data['order_id'], true);
 
         return $this->load->view('extension/payment/nochex', $data);
     }
@@ -100,7 +100,7 @@ class ControllerExtensionPaymentNochex extends Controller {
             $request .= '&' . $key . '=' . urlencode(stripslashes($value));
         }
 
-        $curl     = curl_init('https://www.nochex.com/nochex.dll/apc/apc');
+        $curl = curl_init('https://www.nochex.com/nochex.dll/apc/apc');
 
         curl_setopt($curl, CURLOPT_POST, true);
         curl_setopt($curl, CURLOPT_POSTFIELDS, trim($request, '&'));

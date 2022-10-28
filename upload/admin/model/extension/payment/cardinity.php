@@ -11,9 +11,9 @@ class ModelExtensionPaymentCardinity extends Model {
 
     public function createClient($credentials) {
         return Client::create([
-                'consumerKey'    => $credentials['key'],
-                'consumerSecret' => $credentials['secret']
-            ]);
+            'consumerKey'    => $credentials['key'],
+            'consumerSecret' => $credentials['secret']
+        ]);
     }
 
     public function verifyCredentials($client) {

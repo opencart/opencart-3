@@ -26,7 +26,7 @@ class ControllerAccountVoucher extends Controller {
             $this->response->redirect($this->url->link('account/voucher/success'));
         }
 
-        $data['breadcrumbs']   = [];
+        $data['breadcrumbs'] = [];
 
         $data['breadcrumbs'][] = [
             'text' => $this->language->get('text_home'),
@@ -141,15 +141,15 @@ class ControllerAccountVoucher extends Controller {
             $data['agree'] = false;
         }
 
-        $data['action']         = $this->url->link('account/voucher', '', true);
-        $data['help_amount']    = sprintf($this->language->get('help_amount'), $this->currency->format($this->config->get('config_voucher_min'), $this->session->data['currency']), $this->currency->format($this->config->get('config_voucher_max'), $this->session->data['currency']));
+        $data['action'] = $this->url->link('account/voucher', '', true);
+        $data['help_amount'] = sprintf($this->language->get('help_amount'), $this->currency->format($this->config->get('config_voucher_min'), $this->session->data['currency']), $this->currency->format($this->config->get('config_voucher_max'), $this->session->data['currency']));
 
-        $data['column_left']    = $this->load->controller('common/column_left');
-        $data['column_right']   = $this->load->controller('common/column_right');
-        $data['content_top']    = $this->load->controller('common/content_top');
+        $data['column_left'] = $this->load->controller('common/column_left');
+        $data['column_right'] = $this->load->controller('common/column_right');
+        $data['content_top'] = $this->load->controller('common/content_top');
         $data['content_bottom'] = $this->load->controller('common/content_bottom');
-        $data['footer']         = $this->load->controller('common/footer');
-        $data['header']         = $this->load->controller('common/header');
+        $data['footer'] = $this->load->controller('common/footer');
+        $data['header'] = $this->load->controller('common/header');
 
         $this->response->setOutput($this->load->view('account/voucher', $data));
     }
@@ -159,7 +159,7 @@ class ControllerAccountVoucher extends Controller {
 
         $this->document->setTitle($this->language->get('heading_title'));
 
-        $data['breadcrumbs']   = [];
+        $data['breadcrumbs'] = [];
 
         $data['breadcrumbs'][] = [
             'text' => $this->language->get('text_home'),
@@ -171,14 +171,14 @@ class ControllerAccountVoucher extends Controller {
             'href' => $this->url->link('account/voucher')
         ];
 
-        $data['continue']       = $this->url->link('checkout/cart');
-        
-        $data['column_left']    = $this->load->controller('common/column_left');
-        $data['column_right']   = $this->load->controller('common/column_right');
-        $data['content_top']    = $this->load->controller('common/content_top');
+        $data['continue'] = $this->url->link('checkout/cart');
+
+        $data['column_left'] = $this->load->controller('common/column_left');
+        $data['column_right'] = $this->load->controller('common/column_right');
+        $data['content_top'] = $this->load->controller('common/content_top');
         $data['content_bottom'] = $this->load->controller('common/content_bottom');
-        $data['footer']         = $this->load->controller('common/footer');
-        $data['header']         = $this->load->controller('common/header');
+        $data['footer'] = $this->load->controller('common/footer');
+        $data['header'] = $this->load->controller('common/header');
 
         $this->response->setOutput($this->load->view('common/success', $data));
     }

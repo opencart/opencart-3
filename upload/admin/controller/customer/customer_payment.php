@@ -16,13 +16,13 @@ class ControllerCustomerCustomerPayment extends Controller {
 
             $this->document->setTitle($this->language->get('heading_title'));
 
-            $url                   = '';
+            $url = '';
 
             if (isset($this->request->get['page'])) {
                 $url .= '&page=' . $this->request->get['page'];
             }
 
-            $data['breadcrumbs']   = [];
+            $data['breadcrumbs'] = [];
 
             $data['breadcrumbs'][] = [
                 'text' => $this->language->get('text_home'),
@@ -44,11 +44,11 @@ class ControllerCustomerCustomerPayment extends Controller {
                 'href' => $this->url->link('customer/customer_payment', 'user_token=' . $this->session->data['user_token'] . $url, true)
             ];
 
-            $data['user_token']               = $this->session->data['user_token'];
+            $data['user_token'] = $this->session->data['user_token'];
 
-            $data['header']                   = $this->load->controller('common/header');
-            $data['column_left']              = $this->load->controller('common/column_left');
-            $data['footer']                   = $this->load->controller('common/footer');
+            $data['header'] = $this->load->controller('common/header');
+            $data['column_left'] = $this->load->controller('common/column_left');
+            $data['footer'] = $this->load->controller('common/footer');
 
             $this->response->setOutput($this->load->view('customer/customer_payment', $data));
         } else {
@@ -56,7 +56,7 @@ class ControllerCustomerCustomerPayment extends Controller {
 
             $this->document->setTitle($this->language->get('heading_title'));
 
-            $data['breadcrumbs']   = [];
+            $data['breadcrumbs'] = [];
 
             $data['breadcrumbs'][] = [
                 'text' => $this->language->get('text_home'),
@@ -68,9 +68,9 @@ class ControllerCustomerCustomerPayment extends Controller {
                 'href' => $this->url->link('error/not_found', 'user_token=' . $this->session->data['user_token'], true)
             ];
 
-            $data['header']      = $this->load->controller('common/header');
+            $data['header'] = $this->load->controller('common/header');
             $data['column_left'] = $this->load->controller('common/column_left');
-            $data['footer']      = $this->load->controller('common/footer');
+            $data['footer'] = $this->load->controller('common/footer');
 
             $this->response->setOutput($this->load->view('error/not_found', $data));
         }
@@ -93,8 +93,8 @@ class ControllerCustomerCustomerPayment extends Controller {
 
         $this->load->model('customer/customer');
 
-        $payment_total           = $this->model_customer_customer->getTotalPaymentMethods($customer_id);
-        $results                 = $this->model_customer_customer->getPaymentMethods($customer_id, ($page - 1) * 10, 10);
+        $payment_total = $this->model_customer_customer->getTotalPaymentMethods($customer_id);
+        $results = $this->model_customer_customer->getPaymentMethods($customer_id, ($page - 1) * 10, 10);
 
         foreach ($results as $result) {
             if (isset($result['image'])) {
@@ -114,14 +114,14 @@ class ControllerCustomerCustomerPayment extends Controller {
             ];
         }
 
-        $pagination         = new \Pagination();
-        $pagination->total  = $payment_total;
-        $pagination->page   = $page;
-        $pagination->limit  = $this->config->get('config_limit_admin');
-        $pagination->url    = $this->url->link('customer/customer_payment/getPayment', 'user_token=' . $this->session->data['user_token'] . '&page={page}', true);
+        $pagination = new \Pagination();
+        $pagination->total = $payment_total;
+        $pagination->page = $page;
+        $pagination->limit = $this->config->get('config_limit_admin');
+        $pagination->url = $this->url->link('customer/customer_payment/getPayment', 'user_token=' . $this->session->data['user_token'] . '&page={page}', true);
 
         $data['pagination'] = $pagination->render();
-        $data['results']    = sprintf($this->language->get('text_pagination'), ($payment_total) ? (($page - 1) * $this->config->get('config_limit_admin')) + 1 : 0, ((($page - 1) * $this->config->get('config_limit_admin')) > ($payment_total - $this->config->get('config_limit_admin'))) ? $payment_total : ((($page - 1) * $this->config->get('config_limit_admin')) + $this->config->get('config_limit_admin')), $payment_total, ceil($payment_total / $this->config->get('config_limit_admin')));
+        $data['results'] = sprintf($this->language->get('text_pagination'), ($payment_total) ? (($page - 1) * $this->config->get('config_limit_admin')) + 1 : 0, ((($page - 1) * $this->config->get('config_limit_admin')) > ($payment_total - $this->config->get('config_limit_admin'))) ? $payment_total : ((($page - 1) * $this->config->get('config_limit_admin')) + $this->config->get('config_limit_admin')), $payment_total, ceil($payment_total / $this->config->get('config_limit_admin')));
 
         $this->response->setOutput($this->load->view('customer/customer_payment_list', $data));
     }

@@ -13,7 +13,7 @@ class ControllerAccountReturns extends Controller {
 
         $this->document->setTitle($this->language->get('heading_title'));
 
-        $data['breadcrumbs']   = [];
+        $data['breadcrumbs'] = [];
 
         $data['breadcrumbs'][] = [
             'text' => $this->language->get('text_home'),
@@ -46,9 +46,9 @@ class ControllerAccountReturns extends Controller {
 
         $data['returns'] = [];
 
-        $return_total    = $this->model_account_returns->getTotalReturns();
+        $return_total = $this->model_account_returns->getTotalReturns();
 
-        $results         = $this->model_account_returns->getReturns(($page - 1) * 10, 10);
+        $results = $this->model_account_returns->getReturns(($page - 1) * 10, 10);
 
         foreach ($results as $result) {
             $data['returns'][] = [
@@ -61,22 +61,22 @@ class ControllerAccountReturns extends Controller {
             ];
         }
 
-        $pagination             = new \Pagination();
-        $pagination->total      = $return_total;
-        $pagination->page       = $page;
-        $pagination->limit      = $this->config->get('theme_' . $this->config->get('config_theme') . '_product_limit');
-        $pagination->url        = $this->url->link('account/returns', 'customer_token=' . $this->session->data['customer_token'] . '&page={page}', true);
+        $pagination = new \Pagination();
+        $pagination->total = $return_total;
+        $pagination->page = $page;
+        $pagination->limit = $this->config->get('theme_' . $this->config->get('config_theme') . '_product_limit');
+        $pagination->url = $this->url->link('account/returns', 'customer_token=' . $this->session->data['customer_token'] . '&page={page}', true);
 
-        $data['pagination']     = $pagination->render();
-        $data['results']        = sprintf($this->language->get('text_pagination'), ($return_total) ? (($page - 1) * $this->config->get('theme_' . $this->config->get('config_theme') . '_product_limit')) + 1 : 0, ((($page - 1) * $this->config->get('theme_' . $this->config->get('config_theme') . '_product_limit')) > ($return_total - $this->config->get('theme_' . $this->config->get('config_theme') . '_product_limit'))) ? $return_total : ((($page - 1) * $this->config->get('theme_' . $this->config->get('config_theme') . '_product_limit')) + $this->config->get('theme_' . $this->config->get('config_theme') . '_product_limit')), $return_total, ceil($return_total / $this->config->get('theme_' . $this->config->get('config_theme') . '_product_limit')));
-        $data['continue']       = $this->url->link('account/account', 'customer_token=' . $this->session->data['customer_token'], true);
+        $data['pagination'] = $pagination->render();
+        $data['results'] = sprintf($this->language->get('text_pagination'), ($return_total) ? (($page - 1) * $this->config->get('theme_' . $this->config->get('config_theme') . '_product_limit')) + 1 : 0, ((($page - 1) * $this->config->get('theme_' . $this->config->get('config_theme') . '_product_limit')) > ($return_total - $this->config->get('theme_' . $this->config->get('config_theme') . '_product_limit'))) ? $return_total : ((($page - 1) * $this->config->get('theme_' . $this->config->get('config_theme') . '_product_limit')) + $this->config->get('theme_' . $this->config->get('config_theme') . '_product_limit')), $return_total, ceil($return_total / $this->config->get('theme_' . $this->config->get('config_theme') . '_product_limit')));
+        $data['continue'] = $this->url->link('account/account', 'customer_token=' . $this->session->data['customer_token'], true);
 
-        $data['column_left']    = $this->load->controller('common/column_left');
-        $data['column_right']   = $this->load->controller('common/column_right');
-        $data['content_top']    = $this->load->controller('common/content_top');
+        $data['column_left'] = $this->load->controller('common/column_left');
+        $data['column_right'] = $this->load->controller('common/column_right');
+        $data['content_top'] = $this->load->controller('common/content_top');
         $data['content_bottom'] = $this->load->controller('common/content_bottom');
-        $data['footer']         = $this->load->controller('common/footer');
-        $data['header']         = $this->load->controller('common/header');
+        $data['footer'] = $this->load->controller('common/footer');
+        $data['header'] = $this->load->controller('common/header');
 
         $this->response->setOutput($this->load->view('account/returns_list', $data));
     }
@@ -103,7 +103,7 @@ class ControllerAccountReturns extends Controller {
         if ($return_info) {
             $this->document->setTitle($this->language->get('text_return'));
 
-            $data['breadcrumbs']   = [];
+            $data['breadcrumbs'] = [];
 
             $data['breadcrumbs'][] = [
                 'text' => $this->language->get('text_home'),
@@ -131,25 +131,25 @@ class ControllerAccountReturns extends Controller {
                 'href' => $this->url->link('account/returns/info', 'customer_token=' . $this->session->data['customer_token'] . '&return_id=' . $this->request->get['return_id'] . $url, true)
             ];
 
-            $data['return_id']    = $return_info['return_id'];
-            $data['order_id']     = $return_info['order_id'];
+            $data['return_id'] = $return_info['return_id'];
+            $data['order_id'] = $return_info['order_id'];
             $data['date_ordered'] = date($this->language->get('date_format_short'), strtotime($return_info['date_ordered']));
-            $data['date_added']   = date($this->language->get('date_format_short'), strtotime($return_info['date_added']));
-            $data['firstname']    = $return_info['firstname'];
-            $data['lastname']     = $return_info['lastname'];
-            $data['email']        = $return_info['email'];
-            $data['telephone']    = $return_info['telephone'];
-            $data['product']      = $return_info['product'];
-            $data['model']        = $return_info['model'];
-            $data['quantity']     = $return_info['quantity'];
-            $data['reason']       = $return_info['reason'];
-            $data['opened']       = $return_info['opened'] ? $this->language->get('text_yes') : $this->language->get('text_no');
-            $data['comment']      = nl2br($return_info['comment']);
-            $data['action']       = $return_info['action'];
+            $data['date_added'] = date($this->language->get('date_format_short'), strtotime($return_info['date_added']));
+            $data['firstname'] = $return_info['firstname'];
+            $data['lastname'] = $return_info['lastname'];
+            $data['email'] = $return_info['email'];
+            $data['telephone'] = $return_info['telephone'];
+            $data['product'] = $return_info['product'];
+            $data['model'] = $return_info['model'];
+            $data['quantity'] = $return_info['quantity'];
+            $data['reason'] = $return_info['reason'];
+            $data['opened'] = $return_info['opened'] ? $this->language->get('text_yes') : $this->language->get('text_no');
+            $data['comment'] = nl2br($return_info['comment']);
+            $data['action'] = $return_info['action'];
 
-            $data['histories']    = [];
+            $data['histories'] = [];
 
-            $results              = $this->model_account_returns->getReturnHistories($this->request->get['return_id']);
+            $results = $this->model_account_returns->getReturnHistories($this->request->get['return_id']);
 
             foreach ($results as $result) {
                 $data['histories'][] = [
@@ -159,20 +159,20 @@ class ControllerAccountReturns extends Controller {
                 ];
             }
 
-            $data['continue']       = $this->url->link('account/returns', $url, true);
+            $data['continue'] = $this->url->link('account/returns', $url, true);
 
-            $data['column_left']    = $this->load->controller('common/column_left');
-            $data['column_right']   = $this->load->controller('common/column_right');
-            $data['content_top']    = $this->load->controller('common/content_top');
+            $data['column_left'] = $this->load->controller('common/column_left');
+            $data['column_right'] = $this->load->controller('common/column_right');
+            $data['content_top'] = $this->load->controller('common/content_top');
             $data['content_bottom'] = $this->load->controller('common/content_bottom');
-            $data['footer']         = $this->load->controller('common/footer');
-            $data['header']         = $this->load->controller('common/header');
+            $data['footer'] = $this->load->controller('common/footer');
+            $data['header'] = $this->load->controller('common/header');
 
             $this->response->setOutput($this->load->view('account/returns_info', $data));
         } else {
             $this->document->setTitle($this->language->get('text_return'));
 
-            $data['breadcrumbs']   = [];
+            $data['breadcrumbs'] = [];
 
             $data['breadcrumbs'][] = [
                 'text' => $this->language->get('text_home'),
@@ -200,14 +200,14 @@ class ControllerAccountReturns extends Controller {
                 'href' => $this->url->link('account/returns/info', 'return_id=' . $return_id . $url, true)
             ];
 
-            $data['continue']       = $this->url->link('account/returns', '', true);
+            $data['continue'] = $this->url->link('account/returns', '', true);
 
-            $data['column_left']    = $this->load->controller('common/column_left');
-            $data['column_right']   = $this->load->controller('common/column_right');
-            $data['content_top']    = $this->load->controller('common/content_top');
+            $data['column_left'] = $this->load->controller('common/column_left');
+            $data['column_right'] = $this->load->controller('common/column_right');
+            $data['content_top'] = $this->load->controller('common/content_top');
             $data['content_bottom'] = $this->load->controller('common/content_bottom');
-            $data['footer']         = $this->load->controller('common/footer');
-            $data['header']         = $this->load->controller('common/header');
+            $data['footer'] = $this->load->controller('common/footer');
+            $data['header'] = $this->load->controller('common/header');
 
             $this->response->setOutput($this->load->view('error/not_found', $data));
         }
@@ -231,7 +231,7 @@ class ControllerAccountReturns extends Controller {
         $this->document->addScript('catalog/view/javascript/jquery/datetimepicker/bootstrap-datetimepicker.min.js');
         $this->document->addStyle('catalog/view/javascript/jquery/datetimepicker/bootstrap-datetimepicker.min.css');
 
-        $data['breadcrumbs']   = [];
+        $data['breadcrumbs'] = [];
 
         $data['breadcrumbs'][] = [
             'text' => $this->language->get('text_home'),
@@ -443,14 +443,14 @@ class ControllerAccountReturns extends Controller {
             $data['agree'] = false;
         }
 
-        $data['back']           = $this->url->link('account/account', '', true);
+        $data['back'] = $this->url->link('account/account', '', true);
 
-        $data['column_left']    = $this->load->controller('common/column_left');
-        $data['column_right']   = $this->load->controller('common/column_right');
-        $data['content_top']    = $this->load->controller('common/content_top');
+        $data['column_left'] = $this->load->controller('common/column_left');
+        $data['column_right'] = $this->load->controller('common/column_right');
+        $data['content_top'] = $this->load->controller('common/content_top');
         $data['content_bottom'] = $this->load->controller('common/content_bottom');
-        $data['footer']         = $this->load->controller('common/footer');
-        $data['header']         = $this->load->controller('common/header');
+        $data['footer'] = $this->load->controller('common/footer');
+        $data['header'] = $this->load->controller('common/header');
 
         $this->response->setOutput($this->load->view('account/returns_form', $data));
     }
@@ -514,7 +514,7 @@ class ControllerAccountReturns extends Controller {
 
         $this->document->setTitle($this->language->get('heading_title'));
 
-        $data['breadcrumbs']   = [];
+        $data['breadcrumbs'] = [];
 
         $data['breadcrumbs'][] = [
             'text' => $this->language->get('text_home'),
@@ -526,14 +526,14 @@ class ControllerAccountReturns extends Controller {
             'href' => $this->url->link('account/returns', '', true)
         ];
 
-        $data['continue']       = $this->url->link('common/home');
+        $data['continue'] = $this->url->link('common/home');
 
-        $data['column_left']    = $this->load->controller('common/column_left');
-        $data['column_right']   = $this->load->controller('common/column_right');
-        $data['content_top']    = $this->load->controller('common/content_top');
+        $data['column_left'] = $this->load->controller('common/column_left');
+        $data['column_right'] = $this->load->controller('common/column_right');
+        $data['content_top'] = $this->load->controller('common/content_top');
         $data['content_bottom'] = $this->load->controller('common/content_bottom');
-        $data['footer']         = $this->load->controller('common/footer');
-        $data['header']         = $this->load->controller('common/header');
+        $data['footer'] = $this->load->controller('common/footer');
+        $data['header'] = $this->load->controller('common/header');
 
         $this->response->setOutput($this->load->view('common/success', $data));
     }

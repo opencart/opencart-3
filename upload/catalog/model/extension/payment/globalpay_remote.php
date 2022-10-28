@@ -30,29 +30,29 @@ class ModelExtensionPaymentGlobalpayRemote extends Model {
     }
 
     public function checkEnrollment($account, $amount, $currency, $order_ref) {
-        $timestamp   = date('YmdHis');
+        $timestamp = date('YmdHis');
         $merchant_id = $this->config->get('payment_globalpay_remote_merchant_id');
-        $secret      = $this->config->get('payment_globalpay_remote_secret');
+        $secret = $this->config->get('payment_globalpay_remote_secret');
 
-        $tmp         = $timestamp . '.' . $merchant_id . '.' . $order_ref . '.' . $amount . '.' . $currency . '.' . $this->request->post['cc_number'];
-        $hash        = sha1($tmp);
-        $tmp         = $hash . '.' . $secret;
-        $hash        = sha1($tmp);
+        $tmp = $timestamp . '.' . $merchant_id . '.' . $order_ref . '.' . $amount . '.' . $currency . '.' . $this->request->post['cc_number'];
+        $hash = sha1($tmp);
+        $tmp = $hash . '.' . $secret;
+        $hash = sha1($tmp);
 
-        $xml         = '';
-        $xml         .= '<request type="3ds-verifyenrolled" timestamp="' . $timestamp . '">';
-        $xml         .= '<merchantid>' . $merchant_id . '</merchantid>';
-        $xml         .= '<account>' . $account . '</account>';
-        $xml         .= '<orderid>' . $order_ref . '</orderid>';
-        $xml         .= '<amount currency="' . $currency . '">' . $amount . '</amount>';
-        $xml         .= '<card>';
-        $xml         .= '<number>' . $this->request->post['cc_number'] . '</number>';
-        $xml         .= '<expdate>' . $this->request->post['cc_expire_date_month'] . $this->request->post['cc_expire_date_year'] . '</expdate>';
-        $xml         .= '<type>' . $this->request->post['cc_type'] . '</type>';
-        $xml         .= '<chname>' . $this->request->post['cc_name'] . '</chname>';
-        $xml         .= '</card>';
-        $xml         .= '<sha1hash>' . $hash . '</sha1hash>';
-        $xml         .= '</request>';
+        $xml = '';
+        $xml .= '<request type="3ds-verifyenrolled" timestamp="' . $timestamp . '">';
+        $xml .= '<merchantid>' . $merchant_id . '</merchantid>';
+        $xml .= '<account>' . $account . '</account>';
+        $xml .= '<orderid>' . $order_ref . '</orderid>';
+        $xml .= '<amount currency="' . $currency . '">' . $amount . '</amount>';
+        $xml .= '<card>';
+        $xml .= '<number>' . $this->request->post['cc_number'] . '</number>';
+        $xml .= '<expdate>' . $this->request->post['cc_expire_date_month'] . $this->request->post['cc_expire_date_year'] . '</expdate>';
+        $xml .= '<type>' . $this->request->post['cc_type'] . '</type>';
+        $xml .= '<chname>' . $this->request->post['cc_name'] . '</chname>';
+        $xml .= '</card>';
+        $xml .= '<sha1hash>' . $hash . '</sha1hash>';
+        $xml .= '</request>';
 
         $this->logger('checkEnrollment call');
         $this->logger(simplexml_load_string($xml));
@@ -80,30 +80,30 @@ class ModelExtensionPaymentGlobalpayRemote extends Model {
     public function enrollmentSignature($account, $amount, $currency, $order_ref, $card_number, $card_expire, $card_type, $card_name, $pares) {
         $this->load->model('checkout/order');
 
-        $timestamp   = date('YmdHis');
+        $timestamp = date('YmdHis');
         $merchant_id = $this->config->get('payment_globalpay_remote_merchant_id');
-        $secret      = $this->config->get('payment_globalpay_remote_secret');
+        $secret = $this->config->get('payment_globalpay_remote_secret');
 
-        $tmp         = $timestamp . '.' . $merchant_id . '.' . $order_ref . '.' . $amount . '.' . $currency . '.' . $card_number;
-        $hash        = sha1($tmp);
-        $tmp         = $hash . '.' . $secret;
-        $hash        = sha1($tmp);
+        $tmp = $timestamp . '.' . $merchant_id . '.' . $order_ref . '.' . $amount . '.' . $currency . '.' . $card_number;
+        $hash = sha1($tmp);
+        $tmp = $hash . '.' . $secret;
+        $hash = sha1($tmp);
 
-        $xml         = '';
-        $xml         .= '<request type="3ds-verifysig" timestamp="' . $timestamp . '">';
-        $xml         .= '<merchantid>' . $merchant_id . '</merchantid>';
-        $xml         .= '<account>' . $account . '</account>';
-        $xml         .= '<orderid>' . $order_ref . '</orderid>';
-        $xml         .= '<amount currency="' . $currency . '">' . (int)$amount . '</amount>';
-        $xml         .= '<card>';
-        $xml         .= '<number>' . $card_number . '</number>';
-        $xml         .= '<expdate>' . $card_expire . '</expdate>';
-        $xml         .= '<type>' . $card_type . '</type>';
-        $xml         .= '<chname>' . $card_name . '</chname>';
-        $xml         .= '</card>';
-        $xml         .= '<pares>' . $pares . '</pares>';
-        $xml         .= '<sha1hash>' . $hash . '</sha1hash>';
-        $xml         .= '</request>';
+        $xml = '';
+        $xml .= '<request type="3ds-verifysig" timestamp="' . $timestamp . '">';
+        $xml .= '<merchantid>' . $merchant_id . '</merchantid>';
+        $xml .= '<account>' . $account . '</account>';
+        $xml .= '<orderid>' . $order_ref . '</orderid>';
+        $xml .= '<amount currency="' . $currency . '">' . (int)$amount . '</amount>';
+        $xml .= '<card>';
+        $xml .= '<number>' . $card_number . '</number>';
+        $xml .= '<expdate>' . $card_expire . '</expdate>';
+        $xml .= '<type>' . $card_type . '</type>';
+        $xml .= '<chname>' . $card_name . '</chname>';
+        $xml .= '</card>';
+        $xml .= '<pares>' . $pares . '</pares>';
+        $xml .= '<sha1hash>' . $hash . '</sha1hash>';
+        $xml .= '</request>';
 
         $this->logger('enrollmentSignature call');
         $this->logger(simplexml_load_string($xml));
@@ -133,35 +133,35 @@ class ModelExtensionPaymentGlobalpayRemote extends Model {
 
         $this->load->model('checkout/order');
 
-        $timestamp   = date('YmdHis');
+        $timestamp = date('YmdHis');
         $merchant_id = $this->config->get('payment_globalpay_remote_merchant_id');
-        $secret      = $this->config->get('payment_globalpay_remote_secret');
+        $secret = $this->config->get('payment_globalpay_remote_secret');
 
-        $tmp         = $timestamp . '.' . $merchant_id . '.' . $order_ref . '.' . $amount . '.' . $currency . '.' . $card_number;
-        $hash        = sha1($tmp);
-        $tmp         = $hash . '.' . $secret;
-        $hash        = sha1($tmp);
+        $tmp = $timestamp . '.' . $merchant_id . '.' . $order_ref . '.' . $amount . '.' . $currency . '.' . $card_number;
+        $hash = sha1($tmp);
+        $tmp = $hash . '.' . $secret;
+        $hash = sha1($tmp);
 
-        $order_info  = $this->model_checkout_order->getOrder($order_id);
+        $order_info = $this->model_checkout_order->getOrder($order_id);
 
-        $xml         = '';
-        $xml         .= '<request type="auth" timestamp="' . $timestamp . '">';
-        $xml         .= '<merchantid>' . $merchant_id . '</merchantid>';
-        $xml         .= '<account>' . $account . '</account>';
-        $xml         .= '<orderid>' . $order_ref . '</orderid>';
-        $xml         .= '<amount currency="' . $currency . '">' . $amount . '</amount>';
-        $xml         .= '<comments>';
-        $xml         .= '<comment id="1">OpenCart</comment>';
-        $xml         .= '</comments>';
-        $xml         .= '<card>';
-        $xml         .= '<number>' . $card_number . '</number>';
-        $xml         .= '<expdate>' . $expire . '</expdate>';
-        $xml         .= '<type>' . $type . '</type>';
-        $xml         .= '<chname>' . $name . '</chname>';
-        $xml         .= '<cvn>';
-        $xml         .= '<number>' . (int)$cvv . '</number>';
-        $xml         .= '<presind>2</presind>';
-        $xml         .= '</cvn>';
+        $xml = '';
+        $xml .= '<request type="auth" timestamp="' . $timestamp . '">';
+        $xml .= '<merchantid>' . $merchant_id . '</merchantid>';
+        $xml .= '<account>' . $account . '</account>';
+        $xml .= '<orderid>' . $order_ref . '</orderid>';
+        $xml .= '<amount currency="' . $currency . '">' . $amount . '</amount>';
+        $xml .= '<comments>';
+        $xml .= '<comment id="1">OpenCart</comment>';
+        $xml .= '</comments>';
+        $xml .= '<card>';
+        $xml .= '<number>' . $card_number . '</number>';
+        $xml .= '<expdate>' . $expire . '</expdate>';
+        $xml .= '<type>' . $type . '</type>';
+        $xml .= '<chname>' . $name . '</chname>';
+        $xml .= '<cvn>';
+        $xml .= '<number>' . (int)$cvv . '</number>';
+        $xml .= '<presind>2</presind>';
+        $xml .= '</cvn>';
 
         if (!empty($issue)) {
             $xml .= '<issueno>' . (int)$issue . '</issueno>';
@@ -255,10 +255,10 @@ class ModelExtensionPaymentGlobalpayRemote extends Model {
         $this->logger($response);
 
         $response = simplexml_load_string($response);
-        
-        $message  = '<strong>' . $this->language->get('text_result') . ':</strong> ' . (int)$response->result;
-        $message  .= '<br/><strong>' . $this->language->get('text_message') . ':</strong> ' . (string)$response->message;
-        $message  .= '<br/><strong>' . $this->language->get('text_order_ref') . ':</strong> ' . (string)$order_ref;
+
+        $message = '<strong>' . $this->language->get('text_result') . ':</strong> ' . (int)$response->result;
+        $message .= '<br/><strong>' . $this->language->get('text_message') . ':</strong> ' . (string)$response->message;
+        $message .= '<br/><strong>' . $this->language->get('text_order_ref') . ':</strong> ' . (string)$order_ref;
 
         if (isset($response->cvnresult) && !empty($response->cvnresult)) {
             $message .= '<br/><strong>' . $this->language->get('text_cvn_result') . ':</strong> ' . (string)$response->cvnresult;

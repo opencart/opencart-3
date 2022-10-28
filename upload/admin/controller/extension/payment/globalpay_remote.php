@@ -185,9 +185,9 @@ class ControllerExtensionPaymentGlobalpayRemote extends Controller {
 
         $data['order_statuses'] = $this->model_localisation_order_status->getOrderStatuses();
 
-        $data['header']      = $this->load->controller('common/header');
+        $data['header'] = $this->load->controller('common/header');
         $data['column_left'] = $this->load->controller('common/column_left');
-        $data['footer']      = $this->load->controller('common/footer');
+        $data['footer'] = $this->load->controller('common/footer');
 
         $this->response->setOutput($this->load->view('extension/payment/globalpay_remote', $data));
     }
@@ -209,7 +209,7 @@ class ControllerExtensionPaymentGlobalpayRemote extends Controller {
 
                 $globalpay_order['total_captured'] = $this->model_extension_payment_globalpay_remote->getTotalCaptured($globalpay_order['globalpay_remote_order_id']);
 
-                $globalpay_order['total_formatted']          = $this->currency->format($globalpay_order['total'], $globalpay_order['currency_code'], 1, true);
+                $globalpay_order['total_formatted'] = $this->currency->format($globalpay_order['total'], $globalpay_order['currency_code'], 1, true);
                 $globalpay_order['total_captured_formatted'] = $this->currency->format($globalpay_order['total_captured'], $globalpay_order['currency_code'], 1, true);
 
                 $data['globalpay_order'] = $globalpay_order;
@@ -249,7 +249,7 @@ class ControllerExtensionPaymentGlobalpayRemote extends Controller {
 
                 $json['msg'] = $this->language->get('text_void_ok');
 
-                $json['data']               = [];
+                $json['data'] = [];
                 $json['data']['date_added'] = date('Y-m-d H:i:s');
 
                 $json['error'] = false;
@@ -304,10 +304,10 @@ class ControllerExtensionPaymentGlobalpayRemote extends Controller {
 
                 $json['data'] = [];
 
-                $json['data']['date_added']      = date('Y-m-d H:i:s');
-                $json['data']['amount']          = (float)$this->request->post['amount'];
-                $json['data']['capture_status']  = $capture_status;
-                $json['data']['total']           = (float)$total_captured;
+                $json['data']['date_added'] = date('Y-m-d H:i:s');
+                $json['data']['amount'] = (float)$this->request->post['amount'];
+                $json['data']['capture_status'] = $capture_status;
+                $json['data']['total'] = (float)$total_captured;
                 $json['data']['total_formatted'] = $this->currency->format($total_captured, $globalpay_order['currency_code'], 1, true);
 
                 $json['error'] = false;
@@ -315,7 +315,6 @@ class ControllerExtensionPaymentGlobalpayRemote extends Controller {
                 $json['error'] = true;
 
                 $json['msg'] = (isset($capture_response->message) && !empty($capture_response->message) ? sprintf($this->language->get('error_status'), (string)$capture_response->message) : $this->language->get('error_capture'));
-
             }
         } else {
             $json['error'] = true;
@@ -344,7 +343,7 @@ class ControllerExtensionPaymentGlobalpayRemote extends Controller {
             if (isset($rebate_response->result) && $rebate_response->result == '00') {
                 $this->model_extension_payment_globalpay_remote->addTransaction($globalpay_order['globalpay_remote_order_id'], 'rebate', $this->request->post['amount'] * -1);
 
-                $total_rebated  = $this->model_extension_payment_globalpay_remote->getTotalRebated($globalpay_order['globalpay_remote_order_id']);
+                $total_rebated = $this->model_extension_payment_globalpay_remote->getTotalRebated($globalpay_order['globalpay_remote_order_id']);
                 $total_captured = $this->model_extension_payment_globalpay_remote->getTotalCaptured($globalpay_order['globalpay_remote_order_id']);
 
                 if ($total_captured <= 0 && $globalpay_order['capture_status'] == 1) {
@@ -361,11 +360,11 @@ class ControllerExtensionPaymentGlobalpayRemote extends Controller {
 
                 $json['data'] = [];
 
-                $json['data']['date_added']     = date('Y-m-d H:i:s');
-                $json['data']['amount']         = $this->request->post['amount'] * -1;
+                $json['data']['date_added'] = date('Y-m-d H:i:s');
+                $json['data']['amount'] = $this->request->post['amount'] * -1;
                 $json['data']['total_captured'] = (float)$total_captured;
-                $json['data']['total_rebated']  = (float)$total_rebated;
-                $json['data']['rebate_status']  = $rebate_status;
+                $json['data']['total_rebated'] = (float)$total_rebated;
+                $json['data']['rebate_status'] = $rebate_status;
 
                 $json['error'] = false;
             } else {

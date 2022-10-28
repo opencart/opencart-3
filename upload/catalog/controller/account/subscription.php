@@ -17,7 +17,7 @@ class ControllerAccountSubscription extends Controller {
             $url .= '&page=' . $this->request->get['page'];
         }
 
-        $data['breadcrumbs']   = [];
+        $data['breadcrumbs'] = [];
 
         $data['breadcrumbs'][] = [
             'text' => $this->language->get('text_home'),
@@ -44,9 +44,9 @@ class ControllerAccountSubscription extends Controller {
 
         $this->load->model('account/subscription');
 
-        $subscription_total    = $this->model_account_subscription->getTotalSubscriptions();
+        $subscription_total = $this->model_account_subscription->getTotalSubscriptions();
 
-        $results               = $this->model_account_subscription->getSubscriptions(($page - 1) * 10, 10);
+        $results = $this->model_account_subscription->getSubscriptions(($page - 1) * 10, 10);
 
         foreach ($results as $result) {
             if ($result['status']) {
@@ -71,14 +71,14 @@ class ControllerAccountSubscription extends Controller {
             'url'   => $this->url->link('account/subscription', 'language=' . $this->config->get('config_language') . '&customer_token=' . $this->session->data['customer_token'] . '&page={page}')
         ]);
 
-        $data['continue']       = $this->url->link('account/account', 'language=' . $this->config->get('config_language') . '&customer_token=' . $this->session->data['customer_token']);
+        $data['continue'] = $this->url->link('account/account', 'language=' . $this->config->get('config_language') . '&customer_token=' . $this->session->data['customer_token']);
 
-        $data['column_left']    = $this->load->controller('common/column_left');
-        $data['column_right']   = $this->load->controller('common/column_right');
-        $data['content_top']    = $this->load->controller('common/content_top');
+        $data['column_left'] = $this->load->controller('common/column_left');
+        $data['column_right'] = $this->load->controller('common/column_right');
+        $data['content_top'] = $this->load->controller('common/content_top');
         $data['content_bottom'] = $this->load->controller('common/content_bottom');
-        $data['footer']         = $this->load->controller('common/footer');
-        $data['header']         = $this->load->controller('common/header');
+        $data['footer'] = $this->load->controller('common/footer');
+        $data['header'] = $this->load->controller('common/header');
 
         $this->response->setOutput($this->load->view('account/subscription_list', $data));
     }
@@ -111,7 +111,7 @@ class ControllerAccountSubscription extends Controller {
                 $url .= '&page=' . $this->request->get['page'];
             }
 
-            $data['breadcrumbs']   = [];
+            $data['breadcrumbs'] = [];
 
             $data['breadcrumbs'][] = [
                 'text' => $this->language->get('text_home'),
@@ -133,7 +133,7 @@ class ControllerAccountSubscription extends Controller {
                 'href' => $this->url->link('account/subscription/info', 'language=' . $this->config->get('config_language') . '&customer_token=' . $this->session->data['customer_token'] . '&subscription_id=' . $this->request->get['subscription_id'] . $url)
             ];
 
-            $data['date_added']      = date($this->language->get('date_format_short'), strtotime($subscription_info['date_added']));
+            $data['date_added'] = date($this->language->get('date_format_short'), strtotime($subscription_info['date_added']));
 
             $data['subscription_id'] = (int)$this->request->get['subscription_id'];
 
@@ -143,17 +143,17 @@ class ControllerAccountSubscription extends Controller {
                 $data['status'] = '';
             }
 
-            $data['order_id']              = $subscription_info['order_id'];
-            $data['reference']             = $subscription_info['reference'];
-            $data['product_name']          = $subscription_info['product_name'];
-            $data['payment_method']        = $subscription_info['payment_method'];
-            $data['product_quantity']      = $subscription_info['product_quantity'];
+            $data['order_id'] = $subscription_info['order_id'];
+            $data['reference'] = $subscription_info['reference'];
+            $data['product_name'] = $subscription_info['product_name'];
+            $data['payment_method'] = $subscription_info['payment_method'];
+            $data['product_quantity'] = $subscription_info['product_quantity'];
             $data['recurring_description'] = $subscription_info['recurring_description'];
 
             // Transactions
-            $data['transactions']          = [];
+            $data['transactions'] = [];
 
-            $results                       = $this->model_account_subscription->getTransactions($this->request->get['subscription_id']);
+            $results = $this->model_account_subscription->getTransactions($this->request->get['subscription_id']);
 
             foreach ($results as $result) {
                 $data['transactions'][] = [
@@ -163,12 +163,12 @@ class ControllerAccountSubscription extends Controller {
                 ];
             }
 
-            $data['order']   = $this->url->link('account/order/info', 'language=' . $this->config->get('config_language') . '&customer_token=' . $this->session->data['customer_token'] . '&order_id=' . $subscription_info['order_id']);
+            $data['order'] = $this->url->link('account/order/info', 'language=' . $this->config->get('config_language') . '&customer_token=' . $this->session->data['customer_token'] . '&order_id=' . $subscription_info['order_id']);
             $data['product'] = $this->url->link('product/product', 'language=' . $this->config->get('config_language') . '&customer_token=' . $this->session->data['customer_token'] . '&product_id=' . $subscription_info['product_id']);
 
             $this->load->model('setting/extension');
 
-            $extension_info  = $this->model_setting_extension->getExtensionByCode($subscription_info['payment_code']);
+            $extension_info = $this->model_setting_extension->getExtensionByCode($subscription_info['payment_code']);
 
             if ($extension_info) {
                 $data['subscription'] = $this->load->controller('extension/subscription/' . $subscription_info['payment_code']);
@@ -176,18 +176,18 @@ class ControllerAccountSubscription extends Controller {
                 $data['subscription'] = '';
             }
 
-            $data['column_left']    = $this->load->controller('common/column_left');
-            $data['column_right']   = $this->load->controller('common/column_right');
-            $data['content_top']    = $this->load->controller('common/content_top');
+            $data['column_left'] = $this->load->controller('common/column_left');
+            $data['column_right'] = $this->load->controller('common/column_right');
+            $data['content_top'] = $this->load->controller('common/content_top');
             $data['content_bottom'] = $this->load->controller('common/content_bottom');
-            $data['footer']         = $this->load->controller('common/footer');
-            $data['header']         = $this->load->controller('common/header');
+            $data['footer'] = $this->load->controller('common/footer');
+            $data['header'] = $this->load->controller('common/header');
 
             $this->response->setOutput($this->load->view('account/subscription_info', $data));
         } else {
             $this->document->setTitle($this->language->get('text_subscription'));
 
-            $data['breadcrumbs']   = [];
+            $data['breadcrumbs'] = [];
 
             $data['breadcrumbs'][] = [
                 'text' => $this->language->get('text_home'),
@@ -209,14 +209,14 @@ class ControllerAccountSubscription extends Controller {
                 'href' => $this->url->link('account/subscription/info', 'language=' . $this->config->get('config_language') . '&customer_token=' . $this->session->data['customer_token'] . '&subscription_id=' . $subscription_id)
             ];
 
-            $data['continue']       = $this->url->link('account/subscription', 'language=' . $this->config->get('config_language') . '&customer_token=' . $this->session->data['customer_token']);
+            $data['continue'] = $this->url->link('account/subscription', 'language=' . $this->config->get('config_language') . '&customer_token=' . $this->session->data['customer_token']);
 
-            $data['column_left']    = $this->load->controller('common/column_left');
-            $data['column_right']   = $this->load->controller('common/column_right');
-            $data['content_top']    = $this->load->controller('common/content_top');
+            $data['column_left'] = $this->load->controller('common/column_left');
+            $data['column_right'] = $this->load->controller('common/column_right');
+            $data['content_top'] = $this->load->controller('common/content_top');
             $data['content_bottom'] = $this->load->controller('common/content_bottom');
-            $data['footer']         = $this->load->controller('common/footer');
-            $data['header']         = $this->load->controller('common/header');
+            $data['footer'] = $this->load->controller('common/footer');
+            $data['header'] = $this->load->controller('common/header');
 
             $this->response->setOutput($this->load->view('error/not_found', $data));
         }

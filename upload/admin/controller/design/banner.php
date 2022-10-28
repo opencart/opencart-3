@@ -24,7 +24,7 @@ class ControllerDesignBanner extends Controller {
 
             $this->session->data['success'] = $this->language->get('text_success');
 
-            $url                            = '';
+            $url = '';
 
             if (isset($this->request->get['sort'])) {
                 $url .= '&sort=' . $this->request->get['sort'];
@@ -56,7 +56,7 @@ class ControllerDesignBanner extends Controller {
 
             $this->session->data['success'] = $this->language->get('text_success');
 
-            $url                            = '';
+            $url = '';
 
             if (isset($this->request->get['sort'])) {
                 $url .= '&sort=' . $this->request->get['sort'];
@@ -90,7 +90,7 @@ class ControllerDesignBanner extends Controller {
 
             $this->session->data['success'] = $this->language->get('text_success');
 
-            $url                            = '';
+            $url = '';
 
             if (isset($this->request->get['sort'])) {
                 $url .= '&sort=' . $this->request->get['sort'];
@@ -143,7 +143,7 @@ class ControllerDesignBanner extends Controller {
             $url .= '&page=' . $this->request->get['page'];
         }
 
-        $data['breadcrumbs']   = [];
+        $data['breadcrumbs'] = [];
 
         $data['breadcrumbs'][] = [
             'text' => $this->language->get('text_home'),
@@ -155,21 +155,21 @@ class ControllerDesignBanner extends Controller {
             'href' => $this->url->link('design/banner', 'user_token=' . $this->session->data['user_token'] . $url, true)
         ];
 
-        $data['add']     = $this->url->link('design/banner/add', 'user_token=' . $this->session->data['user_token'] . $url, true);
-        $data['delete']  = $this->url->link('design/banner/delete', 'user_token=' . $this->session->data['user_token'] . $url, true);
+        $data['add'] = $this->url->link('design/banner/add', 'user_token=' . $this->session->data['user_token'] . $url, true);
+        $data['delete'] = $this->url->link('design/banner/delete', 'user_token=' . $this->session->data['user_token'] . $url, true);
 
         $data['banners'] = [];
 
-        $filter_data     = [
+        $filter_data = [
             'sort'  => $sort,
             'order' => $order,
             'start' => ($page - 1) * $this->config->get('config_limit_admin'),
             'limit' => $this->config->get('config_limit_admin')
         ];
 
-        $banner_total    = $this->model_design_banner->getTotalBanners();
+        $banner_total = $this->model_design_banner->getTotalBanners();
 
-        $results         = $this->model_design_banner->getBanners($filter_data);
+        $results = $this->model_design_banner->getBanners($filter_data);
 
         foreach ($results as $result) {
             $data['banners'][] = [
@@ -212,7 +212,7 @@ class ControllerDesignBanner extends Controller {
             $url .= '&page=' . $this->request->get['page'];
         }
 
-        $data['sort_name']   = $this->url->link('design/banner', 'user_token=' . $this->session->data['user_token'] . '&sort=name' . $url, true);
+        $data['sort_name'] = $this->url->link('design/banner', 'user_token=' . $this->session->data['user_token'] . '&sort=name' . $url, true);
         $data['sort_status'] = $this->url->link('design/banner', 'user_token=' . $this->session->data['user_token'] . '&sort=status' . $url, true);
 
         $url = '';
@@ -225,21 +225,21 @@ class ControllerDesignBanner extends Controller {
             $url .= '&order=' . $this->request->get['order'];
         }
 
-        $pagination          = new \Pagination();
-        $pagination->total   = $banner_total;
-        $pagination->page    = $page;
-        $pagination->limit   = $this->config->get('config_limit_admin');
-        $pagination->url     = $this->url->link('design/banner', 'user_token=' . $this->session->data['user_token'] . $url . '&page={page}', true);
+        $pagination = new \Pagination();
+        $pagination->total = $banner_total;
+        $pagination->page = $page;
+        $pagination->limit = $this->config->get('config_limit_admin');
+        $pagination->url = $this->url->link('design/banner', 'user_token=' . $this->session->data['user_token'] . $url . '&page={page}', true);
 
-        $data['pagination']  = $pagination->render();
-        $data['results']     = sprintf($this->language->get('text_pagination'), ($banner_total) ? (($page - 1) * $this->config->get('config_limit_admin')) + 1 : 0, ((($page - 1) * $this->config->get('config_limit_admin')) > ($banner_total - $this->config->get('config_limit_admin'))) ? $banner_total : ((($page - 1) * $this->config->get('config_limit_admin')) + $this->config->get('config_limit_admin')), $banner_total, ceil($banner_total / $this->config->get('config_limit_admin')));
+        $data['pagination'] = $pagination->render();
+        $data['results'] = sprintf($this->language->get('text_pagination'), ($banner_total) ? (($page - 1) * $this->config->get('config_limit_admin')) + 1 : 0, ((($page - 1) * $this->config->get('config_limit_admin')) > ($banner_total - $this->config->get('config_limit_admin'))) ? $banner_total : ((($page - 1) * $this->config->get('config_limit_admin')) + $this->config->get('config_limit_admin')), $banner_total, ceil($banner_total / $this->config->get('config_limit_admin')));
 
-        $data['sort']        = $sort;
-        $data['order']       = $order;
+        $data['sort'] = $sort;
+        $data['order'] = $order;
 
-        $data['header']      = $this->load->controller('common/header');
+        $data['header'] = $this->load->controller('common/header');
         $data['column_left'] = $this->load->controller('common/column_left');
-        $data['footer']      = $this->load->controller('common/footer');
+        $data['footer'] = $this->load->controller('common/footer');
 
         $this->response->setOutput($this->load->view('design/banner_list', $data));
     }
@@ -279,7 +279,7 @@ class ControllerDesignBanner extends Controller {
             $url .= '&page=' . $this->request->get['page'];
         }
 
-        $data['breadcrumbs']   = [];
+        $data['breadcrumbs'] = [];
 
         $data['breadcrumbs'][] = [
             'text' => $this->language->get('text_home'),
@@ -297,7 +297,7 @@ class ControllerDesignBanner extends Controller {
             $data['action'] = $this->url->link('design/banner/edit', 'user_token=' . $this->session->data['user_token'] . '&banner_id=' . $this->request->get['banner_id'] . $url, true);
         }
 
-        $data['cancel']     = $this->url->link('design/banner', 'user_token=' . $this->session->data['user_token'] . $url, true);
+        $data['cancel'] = $this->url->link('design/banner', 'user_token=' . $this->session->data['user_token'] . $url, true);
 
         if (isset($this->request->get['banner_id']) && ($this->request->server['REQUEST_METHOD'] != 'POST')) {
             $banner_info = $this->model_design_banner->getBanner($this->request->get['banner_id']);
@@ -360,9 +360,9 @@ class ControllerDesignBanner extends Controller {
 
         $data['placeholder'] = $this->model_tool_image->resize('no_image.png', 100, 100);
 
-        $data['header']      = $this->load->controller('common/header');
+        $data['header'] = $this->load->controller('common/header');
         $data['column_left'] = $this->load->controller('common/column_left');
-        $data['footer']      = $this->load->controller('common/footer');
+        $data['footer'] = $this->load->controller('common/footer');
 
         $this->response->setOutput($this->load->view('design/banner_form', $data));
     }

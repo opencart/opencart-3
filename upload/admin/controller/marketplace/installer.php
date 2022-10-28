@@ -5,7 +5,7 @@ class ControllerMarketplaceInstaller extends Controller {
 
         $this->document->setTitle($this->language->get('heading_title'));
 
-        $data['breadcrumbs']   = [];
+        $data['breadcrumbs'] = [];
 
         $data['breadcrumbs'][] = [
             'text' => $this->language->get('text_home'),
@@ -17,11 +17,11 @@ class ControllerMarketplaceInstaller extends Controller {
             'href' => $this->url->link('marketplace/installer', 'user_token=' . $this->session->data['user_token'], true)
         ];
 
-        $data['user_token']  = $this->session->data['user_token'];
+        $data['user_token'] = $this->session->data['user_token'];
 
-        $data['header']      = $this->load->controller('common/header');
+        $data['header'] = $this->load->controller('common/header');
         $data['column_left'] = $this->load->controller('common/column_left');
-        $data['footer']      = $this->load->controller('common/footer');
+        $data['footer'] = $this->load->controller('common/footer');
 
         $this->response->setOutput($this->load->view('marketplace/installer', $data));
     }
@@ -49,16 +49,16 @@ class ControllerMarketplaceInstaller extends Controller {
             ];
         }
 
-        $history_total      = $this->model_setting_extension->getTotalExtensionInstalls();
+        $history_total = $this->model_setting_extension->getTotalExtensionInstalls();
 
-        $pagination         = new \Pagination();
-        $pagination->total  = $history_total;
-        $pagination->page   = $page;
-        $pagination->limit  = 10;
-        $pagination->url    = $this->url->link('marketplace/installer/history', 'user_token=' . $this->session->data['user_token'] . '&page={page}', true);
+        $pagination = new \Pagination();
+        $pagination->total = $history_total;
+        $pagination->page = $page;
+        $pagination->limit = 10;
+        $pagination->url = $this->url->link('marketplace/installer/history', 'user_token=' . $this->session->data['user_token'] . '&page={page}', true);
 
         $data['pagination'] = $pagination->render();
-        $data['results']    = sprintf($this->language->get('text_pagination'), ($history_total) ? (($page - 1) * 10) + 1 : 0, ((($page - 1) * 10) > ($history_total - 10)) ? $history_total : ((($page - 1) * 10) + 10), $history_total, ceil($history_total / 10));
+        $data['results'] = sprintf($this->language->get('text_pagination'), ($history_total) ? (($page - 1) * 10) + 1 : 0, ((($page - 1) * 10) > ($history_total - 10)) ? $history_total : ((($page - 1) * 10) + 10), $history_total, ceil($history_total / 10));
 
         $this->response->setOutput($this->load->view('marketplace/installer_history', $data));
     }
@@ -74,7 +74,7 @@ class ControllerMarketplaceInstaller extends Controller {
         }
 
         // Check if there is a install zip already there
-        $files       = glob(DIR_UPLOAD . '*.tmp');
+        $files = glob(DIR_UPLOAD . '*.tmp');
 
         foreach ($files as $file) {
             if (is_file($file) && (filectime($file) < (time() - 5))) {
@@ -95,13 +95,16 @@ class ControllerMarketplaceInstaller extends Controller {
                 // Get a list of files ready to upload
                 $files = [];
 
-                $path  = [$directory];
+                $path = [$directory];
 
                 while (count($path) != 0) {
                     $next = array_shift($path);
 
                     // We have to use scandir function because glob will not pick up dot files.
-                    foreach (array_diff(scandir($next), ['.', '..']) as $file) {
+                    foreach (array_diff(scandir($next), [
+                        '.',
+                        '..'
+                    ]) as $file) {
                         $file = $next . '/' . $file;
 
                         if (is_dir($file)) {
@@ -155,8 +158,8 @@ class ControllerMarketplaceInstaller extends Controller {
 
                 $extension_install_id = $this->model_setting_extension->addExtensionInstall($this->request->files['file']['name']);
 
-                $json['text']         = $this->language->get('text_install');
-                $json['next']         = str_replace('&amp;', '&', $this->url->link('marketplace/install/install', 'user_token=' . $this->session->data['user_token'] . '&extension_install_id=' . $extension_install_id, true));
+                $json['text'] = $this->language->get('text_install');
+                $json['next'] = str_replace('&amp;', '&', $this->url->link('marketplace/install/install', 'user_token=' . $this->session->data['user_token'] . '&extension_install_id=' . $extension_install_id, true));
             } else {
                 $json['error'] = $this->language->get('error_file');
             }

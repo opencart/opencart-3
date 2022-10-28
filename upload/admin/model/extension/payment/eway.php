@@ -65,8 +65,8 @@ class ModelExtensionPaymentEway extends Model {
 
     public function addRefundRecord(array $order, object $result): void {
         $transaction_id = $result->TransactionID;
-        $total_amount   = $result->Refund->TotalAmount / 100;
-        $refund_amount  = $order['refund_amount'] + $total_amount;
+        $total_amount = $result->Refund->TotalAmount / 100;
+        $refund_amount = $order['refund_amount'] + $total_amount;
 
         if (isset($order['refund_transaction_id']) && $order['refund_transaction_id'] != '') {
             $order['refund_transaction_id'] .= ',';
@@ -81,11 +81,11 @@ class ModelExtensionPaymentEway extends Model {
         $eway_order = $this->getOrder($order_id);
 
         if ($eway_order && $capture_amount > 0) {
-            $capture_data                        = new \stdClass();
-            $capture_data->Payment               = new \stdClass();
-            $capture_data->Payment->TotalAmount  = (int)(number_format($capture_amount, 2, '.', '') * 100);
+            $capture_data = new \stdClass();
+            $capture_data->Payment = new \stdClass();
+            $capture_data->Payment->TotalAmount = (int)(number_format($capture_amount, 2, '.', '') * 100);
             $capture_data->Payment->CurrencyCode = $currency;
-            $capture_data->TransactionID         = $eway_order['transaction_id'];
+            $capture_data->TransactionID = $eway_order['transaction_id'];
 
             if ($this->config->get('payment_eway_test')) {
                 $url = 'https://api.sandbox.ewaypayments.com/CapturePayment';
@@ -113,7 +113,7 @@ class ModelExtensionPaymentEway extends Model {
         $eway_order = $this->getOrder($order_id);
 
         if ($eway_order) {
-            $data                = new \stdClass();
+            $data = new \stdClass();
             $data->TransactionID = $eway_order['transaction_id'];
 
             if ($this->config->get('payment_eway_test')) {
@@ -138,11 +138,11 @@ class ModelExtensionPaymentEway extends Model {
         $eway_order = $this->getOrder($order_id);
 
         if ($eway_order && $refund_amount > 0) {
-            $refund_data                        = new \stdClass();
-            $refund_data->Refund                = new \stdClass();
-            $refund_data->Refund->TotalAmount   = (int)(number_format($refund_amount, 2, '.', '') * 100);
+            $refund_data = new \stdClass();
+            $refund_data->Refund = new \stdClass();
+            $refund_data->Refund->TotalAmount = (int)(number_format($refund_amount, 2, '.', '') * 100);
             $refund_data->Refund->TransactionID = $eway_order['transaction_id'];
-            $refund_data->Refund->CurrencyCode  = $eway_order['currency_code'];
+            $refund_data->Refund->CurrencyCode = $eway_order['currency_code'];
 
             if ($this->config->get('payment_eway_test')) {
                 $url = 'https://api.sandbox.ewaypayments.com/Transaction/' . $eway_order['transaction_id'] . '/Refund';
@@ -182,14 +182,14 @@ class ModelExtensionPaymentEway extends Model {
             $response = new \stdClass();
 
             $response->Errors = "POST Error: " . curl_error($ch) . " URL: $url";
-            $response         = json_encode($response);
+            $response = json_encode($response);
         } else {
             $info = curl_getinfo($ch);
 
             if ($info['http_code'] == 401 || $info['http_code'] == 404) {
-                $response         = new \stdClass();
+                $response = new \stdClass();
                 $response->Errors = "Please check the API Key and Password";
-                $response         = json_encode($response);
+                $response = json_encode($response);
             }
         }
 

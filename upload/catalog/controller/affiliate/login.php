@@ -22,7 +22,7 @@ class ControllerAffiliateLogin extends Controller {
             }
         }
 
-        $data['breadcrumbs']   = [];
+        $data['breadcrumbs'] = [];
 
         $data['breadcrumbs'][] = [
             'text' => $this->language->get('text_home'),
@@ -77,16 +77,16 @@ class ControllerAffiliateLogin extends Controller {
             $data['password'] = '';
         }
 
-        $data['action']         = $this->url->link('affiliate/login', 'customer_token=' . $this->session->data['customer_token'], true);
-        $data['register']       = $this->url->link('affiliate/register', 'customer_token=' . $this->session->data['customer_token'], true);
-        $data['forgotten']      = $this->url->link('account/forgotten', 'customer_token=' . $this->session->data['customer_token'], true);
-        
-        $data['column_left']    = $this->load->controller('common/column_left');
-        $data['column_right']   = $this->load->controller('common/column_right');
-        $data['content_top']    = $this->load->controller('common/content_top');
+        $data['action'] = $this->url->link('affiliate/login', 'customer_token=' . $this->session->data['customer_token'], true);
+        $data['register'] = $this->url->link('affiliate/register', 'customer_token=' . $this->session->data['customer_token'], true);
+        $data['forgotten'] = $this->url->link('account/forgotten', 'customer_token=' . $this->session->data['customer_token'], true);
+
+        $data['column_left'] = $this->load->controller('common/column_left');
+        $data['column_right'] = $this->load->controller('common/column_right');
+        $data['content_top'] = $this->load->controller('common/content_top');
         $data['content_bottom'] = $this->load->controller('common/content_bottom');
-        $data['footer']         = $this->load->controller('common/footer');
-        $data['header']         = $this->load->controller('common/header');
+        $data['footer'] = $this->load->controller('common/footer');
+        $data['header'] = $this->load->controller('common/header');
 
         $this->response->setOutput($this->load->view('affiliate/login', $data));
     }

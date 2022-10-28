@@ -150,24 +150,24 @@ class ModelCustomerCustomer extends Model {
             $country_query = $this->db->query("SELECT *, c.name FROM `" . DB_PREFIX . "country` c LEFT JOIN `" . DB_PREFIX . "address_format` af ON (c.`address_format_id` = af.`address_format_id`) WHERE `country_id` = '" . (int)$address_query->row['country_id'] . "'");
 
             if ($country_query->num_rows) {
-                $country        = $country_query->row['name'];
-                $iso_code_2     = $country_query->row['iso_code_2'];
-                $iso_code_3     = $country_query->row['iso_code_3'];
+                $country = $country_query->row['name'];
+                $iso_code_2 = $country_query->row['iso_code_2'];
+                $iso_code_3 = $country_query->row['iso_code_3'];
                 $address_format = $country_query->row['address_format'];
             } else {
-                $country        = '';
-                $iso_code_2     = '';
-                $iso_code_3     = '';
+                $country = '';
+                $iso_code_2 = '';
+                $iso_code_3 = '';
                 $address_format = '';
             }
 
             $zone_query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "zone` WHERE `zone_id` = '" . (int)$address_query->row['zone_id'] . "'");
 
             if ($zone_query->num_rows) {
-                $zone      = $zone_query->row['name'];
+                $zone = $zone_query->row['name'];
                 $zone_code = $zone_query->row['code'];
             } else {
-                $zone      = '';
+                $zone = '';
                 $zone_code = '';
             }
 

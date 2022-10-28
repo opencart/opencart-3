@@ -46,14 +46,14 @@ class ControllerExtensionRecurringPPExpress extends Controller {
 
         if ($subscription_info && $subscription_info['reference']) {
             if ($this->config->get('payment_pp_express_test')) {
-                $api_url       = 'https://api-3t.sandbox.paypal.com/nvp';
-                $api_username  = $this->config->get('payment_pp_express_sandbox_username');
-                $api_password  = $this->config->get('payment_pp_express_sandbox_password');
+                $api_url = 'https://api-3t.sandbox.paypal.com/nvp';
+                $api_username = $this->config->get('payment_pp_express_sandbox_username');
+                $api_password = $this->config->get('payment_pp_express_sandbox_password');
                 $api_signature = $this->config->get('payment_pp_express_sandbox_signature');
             } else {
-                $api_url       = 'https://api-3t.paypal.com/nvp';
-                $api_username  = $this->config->get('payment_pp_express_username');
-                $api_password  = $this->config->get('payment_pp_express_password');
+                $api_url = 'https://api-3t.paypal.com/nvp';
+                $api_username = $this->config->get('payment_pp_express_username');
+                $api_password = $this->config->get('payment_pp_express_password');
                 $api_signature = $this->config->get('payment_pp_express_signature');
             }
 
@@ -69,7 +69,7 @@ class ControllerExtensionRecurringPPExpress extends Controller {
                 'ACTION'       => 'Cancel'
             ];
 
-            $curl     = curl_init($api_url);
+            $curl = curl_init($api_url);
 
             curl_setopt($curl, CURLOPT_POST, true);
             curl_setopt($curl, CURLOPT_POSTFIELDS, $request);

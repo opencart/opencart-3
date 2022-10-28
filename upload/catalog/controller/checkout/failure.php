@@ -5,7 +5,7 @@ class ControllerCheckoutFailure extends Controller {
 
         $this->document->setTitle($this->language->get('heading_title'));
 
-        $data['breadcrumbs']   = [];
+        $data['breadcrumbs'] = [];
 
         $data['breadcrumbs'][] = [
             'text' => $this->language->get('text_home'),
@@ -27,15 +27,15 @@ class ControllerCheckoutFailure extends Controller {
             'href' => $this->url->link('checkout/failure')
         ];
 
-        $data['continue']       = $this->url->link('common/home');
-        $data['text_message']   = sprintf($this->language->get('text_message'), $this->url->link('information/contact'));
-        
-        $data['column_left']    = $this->load->controller('common/column_left');
-        $data['column_right']   = $this->load->controller('common/column_right');
-        $data['content_top']    = $this->load->controller('common/content_top');
+        $data['continue'] = $this->url->link('common/home');
+        $data['text_message'] = sprintf($this->language->get('text_message'), $this->url->link('information/contact'));
+
+        $data['column_left'] = $this->load->controller('common/column_left');
+        $data['column_right'] = $this->load->controller('common/column_right');
+        $data['content_top'] = $this->load->controller('common/content_top');
         $data['content_bottom'] = $this->load->controller('common/content_bottom');
-        $data['footer']         = $this->load->controller('common/footer');
-        $data['header']         = $this->load->controller('common/header');
+        $data['footer'] = $this->load->controller('common/footer');
+        $data['header'] = $this->load->controller('common/header');
 
         $this->response->setOutput($this->load->view('common/success', $data));
     }

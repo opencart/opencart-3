@@ -1,19 +1,18 @@
 <?php
 class ModelExtensionPaymentAlipay extends Model {
-    private string $apiMethodName    = 'alipay.trade.page.pay';
-    private string $postCharset      = 'UTF-8';
+    private string $apiMethodName = 'alipay.trade.page.pay';
+    private string $postCharset = 'UTF-8';
     private string $alipaySdkVersion = 'alipay-sdk-php-20161101';
-    private string $apiVersion       = '1.0';
-    private string $logFileName      = 'alipay.log';
-    private string $gateway_url      = 'https://openapi.alipay.com/gateway.do';
-    private string $format           = "json";
-    private string $signtype         = "RSA2";
+    private string $apiVersion = '1.0';
+    private string $logFileName = 'alipay.log';
+    private string $gateway_url = 'https://openapi.alipay.com/gateway.do';
+    private string $format = "json";
+    private string $signtype = "RSA2";
     private string $alipay_public_key;
     private string $private_key;
     private string $appid;
     private string $notifyUrl;
     private string $returnUrl;
-
     private array $apiParas = [];
 
     public function getMethod($address, $total) {
@@ -46,14 +45,14 @@ class ModelExtensionPaymentAlipay extends Model {
     }
 
     private function setParams($alipay_config) {
-        $this->gateway_url       = $alipay_config['gateway_url'];
-        $this->appid             = $alipay_config['app_id'];
-        $this->private_key       = $alipay_config['merchant_private_key'];
+        $this->gateway_url = $alipay_config['gateway_url'];
+        $this->appid = $alipay_config['app_id'];
+        $this->private_key = $alipay_config['merchant_private_key'];
         $this->alipay_public_key = $alipay_config['alipay_public_key'];
-        $this->postCharset       = $alipay_config['charset'];
-        $this->signtype          = $alipay_config['sign_type'];
-        $this->notifyUrl         = $alipay_config['notify_url'];
-        $this->returnUrl         = $alipay_config['return_url'];
+        $this->postCharset = $alipay_config['charset'];
+        $this->signtype = $alipay_config['sign_type'];
+        $this->notifyUrl = $alipay_config['notify_url'];
+        $this->returnUrl = $alipay_config['return_url'];
 
         if (empty($this->appid) || trim($this->appid) == '') {
             throw new \Exception('appid should not be NULL!');
@@ -106,16 +105,16 @@ class ModelExtensionPaymentAlipay extends Model {
     public function pageExecute($request, $httpmethod = "POST") {
         $iv = $this->apiVersion;
 
-        $sysParams['app_id']      = $this->appid;
-        $sysParams['version']     = $iv;
-        $sysParams['format']      = $this->format;
-        $sysParams['sign_type']   = $this->signtype;
-        $sysParams['method']      = $this->apiMethodName;
-        $sysParams['timestamp']   = date('Y-m-d H:i:s');
-        $sysParams['alipay_sdk']  = $this->alipaySdkVersion;
-        $sysParams['notify_url']  = $this->notifyUrl;
-        $sysParams['return_url']  = $this->returnUrl;
-        $sysParams['charset']     = $this->postCharset;
+        $sysParams['app_id'] = $this->appid;
+        $sysParams['version'] = $iv;
+        $sysParams['format'] = $this->format;
+        $sysParams['sign_type'] = $this->signtype;
+        $sysParams['method'] = $this->apiMethodName;
+        $sysParams['timestamp'] = date('Y-m-d H:i:s');
+        $sysParams['alipay_sdk'] = $this->alipaySdkVersion;
+        $sysParams['notify_url'] = $this->notifyUrl;
+        $sysParams['return_url'] = $this->returnUrl;
+        $sysParams['charset'] = $this->postCharset;
         $sysParams['gateway_url'] = $this->gateway_url;
 
         $apiParams = $this->apiParas;
@@ -125,14 +124,14 @@ class ModelExtensionPaymentAlipay extends Model {
         $totalParams['sign'] = $this->generateSign($totalParams, $this->signtype);
 
         if ('GET' == strtoupper($httpmethod)) {
-            $preString  = $this->getSignContentUrlencode($totalParams);
+            $preString = $this->getSignContentUrlencode($totalParams);
             $requestUrl = $this->gateway_url . '?' . $preString;
 
             return $requestUrl;
         } else {
             foreach ($totalParams as $key => $value) {
                 if (false === $this->checkEmpty($value)) {
-                    $value             = str_replace("\"", "&quot;", $value);
+                    $value = str_replace("\"", "&quot;", $value);
                     $totalParams[$key] = $value;
                 } else {
                     unset($totalParams[$key]);
@@ -144,17 +143,20 @@ class ModelExtensionPaymentAlipay extends Model {
     }
 
     private function checkEmpty($value) {
-        if (!isset($value)) return true;
-        if ($value === null) return true;
-        if (trim($value) === '') return true;
+        if (!isset($value))
+            return true;
+        if ($value === null)
+            return true;
+        if (trim($value) === '')
+            return true;
 
         return false;
     }
 
     public function rsaCheckV1($params, $signType = 'RSA') {
-        $sign                = $params['sign'];
+        $sign = $params['sign'];
         $params['sign_type'] = null;
-        $params['sign']      = null;
+        $params['sign'] = null;
         return $this->verify($this->getSignContent($params), $sign, $signType);
     }
 

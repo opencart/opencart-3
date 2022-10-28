@@ -170,9 +170,9 @@ class ControllerExtensionPaymentPilibaba extends Controller {
 
         $data['user_token'] = $this->session->data['user_token'];
 
-        $data['header']      = $this->load->controller('common/header');
+        $data['header'] = $this->load->controller('common/header');
         $data['column_left'] = $this->load->controller('common/column_left');
-        $data['footer']      = $this->load->controller('common/footer');
+        $data['footer'] = $this->load->controller('common/footer');
 
         $this->response->setOutput($this->load->view('extension/payment/pilibaba', $data));
     }
@@ -256,16 +256,16 @@ class ControllerExtensionPaymentPilibaba extends Controller {
             if ($pilibaba_order) {
                 $this->load->language('extension/payment/pilibaba');
 
-                $order_info['order_id']   = $pilibaba_order['order_id'];
-                $order_info['amount']     = '&yen;' . $pilibaba_order['amount'];
-                $order_info['fee']        = '&yen;' . $pilibaba_order['fee'];
-                $order_info['status']     = $this->language->get('text_status');
+                $order_info['order_id'] = $pilibaba_order['order_id'];
+                $order_info['amount'] = '&yen;' . $pilibaba_order['amount'];
+                $order_info['fee'] = '&yen;' . $pilibaba_order['fee'];
+                $order_info['status'] = $this->language->get('text_status');
                 $order_info['date_added'] = date($this->language->get('datetime_format'), strtotime($pilibaba_order['date_added']));
-                $order_info['tracking']   = $pilibaba_order['tracking'];
-                $data['pilibaba_order']   = $order_info;
-                $data['barcode']          = $this->url->link('extension/payment/pilibaba/barcode', 'user_token=' . $this->session->data['user_token'] . '&order_id=' . $this->request->get['order_id'], true);
-                $data['order_id']         = $order_id;
-                $data['user_token']       = $this->session->data['user_token'];
+                $order_info['tracking'] = $pilibaba_order['tracking'];
+                $data['pilibaba_order'] = $order_info;
+                $data['barcode'] = $this->url->link('extension/payment/pilibaba/barcode', 'user_token=' . $this->session->data['user_token'] . '&order_id=' . $this->request->get['order_id'], true);
+                $data['order_id'] = $order_id;
+                $data['user_token'] = $this->session->data['user_token'];
 
                 return $this->load->view('extension/payment/pilibaba_order', $data);
             } else {

@@ -5,7 +5,7 @@ class ControllerProductProduct extends Controller {
     public function index(): void {
         $this->load->language('product/product');
 
-        $data['breadcrumbs']   = [];
+        $data['breadcrumbs'] = [];
 
         $data['breadcrumbs'][] = [
             'text' => $this->language->get('text_home'),
@@ -15,10 +15,10 @@ class ControllerProductProduct extends Controller {
         $this->load->model('catalog/category');
 
         if (isset($this->request->get['path'])) {
-            $path          = '';
+            $path = '';
 
-            $parts         = explode('_', (string)$this->request->get['path']);
-            $category_id   = (int)array_pop($parts);
+            $parts = explode('_', (string)$this->request->get['path']);
+            $category_id = (int)array_pop($parts);
 
             foreach ($parts as $path_id) {
                 if (!$path) {
@@ -246,19 +246,19 @@ class ControllerProductProduct extends Controller {
             $this->document->addStyle('catalog/view/javascript/jquery/datetimepicker/bootstrap-datetimepicker.min.css');
 
             $data['heading_title'] = $product_info['name'];
-            $data['text_minimum']  = sprintf($this->language->get('text_minimum'), $product_info['minimum']);
-            $data['text_login']    = sprintf($this->language->get('text_login'), $this->url->link('account/login', '', true), $this->url->link('account/register', '', true));
+            $data['text_minimum'] = sprintf($this->language->get('text_minimum'), $product_info['minimum']);
+            $data['text_login'] = sprintf($this->language->get('text_login'), $this->url->link('account/login', '', true), $this->url->link('account/register', '', true));
 
             $this->load->model('catalog/review');
 
-            $data['tab_review']    = sprintf($this->language->get('tab_review'), $product_info['reviews']);
-            $data['product_id']    = (int)$this->request->get['product_id'];
-            $data['manufacturer']  = $product_info['manufacturer'];
+            $data['tab_review'] = sprintf($this->language->get('tab_review'), $product_info['reviews']);
+            $data['product_id'] = (int)$this->request->get['product_id'];
+            $data['manufacturer'] = $product_info['manufacturer'];
             $data['manufacturers'] = $this->url->link('product/manufacturer/info', 'manufacturer_id=' . $product_info['manufacturer_id']);
-            $data['model']         = $product_info['model'];
-            $data['reward']        = $product_info['reward'];
-            $data['points']        = $product_info['points'];
-            $data['description']   = html_entity_decode($product_info['description'], ENT_QUOTES, 'UTF-8');
+            $data['model'] = $product_info['model'];
+            $data['reward'] = $product_info['reward'];
+            $data['points'] = $product_info['points'];
+            $data['description'] = html_entity_decode($product_info['description'], ENT_QUOTES, 'UTF-8');
 
             if ($product_info['quantity'] <= 0) {
                 $data['stock'] = $product_info['stock_status'];
@@ -302,11 +302,11 @@ class ControllerProductProduct extends Controller {
             if (!is_null($product_info['special']) && (float)$product_info['special'] >= 0) {
                 $data['special'] = $this->currency->format($this->tax->calculate($product_info['special'], $product_info['tax_class_id'], $this->config->get('config_tax')), $this->session->data['currency']);
 
-                $tax_price       = (float)$product_info['special'];
+                $tax_price = (float)$product_info['special'];
             } else {
                 $data['special'] = false;
 
-                $tax_price       = (float)$product_info['price'];
+                $tax_price = (float)$product_info['price'];
             }
 
             if ($this->config->get('config_tax')) {
@@ -315,7 +315,7 @@ class ControllerProductProduct extends Controller {
                 $data['tax'] = false;
             }
 
-            $discounts         = $this->model_catalog_product->getProductDiscounts($this->request->get['product_id']);
+            $discounts = $this->model_catalog_product->getProductDiscounts($this->request->get['product_id']);
 
             $data['discounts'] = [];
 
@@ -364,25 +364,25 @@ class ControllerProductProduct extends Controller {
             // Subscriptions
             $data['subscription_plans'] = [];
 
-            $results                    = $this->model_catalog_product->getSubscriptions($product_id);
+            $results = $this->model_catalog_product->getSubscriptions($product_id);
 
             foreach ($results as $result) {
                 // Subscription
-                $description     = '';
+                $description = '';
 
-                $trial_price     = $this->currency->format($this->tax->calculate($result['trial_price'], $product_info['tax_class_id'], $this->config->get('config_tax')), $this->session->data['currency']);
-                $trial_cycle     = $result['trial_cycle'];
+                $trial_price = $this->currency->format($this->tax->calculate($result['trial_price'], $product_info['tax_class_id'], $this->config->get('config_tax')), $this->session->data['currency']);
+                $trial_cycle = $result['trial_cycle'];
                 $trial_frequency = $this->language->get('text_' . $result['trial_frequency']);
-                $trial_duration  = $result['trial_duration'];
+                $trial_duration = $result['trial_duration'];
 
                 if ($result['trial_status']) {
                     $description .= sprintf($this->language->get('text_subscription_trial'), $trial_price, $trial_cycle, $trial_frequency, $trial_duration);
                 }
 
-                $price           = $this->currency->format($this->tax->calculate($result['price'], $product_info['tax_class_id'], $this->config->get('config_tax')), $this->session->data['currency']);
-                $cycle           = $result['cycle'];
-                $frequency       = $this->language->get('text_' . $result['frequency']);
-                $duration        = $result['duration'];
+                $price = $this->currency->format($this->tax->calculate($result['price'], $product_info['tax_class_id'], $this->config->get('config_tax')), $this->session->data['currency']);
+                $cycle = $result['cycle'];
+                $frequency = $this->language->get('text_' . $result['frequency']);
+                $duration = $result['duration'];
 
                 if ($duration) {
                     $description .= sprintf($this->language->get('text_subscription_duration'), $price, $cycle, $frequency, $duration);
@@ -424,15 +424,15 @@ class ControllerProductProduct extends Controller {
                 $data['captcha'] = '';
             }
 
-            $data['reviews']          = sprintf($this->language->get('text_reviews'), (int)$product_info['reviews']);
-            $data['rating']           = (int)$product_info['rating'];
-            $data['share']            = $this->url->link('product/product', 'product_id=' . (int)$this->request->get['product_id']);
+            $data['reviews'] = sprintf($this->language->get('text_reviews'), (int)$product_info['reviews']);
+            $data['rating'] = (int)$product_info['rating'];
+            $data['share'] = $this->url->link('product/product', 'product_id=' . (int)$this->request->get['product_id']);
 
             $data['attribute_groups'] = $this->model_catalog_product->getProductAttributes($this->request->get['product_id']);
 
-            $data['products']         = [];
+            $data['products'] = [];
 
-            $results                  = $this->model_catalog_product->getProductRelated($this->request->get['product_id']);
+            $results = $this->model_catalog_product->getProductRelated($this->request->get['product_id']);
 
             foreach ($results as $result) {
                 if ($result['image']) {
@@ -448,11 +448,11 @@ class ControllerProductProduct extends Controller {
                 }
 
                 if (!is_null($result['special']) && (float)$result['special'] >= 0) {
-                    $special   = $this->currency->format($this->tax->calculate($result['special'], $result['tax_class_id'], $this->config->get('config_tax')), $this->session->data['currency']);
+                    $special = $this->currency->format($this->tax->calculate($result['special'], $result['tax_class_id'], $this->config->get('config_tax')), $this->session->data['currency']);
 
                     $tax_price = (float)$result['special'];
                 } else {
-                    $special   = false;
+                    $special = false;
 
                     $tax_price = (float)$result['price'];
                 }
@@ -500,12 +500,12 @@ class ControllerProductProduct extends Controller {
 
             $this->model_catalog_product->updateViewed($this->request->get['product_id']);
 
-            $data['column_left']    = $this->load->controller('common/column_left');
-            $data['column_right']   = $this->load->controller('common/column_right');
-            $data['content_top']    = $this->load->controller('common/content_top');
+            $data['column_left'] = $this->load->controller('common/column_left');
+            $data['column_right'] = $this->load->controller('common/column_right');
+            $data['content_top'] = $this->load->controller('common/content_top');
             $data['content_bottom'] = $this->load->controller('common/content_bottom');
-            $data['footer']         = $this->load->controller('common/footer');
-            $data['header']         = $this->load->controller('common/header');
+            $data['footer'] = $this->load->controller('common/footer');
+            $data['header'] = $this->load->controller('common/header');
 
             $this->response->setOutput($this->load->view('product/product', $data));
         } else {
@@ -570,12 +570,12 @@ class ControllerProductProduct extends Controller {
 
             $this->response->addHeader($this->request->server['SERVER_PROTOCOL'] . ' 404 Not Found');
 
-            $data['column_left']    = $this->load->controller('common/column_left');
-            $data['column_right']   = $this->load->controller('common/column_right');
-            $data['content_top']    = $this->load->controller('common/content_top');
+            $data['column_left'] = $this->load->controller('common/column_left');
+            $data['column_right'] = $this->load->controller('common/column_right');
+            $data['content_top'] = $this->load->controller('common/content_top');
             $data['content_bottom'] = $this->load->controller('common/content_bottom');
-            $data['footer']         = $this->load->controller('common/footer');
-            $data['header']         = $this->load->controller('common/header');
+            $data['footer'] = $this->load->controller('common/footer');
+            $data['header'] = $this->load->controller('common/header');
 
             $this->response->setOutput($this->load->view('error/not_found', $data));
         }
@@ -594,8 +594,8 @@ class ControllerProductProduct extends Controller {
 
         $data['reviews'] = [];
 
-        $review_total    = $this->model_catalog_review->getTotalReviewsByProductId($this->request->get['product_id']);
-        $results         = $this->model_catalog_review->getReviewsByProductId($this->request->get['product_id'], ($page - 1) * 5, 5);
+        $review_total = $this->model_catalog_review->getTotalReviewsByProductId($this->request->get['product_id']);
+        $results = $this->model_catalog_review->getReviewsByProductId($this->request->get['product_id'], ($page - 1) * 5, 5);
 
         foreach ($results as $result) {
             $data['reviews'][] = [
@@ -606,14 +606,14 @@ class ControllerProductProduct extends Controller {
             ];
         }
 
-        $pagination         = new \Pagination();
-        $pagination->total  = $review_total;
-        $pagination->page   = $page;
-        $pagination->limit  = 5;
-        $pagination->url    = $this->url->link('product/product/review', 'product_id=' . $this->request->get['product_id'] . '&page={page}');
+        $pagination = new \Pagination();
+        $pagination->total = $review_total;
+        $pagination->page = $page;
+        $pagination->limit = 5;
+        $pagination->url = $this->url->link('product/product/review', 'product_id=' . $this->request->get['product_id'] . '&page={page}');
 
         $data['pagination'] = $pagination->render();
-        $data['results']    = sprintf($this->language->get('text_pagination'), ($review_total) ? (($page - 1) * 5) + 1 : 0, ((($page - 1) * 5) > ($review_total - 5)) ? $review_total : ((($page - 1) * 5) + 5), $review_total, ceil($review_total / 5));
+        $data['results'] = sprintf($this->language->get('text_pagination'), ($review_total) ? (($page - 1) * 5) + 1 : 0, ((($page - 1) * 5) > ($review_total - 5)) ? $review_total : ((($page - 1) * 5) + 5), $review_total, ceil($review_total / 5));
 
         $this->response->setOutput($this->load->view('product/review', $data));
     }
@@ -621,7 +621,7 @@ class ControllerProductProduct extends Controller {
     public function write(): void {
         $this->load->language('product/product');
 
-        $json         = [];
+        $json = [];
 
         if (isset($this->request->get['product_id'])) {
             $product_id = (int)$this->request->get['product_id'];

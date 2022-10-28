@@ -39,20 +39,20 @@ class ModelExtensionPaymentPPExpress extends Model {
         $this->load->model('setting/setting');
 
         // Order Status defaults
-        $defaults                                                   = [];
+        $defaults = [];
         $defaults['payment_pp_express_canceled_reversal_status_id'] = 9;
-        $defaults['payment_pp_express_completed_status_id']         = 5;
-        $defaults['payment_pp_express_denied_status_id']            = 8;
-        $defaults['payment_pp_express_expired_status_id']           = 14;
-        $defaults['payment_pp_express_failed_status_id']            = 10;
-        $defaults['payment_pp_express_pending_status_id']           = 1;
-        $defaults['payment_pp_express_processed_status_id']         = 15;
-        $defaults['payment_pp_express_refunded_status_id']          = 11;
-        $defaults['payment_pp_express_reversed_status_id']          = 12;
-        $defaults['payment_pp_express_voided_status_id']            = 16;
-        $defaults['payment_pp_express_incontext_disable']           = 0;
-        $defaults['payment_pp_express_status']                      = 0;
-        $defaults['payment_pp_express_currency']                    = 'USD';
+        $defaults['payment_pp_express_completed_status_id'] = 5;
+        $defaults['payment_pp_express_denied_status_id'] = 8;
+        $defaults['payment_pp_express_expired_status_id'] = 14;
+        $defaults['payment_pp_express_failed_status_id'] = 10;
+        $defaults['payment_pp_express_pending_status_id'] = 1;
+        $defaults['payment_pp_express_processed_status_id'] = 15;
+        $defaults['payment_pp_express_refunded_status_id'] = 11;
+        $defaults['payment_pp_express_reversed_status_id'] = 12;
+        $defaults['payment_pp_express_voided_status_id'] = 16;
+        $defaults['payment_pp_express_incontext_disable'] = 0;
+        $defaults['payment_pp_express_status'] = 0;
+        $defaults['payment_pp_express_currency'] = 'USD';
 
         $this->model_setting_setting->editSetting('payment_pp_express', $defaults);
     }
@@ -196,9 +196,9 @@ class ModelExtensionPaymentPPExpress extends Model {
         $query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "paypal_order` WHERE `order_id` = '" . (int)$order_id . "' LIMIT 1");
 
         if ($query->num_rows) {
-            $order                 = $query->row;
+            $order = $query->row;
             $order['transactions'] = $this->getTransactions($order['paypal_order_id']);
-            $order['captured']     = $this->totalCaptured($order['paypal_order_id']);
+            $order['captured'] = $this->totalCaptured($order['paypal_order_id']);
 
             return $order;
         } else {
@@ -220,12 +220,12 @@ class ModelExtensionPaymentPPExpress extends Model {
 
     public function getTokens($test) {
         if ($test == 'sandbox') {
-            $endpoint      = 'https://api.sandbox.paypal.com/v1/oauth2/token';
-            $client_id     = 'Ad3QTBAHwhuNI_blejO4_RqvES74yWRUC61c5QVNDbxkq9csbLpDZogWp_0n';
+            $endpoint = 'https://api.sandbox.paypal.com/v1/oauth2/token';
+            $client_id = 'Ad3QTBAHwhuNI_blejO4_RqvES74yWRUC61c5QVNDbxkq9csbLpDZogWp_0n';
             $client_secret = 'EGqgGxCqjs1GIa5l1Ex_Flq0Mb2oMT3rJu2kwz6FuF9QKyxCg6qNqyddxCCW';
         } else {
-            $endpoint      = 'https://api.paypal.com/v1/oauth2/token';
-            $client_id     = 'AWyAiBCUYsE156N8YpiiISQpSpep2HPoXXPrf33VBeYleE0SQJg40pgEqZvq';
+            $endpoint = 'https://api.paypal.com/v1/oauth2/token';
+            $client_id = 'AWyAiBCUYsE156N8YpiiISQpSpep2HPoXXPrf33VBeYleE0SQJg40pgEqZvq';
             $client_secret = 'EEkc6xB30fDkgUO_YldWWHxKDquY7LBRId6FJ-parAR1CsVpK35zB6U0SIh4';
         }
 
@@ -234,9 +234,10 @@ class ModelExtensionPaymentPPExpress extends Model {
         $request .= '&client_secret=' . $client_secret;
         $request .= '&grant_type=client_credentials';
 
-        $additional_opts = [CURLOPT_USERPWD    => $client_id . ':' . $client_secret,
-                            CURLOPT_POST       => true,
-                            CURLOPT_POSTFIELDS => $request
+        $additional_opts = [
+            CURLOPT_USERPWD    => $client_id . ':' . $client_secret,
+            CURLOPT_POST       => true,
+            CURLOPT_POSTFIELDS => $request
         ];
 
         $curl = $this->curl($endpoint, $additional_opts);
@@ -255,18 +256,18 @@ class ModelExtensionPaymentPPExpress extends Model {
 
         $endpoint1 = $endpoint . '?tracking_id=' . $merchant_id;
 
-        $header          = [];
-        $header[]        = 'Content-Type: application/json';
-        $header[]        = 'Authorization: Bearer ' . $access_token;
-        $header[]        = 'PAYPAL_SERVICE_VERSION:1.2.0';
+        $header = [];
+        $header[] = 'Content-Type: application/json';
+        $header[] = 'Authorization: Bearer ' . $access_token;
+        $header[] = 'PAYPAL_SERVICE_VERSION:1.2.0';
         $additional_opts = [CURLOPT_HTTPHEADER => $header];
-        $curl            = $this->curl($endpoint1, $additional_opts);
+        $curl = $this->curl($endpoint1, $additional_opts);
 
         $this->log('cURL Response 2: ' . print_r($curl, 1));
 
         if (isset($curl->merchant_id)) {
             $endpoint2 = $endpoint . '/' . $curl->merchant_id;
-            $curl2     = $this->curl($endpoint2, $additional_opts);
+            $curl2 = $this->curl($endpoint2, $additional_opts);
 
             $this->log('cURL Response 3: ' . print_r($curl2, 1));
 
@@ -283,14 +284,14 @@ class ModelExtensionPaymentPPExpress extends Model {
     public function call($data) {
         if ($this->config->get('payment_pp_express_test') == 1) {
             $api_endpoint = 'https://api-3t.sandbox.paypal.com/nvp';
-            $user         = $this->config->get('payment_pp_express_sandbox_username');
-            $password     = $this->config->get('payment_pp_express_sandbox_password');
-            $signature    = $this->config->get('payment_pp_express_sandbox_signature');
+            $user = $this->config->get('payment_pp_express_sandbox_username');
+            $password = $this->config->get('payment_pp_express_sandbox_password');
+            $signature = $this->config->get('payment_pp_express_sandbox_signature');
         } else {
             $api_endpoint = 'https://api-3t.paypal.com/nvp';
-            $user         = $this->config->get('payment_pp_express_username');
-            $password     = $this->config->get('payment_pp_express_password');
-            $signature    = $this->config->get('payment_pp_express_signature');
+            $user = $this->config->get('payment_pp_express_username');
+            $password = $this->config->get('payment_pp_express_password');
+            $signature = $this->config->get('payment_pp_express_signature');
         }
 
         $settings = [

@@ -60,7 +60,7 @@ class ModelExtensionPaymentKlarnaCheckout extends Model {
 
     public function getConnector($accounts, $currency) {
         $klarna_account = false;
-        $connector      = false;
+        $connector = false;
 
         if ($accounts && $currency) {
             foreach ($accounts as $account) {
@@ -80,13 +80,16 @@ class ModelExtensionPaymentKlarnaCheckout extends Model {
                     }
 
                     $klarna_account = $account;
-                    $connector      = $this->connector($account['merchant_id'], $account['secret'], $base_url);
+                    $connector = $this->connector($account['merchant_id'], $account['secret'], $base_url);
                     break;
                 }
             }
         }
 
-        return [$klarna_account, $connector];
+        return [
+            $klarna_account,
+            $connector
+        ];
     }
 
     public function getOrder($order_ref) {
@@ -179,8 +182,8 @@ class ModelExtensionPaymentKlarnaCheckout extends Model {
     }
 
     public function getTotals() {
-        $taxes  = $this->cart->getTaxes();
-        $total  = 0;
+        $taxes = $this->cart->getTaxes();
+        $total = 0;
         $totals = [];
 
         // Because __call can not keep var references so we put them into an array.
@@ -194,7 +197,7 @@ class ModelExtensionPaymentKlarnaCheckout extends Model {
 
         $sort_order = [];
 
-        $results    = $this->model_setting_extension->getExtensions('total');
+        $results = $this->model_setting_extension->getExtensions('total');
 
         foreach ($results as $key => $value) {
             $sort_order[$key] = $this->config->get('total_' . $value['code'] . '_sort_order');

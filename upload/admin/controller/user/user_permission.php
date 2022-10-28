@@ -24,7 +24,7 @@ class ControllerUserUserPermission extends Controller {
 
             $this->session->data['success'] = $this->language->get('text_success');
 
-            $url                            = '';
+            $url = '';
 
             if (isset($this->request->get['sort'])) {
                 $url .= '&sort=' . $this->request->get['sort'];
@@ -56,7 +56,7 @@ class ControllerUserUserPermission extends Controller {
 
             $this->session->data['success'] = $this->language->get('text_success');
 
-            $url                            = '';
+            $url = '';
 
             if (isset($this->request->get['sort'])) {
                 $url .= '&sort=' . $this->request->get['sort'];
@@ -90,7 +90,7 @@ class ControllerUserUserPermission extends Controller {
 
             $this->session->data['success'] = $this->language->get('text_success');
 
-            $url                            = '';
+            $url = '';
 
             if (isset($this->request->get['sort'])) {
                 $url .= '&sort=' . $this->request->get['sort'];
@@ -143,7 +143,7 @@ class ControllerUserUserPermission extends Controller {
             $url .= '&page=' . $this->request->get['page'];
         }
 
-        $data['breadcrumbs']   = [];
+        $data['breadcrumbs'] = [];
 
         $data['breadcrumbs'][] = [
             'text' => $this->language->get('text_home'),
@@ -155,12 +155,12 @@ class ControllerUserUserPermission extends Controller {
             'href' => $this->url->link('user/user_permission', 'user_token=' . $this->session->data['user_token'] . $url, true)
         ];
 
-        $data['add']         = $this->url->link('user/user_permission/add', 'user_token=' . $this->session->data['user_token'] . $url, true);
-        $data['delete']      = $this->url->link('user/user_permission/delete', 'user_token=' . $this->session->data['user_token'] . $url, true);
+        $data['add'] = $this->url->link('user/user_permission/add', 'user_token=' . $this->session->data['user_token'] . $url, true);
+        $data['delete'] = $this->url->link('user/user_permission/delete', 'user_token=' . $this->session->data['user_token'] . $url, true);
 
         $data['user_groups'] = [];
 
-        $filter_data         = [
+        $filter_data = [
             'sort'  => $sort,
             'order' => $order,
             'start' => ($page - 1) * $this->config->get('config_limit_admin'),
@@ -169,7 +169,7 @@ class ControllerUserUserPermission extends Controller {
 
         $user_group_total = $this->model_user_user_group->getTotalUserGroups();
 
-        $results          = $this->model_user_user_group->getUserGroups($filter_data);
+        $results = $this->model_user_user_group->getUserGroups($filter_data);
 
         foreach ($results as $result) {
             $data['user_groups'][] = [
@@ -223,21 +223,21 @@ class ControllerUserUserPermission extends Controller {
             $url .= '&order=' . $this->request->get['order'];
         }
 
-        $pagination          = new \Pagination();
-        $pagination->total   = $user_group_total;
-        $pagination->page    = $page;
-        $pagination->limit   = $this->config->get('config_limit_admin');
-        $pagination->url     = $this->url->link('user/user_permission', 'user_token=' . $this->session->data['user_token'] . $url . '&page={page}', true);
+        $pagination = new \Pagination();
+        $pagination->total = $user_group_total;
+        $pagination->page = $page;
+        $pagination->limit = $this->config->get('config_limit_admin');
+        $pagination->url = $this->url->link('user/user_permission', 'user_token=' . $this->session->data['user_token'] . $url . '&page={page}', true);
 
-        $data['pagination']  = $pagination->render();
-        $data['results']     = sprintf($this->language->get('text_pagination'), ($user_group_total) ? (($page - 1) * $this->config->get('config_limit_admin')) + 1 : 0, ((($page - 1) * $this->config->get('config_limit_admin')) > ($user_group_total - $this->config->get('config_limit_admin'))) ? $user_group_total : ((($page - 1) * $this->config->get('config_limit_admin')) + $this->config->get('config_limit_admin')), $user_group_total, ceil($user_group_total / $this->config->get('config_limit_admin')));
+        $data['pagination'] = $pagination->render();
+        $data['results'] = sprintf($this->language->get('text_pagination'), ($user_group_total) ? (($page - 1) * $this->config->get('config_limit_admin')) + 1 : 0, ((($page - 1) * $this->config->get('config_limit_admin')) > ($user_group_total - $this->config->get('config_limit_admin'))) ? $user_group_total : ((($page - 1) * $this->config->get('config_limit_admin')) + $this->config->get('config_limit_admin')), $user_group_total, ceil($user_group_total / $this->config->get('config_limit_admin')));
 
-        $data['sort']        = $sort;
-        $data['order']       = $order;
+        $data['sort'] = $sort;
+        $data['order'] = $order;
 
-        $data['header']      = $this->load->controller('common/header');
+        $data['header'] = $this->load->controller('common/header');
         $data['column_left'] = $this->load->controller('common/column_left');
-        $data['footer']      = $this->load->controller('common/footer');
+        $data['footer'] = $this->load->controller('common/footer');
 
         $this->response->setOutput($this->load->view('user/user_group_list', $data));
     }
@@ -271,7 +271,7 @@ class ControllerUserUserPermission extends Controller {
             $url .= '&page=' . $this->request->get['page'];
         }
 
-        $data['breadcrumbs']   = [];
+        $data['breadcrumbs'] = [];
 
         $data['breadcrumbs'][] = [
             'text' => $this->language->get('text_home'),
@@ -318,7 +318,7 @@ class ControllerUserUserPermission extends Controller {
 
         $data['permissions'] = [];
 
-        $files               = [];
+        $files = [];
 
         // Make path into an array
         $path = [DIR_APPLICATION . 'controller/*'];
@@ -368,9 +368,9 @@ class ControllerUserUserPermission extends Controller {
             $data['modify'] = [];
         }
 
-        $data['header']      = $this->load->controller('common/header');
+        $data['header'] = $this->load->controller('common/header');
         $data['column_left'] = $this->load->controller('common/column_left');
-        $data['footer']      = $this->load->controller('common/footer');
+        $data['footer'] = $this->load->controller('common/footer');
 
         $this->response->setOutput($this->load->view('user/user_group_form', $data));
     }

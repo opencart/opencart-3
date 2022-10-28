@@ -11,7 +11,7 @@ class ControllerAccountAccount extends Controller {
 
         $this->document->setTitle($this->language->get('heading_title'));
 
-        $data['breadcrumbs']   = [];
+        $data['breadcrumbs'] = [];
 
         $data['breadcrumbs'][] = [
             'text' => $this->language->get('text_home'),
@@ -33,7 +33,7 @@ class ControllerAccountAccount extends Controller {
 
         $data['credit_cards'] = [];
 
-        $files                = glob(DIR_APPLICATION . 'controller/extension/credit_card/*.php');
+        $files = glob(DIR_APPLICATION . 'controller/extension/credit_card/*.php');
 
         foreach ($files as $file) {
             $code = basename($file, '.php');
@@ -71,31 +71,31 @@ class ControllerAccountAccount extends Controller {
             $data['affiliate'] = '';
         }
 
-        $data['edit']           = $this->url->link('account/edit', 'customer_token=' . $this->session->data['customer_token'], true);
-        $data['password']       = $this->url->link('account/password', 'customer_token=' . $this->session->data['customer_token'], true);
-        $data['address']        = $this->url->link('account/address', 'customer_token=' . $this->session->data['customer_token'], true);
+        $data['edit'] = $this->url->link('account/edit', 'customer_token=' . $this->session->data['customer_token'], true);
+        $data['password'] = $this->url->link('account/password', 'customer_token=' . $this->session->data['customer_token'], true);
+        $data['address'] = $this->url->link('account/address', 'customer_token=' . $this->session->data['customer_token'], true);
         $data['payment_method'] = $this->url->link('account/payment_method', 'customer_token=' . $this->session->data['customer_token'], true);
-        $data['wishlist']       = $this->url->link('account/wishlist', 'customer_token=' . $this->session->data['customer_token']);
-        $data['order']          = $this->url->link('account/order', 'customer_token=' . $this->session->data['customer_token'], true);
-        $data['recurring']      = $this->url->link('account/recurring', 'customer_token=' . $this->session->data['customer_token'], true);
-        $data['subscription']   = $this->url->link('account/subscription', 'customer_token=' . $this->session->data['customer_token'], true);
-        $data['download']       = $this->url->link('account/download', 'customer_token=' . $this->session->data['customer_token'], true);
-        $data['returns']        = $this->url->link('account/returns', 'customer_token=' . $this->session->data['customer_token'], true);
-        $data['transaction']    = $this->url->link('account/transaction', 'customer_token=' . $this->session->data['customer_token'], true);
-        $data['newsletter']     = $this->url->link('account/newsletter', 'customer_token=' . $this->session->data['customer_token'], true);
-        
-        $data['column_left']    = $this->load->controller('common/column_left');
-        $data['column_right']   = $this->load->controller('common/column_right');
-        $data['content_top']    = $this->load->controller('common/content_top');
+        $data['wishlist'] = $this->url->link('account/wishlist', 'customer_token=' . $this->session->data['customer_token']);
+        $data['order'] = $this->url->link('account/order', 'customer_token=' . $this->session->data['customer_token'], true);
+        $data['recurring'] = $this->url->link('account/recurring', 'customer_token=' . $this->session->data['customer_token'], true);
+        $data['subscription'] = $this->url->link('account/subscription', 'customer_token=' . $this->session->data['customer_token'], true);
+        $data['download'] = $this->url->link('account/download', 'customer_token=' . $this->session->data['customer_token'], true);
+        $data['returns'] = $this->url->link('account/returns', 'customer_token=' . $this->session->data['customer_token'], true);
+        $data['transaction'] = $this->url->link('account/transaction', 'customer_token=' . $this->session->data['customer_token'], true);
+        $data['newsletter'] = $this->url->link('account/newsletter', 'customer_token=' . $this->session->data['customer_token'], true);
+
+        $data['column_left'] = $this->load->controller('common/column_left');
+        $data['column_right'] = $this->load->controller('common/column_right');
+        $data['content_top'] = $this->load->controller('common/content_top');
         $data['content_bottom'] = $this->load->controller('common/content_bottom');
-        $data['footer']         = $this->load->controller('common/footer');
-        $data['header']         = $this->load->controller('common/header');
+        $data['footer'] = $this->load->controller('common/footer');
+        $data['header'] = $this->load->controller('common/header');
 
         $this->response->setOutput($this->load->view('account/account', $data));
     }
 
     public function country(): void {
-        $json         = [];
+        $json = [];
 
         $this->load->model('localisation/country');
 

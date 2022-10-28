@@ -31,10 +31,10 @@ class ControllerExtensionPaymentPPPayflowIframe extends Controller {
         $this->model_extension_payment_pp_payflow_iframe->addOrder($order_info['order_id'], $secure_token_id);
 
         $shipping_country = $this->model_localisation_country->getCountry($order_info['shipping_country_id']);
-        $shipping_zone    = $this->model_localisation_zone->getZone($order_info['shipping_zone_id']);
+        $shipping_zone = $this->model_localisation_zone->getZone($order_info['shipping_zone_id']);
 
         $payment_country = $this->model_localisation_country->getCountry($order_info['payment_country_id']);
-        $payment_zone    = $this->model_localisation_zone->getZone($order_info['payment_zone_id']);
+        $payment_zone = $this->model_localisation_zone->getZone($order_info['payment_zone_id']);
 
         $url_params = [
             'TENDER'            => 'C',
@@ -54,12 +54,12 @@ class ControllerExtensionPaymentPPPayflowIframe extends Controller {
 
         if ($shipping_country) {
             $url_params['SHIPTOFIRSTNAME'] = $order_info['shipping_firstname'];
-            $url_params['SHIPTOLASTNAME']  = $order_info['shipping_lastname'];
-            $url_params['SHIPTOSTREET']    = trim($order_info['shipping_address_1'] . ' ' . $order_info['shipping_address_2']);
-            $url_params['SHIPTOCITY']      = $order_info['shipping_city'];
-            $url_params['SHIPTOSTATE']     = $shipping_zone['code'];
-            $url_params['SHIPTOZIP']       = $order_info['shipping_postcode'];
-            $url_params['SHIPTOCOUNTRY']   = $shipping_country['iso_code_2'];
+            $url_params['SHIPTOLASTNAME'] = $order_info['shipping_lastname'];
+            $url_params['SHIPTOSTREET'] = trim($order_info['shipping_address_1'] . ' ' . $order_info['shipping_address_2']);
+            $url_params['SHIPTOCITY'] = $order_info['shipping_city'];
+            $url_params['SHIPTOSTATE'] = $shipping_zone['code'];
+            $url_params['SHIPTOZIP'] = $order_info['shipping_postcode'];
+            $url_params['SHIPTOCOUNTRY'] = $shipping_country['iso_code_2'];
         }
 
         $response_params = $this->model_extension_payment_pp_payflow_iframe->call($url_params);
@@ -70,16 +70,16 @@ class ControllerExtensionPaymentPPPayflowIframe extends Controller {
             $secure_token = '';
         }
 
-        $iframe_params           = [
+        $iframe_params = [
             'MODE'          => $mode,
             'SECURETOKENID' => $secure_token_id,
             'SECURETOKEN'   => $secure_token,
         ];
 
-        $data['iframe_url']      = $payflow_url . '?' . http_build_query($iframe_params, '', "&");
+        $data['iframe_url'] = $payflow_url . '?' . http_build_query($iframe_params, '', "&");
         $data['checkout_method'] = $this->config->get('payment_pp_payflow_iframe_checkout_method');
-        $data['button_confirm']  = $this->language->get('button_confirm');
-        $data['create']          = HTTPS_SERVER . 'index.php?route=extension/payment/pp_pro_iframe/create';
+        $data['button_confirm'] = $this->language->get('button_confirm');
+        $data['create'] = HTTPS_SERVER . 'index.php?route=extension/payment/pp_pro_iframe/create';
 
         return $this->load->view('extension/payment/pp_payflow_iframe', $data);
     }

@@ -32,7 +32,7 @@ class ControllerAffiliateRegister extends Controller {
             $this->response->redirect($this->url->link('affiliate/success'));
         }
 
-        $data['breadcrumbs']   = [];
+        $data['breadcrumbs'] = [];
 
         $data['breadcrumbs'][] = [
             'text' => $this->language->get('text_home'),
@@ -293,15 +293,15 @@ class ControllerAffiliateRegister extends Controller {
             $data['agree'] = false;
         }
 
-        $data['action']               = $this->url->link('affiliate/register', 'customer_token=' . $this->session->data['customer_token'], true);
+        $data['action'] = $this->url->link('affiliate/register', 'customer_token=' . $this->session->data['customer_token'], true);
         $data['text_account_already'] = sprintf($this->language->get('text_account_already'), $this->url->link('affiliate/login', 'customer_token=' . $this->session->data['customer_token'], true));
 
-        $data['column_left']          = $this->load->controller('common/column_left');
-        $data['column_right']         = $this->load->controller('common/column_right');
-        $data['content_top']          = $this->load->controller('common/content_top');
-        $data['content_bottom']       = $this->load->controller('common/content_bottom');
-        $data['footer']               = $this->load->controller('common/footer');
-        $data['header']               = $this->load->controller('common/header');
+        $data['column_left'] = $this->load->controller('common/column_left');
+        $data['column_right'] = $this->load->controller('common/column_right');
+        $data['content_top'] = $this->load->controller('common/content_top');
+        $data['content_bottom'] = $this->load->controller('common/content_bottom');
+        $data['footer'] = $this->load->controller('common/footer');
+        $data['header'] = $this->load->controller('common/header');
 
         $this->response->setOutput($this->load->view('affiliate/register', $data));
     }

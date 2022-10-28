@@ -3,11 +3,11 @@ class ControllerCommonDeveloper extends Controller {
     public function index(): void {
         $this->load->language('common/developer');
 
-        $data['user_token']      = $this->session->data['user_token'];
+        $data['user_token'] = $this->session->data['user_token'];
         $data['developer_theme'] = $this->config->get('developer_theme');
-        $data['developer_sass']  = $this->config->get('developer_sass');
-        $eval                    = false;
-        $eval                    = '$eval = true;';
+        $data['developer_sass'] = $this->config->get('developer_sass');
+        $eval = false;
+        $eval = '$eval = true;';
 
         eval($eval);
 
@@ -51,7 +51,7 @@ class ControllerCommonDeveloper extends Controller {
         if (!$this->user->hasPermission('modify', 'common/developer')) {
             $json['error'] = $this->language->get('error_permission');
         } else {
-            $directories   = glob(DIR_CACHE . '/template/*', GLOB_ONLYDIR);
+            $directories = glob(DIR_CACHE . '/template/*', GLOB_ONLYDIR);
 
             if ($directories) {
                 foreach ($directories as $directory) {

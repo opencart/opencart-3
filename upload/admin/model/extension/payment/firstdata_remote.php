@@ -112,9 +112,9 @@ class ModelExtensionPaymentFirstdataRemote extends Model {
             $response['fault'] = (string)$fault[0]->detail;
         }
 
-        $string                         = $xml->xpath('//ipgapi:ErrorMessage');
-        $response['error']              = (isset($string[0]) ? (string)$string[0] : '');
-        $string                         = $xml->xpath('//ipgapi:TransactionResult');
+        $string = $xml->xpath('//ipgapi:ErrorMessage');
+        $response['error'] = (isset($string[0]) ? (string)$string[0] : '');
+        $string = $xml->xpath('//ipgapi:TransactionResult');
         $response['transaction_result'] = (isset($string[0]) ? (string)$string[0] : '');
 
         return $response;
@@ -159,10 +159,10 @@ class ModelExtensionPaymentFirstdataRemote extends Model {
             $response['fault'] = (string)$fault[0]->detail;
         }
 
-        $string            = $xml->xpath('//ipgapi:ErrorMessage');
+        $string = $xml->xpath('//ipgapi:ErrorMessage');
         $response['error'] = (isset($string[0]) ? (string)$string[0] : '');
 
-        $string                         = $xml->xpath('//ipgapi:TransactionResult');
+        $string = $xml->xpath('//ipgapi:TransactionResult');
         $response['transaction_result'] = (isset($string[0]) ? (string)$string[0] : '');
 
         return $response;
@@ -207,10 +207,10 @@ class ModelExtensionPaymentFirstdataRemote extends Model {
             $response['fault'] = (string)$fault[0]->detail;
         }
 
-        $string            = $xml->xpath('//ipgapi:ErrorMessage');
+        $string = $xml->xpath('//ipgapi:ErrorMessage');
         $response['error'] = (isset($string[0]) ? (string)$string[0] : '');
 
-        $string                         = $xml->xpath('//ipgapi:TransactionResult');
+        $string = $xml->xpath('//ipgapi:TransactionResult');
         $response['transaction_result'] = (isset($string[0]) ? (string)$string[0] : '');
 
         return $response;
@@ -224,7 +224,7 @@ class ModelExtensionPaymentFirstdataRemote extends Model {
         $query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "firstdata_remote_order` WHERE `order_id` = '" . (int)$order_id . "' LIMIT 1");
 
         if ($query->num_rows) {
-            $order                 = $query->row;
+            $order = $query->row;
             $order['transactions'] = $this->getTransactions($order['firstdata_remote_order_id']);
 
             return $order;

@@ -88,19 +88,19 @@ class ControllerExtensionPaymentWorldpay extends Controller {
             $this->model_extension_payment_worldpay->addTransaction($worldpay_order_id, 'payment', $order_info);
 
             if (isset($this->request->post['save-card'])) {
-                $response    = $this->model_extension_payment_worldpay->sendCurl('tokens/' . $this->request->post['token']);
+                $response = $this->model_extension_payment_worldpay->sendCurl('tokens/' . $this->request->post['token']);
 
                 $this->model_extension_payment_worldpay->logger($response);
 
                 $expiry_date = mktime(0, 0, 0, 0, (string)$response->paymentMethod->expiryMonth, (string)$response->paymentMethod->expiryYear);
 
                 if (isset($response->paymentMethod)) {
-                    $card_data                = [];
+                    $card_data = [];
                     $card_data['customer_id'] = $this->customer->getId();
-                    $card_data['Token']       = $response->token;
+                    $card_data['Token'] = $response->token;
                     $card_data['Last4Digits'] = (string)$response->paymentMethod->maskedCardNumber;
-                    $card_data['ExpiryDate']  = date('m/y', $expiry_date);
-                    $card_data['CardType']    = (string)$response->paymentMethod->cardType;
+                    $card_data['ExpiryDate'] = date('m/y', $expiry_date);
+                    $card_data['CardType'] = (string)$response->paymentMethod->cardType;
 
                     $this->model_extension_payment_worldpay->addCard($this->session->data['order_id'], $card_data);
                 }

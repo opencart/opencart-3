@@ -16,35 +16,35 @@ class ControllerExtensionPaymentPaypoint extends Controller {
         }
 
         $data['button_confirm'] = $this->language->get('button_confirm');
-        $data['merchant']       = $this->config->get('payment_paypoint_merchant');
-        $data['trans_id']       = (int)$this->session->data['order_id'];
-        $data['amount']         = $this->currency->format($order_info['total'], $order_info['currency_code'], $order_info['currency_value'], false);
-        $data['bill_name']      = $order_info['payment_firstname'] . ' ' . $order_info['payment_lastname'];
-        $data['bill_addr_1']    = $order_info['payment_address_1'];
-        $data['bill_addr_2']    = $order_info['payment_address_2'];
-        $data['bill_city']      = $order_info['payment_city'];
-        $data['bill_state']     = $order_info['payment_zone'];
+        $data['merchant'] = $this->config->get('payment_paypoint_merchant');
+        $data['trans_id'] = (int)$this->session->data['order_id'];
+        $data['amount'] = $this->currency->format($order_info['total'], $order_info['currency_code'], $order_info['currency_value'], false);
+        $data['bill_name'] = $order_info['payment_firstname'] . ' ' . $order_info['payment_lastname'];
+        $data['bill_addr_1'] = $order_info['payment_address_1'];
+        $data['bill_addr_2'] = $order_info['payment_address_2'];
+        $data['bill_city'] = $order_info['payment_city'];
+        $data['bill_state'] = $order_info['payment_zone'];
         $data['bill_post_code'] = $order_info['payment_postcode'];
-        $data['bill_country']   = $order_info['payment_country'];
-        $data['bill_tel']       = $order_info['telephone'];
-        $data['bill_email']     = $order_info['email'];
+        $data['bill_country'] = $order_info['payment_country'];
+        $data['bill_tel'] = $order_info['telephone'];
+        $data['bill_email'] = $order_info['email'];
 
         if ($this->cart->hasShipping()) {
-            $data['ship_name']      = $order_info['shipping_firstname'] . ' ' . $order_info['shipping_lastname'];
-            $data['ship_addr_1']    = $order_info['shipping_address_1'];
-            $data['ship_addr_2']    = $order_info['shipping_address_2'];
-            $data['ship_city']      = $order_info['shipping_city'];
-            $data['ship_state']     = $order_info['shipping_zone'];
+            $data['ship_name'] = $order_info['shipping_firstname'] . ' ' . $order_info['shipping_lastname'];
+            $data['ship_addr_1'] = $order_info['shipping_address_1'];
+            $data['ship_addr_2'] = $order_info['shipping_address_2'];
+            $data['ship_city'] = $order_info['shipping_city'];
+            $data['ship_state'] = $order_info['shipping_zone'];
             $data['ship_post_code'] = $order_info['shipping_postcode'];
-            $data['ship_country']   = $order_info['shipping_country'];
+            $data['ship_country'] = $order_info['shipping_country'];
         } else {
-            $data['ship_name']      = '';
-            $data['ship_addr_1']    = '';
-            $data['ship_addr_2']    = '';
-            $data['ship_city']      = '';
-            $data['ship_state']     = '';
+            $data['ship_name'] = '';
+            $data['ship_addr_1'] = '';
+            $data['ship_addr_2'] = '';
+            $data['ship_city'] = '';
+            $data['ship_state'] = '';
             $data['ship_post_code'] = '';
-            $data['ship_country']   = '';
+            $data['ship_country'] = '';
         }
 
         switch ($this->config->get('payment_paypoint_test')) {
@@ -60,7 +60,7 @@ class ControllerExtensionPaymentPaypoint extends Controller {
                 break;
         }
 
-        $data['options']  = 'test_status=' . $status . ',dups=false,cb_post=false';
+        $data['options'] = 'test_status=' . $status . ',dups=false,cb_post=false';
         $data['currency'] = $this->session->data['currency'];
         $data['callback'] = $this->url->link('extension/payment/paypoint/callback', '', true);
 
@@ -127,30 +127,30 @@ class ControllerExtensionPaymentPaypoint extends Controller {
 
                 $this->model_checkout_order->addOrderHistory($order_id, $this->config->get('payment_paypoint_order_status_id'), $message, false);
 
-                $data['language']          = $this->language->get('code');
-                $data['direction']         = $this->language->get('direction');
-                $data['heading_title']     = sprintf($this->language->get('heading_title'), $this->config->get('config_name'));
+                $data['language'] = $this->language->get('code');
+                $data['direction'] = $this->language->get('direction');
+                $data['heading_title'] = sprintf($this->language->get('heading_title'), $this->config->get('config_name'));
                 $data['text_success_wait'] = sprintf($this->language->get('text_success_wait'), $this->url->link('checkout/success'));
                 $data['text_failure_wait'] = sprintf($this->language->get('text_failure_wait'), $this->url->link('checkout/cart'));
-                $data['continue']          = $this->url->link('checkout/success');
+                $data['continue'] = $this->url->link('checkout/success');
 
-                $data['column_left']    = $this->load->controller('common/column_left');
-                $data['column_right']   = $this->load->controller('common/column_right');
-                $data['content_top']    = $this->load->controller('common/content_top');
+                $data['column_left'] = $this->load->controller('common/column_left');
+                $data['column_right'] = $this->load->controller('common/column_right');
+                $data['content_top'] = $this->load->controller('common/content_top');
                 $data['content_bottom'] = $this->load->controller('common/content_bottom');
-                $data['footer']         = $this->load->controller('common/footer');
-                $data['header']         = $this->load->controller('common/header');
+                $data['footer'] = $this->load->controller('common/footer');
+                $data['header'] = $this->load->controller('common/header');
 
                 $this->response->setOutput($this->load->view('extension/payment/paypoint_success', $data));
             } else {
-                $data['continue']       = $this->url->link('checkout/cart');
-                
-                $data['column_left']    = $this->load->controller('common/column_left');
-                $data['column_right']   = $this->load->controller('common/column_right');
-                $data['content_top']    = $this->load->controller('common/content_top');
+                $data['continue'] = $this->url->link('checkout/cart');
+
+                $data['column_left'] = $this->load->controller('common/column_left');
+                $data['column_right'] = $this->load->controller('common/column_right');
+                $data['content_top'] = $this->load->controller('common/content_top');
                 $data['content_bottom'] = $this->load->controller('common/content_bottom');
-                $data['footer']         = $this->load->controller('common/footer');
-                $data['header']         = $this->load->controller('common/header');
+                $data['footer'] = $this->load->controller('common/footer');
+                $data['header'] = $this->load->controller('common/header');
 
                 $this->response->setOutput($this->load->view('extension/payment/paypoint_failure', $data));
             }

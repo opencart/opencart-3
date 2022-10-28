@@ -185,9 +185,9 @@ class ControllerExtensionPaymentRealexRemote extends Controller {
 
         $data['order_statuses'] = $this->model_localisation_order_status->getOrderStatuses();
 
-        $data['header']      = $this->load->controller('common/header');
+        $data['header'] = $this->load->controller('common/header');
         $data['column_left'] = $this->load->controller('common/column_left');
-        $data['footer']      = $this->load->controller('common/footer');
+        $data['footer'] = $this->load->controller('common/footer');
 
         $this->response->setOutput($this->load->view('extension/payment/realex_remote', $data));
     }
@@ -207,14 +207,14 @@ class ControllerExtensionPaymentRealexRemote extends Controller {
             if (!empty($realex_order)) {
                 $this->load->language('extension/payment/realex_remote');
 
-                $realex_order['total_captured']           = $this->model_extension_payment_realex_remote->getTotalCaptured($realex_order['realex_remote_order_id']);
-                $realex_order['total_formatted']          = $this->currency->format($realex_order['total'], $realex_order['currency_code'], 1, true);
+                $realex_order['total_captured'] = $this->model_extension_payment_realex_remote->getTotalCaptured($realex_order['realex_remote_order_id']);
+                $realex_order['total_formatted'] = $this->currency->format($realex_order['total'], $realex_order['currency_code'], 1, true);
                 $realex_order['total_captured_formatted'] = $this->currency->format($realex_order['total_captured'], $realex_order['currency_code'], 1, true);
 
                 $data['realex_order'] = $realex_order;
-                $data['auto_settle']  = $realex_order['settle_type'];
-                $data['order_id']     = (int)$this->request->get['order_id'];
-                $data['user_token']   = $this->session->data['user_token'];
+                $data['auto_settle'] = $realex_order['settle_type'];
+                $data['order_id'] = (int)$this->request->get['order_id'];
+                $data['user_token'] = $this->session->data['user_token'];
 
                 return $this->load->view('extension/payment/realex_remote_order', $data);
             } else {
@@ -233,7 +233,7 @@ class ControllerExtensionPaymentRealexRemote extends Controller {
         if (isset($this->request->post['order_id']) && $this->request->post['order_id'] != '') {
             $this->load->model('extension/payment/realex_remote');
 
-            $realex_order  = $this->model_extension_payment_realex_remote->getOrder($this->request->post['order_id']);
+            $realex_order = $this->model_extension_payment_realex_remote->getOrder($this->request->post['order_id']);
             $void_response = $this->model_extension_payment_realex_remote->void($this->request->post['order_id']);
 
             $this->model_extension_payment_realex_remote->logger('Void result:\r\n' . print_r($void_response, 1));
@@ -242,17 +242,17 @@ class ControllerExtensionPaymentRealexRemote extends Controller {
                 $this->model_extension_payment_realex_remote->addTransaction($realex_order['realex_remote_order_id'], 'void', 0.00);
                 $this->model_extension_payment_realex_remote->updateVoidStatus($realex_order['realex_remote_order_id'], 1);
 
-                $json['msg']                = $this->language->get('text_void_ok');
-                $json['data']               = [];
+                $json['msg'] = $this->language->get('text_void_ok');
+                $json['data'] = [];
                 $json['data']['date_added'] = date('Y-m-d H:i:s');
-                $json['error']              = false;
+                $json['error'] = false;
             } else {
                 $json['error'] = true;
-                $json['msg']   = (isset($void_response->message) && !empty($void_response->message) ? sprintf($this->language->get('error_status'), (string)$void_response->message) : $this->language->get('error_void'));
+                $json['msg'] = (isset($void_response->message) && !empty($void_response->message) ? sprintf($this->language->get('error_status'), (string)$void_response->message) : $this->language->get('error_void'));
             }
         } else {
             $json['error'] = true;
-            $json['msg']   = $this->language->get('error_data_missing');
+            $json['msg'] = $this->language->get('error_data_missing');
         }
 
         $this->response->addHeader('Content-Type: application/json');
@@ -267,7 +267,7 @@ class ControllerExtensionPaymentRealexRemote extends Controller {
         if (isset($this->request->post['order_id']) && $this->request->post['order_id'] != '' && isset($this->request->post['amount']) && $this->request->post['amount'] > 0) {
             $this->load->model('extension/payment/realex_remote');
 
-            $realex_order     = $this->model_extension_payment_realex_remote->getOrder($this->request->post['order_id']);
+            $realex_order = $this->model_extension_payment_realex_remote->getOrder($this->request->post['order_id']);
             $capture_response = $this->model_extension_payment_realex_remote->capture($this->request->post['order_id'], $this->request->post['amount']);
 
             $this->model_extension_payment_realex_remote->logger('Settle result:\r\n' . print_r($capture_response, 1));
@@ -293,20 +293,19 @@ class ControllerExtensionPaymentRealexRemote extends Controller {
 
                 $json['data'] = [];
 
-                $json['data']['date_added']      = date('Y-m-d H:i:s');
-                $json['data']['amount']          = (float)$this->request->post['amount'];
-                $json['data']['capture_status']  = $capture_status;
-                $json['data']['total']           = (float)$total_captured;
+                $json['data']['date_added'] = date('Y-m-d H:i:s');
+                $json['data']['amount'] = (float)$this->request->post['amount'];
+                $json['data']['capture_status'] = $capture_status;
+                $json['data']['total'] = (float)$total_captured;
                 $json['data']['total_formatted'] = $this->currency->format($total_captured, $realex_order['currency_code'], 1, true);
-                $json['error']                   = false;
+                $json['error'] = false;
             } else {
                 $json['error'] = true;
-                $json['msg']   = (isset($capture_response->message) && !empty($capture_response->message) ? sprintf($this->language->get('error_status'), (string)$capture_response->message) : $this->language->get('error_capture'));
-
+                $json['msg'] = (isset($capture_response->message) && !empty($capture_response->message) ? sprintf($this->language->get('error_status'), (string)$capture_response->message) : $this->language->get('error_capture'));
             }
         } else {
             $json['error'] = true;
-            $json['msg']   = $this->language->get('error_data_missing');
+            $json['msg'] = $this->language->get('error_data_missing');
         }
 
         $this->response->addHeader('Content-Type: application/json');
@@ -330,7 +329,7 @@ class ControllerExtensionPaymentRealexRemote extends Controller {
             if (isset($rebate_response->result) && $rebate_response->result == '00') {
                 $this->model_extension_payment_realex_remote->addTransaction($realex_order['realex_remote_order_id'], 'rebate', $this->request->post['amount'] * -1);
 
-                $total_rebated  = $this->model_extension_payment_realex_remote->getTotalRebated($realex_order['realex_remote_order_id']);
+                $total_rebated = $this->model_extension_payment_realex_remote->getTotalRebated($realex_order['realex_remote_order_id']);
                 $total_captured = $this->model_extension_payment_realex_remote->getTotalCaptured($realex_order['realex_remote_order_id']);
 
                 if ($total_captured <= 0 && $realex_order['capture_status'] == 1) {
@@ -345,21 +344,21 @@ class ControllerExtensionPaymentRealexRemote extends Controller {
                     $json['msg'] = $this->language->get('text_rebate_ok');
                 }
 
-                $json['data']                   = [];
-                $json['data']['date_added']     = date('Y-m-d H:i:s');
-                $json['data']['amount']         = $this->request->post['amount'] * -1;
+                $json['data'] = [];
+                $json['data']['date_added'] = date('Y-m-d H:i:s');
+                $json['data']['amount'] = $this->request->post['amount'] * -1;
                 $json['data']['total_captured'] = (float)$total_captured;
-                $json['data']['total_rebated']  = (float)$total_rebated;
-                $json['data']['rebate_status']  = $rebate_status;
+                $json['data']['total_rebated'] = (float)$total_rebated;
+                $json['data']['rebate_status'] = $rebate_status;
 
                 $json['error'] = false;
             } else {
                 $json['error'] = true;
-                $json['msg']   = (isset($rebate_response->message) && !empty($rebate_response->message) ? sprintf($this->language->get('error_status'), (string)$rebate_response->message) : $this->language->get('error_rebate'));
+                $json['msg'] = (isset($rebate_response->message) && !empty($rebate_response->message) ? sprintf($this->language->get('error_status'), (string)$rebate_response->message) : $this->language->get('error_rebate'));
             }
         } else {
             $json['error'] = true;
-            $json['msg']   = $this->language->get('error_data_missing');
+            $json['msg'] = $this->language->get('error_data_missing');
         }
 
         $this->response->addHeader('Content-Type: application/json');

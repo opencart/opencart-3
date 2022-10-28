@@ -26,53 +26,53 @@ class ControllerExtensionPaymentFirstdata extends Controller {
             $data['txntype'] = 'preauth';
         }
 
-        $tmp                 = $data['merchant_id'] . $data['timestamp'] . $data['amount'] . $data['currency'] . $this->config->get('payment_firstdata_secret');
-        $ascii               = bin2hex($tmp);
-        $data['hash']        = sha1($ascii);
-        $data['version']     = 'OPENCART-C-' . VERSION;
-        $data['bcompany']    = $order_info['payment_company'];
-        $data['bname']       = $order_info['payment_firstname'] . ' ' . $order_info['payment_lastname'];
-        $data['baddr1']      = substr($order_info['payment_address_1'], 0, 30);
-        $data['baddr2']      = substr($order_info['payment_address_2'], 0, 30);
-        $data['bcity']       = substr($order_info['payment_city'], 0, 30);
-        $data['bstate']      = substr($order_info['payment_zone'], 0, 30);
-        $data['bcountry']    = $order_info['payment_iso_code_2'];
-        $data['bzip']        = $order_info['payment_postcode'];
-        $data['email']       = $order_info['email'];
-        $data['amount']      = $this->currency->format($order_info['total'], $order_info['currency_code'], $order_info['currency_value'], false);
-        $data['currency']    = $this->model_extension_payment_firstdata->mapCurrency($order_info['currency_code']);
+        $tmp = $data['merchant_id'] . $data['timestamp'] . $data['amount'] . $data['currency'] . $this->config->get('payment_firstdata_secret');
+        $ascii = bin2hex($tmp);
+        $data['hash'] = sha1($ascii);
+        $data['version'] = 'OPENCART-C-' . VERSION;
+        $data['bcompany'] = $order_info['payment_company'];
+        $data['bname'] = $order_info['payment_firstname'] . ' ' . $order_info['payment_lastname'];
+        $data['baddr1'] = substr($order_info['payment_address_1'], 0, 30);
+        $data['baddr2'] = substr($order_info['payment_address_2'], 0, 30);
+        $data['bcity'] = substr($order_info['payment_city'], 0, 30);
+        $data['bstate'] = substr($order_info['payment_zone'], 0, 30);
+        $data['bcountry'] = $order_info['payment_iso_code_2'];
+        $data['bzip'] = $order_info['payment_postcode'];
+        $data['email'] = $order_info['email'];
+        $data['amount'] = $this->currency->format($order_info['total'], $order_info['currency_code'], $order_info['currency_value'], false);
+        $data['currency'] = $this->model_extension_payment_firstdata->mapCurrency($order_info['currency_code']);
         $data['merchant_id'] = $this->config->get('payment_firstdata_merchant_id');
-        $data['timestamp']   = date('Y:m:d-H:i:s');
-        $data['order_id']    = 'CON-' . $this->session->data['order_id'] . 'T' . $data['timestamp'] . mt_rand(1, 999);
+        $data['timestamp'] = date('Y:m:d-H:i:s');
+        $data['order_id'] = 'CON-' . $this->session->data['order_id'] . 'T' . $data['timestamp'] . mt_rand(1, 999);
         $data['url_success'] = $this->url->link('checkout/success', '', true);
-        $data['url_fail']    = $this->url->link('extension/payment/firstdata/fail', '', true);
-        $data['url_notify']  = $this->url->link('extension/payment/firstdata/notify', '', true);
+        $data['url_fail'] = $this->url->link('extension/payment/firstdata/fail', '', true);
+        $data['url_notify'] = $this->url->link('extension/payment/firstdata/notify', '', true);
 
         if ($this->cart->hasShipping()) {
-            $data['sname']    = $order_info['shipping_firstname'] . ' ' . $order_info['shipping_lastname'];
-            $data['saddr1']   = substr($order_info['shipping_address_1'], 0, 30);
-            $data['saddr2']   = substr($order_info['shipping_address_2'], 0, 30);
-            $data['scity']    = substr($order_info['shipping_city'], 0, 30);
-            $data['sstate']   = substr($order_info['shipping_zone'], 0, 30);
+            $data['sname'] = $order_info['shipping_firstname'] . ' ' . $order_info['shipping_lastname'];
+            $data['saddr1'] = substr($order_info['shipping_address_1'], 0, 30);
+            $data['saddr2'] = substr($order_info['shipping_address_2'], 0, 30);
+            $data['scity'] = substr($order_info['shipping_city'], 0, 30);
+            $data['sstate'] = substr($order_info['shipping_zone'], 0, 30);
             $data['scountry'] = $order_info['shipping_iso_code_2'];
-            $data['szip']     = $order_info['shipping_postcode'];
+            $data['szip'] = $order_info['shipping_postcode'];
         } else {
-            $data['sname']    = $order_info['payment_firstname'] . ' ' . $order_info['payment_lastname'];
-            $data['saddr1']   = substr($order_info['payment_address_1'], 0, 30);
-            $data['saddr2']   = substr($order_info['payment_address_2'], 0, 30);
-            $data['scity']    = substr($order_info['payment_city'], 0, 30);
-            $data['sstate']   = substr($order_info['payment_zone'], 0, 30);
+            $data['sname'] = $order_info['payment_firstname'] . ' ' . $order_info['payment_lastname'];
+            $data['saddr1'] = substr($order_info['payment_address_1'], 0, 30);
+            $data['saddr2'] = substr($order_info['payment_address_2'], 0, 30);
+            $data['scity'] = substr($order_info['payment_city'], 0, 30);
+            $data['sstate'] = substr($order_info['payment_zone'], 0, 30);
             $data['scountry'] = $order_info['payment_iso_code_2'];
-            $data['szip']     = $order_info['payment_postcode'];
+            $data['szip'] = $order_info['payment_postcode'];
         }
 
         if ($this->config->get('payment_firstdata_card_storage') == 1 && $this->customer->isLogged()) {
-            $data['card_storage']  = 1;
-            $data['stored_cards']  = $this->model_extension_payment_firstdata->getStoredCards();
+            $data['card_storage'] = 1;
+            $data['stored_cards'] = $this->model_extension_payment_firstdata->getStoredCards();
             $data['new_hosted_id'] = sha1($this->customer->getId() . '-' . date('Y-m-d-H-i-s') . rand(10, 500));
         } else {
-            $data['card_storage']  = 0;
-            $data['stored_cards']  = [];
+            $data['card_storage'] = 0;
+            $data['stored_cards'] = [];
         }
 
         return $this->load->view('extension/payment/firstdata', $data);
@@ -95,8 +95,8 @@ class ControllerExtensionPaymentFirstdata extends Controller {
 
             if ($local_hash == $this->request->post['notification_hash']) {
                 $order_id_parts = explode('T', $this->request->post['oid']);
-                $order_id       = str_replace("CON-", "", $order_id_parts[0]);
-                $order_info     = $this->model_checkout_order->getOrder($order_id);
+                $order_id = str_replace("CON-", "", $order_id_parts[0]);
+                $order_info = $this->model_checkout_order->getOrder($order_id);
 
                 if ($this->request->post['txntype'] == 'preauth' || $this->request->post['txntype'] == 'sale') {
                     if (isset($this->request->post['approval_code'])) {
@@ -136,14 +136,14 @@ class ControllerExtensionPaymentFirstdata extends Controller {
                             if (isset($response_parts[3])) {
                                 if (strlen($response_parts[3]) == 4) {
                                     $address_pass = strtoupper(substr($response_parts[3], 0, 3));
-                                    $cvv_pass     = strtoupper(substr($response_parts[3], -1));
+                                    $cvv_pass = strtoupper(substr($response_parts[3], -1));
 
                                     if (!array_key_exists($cvv_pass, $cvv_codes)) {
                                         $cvv_pass = 'NONE';
                                     }
                                 } else {
                                     $address_pass = $response_parts[3];
-                                    $cvv_pass     = 'NONE';
+                                    $cvv_pass = 'NONE';
                                 }
 
                                 $message .= $this->language->get('text_address_response') . $address_codes[$address_pass] . '<br/>';

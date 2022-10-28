@@ -37,15 +37,15 @@ class ModelExtensionPaymentRealex extends Model {
         $realex_order = $this->getOrder($order_id);
 
         if (!empty($realex_order)) {
-            $timestamp   = date('YmdHis');
+            $timestamp = date('YmdHis');
             $merchant_id = $this->config->get('payment_realex_merchant_id');
-            $secret      = $this->config->get('payment_realex_secret');
+            $secret = $this->config->get('payment_realex_secret');
 
             $this->logger('Void hash construct: ' . $timestamp . '.' . $merchant_id . '.' . $realex_order['order_ref'] . '...');
 
-            $tmp  = $timestamp . '.' . $merchant_id . '.' . $realex_order['order_ref'] . '...';
+            $tmp = $timestamp . '.' . $merchant_id . '.' . $realex_order['order_ref'] . '...';
             $hash = sha1($tmp);
-            $tmp  = $hash . '.' . $secret;
+            $tmp = $hash . '.' . $secret;
             $hash = sha1($tmp);
 
             $xml = '';
@@ -87,29 +87,29 @@ class ModelExtensionPaymentRealex extends Model {
         $realex_order = $this->getOrder($order_id);
 
         if (!empty($realex_order) && $realex_order['capture_status'] == 0) {
-            $timestamp   = date('YmdHis');
+            $timestamp = date('YmdHis');
             $merchant_id = $this->config->get('payment_realex_merchant_id');
-            $secret      = $this->config->get('payment_realex_secret');
+            $secret = $this->config->get('payment_realex_secret');
 
             if ($realex_order['settle_type'] == 2) {
                 $this->logger('Capture hash construct: ' . $timestamp . '.' . $merchant_id . '.' . $realex_order['order_ref'] . '.' . (int)round($amount * 100) . '.' . (string)$realex_order['currency_code'] . '.');
 
-                $tmp         = $timestamp . '.' . $merchant_id . '.' . $realex_order['order_ref'] . '.' . (int)round($amount * 100) . '.' . (string)$realex_order['currency_code'] . '.';
-                $hash        = sha1($tmp);
-                $tmp         = $hash . '.' . $secret;
-                $hash        = sha1($tmp);
+                $tmp = $timestamp . '.' . $merchant_id . '.' . $realex_order['order_ref'] . '.' . (int)round($amount * 100) . '.' . (string)$realex_order['currency_code'] . '.';
+                $hash = sha1($tmp);
+                $tmp = $hash . '.' . $secret;
+                $hash = sha1($tmp);
                 $settle_type = 'multisettle';
-                $xml_amount  = '<amount currency="' . (string)$realex_order['currency_code'] . '">' . (int)round($amount * 100) . '</amount>';
+                $xml_amount = '<amount currency="' . (string)$realex_order['currency_code'] . '">' . (int)round($amount * 100) . '</amount>';
             } else {
                 //$this->logger('Capture hash construct: ' . $timestamp . '.' . $merchant_id . '.' . $realex_order['order_ref'] . '...');
                 $this->logger('Capture hash construct: ' . $timestamp . '.' . $merchant_id . '.' . $realex_order['order_ref'] . '.' . (int)round($amount * 100) . '.' . (string)$realex_order['currency_code'] . '.');
 
-                $tmp         = $timestamp . '.' . $merchant_id . '.' . $realex_order['order_ref'] . '.' . (int)round($amount * 100) . '.' . (string)$realex_order['currency_code'] . '.';
-                $hash        = sha1($tmp);
-                $tmp         = $hash . '.' . $secret;
-                $hash        = sha1($tmp);
+                $tmp = $timestamp . '.' . $merchant_id . '.' . $realex_order['order_ref'] . '.' . (int)round($amount * 100) . '.' . (string)$realex_order['currency_code'] . '.';
+                $hash = sha1($tmp);
+                $tmp = $hash . '.' . $secret;
+                $hash = sha1($tmp);
                 $settle_type = 'settle';
-                $xml_amount  = '<amount currency="' . (string)$realex_order['currency_code'] . '">' . (int)round($amount * 100) . '</amount>';
+                $xml_amount = '<amount currency="' . (string)$realex_order['currency_code'] . '">' . (int)round($amount * 100) . '</amount>';
             }
 
             $xml = '';
@@ -157,9 +157,9 @@ class ModelExtensionPaymentRealex extends Model {
         $realex_order = $this->getOrder($order_id);
 
         if (!empty($realex_order) && $realex_order['rebate_status'] != 1) {
-            $timestamp   = date('YmdHis');
+            $timestamp = date('YmdHis');
             $merchant_id = $this->config->get('payment_realex_merchant_id');
-            $secret      = $this->config->get('payment_realex_secret');
+            $secret = $this->config->get('payment_realex_secret');
 
             if ($realex_order['settle_type'] == 2) {
                 $order_ref = '_multisettle_' . $realex_order['order_ref'];
@@ -171,15 +171,15 @@ class ModelExtensionPaymentRealex extends Model {
                 }
             } else {
                 $order_ref = $realex_order['order_ref'];
-                $pas_ref   = $realex_order['pasref'];
+                $pas_ref = $realex_order['pasref'];
             }
 
             $this->logger('Rebate hash construct: ' . $timestamp . '.' . $merchant_id . '.' . $order_ref . '.' . (int)round($amount * 100) . '.' . $realex_order['currency_code'] . '.');
 
-            $tmp         = $timestamp . '.' . $merchant_id . '.' . $order_ref . '.' . (int)round($amount * 100) . '.' . $realex_order['currency_code'] . '.';
-            $hash        = sha1($tmp);
-            $tmp         = $hash . '.' . $secret;
-            $hash        = sha1($tmp);
+            $tmp = $timestamp . '.' . $merchant_id . '.' . $order_ref . '.' . (int)round($amount * 100) . '.' . $realex_order['currency_code'] . '.';
+            $hash = sha1($tmp);
+            $tmp = $hash . '.' . $secret;
+            $hash = sha1($tmp);
             $rebate_hash = sha1($this->config->get('payment_realex_rebate_password'));
 
             $xml = '';
@@ -225,7 +225,7 @@ class ModelExtensionPaymentRealex extends Model {
         $query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "realex_order` WHERE `order_id` = '" . (int)$order_id . "' LIMIT 1");
 
         if ($query->num_rows) {
-            $order                 = $query->row;
+            $order = $query->row;
             $order['transactions'] = $this->getTransactions($order['realex_order_id']);
 
             $this->logger(print_r($order, 1));

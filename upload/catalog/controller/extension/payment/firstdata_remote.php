@@ -14,7 +14,7 @@ class ControllerExtensionPaymentFirstdataRemote extends Controller {
         }
 
         $data['accepted_cards'] = $this->config->get('payment_firstdata_remote_cards_accepted');
-        $data['months']         = [];
+        $data['months'] = [];
 
         for ($i = 1; $i <= 12; $i++) {
             $data['months'][] = [
@@ -23,7 +23,7 @@ class ControllerExtensionPaymentFirstdataRemote extends Controller {
             ];
         }
 
-        $today               = getdate();
+        $today = getdate();
         $data['year_expire'] = [];
 
         for ($i = $today['year']; $i < $today['year'] + 11; $i++) {
@@ -80,26 +80,26 @@ class ControllerExtensionPaymentFirstdataRemote extends Controller {
                 'NONE' => $this->language->get('text_card_code_blank')
             ];
 
-            $order_id       = (int)$this->session->data['order_id'];
-            $order_info     = $this->model_checkout_order->getOrder($order_id);
+            $order_id = (int)$this->session->data['order_id'];
+            $order_info = $this->model_checkout_order->getOrder($order_id);
             $capture_result = $this->model_extension_payment_firstdata_remote->capturePayment($this->request->post, $order_id);
-            $message        = '';
+            $message = '';
 
             if (isset($capture_result['transaction_result']) && strtoupper($capture_result['transaction_result']) == 'APPROVED') {
                 $json['success'] = $this->url->link('checkout/success');
-                $message         .= $this->language->get('text_result') . $capture_result['transaction_result'] . '<br/>';
-                $message         .= $this->language->get('text_avs') . $address_codes[$capture_result['avs']] . ' (' . $capture_result['avs'] . ')<br/>';
+                $message .= $this->language->get('text_result') . $capture_result['transaction_result'] . '<br/>';
+                $message .= $this->language->get('text_avs') . $address_codes[$capture_result['avs']] . ' (' . $capture_result['avs'] . ')<br/>';
 
                 if (!empty($capture_result['ccv'])) {
-                    $message         .= $this->language->get('text_card_code_verify') . $cvv_codes[$capture_result['ccv']] . ' (' . $capture_result['ccv'] . ')<br/>';
+                    $message .= $this->language->get('text_card_code_verify') . $cvv_codes[$capture_result['ccv']] . ' (' . $capture_result['ccv'] . ')<br/>';
                 }
 
-                $message     .= $this->language->get('text_approval_code') . $capture_result['approval_code'] . '<br/>';
-                $message     .= $this->language->get('text_reference_number') . $capture_result['reference_number'] . '<br/>';
-                $message     .= $this->language->get('text_card_brand') . $capture_result['brand'] . '<br/>';
-                $message     .= $this->language->get('text_card_number_ref') . $capture_result['card_number_ref'] . '<br/>';
-                $message     .= $this->language->get('text_response_code') . $capture_result['response_code'] . '<br/>';
-                
+                $message .= $this->language->get('text_approval_code') . $capture_result['approval_code'] . '<br/>';
+                $message .= $this->language->get('text_reference_number') . $capture_result['reference_number'] . '<br/>';
+                $message .= $this->language->get('text_card_brand') . $capture_result['brand'] . '<br/>';
+                $message .= $this->language->get('text_card_number_ref') . $capture_result['card_number_ref'] . '<br/>';
+                $message .= $this->language->get('text_response_code') . $capture_result['response_code'] . '<br/>';
+
                 $fd_order_id = $this->model_extension_payment_firstdata_remote->addOrder($order_info, $capture_result);
 
                 if ($this->config->get('payment_firstdata_remote_auto_settle') == 1) {

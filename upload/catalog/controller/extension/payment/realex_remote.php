@@ -78,13 +78,13 @@ class ControllerExtensionPaymentRealexRemote extends Controller {
             return;
         }
 
-        $order_id   = (int)$this->session->data['order_id'];
+        $order_id = (int)$this->session->data['order_id'];
 
-        $order_ref  = $order_id . 'T' . date('YmdHis') . mt_rand(1, 999);
+        $order_ref = $order_id . 'T' . date('YmdHis') . mt_rand(1, 999);
         $order_info = $this->model_checkout_order->getOrder($order_id);
-        $amount     = round($this->currency->format($order_info['total'], $order_info['currency_code'], $order_info['currency_value'], false) * 100);
-        $currency   = $order_info['currency_code'];
-        $accounts   = $this->config->get('payment_realex_remote_account');
+        $amount = round($this->currency->format($order_info['total'], $order_info['currency_code'], $order_info['currency_value'], false) * 100);
+        $currency = $order_info['currency_code'];
+        $accounts = $this->config->get('payment_realex_remote_account');
 
         if (isset($accounts[$this->request->post['cc_type']]['default']) && $accounts[$this->request->post['cc_type']]['default'] == 1) {
             $account = $this->config->get('payment_realex_remote_merchant_id');
@@ -92,10 +92,10 @@ class ControllerExtensionPaymentRealexRemote extends Controller {
             $account = $accounts[$this->request->post['cc_type']]['merchant_id'];
         }
 
-        $eci_ref    = '';
-        $eci        = '';
-        $cavv       = '';
-        $xid        = '';
+        $eci_ref = '';
+        $eci = '';
+        $cavv = '';
+        $xid = '';
 
         if ($this->config->get('payment_realex_remote_3d') == 1) {
             if ($this->request->post['cc_type'] == 'visa' || $this->request->post['cc_type'] == 'mc' || $this->request->post['cc_type'] == 'amex') {
@@ -121,10 +121,10 @@ class ControllerExtensionPaymentRealexRemote extends Controller {
 
                     $md = $this->encryption->encrypt($this->config->get('config_encryption'), json_encode($enc_data));
 
-                    $json            = [];
-                    $json['ACSURL']  = (string)$verify_3ds->url;
-                    $json['MD']      = $md;
-                    $json['PaReq']   = (string)$verify_3ds->pareq;
+                    $json = [];
+                    $json['ACSURL'] = (string)$verify_3ds->url;
+                    $json['MD'] = $md;
+                    $json['PaReq'] = (string)$verify_3ds->pareq;
                     $json['TermUrl'] = $this->url->link('extension/payment/realex_remote/acsReturn', '', true);
 
                     $this->response->addHeader('Content-Type: application/json');
@@ -135,8 +135,8 @@ class ControllerExtensionPaymentRealexRemote extends Controller {
                 // Cardholder Not Enrolled. Shift in liability. ECI = 6
                 if (isset($verify_3ds->result) && $verify_3ds->result == '110' && isset($verify_3ds->enrolled) && $verify_3ds->enrolled == 'N') {
                     $eci_ref = 1;
-                    $xid     = '';
-                    $cavv    = '';
+                    $xid = '';
+                    $cavv = '';
 
                     if ($this->request->post['cc_type'] == 'mc') {
                         $eci = 1;
@@ -157,8 +157,8 @@ class ControllerExtensionPaymentRealexRemote extends Controller {
                         $this->response->output();
                     } else {
                         $eci_ref = 2;
-                        $xid     = '';
-                        $cavv    = '';
+                        $xid = '';
+                        $cavv = '';
 
                         if ($this->request->post['cc_type'] == 'mc') {
                             $eci = 0;
@@ -210,8 +210,8 @@ class ControllerExtensionPaymentRealexRemote extends Controller {
             $this->load->model('checkout/order');
             $this->load->model('extension/payment/realex_remote');
 
-            $post             = $this->request->post;
-            $md               = json_decode($this->encryption->decrypt($this->config->get('config_encryption'), $post['MD']), true);
+            $post = $this->request->post;
+            $md = json_decode($this->encryption->decrypt($this->config->get('config_encryption'), $post['MD']), true);
             $signature_result = $this->model_extension_payment_realex_remote->enrollmentSignature($md['account'], $md['amount'], $md['currency'], $md['order_ref'], $md['cc_number'], $md['cc_expire'], $md['cc_type'], $md['cc_name'], $post['PaRes']);
 
             $this->model_extension_payment_realex_remote->logger('Signature result:\r\n' . print_r($signature_result, 1));
@@ -223,9 +223,9 @@ class ControllerExtensionPaymentRealexRemote extends Controller {
                     $eci_ref = 6;
                 }
 
-                $eci  = (string)$signature_result->threedsecure->eci;
+                $eci = (string)$signature_result->threedsecure->eci;
                 $cavv = (string)$signature_result->threedsecure->cavv;
-                $xid  = (string)$signature_result->threedsecure->xid;
+                $xid = (string)$signature_result->threedsecure->xid;
             } else {
                 if ($md['cc_type'] == 'mc') {
                     $eci = 0;
@@ -236,29 +236,29 @@ class ControllerExtensionPaymentRealexRemote extends Controller {
                 // Enrolled but invalid response from ACS. No shift in liability. ECI = 7
                 if ($signature_result->result == '110' && strtoupper($signature_result->threedsecure->status) == 'Y') {
                     $eci_ref = 4;
-                    $cavv    = (string)$signature_result->threedsecure->cavv;
-                    $xid     = (string)$signature_result->threedsecure->xid;
+                    $cavv = (string)$signature_result->threedsecure->cavv;
+                    $xid = (string)$signature_result->threedsecure->xid;
                 }
 
                 // Incorrect password entered. No shift in liability. ECI = 7
                 if ($signature_result->result == '00' && strtoupper($signature_result->threedsecure->status) == 'N') {
                     $eci_ref = 7;
-                    $xid     = (string)$signature_result->threedsecure->xid;
-                    $cavv    = '';
+                    $xid = (string)$signature_result->threedsecure->xid;
+                    $cavv = '';
                 }
 
                 // Authentication Unavailable. No shift in liability. ECI = 7
                 if ($signature_result->result == '00' && strtoupper($signature_result->threedsecure->status) == 'U') {
                     $eci_ref = 8;
-                    $xid     = (string)$signature_result->threedsecure->xid;
-                    $cavv    = '';
+                    $xid = (string)$signature_result->threedsecure->xid;
+                    $cavv = '';
                 }
 
                 // Invalid response from ACS. No shift in liability. ECI = 7
                 if (isset($signature_result->result) && $signature_result->result >= 500 && $signature_result->result < 600) {
                     $eci_ref = 9;
-                    $xid     = '';
-                    $cavv    = '';
+                    $xid = '';
+                    $cavv = '';
                 }
 
                 if ($this->config->get('payment_realex_remote_liability') != 1) {

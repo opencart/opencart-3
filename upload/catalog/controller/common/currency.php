@@ -18,7 +18,7 @@ class ControllerCommonCurrency extends Controller {
 
         $this->load->model('localisation/currency');
 
-        $results            = $this->model_localisation_currency->getCurrencies();
+        $results = $this->model_localisation_currency->getCurrencies();
 
         foreach ($results as $result) {
             if ($result['status']) {
@@ -37,8 +37,8 @@ class ControllerCommonCurrency extends Controller {
             $url = '&' . urldecode(http_build_query($url_data, '', '&'));
         }
 
-        $data['code']     = $this->session->data['currency'];
-        $data['action']   = $this->url->link('common/currency/currency', '', $this->request->server['HTTPS']);
+        $data['code'] = $this->session->data['currency'];
+        $data['action'] = $this->url->link('common/currency/currency', '', $this->request->server['HTTPS']);
         $data['redirect'] = $this->url->link($route, $url);
 
         return $this->load->view('common/currency', $data);

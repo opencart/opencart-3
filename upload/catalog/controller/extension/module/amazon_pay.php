@@ -13,10 +13,10 @@ class ControllerExtensionModuleAmazonPay extends Controller {
 
             $this->document->addScript($amazon_payment_js);
 
-            $data['client_id']   = $this->config->get('payment_amazon_login_pay_client_id');
+            $data['client_id'] = $this->config->get('payment_amazon_login_pay_client_id');
             $data['merchant_id'] = $this->config->get('payment_amazon_login_pay_merchant_id');
-            $data['return_url']  = html_entity_decode($this->url->link('extension/module/amazon_login/login', 'from_amazon_pay=1', true), ENT_COMPAT, "UTF-8");
-            $data['button_id']   = 'AmazonPayButton';
+            $data['return_url'] = html_entity_decode($this->url->link('extension/module/amazon_login/login', 'from_amazon_pay=1', true), ENT_COMPAT, "UTF-8");
+            $data['button_id'] = 'AmazonPayButton';
 
             if ($this->config->get('payment_amazon_login_pay_test') == 'sandbox') {
                 $data['sandbox'] = isset($this->session->data['user_id']); // Require an active admin panel session to show debug messages
@@ -41,13 +41,25 @@ class ControllerExtensionModuleAmazonPay extends Controller {
             }
 
             if ($this->config->get('config_language')) {
-                $session_lang      = $this->config->get('config_language');
+                $session_lang = $this->config->get('config_language');
 
                 $session_lang_code = current(explode('-', $session_lang));
 
                 $language_region_mapping = [
-                    'EUR' => ['de-De', 'es-ES', 'fr-FR', 'it-IT', 'en-GB'],
-                    'GBP' => ['de-De', 'es-ES', 'fr-FR', 'it-IT', 'en-GB'],
+                    'EUR' => [
+                        'de-De',
+                        'es-ES',
+                        'fr-FR',
+                        'it-IT',
+                        'en-GB'
+                    ],
+                    'GBP' => [
+                        'de-De',
+                        'es-ES',
+                        'fr-FR',
+                        'it-IT',
+                        'en-GB'
+                    ],
                     'USD' => ['en-US']
                 ];
 
@@ -71,6 +83,8 @@ class ControllerExtensionModuleAmazonPay extends Controller {
             }
 
             return $this->load->view('extension/module/amazon_login', $data);
+        } else {
+            return '';
         }
     }
 }

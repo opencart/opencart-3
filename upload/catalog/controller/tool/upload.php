@@ -15,9 +15,9 @@ class ControllerToolUpload extends Controller {
             }
 
             // Allowed file extension types
-            $allowed           = [];
+            $allowed = [];
             $extension_allowed = preg_replace('~\r?\n~', "\n", $this->config->get('config_file_ext_allowed'));
-            $filetypes         = explode("\n", $extension_allowed);
+            $filetypes = explode("\n", $extension_allowed);
 
             foreach ($filetypes as $filetype) {
                 $allowed[] = trim($filetype);
@@ -28,9 +28,9 @@ class ControllerToolUpload extends Controller {
             }
 
             // Allowed file mime types
-            $allowed      = [];
+            $allowed = [];
             $mime_allowed = preg_replace('~\r?\n~', "\n", $this->config->get('config_file_mime_allowed'));
-            $filetypes    = explode("\n", $mime_allowed);
+            $filetypes = explode("\n", $mime_allowed);
 
             foreach ($filetypes as $filetype) {
                 $allowed[] = trim($filetype);
@@ -63,7 +63,7 @@ class ControllerToolUpload extends Controller {
             // Hide the uploaded file name so people can not link to it directly.
             $this->load->model('tool/upload');
 
-            $json['code']    = $this->model_tool_upload->addUpload($filename, $file);
+            $json['code'] = $this->model_tool_upload->addUpload($filename, $file);
             $json['success'] = $this->language->get('text_upload');
         }
 

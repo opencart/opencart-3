@@ -18,7 +18,7 @@ class ControllerExtensionPaymentCardConnect extends Controller {
             $this->response->redirect($this->url->link('marketplace/extension', 'user_token=' . $this->session->data['user_token'] . '&type=payment', true));
         }
 
-        $data['breadcrumbs']   = [];
+        $data['breadcrumbs'] = [];
 
         $data['breadcrumbs'][] = [
             'text' => $this->language->get('text_home'),
@@ -202,13 +202,13 @@ class ControllerExtensionPaymentCardConnect extends Controller {
         // Geo Zones
         $this->load->model('localisation/geo_zone');
 
-        $data['geo_zones']      = $this->model_localisation_geo_zone->getGeoZones();
+        $data['geo_zones'] = $this->model_localisation_geo_zone->getGeoZones();
 
-        $data['user_token']     = $this->session->data['user_token'];
+        $data['user_token'] = $this->session->data['user_token'];
 
-        $data['header']         = $this->load->controller('common/header');
-        $data['column_left']    = $this->load->controller('common/column_left');
-        $data['footer']         = $this->load->controller('common/footer');
+        $data['header'] = $this->load->controller('common/header');
+        $data['column_left'] = $this->load->controller('common/column_left');
+        $data['footer'] = $this->load->controller('common/footer');
 
         $this->response->setOutput($this->load->view('extension/payment/cardconnect', $data));
     }
@@ -251,8 +251,8 @@ class ControllerExtensionPaymentCardConnect extends Controller {
                 }
 
                 $payment_cardconnect_order['total_captured_formatted'] = $this->currency->format($payment_cardconnect_order['total_captured'], $payment_cardconnect_order['currency_code'], false, true);
-                $payment_cardconnect_order['total_formatted']          = $this->currency->format($payment_cardconnect_order['total'], $payment_cardconnect_order['currency_code'], false, true);
-                $payment_cardconnect_order['total_captured']           = $this->model_extension_payment_cardconnect->getTotalCaptured($payment_cardconnect_order['cardconnect_order_id']);
+                $payment_cardconnect_order['total_formatted'] = $this->currency->format($payment_cardconnect_order['total'], $payment_cardconnect_order['currency_code'], false, true);
+                $payment_cardconnect_order['total_captured'] = $this->model_extension_payment_cardconnect->getTotalCaptured($payment_cardconnect_order['cardconnect_order_id']);
 
                 foreach ($payment_cardconnect_order['transactions'] as &$transaction) {
                     switch ($transaction['type']) {
@@ -281,12 +281,12 @@ class ControllerExtensionPaymentCardConnect extends Controller {
                     }
 
                     $transaction['date_modified'] = date($this->language->get('datetime_format'), strtotime($transaction['date_modified']));
-                    $transaction['date_added']    = date($this->language->get('datetime_format'), strtotime($transaction['date_added']));
+                    $transaction['date_added'] = date($this->language->get('datetime_format'), strtotime($transaction['date_added']));
                 }
 
                 $data['payment_cardconnect_order'] = $payment_cardconnect_order;
-                $data['order_id']                  = (int)$this->request->get['order_id'];
-                $data['user_token']                = $this->session->data['user_token'];
+                $data['order_id'] = (int)$this->request->get['order_id'];
+                $data['user_token'] = $this->session->data['user_token'];
 
                 return $this->load->view('extension/payment/cardconnect_order', $data);
             } else {
@@ -312,13 +312,13 @@ class ControllerExtensionPaymentCardConnect extends Controller {
                     $inquire_response = $this->model_extension_payment_cardconnect->inquire($payment_cardconnect_order, $this->request->post['retref']);
 
                     if (isset($inquire_response['respstat']) && $inquire_response['respstat'] == 'C') {
-                        $json['error']         = $inquire_response['resptext'];
+                        $json['error'] = $inquire_response['resptext'];
                     } else {
                         $this->model_extension_payment_cardconnect->updateTransactionStatusByRetref($this->request->post['retref'], $inquire_response['setlstat']);
 
                         $json['date_modified'] = date($this->language->get('datetime_format'));
-                        $json['status']        = $inquire_response['setlstat'];
-                        $json['success']       = $this->language->get('text_inquire_success');
+                        $json['status'] = $inquire_response['setlstat'];
+                        $json['success'] = $this->language->get('text_inquire_success');
                     }
                 } else {
                     $json['error'] = $this->language->get('error_no_order');
@@ -350,22 +350,22 @@ class ControllerExtensionPaymentCardConnect extends Controller {
                         $capture_response = $this->model_extension_payment_cardconnect->capture($payment_cardconnect_order, $this->request->post['amount']);
 
                         if (!isset($capture_response['retref'])) {
-                            $json['error']          = $this->language->get('error_invalid_response');
+                            $json['error'] = $this->language->get('error_invalid_response');
                         } elseif (isset($capture_response['respstat']) && $capture_response['respstat'] == 'C') {
-                            $json['error']          = $capture_response['resptext'];
+                            $json['error'] = $capture_response['resptext'];
                         } else {
                             $this->model_extension_payment_cardconnect->addTransaction($payment_cardconnect_order['cardconnect_order_id'], 'payment', $capture_response['retref'], $this->request->post['amount'], $capture_response['setlstat']);
 
-                            $total_captured         = $this->model_extension_payment_cardconnect->getTotalCaptured($payment_cardconnect_order['cardconnect_order_id']);
+                            $total_captured = $this->model_extension_payment_cardconnect->getTotalCaptured($payment_cardconnect_order['cardconnect_order_id']);
 
-                            $json['retref']         = $capture_response['retref'];
-                            $json['amount']         = $this->currency->format($this->request->post['amount'], $payment_cardconnect_order['currency_code'], false, true);
-                            $json['status']         = $capture_response['setlstat'];
-                            $json['date_modified']  = date($this->language->get('datetime_format'));
-                            $json['date_added']     = date($this->language->get('datetime_format'));
+                            $json['retref'] = $capture_response['retref'];
+                            $json['amount'] = $this->currency->format($this->request->post['amount'], $payment_cardconnect_order['currency_code'], false, true);
+                            $json['status'] = $capture_response['setlstat'];
+                            $json['date_modified'] = date($this->language->get('datetime_format'));
+                            $json['date_added'] = date($this->language->get('datetime_format'));
                             $json['total_captured'] = $this->currency->format($total_captured, $payment_cardconnect_order['currency_code'], false, true);
 
-                            $json['success']        = $this->language->get('text_capture_success');
+                            $json['success'] = $this->language->get('text_capture_success');
                         }
                     } else {
                         $json['error'] = $this->language->get('error_no_order');
@@ -406,16 +406,16 @@ class ControllerExtensionPaymentCardConnect extends Controller {
                         } else {
                             $this->model_extension_payment_cardconnect->addTransaction($payment_cardconnect_order['cardconnect_order_id'], 'refund', $refund_response['retref'], $this->request->post['amount'] * -1, $refund_response['resptext']);
 
-                            $total_captured         = $this->model_extension_payment_cardconnect->getTotalCaptured($payment_cardconnect_order['cardconnect_order_id']);
+                            $total_captured = $this->model_extension_payment_cardconnect->getTotalCaptured($payment_cardconnect_order['cardconnect_order_id']);
 
-                            $json['retref']         = $refund_response['retref'];
-                            $json['amount']         = $this->currency->format($this->request->post['amount'] * -1, $payment_cardconnect_order['currency_code'], false, true);
-                            $json['status']         = $refund_response['resptext'];
-                            $json['date_modified']  = date($this->language->get('datetime_format'));
-                            $json['date_added']     = date($this->language->get('datetime_format'));
+                            $json['retref'] = $refund_response['retref'];
+                            $json['amount'] = $this->currency->format($this->request->post['amount'] * -1, $payment_cardconnect_order['currency_code'], false, true);
+                            $json['status'] = $refund_response['resptext'];
+                            $json['date_modified'] = date($this->language->get('datetime_format'));
+                            $json['date_added'] = date($this->language->get('datetime_format'));
                             $json['total_captured'] = $this->currency->format($total_captured, $payment_cardconnect_order['currency_code'], false, true);
 
-                            $json['success']        = $this->language->get('text_refund_success');
+                            $json['success'] = $this->language->get('text_refund_success');
                         }
                     } else {
                         $json['error'] = $this->language->get('error_no_order');
@@ -449,15 +449,15 @@ class ControllerExtensionPaymentCardConnect extends Controller {
                     $void_response = $this->model_extension_payment_cardconnect->void($payment_cardconnect_order, $this->request->post['retref']);
 
                     if (!isset($void_response['authcode']) || $void_response['authcode'] != 'REVERS') {
-                        $json['error']         = $void_response['resptext'];
+                        $json['error'] = $void_response['resptext'];
                     } else {
-                        $json['retref']        = $void_response['retref'];
-                        $json['amount']        = $this->currency->format(0.00, $payment_cardconnect_order['currency_code'], false, true);
-                        $json['status']        = $void_response['resptext'];
+                        $json['retref'] = $void_response['retref'];
+                        $json['amount'] = $this->currency->format(0.00, $payment_cardconnect_order['currency_code'], false, true);
+                        $json['status'] = $void_response['resptext'];
                         $json['date_modified'] = date($this->language->get('datetime_format'));
-                        $json['date_added']    = date($this->language->get('datetime_format'));
+                        $json['date_added'] = date($this->language->get('datetime_format'));
 
-                        $json['success']       = $this->language->get('text_void_success');
+                        $json['success'] = $this->language->get('text_void_success');
                     }
                 } else {
                     $json['error'] = $this->language->get('error_no_order');

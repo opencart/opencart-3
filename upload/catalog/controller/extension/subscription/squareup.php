@@ -16,7 +16,7 @@ class ControllerExtensionRecurringSquareup extends Controller {
 
         if ($subscription_info) {
             $data['cancel_url'] = html_entity_decode($this->url->link('extension/subscription/squareup/cancel', 'subscription_id=' . $subscription_id, 'SSL'));
-            $data['continue']   = $this->url->link('account/subscription', '', true);
+            $data['continue'] = $this->url->link('account/subscription', '', true);
 
             if ($subscription_info['status'] == ModelExtensionPaymentSquareup::RECURRING_ACTIVE) {
                 $data['subscription_id'] = $subscription_id;
@@ -51,7 +51,7 @@ class ControllerExtensionRecurringSquareup extends Controller {
 
             $this->load->model('checkout/order');
 
-            $order_info      = $this->model_checkout_order->getOrder($subscription_info['order_id']);
+            $order_info = $this->model_checkout_order->getOrder($subscription_info['order_id']);
 
             $this->model_checkout_order->addOrderHistory($subscription_info['order_id'], $order_info['order_status_id'], $this->language->get('text_order_history_cancel'), true);
 
@@ -89,9 +89,9 @@ class ControllerExtensionRecurringSquareup extends Controller {
         foreach ($this->model_extension_payment_squareup->nextRecurringPayments() as $payment) {
             try {
                 if (!$payment['is_free']) {
-                    $transaction        = $this->squareup->addTransaction($payment['transaction']);
+                    $transaction = $this->squareup->addTransaction($payment['transaction']);
                     $transaction_status = !empty($transaction['tenders'][0]['card_details']['status']) ? strtolower($transaction['tenders'][0]['card_details']['status']) : '';
-                    $target_currency    = $transaction['tenders'][0]['amount_money']['currency'];
+                    $target_currency = $transaction['tenders'][0]['amount_money']['currency'];
 
                     $amount = $this->squareup->standardDenomination($transaction['tenders'][0]['amount_money']['amount'], $target_currency);
 
@@ -99,9 +99,9 @@ class ControllerExtensionRecurringSquareup extends Controller {
 
                     $reference = $transaction['id'];
                 } else {
-                    $amount             = 0;
-                    $target_currency    = $this->config->get('config_currency');
-                    $reference          = '';
+                    $amount = 0;
+                    $target_currency = $this->config->get('config_currency');
+                    $reference = '';
                     $transaction_status = 'captured';
                 }
 
@@ -109,19 +109,19 @@ class ControllerExtensionRecurringSquareup extends Controller {
 
                 $this->model_extension_payment_squareup->addRecurringTransaction($payment['order_recurring_id'], $reference, $amount, $success);
 
-                $trial_expired     = false;
+                $trial_expired = false;
                 $recurring_expired = false;
                 $profile_suspended = false;
 
                 if ($success) {
-                    $trial_expired                                                 = $this->model_extension_payment_squareup->updateRecurringTrial($payment['order_recurring_id']);
-                    $recurring_expired                                             = $this->model_extension_payment_squareup->updateRecurringExpired($payment['order_recurring_id']);
+                    $trial_expired = $this->model_extension_payment_squareup->updateRecurringTrial($payment['order_recurring_id']);
+                    $recurring_expired = $this->model_extension_payment_squareup->updateRecurringExpired($payment['order_recurring_id']);
 
                     $result['transaction_success'][$payment['order_recurring_id']] = $this->currency->format($amount, $target_currency);
                 } else {
                     // Transaction was not successful. Suspend the subscription profile.
-                    $profile_suspended                                          = $this->model_extension_payment_squareup->suspendRecurringProfile($payment['order_recurring_id']);
-                    
+                    $profile_suspended = $this->model_extension_payment_squareup->suspendRecurringProfile($payment['order_recurring_id']);
+
                     $result['transaction_fail'][$payment['order_recurring_id']] = $this->currency->format($amount, $target_currency);
                 }
 

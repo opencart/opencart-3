@@ -340,9 +340,9 @@ class ControllerExtensionShippingFedex extends Controller {
             $data['shipping_fedex_sort_order'] = $this->config->get('shipping_fedex_sort_order');
         }
 
-        $data['header']      = $this->load->controller('common/header');
+        $data['header'] = $this->load->controller('common/header');
         $data['column_left'] = $this->load->controller('common/column_left');
-        $data['footer']      = $this->load->controller('common/footer');
+        $data['footer'] = $this->load->controller('common/footer');
 
         $this->response->setOutput($this->load->view('extension/shipping/fedex', $data));
     }

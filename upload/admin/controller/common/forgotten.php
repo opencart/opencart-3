@@ -31,7 +31,7 @@ class ControllerCommonForgotten extends Controller {
             $data['error_warning'] = '';
         }
 
-        $data['breadcrumbs']   = [];
+        $data['breadcrumbs'] = [];
 
         $data['breadcrumbs'][] = [
             'text' => $this->language->get('text_home'),

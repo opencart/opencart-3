@@ -12,7 +12,7 @@ class ControllerExtensionPaymentCardinity extends Controller {
             ];
         }
 
-        $today         = getdate();
+        $today = getdate();
         $data['years'] = [];
 
         for ($i = $today['year']; $i < $today['year'] + 11; $i++) {
@@ -134,7 +134,7 @@ class ControllerExtensionPaymentCardinity extends Controller {
 
         $this->load->model('extension/payment/cardinity');
 
-        $success  = false;
+        $success = false;
         $redirect = false;
 
         $encryption_data = [
@@ -145,19 +145,19 @@ class ControllerExtensionPaymentCardinity extends Controller {
         $hash = $this->encryption->encrypt($this->config->get('config_encryption'), json_encode($encryption_data));
 
         if (hash_equals($hash, $this->request->post['hash'])) {
-            $success         = true;
+            $success = true;
 
-            $data['url']     = $this->request->post['url'];
-            $data['PaReq']   = $this->request->post['PaReq'];
+            $data['url'] = $this->request->post['url'];
+            $data['PaReq'] = $this->request->post['PaReq'];
             $data['TermUrl'] = $this->request->post['TermUrl'];
-            $data['MD']      = $hash;
+            $data['MD'] = $hash;
         } else {
             $this->failedOrder($this->language->get('error_invalid_hash'));
 
-            $redirect        = $this->url->link('checkout/checkout', '', true);
+            $redirect = $this->url->link('checkout/checkout', '', true);
         }
 
-        $data['success']  = $success;
+        $data['success'] = $success;
         $data['redirect'] = $redirect;
 
         $this->response->setOutput($this->load->view('extension/payment/cardinity_3ds', $data));
@@ -169,7 +169,7 @@ class ControllerExtensionPaymentCardinity extends Controller {
         $this->load->model('extension/payment/cardinity');
 
         $success = false;
-        $error   = '';
+        $error = '';
 
         $encryption_data = [
             'order_id' => $this->session->data['order_id'],

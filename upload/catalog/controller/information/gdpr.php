@@ -10,7 +10,7 @@ class ControllerInformationGdpr extends Controller {
 
             $this->document->setTitle($this->language->get('heading_title'));
 
-            $data['breadcrumbs']   = [];
+            $data['breadcrumbs'] = [];
 
             $data['breadcrumbs'][] = [
                 'text' => $this->language->get('text_home'),
@@ -22,20 +22,20 @@ class ControllerInformationGdpr extends Controller {
                 'href' => $this->url->link('information/gdpr')
             ];
 
-            $data['action']         = $this->url->link('information/gdpr/action');
-            $data['title']          = $information_info['title'];
-            $data['gdpr']           = $this->url->link('information/information' . '&information_id=' . $information_info['information_id']);
-            $data['email']          = $this->customer->getEmail();
-            $data['store']          = $this->config->get('config_name');
-            $data['limit']          = $this->config->get('config_gdpr_limit');
-            $data['cancel']         = $this->url->link('account/account');
+            $data['action'] = $this->url->link('information/gdpr/action');
+            $data['title'] = $information_info['title'];
+            $data['gdpr'] = $this->url->link('information/information' . '&information_id=' . $information_info['information_id']);
+            $data['email'] = $this->customer->getEmail();
+            $data['store'] = $this->config->get('config_name');
+            $data['limit'] = $this->config->get('config_gdpr_limit');
+            $data['cancel'] = $this->url->link('account/account');
 
-            $data['column_left']    = $this->load->controller('common/column_left');
-            $data['column_right']   = $this->load->controller('common/column_right');
-            $data['content_top']    = $this->load->controller('common/content_top');
+            $data['column_left'] = $this->load->controller('common/column_left');
+            $data['column_right'] = $this->load->controller('common/column_right');
+            $data['content_top'] = $this->load->controller('common/content_top');
             $data['content_bottom'] = $this->load->controller('common/content_bottom');
-            $data['footer']         = $this->load->controller('common/footer');
-            $data['header']         = $this->load->controller('common/header');
+            $data['footer'] = $this->load->controller('common/footer');
+            $data['header'] = $this->load->controller('common/header');
 
             $this->response->setOutput($this->load->view('information/gdpr', $data));
         } else {
@@ -142,7 +142,7 @@ class ControllerInformationGdpr extends Controller {
 
             $this->document->setTitle($this->language->get('heading_title'));
 
-            $data['breadcrumbs']   = [];
+            $data['breadcrumbs'] = [];
             $data['breadcrumbs'][] = [
                 'text' => $this->language->get('text_home'),
                 'href' => $this->url->link('common/home')
@@ -168,12 +168,12 @@ class ControllerInformationGdpr extends Controller {
                 $data['text_message'] = sprintf($this->language->get('text_remove'), $this->config->get('config_gdpr_limit'));
             }
 
-            $data['column_left']    = $this->load->controller('common/column_left');
-            $data['column_right']   = $this->load->controller('common/column_right');
-            $data['content_top']    = $this->load->controller('common/content_top');
+            $data['column_left'] = $this->load->controller('common/column_left');
+            $data['column_right'] = $this->load->controller('common/column_right');
+            $data['content_top'] = $this->load->controller('common/content_top');
             $data['content_bottom'] = $this->load->controller('common/content_bottom');
-            $data['footer']         = $this->load->controller('common/footer');
-            $data['header']         = $this->load->controller('common/header');
+            $data['footer'] = $this->load->controller('common/footer');
+            $data['header'] = $this->load->controller('common/header');
 
             $this->response->setOutput($this->load->view('common/success', $data));
         } else {

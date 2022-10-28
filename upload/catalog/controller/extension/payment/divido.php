@@ -1,7 +1,6 @@
 <?php
 class ControllerExtensionPaymentDivido extends Controller {
     const STATUS_ACCEPTED = 'ACCEPTED', STATUS_ACTION_LENDER = 'ACTION-LENDER', STATUS_CANCELED = 'CANCELED', STATUS_COMPLETED = 'COMPLETED', STATUS_DEPOSIT_PAID = 'DEPOSIT-PAID', STATUS_DECLINED = 'DECLINED', STATUS_DEFERRED = 'DEFERRED', STATUS_REFERRED = 'REFERRED', STATUS_FULFILLED = 'FULFILLED', STATUS_SIGNED = 'SIGNED';
-
     private array $status_id = [
         self::STATUS_ACCEPTED      => 1,
         self::STATUS_ACTION_LENDER => 2,
@@ -34,11 +33,14 @@ class ControllerExtensionPaymentDivido extends Controller {
         $this->load->model('extension/payment/divido');
         $this->load->model('checkout/order');
 
-        $api_key   = $this->config->get('payment_divido_api_key');
+        $api_key = $this->config->get('payment_divido_api_key');
         $key_parts = explode('.', $api_key);
-        $js_key    = strtolower(array_shift($key_parts));
+        $js_key = strtolower(array_shift($key_parts));
 
-        [$total, $totals] = $this->model_extension_payment_divido->getOrderTotals();
+        [
+            $total,
+            $totals
+        ] = $this->model_extension_payment_divido->getOrderTotals();
 
         $this->model_extension_payment_divido->setMerchant($this->config->get('payment_divido_api_key'));
 
@@ -52,11 +54,11 @@ class ControllerExtensionPaymentDivido extends Controller {
             }
         }
 
-        $plans_ids = array_map(function($plan) {
+        $plans_ids = array_map(function ($plan) {
             return $plan->id;
         }, $plans);
 
-        $plans_ids  = array_unique($plans_ids);
+        $plans_ids = array_unique($plans_ids);
         $plans_list = implode(',', $plans_ids);
 
         $data = [
@@ -100,10 +102,10 @@ class ControllerExtensionPaymentDivido extends Controller {
             return false;
         }
 
-        $order_id   = $data->metadata->order_id;
+        $order_id = $data->metadata->order_id;
         $order_info = $this->model_checkout_order->getOrder($order_id);
-        $status_id  = $order_info['order_status_id'];
-        $message    = "Status: {$data->status}";
+        $status_id = $order_info['order_status_id'];
+        $message = "Status: {$data->status}";
 
         if (isset($this->history_messages[$data->status])) {
             $message = $this->history_messages[$data->status];
@@ -154,7 +156,7 @@ class ControllerExtensionPaymentDivido extends Controller {
             $address = $this->session->data['shipping_address'];
         }
 
-        $country  = $address['iso_code_2'];
+        $country = $address['iso_code_2'];
         $language = strtoupper($this->language->get('code'));
         $currency = strtoupper($this->session->data['currency']);
         $order_id = (int)$this->session->data['order_id'];
@@ -165,13 +167,13 @@ class ControllerExtensionPaymentDivido extends Controller {
             $customer_info = $this->model_account_customer->getCustomer($this->customer->getId());
 
             $firstname = $customer_info['firstname'];
-            $lastname  = $customer_info['lastname'];
-            $email     = $customer_info['email'];
+            $lastname = $customer_info['lastname'];
+            $email = $customer_info['email'];
             $telephone = $customer_info['telephone'];
         } elseif (isset($this->session->data['guest'])) {
             $firstname = $this->session->data['guest']['firstname'];
-            $lastname  = $this->session->data['guest']['lastname'];
-            $email     = $this->session->data['guest']['email'];
+            $lastname = $this->session->data['guest']['lastname'];
+            $email = $this->session->data['guest']['email'];
             $telephone = $this->session->data['guest']['telephone'];
         }
 
@@ -188,9 +190,12 @@ class ControllerExtensionPaymentDivido extends Controller {
             ];
         }
 
-        [$total, $totals] = $this->model_extension_payment_divido->getOrderTotals();
+        [
+            $total,
+            $totals
+        ] = $this->model_extension_payment_divido->getOrderTotals();
 
-        $sub_total  = $total;
+        $sub_total = $total;
         $cart_total = $this->cart->getSubTotal();
         $shiphandle = $sub_total - $cart_total;
 
@@ -202,18 +207,18 @@ class ControllerExtensionPaymentDivido extends Controller {
         ];
 
         $deposit_amount = round(($deposit / 100) * $total, 2, PHP_ROUND_HALF_UP);
-        $shop_url       = $this->config->get('config_url');
+        $shop_url = $this->config->get('config_url');
 
         if (isset($this->request->server['HTTPS']) && (($this->request->server['HTTPS'] == 'on') || ($this->request->server['HTTPS'] == '1'))) {
             $shop_url = $this->config->get('config_ssl');
         }
 
         $callback_url = $this->url->link('extension/payment/divido/update', '', true);
-        $return_url   = $this->url->link('checkout/success', '', true);
+        $return_url = $this->url->link('checkout/success', '', true);
         $checkout_url = $this->url->link('checkout/checkout', '', true);
-        $salt         = uniqid('', true);
+        $salt = uniqid('', true);
 
-        $hash         = $this->model_extension_payment_divido->hashOrderId($order_id, $salt);
+        $hash = $this->model_extension_payment_divido->hashOrderId($order_id, $salt);
 
         $request_data = [
             'merchant'     => $api_key,
@@ -274,10 +279,10 @@ class ControllerExtensionPaymentDivido extends Controller {
         $this->model_extension_payment_divido->setMerchant($this->config->get('payment_divido_api_key'));
 
         $product_selection = $this->config->get('payment_divido_productselection');
-        $price_threshold   = $this->config->get('payment_divido_price_threshold');
-        $product_id        = $args['product_id'];
-        $product_price     = $args['price'];
-        $type              = $args['type'];
+        $price_threshold = $this->config->get('payment_divido_price_threshold');
+        $product_id = $args['product_id'];
+        $product_price = $args['price'];
+        $type = $args['type'];
 
         if ($product_selection == 'threshold' && $product_price < $price_threshold) {
             return false;
@@ -289,7 +294,7 @@ class ControllerExtensionPaymentDivido extends Controller {
             return false;
         }
 
-        $plans_ids = array_map(function($plan) {
+        $plans_ids = array_map(function ($plan) {
             return $plan->id;
         }, $plans);
 

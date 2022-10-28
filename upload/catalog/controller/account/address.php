@@ -136,7 +136,7 @@ class ControllerAccountAddress extends Controller {
 
             $this->session->data['success'] = $this->language->get('text_delete');
 
-            $json['success']                = str_replace('&amp;', '&', $this->url->link('account/address', 'customer_token=' . $this->session->data['customer_token'], true));
+            $json['success'] = str_replace('&amp;', '&', $this->url->link('account/address', 'customer_token=' . $this->session->data['customer_token'], true));
         }
 
         $this->response->addHeader('Content-Type: application/json');
@@ -144,7 +144,7 @@ class ControllerAccountAddress extends Controller {
     }
 
     protected function getList() {
-        $data['breadcrumbs']   = [];
+        $data['breadcrumbs'] = [];
 
         $data['breadcrumbs'][] = [
             'text' => $this->language->get('text_home'),
@@ -171,7 +171,7 @@ class ControllerAccountAddress extends Controller {
 
         $data['addresses'] = [];
 
-        $results           = $this->model_account_address->getAddresses();
+        $results = $this->model_account_address->getAddresses();
 
         foreach ($results as $result) {
             $data['addresses'][] = [
@@ -184,21 +184,21 @@ class ControllerAccountAddress extends Controller {
 
         $data['customer_token'] = $this->session->data['customer_token'];
 
-        $data['add']            = $this->url->link('account/address/add', 'customer_token=' . $this->session->data['customer_token'], true);
-        $data['back']           = $this->url->link('account/account', 'customer_token=' . $this->session->data['customer_token'], true);
+        $data['add'] = $this->url->link('account/address/add', 'customer_token=' . $this->session->data['customer_token'], true);
+        $data['back'] = $this->url->link('account/account', 'customer_token=' . $this->session->data['customer_token'], true);
 
-        $data['column_left']    = $this->load->controller('common/column_left');
-        $data['column_right']   = $this->load->controller('common/column_right');
-        $data['content_top']    = $this->load->controller('common/content_top');
+        $data['column_left'] = $this->load->controller('common/column_left');
+        $data['column_right'] = $this->load->controller('common/column_right');
+        $data['content_top'] = $this->load->controller('common/content_top');
         $data['content_bottom'] = $this->load->controller('common/content_bottom');
-        $data['footer']         = $this->load->controller('common/footer');
-        $data['header']         = $this->load->controller('common/header');
+        $data['footer'] = $this->load->controller('common/footer');
+        $data['header'] = $this->load->controller('common/header');
 
         $this->response->setOutput($this->load->view('account/address_list', $data));
     }
 
     protected function getForm() {
-        $data['breadcrumbs']   = [];
+        $data['breadcrumbs'] = [];
 
         $data['breadcrumbs'][] = [
             'text' => $this->language->get('text_home'),
@@ -370,21 +370,21 @@ class ControllerAccountAddress extends Controller {
         $this->load->model('tool/upload');
         $this->load->model('localisation/country');
 
-        $data['countries']     = $this->model_localisation_country->getCountries();
+        $data['countries'] = $this->model_localisation_country->getCountries();
 
         // Custom fields
         $data['custom_fields'] = [];
 
         $this->load->model('account/custom_field');
 
-        $custom_fields         = $this->model_account_custom_field->getCustomFields($this->config->get('config_customer_group_id'));
+        $custom_fields = $this->model_account_custom_field->getCustomFields($this->config->get('config_customer_group_id'));
 
         foreach ($custom_fields as $custom_field) {
             if ($custom_field['location'] == 'address') {
                 if ($custom_field['type'] == 'file' && isset($data['address_custom_field'][$custom_field['custom_field_id']])) {
-                    $code                                                           = $data['address_custom_field'][$custom_field['custom_field_id']];
+                    $code = $data['address_custom_field'][$custom_field['custom_field_id']];
 
-                    $upload_info                                                    = $this->model_tool_upload->getUploadByCode($code);
+                    $upload_info = $this->model_tool_upload->getUploadByCode($code);
 
                     $data['address_custom_field'][$custom_field['custom_field_id']] = [];
 
@@ -411,14 +411,14 @@ class ControllerAccountAddress extends Controller {
             $data['default'] = false;
         }
 
-        $data['back']           = $this->url->link('account/address', 'customer_token=' . $this->session->data['customer_token'], true);
+        $data['back'] = $this->url->link('account/address', 'customer_token=' . $this->session->data['customer_token'], true);
 
-        $data['column_left']    = $this->load->controller('common/column_left');
-        $data['column_right']   = $this->load->controller('common/column_right');
-        $data['content_top']    = $this->load->controller('common/content_top');
+        $data['column_left'] = $this->load->controller('common/column_left');
+        $data['column_right'] = $this->load->controller('common/column_right');
+        $data['content_top'] = $this->load->controller('common/content_top');
         $data['content_bottom'] = $this->load->controller('common/content_bottom');
-        $data['footer']         = $this->load->controller('common/footer');
-        $data['header']         = $this->load->controller('common/header');
+        $data['footer'] = $this->load->controller('common/footer');
+        $data['header'] = $this->load->controller('common/header');
 
         $this->response->setOutput($this->load->view('account/address_form', $data));
     }

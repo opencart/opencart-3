@@ -5,7 +5,7 @@ class ModelCheckoutPaymentMethod extends Model {
 
         $this->load->model('setting/extension');
 
-        $results     = $this->model_setting_extension->getExtensionsByType('payment');
+        $results = $this->model_setting_extension->getExtensionsByType('payment');
 
         foreach ($results as $result) {
             if ($this->config->get('payment_' . $result['code'] . '_status')) {

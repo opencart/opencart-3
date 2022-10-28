@@ -21,23 +21,23 @@ class ControllerExtensionPaymentPayPal extends Controller {
         $country = $this->model_localisation_country->getCountry($this->config->get('config_country_id'));
 
         // Setting
-        $_config                    = new \Config();
+        $_config = new \Config();
         $_config->load('paypal');
 
-        $config_setting             = $_config->get('paypal_setting');
-        $setting                    = array_replace_recursive((array)$config_setting, (array)$this->config->get('payment_paypal_setting'));
+        $config_setting = $_config->get('paypal_setting');
+        $setting = array_replace_recursive((array)$config_setting, (array)$this->config->get('payment_paypal_setting'));
 
-        $data['client_id']          = $this->config->get('payment_paypal_client_id');
-        $data['secret']             = $this->config->get('payment_paypal_secret');
-        $data['merchant_id']        = $this->config->get('payment_paypal_merchant_id');
-        $data['environment']        = $this->config->get('payment_paypal_environment');
-        $data['partner_id']         = $setting['partner'][$data['environment']]['partner_id'];
+        $data['client_id'] = $this->config->get('payment_paypal_client_id');
+        $data['secret'] = $this->config->get('payment_paypal_secret');
+        $data['merchant_id'] = $this->config->get('payment_paypal_merchant_id');
+        $data['environment'] = $this->config->get('payment_paypal_environment');
+        $data['partner_id'] = $setting['partner'][$data['environment']]['partner_id'];
         $data['transaction_method'] = $this->config->get('payment_paypal_transaction_method');
-        $data['locale']             = preg_replace('/-(.+?)+/', '', $this->config->get('config_language')) . '_' . $country['iso_code_2'];
-        $data['currency_code']      = $this->config->get('payment_paypal_currency_code');
-        $data['currency_value']     = $this->config->get('payment_paypal_currency_value');
-        $data['decimal_place']      = $setting['currency'][$data['currency_code']]['decimal_place'];
-        $data['express_status']     = $setting['checkout']['express']['status'];
+        $data['locale'] = preg_replace('/-(.+?)+/', '', $this->config->get('config_language')) . '_' . $country['iso_code_2'];
+        $data['currency_code'] = $this->config->get('payment_paypal_currency_code');
+        $data['currency_value'] = $this->config->get('payment_paypal_currency_value');
+        $data['decimal_place'] = $setting['currency'][$data['currency_code']]['decimal_place'];
+        $data['express_status'] = $setting['checkout']['express']['status'];
 
         if (!$setting['currency'][$data['currency_code']]['express_status']) {
             $data['express_status'] = $setting['currency'][$data['currency_code']]['express_status'];
@@ -47,30 +47,30 @@ class ControllerExtensionPaymentPayPal extends Controller {
             $data['card_status'] = $setting['currency'][$data['currency_code']]['card_status'];
         }
 
-        $data['form_align']         = $setting['checkout']['card']['form_align'];
-        $data['form_size']          = $setting['checkout']['card']['form_size'];
-        $data['form_width']         = $setting['form_width'][$data['form_size']];
-        $data['secure_status']      = $setting['checkout']['card']['secure_status'];
-        $data['button_align']       = $setting['checkout']['express']['button_align'];
-        $data['button_size']        = $setting['checkout']['express']['button_size'];
-        $data['button_color']       = $setting['checkout']['express']['button_color'];
-        $data['button_shape']       = $setting['checkout']['express']['button_shape'];
-        $data['button_label']       = $setting['checkout']['express']['button_label'];
-        $data['button_width']       = $setting['button_width'][$data['button_size']];
-        $data['card_status']        = $setting['checkout']['card']['status'];
-        $data['message_status']     = $setting['checkout']['message']['status'];
-        $data['message_align']      = $setting['checkout']['message']['message_align'];
-        $data['message_size']       = $setting['checkout']['message']['message_size'];
-        $data['message_width']      = $setting['message_width'][$data['message_size']];
-        $data['message_layout']     = $setting['checkout']['message']['message_layout'];
+        $data['form_align'] = $setting['checkout']['card']['form_align'];
+        $data['form_size'] = $setting['checkout']['card']['form_size'];
+        $data['form_width'] = $setting['form_width'][$data['form_size']];
+        $data['secure_status'] = $setting['checkout']['card']['secure_status'];
+        $data['button_align'] = $setting['checkout']['express']['button_align'];
+        $data['button_size'] = $setting['checkout']['express']['button_size'];
+        $data['button_color'] = $setting['checkout']['express']['button_color'];
+        $data['button_shape'] = $setting['checkout']['express']['button_shape'];
+        $data['button_label'] = $setting['checkout']['express']['button_label'];
+        $data['button_width'] = $setting['button_width'][$data['button_size']];
+        $data['card_status'] = $setting['checkout']['card']['status'];
+        $data['message_status'] = $setting['checkout']['message']['status'];
+        $data['message_align'] = $setting['checkout']['message']['message_align'];
+        $data['message_size'] = $setting['checkout']['message']['message_size'];
+        $data['message_width'] = $setting['message_width'][$data['message_size']];
+        $data['message_layout'] = $setting['checkout']['message']['message_layout'];
         $data['message_text_color'] = $setting['checkout']['message']['message_text_color'];
-        $data['message_text_size']  = $setting['checkout']['message']['message_text_size'];
+        $data['message_text_size'] = $setting['checkout']['message']['message_text_size'];
         $data['message_flex_color'] = $setting['checkout']['message']['message_flex_color'];
         $data['message_flex_ratio'] = $setting['checkout']['message']['message_flex_ratio'];
-        $data['message_placement']  = 'payment';
-        $data['order_id']           = (int)$this->session->data['order_id'];
-        $order_info                 = $this->model_checkout_order->getOrder($this->session->data['order_id']);
-        $data['message_amount']     = number_format($order_info['total'] * $data['currency_value'], $data['decimal_place'], '.', '');
+        $data['message_placement'] = 'payment';
+        $data['order_id'] = (int)$this->session->data['order_id'];
+        $order_info = $this->model_checkout_order->getOrder($this->session->data['order_id']);
+        $data['message_amount'] = number_format($order_info['total'] * $data['currency_value'], $data['decimal_place'], '.', '');
 
         require_once DIR_SYSTEM . 'library/paypal/paypal.php';
 
@@ -125,20 +125,20 @@ class ControllerExtensionPaymentPayPal extends Controller {
         $order_info = $this->model_checkout_order->getOrder($this->session->data['order_id']);
 
         // Setting
-        $_config            = new \Config();
+        $_config = new \Config();
         $_config->load('paypal');
 
-        $config_setting     = $_config->get('paypal_setting');
-        $setting            = array_replace_recursive((array)$config_setting, (array)$this->config->get('payment_paypal_setting'));
-        $client_id          = $this->config->get('payment_paypal_client_id');
-        $secret             = $this->config->get('payment_paypal_secret');
-        $merchant_id        = $this->config->get('payment_paypal_merchant_id');
-        $environment        = $this->config->get('payment_paypal_environment');
-        $partner_id         = $setting['partner'][$environment]['partner_id'];
+        $config_setting = $_config->get('paypal_setting');
+        $setting = array_replace_recursive((array)$config_setting, (array)$this->config->get('payment_paypal_setting'));
+        $client_id = $this->config->get('payment_paypal_client_id');
+        $secret = $this->config->get('payment_paypal_secret');
+        $merchant_id = $this->config->get('payment_paypal_merchant_id');
+        $environment = $this->config->get('payment_paypal_environment');
+        $partner_id = $setting['partner'][$environment]['partner_id'];
         $transaction_method = $this->config->get('payment_paypal_transaction_method');
-        $currency_code      = $this->config->get('payment_paypal_currency_code');
-        $currency_value     = $this->config->get('payment_paypal_currency_value');
-        $decimal_place      = $setting['currency'][$currency_code]['decimal_place'];
+        $currency_code = $this->config->get('payment_paypal_currency_code');
+        $currency_value = $this->config->get('payment_paypal_currency_value');
+        $decimal_place = $setting['currency'][$currency_code]['decimal_place'];
 
         require_once DIR_SYSTEM . 'library/paypal/paypal.php';
 
@@ -160,14 +160,14 @@ class ControllerExtensionPaymentPayPal extends Controller {
         $shipping_info = [];
 
         if ($this->cart->hasShipping()) {
-            $shipping_info['name']['full_name']         = $order_info['shipping_firstname'];
-            $shipping_info['name']['full_name']         .= $order_info['shipping_lastname'];
-            
+            $shipping_info['name']['full_name'] = $order_info['shipping_firstname'];
+            $shipping_info['name']['full_name'] .= $order_info['shipping_lastname'];
+
             $shipping_info['address']['address_line_1'] = $order_info['shipping_address_1'];
             $shipping_info['address']['address_line_2'] = $order_info['shipping_address_2'];
-            $shipping_info['address']['admin_area_1']   = $order_info['shipping_zone'];
-            $shipping_info['address']['admin_area_2']   = $order_info['shipping_city'];
-            $shipping_info['address']['postal_code']    = $order_info['shipping_postcode'];
+            $shipping_info['address']['admin_area_1'] = $order_info['shipping_zone'];
+            $shipping_info['address']['admin_area_2'] = $order_info['shipping_city'];
+            $shipping_info['address']['postal_code'] = $order_info['shipping_postcode'];
 
             if ($order_info['shipping_country_id']) {
                 $this->load->model('localisation/country');
@@ -185,7 +185,7 @@ class ControllerExtensionPaymentPayPal extends Controller {
         }
 
         $item_total = 0;
-        $item_info  = [];
+        $item_info = [];
 
         foreach ($this->cart->getProducts() as $product) {
             $product_price = number_format($product['price'] * $currency_value, $decimal_place, '.', '');
@@ -205,9 +205,9 @@ class ControllerExtensionPaymentPayPal extends Controller {
         }
 
         $item_total = number_format($item_total, $decimal_place, '.', '');
-        $sub_total  = $this->cart->getSubTotal();
-        $total      = $this->cart->getTotal();
-        $tax_total  = number_format(($total - $sub_total) * $currency_value, $decimal_place, '.', '');
+        $sub_total = $this->cart->getSubTotal();
+        $total = $this->cart->getTotal();
+        $tax_total = number_format(($total - $sub_total) * $currency_value, $decimal_place, '.', '');
 
         $discount_total = 0;
         $handling_total = 0;
@@ -219,7 +219,7 @@ class ControllerExtensionPaymentPayPal extends Controller {
         }
 
         $order_total = number_format($order_info['total'] * $currency_value, $decimal_place, '.', '');
-        $rebate      = number_format($item_total + $tax_total + $shipping_total - $order_total, $decimal_place, '.', '');
+        $rebate = number_format($item_total + $tax_total + $shipping_total - $order_total, $decimal_place, '.', '');
 
         if ($rebate > 0) {
             $discount_total = $rebate;
@@ -289,7 +289,7 @@ class ControllerExtensionPaymentPayPal extends Controller {
             ];
         }
 
-        $result           = $paypal->createOrder($order_info);
+        $result = $paypal->createOrder($order_info);
 
         $data['order_id'] = 0;
 
@@ -330,11 +330,11 @@ class ControllerExtensionPaymentPayPal extends Controller {
         $this->load->model('extension/payment/paypal');
 
         // Setting
-        $_config        = new \Config();
+        $_config = new \Config();
         $_config->load('paypal');
 
         $config_setting = $_config->get('paypal_setting');
-        $setting        = array_replace_recursive((array)$config_setting, (array)$this->config->get('payment_paypal_setting'));
+        $setting = array_replace_recursive((array)$config_setting, (array)$this->config->get('payment_paypal_setting'));
 
         if (isset($this->request->post['order_id'])) {
             $order_id = (int)$this->request->post['order_id'];
@@ -363,10 +363,10 @@ class ControllerExtensionPaymentPayPal extends Controller {
         }
 
         if (isset($order_id) && !$this->error) {
-            $client_id          = $this->config->get('payment_paypal_client_id');
-            $secret             = $this->config->get('payment_paypal_secret');
-            $environment        = $this->config->get('payment_paypal_environment');
-            $partner_id         = $setting['partner'][$environment]['partner_id'];
+            $client_id = $this->config->get('payment_paypal_client_id');
+            $secret = $this->config->get('payment_paypal_secret');
+            $environment = $this->config->get('payment_paypal_environment');
+            $partner_id = $setting['partner'][$environment]['partner_id'];
             $transaction_method = $this->config->get('payment_paypal_transaction_method');
 
             require_once DIR_SYSTEM . 'library/paypal/paypal.php';
@@ -433,7 +433,7 @@ class ControllerExtensionPaymentPayPal extends Controller {
             if (!$this->error) {
                 $this->load->model('checkout/order');
 
-                $message         = sprintf($this->language->get('text_order_message'), $seller_protection_status);
+                $message = sprintf($this->language->get('text_order_message'), $seller_protection_status);
 
                 $data['success'] = $this->url->link('checkout/success', '', true);
 
@@ -456,12 +456,12 @@ class ControllerExtensionPaymentPayPal extends Controller {
 
         if (isset($webhook_data['event_type']) && isset($webhook_data['resource']['invoice_id'])) {
             // Setting
-            $_config        = new \Config();
+            $_config = new \Config();
             $_config->load('paypal');
 
             $config_setting = $_config->get('paypal_setting');
-            $setting        = array_replace_recursive((array)$config_setting, (array)$this->config->get('payment_paypal_setting'));
-            $order_id       = $webhook_data['resource']['invoice_id'];
+            $setting = array_replace_recursive((array)$config_setting, (array)$this->config->get('payment_paypal_setting'));
+            $order_id = $webhook_data['resource']['invoice_id'];
 
             if ($webhook_data['event_type'] == 'PAYMENT.AUTHORIZATION.CREATED') {
                 $order_status_id = $setting['order_status']['pending']['id'];

@@ -1,6 +1,6 @@
 <?php
 class ModelExtensionTotalLowOrderFee extends Model {
-    public function getTotal(float $total): array {
+    public function getTotal(float $total): void {
         if ($this->cart->getSubTotal() && ($this->cart->getSubTotal() < $this->config->get('total_low_order_fee_total'))) {
             $this->load->language('extension/total/low_order_fee');
 

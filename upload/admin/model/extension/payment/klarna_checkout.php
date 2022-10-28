@@ -155,7 +155,7 @@ class ModelExtensionPaymentKlarnaCheckout extends Model {
 
     public function getConnector($accounts, $currency) {
         $klarna_account = false;
-        $connector      = false;
+        $connector = false;
 
         if ($accounts && $currency) {
             foreach ($accounts as $account) {
@@ -175,13 +175,16 @@ class ModelExtensionPaymentKlarnaCheckout extends Model {
                     }
 
                     $klarna_account = $account;
-                    $connector      = $this->connector($account['merchant_id'], $account['secret'], $base_url);
+                    $connector = $this->connector($account['merchant_id'], $account['secret'], $base_url);
                     break;
                 }
             }
         }
 
-        return [$klarna_account, $connector];
+        return [
+            $klarna_account,
+            $connector
+        ];
     }
 
     public function getOrder(int $order_id): array {

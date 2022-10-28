@@ -3,8 +3,14 @@ class ControllerStartupError extends Controller {
     public function index(): void {
         $this->registry->set('log', new \Log($this->config->get('config_error_filename') ? $this->config->get('config_error_filename') : $this->config->get('error_filename')));
 
-        set_error_handler([$this, 'error']);
-        set_exception_handler([$this, 'exception']);
+        set_error_handler([
+            $this,
+            'error'
+        ]);
+        set_exception_handler([
+            $this,
+            'exception'
+        ]);
     }
 
     public function error(string $code, string $message, string $file, string $line): bool {

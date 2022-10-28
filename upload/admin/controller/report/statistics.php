@@ -84,7 +84,7 @@ class ControllerReportStatistics extends Controller {
 
             $order_status_data = [];
 
-            $results           = $this->model_localisation_order_status->getOrderStatuses();
+            $results = $this->model_localisation_order_status->getOrderStatuses();
 
             foreach ($results as $result) {
                 if (!in_array($result['order_status_id'], array_merge((array)$this->config->get('config_complete_status'), (array)$this->config->get('config_processing_status')))) {
@@ -205,7 +205,7 @@ class ControllerReportStatistics extends Controller {
     }
 
     protected function getList() {
-        $data['breadcrumbs']   = [];
+        $data['breadcrumbs'] = [];
 
         $data['breadcrumbs'][] = [
             'text' => $this->language->get('text_home'),
@@ -245,9 +245,9 @@ class ControllerReportStatistics extends Controller {
             $data['success'] = '';
         }
 
-        $data['header']      = $this->load->controller('common/header');
+        $data['header'] = $this->load->controller('common/header');
         $data['column_left'] = $this->load->controller('common/column_left');
-        $data['footer']      = $this->load->controller('common/footer');
+        $data['footer'] = $this->load->controller('common/footer');
 
         $this->response->setOutput($this->load->view('report/statistics', $data));
     }

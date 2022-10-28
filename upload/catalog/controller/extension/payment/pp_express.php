@@ -9,7 +9,7 @@ class ControllerExtensionPaymentPPExpress extends Controller {
             $data['username'] = $this->config->get('payment_pp_express_username');
         }
 
-        $data['continue']                             = $this->url->link('extension/payment/pp_express/checkout', '', true);
+        $data['continue'] = $this->url->link('extension/payment/pp_express/checkout', '', true);
         $data['payment_pp_express_incontext_disable'] = $this->config->get('payment_pp_express_incontext_disable');
 
         unset($this->session->data['paypal']);
@@ -127,8 +127,8 @@ class ControllerExtensionPaymentPPExpress extends Controller {
         $result = $this->model_extension_payment_pp_express->call($post_data);
 
         $this->session->data['paypal']['payerid'] = $result['PAYERID'];
-        $this->session->data['paypal']['result']  = $result;
-        $this->session->data['comment']           = '';
+        $this->session->data['paypal']['result'] = $result;
+        $this->session->data['comment'] = '';
 
         if (isset($result['PAYMENTREQUEST_0_NOTETEXT'])) {
             $this->session->data['comment'] = $result['PAYMENTREQUEST_0_NOTETEXT'];
@@ -136,9 +136,9 @@ class ControllerExtensionPaymentPPExpress extends Controller {
 
         if ($this->session->data['paypal']['guest'] == true) {
             $this->session->data['guest']['customer_group_id'] = $this->config->get('config_customer_group_id');
-            $this->session->data['guest']['firstname']         = trim($result['FIRSTNAME']);
-            $this->session->data['guest']['lastname']          = trim($result['LASTNAME']);
-            $this->session->data['guest']['email']             = trim($result['EMAIL']);
+            $this->session->data['guest']['firstname'] = trim($result['FIRSTNAME']);
+            $this->session->data['guest']['lastname'] = trim($result['LASTNAME']);
+            $this->session->data['guest']['email'] = trim($result['EMAIL']);
 
             if (isset($result['PHONENUM'])) {
                 $this->session->data['guest']['telephone'] = $result['PHONENUM'];
@@ -147,7 +147,7 @@ class ControllerExtensionPaymentPPExpress extends Controller {
             }
 
             $this->session->data['guest']['payment']['firstname'] = trim($result['FIRSTNAME']);
-            $this->session->data['guest']['payment']['lastname']  = trim($result['LASTNAME']);
+            $this->session->data['guest']['payment']['lastname'] = trim($result['LASTNAME']);
 
             if (isset($result['BUSINESS'])) {
                 $this->session->data['guest']['payment']['company'] = $result['BUSINESS'];
@@ -156,10 +156,10 @@ class ControllerExtensionPaymentPPExpress extends Controller {
             }
 
             $this->session->data['guest']['payment']['company_id'] = '';
-            $this->session->data['guest']['payment']['tax_id']     = '';
+            $this->session->data['guest']['payment']['tax_id'] = '';
 
             if ($this->cart->hasShipping()) {
-                $shipping_name       = explode(' ', trim($result['PAYMENTREQUEST_0_SHIPTONAME']));
+                $shipping_name = explode(' ', trim($result['PAYMENTREQUEST_0_SHIPTONAME']));
                 $shipping_first_name = $shipping_name[0];
 
                 unset($shipping_name[0]);
@@ -174,11 +174,11 @@ class ControllerExtensionPaymentPPExpress extends Controller {
                 }
 
                 $this->session->data['guest']['payment']['postcode'] = $result['PAYMENTREQUEST_0_SHIPTOZIP'];
-                $this->session->data['guest']['payment']['city']     = $result['PAYMENTREQUEST_0_SHIPTOCITY'];
+                $this->session->data['guest']['payment']['city'] = $result['PAYMENTREQUEST_0_SHIPTOCITY'];
 
                 $this->session->data['guest']['shipping']['firstname'] = $shipping_first_name;
-                $this->session->data['guest']['shipping']['lastname']  = $shipping_last_name;
-                $this->session->data['guest']['shipping']['company']   = '';
+                $this->session->data['guest']['shipping']['lastname'] = $shipping_last_name;
+                $this->session->data['guest']['shipping']['company'] = '';
                 $this->session->data['guest']['shipping']['address_1'] = $result['PAYMENTREQUEST_0_SHIPTOSTREET'];
 
                 if (isset($result['PAYMENTREQUEST_0_SHIPTOSTREET2'])) {
@@ -188,36 +188,36 @@ class ControllerExtensionPaymentPPExpress extends Controller {
                 }
 
                 $this->session->data['guest']['shipping']['postcode'] = $result['PAYMENTREQUEST_0_SHIPTOZIP'];
-                $this->session->data['guest']['shipping']['city']     = $result['PAYMENTREQUEST_0_SHIPTOCITY'];
+                $this->session->data['guest']['shipping']['city'] = $result['PAYMENTREQUEST_0_SHIPTOCITY'];
 
                 $this->session->data['shipping_postcode'] = $result['PAYMENTREQUEST_0_SHIPTOZIP'];
 
                 $country_info = $this->db->query("SELECT * FROM `" . DB_PREFIX . "country` WHERE `iso_code_2` = '" . $this->db->escape($result['PAYMENTREQUEST_0_SHIPTOCOUNTRYCODE']) . "' AND `status` = '1' LIMIT 1")->row;
 
                 if ($country_info) {
-                    $this->session->data['guest']['shipping']['country_id']     = $country_info['country_id'];
-                    $this->session->data['guest']['shipping']['country']        = $country_info['name'];
-                    $this->session->data['guest']['shipping']['iso_code_2']     = $country_info['iso_code_2'];
-                    $this->session->data['guest']['shipping']['iso_code_3']     = $country_info['iso_code_3'];
+                    $this->session->data['guest']['shipping']['country_id'] = $country_info['country_id'];
+                    $this->session->data['guest']['shipping']['country'] = $country_info['name'];
+                    $this->session->data['guest']['shipping']['iso_code_2'] = $country_info['iso_code_2'];
+                    $this->session->data['guest']['shipping']['iso_code_3'] = $country_info['iso_code_3'];
                     $this->session->data['guest']['shipping']['address_format'] = $country_info['address_format'];
-                    $this->session->data['guest']['payment']['country_id']      = $country_info['country_id'];
-                    $this->session->data['guest']['payment']['country']         = $country_info['name'];
-                    $this->session->data['guest']['payment']['iso_code_2']      = $country_info['iso_code_2'];
-                    $this->session->data['guest']['payment']['iso_code_3']      = $country_info['iso_code_3'];
-                    $this->session->data['guest']['payment']['address_format']  = $country_info['address_format'];
-                    $this->session->data['shipping_country_id']                 = $country_info['country_id'];
+                    $this->session->data['guest']['payment']['country_id'] = $country_info['country_id'];
+                    $this->session->data['guest']['payment']['country'] = $country_info['name'];
+                    $this->session->data['guest']['payment']['iso_code_2'] = $country_info['iso_code_2'];
+                    $this->session->data['guest']['payment']['iso_code_3'] = $country_info['iso_code_3'];
+                    $this->session->data['guest']['payment']['address_format'] = $country_info['address_format'];
+                    $this->session->data['shipping_country_id'] = $country_info['country_id'];
                 } else {
-                    $this->session->data['guest']['shipping']['country_id']     = 0;
-                    $this->session->data['guest']['shipping']['country']        = '';
-                    $this->session->data['guest']['shipping']['iso_code_2']     = '';
-                    $this->session->data['guest']['shipping']['iso_code_3']     = '';
+                    $this->session->data['guest']['shipping']['country_id'] = 0;
+                    $this->session->data['guest']['shipping']['country'] = '';
+                    $this->session->data['guest']['shipping']['iso_code_2'] = '';
+                    $this->session->data['guest']['shipping']['iso_code_3'] = '';
                     $this->session->data['guest']['shipping']['address_format'] = '';
-                    $this->session->data['guest']['payment']['country_id']      = 0;
-                    $this->session->data['guest']['payment']['country']         = '';
-                    $this->session->data['guest']['payment']['iso_code_2']      = '';
-                    $this->session->data['guest']['payment']['iso_code_3']      = '';
-                    $this->session->data['guest']['payment']['address_format']  = '';
-                    $this->session->data['shipping_country_id']                 = 0;
+                    $this->session->data['guest']['payment']['country_id'] = 0;
+                    $this->session->data['guest']['payment']['country'] = '';
+                    $this->session->data['guest']['payment']['iso_code_2'] = '';
+                    $this->session->data['guest']['payment']['iso_code_3'] = '';
+                    $this->session->data['guest']['payment']['address_format'] = '';
+                    $this->session->data['shipping_country_id'] = 0;
                 }
 
                 if (isset($result['PAYMENTREQUEST_0_SHIPTOSTATE'])) {
@@ -229,38 +229,38 @@ class ControllerExtensionPaymentPPExpress extends Controller {
                 $zone_info = $this->db->query("SELECT * FROM `" . DB_PREFIX . "zone` WHERE (`name` = '" . $this->db->escape($returned_shipping_zone) . "' OR `code` = '" . $this->db->escape($returned_shipping_zone) . "') AND `status` = '1' AND `country_id` = '" . (int)$country_info['country_id'] . "' LIMIT 1")->row;
 
                 if ($zone_info) {
-                    $this->session->data['guest']['shipping']['zone']      = $zone_info['name'];
+                    $this->session->data['guest']['shipping']['zone'] = $zone_info['name'];
                     $this->session->data['guest']['shipping']['zone_code'] = $zone_info['code'];
-                    $this->session->data['guest']['shipping']['zone_id']   = $zone_info['zone_id'];
-                    $this->session->data['guest']['payment']['zone']       = $zone_info['name'];
-                    $this->session->data['guest']['payment']['zone_code']  = $zone_info['code'];
-                    $this->session->data['guest']['payment']['zone_id']    = $zone_info['zone_id'];
-                    $this->session->data['shipping_zone_id']               = $zone_info['zone_id'];
+                    $this->session->data['guest']['shipping']['zone_id'] = $zone_info['zone_id'];
+                    $this->session->data['guest']['payment']['zone'] = $zone_info['name'];
+                    $this->session->data['guest']['payment']['zone_code'] = $zone_info['code'];
+                    $this->session->data['guest']['payment']['zone_id'] = $zone_info['zone_id'];
+                    $this->session->data['shipping_zone_id'] = $zone_info['zone_id'];
                 } else {
-                    $this->session->data['guest']['shipping']['zone']      = '';
+                    $this->session->data['guest']['shipping']['zone'] = '';
                     $this->session->data['guest']['shipping']['zone_code'] = '';
-                    $this->session->data['guest']['shipping']['zone_id']   = 0;
-                    $this->session->data['guest']['payment']['zone']       = '';
-                    $this->session->data['guest']['payment']['zone_code']  = '';
-                    $this->session->data['guest']['payment']['zone_id']    = 0;
-                    $this->session->data['shipping_zone_id']               = 0;
+                    $this->session->data['guest']['shipping']['zone_id'] = 0;
+                    $this->session->data['guest']['payment']['zone'] = '';
+                    $this->session->data['guest']['payment']['zone_code'] = '';
+                    $this->session->data['guest']['payment']['zone_id'] = 0;
+                    $this->session->data['shipping_zone_id'] = 0;
                 }
 
                 $this->session->data['guest']['shipping_address'] = true;
             } else {
-                $this->session->data['guest']['payment']['address_1']      = '';
-                $this->session->data['guest']['payment']['address_2']      = '';
-                $this->session->data['guest']['payment']['postcode']       = '';
-                $this->session->data['guest']['payment']['city']           = '';
-                $this->session->data['guest']['payment']['country_id']     = 0;
-                $this->session->data['guest']['payment']['country']        = '';
-                $this->session->data['guest']['payment']['iso_code_2']     = '';
-                $this->session->data['guest']['payment']['iso_code_3']     = '';
+                $this->session->data['guest']['payment']['address_1'] = '';
+                $this->session->data['guest']['payment']['address_2'] = '';
+                $this->session->data['guest']['payment']['postcode'] = '';
+                $this->session->data['guest']['payment']['city'] = '';
+                $this->session->data['guest']['payment']['country_id'] = 0;
+                $this->session->data['guest']['payment']['country'] = '';
+                $this->session->data['guest']['payment']['iso_code_2'] = '';
+                $this->session->data['guest']['payment']['iso_code_3'] = '';
                 $this->session->data['guest']['payment']['address_format'] = '';
-                $this->session->data['guest']['payment']['zone']           = '';
-                $this->session->data['guest']['payment']['zone_code']      = '';
-                $this->session->data['guest']['payment']['zone_id']        = 0;
-                $this->session->data['guest']['shipping_address']          = false;
+                $this->session->data['guest']['payment']['zone'] = '';
+                $this->session->data['guest']['payment']['zone_code'] = '';
+                $this->session->data['guest']['payment']['zone_id'] = 0;
+                $this->session->data['guest']['shipping_address'] = false;
             }
 
             $this->session->data['account'] = 'guest';
@@ -287,15 +287,15 @@ class ControllerExtensionPaymentPPExpress extends Controller {
 
                 foreach ($addresses as $address) {
                     if (trim(strtolower($address['address_1'])) == trim(strtolower($result['PAYMENTREQUEST_0_SHIPTOSTREET'])) && trim(strtolower($address['postcode'])) == trim(strtolower($result['PAYMENTREQUEST_0_SHIPTOZIP']))) {
-                        $match                                      = true;
+                        $match = true;
 
-                        $this->session->data['payment_address_id']  = $address['address_id'];
-                        $this->session->data['payment_country_id']  = $address['country_id'];
-                        $this->session->data['payment_zone_id']     = $address['zone_id'];
+                        $this->session->data['payment_address_id'] = $address['address_id'];
+                        $this->session->data['payment_country_id'] = $address['country_id'];
+                        $this->session->data['payment_zone_id'] = $address['zone_id'];
                         $this->session->data['shipping_address_id'] = $address['address_id'];
                         $this->session->data['shipping_country_id'] = $address['country_id'];
-                        $this->session->data['shipping_zone_id']    = $address['zone_id'];
-                        $this->session->data['shipping_postcode']   = $address['postcode'];
+                        $this->session->data['shipping_zone_id'] = $address['zone_id'];
+                        $this->session->data['shipping_postcode'] = $address['postcode'];
                         break;
                     }
                 }
@@ -304,7 +304,7 @@ class ControllerExtensionPaymentPPExpress extends Controller {
                  * If there is no address match add the address and set the info.
                  */
                 if ($match == false) {
-                    $shipping_name       = explode(' ', trim($result['PAYMENTREQUEST_0_SHIPTONAME']));
+                    $shipping_name = explode(' ', trim($result['PAYMENTREQUEST_0_SHIPTONAME']));
                     $shipping_first_name = $shipping_name[0];
 
                     unset($shipping_name[0]);
@@ -312,7 +312,7 @@ class ControllerExtensionPaymentPPExpress extends Controller {
                     $shipping_last_name = implode(' ', $shipping_name);
 
                     $country_info = $this->db->query("SELECT * FROM `" . DB_PREFIX . "country` WHERE `iso_code_2` = '" . $this->db->escape($result['PAYMENTREQUEST_0_SHIPTOCOUNTRYCODE']) . "' AND `status` = '1' LIMIT 1")->row;
-                    $zone_info    = $this->db->query("SELECT * FROM `" . DB_PREFIX . "zone` WHERE (`name` = '" . $this->db->escape($result['PAYMENTREQUEST_0_SHIPTOSTATE']) . "' OR `code` = '" . $this->db->escape($result['PAYMENTREQUEST_0_SHIPTOSTATE']) . "') AND `status` = '1' AND `country_id` = '" . (int)$country_info['country_id'] . "'")->row;
+                    $zone_info = $this->db->query("SELECT * FROM `" . DB_PREFIX . "zone` WHERE (`name` = '" . $this->db->escape($result['PAYMENTREQUEST_0_SHIPTOSTATE']) . "' OR `code` = '" . $this->db->escape($result['PAYMENTREQUEST_0_SHIPTOSTATE']) . "') AND `status` = '1' AND `country_id` = '" . (int)$country_info['country_id'] . "'")->row;
 
                     $address_data = [
                         'firstname'  => $shipping_first_name,
@@ -328,20 +328,20 @@ class ControllerExtensionPaymentPPExpress extends Controller {
                         'country_id' => isset($country_info['country_id']) ? $country_info['country_id'] : 0
                     ];
 
-                    $address_id                                 = $this->model_account_address->addAddress($this->customer->getId(), $address_data);
+                    $address_id = $this->model_account_address->addAddress($this->customer->getId(), $address_data);
 
-                    $this->session->data['payment_address_id']  = $address_id;
-                    $this->session->data['payment_country_id']  = $address_data['country_id'];
-                    $this->session->data['payment_zone_id']     = $address_data['zone_id'];
+                    $this->session->data['payment_address_id'] = $address_id;
+                    $this->session->data['payment_country_id'] = $address_data['country_id'];
+                    $this->session->data['payment_zone_id'] = $address_data['zone_id'];
                     $this->session->data['shipping_address_id'] = $address_id;
                     $this->session->data['shipping_country_id'] = $address_data['country_id'];
-                    $this->session->data['shipping_zone_id']    = $address_data['zone_id'];
-                    $this->session->data['shipping_postcode']   = $address_data['postcode'];
+                    $this->session->data['shipping_zone_id'] = $address_data['zone_id'];
+                    $this->session->data['shipping_postcode'] = $address_data['postcode'];
                 }
             } else {
                 $this->session->data['payment_address_id'] = 0;
                 $this->session->data['payment_country_id'] = 0;
-                $this->session->data['payment_zone_id']    = 0;
+                $this->session->data['payment_zone_id'] = 0;
             }
         }
 
@@ -356,7 +356,7 @@ class ControllerExtensionPaymentPPExpress extends Controller {
 
         // Coupon
         if (isset($this->request->post['coupon']) && $this->validateCoupon()) {
-            $this->session->data['coupon']  = $this->request->post['coupon'];
+            $this->session->data['coupon'] = $this->request->post['coupon'];
             $this->session->data['success'] = $this->language->get('text_coupon');
 
             $this->response->redirect($this->url->link('extension/payment/pp_express/expressConfirm', '', true));
@@ -372,7 +372,7 @@ class ControllerExtensionPaymentPPExpress extends Controller {
 
         // Reward
         if (isset($this->request->post['reward']) && $this->validateReward()) {
-            $this->session->data['reward']  = abs($this->request->post['reward']);
+            $this->session->data['reward'] = abs($this->request->post['reward']);
             $this->session->data['success'] = $this->language->get('text_reward');
 
             $this->response->redirect($this->url->link('extension/payment/pp_express/expressConfirm', '', true));
@@ -397,7 +397,7 @@ class ControllerExtensionPaymentPPExpress extends Controller {
             'text' => $this->language->get('express_text_title')
         ];
 
-        $points       = $this->customer->getRewardPoints();
+        $points = $this->customer->getRewardPoints();
 
         $points_total = 0;
 
@@ -462,30 +462,30 @@ class ControllerExtensionPaymentPPExpress extends Controller {
             // Display prices
             if ($this->customer->isLogged() || !$this->config->get('config_customer_price')) {
                 $unit_price = $this->tax->calculate($product['price'], $product['tax_class_id'], $this->config->get('config_tax'));
-                $price      = $this->currency->format($unit_price, $this->session->data['currency']);
-                $total      = $this->currency->format($unit_price * $product['quantity'], $this->session->data['currency']);
+                $price = $this->currency->format($unit_price, $this->session->data['currency']);
+                $total = $this->currency->format($unit_price * $product['quantity'], $this->session->data['currency']);
             } else {
-                $price      = false;
-                $total      = false;
+                $price = false;
+                $total = false;
             }
 
             // Subscription
             $description = '';
 
             if ($product['subscription']) {
-                $trial_price     = $this->currency->format($this->tax->calculate($product['subscription']['trial_price'], $product['tax_class_id'], $this->config->get('config_tax')), $this->session->data['currency']);
-                $trial_cycle     = $product['subscription']['trial_cycle'];
+                $trial_price = $this->currency->format($this->tax->calculate($product['subscription']['trial_price'], $product['tax_class_id'], $this->config->get('config_tax')), $this->session->data['currency']);
+                $trial_cycle = $product['subscription']['trial_cycle'];
                 $trial_frequency = $this->language->get('text_' . $product['subscription']['trial_frequency']);
-                $trial_duration  = $product['subscription']['trial_duration'];
+                $trial_duration = $product['subscription']['trial_duration'];
 
                 if ($product['subscription']['trial_status']) {
                     $description .= sprintf($this->language->get('text_subscription_trial'), $trial_price, $trial_cycle, $trial_frequency, $trial_duration);
                 }
 
-                $price     = $this->currency->format($this->tax->calculate($product['subscription']['price'], $product['tax_class_id'], $this->config->get('config_tax')), $this->session->data['currency']);
-                $cycle     = $product['subscription']['cycle'];
+                $price = $this->currency->format($this->tax->calculate($product['subscription']['price'], $product['tax_class_id'], $this->config->get('config_tax')), $this->session->data['currency']);
+                $cycle = $product['subscription']['cycle'];
                 $frequency = $this->language->get('text_' . $product['subscription']['frequency']);
-                $duration  = $product['subscription']['duration'];
+                $duration = $product['subscription']['duration'];
 
                 if ($duration) {
                     $description .= sprintf($this->language->get('text_subscription_duration'), $price, $cycle, $frequency, $duration);
@@ -573,8 +573,8 @@ class ControllerExtensionPaymentPPExpress extends Controller {
                         }
 
                         $data['shipping_methods'] = $quote_data;
-                        $data['code']             = $this->session->data['shipping_method']['code'];
-                        $data['action_shipping']  = $this->url->link('extension/payment/pp_express/shipping', '', true);
+                        $data['code'] = $this->session->data['shipping_method']['code'];
+                        $data['action_shipping'] = $this->url->link('extension/payment/pp_express/shipping', '', true);
                     } else {
                         unset($this->session->data['shipping_methods']);
                         unset($this->session->data['shipping_method']);
@@ -595,8 +595,8 @@ class ControllerExtensionPaymentPPExpress extends Controller {
         // Totals
         $this->load->model('setting/extension');
 
-        $total  = 0;
-        $taxes  = $this->cart->getTaxes();
+        $total = 0;
+        $taxes = $this->cart->getTaxes();
         $totals = [];
 
         // Because __call can not keep var references so we put them into an array.
@@ -689,7 +689,7 @@ class ControllerExtensionPaymentPPExpress extends Controller {
         }
 
         $this->session->data['payment_methods'] = $method_data;
-        $this->session->data['payment_method']  = $method_data['pp_express'];
+        $this->session->data['payment_method'] = $method_data['pp_express'];
 
         $data['action_confirm'] = $this->url->link('extension/payment/pp_express/expressComplete', '', true);
 
@@ -717,16 +717,16 @@ class ControllerExtensionPaymentPPExpress extends Controller {
             $data['attention'] = '';
         }
 
-        $data['coupon']         = $this->load->controller('extension/total/coupon');
-        $data['voucher']        = $this->load->controller('extension/total/voucher');
-        $data['reward']         = $this->load->controller('extension/total/reward');
+        $data['coupon'] = $this->load->controller('extension/total/coupon');
+        $data['voucher'] = $this->load->controller('extension/total/voucher');
+        $data['reward'] = $this->load->controller('extension/total/reward');
 
-        $data['column_left']    = $this->load->controller('common/column_left');
-        $data['column_right']   = $this->load->controller('common/column_right');
-        $data['content_top']    = $this->load->controller('common/content_top');
+        $data['column_left'] = $this->load->controller('common/column_left');
+        $data['column_right'] = $this->load->controller('common/column_right');
+        $data['content_top'] = $this->load->controller('common/content_top');
         $data['content_bottom'] = $this->load->controller('common/content_bottom');
-        $data['footer']         = $this->load->controller('common/footer');
-        $data['header']         = $this->load->controller('common/header');
+        $data['footer'] = $this->load->controller('common/footer');
+        $data['header'] = $this->load->controller('common/header');
 
         $this->response->setOutput($this->load->view('extension/payment/pp_express_confirm', $data));
     }
@@ -797,8 +797,8 @@ class ControllerExtensionPaymentPPExpress extends Controller {
         }
 
         if ($redirect == '') {
-            $total  = 0;
-            $taxes  = $this->cart->getTaxes();
+            $total = 0;
+            $taxes = $this->cart->getTaxes();
             $totals = [];
 
             // Because __call can not keep var references so we put them into an array.
@@ -840,8 +840,8 @@ class ControllerExtensionPaymentPPExpress extends Controller {
             $this->load->language('checkout/checkout');
 
             $data['invoice_prefix'] = $this->config->get('config_invoice_prefix');
-            $data['store_id']       = $this->config->get('config_store_id');
-            $data['store_name']     = $this->config->get('config_name');
+            $data['store_id'] = $this->config->get('config_store_id');
+            $data['store_name'] = $this->config->get('config_name');
 
             if ($data['store_id']) {
                 $data['store_url'] = $this->config->get('config_url');
@@ -850,48 +850,48 @@ class ControllerExtensionPaymentPPExpress extends Controller {
             }
 
             if ($this->customer->isLogged() && isset($this->session->data['payment_address_id'])) {
-                $data['customer_id']       = $this->customer->getId();
+                $data['customer_id'] = $this->customer->getId();
                 $data['customer_group_id'] = $this->config->get('config_customer_group_id');
-                $data['firstname']         = $this->customer->getFirstName();
-                $data['lastname']          = $this->customer->getLastName();
-                $data['email']             = $this->customer->getEmail();
-                $data['telephone']         = $this->customer->getTelephone();
+                $data['firstname'] = $this->customer->getFirstName();
+                $data['lastname'] = $this->customer->getLastName();
+                $data['email'] = $this->customer->getEmail();
+                $data['telephone'] = $this->customer->getTelephone();
 
                 $this->load->model('account/address');
 
                 $payment_address = $this->model_account_address->getAddress($this->session->data['payment_address_id']);
             } elseif (isset($this->session->data['guest'])) {
-                $data['customer_id']       = 0;
+                $data['customer_id'] = 0;
                 $data['customer_group_id'] = (int)$this->session->data['guest']['customer_group_id'];
-                $data['firstname']         = $this->session->data['guest']['firstname'];
-                $data['lastname']          = $this->session->data['guest']['lastname'];
-                $data['email']             = $this->session->data['guest']['email'];
-                $data['telephone']         = $this->session->data['guest']['telephone'];
+                $data['firstname'] = $this->session->data['guest']['firstname'];
+                $data['lastname'] = $this->session->data['guest']['lastname'];
+                $data['email'] = $this->session->data['guest']['email'];
+                $data['telephone'] = $this->session->data['guest']['telephone'];
 
                 $payment_address = $this->session->data['guest']['payment'];
             }
 
-            $data['payment_firstname']      = isset($payment_address['firstname']) ? $payment_address['firstname'] : '';
-            $data['payment_lastname']       = isset($payment_address['lastname']) ? $payment_address['lastname'] : '';
-            $data['payment_company']        = isset($payment_address['company']) ? $payment_address['company'] : '';
-            $data['payment_company_id']     = isset($payment_address['company_id']) ? $payment_address['company_id'] : '';
-            $data['payment_tax_id']         = isset($payment_address['tax_id']) ? $payment_address['tax_id'] : '';
-            $data['payment_address_1']      = isset($payment_address['address_1']) ? $payment_address['address_1'] : '';
-            $data['payment_address_2']      = isset($payment_address['address_2']) ? $payment_address['address_2'] : '';
-            $data['payment_city']           = isset($payment_address['city']) ? $payment_address['city'] : '';
-            $data['payment_postcode']       = isset($payment_address['postcode']) ? $payment_address['postcode'] : '';
-            $data['payment_zone']           = isset($payment_address['zone']) ? $payment_address['zone'] : '';
-            $data['payment_zone_id']        = isset($payment_address['zone_id']) ? $payment_address['zone_id'] : 0;
-            $data['payment_country']        = isset($payment_address['country']) ? $payment_address['country'] : '';
-            $data['payment_country_id']     = isset($payment_address['country_id']) ? $payment_address['country_id'] : 0;
+            $data['payment_firstname'] = isset($payment_address['firstname']) ? $payment_address['firstname'] : '';
+            $data['payment_lastname'] = isset($payment_address['lastname']) ? $payment_address['lastname'] : '';
+            $data['payment_company'] = isset($payment_address['company']) ? $payment_address['company'] : '';
+            $data['payment_company_id'] = isset($payment_address['company_id']) ? $payment_address['company_id'] : '';
+            $data['payment_tax_id'] = isset($payment_address['tax_id']) ? $payment_address['tax_id'] : '';
+            $data['payment_address_1'] = isset($payment_address['address_1']) ? $payment_address['address_1'] : '';
+            $data['payment_address_2'] = isset($payment_address['address_2']) ? $payment_address['address_2'] : '';
+            $data['payment_city'] = isset($payment_address['city']) ? $payment_address['city'] : '';
+            $data['payment_postcode'] = isset($payment_address['postcode']) ? $payment_address['postcode'] : '';
+            $data['payment_zone'] = isset($payment_address['zone']) ? $payment_address['zone'] : '';
+            $data['payment_zone_id'] = isset($payment_address['zone_id']) ? $payment_address['zone_id'] : 0;
+            $data['payment_country'] = isset($payment_address['country']) ? $payment_address['country'] : '';
+            $data['payment_country_id'] = isset($payment_address['country_id']) ? $payment_address['country_id'] : 0;
             $data['payment_address_format'] = isset($payment_address['address_format']) ? $payment_address['address_format'] : '';
-            $data['payment_method']         = '';
+            $data['payment_method'] = '';
 
             if (isset($this->session->data['payment_method']['title'])) {
                 $data['payment_method'] = $this->session->data['payment_method']['title'];
             }
 
-            $data['payment_code']           = '';
+            $data['payment_code'] = '';
 
             if (isset($this->session->data['payment_method']['code'])) {
                 $data['payment_code'] = $this->session->data['payment_method']['code'];
@@ -906,44 +906,44 @@ class ControllerExtensionPaymentPPExpress extends Controller {
                     $shipping_address = $this->session->data['guest']['shipping'];
                 }
 
-                $data['shipping_firstname']      = $shipping_address['firstname'];
-                $data['shipping_lastname']       = $shipping_address['lastname'];
-                $data['shipping_company']        = $shipping_address['company'];
-                $data['shipping_address_1']      = $shipping_address['address_1'];
-                $data['shipping_address_2']      = $shipping_address['address_2'];
-                $data['shipping_city']           = $shipping_address['city'];
-                $data['shipping_postcode']       = $shipping_address['postcode'];
-                $data['shipping_zone']           = $shipping_address['zone'];
-                $data['shipping_zone_id']        = $shipping_address['zone_id'];
-                $data['shipping_country']        = $shipping_address['country'];
-                $data['shipping_country_id']     = $shipping_address['country_id'];
+                $data['shipping_firstname'] = $shipping_address['firstname'];
+                $data['shipping_lastname'] = $shipping_address['lastname'];
+                $data['shipping_company'] = $shipping_address['company'];
+                $data['shipping_address_1'] = $shipping_address['address_1'];
+                $data['shipping_address_2'] = $shipping_address['address_2'];
+                $data['shipping_city'] = $shipping_address['city'];
+                $data['shipping_postcode'] = $shipping_address['postcode'];
+                $data['shipping_zone'] = $shipping_address['zone'];
+                $data['shipping_zone_id'] = $shipping_address['zone_id'];
+                $data['shipping_country'] = $shipping_address['country'];
+                $data['shipping_country_id'] = $shipping_address['country_id'];
                 $data['shipping_address_format'] = $shipping_address['address_format'];
-                $data['shipping_method']         = '';
+                $data['shipping_method'] = '';
 
                 if (isset($this->session->data['shipping_method']['title'])) {
                     $data['shipping_method'] = $this->session->data['shipping_method']['title'];
                 }
 
-                $data['shipping_code']           = '';
+                $data['shipping_code'] = '';
 
                 if (isset($this->session->data['shipping_method']['code'])) {
                     $data['shipping_code'] = $this->session->data['shipping_method']['code'];
                 }
             } else {
-                $data['shipping_zone_id']        = 0;
-                $data['shipping_country_id']     = 0;
-                $data['shipping_firstname']      = '';
-                $data['shipping_lastname']       = '';
-                $data['shipping_company']        = '';
-                $data['shipping_address_1']      = '';
-                $data['shipping_address_2']      = '';
-                $data['shipping_city']           = '';
-                $data['shipping_postcode']       = '';
-                $data['shipping_zone']           = '';
-                $data['shipping_country']        = '';
+                $data['shipping_zone_id'] = 0;
+                $data['shipping_country_id'] = 0;
+                $data['shipping_firstname'] = '';
+                $data['shipping_lastname'] = '';
+                $data['shipping_company'] = '';
+                $data['shipping_address_1'] = '';
+                $data['shipping_address_2'] = '';
+                $data['shipping_city'] = '';
+                $data['shipping_postcode'] = '';
+                $data['shipping_zone'] = '';
+                $data['shipping_country'] = '';
                 $data['shipping_address_format'] = '';
-                $data['shipping_method']         = '';
-                $data['shipping_code']           = '';
+                $data['shipping_method'] = '';
+                $data['shipping_code'] = '';
             }
 
             $product_data = [];
@@ -999,9 +999,9 @@ class ControllerExtensionPaymentPPExpress extends Controller {
 
             $data['products'] = $product_data;
             $data['vouchers'] = $voucher_data;
-            $data['totals']   = $totals;
-            $data['comment']  = $this->session->data['comment'];
-            $data['total']    = $total;
+            $data['totals'] = $totals;
+            $data['comment'] = $this->session->data['comment'];
+            $data['total'] = $total;
 
             if (isset($this->request->cookie['tracking'])) {
                 $data['tracking'] = $this->request->cookie['tracking'];
@@ -1015,10 +1015,10 @@ class ControllerExtensionPaymentPPExpress extends Controller {
 
                 if ($affiliate_info) {
                     $data['affiliate_id'] = $affiliate_info['affiliate_id'];
-                    $data['commission']   = ($subtotal / 100) * $affiliate_info['commission'];
+                    $data['commission'] = ($subtotal / 100) * $affiliate_info['commission'];
                 } else {
                     $data['affiliate_id'] = 0;
-                    $data['commission']   = 0;
+                    $data['commission'] = 0;
                 }
 
                 // Marketing
@@ -1033,16 +1033,16 @@ class ControllerExtensionPaymentPPExpress extends Controller {
                 }
             } else {
                 $data['affiliate_id'] = 0;
-                $data['commission']   = 0;
+                $data['commission'] = 0;
                 $data['marketing_id'] = 0;
-                $data['tracking']     = '';
+                $data['tracking'] = '';
             }
 
-            $data['language_id']    = $this->config->get('config_language_id');
-            $data['currency_id']    = $this->currency->getId($this->session->data['currency']);
-            $data['currency_code']  = $this->session->data['currency'];
+            $data['language_id'] = $this->config->get('config_language_id');
+            $data['currency_id'] = $this->currency->getId($this->session->data['currency']);
+            $data['currency_code'] = $this->session->data['currency'];
             $data['currency_value'] = $this->currency->getValue($this->session->data['currency']);
-            $data['ip']             = $this->request->server['REMOTE_ADDR'];
+            $data['ip'] = $this->request->server['REMOTE_ADDR'];
 
             if (!empty($this->request->server['HTTP_X_FORWARDED_FOR'])) {
                 $data['forwarded_ip'] = $this->request->server['HTTP_X_FORWARDED_FOR'];
@@ -1188,15 +1188,15 @@ class ControllerExtensionPaymentPPExpress extends Controller {
                                 'TRIALAMT'                => $this->currency->format($this->tax->calculate($item['subscription']['trial_price'], $item['tax_class_id'], $this->config->get('config_tax')), $this->session->data['currency'], false, false) * $item['quantity']
                             ];
 
-                            $trial_amt  = $this->currency->format($this->tax->calculate($item['subscription']['trial_price'], $item['tax_class_id'], $this->config->get('config_tax')), $this->session->data['currency'], false, false) * $item['quantity'] . ' ' . $this->session->data['currency'];
+                            $trial_amt = $this->currency->format($this->tax->calculate($item['subscription']['trial_price'], $item['tax_class_id'], $this->config->get('config_tax')), $this->session->data['currency'], false, false) * $item['quantity'] . ' ' . $this->session->data['currency'];
                             $trial_text = sprintf($this->language->get('text_trial'), $trial_amt, $item['subscription']['trial_cycle'], $item['subscription']['trial_frequency'], $item['subscription']['trial_duration']);
-                            $data       = array_merge($data, $data_trial);
+                            $data = array_merge($data, $data_trial);
                         } else {
                             $trial_text = '';
                         }
 
                         $subscription_amt = $this->currency->format($this->tax->calculate($item['subscription']['price'], $item['tax_class_id'], $this->config->get('config_tax')), $this->session->data['currency'], false, false) * $item['quantity'] . ' ' . $this->session->data['currency'];
-                        $description      = $trial_text . sprintf($this->language->get('text_subscription'), $subscription_amt, $item['subscription']['cycle'], $item['subscription']['frequency']);
+                        $description = $trial_text . sprintf($this->language->get('text_subscription'), $subscription_amt, $item['subscription']['cycle'], $item['subscription']['frequency']);
 
                         if ($item['subscription']['duration'] > 0) {
                             $description .= sprintf($this->language->get('text_length'), $item['subscription']['duration']);
@@ -1205,12 +1205,12 @@ class ControllerExtensionPaymentPPExpress extends Controller {
                         $item['subscription']['description'] = $description;
 
                         // Create new subscription and set to pending status as no payment has been made yet.
-                        $subscription_id          = $this->model_checkout_subscription->addSubscription($order_id, $item['subscription']);
+                        $subscription_id = $this->model_checkout_subscription->addSubscription($order_id, $item['subscription']);
 
                         $data['PROFILEREFERENCE'] = $subscription_id;
-                        $data['DESC']             = $description;
+                        $data['DESC'] = $description;
 
-                        $result                   = $this->model_extension_payment_pp_express->call($data);
+                        $result = $this->model_extension_payment_pp_express->call($data);
 
                         if (isset($result['PROFILEID'])) {
                             $this->model_checkout_subscription->editReference($subscription_id, $result['PROFILEID']);
@@ -1232,7 +1232,7 @@ class ControllerExtensionPaymentPPExpress extends Controller {
                     if (isset($this->session->data['paypal_redirect_count'])) {
                         if ($this->session->data['paypal_redirect_count'] == 2) {
                             $this->session->data['paypal_redirect_count'] = 0;
-                            $this->session->data['error']                 = $this->language->get('error_too_many_failures');
+                            $this->session->data['error'] = $this->language->get('error_too_many_failures');
 
                             $this->response->redirect($this->url->link('checkout/checkout', '', true));
                         } else {
@@ -1283,11 +1283,16 @@ class ControllerExtensionPaymentPPExpress extends Controller {
 
             // PayPal requires some countries to use zone code (not name) to be sent in SHIPTOSTATE
             $ship_to_state_codes = [
-                '30', // Brazil
-                '38', // Canada
-                '105', // Italy
-                '138', // Mexico
-                '223', // USA
+                '30',
+                // Brazil
+                '38',
+                // Canada
+                '105',
+                // Italy
+                '138',
+                // Mexico
+                '223',
+                // USA
             ];
 
             if (in_array($order_info['shipping_country_id'], $ship_to_state_codes)) {
@@ -1333,7 +1338,7 @@ class ControllerExtensionPaymentPPExpress extends Controller {
 
         $post_data = array_merge($post_data, $this->model_extension_payment_pp_express->paymentRequestInfo());
 
-        $result    = $this->model_extension_payment_pp_express->call($post_data);
+        $result = $this->model_extension_payment_pp_express->call($post_data);
 
         /**
          * If a failed PayPal setup happens, handle it.
@@ -1370,11 +1375,11 @@ class ControllerExtensionPaymentPPExpress extends Controller {
             'TOKEN'  => $this->session->data['paypal']['token']
         ];
 
-        $result                                   = $this->model_extension_payment_pp_express->call($post_data);
-        $order_id                                 = (int)$this->session->data['order_id'];
+        $result = $this->model_extension_payment_pp_express->call($post_data);
+        $order_id = (int)$this->session->data['order_id'];
 
         $this->session->data['paypal']['payerid'] = $result['PAYERID'];
-        $this->session->data['paypal']['result']  = $result;
+        $this->session->data['paypal']['result'] = $result;
 
         $paypal_data = [
             'TOKEN'                      => $this->session->data['paypal']['token'],
@@ -1386,7 +1391,7 @@ class ControllerExtensionPaymentPPExpress extends Controller {
 
         $paypal_data = array_merge($paypal_data, $this->model_extension_payment_pp_express->paymentRequestInfo());
 
-        $result      = $this->model_extension_payment_pp_express->call($paypal_data);
+        $result = $this->model_extension_payment_pp_express->call($paypal_data);
 
         if ($result['ACK'] == 'Success') {
             // Handle order status
@@ -1488,7 +1493,7 @@ class ControllerExtensionPaymentPPExpress extends Controller {
                             'TRIALAMT'                => $this->currency->format($this->tax->calculate($item['subscription']['trial_price'], $item['tax_class_id'], $this->config->get('config_tax')), $this->session->data['currency'], false, false) * $item['quantity']
                         ];
 
-                        $trial_amt  = $this->currency->format($this->tax->calculate($item['subscription']['trial_price'], $item['tax_class_id'], $this->config->get('config_tax')), $this->session->data['currency'], false, false) * $item['quantity'] . ' ' . $this->session->data['currency'];
+                        $trial_amt = $this->currency->format($this->tax->calculate($item['subscription']['trial_price'], $item['tax_class_id'], $this->config->get('config_tax')), $this->session->data['currency'], false, false) * $item['quantity'] . ' ' . $this->session->data['currency'];
                         $trial_text = sprintf($this->language->get('text_trial'), $trial_amt, $item['subscription']['trial_cycle'], $item['subscription']['trial_frequency'], $item['subscription']['trial_duration']);
 
                         $data = array_merge($data, $data_trial);
@@ -1498,7 +1503,7 @@ class ControllerExtensionPaymentPPExpress extends Controller {
 
                     $subscription_amt = $this->currency->format($this->tax->calculate($item['subscription']['price'], $item['tax_class_id'], $this->config->get('config_tax')), $this->session->data['currency'], false, false) * $item['quantity'] . ' ' . $this->session->data['currency'];
 
-                    $description      = $trial_text . sprintf($this->language->get('text_subscription'), $subscription_amt, $item['subscription']['cycle'], $item['subscription']['frequency']);
+                    $description = $trial_text . sprintf($this->language->get('text_subscription'), $subscription_amt, $item['subscription']['cycle'], $item['subscription']['frequency']);
 
                     if ($item['subscription']['duration'] > 0) {
                         $description .= sprintf($this->language->get('text_length'), $item['subscription']['duration']);
@@ -1507,11 +1512,11 @@ class ControllerExtensionPaymentPPExpress extends Controller {
                     $item['subscription']['description'] = $description;
 
                     // Create new subscription and set to pending status as no payment has been made yet.
-                    $subscription_id                     = $this->model_checkout_subscription->addSubscription($order_id, $item['subscription']);
+                    $subscription_id = $this->model_checkout_subscription->addSubscription($order_id, $item['subscription']);
 
-                    $data['PROFILEREFERENCE']            = $subscription_id;
-                    $data['DESC']                        = $description;
-                    $result                              = $this->model_extension_payment_pp_express->call($data);
+                    $data['PROFILEREFERENCE'] = $subscription_id;
+                    $data['DESC'] = $description;
+                    $result = $this->model_extension_payment_pp_express->call($data);
 
                     if (!isset($result['PROFILEID'])) {
                         // there was an error creating the subscription, need to log and also alert admin / user
@@ -1533,7 +1538,7 @@ class ControllerExtensionPaymentPPExpress extends Controller {
                 if (isset($this->session->data['paypal_redirect_count'])) {
                     if ($this->session->data['paypal_redirect_count'] == 2) {
                         $this->session->data['paypal_redirect_count'] = 0;
-                        $this->session->data['error']                 = $this->language->get('error_too_many_failures');
+                        $this->session->data['error'] = $this->language->get('error_too_many_failures');
 
                         $this->response->redirect($this->url->link('checkout/checkout', '', true));
                     } else {
@@ -1564,21 +1569,21 @@ class ControllerExtensionPaymentPPExpress extends Controller {
                 'text' => $this->language->get('text_cart')
             ];
 
-            $data['heading_title']   = $this->language->get('error_heading_title');
-            $data['text_error']      = '<div class="warning">' . $result['L_ERRORCODE0'] . ' : ' . $result['L_LONGMESSAGE0'] . '</div>';
+            $data['heading_title'] = $this->language->get('error_heading_title');
+            $data['text_error'] = '<div class="warning">' . $result['L_ERRORCODE0'] . ' : ' . $result['L_LONGMESSAGE0'] . '</div>';
             $data['button_continue'] = $this->language->get('button_continue');
-            $data['continue']        = $this->url->link('checkout/cart');
+            $data['continue'] = $this->url->link('checkout/cart');
 
             unset($this->session->data['success']);
 
             $this->response->addHeader($this->request->server['SERVER_PROTOCOL'] . ' 404 Not Found');
 
-            $data['column_left']    = $this->load->controller('common/column_left');
-            $data['column_right']   = $this->load->controller('common/column_right');
-            $data['content_top']    = $this->load->controller('common/content_top');
+            $data['column_left'] = $this->load->controller('common/column_left');
+            $data['column_right'] = $this->load->controller('common/column_right');
+            $data['content_top'] = $this->load->controller('common/content_top');
             $data['content_bottom'] = $this->load->controller('common/content_bottom');
-            $data['footer']         = $this->load->controller('common/footer');
-            $data['header']         = $this->load->controller('common/header');
+            $data['footer'] = $this->load->controller('common/footer');
+            $data['header'] = $this->load->controller('common/header');
 
             $this->response->setOutput($this->load->view('error/not_found', $data));
         }
@@ -1610,12 +1615,15 @@ class ControllerExtensionPaymentPPExpress extends Controller {
         $response = trim(curl_exec($curl));
 
         if (!$response) {
-            $this->model_extension_payment_pp_express->log(['error'    => curl_error($curl),
-                                                            'error_no' => curl_errno($curl)
+            $this->model_extension_payment_pp_express->log([
+                'error'    => curl_error($curl),
+                'error_no' => curl_errno($curl)
             ], 'Curl failed');
         }
 
-        $this->model_extension_payment_pp_express->log(['request' => $request, 'response' => $response], 'IPN data');
+        $this->model_extension_payment_pp_express->log(['request'  => $request,
+                                                        'response' => $response
+        ], 'IPN data');
 
         if ((string)$response == 'VERIFIED') {
             if (isset($this->request->post['transaction_entity'])) {
@@ -1685,8 +1693,8 @@ class ControllerExtensionPaymentPPExpress extends Controller {
                      * If the capture payment is now complete
                      */
                     if (isset($this->request->post['auth_status']) && $this->request->post['auth_status'] == 'Completed' && $parent_transaction['payment_status'] == 'Pending') {
-                        $captured  = $this->currency->format($this->model_extension_payment_pp_express->getTotalCaptured($parent_transaction['paypal_order_id']), $this->session->data['currency'], false, false);
-                        $refunded  = $this->currency->format($this->model_extension_payment_pp_express->getRefundedTotal($parent_transaction['paypal_order_id']), $this->session->data['currency'], false, false);
+                        $captured = $this->currency->format($this->model_extension_payment_pp_express->getTotalCaptured($parent_transaction['paypal_order_id']), $this->session->data['currency'], false, false);
+                        $refunded = $this->currency->format($this->model_extension_payment_pp_express->getRefundedTotal($parent_transaction['paypal_order_id']), $this->session->data['currency'], false, false);
                         $remaining = $this->currency->format($parent_transaction['amount'] - $captured + $refunded, $this->session->data['currency'], false, false);
 
                         $this->model_extension_payment_pp_express->log('Captured: ' . $captured, 'IPN data');
@@ -1897,7 +1905,7 @@ class ControllerExtensionPaymentPPExpress extends Controller {
                 return false;
             } else {
                 $this->session->data['shipping_method'] = $this->session->data['shipping_methods'][$shipping[0]]['quote'][$shipping[1]];
-                $this->session->data['success']         = $this->language->get('text_shipping_updated');
+                $this->session->data['success'] = $this->language->get('text_shipping_updated');
 
                 return true;
             }
@@ -1933,7 +1941,7 @@ class ControllerExtensionPaymentPPExpress extends Controller {
     }
 
     protected function validateReward() {
-        $points       = $this->customer->getRewardPoints();
+        $points = $this->customer->getRewardPoints();
 
         $points_total = 0;
 

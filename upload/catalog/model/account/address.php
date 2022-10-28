@@ -39,14 +39,14 @@ class ModelAccountAddress extends Model {
             $country_info = $this->model_localisation_country->getCountry($address_query->row['country_id']);
 
             if ($country_info) {
-                $country        = $country_info['name'];
-                $iso_code_2     = $country_info['iso_code_2'];
-                $iso_code_3     = $country_info['iso_code_3'];
+                $country = $country_info['name'];
+                $iso_code_2 = $country_info['iso_code_2'];
+                $iso_code_3 = $country_info['iso_code_3'];
                 $address_format = $country_info['address_format'];
             } else {
-                $country        = '';
-                $iso_code_2     = '';
-                $iso_code_3     = '';
+                $country = '';
+                $iso_code_2 = '';
+                $iso_code_3 = '';
                 $address_format = '';
             }
 
@@ -55,10 +55,10 @@ class ModelAccountAddress extends Model {
             $zone_info = $this->model_localisation_zone->getZone($address_query->row['zone_id']);
 
             if ($zone_info) {
-                $zone      = $zone_info['name'];
+                $zone = $zone_info['name'];
                 $zone_code = $zone_info['code'];
             } else {
-                $zone      = '';
+                $zone = '';
                 $zone_code = '';
             }
 
@@ -88,31 +88,35 @@ class ModelAccountAddress extends Model {
                 'country'   => $country
             ];
 
-            $address_format = str_replace(["\r\n", "\r", "\n"], '<br/>', preg_replace([
+            $address_format = str_replace([
+                "\r\n",
+                "\r",
+                "\n"
+            ], '<br/>', preg_replace([
                 "/\s\s+/",
                 "/\r\r+/",
                 "/\n\n+/"
             ], '<br/>', trim(str_replace($find, $replace, $address_format))));
 
             return [
-                'address_id'     => $address_query->row['address_id'],
-                'firstname'      => $address_query->row['firstname'],
-                'lastname'       => $address_query->row['lastname'],
-                'company'        => $address_query->row['company'],
-                'address_1'      => $address_query->row['address_1'],
-                'address_2'      => $address_query->row['address_2'],
-                'postcode'       => $address_query->row['postcode'],
-                'city'           => $address_query->row['city'],
-                'zone_id'        => $address_query->row['zone_id'],
-                'zone'           => $zone,
-                'zone_code'      => $zone_code,
-                'country_id'     => $address_query->row['country_id'],
-                'country'        => $country,
-                'iso_code_2'     => $iso_code_2,
-                'iso_code_3'     => $iso_code_3,
+                'address_id' => $address_query->row['address_id'],
+                'firstname' => $address_query->row['firstname'],
+                'lastname' => $address_query->row['lastname'],
+                'company' => $address_query->row['company'],
+                'address_1' => $address_query->row['address_1'],
+                'address_2' => $address_query->row['address_2'],
+                'postcode' => $address_query->row['postcode'],
+                'city' => $address_query->row['city'],
+                'zone_id' => $address_query->row['zone_id'],
+                'zone' => $zone,
+                'zone_code' => $zone_code,
+                'country_id' => $address_query->row['country_id'],
+                'country' => $country,
+                'iso_code_2' => $iso_code_2,
+                'iso_code_3' => $iso_code_3,
                 'address_format' => $address_format,
-                'custom_field'   => json_decode($address_query->row['custom_field'], true),
-                'default'        => $address_query->row['default']
+                'custom_field' => json_decode($address_query->row['custom_field'], true),
+                'default' => $address_query->row['default']
             ];
         } else {
             return [];

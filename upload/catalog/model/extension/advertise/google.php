@@ -7,7 +7,7 @@ class ModelExtensionAdvertiseGoogle extends Model {
 
         if ($google_category_result->num_rows > 0) {
             $google_category_id = $google_category_result->row['google_product_category'];
-            $google_categories  = $this->config->get('advertise_google_google_product_categories');
+            $google_categories = $this->config->get('advertise_google_google_product_categories');
 
             if (!empty($google_category_id) && isset($google_categories[$google_category_id])) {
                 return $google_categories[$google_category_id];
@@ -37,11 +37,11 @@ class ModelExtensionAdvertiseGoogle extends Model {
 
     public function getSizeAndColorOptionMap($product_id, $store_id) {
         $color_id = $this->getOptionId($product_id, $store_id, 'color');
-        $size_id  = $this->getOptionId($product_id, $store_id, 'size');
+        $size_id = $this->getOptionId($product_id, $store_id, 'size');
 
         $groups = $this->googleshopping->getGroups($product_id, $this->config->get('config_language_id'), $color_id, $size_id);
         $colors = $this->googleshopping->getProductOptionValueNames($product_id, $this->config->get('config_language_id'), $color_id);
-        $sizes  = $this->googleshopping->getProductOptionValueNames($product_id, $this->config->get('config_language_id'), $size_id);
+        $sizes = $this->googleshopping->getProductOptionValueNames($product_id, $this->config->get('config_language_id'), $size_id);
 
         $map = [
             'groups' => $groups,
@@ -95,8 +95,8 @@ class ModelExtensionAdvertiseGoogle extends Model {
 
     protected function getRemarketingProductId($product, $store_id) {
         $found_color = '';
-        $found_size  = '';
-        $option_map  = $this->getSizeAndColorOptionMap($product['product_id'], $store_id);
+        $found_size = '';
+        $option_map = $this->getSizeAndColorOptionMap($product['product_id'], $store_id);
 
         foreach ($product['option'] as $option) {
             if (!empty($option_map['colors']) && is_array($option_map['colors'])) {

@@ -135,9 +135,9 @@ class ControllerExtensionPaymentSagepayServer extends Controller {
             $data['payment_sagepay_server_sort_order'] = $this->config->get('payment_sagepay_server_sort_order');
         }
 
-        $data['header']      = $this->load->controller('common/header');
+        $data['header'] = $this->load->controller('common/header');
         $data['column_left'] = $this->load->controller('common/column_left');
-        $data['footer']      = $this->load->controller('common/footer');
+        $data['footer'] = $this->load->controller('common/footer');
 
         $this->response->setOutput($this->load->view('extension/payment/sagepay_server', $data));
     }
@@ -163,14 +163,14 @@ class ControllerExtensionPaymentSagepayServer extends Controller {
             if (!empty($sagepay_server_order)) {
                 $this->load->language('extension/payment/sagepay_server');
 
-                $sagepay_server_order['total_released']           = $this->model_extension_payment_sagepay_server->getTotalReleased($sagepay_server_order['sagepay_server_order_id']);
-                $sagepay_server_order['total_formatted']          = $this->currency->format($sagepay_server_order['total'], $sagepay_server_order['currency_code'], false, false);
+                $sagepay_server_order['total_released'] = $this->model_extension_payment_sagepay_server->getTotalReleased($sagepay_server_order['sagepay_server_order_id']);
+                $sagepay_server_order['total_formatted'] = $this->currency->format($sagepay_server_order['total'], $sagepay_server_order['currency_code'], false, false);
                 $sagepay_server_order['total_released_formatted'] = $this->currency->format($sagepay_server_order['total_released'], $sagepay_server_order['currency_code'], false, false);
 
                 $data['sagepay_server_order'] = $sagepay_server_order;
-                $data['auto_settle']          = $sagepay_server_order['settle_type'];
-                $data['order_id']             = (int)$this->request->get['order_id'];
-                $data['user_token']           = $this->session->data['user_token'];
+                $data['auto_settle'] = $sagepay_server_order['settle_type'];
+                $data['order_id'] = (int)$this->request->get['order_id'];
+                $data['user_token'] = $this->session->data['user_token'];
 
                 return $this->load->view('extension/payment/sagepay_server_order', $data);
             } else {
@@ -254,10 +254,10 @@ class ControllerExtensionPaymentSagepayServer extends Controller {
 
                 $json['data'] = [];
 
-                $json['data']['date_added']     = date('Y-m-d H:i:s');
-                $json['data']['amount']         = $this->request->post['amount'];
+                $json['data']['date_added'] = date('Y-m-d H:i:s');
+                $json['data']['amount'] = $this->request->post['amount'];
                 $json['data']['release_status'] = $release_status;
-                $json['data']['total']          = (float)$total_released;
+                $json['data']['total'] = (float)$total_released;
 
                 $json['error'] = false;
             } else {
@@ -292,7 +292,7 @@ class ControllerExtensionPaymentSagepayServer extends Controller {
             if ($rebate_response['Status'] == 'OK') {
                 $this->model_extension_payment_sagepay_server->addTransaction($sagepay_server_order['sagepay_server_order_id'], 'rebate', $this->request->post['amount'] * -1);
 
-                $total_rebated  = $this->model_extension_payment_sagepay_server->getTotalRebated($sagepay_server_order['sagepay_server_order_id']);
+                $total_rebated = $this->model_extension_payment_sagepay_server->getTotalRebated($sagepay_server_order['sagepay_server_order_id']);
                 $total_released = $this->model_extension_payment_sagepay_server->getTotalReleased($sagepay_server_order['sagepay_server_order_id']);
 
                 if ($total_released <= 0 && $sagepay_server_order['release_status'] == 1) {
@@ -309,11 +309,11 @@ class ControllerExtensionPaymentSagepayServer extends Controller {
 
                 $json['data'] = [];
 
-                $json['data']['date_added']     = date('Y-m-d H:i:s');
-                $json['data']['amount']         = $this->request->post['amount'] * -1;
+                $json['data']['date_added'] = date('Y-m-d H:i:s');
+                $json['data']['amount'] = $this->request->post['amount'] * -1;
                 $json['data']['total_released'] = (float)$total_released;
-                $json['data']['total_rebated']  = (float)$total_rebated;
-                $json['data']['rebate_status']  = $rebate_status;
+                $json['data']['total_rebated'] = (float)$total_rebated;
+                $json['data']['rebate_status'] = $rebate_status;
 
                 $json['error'] = false;
             } else {

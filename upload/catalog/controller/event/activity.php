@@ -55,7 +55,6 @@ class ControllerEventActivity extends Controller {
         }
     }
 
-
     // catalog/model/account/customer/deleteLoginAttempts/after
     public function login(string &$route, array &$args, mixed &$output): void {
         if (isset($this->request->get['route']) && ($this->request->get['route'] == 'account/login' || $this->request->get['route'] == 'checkout/login/save') && $this->config->get('config_customer_activity')) {

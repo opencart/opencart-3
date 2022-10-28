@@ -11,7 +11,7 @@ class ControllerAccountTransaction extends Controller {
 
         $this->document->setTitle($this->language->get('heading_title'));
 
-        $data['breadcrumbs']   = [];
+        $data['breadcrumbs'] = [];
 
         $data['breadcrumbs'][] = [
             'text' => $this->language->get('text_home'),
@@ -40,7 +40,7 @@ class ControllerAccountTransaction extends Controller {
 
         $data['transactions'] = [];
 
-        $filter_data          = [
+        $filter_data = [
             'sort'  => 'date_added',
             'order' => 'DESC',
             'start' => ($page - 1) * 10,
@@ -49,7 +49,7 @@ class ControllerAccountTransaction extends Controller {
 
         $transaction_total = $this->model_account_transaction->getTotalTransactions();
 
-        $results           = $this->model_account_transaction->getTransactions($filter_data);
+        $results = $this->model_account_transaction->getTransactions($filter_data);
 
         foreach ($results as $result) {
             $data['transactions'][] = [
@@ -59,23 +59,23 @@ class ControllerAccountTransaction extends Controller {
             ];
         }
 
-        $pagination             = new \Pagination();
-        $pagination->total      = $transaction_total;
-        $pagination->page       = $page;
-        $pagination->limit      = 10;
-        $pagination->url        = $this->url->link('account/transaction', 'customer_token=' . $this->session->data['customer_token'] . '&page={page}', true);
+        $pagination = new \Pagination();
+        $pagination->total = $transaction_total;
+        $pagination->page = $page;
+        $pagination->limit = 10;
+        $pagination->url = $this->url->link('account/transaction', 'customer_token=' . $this->session->data['customer_token'] . '&page={page}', true);
 
-        $data['pagination']     = $pagination->render();
-        $data['results']        = sprintf($this->language->get('text_pagination'), ($transaction_total) ? (($page - 1) * 10) + 1 : 0, ((($page - 1) * 10) > ($transaction_total - 10)) ? $transaction_total : ((($page - 1) * 10) + 10), $transaction_total, ceil($transaction_total / 10));
-        $data['total']          = $this->currency->format($this->customer->getBalance(), $this->session->data['currency']);
-        $data['continue']       = $this->url->link('account/account', 'customer_token=' . $this->session->data['customer_token'], true);
+        $data['pagination'] = $pagination->render();
+        $data['results'] = sprintf($this->language->get('text_pagination'), ($transaction_total) ? (($page - 1) * 10) + 1 : 0, ((($page - 1) * 10) > ($transaction_total - 10)) ? $transaction_total : ((($page - 1) * 10) + 10), $transaction_total, ceil($transaction_total / 10));
+        $data['total'] = $this->currency->format($this->customer->getBalance(), $this->session->data['currency']);
+        $data['continue'] = $this->url->link('account/account', 'customer_token=' . $this->session->data['customer_token'], true);
 
-        $data['column_left']    = $this->load->controller('common/column_left');
-        $data['column_right']   = $this->load->controller('common/column_right');
-        $data['content_top']    = $this->load->controller('common/content_top');
+        $data['column_left'] = $this->load->controller('common/column_left');
+        $data['column_right'] = $this->load->controller('common/column_right');
+        $data['content_top'] = $this->load->controller('common/content_top');
         $data['content_bottom'] = $this->load->controller('common/content_bottom');
-        $data['footer']         = $this->load->controller('common/footer');
-        $data['header']         = $this->load->controller('common/header');
+        $data['footer'] = $this->load->controller('common/footer');
+        $data['header'] = $this->load->controller('common/header');
 
         $this->response->setOutput($this->load->view('account/transaction', $data));
     }

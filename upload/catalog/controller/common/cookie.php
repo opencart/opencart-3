@@ -11,8 +11,8 @@ class ControllerCommonCookie extends Controller {
 
                 $data['text_cookie'] = sprintf($this->language->get('text_cookie'), $this->url->link('information/information', 'information_id=' . $information_info['information_id']));
 
-                $data['agree']       = $this->url->link('common/cookie/confirm', 'agree=1');
-                $data['disagree']    = $this->url->link('common/cookie/confirm', 'agree=0');
+                $data['agree'] = $this->url->link('common/cookie/confirm', 'agree=1');
+                $data['disagree'] = $this->url->link('common/cookie/confirm', 'agree=0');
 
                 return $this->load->view('common/cookie', $data);
             }

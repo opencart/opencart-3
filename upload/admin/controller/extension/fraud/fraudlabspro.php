@@ -102,9 +102,9 @@ class ControllerExtensionFraudFraudLabsPro extends Controller {
             $data['fraud_fraudlabspro_status'] = $this->config->get('fraud_fraudlabspro_status');
         }
 
-        $data['header']      = $this->load->controller('common/header');
+        $data['header'] = $this->load->controller('common/header');
         $data['column_left'] = $this->load->controller('common/column_left');
-        $data['footer']      = $this->load->controller('common/footer');
+        $data['footer'] = $this->load->controller('common/footer');
 
         $this->response->setOutput($this->load->view('extension/fraud/fraudlabspro', $data));
     }
@@ -150,7 +150,8 @@ class ControllerExtensionFraudFraudLabsPro extends Controller {
             for ($i = 0; $i < 3; $i++) {
                 $result = @file_get_contents('https://api.fraudlabspro.com/v1/order/feedback?key=' . $fraud_fraudlabspro_key . '&format=json&id=' . $this->request->post['flp_id'] . '&action=' . $flp_status);
 
-                if ($result) break;
+                if ($result)
+                    break;
             }
 
             // Update fraud status into table
@@ -287,10 +288,10 @@ class ControllerExtensionFraudFraudLabsPro extends Controller {
             }
 
             if ($fraud_info['fraudlabspro_id']) {
-                $data['flp_id']   = $fraud_info['fraudlabspro_id'];
+                $data['flp_id'] = $fraud_info['fraudlabspro_id'];
                 $data['flp_link'] = $fraud_info['fraudlabspro_id'];
             } else {
-                $data['flp_id']   = '';
+                $data['flp_id'] = '';
                 $data['flp_link'] = '';
             }
 
@@ -308,8 +309,8 @@ class ControllerExtensionFraudFraudLabsPro extends Controller {
 
     private function fix_case($s) {
         $s = ucwords(strtolower($s));
-        $s = preg_replace_callback("/( [ a-zA-Z]{1}')([a-zA-Z0-9]{1})/s", function($matches) use ($s) {
-            return $matches[1].strtoupper($matches[2]);
+        $s = preg_replace_callback("/( [ a-zA-Z]{1}')([a-zA-Z0-9]{1})/s", function ($matches) use ($s) {
+            return $matches[1] . strtoupper($matches[2]);
         }, $s);
 
         return $s;

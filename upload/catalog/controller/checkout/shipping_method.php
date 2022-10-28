@@ -45,7 +45,7 @@ class ControllerCheckoutShippingMethod extends Controller {
     public function save(): void {
         $this->load->language('checkout/checkout');
 
-        $json     = [];
+        $json = [];
 
         // Validate if shipping is required. If not the customer should not have reached this page.
         if (!$this->cart->hasShipping()) {
@@ -92,8 +92,8 @@ class ControllerCheckoutShippingMethod extends Controller {
 
         if (!$json) {
             $this->session->data['shipping_method'] = $this->session->data['shipping_methods'][$shipping[0]]['quote'][$shipping[1]];
-            
-            $this->session->data['comment']         = strip_tags($this->request->post['comment']);
+
+            $this->session->data['comment'] = strip_tags($this->request->post['comment']);
         }
 
         $this->response->addHeader('Content-Type: application/json');

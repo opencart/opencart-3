@@ -75,7 +75,7 @@ class ModelExtensionPaymentPPProIframe extends Model {
             $order = $query->row;
 
             $order['transactions'] = $this->getTransactions($order['paypal_iframe_order_id']);
-            $order['captured']     = $this->getTotalCaptured($order['paypal_iframe_order_id']);
+            $order['captured'] = $this->getTotalCaptured($order['paypal_iframe_order_id']);
 
             return $order;
         } else {
@@ -100,17 +100,18 @@ class ModelExtensionPaymentPPProIframe extends Model {
 
         $this->log($data, 'Call data');
 
-        $defaults = [CURLOPT_POST           => 1,
-                     CURLOPT_HEADER         => 0,
-                     CURLOPT_URL            => $api_endpoint,
-                     CURLOPT_USERAGENT      => "Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US; rv:1.8.1.1) Gecko/20061204 Firefox/2.0.0.1",
-                     CURLOPT_FRESH_CONNECT  => 1,
-                     CURLOPT_RETURNTRANSFER => 1,
-                     CURLOPT_FORBID_REUSE   => 1,
-                     CURLOPT_TIMEOUT        => 0,
-                     CURLOPT_SSL_VERIFYPEER => 0,
-                     CURLOPT_SSL_VERIFYHOST => 0,
-                     CURLOPT_POSTFIELDS     => http_build_query(array_merge($data, $settings), '', "&")
+        $defaults = [
+            CURLOPT_POST           => 1,
+            CURLOPT_HEADER         => 0,
+            CURLOPT_URL            => $api_endpoint,
+            CURLOPT_USERAGENT      => "Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US; rv:1.8.1.1) Gecko/20061204 Firefox/2.0.0.1",
+            CURLOPT_FRESH_CONNECT  => 1,
+            CURLOPT_RETURNTRANSFER => 1,
+            CURLOPT_FORBID_REUSE   => 1,
+            CURLOPT_TIMEOUT        => 0,
+            CURLOPT_SSL_VERIFYPEER => 0,
+            CURLOPT_SSL_VERIFYHOST => 0,
+            CURLOPT_POSTFIELDS     => http_build_query(array_merge($data, $settings), '', "&")
         ];
 
         $ch = curl_init();
@@ -235,10 +236,10 @@ class ModelExtensionPaymentPPProIframe extends Model {
 
     protected function cleanReturn(string $data): array {
         $data = explode('&', $data);
-        $arr  = [];
+        $arr = [];
 
         foreach ($data as $k => $v) {
-            $tmp          = explode('=', $v);
+            $tmp = explode('=', $v);
             $arr[$tmp[0]] = urldecode($tmp[1]);
         }
 

@@ -135,9 +135,9 @@ class ControllerExtensionPaymentSagepayDirect extends Controller {
             $data['payment_sagepay_direct_last_cron_job_run'] = '';
         }
 
-        $data['header']      = $this->load->controller('common/header');
+        $data['header'] = $this->load->controller('common/header');
         $data['column_left'] = $this->load->controller('common/column_left');
-        $data['footer']      = $this->load->controller('common/footer');
+        $data['footer'] = $this->load->controller('common/footer');
 
         $this->response->setOutput($this->load->view('extension/payment/sagepay_direct', $data));
     }
@@ -165,7 +165,7 @@ class ControllerExtensionPaymentSagepayDirect extends Controller {
 
                 $payment_sagepay_direct_order['total_released'] = $this->model_extension_payment_sagepay_direct->getTotalReleased($payment_sagepay_direct_order['sagepay_direct_order_id']);
 
-                $payment_sagepay_direct_order['total_formatted']          = $this->currency->format($payment_sagepay_direct_order['total'], $payment_sagepay_direct_order['currency_code'], false, false);
+                $payment_sagepay_direct_order['total_formatted'] = $this->currency->format($payment_sagepay_direct_order['total'], $payment_sagepay_direct_order['currency_code'], false, false);
                 $payment_sagepay_direct_order['total_released_formatted'] = $this->currency->format($payment_sagepay_direct_order['total_released'], $payment_sagepay_direct_order['currency_code'], false, false);
 
                 $data['payment_sagepay_direct_order'] = $payment_sagepay_direct_order;
@@ -247,27 +247,27 @@ class ControllerExtensionPaymentSagepayDirect extends Controller {
                 if ($total_released >= $payment_sagepay_direct_order['total'] || $payment_sagepay_direct_order['settle_type'] == 0) {
                     $this->model_extension_payment_sagepay_direct->updateReleaseStatus($payment_sagepay_direct_order['sagepay_direct_order_id'], 1);
                     $release_status = 1;
-                    $json['msg']    = $this->language->get('text_release_ok_order');
+                    $json['msg'] = $this->language->get('text_release_ok_order');
                 } else {
                     $release_status = 0;
-                    $json['msg']    = $this->language->get('text_release_ok');
+                    $json['msg'] = $this->language->get('text_release_ok');
                 }
 
                 $json['data'] = [];
 
-                $json['data']['date_added']     = date('Y-m-d H:i:s');
-                $json['data']['amount']         = $this->request->post['amount'];
+                $json['data']['date_added'] = date('Y-m-d H:i:s');
+                $json['data']['amount'] = $this->request->post['amount'];
                 $json['data']['release_status'] = $release_status;
-                $json['data']['total']          = (float)$total_released;
+                $json['data']['total'] = (float)$total_released;
 
                 $json['error'] = false;
             } else {
                 $json['error'] = true;
-                $json['msg']   = (isset($release_response['StatusDetail']) && $release_response['StatusDetail'] != '' ? sprintf($this->language->get('error_status'), (string)$release_response['StatusDetail']) : $this->language->get('error_release'));
+                $json['msg'] = (isset($release_response['StatusDetail']) && $release_response['StatusDetail'] != '' ? sprintf($this->language->get('error_status'), (string)$release_response['StatusDetail']) : $this->language->get('error_release'));
             }
         } else {
             $json['error'] = true;
-            $json['msg']   = $this->language->get('error_data_missing');
+            $json['msg'] = $this->language->get('error_data_missing');
         }
 
         $this->response->addHeader('Content-Type: application/json');
@@ -291,7 +291,7 @@ class ControllerExtensionPaymentSagepayDirect extends Controller {
             if ($rebate_response['Status'] == 'OK') {
                 $this->model_extension_payment_sagepay_direct->addTransaction($payment_sagepay_direct_order['sagepay_direct_order_id'], 'rebate', $this->request->post['amount'] * -1);
 
-                $total_rebated  = $this->model_extension_payment_sagepay_direct->getTotalRebated($payment_sagepay_direct_order['sagepay_direct_order_id']);
+                $total_rebated = $this->model_extension_payment_sagepay_direct->getTotalRebated($payment_sagepay_direct_order['sagepay_direct_order_id']);
                 $total_released = $this->model_extension_payment_sagepay_direct->getTotalReleased($payment_sagepay_direct_order['sagepay_direct_order_id']);
 
                 if ($total_released <= 0 && $payment_sagepay_direct_order['release_status'] == 1) {
@@ -308,11 +308,11 @@ class ControllerExtensionPaymentSagepayDirect extends Controller {
 
                 $json['data'] = [];
 
-                $json['data']['date_added']     = date('Y-m-d H:i:s');
-                $json['data']['amount']         = $this->request->post['amount'] * -1;
+                $json['data']['date_added'] = date('Y-m-d H:i:s');
+                $json['data']['amount'] = $this->request->post['amount'] * -1;
                 $json['data']['total_released'] = (float)$total_released;
-                $json['data']['total_rebated']  = (float)$total_rebated;
-                $json['data']['rebate_status']  = $rebate_status;
+                $json['data']['total_rebated'] = (float)$total_rebated;
+                $json['data']['rebate_status'] = $rebate_status;
 
                 $json['error'] = false;
             } else {

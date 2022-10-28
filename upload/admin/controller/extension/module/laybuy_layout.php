@@ -49,9 +49,9 @@ class ControllerExtensionModuleLaybuyLayout extends Controller {
             $data['module_laybuy_layout_status'] = $this->config->get('module_laybuy_layout_status');
         }
 
-        $data['header']      = $this->load->controller('common/header');
+        $data['header'] = $this->load->controller('common/header');
         $data['column_left'] = $this->load->controller('common/column_left');
-        $data['footer']      = $this->load->controller('common/footer');
+        $data['footer'] = $this->load->controller('common/footer');
 
         $this->response->setOutput($this->load->view('extension/module/laybuy_layout', $data));
     }

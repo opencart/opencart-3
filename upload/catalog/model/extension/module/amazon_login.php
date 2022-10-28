@@ -1,7 +1,7 @@
 <?php
 class ModelExtensionModuleAmazonLogin extends Model {
-    const LOG_FILENAME  = "amazon_login.log";
-    const URL_PROFILE   = "https://%s/user/profile";
+    const LOG_FILENAME = "amazon_login.log";
+    const URL_PROFILE = "https://%s/user/profile";
     const URL_TOKENINFO = "https://%s/auth/o2/tokeninfo?access_token=%s";
 
     public function fetchProfile($access_token) {
@@ -17,9 +17,9 @@ class ModelExtensionModuleAmazonLogin extends Model {
             throw new \RuntimeException($this->language->get('error_login'));
         }
 
-        $full_name           = explode(' ', $profile->name);
+        $full_name = explode(' ', $profile->name);
         $profile->first_name = array_shift($full_name);
-        $profile->last_name  = implode(' ', $full_name);
+        $profile->last_name = implode(' ', $full_name);
 
         return $profile;
     }

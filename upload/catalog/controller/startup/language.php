@@ -3,9 +3,9 @@ class ControllerStartupLanguage extends Controller {
     public function index(): void {
         $this->load->model('localisation/language');
 
-        $languages      = $this->model_localisation_language->getLanguages();
+        $languages = $this->model_localisation_language->getLanguages();
         $language_codes = array_column($languages, 'language_id', 'code');
-        $code           = '';
+        $code = '';
 
         if (isset($this->request->get['language'])) {
             $code = $this->request->get['language'];
@@ -13,7 +13,7 @@ class ControllerStartupLanguage extends Controller {
 
         // Language Detection
         if (!$code) {
-            $detect        = '';
+            $detect = '';
             $browser_codes = [];
 
             if (!empty($this->request->server['HTTP_ACCEPT_LANGUAGE'])) {
@@ -31,7 +31,7 @@ class ControllerStartupLanguage extends Controller {
                 }
             }
 
-            $sort_order    = [];
+            $sort_order = [];
 
             foreach ($browser_codes as $key => $value) {
                 $sort_order[$key] = $value[key($value)];

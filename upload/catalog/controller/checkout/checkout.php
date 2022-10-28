@@ -38,7 +38,7 @@ class ControllerCheckoutCheckout extends Controller {
             $this->document->addScript('http://cdn.klarna.com/public/kitt/toc/v1.0/js/klarna.terms.min.js');
         }
 
-        $data['breadcrumbs']   = [];
+        $data['breadcrumbs'] = [];
 
         $data['breadcrumbs'][] = [
             'text' => $this->language->get('text_home'),
@@ -55,18 +55,18 @@ class ControllerCheckoutCheckout extends Controller {
             'href' => $this->url->link('checkout/checkout', '', true)
         ];
 
-        $data['text_checkout_option']           = sprintf($this->language->get('text_checkout_option'), 1);
-        $data['text_checkout_account']          = sprintf($this->language->get('text_checkout_account'), 2);
-        $data['text_checkout_payment_address']  = sprintf($this->language->get('text_checkout_payment_address'), 2);
-        $data['text_checkout_shipping_method']  = sprintf($this->language->get('text_checkout_shipping_method'), 4);
+        $data['text_checkout_option'] = sprintf($this->language->get('text_checkout_option'), 1);
+        $data['text_checkout_account'] = sprintf($this->language->get('text_checkout_account'), 2);
+        $data['text_checkout_payment_address'] = sprintf($this->language->get('text_checkout_payment_address'), 2);
+        $data['text_checkout_shipping_method'] = sprintf($this->language->get('text_checkout_shipping_method'), 4);
         $data['text_checkout_shipping_address'] = sprintf($this->language->get('text_checkout_shipping_address'), 3);
 
         if ($this->cart->hasShipping()) {
             $data['text_checkout_payment_method'] = sprintf($this->language->get('text_checkout_payment_method'), 5);
-            $data['text_checkout_confirm']        = sprintf($this->language->get('text_checkout_confirm'), 6);
+            $data['text_checkout_confirm'] = sprintf($this->language->get('text_checkout_confirm'), 6);
         } else {
             $data['text_checkout_payment_method'] = sprintf($this->language->get('text_checkout_payment_method'), 3);
-            $data['text_checkout_confirm']        = sprintf($this->language->get('text_checkout_confirm'), 4);
+            $data['text_checkout_confirm'] = sprintf($this->language->get('text_checkout_confirm'), 4);
         }
 
         if (isset($this->session->data['error'])) {
@@ -83,21 +83,21 @@ class ControllerCheckoutCheckout extends Controller {
             $data['account'] = '';
         }
 
-        $data['logged']            = $this->customer->isLogged();
+        $data['logged'] = $this->customer->isLogged();
         $data['shipping_required'] = $this->cart->hasShipping();
-        
-        $data['column_left']       = $this->load->controller('common/column_left');
-        $data['column_right']      = $this->load->controller('common/column_right');
-        $data['content_top']       = $this->load->controller('common/content_top');
-        $data['content_bottom']    = $this->load->controller('common/content_bottom');
-        $data['footer']            = $this->load->controller('common/footer');
-        $data['header']            = $this->load->controller('common/header');
+
+        $data['column_left'] = $this->load->controller('common/column_left');
+        $data['column_right'] = $this->load->controller('common/column_right');
+        $data['content_top'] = $this->load->controller('common/content_top');
+        $data['content_bottom'] = $this->load->controller('common/content_bottom');
+        $data['footer'] = $this->load->controller('common/footer');
+        $data['header'] = $this->load->controller('common/header');
 
         $this->response->setOutput($this->load->view('checkout/checkout', $data));
     }
 
     public function country(): void {
-        $json         = [];
+        $json = [];
 
         $this->load->model('localisation/country');
 

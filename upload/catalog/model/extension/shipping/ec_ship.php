@@ -377,9 +377,9 @@ class ModelExtensionShippingECShip extends Model {
         $error = '';
 
         if ($status) {
-            $weight      = $this->weight->convert($this->cart->getWeight(), $this->config->get('config_weight_class_id'), $this->config->get('shipping_ec_ship_weight_class_id'));
+            $weight = $this->weight->convert($this->cart->getWeight(), $this->config->get('config_weight_class_id'), $this->config->get('shipping_ec_ship_weight_class_id'));
             $weight_code = strtolower($this->weight->getUnit($this->config->get('shipping_ec_ship_weight_class_id')));
-            $weight      = ($weight < 0.1 ? 0.1 : $weight);
+            $weight = ($weight < 0.1 ? 0.1 : $weight);
 
             $address_from = [
                 'country'      => "HKG",
@@ -426,28 +426,28 @@ class ModelExtensionShippingECShip extends Model {
                 $error = $this->language->get('text_unavailable');
             }
 
-            $url           = 'https://service.hongkongpost.hk/API-trial/services/Calculator?wsdl';
+            $url = 'https://service.hongkongpost.hk/API-trial/services/Calculator?wsdl';
 
             // Creating date using yyyy-mm-ddThh:mm:ssZ format
-            $tm_created    = gmdate('Y-m-d\TH:i:s\Z');
-            $tm_expires    = gmdate('Y-m-d\TH:i:s\Z', gmdate('U') + 180);
-            $simple_nonce  = mt_rand();
+            $tm_created = gmdate('Y-m-d\TH:i:s\Z');
+            $tm_expires = gmdate('Y-m-d\TH:i:s\Z', gmdate('U') + 180);
+            $simple_nonce = mt_rand();
             $encoded_nonce = base64_encode(pack('H*', $simple_nonce));
             // Generating, packing and encoding a random number
-            $username      = $this->config->get('shipping_ec_ship_api_username');
-            $password      = $this->config->get('shipping_ec_ship_api_key');
-            $passdigest    = base64_encode(pack('H*', sha1(pack('H*', $simple_nonce) . pack('a*', $tm_created) . pack('a*', $password))));
+            $username = $this->config->get('shipping_ec_ship_api_username');
+            $password = $this->config->get('shipping_ec_ship_api_key');
+            $passdigest = base64_encode(pack('H*', sha1(pack('H*', $simple_nonce) . pack('a*', $tm_created) . pack('a*', $password))));
 
             // Initializing namespaces
-            $ns_wsse       = 'http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd';
-            $ns_wsu        = 'http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd';
+            $ns_wsse = 'http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd';
+            $ns_wsu = 'http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd';
             $password_type = 'http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-username-token-profile-1.0#PasswordDigest';
             $encoding_type = 'http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-soap-message-security-1.0#Base64Binary';
 
             // Creating WSS identification header using SimpleXML
-            $root                 = new \SimpleXMLElement('<root/>');
-            $security             = $root->addChild('wsse:Security', null, $ns_wsse);
-            $usernameToken        = $security->addChild('wsse:UsernameToken', null, $ns_wsse);
+            $root = new \SimpleXMLElement('<root/>');
+            $security = $root->addChild('wsse:Security', null, $ns_wsse);
+            $usernameToken = $security->addChild('wsse:UsernameToken', null, $ns_wsse);
             $usernameToken->addChild('wsse:Username', $username, $ns_wsse);
             $usernameToken->addChild('wsse:Password', $passdigest, $ns_wsse)->addAttribute('Type', $password_type);
             $usernameToken->addChild('wsse:Nonce', $encoded_nonce, $ns_wsse)->addAttribute('EncodingType', $encoding_type);
@@ -456,12 +456,12 @@ class ModelExtensionShippingECShip extends Model {
             // Recovering XML value from that object
             $root->registerXPathNamespace('wsse', $ns_wsse);
 
-            $full                 = $root->xpath('/root/wsse:Security');
-            $auth                 = $full[0]->asXML();
+            $full = $root->xpath('/root/wsse:Security');
+            $auth = $full[0]->asXML();
 
             $objSoapVarWSSEHeader = new \SoapHeader($ns_wsse, 'Security', new \SoapVar($auth, XSD_ANYXML), true);
 
-            $objClient            = new \SoapClient($url);
+            $objClient = new \SoapClient($url);
             $objClient->__setSoapHeaders([$objSoapVarWSSEHeader]);
 
             $request = [
@@ -481,15 +481,15 @@ class ModelExtensionShippingECShip extends Model {
                     'api01Req' => $api01Req
                 ];
 
-                $objResponse                                         = $objClient->__soapCall('getTotalPostage', [$params]);
-                $objResponse                                         = json_decode(json_encode($objResponse), true);
+                $objResponse = $objClient->__soapCall('getTotalPostage', [$params]);
+                $objResponse = json_decode(json_encode($objResponse), true);
                 $objResponse['getTotalPostageReturn']['serviceName'] = $value;
 
                 array_push($objResponseArray, $objResponse);
             }
 
             if ($objResponseArray) {
-                $code       = 'ec_ship';
+                $code = 'ec_ship';
                 $quote_data = [];
 
                 foreach ($objResponseArray as $key => $value) {
@@ -525,13 +525,13 @@ class api01Req {
     private string $integratorUsername;
     private string $countryCode;
     private string $shipCode;
-    private float  $weight;
+    private float $weight;
 
     public function __construct($ecshipUsername, $integratorUsername, $countryCode, $shipCode, $weight) {
-        $this->ecshipUsername     = $ecshipUsername;
+        $this->ecshipUsername = $ecshipUsername;
         $this->integratorUsername = $integratorUsername;
-        $this->countryCode        = $countryCode;
-        $this->shipCode           = $shipCode;
-        $this->weight             = $weight;
+        $this->countryCode = $countryCode;
+        $this->shipCode = $shipCode;
+        $this->weight = $weight;
     }
 }

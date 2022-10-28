@@ -13,7 +13,7 @@ class ControllerExtensionCreditCardSquareup extends Controller {
 
         $this->document->setTitle($this->language->get('heading_title'));
 
-        $data['breadcrumbs']   = [];
+        $data['breadcrumbs'] = [];
 
         $data['breadcrumbs'][] = [
             'text' => $this->language->get('text_home'),
@@ -48,7 +48,7 @@ class ControllerExtensionCreditCardSquareup extends Controller {
 
         $data['cards'] = [];
 
-        $cards         = $this->model_extension_credit_card_squareup->getCards($this->customer->getId(), $this->config->get('payment_squareup_enable_sandbox'));
+        $cards = $this->model_extension_credit_card_squareup->getCards($this->customer->getId(), $this->config->get('payment_squareup_enable_sandbox'));
 
         foreach ($cards as $card) {
             $data['cards'][] = [
@@ -57,14 +57,14 @@ class ControllerExtensionCreditCardSquareup extends Controller {
             ];
         }
 
-        $data['back']           = $this->url->link('account/account', '', true);
+        $data['back'] = $this->url->link('account/account', '', true);
 
-        $data['column_left']    = $this->load->controller('common/column_left');
-        $data['column_right']   = $this->load->controller('common/column_right');
-        $data['content_top']    = $this->load->controller('common/content_top');
+        $data['column_left'] = $this->load->controller('common/column_left');
+        $data['column_right'] = $this->load->controller('common/column_right');
+        $data['content_top'] = $this->load->controller('common/content_top');
         $data['content_bottom'] = $this->load->controller('common/content_bottom');
-        $data['footer']         = $this->load->controller('common/footer');
-        $data['header']         = $this->load->controller('common/header');
+        $data['footer'] = $this->load->controller('common/footer');
+        $data['header'] = $this->load->controller('common/header');
 
         $this->response->setOutput($this->load->view('extension/credit_card/squareup', $data));
     }

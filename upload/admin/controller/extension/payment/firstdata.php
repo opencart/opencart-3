@@ -185,9 +185,9 @@ class ControllerExtensionPaymentFirstdata extends Controller {
             $data['payment_firstdata_demo_url'] = 'https://test.ipg-online.com/connect/gateway/processing';
         }
 
-        $data['header']      = $this->load->controller('common/header');
+        $data['header'] = $this->load->controller('common/header');
         $data['column_left'] = $this->load->controller('common/column_left');
-        $data['footer']      = $this->load->controller('common/footer');
+        $data['footer'] = $this->load->controller('common/footer');
 
         $this->response->setOutput($this->load->view('extension/payment/firstdata', $data));
     }
@@ -213,22 +213,22 @@ class ControllerExtensionPaymentFirstdata extends Controller {
             if (!empty($firstdata_order)) {
                 $this->load->language('extension/payment/firstdata');
 
-                $firstdata_order['total_captured']           = $this->model_extension_payment_firstdata->getTotalCaptured($firstdata_order['firstdata_order_id']);
-                $firstdata_order['total_formatted']          = $this->currency->format($firstdata_order['total'], $firstdata_order['currency_code'], 1, true);
+                $firstdata_order['total_captured'] = $this->model_extension_payment_firstdata->getTotalCaptured($firstdata_order['firstdata_order_id']);
+                $firstdata_order['total_formatted'] = $this->currency->format($firstdata_order['total'], $firstdata_order['currency_code'], 1, true);
                 $firstdata_order['total_captured_formatted'] = $this->currency->format($firstdata_order['total_captured'], $firstdata_order['currency_code'], 1, true);
 
                 $data['firstdata_order'] = $firstdata_order;
-                $data['merchant_id']     = $this->config->get('payment_firstdata_merchant_id');
-                $data['currency']        = $this->model_extension_payment_firstdata->mapCurrency($firstdata_order['currency_code']);
-                $data['amount']          = number_format($firstdata_order['total'], 2);
+                $data['merchant_id'] = $this->config->get('payment_firstdata_merchant_id');
+                $data['currency'] = $this->model_extension_payment_firstdata->mapCurrency($firstdata_order['currency_code']);
+                $data['amount'] = number_format($firstdata_order['total'], 2);
 
                 $data['request_timestamp'] = date('Y:m:d-H:i:s');
 
                 $data['hash'] = sha1(bin2hex($data['merchant_id'] . $data['request_timestamp'] . $data['amount'] . $data['currency'] . $this->config->get('payment_firstdata_secret')));
 
-                $data['void_url']    = $this->url->link('extension/payment/firstdata/void', 'user_token=' . $this->session->data['user_token'], true);
+                $data['void_url'] = $this->url->link('extension/payment/firstdata/void', 'user_token=' . $this->session->data['user_token'], true);
                 $data['capture_url'] = $this->url->link('extension/payment/firstdata/capture', 'user_token=' . $this->session->data['user_token'], true);
-                $data['notify_url']  = HTTPS_CATALOG . 'index.php?route=extension/payment/firstdata/notify';
+                $data['notify_url'] = HTTPS_CATALOG . 'index.php?route=extension/payment/firstdata/notify';
 
                 if ($this->config->get('payment_firstdata_live_demo') == 1) {
                     $data['action_url'] = $this->config->get('payment_firstdata_live_url');
@@ -268,7 +268,7 @@ class ControllerExtensionPaymentFirstdata extends Controller {
                     $data['capture_error'] = '';
                 }
 
-                $data['order_id']   = (int)$this->request->get['order_id'];
+                $data['order_id'] = (int)$this->request->get['order_id'];
                 $data['user_token'] = $this->session->data['user_token'];
 
                 return $this->load->view('extension/payment/firstdata_order', $data);

@@ -27,10 +27,10 @@ class ModelExtensionShippingUsps extends Model {
 
             $quote_data = [];
 
-            $weight     = ($weight < 0.1 ? 0.1 : $weight);
-            $pounds     = floor($weight);
-            $ounces     = round(16 * ($weight - $pounds), 2); // max 5 digits
-            $postcode   = str_replace(' ', '', $address['postcode']);
+            $weight = ($weight < 0.1 ? 0.1 : $weight);
+            $pounds = floor($weight);
+            $ounces = round(16 * ($weight - $pounds), 2); // max 5 digits
+            $postcode = str_replace(' ', '', $address['postcode']);
 
             if ($address['iso_code_2'] == 'US') {
                 $xml = '<RateV4Request USERID="' . $this->config->get('shipping_usps_user_id') . '">';
@@ -349,9 +349,9 @@ class ModelExtensionShippingUsps extends Model {
                     $dom = new \DOMDocument('1.0', 'UTF-8');
                     $dom->loadXml($result);
 
-                    $rate_response      = $dom->getElementsByTagName('RateV4Response')->item(0);
+                    $rate_response = $dom->getElementsByTagName('RateV4Response')->item(0);
                     $intl_rate_response = $dom->getElementsByTagName('IntlRateV2Response')->item(0);
-                    $error              = $dom->getElementsByTagName('Error')->item(0);
+                    $error = $dom->getElementsByTagName('Error')->item(0);
 
                     $firstclasses = [
                         'First-Class Mail Parcel',
@@ -362,8 +362,28 @@ class ModelExtensionShippingUsps extends Model {
 
                     if ($rate_response || $intl_rate_response) {
                         if ($address['iso_code_2'] == 'US') {
-                            $allowed  = [0, 1, 2, 3, 4, 5, 6, 7, 12, 13, 16, 17, 18, 19, 22, 23, 25, 27, 28];
-                            $package  = $rate_response->getElementsByTagName('Package')->item(0);
+                            $allowed = [
+                                0,
+                                1,
+                                2,
+                                3,
+                                4,
+                                5,
+                                6,
+                                7,
+                                12,
+                                13,
+                                16,
+                                17,
+                                18,
+                                19,
+                                22,
+                                23,
+                                25,
+                                27,
+                                28
+                            ];
+                            $package = $rate_response->getElementsByTagName('Package')->item(0);
                             $postages = $package->getElementsByTagName('Postage');
 
                             if ($postages->length) {
@@ -417,8 +437,26 @@ class ModelExtensionShippingUsps extends Model {
                                 ];
                             }
                         } else {
-                            $allowed  = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 21];
-                            $package  = $intl_rate_response->getElementsByTagName('Package')->item(0);
+                            $allowed = [
+                                1,
+                                2,
+                                3,
+                                4,
+                                5,
+                                6,
+                                7,
+                                8,
+                                9,
+                                10,
+                                11,
+                                12,
+                                13,
+                                14,
+                                15,
+                                16,
+                                21
+                            ];
+                            $package = $intl_rate_response->getElementsByTagName('Package')->item(0);
                             $services = $package->getElementsByTagName('Service');
 
                             foreach ($services as $service) {

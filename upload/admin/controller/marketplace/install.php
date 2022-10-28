@@ -188,7 +188,7 @@ class ControllerMarketplaceInstall extends Controller {
                     foreach ($files as $file) {
                         $destination = str_replace('\\', '/', substr($file, strlen($directory . 'upload/')));
 
-                        $path        = '';
+                        $path = '';
 
                         if (substr($destination, 0, 5) == 'admin') {
                             $path = DIR_APPLICATION . substr($destination, 6);
@@ -276,7 +276,7 @@ class ControllerMarketplaceInstall extends Controller {
                         $code = $dom->getElementsByTagName('code')->item(0);
 
                         if ($code) {
-                            $code              = $code->nodeValue;
+                            $code = $code->nodeValue;
 
                             // Check to see if the modification is already installed or not.
                             $modification_info = $this->model_setting_modification->getModificationByCode($code);
@@ -304,7 +304,7 @@ class ControllerMarketplaceInstall extends Controller {
                             $version = '';
                         }
 
-                        $link    = $dom->getElementsByTagName('link')->item(0);
+                        $link = $dom->getElementsByTagName('link')->item(0);
 
                         if ($link) {
                             $link = $link->nodeValue;
@@ -368,7 +368,10 @@ class ControllerMarketplaceInstall extends Controller {
                     $next = array_shift($path);
 
                     // We have to use scandir function because glob will not pick up dot files.
-                    foreach (array_diff(scandir($next), ['.', '..']) as $file) {
+                    foreach (array_diff(scandir($next), [
+                        '.',
+                        '..'
+                    ]) as $file) {
                         $file = $next . '/' . $file;
 
                         if (is_dir($file)) {
@@ -457,13 +460,16 @@ class ControllerMarketplaceInstall extends Controller {
                     // Get a list of files ready to upload
                     $files = [];
 
-                    $path  = [$source];
+                    $path = [$source];
 
                     while (count($path) != 0) {
                         $next = array_shift($path);
 
                         // We have to use scandir function because glob will not pick up dot files.
-                        foreach (array_diff(scandir($next), ['.', '..']) as $file) {
+                        foreach (array_diff(scandir($next), [
+                            '.',
+                            '..'
+                        ]) as $file) {
                             $file = $next . '/' . $file;
 
                             if (is_dir($file)) {
@@ -519,7 +525,10 @@ class ControllerMarketplaceInstall extends Controller {
         }
 
         foreach (scandir($dir_name) as $dir_file) {
-            if (!in_array($dir_file, ['.', '..'])) {
+            if (!in_array($dir_file, [
+                '.',
+                '..'
+            ])) {
                 return false;
             }
         }

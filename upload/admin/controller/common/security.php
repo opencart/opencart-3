@@ -5,11 +5,11 @@ class ControllerCommonSecurity extends Controller {
 
         $data['user_token'] = $this->session->data['user_token'];
 
-        $data['storage']    = DIR_SYSTEM . 'storage/';
+        $data['storage'] = DIR_SYSTEM . 'storage/';
 
-        $path               = '';
+        $path = '';
 
-        $data['paths']      = [];
+        $data['paths'] = [];
 
         $parts = explode('/', str_replace('\\', '/', rtrim(DIR_SYSTEM, '/')));
 
@@ -67,7 +67,7 @@ class ControllerCommonSecurity extends Controller {
             }
 
             if (!$json) {
-                $files  = [];
+                $files = [];
 
                 // Make path into an array
                 $source = [DIR_SYSTEM . 'storage/'];
@@ -116,7 +116,7 @@ class ControllerCommonSecurity extends Controller {
                 foreach ($files as $file) {
                     $output = '';
 
-                    $lines  = file($file);
+                    $lines = file($file);
 
                     foreach ($lines as $line_id => $line) {
                         if (strpos($line, 'define(\'DIR_STORAGE') !== false) {

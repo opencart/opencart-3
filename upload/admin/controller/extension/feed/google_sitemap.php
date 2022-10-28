@@ -51,9 +51,9 @@ class ControllerExtensionFeedGoogleSitemap extends Controller {
 
         $data['data_feed'] = HTTP_CATALOG . 'index.php?route=extension/feed/google_sitemap';
 
-        $data['header']      = $this->load->controller('common/header');
+        $data['header'] = $this->load->controller('common/header');
         $data['column_left'] = $this->load->controller('common/column_left');
-        $data['footer']      = $this->load->controller('common/footer');
+        $data['footer'] = $this->load->controller('common/footer');
 
         $this->response->setOutput($this->load->view('extension/feed/google_sitemap', $data));
     }

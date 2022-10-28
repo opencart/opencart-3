@@ -3,7 +3,7 @@ class ModelToolBackup extends Model {
     public function getTables(): array {
         $table_data = [];
 
-        $query      = $this->db->query("SHOW TABLES FROM `" . DB_DATABASE . "`");
+        $query = $this->db->query("SHOW TABLES FROM `" . DB_DATABASE . "`");
 
         foreach ($query->rows as $result) {
             $table = reset($result);
@@ -61,7 +61,7 @@ class ModelToolBackup extends Model {
             if ($status) {
                 $output .= 'TRUNCATE TABLE `' . $table . '`;' . "\n\n";
 
-                $query  = $this->db->query("SELECT * FROM `" . $table . "`");
+                $query = $this->db->query("SELECT * FROM `" . $table . "`");
 
                 foreach ($query->rows as $result) {
                     $fields = '';
@@ -73,8 +73,26 @@ class ModelToolBackup extends Model {
                     $values = '';
 
                     foreach (array_values($result) as $value) {
-                        $value = str_replace(["\x00", "\x0a", "\x0d", "\x1a"], ['\0', '\n', '\r', '\Z'], $value);
-                        $value = str_replace(["\n", "\r", "\t"], ['\n', '\r', '\t'], $value);
+                        $value = str_replace([
+                            "\x00",
+                            "\x0a",
+                            "\x0d",
+                            "\x1a"
+                        ], [
+                            '\0',
+                            '\n',
+                            '\r',
+                            '\Z'
+                        ], $value);
+                        $value = str_replace([
+                            "\n",
+                            "\r",
+                            "\t"
+                        ], [
+                            '\n',
+                            '\r',
+                            '\t'
+                        ], $value);
                         $value = str_replace('\\', '\\\\', $value);
                         $value = str_replace('\'', '\\\'', $value);
                         $value = str_replace('\\\n', '\n', $value);

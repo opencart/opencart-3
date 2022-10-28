@@ -62,9 +62,9 @@ class ControllerExtensionModulePayPalSmartButton extends Controller {
             $data['setting'] = array_replace_recursive((array)$data['setting'], (array)$this->config->get('module_paypal_smart_button_setting'));
         }
 
-        $data['header']      = $this->load->controller('common/header');
+        $data['header'] = $this->load->controller('common/header');
         $data['column_left'] = $this->load->controller('common/column_left');
-        $data['footer']      = $this->load->controller('common/footer');
+        $data['footer'] = $this->load->controller('common/footer');
 
         $this->response->setOutput($this->load->view('extension/module/paypal_smart_button', $data));
     }

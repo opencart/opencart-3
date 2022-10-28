@@ -95,7 +95,7 @@ class ControllerExtensionPaymentSecureTradingWs extends Controller {
                 $customer_node->addChild('accept', $this->request->server['HTTP_ACCEPT']);
 
                 $billing_node = $request_node->addChild('billing');
-                $amount_node  = $billing_node->addChild('amount', str_replace('.', '', $this->model_extension_payment_securetrading_ws->format($order_info['total'], $order_info['currency_code'], $order_info['currency_value'])));
+                $amount_node = $billing_node->addChild('amount', str_replace('.', '', $this->model_extension_payment_securetrading_ws->format($order_info['total'], $order_info['currency_code'], $order_info['currency_value'])));
                 $amount_node->addAttribute('currencycode', $order_info['currency_code']);
 
                 $billing_node->addChild('premise', $order_info['payment_address_1']);
@@ -128,15 +128,15 @@ class ControllerExtensionPaymentSecureTradingWs extends Controller {
 
                             if ($enrolled == 'Y') {
                                 $acs_url = (string)$response_xml->response->threedsecure->acsurl;
-                                $md      = (string)$response_xml->response->threedsecure->md;
-                                $pareq   = (string)$response_xml->response->threedsecure->pareq;
+                                $md = (string)$response_xml->response->threedsecure->md;
+                                $pareq = (string)$response_xml->response->threedsecure->pareq;
 
                                 $this->model_extension_payment_securetrading_ws->addMd($order_info['order_id'], $md);
 
-                                $json['status']   = 1;
-                                $json['acs_url']  = $acs_url;
-                                $json['md']       = $md;
-                                $json['pareq']    = $pareq;
+                                $json['status'] = 1;
+                                $json['acs_url'] = $acs_url;
+                                $json['md'] = $md;
+                                $json['pareq'] = $pareq;
                                 $json['term_url'] = $this->url->link('extension/payment/securetrading_ws/threedreturn', '', true);
                             } else {
                                 $requestblock_xml = new \SimpleXMLElement('<requestblock></requestblock>');
@@ -154,19 +154,19 @@ class ControllerExtensionPaymentSecureTradingWs extends Controller {
 
                                 $response = $this->model_extension_payment_securetrading_ws->call($requestblock_xml->asXML());
 
-                                $json     = $this->processAuthResponse($response, $order_info['order_id']);
+                                $json = $this->processAuthResponse($response, $order_info['order_id']);
                             }
                         } else {
                             $json['message'] = $this->language->get('text_transaction_declined');
-                            $json['status']  = 0;
+                            $json['status'] = 0;
                         }
                     } else {
                         $json['message'] = $this->language->get('text_transaction_failed');
-                        $json['status']  = 0;
+                        $json['status'] = 0;
                     }
                 } else {
                     $json['message'] = $this->language->get('text_connection_error');
-                    $json['status']  = 0;
+                    $json['status'] = 0;
                 }
             } else {
                 $country = $this->model_localisation_country->getCountry($order_info['payment_country_id']);
@@ -213,7 +213,7 @@ class ControllerExtensionPaymentSecureTradingWs extends Controller {
 
                 $response = $this->model_extension_payment_securetrading_ws->call($requestblock_xml->asXML());
 
-                $json     = $this->processAuthResponse($response, $order_info['order_id']);
+                $json = $this->processAuthResponse($response, $order_info['order_id']);
             }
 
             $this->response->setOutput(json_encode($json));
@@ -228,7 +228,7 @@ class ControllerExtensionPaymentSecureTradingWs extends Controller {
 
         // Using unmodified $_POST to access values as per Secure Trading's requirements
         if (isset($_POST['PaRes']) && isset($_POST['MD'])) {
-            $md    = $_POST['MD'];
+            $md = $_POST['MD'];
             $pares = $_POST['PaRes'];
 
             $order_id = $this->model_extension_payment_securetrading_ws->getOrderId($md);
@@ -251,14 +251,14 @@ class ControllerExtensionPaymentSecureTradingWs extends Controller {
 
                 if ($response) {
                     $response_xml = simplexml_load_string($response);
-                    $error_code   = (int)$response_xml->response->error->code;
+                    $error_code = (int)$response_xml->response->error->code;
 
                     if ($error_code == 0) {
-                        $postcode_status      = (int)$response_xml->response->security->postcode;
+                        $postcode_status = (int)$response_xml->response->security->postcode;
                         $security_code_status = (int)$response_xml->response->security->securitycode;
-                        $address_status       = (int)$response_xml->response->security->address;
-                        $authcode             = (string)$response_xml->response->authcode;
-                        $threed_status        = (string)$response_xml->response->threedsecure->status;
+                        $address_status = (int)$response_xml->response->security->address;
+                        $authcode = (string)$response_xml->response->authcode;
+                        $threed_status = (string)$response_xml->response->threedsecure->status;
 
                         $status_code_mapping = [
                             0 => $this->language->get('text_not_given'),
@@ -321,10 +321,10 @@ class ControllerExtensionPaymentSecureTradingWs extends Controller {
                 $error_code = (int)$response_xml->response->error->code;
 
                 if ($error_code == 0) {
-                    $postcode_status      = (int)$response_xml->response->security->postcode;
+                    $postcode_status = (int)$response_xml->response->security->postcode;
                     $security_code_status = (int)$response_xml->response->security->securitycode;
-                    $address_status       = (int)$response_xml->response->security->address;
-                    $authcode             = (string)$response_xml->response->authcode;
+                    $address_status = (int)$response_xml->response->security->address;
+                    $authcode = (string)$response_xml->response->authcode;
 
                     $status_code_mapping = [
                         0 => $this->language->get('text_not_given'),
@@ -345,22 +345,22 @@ class ControllerExtensionPaymentSecureTradingWs extends Controller {
                     $this->model_extension_payment_securetrading_ws->updateOrder($order_id, $this->config->get('payment_securetrading_ws_order_status_id'), $message);
 
                     $json['redirect'] = $this->url->link('checkout/success');
-                    $json['status']   = 1;
+                    $json['status'] = 1;
                 } else {
                     $this->model_extension_payment_securetrading_ws->updateOrder($order_id, $this->config->get('payment_securetrading_ws_declined_order_status_id'));
 
                     $json['message'] = $this->language->get('text_transaction_declined');
-                    $json['status']  = 0;
+                    $json['status'] = 0;
                 }
             } else {
                 $this->model_extension_payment_securetrading_ws->updateOrder($order_id, $this->config->get('payment_securetrading_ws_failed_order_status_id'));
 
                 $json['message'] = $this->language->get('text_transaction_failed');
-                $json['status']  = 0;
+                $json['status'] = 0;
             }
         } else {
             $json['message'] = $this->language->get('text_connection_error');
-            $json['status']  = 0;
+            $json['status'] = 0;
         }
 
         return $json;

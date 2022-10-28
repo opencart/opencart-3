@@ -78,9 +78,9 @@ class ControllerExtensionFraudMaxMind extends Controller {
             $data['fraud_maxmind_status'] = $this->config->get('fraud_maxmind_status');
         }
 
-        $data['header']      = $this->load->controller('common/header');
+        $data['header'] = $this->load->controller('common/header');
         $data['column_left'] = $this->load->controller('common/column_left');
-        $data['footer']      = $this->load->controller('common/footer');
+        $data['footer'] = $this->load->controller('common/footer');
 
         $this->response->setOutput($this->load->view('extension/fraud/maxmind', $data));
     }
@@ -132,7 +132,7 @@ class ControllerExtensionFraudMaxMind extends Controller {
             }
 
             $data['high_risk_country'] = $fraud_info['high_risk_country'];
-            $data['distance']          = $fraud_info['distance'];
+            $data['distance'] = $fraud_info['distance'];
 
             if ($fraud_info['ip_region']) {
                 $data['ip_region'] = $fraud_info['ip_region'];
@@ -146,7 +146,7 @@ class ControllerExtensionFraudMaxMind extends Controller {
                 $data['ip_city'] = '';
             }
 
-            $data['ip_latitude']  = $fraud_info['ip_latitude'];
+            $data['ip_latitude'] = $fraud_info['ip_latitude'];
             $data['ip_longitude'] = $fraud_info['ip_longitude'];
 
             if ($fraud_info['ip_isp']) {
@@ -208,7 +208,7 @@ class ControllerExtensionFraudMaxMind extends Controller {
             }
 
             $data['ip_metro_code'] = $fraud_info['ip_metro_code'];
-            $data['ip_area_code']  = $fraud_info['ip_area_code'];
+            $data['ip_area_code'] = $fraud_info['ip_area_code'];
 
             if ($fraud_info['ip_time_zone']) {
                 $data['ip_time_zone'] = $fraud_info['ip_time_zone'];
@@ -247,7 +247,7 @@ class ControllerExtensionFraudMaxMind extends Controller {
             }
 
             $data['anonymous_proxy'] = $fraud_info['anonymous_proxy'];
-            $data['proxy_score']     = $fraud_info['proxy_score'];
+            $data['proxy_score'] = $fraud_info['proxy_score'];
 
             if ($fraud_info['is_trans_proxy']) {
                 $data['is_trans_proxy'] = $fraud_info['is_trans_proxy'];
@@ -255,7 +255,7 @@ class ControllerExtensionFraudMaxMind extends Controller {
                 $data['is_trans_proxy'] = '';
             }
 
-            $data['free_mail']    = $fraud_info['free_mail'];
+            $data['free_mail'] = $fraud_info['free_mail'];
             $data['carder_email'] = $fraud_info['carder_email'];
 
             if ($fraud_info['high_risk_username']) {
@@ -314,12 +314,12 @@ class ControllerExtensionFraudMaxMind extends Controller {
                 $data['ship_city_postal_match'] = '';
             }
 
-            $data['score']             = $fraud_info['score'];
-            $data['explanation']       = $fraud_info['explanation'];
-            $data['risk_score']        = $fraud_info['risk_score'];
+            $data['score'] = $fraud_info['score'];
+            $data['explanation'] = $fraud_info['explanation'];
+            $data['risk_score'] = $fraud_info['risk_score'];
             $data['queries_remaining'] = $fraud_info['queries_remaining'];
-            $data['maxmind_id']        = $fraud_info['maxmind_id'];
-            $data['error']             = $fraud_info['error'];
+            $data['maxmind_id'] = $fraud_info['maxmind_id'];
+            $data['error'] = $fraud_info['error'];
 
             return $this->load->view('extension/fraud/maxmind_info', $data);
         } else {

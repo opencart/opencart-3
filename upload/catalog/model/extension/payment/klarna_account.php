@@ -64,7 +64,11 @@ class ModelExtensionPaymentKlarnaAccount extends Model {
                 // 2 - Special
                 // 3 - Fixed
 
-                if (!in_array($pclass['type'], [0, 1, 3])) {
+                if (!in_array($pclass['type'], [
+                    0,
+                    1,
+                    3
+                ])) {
                     continue;
                 }
 
@@ -78,13 +82,13 @@ class ModelExtensionPaymentKlarnaAccount extends Model {
                     if ($pclass['type'] == 3) {
                         continue;
                     } else {
-                        $sum             = $total;
-                        $lowest_payment  = $this->getLowestPaymentAccount($address['iso_code_3']);
-                        $monthly_cost    = 0;
-                        $monthly_fee     = $pclass['invoicefee'];
-                        $start_fee       = $pclass['startfee'];
-                        $sum             += $start_fee;
-                        $base            = ($pclass['type'] == 1);
+                        $sum = $total;
+                        $lowest_payment = $this->getLowestPaymentAccount($address['iso_code_3']);
+                        $monthly_cost = 0;
+                        $monthly_fee = $pclass['invoicefee'];
+                        $start_fee = $pclass['startfee'];
+                        $sum += $start_fee;
+                        $base = ($pclass['type'] == 1);
                         $minimum_payment = ($pclass['type'] === 1) ? $this->getLowestPaymentAccount($address['iso_code_3']) : 0;
 
                         if ($pclass['months'] == 0) {
@@ -93,16 +97,16 @@ class ModelExtensionPaymentKlarnaAccount extends Model {
                             $payment = $sum / $pclass['months'];
                         } else {
                             $interest_rate = $pclass['interestrate'] / (100.0 * 12);
-                            $payment       = $sum * $interest_rate / (1 - pow((1 + $interest_rate), -$pclass['months']));
+                            $payment = $sum * $interest_rate / (1 - pow((1 + $interest_rate), -$pclass['months']));
                         }
 
-                        $payment  += $monthly_fee;
-                        $balance  = $sum;
+                        $payment += $monthly_fee;
+                        $balance = $sum;
                         $pay_data = [];
-                        $months   = $pclass['months'];
+                        $months = $pclass['months'];
 
                         while (($months != 0) && ($balance > 0.01)) {
-                            $interest    = $balance * $pclass['interestrate'] / (100.0 * 12);
+                            $interest = $balance * $pclass['interestrate'] / (100.0 * 12);
                             $new_balance = $balance + $interest + $monthly_fee;
 
                             if ($minimum_payment >= $new_balance || $payment >= $new_balance) {
@@ -116,9 +120,9 @@ class ModelExtensionPaymentKlarnaAccount extends Model {
                                 $new_payment = max($new_payment, $balance / 24.0 + $monthly_fee + $interest);
                             }
 
-                            $balance    = $new_balance - $new_payment;
+                            $balance = $new_balance - $new_payment;
                             $pay_data[] = $new_payment;
-                            $months     -= 1;
+                            $months -= 1;
                         }
 
                         $monthly_cost = round(isset($pay_data[0]) ? ($pay_data[0]) : 0, 2);
@@ -138,8 +142,8 @@ class ModelExtensionPaymentKlarnaAccount extends Model {
                 }
 
                 $payment_option[$pclass['id']]['monthly_cost'] = $monthly_cost;
-                $payment_option[$pclass['id']]['pclass_id']    = $pclass['id'];
-                $payment_option[$pclass['id']]['months']       = $pclass['months'];
+                $payment_option[$pclass['id']]['pclass_id'] = $pclass['id'];
+                $payment_option[$pclass['id']]['months'] = $pclass['months'];
             }
         }
 

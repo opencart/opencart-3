@@ -7,7 +7,7 @@ class ControllerProductManufacturer extends Controller {
 
         $this->document->setTitle($this->language->get('heading_title'));
 
-        $data['breadcrumbs']   = [];
+        $data['breadcrumbs'] = [];
 
         $data['breadcrumbs'][] = [
             'text' => $this->language->get('text_home'),
@@ -19,9 +19,9 @@ class ControllerProductManufacturer extends Controller {
             'href' => $this->url->link('product/manufacturer')
         ];
 
-        $data['categories']  = [];
+        $data['categories'] = [];
 
-        $results             = $this->model_catalog_manufacturer->getManufacturers();
+        $results = $this->model_catalog_manufacturer->getManufacturers();
 
         foreach ($results as $result) {
             if (is_numeric(oc_substr($result['name'], 0, 1))) {
@@ -40,14 +40,14 @@ class ControllerProductManufacturer extends Controller {
             ];
         }
 
-        $data['continue']       = $this->url->link('common/home');
+        $data['continue'] = $this->url->link('common/home');
 
-        $data['column_left']    = $this->load->controller('common/column_left');
-        $data['column_right']   = $this->load->controller('common/column_right');
-        $data['content_top']    = $this->load->controller('common/content_top');
+        $data['column_left'] = $this->load->controller('common/column_left');
+        $data['column_right'] = $this->load->controller('common/column_right');
+        $data['content_top'] = $this->load->controller('common/content_top');
         $data['content_bottom'] = $this->load->controller('common/content_bottom');
-        $data['footer']         = $this->load->controller('common/footer');
-        $data['header']         = $this->load->controller('common/header');
+        $data['footer'] = $this->load->controller('common/footer');
+        $data['header'] = $this->load->controller('common/header');
 
         $this->response->setOutput($this->load->view('product/manufacturer_list', $data));
     }
@@ -89,7 +89,7 @@ class ControllerProductManufacturer extends Controller {
             $limit = (int)$this->config->get('theme_' . $this->config->get('config_theme') . '_product_limit');
         }
 
-        $data['breadcrumbs']   = [];
+        $data['breadcrumbs'] = [];
 
         $data['breadcrumbs'][] = [
             'text' => $this->language->get('text_home'),
@@ -101,7 +101,7 @@ class ControllerProductManufacturer extends Controller {
             'href' => $this->url->link('product/manufacturer')
         ];
 
-        $manufacturer_info   = $this->model_catalog_manufacturer->getManufacturer($manufacturer_id);
+        $manufacturer_info = $this->model_catalog_manufacturer->getManufacturer($manufacturer_id);
 
         if ($manufacturer_info) {
             $this->document->setTitle($manufacturer_info['name']);
@@ -131,12 +131,12 @@ class ControllerProductManufacturer extends Controller {
 
             $data['heading_title'] = $manufacturer_info['name'];
 
-            $data['text_compare']  = sprintf($this->language->get('text_compare'), isset($this->session->data['compare']) ? count($this->session->data['compare']) : 0);
-            $data['compare']       = $this->url->link('product/compare');
+            $data['text_compare'] = sprintf($this->language->get('text_compare'), isset($this->session->data['compare']) ? count($this->session->data['compare']) : 0);
+            $data['compare'] = $this->url->link('product/compare');
 
-            $data['products']      = [];
+            $data['products'] = [];
 
-            $filter_data           = [
+            $filter_data = [
                 'filter_manufacturer_id' => $manufacturer_id,
                 'sort'                   => $sort,
                 'order'                  => $order,
@@ -144,9 +144,9 @@ class ControllerProductManufacturer extends Controller {
                 'limit'                  => $limit
             ];
 
-            $product_total         = $this->model_catalog_product->getTotalProducts($filter_data);
+            $product_total = $this->model_catalog_product->getTotalProducts($filter_data);
 
-            $results               = $this->model_catalog_product->getProducts($filter_data);
+            $results = $this->model_catalog_product->getProducts($filter_data);
 
             foreach ($results as $result) {
                 if ($result['image']) {
@@ -162,10 +162,10 @@ class ControllerProductManufacturer extends Controller {
                 }
 
                 if (!is_null($result['special']) && (float)$result['special'] >= 0) {
-                    $special   = $this->currency->format($this->tax->calculate($result['special'], $result['tax_class_id'], $this->config->get('config_tax')), $this->session->data['currency']);
+                    $special = $this->currency->format($this->tax->calculate($result['special'], $result['tax_class_id'], $this->config->get('config_tax')), $this->session->data['currency']);
                     $tax_price = (float)$result['special'];
                 } else {
-                    $special   = false;
+                    $special = false;
                     $tax_price = (float)$result['price'];
                 }
 
@@ -201,7 +201,7 @@ class ControllerProductManufacturer extends Controller {
                 $url .= '&limit=' . $this->request->get['limit'];
             }
 
-            $data['sorts']   = [];
+            $data['sorts'] = [];
 
             $data['sorts'][] = [
                 'text'  => $this->language->get('text_default'),
@@ -271,7 +271,7 @@ class ControllerProductManufacturer extends Controller {
 
             $data['limits'] = [];
 
-            $limits         = array_unique([
+            $limits = array_unique([
                 $this->config->get('theme_' . $this->config->get('config_theme') . '_product_limit'),
                 25,
                 50,
@@ -303,14 +303,14 @@ class ControllerProductManufacturer extends Controller {
                 $url .= '&limit=' . $this->request->get['limit'];
             }
 
-            $pagination         = new \Pagination();
-            $pagination->total  = $product_total;
-            $pagination->page   = $page;
-            $pagination->limit  = $limit;
-            $pagination->url    = $this->url->link('product/manufacturer/info', 'manufacturer_id=' . $this->request->get['manufacturer_id'] . $url . '&page={page}');
+            $pagination = new \Pagination();
+            $pagination->total = $product_total;
+            $pagination->page = $page;
+            $pagination->limit = $limit;
+            $pagination->url = $this->url->link('product/manufacturer/info', 'manufacturer_id=' . $this->request->get['manufacturer_id'] . $url . '&page={page}');
 
             $data['pagination'] = $pagination->render();
-            $data['results']    = sprintf($this->language->get('text_pagination'), ($product_total) ? (($page - 1) * $limit) + 1 : 0, ((($page - 1) * $limit) > ($product_total - $limit)) ? $product_total : ((($page - 1) * $limit) + $limit), $product_total, ceil($product_total / $limit));
+            $data['results'] = sprintf($this->language->get('text_pagination'), ($product_total) ? (($page - 1) * $limit) + 1 : 0, ((($page - 1) * $limit) > ($product_total - $limit)) ? $product_total : ((($page - 1) * $limit) + $limit), $product_total, ceil($product_total / $limit));
 
             // http://googlewebmastercentral.blogspot.com/2011/09/pagination-with-relnext-and-relprev.html
             if ($page == 1) {
@@ -327,18 +327,18 @@ class ControllerProductManufacturer extends Controller {
                 $this->document->addLink($this->url->link('product/manufacturer/info', 'manufacturer_id=' . $this->request->get['manufacturer_id'] . '&page=' . ($page + 1)), 'next');
             }
 
-            $data['sort']           = $sort;
-            $data['order']          = $order;
-            $data['limit']          = $limit;
+            $data['sort'] = $sort;
+            $data['order'] = $order;
+            $data['limit'] = $limit;
 
-            $data['continue']       = $this->url->link('common/home');
+            $data['continue'] = $this->url->link('common/home');
 
-            $data['column_left']    = $this->load->controller('common/column_left');
-            $data['column_right']   = $this->load->controller('common/column_right');
-            $data['content_top']    = $this->load->controller('common/content_top');
+            $data['column_left'] = $this->load->controller('common/column_left');
+            $data['column_right'] = $this->load->controller('common/column_right');
+            $data['content_top'] = $this->load->controller('common/content_top');
             $data['content_bottom'] = $this->load->controller('common/content_bottom');
-            $data['footer']         = $this->load->controller('common/footer');
-            $data['header']         = $this->load->controller('common/header');
+            $data['footer'] = $this->load->controller('common/footer');
+            $data['header'] = $this->load->controller('common/header');
 
             $this->response->setOutput($this->load->view('product/manufacturer_info', $data));
         } else {
@@ -372,16 +372,16 @@ class ControllerProductManufacturer extends Controller {
             $this->document->setTitle($this->language->get('text_error'));
 
             $data['heading_title'] = $this->language->get('text_error');
-            $data['text_error']    = $this->language->get('text_error');
-            $data['continue']      = $this->url->link('common/home');
+            $data['text_error'] = $this->language->get('text_error');
+            $data['continue'] = $this->url->link('common/home');
 
             $this->response->addHeader($this->request->server['SERVER_PROTOCOL'] . ' 404 Not Found');
 
-            $data['header']         = $this->load->controller('common/header');
-            $data['footer']         = $this->load->controller('common/footer');
-            $data['column_left']    = $this->load->controller('common/column_left');
-            $data['column_right']   = $this->load->controller('common/column_right');
-            $data['content_top']    = $this->load->controller('common/content_top');
+            $data['header'] = $this->load->controller('common/header');
+            $data['footer'] = $this->load->controller('common/footer');
+            $data['column_left'] = $this->load->controller('common/column_left');
+            $data['column_right'] = $this->load->controller('common/column_right');
+            $data['content_top'] = $this->load->controller('common/content_top');
             $data['content_bottom'] = $this->load->controller('common/content_bottom');
 
             $this->response->setOutput($this->load->view('error/not_found', $data));

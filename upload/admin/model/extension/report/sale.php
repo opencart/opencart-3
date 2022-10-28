@@ -57,7 +57,7 @@ class ModelExtensionReportSale extends Model {
         $date_start = strtotime('-' . date('w') . ' days');
 
         for ($i = 0; $i < 7; $i++) {
-            $date                                    = date('Y-m-d', $date_start + ($i * 86400));
+            $date = date('Y-m-d', $date_start + ($i * 86400));
             $order_data[date('w', strtotime($date))] = [
                 'day'   => date('D', strtotime($date)),
                 'total' => 0
@@ -86,7 +86,7 @@ class ModelExtensionReportSale extends Model {
         $order_data = [];
 
         for ($i = 1; $i <= date('t'); $i++) {
-            $date                                    = date('Y') . '-' . date('m') . '-' . $i;
+            $date = date('Y') . '-' . date('m') . '-' . $i;
             $order_data[date('j', strtotime($date))] = [
                 'day'   => date('d', strtotime($date)),
                 'total' => 0

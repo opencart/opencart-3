@@ -36,13 +36,13 @@ class ControllerExtensionPaymentAmazonLoginPay extends Controller {
             unset($this->session->data['apalwa']['pay']['order_reference_id']);
         }
 
-        $data['cart']             = html_entity_decode($this->url->link('checkout/cart'), ENT_COMPAT, "UTF-8");
-        $data['shipping']         = html_entity_decode($this->url->link('extension/payment/amazon_login_pay/shipping', '', true), ENT_COMPAT, "UTF-8");
-        $data['session_expired']  = html_entity_decode($this->url->link('extension/payment/amazon_login_pay/session_expired'), ENT_COMPAT, "UTF-8");
+        $data['cart'] = html_entity_decode($this->url->link('checkout/cart'), ENT_COMPAT, "UTF-8");
+        $data['shipping'] = html_entity_decode($this->url->link('extension/payment/amazon_login_pay/shipping', '', true), ENT_COMPAT, "UTF-8");
+        $data['session_expired'] = html_entity_decode($this->url->link('extension/payment/amazon_login_pay/session_expired'), ENT_COMPAT, "UTF-8");
         $data['shipping_methods'] = html_entity_decode($this->url->link('extension/payment/amazon_login_pay/shipping_methods', '', true), ENT_COMPAT, "UTF-8");
 
-        $data['client_id']        = $this->config->get('payment_amazon_login_pay_client_id');
-        $data['merchant_id']      = $this->config->get('payment_amazon_login_pay_merchant_id');
+        $data['client_id'] = $this->config->get('payment_amazon_login_pay_client_id');
+        $data['merchant_id'] = $this->config->get('payment_amazon_login_pay_merchant_id');
 
         if ($this->config->get('payment_amazon_login_pay_test') == 'sandbox') {
             $data['sandbox'] = isset($this->session->data['user_id']); // Require an active admin panel session to show debug messages
@@ -80,13 +80,13 @@ class ControllerExtensionPaymentAmazonLoginPay extends Controller {
             'text' => $this->language->get('breadcrumb_summary')
         ];
 
-        $data['content_main']   = $this->load->view('extension/payment/amazon_login_pay_address', $data);
-        $data['column_left']    = $this->load->controller('common/column_left');
-        $data['column_right']   = $this->load->controller('common/column_right');
-        $data['content_top']    = $this->load->controller('common/content_top');
+        $data['content_main'] = $this->load->view('extension/payment/amazon_login_pay_address', $data);
+        $data['column_left'] = $this->load->controller('common/column_left');
+        $data['column_right'] = $this->load->controller('common/column_right');
+        $data['content_top'] = $this->load->controller('common/content_top');
         $data['content_bottom'] = $this->load->controller('common/content_bottom');
-        $data['footer']         = $this->load->controller('common/footer');
-        $data['header']         = $this->load->controller('common/header');
+        $data['footer'] = $this->load->controller('common/footer');
+        $data['header'] = $this->load->controller('common/header');
 
         $this->response->setOutput($this->load->view('extension/payment/amazon_login_pay_generic', $data));
     }
@@ -104,10 +104,10 @@ class ControllerExtensionPaymentAmazonLoginPay extends Controller {
                 throw $this->model_extension_payment_amazon_login_pay->loggedException($this->language->get('error_shipping_methods'), $this->language->get('error_shipping_methods'));
             }
 
-            $order_reference_id                                         = $this->request->get['AmazonOrderReferenceId'];
-            $address                                                    = $this->model_extension_payment_amazon_login_pay->getAddress($order_reference_id);
-            $results                                                    = $this->model_setting_extension->getExtensions('shipping');
-            $quotes                                                     = [];
+            $order_reference_id = $this->request->get['AmazonOrderReferenceId'];
+            $address = $this->model_extension_payment_amazon_login_pay->getAddress($order_reference_id);
+            $results = $this->model_setting_extension->getExtensions('shipping');
+            $quotes = [];
 
             $this->session->data['apalwa']['pay']['order_reference_id'] = $order_reference_id;
 
@@ -147,7 +147,7 @@ class ControllerExtensionPaymentAmazonLoginPay extends Controller {
             array_multisort($sort_order, SORT_ASC, $quotes);
 
             $this->session->data['apalwa']['pay']['shipping_methods'] = $quotes;
-            $this->session->data['apalwa']['pay']['address']          = $address;
+            $this->session->data['apalwa']['pay']['address'] = $address;
 
             $json['quotes'] = $quotes;
 
@@ -187,11 +187,11 @@ class ControllerExtensionPaymentAmazonLoginPay extends Controller {
             }
 
             $this->session->data['apalwa']['pay']['shipping_method'] = $this->session->data['apalwa']['pay']['shipping_methods'][$shipping_method[0]]['quote'][$shipping_method[1]];
-            $this->session->data['shipping_method']                  = $this->session->data['apalwa']['pay']['shipping_method'];
-            $this->session->data['payment_address']                  = $this->session->data['apalwa']['pay']['address'];
-            $this->session->data['shipping_address']                 = $this->session->data['apalwa']['pay']['address'];
-            $this->session->data['shipping_country_id']              = (int)$this->session->data['apalwa']['pay']['address']['country_id'];
-            $this->session->data['shipping_zone_id']                 = (int)$this->session->data['apalwa']['pay']['address']['zone_id'];
+            $this->session->data['shipping_method'] = $this->session->data['apalwa']['pay']['shipping_method'];
+            $this->session->data['payment_address'] = $this->session->data['apalwa']['pay']['address'];
+            $this->session->data['shipping_address'] = $this->session->data['apalwa']['pay']['address'];
+            $this->session->data['shipping_country_id'] = (int)$this->session->data['apalwa']['pay']['address']['country_id'];
+            $this->session->data['shipping_zone_id'] = (int)$this->session->data['apalwa']['pay']['address']['zone_id'];
 
             $this->model_extension_module_amazon_login->persistAddress($this->session->data['apalwa']['pay']['address']);
 
@@ -216,12 +216,12 @@ class ControllerExtensionPaymentAmazonLoginPay extends Controller {
         $this->model_extension_payment_amazon_login_pay->verifyTotal();
         $this->model_extension_payment_amazon_login_pay->verifyShipping();
 
-        $data['back']               = html_entity_decode($this->url->link('extension/payment/amazon_login_pay/address', '', true), ENT_COMPAT, "UTF-8");
-        $data['confirm']            = html_entity_decode($this->url->link('extension/payment/amazon_login_pay/confirm', '', true), ENT_COMPAT, "UTF-8");
-        $data['session_expired']    = html_entity_decode($this->url->link('extension/payment/amazon_login_pay/session_expired'), ENT_COMPAT, "UTF-8");
+        $data['back'] = html_entity_decode($this->url->link('extension/payment/amazon_login_pay/address', '', true), ENT_COMPAT, "UTF-8");
+        $data['confirm'] = html_entity_decode($this->url->link('extension/payment/amazon_login_pay/confirm', '', true), ENT_COMPAT, "UTF-8");
+        $data['session_expired'] = html_entity_decode($this->url->link('extension/payment/amazon_login_pay/session_expired'), ENT_COMPAT, "UTF-8");
 
-        $data['merchant_id']        = $this->config->get('payment_amazon_login_pay_merchant_id');
-        $data['client_id']          = $this->config->get('payment_amazon_login_pay_client_id');
+        $data['merchant_id'] = $this->config->get('payment_amazon_login_pay_merchant_id');
+        $data['client_id'] = $this->config->get('payment_amazon_login_pay_client_id');
 
         $data['order_reference_id'] = !empty($this->session->data['apalwa']['pay']['order_reference_id']) ? $this->session->data['apalwa']['pay']['order_reference_id'] : null;
 
@@ -242,14 +242,14 @@ class ControllerExtensionPaymentAmazonLoginPay extends Controller {
         ];
 
         $data['enabled_buyers_multi_currency'] = false;
-        $data['buyer_currency']                = false;
+        $data['buyer_currency'] = false;
 
         if ($this->config->get('payment_amazon_login_pay_buyer_multi_currency') && $this->config->get('payment_amazon_login_pay_payment_region') != 'USD') {
             $session_currency = !empty($this->session->data['currency']) ? $this->session->data['currency'] : $this->config->get('config_currency');
 
             if (in_array($session_currency, $amazon_supported_currencies)) {
-                $data['buyer_currency']                                 = $session_currency;
-                $data['enabled_buyers_multi_currency']                  = true;
+                $data['buyer_currency'] = $session_currency;
+                $data['enabled_buyers_multi_currency'] = true;
 
                 $this->session->data['apalwa']['pay']['buyer_currency'] = $session_currency;
             }
@@ -298,13 +298,13 @@ class ControllerExtensionPaymentAmazonLoginPay extends Controller {
             'text' => $this->language->get('breadcrumb_summary')
         ];
 
-        $data['content_main']   = $this->load->view('extension/payment/amazon_login_pay_payment', $data);
-        $data['column_left']    = $this->load->controller('common/column_left');
-        $data['column_right']   = $this->load->controller('common/column_right');
-        $data['content_top']    = $this->load->controller('common/content_top');
+        $data['content_main'] = $this->load->view('extension/payment/amazon_login_pay_payment', $data);
+        $data['column_left'] = $this->load->controller('common/column_left');
+        $data['column_right'] = $this->load->controller('common/column_right');
+        $data['content_top'] = $this->load->controller('common/content_top');
         $data['content_bottom'] = $this->load->controller('common/content_bottom');
-        $data['footer']         = $this->load->controller('common/footer');
-        $data['header']         = $this->load->controller('common/header');
+        $data['footer'] = $this->load->controller('common/footer');
+        $data['header'] = $this->load->controller('common/header');
 
         $this->response->setOutput($this->load->view('extension/payment/amazon_login_pay_generic', $data));
     }
@@ -370,7 +370,7 @@ class ControllerExtensionPaymentAmazonLoginPay extends Controller {
         $this->model_extension_payment_amazon_login_pay->verifyShipping();
 
         $data['merchant_id'] = $this->config->get('payment_amazon_login_pay_merchant_id');
-        $data['client_id']   = $this->config->get('payment_amazon_login_pay_client_id');
+        $data['client_id'] = $this->config->get('payment_amazon_login_pay_client_id');
 
         if ($this->config->get('payment_amazon_login_pay_test') == 'sandbox') {
             $data['sandbox'] = isset($this->session->data['user_id']); // Require an active admin panel session to show debug messages
@@ -381,12 +381,12 @@ class ControllerExtensionPaymentAmazonLoginPay extends Controller {
         $this->document->addScript($amazon_payment_js);
 
         try {
-            $order                                         = $this->model_extension_payment_amazon_login_pay->makeOrder();
+            $order = $this->model_extension_payment_amazon_login_pay->makeOrder();
 
             $this->session->data['apalwa']['pay']['order'] = $order;
 
-            $data['order']                                 = $order;
-            $data['order_reference_id']                    = $this->session->data['apalwa']['pay']['order_reference_id'];
+            $data['order'] = $order;
+            $data['order_reference_id'] = $this->session->data['apalwa']['pay']['order_reference_id'];
         } catch (\RuntimeException $e) {
             $this->model_extension_payment_amazon_login_pay->cartRedirect($e->getMessage());
         }
@@ -411,23 +411,23 @@ class ControllerExtensionPaymentAmazonLoginPay extends Controller {
             $data['comment'] = '';
         }
 
-        $zero_total                             = $this->currency->format(0, $this->session->data['currency']);
+        $zero_total = $this->currency->format(0, $this->session->data['currency']);
 
-        $data['standard_checkout']              = $this->url->link('extension/payment/amazon_login_pay/standard_checkout', '', true);
-        $data['is_order_total_positive']        = $this->model_extension_payment_amazon_login_pay->isTotalPositive();
-        $data['error_order_total_zero']         = sprintf($this->language->get('error_order_total_zero'), $zero_total);
-        $data['process']                        = html_entity_decode($this->url->link('extension/payment/amazon_login_pay/process', '', true), ENT_COMPAT, "UTF-8");
-        $data['process_us']                     = html_entity_decode($this->url->link('extension/payment/amazon_login_pay/process_us', '', true), ENT_COMPAT, "UTF-8");
-        $data['address']                        = html_entity_decode($this->url->link('extension/payment/amazon_login_pay/address', '', true), ENT_COMPAT, "UTF-8");
-        $data['back']                           = html_entity_decode($this->url->link('extension/payment/amazon_login_pay/payment', '', true), ENT_COMPAT, "UTF-8");
-        $data['session_expired']                = html_entity_decode($this->url->link('extension/payment/amazon_login_pay/session_expired'), ENT_COMPAT, "UTF-8");
-        $data['coupon_discard']                 = html_entity_decode($this->url->link('extension/payment/amazon_login_pay/coupon_discard', '', true), ENT_COMPAT, "UTF-8");
-        $data['coupon_apply']                   = html_entity_decode($this->url->link('extension/total/coupon/coupon', '', true), ENT_COMPAT, "UTF-8");
-        $data['persist_comment']                = html_entity_decode($this->url->link('extension/payment/amazon_login_pay/persist_comment', '', true), ENT_COMPAT, "UTF-8");
-        $data['is_coupon_change_allowed']       = $this->model_extension_payment_amazon_login_pay->isOrderInState($this->session->data['apalwa']['pay']['order_reference_id'], ['Draft']);
+        $data['standard_checkout'] = $this->url->link('extension/payment/amazon_login_pay/standard_checkout', '', true);
+        $data['is_order_total_positive'] = $this->model_extension_payment_amazon_login_pay->isTotalPositive();
+        $data['error_order_total_zero'] = sprintf($this->language->get('error_order_total_zero'), $zero_total);
+        $data['process'] = html_entity_decode($this->url->link('extension/payment/amazon_login_pay/process', '', true), ENT_COMPAT, "UTF-8");
+        $data['process_us'] = html_entity_decode($this->url->link('extension/payment/amazon_login_pay/process_us', '', true), ENT_COMPAT, "UTF-8");
+        $data['address'] = html_entity_decode($this->url->link('extension/payment/amazon_login_pay/address', '', true), ENT_COMPAT, "UTF-8");
+        $data['back'] = html_entity_decode($this->url->link('extension/payment/amazon_login_pay/payment', '', true), ENT_COMPAT, "UTF-8");
+        $data['session_expired'] = html_entity_decode($this->url->link('extension/payment/amazon_login_pay/session_expired'), ENT_COMPAT, "UTF-8");
+        $data['coupon_discard'] = html_entity_decode($this->url->link('extension/payment/amazon_login_pay/coupon_discard', '', true), ENT_COMPAT, "UTF-8");
+        $data['coupon_apply'] = html_entity_decode($this->url->link('extension/total/coupon/coupon', '', true), ENT_COMPAT, "UTF-8");
+        $data['persist_comment'] = html_entity_decode($this->url->link('extension/payment/amazon_login_pay/persist_comment', '', true), ENT_COMPAT, "UTF-8");
+        $data['is_coupon_change_allowed'] = $this->model_extension_payment_amazon_login_pay->isOrderInState($this->session->data['apalwa']['pay']['order_reference_id'], ['Draft']);
         $data['error_unexpected_network_error'] = $this->language->get('error_unexpected_network_error');
 
-        $data['breadcrumbs']   = [];
+        $data['breadcrumbs'] = [];
 
         $data['breadcrumbs'][] = [
             'href' => $this->url->link('common/home', '', true),
@@ -478,14 +478,14 @@ class ControllerExtensionPaymentAmazonLoginPay extends Controller {
             'USD'
         ];
 
-        $data['buyer_currency']                = false;
+        $data['buyer_currency'] = false;
         $data['enabled_buyers_multi_currency'] = false;
 
         if ($this->config->get('payment_amazon_login_pay_buyer_multi_currency') && $this->config->get('payment_amazon_login_pay_payment_region') != 'USD') {
             $session_currency = !empty($this->session->data['currency']) ? $this->session->data['currency'] : $this->config->get('config_currency');
 
             if (in_array($session_currency, $amazon_supported_currencies)) {
-                $data['buyer_currency']                = $session_currency;
+                $data['buyer_currency'] = $session_currency;
                 $data['enabled_buyers_multi_currency'] = true;
 
                 $this->session->data['apalwa']['pay']['buyer_currency'] = $session_currency;
@@ -493,22 +493,22 @@ class ControllerExtensionPaymentAmazonLoginPay extends Controller {
         }
 
         if (!$data['buyer_currency']) {
-            $location_currency             = $this->config->get('payment_amazon_login_pay_payment_region');
-            $rate                          = round($this->currency->getValue($location_currency) / $this->currency->getValue($order['currency_code']), 8);
-            $amount                        = $this->currency->format($this->currency->convert($order['total'], $this->config->get('config_currency'), $location_currency), $location_currency, 1, true);
+            $location_currency = $this->config->get('payment_amazon_login_pay_payment_region');
+            $rate = round($this->currency->getValue($location_currency) / $this->currency->getValue($order['currency_code']), 8);
+            $amount = $this->currency->format($this->currency->convert($order['total'], $this->config->get('config_currency'), $location_currency), $location_currency, 1, true);
 
-            $data['is_amount_converted']   = $order['currency_code'] != $location_currency;
+            $data['is_amount_converted'] = $order['currency_code'] != $location_currency;
             $data['text_amount_converted'] = sprintf($this->language->get('text_amount_converted'), $location_currency, $rate, $amount);
         }
 
-        $data['content_main']   = $this->load->view('extension/payment/amazon_login_pay_confirm', $data);
+        $data['content_main'] = $this->load->view('extension/payment/amazon_login_pay_confirm', $data);
 
-        $data['column_left']    = $this->load->controller('common/column_left');
-        $data['column_right']   = $this->load->controller('common/column_right');
-        $data['content_top']    = $this->load->controller('common/content_top');
+        $data['column_left'] = $this->load->controller('common/column_left');
+        $data['column_right'] = $this->load->controller('common/column_right');
+        $data['content_top'] = $this->load->controller('common/content_top');
         $data['content_bottom'] = $this->load->controller('common/content_bottom');
-        $data['footer']         = $this->load->controller('common/footer');
-        $data['header']         = $this->load->controller('common/header');
+        $data['footer'] = $this->load->controller('common/footer');
+        $data['header'] = $this->load->controller('common/header');
 
         $this->response->setOutput($this->load->view('extension/payment/amazon_login_pay_generic', $data));
     }
@@ -576,9 +576,9 @@ class ControllerExtensionPaymentAmazonLoginPay extends Controller {
 
             if (empty($this->session->data['order_id'])) {
                 // Up to this point, everything is fine in the session. Save the order and submit it to Amazon.
-                $order_id                        = $this->model_checkout_order->addOrder($this->session->data['apalwa']['pay']['order']);
-                $text_version                    = sprintf($this->language->get('text_created_by'), $this->version);
-                $currency_code                   = isset($this->session->data['apalwa']['pay']['buyer_currency']) ? $this->session->data['apalwa']['pay']['buyer_currency'] : $this->config->get('payment_amazon_login_pay_payment_region');
+                $order_id = $this->model_checkout_order->addOrder($this->session->data['apalwa']['pay']['order']);
+                $text_version = sprintf($this->language->get('text_created_by'), $this->version);
+                $currency_code = isset($this->session->data['apalwa']['pay']['buyer_currency']) ? $this->session->data['apalwa']['pay']['buyer_currency'] : $this->config->get('payment_amazon_login_pay_payment_region');
 
                 $this->session->data['order_id'] = $order_id;
 
@@ -589,7 +589,7 @@ class ControllerExtensionPaymentAmazonLoginPay extends Controller {
 
             $amazon_order = $this->model_extension_payment_amazon_login_pay->fetchOrder($order_reference_id);
 
-            $authorization             = $this->model_extension_payment_amazon_login_pay->authorizeOrder($amazon_order);
+            $authorization = $this->model_extension_payment_amazon_login_pay->authorizeOrder($amazon_order);
             $amazon_login_pay_order_id = $this->model_extension_payment_amazon_login_pay->findOrAddOrder($amazon_order);
 
             // Log the authorization
@@ -676,9 +676,9 @@ class ControllerExtensionPaymentAmazonLoginPay extends Controller {
 
             if (empty($this->session->data['order_id'])) {
                 // Up to this point, everything is fine in the session. Save the order and submit it to Amazon.
-                $order_id                        = $this->model_checkout_order->addOrder($this->session->data['apalwa']['pay']['order']);
-                $text_version                    = sprintf($this->language->get('text_created_by'), $this->version);
-                $currency_code                   = $this->config->get('payment_amazon_login_pay_payment_region');
+                $order_id = $this->model_checkout_order->addOrder($this->session->data['apalwa']['pay']['order']);
+                $text_version = sprintf($this->language->get('text_created_by'), $this->version);
+                $currency_code = $this->config->get('payment_amazon_login_pay_payment_region');
 
                 $this->session->data['order_id'] = $order_id;
 
@@ -712,9 +712,9 @@ class ControllerExtensionPaymentAmazonLoginPay extends Controller {
             // Open the order for authorization
             $this->model_extension_payment_amazon_login_pay->confirmOrder($order_reference_id);
 
-            $amazon_order              = $this->model_extension_payment_amazon_login_pay->fetchOrder($order_reference_id);
+            $amazon_order = $this->model_extension_payment_amazon_login_pay->fetchOrder($order_reference_id);
             $amazon_login_pay_order_id = $this->model_extension_payment_amazon_login_pay->findOrAddOrder($amazon_order);
-            $authorization             = $this->model_extension_payment_amazon_login_pay->authorizeOrder($amazon_order);
+            $authorization = $this->model_extension_payment_amazon_login_pay->authorizeOrder($amazon_order);
 
             // Log the authorization
             $this->model_extension_payment_amazon_login_pay->addAuthorization($amazon_login_pay_order_id, $authorization);
@@ -783,7 +783,10 @@ class ControllerExtensionPaymentAmazonLoginPay extends Controller {
             }
 
             // Log any errors triggered by addOrderHistory, but without displaying them
-            set_error_handler([$this->model_extension_payment_amazon_login_pay, 'logHandler']);
+            set_error_handler([
+                $this->model_extension_payment_amazon_login_pay,
+                'logHandler'
+            ]);
 
             $this->response->redirect($this->url->link('checkout/success', '', true));
         } catch (\RuntimeException $e) {
@@ -895,16 +898,16 @@ class ControllerExtensionPaymentAmazonLoginPay extends Controller {
                         if ($this->model_extension_payment_amazon_login_pay->authorizationIpn($xml)) {
                             $this->load->model('checkout/order');
 
-                            $oc_order_status_id        = $this->config->get('payment_amazon_login_pay_capture_oc_status');
-                            $amazon_capture_id         = (string)$xml->AuthorizationDetails->IdList->Id;
-                            $amazon_captured_amount    = (float)$xml->AuthorizationDetails->CapturedAmount->Amount;
-                            $amazon_authorization_id   = (string)$xml->AuthorizationDetails->AmazonAuthorizationId;
+                            $oc_order_status_id = $this->config->get('payment_amazon_login_pay_capture_oc_status');
+                            $amazon_capture_id = (string)$xml->AuthorizationDetails->IdList->Id;
+                            $amazon_captured_amount = (float)$xml->AuthorizationDetails->CapturedAmount->Amount;
+                            $amazon_authorization_id = (string)$xml->AuthorizationDetails->AmazonAuthorizationId;
                             $exploded_authorization_id = explode("-", $amazon_authorization_id);
 
                             array_pop($exploded_authorization_id);
 
                             $amazon_order_reference_id = implode("-", $exploded_authorization_id);
-                            $order_id                  = $this->model_extension_payment_amazon_login_pay->findOCOrderId($amazon_order_reference_id);
+                            $order_id = $this->model_extension_payment_amazon_login_pay->findOCOrderId($amazon_order_reference_id);
                             $amazon_login_pay_order_id = $this->model_extension_payment_amazon_login_pay->findAOrderId($amazon_order_reference_id);
 
                             $transaction = [
@@ -925,10 +928,10 @@ class ControllerExtensionPaymentAmazonLoginPay extends Controller {
                             }
 
                             $order_reference_details = $this->model_extension_payment_amazon_login_pay->fetchOrder($amazon_order_reference_id);
-                            $order_reason_code       = (string)$order_reference_details->OrderReferenceStatus->ReasonCode;
-                            $order_state             = (string)$order_reference_details->OrderReferenceStatus->State;
-                            $order_total             = (float)$order_reference_details->OrderTotal->Amount;
-                            $total_captured          = $this->model_extension_payment_amazon_login_pay->getTotalCaptured($amazon_login_pay_order_id);
+                            $order_reason_code = (string)$order_reference_details->OrderReferenceStatus->ReasonCode;
+                            $order_state = (string)$order_reference_details->OrderReferenceStatus->State;
+                            $order_total = (float)$order_reference_details->OrderTotal->Amount;
+                            $total_captured = $this->model_extension_payment_amazon_login_pay->getTotalCaptured($amazon_login_pay_order_id);
 
                             // Change the order status only if the order is closed with the response code maxamountcharged or if the order is fully captured
                             if (($order_state == 'Closed' && $order_reason_code == 'MaxAmountCharged') || $order_reason_code == 'SellerClosed' || $amazon_captured_amount >= $order_total || $total_captured >= $order_total) {
@@ -967,7 +970,7 @@ class ControllerExtensionPaymentAmazonLoginPay extends Controller {
         if ($order_info['order_status_id'] == $this->config->get('payment_amazon_login_pay_capture_status')) {
             try {
                 $amazon_login_pay_order = $this->model_extension_payment_amazon_login_pay->getOrderByOrderId($order_id);
-                $capture_response       = $this->model_extension_payment_amazon_login_pay->captureOrder($amazon_login_pay_order['amazon_authorization_id'], $amazon_login_pay_order['total'], $amazon_login_pay_order['currency_code']);
+                $capture_response = $this->model_extension_payment_amazon_login_pay->captureOrder($amazon_login_pay_order['amazon_authorization_id'], $amazon_login_pay_order['total'], $amazon_login_pay_order['currency_code']);
 
                 if (isset($capture_response->CaptureStatus->State) && in_array($capture_response->CaptureStatus->State, [
                         'Completed',

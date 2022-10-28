@@ -9,13 +9,12 @@ class ControllerExtensionFeedGoogleBase extends Controller {
             $output .= '  <description>' . $this->config->get('config_meta_description') . '</description>';
             $output .= '  <link>' . $this->config->get('config_url') . '</link>';
 
-
             $this->load->model('tool/image');
             $this->load->model('catalog/product');
             $this->load->model('catalog/category');
             $this->load->model('extension/feed/google_base');
 
-            $product_data           = [];
+            $product_data = [];
 
             $google_base_categories = $this->model_extension_feed_google_base->getCategories();
 
@@ -68,10 +67,10 @@ class ControllerExtensionFeedGoogleBase extends Controller {
                         ];
 
                         if (in_array($this->session->data['currency'], $currencies)) {
-                            $currency_code  = $this->session->data['currency'];
+                            $currency_code = $this->session->data['currency'];
                             $currency_value = $this->currency->getValue($this->session->data['currency']);
                         } else {
-                            $currency_code  = 'USD';
+                            $currency_code = 'USD';
                             $currency_value = $this->currency->getValue('USD');
                         }
 

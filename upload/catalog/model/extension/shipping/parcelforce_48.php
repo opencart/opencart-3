@@ -16,8 +16,8 @@ class ModelExtensionShippingParcelforce48 extends Model {
         $method_data = [];
 
         if ($status) {
-            $cost      = 0;
-            $weight    = $this->cart->getWeight();
+            $cost = 0;
+            $weight = $this->cart->getWeight();
             $sub_total = $this->cart->getSubTotal();
 
             $rates = explode(',', $this->config->get('shipping_parcelforce_48_rate'));

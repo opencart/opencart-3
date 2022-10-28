@@ -68,8 +68,8 @@ class ModelExtensionPaymentLaybuy extends Model {
         /* Condition for categories and products */
         if ($status && $this->config->get('payment_laybuy_category')) {
             $allowed_categories = $this->config->get('payment_laybuy_category');
-            $xproducts          = explode(',', $this->config->get('payment_laybuy_xproducts'));
-            $cart_products      = $this->cart->getProducts();
+            $xproducts = explode(',', $this->config->get('payment_laybuy_xproducts'));
+            $cart_products = $this->cart->getProducts();
 
             foreach ($cart_products as $cart_product) {
                 $product = [];
@@ -168,23 +168,23 @@ class ModelExtensionPaymentLaybuy extends Model {
 
         $this->load->model('checkout/order');
 
-        $data                      = array_change_key_case($post_data, CASE_LOWER);
-        $data['order_id']          = $data['custom'];
+        $data = array_change_key_case($post_data, CASE_LOWER);
+        $data['order_id'] = $data['custom'];
 
-        $order_info                = $this->model_checkout_order->getOrder($data['order_id']);
+        $order_info = $this->model_checkout_order->getOrder($data['order_id']);
 
-        $date_added                = date($this->language->get('date_format_short'), strtotime($order_info['date_added']));
+        $date_added = date($this->language->get('date_format_short'), strtotime($order_info['date_added']));
 
-        $data['store_id']          = $order_info['store_id'];
-        $data['date_added']        = $order_info['date_added'];
+        $data['store_id'] = $order_info['store_id'];
+        $data['date_added'] = $order_info['date_added'];
         $data['first_payment_due'] = date('Y-m-d h:i:s', strtotime(str_replace('/', '-', $data['first_payment_due'])));
-        $data['last_payment_due']  = date('Y-m-d h:i:s', strtotime(str_replace('/', '-', $data['last_payment_due'])));
-        
-        $months                    = (int)$data['months'];
+        $data['last_payment_due'] = date('Y-m-d h:i:s', strtotime(str_replace('/', '-', $data['last_payment_due'])));
 
-        $report_content            = [];
+        $months = (int)$data['months'];
 
-        $report_content[]          = [
+        $report_content = [];
+
+        $report_content[] = [
             'instalment'  => 0,
             'amount'      => $this->currency->format($data['downpayment_amount'], $data['currency']),
             'date'        => $date_added,

@@ -7,7 +7,7 @@ class ControllerMarketplaceExtension extends Controller {
 
         $this->document->setTitle($this->language->get('heading_title'));
 
-        $data['breadcrumbs']   = [];
+        $data['breadcrumbs'] = [];
 
         $data['breadcrumbs'][] = [
             'text' => $this->language->get('text_home'),
@@ -29,7 +29,7 @@ class ControllerMarketplaceExtension extends Controller {
 
         $data['categories'] = [];
 
-        $files              = glob(DIR_APPLICATION . 'controller/extension/extension/*.php', GLOB_BRACE);
+        $files = glob(DIR_APPLICATION . 'controller/extension/extension/*.php', GLOB_BRACE);
 
         foreach ($files as $file) {
             $extension = basename($file, '.php');
@@ -48,9 +48,9 @@ class ControllerMarketplaceExtension extends Controller {
             }
         }
 
-        $data['header']      = $this->load->controller('common/header');
+        $data['header'] = $this->load->controller('common/header');
         $data['column_left'] = $this->load->controller('common/column_left');
-        $data['footer']      = $this->load->controller('common/footer');
+        $data['footer'] = $this->load->controller('common/footer');
 
         $this->response->setOutput($this->load->view('marketplace/extension', $data));
     }

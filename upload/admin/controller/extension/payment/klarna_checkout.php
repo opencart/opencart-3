@@ -293,18 +293,18 @@ class ControllerExtensionPaymentKlarnaCheckout extends Controller {
         $api_info = $this->model_user_api->getApi($this->config->get('config_api_id'));
 
         if ($api_info) {
-            $data['api_id']  = $api_info['api_id'];
+            $data['api_id'] = $api_info['api_id'];
             $data['api_key'] = $api_info['key'];
-            $data['api_ip']  = $this->request->server['REMOTE_ADDR'];
+            $data['api_ip'] = $this->request->server['REMOTE_ADDR'];
         } else {
-            $data['api_id']  = '';
+            $data['api_id'] = '';
             $data['api_key'] = '';
-            $data['api_ip']  = '';
+            $data['api_ip'] = '';
         }
 
-        $data['header']      = $this->load->controller('common/header');
+        $data['header'] = $this->load->controller('common/header');
         $data['column_left'] = $this->load->controller('common/column_left');
-        $data['footer']      = $this->load->controller('common/footer');
+        $data['footer'] = $this->load->controller('common/footer');
 
         $this->response->setOutput($this->load->view('extension/payment/klarna_checkout', $data));
     }
@@ -353,33 +353,33 @@ class ControllerExtensionPaymentKlarnaCheckout extends Controller {
         }
 
         $data['order_ref'] = $order_reference['order_ref'];
-        $data['order_id']  = (int)$this->request->get['order_id'];
+        $data['order_id'] = (int)$this->request->get['order_id'];
 
         $data['user_token'] = $this->session->data['user_token'];
-        $data['store_url']  = $this->request->server['HTTPS'] ? HTTPS_CATALOG : HTTP_CATALOG;
+        $data['store_url'] = $this->request->server['HTTPS'] ? HTTPS_CATALOG : HTTP_CATALOG;
 
         $extend_authorization_action = $cancel_action = $capture_action = $refund_action = $merchant_reference_action = $address_action = $release_authorization_action = false;
 
         switch (strtoupper($klarna_order['status'])) {
             case 'AUTHORIZED':
-                $merchant_reference_action   = true;
+                $merchant_reference_action = true;
                 $extend_authorization_action = true;
-                $address_action              = true;
-                $cancel_action               = true;
-                $capture_action              = true;
+                $address_action = true;
+                $cancel_action = true;
+                $capture_action = true;
                 break;
             case 'PART_CAPTURED':
-                $merchant_reference_action    = true;
-                $extend_authorization_action  = true;
+                $merchant_reference_action = true;
+                $extend_authorization_action = true;
                 $release_authorization_action = true;
-                $address_action               = true;
-                $capture_action               = true;
-                $refund_action                = true;
+                $address_action = true;
+                $capture_action = true;
+                $refund_action = true;
                 break;
             case 'CAPTURED':
-                $address_action            = true;
+                $address_action = true;
                 $merchant_reference_action = true;
-                $refund_action             = true;
+                $refund_action = true;
                 break;
             case 'CANCELLED':
                 break;
@@ -419,7 +419,11 @@ class ControllerExtensionPaymentKlarnaCheckout extends Controller {
             'phone'           => $klarna_order['billing_address']['phone']
         ];
 
-        $billing_address_formatted = str_replace(["\r\n", "\r", "\n"], '<br/>', preg_replace([
+        $billing_address_formatted = str_replace([
+            "\r\n",
+            "\r",
+            "\n"
+        ], '<br/>', preg_replace([
             "/\s\s+/",
             "/\r\r+/",
             "/\n\n+/"
@@ -439,7 +443,11 @@ class ControllerExtensionPaymentKlarnaCheckout extends Controller {
             'phone'           => $klarna_order['shipping_address']['phone']
         ];
 
-        $shipping_address_formatted = str_replace(["\r\n", "\r", "\n"], '<br/>', preg_replace([
+        $shipping_address_formatted = str_replace([
+            "\r\n",
+            "\r",
+            "\n"
+        ], '<br/>', preg_replace([
             "/\s\s+/",
             "/\r\r+/",
             "/\n\n+/"
@@ -539,17 +547,17 @@ class ControllerExtensionPaymentKlarnaCheckout extends Controller {
             'Own'
         ];
 
-        $data['extend_authorization_action']  = $extend_authorization_action;
-        $data['cancel_action']                = $cancel_action;
-        $data['capture_action']               = $capture_action;
-        $data['refund_action']                = $refund_action;
-        $data['address_action']               = $address_action;
-        $data['merchant_reference_action']    = $merchant_reference_action;
+        $data['extend_authorization_action'] = $extend_authorization_action;
+        $data['cancel_action'] = $cancel_action;
+        $data['capture_action'] = $capture_action;
+        $data['refund_action'] = $refund_action;
+        $data['address_action'] = $address_action;
+        $data['merchant_reference_action'] = $merchant_reference_action;
         $data['release_authorization_action'] = $release_authorization_action;
-        $data['max_capture_amount']           = $this->currency->format($max_capture_amount, $order_info['currency_code'], '1.00000000', false);
-        $data['max_refund_amount']            = $this->currency->format($max_refund_amount, $order_info['currency_code'], '1.00000000', false);
-        $data['symbol_left']                  = $this->currency->getSymbolLeft($order_info['currency_code']);
-        $data['symbol_right']                 = $this->currency->getSymbolRight($order_info['currency_code']);
+        $data['max_capture_amount'] = $this->currency->format($max_capture_amount, $order_info['currency_code'], '1.00000000', false);
+        $data['max_refund_amount'] = $this->currency->format($max_refund_amount, $order_info['currency_code'], '1.00000000', false);
+        $data['symbol_left'] = $this->currency->getSymbolLeft($order_info['currency_code']);
+        $data['symbol_right'] = $this->currency->getSymbolRight($order_info['currency_code']);
 
         // The URL we send API requests to
         $data['catalog'] = $this->request->server['HTTPS'] ? HTTPS_CATALOG : HTTP_CATALOG;
@@ -591,12 +599,15 @@ class ControllerExtensionPaymentKlarnaCheckout extends Controller {
     public function transactionCommand(): void {
         $this->load->model('sale/order');
 
-        $json       = [];
-        $success    = $error = '';
+        $json = [];
+        $success = $error = '';
 
         $order_info = $this->model_sale_order->getOrder($this->request->get['order_id']);
 
-        [$klarna_account, $connector] = $this->model_extension_payment_klarna_checkout->getConnector($this->config->get('payment_klarna_checkout_account'), $order_info['currency_code']);
+        [
+            $klarna_account,
+            $connector
+        ] = $this->model_extension_payment_klarna_checkout->getConnector($this->config->get('payment_klarna_checkout_account'), $order_info['currency_code']);
 
         if (!$klarna_account || !$connector) {
             return;
@@ -709,8 +720,8 @@ class ControllerExtensionPaymentKlarnaCheckout extends Controller {
             $error = $this->language->get('text_error_generic');
         }
 
-        $json['success']         = $success;
-        $json['error']           = $error;
+        $json['success'] = $success;
+        $json['error'] = $error;
         $json['order_status_id'] = $order_status_id;
 
         $this->response->addHeader('Content-Type: application/json');
@@ -770,7 +781,10 @@ class ControllerExtensionPaymentKlarnaCheckout extends Controller {
                     }
 
                     // Save all files to local
-                    foreach (array_diff($files, ['.', '..']) as $file) {
+                    foreach (array_diff($files, [
+                        '.',
+                        '..'
+                    ]) as $file) {
                         if (!ftp_get($connection, $klarna_checkout_directory . $file, $file, FTP_BINARY)) {
                             $error[] = 'There was a problem saving one or more files';
                         }
@@ -785,7 +799,10 @@ class ControllerExtensionPaymentKlarnaCheckout extends Controller {
 
         if (!$error) {
             // Loop local files and process
-            foreach (array_diff($files, ['.', '..']) as $file) {
+            foreach (array_diff($files, [
+                '.',
+                '..'
+            ]) as $file) {
                 $handle = fopen($klarna_checkout_directory . $file, 'r');
 
                 // Skip first 2 lines, use third as headings
@@ -816,7 +833,10 @@ class ControllerExtensionPaymentKlarnaCheckout extends Controller {
         }
 
         // Delete local files
-        foreach (array_diff($files, ['.', '..']) as $file) {
+        foreach (array_diff($files, [
+            '.',
+            '..'
+        ]) as $file) {
             if (!unlink($klarna_checkout_directory . $file)) {
                 $error[] = 'Cannot delete files';
             }

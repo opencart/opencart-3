@@ -35,7 +35,7 @@ class ControllerCommonReset extends Controller {
                 $this->response->redirect($this->url->link('common/login', '', true));
             }
 
-            $data['breadcrumbs']   = [];
+            $data['breadcrumbs'] = [];
 
             $data['breadcrumbs'][] = [
                 'text' => $this->language->get('text_home'),

@@ -5,7 +5,7 @@ class ControllerReportReport extends Controller {
 
         $this->document->setTitle($this->language->get('heading_title'));
 
-        $data['breadcrumbs']   = [];
+        $data['breadcrumbs'] = [];
 
         $data['breadcrumbs'][] = [
             'text' => $this->language->get('text_home'),
@@ -17,7 +17,7 @@ class ControllerReportReport extends Controller {
             'href' => $this->url->link('report/report', 'user_token=' . $this->session->data['user_token'], true)
         ];
 
-        $data['user_token']    = $this->session->data['user_token'];
+        $data['user_token'] = $this->session->data['user_token'];
 
         if (isset($this->request->get['code'])) {
             $data['code'] = $this->request->get['code'];
@@ -31,7 +31,7 @@ class ControllerReportReport extends Controller {
         $this->load->model('setting/extension');
 
         // Get a list of installed modules
-        $extensions      = $this->model_setting_extension->getInstalled('report');
+        $extensions = $this->model_setting_extension->getInstalled('report');
 
         // Add all the modules which have multiple settings for each module
         foreach ($extensions as $code) {
@@ -63,9 +63,9 @@ class ControllerReportReport extends Controller {
             $data['report'] = '';
         }
 
-        $data['header']      = $this->load->controller('common/header');
+        $data['header'] = $this->load->controller('common/header');
         $data['column_left'] = $this->load->controller('common/column_left');
-        $data['footer']      = $this->load->controller('common/footer');
+        $data['footer'] = $this->load->controller('common/footer');
 
         $this->response->setOutput($this->load->view('report/report', $data));
     }

@@ -13,11 +13,11 @@ class ModelExtensionShippingFedex extends Model {
             $status = false;
         }
 
-        $error      = '';
+        $error = '';
         $quote_data = [];
 
         if ($status) {
-            $weight      = $this->weight->convert($this->cart->getWeight(), $this->config->get('config_weight_class_id'), $this->config->get('shipping_fedex_weight_class_id'));
+            $weight = $this->weight->convert($this->cart->getWeight(), $this->config->get('config_weight_class_id'), $this->config->get('shipping_fedex_weight_class_id'));
             $weight_code = strtoupper($this->weight->getUnit($this->config->get('shipping_fedex_weight_class_id')));
 
             if ($weight_code == 'KGS') {
@@ -86,7 +86,10 @@ class ModelExtensionShippingFedex extends Model {
             $xml .= '					</ns1:Contact>';
             $xml .= '					<ns1:Address>';
 
-            if (in_array($country_info['iso_code_2'], ['US', 'CA'])) {
+            if (in_array($country_info['iso_code_2'], [
+                'US',
+                'CA'
+            ])) {
                 $xml .= '						<ns1:StateOrProvinceCode>' . ($zone_info ? $zone_info['code'] : '') . '</ns1:StateOrProvinceCode>';
             } else {
                 $xml .= '						<ns1:StateOrProvinceCode></ns1:StateOrProvinceCode>';
@@ -107,7 +110,10 @@ class ModelExtensionShippingFedex extends Model {
             $xml .= '						<ns1:StreetLines>' . $address['address_1'] . '</ns1:StreetLines>';
             $xml .= '						<ns1:City>' . $address['city'] . '</ns1:City>';
 
-            if (in_array($address['iso_code_2'], ['US', 'CA'])) {
+            if (in_array($address['iso_code_2'], [
+                'US',
+                'CA'
+            ])) {
                 $xml .= '						<ns1:StateOrProvinceCode>' . $address['zone_code'] . '</ns1:StateOrProvinceCode>';
             } else {
                 $xml .= '						<ns1:StateOrProvinceCode></ns1:StateOrProvinceCode>';
@@ -188,7 +194,7 @@ class ModelExtensionShippingFedex extends Model {
                         $rated_shipment_details = $rate_reply_detail->getElementsByTagName('RatedShipmentDetails');
 
                         foreach ($rated_shipment_details as $rated_shipment_detail) {
-                            $shipment_rate_detail      = $rated_shipment_detail->getElementsByTagName('ShipmentRateDetail')->item(0);
+                            $shipment_rate_detail = $rated_shipment_detail->getElementsByTagName('ShipmentRateDetail')->item(0);
                             $shipment_rate_detail_type = explode('_', $shipment_rate_detail->getElementsByTagName('RateType')->item(0)->nodeValue);
 
                             if (count($shipment_rate_detail_type) == 3 && $shipment_rate_detail_type[1] == $this->config->get('shipping_fedex_rate_type')) {
@@ -197,7 +203,7 @@ class ModelExtensionShippingFedex extends Model {
                             }
                         }
 
-                        $cost     = $total_net_charge->getElementsByTagName('Amount')->item(0)->nodeValue;
+                        $cost = $total_net_charge->getElementsByTagName('Amount')->item(0)->nodeValue;
                         $currency = $total_net_charge->getElementsByTagName('Currency')->item(0)->nodeValue;
 
                         $quote_data[$code] = [

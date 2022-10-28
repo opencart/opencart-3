@@ -53,9 +53,9 @@ class ControllerExtensionReportCustomerActivity extends Controller {
             $data['report_customer_activity_sort_order'] = $this->config->get('report_customer_activity_sort_order');
         }
 
-        $data['header']      = $this->load->controller('common/header');
+        $data['header'] = $this->load->controller('common/header');
         $data['column_left'] = $this->load->controller('common/column_left');
-        $data['footer']      = $this->load->controller('common/footer');
+        $data['footer'] = $this->load->controller('common/footer');
 
         $this->response->setOutput($this->load->view('extension/report/customer_activity_form', $data));
     }
@@ -158,20 +158,20 @@ class ControllerExtensionReportCustomerActivity extends Controller {
             $url .= '&filter_date_end=' . $this->request->get['filter_date_end'];
         }
 
-        $pagination        = new \Pagination();
+        $pagination = new \Pagination();
         $pagination->total = $activity_total;
-        $pagination->page  = $page;
+        $pagination->page = $page;
         $pagination->limit = $this->config->get('config_limit_admin');
-        $pagination->url   = $this->url->link('report/report', 'user_token=' . $this->session->data['user_token'] . '&code=customer_activity' . $url . '&page={page}', true);
+        $pagination->url = $this->url->link('report/report', 'user_token=' . $this->session->data['user_token'] . '&code=customer_activity' . $url . '&page={page}', true);
 
         $data['pagination'] = $pagination->render();
 
         $data['results'] = sprintf($this->language->get('text_pagination'), ($activity_total) ? (($page - 1) * $this->config->get('config_limit_admin')) + 1 : 0, ((($page - 1) * $this->config->get('config_limit_admin')) > ($activity_total - $this->config->get('config_limit_admin'))) ? $activity_total : ((($page - 1) * $this->config->get('config_limit_admin')) + $this->config->get('config_limit_admin')), $activity_total, ceil($activity_total / $this->config->get('config_limit_admin')));
 
-        $data['filter_customer']   = $filter_customer;
-        $data['filter_ip']         = $filter_ip;
+        $data['filter_customer'] = $filter_customer;
+        $data['filter_ip'] = $filter_ip;
         $data['filter_date_start'] = $filter_date_start;
-        $data['filter_date_end']   = $filter_date_end;
+        $data['filter_date_end'] = $filter_date_end;
 
         return $this->load->view('extension/report/customer_activity_info', $data);
     }

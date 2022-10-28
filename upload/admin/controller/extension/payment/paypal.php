@@ -38,15 +38,15 @@ class ControllerExtensionPaymentPayPal extends Controller {
         $data['action'] = $this->url->link('extension/payment/paypal', 'user_token=' . $this->session->data['user_token'], true);
         $data['cancel'] = $this->url->link('marketplace/extension', 'user_token=' . $this->session->data['user_token'] . '&type=payment', true);
 
-        $data['partner_url']                = str_replace('&amp;', '%26', $this->url->link('extension/payment/paypal', 'user_token=' . $this->session->data['user_token'], true));
-        $data['callback_url']               = str_replace('&amp;', '&', $this->url->link('extension/payment/paypal/callback', 'user_token=' . $this->session->data['user_token'], true));
+        $data['partner_url'] = str_replace('&amp;', '%26', $this->url->link('extension/payment/paypal', 'user_token=' . $this->session->data['user_token'], true));
+        $data['callback_url'] = str_replace('&amp;', '&', $this->url->link('extension/payment/paypal/callback', 'user_token=' . $this->session->data['user_token'], true));
         $data['configure_smart_button_url'] = $this->url->link('extension/payment/paypal/configureSmartButton', 'user_token=' . $this->session->data['user_token'], true);
 
         if (isset($this->request->server['HTTPS']) && (($this->request->server['HTTPS'] == 'on') || ($this->request->server['HTTPS'] == '1'))) {
-            $data['server']  = HTTPS_SERVER;
+            $data['server'] = HTTPS_SERVER;
             $data['catalog'] = HTTPS_CATALOG;
         } else {
-            $data['server']  = HTTP_SERVER;
+            $data['server'] = HTTP_SERVER;
             $data['catalog'] = HTTP_CATALOG;
         }
 
@@ -80,7 +80,7 @@ class ControllerExtensionPaymentPayPal extends Controller {
 
             if (isset($result['client_id']) && isset($result['client_secret'])) {
                 $client_id = $result['client_id'];
-                $secret    = $result['client_secret'];
+                $secret = $result['client_secret'];
             }
 
             $webhook_info = [
@@ -308,19 +308,19 @@ class ControllerExtensionPaymentPayPal extends Controller {
             $data['error_warning'] = '';
         }
 
-        $data['header']      = $this->load->controller('common/header');
+        $data['header'] = $this->load->controller('common/header');
         $data['column_left'] = $this->load->controller('common/column_left');
-        $data['footer']      = $this->load->controller('common/footer');
+        $data['footer'] = $this->load->controller('common/footer');
 
         $this->response->setOutput($this->load->view('extension/payment/paypal', $data));
     }
 
     public function callback(): void {
         if (isset($this->request->post['environment']) && isset($this->request->post['authorization_code']) && isset($this->request->post['shared_id']) && isset($this->request->post['seller_nonce'])) {
-            $this->session->data['environment']        = $this->request->post['environment'];
+            $this->session->data['environment'] = $this->request->post['environment'];
             $this->session->data['authorization_code'] = $this->request->post['authorization_code'];
-            $this->session->data['shared_id']          = $this->request->post['shared_id'];
-            $this->session->data['seller_nonce']       = $this->request->post['seller_nonce'];
+            $this->session->data['shared_id'] = $this->request->post['shared_id'];
+            $this->session->data['seller_nonce'] = $this->request->post['seller_nonce'];
         }
 
         $data['error'] = $this->error;

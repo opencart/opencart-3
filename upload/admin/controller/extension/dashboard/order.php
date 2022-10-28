@@ -67,9 +67,9 @@ class ControllerExtensionDashboardOrder extends Controller {
             $data['dashboard_order_sort_order'] = $this->config->get('dashboard_order_sort_order');
         }
 
-        $data['header']      = $this->load->controller('common/header');
+        $data['header'] = $this->load->controller('common/header');
         $data['column_left'] = $this->load->controller('common/column_left');
-        $data['footer']      = $this->load->controller('common/footer');
+        $data['footer'] = $this->load->controller('common/footer');
 
         $this->response->setOutput($this->load->view('extension/dashboard/order_form', $data));
     }
@@ -90,8 +90,8 @@ class ControllerExtensionDashboardOrder extends Controller {
         // Total Orders
         $this->load->model('sale/order');
 
-        $today      = $this->model_sale_order->getTotalOrders(['filter_date_added' => date('Y-m-d', strtotime('-1 day'))]);
-        $yesterday  = $this->model_sale_order->getTotalOrders(['filter_date_added' => date('Y-m-d', strtotime('-2 day'))]);
+        $today = $this->model_sale_order->getTotalOrders(['filter_date_added' => date('Y-m-d', strtotime('-1 day'))]);
+        $yesterday = $this->model_sale_order->getTotalOrders(['filter_date_added' => date('Y-m-d', strtotime('-2 day'))]);
         $difference = $today - $yesterday;
 
         if ($difference && $today) {

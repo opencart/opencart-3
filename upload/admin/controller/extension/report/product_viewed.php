@@ -53,9 +53,9 @@ class ControllerExtensionReportProductViewed extends Controller {
             $data['report_product_viewed_sort_order'] = $this->config->get('report_product_viewed_sort_order');
         }
 
-        $data['header']      = $this->load->controller('common/header');
+        $data['header'] = $this->load->controller('common/header');
         $data['column_left'] = $this->load->controller('common/column_left');
-        $data['footer']      = $this->load->controller('common/footer');
+        $data['footer'] = $this->load->controller('common/footer');
 
         $this->response->setOutput($this->load->view('extension/report/product_viewed_form', $data));
     }
@@ -117,11 +117,11 @@ class ControllerExtensionReportProductViewed extends Controller {
             $url .= '&page=' . $this->request->get['page'];
         }
 
-        $pagination        = new \Pagination();
+        $pagination = new \Pagination();
         $pagination->total = $product_total;
-        $pagination->page  = $page;
+        $pagination->page = $page;
         $pagination->limit = $this->config->get('config_limit_admin');
-        $pagination->url   = $this->url->link('report/report', 'user_token=' . $this->session->data['user_token'] . '&code=product_viewed&page={page}', true);
+        $pagination->url = $this->url->link('report/report', 'user_token=' . $this->session->data['user_token'] . '&code=product_viewed&page={page}', true);
 
         $data['pagination'] = $pagination->render();
 

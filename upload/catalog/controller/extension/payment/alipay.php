@@ -23,9 +23,9 @@ class ControllerExtensionPaymentAlipay extends Controller {
         ];
 
         $out_trade_no = $order_info['order_id'];
-        $subject      = trim($this->config->get('config_name'));
+        $subject = trim($this->config->get('config_name'));
         $total_amount = $this->currency->format($order_info['total'], 'CNY', '', false);
-        $body         = '';//trim($_POST['WIDbody']);
+        $body = '';//trim($_POST['WIDbody']);
 
         $payRequestBuilder = [
             'body'         => $body,
@@ -37,9 +37,9 @@ class ControllerExtensionPaymentAlipay extends Controller {
 
         $this->load->model('extension/payment/alipay');
 
-        $response            = $this->model_extension_payment_alipay->pagePay($payRequestBuilder, $config);
+        $response = $this->model_extension_payment_alipay->pagePay($payRequestBuilder, $config);
 
-        $data['action']      = $config['gateway_url'] . '?charset=' . $this->model_extension_payment_alipay->getPostCharset();
+        $data['action'] = $config['gateway_url'] . '?charset=' . $this->model_extension_payment_alipay->getPostCharset();
         $data['form_params'] = $response;
 
         return $this->load->view('extension/payment/alipay', $data);

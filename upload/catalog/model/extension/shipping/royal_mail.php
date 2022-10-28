@@ -240,7 +240,6 @@ Yemen, Republic of = YE
 Zambia = ZM
 Zimbabwe = ZW
 */
-
 class ModelExtensionShippingRoyalMail extends Model {
     public function getQuote($address) {
         $this->load->language('extension/shipping/royal_mail');
@@ -258,12 +257,12 @@ class ModelExtensionShippingRoyalMail extends Model {
         $quote_data = [];
 
         if ($status) {
-            $weight    = $this->cart->getWeight();
+            $weight = $this->cart->getWeight();
             $sub_total = $this->cart->getSubTotal();
 
             // Special Delivery > 500
             if ($this->config->get('shipping_royal_mail_special_delivery_500_status') && $address['iso_code_2'] == 'GB') {
-                $cost      = 0;
+                $cost = 0;
                 $insurance = 0;
 
                 $rates = explode(',', $this->config->get('shipping_royal_mail_special_delivery_500_rate'));
@@ -302,7 +301,7 @@ class ModelExtensionShippingRoyalMail extends Model {
 
             // Special Delivery > 1000
             if ($this->config->get('shipping_royal_mail_special_delivery_1000_status') && $address['iso_code_2'] == 'GB') {
-                $cost      = 0;
+                $cost = 0;
                 $insurance = 0;
 
                 $rates = explode(',', (string)$this->config->get('shipping_royal_mail_special_delivery_1000_rate'));
@@ -327,7 +326,6 @@ class ModelExtensionShippingRoyalMail extends Model {
 
                     if ($this->config->get('shipping_royal_mail_display_insurance')) {
                         $title .= ' (' . $this->language->get('text_insurance') . ' ' . $this->currency->format(1000, $this->session->data['currency']) . ')';
-
                     }
 
                     $quote_data['special_delivery_1000'] = [
@@ -342,7 +340,7 @@ class ModelExtensionShippingRoyalMail extends Model {
 
             // Special Delivery > 2500
             if ($this->config->get('shipping_royal_mail_special_delivery_2500_status') && $address['iso_code_2'] == 'GB') {
-                $cost      = 0;
+                $cost = 0;
                 $insurance = 0;
 
                 $rates = explode(',', (string)$this->config->get('shipping_royal_mail_special_delivery_2500_rate'));
@@ -381,7 +379,7 @@ class ModelExtensionShippingRoyalMail extends Model {
 
             // 1st Class Signed
             if ($this->config->get('shipping_royal_mail_1st_class_signed_status') && $address['iso_code_2'] == 'GB') {
-                $cost  = 0;
+                $cost = 0;
                 $rates = explode(',', $this->config->get('shipping_royal_mail_1st_class_signed_rate'));
 
                 foreach ($rates as $rate) {
@@ -789,7 +787,7 @@ class ModelExtensionShippingRoyalMail extends Model {
 
             // International Standard
             if ($this->config->get('shipping_royal_mail_international_standard_status') && $address['iso_code_2'] != 'GB') {
-                $cost  = 0;
+                $cost = 0;
                 $rates = [];
 
                 // EU
@@ -882,7 +880,7 @@ class ModelExtensionShippingRoyalMail extends Model {
             ];
 
             if ($this->config->get('shipping_royal_mail_international_tracked_signed_status') && in_array($address['iso_code_2'], $tracked_signed)) {
-                $cost  = 0;
+                $cost = 0;
                 $rates = [];
 
                 // EU
@@ -966,7 +964,7 @@ class ModelExtensionShippingRoyalMail extends Model {
             ];
 
             if ($this->config->get('shipping_royal_mail_international_tracked_status') && in_array($address['iso_code_2'], $tracked)) {
-                $cost  = 0;
+                $cost = 0;
                 $rates = [];
 
                 // EU
@@ -1214,7 +1212,7 @@ class ModelExtensionShippingRoyalMail extends Model {
             ];
 
             if ($this->config->get('shipping_royal_mail_international_signed_status') && in_array($address['iso_code_2'], $signed)) {
-                $cost  = 0;
+                $cost = 0;
                 $rates = [];
 
                 // EU
@@ -1262,7 +1260,7 @@ class ModelExtensionShippingRoyalMail extends Model {
 
             // Economy
             if ($this->config->get('shipping_royal_mail_international_economy_status') && $address['iso_code_2'] != 'GB') {
-                $cost  = 0;
+                $cost = 0;
                 $rates = explode(',', $this->config->get('shipping_royal_mail_international_economy_rate'));
 
                 foreach ($rates as $rate) {

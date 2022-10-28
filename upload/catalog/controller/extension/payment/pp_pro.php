@@ -44,7 +44,7 @@ class ControllerExtensionPaymentPPPro extends Controller {
             ];
         }
 
-        $today              = getdate();
+        $today = getdate();
 
         $data['year_valid'] = [];
 

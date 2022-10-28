@@ -25,7 +25,7 @@ class ControllerToolLog extends Controller {
             $data['success'] = '';
         }
 
-        $data['breadcrumbs']   = [];
+        $data['breadcrumbs'] = [];
 
         $data['breadcrumbs'][] = [
             'text' => $this->language->get('text_home'),
@@ -37,12 +37,12 @@ class ControllerToolLog extends Controller {
             'href' => $this->url->link('tool/log', 'user_token=' . $this->session->data['user_token'], true)
         ];
 
-        $data['download']      = $this->url->link('tool/log/download', 'user_token=' . $this->session->data['user_token'], true);
-        $data['clear']         = $this->url->link('tool/log/clear', 'user_token=' . $this->session->data['user_token'], true);
+        $data['download'] = $this->url->link('tool/log/download', 'user_token=' . $this->session->data['user_token'], true);
+        $data['clear'] = $this->url->link('tool/log/clear', 'user_token=' . $this->session->data['user_token'], true);
 
-        $data['log']           = '';
+        $data['log'] = '';
 
-        $file                  = DIR_LOGS . $this->config->get('config_error_filename');
+        $file = DIR_LOGS . $this->config->get('config_error_filename');
 
         if (file_exists($file)) {
             $size = filesize($file);
@@ -73,9 +73,9 @@ class ControllerToolLog extends Controller {
             }
         }
 
-        $data['header']      = $this->load->controller('common/header');
+        $data['header'] = $this->load->controller('common/header');
         $data['column_left'] = $this->load->controller('common/column_left');
-        $data['footer']      = $this->load->controller('common/footer');
+        $data['footer'] = $this->load->controller('common/footer');
 
         $this->response->setOutput($this->load->view('tool/log', $data));
     }
@@ -107,7 +107,7 @@ class ControllerToolLog extends Controller {
         if (!$this->user->hasPermission('modify', 'tool/log')) {
             $this->session->data['error'] = $this->language->get('error_permission');
         } else {
-            $file   = DIR_LOGS . $this->config->get('config_error_filename');
+            $file = DIR_LOGS . $this->config->get('config_error_filename');
             $handle = fopen($file, 'w+');
 
             fclose($handle);

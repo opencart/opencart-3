@@ -30,7 +30,7 @@ class ControllerExtensionPaymentPPProIframe extends Controller {
             }
         }
 
-        $data['create']          = HTTPS_SERVER . 'index.php?route=extension/payment/pp_pro_iframe/create';
+        $data['create'] = HTTPS_SERVER . 'index.php?route=extension/payment/pp_pro_iframe/create';
         $data['checkout_method'] = $this->config->get('payment_pp_pro_iframe_checkout_method');
 
         return $this->load->view('extension/payment/pp_pro_iframe', $data);
@@ -46,7 +46,7 @@ class ControllerExtensionPaymentPPProIframe extends Controller {
         $this->load->model('checkout/order');
         $this->load->model('extension/payment/pp_pro_iframe');
 
-        $order_info       = $this->model_checkout_order->getOrder($this->session->data['order_id']);
+        $order_info = $this->model_checkout_order->getOrder($this->session->data['order_id']);
 
         $hosted_button_id = $this->constructButtonData($order_info);
 
@@ -198,37 +198,37 @@ class ControllerExtensionPaymentPPProIframe extends Controller {
     }
 
     private function constructButtonData($order_info) {
-        $s_data                   = [];
-        $s_data['METHOD']         = 'BMCreateButton';
-        $s_data['VERSION']        = '65.2';
-        $s_data['BUTTONCODE']     = 'TOKEN';
+        $s_data = [];
+        $s_data['METHOD'] = 'BMCreateButton';
+        $s_data['VERSION'] = '65.2';
+        $s_data['BUTTONCODE'] = 'TOKEN';
         $s_data['BUTTONLANGUAGE'] = 'en';
-        $s_data['BUTTONSOURCE']   = 'OpenCart_2.0_HSS';
-        $s_data['USER']           = $this->config->get('payment_pp_pro_iframe_user');
-        $s_data['SIGNATURE']      = $this->config->get('payment_pp_pro_iframe_sig');
-        $s_data['PWD']            = $this->config->get('payment_pp_pro_iframe_password');
-        $s_data['BUTTONTYPE']     = 'PAYMENT';
-        $s_data['L_BUTTONVAR0']   = 'subtotal=' . $this->currency->format($order_info['total'], $order_info['currency_code'], false, false);
-        $s_data['L_BUTTONVAR1']   = 'tax=0.00';
-        $s_data['L_BUTTONVAR2']   = 'shipping=0.00';
-        $s_data['L_BUTTONVAR3']   = 'handling=0.00';
+        $s_data['BUTTONSOURCE'] = 'OpenCart_2.0_HSS';
+        $s_data['USER'] = $this->config->get('payment_pp_pro_iframe_user');
+        $s_data['SIGNATURE'] = $this->config->get('payment_pp_pro_iframe_sig');
+        $s_data['PWD'] = $this->config->get('payment_pp_pro_iframe_password');
+        $s_data['BUTTONTYPE'] = 'PAYMENT';
+        $s_data['L_BUTTONVAR0'] = 'subtotal=' . $this->currency->format($order_info['total'], $order_info['currency_code'], false, false);
+        $s_data['L_BUTTONVAR1'] = 'tax=0.00';
+        $s_data['L_BUTTONVAR2'] = 'shipping=0.00';
+        $s_data['L_BUTTONVAR3'] = 'handling=0.00';
 
         if ($this->cart->hasShipping()) {
-            $s_data['L_BUTTONVAR4']  = 'first_name=' . urlencode($order_info['shipping_firstname']);
-            $s_data['L_BUTTONVAR5']  = 'last_name=' . urlencode($order_info['shipping_lastname']);
-            $s_data['L_BUTTONVAR6']  = 'address1=' . urlencode($order_info['shipping_address_1']);
-            $s_data['L_BUTTONVAR7']  = 'address2=' . urlencode($order_info['shipping_address_2']);
-            $s_data['L_BUTTONVAR8']  = 'city=' . urlencode($order_info['shipping_city']);
-            $s_data['L_BUTTONVAR9']  = 'state=' . urlencode($order_info['shipping_zone']);
+            $s_data['L_BUTTONVAR4'] = 'first_name=' . urlencode($order_info['shipping_firstname']);
+            $s_data['L_BUTTONVAR5'] = 'last_name=' . urlencode($order_info['shipping_lastname']);
+            $s_data['L_BUTTONVAR6'] = 'address1=' . urlencode($order_info['shipping_address_1']);
+            $s_data['L_BUTTONVAR7'] = 'address2=' . urlencode($order_info['shipping_address_2']);
+            $s_data['L_BUTTONVAR8'] = 'city=' . urlencode($order_info['shipping_city']);
+            $s_data['L_BUTTONVAR9'] = 'state=' . urlencode($order_info['shipping_zone']);
             $s_data['L_BUTTONVAR10'] = 'zip=' . urlencode($order_info['shipping_postcode']);
             $s_data['L_BUTTONVAR11'] = 'country=' . urlencode($order_info['shipping_iso_code_2']);
         } else {
-            $s_data['L_BUTTONVAR4']  = 'first_name=' . urlencode($order_info['payment_firstname']);
-            $s_data['L_BUTTONVAR5']  = 'last_name=' . urlencode($order_info['payment_lastname']);
-            $s_data['L_BUTTONVAR6']  = 'address1=' . urlencode($order_info['payment_address_1']);
-            $s_data['L_BUTTONVAR7']  = 'address2=' . urlencode($order_info['payment_address_2']);
-            $s_data['L_BUTTONVAR8']  = 'city=' . urlencode($order_info['payment_city']);
-            $s_data['L_BUTTONVAR9']  = 'state=' . urlencode($order_info['payment_zone']);
+            $s_data['L_BUTTONVAR4'] = 'first_name=' . urlencode($order_info['payment_firstname']);
+            $s_data['L_BUTTONVAR5'] = 'last_name=' . urlencode($order_info['payment_lastname']);
+            $s_data['L_BUTTONVAR6'] = 'address1=' . urlencode($order_info['payment_address_1']);
+            $s_data['L_BUTTONVAR7'] = 'address2=' . urlencode($order_info['payment_address_2']);
+            $s_data['L_BUTTONVAR8'] = 'city=' . urlencode($order_info['payment_city']);
+            $s_data['L_BUTTONVAR9'] = 'state=' . urlencode($order_info['payment_zone']);
             $s_data['L_BUTTONVAR10'] = 'zip=' . urlencode($order_info['payment_postcode']);
             $s_data['L_BUTTONVAR11'] = 'country=' . urlencode($order_info['payment_iso_code_2']);
         }

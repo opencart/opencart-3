@@ -9,13 +9,13 @@ class ControllerInformationContact extends Controller {
 
         if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validate()) {
             if ($this->config->get('config_mail_engine')) {
-                $mail                = new \Mail($this->config->get('config_mail_engine'));
-                $mail->parameter     = $this->config->get('config_mail_parameter');
+                $mail = new \Mail($this->config->get('config_mail_engine'));
+                $mail->parameter = $this->config->get('config_mail_parameter');
                 $mail->smtp_hostname = $this->config->get('config_mail_smtp_hostname');
                 $mail->smtp_username = $this->config->get('config_mail_smtp_username');
                 $mail->smtp_password = html_entity_decode($this->config->get('config_mail_smtp_password'), ENT_QUOTES, 'UTF-8');
-                $mail->smtp_port     = $this->config->get('config_mail_smtp_port');
-                $mail->smtp_timeout  = $this->config->get('config_mail_smtp_timeout');
+                $mail->smtp_port = $this->config->get('config_mail_smtp_port');
+                $mail->smtp_timeout = $this->config->get('config_mail_smtp_timeout');
 
                 $mail->setTo($this->config->get('config_email'));
                 // Less spam and fix bug when using SMTP like sendgrid.
@@ -30,7 +30,7 @@ class ControllerInformationContact extends Controller {
             $this->response->redirect($this->url->link('information/contact/success'));
         }
 
-        $data['breadcrumbs']   = [];
+        $data['breadcrumbs'] = [];
 
         $data['breadcrumbs'][] = [
             'text' => $this->language->get('text_home'),
@@ -121,23 +121,23 @@ class ControllerInformationContact extends Controller {
             $data['captcha'] = '';
         }
 
-        $data['store']          = $this->config->get('config_name');
-        $data['address']        = nl2br($this->config->get('config_address'));
-        $data['geocode']        = $this->config->get('config_geocode');
-        $data['geocode_hl']     = $this->config->get('config_language');
-        $data['telephone']      = $this->config->get('config_telephone');
-        $data['fax']            = $this->config->get('config_fax');
-        $data['open']           = nl2br($this->config->get('config_open'));
-        $data['comment']        = $this->config->get('config_comment');
-        $data['button_submit']  = $this->language->get('button_submit');
-        $data['action']         = $this->url->link('information/contact', '', true);
+        $data['store'] = $this->config->get('config_name');
+        $data['address'] = nl2br($this->config->get('config_address'));
+        $data['geocode'] = $this->config->get('config_geocode');
+        $data['geocode_hl'] = $this->config->get('config_language');
+        $data['telephone'] = $this->config->get('config_telephone');
+        $data['fax'] = $this->config->get('config_fax');
+        $data['open'] = nl2br($this->config->get('config_open'));
+        $data['comment'] = $this->config->get('config_comment');
+        $data['button_submit'] = $this->language->get('button_submit');
+        $data['action'] = $this->url->link('information/contact', '', true);
 
-        $data['column_left']    = $this->load->controller('common/column_left');
-        $data['column_right']   = $this->load->controller('common/column_right');
-        $data['content_top']    = $this->load->controller('common/content_top');
+        $data['column_left'] = $this->load->controller('common/column_left');
+        $data['column_right'] = $this->load->controller('common/column_right');
+        $data['content_top'] = $this->load->controller('common/content_top');
         $data['content_bottom'] = $this->load->controller('common/content_bottom');
-        $data['footer']         = $this->load->controller('common/footer');
-        $data['header']         = $this->load->controller('common/header');
+        $data['footer'] = $this->load->controller('common/footer');
+        $data['header'] = $this->load->controller('common/header');
 
         $this->response->setOutput($this->load->view('information/contact', $data));
     }
@@ -172,7 +172,7 @@ class ControllerInformationContact extends Controller {
 
         $this->document->setTitle($this->language->get('heading_title'));
 
-        $data['breadcrumbs']   = [];
+        $data['breadcrumbs'] = [];
 
         $data['breadcrumbs'][] = [
             'text' => $this->language->get('text_home'),
@@ -184,16 +184,16 @@ class ControllerInformationContact extends Controller {
             'href' => $this->url->link('information/contact')
         ];
 
-        $data['text_message']   = $this->language->get('text_message');
+        $data['text_message'] = $this->language->get('text_message');
 
-        $data['continue']       = $this->url->link('common/home');
+        $data['continue'] = $this->url->link('common/home');
 
-        $data['column_left']    = $this->load->controller('common/column_left');
-        $data['column_right']   = $this->load->controller('common/column_right');
-        $data['content_top']    = $this->load->controller('common/content_top');
+        $data['column_left'] = $this->load->controller('common/column_left');
+        $data['column_right'] = $this->load->controller('common/column_right');
+        $data['content_top'] = $this->load->controller('common/content_top');
         $data['content_bottom'] = $this->load->controller('common/content_bottom');
-        $data['footer']         = $this->load->controller('common/footer');
-        $data['header']         = $this->load->controller('common/header');
+        $data['footer'] = $this->load->controller('common/footer');
+        $data['header'] = $this->load->controller('common/header');
 
         $this->response->setOutput($this->load->view('common/success', $data));
     }

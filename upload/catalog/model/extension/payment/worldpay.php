@@ -32,7 +32,7 @@ class ModelExtensionPaymentWorldpay extends Model {
     public function getCards($customer_id) {
         $card_data = [];
 
-        $query     = $this->db->query("SELECT * FROM `" . DB_PREFIX . "worldpay_card` WHERE `customer_id` = '" . (int)$customer_id . "'");
+        $query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "worldpay_card` WHERE `customer_id` = '" . (int)$customer_id . "'");
 
         $this->load->model('account/address');
 
@@ -105,11 +105,11 @@ class ModelExtensionPaymentWorldpay extends Model {
 
         // Trial information
         if ($item['subscription']['trial_status'] == 1) {
-            $price      = $item['subscription']['trial_price'];
-            $trial_amt  = $this->currency->format($this->tax->calculate($item['subscription']['trial_price'], $item['tax_class_id'], $this->config->get('config_tax')), $this->session->data['currency'], false, false) * $item['quantity'] . ' ' . $this->session->data['currency'];
+            $price = $item['subscription']['trial_price'];
+            $trial_amt = $this->currency->format($this->tax->calculate($item['subscription']['trial_price'], $item['tax_class_id'], $this->config->get('config_tax')), $this->session->data['currency'], false, false) * $item['quantity'] . ' ' . $this->session->data['currency'];
             $trial_text = sprintf($this->language->get('text_trial'), $trial_amt, $item['subscription']['trial_cycle'], $item['subscription']['trial_frequency'], $item['subscription']['trial_duration']);
         } else {
-            $price      = $item['subscription']['price'];
+            $price = $item['subscription']['price'];
             $trial_text = '';
         }
 
@@ -145,28 +145,28 @@ class ModelExtensionPaymentWorldpay extends Model {
 
         $this->model_extension_payment_worldpay->logger($response_data);
 
-        $next_payment     = new \DateTime('now');
-        $trial_end        = new \DateTime('now');
+        $next_payment = new \DateTime('now');
+        $trial_end = new \DateTime('now');
         $subscription_end = new \DateTime('now');
 
         if ($item['subscription']['trial_status'] == 1 && $item['subscription']['trial_duration'] != 0) {
             $next_payment = $this->calculateSchedule($item['subscription']['trial_frequency'], $next_payment, $item['subscription']['trial_cycle']);
-            $trial_end    = $this->calculateSchedule($item['subscription']['trial_frequency'], $trial_end, $item['subscription']['trial_cycle'] * $item['subscription']['trial_duration']);
+            $trial_end = $this->calculateSchedule($item['subscription']['trial_frequency'], $trial_end, $item['subscription']['trial_cycle'] * $item['subscription']['trial_duration']);
         } elseif ($item['subscription']['trial_status'] == 1) {
             $next_payment = $this->calculateSchedule($item['subscription']['trial_frequency'], $next_payment, $item['subscription']['trial_cycle']);
-            $trial_end    = new \DateTime('0000-00-00');
+            $trial_end = new \DateTime('0000-00-00');
         }
 
         if ($trial_end > $subscription_end && $item['subscription']['duration'] != 0) {
             $subscription_end = new \DateTime(date_format($trial_end, 'Y-m-d H:i:s'));
             $subscription_end = $this->calculateSchedule($item['subscription']['frequency'], $subscription_end, $item['subscription']['cycle'] * $item['subscription']['duration']);
         } elseif ($trial_end == $subscription_end && $item['subscription']['duration'] != 0) {
-            $next_payment     = $this->calculateSchedule($item['subscription']['frequency'], $next_payment, $item['subscription']['cycle']);
+            $next_payment = $this->calculateSchedule($item['subscription']['frequency'], $next_payment, $item['subscription']['cycle']);
             $subscription_end = $this->calculateSchedule($item['subscription']['frequency'], $subscription_end, $item['subscription']['cycle'] * $item['subscription']['duration']);
         } elseif ($trial_end > $subscription_end && $item['subscription']['duration'] == 0) {
             $subscription_end = new \DateTime('0000-00-00');
         } elseif ($trial_end == $subscription_end && $item['subscription']['duration'] == 0) {
-            $next_payment     = $this->calculateSchedule($item['subscription']['frequency'], $next_payment, $item['subscription']['cycle']);
+            $next_payment = $this->calculateSchedule($item['subscription']['frequency'], $next_payment, $item['subscription']['cycle']);
             $subscription_end = new \DateTime('0000-00-00');
         }
 
@@ -183,29 +183,29 @@ class ModelExtensionPaymentWorldpay extends Model {
         $this->load->model('account/order');
         $this->load->model('checkout/order');
 
-        $i         = 1;
-        $profiles  = $this->getProfiles();
+        $i = 1;
+        $profiles = $this->getProfiles();
         $cron_data = [];
 
         foreach ($profiles as $profile) {
             $subscription_order = $this->getRecurringOrder($profile['subscription_id']);
 
-            $today              = new \DateTime('now');
-            $unlimited          = new \DateTime('0000-00-00');
-            $next_payment       = new \DateTime($subscription_order['next_payment']);
-            $trial_end          = new \DateTime($subscription_order['trial_end']);
-            $subscription_end   = new \DateTime($subscription_order['subscription_end']);
+            $today = new \DateTime('now');
+            $unlimited = new \DateTime('0000-00-00');
+            $next_payment = new \DateTime($subscription_order['next_payment']);
+            $trial_end = new \DateTime($subscription_order['trial_end']);
+            $subscription_end = new \DateTime($subscription_order['subscription_end']);
 
-            $order_info         = $this->model_checkout_order->getOrder($profile['order_id']);
+            $order_info = $this->model_checkout_order->getOrder($profile['order_id']);
 
             if (($today > $next_payment) && ($trial_end > $today || $trial_end == $unlimited)) {
-                $price     = $this->currency->format($profile['trial_price'], $order_info['currency_code'], false, false);
+                $price = $this->currency->format($profile['trial_price'], $order_info['currency_code'], false, false);
                 $frequency = $profile['trial_frequency'];
-                $cycle     = $profile['trial_cycle'];
+                $cycle = $profile['trial_cycle'];
             } elseif (($today > $next_payment) && ($subscription_end > $today || $subscription_end == $unlimited)) {
-                $price     = $this->currency->format($profile['price'], $order_info['currency_code'], false, false);
+                $price = $this->currency->format($profile['price'], $order_info['currency_code'], false, false);
                 $frequency = $profile['frequency'];
-                $cycle     = $profile['cycle'];
+                $cycle = $profile['cycle'];
             } else {
                 continue;
             }
@@ -247,22 +247,22 @@ class ModelExtensionPaymentWorldpay extends Model {
 
     private function calculateSchedule($frequency, $next_payment, $cycle) {
         if ($frequency == 'semi_month') {
-            $day    = date_format($next_payment, 'd');
-            $value  = 15 - $day;
+            $day = date_format($next_payment, 'd');
+            $value = 15 - $day;
             $isEven = false;
 
             if ($cycle % 2 == 0) {
                 $isEven = true;
             }
 
-            $odd        = ($cycle + 1) / 2;
-            $plus_even  = ($cycle / 2) + 1;
+            $odd = ($cycle + 1) / 2;
+            $plus_even = ($cycle / 2) + 1;
             $minus_even = $cycle / 2;
 
             if ($day == 1) {
-                $odd       = $odd - 1;
+                $odd = $odd - 1;
                 $plus_even = $plus_even - 1;
-                $day       = 16;
+                $day = 16;
             }
 
             if ($day <= 15 && $isEven) {
@@ -306,9 +306,9 @@ class ModelExtensionPaymentWorldpay extends Model {
     private function getProfiles() {
         $order_subscription = [];
 
-        $sql                = "SELECT s.`subscription_id` FROM `" . DB_PREFIX . "subscription` s JOIN `" . DB_PREFIX . "order` o USING(`order_id`) WHERE o.`payment_code` = 'worldpay'";
+        $sql = "SELECT s.`subscription_id` FROM `" . DB_PREFIX . "subscription` s JOIN `" . DB_PREFIX . "order` o USING(`order_id`) WHERE o.`payment_code` = 'worldpay'";
 
-        $query              = $this->db->query($sql);
+        $query = $this->db->query($sql);
 
         foreach ($query->rows as $subscription) {
             $order_subscription[] = $this->getProfile($subscription['subscription_id']);
@@ -345,7 +345,7 @@ class ModelExtensionPaymentWorldpay extends Model {
         $content_length = 0;
 
         if ($order) {
-            $json           = json_encode($order);
+            $json = json_encode($order);
             $content_length = strlen($json);
 
             curl_setopt($curl, CURLOPT_CUSTOMREQUEST, 'POST');
@@ -358,10 +358,10 @@ class ModelExtensionPaymentWorldpay extends Model {
         curl_setopt($curl, CURLOPT_TIMEOUT, 10);
 
         curl_setopt($curl, CURLOPT_HTTPHEADER, [
-                "Authorization: " . $this->config->get('payment_worldpay_service_key'),
-                "Content-Type: application/json",
-                "Content-Length: " . $content_length
-            ]);
+            "Authorization: " . $this->config->get('payment_worldpay_service_key'),
+            "Content-Type: application/json",
+            "Content-Length: " . $content_length
+        ]);
 
         $result = json_decode(curl_exec($curl));
 
@@ -384,7 +384,7 @@ class ModelExtensionPaymentWorldpay extends Model {
          * Used by the checkout to state the module
          * supports subscriptions.
          */
-        
+
         return true;
     }
 }

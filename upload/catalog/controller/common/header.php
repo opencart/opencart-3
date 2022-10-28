@@ -6,7 +6,7 @@ class ControllerCommonHeader extends Controller {
 
         $data['analytics'] = [];
 
-        $analytics         = $this->model_setting_extension->getExtensions('analytics');
+        $analytics = $this->model_setting_extension->getExtensions('analytics');
 
         foreach ($analytics as $analytic) {
             if ($this->config->get('analytics_' . $analytic['code'] . '_status')) {
@@ -33,23 +33,23 @@ class ControllerCommonHeader extends Controller {
 
         // Hard coding css so they can be replaced via the event's system.
         $data['bootstrap_css'] = 'catalog/view/javascript/bootstrap/css/bootstrap.min.css';
-        $data['bootstrap_js']  = 'catalog/view/javascript/bootstrap/js/bootstrap.min.js';
-        $data['icons']         = 'catalog/view/javascript/font-awesome/css/font-awesome.min.css';
-        $data['stylesheet']    = 'catalog/view/theme/' . $directory . '/stylesheet/stylesheet.css';
+        $data['bootstrap_js'] = 'catalog/view/javascript/bootstrap/js/bootstrap.min.js';
+        $data['icons'] = 'catalog/view/javascript/font-awesome/css/font-awesome.min.css';
+        $data['stylesheet'] = 'catalog/view/theme/' . $directory . '/stylesheet/stylesheet.css';
 
         // Hard coding scripts so they can be replaced via the event's system.
-        $data['jquery']        = 'catalog/view/javascript/jquery/jquery-2.1.1.min.js';
+        $data['jquery'] = 'catalog/view/javascript/jquery/jquery-2.1.1.min.js';
 
-        $data['base']          = $server;
-        $data['description']   = $this->document->getDescription();
-        $data['keywords']      = $this->document->getKeywords();
-        $data['links']         = $this->document->getLinks();
-        $data['styles']        = $this->document->getStyles();
-        $data['scripts']       = $this->document->getScripts('header');
-        $data['lang']          = $this->language->get('code');
-        $data['direction']     = $this->language->get('direction');
-        $data['title']         = $this->document->getTitle();
-        $data['name']          = $this->config->get('config_name');
+        $data['base'] = $server;
+        $data['description'] = $this->document->getDescription();
+        $data['keywords'] = $this->document->getKeywords();
+        $data['links'] = $this->document->getLinks();
+        $data['styles'] = $this->document->getStyles();
+        $data['scripts'] = $this->document->getScripts('header');
+        $data['lang'] = $this->language->get('code');
+        $data['direction'] = $this->language->get('direction');
+        $data['title'] = $this->document->getTitle();
+        $data['name'] = $this->config->get('config_name');
 
         if (is_file(DIR_IMAGE . $this->config->get('config_logo'))) {
             $data['logo'] = $server . 'image/' . $this->config->get('config_logo');
@@ -68,27 +68,27 @@ class ControllerCommonHeader extends Controller {
             $data['text_wishlist'] = sprintf($this->language->get('text_wishlist'), isset($this->session->data['wishlist']) ? count($this->session->data['wishlist']) : 0);
         }
 
-        $data['text_logged']   = sprintf($this->language->get('text_logged'), $this->url->link('account/account', '', true), $this->customer->getFirstName(), $this->url->link('account/logout', '', true));
+        $data['text_logged'] = sprintf($this->language->get('text_logged'), $this->url->link('account/account', '', true), $this->customer->getFirstName(), $this->url->link('account/logout', '', true));
 
-        $data['home']          = $this->url->link('common/home');
-        $data['wishlist']      = $this->url->link('account/wishlist', (isset($this->session->data['customer_token']) ? '&customer_token=' . $this->session->data['customer_token'] : ''), true);
-        $data['logged']        = $this->customer->isLogged();
-        $data['account']       = $this->url->link('account/account', (isset($this->session->data['customer_token']) ? '&customer_token=' . $this->session->data['customer_token'] : ''), true);
-        $data['register']      = $this->url->link('account/register', '', true);
-        $data['login']         = $this->url->link('account/login', '', true);
-        $data['order']         = $this->url->link('account/order', (isset($this->session->data['customer_token']) ? '&customer_token=' . $this->session->data['customer_token'] : ''), true);
-        $data['transaction']   = $this->url->link('account/transaction', (isset($this->session->data['customer_token']) ? '&customer_token=' . $this->session->data['customer_token'] : ''), true);
-        $data['download']      = $this->url->link('account/download', (isset($this->session->data['customer_token']) ? '&customer_token=' . $this->session->data['customer_token'] : ''), true);
-        $data['logout']        = $this->url->link('account/logout', (isset($this->session->data['customer_token']) ? '&customer_token=' . $this->session->data['customer_token'] : ''), true);
+        $data['home'] = $this->url->link('common/home');
+        $data['wishlist'] = $this->url->link('account/wishlist', (isset($this->session->data['customer_token']) ? '&customer_token=' . $this->session->data['customer_token'] : ''), true);
+        $data['logged'] = $this->customer->isLogged();
+        $data['account'] = $this->url->link('account/account', (isset($this->session->data['customer_token']) ? '&customer_token=' . $this->session->data['customer_token'] : ''), true);
+        $data['register'] = $this->url->link('account/register', '', true);
+        $data['login'] = $this->url->link('account/login', '', true);
+        $data['order'] = $this->url->link('account/order', (isset($this->session->data['customer_token']) ? '&customer_token=' . $this->session->data['customer_token'] : ''), true);
+        $data['transaction'] = $this->url->link('account/transaction', (isset($this->session->data['customer_token']) ? '&customer_token=' . $this->session->data['customer_token'] : ''), true);
+        $data['download'] = $this->url->link('account/download', (isset($this->session->data['customer_token']) ? '&customer_token=' . $this->session->data['customer_token'] : ''), true);
+        $data['logout'] = $this->url->link('account/logout', (isset($this->session->data['customer_token']) ? '&customer_token=' . $this->session->data['customer_token'] : ''), true);
         $data['shopping_cart'] = $this->url->link('checkout/cart');
-        $data['checkout']      = $this->url->link('checkout/checkout', '', true);
-        $data['contact']       = $this->url->link('information/contact');
-        $data['telephone']     = $this->config->get('config_telephone');
-        $data['language']      = $this->load->controller('common/language');
-        $data['currency']      = $this->load->controller('common/currency');
-        $data['search']        = $this->load->controller('common/search');
-        $data['cart']          = $this->load->controller('common/cart');
-        $data['menu']          = $this->load->controller('common/menu');
+        $data['checkout'] = $this->url->link('checkout/checkout', '', true);
+        $data['contact'] = $this->url->link('information/contact');
+        $data['telephone'] = $this->config->get('config_telephone');
+        $data['language'] = $this->load->controller('common/language');
+        $data['currency'] = $this->load->controller('common/currency');
+        $data['search'] = $this->load->controller('common/search');
+        $data['cart'] = $this->load->controller('common/cart');
+        $data['menu'] = $this->load->controller('common/menu');
 
         return $this->load->view('common/header', $data);
     }

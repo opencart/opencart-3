@@ -213,9 +213,9 @@ class ControllerExtensionPaymentRealex extends Controller {
             $data['payment_realex_demo_url'] = 'https://hpp.sandbox.realexpayments.com/pay';
         }
 
-        $data['header']      = $this->load->controller('common/header');
+        $data['header'] = $this->load->controller('common/header');
         $data['column_left'] = $this->load->controller('common/column_left');
-        $data['footer']      = $this->load->controller('common/footer');
+        $data['footer'] = $this->load->controller('common/footer');
 
         $this->response->setOutput($this->load->view('extension/payment/realex', $data));
     }
@@ -236,13 +236,13 @@ class ControllerExtensionPaymentRealex extends Controller {
                 $this->load->language('extension/payment/realex');
 
                 $payment_realex_order['total_captured_formatted'] = $this->currency->format($payment_realex_order['total_captured'], $payment_realex_order['currency_code'], 1, true);
-                $payment_realex_order['total_formatted']          = $this->currency->format($payment_realex_order['total'], $payment_realex_order['currency_code'], 1, true);
-                $payment_realex_order['total_captured']           = $this->model_extension_payment_realex->getTotalCaptured($payment_realex_order['realex_order_id']);
+                $payment_realex_order['total_formatted'] = $this->currency->format($payment_realex_order['total'], $payment_realex_order['currency_code'], 1, true);
+                $payment_realex_order['total_captured'] = $this->model_extension_payment_realex->getTotalCaptured($payment_realex_order['realex_order_id']);
 
                 $data['payment_realex_order'] = $payment_realex_order;
-                $data['auto_settle']          = $payment_realex_order['settle_type'];
-                $data['order_id']             = (int)$this->request->get['order_id'];
-                $data['user_token']           = $this->session->data['user_token'];
+                $data['auto_settle'] = $payment_realex_order['settle_type'];
+                $data['order_id'] = (int)$this->request->get['order_id'];
+                $data['user_token'] = $this->session->data['user_token'];
 
                 return $this->load->view('extension/payment/realex_order', $data);
             } else {
@@ -328,10 +328,10 @@ class ControllerExtensionPaymentRealex extends Controller {
 
                 $json['data'] = [];
 
-                $json['data']['date_added']     = date('Y-m-d H:i:s');
-                $json['data']['amount']         = $this->request->post['amount'];
+                $json['data']['date_added'] = date('Y-m-d H:i:s');
+                $json['data']['amount'] = $this->request->post['amount'];
                 $json['data']['capture_status'] = $capture_status;
-                $json['data']['total']          = (float)$total_captured;
+                $json['data']['total'] = (float)$total_captured;
 
                 $json['error'] = false;
             } else {
@@ -366,7 +366,7 @@ class ControllerExtensionPaymentRealex extends Controller {
             if (isset($rebate_response->result) && $rebate_response->result == '00') {
                 $this->model_extension_payment_realex->addTransaction($payment_realex_order['realex_order_id'], 'rebate', $this->request->post['amount'] * -1);
 
-                $total_rebated  = $this->model_extension_payment_realex->getTotalRebated($payment_realex_order['realex_order_id']);
+                $total_rebated = $this->model_extension_payment_realex->getTotalRebated($payment_realex_order['realex_order_id']);
                 $total_captured = $this->model_extension_payment_realex->getTotalCaptured($payment_realex_order['realex_order_id']);
 
                 if ($total_captured <= 0 && $payment_realex_order['capture_status'] == 1) {
@@ -382,11 +382,11 @@ class ControllerExtensionPaymentRealex extends Controller {
 
                 $json['data'] = [];
 
-                $json['data']['date_added']     = date('Y-m-d H:i:s');
-                $json['data']['amount']         = $this->request->post['amount'] * -1;
+                $json['data']['date_added'] = date('Y-m-d H:i:s');
+                $json['data']['amount'] = $this->request->post['amount'] * -1;
                 $json['data']['total_captured'] = (float)$total_captured;
-                $json['data']['total_rebated']  = (float)$total_rebated;
-                $json['data']['rebate_status']  = $rebate_status;
+                $json['data']['total_rebated'] = (float)$total_rebated;
+                $json['data']['rebate_status'] = $rebate_status;
 
                 $json['error'] = false;
             } else {

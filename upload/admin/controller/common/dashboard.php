@@ -5,9 +5,9 @@ class ControllerCommonDashboard extends Controller {
 
         $this->document->setTitle($this->language->get('heading_title'));
 
-        $data['user_token']    = $this->session->data['user_token'];
+        $data['user_token'] = $this->session->data['user_token'];
 
-        $data['breadcrumbs']   = [];
+        $data['breadcrumbs'] = [];
 
         $data['breadcrumbs'][] = [
             'text' => $this->language->get('text_home'),
@@ -59,8 +59,8 @@ class ControllerCommonDashboard extends Controller {
         array_multisort($sort_order, SORT_ASC, $dashboards);
 
         // Split the array so the columns width is not more than 12 on each row.
-        $width        = 0;
-        $column       = [];
+        $width = 0;
+        $column = [];
         $data['rows'] = [];
 
         foreach ($dashboards as $dashboard) {
@@ -71,7 +71,7 @@ class ControllerCommonDashboard extends Controller {
             if ($width >= 12) {
                 $data['rows'][] = $column;
 
-                $width  = 0;
+                $width = 0;
                 $column = [];
             }
         }
@@ -86,9 +86,9 @@ class ControllerCommonDashboard extends Controller {
             $data['security'] = '';
         }
 
-        $data['header']      = $this->load->controller('common/header');
+        $data['header'] = $this->load->controller('common/header');
         $data['column_left'] = $this->load->controller('common/column_left');
-        $data['footer']      = $this->load->controller('common/footer');
+        $data['footer'] = $this->load->controller('common/footer');
 
         // Run currency update
         if ($this->config->get('config_currency_auto')) {

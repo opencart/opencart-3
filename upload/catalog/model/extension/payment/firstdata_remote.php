@@ -33,8 +33,8 @@ class ModelExtensionPaymentFirstdataRemote extends Model {
         $this->load->model('checkout/order');
 
         $order_info = $this->model_checkout_order->getOrder($order_id);
-        $order_ref  = 'API-' . $order_id . '-' . date('Y-m-d-H-i-s') . '-' . rand(10, 500);
-        $amount     = $this->currency->format($order_info['total'], $order_info['currency_code'], $order_info['currency_value'], false);
+        $order_ref = 'API-' . $order_id . '-' . date('Y-m-d-H-i-s') . '-' . rand(10, 500);
+        $amount = $this->currency->format($order_info['total'], $order_info['currency_code'], $order_info['currency_value'], false);
 
         if ($this->config->get('payment_firstdata_remote_auto_settle') == 1) {
             $type = 'sale';
@@ -42,8 +42,8 @@ class ModelExtensionPaymentFirstdataRemote extends Model {
             $type = 'preAuth';
         }
 
-        $currency      = $this->mapCurrency($order_info['currency_code']);
-        $token         = '';
+        $currency = $this->mapCurrency($order_info['currency_code']);
+        $token = '';
         $payment_token = '';
 
         if ($this->config->get('payment_firstdata_remote_card_storage') == 1) {
@@ -135,58 +135,58 @@ class ModelExtensionPaymentFirstdataRemote extends Model {
             $response['fault'] = (string)$fault[0]->detail;
         }
 
-        $string                         = $xml->xpath('//ipgapi:CommercialServiceProvider');
-        $response['provider']           = isset($string[0]) ? (string)$string[0] : '';
+        $string = $xml->xpath('//ipgapi:CommercialServiceProvider');
+        $response['provider'] = isset($string[0]) ? (string)$string[0] : '';
 
-        $string                         = $xml->xpath('//ipgapi:TransactionTime');
-        $response['transaction_time']   = isset($string[0]) ? (string)$string[0] : '';
+        $string = $xml->xpath('//ipgapi:TransactionTime');
+        $response['transaction_time'] = isset($string[0]) ? (string)$string[0] : '';
 
-        $string                         = $xml->xpath('//ipgapi:ProcessorReferenceNumber');
-        $response['reference_number']   = isset($string[0]) ? (string)$string[0] : '';
+        $string = $xml->xpath('//ipgapi:ProcessorReferenceNumber');
+        $response['reference_number'] = isset($string[0]) ? (string)$string[0] : '';
 
-        $string                         = $xml->xpath('//ipgapi:ProcessorResponseMessage');
-        $response['response_message']   = isset($string[0]) ? (string)$string[0] : '';
+        $string = $xml->xpath('//ipgapi:ProcessorResponseMessage');
+        $response['response_message'] = isset($string[0]) ? (string)$string[0] : '';
 
-        $string                         = $xml->xpath('//ipgapi:ProcessorResponseCode');
-        $response['response_code']      = isset($string[0]) ? (string)$string[0] : '';
+        $string = $xml->xpath('//ipgapi:ProcessorResponseCode');
+        $response['response_code'] = isset($string[0]) ? (string)$string[0] : '';
 
-        $string                         = $xml->xpath('//ipgapi:ErrorMessage');
-        $response['error']              = isset($string[0]) ? (string)$string[0] : '';
+        $string = $xml->xpath('//ipgapi:ErrorMessage');
+        $response['error'] = isset($string[0]) ? (string)$string[0] : '';
 
-        $string                         = $xml->xpath('//ipgapi:OrderId');
-        $response['order_id']           = isset($string[0]) ? (string)$string[0] : '';
+        $string = $xml->xpath('//ipgapi:OrderId');
+        $response['order_id'] = isset($string[0]) ? (string)$string[0] : '';
 
-        $string                         = $xml->xpath('//ipgapi:ApprovalCode');
-        $response['approval_code']      = isset($string[0]) ? (string)$string[0] : '';
+        $string = $xml->xpath('//ipgapi:ApprovalCode');
+        $response['approval_code'] = isset($string[0]) ? (string)$string[0] : '';
 
-        $string                         = $xml->xpath('//ipgapi:TDate');
-        $response['t_date']             = isset($string[0]) ? (string)$string[0] : '';
+        $string = $xml->xpath('//ipgapi:TDate');
+        $response['t_date'] = isset($string[0]) ? (string)$string[0] : '';
 
-        $string                         = $xml->xpath('//ipgapi:TransactionResult');
+        $string = $xml->xpath('//ipgapi:TransactionResult');
         $response['transaction_result'] = isset($string[0]) ? (string)$string[0] : '';
 
-        $string                         = $xml->xpath('//ipgapi:PaymentType');
-        $response['payment_type']       = isset($string[0]) ? (string)$string[0] : '';
+        $string = $xml->xpath('//ipgapi:PaymentType');
+        $response['payment_type'] = isset($string[0]) ? (string)$string[0] : '';
 
-        $string                         = $xml->xpath('//ipgapi:Brand');
-        $response['brand']              = isset($string[0]) ? (string)$string[0] : '';
+        $string = $xml->xpath('//ipgapi:Brand');
+        $response['brand'] = isset($string[0]) ? (string)$string[0] : '';
 
-        $string                         = $xml->xpath('//ipgapi:Country');
-        $response['country']            = isset($string[0]) ? (string)$string[0] : '';
+        $string = $xml->xpath('//ipgapi:Country');
+        $response['country'] = isset($string[0]) ? (string)$string[0] : '';
 
-        $string                         = $xml->xpath('//ipgapi:ProcessorReceiptNumber');
-        $response['receipt_number']     = isset($string[0]) ? (string)$string[0] : '';
+        $string = $xml->xpath('//ipgapi:ProcessorReceiptNumber');
+        $response['receipt_number'] = isset($string[0]) ? (string)$string[0] : '';
 
-        $string                         = $xml->xpath('//ipgapi:ProcessorTraceNumber');
-        $response['trace_number']       = isset($string[0]) ? (string)$string[0] : '';
+        $string = $xml->xpath('//ipgapi:ProcessorTraceNumber');
+        $response['trace_number'] = isset($string[0]) ? (string)$string[0] : '';
 
-        $string                         = $xml->xpath('//ipgapi:ProcessorCCVResponse');
-        $response['ccv']                = isset($string[0]) ? (string)$string[0] : '';
+        $string = $xml->xpath('//ipgapi:ProcessorCCVResponse');
+        $response['ccv'] = isset($string[0]) ? (string)$string[0] : '';
 
-        $string                         = $xml->xpath('//ipgapi:AVSResponse');
-        $response['avs']                = isset($string[0]) ? (string)$string[0] : '';
-        
-        $response['card_number_ref']    = (string)substr($data['cc_number'], -4);
+        $string = $xml->xpath('//ipgapi:AVSResponse');
+        $response['avs'] = isset($string[0]) ? (string)$string[0] : '';
+
+        $response['card_number_ref'] = (string)substr($data['cc_number'], -4);
 
         if (strtoupper($response['transaction_result']) == 'APPROVED' && !empty($token)) {
             $this->storeCard($token, $this->customer->getId(), $response['brand'], $data['cc_expire_date_month'], $data['cc_expire_date_year'], (string)substr($data['cc_number'], -4));

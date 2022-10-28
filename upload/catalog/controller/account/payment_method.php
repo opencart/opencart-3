@@ -32,7 +32,7 @@ class ControllerAccountPaymentMethod extends Controller {
         if (!$this->customer->isLogged() || (!isset($this->request->get['customer_token']) || !isset($this->session->data['customer_token']) || ($this->request->get['customer_token'] != $this->session->data['customer_token']))) {
             $this->session->data['redirect'] = $this->url->link('account/payment_method', 'language=' . $this->config->get('config_language'));
 
-            $json['redirect']                = $this->url->link('account/login', 'language=' . $this->config->get('config_language'), true);
+            $json['redirect'] = $this->url->link('account/login', 'language=' . $this->config->get('config_language'), true);
         }
 
         if (!$json) {
@@ -57,7 +57,7 @@ class ControllerAccountPaymentMethod extends Controller {
 
             $this->session->data['success'] = $this->language->get('text_delete');
 
-            $json['success']                = str_replace('&amp;', '&', $this->url->link('account/payment_method', 'customer_token=' . $this->session->data['customer_token'], true));
+            $json['success'] = str_replace('&amp;', '&', $this->url->link('account/payment_method', 'customer_token=' . $this->session->data['customer_token'], true));
         }
 
         $this->response->addHeader('Content-Type: application/json');
@@ -65,7 +65,7 @@ class ControllerAccountPaymentMethod extends Controller {
     }
 
     protected function getList() {
-        $data['breadcrumbs']   = [];
+        $data['breadcrumbs'] = [];
 
         $data['breadcrumbs'][] = [
             'text' => $this->language->get('text_home'),
@@ -91,8 +91,8 @@ class ControllerAccountPaymentMethod extends Controller {
         }
 
         $data['payment_methods'] = [];
-        
-        $results                 = $this->model_account_payment_method->getPaymentMethods();
+
+        $results = $this->model_account_payment_method->getPaymentMethods();
 
         foreach ($results as $result) {
             $data['payment_methods'][] = [
@@ -107,14 +107,14 @@ class ControllerAccountPaymentMethod extends Controller {
 
         $data['customer_token'] = $this->session->data['customer_token'];
 
-        $data['back']           = $this->url->link('account/account', 'customer_token=' . $this->session->data['customer_token'], true);
+        $data['back'] = $this->url->link('account/account', 'customer_token=' . $this->session->data['customer_token'], true);
 
-        $data['column_left']    = $this->load->controller('common/column_left');
-        $data['column_right']   = $this->load->controller('common/column_right');
-        $data['content_top']    = $this->load->controller('common/content_top');
+        $data['column_left'] = $this->load->controller('common/column_left');
+        $data['column_right'] = $this->load->controller('common/column_right');
+        $data['content_top'] = $this->load->controller('common/content_top');
         $data['content_bottom'] = $this->load->controller('common/content_bottom');
-        $data['footer']         = $this->load->controller('common/footer');
-        $data['header']         = $this->load->controller('common/header');
+        $data['footer'] = $this->load->controller('common/footer');
+        $data['header'] = $this->load->controller('common/header');
 
         $this->response->setOutput($this->load->view('account/payment_method_list', $data));
     }

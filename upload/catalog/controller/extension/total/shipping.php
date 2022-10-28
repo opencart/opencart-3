@@ -80,14 +80,14 @@ class ControllerExtensionTotalShipping extends Controller {
             $this->tax->setStoreAddress($this->config->get('config_country_id'), $this->config->get('config_zone_id'));
 
             if ($country_info) {
-                $country        = $country_info['name'];
-                $iso_code_2     = $country_info['iso_code_2'];
-                $iso_code_3     = $country_info['iso_code_3'];
+                $country = $country_info['name'];
+                $iso_code_2 = $country_info['iso_code_2'];
+                $iso_code_3 = $country_info['iso_code_3'];
                 $address_format = $country_info['address_format'];
             } else {
-                $country        = '';
-                $iso_code_2     = '';
-                $iso_code_3     = '';
+                $country = '';
+                $iso_code_2 = '';
+                $iso_code_3 = '';
                 $address_format = '';
             }
 
@@ -96,10 +96,10 @@ class ControllerExtensionTotalShipping extends Controller {
             $zone_info = $this->model_localisation_zone->getZone($this->request->post['zone_id']);
 
             if ($zone_info) {
-                $zone      = $zone_info['name'];
+                $zone = $zone_info['name'];
                 $zone_code = $zone_info['code'];
             } else {
-                $zone      = '';
+                $zone = '';
                 $zone_code = '';
             }
 
@@ -125,7 +125,7 @@ class ControllerExtensionTotalShipping extends Controller {
 
             $this->load->model('setting/extension');
 
-            $results    = $this->model_setting_extension->getExtensions('shipping');
+            $results = $this->model_setting_extension->getExtensions('shipping');
 
             foreach ($results as $result) {
                 if ($this->config->get('shipping_' . $result['code'] . '_status')) {
@@ -181,12 +181,12 @@ class ControllerExtensionTotalShipping extends Controller {
         }
 
         if (!$json) {
-            $shipping                               = explode('.', $this->request->post['shipping_method']);
+            $shipping = explode('.', $this->request->post['shipping_method']);
 
             $this->session->data['shipping_method'] = $this->session->data['shipping_methods'][$shipping[0]]['quote'][$shipping[1]];
-            $this->session->data['success']         = $this->language->get('text_success');
-            
-            $json['redirect']                       = $this->url->link('checkout/cart');
+            $this->session->data['success'] = $this->language->get('text_success');
+
+            $json['redirect'] = $this->url->link('checkout/cart');
         }
 
         $this->response->addHeader('Content-Type: application/json');

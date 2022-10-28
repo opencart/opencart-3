@@ -6,7 +6,7 @@ class ModelExtensionPaymentDivido extends Model {
         if ($plans = $this->cache->get(self::CACHE_KEY_PLANS)) {
             // OpenCart 2.1 decodes json objects to associative arrays so we
             // need to make sure we're getting a list of simple objects back.
-            $plans = array_map(function($plan) {
+            $plans = array_map(function ($plan) {
                 return (object)$plan;
             }, $plans);
 
@@ -34,17 +34,17 @@ class ModelExtensionPaymentDivido extends Model {
         $plans_plain = [];
 
         foreach ($plans as $plan) {
-            $plan_copy                     = new \stdClass();
-            $plan_copy->id                 = $plan->id;
-            $plan_copy->text               = $plan->text;
-            $plan_copy->country            = $plan->country;
-            $plan_copy->min_amount         = $plan->min_amount;
-            $plan_copy->min_deposit        = $plan->min_deposit;
-            $plan_copy->max_deposit        = $plan->max_deposit;
-            $plan_copy->interest_rate      = $plan->interest_rate;
-            $plan_copy->deferral_period    = $plan->deferral_period;
+            $plan_copy = new \stdClass();
+            $plan_copy->id = $plan->id;
+            $plan_copy->text = $plan->text;
+            $plan_copy->country = $plan->country;
+            $plan_copy->min_amount = $plan->min_amount;
+            $plan_copy->min_deposit = $plan->min_deposit;
+            $plan_copy->max_deposit = $plan->max_deposit;
+            $plan_copy->interest_rate = $plan->interest_rate;
+            $plan_copy->deferral_period = $plan->deferral_period;
             $plan_copy->agreement_duration = $plan->agreement_duration;
-            $plans_plain[]                 = $plan_copy;
+            $plans_plain[] = $plan_copy;
         }
 
         $this->cache->set(self::CACHE_KEY_PLANS, $plans_plain);

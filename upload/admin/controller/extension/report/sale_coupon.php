@@ -53,9 +53,9 @@ class ControllerExtensionReportSaleCoupon extends Controller {
             $data['report_sale_coupon_sort_order'] = $this->config->get('report_sale_coupon_sort_order');
         }
 
-        $data['header']      = $this->load->controller('common/header');
+        $data['header'] = $this->load->controller('common/header');
         $data['column_left'] = $this->load->controller('common/column_left');
-        $data['footer']      = $this->load->controller('common/footer');
+        $data['footer'] = $this->load->controller('common/footer');
 
         $this->response->setOutput($this->load->view('extension/report/sale_coupon_form', $data));
     }
@@ -126,18 +126,18 @@ class ControllerExtensionReportSaleCoupon extends Controller {
             $url .= '&filter_date_end=' . $this->request->get['filter_date_end'];
         }
 
-        $pagination        = new \Pagination();
+        $pagination = new \Pagination();
         $pagination->total = $coupon_total;
-        $pagination->page  = $page;
+        $pagination->page = $page;
         $pagination->limit = $this->config->get('config_limit_admin');
-        $pagination->url   = $this->url->link('report/report', 'user_token=' . $this->session->data['user_token'] . '&code=sale_coupon' . $url . '&page={page}', true);
+        $pagination->url = $this->url->link('report/report', 'user_token=' . $this->session->data['user_token'] . '&code=sale_coupon' . $url . '&page={page}', true);
 
         $data['pagination'] = $pagination->render();
 
         $data['results'] = sprintf($this->language->get('text_pagination'), ($coupon_total) ? (($page - 1) * $this->config->get('config_limit_admin')) + 1 : 0, ((($page - 1) * $this->config->get('config_limit_admin')) > ($coupon_total - $this->config->get('config_limit_admin'))) ? $coupon_total : ((($page - 1) * $this->config->get('config_limit_admin')) + $this->config->get('config_limit_admin')), $coupon_total, ceil($coupon_total / $this->config->get('config_limit_admin')));
 
         $data['filter_date_start'] = $filter_date_start;
-        $data['filter_date_end']   = $filter_date_end;
+        $data['filter_date_end'] = $filter_date_end;
 
         return $this->load->view('extension/report/sale_coupon_info', $data);
     }

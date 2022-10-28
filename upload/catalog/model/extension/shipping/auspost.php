@@ -18,14 +18,14 @@ class ModelExtensionShippingAusPost extends Model {
             $status = false;
         }
 
-        $error      = '';
-        $api_key    = $this->config->get('shipping_auspost_api');
+        $error = '';
+        $api_key = $this->config->get('shipping_auspost_api');
         $quote_data = [];
 
         if ($status) {
             $weight = $this->weight->convert($this->cart->getWeight(), $this->config->get('config_weight_class_id'), $this->config->get('shipping_auspost_weight_class_id'));
             $length = 0;
-            $width  = 0;
+            $width = 0;
             $height = 0;
 
             if ($address['iso_code_2'] == 'AU') {

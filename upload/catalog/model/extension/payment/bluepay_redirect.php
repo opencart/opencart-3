@@ -30,7 +30,7 @@ class ModelExtensionPaymentBluePayRedirect extends Model {
     }
 
     public function getCards($customer_id) {
-        $query     = $this->db->query("SELECT * FROM `" . DB_PREFIX . "bluepay_redirect_card` WHERE `customer_id` = '" . (int)$customer_id . "'");
+        $query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "bluepay_redirect_card` WHERE `customer_id` = '" . (int)$customer_id . "'");
 
         $card_data = [];
 
@@ -70,7 +70,7 @@ class ModelExtensionPaymentBluePayRedirect extends Model {
         $query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "bluepay_redirect_order` WHERE `order_id` = '" . (int)$order_id . "' LIMIT 1");
 
         if ($query->num_rows) {
-            $order                 = $query->row;
+            $order = $query->row;
             $order['transactions'] = $this->getTransactions($order['bluepay_redirect_order_id']);
 
             return $order;

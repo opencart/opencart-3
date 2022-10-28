@@ -109,9 +109,9 @@ class ControllerExtensionPaymentPayza extends Controller {
             $data['payment_payza_sort_order'] = $this->config->get('payment_payza_sort_order');
         }
 
-        $data['header']      = $this->load->controller('common/header');
+        $data['header'] = $this->load->controller('common/header');
         $data['column_left'] = $this->load->controller('common/column_left');
-        $data['footer']      = $this->load->controller('common/footer');
+        $data['footer'] = $this->load->controller('common/footer');
 
         $this->response->setOutput($this->load->view('extension/payment/payza', $data));
     }

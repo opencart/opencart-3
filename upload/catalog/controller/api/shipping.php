@@ -15,7 +15,7 @@ class ControllerApiShipping extends Controller {
                 $json['error']['warning'] = $this->language->get('error_permission');
             } else {
                 // Add keys for missing post vars
-                $keys                     = [
+                $keys = [
                     'firstname',
                     'lastname',
                     'company',
@@ -86,14 +86,14 @@ class ControllerApiShipping extends Controller {
                     $country_info = $this->model_localisation_country->getCountry($this->request->post['country_id']);
 
                     if ($country_info) {
-                        $country        = $country_info['name'];
-                        $iso_code_2     = $country_info['iso_code_2'];
-                        $iso_code_3     = $country_info['iso_code_3'];
+                        $country = $country_info['name'];
+                        $iso_code_2 = $country_info['iso_code_2'];
+                        $iso_code_3 = $country_info['iso_code_3'];
                         $address_format = $country_info['address_format'];
                     } else {
-                        $country        = '';
-                        $iso_code_2     = '';
-                        $iso_code_3     = '';
+                        $country = '';
+                        $iso_code_2 = '';
+                        $iso_code_3 = '';
                         $address_format = '';
                     }
 
@@ -102,10 +102,10 @@ class ControllerApiShipping extends Controller {
                     $zone_info = $this->model_localisation_zone->getZone($this->request->post['zone_id']);
 
                     if ($zone_info) {
-                        $zone      = $zone_info['name'];
+                        $zone = $zone_info['name'];
                         $zone_code = $zone_info['code'];
                     } else {
-                        $zone      = '';
+                        $zone = '';
                         $zone_code = '';
                     }
 
@@ -162,7 +162,7 @@ class ControllerApiShipping extends Controller {
 
                 $this->load->model('checkout/shipping_method');
 
-                $shipping_methods         = $this->model_checkout_shipping_method->getMethods($this->session->data['shipping_address']);
+                $shipping_methods = $this->model_checkout_shipping_method->getMethods($this->session->data['shipping_address']);
 
                 if ($shipping_methods) {
                     // Store shipping methods in session
@@ -172,7 +172,7 @@ class ControllerApiShipping extends Controller {
                 if ($json['shipping_methods']) {
                     $this->session->data['shipping_methods'] = $json['shipping_methods'];
                 } else {
-                    $json['error']                           = $this->language->get('error_no_shipping');
+                    $json['error'] = $this->language->get('error_no_shipping');
                 }
             }
         } else {
@@ -215,8 +215,8 @@ class ControllerApiShipping extends Controller {
 
                 if (!$json) {
                     $this->session->data['shipping_method'] = $this->session->data['shipping_methods'][$shipping[0]]['quote'][$shipping[1]];
-                    
-                    $json['success']                        = $this->language->get('text_method');
+
+                    $json['success'] = $this->language->get('text_method');
                 }
             } else {
                 unset($this->session->data['shipping_address']);

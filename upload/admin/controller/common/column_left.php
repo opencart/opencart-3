@@ -8,7 +8,7 @@ class ControllerCommonColumnLeft extends Controller {
             // Level 2 can not have children
 
             // Menu
-            $data['menus']   = [];
+            $data['menus'] = [];
 
             $data['menus'][] = [
                 'id'       => 'menu-dashboard',
@@ -19,7 +19,7 @@ class ControllerCommonColumnLeft extends Controller {
             ];
 
             // Catalog
-            $catalog         = [];
+            $catalog = [];
 
             if ($this->user->hasPermission('access', 'catalog/category')) {
                 $catalog[] = [
@@ -708,11 +708,11 @@ class ControllerCommonColumnLeft extends Controller {
             if ($this->user->hasPermission('access', 'report/statistics')) {
                 $this->load->model('sale/order');
 
-                $order_total    = (float)$this->model_sale_order->getTotalOrders();
+                $order_total = (float)$this->model_sale_order->getTotalOrders();
 
                 $this->load->model('report/statistics');
 
-                $complete_total   = (float)$this->model_report_statistics->getValue('order_complete');
+                $complete_total = (float)$this->model_report_statistics->getValue('order_complete');
 
                 if ($complete_total && $order_total) {
                     $data['complete_status'] = round(($complete_total / $order_total) * 100);
@@ -728,7 +728,7 @@ class ControllerCommonColumnLeft extends Controller {
                     $data['processing_status'] = 0;
                 }
 
-                $other_total      = (float)$this->model_report_statistics->getValue('order_other');
+                $other_total = (float)$this->model_report_statistics->getValue('order_other');
 
                 if ($other_total && $order_total) {
                     $data['other_status'] = round(($other_total / $order_total) * 100);
@@ -742,6 +742,8 @@ class ControllerCommonColumnLeft extends Controller {
             }
 
             return $this->load->view('common/column_left', $data);
+        } else {
+            return '';
         }
     }
 }

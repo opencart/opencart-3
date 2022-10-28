@@ -22,20 +22,20 @@ class ControllerExtensionPaymentLiqPay extends Controller {
         $xml .= '	<pay_way>' . $this->config->get('payment_liqpay_type') . '</pay_way>';
         $xml .= '</request>';
 
-        $data['action']         = 'https://liqpay.ua/?do=clickNbuy';
+        $data['action'] = 'https://liqpay.ua/?do=clickNbuy';
         $data['button_confirm'] = $this->language->get('button_confirm');
-        $data['xml']            = base64_encode($xml);
-        $data['signature']      = base64_encode(sha1($this->config->get('payment_liqpay_signature') . $xml . $this->config->get('payment_liqpay_signature'), true));
+        $data['xml'] = base64_encode($xml);
+        $data['signature'] = base64_encode(sha1($this->config->get('payment_liqpay_signature') . $xml . $this->config->get('payment_liqpay_signature'), true));
 
         return $this->load->view('extension/payment/liqpay', $data);
     }
 
     public function callback(): void {
-        $xml       = base64_decode($this->request->post['operation_xml']);
+        $xml = base64_decode($this->request->post['operation_xml']);
         $signature = base64_encode(sha1($this->config->get('payment_liqpay_signature') . $xml . $this->config->get('payment_liqpay_signature'), true));
-        $posleft   = strpos($xml, 'order_id');
-        $posright  = strpos($xml, '/order_id');
-        $order_id  = substr($xml, $posleft + 9, $posright - $posleft - 10);
+        $posleft = strpos($xml, 'order_id');
+        $posright = strpos($xml, '/order_id');
+        $order_id = substr($xml, $posleft + 9, $posright - $posleft - 10);
 
         if ($signature == $this->request->post['signature']) {
             $this->load->model('checkout/order');

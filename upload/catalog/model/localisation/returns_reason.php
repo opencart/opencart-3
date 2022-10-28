@@ -31,7 +31,7 @@ class ModelLocalisationReturnsReason extends Model {
             $return_reason_data = $this->cache->get('return_reason.' . (int)$this->config->get('config_language_id'));
 
             if (!$return_reason_data) {
-                $query              = $this->db->query("SELECT `return_reason_id`, `name` FROM `" . DB_PREFIX . "return_reason` WHERE `language_id` = '" . (int)$this->config->get('config_language_id') . "' ORDER BY `name`");
+                $query = $this->db->query("SELECT `return_reason_id`, `name` FROM `" . DB_PREFIX . "return_reason` WHERE `language_id` = '" . (int)$this->config->get('config_language_id') . "' ORDER BY `name`");
 
                 $return_reason_data = $query->rows;
 

@@ -54,10 +54,10 @@ class ModelSaleOrder extends Model {
 
             if ($affiliate_info) {
                 $affiliate_firstname = $affiliate_info['firstname'];
-                $affiliate_lastname  = $affiliate_info['lastname'];
+                $affiliate_lastname = $affiliate_info['lastname'];
             } else {
                 $affiliate_firstname = '';
-                $affiliate_lastname  = '';
+                $affiliate_lastname = '';
             }
 
             $this->load->model('localisation/language');

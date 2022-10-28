@@ -32,35 +32,35 @@ class ModelExtensionFraudFraudLabsPro extends Model {
             $ip = $this->config->get('fraud_fraudlabspro_simulate_ip');
         }
 
-        $request['key']           = $this->config->get('fraud_fraudlabspro_key');
-        $request['ip']            = $ip;
-        $request['first_name']    = $data['firstname'];
-        $request['last_name']     = $data['lastname'];
-        $request['bill_city']     = $data['payment_city'];
-        $request['bill_state']    = $data['payment_zone'];
-        $request['bill_country']  = $data['payment_iso_code_2'];
+        $request['key'] = $this->config->get('fraud_fraudlabspro_key');
+        $request['ip'] = $ip;
+        $request['first_name'] = $data['firstname'];
+        $request['last_name'] = $data['lastname'];
+        $request['bill_city'] = $data['payment_city'];
+        $request['bill_state'] = $data['payment_zone'];
+        $request['bill_country'] = $data['payment_iso_code_2'];
         $request['bill_zip_code'] = $data['payment_postcode'];
-        $request['email_domain']  = oc_substr(strrchr($data['email'], '@'), 1);
-        $request['user_phone']    = $data['telephone'];
+        $request['email_domain'] = oc_substr(strrchr($data['email'], '@'), 1);
+        $request['user_phone'] = $data['telephone'];
 
         if ($data['shipping_method']) {
-            $request['ship_addr']     = $data['shipping_address_1'];
-            $request['ship_city']     = $data['shipping_city'];
-            $request['ship_state']    = $data['shipping_zone'];
+            $request['ship_addr'] = $data['shipping_address_1'];
+            $request['ship_city'] = $data['shipping_city'];
+            $request['ship_state'] = $data['shipping_zone'];
             $request['ship_zip_code'] = $data['shipping_postcode'];
-            $request['ship_country']  = $data['shipping_iso_code_2'];
+            $request['ship_country'] = $data['shipping_iso_code_2'];
         }
 
-        $request['email']          = $data['email'];
-        $request['email_hash']     = $this->hashIt($data['email']);
-        $request['amount']         = $this->currency->format($data['total'], $data['currency_code'], $data['currency_value'], false);
-        $request['quantity']       = 1;
-        $request['currency']       = $data['currency_code'];
-        $request['payment_mode']   = $data['payment_code'];
-        $request['user_order_id']  = $data['order_id'];
-        $request['flp_checksum']   = isset($_COOKIE['flp_checksum']) ? $_COOKIE['flp_checksum'] : '';
-        $request['format']         = 'json';
-        $request['source']         = 'opencart';
+        $request['email'] = $data['email'];
+        $request['email_hash'] = $this->hashIt($data['email']);
+        $request['amount'] = $this->currency->format($data['total'], $data['currency_code'], $data['currency_value'], false);
+        $request['quantity'] = 1;
+        $request['currency'] = $data['currency_code'];
+        $request['payment_mode'] = $data['payment_code'];
+        $request['user_order_id'] = $data['order_id'];
+        $request['flp_checksum'] = isset($_COOKIE['flp_checksum']) ? $_COOKIE['flp_checksum'] : '';
+        $request['format'] = 'json';
+        $request['source'] = 'opencart';
         $request['source_version'] = '2.1.0.2';
 
         $curl = curl_init();
@@ -165,7 +165,8 @@ class ModelExtensionFraudFraudLabsPro extends Model {
     private function hashIt($s) {
         $hash = 'fraudlabspro_' . $s;
 
-        for ($i = 0; $i < 65536; $i++) $hash = sha1('fraudlabspro_' . $hash);
+        for ($i = 0; $i < 65536; $i++)
+            $hash = sha1('fraudlabspro_' . $hash);
 
         return $hash;
     }

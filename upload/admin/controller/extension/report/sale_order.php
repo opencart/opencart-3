@@ -53,9 +53,9 @@ class ControllerExtensionReportSaleOrder extends Controller {
             $data['report_sale_order_sort_order'] = $this->config->get('report_sale_order_sort_order');
         }
 
-        $data['header']      = $this->load->controller('common/header');
+        $data['header'] = $this->load->controller('common/header');
         $data['column_left'] = $this->load->controller('common/column_left');
-        $data['footer']      = $this->load->controller('common/footer');
+        $data['footer'] = $this->load->controller('common/footer');
 
         $this->response->setOutput($this->load->view('extension/report/sale_order_form', $data));
     }
@@ -176,19 +176,19 @@ class ControllerExtensionReportSaleOrder extends Controller {
             $url .= '&filter_order_status_id=' . $this->request->get['filter_order_status_id'];
         }
 
-        $pagination        = new \Pagination();
+        $pagination = new \Pagination();
         $pagination->total = $order_total;
-        $pagination->page  = $page;
+        $pagination->page = $page;
         $pagination->limit = $this->config->get('config_limit_admin');
-        $pagination->url   = $this->url->link('report/report', 'user_token=' . $this->session->data['user_token'] . '&code=sale_order' . $url . '&page={page}', true);
+        $pagination->url = $this->url->link('report/report', 'user_token=' . $this->session->data['user_token'] . '&code=sale_order' . $url . '&page={page}', true);
 
         $data['pagination'] = $pagination->render();
 
         $data['results'] = sprintf($this->language->get('text_pagination'), ($order_total) ? (($page - 1) * $this->config->get('config_limit_admin')) + 1 : 0, ((($page - 1) * $this->config->get('config_limit_admin')) > ($order_total - $this->config->get('config_limit_admin'))) ? $order_total : ((($page - 1) * $this->config->get('config_limit_admin')) + $this->config->get('config_limit_admin')), $order_total, ceil($order_total / $this->config->get('config_limit_admin')));
 
-        $data['filter_date_start']      = $filter_date_start;
-        $data['filter_date_end']        = $filter_date_end;
-        $data['filter_group']           = $filter_group;
+        $data['filter_date_start'] = $filter_date_start;
+        $data['filter_date_end'] = $filter_date_end;
+        $data['filter_group'] = $filter_group;
         $data['filter_order_status_id'] = $filter_order_status_id;
 
         return $this->load->view('extension/report/sale_order_info', $data);

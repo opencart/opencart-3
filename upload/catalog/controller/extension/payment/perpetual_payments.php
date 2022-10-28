@@ -70,7 +70,7 @@ class ControllerExtensionPaymentPerpetualPayments extends Controller {
             'tran_class'    => 'MoTo',
         ];
 
-        $curl     = curl_init('https://secure.voice-pay.com/gateway/remote');
+        $curl = curl_init('https://secure.voice-pay.com/gateway/remote');
 
         curl_setopt($curl, CURLOPT_PORT, 443);
         curl_setopt($curl, CURLOPT_HEADER, 0);

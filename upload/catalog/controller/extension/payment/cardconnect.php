@@ -7,18 +7,18 @@ class ControllerExtensionPaymentCardConnect extends Controller {
 
         if ($this->customer->isLogged() && $this->config->get('payment_cardconnect_store_cards')) {
             $data['store_cards'] = true;
-            $data['cards']       = $this->model_extension_payment_cardconnect->getCards($this->customer->getId());
+            $data['cards'] = $this->model_extension_payment_cardconnect->getCards($this->customer->getId());
         } else {
             $data['store_cards'] = false;
-            $data['cards']       = [];
+            $data['cards'] = [];
         }
 
         $data['card_types'] = $this->model_extension_payment_cardconnect->getCardTypes();
-        $data['months']     = $this->model_extension_payment_cardconnect->getMonths();
-        $data['years']      = $this->model_extension_payment_cardconnect->getYears();
+        $data['months'] = $this->model_extension_payment_cardconnect->getMonths();
+        $data['years'] = $this->model_extension_payment_cardconnect->getYears();
 
-        $data['echeck']     = $this->config->get('payment_cardconnect_echeck');
-        $data['action']     = $this->url->link('extension/payment/cardconnect/send', '', true);
+        $data['echeck'] = $this->config->get('payment_cardconnect_echeck');
+        $data['action'] = $this->url->link('extension/payment/cardconnect/send', '', true);
 
         return $this->load->view('extension/payment/cardconnect', $data);
     }
@@ -30,7 +30,7 @@ class ControllerExtensionPaymentCardConnect extends Controller {
 
         $this->model_extension_payment_cardconnect->log('Posting order to CardConnect');
 
-        $json          = [];
+        $json = [];
         $json['error'] = '';
 
         if ($this->config->get('payment_cardconnect_status')) {
@@ -45,29 +45,29 @@ class ControllerExtensionPaymentCardConnect extends Controller {
                     if ($order_info) {
                         $this->model_extension_payment_cardconnect->log('Order ID: ' . $order_info['order_id']);
 
-                        $accttype      = $account = $expiry = $cvv2 = $profile = $capture = $bankaba = '';
+                        $accttype = $account = $expiry = $cvv2 = $profile = $capture = $bankaba = '';
                         $existing_card = false;
 
                         if (!isset($this->request->post['method']) || $this->request->post['method'] == 'card') {
                             $this->model_extension_payment_cardconnect->log('Method is card');
 
                             if ($this->request->post['card_new'] && isset($this->request->post['card_save']) && $this->config->get('payment_cardconnect_store_cards') && $this->customer->isLogged()) {
-                                $profile       = 'Y';
+                                $profile = 'Y';
                             } elseif (!$this->request->post['card_new'] && $this->customer->isLogged()) {
                                 $existing_card = $this->model_extension_payment_cardconnect->getCard($this->request->post['card_choice'], $this->customer->getId());
-                                $profile       = $existing_card['profileid'];
+                                $profile = $existing_card['profileid'];
                             }
 
                             if ($existing_card) {
                                 $accttype = $existing_card['type'];
-                                $account  = $existing_card['token'];
-                                $expiry   = $existing_card['expiry'];
-                                $cvv2     = '';
+                                $account = $existing_card['token'];
+                                $expiry = $existing_card['expiry'];
+                                $cvv2 = '';
                             } else {
                                 $accttype = $this->request->post['card_type'];
-                                $account  = $this->request->post['card_number'];
-                                $expiry   = $this->request->post['card_expiry_month'] . $this->request->post['card_expiry_year'];
-                                $cvv2     = $this->request->post['card_cvv2'];
+                                $account = $this->request->post['card_number'];
+                                $expiry = $this->request->post['card_expiry_month'] . $this->request->post['card_expiry_year'];
+                                $cvv2 = $this->request->post['card_cvv2'];
                             }
                         } else {
                             $this->model_extension_payment_cardconnect->log('Method is Echeck');
@@ -77,14 +77,14 @@ class ControllerExtensionPaymentCardConnect extends Controller {
                         }
 
                         if ($this->config->get('payment_cardconnect_transaction') == 'payment') {
-                            $capture         = 'Y';
-                            $type            = 'payment';
-                            $status          = 'New';
+                            $capture = 'Y';
+                            $type = 'payment';
+                            $status = 'New';
                             $order_status_id = $this->config->get('payment_cardconnect_order_status_id_processing');
                         } else {
-                            $capture         = 'N';
-                            $type            = 'auth';
-                            $status          = 'New';
+                            $capture = 'N';
+                            $type = 'auth';
+                            $status = 'New';
                             $order_status_id = $this->config->get('payment_cardconnect_order_status_id_pending');
                         }
 
@@ -115,9 +115,9 @@ class ControllerExtensionPaymentCardConnect extends Controller {
                         ];
 
                         $data_json = json_encode($post_data);
-                        $url       = 'https://' . $this->config->get('payment_cardconnect_site') . '.cardconnect.com:' . (($this->config->get('payment_cardconnect_environment') == 'live') ? 8443 : 6443) . '/cardconnect/rest/auth';
+                        $url = 'https://' . $this->config->get('payment_cardconnect_site') . '.cardconnect.com:' . (($this->config->get('payment_cardconnect_environment') == 'live') ? 8443 : 6443) . '/cardconnect/rest/auth';
 
-                        $header   = [];
+                        $header = [];
                         $header[] = 'Content-type: application/json';
                         $header[] = 'Content-length: ' . strlen($data_json);
                         $header[] = 'Authorization: Basic ' . base64_encode($this->config->get('payment_cardconnect_api_username') . ':' . $this->config->get('payment_cardconnect_api_password'));
@@ -154,14 +154,14 @@ class ControllerExtensionPaymentCardConnect extends Controller {
                             // if a cheque
                             if ($bankaba) {
                                 $payment_method = 'echeck';
-                                $type           = 'payment';
+                                $type = 'payment';
                             } else {
                                 $payment_method = 'card';
                             }
 
                             $this->model_checkout_order->addOrderHistory($order_info['order_id'], $order_status_id);
 
-                            $order_info           = array_merge($order_info, $response_data);
+                            $order_info = array_merge($order_info, $response_data);
                             $cardconnect_order_id = $this->model_extension_payment_cardconnect->addOrder($order_info, $payment_method);
 
                             $this->model_extension_payment_cardconnect->addTransaction($cardconnect_order_id, $type, $status, $order_info);

@@ -29,7 +29,7 @@ class ModelExtensionTotalCoupon extends Model {
             }
 
             // Products
-            $coupon_product_data  = [];
+            $coupon_product_data = [];
 
             $coupon_product_query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "coupon_product` WHERE `coupon_id` = '" . (int)$coupon_query->row['coupon_id'] . "'");
 
@@ -38,7 +38,7 @@ class ModelExtensionTotalCoupon extends Model {
             }
 
             // Categories
-            $coupon_category_data  = [];
+            $coupon_category_data = [];
 
             $coupon_category_query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "coupon_category` cc LEFT JOIN `" . DB_PREFIX . "category_path` cp ON (cc.`category_id` = cp.`path_id`) WHERE cc.`coupon_id` = '" . (int)$coupon_query->row['coupon_id'] . "'");
 
@@ -95,7 +95,7 @@ class ModelExtensionTotalCoupon extends Model {
         }
     }
 
-    public function getTotal($total) {
+    public function getTotal(float $total): void {
         if (isset($this->session->data['coupon'])) {
             $this->load->language('extension/total/coupon', 'coupon');
 
@@ -183,29 +183,32 @@ class ModelExtensionTotalCoupon extends Model {
         }
     }
 
-    public function confirm($order_info, $order_total) {
-        $code  = '';
+    public function confirm(array $order_info, array $order_total): int {
+        $code = '';
+
         $start = strpos($order_total['title'], '(') + 1;
-        $end   = strrpos($order_total['title'], ')');
+        $end = strrpos($order_total['title'], ')');
 
         if ($start && $end) {
             $code = substr($order_total['title'], $start, $end - $start);
         }
 
         if ($code) {
-            $status       = true;
-            
+            $status = true;
+
             $coupon_query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "coupon` WHERE `code` = '" . $this->db->escape($code) . "' AND `status` = '1'");
 
             if ($coupon_query->num_rows) {
-                $coupon_total = $this->getTotalCouponHistoriesByCoupon($code);
+                $this->load->model('marketing/coupon');
+
+                $coupon_total = $this->model_marketing_coupon->getTotalHistoriesByCoupon($code);
 
                 if ($coupon_query->row['uses_total'] > 0 && ($coupon_total >= $coupon_query->row['uses_total'])) {
                     $status = false;
                 }
 
                 if ($order_info['customer_id']) {
-                    $customer_total = $this->getTotalCouponHistoriesByCustomerId($code, $order_info['customer_id']);
+                    $customer_total = $this->model_marketing_coupon->getTotalHistoriesByCustomerId($code, $order_info['customer_id']);
 
                     if ($coupon_query->row['uses_customer'] > 0 && ($customer_total >= $coupon_query->row['uses_customer'])) {
                         $status = false;
@@ -221,19 +224,21 @@ class ModelExtensionTotalCoupon extends Model {
                 return $this->config->get('config_fraud_status_id');
             }
         }
+
+        return 0;
     }
 
-    public function unconfirm($order_id) {
+    public function unconfirm(int $order_id): void {
         $this->db->query("DELETE FROM `" . DB_PREFIX . "coupon_history` WHERE `order_id` = '" . (int)$order_id . "'");
     }
 
-    public function getTotalCouponHistoriesByCoupon($coupon) {
+    public function getTotalCouponHistoriesByCoupon(string $coupon): int {
         $query = $this->db->query("SELECT COUNT(*) AS `total` FROM `" . DB_PREFIX . "coupon_history` ch LEFT JOIN `" . DB_PREFIX . "coupon` c ON (ch.`coupon_id` = c.`coupon_id`) WHERE c.`code` = '" . $this->db->escape($coupon) . "'");
 
         return (int)$query->row['total'];
     }
 
-    public function getTotalCouponHistoriesByCustomerId($coupon, $customer_id) {
+    public function getTotalCouponHistoriesByCustomerId(string $coupon, int $customer_id): int {
         $query = $this->db->query("SELECT COUNT(*) AS `total` FROM `" . DB_PREFIX . "coupon_history` ch LEFT JOIN `" . DB_PREFIX . "coupon` c ON (ch.`coupon_id` = c.`coupon_id`) WHERE c.`code` = '" . $this->db->escape($coupon) . "' AND ch.`customer_id` = '" . (int)$customer_id . "'");
 
         return (int)$query->row['total'];

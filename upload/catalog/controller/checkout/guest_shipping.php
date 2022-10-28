@@ -64,7 +64,7 @@ class ControllerCheckoutGuestShipping extends Controller {
         // Custom Fields
         $this->load->model('account/custom_field');
 
-        $custom_fields     = $this->model_account_custom_field->getCustomFields($this->session->data['guest']['customer_group_id']);
+        $custom_fields = $this->model_account_custom_field->getCustomFields($this->session->data['guest']['customer_group_id']);
 
         foreach ($custom_fields as $custom_field) {
             if ($custom_field['location'] == 'address') {
@@ -151,29 +151,29 @@ class ControllerCheckoutGuestShipping extends Controller {
         }
 
         if (!$json) {
-            $this->session->data['shipping_address']['firstname']  = $this->request->post['firstname'];
-            $this->session->data['shipping_address']['lastname']   = $this->request->post['lastname'];
-            $this->session->data['shipping_address']['company']    = $this->request->post['company'];
-            $this->session->data['shipping_address']['address_1']  = $this->request->post['address_1'];
-            $this->session->data['shipping_address']['address_2']  = $this->request->post['address_2'];
-            $this->session->data['shipping_address']['postcode']   = $this->request->post['postcode'];
-            $this->session->data['shipping_address']['city']       = $this->request->post['city'];
+            $this->session->data['shipping_address']['firstname'] = $this->request->post['firstname'];
+            $this->session->data['shipping_address']['lastname'] = $this->request->post['lastname'];
+            $this->session->data['shipping_address']['company'] = $this->request->post['company'];
+            $this->session->data['shipping_address']['address_1'] = $this->request->post['address_1'];
+            $this->session->data['shipping_address']['address_2'] = $this->request->post['address_2'];
+            $this->session->data['shipping_address']['postcode'] = $this->request->post['postcode'];
+            $this->session->data['shipping_address']['city'] = $this->request->post['city'];
             $this->session->data['shipping_address']['country_id'] = (int)$this->request->post['country_id'];
-            $this->session->data['shipping_address']['zone_id']    = (int)$this->request->post['zone_id'];
+            $this->session->data['shipping_address']['zone_id'] = (int)$this->request->post['zone_id'];
 
             $this->load->model('localisation/country');
 
             $country_info = $this->model_localisation_country->getCountry($this->request->post['country_id']);
 
             if ($country_info) {
-                $this->session->data['shipping_address']['country']        = $country_info['name'];
-                $this->session->data['shipping_address']['iso_code_2']     = $country_info['iso_code_2'];
-                $this->session->data['shipping_address']['iso_code_3']     = $country_info['iso_code_3'];
+                $this->session->data['shipping_address']['country'] = $country_info['name'];
+                $this->session->data['shipping_address']['iso_code_2'] = $country_info['iso_code_2'];
+                $this->session->data['shipping_address']['iso_code_3'] = $country_info['iso_code_3'];
                 $this->session->data['shipping_address']['address_format'] = $country_info['address_format'];
             } else {
-                $this->session->data['shipping_address']['country']        = '';
-                $this->session->data['shipping_address']['iso_code_2']     = '';
-                $this->session->data['shipping_address']['iso_code_3']     = '';
+                $this->session->data['shipping_address']['country'] = '';
+                $this->session->data['shipping_address']['iso_code_2'] = '';
+                $this->session->data['shipping_address']['iso_code_3'] = '';
                 $this->session->data['shipping_address']['address_format'] = '';
             }
 
@@ -182,10 +182,10 @@ class ControllerCheckoutGuestShipping extends Controller {
             $zone_info = $this->model_localisation_zone->getZone($this->request->post['zone_id']);
 
             if ($zone_info) {
-                $this->session->data['shipping_address']['zone']      = $zone_info['name'];
+                $this->session->data['shipping_address']['zone'] = $zone_info['name'];
                 $this->session->data['shipping_address']['zone_code'] = $zone_info['code'];
             } else {
-                $this->session->data['shipping_address']['zone']      = '';
+                $this->session->data['shipping_address']['zone'] = '';
                 $this->session->data['shipping_address']['zone_code'] = '';
             }
 

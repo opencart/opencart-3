@@ -3,7 +3,7 @@ class ControllerStartupSetting extends Controller {
     public function index(): void {
         $this->load->model('setting/store');
 
-        $hostname   = ($this->request->server['HTTPS'] ? 'https://' : 'http://') . str_replace('www.', '', $this->request->server['HTTP_HOST']) . rtrim(dirname($this->request->server['PHP_SELF']), '/.\\') . '/';
+        $hostname = ($this->request->server['HTTPS'] ? 'https://' : 'http://') . str_replace('www.', '', $this->request->server['HTTP_HOST']) . rtrim(dirname($this->request->server['PHP_SELF']), '/.\\') . '/';
 
         $store_info = $this->model_setting_store->getStoreByHostname($hostname);
 

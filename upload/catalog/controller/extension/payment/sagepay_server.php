@@ -10,7 +10,7 @@ class ControllerExtensionPaymentSagepayServer extends Controller {
         }
 
         $data['action'] = $this->url->link('extension/payment/sagepay_server/send', '', true);
-        $data['cards']  = [];
+        $data['cards'] = [];
 
         if ($this->customer->isLogged() && $data['sagepay_server_card']) {
             $this->load->model('extension/payment/sagepay_server');
@@ -29,10 +29,10 @@ class ControllerExtensionPaymentSagepayServer extends Controller {
 
             $payment_data['VPSProtocol'] = '3.00';
         } elseif ($this->config->get('payment_sagepay_server_test') == 'test') {
-            $url                         = 'https://test.sagepay.com/gateway/service/vspserver-register.vsp';
+            $url = 'https://test.sagepay.com/gateway/service/vspserver-register.vsp';
             $payment_data['VPSProtocol'] = '3.00';
         } elseif ($this->config->get('payment_sagepay_server_test') == 'sim') {
-            $url                         = 'https://test.sagepay.com/Simulator/VSPServerGateway.asp?Service=VendorRegisterTx';
+            $url = 'https://test.sagepay.com/Simulator/VSPServerGateway.asp?Service=VendorRegisterTx';
             $payment_data['VPSProtocol'] = '2.23';
         }
 
@@ -43,23 +43,23 @@ class ControllerExtensionPaymentSagepayServer extends Controller {
             return;
         }
 
-        $order_info                        = $this->model_checkout_order->getOrder($this->session->data['order_id']);
+        $order_info = $this->model_checkout_order->getOrder($this->session->data['order_id']);
 
-        $payment_data['ReferrerID']        = 'E511AF91-E4A0-42DE-80B0-09C981A3FB61';
-        $payment_data['Vendor']            = $this->config->get('payment_sagepay_server_vendor');
-        $payment_data['VendorTxCode']      = $this->session->data['order_id'] . 'T' . date('YmdHis') . mt_rand(1, 999);
-        $payment_data['Amount']            = $this->currency->format($order_info['total'], $order_info['currency_code'], false, false);
-        $payment_data['Currency']          = $this->session->data['currency'];
-        $payment_data['Description']       = substr($this->config->get('config_name'), 0, 100);
-        $payment_data['NotificationURL']   = $this->url->link('extension/payment/sagepay_server/callback', '', true);
-        $payment_data['TxType']            = $this->config->get('payment_sagepay_server_transaction');
-        $payment_data['BillingSurname']    = substr($order_info['payment_lastname'], 0, 20);
+        $payment_data['ReferrerID'] = 'E511AF91-E4A0-42DE-80B0-09C981A3FB61';
+        $payment_data['Vendor'] = $this->config->get('payment_sagepay_server_vendor');
+        $payment_data['VendorTxCode'] = $this->session->data['order_id'] . 'T' . date('YmdHis') . mt_rand(1, 999);
+        $payment_data['Amount'] = $this->currency->format($order_info['total'], $order_info['currency_code'], false, false);
+        $payment_data['Currency'] = $this->session->data['currency'];
+        $payment_data['Description'] = substr($this->config->get('config_name'), 0, 100);
+        $payment_data['NotificationURL'] = $this->url->link('extension/payment/sagepay_server/callback', '', true);
+        $payment_data['TxType'] = $this->config->get('payment_sagepay_server_transaction');
+        $payment_data['BillingSurname'] = substr($order_info['payment_lastname'], 0, 20);
         $payment_data['BillingFirstnames'] = substr($order_info['payment_firstname'], 0, 20);
-        $payment_data['BillingAddress1']   = substr($order_info['payment_address_1'], 0, 100);
-        $payment_data['BillingCity']       = substr($order_info['payment_city'], 0, 40);
-        $payment_data['BillingPostCode']   = substr($order_info['payment_postcode'], 0, 10);
-        $payment_data['BillingCountry']    = $order_info['payment_iso_code_2'];
-        $payment_data['BillingPhone']      = substr($order_info['telephone'], 0, 20);
+        $payment_data['BillingAddress1'] = substr($order_info['payment_address_1'], 0, 100);
+        $payment_data['BillingCity'] = substr($order_info['payment_city'], 0, 40);
+        $payment_data['BillingPostCode'] = substr($order_info['payment_postcode'], 0, 10);
+        $payment_data['BillingCountry'] = $order_info['payment_iso_code_2'];
+        $payment_data['BillingPhone'] = substr($order_info['telephone'], 0, 20);
 
         if ($order_info['payment_address_2']) {
             $payment_data['BillingAddress2'] = $order_info['payment_address_2'];
@@ -78,14 +78,14 @@ class ControllerExtensionPaymentSagepayServer extends Controller {
                 $payment_data['DeliveryState'] = $order_info['shipping_zone_code'];
             }
 
-            $payment_data['DeliverySurname']    = substr($order_info['shipping_lastname'], 0, 20);
+            $payment_data['DeliverySurname'] = substr($order_info['shipping_lastname'], 0, 20);
             $payment_data['DeliveryFirstnames'] = substr($order_info['shipping_firstname'], 0, 20);
-            $payment_data['DeliveryAddress1']   = substr($order_info['shipping_address_1'], 0, 100);
-            $payment_data['DeliveryCity']       = substr($order_info['shipping_city'], 0, 40);
-            $payment_data['DeliveryPostCode']   = substr($order_info['shipping_postcode'], 0, 10);
-            $payment_data['DeliveryCountry']    = $order_info['shipping_iso_code_2'];
-            $payment_data['CustomerName']       = substr($order_info['firstname'] . ' ' . $order_info['lastname'], 0, 100);
-            $payment_data['DeliveryPhone']      = substr($order_info['telephone'], 0, 20);
+            $payment_data['DeliveryAddress1'] = substr($order_info['shipping_address_1'], 0, 100);
+            $payment_data['DeliveryCity'] = substr($order_info['shipping_city'], 0, 40);
+            $payment_data['DeliveryPostCode'] = substr($order_info['shipping_postcode'], 0, 10);
+            $payment_data['DeliveryCountry'] = $order_info['shipping_iso_code_2'];
+            $payment_data['CustomerName'] = substr($order_info['firstname'] . ' ' . $order_info['lastname'], 0, 100);
+            $payment_data['DeliveryPhone'] = substr($order_info['telephone'], 0, 20);
         } else {
             if ($order_info['payment_address_2']) {
                 $payment_data['DeliveryAddress2'] = $order_info['payment_address_2'];
@@ -96,16 +96,16 @@ class ControllerExtensionPaymentSagepayServer extends Controller {
             }
 
             $payment_data['DeliveryFirstnames'] = $order_info['payment_firstname'];
-            $payment_data['DeliverySurname']    = $order_info['payment_lastname'];
-            $payment_data['DeliveryAddress1']   = $order_info['payment_address_1'];
-            $payment_data['DeliveryCity']       = $order_info['payment_city'];
-            $payment_data['DeliveryPostCode']   = $order_info['payment_postcode'];
-            $payment_data['DeliveryCountry']    = $order_info['payment_iso_code_2'];
-            $payment_data['DeliveryPhone']      = $order_info['telephone'];
+            $payment_data['DeliverySurname'] = $order_info['payment_lastname'];
+            $payment_data['DeliveryAddress1'] = $order_info['payment_address_1'];
+            $payment_data['DeliveryCity'] = $order_info['payment_city'];
+            $payment_data['DeliveryPostCode'] = $order_info['payment_postcode'];
+            $payment_data['DeliveryCountry'] = $order_info['payment_iso_code_2'];
+            $payment_data['DeliveryPhone'] = $order_info['telephone'];
         }
 
-        $cart_rows      = 0;
-        $str_basket     = '';
+        $cart_rows = 0;
+        $str_basket = '';
 
         $order_products = $this->model_checkout_order->getOrderProducts($this->session->data['order_id']);
 
@@ -125,33 +125,33 @@ class ControllerExtensionPaymentSagepayServer extends Controller {
 
         $str_basket = $cart_rows . $str_basket;
 
-        $payment_data['Basket']        = $str_basket;
+        $payment_data['Basket'] = $str_basket;
         $payment_data['CustomerEMail'] = substr($order_info['email'], 0, 255);
         $payment_data['Apply3DSecure'] = '0';
 
         if (isset($this->request->post['CreateToken'])) {
             $payment_data['CreateToken'] = $this->request->post['CreateToken'];
-            $payment_data['StoreToken']  = 1;
+            $payment_data['StoreToken'] = 1;
         }
 
         if (isset($this->request->post['Token'])) {
-            $payment_data['Token']      = $this->request->post['Token'];
+            $payment_data['Token'] = $this->request->post['Token'];
             $payment_data['StoreToken'] = 1;
         }
 
         $response_data = $this->model_extension_payment_sagepay_server->sendCurl($url, $payment_data);
 
-        $json          = [];
+        $json = [];
 
         if ((substr($response_data['Status'], 0, 2) == 'OK') || $response_data['Status'] == 'AUTHENTICATED' || $response_data['Status'] == 'REGISTERED') {
-            $json['redirect']              = $response_data['NextURL'];
-            $json['Status']                = $response_data['Status'];
-            $json['StatusDetail']          = $response_data['StatusDetail'];
+            $json['redirect'] = $response_data['NextURL'];
+            $json['Status'] = $response_data['Status'];
+            $json['StatusDetail'] = $response_data['StatusDetail'];
 
-            $response_data['order_id']     = (int)$this->session->data['order_id'];
+            $response_data['order_id'] = (int)$this->session->data['order_id'];
             $response_data['VendorTxCode'] = $payment_data['VendorTxCode'];
 
-            $order_info                    = array_merge($order_info, $response_data);
+            $order_info = array_merge($order_info, $response_data);
 
             $this->model_extension_payment_sagepay_server->addOrder($order_info);
 
@@ -176,16 +176,16 @@ class ControllerExtensionPaymentSagepayServer extends Controller {
         $this->load->model('extension/payment/sagepay_server');
 
         $success_page = $this->url->link('extension/payment/sagepay_server/success', '', true);
-        $error_page   = $this->url->link('extension/payment/sagepay_server/failure', '', true);
-        $end_ln       = chr(13) . chr(10);
+        $error_page = $this->url->link('extension/payment/sagepay_server/failure', '', true);
+        $end_ln = chr(13) . chr(10);
 
         if (isset($this->request->post['VendorTxCode'])) {
             $vendor_tx_code = $this->request->post['VendorTxCode'];
             $order_id_parts = explode('T', $this->request->post['VendorTxCode']);
-            $order_id       = (int)$order_id_parts[0];
+            $order_id = (int)$order_id_parts[0];
         } else {
             $vendor_tx_code = '';
-            $order_id       = '';
+            $order_id = '';
         }
 
         if (isset($this->request->post['Status'])) {
@@ -308,7 +308,7 @@ class ControllerExtensionPaymentSagepayServer extends Controller {
             $str_bank_auth_code = '';
         }
 
-        $order_info       = $this->model_checkout_order->getOrder($order_id);
+        $order_info = $this->model_checkout_order->getOrder($order_id);
 
         $transaction_info = $this->model_extension_payment_sagepay_server->getOrder($order_id);
 
@@ -337,7 +337,7 @@ class ControllerExtensionPaymentSagepayServer extends Controller {
          * * component that is included to create our own signature to compare with **
          * * the contents of the VPSSignature field in the POST. Check the Sage Pay Server protocol **
          * * if you need clarification on this process * */
-        $str_message      = $str_vps_tx_id . $vendor_tx_code . $str_status . $str_tx_auth_no . $this->config->get('payment_sagepay_server_vendor') . urldecode($str_avs_cv2) . $str_security_key . $str_address_result . $str_postcode_result . $str_cv2_result . $str_gift_aid . $str_3d_secure_status . $str_cavv . $str_address_status . $str_payer_status . $str_card_type . $str_last_4_digits . $str_decline_code . $str_expiry_date . $str_bank_auth_code;
+        $str_message = $str_vps_tx_id . $vendor_tx_code . $str_status . $str_tx_auth_no . $this->config->get('payment_sagepay_server_vendor') . urldecode($str_avs_cv2) . $str_security_key . $str_address_result . $str_postcode_result . $str_cv2_result . $str_gift_aid . $str_3d_secure_status . $str_cavv . $str_address_status . $str_payer_status . $str_card_type . $str_last_4_digits . $str_decline_code . $str_expiry_date . $str_bank_auth_code;
         $str_my_signature = strtoupper(md5($str_message));
 
         /** We can now compare our MD5 Hash signature with that from Sage Pay Server * */
@@ -384,9 +384,9 @@ class ControllerExtensionPaymentSagepayServer extends Controller {
 
         if (!empty($str_token)) {
             $data['customer_id'] = $order_info['customer_id'];
-            $data['ExpiryDate']  = substr($str_expiry_date, -4, 2) . '/' . substr($str_expiry_date, 2);
-            $data['Token']       = $str_token;
-            $data['CardType']    = $str_card_type;
+            $data['ExpiryDate'] = substr($str_expiry_date, -4, 2) . '/' . substr($str_expiry_date, 2);
+            $data['Token'] = $str_token;
+            $data['CardType'] = $str_card_type;
             $data['Last4Digits'] = $str_last_4_digits;
 
             $this->model_extension_payment_sagepay_server->addCard($data);
@@ -444,13 +444,13 @@ class ControllerExtensionPaymentSagepayServer extends Controller {
                 $url = 'https://test.sagepay.com/gateway/service/removetoken.vsp';
             }
 
-            $payment_data                = [];
+            $payment_data = [];
             $payment_data['VPSProtocol'] = '3.00';
-            $payment_data['Vendor']      = $this->config->get('payment_sagepay_server_vendor');
-            $payment_data['TxType']      = 'REMOVETOKEN';
-            $payment_data['Token']       = $card['token'];
+            $payment_data['Vendor'] = $this->config->get('payment_sagepay_server_vendor');
+            $payment_data['TxType'] = 'REMOVETOKEN';
+            $payment_data['Token'] = $card['token'];
 
-            $response_data               = $this->model_extension_payment_sagepay_server->sendCurl($url, $payment_data);
+            $response_data = $this->model_extension_payment_sagepay_server->sendCurl($url, $payment_data);
 
             if ($response_data['Status'] == 'OK') {
                 $this->model_extension_payment_sagepay_server->deleteCard($card['card_id']);

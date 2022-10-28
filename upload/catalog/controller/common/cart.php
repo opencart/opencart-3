@@ -6,9 +6,9 @@ class ControllerCommonCart extends Controller {
         // Totals
         $this->load->model('setting/extension');
 
-        $total      = 0;
-        $totals     = [];
-        $taxes      = $this->cart->getTaxes();
+        $total = 0;
+        $totals = [];
+        $taxes = $this->cart->getTaxes();
 
         // Because __call can not keep var references so we put them into an array.
         $total_data = [
@@ -21,7 +21,7 @@ class ControllerCommonCart extends Controller {
         if ($this->customer->isLogged() || !$this->config->get('config_customer_price')) {
             $sort_order = [];
 
-            $results    = $this->model_setting_extension->getExtensions('total');
+            $results = $this->model_setting_extension->getExtensions('total');
 
             foreach ($results as $key => $value) {
                 $sort_order[$key] = $this->config->get('total_' . $value['code'] . '_sort_order');
@@ -52,19 +52,18 @@ class ControllerCommonCart extends Controller {
         $this->load->model('tool/image');
         $this->load->model('tool/upload');
 
-        $data['products']   = [];
+        $data['products'] = [];
 
         foreach ($this->cart->getProducts() as $product) {
             // Display prices
             if ($this->customer->isLogged() || !$this->config->get('config_customer_price')) {
                 $unit_price = (float)$this->tax->calculate($product['price'], $product['tax_class_id'], $this->config->get('config_tax'));
 
-                $price      = $this->currency->format($unit_price, $this->session->data['currency']);
-                $total      = $this->currency->format($unit_price * $product['quantity'], $this->session->data['currency']);
-
+                $price = $this->currency->format($unit_price, $this->session->data['currency']);
+                $total = $this->currency->format($unit_price * $product['quantity'], $this->session->data['currency']);
             } else {
-                $price      = false;
-                $total      = false;
+                $price = false;
+                $total = false;
             }
 
             if ($product['image']) {
@@ -99,19 +98,19 @@ class ControllerCommonCart extends Controller {
             $description = '';
 
             if ($product['subscription']) {
-                $trial_price     = $this->currency->format($this->tax->calculate($product['subscription']['trial_price'], $product['tax_class_id'], $this->config->get('config_tax')), $this->session->data['currency']);
-                $trial_cycle     = $product['subscription']['trial_cycle'];
+                $trial_price = $this->currency->format($this->tax->calculate($product['subscription']['trial_price'], $product['tax_class_id'], $this->config->get('config_tax')), $this->session->data['currency']);
+                $trial_cycle = $product['subscription']['trial_cycle'];
                 $trial_frequency = $this->language->get('text_' . $product['subscription']['trial_frequency']);
-                $trial_duration  = $product['subscription']['trial_duration'];
+                $trial_duration = $product['subscription']['trial_duration'];
 
                 if ($product['subscription']['trial_status']) {
                     $description .= sprintf($this->language->get('text_subscription_trial'), $trial_price, $trial_cycle, $trial_frequency, $trial_duration);
                 }
 
-                $price           = $this->currency->format($this->tax->calculate($product['subscription']['price'], $product['tax_class_id'], $this->config->get('config_tax')), $this->session->data['currency']);
-                $cycle           = $product['subscription']['cycle'];
-                $frequency       = $this->language->get('text_' . $product['subscription']['frequency']);
-                $duration        = $product['subscription']['duration'];
+                $price = $this->currency->format($this->tax->calculate($product['subscription']['price'], $product['tax_class_id'], $this->config->get('config_tax')), $this->session->data['currency']);
+                $cycle = $product['subscription']['cycle'];
+                $frequency = $this->language->get('text_' . $product['subscription']['frequency']);
+                $duration = $product['subscription']['duration'];
 
                 if ($duration) {
                     $description .= sprintf($this->language->get('text_subscription_duration'), $price, $cycle, $frequency, $duration);
@@ -156,8 +155,8 @@ class ControllerCommonCart extends Controller {
             ];
         }
 
-        $data['cart']       = $this->url->link('checkout/cart');
-        $data['checkout']   = $this->url->link('checkout/checkout', '', true);
+        $data['cart'] = $this->url->link('checkout/cart');
+        $data['checkout'] = $this->url->link('checkout/checkout', '', true);
 
         return $this->load->view('common/cart', $data);
     }

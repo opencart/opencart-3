@@ -63,7 +63,7 @@ class ModelUserUserGroup extends Model {
         $user_group_query = $this->db->query("SELECT DISTINCT * FROM `" . DB_PREFIX . "user_group` WHERE `user_group_id` = '" . (int)$user_group_id . "'");
 
         if ($user_group_query->num_rows) {
-            $data          = json_decode($user_group_query->row['permission'], true);
+            $data = json_decode($user_group_query->row['permission'], true);
             $data[$type][] = $route;
 
             $this->db->query("UPDATE `" . DB_PREFIX . "user_group` SET `permission` = '" . $this->db->escape(json_encode($data)) . "' WHERE `user_group_id` = '" . (int)$user_group_id . "'");

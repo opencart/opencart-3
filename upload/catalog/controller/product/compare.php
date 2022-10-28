@@ -24,7 +24,7 @@ class ControllerProductCompare extends Controller {
 
         $this->document->setTitle($this->language->get('heading_title'));
 
-        $data['breadcrumbs']   = [];
+        $data['breadcrumbs'] = [];
 
         $data['breadcrumbs'][] = [
             'text' => $this->language->get('text_home'),
@@ -44,8 +44,8 @@ class ControllerProductCompare extends Controller {
             $data['success'] = '';
         }
 
-        $data['review_status']    = $this->config->get('config_review_status');
-        $data['products']         = [];
+        $data['review_status'] = $this->config->get('config_review_status');
+        $data['products'] = [];
         $data['attribute_groups'] = [];
 
         foreach ((array)$this->session->data['compare'] as $key => $product_id) {
@@ -78,7 +78,7 @@ class ControllerProductCompare extends Controller {
                     $availability = $this->language->get('text_instock');
                 }
 
-                $attribute_data   = [];
+                $attribute_data = [];
 
                 $attribute_groups = $this->model_catalog_product->getProductAttributes($product_id);
 
@@ -122,14 +122,14 @@ class ControllerProductCompare extends Controller {
             }
         }
 
-        $data['continue']       = $this->url->link('common/home');
+        $data['continue'] = $this->url->link('common/home');
 
-        $data['column_left']    = $this->load->controller('common/column_left');
-        $data['column_right']   = $this->load->controller('common/column_right');
-        $data['content_top']    = $this->load->controller('common/content_top');
+        $data['column_left'] = $this->load->controller('common/column_left');
+        $data['column_right'] = $this->load->controller('common/column_right');
+        $data['content_top'] = $this->load->controller('common/content_top');
         $data['content_bottom'] = $this->load->controller('common/content_bottom');
-        $data['footer']         = $this->load->controller('common/footer');
-        $data['header']         = $this->load->controller('common/header');
+        $data['footer'] = $this->load->controller('common/footer');
+        $data['header'] = $this->load->controller('common/header');
 
         $this->response->setOutput($this->load->view('product/compare', $data));
     }
@@ -163,7 +163,7 @@ class ControllerProductCompare extends Controller {
             }
 
             $json['success'] = sprintf($this->language->get('text_success'), $this->url->link('product/product', 'product_id=' . $this->request->post['product_id']), $product_info['name'], $this->url->link('product/compare'));
-            $json['total']   = sprintf($this->language->get('text_compare'), isset($this->session->data['compare']) ? count($this->session->data['compare']) : 0);
+            $json['total'] = sprintf($this->language->get('text_compare'), isset($this->session->data['compare']) ? count($this->session->data['compare']) : 0);
         }
 
         $this->response->addHeader('Content-Type: application/json');

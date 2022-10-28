@@ -4,8 +4,8 @@ class ControllerMailRegister extends Controller {
     public function index(string &$route, array &$args, mixed &$output): void {
         $this->load->language('mail/register');
 
-        $store_name           = html_entity_decode($this->config->get('config_name'), ENT_QUOTES, 'UTF-8');
-        $subject              = sprintf($this->language->get('text_subject'), $store_name);
+        $store_name = html_entity_decode($this->config->get('config_name'), ENT_QUOTES, 'UTF-8');
+        $subject = sprintf($this->language->get('text_subject'), $store_name);
 
         $this->load->model('account/customer_group');
 
@@ -15,7 +15,7 @@ class ControllerMailRegister extends Controller {
             $customer_group_id = (int)$this->config->get('config_customer_group_id');
         }
 
-        $customer_group_info  = $this->model_account_customer_group->getCustomerGroup($customer_group_id);
+        $customer_group_info = $this->model_account_customer_group->getCustomerGroup($customer_group_id);
 
         if ($customer_group_info) {
             $data['approval'] = $customer_group_info['approval'];
@@ -23,19 +23,19 @@ class ControllerMailRegister extends Controller {
             $data['approval'] = '';
         }
 
-        $data['login']        = $this->url->link('account/login', '', true);
+        $data['login'] = $this->url->link('account/login', '', true);
         $data['text_welcome'] = sprintf($this->language->get('text_welcome'), $store_name);
-        $data['store']        = $store_name;
-        $data['store_url']    = $this->config->get('config_url');
+        $data['store'] = $store_name;
+        $data['store_url'] = $this->config->get('config_url');
 
         if ($this->config->get('config_mail_engine')) {
-            $mail                = new \Mail($this->config->get('config_mail_engine'));
-            $mail->parameter     = $this->config->get('config_mail_parameter');
+            $mail = new \Mail($this->config->get('config_mail_engine'));
+            $mail->parameter = $this->config->get('config_mail_parameter');
             $mail->smtp_hostname = $this->config->get('config_mail_smtp_hostname');
             $mail->smtp_username = $this->config->get('config_mail_smtp_username');
             $mail->smtp_password = html_entity_decode($this->config->get('config_mail_smtp_password'), ENT_QUOTES, 'UTF-8');
-            $mail->smtp_port     = $this->config->get('config_mail_smtp_port');
-            $mail->smtp_timeout  = $this->config->get('config_mail_smtp_timeout');
+            $mail->smtp_port = $this->config->get('config_mail_smtp_port');
+            $mail->smtp_timeout = $this->config->get('config_mail_smtp_timeout');
 
             $mail->setTo($args[0]['email']);
             $mail->setFrom($this->config->get('config_email'));
@@ -52,12 +52,12 @@ class ControllerMailRegister extends Controller {
         if (in_array('account', (array)$this->config->get('config_mail_alert'))) {
             $this->load->language('mail/register');
 
-            $store_name        = html_entity_decode($this->config->get('config_name'), ENT_QUOTES, 'UTF-8');
-            $subject           = $this->language->get('text_new_customer');
+            $store_name = html_entity_decode($this->config->get('config_name'), ENT_QUOTES, 'UTF-8');
+            $subject = $this->language->get('text_new_customer');
 
             $data['firstname'] = $args[0]['firstname'];
-            $data['lastname']  = $args[0]['lastname'];
-            $data['login']     = $this->url->link('account/login', '', true);
+            $data['lastname'] = $args[0]['lastname'];
+            $data['login'] = $this->url->link('account/login', '', true);
 
             $this->load->model('account/customer_group');
 
@@ -75,19 +75,19 @@ class ControllerMailRegister extends Controller {
                 $data['customer_group'] = '';
             }
 
-            $data['email']     = $args[0]['email'];
+            $data['email'] = $args[0]['email'];
             $data['telephone'] = $args[0]['telephone'];
-            $data['store']     = $store_name;
+            $data['store'] = $store_name;
             $data['store_url'] = $this->config->get('config_url');
 
             if ($this->config->get('config_mail_engine')) {
-                $mail                = new \Mail($this->config->get('config_mail_engine'));
-                $mail->parameter     = $this->config->get('config_mail_parameter');
+                $mail = new \Mail($this->config->get('config_mail_engine'));
+                $mail->parameter = $this->config->get('config_mail_parameter');
                 $mail->smtp_hostname = $this->config->get('config_mail_smtp_hostname');
                 $mail->smtp_username = $this->config->get('config_mail_smtp_username');
                 $mail->smtp_password = html_entity_decode($this->config->get('config_mail_smtp_password'), ENT_QUOTES, 'UTF-8');
-                $mail->smtp_port     = $this->config->get('config_mail_smtp_port');
-                $mail->smtp_timeout  = $this->config->get('config_mail_smtp_timeout');
+                $mail->smtp_port = $this->config->get('config_mail_smtp_port');
+                $mail->smtp_timeout = $this->config->get('config_mail_smtp_timeout');
 
                 $mail->setTo($this->config->get('config_email'));
                 $mail->setFrom($this->config->get('config_email'));

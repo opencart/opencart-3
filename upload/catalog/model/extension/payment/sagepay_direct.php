@@ -124,16 +124,16 @@ class ModelExtensionPaymentSagePayDirect extends Model {
 
         // Trial information
         if ($item['trial_status'] == 1) {
-            $price      = $item['trial_price'];
-            $trial_amt  = $this->currency->format($this->tax->calculate($item['trial_price'], $item['tax_class_id'], $this->config->get('config_tax')), $this->session->data['currency'], false, false) * $item['quantity'] . ' ' . $this->session->data['currency'];
+            $price = $item['trial_price'];
+            $trial_amt = $this->currency->format($this->tax->calculate($item['trial_price'], $item['tax_class_id'], $this->config->get('config_tax')), $this->session->data['currency'], false, false) * $item['quantity'] . ' ' . $this->session->data['currency'];
             $trial_text = sprintf($this->language->get('text_trial'), $trial_amt, $item['trial_cycle'], $item['trial_frequency'], $item['trial_duration']);
         } else {
-            $price      = $item['price'];
+            $price = $item['price'];
             $trial_text = '';
         }
 
-        $subscription_amt         = $this->currency->format($this->tax->calculate($item['price'], $item['tax_class_id'], $this->config->get('config_tax')), $this->session->data['currency'], false, false) * $item['quantity'] . ' ' . $this->session->data['currency'];
-        $item['description']      = [];
+        $subscription_amt = $this->currency->format($this->tax->calculate($item['price'], $item['tax_class_id'], $this->config->get('config_tax')), $this->session->data['currency'], false, false) * $item['quantity'] . ' ' . $this->session->data['currency'];
+        $item['description'] = [];
 
         $subscription_description = $trial_text . sprintf($this->language->get('text_subscription'), $subscription_amt, $item['cycle'], $item['frequency']);
 
@@ -144,36 +144,36 @@ class ModelExtensionPaymentSagePayDirect extends Model {
         $item['description'] = $subscription_description;
 
         // Create new subscription and set to pending status as no payment has been made yet.
-        $subscription_id    = $this->model_checkout_subscription->addSubscription($this->session->data['order_id'], $item);
+        $subscription_id = $this->model_checkout_subscription->addSubscription($this->session->data['order_id'], $item);
         $this->model_checkout_subscription->editReference($subscription_id, $vendor_tx_code);
 
-        $order_info         = $this->model_checkout_order->getOrder($this->session->data['order_id']);
+        $order_info = $this->model_checkout_order->getOrder($this->session->data['order_id']);
 
         $sagepay_order_info = $this->getOrder($this->session->data['order_id']);
-        $response_data      = $this->setPaymentData($order_info, $sagepay_order_info, $price, $subscription_id, $item['name']);
+        $response_data = $this->setPaymentData($order_info, $sagepay_order_info, $price, $subscription_id, $item['name']);
 
-        $next_payment       = new \DateTime('now');
-        $trial_end          = new \DateTime('now');
-        $subscription_end   = new \DateTime('now');
+        $next_payment = new \DateTime('now');
+        $trial_end = new \DateTime('now');
+        $subscription_end = new \DateTime('now');
 
         if ($item['trial_status'] == 1 && $item['trial_duration'] != 0) {
             $next_payment = $this->calculateSchedule($item['trial_frequency'], $next_payment, $item['trial_cycle']);
-            $trial_end    = $this->calculateSchedule($item['trial_frequency'], $trial_end, $item['trial_cycle'] * $item['trial_duration']);
+            $trial_end = $this->calculateSchedule($item['trial_frequency'], $trial_end, $item['trial_cycle'] * $item['trial_duration']);
         } elseif ($item['trial_status'] == 1) {
             $next_payment = $this->calculateSchedule($item['trial_frequency'], $next_payment, $item['trial_cycle']);
-            $trial_end    = new \DateTime('0000-00-00');
+            $trial_end = new \DateTime('0000-00-00');
         }
 
         if ($trial_end > $subscription_end && $item['duration'] != 0) {
             $subscription_end = new \DateTime(date_format($trial_end, 'Y-m-d H:i:s'));
             $subscription_end = $this->calculateSchedule($item['frequency'], $subscription_end, $item['cycle'] * $item['duration']);
         } elseif ($trial_end == $subscription_end && $item['duration'] != 0) {
-            $next_payment     = $this->calculateSchedule($item['frequency'], $next_payment, $item['cycle']);
+            $next_payment = $this->calculateSchedule($item['frequency'], $next_payment, $item['cycle']);
             $subscription_end = $this->calculateSchedule($item['frequency'], $subscription_end, $item['cycle'] * $item['duration']);
         } elseif ($trial_end > $subscription_end && $item['duration'] == 0) {
             $subscription_end = new \DateTime('0000-00-00');
         } elseif ($trial_end == $subscription_end && $item['duration'] == 0) {
-            $next_payment     = $this->calculateSchedule($item['frequency'], $next_payment, $item['cycle']);
+            $next_payment = $this->calculateSchedule($item['frequency'], $next_payment, $item['cycle']);
             $subscription_end = new \DateTime('0000-00-00');
         }
 
@@ -189,58 +189,58 @@ class ModelExtensionPaymentSagePayDirect extends Model {
 
     private function setPaymentData($order_info, $sagepay_order_info, $price, $subscription_id, $recurring_name, $i = null) {
         if ($this->config->get('payment_sagepay_direct_test') == 'live') {
-            $url                         = 'https://live.sagepay.com/gateway/service/repeat.vsp';
+            $url = 'https://live.sagepay.com/gateway/service/repeat.vsp';
             $payment_data['VPSProtocol'] = '3.00';
         } elseif ($this->config->get('payment_sagepay_direct_test') == 'test') {
-            $url                         = 'https://test.sagepay.com/gateway/service/repeat.vsp';
+            $url = 'https://test.sagepay.com/gateway/service/repeat.vsp';
             $payment_data['VPSProtocol'] = '3.00';
         } elseif ($this->config->get('payment_sagepay_direct_test') == 'sim') {
-            $url                         = 'https://test.sagepay.com/Simulator/VSPServerGateway.asp?Service=VendorRepeatTx';
+            $url = 'https://test.sagepay.com/Simulator/VSPServerGateway.asp?Service=VendorRepeatTx';
             $payment_data['VPSProtocol'] = '2.23';
         }
 
-        $payment_data['TxType']              = 'REPEAT';
-        $payment_data['Vendor']              = $this->config->get('payment_sagepay_direct_vendor');
-        $payment_data['VendorTxCode']        = $subscription_id . 'RSD' . date('YmdHis') . mt_rand(1, 999);
-        $payment_data['Amount']              = $this->currency->format($price, $this->session->data['currency'], false, false);
-        $payment_data['Currency']            = $this->session->data['currency'];
-        $payment_data['Description']         = substr($recurring_name, 0, 100);
-        $payment_data['RelatedVPSTxId']      = trim($sagepay_order_info['VPSTxId'], '{}');
+        $payment_data['TxType'] = 'REPEAT';
+        $payment_data['Vendor'] = $this->config->get('payment_sagepay_direct_vendor');
+        $payment_data['VendorTxCode'] = $subscription_id . 'RSD' . date('YmdHis') . mt_rand(1, 999);
+        $payment_data['Amount'] = $this->currency->format($price, $this->session->data['currency'], false, false);
+        $payment_data['Currency'] = $this->session->data['currency'];
+        $payment_data['Description'] = substr($recurring_name, 0, 100);
+        $payment_data['RelatedVPSTxId'] = trim($sagepay_order_info['VPSTxId'], '{}');
         $payment_data['RelatedVendorTxCode'] = $sagepay_order_info['VendorTxCode'];
-        $payment_data['RelatedSecurityKey']  = $sagepay_order_info['SecurityKey'];
-        $payment_data['RelatedTxAuthNo']     = $sagepay_order_info['TxAuthNo'];
+        $payment_data['RelatedSecurityKey'] = $sagepay_order_info['SecurityKey'];
+        $payment_data['RelatedTxAuthNo'] = $sagepay_order_info['TxAuthNo'];
 
         if (!empty($order_info['shipping_lastname'])) {
-            $payment_data['DeliverySurname']    = substr($order_info['shipping_lastname'], 0, 20);
+            $payment_data['DeliverySurname'] = substr($order_info['shipping_lastname'], 0, 20);
             $payment_data['DeliveryFirstnames'] = substr($order_info['shipping_firstname'], 0, 20);
-            $payment_data['DeliveryAddress1']   = substr($order_info['shipping_address_1'], 0, 100);
+            $payment_data['DeliveryAddress1'] = substr($order_info['shipping_address_1'], 0, 100);
 
             if ($order_info['shipping_address_2']) {
                 $payment_data['DeliveryAddress2'] = $order_info['shipping_address_2'];
             }
 
-            $payment_data['DeliveryCity']     = substr($order_info['shipping_city'], 0, 40);
+            $payment_data['DeliveryCity'] = substr($order_info['shipping_city'], 0, 40);
             $payment_data['DeliveryPostCode'] = substr($order_info['shipping_postcode'], 0, 10);
-            $payment_data['DeliveryCountry']  = $order_info['shipping_iso_code_2'];
+            $payment_data['DeliveryCountry'] = $order_info['shipping_iso_code_2'];
 
             if ($order_info['shipping_iso_code_2'] == 'US') {
                 $payment_data['DeliveryState'] = $order_info['shipping_zone_code'];
             }
 
-            $payment_data['CustomerName']  = substr($order_info['firstname'] . ' ' . $order_info['lastname'], 0, 100);
+            $payment_data['CustomerName'] = substr($order_info['firstname'] . ' ' . $order_info['lastname'], 0, 100);
             $payment_data['DeliveryPhone'] = substr($order_info['telephone'], 0, 20);
         } else {
             $payment_data['DeliveryFirstnames'] = $order_info['payment_firstname'];
-            $payment_data['DeliverySurname']    = $order_info['payment_lastname'];
-            $payment_data['DeliveryAddress1']   = $order_info['payment_address_1'];
+            $payment_data['DeliverySurname'] = $order_info['payment_lastname'];
+            $payment_data['DeliveryAddress1'] = $order_info['payment_address_1'];
 
             if ($order_info['payment_address_2']) {
                 $payment_data['DeliveryAddress2'] = $order_info['payment_address_2'];
             }
 
-            $payment_data['DeliveryCity']     = $order_info['payment_city'];
+            $payment_data['DeliveryCity'] = $order_info['payment_city'];
             $payment_data['DeliveryPostCode'] = $order_info['payment_postcode'];
-            $payment_data['DeliveryCountry']  = $order_info['payment_iso_code_2'];
+            $payment_data['DeliveryCountry'] = $order_info['payment_iso_code_2'];
 
             if ($order_info['payment_iso_code_2'] == 'US') {
                 $payment_data['DeliveryState'] = $order_info['payment_zone_code'];
@@ -249,10 +249,10 @@ class ModelExtensionPaymentSagePayDirect extends Model {
             $payment_data['DeliveryPhone'] = $order_info['telephone'];
         }
 
-        $response_data                 = $this->sendCurl($url, $payment_data, $i);
+        $response_data = $this->sendCurl($url, $payment_data, $i);
         $response_data['VendorTxCode'] = $payment_data['VendorTxCode'];
-        $response_data['Amount']       = $payment_data['Amount'];
-        $response_data['Currency']     = $payment_data['Currency'];
+        $response_data['Amount'] = $payment_data['Amount'];
+        $response_data['Currency'] = $payment_data['Currency'];
 
         return $response_data;
     }
@@ -260,36 +260,36 @@ class ModelExtensionPaymentSagePayDirect extends Model {
     public function cronPayment() {
         $this->load->model('account/order');
 
-        $i             = 0;
+        $i = 0;
         $subscriptions = $this->getProfiles();
-        $cron_data     = [];
+        $cron_data = [];
 
         foreach ($subscriptions as $subscription) {
-            $recurring_order  = $this->getRecurringOrder($subscription['subscription_id']);
+            $recurring_order = $this->getRecurringOrder($subscription['subscription_id']);
 
-            $today            = new \DateTime('now');
-            $unlimited        = new \DateTime('0000-00-00');
-            $next_payment     = new \DateTime($recurring_order['next_payment']);
-            $trial_end        = new \DateTime($recurring_order['trial_end']);
+            $today = new \DateTime('now');
+            $unlimited = new \DateTime('0000-00-00');
+            $next_payment = new \DateTime($recurring_order['next_payment']);
+            $trial_end = new \DateTime($recurring_order['trial_end']);
             $subscription_end = new \DateTime($recurring_order['subscription_end']);
 
-            $order_info       = $this->model_account_order->getOrder($subscription['order_id']);
+            $order_info = $this->model_account_order->getOrder($subscription['order_id']);
 
             if (($today > $next_payment) && ($trial_end > $today || $trial_end == $unlimited)) {
-                $price     = $this->currency->format($subscription['trial_price'], $order_info['currency_code'], false, false);
+                $price = $this->currency->format($subscription['trial_price'], $order_info['currency_code'], false, false);
                 $frequency = $subscription['trial_frequency'];
-                $cycle     = $subscription['trial_cycle'];
+                $cycle = $subscription['trial_cycle'];
             } elseif (($today > $next_payment) && ($subscription_end > $today || $subscription_end == $unlimited)) {
-                $price     = $this->currency->format($subscription['price'], $order_info['currency_code'], false, false);
+                $price = $this->currency->format($subscription['price'], $order_info['currency_code'], false, false);
                 $frequency = $subscription['frequency'];
-                $cycle     = $subscription['cycle'];
+                $cycle = $subscription['cycle'];
             } else {
                 continue;
             }
 
             $sagepay_order_info = $this->getOrder($subscription['order_id']);
-            $response_data      = $this->setPaymentData($order_info, $sagepay_order_info, $price, $subscription['subscription_id'], $subscription['name'], $i);
-            $cron_data[]        = $response_data;
+            $response_data = $this->setPaymentData($order_info, $sagepay_order_info, $price, $subscription['subscription_id'], $subscription['name'], $i);
+            $cron_data[] = $response_data;
 
             if ($response_data['RepeatResponseData_' . $i++]['Status'] == 'OK') {
                 $this->addRecurringTransaction($subscription['subscription_id'], $response_data, 1);
@@ -311,22 +311,22 @@ class ModelExtensionPaymentSagePayDirect extends Model {
 
     private function calculateSchedule($frequency, $next_payment, $cycle) {
         if ($frequency == 'semi_month') {
-            $day     = date_format($next_payment, 'd');
-            $value   = 15 - $day;
+            $day = date_format($next_payment, 'd');
+            $value = 15 - $day;
             $is_even = false;
 
             if ($cycle % 2 == 0) {
                 $is_even = true;
             }
 
-            $odd        = ($cycle + 1) / 2;
-            $plus_even  = ($cycle / 2) + 1;
+            $odd = ($cycle + 1) / 2;
+            $plus_even = ($cycle / 2) + 1;
             $minus_even = $cycle / 2;
 
             if ($day == 1) {
-                $odd       = $odd - 1;
+                $odd = $odd - 1;
                 $plus_even = $plus_even - 1;
-                $day       = 16;
+                $day = 16;
             }
 
             if ($day <= 15 && $is_even) {
@@ -418,10 +418,10 @@ class ModelExtensionPaymentSagePayDirect extends Model {
 
         foreach ($response_info as $string) {
             if (strpos($string, '=') && isset($i)) {
-                $parts                                             = explode('=', $string, 2);
+                $parts = explode('=', $string, 2);
                 $data['RepeatResponseData_' . $i][trim($parts[0])] = trim($parts[1]);
             } elseif (strpos($string, '=')) {
-                $parts                 = explode('=', $string, 2);
+                $parts = explode('=', $string, 2);
                 $data[trim($parts[0])] = trim($parts[1]);
             }
         }
@@ -443,7 +443,7 @@ class ModelExtensionPaymentSagePayDirect extends Model {
          * Used by the checkout to state the module
          * supports subscriptions.
          */
-        
+
         return true;
     }
 }

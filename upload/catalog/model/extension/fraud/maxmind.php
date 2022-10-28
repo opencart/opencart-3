@@ -58,7 +58,7 @@ class ModelExtensionFraudMaxMind extends Model {
             $risk_score = 0;
 
             if ($response) {
-                $order_id    = $order_info['order_id'];
+                $order_id = $order_info['order_id'];
                 $customer_id = $order_info['customer_id'];
 
                 $response_info = [];
@@ -66,7 +66,10 @@ class ModelExtensionFraudMaxMind extends Model {
                 $parts = explode(';', $response);
 
                 foreach ($parts as $part) {
-                    [$key, $value] = explode('=', $part);
+                    [
+                        $key,
+                        $value
+                    ] = explode('=', $part);
 
                     $response_info[$key] = $value;
                 }

@@ -108,7 +108,7 @@ class ModelLocalisationCurrency extends Model {
     }
 
     public function refresh(): void {
-        $curl     = curl_init();
+        $curl = curl_init();
 
         curl_setopt($curl, CURLOPT_URL, 'https://www.ecb.europa.eu/stats/eurofxref/eurofxref-daily.xml');
         curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
@@ -119,17 +119,17 @@ class ModelLocalisationCurrency extends Model {
 
         $response = curl_exec($curl);
 
-        $status   = curl_getinfo($curl, CURLINFO_HTTP_CODE);
+        $status = curl_getinfo($curl, CURLINFO_HTTP_CODE);
 
         curl_close($curl);
 
         if ($status == 200) {
-            $dom               = new \DOMDocument('1.0', 'UTF-8');
+            $dom = new \DOMDocument('1.0', 'UTF-8');
             $dom->loadXml($response);
 
-            $cube              = $dom->getElementsByTagName('Cube')->item(0);
+            $cube = $dom->getElementsByTagName('Cube')->item(0);
 
-            $currencies        = [];
+            $currencies = [];
             $currencies['EUR'] = 1.0000;
 
             foreach ($cube->getElementsByTagName('Cube') as $currency) {

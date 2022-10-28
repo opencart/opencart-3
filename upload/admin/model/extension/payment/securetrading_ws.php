@@ -173,10 +173,10 @@ class ModelExtensionPaymentSecureTradingWs extends Model {
     public function getCsv($data) {
         $ch = curl_init();
 
-        $post_data                            = [];
-        $post_data['sitereferences']          = $this->config->get('payment_securetrading_ws_site_reference');
-        $post_data['startdate']               = $data['date_from'];
-        $post_data['enddate']                 = $data['date_to'];
+        $post_data = [];
+        $post_data['sitereferences'] = $this->config->get('payment_securetrading_ws_site_reference');
+        $post_data['startdate'] = $data['date_from'];
+        $post_data['enddate'] = $data['date_to'];
         $post_data['accounttypedescriptions'] = 'ECOM';
 
         if ($data['detail']) {

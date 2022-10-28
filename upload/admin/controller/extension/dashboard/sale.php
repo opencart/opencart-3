@@ -67,9 +67,9 @@ class ControllerExtensionDashboardSale extends Controller {
             $data['dashboard_sale_sort_order'] = $this->config->get('dashboard_sale_sort_order');
         }
 
-        $data['header']      = $this->load->controller('common/header');
+        $data['header'] = $this->load->controller('common/header');
         $data['column_left'] = $this->load->controller('common/column_left');
-        $data['footer']      = $this->load->controller('common/footer');
+        $data['footer'] = $this->load->controller('common/footer');
 
         $this->response->setOutput($this->load->view('extension/dashboard/sale_form', $data));
     }
@@ -89,8 +89,8 @@ class ControllerExtensionDashboardSale extends Controller {
 
         $this->load->model('extension/dashboard/sale');
 
-        $today      = $this->model_extension_dashboard_sale->getTotalSales(['filter_date_added' => date('Y-m-d', strtotime('-1 day'))]);
-        $yesterday  = $this->model_extension_dashboard_sale->getTotalSales(['filter_date_added' => date('Y-m-d', strtotime('-2 day'))]);
+        $today = $this->model_extension_dashboard_sale->getTotalSales(['filter_date_added' => date('Y-m-d', strtotime('-1 day'))]);
+        $yesterday = $this->model_extension_dashboard_sale->getTotalSales(['filter_date_added' => date('Y-m-d', strtotime('-2 day'))]);
         $difference = $today - $yesterday;
 
         if ($difference && (int)$today) {

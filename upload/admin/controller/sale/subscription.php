@@ -216,33 +216,33 @@ class ControllerSaleSubscription extends Controller {
 
         $this->load->model('localisation/subscription_status');
 
-        $data['subscription_statuses']  = $this->model_localisation_subscription_status->getSubscriptionStatuses();
+        $data['subscription_statuses'] = $this->model_localisation_subscription_status->getSubscriptionStatuses();
 
-        $pagination                            = new \Pagination();
-        $pagination->total                     = $subscription_total;
-        $pagination->page                      = $page;
-        $pagination->limit                     = $this->config->get('config_limit_admin');
-        $pagination->text                      = $this->language->get('text_pagination');
-        $pagination->url                       = $this->url->link('sale/subscription', 'user_token=' . $this->session->data['user_token'] . '&page={page}' . $url, true);
+        $pagination = new \Pagination();
+        $pagination->total = $subscription_total;
+        $pagination->page = $page;
+        $pagination->limit = $this->config->get('config_limit_admin');
+        $pagination->text = $this->language->get('text_pagination');
+        $pagination->url = $this->url->link('sale/subscription', 'user_token=' . $this->session->data['user_token'] . '&page={page}' . $url, true);
 
-        $data['pagination']                    = $pagination->render();
-        $data['results']                       = sprintf($this->language->get('text_pagination'), ($subscription_total) ? (($page - 1) * $this->config->get('config_limit_admin')) + 1 : 0, ((($page - 1) * $this->config->get('config_limit_admin')) > ($subscription_total - $this->config->get('config_limit_admin'))) ? $subscription_total : ((($page - 1) * $this->config->get('config_limit_admin')) + $this->config->get('config_limit_admin')), $subscription_total, ceil($subscription_total / $this->config->get('config_limit_admin')));
+        $data['pagination'] = $pagination->render();
+        $data['results'] = sprintf($this->language->get('text_pagination'), ($subscription_total) ? (($page - 1) * $this->config->get('config_limit_admin')) + 1 : 0, ((($page - 1) * $this->config->get('config_limit_admin')) > ($subscription_total - $this->config->get('config_limit_admin'))) ? $subscription_total : ((($page - 1) * $this->config->get('config_limit_admin')) + $this->config->get('config_limit_admin')), $subscription_total, ceil($subscription_total / $this->config->get('config_limit_admin')));
 
-        $data['sort']                          = $sort;
-        $data['order']                         = $order;
+        $data['sort'] = $sort;
+        $data['order'] = $order;
 
-        $data['user_token']                    = $this->session->data['user_token'];
+        $data['user_token'] = $this->session->data['user_token'];
 
-        $data['filter_subscription_id']        = $filter_subscription_id;
-        $data['filter_order_id']               = $filter_order_id;
-        $data['filter_customer']               = $filter_customer;
+        $data['filter_subscription_id'] = $filter_subscription_id;
+        $data['filter_order_id'] = $filter_order_id;
+        $data['filter_customer'] = $filter_customer;
         $data['filter_subscription_status_id'] = $filter_subscription_status_id;
-        $data['filter_date_from']              = $filter_date_from;
-        $data['filter_date_to']                = $filter_date_to;
+        $data['filter_date_from'] = $filter_date_from;
+        $data['filter_date_to'] = $filter_date_to;
 
-        $data['header']                        = $this->load->controller('common/header');
-        $data['column_left']                   = $this->load->controller('common/column_left');
-        $data['footer']                        = $this->load->controller('common/footer');
+        $data['header'] = $this->load->controller('common/header');
+        $data['column_left'] = $this->load->controller('common/column_left');
+        $data['footer'] = $this->load->controller('common/footer');
 
         $this->response->setOutput($this->load->view('sale/subscription', $data));
     }
@@ -296,7 +296,7 @@ class ControllerSaleSubscription extends Controller {
             $url .= '&page=' . $this->request->get['page'];
         }
 
-        $data['breadcrumbs']   = [];
+        $data['breadcrumbs'] = [];
 
         $data['breadcrumbs'][] = [
             'text' => $this->language->get('text_home'),
@@ -308,7 +308,7 @@ class ControllerSaleSubscription extends Controller {
             'href' => $this->url->link('sale/subscription', 'user_token=' . $this->session->data['user_token'] . $url, true)
         ];
 
-        $data['back']      = $this->url->link('sale/subscription', 'user_token=' . $this->session->data['user_token'] . $url, true);
+        $data['back'] = $this->url->link('sale/subscription', 'user_token=' . $this->session->data['user_token'] . $url, true);
 
         $this->load->model('sale/subscription');
 
@@ -357,7 +357,7 @@ class ControllerSaleSubscription extends Controller {
 
         $this->load->model('customer/customer');
 
-        $data['payment_methods']    = $this->model_customer_customer->getPaymentMethods($order_info['customer_id']);
+        $data['payment_methods'] = $this->model_customer_customer->getPaymentMethods($order_info['customer_id']);
 
         if (!empty($subscription_info)) {
             $data['customer_payment_id'] = $subscription_info['customer_payment_id'];
@@ -411,19 +411,19 @@ class ControllerSaleSubscription extends Controller {
         $data['description'] = '';
 
         if (!empty($subscription_info)) {
-            $trial_price     = $this->currency->format($subscription_info['trial_price'], $this->config->get('config_currency'));
-            $trial_cycle     = $subscription_info['trial_cycle'];
+            $trial_price = $this->currency->format($subscription_info['trial_price'], $this->config->get('config_currency'));
+            $trial_cycle = $subscription_info['trial_cycle'];
             $trial_frequency = $this->language->get('text_' . $subscription_info['trial_frequency']);
-            $trial_duration  = $subscription_info['trial_duration'];
+            $trial_duration = $subscription_info['trial_duration'];
 
             if ($subscription_info['trial_status']) {
                 $data['description'] .= sprintf($this->language->get('text_subscription_trial'), $trial_price, $trial_cycle, $trial_frequency, $trial_duration);
             }
 
-            $price           = $this->currency->format($subscription_info['price'], $this->config->get('config_currency'));
-            $cycle           = $subscription_info['cycle'];
-            $frequency       = $this->language->get('text_' . $subscription_info['frequency']);
-            $duration        = $subscription_info['duration'];
+            $price = $this->currency->format($subscription_info['price'], $this->config->get('config_currency'));
+            $cycle = $subscription_info['cycle'];
+            $frequency = $this->language->get('text_' . $subscription_info['frequency']);
+            $duration = $subscription_info['duration'];
 
             if ($subscription_info['duration']) {
                 $data['description'] .= sprintf($this->language->get('text_subscription_duration'), $price, $cycle, $frequency, $duration);
@@ -448,11 +448,11 @@ class ControllerSaleSubscription extends Controller {
             $data['subscription_status_id'] = '';
         }
 
-        $data['user_token']  = $this->session->data['user_token'];
+        $data['user_token'] = $this->session->data['user_token'];
 
-        $data['header']      = $this->load->controller('common/header');
+        $data['header'] = $this->load->controller('common/header');
         $data['column_left'] = $this->load->controller('common/column_left');
-        $data['footer']      = $this->load->controller('common/footer');
+        $data['footer'] = $this->load->controller('common/footer');
 
         $this->response->setOutput($this->load->view('sale/subscription_info', $data));
     }
@@ -476,7 +476,7 @@ class ControllerSaleSubscription extends Controller {
 
         $this->load->model('sale/subscription');
 
-        $results           = $this->model_sale_subscription->getHistories($subscription_id, ($page - 1) * 10, 10);
+        $results = $this->model_sale_subscription->getHistories($subscription_id, ($page - 1) * 10, 10);
 
         foreach ($results as $result) {
             $data['histories'][] = [
@@ -489,14 +489,14 @@ class ControllerSaleSubscription extends Controller {
 
         $subscription_total = $this->model_sale_subscription->getTotalHistories($subscription_id);
 
-        $pagination         = new \Pagination();
-        $pagination->total  = $subscription_total;
-        $pagination->page   = $page;
-        $pagination->limit  = 10;
-        $pagination->url    = $this->url->link('sale/subscription/history', 'user_token=' . $this->session->data['user_token'] . '&subscription_id=' . $subscription_id . '&page={page}', true);
+        $pagination = new \Pagination();
+        $pagination->total = $subscription_total;
+        $pagination->page = $page;
+        $pagination->limit = 10;
+        $pagination->url = $this->url->link('sale/subscription/history', 'user_token=' . $this->session->data['user_token'] . '&subscription_id=' . $subscription_id . '&page={page}', true);
 
         $data['pagination'] = $pagination->render();
-        $data['results']    = sprintf($this->language->get('text_pagination'), ($subscription_total) ? (($page - 1) * 10) + 1 : 0, ((($page - 1) * 10) > ($subscription_total - 10)) ? $subscription_total : ((($page - 1) * 10) + 10), $subscription_total, ceil($subscription_total / 10));
+        $data['results'] = sprintf($this->language->get('text_pagination'), ($subscription_total) ? (($page - 1) * 10) + 1 : 0, ((($page - 1) * 10) > ($subscription_total - 10)) ? $subscription_total : ((($page - 1) * 10) + 10), $subscription_total, ceil($subscription_total / 10));
 
         $this->response->setOutput($this->load->view('sale/subscription_history', $data));
     }
@@ -532,7 +532,7 @@ class ControllerSaleSubscription extends Controller {
 
     public function transaction(): void {
         $this->load->language('sale/subscription');
-        
+
         if (isset($this->request->get['subscription_id'])) {
             $subscription_id = (int)$this->request->get['subscription_id'];
         } else {
@@ -549,7 +549,7 @@ class ControllerSaleSubscription extends Controller {
 
         $this->load->model('sale/subscription');
 
-        $results              = $this->model_sale_subscription->getTransactions($subscription_id, ($page - 1) * 10, 10);
+        $results = $this->model_sale_subscription->getTransactions($subscription_id, ($page - 1) * 10, 10);
 
         foreach ($results as $result) {
             $data['transactions'][] = [
@@ -559,18 +559,18 @@ class ControllerSaleSubscription extends Controller {
             ];
         }
 
-        $data['balance']    = $this->currency->format($this->model_sale_subscription->getTransactionTotal($subscription_id), $this->config->get('config_currency'));
+        $data['balance'] = $this->currency->format($this->model_sale_subscription->getTransactionTotal($subscription_id), $this->config->get('config_currency'));
 
-        $transaction_total  = $this->model_sale_subscription->getTotalTransactions($subscription_id);
+        $transaction_total = $this->model_sale_subscription->getTotalTransactions($subscription_id);
 
-        $pagination         = new \Pagination();
-        $pagination->total  = $transaction_total;
-        $pagination->page   = $page;
-        $pagination->limit  = 10;
-        $pagination->url    = $this->url->link('sale/subscription.transaction', 'user_token=' . $this->session->data['user_token'] . '&subscription_id=' . $subscription_id . '&page={page}', true);
+        $pagination = new \Pagination();
+        $pagination->total = $transaction_total;
+        $pagination->page = $page;
+        $pagination->limit = 10;
+        $pagination->url = $this->url->link('sale/subscription.transaction', 'user_token=' . $this->session->data['user_token'] . '&subscription_id=' . $subscription_id . '&page={page}', true);
 
         $data['pagination'] = $pagination->render();
-        $data['results']    = sprintf($this->language->get('text_pagination'), ($transaction_total) ? (($page - 1) * 10) + 1 : 0, ((($page - 1) * 10) > ($transaction_total - 10)) ? $transaction_total : ((($page - 1) * 10) + 10), $transaction_total, ceil($transaction_total / 10));
+        $data['results'] = sprintf($this->language->get('text_pagination'), ($transaction_total) ? (($page - 1) * 10) + 1 : 0, ((($page - 1) * 10) > ($transaction_total - 10)) ? $transaction_total : ((($page - 1) * 10) + 10), $transaction_total, ceil($transaction_total / 10));
 
         $this->response->setOutput($this->load->view('sale/subscription_transaction', $data));
     }

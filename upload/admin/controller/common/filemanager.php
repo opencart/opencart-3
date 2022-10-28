@@ -11,7 +11,11 @@ class ControllerCommonFileManager extends Controller {
         }
 
         if (isset($this->request->get['filter_name'])) {
-            $filter_name = rtrim(str_replace(['*', '/', '\\'], '', $this->request->get['filter_name']), '/');
+            $filter_name = rtrim(str_replace([
+                '*',
+                '/',
+                '\\'
+            ], '', $this->request->get['filter_name']), '/');
         } else {
             $filter_name = '';
         }
@@ -29,8 +33,8 @@ class ControllerCommonFileManager extends Controller {
             $page = 1;
         }
 
-        $directories    = [];
-        $files          = [];
+        $directories = [];
+        $files = [];
         $data['images'] = [];
 
         $this->load->model('tool/image');
@@ -52,13 +56,13 @@ class ControllerCommonFileManager extends Controller {
         }
 
         // Merge directories and files
-        $images      = array_merge((array)$directories, (array)$files);
+        $images = array_merge((array)$directories, (array)$files);
 
         // Get total number of files and directories
         $image_total = count($images);
 
         // Split the array based on current page number and max number of items per page of 10
-        $images      = array_splice($images, ($page - 1) * 16, 16);
+        $images = array_splice($images, ($page - 1) * 16, 16);
 
         foreach ($images as $image) {
             $name = str_split(basename($image), 14);
@@ -142,7 +146,7 @@ class ControllerCommonFileManager extends Controller {
         $data['parent'] = $this->url->link('common/filemanager', 'user_token=' . $this->session->data['user_token'] . $url, true);
 
         // Refresh
-        $url            = '';
+        $url = '';
 
         if (isset($this->request->get['directory'])) {
             $url .= '&directory=' . urlencode($this->request->get['directory']);
@@ -176,11 +180,11 @@ class ControllerCommonFileManager extends Controller {
             $url .= '&thumb=' . $this->request->get['thumb'];
         }
 
-        $pagination         = new \Pagination();
-        $pagination->total  = $image_total;
-        $pagination->page   = $page;
-        $pagination->limit  = 16;
-        $pagination->url    = $this->url->link('common/filemanager', 'user_token=' . $this->session->data['user_token'] . $url . '&page={page}', true);
+        $pagination = new \Pagination();
+        $pagination->total = $image_total;
+        $pagination->page = $page;
+        $pagination->limit = 16;
+        $pagination->url = $this->url->link('common/filemanager', 'user_token=' . $this->session->data['user_token'] . $url . '&page={page}', true);
 
         $data['pagination'] = $pagination->render();
 
@@ -216,11 +220,11 @@ class ControllerCommonFileManager extends Controller {
             if (!empty($this->request->files['file']['name']) && is_array($this->request->files['file']['name'])) {
                 foreach (array_keys($this->request->files['file']['name']) as $key) {
                     $files[] = [
-                        'name'     => $this->request->files['file']['name'][$key],
-                        'type'     => $this->request->files['file']['type'][$key],
+                        'name' => $this->request->files['file']['name'][$key],
+                        'type' => $this->request->files['file']['type'][$key],
                         'tmp_name' => $this->request->files['file']['tmp_name'][$key],
-                        'error'    => $this->request->files['file']['error'][$key],
-                        'size'     => $this->request->files['file']['size'][$key]
+                        'error' => $this->request->files['file']['error'][$key],
+                        'size' => $this->request->files['file']['size'][$key]
                     ];
                 }
             }
@@ -368,7 +372,6 @@ class ControllerCommonFileManager extends Controller {
                 // If path is just a file delete it
                 if (is_file($path)) {
                     unlink($path);
-
                     // If path is a directory beging deleting each file and sub folder
                 } elseif (is_dir($path)) {
                     $files = [];
@@ -400,7 +403,6 @@ class ControllerCommonFileManager extends Controller {
                         // If file just delete
                         if (is_file($file)) {
                             unlink($file);
-
                             // If directory use the remove directory function
                         } elseif (is_dir($file)) {
                             rmdir($file);

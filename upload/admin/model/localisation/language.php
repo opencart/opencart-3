@@ -219,7 +219,6 @@ class ModelLocalisationLanguage extends Model {
 
         $this->cache->delete('catalog.language');
         $this->cache->delete('admin.language');
-
     }
 
     public function getLanguage(int $language_id): array {

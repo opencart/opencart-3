@@ -1,6 +1,6 @@
 <?php
 class ControllerExtensionPaymentKlarnaAccount extends Controller {
-    private array $error    = [];
+    private array $error = [];
     private array $pclasses = [];
 
     public function index(): void {
@@ -124,9 +124,9 @@ class ControllerExtensionPaymentKlarnaAccount extends Controller {
 
         $data['clear'] = $this->url->link('extension/payment/klarna_account/clear', 'user_token=' . $this->session->data['user_token'], true);
 
-        $data['header']      = $this->load->controller('common/header');
+        $data['header'] = $this->load->controller('common/header');
         $data['column_left'] = $this->load->controller('common/column_left');
-        $data['footer']      = $this->load->controller('common/footer');
+        $data['footer'] = $this->load->controller('common/footer');
 
         $this->response->setOutput($this->load->view('extension/payment/klarna_account', $data));
     }
@@ -222,7 +222,7 @@ class ControllerExtensionPaymentKlarnaAccount extends Controller {
                     if ($nodes->length == 0) {
                         $this->error['warning'] = $this->language->get('error_log');
 
-                        $error_code    = $xpath->query('//methodResponse/fault/value/struct/member/value/int')->item(0)->nodeValue;
+                        $error_code = $xpath->query('//methodResponse/fault/value/struct/member/value/int')->item(0)->nodeValue;
                         $error_message = $xpath->query('//methodResponse/fault/value/struct/member/value/string')->item(0)->nodeValue;
 
                         $log->write(sprintf($this->language->get('error_pclass'), $key, $error_code, $error_message));
@@ -233,7 +233,7 @@ class ControllerExtensionPaymentKlarnaAccount extends Controller {
                     $pclasses = $this->parseResponse($nodes->item(0)->firstChild, $xml);
 
                     while ($pclasses) {
-                        $pclass   = array_slice($pclasses, 0, 10);
+                        $pclass = array_slice($pclasses, 0, 10);
                         $pclasses = array_slice($pclasses, 10);
 
                         $pclass[3] /= 100;
@@ -297,7 +297,7 @@ class ControllerExtensionPaymentKlarnaAccount extends Controller {
             case 'array':
                 $value = [];
 
-                $xpath   = new \DOMXPath($document);
+                $xpath = new \DOMXPath($document);
                 $entries = $xpath->query('.//array/data/value', $child);
 
                 for ($i = 0; $i < $entries->length; $i++) {

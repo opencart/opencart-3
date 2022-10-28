@@ -41,57 +41,57 @@ class ControllerExtensionPaymentAuthorizeNetAim extends Controller {
             return;
         }
 
-        $order_info                    = $this->model_checkout_order->getOrder($this->session->data['order_id']);
+        $order_info = $this->model_checkout_order->getOrder($this->session->data['order_id']);
 
-        $post_data                     = [];
-        $post_data['x_login']          = $this->config->get('payment_authorizenet_aim_login');
-        $post_data['x_tran_key']       = $this->config->get('payment_authorizenet_aim_key');
-        $post_data['x_version']        = '3.1';
-        $post_data['x_delim_data']     = 'true';
-        $post_data['x_delim_char']     = '|';
-        $post_data['x_encap_char']     = '"';
+        $post_data = [];
+        $post_data['x_login'] = $this->config->get('payment_authorizenet_aim_login');
+        $post_data['x_tran_key'] = $this->config->get('payment_authorizenet_aim_key');
+        $post_data['x_version'] = '3.1';
+        $post_data['x_delim_data'] = 'true';
+        $post_data['x_delim_char'] = '|';
+        $post_data['x_encap_char'] = '"';
         $post_data['x_relay_response'] = 'false';
-        $post_data['x_first_name']     = $order_info['payment_firstname'];
-        $post_data['x_last_name']      = $order_info['payment_lastname'];
-        $post_data['x_company']        = $order_info['payment_company'];
-        $post_data['x_address']        = $order_info['payment_address_1'];
-        $post_data['x_city']           = $order_info['payment_city'];
-        $post_data['x_state']          = $order_info['payment_zone'];
-        $post_data['x_zip']            = $order_info['payment_postcode'];
-        $post_data['x_country']        = $order_info['payment_country'];
-        $post_data['x_phone']          = $order_info['telephone'];
-        $post_data['x_customer_ip']    = $this->request->server['REMOTE_ADDR'];
-        $post_data['x_email']          = $order_info['email'];
-        $post_data['x_description']    = html_entity_decode($this->config->get('config_name'), ENT_QUOTES, 'UTF-8');
-        $post_data['x_amount']         = $this->currency->format($order_info['total'], $order_info['currency_code'], 1.00000, false);
-        $post_data['x_currency_code']  = $this->session->data['currency'];
-        $post_data['x_method']         = 'CC';
-        $post_data['x_type']           = ($this->config->get('payment_authorizenet_aim_method') == 'capture') ? 'AUTH_CAPTURE' : 'AUTH_ONLY';
-        $post_data['x_card_num']       = str_replace(' ', '', $this->request->post['cc_number']);
-        $post_data['x_exp_date']       = $this->request->post['cc_expire_date_month'] . $this->request->post['cc_expire_date_year'];
-        $post_data['x_card_code']      = $this->request->post['cc_cvv2'];
-        $post_data['x_invoice_num']    = (int)$this->session->data['order_id'];
-        $post_data['x_solution_id']    = 'A1000015';
+        $post_data['x_first_name'] = $order_info['payment_firstname'];
+        $post_data['x_last_name'] = $order_info['payment_lastname'];
+        $post_data['x_company'] = $order_info['payment_company'];
+        $post_data['x_address'] = $order_info['payment_address_1'];
+        $post_data['x_city'] = $order_info['payment_city'];
+        $post_data['x_state'] = $order_info['payment_zone'];
+        $post_data['x_zip'] = $order_info['payment_postcode'];
+        $post_data['x_country'] = $order_info['payment_country'];
+        $post_data['x_phone'] = $order_info['telephone'];
+        $post_data['x_customer_ip'] = $this->request->server['REMOTE_ADDR'];
+        $post_data['x_email'] = $order_info['email'];
+        $post_data['x_description'] = html_entity_decode($this->config->get('config_name'), ENT_QUOTES, 'UTF-8');
+        $post_data['x_amount'] = $this->currency->format($order_info['total'], $order_info['currency_code'], 1.00000, false);
+        $post_data['x_currency_code'] = $this->session->data['currency'];
+        $post_data['x_method'] = 'CC';
+        $post_data['x_type'] = ($this->config->get('payment_authorizenet_aim_method') == 'capture') ? 'AUTH_CAPTURE' : 'AUTH_ONLY';
+        $post_data['x_card_num'] = str_replace(' ', '', $this->request->post['cc_number']);
+        $post_data['x_exp_date'] = $this->request->post['cc_expire_date_month'] . $this->request->post['cc_expire_date_year'];
+        $post_data['x_card_code'] = $this->request->post['cc_cvv2'];
+        $post_data['x_invoice_num'] = (int)$this->session->data['order_id'];
+        $post_data['x_solution_id'] = 'A1000015';
 
         /* Customer Shipping Address Fields */
         if ($order_info['shipping_method']) {
             $post_data['x_ship_to_first_name'] = $order_info['shipping_firstname'];
-            $post_data['x_ship_to_last_name']  = $order_info['shipping_lastname'];
-            $post_data['x_ship_to_company']    = $order_info['shipping_company'];
-            $post_data['x_ship_to_address']    = $order_info['shipping_address_1'] . ' ' . $order_info['shipping_address_2'];
-            $post_data['x_ship_to_city']       = $order_info['shipping_city'];
-            $post_data['x_ship_to_state']      = $order_info['shipping_zone'];
-            $post_data['x_ship_to_zip']        = $order_info['shipping_postcode'];
-            $post_data['x_ship_to_country']    = $order_info['shipping_country'];
+            $post_data['x_ship_to_last_name'] = $order_info['shipping_lastname'];
+            $post_data['x_ship_to_company'] = $order_info['shipping_company'];
+            $post_data['x_ship_to_address'] = $order_info['shipping_address_1'] . ' ' . $order_info['shipping_address_2'];
+            $post_data['x_ship_to_city'] = $order_info['shipping_city'];
+            $post_data['x_ship_to_state'] = $order_info['shipping_zone'];
+            $post_data['x_ship_to_zip'] = $order_info['shipping_postcode'];
+            $post_data['x_ship_to_country'] = $order_info['shipping_country'];
         } else {
             $post_data['x_ship_to_first_name'] = $order_info['payment_firstname'];
-            $post_data['x_ship_to_last_name']  = $order_info['payment_lastname'];
-            $post_data['x_ship_to_company']    = $order_info['payment_company'];
-            $post_data['x_ship_to_address']    = $order_info['payment_address_1'] . ' ' . $order_info['payment_address_2'];
-            $post_data['x_ship_to_city']       = $order_info['payment_city'];
-            $post_data['x_ship_to_state']      = $order_info['payment_zone'];
-            $post_data['x_ship_to_zip']        = $order_info['payment_postcode'];
-            $post_data['x_ship_to_country']    = $order_info['payment_country'];
+            $post_data['x_ship_to_last_name'] = $order_info['payment_lastname'];
+            $post_data['x_ship_to_company'] = $order_info['payment_company'];
+            $post_data['x_ship_to_address'] = $order_info['payment_address_1'] . ' ' . $order_info['payment_address_2'];
+            $post_data['x_ship_to_city'] = $order_info['payment_city'];
+            $post_data['x_ship_to_state'] = $order_info['payment_zone'];
+            $post_data['x_ship_to_zip'] = $order_info['payment_postcode'];
+            $post_data['x_ship_to_country'] = $order_info['payment_country'];
         }
 
         if ($this->config->get('payment_authorizenet_aim_mode') == 'test') {
@@ -120,9 +120,9 @@ class ControllerExtensionPaymentAuthorizeNetAim extends Controller {
 
             $this->log->write('AUTHNET AIM CURL ERROR: ' . curl_errno($curl) . '::' . curl_error($curl));
         } elseif ($response) {
-            $i             = 1;
+            $i = 1;
             $response_info = [];
-            $results       = explode('|', $response);
+            $results = explode('|', $response);
 
             foreach ($results as $result) {
                 $response_info[$i] = trim($result, '"');

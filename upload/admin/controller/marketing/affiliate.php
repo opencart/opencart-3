@@ -24,7 +24,7 @@ class ControllerMarketingAffiliate extends Controller {
 
             $this->session->data['success'] = $this->language->get('text_success');
 
-            $url                            = '';
+            $url = '';
 
             if (isset($this->request->get['filter_customer'])) {
                 $url .= '&filter_customer=' . urlencode(html_entity_decode($this->request->get['filter_customer'], ENT_QUOTES, 'UTF-8'));
@@ -76,7 +76,7 @@ class ControllerMarketingAffiliate extends Controller {
 
             $this->session->data['success'] = $this->language->get('text_success');
 
-            $url                            = '';
+            $url = '';
 
             if (isset($this->request->get['filter_customer'])) {
                 $url .= '&filter_customer=' . urlencode(html_entity_decode($this->request->get['filter_customer'], ENT_QUOTES, 'UTF-8'));
@@ -130,7 +130,7 @@ class ControllerMarketingAffiliate extends Controller {
 
             $this->session->data['success'] = $this->language->get('text_success');
 
-            $url                            = '';
+            $url = '';
 
             if (isset($this->request->get['filter_customer'])) {
                 $url .= '&filter_customer=' . urlencode(html_entity_decode($this->request->get['filter_customer'], ENT_QUOTES, 'UTF-8'));
@@ -253,7 +253,7 @@ class ControllerMarketingAffiliate extends Controller {
             $url .= '&page=' . $this->request->get['page'];
         }
 
-        $data['breadcrumbs']   = [];
+        $data['breadcrumbs'] = [];
 
         $data['breadcrumbs'][] = [
             'text' => $this->language->get('text_home'),
@@ -265,14 +265,14 @@ class ControllerMarketingAffiliate extends Controller {
             'href' => $this->url->link('marketing/affiliate', 'user_token=' . $this->session->data['user_token'] . $url, true)
         ];
 
-        $data['add']        = $this->url->link('marketing/affiliate/add', 'user_token=' . $this->session->data['user_token'] . $url, true);
-        $data['delete']     = $this->url->link('marketing/affiliate/delete', 'user_token=' . $this->session->data['user_token'] . $url, true);
+        $data['add'] = $this->url->link('marketing/affiliate/add', 'user_token=' . $this->session->data['user_token'] . $url, true);
+        $data['delete'] = $this->url->link('marketing/affiliate/delete', 'user_token=' . $this->session->data['user_token'] . $url, true);
 
         $data['affiliates'] = [];
 
         $this->load->model('customer/customer');
 
-        $filter_data        = [
+        $filter_data = [
             'filter_name'       => $filter_customer,
             'filter_tracking'   => $filter_tracking,
             'filter_commission' => $filter_commission,
@@ -284,9 +284,9 @@ class ControllerMarketingAffiliate extends Controller {
             'limit'             => $this->config->get('config_limit_admin')
         ];
 
-        $affiliate_total    = $this->model_marketing_affiliate->getTotalAffiliates($filter_data);
+        $affiliate_total = $this->model_marketing_affiliate->getTotalAffiliates($filter_data);
 
-        $results            = $this->model_marketing_affiliate->getAffiliates($filter_data);
+        $results = $this->model_marketing_affiliate->getAffiliates($filter_data);
 
         foreach ($results as $result) {
             $data['affiliates'][] = [
@@ -356,13 +356,13 @@ class ControllerMarketingAffiliate extends Controller {
             $url .= '&page=' . $this->request->get['page'];
         }
 
-        $data['sort_name']       = $this->url->link('marketing/affiliate', 'user_token=' . $this->session->data['user_token'] . '&sort=name' . $url, true);
-        $data['sort_tracking']   = $this->url->link('marketing/affiliate', 'user_token=' . $this->session->data['user_token'] . '&sort=ca.tracking' . $url, true);
+        $data['sort_name'] = $this->url->link('marketing/affiliate', 'user_token=' . $this->session->data['user_token'] . '&sort=name' . $url, true);
+        $data['sort_tracking'] = $this->url->link('marketing/affiliate', 'user_token=' . $this->session->data['user_token'] . '&sort=ca.tracking' . $url, true);
         $data['sort_commission'] = $this->url->link('marketing/affiliate', 'user_token=' . $this->session->data['user_token'] . '&sort=ca.commission' . $url, true);
-        $data['sort_status']     = $this->url->link('marketing/affiliate', 'user_token=' . $this->session->data['user_token'] . '&sort=ca.status' . $url, true);
+        $data['sort_status'] = $this->url->link('marketing/affiliate', 'user_token=' . $this->session->data['user_token'] . '&sort=ca.status' . $url, true);
         $data['sort_date_added'] = $this->url->link('marketing/affiliate', 'user_token=' . $this->session->data['user_token'] . '&sort=ca.date_added' . $url, true);
 
-        $url                     = '';
+        $url = '';
 
         if (isset($this->request->get['filter_customer'])) {
             $url .= '&filter_customer=' . urlencode(html_entity_decode($this->request->get['filter_customer'], ENT_QUOTES, 'UTF-8'));
@@ -392,33 +392,33 @@ class ControllerMarketingAffiliate extends Controller {
             $url .= '&order=' . $this->request->get['order'];
         }
 
-        $pagination                = new \Pagination();
-        $pagination->total         = $affiliate_total;
-        $pagination->page          = $page;
-        $pagination->limit         = $this->config->get('config_limit_admin');
-        $pagination->url           = $this->url->link('marketing/affiliate', 'user_token=' . $this->session->data['user_token'] . $url . '&page={page}', true);
+        $pagination = new \Pagination();
+        $pagination->total = $affiliate_total;
+        $pagination->page = $page;
+        $pagination->limit = $this->config->get('config_limit_admin');
+        $pagination->url = $this->url->link('marketing/affiliate', 'user_token=' . $this->session->data['user_token'] . $url . '&page={page}', true);
 
-        $data['pagination']        = $pagination->render();
-        $data['results']           = sprintf($this->language->get('text_pagination'), ($affiliate_total) ? (($page - 1) * $this->config->get('config_limit_admin')) + 1 : 0, ((($page - 1) * $this->config->get('config_limit_admin')) > ($affiliate_total - $this->config->get('config_limit_admin'))) ? $affiliate_total : ((($page - 1) * $this->config->get('config_limit_admin')) + $this->config->get('config_limit_admin')), $affiliate_total, ceil($affiliate_total / $this->config->get('config_limit_admin')));
+        $data['pagination'] = $pagination->render();
+        $data['results'] = sprintf($this->language->get('text_pagination'), ($affiliate_total) ? (($page - 1) * $this->config->get('config_limit_admin')) + 1 : 0, ((($page - 1) * $this->config->get('config_limit_admin')) > ($affiliate_total - $this->config->get('config_limit_admin'))) ? $affiliate_total : ((($page - 1) * $this->config->get('config_limit_admin')) + $this->config->get('config_limit_admin')), $affiliate_total, ceil($affiliate_total / $this->config->get('config_limit_admin')));
 
-        $data['filter_customer']   = $filter_customer;
-        $data['filter_tracking']   = $filter_tracking;
+        $data['filter_customer'] = $filter_customer;
+        $data['filter_tracking'] = $filter_tracking;
         $data['filter_commission'] = $filter_commission;
-        $data['filter_status']     = $filter_status;
+        $data['filter_status'] = $filter_status;
         $data['filter_date_added'] = $filter_date_added;
 
-        $data['sort']              = $sort;
-        $data['order']             = $order;
+        $data['sort'] = $sort;
+        $data['order'] = $order;
 
-        $data['header']            = $this->load->controller('common/header');
-        $data['column_left']       = $this->load->controller('common/column_left');
-        $data['footer']            = $this->load->controller('common/footer');
+        $data['header'] = $this->load->controller('common/header');
+        $data['column_left'] = $this->load->controller('common/column_left');
+        $data['footer'] = $this->load->controller('common/footer');
 
         $this->response->setOutput($this->load->view('marketing/affiliate_list', $data));
     }
 
     protected function getForm() {
-        $data['text_form']  = !isset($this->request->get['customer_id']) ? $this->language->get('text_add') : $this->language->get('text_edit');
+        $data['text_form'] = !isset($this->request->get['customer_id']) ? $this->language->get('text_add') : $this->language->get('text_edit');
 
         $data['user_token'] = $this->session->data['user_token'];
 
@@ -498,7 +498,7 @@ class ControllerMarketingAffiliate extends Controller {
             $url .= '&page=' . $this->request->get['page'];
         }
 
-        $data['breadcrumbs']   = [];
+        $data['breadcrumbs'] = [];
 
         $data['breadcrumbs'][] = [
             'text' => $this->language->get('text_home'),
@@ -662,12 +662,12 @@ class ControllerMarketingAffiliate extends Controller {
 
         $data['custom_fields'] = [];
 
-        $filter_data           = [
+        $filter_data = [
             'sort'  => 'cf.sort_order',
             'order' => 'ASC'
         ];
 
-        $custom_fields         = $this->model_customer_custom_field->getCustomFields($filter_data);
+        $custom_fields = $this->model_customer_custom_field->getCustomFields($filter_data);
 
         foreach ($custom_fields as $custom_field) {
             if ($custom_field['status']) {
@@ -691,9 +691,9 @@ class ControllerMarketingAffiliate extends Controller {
             $data['affiliate_custom_field'] = [];
         }
 
-        $data['header']      = $this->load->controller('common/header');
+        $data['header'] = $this->load->controller('common/header');
         $data['column_left'] = $this->load->controller('common/column_left');
-        $data['footer']      = $this->load->controller('common/footer');
+        $data['footer'] = $this->load->controller('common/footer');
 
         $this->response->setOutput($this->load->view('marketing/affiliate_form', $data));
     }
@@ -821,16 +821,16 @@ class ControllerMarketingAffiliate extends Controller {
             ];
         }
 
-        $report_total       = $this->model_marketing_affiliate->getTotalReports($customer_id);
+        $report_total = $this->model_marketing_affiliate->getTotalReports($customer_id);
 
-        $pagination         = new \Pagination();
-        $pagination->total  = $report_total;
-        $pagination->page   = $page;
-        $pagination->limit  = 10;
-        $pagination->url    = $this->url->link('marketing/affiliate/report', 'user_token=' . $this->session->data['user_token'] . '&customer_id=' . $customer_id . '&page={page}', true);
+        $pagination = new \Pagination();
+        $pagination->total = $report_total;
+        $pagination->page = $page;
+        $pagination->limit = 10;
+        $pagination->url = $this->url->link('marketing/affiliate/report', 'user_token=' . $this->session->data['user_token'] . '&customer_id=' . $customer_id . '&page={page}', true);
 
         $data['pagination'] = $pagination->render();
-        $data['results']    = sprintf($this->language->get('text_pagination'), ($report_total) ? (($page - 1) * 10) + 1 : 0, ((($page - 1) * 10) > ($report_total - 10)) ? $report_total : ((($page - 1) * 10) + 10), $report_total, ceil($report_total / 10));
+        $data['results'] = sprintf($this->language->get('text_pagination'), ($report_total) ? (($page - 1) * 10) + 1 : 0, ((($page - 1) * 10) > ($report_total - 10)) ? $report_total : ((($page - 1) * 10) + 10), $report_total, ceil($report_total / 10));
 
         $this->response->setOutput($this->load->view('marketing/affiliate_report', $data));
     }

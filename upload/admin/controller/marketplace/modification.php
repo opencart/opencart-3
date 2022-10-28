@@ -30,7 +30,7 @@ class ControllerMarketplaceModification extends Controller {
 
             $this->session->data['success'] = $this->language->get('text_success');
 
-            $url                            = '';
+            $url = '';
 
             if (isset($this->request->get['sort'])) {
                 $url .= '&sort=' . $this->request->get['sort'];
@@ -66,13 +66,13 @@ class ControllerMarketplaceModification extends Controller {
             $this->model_setting_setting->editSettingValue('config', 'config_maintenance', true);
 
             // Log
-            $log   = [];
+            $log = [];
 
             // Clear all modification files
             $files = [];
 
             // Make path into an array
-            $path  = [DIR_MODIFICATION . '*'];
+            $path = [DIR_MODIFICATION . '*'];
 
             // While the path array is still populated keep looping through
             while (count($path) != 0) {
@@ -100,7 +100,6 @@ class ControllerMarketplaceModification extends Controller {
                     // If file just delete
                     if (is_file($file)) {
                         unlink($file);
-
                         // If directory use the remove directory function
                     } elseif (is_dir($file)) {
                         rmdir($file);
@@ -109,7 +108,7 @@ class ControllerMarketplaceModification extends Controller {
             }
 
             // Begin
-            $xml   = [];
+            $xml = [];
 
             // Load the default modification XML
             $xml[] = file_get_contents(DIR_SYSTEM . 'modification.xml');
@@ -139,12 +138,12 @@ class ControllerMarketplaceModification extends Controller {
                     continue;
                 }
 
-                $dom                     = new \DOMDocument('1.0', 'UTF-8');
+                $dom = new \DOMDocument('1.0', 'UTF-8');
                 $dom->preserveWhiteSpace = false;
                 $dom->loadXml($xml);
 
                 // Log
-                $log[]    = 'MOD: ' . $dom->getElementsByTagName('name')->item(0)->textContent;
+                $log[] = 'MOD: ' . $dom->getElementsByTagName('name')->item(0)->textContent;
 
                 // Wipe the past modification store in the backup array
                 $recovery = [];
@@ -154,12 +153,12 @@ class ControllerMarketplaceModification extends Controller {
                     $recovery = $modification;
                 }
 
-                $files    = $dom->getElementsByTagName('modification')->item(0)->getElementsByTagName('file');
+                $files = $dom->getElementsByTagName('modification')->item(0)->getElementsByTagName('file');
 
                 foreach ($files as $file) {
                     $operations = $file->getElementsByTagName('operation');
 
-                    $files      = explode('|', str_replace("\\", '/', $file->getAttribute('path')));
+                    $files = explode('|', str_replace("\\", '/', $file->getAttribute('path')));
 
                     foreach ($files as $file) {
                         $path = '';
@@ -197,20 +196,19 @@ class ControllerMarketplaceModification extends Controller {
 
                                     // If file contents is not already in the modification array we need to load it.
                                     if (!isset($modification[$key])) {
-                                        $content            = file_get_contents($file);
+                                        $content = file_get_contents($file);
                                         $modification[$key] = preg_replace('~\r?\n~', "\n", $content);
-                                        $original[$key]     = preg_replace('~\r?\n~', "\n", $content);
+                                        $original[$key] = preg_replace('~\r?\n~', "\n", $content);
 
                                         // Log
-                                        $log[]              = PHP_EOL . 'FILE: ' . $key;
+                                        $log[] = PHP_EOL . 'FILE: ' . $key;
                                     } else {
                                         // Log
-                                        $log[]              = PHP_EOL . 'FILE: (sub modification) ' . $key;
-
+                                        $log[] = PHP_EOL . 'FILE: (sub modification) ' . $key;
                                     }
 
                                     foreach ($operations as $operation) {
-                                        $error    = $operation->getAttribute('error');
+                                        $error = $operation->getAttribute('error');
 
                                         // Ignoreif
                                         $ignoreif = $operation->getElementsByTagName('ignoreif')->item(0);
@@ -233,8 +231,8 @@ class ControllerMarketplaceModification extends Controller {
                                         if ($operation->getElementsByTagName('search')->item(0)->getAttribute('regex') != 'true') {
                                             // Search
                                             $search = $operation->getElementsByTagName('search')->item(0)->textContent;
-                                            $trim   = $operation->getElementsByTagName('search')->item(0)->getAttribute('trim');
-                                            $index  = $operation->getElementsByTagName('search')->item(0)->getAttribute('index');
+                                            $trim = $operation->getElementsByTagName('search')->item(0)->getAttribute('trim');
+                                            $index = $operation->getElementsByTagName('search')->item(0)->getAttribute('index');
 
                                             // Trim line if no trim attribute is set or is set to true.
                                             if (!$trim || $trim == 'true') {
@@ -242,10 +240,10 @@ class ControllerMarketplaceModification extends Controller {
                                             }
 
                                             // Add
-                                            $add      = $operation->getElementsByTagName('add')->item(0)->textContent;
-                                            $trim     = $operation->getElementsByTagName('add')->item(0)->getAttribute('trim');
+                                            $add = $operation->getElementsByTagName('add')->item(0)->textContent;
+                                            $trim = $operation->getElementsByTagName('add')->item(0)->getAttribute('trim');
                                             $position = $operation->getElementsByTagName('add')->item(0)->getAttribute('position');
-                                            $offset   = $operation->getElementsByTagName('add')->item(0)->getAttribute('offset');
+                                            $offset = $operation->getElementsByTagName('add')->item(0)->getAttribute('offset');
 
                                             if ($offset == '') {
                                                 $offset = 0;
@@ -267,12 +265,12 @@ class ControllerMarketplaceModification extends Controller {
                                             }
 
                                             // Get all the matches
-                                            $i     = 0;
+                                            $i = 0;
 
                                             $lines = explode("\n", $modification[$key]);
 
                                             for ($line_id = 0; $line_id < count($lines); $line_id++) {
-                                                $line  = $lines[$line_id];
+                                                $line = $lines[$line_id];
 
                                                 // Status
                                                 $match = false;
@@ -309,19 +307,19 @@ class ControllerMarketplaceModification extends Controller {
 
                                                             array_splice($lines, $line_id - $offset, 0, $new_lines);
 
-                                                            $line_id   += count($new_lines);
+                                                            $line_id += count($new_lines);
                                                             break;
                                                         case 'after':
                                                             $new_lines = explode("\n", $add);
 
                                                             array_splice($lines, ($line_id + 1) + $offset, 0, $new_lines);
 
-                                                            $line_id   += count($new_lines);
+                                                            $line_id += count($new_lines);
                                                             break;
                                                     }
 
                                                     // Log
-                                                    $log[]  = 'LINE: ' . $line_id;
+                                                    $log[] = 'LINE: ' . $line_id;
 
                                                     $status = true;
                                                 }
@@ -329,8 +327,8 @@ class ControllerMarketplaceModification extends Controller {
 
                                             $modification[$key] = implode("\n", $lines);
                                         } else {
-                                            $search  = trim($operation->getElementsByTagName('search')->item(0)->textContent);
-                                            $limit   = $operation->getElementsByTagName('search')->item(0)->getAttribute('limit');
+                                            $search = trim($operation->getElementsByTagName('search')->item(0)->textContent);
+                                            $limit = $operation->getElementsByTagName('search')->item(0)->getAttribute('limit');
                                             $replace = trim($operation->getElementsByTagName('add')->item(0)->textContent);
 
                                             // Limit
@@ -339,7 +337,7 @@ class ControllerMarketplaceModification extends Controller {
                                             }
 
                                             // Log
-                                            $match   = [];
+                                            $match = [];
 
                                             preg_match_all($search, $modification[$key], $match, PREG_OFFSET_CAPTURE);
 
@@ -368,17 +366,17 @@ class ControllerMarketplaceModification extends Controller {
                                                 $modification = $recovery;
 
                                                 // Log
-                                                $log[]        = 'NOT FOUND - ABORTING!';
+                                                $log[] = 'NOT FOUND - ABORTING!';
                                                 break 5;
-                                            // Skip current operation or break
+                                                // Skip current operation or break
                                             } elseif ($error == 'skip') {
                                                 // Log
-                                                $log[]        = 'NOT FOUND - OPERATION SKIPPED!';
+                                                $log[] = 'NOT FOUND - OPERATION SKIPPED!';
                                                 continue;
-                                            // Break current operations
+                                                // Break current operations
                                             } else {
                                                 // Log
-                                                $log[]        = 'NOT FOUND - OPERATIONS ABORTED!';
+                                                $log[] = 'NOT FOUND - OPERATIONS ABORTED!';
                                                 break;
                                             }
                                         }
@@ -401,7 +399,7 @@ class ControllerMarketplaceModification extends Controller {
             foreach ($modification as $key => $value) {
                 // Only create a file if there are changes
                 if ($original[$key] != $value) {
-                    $path        = '';
+                    $path = '';
 
                     $directories = explode('/', dirname($key));
 
@@ -456,7 +454,7 @@ class ControllerMarketplaceModification extends Controller {
             $files = [];
 
             // Make path into an array
-            $path  = [DIR_MODIFICATION . '*'];
+            $path = [DIR_MODIFICATION . '*'];
 
             // While the path array is still populated keep looping through
             while (count($path) != 0) {
@@ -484,7 +482,6 @@ class ControllerMarketplaceModification extends Controller {
                     // If file just delete
                     if (is_file($file)) {
                         unlink($file);
-
                         // If directory use the remove directory function
                     } elseif (is_dir($file)) {
                         rmdir($file);
@@ -494,7 +491,7 @@ class ControllerMarketplaceModification extends Controller {
 
             $this->session->data['success'] = $this->language->get('text_success');
 
-            $url                            = '';
+            $url = '';
 
             if (isset($this->request->get['sort'])) {
                 $url .= '&sort=' . $this->request->get['sort'];
@@ -526,7 +523,7 @@ class ControllerMarketplaceModification extends Controller {
 
             $this->session->data['success'] = $this->language->get('text_success');
 
-            $url                            = '';
+            $url = '';
 
             if (isset($this->request->get['sort'])) {
                 $url .= '&sort=' . $this->request->get['sort'];
@@ -558,7 +555,7 @@ class ControllerMarketplaceModification extends Controller {
 
             $this->session->data['success'] = $this->language->get('text_success');
 
-            $url                            = '';
+            $url = '';
 
             if (isset($this->request->get['sort'])) {
                 $url .= '&sort=' . $this->request->get['sort'];
@@ -586,11 +583,11 @@ class ControllerMarketplaceModification extends Controller {
         $this->load->model('setting/modification');
 
         if ($this->validate()) {
-            $handle                         = fopen(DIR_LOGS . 'ocmod.log', 'w+');
+            $handle = fopen(DIR_LOGS . 'ocmod.log', 'w+');
             fclose($handle);
 
             $this->session->data['success'] = $this->language->get('text_success');
-            $url                            = '';
+            $url = '';
 
             if (isset($this->request->get['sort'])) {
                 $url .= '&sort=' . $this->request->get['sort'];
@@ -643,7 +640,7 @@ class ControllerMarketplaceModification extends Controller {
             $url .= '&page=' . $this->request->get['page'];
         }
 
-        $data['breadcrumbs']   = [];
+        $data['breadcrumbs'] = [];
 
         $data['breadcrumbs'][] = [
             'text' => $this->language->get('text_home'),
@@ -655,22 +652,22 @@ class ControllerMarketplaceModification extends Controller {
             'href' => $this->url->link('marketplace/modification', 'user_token=' . $this->session->data['user_token'], true)
         ];
 
-        $data['refresh']       = $this->url->link('marketplace/modification/refresh', 'user_token=' . $this->session->data['user_token'] . $url, true);
-        $data['clear']         = $this->url->link('marketplace/modification/clear', 'user_token=' . $this->session->data['user_token'] . $url, true);
-        $data['delete']        = $this->url->link('marketplace/modification/delete', 'user_token=' . $this->session->data['user_token'] . $url, true);
+        $data['refresh'] = $this->url->link('marketplace/modification/refresh', 'user_token=' . $this->session->data['user_token'] . $url, true);
+        $data['clear'] = $this->url->link('marketplace/modification/clear', 'user_token=' . $this->session->data['user_token'] . $url, true);
+        $data['delete'] = $this->url->link('marketplace/modification/delete', 'user_token=' . $this->session->data['user_token'] . $url, true);
 
         $data['modifications'] = [];
 
-        $filter_data           = [
+        $filter_data = [
             'sort'  => $sort,
             'order' => $order,
             'start' => ($page - 1) * $this->config->get('config_limit_admin'),
             'limit' => $this->config->get('config_limit_admin')
         ];
 
-        $modification_total    = $this->model_setting_modification->getTotalModifications();
+        $modification_total = $this->model_setting_modification->getTotalModifications();
 
-        $results               = $this->model_setting_modification->getModifications($filter_data);
+        $results = $this->model_setting_modification->getModifications($filter_data);
 
         foreach ($results as $result) {
             $data['modifications'][] = [
@@ -721,10 +718,10 @@ class ControllerMarketplaceModification extends Controller {
             $url .= '&page=' . $this->request->get['page'];
         }
 
-        $data['sort_name']       = $this->url->link('marketplace/modification', 'user_token=' . $this->session->data['user_token'] . '&sort=name' . $url, true);
-        $data['sort_author']     = $this->url->link('marketplace/modification', 'user_token=' . $this->session->data['user_token'] . '&sort=author' . $url, true);
-        $data['sort_version']    = $this->url->link('marketplace/modification', 'user_token=' . $this->session->data['user_token'] . '&sort=version' . $url, true);
-        $data['sort_status']     = $this->url->link('marketplace/modification', 'user_token=' . $this->session->data['user_token'] . '&sort=status' . $url, true);
+        $data['sort_name'] = $this->url->link('marketplace/modification', 'user_token=' . $this->session->data['user_token'] . '&sort=name' . $url, true);
+        $data['sort_author'] = $this->url->link('marketplace/modification', 'user_token=' . $this->session->data['user_token'] . '&sort=author' . $url, true);
+        $data['sort_version'] = $this->url->link('marketplace/modification', 'user_token=' . $this->session->data['user_token'] . '&sort=version' . $url, true);
+        $data['sort_status'] = $this->url->link('marketplace/modification', 'user_token=' . $this->session->data['user_token'] . '&sort=status' . $url, true);
         $data['sort_date_added'] = $this->url->link('marketplace/modification', 'user_token=' . $this->session->data['user_token'] . '&sort=date_added' . $url, true);
 
         $url = '';
@@ -737,17 +734,17 @@ class ControllerMarketplaceModification extends Controller {
             $url .= '&order=' . $this->request->get['order'];
         }
 
-        $pagination         = new \Pagination();
-        $pagination->total  = $modification_total;
-        $pagination->page   = $page;
-        $pagination->limit  = $this->config->get('config_limit_admin');
-        $pagination->url    = $this->url->link('marketplace/modification', 'user_token=' . $this->session->data['user_token'] . $url . '&page={page}', true);
+        $pagination = new \Pagination();
+        $pagination->total = $modification_total;
+        $pagination->page = $page;
+        $pagination->limit = $this->config->get('config_limit_admin');
+        $pagination->url = $this->url->link('marketplace/modification', 'user_token=' . $this->session->data['user_token'] . $url . '&page={page}', true);
 
         $data['pagination'] = $pagination->render();
-        $data['results']    = sprintf($this->language->get('text_pagination'), ($modification_total) ? (($page - 1) * $this->config->get('config_limit_admin')) + 1 : 0, ((($page - 1) * $this->config->get('config_limit_admin')) > ($modification_total - $this->config->get('config_limit_admin'))) ? $modification_total : ((($page - 1) * $this->config->get('config_limit_admin')) + $this->config->get('config_limit_admin')), $modification_total, ceil($modification_total / $this->config->get('config_limit_admin')));
+        $data['results'] = sprintf($this->language->get('text_pagination'), ($modification_total) ? (($page - 1) * $this->config->get('config_limit_admin')) + 1 : 0, ((($page - 1) * $this->config->get('config_limit_admin')) > ($modification_total - $this->config->get('config_limit_admin'))) ? $modification_total : ((($page - 1) * $this->config->get('config_limit_admin')) + $this->config->get('config_limit_admin')), $modification_total, ceil($modification_total / $this->config->get('config_limit_admin')));
 
-        $data['sort']       = $sort;
-        $data['order']      = $order;
+        $data['sort'] = $sort;
+        $data['order'] = $order;
 
         // Log
         $file = DIR_LOGS . 'ocmod.log';
@@ -758,11 +755,11 @@ class ControllerMarketplaceModification extends Controller {
             $data['log'] = '';
         }
 
-        $data['clear_log']   = $this->url->link('marketplace/modification/clearlog', 'user_token=' . $this->session->data['user_token'], true);
+        $data['clear_log'] = $this->url->link('marketplace/modification/clearlog', 'user_token=' . $this->session->data['user_token'], true);
 
-        $data['header']      = $this->load->controller('common/header');
+        $data['header'] = $this->load->controller('common/header');
         $data['column_left'] = $this->load->controller('common/column_left');
-        $data['footer']      = $this->load->controller('common/footer');
+        $data['footer'] = $this->load->controller('common/footer');
 
         $this->response->setOutput($this->load->view('marketplace/modification', $data));
     }

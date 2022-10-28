@@ -5,7 +5,7 @@ class ControllerCheckoutCart extends Controller {
 
         $this->document->setTitle($this->language->get('heading_title'));
 
-        $data['breadcrumbs']   = [];
+        $data['breadcrumbs'] = [];
 
         $data['breadcrumbs'][] = [
             'href' => $this->url->link('common/home'),
@@ -53,7 +53,7 @@ class ControllerCheckoutCart extends Controller {
 
             $data['products'] = [];
 
-            $products         = $this->cart->getProducts();
+            $products = $this->cart->getProducts();
 
             foreach ($products as $product) {
                 $product_total = 0;
@@ -99,8 +99,8 @@ class ControllerCheckoutCart extends Controller {
                 if ($this->customer->isLogged() || !$this->config->get('config_customer_price')) {
                     $unit_price = $this->tax->calculate($product['price'], $product['tax_class_id'], $this->config->get('config_tax'));
 
-                    $price      = $this->currency->format($unit_price, $this->session->data['currency']);
-                    $total      = $this->currency->format($unit_price * $product['quantity'], $this->session->data['currency']);
+                    $price = $this->currency->format($unit_price, $this->session->data['currency']);
+                    $total = $this->currency->format($unit_price * $product['quantity'], $this->session->data['currency']);
                 } else {
                     $price = false;
                     $total = false;
@@ -110,19 +110,19 @@ class ControllerCheckoutCart extends Controller {
                 $description = '';
 
                 if ($product['subscription']) {
-                    $trial_price     = $this->currency->format($this->tax->calculate($product['subscription']['trial_price'], $product['tax_class_id'], $this->config->get('config_tax')), $this->session->data['currency']);
-                    $trial_cycle     = $product['subscription']['trial_cycle'];
+                    $trial_price = $this->currency->format($this->tax->calculate($product['subscription']['trial_price'], $product['tax_class_id'], $this->config->get('config_tax')), $this->session->data['currency']);
+                    $trial_cycle = $product['subscription']['trial_cycle'];
                     $trial_frequency = $this->language->get('text_' . $product['subscription']['trial_frequency']);
-                    $trial_duration  = $product['subscription']['trial_duration'];
+                    $trial_duration = $product['subscription']['trial_duration'];
 
                     if ($product['subscription']['trial_status']) {
                         $description .= sprintf($this->language->get('text_subscription_trial'), $trial_price, $trial_cycle, $trial_frequency, $trial_duration);
                     }
 
-                    $price     = $this->currency->format($this->tax->calculate($product['subscription']['price'], $product['tax_class_id'], $this->config->get('config_tax')), $this->session->data['currency']);
-                    $cycle     = $product['subscription']['cycle'];
+                    $price = $this->currency->format($this->tax->calculate($product['subscription']['price'], $product['tax_class_id'], $this->config->get('config_tax')), $this->session->data['currency']);
+                    $cycle = $product['subscription']['cycle'];
                     $frequency = $this->language->get('text_' . $product['subscription']['frequency']);
-                    $duration  = $product['subscription']['duration'];
+                    $duration = $product['subscription']['duration'];
 
                     if ($duration) {
                         $description .= sprintf($this->language->get('text_subscription_duration'), $price, $cycle, $frequency, $duration);
@@ -164,9 +164,9 @@ class ControllerCheckoutCart extends Controller {
             // Totals
             $this->load->model('setting/extension');
 
-            $total      = 0;
-            $totals     = [];
-            $taxes      = $this->cart->getTaxes();
+            $total = 0;
+            $totals = [];
+            $taxes = $this->cart->getTaxes();
 
             // Because __call can not keep var references so we put them into an array.
             $total_data = [
@@ -179,7 +179,7 @@ class ControllerCheckoutCart extends Controller {
             if ($this->customer->isLogged() || !$this->config->get('config_customer_price')) {
                 $sort_order = [];
 
-                $results    = $this->model_setting_extension->getExtensions('total');
+                $results = $this->model_setting_extension->getExtensions('total');
 
                 foreach ($results as $key => $value) {
                     $sort_order[$key] = $this->config->get('total_' . $value['code'] . '_sort_order');
@@ -218,7 +218,7 @@ class ControllerCheckoutCart extends Controller {
 
             $data['modules'] = [];
 
-            $files           = glob(DIR_APPLICATION . '/controller/extension/total/*.php');
+            $files = glob(DIR_APPLICATION . '/controller/extension/total/*.php');
 
             if ($files) {
                 foreach ($files as $file) {
@@ -230,30 +230,30 @@ class ControllerCheckoutCart extends Controller {
                 }
             }
 
-            $data['action']         = $this->url->link('checkout/cart/edit', '', true);
-            $data['continue']       = $this->url->link('common/home');
-            $data['checkout']       = $this->url->link('checkout/checkout', '', true);
+            $data['action'] = $this->url->link('checkout/cart/edit', '', true);
+            $data['continue'] = $this->url->link('common/home');
+            $data['checkout'] = $this->url->link('checkout/checkout', '', true);
 
-            $data['column_left']    = $this->load->controller('common/column_left');
-            $data['column_right']   = $this->load->controller('common/column_right');
-            $data['content_top']    = $this->load->controller('common/content_top');
+            $data['column_left'] = $this->load->controller('common/column_left');
+            $data['column_right'] = $this->load->controller('common/column_right');
+            $data['content_top'] = $this->load->controller('common/content_top');
             $data['content_bottom'] = $this->load->controller('common/content_bottom');
-            $data['footer']         = $this->load->controller('common/footer');
-            $data['header']         = $this->load->controller('common/header');
+            $data['footer'] = $this->load->controller('common/footer');
+            $data['header'] = $this->load->controller('common/header');
 
             $this->response->setOutput($this->load->view('checkout/cart', $data));
         } else {
             unset($this->session->data['success']);
 
-            $data['continue']       = $this->url->link('common/home');
-            $data['text_error']     = $this->language->get('text_no_results');
-            
-            $data['column_left']    = $this->load->controller('common/column_left');
-            $data['column_right']   = $this->load->controller('common/column_right');
-            $data['content_top']    = $this->load->controller('common/content_top');
+            $data['continue'] = $this->url->link('common/home');
+            $data['text_error'] = $this->language->get('text_no_results');
+
+            $data['column_left'] = $this->load->controller('common/column_left');
+            $data['column_right'] = $this->load->controller('common/column_right');
+            $data['content_top'] = $this->load->controller('common/content_top');
             $data['content_bottom'] = $this->load->controller('common/content_bottom');
-            $data['footer']         = $this->load->controller('common/footer');
-            $data['header']         = $this->load->controller('common/header');
+            $data['footer'] = $this->load->controller('common/footer');
+            $data['header'] = $this->load->controller('common/header');
 
             $this->response->setOutput($this->load->view('error/not_found', $data));
         }
@@ -330,9 +330,9 @@ class ControllerCheckoutCart extends Controller {
                 // Totals
                 $this->load->model('setting/extension');
 
-                $total      = 0;
-                $totals     = [];
-                $taxes      = $this->cart->getTaxes();
+                $total = 0;
+                $totals = [];
+                $taxes = $this->cart->getTaxes();
 
                 // Because __call can not keep var references so we put them into an array.
                 $total_data = [
@@ -345,7 +345,7 @@ class ControllerCheckoutCart extends Controller {
                 if ($this->customer->isLogged() || !$this->config->get('config_customer_price')) {
                     $sort_order = [];
 
-                    $results    = $this->model_setting_extension->getExtensions('total');
+                    $results = $this->model_setting_extension->getExtensions('total');
 
                     foreach ($results as $key => $value) {
                         $sort_order[$key] = $this->config->get('total_' . $value['code'] . '_sort_order');
@@ -429,9 +429,9 @@ class ControllerCheckoutCart extends Controller {
             // Totals
             $this->load->model('setting/extension');
 
-            $total      = 0;
-            $totals     = [];
-            $taxes      = $this->cart->getTaxes();
+            $total = 0;
+            $totals = [];
+            $taxes = $this->cart->getTaxes();
 
             // Because __call can not keep var references so we put them into an array.
             $total_data = [
@@ -444,7 +444,7 @@ class ControllerCheckoutCart extends Controller {
             if ($this->customer->isLogged() || !$this->config->get('config_customer_price')) {
                 $sort_order = [];
 
-                $results    = $this->model_setting_extension->getExtensions('total');
+                $results = $this->model_setting_extension->getExtensions('total');
 
                 foreach ($results as $key => $value) {
                     $sort_order[$key] = $this->config->get('total_' . $value['code'] . '_sort_order');

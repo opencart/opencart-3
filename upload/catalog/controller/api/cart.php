@@ -66,7 +66,7 @@ class ControllerApiCart extends Controller {
                         $subscription_plan_ids = [];
 
                         foreach ($subscriptions as $subscription) {
-                            $subscription_plan_ids[]       = $subscription['subscription_plan_id'];
+                            $subscription_plan_ids[] = $subscription['subscription_plan_id'];
                         }
 
                         if (!in_array($subscription_plan_id, $subscription_plan_ids)) {
@@ -100,7 +100,7 @@ class ControllerApiCart extends Controller {
         $json = [];
 
         if (!isset($this->session->data['api_id'])) {
-            $json['error']   = $this->language->get('error_permission');
+            $json['error'] = $this->language->get('error_permission');
         } else {
             $this->cart->update($this->request->post['key'], $this->request->post['quantity']);
 
@@ -161,7 +161,7 @@ class ControllerApiCart extends Controller {
             // Products
             $json['products'] = [];
 
-            $products         = $this->cart->getProducts();
+            $products = $this->cart->getProducts();
 
             foreach ($products as $product) {
                 $product_total = 0;
@@ -192,19 +192,19 @@ class ControllerApiCart extends Controller {
                 $description = '';
 
                 if ($product['subscription']) {
-                    $trial_price     = $this->currency->format($this->tax->calculate($product['subscription']['trial_price'], $product['tax_class_id'], $this->config->get('config_tax')), $this->session->data['currency']);
-                    $trial_cycle     = $product['subscription']['trial_cycle'];
+                    $trial_price = $this->currency->format($this->tax->calculate($product['subscription']['trial_price'], $product['tax_class_id'], $this->config->get('config_tax')), $this->session->data['currency']);
+                    $trial_cycle = $product['subscription']['trial_cycle'];
                     $trial_frequency = $this->language->get('text_' . $product['subscription']['trial_frequency']);
-                    $trial_duration  = $product['subscription']['trial_duration'];
+                    $trial_duration = $product['subscription']['trial_duration'];
 
                     if ($product['subscription']['trial_status']) {
                         $description .= sprintf($this->language->get('text_subscription_trial'), $trial_price, $trial_cycle, $trial_frequency, $trial_duration);
                     }
 
-                    $price     = $this->currency->format($this->tax->calculate($product['subscription']['price'], $product['tax_class_id'], $this->config->get('config_tax')), $this->session->data['currency']);
-                    $cycle     = $product['subscription']['cycle'];
+                    $price = $this->currency->format($this->tax->calculate($product['subscription']['price'], $product['tax_class_id'], $this->config->get('config_tax')), $this->session->data['currency']);
+                    $cycle = $product['subscription']['cycle'];
                     $frequency = $this->language->get('text_' . $product['subscription']['frequency']);
-                    $duration  = $product['subscription']['duration'];
+                    $duration = $product['subscription']['duration'];
 
                     if ($duration) {
                         $description .= sprintf($this->language->get('text_subscription_duration'), $price, $cycle, $frequency, $duration);
@@ -252,9 +252,9 @@ class ControllerApiCart extends Controller {
             // Totals
             $this->load->model('setting/extension');
 
-            $total  = 0;
+            $total = 0;
             $totals = [];
-            $taxes  = $this->cart->getTaxes();
+            $taxes = $this->cart->getTaxes();
 
             // Because __call can not keep var references so we put them into an array.
             $total_data = [
@@ -265,7 +265,7 @@ class ControllerApiCart extends Controller {
 
             $sort_order = [];
 
-            $results    = $this->model_setting_extension->getExtensions('total');
+            $results = $this->model_setting_extension->getExtensions('total');
 
             foreach ($results as $key => $value) {
                 $sort_order[$key] = $this->config->get('total_' . $value['code'] . '_sort_order');

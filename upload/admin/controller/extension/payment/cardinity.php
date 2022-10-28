@@ -113,9 +113,9 @@ class ControllerExtensionPaymentCardinity extends Controller {
             $data['payment_cardinity_sort_order'] = $this->config->get('payment_cardinity_sort_order');
         }
 
-        $data['header']      = $this->load->controller('common/header');
+        $data['header'] = $this->load->controller('common/header');
         $data['column_left'] = $this->load->controller('common/column_left');
-        $data['footer']      = $this->load->controller('common/footer');
+        $data['footer'] = $this->load->controller('common/footer');
 
         $this->response->setOutput($this->load->view('extension/payment/cardinity', $data));
     }
@@ -135,13 +135,13 @@ class ControllerExtensionPaymentCardinity extends Controller {
 
         $this->load->model('extension/payment/cardinity');
 
-        $data['column_refund']         = $this->language->get('column_refund');
-        $data['column_date']           = $this->language->get('column_date');
+        $data['column_refund'] = $this->language->get('column_refund');
+        $data['column_date'] = $this->language->get('column_date');
         $data['column_refund_history'] = $this->language->get('column_refund_history');
-        $data['column_action']         = $this->language->get('column_action');
-        $data['column_status']         = $this->language->get('column_status');
-        $data['column_amount']         = $this->language->get('column_amount');
-        $data['column_description']    = $this->language->get('column_description');
+        $data['column_action'] = $this->language->get('column_action');
+        $data['column_status'] = $this->language->get('column_status');
+        $data['column_amount'] = $this->language->get('column_amount');
+        $data['column_description'] = $this->language->get('column_description');
 
         $data['button_refund'] = $this->language->get('button_refund');
 
@@ -200,8 +200,8 @@ class ControllerExtensionPaymentCardinity extends Controller {
                 $data['refund_action'] = false;
             }
 
-            $data['payment_id']   = $payment->getId();
-            $data['symbol_left']  = $this->currency->getSymbolLeft($payment->getCurrency());
+            $data['payment_id'] = $payment->getId();
+            $data['symbol_left'] = $this->currency->getSymbolLeft($payment->getCurrency());
             $data['symbol_right'] = $this->currency->getSymbolRight($payment->getCurrency());
 
             $data['max_refund_amount'] = $this->currency->format($max_refund_amount, $payment->getCurrency(), '1.00000000', false);

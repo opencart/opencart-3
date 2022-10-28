@@ -50,31 +50,31 @@ class ControllerExtensionCreditCardSagepayServer extends Controller {
 
             $cards_total = count($data['cards']);
 
-            $pagination        = new \Pagination();
+            $pagination = new \Pagination();
             $pagination->total = $cards_total;
-            $pagination->page  = $page;
+            $pagination->page = $page;
             $pagination->limit = 10;
-            $pagination->url   = $this->url->link('extension/credit_card/sagepay_server', 'page={page}', true);
+            $pagination->url = $this->url->link('extension/credit_card/sagepay_server', 'page={page}', true);
 
             $data['pagination'] = $pagination->render();
-            $data['results']    = sprintf($this->language->get('text_pagination'), ($cards_total) ? (($page - 1) * 10) + 1 : 0, ((($page - 1) * 10) > ($cards_total - 10)) ? $cards_total : ((($page - 1) * 10) + 10), $cards_total, ceil($cards_total / 10));
-            $data['cards']      = $this->model_extension_payment_sagepay_server->getCards($this->customer->getId());
-            $data['delete']     = $this->url->link('extension/credit_card/sagepay_server/delete', 'card_id=', true);
+            $data['results'] = sprintf($this->language->get('text_pagination'), ($cards_total) ? (($page - 1) * 10) + 1 : 0, ((($page - 1) * 10) > ($cards_total - 10)) ? $cards_total : ((($page - 1) * 10) + 10), $cards_total, ceil($cards_total / 10));
+            $data['cards'] = $this->model_extension_payment_sagepay_server->getCards($this->customer->getId());
+            $data['delete'] = $this->url->link('extension/credit_card/sagepay_server/delete', 'card_id=', true);
         } else {
-            $data['cards']      = false;
+            $data['cards'] = false;
             $data['pagination'] = false;
-            $data['results']    = false;
+            $data['results'] = false;
         }
 
-        $data['add']            = $this->url->link('extension/credit_card/sagepay_server/add', '', true);
-        $data['back']           = $this->url->link('account/account', '', true);
+        $data['add'] = $this->url->link('extension/credit_card/sagepay_server/add', '', true);
+        $data['back'] = $this->url->link('account/account', '', true);
 
-        $data['column_left']    = $this->load->controller('common/column_left');
-        $data['column_right']   = $this->load->controller('common/column_right');
-        $data['content_top']    = $this->load->controller('common/content_top');
+        $data['column_left'] = $this->load->controller('common/column_left');
+        $data['column_right'] = $this->load->controller('common/column_right');
+        $data['content_top'] = $this->load->controller('common/content_top');
         $data['content_bottom'] = $this->load->controller('common/content_bottom');
-        $data['footer']         = $this->load->controller('common/footer');
-        $data['header']         = $this->load->controller('common/header');
+        $data['footer'] = $this->load->controller('common/footer');
+        $data['header'] = $this->load->controller('common/header');
 
         $this->response->setOutput($this->load->view('extension/credit_card/sagepay_server_list', $data));
     }
@@ -93,11 +93,11 @@ class ControllerExtensionCreditCardSagepayServer extends Controller {
                 $url = 'https://test.sagepay.com/gateway/service/removetoken.vsp';
             }
 
-            $payment_data                = [];
+            $payment_data = [];
             $payment_data['VPSProtocol'] = '3.00';
-            $payment_data['Vendor']      = $this->config->get('payment_sagepay_server_vendor');
-            $payment_data['TxType']      = 'REMOVETOKEN';
-            $payment_data['Token']       = $card['token'];
+            $payment_data['Vendor'] = $this->config->get('payment_sagepay_server_vendor');
+            $payment_data['TxType'] = 'REMOVETOKEN';
+            $payment_data['Token'] = $card['token'];
 
             $response_data = $this->model_extension_payment_sagepay_server->sendCurl($url, $payment_data);
 
@@ -128,30 +128,30 @@ class ControllerExtensionCreditCardSagepayServer extends Controller {
             $url = 'https://test.sagepay.com/gateway/service/token.vsp';
         }
 
-        $payment_data                    = [];
-        $payment_data['VPSProtocol']     = '3.00';
-        $payment_data['ReferrerID']      = 'E511AF91-E4A0-42DE-80B0-09C981A3FB61';
-        $payment_data['TxType']          = 'TOKEN';
-        $payment_data['Vendor']          = $this->config->get('payment_sagepay_server_vendor');
-        $payment_data['VendorTxCode']    = 'server_card_' . date('YmdHis') . mt_rand(1, 999);
+        $payment_data = [];
+        $payment_data['VPSProtocol'] = '3.00';
+        $payment_data['ReferrerID'] = 'E511AF91-E4A0-42DE-80B0-09C981A3FB61';
+        $payment_data['TxType'] = 'TOKEN';
+        $payment_data['Vendor'] = $this->config->get('payment_sagepay_server_vendor');
+        $payment_data['VendorTxCode'] = 'server_card_' . date('YmdHis') . mt_rand(1, 999);
         $payment_data['NotificationURL'] = $this->url->link('extension/credit_card/sagepay_server/callback', '', true);
-        $payment_data['Currency']        = $this->session->data['currency'];
+        $payment_data['Currency'] = $this->session->data['currency'];
 
-        $response_data                   = $this->model_extension_payment_sagepay_server->sendCurl($url, $payment_data);
+        $response_data = $this->model_extension_payment_sagepay_server->sendCurl($url, $payment_data);
 
         $this->model_extension_payment_sagepay_server->logger('Response', $response_data);
 
         if ($response_data['Status'] == 'OK') {
-            $json['redirect']            = $response_data['NextURL'];
-            $json['Status']              = $response_data['Status'];
-            $json['StatusDetail']        = $response_data['StatusDetail'];
+            $json['redirect'] = $response_data['NextURL'];
+            $json['Status'] = $response_data['Status'];
+            $json['StatusDetail'] = $response_data['StatusDetail'];
 
-            $order_info['order_id']      = -1;
-            $order_info['VPSTxId']       = substr($response_data['VPSTxId'], 1, -1);
-            $order_info['SecurityKey']   = $response_data['SecurityKey'];
-            $order_info['VendorTxCode']  = $payment_data['VendorTxCode'];
+            $order_info['order_id'] = -1;
+            $order_info['VPSTxId'] = substr($response_data['VPSTxId'], 1, -1);
+            $order_info['SecurityKey'] = $response_data['SecurityKey'];
+            $order_info['VendorTxCode'] = $payment_data['VendorTxCode'];
             $order_info['currency_code'] = $this->session->data['currency'];
-            $order_info['total']         = '';
+            $order_info['total'] = '';
 
             $this->model_extension_payment_sagepay_server->addOrder($order_info);
         } else {
@@ -168,7 +168,7 @@ class ControllerExtensionCreditCardSagepayServer extends Controller {
 
         $this->model_extension_payment_sagepay_server->logger('Callback data', $this->request->post);
 
-        $error_page   = $this->url->link('extension/credit_card/sagepay_server/failure', '', true);
+        $error_page = $this->url->link('extension/credit_card/sagepay_server/failure', '', true);
         $success_page = $this->url->link('extension/credit_card/sagepay_server/success', '', true);
 
         $end_ln = chr(13) . chr(10);
@@ -248,12 +248,12 @@ class ControllerExtensionCreditCardSagepayServer extends Controller {
             exit;
         }
 
-        $card_data                = [];
+        $card_data = [];
         $card_data['customer_id'] = $transaction_info['customer_id'];
-        $card_data['Token']       = $this->request->post['Token'];
+        $card_data['Token'] = $this->request->post['Token'];
         $card_data['Last4Digits'] = $this->request->post['Last4Digits'];
-        $card_data['ExpiryDate']  = substr_replace($this->request->post['ExpiryDate'], '/', 2, 0);
-        $card_data['CardType']    = $this->request->post['CardType'];
+        $card_data['ExpiryDate'] = substr_replace($this->request->post['ExpiryDate'], '/', 2, 0);
+        $card_data['CardType'] = $this->request->post['CardType'];
 
         $this->model_extension_payment_sagepay_server->addCard($card_data);
 

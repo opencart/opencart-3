@@ -17,16 +17,16 @@ class ControllerExtensionPaymentTwoCheckout extends Controller {
 
         if ($this->cart->hasShipping()) {
             $data['ship_street_address'] = $order_info['shipping_address_1'];
-            $data['ship_city']           = $order_info['shipping_city'];
-            $data['ship_state']          = $order_info['shipping_zone'];
-            $data['ship_zip']            = $order_info['shipping_postcode'];
-            $data['ship_country']        = $order_info['shipping_country'];
+            $data['ship_city'] = $order_info['shipping_city'];
+            $data['ship_state'] = $order_info['shipping_zone'];
+            $data['ship_zip'] = $order_info['shipping_postcode'];
+            $data['ship_country'] = $order_info['shipping_country'];
         } else {
             $data['ship_street_address'] = $order_info['payment_address_1'];
-            $data['ship_city']           = $order_info['payment_city'];
-            $data['ship_state']          = $order_info['payment_zone'];
-            $data['ship_zip']            = $order_info['payment_postcode'];
-            $data['ship_country']        = $order_info['payment_country'];
+            $data['ship_city'] = $order_info['payment_city'];
+            $data['ship_state'] = $order_info['payment_zone'];
+            $data['ship_zip'] = $order_info['payment_postcode'];
+            $data['ship_country'] = $order_info['payment_country'];
         }
 
         $data['products'] = [];
@@ -55,21 +55,21 @@ class ControllerExtensionPaymentTwoCheckout extends Controller {
             $data['display'] = '';
         }
 
-        $data['lang']             = $this->config->get('config_language');
-        $data['return_url']       = $this->url->link('extension/payment/twocheckout/callback', '', true);
-        $data['action']           = 'https://www.2checkout.com/checkout/purchase';
-        $data['sid']              = $this->config->get('payment_twocheckout_account');
-        $data['currency_code']    = $order_info['currency_code'];
-        $data['total']            = $this->currency->format($order_info['total'], $order_info['currency_code'], $order_info['currency_value'], false);
-        $data['cart_order_id']    = (int)$this->session->data['order_id'];
+        $data['lang'] = $this->config->get('config_language');
+        $data['return_url'] = $this->url->link('extension/payment/twocheckout/callback', '', true);
+        $data['action'] = 'https://www.2checkout.com/checkout/purchase';
+        $data['sid'] = $this->config->get('payment_twocheckout_account');
+        $data['currency_code'] = $order_info['currency_code'];
+        $data['total'] = $this->currency->format($order_info['total'], $order_info['currency_code'], $order_info['currency_value'], false);
+        $data['cart_order_id'] = (int)$this->session->data['order_id'];
         $data['card_holder_name'] = $order_info['payment_firstname'] . ' ' . $order_info['payment_lastname'];
-        $data['street_address']   = $order_info['payment_address_1'];
-        $data['city']             = $order_info['payment_city'];
-        $data['zip']              = $order_info['payment_postcode'];
-        $data['country']          = $order_info['payment_country'];
-        $data['email']            = $order_info['email'];
-        $data['phone']            = $order_info['telephone'];
-        $data['button_confirm']   = $this->language->get('button_confirm');
+        $data['street_address'] = $order_info['payment_address_1'];
+        $data['city'] = $order_info['payment_city'];
+        $data['zip'] = $order_info['payment_postcode'];
+        $data['country'] = $order_info['payment_country'];
+        $data['email'] = $order_info['email'];
+        $data['phone'] = $order_info['telephone'];
+        $data['button_confirm'] = $this->language->get('button_confirm');
 
         return $this->load->view('extension/payment/twocheckout', $data);
     }

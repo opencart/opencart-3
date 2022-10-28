@@ -14,7 +14,7 @@ class ControllerApiPayment extends Controller {
             $json['error']['warning'] = $this->language->get('error_permission');
         } else {
             // Add keys for missing post vars
-            $keys                     = [
+            $keys = [
                 'firstname',
                 'lastname',
                 'company',
@@ -85,14 +85,14 @@ class ControllerApiPayment extends Controller {
                 $country_info = $this->model_localisation_country->getCountry($this->request->post['country_id']);
 
                 if ($country_info) {
-                    $country        = $country_info['name'];
-                    $iso_code_2     = $country_info['iso_code_2'];
-                    $iso_code_3     = $country_info['iso_code_3'];
+                    $country = $country_info['name'];
+                    $iso_code_2 = $country_info['iso_code_2'];
+                    $iso_code_3 = $country_info['iso_code_3'];
                     $address_format = $country_info['address_format'];
                 } else {
-                    $country        = '';
-                    $iso_code_2     = '';
-                    $iso_code_3     = '';
+                    $country = '';
+                    $iso_code_2 = '';
+                    $iso_code_3 = '';
                     $address_format = '';
                 }
 
@@ -101,10 +101,10 @@ class ControllerApiPayment extends Controller {
                 $zone_info = $this->model_localisation_zone->getZone($this->request->post['zone_id']);
 
                 if ($zone_info) {
-                    $zone      = $zone_info['name'];
+                    $zone = $zone_info['name'];
                     $zone_code = $zone_info['code'];
                 } else {
-                    $zone      = '';
+                    $zone = '';
                     $zone_code = '';
                 }
 
@@ -157,9 +157,9 @@ class ControllerApiPayment extends Controller {
 
             if (!$json) {
                 // Totals
-                $total  = 0;
+                $total = 0;
                 $totals = [];
-                $taxes  = $this->cart->getTaxes();
+                $taxes = $this->cart->getTaxes();
 
                 // Because __call can not keep var references so we put them into an array.
                 $total_data = [
@@ -172,7 +172,7 @@ class ControllerApiPayment extends Controller {
 
                 $sort_order = [];
 
-                $results    = $this->model_setting_extension->getExtensions('total');
+                $results = $this->model_setting_extension->getExtensions('total');
 
                 foreach ($results as $key => $value) {
                     $sort_order[$key] = $this->config->get('total_' . $value['code'] . '_sort_order');
@@ -194,7 +194,7 @@ class ControllerApiPayment extends Controller {
 
                 $this->load->model('checkout/payment_method');
 
-                $payment_methods         = $this->model_checkout_payment_method->getMethods($this->session->data['payment_address']);
+                $payment_methods = $this->model_checkout_payment_method->getMethods($this->session->data['payment_address']);
 
                 if ($payment_methods) {
                     // Store payment methods in session
@@ -204,7 +204,7 @@ class ControllerApiPayment extends Controller {
                 if ($json['payment_methods']) {
                     $this->session->data['payment_methods'] = $json['payment_methods'];
                 } else {
-                    $json['error']                          = $this->language->get('error_no_payment');
+                    $json['error'] = $this->language->get('error_no_payment');
                 }
             }
         }
@@ -241,7 +241,7 @@ class ControllerApiPayment extends Controller {
             if (!$json) {
                 $this->session->data['payment_method'] = $this->session->data['payment_methods'][$this->request->post['payment_method']];
 
-                $json['success']                       = $this->language->get('text_method');
+                $json['success'] = $this->language->get('text_method');
             }
         }
 

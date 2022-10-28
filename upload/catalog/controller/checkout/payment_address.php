@@ -27,14 +27,14 @@ class ControllerCheckoutPaymentAddress extends Controller {
 
         $this->load->model('localisation/country');
 
-        $data['countries']     = $this->model_localisation_country->getCountries();
+        $data['countries'] = $this->model_localisation_country->getCountries();
 
         // Custom Fields
         $data['custom_fields'] = [];
 
         $this->load->model('account/custom_field');
 
-        $custom_fields         = $this->model_account_custom_field->getCustomFields($this->config->get('config_customer_group_id'));
+        $custom_fields = $this->model_account_custom_field->getCustomFields($this->config->get('config_customer_group_id'));
 
         foreach ($custom_fields as $custom_field) {
             if ($custom_field['location'] == 'address') {
@@ -149,7 +149,7 @@ class ControllerCheckoutPaymentAddress extends Controller {
                 }
 
                 if (!$json) {
-                    $address_id                             = $this->model_account_address->addAddress($this->customer->getId(), $this->request->post);
+                    $address_id = $this->model_account_address->addAddress($this->customer->getId(), $this->request->post);
 
                     $this->session->data['payment_address'] = $this->model_account_address->getAddress($address_id);
 

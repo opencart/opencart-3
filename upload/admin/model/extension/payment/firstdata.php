@@ -54,15 +54,15 @@ class ModelExtensionPaymentFirstdata extends Model {
         $firstdata_order = $this->getOrder($order_id);
 
         if (!empty($firstdata_order)) {
-            $timestamp   = date('YmdHis');
+            $timestamp = date('YmdHis');
             $merchant_id = $this->config->get('payment_firstdata_merchant_id');
-            $secret      = $this->config->get('payment_firstdata_secret');
+            $secret = $this->config->get('payment_firstdata_secret');
 
             $this->logger('Void hash construct: ' . $timestamp . ' . ' . $merchant_id . ' . ' . $firstdata_order['order_ref'] . ' . . . ');
 
-            $tmp  = $timestamp . ' . ' . $merchant_id . ' . ' . $firstdata_order['order_ref'] . ' . . . ';
+            $tmp = $timestamp . ' . ' . $merchant_id . ' . ' . $firstdata_order['order_ref'] . ' . . . ';
             $hash = sha1($tmp);
-            $tmp  = $hash . ' . ' . $secret;
+            $tmp = $hash . ' . ' . $secret;
             $hash = sha1($tmp);
 
             $xml = '';
@@ -104,30 +104,30 @@ class ModelExtensionPaymentFirstdata extends Model {
         $firstdata_order = $this->getOrder($order_id);
 
         if (!empty($firstdata_order) && $firstdata_order['capture_status'] == 0) {
-            $timestamp   = date('YmdHis');
+            $timestamp = date('YmdHis');
             $merchant_id = $this->config->get('payment_firstdata_merchant_id');
-            $secret      = $this->config->get('payment_firstdata_secret');
+            $secret = $this->config->get('payment_firstdata_secret');
 
             if ($firstdata_order['settle_type'] == 2) {
                 $this->logger('Capture hash construct: ' . $timestamp . ' . ' . $merchant_id . ' . ' . $firstdata_order['order_ref'] . ' . ' . (int)round($amount * 100) . ' . ' . (string)$firstdata_order['currency_code'] . ' . ');
 
-                $tmp  = $timestamp . ' . ' . $merchant_id . ' . ' . $firstdata_order['order_ref'] . ' . ' . (int)round($amount * 100) . ' . ' . (string)$firstdata_order['currency_code'] . ' . ';
+                $tmp = $timestamp . ' . ' . $merchant_id . ' . ' . $firstdata_order['order_ref'] . ' . ' . (int)round($amount * 100) . ' . ' . (string)$firstdata_order['currency_code'] . ' . ';
                 $hash = sha1($tmp);
-                $tmp  = $hash . ' . ' . $secret;
+                $tmp = $hash . ' . ' . $secret;
                 $hash = sha1($tmp);
 
                 $settle_type = 'multisettle';
-                $xml_amount  = '<amount currency="' . (string)$firstdata_order['currency_code'] . '">' . (int)round($amount * 100) . '</amount>';
+                $xml_amount = '<amount currency="' . (string)$firstdata_order['currency_code'] . '">' . (int)round($amount * 100) . '</amount>';
             } else {
                 //$this->logger('Capture hash construct: ' . $timestamp . ' . ' . $merchant_id . ' . ' . $firstdata_order['order_ref'] . ' . . . ');
                 $this->logger('Capture hash construct: ' . $timestamp . ' . ' . $merchant_id . ' . ' . $firstdata_order['order_ref'] . ' . ' . (int)round($amount * 100) . ' . ' . (string)$firstdata_order['currency_code'] . ' . ');
 
-                $tmp         = $timestamp . ' . ' . $merchant_id . ' . ' . $firstdata_order['order_ref'] . ' . ' . (int)round($amount * 100) . ' . ' . (string)$firstdata_order['currency_code'] . ' . ';
-                $hash        = sha1($tmp);
-                $tmp         = $hash . ' . ' . $secret;
-                $hash        = sha1($tmp);
+                $tmp = $timestamp . ' . ' . $merchant_id . ' . ' . $firstdata_order['order_ref'] . ' . ' . (int)round($amount * 100) . ' . ' . (string)$firstdata_order['currency_code'] . ' . ';
+                $hash = sha1($tmp);
+                $tmp = $hash . ' . ' . $secret;
+                $hash = sha1($tmp);
                 $settle_type = 'settle';
-                $xml_amount  = '<amount currency="' . (string)$firstdata_order['currency_code'] . '">' . (int)round($amount * 100) . '</amount>';
+                $xml_amount = '<amount currency="' . (string)$firstdata_order['currency_code'] . '">' . (int)round($amount * 100) . '</amount>';
             }
 
             $xml = '';

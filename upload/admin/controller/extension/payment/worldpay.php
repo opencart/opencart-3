@@ -185,9 +185,9 @@ class ControllerExtensionPaymentWorldpay extends Controller {
             $data['payment_worldpay_chargeback_reversed_status_id'] = $this->config->get('payment_worldpay_chargeback_reversed_status_id');
         }
 
-        $data['header']      = $this->load->controller('common/header');
+        $data['header'] = $this->load->controller('common/header');
         $data['column_left'] = $this->load->controller('common/column_left');
-        $data['footer']      = $this->load->controller('common/footer');
+        $data['footer'] = $this->load->controller('common/footer');
 
         $this->response->setOutput($this->load->view('extension/payment/worldpay', $data));
     }
@@ -215,7 +215,7 @@ class ControllerExtensionPaymentWorldpay extends Controller {
 
                 $worldpay_order['total_released'] = $this->model_extension_payment_worldpay->getTotalReleased($worldpay_order['payment_worldpay_order_id']);
 
-                $worldpay_order['total_formatted']          = $this->currency->format($worldpay_order['total'], $worldpay_order['currency_code'], false);
+                $worldpay_order['total_formatted'] = $this->currency->format($worldpay_order['total'], $worldpay_order['currency_code'], false);
                 $worldpay_order['total_released_formatted'] = $this->currency->format($worldpay_order['total_released'], $worldpay_order['currency_code'], false);
 
                 $data['payment_worldpay_order'] = $worldpay_order;
@@ -259,11 +259,11 @@ class ControllerExtensionPaymentWorldpay extends Controller {
 
                 $json['data'] = [];
 
-                $json['data']['created']        = date('Y-m-d H:i:s');
-                $json['data']['amount']         = $this->currency->format(($this->request->post['amount'] * -1), $worldpay_order['currency_code'], false);
+                $json['data']['created'] = date('Y-m-d H:i:s');
+                $json['data']['amount'] = $this->currency->format(($this->request->post['amount'] * -1), $worldpay_order['currency_code'], false);
                 $json['data']['total_released'] = $this->currency->format($total_released, $worldpay_order['currency_code'], false);
-                $json['data']['total_refund']   = $this->currency->format($total_refunded, $worldpay_order['currency_code'], false);
-                $json['data']['refund_status']  = 1;
+                $json['data']['total_refund'] = $this->currency->format($total_refunded, $worldpay_order['currency_code'], false);
+                $json['data']['refund_status'] = 1;
 
                 $json['error'] = false;
             } else {

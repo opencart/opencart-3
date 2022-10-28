@@ -7,9 +7,9 @@ class ControllerMarketingContact extends Controller {
 
         $this->document->setTitle($this->language->get('heading_title'));
 
-        $data['user_token']    = $this->session->data['user_token'];
+        $data['user_token'] = $this->session->data['user_token'];
 
-        $data['breadcrumbs']   = [];
+        $data['breadcrumbs'] = [];
 
         $data['breadcrumbs'][] = [
             'text' => $this->language->get('text_home'),
@@ -31,9 +31,9 @@ class ControllerMarketingContact extends Controller {
 
         $data['customer_groups'] = $this->model_customer_customer_group->getCustomerGroups();
 
-        $data['header']          = $this->load->controller('common/header');
-        $data['column_left']     = $this->load->controller('common/column_left');
-        $data['footer']          = $this->load->controller('common/footer');
+        $data['header'] = $this->load->controller('common/header');
+        $data['column_left'] = $this->load->controller('common/column_left');
+        $data['footer'] = $this->load->controller('common/footer');
 
         $this->response->setOutput($this->load->view('marketing/contact', $data));
     }
@@ -70,7 +70,7 @@ class ControllerMarketingContact extends Controller {
                     $store_name = $this->config->get('config_name');
                 }
 
-                $setting     = $this->model_setting_setting->getSetting('config', $this->request->post['store_id']);
+                $setting = $this->model_setting_setting->getSetting('config', $this->request->post['store_id']);
                 $store_email = (isset($setting['config_email']) ? $setting['config_email'] : $this->config->get('config_email'));
 
                 if (isset($this->request->get['page'])) {
@@ -81,7 +81,7 @@ class ControllerMarketingContact extends Controller {
 
                 $email_total = 0;
 
-                $emails      = [];
+                $emails = [];
 
                 switch ($this->request->post['to']) {
                     case 'newsletter':
@@ -93,7 +93,7 @@ class ControllerMarketingContact extends Controller {
 
                         $email_total = $this->model_customer_customer->getTotalCustomers($customer_data);
 
-                        $results     = $this->model_customer_customer->getCustomers($customer_data);
+                        $results = $this->model_customer_customer->getCustomers($customer_data);
 
                         foreach ($results as $result) {
                             $emails[] = $result['email'];
@@ -107,7 +107,7 @@ class ControllerMarketingContact extends Controller {
 
                         $email_total = $this->model_customer_customer->getTotalCustomers($customer_data);
 
-                        $results     = $this->model_customer_customer->getCustomers($customer_data);
+                        $results = $this->model_customer_customer->getCustomers($customer_data);
 
                         foreach ($results as $result) {
                             $emails[] = $result['email'];
@@ -122,7 +122,7 @@ class ControllerMarketingContact extends Controller {
 
                         $email_total = $this->model_customer_customer->getTotalCustomers($customer_data);
 
-                        $results     = $this->model_customer_customer->getCustomers($customer_data);
+                        $results = $this->model_customer_customer->getCustomers($customer_data);
 
                         foreach ($results as $result) {
                             $emails[$result['customer_id']] = $result['email'];
@@ -132,7 +132,7 @@ class ControllerMarketingContact extends Controller {
                         if (!empty($this->request->post['customer'])) {
                             $email_total = count($this->request->post['customer']);
 
-                            $customers   = array_slice($this->request->post['customer'], ($page - 1) * 10, 10);
+                            $customers = array_slice($this->request->post['customer'], ($page - 1) * 10, 10);
 
                             foreach ($customers as $customer_id) {
                                 $customer_info = $this->model_customer_customer->getCustomer($customer_id);
@@ -152,7 +152,7 @@ class ControllerMarketingContact extends Controller {
 
                         $email_total = $this->model_customer_customer->getTotalCustomers($affiliate_data);
 
-                        $results     = $this->model_customer_customer->getCustomers($affiliate_data);
+                        $results = $this->model_customer_customer->getCustomers($affiliate_data);
 
                         foreach ($results as $result) {
                             $emails[] = $result['email'];
@@ -177,7 +177,7 @@ class ControllerMarketingContact extends Controller {
                         if (isset($this->request->post['product'])) {
                             $email_total = $this->model_sale_order->getTotalEmailsByProductsOrdered($this->request->post['product']);
 
-                            $results     = $this->model_sale_order->getEmailsByProductsOrdered($this->request->post['product'], ($page - 1) * 10, 10);
+                            $results = $this->model_sale_order->getEmailsByProductsOrdered($this->request->post['product'], ($page - 1) * 10, 10);
 
                             foreach ($results as $result) {
                                 $emails[] = $result['email'];
@@ -188,8 +188,8 @@ class ControllerMarketingContact extends Controller {
 
                 if ($emails) {
                     $json['success'] = $this->language->get('text_success');
-                    $start           = ($page - 1) * 10;
-                    $end             = $start + 10;
+                    $start = ($page - 1) * 10;
+                    $end = $start + 10;
 
                     $json['success'] = sprintf($this->language->get('text_sent'), $start ? $start : 1, $email_total);
 
@@ -199,22 +199,22 @@ class ControllerMarketingContact extends Controller {
                         $json['next'] = '';
                     }
 
-                    $message         = '<html dir="ltr" lang="' . $this->language->get('code') . '">' . "\n";
-                    $message         .= '  <head>' . "\n";
-                    $message         .= '    <title>' . $this->request->post['subject'] . '</title>' . "\n";
-                    $message         .= '    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">' . "\n";
-                    $message         .= '  </head>' . "\n";
-                    $message         .= '  <body>' . html_entity_decode($this->request->post['message'], ENT_QUOTES, 'UTF-8') . '</body>' . "\n";
-                    $message         .= '</html>' . "\n";
+                    $message = '<html dir="ltr" lang="' . $this->language->get('code') . '">' . "\n";
+                    $message .= '  <head>' . "\n";
+                    $message .= '    <title>' . $this->request->post['subject'] . '</title>' . "\n";
+                    $message .= '    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">' . "\n";
+                    $message .= '  </head>' . "\n";
+                    $message .= '  <body>' . html_entity_decode($this->request->post['message'], ENT_QUOTES, 'UTF-8') . '</body>' . "\n";
+                    $message .= '</html>' . "\n";
 
                     if ($this->config->get('config_mail_engine')) {
-                        $mail                = new \Mail($this->config->get('config_mail_engine'));
-                        $mail->parameter     = $this->config->get('config_mail_parameter');
+                        $mail = new \Mail($this->config->get('config_mail_engine'));
+                        $mail->parameter = $this->config->get('config_mail_parameter');
                         $mail->smtp_hostname = $this->config->get('config_mail_smtp_hostname');
                         $mail->smtp_username = $this->config->get('config_mail_smtp_username');
                         $mail->smtp_password = html_entity_decode($this->config->get('config_mail_smtp_password'), ENT_QUOTES, 'UTF-8');
-                        $mail->smtp_port     = $this->config->get('config_mail_smtp_port');
-                        $mail->smtp_timeout  = $this->config->get('config_mail_smtp_timeout');
+                        $mail->smtp_port = $this->config->get('config_mail_smtp_port');
+                        $mail->smtp_timeout = $this->config->get('config_mail_smtp_timeout');
 
                         foreach ($emails as $email) {
                             if (filter_var($email, FILTER_VALIDATE_EMAIL)) {

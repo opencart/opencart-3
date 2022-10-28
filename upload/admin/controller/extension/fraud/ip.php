@@ -62,9 +62,9 @@ class ControllerExtensionFraudIp extends Controller {
             $data['fraud_ip_status'] = $this->config->get('fraud_ip_status');
         }
 
-        $data['header']      = $this->load->controller('common/header');
+        $data['header'] = $this->load->controller('common/header');
         $data['column_left'] = $this->load->controller('common/column_left');
-        $data['footer']      = $this->load->controller('common/footer');
+        $data['footer'] = $this->load->controller('common/footer');
 
         $this->response->setOutput($this->load->view('extension/fraud/ip', $data));
     }
@@ -116,11 +116,11 @@ class ControllerExtensionFraudIp extends Controller {
 
         $ip_total = $this->model_extension_fraud_ip->getTotalIps();
 
-        $pagination        = new \Pagination();
+        $pagination = new \Pagination();
         $pagination->total = $ip_total;
-        $pagination->page  = $page;
+        $pagination->page = $page;
         $pagination->limit = 10;
-        $pagination->url   = $this->url->link('extension/fraud/ip/ip', 'user_token=' . $this->session->data['user_token'] . '&page={page}', true);
+        $pagination->url = $this->url->link('extension/fraud/ip/ip', 'user_token=' . $this->session->data['user_token'] . '&page={page}', true);
 
         $data['pagination'] = $pagination->render();
 

@@ -55,7 +55,7 @@ class ControllerAccountAffiliate extends Controller {
     }
 
     public function getForm(): void {
-        $data['breadcrumbs']   = [];
+        $data['breadcrumbs'] = [];
 
         $data['breadcrumbs'][] = [
             'text' => $this->language->get('text_home'),
@@ -212,7 +212,7 @@ class ControllerAccountAffiliate extends Controller {
 
         $this->load->model('account/custom_field');
 
-        $custom_fields         = $this->model_account_custom_field->getCustomFields($this->customer->getGroupId());
+        $custom_fields = $this->model_account_custom_field->getCustomFields($this->customer->getGroupId());
 
         foreach ($custom_fields as $custom_field) {
             if ($custom_field['location'] == 'affiliate') {
@@ -248,15 +248,15 @@ class ControllerAccountAffiliate extends Controller {
             $data['agree'] = false;
         }
 
-        $data['action']         = $this->url->link($this->request->get['route'], 'customer_token=' . $this->session->data['customer_token'], true);
-        $data['back']           = $this->url->link('account/account', 'customer_token=' . $this->session->data['customer_token'], true);
+        $data['action'] = $this->url->link($this->request->get['route'], 'customer_token=' . $this->session->data['customer_token'], true);
+        $data['back'] = $this->url->link('account/account', 'customer_token=' . $this->session->data['customer_token'], true);
 
-        $data['column_left']    = $this->load->controller('common/column_left');
-        $data['column_right']   = $this->load->controller('common/column_right');
-        $data['content_top']    = $this->load->controller('common/content_top');
+        $data['column_left'] = $this->load->controller('common/column_left');
+        $data['column_right'] = $this->load->controller('common/column_right');
+        $data['content_top'] = $this->load->controller('common/content_top');
         $data['content_bottom'] = $this->load->controller('common/content_bottom');
-        $data['footer']         = $this->load->controller('common/footer');
-        $data['header']         = $this->load->controller('common/header');
+        $data['footer'] = $this->load->controller('common/footer');
+        $data['header'] = $this->load->controller('common/header');
 
         $this->response->setOutput($this->load->view('account/affiliate', $data));
     }

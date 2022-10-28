@@ -5,9 +5,9 @@ class ControllerCheckoutPaymentMethod extends Controller {
 
         if (isset($this->session->data['payment_address'])) {
             // Totals
-            $total  = 0;
+            $total = 0;
             $totals = [];
-            $taxes  = $this->cart->getTaxes();
+            $taxes = $this->cart->getTaxes();
 
             // Because __call can not keep var references so we put them into an array.
             $total_data = [
@@ -20,7 +20,7 @@ class ControllerCheckoutPaymentMethod extends Controller {
 
             $sort_order = [];
 
-            $results    = $this->model_setting_extension->getExtensions('total');
+            $results = $this->model_setting_extension->getExtensions('total');
 
             foreach ($results as $key => $value) {
                 $sort_order[$key] = $this->config->get('total_' . $value['code'] . '_sort_order');
@@ -148,8 +148,8 @@ class ControllerCheckoutPaymentMethod extends Controller {
 
         if (!$json) {
             $this->session->data['payment_method'] = $this->session->data['payment_methods'][$this->request->post['payment_method']];
-            
-            $this->session->data['comment']        = strip_tags($this->request->post['comment']);
+
+            $this->session->data['comment'] = strip_tags($this->request->post['comment']);
         }
 
         $this->response->addHeader('Content-Type: application/json');

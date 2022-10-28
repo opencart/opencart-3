@@ -14,21 +14,21 @@ class ControllerExtensionPaymentSecureTradingPp extends Controller {
         $order_info = $this->model_checkout_order->getOrder($this->session->data['order_id']);
 
         if ($order_info) {
-            $data['order_info']      = $order_info;
-            $data['site_reference']  = $this->config->get('payment_securetrading_pp_site_reference');
-            $data['version']         = $this->config->get('payment_securetrading_pp_version');
-            $data['parent_css']      = $this->config->get('payment_securetrading_pp_parent_css');
-            $data['child_css']       = $this->config->get('payment_securetrading_pp_child_css');
-            $data['currency']        = $order_info['currency_code'];
-            $data['total']           = $this->currency->format($order_info['total'], $order_info['currency_code'], $order_info['currency_value'], false);
+            $data['order_info'] = $order_info;
+            $data['site_reference'] = $this->config->get('payment_securetrading_pp_site_reference');
+            $data['version'] = $this->config->get('payment_securetrading_pp_version');
+            $data['parent_css'] = $this->config->get('payment_securetrading_pp_parent_css');
+            $data['child_css'] = $this->config->get('payment_securetrading_pp_child_css');
+            $data['currency'] = $order_info['currency_code'];
+            $data['total'] = $this->currency->format($order_info['total'], $order_info['currency_code'], $order_info['currency_value'], false);
             $data['settle_due_date'] = date('Y-m-d', strtotime(date('Y-m-d') . ' +' . $this->config->get('payment_securetrading_pp_settle_due_date') . ' days'));
-            $data['settle_status']   = $this->config->get('payment_securetrading_pp_settle_status');
+            $data['settle_status'] = $this->config->get('payment_securetrading_pp_settle_status');
 
-            $payment_country         = $this->model_localisation_country->getCountry($order_info['payment_country_id']);
-            $payment_zone            = $this->model_localisation_zone->getZone($order_info['payment_zone_id']);
+            $payment_country = $this->model_localisation_country->getCountry($order_info['payment_country_id']);
+            $payment_zone = $this->model_localisation_zone->getZone($order_info['payment_zone_id']);
 
-            $shipping_country        = $this->model_localisation_country->getCountry($order_info['shipping_country_id']);
-            $shipping_zone           = $this->model_localisation_zone->getZone($order_info['shipping_zone_id']);
+            $shipping_country = $this->model_localisation_country->getCountry($order_info['shipping_country_id']);
+            $shipping_zone = $this->model_localisation_zone->getZone($order_info['shipping_zone_id']);
 
             if ($payment_country['iso_code_3'] == 'USA') {
                 $data['billing_county'] = $payment_zone['code'];
@@ -73,7 +73,7 @@ class ControllerExtensionPaymentSecureTradingPp extends Controller {
                 }
             }
 
-            $data['payment_country']  = $payment_country;
+            $data['payment_country'] = $payment_country;
             $data['shipping_country'] = $shipping_country;
 
             return $this->load->view('extension/payment/securetrading_pp', $data);
@@ -92,7 +92,7 @@ class ControllerExtensionPaymentSecureTradingPp extends Controller {
 
         sort($keys);
 
-        $keys_ignore    = [
+        $keys_ignore = [
             'notificationreference',
             'responsesitesecurity'
         ];
@@ -121,38 +121,38 @@ class ControllerExtensionPaymentSecureTradingPp extends Controller {
                         4 => $this->language->get('text_not_match'),
                     ];
 
-                    $payment_country  = $this->model_extension_payment_securetrading_pp->getCountry($this->request->post['billingcountryiso2a']);
+                    $payment_country = $this->model_extension_payment_securetrading_pp->getCountry($this->request->post['billingcountryiso2a']);
                     $shipping_country = $this->model_extension_payment_securetrading_pp->getCountry($this->request->post['customercountryiso2a']);
 
                     // Payment Details
-                    $order_info['payment_zone_id']    = 0;
-                    $order_info['payment_firstname']  = $this->request->post['billingfirstname'];
-                    $order_info['payment_lastname']   = $this->request->post['billinglastname'];
-                    $order_info['payment_address_1']  = $this->request->post['billingpremise'];
-                    $order_info['payment_address_2']  = $this->request->post['billingstreet'];
-                    $order_info['payment_city']       = $this->request->post['billingtown'];
-                    $order_info['payment_zone']       = $this->request->post['billingcounty'];
-                    $order_info['payment_country']    = $payment_country['name'];
+                    $order_info['payment_zone_id'] = 0;
+                    $order_info['payment_firstname'] = $this->request->post['billingfirstname'];
+                    $order_info['payment_lastname'] = $this->request->post['billinglastname'];
+                    $order_info['payment_address_1'] = $this->request->post['billingpremise'];
+                    $order_info['payment_address_2'] = $this->request->post['billingstreet'];
+                    $order_info['payment_city'] = $this->request->post['billingtown'];
+                    $order_info['payment_zone'] = $this->request->post['billingcounty'];
+                    $order_info['payment_country'] = $payment_country['name'];
                     $order_info['payment_country_id'] = $payment_country['country_id'];
-                    $order_info['payment_postcode']   = $this->request->post['billingpostcode'];
+                    $order_info['payment_postcode'] = $this->request->post['billingpostcode'];
 
                     // Shipping Details
-                    $order_info['shipping_zone_id']    = 0;
-                    $order_info['shipping_firstname']  = $this->request->post['customerfirstname'];
-                    $order_info['shipping_lastname']   = $this->request->post['customerlastname'];
-                    $order_info['shipping_address_1']  = $this->request->post['customerpremise'];
-                    $order_info['shipping_address_2']  = $this->request->post['customerstreet'];
-                    $order_info['shipping_city']       = $this->request->post['customertown'];
-                    $order_info['shipping_zone']       = $this->request->post['customercounty'];
-                    $order_info['shipping_country']    = $shipping_country['name'];
+                    $order_info['shipping_zone_id'] = 0;
+                    $order_info['shipping_firstname'] = $this->request->post['customerfirstname'];
+                    $order_info['shipping_lastname'] = $this->request->post['customerlastname'];
+                    $order_info['shipping_address_1'] = $this->request->post['customerpremise'];
+                    $order_info['shipping_address_2'] = $this->request->post['customerstreet'];
+                    $order_info['shipping_city'] = $this->request->post['customertown'];
+                    $order_info['shipping_zone'] = $this->request->post['customercounty'];
+                    $order_info['shipping_country'] = $shipping_country['name'];
                     $order_info['shipping_country_id'] = $shipping_country['country_id'];
-                    $order_info['shipping_postcode']   = $this->request->post['customerpostcode'];
+                    $order_info['shipping_postcode'] = $this->request->post['customerpostcode'];
 
                     $this->model_extension_payment_securetrading_pp->editOrder($order_info['order_id'], $order_info);
 
-                    $postcode_status      = $this->request->post['securityresponsepostcode'];
+                    $postcode_status = $this->request->post['securityresponsepostcode'];
                     $security_code_status = $this->request->post['securityresponsesecuritycode'];
-                    $address_status       = $this->request->post['securityresponseaddress'];
+                    $address_status = $this->request->post['securityresponseaddress'];
 
                     $message = sprintf($this->language->get('text_postcode_check'), $status_code_mapping[$postcode_status]) . "\n";
                     $message .= sprintf($this->language->get('text_security_code_check'), $status_code_mapping[$security_code_status]) . "\n";

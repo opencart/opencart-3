@@ -9,7 +9,7 @@ class ControllerExtensionCaptchaGoogle extends Controller {
             $data['error_captcha'] = '';
         }
 
-        $data['route']    = $this->request->get['route'];
+        $data['route'] = $this->request->get['route'];
         $data['site_key'] = $this->config->get('captcha_google_key');
 
         return $this->load->view('extension/captcha/google', $data);

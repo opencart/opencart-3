@@ -1,12 +1,12 @@
 <?php
 class ModelExtensionTotalKlarnaFee extends Model {
-    public function getTotal(float $totals): array {
+    public function getTotal(float $totals): void {
         extract($totals);
 
         $this->load->language('extension/total/klarna_fee');
 
         $status = true;
-        
+
         $klarna_fee = $this->config->get('total_klarna_fee');
 
         if (isset($this->session->data['payment_address_id'])) {

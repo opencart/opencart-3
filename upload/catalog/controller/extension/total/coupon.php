@@ -36,10 +36,10 @@ class ControllerExtensionTotalCoupon extends Controller {
 
             unset($this->session->data['coupon']);
         } elseif ($coupon_info) {
-            $this->session->data['coupon']  = $this->request->post['coupon'];
+            $this->session->data['coupon'] = $this->request->post['coupon'];
             $this->session->data['success'] = $this->language->get('text_success');
 
-            $json['redirect']               = $this->url->link('checkout/cart');
+            $json['redirect'] = $this->url->link('checkout/cart');
         } else {
             $json['error'] = $this->language->get('error_coupon');
         }

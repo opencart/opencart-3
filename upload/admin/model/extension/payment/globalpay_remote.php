@@ -37,15 +37,15 @@ class ModelExtensionPaymentGlobalpayRemote extends Model {
         $globalpay_order = $this->getOrder($order_id);
 
         if (!empty($globalpay_order)) {
-            $timestamp   = date('YmdHis');
+            $timestamp = date('YmdHis');
             $merchant_id = $this->config->get('payment_globalpay_remote_merchant_id');
-            $secret      = $this->config->get('payment_globalpay_remote_secret');
+            $secret = $this->config->get('payment_globalpay_remote_secret');
 
             $this->logger('Void hash construct: ' . $timestamp . '.' . $merchant_id . '.' . $globalpay_order['order_ref'] . '...');
 
-            $tmp  = $timestamp . '.' . $merchant_id . '.' . $globalpay_order['order_ref'] . '...';
+            $tmp = $timestamp . '.' . $merchant_id . '.' . $globalpay_order['order_ref'] . '...';
             $hash = sha1($tmp);
-            $tmp  = $hash . '.' . $secret;
+            $tmp = $hash . '.' . $secret;
             $hash = sha1($tmp);
 
             $xml = '';
@@ -87,29 +87,29 @@ class ModelExtensionPaymentGlobalpayRemote extends Model {
         $globalpay_order = $this->getOrder($order_id);
 
         if (!empty($globalpay_order) && $globalpay_order['capture_status'] == 0) {
-            $timestamp   = date('YmdHis');
+            $timestamp = date('YmdHis');
             $merchant_id = $this->config->get('payment_globalpay_remote_merchant_id');
-            $secret      = $this->config->get('payment_globalpay_remote_secret');
+            $secret = $this->config->get('payment_globalpay_remote_secret');
 
             if ($globalpay_order['settle_type'] == 2) {
                 $this->logger('Capture hash construct: ' . $timestamp . '.' . $merchant_id . '.' . $globalpay_order['order_ref'] . '.' . (int)round($amount * 100) . '.' . (string)$globalpay_order['currency_code'] . '.');
 
-                $tmp         = $timestamp . '.' . $merchant_id . '.' . $globalpay_order['order_ref'] . '.' . (int)round($amount * 100) . '.' . (string)$globalpay_order['currency_code'] . '.';
-                $hash        = sha1($tmp);
-                $tmp         = $hash . '.' . $secret;
-                $hash        = sha1($tmp);
+                $tmp = $timestamp . '.' . $merchant_id . '.' . $globalpay_order['order_ref'] . '.' . (int)round($amount * 100) . '.' . (string)$globalpay_order['currency_code'] . '.';
+                $hash = sha1($tmp);
+                $tmp = $hash . '.' . $secret;
+                $hash = sha1($tmp);
                 $settle_type = 'multisettle';
-                $xml_amount  = '<amount currency="' . (string)$globalpay_order['currency_code'] . '">' . (int)round($amount * 100) . '</amount>';
+                $xml_amount = '<amount currency="' . (string)$globalpay_order['currency_code'] . '">' . (int)round($amount * 100) . '</amount>';
             } else {
                 //$this->logger('Capture hash construct: ' . $timestamp . '.' . $merchant_id . '.' . $globalpay_order['order_ref'] . '...');
                 $this->logger('Capture hash construct: ' . $timestamp . '.' . $merchant_id . '.' . $globalpay_order['order_ref'] . '.' . (int)round($amount * 100) . '.' . (string)$globalpay_order['currency_code'] . '.');
 
-                $tmp         = $timestamp . '.' . $merchant_id . '.' . $globalpay_order['order_ref'] . '.' . (int)round($amount * 100) . '.' . (string)$globalpay_order['currency_code'] . '.';
-                $hash        = sha1($tmp);
-                $tmp         = $hash . '.' . $secret;
-                $hash        = sha1($tmp);
+                $tmp = $timestamp . '.' . $merchant_id . '.' . $globalpay_order['order_ref'] . '.' . (int)round($amount * 100) . '.' . (string)$globalpay_order['currency_code'] . '.';
+                $hash = sha1($tmp);
+                $tmp = $hash . '.' . $secret;
+                $hash = sha1($tmp);
                 $settle_type = 'settle';
-                $xml_amount  = '<amount currency="' . (string)$globalpay_order['currency_code'] . '">' . (int)round($amount * 100) . '</amount>';
+                $xml_amount = '<amount currency="' . (string)$globalpay_order['currency_code'] . '">' . (int)round($amount * 100) . '</amount>';
             }
 
             $xml = '';
@@ -156,9 +156,9 @@ class ModelExtensionPaymentGlobalpayRemote extends Model {
         $globalpay_order = $this->getOrder($order_id);
 
         if (!empty($globalpay_order) && $globalpay_order['rebate_status'] != 1) {
-            $timestamp   = date('YmdHis');
+            $timestamp = date('YmdHis');
             $merchant_id = $this->config->get('payment_globalpay_remote_merchant_id');
-            $secret      = $this->config->get('payment_globalpay_remote_secret');
+            $secret = $this->config->get('payment_globalpay_remote_secret');
 
             if ($globalpay_order['settle_type'] == 2) {
                 $order_ref = '_multisettle_' . $globalpay_order['order_ref'];
@@ -170,15 +170,15 @@ class ModelExtensionPaymentGlobalpayRemote extends Model {
                 }
             } else {
                 $order_ref = $globalpay_order['order_ref'];
-                $pas_ref   = $globalpay_order['pasref'];
+                $pas_ref = $globalpay_order['pasref'];
             }
 
             $this->logger('Rebate hash construct: ' . $timestamp . '.' . $merchant_id . '.' . $order_ref . '.' . (int)round($amount * 100) . '.' . $globalpay_order['currency_code'] . '.');
 
-            $tmp        = $timestamp . '.' . $merchant_id . '.' . $order_ref . '.' . (int)round($amount * 100) . '.' . $globalpay_order['currency_code'] . '.';
-            $hash       = sha1($tmp);
-            $tmp        = $hash . '.' . $secret;
-            $hash       = sha1($tmp);
+            $tmp = $timestamp . '.' . $merchant_id . '.' . $order_ref . '.' . (int)round($amount * 100) . '.' . $globalpay_order['currency_code'] . '.';
+            $hash = sha1($tmp);
+            $tmp = $hash . '.' . $secret;
+            $hash = sha1($tmp);
             $rebatehash = sha1($this->config->get('payment_globalpay_remote_rebate_password'));
 
             $xml = '';
@@ -222,7 +222,7 @@ class ModelExtensionPaymentGlobalpayRemote extends Model {
         $query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "globalpay_remote_order` WHERE `order_id` = '" . (int)$order_id . "' LIMIT 1");
 
         if ($query->num_rows) {
-            $order                 = $query->row;
+            $order = $query->row;
             $order['transactions'] = $this->getTransactions($order['globalpay_remote_order_id']);
 
             return $order;

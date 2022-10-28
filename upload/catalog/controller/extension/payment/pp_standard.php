@@ -20,7 +20,7 @@ class ControllerExtensionPaymentPPStandard extends Controller {
         $order_info = $this->model_checkout_order->getOrder($this->session->data['order_id']);
 
         if ($order_info) {
-            $data['business']  = $this->config->get('payment_pp_standard_email');
+            $data['business'] = $this->config->get('payment_pp_standard_email');
             $data['item_name'] = html_entity_decode($this->config->get('config_name'), ENT_QUOTES, 'UTF-8');
 
             $data['products'] = [];
@@ -75,11 +75,16 @@ class ControllerExtensionPaymentPPStandard extends Controller {
             }
 
             $ship_to_state_codes = [
-                'BR', // Brazil
-                'CA', // Canada
-                'IT', // Italy
-                'MX', // Mexico
-                'US'  // USA
+                'BR',
+                // Brazil
+                'CA',
+                // Canada
+                'IT',
+                // Italy
+                'MX',
+                // Mexico
+                'US'
+                // USA
             ];
 
             if ($this->cart->hasShipping()) {
@@ -89,23 +94,23 @@ class ControllerExtensionPaymentPPStandard extends Controller {
                     $data['state'] = $order_info['shipping_zone'];
                 }
 
-                $data['no_shipping']      = 2;
+                $data['no_shipping'] = 2;
                 $data['address_override'] = 1;
-                $data['first_name']       = $order_info['shipping_firstname'];
-                $data['last_name']        = $order_info['shipping_lastname'];
-                $data['address1']         = $order_info['shipping_address_1'];
-                $data['address2']         = $order_info['shipping_address_2'];
-                $data['city']             = $order_info['shipping_city'];
-                $data['zip']              = $order_info['shipping_postcode'];
-                $data['country']          = $order_info['shipping_iso_code_2'];
+                $data['first_name'] = $order_info['shipping_firstname'];
+                $data['last_name'] = $order_info['shipping_lastname'];
+                $data['address1'] = $order_info['shipping_address_1'];
+                $data['address2'] = $order_info['shipping_address_2'];
+                $data['city'] = $order_info['shipping_city'];
+                $data['zip'] = $order_info['shipping_postcode'];
+                $data['country'] = $order_info['shipping_iso_code_2'];
             } else {
-                $data['no_shipping']      = 1;
+                $data['no_shipping'] = 1;
                 $data['address_override'] = 0;
-                $data['first_name']       = $order_info['payment_firstname'];
-                $data['last_name']        = $order_info['payment_lastname'];
-                $data['address1']         = $order_info['payment_address_1'];
-                $data['address2']         = $order_info['payment_address_2'];
-                $data['city']             = $order_info['payment_city'];
+                $data['first_name'] = $order_info['payment_firstname'];
+                $data['last_name'] = $order_info['payment_lastname'];
+                $data['address1'] = $order_info['payment_address_1'];
+                $data['address2'] = $order_info['payment_address_2'];
+                $data['city'] = $order_info['payment_city'];
 
                 if (in_array($order_info['payment_iso_code_2'], $ship_to_state_codes)) {
                     $data['state'] = $order_info['payment_zone_code'];
@@ -113,16 +118,16 @@ class ControllerExtensionPaymentPPStandard extends Controller {
                     $data['state'] = $order_info['payment_zone'];
                 }
 
-                $data['zip']     = $order_info['payment_postcode'];
+                $data['zip'] = $order_info['payment_postcode'];
                 $data['country'] = $order_info['payment_iso_code_2'];
             }
 
             $data['currency_code'] = $order_info['currency_code'];
-            $data['email']         = $order_info['email'];
-            $data['invoice']       = $this->session->data['order_id'] . ' - ' . $order_info['payment_firstname'] . ' ' . $order_info['payment_lastname'];
-            $data['lc']            = $this->config->get('config_language');
-            $data['return']        = $this->url->link('checkout/success');
-            $data['notify_url']    = $this->url->link('extension/payment/pp_standard/callback', '', true);
+            $data['email'] = $order_info['email'];
+            $data['invoice'] = $this->session->data['order_id'] . ' - ' . $order_info['payment_firstname'] . ' ' . $order_info['payment_lastname'];
+            $data['lc'] = $this->config->get('config_language');
+            $data['return'] = $this->url->link('checkout/success');
+            $data['notify_url'] = $this->url->link('extension/payment/pp_standard/callback', '', true);
             $data['cancel_return'] = $this->url->link('checkout/checkout', '', true);
 
             if (!$this->config->get('payment_pp_standard_transaction')) {
@@ -189,7 +194,7 @@ class ControllerExtensionPaymentPPStandard extends Controller {
                         $order_status_id = $this->config->get('payment_pp_standard_canceled_reversal_status_id');
                         break;
                     case 'Completed':
-                        $receiver_match   = (strtolower($this->request->post['receiver_email']) == strtolower($this->config->get('payment_pp_standard_email')));
+                        $receiver_match = (strtolower($this->request->post['receiver_email']) == strtolower($this->config->get('payment_pp_standard_email')));
                         $total_paid_match = ((float)$this->request->post['mc_gross'] == $this->currency->format($order_info['total'], $order_info['currency_code'], $order_info['currency_value'], false));
 
                         if ($receiver_match && $total_paid_match) {

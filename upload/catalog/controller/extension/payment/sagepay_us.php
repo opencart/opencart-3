@@ -37,23 +37,23 @@ class ControllerExtensionPaymentSagepayUS extends Controller {
 
         $order_info = $this->model_checkout_order->getOrder($this->session->data['order_id']);
 
-        $url        = 'https://www.sagepayments.net/cgi-bin/eftbankcard.dll?transaction';
-        $data       = 'm_id=' . $this->config->get('payment_sagepay_us_merchant_id');
-        $data       .= '&m_key=' . $this->config->get('payment_sagepay_us_merchant_key');
-        $data       .= '&T_amt=' . urlencode($this->currency->format($order_info['total'], $order_info['currency_code'], 1.00000, false));
-        $data       .= '&T_ordernum=' . $this->session->data['order_id'];
-        $data       .= '&C_name=' . urlencode($this->request->post['cc_owner']);
-        $data       .= '&C_address=' . urlencode($order_info['payment_address_1']);
-        $data       .= '&C_state=' . urlencode($order_info['payment_zone']);
-        $data       .= '&C_city=' . urlencode($order_info['payment_city']);
-        $data       .= '&C_cardnumber=' . urlencode($this->request->post['cc_number']);
-        $data       .= '&C_exp=' . urlencode($this->request->post['cc_expire_date_month'] . substr($this->request->post['cc_expire_date_year'], '2'));
-        $data       .= '&C_cvv=' . urlencode($this->request->post['cc_cvv2']);
-        $data       .= '&C_zip=' . urlencode($order_info['payment_postcode']);
-        $data       .= '&C_email=' . urlencode($order_info['email']);
-        $data       .= '&T_code=02';
+        $url = 'https://www.sagepayments.net/cgi-bin/eftbankcard.dll?transaction';
+        $data = 'm_id=' . $this->config->get('payment_sagepay_us_merchant_id');
+        $data .= '&m_key=' . $this->config->get('payment_sagepay_us_merchant_key');
+        $data .= '&T_amt=' . urlencode($this->currency->format($order_info['total'], $order_info['currency_code'], 1.00000, false));
+        $data .= '&T_ordernum=' . $this->session->data['order_id'];
+        $data .= '&C_name=' . urlencode($this->request->post['cc_owner']);
+        $data .= '&C_address=' . urlencode($order_info['payment_address_1']);
+        $data .= '&C_state=' . urlencode($order_info['payment_zone']);
+        $data .= '&C_city=' . urlencode($order_info['payment_city']);
+        $data .= '&C_cardnumber=' . urlencode($this->request->post['cc_number']);
+        $data .= '&C_exp=' . urlencode($this->request->post['cc_expire_date_month'] . substr($this->request->post['cc_expire_date_year'], '2'));
+        $data .= '&C_cvv=' . urlencode($this->request->post['cc_cvv2']);
+        $data .= '&C_zip=' . urlencode($order_info['payment_postcode']);
+        $data .= '&C_email=' . urlencode($order_info['email']);
+        $data .= '&T_code=02';
 
-        $ch         = curl_init();
+        $ch = curl_init();
 
         curl_setopt($ch, CURLOPT_URL, $url);
         curl_setopt($ch, CURLOPT_POST, 1);

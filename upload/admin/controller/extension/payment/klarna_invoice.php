@@ -123,9 +123,9 @@ class ControllerExtensionPaymentKlarnaInvoice extends Controller {
 
         $data['clear'] = $this->url->link('extension/payment/klarna_invoice/clear', 'user_token=' . $this->session->data['user_token'], true);
 
-        $data['header']      = $this->load->controller('common/header');
+        $data['header'] = $this->load->controller('common/header');
         $data['column_left'] = $this->load->controller('common/column_left');
-        $data['footer']      = $this->load->controller('common/footer');
+        $data['footer'] = $this->load->controller('common/footer');
 
         $this->response->setOutput($this->load->view('extension/payment/klarna_invoice', $data));
     }
@@ -165,7 +165,7 @@ class ControllerExtensionPaymentKlarnaInvoice extends Controller {
             case 'array':
                 $value = [];
 
-                $xpath   = new \DOMXPath($document);
+                $xpath = new \DOMXPath($document);
                 $entries = $xpath->query('.//array/data/value', $child);
 
                 for ($i = 0; $i < $entries->length; $i++) {

@@ -53,9 +53,9 @@ class ControllerExtensionFeedGoogleBase extends Controller {
             $data['feed_google_base_status'] = $this->config->get('feed_google_base_status');
         }
 
-        $data['header']      = $this->load->controller('common/header');
+        $data['header'] = $this->load->controller('common/header');
         $data['column_left'] = $this->load->controller('common/column_left');
-        $data['footer']      = $this->load->controller('common/footer');
+        $data['footer'] = $this->load->controller('common/footer');
 
         $this->response->setOutput($this->load->view('extension/feed/google_base', $data));
     }
@@ -157,11 +157,11 @@ class ControllerExtensionFeedGoogleBase extends Controller {
 
         $category_total = $this->model_extension_feed_google_base->getTotalCategories();
 
-        $pagination        = new \Pagination();
+        $pagination = new \Pagination();
         $pagination->total = $category_total;
-        $pagination->page  = $page;
+        $pagination->page = $page;
         $pagination->limit = 10;
-        $pagination->url   = $this->url->link('extension/feed/google_base/category', 'user_token=' . $this->session->data['user_token'] . '&page={page}', true);
+        $pagination->url = $this->url->link('extension/feed/google_base/category', 'user_token=' . $this->session->data['user_token'] . '&page={page}', true);
 
         $data['pagination'] = $pagination->render();
 
