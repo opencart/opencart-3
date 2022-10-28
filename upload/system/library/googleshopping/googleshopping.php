@@ -1038,10 +1038,10 @@ class Googleshopping extends Library {
 
             $path = '';
 
-            $directoryectories = explode('/', dirname($image_new));
+            $directories = explode('/', dirname($image_new));
 
-            foreach ($directoryectories as $directoryectory) {
-                $path = $path . '/' . $directoryectory;
+            foreach ($directories as $directory) {
+                $path = $path . '/' . $directory;
 
                 if (!is_dir(DIR_IMAGE . $path)) {
                     @mkdir(DIR_IMAGE . $path, 0777);
