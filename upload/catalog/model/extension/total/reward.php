@@ -63,6 +63,7 @@ class ModelExtensionTotalReward extends Model {
             $points = substr($order_total['title'], $start, $end - $start);
         }
 
+        // Customers
         $this->load->model('account/customer');
 
         if ($order_info['customer_id'] && $this->model_account_customer->getRewardTotal($order_info['customer_id']) >= $points) {

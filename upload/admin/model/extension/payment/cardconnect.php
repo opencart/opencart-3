@@ -119,6 +119,7 @@ class ModelExtensionPaymentCardConnect extends Model {
     }
 
     public function capture(array $order_info, float $amount): array {
+        // Orders
         $this->load->model('sale/order');
 
         $this->log('Posting capture to CardConnect');

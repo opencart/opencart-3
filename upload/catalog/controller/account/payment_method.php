@@ -13,7 +13,7 @@ class ControllerAccountPaymentMethod extends Controller {
 
         $this->document->setTitle($this->language->get('heading_title'));
 
-        // Payment Methods
+        // Stored payment methods
         $this->load->model('account/payment_method');
 
         $this->getList();
@@ -37,7 +37,7 @@ class ControllerAccountPaymentMethod extends Controller {
         }
 
         if (!$json) {
-            // Payment Methods
+            // Stored payment methods
             $this->load->model('account/payment_method');
 
             $payment_method_info = $this->model_account_payment_method->getPaymentMethod($this->customer->getId(), $customer_payment_id);

@@ -49,6 +49,7 @@ class ModelExtensionPaymentSquareup extends Model {
         if ($transaction_status) {
             return (int)$this->config->get('payment_squareup_status_' . strtolower($transaction_status));
         } else {
+            // Orders
             $this->load->model('sale/order');
 
             $order_info = $this->model_sale_order->getOrder($order_id);

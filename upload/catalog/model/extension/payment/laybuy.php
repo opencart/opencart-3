@@ -49,6 +49,7 @@ class ModelExtensionPaymentLaybuy extends Model {
             if (isset($this->session->data['guest']) && in_array(0, (array)$this->config->get('payment_laybuy_customer_group'))) {
                 $status = true;
             } elseif ($this->customer->isLogged() && $this->session->data['customer_id']) {
+                // Customers
                 $this->load->model('account/customer');
 
                 $customer = $this->model_account_customer->getCustomer($this->session->data['customer_id']);
@@ -155,10 +156,9 @@ class ModelExtensionPaymentLaybuy extends Model {
 
     public function log($data, $step = 6) {
         if ($this->config->get('payment_laybuy_logging')) {
-            $backtrace = debug_backtrace();
-
+            // Log
             $log = new \Log('laybuy.log');
-
+            $backtrace = debug_backtrace();
             $log->write('(' . $backtrace[$step]['class'] . '::' . $backtrace[$step]['function'] . ') - ' . $data);
         }
     }
@@ -166,6 +166,7 @@ class ModelExtensionPaymentLaybuy extends Model {
     public function prepareTransactionReport($post_data) {
         $this->load->language('extension/payment/laybuy');
 
+        // Orders
         $this->load->model('checkout/order');
 
         $data = array_change_key_case($post_data, CASE_LOWER);

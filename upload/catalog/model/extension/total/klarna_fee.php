@@ -10,6 +10,7 @@ class ModelExtensionTotalKlarnaFee extends Model {
         $klarna_fee = $this->config->get('total_klarna_fee');
 
         if (isset($this->session->data['payment_address_id'])) {
+            // Addresses
             $this->load->model('account/address');
 
             $address = $this->model_account_address->getAddress($this->session->data['payment_address_id']);

@@ -47,6 +47,7 @@ class ModelExtensionPaymentGlobalpay extends Model {
 
     public function logger($message) {
         if ($this->config->get('payment_globalpay_debug') == 1) {
+            // Log
             $log = new \Log('globalpay.log');
             $log->write($message);
         }

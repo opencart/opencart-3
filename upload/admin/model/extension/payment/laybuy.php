@@ -314,6 +314,7 @@ class ModelExtensionPaymentLaybuy extends Model {
 			PRIMARY KEY (`laybuy_revise_request_id`)
 		) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci");
 
+        // Events
         $this->load->model('setting/event');
 
         $this->model_setting_event->addEvent('laybuy', 'catalog/model/checkout/order/deleteOrder/after', 'extension/payment/laybuy/deleteOrder');
@@ -323,6 +324,7 @@ class ModelExtensionPaymentLaybuy extends Model {
         if ($this->config->get('payment_laybuy_logging')) {
             $backtrace = debug_backtrace();
 
+            // Log
             $log = new \Log('laybuy.log');
             $log->write('(' . $backtrace[$step]['class'] . '::' . $backtrace[$step]['function'] . ') - ' . $data);
         }
@@ -332,6 +334,7 @@ class ModelExtensionPaymentLaybuy extends Model {
         $this->db->query("DROP TABLE IF EXISTS `" . DB_PREFIX . "laybuy_transaction`");
         $this->db->query("DROP TABLE IF EXISTS `" . DB_PREFIX . "laybuy_revise_request`");
 
+        // Events
         $this->load->model('setting/event');
 
         $this->model_setting_event->deleteEventByCode('laybuy');

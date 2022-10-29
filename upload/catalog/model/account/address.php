@@ -34,6 +34,7 @@ class ModelAccountAddress extends Model {
         $address_query = $this->db->query("SELECT DISTINCT * FROM `" . DB_PREFIX . "address` WHERE `address_id` = '" . (int)$address_id . "' AND `customer_id` = '" . (int)$this->customer->getId() . "'");
 
         if ($address_query->num_rows) {
+            // Countries
             $this->load->model('localisation/country');
 
             $country_info = $this->model_localisation_country->getCountry($address_query->row['country_id']);
@@ -50,6 +51,7 @@ class ModelAccountAddress extends Model {
                 $address_format = '';
             }
 
+            // Zones
             $this->load->model('localisation/zone');
 
             $zone_info = $this->model_localisation_zone->getZone($address_query->row['zone_id']);

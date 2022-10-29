@@ -141,6 +141,7 @@ class ModelLocalisationCurrency extends Model {
             $currency = $this->config->get('config_currency');
 
             if ($currencies) {
+                // Currencies
                 $this->load->model('localisation/currency');
 
                 $results = $this->getCurrencies();

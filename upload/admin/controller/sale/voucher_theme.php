@@ -370,7 +370,7 @@ class ControllerSaleVoucherTheme extends Controller {
             $this->error['warning'] = $this->language->get('error_permission');
         }
 
-        // Vouchers
+        // Gift Voucher
         $this->load->model('sale/voucher');
 
         foreach ((array)$this->request->post['selected'] as $voucher_theme_id) {

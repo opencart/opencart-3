@@ -102,6 +102,7 @@ class ModelExtensionPaymentPPPayflowIframe extends Model {
 
     public function log(string $message): void {
         if ($this->config->get('payment_pp_payflow_iframe_debug')) {
+            // Log
             $log = new \Log('payflow-iframe.log');
             $log->write($message);
         }

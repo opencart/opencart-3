@@ -7,7 +7,7 @@ class ControllerSaleVoucher extends Controller {
 
         $this->document->setTitle($this->language->get('heading_title'));
 
-        // Vouchers
+        // Gift Voucher
         $this->load->model('sale/voucher');
 
         $this->getList();
@@ -18,7 +18,7 @@ class ControllerSaleVoucher extends Controller {
 
         $this->document->setTitle($this->language->get('heading_title'));
 
-        // Vouchers
+        // Gift Voucher
         $this->load->model('sale/voucher');
 
         if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validateForm()) {
@@ -51,7 +51,7 @@ class ControllerSaleVoucher extends Controller {
 
         $this->document->setTitle($this->language->get('heading_title'));
 
-        // Vouchers
+        // Gift Voucher
         $this->load->model('sale/voucher');
 
         if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validateForm()) {
@@ -84,7 +84,7 @@ class ControllerSaleVoucher extends Controller {
 
         $this->document->setTitle($this->language->get('heading_title'));
 
-        // Vouchers
+        // Gift Voucher
         $this->load->model('sale/voucher');
 
         if (isset($this->request->post['selected']) && $this->validateDelete()) {
@@ -507,7 +507,7 @@ class ControllerSaleVoucher extends Controller {
     public function history(): void {
         $this->load->language('sale/voucher');
 
-        // Vouchers
+        // Gift Voucher
         $this->load->model('sale/voucher');
 
         if (isset($this->request->get['page'])) {
@@ -554,7 +554,7 @@ class ControllerSaleVoucher extends Controller {
         }
 
         if (!$json) {
-            // Vouchers
+            // Gift Voucher
             $this->load->model('sale/voucher');
 
             $vouchers = [];

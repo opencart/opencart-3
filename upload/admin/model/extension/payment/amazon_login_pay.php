@@ -43,6 +43,7 @@ class ModelExtensionPaymentAmazonLoginPay extends Model {
     }
 
     public function deleteEvents(): void {
+        // Events
         $this->load->model('setting/event');
 
         $this->model_setting_event->deleteEventByCode('amazon_edit_capture');
@@ -50,6 +51,7 @@ class ModelExtensionPaymentAmazonLoginPay extends Model {
     }
 
     public function addEvents(): void {
+        // Events
         $this->load->model('setting/event');
 
         $this->model_setting_event->addEvent('amazon_edit_capture', 'catalog/model/checkout/order/editOrder/after', 'extension/payment/amazon_login_pay/capture');

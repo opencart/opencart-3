@@ -5,6 +5,7 @@ class ModelCheckoutOrder extends Model {
 
         $order_id = $this->db->getLastId();
 
+        // Subscription
         $this->load->model('checkout/subscription');
 
         // Products
@@ -48,7 +49,6 @@ class ModelCheckoutOrder extends Model {
         // Gift Voucher
         $this->load->model('extension/total/voucher');
 
-        // Vouchers
         if (isset($data['vouchers'])) {
             foreach ($data['vouchers'] as $voucher) {
                 $this->db->query("INSERT INTO `" . DB_PREFIX . "order_voucher` SET `order_id` = '" . (int)$order_id . "', `description` = '" . $this->db->escape($voucher['description']) . "', `code` = '" . $this->db->escape($voucher['code']) . "', `from_name` = '" . $this->db->escape($voucher['from_name']) . "', `from_email` = '" . $this->db->escape($voucher['from_email']) . "', `to_name` = '" . $this->db->escape($voucher['to_name']) . "', `to_email` = '" . $this->db->escape($voucher['to_email']) . "', `voucher_theme_id` = '" . (int)$voucher['voucher_theme_id'] . "', `message` = '" . $this->db->escape($voucher['message']) . "', `amount` = '" . (float)$voucher['amount'] . "'");
@@ -80,6 +80,7 @@ class ModelCheckoutOrder extends Model {
         $this->db->query("DELETE FROM `" . DB_PREFIX . "order_product` WHERE `order_id` = '" . (int)$order_id . "'");
         $this->db->query("DELETE FROM `" . DB_PREFIX . "order_option` WHERE `order_id` = '" . (int)$order_id . "'");
 
+        // Subscription
         $this->load->model('checkout/subscription');
 
         $this->model_checkout_subscription->deleteSubscriptionByOrderId($order_id);
@@ -109,7 +110,6 @@ class ModelCheckoutOrder extends Model {
 
         $this->model_extension_total_voucher->disableVoucher($order_id);
 
-        // Vouchers
         $this->db->query("DELETE FROM `" . DB_PREFIX . "order_voucher` WHERE `order_id` = '" . (int)$order_id . "'");
 
         if (isset($data['vouchers'])) {
@@ -200,6 +200,7 @@ class ModelCheckoutOrder extends Model {
                 $shipping_zone_code = '';
             }
 
+            // Languages
             $this->load->model('localisation/language');
 
             $language_info = $this->model_localisation_language->getLanguage($order_query->row['language_id']);
@@ -377,6 +378,7 @@ class ModelCheckoutOrder extends Model {
 
                 // Add commission if sale is linked to affiliate referral.
                 if ($order_info['affiliate_id'] && $this->config->get('config_affiliate_auto')) {
+                    // Customers
                     $this->load->model('account/customer');
 
                     if (!$this->model_account_customer->getTotalTransactionsByOrderId($order_id)) {
@@ -418,6 +420,7 @@ class ModelCheckoutOrder extends Model {
 
                 // Remove commission if sale is linked to affiliate referral.
                 if ($order_info['affiliate_id']) {
+                    // Affiliate
                     $this->load->model('account/customer');
 
                     $this->model_account_customer->deleteTransactionByOrderId($order_id);

@@ -1,6 +1,6 @@
 <?php
 class ModelExtensionPaymentSagePayServer extends Model {
-    public function getMethod($address, $total) {
+    public function getMethod(array $address, float $total): array {
         $this->load->language('extension/payment/sagepay_server');
 
         $query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "zone_to_geo_zone` WHERE `geo_zone_id` = '" . (int)$this->config->get('payment_sagepay_server_geo_zone_id') . "' AND `country_id` = '" . (int)$address['country_id'] . "' AND (`zone_id` = '" . (int)$address['zone_id'] . "' OR `zone_id` = '0')");
@@ -29,11 +29,12 @@ class ModelExtensionPaymentSagePayServer extends Model {
         return $method_data;
     }
 
-    public function getCards($customer_id) {
+    public function getCards(int $customer_id): array {
         $query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "sagepay_server_card` WHERE `customer_id` = '" . (int)$customer_id . "'");
 
         $card_data = [];
 
+        // Addresses
         $this->load->model('account/address');
 
         foreach ($query->rows as $row) {
@@ -50,7 +51,7 @@ class ModelExtensionPaymentSagePayServer extends Model {
         return $card_data;
     }
 
-    public function getCard($card_id, $token) {
+    public function getCard(string $card_id, string $token): array {
         $query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "sagepay_server_card` WHERE (`card_id` = '" . $this->db->escape($card_id) . "' OR `token` = '" . $this->db->escape($token) . "') AND `customer_id` = '" . (int)$this->customer->getId() . "'");
 
         if ($query->num_rows) {
@@ -60,21 +61,21 @@ class ModelExtensionPaymentSagePayServer extends Model {
         }
     }
 
-    public function addCard($data) {
+    public function addCard(array $data): void {
         $this->db->query("INSERT INTO `" . DB_PREFIX . "sagepay_server_card` SET `customer_id` = '" . (int)$data['customer_id'] . "', `token` = '" . $this->db->escape($data['Token']) . "', `digits` = '" . $this->db->escape($data['Last4Digits']) . "', `expiry` = '" . $this->db->escape($data['ExpiryDate']) . "', `type` = '" . $this->db->escape($data['CardType']) . "'");
     }
 
-    public function deleteCard($card_id) {
+    public function deleteCard(int $card_id): void {
         $this->db->query("DELETE FROM `" . DB_PREFIX . "sagepay_server_card` WHERE `card_id` = '" . (int)$card_id . "'");
     }
 
-    public function addOrder($order_info) {
+    public function addOrder(array $order_info): void {
         $this->db->query("DELETE FROM `" . DB_PREFIX . "sagepay_server_order` WHERE `order_id` = '" . (int)$order_info['order_id'] . "'");
 
         $this->db->query("INSERT INTO `" . DB_PREFIX . "sagepay_server_order` SET `order_id` = '" . (int)$order_info['order_id'] . "', `customer_id` = '" . (int)$this->customer->getId() . "', `VPSTxId` = '" . $this->db->escape($order_info['VPSTxId']) . "', `VendorTxCode` = '" . $this->db->escape($order_info['VendorTxCode']) . "', `SecurityKey` = '" . $this->db->escape($order_info['SecurityKey']) . "', `date_added` = NOW(), `date_modified` = NOW(), `currency_code` = '" . $this->db->escape($order_info['currency_code']) . "', `total` = '" . $this->currency->format($order_info['total'], $order_info['currency_code'], false, false) . "'");
     }
 
-    public function getOrder($order_id, $vpstx_id = null) {
+    public function getOrder(int $order_id, string $vpstx_id = null): array {
         $query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "sagepay_server_order` WHERE `order_id` = '" . (int)$order_id . "' OR `VPSTxId` = '" . $this->db->escape($vpstx_id) . "' LIMIT 1");
 
         if ($query->num_rows) {
@@ -87,20 +88,20 @@ class ModelExtensionPaymentSagePayServer extends Model {
         }
     }
 
-    public function updateOrder($order_info, $vps_txn_id, $tx_auth_no) {
+    public function updateOrder(array $order_info, string $vps_txn_id, string $tx_auth_no): void {
         $this->db->query("UPDATE `" . DB_PREFIX . "sagepay_server_order` SET `VPSTxId` = '" . $this->db->escape($vps_txn_id) . "', `TxAuthNo` = '" . $this->db->escape($tx_auth_no) . "' WHERE `order_id` = '" . (int)$order_info['order_id'] . "'");
     }
 
-    public function deleteOrder($order_id) {
+    public function deleteOrder(int $order_id): void {
         $this->db->query("DELETE FROM `" . DB_PREFIX . "sagepay_server_order` WHERE `order_id` = '" . (int)$order_id . "'");
         $this->db->query("DELETE FROM `" . DB_PREFIX . "subscription` WHERE `order_id` = '" . (int)$order_id . "'");
     }
 
-    public function addTransaction($sagepay_server_order_id, $type, $order_info) {
+    public function addTransaction(int $sagepay_server_order_id, string $type, array $order_info): void {
         $this->db->query("INSERT INTO `" . DB_PREFIX . "sagepay_server_order_transaction` SET `sagepay_server_order_id` = '" . (int)$sagepay_server_order_id . "', `date_added` = NOW(), `type` = '" . $this->db->escape($type) . "', `amount` = '" . $this->currency->format($order_info['total'], $order_info['currency_code'], false, false) . "'");
     }
 
-    private function getTransactions($sagepay_server_order_id) {
+    private function getTransactions(int $sagepay_server_order_id): array {
         $query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "sagepay_server_order_transaction` WHERE `sagepay_server_order_id` = '" . (int)$sagepay_server_order_id . "'");
 
         if ($query->num_rows) {
@@ -110,7 +111,7 @@ class ModelExtensionPaymentSagePayServer extends Model {
         }
     }
 
-    public function getRecurringOrders($order_id) {
+    public function getRecurringOrders(int $order_id): array {
         $query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "subscription` WHERE `order_id` = '" . (int)$order_id . "'");
 
         return $query->rows;
@@ -119,6 +120,7 @@ class ModelExtensionPaymentSagePayServer extends Model {
     public function addRecurringPayment($item, $vendor_tx_code) {
         $this->load->language('extension/payment/sagepay_server');
 
+        // Subscription
         $this->load->model('checkout/subscription');
 
         // Trial information
@@ -145,12 +147,14 @@ class ModelExtensionPaymentSagePayServer extends Model {
         $this->model_checkout_subscription->editReference($subscription_id, $vendor_tx_code);
     }
 
-    public function updateRecurringPayment($item, $order_details) {
+    public function updateRecurringPayment(array $item, array $order_details): void {
+        // Orders
         $this->load->model('checkout/order');
 
         $order_info = $this->model_checkout_order->getOrder($order_details['order_id']);
 
         if ($order_info) {
+            // Subscription
             $this->load->model('account/subscription');
 
             // Trial information
@@ -202,7 +206,7 @@ class ModelExtensionPaymentSagePayServer extends Model {
         }
     }
 
-    private function setPaymentData($order_info, $sagepay_order_info, $price, $order_recurring_id, $recurring_name, $i = null) {
+    private function setPaymentData(array $order_info, array $sagepay_order_info, float $price, int $order_recurring_id, string $recurring_name, int $i = null) {
         if ($this->config->get('payment_sagepay_server_test') == 'live') {
             $url = 'https://live.sagepay.com/gateway/service/repeat.vsp';
             $payment_data['VPSProtocol'] = '3.00';
@@ -273,6 +277,7 @@ class ModelExtensionPaymentSagePayServer extends Model {
     }
 
     public function cronPayment() {
+        // Orders
         $this->load->model('account/order');
 
         $i = 0;
@@ -318,6 +323,7 @@ class ModelExtensionPaymentSagePayServer extends Model {
             }
         }
 
+        // Log
         $log = new \Log('sagepay_server_recurring_orders.log');
         $log->write(print_r($cron_data, 1));
 
@@ -364,35 +370,38 @@ class ModelExtensionPaymentSagePayServer extends Model {
         return $next_payment;
     }
 
-    private function addRecurringOrder($order_id, $response_data, $order_recurring_id, $trial_end, $subscription_end) {
+    private function addRecurringOrder(int $order_id, array $response_data, int $order_recurring_id, string $trial_end, string $subscription_end): void {
         $this->db->query("INSERT INTO `" . DB_PREFIX . "sagepay_server_order_recurring` SET `order_id` = '" . (int)$order_id . "', `order_recurring_id` = '" . (int)$order_recurring_id . "', `VPSTxId` = '" . $this->db->escape($response_data['VPSTxId']) . "', `VendorTxCode` = '" . $this->db->escape($response_data['VendorTxCode']) . "', `SecurityKey` = '" . $this->db->escape($response_data['SecurityKey']) . "', `TxAuthNo` = '" . $this->db->escape($response_data['TxAuthNo']) . "', `date_added` = NOW(), `date_modified` = NOW(), `next_payment` = NOW(), `trial_end` = '" . $this->db->escape($trial_end) . "', `subscription_end` = '" . $this->db->escape($subscription_end) . "', `currency_code` = '" . $this->db->escape($response_data['Currency']) . "', `total` = '" . $this->currency->format($response_data['Amount'], $response_data['Currency'], false, false) . "'");
     }
 
-    private function updateRecurringOrder($order_recurring_id, $next_payment) {
+    private function updateRecurringOrder(int $order_recurring_id, string $next_payment): void {
         $this->db->query("UPDATE `" . DB_PREFIX . "sagepay_server_order_recurring` SET `next_payment` = '" . $this->db->escape($next_payment) . "', `date_modified` = NOW() WHERE `order_recurring_id` = '" . (int)$order_recurring_id . "'");
     }
 
-    private function getRecurringOrder($order_recurring_id) {
+    private function getRecurringOrder(int $order_recurring_id): array {
         $query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "sagepay_server_order_recurring` WHERE `order_recurring_id` = '" . (int)$order_recurring_id . "'");
 
         return $query->row;
     }
 
-    private function addRecurringTransaction($subscription_id, $order_id, $response_data, $type) {
+    private function addRecurringTransaction(int $subscription_id, int $order_id, array $response_data, string $type): void {
+        // Subscription
         $this->load->model('account/subscription');
 
         $subscription_info = $this->model_account_subscription->getSubscription($subscription_id);
 
         if ($subscription_info) {
+            // Subscription
             $this->load->model('checkout/subscription');
 
             $this->model_checkout_subscription->editReference($subscription_id, $response_data['VendorTxCode']);
         }
     }
 
-    private function getProfiles() {
+    private function getProfiles(): array {
         $subscriptions = [];
 
+        // Subscription
         $this->load->model('account/subscription');
 
         $sql = "SELECT s.`subscription_id` FROM `" . DB_PREFIX . "subscription` s JOIN `" . DB_PREFIX . "order` o USING(`order_id`) WHERE o.`payment_code` = 'sagepay_server'";
@@ -406,13 +415,13 @@ class ModelExtensionPaymentSagePayServer extends Model {
         return $subscriptions;
     }
 
-    public function updateCronJobRunTime() {
+    public function updateCronJobRunTime(): void {
         $this->db->query("DELETE FROM `" . DB_PREFIX . "setting` WHERE `code` = 'sagepay_server' AND `key` = 'payment_sagepay_server_last_cron_job_run'");
 
         $this->db->query("INSERT INTO `" . DB_PREFIX . "setting` SET `store_id` = '0', `code` = 'sagepay_server', `key` = 'payment_sagepay_server_last_cron_job_run', `value` = NOW(), `serialized` = '0'");
     }
 
-    public function sendCurl($url, $payment_data, $i = null) {
+    public function sendCurl(string $url, array $payment_data, int $i = null): array {
         $curl = curl_init($url);
 
         curl_setopt($curl, CURLOPT_PORT, 443);
@@ -444,8 +453,9 @@ class ModelExtensionPaymentSagePayServer extends Model {
         return $data;
     }
 
-    public function logger($title, $data) {
+    public function logger(string $title, array $data) {
         if ($this->config->get('payment_sagepay_server_debug')) {
+            // Log
             $log = new \Log('sagepay_server.log');
             $backtrace = debug_backtrace();
             $log->write($backtrace[6]['class'] . '::' . $backtrace[6]['function'] . ' - ' . $title . ': ' . print_r($data, 1));

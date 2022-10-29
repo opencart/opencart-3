@@ -30,6 +30,7 @@ class ModelExtensionPaymentFirstdataRemote extends Model {
     }
 
     public function capturePayment($data, $order_id) {
+        // Orders
         $this->load->model('checkout/order');
 
         $order_info = $this->model_checkout_order->getOrder($order_id);
@@ -253,6 +254,7 @@ class ModelExtensionPaymentFirstdataRemote extends Model {
 
     public function logger($message) {
         if ($this->config->get('payment_firstdata_remote_debug') == 1) {
+            // Log
             $log = new \Log('firstdata_remote.log');
             $log->write($message);
         }

@@ -53,6 +53,7 @@ class ModelExtensionPaymentEway extends Model {
 
         $card_data = [];
 
+        // Addresses
         $this->load->model('account/address');
 
         foreach ($query->rows as $row) {

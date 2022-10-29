@@ -34,6 +34,7 @@ class ModelExtensionPaymentSagePayDirect extends Model {
 
         $card_data = [];
 
+        // Addresses
         $this->load->model('account/address');
 
         foreach ($query->rows as $row) {
@@ -119,7 +120,10 @@ class ModelExtensionPaymentSagePayDirect extends Model {
     }
 
     public function recurringPayment($item, $vendor_tx_code) {
+        // Subscription
         $this->load->model('checkout/subscription');
+
+        // Sagepay Direct
         $this->load->model('extension/payment/sagepay_direct');
 
         // Trial information
@@ -258,6 +262,7 @@ class ModelExtensionPaymentSagePayDirect extends Model {
     }
 
     public function cronPayment() {
+        // Orders
         $this->load->model('account/order');
 
         $i = 0;
@@ -303,6 +308,7 @@ class ModelExtensionPaymentSagePayDirect extends Model {
             }
         }
 
+        // Log
         $log = new \Log('sagepay_direct_recurring_orders.log');
         $log->write(print_r($cron_data, 1));
 
@@ -364,11 +370,13 @@ class ModelExtensionPaymentSagePayDirect extends Model {
     }
 
     private function addRecurringTransaction($subscription_id, $response_data, $type) {
+        // Subscription
         $this->load->model('account/subscription');
 
         $subscription_info = $this->model_account_subscription->getSubscription($subscription_id);
 
         if ($subscription_info) {
+            // Subscription
             $this->load->model('checkout/subscription');
 
             $this->model_checkout_subscription->editReference($subscription_id, $response_data['VendorTxCode']);
@@ -378,6 +386,7 @@ class ModelExtensionPaymentSagePayDirect extends Model {
     private function getProfiles() {
         $subscriptions = [];
 
+        // Subscription
         $this->load->model('account/subscription');
 
         $sql = "SELECT s.`subscription_id` FROM `" . DB_PREFIX . "subscription` s JOIN `" . DB_PREFIX . "order` o USING(`order_id`) WHERE o.`payment_code` = 'sagepay_direct'";
@@ -431,9 +440,9 @@ class ModelExtensionPaymentSagePayDirect extends Model {
 
     public function logger($title, $data) {
         if ($this->config->get('payment_sagepay_direct_debug')) {
-            $backtrace = debug_backtrace();
-
+            // Log
             $log = new \Log('sagepay_direct.log');
+            $backtrace = debug_backtrace();
             $log->write($backtrace[6]['class'] . '::' . $backtrace[6]['function'] . ' - ' . $title . ': ' . print_r($data, 1));
         }
     }

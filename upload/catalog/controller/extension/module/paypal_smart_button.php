@@ -1783,6 +1783,7 @@ class ControllerExtensionModulePayPalSmartButton extends Controller {
     }
 
     private function validateVoucher() {
+        // Gift Voucher
         $this->load->model('extension/total/voucher');
 
         $voucher_info = $this->model_extension_total_voucher->getVoucher($this->request->post['voucher']);

@@ -11,6 +11,7 @@ class ModelExtensionPaymentDivido extends Model {
     public function getMethod($payment_address, $total) {
         $this->load->language('extension/payment/divido');
 
+        // Currencies
         $this->load->model('localisation/currency');
 
         if (!$this->isEnabled()) {
@@ -236,6 +237,7 @@ class ModelExtensionPaymentDivido extends Model {
             'total'  => &$total
         ];
 
+        // Extensions
         $this->load->model('setting/extension');
 
         $sort_order = [];
@@ -272,6 +274,7 @@ class ModelExtensionPaymentDivido extends Model {
     }
 
     public function getProductPlans($product_id) {
+        // Products
         $this->load->model('catalog/product');
 
         $product_info = $this->model_catalog_product->getProduct($product_id);

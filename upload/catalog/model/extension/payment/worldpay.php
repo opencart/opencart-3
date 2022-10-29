@@ -34,6 +34,7 @@ class ModelExtensionPaymentWorldpay extends Model {
 
         $query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "worldpay_card` WHERE `customer_id` = '" . (int)$customer_id . "'");
 
+        // Addresses
         $this->load->model('account/address');
 
         foreach ($query->rows as $row) {
@@ -100,7 +101,10 @@ class ModelExtensionPaymentWorldpay extends Model {
     }
 
     public function recurringPayment($item, $order_id_rand, $token) {
+        // Subscription
         $this->load->model('checkout/subscription');
+
+        // Worldpay
         $this->load->model('extension/payment/worldpay');
 
         // Trial information
@@ -180,6 +184,7 @@ class ModelExtensionPaymentWorldpay extends Model {
     }
 
     public function cronPayment() {
+        // Orders
         $this->load->model('account/order');
         $this->load->model('checkout/order');
 
@@ -239,6 +244,8 @@ class ModelExtensionPaymentWorldpay extends Model {
                 $this->addProfileTransaction($profile['subscription_id'], '', $price, 4);
             }
         }
+
+        // Log
         $log = new \Log('worldpay_recurring_orders.log');
         $log->write(print_r($cron_data, 1));
 
@@ -318,6 +325,7 @@ class ModelExtensionPaymentWorldpay extends Model {
     }
 
     private function getProfile($subscription_id) {
+        // Subscription
         $this->load->model('account/subscription');
 
         $subscription_info = $this->model_account_subscription->getSubscription($subscription_id);
@@ -372,9 +380,9 @@ class ModelExtensionPaymentWorldpay extends Model {
 
     public function logger($data) {
         if ($this->config->get('payment_worldpay_debug')) {
-            $backtrace = debug_backtrace();
-
+            // Log
             $log = new \Log('worldpay_debug.log');
+            $backtrace = debug_backtrace();
             $log->write($backtrace[6]['class'] . '::' . $backtrace[6]['function'] . ' Data:  ' . print_r($data, 1));
         }
     }

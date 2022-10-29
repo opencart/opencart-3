@@ -3,6 +3,7 @@ class ModelCheckoutPaymentMethod extends Model {
     public function getMethods(array $payment_address): array {
         $method_data = [];
 
+        // Extensions
         $this->load->model('setting/extension');
 
         $results = $this->model_setting_extension->getExtensionsByType('payment');

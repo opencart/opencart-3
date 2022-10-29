@@ -47,6 +47,7 @@ class ModelExtensionPaymentBluePayHosted extends Model {
 
     public function logger($message) {
         if ($this->config->get('payment_bluepay_hosted_debug') == 1) {
+            // Log
             $log = new \Log('bluepay_hosted.log');
             $log->write($message);
         }

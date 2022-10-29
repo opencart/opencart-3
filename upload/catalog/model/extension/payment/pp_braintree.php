@@ -184,6 +184,7 @@ class ModelExtensionPaymentPPBraintree extends Model {
 
     public function log($data) {
         if ($this->config->get('payment_pp_braintree_debug')) {
+            // Log
             $log = new \Log('braintree.log');
             $log->write(print_r($data, true));
         }

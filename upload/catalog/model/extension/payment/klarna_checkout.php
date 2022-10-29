@@ -170,9 +170,9 @@ class ModelExtensionPaymentKlarnaCheckout extends Model {
 
     public function log($data, $step = 6) {
         if ($this->config->get('payment_klarna_checkout_debug')) {
-            $backtrace = debug_backtrace();
-
+            // Log
             $log = new \Log('klarna_checkout.log');
+            $backtrace = debug_backtrace();
             $log->write('(' . $backtrace[$step]['class'] . '::' . $backtrace[$step]['function'] . ') - ' . print_r($data, true));
         }
     }
@@ -193,6 +193,7 @@ class ModelExtensionPaymentKlarnaCheckout extends Model {
             'total'  => &$total
         ];
 
+        // Extensions
         $this->load->model('setting/extension');
 
         $sort_order = [];

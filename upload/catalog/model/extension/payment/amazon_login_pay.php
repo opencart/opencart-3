@@ -96,6 +96,7 @@ class ModelExtensionPaymentAmazonLoginPay extends Model {
     }
 
     public function getTotals(&$total_data) {
+        // Extensions
         $this->load->model('setting/extension');
 
         $sort_order = [];
@@ -372,6 +373,7 @@ class ModelExtensionPaymentAmazonLoginPay extends Model {
     }
 
     public function submitOrderDetails($order_reference_id, $order_id, $currency_code, $text_version) {
+        // Orders
         $this->load->model('checkout/order');
 
         $order_info = $this->model_checkout_order->getOrder($order_id);
@@ -978,6 +980,7 @@ class ModelExtensionPaymentAmazonLoginPay extends Model {
         $message .= PHP_EOL . ob_get_contents();
         ob_end_clean();
 
+        // Log
         $log = new \Log(self::LOG_FILENAME);
 
         $log->write(($id ? '[' . $id . ']: ' : '') . $type . " ---> " . $message);

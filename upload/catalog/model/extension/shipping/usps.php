@@ -23,6 +23,7 @@ class ModelExtensionShippingUsps extends Model {
         $method_data = [];
 
         if ($status) {
+            // Countries
             $this->load->model('localisation/country');
 
             $quote_data = [];

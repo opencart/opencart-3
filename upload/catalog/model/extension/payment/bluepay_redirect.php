@@ -34,6 +34,7 @@ class ModelExtensionPaymentBluePayRedirect extends Model {
 
         $card_data = [];
 
+        // Addresses
         $this->load->model('account/address');
 
         foreach ($query->rows as $row) {
@@ -95,6 +96,7 @@ class ModelExtensionPaymentBluePayRedirect extends Model {
 
     public function logger($message) {
         if ($this->config->get('payment_bluepay_redirect_debug') == 1) {
+            // Log
             $log = new \Log('bluepay_redirect.log');
             $log->write($message);
         }

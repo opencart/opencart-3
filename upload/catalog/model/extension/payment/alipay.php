@@ -83,6 +83,7 @@ class ModelExtensionPaymentAlipay extends Model {
             $biz_content = json_encode($builder, JSON_UNESCAPED_UNICODE);
         }
 
+        // Log
         $log = new \Log($this->logFileName);
         $log->write($biz_content);
 

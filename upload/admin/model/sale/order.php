@@ -48,6 +48,7 @@ class ModelSaleOrder extends Model {
                 $reward += $product['reward'];
             }
 
+            // Customers
             $this->load->model('customer/customer');
 
             $affiliate_info = $this->model_customer_customer->getCustomer($order_query->row['affiliate_id']);
@@ -60,6 +61,7 @@ class ModelSaleOrder extends Model {
                 $affiliate_lastname = '';
             }
 
+            // Languages
             $this->load->model('localisation/language');
 
             $language_info = $this->model_localisation_language->getLanguage($order_query->row['language_id']);

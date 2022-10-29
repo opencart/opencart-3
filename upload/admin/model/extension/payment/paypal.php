@@ -1,6 +1,7 @@
 <?php
 class ModelExtensionPaymentPayPal extends Model {
     public function configureSmartButton(): void {
+        // User Groups
         $this->load->model('user/user_group');
 
         $query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "extension` WHERE `code` = 'paypal_smart_button'");

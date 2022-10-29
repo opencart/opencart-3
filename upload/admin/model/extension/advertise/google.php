@@ -174,6 +174,7 @@ class ModelExtensionAdvertiseGoogle extends Model {
         $result = $this->db->query($sql);
 
         if ($result->num_rows) {
+            // Products
             $this->load->model('catalog/product');
 
             return $this->model_catalog_product->getProduct($result->row['product_id']);
@@ -469,6 +470,7 @@ class ModelExtensionAdvertiseGoogle extends Model {
     public function getProductIssues($product_id, $store_id) {
         $this->load->language('extension/advertise/google');
 
+        // Languages
         $this->load->model('localisation/language');
 
         $sql = "SELECT pag.`color`, pag.`size`, pd.`name`, p.`model` FROM `" . DB_PREFIX . "googleshopping_product` pag LEFT JOIN `" . DB_PREFIX . "product` p ON (p.`product_id` = pag.`product_id`) LEFT JOIN `" . DB_PREFIX . "product_description` pd ON (pd.`product_id` = pag.`product_id` AND pd.`language_id` = '" . (int)$this->config->get('config_language_id') . "') WHERE pag.`product_id` = '" . (int)$product_id . "' AND pag.`store_id` = '" . (int)$store_id . "'";
@@ -667,12 +669,14 @@ class ModelExtensionAdvertiseGoogle extends Model {
     }
 
     public function deleteEvents() {
+        // Events
         $this->load->model('setting/event');
 
         $this->model_setting_event->deleteEventByCode('advertise_google');
     }
 
     public function createEvents() {
+        // Events
         $this->load->model('setting/event');
 
         foreach ($this->events as $trigger => $actions) {

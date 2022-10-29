@@ -39,10 +39,13 @@ class ModelExtensionModuleAmazonLogin extends Model {
     }
 
     public function loginProfile($amazon_profile) {
+        // Addresses
         $this->load->model('account/address');
 
+        // Customers
         $this->load->model('account/customer');
 
+        // Customer Groups
         $this->load->model('account/customer_group');
 
         $customer_info = $this->model_account_customer->getCustomerByEmail((string)$amazon_profile->email);
@@ -99,6 +102,7 @@ class ModelExtensionModuleAmazonLogin extends Model {
             return;
         }
 
+        // Addresses
         $this->load->model('account/address');
 
         $addresses = $this->model_account_address->getAddresses();
@@ -144,6 +148,7 @@ class ModelExtensionModuleAmazonLogin extends Model {
             $this->model_account_customer->deleteLoginAttempts($customer_info['email']);
 
             if ($this->config->get('config_customer_activity')) {
+                // Activity
                 $this->load->model('account/activity');
 
                 $activity_data = [
@@ -234,6 +239,7 @@ class ModelExtensionModuleAmazonLogin extends Model {
         $message .= PHP_EOL . ob_get_contents();
         ob_end_clean();
 
+        // Log
         $log = new \Log(self::LOG_FILENAME);
         $log->write($type . " ---> " . $message);
 

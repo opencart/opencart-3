@@ -181,13 +181,11 @@ class ModelExtensionPaymentSquareup extends Model {
     }
 
     public function createRecurring($order_id, $data): void {
+        // Subscription
         $this->load->model('checkout/subscription');
 
         $status = self::RECURRING_ACTIVE;
-        $data = array_merge($data, [
-            'status',
-            $status
-        ]);
+        $data = array_merge($data, ['status', $status]);
 
         $this->model_checkout_subscription->addSubscription($order_id, $data);
     }
@@ -234,6 +232,7 @@ class ModelExtensionPaymentSquareup extends Model {
 
         $subscription_sql = "SELECT * FROM `" . DB_PREFIX . "subscription` s INNER JOIN `" . DB_PREFIX . "squareup_transaction` st ON (st.`transaction_id` = s.`reference`) WHERE s.`status` = '" . self::RECURRING_ACTIVE . "'";
 
+        // Orders
         $this->load->model('checkout/order');
 
         foreach ($this->db->query($subscription_sql)->rows as $subscription) {
@@ -286,11 +285,13 @@ class ModelExtensionPaymentSquareup extends Model {
     }
 
     public function addRecurringTransaction($subscription_id, $response_data, $transaction, $status): void {
+        // Orders
         $this->load->model('checkout/order');
 
         $order_info = $this->model_checkout_order->getOrder($response_data['order_id']);
 
         if ($order_info) {
+            // Subscription
             $this->load->model('account/subscription');
             $this->load->model('checkout/subscription');
 
@@ -364,6 +365,7 @@ class ModelExtensionPaymentSquareup extends Model {
     }
 
     private function getSubscription($subscription_id): array {
+        // Subscription
         $this->load->model('account/subscription');
 
         return $this->model_account_subscription->getSubscription($subscription_id);

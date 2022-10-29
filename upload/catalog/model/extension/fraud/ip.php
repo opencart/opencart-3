@@ -4,6 +4,7 @@ class ModelExtensionFraudIp extends Model {
         $status = false;
 
         if ($order_info['customer_id']) {
+            // Customers
             $this->load->model('account/customer');
 
             $results = $this->model_account_customer->getIps($order_info['customer_id']);

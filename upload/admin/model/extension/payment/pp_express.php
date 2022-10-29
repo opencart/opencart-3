@@ -36,6 +36,7 @@ class ModelExtensionPaymentPPExpress extends Model {
 			) ENGINE=MyISAM DEFAULT COLLATE=utf8_general_ci
 		");
 
+        // Settings
         $this->load->model('setting/setting');
 
         // Order Status defaults

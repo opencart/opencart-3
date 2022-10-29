@@ -72,6 +72,7 @@ class ModelExtensionPaymentG2APay extends Model {
         if ($this->config->get('payment_g2apay_debug') == 1) {
             $backtrace = debug_backtrace();
 
+            // Log
             $log = new \Log('g2apay.log');
             $log->write('Origin: ' . $backtrace[6]['class'] . '::' . $backtrace[6]['function']);
             $log->write(print_r($message, 1));

@@ -199,6 +199,7 @@ class ModelExtensionTotalCoupon extends Model {
             $coupon_query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "coupon` WHERE `code` = '" . $this->db->escape($code) . "' AND `status` = '1'");
 
             if ($coupon_query->num_rows) {
+                // Coupons
                 $this->load->model('marketing/coupon');
 
                 $coupon_total = $this->model_marketing_coupon->getTotalHistoriesByCoupon($code);
