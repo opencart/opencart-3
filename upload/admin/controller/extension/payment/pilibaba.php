@@ -7,7 +7,10 @@ class ControllerExtensionPaymentPilibaba extends Controller {
 
         $this->document->setTitle($this->language->get('heading_title'));
 
+        // Settings
         $this->load->model('setting/setting');
+
+        // Pilibaba
         $this->load->model('extension/payment/pilibaba');
 
         if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validate()) {
@@ -179,6 +182,7 @@ class ControllerExtensionPaymentPilibaba extends Controller {
 
     public function install(): void {
         if ($this->user->hasPermission('modify', 'marketplace/extension')) {
+            // Pilibaba
             $this->load->model('extension/payment/pilibaba');
 
             $this->model_extension_payment_pilibaba->install();
@@ -187,6 +191,7 @@ class ControllerExtensionPaymentPilibaba extends Controller {
 
     public function uninstall(): void {
         if ($this->user->hasPermission('modify', 'marketplace/extension')) {
+            // Pilibaba
             $this->load->model('extension/payment/pilibaba');
 
             $this->model_extension_payment_pilibaba->uninstall();
@@ -212,12 +217,14 @@ class ControllerExtensionPaymentPilibaba extends Controller {
             } elseif ($this->request->post['warehouse'] == 'other' && oc_strlen($this->request->post['country']) < 1) {
                 $json['error'] = $this->language->get('error_country');
             } else {
+                // Pilibaba
                 $this->load->model('extension/payment/pilibaba');
 
                 $response = $this->model_extension_payment_pilibaba->register($this->request->post['email_address'], $this->request->post['password'], $this->request->post['currency'], $this->request->post['warehouse'], $this->request->post['country'], $this->request->post['environment']);
 
                 if (isset($response['code']) && isset($response['message'])) {
                     if ($response['code'] == '0') {
+                        // Settings
                         $this->load->model('setting/setting');
 
                         $this->model_setting_setting->editSetting('payment_pilibaba', [
@@ -247,6 +254,7 @@ class ControllerExtensionPaymentPilibaba extends Controller {
 
     public function order(): string {
         if ($this->config->get('payment_pilibaba_status')) {
+            // Pilibaba
             $this->load->model('extension/payment/pilibaba');
 
             $order_id = (int)$this->request->get['order_id'];
@@ -284,6 +292,7 @@ class ControllerExtensionPaymentPilibaba extends Controller {
         if ($this->config->get('payment_pilibaba_status')) {
             if (isset($this->request->post['order_id']) && isset($this->request->post['tracking'])) {
                 if (oc_strlen($this->request->post['tracking']) > 0 && oc_strlen($this->request->post['tracking']) <= 50) {
+                    // Pilibaba
                     $this->load->model('extension/payment/pilibaba');
 
                     $this->model_extension_payment_pilibaba->updateTrackingNumber($this->request->post['order_id'], $this->request->post['tracking'], $this->config->get('payment_pilibaba_merchant_number'));

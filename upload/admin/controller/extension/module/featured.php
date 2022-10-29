@@ -7,6 +7,7 @@ class ControllerExtensionModuleFeatured extends Controller {
 
         $this->document->setTitle($this->language->get('heading_title'));
 
+        // Modules
         $this->load->model('setting/module');
 
         if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validate()) {
@@ -91,6 +92,7 @@ class ControllerExtensionModuleFeatured extends Controller {
             $data['name'] = '';
         }
 
+        // Products
         $this->load->model('catalog/product');
 
         $data['products'] = [];

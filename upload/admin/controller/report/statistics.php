@@ -7,6 +7,7 @@ class ControllerReportStatistics extends Controller {
 
         $this->document->setTitle($this->language->get('heading_title'));
 
+        // Statistics
         $this->load->model('report/statistics');
 
         $this->getList();
@@ -17,6 +18,7 @@ class ControllerReportStatistics extends Controller {
 
         $this->document->setTitle($this->language->get('heading_title'));
 
+        // Statistics
         $this->load->model('report/statistics');
 
         if ($this->validate()) {
@@ -37,6 +39,7 @@ class ControllerReportStatistics extends Controller {
 
         $this->document->setTitle($this->language->get('heading_title'));
 
+        // Statistics
         $this->load->model('report/statistics');
 
         if ($this->validate()) {
@@ -57,6 +60,7 @@ class ControllerReportStatistics extends Controller {
 
         $this->document->setTitle($this->language->get('heading_title'));
 
+        // Statistics
         $this->load->model('report/statistics');
 
         if ($this->validate()) {
@@ -77,6 +81,7 @@ class ControllerReportStatistics extends Controller {
 
         $this->document->setTitle($this->language->get('heading_title'));
 
+        // Statistics
         $this->load->model('report/statistics');
 
         if ($this->validate()) {
@@ -109,6 +114,7 @@ class ControllerReportStatistics extends Controller {
 
         $this->document->setTitle($this->language->get('heading_title'));
 
+        // Statistics
         $this->load->model('report/statistics');
 
         if ($this->validate()) {
@@ -129,6 +135,7 @@ class ControllerReportStatistics extends Controller {
 
         $this->document->setTitle($this->language->get('heading_title'));
 
+        // Statistics
         $this->load->model('report/statistics');
 
         if ($this->validate()) {
@@ -149,6 +156,7 @@ class ControllerReportStatistics extends Controller {
 
         $this->document->setTitle($this->language->get('heading_title'));
 
+        // Statistics
         $this->load->model('report/statistics');
 
         if ($this->validate()) {
@@ -169,6 +177,7 @@ class ControllerReportStatistics extends Controller {
 
         $this->document->setTitle($this->language->get('heading_title'));
 
+        // Statistics
         $this->load->model('report/statistics');
 
         if ($this->validate()) {
@@ -189,6 +198,7 @@ class ControllerReportStatistics extends Controller {
 
         $this->document->setTitle($this->language->get('heading_title'));
 
+        // Statistics
         $this->load->model('report/statistics');
 
         if ($this->validate()) {
@@ -219,6 +229,7 @@ class ControllerReportStatistics extends Controller {
 
         $data['statistics'] = [];
 
+        // Statistics
         $this->load->model('report/statistics');
 
         $results = $this->model_report_statistics->getStatistics();

@@ -7,6 +7,7 @@ class ControllerExtensionDashboardMap extends Controller {
 
         $this->document->setTitle($this->language->get('heading_title'));
 
+        // Settings
         $this->load->model('setting/setting');
 
         if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validate()) {
@@ -93,6 +94,7 @@ class ControllerExtensionDashboardMap extends Controller {
     public function map(): void {
         $json = [];
 
+        // Maps
         $this->load->model('extension/dashboard/map');
 
         $results = $this->model_extension_dashboard_map->getTotalOrdersByCountry();

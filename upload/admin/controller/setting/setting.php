@@ -7,6 +7,7 @@ class ControllerSettingSetting extends Controller {
 
         $this->document->setTitle($this->language->get('heading_title'));
 
+        // Settings
         $this->load->model('setting/setting');
 
         if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validate()) {
@@ -193,6 +194,7 @@ class ControllerSettingSetting extends Controller {
 
         $data['themes'] = [];
 
+        // Extensions
         $this->load->model('setting/extension');
 
         $extensions = $this->model_setting_extension->getInstalled('theme');
@@ -212,6 +214,7 @@ class ControllerSettingSetting extends Controller {
             $data['config_layout_id'] = $this->config->get('config_layout_id');
         }
 
+        // Layouts
         $this->load->model('design/layout');
 
         $data['layouts'] = $this->model_design_layout->getLayouts();
@@ -264,6 +267,7 @@ class ControllerSettingSetting extends Controller {
             $data['config_image'] = $this->config->get('config_image');
         }
 
+        // Image files
         $this->load->model('tool/image');
 
         if (isset($this->request->post['config_image']) && is_file(DIR_IMAGE . $this->request->post['config_image'])) {
@@ -288,6 +292,7 @@ class ControllerSettingSetting extends Controller {
             $data['config_comment'] = $this->config->get('config_comment');
         }
 
+        // Locations
         $this->load->model('localisation/location');
 
         $data['locations'] = $this->model_localisation_location->getLocations();
@@ -306,6 +311,7 @@ class ControllerSettingSetting extends Controller {
             $data['config_country_id'] = $this->config->get('config_country_id');
         }
 
+        // Countries
         $this->load->model('localisation/country');
 
         $data['countries'] = $this->model_localisation_country->getCountries();
@@ -322,7 +328,7 @@ class ControllerSettingSetting extends Controller {
             $data['config_timezone'] = $this->config->get('config_timezone');
         }
 
-        // Set Time Zone
+        // Set Time Zones
         $data['timezones'] = [];
 
         $timestamp = date_create('now');
@@ -346,6 +352,7 @@ class ControllerSettingSetting extends Controller {
             $data['config_language'] = $this->config->get('config_language');
         }
 
+        // Languages
         $this->load->model('localisation/language');
 
         $data['languages'] = $this->model_localisation_language->getLanguages();
@@ -368,6 +375,7 @@ class ControllerSettingSetting extends Controller {
             $data['config_currency_auto'] = $this->config->get('config_currency_auto');
         }
 
+        // Currencies
         $this->load->model('localisation/currency');
 
         $data['currencies'] = $this->model_localisation_currency->getCurrencies();
@@ -378,6 +386,7 @@ class ControllerSettingSetting extends Controller {
             $data['config_length_class_id'] = $this->config->get('config_length_class_id');
         }
 
+        // Length Classes
         $this->load->model('localisation/length_class');
 
         $data['length_classes'] = $this->model_localisation_length_class->getLengthClasses();
@@ -388,6 +397,7 @@ class ControllerSettingSetting extends Controller {
             $data['config_weight_class_id'] = $this->config->get('config_weight_class_id');
         }
 
+        // Weight Classes
         $this->load->model('localisation/weight_class');
 
         $data['weight_classes'] = $this->model_localisation_weight_class->getWeightClasses();
@@ -470,6 +480,7 @@ class ControllerSettingSetting extends Controller {
             $data['config_customer_group_id'] = $this->config->get('config_customer_group_id');
         }
 
+        // Customer Groups
         $this->load->model('customer/customer_group');
 
         $data['customer_groups'] = $this->model_customer_customer_group->getCustomerGroups();
@@ -500,6 +511,7 @@ class ControllerSettingSetting extends Controller {
             $data['config_account_id'] = $this->config->get('config_account_id');
         }
 
+        // Information
         $this->load->model('catalog/information');
 
         $data['informations'] = $this->model_catalog_information->getInformations();
@@ -558,6 +570,7 @@ class ControllerSettingSetting extends Controller {
             $data['config_fraud_status_id'] = $this->config->get('config_fraud_status_id');
         }
 
+        // Order Statuses
         $this->load->model('localisation/order_status');
 
         $data['order_statuses'] = $this->model_localisation_order_status->getOrderStatuses();
@@ -568,6 +581,7 @@ class ControllerSettingSetting extends Controller {
             $data['config_api_id'] = $this->config->get('config_api_id');
         }
 
+        // API login
         $this->load->model('user/api');
 
         $data['apis'] = $this->model_user_api->getApis();
@@ -632,6 +646,7 @@ class ControllerSettingSetting extends Controller {
             $data['config_return_status_id'] = $this->config->get('config_return_status_id');
         }
 
+        // Returns Statuses
         $this->load->model('localisation/returns_status');
 
         $data['return_statuses'] = $this->model_localisation_returns_status->getReturnStatuses();
@@ -642,11 +657,12 @@ class ControllerSettingSetting extends Controller {
             $data['config_captcha'] = $this->config->get('config_captcha');
         }
 
+        // Extensions
         $this->load->model('setting/extension');
 
         $data['captchas'] = [];
 
-        // Get a list of installed captchas
+        // Get a list of installed captcha extensions
         $extensions = $this->model_setting_extension->getInstalled('captcha');
 
         foreach ($extensions as $code) {
@@ -667,6 +683,7 @@ class ControllerSettingSetting extends Controller {
         }
 
         $data['captcha_pages'] = [];
+
         $data['captcha_pages'][] = [
             'text'  => $this->language->get('text_register'),
             'value' => 'register'
@@ -697,8 +714,6 @@ class ControllerSettingSetting extends Controller {
         } else {
             $data['config_logo'] = $this->config->get('config_logo');
         }
-
-        $this->load->model('tool/image');
 
         if (isset($this->request->post['config_logo']) && is_file(DIR_IMAGE . $this->request->post['config_logo'])) {
             $data['logo'] = $this->model_tool_image->resize($this->request->post['config_logo'], 100, 100);
@@ -780,7 +795,9 @@ class ControllerSettingSetting extends Controller {
             $data['config_mail_alert'] = (array)$this->config->get('config_mail_alert');
         }
 
+        // Mail alerts
         $data['mail_alerts'] = [];
+
         $data['mail_alerts'][] = [
             'text'  => $this->language->get('text_mail_account'),
             'value' => 'account'
@@ -906,7 +923,7 @@ class ControllerSettingSetting extends Controller {
             $data['config_affiliate_expire'] = $this->config->get('config_affiliate_expire');
         }
 
-        // Sessions
+        // Session expire
         if (isset($this->request->post['config_session_expire'])) {
             $data['config_session_expire'] = $this->request->post['config_session_expire'];
         } else {
@@ -919,7 +936,7 @@ class ControllerSettingSetting extends Controller {
             $data['config_session_samesite'] = $this->config->get('config_session_samesite');
         }
 
-        // Subscriptions
+        // Subscription Statuses
         $this->load->model('localisation/subscription_status');
 
         $data['subscription_statuses'] = $this->model_localisation_subscription_status->getSubscriptionStatuses();

@@ -23,10 +23,12 @@ class ControllerMarketingContact extends Controller {
 
         $data['cancel'] = $this->url->link('common/dashboard', 'user_token=' . $this->session->data['user_token'], true);
 
+        // Stores
         $this->load->model('setting/store');
 
         $data['stores'] = $this->model_setting_store->getStores();
 
+        // Customer Groups
         $this->load->model('customer/customer_group');
 
         $data['customer_groups'] = $this->model_customer_customer_group->getCustomerGroups();
@@ -57,10 +59,11 @@ class ControllerMarketingContact extends Controller {
             }
 
             if (!$json) {
+                // Orders
                 $this->load->model('sale/order');
+
+                // Stores
                 $this->load->model('setting/store');
-                $this->load->model('setting/setting');
-                $this->load->model('customer/customer');
 
                 $store_info = $this->model_setting_store->getStore($this->request->post['store_id']);
 
@@ -70,8 +73,14 @@ class ControllerMarketingContact extends Controller {
                     $store_name = $this->config->get('config_name');
                 }
 
+                // Settings
+                $this->load->model('setting/setting');
+
                 $setting = $this->model_setting_setting->getSetting('config', $this->request->post['store_id']);
                 $store_email = (isset($setting['config_email']) ? $setting['config_email'] : $this->config->get('config_email'));
+
+                // Customers
+                $this->load->model('customer/customer');
 
                 if (isset($this->request->get['page'])) {
                     $page = (int)$this->request->get['page'];
@@ -188,6 +197,7 @@ class ControllerMarketingContact extends Controller {
 
                 if ($emails) {
                     $json['success'] = $this->language->get('text_success');
+
                     $start = ($page - 1) * 10;
                     $end = $start + 10;
 

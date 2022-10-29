@@ -7,6 +7,7 @@ class ControllerSaleReturns extends Controller {
 
         $this->document->setTitle($this->language->get('heading_title'));
 
+        // Returns
         $this->load->model('sale/returns');
 
         $this->getList();
@@ -17,6 +18,7 @@ class ControllerSaleReturns extends Controller {
 
         $this->document->setTitle($this->language->get('heading_title'));
 
+        // Returns
         $this->load->model('sale/returns');
 
         if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validateForm()) {
@@ -81,6 +83,7 @@ class ControllerSaleReturns extends Controller {
 
         $this->document->setTitle($this->language->get('heading_title'));
 
+        // Returns
         $this->load->model('sale/returns');
 
         if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validateForm()) {
@@ -145,6 +148,7 @@ class ControllerSaleReturns extends Controller {
 
         $this->document->setTitle($this->language->get('heading_title'));
 
+        // Returns
         $this->load->model('sale/returns');
 
         if (isset($this->request->post['selected']) && $this->validateDelete()) {
@@ -352,6 +356,7 @@ class ControllerSaleReturns extends Controller {
         ];
 
         $return_total = $this->model_sale_returns->getTotalReturns($filter_data);
+
         $results = $this->model_sale_returns->getReturns($filter_data);
 
         foreach ($results as $result) {
@@ -446,6 +451,7 @@ class ControllerSaleReturns extends Controller {
             $url .= '&page=' . $this->request->get['page'];
         }
 
+        // Returns Status
         $this->load->model('localisation/returns_status');
 
         $data['return_statuses'] = $this->model_localisation_returns_status->getReturnStatuses();
@@ -467,6 +473,7 @@ class ControllerSaleReturns extends Controller {
 
         $data['pagination'] = $pagination->render();
         $data['results'] = sprintf($this->language->get('text_pagination'), ($return_total) ? (($page - 1) * $this->config->get('config_limit_admin')) + 1 : 0, ((($page - 1) * $this->config->get('config_limit_admin')) > ($return_total - $this->config->get('config_limit_admin'))) ? $return_total : ((($page - 1) * $this->config->get('config_limit_admin')) + $this->config->get('config_limit_admin')), $return_total, ceil($return_total / $this->config->get('config_limit_admin')));
+
         $data['filter_return_id'] = $filter_return_id;
         $data['filter_order_id'] = $filter_order_id;
         $data['filter_customer'] = $filter_customer;
@@ -732,7 +739,7 @@ class ControllerSaleReturns extends Controller {
         if (!empty($return_info)) {
             $data['return_status_id'] = $return_info['return_status_id'];
         } else {
-            $data['return_status_id'] = '';
+            $data['return_status_id'] = 0;
         }
 
         $data['user_token'] = $this->session->data['user_token'];
@@ -799,6 +806,7 @@ class ControllerSaleReturns extends Controller {
     public function history(): void {
         $this->load->language('sale/returns');
 
+        // Returns
         $this->load->model('sale/returns');
 
         if (isset($this->request->get['page'])) {
@@ -850,6 +858,7 @@ class ControllerSaleReturns extends Controller {
                 $return_id = 0;
             }
 
+            // Returns
             $this->load->model('sale/returns');
 
             $return_info = $this->model_sale_returns->getReturn($return_id);

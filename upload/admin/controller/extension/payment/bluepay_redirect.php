@@ -7,6 +7,7 @@ class ControllerExtensionPaymentBluepayredirect extends Controller {
 
         $this->document->setTitle($this->language->get('heading_title'));
 
+        // Settings
         $this->load->model('setting/setting');
 
         if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validate()) {
@@ -141,12 +142,14 @@ class ControllerExtensionPaymentBluepayredirect extends Controller {
     }
 
     public function install(): void {
+        // Bluepay Redirect
         $this->load->model('extension/payment/bluepay_redirect');
 
         $this->model_extension_payment_bluepay_redirect->install();
     }
 
     public function uninstall(): void {
+        // Bluepay Redirect
         $this->load->model('extension/payment/bluepay_redirect');
 
         $this->model_extension_payment_bluepay_redirect->uninstall();
@@ -154,6 +157,7 @@ class ControllerExtensionPaymentBluepayredirect extends Controller {
 
     public function order(): string {
         if ($this->config->get('payment_bluepay_redirect_status')) {
+            // Bluepay Redirect
             $this->load->model('extension/payment/bluepay_redirect');
 
             $bluepay_redirect_order = $this->model_extension_payment_bluepay_redirect->getOrder($this->request->get['order_id']);
@@ -186,6 +190,7 @@ class ControllerExtensionPaymentBluepayredirect extends Controller {
         $json = [];
 
         if (isset($this->request->post['order_id']) && $this->request->post['order_id'] != '') {
+            // Bluepay Redirect
             $this->load->model('extension/payment/bluepay_redirect');
 
             $bluepay_redirect_order = $this->model_extension_payment_bluepay_redirect->getOrder($this->request->post['order_id']);

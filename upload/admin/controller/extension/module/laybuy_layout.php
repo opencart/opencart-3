@@ -5,6 +5,7 @@ class ControllerExtensionModuleLaybuyLayout extends Controller {
     public function index(): void {
         $this->load->language('extension/module/laybuy_layout');
 
+        // Settings
         $this->load->model('setting/setting');
 
         $this->document->setTitle($this->language->get('heading_title'));

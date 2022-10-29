@@ -5,6 +5,7 @@ class ControllerExtensionReportCustomerSearch extends Controller {
 
         $this->document->setTitle($this->language->get('heading_title'));
 
+        // Settings
         $this->load->model('setting/setting');
 
         if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validate()) {
@@ -107,8 +108,11 @@ class ControllerExtensionReportCustomerSearch extends Controller {
             $page = 1;
         }
 
-        $this->load->model('extension/report/customer');
+        // Categories
         $this->load->model('catalog/category');
+
+        // Customers
+        $this->load->model('extension/report/customer');
 
         $data['searches'] = [];
 

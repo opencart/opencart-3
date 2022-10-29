@@ -5,8 +5,11 @@ class ControllerExtensionModuleKlarnaCheckoutModule extends Controller {
     public function index(): void {
         $this->load->language('extension/module/klarna_checkout_module');
 
-        $this->load->model('extension/payment/klarna_checkout');
+        // Settings
         $this->load->model('setting/setting');
+
+        // Klarna Checkout
+        $this->load->model('extension/payment/klarna_checkout');
 
         $this->document->setTitle($this->language->get('heading_title'));
 

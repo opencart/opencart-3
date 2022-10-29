@@ -28,6 +28,7 @@ class ControllerReportReport extends Controller {
         // Reports
         $data['reports'] = [];
 
+        // Settings
         $this->load->model('setting/extension');
 
         // Get a list of installed modules

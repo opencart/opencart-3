@@ -7,6 +7,7 @@ class ControllerLocalisationWeightClass extends Controller {
 
         $this->document->setTitle($this->language->get('heading_title'));
 
+        // Weight Classes
         $this->load->model('localisation/weight_class');
 
         $this->getList();
@@ -17,6 +18,7 @@ class ControllerLocalisationWeightClass extends Controller {
 
         $this->document->setTitle($this->language->get('heading_title'));
 
+        // Weight Classes
         $this->load->model('localisation/weight_class');
 
         if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validateForm()) {
@@ -49,6 +51,7 @@ class ControllerLocalisationWeightClass extends Controller {
 
         $this->document->setTitle($this->language->get('heading_title'));
 
+        // Weight Classes
         $this->load->model('localisation/weight_class');
 
         if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validateForm()) {
@@ -81,6 +84,7 @@ class ControllerLocalisationWeightClass extends Controller {
 
         $this->document->setTitle($this->language->get('heading_title'));
 
+        // Weight Classes
         $this->load->model('localisation/weight_class');
 
         if (isset($this->request->post['selected']) && $this->validateDelete()) {
@@ -321,6 +325,7 @@ class ControllerLocalisationWeightClass extends Controller {
             $data['value'] = '';
         }
 
+        // Languages
         $this->load->model('localisation/language');
 
         $data['languages'] = $this->model_localisation_language->getLanguages();
@@ -355,6 +360,7 @@ class ControllerLocalisationWeightClass extends Controller {
             $this->error['warning'] = $this->language->get('error_permission');
         }
 
+        // Products
         $this->load->model('catalog/product');
 
         foreach ((array)$this->request->post['selected'] as $weight_class_id) {

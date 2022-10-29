@@ -7,6 +7,7 @@ class ControllerCatalogReview extends Controller {
 
         $this->document->setTitle($this->language->get('heading_title'));
 
+        // Reviews
         $this->load->model('catalog/review');
 
         $this->getList();
@@ -17,6 +18,7 @@ class ControllerCatalogReview extends Controller {
 
         $this->document->setTitle($this->language->get('heading_title'));
 
+        // Reviews
         $this->load->model('catalog/review');
 
         if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validateForm()) {
@@ -65,6 +67,7 @@ class ControllerCatalogReview extends Controller {
 
         $this->document->setTitle($this->language->get('heading_title'));
 
+        // Reviews
         $this->load->model('catalog/review');
 
         if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validateForm()) {
@@ -113,6 +116,7 @@ class ControllerCatalogReview extends Controller {
 
         $this->document->setTitle($this->language->get('heading_title'));
 
+        // Reviews
         $this->load->model('catalog/review');
 
         if (isset($this->request->post['selected']) && $this->validateDelete()) {
@@ -470,6 +474,7 @@ class ControllerCatalogReview extends Controller {
 
         $data['user_token'] = $this->session->data['user_token'];
 
+        // Products
         $this->load->model('catalog/product');
 
         if (isset($this->request->post['product_id'])) {

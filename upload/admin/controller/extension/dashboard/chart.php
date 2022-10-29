@@ -7,6 +7,7 @@ class ControllerExtensionDashboardChart extends Controller {
 
         $this->document->setTitle($this->language->get('heading_title'));
 
+        // Settings
         $this->load->model('setting/setting');
 
         if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validate()) {
@@ -95,6 +96,7 @@ class ControllerExtensionDashboardChart extends Controller {
 
         $json = [];
 
+        // Charts
         $this->load->model('extension/dashboard/chart');
 
         $json['order'] = [];

@@ -7,6 +7,7 @@ class ControllerSaleVoucherTheme extends Controller {
 
         $this->document->setTitle($this->language->get('heading_title'));
 
+        // Voucher Themes
         $this->load->model('sale/voucher_theme');
 
         $this->getList();
@@ -17,6 +18,7 @@ class ControllerSaleVoucherTheme extends Controller {
 
         $this->document->setTitle($this->language->get('heading_title'));
 
+        // Voucher Themes
         $this->load->model('sale/voucher_theme');
 
         if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validateForm()) {
@@ -49,6 +51,7 @@ class ControllerSaleVoucherTheme extends Controller {
 
         $this->document->setTitle($this->language->get('heading_title'));
 
+        // Voucher Themes
         $this->load->model('sale/voucher_theme');
 
         if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validateForm()) {
@@ -81,6 +84,7 @@ class ControllerSaleVoucherTheme extends Controller {
 
         $this->document->setTitle($this->language->get('heading_title'));
 
+        // Voucher Themes
         $this->load->model('sale/voucher_theme');
 
         if (isset($this->request->post['selected']) && $this->validateDelete()) {
@@ -303,6 +307,7 @@ class ControllerSaleVoucherTheme extends Controller {
             $voucher_theme_info = $this->model_sale_voucher_theme->getVoucherTheme($this->request->get['voucher_theme_id']);
         }
 
+        // Languages
         $this->load->model('localisation/language');
 
         $data['languages'] = $this->model_localisation_language->getLanguages();
@@ -365,6 +370,7 @@ class ControllerSaleVoucherTheme extends Controller {
             $this->error['warning'] = $this->language->get('error_permission');
         }
 
+        // Vouchers
         $this->load->model('sale/voucher');
 
         foreach ((array)$this->request->post['selected'] as $voucher_theme_id) {

@@ -3,14 +3,17 @@ class ControllerExtensionPaymentBluePayHosted extends Controller {
     public function index(): string {
         $this->load->language('extension/payment/bluepay_hosted');
 
-        $this->load->model('checkout/order');
+        // Orders
+        $this->load->model('sale/order');
+
+        // Bluepay Hosted
         $this->load->model('extension/payment/bluepay_hosted');
 
         if (!isset($this->session->data['order_id'])) {
-            return false;
+            return '';
         }
 
-        $order_info = $this->model_checkout_order->getOrder($this->session->data['order_id']);
+        $order_info = $this->model_sale_order->getOrder($this->session->data['order_id']);
 
         $data['ORDER_ID'] = (int)$this->session->data['order_id'];
         $data['NAME1'] = $order_info['payment_firstname'];
@@ -55,13 +58,16 @@ class ControllerExtensionPaymentBluePayHosted extends Controller {
     public function callback(): void {
         $this->load->language('extension/payment/bluepay_hosted');
 
-        $this->load->model('checkout/order');
+        // Orders
+        $this->load->model('sale/order');
+
+        // Bluepay Hosted
         $this->load->model('extension/payment/bluepay_hosted');
 
         $response_data = $this->request->get;
 
         if (isset($this->session->data['order_id'])) {
-            $order_info = $this->model_checkout_order->getOrder($this->session->data['order_id']);
+            $order_info = $this->model_sale_order->getOrder($this->session->data['order_id']);
 
             if ($response_data['Result'] == 'APPROVED') {
                 $bluepay_hosted_order_id = $this->model_extension_payment_bluepay_hosted->addOrder($order_info, $response_data);
@@ -72,9 +78,9 @@ class ControllerExtensionPaymentBluePayHosted extends Controller {
                     $this->model_extension_payment_bluepay_hosted->addTransaction($bluepay_hosted_order_id, 'auth', $order_info);
                 }
 
-                $this->model_checkout_order->addOrderHistory($this->session->data['order_id'], $this->config->get('payment_bluepay_hosted_order_status_id'));
+                $this->model_sale_order->addOrderHistory($this->session->data['order_id'], $this->config->get('payment_bluepay_hosted_order_status_id'));
 
-                $this->response->redirect($this->url->link('checkout/success', '', true));
+                $this->response->redirect($this->url->link('sale/success', '', true));
             } else {
                 $this->session->data['error'] = $response_data['Result'] . ' : ' . $response_data['MESSAGE'];
 

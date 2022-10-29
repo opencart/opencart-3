@@ -183,6 +183,7 @@ class ControllerMarketplaceInstall extends Controller {
                 }
 
                 if (!$json) {
+                    // Extensions
                     $this->load->model('setting/extension');
 
                     foreach ($files as $file) {
@@ -256,6 +257,7 @@ class ControllerMarketplaceInstall extends Controller {
             $file = DIR_UPLOAD . 'tmp-' . $this->session->data['install'] . '/install.xml';
 
             if (is_file($file)) {
+                // Modifications
                 $this->load->model('setting/modification');
 
                 // If xml file just put it straight into the DB
@@ -426,6 +428,7 @@ class ControllerMarketplaceInstall extends Controller {
         }
 
         if (!$json) {
+            // Extensions
             $this->load->model('setting/extension');
 
             $results = $this->model_setting_extension->getExtensionPathsByExtensionInstallId($extension_install_id);

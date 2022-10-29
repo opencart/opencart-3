@@ -7,6 +7,7 @@ class ControllerLocalisationCountry extends Controller {
 
         $this->document->setTitle($this->language->get('heading_title'));
 
+        // Countries
         $this->load->model('localisation/country');
 
         $this->getList();
@@ -17,6 +18,7 @@ class ControllerLocalisationCountry extends Controller {
 
         $this->document->setTitle($this->language->get('heading_title'));
 
+        // Countries
         $this->load->model('localisation/country');
 
         if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validateForm()) {
@@ -49,6 +51,7 @@ class ControllerLocalisationCountry extends Controller {
 
         $this->document->setTitle($this->language->get('heading_title'));
 
+        // Countries
         $this->load->model('localisation/country');
 
         if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validateForm()) {
@@ -81,6 +84,7 @@ class ControllerLocalisationCountry extends Controller {
 
         $this->document->setTitle($this->language->get('heading_title'));
 
+        // Countries
         $this->load->model('localisation/country');
 
         if (isset($this->request->post['selected']) && $this->validateDelete()) {
@@ -324,6 +328,7 @@ class ControllerLocalisationCountry extends Controller {
             $data['iso_code_3'] = '';
         }
 
+        // Address Formats
         $this->load->model('localisation/address_format');
 
         $data['address_formats'] = $this->model_localisation_address_format->getAddressFormats();
@@ -376,9 +381,16 @@ class ControllerLocalisationCountry extends Controller {
             $this->error['warning'] = $this->language->get('error_permission');
         }
 
+        // Stores
         $this->load->model('setting/store');
+
+        // Customers
         $this->load->model('customer/customer');
+
+        // Zones
         $this->load->model('localisation/zone');
+
+        // Geo Zones
         $this->load->model('localisation/geo_zone');
 
         foreach ((array)$this->request->post['selected'] as $country_id) {
@@ -417,6 +429,7 @@ class ControllerLocalisationCountry extends Controller {
     public function country(): void {
         $json = [];
 
+        // Countries
         $this->load->model('localisation/country');
 
         if (isset($this->request->get['country_id'])) {

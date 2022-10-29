@@ -7,6 +7,7 @@ class ControllerLocalisationGeoZone extends Controller {
 
         $this->document->setTitle($this->language->get('heading_title'));
 
+        // Geo Zones
         $this->load->model('localisation/geo_zone');
 
         $this->getList();
@@ -17,6 +18,7 @@ class ControllerLocalisationGeoZone extends Controller {
 
         $this->document->setTitle($this->language->get('heading_title'));
 
+        // Geo Zones
         $this->load->model('localisation/geo_zone');
 
         if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validateForm()) {
@@ -49,6 +51,7 @@ class ControllerLocalisationGeoZone extends Controller {
 
         $this->document->setTitle($this->language->get('heading_title'));
 
+        // Geo Zones
         $this->load->model('localisation/geo_zone');
 
         if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validateForm()) {
@@ -81,6 +84,7 @@ class ControllerLocalisationGeoZone extends Controller {
 
         $this->document->setTitle($this->language->get('heading_title'));
 
+        // Geo Zones
         $this->load->model('localisation/geo_zone');
 
         if (isset($this->request->post['selected']) && $this->validateDelete()) {
@@ -329,6 +333,7 @@ class ControllerLocalisationGeoZone extends Controller {
             $data['zone_to_geo_zones'] = [];
         }
 
+        // Countries
         $this->load->model('localisation/country');
 
         $data['countries'] = $this->model_localisation_country->getCountries();
@@ -361,6 +366,7 @@ class ControllerLocalisationGeoZone extends Controller {
             $this->error['warning'] = $this->language->get('error_permission');
         }
 
+        // Tax Rates
         $this->load->model('localisation/tax_rate');
 
         foreach ((array)$this->request->post['selected'] as $geo_zone_id) {

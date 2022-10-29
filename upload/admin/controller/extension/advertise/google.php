@@ -23,8 +23,10 @@ class ControllerExtensionAdvertiseGoogle extends Controller {
     public function index(): void {
         $this->load->language('extension/advertise/google');
 
+        // Google
         $this->load->model('extension/advertise/google');
 
+        // Google Shopping
         $this->load->config('googleshopping/googleshopping');
 
         // Fix clashes with third-party extension table names
@@ -254,6 +256,7 @@ class ControllerExtensionAdvertiseGoogle extends Controller {
         ];
 
         if ($this->validatePermission()) {
+            // Google
             $this->load->model('extension/advertise/google');
 
             $select = [];
@@ -308,6 +311,7 @@ class ControllerExtensionAdvertiseGoogle extends Controller {
 
         $json = [];
 
+        // Google
         $this->load->model('extension/advertise/google');
 
         $this->model_extension_advertise_google->insertNewProducts([], $this->store_id);
@@ -356,6 +360,7 @@ class ControllerExtensionAdvertiseGoogle extends Controller {
 
         $this->document->addStyle('view/stylesheet/googleshopping/stepper.css');
 
+        // Google
         $this->load->model('extension/advertise/google');
 
         if ($this->request->server['REQUEST_METHOD'] == 'POST' && $this->validatePermission()) {
@@ -438,11 +443,14 @@ class ControllerExtensionAdvertiseGoogle extends Controller {
     public function shipping_taxes(): void {
         $this->load->language('extension/advertise/google');
 
+        // Google
         $this->load->model('extension/advertise/google');
 
         $this->document->setTitle($this->language->get('heading_shipping_taxes'));
+
         $this->document->addStyle('view/stylesheet/googleshopping/stepper.css');
 
+        // Google Shopping
         $this->load->config('googleshopping/googleshopping');
 
         if ($this->request->server['REQUEST_METHOD'] == 'POST' && $this->validateShippingAndTaxes()) {
@@ -609,6 +617,7 @@ class ControllerExtensionAdvertiseGoogle extends Controller {
 
         $this->document->addStyle('view/stylesheet/googleshopping/stepper.css');
 
+        // Google
         $this->load->model('extension/advertise/google');
 
         if ($this->request->server['REQUEST_METHOD'] == 'POST' && $this->validateMapping()) {
@@ -737,6 +746,7 @@ class ControllerExtensionAdvertiseGoogle extends Controller {
     public function mapping_verify(): void {
         $this->load->language('extension/advertise/google');
 
+        // Google
         $this->load->model('extension/advertise/google');
 
         $post_data = [];
@@ -788,6 +798,7 @@ class ControllerExtensionAdvertiseGoogle extends Controller {
 
         $this->document->addStyle('view/stylesheet/googleshopping/stepper.css');
 
+        // Google
         $this->load->model('extension/advertise/google');
 
         if ($this->request->server['REQUEST_METHOD'] == 'POST' && $this->validateCampaign()) {
@@ -908,6 +919,7 @@ class ControllerExtensionAdvertiseGoogle extends Controller {
 
         if ($this->validatePermission()) {
             if ($this->request->server['REQUEST_METHOD'] == 'POST' && $this->validateTarget()) {
+                // Google
                 $this->load->model('extension/advertise/google');
 
                 $target = [
@@ -971,6 +983,7 @@ class ControllerExtensionAdvertiseGoogle extends Controller {
 
         if ($this->validatePermission()) {
             if ($this->request->server['REQUEST_METHOD'] == 'POST' && $this->validateTarget()) {
+                // Google
                 $this->load->model('extension/advertise/google');
 
                 $target = [
@@ -1032,6 +1045,7 @@ class ControllerExtensionAdvertiseGoogle extends Controller {
         ];
 
         if ($this->validatePermission()) {
+            // Google
             $this->load->model('extension/advertise/google');
 
             $advertise_google_target_id = (int)$this->request->get['advertise_google_target_id'];
@@ -1068,6 +1082,7 @@ class ControllerExtensionAdvertiseGoogle extends Controller {
             'error'   => null
         ];
 
+        // Google
         $this->load->model('extension/advertise/google');
 
         $targets = $this->googleshopping->getTargets($this->store_id);
@@ -1098,6 +1113,7 @@ class ControllerExtensionAdvertiseGoogle extends Controller {
             try {
                 $this->googleshopping->verifySite();
 
+                // Users
                 $this->load->model('user/user');
 
                 $user_info = $this->model_user_user->getUser($this->user->getId());
@@ -1163,6 +1179,7 @@ class ControllerExtensionAdvertiseGoogle extends Controller {
         if ($state_verified) {
             $this->load->language('extension/advertise/google');
 
+            // Google
             $this->load->model('extension/advertise/google');
 
             try {
@@ -1212,6 +1229,7 @@ class ControllerExtensionAdvertiseGoogle extends Controller {
 
         $this->document->addStyle('view/stylesheet/googleshopping/stepper.css');
 
+        // Google
         $this->load->model('extension/advertise/google');
 
         if ($this->request->server['REQUEST_METHOD'] == 'POST' && $this->validateSettings() && $this->validateConnect()) {
@@ -1325,6 +1343,7 @@ class ControllerExtensionAdvertiseGoogle extends Controller {
 
         if ($this->validatePermission()) {
             try {
+                // Settings
                 $this->load->model('setting/setting');
 
                 $this->googleshopping->disconnect();
@@ -1366,6 +1385,7 @@ class ControllerExtensionAdvertiseGoogle extends Controller {
         $this->document->setTitle($this->language->get('heading_title'));
 
         if ($this->request->server['REQUEST_METHOD'] == 'POST' && $this->validatePermission()) {
+            // Settings
             $this->load->model('setting/setting');
 
             $this->model_setting_setting->editSetting('advertise_google', $this->request->post, $this->store_id);
@@ -1423,6 +1443,7 @@ class ControllerExtensionAdvertiseGoogle extends Controller {
 
         $this->language->load('extension/advertise/google');
 
+        // Google
         $this->load->model('extension/advertise/google');
 
         $operand_info = null;
@@ -1693,8 +1714,10 @@ class ControllerExtensionAdvertiseGoogle extends Controller {
 
         $this->language->load('extension/advertise/google');
 
+        // Products
         $this->load->model('catalog/product');
 
+        // Google
         $this->load->model('extension/advertise/google');
 
         $product_id = (isset($this->request->get['product_id']) ? (int)$this->request->get['product_id'] : 0);
@@ -1725,6 +1748,7 @@ class ControllerExtensionAdvertiseGoogle extends Controller {
             if ($menu['id'] == 'menu-marketing') {
                 $children = [];
 
+                // Stores
                 $this->load->model('setting/store');
 
                 $children[] = [
@@ -1754,8 +1778,11 @@ class ControllerExtensionAdvertiseGoogle extends Controller {
 
     // admin/model/catalog/product/addProduct/after
     public function addProduct(string &$route, array &$args, mixed &$output): void {
-        $this->load->model('extension/advertise/google');
+        // Products
         $this->load->model('catalog/product');
+
+        // Google
+        $this->load->model('extension/advertise/google');
 
         foreach ($this->model_catalog_product->getProductStores($output) as $store_id) {
             $this->model_extension_advertise_google->insertNewProducts([$output], $store_id);
@@ -1764,8 +1791,11 @@ class ControllerExtensionAdvertiseGoogle extends Controller {
 
     // admin/model/catalog/product/copyProduct/after
     public function copyProduct(string &$route, array &$args, mixed &$output): void {
-        $this->load->model('extension/advertise/google');
+        // Products
         $this->load->model('catalog/product');
+
+        // Google
+        $this->load->model('extension/advertise/google');
 
         $final_product_id = $this->model_extension_advertise_google->getFinalProductId();
 
@@ -1778,12 +1808,14 @@ class ControllerExtensionAdvertiseGoogle extends Controller {
 
     // admin/model/catalog/product/deleteProduct/after
     public function deleteProduct(string &$route, array &$args, mixed &$output): void {
+        // Google
         $this->load->model('extension/advertise/google');
 
         $this->model_extension_advertise_google->deleteProducts([(int)$args[0]]);
     }
 
     public function install(): void {
+        // Google
         $this->load->model('extension/advertise/google');
 
         $this->model_extension_advertise_google->createTables();
@@ -1791,6 +1823,7 @@ class ControllerExtensionAdvertiseGoogle extends Controller {
     }
 
     public function uninstall(): void {
+        // Google
         $this->load->model('extension/advertise/google');
 
         $this->model_extension_advertise_google->dropTables();
@@ -1801,6 +1834,7 @@ class ControllerExtensionAdvertiseGoogle extends Controller {
         $json = [];
 
         if (isset($this->request->get['filter_name'])) {
+            // Google
             $this->load->model('extension/advertise/google');
 
             $filter_data = [
@@ -1850,6 +1884,7 @@ class ControllerExtensionAdvertiseGoogle extends Controller {
     }
 
     protected function applyNewSettings($new_settings) {
+        // Settings
         $this->load->model('setting/setting');
 
         $old_settings = $this->model_setting_setting->getSetting('advertise_google', $this->store_id);
@@ -1864,8 +1899,10 @@ class ControllerExtensionAdvertiseGoogle extends Controller {
     }
 
     protected function product(&$row) {
+        // Google Shopping
         $this->load->config('googleshopping/googleshopping');
 
+        // Image files
         $this->load->model('tool/image');
 
         if (!empty($row['image']) && file_exists(DIR_IMAGE . $row['image'])) {
@@ -2035,6 +2072,7 @@ class ControllerExtensionAdvertiseGoogle extends Controller {
     protected function validateCampaign() {
         $this->validatePermission();
 
+        // Google
         $this->load->model('extension/advertise/google');
 
         $targets = $this->googleshopping->getTargets($this->store_id);
@@ -2097,6 +2135,7 @@ class ControllerExtensionAdvertiseGoogle extends Controller {
         } else {
             $disallowed_names = [];
 
+            // Google
             $this->load->model('extension/advertise/google');
 
             foreach ($this->googleshopping->getTargets($this->store_id) as $existing_target) {

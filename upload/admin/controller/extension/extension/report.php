@@ -5,6 +5,7 @@ class ControllerExtensionExtensionReport extends Controller {
     public function index(): void {
         $this->load->language('extension/extension/report');
 
+        // Extensions
         $this->load->model('setting/extension');
 
         $this->getList();
@@ -12,12 +13,14 @@ class ControllerExtensionExtensionReport extends Controller {
 
     public function install(): void {
         $this->load->language('extension/extension/report');
+        // Extensions
 
         $this->load->model('setting/extension');
 
         if ($this->validate()) {
             $this->model_setting_extension->install('report', $this->request->get['extension']);
 
+            // User Groups
             $this->load->model('user/user_group');
 
             $this->model_user_user_group->addPermission($this->user->getGroupId(), 'access', 'extension/report/' . $this->request->get['extension']);
@@ -34,6 +37,7 @@ class ControllerExtensionExtensionReport extends Controller {
     public function uninstall(): void {
         $this->load->language('extension/extension/report');
 
+        // Extensions
         $this->load->model('setting/extension');
 
         if ($this->validate()) {
@@ -62,6 +66,7 @@ class ControllerExtensionExtensionReport extends Controller {
             $data['success'] = '';
         }
 
+        // Extensions
         $this->load->model('setting/extension');
 
         $extensions = $this->model_setting_extension->getInstalled('report');

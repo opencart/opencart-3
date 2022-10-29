@@ -5,6 +5,7 @@ class ControllerExtensionReportProductViewed extends Controller {
 
         $this->document->setTitle($this->language->get('heading_title'));
 
+        // Settings
         $this->load->model('setting/setting');
 
         if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validate()) {
@@ -79,6 +80,7 @@ class ControllerExtensionReportProductViewed extends Controller {
 
         $data['reset'] = $this->url->link('extension/report/product_viewed/reset', 'user_token=' . $this->session->data['user_token'], true);
 
+        // Products
         $this->load->model('extension/report/product');
 
         $filter_data = [
@@ -136,6 +138,7 @@ class ControllerExtensionReportProductViewed extends Controller {
         if (!$this->user->hasPermission('modify', 'extension/report/product_viewed')) {
             $this->session->data['error'] = $this->language->get('error_permission');
         } else {
+            // Products
             $this->load->model('extension/report/product');
 
             $this->model_extension_report_product->reset();

@@ -7,6 +7,7 @@ class ControllerExtensionPaymentGlobalpay extends Controller {
 
         $this->document->setTitle($this->language->get('heading_title'));
 
+        // Settings
         $this->load->model('setting/setting');
 
         if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validate()) {
@@ -221,6 +222,7 @@ class ControllerExtensionPaymentGlobalpay extends Controller {
     }
 
     public function install(): void {
+        // Globalpay
         $this->load->model('extension/payment/globalpay');
 
         $this->model_extension_payment_globalpay->install();
@@ -228,6 +230,7 @@ class ControllerExtensionPaymentGlobalpay extends Controller {
 
     public function order(): string {
         if ($this->config->get('payment_globalpay_status')) {
+            // Globalpay
             $this->load->model('extension/payment/globalpay');
 
             $globalpay_order = $this->model_extension_payment_globalpay->getOrder($this->request->get['order_id']);
@@ -259,6 +262,7 @@ class ControllerExtensionPaymentGlobalpay extends Controller {
         $json = [];
 
         if (isset($this->request->post['order_id']) && $this->request->post['order_id'] != '') {
+            // Globalpay
             $this->load->model('extension/payment/globalpay');
 
             $globalpay_order = $this->model_extension_payment_globalpay->getOrder($this->request->post['order_id']);
@@ -297,6 +301,7 @@ class ControllerExtensionPaymentGlobalpay extends Controller {
         $json = [];
 
         if (isset($this->request->post['order_id']) && $this->request->post['order_id'] != '' && isset($this->request->post['amount']) && $this->request->post['amount'] > 0) {
+            // Globalpay
             $this->load->model('extension/payment/globalpay');
 
             $globalpay_order = $this->model_extension_payment_globalpay->getOrder($this->request->post['order_id']);
@@ -353,6 +358,7 @@ class ControllerExtensionPaymentGlobalpay extends Controller {
         $json = [];
 
         if (isset($this->request->post['order_id'])) {
+            // Globalpay
             $this->load->model('extension/payment/globalpay');
 
             $globalpay_order = $this->model_extension_payment_globalpay->getOrder($this->request->post['order_id']);

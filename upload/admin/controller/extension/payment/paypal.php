@@ -7,7 +7,10 @@ class ControllerExtensionPaymentPayPal extends Controller {
 
         $this->document->setTitle($this->language->get('heading_title'));
 
+        // Settings
         $this->load->model('setting/setting');
+
+        // PayPal
         $this->load->model('extension/payment/paypal');
 
         if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validate()) {
@@ -329,6 +332,7 @@ class ControllerExtensionPaymentPayPal extends Controller {
     }
 
     public function configureSmartButton(): void {
+        // PayPal
         $this->load->model('extension/payment/paypal');
 
         $this->model_extension_payment_paypal->configureSmartButton();

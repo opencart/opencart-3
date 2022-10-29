@@ -7,6 +7,7 @@ class ControllerMarketplaceEvent extends Controller {
 
         $this->document->setTitle($this->language->get('heading_title'));
 
+        // Events
         $this->load->model('setting/event');
 
         $this->getList();
@@ -17,6 +18,7 @@ class ControllerMarketplaceEvent extends Controller {
 
         $this->document->setTitle($this->language->get('heading_title'));
 
+        // Events
         $this->load->model('setting/event');
 
         if (isset($this->request->get['event_id']) && $this->validate()) {
@@ -49,6 +51,7 @@ class ControllerMarketplaceEvent extends Controller {
 
         $this->document->setTitle($this->language->get('heading_title'));
 
+        // Events
         $this->load->model('setting/event');
 
         if (isset($this->request->get['event_id']) && $this->validate()) {
@@ -81,6 +84,7 @@ class ControllerMarketplaceEvent extends Controller {
 
         $this->document->setTitle($this->language->get('heading_title'));
 
+        // Events
         $this->load->model('setting/event');
 
         if (isset($this->request->post['selected']) && $this->validate()) {

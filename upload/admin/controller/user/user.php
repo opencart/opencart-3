@@ -7,6 +7,7 @@ class ControllerUserUser extends Controller {
 
         $this->document->setTitle($this->language->get('heading_title'));
 
+        // Users
         $this->load->model('user/user');
 
         $this->getList();
@@ -17,6 +18,7 @@ class ControllerUserUser extends Controller {
 
         $this->document->setTitle($this->language->get('heading_title'));
 
+        // Users
         $this->load->model('user/user');
 
         if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validateForm()) {
@@ -49,6 +51,7 @@ class ControllerUserUser extends Controller {
 
         $this->document->setTitle($this->language->get('heading_title'));
 
+        // Users
         $this->load->model('user/user');
 
         if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validateForm()) {
@@ -81,6 +84,7 @@ class ControllerUserUser extends Controller {
 
         $this->document->setTitle($this->language->get('heading_title'));
 
+        // Users
         $this->load->model('user/user');
 
         if (isset($this->request->post['selected']) && $this->validateDelete()) {
@@ -345,6 +349,7 @@ class ControllerUserUser extends Controller {
             $data['user_group_id'] = '';
         }
 
+        // User Groups
         $this->load->model('user/user_group');
 
         $data['user_groups'] = $this->model_user_user_group->getUserGroups();
@@ -393,6 +398,7 @@ class ControllerUserUser extends Controller {
             $data['image'] = '';
         }
 
+        // Image files
         $this->load->model('tool/image');
 
         if (isset($this->request->post['image']) && is_file(DIR_IMAGE . $this->request->post['image'])) {

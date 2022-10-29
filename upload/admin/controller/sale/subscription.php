@@ -7,6 +7,7 @@ class ControllerSaleSubscription extends Controller {
 
         $this->document->setTitle($this->language->get('heading_title'));
 
+        // Subscription
         $this->load->model('sale/subscription');
 
         $this->getList();
@@ -120,6 +121,7 @@ class ControllerSaleSubscription extends Controller {
             'limit'                         => $this->config->get('config_limit_admin')
         ];
 
+        // Subscription
         $this->load->model('sale/subscription');
 
         $subscription_total = $this->model_sale_subscription->getTotalSubscriptions($filter_data);
@@ -214,6 +216,7 @@ class ControllerSaleSubscription extends Controller {
             $url .= '&order=' . $this->request->get['order'];
         }
 
+        // Subscription Status
         $this->load->model('localisation/subscription_status');
 
         $data['subscription_statuses'] = $this->model_localisation_subscription_status->getSubscriptionStatuses();
@@ -310,6 +313,7 @@ class ControllerSaleSubscription extends Controller {
 
         $data['back'] = $this->url->link('sale/subscription', 'user_token=' . $this->session->data['user_token'] . $url, true);
 
+        // Subscription
         $this->load->model('sale/subscription');
 
         $subscription_info = $this->model_sale_subscription->getSubscription($subscription_id);
@@ -322,6 +326,7 @@ class ControllerSaleSubscription extends Controller {
 
         // Order data
         if (!empty($subscription_info)) {
+            // Order
             $this->load->model('sale/order');
 
             $order_info = $this->model_sale_order->getOrder($subscription_info['order_id']);
@@ -438,6 +443,7 @@ class ControllerSaleSubscription extends Controller {
             $data['quantity'] = '';
         }
 
+        // Subscription Status
         $this->load->model('localisation/subscription_status');
 
         $data['subscription_statuses'] = $this->model_localisation_subscription_status->getSubscriptionStatuses();
@@ -474,6 +480,7 @@ class ControllerSaleSubscription extends Controller {
 
         $data['histories'] = [];
 
+        // Subscription
         $this->load->model('sale/subscription');
 
         $results = $this->model_sale_subscription->getHistories($subscription_id, ($page - 1) * 10, 10);
@@ -519,6 +526,7 @@ class ControllerSaleSubscription extends Controller {
         }
 
         if (!$json) {
+            // Subscription
             $this->load->model('sale/subscription');
 
             $this->model_sale_subscription->addHistory($subscription_id, $this->request->post['subscription_status_id'], $this->request->post['comment'], $this->request->post['notify']);
@@ -547,6 +555,7 @@ class ControllerSaleSubscription extends Controller {
 
         $data['transactions'] = [];
 
+        // Subscription
         $this->load->model('sale/subscription');
 
         $results = $this->model_sale_subscription->getTransactions($subscription_id, ($page - 1) * 10, 10);
@@ -592,6 +601,7 @@ class ControllerSaleSubscription extends Controller {
             $json['error'] = $this->language->get('error_service_type');
         }
 
+        // Subscription
         $this->load->model('sale/subscription');
 
         $subscription_info = $this->model_sale_subscription->getSubscription($subscription_id);
@@ -599,6 +609,7 @@ class ControllerSaleSubscription extends Controller {
         if (!$subscription_info) {
             $json['error'] = $this->language->get('error_subscription');
         } else {
+            // Order
             $this->load->model('sale/order');
 
             $order_info = $this->model_sale_order->getOrder($subscription_info['order_id']);

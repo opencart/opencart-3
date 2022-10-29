@@ -7,6 +7,7 @@ class ControllerCustomerCustomerPayment extends Controller {
             $customer_id = 0;
         }
 
+        // Customers
         $this->load->model('customer/customer');
 
         $customer_info = $this->model_customer_customer->getCustomer($customer_id);
@@ -91,6 +92,7 @@ class ControllerCustomerCustomerPayment extends Controller {
 
         $data['payment_methods'] = [];
 
+        // Customers
         $this->load->model('customer/customer');
 
         $payment_total = $this->model_customer_customer->getTotalPaymentMethods($customer_id);
@@ -142,6 +144,7 @@ class ControllerCustomerCustomerPayment extends Controller {
         }
 
         if (!$json) {
+            // Customers
             $this->load->model('customer/customer');
 
             $this->model_customer_customer->deletePaymentMethod($customer_payment_id);

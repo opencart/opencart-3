@@ -7,6 +7,7 @@ class ControllerCatalogManufacturer extends Controller {
 
         $this->document->setTitle($this->language->get('heading_title'));
 
+        // Manufacturers
         $this->load->model('catalog/manufacturer');
 
         $this->getList();
@@ -17,6 +18,7 @@ class ControllerCatalogManufacturer extends Controller {
 
         $this->document->setTitle($this->language->get('heading_title'));
 
+        // Manufacturers
         $this->load->model('catalog/manufacturer');
 
         if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validateForm()) {
@@ -49,6 +51,7 @@ class ControllerCatalogManufacturer extends Controller {
 
         $this->document->setTitle($this->language->get('heading_title'));
 
+        // Manufacturers
         $this->load->model('catalog/manufacturer');
 
         if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validateForm()) {
@@ -81,6 +84,7 @@ class ControllerCatalogManufacturer extends Controller {
 
         $this->document->setTitle($this->language->get('heading_title'));
 
+        // Manufacturers
         $this->load->model('catalog/manufacturer');
 
         if (isset($this->request->post['selected']) && $this->validateDelete()) {
@@ -313,6 +317,7 @@ class ControllerCatalogManufacturer extends Controller {
             $data['name'] = '';
         }
 
+        // Stores
         $this->load->model('setting/store');
 
         $data['stores'] = [];
@@ -347,6 +352,7 @@ class ControllerCatalogManufacturer extends Controller {
             $data['image'] = '';
         }
 
+        // Image files
         $this->load->model('tool/image');
 
         if (isset($this->request->post['image']) && is_file(DIR_IMAGE . $this->request->post['image'])) {
@@ -397,6 +403,7 @@ class ControllerCatalogManufacturer extends Controller {
         }
 
         if ($this->request->post['manufacturer_seo_url']) {
+            // Seo Urls
             $this->load->model('design/seo_url');
 
             foreach ($this->request->post['manufacturer_seo_url'] as $store_id => $language) {
@@ -443,6 +450,7 @@ class ControllerCatalogManufacturer extends Controller {
         $json = [];
 
         if (isset($this->request->get['filter_name'])) {
+            // Manufacturers
             $this->load->model('catalog/manufacturer');
 
             $filter_data = [

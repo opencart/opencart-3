@@ -15,6 +15,7 @@ class ControllerCommonForgotten extends Controller {
 
         $this->document->setTitle($this->language->get('heading_title'));
 
+        // Users
         $this->load->model('user/user');
 
         if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validate()) {

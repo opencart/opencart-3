@@ -49,7 +49,10 @@ class ControllerReportOnline extends Controller {
             'href' => $this->url->link('report/online', 'user_token=' . $this->session->data['user_token'], true)
         ];
 
+        // Online
         $this->load->model('report/online');
+
+        // Customers
         $this->load->model('customer/customer');
 
         $data['refresh'] = $this->url->link('report/online', 'user_token=' . $this->session->data['user_token'] . $url, true);

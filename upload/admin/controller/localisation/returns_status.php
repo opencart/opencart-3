@@ -7,6 +7,7 @@ class ControllerLocalisationReturnsStatus extends Controller {
 
         $this->document->setTitle($this->language->get('heading_title'));
 
+        // Returns Status
         $this->load->model('localisation/returns_status');
 
         $this->getList();
@@ -17,6 +18,7 @@ class ControllerLocalisationReturnsStatus extends Controller {
 
         $this->document->setTitle($this->language->get('heading_title'));
 
+        // Returns Status
         $this->load->model('localisation/returns_status');
 
         if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validateForm()) {
@@ -49,6 +51,7 @@ class ControllerLocalisationReturnsStatus extends Controller {
 
         $this->document->setTitle($this->language->get('heading_title'));
 
+        // Returns Status
         $this->load->model('localisation/returns_status');
 
         if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validateForm()) {
@@ -81,6 +84,7 @@ class ControllerLocalisationReturnsStatus extends Controller {
 
         $this->document->setTitle($this->language->get('heading_title'));
 
+        // Returns Status
         $this->load->model('localisation/returns_status');
 
         if (isset($this->request->post['selected']) && $this->validateDelete()) {
@@ -329,6 +333,7 @@ class ControllerLocalisationReturnsStatus extends Controller {
             $this->error['warning'] = $this->language->get('error_permission');
         }
 
+        // Returns
         $this->load->model('sale/returns');
 
         foreach ((array)$this->request->post['selected'] as $return_status_id) {

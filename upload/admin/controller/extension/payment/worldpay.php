@@ -7,6 +7,7 @@ class ControllerExtensionPaymentWorldpay extends Controller {
 
         $this->document->setTitle($this->language->get('heading_title'));
 
+        // Settings
         $this->load->model('setting/setting');
 
         if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validate()) {
@@ -193,12 +194,14 @@ class ControllerExtensionPaymentWorldpay extends Controller {
     }
 
     public function install(): void {
+        // Worldpay
         $this->load->model('extension/payment/worldpay');
 
         $this->model_extension_payment_worldpay->install();
     }
 
     public function uninstall(): void {
+        // Worldpay
         $this->load->model('extension/payment/worldpay');
 
         $this->model_extension_payment_worldpay->uninstall();
@@ -206,6 +209,7 @@ class ControllerExtensionPaymentWorldpay extends Controller {
 
     public function order(): string {
         if ($this->config->get('payment_worldpay_status')) {
+            // Worldpay
             $this->load->model('extension/payment/worldpay');
 
             $worldpay_order = $this->model_extension_payment_worldpay->getOrder($this->request->get['order_id']);
@@ -239,6 +243,7 @@ class ControllerExtensionPaymentWorldpay extends Controller {
         $json = [];
 
         if (isset($this->request->post['order_id'])) {
+            // Worldpay
             $this->load->model('extension/payment/worldpay');
 
             $worldpay_order = $this->model_extension_payment_worldpay->getOrder($this->request->post['order_id']);
@@ -267,14 +272,14 @@ class ControllerExtensionPaymentWorldpay extends Controller {
 
                 $json['error'] = false;
             } else {
-                $json['error'] = true;
-
                 $json['msg'] = (isset($refund_response['message']) && $refund_response['message'] != '' ? sprintf($this->language->get('error_status'), (string)$refund_response['message']) : $this->language->get('error_refund'));
+
+                $json['error'] = true;
             }
         } else {
-            $json['error'] = true;
-
             $json['msg'] = $this->language->get('error_data_missing');
+
+            $json['error'] = true;
         }
 
         $this->response->addHeader('Content-Type: application/json');

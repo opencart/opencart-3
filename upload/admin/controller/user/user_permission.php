@@ -7,6 +7,7 @@ class ControllerUserUserPermission extends Controller {
 
         $this->document->setTitle($this->language->get('heading_title'));
 
+        // User Groups
         $this->load->model('user/user_group');
 
         $this->getList();
@@ -17,6 +18,7 @@ class ControllerUserUserPermission extends Controller {
 
         $this->document->setTitle($this->language->get('heading_title'));
 
+        // User Groups
         $this->load->model('user/user_group');
 
         if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validateForm()) {
@@ -49,6 +51,7 @@ class ControllerUserUserPermission extends Controller {
 
         $this->document->setTitle($this->language->get('heading_title'));
 
+        // User Groups
         $this->load->model('user/user_group');
 
         if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validateForm()) {
@@ -81,6 +84,7 @@ class ControllerUserUserPermission extends Controller {
 
         $this->document->setTitle($this->language->get('heading_title'));
 
+        // User Groups
         $this->load->model('user/user_group');
 
         if (isset($this->request->post['selected']) && $this->validateDelete()) {
@@ -392,6 +396,7 @@ class ControllerUserUserPermission extends Controller {
             $this->error['warning'] = $this->language->get('error_permission');
         }
 
+        // Users
         $this->load->model('user/user');
 
         foreach ((array)$this->request->post['selected'] as $user_group_id) {

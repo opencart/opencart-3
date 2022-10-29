@@ -7,6 +7,7 @@ class ControllerExtensionPaymentKlarnaCheckout extends Controller {
 
         $this->document->setTitle($this->language->get('heading_title'));
 
+        // Settings
         $this->load->model('setting/setting');
 
         if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validate()) {
@@ -48,7 +49,7 @@ class ControllerExtensionPaymentKlarnaCheckout extends Controller {
             ]
         ];
 
-        $this->load->model('extension/payment/klarna_checkout');
+        // Information
         $this->load->model('catalog/information');
 
         $data['informations'] = $this->model_catalog_information->getInformations();
@@ -62,6 +63,9 @@ class ControllerExtensionPaymentKlarnaCheckout extends Controller {
         $this->load->model('localisation/order_status');
 
         $data['order_statuses'] = $this->model_localisation_order_status->getOrderStatuses();
+
+        // Klarna Checkout
+        $this->load->model('extension/payment/klarna_checkout');
 
         if (isset($this->error['warning'])) {
             $data['error_warning'] = $this->error['warning'];
@@ -326,7 +330,10 @@ class ControllerExtensionPaymentKlarnaCheckout extends Controller {
 
         $this->load->language('extension/payment/klarna_checkout');
 
+        // Orders
         $this->load->model('sale/order');
+
+        // Klarna Checkout
         $this->load->model('extension/payment/klarna_checkout');
 
         $order_reference = $this->model_extension_payment_klarna_checkout->getOrder($this->request->get['order_id']);
@@ -568,6 +575,7 @@ class ControllerExtensionPaymentKlarnaCheckout extends Controller {
         $api_info = $this->model_user_api->getApi($this->config->get('config_api_id'));
 
         if ($api_info && $this->user->hasPermission('modify', 'sale/order')) {
+            // Session
             $session = new \Session($this->config->get('session_engine'), $this->registry);
             $session->start();
 
@@ -585,18 +593,21 @@ class ControllerExtensionPaymentKlarnaCheckout extends Controller {
     }
 
     public function install(): void {
+        // Klarna Checkout
         $this->load->model('extension/payment/klarna_checkout');
 
         $this->model_extension_payment_klarna_checkout->install();
     }
 
     public function uninstall(): void {
+        // Klarna Checkout
         $this->load->model('extension/payment/klarna_checkout');
 
         $this->model_extension_payment_klarna_checkout->uninstall();
     }
 
     public function transactionCommand(): void {
+        // Orders
         $this->load->model('sale/order');
 
         $json = [];
@@ -604,10 +615,7 @@ class ControllerExtensionPaymentKlarnaCheckout extends Controller {
 
         $order_info = $this->model_sale_order->getOrder($this->request->get['order_id']);
 
-        [
-            $klarna_account,
-            $connector
-        ] = $this->model_extension_payment_klarna_checkout->getConnector($this->config->get('payment_klarna_checkout_account'), $order_info['currency_code']);
+        [$klarna_account, $connector] = $this->model_extension_payment_klarna_checkout->getConnector($this->config->get('payment_klarna_checkout_account'), $order_info['currency_code']);
 
         if (!$klarna_account || !$connector) {
             return;
@@ -615,6 +623,7 @@ class ControllerExtensionPaymentKlarnaCheckout extends Controller {
 
         $this->load->language('extension/payment/klarna_checkout');
 
+        // Klarna Checkout
         $this->load->model('extension/payment/klarna_checkout');
 
         $klarna_order = $this->model_extension_payment_klarna_checkout->omRetrieve($connector, $this->request->post['order_ref']);
@@ -729,12 +738,16 @@ class ControllerExtensionPaymentKlarnaCheckout extends Controller {
     }
 
     public function downloadSettlementFiles(): void {
+        // Klarna Checkout
         $this->load->language('extension/payment/klarna_checkout');
 
         $json = [];
 
-        $this->load->model('extension/payment/klarna_checkout');
+        // Orders
         $this->load->model('sale/order');
+
+        // Klarna Checkout
+        $this->load->model('extension/payment/klarna_checkout');
 
         $error = [];
 
@@ -857,6 +870,8 @@ class ControllerExtensionPaymentKlarnaCheckout extends Controller {
     protected function validate() {
         // Geo Zones
         $this->load->model('localisation/geo_zone');
+
+        // Klarna Checkout
         $this->load->model('extension/payment/klarna_checkout');
 
         if (version_compare(phpversion(), '8.1', '<')) {

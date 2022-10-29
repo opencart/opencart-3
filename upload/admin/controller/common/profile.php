@@ -7,6 +7,7 @@ class ControllerCommonProfile extends Controller {
 
         $this->document->setTitle($this->language->get('heading_title'));
 
+        // Users
         $this->load->model('user/user');
 
         if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validateForm()) {
@@ -143,6 +144,7 @@ class ControllerCommonProfile extends Controller {
             $data['image'] = '';
         }
 
+        // Image files
         $this->load->model('tool/image');
 
         if (isset($this->request->post['image']) && is_file(DIR_IMAGE . $this->request->post['image'])) {

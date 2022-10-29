@@ -5,6 +5,7 @@ class ControllerExtensionPaymentSecureTradingPp extends Controller {
     public function index(): void {
         $this->load->language('extension/payment/securetrading_pp');
 
+        // Settings
         $this->load->model('setting/setting');
 
         // Geo Zones
@@ -251,12 +252,14 @@ class ControllerExtensionPaymentSecureTradingPp extends Controller {
     }
 
     public function install(): void {
+        // Securetrading PP
         $this->load->model('extension/payment/securetrading_pp');
 
         $this->model_extension_payment_securetrading_pp->install();
     }
 
     public function uninstall(): void {
+        // Securetrading PP
         $this->load->model('extension/payment/securetrading_pp');
 
         $this->model_extension_payment_securetrading_pp->uninstall();
@@ -264,6 +267,7 @@ class ControllerExtensionPaymentSecureTradingPp extends Controller {
 
     public function order(): string {
         if ($this->config->get('payment_securetrading_pp_status')) {
+            // Securetrading PP
             $this->load->model('extension/payment/securetrading_pp');
 
             $securetrading_pp_order = $this->model_extension_payment_securetrading_pp->getOrder($this->request->get['order_id']);
@@ -277,7 +281,9 @@ class ControllerExtensionPaymentSecureTradingPp extends Controller {
 
                 $data['securetrading_pp_order'] = $securetrading_pp_order;
                 $data['auto_settle'] = $securetrading_pp_order['settle_type'];
+
                 $data['order_id'] = (int)$this->request->get['order_id'];
+
                 $data['user_token'] = $this->session->data['user_token'];
 
                 return $this->load->view('extension/payment/securetrading_pp_order', $data);
@@ -295,6 +301,7 @@ class ControllerExtensionPaymentSecureTradingPp extends Controller {
         $json = [];
 
         if (isset($this->request->post['order_id']) && $this->request->post['order_id'] != '') {
+            // Securetrading PP
             $this->load->model('extension/payment/securetrading_pp');
 
             $securetrading_pp_order = $this->model_extension_payment_securetrading_pp->getOrder($this->request->post['order_id']);
@@ -324,15 +331,18 @@ class ControllerExtensionPaymentSecureTradingPp extends Controller {
 
                     $json['msg'] = $this->language->get('text_authorisation_reversed');
                     $json['data']['created'] = date('Y-m-d H:i:s');
+
                     $json['error'] = false;
                 }
             } else {
                 $json['msg'] = $this->language->get('error_connection');
+
                 $json['error'] = true;
             }
         } else {
-            $json['error'] = true;
             $json['msg'] = $this->language->get('error_data_missing');
+
+            $json['error'] = true;
         }
 
         $this->response->addHeader('Content-Type: application/json');
@@ -347,6 +357,7 @@ class ControllerExtensionPaymentSecureTradingPp extends Controller {
         $amount = number_format($this->request->post['amount'], 2);
 
         if (isset($this->request->post['order_id']) && $this->request->post['order_id'] != '' && isset($amount) && $amount > 0) {
+            // Securetrading PP
             $this->load->model('extension/payment/securetrading_pp');
 
             $securetrading_pp_order = $this->model_extension_payment_securetrading_pp->getOrder($this->request->post['order_id']);
@@ -358,8 +369,9 @@ class ControllerExtensionPaymentSecureTradingPp extends Controller {
                 $response_xml = simplexml_load_string($release_response);
 
                 if ($response_xml->response['type'] == 'ERROR' || (string)$response_xml->response->error->code != '0') {
-                    $json['error'] = true;
                     $json['msg'] = (string)$response_xml->response->error->message;
+
+                    $json['error'] = true;
                 } else {
                     $this->model_extension_payment_securetrading_pp->addTransaction($securetrading_pp_order['securetrading_pp_order_id'], 'payment', $amount);
 
@@ -395,12 +407,14 @@ class ControllerExtensionPaymentSecureTradingPp extends Controller {
                     $json['error'] = false;
                 }
             } else {
-                $json['error'] = true;
                 $json['msg'] = $this->language->get('error_connection');
+
+                $json['error'] = true;
             }
         } else {
-            $json['error'] = true;
             $json['msg'] = $this->language->get('error_data_missing');
+
+            $json['error'] = true;
         }
 
         $this->response->addHeader('Content-Type: application/json');
@@ -413,11 +427,13 @@ class ControllerExtensionPaymentSecureTradingPp extends Controller {
         $json = [];
 
         if (isset($this->request->post['order_id'])) {
+            // Securetrading PP
             $this->load->model('extension/payment/securetrading_pp');
 
             $securetrading_pp_order = $this->model_extension_payment_securetrading_pp->getOrder($this->request->post['order_id']);
 
             $amount = number_format($this->request->post['amount'], 2);
+
             $rebate_response = $this->model_extension_payment_securetrading_pp->rebate($this->request->post['order_id'], $amount);
 
             $this->model_extension_payment_securetrading_pp->logger('Rebate result:\r\n' . print_r($rebate_response, 1));
@@ -443,6 +459,7 @@ class ControllerExtensionPaymentSecureTradingPp extends Controller {
                         $rebate_status = 1;
                         $json['msg'] = $this->language->get('text_rebate_ok_order');
 
+                        // Orders
                         $this->load->model('sale/order');
 
                         $history = [];
@@ -466,16 +483,19 @@ class ControllerExtensionPaymentSecureTradingPp extends Controller {
 
                     $json['error'] = false;
                 } else {
-                    $json['error'] = true;
                     $json['msg'] = (string)$response_xml->response->error->message;
+
+                    $json['error'] = true;
                 }
             } else {
                 $json['status'] = 0;
+
                 $json['message'] = $this->language->get('error_connection');
             }
         } else {
-            $json['error'] = true;
             $json['msg'] = $this->language->get('error_data_missing');
+
+            $json['error'] = true;
         }
 
         $this->response->addHeader('Content-Type: application/json');

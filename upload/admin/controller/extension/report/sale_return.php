@@ -5,6 +5,7 @@ class ControllerExtensionReportSaleReturn extends Controller {
 
         $this->document->setTitle($this->language->get('heading_title'));
 
+        // Settings
         $this->load->model('setting/setting');
 
         if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validate()) {
@@ -101,6 +102,7 @@ class ControllerExtensionReportSaleReturn extends Controller {
             $page = 1;
         }
 
+        // Returns
         $this->load->model('extension/report/returns');
 
         $data['returns'] = [];

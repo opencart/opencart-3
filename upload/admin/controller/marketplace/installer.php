@@ -37,6 +37,7 @@ class ControllerMarketplaceInstaller extends Controller {
 
         $data['histories'] = [];
 
+        // Extensions
         $this->load->model('setting/extension');
 
         $results = $this->model_setting_extension->getExtensionInstalls(($page - 1) * 10, 10);
@@ -101,10 +102,7 @@ class ControllerMarketplaceInstaller extends Controller {
                     $next = array_shift($path);
 
                     // We have to use scandir function because glob will not pick up dot files.
-                    foreach (array_diff(scandir($next), [
-                        '.',
-                        '..'
-                    ]) as $file) {
+                    foreach (array_diff(scandir($next), ['.','..']) as $file) {
                         $file = $next . '/' . $file;
 
                         if (is_dir($file)) {
@@ -154,6 +152,7 @@ class ControllerMarketplaceInstaller extends Controller {
             move_uploaded_file($this->request->files['file']['tmp_name'], $file);
 
             if (is_file($file)) {
+                // Extensions
                 $this->load->model('setting/extension');
 
                 $extension_install_id = $this->model_setting_extension->addExtensionInstall($this->request->files['file']['name']);

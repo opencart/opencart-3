@@ -7,6 +7,7 @@ class ControllerCatalogInformation extends Controller {
 
         $this->document->setTitle($this->language->get('heading_title'));
 
+        // Information
         $this->load->model('catalog/information');
 
         $this->getList();
@@ -17,6 +18,7 @@ class ControllerCatalogInformation extends Controller {
 
         $this->document->setTitle($this->language->get('heading_title'));
 
+        // Information
         $this->load->model('catalog/information');
 
         if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validateForm()) {
@@ -49,6 +51,7 @@ class ControllerCatalogInformation extends Controller {
 
         $this->document->setTitle($this->language->get('heading_title'));
 
+        // Information
         $this->load->model('catalog/information');
 
         if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validateForm()) {
@@ -81,6 +84,7 @@ class ControllerCatalogInformation extends Controller {
 
         $this->document->setTitle($this->language->get('heading_title'));
 
+        // Information
         $this->load->model('catalog/information');
 
         if (isset($this->request->post['selected']) && $this->validateDelete()) {
@@ -330,6 +334,7 @@ class ControllerCatalogInformation extends Controller {
             $data['information_description'] = [];
         }
 
+        // Stores
         $this->load->model('setting/store');
 
         $data['stores'] = [];
@@ -377,7 +382,7 @@ class ControllerCatalogInformation extends Controller {
         } elseif (!empty($information_info)) {
             $data['sort_order'] = $information_info['sort_order'];
         } else {
-            $data['sort_order'] = '';
+            $data['sort_order'] = 0;
         }
 
         if (isset($this->request->post['information_seo_url'])) {
@@ -396,6 +401,7 @@ class ControllerCatalogInformation extends Controller {
             $data['information_layout'] = [];
         }
 
+        // Layouts
         $this->load->model('design/layout');
 
         $data['layouts'] = $this->model_design_layout->getLayouts();
@@ -427,6 +433,7 @@ class ControllerCatalogInformation extends Controller {
         }
 
         if ($this->request->post['information_seo_url']) {
+            // Seo Urls
             $this->load->model('design/seo_url');
 
             foreach ($this->request->post['information_seo_url'] as $store_id => $language) {
@@ -460,6 +467,7 @@ class ControllerCatalogInformation extends Controller {
             $this->error['warning'] = $this->language->get('error_permission');
         }
 
+        // Stores
         $this->load->model('setting/store');
 
         foreach ((array)$this->request->post['selected'] as $information_id) {

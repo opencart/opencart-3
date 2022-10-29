@@ -29,6 +29,7 @@ class ControllerToolBackup extends Controller {
 
         $data['export'] = $this->url->link('tool/backup/export', 'user_token=' . $this->session->data['user_token'], true);
 
+        // Backup files
         $this->load->model('tool/backup');
 
         $data['tables'] = $this->model_tool_backup->getTables();
@@ -151,6 +152,7 @@ class ControllerToolBackup extends Controller {
             $this->response->addheader('Content-Disposition: attachment; filename="' . DB_DATABASE . '_' . date('Y-m-d_H-i-s', time()) . '_backup.sql"');
             $this->response->addheader('Content-Transfer-Encoding: binary');
 
+            // Backup files
             $this->load->model('tool/backup');
 
             $this->response->setOutput($this->model_tool_backup->backup($this->request->post['backup']));

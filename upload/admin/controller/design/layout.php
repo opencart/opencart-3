@@ -7,6 +7,7 @@ class ControllerDesignLayout extends Controller {
 
         $this->document->setTitle($this->language->get('heading_title'));
 
+        // Layouts
         $this->load->model('design/layout');
 
         $this->getList();
@@ -17,6 +18,7 @@ class ControllerDesignLayout extends Controller {
 
         $this->document->setTitle($this->language->get('heading_title'));
 
+        // Layouts
         $this->load->model('design/layout');
 
         if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validateForm()) {
@@ -49,6 +51,7 @@ class ControllerDesignLayout extends Controller {
 
         $this->document->setTitle($this->language->get('heading_title'));
 
+        // Layouts
         $this->load->model('design/layout');
 
         if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validateForm()) {
@@ -81,6 +84,7 @@ class ControllerDesignLayout extends Controller {
 
         $this->document->setTitle($this->language->get('heading_title'));
 
+        // Layouts
         $this->load->model('design/layout');
 
         if (isset($this->request->post['selected']) && $this->validateDelete()) {
@@ -305,6 +309,7 @@ class ControllerDesignLayout extends Controller {
             $data['name'] = '';
         }
 
+        // Stores
         $this->load->model('setting/store');
 
         $data['stores'] = $this->model_setting_store->getStores();
@@ -317,7 +322,10 @@ class ControllerDesignLayout extends Controller {
             $data['layout_routes'] = [];
         }
 
+        // Modules
         $this->load->model('setting/module');
+
+        // Extensions
         $this->load->model('setting/extension');
 
         $data['extensions'] = [];
@@ -409,9 +417,16 @@ class ControllerDesignLayout extends Controller {
             $this->error['warning'] = $this->language->get('error_permission');
         }
 
+        // Stores
         $this->load->model('setting/store');
+
+        // Products
         $this->load->model('catalog/product');
+
+        // Categories
         $this->load->model('catalog/category');
+
+        // Information
         $this->load->model('catalog/information');
 
         foreach ((array)$this->request->post['selected'] as $layout_id) {

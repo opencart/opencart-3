@@ -7,6 +7,7 @@ class ControllerExtensionPaymentEway extends Controller {
 
         $this->document->setTitle($this->language->get('heading_title'));
 
+        // Settings
         $this->load->model('setting/setting');
 
         if (($this->request->server['REQUEST_METHOD'] == 'POST') && ($this->validate())) {
@@ -163,12 +164,14 @@ class ControllerExtensionPaymentEway extends Controller {
     }
 
     public function install(): void {
+        // Eway
         $this->load->model('extension/payment/eway');
 
         $this->model_extension_payment_eway->install();
     }
 
     public function uninstall(): void {
+        // Eway
         $this->load->model('extension/payment/eway');
 
         $this->model_extension_payment_eway->uninstall();
@@ -186,6 +189,7 @@ class ControllerExtensionPaymentEway extends Controller {
 
     public function order(): string {
         if ($this->config->get('payment_eway_status')) {
+            // Eway
             $this->load->model('extension/payment/eway');
 
             $eway_order = $this->model_extension_payment_eway->getOrder($this->request->get['order_id']);
@@ -233,6 +237,7 @@ class ControllerExtensionPaymentEway extends Controller {
         $refund_amount = (double)$this->request->post['refund_amount'];
 
         if ($order_id && $refund_amount > 0) {
+            // Eway
             $this->load->model('extension/payment/eway');
 
             $result = $this->model_extension_payment_eway->refund($order_id, $refund_amount);
@@ -307,6 +312,7 @@ class ControllerExtensionPaymentEway extends Controller {
         $capture_amount = (double)$this->request->post['capture_amount'];
 
         if ($order_id && $capture_amount > 0) {
+            // Eway
             $this->load->model('extension/payment/eway');
 
             $eway_order = $this->model_extension_payment_eway->getOrder($order_id);

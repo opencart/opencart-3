@@ -7,6 +7,7 @@ class ControllerExtensionPaymentRealex extends Controller {
 
         $this->document->setTitle($this->language->get('heading_title'));
 
+        // Settings
         $this->load->model('setting/setting');
 
         if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validate()) {
@@ -221,6 +222,7 @@ class ControllerExtensionPaymentRealex extends Controller {
     }
 
     public function install(): void {
+        // Realex
         $this->load->model('extension/payment/realex');
 
         $this->model_extension_payment_realex->install();
@@ -228,6 +230,7 @@ class ControllerExtensionPaymentRealex extends Controller {
 
     public function order(): string {
         if ($this->config->get('payment_realex_status')) {
+            // Realex
             $this->load->model('extension/payment/realex');
 
             $payment_realex_order = $this->model_extension_payment_realex->getOrder($this->request->get['order_id']);
@@ -259,6 +262,7 @@ class ControllerExtensionPaymentRealex extends Controller {
         $json = [];
 
         if (isset($this->request->post['order_id']) && $this->request->post['order_id'] != '') {
+            // Realex
             $this->load->model('extension/payment/realex');
 
             $payment_realex_order = $this->model_extension_payment_realex->getOrder($this->request->post['order_id']);
@@ -299,6 +303,7 @@ class ControllerExtensionPaymentRealex extends Controller {
         $json = [];
 
         if (isset($this->request->post['order_id']) && $this->request->post['order_id'] != '' && isset($this->request->post['amount']) && $this->request->post['amount'] > 0) {
+            // Realex
             $this->load->model('extension/payment/realex');
 
             $payment_realex_order = $this->model_extension_payment_realex->getOrder($this->request->post['order_id']);
@@ -355,6 +360,7 @@ class ControllerExtensionPaymentRealex extends Controller {
         $json = [];
 
         if (isset($this->request->post['order_id'])) {
+            // Realex
             $this->load->model('extension/payment/realex');
 
             $payment_realex_order = $this->model_extension_payment_realex->getOrder($this->request->post['order_id']);

@@ -7,6 +7,7 @@ class ControllerExtensionPaymentSagepayDirect extends Controller {
 
         $this->document->setTitle($this->language->get('heading_title'));
 
+        // Settings
         $this->load->model('setting/setting');
 
         if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validate()) {
@@ -143,12 +144,14 @@ class ControllerExtensionPaymentSagepayDirect extends Controller {
     }
 
     public function install(): void {
+        // Sagepay Direct
         $this->load->model('extension/payment/sagepay_direct');
 
         $this->model_extension_payment_sagepay_direct->install();
     }
 
     public function uninstall(): void {
+        // Sagepay Direct
         $this->load->model('extension/payment/sagepay_direct');
 
         $this->model_extension_payment_sagepay_direct->uninstall();
@@ -156,6 +159,7 @@ class ControllerExtensionPaymentSagepayDirect extends Controller {
 
     public function order(): string {
         if ($this->config->get('payment_sagepay_direct_status')) {
+            // Sagepay Direct
             $this->load->model('extension/payment/sagepay_direct');
 
             $payment_sagepay_direct_order = $this->model_extension_payment_sagepay_direct->getOrder($this->request->get['order_id']);
@@ -191,6 +195,7 @@ class ControllerExtensionPaymentSagepayDirect extends Controller {
         $json = [];
 
         if (isset($this->request->post['order_id']) && $this->request->post['order_id'] != '') {
+            // Sagepay Direct
             $this->load->model('extension/payment/sagepay_direct');
 
             $payment_sagepay_direct_order = $this->model_extension_payment_sagepay_direct->getOrder($this->request->post['order_id']);
@@ -206,7 +211,6 @@ class ControllerExtensionPaymentSagepayDirect extends Controller {
                 $json['msg'] = $this->language->get('text_void_ok');
 
                 $json['data'] = [];
-
                 $json['data']['date_added'] = date('Y-m-d H:i:s');
 
                 $json['error'] = false;
@@ -231,6 +235,7 @@ class ControllerExtensionPaymentSagepayDirect extends Controller {
         $json = [];
 
         if (isset($this->request->post['order_id']) && $this->request->post['order_id'] != '' && isset($this->request->post['amount']) && $this->request->post['amount'] > 0) {
+            // Sagepay Direct
             $this->load->model('extension/payment/sagepay_direct');
 
             $payment_sagepay_direct_order = $this->model_extension_payment_sagepay_direct->getOrder($this->request->post['order_id']);
@@ -280,6 +285,7 @@ class ControllerExtensionPaymentSagepayDirect extends Controller {
         $json = [];
 
         if (isset($this->request->post['order_id'])) {
+            // Sagepay Direct
             $this->load->model('extension/payment/sagepay_direct');
 
             $payment_sagepay_direct_order = $this->model_extension_payment_sagepay_direct->getOrder($this->request->post['order_id']);

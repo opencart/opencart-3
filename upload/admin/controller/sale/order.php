@@ -7,6 +7,7 @@ class ControllerSaleOrder extends Controller {
 
         $this->document->setTitle($this->language->get('heading_title'));
 
+        // Orders
         $this->load->model('sale/order');
 
         $this->getList();
@@ -17,6 +18,7 @@ class ControllerSaleOrder extends Controller {
 
         $this->document->setTitle($this->language->get('heading_title'));
 
+        // Orders
         $this->load->model('sale/order');
 
         $this->getForm();
@@ -27,6 +29,7 @@ class ControllerSaleOrder extends Controller {
 
         $this->document->setTitle($this->language->get('heading_title'));
 
+        // Orders
         $this->load->model('sale/order');
 
         $this->getForm();
@@ -365,6 +368,7 @@ class ControllerSaleOrder extends Controller {
         $data['sort'] = $sort;
         $data['order'] = $order;
 
+        // Order Statuses
         $this->load->model('localisation/order_status');
 
         $data['order_statuses'] = $this->model_localisation_order_status->getOrderStatuses();
@@ -377,6 +381,7 @@ class ControllerSaleOrder extends Controller {
         $api_info = $this->model_user_api->getApi($this->config->get('config_api_id'));
 
         if ($api_info && $this->user->hasPermission('modify', 'sale/order')) {
+            // Session
             $session = new \Session($this->config->get('session_engine'), $this->registry);
             $session->start();
 
@@ -477,7 +482,10 @@ class ControllerSaleOrder extends Controller {
             $data['telephone'] = $order_info['telephone'];
             $data['account_custom_field'] = $order_info['custom_field'];
 
+            // Customers
             $this->load->model('customer/customer');
+
+            // Subscription
             $this->load->model('sale/subscription');
 
             $data['addresses'] = $this->model_customer_customer->getAddresses($order_info['customer_id']);
@@ -691,7 +699,9 @@ class ControllerSaleOrder extends Controller {
                 foreach ($custom_field_locations as $location) {
                     if (isset($data[$location][$custom_field['custom_field_id']])) {
                         $code = $data[$location][$custom_field['custom_field_id']];
+
                         $upload_info = $this->model_tool_upload->getUploadByCode($code);
+
                         $data[$location][$custom_field['custom_field_id']] = [];
 
                         if ($upload_info) {
@@ -724,6 +734,7 @@ class ControllerSaleOrder extends Controller {
         // Voucher
         $data['voucher_min'] = $this->config->get('config_voucher_min');
 
+        // Voucher Themes
         $this->load->model('sale/voucher_theme');
 
         $data['voucher_themes'] = $this->model_sale_voucher_theme->getVoucherThemes();
@@ -736,6 +747,7 @@ class ControllerSaleOrder extends Controller {
         $api_info = $this->model_user_api->getApi($this->config->get('config_api_id'));
 
         if ($api_info && $this->user->hasPermission('modify', 'sale/order')) {
+            // Session
             $session = new \Session($this->config->get('session_engine'), $this->registry);
             $session->start();
 
@@ -758,6 +770,7 @@ class ControllerSaleOrder extends Controller {
     }
 
     public function info(): object|null {
+        // Orders
         $this->load->model('sale/order');
 
         if (isset($this->request->get['order_id'])) {
@@ -774,6 +787,7 @@ class ControllerSaleOrder extends Controller {
             $this->document->setTitle($this->language->get('heading_title'));
 
             $data['text_ip_add'] = sprintf($this->language->get('text_ip_add'), $this->request->server['REMOTE_ADDR']);
+
             $data['text_order'] = sprintf($this->language->get('text_order'), $this->request->get['order_id']);
 
             $url = '';
@@ -861,7 +875,10 @@ class ControllerSaleOrder extends Controller {
                 $data['customer'] = '';
             }
 
+            // Subscription
             $this->load->model('sale/subscription');
+
+            // Customer Groups
             $this->load->model('customer/customer_group');
 
             $customer_group_info = $this->model_customer_customer_group->getCustomerGroup($order_info['customer_group_id']);
@@ -1035,6 +1052,7 @@ class ControllerSaleOrder extends Controller {
 
             $data['vouchers'] = [];
 
+            // Vouchers
             $vouchers = $this->model_sale_order->getOrderVouchers($this->request->get['order_id']);
 
             foreach ($vouchers as $voucher) {
@@ -1045,6 +1063,7 @@ class ControllerSaleOrder extends Controller {
                 ];
             }
 
+            // Totals
             $data['totals'] = [];
 
             $totals = $this->model_sale_order->getOrderTotals($this->request->get['order_id']);
@@ -1056,6 +1075,7 @@ class ControllerSaleOrder extends Controller {
                 ];
             }
 
+            // Customers
             $this->load->model('customer/customer');
 
             $data['comment'] = nl2br($order_info['comment']);
@@ -1087,6 +1107,7 @@ class ControllerSaleOrder extends Controller {
             $data['order_statuses'] = $this->model_localisation_order_status->getOrderStatuses();
 
             $data['order_status_id'] = $order_info['order_status_id'];
+
             $data['account_custom_field'] = $order_info['custom_field'];
 
             // Account Custom Fields
@@ -1279,6 +1300,7 @@ class ControllerSaleOrder extends Controller {
                 }
             }
 
+            // Extemsions
             $this->load->model('setting/extension');
 
             $extensions = $this->model_setting_extension->getInstalled('fraud');
@@ -1308,6 +1330,7 @@ class ControllerSaleOrder extends Controller {
             $api_info = $this->model_user_api->getApi($this->config->get('config_api_id'));
 
             if ($api_info && $this->user->hasPermission('modify', 'sale/order')) {
+                // Session
                 $session = new \Session($this->config->get('session_engine'), $this->registry);
                 $session->start();
 
@@ -1356,6 +1379,7 @@ class ControllerSaleOrder extends Controller {
                 $order_id = 0;
             }
 
+            // Orders
             $this->load->model('sale/order');
 
             $invoice_no = $this->model_sale_order->createInvoiceNo($order_id);
@@ -1385,11 +1409,13 @@ class ControllerSaleOrder extends Controller {
                 $order_id = 0;
             }
 
+            // Orders
             $this->load->model('sale/order');
 
             $order_info = $this->model_sale_order->getOrder($order_id);
 
             if ($order_info && $order_info['customer_id'] && ($order_info['reward'] > 0)) {
+                // Customers
                 $this->load->model('customer/customer');
 
                 $reward_total = $this->model_customer_customer->getTotalCustomerRewardsByOrderId($order_id);
@@ -1420,11 +1446,13 @@ class ControllerSaleOrder extends Controller {
                 $order_id = 0;
             }
 
+            // Orders
             $this->load->model('sale/order');
 
             $order_info = $this->model_sale_order->getOrder($order_id);
 
             if ($order_info) {
+                // Customer
                 $this->load->model('customer/customer');
 
                 $this->model_customer_customer->deleteReward($order_id);
@@ -1451,11 +1479,13 @@ class ControllerSaleOrder extends Controller {
                 $order_id = 0;
             }
 
+            // Orders
             $this->load->model('sale/order');
 
             $order_info = $this->model_sale_order->getOrder($order_id);
 
             if ($order_info) {
+                // Customers
                 $this->load->model('customer/customer');
 
                 $affiliate_total = $this->model_customer_customer->getTotalTransactionsByOrderId($order_id);
@@ -1486,11 +1516,13 @@ class ControllerSaleOrder extends Controller {
                 $order_id = 0;
             }
 
+            // Orders
             $this->load->model('sale/order');
 
             $order_info = $this->model_sale_order->getOrder($order_id);
 
             if ($order_info) {
+                // Customer
                 $this->load->model('customer/customer');
 
                 $this->model_customer_customer->deleteTransactionByOrderId($order_id);
@@ -1514,6 +1546,7 @@ class ControllerSaleOrder extends Controller {
 
         $data['histories'] = [];
 
+        // Orders
         $this->load->model('sale/order');
 
         $results = $this->model_sale_order->getOrderHistories($this->request->get['order_id'], ($page - 1) * 10, 10);
@@ -1555,8 +1588,13 @@ class ControllerSaleOrder extends Controller {
         $data['direction'] = $this->language->get('direction');
         $data['lang'] = $this->language->get('code');
 
+        // Orders
         $this->load->model('sale/order');
+
+        // Settings
         $this->load->model('setting/setting');
+
+        // Subscription
         $this->load->model('sale/subscription');
 
         $data['orders'] = [];
@@ -1595,6 +1633,7 @@ class ControllerSaleOrder extends Controller {
                     $invoice_no = '';
                 }
 
+                // Payment Address
                 if ($order_info['payment_address_format']) {
                     $format = $order_info['payment_address_format'];
                 } else {
@@ -1637,6 +1676,7 @@ class ControllerSaleOrder extends Controller {
                     "/\n\n+/"
                 ], '<br/>', trim(str_replace($find, $replace, $format))));
 
+                // Shipping Address
                 if ($order_info['shipping_address_format']) {
                     $format = $order_info['shipping_address_format'];
                 } else {
@@ -1691,6 +1731,7 @@ class ControllerSaleOrder extends Controller {
                 // Products
                 $products = $this->model_sale_order->getOrderProducts($order_id);
 
+                // Uploaded files
                 $this->load->model('tool/upload');
 
                 foreach ($products as $product) {
@@ -1808,9 +1849,16 @@ class ControllerSaleOrder extends Controller {
         $data['direction'] = $this->language->get('direction');
         $data['lang'] = $this->language->get('code');
 
+        // Orders
         $this->load->model('sale/order');
+
+        // Products
         $this->load->model('catalog/product');
+
+        // Settings
         $this->load->model('setting/setting');
+
+        // Subscription
         $this->load->model('sale/subscription');
 
         $data['orders'] = [];
@@ -1846,6 +1894,7 @@ class ControllerSaleOrder extends Controller {
                     $invoice_no = '';
                 }
 
+                // Shipping Address
                 if ($order_info['shipping_address_format']) {
                     $format = $order_info['shipping_address_format'];
                 } else {
@@ -1897,7 +1946,7 @@ class ControllerSaleOrder extends Controller {
 
                 $subscriptions = $this->model_sale_subscription->getSubscriptions($filter_data);
 
-                // Uploaded data
+                // Uploaded files
                 $this->load->model('tool/upload');
 
                 // Products

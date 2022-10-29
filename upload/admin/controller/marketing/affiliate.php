@@ -7,6 +7,7 @@ class ControllerMarketingAffiliate extends Controller {
 
         $this->document->setTitle($this->language->get('heading_title'));
 
+        // Affiliates
         $this->load->model('marketing/affiliate');
 
         $this->getList();
@@ -17,6 +18,7 @@ class ControllerMarketingAffiliate extends Controller {
 
         $this->document->setTitle($this->language->get('heading_title'));
 
+        // Affiliates
         $this->load->model('marketing/affiliate');
 
         if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validateForm()) {
@@ -69,6 +71,7 @@ class ControllerMarketingAffiliate extends Controller {
 
         $this->document->setTitle($this->language->get('heading_title'));
 
+        // Affiliates
         $this->load->model('marketing/affiliate');
 
         if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validateForm()) {
@@ -121,6 +124,7 @@ class ControllerMarketingAffiliate extends Controller {
 
         $this->document->setTitle($this->language->get('heading_title'));
 
+        // Affiliates
         $this->load->model('marketing/affiliate');
 
         if (isset($this->request->post['selected']) && $this->validateDelete()) {
@@ -270,6 +274,7 @@ class ControllerMarketingAffiliate extends Controller {
 
         $data['affiliates'] = [];
 
+        // Customers
         $this->load->model('customer/customer');
 
         $filter_data = [
@@ -703,6 +708,7 @@ class ControllerMarketingAffiliate extends Controller {
             $this->error['warning'] = $this->language->get('error_permission');
         }
 
+        // Customers
         $this->load->model('customer/customer');
 
         $customer_info = $this->model_customer_customer->getCustomer($this->request->post['customer_id']);
@@ -711,7 +717,7 @@ class ControllerMarketingAffiliate extends Controller {
             $this->error['warning'] = $this->language->get('error_customer');
         }
 
-        // Check to see if customer is already a affiliate
+        // Check to see if customer is already an affiliate
         $affiliate_info = $this->model_marketing_affiliate->getAffiliate($this->request->post['customer_id']);
 
         if ($affiliate_info && (!isset($this->request->get['customer_id']) || ($this->request->get['customer_id'] != $affiliate_info['customer_id']))) {
@@ -794,8 +800,13 @@ class ControllerMarketingAffiliate extends Controller {
 
         $data['reports'] = [];
 
+        // Stores
         $this->load->model('setting/store');
+
+        // Customers
         $this->load->model('customer/customer');
+
+        // Affiliates
         $this->load->model('marketing/affiliate');
 
         $results = $this->model_marketing_affiliate->getReports($customer_id, ($page - 1) * 10, 10);

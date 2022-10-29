@@ -7,7 +7,10 @@ class ControllerExtensionPaymentLaybuy extends Controller {
 
         $this->document->setTitle($this->language->get('heading_title'));
 
+        // Settings
         $this->load->model('setting/setting');
+
+        // Laybuy
         $this->load->model('extension/payment/laybuy');
 
         if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validate()) {
@@ -119,6 +122,7 @@ class ControllerExtensionPaymentLaybuy extends Controller {
 
         $data['customer_groups'] = [];
 
+        // Customer Groups
         $this->load->model('customer/customer_group');
 
         foreach ($data['payment_laybuy_customer_group'] as $customer_group_id) {
@@ -479,6 +483,7 @@ class ControllerExtensionPaymentLaybuy extends Controller {
     }
 
     public function fetch(): void {
+        // Laybuy
         $this->load->model('extension/payment/laybuy');
 
         $this->model_extension_payment_laybuy->log('Fetching transactions');
@@ -641,6 +646,7 @@ class ControllerExtensionPaymentLaybuy extends Controller {
 
     public function install(): void {
         if ($this->user->hasPermission('modify', 'marketplace/extension')) {
+            // Laybuy
             $this->load->model('extension/payment/laybuy');
 
             $this->model_extension_payment_laybuy->install();
@@ -649,6 +655,7 @@ class ControllerExtensionPaymentLaybuy extends Controller {
 
     public function uninstall(): void {
         if ($this->user->hasPermission('modify', 'marketplace/extension')) {
+            // Laybuy
             $this->load->model('extension/payment/laybuy');
 
             $this->model_extension_payment_laybuy->uninstall();
@@ -658,6 +665,7 @@ class ControllerExtensionPaymentLaybuy extends Controller {
     public function transaction($order_page = false) {
         $this->load->language('extension/payment/laybuy');
 
+        // Laybuy
         $this->load->model('extension/payment/laybuy');
 
         if (isset($this->request->get['id'])) {
@@ -783,6 +791,7 @@ class ControllerExtensionPaymentLaybuy extends Controller {
     }
 
     public function cancel(): void {
+        // Laybuy
         $this->load->model('extension/payment/laybuy');
 
         $this->model_extension_payment_laybuy->log('Canceling transaction');
@@ -884,6 +893,7 @@ class ControllerExtensionPaymentLaybuy extends Controller {
     }
 
     public function revise(): void {
+        // Laybuy
         $this->load->model('extension/payment/laybuy');
 
         $this->model_extension_payment_laybuy->log('Revising transaction');
@@ -1049,6 +1059,7 @@ class ControllerExtensionPaymentLaybuy extends Controller {
         $json = [];
 
         if (isset($this->request->get['filter_customer_group'])) {
+            // Laybuy
             $this->load->model('customer/customer_group');
 
             $results = $this->model_customer_customer_group->getCustomerGroups();
@@ -1069,6 +1080,7 @@ class ControllerExtensionPaymentLaybuy extends Controller {
         if ($this->config->get('payment_laybuy_status')) {
             $this->load->language('extension/payment/laybuy');
 
+            // Laybuy
             $this->load->model('extension/payment/laybuy');
 
             if (isset($this->request->get['order_id'])) {
@@ -1092,7 +1104,10 @@ class ControllerExtensionPaymentLaybuy extends Controller {
     }
 
     private function getApiKey() {
+        // API login
         $this->load->model('user/api');
+
+        // Laybuy
         $this->load->model('extension/payment/laybuy');
 
         $this->model_extension_payment_laybuy->log('Getting API key');
@@ -1106,7 +1121,7 @@ class ControllerExtensionPaymentLaybuy extends Controller {
         } else {
             $this->model_extension_payment_laybuy->log('No API info');
 
-            return;
+            return '';
         }
     }
 

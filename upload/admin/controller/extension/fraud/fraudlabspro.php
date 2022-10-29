@@ -7,6 +7,7 @@ class ControllerExtensionFraudFraudLabsPro extends Controller {
 
         $this->document->setTitle($this->language->get('heading_title'));
 
+        // Settings
         $this->load->model('setting/setting');
 
         if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validate()) {
@@ -110,12 +111,14 @@ class ControllerExtensionFraudFraudLabsPro extends Controller {
     }
 
     public function install(): void {
+        // Fraud Labs Pro
         $this->load->model('extension/fraud/fraudlabspro');
 
         $this->model_extension_fraud_fraudlabspro->install();
     }
 
     public function uninstall(): void {
+        // Fraud Labs Pro
         $this->load->model('extension/fraud/fraudlabspro');
 
         $this->model_extension_fraud_fraudlabspro->uninstall();
@@ -136,6 +139,7 @@ class ControllerExtensionFraudFraudLabsPro extends Controller {
     public function order(): string {
         $this->load->language('extension/fraud/fraudlabspro');
 
+        // Fraud Labs Pro
         $this->load->model('extension/fraud/fraudlabspro');
 
         // Action of the Approve/Reject button click

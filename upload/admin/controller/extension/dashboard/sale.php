@@ -7,6 +7,7 @@ class ControllerExtensionDashboardSale extends Controller {
 
         $this->document->setTitle($this->language->get('heading_title'));
 
+        // Settings
         $this->load->model('setting/setting');
 
         if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validate()) {
@@ -87,6 +88,7 @@ class ControllerExtensionDashboardSale extends Controller {
 
         $data['user_token'] = $this->session->data['user_token'];
 
+        // Sales
         $this->load->model('extension/dashboard/sale');
 
         $today = $this->model_extension_dashboard_sale->getTotalSales(['filter_date_added' => date('Y-m-d', strtotime('-1 day'))]);

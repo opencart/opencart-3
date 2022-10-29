@@ -7,6 +7,7 @@ class ControllerCatalogSubscriptionPlan extends Controller {
 
         $this->document->setTitle($this->language->get('heading_title'));
 
+        // Subscription Plans
         $this->load->model('catalog/subscription_plan');
 
         $this->getList();
@@ -17,6 +18,7 @@ class ControllerCatalogSubscriptionPlan extends Controller {
 
         $this->document->setTitle($this->language->get('heading_title'));
 
+        // Subscription Plans
         $this->load->model('catalog/subscription_plan');
 
         if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validateForm()) {
@@ -49,6 +51,7 @@ class ControllerCatalogSubscriptionPlan extends Controller {
 
         $this->document->setTitle($this->language->get('heading_title'));
 
+        // Subscription Plans
         $this->load->model('catalog/subscription_plan');
 
         if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validateForm()) {
@@ -81,6 +84,7 @@ class ControllerCatalogSubscriptionPlan extends Controller {
 
         $this->document->setTitle($this->language->get('heading_title'));
 
+        // Subscription Plans
         $this->load->model('catalog/subscription_plan');
 
         if (isset($this->request->post['selected']) && $this->validateDelete()) {
@@ -115,6 +119,7 @@ class ControllerCatalogSubscriptionPlan extends Controller {
 
         $this->document->setTitle($this->language->get('heading_title'));
 
+        // Subscription Plans
         $this->load->model('catalog/subscription_plan');
 
         if (isset($this->request->post['selected']) && $this->validateCopy()) {
@@ -492,6 +497,7 @@ class ControllerCatalogSubscriptionPlan extends Controller {
             $this->error['warning'] = $this->language->get('error_permission');
         }
 
+        // Products
         $this->load->model('catalog/product');
 
         foreach ((array)$this->request->post['selected'] as $subscription_plan_id) {

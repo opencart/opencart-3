@@ -54,15 +54,6 @@ class ControllerStartupStartup extends Controller {
 
         $this->tax->setStoreAddress($this->config->get('config_country_id'), $this->config->get('config_zone_id'));
 
-        // Weight
-        $this->registry->set('weight', new \Cart\Weight($this->registry));
-
-        // Length
-        $this->registry->set('length', new \Cart\Length($this->registry));
-
-        // Cart
-        $this->registry->set('cart', new \Cart\Cart($this->registry));
-
         // Encryption
         $this->registry->set('encryption', new \Encryption($this->config->get('config_encryption')));
     }

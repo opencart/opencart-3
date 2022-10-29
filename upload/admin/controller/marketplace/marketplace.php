@@ -631,6 +631,7 @@ class ControllerMarketplaceMarketplace extends Controller {
                 ];
             }
 
+            // Extensions
             $this->load->model('setting/extension');
 
             $data['downloads'] = [];
@@ -862,10 +863,14 @@ class ControllerMarketplaceMarketplace extends Controller {
                     $this->session->data['install'] = token(10);
 
                     $download = file_get_contents($response_info['download']);
+
                     $handle = fopen(DIR_UPLOAD . $this->session->data['install'] . '.tmp', 'w');
+
                     fwrite($handle, $download);
+
                     fclose($handle);
 
+                    // Extensions
                     $this->load->model('setting/extension');
 
                     $json['extension_install_id'] = $this->model_setting_extension->addExtensionInstall($response_info['extension'], $extension_download_id);

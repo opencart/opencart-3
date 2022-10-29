@@ -14,6 +14,7 @@ class ControllerCommonDeveloper extends Controller {
         if ($eval === true) {
             $data['eval'] = true;
         } else {
+            // Settings
             $this->load->model('setting/setting');
 
             $this->model_setting_setting->editSetting('developer', ['developer_theme' => 1], 0);
@@ -32,6 +33,7 @@ class ControllerCommonDeveloper extends Controller {
         if (!$this->user->hasPermission('modify', 'common/developer')) {
             $json['error'] = $this->language->get('error_permission');
         } else {
+            // Settings
             $this->load->model('setting/setting');
 
             $this->model_setting_setting->editSetting('developer', $this->request->post, 0);

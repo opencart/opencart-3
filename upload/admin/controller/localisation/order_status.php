@@ -7,6 +7,7 @@ class ControllerLocalisationOrderStatus extends Controller {
 
         $this->document->setTitle($this->language->get('heading_title'));
 
+        // Order Statuses
         $this->load->model('localisation/order_status');
 
         $this->getList();
@@ -17,6 +18,7 @@ class ControllerLocalisationOrderStatus extends Controller {
 
         $this->document->setTitle($this->language->get('heading_title'));
 
+        // Order Statuses
         $this->load->model('localisation/order_status');
 
         if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validateForm()) {
@@ -49,6 +51,7 @@ class ControllerLocalisationOrderStatus extends Controller {
 
         $this->document->setTitle($this->language->get('heading_title'));
 
+        // Order Statuses
         $this->load->model('localisation/order_status');
 
         if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validateForm()) {
@@ -81,6 +84,7 @@ class ControllerLocalisationOrderStatus extends Controller {
 
         $this->document->setTitle($this->language->get('heading_title'));
 
+        // Order Statuses
         $this->load->model('localisation/order_status');
 
         if (isset($this->request->post['selected']) && $this->validateDelete()) {
@@ -299,6 +303,7 @@ class ControllerLocalisationOrderStatus extends Controller {
             $data['order_status'] = [];
         }
 
+        // Languages
         $this->load->model('localisation/language');
 
         $data['languages'] = $this->model_localisation_language->getLanguages();
@@ -329,7 +334,10 @@ class ControllerLocalisationOrderStatus extends Controller {
             $this->error['warning'] = $this->language->get('error_permission');
         }
 
+        // Orders
         $this->load->model('sale/order');
+
+        // Stores
         $this->load->model('setting/store');
 
         foreach ((array)$this->request->post['selected'] as $order_status_id) {

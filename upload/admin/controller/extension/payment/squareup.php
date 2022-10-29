@@ -5,7 +5,10 @@ class ControllerExtensionPaymentSquareup extends Controller {
     public function index(): void {
         $this->load->language('extension/payment/squareup');
 
+        // Settings
         $this->load->model('setting/setting');
+
+        // Squareup
         $this->load->model('extension/payment/squareup');
 
         $this->load->library('squareup');
@@ -276,6 +279,7 @@ class ControllerExtensionPaymentSquareup extends Controller {
         $api_info = $this->model_user_api->getApi($this->config->get('config_api_id'));
 
         if ($api_info && $this->user->hasPermission('modify', 'sale/order')) {
+            // Session
             $session = new \Session($this->config->get('session_engine'), $this->registry);
             $session->start();
 
@@ -303,6 +307,7 @@ class ControllerExtensionPaymentSquareup extends Controller {
     public function transaction_info(): void {
         $this->load->language('extension/payment/squareup');
 
+        // Squareup
         $this->load->model('extension/payment/squareup');
 
         $this->load->library('squareup');
@@ -418,6 +423,7 @@ class ControllerExtensionPaymentSquareup extends Controller {
         $api_info = $this->model_user_api->getApi($this->config->get('config_api_id'));
 
         if ($api_info && $this->user->hasPermission('modify', 'sale/order')) {
+            // Session
             $session = new \Session($this->config->get('session_engine'), $this->registry);
             $session->start();
 
@@ -441,6 +447,7 @@ class ControllerExtensionPaymentSquareup extends Controller {
     public function transactions(): void {
         $this->load->language('extension/payment/squareup');
 
+        // Squareup
         $this->load->model('extension/payment/squareup');
 
         if (isset($this->request->get['page'])) {
@@ -466,6 +473,7 @@ class ControllerExtensionPaymentSquareup extends Controller {
         $transactions_total = $this->model_extension_payment_squareup->getTotalTransactions($filter_data);
         $transactions = $this->model_extension_payment_squareup->getTransactions($filter_data);
 
+        // Orders
         $this->load->model('sale/order');
 
         foreach ($transactions as $transaction) {
@@ -520,8 +528,10 @@ class ControllerExtensionPaymentSquareup extends Controller {
             $this->response->redirect($this->url->link('extension/payment/squareup', 'user_token=' . $this->session->data['user_token'], true));
         }
 
+        // Settings
         $this->load->model('setting/setting');
 
+        // Squareup
         $this->load->library('squareup');
 
         try {
@@ -571,8 +581,10 @@ class ControllerExtensionPaymentSquareup extends Controller {
             $this->response->redirect($this->url->link('extension/payment/squareup', 'user_token=' . $this->session->data['user_token'], true));
         }
 
+        // Settings
         $this->load->model('setting/setting');
 
+        // Squareup
         $this->load->library('squareup');
 
         if (isset($this->request->get['error']) || isset($this->request->get['error_description'])) {
@@ -761,7 +773,9 @@ class ControllerExtensionPaymentSquareup extends Controller {
         $this->load->language('extension/payment/squareup');
 
         $data['url_list_transactions'] = html_entity_decode($this->url->link('extension/payment/squareup/transactions', 'user_token=' . $this->session->data['user_token'] . '&order_id=' . $this->request->get['order_id'] . '&page={PAGE}', true));
+
         $data['user_token'] = $this->session->data['user_token'];
+
         $data['order_id'] = (int)$this->request->get['order_id'];
 
         $data['catalog'] = $this->request->server['HTTPS'] ? HTTPS_CATALOG : HTTP_CATALOG;
@@ -772,6 +786,7 @@ class ControllerExtensionPaymentSquareup extends Controller {
         $api_info = $this->model_user_api->getApi($this->config->get('config_api_id'));
 
         if ($api_info && $this->user->hasPermission('modify', 'sale/order')) {
+            // Session
             $session = new \Session($this->config->get('session_engine'), $this->registry);
             $session->start();
 
@@ -789,12 +804,14 @@ class ControllerExtensionPaymentSquareup extends Controller {
     }
 
     public function install(): void {
+        // Squareup
         $this->load->model('extension/payment/squareup');
 
         $this->model_extension_payment_squareup->createTables();
     }
 
     public function uninstall(): void {
+        // Squareup
         $this->load->model('extension/payment/squareup');
 
         $this->model_extension_payment_squareup->dropTables();
@@ -807,6 +824,7 @@ class ControllerExtensionPaymentSquareup extends Controller {
 
         $this->load->language('extension/payment/squareup');
 
+        // Squareup
         $this->load->model('extension/payment/squareup');
 
         if (isset($this->request->get['order_recurring_id'])) {
@@ -825,6 +843,7 @@ class ControllerExtensionPaymentSquareup extends Controller {
             $data['order_recurring_id'] = '';
         }
 
+        // Orders
         $this->load->model('sale/order');
 
         $order_info = $this->model_sale_order->getOrder($recurring_info['order_id']);
@@ -843,6 +862,7 @@ class ControllerExtensionPaymentSquareup extends Controller {
         $api_info = $this->model_user_api->getApi($this->config->get('config_api_id'));
 
         if ($api_info && $this->user->hasPermission('modify', 'sale/order')) {
+            // Session
             $session = new \Session($this->config->get('session_engine'), $this->registry);
             $session->start();
 
@@ -879,6 +899,7 @@ class ControllerExtensionPaymentSquareup extends Controller {
             $recurring_info = $this->model_sale_recurring->getRecurring($order_recurring_id);
 
             if ($recurring_info) {
+                // Squareup
                 $this->load->model('extension/payment/squareup');
 
                 $this->model_extension_payment_squareup->editOrderRecurringStatus($order_recurring_id, ModelExtensionPaymentSquareup::RECURRING_CANCELLED);
@@ -958,6 +979,7 @@ class ControllerExtensionPaymentSquareup extends Controller {
 
         $json = [];
 
+        // Squareup
         $this->load->model('extension/payment/squareup');
 
         $this->load->library('squareup');

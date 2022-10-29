@@ -7,6 +7,7 @@ class ControllerMarketingMarketing extends Controller {
 
         $this->document->setTitle($this->language->get('heading_title'));
 
+        // Marketing
         $this->load->model('marketing/marketing');
 
         $this->getList();
@@ -17,6 +18,7 @@ class ControllerMarketingMarketing extends Controller {
 
         $this->document->setTitle($this->language->get('heading_title'));
 
+        // Marketing
         $this->load->model('marketing/marketing');
 
         if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validateForm()) {
@@ -61,6 +63,7 @@ class ControllerMarketingMarketing extends Controller {
 
         $this->document->setTitle($this->language->get('heading_title'));
 
+        // Marketing
         $this->load->model('marketing/marketing');
 
         if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validateForm()) {
@@ -105,6 +108,7 @@ class ControllerMarketingMarketing extends Controller {
 
         $this->document->setTitle($this->language->get('heading_title'));
 
+        // Marketing
         $this->load->model('marketing/marketing');
 
         if (isset($this->request->post['selected']) && $this->validateDelete()) {

@@ -5,6 +5,7 @@ class ControllerExtensionExtensionShipping extends Controller {
     public function index(): void {
         $this->load->language('extension/extension/shipping');
 
+        // Extensions
         $this->load->model('setting/extension');
 
         $this->getList();
@@ -13,11 +14,13 @@ class ControllerExtensionExtensionShipping extends Controller {
     public function install(): void {
         $this->load->language('extension/extension/shipping');
 
+        // Extensions
         $this->load->model('setting/extension');
 
         if ($this->validate()) {
             $this->model_setting_extension->install('shipping', $this->request->get['extension']);
 
+            // User Groups
             $this->load->model('user/user_group');
 
             $this->model_user_user_group->addPermission($this->user->getGroupId(), 'access', 'extension/shipping/' . $this->request->get['extension']);
@@ -35,6 +38,7 @@ class ControllerExtensionExtensionShipping extends Controller {
     public function uninstall(): void {
         $this->load->language('extension/extension/shipping');
 
+        // Extensions
         $this->load->model('setting/extension');
 
         if ($this->validate()) {
@@ -64,6 +68,7 @@ class ControllerExtensionExtensionShipping extends Controller {
             $data['success'] = '';
         }
 
+        // Extensions
         $this->load->model('setting/extension');
 
         $extensions = $this->model_setting_extension->getInstalled('shipping');

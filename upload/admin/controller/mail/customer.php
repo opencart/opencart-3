@@ -2,16 +2,19 @@
 class ControllerMailCustomer extends Controller {
     // admin/model/customer/customer_approval/approveCustomer/after
     public function allow(string &$route, array &$args, mixed &$output): void {
+        // Customers
         $this->load->model('customer/customer');
 
         $customer_info = $this->model_customer_customer->getCustomer($args[0]);
 
         if ($customer_info) {
+            // Stores
             $this->load->model('setting/store');
 
             $store_info = $this->model_setting_store->getStore($customer_info['store_id']);
 
             if ($store_info) {
+                // Settings
                 $this->load->model('setting/setting');
 
                 $store_logo = html_entity_decode($this->model_setting_setting->getValue('config_logo', $store_info['store_id']), ENT_QUOTES, 'UTF-8');
@@ -23,6 +26,7 @@ class ControllerMailCustomer extends Controller {
                 $store_url = HTTP_CATALOG;
             }
 
+            // Languages
             $this->load->model('localisation/language');
 
             $language_info = $this->model_localisation_language->getLanguage($customer_info['language_id']);
@@ -73,16 +77,19 @@ class ControllerMailCustomer extends Controller {
 
     // admin/model/customer/customer_approval/denyCustomer/after
     public function deny(string &$route, array &$args, mixed &$output): void {
+        // Customers
         $this->load->model('customer/customer');
 
         $customer_info = $this->model_customer_customer->getCustomer($args[0]);
 
         if ($customer_info) {
+            // Stores
             $this->load->model('setting/store');
 
             $store_info = $this->model_setting_store->getStore($customer_info['store_id']);
 
             if ($store_info) {
+                // Settings
                 $this->load->model('setting/setting');
 
                 $store_logo = html_entity_decode($this->model_setting_setting->getValue('config_logo', $store_info['store_id']), ENT_QUOTES, 'UTF-8');
@@ -94,6 +101,7 @@ class ControllerMailCustomer extends Controller {
                 $store_url = HTTP_CATALOG;
             }
 
+            // Languages
             $this->load->model('localisation/language');
 
             $language_info = $this->model_localisation_language->getLanguage($customer_info['language_id']);
@@ -108,6 +116,7 @@ class ControllerMailCustomer extends Controller {
             $language->load($language_code);
             $language->load('mail/customer_deny');
 
+            // Image files
             $this->load->model('tool/image');
 
             if (is_file(DIR_IMAGE . $store_logo)) {

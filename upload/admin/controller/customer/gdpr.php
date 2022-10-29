@@ -73,6 +73,7 @@ class ControllerCustomerGdpr extends Controller {
             'href' => $this->url->link('customer/gdpr', 'user_token=' . $this->session->data['user_token'], true)
         ];
 
+        // GDPR
         $this->load->model('customer/gdpr');
 
         $data['gdprs'] = $this->model_customer_gdpr->getGdprs();
@@ -143,7 +144,10 @@ class ControllerCustomerGdpr extends Controller {
             'limit'            => $this->config->get('config_limit_admin')
         ];
 
+        // GDPR
         $this->load->model('customer/gdpr');
+
+        // Customers
         $this->load->model('customer/customer');
 
         $gdpr_total = $this->model_customer_gdpr->getTotalGdprs($filter_data);
@@ -250,6 +254,7 @@ class ControllerCustomerGdpr extends Controller {
                 $gdprs[] = (int)$this->request->get['gdpr_id'];
             }
 
+            // GDPR
             $this->load->model('customer/gdpr');
 
             foreach ($gdprs as $gdpr_id) {
@@ -293,6 +298,7 @@ class ControllerCustomerGdpr extends Controller {
                 $gdprs[] = (int)$this->request->get['gdpr_id'];
             }
 
+            // GDPR
             $this->load->model('customer/gdpr');
 
             foreach ($gdprs as $gdpr_id) {
@@ -326,6 +332,7 @@ class ControllerCustomerGdpr extends Controller {
                 $gdprs[] = (int)$this->request->get['gdpr_id'];
             }
 
+            // GDPR
             $this->load->model('customer/gdpr');
 
             foreach ($gdprs as $gdpr_id) {

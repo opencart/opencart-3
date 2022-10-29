@@ -8,7 +8,10 @@ class ControllerExtensionPaymentAmazonLoginPay extends Controller {
 
         $this->document->setTitle($this->language->get('heading_title'));
 
+        // Settings
         $this->load->model('setting/setting');
+
+        // Amazon Login Pay
         $this->load->model('extension/payment/amazon_login_pay');
 
         $this->model_extension_payment_amazon_login_pay->install();
@@ -265,6 +268,7 @@ class ControllerExtensionPaymentAmazonLoginPay extends Controller {
         $this->load->model('localisation/currency');
 
         $store_buyer_currencies = [];
+
         $oc_currencies = $this->model_localisation_currency->getCurrencies();
 
         $amazon_supported_currencies = [
@@ -391,6 +395,7 @@ class ControllerExtensionPaymentAmazonLoginPay extends Controller {
     }
 
     public function install(): void {
+        // Amazon Login Pay
         $this->load->model('extension/payment/amazon_login_pay');
 
         $this->model_extension_payment_amazon_login_pay->install();
@@ -399,9 +404,11 @@ class ControllerExtensionPaymentAmazonLoginPay extends Controller {
     }
 
     public function uninstall(): void {
-        $this->load->model('extension/payment/amazon_login_pay');
-
+        // Settings
         $this->load->model('setting/event');
+
+        // Amazon Login Pay
+        $this->load->model('extension/payment/amazon_login_pay');
 
         $this->model_extension_payment_amazon_login_pay->uninstall();
         $this->model_extension_payment_amazon_login_pay->deleteEvents();
@@ -409,6 +416,7 @@ class ControllerExtensionPaymentAmazonLoginPay extends Controller {
 
     public function order(): string {
         if ($this->config->get('payment_amazon_login_pay_status')) {
+            // Amazon Login Pay
             $this->load->model('extension/payment/amazon_login_pay');
 
             $amazon_login_pay_order = $this->model_extension_payment_amazon_login_pay->getOrder($this->request->get['order_id']);
@@ -441,6 +449,7 @@ class ControllerExtensionPaymentAmazonLoginPay extends Controller {
         $json = [];
 
         if (isset($this->request->post['order_id']) && $this->request->post['order_id'] != '') {
+            // Amazon Login Pay
             $this->load->model('extension/payment/amazon_login_pay');
 
             $amazon_login_pay_order = $this->model_extension_payment_amazon_login_pay->getOrder($this->request->post['order_id']);
@@ -484,6 +493,7 @@ class ControllerExtensionPaymentAmazonLoginPay extends Controller {
         $json = [];
 
         if (isset($this->request->post['order_id']) && $this->request->post['order_id'] != '' && isset($this->request->post['amount']) && $this->request->post['amount'] > 0) {
+            // Amazon Login Pay
             $this->load->model('extension/payment/amazon_login_pay');
 
             $amazon_login_pay_order = $this->model_extension_payment_amazon_login_pay->getOrder($this->request->post['order_id']);
@@ -501,10 +511,7 @@ class ControllerExtensionPaymentAmazonLoginPay extends Controller {
                 if ($total_captured > 0) {
                     $order_reference_id = $amazon_login_pay_order['amazon_order_reference_id'];
 
-                    if ($this->model_extension_payment_amazon_login_pay->isOrderInState($order_reference_id, [
-                        'Open',
-                        'Suspended'
-                    ])) {
+                    if ($this->model_extension_payment_amazon_login_pay->isOrderInState($order_reference_id, ['Open','Suspended'])) {
                         $this->model_extension_payment_amazon_login_pay->closeOrderRef($order_reference_id);
                     }
                 }
@@ -554,6 +561,7 @@ class ControllerExtensionPaymentAmazonLoginPay extends Controller {
         $json = [];
 
         if (isset($this->request->post['order_id'])) {
+            // Amazon Login Pay
             $this->load->model('extension/payment/amazon_login_pay');
 
             $amazon_login_pay_order = $this->model_extension_payment_amazon_login_pay->getOrder($this->request->post['order_id']);

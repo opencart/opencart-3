@@ -11,6 +11,7 @@ class ControllerMarketplaceModification extends Controller {
 
         $this->document->setTitle($this->language->get('heading_title'));
 
+        // Modifications
         $this->load->model('setting/modification');
 
         $this->getList();
@@ -21,6 +22,7 @@ class ControllerMarketplaceModification extends Controller {
 
         $this->document->setTitle($this->language->get('heading_title'));
 
+        // Modifications
         $this->load->model('setting/modification');
 
         if (isset($this->request->post['selected']) && $this->validate()) {
@@ -55,12 +57,14 @@ class ControllerMarketplaceModification extends Controller {
 
         $this->document->setTitle($this->language->get('heading_title'));
 
+        // Modifications
         $this->load->model('setting/modification');
 
         if ($this->validate()) {
             // Just before files are deleted, if config settings say maintenance mode is off then turn it on
             $maintenance = $this->config->get('config_maintenance');
 
+            // Settings
             $this->load->model('setting/setting');
 
             $this->model_setting_setting->editSettingValue('config', 'config_maintenance', true);
@@ -448,6 +452,7 @@ class ControllerMarketplaceModification extends Controller {
 
         $this->document->setTitle($this->language->get('heading_title'));
 
+        // Modifications
         $this->load->model('setting/modification');
 
         if ($this->validate()) {
@@ -516,6 +521,7 @@ class ControllerMarketplaceModification extends Controller {
 
         $this->document->setTitle($this->language->get('heading_title'));
 
+        // Modifications
         $this->load->model('setting/modification');
 
         if (isset($this->request->get['modification_id']) && $this->validate()) {
@@ -548,6 +554,7 @@ class ControllerMarketplaceModification extends Controller {
 
         $this->document->setTitle($this->language->get('heading_title'));
 
+        // Modifications
         $this->load->model('setting/modification');
 
         if (isset($this->request->get['modification_id']) && $this->validate()) {
@@ -580,13 +587,16 @@ class ControllerMarketplaceModification extends Controller {
 
         $this->document->setTitle($this->language->get('heading_title'));
 
+        // Modifications
         $this->load->model('setting/modification');
 
         if ($this->validate()) {
             $handle = fopen(DIR_LOGS . 'ocmod.log', 'w+');
+
             fclose($handle);
 
             $this->session->data['success'] = $this->language->get('text_success');
+
             $url = '';
 
             if (isset($this->request->get['sort'])) {

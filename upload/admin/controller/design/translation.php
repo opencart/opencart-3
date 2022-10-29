@@ -7,6 +7,7 @@ class ControllerDesignTranslation extends Controller {
 
         $this->document->setTitle($this->language->get('heading_title'));
 
+        // Translations
         $this->load->model('design/translation');
 
         $this->getList();
@@ -17,6 +18,7 @@ class ControllerDesignTranslation extends Controller {
 
         $this->document->setTitle($this->language->get('heading_title'));
 
+        // Translations
         $this->load->model('design/translation');
 
         if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validateForm()) {
@@ -49,6 +51,7 @@ class ControllerDesignTranslation extends Controller {
 
         $this->document->setTitle($this->language->get('heading_title'));
 
+        // Translations
         $this->load->model('design/translation');
 
         if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validateForm()) {
@@ -81,6 +84,7 @@ class ControllerDesignTranslation extends Controller {
 
         $this->document->setTitle($this->language->get('heading_title'));
 
+        // Translations
         $this->load->model('design/translation');
 
         if (isset($this->request->post['selected']) && $this->validateDelete()) {
@@ -300,6 +304,7 @@ class ControllerDesignTranslation extends Controller {
             $translation_info = $this->model_design_translation->getTranslation($this->request->get['translation_id']);
         }
 
+        // Stores
         $this->load->model('setting/store');
 
         $data['stores'] = $this->model_setting_store->getStores();
@@ -428,6 +433,7 @@ class ControllerDesignTranslation extends Controller {
     }
 
     public function path(): void {
+        // Translations
         $this->load->language('design/translation');
 
         $json = [];

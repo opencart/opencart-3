@@ -7,6 +7,7 @@ class ControllerMarketingCoupon extends Controller {
 
         $this->document->setTitle($this->language->get('heading_title'));
 
+        // Coupons
         $this->load->model('marketing/coupon');
 
         $this->getList();
@@ -17,6 +18,7 @@ class ControllerMarketingCoupon extends Controller {
 
         $this->document->setTitle($this->language->get('heading_title'));
 
+        // Coupons
         $this->load->model('marketing/coupon');
 
         if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validateForm()) {
@@ -49,6 +51,7 @@ class ControllerMarketingCoupon extends Controller {
 
         $this->document->setTitle($this->language->get('heading_title'));
 
+        // Coupons
         $this->load->model('marketing/coupon');
 
         if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validateForm()) {
@@ -81,6 +84,7 @@ class ControllerMarketingCoupon extends Controller {
 
         $this->document->setTitle($this->language->get('heading_title'));
 
+        // Coupons
         $this->load->model('marketing/coupon');
 
         if (isset($this->request->post['selected']) && $this->validateDelete()) {
@@ -395,6 +399,7 @@ class ControllerMarketingCoupon extends Controller {
             $products = [];
         }
 
+        // Products
         $this->load->model('catalog/product');
 
         $data['coupon_product'] = [];
@@ -418,6 +423,7 @@ class ControllerMarketingCoupon extends Controller {
             $categories = [];
         }
 
+        // Categories
         $this->load->model('catalog/category');
 
         $data['coupon_category'] = [];
@@ -517,6 +523,7 @@ class ControllerMarketingCoupon extends Controller {
     public function history(): void {
         $this->load->language('marketing/coupon');
 
+        // Coupons
         $this->load->model('marketing/coupon');
 
         if (isset($this->request->get['page'])) {
@@ -525,6 +532,7 @@ class ControllerMarketingCoupon extends Controller {
             $page = 1;
         }
 
+        // Histories
         $data['histories'] = [];
 
         $results = $this->model_marketing_coupon->getCouponHistories($this->request->get['coupon_id'], ($page - 1) * 10, 10);

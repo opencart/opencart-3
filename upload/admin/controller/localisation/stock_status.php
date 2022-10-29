@@ -7,6 +7,7 @@ class ControllerLocalisationStockStatus extends Controller {
 
         $this->document->setTitle($this->language->get('heading_title'));
 
+        // Stock Statuses
         $this->load->model('localisation/stock_status');
 
         $this->getList();
@@ -17,6 +18,7 @@ class ControllerLocalisationStockStatus extends Controller {
 
         $this->document->setTitle($this->language->get('heading_title'));
 
+        // Stock Statuses
         $this->load->model('localisation/stock_status');
 
         if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validateForm()) {
@@ -49,6 +51,7 @@ class ControllerLocalisationStockStatus extends Controller {
 
         $this->document->setTitle($this->language->get('heading_title'));
 
+        // Stock Statuses
         $this->load->model('localisation/stock_status');
 
         if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validateForm()) {
@@ -81,6 +84,7 @@ class ControllerLocalisationStockStatus extends Controller {
 
         $this->document->setTitle($this->language->get('heading_title'));
 
+        // Stock Statuses
         $this->load->model('localisation/stock_status');
 
         if (isset($this->request->post['selected']) && $this->validateDelete()) {
@@ -299,6 +303,7 @@ class ControllerLocalisationStockStatus extends Controller {
             $data['stock_status'] = [];
         }
 
+        // Languages
         $this->load->model('localisation/language');
 
         $data['languages'] = $this->model_localisation_language->getLanguages();
@@ -329,7 +334,10 @@ class ControllerLocalisationStockStatus extends Controller {
             $this->error['warning'] = $this->language->get('error_permission');
         }
 
+        // Stores
         $this->load->model('setting/store');
+
+        // Products
         $this->load->model('catalog/product');
 
         foreach ((array)$this->request->post['selected'] as $stock_status_id) {

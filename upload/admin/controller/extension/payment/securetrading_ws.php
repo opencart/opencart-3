@@ -5,6 +5,7 @@ class ControllerExtensionPaymentSecureTradingWs extends Controller {
     public function index(): void {
         $this->load->language('extension/payment/securetrading_ws');
 
+        // Settings
         $this->load->model('setting/setting');
 
         // Geo Zones
@@ -253,12 +254,14 @@ class ControllerExtensionPaymentSecureTradingWs extends Controller {
     }
 
     public function install(): void {
+        // Securetrading WS
         $this->load->model('extension/payment/securetrading_ws');
 
         $this->model_extension_payment_securetrading_ws->install();
     }
 
     public function uninstall(): void {
+        // Securetrading WS
         $this->load->model('extension/payment/securetrading_ws');
 
         $this->model_extension_payment_securetrading_ws->uninstall();
@@ -267,6 +270,7 @@ class ControllerExtensionPaymentSecureTradingWs extends Controller {
     public function downloadTransactions(): void {
         $this->load->language('extension/payment/securetrading_ws');
 
+        // Securetrading WS
         $this->load->model('extension/payment/securetrading_ws');
 
         $csv_data = $this->request->post;
@@ -287,6 +291,7 @@ class ControllerExtensionPaymentSecureTradingWs extends Controller {
     public function showTransactions(): string {
         $this->load->language('extension/payment/securetrading_ws');
 
+        // Securetrading WS
         $this->load->model('extension/payment/securetrading_ws');
 
         $csv_data = $this->request->post;
@@ -340,6 +345,7 @@ class ControllerExtensionPaymentSecureTradingWs extends Controller {
 
     public function order(): string {
         if ($this->config->get('payment_securetrading_ws_status')) {
+            // Securetrading WS
             $this->load->model('extension/payment/securetrading_ws');
 
             $securetrading_ws_order = $this->model_extension_payment_securetrading_ws->getOrder($this->request->get['order_id']);
@@ -371,9 +377,11 @@ class ControllerExtensionPaymentSecureTradingWs extends Controller {
         $json = [];
 
         if (isset($this->request->post['order_id']) && $this->request->post['order_id'] != '') {
+            // Securetrading WS
             $this->load->model('extension/payment/securetrading_ws');
 
             $securetrading_ws_order = $this->model_extension_payment_securetrading_ws->getOrder($this->request->post['order_id']);
+
             $void_response = $this->model_extension_payment_securetrading_ws->void($this->request->post['order_id']);
 
             $this->model_extension_payment_securetrading_ws->logger('Void result:\r\n' . print_r($void_response, 1));
@@ -383,6 +391,7 @@ class ControllerExtensionPaymentSecureTradingWs extends Controller {
 
                 if ($response_xml->response['type'] == 'ERROR' || (string)$response_xml->response->error->code != '0') {
                     $json['msg'] = (string)$response_xml->response->error->message;
+
                     $json['error'] = true;
                 } else {
 
@@ -395,21 +404,25 @@ class ControllerExtensionPaymentSecureTradingWs extends Controller {
                         'comment'         => '',
                     ];
 
+                    // Orders
                     $this->load->model('sale/order');
 
                     $this->model_sale_order->addOrderHistory($this->request->post['order_id'], $this->data);
 
                     $json['msg'] = $this->language->get('text_authorisation_reversed');
                     $json['data']['created'] = date('Y-m-d H:i:s');
+
                     $json['error'] = false;
                 }
             } else {
                 $json['msg'] = $this->language->get('error_connection');
+
                 $json['error'] = true;
             }
         } else {
-            $json['error'] = true;
             $json['msg'] = $this->language->get('error_data_missing');
+
+            $json['error'] = true;
         }
 
         $this->response->addHeader('Content-Type: application/json');
@@ -420,9 +433,11 @@ class ControllerExtensionPaymentSecureTradingWs extends Controller {
         $this->load->language('extension/payment/securetrading_ws');
 
         $json = [];
+
         $amount = number_format($this->request->post['amount'], 2);
 
         if (isset($this->request->post['order_id']) && $this->request->post['order_id'] != '' && isset($amount) && $amount > 0) {
+            // Securetrading WS
             $this->load->model('extension/payment/securetrading_ws');
 
             $securetrading_ws_order = $this->model_extension_payment_securetrading_ws->getOrder($this->request->post['order_id']);
@@ -434,8 +449,9 @@ class ControllerExtensionPaymentSecureTradingWs extends Controller {
                 $response_xml = simplexml_load_string($release_response);
 
                 if ($response_xml->response['type'] == 'ERROR' || (string)$response_xml->response->error->code != '0') {
-                    $json['error'] = true;
                     $json['msg'] = (string)$response_xml->response->error->message;
+
+                    $json['error'] = true;
                 } else {
                     $this->model_extension_payment_securetrading_ws->addTransaction($securetrading_ws_order['securetrading_ws_order_id'], 'payment', $amount);
 
@@ -471,12 +487,14 @@ class ControllerExtensionPaymentSecureTradingWs extends Controller {
                     $json['error'] = false;
                 }
             } else {
-                $json['error'] = true;
                 $json['msg'] = $this->language->get('error_connection');
+
+                $json['error'] = true;
             }
         } else {
-            $json['error'] = true;
             $json['msg'] = $this->language->get('error_data_missing');
+
+            $json['error'] = true;
         }
 
         $this->response->addHeader('Content-Type: application/json');
@@ -489,6 +507,7 @@ class ControllerExtensionPaymentSecureTradingWs extends Controller {
         $json = [];
 
         if (isset($this->request->post['order_id']) && $this->request->post['order_id'] != '') {
+            // Securetrading WS
             $this->load->model('extension/payment/securetrading_ws');
 
             $securetrading_ws_order = $this->model_extension_payment_securetrading_ws->getOrder($this->request->post['order_id']);
@@ -517,6 +536,7 @@ class ControllerExtensionPaymentSecureTradingWs extends Controller {
                         $rebate_status = 1;
                         $json['msg'] = $this->language->get('text_rebate_ok_order');
 
+                        // Orders
                         $this->load->model('sale/order');
 
                         $history = [];
@@ -540,16 +560,18 @@ class ControllerExtensionPaymentSecureTradingWs extends Controller {
 
                     $json['error'] = false;
                 } else {
-                    $json['error'] = true;
                     $json['msg'] = (string)$response_xml->response->error->message;
+
+                    $json['error'] = true;
                 }
             } else {
                 $json['status'] = 0;
                 $json['message'] = $this->language->get('error_connection');
             }
         } else {
-            $json['error'] = true;
             $json['msg'] = $this->language->get('error_data_missing');
+
+            $json['error'] = true;
         }
 
         $this->response->addHeader('Content-Type: application/json');

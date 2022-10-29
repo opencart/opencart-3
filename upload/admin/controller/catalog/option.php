@@ -7,6 +7,7 @@ class ControllerCatalogOption extends Controller {
 
         $this->document->setTitle($this->language->get('heading_title'));
 
+        // Options
         $this->load->model('catalog/option');
 
         $this->getList();
@@ -17,6 +18,7 @@ class ControllerCatalogOption extends Controller {
 
         $this->document->setTitle($this->language->get('heading_title'));
 
+        // Options
         $this->load->model('catalog/option');
 
         if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validateForm()) {
@@ -49,6 +51,7 @@ class ControllerCatalogOption extends Controller {
 
         $this->document->setTitle($this->language->get('heading_title'));
 
+        // Options
         $this->load->model('catalog/option');
 
         if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validateForm()) {
@@ -81,6 +84,7 @@ class ControllerCatalogOption extends Controller {
 
         $this->document->setTitle($this->language->get('heading_title'));
 
+        // Options
         $this->load->model('catalog/option');
 
         if (isset($this->request->post['selected']) && $this->validateDelete()) {
@@ -331,7 +335,7 @@ class ControllerCatalogOption extends Controller {
         } elseif (!empty($option_info)) {
             $data['sort_order'] = $option_info['sort_order'];
         } else {
-            $data['sort_order'] = '';
+            $data['sort_order'] = 0;
         }
 
         if (isset($this->request->post['option_value'])) {
@@ -342,6 +346,7 @@ class ControllerCatalogOption extends Controller {
             $option_values = [];
         }
 
+        // Image files
         $this->load->model('tool/image');
 
         $data['option_values'] = [];
@@ -406,6 +411,7 @@ class ControllerCatalogOption extends Controller {
             $this->error['warning'] = $this->language->get('error_permission');
         }
 
+        // Products
         $this->load->model('catalog/product');
 
         foreach ((array)$this->request->post['selected'] as $option_id) {
@@ -425,7 +431,10 @@ class ControllerCatalogOption extends Controller {
         if (isset($this->request->get['filter_name'])) {
             $this->load->language('catalog/option');
 
+            // Image files
             $this->load->model('tool/image');
+
+            // Options
             $this->load->model('catalog/option');
 
             $filter_data = [

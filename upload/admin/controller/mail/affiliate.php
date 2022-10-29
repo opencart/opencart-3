@@ -2,11 +2,13 @@
 class ControllerMailAffiliate extends Controller {
     // admin/model/customer/customer_approval/approveAffiliate/after
     public function approve(string &$route, array &$args, mixed &$output): void {
+        // Customers
         $this->load->model('customer/customer');
 
         $customer_info = $this->model_customer_customer->getCustomer($args[0]);
 
         if ($customer_info) {
+            // Stores
             $this->load->model('setting/store');
 
             $store_info = $this->model_setting_store->getStore($customer_info['store_id']);
@@ -19,6 +21,7 @@ class ControllerMailAffiliate extends Controller {
                 $store_url = HTTP_CATALOG;
             }
 
+            // Languages
             $this->load->model('localisation/language');
 
             $language_info = $this->model_localisation_language->getLanguage($customer_info['language_id']);
@@ -61,6 +64,7 @@ class ControllerMailAffiliate extends Controller {
 
     // admin/model/customer/customer_approval/denyAffiliate/after
     public function deny(string &$route, array &$args, mixed &$output): void {
+        // Customers
         $this->load->model('customer/customer');
 
         $customer_info = $this->model_customer_customer->getCustomer($args[0]);
@@ -78,6 +82,7 @@ class ControllerMailAffiliate extends Controller {
                 $store_url = HTTP_CATALOG;
             }
 
+            // Languages
             $this->load->model('localisation/language');
 
             $language_info = $this->model_localisation_language->getLanguage($customer_info['language_id']);

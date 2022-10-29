@@ -5,6 +5,7 @@ class ControllerExtensionExtensionTotal extends Controller {
     public function index(): void {
         $this->load->language('extension/extension/total');
 
+        // Settings
         $this->load->model('setting/extension');
 
         $this->getList();
@@ -13,6 +14,7 @@ class ControllerExtensionExtensionTotal extends Controller {
     public function install(): void {
         $this->load->language('extension/extension/total');
 
+        // Settings
         $this->load->model('setting/extension');
 
         if ($this->validate()) {
@@ -34,6 +36,7 @@ class ControllerExtensionExtensionTotal extends Controller {
     public function uninstall(): void {
         $this->load->language('extension/extension/total');
 
+        // Settings
         $this->load->model('setting/extension');
 
         if ($this->validate()) {
@@ -62,6 +65,7 @@ class ControllerExtensionExtensionTotal extends Controller {
             $data['success'] = '';
         }
 
+        // Extensions
         $this->load->model('setting/extension');
 
         $extensions = $this->model_setting_extension->getInstalled('total');

@@ -5,6 +5,7 @@ class ControllerExtensionExtensionAnalytics extends Controller {
     public function index(): void {
         $this->load->language('extension/extension/analytics');
 
+        // Extensions
         $this->load->model('setting/extension');
 
         $this->getList();
@@ -13,11 +14,13 @@ class ControllerExtensionExtensionAnalytics extends Controller {
     public function install(): void {
         $this->load->language('extension/extension/analytics');
 
+        // Extensions
         $this->load->model('setting/extension');
 
         if ($this->validate()) {
             $this->model_setting_extension->install('analytics', $this->request->get['extension']);
 
+            // User Groups
             $this->load->model('user/user_group');
 
             $this->model_user_user_group->addPermission($this->user->getGroupId(), 'access', 'extension/analytics/' . $this->request->get['extension']);
@@ -39,6 +42,7 @@ class ControllerExtensionExtensionAnalytics extends Controller {
     public function uninstall(): void {
         $this->load->language('extension/extension/analytics');
 
+        // Extensions
         $this->load->model('setting/extension');
 
         if ($this->validate()) {
@@ -78,7 +82,10 @@ class ControllerExtensionExtensionAnalytics extends Controller {
             }
         }
 
+        // Stores
         $this->load->model('setting/store');
+
+        // Settings
         $this->load->model('setting/setting');
 
         $stores = $this->model_setting_store->getStores();

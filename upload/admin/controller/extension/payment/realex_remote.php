@@ -7,6 +7,7 @@ class ControllerExtensionPaymentRealexRemote extends Controller {
 
         $this->document->setTitle($this->language->get('heading_title'));
 
+        // Settings
         $this->load->model('setting/setting');
 
         if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validate()) {
@@ -193,6 +194,7 @@ class ControllerExtensionPaymentRealexRemote extends Controller {
     }
 
     public function install(): void {
+        // Realex Remote
         $this->load->model('extension/payment/realex_remote');
 
         $this->model_extension_payment_realex_remote->install();
@@ -200,6 +202,7 @@ class ControllerExtensionPaymentRealexRemote extends Controller {
 
     public function order(): string {
         if ($this->config->get('payment_realex_remote_status')) {
+            // Realex Remote
             $this->load->model('extension/payment/realex_remote');
 
             $realex_order = $this->model_extension_payment_realex_remote->getOrder($this->request->get['order_id']);
@@ -231,6 +234,7 @@ class ControllerExtensionPaymentRealexRemote extends Controller {
         $json = [];
 
         if (isset($this->request->post['order_id']) && $this->request->post['order_id'] != '') {
+            // Realex Remote
             $this->load->model('extension/payment/realex_remote');
 
             $realex_order = $this->model_extension_payment_realex_remote->getOrder($this->request->post['order_id']);
@@ -265,6 +269,7 @@ class ControllerExtensionPaymentRealexRemote extends Controller {
         $json = [];
 
         if (isset($this->request->post['order_id']) && $this->request->post['order_id'] != '' && isset($this->request->post['amount']) && $this->request->post['amount'] > 0) {
+            // Realex Remote
             $this->load->model('extension/payment/realex_remote');
 
             $realex_order = $this->model_extension_payment_realex_remote->getOrder($this->request->post['order_id']);
@@ -318,6 +323,7 @@ class ControllerExtensionPaymentRealexRemote extends Controller {
         $json = [];
 
         if (isset($this->request->post['order_id']) && $this->request->post['order_id'] != '') {
+            // Realex Remote
             $this->load->model('extension/payment/realex_remote');
 
             $realex_order = $this->model_extension_payment_realex_remote->getOrder($this->request->post['order_id']);

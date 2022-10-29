@@ -7,6 +7,7 @@ class ControllerExtensionModuleBanner extends Controller {
 
         $this->document->setTitle($this->language->get('heading_title'));
 
+        // Modules
         $this->load->model('setting/module');
 
         if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validate()) {
@@ -97,6 +98,7 @@ class ControllerExtensionModuleBanner extends Controller {
             $data['banner_id'] = '';
         }
 
+        // Banners
         $this->load->model('design/banner');
 
         $data['banners'] = $this->model_design_banner->getBanners();

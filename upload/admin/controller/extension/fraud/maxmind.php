@@ -7,6 +7,7 @@ class ControllerExtensionFraudMaxMind extends Controller {
 
         $this->document->setTitle($this->language->get('heading_title'));
 
+        // Settings
         $this->load->model('setting/setting');
 
         if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validate()) {
@@ -86,12 +87,14 @@ class ControllerExtensionFraudMaxMind extends Controller {
     }
 
     public function install(): void {
+        // Maxmind
         $this->load->model('extension/fraud/maxmind');
 
         $this->model_extension_fraud_maxmind->install();
     }
 
     public function uninstall(): void {
+        // Maxmind
         $this->load->model('extension/fraud/maxmind');
 
         $this->model_extension_fraud_maxmind->uninstall();
@@ -112,6 +115,7 @@ class ControllerExtensionFraudMaxMind extends Controller {
     public function order(): string {
         $this->load->language('extension/fraud/maxmind');
 
+        // Maxmind
         $this->load->model('extension/fraud/maxmind');
 
         if (isset($this->request->get['order_id'])) {

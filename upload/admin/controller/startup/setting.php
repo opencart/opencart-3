@@ -1,9 +1,9 @@
 <?php
 class ControllerStartupSetting extends Controller {
     public function index(): void {
+        // Settings
         $this->load->model('setting/setting');
 
-        // Settings
         $results = $this->model_setting_setting->getSettings(0);
 
         foreach ($results as $result) {

@@ -7,6 +7,7 @@ class ControllerCustomerCustomField extends Controller {
 
         $this->document->setTitle($this->language->get('heading_title'));
 
+        // Custom Fields
         $this->load->model('customer/custom_field');
 
         $this->getList();
@@ -17,6 +18,7 @@ class ControllerCustomerCustomField extends Controller {
 
         $this->document->setTitle($this->language->get('heading_title'));
 
+        // Custom Fields
         $this->load->model('customer/custom_field');
 
         if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validateForm()) {
@@ -49,6 +51,7 @@ class ControllerCustomerCustomField extends Controller {
 
         $this->document->setTitle($this->language->get('heading_title'));
 
+        // Custom Fields
         $this->load->model('customer/custom_field');
 
         if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validateForm()) {
@@ -81,6 +84,7 @@ class ControllerCustomerCustomField extends Controller {
 
         $this->document->setTitle($this->language->get('heading_title'));
 
+        // Custom Fields
         $this->load->model('customer/custom_field');
 
         if (isset($this->request->post['selected']) && $this->validateDelete()) {
@@ -404,7 +408,7 @@ class ControllerCustomerCustomField extends Controller {
         } elseif (!empty($custom_field_info)) {
             $data['sort_order'] = $custom_field_info['sort_order'];
         } else {
-            $data['sort_order'] = '';
+            $data['sort_order'] = 0;
         }
 
         if (isset($this->request->post['custom_field_value'])) {
@@ -447,6 +451,7 @@ class ControllerCustomerCustomField extends Controller {
             }
         }
 
+        // Customer Groups
         $this->load->model('customer/customer_group');
 
         $data['customer_groups'] = $this->model_customer_customer_group->getCustomerGroups();

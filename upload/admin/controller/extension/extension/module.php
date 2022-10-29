@@ -5,8 +5,11 @@ class ControllerExtensionExtensionModule extends Controller {
     public function index(): void {
         $this->load->language('extension/extension/module');
 
-        $this->load->model('setting/extension');
+        // Modules
         $this->load->model('setting/module');
+
+        // Extensions
+        $this->load->model('setting/extension');
 
         $this->getList();
     }
@@ -14,12 +17,16 @@ class ControllerExtensionExtensionModule extends Controller {
     public function install(): void {
         $this->load->language('extension/extension/module');
 
-        $this->load->model('setting/extension');
+        // Modules
         $this->load->model('setting/module');
+
+        // Extensions
+        $this->load->model('setting/extension');
 
         if ($this->validate()) {
             $this->model_setting_extension->install('module', $this->request->get['extension']);
 
+            // User Groups
             $this->load->model('user/user_group');
 
             $this->model_user_user_group->addPermission($this->user->getGroupId(), 'access', 'extension/module/' . $this->request->get['extension']);
@@ -39,8 +46,11 @@ class ControllerExtensionExtensionModule extends Controller {
     public function uninstall(): void {
         $this->load->language('extension/extension/module');
 
-        $this->load->model('setting/extension');
+        // Modules
         $this->load->model('setting/module');
+
+        // Extensions
+        $this->load->model('setting/extension');
 
         if ($this->validate()) {
             $this->model_setting_extension->uninstall('module', $this->request->get['extension']);
@@ -59,8 +69,11 @@ class ControllerExtensionExtensionModule extends Controller {
     public function add(): void {
         $this->load->language('extension/extension/module');
 
-        $this->load->model('setting/extension');
+        // Modules
         $this->load->model('setting/module');
+
+        // Extensions
+        $this->load->model('setting/extension');
 
         if ($this->validate()) {
             $this->load->language('module' . '/' . $this->request->get['extension']);
@@ -76,8 +89,11 @@ class ControllerExtensionExtensionModule extends Controller {
     public function delete(): void {
         $this->load->language('extension/extension/module');
 
-        $this->load->model('setting/extension');
+        // Modules
         $this->load->model('setting/module');
+
+        // Extensions
+        $this->load->model('setting/extension');
 
         if (isset($this->request->get['module_id']) && $this->validate()) {
             $this->model_setting_module->deleteModule($this->request->get['module_id']);

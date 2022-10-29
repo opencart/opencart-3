@@ -7,6 +7,7 @@ class ControllerExtensionPaymentFirstdataRemote extends Controller {
 
         $this->document->setTitle($this->language->get('heading_title'));
 
+        // Settings
         $this->load->model('setting/setting');
 
         if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validate()) {
@@ -242,12 +243,14 @@ class ControllerExtensionPaymentFirstdataRemote extends Controller {
     }
 
     public function install(): void {
+        // Firstdata Remote
         $this->load->model('extension/payment/firstdata_remote');
 
         $this->model_extension_payment_firstdata_remote->install();
     }
 
     public function uninstall(): void {
+        // Firstdata Remote
         $this->load->model('extension/payment/firstdata_remote');
 
         $this->model_extension_payment_firstdata_remote->uninstall();
@@ -255,6 +258,7 @@ class ControllerExtensionPaymentFirstdataRemote extends Controller {
 
     public function order(): string {
         if ($this->config->get('payment_firstdata_remote_status')) {
+            // Firstdata Remote
             $this->load->model('extension/payment/firstdata_remote');
 
             $firstdata_order = $this->model_extension_payment_firstdata_remote->getOrder($this->request->get['order_id']);
@@ -287,6 +291,7 @@ class ControllerExtensionPaymentFirstdataRemote extends Controller {
         $json = [];
 
         if (isset($this->request->post['order_id']) && $this->request->post['order_id'] != '') {
+            // Firstdata Remote
             $this->load->model('extension/payment/firstdata_remote');
 
             $firstdata_order = $this->model_extension_payment_firstdata_remote->getOrder($this->request->post['order_id']);
@@ -328,6 +333,7 @@ class ControllerExtensionPaymentFirstdataRemote extends Controller {
         $json = [];
 
         if (isset($this->request->post['order_id']) && $this->request->post['order_id'] != '') {
+            // Firstdata Remote
             $this->load->model('extension/payment/firstdata_remote');
 
             $firstdata_order = $this->model_extension_payment_firstdata_remote->getOrder($this->request->post['order_id']);
@@ -377,6 +383,7 @@ class ControllerExtensionPaymentFirstdataRemote extends Controller {
         $json = [];
 
         if (isset($this->request->post['order_id']) && $this->request->post['order_id'] != '') {
+            // Firstdata Remote
             $this->load->model('extension/payment/firstdata_remote');
 
             $firstdata_order = $this->model_extension_payment_firstdata_remote->getOrder($this->request->post['order_id']);

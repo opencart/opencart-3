@@ -7,6 +7,7 @@ class ControllerCustomerCustomerGroup extends Controller {
 
         $this->document->setTitle($this->language->get('heading_title'));
 
+        // Customer Groups
         $this->load->model('customer/customer_group');
 
         $this->getList();
@@ -17,6 +18,7 @@ class ControllerCustomerCustomerGroup extends Controller {
 
         $this->document->setTitle($this->language->get('heading_title'));
 
+        // Customer Groups
         $this->load->model('customer/customer_group');
 
         if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validateForm()) {
@@ -49,6 +51,7 @@ class ControllerCustomerCustomerGroup extends Controller {
 
         $this->document->setTitle($this->language->get('heading_title'));
 
+        // Customer Groups
         $this->load->model('customer/customer_group');
 
         if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validateForm()) {
@@ -81,6 +84,7 @@ class ControllerCustomerCustomerGroup extends Controller {
 
         $this->document->setTitle($this->language->get('heading_title'));
 
+        // Customer Groups
         $this->load->model('customer/customer_group');
 
         if (isset($this->request->post['selected']) && $this->validateDelete()) {
@@ -323,7 +327,7 @@ class ControllerCustomerCustomerGroup extends Controller {
         } elseif (!empty($customer_group_info)) {
             $data['sort_order'] = $customer_group_info['sort_order'];
         } else {
-            $data['sort_order'] = '';
+            $data['sort_order'] = 0;
         }
 
         $data['header'] = $this->load->controller('common/header');
@@ -352,7 +356,10 @@ class ControllerCustomerCustomerGroup extends Controller {
             $this->error['warning'] = $this->language->get('error_permission');
         }
 
+        // Stores
         $this->load->model('setting/store');
+
+        // Customers
         $this->load->model('customer/customer');
 
         foreach ((array)$this->request->post['selected'] as $customer_group_id) {

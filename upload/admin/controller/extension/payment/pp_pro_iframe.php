@@ -7,6 +7,7 @@ class ControllerExtensionPaymentPPProIframe extends Controller {
 
         $this->document->setTitle($this->language->get('heading_title'));
 
+        // Settings
         $this->load->model('setting/setting');
 
         if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validate()) {
@@ -191,12 +192,14 @@ class ControllerExtensionPaymentPPProIframe extends Controller {
     }
 
     public function install(): void {
+        // PP Pro Iframe
         $this->load->model('extension/payment/pp_pro_iframe');
 
         $this->model_extension_payment_pp_pro_iframe->install();
     }
 
     public function uninstall(): void {
+        // PP Pro Iframe
         $this->load->model('extension/payment/pp_pro_iframe');
 
         $this->model_extension_payment_pp_pro_iframe->uninstall();
@@ -225,6 +228,7 @@ class ControllerExtensionPaymentPPProIframe extends Controller {
     public function order(): string {
         $this->load->language('extension/payment/pp_pro_iframe');
 
+        // PP Pro Iframe
         $this->load->model('extension/payment/pp_pro_iframe');
 
         $paypal_order = $this->model_extension_payment_pp_pro_iframe->getOrder($this->request->get['order_id']);
@@ -281,6 +285,7 @@ class ControllerExtensionPaymentPPProIframe extends Controller {
     public function refund(): void {
         $this->load->language('extension/payment/pp_pro_iframe');
 
+        // PP Pro Iframe
         $this->load->model('extension/payment/pp_pro_iframe');
 
         $this->document->setTitle($this->language->get('text_refund'));
@@ -353,6 +358,7 @@ class ControllerExtensionPaymentPPProIframe extends Controller {
         if (isset($this->request->post['transaction_id']) && isset($this->request->post['refund_full'])) {
             $this->load->language('extension/payment/pp_pro_iframe');
 
+            // PP Pro Iframe
             $this->load->model('extension/payment/pp_pro_iframe');
 
             if ($this->request->post['refund_full'] == 0 && $this->request->post['amount'] == 0) {
@@ -457,6 +463,7 @@ class ControllerExtensionPaymentPPProIframe extends Controller {
 
         $json = [];
 
+        // PP Pro Iframe
         $this->load->model('extension/payment/pp_pro_iframe');
 
         if (isset($this->request->post['order_id'])) {
@@ -491,15 +498,19 @@ class ControllerExtensionPaymentPPProIframe extends Controller {
                 $this->model_extension_payment_pp_pro_iframe->addTransaction($transaction);
 
                 $transaction['date_added'] = date('Y-m-d H:i:s');
+
                 $json['data'] = $transaction;
-                $json['error'] = false;
                 $json['msg'] = $this->language->get('text_reauthorise_ok');
+
+                $json['error'] = false;
             } else {
-                $json['error'] = true;
                 $json['msg'] = (isset($result['L_SHORTMESSAGE0']) ? sprintf($this->language->get('error_status_short'), $result['L_SHORTMESSAGE0']) : $this->language->get('error_general'));
+
+                $json['error'] = true;
             }
         } else {
             $json['error'] = true;
+
             $json['msg'] = $this->language->get('error_missing_data');
         }
 
@@ -510,6 +521,7 @@ class ControllerExtensionPaymentPPProIframe extends Controller {
     public function info(): void {
         $this->load->language('extension/payment/pp_pro_iframe');
 
+        // PP Pro Iframe
         $this->load->model('extension/payment/pp_pro_iframe');
 
         $data['breadcrumbs'] = [];
@@ -533,7 +545,9 @@ class ControllerExtensionPaymentPPProIframe extends Controller {
         $transaction = array_map('urldecode', $transaction);
 
         $data['transaction'] = $transaction;
+
         $data['view_link'] = $this->url->link('extension/payment/pp_pro_iframe/info', 'user_token=' . $this->session->data['user_token'], true);
+
         $data['user_token'] = $this->session->data['user_token'];
 
         $this->document->setTitle($this->language->get('text_transaction'));
@@ -561,6 +575,7 @@ class ControllerExtensionPaymentPPProIframe extends Controller {
          * capture can be full or partial amounts
          */
         if (isset($this->request->post['order_id']) && $this->request->post['order_id'] != '' && isset($this->request->post['amount']) && $this->request->post['amount'] > 0) {
+            // PP Pro Iframe
             $this->load->model('extension/payment/pp_pro_iframe');
 
             $paypal_order = $this->model_extension_payment_pp_pro_iframe->getOrder($this->request->post['order_id']);
@@ -601,12 +616,13 @@ class ControllerExtensionPaymentPPProIframe extends Controller {
 
                 $paypal_iframe_order_transaction_id = $this->model_extension_payment_pp_pro_iframe->addTransaction($transaction, $call_data);
 
-                $json['error'] = true;
                 $json['failed_transaction']['paypal_iframe_order_transaction_id'] = $paypal_iframe_order_transaction_id;
                 $json['failed_transaction']['amount'] = $transaction['amount'];
                 $json['failed_transaction']['date_added'] = date('Y-m-d H:i:s');
 
                 $json['msg'] = $this->language->get('error_timeout');
+
+                $json['error'] = true;
             } elseif (isset($result['ACK']) && $result['ACK'] != 'Failure' && $result['ACK'] != 'FailureWithWarning') {
                 $transaction['transaction_id'] = $result['TRANSACTIONID'];
                 $transaction['payment_type'] = $result['PAYMENTTYPE'];
@@ -628,6 +644,7 @@ class ControllerExtensionPaymentPPProIframe extends Controller {
                 $transaction['remaining'] = number_format($paypal_order['total'] - $captured, 2);
 
                 $transaction['status'] = 0;
+
                 if ($transaction['remaining'] == 0.00) {
                     $transaction['status'] = 1;
 
@@ -656,19 +673,24 @@ class ControllerExtensionPaymentPPProIframe extends Controller {
                     $this->model_extension_payment_pp_pro_iframe->updateOrder('Complete', $this->request->post['order_id']);
 
                     $transaction['void']['date_added'] = date('Y-m-d H:i:s');
+
                     $transaction['status'] = 1;
                 }
 
                 $json['data'] = $transaction;
-                $json['error'] = false;
+
                 $json['msg'] = $this->language->get('text_capture_ok');
+
+                $json['error'] = false;
             } else {
-                $json['error'] = true;
                 $json['msg'] = (isset($result['L_SHORTMESSAGE0']) ? sprintf($this->language->get('error_status_short'), $result['L_SHORTMESSAGE0']) : $this->language->get('error_general'));
+
+                $json['error'] = true;
             }
         } else {
-            $json['error'] = true;
             $json['msg'] = $this->language->get('error_data_missing');
+
+            $json['error'] = true;
         }
 
         $this->response->addHeader('Content-Type: application/json');
@@ -681,6 +703,7 @@ class ControllerExtensionPaymentPPProIframe extends Controller {
         $json = [];
 
         if (isset($this->request->post['order_id']) && $this->request->post['order_id'] != '') {
+            // PP Pro Iframe
             $this->load->model('extension/payment/pp_pro_iframe');
 
             $paypal_order = $this->model_extension_payment_pp_pro_iframe->getOrder($this->request->post['order_id']);
@@ -715,15 +738,19 @@ class ControllerExtensionPaymentPPProIframe extends Controller {
                 $transaction['date_added'] = date('Y-m-d H:i:s');
 
                 $json['data'] = $transaction;
-                $json['error'] = false;
+
                 $json['msg'] = $this->language->get('text_void_ok');
+
+                $json['error'] = false;
             } else {
-                $json['error'] = true;
                 $json['msg'] = (isset($result['L_SHORTMESSAGE0']) ? sprintf($this->language->get('error_status_short'), $result['L_SHORTMESSAGE0']) : $this->language->get('error_general'));
+
+                $json['error'] = true;
             }
         } else {
-            $json['error'] = true;
             $json['msg'] = $this->language->get('error_missing_data');
+
+            $json['error'] = true;
         }
 
         $this->response->addHeader('Content-Type: application/json');
@@ -735,6 +762,7 @@ class ControllerExtensionPaymentPPProIframe extends Controller {
 
         $json = [];
 
+        // PP Pro Iframe
         $this->load->model('extension/payment/pp_pro_iframe');
 
         if (isset($this->request->get['paypal_iframe_order_transaction_id'])) {

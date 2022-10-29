@@ -7,6 +7,7 @@ class ControllerCatalogCategory extends Controller {
 
         $this->document->setTitle($this->language->get('heading_title'));
 
+        // Categories
         $this->load->model('catalog/category');
 
         $this->getList();
@@ -17,6 +18,7 @@ class ControllerCatalogCategory extends Controller {
 
         $this->document->setTitle($this->language->get('heading_title'));
 
+        // Categories
         $this->load->model('catalog/category');
 
         if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validateForm()) {
@@ -49,6 +51,7 @@ class ControllerCatalogCategory extends Controller {
 
         $this->document->setTitle($this->language->get('heading_title'));
 
+        // Categories
         $this->load->model('catalog/category');
 
         if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validateForm()) {
@@ -81,6 +84,7 @@ class ControllerCatalogCategory extends Controller {
 
         $this->document->setTitle($this->language->get('heading_title'));
 
+        // Categories
         $this->load->model('catalog/category');
 
         if (isset($this->request->post['selected']) && $this->validateDelete()) {
@@ -115,6 +119,7 @@ class ControllerCatalogCategory extends Controller {
 
         $this->document->setTitle($this->language->get('heading_title'));
 
+        // Categories
         $this->load->model('catalog/category');
 
         if ($this->validateRepair()) {
@@ -380,6 +385,7 @@ class ControllerCatalogCategory extends Controller {
             $data['parent_id'] = 0;
         }
 
+        // Filters
         $this->load->model('catalog/filter');
 
         if (isset($this->request->post['category_filter'])) {
@@ -403,6 +409,7 @@ class ControllerCatalogCategory extends Controller {
             }
         }
 
+        // Stores
         $this->load->model('setting/store');
 
         $data['stores'] = [];
@@ -437,6 +444,7 @@ class ControllerCatalogCategory extends Controller {
             $data['image'] = '';
         }
 
+        // Image files
         $this->load->model('tool/image');
 
         if (isset($this->request->post['image']) && is_file(DIR_IMAGE . $this->request->post['image'])) {
@@ -497,6 +505,7 @@ class ControllerCatalogCategory extends Controller {
             $data['category_layout'] = [];
         }
 
+        // Layouts
         $this->load->model('design/layout');
 
         $data['layouts'] = $this->model_design_layout->getLayouts();
@@ -535,6 +544,7 @@ class ControllerCatalogCategory extends Controller {
         }
 
         if ($this->request->post['category_seo_url']) {
+            // Seo Urls
             $this->load->model('design/seo_url');
 
             foreach ($this->request->post['category_seo_url'] as $store_id => $language) {
@@ -584,6 +594,7 @@ class ControllerCatalogCategory extends Controller {
         $json = [];
 
         if (isset($this->request->get['filter_name'])) {
+            // Categories
             $this->load->model('catalog/category');
 
             $filter_data = [

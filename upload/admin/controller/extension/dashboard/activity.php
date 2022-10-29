@@ -7,6 +7,7 @@ class ControllerExtensionDashboardActivity extends Controller {
 
         $this->document->setTitle($this->language->get('heading_title'));
 
+        // Settings
         $this->load->model('setting/setting');
 
         if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validate()) {
@@ -89,6 +90,7 @@ class ControllerExtensionDashboardActivity extends Controller {
 
         $data['activities'] = [];
 
+        // Activities
         $this->load->model('extension/dashboard/activity');
 
         $results = $this->model_extension_dashboard_activity->getActivities();

@@ -7,6 +7,7 @@ class ControllerLocalisationReturnsReason extends Controller {
 
         $this->document->setTitle($this->language->get('heading_title'));
 
+        // Returns Reason
         $this->load->model('localisation/returns_reason');
 
         $this->getList();
@@ -17,6 +18,7 @@ class ControllerLocalisationReturnsReason extends Controller {
 
         $this->document->setTitle($this->language->get('heading_title'));
 
+        // Returns Reason
         $this->load->model('localisation/returns_reason');
 
         if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validateForm()) {
@@ -49,6 +51,7 @@ class ControllerLocalisationReturnsReason extends Controller {
 
         $this->document->setTitle($this->language->get('heading_title'));
 
+        // Returns Reason
         $this->load->model('localisation/returns_reason');
 
         if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validateForm()) {
@@ -81,6 +84,7 @@ class ControllerLocalisationReturnsReason extends Controller {
 
         $this->document->setTitle($this->language->get('heading_title'));
 
+        // Returns Reason
         $this->load->model('localisation/returns_reason');
 
         if (isset($this->request->post['selected']) && $this->validateDelete()) {
@@ -299,6 +303,7 @@ class ControllerLocalisationReturnsReason extends Controller {
             $data['return_reason'] = [];
         }
 
+        // Language
         $this->load->model('localisation/language');
 
         $data['languages'] = $this->model_localisation_language->getLanguages();

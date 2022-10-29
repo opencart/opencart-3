@@ -706,10 +706,12 @@ class ControllerCommonColumnLeft extends Controller {
 
             // Stats
             if ($this->user->hasPermission('access', 'report/statistics')) {
+                // Orders
                 $this->load->model('sale/order');
 
                 $order_total = (float)$this->model_sale_order->getTotalOrders();
 
+                // Statistics
                 $this->load->model('report/statistics');
 
                 $complete_total = (float)$this->model_report_statistics->getValue('order_complete');

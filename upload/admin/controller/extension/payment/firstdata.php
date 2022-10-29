@@ -7,6 +7,7 @@ class ControllerExtensionPaymentFirstdata extends Controller {
 
         $this->document->setTitle($this->language->get('heading_title'));
 
+        // Settings
         $this->load->model('setting/setting');
 
         if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validate()) {
@@ -193,12 +194,14 @@ class ControllerExtensionPaymentFirstdata extends Controller {
     }
 
     public function install(): void {
+        // Firstdata
         $this->load->model('extension/payment/firstdata');
 
         $this->model_extension_payment_firstdata->install();
     }
 
     public function uninstall(): void {
+        // Firstdata
         $this->load->model('extension/payment/firstdata');
 
         $this->model_extension_payment_firstdata->uninstall();
@@ -206,6 +209,7 @@ class ControllerExtensionPaymentFirstdata extends Controller {
 
     public function order(): string {
         if ($this->config->get('payment_firstdata_status')) {
+            // Firstdata
             $this->load->model('extension/payment/firstdata');
 
             $firstdata_order = $this->model_extension_payment_firstdata->getOrder($this->request->get['order_id']);

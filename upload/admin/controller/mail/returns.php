@@ -27,11 +27,13 @@ class ControllerMailReturns extends Controller {
         }
 
         if ($notify) {
+            // Returns
             $this->load->model('sale/returns');
 
             $return_info = $this->model_sale_returns->getReturn($return_id);
 
             if ($return_info) {
+                // Orders
                 $this->load->model('sale/order');
 
                 $order_info = $this->model_sale_order->getOrder($return_info['order_id']);
@@ -44,6 +46,7 @@ class ControllerMailReturns extends Controller {
                     $store_url = HTTP_CATALOG;
                 }
 
+                // Languages
                 $this->load->model('localisation/language');
 
                 $language_info = $this->model_localisation_language->getLanguage($return_info['language_id']);

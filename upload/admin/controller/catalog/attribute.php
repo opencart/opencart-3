@@ -7,6 +7,7 @@ class ControllerCatalogAttribute extends Controller {
 
         $this->document->setTitle($this->language->get('heading_title'));
 
+        // Attributes
         $this->load->model('catalog/attribute');
 
         $this->getList();
@@ -17,6 +18,7 @@ class ControllerCatalogAttribute extends Controller {
 
         $this->document->setTitle($this->language->get('heading_title'));
 
+        // Attributes
         $this->load->model('catalog/attribute');
 
         if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validateForm()) {
@@ -49,6 +51,7 @@ class ControllerCatalogAttribute extends Controller {
 
         $this->document->setTitle($this->language->get('heading_title'));
 
+        // Attributes
         $this->load->model('catalog/attribute');
 
         if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validateForm()) {
@@ -81,6 +84,7 @@ class ControllerCatalogAttribute extends Controller {
 
         $this->document->setTitle($this->language->get('heading_title'));
 
+        // Attributes
         $this->load->model('catalog/attribute');
 
         if (isset($this->request->post['selected']) && $this->validateDelete()) {
@@ -323,9 +327,10 @@ class ControllerCatalogAttribute extends Controller {
         } elseif (!empty($attribute_info)) {
             $data['attribute_group_id'] = $attribute_info['attribute_group_id'];
         } else {
-            $data['attribute_group_id'] = '';
+            $data['attribute_group_id'] = 0;
         }
 
+        // Attribute Groups
         $this->load->model('catalog/attribute_group');
 
         $data['attribute_groups'] = $this->model_catalog_attribute_group->getAttributeGroups();
@@ -335,7 +340,7 @@ class ControllerCatalogAttribute extends Controller {
         } elseif (!empty($attribute_info)) {
             $data['sort_order'] = $attribute_info['sort_order'];
         } else {
-            $data['sort_order'] = '';
+            $data['sort_order'] = 0;
         }
 
         $data['header'] = $this->load->controller('common/header');
@@ -368,6 +373,7 @@ class ControllerCatalogAttribute extends Controller {
             $this->error['warning'] = $this->language->get('error_permission');
         }
 
+        // Products
         $this->load->model('catalog/product');
 
         foreach ((array)$this->request->post['selected'] as $attribute_id) {
@@ -385,6 +391,7 @@ class ControllerCatalogAttribute extends Controller {
         $json = [];
 
         if (isset($this->request->get['filter_name'])) {
+            // Attributes
             $this->load->model('catalog/attribute');
 
             $filter_data = [

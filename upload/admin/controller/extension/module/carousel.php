@@ -7,6 +7,7 @@ class ControllerExtensionModuleCarousel extends Controller {
 
         $this->document->setTitle($this->language->get('heading_title'));
 
+        // Modules
         $this->load->model('setting/module');
 
         if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validate()) {
@@ -94,9 +95,10 @@ class ControllerExtensionModuleCarousel extends Controller {
         } elseif (!empty($module_info)) {
             $data['banner_id'] = $module_info['banner_id'];
         } else {
-            $data['banner_id'] = '';
+            $data['banner_id'] = 0;
         }
 
+        // Banners
         $this->load->model('design/banner');
 
         $data['banners'] = $this->model_design_banner->getBanners();

@@ -7,6 +7,7 @@ class ControllerCatalogAttributeGroup extends Controller {
 
         $this->document->setTitle($this->language->get('heading_title'));
 
+        // Attribute Groups
         $this->load->model('catalog/attribute_group');
 
         $this->getList();
@@ -17,6 +18,7 @@ class ControllerCatalogAttributeGroup extends Controller {
 
         $this->document->setTitle($this->language->get('heading_title'));
 
+        // Attribute Groups
         $this->load->model('catalog/attribute_group');
 
         if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validateForm()) {
@@ -49,6 +51,7 @@ class ControllerCatalogAttributeGroup extends Controller {
 
         $this->document->setTitle($this->language->get('heading_title'));
 
+        // Attribute Groups
         $this->load->model('catalog/attribute_group');
 
         if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validateForm()) {
@@ -81,6 +84,7 @@ class ControllerCatalogAttributeGroup extends Controller {
 
         $this->document->setTitle($this->language->get('heading_title'));
 
+        // Attribute Groups
         $this->load->model('catalog/attribute_group');
 
         if (isset($this->request->post['selected']) && $this->validateDelete()) {
@@ -315,7 +319,7 @@ class ControllerCatalogAttributeGroup extends Controller {
         } elseif (!empty($attribute_group_info)) {
             $data['sort_order'] = $attribute_group_info['sort_order'];
         } else {
-            $data['sort_order'] = '';
+            $data['sort_order'] = 0;
         }
 
         $data['header'] = $this->load->controller('common/header');
@@ -344,6 +348,7 @@ class ControllerCatalogAttributeGroup extends Controller {
             $this->error['warning'] = $this->language->get('error_permission');
         }
 
+        // Attributes
         $this->load->model('catalog/attribute');
 
         foreach ((array)$this->request->post['selected'] as $attribute_group_id) {

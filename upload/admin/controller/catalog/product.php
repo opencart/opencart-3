@@ -7,6 +7,7 @@ class ControllerCatalogProduct extends Controller {
 
         $this->document->setTitle($this->language->get('heading_title'));
 
+        // Products
         $this->load->model('catalog/product');
 
         $this->getList();
@@ -17,6 +18,7 @@ class ControllerCatalogProduct extends Controller {
 
         $this->document->setTitle($this->language->get('heading_title'));
 
+        // Products
         $this->load->model('catalog/product');
 
         if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validateForm()) {
@@ -68,6 +70,7 @@ class ControllerCatalogProduct extends Controller {
 
         $this->document->setTitle($this->language->get('heading_title'));
 
+        // Products
         $this->load->model('catalog/product');
 
         if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validateForm()) {
@@ -120,6 +123,7 @@ class ControllerCatalogProduct extends Controller {
 
         $this->document->setTitle($this->language->get('heading_title'));
 
+        // Products
         $this->load->model('catalog/product');
 
         if (isset($this->request->post['selected']) && $this->validateDelete()) {
@@ -174,6 +178,7 @@ class ControllerCatalogProduct extends Controller {
 
         $this->document->setTitle($this->language->get('heading_title'));
 
+        // Products
         $this->load->model('catalog/product');
 
         if (isset($this->request->post['selected']) && $this->validateCopy()) {
@@ -336,6 +341,7 @@ class ControllerCatalogProduct extends Controller {
 
         $results = $this->model_catalog_product->getProducts($filter_data);
 
+        // Image files
         $this->load->model('tool/image');
 
         foreach ($results as $result) {
@@ -698,7 +704,7 @@ class ControllerCatalogProduct extends Controller {
             $data['price'] = '';
         }
 
-        // Subscription
+        // Subscription Plans
         $this->load->model('catalog/subscription_plan');
 
         $data['subscriptions'] = $this->model_catalog_subscription_plan->getSubscriptionPlans();
@@ -1000,7 +1006,7 @@ class ControllerCatalogProduct extends Controller {
 
         $data['customer_groups'] = $this->model_customer_customer_group->getCustomerGroups();
 
-        // Subscriptions
+        // Subscription Plans
         $this->load->model('catalog/subscription_plan');
 
         $data['subscription_plans'] = $this->model_catalog_subscription_plan->getSubscriptionPlans();
@@ -1063,6 +1069,7 @@ class ControllerCatalogProduct extends Controller {
             $data['image'] = '';
         }
 
+        // Image files
         $this->load->model('tool/image');
 
         if (isset($this->request->post['image']) && is_file(DIR_IMAGE . $this->request->post['image'])) {
@@ -1126,7 +1133,7 @@ class ControllerCatalogProduct extends Controller {
             }
         }
 
-        // Related
+        // Products Related
         if (isset($this->request->post['product_related'])) {
             $products = $this->request->post['product_related'];
         } elseif (isset($this->request->get['product_id'])) {
@@ -1215,6 +1222,7 @@ class ControllerCatalogProduct extends Controller {
         }
 
         if ($this->request->post['product_seo_url']) {
+            // Seo Urls
             $this->load->model('design/seo_url');
 
             foreach ($this->request->post['product_seo_url'] as $store_id => $language) {
@@ -1288,8 +1296,13 @@ class ControllerCatalogProduct extends Controller {
             'limit'        => $limit
         ];
 
+        // Products
         $this->load->model('catalog/product');
+
+        // Options
         $this->load->model('catalog/option');
+
+        // Subscription Plans
         $this->load->model('catalog/subscription_plan');
 
         $results = $this->model_catalog_product->getProducts($filter_data);

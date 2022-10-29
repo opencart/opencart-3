@@ -6,14 +6,18 @@ class ControllerExtensionModuleAmazonPay extends Controller {
     public function index(): void {
         $this->load->language('extension/module/amazon_pay');
 
-        $this->load->model('setting/setting');
+        // Layouts
         $this->load->model('design/layout');
+
+        // Settings
+        $this->load->model('setting/setting');
 
         $this->document->setTitle($this->language->get('heading_title'));
 
         if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validate()) {
             $this->model_setting_setting->editSetting('module_amazon_pay', $this->request->post);
 
+            // Events
             $this->load->model('setting/event');
 
             $this->model_setting_event->deleteEventByCode('amazon_pay');
@@ -103,12 +107,14 @@ class ControllerExtensionModuleAmazonPay extends Controller {
     }
 
     public function install(): void {
+        // Events
         $this->load->model('setting/event');
 
         $this->model_setting_event->deleteEventByCode('amazon_pay');
     }
 
     public function uninstall(): void {
+        // Events
         $this->load->model('setting/event');
 
         $this->model_setting_event->deleteEventByCode('amazon_pay');

@@ -7,6 +7,7 @@ class ControllerDesignSeoUrl extends Controller {
 
         $this->document->setTitle($this->language->get('heading_title'));
 
+        // Seo Urls
         $this->load->model('design/seo_url');
 
         $this->getList();
@@ -17,6 +18,7 @@ class ControllerDesignSeoUrl extends Controller {
 
         $this->document->setTitle($this->language->get('heading_title'));
 
+        // Seo Urls
         $this->load->model('design/seo_url');
 
         if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validateForm()) {
@@ -65,6 +67,7 @@ class ControllerDesignSeoUrl extends Controller {
 
         $this->document->setTitle($this->language->get('heading_title'));
 
+        // Seo Urls
         $this->load->model('design/seo_url');
 
         if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validateForm()) {
@@ -113,6 +116,7 @@ class ControllerDesignSeoUrl extends Controller {
 
         $this->document->setTitle($this->language->get('heading_title'));
 
+        // Seo Urls
         $this->load->model('design/seo_url');
 
         if (isset($this->request->post['selected']) && $this->validateDelete()) {
@@ -355,6 +359,7 @@ class ControllerDesignSeoUrl extends Controller {
             $url .= '&order=' . $this->request->get['order'];
         }
 
+        // Stores
         $this->load->model('setting/store');
 
         $data['stores'] = $this->model_setting_store->getStores();
@@ -463,6 +468,7 @@ class ControllerDesignSeoUrl extends Controller {
             $data['keyword'] = '';
         }
 
+        // Stores
         $this->load->model('setting/store');
 
         $data['stores'] = [];

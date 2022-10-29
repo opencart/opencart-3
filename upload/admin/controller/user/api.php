@@ -7,6 +7,7 @@ class ControllerUserApi extends Controller {
 
         $this->document->setTitle($this->language->get('heading_title'));
 
+        // API login
         $this->load->model('user/api');
 
         $this->getList();
@@ -17,6 +18,7 @@ class ControllerUserApi extends Controller {
 
         $this->document->setTitle($this->language->get('heading_title'));
 
+        // API login
         $this->load->model('user/api');
 
         if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validateForm()) {
@@ -49,6 +51,7 @@ class ControllerUserApi extends Controller {
 
         $this->document->setTitle($this->language->get('heading_title'));
 
+        // API login
         $this->load->model('user/api');
 
         if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validateForm()) {
@@ -81,6 +84,7 @@ class ControllerUserApi extends Controller {
 
         $this->document->setTitle($this->language->get('heading_title'));
 
+        // API login
         $this->load->model('user/api');
 
         if (isset($this->request->post['selected']) && $this->validateDelete()) {
@@ -403,6 +407,7 @@ class ControllerUserApi extends Controller {
         if (!$this->user->hasPermission('modify', 'user/api')) {
             $json['error'] = $this->language->get('error_permission');
         } else {
+            // API login
             $this->load->model('user/api');
 
             $this->model_user_api->deleteApiSession($this->request->get['api_session_id']);

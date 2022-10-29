@@ -7,6 +7,7 @@ class ControllerExtensionTotalVoucher extends Controller {
 
         $this->document->setTitle($this->language->get('heading_title'));
 
+        // Settings
         $this->load->model('setting/setting');
 
         if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validate()) {
@@ -78,7 +79,7 @@ class ControllerExtensionTotalVoucher extends Controller {
     }
 
     public function uninstall(): void {
-        // delete the event triggers
+        // Delete the event triggers
         $this->load->model('setting/event');
 
         $this->model_setting_event->deleteEventByCode('voucher');

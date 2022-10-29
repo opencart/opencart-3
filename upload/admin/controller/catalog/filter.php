@@ -7,6 +7,7 @@ class ControllerCatalogFilter extends Controller {
 
         $this->document->setTitle($this->language->get('heading_title'));
 
+        // Filters
         $this->load->model('catalog/filter');
 
         $this->getList();
@@ -17,6 +18,7 @@ class ControllerCatalogFilter extends Controller {
 
         $this->document->setTitle($this->language->get('heading_title'));
 
+        // Filters
         $this->load->model('catalog/filter');
 
         if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validateForm()) {
@@ -49,6 +51,7 @@ class ControllerCatalogFilter extends Controller {
 
         $this->document->setTitle($this->language->get('heading_title'));
 
+        // Filters
         $this->load->model('catalog/filter');
 
         if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validateForm()) {
@@ -81,6 +84,7 @@ class ControllerCatalogFilter extends Controller {
 
         $this->document->setTitle($this->language->get('heading_title'));
 
+        // Filters
         $this->load->model('catalog/filter');
 
         if (isset($this->request->post['selected']) && $this->validateDelete()) {
@@ -323,7 +327,7 @@ class ControllerCatalogFilter extends Controller {
         } elseif (!empty($filter_group_info)) {
             $data['sort_order'] = $filter_group_info['sort_order'];
         } else {
-            $data['sort_order'] = '';
+            $data['sort_order'] = 0;
         }
 
         if (isset($this->request->post['filter'])) {
@@ -377,6 +381,7 @@ class ControllerCatalogFilter extends Controller {
         $json = [];
 
         if (isset($this->request->get['filter_name'])) {
+            // Filters
             $this->load->model('catalog/filter');
 
             $filter_data = [

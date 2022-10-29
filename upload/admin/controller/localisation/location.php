@@ -7,6 +7,7 @@ class ControllerLocalisationLocation extends Controller {
 
         $this->document->setTitle($this->language->get('heading_title'));
 
+        // Locations
         $this->load->model('localisation/location');
 
         $this->getList();
@@ -17,6 +18,7 @@ class ControllerLocalisationLocation extends Controller {
 
         $this->document->setTitle($this->language->get('heading_title'));
 
+        // Locations
         $this->load->model('localisation/location');
 
         if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validateForm()) {
@@ -49,6 +51,7 @@ class ControllerLocalisationLocation extends Controller {
 
         $this->document->setTitle($this->language->get('heading_title'));
 
+        // Locations
         $this->load->model('localisation/location');
 
         if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validateForm()) {
@@ -81,6 +84,7 @@ class ControllerLocalisationLocation extends Controller {
 
         $this->document->setTitle($this->language->get('heading_title'));
 
+        // Locations
         $this->load->model('localisation/location');
 
         if (isset($this->request->post['selected']) && $this->validateDelete()) {
@@ -311,6 +315,7 @@ class ControllerLocalisationLocation extends Controller {
 
         $data['user_token'] = $this->session->data['user_token'];
 
+        // Stores
         $this->load->model('setting/store');
 
         if (isset($this->request->post['name'])) {
@@ -361,6 +366,7 @@ class ControllerLocalisationLocation extends Controller {
             $data['image'] = '';
         }
 
+        // Image files
         $this->load->model('tool/image');
 
         if (isset($this->request->post['image']) && is_file(DIR_IMAGE . $this->request->post['image'])) {

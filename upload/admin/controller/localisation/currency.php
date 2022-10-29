@@ -7,6 +7,7 @@ class ControllerLocalisationCurrency extends Controller {
 
         $this->document->setTitle($this->language->get('heading_title'));
 
+        // Currencies
         $this->load->model('localisation/currency');
 
         $this->getList();
@@ -17,6 +18,7 @@ class ControllerLocalisationCurrency extends Controller {
 
         $this->document->setTitle($this->language->get('heading_title'));
 
+        // Currencies
         $this->load->model('localisation/currency');
 
         if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validateForm()) {
@@ -49,6 +51,7 @@ class ControllerLocalisationCurrency extends Controller {
 
         $this->document->setTitle($this->language->get('heading_title'));
 
+        // Currencies
         $this->load->model('localisation/currency');
 
         if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validateForm()) {
@@ -81,6 +84,7 @@ class ControllerLocalisationCurrency extends Controller {
 
         $this->document->setTitle($this->language->get('heading_title'));
 
+        // Currencies
         $this->load->model('localisation/currency');
 
         if (isset($this->request->post['selected']) && $this->validateDelete()) {
@@ -115,6 +119,7 @@ class ControllerLocalisationCurrency extends Controller {
 
         $this->document->setTitle($this->language->get('heading_title'));
 
+        // Currencies
         $this->load->model('localisation/currency');
 
         if ($this->validateRefresh()) {
@@ -422,7 +427,10 @@ class ControllerLocalisationCurrency extends Controller {
             $this->error['warning'] = $this->language->get('error_permission');
         }
 
+        // Orders
         $this->load->model('sale/order');
+
+        // Stores
         $this->load->model('setting/store');
 
         foreach ((array)$this->request->post['selected'] as $currency_id) {

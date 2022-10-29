@@ -7,6 +7,7 @@ class ControllerLocalisationLengthClass extends Controller {
 
         $this->document->setTitle($this->language->get('heading_title'));
 
+        // Length Classes
         $this->load->model('localisation/length_class');
 
         $this->getList();
@@ -17,6 +18,7 @@ class ControllerLocalisationLengthClass extends Controller {
 
         $this->document->setTitle($this->language->get('heading_title'));
 
+        // Length Classes
         $this->load->model('localisation/length_class');
 
         if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validateForm()) {
@@ -49,6 +51,7 @@ class ControllerLocalisationLengthClass extends Controller {
 
         $this->document->setTitle($this->language->get('heading_title'));
 
+        // Length Classes
         $this->load->model('localisation/length_class');
 
         if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validateForm()) {
@@ -81,6 +84,7 @@ class ControllerLocalisationLengthClass extends Controller {
 
         $this->document->setTitle($this->language->get('heading_title'));
 
+        // Length Classes
         $this->load->model('localisation/length_class');
 
         if (isset($this->request->post['selected']) && $this->validateDelete()) {
@@ -305,6 +309,7 @@ class ControllerLocalisationLengthClass extends Controller {
             $length_class_info = $this->model_localisation_length_class->getLengthClass($this->request->get['length_class_id']);
         }
 
+        // Languages
         $this->load->model('localisation/language');
 
         $data['languages'] = $this->model_localisation_language->getLanguages();
@@ -355,6 +360,7 @@ class ControllerLocalisationLengthClass extends Controller {
             $this->error['warning'] = $this->language->get('error_permission');
         }
 
+        // Products
         $this->load->model('catalog/product');
 
         foreach ((array)$this->request->post['selected'] as $length_class_id) {

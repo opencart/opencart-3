@@ -7,6 +7,7 @@ class ControllerLocalisationTaxClass extends Controller {
 
         $this->document->setTitle($this->language->get('heading_title'));
 
+        // Tax Classes
         $this->load->model('localisation/tax_class');
 
         $this->getList();
@@ -17,6 +18,7 @@ class ControllerLocalisationTaxClass extends Controller {
 
         $this->document->setTitle($this->language->get('heading_title'));
 
+        // Tax Classes
         $this->load->model('localisation/tax_class');
 
         if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validateForm()) {
@@ -49,6 +51,7 @@ class ControllerLocalisationTaxClass extends Controller {
 
         $this->document->setTitle($this->language->get('heading_title'));
 
+        // Tax Classes
         $this->load->model('localisation/tax_class');
 
         if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validateForm()) {
@@ -81,6 +84,7 @@ class ControllerLocalisationTaxClass extends Controller {
 
         $this->document->setTitle($this->language->get('heading_title'));
 
+        // Tax Classes
         $this->load->model('localisation/tax_class');
 
         if (isset($this->request->post['selected']) && $this->validateDelete()) {
@@ -357,6 +361,7 @@ class ControllerLocalisationTaxClass extends Controller {
             $this->error['warning'] = $this->language->get('error_permission');
         }
 
+        // Products
         $this->load->model('catalog/product');
 
         foreach ((array)$this->request->post['selected'] as $tax_class_id) {

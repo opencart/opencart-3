@@ -7,6 +7,7 @@ class ControllerLocalisationTaxRate extends Controller {
 
         $this->document->setTitle($this->language->get('heading_title'));
 
+        // Tax Rates
         $this->load->model('localisation/tax_rate');
 
         $this->getList();
@@ -17,6 +18,7 @@ class ControllerLocalisationTaxRate extends Controller {
 
         $this->document->setTitle($this->language->get('heading_title'));
 
+        // Tax Rates
         $this->load->model('localisation/tax_rate');
 
         if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validateForm()) {
@@ -49,6 +51,7 @@ class ControllerLocalisationTaxRate extends Controller {
 
         $this->document->setTitle($this->language->get('heading_title'));
 
+        // Tax Rates
         $this->load->model('localisation/tax_rate');
 
         if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validateForm()) {
@@ -81,6 +84,7 @@ class ControllerLocalisationTaxRate extends Controller {
 
         $this->document->setTitle($this->language->get('heading_title'));
 
+        // Tax Rates
         $this->load->model('localisation/tax_rate');
 
         if (isset($this->request->post['selected']) && $this->validateDelete()) {
@@ -343,6 +347,7 @@ class ControllerLocalisationTaxRate extends Controller {
             $data['tax_rate_customer_group'] = [$this->config->get('config_customer_group_id')];
         }
 
+        // Customer Groups
         $this->load->model('customer/customer_group');
 
         $data['customer_groups'] = $this->model_customer_customer_group->getCustomerGroups();
@@ -355,6 +360,7 @@ class ControllerLocalisationTaxRate extends Controller {
             $data['geo_zone_id'] = '';
         }
 
+        // Geo Zones
         $this->load->model('localisation/geo_zone');
 
         $data['geo_zones'] = $this->model_localisation_geo_zone->getGeoZones();
@@ -387,6 +393,7 @@ class ControllerLocalisationTaxRate extends Controller {
             $this->error['warning'] = $this->language->get('error_permission');
         }
 
+        // Tax Classes
         $this->load->model('localisation/tax_class');
 
         foreach ((array)$this->request->post['selected'] as $tax_rate_id) {

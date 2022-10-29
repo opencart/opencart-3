@@ -7,6 +7,7 @@ class ControllerExtensionFraudIp extends Controller {
 
         $this->document->setTitle($this->language->get('heading_title'));
 
+        // Settings
         $this->load->model('setting/setting');
 
         if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validate()) {
@@ -70,12 +71,14 @@ class ControllerExtensionFraudIp extends Controller {
     }
 
     public function install(): void {
+        // Ip
         $this->load->model('extension/fraud/ip');
 
         $this->model_extension_fraud_ip->install();
     }
 
     public function uninstall(): void {
+        // Ip
         $this->load->model('extension/fraud/ip');
 
         $this->model_extension_fraud_ip->uninstall();
@@ -92,8 +95,11 @@ class ControllerExtensionFraudIp extends Controller {
     public function ip(): void {
         $this->load->language('extension/fraud/ip');
 
-        $this->load->model('extension/fraud/ip');
+        // Customers
         $this->load->model('customer/customer');
+
+        // Ip
+        $this->load->model('extension/fraud/ip');
 
         if (isset($this->request->get['page'])) {
             $page = (int)$this->request->get['page'];
@@ -137,6 +143,7 @@ class ControllerExtensionFraudIp extends Controller {
         if (!$this->user->hasPermission('modify', 'extension/fraud/ip')) {
             $json['error'] = $this->language->get('error_permission');
         } else {
+            // Ip
             $this->load->model('extension/fraud/ip');
 
             if (!$this->model_extension_fraud_ip->getTotalIpsByIp($this->request->post['ip'])) {
@@ -158,6 +165,7 @@ class ControllerExtensionFraudIp extends Controller {
         if (!$this->user->hasPermission('modify', 'extension/fraud/ip')) {
             $json['error'] = $this->language->get('error_permission');
         } else {
+            // Ip
             $this->load->model('extension/fraud/ip');
 
             $this->model_extension_fraud_ip->removeIp($this->request->post['ip']);

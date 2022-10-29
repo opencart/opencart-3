@@ -7,6 +7,7 @@ class ControllerLocalisationZone extends Controller {
 
         $this->document->setTitle($this->language->get('heading_title'));
 
+        // Zones
         $this->load->model('localisation/zone');
 
         $this->getList();
@@ -17,6 +18,7 @@ class ControllerLocalisationZone extends Controller {
 
         $this->document->setTitle($this->language->get('heading_title'));
 
+        // Zones
         $this->load->model('localisation/zone');
 
         if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validateForm()) {
@@ -49,6 +51,7 @@ class ControllerLocalisationZone extends Controller {
 
         $this->document->setTitle($this->language->get('heading_title'));
 
+        // Zones
         $this->load->model('localisation/zone');
 
         if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validateForm()) {
@@ -81,6 +84,7 @@ class ControllerLocalisationZone extends Controller {
 
         $this->document->setTitle($this->language->get('heading_title'));
 
+        // Zones
         $this->load->model('localisation/zone');
 
         if (isset($this->request->post['selected']) && $this->validateDelete()) {
@@ -328,9 +332,10 @@ class ControllerLocalisationZone extends Controller {
         } elseif (!empty($zone_info)) {
             $data['country_id'] = $zone_info['country_id'];
         } else {
-            $data['country_id'] = '';
+            $data['country_id'] = 0;
         }
 
+        // Country
         $this->load->model('localisation/country');
 
         $data['countries'] = $this->model_localisation_country->getCountries();
@@ -359,8 +364,13 @@ class ControllerLocalisationZone extends Controller {
             $this->error['warning'] = $this->language->get('error_permission');
         }
 
+        // Stores
         $this->load->model('setting/store');
+
+        // Customers
         $this->load->model('customer/customer');
+
+        // Geo Zones
         $this->load->model('localisation/geo_zone');
 
         foreach ((array)$this->request->post['selected'] as $zone_id) {

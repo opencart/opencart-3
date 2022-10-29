@@ -5,6 +5,7 @@ class ControllerExtensionExtensionCaptcha extends Controller {
     public function index(): void {
         $this->load->language('extension/extension/captcha');
 
+        // Extensions
         $this->load->model('setting/extension');
 
         $this->getList();
@@ -13,11 +14,13 @@ class ControllerExtensionExtensionCaptcha extends Controller {
     public function install(): void {
         $this->load->language('extension/extension/captcha');
 
+        // Extensions
         $this->load->model('setting/extension');
 
         if ($this->validate()) {
             $this->model_setting_extension->install('captcha', $this->request->get['extension']);
 
+            // User Groups
             $this->load->model('user/user_group');
 
             $this->model_user_user_group->addPermission($this->user->getGroupId(), 'access', 'extension/captcha/' . $this->request->get['extension']);
@@ -39,6 +42,7 @@ class ControllerExtensionExtensionCaptcha extends Controller {
     public function uninstall(): void {
         $this->load->language('extension/extension/captcha');
 
+        // Extensions
         $this->load->model('setting/extension');
 
         if ($this->validate()) {

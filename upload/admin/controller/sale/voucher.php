@@ -7,6 +7,7 @@ class ControllerSaleVoucher extends Controller {
 
         $this->document->setTitle($this->language->get('heading_title'));
 
+        // Vouchers
         $this->load->model('sale/voucher');
 
         $this->getList();
@@ -17,6 +18,7 @@ class ControllerSaleVoucher extends Controller {
 
         $this->document->setTitle($this->language->get('heading_title'));
 
+        // Vouchers
         $this->load->model('sale/voucher');
 
         if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validateForm()) {
@@ -49,6 +51,7 @@ class ControllerSaleVoucher extends Controller {
 
         $this->document->setTitle($this->language->get('heading_title'));
 
+        // Vouchers
         $this->load->model('sale/voucher');
 
         if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validateForm()) {
@@ -81,6 +84,7 @@ class ControllerSaleVoucher extends Controller {
 
         $this->document->setTitle($this->language->get('heading_title'));
 
+        // Vouchers
         $this->load->model('sale/voucher');
 
         if (isset($this->request->post['selected']) && $this->validateDelete()) {
@@ -394,6 +398,7 @@ class ControllerSaleVoucher extends Controller {
             $data['to_email'] = '';
         }
 
+        // Voucher Themes
         $this->load->model('sale/voucher_theme');
 
         $data['voucher_themes'] = $this->model_sale_voucher_theme->getVoucherThemes();
@@ -484,6 +489,7 @@ class ControllerSaleVoucher extends Controller {
             $this->error['warning'] = $this->language->get('error_permission');
         }
 
+        // Orders
         $this->load->model('sale/order');
 
         foreach ((array)$this->request->post['selected'] as $voucher_id) {
@@ -501,6 +507,7 @@ class ControllerSaleVoucher extends Controller {
     public function history(): void {
         $this->load->language('sale/voucher');
 
+        // Vouchers
         $this->load->model('sale/voucher');
 
         if (isset($this->request->get['page'])) {
@@ -509,6 +516,7 @@ class ControllerSaleVoucher extends Controller {
             $page = 1;
         }
 
+        // Histories
         $data['histories'] = [];
 
         $results = $this->model_sale_voucher->getVoucherHistories($this->request->get['voucher_id'], ($page - 1) * 10, 10);
@@ -546,6 +554,7 @@ class ControllerSaleVoucher extends Controller {
         }
 
         if (!$json) {
+            // Vouchers
             $this->load->model('sale/voucher');
 
             $vouchers = [];
@@ -557,7 +566,10 @@ class ControllerSaleVoucher extends Controller {
             }
 
             if ($vouchers) {
+                // Orders
                 $this->load->model('sale/order');
+
+                // Voucher Themes
                 $this->load->model('sale/voucher_theme');
 
                 foreach ($vouchers as $voucher_id) {
@@ -574,6 +586,7 @@ class ControllerSaleVoucher extends Controller {
 
                         // If voucher belongs to an order
                         if ($order_info) {
+                            // Languages
                             $this->load->model('localisation/language');
 
                             $language = new \Language($order_info['language_code']);

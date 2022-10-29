@@ -10,6 +10,7 @@ class ControllerExtensionPaymentPPBraintree extends Controller {
 
         $this->document->setTitle($this->language->get('heading_title'));
 
+        // Settings
         $this->load->model('setting/setting');
 
         if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validate()) {
@@ -505,6 +506,7 @@ class ControllerExtensionPaymentPPBraintree extends Controller {
     }
 
     public function install(): void {
+        // Settings
         $this->load->model('setting/setting');
 
         $defaults = [];
@@ -564,7 +566,10 @@ class ControllerExtensionPaymentPPBraintree extends Controller {
     public function getTransaction(): void {
         $this->load->language('extension/payment/pp_braintree');
 
+        // Orders
         $this->load->model('sale/order');
+
+        // PP Braintree
         $this->load->model('extension/payment/pp_braintree');
 
         if (!$this->config->get('payment_pp_braintree_status') || (!isset($this->request->get['order_id']) && !isset($this->request->get['transaction_id']))) {
@@ -635,7 +640,6 @@ class ControllerExtensionPaymentPPBraintree extends Controller {
             $data['statuses'] = $statuses;
 
             $max_settle_amount = $transaction->amount;
-
             $max_refund_amount = $transaction->amount;
 
             $data['refunds'] = [];
@@ -672,7 +676,6 @@ class ControllerExtensionPaymentPPBraintree extends Controller {
             }
 
             $data['max_settle_amount'] = $this->currency->format($max_settle_amount, $transaction->currencyIsoCode, '1.00000000', false);
-
             $data['max_refund_amount'] = $this->currency->format($max_refund_amount, $transaction->currencyIsoCode, '1.00000000', false);
 
             $amount = $this->currency->format($transaction->amount, $transaction->currencyIsoCode, '1.00000000', true);
@@ -726,6 +729,7 @@ class ControllerExtensionPaymentPPBraintree extends Controller {
 
         $json = [];
 
+        // PP Braintree
         $this->load->model('extension/payment/pp_braintree');
 
         $this->initialise($this->config->get('payment_pp_braintree_access_token'), [
@@ -768,8 +772,13 @@ class ControllerExtensionPaymentPPBraintree extends Controller {
 
         $json = [];
 
+        // Orders
         $this->load->model('sale/order');
+
+        // Customers
         $this->load->model('customer/customer');
+
+        // PP Braintree
         $this->load->model('extension/payment/pp_braintree');
 
         $this->initialise($this->config->get('payment_pp_braintree_access_token'), [
@@ -984,6 +993,8 @@ class ControllerExtensionPaymentPPBraintree extends Controller {
     public function connectRedirect(): void {
         if ($this->user->hasPermission('modify', 'extension/extension/payment')) {
             // Install the module before doing the redirect
+
+            // Settings
             $this->load->model('setting/extension');
 
             $this->model_setting_extension->install('payment', 'pp_braintree');
@@ -1012,7 +1023,6 @@ class ControllerExtensionPaymentPPBraintree extends Controller {
             curl_setopt($curl, CURLOPT_POSTFIELDS, $post_data);
 
             $curl_response = curl_exec($curl);
-
             $curl_response = json_decode($curl_response, true);
 
             curl_close($curl);
@@ -1031,7 +1041,6 @@ class ControllerExtensionPaymentPPBraintree extends Controller {
         $this->load->language('extension/payment/pp_braintree');
 
         $data['connect_link'] = '';
-
         $data['module_link'] = '';
 
         if ($this->config->get('payment_pp_braintree_status') || $this->config->get('payment_pp_braintree_merchant_id') || $this->config->get('payment_pp_braintree_access_token')) {
@@ -1054,6 +1063,7 @@ class ControllerExtensionPaymentPPBraintree extends Controller {
     }
 
     protected function validate() {
+        // PP Braintree
         $this->load->model('extension/payment/pp_braintree');
 
         $check_credentials = true;
@@ -1123,6 +1133,7 @@ class ControllerExtensionPaymentPPBraintree extends Controller {
     }
 
     private function initialise($access_token = '', $credentials = []) {
+        // PP Braintree
         $this->load->model('extension/payment/pp_braintree');
 
         if ($access_token != '') {

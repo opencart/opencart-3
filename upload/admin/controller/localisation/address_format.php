@@ -7,6 +7,7 @@ class ControllerLocalisationAddressFormat extends Controller {
 
         $this->document->setTitle($this->language->get('heading_title'));
 
+        // Address Formats
         $this->load->model('localisation/address_format');
 
         $this->getList();
@@ -17,6 +18,7 @@ class ControllerLocalisationAddressFormat extends Controller {
 
         $this->document->setTitle($this->language->get('heading_title'));
 
+        // Address Formats
         $this->load->model('localisation/address_format');
 
         if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validateForm()) {
@@ -35,6 +37,7 @@ class ControllerLocalisationAddressFormat extends Controller {
 
         $this->document->setTitle($this->language->get('heading_title'));
 
+        // Address Formats
         $this->load->model('localisation/address_format');
 
         if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validateForm()) {
@@ -53,7 +56,10 @@ class ControllerLocalisationAddressFormat extends Controller {
 
         $this->document->setTitle($this->language->get('heading_title'));
 
+        // Country
         $this->load->model('localisation/country');
+
+        // Address Formats
         $this->load->model('localisation/address_format');
 
         if (isset($this->request->post['selected']) && $this->validateDelete()) {
@@ -124,6 +130,7 @@ class ControllerLocalisationAddressFormat extends Controller {
             'limit' => $this->config->get('config_limit_admin')
         ];
 
+        // Address Formats
         $this->load->model('localisation/address_format');
 
         $address_format_total = $this->model_localisation_address_format->getTotalAddressFormats($filter_data);
@@ -234,6 +241,7 @@ class ControllerLocalisationAddressFormat extends Controller {
             $this->error['warning'] = $this->language->get('error_permission');
         }
 
+        // Address Formats
         $this->load->model('localisation/address_format');
 
         foreach ((array)$this->request->post['selected'] as $address_format_id) {

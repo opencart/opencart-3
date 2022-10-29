@@ -7,6 +7,7 @@ class ControllerExtensionPaymentCardinity extends Controller {
 
         $this->document->setTitle($this->language->get('heading_title'));
 
+        // Settings
         $this->load->model('setting/setting');
 
         if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validate()) {
@@ -133,6 +134,7 @@ class ControllerExtensionPaymentCardinity extends Controller {
     public function getPayment(): void {
         $this->load->language('extension/payment/cardinity');
 
+        // Cardinity
         $this->load->model('extension/payment/cardinity');
 
         $data['column_refund'] = $this->language->get('column_refund');
@@ -215,6 +217,7 @@ class ControllerExtensionPaymentCardinity extends Controller {
 
         $json = [];
 
+        // Cardinity
         $this->load->model('extension/payment/cardinity');
 
         $success = $error = '';
@@ -241,6 +244,7 @@ class ControllerExtensionPaymentCardinity extends Controller {
     }
 
     protected function validate() {
+        // Cardinity
         $this->load->model('extension/payment/cardinity');
 
         $check_credentials = true;
@@ -294,12 +298,14 @@ class ControllerExtensionPaymentCardinity extends Controller {
     }
 
     public function install(): void {
+        // Cardinity
         $this->load->model('extension/payment/cardinity');
 
         $this->model_extension_payment_cardinity->install();
     }
 
     public function uninstall(): void {
+        // Cardinity
         $this->load->model('extension/payment/cardinity');
 
         $this->model_extension_payment_cardinity->uninstall();

@@ -7,6 +7,7 @@ class ControllerExtensionFeedGoogleBase extends Controller {
 
         $this->document->setTitle($this->language->get('heading_title'));
 
+        // Settings
         $this->load->model('setting/setting');
 
         if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validate()) {
@@ -69,12 +70,14 @@ class ControllerExtensionFeedGoogleBase extends Controller {
     }
 
     public function install(): void {
+        // Google Base
         $this->load->model('extension/feed/google_base');
 
         $this->model_extension_feed_google_base->install();
     }
 
     public function uninstall(): void {
+        // Google Base
         $this->load->model('extension/feed/google_base');
 
         $this->model_extension_feed_google_base->uninstall();
@@ -117,6 +120,7 @@ class ControllerExtensionFeedGoogleBase extends Controller {
         if (!$json) {
             $json['success'] = $this->language->get('text_success');
 
+            // Google Base
             $this->load->model('extension/feed/google_base');
 
             // Get the contents of the uploaded file
@@ -142,6 +146,7 @@ class ControllerExtensionFeedGoogleBase extends Controller {
 
         $data['google_base_categories'] = [];
 
+        // Google Base
         $this->load->model('extension/feed/google_base');
 
         $results = $this->model_extension_feed_google_base->getCategories(($page - 1) * 10, 10);
@@ -178,6 +183,7 @@ class ControllerExtensionFeedGoogleBase extends Controller {
         if (!$this->user->hasPermission('modify', 'extension/feed/google_base')) {
             $json['error'] = $this->language->get('error_permission');
         } elseif (!empty($this->request->post['google_base_category_id']) && !empty($this->request->post['category_id'])) {
+            // Google Base
             $this->load->model('extension/feed/google_base');
 
             $this->model_extension_feed_google_base->addCategory($this->request->post);
@@ -197,6 +203,7 @@ class ControllerExtensionFeedGoogleBase extends Controller {
         if (!$this->user->hasPermission('modify', 'extension/feed/google_base')) {
             $json['error'] = $this->language->get('error_permission');
         } else {
+            // Google Base
             $this->load->model('extension/feed/google_base');
 
             $this->model_extension_feed_google_base->deleteCategory($this->request->post['category_id']);
@@ -212,6 +219,7 @@ class ControllerExtensionFeedGoogleBase extends Controller {
         $json = [];
 
         if (isset($this->request->get['filter_name'])) {
+            // Google Base
             $this->load->model('extension/feed/google_base');
 
             if (isset($this->request->get['filter_name'])) {

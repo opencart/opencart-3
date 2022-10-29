@@ -88,6 +88,7 @@ class ControllerCommonLogin extends Controller {
         if (!isset($this->request->post['username']) || !isset($this->request->post['password']) || !$this->request->post['username'] || !$this->request->post['password']) {
             $this->error['warning'] = $this->language->get('error_login');
         } else {
+            // Users
             $this->load->model('user/user');
 
             // Check how many login attempts have been made.

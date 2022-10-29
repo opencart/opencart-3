@@ -7,6 +7,7 @@ class ControllerExtensionDashboardRecent extends Controller {
 
         $this->document->setTitle($this->language->get('heading_title'));
 
+        // Settings
         $this->load->model('setting/setting');
 
         if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validate()) {
@@ -97,6 +98,7 @@ class ControllerExtensionDashboardRecent extends Controller {
             'limit' => 5
         ];
 
+        // Orders
         $this->load->model('sale/order');
 
         $results = $this->model_sale_order->getOrders($filter_data);

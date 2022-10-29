@@ -7,6 +7,7 @@ class ControllerExtensionPaymentG2APay extends Controller {
 
         $this->document->setTitle($this->language->get('heading_title'));
 
+        // Settings
         $this->load->model('setting/setting');
 
         if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validate()) {
@@ -186,6 +187,7 @@ class ControllerExtensionPaymentG2APay extends Controller {
 
     public function order(): string {
         if ($this->config->get('payment_g2apay_status')) {
+            // G2apay
             $this->load->model('extension/payment/g2apay');
 
             $payment_g2apay_order = $this->model_extension_payment_g2apay->getOrder($this->request->get['order_id']);
@@ -218,6 +220,7 @@ class ControllerExtensionPaymentG2APay extends Controller {
         $json = [];
 
         if (isset($this->request->post['order_id'])) {
+            // G2apay
             $this->load->model('extension/payment/g2apay');
 
             $payment_g2apay_order = $this->model_extension_payment_g2apay->getOrder($this->request->post['order_id']);
@@ -269,12 +272,14 @@ class ControllerExtensionPaymentG2APay extends Controller {
     }
 
     public function install(): void {
+        // G2apay
         $this->load->model('extension/payment/g2apay');
 
         $this->model_extension_payment_g2apay->install();
     }
 
     public function uninstall(): void {
+        // G2apay
         $this->load->model('extension/payment/g2apay');
 
         $this->model_extension_payment_g2apay->uninstall();

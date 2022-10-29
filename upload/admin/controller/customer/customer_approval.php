@@ -73,6 +73,7 @@ class ControllerCustomerCustomerApproval extends Controller {
             'href' => $this->url->link('customer/customer_approval', 'user_token=' . $this->session->data['user_token'] . $url, true)
         ];
 
+        // Customer Groups
         $this->load->model('customer/customer_group');
 
         $data['customer_groups'] = $this->model_customer_customer_group->getCustomerGroups();
@@ -143,6 +144,7 @@ class ControllerCustomerCustomerApproval extends Controller {
             'limit'                    => $this->config->get('config_limit_admin')
         ];
 
+        // Customer Approvals
         $this->load->model('customer/customer_approval');
 
         $customer_approval_total = $this->model_customer_customer_approval->getTotalCustomerApprovals($filter_data);
@@ -205,6 +207,7 @@ class ControllerCustomerCustomerApproval extends Controller {
         if (!$this->user->hasPermission('modify', 'customer/customer_approval')) {
             $json['error'] = $this->language->get('error_permission');
         } else {
+            // Customer Approvals
             $this->load->model('customer/customer_approval');
 
             if ($this->request->get['type'] == 'customer') {
@@ -228,6 +231,7 @@ class ControllerCustomerCustomerApproval extends Controller {
         if (!$this->user->hasPermission('modify', 'customer/customer_approval')) {
             $json['error'] = $this->language->get('error_permission');
         } else {
+            // Customer Approvals
             $this->load->model('customer/customer_approval');
 
             if ($this->request->get['type'] == 'customer') {

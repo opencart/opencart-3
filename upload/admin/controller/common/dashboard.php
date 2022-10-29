@@ -29,6 +29,7 @@ class ControllerCommonDashboard extends Controller {
         // Dashboard Extensions
         $dashboards = [];
 
+        // Extensions
         $this->load->model('setting/extension');
 
         // Get a list of installed modules
@@ -92,6 +93,7 @@ class ControllerCommonDashboard extends Controller {
 
         // Run currency update
         if ($this->config->get('config_currency_auto')) {
+            // Currencies
             $this->load->model('localisation/currency');
 
             $this->model_localisation_currency->refresh();

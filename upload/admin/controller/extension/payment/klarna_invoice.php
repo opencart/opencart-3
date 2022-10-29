@@ -5,6 +5,7 @@ class ControllerExtensionPaymentKlarnaInvoice extends Controller {
     public function index(): void {
         $this->load->language('extension/payment/klarna_invoice');
 
+        // Settings
         $this->load->model('setting/setting');
 
         $this->document->setTitle($this->language->get('heading_title'));

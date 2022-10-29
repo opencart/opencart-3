@@ -7,7 +7,10 @@ class ControllerExtensionPaymentDivido extends Controller {
 
         $this->document->setTitle($this->language->get('heading_title'));
 
-        $this->load->model('setting/setting');
+        // Settings
+        $this->load->model('setting/settings');
+
+        // Divido
         $this->load->model('extension/payment/divido');
 
         if ($this->request->server['REQUEST_METHOD'] == 'POST' && $this->validate()) {
@@ -141,6 +144,7 @@ class ControllerExtensionPaymentDivido extends Controller {
 
         $data['categories'] = [];
 
+        // Categories
         $this->load->model('catalog/category');
 
         foreach ($data['payment_divido_categories'] as $category_id) {
@@ -178,6 +182,7 @@ class ControllerExtensionPaymentDivido extends Controller {
 
         $this->load->language('extension/payment/divido');
 
+        // Divido
         $this->load->model('extension/payment/divido');
 
         if (isset($this->request->get['order_id'])) {
@@ -207,12 +212,14 @@ class ControllerExtensionPaymentDivido extends Controller {
     }
 
     public function install(): void {
+        // Divido
         $this->load->model('extension/payment/divido');
 
         $this->model_extension_payment_divido->install();
     }
 
     public function uninstall(): void {
+        // Divido
         $this->load->model('extension/payment/divido');
 
         $this->model_extension_payment_divido->uninstall();

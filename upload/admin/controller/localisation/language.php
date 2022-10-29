@@ -7,6 +7,7 @@ class ControllerLocalisationLanguage extends Controller {
 
         $this->document->setTitle($this->language->get('heading_title'));
 
+        // Languages
         $this->load->model('localisation/language');
 
         $this->getList();
@@ -17,6 +18,7 @@ class ControllerLocalisationLanguage extends Controller {
 
         $this->document->setTitle($this->language->get('heading_title'));
 
+        // Languages
         $this->load->model('localisation/language');
 
         if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validateForm()) {
@@ -49,6 +51,7 @@ class ControllerLocalisationLanguage extends Controller {
 
         $this->document->setTitle($this->language->get('heading_title'));
 
+        // Languages
         $this->load->model('localisation/language');
 
         if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validateForm()) {
@@ -81,6 +84,7 @@ class ControllerLocalisationLanguage extends Controller {
 
         $this->document->setTitle($this->language->get('heading_title'));
 
+        // Languages
         $this->load->model('localisation/language');
 
         if (isset($this->request->post['selected']) && $this->validateDelete()) {
@@ -403,7 +407,10 @@ class ControllerLocalisationLanguage extends Controller {
             $this->error['warning'] = $this->language->get('error_permission');
         }
 
+        // Orders
         $this->load->model('sale/order');
+
+        // Stores
         $this->load->model('setting/store');
 
         foreach ((array)$this->request->post['selected'] as $language_id) {

@@ -7,6 +7,7 @@ class ControllerLocalisationReturnsAction extends Controller {
 
         $this->document->setTitle($this->language->get('heading_title'));
 
+        // Returns Action
         $this->load->model('localisation/returns_action');
 
         $this->getList();
@@ -17,6 +18,7 @@ class ControllerLocalisationReturnsAction extends Controller {
 
         $this->document->setTitle($this->language->get('heading_title'));
 
+        // Returns Action
         $this->load->model('localisation/returns_action');
 
         if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validateForm()) {
@@ -49,6 +51,7 @@ class ControllerLocalisationReturnsAction extends Controller {
 
         $this->document->setTitle($this->language->get('heading_title'));
 
+        // Returns Action
         $this->load->model('localisation/returns_action');
 
         if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validateForm()) {
@@ -81,6 +84,7 @@ class ControllerLocalisationReturnsAction extends Controller {
 
         $this->document->setTitle($this->language->get('heading_title'));
 
+        // Returns Action
         $this->load->model('localisation/returns_action');
 
         if (isset($this->request->post['selected']) && $this->validateDelete()) {
@@ -299,6 +303,7 @@ class ControllerLocalisationReturnsAction extends Controller {
             $data['return_action'] = [];
         }
 
+        // Language
         $this->load->model('localisation/language');
 
         $data['languages'] = $this->model_localisation_language->getLanguages();

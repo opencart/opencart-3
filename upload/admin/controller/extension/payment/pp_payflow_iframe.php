@@ -7,6 +7,7 @@ class ControllerExtensionPaymentPPPayflowIframe extends Controller {
 
         $this->document->setTitle($this->language->get('heading_title'));
 
+        // Settings
         $this->load->model('setting/setting');
 
         if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validate()) {
@@ -168,12 +169,14 @@ class ControllerExtensionPaymentPPPayflowIframe extends Controller {
     }
 
     public function install(): void {
+        // PP Payflow IFrame
         $this->load->model('extension/payment/pp_payflow_iframe');
 
         $this->model_extension_payment_pp_payflow_iframe->install();
     }
 
     public function uninstall(): void {
+        // PP Payflow IFrame
         $this->load->model('extension/payment/pp_payflow_iframe');
 
         $this->model_extension_payment_pp_payflow_iframe->uninstall();
@@ -182,9 +185,11 @@ class ControllerExtensionPaymentPPPayflowIframe extends Controller {
     public function refund() {
         $this->load->language('extension/payment/pp_payflow_iframe');
 
-        $this->load->model('extension/payment/pp_payflow_iframe');
-
+        // Orders
         $this->load->model('sale/order');
+
+        // PP Payflow Iframe
+        $this->load->model('extension/payment/pp_payflow_iframe');
 
         $transaction = $this->model_extension_payment_pp_payflow_iframe->getTransaction($this->request->get['transaction_reference']);
 
@@ -234,6 +239,7 @@ class ControllerExtensionPaymentPPPayflowIframe extends Controller {
 
         $json = [];
 
+        // PP Payflow Iframe
         $this->load->model('extension/payment/pp_payflow_iframe');
 
         if (isset($this->request->post['transaction_reference']) && isset($this->request->post['amount'])) {
@@ -279,9 +285,11 @@ class ControllerExtensionPaymentPPPayflowIframe extends Controller {
 
         $json = [];
 
-        $this->load->model('extension/payment/pp_payflow_iframe');
-
+        // Orders
         $this->load->model('sale/order');
+
+        // PP Payflow Iframe
+        $this->load->model('extension/payment/pp_payflow_iframe');
 
         if (isset($this->request->post['order_id']) && isset($this->request->post['amount']) && isset($this->request->post['complete'])) {
             if (isset($this->request->post['order_id'])) {
@@ -357,6 +365,7 @@ class ControllerExtensionPaymentPPPayflowIframe extends Controller {
 
         $json = [];
 
+        // PP Payflow Iframe
         $this->load->model('extension/payment/pp_payflow_iframe');
 
         if (isset($this->request->post['order_id']) && $this->request->post['order_id'] != '') {
@@ -415,6 +424,7 @@ class ControllerExtensionPaymentPPPayflowIframe extends Controller {
     public function order(): string {
         $this->load->language('extension/payment/pp_payflow_iframe');
 
+        // PP Payflow Iframe
         $this->load->model('extension/payment/pp_payflow_iframe');
 
         if (isset($this->request->get['order_id'])) {

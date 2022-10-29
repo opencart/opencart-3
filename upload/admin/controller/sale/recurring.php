@@ -7,6 +7,7 @@ class ControllerSaleRecurring extends Controller {
 
         $this->document->setTitle($this->language->get('heading_title'));
 
+        // Recurring
         $this->load->model('sale/recurring');
 
         $this->getList();
@@ -290,7 +291,8 @@ class ControllerSaleRecurring extends Controller {
     }
 
     public function info(): object|null {
-        $this->load->model('sale/recurring');
+        // Subscription
+        $this->load->model('sale/subscription');
 
         if (isset($this->request->get['order_recurring_id'])) {
             $order_recurring_id = (int)$this->request->get['order_recurring_id'];
@@ -298,7 +300,7 @@ class ControllerSaleRecurring extends Controller {
             $order_recurring_id = 0;
         }
 
-        $order_recurring_info = $this->model_sale_recurring->getRecurring($order_recurring_id);
+        $order_recurring_info = $this->model_sale_subscription->getSubcription($order_recurring_id);
 
         if ($order_recurring_info) {
             $this->load->language('sale/recurring');
@@ -378,9 +380,9 @@ class ControllerSaleRecurring extends Controller {
                 $data['recurring_status'] = '';
             }
 
+            // Orders
             $this->load->model('sale/order');
 
-            // Order
             $order_info = $this->model_sale_order->getOrder($order_recurring_info['order_id']);
 
             $data['payment_method'] = $order_info['payment_method'];
@@ -399,7 +401,7 @@ class ControllerSaleRecurring extends Controller {
             $data['order_status'] = $order_info['order_status'];
             $data['date_added'] = date($this->language->get('date_format_short'), strtotime($order_info['date_added']));
 
-            // Product
+            // Products
             $data['product'] = $order_recurring_info['product_name'];
             $data['quantity'] = $order_recurring_info['product_quantity'];
 

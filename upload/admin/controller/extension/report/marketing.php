@@ -5,6 +5,7 @@ class ControllerExtensionReportMarketing extends Controller {
 
         $this->document->setTitle($this->language->get('heading_title'));
 
+        // Settings
         $this->load->model('setting/setting');
 
         if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validate()) {
@@ -95,6 +96,7 @@ class ControllerExtensionReportMarketing extends Controller {
             $page = 1;
         }
 
+        // Marketing
         $this->load->model('extension/report/marketing');
 
         $data['marketings'] = [];

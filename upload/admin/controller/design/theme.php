@@ -21,6 +21,7 @@ class ControllerDesignTheme extends Controller {
 
         $data['stores'] = [];
 
+        // Stores
         $this->load->model('setting/store');
 
         $results = $this->model_setting_store->getStores();
@@ -50,10 +51,14 @@ class ControllerDesignTheme extends Controller {
 
         $data['histories'] = [];
 
+        // Themes
         $this->load->model('design/theme');
+
+        // Stores
         $this->load->model('setting/store');
 
         $history_total = $this->model_design_theme->getTotalThemes();
+
         $results = $this->model_design_theme->getThemes(($page - 1) * 10, 10);
 
         foreach ($results as $result) {
@@ -93,6 +98,7 @@ class ControllerDesignTheme extends Controller {
 
         $json = [];
 
+        // Settings
         $this->load->model('setting/setting');
 
         if (isset($this->request->get['store_id'])) {
@@ -165,6 +171,7 @@ class ControllerDesignTheme extends Controller {
             $store_id = 0;
         }
 
+        // Settings
         $this->load->model('setting/setting');
 
         $theme = $this->model_setting_setting->getSettingValue('config_theme', $store_id);
@@ -180,6 +187,7 @@ class ControllerDesignTheme extends Controller {
             $path = '';
         }
 
+        // Themes
         $this->load->model('design/theme');
 
         $theme_info = $this->model_design_theme->getTheme($store_id, $theme, $path);
@@ -207,6 +215,7 @@ class ControllerDesignTheme extends Controller {
             $store_id = 0;
         }
 
+        // Settings
         $this->load->model('setting/setting');
 
         $theme = $this->model_setting_setting->getSettingValue('config_theme', $store_id);
@@ -232,6 +241,7 @@ class ControllerDesignTheme extends Controller {
         }
 
         if (!$json) {
+            // Themes
             $this->load->model('design/theme');
 
             $pos = strpos($path, '.');
@@ -256,6 +266,7 @@ class ControllerDesignTheme extends Controller {
             $store_id = 0;
         }
 
+        // Settings
         $this->load->model('setting/setting');
 
         $theme = $this->model_setting_setting->getSettingValue('config_theme', $store_id);
@@ -296,6 +307,7 @@ class ControllerDesignTheme extends Controller {
         }
 
         if (!$json) {
+            // Themes
             $this->load->model('design/theme');
 
             $this->model_design_theme->deleteTheme($theme_id);
