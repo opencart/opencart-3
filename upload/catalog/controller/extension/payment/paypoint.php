@@ -5,6 +5,7 @@ class ControllerExtensionPaymentPaypoint extends Controller {
             return false;
         }
 
+        // Orders
         $this->load->model('checkout/order');
 
         $order_info = $this->model_checkout_order->getOrder($this->session->data['order_id']);
@@ -74,6 +75,7 @@ class ControllerExtensionPaymentPaypoint extends Controller {
             $order_id = 0;
         }
 
+        // Orders
         $this->load->model('checkout/order');
 
         $order_info = $this->model_checkout_order->getOrder($order_id);
@@ -123,6 +125,7 @@ class ControllerExtensionPaymentPaypoint extends Controller {
                     $message .= 'valid: ' . $this->request->get['valid'] . "\n";
                 }
 
+                // Orders
                 $this->load->model('checkout/order');
 
                 $this->model_checkout_order->addOrderHistory($order_id, $this->config->get('payment_paypoint_order_status_id'), $message, false);

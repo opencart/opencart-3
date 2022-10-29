@@ -9,6 +9,7 @@ class ControllerExtensionCreditCardSagepayServer extends Controller {
 
         $this->load->language('extension/credit_card/sagepay_server');
 
+        // Sagepay Server
         $this->load->model('extension/payment/sagepay_server');
 
         $this->document->setTitle($this->language->get('heading_title'));
@@ -82,6 +83,7 @@ class ControllerExtensionCreditCardSagepayServer extends Controller {
     public function delete(): void {
         $this->load->language('extension/credit_card/sagepay_server');
 
+        // Sagepay Server
         $this->load->model('extension/payment/sagepay_server');
 
         $card = $this->model_extension_payment_sagepay_server->getCard($this->request->get['card_id'], '');
@@ -119,7 +121,10 @@ class ControllerExtensionCreditCardSagepayServer extends Controller {
 
         $json = [];
 
+        // Orders
         $this->load->model('checkout/order');
+
+        // Sagepay Server
         $this->load->model('extension/payment/sagepay_server');
 
         if ($this->config->get('payment_sagepay_server_test') == 'live') {
@@ -163,7 +168,10 @@ class ControllerExtensionCreditCardSagepayServer extends Controller {
     }
 
     public function callback() {
+        // Orders
         $this->load->model('checkout/order');
+
+        // Sagepay Server
         $this->load->model('extension/payment/sagepay_server');
 
         $this->model_extension_payment_sagepay_server->logger('Callback data', $this->request->post);
@@ -262,6 +270,7 @@ class ControllerExtensionCreditCardSagepayServer extends Controller {
     }
 
     public function success(): void {
+        // Sagepay Server
         $this->load->model('extension/payment/sagepay_server');
 
         $this->model_extension_payment_sagepay_server->logger('Success', '');
@@ -272,6 +281,7 @@ class ControllerExtensionCreditCardSagepayServer extends Controller {
     }
 
     public function failure(): void {
+        // Sagepay Server
         $this->load->model('extension/payment/sagepay_server');
 
         $this->model_extension_payment_sagepay_server->logger('Failure', '');

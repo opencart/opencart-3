@@ -3,7 +3,10 @@ class ControllerExtensionModuleBanner extends Controller {
     public function index(array $setting): string {
         static $module = 0;
 
+        // Image files
         $this->load->model('tool/image');
+
+        // Banners
         $this->load->model('design/banner');
 
         $this->document->addStyle('catalog/view/javascript/jquery/swiper/css/swiper.min.css');

@@ -7,6 +7,7 @@ class ControllerExtensionPaymentSecureTradingWs extends Controller {
 
         $this->load->language('extension/payment/securetrading_ws');
 
+        // Orders
         $this->load->model('checkout/order');
 
         $order_info = $this->model_checkout_order->getOrder($this->session->data['order_id']);
@@ -66,8 +67,13 @@ class ControllerExtensionPaymentSecureTradingWs extends Controller {
 
         $json = [];
 
+        // Orders
         $this->load->model('checkout/order');
+
+        // Countries
         $this->load->model('localisation/country');
+
+        // Securetrading WS
         $this->load->model('extension/payment/securetrading_ws');
 
         $order_info = $this->model_checkout_order->getOrder($this->session->data['order_id']);
@@ -223,7 +229,10 @@ class ControllerExtensionPaymentSecureTradingWs extends Controller {
     public function threedreturn(): void {
         $this->load->language('extension/payment/securetrading_ws');
 
+        // Orders
         $this->load->model('checkout/order');
+
+        // Securetrading WS
         $this->load->model('extension/payment/securetrading_ws');
 
         // Using unmodified $_POST to access values as per Secure Trading's requirements

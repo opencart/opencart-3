@@ -3,7 +3,10 @@ class ControllerExtensionModuleFeatured extends Controller {
     public function index(array $setting): string {
         $this->load->language('extension/module/featured');
 
+        // Image files
         $this->load->model('tool/image');
+
+        // Products
         $this->load->model('catalog/product');
 
         $data['products'] = [];

@@ -7,7 +7,10 @@ class ControllerExtensionModuleDividoCalculator extends Controller {
 
         $this->load->language('extension/module/divido_calculator');
 
+        // Products
         $this->load->model('catalog/product');
+
+        // Divido
         $this->load->model('extension/payment/divido');
 
         $product_selection = $this->config->get('payment_divido_productselection');

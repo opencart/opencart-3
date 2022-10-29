@@ -8,6 +8,7 @@ class ControllerCheckoutRegister extends Controller {
         $data['customer_groups'] = [];
 
         if (is_array($this->config->get('config_customer_group_display'))) {
+            // Customer Groups
             $this->load->model('account/customer_group');
 
             $customer_groups = $this->model_account_customer_group->getCustomerGroups();
@@ -41,6 +42,7 @@ class ControllerCheckoutRegister extends Controller {
             $data['zone_id'] = '';
         }
 
+        // Countries
         $this->load->model('localisation/country');
 
         $data['countries'] = $this->model_localisation_country->getCountries();
@@ -58,6 +60,7 @@ class ControllerCheckoutRegister extends Controller {
         }
 
         if ($this->config->get('config_account_id')) {
+            // Information
             $this->load->model('catalog/information');
 
             $information_info = $this->model_catalog_information->getInformation($this->config->get('config_account_id'));
@@ -110,6 +113,7 @@ class ControllerCheckoutRegister extends Controller {
         }
 
         if (!$json) {
+            // Customers
             $this->load->model('account/customer');
 
             if ((oc_strlen($this->request->post['firstname']) < 1) || (oc_strlen($this->request->post['firstname']) > 32)) {
@@ -140,6 +144,7 @@ class ControllerCheckoutRegister extends Controller {
                 $json['error']['city'] = $this->language->get('error_city');
             }
 
+            // Countries
             $this->load->model('localisation/country');
 
             $country_info = $this->model_localisation_country->getCountry($this->request->post['country_id']);
@@ -165,6 +170,7 @@ class ControllerCheckoutRegister extends Controller {
             }
 
             if ($this->config->get('config_account_id')) {
+                // Information
                 $this->load->model('catalog/information');
 
                 $information_info = $this->model_catalog_information->getInformation($this->config->get('config_account_id'));
@@ -225,6 +231,7 @@ class ControllerCheckoutRegister extends Controller {
 
             $this->session->data['account'] = 'register';
 
+            // Customer Groups
             $this->load->model('account/customer_group');
 
             $customer_group_info = $this->model_account_customer_group->getCustomerGroup($customer_group_id);

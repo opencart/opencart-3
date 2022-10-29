@@ -13,6 +13,7 @@ class ControllerExtensionPaymentSagepayServer extends Controller {
         $data['cards'] = [];
 
         if ($this->customer->isLogged() && $data['sagepay_server_card']) {
+            // Sagepay Server
             $this->load->model('extension/payment/sagepay_server');
 
             $data['cards'] = $this->model_extension_payment_sagepay_server->getCards($this->customer->getId());
@@ -36,7 +37,10 @@ class ControllerExtensionPaymentSagepayServer extends Controller {
             $payment_data['VPSProtocol'] = '2.23';
         }
 
+        // Orders
         $this->load->model('checkout/order');
+
+        // Sagepay Server
         $this->load->model('extension/payment/sagepay_server');
 
         if (!isset($this->session->data['order_id'])) {
@@ -172,7 +176,10 @@ class ControllerExtensionPaymentSagepayServer extends Controller {
     }
 
     public function callback(): void {
+        // Orders
         $this->load->model('checkout/order');
+
+        // Sagepay Server
         $this->load->model('extension/payment/sagepay_server');
 
         $success_page = $this->url->link('extension/payment/sagepay_server/success', '', true);
@@ -397,7 +404,10 @@ class ControllerExtensionPaymentSagepayServer extends Controller {
     }
 
     public function success(): void {
+        // Orders
         $this->load->model('checkout/order');
+
+        // Sagepay Server
         $this->load->model('extension/payment/sagepay_server');
 
         if (isset($this->session->data['order_id'])) {
@@ -433,6 +443,7 @@ class ControllerExtensionPaymentSagepayServer extends Controller {
 
         $json = [];
 
+        // Sagepay Server
         $this->load->model('extension/payment/sagepay_server');
 
         $card = $this->model_extension_payment_sagepay_server->getCard(false, $this->request->post['Token']);
@@ -469,6 +480,7 @@ class ControllerExtensionPaymentSagepayServer extends Controller {
 
     public function cron(): void {
         if (isset($this->request->get['token']) && hash_equals($this->config->get('payment_sagepay_server_cron_job_token'), $this->request->get['token'])) {
+            // Sagepay Server
             $this->load->model('extension/payment/sagepay_server');
 
             $orders = $this->model_extension_payment_sagepay_server->cronPayment();

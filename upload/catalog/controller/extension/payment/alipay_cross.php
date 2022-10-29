@@ -8,6 +8,7 @@ class ControllerExtensionPaymentAlipayCross extends Controller {
             return false;
         }
 
+        // Orders
         $this->load->model('checkout/order');
 
         $order_info = $this->model_checkout_order->getOrder($this->session->data['order_id']);
@@ -50,6 +51,7 @@ class ControllerExtensionPaymentAlipayCross extends Controller {
             $parameter['total_fee'] = $total_fee;
         }
 
+        // Alipay Cross
         $this->load->model('extension/payment/alipay_cross');
 
         $gateway = $this->config->get('payment_alipay_cross_test') == 'sandbox' ? $this->alipay_gateway_test : $this->alipay_gateway;
@@ -63,6 +65,7 @@ class ControllerExtensionPaymentAlipayCross extends Controller {
     public function callback(): void {
         $this->log->write('alipay cross payment notify:');
 
+        // Alipay Cross
         $this->load->model('extension/payment/alipay_cross');
 
         $alipay_config = [
@@ -83,6 +86,7 @@ class ControllerExtensionPaymentAlipayCross extends Controller {
             $order_id = $_POST['out_trade_no'];
 
             if ($_POST['trade_status'] == 'TRADE_FINISHED') {
+                // Orders
                 $this->load->model('checkout/order');
 
                 $this->model_checkout_order->addOrderHistory($order_id, $this->config->get('payment_alipay_cross_order_status_id'));

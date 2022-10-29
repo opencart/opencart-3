@@ -42,6 +42,7 @@ class ControllerAccountOrder extends Controller {
 
         $data['orders'] = [];
 
+        // Orders
         $this->load->model('account/order');
 
         $order_total = $this->model_account_order->getTotalOrders();
@@ -99,6 +100,7 @@ class ControllerAccountOrder extends Controller {
             $this->response->redirect($this->url->link('account/login', '', true));
         }
 
+        // Orders
         $this->load->model('account/order');
 
         $order_info = $this->model_account_order->getOrder($order_id);
@@ -159,6 +161,7 @@ class ControllerAccountOrder extends Controller {
             $data['order_id'] = (int)$this->request->get['order_id'];
             $data['date_added'] = date($this->language->get('date_format_short'), strtotime($order_info['date_added']));
 
+            // Payment Address
             if ($order_info['payment_address_format']) {
                 $format = $order_info['payment_address_format'];
             } else {
@@ -203,6 +206,7 @@ class ControllerAccountOrder extends Controller {
 
             $data['payment_method'] = $order_info['payment_method'];
 
+            // Shipping Address
             if ($order_info['shipping_address_format']) {
                 $format = $order_info['shipping_address_format'];
             } else {
@@ -247,7 +251,10 @@ class ControllerAccountOrder extends Controller {
 
             $data['shipping_method'] = $order_info['shipping_method'];
 
+            // Uploaded files
             $this->load->model('tool/upload');
+
+            // Products
             $this->load->model('catalog/product');
 
             // Products
@@ -370,6 +377,7 @@ class ControllerAccountOrder extends Controller {
             $order_id = 0;
         }
 
+        // Orders
         $this->load->model('account/order');
 
         $order_info = $this->model_account_order->getOrder($order_id);
@@ -384,6 +392,7 @@ class ControllerAccountOrder extends Controller {
             $order_product_info = $this->model_account_order->getOrderProduct($order_id, $order_product_id);
 
             if ($order_product_info) {
+                // Products
                 $this->load->model('catalog/product');
 
                 $product_info = $this->model_catalog_product->getProduct($order_product_info['product_id']);

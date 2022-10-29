@@ -9,6 +9,7 @@ class ControllerMailAffiliate extends Controller {
 
         $data['text_welcome'] = sprintf($this->language->get('text_welcome'), $store_name);
 
+        // Customer Groups
         $this->load->model('account/customer_group');
 
         if ($this->customer->isLogged()) {
@@ -77,6 +78,7 @@ class ControllerMailAffiliate extends Controller {
                 $data['telephone'] = $args[1]['telephone'];
             }
 
+            // Customer Groups
             $this->load->model('account/customer_group');
 
             $customer_group_info = $this->model_account_customer_group->getCustomerGroup($customer_group_id);

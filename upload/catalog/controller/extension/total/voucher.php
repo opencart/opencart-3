@@ -21,6 +21,7 @@ class ControllerExtensionTotalVoucher extends Controller {
 
         $json = [];
 
+        // Voucher
         $this->load->model('extension/total/voucher');
 
         if (isset($this->request->post['voucher'])) {
@@ -48,6 +49,7 @@ class ControllerExtensionTotalVoucher extends Controller {
 
     // catalog/model/checkout/order/addOrderHistory/after
     public function send(string &$route, array &$args, mixed &$output): void {
+        // Orders
         $this->load->model('checkout/order');
 
         $order_info = $this->model_checkout_order->getOrder($args[0]);

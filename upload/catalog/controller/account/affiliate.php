@@ -17,6 +17,7 @@ class ControllerAccountAffiliate extends Controller {
 
         $this->document->setTitle($this->language->get('heading_title'));
 
+        // Customers
         $this->load->model('account/customer');
 
         if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validate()) {
@@ -41,6 +42,7 @@ class ControllerAccountAffiliate extends Controller {
 
         $this->document->setTitle($this->language->get('heading_title'));
 
+        // Customers
         $this->load->model('account/customer');
 
         if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validate()) {
@@ -207,9 +209,9 @@ class ControllerAccountAffiliate extends Controller {
             $data['bank_account_number'] = '';
         }
 
-        // Custom Fields
         $data['custom_fields'] = [];
 
+        // Custom Fields
         $this->load->model('account/custom_field');
 
         $custom_fields = $this->model_account_custom_field->getCustomFields($this->customer->getGroupId());
@@ -229,6 +231,7 @@ class ControllerAccountAffiliate extends Controller {
         $affiliate_info = $this->model_account_customer->getAffiliate($this->customer->getId());
 
         if (!$affiliate_info && $this->config->get('config_affiliate_id')) {
+            // Information
             $this->load->model('catalog/information');
 
             $information_info = $this->model_catalog_information->getInformation($this->config->get('config_affiliate_id'));
@@ -295,6 +298,7 @@ class ControllerAccountAffiliate extends Controller {
         $affiliate_info = $this->model_account_customer->getAffiliate($this->customer->getId());
 
         if (!$affiliate_info && $this->config->get('config_affiliate_id')) {
+            // Information
             $this->load->model('catalog/information');
 
             $information_info = $this->model_catalog_information->getInformation($this->config->get('config_affiliate_id'));

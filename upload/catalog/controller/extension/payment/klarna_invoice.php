@@ -1,6 +1,7 @@
 <?php
 class ControllerExtensionPaymentKlarnaInvoice extends Controller {
     public function index(): string {
+        // Orders
         $this->load->model('checkout/order');
 
         $order_info = $this->model_checkout_order->getOrder($this->session->data['order_id']);
@@ -39,6 +40,7 @@ class ControllerExtensionPaymentKlarnaInvoice extends Controller {
             $total = 0;
             $total_data = [];
 
+            // Extensions
             $this->load->model('setting/extension');
 
             $sort_order = [];
@@ -144,6 +146,7 @@ class ControllerExtensionPaymentKlarnaInvoice extends Controller {
 
         $json = [];
 
+        // Orders
         $this->load->model('checkout/order');
 
         $order_info = $this->model_checkout_order->getOrder($this->session->data['order_id']);
@@ -373,6 +376,7 @@ class ControllerExtensionPaymentKlarnaInvoice extends Controller {
                 $response = curl_exec($curl);
 
                 if (curl_errno($curl)) {
+                    // Log
                     $log = new \Log('klarna_invoice.log');
                     $log->write('HTTP Error for order #' . $order_info['order_id'] . '. Code: ' . curl_errno($curl) . ' message: ' . curl_error($curl));
 
@@ -383,6 +387,7 @@ class ControllerExtensionPaymentKlarnaInvoice extends Controller {
                     if (isset($match[1])) {
                         preg_match('/<member><name>faultCode<\/name><value><int>([0-9]+)<\/int><\/value><\/member>/', $response, $match2);
 
+                        // Log
                         $log = new \Log('klarna_invoice.log');
                         $log->write('Failed to create an invoice for order #' . $order_info['order_id'] . '. Message: ' . utf8_encode($match[1]) . ' Code: ' . $match2[1]);
 

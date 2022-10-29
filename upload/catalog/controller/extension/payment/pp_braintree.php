@@ -23,6 +23,7 @@ class ControllerExtensionPaymentPPBraintree extends Controller {
             return false;
         }
 
+        // Orders
         $this->load->model('checkout/order');
 
         $order_info = $this->model_checkout_order->getOrder($this->session->data['order_id']);
@@ -159,7 +160,10 @@ class ControllerExtensionPaymentPPBraintree extends Controller {
 
         $this->load->language('extension/payment/pp_braintree');
 
+        // Orders
         $this->load->model('checkout/order');
+
+        // PP Braintree
         $this->load->model('extension/payment/pp_braintree');
 
         $this->model_extension_payment_pp_braintree->log('Starting payment');
@@ -437,6 +441,7 @@ class ControllerExtensionPaymentPPBraintree extends Controller {
 
         $json = [];
 
+        // PP Braintree
         $this->load->model('extension/payment/pp_braintree');
 
         $this->model_extension_payment_pp_braintree->log('Starting vaulted');
@@ -476,6 +481,7 @@ class ControllerExtensionPaymentPPBraintree extends Controller {
 
         $json = [];
 
+        // PP Braintree
         $this->load->model('extension/payment/pp_braintree');
 
         $json['success'] = false;
@@ -683,6 +689,7 @@ class ControllerExtensionPaymentPPBraintree extends Controller {
              */
 
             if ($this->cart->hasShipping()) {
+                // Addresses
                 $this->load->model('account/address');
 
                 $addresses = $this->model_account_address->getAddresses();
@@ -773,7 +780,10 @@ class ControllerExtensionPaymentPPBraintree extends Controller {
         $this->load->language('checkout/cart');
         $this->load->language('extension/payment/pp_braintree');
 
+        // Image files
         $this->load->model('tool/image');
+
+        // PP Braintree
         $this->load->model('extension/payment/pp_braintree');
 
         // Coupon
@@ -844,6 +854,7 @@ class ControllerExtensionPaymentPPBraintree extends Controller {
         $data['button_confirm'] = $this->language->get('button_express_confirm');
         $data['action'] = $this->url->link('extension/payment/pp_braintree/expressConfirm', '', true);
 
+        // Uploaded files
         $this->load->model('tool/upload');
 
         $products = $this->cart->getProducts();
@@ -927,6 +938,7 @@ class ControllerExtensionPaymentPPBraintree extends Controller {
              * Shipping services
              */
             if ($this->customer->isLogged()) {
+                // Addresses
                 $this->load->model('account/address');
 
                 $shipping_address = $this->model_account_address->getAddress($this->session->data['shipping_address_id']);
@@ -938,6 +950,7 @@ class ControllerExtensionPaymentPPBraintree extends Controller {
                 // Shipping Methods
                 $quote_data = [];
 
+                // Extensions
                 $this->load->model('setting/extension');
 
                 $results = $this->model_setting_extension->getExtensions('shipping');
@@ -981,6 +994,7 @@ class ControllerExtensionPaymentPPBraintree extends Controller {
                         }
 
                         $data['code'] = $this->session->data['shipping_method']['code'];
+
                         $data['action_shipping'] = $this->url->link('extension/payment/pp_braintree/shipping', '', true);
                     } else {
                         unset($this->session->data['shipping_methods']);
@@ -1056,7 +1070,9 @@ class ControllerExtensionPaymentPPBraintree extends Controller {
          * Payment methods
          */
         if ($this->customer->isLogged() && isset($this->session->data['payment_address_id'])) {
+            // Addresses
             $this->load->model('account/address');
+
             $payment_address = $this->model_account_address->getAddress($this->session->data['payment_address_id']);
         } elseif (isset($this->session->data['guest'])) {
             $payment_address = $this->session->data['guest']['payment'];
@@ -1064,6 +1080,7 @@ class ControllerExtensionPaymentPPBraintree extends Controller {
 
         $method_data = [];
 
+        // Extensions
         $this->load->model('setting/extension');
 
         $results = $this->model_setting_extension->getExtensions('payment');
@@ -1226,6 +1243,7 @@ class ControllerExtensionPaymentPPBraintree extends Controller {
                 'total'  => &$total
             ];
 
+            // Extensions
             $this->load->model('setting/extension');
 
             $sort_order = [];
@@ -1275,6 +1293,7 @@ class ControllerExtensionPaymentPPBraintree extends Controller {
                 $data['email'] = $this->customer->getEmail();
                 $data['telephone'] = $this->customer->getTelephone();
 
+                // Addresses
                 $this->load->model('account/address');
 
                 $payment_address = $this->model_account_address->getAddress($this->session->data['payment_address_id']);
@@ -1317,6 +1336,7 @@ class ControllerExtensionPaymentPPBraintree extends Controller {
 
             if ($this->cart->hasShipping()) {
                 if ($this->customer->isLogged()) {
+                    // Addresses
                     $this->load->model('account/address');
 
                     $shipping_address = $this->model_account_address->getAddress($this->session->data['shipping_address_id']);
@@ -1481,8 +1501,13 @@ class ControllerExtensionPaymentPPBraintree extends Controller {
                 $data['accept_language'] = '';
             }
 
+            // Orders
             $this->load->model('checkout/order');
+
+            // Custom Fields
             $this->load->model('account/custom_field');
+
+            // PP Braintree
             $this->load->model('extension/payment/pp_braintree');
 
             $order_id = $this->model_checkout_order->addOrder($data);
@@ -1560,6 +1585,7 @@ class ControllerExtensionPaymentPPBraintree extends Controller {
     }
 
     private function initialise() {
+        // PP Braintree
         $this->load->model('extension/payment/pp_braintree');
 
         if ($this->config->get('payment_pp_braintree_access_token') != '') {
@@ -1600,6 +1626,7 @@ class ControllerExtensionPaymentPPBraintree extends Controller {
     }
 
     protected function validateCoupon() {
+        // Coupons
         $this->load->model('extension/total/coupon');
 
         $coupon_info = $this->model_extension_total_coupon->getCoupon($this->request->post['coupon']);
@@ -1613,6 +1640,7 @@ class ControllerExtensionPaymentPPBraintree extends Controller {
     }
 
     protected function validateVoucher() {
+        // Coupons
         $this->load->model('extension/total/coupon');
 
         $voucher_info = $this->model_extension_total_voucher->getVoucher($this->request->post['voucher']);
@@ -1621,6 +1649,7 @@ class ControllerExtensionPaymentPPBraintree extends Controller {
             return true;
         } else {
             $this->session->data['error_warning'] = $this->language->get('error_voucher');
+
             return false;
         }
     }

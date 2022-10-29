@@ -3,6 +3,7 @@ class ControllerStartupCurrency extends Controller {
     public function index(): void {
         $code = '';
 
+        // Currencies
         $this->load->model('localisation/currency');
 
         $currencies = $this->model_localisation_currency->getCurrencies();

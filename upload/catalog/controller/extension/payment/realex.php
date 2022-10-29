@@ -7,6 +7,7 @@ class ControllerExtensionPaymentRealex extends Controller {
 
         $this->load->language('extension/payment/realex');
 
+        // Orders
         $this->load->model('checkout/order');
 
         $order_info = $this->model_checkout_order->getOrder($this->session->data['order_id']);
@@ -84,6 +85,7 @@ class ControllerExtensionPaymentRealex extends Controller {
     public function notify(): void {
         $this->load->language('extension/payment/realex');
 
+        // Realex
         $this->load->model('extension/payment/realex');
 
         $this->model_extension_payment_realex->logger(print_r($this->request->post, 1));
@@ -98,6 +100,7 @@ class ControllerExtensionPaymentRealex extends Controller {
 
             $data['text_link'] = sprintf($this->language->get('text_link'), $this->url->link('checkout/checkout', '', true));
         } else {
+            // Orders
             $this->load->model('checkout/order');
 
             $order_id_parts = explode('T', $this->request->post['ORDER_ID']);

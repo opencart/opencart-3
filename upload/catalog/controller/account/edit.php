@@ -19,6 +19,7 @@ class ControllerAccountEdit extends Controller {
 
         $this->document->addStyle('catalog/view/javascript/jquery/datetimepicker/bootstrap-datetimepicker.min.css');
 
+        // Customers
         $this->load->model('account/customer');
 
         if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validate()) {
@@ -128,6 +129,7 @@ class ControllerAccountEdit extends Controller {
             $data['account_custom_field'] = [];
         }
 
+        // Uploaded files
         $this->load->model('tool/upload');
 
         // Custom Fields

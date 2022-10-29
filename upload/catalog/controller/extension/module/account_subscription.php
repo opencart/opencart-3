@@ -5,7 +5,10 @@ class ControllerExtensionModuleAccountSubscription extends Controller {
         if ($this->config->get('config_information_subscription_id')) {
             $this->load->language('extension/module/account_subscription');
 
+            // Information
             $this->load->model('catalog/information');
+
+            // Subscription
             $this->load->model('account/subscription');
 
             $args['total_subscriptions'] = $this->model_account_subscription->getTotalSubscriptions();

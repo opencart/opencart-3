@@ -7,8 +7,13 @@ class ControllerExtensionPaymentSecureTradingPp extends Controller {
 
         $this->load->language('extension/payment/securetrading_pp');
 
+        // Orders
         $this->load->model('checkout/order');
+
+        // Zones
         $this->load->model('localisation/zone');
+
+        // Countries
         $this->load->model('localisation/country');
 
         $order_info = $this->model_checkout_order->getOrder($this->session->data['order_id']);
@@ -85,7 +90,10 @@ class ControllerExtensionPaymentSecureTradingPp extends Controller {
     public function ipn(): void {
         $this->load->language('extension/payment/securetrading_pp');
 
+        // Orders
         $this->load->model('checkout/order');
+
+        // Securetrading PP
         $this->load->model('extension/payment/securetrading_pp');
 
         $keys = array_keys($this->request->post);

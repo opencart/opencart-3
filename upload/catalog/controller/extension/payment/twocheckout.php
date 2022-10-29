@@ -5,6 +5,7 @@ class ControllerExtensionPaymentTwoCheckout extends Controller {
             return false;
         }
 
+        // Orders
         $this->load->model('checkout/order');
 
         $order_info = $this->model_checkout_order->getOrder($this->session->data['order_id']);
@@ -75,6 +76,7 @@ class ControllerExtensionPaymentTwoCheckout extends Controller {
     }
 
     public function callback(): void {
+        // Orders
         $this->load->model('checkout/order');
 
         $order_info = $this->model_checkout_order->getOrder($this->request->post['cart_order_id']);

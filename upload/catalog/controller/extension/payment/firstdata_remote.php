@@ -3,6 +3,7 @@ class ControllerExtensionPaymentFirstdataRemote extends Controller {
     public function index(): string {
         $this->load->language('extension/payment/firstdata_remote');
 
+        // Firstdate Remote
         $this->load->model('extension/payment/firstdata_remote');
 
         if ($this->config->get('payment_firstdata_remote_card_storage') == 1 && $this->customer->isLogged()) {
@@ -56,7 +57,10 @@ class ControllerExtensionPaymentFirstdataRemote extends Controller {
         }
 
         if (!$json) {
+            // Orders
             $this->load->model('checkout/order');
+
+            // Firstdata Remote
             $this->load->model('extension/payment/firstdata_remote');
 
             $address_codes = [

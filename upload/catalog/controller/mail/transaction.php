@@ -4,11 +4,13 @@ class ControllerMailTransaction extends Controller {
     public function index(string &$route, array &$args, mixed &$output): void {
         $this->load->language('mail/transaction');
 
+        // Customers
         $this->load->model('account/customer');
 
         $customer_info = $this->model_account_customer->getCustomer($args[0]);
 
         if ($customer_info) {
+            // Stores
             $this->load->model('setting/store');
 
             $store_info = $this->model_setting_store->getStore($customer_info['store_id']);
@@ -21,6 +23,7 @@ class ControllerMailTransaction extends Controller {
                 $store_url = $this->config->get('config_url');
             }
 
+            // Languages
             $this->load->model('localisation/language');
 
             $language_info = $this->model_localisation_language->getLanguage($customer_info['language_id']);

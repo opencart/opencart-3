@@ -13,7 +13,10 @@ class ControllerExtensionModulePPBraintreeButton extends Controller {
             }
 
             if ($status) {
+                // Orders
                 $this->load->model('checkout/order');
+
+                // PP Braintree
                 $this->load->model('extension/payment/pp_braintree');
 
                 $create_token = [];
@@ -44,6 +47,7 @@ class ControllerExtensionModulePPBraintreeButton extends Controller {
     }
 
     private function initialise() {
+        // PP Braintree
         $this->load->model('extension/payment/pp_braintree');
 
         if ($this->config->get('payment_pp_braintree_access_token') != '') {

@@ -6,6 +6,7 @@ class ControllerCheckoutGuest extends Controller {
         $data['customer_groups'] = [];
 
         if (is_array($this->config->get('config_customer_group_display'))) {
+            // Customer Groups
             $this->load->model('account/customer_group');
 
             $customer_groups = $this->model_account_customer_group->getCustomerGroups();
@@ -95,6 +96,7 @@ class ControllerCheckoutGuest extends Controller {
             $data['zone_id'] = '';
         }
 
+        // Countries
         $this->load->model('localisation/country');
 
         $data['countries'] = $this->model_localisation_country->getCountries();
@@ -185,6 +187,7 @@ class ControllerCheckoutGuest extends Controller {
                 $json['error']['city'] = $this->language->get('error_city');
             }
 
+            // Countries
             $this->load->model('localisation/country');
 
             $country_info = $this->model_localisation_country->getCountry($this->request->post['country_id']);
@@ -256,6 +259,7 @@ class ControllerCheckoutGuest extends Controller {
             $this->session->data['payment_address']['country_id'] = (int)$this->request->post['country_id'];
             $this->session->data['payment_address']['zone_id'] = (int)$this->request->post['zone_id'];
 
+            // Countries
             $this->load->model('localisation/country');
 
             $country_info = $this->model_localisation_country->getCountry($this->request->post['country_id']);
@@ -278,6 +282,7 @@ class ControllerCheckoutGuest extends Controller {
                 $this->session->data['payment_address']['custom_field'] = [];
             }
 
+            // Zones
             $this->load->model('localisation/zone');
 
             $zone_info = $this->model_localisation_zone->getZone($this->request->post['zone_id']);

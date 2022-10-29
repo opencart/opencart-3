@@ -60,6 +60,7 @@ class ControllerInformationContact extends Controller {
             $data['error_enquiry'] = '';
         }
 
+        // Image files
         $this->load->model('tool/image');
 
         if ($this->config->get('config_image')) {
@@ -70,6 +71,7 @@ class ControllerInformationContact extends Controller {
 
         $data['locations'] = [];
 
+        // Locations
         $this->load->model('localisation/location');
 
         foreach ((array)$this->config->get('config_location') as $location_id) {

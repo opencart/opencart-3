@@ -1,6 +1,7 @@
 <?php
 class ControllerStartupLanguage extends Controller {
     public function index(): void {
+        // Languages
         $this->load->model('localisation/language');
 
         $languages = $this->model_localisation_language->getLanguages();

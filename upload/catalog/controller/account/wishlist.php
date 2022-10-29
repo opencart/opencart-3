@@ -9,8 +9,13 @@ class ControllerAccountWishList extends Controller {
 
         $this->load->language('account/wishlist');
 
+        // Image files
         $this->load->model('tool/image');
+
+        // Products
         $this->load->model('catalog/product');
+
+        // Wishlists
         $this->load->model('account/wishlist');
 
         if (isset($this->request->get['remove'])) {
@@ -122,6 +127,7 @@ class ControllerAccountWishList extends Controller {
             $product_id = 0;
         }
 
+        // Products
         $this->load->model('catalog/product');
 
         $product_info = $this->model_catalog_product->getProduct($product_id);

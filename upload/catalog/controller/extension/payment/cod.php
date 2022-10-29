@@ -8,6 +8,7 @@ class ControllerExtensionPaymentCod extends Controller {
         $json = [];
 
         if (isset($this->session->data['payment_method']['code']) && $this->session->data['payment_method']['code'] == 'cod') {
+            // Orders
             $this->load->model('checkout/order');
 
             $this->model_checkout_order->addOrderHistory($this->session->data['order_id'], $this->config->get('payment_cod_order_status_id'));

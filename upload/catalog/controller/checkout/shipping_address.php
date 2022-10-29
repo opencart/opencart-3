@@ -9,6 +9,7 @@ class ControllerCheckoutShippingAddress extends Controller {
             $data['address_id'] = $this->customer->getAddressId();
         }
 
+        // Addresses
         $this->load->model('account/address');
 
         $data['addresses'] = $this->model_account_address->getAddresses();
@@ -31,13 +32,14 @@ class ControllerCheckoutShippingAddress extends Controller {
             $data['zone_id'] = '';
         }
 
+        // Countries
         $this->load->model('localisation/country');
 
         $data['countries'] = $this->model_localisation_country->getCountries();
 
-        // Custom Fields
         $data['custom_fields'] = [];
 
+        // Custom Fields
         $this->load->model('account/custom_field');
 
         $custom_fields = $this->model_account_custom_field->getCustomFields($this->config->get('config_customer_group_id'));
@@ -96,6 +98,7 @@ class ControllerCheckoutShippingAddress extends Controller {
         }
 
         if (!$json) {
+            // Addresses
             $this->load->model('account/address');
 
             if (isset($this->request->post['shipping_address']) && $this->request->post['shipping_address'] == 'existing') {
@@ -128,6 +131,7 @@ class ControllerCheckoutShippingAddress extends Controller {
                     $json['error']['city'] = $this->language->get('error_city');
                 }
 
+                // Countries
                 $this->load->model('localisation/country');
 
                 $country_info = $this->model_localisation_country->getCountry($this->request->post['country_id']);
@@ -166,6 +170,7 @@ class ControllerCheckoutShippingAddress extends Controller {
 
                     // If no default address ID set we use the last address
                     if (!$this->customer->getAddressId()) {
+                        // Customers
                         $this->load->model('account/customer');
 
                         $this->model_account_customer->editAddressId($this->customer->getId(), $address_id);

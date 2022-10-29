@@ -13,14 +13,18 @@ class ControllerExtensionPaymentG2APay extends Controller {
             return;
         }
 
+        // Orders
         $this->load->model('account/order');
         $this->load->model('checkout/order');
+
+        // G2apay
         $this->load->model('extension/payment/g2apay');
 
         $order_info = $this->model_checkout_order->getOrder($this->session->data['order_id']);
 
         $order_data = [];
 
+        // Extensions
         $this->load->model('setting/extension');
 
         $totals = [];
@@ -134,11 +138,13 @@ class ControllerExtensionPaymentG2APay extends Controller {
             $g2apay_transaction_id = '';
         }
 
+        // Orders
         $this->load->model('checkout/order');
 
         $order_info = $this->model_checkout_order->getOrder($order_id);
 
         if ($order_info) {
+            // G2apay
             $this->load->model('extension/payment/g2apay');
 
             $g2apay_order_info = $this->model_extension_payment_g2apay->getG2aOrder($order_id);
@@ -152,7 +158,10 @@ class ControllerExtensionPaymentG2APay extends Controller {
     }
 
     public function ipn(): void {
+        // Orders
         $this->load->model('checkout/order');
+
+        // G2apay
         $this->load->model('extension/payment/g2apay');
 
         $this->model_extension_payment_g2apay->logger('ipn');

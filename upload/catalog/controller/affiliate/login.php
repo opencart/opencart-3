@@ -11,6 +11,7 @@ class ControllerAffiliateLogin extends Controller {
 
         $this->document->setTitle($this->language->get('heading_title'));
 
+        // Customers
         $this->load->model('account/customer');
 
         if (($this->request->server['REQUEST_METHOD'] == 'POST') && isset($this->request->post['email']) && isset($this->request->post['password']) && $this->validate()) {

@@ -36,6 +36,7 @@ class ControllerAccountReturns extends Controller {
             'href' => $this->url->link('account/returns', 'customer_token=' . $this->session->data['customer_token'] . $url, true)
         ];
 
+        // Returns
         $this->load->model('account/returns');
 
         if (isset($this->request->get['page'])) {
@@ -96,6 +97,7 @@ class ControllerAccountReturns extends Controller {
             $this->response->redirect($this->url->link('account/login', '', true));
         }
 
+        // Returns
         $this->load->model('account/returns');
 
         $return_info = $this->model_account_returns->getReturn($return_id);
@@ -216,6 +218,7 @@ class ControllerAccountReturns extends Controller {
     public function add(): void {
         $this->load->language('account/returns');
 
+        // Returns
         $this->load->model('account/returns');
 
         if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validate()) {
@@ -304,12 +307,14 @@ class ControllerAccountReturns extends Controller {
 
         $data['action'] = $this->url->link('account/returns/add', '', true);
 
+        // Orders
         $this->load->model('account/order');
 
         if (isset($this->request->get['order_id'])) {
             $order_info = $this->model_account_order->getOrder($this->request->get['order_id']);
         }
 
+        // Products
         $this->load->model('catalog/product');
 
         if (isset($this->request->get['product_id'])) {
@@ -406,6 +411,7 @@ class ControllerAccountReturns extends Controller {
             $data['return_reason_id'] = '';
         }
 
+        // Returns Reason
         $this->load->model('localisation/returns_reason');
 
         $data['return_reasons'] = $this->model_localisation_returns_reason->getReturnReasons();
@@ -497,6 +503,7 @@ class ControllerAccountReturns extends Controller {
         }
 
         if ($this->config->get('config_return_id')) {
+            // Information
             $this->load->model('catalog/information');
 
             $information_info = $this->model_catalog_information->getInformation($this->config->get('config_return_id'));

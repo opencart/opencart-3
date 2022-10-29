@@ -3,6 +3,7 @@ class ControllerCommonFooter extends Controller {
     public function index(): string {
         $this->load->language('common/footer');
 
+        // Information
         $this->load->model('catalog/information');
 
         $data['informations'] = [];
@@ -33,6 +34,7 @@ class ControllerCommonFooter extends Controller {
 
         // Whos Online
         if ($this->config->get('config_customer_online')) {
+            // Online
             $this->load->model('tool/online');
 
             if (isset($this->request->server['HTTP_X_REAL_IP'])) {

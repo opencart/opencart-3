@@ -7,6 +7,7 @@ class ControllerExtensionPaymentGlobalpay extends Controller {
 
         $this->load->language('extension/payment/globalpay');
 
+        // Orders
         $this->load->model('checkout/order');
 
         $order_info = $this->model_checkout_order->getOrder($this->session->data['order_id']);
@@ -84,6 +85,7 @@ class ControllerExtensionPaymentGlobalpay extends Controller {
     public function notify(): void {
         $this->load->language('extension/payment/globalpay');
 
+        // Globalpay
         $this->load->model('extension/payment/globalpay');
 
         $this->model_extension_payment_globalpay->logger(print_r($this->request->post, 1));
@@ -97,10 +99,12 @@ class ControllerExtensionPaymentGlobalpay extends Controller {
             $data['text_response'] = $this->language->get('text_hash_failed');
             $data['text_link'] = sprintf($this->language->get('text_link'), $this->url->link('checkout/checkout', '', true));
         } else {
+            // Orders
             $this->load->model('checkout/order');
 
             $order_id_parts = explode('T', $this->request->post['ORDER_ID']);
             $order_id = (int)$order_id_parts[0];
+
             $order_info = $this->model_checkout_order->getOrder($order_id);
 
             $auto_settle = (int)$this->config->get('payment_globalpay_auto_settle');

@@ -9,6 +9,7 @@ class ControllerExtensionCreditCardSagepayDirect extends Controller {
 
         $this->load->language('extension/credit_card/sagepay_direct');
 
+        // Sagepay Direct
         $this->load->model('extension/payment/sagepay_direct');
 
         $this->document->setTitle($this->language->get('heading_title'));
@@ -89,6 +90,7 @@ class ControllerExtensionCreditCardSagepayDirect extends Controller {
 
         $this->load->language('extension/credit_card/sagepay_direct');
 
+        // Sagepay Direct
         $this->load->model('extension/payment/sagepay_direct');
 
         $this->document->setTitle($this->language->get('heading_title'));
@@ -197,6 +199,7 @@ class ControllerExtensionCreditCardSagepayDirect extends Controller {
     public function delete(): void {
         $this->load->language('extension/credit_card/sagepay_direct');
 
+        // Sagepay Direct
         $this->load->model('extension/payment/sagepay_direct');
 
         $card = $this->model_extension_payment_sagepay_direct->getCard($this->request->get['card_id'], false);
@@ -232,7 +235,10 @@ class ControllerExtensionCreditCardSagepayDirect extends Controller {
     public function addCard(): void {
         $this->load->language('extension/credit_card/sagepay_direct');
 
+        // Orders
         $this->load->model('checkout/order');
+
+        // Sagepay Direct
         $this->load->model('extension/payment/sagepay_direct');
 
         if ($this->config->get('payment_sagepay_direct_test') == 'live') {

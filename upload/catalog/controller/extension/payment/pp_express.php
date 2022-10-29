@@ -18,6 +18,7 @@ class ControllerExtensionPaymentPPExpress extends Controller {
     }
 
     public function express(): void {
+        // PP Express
         $this->load->model('extension/payment/pp_express');
 
         if ((!$this->cart->hasProducts() && empty($this->session->data['vouchers'])) || (!$this->cart->hasStock() && !$this->config->get('config_stock_checkout'))) {
@@ -53,6 +54,7 @@ class ControllerExtensionPaymentPPExpress extends Controller {
         unset($this->session->data['payment_method']);
         unset($this->session->data['payment_methods']);
 
+        // Image files
         $this->load->model('tool/image');
 
         if ($this->cart->hasShipping()) {
@@ -117,6 +119,8 @@ class ControllerExtensionPaymentPPExpress extends Controller {
          * This is the url when PayPal has completed the auth.
          * It has no output, instead it sets the data and locates to checkout
          */
+
+        // PP Express
         $this->load->model('extension/payment/pp_express');
 
         $post_data = [
@@ -276,6 +280,7 @@ class ControllerExtensionPaymentPPExpress extends Controller {
              */
 
             if ($this->cart->hasShipping()) {
+                // Addresses
                 $this->load->model('account/address');
 
                 $addresses = $this->model_account_address->getAddresses();
@@ -349,7 +354,10 @@ class ControllerExtensionPaymentPPExpress extends Controller {
     }
 
     public function expressConfirm(): void {
+        // Cart
         $this->load->language('checkout/cart');
+
+        // PP Express
         $this->load->language('extension/payment/pp_express');
 
         $this->load->model('tool/image');
@@ -415,6 +423,7 @@ class ControllerExtensionPaymentPPExpress extends Controller {
 
         $data['action'] = $this->url->link('extension/payment/pp_express/expressConfirm', '', true);
 
+        // Uploaded files
         $this->load->model('tool/upload');
 
         $products = $this->cart->getProducts();
@@ -520,6 +529,7 @@ class ControllerExtensionPaymentPPExpress extends Controller {
              * Shipping services
              */
             if ($this->customer->isLogged()) {
+                // Addresses
                 $this->load->model('account/address');
 
                 $shipping_address = $this->model_account_address->getAddress($this->session->data['shipping_address_id']);
@@ -531,6 +541,7 @@ class ControllerExtensionPaymentPPExpress extends Controller {
                 // Shipping Methods
                 $quote_data = [];
 
+                // Extensions
                 $this->load->model('setting/extension');
 
                 $results = $this->model_setting_extension->getExtensions('shipping');
@@ -649,6 +660,7 @@ class ControllerExtensionPaymentPPExpress extends Controller {
          * Payment methods
          */
         if ($this->customer->isLogged() && isset($this->session->data['payment_address_id'])) {
+            // Addresses
             $this->load->model('account/address');
 
             $payment_address = $this->model_account_address->getAddress($this->session->data['payment_address_id']);
@@ -658,6 +670,7 @@ class ControllerExtensionPaymentPPExpress extends Controller {
 
         $method_data = [];
 
+        // Extensions
         $this->load->model('setting/extension');
 
         $results = $this->model_setting_extension->getExtensions('payment');
@@ -808,6 +821,7 @@ class ControllerExtensionPaymentPPExpress extends Controller {
                 'total'  => &$total
             ];
 
+            // Extensions
             $this->load->model('setting/extension');
 
             $sort_order = [];
@@ -857,6 +871,7 @@ class ControllerExtensionPaymentPPExpress extends Controller {
                 $data['email'] = $this->customer->getEmail();
                 $data['telephone'] = $this->customer->getTelephone();
 
+                // Addresses
                 $this->load->model('account/address');
 
                 $payment_address = $this->model_account_address->getAddress($this->session->data['payment_address_id']);
@@ -899,6 +914,7 @@ class ControllerExtensionPaymentPPExpress extends Controller {
 
             if ($this->cart->hasShipping()) {
                 if ($this->customer->isLogged()) {
+                    // Addresses
                     $this->load->model('account/address');
 
                     $shipping_address = $this->model_account_address->getAddress($this->session->data['shipping_address_id']);
@@ -1064,13 +1080,17 @@ class ControllerExtensionPaymentPPExpress extends Controller {
                 $data['accept_language'] = '';
             }
 
+            // Orders
             $this->load->model('checkout/order');
+
+            // Custom Fields
             $this->load->model('account/custom_field');
 
             $order_id = $this->model_checkout_order->addOrder($data);
 
             $this->session->data['order_id'] = $order_id;
 
+            // PP Express
             $this->load->model('extension/payment/pp_express');
 
             $paypal_data = [
@@ -1133,7 +1153,7 @@ class ControllerExtensionPaymentPPExpress extends Controller {
 
                 $paypal_order_id = $this->model_extension_payment_pp_express->addOrder($paypal_order_data);
 
-                // Add transaction to paypal transaction table
+                // Add transaction to PayPal transaction table
                 $paypal_transaction_data = [
                     'paypal_order_id'    => $paypal_order_id,
                     'transaction_id'     => $result['PAYMENTINFO_0_TRANSACTIONID'],
@@ -1157,6 +1177,7 @@ class ControllerExtensionPaymentPPExpress extends Controller {
                 if ($subscription_products) {
                     $this->load->language('extension/payment/pp_express');
 
+                    // Subscription
                     $this->load->model('checkout/subscription');
 
                     $billing_period = [
@@ -1263,8 +1284,13 @@ class ControllerExtensionPaymentPPExpress extends Controller {
             $this->response->redirect($this->url->link('checkout/cart'));
         }
 
+        // Image files
         $this->load->model('tool/image');
+
+        // Orders
         $this->load->model('checkout/order');
+
+        // PP Express
         $this->load->model('extension/payment/pp_express');
 
         if (!isset($this->session->data['order_id'])) {
@@ -1367,7 +1393,10 @@ class ControllerExtensionPaymentPPExpress extends Controller {
     public function checkoutReturn(): void {
         $this->load->language('extension/payment/pp_express');
 
+        // Orders
         $this->load->model('checkout/order');
+
+        // PP Express
         $this->load->model('extension/payment/pp_express');
 
         $post_data = [
@@ -1462,6 +1491,7 @@ class ControllerExtensionPaymentPPExpress extends Controller {
 
             // Loop through any products that are subscription items
             if ($subscription_products) {
+                // Subscription
                 $this->load->model('checkout/subscription');
 
                 $billing_period = [
@@ -1590,7 +1620,10 @@ class ControllerExtensionPaymentPPExpress extends Controller {
     }
 
     public function ipn(): void {
+        // Subscription
         $this->load->model('account/subscription');
+
+        // PP Express
         $this->load->model('extension/payment/pp_express');
 
         $request = 'cmd=_notify-validate';
@@ -1913,6 +1946,7 @@ class ControllerExtensionPaymentPPExpress extends Controller {
     }
 
     protected function validateCoupon() {
+        // Coupons
         $this->load->model('extension/total/coupon');
 
         $coupon_info = $this->model_extension_total_coupon->getCoupon($this->request->post['coupon']);

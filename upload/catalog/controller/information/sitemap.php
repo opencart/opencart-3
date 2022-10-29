@@ -17,6 +17,7 @@ class ControllerInformationSitemap extends Controller {
             'href' => $this->url->link('information/sitemap')
         ];
 
+        // Categories
         $this->load->model('catalog/category');
 
         $data['categories'] = [];
@@ -54,6 +55,7 @@ class ControllerInformationSitemap extends Controller {
             ];
         }
 
+        // Information
         $this->load->model('catalog/information');
 
         $data['informations'] = [];

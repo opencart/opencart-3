@@ -11,6 +11,7 @@ class ControllerAccountTracking extends Controller {
             $this->response->redirect($this->url->link('account/account', 'customer_token=' . $this->session->data['customer_token'], true));
         }
 
+        // Customers
         $this->load->model('account/customer');
 
         $affiliate_info = $this->model_account_customer->getAffiliate($this->customer->getId());
@@ -79,6 +80,7 @@ class ControllerAccountTracking extends Controller {
         }
 
         if (!$json) {
+            // Products
             $this->load->model('catalog/product');
 
             $filter_data = [

@@ -28,6 +28,7 @@ class ControllerAccountReward extends Controller {
             'href' => $this->url->link('account/reward', 'customer_token=' . $this->session->data['customer_token'], true)
         ];
 
+        // Rewards
         $this->load->model('account/reward');
 
         if (isset($this->request->get['page'])) {

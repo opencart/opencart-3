@@ -12,6 +12,7 @@ class ControllerProductProduct extends Controller {
             'href' => $this->url->link('common/home')
         ];
 
+        // Categories
         $this->load->model('catalog/category');
 
         if (isset($this->request->get['path'])) {
@@ -66,6 +67,7 @@ class ControllerProductProduct extends Controller {
             }
         }
 
+        // Manufacturers
         $this->load->model('catalog/manufacturer');
 
         if (isset($this->request->get['manufacturer_id'])) {
@@ -153,6 +155,7 @@ class ControllerProductProduct extends Controller {
             $product_id = 0;
         }
 
+        // Products
         $this->load->model('catalog/product');
 
         $product_info = $this->model_catalog_product->getProduct($product_id);
@@ -249,6 +252,7 @@ class ControllerProductProduct extends Controller {
             $data['text_minimum'] = sprintf($this->language->get('text_minimum'), $product_info['minimum']);
             $data['text_login'] = sprintf($this->language->get('text_login'), $this->url->link('account/login', '', true), $this->url->link('account/register', '', true));
 
+            // Reviews
             $this->load->model('catalog/review');
 
             $data['tab_review'] = sprintf($this->language->get('tab_review'), $product_info['reviews']);
@@ -268,6 +272,7 @@ class ControllerProductProduct extends Controller {
                 $data['stock'] = $this->language->get('text_instock');
             }
 
+            // Image files
             $this->load->model('tool/image');
 
             if ($product_info['image']) {
@@ -584,6 +589,7 @@ class ControllerProductProduct extends Controller {
     public function review(): void {
         $this->load->language('product/product');
 
+        // Reviews
         $this->load->model('catalog/review');
 
         if (isset($this->request->get['page'])) {
@@ -629,6 +635,7 @@ class ControllerProductProduct extends Controller {
             $product_id = 0;
         }
 
+        // Products
         $this->load->model('catalog/product');
 
         $product_info = $this->model_catalog_product->getProduct($product_id);
@@ -663,6 +670,7 @@ class ControllerProductProduct extends Controller {
         }
 
         if (!$json) {
+            // Reviews
             $this->load->model('catalog/review');
 
             $this->model_catalog_review->addReview($product_id, $this->request->post);

@@ -31,6 +31,7 @@ class ControllerExtensionPaymentBluePayRedirect extends Controller {
 
         $data['existing_cards'] = [];
         if ($this->customer->isLogged() && $data['payment_bluepay_redirect_card']) {
+            // Bluepay Redirect
             $this->load->model('extension/payment/bluepay_redirect');
 
             $cards = $this->model_extension_payment_bluepay_redirect->getCards($this->customer->getId());
@@ -49,7 +50,10 @@ class ControllerExtensionPaymentBluePayRedirect extends Controller {
 
         $json = [];
 
+        // Orders
         $this->load->model('checkout/order');
+
+        // Bluepay Redirect
         $this->load->model('extension/payment/bluepay_redirect');
 
         $order_info = $this->model_checkout_order->getOrder($this->session->data['order_id']);

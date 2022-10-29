@@ -3,6 +3,7 @@ class ControllerProductManufacturer extends Controller {
     public function index(): void {
         $this->load->language('product/manufacturer');
 
+        // Manufacturers
         $this->load->model('catalog/manufacturer');
 
         $this->document->setTitle($this->language->get('heading_title'));
@@ -55,8 +56,13 @@ class ControllerProductManufacturer extends Controller {
     public function info(): void {
         $this->load->language('product/manufacturer');
 
+        // Image files
         $this->load->model('tool/image');
+
+        // Products
         $this->load->model('catalog/product');
+
+        // Manufacturers
         $this->load->model('catalog/manufacturer');
 
         if (isset($this->request->get['manufacturer_id'])) {

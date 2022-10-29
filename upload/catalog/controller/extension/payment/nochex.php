@@ -5,6 +5,7 @@ class ControllerExtensionPaymentNochex extends Controller {
     public function index(): string {
         $this->load->language('extension/payment/nochex');
 
+        // Orders
         $this->load->model('checkout/order');
 
         if (!isset($this->session->data['order_id'])) {
@@ -83,6 +84,7 @@ class ControllerExtensionPaymentNochex extends Controller {
             $order_id = 0;
         }
 
+        // Orders
         $this->load->model('checkout/order');
 
         $order_info = $this->model_checkout_order->getOrder($order_id);

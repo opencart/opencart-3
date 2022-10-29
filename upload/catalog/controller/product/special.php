@@ -3,7 +3,10 @@ class ControllerProductSpecial extends Controller {
     public function index(): void {
         $this->load->language('product/special');
 
+        // Image files
         $this->load->model('tool/image');
+
+        // Products
         $this->load->model('catalog/product');
 
         if (isset($this->request->get['sort'])) {

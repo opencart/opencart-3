@@ -7,6 +7,7 @@ class ControllerMailRegister extends Controller {
         $store_name = html_entity_decode($this->config->get('config_name'), ENT_QUOTES, 'UTF-8');
         $subject = sprintf($this->language->get('text_subject'), $store_name);
 
+        // Customer Groups
         $this->load->model('account/customer_group');
 
         if (isset($args[0]['customer_group_id'])) {
@@ -59,6 +60,7 @@ class ControllerMailRegister extends Controller {
             $data['lastname'] = $args[0]['lastname'];
             $data['login'] = $this->url->link('account/login', '', true);
 
+            // Customer Groups
             $this->load->model('account/customer_group');
 
             if (isset($args[0]['customer_group_id'])) {

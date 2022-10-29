@@ -80,6 +80,7 @@ class ControllerExtensionPaymentPPPro extends Controller {
 
         $json = [];
 
+        // Orders
         $this->load->model('checkout/order');
 
         $order_info = $this->model_checkout_order->getOrder($this->session->data['order_id']);

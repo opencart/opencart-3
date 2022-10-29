@@ -16,6 +16,7 @@ class ControllerCheckoutPaymentMethod extends Controller {
                 'total'  => &$total
             ];
 
+            // Extensions
             $this->load->model('setting/extension');
 
             $sort_order = [];
@@ -73,6 +74,7 @@ class ControllerCheckoutPaymentMethod extends Controller {
         }
 
         if ($this->config->get('config_checkout_id')) {
+            // Information
             $this->load->model('catalog/information');
 
             $information_info = $this->model_catalog_information->getInformation($this->config->get('config_checkout_id'));
@@ -137,6 +139,7 @@ class ControllerCheckoutPaymentMethod extends Controller {
         }
 
         if ($this->config->get('config_checkout_id')) {
+            // Information
             $this->load->model('catalog/information');
 
             $information_info = $this->model_catalog_information->getInformation($this->config->get('config_checkout_id'));

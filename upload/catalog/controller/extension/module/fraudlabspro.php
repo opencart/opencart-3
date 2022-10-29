@@ -42,6 +42,7 @@ class ControllerExtensionModuleFraudlabspro extends Controller {
             if (!$notify && $order_status_id) {
                 $this->load->language('extension/module/fraudlabspro');
 
+                // Fraud Labs Pro
                 $this->load->model('extension/fraud/fraudlabspro');
 
                 $status = $this->model_extension_fraud_fraudlabspro->getStatus($order_id);

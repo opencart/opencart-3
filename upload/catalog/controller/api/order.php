@@ -288,7 +288,7 @@ class ControllerApiOrder extends Controller {
                 if (isset($this->request->post['affiliate_id'])) {
                     $subtotal = $this->cart->getSubTotal();
 
-                    // Affiliate
+                    // Customer Affiliate
                     $this->load->model('account/customer');
 
                     $affiliate_info = $this->model_account_customer->getAffiliate($this->request->post['affiliate_id']);
@@ -337,6 +337,7 @@ class ControllerApiOrder extends Controller {
                     $order_data['accept_language'] = '';
                 }
 
+                // Orders
                 $this->load->model('checkout/order');
 
                 $json['order_id'] = $this->model_checkout_order->addOrder($order_data);
@@ -367,6 +368,7 @@ class ControllerApiOrder extends Controller {
         if (!isset($this->session->data['api_id'])) {
             $json['error'] = $this->language->get('error_permission');
         } else {
+            // Orders
             $this->load->model('checkout/order');
 
             if (isset($this->request->get['order_id'])) {
@@ -658,7 +660,7 @@ class ControllerApiOrder extends Controller {
                     if (isset($this->request->post['affiliate_id'])) {
                         $subtotal = $this->cart->getSubTotal();
 
-                        // Affiliate
+                        // Customer Affiliate
                         $this->load->model('account/customer');
 
                         $affiliate_info = $this->model_account_customer->getAffiliate($this->request->post['affiliate_id']);
@@ -708,6 +710,7 @@ class ControllerApiOrder extends Controller {
         if (!isset($this->session->data['api_id'])) {
             $json['error'] = $this->language->get('error_permission');
         } else {
+            // Orders
             $this->load->model('checkout/order');
 
             if (isset($this->request->get['order_id'])) {
@@ -739,6 +742,7 @@ class ControllerApiOrder extends Controller {
         if (!isset($this->session->data['api_id'])) {
             $json['error'] = $this->language->get('error_permission');
         } else {
+            // Orders
             $this->load->model('checkout/order');
 
             if (isset($this->request->get['order_id'])) {
@@ -783,6 +787,7 @@ class ControllerApiOrder extends Controller {
                 }
             }
 
+            // Orders
             $this->load->model('checkout/order');
 
             if (isset($this->request->get['order_id'])) {

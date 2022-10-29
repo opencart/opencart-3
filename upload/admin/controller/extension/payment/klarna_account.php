@@ -137,6 +137,7 @@ class ControllerExtensionPaymentKlarnaAccount extends Controller {
             $this->error['warning'] = $this->language->get('error_permission');
         }
 
+        // Log
         $log = new \Log('klarna_account.log');
 
         $country = [

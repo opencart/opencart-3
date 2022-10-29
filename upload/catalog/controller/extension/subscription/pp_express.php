@@ -9,6 +9,7 @@ class ControllerExtensionRecurringPPExpress extends Controller {
             $subscription_id = 0;
         }
 
+        // Subscription
         $this->load->model('account/subscription');
 
         $subscription_info = $this->model_account_subscription->getSubscription($subscription_id);

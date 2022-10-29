@@ -13,6 +13,7 @@ class ControllerAccountAddress extends Controller {
 
         $this->document->setTitle($this->language->get('heading_title'));
 
+        // Addresses
         $this->load->model('account/address');
 
         $this->getList();
@@ -35,6 +36,7 @@ class ControllerAccountAddress extends Controller {
 
         $this->document->addStyle('catalog/view/javascript/jquery/datetimepicker/bootstrap-datetimepicker.min.css');
 
+        // Addresses
         $this->load->model('account/address');
 
         if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validateForm()) {
@@ -65,6 +67,7 @@ class ControllerAccountAddress extends Controller {
 
         $this->document->addStyle('catalog/view/javascript/jquery/datetimepicker/bootstrap-datetimepicker.min.css');
 
+        // Addresses
         $this->load->model('account/address');
 
         if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validateForm()) {
@@ -107,6 +110,7 @@ class ControllerAccountAddress extends Controller {
 
         $this->document->setTitle($this->language->get('heading_title'));
 
+        // Addresses
         $this->load->model('account/address');
 
         if ($this->model_account_address->getTotalAddresses() == 1) {
@@ -367,14 +371,17 @@ class ControllerAccountAddress extends Controller {
             $data['address_custom_field'] = [];
         }
 
+        // Uploaded files
         $this->load->model('tool/upload');
+
+        // Countries
         $this->load->model('localisation/country');
 
         $data['countries'] = $this->model_localisation_country->getCountries();
 
-        // Custom fields
         $data['custom_fields'] = [];
 
+        // Custom fields
         $this->load->model('account/custom_field');
 
         $custom_fields = $this->model_account_custom_field->getCustomFields($this->config->get('config_customer_group_id'));
@@ -440,6 +447,7 @@ class ControllerAccountAddress extends Controller {
             $this->error['city'] = $this->language->get('error_city');
         }
 
+        // Countries
         $this->load->model('localisation/country');
 
         $country_info = $this->model_localisation_country->getCountry($this->request->post['country_id']);

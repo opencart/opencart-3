@@ -7,6 +7,7 @@ class ControllerExtensionPaymentSkrill extends Controller {
 
         $this->load->language('extension/payment/skrill');
 
+        // Orders
         $this->load->model('checkout/order');
 
         $data['button_confirm'] = $this->language->get('button_confirm');
@@ -55,6 +56,7 @@ class ControllerExtensionPaymentSkrill extends Controller {
             $order_id = 0;
         }
 
+        // Orders
         $this->load->model('checkout/order');
 
         $order_info = $this->model_checkout_order->getOrder($order_id);

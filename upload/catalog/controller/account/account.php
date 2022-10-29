@@ -58,6 +58,7 @@ class ControllerAccountAccount extends Controller {
         if ($this->config->get('config_affiliate_status')) {
             $data['affiliate'] = $this->url->link('account/affiliate', 'customer_token=' . $this->session->data['customer_token'], true);
 
+            // Customers
             $this->load->model('account/customer');
 
             $affiliate_info = $this->model_account_customer->getAffiliate($this->customer->getId());
@@ -97,11 +98,13 @@ class ControllerAccountAccount extends Controller {
     public function country(): void {
         $json = [];
 
+        // Countries
         $this->load->model('localisation/country');
 
         $country_info = $this->model_localisation_country->getCountry($this->request->get['country_id']);
 
         if ($country_info) {
+            // Zones
             $this->load->model('localisation/zone');
 
             $json = [

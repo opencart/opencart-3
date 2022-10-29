@@ -13,6 +13,7 @@ class ControllerAccountReset extends Controller {
             $code = '';
         }
 
+        // Customers
         $this->load->model('account/customer');
 
         $customer_info = $this->model_account_customer->getCustomerByCode($code);

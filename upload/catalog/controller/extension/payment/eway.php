@@ -24,6 +24,7 @@ class ControllerExtensionPaymentEway extends Controller {
             ];
         }
 
+        // Orders
         $this->load->model('checkout/order');
 
         $order_info = $this->model_checkout_order->getOrder($this->session->data['order_id']);
@@ -38,6 +39,7 @@ class ControllerExtensionPaymentEway extends Controller {
             $data['text_testing'] = '';
         }
 
+        // Zones
         $this->load->model('localisation/zone');
 
         $payment_zone_info = $this->model_localisation_zone->getZone($order_info['payment_zone_id']);
@@ -131,6 +133,7 @@ class ControllerExtensionPaymentEway extends Controller {
         $request->CustomerIP = $this->request->server['REMOTE_ADDR'];
         $request->PartnerID = '0f1bec3642814f89a2ea06e7d2800b7f';
 
+        // Eway
         $this->load->model('extension/payment/eway');
 
         $template = 'eway';
@@ -190,6 +193,7 @@ class ControllerExtensionPaymentEway extends Controller {
         $this->load->language('extension/payment/eway');
 
         if (isset($this->request->get['AccessCode']) || isset($this->request->get['amp;AccessCode'])) {
+            // Eway
             $this->load->model('extension/payment/eway');
 
             if (isset($this->request->get['amp;AccessCode'])) {
@@ -241,6 +245,7 @@ class ControllerExtensionPaymentEway extends Controller {
                 }
             }
 
+            // Orders
             $this->load->model('checkout/order');
 
             if ($is_error) {
@@ -256,6 +261,7 @@ class ControllerExtensionPaymentEway extends Controller {
 
                 $order_info = $this->model_checkout_order->getOrder($order_id);
 
+                // Eway
                 $this->load->model('extension/payment/eway');
 
                 $eway_order_data = [

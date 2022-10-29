@@ -30,7 +30,10 @@ class ControllerExtensionPaymentCardinity extends Controller {
 
         $json = [];
 
+        // Orders
         $this->load->model('checkout/order');
+
+        // Cardinity
         $this->load->model('extension/payment/cardinity');
 
         $json['error'] = $json['success'] = $json['3ds'] = '';
@@ -132,6 +135,7 @@ class ControllerExtensionPaymentCardinity extends Controller {
     public function threeDSecureForm(): void {
         $this->load->language('extension/payment/cardinity');
 
+        // Cardinity
         $this->load->model('extension/payment/cardinity');
 
         $success = false;
@@ -166,6 +170,7 @@ class ControllerExtensionPaymentCardinity extends Controller {
     public function threeDSecureCallback(): void {
         $this->load->language('extension/payment/cardinity');
 
+        // Cardinity
         $this->load->model('extension/payment/cardinity');
 
         $success = false;
@@ -210,6 +215,7 @@ class ControllerExtensionPaymentCardinity extends Controller {
     private function finalizeOrder(string $payment): void {
         $this->load->language('extension/payment/cardinity');
 
+        // Orders
         $this->load->model('checkout/order');
 
         $this->model_checkout_order->addOrderHistory($this->session->data['order_id'], $this->config->get('payment_cardinity_order_status_id'));
@@ -235,7 +241,10 @@ class ControllerExtensionPaymentCardinity extends Controller {
     }
 
     private function validate() {
+        // Orders
         $this->load->model('checkout/order');
+
+        // Cardinity
         $this->load->model('extension/payment/cardinity');
 
         $error = [];

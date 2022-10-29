@@ -11,6 +11,7 @@ class ControllerApiVoucher extends Controller {
         if (!isset($this->session->data['api_id'])) {
             $json['error'] = $this->language->get('error_permission');
         } else {
+            // Vouchers
             $this->load->model('extension/total/voucher');
 
             if (isset($this->request->post['voucher'])) {

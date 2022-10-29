@@ -7,6 +7,7 @@ class ControllerExtensionPaymentAlipay extends Controller {
 
         $data['button_confirm'] = $this->language->get('button_confirm');
 
+        // Orders
         $this->load->model('checkout/order');
 
         $order_info = $this->model_checkout_order->getOrder($this->session->data['order_id']);
@@ -35,6 +36,7 @@ class ControllerExtensionPaymentAlipay extends Controller {
             'product_code' => 'FAST_INSTANT_TRADE_PAY'
         ];
 
+        // Alipay
         $this->load->model('extension/payment/alipay');
 
         $response = $this->model_extension_payment_alipay->pagePay($payRequestBuilder, $config);
@@ -48,6 +50,7 @@ class ControllerExtensionPaymentAlipay extends Controller {
     public function callback(): void {
         $this->log->write('alipay pay notify:');
 
+        // Alipay
         $this->load->model('extension/payment/alipay');
 
         $arr = $_POST;
@@ -76,6 +79,7 @@ class ControllerExtensionPaymentAlipay extends Controller {
             if ($_POST['trade_status'] == 'TRADE_FINISHED') {
 
             } elseif ($_POST['trade_status'] == 'TRADE_SUCCESS') {
+                // Orders
                 $this->load->model('checkout/order');
 
                 $this->model_checkout_order->addOrderHistory($order_id, $this->config->get('payment_alipay_order_status_id'));

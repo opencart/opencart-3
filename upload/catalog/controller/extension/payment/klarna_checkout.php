@@ -3,8 +3,11 @@ class ControllerExtensionPaymentKlarnaCheckout extends Controller {
     public function index(): void {
         $this->load->language('extension/payment/klarna_checkout');
 
-        $this->load->model('extension/payment/klarna_checkout');
+        // Countries
         $this->load->model('localisation/country');
+
+        // Klarna Checkout
+        $this->load->model('extension/payment/klarna_checkout');
 
         $this->document->setTitle($this->language->get('heading_title'));
 
@@ -21,8 +24,11 @@ class ControllerExtensionPaymentKlarnaCheckout extends Controller {
     public function main(): void {
         $this->load->language('extension/payment/klarna_checkout');
 
-        $this->load->model('extension/payment/klarna_checkout');
+        // Countries
         $this->load->model('localisation/country');
+
+        // Klarna Checkout
+        $this->load->model('extension/payment/klarna_checkout');
 
         $redirect = false;
         $html_snippet = '';
@@ -253,6 +259,7 @@ class ControllerExtensionPaymentKlarnaCheckout extends Controller {
         $this->load->language('checkout/checkout');
         $this->load->language('extension/payment/klarna_checkout');
 
+        // Klarna Checkout
         $this->load->model('extension/payment/klarna_checkout');
 
         $this->setPayment();
@@ -298,7 +305,10 @@ class ControllerExtensionPaymentKlarnaCheckout extends Controller {
             $data['code'] = '';
         }
 
+        // Image files
         $this->load->model('tool/image');
+
+        // Uploaded files
         $this->load->model('tool/upload');
 
         $data['products'] = [];
@@ -409,9 +419,11 @@ class ControllerExtensionPaymentKlarnaCheckout extends Controller {
             'total'  => &$total
         ];
 
+        // Extensions
         $this->load->model('setting/extension');
 
         $sort_order = [];
+
         $results = $this->model_setting_extension->getExtensions('total');
 
         foreach ($results as $key => $value) {
@@ -454,8 +466,11 @@ class ControllerExtensionPaymentKlarnaCheckout extends Controller {
             return;
         }
 
-        $this->load->model('extension/payment/klarna_checkout');
+        // Zones
         $this->load->model('localisation/zone');
+
+        // Klarna Checkout
+        $this->load->model('extension/payment/klarna_checkout');
 
         $json = [];
 
@@ -468,6 +483,7 @@ class ControllerExtensionPaymentKlarnaCheckout extends Controller {
             if ($country_info) {
                 // Set default zone for shipping calculations. Get overwritten by correct data when order is confirmed
                 $zones = $this->model_localisation_zone->getZonesByCountryId($country_info['country_id']);
+
                 $zone = [];
 
                 if (isset($this->request->post['region']) && $this->request->post['region'] != '') {
@@ -574,9 +590,16 @@ class ControllerExtensionPaymentKlarnaCheckout extends Controller {
 
         $json = [];
 
+        // Customers
         $this->load->model('account/customer');
+
+        // Orders
         $this->load->model('checkout/order');
+
+        // Zones
         $this->load->model('localisation/zone');
+
+        // Klarna Checkout
         $this->load->model('extension/payment/klarna_checkout');
 
         $process = true;
@@ -723,6 +746,7 @@ class ControllerExtensionPaymentKlarnaCheckout extends Controller {
 
                     $method_data = [];
 
+                    // Extensions
                     $this->load->model('setting/extension');
 
                     $results = $this->model_setting_extension->getExtensions('shipping');
@@ -875,8 +899,11 @@ class ControllerExtensionPaymentKlarnaCheckout extends Controller {
             return;
         }
 
-        $this->load->model('extension/payment/klarna_checkout');
+        // Orders
         $this->load->model('checkout/order');
+
+        // Klarna Checkout
+        $this->load->model('extension/payment/klarna_checkout');
 
         $request = json_decode(file_get_contents('php://input'));
 
@@ -897,6 +924,7 @@ class ControllerExtensionPaymentKlarnaCheckout extends Controller {
                     }
 
                     $order_status_id = false;
+
                     $retrieve = $this->model_extension_payment_klarna_checkout->omOrderRetrieve($connector, $request->order_id);
 
                     if ($retrieve) {
@@ -929,17 +957,24 @@ class ControllerExtensionPaymentKlarnaCheckout extends Controller {
 
         $json = [];
 
+        // Customers
         $this->load->model('account/customer');
+
+        // Orders
         $this->load->model('checkout/order');
+
+        // Klarna Checkout
         $this->load->model('extension/payment/klarna_checkout');
 
         $validate = true;
+
         $request = json_decode(file_get_contents('php://input'));
 
         // Check to see if request data is complete
         if (!$request || !isset($request->order_lines) || empty($request->order_lines) || !isset($request->shipping_address) || empty($request->shipping_address) || !isset($request->billing_address) || empty($request->billing_address)) {
             $this->model_extension_payment_klarna_checkout->log('Request data incomplete. Full request below:');
             $this->model_extension_payment_klarna_checkout->log($request);
+
             $validate = false;
         }
 
@@ -950,7 +985,6 @@ class ControllerExtensionPaymentKlarnaCheckout extends Controller {
             foreach ($request->order_lines as $order_line) {
                 if ($order_line->type == 'physical' || $order_line->type == 'digital' || $order_line->type == 'gift_card') {
                     $order_id = $this->encryption->decrypt($this->config->get('config_encryption'), $order_line->merchant_data);
-
                     break;
                 }
             }
@@ -1051,11 +1085,7 @@ class ControllerExtensionPaymentKlarnaCheckout extends Controller {
                 $this->tax->setShippingAddress($this->session->data['shipping_address']['country_id'], $this->session->data['shipping_address']['zone_id']);
                 $this->tax->setStoreAddress($this->config->get('config_country_id'), $this->config->get('config_zone_id'));
 
-                [
-                    $totals,
-                    $taxes,
-                    $total
-                ] = $this->model_extension_payment_klarna_checkout->getTotals();
+                [$totals, $taxes, $total] = $this->model_extension_payment_klarna_checkout->getTotals();
 
                 // Check order_amount
                 if (round($this->currency->format($total, $order_info['currency_code'], $order_info['currency_value'], false) * 100) != $request->order_amount) {
@@ -1200,7 +1230,10 @@ class ControllerExtensionPaymentKlarnaCheckout extends Controller {
             'href' => $this->url->link('checkout/success')
         ];
 
+        // Orders
         $this->load->model('checkout/order');
+
+        // Klarna Checkout
         $this->load->model('extension/payment/klarna_checkout');
 
         $data['continue'] = $this->url->link('common/home');
@@ -1266,7 +1299,10 @@ class ControllerExtensionPaymentKlarnaCheckout extends Controller {
             return;
         }
 
+        // Orders
         $this->load->model('checkout/order');
+
+        // Klarna Checkout
         $this->load->model('extension/payment/klarna_checkout');
 
         if (isset($this->request->get['klarna_order_id'])) {
@@ -1335,6 +1371,7 @@ class ControllerExtensionPaymentKlarnaCheckout extends Controller {
                                 $this->model_extension_payment_klarna_checkout->updateOcOrder($klarna_checkout_order['order_id'], $order_data);
 
                                 $order_status_id = false;
+
                                 switch ($order['status']) {
                                     case 'AUTHORIZED':
                                         $order_status_id = $this->config->get('payment_klarna_checkout_order_status_authorised_id');
@@ -1372,8 +1409,13 @@ class ControllerExtensionPaymentKlarnaCheckout extends Controller {
     }
 
     private function setPayment(): void {
+        // Addresses
         $this->load->model('account/address');
+
+        // Zones
         $this->load->model('localisation/zone');
+
+        // Countries
         $this->load->model('localisation/country');
 
         if (isset($this->session->data['payment_address']) && $this->session->data['payment_address'] != '') {
@@ -1410,8 +1452,13 @@ class ControllerExtensionPaymentKlarnaCheckout extends Controller {
     }
 
     private function setShipping(): void {
+        // Address
         $this->load->model('account/address');
+
+        // Zones
         $this->load->model('localisation/zone');
+
+        // Countries
         $this->load->model('localisation/country');
 
         if (isset($this->session->data['shipping_address']) && $this->session->data['shipping_address'] != '') {
@@ -1420,6 +1467,7 @@ class ControllerExtensionPaymentKlarnaCheckout extends Controller {
             $this->session->data['shipping_address'] = $this->model_account_address->getAddress($this->customer->getAddressId());
         } else {
             $country_info = $this->model_localisation_country->getCountry($this->config->get('config_country_id'));
+
             $zone_info = $this->model_localisation_zone->getZone($this->config->get('config_zone_id'));
 
             $this->session->data['shipping_address'] = [
@@ -1448,10 +1496,12 @@ class ControllerExtensionPaymentKlarnaCheckout extends Controller {
         $this->tax->setStoreAddress($this->config->get('config_country_id'), $this->config->get('config_zone_id'));
 
         if (isset($this->session->data['shipping_address'])) {
+            // Extensions
             $this->load->model('setting/extension');
 
             // Shipping Methods
             $results = $this->model_setting_extension->getExtensions('shipping');
+
             $method_data = [];
 
             foreach ($results as $result) {
@@ -1502,11 +1552,7 @@ class ControllerExtensionPaymentKlarnaCheckout extends Controller {
         $this->load->language('checkout/checkout');
 
         $order_data = [];
-        [
-            $totals,
-            $taxes,
-            $total
-        ] = $this->model_extension_payment_klarna_checkout->getTotals();
+        [$totals, $taxes, $total] = $this->model_extension_payment_klarna_checkout->getTotals();
 
         $order_data['totals'] = $totals;
         $order_data['invoice_prefix'] = $this->config->get('config_invoice_prefix');
@@ -1726,6 +1772,7 @@ class ControllerExtensionPaymentKlarnaCheckout extends Controller {
             $order_data['accept_language'] = '';
         }
 
+        // Orders
         $this->load->model('checkout/order');
 
         $this->session->data['order_id'] = $this->model_checkout_order->addOrder($order_data);
@@ -1734,7 +1781,10 @@ class ControllerExtensionPaymentKlarnaCheckout extends Controller {
     private function klarnaOrderData($klarna_account) {
         $this->load->language('extension/payment/klarna_checkout');
 
+        // Countries
         $this->load->model('localisation/country');
+
+        // Klarna Checkout
         $this->load->model('extension/payment/klarna_checkout');
 
         $currency_code = $this->session->data['currency'];
@@ -1821,11 +1871,7 @@ class ControllerExtensionPaymentKlarnaCheckout extends Controller {
         }
 
         // Order Total
-        [
-            $totals,
-            $taxes,
-            $total
-        ] = $this->model_extension_payment_klarna_checkout->getTotals();
+        [$totals, $taxes, $total] = $this->model_extension_payment_klarna_checkout->getTotals();
 
         $merchant_urls = [
             'checkout'       => html_entity_decode($this->url->link('extension/payment/klarna_checkout', 'klarna_order_id={checkout.order.id}', true)),
@@ -1865,6 +1911,7 @@ class ControllerExtensionPaymentKlarnaCheckout extends Controller {
         ]));
 
         $encrypted_order_id = $this->encryption->encrypt($this->config->get('config_encryption'), $this->session->data['order_id']);
+
         $klarna_order_data['merchant_reference1'] = (int)$this->session->data['order_id'];
         $klarna_order_data['options'] = [];
 
@@ -1916,6 +1963,7 @@ class ControllerExtensionPaymentKlarnaCheckout extends Controller {
         }
 
         $shipping_countries = $this->model_extension_payment_klarna_checkout->getCountriesByGeoZone($klarna_account['shipping']);
+
         $klarna_shipping_countries = [];
 
         foreach ($shipping_countries as $shipping_country) {
@@ -1927,6 +1975,7 @@ class ControllerExtensionPaymentKlarnaCheckout extends Controller {
         }
 
         $klarna_order_data['shipping_countries'] = $klarna_shipping_countries;
+
         $average_product_tax_rate = [];
 
         // Products (Add these last because we send encrypted session order_id)
@@ -1940,6 +1989,7 @@ class ControllerExtensionPaymentKlarnaCheckout extends Controller {
             }
 
             $total_sub_amount = $this->currency->format($this->tax->calculate($product['price'], $product['tax_class_id'], false) * $product['quantity'], $currency_code, $currency_value, false) * 100;
+
             $tax_rate = 0;
 
             if ($include_taxes && $total_tax_amount && $total_sub_amount) {

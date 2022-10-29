@@ -14,8 +14,13 @@ class ControllerExtensionPaymentPayPal extends Controller {
     public function index(): string {
         $this->load->language('extension/payment/paypal');
 
+        // Orders
         $this->load->model('checkout/order');
+
+        // Countries
         $this->load->model('localisation/country');
+
+        // PayPal
         $this->load->model('extension/payment/paypal');
 
         $country = $this->model_localisation_country->getCountry($this->config->get('config_country_id'));
@@ -119,7 +124,10 @@ class ControllerExtensionPaymentPayPal extends Controller {
     public function createOrder(): void {
         $this->load->language('extension/payment/paypal');
 
+        // Orders
         $this->load->model('checkout/order');
+
+        // PayPal
         $this->load->model('extension/payment/paypal');
 
         $order_info = $this->model_checkout_order->getOrder($this->session->data['order_id']);
@@ -170,6 +178,7 @@ class ControllerExtensionPaymentPayPal extends Controller {
             $shipping_info['address']['postal_code'] = $order_info['shipping_postcode'];
 
             if ($order_info['shipping_country_id']) {
+                // Countries
                 $this->load->model('localisation/country');
 
                 $country_info = $this->model_localisation_country->getCountry($order_info['shipping_country_id']);
@@ -327,6 +336,7 @@ class ControllerExtensionPaymentPayPal extends Controller {
     public function approveOrder(): void {
         $this->load->language('extension/payment/paypal');
 
+        // PayPal
         $this->load->model('extension/payment/paypal');
 
         // Setting
@@ -431,6 +441,7 @@ class ControllerExtensionPaymentPayPal extends Controller {
             }
 
             if (!$this->error) {
+                // Orders
                 $this->load->model('checkout/order');
 
                 $message = sprintf($this->language->get('text_order_message'), $seller_protection_status);
@@ -448,6 +459,7 @@ class ControllerExtensionPaymentPayPal extends Controller {
     }
 
     public function webhook(): void {
+        // PayPal
         $this->load->model('extension/payment/paypal');
 
         $webhook_data = json_decode(html_entity_decode(file_get_contents('php://input')), true);
@@ -499,6 +511,7 @@ class ControllerExtensionPaymentPayPal extends Controller {
                 $order_status_id = $setting['order_status']['pending']['id'];
             }
 
+            // Orders
             $this->load->model('checkout/order');
 
             $this->model_checkout_order->addOrderHistory($order_id, $order_status_id, '', true);

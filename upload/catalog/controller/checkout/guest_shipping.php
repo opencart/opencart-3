@@ -57,6 +57,7 @@ class ControllerCheckoutGuestShipping extends Controller {
             $data['zone_id'] = '';
         }
 
+        // Countries
         $this->load->model('localisation/country');
 
         $data['countries'] = $this->model_localisation_country->getCountries();
@@ -118,6 +119,7 @@ class ControllerCheckoutGuestShipping extends Controller {
                 $json['error']['city'] = $this->language->get('error_city');
             }
 
+            // Countries
             $this->load->model('localisation/country');
 
             $country_info = $this->model_localisation_country->getCountry($this->request->post['country_id']);
@@ -161,6 +163,7 @@ class ControllerCheckoutGuestShipping extends Controller {
             $this->session->data['shipping_address']['country_id'] = (int)$this->request->post['country_id'];
             $this->session->data['shipping_address']['zone_id'] = (int)$this->request->post['zone_id'];
 
+            // Countries
             $this->load->model('localisation/country');
 
             $country_info = $this->model_localisation_country->getCountry($this->request->post['country_id']);
@@ -177,6 +180,7 @@ class ControllerCheckoutGuestShipping extends Controller {
                 $this->session->data['shipping_address']['address_format'] = '';
             }
 
+            // Zones
             $this->load->model('localisation/zone');
 
             $zone_info = $this->model_localisation_zone->getZone($this->request->post['zone_id']);

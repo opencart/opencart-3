@@ -99,11 +99,13 @@ class ControllerCheckoutCheckout extends Controller {
     public function country(): void {
         $json = [];
 
+        // Countries
         $this->load->model('localisation/country');
 
         $country_info = $this->model_localisation_country->getCountry($this->request->get['country_id']);
 
         if ($country_info) {
+            // Zones
             $this->load->model('localisation/zone');
 
             $json = [
@@ -125,6 +127,7 @@ class ControllerCheckoutCheckout extends Controller {
     public function customfield(): void {
         $json = [];
 
+        // Custom Fields
         $this->load->model('account/custom_field');
 
         // Customer Group

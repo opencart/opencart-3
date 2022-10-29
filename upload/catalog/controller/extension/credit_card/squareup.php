@@ -9,6 +9,7 @@ class ControllerExtensionCreditCardSquareup extends Controller {
 
         $this->load->language('extension/credit_card/squareup');
 
+        // Squareup
         $this->load->model('extension/credit_card/squareup');
 
         $this->document->setTitle($this->language->get('heading_title'));
@@ -78,6 +79,7 @@ class ControllerExtensionCreditCardSquareup extends Controller {
 
         $this->load->language('extension/credit_card/squareup');
 
+        // Sagepay Server
         $this->load->model('extension/credit_card/squareup');
 
         $this->load->library('squareup');

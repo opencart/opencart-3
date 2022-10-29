@@ -5,9 +5,16 @@ class ControllerExtensionPaymentPPPayflowIframe extends Controller {
             return '';
         }
 
+        // Orders
         $this->load->model('checkout/order');
+
+        // Zones
         $this->load->model('localisation/zone');
+
+        // Countries
         $this->load->model('localisation/country');
+
+        // PP Payflow Iframe
         $this->load->model('extension/payment/pp_payflow_iframe');
 
         $order_info = $this->model_checkout_order->getOrder($this->session->data['order_id']);
@@ -103,10 +110,14 @@ class ControllerExtensionPaymentPPPayflowIframe extends Controller {
     }
 
     public function paymentIpn(): void {
+        // Orders
         $this->load->model('checkout/order');
+
+        // PP Payflow Iframe
         $this->load->model('extension/payment/pp_payflow_iframe');
 
         if ($this->config->get('payment_pp_pro_iframe_debug')) {
+            // Log
             $log = new \Log('pp_pro_iframe.log');
             $log->write('POST: ' . print_r($this->request->post, 1));
         }

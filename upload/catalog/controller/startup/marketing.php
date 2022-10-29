@@ -13,6 +13,7 @@ class ControllerStartupMarketing extends Controller {
 
         // Tracking Code
         if ($tracking) {
+            // Marketing
             $this->load->model('checkout/marketing');
 
             $marketing_info = $this->model_checkout_marketing->getMarketingByCode($tracking);
@@ -22,6 +23,7 @@ class ControllerStartupMarketing extends Controller {
             }
 
             if ($this->config->get('config_affiliate_status')) {
+                // Customers
                 $this->load->model('account/customer');
 
                 $affiliate_info = $this->model_account_customer->getAffiliateByTracking($tracking);

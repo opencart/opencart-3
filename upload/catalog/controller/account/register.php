@@ -17,6 +17,7 @@ class ControllerAccountRegister extends Controller {
 
         $this->document->addStyle('catalog/view/javascript/jquery/datetimepicker/bootstrap-datetimepicker.min.css');
 
+        // Customers
         $this->load->model('account/customer');
 
         if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validate()) {
@@ -105,6 +106,7 @@ class ControllerAccountRegister extends Controller {
         $data['customer_groups'] = [];
 
         if (is_array($this->config->get('config_customer_group_display'))) {
+            // Customer Groups
             $this->load->model('account/customer_group');
 
             $customer_groups = $this->model_account_customer_group->getCustomerGroups();
@@ -191,6 +193,7 @@ class ControllerAccountRegister extends Controller {
         }
 
         if ($this->config->get('config_account_id')) {
+            // Information
             $this->load->model('catalog/information');
 
             $information_info = $this->model_catalog_information->getInformation($this->config->get('config_account_id'));
@@ -284,6 +287,7 @@ class ControllerAccountRegister extends Controller {
 
         // Agree to terms
         if ($this->config->get('config_account_id')) {
+            // Information
             $this->load->model('catalog/information');
 
             $information_info = $this->model_catalog_information->getInformation($this->config->get('config_account_id'));
@@ -299,6 +303,7 @@ class ControllerAccountRegister extends Controller {
     public function customfield(): void {
         $json = [];
 
+        // Custom Fields
         $this->load->model('account/custom_field');
 
         // Customer Group

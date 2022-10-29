@@ -48,6 +48,7 @@ class ControllerApiPayment extends Controller {
                 $json['error']['city'] = $this->language->get('error_city');
             }
 
+            // Countries
             $this->load->model('localisation/country');
 
             $country_info = $this->model_localisation_country->getCountry($this->request->post['country_id']);
@@ -80,6 +81,7 @@ class ControllerApiPayment extends Controller {
             }
 
             if (!$json) {
+                // Countries
                 $this->load->model('localisation/country');
 
                 $country_info = $this->model_localisation_country->getCountry($this->request->post['country_id']);
@@ -96,6 +98,7 @@ class ControllerApiPayment extends Controller {
                     $address_format = '';
                 }
 
+                // Zones
                 $this->load->model('localisation/zone');
 
                 $zone_info = $this->model_localisation_zone->getZone($this->request->post['zone_id']);
@@ -168,6 +171,7 @@ class ControllerApiPayment extends Controller {
                     'total'  => &$total
                 ];
 
+                // Extensions
                 $this->load->model('setting/extension');
 
                 $sort_order = [];
@@ -189,9 +193,9 @@ class ControllerApiPayment extends Controller {
                     }
                 }
 
-                // Payment Methods
                 $json['payment_methods'] = [];
 
+                // Payment Methods
                 $this->load->model('checkout/payment_method');
 
                 $payment_methods = $this->model_checkout_payment_method->getMethods($this->session->data['payment_address']);

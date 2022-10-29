@@ -42,6 +42,7 @@ class ControllerAccountSubscription extends Controller {
 
         $data['subscriptions'] = [];
 
+        // Subscription
         $this->load->model('account/subscription');
 
         $subscription_total = $this->model_account_subscription->getTotalSubscriptions();
@@ -98,6 +99,7 @@ class ControllerAccountSubscription extends Controller {
             $subscription_id = 0;
         }
 
+        // Subscription
         $this->load->model('account/subscription');
 
         $subscription_info = $this->model_account_subscription->getSubscription($subscription_id);
@@ -166,6 +168,7 @@ class ControllerAccountSubscription extends Controller {
             $data['order'] = $this->url->link('account/order/info', 'language=' . $this->config->get('config_language') . '&customer_token=' . $this->session->data['customer_token'] . '&order_id=' . $subscription_info['order_id']);
             $data['product'] = $this->url->link('product/product', 'language=' . $this->config->get('config_language') . '&customer_token=' . $this->session->data['customer_token'] . '&product_id=' . $subscription_info['product_id']);
 
+            // Extensions
             $this->load->model('setting/extension');
 
             $extension_info = $this->model_setting_extension->getExtensionByCode($subscription_info['payment_code']);

@@ -21,6 +21,7 @@ class ControllerExtensionTotalCoupon extends Controller {
 
         $json = [];
 
+        // Coupons
         $this->load->model('extension/total/coupon');
 
         if (isset($this->request->post['coupon'])) {

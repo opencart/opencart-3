@@ -11,6 +11,7 @@ class ControllerAccountForgotten extends Controller {
 
         $this->document->setTitle($this->language->get('heading_title'));
 
+        // Customers
         $this->load->model('account/customer');
 
         if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validate()) {

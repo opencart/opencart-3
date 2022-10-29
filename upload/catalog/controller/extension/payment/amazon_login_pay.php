@@ -5,6 +5,7 @@ class ControllerExtensionPaymentAmazonLoginPay extends Controller {
     public function session_expired(): void {
         $this->load->language('extension/payment/amazon_login_pay');
 
+        // Amazon Login Pay
         $this->load->model('extension/payment/amazon_login_pay');
 
         $this->model_extension_payment_amazon_login_pay->cartRedirect($this->language->get('error_session_expired'));
@@ -13,6 +14,7 @@ class ControllerExtensionPaymentAmazonLoginPay extends Controller {
     public function address(): void {
         $this->load->language('extension/payment/amazon_login_pay');
 
+        // Amazon Login Pay
         $this->load->model('extension/payment/amazon_login_pay');
 
         $this->document->setTitle($this->language->get('heading_address'));
@@ -97,7 +99,10 @@ class ControllerExtensionPaymentAmazonLoginPay extends Controller {
         $json = [];
 
         try {
+            // Extensions
             $this->load->model('setting/extension');
+
+            // Amazon Login Pay
             $this->load->model('extension/payment/amazon_login_pay');
 
             if (!isset($this->request->get['AmazonOrderReferenceId'])) {
@@ -105,8 +110,11 @@ class ControllerExtensionPaymentAmazonLoginPay extends Controller {
             }
 
             $order_reference_id = $this->request->get['AmazonOrderReferenceId'];
+
             $address = $this->model_extension_payment_amazon_login_pay->getAddress($order_reference_id);
+
             $results = $this->model_setting_extension->getExtensions('shipping');
+
             $quotes = [];
 
             $this->session->data['apalwa']['pay']['order_reference_id'] = $order_reference_id;
@@ -167,7 +175,10 @@ class ControllerExtensionPaymentAmazonLoginPay extends Controller {
     public function shipping(): void {
         $this->load->language('extension/payment/amazon_login_pay');
 
+        // Amazon Login
         $this->load->model('extension/module/amazon_login');
+
+        // Amazon Login Pay
         $this->load->model('extension/payment/amazon_login_pay');
 
         $json = [
@@ -207,6 +218,7 @@ class ControllerExtensionPaymentAmazonLoginPay extends Controller {
     public function payment(): void {
         $this->load->language('extension/payment/amazon_login_pay');
 
+        // Amazon Login Pay
         $this->load->model('extension/payment/amazon_login_pay');
 
         $this->document->setTitle($this->language->get('heading_payment'));
@@ -318,6 +330,7 @@ class ControllerExtensionPaymentAmazonLoginPay extends Controller {
     }
 
     public function coupon_discard(): void {
+        // Amazon Login Pay
         $this->load->model('extension/payment/amazon_login_pay');
 
         // Verify reference
@@ -333,6 +346,7 @@ class ControllerExtensionPaymentAmazonLoginPay extends Controller {
     public function standard_checkout(): void {
         $this->load->language('extension/payment/amazon_login_pay');
 
+        // Amazon Login Pay
         $this->load->model('extension/payment/amazon_login_pay');
 
         $this->model_extension_payment_amazon_login_pay->verifyCart();
@@ -355,6 +369,7 @@ class ControllerExtensionPaymentAmazonLoginPay extends Controller {
         $this->load->language('checkout/checkout');
         $this->load->language('extension/payment/amazon_login_pay');
 
+        // Amazon Login Pay
         $this->load->model('extension/payment/amazon_login_pay');
 
         $this->document->setTitle($this->language->get('heading_confirm'));
@@ -386,6 +401,7 @@ class ControllerExtensionPaymentAmazonLoginPay extends Controller {
             $this->session->data['apalwa']['pay']['order'] = $order;
 
             $data['order'] = $order;
+
             $data['order_reference_id'] = $this->session->data['apalwa']['pay']['order_reference_id'];
         } catch (\RuntimeException $e) {
             $this->model_extension_payment_amazon_login_pay->cartRedirect($e->getMessage());
@@ -517,7 +533,10 @@ class ControllerExtensionPaymentAmazonLoginPay extends Controller {
     public function mfa_success(): void {
         $this->load->language('extension/payment/amazon_login_pay');
 
+        // Orders
         $this->load->model('checkout/order');
+
+        // Amazon Login Pay
         $this->load->model('extension/payment/amazon_login_pay');
 
         $this->model_extension_payment_amazon_login_pay->verifyCart();
@@ -537,6 +556,7 @@ class ControllerExtensionPaymentAmazonLoginPay extends Controller {
     public function mfa_failure(): void {
         $this->load->language('extension/payment/amazon_login_pay');
 
+        // Amazon Login Pay
         $this->load->model('extension/payment/amazon_login_pay');
 
         if (isset($this->request->get['AuthenticationStatus'])) {
@@ -562,7 +582,10 @@ class ControllerExtensionPaymentAmazonLoginPay extends Controller {
         $this->load->language('checkout/checkout');
         $this->load->language('extension/payment/amazon_login_pay');
 
+        // Orders
         $this->load->model('checkout/order');
+
+        // Amazon Login Pay
         $this->load->model('extension/payment/amazon_login_pay');
 
         $this->model_extension_payment_amazon_login_pay->verifyCart();
@@ -645,10 +668,7 @@ class ControllerExtensionPaymentAmazonLoginPay extends Controller {
             $this->model_checkout_order->addOrderHistory($order_id, $this->config->get('payment_amazon_login_pay_pending_status'), '', $this->config->get('payment_amazon_login_pay_mode') != 'payment');
 
             // In case a payment has been completed, and the order is not closed, close it.
-            if (isset($authorization->CapturedAmount->Amount) && (float)$authorization->CapturedAmount->Amount && $this->model_extension_payment_amazon_login_pay->isOrderInState($order_reference_id, [
-                    'Open',
-                    'Suspended'
-                ])) {
+            if (isset($authorization->CapturedAmount->Amount) && (float)$authorization->CapturedAmount->Amount && $this->model_extension_payment_amazon_login_pay->isOrderInState($order_reference_id, ['Open','Suspended'])) {
                 $this->model_extension_payment_amazon_login_pay->closeOrder($order_reference_id, "A capture has been performed. Closing the order.");
             }
 
@@ -662,7 +682,10 @@ class ControllerExtensionPaymentAmazonLoginPay extends Controller {
         $this->load->language('checkout/checkout');
         $this->load->language('extension/payment/amazon_login_pay');
 
+        // Orders
         $this->load->model('checkout/order');
+
+        // Amazon Login Pay
         $this->load->model('extension/payment/amazon_login_pay');
 
         $this->model_extension_payment_amazon_login_pay->verifyCart();
@@ -800,7 +823,10 @@ class ControllerExtensionPaymentAmazonLoginPay extends Controller {
 
         $json = [];
 
+        // Orders
         $this->load->model('checkout/order');
+
+        // Amazon Login Pay
         $this->load->model('extension/payment/amazon_login_pay');
 
         $this->model_extension_payment_amazon_login_pay->verifyCart();
@@ -866,6 +892,7 @@ class ControllerExtensionPaymentAmazonLoginPay extends Controller {
     public function ipn(): void {
         sleep(5);
 
+        // Amazon Login Pay
         $this->load->model('extension/payment/amazon_login_pay');
 
         try {
@@ -961,6 +988,7 @@ class ControllerExtensionPaymentAmazonLoginPay extends Controller {
     public function capture(string &$route, array &$args, mixed &$output): void {
         $this->load->language('extension/payment/amazon_login_pay');
 
+        // Amazon Login Pay
         $this->load->model('extension/payment/amazon_login_pay');
 
         $order_id = $args[0];

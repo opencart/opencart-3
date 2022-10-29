@@ -3,6 +3,7 @@ class ControllerExtensionPaymentCardConnect extends Controller {
     public function index(): string {
         $this->load->language('extension/payment/cardconnect');
 
+        // Cardconnect
         $this->load->model('extension/payment/cardconnect');
 
         if ($this->customer->isLogged() && $this->config->get('payment_cardconnect_store_cards')) {
@@ -26,6 +27,7 @@ class ControllerExtensionPaymentCardConnect extends Controller {
     public function send(): void {
         $this->load->language('extension/payment/cardconnect');
 
+        // Cardconnect
         $this->load->model('extension/payment/cardconnect');
 
         $this->model_extension_payment_cardconnect->log('Posting order to CardConnect');
@@ -38,6 +40,7 @@ class ControllerExtensionPaymentCardConnect extends Controller {
                 $error = $this->validate();
 
                 if (!$error) {
+                    // Orders
                     $this->load->model('checkout/order');
 
                     $order_info = $this->model_checkout_order->getOrder($this->session->data['order_id']);
@@ -149,6 +152,7 @@ class ControllerExtensionPaymentCardConnect extends Controller {
                         $this->model_extension_payment_cardconnect->log('Response: ' . print_r($response_data, true));
 
                         if (isset($response_data['respstat']) && $response_data['respstat'] == 'A') {
+                            // Orders
                             $this->load->model('checkout/order');
 
                             // if a cheque
@@ -209,6 +213,7 @@ class ControllerExtensionPaymentCardConnect extends Controller {
 
         $json = [];
 
+        // Cardconnect
         $this->load->model('extension/payment/cardconnect');
 
         $this->model_extension_payment_cardconnect->log('Deleting card');
@@ -252,6 +257,7 @@ class ControllerExtensionPaymentCardConnect extends Controller {
     }
 
     public function cron(): void {
+        // Cardconnect
         $this->load->model('extension/payment/cardconnect');
 
         $this->model_extension_payment_cardconnect->log('Running cron');
@@ -282,6 +288,7 @@ class ControllerExtensionPaymentCardConnect extends Controller {
 
         $error = [];
 
+        // Cardconnect
         $this->load->model('extension/payment/cardconnect');
 
         if (!isset($this->request->post['method']) || $this->request->post['method'] == 'card') {

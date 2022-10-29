@@ -49,6 +49,7 @@ class ControllerApiShipping extends Controller {
                     $json['error']['city'] = $this->language->get('error_city');
                 }
 
+                // Countries
                 $this->load->model('localisation/country');
 
                 $country_info = $this->model_localisation_country->getCountry($this->request->post['country_id']);
@@ -81,6 +82,7 @@ class ControllerApiShipping extends Controller {
                 }
 
                 if (!$json) {
+                    // Countries
                     $this->load->model('localisation/country');
 
                     $country_info = $this->model_localisation_country->getCountry($this->request->post['country_id']);
@@ -97,6 +99,7 @@ class ControllerApiShipping extends Controller {
                         $address_format = '';
                     }
 
+                    // Zones
                     $this->load->model('localisation/zone');
 
                     $zone_info = $this->model_localisation_zone->getZone($this->request->post['zone_id']);
@@ -157,9 +160,9 @@ class ControllerApiShipping extends Controller {
             }
 
             if (!$json) {
-                // Shipping Methods
                 $json['shipping_methods'] = [];
 
+                // Shipping Methods
                 $this->load->model('checkout/shipping_method');
 
                 $shipping_methods = $this->model_checkout_shipping_method->getMethods($this->session->data['shipping_address']);

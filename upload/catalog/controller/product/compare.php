@@ -3,7 +3,10 @@ class ControllerProductCompare extends Controller {
     public function index(): void {
         $this->load->language('product/compare');
 
+        // Image files
         $this->load->model('tool/image');
+
+        // Products
         $this->load->model('catalog/product');
 
         if (!isset($this->session->data['compare'])) {
@@ -149,6 +152,7 @@ class ControllerProductCompare extends Controller {
             $product_id = 0;
         }
 
+        // Products
         $this->load->model('catalog/product');
 
         $product_info = $this->model_catalog_product->getProduct($product_id);

@@ -1,6 +1,7 @@
 <?php
 class ControllerInformationGdpr extends Controller {
     public function index(): object|null {
+        // Information
         $this->load->model('catalog/information');
 
         $information_info = $this->model_catalog_information->getInformation($this->config->get('config_gdpr_id'));
@@ -104,6 +105,7 @@ class ControllerInformationGdpr extends Controller {
             // Added additional check so people are not spamming requests
             $status = true;
 
+            // GDPR
             $this->load->model('account/gdpr');
 
             $results = $this->model_account_gdpr->getGdprsByEmail($email);
@@ -133,6 +135,7 @@ class ControllerInformationGdpr extends Controller {
             $code = '';
         }
 
+        // GDPR
         $this->load->model('account/gdpr');
 
         $gdpr_info = $this->model_account_gdpr->getGdprByCode($code);

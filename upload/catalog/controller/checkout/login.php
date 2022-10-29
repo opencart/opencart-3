@@ -30,6 +30,7 @@ class ControllerCheckoutLogin extends Controller {
         }
 
         if (!$json) {
+            // Customers
             $this->load->model('account/customer');
 
             // Check how many login attempts have been made.
@@ -74,6 +75,7 @@ class ControllerCheckoutLogin extends Controller {
 
             // Wishlist
             if (!empty($this->session->data['wishlist']) && is_array($this->session->data['wishlist'])) {
+                // Wishlists
                 $this->load->model('account/wishlist');
 
                 foreach ($this->session->data['wishlist'] as $key => $product_id) {

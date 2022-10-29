@@ -51,6 +51,7 @@ class ControllerExtensionModulePayPalSmartButton extends Controller {
 
                 $product_id = (int)$this->request->get['product_id'];
 
+                // Products
                 $this->load->model('catalog/product');
 
                 $product_info = $this->model_catalog_product->getProduct($product_id);
@@ -108,6 +109,7 @@ class ControllerExtensionModulePayPalSmartButton extends Controller {
             }
 
             if ($status) {
+                // Countries
                 $this->load->model('localisation/country');
 
                 $country = $this->model_localisation_country->getCountry($this->config->get('config_country_id'));
@@ -136,6 +138,7 @@ class ControllerExtensionModulePayPalSmartButton extends Controller {
 
         $errors = [];
 
+        // PayPal Smart Button
         $this->load->model('extension/module/paypal_smart_button');
 
         $data['order_id'] = '';
@@ -146,6 +149,7 @@ class ControllerExtensionModulePayPalSmartButton extends Controller {
             $product_id = 0;
         }
 
+        // Products
         $this->load->model('catalog/product');
 
         $product_info = $this->model_catalog_product->getProduct($product_id);
@@ -337,6 +341,7 @@ class ControllerExtensionModulePayPalSmartButton extends Controller {
     public function approveOrder(): void {
         $this->load->language('extension/module/paypal_smart_button');
 
+        // PayPal Smart Button
         $this->load->model('extension/module/paypal_smart_button');
 
         if (isset($this->request->post['order_id'])) {
@@ -419,7 +424,10 @@ class ControllerExtensionModulePayPalSmartButton extends Controller {
         }
 
         if ($order_info && !$this->error) {
+            // Addresses
             $this->load->model('account/address');
+
+            // Customers
             $this->load->model('account/customer');
 
             unset($this->session->data['shipping_method']);
@@ -533,6 +541,7 @@ class ControllerExtensionModulePayPalSmartButton extends Controller {
         $this->load->language('checkout/cart');
         $this->load->language('extension/module/paypal_smart_button');
 
+        // Image files
         $this->load->model('tool/image');
 
         if (!isset($this->session->data['paypal_order_id'])) {
@@ -607,6 +616,7 @@ class ControllerExtensionModulePayPalSmartButton extends Controller {
             $data['next'] = '';
         }
 
+        // Uploaded files
         $this->load->model('tool/upload');
 
         $products = $this->cart->getProducts();
@@ -721,6 +731,7 @@ class ControllerExtensionModulePayPalSmartButton extends Controller {
             }
         }
 
+        // Extensions
         $this->load->model('setting/extension');
 
         if ($this->cart->hasShipping()) {
@@ -821,6 +832,7 @@ class ControllerExtensionModulePayPalSmartButton extends Controller {
         array_multisort($sort_order, SORT_ASC, $method_data);
 
         $this->session->data['payment_methods'] = $method_data;
+
         $data['payment_methods'] = $method_data;
 
         if (!isset($method_data['paypal'])) {
@@ -930,6 +942,7 @@ class ControllerExtensionModulePayPalSmartButton extends Controller {
     public function completeOrder(): void {
         $this->load->language('extension/module/paypal_smart_button');
 
+        // PayPal Smart Button
         $this->load->model('extension/module/paypal_smart_button');
 
         // Validate if payment address has been set.
@@ -974,6 +987,7 @@ class ControllerExtensionModulePayPalSmartButton extends Controller {
                 'total'  => &$total
             ];
 
+            // Extensions
             $this->load->model('setting/extension');
 
             $sort_order = [];
@@ -1158,7 +1172,7 @@ class ControllerExtensionModulePayPalSmartButton extends Controller {
 
                 $sub_total = $this->cart->getSubTotal();
 
-                // Affiliate
+                // Customer Affiliate
                 $this->load->model('account/customer');
 
                 $affiliate_info = $this->model_account_customer->getAffiliateByTracking($this->request->cookie['tracking']);
@@ -1214,6 +1228,7 @@ class ControllerExtensionModulePayPalSmartButton extends Controller {
                 $order_data['accept_language'] = '';
             }
 
+            // Orders
             $this->load->model('checkout/order');
 
             $this->session->data['order_id'] = $this->model_checkout_order->addOrder($order_data);
@@ -1284,6 +1299,7 @@ class ControllerExtensionModulePayPalSmartButton extends Controller {
                     $country_id = 0;
                 }
 
+                // Countries
                 $this->load->model('localisation/country');
 
                 $country_info = $this->model_localisation_country->getCountry($country_id);
@@ -1432,13 +1448,16 @@ class ControllerExtensionModulePayPalSmartButton extends Controller {
     public function paymentAddress(): void {
         $this->load->language('extension/module/paypal_smart_button');
 
+        // Countries
         $this->load->model('localisation/country');
 
         $data['guest'] = isset($this->session->data['guest']) ? $this->session->data['guest'] : [];
+
         $data['payment_address'] = isset($this->session->data['payment_address']) ? $this->session->data['payment_address'] : [];
 
         $data['countries'] = $this->model_localisation_country->getCountries();
 
+        // Custom Fields
         $this->load->model('account/custom_field');
 
         $data['custom_fields'] = $this->model_account_custom_field->getCustomFields();
@@ -1449,11 +1468,13 @@ class ControllerExtensionModulePayPalSmartButton extends Controller {
     public function shippingAddress(): void {
         $this->load->language('extension/module/paypal_smart_button');
 
+        // Countries
         $this->load->model('localisation/country');
 
         $data['shipping_address'] = isset($this->session->data['shipping_address']) ? $this->session->data['shipping_address'] : [];
         $data['countries'] = $this->model_localisation_country->getCountries();
 
+        // Custom Fields
         $this->load->model('account/custom_field');
 
         $data['custom_fields'] = $this->model_account_custom_field->getCustomFields();
@@ -1494,6 +1515,7 @@ class ControllerExtensionModulePayPalSmartButton extends Controller {
             $this->session->data['payment_address']['country_id'] = (int)$this->request->post['country_id'];
             $this->session->data['payment_address']['zone_id'] = (int)$this->request->post['zone_id'];
 
+            // Countries
             $this->load->model('localisation/country');
 
             $country_info = $this->model_localisation_country->getCountry($this->request->post['country_id']);
@@ -1516,6 +1538,7 @@ class ControllerExtensionModulePayPalSmartButton extends Controller {
                 $this->session->data['payment_address']['custom_field'] = [];
             }
 
+            // Zones
             $this->load->model('localisation/zone');
 
             $zone_info = $this->model_localisation_zone->getZone($this->request->post['zone_id']);
@@ -1551,7 +1574,7 @@ class ControllerExtensionModulePayPalSmartButton extends Controller {
             $this->session->data['shipping_address']['country_id'] = $this->request->post['country_id'];
             $this->session->data['shipping_address']['zone_id'] = $this->request->post['zone_id'];
 
-            // Country
+            // Countries
             $this->load->model('localisation/country');
 
             $country_info = $this->model_localisation_country->getCountry($this->request->post['country_id']);
@@ -1568,7 +1591,7 @@ class ControllerExtensionModulePayPalSmartButton extends Controller {
                 $this->session->data['shipping_address']['address_format'] = '';
             }
 
-            // Zone
+            // Zones
             $this->load->model('localisation/zone');
 
             $zone_info = $this->model_localisation_zone->getZone($this->request->post['zone_id']);
@@ -1598,7 +1621,6 @@ class ControllerExtensionModulePayPalSmartButton extends Controller {
 
     private function validateShipping($code) {
         $this->load->language('checkout/cart');
-
         $this->load->language('extension/module/paypal_smart_button');
 
         if (empty($code)) {
@@ -1646,6 +1668,7 @@ class ControllerExtensionModulePayPalSmartButton extends Controller {
             $this->error['city'] = $this->language->get('error_city');
         }
 
+        // Countries
         $this->load->model('localisation/country');
 
         $country_info = $this->model_localisation_country->getCountry($this->request->post['country_id']);
@@ -1662,7 +1685,7 @@ class ControllerExtensionModulePayPalSmartButton extends Controller {
             $this->error['zone'] = $this->language->get('error_zone');
         }
 
-        // Customer Group
+        // Customer Groups
         if (isset($this->request->post['customer_group_id']) && in_array($this->request->post['customer_group_id'], (array)$this->config->get('config_customer_group_display'))) {
             $customer_group_id = (int)$this->request->post['customer_group_id'];
         } else {
@@ -1702,6 +1725,7 @@ class ControllerExtensionModulePayPalSmartButton extends Controller {
             $this->error['city'] = $this->language->get('error_city');
         }
 
+        // Countries
         $this->load->model('localisation/country');
 
         $country_info = $this->model_localisation_country->getCountry($this->request->post['country_id']);
@@ -1718,7 +1742,7 @@ class ControllerExtensionModulePayPalSmartButton extends Controller {
             $this->error['zone'] = $this->language->get('error_zone');
         }
 
-        // Customer Group
+        // Customer Groups
         if (isset($this->request->post['customer_group_id']) && in_array($this->request->post['customer_group_id'], (array)$this->config->get('config_customer_group_display'))) {
             $customer_group_id = (int)$this->request->post['customer_group_id'];
         } else {
@@ -1744,6 +1768,7 @@ class ControllerExtensionModulePayPalSmartButton extends Controller {
     }
 
     private function validateCoupon() {
+        // Coupons
         $this->load->model('extension/total/coupon');
 
         $coupon_info = $this->model_extension_total_coupon->getCoupon($this->request->post['coupon']);

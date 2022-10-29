@@ -13,6 +13,7 @@ class ControllerAccountPaymentMethod extends Controller {
 
         $this->document->setTitle($this->language->get('heading_title'));
 
+        // Payment Methods
         $this->load->model('account/payment_method');
 
         $this->getList();
@@ -36,6 +37,7 @@ class ControllerAccountPaymentMethod extends Controller {
         }
 
         if (!$json) {
+            // Payment Methods
             $this->load->model('account/payment_method');
 
             $payment_method_info = $this->model_account_payment_method->getPaymentMethod($this->customer->getId(), $customer_payment_id);
@@ -46,6 +48,7 @@ class ControllerAccountPaymentMethod extends Controller {
         }
 
         if (!$json) {
+            // Dynamic Payment Methods
             $this->load->model('extension/' . $payment_method_info['extension'] . '/payment/' . $payment_method_info['code']);
 
             if ($this->{'model_extension_' . $payment_method_info['extension'] . '_payment_' . $payment_method_info['code']}->delete($customer_payment_id)) {

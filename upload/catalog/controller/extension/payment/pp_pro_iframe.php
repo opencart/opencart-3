@@ -3,12 +3,15 @@ class ControllerExtensionPaymentPPProIframe extends Controller {
     public function index(): string {
         $this->load->language('extension/payment/pp_pro_iframe');
 
+        // Orders
         $this->load->model('checkout/order');
+
+        // PP Pro Iframe
         $this->load->model('extension/payment/pp_pro_iframe');
 
         if ($this->config->get('payment_pp_pro_iframe_checkout_method') == 'redirect') {
             if (!isset($this->session->data['order_id'])) {
-                return false;
+                return '';
             }
 
             $order_info = $this->model_checkout_order->getOrder($this->session->data['order_id']);
@@ -43,7 +46,10 @@ class ControllerExtensionPaymentPPProIframe extends Controller {
 
         $this->load->language('extension/payment/pp_pro_iframe');
 
+        // Orders
         $this->load->model('checkout/order');
+
+        // PP Pro Iframe
         $this->load->model('extension/payment/pp_pro_iframe');
 
         $order_info = $this->model_checkout_order->getOrder($this->session->data['order_id']);
@@ -74,6 +80,7 @@ class ControllerExtensionPaymentPPProIframe extends Controller {
     }
 
     public function notify(): void {
+        // PP Pro Iframe
         $this->load->model('extension/payment/pp_pro_iframe');
 
         if (isset($this->request->post['custom'])) {
@@ -82,6 +89,7 @@ class ControllerExtensionPaymentPPProIframe extends Controller {
             $order_id = 0;
         }
 
+        // Orders
         $this->load->model('checkout/order');
 
         $order_info = $this->model_checkout_order->getOrder($order_id);
@@ -110,11 +118,13 @@ class ControllerExtensionPaymentPPProIframe extends Controller {
 
             if (curl_errno($curl)) {
                 if ($this->config->get('payment_pp_pro_iframe_debug')) {
+                    // Log
                     $log = new \Log('pp_pro_iframe.log');
                     $log->write('pp_pro_iframe :: CURL failed ' . curl_error($curl) . '(' . curl_errno($curl) . ')');
                 }
             } else {
                 if ($this->config->get('payment_pp_pro_iframe_debug')) {
+                    // Log
                     $log = new \Log('pp_pro_iframe.log');
                     $log->write('pp_pro_iframe :: IPN REQUEST: ' . $request);
                     $log->write('pp_pro_iframe :: IPN RESPONSE: ' . $response);
@@ -290,6 +300,7 @@ class ControllerExtensionPaymentPPProIframe extends Controller {
         parse_str($response, $response_data);
 
         if ($this->config->get('payment_pp_pro_iframe_debug')) {
+            // Log
             $log = new \Log('pp_pro_iframe.log');
             $log->write(print_r(json_encode($response_data), 1));
         }

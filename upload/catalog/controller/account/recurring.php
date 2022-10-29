@@ -42,6 +42,7 @@ class ControllerAccountRecurring extends Controller {
 
         $data['recurrings'] = [];
 
+        // Recurring
         $this->load->model('account/recurring');
 
         $recurring_total = $this->model_account_recurring->getTotalOrderRecurrings();
@@ -99,6 +100,7 @@ class ControllerAccountRecurring extends Controller {
             $this->response->redirect($this->url->link('account/login', '', true));
         }
 
+        // Recurring
         $this->load->model('account/recurring');
 
         $recurring_info = $this->model_account_recurring->getOrderRecurring($order_recurring_id);

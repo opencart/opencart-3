@@ -14,6 +14,7 @@ class ControllerExtensionPaymentBankTransfer extends Controller {
         if (isset($this->session->data['payment_method']['code']) && $this->session->data['payment_method']['code'] == 'bank_transfer') {
             $this->load->language('extension/payment/bank_transfer');
 
+            // Orders
             $this->load->model('checkout/order');
 
             $comment = $this->language->get('text_instruction') . "\n\n";

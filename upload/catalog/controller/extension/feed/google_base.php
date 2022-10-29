@@ -9,9 +9,16 @@ class ControllerExtensionFeedGoogleBase extends Controller {
             $output .= '  <description>' . $this->config->get('config_meta_description') . '</description>';
             $output .= '  <link>' . $this->config->get('config_url') . '</link>';
 
+            // Image files
             $this->load->model('tool/image');
+
+            // Products
             $this->load->model('catalog/product');
+
+            // Categories
             $this->load->model('catalog/category');
+
+            // Google Base
             $this->load->model('extension/feed/google_base');
 
             $product_data = [];

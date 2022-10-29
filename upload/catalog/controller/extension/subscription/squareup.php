@@ -3,7 +3,10 @@ class ControllerExtensionRecurringSquareup extends Controller {
     public function index(): string {
         $this->load->language('extension/subscription/squareup');
 
+        // Subscription
         $this->load->model('account/subscription');
+
+        // Squareup
         $this->load->model('extension/payment/squareup');
 
         if (isset($this->request->get['subscription_id'])) {
@@ -35,7 +38,10 @@ class ControllerExtensionRecurringSquareup extends Controller {
 
         $json = [];
 
+        // Subscription
         $this->load->model('account/subscription');
+
+        // Squareup
         $this->load->model('extension/payment/squareup');
 
         if (isset($this->request->get['subscription_id'])) {
@@ -49,6 +55,7 @@ class ControllerExtensionRecurringSquareup extends Controller {
         if ($subscription_info) {
             $this->model_account_subscription->editStatus($subscription_id, ModelExtensionPaymentSquareup::RECURRING_CANCELLED);
 
+            // Orders
             $this->load->model('checkout/order');
 
             $order_info = $this->model_checkout_order->getOrder($subscription_info['order_id']);
@@ -67,6 +74,7 @@ class ControllerExtensionRecurringSquareup extends Controller {
     public function recurring(): void {
         $this->load->language('extension/payment/squareup');
 
+        // Squareup
         $this->load->model('extension/payment/squareup');
 
         if (!$this->model_extension_payment_squareup->validateCRON()) {
@@ -84,6 +92,7 @@ class ControllerExtensionRecurringSquareup extends Controller {
 
         $result['token_update_error'] = $this->model_extension_payment_squareup->updateToken();
 
+        // Orders
         $this->load->model('checkout/order');
 
         foreach ($this->model_extension_payment_squareup->nextRecurringPayments() as $payment) {

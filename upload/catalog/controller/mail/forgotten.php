@@ -3,6 +3,7 @@ class ControllerMailForgotten extends Controller {
     // catalog/model/account/customer/editCode/after
     public function index(string &$route, array &$args, mixed &$output): void {
         if ($args[0] && $args[1]) {
+            // Customers
             $this->load->model('account/customer');
 
             $customer_info = $this->model_account_customer->getCustomerByEmail($args[0]);

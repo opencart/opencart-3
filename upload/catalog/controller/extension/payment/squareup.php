@@ -27,6 +27,7 @@ class ControllerExtensionPaymentSquareup extends Controller {
         if ($this->customer->isLogged()) {
             $data['is_logged'] = true;
 
+            // Squareup
             $this->load->model('extension/credit_card/squareup');
 
             $cards = $this->model_extension_credit_card_squareup->getCards($this->customer->getId(), $this->config->get('payment_squareup_enable_sandbox'));
@@ -53,9 +54,16 @@ class ControllerExtensionPaymentSquareup extends Controller {
 
         $json = [];
 
+        // Orders
         $this->load->model('checkout/order');
+
+        // Subscription
         $this->load->model('account/subscription');
+
+        // Countries
         $this->load->model('localisation/country');
+
+        // Squareup
         $this->load->model('extension/payment/squareup');
         $this->load->model('extension/credit_card/squareup');
 

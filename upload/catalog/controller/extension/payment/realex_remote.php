@@ -53,7 +53,10 @@ class ControllerExtensionPaymentRealexRemote extends Controller {
 
         $json = [];
 
+        // Orders
         $this->load->model('checkout/order');
+
+        // Realex Remote
         $this->load->model('extension/payment/realex_remote');
 
         if ($this->request->post['cc_number'] == '') {
@@ -207,10 +210,14 @@ class ControllerExtensionPaymentRealexRemote extends Controller {
 
     public function acsReturn(): void {
         if (isset($this->session->data['order_id'])) {
+            // Orders
             $this->load->model('checkout/order');
+
+            // Realex Remote
             $this->load->model('extension/payment/realex_remote');
 
             $post = $this->request->post;
+
             $md = json_decode($this->encryption->decrypt($this->config->get('config_encryption'), $post['MD']), true);
             $signature_result = $this->model_extension_payment_realex_remote->enrollmentSignature($md['account'], $md['amount'], $md['currency'], $md['order_ref'], $md['cc_number'], $md['cc_expire'], $md['cc_type'], $md['cc_name'], $post['PaRes']);
 

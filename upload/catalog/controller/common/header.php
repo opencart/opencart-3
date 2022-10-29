@@ -61,6 +61,7 @@ class ControllerCommonHeader extends Controller {
 
         // Wishlist
         if ($this->customer->isLogged()) {
+            // Wishlists
             $this->load->model('account/wishlist');
 
             $data['text_wishlist'] = sprintf($this->language->get('text_wishlist'), $this->model_account_wishlist->getTotalWishlist());

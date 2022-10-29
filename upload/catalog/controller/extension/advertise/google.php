@@ -58,7 +58,10 @@ class ControllerExtensionAdvertiseGoogle extends Controller {
             $this->loadLibrary($this->store_id);
         }
 
+        // Orders
         $this->load->model('checkout/order');
+
+        // Google
         $this->load->model('extension/advertise/google');
 
         $order_info = $this->model_checkout_order->getOrder($this->session->data['order_id']);
@@ -230,6 +233,7 @@ class ControllerExtensionAdvertiseGoogle extends Controller {
             $category_id = 0;
         }
 
+        // Google
         $this->load->model('extension/advertise/google');
 
         $data = [];
@@ -254,6 +258,7 @@ class ControllerExtensionAdvertiseGoogle extends Controller {
             return false;
         }
 
+        // Products
         $this->load->model('catalog/product');
 
         $product_info = $this->model_catalog_product->getProduct((int)$this->request->get['product_id']);
@@ -271,6 +276,7 @@ class ControllerExtensionAdvertiseGoogle extends Controller {
             return false;
         }
 
+        // Google
         $this->load->model('extension/advertise/google');
 
         $category_name = $this->model_extension_advertise_google->getHumanReadableCategory($product_info['product_id'], $this->store_id);
@@ -309,7 +315,10 @@ class ControllerExtensionAdvertiseGoogle extends Controller {
             return false;
         }
 
+        // Products
         $this->load->model('catalog/product');
+
+        // Google
         $this->load->model('extension/advertise/google');
 
         $data = [];

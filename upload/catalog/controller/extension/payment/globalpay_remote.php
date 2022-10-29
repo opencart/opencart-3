@@ -52,7 +52,10 @@ class ControllerExtensionPaymentGlobalpayRemote extends Controller {
 
         $json = [];
 
+        // Orders
         $this->load->model('checkout/order');
+
+        // Globalpay Remote
         $this->load->model('extension/payment/globalpay_remote');
 
         if ($this->request->post['cc_number'] == '') {
@@ -200,7 +203,10 @@ class ControllerExtensionPaymentGlobalpayRemote extends Controller {
 
     public function acsReturn(): void {
         if (isset($this->session->data['order_id'])) {
+            // Orders
             $this->load->model('checkout/order');
+
+            // Global Remote
             $this->load->model('extension/payment/globalpay_remote');
 
             $post = $this->request->post;

@@ -7,7 +7,10 @@ class ControllerExtensionPaymentPilibaba extends Controller {
 
         $this->load->language('extension/payment/pilibaba');
 
+        // Orders
         $this->load->model('checkout/order');
+
+        // Pilibaba
         $this->load->model('extension/payment/pilibaba');
 
         $this->model_extension_payment_pilibaba->log('Regular called');
@@ -69,6 +72,7 @@ class ControllerExtensionPaymentPilibaba extends Controller {
         $this->load->language('extension/payment/pilibaba');
         $this->load->language('extension/shipping/pilibaba');
 
+        // Pilibaba
         $this->load->model('extension/payment/pilibaba');
 
         $this->model_extension_payment_pilibaba->log('Express called');
@@ -92,6 +96,7 @@ class ControllerExtensionPaymentPilibaba extends Controller {
                     'total'  => &$total
                 ];
 
+                // Extensions
                 $this->load->model('setting/extension');
 
                 $sort_order = [];
@@ -297,6 +302,7 @@ class ControllerExtensionPaymentPilibaba extends Controller {
                     $order_data['accept_language'] = '';
                 }
 
+                // Orders
                 $this->load->model('checkout/order');
 
                 $this->session->data['order_id'] = $this->model_checkout_order->addOrder($order_data);
@@ -362,7 +368,10 @@ class ControllerExtensionPaymentPilibaba extends Controller {
     public function callback(): void {
         $this->load->language('extension/payment/pilibaba');
 
+        // Orders
         $this->load->model('checkout/order');
+
+        // Pilibaba
         $this->load->model('extension/payment/pilibaba');
 
         $this->model_extension_payment_pilibaba->log('Receiving callback');

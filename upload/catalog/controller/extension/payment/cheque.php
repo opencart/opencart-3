@@ -15,6 +15,7 @@ class ControllerExtensionPaymentCheque extends Controller {
         if (isset($this->session->data['payment_method']['code']) && $this->session->data['payment_method']['code'] == 'cheque') {
             $this->load->language('extension/payment/cheque');
 
+            // Orders
             $this->load->model('checkout/order');
 
             $comment = $this->language->get('text_payable') . "\n";

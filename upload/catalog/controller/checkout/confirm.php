@@ -68,6 +68,7 @@ class ControllerCheckoutConfirm extends Controller {
                 'total'  => &$total
             ];
 
+            // Extensions
             $this->load->model('setting/extension');
 
             $sort_order = [];
@@ -111,6 +112,7 @@ class ControllerCheckoutConfirm extends Controller {
                 }
             }
 
+            // Customers
             $this->load->model('account/customer');
 
             if ($this->customer->isLogged()) {
@@ -268,6 +270,7 @@ class ControllerCheckoutConfirm extends Controller {
             if ($this->config->get('config_affiliate_status') && isset($this->session->data['tracking'])) {
                 $subtotal = $this->cart->getSubTotal();
 
+                // Customer Affiliate
                 $this->load->model('account/affiliate');
 
                 $affiliate_info = $this->model_account_customer->getAffiliateByTracking($this->session->data['tracking']);
@@ -305,6 +308,7 @@ class ControllerCheckoutConfirm extends Controller {
                 $order_data['accept_language'] = '';
             }
 
+            // Orders
             $this->load->model('checkout/order');
 
             if (!isset($this->session->data['order_id'])) {
@@ -317,6 +321,7 @@ class ControllerCheckoutConfirm extends Controller {
                 }
             }
 
+            // Uploaded files
             $this->load->model('tool/upload');
 
             $data['products'] = [];

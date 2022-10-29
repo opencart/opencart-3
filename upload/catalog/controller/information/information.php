@@ -3,6 +3,7 @@ class ControllerInformationInformation extends Controller {
     public function index(): void {
         $this->load->language('information/information');
 
+        // Information
         $this->load->model('catalog/information');
 
         $data['breadcrumbs'] = [];
@@ -68,6 +69,7 @@ class ControllerInformationInformation extends Controller {
     }
 
     public function agree(): void {
+        // Information
         $this->load->model('catalog/information');
 
         if (isset($this->request->get['information_id'])) {

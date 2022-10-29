@@ -2,6 +2,7 @@
 class ControllerEventStatistics extends Controller {
     // catalog/model/catalog/review/addReview/after
     public function addReview(string &$route, array &$args, mixed &$output): void {
+        // Statistics
         $this->load->model('report/statistics');
 
         $this->model_report_statistics->addValue('review', 1);
@@ -9,6 +10,7 @@ class ControllerEventStatistics extends Controller {
 
     // catalog/model/account/returns/addReturn/after
     public function addReturn(string &$route, array &$args, mixed &$output): void {
+        // Statistics
         $this->load->model('report/statistics');
 
         $this->model_report_statistics->addValue('returns', 1);
@@ -16,6 +18,7 @@ class ControllerEventStatistics extends Controller {
 
     // catalog/model/checkout/order/addOrderHistory/before
     public function addOrderHistory(string &$route, array &$args, mixed &$output): void {
+        // Orders
         $this->load->model('checkout/order');
 
         $order_info = $this->model_checkout_order->getOrder($args[0]);

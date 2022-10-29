@@ -113,6 +113,7 @@ class ControllerAccountVoucher extends Controller {
             $data['from_email'] = '';
         }
 
+        // Voucher Themes
         $this->load->model('extension/total/voucher_theme');
 
         $data['voucher_themes'] = $this->model_extension_total_voucher_theme->getVoucherThemes();

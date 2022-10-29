@@ -29,6 +29,7 @@ class ControllerApiCustomer extends Controller {
 
             // Customer
             if ($this->request->post['customer_id']) {
+                // Customers
                 $this->load->model('account/customer');
 
                 $customer_info = $this->model_account_customer->getCustomer($this->request->post['customer_id']);

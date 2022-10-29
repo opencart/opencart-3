@@ -1,6 +1,7 @@
 <?php
 class ControllerCommonColumnLeft extends Controller {
     public function index(): string {
+        // Layouts
         $this->load->model('design/layout');
 
         if (isset($this->request->get['route'])) {
@@ -12,6 +13,7 @@ class ControllerCommonColumnLeft extends Controller {
         $layout_id = 0;
 
         if ($route == 'product/category' && isset($this->request->get['path'])) {
+            // Categories
             $this->load->model('catalog/category');
 
             $path = explode('_', (string)$this->request->get['path']);
@@ -20,12 +22,14 @@ class ControllerCommonColumnLeft extends Controller {
         }
 
         if ($route == 'product/product' && isset($this->request->get['product_id'])) {
+            // Products
             $this->load->model('catalog/product');
 
             $layout_id = $this->model_catalog_product->getProductLayoutId($this->request->get['product_id']);
         }
 
         if ($route == 'information/information' && isset($this->request->get['information_id'])) {
+            // Information
             $this->load->model('catalog/information');
 
             $layout_id = $this->model_catalog_information->getInformationLayoutId($this->request->get['information_id']);
@@ -39,6 +43,7 @@ class ControllerCommonColumnLeft extends Controller {
             $layout_id = $this->config->get('config_layout_id');
         }
 
+        // Modules
         $this->load->model('setting/module');
 
         $data['modules'] = [];

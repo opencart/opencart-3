@@ -15,6 +15,7 @@ class ControllerExtensionPaymentPPStandard extends Controller {
             $data['action'] = 'https://www.sandbox.paypal.com/cgi-bin/webscr&pal=V4T754QB63XXL';
         }
 
+        // Orders
         $this->load->model('checkout/order');
 
         $order_info = $this->model_checkout_order->getOrder($this->session->data['order_id']);
@@ -151,6 +152,7 @@ class ControllerExtensionPaymentPPStandard extends Controller {
             $order_id = 0;
         }
 
+        // Orders
         $this->load->model('checkout/order');
 
         $order_info = $this->model_checkout_order->getOrder($order_id);

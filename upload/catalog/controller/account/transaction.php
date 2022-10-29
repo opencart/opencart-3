@@ -28,6 +28,7 @@ class ControllerAccountTransaction extends Controller {
             'href' => $this->url->link('account/transaction', 'customer_token=' . $this->session->data['customer_token'], true)
         ];
 
+        // Transaction
         $this->load->model('account/transaction');
 
         $data['column_amount'] = sprintf($this->language->get('column_amount'), $this->config->get('config_currency'));

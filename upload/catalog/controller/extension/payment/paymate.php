@@ -11,6 +11,7 @@ class ControllerExtensionPaymentPaymate extends Controller {
             $data['action'] = 'https://www.paymate.com.au/PayMate/TestExpressPayment';
         }
 
+        // Orders
         $this->load->model('checkout/order');
 
         $order_info = $this->model_checkout_order->getOrder($this->session->data['order_id']);
@@ -43,6 +44,7 @@ class ControllerExtensionPaymentPaymate extends Controller {
             $order_id = 0;
         }
 
+        // Orders
         $this->load->model('checkout/order');
 
         $order_info = $this->model_checkout_order->getOrder($order_id);

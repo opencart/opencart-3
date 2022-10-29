@@ -202,6 +202,7 @@ class ControllerMailOrder extends Controller {
             "/\n\n+/"
         ], '<br/>', trim(str_replace($find, $replace, $format))));
 
+        // Uploaded files
         $this->load->model('tool/upload');
 
         // Products
@@ -265,6 +266,7 @@ class ControllerMailOrder extends Controller {
             ];
         }
 
+        // Settings
         $this->load->model('setting/setting');
 
         $from = $this->model_setting_setting->getSettingValue('config_email', $order_info['store_id']);
@@ -322,6 +324,7 @@ class ControllerMailOrder extends Controller {
 
         $data['comment'] = strip_tags($comment);
 
+        // Settings
         $this->load->model('setting/setting');
 
         $from = $this->model_setting_setting->getSettingValue('config_email', $order_info['store_id']);
@@ -400,6 +403,7 @@ class ControllerMailOrder extends Controller {
                 $data['order_status'] = '';
             }
 
+            // Uploaded files
             $this->load->model('tool/upload');
 
             $data['products'] = [];

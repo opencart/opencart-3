@@ -28,6 +28,7 @@ class ControllerAccountDownload extends Controller {
             'href' => $this->url->link('account/download', 'customer_token=' . $this->session->data['customer_token'], true)
         ];
 
+        // Downloads
         $this->load->model('account/download');
 
         if (isset($this->request->get['page'])) {
@@ -104,6 +105,7 @@ class ControllerAccountDownload extends Controller {
             $this->response->redirect($this->url->link('account/login', 'customer_token=' . $this->session->data['customer_token'], true));
         }
 
+        // Downloads
         $this->load->model('account/download');
 
         if (isset($this->request->get['download_id'])) {

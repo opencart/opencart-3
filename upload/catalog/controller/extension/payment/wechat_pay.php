@@ -41,6 +41,7 @@ class ControllerExtensionPaymentWechatPay extends Controller {
             'href' => $this->url->link('extension/payment/wechat_pay/qrcode')
         ];
 
+        // Orders
         $this->load->model('checkout/order');
 
         $order_info = $this->model_checkout_order->getOrder($this->session->data['order_id']);
@@ -91,6 +92,7 @@ class ControllerExtensionPaymentWechatPay extends Controller {
         if (isset($this->request->get['order_id'])) {
             $order_id = (int)$this->request->get['order_id'];
 
+            // Orders
             $this->load->model('checkout/order');
 
             $order_info = $this->model_checkout_order->getOrder($order_id);
@@ -122,6 +124,7 @@ class ControllerExtensionPaymentWechatPay extends Controller {
             if ($notifyInfo['result_code'] == 'SUCCESS' && $notifyInfo['return_code'] == 'SUCCESS') {
                 $order_id = $notifyInfo['out_trade_no'];
 
+                // Orders
                 $this->load->model('checkout/order');
 
                 $order_info = $this->model_checkout_order->getOrder($order_id);

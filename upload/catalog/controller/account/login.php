@@ -3,6 +3,7 @@ class ControllerAccountLogin extends Controller {
     private array $error = [];
 
     public function index(): void {
+        // Customers
         $this->load->model('account/customer');
 
         // Login override for admin users
@@ -67,6 +68,7 @@ class ControllerAccountLogin extends Controller {
 
             // Wishlist
             if (!empty($this->session->data['wishlist']) && is_array($this->session->data['wishlist'])) {
+                // Wishlists
                 $this->load->model('account/wishlist');
 
                 foreach ($this->session->data['wishlist'] as $key => $product_id) {

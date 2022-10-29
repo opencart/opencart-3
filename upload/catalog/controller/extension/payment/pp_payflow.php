@@ -7,6 +7,7 @@ class ControllerExtensionPaymentPPPayflow extends Controller {
 
         $this->load->language('extension/payment/pp_payflow');
 
+        // Orders
         $this->load->model('checkout/order');
 
         $order_info = $this->model_checkout_order->getOrder($this->session->data['order_id']);
@@ -70,6 +71,7 @@ class ControllerExtensionPaymentPPPayflow extends Controller {
     public function send(): void {
         $this->load->language('extension/payment/pp_payflow');
 
+        // Orders
         $this->load->model('checkout/order');
 
         if (!isset($this->session->data['order_id'])) {

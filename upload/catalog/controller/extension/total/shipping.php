@@ -10,6 +10,7 @@ class ControllerExtensionTotalShipping extends Controller {
                 $data['country_id'] = $this->config->get('config_country_id');
             }
 
+            // Countries
             $this->load->model('localisation/country');
 
             $data['countries'] = $this->model_localisation_country->getCountries();
@@ -59,6 +60,7 @@ class ControllerExtensionTotalShipping extends Controller {
             $json['error']['zone'] = $this->language->get('error_zone');
         }
 
+        // Countries
         $this->load->model('localisation/country');
 
         $country_info = $this->model_localisation_country->getCountry($this->request->post['country_id']);
@@ -91,6 +93,7 @@ class ControllerExtensionTotalShipping extends Controller {
                 $address_format = '';
             }
 
+            // Zones
             $this->load->model('localisation/zone');
 
             $zone_info = $this->model_localisation_zone->getZone($this->request->post['zone_id']);
@@ -123,6 +126,7 @@ class ControllerExtensionTotalShipping extends Controller {
 
             $quote_data = [];
 
+            // Extensions
             $this->load->model('setting/extension');
 
             $results = $this->model_setting_extension->getExtensions('shipping');
@@ -196,11 +200,13 @@ class ControllerExtensionTotalShipping extends Controller {
     public function country(): void {
         $json = [];
 
+        // Countries
         $this->load->model('localisation/country');
 
         $country_info = $this->model_localisation_country->getCountry($this->request->get['country_id']);
 
         if ($country_info) {
+            // Zones
             $this->load->model('localisation/zone');
 
             $json = [

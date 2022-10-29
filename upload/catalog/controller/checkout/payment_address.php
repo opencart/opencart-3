@@ -9,6 +9,7 @@ class ControllerCheckoutPaymentAddress extends Controller {
             $data['address_id'] = $this->customer->getAddressId();
         }
 
+        // Addresses
         $this->load->model('account/address');
 
         $data['addresses'] = $this->model_account_address->getAddresses();
@@ -25,6 +26,7 @@ class ControllerCheckoutPaymentAddress extends Controller {
             $data['zone_id'] = '';
         }
 
+        // Countries
         $this->load->model('localisation/country');
 
         $data['countries'] = $this->model_localisation_country->getCountries();
@@ -85,6 +87,7 @@ class ControllerCheckoutPaymentAddress extends Controller {
         }
 
         if (!$json) {
+            // Addresses
             $this->load->model('account/address');
 
             if (isset($this->request->post['payment_address']) && $this->request->post['payment_address'] == 'existing') {
@@ -117,6 +120,7 @@ class ControllerCheckoutPaymentAddress extends Controller {
                     $json['error']['city'] = $this->language->get('error_city');
                 }
 
+                // Countries
                 $this->load->model('localisation/country');
 
                 $country_info = $this->model_localisation_country->getCountry($this->request->post['country_id']);
@@ -155,6 +159,7 @@ class ControllerCheckoutPaymentAddress extends Controller {
 
                     // If no default address ID set we use the last address
                     if (!$this->customer->getAddressId()) {
+                        // Customers
                         $this->load->model('account/customer');
 
                         $this->model_account_customer->editAddressId($this->customer->getId(), $address_id);

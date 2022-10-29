@@ -9,6 +9,7 @@ class ControllerExtensionModuleFilter extends Controller {
 
         $category_id = end($parts);
 
+        // Categories
         $this->load->model('catalog/category');
 
         $category_info = $this->model_catalog_category->getCategory($category_id);
@@ -38,6 +39,7 @@ class ControllerExtensionModuleFilter extends Controller {
                 $data['filter_category'] = [];
             }
 
+            // Products
             $this->load->model('catalog/product');
 
             $data['filter_groups'] = [];

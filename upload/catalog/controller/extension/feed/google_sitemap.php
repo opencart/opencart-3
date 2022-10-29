@@ -5,7 +5,10 @@ class ControllerExtensionFeedGoogleSitemap extends Controller {
             $output = '<?xml version="1.0" encoding="UTF-8"?>';
             $output .= '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">';
 
+            // Image files
             $this->load->model('tool/image');
+
+            // Products
             $this->load->model('catalog/product');
 
             $products = $this->model_catalog_product->getProducts();
@@ -28,10 +31,12 @@ class ControllerExtensionFeedGoogleSitemap extends Controller {
                 $output .= '</url>';
             }
 
+            // Categories
             $this->load->model('catalog/category');
 
             $output .= $this->getCategories(0);
 
+            // Manufacturers
             $this->load->model('catalog/manufacturer');
 
             $manufacturers = $this->model_catalog_manufacturer->getManufacturers();
@@ -44,6 +49,7 @@ class ControllerExtensionFeedGoogleSitemap extends Controller {
                 $output .= '</url>';
             }
 
+            // Information
             $this->load->model('catalog/information');
 
             $informations = $this->model_catalog_information->getInformations();

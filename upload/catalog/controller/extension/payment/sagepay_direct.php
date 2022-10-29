@@ -95,6 +95,7 @@ class ControllerExtensionPaymentSagepayDirect extends Controller {
 
         $data['existing_cards'] = [];
         if ($this->customer->isLogged() && $data['sagepay_direct_card']) {
+            // Sagepay Direct
             $this->load->model('extension/payment/sagepay_direct');
 
             $data['existing_cards'] = $this->model_extension_payment_sagepay_direct->getCards($this->customer->getId());
@@ -106,8 +107,11 @@ class ControllerExtensionPaymentSagepayDirect extends Controller {
     public function send(): void {
         $this->load->language('extension/payment/sagepay_direct');
 
+        // Orders
         $this->load->model('account/order');
         $this->load->model('checkout/order');
+
+        // Sagepay Direct
         $this->load->model('extension/payment/sagepay_direct');
 
         $payment_data = [];
@@ -349,7 +353,10 @@ class ControllerExtensionPaymentSagepayDirect extends Controller {
     public function callback(): void {
         $this->load->language('extension/payment/sagepay_direct');
 
+        // Orders
         $this->load->model('checkout/order');
+
+        // Sagepay Direct
         $this->load->model('extension/payment/sagepay_direct');
 
         if (isset($this->session->data['order_id'])) {
@@ -439,6 +446,7 @@ class ControllerExtensionPaymentSagepayDirect extends Controller {
 
         $json = [];
 
+        // Sagepay Direct
         $this->load->model('extension/payment/sagepay_direct');
 
         $card = $this->model_extension_payment_sagepay_direct->getCard(false, $this->request->post['Token']);
@@ -476,6 +484,7 @@ class ControllerExtensionPaymentSagepayDirect extends Controller {
 
     public function cron(): void {
         if (isset($this->request->get['token']) && hash_equals($this->config->get('payment_sagepay_direct_cron_job_token'), $this->request->get['token'])) {
+            // Sagepay Direct
             $this->load->model('extension/payment/sagepay_direct');
 
             $orders = $this->model_extension_payment_sagepay_direct->cronPayment();

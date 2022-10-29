@@ -22,6 +22,7 @@ class ControllerExtensionModuleStore extends Controller {
                 'url'      => HTTP_SERVER . 'index.php?route=common/home&session_id=' . $this->session->getId()
             ];
 
+            // Stores
             $this->load->model('setting/store');
 
             $results = $this->model_setting_store->getStores();

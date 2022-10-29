@@ -3,8 +3,13 @@ class ControllerProductSearch extends Controller {
     public function index(): void {
         $this->load->language('product/search');
 
+        // Image files
         $this->load->model('tool/image');
+
+        // Products
         $this->load->model('catalog/product');
+
+        // Categories
         $this->load->model('catalog/category');
 
         if (isset($this->request->get['search'])) {
@@ -412,6 +417,7 @@ class ControllerProductSearch extends Controller {
             $data['results'] = sprintf($this->language->get('text_pagination'), ($product_total) ? (($page - 1) * $limit) + 1 : 0, ((($page - 1) * $limit) > ($product_total - $limit)) ? $product_total : ((($page - 1) * $limit) + $limit), $product_total, ceil($product_total / $limit));
 
             if (isset($this->request->get['search']) && $this->config->get('config_customer_search')) {
+                // Search
                 $this->load->model('account/search');
 
                 if ($this->customer->isLogged()) {

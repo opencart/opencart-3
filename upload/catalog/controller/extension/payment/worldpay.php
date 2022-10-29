@@ -16,6 +16,7 @@ class ControllerExtensionPaymentWorldpay extends Controller {
         $data['existing_cards'] = [];
 
         if ($this->customer->isLogged() && $data['payment_worldpay_card']) {
+            // Worldpay
             $this->load->model('extension/payment/worldpay');
 
             $data['existing_cards'] = $this->model_extension_payment_worldpay->getCards($this->customer->getId());
@@ -37,8 +38,13 @@ class ControllerExtensionPaymentWorldpay extends Controller {
 
         $this->load->language('extension/payment/worldpay');
 
+        // Orders
         $this->load->model('checkout/order');
+
+        // Countries
         $this->load->model('localisation/country');
+
+        // Worldpay
         $this->load->model('extension/payment/worldpay');
 
         $order_info = $this->model_checkout_order->getOrder($this->session->data['order_id']);
@@ -124,6 +130,7 @@ class ControllerExtensionPaymentWorldpay extends Controller {
 
         $json = [];
 
+        // Worldpay
         $this->load->model('extension/payment/worldpay');
 
         if (isset($this->request->post['token'])) {
@@ -146,6 +153,7 @@ class ControllerExtensionPaymentWorldpay extends Controller {
 
     public function webhook(): void {
         if (isset($this->request->get['token']) && hash_equals($this->config->get('payment_worldpay_secret_token'), $this->request->get['token'])) {
+            // Worldpay
             $this->load->model('extension/payment/worldpay');
 
             $message = json_decode(file_get_contents('php://input'), true);
@@ -188,6 +196,7 @@ class ControllerExtensionPaymentWorldpay extends Controller {
                 $this->model_extension_payment_worldpay->logger($order_status_id);
 
                 if (isset($order['order_id'])) {
+                    // Orders
                     $this->load->model('checkout/order');
 
                     $this->model_checkout_order->addOrderHistory($order['order_id'], $order_status_id);
@@ -201,6 +210,7 @@ class ControllerExtensionPaymentWorldpay extends Controller {
 
     public function cron(): void {
         if ($this->request->get['token'] == $this->config->get('payment_worldpay_secret_token')) {
+            // Worldpay
             $this->load->model('extension/payment/worldpay');
 
             $orders = $this->model_extension_payment_worldpay->cronPayment();

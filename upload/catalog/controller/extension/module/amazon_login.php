@@ -2,6 +2,7 @@
 class ControllerExtensionModuleAmazonLogin extends Controller {
     public function index(): string {
         if ($this->config->get('payment_amazon_login_pay_status') && $this->config->get('module_amazon_login_status') && !$this->customer->isLogged() && !empty($this->request->server['HTTPS'])) {
+            // Amazon Login Pay
             $this->load->model('extension/payment/amazon_login_pay');
 
             // capital L in Amazon cookie name is required, do not alter for coding standards
@@ -91,6 +92,7 @@ class ControllerExtensionModuleAmazonLogin extends Controller {
         $this->load->language('account/login');
         $this->load->language('extension/payment/amazon_login_pay');
 
+        // Amazon Login
         $this->load->model('extension/module/amazon_login');
 
         $from_amazon_pay = isset($this->request->get['from_amazon_pay']);

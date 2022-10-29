@@ -5,6 +5,7 @@ class ControllerApiLogin extends Controller {
 
         $json = $api_info = [];
 
+        // API login
         $this->load->model('account/api');
 
         // Login with API Key
@@ -31,6 +32,7 @@ class ControllerApiLogin extends Controller {
             if (!$json) {
                 $json['success'] = $this->language->get('text_success');
 
+                // Session
                 $session = new \Session($this->config->get('session_engine'), $this->registry);
                 $session->start();
 

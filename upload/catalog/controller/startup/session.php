@@ -1,6 +1,7 @@
 <?php
 class ControllerStartupSession extends Controller {
     public function index(): void {
+        // Session
         $session = new \Session($this->config->get('session_engine'), $this->registry);
         $this->registry->set('session', $session);
 

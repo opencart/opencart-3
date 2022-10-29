@@ -48,7 +48,10 @@ class ControllerCheckoutCart extends Controller {
                 $data['weight'] = '';
             }
 
+            // Image files
             $this->load->model('tool/image');
+
+            // Uploaded files
             $this->load->model('tool/upload');
 
             $data['products'] = [];
@@ -214,6 +217,7 @@ class ControllerCheckoutCart extends Controller {
                 ];
             }
 
+            // Extensions
             $this->load->model('setting/extension');
 
             $data['modules'] = [];
@@ -270,6 +274,7 @@ class ControllerCheckoutCart extends Controller {
             $product_id = 0;
         }
 
+        // Products
         $this->load->model('catalog/product');
 
         $product_info = $this->model_catalog_product->getProduct($product_id);
