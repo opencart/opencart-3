@@ -13,6 +13,7 @@ class ModelCheckoutPaymentMethod extends Model {
                 $this->load->model('extension/payment/' . $result['code']);
 
                 $payment_method = $this->{'model_extension_payment_' . $result['code']}->getMethod($payment_address);
+
                 if ($payment_method) {
                     $method_data[$result['code']] = $payment_method;
                 }

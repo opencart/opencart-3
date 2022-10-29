@@ -1,16 +1,16 @@
 <?php
 class ModelExtensionTotalTax extends Model {
-    public function getTotal(float $total): void {
-        foreach ($total['taxes'] as $key => $value) {
+    public function getTotal(array &$totals): void {
+        foreach ($totals['taxes'] as $key => $value) {
             if ($value > 0) {
-                $total['totals'][] = [
+                $totals['totals'][] = [
                     'code'       => 'tax',
                     'title'      => $this->tax->getRateName($key),
                     'value'      => $value,
                     'sort_order' => $this->config->get('total_tax_sort_order')
                 ];
 
-                $total['total'] += $value;
+                $totals['total'] += $value;
             }
         }
     }

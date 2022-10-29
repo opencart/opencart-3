@@ -20,7 +20,7 @@ class ModelExtensionAdvertiseGoogle extends Model {
             return $this->getHumanReadableOpenCartCategory((int)$oc_category_result->row['category_id']);
         }
 
-        return "";
+        return '';
     }
 
     public function getHumanReadableOpenCartCategory($category_id) {
@@ -32,7 +32,7 @@ class ModelExtensionAdvertiseGoogle extends Model {
             return $result->row['path'];
         }
 
-        return "";
+        return '';
     }
 
     public function getSizeAndColorOptionMap($product_id, $store_id) {

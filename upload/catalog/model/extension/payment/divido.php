@@ -8,59 +8,9 @@ class ModelExtensionPaymentDivido extends Model {
         }
     }
 
-    public function getMethod($payment_address, $total) {
-        $this->load->language('extension/payment/divido');
-
-        // Currencies
-        $this->load->model('localisation/currency');
-
-        if (!$this->isEnabled()) {
-            return [];
-        }
-
-        if ($this->session->data['currency'] != 'GBP') {
-            return [];
-        }
-
-        if ($payment_address['iso_code_2'] != 'GB') {
-            return [];
-        }
-
-        $cart_threshold = $this->config->get('payment_divido_cart_threshold');
-
-        if ($cart_threshold > $total) {
-            return [];
-        }
-
-        $plans = $this->getCartPlans($this->cart);
-        $has_plan = false;
-
-        foreach ($plans as $plan) {
-            $planMinTotal = $total - ($total * ($plan->min_deposit / 100));
-
-            if ($plan->min_amount <= $planMinTotal) {
-                $has_plan = true;
-
-                break;
-            }
-        }
-
-        if (!$has_plan) {
-            return [];
-        }
-
-        $title = $this->language->get('text_checkout_title');
-
-        if ($title_override = $this->config->get('payment_divido_title')) {
-            $title = $title_override;
-        }
-
-        $method_data = [
-            'code'       => 'divido',
-            'title'      => $title,
-            'terms'      => '',
-            'sort_order' => $this->config->get('payment_divido_sort_order')
-        ];
+    // Requires $total
+    public function getMethod(array $address): array {
+        $method_data = [];
 
         return $method_data;
     }

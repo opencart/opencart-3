@@ -2,7 +2,7 @@
 class ModelExtensionPaymentAmazonLoginPay extends Model {
     const LOG_FILENAME = "amazon_pay.log";
 
-    public function getMethod() {
+    public function getMethod(array $address): void {
         // Do nothing, as Amazon Pay is a separate checkout flow, not a payment option in OpenCart.
     }
 
