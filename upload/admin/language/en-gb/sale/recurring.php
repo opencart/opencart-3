@@ -33,7 +33,6 @@ $_['text_status_3']                        = 'Cancelled';
 $_['text_status_4']                        = 'Suspended';
 $_['text_status_5']                        = 'Expired';
 $_['text_status_6']                        = 'Pending';
-
 $_['text_transactions']                    = 'Transactions';
 $_['text_cancel_confirm']                  = 'Profile\'s cancellation cannot be undone! Are you sure want to do this?';
 $_['text_transaction_date_added']          = 'Date added';
@@ -49,15 +48,15 @@ $_['text_transaction_expired']             = 'Expired';
 $_['text_cancelled']                       = 'Recurring payment has been cancelled';
 
 // Column
-$_['column_order_recurring_id']             = 'Recurring ID';
-$_['column_order_id']                       = 'Order ID';
-$_['column_reference']                      = 'Payment Reference';
-$_['column_customer']                       = 'Customer';
-$_['column_date_added']                     = 'Date Added';
-$_['column_status']                         = 'Status';
-$_['column_amount']                         = 'Amount';
-$_['column_type']                           = 'Type';
-$_['column_action']                         = 'Action';
+$_['column_order_recurring_id']            = 'Recurring ID';
+$_['column_order_id']                      = 'Order ID';
+$_['column_reference']                     = 'Payment Reference';
+$_['column_customer']                      = 'Customer';
+$_['column_date_added']                    = 'Date Added';
+$_['column_status']                        = 'Status';
+$_['column_amount']                        = 'Amount';
+$_['column_type']                          = 'Type';
+$_['column_action']                        = 'Action';
 
 // Entry
 $_['entry_order_recurring_id']             = 'Recurring ID';
@@ -81,3 +80,5 @@ $_['entry_cancel_payment']                 = 'Cancel Payment';
 $_['error_not_cancelled']                  = 'Error: %s';
 $_['error_not_found']                      = 'Error: Could not cancel recurring profile';
 $_['error_status']                         = 'Error: Either the recurring status could not be found or the migration could not be completed successfully. Only active recurring orders can migrate to the subscription system!';
+$_['error_payment_method']                 = 'Warning: Payment method does not exist!';
+$_['error_service_type']                   = 'The service status has not been included with this transaction. If you see this error message, please contact your extension developer that handles the subscription services to resolve this issue!';
