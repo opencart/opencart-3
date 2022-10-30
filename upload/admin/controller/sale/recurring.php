@@ -304,7 +304,7 @@ class ControllerSaleRecurring extends Controller {
 
     public function info(): object|null {
         // Subscription
-        $this->load->model('sale/subscription');
+        $this->load->model('sale/recurring');
 
         if (isset($this->request->get['order_recurring_id'])) {
             $order_recurring_id = (int)$this->request->get['order_recurring_id'];
@@ -312,7 +312,7 @@ class ControllerSaleRecurring extends Controller {
             $order_recurring_id = 0;
         }
 
-        $order_recurring_info = $this->model_sale_subscription->getSubcription($order_recurring_id);
+        $order_recurring_info = $this->model_sale_recurring->getRecurring($order_recurring_id);
 
         if ($order_recurring_info) {
             $this->load->language('sale/recurring');
@@ -451,6 +451,43 @@ class ControllerSaleRecurring extends Controller {
         }
 
         return null;
+    }
+
+    // admin/view/sale/recurring_info/after
+    public function notification(string &$route, array &$args, mixed &$output): string {
+        // Recurring
+        $this->load->model('sale/recurring');
+
+        if (isset($this->request->get['order_recurring_id'])) {
+            $order_recurring_id = (int)$this->request->get['order_recurring_id'];
+        } else {
+            $order_recurring_id = 0;
+        }
+
+        $order_recurring_info = $this->model_sale_recurring->getRecurring($order_recurring_id);
+
+        if ($order_recurring_info) {
+            $this->load->language('sale/recurring');
+
+            // Subscription
+            $this->load->model('sale/subscription');
+
+            $filter_data = [
+                'filter_order_id' => $order_recurring_info['order_id']
+            ];
+
+            $data['subscription_total'] = $this->model_sale_subscription->getTotalSubscriptions($filter_data);
+
+            $replace = '<?php if ($warning) { ?>';
+
+            $by = '<?php if ($subscription_total) { ?>' . "\n";
+            $by .= '<div class="alert alert-info"><?php echo $text_subscription; ?></div>' . "\n";
+            $by .= '<?php } ?>' . "\n";
+
+            $output = str_replace($replace, $by . $replace, $output);
+        }
+
+        return '';
     }
 
     public function addTransaction(): void {
