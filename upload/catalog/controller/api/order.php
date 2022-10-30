@@ -243,7 +243,7 @@ class ControllerApiOrder extends Controller {
                 $totals = [];
                 $taxes = $this->cart->getTaxes();
 
-                // Because __call can not keep var references so we put them into an array.
+                // Because __call can not keep var references, so we put them into an array.
                 $total_data = [
                     'totals' => &$totals,
                     'taxes'  => &$taxes,
@@ -615,7 +615,7 @@ class ControllerApiOrder extends Controller {
                     $totals = [];
                     $taxes = $this->cart->getTaxes();
 
-                    // Because __call can not keep var references so we put them into an array.
+                    // Because __call can not keep var references, so we put them into an array.
                     $total_data = [
                         'totals' => &$totals,
                         'taxes'  => &$taxes,

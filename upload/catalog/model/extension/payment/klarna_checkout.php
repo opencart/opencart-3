@@ -186,7 +186,7 @@ class ModelExtensionPaymentKlarnaCheckout extends Model {
         $total = 0;
         $totals = [];
 
-        // Because __call can not keep var references so we put them into an array.
+        // Because __call can not keep var references, so we put them into an array.
         $total_data = [
             'totals' => &$totals,
             'taxes'  => &$taxes,

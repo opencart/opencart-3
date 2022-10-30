@@ -125,10 +125,7 @@ class Googleshopping extends Library {
     public function getTargets($store_id) {
         $sql = "SELECT * FROM `" . DB_PREFIX . "googleshopping_target` WHERE `store_id` = '" . $store_id . "'";
 
-        return array_map([
-            $this,
-            'target'
-        ], $this->db->query($sql)->rows);
+        return array_map([$this, 'target'], $this->db->query($sql)->rows);
     }
 
     public function getTarget($advertise_google_target_id) {
@@ -589,10 +586,7 @@ class Googleshopping extends Library {
     }
 
     public function productIdsToIntegerExpression($product_ids) {
-        return implode(",", array_map([
-            $this,
-            'integer'
-        ], $product_ids));
+        return implode(",", array_map([$this, 'integer'], $product_ids));
     }
 
     public function integer($product_id) {
@@ -844,9 +838,7 @@ class Googleshopping extends Library {
             }
 
             $entry_statuses[$product_variation_id]['destination_statuses'] = array_merge($entry_statuses[$product_variation_id]['destination_statuses'], !empty($status['destinationStatuses']) ? $status['destinationStatuses'] : []);
-
             $entry_statuses[$product_variation_id]['data_quality_issues'] = array_merge($entry_statuses[$product_variation_id]['data_quality_issues'], !empty($status['dataQualityIssues']) ? $status['dataQualityIssues'] : []);
-
             $entry_statuses[$product_variation_id]['item_level_issues'] = array_merge($entry_statuses[$product_variation_id]['item_level_issues'], !empty($status['itemLevelIssues']) ? $status['itemLevelIssues'] : []);
         }
 
