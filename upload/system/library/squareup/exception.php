@@ -3,19 +3,17 @@ namespace Squareup;
 class Exception extends \Exception {
     const ERR_CODE_ACCESS_TOKEN_REVOKED = 'ACCESS_TOKEN_REVOKED';
     const ERR_CODE_ACCESS_TOKEN_EXPIRED = 'ACCESS_TOKEN_EXPIRED';
-
     private object $config;
     private object $log;
     private object $language;
     private object $errors;
     private bool $isCurlError = false;
-
-    private $overrideFields = array(
+    private $overrideFields = [
         'billing_address.country',
         'shipping_address.country',
         'email_address',
         'phone_number'
-    );
+    ];
 
     public function __construct($registry, $errors, $is_curl_error = false) {
         $this->errors = $errors;
@@ -76,7 +74,7 @@ class Exception extends \Exception {
     }
 
     protected function concatErrors(): string {
-        $messages = array();
+        $messages = [];
 
         if (is_array($this->errors)) {
             foreach ($this->errors as $error) {

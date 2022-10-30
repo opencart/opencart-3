@@ -82,12 +82,12 @@ class ModelExtensionTotalVoucher extends Model {
                 $amount = min($voucher_info['amount'], $total['total']);
 
                 if ($amount > 0) {
-                    $total['totals'][] = array(
+                    $total['totals'][] = [
                         'code'       => 'voucher',
                         'title'      => sprintf($this->language->get('voucher')->get('text_voucher'), $this->session->data['voucher']),
                         'value'      => -$amount,
                         'sort_order' => $this->config->get('total_voucher_sort_order')
-                    );
+                    ];
 
                     $total['total'] -= $amount;
                 } else {
