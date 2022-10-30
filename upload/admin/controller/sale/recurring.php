@@ -492,19 +492,32 @@ class ControllerSaleRecurring extends Controller {
                 $json['error'] = $this->language->get('error_payment_method');
             }
 
-            // The subscription active status ID needs to match the recurring status ID
-            $this->load->model('setting/setting');
+            // Subscription
+            $this->load->model('sale/subscription');
 
-            $store_info = $this->model_setting_setting->getSetting('config', $order_info['store_id']);
+            $filter_data = [
+                'filter_order_id' => $recurring_info['order_id']
+            ];
 
-            if ($store_info) {
-                $subscription_status_id = $store_info['config_subscription_active_status_id'];
+            $subscription_total = $this->model_sale_subscription->getTotalSubscriptions($filter_data);
+
+            if ($subscription_total) {
+                $json['error'] = $this->language->get('error_payment_method');
             } else {
-                $subscription_status_id = $this->config->get('config_subscription_active_status_id');
-            }
+                // The subscription active status ID needs to match the recurring status ID
+                $this->load->model('setting/setting');
 
-            if ((!$subscription_status_id) || (!$recurring_info['status']) || ($subscription_status_id != $recurring_info['status'])) {
-                $json['error'] = $this->language->get('error_status');
+                $store_info = $this->model_setting_setting->getSetting('config', $order_info['store_id']);
+
+                if ($store_info) {
+                    $subscription_status_id = $store_info['config_subscription_active_status_id'];
+                } else {
+                    $subscription_status_id = $this->config->get('config_subscription_active_status_id');
+                }
+
+                if ((!$subscription_status_id) || (!$recurring_info['status']) || ($subscription_status_id != $recurring_info['status'])) {
+                    $json['error'] = $this->language->get('error_status');
+                }
             }
         }
 

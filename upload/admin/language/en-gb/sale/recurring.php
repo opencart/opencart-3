@@ -33,6 +33,7 @@ $_['text_status_3']                        = 'Cancelled';
 $_['text_status_4']                        = 'Suspended';
 $_['text_status_5']                        = 'Expired';
 $_['text_status_6']                        = 'Pending';
+$_['text_remediation']                     = 'This recurring order has also been migrated to the subscription system.';
 $_['text_transactions']                    = 'Transactions';
 $_['text_cancel_confirm']                  = 'Profile\'s cancellation cannot be undone! Are you sure want to do this?';
 $_['text_transaction_date_added']          = 'Date added';
