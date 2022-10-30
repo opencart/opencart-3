@@ -1,6 +1,6 @@
 <?php
 class ModelExtensionTotalReward extends Model {
-    public function getTotal(array &$totals): void {
+    public function getTotal(array $total): void {
         if (isset($this->session->data['reward'])) {
             $this->load->language('extension/total/reward', 'reward');
 
@@ -30,7 +30,7 @@ class ModelExtensionTotalReward extends Model {
 
                             foreach ($tax_rates as $tax_rate) {
                                 if ($tax_rate['type'] == 'P') {
-                                    $totals['taxes'][$tax_rate['tax_rate_id']] -= $tax_rate['amount'];
+                                    $total['taxes'][$tax_rate['tax_rate_id']] -= $tax_rate['amount'];
                                 }
                             }
                         }
@@ -39,14 +39,14 @@ class ModelExtensionTotalReward extends Model {
                     $discount_total += $discount;
                 }
 
-                $totals['totals'][] = [
+                $total['totals'][] = array(
                     'code'       => 'reward',
                     'title'      => sprintf($this->language->get('reward')->get('text_reward'), $this->session->data['reward']),
                     'value'      => -$discount_total,
                     'sort_order' => $this->config->get('total_reward_sort_order')
-                ];
+                );
 
-                $totals['total'] -= $discount_total;
+                $total['total'] -= $discount_total;
             }
         }
     }

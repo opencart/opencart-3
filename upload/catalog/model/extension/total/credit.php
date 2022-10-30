@@ -1,22 +1,22 @@
 <?php
 class ModelExtensionTotalCredit extends Model {
-    public function getTotal(array &$totals): void {
+    public function getTotal(array $total): void {
         $this->load->language('extension/total/credit');
 
         $balance = $this->customer->getBalance();
 
         if ((float)$balance) {
-            $credit = min($balance, $totals['total']);
+            $credit = min($balance, $total['total']);
 
             if ((float)$credit > 0) {
-                $totals['totals'][] = [
+                $total['totals'][] = array(
                     'code'       => 'credit',
                     'title'      => $this->language->get('text_credit'),
                     'value'      => -$credit,
                     'sort_order' => $this->config->get('total_credit_sort_order')
-                ];
+                );
 
-                $totals['total'] -= $credit;
+                $total['total'] -= $credit;
             }
         }
     }
