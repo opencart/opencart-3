@@ -541,13 +541,20 @@ class ControllerSaleRecurring extends Controller {
             // Subscription
             $this->load->model('sale/subscription');
 
+            // Subscription Plans
+            $this->load->model('catalog/subscription_plan');
+
             $filter_data = [
                 'filter_order_id' => $recurring_info['order_id']
             ];
 
             $subscription_total = $this->model_sale_subscription->getTotalSubscriptions($filter_data);
 
-            if ($subscription_total) {
+            $subscription_plan_total = $this->model_catalog_subscription_plan->getTotalSubscriptionPlans();
+
+            // Only recurring or new orders are allowed to be migrated into the subscription system.
+            // Subscription plans must be created from the store prior to migrate recurring orders.
+            if ($subscription_total || !$subscription_plan_total) {
                 $json['error'] = $this->language->get('error_transaction');
             } else {
                 // The subscription active status ID needs to match the recurring status ID
