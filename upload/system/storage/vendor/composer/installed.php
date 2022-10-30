@@ -124,15 +124,6 @@
                 0 => '3.0.0',
             ),
         ),
-        'ralouphie/getallheaders' => array(
-            'pretty_version' => '3.0.3',
-            'version' => '3.0.3.0',
-            'type' => 'library',
-            'install_path' => __DIR__ . '/../ralouphie/getallheaders',
-            'aliases' => array(),
-            'reference' => '120b605dfeb996808c31b6477290a714d356e822',
-            'dev_requirement' => false,
-        ),
         'scssphp/scssphp' => array(
             'pretty_version' => 'v1.11.0',
             'version' => '1.11.0.0',
