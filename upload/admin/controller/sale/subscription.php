@@ -597,7 +597,7 @@ class ControllerSaleSubscription extends Controller {
 
         if (!$this->user->hasPermission('modify', 'sale/subscription')) {
             $json['error'] = $this->language->get('error_permission');
-        } elseif (!isset($this->request->post['type']) || $this->request->post['type'] == '') {
+        } elseif ($this->request->post['type'] == '') {
             $json['error'] = $this->language->get('error_service_type');
         }
 
@@ -609,7 +609,7 @@ class ControllerSaleSubscription extends Controller {
         if (!$subscription_info) {
             $json['error'] = $this->language->get('error_subscription');
         } else {
-            // Order
+            // Orders
             $this->load->model('sale/order');
 
             $order_info = $this->model_sale_order->getOrder($subscription_info['order_id']);

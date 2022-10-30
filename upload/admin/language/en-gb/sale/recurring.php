@@ -79,4 +79,5 @@ $_['entry_cancel_payment']                 = 'Cancel Payment';
 
 // Error
 $_['error_not_cancelled']                  = 'Error: %s';
-$_['error_not_found']                      = 'Could not cancel recurring profile';
+$_['error_not_found']                      = 'Error: Could not cancel recurring profile';
+$_['error_status']                         = 'Error: Either the recurring status could not be found or the migration could not be completed successfully. Only active recurring orders can migrate to the subscription system!';

@@ -120,6 +120,9 @@ class ControllerSaleRecurring extends Controller {
 
         $data['recurrings'] = [];
 
+        // Subscription
+        $this->load->model('sale/subscription');
+
         $filter_data = [
             'filter_order_recurring_id' => $filter_order_recurring_id,
             'filter_order_id'           => $filter_order_id,
@@ -138,11 +141,19 @@ class ControllerSaleRecurring extends Controller {
         $results = $this->model_sale_recurring->getRecurrings($filter_data);
 
         foreach ($results as $result) {
+            // Status
             if ($result['status']) {
                 $status = $this->language->get('text_status_' . $result['status']);
             } else {
                 $status = '';
             }
+
+            // Subscription
+            $filter_data = [
+                'filter_order_id' => $result['order_id']
+            ];
+
+            $subscription_total = $this->model_sale_subscription->getTotalSubscriptions($filter_data);
 
             $data['recurrings'][] = [
                 'order_recurring_id' => $result['order_recurring_id'],
@@ -150,6 +161,7 @@ class ControllerSaleRecurring extends Controller {
                 'reference'          => $result['reference'],
                 'customer'           => $result['customer'],
                 'status'             => $status,
+                'subscription_total' => $subscription_total,
                 'date_added'         => date($this->language->get('date_format_short'), strtotime($result['date_added'])),
                 'view'               => $this->url->link('sale/recurring/info', 'user_token=' . $this->session->data['user_token'] . '&order_recurring_id=' . $result['order_recurring_id'] . $url, true),
                 'order'              => $this->url->link('sale/order/info', 'user_token=' . $this->session->data['user_token'] . '&order_id=' . $result['order_id'], true)
@@ -430,5 +442,77 @@ class ControllerSaleRecurring extends Controller {
         }
 
         return null;
+    }
+
+    public function addTransaction(): void {
+        $this->load->language('sale/recurring');
+
+        $json = [];
+
+        if (!$this->user->hasPermission('modify', 'sale/recurring')) {
+            $json['error'] = $this->language->get('error_permission');
+        }
+
+        if (isset($this->request->get['order_recurring_id'])) {
+            $order_recurring_id = (int)$this->request->get['order_recurring_id'];
+        } else {
+            $order_recurring_id = 0;
+        }
+
+        if (isset($this->request->post['description'])) {
+            $description = $this->request->post['description'];
+        } else {
+            $description = '';
+        }
+
+        if (isset($this->request->post['amount'])) {
+            $amount = $this->request->post['amount'];
+        } else {
+            $amount = 0;
+        }
+
+        if ($this->request->post['type'] == '') {
+            $json['error'] = $this->language->get('error_service_type');
+        }
+
+        // Recurring
+        $this->load->model('sale/recurring');
+
+        $recurring_info = $this->model_sale_recurring->getRecurring($order_recurring_id);
+
+        if (!$recurring_info) {
+            $json['error'] = $this->language->get('error_recurring');
+        } else {
+            // Orders
+            $this->load->model('sale/order');
+
+            $order_info = $this->model_sale_order->getOrder($recurring_info['order_id']);
+
+            if (!$order_info) {
+                $json['error'] = $this->language->get('error_payment_method');
+            }
+
+            // The subscription active status ID needs to match the recurring status ID
+            $this->load->model('setting/setting');
+
+            $store_info = $this->model_setting_setting->getSetting('config', $order_info['store_id']);
+
+            if ($store_info) {
+                $subscription_status_id = $store_info['config_subscription_active_status_id'];
+            } else {
+                $subscription_status_id = $this->config->get('config_subscription_active_status_id');
+            }
+
+            if ((!$subscription_status_id) || (!$recurring_info['status']) || ($subscription_status_id != $recurring_info['status'])) {
+                $json['error'] = $this->language->get('error_status');
+            }
+        }
+
+        if (!$json) {
+            $json['success'] = $this->language->get('text_success');
+        }
+
+        $this->response->addHeader('Content-Type: application/json');
+        $this->response->setOutput(json_encode($json));
     }
 }
