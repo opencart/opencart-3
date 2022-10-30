@@ -19,7 +19,7 @@
             'reference' => 'b50a2a1251152e43f6a37f0fa053e730a67d25ba',
             'dev_requirement' => false,
         ),
-        'guzzlehttp/promises' => array(
+        /*'guzzlehttp/promises' => array(
             'pretty_version' => '1.5.2',
             'version' => '1.5.2.0',
             'type' => 'library',
@@ -27,7 +27,7 @@
             'aliases' => array(),
             'reference' => 'b94b2807d85443f9719887892882d0329d1e2598',
             'dev_requirement' => false,
-        ),
+        ),*/
         'guzzlehttp/psr7' => array(
             'pretty_version' => '2.4.1',
             'version' => '2.4.1.0',
@@ -46,7 +46,7 @@
             'reference' => '305444bc6fb6c89e490f4b34fa6e979584d7fa81',
             'dev_requirement' => false,
         ),
-        'mtdowling/jmespath.php' => array(
+        /*'mtdowling/jmespath.php' => array(
             'pretty_version' => '2.6.1',
             'version' => '2.6.1.0',
             'type' => 'library',
@@ -54,7 +54,7 @@
             'aliases' => array(),
             'reference' => '9b87907a81b87bc76d19a7fb2d61e61486ee9edb',
             'dev_requirement' => false,
-        ),
+        ),*/
         'opencart/opencart' => array(
             'pretty_version' => '1.0.0+no-version-set',
             'version' => '1.0.0.0',
@@ -133,7 +133,7 @@
             'reference' => '33749d12c2569bb24071f94e9af828662dabb068',
             'dev_requirement' => false,
         ),
-        'symfony/deprecation-contracts' => array(
+        /*'symfony/deprecation-contracts' => array(
             'pretty_version' => 'v3.1.1',
             'version' => '3.1.1.0',
             'type' => 'library',
@@ -141,7 +141,7 @@
             'aliases' => array(),
             'reference' => '07f1b9cc2ffee6aaafcf4b710fbc38ff736bd918',
             'dev_requirement' => false,
-        ),
+        ),*/
         'symfony/polyfill-ctype' => array(
             'pretty_version' => 'v1.26.0',
             'version' => '1.26.0.0',
