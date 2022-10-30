@@ -198,7 +198,7 @@ $_['help_mail_smtp_hostname']        		= 'Add \'tls://\' or \'ssl://\' prefix if
 $_['help_mail_smtp_password']        		= 'For gmail you might need to setup a application specific password here: https://security.google.com/settings/security/apppasswords.';
 $_['help_mail_alert']                		= 'Select which features you would like to receive an alert email on when a customer uses them.';
 $_['help_mail_alert_email']          		= 'Any additional emails you want to receive the alert email, in addition to the main store email. (comma separated).';
-$_['help_session_expire']            		= 'Set the PHP Session lifetime';
+$_['help_session_expire']                   = 'Set the PHP Session lifetime in seconds (e.g. 3600 = 1 hour)';
 $_['help_session_samesite']               	= 'Set the PHP Session samesite cookie';
 $_['help_secure']                    		= 'To use SSL check with your host if a SSL certificate is installed and add the SSL URL to the catalog and admin config files.';
 $_['help_shared']                    		= 'Try to share the session cookie between stores so the cart can be passed between different domains.';
