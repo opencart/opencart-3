@@ -10,24 +10,6 @@
         'dev' => true,
     ),
     'versions' => array(
-        'aws/aws-crt-php' => array(
-            'pretty_version' => 'v1.0.2',
-            'version' => '1.0.2.0',
-            'type' => 'library',
-            'install_path' => __DIR__ . '/../aws/aws-crt-php',
-            'aliases' => array(),
-            'reference' => '3942776a8c99209908ee0b287746263725685732',
-            'dev_requirement' => false,
-        ),
-        'aws/aws-sdk-php' => array(
-            'pretty_version' => '3.235.5',
-            'version' => '3.235.5.0',
-            'type' => 'library',
-            'install_path' => __DIR__ . '/../aws/aws-sdk-php',
-            'aliases' => array(),
-            'reference' => '3b002b92369dbcb8d86f32546cb324eabcd19a4e',
-            'dev_requirement' => false,
-        ),
         'guzzlehttp/guzzle' => array(
             'pretty_version' => '7.5.0',
             'version' => '7.5.0.0',
