@@ -82,4 +82,5 @@ $_['error_not_cancelled']                  = 'Error: %s';
 $_['error_not_found']                      = 'Error: Could not cancel recurring profile';
 $_['error_status']                         = 'Error: Either the recurring status could not be found or the migration could not be completed successfully. Only active recurring orders can migrate to the subscription system!';
 $_['error_payment_method']                 = 'Warning: Payment method does not exist!';
-$_['error_service_type']                   = 'The service status has not been included with this transaction. If you see this error message, please contact your extension developer that handles the subscription services to resolve this issue!';
+$_['error_service_type']                   = 'Error: The service status has not been included with this transaction. If you see this error message, please contact your extension developer that handles the subscription services to resolve this issue!';
+$_['error_transaction']                    = 'Error: Cannot add the transaction to this recurring order!';

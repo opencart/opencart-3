@@ -502,7 +502,7 @@ class ControllerSaleRecurring extends Controller {
             $subscription_total = $this->model_sale_subscription->getTotalSubscriptions($filter_data);
 
             if ($subscription_total) {
-                $json['error'] = $this->language->get('error_payment_method');
+                $json['error'] = $this->language->get('error_transaction');
             } else {
                 // The subscription active status ID needs to match the recurring status ID
                 $this->load->model('setting/setting');
