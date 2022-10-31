@@ -506,15 +506,21 @@ class ControllerSaleRecurring extends Controller {
         }
 
         if (isset($this->request->post['description'])) {
-            $description = $this->request->post['description'];
+            $description = (string)$this->request->post['description'];
         } else {
             $description = '';
         }
 
         if (isset($this->request->post['amount'])) {
-            $amount = $this->request->post['amount'];
+            $amount = (float)$this->request->post['amount'];
         } else {
             $amount = 0;
+        }
+
+        if (isset($this->request->post['migration'])) {
+            $migration = (int)$this->request->post['migration'];
+        } else {
+            $migration = 0;
         }
 
         if ($this->request->post['type'] == '') {
@@ -541,9 +547,9 @@ class ControllerSaleRecurring extends Controller {
             // Payment Methods
             $this->load->model('customer/customer');
 
-            $payment_methods = $this->model_customer_customer->getPaymentMethods($order_info['customer_id']);
+            $payment_methods_total = $this->model_customer_customer->getTotalPaymentMethods($order_info['customer_id']);
 
-            if (!$payment_methods) {
+            if (!$payment_methods_total) {
                 $json['error'] = $this->language->get('error_payment_method');
             }
 

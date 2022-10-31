@@ -463,6 +463,57 @@ class ControllerSaleSubscription extends Controller {
         $this->response->setOutput($this->load->view('sale/subscription_info', $data));
     }
 
+    public function save() {
+        $this->load->language('sale/subscription');
+
+        $json = [];
+
+        if (isset($this->request->get['subscription_id'])) {
+            $subscription_id = (int)$this->request->get['subscription_id'];
+        } else {
+            $subscription_id = 0;
+        }
+
+        if (!$this->user->hasPermission('modify', 'sale/subscription')) {
+            $json['error'] = $this->language->get('error_permission');
+        }
+
+        $this->load->model('catalog/subscription_plan');
+
+        $subscription_plan_info = $this->model_catalog_subscription_plan->getSubscriptionPlan($this->request->post['subscription_plan_id']);
+
+        if (!$subscription_plan_info) {
+            $json['error'] = $this->language->get('error_subscription_plan');
+        }
+
+        $this->load->model('sale/subscription');
+
+        $subscription_info = $this->model_sale_subscription->getSubscription($subscription_id);
+
+        if (!$subscription_info) {
+            $this->load->model('customer/customer');
+
+            $payment_method_info = $this->model_customer_customer->getPaymentMethod($subscription_info['customer_id'], $this->request->post['customer_payment_id']);
+
+            if (!$payment_method_info) {
+                $json['error'] = $this->language->get('error_payment_method');
+            }
+        } else {
+            $json['error'] = $this->language->get('error_subscription');
+        }
+
+        if (!$json) {
+            $this->load->model('sale/subscription');
+
+            $this->model_sale_subscription->editSubscriptionPlan($subscription_id, $this->request->post['subscription_plan_id']);
+
+            $json['success'] = $this->language->get('text_success');
+        }
+
+        $this->response->addHeader('Content-Type: application/json');
+        $this->response->setOutput(json_encode($json));
+    }
+
     public function history(): void {
         $this->load->language('sale/subscription');
 
