@@ -478,6 +478,8 @@ class ControllerSaleSubscription extends Controller {
 
         if (!$this->user->hasPermission('modify', 'sale/subscription')) {
             $json['error'] = $this->language->get('error_permission');
+        } elseif ($this->request->post['subscription_plan_id'] == '') {
+            $json['error'] = $this->language->get('error_subscription_plan');
         }
 
         // Subscription Plans
@@ -508,8 +510,6 @@ class ControllerSaleSubscription extends Controller {
         }
 
         if (!$json) {
-            $this->load->model('sale/subscription');
-
             $this->model_sale_subscription->editSubscriptionPlan($subscription_id, $this->request->post['subscription_plan_id']);
 
             $json['success'] = $this->language->get('text_success');
@@ -609,7 +609,7 @@ class ControllerSaleSubscription extends Controller {
             $subscription_id = 0;
         }
 
-        if (isset($this->request->get['page']) && $this->request->get['route'] == 'sale/subscription.transaction') {
+        if (isset($this->request->get['page'])) {
             $page = (int)$this->request->get['page'];
         } else {
             $page = 1;
@@ -638,7 +638,7 @@ class ControllerSaleSubscription extends Controller {
         $pagination->total = $transaction_total;
         $pagination->page = $page;
         $pagination->limit = 10;
-        $pagination->url = $this->url->link('sale/subscription.transaction', 'user_token=' . $this->session->data['user_token'] . '&subscription_id=' . $subscription_id . '&page={page}', true);
+        $pagination->url = $this->url->link('sale/subscription/transaction', 'user_token=' . $this->session->data['user_token'] . '&subscription_id=' . $subscription_id . '&page={page}', true);
 
         $data['pagination'] = $pagination->render();
         $data['results'] = sprintf($this->language->get('text_pagination'), ($transaction_total) ? (($page - 1) * 10) + 1 : 0, ((($page - 1) * 10) > ($transaction_total - 10)) ? $transaction_total : ((($page - 1) * 10) + 10), $transaction_total, ceil($transaction_total / 10));

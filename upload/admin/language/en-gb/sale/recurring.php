@@ -4,6 +4,7 @@ $_['heading_title']                        = 'Recurring Orders';
 
 // Text
 $_['text_success']                         = 'Success: You have modified recurring profiles!';
+$_['text_plan_success']                    = 'Success: The payment method and subscription plan were both validated!';
 $_['text_list']                            = 'Recurring Order List';
 $_['text_filter']                          = 'Filter';
 $_['text_recurring_detail']                = 'Recurring Details';
@@ -65,6 +66,7 @@ $_['entry_order_id']                       = 'Order ID';
 $_['entry_reference']                      = 'Payment Reference';
 $_['entry_customer']                       = 'Customer';
 $_['entry_date_added']                     = 'Date Added';
+$_['entry_migration']                      = 'Migration';
 $_['entry_status']                         = 'Status';
 $_['entry_type']                           = 'Type';
 $_['entry_action']                         = 'Action';
@@ -78,9 +80,11 @@ $_['entry_payment_method']                 = 'Payment Method';
 $_['entry_cancel_payment']                 = 'Cancel Payment';
 
 // Error
+$_['error_permission']                     = 'Warning: You do not have permission to modify recurring profiles!';
 $_['error_not_cancelled']                  = 'Error: %s';
 $_['error_not_found']                      = 'Error: Could not cancel recurring profile';
 $_['error_status']                         = 'Error: Either the recurring status could not be found or the migration could not be completed successfully. Only active recurring orders can migrate to the subscription system!';
+$_['error_subscription_plan']              = 'Warning: Subscription plan does not exist!';
 $_['error_payment_method']                 = 'Warning: Payment method does not exist!';
 $_['error_service_type']                   = 'Error: The service status has not been included with this transaction. If you see this error message, please contact your extension developer that handles the subscription services to resolve this issue!';
 $_['error_transaction']                    = 'Error: Cannot add the transaction to this recurring order!';

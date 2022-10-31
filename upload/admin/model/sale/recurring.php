@@ -198,4 +198,10 @@ class ModelSaleRecurring extends Model {
 
         return (int)$query->row['total'];
     }
+
+    public function getTotalTransactions(int $order_recurring_id): int {
+        $query = $this->db->query("SELECT COUNT(*) AS `total` FROM `" . DB_PREFIX . "order_recurring_transaction` WHERE `order_recurring_id` = '" . (int)$order_recurring_id . "'");
+
+        return (int)$query->row['total'];
+    }
 }

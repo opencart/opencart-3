@@ -80,7 +80,7 @@
                   </div>
                 </div>
                 <div class="form-group">
-                  <label class="col-sm-2 control-label" for="input-subscription-plan">{{ entry_payment_method }}</label>
+                  <label class="col-sm-2 control-label" for="input-subscription-plan">{{ entry_subscription_plan }}</label>
                   <div class="col-sm-10">
                     <select name="subscription_plan_id" id="input-subscription-plan" class="form-control">
                       <option value="">{{ text_select }}</option>
@@ -260,7 +260,7 @@
                   if (json['success']) {
                       $('#tab-history').prepend('<div class="alert alert-success alert-dismissible"><i class="fa fa-check-circle"></i> ' + json['success'] + ' <button type="button" class="close" data-dismiss="alert">&times;</button></div>');
 
-                      $('#history').load('index.php?route=sale/subscription/history&user_token={{ user_token }}&customer_id={{ customer_id }}');
+                      $('#history').load('index.php?route=sale/subscription/history&user_token={{ user_token }}&subscription_id=' + $('#input-subscription-id').val());
 
                       $('#tab-history textarea[name=\'comment\']').val('');
                   }
@@ -301,7 +301,7 @@
                   if (json['success']) {
                       $('#tab-transaction').prepend('<div class="alert alert-success alert-dismissible"><i class="fa fa-check-circle"></i> ' + json['success'] + ' <button type="button" class="close" data-dismiss="alert">&times;</button></div>');
 
-                      $('#transaction').load('index.php?route=sale/subscription/transaction&user_token={{ user_token }}&customer_id={{ customer_id }}');
+                      $('#transaction').load('index.php?route=sale/subscription/transaction&user_token={{ user_token }}&subscription_id=' + $('#input-subscription-id').val());
 
                       $('#tab-transaction input[name=\'amount\']').val('');
                       $('#tab-transaction input[name=\'description\']').val('');

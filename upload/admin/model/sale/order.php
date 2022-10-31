@@ -234,6 +234,12 @@ class ModelSaleOrder extends Model {
         return $query->rows;
     }
 
+    public function getProductByOrderProductId(int $order_id, int $order_product_id): array {
+        $query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "order_product` WHERE `order_id` = '" . (int)$order_id . "' AND `order_product_id` = '" . (int)$order_product_id . "' ORDER BY `order_product_id` ASC");
+
+        return $query->row;
+    }
+
     public function getOrderOptions(int $order_id, int $order_product_id): array {
         $query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "order_option` WHERE `order_id` = '" . (int)$order_id . "' AND `order_product_id` = '" . (int)$order_product_id . "'");
 

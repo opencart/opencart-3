@@ -417,19 +417,6 @@ class ControllerSaleRecurring extends Controller {
             $data['product'] = $order_recurring_info['product_name'];
             $data['quantity'] = $order_recurring_info['product_quantity'];
 
-            // Transactions
-            $data['transactions'] = [];
-
-            $transactions = $this->model_sale_recurring->getRecurringTransactions($order_recurring_info['order_recurring_id']);
-
-            foreach ($transactions as $transaction) {
-                $data['transactions'][] = [
-                    'date_added' => $transaction['date_added'],
-                    'type'       => $transaction['type'],
-                    'amount'     => $this->currency->format($transaction['amount'], $order_info['currency_code'], $order_info['currency_value'])
-                ];
-            }
-
             // Subscription
             $this->load->model('sale/subscription');
 
@@ -451,6 +438,69 @@ class ControllerSaleRecurring extends Controller {
         }
 
         return null;
+    }
+
+    public function save() {
+        $this->load->language('sale/recurring');
+
+        $json = [];
+
+        if (isset($this->request->get['order_recurring_id'])) {
+            $order_recurring_id = (int)$this->request->get['order_recurring_id'];
+        } else {
+            $order_recurring_id = 0;
+        }
+
+        if (!$this->user->hasPermission('modify', 'sale/recurring')) {
+            $json['error'] = $this->language->get('error_permission');
+        } elseif ($this->request->post['customer_payment_id'] == '') {
+            $json['error'] = $this->language->get('error_payment_method');
+        } elseif ($this->request->post['subscription_plan_id'] == '') {
+            $json['error'] = $this->language->get('error_subscription_plan');
+        }
+
+        // Recurring
+        $this->load->model('sale/recurring');
+
+        $order_recurring_info = $this->model_sale_recurring->getRecurring($order_recurring_id);
+
+        if (!$order_recurring_info) {
+            $json['error'] = $this->language->get('error_not_found');
+        } else {
+            // Orders
+            $this->load->model('sale/order');
+
+            $order_info = $this->model_sale_order->getOrder($order_recurring_info['order_id']);
+
+            if (!$order_info) {
+                $json['error'] = $this->language->get('error_payment_method');
+            } else {
+                // Customers
+                $this->load->model('customer/customer');
+
+                $payment_method_info = $this->model_customer_customer->getPaymentMethod($order_info['customer_id'], $this->request->post['customer_payment_id']);
+
+                if (!$payment_method_info) {
+                    $json['error'] = $this->language->get('error_payment_method');
+                } else {
+                    // Subscription Plans
+                    $this->load->model('catalog/subscription_plan');
+
+                    $subscription_plan_info = $this->model_catalog_subscription_plan->getSubscriptionPlan($this->request->post['subscription_plan_id']);
+
+                    if (!$subscription_plan_info) {
+                        $json['error'] = $this->language->get('error_subscription_plan');
+                    }
+                }
+            }
+        }
+
+        if (!$json) {
+            $json['success'] = $this->language->get('text_plan_success');
+        }
+
+        $this->response->addHeader('Content-Type: application/json');
+        $this->response->setOutput(json_encode($json));
     }
 
     // admin/view/sale/recurring_info/after
@@ -488,6 +538,58 @@ class ControllerSaleRecurring extends Controller {
         }
 
         return '';
+    }
+
+    public function transaction(): void {
+        $this->load->language('sale/recurring');
+
+        if (isset($this->request->get['order_recurring_id'])) {
+            $order_recurring_id = (int)$this->request->get['order_recurring_id'];
+        } else {
+            $order_recurring_id = 0;
+        }
+
+        if (isset($this->request->get['page'])) {
+            $page = (int)$this->request->get['page'];
+        } else {
+            $page = 1;
+        }
+
+        // Recurring
+        $this->load->model('sale/recurring');
+
+        $transaction_total = $this->model_sale_recurring->getTotalTransactions($order_recurring_id);
+
+        // Orders
+        $this->load->model('sale/order');
+
+        $order_recurring_info = $this->model_sale_order->getRecurring($order_recurring_id);
+
+        $order_info = $this->model_sale_order->getOrder($order_recurring_info['order_id']);
+
+        // Transactions
+        $data['transactions'] = [];
+
+        $transactions = $this->model_sale_recurring->getRecurringTransactions($order_recurring_id);
+
+        foreach ($transactions as $transaction) {
+            $data['transactions'][] = [
+                'date_added' => $transaction['date_added'],
+                'type'       => $transaction['type'],
+                'amount'     => $this->currency->format($transaction['amount'], $order_info['currency_code'], $order_info['currency_value'])
+            ];
+        }
+
+        $pagination = new \Pagination();
+        $pagination->total = $transaction_total;
+        $pagination->page = $page;
+        $pagination->limit = 10;
+        $pagination->url = $this->url->link('sale/recurring/transaction', 'user_token=' . $this->session->data['user_token'] . '&order_recurring_id=' . $order_recurring_id . '&page={page}', true);
+
+        $data['pagination'] = $pagination->render();
+        $data['results'] = sprintf($this->language->get('text_pagination'), ($transaction_total) ? (($page - 1) * 10) + 1 : 0, ((($page - 1) * 10) > ($transaction_total - 10)) ? $transaction_total : ((($page - 1) * 10) + 10), $transaction_total, ceil($transaction_total / 10));
+
+        $this->response->setOutput($this->load->view('sale/recurring_transaction', $data));
     }
 
     public function addTransaction(): void {
