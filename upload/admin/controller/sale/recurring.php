@@ -538,6 +538,15 @@ class ControllerSaleRecurring extends Controller {
                 $json['error'] = $this->language->get('error_payment_method');
             }
 
+            // Payment Methods
+            $this->load->model('customer/customer');
+
+            $payment_methods = $this->model_customer_customer->getPaymentMethods($order_info['customer_id']);
+
+            if (!$payment_methods) {
+                $json['error'] = $this->language->get('error_payment_method');
+            }
+
             // Subscription
             $this->load->model('sale/subscription');
 
