@@ -504,7 +504,7 @@ class ControllerSaleRecurring extends Controller {
     }
 
     // admin/view/sale/recurring_info/after
-    public function notification(string &$route, array &$args, mixed &$output): string {
+    public function notification(string &$route, array &$args, mixed &$output): void {
         // Recurring
         $this->load->model('sale/recurring');
 
@@ -536,8 +536,6 @@ class ControllerSaleRecurring extends Controller {
 
             $output = str_replace($replace, $by . $replace, $output);
         }
-
-        return '';
     }
 
     public function transaction(): void {
