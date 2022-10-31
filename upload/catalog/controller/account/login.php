@@ -180,7 +180,7 @@ class ControllerAccountLogin extends Controller {
                 $this->model_account_customer->addLoginAttempt($this->request->post['email']);
             } else {
                 // Create customer token
-                $this->session->data['customer_token'] = token(26);
+                $this->session->data['customer_token'] = oc_token(26);
 
                 $this->model_account_customer->deleteLoginAttempts($this->request->post['email']);
             }

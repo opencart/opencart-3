@@ -19,7 +19,7 @@ class ControllerCommonForgotten extends Controller {
         $this->load->model('user/user');
 
         if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validate()) {
-            $this->model_user_user->editCode($this->request->post['email'], token(40));
+            $this->model_user_user->editCode($this->request->post['email'], oc_token(40));
 
             $this->session->data['success'] = $this->language->get('text_success');
 

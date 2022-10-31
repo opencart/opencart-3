@@ -145,7 +145,7 @@ class ControllerMarketplaceInstaller extends Controller {
         }
 
         if (!$json) {
-            $this->session->data['install'] = token(10);
+            $this->session->data['install'] = oc_token(10);
 
             $file = DIR_UPLOAD . $this->session->data['install'] . '.tmp';
 

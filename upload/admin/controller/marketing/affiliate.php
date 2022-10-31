@@ -571,7 +571,7 @@ class ControllerMarketingAffiliate extends Controller {
         } elseif (!empty($affiliate_info)) {
             $data['tracking'] = $affiliate_info['tracking'];
         } else {
-            $data['tracking'] = token(10);
+            $data['tracking'] = oc_token(10);
         }
 
         if (isset($this->request->post['commission'])) {

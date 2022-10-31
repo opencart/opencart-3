@@ -379,7 +379,7 @@ class ControllerToolUpload extends Controller {
             // Hide the uploaded file name so people can not link to it directly.
             $this->load->model('tool/upload');
 
-            $file = $filename . '.' . token(32);
+            $file = $filename . '.' . oc_token(32);
 
             move_uploaded_file($this->request->files['file']['tmp_name'], DIR_UPLOAD . $file);
 

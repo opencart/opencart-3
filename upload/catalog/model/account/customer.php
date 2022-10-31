@@ -12,7 +12,7 @@ class ModelAccountCustomer extends Model {
 
         $customer_group_info = $this->model_account_customer_group->getCustomerGroup($customer_group_id);
 
-        $this->db->query("INSERT INTO `" . DB_PREFIX . "customer` SET `customer_group_id` = '" . (int)$customer_group_id . "', `store_id` = '" . (int)$this->config->get('config_store_id') . "', `language_id` = '" . (int)$this->config->get('config_language_id') . "', `firstname` = '" . $this->db->escape($data['firstname']) . "', `lastname` = '" . $this->db->escape($data['lastname']) . "', `email` = '" . $this->db->escape($data['email']) . "', `telephone` = '" . $this->db->escape($data['telephone']) . "', `custom_field` = '" . $this->db->escape(isset($data['custom_field']) ? json_encode($data['custom_field']) : '') . "', `salt` = '" . $this->db->escape($salt = token(9)) . "', `password` = '" . $this->db->escape(sha1($salt . sha1($salt . sha1($data['password'])))) . "', `newsletter` = '" . (isset($data['newsletter']) ? (int)$data['newsletter'] : 0) . "', `ip` = '" . $this->db->escape($this->request->server['REMOTE_ADDR']) . "', `status` = '" . (int)!$customer_group_info['approval'] . "', `date_added` = NOW()");
+        $this->db->query("INSERT INTO `" . DB_PREFIX . "customer` SET `customer_group_id` = '" . (int)$customer_group_id . "', `store_id` = '" . (int)$this->config->get('config_store_id') . "', `language_id` = '" . (int)$this->config->get('config_language_id') . "', `firstname` = '" . $this->db->escape($data['firstname']) . "', `lastname` = '" . $this->db->escape($data['lastname']) . "', `email` = '" . $this->db->escape($data['email']) . "', `telephone` = '" . $this->db->escape($data['telephone']) . "', `custom_field` = '" . $this->db->escape(isset($data['custom_field']) ? json_encode($data['custom_field']) : '') . "', `salt` = '" . $this->db->escape($salt = oc_token(9)) . "', `password` = '" . $this->db->escape(sha1($salt . sha1($salt . sha1($data['password'])))) . "', `newsletter` = '" . (isset($data['newsletter']) ? (int)$data['newsletter'] : 0) . "', `ip` = '" . $this->db->escape($this->request->server['REMOTE_ADDR']) . "', `status` = '" . (int)!$customer_group_info['approval'] . "', `date_added` = NOW()");
 
         $customer_id = $this->db->getLastId();
 
@@ -28,7 +28,7 @@ class ModelAccountCustomer extends Model {
     }
 
     public function editPassword(string $email, string $password): void {
-        $this->db->query("UPDATE `" . DB_PREFIX . "customer` SET `salt` = '" . $this->db->escape($salt = token(9)) . "', `password` = '" . $this->db->escape(sha1($salt . sha1($salt . sha1($password)))) . "', `code` = '' WHERE LCASE(`email`) = '" . $this->db->escape(oc_strtolower($email)) . "'");
+        $this->db->query("UPDATE `" . DB_PREFIX . "customer` SET `salt` = '" . $this->db->escape($salt = oc_token(9)) . "', `password` = '" . $this->db->escape(sha1($salt . sha1($salt . sha1($password)))) . "', `code` = '' WHERE LCASE(`email`) = '" . $this->db->escape(oc_strtolower($email)) . "'");
     }
 
     public function editAddressId(int $customer_id, int $address_id): void {

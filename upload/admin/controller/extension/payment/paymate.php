@@ -67,7 +67,7 @@ class ControllerExtensionPaymentPayMate extends Controller {
         } elseif ($this->config->get('payment_paymate_password')) {
             $data['payment_paymate_password'] = $this->config->get('payment_paymate_password');
         } else {
-            $data['payment_paymate_password'] = token(32);
+            $data['payment_paymate_password'] = oc_token(32);
         }
 
         if (isset($this->request->post['payment_paymate_test'])) {

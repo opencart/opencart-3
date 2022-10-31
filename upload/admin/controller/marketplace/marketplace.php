@@ -860,7 +860,7 @@ class ControllerMarketplaceMarketplace extends Controller {
 
             if (isset($response_info['download'])) {
                 if (substr($response_info['filename'], -10) == '.ocmod.zip') {
-                    $this->session->data['install'] = token(10);
+                    $this->session->data['install'] = oc_token(10);
 
                     $download = file_get_contents($response_info['download']);
 

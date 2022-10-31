@@ -1031,7 +1031,7 @@ class ControllerCustomerCustomer extends Controller {
 
         if ($customer_info) {
             // Create token to log in with
-            $token = token(64);
+            $token = oc_token(64);
 
             $this->model_customer_customer->editToken($customer_id, $token);
 

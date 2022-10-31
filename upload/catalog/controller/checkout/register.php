@@ -238,7 +238,7 @@ class ControllerCheckoutRegister extends Controller {
 
             if ($customer_group_info && !$customer_group_info['approval']) {
                 // Create customer token
-                $this->session->data['customer_token'] = token(26);
+                $this->session->data['customer_token'] = oc_token(26);
 
                 $this->customer->login($this->request->post['email'], $this->request->post['password']);
 

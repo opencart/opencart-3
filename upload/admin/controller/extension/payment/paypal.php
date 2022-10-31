@@ -148,7 +148,7 @@ class ControllerExtensionPaymentPayPal extends Controller {
             $data['environment'] = 'production';
         }
 
-        $data['seller_nonce'] = token(50);
+        $data['seller_nonce'] = oc_token(50);
 
         $data['configure_url'] = [
             'production' => [

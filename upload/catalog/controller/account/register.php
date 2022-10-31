@@ -24,7 +24,7 @@ class ControllerAccountRegister extends Controller {
             $customer_id = $this->model_account_customer->addCustomer($this->request->post);
 
             // Create customer token
-            $this->session->data['customer_token'] = token(26);
+            $this->session->data['customer_token'] = oc_token(26);
 
             // Clear any previous login attempts for unregistered accounts.
             $this->model_account_customer->deleteLoginAttempts($this->request->post['email']);

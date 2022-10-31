@@ -1001,7 +1001,7 @@ class ControllerExtensionPaymentPPExpress extends Controller {
                 foreach ($this->session->data['vouchers'] as $voucher) {
                     $voucher_data[] = [
                         'description'      => $voucher['description'],
-                        'code'             => token(10),
+                        'code'             => oc_token(10),
                         'to_name'          => $voucher['to_name'],
                         'to_email'         => $voucher['to_email'],
                         'from_name'        => $voucher['from_name'],

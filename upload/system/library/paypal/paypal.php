@@ -422,7 +422,7 @@ class PayPal {
         }
     }
 
-    private function token($length = 32) {
+    private function oc_token($length = 32) {
         // Create random token
         $string = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
 
