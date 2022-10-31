@@ -124,15 +124,16 @@ class ControllerSaleRecurring extends Controller {
         $this->load->model('sale/subscription');
 
         $filter_data = [
-            'filter_order_recurring_id' => $filter_order_recurring_id,
-            'filter_order_id'           => $filter_order_id,
-            'filter_reference'          => $filter_reference,
-            'filter_customer'           => $filter_customer,
-            'filter_date_added'         => $filter_date_added,
-            'order'                     => $order,
-            'sort'                      => $sort,
-            'start'                     => ($page - 1) * $this->config->get('config_limit_admin'),
-            'limit'                     => $this->config->get('config_limit_admin')
+            'filter_order_recurring_id'     => $filter_order_recurring_id,
+            'filter_order_id'               => $filter_order_id,
+            'filter_reference'              => $filter_reference,
+            'filter_customer'               => $filter_customer,
+            'filter_subscription_status_id' => $filter_subscription_status_id,
+            'filter_date_added'             => $filter_date_added,
+            'order'                         => $order,
+            'sort'                          => $sort,
+            'start'                         => ($page - 1) * $this->config->get('config_limit_admin'),
+            'limit'                         => $this->config->get('config_limit_admin')
         ];
 
         $recurrings_total = $this->model_sale_recurring->getTotalRecurrings($filter_data);
