@@ -35,6 +35,10 @@
               <input type="text" name="filter_order_id" value="{{ filter_order_id }}" placeholder="{{ entry_order_id }}" id="input-order-id" class="form-control"/>
             </div>
             <div class="form-group">
+              <label for="input-reference" class="control-label">{{ entry_reference }}</label>
+              <input type="text" name="filter_reference" value="{{ filter_reference }}" placeholder="{{ entry_reference }}" id="input-reference" class="form-control"/>
+            </div>
+            <div class="form-group">
               <label for="input-customer" class="control-label">{{ entry_customer }}</label>
               <input type="text" name="filter_customer" value="{{ filter_customer }}" placeholder="{{ entry_customer }}" id="input-customer" class="form-control"/>
             </div>
@@ -46,6 +50,13 @@
                   <option value="{{ subscription_status.subscription_status_id }}"{% if subscription_status.subscription_status_id == filter_subscription_status_id %} selected="selected"{% endif %}>{{ subscription_status.name }}</option>
                 {% endfor %}
               </select>
+            </div>
+            <div class="form-group">
+              <label class="control-label" for="input-date-added">{{ entry_date_added }}</label>
+              <div class="input-group date">
+                <input type="text" name="filter_date_added" value="{{ filter_date_added }}" placeholder="{{ entry_date_added }}" data-date-format="YYYY-MM-DD" id="input-date-added" class="form-control"/>
+                <span class="input-group-btn"><button type="button" class="btn btn-default"><i class="fa fa-calendar"></i></button></span>
+              </div>
             </div>
             <div class="form-group text-right">
               <button type="button" id="button-filter" class="btn btn-default"><i class="fa fa-filter"></i> {{ button_filter }}</button>
@@ -116,37 +127,37 @@
 
       var filter_order_recurring_id = $('input[name=\'filter_order_recurring_id\']').val();
 
-      if (filter_order_recurring_id) {
+      if (filter_order_recurring_id !== '') {
         url += '&filter_order_recurring_id=' + encodeURIComponent(filter_order_recurring_id);
       }
 
       var filter_order_id = $('input[name=\'filter_order_id\']').val();
 
-      if (filter_order_id) {
+      if (filter_order_id !== '') {
         url += '&filter_order_id=' + encodeURIComponent(filter_order_id);
       }
 
       var filter_reference = $('input[name=\'filter_reference\']').val();
 
-      if (filter_reference) {
+      if (filter_reference !== '') {
         url += '&filter_reference=' + encodeURIComponent(filter_reference);
       }
 
       var filter_customer = $('input[name=\'filter_customer\']').val();
 
-      if (filter_customer) {
+      if (filter_customer !== '') {
         url += '&filter_customer=' + encodeURIComponent(filter_customer);
       }
 
-      var filter_status = $('select[name=\'filter_status\']').val();
+      var filter_subscription_status_id = $('#input-subscription-status').val();
 
-      if (filter_status != 0) {
-        url += '&filter_status=' + encodeURIComponent(filter_status);
+      if (filter_subscription_status_id !== '') {
+        url += '&filter_subscription_status_id=' + filter_subscription_status_id;
       }
 
       var filter_date_added = $('input[name=\'filter_date_added\']').val();
 
-      if (filter_date_added != '') {
+      if (filter_date_added) {
         url += '&filter_date_added=' + encodeURIComponent(filter_date_added);
       }
 
@@ -162,6 +173,17 @@
     $('.date').datetimepicker({
       language: '{{ datepicker }}',
       pickTime: false
+    });
+
+    $('.datetime').datetimepicker({
+      language: '{{ datepicker }}',
+      pickDate: true,
+      pickTime: true
+    });
+
+    $('.time').datetimepicker({
+      language: '{{ datepicker }}',
+      pickDate: false
     });
     //--></script>
   <script type="text/javascript"><!--

@@ -25,8 +25,8 @@ class ModelSaleRecurring extends Model {
             $implode[] = "CONCAT(o.`firstname`, ' ', o.`lastname`) LIKE '" . $this->db->escape($data['filter_customer']) . "%'";
         }
 
-        if (!empty($data['filter_status'])) {
-            $implode[] = "`or`.`status` = '" . (int)$data['filter_status'] . "'";
+        if (!empty($data['filter_subscription_status_id'])) {
+            $implode[] = "`or`.`status` = '" . (int)$data['filter_subscription_status_id'] . "'";
         }
 
         if (!empty($data['filter_date_added'])) {

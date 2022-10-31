@@ -65,6 +65,7 @@ $_['entry_order_recurring_id']             = 'Recurring ID';
 $_['entry_order_id']                       = 'Order ID';
 $_['entry_reference']                      = 'Payment Reference';
 $_['entry_customer']                       = 'Customer';
+$_['entry_subscription_status']            = 'Subscription Status';
 $_['entry_date_added']                     = 'Date Added';
 $_['entry_migration']                      = 'Migration';
 $_['entry_status']                         = 'Status';

@@ -31,7 +31,7 @@ class ControllerCommonHeader extends Controller {
             $directory = $this->config->get('config_theme');
         }
 
-        // Hard coding css so they can be replaced via the event's system.
+        // Hard coding css, so they can be replaced via the event's system.
         $data['bootstrap_css'] = 'catalog/view/javascript/bootstrap/css/bootstrap.min.css';
         $data['bootstrap_js'] = 'catalog/view/javascript/bootstrap/js/bootstrap.min.js';
         $data['icons'] = 'catalog/view/javascript/font-awesome/css/font-awesome.min.css';

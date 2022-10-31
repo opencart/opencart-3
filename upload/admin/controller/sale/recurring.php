@@ -38,10 +38,10 @@ class ControllerSaleRecurring extends Controller {
             $filter_customer = '';
         }
 
-        if (isset($this->request->get['filter_status'])) {
-            $filter_status = (int)$this->request->get['filter_status'];
+        if (isset($this->request->get['filter_subscription_status_id'])) {
+            $filter_subscription_status_id = (int)$this->request->get['filter_subscription_status_id'];
         } else {
-            $filter_status = 0;
+            $filter_subscription_status_id = 0;
         }
 
         if (isset($this->request->get['sort'])) {
@@ -86,8 +86,8 @@ class ControllerSaleRecurring extends Controller {
             $url .= '&filter_customer=' . urlencode(html_entity_decode($this->request->get['filter_customer'], ENT_QUOTES, 'UTF-8'));
         }
 
-        if (isset($this->request->get['filter_status'])) {
-            $url .= '&filter_status=' . $this->request->get['filter_status'];
+        if (isset($this->request->get['filter_subscription_status_id'])) {
+            $url .= '&filter_subscription_status_id=' . $this->request->get['filter_subscription_status_id'];
         }
 
         if (isset($this->request->get['filter_date_added'])) {
@@ -128,7 +128,6 @@ class ControllerSaleRecurring extends Controller {
             'filter_order_id'           => $filter_order_id,
             'filter_reference'          => $filter_reference,
             'filter_customer'           => $filter_customer,
-            'filter_status'             => $filter_status,
             'filter_date_added'         => $filter_date_added,
             'order'                     => $order,
             'sort'                      => $sort,
@@ -202,10 +201,6 @@ class ControllerSaleRecurring extends Controller {
             $url .= '&filter_customer=' . urlencode(html_entity_decode($this->request->get['filter_customer'], ENT_QUOTES, 'UTF-8'));
         }
 
-        if (isset($this->request->get['filter_status'])) {
-            $url .= '&filter_status=' . $this->request->get['filter_status'];
-        }
-
         if (isset($this->request->get['filter_date_added'])) {
             $url .= '&filter_date_added=' . $this->request->get['filter_date_added'];
         }
@@ -245,8 +240,8 @@ class ControllerSaleRecurring extends Controller {
             $url .= '&filter_customer=' . urlencode(html_entity_decode($this->request->get['filter_customer'], ENT_QUOTES, 'UTF-8'));
         }
 
-        if (isset($this->request->get['filter_status'])) {
-            $url .= '&filter_status=' . $this->request->get['filter_status'];
+        if (isset($this->request->get['filter_subscription_status_id'])) {
+            $url .= '&filter_subscription_status_id=' . $this->request->get['filter_subscription_status_id'];
         }
 
         if (isset($this->request->get['filter_date_added'])) {
@@ -260,6 +255,11 @@ class ControllerSaleRecurring extends Controller {
         if (isset($this->request->get['order'])) {
             $url .= '&order=' . $this->request->get['order'];
         }
+
+        // Subscription Status
+        $this->load->model('localisation/subscription_status');
+
+        $data['subscription_statuses'] = $this->model_localisation_subscription_status->getSubscriptionStatuses();
 
         $pagination = new \Pagination();
         $pagination->total = $recurrings_total;
@@ -275,7 +275,7 @@ class ControllerSaleRecurring extends Controller {
         $data['filter_order_id'] = $filter_order_id;
         $data['filter_reference'] = $filter_reference;
         $data['filter_customer'] = $filter_customer;
-        $data['filter_status'] = $filter_status;
+        $data['filter_subscription_status_id'] = $filter_subscription_status_id;
         $data['filter_date_added'] = $filter_date_added;
 
         $data['sort'] = $sort;
@@ -339,8 +339,8 @@ class ControllerSaleRecurring extends Controller {
                 $url .= '&filter_customer=' . urlencode(html_entity_decode($this->request->get['filter_customer'], ENT_QUOTES, 'UTF-8'));
             }
 
-            if (isset($this->request->get['filter_status'])) {
-                $url .= '&filter_status=' . $this->request->get['filter_status'];
+            if (isset($this->request->get['filter_subscription_status_id'])) {
+                $url .= '&filter_subscription_status_id=' . $this->request->get['filter_subscription_status_id'];
             }
 
             if (isset($this->request->get['filter_date_added'])) {
