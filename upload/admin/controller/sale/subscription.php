@@ -665,7 +665,7 @@ class ControllerSaleSubscription extends Controller {
 
             $order_info = $this->model_sale_order->getOrder($subscription_info['order_id']);
 
-            if (!$order_info) {
+            if ((!$order_info) || ($this->request->post['order_id'] == '') || (($this->request->post['order_id'] != $order_info['order_id']) || ($this->request->post['order_id'] != $subscription_info['order_id']))) {
                 $json['error'] = $this->language->get('error_payment_method');
             }
         }
