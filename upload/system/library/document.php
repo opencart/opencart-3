@@ -11,60 +11,74 @@
  * Document class
  */
 class Document {
-    private string $title       = '';
+    private string $title = '';
     private string $description = '';
-    private string $keywords    = '';
-    private array  $links       = [];
-    private array  $styles      = [];
-    private array  $scripts     = [];
+    private string $keywords = '';
+    private array $links = [];
+    private array $styles = [];
+    private array $scripts = [];
 
     /**
-     * @param    string    $title
+     *
+     *
+     * @param	string	$title
      */
     public function setTitle(string $title): void {
         $this->title = $title;
     }
 
     /**
-     * @return    string
+     *
+     *
+     * @return	string
      */
     public function getTitle(): string {
         return $this->title;
     }
 
     /**
-     * @param    string    $description
+     *
+     *
+     * @param	string	$description
      */
     public function setDescription(string $description): void {
         $this->description = $description;
     }
 
     /**
-     * @param    string    $description
      *
-     * @return    string
+     *
+     * @param	string	$description
+     *
+     * @return	string
      */
     public function getDescription(): string {
         return $this->description;
     }
 
     /**
-     * @param    string    $keywords
+     *
+     *
+     * @param	string	$keywords
      */
     public function setKeywords(string $keywords): void {
         $this->keywords = $keywords;
     }
 
     /**
-     * @return    string
+     *
+     *
+     * @return	string
      */
-    public function getKeywords() {
+    public function getKeywords(): string {
         return $this->keywords;
     }
 
     /**
-     * @param    string    $href
-     * @param    string    $rel
+     *
+     *
+     * @param	string	$href
+     * @param	string	$rel
      */
     public function addLink(string $href, string $rel): void {
         $this->links[$href] = [
@@ -74,19 +88,23 @@ class Document {
     }
 
     /**
-     * @return    array
+     *
+     *
+     * @return	array
      */
     public function getLinks(): array {
         return $this->links;
     }
 
     /**
-     * @param    string    $href
-     * @param    string    $rel
-     * @param    string    $media
+     *
+     *
+     * @param	string	$href
+     * @param	string	$rel
+     * @param	string	$media
      */
-    public function addStyle(string $href, $rel = 'stylesheet', $media = 'screen', $position = 'header'): void {
-        $this->styles[$position][$href] = [
+    public function addStyle(string $href, $rel = 'stylesheet', $media = 'screen'): void {
+        $this->styles[$href] = [
             'href'  => $href,
             'rel'   => $rel,
             'media' => $media
@@ -94,28 +112,30 @@ class Document {
     }
 
     /**
-     * @return    array
+     *
+     *
+     * @return	array
      */
-    public function getStyles($position = 'header'): array {
-        if (isset($this->styles[$position])) {
-            return $this->styles[$position];
-        } else {
-            return [];
-        }
+    public function getStyles(): array {
+        return $this->styles;
     }
 
     /**
-     * @param    string    $href
-     * @param    string    $position
+     *
+     *
+     * @param	string	$href
+     * @param	string	$position
      */
     public function addScript(string $href, $position = 'header'): void {
         $this->scripts[$position][$href] = ['href' => $href];
     }
 
     /**
-     * @param    string    $position
      *
-     * @return    array
+     *
+     * @param	string	$position
+     *
+     * @return	array
      */
     public function getScripts($position = 'header'): array {
         if (isset($this->scripts[$position])) {
