@@ -326,7 +326,7 @@ class ControllerSaleSubscription extends Controller {
 
         // Order data
         if (!empty($subscription_info)) {
-            // Order
+            // Orders
             $this->load->model('sale/order');
 
             $order_info = $this->model_sale_order->getOrder($subscription_info['order_id']);
@@ -350,6 +350,7 @@ class ControllerSaleSubscription extends Controller {
             $data['order_status'] = '';
         }
 
+        // Subscription Plans
         $this->load->model('catalog/subscription_plan');
 
         $data['subscription_plans'] = $this->model_catalog_subscription_plan->getSubscriptionPlans();
@@ -360,6 +361,7 @@ class ControllerSaleSubscription extends Controller {
             $data['subscription_plan_id'] = '';
         }
 
+        // Customers
         $this->load->model('customer/customer');
 
         $data['payment_methods'] = $this->model_customer_customer->getPaymentMethods($order_info['customer_id']);
@@ -478,6 +480,7 @@ class ControllerSaleSubscription extends Controller {
             $json['error'] = $this->language->get('error_permission');
         }
 
+        // Subscription Plans
         $this->load->model('catalog/subscription_plan');
 
         $subscription_plan_info = $this->model_catalog_subscription_plan->getSubscriptionPlan($this->request->post['subscription_plan_id']);
@@ -486,11 +489,13 @@ class ControllerSaleSubscription extends Controller {
             $json['error'] = $this->language->get('error_subscription_plan');
         }
 
+        // Subscription
         $this->load->model('sale/subscription');
 
         $subscription_info = $this->model_sale_subscription->getSubscription($subscription_id);
 
         if (!$subscription_info) {
+            // Customers
             $this->load->model('customer/customer');
 
             $payment_method_info = $this->model_customer_customer->getPaymentMethod($subscription_info['customer_id'], $this->request->post['customer_payment_id']);
@@ -574,12 +579,18 @@ class ControllerSaleSubscription extends Controller {
             $json['error'] = $this->language->get('error_permission');
         } elseif ($this->request->post['subscription_status_id'] == '') {
             $json['error'] = $this->language->get('error_subscription_status');
-        }
-
-        if (!$json) {
+        } else {
             // Subscription
             $this->load->model('sale/subscription');
 
+            $subscription_info = $this->model_sale_subscription->getSubscription($subscription_id);
+
+            if (!$subscription_info) {
+                $json['error'] = $this->language->get('error_subscription');
+            }
+        }
+
+        if (!$json) {
             $this->model_sale_subscription->addHistory($subscription_id, $this->request->post['subscription_status_id'], $this->request->post['comment'], $this->request->post['notify']);
 
             $json['success'] = $this->language->get('text_success');
