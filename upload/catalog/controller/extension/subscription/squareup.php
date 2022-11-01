@@ -4,27 +4,28 @@ class ControllerExtensionSubscriptionSquareup extends Controller {
         $this->load->language('extension/subscription/squareup');
 
         // Subscription
-        $this->load->model('account/subscription');
+        $this->load->model('account/recurring');
 
         // Squareup
         $this->load->model('extension/payment/squareup');
 
-        if (isset($this->request->get['subscription_id'])) {
-            $subscription_id = (int)$this->request->get['subscription_id'];
+        if (isset($this->request->get['order_recurring_id'])) {
+            $order_recurring_id = (int)$this->request->get['order_recurring_id'];
         } else {
-            $subscription_id = 0;
+            $order_recurring_id = 0;
         }
 
-        $subscription_info = $this->model_account_subscription->getSubscription($subscription_id);
+        $recurring_info = $this->model_account_recurring->getRecurring($order_recurring_id);
 
-        if ($subscription_info) {
-            $data['cancel_url'] = html_entity_decode($this->url->link('extension/subscription/squareup/cancel', 'subscription_id=' . $subscription_id, 'SSL'));
-            $data['continue'] = $this->url->link('account/subscription', '', true);
+        if ($recurring_info) {
+            $data['cancel_url'] = html_entity_decode($this->url->link('extension/subscription/squareup/cancel', 'order_recurring_id=' . $order_recurring_id, true));
 
-            if ($subscription_info['status'] == ModelExtensionPaymentSquareup::RECURRING_ACTIVE) {
-                $data['subscription_id'] = $subscription_id;
+            $data['continue'] = $this->url->link('account/recurring', '', true);
+
+            if ($recurring_info['status'] == ModelExtensionPaymentSquareup::RECURRING_ACTIVE) {
+                $data['order_recurring_id'] = $order_recurring_id;
             } else {
-                $data['subscription_id'] = 0;
+                $data['order_recurring_id'] = 0;
             }
 
             return $this->load->view('extension/subscription/squareup', $data);
@@ -39,29 +40,28 @@ class ControllerExtensionSubscriptionSquareup extends Controller {
         $json = [];
 
         // Subscription
-        $this->load->model('account/subscription');
+        $this->load->model('account/recurring');
 
         // Squareup
         $this->load->model('extension/payment/squareup');
 
-        if (isset($this->request->get['subscription_id'])) {
-            $subscription_id = (int)$this->request->get['subscription_id'];
+        if (isset($this->request->get['order_recurring_id'])) {
+            $order_recurring_id = (int)$this->request->get['order_recurring_id'];
         } else {
-            $subscription_id = 0;
+            $order_recurring_id = 0;
         }
 
-        $subscription_info = $this->model_account_subscription->getSubscription($subscription_id);
+        $order_recurring_info = $this->model_account_recurring->getRecurring($order_recurring_id);
 
         // Orders
         $this->load->model('checkout/order');
 
-        $order_info = $this->model_checkout_order->getOrder($subscription_info['order_id']);
+        $order_info = $this->model_checkout_order->getOrder($order_recurring_info['order_id']);
 
-        if ($subscription_info && $order_info) {
-            $this->model_account_subscription->editStatus($subscription_id, ModelExtensionPaymentSquareup::RECURRING_CANCELLED);
-            $this->model_account_subscription->addTransaction($subscription_id, $subscription_info['order_id'], $this->language->get('text_order_history_cancel'), 0, ModelExtensionPaymentSquareup::RECURRING_CANCELLED, $order_info['payment_method'], $order_info['payment_code']);
+        if ($order_recurring_info && ModelExtensionPaymentSquareup::RECURRING_ACTIVE) {
+            $this->model_account_recurring->editStatus($order_recurring_id, ModelExtensionPaymentSquareup::RECURRING_CANCELLED);
 
-            $this->model_checkout_order->addOrderHistory($subscription_info['order_id'], $order_info['order_status_id'], $this->language->get('text_order_history_cancel'), true);
+            $this->model_checkout_order->addOrderHistory($order_recurring_info['order_id'], $order_info['order_status_id'], $this->language->get('text_order_history_cancel'), true);
 
             $json['success'] = $this->language->get('text_canceled');
         } else {

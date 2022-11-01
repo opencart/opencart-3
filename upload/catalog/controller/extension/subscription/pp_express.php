@@ -3,24 +3,24 @@ class ControllerExtensionSubscriptionPpExpress extends Controller {
     public function index(): string {
         $this->load->language('extension/subscription/pp_express');
 
-        if (isset($this->request->get['subscription_id'])) {
-            $subscription_id = (int)$this->request->get['subscription_id'];
+        if (isset($this->request->get['order_recurring_id'])) {
+            $order_recurring_id = (int)$this->request->get['order_recurring_id'];
         } else {
-            $subscription_id = 0;
+            $order_recurring_id = 0;
         }
 
-        // Subscription
-        $this->load->model('account/subscription');
+        // Recurring
+        $this->load->model('account/recurring');
 
-        $subscription_info = $this->model_account_subscription->getSubscription($subscription_id);
+        $order_recurring_info = $this->model_account_recurring->getRecurring($order_recurring_id);
 
-        if ($subscription_info) {
-            $data['continue'] = $this->url->link('account/subscription', '', true);
+        if ($order_recurring_info) {
+            $data['continue'] = $this->url->link('account/recurring', '', true);
 
-            if ($subscription_info['status'] == 2 || $subscription_info['status'] == 3) {
-                $data['subscription_id'] = $subscription_id;
+            if ($order_recurring_info['status'] == 2 || $order_recurring_info['status'] == 3) {
+                $data['order_recurring_id'] = $order_recurring_id;
             } else {
-                $data['subscription_id'] = '';
+                $data['order_recurring_id'] = '';
             }
 
             return $this->load->view('extension/subscription/pp_express', $data);
@@ -35,21 +35,24 @@ class ControllerExtensionSubscriptionPpExpress extends Controller {
         $json = [];
 
         // Cancel an active subscription
-        $this->load->model('account/subscription');
+        $this->load->model('account/recurring');
 
         // Orders
         $this->load->model('checkout/order');
 
-        if (isset($this->request->get['subscription_id'])) {
-            $subscription_id = (int)$this->request->get['subscription_id'];
+        if (isset($this->request->get['order_recurring_id'])) {
+            $order_recurring_id = (int)$this->request->get['order_recurring_id'];
         } else {
-            $subscription_id = 0;
+            $order_recurring_id = 0;
         }
 
-        $subscription_info = $this->model_account_account->getSubscription($subscription_id);
+        // Recurring
+        $this->load->model('account/recurring');
 
-        if ($subscription_info && $subscription_info['reference']) {
-            $order_info = $this->model_checkout_order->getOrder($subscription_info['order_id']);
+        $order_recurring_info = $this->model_account_recurring->getRecurring($order_recurring_id);
+
+        if ($order_recurring_info && $order_recurring_info['reference']) {
+            $order_info = $this->model_checkout_order->getOrder($order_recurring_info['order_id']);
 
             if ($order_info) {
                 if ($this->config->get('payment_pp_express_test')) {
@@ -69,10 +72,9 @@ class ControllerExtensionSubscriptionPpExpress extends Controller {
                     'PWD'          => $api_password,
                     'SIGNATURE'    => $api_signature,
                     'VERSION'      => '109.0',
-                    'BUTTONSOURCE' => 'OpenCart_2.0_EC',
-                    'METHOD'       => 'SetExpressCheckout',
+                    'BUTTONSOURCE' => 'OpenCart_3.0_EC',
                     'METHOD'       => 'ManageRecurringPaymentsProfileStatus',
-                    'PROFILEID'    => $subscription_info['reference'],
+                    'PROFILEID'    => $order_recurring_info['reference'],
                     'ACTION'       => 'Cancel'
                 ];
 
@@ -99,10 +101,9 @@ class ControllerExtensionSubscriptionPpExpress extends Controller {
 
                 if (isset($response_info['PROFILEID'])) {
                     // Notify the customer
-                    $this->model_checkout_order->addOrderHistory($subscription_info['order_id'], $order_info['order_status_id'], $this->language->get('text_order_history_cancel'), true);
+                    $this->model_checkout_order->addOrderHistory($order_recurring_info['order_id'], $order_info['order_status_id'], $this->language->get('text_order_history_cancel'), true);
 
-                    $this->model_account_subscription->editStatus($subscription_id, 4);
-                    $this->model_account_subscription->addTransaction($subscription_id, $subscription_info['order_id'], $this->language->get('text_order_history_cancel'), 0, 5, $order_info['payment_method'], $order_info['payment_code']);
+                    $this->model_account_recurring->editStatus($order_recurring_id, 4);
 
                     $json['success'] = $this->language->get('text_cancelled');
                 } else {

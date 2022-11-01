@@ -67,6 +67,9 @@ $_['tab_api']                        = 'API Details';
 $_['tab_order_status']               = 'Order status';
 $_['tab_checkout']                   = 'Checkout';
 
+// Button
+$_['button_cancel_recurring']        = 'Cancel Subscription';
+
 // Help
 $_['help_ipn']                       = 'Required for subscriptions';
 $_['help_total']                     = 'The checkout total the order must reach before this payment method becomes active';

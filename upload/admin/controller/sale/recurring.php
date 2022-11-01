@@ -559,10 +559,10 @@ class ControllerSaleRecurring extends Controller {
 
         $transaction_total = $this->model_sale_recurring->getTotalTransactions($order_recurring_id);
 
-        // Orders
-        $this->load->model('sale/order');
+        // Recurring
+        $this->load->model('sale/recurring');
 
-        $order_recurring_info = $this->model_sale_order->getRecurring($order_recurring_id);
+        $order_recurring_info = $this->model_sale_recurring->getRecurring($order_recurring_id);
 
         $order_info = $this->model_sale_order->getOrder($order_recurring_info['order_id']);
 
@@ -616,12 +616,6 @@ class ControllerSaleRecurring extends Controller {
             $amount = (float)$this->request->post['amount'];
         } else {
             $amount = 0;
-        }
-
-        if (isset($this->request->post['migration'])) {
-            $migration = (int)$this->request->post['migration'];
-        } else {
-            $migration = 0;
         }
 
         if ($this->request->post['type'] == '') {

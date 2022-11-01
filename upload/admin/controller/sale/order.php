@@ -1717,7 +1717,7 @@ class ControllerSaleOrder extends Controller {
                     "/\s\s+/",
                     "/\r\r+/",
                     "/\n\n+/"
-                ], '<br>', trim(str_replace($find, $replace, $format))));
+                ], '<br/>', trim(str_replace($find, $replace, $format))));
 
                 // Subscription
                 $filter_data = [

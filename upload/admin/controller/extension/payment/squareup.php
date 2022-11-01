@@ -817,9 +817,9 @@ class ControllerExtensionPaymentSquareup extends Controller {
         $this->model_extension_payment_squareup->dropTables();
     }
 
-    public function recurringButtons() {
+    public function recurringButtons(): string {
         if (!$this->user->hasPermission('modify', 'extension/payment/squareup')) {
-            return null;
+            return '';
         }
 
         $this->load->language('extension/payment/squareup');
@@ -833,14 +833,14 @@ class ControllerExtensionPaymentSquareup extends Controller {
             $order_recurring_id = 0;
         }
 
-        // Subscription
-        $this->load->model('sale/subscription');
+        // Recurring
+        $this->load->model('sale/recurring');
 
-        $subscription_info = $this->model_sale_subscription->getSubscription($order_recurring_id);
+        $order_recurring_info = $this->model_sale_recurring->getRecurring($order_recurring_id);
 
         $data['button_text'] = $this->language->get('button_cancel_recurring');
 
-        if ($subscription_info['status'] == ModelExtensionPaymentSquareup::RECURRING_ACTIVE) {
+        if ($order_recurring_info['status'] == ModelExtensionPaymentSquareup::RECURRING_ACTIVE) {
             $data['order_recurring_id'] = $order_recurring_id;
         } else {
             $data['order_recurring_id'] = '';
@@ -849,9 +849,9 @@ class ControllerExtensionPaymentSquareup extends Controller {
         // Orders
         $this->load->model('sale/order');
 
-        $order_info = $this->model_sale_order->getOrder($subscription_info['order_id']);
+        $order_info = $this->model_sale_order->getOrder($order_recurring_info['order_id']);
 
-        $data['order_id'] = $subscription_info['order_id'];
+        $data['order_id'] = $order_recurring_info['order_id'];
         $data['store_id'] = $order_info['store_id'];
         $data['order_status_id'] = $order_info['order_status_id'];
         $data['comment'] = $this->language->get('text_order_history_cancel');
@@ -884,6 +884,10 @@ class ControllerExtensionPaymentSquareup extends Controller {
     }
 
     public function recurringCancel(): void {
+        if (!$this->user->hasPermission('modify', 'extension/payment/squareup')) {
+            return;
+        }
+
         $this->load->language('extension/payment/squareup');
 
         $json = [];
@@ -891,8 +895,8 @@ class ControllerExtensionPaymentSquareup extends Controller {
         if (!$this->user->hasPermission('modify', 'sale/recurring')) {
             $json['error'] = $this->language->get('error_permission_recurring');
         } else {
-            // Subscription
-            $this->load->model('sale/subscription');
+            // Recurring
+            $this->load->model('sale/recurring');
 
             if (isset($this->request->get['order_recurring_id'])) {
                 $order_recurring_id = (int)$this->request->get['order_recurring_id'];
@@ -900,9 +904,9 @@ class ControllerExtensionPaymentSquareup extends Controller {
                 $order_recurring_id = 0;
             }
 
-            $subscription_info = $this->model_sale_subscription->getSubscription($order_recurring_id);
+            $recurring_order_info = $this->model_sale_recurring->getRecurring($order_recurring_id);
 
-            if ($subscription_info) {
+            if ($recurring_order_info) {
                 // Squareup
                 $this->load->model('extension/payment/squareup');
 

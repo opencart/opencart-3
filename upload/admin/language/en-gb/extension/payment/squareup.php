@@ -180,6 +180,7 @@ $_['button_capture']                        = 'Capture';
 $_['button_connect']                        = 'Connect';
 $_['button_reconnect']                      = 'Reconnect';
 $_['button_refresh']                        = 'Refresh token';
+$_['button_cancel_recurring']               = 'Cancel Subscription';
 
 // Error
 $_['error_permission']                      = '<strong>Warning:</strong> You do not have permission to modify payment Square!';
