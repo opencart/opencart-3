@@ -1,5 +1,5 @@
 <?php
-class ControllerExtensionSubscriptionPPExpress extends Controller {
+class ControllerExtensionSubscriptionPpExpress extends Controller {
     public function index(): string {
         $this->load->language('extension/subscription/pp_express');
 
