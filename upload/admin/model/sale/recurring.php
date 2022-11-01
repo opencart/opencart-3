@@ -26,7 +26,7 @@ class ModelSaleRecurring extends Model {
         }
 
         if (!empty($data['filter_subscription_status_id'])) {
-            $implode[] = "`or`.`status` = '" . (int)$data['filter_subscription_status_id'] . "'";
+            $implode[] = "`or`.`status` IN (SELECT ss.`subscription_status_id` FROM `" . DB_PREFIX . "subscription_status` ss WHERE ss.`subscription_status_id` = '" . (int)$data['filter_subscription_status_id'] . "')";
         }
 
         if (!empty($data['filter_date_added'])) {
@@ -183,7 +183,7 @@ class ModelSaleRecurring extends Model {
         }
 
         if (!empty($data['filter_subscription_status_id'])) {
-            $implode[] = "`or`.`status` = '" . (int)$data['filter_subscription_status_id'] . "'";
+            $implode[] = "`or`.`status` IN (SELECT ss.`subscription_status_id` FROM `" . DB_PREFIX . "subscription_status` ss WHERE ss.`subscription_status_id` = '" . (int)$data['filter_subscription_status_id'] . "')";
         }
 
         if (!empty($data['filter_date_added'])) {
