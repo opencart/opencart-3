@@ -188,20 +188,18 @@ class ModelExtensionPaymentSagePayDirect extends Model {
 
         $transaction = [
             'order_id'       => $this->session->data['order_id'],
-            'description'    => $item['description'],
+            'description'    => $response_data['Status'],
             'amount'         => $price,
             'payment_method' => $order_info['payment_method'],
             'payment_code'   => $order_info['payment_code']
         ];
 
-        $response_data = array_merge($response_data, $transaction);
-
         if ($response_data['Status'] == 'OK') {
             $this->updateRecurringOrder($subscription_id, date_format($next_payment, 'Y-m-d H:i:s'));
 
-            $this->addRecurringTransaction($subscription_id, $response_data, 1);
+            $this->addRecurringTransaction($subscription_id, $response_data, $transaction, 1);
         } else {
-            $this->addRecurringTransaction($subscription_id, $response_data, 4);
+            $this->addRecurringTransaction($subscription_id, $response_data, $transaction, 4);
         }
     }
 
@@ -318,17 +316,15 @@ class ModelExtensionPaymentSagePayDirect extends Model {
                 'payment_code'   => $order_info['payment_code']
             ];
 
-            $response_data = array_merge($response_data, $transaction);
-
             if ($response_data['RepeatResponseData_' . $i++]['Status'] == 'OK') {
-                $this->addRecurringTransaction($subscription['subscription_id'], $response_data, 1);
+                $this->addRecurringTransaction($subscription['subscription_id'], $response_data, $transaction, 1);
 
                 $next_payment = $this->calculateSchedule($frequency, $next_payment, $cycle);
                 $next_payment = date_format($next_payment, 'Y-m-d H:i:s');
 
                 $this->updateRecurringOrder($subscription['subscription_id'], $next_payment);
             } else {
-                $this->addRecurringTransaction($subscription['subscription_id'], $response_data, 4);
+                $this->addRecurringTransaction($subscription['subscription_id'], $response_data, $transaction, 4);
             }
         }
 
@@ -393,7 +389,7 @@ class ModelExtensionPaymentSagePayDirect extends Model {
         return $query->row;
     }
 
-    private function addRecurringTransaction(int $subscription_id, array $response_data, int $type): void {
+    private function addRecurringTransaction(int $subscription_id, array $response_data, array $transaction, int $type): void {
         // Subscription
         $this->load->model('account/subscription');
 
@@ -406,7 +402,7 @@ class ModelExtensionPaymentSagePayDirect extends Model {
             $this->model_checkout_subscription->editReference($subscription_id, $response_data['VendorTxCode']);
 
             $this->model_account_subscription->editStatus($subscription_id, $type);
-            $this->model_account_subscription->addTransaction($subscription_id, $response_data['order_id'], $response_data['description'], $response_data['amount'], $type, $response_data['payment_method'], $response_data['payment_code']);
+            $this->model_account_subscription->addTransaction($subscription_id, $transaction['order_id'], $transaction['description'], $transaction['amount'], $type, $transaction['payment_method'], $transaction['payment_code']);
         }
     }
 
