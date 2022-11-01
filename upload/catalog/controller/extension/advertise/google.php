@@ -35,6 +35,8 @@ class ControllerExtensionAdvertiseGoogle extends Controller {
 
         // Insert the tags before the closing <head> tag
         $output = str_replace('</head>', $tracker['google_global_site_tag'] . '</head>', $output);
+
+        return '';
     }
 
     // catalog/controller/checkout/success/before
@@ -147,6 +149,8 @@ class ControllerExtensionAdvertiseGoogle extends Controller {
 
         // Insert the snippet after the output
         $output = str_replace('</body>', $this->googleshopping->getEventSnippet() . $purchase_snippet . '</body>', $output);
+
+        return '';
     }
 
     // catalog/view/common/home/after
@@ -174,6 +178,8 @@ class ControllerExtensionAdvertiseGoogle extends Controller {
 
         // Insert the snippet after the output
         $output = str_replace('</body>', $snippet . '</body>', $output);
+
+        return '';
     }
 
     // catalog/view/product/search/after
@@ -202,6 +208,8 @@ class ControllerExtensionAdvertiseGoogle extends Controller {
 
         // Insert the snippet after the output
         $output = str_replace('</body>', $snippet . '</body>', $output);
+
+        return '';
     }
 
     // catalog/view/product/category/after
@@ -244,6 +252,8 @@ class ControllerExtensionAdvertiseGoogle extends Controller {
 
         // Insert the snippet after the output
         $output = str_replace('</body>', $snippet . '</body>', $output);
+
+        return '';
     }
 
     // catalog/view/product/product/after
@@ -293,6 +303,8 @@ class ControllerExtensionAdvertiseGoogle extends Controller {
 
         // Insert the snippet after the output
         $output = str_replace('</body>', $snippet . '</body>', $output);
+
+        return '';
     }
 
     // catalog/view/checkout/cart/after
@@ -331,24 +343,28 @@ class ControllerExtensionAdvertiseGoogle extends Controller {
 
         // Insert the snippet after the output
         $output = str_replace('</body>', $snippet . '</body>', $output);
+
+        return '';
     }
 
-    public function cron(int $cron_id = null, string $code = null, string $cycle = null, string $date_added = null, string $date_modified = null): bool|object {
+    public function cron($cron_id = null, $code = null, $cycle = null, $date_added = null, $date_modified = null): bool|object {
         $this->loadLibrary($this->store_id);
 
         if (!$this->validateCRON()) {
             // In case this is not a CRON task
             return false;
+        } else {
+            $this->load->language('extension/advertise/google');
+
+            // Reset taxes to use the store address and zone
+            $this->tax->setShippingAddress($this->config->get('config_country_id'), $this->config->get('config_zone_id'));
+            $this->tax->setPaymentAddress($this->config->get('config_country_id'), $this->config->get('config_zone_id'));
+            $this->tax->setStoreAddress($this->config->get('config_country_id'), $this->config->get('config_zone_id'));
+
+            $this->googleshopping->cron();
         }
 
-        $this->load->language('extension/advertise/google');
-
-        // Reset taxes to use the store address and zone
-        $this->tax->setShippingAddress($this->config->get('config_country_id'), $this->config->get('config_zone_id'));
-        $this->tax->setPaymentAddress($this->config->get('config_country_id'), $this->config->get('config_zone_id'));
-        $this->tax->setStoreAddress($this->config->get('config_country_id'), $this->config->get('config_zone_id'));
-
-        $this->googleshopping->cron();
+        return '';
     }
 
     protected function validateCRON() {

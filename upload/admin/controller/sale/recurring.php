@@ -529,13 +529,13 @@ class ControllerSaleRecurring extends Controller {
 
             $data['subscription_total'] = $this->model_sale_subscription->getTotalSubscriptions($filter_data);
 
-            $replace = '<?php if ($warning) { ?>';
+            $search = '<?php if ($warning) { ?>';
 
-            $by = '<?php if ($subscription_total) { ?>' . "\n";
-            $by .= '<div class="alert alert-info"><?php echo $text_subscription; ?></div>' . "\n";
-            $by .= '<?php } ?>' . "\n";
+            $replace = '<?php if ($subscription_total) { ?>' . "\n";
+            $replace .= '<div class="alert alert-info"><?php echo $text_subscription; ?></div>' . "\n";
+            $replace .= '<?php } ?>' . "\n";
 
-            $output = str_replace($replace, $by . $replace, $output);
+            $output = str_replace($replace, $replace . $search, $output);
         }
     }
 
