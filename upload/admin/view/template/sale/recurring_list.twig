@@ -122,90 +122,79 @@
     </div>
   </div>
   <script type="text/javascript"><!--
-    $('#button-filter').on('click', function () {
-      url = 'index.php?route=sale/recurring&user_token={{ user_token }}';
+      $('#button-filter').on('click', function () {
+          url = 'index.php?route=sale/recurring&user_token={{ user_token }}';
 
-      var filter_order_recurring_id = $('input[name=\'filter_order_recurring_id\']').val();
+          var filter_order_recurring_id = $('input[name=\'filter_order_recurring_id\']').val();
 
-      if (filter_order_recurring_id !== '') {
-        url += '&filter_order_recurring_id=' + encodeURIComponent(filter_order_recurring_id);
-      }
-
-      var filter_order_id = $('input[name=\'filter_order_id\']').val();
-
-      if (filter_order_id !== '') {
-        url += '&filter_order_id=' + encodeURIComponent(filter_order_id);
-      }
-
-      var filter_reference = $('input[name=\'filter_reference\']').val();
-
-      if (filter_reference !== '') {
-        url += '&filter_reference=' + encodeURIComponent(filter_reference);
-      }
-
-      var filter_customer = $('input[name=\'filter_customer\']').val();
-
-      if (filter_customer !== '') {
-        url += '&filter_customer=' + encodeURIComponent(filter_customer);
-      }
-
-      var filter_subscription_status_id = $('#input-subscription-status').val();
-
-      if (filter_subscription_status_id !== '') {
-        url += '&filter_subscription_status_id=' + filter_subscription_status_id;
-      }
-
-      var filter_date_added = $('input[name=\'filter_date_added\']').val();
-
-      if (filter_date_added) {
-        url += '&filter_date_added=' + encodeURIComponent(filter_date_added);
-      }
-
-      location = url;
-    });
-
-    $('#form input').keydown(function (e) {
-      if (e.keyCode == 13) {
-        filter();
-      }
-    });
-
-    $('.date').datetimepicker({
-      language: '{{ datepicker }}',
-      pickTime: false
-    });
-
-    $('.datetime').datetimepicker({
-      language: '{{ datepicker }}',
-      pickDate: true,
-      pickTime: true
-    });
-
-    $('.time').datetimepicker({
-      language: '{{ datepicker }}',
-      pickDate: false
-    });
-    //--></script>
-  <script type="text/javascript"><!--
-    $('input[name=\'filter_customer\']').autocomplete({
-      'source': function (request, response) {
-        $.ajax({
-          url: 'index.php?route=customer/customer/autocomplete&user_token={{ user_token }}&filter_name=' + encodeURIComponent(request),
-          dataType: 'json',
-          success: function (json) {
-            response($.map(json, function (item) {
-              return {
-                label: item['name'],
-                value: item['customer_id']
-              }
-            }));
+          if (filter_order_recurring_id !== '') {
+              url += '&filter_order_recurring_id=' + encodeURIComponent(filter_order_recurring_id);
           }
-        });
-      },
-      'select': function (item) {
-        $('input[name=\'filter_customer\']').val(item['label']);
-      }
-    });
-    //--></script>
+
+          var filter_order_id = $('input[name=\'filter_order_id\']').val();
+
+          if (filter_order_id !== '') {
+              url += '&filter_order_id=' + encodeURIComponent(filter_order_id);
+          }
+
+          var filter_reference = $('input[name=\'filter_reference\']').val();
+
+          if (filter_reference !== '') {
+              url += '&filter_reference=' + encodeURIComponent(filter_reference);
+          }
+
+          var filter_customer = $('input[name=\'filter_customer\']').val();
+
+          if (filter_customer !== '') {
+              url += '&filter_customer=' + encodeURIComponent(filter_customer);
+          }
+
+          var filter_subscription_status_id = $('#input-subscription-status').val();
+
+          if (filter_subscription_status_id !== '') {
+              url += '&filter_subscription_status_id=' + filter_subscription_status_id;
+          }
+
+          var filter_date_added = $('input[name=\'filter_date_added\']').val();
+
+          if (filter_date_added) {
+              url += '&filter_date_added=' + encodeURIComponent(filter_date_added);
+          }
+
+          location = url;
+      });
+
+      $('#form input').keydown(function (e) {
+          if (e.keyCode == 13) {
+              filter();
+          }
+      });
+
+      $('.date').datetimepicker({
+          language: '{{ datepicker }}',
+          pickTime: false
+      });
+  //--></script>
+  <script type="text/javascript"><!--
+      $('input[name=\'filter_customer\']').autocomplete({
+          'source': function (request, response) {
+              $.ajax({
+                  url: 'index.php?route=customer/customer/autocomplete&user_token={{ user_token }}&filter_name=' + encodeURIComponent(request),
+                  dataType: 'json',
+                  success: function (json) {
+                      response($.map(json, function (item) {
+                          return {
+                              label: item['name'],
+                              value: item['customer_id']
+                          }
+                      }));
+                  }
+              });
+          },
+          'select': function (item) {
+              $('input[name=\'filter_customer\']').val(item['label']);
+          }
+      });
+  //--></script>
 </div>
 {{ footer }}
