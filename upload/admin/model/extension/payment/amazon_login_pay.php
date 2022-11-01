@@ -262,7 +262,7 @@ class ModelExtensionPaymentAmazonLoginPay extends Model {
         }
     }
 
-    public function addTransaction(int $amazon_login_pay_order_id, string $type, string $status, float $total, string $amazon_authorization_id = null, string $amazon_capture_id = null, string $amazon_refund_id = null): void {
+    public function addTransaction(int $amazon_login_pay_order_id, string $type, string $status, float $total, $amazon_authorization_id = null, $amazon_capture_id = null, $amazon_refund_id = null): void {
         $this->db->query("INSERT INTO `" . DB_PREFIX . "amazon_login_pay_order_transaction` SET `amazon_login_pay_order_id` = '" . (int)$amazon_login_pay_order_id . "',`amazon_authorization_id` = '" . $this->db->escape($amazon_authorization_id) . "', `amazon_capture_id` = '" . $this->db->escape($amazon_capture_id) . "', `amazon_refund_id` = '" . $this->db->escape($amazon_refund_id) . "', `date_added` = NOW(), `type` = '" . $this->db->escape($type) . "', `amount` = '" . (float)$total . "', `status` = '" . $this->db->escape($status) . "'");
     }
 

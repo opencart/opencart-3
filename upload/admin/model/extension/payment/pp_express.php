@@ -187,7 +187,7 @@ class ModelExtensionPaymentPPExpress extends Model {
         return $arr;
     }
 
-    public function log($data, $title = null) {
+    public function log(array $data, $title = null): void {
         if ($this->config->get('payment_pp_express_debug')) {
             $this->log->write('PayPal Express debug (' . $title . '): ' . json_encode($data));
         }

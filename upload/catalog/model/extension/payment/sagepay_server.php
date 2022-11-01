@@ -194,11 +194,21 @@ class ModelExtensionPaymentSagePayServer extends Model {
 
                 $this->addRecurringOrder($order_details['order_id'], $response_data, $subscription_info['subscription_id'], date_format($trial_end, 'Y-m-d H:i:s'), date_format($subscription_end, 'Y-m-d H:i:s'));
 
+                $transaction = [
+                    'order_id'       => $subscription_info['order_id'],
+                    'description'    => $response_data['Status'],
+                    'amount'         => $price,
+                    'payment_method' => $order_info['payment_method'],
+                    'payment_code'   => $order_info['payment_code']
+                ];
+
+                $response_data = array_merge($response_data, $transaction);
+
                 if ($response_data['Status'] == 'OK') {
                     $this->updateRecurringOrder($subscription_info['subscription_id'], date_format($next_payment, 'Y-m-d H:i:s'));
-                    $this->addRecurringTransaction($subscription_info['subscription_id'], $order_details['order_id'], $response_data, 1);
+                    $this->addRecurringTransaction($subscription_info['subscription_id'], $response_data, 1);
                 } else {
-                    $this->addRecurringTransaction($subscription_info['subscription_id'], $order_details['order_id'], $response_data, 4);
+                    $this->addRecurringTransaction($subscription_info['subscription_id'], $response_data, 4);
                 }
             }
         }
@@ -309,15 +319,25 @@ class ModelExtensionPaymentSagePayServer extends Model {
             $response_data = $this->setPaymentData($order_info, $sagepay_order_info, $price, $subscription['subscription_id'], $subscription['name'], $i);
             $cron_data[] = $response_data;
 
+            $transaction = [
+                'order_id'       => $subscription['order_id'],
+                'description'    => $response_data['RepeatResponseData_' . $i++]['Status'],
+                'amount'         => $price,
+                'payment_method' => $order_info['payment_method'],
+                'payment_code'   => $order_info['payment_code']
+            ];
+
+            $response_data = array_merge($response_data, $transaction);
+
             if ($response_data['RepeatResponseData_' . $i++]['Status'] == 'OK') {
-                $this->addRecurringTransaction($subscription['subscription_id'], $subscription['order_id'], $response_data, 1);
+                $this->addRecurringTransaction($subscription['subscription_id'], $response_data, 1);
 
                 $next_payment = $this->calculateSchedule($frequency, $next_payment, $cycle);
                 $next_payment = date_format($next_payment, 'Y-m-d H:i:s');
 
                 $this->updateRecurringOrder($subscription['subscription_id'], $next_payment);
             } else {
-                $this->addRecurringTransaction($subscription['subscription_id'], $subscription['order_id'], $response_data, 4);
+                $this->addRecurringTransaction($subscription['subscription_id'], $response_data, 4);
             }
         }
 
@@ -382,7 +402,7 @@ class ModelExtensionPaymentSagePayServer extends Model {
         return $query->row;
     }
 
-    private function addRecurringTransaction(int $subscription_id, int $order_id, array $response_data, string $type): void {
+    private function addRecurringTransaction(int $subscription_id, array $response_data, int $type): void {
         // Subscription
         $this->load->model('account/subscription');
 
@@ -393,6 +413,9 @@ class ModelExtensionPaymentSagePayServer extends Model {
             $this->load->model('checkout/subscription');
 
             $this->model_checkout_subscription->editReference($subscription_id, $response_data['VendorTxCode']);
+
+            $this->model_account_subscription->editStatus($subscription_id, $type);
+            $this->model_account_subscription->addTransaction($subscription_id, $response_data['order_id'], $response_data['description'], $response_data['amount'], $type, $response_data['payment_method'], $response_data['payment_code']);
         }
     }
 
@@ -419,7 +442,7 @@ class ModelExtensionPaymentSagePayServer extends Model {
         $this->db->query("INSERT INTO `" . DB_PREFIX . "setting` SET `store_id` = '0', `code` = 'sagepay_server', `key` = 'payment_sagepay_server_last_cron_job_run', `value` = NOW(), `serialized` = '0'");
     }
 
-    public function sendCurl(string $url, array $payment_data, int $i = null): array {
+    public function sendCurl(string $url, array $payment_data, $i = null): array {
         $curl = curl_init($url);
 
         curl_setopt($curl, CURLOPT_PORT, 443);
@@ -451,7 +474,7 @@ class ModelExtensionPaymentSagePayServer extends Model {
         return $data;
     }
 
-    public function logger(string $title, array $data) {
+    public function logger(string $title, mixed $data): void {
         if ($this->config->get('payment_sagepay_server_debug')) {
             // Log
             $log = new \Log('sagepay_server.log');

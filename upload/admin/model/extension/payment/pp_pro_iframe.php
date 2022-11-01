@@ -180,7 +180,7 @@ class ModelExtensionPaymentPPProIframe extends Model {
         return $paypal_iframe_order_transaction_id;
     }
 
-    public function log(array $data, string $title = null): void {
+    public function log(array $data, $title = null): void {
         if ($this->config->get('payment_pp_pro_iframe_debug')) {
             $log = new \Log('pp_pro_iframe.log');
             $log->write($title . ': ' . json_encode($data));

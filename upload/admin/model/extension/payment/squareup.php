@@ -45,7 +45,7 @@ class ModelExtensionPaymentSquareup extends Model {
         $this->db->query("UPDATE `" . DB_PREFIX . "squareup_transaction` SET `transaction_type` = '" . $this->db->escape($type) . "', `is_refunded` = '" . (int)!empty($refunds) . "', `refunds` = '" . $this->db->escape(json_encode($refunds)) . "' WHERE `squareup_transaction_id` = '" . (int)$squareup_transaction_id . "'");
     }
 
-    public function getOrderStatusId(int $order_id, string $transaction_status = null): int {
+    public function getOrderStatusId(int $order_id, $transaction_status = null): int {
         if ($transaction_status) {
             return (int)$this->config->get('payment_squareup_status_' . strtolower($transaction_status));
         } else {
