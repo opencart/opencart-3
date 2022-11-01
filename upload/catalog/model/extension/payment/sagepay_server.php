@@ -73,7 +73,7 @@ class ModelExtensionPaymentSagePayServer extends Model {
         $this->db->query("INSERT INTO `" . DB_PREFIX . "sagepay_server_order` SET `order_id` = '" . (int)$order_info['order_id'] . "', `customer_id` = '" . (int)$this->customer->getId() . "', `VPSTxId` = '" . $this->db->escape($order_info['VPSTxId']) . "', `VendorTxCode` = '" . $this->db->escape($order_info['VendorTxCode']) . "', `SecurityKey` = '" . $this->db->escape($order_info['SecurityKey']) . "', `date_added` = NOW(), `date_modified` = NOW(), `currency_code` = '" . $this->db->escape($order_info['currency_code']) . "', `total` = '" . $this->currency->format($order_info['total'], $order_info['currency_code'], false, false) . "'");
     }
 
-    public function getOrder(int $order_id, string $vpstx_id = null): array {
+    public function getOrder(int $order_id, $vpstx_id = null): array {
         $query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "sagepay_server_order` WHERE `order_id` = '" . (int)$order_id . "' OR `VPSTxId` = '" . $this->db->escape($vpstx_id) . "' LIMIT 1");
 
         if ($query->num_rows) {
@@ -214,7 +214,7 @@ class ModelExtensionPaymentSagePayServer extends Model {
         }
     }
 
-    private function setPaymentData(array $order_info, array $sagepay_order_info, float $price, int $order_recurring_id, string $recurring_name, int $i = null) {
+    private function setPaymentData(array $order_info, array $sagepay_order_info, float $price, int $order_recurring_id, string $recurring_name, $i = null) {
         if ($this->config->get('payment_sagepay_server_test') == 'live') {
             $url = 'https://live.sagepay.com/gateway/service/repeat.vsp';
             $payment_data['VPSProtocol'] = '3.00';
