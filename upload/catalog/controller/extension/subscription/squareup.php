@@ -1,5 +1,5 @@
 <?php
-class ControllerExtensionRecurringSquareup extends Controller {
+class ControllerExtensionSubscriptionSquareup extends Controller {
     public function index(): string {
         $this->load->language('extension/subscription/squareup');
 
@@ -52,13 +52,14 @@ class ControllerExtensionRecurringSquareup extends Controller {
 
         $subscription_info = $this->model_account_subscription->getSubscription($subscription_id);
 
-        if ($subscription_info) {
+        // Orders
+        $this->load->model('checkout/order');
+
+        $order_info = $this->model_checkout_order->getOrder($subscription_info['order_id']);
+
+        if ($subscription_info && $order_info) {
             $this->model_account_subscription->editStatus($subscription_id, ModelExtensionPaymentSquareup::RECURRING_CANCELLED);
-
-            // Orders
-            $this->load->model('checkout/order');
-
-            $order_info = $this->model_checkout_order->getOrder($subscription_info['order_id']);
+            $this->model_account_subscription->addTransaction($subscription_id, $subscription_info['order_id'], $this->language->get('text_order_history_cancel'), 0, ModelExtensionPaymentSquareup::RECURRING_CANCELLED, $order_info['payment_method'], $order_info['payment_code']);
 
             $this->model_checkout_order->addOrderHistory($subscription_info['order_id'], $order_info['order_status_id'], $this->language->get('text_order_history_cancel'), true);
 

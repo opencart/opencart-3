@@ -1,7 +1,7 @@
 <?php
 class ModelAccountSubscription extends Model {
-    public function editStatus(int $subscription_id, bool $status): void {
-        $this->db->query("UPDATE `" . DB_PREFIX . "subscription` SET `status` = '" . (bool)$status . "' WHERE `subscription_id` = '" . (int)$subscription_id . "'");
+    public function editStatus(int $subscription_id, int $status): void {
+        $this->db->query("UPDATE `" . DB_PREFIX . "subscription` SET `status` = '" . (int)$status . "' WHERE `subscription_id` = '" . (int)$subscription_id . "'");
     }
 
     public function getSubscription(int $subscription_id): array {
