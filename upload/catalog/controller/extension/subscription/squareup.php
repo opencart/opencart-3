@@ -3,9 +3,6 @@ class ControllerExtensionSubscriptionSquareup extends Controller {
     public function index(): string {
         $this->load->language('extension/subscription/squareup');
 
-        // Subscription
-        $this->load->model('account/recurring');
-
         // Squareup
         $this->load->model('extension/payment/squareup');
 
@@ -15,15 +12,45 @@ class ControllerExtensionSubscriptionSquareup extends Controller {
             $order_recurring_id = 0;
         }
 
-        $recurring_info = $this->model_account_recurring->getRecurring($order_recurring_id);
+        if (isset($this->request->get['subscription_id'])) {
+            $subscription_id = (int)$this->request->get['subscription_id'];
+        } else {
+            $subscription_id = 0;
+        }
 
-        if ($recurring_info) {
-            $data['cancel_url'] = html_entity_decode($this->url->link('extension/subscription/squareup/cancel', 'order_recurring_id=' . $order_recurring_id, true));
+        $order_recurring_info = [];
 
-            $data['continue'] = $this->url->link('account/recurring', '', true);
+        // Recurring
+        if ($order_recurring_id) {
+            $this->load->model('account/recurring');
 
-            if ($recurring_info['status'] == ModelExtensionPaymentSquareup::RECURRING_ACTIVE) {
-                $data['order_recurring_id'] = $order_recurring_id;
+            $order_recurring_info = $this->model_account_recurring->getRecurring($order_recurring_id);
+        }
+
+        // Subscription
+        if ($subscription_id) {
+            $this->load->model('account/subscription');
+
+            $order_recurring_info = $this->model_account_subscription->getSubscription($subscription_id);
+        }
+
+        if ($order_recurring_info) {
+            if ($order_recurring_id) {
+                $data['cancel_url'] = html_entity_decode($this->url->link('extension/subscription/squareup/cancel', 'order_recurring_id=' . $order_recurring_id, true));
+
+                $data['continue'] = $this->url->link('account/recurring', '', true);
+            } elseif ($subscription_id) {
+                $data['cancel_url'] = html_entity_decode($this->url->link('extension/subscription/squareup/cancel', 'subscription_id=' . $subscription_id, true));
+
+                $data['continue'] = $this->url->link('account/subscription', '', true);
+            }
+
+            if ($order_recurring_info['status'] == ModelExtensionPaymentSquareup::RECURRING_ACTIVE) {
+                if ($order_recurring_id) {
+                    $data['order_recurring_id'] = $order_recurring_id;
+                } elseif ($subscription_id) {
+                    $data['order_recurring_id'] = $subscription_id;
+                }
             } else {
                 $data['order_recurring_id'] = 0;
             }
@@ -39,9 +66,6 @@ class ControllerExtensionSubscriptionSquareup extends Controller {
 
         $json = [];
 
-        // Subscription
-        $this->load->model('account/recurring');
-
         // Squareup
         $this->load->model('extension/payment/squareup');
 
@@ -51,19 +75,47 @@ class ControllerExtensionSubscriptionSquareup extends Controller {
             $order_recurring_id = 0;
         }
 
-        $order_recurring_info = $this->model_account_recurring->getRecurring($order_recurring_id);
+        if (isset($this->request->get['subscription_id'])) {
+            $subscription_id = (int)$this->request->get['subscription_id'];
+        } else {
+            $subscription_id = 0;
+        }
 
-        // Orders
-        $this->load->model('checkout/order');
+        $order_recurring_info = [];
 
-        $order_info = $this->model_checkout_order->getOrder($order_recurring_info['order_id']);
+        // Recurring
+        if ($order_recurring_id) {
+            $this->load->model('account/recurring');
+
+            $order_recurring_info = $this->model_account_recurring->getRecurring($order_recurring_id);
+        }
+
+        // Subscription
+        if ($subscription_id) {
+            $this->load->model('account/subscription');
+
+            $order_recurring_info = $this->model_account_subscription->getSubscription($subscription_id);
+        }
 
         if ($order_recurring_info && ModelExtensionPaymentSquareup::RECURRING_ACTIVE) {
-            $this->model_account_recurring->editStatus($order_recurring_id, ModelExtensionPaymentSquareup::RECURRING_CANCELLED);
+            // Orders
+            $this->load->model('checkout/order');
 
-            $this->model_checkout_order->addOrderHistory($order_recurring_info['order_id'], $order_info['order_status_id'], $this->language->get('text_order_history_cancel'), true);
+            $order_info = $this->model_checkout_order->getOrder($order_recurring_info['order_id']);
 
-            $json['success'] = $this->language->get('text_canceled');
+            if ($order_info) {
+                if ($order_recurring_id) {
+                    $this->model_account_recurring->editStatus($order_recurring_id, ModelExtensionPaymentSquareup::RECURRING_CANCELLED);
+                } elseif ($subscription_id) {
+                    $this->model_account_subscription->editStatus($subscription_id, ModelExtensionPaymentSquareup::RECURRING_CANCELLED);
+                }
+
+                $this->model_checkout_order->addOrderHistory($order_recurring_info['order_id'], $order_info['order_status_id'], $this->language->get('text_order_history_cancel'), true);
+
+                $json['success'] = $this->language->get('text_canceled');
+            } else {
+                $json['error'] = $this->language->get('error_no_order');
+            }
         } else {
             $json['error'] = $this->language->get('error_not_found');
         }

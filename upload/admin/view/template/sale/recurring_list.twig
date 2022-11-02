@@ -97,9 +97,7 @@
                           <td class="text-left">{{ recurring.date_added }}</td>
                           <td class="text-right">
                             <a href="{{ recurring.view }}" data-toggle="tooltip" title="{{ button_order_recurring }}" class="btn btn-info"><i class="fa fa-eye"></i></a>
-                            {% if not recurring.subscription_total %}
-                              <a href="{{ recurring.order }}" data-toggle="tooltip" title="{{ button_order }}" class="btn btn-info"><i class="fa fa-shopping-cart"></i></a>
-                            {% endif %}
+                            <a href="{{ recurring.order }}" data-toggle="tooltip" title="{{ button_order }}" class="btn btn-info"><i class="fa fa-shopping-cart"></i></a>
                           </td>
                         </tr>
                       {% endfor %}

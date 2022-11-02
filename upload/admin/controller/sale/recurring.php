@@ -148,20 +148,12 @@ class ControllerSaleRecurring extends Controller {
                 $status = '';
             }
 
-            // Subscription
-            $filter_data = [
-                'filter_order_id' => $result['order_id']
-            ];
-
-            $subscription_total = $this->model_sale_subscription->getTotalSubscriptions($filter_data);
-
             $data['recurrings'][] = [
                 'order_recurring_id' => $result['order_recurring_id'],
                 'order_id'           => $result['order_id'],
                 'reference'          => $result['reference'],
                 'customer'           => $result['customer'],
                 'status'             => $status,
-                'subscription_total' => $subscription_total,
                 'date_added'         => date($this->language->get('date_format_short'), strtotime($result['date_added'])),
                 'view'               => $this->url->link('sale/recurring/info', 'user_token=' . $this->session->data['user_token'] . '&order_recurring_id=' . $result['order_recurring_id'] . $url, true),
                 'order'              => $this->url->link('sale/order/info', 'user_token=' . $this->session->data['user_token'] . '&order_id=' . $result['order_id'], true)
