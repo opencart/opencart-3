@@ -410,15 +410,6 @@ class ControllerSaleRecurring extends Controller {
             $data['product'] = $order_recurring_info['product_name'];
             $data['quantity'] = $order_recurring_info['product_quantity'];
 
-            // Subscription
-            $this->load->model('sale/subscription');
-
-            $filter_data = [
-                'filter_order_id' => $order_recurring_info['order_id']
-            ];
-
-            $data['subscription_total'] = $this->model_sale_subscription->getTotalSubscriptions($filter_data);
-
             $data['buttons'] = $this->load->controller('extension/payment/' . $order_info['payment_code'] . '/recurringButtons');
 
             $data['header'] = $this->load->controller('common/header');

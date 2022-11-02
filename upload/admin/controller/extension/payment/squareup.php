@@ -289,8 +289,10 @@ class ControllerExtensionPaymentSquareup extends Controller {
             $session->data['api_id'] = $api_info['api_id'];
 
             $data['api_token'] = $session->getId();
+            $data['api_key'] = $api_info['key'];
         } else {
             $data['api_token'] = '';
+            $data['api_key'] = '';
         }
 
         $data['header'] = $this->load->controller('common/header');
@@ -433,8 +435,10 @@ class ControllerExtensionPaymentSquareup extends Controller {
             $session->data['api_id'] = $api_info['api_id'];
 
             $data['api_token'] = $session->getId();
+            $data['api_key'] = $api_info['key'];
         } else {
             $data['api_token'] = '';
+            $data['api_key'] = '';
         }
 
         $data['header'] = $this->load->controller('common/header');
@@ -796,8 +800,10 @@ class ControllerExtensionPaymentSquareup extends Controller {
             $session->data['api_id'] = $api_info['api_id'];
 
             $data['api_token'] = $session->getId();
+            $data['api_key'] = $api_info['key'];
         } else {
             $data['api_token'] = '';
+            $data['api_key'] = '';
         }
 
         return $this->load->view('extension/payment/squareup_order', $data);
@@ -818,10 +824,6 @@ class ControllerExtensionPaymentSquareup extends Controller {
     }
 
     public function recurringButtons(): string {
-        if (!$this->user->hasPermission('modify', 'extension/payment/squareup')) {
-            return '';
-        }
-
         $this->load->language('extension/payment/squareup');
 
         // Squareup
@@ -873,9 +875,12 @@ class ControllerExtensionPaymentSquareup extends Controller {
             $this->model_user_api->addApiSession($api_info['api_id'], $session->getId(), $this->request->server['REMOTE_ADDR']);
 
             $session->data['api_id'] = $api_info['api_id'];
+
             $data['api_token'] = $session->getId();
+            $data['api_key'] = $api_info['key'];
         } else {
             $data['api_token'] = '';
+            $data['api_key'] = '';
         }
 
         $data['cancel'] = html_entity_decode($this->url->link('extension/payment/squareup/recurringCancel', 'order_recurring_id=' . $order_recurring_id . '&user_token=' . $this->session->data['user_token'], true));
@@ -884,10 +889,6 @@ class ControllerExtensionPaymentSquareup extends Controller {
     }
 
     public function recurringCancel(): void {
-        if (!$this->user->hasPermission('modify', 'extension/payment/squareup')) {
-            return;
-        }
-
         $this->load->language('extension/payment/squareup');
 
         $json = [];

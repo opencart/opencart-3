@@ -478,10 +478,15 @@ class ControllerExtensionPaymentPPExpress extends Controller {
                 $data['order_id'] = (int)$this->request->get['order_id'];
                 $data['capture_status'] = $paypal_info['capture_status'];
                 $data['total'] = $paypal_info['total'];
+
                 $captured = number_format($this->model_extension_payment_pp_express->getCapturedTotal($paypal_info['paypal_order_id']), 2);
+
                 $data['captured'] = $captured;
+
                 $data['capture_remaining'] = number_format($paypal_info['total'] - $captured, 2);
+
                 $refunded = number_format($this->model_extension_payment_pp_express->getRefundedTotal($paypal_info['paypal_order_id']), 2);
+
                 $data['refunded'] = $refunded;
 
                 return $this->load->view('extension/payment/pp_express_order', $data);
@@ -1262,10 +1267,6 @@ class ControllerExtensionPaymentPPExpress extends Controller {
     }
 
     public function recurringButtons(): string {
-        if (!$this->user->hasPermission('modify', 'extension/payment/pp_express')) {
-            return '';
-        }
-
         $this->load->language('extension/payment/pp_express');
 
         // Recurring

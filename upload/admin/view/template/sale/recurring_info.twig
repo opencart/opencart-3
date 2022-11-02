@@ -23,10 +23,9 @@
       <div class="panel-heading">
         <h3 class="panel-title"><i class="fa fa-list"></i> {{ text_recurring_detail }}</h3>
       </div>
-      <div class="panel-body">{% if buttons %} {{ buttons }}{% endif %}
+      <div class="panel-body">{{ buttons }}
         <ul class="nav nav-tabs">
           <li class="active"><a href="#tab-general" data-toggle="tab">{{ tab_general }}</a></li>
-          <li><a href="#tab-history" data-toggle="tab">{{ tab_history }}</a></li>
           <li><a href="#tab-transaction" data-toggle="tab">{{ tab_transaction }}</a></li>
         </ul>
         <div class="tab-content">
