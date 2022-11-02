@@ -1,19 +1,31 @@
 <?php
 class ModelSettingExtension extends Model {
-    public function getInstalled(string $type): array {
-        $extension_data = [];
+    public function getExtensions(): array {
+        $query = $this->db->query("SELECT DISTINCT `extension` FROM `" . DB_PREFIX . "extension`");
 
-        $query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "extension` WHERE `type` = '" . $this->db->escape($type) . "' ORDER BY `code`");
+        return $query->rows;
+    }
 
-        foreach ($query->rows as $result) {
-            $extension_data[] = $result['code'];
-        }
+    public function getExtensionsByType(string $type): array {
+        $query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "extension` WHERE `type` = '" . $this->db->escape($type) . "' ORDER BY `code` ASC");
 
-        return $extension_data;
+        return $query->rows;
+    }
+
+    public function getExtensionByCode(string $type, string $code): array {
+        $query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "extension` WHERE `type` = '" . $this->db->escape($type) . "' AND `code` = '" . $this->db->escape($code) . "'");
+
+        return $query->row;
+    }
+
+    public function getTotalExtensionsByExtension(string $extension): int {
+        $query = $this->db->query("SELECT COUNT(*) AS `total` FROM `" . DB_PREFIX . "extension` WHERE `extension` = '" . $this->db->escape($extension) . "'");
+
+        return (int)$query->row['total'];
     }
 
     public function install(string $type, string $code): void {
-        $extensions = $this->getInstalled($type);
+        $extensions = $this->getExtensionsByType($type);
 
         if (!in_array($code, $extensions)) {
             $this->db->query("INSERT INTO `" . DB_PREFIX . "extension` SET `type` = '" . $this->db->escape($type) . "', `code` = '" . $this->db->escape($code) . "'");
@@ -55,6 +67,12 @@ class ModelSettingExtension extends Model {
         return $query->row;
     }
 
+    public function getExtensionInstallByCode(string $code): array {
+        $query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "extension_install` WHERE `code` = '" . $this->db->escape($code) . "'");
+
+        return $query->row;
+    }
+
     public function getTotalExtensionInstalls(): int {
         $query = $this->db->query("SELECT COUNT(*) AS `total` FROM `" . DB_PREFIX . "extension_install`");
 
@@ -73,5 +91,17 @@ class ModelSettingExtension extends Model {
         $query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "extension_path` WHERE `extension_install_id` = '" . (int)$extension_install_id . "' ORDER BY `date_added` ASC");
 
         return $query->rows;
+    }
+
+    public function getPaths(string $path): array {
+        $query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "extension_path` WHERE `path` LIKE '" . $this->db->escape($path) . "' ORDER BY `path` ASC");
+
+        return $query->rows;
+    }
+
+    public function getTotalPaths(string $path): int {
+        $query = $this->db->query("SELECT COUNT(*) AS `total` FROM `" . DB_PREFIX . "extension_path` WHERE `path` LIKE '" . $this->db->escape($path) . "'");
+
+        return (int)$query->row['total'];
     }
 }

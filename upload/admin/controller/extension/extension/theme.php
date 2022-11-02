@@ -68,7 +68,7 @@ class ControllerExtensionExtensionTheme extends Controller {
             $data['success'] = '';
         }
 
-        $extensions = $this->model_setting_extension->getInstalled('theme');
+        $extensions = $this->model_setting_extension->getExtensionsByType('theme');
 
         foreach ($extensions as $key => $value) {
             if (!is_file(DIR_APPLICATION . 'controller/extension/theme/' . $value . '.php') && !is_file(DIR_APPLICATION . 'controller/theme/' . $value . '.php')) {

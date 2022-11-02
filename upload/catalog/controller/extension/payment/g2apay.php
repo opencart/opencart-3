@@ -40,7 +40,7 @@ class ControllerExtensionPaymentG2APay extends Controller {
 
         $i = 0;
 
-        $results = $this->model_setting_extension->getExtensions('total');
+        $results = $this->model_setting_extension->getExtensionsByType('total');
 
         foreach ($results as $result) {
             if ($this->config->get('total_' . $result['code'] . '_status')) {

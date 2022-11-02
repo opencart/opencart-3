@@ -953,7 +953,7 @@ class ControllerExtensionPaymentPPBraintree extends Controller {
                 // Extensions
                 $this->load->model('setting/extension');
 
-                $results = $this->model_setting_extension->getExtensions('shipping');
+                $results = $this->model_setting_extension->getExtensionsByType('shipping');
 
                 if (!empty($results)) {
                     foreach ($results as $result) {
@@ -1031,7 +1031,7 @@ class ControllerExtensionPaymentPPBraintree extends Controller {
         if ($this->customer->isLogged() || !$this->config->get('config_customer_price')) {
             $sort_order = [];
 
-            $results = $this->model_setting_extension->getExtensions('total');
+            $results = $this->model_setting_extension->getExtensionsByType('total');
 
             foreach ($results as $key => $value) {
                 $sort_order[$key] = $this->config->get('total_' . $value['code'] . '_sort_order');
@@ -1083,7 +1083,7 @@ class ControllerExtensionPaymentPPBraintree extends Controller {
         // Extensions
         $this->load->model('setting/extension');
 
-        $results = $this->model_setting_extension->getExtensions('payment');
+        $results = $this->model_setting_extension->getExtensionsByType('payment');
 
         $this->model_extension_payment_pp_braintree->log("Payment methods returned based on new data");
         $this->model_extension_payment_pp_braintree->log($results);
@@ -1248,7 +1248,7 @@ class ControllerExtensionPaymentPPBraintree extends Controller {
 
             $sort_order = [];
 
-            $results = $this->model_setting_extension->getExtensions('total');
+            $results = $this->model_setting_extension->getExtensionsByType('total');
 
             foreach ($results as $key => $value) {
                 $sort_order[$key] = $this->config->get('total_' . $value['code'] . '_sort_order');

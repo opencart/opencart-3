@@ -121,7 +121,7 @@ class ControllerExtensionExtensionModule extends Controller {
             $data['success'] = '';
         }
 
-        $extensions = $this->model_setting_extension->getInstalled('module');
+        $extensions = $this->model_setting_extension->getExtensionsByType('module');
 
         foreach ($extensions as $key => $value) {
             if (!is_file(DIR_APPLICATION . 'controller/extension/module/' . $value . '.php') && !is_file(DIR_APPLICATION . 'controller/module/' . $value . '.php')) {

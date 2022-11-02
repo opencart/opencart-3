@@ -69,7 +69,7 @@ class ControllerExtensionExtensionReport extends Controller {
         // Extensions
         $this->load->model('setting/extension');
 
-        $extensions = $this->model_setting_extension->getInstalled('report');
+        $extensions = $this->model_setting_extension->getExtensionsByType('report');
 
         foreach ($extensions as $key => $value) {
             if (!is_file(DIR_APPLICATION . 'controller/extension/report/' . $value . '.php') && !is_file(DIR_APPLICATION . 'controller/report/' . $value . '.php')) {

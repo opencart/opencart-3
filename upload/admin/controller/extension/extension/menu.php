@@ -70,7 +70,7 @@ class ControllerExtensionExtensionMenu extends Controller {
             $data['success'] = '';
         }
 
-        $extensions = $this->model_setting_extension->getInstalled('menu');
+        $extensions = $this->model_setting_extension->getExtensionsByType('menu');
 
         foreach ($extensions as $key => $value) {
             if (!is_file(DIR_APPLICATION . 'controller/extension/menu/' . $value . '.php') && !is_file(DIR_APPLICATION . 'controller/menu/' . $value . '.php')) {

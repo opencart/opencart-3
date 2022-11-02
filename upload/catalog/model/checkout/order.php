@@ -327,7 +327,7 @@ class ModelCheckoutOrder extends Model {
                 // Anti-Fraud
                 $this->load->model('setting/extension');
 
-                $extensions = $this->model_setting_extension->getExtensions('fraud');
+                $extensions = $this->model_setting_extension->getExtensionsByType('fraud');
 
                 foreach ($extensions as $extension) {
                     if ($this->config->get('fraud_' . $extension['code'] . '_status')) {

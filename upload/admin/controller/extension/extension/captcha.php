@@ -72,7 +72,7 @@ class ControllerExtensionExtensionCaptcha extends Controller {
             $data['success'] = '';
         }
 
-        $extensions = $this->model_setting_extension->getInstalled('captcha');
+        $extensions = $this->model_setting_extension->getExtensionsByType('captcha');
 
         foreach ($extensions as $key => $value) {
             if (!is_file(DIR_APPLICATION . 'controller/extension/captcha/' . $value . '.php') && !is_file(DIR_APPLICATION . 'controller/captcha/' . $value . '.php')) {

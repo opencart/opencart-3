@@ -72,7 +72,7 @@ class ControllerCheckoutConfirm extends Controller {
             $this->load->model('setting/extension');
 
             $sort_order = [];
-            $results = $this->model_setting_extension->getExtensions('total');
+            $results = $this->model_setting_extension->getExtensionsByType('total');
 
             foreach ($results as $key => $value) {
                 $sort_order[$key] = $this->config->get('total_' . $value['code'] . '_sort_order');

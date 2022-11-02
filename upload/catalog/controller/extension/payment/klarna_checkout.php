@@ -424,7 +424,7 @@ class ControllerExtensionPaymentKlarnaCheckout extends Controller {
 
         $sort_order = [];
 
-        $results = $this->model_setting_extension->getExtensions('total');
+        $results = $this->model_setting_extension->getExtensionsByType('total');
 
         foreach ($results as $key => $value) {
             $sort_order[$key] = $this->config->get('total_' . $value['code'] . '_sort_order');
@@ -549,7 +549,7 @@ class ControllerExtensionPaymentKlarnaCheckout extends Controller {
         if (($this->config->get('config_customer_price') && $this->customer->isLogged()) || !$this->config->get('config_customer_price')) {
             $sort_order = [];
 
-            $results = $this->model_setting_extension->getExtensions('total');
+            $results = $this->model_setting_extension->getExtensionsByType('total');
 
             foreach ($results as $key => $value) {
                 $sort_order[$key] = $this->config->get('total_' . $value['code'] . '_sort_order');
@@ -749,7 +749,7 @@ class ControllerExtensionPaymentKlarnaCheckout extends Controller {
                     // Extensions
                     $this->load->model('setting/extension');
 
-                    $results = $this->model_setting_extension->getExtensions('shipping');
+                    $results = $this->model_setting_extension->getExtensionsByType('shipping');
 
                     foreach ($results as $result) {
                         if ($this->config->get('shipping_' . $result['code'] . '_status')) {
@@ -1500,7 +1500,7 @@ class ControllerExtensionPaymentKlarnaCheckout extends Controller {
             $this->load->model('setting/extension');
 
             // Shipping Methods
-            $results = $this->model_setting_extension->getExtensions('shipping');
+            $results = $this->model_setting_extension->getExtensionsByType('shipping');
 
             $method_data = [];
 

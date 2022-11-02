@@ -68,7 +68,7 @@ class ControllerExtensionExtensionTotal extends Controller {
         // Extensions
         $this->load->model('setting/extension');
 
-        $extensions = $this->model_setting_extension->getInstalled('total');
+        $extensions = $this->model_setting_extension->getExtensionsByType('total');
 
         foreach ($extensions as $key => $value) {
             if (!is_file(DIR_APPLICATION . 'controller/extension/total/' . $value . '.php') && !is_file(DIR_APPLICATION . 'controller/total/' . $value . '.php')) {

@@ -113,7 +113,7 @@ class ControllerExtensionPaymentAmazonLoginPay extends Controller {
 
             $address = $this->model_extension_payment_amazon_login_pay->getAddress($order_reference_id);
 
-            $results = $this->model_setting_extension->getExtensions('shipping');
+            $results = $this->model_setting_extension->getExtensionsByType('shipping');
 
             $quotes = [];
 

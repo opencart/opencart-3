@@ -544,7 +544,7 @@ class ControllerExtensionPaymentPPExpress extends Controller {
                 // Extensions
                 $this->load->model('setting/extension');
 
-                $results = $this->model_setting_extension->getExtensions('shipping');
+                $results = $this->model_setting_extension->getExtensionsByType('shipping');
 
                 if (!empty($results)) {
                     foreach ($results as $result) {
@@ -621,7 +621,7 @@ class ControllerExtensionPaymentPPExpress extends Controller {
         if ($this->customer->isLogged() || !$this->config->get('config_customer_price')) {
             $sort_order = [];
 
-            $results = $this->model_setting_extension->getExtensions('total');
+            $results = $this->model_setting_extension->getExtensionsByType('total');
 
             foreach ($results as $key => $value) {
                 $sort_order[$key] = $this->config->get('total_' . $value['code'] . '_sort_order');
@@ -673,7 +673,7 @@ class ControllerExtensionPaymentPPExpress extends Controller {
         // Extensions
         $this->load->model('setting/extension');
 
-        $results = $this->model_setting_extension->getExtensions('payment');
+        $results = $this->model_setting_extension->getExtensionsByType('payment');
 
         foreach ($results as $result) {
             if ($this->config->get('payment_' . $result['code'] . '_status')) {
@@ -826,7 +826,7 @@ class ControllerExtensionPaymentPPExpress extends Controller {
 
             $sort_order = [];
 
-            $results = $this->model_setting_extension->getExtensions('total');
+            $results = $this->model_setting_extension->getExtensionsByType('total');
 
             foreach ($results as $key => $value) {
                 $sort_order[$key] = $this->config->get('total_' . $value['code'] . '_sort_order');

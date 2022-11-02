@@ -67,7 +67,7 @@ class ControllerExtensionExtensionFraud extends Controller {
             $data['success'] = '';
         }
 
-        $extensions = $this->model_setting_extension->getInstalled('fraud');
+        $extensions = $this->model_setting_extension->getExtensionsByType('fraud');
 
         foreach ($extensions as $key => $value) {
             if (!is_file(DIR_APPLICATION . 'controller/extension/fraud/' . $value . '.php') && !is_file(DIR_APPLICATION . 'controller/fraud/' . $value . '.php')) {

@@ -68,7 +68,7 @@ class ControllerExtensionExtensionFeed extends Controller {
             $data['success'] = '';
         }
 
-        $extensions = $this->model_setting_extension->getInstalled('feed');
+        $extensions = $this->model_setting_extension->getExtensionsByType('feed');
 
         foreach ($extensions as $key => $value) {
             if (!is_file(DIR_APPLICATION . 'controller/extension/feed/' . $value . '.php') && !is_file(DIR_APPLICATION . 'controller/feed/' . $value . '.php')) {

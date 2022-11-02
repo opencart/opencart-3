@@ -157,7 +157,7 @@ class ModelExtensionPaymentPPExpress extends Model {
         if ($this->customer->isLogged() || !$this->config->get('config_customer_price')) {
             $sort_order = [];
 
-            $results = $this->model_setting_extension->getExtensions('total');
+            $results = $this->model_setting_extension->getExtensionsByType('total');
 
             foreach ($results as $key => $value) {
                 $sort_order[$key] = $this->config->get('total_' . $value['code'] . '_sort_order');

@@ -72,7 +72,7 @@ class ControllerExtensionExtensionAdvertise extends Controller {
             $data['success'] = '';
         }
 
-        $extensions = $this->model_setting_extension->getInstalled('advertise');
+        $extensions = $this->model_setting_extension->getExtensionsByType('advertise');
 
         foreach ($extensions as $key => $value) {
             if (!is_file(DIR_APPLICATION . 'controller/extension/advertise/' . $value . '.php') && !is_file(DIR_APPLICATION . 'controller/advertise/' . $value . '.php')) {

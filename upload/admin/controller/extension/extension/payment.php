@@ -70,7 +70,7 @@ class ControllerExtensionExtensionPayment extends Controller {
 
         $this->load->model('setting/extension');
 
-        $extensions = $this->model_setting_extension->getInstalled('payment');
+        $extensions = $this->model_setting_extension->getExtensionsByType('payment');
 
         foreach ($extensions as $key => $value) {
             if (!is_file(DIR_APPLICATION . 'controller/extension/payment/' . $value . '.php') && !is_file(DIR_APPLICATION . 'controller/payment/' . $value . '.php')) {

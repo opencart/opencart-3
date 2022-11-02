@@ -71,7 +71,7 @@ class ControllerExtensionExtensionShipping extends Controller {
         // Extensions
         $this->load->model('setting/extension');
 
-        $extensions = $this->model_setting_extension->getInstalled('shipping');
+        $extensions = $this->model_setting_extension->getExtensionsByType('shipping');
 
         foreach ($extensions as $key => $value) {
             if (!is_file(DIR_APPLICATION . 'controller/extension/shipping/' . $value . '.php') && !is_file(DIR_APPLICATION . 'controller/shipping/' . $value . '.php')) {

@@ -72,7 +72,7 @@ class ControllerExtensionExtensionAnalytics extends Controller {
             $data['success'] = '';
         }
 
-        $extensions = $this->model_setting_extension->getInstalled('analytics');
+        $extensions = $this->model_setting_extension->getExtensionsByType('analytics');
 
         foreach ($extensions as $key => $value) {
             if (!is_file(DIR_APPLICATION . 'controller/extension/analytics/' . $value . '.php') && !is_file(DIR_APPLICATION . 'controller/analytics/' . $value . '.php')) {

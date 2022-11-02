@@ -68,7 +68,7 @@ class ControllerExtensionExtensionDashboard extends Controller {
             $data['success'] = '';
         }
 
-        $extensions = $this->model_setting_extension->getInstalled('dashboard');
+        $extensions = $this->model_setting_extension->getExtensionsByType('dashboard');
 
         foreach ($extensions as $key => $value) {
             if (!is_file(DIR_APPLICATION . 'controller/extension/dashboard/' . $value . '.php')) {
