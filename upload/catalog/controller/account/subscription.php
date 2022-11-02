@@ -171,7 +171,7 @@ class ControllerAccountSubscription extends Controller {
             // Extensions
             $this->load->model('setting/extension');
 
-            $extension_info = $this->model_setting_extension->getExtensionByCode($subscription_info['payment_code']);
+            $extension_info = $this->model_setting_extension->getExtensionByCode('payment', $subscription_info['payment_code']);
 
             if ($extension_info) {
                 $data['subscription'] = $this->load->controller('extension/subscription/' . $subscription_info['payment_code']);
