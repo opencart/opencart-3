@@ -175,7 +175,7 @@ class PayPal {
         } else {
             $this->errors[] = $result;
 
-            return array();
+            return [];
         }
     }
 
