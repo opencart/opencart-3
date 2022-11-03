@@ -656,9 +656,9 @@ class ControllerSaleRecurring extends Controller {
                 $store_info = $this->model_setting_setting->getSetting('config', $order_info['store_id']);
 
                 if ($store_info) {
-                    $subscription_status_id = $store_info['config_subscription_active_status_id'];
+                    $subscription_status_id = $store_info['config_subscription_canceled_status_id'];
                 } else {
-                    $subscription_status_id = $this->config->get('config_subscription_active_status_id');
+                    $subscription_status_id = $this->config->get('config_subscription_canceled_status_id');
                 }
 
                 if ((!$subscription_status_id) || (!$recurring_info['status']) || ($subscription_status_id != $recurring_info['status'])) {
