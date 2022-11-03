@@ -959,10 +959,10 @@ class ControllerSettingSetting extends Controller {
             $data['config_subscription_expired_status_id'] = $this->config->get('config_subscription_expired_status_id');
         }
 
-        if (isset($this->request->post['config_subscription_cancelled_status_id'])) {
-            $data['config_subscription_cancelled_status_id'] = $this->request->post['config_subscription_cancelled_status_id'];
+        if (isset($this->request->post['config_subscription_canceled_status_id'])) {
+            $data['config_subscription_canceled_status_id'] = $this->request->post['config_subscription_canceled_status_id'];
         } else {
-            $data['config_subscription_cancelled_status_id'] = $this->config->get('config_subscription_cancelled_status_id');
+            $data['config_subscription_canceled_status_id'] = $this->config->get('config_subscription_canceled_status_id');
         }
 
         if (isset($this->request->post['config_subscription_failed_status_id'])) {
