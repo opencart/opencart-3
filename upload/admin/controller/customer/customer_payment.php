@@ -96,6 +96,7 @@ class ControllerCustomerCustomerPayment extends Controller {
         $this->load->model('customer/customer');
 
         $payment_total = $this->model_customer_customer->getTotalPaymentMethods($customer_id);
+
         $results = $this->model_customer_customer->getPaymentMethods($customer_id, ($page - 1) * 10, 10);
 
         foreach ($results as $result) {
