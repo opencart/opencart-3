@@ -298,11 +298,11 @@ class ControllerExtensionPaymentKlarnaCheckout extends Controller {
 
         if ($api_info) {
             $data['api_id'] = $api_info['api_id'];
-            $data['api_key'] = $api_info['key'];
+
             $data['api_ip'] = $this->request->server['REMOTE_ADDR'];
         } else {
             $data['api_id'] = '';
-            $data['api_key'] = '';
+
             $data['api_ip'] = '';
         }
 
@@ -585,10 +585,8 @@ class ControllerExtensionPaymentKlarnaCheckout extends Controller {
             $session->data['api_id'] = $api_info['api_id'];
 
             $data['api_token'] = $session->getId();
-            $data['api_key'] = $api_info['key'];
         } else {
             $data['api_token'] = '';
-            $data['api_key'] = '';
         }
 
         $this->response->setOutput($this->load->view('extension/payment/klarna_checkout_order_ajax', $data));

@@ -289,10 +289,8 @@ class ControllerExtensionPaymentSquareup extends Controller {
             $session->data['api_id'] = $api_info['api_id'];
 
             $data['api_token'] = $session->getId();
-            $data['api_key'] = $api_info['key'];
         } else {
             $data['api_token'] = '';
-            $data['api_key'] = '';
         }
 
         $data['header'] = $this->load->controller('common/header');
@@ -435,10 +433,8 @@ class ControllerExtensionPaymentSquareup extends Controller {
             $session->data['api_id'] = $api_info['api_id'];
 
             $data['api_token'] = $session->getId();
-            $data['api_key'] = $api_info['key'];
         } else {
             $data['api_token'] = '';
-            $data['api_key'] = '';
         }
 
         $data['header'] = $this->load->controller('common/header');
@@ -800,10 +796,8 @@ class ControllerExtensionPaymentSquareup extends Controller {
             $session->data['api_id'] = $api_info['api_id'];
 
             $data['api_token'] = $session->getId();
-            $data['api_key'] = $api_info['key'];
         } else {
             $data['api_token'] = '';
-            $data['api_key'] = '';
         }
 
         return $this->load->view('extension/payment/squareup_order', $data);

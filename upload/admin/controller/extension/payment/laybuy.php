@@ -608,17 +608,20 @@ class ControllerExtensionPaymentLaybuy extends Controller {
                                 $this->model_extension_payment_laybuy->log('Transaction #' . $transaction['laybuy_transaction_id'] . ' canceled');
                                 $this->model_extension_payment_laybuy->updateOrderStatus($order_id, $this->config->get('payment_laybuy_order_status_id_canceled'), $this->language->get('text_comment'));
                                 $this->model_extension_payment_laybuy->updateTransaction($transaction['laybuy_transaction_id'], '7', $report_content, $start_index);
+
                                 $fetched++;
                                 break;
                             case 0: // Pending
                                 $this->model_extension_payment_laybuy->log('Transaction #' . $transaction['laybuy_transaction_id'] . ' still pending');
                                 $this->model_extension_payment_laybuy->updateTransaction($transaction['laybuy_transaction_id'], $transaction['status'], $report_content, $start_index);
+
                                 $fetched++;
                                 break;
                             case 1: // Paid
                                 $this->model_extension_payment_laybuy->log('Transaction #' . $transaction['laybuy_transaction_id'] . ' paid');
                                 $this->model_extension_payment_laybuy->updateOrderStatus($order_id, $this->config->get('payment_laybuy_order_status_id_processing'), $this->language->get('text_comment'));
                                 $this->model_extension_payment_laybuy->updateTransaction($transaction['laybuy_transaction_id'], '5', $report_content, $start_index);
+
                                 $fetched++;
                                 break;
                         }
