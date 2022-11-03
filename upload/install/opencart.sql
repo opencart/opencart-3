@@ -3458,7 +3458,7 @@ INSERT INTO `oc_setting` (`store_id`, `code`, `key`, `value`, `serialized`) VALU
 (0, 'config', 'config_subscription_status_id', '1', 0),
 (0, 'config', 'config_subscription_active_status_id', '2', 0),
 (0, 'config', 'config_subscription_expired_status_id', '6', 0),
-(0, 'config', 'config_subscription_canceled_status_id', '4', 0),
+(0, 'config', 'config_subscription_cancelled_status_id', '4', 0),
 (0, 'config', 'config_subscription_failed_status_id', '3', 0),
 (0, 'config', 'config_subscription_denied_status_id', '5', 0),
 (0, 'config', 'config_stock_display', '0', 0),

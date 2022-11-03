@@ -892,11 +892,11 @@
                   </div>
                 </div>
                 <div class="form-group">
-                  <label class="col-sm-2 control-label" for="input-subscription-canceled-status">{{ entry_subscription_canceled_status }}</label>
+                  <label class="col-sm-2 control-label" for="input-subscription-cancelled-status">{{ entry_subscription_cancelled_status }}</label>
                   <div class="col-sm-10">
-                    <select name="config_subscription_canceled_status_id" id="input-subscription-canceled-status" class="form-control">
+                    <select name="config_subscription_cancelled_status_id" id="input-subscription-cancelled-status" class="form-control">
                       {% for subscription_status in subscription_statuses %}
-                        {% if subscription_status.subscription_status_id == config_subscription_canceled_status_id %}
+                        {% if subscription_status.subscription_status_id == config_subscription_cancelled_status_id %}
                           <option value="{{ subscription_status.subscription_status_id }}" selected="selected">{{ subscription_status.name }}</option>
                         {% else %}
                           <option value="{{ subscription_status.subscription_status_id }}">{{ subscription_status.name }}</option>
