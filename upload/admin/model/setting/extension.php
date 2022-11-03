@@ -82,16 +82,4 @@ class ModelSettingExtension extends Model {
 
         return $query->rows;
     }
-
-    public function getPaths(string $path): array {
-        $query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "extension_path` WHERE `path` LIKE '" . $this->db->escape($path) . "' ORDER BY `path` ASC");
-
-        return $query->rows;
-    }
-
-    public function getTotalPaths(string $path): int {
-        $query = $this->db->query("SELECT COUNT(*) AS `total` FROM `" . DB_PREFIX . "extension_path` WHERE `path` LIKE '" . $this->db->escape($path) . "'");
-
-        return (int)$query->row['total'];
-    }
 }
