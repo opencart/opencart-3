@@ -84,7 +84,7 @@ class ControllerCustomerCustomerPayment extends Controller {
             $customer_id = 0;
         }
 
-        if (isset($this->request->get['page']) && $this->request->get['route'] == 'customer/customer_payment') {
+        if (isset($this->request->get['page'])) {
             $page = (int)$this->request->get['page'];
         } else {
             $page = 1;
