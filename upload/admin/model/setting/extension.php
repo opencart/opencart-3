@@ -1,9 +1,21 @@
 <?php
 class ModelSettingExtension extends Model {
-    public function getExtensions(): array {
+    /*public function getExtensions(): array {
         $query = $this->db->query("SELECT DISTINCT `extension` FROM `" . DB_PREFIX . "extension`");
 
         return $query->rows;
+    }*/
+
+    public function getExtensions(string $type): array {
+        $extension_data = [];
+
+        $query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "extension` WHERE `type` = '" . $this->db->escape($type) . "' ORDER BY `code`");
+
+        foreach ($query->rows as $result) {
+            $extension_data[] = $result['code'];
+        }
+
+        return $extension_data;
     }
 
     public function getExtensionsByType(string $type): array {
@@ -11,6 +23,12 @@ class ModelSettingExtension extends Model {
 
         return $query->rows;
     }
+
+    /*public function getExtensionsByType(string $type): array {
+        $query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "extension` WHERE `type` = '" . $this->db->escape($type) . "' ORDER BY `code` ASC");
+
+        return $query->rows;
+    }*/
 
     public function getExtensionByCode(string $type, string $code): array {
         $query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "extension` WHERE `type` = '" . $this->db->escape($type) . "' AND `code` = '" . $this->db->escape($code) . "'");
@@ -25,12 +43,20 @@ class ModelSettingExtension extends Model {
     }
 
     public function install(string $type, string $code): void {
-        $extensions = $this->getExtensionsByType($type);
+        $extensions = $this->getExtensions($type);
 
         if (!in_array($code, $extensions)) {
             $this->db->query("INSERT INTO `" . DB_PREFIX . "extension` SET `type` = '" . $this->db->escape($type) . "', `code` = '" . $this->db->escape($code) . "'");
         }
     }
+
+    /*public function install(string $type, string $code): void {
+        $extensions = $this->getExtensionsByType($type);
+
+        if (!in_array($code, $extensions)) {
+            $this->db->query("INSERT INTO `" . DB_PREFIX . "extension` SET `type` = '" . $this->db->escape($type) . "', `code` = '" . $this->db->escape($code) . "'");
+        }
+    }*/
 
     public function uninstall(string $type, string $code): void {
         $this->db->query("DELETE FROM `" . DB_PREFIX . "extension` WHERE `type` = '" . $this->db->escape($type) . "' AND `code` = '" . $this->db->escape($code) . "'");
