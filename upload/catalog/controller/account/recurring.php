@@ -45,7 +45,7 @@ class ControllerAccountRecurring extends Controller {
         // Recurring
         $this->load->model('account/recurring');
 
-        $recurring_total = $this->model_account_recurring->getTotalOrderRecurrings();
+        $recurring_total = $this->model_account_recurring->getTotalRecurrings();
 
         $results = $this->model_account_recurring->getRecurrings(($page - 1) * 10, 10);
 

@@ -25,7 +25,7 @@ class ControllerExtensionModuleAccount extends Controller {
         // Recurring
         $this->load->model('account/recurring');
 
-        $recurring_total = $this->model_account_recurring->getTotalOrderRecurrings();
+        $recurring_total = $this->model_account_recurring->getTotalRecurrings();
 
         if ($recurring_total) {
             $data['recurring'] = $this->url->link('account/recurring', (isset($this->session->data['customer_token']) ? '&customer_token=' . $this->session->data['customer_token'] : ''), true);
