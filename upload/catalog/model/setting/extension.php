@@ -1,11 +1,5 @@
 <?php
 class ModelSettingExtension extends Model {
-    public function getExtensions(): array {
-        $query = $this->db->query("SELECT DISTINCT `extension` FROM `" . DB_PREFIX . "extension`");
-
-        return $query->rows;
-    }
-
     public function getExtensionsByType(string $type): array {
         $query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "extension` WHERE `type` = '" . $this->db->escape($type) . "'");
 

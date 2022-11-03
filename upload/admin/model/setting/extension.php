@@ -1,9 +1,15 @@
 <?php
 class ModelSettingExtension extends Model {
     public function getExtensions(): array {
-        $query = $this->db->query("SELECT DISTINCT `extension` FROM `" . DB_PREFIX . "extension`");
+        $extension_data = array();
 
-        return $query->rows;
+        $query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "extension` WHERE `type` = '" . $this->db->escape($type) . "' ORDER BY `code`");
+
+        foreach ($query->rows as $result) {
+            $extension_data[] = $result['code'];
+        }
+
+        return $extension_data;
     }
 
     public function getExtensionsByType(string $type): array {
@@ -16,12 +22,6 @@ class ModelSettingExtension extends Model {
         $query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "extension` WHERE `type` = '" . $this->db->escape($type) . "' AND `code` = '" . $this->db->escape($code) . "'");
 
         return $query->row;
-    }
-
-    public function getTotalExtensionsByExtension(string $extension): int {
-        $query = $this->db->query("SELECT COUNT(*) AS `total` FROM `" . DB_PREFIX . "extension` WHERE `extension` = '" . $this->db->escape($extension) . "'");
-
-        return (int)$query->row['total'];
     }
 
     public function install(string $type, string $code): void {
