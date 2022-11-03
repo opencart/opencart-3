@@ -15,7 +15,9 @@ class ModelSettingExtension extends Model {
     public function install(string $type, string $code): void {
         $extensions = $this->getExtensionsByType($type);
 
-        if (!in_array($code, $extensions)) {
+        $codes = array_column($extensions, 'code');
+
+        if (!in_array($code, $codes)) {
             $this->db->query("INSERT INTO `" . DB_PREFIX . "extension` SET `type` = '" . $this->db->escape($type) . "', `code` = '" . $this->db->escape($code) . "'");
         }
     }
