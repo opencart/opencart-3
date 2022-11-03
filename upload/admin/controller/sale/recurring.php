@@ -608,15 +608,15 @@ class ControllerSaleRecurring extends Controller {
         // Recurring
         $this->load->model('sale/recurring');
 
-        $recurring_info = $this->model_sale_recurring->getRecurring($order_recurring_id);
+        $order_recurring_info = $this->model_sale_recurring->getRecurring($order_recurring_id);
 
-        if (!$recurring_info) {
+        if (!$order_recurring_info) {
             $json['error'] = $this->language->get('error_recurring');
         } else {
             // Orders
             $this->load->model('sale/order');
 
-            $order_info = $this->model_sale_order->getOrder($recurring_info['order_id']);
+            $order_info = $this->model_sale_order->getOrder($order_recurring_info['order_id']);
 
             if (!$order_info) {
                 $json['error'] = $this->language->get('error_payment_method');
@@ -638,7 +638,7 @@ class ControllerSaleRecurring extends Controller {
             $this->load->model('catalog/subscription_plan');
 
             $filter_data = [
-                'filter_order_id' => $recurring_info['order_id']
+                'filter_order_id' => $order_recurring_info['order_id']
             ];
 
             $subscription_total = $this->model_sale_subscription->getTotalSubscriptions($filter_data);
@@ -655,13 +655,27 @@ class ControllerSaleRecurring extends Controller {
 
                 $store_info = $this->model_setting_setting->getSetting('config', $order_info['store_id']);
 
-                if ($store_info) {
-                    $subscription_status_id = $store_info['config_subscription_canceled_status_id'];
+                if (!$store_info) {
+                    $json['error'] = $this->language->get('error_status');
                 } else {
+                    $config_subscription_status_id = $store_info['config_subscription_canceled_status_id'];
+
                     $subscription_status_id = $this->config->get('config_subscription_canceled_status_id');
+
+                    if ($config_subscription_status_id != $subscription_status_id) {
+                        $json['error'] = $this->language->get('error_status');
+                    } else {
+                        $config_subscription_status_total = $this->model_sale_subscription->getTotalSubscriptionsBySubscriptionStatusId($config_subscription_status_id);
+
+                        $subscription_status_total = $this->model_sale_subscription->getTotalSubscriptionsBySubscriptionStatusId($subscription_status_id);
+
+                        if ((!$config_subscription_status_total) || (!$subscription_total)) {
+                            $json['error'] = $this->language->get('error_status');
+                        }
+                    }
                 }
 
-                if ((!$subscription_status_id) || (!$recurring_info['status']) || ($subscription_status_id != $recurring_info['status'])) {
+                if ((!$order_recurring_info['status']) || ($subscription_status_id != $order_recurring_info['status'])) {
                     $json['error'] = $this->language->get('error_status');
                 }
             }
