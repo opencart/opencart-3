@@ -1,17 +1,5 @@
 <?php
 class ModelSettingExtension extends Model {
-    public function getExtensions(): array {
-        $extension_data = [];
-
-        $query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "extension` WHERE `type` = '" . $this->db->escape($type) . "' ORDER BY `code`");
-
-        foreach ($query->rows as $result) {
-            $extension_data[] = $result['code'];
-        }
-
-        return $extension_data;
-    }
-
     public function getExtensionsByType(string $type): array {
         $query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "extension` WHERE `type` = '" . $this->db->escape($type) . "' ORDER BY `code` ASC");
 
