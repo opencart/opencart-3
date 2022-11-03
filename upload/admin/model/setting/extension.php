@@ -1,9 +1,15 @@
 <?php
 class ModelSettingExtension extends Model {
     public function getExtensionsByType(string $type): array {
-        $query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "extension` WHERE `type` = '" . $this->db->escape($type) . "' ORDER BY `code` ASC");
+        $extension_data = [];
 
-        return $query->rows;
+        $query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "extension` WHERE `type` = '" . $this->db->escape($type) . "' ORDER BY `code`");
+
+        foreach ($query->rows as $result) {
+            $extension_data[] = $result['code'];
+        }
+
+        return $extension_data;
     }
 
     public function getExtensionByCode(string $type, string $code): array {
@@ -15,9 +21,7 @@ class ModelSettingExtension extends Model {
     public function install(string $type, string $code): void {
         $extensions = $this->getExtensionsByType($type);
 
-        $codes = array_column($extensions, 'code');
-
-        if (!in_array($code, $codes)) {
+        if (!in_array($code, $extensions)) {
             $this->db->query("INSERT INTO `" . DB_PREFIX . "extension` SET `type` = '" . $this->db->escape($type) . "', `code` = '" . $this->db->escape($code) . "'");
         }
     }
