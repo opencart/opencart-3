@@ -129,7 +129,7 @@ class ControllerAccountLogin extends Controller {
 		$this->customer->logout();
 
 		if (!isset($this->request->get['login_token']) || !isset($this->session->data['login_token']) || ($this->request->get['login_token'] != $this->session->data['login_token'])) {
-			$json['redirect'] = $this->url->link('account/login', 'language=' . $this->config->get('config_language'), true);
+			$json['redirect'] = $this->url->link('account/login', true);
 		}
 
 		if (!$json) {
