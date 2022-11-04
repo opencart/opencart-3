@@ -208,20 +208,20 @@
               dataType: 'json',
               data: $('#form-subscription').serialize(),
               beforeSend: function () {
-                $(element).prop('disabled', true).addClass('loading');
+                  $(element).prop('disabled', true).addClass('loading');
               },
               complete: function () {
-                $(element).prop('disabled', false).removeClass('loading');
+                  $(element).prop('disabled', false).removeClass('loading');
               },
               success: function (json) {
                   $('.alert-dismissible').remove();
 
                   if (json['error']) {
-                    $('#tab-general').prepend('<div class="alert alert-danger alert-dismissible"><i class="fa fa-exclamation-circle"></i> ' + json['error'] + ' <button type="button" class="close" data-dismiss="alert">&times;</button></div>');
+                      $('#tab-general').prepend('<div class="alert alert-danger alert-dismissible"><i class="fa fa-exclamation-circle"></i> ' + json['error'] + ' <button type="button" class="close" data-dismiss="alert">&times;</button></div>');
                   }
 
                   if (json['success']) {
-                    $('#tab-general').prepend('<div class="alert alert-success alert-dismissible"><i class="fa-solid fa-check-circle"></i> ' + json['success'] + ' <button type="button" class="btn-close" data-bs-dismiss="alert"></button></div>');
+                      $('#tab-general').prepend('<div class="alert alert-success alert-dismissible"><i class="fa-solid fa-check-circle"></i> ' + json['success'] + ' <button type="button" class="btn-close" data-bs-dismiss="alert"></button></div>');
                   }
               },
               error: function (xhr, ajaxOptions, thrownError) {
