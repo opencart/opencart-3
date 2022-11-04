@@ -200,16 +200,14 @@ class ModelExtensionTotalCoupon extends Model {
 
             if ($coupon_query->num_rows) {
                 // Coupons
-                $this->load->model('marketing/coupon');
-
-                $coupon_total = $this->model_marketing_coupon->getTotalHistoriesByCoupon($code);
+                $coupon_total = $this->getTotalCouponHistoriesByCoupon($code);
 
                 if ($coupon_query->row['uses_total'] > 0 && ($coupon_total >= $coupon_query->row['uses_total'])) {
                     $status = false;
                 }
 
                 if ($order_info['customer_id']) {
-                    $customer_total = $this->model_marketing_coupon->getTotalHistoriesByCustomerId($code, $order_info['customer_id']);
+                    $customer_total = $this->getTotalCouponHistoriesByCustomerId($code, $order_info['customer_id']);
 
                     if ($coupon_query->row['uses_customer'] > 0 && ($customer_total >= $coupon_query->row['uses_customer'])) {
                         $status = false;
