@@ -145,12 +145,17 @@ class ControllerAccountSubscription extends Controller {
                 $data['status'] = '';
             }
 
+            // Orders
+            $this->load->model('account/order');
+
+            $order_product = $this->model_account_order->getOrderProduct($subscription_info['order_id'], $subscription_info['order_product_id']);
+
             $data['order_id'] = $subscription_info['order_id'];
             $data['reference'] = $subscription_info['reference'];
-            $data['product_name'] = $subscription_info['product_name'];
+            $data['product_name'] = $order_product['name'];
             $data['payment_method'] = $subscription_info['payment_method'];
-            $data['product_quantity'] = $subscription_info['product_quantity'];
-            $data['recurring_description'] = $subscription_info['recurring_description'];
+            $data['product_quantity'] = $order_product['quantity'];
+            $data['description'] = $subscription_info['description'];
 
             // Transactions
             $data['transactions'] = [];

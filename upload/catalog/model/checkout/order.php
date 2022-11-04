@@ -307,7 +307,7 @@ class ModelCheckoutOrder extends Model {
         return $query->rows;
     }
 
-    public function addOrderHistory(int $order_id, int $order_status_id, string $comment = '', bool $notify = false, bool $override = false): void {
+    public function addOrderHistory(int $order_id, int $order_status_id, string $comment = '', bool $notify = false, bool $override = false): int {
         $order_info = $this->getOrder($order_id);
 
         if ($order_info) {
@@ -429,5 +429,7 @@ class ModelCheckoutOrder extends Model {
 
             $this->cache->delete('product');
         }
+
+        return 0;
     }
 }
