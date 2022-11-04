@@ -171,7 +171,7 @@ class ControllerAccountSubscription extends Controller {
             }
 
             $data['order'] = $this->url->link('account/order/info', 'customer_token=' . $this->session->data['customer_token'] . '&order_id=' . $subscription_info['order_id'], true);
-            $data['product'] = $this->url->link('product/product', 'customer_token=' . $this->session->data['customer_token'] . '&product_id=' . $subscription_info['product_id'], true);
+            $data['product'] = $this->url->link('product/product', 'customer_token=' . $this->session->data['customer_token'] . '&product_id=' . $subscription_info['product_id']);
 
             // Extensions
             $this->load->model('setting/extension');
