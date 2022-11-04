@@ -410,6 +410,18 @@ class ControllerSaleRecurring extends Controller {
             $data['product'] = $order_recurring_info['product_name'];
             $data['quantity'] = $order_recurring_info['product_quantity'];
 
+            // Subscription Status
+            $this->load->model('localisation/subscription_status');
+
+            $data['subscription_statuses'] = $this->model_localisation_subscription_status->getSubscriptionStatuses();
+
+            if (!empty($order_recurring_info)) {
+                $data['subscription_status_id'] = $order_recurring_info['status'];
+            } else {
+                $data['subscription_status_id'] = '';
+            }
+
+            // Buttons
             $data['buttons'] = $this->load->controller('extension/payment/' . $order_info['payment_code'] . '/recurringButtons');
 
             $data['header'] = $this->load->controller('common/header');
