@@ -696,7 +696,7 @@ class ControllerSaleSubscription extends Controller {
             if ($subscription_total || !$subscription_plan_total) {
                 $json['error'] = $this->language->get('error_transaction');
             } else {
-                // The subscription active status ID needs to match the recurring status ID
+                // The canceled subscription status ID needs to match the store's canceled subscription status ID
                 $this->load->model('setting/setting');
 
                 $store_info = $this->model_setting_setting->getSetting('config', $order_info['store_id']);

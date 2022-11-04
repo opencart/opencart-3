@@ -522,6 +522,104 @@ class ControllerSaleRecurring extends Controller {
         }
     }
 
+    public function history(): void {
+        $this->load->language('sale/recurring');
+
+        if (isset($this->request->get['order_recurring_id'])) {
+            $order_recurring_id = (int)$this->request->get['order_recurring_id'];
+        } else {
+            $order_recurring_id = 0;
+        }
+
+        if (isset($this->request->get['page'])) {
+            $page = (int)$this->request->get['page'];
+        } else {
+            $page = 1;
+        }
+
+        $data['histories'] = [];
+
+        // Recurring
+        $this->load->model('sale/recurring');
+
+        $results = $this->model_sale_recurring->getHistories($order_recurring_id, ($page - 1) * 10, 10);
+
+        foreach ($results as $result) {
+            $data['histories'][] = [
+                'status'     => $result['status'],
+                'comment'    => nl2br($result['comment']),
+                'notify'     => $result['notify'] ? $this->language->get('text_yes') : $this->language->get('text_no'),
+                'date_added' => date($this->language->get('date_format_short'), strtotime($result['date_added']))
+            ];
+        }
+
+        $history_total = $this->model_sale_recurring->getTotalHistories($order_recurring_id);
+
+        $pagination = new \Pagination();
+        $pagination->total = $history_total;
+        $pagination->page = $page;
+        $pagination->limit = 10;
+        $pagination->url = $this->url->link('sale/recurring/history', 'user_token=' . $this->session->data['user_token'] . '&order_recurring_id=' . $order_recurring_id . '&page={page}', true);
+
+        $data['pagination'] = $pagination->render();
+        $data['results'] = sprintf($this->language->get('text_pagination'), ($history_total) ? (($page - 1) * 10) + 1 : 0, ((($page - 1) * 10) > ($history_total - 10)) ? $history_total : ((($page - 1) * 10) + 10), $history_total, ceil($history_total / 10));
+
+        $this->response->setOutput($this->load->view('sale/recurring_history', $data));
+    }
+
+    public function addHistory(): void {
+        $this->load->language('sale/recurring');
+
+        $json = [];
+
+        if (isset($this->request->get['order_recurring_id'])) {
+            $order_recurring_id = (int)$this->request->get['order_recurring_id'];
+        } else {
+            $order_recurring_id = 0;
+        }
+
+        if (!$this->user->hasPermission('modify', 'sale/recurring')) {
+            $json['error'] = $this->language->get('error_permission');
+        } elseif ($this->request->post['subscription_status_id'] == '') {
+            $json['error'] = $this->language->get('error_subscription_status');
+        } else {
+            // Recurring
+            $this->load->model('sale/recurring');
+
+            $order_recurring_info = $this->model_sale_recurring->getRecurring($order_recurring_id);
+
+            if (!$order_recurring_info) {
+                $json['error'] = $this->language->get('error_not_found');
+            }
+
+            // Subscription
+            $this->load->model('sale/subscription');
+
+            $filter_data = [
+                'filter_order_id' => $order_recurring_info['order_id']
+            ];
+
+            $subscription_total = $this->model_sale_subscription->getTotalSubscriptions($filter_data);
+
+            // The same order ID cannot be the case between the recurring orders
+            // and the new subscription system. Therefore, we need to ensure the
+            // order ID only exists in the recurring orders prior to change the
+            // subscription status in the recurring history.
+            if ($subscription_total) {
+                $json['error'] = $this->language->get('error_status');
+            }
+        }
+
+        if (!$json) {
+            $this->model_sale_recurring->addHistory($order_recurring_id, $this->request->post['subscription_status_id'], $this->request->post['comment'], $this->request->post['notify']);
+
+            $json['success'] = $this->language->get('text_success');
+        }
+
+        $this->response->addHeader('Content-Type: application/json');
+        $this->response->setOutput(json_encode($json));
+    }
+
     public function transaction(): void {
         $this->load->language('sale/recurring');
 

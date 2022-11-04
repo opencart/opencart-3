@@ -26,6 +26,7 @@
       <div class="panel-body">{{ buttons }}
         <ul class="nav nav-tabs">
           <li class="active"><a href="#tab-general" data-toggle="tab">{{ tab_general }}</a></li>
+          <li><a href="#tab-history" data-toggle="tab">{{ tab_history }}</a></li>
           <li><a href="#tab-transaction" data-toggle="tab">{{ tab_transaction }}</a></li>
         </ul>
         <div class="tab-content">
@@ -134,6 +135,45 @@
               </form>
             </div>
           </div>
+          <div id="tab-history" class="tab-pane">
+            <form id="form-history" class="form-horizontal">
+              <fieldset>
+                <legend>{{ text_history }}</legend>
+                <div id="history"></div>
+              </fieldset>
+              <br/>
+              <fieldset>
+                <legend>{{ text_history_add }}</legend>
+                <div class="form-group">
+                  <label class="col-sm-2 control-label" for="input-comment">{{ entry_subscription_status }}</label>
+                  <div class="col-sm-10">
+                    <select name="subscription_status_id" id="input-subscription-status" class="form-control"/>
+                    {% for subscription_status in subscription_statuses %}
+                      <option value="{{ subscription_status.subscription_status_id }}"{% if subscription_status.subscription_status_id == subscription_status_id %} selected{% endif %}>{{ subscription_status.name }}</option>
+                    {% endfor %}
+                    </select>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label class="col-sm-2 control-label" for="input-notify">{{ entry_notify }}</label>
+                  <div class="col-sm-10">
+                    <div class="checkbox">
+                      <input type="checkbox" name="notify" value="1" id="input-notify"/>
+                    </div>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label class="col-sm-2 control-label" for="input-comment">{{ entry_comment }}</label>
+                  <div class="col-sm-10">
+                    <textarea name="comment" rows="8" placeholder="{{ entry_comment }}" id="input-comment" class="form-control"></textarea>
+                  </div>
+                </div>
+              </fieldset>
+              <div class="text-right">
+                <button id="button-history" data-loading-text="{{ text_loading }}" class="btn btn-primary"><i class="fa fa-plus-circle"></i> {{ button_history_add }}</button>
+              </div>
+            </form>
+          </div>
           <div id="tab-transaction" class="tab-pane">
             <form id="form-transaction" class="form-horizontal">
               <fieldset>
@@ -197,6 +237,47 @@
                   console.log(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
               }
           });
+      });
+
+    $('#history').on('click', '.pagination a', function (e) {
+      e.preventDefault();
+
+      $('#history').load(this.href);
+    });
+
+    $('#button-history').on('click', function (e) {
+        e.preventDefault();
+
+        $.ajax({
+            url: 'index.php?route=sale/recurring/addHistory&user_token={{ user_token }}&order_recurring_id=' + $('#input-order-recurring-id').val(),
+            type: 'post',
+            dataType: 'json',
+            data: $('#form-history').serialize(),
+            beforeSend: function () {
+                $('#button-history').button('loading');
+            },
+            complete: function () {
+                $('#button-history').button('reset');
+            },
+            success: function (json) {
+                $('.alert-dismissible').remove();
+
+                if (json['error']) {
+                    $('#tab-history').prepend('<div class="alert alert-danger alert-dismissible"><i class="fa fa-exclamation-circle"></i> ' + json['error'] + ' <button type="button" class="close" data-dismiss="alert">&times;</button></div>');
+                }
+
+                if (json['success']) {
+                    $('#tab-history').prepend('<div class="alert alert-success alert-dismissible"><i class="fa fa-check-circle"></i> ' + json['success'] + ' <button type="button" class="close" data-dismiss="alert">&times;</button></div>');
+
+                    $('#history').load('index.php?route=sale/recurring/history&user_token={{ user_token }}&order_recurring_id=' + $('#input-order-recurring-id').val());
+
+                    $('#tab-history textarea[name=\'comment\']').val('');
+                }
+            },
+            error: function (xhr, ajaxOptions, thrownError) {
+                console.log(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
+            }
+        });
       });
 
       $('#transaction').on('click', '.pagination a', function (e) {

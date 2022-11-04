@@ -133,34 +133,6 @@ class ModelSaleRecurring extends Model {
         return $transactions;
     }
 
-    protected function getStatus(int $status): string {
-        switch ($status) {
-            case 1:
-                $result = $this->language->get('text_status_inactive');
-                break;
-            case 2:
-                $result = $this->language->get('text_status_active');
-                break;
-            case 3:
-                $result = $this->language->get('text_status_suspended');
-                break;
-            case 4:
-                $result = $this->language->get('text_status_cancelled');
-                break;
-            case 5:
-                $result = $this->language->get('text_status_expired');
-                break;
-            case 6:
-                $result = $this->language->get('text_status_pending');
-                break;
-            default:
-                $result = '';
-                break;
-        }
-
-        return $result;
-    }
-
     public function getTotalRecurrings(array $data): int {
         $sql = "SELECT COUNT(*) AS `total` FROM `" . DB_PREFIX . "order_recurring` `or` LEFT JOIN `" . DB_PREFIX . "order` o ON (`or`.`order_id` = o.`order_id`)";
 
@@ -201,6 +173,38 @@ class ModelSaleRecurring extends Model {
 
     public function getTotalTransactions(int $order_recurring_id): int {
         $query = $this->db->query("SELECT COUNT(*) AS `total` FROM `" . DB_PREFIX . "order_recurring_transaction` WHERE `order_recurring_id` = '" . (int)$order_recurring_id . "'");
+
+        return (int)$query->row['total'];
+    }
+
+    public function addHistory(int $order_recurring_id, int $subscription_status_id, string $comment = '', bool $notify = false): void {
+        $this->db->query("INSERT INTO `" . DB_PREFIX . "order_recurring_history` SET `order_recurring_id` = '" . (int)$order_recurring_id . "', `subscription_status_id` = '" . (int)$subscription_status_id . "', `comment` = '" . $this->db->escape($comment) . "', `notify` = '" . (int)$notify . "', `date_added` = NOW()");
+
+        $this->db->query("UPDATE `" . DB_PREFIX . "order_recurring` SET `status` = '" . (int)$subscription_status_id . "' WHERE `order_recurring_id` = '" . (int)$order_recurring_id . "'");
+    }
+
+    public function getHistories(int $order_recurring_id, int $start = 0, int $limit = 10): array {
+        if ($start < 0) {
+            $start = 0;
+        }
+
+        if ($limit < 1) {
+            $limit = 10;
+        }
+
+        $query = $this->db->query("SELECT orh.`date_added`, ss.`name` AS `status`, orh.`comment`, orh.`notify` FROM `" . DB_PREFIX . "order_recurring_history` orh LEFT JOIN `" . DB_PREFIX . "subscription_status` ss ON orh.`subscription_status_id` = ss.`subscription_status_id` WHERE orh.`order_recurring_id` = '" . (int)$order_recurring_id . "' AND ss.`language_id` = '" . (int)$this->config->get('config_language_id') . "' ORDER BY orh.`date_added` DESC LIMIT " . (int)$start . "," . (int)$limit);
+
+        return $query->rows;
+    }
+
+    public function getTotalHistories(int $order_recurring_id): int {
+        $query = $this->db->query("SELECT COUNT(*) AS `total` FROM `" . DB_PREFIX . "order_recurring_history` WHERE `order_recurring_id` = '" . (int)$order_recurring_id . "'");
+
+        return (int)$query->row['total'];
+    }
+
+    public function getTotalHistoriesBySubscriptionStatusId(int $subscription_status_id): int {
+        $query = $this->db->query("SELECT COUNT(*) AS `total` FROM `" . DB_PREFIX . "order_recurring_history` WHERE `subscription_status_id` = '" . (int)$subscription_status_id . "'");
 
         return (int)$query->row['total'];
     }

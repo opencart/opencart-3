@@ -82,9 +82,10 @@ $_['entry_cancel_payment']                 = 'Cancel Payment';
 // Error
 $_['error_permission']                     = 'Warning: You do not have permission to modify recurring profiles!';
 $_['error_not_cancelled']                  = 'Error: %s';
-$_['error_not_found']                      = 'Error: Could not cancel recurring profile';
+$_['error_not_found']                      = 'Error: Could not cancel recurring profile!';
 $_['error_status']                         = 'Error: The recurring status does not match with the subscription status!';
 $_['error_subscription_plan']              = 'Warning: Subscription plan does not exist!';
+$_['error_subscription_status']            = 'Warning: Subscription status needs to be selected!';
 $_['error_payment_method']                 = 'Warning: Payment method does not exist!';
 $_['error_service_type']                   = 'Error: The service status has not been included with this transaction. If you see this error message, please contact your extension developer that handles the subscription services to resolve this issue!';
 $_['error_transaction']                    = 'Error: Cannot add the transaction to this recurring order!';

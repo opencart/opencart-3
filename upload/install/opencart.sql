@@ -2436,6 +2436,23 @@ CREATE TABLE `oc_order_recurring` (
 -----------------------------------------------------------
 
 --
+-- Table structure for table `oc_order_recurring_history`
+--
+
+DROP TABLE IF EXISTS `oc_order_recurring_history`;
+CREATE TABLE `oc_order_recurring_history` (
+  `order_recurring_history_id` int(11) NOT NULL AUTO_INCREMENT,
+  `order_recurring_id` int(11) NOT NULL,
+  `subscription_status_id` int(11) NOT NULL,
+  `notify` tinyint(1) NOT NULL,
+  `comment` text NOT NULL,
+  `date_added` datetime NOT NULL,
+PRIMARY KEY (`order_recurring_history_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+
+-----------------------------------------------------------
+
+--
 -- Table structure for table `oc_order_recurring_transaction`
 --
 
