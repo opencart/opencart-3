@@ -31,13 +31,13 @@ class ModelCheckoutOrder extends Model {
                         'trial_frequency'      => $product['subscription']['trial_frequency'],
                         'trial_cycle'          => $product['subscription']['trial_cycle'],
                         'trial_duration'       => $product['subscription']['trial_duration'],
+                        'trial_remaining'      => $product['subscription']['trial_remaining'],
                         'trial_status'         => $product['subscription']['trial_status'],
                         'price'                => $product['subscription']['price'],
                         'frequency'            => $product['subscription']['frequency'],
                         'cycle'                => $product['subscription']['cycle'],
                         'duration'             => $product['subscription']['duration'],
                         'remaining'            => $product['subscription']['duration'],
-                        'date_next'            => $product['subscription']['date_next'],
                         'status'               => $product['subscription']['status']
                     ];
 
