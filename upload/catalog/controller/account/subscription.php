@@ -65,12 +65,14 @@ class ControllerAccountSubscription extends Controller {
             ];
         }
 
-        $data['pagination'] = $this->load->controller('common/pagination', [
-            'total' => $subscription_total,
-            'page'  => $page,
-            'limit' => 10,
-            'url'   => $this->url->link('account/subscription', 'customer_token=' . $this->session->data['customer_token'] . '&page={page}', true)
-        ]);
+        $pagination = new \Pagination();
+        $pagination->total = $subscription_total;
+        $pagination->page = $page;
+        $pagination->limit = 10;
+        $pagination->text = $this->language->get('text_pagination');
+        $pagination->url = $this->url->link('account/subscription', 'customer_token=' . $this->session->data['customer_token'] . '&page={page}', true);
+
+        $data['pagination'] = $pagination->render();
 
         $data['continue'] = $this->url->link('account/account', 'customer_token=' . $this->session->data['customer_token'], true);
 
