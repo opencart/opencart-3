@@ -426,15 +426,7 @@ class ControllerExtensionPaymentKlarnaCheckout extends Controller {
             'phone'           => $klarna_order['billing_address']['phone']
         ];
 
-        $billing_address_formatted = str_replace([
-            "\r\n",
-            "\r",
-            "\n"
-        ], '<br/>', preg_replace([
-            "/\s\s+/",
-            "/\r\r+/",
-            "/\n\n+/"
-        ], '<br/>', trim(str_replace($find, $replace, $format))));
+        $billing_address_formatted = str_replace(["\r\n", "\r", "\n"], '<br/>', preg_replace(["/\s\s+/", "/\r\r+/", "/\n\n+/"], '<br/>', trim(str_replace($find, $replace, $format))));
 
         $replace = [
             'title'           => $klarna_order['shipping_address']['title'],
@@ -450,15 +442,7 @@ class ControllerExtensionPaymentKlarnaCheckout extends Controller {
             'phone'           => $klarna_order['shipping_address']['phone']
         ];
 
-        $shipping_address_formatted = str_replace([
-            "\r\n",
-            "\r",
-            "\n"
-        ], '<br/>', preg_replace([
-            "/\s\s+/",
-            "/\r\r+/",
-            "/\n\n+/"
-        ], '<br/>', trim(str_replace($find, $replace, $format))));
+        $shipping_address_formatted = str_replace(["\r\n", "\r", "\n"], '<br/>', preg_replace(["/\s\s+/", "/\r\r+/", "/\n\n+/"], '<br/>', trim(str_replace($find, $replace, $format))));
 
         $order_lines = [];
 

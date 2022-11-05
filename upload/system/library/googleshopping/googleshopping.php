@@ -1013,11 +1013,7 @@ class Googleshopping extends Library {
         $image_new = 'cache/' . oc_substr($filename, 0, oc_strrpos($filename, '.')) . '-' . (int)$width . 'x' . (int)$height . '.' . $extension;
 
         if (!is_file(DIR_IMAGE . $image_new) || (filemtime(DIR_IMAGE . $image_old) > filemtime(DIR_IMAGE . $image_new))) {
-            [
-                $width_orig,
-                $height_orig,
-                $image_type
-            ] = getimagesize(DIR_IMAGE . $image_old);
+            [$width_orig, $height_orig, $image_type] = getimagesize(DIR_IMAGE . $image_old);
 
             if ($width_orig * $height_orig * 4 > $this->memoryLimitInBytes() * 0.4) {
                 throw new \RuntimeException('Image too large, skipping: ' . $image_old);
@@ -1052,13 +1048,7 @@ class Googleshopping extends Library {
             }
         }
 
-        $image_new = str_replace([
-            ' ',
-            ','
-        ], [
-            '%20',
-            '%2C'
-        ], $image_new);  // fix bug when attach image on email (gmail.com). it is automatic changing space " " to +
+        $image_new = str_replace([' ', ','], ['%20','%2C'], $image_new);  // fix bug when attach image on email (gmail.com). it is automatic changing space " " to +
 
         return $this->store_url . 'image/' . $image_new;
     }

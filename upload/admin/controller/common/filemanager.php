@@ -11,11 +11,7 @@ class ControllerCommonFileManager extends Controller {
         }
 
         if (isset($this->request->get['filter_name'])) {
-            $filter_name = rtrim(str_replace([
-                '*',
-                '/',
-                '\\'
-            ], '', $this->request->get['filter_name']), '/');
+            $filter_name = rtrim(str_replace(['*', '/', '\\'], '', $this->request->get['filter_name']), '/');
         } else {
             $filter_name = '';
         }
