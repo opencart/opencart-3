@@ -54,9 +54,11 @@ $_['column_order_recurring_id']            = 'Recurring ID';
 $_['column_order_id']                      = 'Order ID';
 $_['column_reference']                     = 'Payment Reference';
 $_['column_customer']                      = 'Customer';
+$_['column_comment']                       = 'Comment';
 $_['column_date_added']                    = 'Date Added';
 $_['column_status']                        = 'Status';
 $_['column_amount']                        = 'Amount';
+$_['column_notify']                        = 'Customer Notified';
 $_['column_type']                          = 'Type';
 $_['column_action']                        = 'Action';
 
