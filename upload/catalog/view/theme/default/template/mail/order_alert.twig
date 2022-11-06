@@ -7,26 +7,27 @@
 {{ text_product }}
 
 {% for product in products %}
-	{{ product.quantity }}x {{ product.name }} ({{ product.model }}) {{ product.total }}
-	{% if product.option %}
-		{% for option in product.option %}
-			- {{ option.name }} {{ option.value }}
-		{% endfor %}
-	{% endif %}
+  {{ product.quantity }}x {{ product.name }} ({{ product.model }}) {{ product.total }}
+  {% if product.option %}
+    {% for option in product.option %}
+      - {{ option.name }} {{ option.value }}
+    {% endfor %}
+  {% endif %}
 {% endfor %}
 {% if vouchers %}
-	{% for voucher in vouchers %}
-		1x {{ voucher.description }} {{ voucher.amount }}
-	{% endfor %}
+  {% for voucher in vouchers %}
+    1x {{ voucher.description }} {{ voucher.amount }}
+  {% endfor %}
 {% endif %}
+
 {{ text_total }}
 
 {% for total in totals %}
-	{{ total.title }}: {{ total.value }}
+  {{ total.title }}: {{ total.value }}
 {% endfor %}
 
 {% if comment %}
-	{{ text_comment }}
+  {{ text_comment }}
 
-	{{ comment }}
+  {{ comment }}
 {% endif %}
