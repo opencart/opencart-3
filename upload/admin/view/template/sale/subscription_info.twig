@@ -349,7 +349,6 @@
                     {# Requires a service extension. #}
                       $.ajax({
                           url: '{{ catalog }}index.php?route=extension/module/subscription&api_token={{ api_token }}&subscription_id=' + $('#input-subscription-id').val(),
-                          type: 'post',
                           dataType: 'json',
                           success: function (json1) {
                               if (json1['error']) {
