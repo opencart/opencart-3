@@ -72,18 +72,63 @@ class ControllerMailSubscription extends Controller {
                 $this->model_checkout_subscription->addHistory($subscription_id, $subscription_status_id, $this->language->get('error_customer'));
             }
 
-            // Subscription Plan
-            if ($subscription_info['subscription_plan_id'] != $subscription['subscription_plan_id']) {
-                $this->model_checkout_subscription->addHistory($subscription_id, $subscription_status_id, $this->language->get('error_plan'));
-            }
-
             // Subscription name
             if ($subscription_info['name'] != $subscription['name']) {
                 $this->model_checkout_subscription->addHistory($subscription_id, $subscription_status_id, $this->language->get('error_name'));
             }
 
-            // Deacription
-            if ($subscription_info['description'] != $subscription['description']) {
+            // Orders
+            $this->load->model('account/order');
+
+            // Order Products
+            $order_product = $this->model_account_order->getOrderProduct($subscription_info['order_id'], $subscription['order_product_id']);
+
+            // An order product ID could still succeed from database even though the $subscription['order_product_id']
+            // does not match with the $subscription_info['order_product_id']. Therefore, we need to validate both.
+            if (!$order_product || ($subscription_info['order_product_id'] != $subscription['order_product_id'])) {
+                $this->model_checkout_subscription->addHistory($subscription_id, $subscription_status_id, $this->language->get('error_order_product'));
+            }
+
+            // Products
+            $this->load->model('catalog/product');
+
+            $product_subscription_info = $this->model_catalog_product->getSubscription($order_product['product_id'], $subscription['subscription_plan_id']);
+
+            if ((!$product_subscription_info) || ($subscription_info['subscription_plan_id'] != $subscription['subscription_plan_id'])) {
+                $this->model_checkout_subscription->addHistory($subscription_id, $subscription_status_id, $this->language->get('error_plan'));
+            }
+
+            $products = $this->cart->getProducts();
+
+            $description = '';
+
+            foreach ($products as $product) {
+                if ($product['product_id'] == $order_product['product_id']) {
+                    $trial_price = $this->currency->format($this->tax->calculate($subscription['trial_price'], $product['tax_class_id'], $this->config->get('config_tax')), $this->session->data['currency']);
+                    $trial_cycle = $subscription['trial_cycle'];
+                    $trial_frequency = $this->language->get('text_' . $subscription['trial_frequency']);
+                    $trial_duration = $subscription['trial_duration'];
+
+                    if ($product['subscription']['trial_status']) {
+                        $description .= sprintf($this->language->get('text_subscription_trial'), $trial_price, $trial_cycle, $trial_frequency, $trial_duration);
+                    }
+
+                    $price = $this->currency->format($this->tax->calculate($subscription['price'], $product['tax_class_id'], $this->config->get('config_tax')), $this->session->data['currency']);
+                    $cycle = $subscription['cycle'];
+                    $frequency = $this->language->get('text_' . $subscription['frequency']);
+                    $duration = $subscription['duration'];
+
+                    if ($duration) {
+                        $description .= sprintf($this->language->get('text_subscription_duration'), $price, $cycle, $frequency, $duration);
+                    } else {
+                        $description .= sprintf($this->language->get('text_subscription_cancel'), $price, $cycle, $frequency);
+                    }
+                }
+            }
+
+            // Description. If the description fails, it means the product is no longer available
+            // in the store. Therefore, the customer will need to create a new order.
+            if ((!$description) || ($description != $subscription_info['description'])) {
                 $this->model_checkout_subscription->addHistory($subscription_id, $subscription_status_id, $this->language->get('error_description'));
             }
 
@@ -115,27 +160,6 @@ class ControllerMailSubscription extends Controller {
             // Date Next
             if ($subscription_info['date_next'] != $subscription['date_next']) {
                 $this->model_checkout_subscription->addHistory($subscription_id, $subscription_status_id, $this->language->get('error_date_next'));
-            }
-
-            // Orders
-            $this->load->model('account/order');
-
-            // Order Products
-            $order_product = $this->model_account_order->getOrderProduct($subscription_info['order_id'], $subscription['order_product_id']);
-
-            // An order product ID could still succeed from database even though the $subscription['order_product_id']
-            // does not match with the $subscription_info['order_product_id']. Therefore, we need to validate both.
-            if (!$order_product || ($subscription_info['order_product_id'] != $subscription['order_product_id'])) {
-                $this->model_checkout_subscription->addHistory($subscription_id, $subscription_status_id, $this->language->get('error_order_product'));
-            }
-
-            // Products
-            $this->load->model('catalog/product');
-
-            $product_subscription_info = $this->model_catalog_product->getSubscription($order_product['product_id'], $subscription['subscription_plan_id']);
-
-            if (!$product_subscription_info) {
-                $this->model_checkout_subscription->addHistory($subscription_id, $subscription_status_id, $this->language->get('error_order_product'));
             }
 
             // Orders
