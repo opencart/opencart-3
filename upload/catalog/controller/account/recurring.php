@@ -73,6 +73,7 @@ class ControllerAccountRecurring extends Controller {
         $pagination->url = $this->url->link('account/recurring', 'customer_token=' . $this->session->data['customer_token'] . '&page={page}', true);
 
         $data['pagination'] = $pagination->render();
+
         $data['continue'] = $this->url->link('account/account', 'customer_token=' . $this->session->data['customer_token'], true);
 
         $data['column_left'] = $this->load->controller('common/column_left');

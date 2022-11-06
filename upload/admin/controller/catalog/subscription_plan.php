@@ -299,6 +299,12 @@ class ControllerCatalogSubscriptionPlan extends Controller {
             $data['error_name'] = [];
         }
 
+        if (isset($this->error['price'])) {
+            $data['error_price'] = $this->error['price'];
+        } else {
+            $data['error_price'] = '';
+        }
+
         $url = '';
 
         if (isset($this->request->get['sort'])) {
@@ -483,6 +489,12 @@ class ControllerCatalogSubscriptionPlan extends Controller {
             if ((strlen($value['name']) < 3) || (strlen($value['name']) > 255)) {
                 $this->error['name'][$language_id] = $this->language->get('error_name');
             }
+        }
+
+        // Even if a trial price is set in the subscription plan, we need to validate the official price field.
+        // A customer cannot be charged without setting an official price whether it's for a trial or full subscription.
+        if ((int)$this->request->post['price'] < 1) {
+            $this->error['price'] = $this->language->get('error_price');
         }
 
         if ($this->error && !isset($this->error['warning'])) {

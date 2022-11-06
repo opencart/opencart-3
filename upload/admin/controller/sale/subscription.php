@@ -456,6 +456,13 @@ class ControllerSaleSubscription extends Controller {
             $data['subscription_status_id'] = '';
         }
 
+        // Subscription Module
+        if ($this->config->has('module_subscription_status')) {
+            $data['module_subscription_status'] = $this->config->get('module_subscription_status');
+        } else {
+            $data['module_subscription_status'] = '';
+        }
+
         $data['user_token'] = $this->session->data['user_token'];
 
         $data['header'] = $this->load->controller('common/header');
