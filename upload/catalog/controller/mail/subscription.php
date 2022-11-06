@@ -7,10 +7,10 @@ class ControllerMailSubscription extends Controller {
             $subscription_id = 0;
         }
 
-        if (isset($args[1])) {
-            $subscription_status_id = $args[1];
+        if (isset($args[1]['subscription'])) {
+            $subscription = $args[1]['subscription'];
         } else {
-            $subscription_status_id = 0;
+            $subscription = [];
         }
 
         if (isset($args[2])) {
@@ -23,12 +23,6 @@ class ControllerMailSubscription extends Controller {
             $notify = $args[3];
         } else {
             $notify = '';
-        }
-
-        if (isset($args[1]['subscription'])) {
-            $subscription = $args[1]['subscription'];
-        } else {
-            $subscription = [];
         }
         /*
         $subscription['order_product_id']
@@ -61,133 +55,139 @@ class ControllerMailSubscription extends Controller {
             // Orders
             $this->load->model('checkout/order');
 
-            $order_info = $this->model_checkout_order->getOrder($subscription_info['order_id']);
+            if (($subscription_info['trial_status'] != $subscription['trial_status']) || ($subscription_info['status'] != $subscription['status'])) {
+                $subscription_status_id = $this->config->get('config_subscription_failed_status_id');
 
-            if ($order_info) {
-                // Stores
-                $this->load->model('setting/store');
+                $this->model_checkout_subscription->addHistory($subscription_id, $subscription_status_id, $this->language->get('error_status'));
+            } else {
+                $order_info = $this->model_checkout_order->getOrder($subscription_info['order_id']);
 
-                // Settings
-                $this->load->model('setting/setting');
+                if ($order_info) {
+                    // Stores
+                    $this->load->model('setting/store');
 
-                $store_info = $this->model_setting_store->getStore($order_info['store_id']);
+                    // Settings
+                    $this->load->model('setting/setting');
 
-                if ($store_info) {
-                    $store_logo = html_entity_decode($this->model_setting_setting->getValue('config_logo', $store_info['store_id']), ENT_QUOTES, 'UTF-8');
-                    $store_name = html_entity_decode($store_info['name'], ENT_QUOTES, 'UTF-8');
+                    $store_info = $this->model_setting_store->getStore($order_info['store_id']);
 
-                    $store_url = $store_info['url'];
-                } else {
-                    $store_logo = html_entity_decode($this->config->get('config_logo'), ENT_QUOTES, 'UTF-8');
-                    $store_name = html_entity_decode($this->config->get('config_name'), ENT_QUOTES, 'UTF-8');
+                    if ($store_info) {
+                        $store_logo = html_entity_decode($this->model_setting_setting->getValue('config_logo', $store_info['store_id']), ENT_QUOTES, 'UTF-8');
+                        $store_name = html_entity_decode($store_info['name'], ENT_QUOTES, 'UTF-8');
 
-                    $store_url = HTTP_SERVER;
-                }
+                        $store_url = $store_info['url'];
+                    } else {
+                        $store_logo = html_entity_decode($this->config->get('config_logo'), ENT_QUOTES, 'UTF-8');
+                        $store_name = html_entity_decode($this->config->get('config_name'), ENT_QUOTES, 'UTF-8');
 
-                // Subscription Status
-                $subscription_status_query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "subscription_status` WHERE `subscription_status_id` = '" . (int)$subscription_status_id . "' AND `language_id` = '" . (int)$order_info['language_id'] . "'");
+                        $store_url = HTTP_SERVER;
+                    }
 
-                if ($subscription_status_query->num_rows) {
-                    $data['order_status'] = $subscription_status_query->row['name'];
-                } else {
-                    $data['order_status'] = '';
-                }
+                    // Subscription Status
+                    $subscription_status_query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "subscription_status` WHERE `subscription_status_id` = '" . (int)$subscription_info['subscription_status_id'] . "' AND `language_id` = '" . (int)$order_info['language_id'] . "'");
 
-                // Languages
-                $this->load->model('localisation/language');
+                    if ($subscription_status_query->num_rows) {
+                        $data['order_status'] = $subscription_status_query->row['name'];
+                    } else {
+                        $data['order_status'] = '';
+                    }
 
-                $language_info = $this->model_localisation_language->getLanguage($order_info['language_id']);
+                    // Languages
+                    $this->load->model('localisation/language');
 
-                // We need to compare both language IDs as they both need to match.
-                if ($language_info) {
-                    $language_code = $language_info['code'];
-                } else {
-                    $language_code = $this->config->get('config_language');
-                }
+                    $language_info = $this->model_localisation_language->getLanguage($order_info['language_id']);
 
-                // Load the language for any mails using a different country code and prefixing it, so it does not pollute the main data pool.
-                $this->language->load($language_code, 'mail', $language_code);
-                $this->language->load('mail/order_add', 'mail', $language_code);
+                    // We need to compare both language IDs as they both need to match.
+                    if ($language_info) {
+                        $language_code = $language_info['code'];
+                    } else {
+                        $language_code = $this->config->get('config_language');
+                    }
 
-                // Add language vars to the template folder
-                $results = $this->language->all('mail');
+                    // Load the language for any mails using a different country code and prefixing it, so it does not pollute the main data pool.
+                    $this->language->load($language_code, 'mail', $language_code);
+                    $this->language->load('mail/order_add', 'mail', $language_code);
 
-                foreach ($results as $key => $value) {
-                    $data[$key] = $value;
-                }
+                    // Add language vars to the template folder
+                    $results = $this->language->all('mail');
 
-                $subject = sprintf($this->language->get('mail_text_subject'), $store_name, $order_info['order_id']);
+                    foreach ($results as $key => $value) {
+                        $data[$key] = $value;
+                    }
 
-                // Image files
-                $this->load->model('tool/image');
+                    $subject = sprintf($this->language->get('mail_text_subject'), $store_name, $order_info['order_id']);
 
-                if (is_file(DIR_IMAGE . $store_logo)) {
-                    $data['logo'] = $store_url . 'image/' . $store_logo;
-                } else {
-                    $data['logo'] = '';
-                }
+                    // Image files
+                    $this->load->model('tool/image');
 
-                // Orders
-                $this->load->model('account/order');
+                    if (is_file(DIR_IMAGE . $store_logo)) {
+                        $data['logo'] = $store_url . 'image/' . $store_logo;
+                    } else {
+                        $data['logo'] = '';
+                    }
 
-                $data['title'] = sprintf($this->language->get('mail_text_subject'), $store_name, $order_info['order_id']);
+                    // Orders
+                    $this->load->model('account/order');
 
-                $data['text_greeting'] = sprintf($this->language->get('mail_text_greeting'), $order_info['store_name']);
+                    $data['title'] = sprintf($this->language->get('mail_text_subject'), $store_name, $order_info['order_id']);
 
-                $data['store'] = $store_name;
-                $data['store_url'] = $order_info['store_url'];
+                    $data['text_greeting'] = sprintf($this->language->get('mail_text_greeting'), $order_info['store_name']);
 
-                $data['customer_id'] = $order_info['customer_id'];
-                $data['link'] = $order_info['store_url'] . 'index.php?route=account/subscription.info&subscription_id=' . $subscription_id;
+                    $data['store'] = $store_name;
+                    $data['store_url'] = $order_info['store_url'];
 
-                $data['order_id'] = $order_info['order_id'];
-                $data['date_added'] = date($this->language->get('mail_date_format_short'), strtotime($subscription_info['date_added']));
-                $data['payment_method'] = $order_info['payment_method'];
-                $data['email'] = $order_info['email'];
-                $data['telephone'] = $order_info['telephone'];
-                $data['ip'] = $order_info['ip'];
+                    $data['customer_id'] = $order_info['customer_id'];
+                    $data['link'] = $order_info['store_url'] . 'index.php?route=account/subscription.info&subscription_id=' . $subscription_id;
 
-                // Subscription
-                if ($comment && $notify) {
-                    $data['comment'] = nl2br($comment);
-                } else {
-                    $data['comment'] = '';
-                }
+                    $data['order_id'] = $order_info['order_id'];
+                    $data['date_added'] = date($this->language->get('mail_date_format_short'), strtotime($subscription_info['date_added']));
+                    $data['payment_method'] = $order_info['payment_method'];
+                    $data['email'] = $order_info['email'];
+                    $data['telephone'] = $order_info['telephone'];
+                    $data['ip'] = $order_info['ip'];
 
-                $data['description'] = $subscription_info['description'];
+                    // Subscription
+                    if ($comment && $notify) {
+                        $data['comment'] = nl2br($comment);
+                    } else {
+                        $data['comment'] = '';
+                    }
 
-                // Products
-                $order_product = $this->model_account_order->getOrderProduct($subscription_info['order_id'], $subscription_info['order_product_id']);
+                    $data['description'] = $subscription_info['description'];
 
-                $data['name'] = $order_product['name'];
-                $data['quantity'] = $order_product['quantity'];
+                    // Products
+                    $order_product = $this->model_account_order->getOrderProduct($subscription_info['order_id'], $subscription_info['order_product_id']);
 
-                $data['order'] = $this->url->link('account/order/info', 'customer_token=' . $this->session->data['customer_token'] . '&order_id=' . $subscription_info['order_id']);
-                $data['product'] = $this->url->link('product/product', 'customer_token=' . $this->session->data['customer_token'] . '&product_id=' . $subscription_info['product_id']);
+                    $data['name'] = $order_product['name'];
+                    $data['quantity'] = $order_product['quantity'];
 
-                // Settings
-                $from = $this->model_setting_setting->getValue('config_email', $order_info['store_id']);
+                    $data['order'] = $this->url->link('account/order/info', 'customer_token=' . $this->session->data['customer_token'] . '&order_id=' . $subscription_info['order_id']);
+                    $data['product'] = $this->url->link('product/product', 'customer_token=' . $this->session->data['customer_token'] . '&product_id=' . $subscription_info['product_id']);
 
-                if (!$from) {
-                    $from = $this->config->get('config_email');
-                }
+                    // Settings
+                    $from = $this->model_setting_setting->getValue('config_email', $order_info['store_id']);
 
-                // Mail
-                if ($this->config->get('config_mail_engine')) {
-                    $mail = new \Mail($this->config->get('config_mail_engine'));
-                    $mail->parameter = $this->config->get('config_mail_parameter');
-                    $mail->smtp_hostname = $this->config->get('config_mail_smtp_hostname');
-                    $mail->smtp_username = $this->config->get('config_mail_smtp_username');
-                    $mail->smtp_password = html_entity_decode($this->config->get('config_mail_smtp_password'), ENT_QUOTES, 'UTF-8');
-                    $mail->smtp_port = $this->config->get('config_mail_smtp_port');
-                    $mail->smtp_timeout = $this->config->get('config_mail_smtp_timeout');
+                    if (!$from) {
+                        $from = $this->config->get('config_email');
+                    }
 
-                    $mail->setTo($order_info['email']);
-                    $mail->setFrom($from);
-                    $mail->setSender($store_name);
-                    $mail->setSubject($subject);
-                    $mail->setHtml($this->load->view('mail/subscription', $data));
-                    $mail->send();
+                    // Mail
+                    if ($this->config->get('config_mail_engine')) {
+                        $mail = new \Mail($this->config->get('config_mail_engine'));
+                        $mail->parameter = $this->config->get('config_mail_parameter');
+                        $mail->smtp_hostname = $this->config->get('config_mail_smtp_hostname');
+                        $mail->smtp_username = $this->config->get('config_mail_smtp_username');
+                        $mail->smtp_password = html_entity_decode($this->config->get('config_mail_smtp_password'), ENT_QUOTES, 'UTF-8');
+                        $mail->smtp_port = $this->config->get('config_mail_smtp_port');
+                        $mail->smtp_timeout = $this->config->get('config_mail_smtp_timeout');
+
+                        $mail->setTo($order_info['email']);
+                        $mail->setFrom($from);
+                        $mail->setSender($store_name);
+                        $mail->setSubject($subject);
+                        $mail->setHtml($this->load->view('mail/subscription', $data));
+                        $mail->send();
+                    }
                 }
             }
         }
