@@ -8,9 +8,6 @@ class ControllerExtensionModuleSubscription extends Controller {
         if (!isset($this->session->data['api_id'])) {
             $json['error']['warning'] = $this->language->get('error_permission');
         } else {
-            // Customers
-            $this->load->model('account/customer');
-
             // Extensions
             $this->load->model('setting/extension');
 
@@ -20,9 +17,9 @@ class ControllerExtensionModuleSubscription extends Controller {
                 'filter_date_next'              => date('Y-m-d H:i:s')
             ];
 
-            $this->load->model('sale/subscription');
+            $this->load->model('account/subscription');
 
-            $results = $this->model_sale_subscription->getSubscriptions($filter_data);
+            $results = $this->model_account_subscription->getSubscriptions($filter_data);
 
             foreach ($results as $result) {
                 if ($result['trial_status'] && (!$result['trial_duration'] || $result['trial_remaining'])) {
@@ -78,14 +75,14 @@ class ControllerExtensionModuleSubscription extends Controller {
                             $this->model_sale_subscription->editTrialRemaining($result['subscription_id'], $result['trial_remaining'] - 1);
                         }
 
-                        //$this->model_sale_subscription->editDateNext($result['subscription_id'], date('Y-m-d', strtotime('+' . $result['trial_cycle'] . ' ' . $result['trial_frequency'])));
+                        $this->model_sale_subscription->editDateNext($result['subscription_id'], date('Y-m-d', strtotime('+' . $result['trial_cycle'] . ' ' . $result['trial_frequency'])));
                     } elseif (!$result['duration'] || $result['remaining']) {
                         // Subscription
                         if ($result['duration'] && $result['remaining']) {
                             $this->model_sale_subscription->editRemaining($result['subscription_id'], $result['remaining'] - 1);
                         }
 
-                        //$this->model_sale_subscription->editDateNext($result['subscription_id'], date('Y-m-d', strtotime('+' . $result['cycle'] . ' ' . $result['frequency'])));
+                        $this->model_sale_subscription->editDateNext($result['subscription_id'], date('Y-m-d', strtotime('+' . $result['cycle'] . ' ' . $result['frequency'])));
                     }
                 }
             }
