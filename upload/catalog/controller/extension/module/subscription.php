@@ -36,35 +36,35 @@ class ControllerExtensionModuleSubscription extends Controller {
                 if ($payment_info) {
                     // Check payment status
                     if ($this->config->get('payment_' . $payment_info['code'] . '_status')) {
-                        $this->load->model('extension/' . $payment_info['extension'] . '/payment/' . $payment_info['code']);
+                        $this->load->model('extension/payment/' . $payment_info['code']);
 
-                        if (property_exists($this->{'model_extension_' . $payment_info['extension'] . '_payment_' . $payment_info['code']}, 'charge')) {
-                            $subscription_status_id = $this->{'model_extension_' . $payment_info['extension'] . '_payment_' . $payment_info['code']}->charge($result['customer_id'], $result['customer_payment_id'], $amount);
+                        if (property_exists($this->{'model_extension_payment_' . $payment_info['code']}, 'charge')) {
+                            $subscription_status_id = $this->{'model_extension_payment_' . $payment_info['code']}->charge($result['customer_id'], $result['customer_payment_id'], $amount);
 
                             // Transaction
                             if ($this->config->get('config_subscription_active_status_id') == $subscription_status_id) {
-                                $this->model_sale_subscription->addTransaction($result['subscription_id'], $this->language->get('text_success'), $amount, $result['order_id']);
+                                $this->model_account_subscription->addTransaction($result['subscription_id'], $this->language->get('text_success'), $amount, $result['order_id']);
                             }
                         } else {
                             // Failed if payment method does not have recurring payment method
                             $subscription_status_id = $this->config->get('config_subscription_failed_status_id');
 
-                            $this->model_sale_subscription->addHistory($result['subscription_id'], $subscription_status_id, $this->language->get('error_recurring'), true);
+                            $this->model_account_subscription->addHistory($result['subscription_id'], $subscription_status_id, $this->language->get('error_recurring'), true);
                         }
                     } else {
                         $subscription_status_id = $this->config->get('config_subscription_failed_status_id');
 
-                        $this->model_sale_subscription->addHistory($result['subscription_id'], $subscription_status_id, $this->language->get('error_extension'), true);
+                        $this->model_account_subscription->addHistory($result['subscription_id'], $subscription_status_id, $this->language->get('error_extension'), true);
                     }
                 } else {
                     $subscription_status_id = $this->config->get('config_subscription_failed_status_id');
 
-                    $this->model_sale_subscription->addHistory($result['subscription_id'], $subscription_status_id, sprintf($this->language->get('error_payment'), ''), true);
+                    $this->model_account_subscription->addHistory($result['subscription_id'], $subscription_status_id, sprintf($this->language->get('error_payment'), ''), true);
                 }
 
                 // History
                 if ($result['subscription_status_id'] != $subscription_status_id) {
-                    $this->model_sale_subscription->addHistory($result['subscription_id'], $subscription_status_id, 'payment extension ' . $result['payment_code'] . ' could not be loaded', true);
+                    $this->model_account_subscription->addHistory($result['subscription_id'], $subscription_status_id, 'payment extension ' . $result['payment_code'] . ' could not be loaded', true);
                 }
 
                 // Success
@@ -72,17 +72,17 @@ class ControllerExtensionModuleSubscription extends Controller {
                     // Trial
                     if ($result['trial_status'] && (!$result['trial_duration'] || $result['trial_remaining'])) {
                         if ($result['trial_duration'] && $result['trial_remaining']) {
-                            $this->model_sale_subscription->editTrialRemaining($result['subscription_id'], $result['trial_remaining'] - 1);
+                            $this->model_account_subscription->editTrialRemaining($result['subscription_id'], $result['trial_remaining'] - 1);
                         }
 
-                        $this->model_sale_subscription->editDateNext($result['subscription_id'], date('Y-m-d', strtotime('+' . $result['trial_cycle'] . ' ' . $result['trial_frequency'])));
+                        $this->model_account_subscription->editDateNext($result['subscription_id'], date('Y-m-d', strtotime('+' . $result['trial_cycle'] . ' ' . $result['trial_frequency'])));
                     } elseif (!$result['duration'] || $result['remaining']) {
                         // Subscription
                         if ($result['duration'] && $result['remaining']) {
-                            $this->model_sale_subscription->editRemaining($result['subscription_id'], $result['remaining'] - 1);
+                            $this->model_account_subscription->editRemaining($result['subscription_id'], $result['remaining'] - 1);
                         }
 
-                        $this->model_sale_subscription->editDateNext($result['subscription_id'], date('Y-m-d', strtotime('+' . $result['cycle'] . ' ' . $result['frequency'])));
+                        $this->model_account_subscription->editDateNext($result['subscription_id'], date('Y-m-d', strtotime('+' . $result['cycle'] . ' ' . $result['frequency'])));
                     }
                 }
             }
