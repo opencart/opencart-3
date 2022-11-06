@@ -319,9 +319,9 @@
           e.preventDefault();
 
           {% if not permission %}
-              $('#tab-general').prepend('<div class="alert alert-danger alert-dismissible"><i class="fa fa-exclamation-circle"></i> {{ error_permission }} <button type="button" class="close" data-dismiss="alert">&times;</button></div>');
+              $('#content > .container-fluid').prepend('<div class="alert alert-danger alert-dismissible"><i class="fa fa-exclamation-circle"></i> {{ error_permission }} <button type="button" class="close" data-dismiss="alert">&times;</button></div>');
           {% elseif not module_subscription_status %}
-              $('#tab-general').prepend('<div class="alert alert-danger alert-dismissible"><i class="fa fa-exclamation-circle"></i> {{ error_module }} <button type="button" class="close" data-dismiss="alert">&times;</button></div>');
+              $('#content > .container-fluid').prepend('<div class="alert alert-danger alert-dismissible"><i class="fa fa-exclamation-circle"></i> {{ error_module }} <button type="button" class="close" data-dismiss="alert">&times;</button></div>');
           {% else %}
               {# Requires an API extension to connect. #}
               $.ajax({
@@ -348,15 +348,11 @@
                   } else {
                     {# Requires a service extension. #}
                       $.ajax({
-                          url: '{{ catalog }}index.php?route=extension/module/subscription&api_token={{ api_token }}&subscription_id=' + $('#input-subscription-id').val(),
+                          url: '{{ catalog }}index.php?route=extension/module/subscription/renew&api_token={{ api_token }}&subscription_id=' + $('#input-subscription-id').val(),
                           dataType: 'json',
                           success: function (json1) {
-                              if (json1['error']) {
-                                  $('#tab-general').prepend('<div class="alert alert-danger alert-dismissible"><i class="fa fa-exclamation-circle"></i> ' + json1['error'] + ' <button type="button" class="close" data-dismiss="alert">&times;</button></div>');
-                              }
-
-                              if (json1['success']) {
-                                  $('#tab-general').prepend('<div class="alert alert-success alert-dismissible"><i class="fa fa-check-circle"></i> ' + json1['success'] + ' <button type="button" class="close" data-dismiss="alert">&times;</button></div>');
+                              if (json1['status']) {
+                                  $('#content > .container-fluid').prepend('<div class="alert alert-info"><i class="fa fa-exclamation-circle"></i> ' + json1['status'] + ' <button type="button" class="close" data-dismiss="alert">&times;</button></div>');
                               }
                           },
                           error: function (xhr, ajaxOptions, thrownError) {
