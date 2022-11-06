@@ -57,11 +57,12 @@
                     {{ date_added }}
                   </div>
                 </div>
-                <div class="form-group">
+                <div class="form-group text-right">
                   <label class="col-sm-2 control-label" for="input-remaining"><strong>{{ text_remaining }}</strong></label>
                   <div class="col-sm-10">
                     {% if duration %}
                       {{ remaining }}
+                      <button id="button-remaining" data-loading-text="{{ text_loading }}" data-toggle="tooltip" title="{{ button_remaining }}" class="btn btn-success btn-xs"><i class="fa fa-plus-circle"></i></button>
                     {% else %}
                       {{ text_cancel }}
                     {% endif %}
@@ -313,9 +314,71 @@
           });
       });
   //--></script>
-  {% if module_subscription_status %}
   <script type="text/javascript"><!--
-    //--></script>
-  {% endif %}
+      $(document).delegate('#button-remaining', 'click', function(e) {
+          e.preventDefault();
+
+          {% if not permission %}
+              $('#tab-general').prepend('<div class="alert alert-danger alert-dismissible"><i class="fa fa-exclamation-circle"></i> {{ error_permission }} <button type="button" class="close" data-dismiss="alert">&times;</button></div>');
+          {% elseif not module_subscription_status %}
+              $('#tab-general').prepend('<div class="alert alert-danger alert-dismissible"><i class="fa fa-exclamation-circle"></i> {{ error_module }} <button type="button" class="close" data-dismiss="alert">&times;</button></div>');
+          {% else %}
+              {# Requires an API extension to connect. #}
+              $.ajax({
+                  url: '{{ catalog }}index.php?route=api/login',
+                  type: 'post',
+                  dataType: 'json',
+                  data: 'key={{ api_key }}',
+                  crossDomain: true,
+                  success: function () {
+                      $('.alert').remove();
+                  },
+                  error: function (xhr, ajaxOptions, thrownError) {
+                      alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
+                  }
+              }).then(function(json) {
+                  if (json['error']) {
+                      if (json['error']['key']) {
+                          $('#content > .container-fluid').prepend('<div class="alert alert-danger"><i class="fa fa-exclamation-circle"></i> ' + json['error']['key'] + ' <button type="button" class="close" data-dismiss="alert">&times;</button></div>');
+                      }
+
+                      if (json['error']['ip']) {
+                          $('#content > .container-fluid').prepend('<div class="alert alert-danger"><i class="fa fa-exclamation-circle"></i> ' + json['error']['ip'] + ' <button type="button" id="button-ip-add" data-loading-text="{{ text_loading }}" class="btn btn-danger btn-xs pull-right"><i class="fa fa-plus"></i>{{ button_ip_add }}</button></div>');
+                      }
+                  } else {
+                    {# Requires a service extension. #}
+                      $.ajax({
+                          url: '{{ catalog }}index.php?route=extension/module/subscription&api_token={{ api_token }}&subscription_id=' + $('#input-subscription-id').val(),
+                          type: 'post',
+                          dataType: 'json',
+                          data: $('#form-subscription').serialize(),
+                          beforeSend: function () {
+                              $('#button-remaining').button('loading');
+                          },
+                          complete: function () {
+                              $('#button-remaining').button('reset');
+                          },
+                          success: function (json1) {
+                              $('.alert-dismissible').remove();
+
+                              if (json1['error']) {
+                                  $('#tab-general').prepend('<div class="alert alert-danger alert-dismissible"><i class="fa fa-exclamation-circle"></i> ' + json1['error'] + ' <button type="button" class="close" data-dismiss="alert">&times;</button></div>');
+                              }
+
+                              if (json1['success']) {
+                                  $('#tab-general').prepend('<div class="alert alert-success alert-dismissible"><i class="fa fa-check-circle"></i> ' + json1['success'] + ' <button type="button" class="close" data-dismiss="alert">&times;</button></div>');
+                              }
+                          },
+                          error: function (xhr, ajaxOptions, thrownError) {
+                              console.log(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
+                          }
+                      }).done(function () {
+
+                      });
+                  }
+              });
+          {% endif %}
+      });
+  //--></script>
 </div>
 {{ footer }}

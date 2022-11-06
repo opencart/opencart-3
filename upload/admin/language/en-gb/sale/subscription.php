@@ -61,6 +61,9 @@ $_['entry_override']             = 'Override';
 $_['entry_date_from']            = 'Date From';
 $_['entry_date_to']              = 'Date To';
 
+// Button
+$_['button_remaining']           = 'Refresh renewal date';
+
 // Error
 $_['error_permission']           = 'Warning: You do not have permission to modify subscriptions!';
 $_['error_status']               = 'Error: The subscription status does not match with the store status!';
@@ -69,3 +72,4 @@ $_['error_subscription_plan']    = 'Warning: Subscription plan does not exist!';
 $_['error_subscription_status']  = 'Warning: Subscription status needs to be selected!';
 $_['error_payment_method']       = 'Warning: Payment method does not exist!';
 $_['error_service_type']         = 'The service status has not been included with this transaction. If you see this error message, please contact your extension developer that handles the subscription services to resolve this issue!';
+$_['error_module']               = 'The subscription extension module has either not been installed or it is currently disabled from the admin > extensions > extensions > modules page!';

@@ -456,11 +456,35 @@ class ControllerSaleSubscription extends Controller {
             $data['subscription_status_id'] = '';
         }
 
+        $data['permission'] = $this->user->hasPermission('modify', 'sale/subscription');
+
         // Subscription Module
         if ($this->config->has('module_subscription_status')) {
             $data['module_subscription_status'] = $this->config->get('module_subscription_status');
         } else {
             $data['module_subscription_status'] = '';
+        }
+
+        // API login
+        $this->load->model('user/api');
+
+        $data['catalog'] = $this->request->server['HTTPS'] ? HTTPS_CATALOG : HTTP_CATALOG;
+
+        $api_info = $this->model_user_api->getApi($this->config->get('config_api_id'));
+
+        if ($api_info && $this->user->hasPermission('modify', 'sale/subscription')) {
+            // Session
+            $session = new \Session($this->config->get('session_engine'), $this->registry);
+            $session->start();
+
+            $this->model_user_api->deleteApiSessionBySessionId($session->getId());
+            $this->model_user_api->addApiSession($api_info['api_id'], $session->getId(), $this->request->server['REMOTE_ADDR']);
+
+            $session->data['api_id'] = $api_info['api_id'];
+
+            $data['api_token'] = $session->getId();
+        } else {
+            $data['api_token'] = '';
         }
 
         $data['user_token'] = $this->session->data['user_token'];
