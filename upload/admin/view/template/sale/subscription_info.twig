@@ -351,16 +351,7 @@
                           url: '{{ catalog }}index.php?route=extension/module/subscription&api_token={{ api_token }}&subscription_id=' + $('#input-subscription-id').val(),
                           type: 'post',
                           dataType: 'json',
-                          data: $('#form-subscription').serialize(),
-                          beforeSend: function () {
-                              $('#button-remaining').button('loading');
-                          },
-                          complete: function () {
-                              $('#button-remaining').button('reset');
-                          },
                           success: function (json1) {
-                              $('.alert-dismissible').remove();
-
                               if (json1['error']) {
                                   $('#tab-general').prepend('<div class="alert alert-danger alert-dismissible"><i class="fa fa-exclamation-circle"></i> ' + json1['error'] + ' <button type="button" class="close" data-dismiss="alert">&times;</button></div>');
                               }
