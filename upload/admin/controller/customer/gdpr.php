@@ -95,8 +95,8 @@ class ControllerCustomerGdpr extends Controller {
             'filter_status'    => $filter_status,
             'filter_date_from' => $filter_date_from,
             'filter_date_to'   => $filter_date_to,
-            'start'            => ($page - 1) * $this->config->get('config_pagination_admin'),
-            'limit'            => $this->config->get('config_pagination_admin')
+            'start'            => ($page - 1) * $this->config->get('config_limit_admin'),
+            'limit'            => $this->config->get('config_limit_admin')
         ];
 
         // Customers
