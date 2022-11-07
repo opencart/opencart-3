@@ -5,6 +5,13 @@ class ControllerCustomerGdpr extends Controller {
 
         $this->document->setTitle($this->language->get('heading_title'));
 
+        // GDPR
+        $this->load->model('customer/gdpr');
+
+        $this->getList();
+    }
+
+    public function getList(): void {
         if (isset($this->request->get['filter_email'])) {
             $filter_email = $this->request->get['filter_email'];
         } else {
@@ -33,6 +40,12 @@ class ControllerCustomerGdpr extends Controller {
             $filter_date_to = $this->request->get['filter_date_to'];
         } else {
             $filter_date_to = '';
+        }
+
+        if (isset($this->request->get['page'])) {
+            $page = (int)$this->request->get['page'];
+        } else {
+            $page = 1;
         }
 
         $url = '';
@@ -74,64 +87,6 @@ class ControllerCustomerGdpr extends Controller {
         ];
 
         // GDPR
-        $this->load->model('customer/gdpr');
-
-        $data['gdprs'] = $this->model_customer_gdpr->getGdprs();
-
-        $data['user_token'] = $this->session->data['user_token'];
-
-        $data['filter_email'] = $filter_email;
-        $data['filter_action'] = $filter_action;
-        $data['filter_status'] = $filter_status;
-        $data['filter_date_from'] = $filter_date_from;
-        $data['filter_date_to'] = $filter_date_to;
-
-        $data['header'] = $this->load->controller('common/header');
-        $data['column_left'] = $this->load->controller('common/column_left');
-        $data['footer'] = $this->load->controller('common/footer');
-
-        $this->response->setOutput($this->load->view('customer/gdpr', $data));
-    }
-
-    public function gdpr(): void {
-        $this->load->language('customer/gdpr');
-
-        if (isset($this->request->get['filter_email'])) {
-            $filter_email = $this->request->get['filter_email'];
-        } else {
-            $filter_email = '';
-        }
-
-        if (isset($this->request->get['filter_action'])) {
-            $filter_action = $this->request->get['filter_action'];
-        } else {
-            $filter_action = '';
-        }
-
-        if (isset($this->request->get['filter_status'])) {
-            $filter_status = $this->request->get['filter_status'];
-        } else {
-            $filter_status = '';
-        }
-
-        if (isset($this->request->get['filter_date_from'])) {
-            $filter_date_from = $this->request->get['filter_date_from'];
-        } else {
-            $filter_date_from = '';
-        }
-
-        if (isset($this->request->get['filter_date_to'])) {
-            $filter_date_to = $this->request->get['filter_date_to'];
-        } else {
-            $filter_date_to = '';
-        }
-
-        if (isset($this->request->get['page'])) {
-            $page = (int)$this->request->get['page'];
-        } else {
-            $page = 1;
-        }
-
         $data['gdprs'] = [];
 
         $filter_data = [
@@ -140,12 +95,9 @@ class ControllerCustomerGdpr extends Controller {
             'filter_status'    => $filter_status,
             'filter_date_from' => $filter_date_from,
             'filter_date_to'   => $filter_date_to,
-            'start'            => ($page - 1) * $this->config->get('config_limit_admin'),
-            'limit'            => $this->config->get('config_limit_admin')
+            'start'            => ($page - 1) * $this->config->get('config_pagination_admin'),
+            'limit'            => $this->config->get('config_pagination_admin')
         ];
-
-        // GDPR
-        $this->load->model('customer/gdpr');
 
         // Customers
         $this->load->model('customer/customer');
@@ -176,39 +128,19 @@ class ControllerCustomerGdpr extends Controller {
             ];
         }
 
-        $url = '';
+        $data['user_token'] = $this->session->data['user_token'];
 
-        if (isset($this->request->get['filter_email'])) {
-            $url .= '&filter_email=' . urlencode(html_entity_decode($this->request->get['filter_email'], ENT_QUOTES, 'UTF-8'));
-        }
+        $data['filter_email'] = $filter_email;
+        $data['filter_action'] = $filter_action;
+        $data['filter_status'] = $filter_status;
+        $data['filter_date_from'] = $filter_date_from;
+        $data['filter_date_to'] = $filter_date_to;
 
-        if (isset($this->request->get['filter_action'])) {
-            $url .= '&filter_action=' . $this->request->get['filter_action'];
-        }
+        $data['header'] = $this->load->controller('common/header');
+        $data['column_left'] = $this->load->controller('common/column_left');
+        $data['footer'] = $this->load->controller('common/footer');
 
-        if (isset($this->request->get['filter_status'])) {
-            $url .= '&filter_status=' . $this->request->get['filter_status'];
-        }
-
-        if (isset($this->request->get['filter_date_from'])) {
-            $url .= '&filter_date_from=' . $this->request->get['filter_date_from'];
-        }
-
-        if (isset($this->request->get['filter_date_to'])) {
-            $url .= '&filter_date_to=' . $this->request->get['filter_date_to'];
-        }
-
-        $pagination = new \Pagination();
-        $pagination->total = $gdpr_total;
-        $pagination->page = $page;
-        $pagination->limit = $this->config->get('config_limit_admin');
-        $pagination->url = $this->url->link('customer/gdpr/gdpr', 'user_token=' . $this->session->data['user_token'] . $url . '&page={page}', true);
-
-        $data['pagination'] = $pagination->render();
-
-        $data['results'] = sprintf($this->language->get('text_pagination'), ($gdpr_total) ? (($page - 1) * $this->config->get('config_limit_admin')) + 1 : 0, ((($page - 1) * $this->config->get('config_limit_admin')) > ($gdpr_total - $this->config->get('config_limit_admin'))) ? $gdpr_total : ((($page - 1) * $this->config->get('config_limit_admin')) + $this->config->get('config_limit_admin')), $gdpr_total, ceil($gdpr_total / $this->config->get('config_limit_admin')));
-
-        $this->response->setOutput($this->load->view('customer/gdpr_list', $data));
+        $this->response->setOutput($this->load->view('customer/gdpr', $data));
     }
 
     /*

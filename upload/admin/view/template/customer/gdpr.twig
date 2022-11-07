@@ -38,19 +38,47 @@
               <label class="control-label" for="input-action">{{ entry_action }}</label>
               <select name="filter_action" id="input-action" class="form-control">
                 <option value=""></option>
-                <option value="export">{{ text_export }}</option>
-                <option value="remove">{{ text_remove }}</option>
+                {% if filter_action == 'export' %}
+                  <option value="export" selected="selected">{{ text_export }}</option>
+                {% else %}
+                  <option value="export">{{ text_export }}</option>
+                {% endif %}
+                {% if filter_action == 'remove' %}
+                  <option value="remove" selected="selected">{{ text_remove }}</option>
+                {% else %}
+                  <option value="remove">{{ text_remove }}</option>
+                {% endif %}
               </select>
             </div>
             <div class="form-group">
               <label class="control-label" for="input-status">{{ entry_status }}</label>
               <select name="filter_status" id="input-status" class="form-control">
                 <option value=""></option>
-                <option value="0">{{ text_unverified }}</option>
-                <option value="1">{{ text_pending }}</option>
-                <option value="2">{{ text_processing }}</option>
-                <option value="3">{{ text_complete }}</option>
-                <option value="-1">{{ text_denied }}</option>
+                {% if filter_status == '0' %}
+                  <option value="0" selected="selected">{{ text_unverified }}</option>
+                {% else %}
+                  <option value="0">{{ text_unverified }}</option>
+                {% endif %}
+                {% if filter_status == '1' %}
+                  <option value="1" selected="selected">{{ text_pending }}</option>
+                {% else %}
+                  <option value="1">{{ text_pending }}</option>
+                {% endif %}
+                {% if filter_status == '2' %}
+                  <option value="2" selected="selected">{{ text_processing }}</option>
+                {% else %}
+                  <option value="2">{{ text_processing }}</option>
+                {% endif %}
+                {% if filter_status == '3' %}
+                  <option value="3" selected="selected">{{ text_complete }}</option>
+                {% else %}
+                  <option value="3">{{ text_complete }}</option>
+                {% endif %}
+                {% if filter_status == '-1' %}
+                  <option value="-1" selected="selected">{{ text_denied }}</option>
+                {% else %}
+                  <option value="-1">{{ text_denied }}</option>
+                {% endif %}
               </select>
             </div>
             <div class="form-group">
@@ -79,56 +107,67 @@
             <h3 class="panel-title"><i class="fa fa-list"></i> {{ text_list }}</h3>
           </div>
           <div class="panel-body">
-            <div id="gdpr"></div>
+            <div class="table-responsive">
+              <table class="table table-bordered table-hover">
+                <thead>
+                <tr>
+                  <td class="text-center">{{ column_email }}</td>
+                  <td class="text-left">{{ column_request }}</td>
+                  <td class="text-left">{{ column_status }}</td>
+                  <td class="text-left">{{ column_date_added }}</td>
+                  <td class="text-right">{{ column_action }}</td>
+                </tr>
+                </thead>
+                <tbody>
+                {% if gdprs %}
+                  {% for gdpr in gdpr %}
+                    <tr>
+                      <td style="width: 1px;" class="text-center"><input type="checkbox" onclick="$('input[name*=\'selected\']').prop('checked', this.checked);"/></td>
+                      <td class="text-center">
+                        {% if gdpr.edit %}
+                          <a href="{{ gdpr.edit }}">{{ gdpr.email }}</a>
+                        {% else %}
+                          {{ gdpr.email }}
+                        {% endif %}
+                      </td>
+                      <td class="text-left">{{ gdpr.action }}</td>
+                      <td class="text-left">
+                        {% if gdpr.status == '-1' %}
+                          {{ text_denied }}
+                        {% elseif gdpr.status == '0' %}
+                          {{ text_unverified }}
+                        {% elseif gdpr.status == '1' %}
+                          {{ text_pending }}
+                        {% elseif gdpr.status == '2' %}
+                          {{ text_processing }}
+                        {% elseif gdpr.status == '3' %}
+                          {{ text_complete }}
+                        {% endif %}
+                      </td>
+                      <td class="text-left">{{ customer.date_added }}</td>
+                      <td class="text-right">{{ column_action }}</td>
+                    </tr>
+                  {% endfor %}
+                {% else %}
+                  <tr>
+                    <td class="text-center" colspan="5">{{ text_no_results }}</td>
+                  </tr>
+                {% endif %}
+                </tbody>
+              </table>
+            </div>
+            <div class="row">
+              <div class="col-sm-6 text-left">{{ pagination }}</div>
+              <div class="col-sm-6 text-right">{{ results }}</div>
+            </div>
           </div>
         </div>
       </div>
     </div>
   </div>
   <script type="text/javascript"><!--
-      $('#gdpr').delegate('.pagination a', 'click', function (e) {
-          e.preventDefault();
-
-          $('#gdpr').load(this.href);
-      });
-
-      $('#gdpr').load('index.php?route=customer/gdpr/gdpr&user_token={{ user_token }}');
-
-      $('#gdpr').on('click', '.btn-success, .btn-danger', function (e) {
-          e.preventDefault();
-
-          var element = this;
-
-          $.ajax({
-              url: $(element).attr('href'),
-              dataType: 'json',
-              beforeSend: function () {
-                  $(element).button('loading');
-              },
-              complete: function () {
-                  $(element).button('reset');
-              },
-              success: function (json) {
-                  $('.alert-dismissible').remove();
-
-                  if (json['error']) {
-                      $('#gdpr').before('<div class="alert alert-danger alert-dismissible"><i class="fa fa-exclamation-circle"></i> ' + json['error'] + ' <button type="button" class="close" data-dismiss="alert">&times;</button></div>');
-                  }
-
-                  if (json['success']) {
-                      $('#gdpr').load('index.php?route=customer/gdpr/gdpr&user_token={{ user_token }}');
-
-                      $('#gdpr').before('<div class="alert alert-success alert-dismissible"><i class="fa fa-check-circle"></i> ' + json['success'] + ' <button type="button" class="close" data-dismiss="alert">&times;</button></div>');
-                  }
-              },
-              error: function (xhr, ajaxOptions, thrownError) {
-                  alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
-              }
-          });
-      });
-
       $('#button-filter').on('click', function () {
-          url = '';
+          url = 'index.php?route=customer/gdpr&user_token={{ user_token }}';
 
           var filter_email = $('input[name=\'filter_email\']').val();
 
@@ -160,7 +199,7 @@
               url += '&filter_date_to=' + encodeURIComponent(filter_date_to);
           }
 
-          $('#gdpr').load('index.php?route=customer/gdpr/gdpr&user_token={{ user_token }}' + url);
+          location = url;
       });
   //--></script>
   <script type="text/javascript"><!--
