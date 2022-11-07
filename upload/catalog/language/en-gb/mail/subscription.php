@@ -1,5 +1,7 @@
 <?php
 // Text
+$_['text_subject']               = '%s - Subscription %s';
+$_['text_greeting']              = 'Thank you for your interest in %s products. Your subscription payment has been received and will be processed once payment has been confirmed.';
 $_['text_subscription_trial']    = '%s every %d %s(s) for %d payment(s) then ';
 $_['text_subscription_duration'] = '%s every %d %s(s) for %d payment(s)';
 $_['text_subscription_cancel']   = '%s every %d %s(s) until canceled';

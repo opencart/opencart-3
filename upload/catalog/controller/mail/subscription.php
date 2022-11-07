@@ -212,17 +212,11 @@ class ControllerMailSubscription extends Controller {
                 }
 
                 // Load the language for any mails using a different country code and prefixing it, so it does not pollute the main data pool.
-                $this->language->load($language_code, 'mail', $language_code);
-                $this->language->load('mail/order_add', 'mail', $language_code);
+                $language = new \Language($order_info['language_code']);
+                $language->load($order_info['language_code']);
+                $language->load('mail/subscription');
 
-                // Add language vars to the template folder
-                $results = $this->language->all('mail');
-
-                foreach ($results as $key => $value) {
-                    $data[$key] = $value;
-                }
-
-                $subject = sprintf($this->language->get('mail_text_subject'), $store_name, $order_info['order_id']);
+                $subject = sprintf($language->get('text_subject'), $store_name, $order_info['order_id']);
 
                 // Image files
                 $this->load->model('tool/image');
@@ -236,9 +230,9 @@ class ControllerMailSubscription extends Controller {
                 // Orders
                 $this->load->model('account/order');
 
-                $data['title'] = sprintf($this->language->get('mail_text_subject'), $store_name, $order_info['order_id']);
+                $data['title'] = sprintf($language->get('text_subject'), $store_name, $order_info['order_id']);
 
-                $data['text_greeting'] = sprintf($this->language->get('mail_text_greeting'), $order_info['store_name']);
+                $data['text_greeting'] = sprintf($language->get('text_greeting'), $order_info['store_name']);
 
                 $data['store'] = $store_name;
                 $data['store_url'] = $order_info['store_url'];
@@ -247,7 +241,7 @@ class ControllerMailSubscription extends Controller {
                 $data['link'] = $order_info['store_url'] . 'index.php?route=account/subscription.info&subscription_id=' . $subscription_id;
 
                 $data['order_id'] = $order_info['order_id'];
-                $data['date_added'] = date($this->language->get('mail_date_format_short'), strtotime($subscription_info['date_added']));
+                $data['date_added'] = date($language->get('date_format_short'), strtotime($subscription_info['date_added']));
                 $data['payment_method'] = $order_info['payment_method'];
                 $data['email'] = $order_info['email'];
                 $data['telephone'] = $order_info['telephone'];
