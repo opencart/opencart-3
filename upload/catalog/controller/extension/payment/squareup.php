@@ -231,6 +231,13 @@ class ControllerExtensionPaymentSquareup extends Controller {
                                     $item['subscription']['trial_duration'] = 0;
                                 }
 
+                                // Trial
+                                if ($item['subscription']['trial_status'] && (!$item['subscription']['trial_duration'] || $item['subscription']['trial_remaining'])) {
+                                    $date_next = date('Y-m-d', strtotime('+' . $item['subscription']['trial_cycle'] . ' ' . $item['subscription']['trial_frequency']));
+                                } elseif (!$item['subscription']['duration'] || $item['subscription']['remaining']) {
+                                    $date_next = date('Y-m-d', strtotime('+' . $item['subscription']['cycle'] . ' ' . $item['subscription']['frequency']));
+                                }
+
                                 $subscription_data = [
                                     'order_product_id'     => $order_product['order_product_id'],
                                     'customer_id'          => $order_info['customer_id'],
@@ -249,7 +256,8 @@ class ControllerExtensionPaymentSquareup extends Controller {
                                     'cycle'                => $item['subscription']['cycle'],
                                     'duration'             => $item['subscription']['duration'],
                                     'remaining'            => $item['subscription']['duration'],
-                                    'status'               => $item['subscription']['status']
+                                    'status'               => $item['subscription']['status'],
+                                    'date_next'            => $date_next
                                 ];
 
                                 $subscription_id = $this->model_extension_payment_squareup->createRecurring($this->session->data['order_id'], $subscription_data);
