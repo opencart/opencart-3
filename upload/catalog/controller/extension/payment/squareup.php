@@ -232,21 +232,24 @@ class ControllerExtensionPaymentSquareup extends Controller {
                                 }
 
                                 $subscription_data = [
-                                    'order_id'         => $this->session->data['order_id'],
-                                    'order_product_id' => $order_product['order_product_id'],
-                                    'trial_price'      => $item['subscription']['trial_price'],
-                                    'trial_cycle'      => $item['subscription']['trial_cycle'],
-                                    'trial_frequency'  => $item['subscription']['trial_frequency'],
-                                    'trial_duration'   => $item['subscription']['trial_duration'],
-                                    'trial_status'     => $item['subscription']['trial_status'],
-                                    'name'             => $item['subscription']['name'],
-                                    'description'      => $item['subscription']['description'],
-                                    'price'            => $item['subscription']['price'],
-                                    'cycle'            => $item['subscription']['cycle'],
-                                    'frequency'        => $item['subscription']['frequency'],
-                                    'duration'         => $item['subscription']['duration'],
-                                    'status'           => $item['subscription']['status'],
-                                    'date_next'        => date('Y-m-d H:i:s')
+                                    'order_product_id'     => $order_product['order_product_id'],
+                                    'customer_id'          => $order_info['customer_id'],
+                                    'order_id'             => $this->session->data['order_id'],
+                                    'subscription_plan_id' => $item['subscription']['subscription_plan_id'],
+                                    'name'                 => $item['subscription']['name'],
+                                    'description'          => $item['subscription']['description'],
+                                    'trial_price'          => $item['subscription']['trial_price'],
+                                    'trial_frequency'      => $item['subscription']['trial_frequency'],
+                                    'trial_cycle'          => $item['subscription']['trial_cycle'],
+                                    'trial_duration'       => $item['subscription']['trial_duration'],
+                                    'trial_remaining'      => $item['subscription']['trial_remaining'],
+                                    'trial_status'         => $item['subscription']['trial_status'],
+                                    'price'                => $item['subscription']['price'],
+                                    'frequency'            => $item['subscription']['frequency'],
+                                    'cycle'                => $item['subscription']['cycle'],
+                                    'duration'             => $item['subscription']['duration'],
+                                    'remaining'            => $item['subscription']['duration'],
+                                    'status'               => $item['subscription']['status']
                                 ];
 
                                 $subscription_id = $this->model_extension_payment_squareup->createRecurring($this->session->data['order_id'], $subscription_data);
