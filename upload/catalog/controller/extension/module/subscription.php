@@ -1,6 +1,6 @@
 <?php
 class ControllerExtensionModuleSubscription extends Controller {
-    public function renew(): void {
+    public function dateNext(): void {
         $this->load->language('extension/module/subscription');
 
         $json = [];

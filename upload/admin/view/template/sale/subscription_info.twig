@@ -348,7 +348,7 @@
                   } else {
                     {# Requires a service extension. #}
                       $.ajax({
-                          url: '{{ catalog }}index.php?route=extension/module/subscription/renew&api_token={{ api_token }}&subscription_id=' + $('#input-subscription-id').val(),
+                          url: '{{ catalog }}index.php?route=extension/module/subscription/dateNext&api_token={{ api_token }}&subscription_id=' + $('#input-subscription-id').val(),
                           dataType: 'json',
                           success: function (json1) {
                               if (json1['status']) {
