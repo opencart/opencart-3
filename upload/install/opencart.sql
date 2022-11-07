@@ -1568,6 +1568,8 @@ INSERT INTO `oc_event` (`code`, `trigger`, `action`, `status`, `sort_order`) VAL
 ('advertise_google', 'catalog/view/common/home/after', 'extension/advertise/google/google_dynamic_remarketing_home', 1, 0);
 INSERT INTO `oc_event` (`code`, `trigger`, `action`, `status`, `sort_order`) VALUES
 ('advertise_google', 'catalog/view/checkout/cart/after', 'extension/advertise/google/google_dynamic_remarketing_cart', 1, 0);
+INSERT INTO `oc_event` (`code`, `trigger`, `action`, `status`, `sort_order`) VALUES
+('mail_subscription', 'catalog/model/checkout/subscription/addSubscription/after', 'mail/subscription', 1, 0);
 
 -----------------------------------------------------------
 
