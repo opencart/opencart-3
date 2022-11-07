@@ -127,7 +127,8 @@ class ControllerMailSubscription extends Controller {
             }
 
             // Description. If the description fails, it means the product is no longer available
-            // in the store. Therefore, the customer will need to create a new order.
+            // in the store. Therefore, the customer will need to create a new order unless the
+            // checkout order ID has already been created.
             if ((!$description) || ($description != $subscription_info['description'])) {
                 $this->model_checkout_subscription->addHistory($subscription_id, $subscription_status_id, $this->language->get('error_description'));
             }
