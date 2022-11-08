@@ -83,8 +83,6 @@ class ModelCheckoutOrder extends Model {
         // Subscription
         $this->load->model('checkout/subscription');
 
-        $this->model_checkout_subscription->deleteSubscriptionByOrderId($order_id);
-
         // Products
         if (isset($data['products'])) {
             foreach ($data['products'] as $product) {
@@ -94,13 +92,6 @@ class ModelCheckoutOrder extends Model {
 
                 foreach ($product['option'] as $option) {
                     $this->db->query("INSERT INTO `" . DB_PREFIX . "order_option` SET `order_id` = '" . (int)$order_id . "', `order_product_id` = '" . (int)$order_product_id . "', `product_option_id` = '" . (int)$option['product_option_id'] . "', `product_option_value_id` = '" . (int)$option['product_option_value_id'] . "', `name` = '" . $this->db->escape($option['name']) . "', `value` = '" . $this->db->escape($option['value']) . "', `type` = '" . $this->db->escape($option['type']) . "'");
-                }
-
-                if ($product['subscription']) {
-                    $this->model_checkout_subscription->addSubscription($order_id, $product['subscription'] + [
-                        'order_product_id' => $order_product_id,
-                        'customer_id'      => $data['customer_id']
-                    ]);
                 }
             }
         }
