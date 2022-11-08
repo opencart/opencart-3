@@ -98,9 +98,9 @@ class ModelCheckoutOrder extends Model {
 
                 if ($product['subscription']) {
                     $this->model_checkout_subscription->addSubscription($order_id, $product['subscription'] + [
-                            'order_product_id' => $order_product_id,
-                            'customer_id'      => $data['customer_id']
-                        ]);
+                        'order_product_id' => $order_product_id,
+                        'customer_id'      => $data['customer_id']
+                    ]);
                 }
             }
         }
