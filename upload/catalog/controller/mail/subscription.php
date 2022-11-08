@@ -29,7 +29,7 @@ class ControllerMailSubscription extends Controller {
         $subscription['customer_id']
         $subscription['order_id']
         $subscription['subscription_plan_id']
-        $subscription['customer_plan_id'],
+        $subscription['customer_payment_id'],
         $subscription['name']
         $subscription['description']
         $subscription['trial_price']
@@ -143,7 +143,7 @@ class ControllerMailSubscription extends Controller {
                 }
 
                 // Payment Methods
-                if (!isset($subscription['customer_plan_id'])) {
+                if (!isset($subscription['customer_payment_id'])) {
                     $this->model_checkout_subscription->addHistory($subscription_id, $subscription_status_id, $this->language->get('error_payment_method'));
 
                     $status = false;
