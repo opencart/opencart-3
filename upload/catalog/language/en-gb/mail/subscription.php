@@ -46,3 +46,6 @@ $_['error_cycle']                = 'Warning: The trial cycle or the cycle do not
 $_['error_duration']             = 'Warning: The trial duration or the duration do not match!';
 $_['error_remaining']            = 'Warning: The trial remaining period or the remaining period do not match!';
 $_['error_date_next']            = 'Warning: The next renewal date does not match!';
+$_['error_payment_method']       = 'Warning: The selected payment method could not be found!';
+$_['error_extension']            = 'Warning: The extension name with the payment method could not be found!';
+$_['error_extension_payment']    = 'Warning: The customer payment ID does not match with this extension: %s !';

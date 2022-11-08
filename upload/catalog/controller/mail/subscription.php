@@ -29,6 +29,7 @@ class ControllerMailSubscription extends Controller {
         $subscription['customer_id']
         $subscription['order_id']
         $subscription['subscription_plan_id']
+        $subscription['customer_plan_id'],
         $subscription['name']
         $subscription['description']
         $subscription['trial_price']
@@ -51,8 +52,12 @@ class ControllerMailSubscription extends Controller {
         // Subscription
         $this->load->model('checkout/subscription');
 
+        $status = true;
+
         if (!isset($subscription['order_product_id'])) {
             $this->model_checkout_subscription->addHistory($subscription_id, $subscription_status_id, $this->language->get('error_order_product'));
+
+            $status = false;
         } else {
             $subscription_info = $this->model_checkout_subscription->getSubscriptionByOrderProductId($subscription['order_product_id']);
 
@@ -60,6 +65,8 @@ class ControllerMailSubscription extends Controller {
                 // Statuses
                 if ((!isset($subscription['trial_status'])) || (!isset($subscription['status'])) || ($subscription_info['trial_status'] != $subscription['trial_status']) || ($subscription_info['status'] != $subscription['status'])) {
                     $this->model_checkout_subscription->addHistory($subscription_id, $subscription_status_id, $this->language->get('error_status'));
+
+                    $status = false;
                 }
 
                 $this->load->model('account/customer');
@@ -70,11 +77,15 @@ class ControllerMailSubscription extends Controller {
                 // does not match with the $subscription_info['customer_id']. Therefore, we need to validate both.
                 if ((!isset($subscription['customer_id'])) || (!$customer_info) || ($subscription_info['customer_id'] != $subscription['customer_id'])) {
                     $this->model_checkout_subscription->addHistory($subscription_id, $subscription_status_id, $this->language->get('error_customer'));
+
+                    $status = false;
                 }
 
                 // Subscription name
                 if ((!isset($subscription['name'])) || ($subscription_info['name'] != $subscription['name'])) {
                     $this->model_checkout_subscription->addHistory($subscription_id, $subscription_status_id, $this->language->get('error_name'));
+
+                    $status = false;
                 }
 
                 // Orders
@@ -90,6 +101,8 @@ class ControllerMailSubscription extends Controller {
 
                 if ((!isset($subscription['subscription_plan_id'])) || (!$product_subscription_info) || ($subscription_info['subscription_plan_id'] != $subscription['subscription_plan_id'])) {
                     $this->model_checkout_subscription->addHistory($subscription_id, $subscription_status_id, $this->language->get('error_plan'));
+
+                    $status = false;
                 }
 
                 $products = $this->cart->getProducts();
@@ -125,36 +138,75 @@ class ControllerMailSubscription extends Controller {
                 // checkout order ID has already been created.
                 if ((!$description) || ($description != $subscription_info['description'])) {
                     $this->model_checkout_subscription->addHistory($subscription_id, $subscription_status_id, $this->language->get('error_description'));
+
+                    $status = false;
+                }
+
+                // Payment Methods
+                if (!isset($subscription['customer_plan_id'])) {
+                    $this->model_checkout_subscription->addHistory($subscription_id, $subscription_status_id, $this->language->get('error_payment_method'));
+
+                    $status = false;
+                } else {
+                    $this->load->model('account/payment_method');
+
+                    $payment_method = $this->model_account_payment_method->getPaymentMethod($subscription_info['customer_id'], $subscription_info['customer_payment_id']);
+
+                    if (!$payment_method) {
+                        $this->model_checkout_subscription->addHistory($subscription_id, $subscription_status_id, $this->language->get('error_payment_method'));
+
+                        $status = false;
+                    } elseif (!$payment_method['extension']) {
+                        $this->model_checkout_subscription->addHistory($subscription_id, $subscription_status_id, $this->language->get('error_extension'));
+
+                        $status = false;
+                    } elseif ($payment_method['customer_payment_id'] != $subscription['customer_payment_id']) {
+                        $this->model_checkout_subscription->addHistory($subscription_id, $subscription_status_id, sprintf($this->language->get('error_extension_payment'), $payment_method['extension']));
+
+                        $status = false;
+                    }
                 }
 
                 // Trial Price
                 if ((!isset($subscription['trial_price'])) || (!isset($subscription['price'])) || ($subscription_info['trial_price'] != $subscription['trial_price']) || ($subscription_info['price'] != $subscription['price'])) {
                     $this->model_checkout_subscription->addHistory($subscription_id, $subscription_status_id, $this->language->get('error_price'));
+
+                    $status = false;
                 }
 
                 // Trial Frequency
                 if ((!isset($subscription['trial_frequency'])) || (!isset($subscription['frequency'])) || ($subscription_info['trial_frequency'] != $subscription['trial_frequency']) || ($subscription_info['frequency'] != $subscription['frequency'])) {
                     $this->model_checkout_subscription->addHistory($subscription_id, $subscription_status_id, $this->language->get('error_frequency'));
+
+                    $status = false;
                 }
 
                 // Trial Cycle
                 if ((!isset($subscription['trial_cycle'])) || (!isset($subscription['cycle'])) || ($subscription_info['trial_cycle'] != $subscription['trial_cycle']) || ($subscription_info['cycle'] != $subscription['cycle'])) {
                     $this->model_checkout_subscription->addHistory($subscription_id, $subscription_status_id, $this->language->get('error_cycle'));
+
+                    $status = false;
                 }
 
                 // Trial Duration
                 if ((!isset($subscription['trial_duration'])) || (!isset($subscription['duration'])) || ($subscription_info['trial_duration'] != $subscription['trial_duration']) || ($subscription_info['duration'] != $subscription['duration'])) {
                     $this->model_checkout_subscription->addHistory($subscription_id, $subscription_status_id, $this->language->get('error_duration'));
+
+                    $status = false;
                 }
 
                 // Trial Remaining
                 if ((!isset($subscription['trial_remaining'])) || (!isset($subscription['remaining'])) || ($subscription_info['trial_remaining'] != $subscription['trial_remaining']) || ($subscription_info['remaining'] != $subscription['remaining'])) {
                     $this->model_checkout_subscription->addHistory($subscription_id, $subscription_status_id, $this->language->get('error_remaining'));
+
+                    $status = false;
                 }
 
                 // Date Next needs to be added to the array by using an extension.
                 if ((!isset($subscription['date_next'])) || ($subscription_info['date_next'] != $subscription['date_next'])) {
                     $this->model_checkout_subscription->addHistory($subscription_id, $subscription_status_id, $this->language->get('error_date_next'));
+
+                    $status = false;
                 }
 
                 // Orders
@@ -166,7 +218,11 @@ class ControllerMailSubscription extends Controller {
                 // does not match with the $subscription_info['order_id']. Therefore, we need to validate both.
                 if ((!isset($subscription['order_id'])) || (!$order_info) || ($subscription_info['order_id'] != $subscription['order_id'])) {
                     $this->model_checkout_subscription->addHistory($subscription_id, $subscription_status_id, $this->language->get('error_order'));
-                } else {
+
+                    $status = false;
+                }
+
+                if ($status) {
                     // Stores
                     $this->load->model('setting/store');
 
