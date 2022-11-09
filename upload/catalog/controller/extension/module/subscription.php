@@ -8,22 +8,18 @@ class ControllerExtensionModuleSubscription extends Controller {
         if (!isset($this->session->data['api_id'])) {
             $json['error']['warning'] = $this->language->get('error_permission');
         } else {
-            // Extensions
-            $this->load->model('setting/extension');
-
             $filter_data = [
                 'filter_subscription_id'        => $this->request->get['subscription_id'],
                 'filter_subscription_status_id' => $this->config->get('config_subscription_active_status_id'),
                 'filter_date_next'              => date('Y-m-d H:i:s')
             ];
 
+            // Subscription
             $this->load->model('account/subscription');
 
             $results = $this->model_account_subscription->getSubscriptions($filter_data);
 
             if ($results) {
-                $this->load->model('checkout/order');
-
                 foreach ($results as $result) {
                     if ($result['trial_status'] && (!$result['trial_duration'] || $result['trial_remaining'])) {
                         $amount = $result['trial_price'];
@@ -46,7 +42,29 @@ class ControllerExtensionModuleSubscription extends Controller {
 
                                 // Transaction
                                 if ($this->config->get('config_subscription_active_status_id') == $subscription_status_id) {
-                                    $this->model_account_subscription->addTransaction($result['subscription_id'], $this->language->get('text_success'), $amount, $result['order_id']);
+                                    $filter_data = [
+                                        'filter_date_next'              => date('Y-m-d', strtotime('+' . $result['trial_cycle'] . ' ' . $result['trial_frequency'])),
+                                        'filter_subscription_status_id' => $subscription_status_id,
+                                        'start'                         => 0,
+                                        'limit'                         => 1
+                                    ];
+
+                                    $subscriptions = $this->model_account_subscription->getSubscriptions($filter_data);
+
+                                    if ($subscriptions) {
+                                        foreach ($subscriptions as $subscription) {
+                                            // Only match the latest order ID of the same customer ID
+                                            // since new subscriptions cannot be re-added with the same
+                                            // order ID; only as a new order ID added by an extension
+                                            if ($subscription['customer_id'] == $result['customer_id'] && ($subscription['subscription_id'] != $result['subscription_id'] && $subscription['order_id'] != $result['order_id'])) {
+                                                $subscription_info = $this->model_account_subscription->getSubscription($subscription['subscription_id']);
+
+                                                if ($subscription_info) {
+                                                    $this->model_account_subscription->addTransaction($subscription['subscription_id'], $subscription['order_id'], $this->language->get('text_success'), $amount, $subscription_info['type'], $subscription_info['payment_method'], $subscription_info['payment_code']);
+                                                }
+                                            }
+                                        }
+                                    }
                                 }
                             } else {
                                 // Failed if payment method does not have recurring payment method
@@ -77,15 +95,11 @@ class ControllerExtensionModuleSubscription extends Controller {
                             if ($result['trial_duration'] && $result['trial_remaining']) {
                                 $this->model_account_subscription->editTrialRemaining($result['subscription_id'], $result['trial_remaining'] - 1);
                             }
-
-                            $this->model_account_subscription->editDateNext($result['subscription_id'], date('Y-m-d', strtotime('+' . $result['trial_cycle'] . ' ' . $result['trial_frequency'])));
                         } elseif (!$result['duration'] || $result['remaining']) {
                             // Subscription
                             if ($result['duration'] && $result['remaining']) {
                                 $this->model_account_subscription->editRemaining($result['subscription_id'], $result['remaining'] - 1);
                             }
-
-                            $this->model_account_subscription->editDateNext($result['subscription_id'], date('Y-m-d', strtotime('+' . $result['cycle'] . ' ' . $result['frequency'])));
                         }
                     }
                 }
