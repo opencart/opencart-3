@@ -35,324 +35,232 @@ class ControllerMailSubscription extends Controller {
         $subscription['trial_price']
         $subscription['trial_frequency']
         $subscription['trial_cycle']
-        $subscription['trial_duration' ]
-        $subscription['trial_remaining' ]
-        $subscription['trial_status' ]
-        $subscription['price' ]
-        $subscription['frequency' ]
-        $subscription['cycle' ]
-        $subscription['duration' ]
-        $subscription['remaining' ]
+        $subscription['trial_duration']
+        $subscription['trial_remaining']
+        $subscription['trial_status']
+        $subscription['price']
+        $subscription['frequency']
+        $subscription['cycle']
+        $subscription['duration']
+        $subscription['remaining']
         $subscription['date_next']
-        $subscription['status'	]
+        $subscription['status']
         */
 
-        $subscription_status_id = $this->config->get('config_subscription_failed_status_id');
+        if ($subscription['trial_duration'] && $subscription['trial_remaining']) {
+            $date_next = date('Y-m-d', strtotime('+' . $subscription['trial_cycle'] . ' ' . $subscription['trial_frequency']));
+        } elseif ($subscription['duration'] && $subscription['remaining']) {
+            $date_next = date('Y-m-d', strtotime('+' . $subscription['cycle'] . ' ' . $subscription['frequency']));
+        }
 
         // Subscription
-        $this->load->model('checkout/subscription');
+        $this->load->model('account/subscription');
 
-        $status = true;
+        $filter_data = [
+            'filter_subscription_id'        => $subscription_id,
+            'filter_date_next'              => $date_next,
+            'filter_subscription_status_id' => $this->config->get('config_subscription_active_status_id'),
+            'start'                         => 0,
+            'limit'                         => 1
+        ];
 
-        if (!isset($subscription['order_product_id'])) {
-            $this->model_checkout_subscription->addHistory($subscription_id, $subscription_status_id, $this->language->get('error_order_product'));
+        $subscriptions = $this->model_account_subscription->getSubscriptions($filter_data);
 
-            $status = false;
-        } else {
-            $subscription_info = $this->model_checkout_subscription->getSubscriptionByOrderProductId($subscription['order_product_id']);
-
-            if ($subscription_info) {
-                // Statuses
-                if ((!isset($subscription['trial_status'])) || (!isset($subscription['status'])) || ($subscription_info['trial_status'] != $subscription['trial_status']) || ($subscription_info['status'] != $subscription['status'])) {
-                    $this->model_checkout_subscription->addHistory($subscription_id, $subscription_status_id, $this->language->get('error_status'));
-
-                    $status = false;
-                }
-
-                $this->load->model('account/customer');
-
-                $customer_info = $this->model_account_customer->getCustomer($subscription['customer_id']);
-
-                // A customer ID could still succeed from database even though the $subscription['customer_id']
-                // does not match with the $subscription_info['customer_id']. Therefore, we need to validate both.
-                if ((!isset($subscription['customer_id'])) || (!$customer_info) || ($subscription_info['customer_id'] != $subscription['customer_id'])) {
-                    $this->model_checkout_subscription->addHistory($subscription_id, $subscription_status_id, $this->language->get('error_customer'));
-
-                    $status = false;
-                }
-
-                // Subscription name
-                if ((!isset($subscription['name'])) || ($subscription_info['name'] != $subscription['name'])) {
-                    $this->model_checkout_subscription->addHistory($subscription_id, $subscription_status_id, $this->language->get('error_name'));
-
-                    $status = false;
-                }
-
-                // Orders
-                $this->load->model('account/order');
-
-                // Order Products
-                $order_product = $this->model_account_order->getOrderProduct($subscription_info['order_id'], $subscription['order_product_id']);
-
-                // Products
-                $this->load->model('catalog/product');
-
-                $product_subscription_info = $this->model_catalog_product->getSubscription($order_product['product_id'], $subscription['subscription_plan_id']);
-
-                if ((!isset($subscription['subscription_plan_id'])) || (!$product_subscription_info) || ($subscription_info['subscription_plan_id'] != $subscription['subscription_plan_id'])) {
-                    $this->model_checkout_subscription->addHistory($subscription_id, $subscription_status_id, $this->language->get('error_plan'));
-
-                    $status = false;
-                }
-
-                $products = $this->cart->getProducts();
-
-                $description = '';
-
-                foreach ($products as $product) {
-                    if ($product['product_id'] == $order_product['product_id']) {
-                        $trial_price = $this->currency->format($this->tax->calculate($subscription['trial_price'], $product['tax_class_id'], $this->config->get('config_tax')), $this->session->data['currency']);
-                        $trial_cycle = $subscription['trial_cycle'];
-                        $trial_frequency = $this->language->get('text_' . $subscription['trial_frequency']);
-                        $trial_duration = $subscription['trial_duration'];
-
-                        if ($product['subscription']['trial_status']) {
-                            $description .= sprintf($this->language->get('text_subscription_trial'), $trial_price, $trial_cycle, $trial_frequency, $trial_duration);
-                        }
-
-                        $price = $this->currency->format($this->tax->calculate($subscription['price'], $product['tax_class_id'], $this->config->get('config_tax')), $this->session->data['currency']);
-                        $cycle = $subscription['cycle'];
-                        $frequency = $this->language->get('text_' . $subscription['frequency']);
-                        $duration = $subscription['duration'];
-
-                        if ($duration) {
-                            $description .= sprintf($this->language->get('text_subscription_duration'), $price, $cycle, $frequency, $duration);
-                        } else {
-                            $description .= sprintf($this->language->get('text_subscription_cancel'), $price, $cycle, $frequency);
-                        }
-                    }
-                }
-
-                // Description. If the description fails, it means the product is no longer available
-                // in the store. Therefore, the customer will need to create a new order unless the
-                // checkout order ID has already been created.
-                if ((!$description) || ($description != $subscription_info['description'])) {
-                    $this->model_checkout_subscription->addHistory($subscription_id, $subscription_status_id, $this->language->get('error_description'));
-
-                    $status = false;
-                }
-
-                // Payment Methods
-                if (!isset($subscription['customer_payment_id'])) {
-                    $this->model_checkout_subscription->addHistory($subscription_id, $subscription_status_id, $this->language->get('error_payment_method'));
-
-                    $status = false;
-                } else {
+        if ($subscriptions) {
+            foreach ($subscriptions as $value) {
+                // Only match the latest order ID of the same customer ID
+                // since new subscriptions cannot be re-added with the same
+                // order ID; only as a new order ID added by an extension
+                if ($value['customer_id'] == $subscription['customer_id'] && $value['order_id'] == $subscription['order_id']) {
+                    // Payment Methods
                     $this->load->model('account/payment_method');
 
-                    $payment_method = $this->model_account_payment_method->getPaymentMethod($subscription_info['customer_id'], $subscription_info['customer_payment_id']);
+                    $payment_method = $this->model_account_payment_method->getPaymentMethod($value['customer_id'], $value['customer_payment_id']);
 
-                    if (!$payment_method) {
-                        $this->model_checkout_subscription->addHistory($subscription_id, $subscription_status_id, $this->language->get('error_payment_method'));
+                    if ($payment_method) {
+                        // Subscription
+                        $this->load->model('checkout/subscription');
 
-                        $status = false;
-                    } elseif (!$payment_method['extension']) {
-                        $this->model_checkout_subscription->addHistory($subscription_id, $subscription_status_id, $this->language->get('error_extension'));
+                        $subscription_order_product = $this->model_checkout_subscription->getSubscriptionByOrderProductId($value['order_product_id']);
 
-                        $status = false;
-                    } elseif ($payment_method['customer_payment_id'] != $subscription['customer_payment_id']) {
-                        $this->model_checkout_subscription->addHistory($subscription_id, $subscription_status_id, sprintf($this->language->get('error_extension_payment'), $payment_method['extension']));
+                        if ($subscription_order_product) {
+                            // Orders
+                            $this->load->model('account/order');
 
-                        $status = false;
-                    }
-                }
+                            // Order Products
+                            $order_product = $this->model_account_order->getOrderProduct($value['order_id'], $value['order_product_id']);
 
-                // Trial Price
-                if ((!isset($subscription['trial_price'])) || (!isset($subscription['price'])) || ($subscription_info['trial_price'] != $subscription['trial_price']) || ($subscription_info['price'] != $subscription['price'])) {
-                    $this->model_checkout_subscription->addHistory($subscription_id, $subscription_status_id, $this->language->get('error_price'));
+                            if ($order_product) {
+                                $products = $this->cart->getProducts();
 
-                    $status = false;
-                }
+                                $description = '';
 
-                // Trial Frequency
-                if ((!isset($subscription['trial_frequency'])) || (!isset($subscription['frequency'])) || ($subscription_info['trial_frequency'] != $subscription['trial_frequency']) || ($subscription_info['frequency'] != $subscription['frequency'])) {
-                    $this->model_checkout_subscription->addHistory($subscription_id, $subscription_status_id, $this->language->get('error_frequency'));
+                                foreach ($products as $product) {
+                                    if ($product['product_id'] == $order_product['product_id']) {
+                                        $trial_price = $this->currency->format($this->tax->calculate($value['trial_price'], $product['tax_class_id'], $this->config->get('config_tax')), $this->session->data['currency']);
+                                        $trial_cycle = $value['trial_cycle'];
+                                        $trial_frequency = $this->language->get('text_' . $value['trial_frequency']);
+                                        $trial_duration = $value['trial_duration'];
 
-                    $status = false;
-                }
+                                        if ($product['subscription']['trial_status']) {
+                                            $description .= sprintf($this->language->get('text_subscription_trial'), $trial_price, $trial_cycle, $trial_frequency, $trial_duration);
+                                        }
 
-                // Trial Cycle
-                if ((!isset($subscription['trial_cycle'])) || (!isset($subscription['cycle'])) || ($subscription_info['trial_cycle'] != $subscription['trial_cycle']) || ($subscription_info['cycle'] != $subscription['cycle'])) {
-                    $this->model_checkout_subscription->addHistory($subscription_id, $subscription_status_id, $this->language->get('error_cycle'));
+                                        $price = $this->currency->format($this->tax->calculate($value['price'], $product['tax_class_id'], $this->config->get('config_tax')), $this->session->data['currency']);
+                                        $cycle = $value['cycle'];
+                                        $frequency = $this->language->get('text_' . $value['frequency']);
+                                        $duration = $value['duration'];
 
-                    $status = false;
-                }
+                                        if ($duration) {
+                                            $description .= sprintf($this->language->get('text_subscription_duration'), $price, $cycle, $frequency, $duration);
+                                        } else {
+                                            $description .= sprintf($this->language->get('text_subscription_cancel'), $price, $cycle, $frequency);
+                                        }
+                                    }
+                                }
 
-                // Trial Duration
-                if ((!isset($subscription['trial_duration'])) || (!isset($subscription['duration'])) || ($subscription_info['trial_duration'] != $subscription['trial_duration']) || ($subscription_info['duration'] != $subscription['duration'])) {
-                    $this->model_checkout_subscription->addHistory($subscription_id, $subscription_status_id, $this->language->get('error_duration'));
+                                // Both descriptions need to match to maintain the
+                                // mutual agreement of the subscription in accordance
+                                // with the service providers
+                                if ($description && $description == $subscription['description']) {
+                                    // Orders
+                                    $this->load->model('checkout/order');
 
-                    $status = false;
-                }
+                                    $order_info = $this->model_checkout_order->getOrder($value['order_id']);
 
-                // Trial Remaining
-                if ((!isset($subscription['trial_remaining'])) || (!isset($subscription['remaining'])) || ($subscription_info['trial_remaining'] != $subscription['trial_remaining']) || ($subscription_info['remaining'] != $subscription['remaining'])) {
-                    $this->model_checkout_subscription->addHistory($subscription_id, $subscription_status_id, $this->language->get('error_remaining'));
+                                    if ($order_info) {
+                                        // Stores
+                                        $this->load->model('setting/store');
 
-                    $status = false;
-                }
+                                        // Settings
+                                        $this->load->model('setting/setting');
 
-                // Date Next needs to be added to the array by using an extension.
-                if ((!isset($subscription['date_next'])) || ($subscription_info['date_next'] != $subscription['date_next'])) {
-                    $this->model_checkout_subscription->addHistory($subscription_id, $subscription_status_id, $this->language->get('error_date_next'));
+                                        $store_info = $this->model_setting_store->getStore($order_info['store_id']);
 
-                    $status = false;
-                }
+                                        if ($store_info) {
+                                            $store_logo = html_entity_decode($this->model_setting_setting->getSettingValue('config_logo', $store_info['store_id']), ENT_QUOTES, 'UTF-8');
+                                            $store_name = html_entity_decode($store_info['name'], ENT_QUOTES, 'UTF-8');
 
-                // Orders
-                $this->load->model('checkout/order');
+                                            $store_url = $store_info['url'];
+                                        } else {
+                                            $store_logo = html_entity_decode($this->config->get('config_logo'), ENT_QUOTES, 'UTF-8');
+                                            $store_name = html_entity_decode($this->config->get('config_name'), ENT_QUOTES, 'UTF-8');
 
-                $order_info = $this->model_checkout_order->getOrder($subscription['order_id']);
+                                            $store_url = HTTP_SERVER;
+                                        }
 
-                // An order ID could still succeed from database even though the $subscription['order_id']
-                // does not match with the $subscription_info['order_id']. Therefore, we need to validate both.
-                if ((!isset($subscription['order_id'])) || (!$order_info) || ($subscription_info['order_id'] != $subscription['order_id'])) {
-                    $this->model_checkout_subscription->addHistory($subscription_id, $subscription_status_id, $this->language->get('error_order'));
+                                        // Subscription Status
+                                        $subscription_status_query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "subscription_status` WHERE `subscription_status_id` = '" . (int)$value['subscription_status_id'] . "' AND `language_id` = '" . (int)$order_info['language_id'] . "'");
 
-                    $status = false;
-                }
+                                        if ($subscription_status_query->num_rows) {
+                                            $data['order_status'] = $subscription_status_query->row['name'];
+                                        } else {
+                                            $data['order_status'] = '';
+                                        }
 
-                if ($status) {
-                    // Stores
-                    $this->load->model('setting/store');
+                                        // Languages
+                                        $this->load->model('localisation/language');
 
-                    // Settings
-                    $this->load->model('setting/setting');
+                                        $language_info = $this->model_localisation_language->getLanguage($order_info['language_id']);
 
-                    $store_info = $this->model_setting_store->getStore($order_info['store_id']);
+                                        // We need to compare both language IDs as they both need to match.
+                                        if ($language_info) {
+                                            $language_code = $language_info['code'];
+                                        } else {
+                                            $language_code = $this->config->get('config_language');
+                                        }
 
-                    if ($store_info) {
-                        $store_logo = html_entity_decode($this->model_setting_setting->getValue('config_logo', $store_info['store_id']), ENT_QUOTES, 'UTF-8');
-                        $store_name = html_entity_decode($store_info['name'], ENT_QUOTES, 'UTF-8');
+                                        // Load the language for any mails using a different country code and prefixing it, so it does not pollute the main data pool.
+                                        $language = new \Language($order_info['language_code']);
+                                        $language->load($order_info['language_code']);
+                                        $language->load('mail/subscription');
 
-                        $store_url = $store_info['url'];
-                    } else {
-                        $store_logo = html_entity_decode($this->config->get('config_logo'), ENT_QUOTES, 'UTF-8');
-                        $store_name = html_entity_decode($this->config->get('config_name'), ENT_QUOTES, 'UTF-8');
+                                        $subject = sprintf($language->get('text_subject'), $store_name, $order_info['order_id']);
 
-                        $store_url = HTTP_SERVER;
-                    }
+                                        // Image files
+                                        $this->load->model('tool/image');
 
-                    // Subscription Status
-                    $subscription_status_query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "subscription_status` WHERE `subscription_status_id` = '" . (int)$subscription_info['subscription_status_id'] . "' AND `language_id` = '" . (int)$order_info['language_id'] . "'");
+                                        if (is_file(DIR_IMAGE . $store_logo)) {
+                                            $data['logo'] = $store_url . 'image/' . $store_logo;
+                                        } else {
+                                            $data['logo'] = '';
+                                        }
 
-                    if ($subscription_status_query->num_rows) {
-                        $data['order_status'] = $subscription_status_query->row['name'];
-                    } else {
-                        $data['order_status'] = '';
-                    }
+                                        $data['title'] = sprintf($language->get('text_subject'), $store_name, $order_info['order_id']);
 
-                    // Languages
-                    $this->load->model('localisation/language');
+                                        $data['text_greeting'] = sprintf($language->get('text_greeting'), $order_info['store_name']);
 
-                    $language_info = $this->model_localisation_language->getLanguage($order_info['language_id']);
+                                        $data['store'] = $store_name;
+                                        $data['store_url'] = $order_info['store_url'];
 
-                    // We need to compare both language IDs as they both need to match.
-                    if ($language_info) {
-                        $language_code = $language_info['code'];
-                    } else {
-                        $language_code = $this->config->get('config_language');
-                    }
+                                        $data['customer_id'] = $order_info['customer_id'];
+                                        $data['link'] = $order_info['store_url'] . 'index.php?route=account/subscription/info&subscription_id=' . $subscription_id;
 
-                    // Load the language for any mails using a different country code and prefixing it, so it does not pollute the main data pool.
-                    $language = new \Language($order_info['language_code']);
-                    $language->load($order_info['language_code']);
-                    $language->load('mail/subscription');
+                                        $data['order_id'] = $order_info['order_id'];
+                                        $data['date_added'] = date($language->get('date_format_short'), strtotime($value['date_added']));
+                                        $data['payment_method'] = $order_info['payment_method'];
+                                        $data['email'] = $order_info['email'];
+                                        $data['telephone'] = $order_info['telephone'];
+                                        $data['ip'] = $order_info['ip'];
 
-                    $subject = sprintf($language->get('text_subject'), $store_name, $order_info['order_id']);
+                                        // Order Totals
+                                        $data['totals'] = [];
 
-                    // Image files
-                    $this->load->model('tool/image');
+                                        $order_totals = $this->model_checkout_order->getOrderTotals($subscription['order_id']);
 
-                    if (is_file(DIR_IMAGE . $store_logo)) {
-                        $data['logo'] = $store_url . 'image/' . $store_logo;
-                    } else {
-                        $data['logo'] = '';
-                    }
+                                        foreach ($order_totals as $order_total) {
+                                            $data['totals'][] = [
+                                                'title' => $order_total['title'],
+                                                'text'  => $this->currency->format($order_total['value'], $order_info['currency_code'], $order_info['currency_value']),
+                                            ];
+                                        }
 
-                    // Orders
-                    $this->load->model('account/order');
+                                        // Subscription
+                                        if ($comment && $notify) {
+                                            $data['comment'] = nl2br($comment);
+                                        } else {
+                                            $data['comment'] = '';
+                                        }
 
-                    $data['title'] = sprintf($language->get('text_subject'), $store_name, $order_info['order_id']);
+                                        $data['description'] = $value['description'];
 
-                    $data['text_greeting'] = sprintf($language->get('text_greeting'), $order_info['store_name']);
+                                        // Products
+                                        $data['name'] = $order_product['name'];
+                                        $data['quantity'] = $order_product['quantity'];
+                                        $data['price'] = $this->currency->format($order_product['price'], $order_info['currency_code'], $order_info['currency_value']);
+                                        $data['total'] = $this->currency->format($order_product['total'], $order_info['currency_code'], $order_info['currency_value']);
 
-                    $data['store'] = $store_name;
-                    $data['store_url'] = $order_info['store_url'];
+                                        $data['order'] = $this->url->link('account/order/info', 'order_id=' . $value['order_id']);
+                                        $data['product'] = $this->url->link('product/product', 'product_id=' . $value['product_id']);
 
-                    $data['customer_id'] = $order_info['customer_id'];
-                    $data['link'] = $order_info['store_url'] . 'index.php?route=account/subscription/info&subscription_id=' . $subscription_id;
+                                        // Settings
+                                        $from = $this->model_setting_setting->getValue('config_email', $order_info['store_id']);
 
-                    $data['order_id'] = $order_info['order_id'];
-                    $data['date_added'] = date($language->get('date_format_short'), strtotime($subscription_info['date_added']));
-                    $data['payment_method'] = $order_info['payment_method'];
-                    $data['email'] = $order_info['email'];
-                    $data['telephone'] = $order_info['telephone'];
-                    $data['ip'] = $order_info['ip'];
+                                        if (!$from) {
+                                            $from = $this->config->get('config_email');
+                                        }
 
-                    // Order Totals
-                    $data['totals'] = [];
+                                        // Mail
+                                        if ($this->config->get('config_mail_engine')) {
+                                            $mail = new \Mail($this->config->get('config_mail_engine'));
+                                            $mail->parameter = $this->config->get('config_mail_parameter');
+                                            $mail->smtp_hostname = $this->config->get('config_mail_smtp_hostname');
+                                            $mail->smtp_username = $this->config->get('config_mail_smtp_username');
+                                            $mail->smtp_password = html_entity_decode($this->config->get('config_mail_smtp_password'), ENT_QUOTES, 'UTF-8');
+                                            $mail->smtp_port = $this->config->get('config_mail_smtp_port');
+                                            $mail->smtp_timeout = $this->config->get('config_mail_smtp_timeout');
 
-                    $order_totals = $this->model_checkout_order->getOrderTotals($subscription['order_id']);
-
-                    foreach ($order_totals as $order_total) {
-                        $data['totals'][] = [
-                            'title' => $order_total['title'],
-                            'text'  => $this->currency->format($order_total['value'], $order_info['currency_code'], $order_info['currency_value']),
-                        ];
-                    }
-
-                    // Subscription
-                    if ($comment && $notify) {
-                        $data['comment'] = nl2br($comment);
-                    } else {
-                        $data['comment'] = '';
-                    }
-
-                    $data['description'] = $subscription_info['description'];
-
-                    // Products
-                    $data['name'] = $order_product['name'];
-                    $data['quantity'] = $order_product['quantity'];
-                    $data['price'] = $this->currency->format($order_product['price'], $order_info['currency_code'], $order_info['currency_value']);
-                    $data['total'] = $this->currency->format($order_product['total'], $order_info['currency_code'], $order_info['currency_value']);
-
-                    $data['order'] = $this->url->link('account/order/info', 'order_id=' . $subscription_info['order_id']);
-                    $data['product'] = $this->url->link('product/product', 'product_id=' . $subscription_info['product_id']);
-
-                    // Settings
-                    $from = $this->model_setting_setting->getValue('config_email', $order_info['store_id']);
-
-                    if (!$from) {
-                        $from = $this->config->get('config_email');
-                    }
-
-                    // Mail
-                    if ($this->config->get('config_mail_engine')) {
-                        $mail = new \Mail($this->config->get('config_mail_engine'));
-                        $mail->parameter = $this->config->get('config_mail_parameter');
-                        $mail->smtp_hostname = $this->config->get('config_mail_smtp_hostname');
-                        $mail->smtp_username = $this->config->get('config_mail_smtp_username');
-                        $mail->smtp_password = html_entity_decode($this->config->get('config_mail_smtp_password'), ENT_QUOTES, 'UTF-8');
-                        $mail->smtp_port = $this->config->get('config_mail_smtp_port');
-                        $mail->smtp_timeout = $this->config->get('config_mail_smtp_timeout');
-
-                        $mail->setTo($order_info['email']);
-                        $mail->setFrom($from);
-                        $mail->setSender($store_name);
-                        $mail->setSubject($subject);
-                        $mail->setHtml($this->load->view('mail/subscription', $data));
-                        $mail->send();
+                                            $mail->setTo($order_info['email']);
+                                            $mail->setFrom($from);
+                                            $mail->setSender($store_name);
+                                            $mail->setSubject($subject);
+                                            $mail->setHtml($this->load->view('mail/subscription', $data));
+                                            $mail->send();
+                                        }
+                                    }
+                                }
+                            }
+                        }
                     }
                 }
             }
