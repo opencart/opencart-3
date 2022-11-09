@@ -90,7 +90,7 @@ class ControllerMailSubscription extends Controller {
                             // Order Products
                             $order_product = $this->model_account_order->getOrderProduct($value['order_id'], $value['order_product_id']);
 
-                            if ($order_product) {
+                            if ($order_product && $order_product['order_product_id'] == $subscription['order_product_id']) {
                                 $products = $this->cart->getProducts();
 
                                 $description = '';
