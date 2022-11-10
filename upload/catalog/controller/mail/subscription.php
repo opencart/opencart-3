@@ -67,6 +67,8 @@ class ControllerMailSubscription extends Controller {
         $subscriptions = $this->model_account_subscription->getSubscriptions($filter_data);
 
         if ($subscriptions) {
+            $this->load->language('mail/subscription');
+
             foreach ($subscriptions as $value) {
                 // Only match the latest order ID of the same customer ID
                 // since new subscriptions cannot be re-added with the same
