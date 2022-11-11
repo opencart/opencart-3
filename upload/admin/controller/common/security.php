@@ -1,141 +1,143 @@
 <?php
 class ControllerCommonSecurity extends Controller {
-    public function index(): string {
-        $this->load->language('common/security');
+	public function index() {
+		$this->load->language('common/security');
 
-        $data['user_token'] = $this->session->data['user_token'];
+		$data['text_instruction'] = $this->language->get('text_instruction');
 
-        $data['storage'] = DIR_SYSTEM . 'storage/';
+		$data['user_token'] = $this->session->data['user_token'];
 
-        $path = '';
+		$data['storage'] = DIR_SYSTEM . 'storage/';
 
-        $data['paths'] = [];
+		$path = '';
 
-        $parts = explode('/', str_replace('\\', '/', rtrim(DIR_SYSTEM, '/')));
+		$data['paths'] = array();
 
-        foreach ($parts as $part) {
-            $path .= $part . '/';
+		$parts = explode('/', str_replace('\\', '/', rtrim(DIR_SYSTEM, '/')));
 
-            $data['paths'][] = $path;
-        }
+		foreach ($parts as $part) {
+			$path .= $part . '/';
 
-        rsort($data['paths']);
+			$data['paths'][] = $path;
+		}
 
-        $data['document_root'] = str_replace('\\', '/', realpath($this->request->server['DOCUMENT_ROOT'] . '/../') . '/');
+		rsort($data['paths']);
 
-        return $this->load->view('common/security', $data);
-    }
+		$data['document_root'] = str_replace('\\', '/', realpath($this->request->server['DOCUMENT_ROOT'] . '/../') . '/');
 
-    public function move(): void {
-        $this->load->language('common/security');
+		return $this->load->view('common/security', $data);
+	}
 
-        $json = [];
+	public function move() {
+		$this->load->language('common/security');
 
-        if ($this->request->post['path']) {
-            $path = $this->request->post['path'];
-        } else {
-            $path = '';
-        }
+		$json = array();
 
-        if ($this->request->post['directory']) {
-            $directory = $this->request->post['directory'];
-        } else {
-            $directory = '';
-        }
+		if ($this->request->post['path']) {
+			$path = $this->request->post['path'];
+		} else {
+			$path = '';
+		}
 
-        if (!$this->user->hasPermission('modify', 'common/security')) {
-            $json['error'] = $this->language->get('error_permission');
-        } else {
-            if (DIR_STORAGE != DIR_SYSTEM . 'storage/') {
-                $data['error'] = $this->language->get('error_path');
-            }
+		if ($this->request->post['directory']) {
+			$directory = $this->request->post['directory'];
+		} else {
+			$directory = '';
+		}
 
-            if (!$path || str_replace('\\', '/', realpath($path)) . '/' != str_replace('\\', '/', substr(DIR_SYSTEM, 0, strlen($path)))) {
-                $json['error'] = $this->language->get('error_path');
-            }
+		if (!$this->user->hasPermission('modify', 'common/security')) {
+			$json['error'] = $this->language->get('error_permission');
+		} else {
+			if (DIR_STORAGE != DIR_SYSTEM . 'storage/') {
+				$data['error'] = $this->language->get('error_path');
+			}
 
-            if (!$directory || !preg_match('/^[a-zA-Z0-9_-]+$/', $directory)) {
-                $json['error'] = $this->language->get('error_directory');
-            }
+			if (!$path || str_replace('\\', '/', realpath($path)) . '/' != str_replace('\\', '/', substr(DIR_SYSTEM, 0, strlen($path)))) {
+				$json['error'] = $this->language->get('error_path');
+			}
 
-            if (is_dir($path . $directory)) {
-                $json['error'] = $this->language->get('error_exists');
-            }
+			if (!$directory || !preg_match('/^[a-zA-Z0-9_-]+$/', $directory)) {
+				$json['error'] = $this->language->get('error_directory');
+			}
 
-            if (!is_writable(realpath(DIR_APPLICATION . '/../') . '/config.php') || !is_writable(DIR_APPLICATION . 'config.php')) {
-                $json['error'] = $this->language->get('error_writable');
-            }
+			if (is_dir($path . $directory)) {
+				$json['error'] = $this->language->get('error_exists');
+			}
 
-            if (!$json) {
-                $files = [];
+			if (!is_writable(realpath(DIR_APPLICATION . '/../') . '/config.php') || !is_writable(DIR_APPLICATION . 'config.php')) {
+				$json['error'] = $this->language->get('error_writable');
+			}
 
-                // Make path into an array
-                $source = [DIR_SYSTEM . 'storage/'];
+			if (!$json) {
+				$files = array();
 
-                // While the path array is still populated keep looping through
-                while (count($source) != 0) {
-                    $next = array_shift($source);
+				// Make path into an array
+				$source = array(DIR_SYSTEM . 'storage/');
 
-                    if (is_dir($next)) {
-                        foreach (glob(trim($next, '/') . '/{*,.[!.]*,..?*}', GLOB_BRACE) as $file) {
-                            // If directory add to path array
-                            if (is_dir($file)) {
-                                $source[] = $file . '/*';
-                            }
+				// While the path array is still populated keep looping through
+				while (count($source) != 0) {
+					$next = array_shift($source);
 
-                            // Add the file to the files to be deleted array
-                            $files[] = $file;
-                        }
-                    }
-                }
+					foreach (glob($next) as $file) {
+						// If directory add to path array
+						if (is_dir($file)) {
+							$source[] = $file . '/*';
+						}
 
-                // Create the new storage folder
-                if (!is_dir($path . $directory)) {
-                    mkdir($path . $directory, 0777);
-                }
+						// Add the file to the files to be deleted array
+						$files[] = $file;
+					}
+				}
 
-                // Copy the
-                foreach ($files as $file) {
-                    $destination = $path . $directory . substr($file, strlen(DIR_SYSTEM . 'storage/'));
+				// Create the new storage folder
+				if (!is_dir($path . $directory)) {
+					mkdir($path . $directory, 0777);
+				}
 
-                    if (is_dir($file) && !is_dir($destination)) {
-                        mkdir($destination, 0777);
-                    }
+				// Copy the 
+				foreach ($files as $file) {
+					$destination = $path . $directory . substr($file, strlen(DIR_SYSTEM . 'storage/'));
 
-                    if (is_file($file)) {
-                        copy($file, $destination);
-                    }
-                }
+					if (is_dir($file) && !is_dir($destination)) {
+						mkdir($destination, 0777);
+					}
 
-                // Modify the config files
-                $files = [
-                    DIR_APPLICATION . 'config.php',
-                    realpath(DIR_APPLICATION . '/../') . '/config.php'
-                ];
+					if (is_file($file)) {
+						copy($file, $destination);
+					}
+				}
 
-                foreach ($files as $file) {
-                    $output = '';
+				// Modify the config files
+				$files = array(
+					DIR_APPLICATION . 'config.php',
+					realpath(DIR_APPLICATION . '/../') . '/config.php'
+				);
 
-                    $lines = file($file);
+				foreach ($files as $file) {
+					$output = '';
 
-                    foreach ($lines as $line_id => $line) {
-                        if (strpos($line, 'define(\'DIR_STORAGE') !== false) {
-                            $output .= 'define(\'DIR_STORAGE\', \'' . $path . $directory . '/\');' . "\n";
-                        } else {
-                            $output .= $line;
-                        }
-                    }
+					$lines = file($file);
 
-                    $file = fopen($file, 'w');
-                    fwrite($file, $output);
-                    fclose($file);
-                }
+					foreach ($lines as $line_id => $line) {
+						if (strpos($line, 'define(\'DIR_STORAGE') !== false) {
+							$output .= 'define(\'DIR_STORAGE\', \'' . $path . $directory . '/\');' . "\n";
+						} else {
+							$output .= $line;
+						}
+					}
 
-                $json['success'] = $this->language->get('text_success');
-            }
-        }
+					$file = fopen($file, 'w');
 
-        $this->response->addHeader('Content-Type: application/json');
-        $this->response->setOutput(json_encode($json));
-    }
+					fwrite($file, $output);
+
+					fclose($file);
+				}
+
+				$json['success'] = $this->language->get('text_success');
+			}
+		}
+
+		$this->response->addHeader('Content-Type: application/json');
+		$this->response->setOutput(json_encode($json));
+	}
 }
