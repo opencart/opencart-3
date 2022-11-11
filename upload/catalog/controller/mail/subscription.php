@@ -277,19 +277,17 @@ class ControllerMailSubscription extends Controller {
                                                                 }
                                                             }
 
-                                                            if ($remaining > 0) {
-                                                                // Promotional features that differs from the previous
-                                                                // subscription's description
-                                                                if ($subscription_info['description'] != $description && $subscription_info['subscription_plan_id'] == $value['subscription_plan_id']) {
-                                                                    // Products
-                                                                    $this->load->model('catalog/product');
+                                                            // Promotional features that differs from the previous
+                                                            // subscription's description
+                                                            if ($remaining > 0 && $subscription_info['description'] != $description && $subscription_info['subscription_plan_id'] == $value['subscription_plan_id']) {
+                                                                // Products
+                                                                $this->load->model('catalog/product');
 
-                                                                    $product_subscription_info = $this->model_catalog_product->getSubscription($order_product['product_id'], $subscription_info['subscription_plan_id']);
+                                                                $product_subscription_info = $this->model_catalog_product->getSubscription($order_product['product_id'], $subscription_info['subscription_plan_id']);
 
-                                                                    if ($product_subscription_info) {
-                                                                        // For the next billing cycle
-                                                                        $this->model_account_subscription->addTransaction($value['subscription_id'], $value['order_id'], $this->language->get('text_promotion'), $subscription_info['amount'], $subscription_info['type'], $subscription_info['payment_method'], $subscription_info['payment_code']);
-                                                                    }
+                                                                if ($product_subscription_info) {
+                                                                    // For the next billing cycle
+                                                                    $this->model_account_subscription->addTransaction($value['subscription_id'], $value['order_id'], $this->language->get('text_promotion'), $subscription_info['amount'], $subscription_info['type'], $subscription_info['payment_method'], $subscription_info['payment_code']);
                                                                 }
                                                             }
                                                         }
