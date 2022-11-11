@@ -1,5 +1,6 @@
 <?php
 // Text
+$_['text_success']     = 'Success: The subscription profile has been renewed successfully!';
 $_['text_status']      = 'Please check the subscription transactions for the renewal statuses!';
 
 // Error
