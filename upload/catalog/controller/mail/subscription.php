@@ -273,7 +273,7 @@ class ControllerMailSubscription extends Controller {
                                                                 // Subscription
                                                                 if ($subscription_info['duration'] && $subscription_info['remaining']) {
                                                                     $remaining = time() - strtotime($customer_info['date_added']);
-                                                                    $remaining = ceil(abs($remaining / 86400));
+                                                                    $remaining = ceil($remaining / 86400);
                                                                 }
                                                             }
 
