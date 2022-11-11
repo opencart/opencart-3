@@ -256,20 +256,20 @@ class ControllerMailSubscription extends Controller {
                                                 }
 
                                                 if ($config_subscription_active_status_id == $subscription_status_id) {
-                                                    // Products
-                                                    $this->load->model('catalog/product');
+                                                    $subscription_info = $this->model_account_subscription->getSubscription($value['subscription_id']);
 
-                                                    $product_subscription_info = $this->model_catalog_product->getSubscription($order_product['product_id'], $value['subscription_plan_id']);
+                                                    // Validate the latest subscription values with the ones edited
+                                                    // by promotion extensions
+                                                    if ($subscription_info && $subscription_info['customer_id'] == $value['customer_id'] && $subscription_info['order_id'] == $value['order_id'] && $subscription_info['order_product_id'] == $value['order_product_id']) {
+                                                        // Promotional features that differs from the previous
+                                                        // subscription's description
+                                                        if ($subscription_info['description'] != $description && $subscription_info['subscription_plan_id'] == $value['subscription_plan_id']) {
+                                                            // Products
+                                                            $this->load->model('catalog/product');
 
-                                                    if ($product_subscription_info) {
-                                                        $subscription_info = $this->model_account_subscription->getSubscription($value['subscription_id']);
+                                                            $product_subscription_info = $this->model_catalog_product->getSubscription($order_product['product_id'], $subscription_info['subscription_plan_id']);
 
-                                                        // Validate the latest subscription values with the ones edited
-                                                        // by promotion extensions
-                                                        if ($subscription_info && $subscription_info['customer_id'] == $value['customer_id'] && $subscription_info['order_id'] == $value['order_id'] && $subscription_info['order_product_id'] == $value['order_product_id']) {
-                                                            // Promotional features that differs from the previous
-                                                            // subscription's description
-                                                            if ($subscription_info['description'] != $description) {
+                                                            if ($product_subscription_info) {
                                                                 // For the next billing cycle
                                                                 $this->model_account_subscription->addTransaction($value['subscription_id'], $value['order_id'], $this->language->get('text_promotion'), $subscription_info['amount'], $subscription_info['type'], $subscription_info['payment_method'], $subscription_info['payment_code']);
                                                             }
