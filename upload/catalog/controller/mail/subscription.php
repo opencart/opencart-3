@@ -267,13 +267,18 @@ class ControllerMailSubscription extends Controller {
 
                                                         if ($customer_info) {
                                                             // New customer once the trial period has ended
-                                                            $week_cycle = date(oc_substr(oc_strtoupper($subscription_info['frequency']), 0, 1), strtotime('+0 ' . $subscription_info['frequency']));
-                                                            $remaining = date('W', strtotime($customer_info['date_added']));
-                                                            $total_remaining = $week_cycle - $remaining;
+                                                            $customer_remaining = strtotime($customer_info['date_added']);
+                                                            $remaining = strtotime($subscription_info['cycle'] . ' ' . $subscription_info['frequency']);
+                                                            $remaining = ($remaining - $customer_remaining);
+                                                            $remaining = round($remaining / (60 * 60 * 24));
+
+                                                            if (!$remaining) {
+                                                                $remaining = 0;
+                                                            }
 
                                                             // Promotional features that differs from the previous
                                                             // subscription's description
-                                                            if ($subscription_info['status'] && (($subscription_info['cycle'] && $total_remaining <= $subscription_info['cycle']) || (!$subscription_info['cycle'])) && $subscription_info['description'] != $description && $subscription_info['subscription_plan_id'] == $value['subscription_plan_id']) {
+                                                            if ($subscription_info['status'] && (($subscription_info['cycle'] && $remaining >= $subscription_info['cycle']) || (!$subscription_info['cycle'])) && $subscription_info['description'] != $description && $subscription_info['subscription_plan_id'] == $value['subscription_plan_id']) {
                                                                 // Products
                                                                 $this->load->model('catalog/product');
 
