@@ -297,9 +297,9 @@ class ControllerMailSubscription extends Controller {
                                                                 $remaining = 0;
                                                             }
 
-                                                            // Promotional features that differs from the previous
-                                                            // subscription's description
-                                                            if ($remaining >= 0 && $value['description'] != $description && $subscription_info['subscription_plan_id'] == $value['subscription_plan_id']) {
+                                                            // Promotional features description must be identical
+                                                            // until the time period has exceeded
+                                                            if ($remaining >= 0 && $value['description'] == $description && $subscription_info['subscription_plan_id'] == $value['subscription_plan_id']) {
                                                                 // Products
                                                                 $this->load->model('catalog/product');
 
