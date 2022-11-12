@@ -25,7 +25,7 @@ class Cart {
                 $this->db->query("DELETE FROM `" . DB_PREFIX . "cart` WHERE `cart_id` = '" . (int)$cart['cart_id'] . "'");
 
                 // The advantage of using $this->add is that it will check if the products already exist and increase the quantity if necessary.
-                $this->add($cart['product_id'], $cart['quantity'], json_decode($cart['option']), $cart['subscription_plan_id']);
+                $this->add($cart['product_id'], $cart['quantity'], json_decode($cart['option'], true), $cart['subscription_plan_id']);
             }
         }
     }
@@ -46,7 +46,7 @@ class Cart {
                 $option_weight = 0;
                 $option_data   = [];
 
-                foreach (json_decode($cart['option']) as $product_option_id => $value) {
+                foreach ((array)json_decode($cart['option'], true) as $product_option_id => $value) {
                     $option_query = $this->db->query("SELECT po.`product_option_id`, po.`option_id`, od.`name`, o.`type` FROM `" . DB_PREFIX . "product_option` po LEFT JOIN `" . DB_PREFIX . "option` o ON (po.`option_id` = o.`option_id`) LEFT JOIN `" . DB_PREFIX . "option_description` od ON (o.`option_id` = od.`option_id`) WHERE po.`product_option_id` = '" . (int)$product_option_id . "' AND po.`product_id` = '" . (int)$cart['product_id'] . "' AND od.`language_id` = '" . (int)$this->config->get('config_language_id') . "'");
 
                     if ($option_query->num_rows) {
