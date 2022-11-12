@@ -351,7 +351,7 @@ class ControllerCatalogFilter extends Controller {
         }
 
         foreach ($this->request->post['filter_group_description'] as $language_id => $value) {
-            if ((oc_trlen($value['name']) < 1) || (oc_strlen($value['name']) > 64)) {
+            if ((oc_strlen($value['name']) < 1) || (oc_strlen($value['name']) > 64)) {
                 $this->error['group'][$language_id] = $this->language->get('error_group');
             }
         }
