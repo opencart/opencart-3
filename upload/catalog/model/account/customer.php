@@ -32,6 +32,7 @@ class ModelAccountCustomer extends Model {
     }
 
     public function editAddressId(int $customer_id, int $address_id): void {
+        $this->db->query("UPDATE `" . DB_PREFIX . "customer` SET `address_id` = '" . (int)$address_id . "' WHERE `customer_id` = '" . (int)$customer_id . "'");
         $this->db->query("UPDATE `" . DB_PREFIX . "address` SET `default` = '1' WHERE `address_id` != '" . (int)$address_id . "' AND `customer_id` = '" . (int)$this->customer->getId() . "'");
     }
 
