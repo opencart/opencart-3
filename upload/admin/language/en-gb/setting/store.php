@@ -97,5 +97,5 @@ $_['error_address']                = 'Store Address must be between 10 and 256 c
 $_['error_email']                  = 'E-Mail Address does not appear to be valid!';
 $_['error_telephone']              = 'Telephone must be between 3 and 32 characters!';
 $_['error_customer_group_display'] = 'You must include the default customer group if you are going to use this feature!';
-$_['error_default']                = 'Warning: You can not delete your default store!';
+$_['error_default']                = 'Warning: You cannot delete your default store!';
 $_['error_store']                  = 'Warning: This Store cannot be deleted as it is currently assigned to %s orders!';

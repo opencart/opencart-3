@@ -376,7 +376,7 @@ class ControllerToolUpload extends Controller {
         }
 
         if (!$json) {
-            // Hide the uploaded file name so people can not link to it directly.
+            // Hide the uploaded file name so people cannot link to it directly.
             $this->load->model('tool/upload');
 
             $file = $filename . '.' . oc_token(32);

@@ -118,7 +118,7 @@ class ControllerAccountAddress extends Controller {
         }
 
         if ($this->customer->getAddressId() == $this->request->get['address_id']) {
-            $json['warning'] = $this->language->get('error_default');
+            $json['warning'] = $this->language->get('error_default_delete');
         }
 
         if (!$json && isset($this->request->get['address_id'])) {
@@ -279,6 +279,12 @@ class ControllerAccountAddress extends Controller {
             $data['error_custom_field'] = $this->error['custom_field'];
         } else {
             $data['error_custom_field'] = [];
+        }
+
+        if (isset($this->error['default'])) {
+            $data['error_default'] = $this->error['default'];
+        } else {
+            $data['error_default'] = '';
         }
 
         if (!isset($this->request->get['address_id'])) {
@@ -479,6 +485,10 @@ class ControllerAccountAddress extends Controller {
             }
         }
 
+        if (isset($this->request->get['address_id']) && ($this->customer->getAddressId() == $this->request->get['address_id']) && !$this->request->post['default']) {
+            $this->error['default'] = $this->language->get('error_default');
+        }
+
         return !$this->error;
     }
 
@@ -497,5 +507,29 @@ class ControllerAccountAddress extends Controller {
 
         $this->response->addHeader('Content-Type: application/json');
         $this->response->setOutput(json_encode($json));
+    }
+
+    // catalog/view/account/address_list/after
+    public function default(string &$route, array &$args, mixed &$output): void {
+        $this->load->language('account/address');
+
+        $this->load->model('account/address');
+
+        $addresses = $this->model_account_address->getAddresses();
+
+        if ($addresses) {
+            $args['text_address_marketing'] = $this->language->get('text_address_default_marketing');
+
+            $defaults = array_column($addresses, 'default');
+
+            $args['total_address_defaults'] = count($defaults);
+
+            $search = '<div id="content"';
+            $replace = $this->load->view('extension/module/account_address_default', $args);
+
+            $output = str_replace($search, $replace . $search, $output);
+        } else {
+            $args['text_address_marketing'] = '';
+        }
     }
 }

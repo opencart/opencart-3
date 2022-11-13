@@ -24,6 +24,7 @@ CREATE TABLE `oc_address` (
   `country_id` int(11) NOT NULL DEFAULT '0',
   `zone_id` int(11) NOT NULL DEFAULT '0',
   `custom_field` text NOT NULL,
+  `default` tinyint(1) NOT NULL,
   PRIMARY KEY (`address_id`),
   KEY `customer_id` (`customer_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
@@ -1569,6 +1570,10 @@ INSERT INTO `oc_event` (`code`, `trigger`, `action`, `status`, `sort_order`) VAL
 ('advertise_google', 'catalog/view/checkout/cart/after', 'extension/advertise/google/google_dynamic_remarketing_cart', 1, 0);
 INSERT INTO `oc_event` (`code`, `trigger`, `action`, `status`, `sort_order`) VALUES
 ('mail_subscription', 'catalog/model/checkout/subscription/addSubscription/after', 'mail/subscription', 1, 0);
+INSERT INTO `oc_event` (`code`, `trigger`, `action`, `status`, `sort_order`) VALUES
+('module_subscription', 'catalog/view/account/recurring_list/after', 'extension/module/subscription/account', 1, 0);
+INSERT INTO `oc_event` (`code`, `trigger`, `action`, `status`, `sort_order`) VALUES
+('account_address_default', 'catalog/view/account/address_list/after', 'account/address/default', 1, 0);
 
 -----------------------------------------------------------
 
@@ -1794,7 +1799,7 @@ INSERT INTO `oc_information_description` (`information_id`, `language_id`, `titl
 (5, 1, 'Terms &amp; Conditions', '&lt;p&gt;\r\n	Terms &amp;amp; Conditions&lt;/p&gt;\r\n', 'Terms &amp; Conditions', '', ''),
 (3, 1, 'Privacy Policy', '&lt;p&gt;\r\n	Privacy Policy&lt;/p&gt;\r\n', 'Privacy Policy', '', ''),
 (6, 1, 'Delivery Information', '&lt;p&gt;\r\n	Delivery Information&lt;/p&gt;\r\n', 'Delivery Information', '', ''),
-(7, 1, 'Subscriptions', 'Within the next couple of months, our store will be introducing a new subscription system where customers will have the ability to handle customer payments with their accounts and our store to provide better services with larger subscription products.', 'Subscriptions', '', '');
+(7, 1, 'Subscriptions', 'Nowadays, our stores are introducing a new subscription system where customers can have the ability to handle customer payments with better flexibility!', 'Subscriptions', '', '');
 
 -----------------------------------------------------------
 
