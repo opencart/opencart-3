@@ -145,6 +145,18 @@ class ControllerInformationContact extends Controller {
     }
 
     protected function validate() {
+        $keys = [
+            'name',
+            'email',
+            'enquiry'
+        ];
+
+        foreach ($keys as $key) {
+            if (!isset($this->request->post[$key])) {
+                $this->request->post[$key] = '';
+            }
+        }
+
         if ((oc_strlen($this->request->post['name']) < 3) || (oc_strlen($this->request->post['name']) > 32)) {
             $this->error['name'] = $this->language->get('error_name');
         }

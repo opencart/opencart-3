@@ -79,6 +79,17 @@ class ControllerAccountPassword extends Controller {
     }
 
     protected function validate() {
+        $keys = [
+            'password',
+            'confirm'
+        ];
+
+        foreach ($keys as $key) {
+            if (!isset($this->request->post[$key])) {
+                $this->request->post[$key] = '';
+            }
+        }
+
         if ((oc_strlen(html_entity_decode($this->request->post['password'], ENT_QUOTES, 'UTF-8')) < 4) || (oc_strlen(html_entity_decode($this->request->post['password'], ENT_QUOTES, 'UTF-8')) > 40)) {
             $this->error['password'] = $this->language->get('error_password');
         }

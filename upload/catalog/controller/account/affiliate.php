@@ -265,6 +265,21 @@ class ControllerAccountAffiliate extends Controller {
     }
 
     protected function validate() {
+        $keys = [
+            'payment',
+            'cheque',
+            'paypal',
+            'bank_account_name',
+            'bank_account_number',
+            'agree'
+        ];
+
+        foreach ($keys as $key) {
+            if (!isset($this->request->post[$key])) {
+                $this->request->post[$key] = '';
+            }
+        }
+
         if ($this->request->post['payment'] == 'cheque' && !$this->request->post['cheque']) {
             $this->error['cheque'] = $this->language->get('error_cheque');
         } elseif (($this->request->post['payment'] == 'paypal') && ((oc_strlen($this->request->post['paypal']) > 96) || !filter_var($this->request->post['paypal'], FILTER_VALIDATE_EMAIL))) {

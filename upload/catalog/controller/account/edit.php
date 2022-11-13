@@ -178,6 +178,19 @@ class ControllerAccountEdit extends Controller {
     }
 
     protected function validate() {
+        $keys = [
+            'firstname',
+            'lastname',
+            'email',
+            'telephone'
+        ];
+
+        foreach ($keys as $key) {
+            if (!isset($this->request->post[$key])) {
+                $this->request->post[$key] = '';
+            }
+        }
+
         if ((oc_strlen($this->request->post['firstname']) < 1) || (oc_strlen($this->request->post['firstname']) > 32)) {
             $this->error['firstname'] = $this->language->get('error_firstname');
         }

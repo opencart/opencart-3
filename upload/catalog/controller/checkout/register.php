@@ -118,6 +118,42 @@ class ControllerCheckoutRegister extends Controller {
             // Customers
             $this->load->model('account/customer');
 
+            $keys = [
+                'account',
+                'customer_group_id',
+                'firstname',
+                'lastname',
+                'email',
+                'telephone',
+                'payment_company',
+                'payment_address_1',
+                'payment_address_2',
+                'payment_city',
+                'payment_postcode',
+                'payment_country_id',
+                'payment_zone_id',
+                'payment_custom_field',
+                'address_match',
+                'shipping_firstname',
+                'shipping_lastname',
+                'shipping_company',
+                'shipping_address_1',
+                'shipping_address_2',
+                'shipping_city',
+                'shipping_postcode',
+                'shipping_country_id',
+                'shipping_zone_id',
+                'shipping_custom_field',
+                'password',
+                'agree'
+            ];
+
+            foreach ($keys as $key) {
+                if (!isset($this->request->post[$key])) {
+                    $this->request->post[$key] = '';
+                }
+            }
+
             if ((oc_strlen($this->request->post['firstname']) < 1) || (oc_strlen($this->request->post['firstname']) > 32)) {
                 $json['error']['firstname'] = $this->language->get('error_firstname');
             }

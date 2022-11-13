@@ -228,6 +228,24 @@ class ControllerAccountRegister extends Controller {
     }
 
     private function validate() {
+        $keys = [
+            'customer_group_id',
+            'firstname',
+            'lastname',
+            'email',
+            'telephone',
+            'custom_field',
+            'password',
+            'confirm',
+            'agree'
+        ];
+
+        foreach ($keys as $key) {
+            if (!isset($this->request->post[$key])) {
+                $this->request->post[$key] = '';
+            }
+        }
+        
         if ((oc_strlen($this->request->post['firstname']) < 1) || (oc_strlen($this->request->post['firstname']) > 32)) {
             $this->error['firstname'] = $this->language->get('error_firstname');
         }
