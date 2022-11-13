@@ -76,6 +76,8 @@ class ControllerCheckoutRegister extends Controller {
 
         $data['shipping_required'] = $this->cart->hasShipping();
 
+        $data['config_telephone_required'] = $this->config->get('config_telephone_required');
+
         $this->response->setOutput($this->load->view('checkout/register', $data));
     }
 
@@ -132,7 +134,7 @@ class ControllerCheckoutRegister extends Controller {
                 $json['error']['warning'] = $this->language->get('error_exists');
             }
 
-            if ((oc_strlen($this->request->post['telephone']) < 3) || (oc_strlen($this->request->post['telephone']) > 32)) {
+            if ($this->config->get('config_telephone_required') && (oc_strlen($this->request->post['telephone']) < 3) || (oc_strlen($this->request->post['telephone']) > 32)) {
                 $json['error']['telephone'] = $this->language->get('error_telephone');
             }
 

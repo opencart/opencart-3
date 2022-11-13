@@ -1089,7 +1089,6 @@ class ControllerSaleOrder extends Controller {
             $data['order_statuses'] = $this->model_localisation_order_status->getOrderStatuses();
 
             $data['order_status_id'] = $order_info['order_status_id'];
-
             $data['account_custom_field'] = $order_info['custom_field'];
 
             // Account Custom Fields
@@ -1325,6 +1324,8 @@ class ControllerSaleOrder extends Controller {
             } else {
                 $data['api_token'] = '';
             }
+
+            $data['config_telephone_required'] = $this->config->get('config_telephone_required');
 
             $data['header'] = $this->load->controller('common/header');
             $data['column_left'] = $this->load->controller('common/column_left');

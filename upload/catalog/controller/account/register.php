@@ -215,6 +215,8 @@ class ControllerAccountRegister extends Controller {
 
         $data['action'] = $this->url->link('account/register', '', true);
 
+        $data['config_telephone_required'] = $this->config->get('config_telephone_required');
+
         $data['column_left'] = $this->load->controller('common/column_left');
         $data['column_right'] = $this->load->controller('common/column_right');
         $data['content_top'] = $this->load->controller('common/content_top');
@@ -242,7 +244,7 @@ class ControllerAccountRegister extends Controller {
             $this->error['warning'] = $this->language->get('error_exists');
         }
 
-        if ((oc_strlen($this->request->post['telephone']) < 3) || (oc_strlen($this->request->post['telephone']) > 32)) {
+        if ($this->config->get('config_telephone_required') && (oc_strlen($this->request->post['telephone']) < 3) || (oc_strlen($this->request->post['telephone']) > 32)) {
             $this->error['telephone'] = $this->language->get('error_telephone');
         }
 

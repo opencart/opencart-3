@@ -51,7 +51,7 @@ class ControllerApiCustomer extends Controller {
                 $json['error']['email'] = $this->language->get('error_email');
             }
 
-            if ((oc_strlen($this->request->post['telephone']) < 3) || (oc_strlen($this->request->post['telephone']) > 32)) {
+            if ($this->config->get('config_telephone_required') && (oc_strlen($this->request->post['telephone']) < 3) || (oc_strlen($this->request->post['telephone']) > 32)) {
                 $json['error']['telephone'] = $this->language->get('error_telephone');
             }
 
