@@ -265,26 +265,11 @@ class ModelUpgrade1009 extends Model {
         // Country
         $this->db->query("UPDATE `" . DB_PREFIX . "country` SET `address_format_id` = '1' WHERE `address_format_id` = '0'");
 
-        // Addresses
-        $query = $this->db->query("SELECT * FROM information_schema.COLUMNS WHERE TABLE_SCHEMA = '" . DB_DATABASE . "' AND TABLE_NAME = '" . DB_PREFIX . "address' AND COLUMN_NAME = 'default'");
-
-        if (!$query->num_rows) {
-            $this->db->query("ALTER TABLE `" . DB_PREFIX . "address` ADD COLUMN `default` tinyint(1) NOT NULL AFTER `custom_field`");
-        }
-
         // Information - Subscriptions
         $information_id = $this->db->query("INSERT INTO `" . DB_PREFIX . "information` SET `bottom` = '1', `sort_order` = '5', `status` = '1'");
 
         $this->db->query("INSERT INTO `" . DB_PREFIX . "information_description` SET (`information_id` = '" . (int)$information_id . "', `language_id` = '1', `title` = 'Subscriptions', `description` = 'Within the next couple of months, our store will be introducing a new subscription system where customers will have the ability to handle customer payments with their accounts and our store to provide better services with larger subscription products.', `meta_title` = 'Subscriptions', `meta_description` = '', `meta_keyword` = ''");
         $this->db->query("INSERT INTO `" . DB_PREFIX . "information_to_store` SET `information_id` = '" . (int)$information_id . "', `store_id` = '0'");
-
-        // Subscription Statuses
-        $this->db->query("INSERT INTO `" . DB_PREFIX . "subscription_status` SET `subscription_status_id` = '1', `language_id` = '1', `name` = 'Pending'");
-        $this->db->query("INSERT INTO `" . DB_PREFIX . "subscription_status` SET `subscription_status_id` = '2', `language_id` = '1', `name` = 'Active'");
-        $this->db->query("INSERT INTO `" . DB_PREFIX . "subscription_status` SET `subscription_status_id` = '3', `language_id` = '1', `name` = 'Failed'");
-        $this->db->query("INSERT INTO `" . DB_PREFIX . "subscription_status` SET `subscription_status_id` = '4', `language_id` = '1', `name` = 'Cancelled'");
-        $this->db->query("INSERT INTO `" . DB_PREFIX . "subscription_status` SET `subscription_status_id` = '5', `language_id` = '1', `name` = 'Denied'");
-        $this->db->query("INSERT INTO `" . DB_PREFIX . "subscription_status` SET `subscription_status_id` = '6', `language_id` = '1', `name` = 'Expired'");
 
         // Cart - Subscriptions
         $query = $this->db->query("SELECT * FROM information_schema.COLUMNS WHERE TABLE_SCHEMA = '" . DB_DATABASE . "' AND TABLE_NAME = '" . DB_PREFIX . "cart' AND COLUMN_NAME = 'subscription_plan_id'");

@@ -8,6 +8,7 @@ class Customer {
     private string $email             = '';
     private string $telephone         = '';
     private bool   $newsletter        = false;
+    private int    $address_id        = 0;
     
     public function __construct(object $registry) {
         $this->config  = $registry->get('config');
@@ -113,13 +114,7 @@ class Customer {
     }
 
     public function getAddressId(): int {
-        $query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "address` WHERE `customer_id` = '" . (int)$this->customer_id . "' AND `default` = '1'");
-
-        if ($query->num_rows) {
-            return (int)$query->row['address_id'];
-        } else {
-            return 0;
-        }
+        return $this->address_id;
     }
 
     public function getBalance(): float {
