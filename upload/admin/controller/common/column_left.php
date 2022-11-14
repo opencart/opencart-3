@@ -496,10 +496,10 @@ class ControllerCommonColumnLeft extends Controller {
             }
 
             // Returns
-            $return = [];
+            $returns = [];
 
             if ($this->user->hasPermission('access', 'localisation/returns_status')) {
-                $return[] = [
+                $returns[] = [
                     'name'     => $this->language->get('text_return_status'),
                     'href'     => $this->url->link('localisation/returns_status', 'user_token=' . $this->session->data['user_token'], true),
                     'children' => []
@@ -507,7 +507,7 @@ class ControllerCommonColumnLeft extends Controller {
             }
 
             if ($this->user->hasPermission('access', 'localisation/returns_action')) {
-                $return[] = [
+                $returns[] = [
                     'name'     => $this->language->get('text_return_action'),
                     'href'     => $this->url->link('localisation/returns_action', 'user_token=' . $this->session->data['user_token'], true),
                     'children' => []
@@ -515,18 +515,18 @@ class ControllerCommonColumnLeft extends Controller {
             }
 
             if ($this->user->hasPermission('access', 'localisation/returns_reason')) {
-                $return[] = [
+                $returns[] = [
                     'name'     => $this->language->get('text_return_reason'),
                     'href'     => $this->url->link('localisation/returns_reason', 'user_token=' . $this->session->data['user_token'], true),
                     'children' => []
                 ];
             }
 
-            if ($return) {
+            if ($returns) {
                 $localisation[] = [
                     'name'     => $this->language->get('text_return'),
                     'href'     => '',
-                    'children' => $return
+                    'children' => $returns
                 ];
             }
 
