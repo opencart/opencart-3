@@ -118,7 +118,7 @@ class ControllerAccountAddress extends Controller {
         }
 
         if ($this->customer->getAddressId() == $this->request->get['address_id']) {
-            $json['warning'] = $this->language->get('error_default_delete');
+            $json['warning'] = $this->language->get('error_default');
         }
 
         if (!$json && isset($this->request->get['address_id'])) {
