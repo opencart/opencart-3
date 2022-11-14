@@ -6,7 +6,8 @@ class ControllerStartupLogin extends Controller {
         $ignore = [
             'common/login',
             'common/forgotten',
-            'common/reset'
+            'common/reset',
+            'common/language'
         ];
 
         // User
@@ -22,6 +23,7 @@ class ControllerStartupLogin extends Controller {
                 'common/logout',
                 'common/forgotten',
                 'common/reset',
+                'common/language',
                 'error/not_found',
                 'error/permission'
             ];
