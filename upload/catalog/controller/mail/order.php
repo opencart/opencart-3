@@ -441,6 +441,7 @@ class ControllerMailOrder extends Controller {
             }
 
             $data['totals'] = [];
+
             $order_totals = $this->model_checkout_order->getOrderTotals($order_id);
 
             foreach ($order_totals as $order_total) {
@@ -473,6 +474,7 @@ class ControllerMailOrder extends Controller {
 
                 foreach ($emails as $email) {
                     $email = trim($email);
+
                     if ($email && filter_var($email, FILTER_VALIDATE_EMAIL)) {
                         $mail->setTo($email);
                         $mail->send();
