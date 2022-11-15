@@ -23,7 +23,7 @@ class ControllerMailReturns extends Controller {
         if (isset($args[3])) {
             $notify = $args[3];
         } else {
-            $notify = false;
+            $notify = '';
         }
 
         if ($notify) {
