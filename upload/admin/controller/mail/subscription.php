@@ -49,7 +49,7 @@ class ControllerMailSubscription extends Controller {
                         // Settings
                         $this->load->model('setting/setting');
 
-                        $store_info = $this->model_setting_setting->getSettingValue('config', $customer_info['store_id']);
+                        $store_info = $this->model_setting_setting->getSetting('config', $customer_info['store_id']);
 
                         if ($store_info) {
                             $from = $store_info['config_email'];
