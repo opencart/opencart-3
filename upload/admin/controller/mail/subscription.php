@@ -84,7 +84,11 @@ class ControllerMailSubscription extends Controller {
 
                             $data['date_added'] = date($language->get('date_format_short'), $subscription_info['date_added']);
 
+                            // Text
+                            $data['text_comment'] = $language->get('text_comment');
+                            $data['text_date_added'] = $language->get('text_date_added');
                             $data['text_footer'] = $language->get('text_footer');
+                            $data['text_subscription_status'] = $language->get('text_subscription_status');
 
                             if ($this->config->get('config_mail_engine')) {
                                 $mail = new \Mail($this->config->get('config_mail_engine'));
