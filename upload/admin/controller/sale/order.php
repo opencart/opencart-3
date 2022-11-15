@@ -487,6 +487,17 @@ class ControllerSaleOrder extends Controller {
             // Subscription
             $this->load->model('sale/subscription');
 
+            // Settings
+            $this->load->model('setting/setting');
+
+            $store_info = $this->model_setting_setting->getSetting('config', $order_info['store_id']);
+
+            if ($store_info) {
+                $subscription_active_status_id = $store_info['config_subscription_active_status_id'];
+            } else {
+                $subscription_active_status_id = $this->config->get('config_subscription_active_status_id');
+            }
+
             $data['addresses'] = $this->model_customer_customer->getAddresses($order_info['customer_id']);
 
             // Payment Details
@@ -535,8 +546,9 @@ class ControllerSaleOrder extends Controller {
 
                 foreach ($subscriptions as $subscription) {
                     $filter_data = [
-                        'filter_subscription_id'  => $subscription['subscription_id'],
-                        'filter_order_product_id' => $product['order_product_id']
+                        'filter_subscription_id'        => $subscription['subscription_id'],
+                        'filter_order_product_id'       => $product['order_product_id'],
+                        'filter_subscription_status_id' => $subscription_active_status_id
                     ];
 
                     $subscription_info = $this->model_sale_subscription->getSubscriptions($filter_data);
@@ -879,6 +891,17 @@ class ControllerSaleOrder extends Controller {
             // Customer Groups
             $this->load->model('customer/customer_group');
 
+            // Settings
+            $this->load->model('setting/setting');
+
+            $store_info = $this->model_setting_setting->getSetting('config', $order_info['store_id']);
+
+            if ($store_info) {
+                $subscription_active_status_id = $store_info['config_subscription_active_status_id'];
+            } else {
+                $subscription_active_status_id = $this->config->get('config_subscription_active_status_id');
+            }
+
             $customer_group_info = $this->model_customer_customer_group->getCustomerGroup($order_info['customer_group_id']);
 
             if ($customer_group_info) {
@@ -1007,8 +1030,9 @@ class ControllerSaleOrder extends Controller {
 
                 foreach ($subscriptions as $subscription) {
                     $filter_data = [
-                        'filter_subscription_id'  => $subscription['subscription_id'],
-                        'filter_order_product_id' => $product['order_product_id']
+                        'filter_subscription_id'        => $subscription['subscription_id'],
+                        'filter_order_product_id'       => $product['order_product_id'],
+                        'filter_subscription_status_id' => $subscription_active_status_id
                     ];
 
                     $subscription_info = $this->model_sale_subscription->getSubscriptions($filter_data);
