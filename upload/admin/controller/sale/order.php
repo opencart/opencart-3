@@ -1603,6 +1603,9 @@ class ControllerSaleOrder extends Controller {
         // Subscription
         $this->load->model('sale/subscription');
 
+        // Uploaded files
+        $this->load->model('tool/upload');
+
         $data['orders'] = [];
 
         $orders = [];
@@ -1626,11 +1629,15 @@ class ControllerSaleOrder extends Controller {
                     $store_email = $store_info['config_email'];
                     $store_telephone = $store_info['config_telephone'];
                     $store_fax = $store_info['config_fax'];
+
+                    $subscription_active_status_id = $store_info['config_subscription_active_status_id'];
                 } else {
                     $store_address = $this->config->get('config_address');
                     $store_email = $this->config->get('config_email');
                     $store_telephone = $this->config->get('config_telephone');
                     $store_fax = $this->config->get('config_fax');
+
+                    $subscription_active_status_id = $this->config->get('config_subscription_active_status_id');
                 }
 
                 if ($order_info['invoice_no']) {
@@ -1721,9 +1728,6 @@ class ControllerSaleOrder extends Controller {
                 // Products
                 $products = $this->model_sale_order->getOrderProducts($order_id);
 
-                // Uploaded files
-                $this->load->model('tool/upload');
-
                 foreach ($products as $product) {
                     $option_data = [];
 
@@ -1753,8 +1757,9 @@ class ControllerSaleOrder extends Controller {
 
                     foreach ($subscriptions as $subscription) {
                         $filter_data = [
-                            'filter_subscription_id'  => $subscription['subscription_id'],
-                            'filter_order_product_id' => $product['order_product_id']
+                            'filter_subscription_id'        => $subscription['subscription_id'],
+                            'filter_order_product_id'       => $product['order_product_id'],
+                            'filter_subscription_status_id' => $subscription_active_status_id
                         ];
 
                         $subscription_info = $this->model_sale_subscription->getSubscriptions($filter_data);
@@ -1872,10 +1877,14 @@ class ControllerSaleOrder extends Controller {
                     $store_address = $store_info['config_address'];
                     $store_email = $store_info['config_email'];
                     $store_telephone = $store_info['config_telephone'];
+
+                    $subscription_active_status_id = $store_info['config_subscription_status_id'];
                 } else {
                     $store_address = $this->config->get('config_address');
                     $store_email = $this->config->get('config_email');
                     $store_telephone = $this->config->get('config_telephone');
+
+                    $subscription_active_status_id = $this->config->get('config_subscription_status_id');
                 }
 
                 if ($order_info['invoice_no']) {
@@ -1978,8 +1987,9 @@ class ControllerSaleOrder extends Controller {
 
                         foreach ($subscriptions as $subscription) {
                             $filter_data = [
-                                'filter_subscription_id'  => $subscription['subscription_id'],
-                                'filter_order_product_id' => $product['order_product_id']
+                                'filter_subscription_id'        => $subscription['subscription_id'],
+                                'filter_order_product_id'       => $product['order_product_id'],
+                                'filter_subscription_status_id' => $subscription_active_status_id
                             ];
 
                             $subscription_info = $this->model_sale_subscription->getSubscriptions($filter_data);
