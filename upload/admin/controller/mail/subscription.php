@@ -42,6 +42,7 @@ class ControllerMailSubscription extends Controller {
                 // Subscription histories
                 $history_total = $this->model_sale_subscription->getTotalHistoriesBySubscriptionStatusId($subscription_status_id);
 
+                // Requires an API to edit the subscription status from the catalog
                 if ($history_total && $subscription['subscription_status_id'] == $subscription_status_id) {
                     // Subscription Statuses
                     $this->load->model('localisation/subscription_status');
