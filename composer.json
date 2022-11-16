@@ -1,9 +1,9 @@
 {
-	"name": "opencart/opencart",
+	"name": "opencartcomvn/opencart",
     "type": "project",
     "description": "OpenCart",
     "keywords": ["opencart", "ecommerce", "framework", "opensource"],
-    "homepage": "http://www.opencart.com",
+    "homepage": "http://www.opencart.com.vn",
     "license": "GPL-3.0+",
     "config": {
         "vendor-dir": "./upload/system/storage/vendor/"
