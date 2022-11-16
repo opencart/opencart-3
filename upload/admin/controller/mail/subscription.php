@@ -179,6 +179,7 @@ class ControllerMailSubscription extends Controller {
 
         $filter_data = [
             'filter_subscription_id'        => $subscription_id,
+            'filter_order_id'               => $order_id,
             'filter_subscription_status_id' => $this->config->get('config_subscription_canceled_status_id'),
             'filter_date_next'              => date('Y-m-d H:i:s')
         ];
