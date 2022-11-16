@@ -275,43 +275,60 @@ class ControllerMailSubscription extends Controller {
 
                                                         // We need to validate frequencies in compliance of the admin subscription plans
                                                         // as with the use of the APIs
-                                                        if ($customer_info && (int)$subscription_info['cycle'] >= 0 && in_array($subscription_info['frequency'], $frequencies) && isset($this->session->data['tracking'])) {
-                                                            $affiliate_info = $this->model_account_customer->getAffiliateByTracking($this->session->data['tracking']);
+                                                        if ($customer_info && (int)$subscription_info['cycle'] >= 0 && in_array($subscription_info['frequency'], $frequencies)) {
+                                                            // New customer once the trial period has ended
+                                                            $customer_remaining = strtotime($customer_info['date_added']);
 
-                                                            if ($affiliate_info && $affiliate_info['status']) {
-                                                                // New customer once the trial period has ended
-                                                                $customer_remaining = strtotime($customer_info['date_added']);
+                                                            if ($subscription_info['frequency'] == 'semi_month') {
+                                                                $remaining = strtotime("2 weeks");
+                                                            } else {
+                                                                $remaining = strtotime($subscription_info['cycle'] . ' ' . $subscription_info['frequency']);
+                                                            }
 
-                                                                if ($subscription_info['frequency'] == 'semi_month') {
-                                                                    $remaining = strtotime("2 weeks");
-                                                                } else {
-                                                                    $remaining = strtotime($subscription_info['cycle'] . ' ' . $subscription_info['frequency']);
+                                                            // Calculates the remaining days between the subscription
+                                                            // promotional period and the date added
+                                                            // period
+                                                            $remaining = ($remaining - $customer_remaining);
+                                                            $remaining = round($remaining / (60 * 60 * 24));
+
+                                                            // The value of 0 also implicits a current or a final period
+                                                            // of the promotional features for the customer
+                                                            if (!$remaining) {
+                                                                $remaining = 0;
+                                                            }
+
+                                                            // Order remaining
+                                                            $orders = $this->model_account_order->getOrders(0, $subscription_info['cycle']);
+
+                                                            $order_remaining = 0;
+
+                                                            if ($orders) {
+                                                                $date_added = array_column($orders, 'date_added');
+
+                                                                $order_remaining = min($date_added);
+                                                                $order_remaining = strtotime($order_remaining);
+
+                                                                $order_remaining = ($remaining - $order_remaining);
+                                                                $order_remaining = round($order_remaining / (60 * 60 * 24));
+
+                                                                if (!$order_remaining) {
+                                                                    $order_remaining = 0;
                                                                 }
+                                                            }
 
-                                                                // Calculates the remaining days between the subscription
-                                                                // promotional period and the customer account's date added
-                                                                // period
-                                                                $remaining = ($remaining - $customer_remaining);
-                                                                $remaining = round($remaining / (60 * 60 * 24));
+                                                            // Promotional features description must be identical
+                                                            // until the time period has exceeded. If there are no orders,
+                                                            // the promotional cycle period will take place on the next billing
+                                                            // cycle until the last cycle period ends
+                                                            if ($remaining >= 0 && (($order_remaining >= 0 && $remaining == $order_remaining) || (!$order_remaining)) && $value['description'] == $description && $subscription_info['subscription_plan_id'] == $value['subscription_plan_id']) {
+                                                                // Products
+                                                                $this->load->model('catalog/product');
 
-                                                                // The value of 0 also implicits a current or a final period
-                                                                // of the promotional features for the customer
-                                                                if (!$remaining) {
-                                                                    $remaining = 0;
-                                                                }
+                                                                $product_subscription_info = $this->model_catalog_product->getSubscription($order_product['product_id'], $subscription_info['subscription_plan_id']);
 
-                                                                // Promotional features description must be identical
-                                                                // until the time period has exceeded
-                                                                if ($remaining >= 0 && $value['description'] == $description && $subscription_info['subscription_plan_id'] == $value['subscription_plan_id']) {
-                                                                    // Products
-                                                                    $this->load->model('catalog/product');
-
-                                                                    $product_subscription_info = $this->model_catalog_product->getSubscription($order_product['product_id'], $subscription_info['subscription_plan_id']);
-
-                                                                    if ($product_subscription_info) {
-                                                                        // For the next billing cycle
-                                                                        $this->model_account_subscription->addTransaction($value['subscription_id'], $value['order_id'], $this->language->get('text_promotion'), $subscription_info['amount'], $subscription_info['type'], $subscription_info['payment_method'], $subscription_info['payment_code']);
-                                                                    }
+                                                                if ($product_subscription_info) {
+                                                                    // For the next billing cycle
+                                                                    $this->model_account_subscription->addTransaction($value['subscription_id'], $value['order_id'], $this->language->get('text_promotion'), $subscription_info['amount'], $subscription_info['type'], $subscription_info['payment_method'], $subscription_info['payment_code']);
                                                                 }
                                                             }
                                                         }
