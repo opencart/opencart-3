@@ -1,9 +1,8 @@
 <?php
-
 namespace GuzzleHttp\Cookie;
 
-use Psr\Http\Message\RequestInterface;
-use Psr\Http\Message\ResponseInterface;
+use GuzzleHttp\Message\RequestInterface;
+use GuzzleHttp\Message\ResponseInterface;
 
 /**
  * Stores HTTP cookies.
@@ -13,22 +12,19 @@ use Psr\Http\Message\ResponseInterface;
  * necessary. Subclasses are also responsible for storing and retrieving
  * cookies from a file, database, etc.
  *
- * @link https://docs.python.org/2/library/cookielib.html Inspiration
- * @extends \IteratorAggregate<SetCookie>
+ * @link http://docs.python.org/2/library/cookielib.html Inspiration
  */
 interface CookieJarInterface extends \Countable, \IteratorAggregate
 {
     /**
-     * Create a request with added cookie headers.
+     * Add a Cookie header to a request.
      *
      * If no matching cookies are found in the cookie jar, then no Cookie
-     * header is added to the request and the same request is returned.
+     * header is added to the request.
      *
-     * @param RequestInterface $request Request object to modify.
-     *
-     * @return RequestInterface returns the modified request.
+     * @param RequestInterface $request Request object to update
      */
-    public function withCookieHeader(RequestInterface $request): RequestInterface;
+    public function addCookieHeader(RequestInterface $request);
 
     /**
      * Extract cookies from an HTTP response and store them in the CookieJar.
@@ -36,7 +32,10 @@ interface CookieJarInterface extends \Countable, \IteratorAggregate
      * @param RequestInterface  $request  Request that was sent
      * @param ResponseInterface $response Response that was received
      */
-    public function extractCookies(RequestInterface $request, ResponseInterface $response): void;
+    public function extractCookies(
+        RequestInterface $request,
+        ResponseInterface $response
+    );
 
     /**
      * Sets a cookie in the cookie jar.
@@ -45,7 +44,7 @@ interface CookieJarInterface extends \Countable, \IteratorAggregate
      *
      * @return bool Returns true on success or false on failure
      */
-    public function setCookie(SetCookie $cookie): bool;
+    public function setCookie(SetCookie $cookie);
 
     /**
      * Remove cookies currently held in the cookie jar.
@@ -57,11 +56,13 @@ interface CookieJarInterface extends \Countable, \IteratorAggregate
      * arguments, then the cookie with the specified name, path and domain is
      * removed.
      *
-     * @param string|null $domain Clears cookies matching a domain
-     * @param string|null $path   Clears cookies matching a domain and path
-     * @param string|null $name   Clears cookies matching a domain, path, and name
+     * @param string $domain Clears cookies matching a domain
+     * @param string $path   Clears cookies matching a domain and path
+     * @param string $name   Clears cookies matching a domain, path, and name
+     *
+     * @return CookieJarInterface
      */
-    public function clear(?string $domain = null, ?string $path = null, ?string $name = null): void;
+    public function clear($domain = null, $path = null, $name = null);
 
     /**
      * Discard all sessions cookies.
@@ -70,10 +71,5 @@ interface CookieJarInterface extends \Countable, \IteratorAggregate
      * field set to true. To be called when the user agent shuts down according
      * to RFC 2965.
      */
-    public function clearSessionCookies(): void;
-
-    /**
-     * Converts the cookie jar to an array.
-     */
-    public function toArray(): array;
+    public function clearSessionCookies();
 }

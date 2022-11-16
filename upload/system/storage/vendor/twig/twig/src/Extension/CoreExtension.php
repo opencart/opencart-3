@@ -1359,10 +1359,6 @@ function twig_source(Environment $env, $name, $ignoreMissing = false)
 function twig_constant($constant, $object = null)
 {
     if (null !== $object) {
-        if ('class' === $constant) {
-            return \get_class($object);
-        }
-
         $constant = \get_class($object).'::'.$constant;
     }
 
@@ -1380,10 +1376,6 @@ function twig_constant($constant, $object = null)
 function twig_constant_is_defined($constant, $object = null)
 {
     if (null !== $object) {
-        if ('class' === $constant) {
-            return true;
-        }
-
         $constant = \get_class($object).'::'.$constant;
     }
 
