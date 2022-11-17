@@ -49,7 +49,7 @@ class ControllerMailSubscription extends Controller {
 
         if ($subscription['trial_status'] && $subscription['trial_duration'] && $subscription['trial_remaining']) {
             $date_next = date('Y-m-d', strtotime('+' . $subscription['trial_cycle'] . ' ' . $subscription['trial_frequency']));
-        } elseif ($subscription['status'] && $subscription['duration'] && $subscription['remaining']) {
+        } elseif ($subscription['duration'] && $subscription['remaining']) {
             $date_next = date('Y-m-d', strtotime('+' . $subscription['cycle'] . ' ' . $subscription['frequency']));
         }
 
