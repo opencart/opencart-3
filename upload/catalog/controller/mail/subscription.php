@@ -286,7 +286,7 @@ class ControllerMailSubscription extends Controller {
                                                             $customer_period = strtotime($customer_info['date_added']);
 
                                                             $trial_period = 0;
-                                                            $validate_trial = 0;
+                                                            $trial = 0;
 
                                                             // Trial
                                                             if ($subscription_info['trial_cycle'] && $subscription_info['trial_frequency'] && $subscription_info['trial_cycle'] == $value['trial_cycle'] && $subscription_info['trial_frequency'] == $value['trial_frequency']) {
@@ -297,7 +297,7 @@ class ControllerMailSubscription extends Controller {
                                                                 }
 
                                                                 $trial_period = ($trial_period - $customer_period);
-                                                                $validate_trial = round($trial_period / (60 * 60 * 24));
+                                                                $trial = round($trial_period / (60 * 60 * 24));
                                                             }
 
                                                             // Calculates the remaining days between the subscription
@@ -310,7 +310,7 @@ class ControllerMailSubscription extends Controller {
                                                             // Promotional features description must be identical
                                                             // until the time period has exceeded. Therefore, the current
                                                             // period must be matched as well
-                                                            if (($period == 0 && ($validate_trial > 0 || !$validate_trial)) && $value['description'] == $description && $subscription_info['subscription_plan_id'] == $value['subscription_plan_id']) {
+                                                            if (($period == 0 && ($trial > 0 || !$trial)) && $value['description'] == $description && $subscription_info['subscription_plan_id'] == $value['subscription_plan_id']) {
                                                                 // Products
                                                                 $this->load->model('catalog/product');
 
@@ -318,7 +318,7 @@ class ControllerMailSubscription extends Controller {
 
                                                                 if ($product_subscription_info) {
                                                                     // For the next billing cycle
-                                                                    $this->model_account_subscription->addTransaction($value['subscription_id'], $value['order_id'], $this->language->get('text_promotion'), $subscription_info['amount'], $subscription_info['type'], $subscription_info['payment_method'], $subscription_info['payment_code']);
+                                                                    $this->model_account_subscription->addTransaction($value['subscription_id'], $value['order_id'], $language->get('text_promotion'), $subscription_info['amount'], $subscription_info['type'], $subscription_info['payment_method'], $subscription_info['payment_code']);
                                                                 }
                                                             }
                                                         }
