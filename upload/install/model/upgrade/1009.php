@@ -136,6 +136,8 @@ class ModelUpgrade1009 extends Model {
         $this->db->query("UPDATE `" . DB_PREFIX . "event` SET `trigger` = 'admin/model/sale/returns/addHistory/after' WHERE `action` = 'extension/total/voucher/send'");
         $this->db->query("UPDATE `" . DB_PREFIX . "statistics` SET `code` = 'returns' WHERE `code` = 'return'");
 
+        // Since there are no guarantee the deleteReturn and addReturn methods will exist in the event table,
+        // we need to check and insert the data if need be.
         $this->db->query("DELETE FROM `" . DB_PREFIX . "event` WHERE `trigger` = 'admin/model/sale/return/deleteReturn/after'");
         $this->db->query("DELETE FROM `" . DB_PREFIX . "event` WHERE `trigger` = 'admin/model/sale/return/addReturn/after'");
 
