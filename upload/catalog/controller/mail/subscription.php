@@ -144,11 +144,15 @@ class ControllerMailSubscription extends Controller {
                                             $store_name = html_entity_decode($store_info['name'], ENT_QUOTES, 'UTF-8');
 
                                             $store_url = $store_info['url'];
+
+                                            $from = html_entity_decode($store_info['config_email'], ENT_QUOTES, 'UTF-8');
                                         } else {
                                             $store_logo = html_entity_decode($this->config->get('config_logo'), ENT_QUOTES, 'UTF-8');
                                             $store_name = html_entity_decode($this->config->get('config_name'), ENT_QUOTES, 'UTF-8');
 
                                             $store_url = HTTP_SERVER;
+
+                                            $from = html_entity_decode($this->config->get('config_email'), ENT_QUOTES, 'UTF-8');
                                         }
 
                                         // Subscription Status
@@ -177,8 +181,6 @@ class ControllerMailSubscription extends Controller {
                                         $language->load($order_info['language_code']);
                                         $language->load('mail/subscription');
 
-                                        $subject = sprintf($language->get('text_subject'), $store_name, $order_info['order_id']);
-
                                         // Image files
                                         $this->load->model('tool/image');
 
@@ -188,34 +190,12 @@ class ControllerMailSubscription extends Controller {
                                             $data['logo'] = '';
                                         }
 
-                                        $data['title'] = sprintf($language->get('text_subject'), $store_name, $order_info['order_id']);
-
-                                        $data['text_greeting'] = sprintf($language->get('text_greeting'), $order_info['store_name']);
+                                        $data['text_greeting'] = sprintf($language->get('text_greeting'), $store_name);
 
                                         $data['store'] = $store_name;
-                                        $data['store_url'] = $order_info['store_url'];
+                                        $data['store_url'] = $store_url;
 
                                         $data['customer_id'] = $order_info['customer_id'];
-                                        $data['link'] = $order_info['store_url'] . 'index.php?route=account/subscription/info&subscription_id=' . $subscription_id;
-
-                                        $data['order_id'] = $order_info['order_id'];
-                                        $data['date_added'] = date($language->get('date_format_short'), strtotime($value['date_added']));
-                                        $data['payment_method'] = $order_info['payment_method'];
-                                        $data['email'] = $order_info['email'];
-                                        $data['telephone'] = $order_info['telephone'];
-                                        $data['ip'] = $order_info['ip'];
-
-                                        // Order Totals
-                                        $data['totals'] = [];
-
-                                        $order_totals = $this->model_checkout_order->getOrderTotals($subscription['order_id']);
-
-                                        foreach ($order_totals as $order_total) {
-                                            $data['totals'][] = [
-                                                'title' => $order_total['title'],
-                                                'text'  => $this->currency->format($order_total['value'], $order_info['currency_code'], $order_info['currency_value']),
-                                            ];
-                                        }
 
                                         // Subscription
                                         if ($comment && $notify) {
@@ -226,21 +206,38 @@ class ControllerMailSubscription extends Controller {
 
                                         $data['description'] = $value['description'];
 
+                                        $subject = sprintf($language->get('text_subject'), $store_name, $order_info['order_id']);
+
+                                        $data['title'] = sprintf($language->get('text_subject'), $store_name, $order_info['order_id']);
+                                        $data['link'] = $store_url . 'index.php?route=account/subscription/info&subscription_id=' . $subscription_id;
+
+                                        $data['order_id'] = $order_info['order_id'];
+                                        $data['date_added'] = date($language->get('date_format_short'), strtotime($order_info['date_added']));
+                                        $data['payment_method'] = $order_info['payment_method'];
+                                        $data['email'] = $order_info['email'];
+                                        $data['telephone'] = $order_info['telephone'];
+                                        $data['ip'] = $order_info['ip'];
+
+                                        // Order Totals
+                                        $data['totals'] = [];
+
+                                        $order_totals = $this->model_checkout_order->getOrderTotals($order_info['order_id']);
+
+                                        foreach ($order_totals as $order_total) {
+                                            $data['totals'][] = [
+                                                'title' => $order_total['title'],
+                                                'text'  => $this->currency->format($order_total['value'], $order_info['currency_code'], $order_info['currency_value']),
+                                            ];
+                                        }
+
                                         // Products
                                         $data['name'] = $order_product['name'];
                                         $data['quantity'] = $order_product['quantity'];
                                         $data['price'] = $this->currency->format($order_product['price'], $order_info['currency_code'], $order_info['currency_value']);
                                         $data['total'] = $this->currency->format($order_product['total'], $order_info['currency_code'], $order_info['currency_value']);
 
-                                        $data['order'] = $this->url->link('account/order/info', 'order_id=' . $value['order_id']);
+                                        $data['order'] = $this->url->link('account/order/info', 'order_id=' . $order_info['order_id']);
                                         $data['product'] = $this->url->link('product/product', 'product_id=' . $order_product['product_id']);
-
-                                        // Settings
-                                        $from = $this->model_setting_setting->getSettingValue('config_email', $order_info['store_id']);
-
-                                        if (!$from) {
-                                            $from = $this->config->get('config_email');
-                                        }
 
                                         if ($this->config->get('payment_' . $payment_info['code'] . '_status')) {
                                             $this->load->model('extension/payment/' . $payment_info['code']);
@@ -326,34 +323,45 @@ class ControllerMailSubscription extends Controller {
                                                                     // Promotional subscription plans for full membership must be identical
                                                                     // until the time period has exceeded. Therefore, we need to match the
                                                                     // cycle period with the current time period; including pro rata
-                                                                    if ($next_subscription['status'] && ($cycle >= 0 && $cycle <= $next_subscription['cycle']) && ($trial_cycle == 0 && !$next_subscription['trial_status']) && $subscription['subscription_plan_id'] == $value['subscription_plan_id'] && $value['subscription_plan_id'] == $next_subscription['subscription_plan_id']) {
-                                                                        // Products
-                                                                        $this->load->model('catalog/product');
+                                                                    if ($next_subscription['status'] && ($cycle >= 0 && $cycle <= $next_subscription['cycle']) && ($trial_cycle == 0 && !$next_subscription['trial_status']) && $next_subscription['subscription_plan_id'] == $value['subscription_plan_id'] && $value['subscription_plan_id'] == $subscription['subscription_plan_id']) {
+                                                                        $subscription_id = $next_subscription['subscription_id'];
 
-                                                                        $product_subscription_info = $this->model_catalog_product->getSubscription($order_product['product_id'], $next_subscription['subscription_plan_id']);
+                                                                        // Order Products
+                                                                        $order_product = $this->model_account_order->getOrderProduct($next_subscription['order_id'], $next_subscription['order_product_id']);
 
-                                                                        if ($product_subscription_info) {
-                                                                            // Adds the current amount in order for promotional subscription extensions
-                                                                            // to balance the new transaction amount to reflect the change on the next
-                                                                            // billing cycle
-                                                                            $transactions = $this->model_account_subscription->getTransactions($next_subscription['subscription_id']);
+                                                                        if ($order_product) {
+                                                                            $order_info = $this->model_account_order->getOrder($next_subscription['order_id']);
 
-                                                                            if ($transactions) {
-                                                                                if ($next_subscription['duration'] && $next_subscription['remaining']) {
-                                                                                    $date_next = strtotime('+' . $next_subscription['cycle'] . ' ' . $next_subscription['frequency']);
-                                                                                }
+                                                                            if ($order_info) {
+                                                                                // Products
+                                                                                $this->load->model('catalog/product');
 
-                                                                                $dates = array_column($transactions, 'date_added');
+                                                                                $product_subscription_info = $this->model_catalog_product->getSubscription($order_product['product_id'], $next_subscription['subscription_plan_id']);
 
-                                                                                $date_added = max($dates);
-                                                                                $date_added = strtotime($date_added);
+                                                                                if ($product_subscription_info) {
+                                                                                    // Adds the current amount in order for promotional subscription extensions
+                                                                                    // to balance the new transaction amount to reflect the change on the next
+                                                                                    // billing cycle
+                                                                                    $transactions = $this->model_account_subscription->getTransactions($next_subscription['subscription_id']);
 
-                                                                                foreach ($transactions as $transaction) {
-                                                                                    // If the date next don't match with the latest date added of the subscription,
-                                                                                    // we add an amount value of 0. Store owners then need to review the order
-                                                                                    // that is related with this transaction
-                                                                                    if (strtotime($transaction['date_added']) == $date_added && $date_added != $date_next && $transaction['payment_method'] == $order_info['payment_method'] && $transaction['payment_code'] == $order_info['payment_code']) {
-                                                                                        $this->model_account_subscription->addTransaction($next_subscription['subscription_id'], $next_subscription['order_id'], $language->get('text_promotion'), 0, $transaction['type'], $transaction['payment_method'], $transaction['payment_code']);
+                                                                                    if ($transactions) {
+                                                                                        if ($next_subscription['duration'] && $next_subscription['remaining']) {
+                                                                                            $date_next = strtotime('+' . $next_subscription['cycle'] . ' ' . $next_subscription['frequency']);
+                                                                                        }
+
+                                                                                        $dates = array_column($transactions, 'date_added');
+
+                                                                                        $date_added = max($dates);
+                                                                                        $date_added = strtotime($date_added);
+
+                                                                                        foreach ($transactions as $transaction) {
+                                                                                            // If the date next don't match with the latest date added of the subscription,
+                                                                                            // we add an amount value of 0. Store owners then need to review the orders
+                                                                                            // that are related with these transactions
+                                                                                            if (strtotime($transaction['date_added']) == $date_added && $date_added != $date_next && $transaction['payment_method'] == $order_info['payment_method'] && $transaction['payment_code'] == $order_info['payment_code']) {
+                                                                                                $this->model_account_subscription->addTransaction($next_subscription['subscription_id'], $next_subscription['order_id'], $language->get('text_promotion'), 0, $transaction['type'], $transaction['payment_method'], $transaction['payment_code']);
+                                                                                            }
+                                                                                        }
                                                                                     }
                                                                                 }
                                                                             }
