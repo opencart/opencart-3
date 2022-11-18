@@ -89,13 +89,13 @@ class ModelDesignLayout extends Model {
         return $query->rows;
     }
 
-    public function getLayoutRoutes(int $layout_id): array {
+    public function getRoutes(int $layout_id): array {
         $query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "layout_route` WHERE `layout_id` = '" . (int)$layout_id . "'");
 
         return $query->rows;
     }
 
-    public function getLayoutModules(int $layout_id): array {
+    public function getModules(int $layout_id): array {
         $query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "layout_module` WHERE `layout_id` = '" . (int)$layout_id . "' ORDER BY `position` ASC, `sort_order` ASC");
 
         return $query->rows;

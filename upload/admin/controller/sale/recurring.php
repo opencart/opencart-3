@@ -662,7 +662,7 @@ class ControllerSaleRecurring extends Controller {
         // Transactions
         $data['transactions'] = [];
 
-        $transactions = $this->model_sale_recurring->getRecurringTransactions($order_recurring_id);
+        $transactions = $this->model_sale_recurring->getTransactions($order_recurring_id);
 
         foreach ($transactions as $transaction) {
             $data['transactions'][] = [

@@ -339,7 +339,7 @@ class ControllerCatalogManufacturer extends Controller {
         if (isset($this->request->post['manufacturer_store'])) {
             $data['manufacturer_store'] = $this->request->post['manufacturer_store'];
         } elseif (isset($this->request->get['manufacturer_id'])) {
-            $data['manufacturer_store'] = $this->model_catalog_manufacturer->getManufacturerStores($this->request->get['manufacturer_id']);
+            $data['manufacturer_store'] = $this->model_catalog_manufacturer->getStores($this->request->get['manufacturer_id']);
         } else {
             $data['manufacturer_store'] = [0];
         }
@@ -381,7 +381,7 @@ class ControllerCatalogManufacturer extends Controller {
         if (isset($this->request->post['manufacturer_seo_url'])) {
             $data['manufacturer_seo_url'] = $this->request->post['manufacturer_seo_url'];
         } elseif (isset($this->request->get['manufacturer_id'])) {
-            $data['manufacturer_seo_url'] = $this->model_catalog_manufacturer->getManufacturerSeoUrls($this->request->get['manufacturer_id']);
+            $data['manufacturer_seo_url'] = $this->model_catalog_manufacturer->getSeoUrls($this->request->get['manufacturer_id']);
         } else {
             $data['manufacturer_seo_url'] = [];
         }

@@ -144,7 +144,7 @@ class ModelCatalogInformation extends Model {
         }
     }
 
-    public function getInformationDescriptions(int $information_id): array {
+    public function getDescriptions(int $information_id): array {
         $information_description_data = [];
 
         $query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "information_description` WHERE `information_id` = '" . (int)$information_id . "'");
@@ -162,7 +162,7 @@ class ModelCatalogInformation extends Model {
         return $information_description_data;
     }
 
-    public function getInformationStores(int $information_id): array {
+    public function getStores(int $information_id): array {
         $information_store_data = [];
 
         $query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "information_to_store` WHERE `information_id` = '" . (int)$information_id . "'");

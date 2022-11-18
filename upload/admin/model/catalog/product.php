@@ -315,20 +315,20 @@ class ModelCatalogProduct extends Model {
             $data['sku'] = '';
             $data['upc'] = '';
             $data['keyword'] = '';
-            $data['product_attribute'] = $this->getProductAttributes($product_id);
-            $data['product_description'] = $this->getProductDescriptions($product_id);
-            $data['product_discount'] = $this->getProductDiscounts($product_id);
-            $data['product_filter'] = $this->getProductFilters($product_id);
-            $data['product_image'] = $this->getProductImages($product_id);
-            $data['product_option'] = $this->getProductOptions($product_id);
-            $data['product_related'] = $this->getProductRelated($product_id);
-            $data['product_reward'] = $this->getProductRewards($product_id);
-            $data['product_special'] = $this->getProductSpecials($product_id);
-            $data['product_category'] = $this->getProductCategories($product_id);
-            $data['product_download'] = $this->getProductDownloads($product_id);
-            $data['product_layout'] = $this->getProductLayouts($product_id);
-            $data['product_store'] = $this->getProductStores($product_id);
-            $data['product_subscriptions'] = $this->getProductSubscriptions($product_id);
+            $data['product_attribute'] = $this->getAttributes($product_id);
+            $data['product_description'] = $this->getDescriptions($product_id);
+            $data['product_discount'] = $this->getDiscounts($product_id);
+            $data['product_filter'] = $this->getFilters($product_id);
+            $data['product_image'] = $this->getImages($product_id);
+            $data['product_option'] = $this->getOptions($product_id);
+            $data['product_related'] = $this->getRelated($product_id);
+            $data['product_reward'] = $this->getRewards($product_id);
+            $data['product_special'] = $this->getSpecials($product_id);
+            $data['product_category'] = $this->getCategories($product_id);
+            $data['product_download'] = $this->getDownloads($product_id);
+            $data['product_layout'] = $this->getLayouts($product_id);
+            $data['product_store'] = $this->getStores($product_id);
+            $data['product_subscriptions'] = $this->getSubscriptions($product_id);
 
             $this->addProduct($data);
         }
@@ -434,7 +434,7 @@ class ModelCatalogProduct extends Model {
         return $query->rows;
     }
 
-    public function getProductDescriptions(int $product_id): array {
+    public function getDescriptions(int $product_id): array {
         $product_description_data = [];
 
         $query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "product_description` WHERE `product_id` = '" . (int)$product_id . "'");
@@ -453,7 +453,7 @@ class ModelCatalogProduct extends Model {
         return $product_description_data;
     }
 
-    public function getProductCategories(int $product_id): array {
+    public function getCategories(int $product_id): array {
         $product_category_data = [];
 
         $query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "product_to_category` WHERE `product_id` = '" . (int)$product_id . "'");
@@ -465,7 +465,7 @@ class ModelCatalogProduct extends Model {
         return $product_category_data;
     }
 
-    public function getProductFilters(int $product_id): array {
+    public function getFilters(int $product_id): array {
         $product_filter_data = [];
 
         $query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "product_filter` WHERE `product_id` = '" . (int)$product_id . "'");
@@ -477,7 +477,7 @@ class ModelCatalogProduct extends Model {
         return $product_filter_data;
     }
 
-    public function getProductAttributes(int $product_id): array {
+    public function getAttributes(int $product_id): array {
         $product_attribute_data = [];
 
         $product_attribute_query = $this->db->query("SELECT `attribute_id` FROM `" . DB_PREFIX . "product_attribute` WHERE `product_id` = '" . (int)$product_id . "' GROUP BY `attribute_id`");
@@ -500,7 +500,7 @@ class ModelCatalogProduct extends Model {
         return $product_attribute_data;
     }
 
-    public function getProductOptions(int $product_id): array {
+    public function getOptions(int $product_id): array {
         $product_option_data = [];
 
         $product_option_query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "product_option` po LEFT JOIN `" . DB_PREFIX . "option` o ON (po.`option_id` = o.`option_id`) LEFT JOIN `" . DB_PREFIX . "option_description` od ON (o.`option_id` = od.`option_id`) WHERE po.`product_id` = '" . (int)$product_id . "' AND od.`language_id` = '" . (int)$this->config->get('config_language_id') . "' ORDER BY o.`sort_order` ASC");
@@ -539,31 +539,31 @@ class ModelCatalogProduct extends Model {
         return $product_option_data;
     }
 
-    public function getProductOptionValue(int $product_id, int $product_option_value_id): array {
+    public function getOptionValue(int $product_id, int $product_option_value_id): array {
         $query = $this->db->query("SELECT pov.`option_value_id`, ovd.`name`, pov.`quantity`, pov.`subtract`, pov.`price`, pov.`price_prefix`, pov.`points`, pov.`points_prefix`, pov.`weight`, pov.`weight_prefix` FROM `" . DB_PREFIX . "product_option_value` pov LEFT JOIN `" . DB_PREFIX . "option_value` ov ON (pov.`option_value_id` = ov.`option_value_id`) LEFT JOIN `" . DB_PREFIX . "option_value_description` ovd ON (ov.`option_value_id` = ovd.`option_value_id`) WHERE pov.`product_id` = '" . (int)$product_id . "' AND pov.`product_option_value_id` = '" . (int)$product_option_value_id . "' AND ovd.`language_id` = '" . (int)$this->config->get('config_language_id') . "'");
 
         return $query->row;
     }
 
-    public function getProductImages(int $product_id): array {
+    public function getImages(int $product_id): array {
         $query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "product_image` WHERE `product_id` = '" . (int)$product_id . "' ORDER BY `sort_order` ASC");
 
         return $query->rows;
     }
 
-    public function getProductDiscounts(int $product_id): array {
+    public function getDiscounts(int $product_id): array {
         $query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "product_discount` WHERE `product_id` = '" . (int)$product_id . "' ORDER BY `quantity`, `priority`, `price`");
 
         return $query->rows;
     }
 
-    public function getProductSpecials(int $product_id): array {
+    public function getSpecials(int $product_id): array {
         $query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "product_special` WHERE `product_id` = '" . (int)$product_id . "' ORDER BY `priority`, `price`");
 
         return $query->rows;
     }
 
-    public function getProductRewards(int $product_id): array {
+    public function getRewards(int $product_id): array {
         $product_reward_data = [];
 
         $query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "product_reward` WHERE `product_id` = '" . (int)$product_id . "'");
@@ -575,7 +575,7 @@ class ModelCatalogProduct extends Model {
         return $product_reward_data;
     }
 
-    public function getProductDownloads(int $product_id): array {
+    public function getDownloads(int $product_id): array {
         $product_download_data = [];
 
         $query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "product_to_download` WHERE `product_id` = '" . (int)$product_id . "'");
@@ -587,7 +587,7 @@ class ModelCatalogProduct extends Model {
         return $product_download_data;
     }
 
-    public function getProductStores(int $product_id): array {
+    public function getStores(int $product_id): array {
         $product_store_data = [];
 
         $query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "product_to_store` WHERE `product_id` = '" . (int)$product_id . "'");
@@ -599,7 +599,7 @@ class ModelCatalogProduct extends Model {
         return $product_store_data;
     }
 
-    public function getProductSeoUrls(int $product_id): array {
+    public function getSeoUrls(int $product_id): array {
         $product_seo_url_data = [];
 
         $query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "seo_url` WHERE `query` = 'product_id=" . (int)$product_id . "'");
@@ -611,7 +611,7 @@ class ModelCatalogProduct extends Model {
         return $product_seo_url_data;
     }
 
-    public function getProductLayouts(int $product_id): array {
+    public function getLayouts(int $product_id): array {
         $product_layout_data = [];
 
         $query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "product_to_layout` WHERE `product_id` = '" . (int)$product_id . "'");
@@ -623,7 +623,7 @@ class ModelCatalogProduct extends Model {
         return $product_layout_data;
     }
 
-    public function getProductRelated(int $product_id): array {
+    public function getRelated(int $product_id): array {
         $product_related_data = [];
 
         $query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "product_related` WHERE `product_id` = '" . (int)$product_id . "'");
@@ -635,7 +635,7 @@ class ModelCatalogProduct extends Model {
         return $product_related_data;
     }
 
-    public function getProductSubscriptions(int $product_id): array {
+    public function getSubscriptions(int $product_id): array {
         $query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "product_subscription` WHERE `product_id` = '" . (int)$product_id . "'");
 
         return $query->rows;

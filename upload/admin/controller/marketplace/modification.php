@@ -67,7 +67,7 @@ class ControllerMarketplaceModification extends Controller {
             // Settings
             $this->load->model('setting/setting');
 
-            $this->model_setting_setting->editSettingValue('config', 'config_maintenance', true);
+            $this->model_setting_setting->editValue('config', 'config_maintenance', true);
 
             // Log
             $log = [];
@@ -422,7 +422,7 @@ class ControllerMarketplaceModification extends Controller {
             }
 
             // Maintance mode back to original settings
-            $this->model_setting_setting->editSettingValue('config', 'config_maintenance', $maintenance);
+            $this->model_setting_setting->editValue('config', 'config_maintenance', $maintenance);
 
             // Do not return success message if refresh() was called with $data
             $this->session->data['success'] = $this->language->get('text_success');

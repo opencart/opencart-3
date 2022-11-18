@@ -258,7 +258,7 @@ class ModelCatalogCategory extends Model {
         return $query->rows;
     }
 
-    public function getCategoryDescriptions(int $category_id): array {
+    public function getDescriptions(int $category_id): array {
         $category_description_data = [];
 
         $query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "category_description` WHERE `category_id` = '" . (int)$category_id . "'");
@@ -276,13 +276,13 @@ class ModelCatalogCategory extends Model {
         return $category_description_data;
     }
 
-    public function getCategoryPath(int $category_id): array {
+    public function getPath(int $category_id): array {
         $query = $this->db->query("SELECT `category_id`, `path_id`, `level` FROM `" . DB_PREFIX . "category_path` WHERE `category_id` = '" . (int)$category_id . "'");
 
         return $query->rows;
     }
 
-    public function getCategoryFilters(int $category_id): array {
+    public function getFilters(int $category_id): array {
         $category_filter_data = [];
 
         $query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "category_filter` WHERE `category_id` = '" . (int)$category_id . "'");

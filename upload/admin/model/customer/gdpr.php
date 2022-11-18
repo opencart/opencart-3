@@ -1,5 +1,9 @@
 <?php
 class ModelCustomerGdpr extends Model {
+    public function editStatus(int $gdpr_id, int $status): void {
+        $this->db->query("UPDATE `" . DB_PREFIX . "gdpr` SET `status` = '" . (int)$status . "' WHERE `gdpr_id` = '" . (int)$gdpr_id . "'");
+    }
+
     public function deleteGdpr(int $gdpr_id): void {
         $this->db->query("DELETE FROM `" . DB_PREFIX . "gdpr` WHERE `gdpr_id` = '" . (int)$gdpr_id . "'");
     }
@@ -88,9 +92,5 @@ class ModelCustomerGdpr extends Model {
         $query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "gdpr` WHERE `status` = '2' AND DATE(`date_added`) <= DATE('" . $this->db->escape(date('Y-m-d', strtotime('+' . (int)$this->config->get('config_gdpr_limit') . ' days'))) . "') ORDER BY `date_added` DESC");
 
         return $query->rows;
-    }
-
-    public function editStatus(int $gdpr_id, int $status): void {
-        $this->db->query("UPDATE `" . DB_PREFIX . "gdpr` SET `status` = '" . (int)$status . "' WHERE `gdpr_id` = '" . (int)$gdpr_id . "'");
     }
 }

@@ -329,7 +329,7 @@ class ControllerCatalogInformation extends Controller {
         if (isset($this->request->post['information_description'])) {
             $data['information_description'] = $this->request->post['information_description'];
         } elseif (isset($this->request->get['information_id'])) {
-            $data['information_description'] = $this->model_catalog_information->getInformationDescriptions($this->request->get['information_id']);
+            $data['information_description'] = $this->model_catalog_information->getDescriptions($this->request->get['information_id']);
         } else {
             $data['information_description'] = [];
         }
@@ -356,7 +356,7 @@ class ControllerCatalogInformation extends Controller {
         if (isset($this->request->post['information_store'])) {
             $data['information_store'] = $this->request->post['information_store'];
         } elseif (isset($this->request->get['information_id'])) {
-            $data['information_store'] = $this->model_catalog_information->getInformationStores($this->request->get['information_id']);
+            $data['information_store'] = $this->model_catalog_information->getStores($this->request->get['information_id']);
         } else {
             $data['information_store'] = [0];
         }

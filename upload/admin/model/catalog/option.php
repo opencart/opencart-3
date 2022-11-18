@@ -108,7 +108,7 @@ class ModelCatalogOption extends Model {
         return $query->rows;
     }
 
-    public function getOptionDescriptions(int $option_id): array {
+    public function getDescriptions(int $option_id): array {
         $option_data = [];
 
         $query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "option_description` WHERE `option_id` = '" . (int)$option_id . "'");
@@ -120,13 +120,13 @@ class ModelCatalogOption extends Model {
         return $option_data;
     }
 
-    public function getOptionValue(int $option_value_id): array {
+    public function getValue(int $option_value_id): array {
         $query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "option_value` ov LEFT JOIN `" . DB_PREFIX . "option_value_description` ovd ON (ov.`option_value_id` = ovd.`option_value_id`) WHERE ov.`option_value_id` = '" . (int)$option_value_id . "' AND ovd.`language_id` = '" . (int)$this->config->get('config_language_id') . "'");
 
         return $query->row;
     }
 
-    public function getOptionValues(int $option_id): array {
+    public function getValues(int $option_id): array {
         $option_value_data = [];
 
         $option_value_query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "option_value` ov LEFT JOIN `" . DB_PREFIX . "option_value_description` ovd ON (ov.`option_value_id` = ovd.`option_value_id`) WHERE ov.`option_id` = '" . (int)$option_id . "' AND ovd.`language_id` = '" . (int)$this->config->get('config_language_id') . "' ORDER BY ov.`sort_order`, ovd.`name`");
@@ -143,7 +143,7 @@ class ModelCatalogOption extends Model {
         return $option_value_data;
     }
 
-    public function getOptionValueDescriptions(int $option_id): array {
+    public function getValueDescriptions(int $option_id): array {
         $option_value_data = [];
 
         $option_value_query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "option_value` WHERE `option_id` = '" . (int)$option_id . "' ORDER BY `sort_order`");

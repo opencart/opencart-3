@@ -60,13 +60,13 @@ class ModelCatalogFilter extends Model {
         $this->db->query("DELETE FROM `" . DB_PREFIX . "filter_description` WHERE `filter_group_id` = '" . (int)$filter_group_id . "'");
     }
 
-    public function getFilterGroup($filter_group_id) {
+    public function getGroup($filter_group_id) {
         $query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "filter_group` fg LEFT JOIN `" . DB_PREFIX . "filter_group_description` fgd ON (fg.`filter_group_id` = fgd.`filter_group_id`) WHERE fg.`filter_group_id` = '" . (int)$filter_group_id . "' AND fgd.`language_id` = '" . (int)$this->config->get('config_language_id') . "'");
 
         return $query->row;
     }
 
-    public function getFilterGroups(array $data = []): array {
+    public function getGroups(array $data = []): array {
         $sql = "SELECT * FROM `" . DB_PREFIX . "filter_group` fg LEFT JOIN `" . DB_PREFIX . "filter_group_description` fgd ON (fg.`filter_group_id` = fgd.`filter_group_id`) WHERE fgd.`language_id` = '" . (int)$this->config->get('config_language_id') . "'";
 
         $sort_data = [
@@ -103,7 +103,7 @@ class ModelCatalogFilter extends Model {
         return $query->rows;
     }
 
-    public function getFilterGroupDescriptions(int $filter_group_id): array {
+    public function getGroupDescriptions(int $filter_group_id): array {
         $filter_group_data = [];
 
         $query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "filter_group_description` WHERE `filter_group_id` = '" . (int)$filter_group_id . "'");
@@ -147,7 +147,7 @@ class ModelCatalogFilter extends Model {
         return $query->rows;
     }
 
-    public function getFilterDescriptions(int $filter_group_id): array {
+    public function getDescriptions(int $filter_group_id): array {
         $filter_data = [];
 
         $filter_query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "filter` WHERE `filter_group_id` = '" . (int)$filter_group_id . "'");
@@ -171,7 +171,7 @@ class ModelCatalogFilter extends Model {
         return $filter_data;
     }
 
-    public function getTotalFilterGroups(): int {
+    public function getTotalGroups(): int {
         $query = $this->db->query("SELECT COUNT(*) AS `total` FROM `" . DB_PREFIX . "filter_group`");
 
         return (int)$query->row['total'];

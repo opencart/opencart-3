@@ -41,7 +41,7 @@ class ModelSettingExtension extends Model {
         $this->db->query("DELETE FROM `" . DB_PREFIX . "extension_install` WHERE `extension_install_id` = '" . (int)$extension_install_id . "'");
     }
 
-    public function getExtensionInstalls(int $start = 0, int $limit = 10): array {
+    public function getInstalls(int $start = 0, int $limit = 10): array {
         if ($start < 0) {
             $start = 0;
         }
@@ -55,7 +55,7 @@ class ModelSettingExtension extends Model {
         return $query->rows;
     }
 
-    public function getExtensionInstallByExtensionDownloadId(int $extension_download_id): array {
+    public function getInstallByExtensionDownloadId(int $extension_download_id): array {
         $query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "extension_install` WHERE `extension_download_id` = '" . (int)$extension_download_id . "'");
 
         return $query->row;
@@ -67,23 +67,35 @@ class ModelSettingExtension extends Model {
         return $query->row;
     }
 
-    public function getTotalExtensionInstalls(): int {
+    public function getTotalInstalls(): int {
         $query = $this->db->query("SELECT COUNT(*) AS `total` FROM `" . DB_PREFIX . "extension_install`");
 
         return (int)$query->row['total'];
     }
 
-    public function addExtensionPath(int $extension_install_id, string $path): void {
+    public function addPath(int $extension_install_id, string $path): void {
         $this->db->query("INSERT INTO `" . DB_PREFIX . "extension_path` SET `extension_install_id` = '" . (int)$extension_install_id . "', `path` = '" . $this->db->escape($path) . "', `date_added` = NOW()");
     }
 
-    public function deleteExtensionPath(int $extension_path_id): void {
+    public function deletePath(int $extension_path_id): void {
         $this->db->query("DELETE FROM `" . DB_PREFIX . "extension_path` WHERE `extension_path_id` = '" . (int)$extension_path_id . "'");
     }
 
-    public function getExtensionPathsByExtensionInstallId(int $extension_install_id): array {
+    public function getPathsByExtensionInstallId(int $extension_install_id): array {
         $query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "extension_path` WHERE `extension_install_id` = '" . (int)$extension_install_id . "' ORDER BY `date_added` ASC");
 
         return $query->rows;
+    }
+
+    public function getPaths(string $path): array {
+        $query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "extension_path` WHERE `path` LIKE '" . $this->db->escape($path) . "' ORDER BY `path` ASC");
+
+        return $query->rows;
+    }
+
+    public function getTotalPaths(string $path): int {
+        $query = $this->db->query("SELECT COUNT(*) AS `total` FROM `" . DB_PREFIX . "extension_path` WHERE `path` LIKE '" . $this->db->escape($path) . "'");
+
+        return (int)$query->row['total'];
     }
 }

@@ -298,7 +298,7 @@ class ControllerLocalisationReturnsReason extends Controller {
         if (isset($this->request->post['return_reason'])) {
             $data['return_reason'] = $this->request->post['return_reason'];
         } elseif (isset($this->request->get['return_reason_id'])) {
-            $data['return_reason'] = $this->model_localisation_returns_reason->getReturnReasonDescriptions($this->request->get['return_reason_id']);
+            $data['return_reason'] = $this->model_localisation_returns_reason->getDescriptions($this->request->get['return_reason_id']);
         } else {
             $data['return_reason'] = [];
         }

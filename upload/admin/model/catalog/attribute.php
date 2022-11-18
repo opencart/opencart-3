@@ -79,7 +79,7 @@ class ModelCatalogAttribute extends Model {
         return $query->rows;
     }
 
-    public function getAttributeDescriptions(int $attribute_id): array {
+    public function getDescriptions(int $attribute_id): array {
         $attribute_data = [];
 
         $query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "attribute_description` WHERE `attribute_id` = '" . (int)$attribute_id . "'");

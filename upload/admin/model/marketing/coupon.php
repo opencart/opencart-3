@@ -100,7 +100,7 @@ class ModelMarketingCoupon extends Model {
         return $query->rows;
     }
 
-    public function getCouponProducts(int $coupon_id): array {
+    public function getProducts(int $coupon_id): array {
         $coupon_product_data = [];
 
         $query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "coupon_product` WHERE `coupon_id` = '" . (int)$coupon_id . "'");
@@ -112,7 +112,7 @@ class ModelMarketingCoupon extends Model {
         return $coupon_product_data;
     }
 
-    public function getCouponCategories(int $coupon_id): array {
+    public function getCategories(int $coupon_id): array {
         $coupon_category_data = [];
 
         $query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "coupon_category` WHERE `coupon_id` = '" . (int)$coupon_id . "'");
@@ -130,7 +130,7 @@ class ModelMarketingCoupon extends Model {
         return (int)$query->row['total'];
     }
 
-    public function getCouponHistories(int $coupon_id, int $start = 0, int $limit = 10): array {
+    public function getHistories(int $coupon_id, int $start = 0, int $limit = 10): array {
         if ($start < 0) {
             $start = 0;
         }
@@ -144,7 +144,7 @@ class ModelMarketingCoupon extends Model {
         return $query->rows;
     }
 
-    public function getTotalCouponHistories(int $coupon_id): int {
+    public function getTotalHistories(int $coupon_id): int {
         $query = $this->db->query("SELECT COUNT(*) AS `total` FROM `" . DB_PREFIX . "coupon_history` WHERE `coupon_id` = '" . (int)$coupon_id . "'");
 
         return (int)$query->row['total'];

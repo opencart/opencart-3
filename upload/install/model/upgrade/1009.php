@@ -123,7 +123,7 @@ class ModelUpgrade1009 extends Model {
         }
 
         // Event - Returns
-        $this->db->query("UPDATE `" . DB_PREFIX . "event` SET `trigger` = 'admin/model/sale/returns/addReturnHistory/after', `action` = 'mail/returns' WHERE `action` = 'mail/return'");
+        $this->db->query("UPDATE `" . DB_PREFIX . "event` SET `trigger` = 'admin/model/sale/returns/addHistory/after', `action` = 'mail/returns' WHERE `action` = 'mail/return'");
         $this->db->query("UPDATE `" . DB_PREFIX . "event` SET `trigger` = 'catalog/model/account/returns/addReturn/after' WHERE `action` = 'event/statistics/addReturn'");
         $this->db->query("UPDATE `" . DB_PREFIX . "event` SET `trigger` = 'catalog/model/account/returns/addReturn/after' WHERE `action` = 'event/activity/addReturn'");
         $this->db->query("UPDATE `" . DB_PREFIX . "statistics` SET `code` = 'returns' WHERE `code` = 'return'");

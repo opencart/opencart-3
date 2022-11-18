@@ -317,7 +317,7 @@ class ControllerDesignLayout extends Controller {
         if (isset($this->request->post['layout_route'])) {
             $data['layout_routes'] = $this->request->post['layout_route'];
         } elseif (isset($this->request->get['layout_id'])) {
-            $data['layout_routes'] = $this->model_design_layout->getLayoutRoutes($this->request->get['layout_id']);
+            $data['layout_routes'] = $this->model_design_layout->getRoutes($this->request->get['layout_id']);
         } else {
             $data['layout_routes'] = [];
         }
@@ -361,7 +361,7 @@ class ControllerDesignLayout extends Controller {
         if (isset($this->request->post['layout_module'])) {
             $layout_modules = $this->request->post['layout_module'];
         } elseif (isset($this->request->get['layout_id'])) {
-            $layout_modules = $this->model_design_layout->getLayoutModules($this->request->get['layout_id']);
+            $layout_modules = $this->model_design_layout->getModules($this->request->get['layout_id']);
         } else {
             $layout_modules = [];
         }

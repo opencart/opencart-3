@@ -80,7 +80,7 @@ class ModelLocalisationReturnsStatus extends Model {
         }
     }
 
-    public function getReturnStatusDescriptions(int $return_status_id): array {
+    public function getDescriptions(int $return_status_id): array {
         $return_status_data = [];
 
         $query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "return_status` WHERE `return_status_id` = '" . (int)$return_status_id . "'");

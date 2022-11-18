@@ -105,7 +105,7 @@ class ControllerCommonLogin extends Controller {
             $this->load->model('user/user');
 
             // Check how many login attempts have been made.
-            $login_info = $this->model_user_user->getLoginAttempts($this->request->post['username']);
+            $login_info = $this->model_user_user->getLogins($this->request->post['username']);
 
             if ($login_info && ($login_info['total'] >= $this->config->get('config_login_attempts')) && strtotime('-1 hour') < strtotime($login_info['date_modified'])) {
                 $this->error['error_attempts'] = $this->language->get('error_attempts');
@@ -116,7 +116,7 @@ class ControllerCommonLogin extends Controller {
             if (!$this->user->login($this->request->post['username'], html_entity_decode($this->request->post['password'], ENT_QUOTES, 'UTF-8'))) {
                 $this->error['warning'] = $this->language->get('error_login');
 
-                $this->model_user_user->addLoginAttempt($this->request->post['username']);
+                $this->model_user_user->addLogin($this->request->post['username']);
 
                 unset($this->session->data['user_token']);
             } else {

@@ -85,17 +85,17 @@ class ModelUserApi extends Model {
         return (int)$query->row['total'];
     }
 
-    public function addApiIp(int $api_id, string $ip): void {
+    public function addIp(int $api_id, string $ip): void {
         $this->db->query("INSERT INTO `" . DB_PREFIX . "api_ip` SET `api_id` = '" . (int)$api_id . "', `ip` = '" . $this->db->escape($ip) . "'");
     }
 
-    public function getApiIps(int $api_id): array {
+    public function getIps(int $api_id): array {
         $query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "api_ip` WHERE `api_id` = '" . (int)$api_id . "'");
 
         return $query->rows;
     }
 
-    public function addApiSession(int $api_id, string $session_id, string $ip): int {
+    public function addSession(int $api_id, string $session_id, string $ip): int {
         $api_ip_query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "api_ip` WHERE `ip` = '" . $this->db->escape($ip) . "'");
 
         if (!$api_ip_query->num_rows) {
@@ -107,17 +107,17 @@ class ModelUserApi extends Model {
         return $this->db->getLastId();
     }
 
-    public function getApiSessions(int $api_id): array {
+    public function getSessions(int $api_id): array {
         $query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "api_session` WHERE `api_id` = '" . (int)$api_id . "'");
 
         return $query->rows;
     }
 
-    public function deleteApiSession(int $api_session_id): void {
+    public function deleteSession(int $api_session_id): void {
         $this->db->query("DELETE FROM `" . DB_PREFIX . "api_session` WHERE `api_session_id` = '" . (int)$api_session_id . "'");
     }
 
-    public function deleteApiSessionBySessionId(string $session_id): void {
+    public function deleteSessionBySessionId(string $session_id): void {
         $this->db->query("DELETE FROM `" . DB_PREFIX . "api_session` WHERE `session_id` = '" . $this->db->escape($session_id) . "'");
     }
 }

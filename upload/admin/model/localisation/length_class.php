@@ -91,13 +91,13 @@ class ModelLocalisationLengthClass extends Model {
         return $query->row;
     }
 
-    public function getLengthClassDescriptionByUnit(string $unit): array {
+    public function getDescriptionByUnit(string $unit): array {
         $query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "length_class_description` WHERE `unit` = '" . $this->db->escape($unit) . "' AND `language_id` = '" . (int)$this->config->get('config_language_id') . "'");
 
         return $query->row;
     }
 
-    public function getLengthClassDescriptions(int $length_class_id): array {
+    public function getDescriptions(int $length_class_id): array {
         $length_class_data = [];
 
         $query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "length_class_description` WHERE `length_class_id` = '" . (int)$length_class_id . "'");

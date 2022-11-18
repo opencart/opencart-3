@@ -79,7 +79,7 @@ class ModelSaleVoucherTheme extends Model {
         }
     }
 
-    public function getVoucherThemeDescriptions(int $voucher_theme_id): array {
+    public function getDescriptions(int $voucher_theme_id): array {
         $voucher_theme_data = [];
 
         $query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "voucher_theme_description` WHERE `voucher_theme_id` = '" . (int)$voucher_theme_id . "'");

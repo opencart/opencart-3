@@ -78,7 +78,7 @@ class ModelDesignBanner extends Model {
         return $query->rows;
     }
 
-    public function getBannerImages(int $banner_id): array {
+    public function getImages(int $banner_id): array {
         $banner_image_data = [];
 
         $banner_image_query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "banner_image` WHERE `banner_id` = '" . (int)$banner_id . "' ORDER BY `sort_order` ASC");

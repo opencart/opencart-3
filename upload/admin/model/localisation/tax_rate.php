@@ -78,7 +78,7 @@ class ModelLocalisationTaxRate extends Model {
         return $query->rows;
     }
 
-    public function getTaxRateCustomerGroups(int $tax_rate_id): array {
+    public function getCustomerGroups(int $tax_rate_id): array {
         $tax_customer_group_data = [];
 
         $query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "tax_rate_to_customer_group` WHERE `tax_rate_id` = '" . (int)$tax_rate_id . "'");

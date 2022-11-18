@@ -166,13 +166,13 @@ class ModelSaleReturns extends Model {
         return (int)$query->row['total'];
     }
 
-    public function addReturnHistory(int $return_id, int $return_status_id, string $comment, bool $notify): void {
+    public function addHistory(int $return_id, int $return_status_id, string $comment, bool $notify): void {
         $this->db->query("UPDATE `" . DB_PREFIX . "return` SET `return_status_id` = '" . (int)$return_status_id . "', `date_modified` = NOW() WHERE `return_id` = '" . (int)$return_id . "'");
 
         $this->db->query("INSERT INTO `" . DB_PREFIX . "return_history` SET `return_id` = '" . (int)$return_id . "', `return_status_id` = '" . (int)$return_status_id . "', `notify` = '" . (int)$notify . "', `comment` = '" . $this->db->escape(strip_tags($comment)) . "', `date_added` = NOW()");
     }
 
-    public function getReturnHistories(int $return_id, int $start = 0, int $limit = 10): array {
+    public function getHistories(int $return_id, int $start = 0, int $limit = 10): array {
         if ($start < 0) {
             $start = 0;
         }
@@ -186,7 +186,7 @@ class ModelSaleReturns extends Model {
         return $query->rows;
     }
 
-    public function getTotalReturnHistories(int $return_id): int {
+    public function getTotalHistories(int $return_id): int {
         $query = $this->db->query("SELECT COUNT(*) AS `total` FROM `" . DB_PREFIX . "return_history` WHERE `return_id` = '" . (int)$return_id . "'");
 
         return (int)$query->row['total'];

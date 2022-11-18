@@ -1484,7 +1484,7 @@ INSERT INTO `oc_event` (`code`, `trigger`, `action`, `status`, `sort_order`) VAL
 INSERT INTO `oc_event` (`code`, `trigger`, `action`, `status`, `sort_order`) VALUES
 ('statistics_return_delete', 'admin/model/sale/returns/deleteReturn/after', 'event/statistics/deleteReturn', 1, 0);
 INSERT INTO `oc_event` (`code`, `trigger`, `action`, `status`, `sort_order`) VALUES
-('admin_mail_return', 'admin/model/sale/returns/addReturnHistory/after', 'mail/returns', 1, 0);
+('admin_mail_return', 'admin/model/sale/returns/addHistory/after', 'mail/returns', 1, 0);
 INSERT INTO `oc_event` (`code`, `trigger`, `action`, `status`, `sort_order`) VALUES
 ('admin_mail_forgotten', 'admin/model/user/user/editCode/after', 'mail/forgotten', 1, 0);
 INSERT INTO `oc_event` (`code`, `trigger`, `action`, `status`, `sort_order`) VALUES

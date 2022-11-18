@@ -228,7 +228,7 @@ class ModelSaleOrder extends Model {
         return $query->rows;
     }
 
-    public function getOrderProducts(int $order_id): array {
+    public function getProducts(int $order_id): array {
         $query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "order_product` WHERE `order_id` = '" . (int)$order_id . "'");
 
         return $query->rows;
@@ -240,13 +240,13 @@ class ModelSaleOrder extends Model {
         return $query->row;
     }
 
-    public function getOrderOptions(int $order_id, int $order_product_id): array {
+    public function getOptions(int $order_id, int $order_product_id): array {
         $query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "order_option` WHERE `order_id` = '" . (int)$order_id . "' AND `order_product_id` = '" . (int)$order_product_id . "'");
 
         return $query->rows;
     }
 
-    public function getOrderVouchers(int $order_id): array {
+    public function getVouchers(int $order_id): array {
         $query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "order_voucher` WHERE `order_id` = '" . (int)$order_id . "'");
 
         return $query->rows;
@@ -258,7 +258,7 @@ class ModelSaleOrder extends Model {
         return $query->row;
     }
 
-    public function getOrderTotals(int $order_id): array {
+    public function getTotals(int $order_id): array {
         $query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "order_total` WHERE `order_id` = '" . (int)$order_id . "' ORDER BY `sort_order`");
 
         return $query->rows;
@@ -434,7 +434,7 @@ class ModelSaleOrder extends Model {
         }
     }
 
-    public function getOrderHistories(int $order_id, int $start = 0, int $limit = 10): array {
+    public function getHistories(int $order_id, int $start = 0, int $limit = 10): array {
         if ($start < 0) {
             $start = 0;
         }

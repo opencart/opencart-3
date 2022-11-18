@@ -778,7 +778,7 @@ class ControllerCustomerCustomer extends Controller {
         foreach ($custom_fields as $custom_field) {
             $data['custom_fields'][] = [
                 'custom_field_id'    => $custom_field['custom_field_id'],
-                'custom_field_value' => $this->model_customer_custom_field->getCustomFieldValues($custom_field['custom_field_id']),
+                'custom_field_value' => $this->model_customer_custom_field->getValues($custom_field['custom_field_id']),
                 'name'               => $custom_field['name'],
                 'value'              => $custom_field['value'],
                 'type'               => $custom_field['type'],

@@ -83,7 +83,7 @@ class ControllerCommonReset extends Controller {
             // Settings
             $this->load->model('setting/setting');
 
-            $this->model_setting_setting->editSettingValue('config', 'config_password', '0');
+            $this->model_setting_setting->editValue('config', 'config_password', '0');
 
             return new \Action('common/login');
         }

@@ -80,7 +80,7 @@ class ModelLocalisationReturnsReason extends Model {
         }
     }
 
-    public function getReturnReasonDescriptions(int $return_reason_id): array {
+    public function getDescriptions(int $return_reason_id): array {
         $return_reason_data = [];
 
         $query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "return_reason` WHERE `return_reason_id` = '" . (int)$return_reason_id . "'");

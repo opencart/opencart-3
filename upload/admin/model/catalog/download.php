@@ -74,7 +74,7 @@ class ModelCatalogDownload extends Model {
         return $query->rows;
     }
 
-    public function getDownloadDescriptions(int $download_id): array {
+    public function getDescriptions(int $download_id): array {
         $download_description_data = [];
 
         $query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "download_description` WHERE `download_id` = '" . (int)$download_id . "'");

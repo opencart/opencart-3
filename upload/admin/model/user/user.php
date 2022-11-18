@@ -106,7 +106,7 @@ class ModelUserUser extends Model {
         return (int)$query->row['total'];
     }
 
-    public function addLoginAttempt(string $username): void {
+    public function addLogin(string $username): void {
         $query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "customer_login` WHERE LCASE(`email`) = '" . $this->db->escape(oc_strtolower((string)$username)) . "'");
 
         if (!$query->num_rows) {
@@ -116,7 +116,7 @@ class ModelUserUser extends Model {
         }
     }
 
-    public function getLoginAttempts(string $username): array {
+    public function getLogins(string $username): array {
         $query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "customer_login` WHERE LCASE(`email`) = '" . $this->db->escape(oc_strtolower($username)) . "'");
 
         return $query->row;

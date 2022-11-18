@@ -364,7 +364,7 @@ class ControllerCatalogCategory extends Controller {
         if (isset($this->request->post['category_description'])) {
             $data['category_description'] = $this->request->post['category_description'];
         } elseif (isset($this->request->get['category_id'])) {
-            $data['category_description'] = $this->model_catalog_category->getCategoryDescriptions($this->request->get['category_id']);
+            $data['category_description'] = $this->model_catalog_category->getDescriptions($this->request->get['category_id']);
         } else {
             $data['category_description'] = [];
         }
@@ -391,7 +391,7 @@ class ControllerCatalogCategory extends Controller {
         if (isset($this->request->post['category_filter'])) {
             $filters = $this->request->post['category_filter'];
         } elseif (isset($this->request->get['category_id'])) {
-            $filters = $this->model_catalog_category->getCategoryFilters($this->request->get['category_id']);
+            $filters = $this->model_catalog_category->getFilters($this->request->get['category_id']);
         } else {
             $filters = [];
         }
@@ -533,7 +533,7 @@ class ControllerCatalogCategory extends Controller {
         }
 
         if (isset($this->request->get['category_id']) && $this->request->post['parent_id']) {
-            $results = $this->model_catalog_category->getCategoryPath($this->request->post['parent_id']);
+            $results = $this->model_catalog_category->getPath($this->request->post['parent_id']);
 
             foreach ($results as $result) {
                 if ($result['path_id'] == $this->request->get['category_id']) {

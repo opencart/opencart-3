@@ -817,7 +817,7 @@ class ControllerSaleReturns extends Controller {
 
         $data['histories'] = [];
 
-        $results = $this->model_sale_returns->getReturnHistories($this->request->get['return_id'], ($page - 1) * 10, 10);
+        $results = $this->model_sale_returns->getHistories($this->request->get['return_id'], ($page - 1) * 10, 10);
 
         foreach ($results as $result) {
             $data['histories'][] = [
@@ -828,7 +828,7 @@ class ControllerSaleReturns extends Controller {
             ];
         }
 
-        $history_total = $this->model_sale_returns->getTotalReturnHistories($this->request->get['return_id']);
+        $history_total = $this->model_sale_returns->getTotalHistories($this->request->get['return_id']);
 
         $pagination = new \Pagination();
         $pagination->total = $history_total;
@@ -868,7 +868,7 @@ class ControllerSaleReturns extends Controller {
             }
 
             if (!$json) {
-                $this->model_sale_returns->addReturnHistory($this->request->get['return_id'], $this->request->post['return_status_id'], $this->request->post['comment'], $this->request->post['notify']);
+                $this->model_sale_returns->addHistory($this->request->get['return_id'], $this->request->post['return_status_id'], $this->request->post['comment'], $this->request->post['notify']);
 
                 $json['success'] = $this->language->get('text_success');
             }

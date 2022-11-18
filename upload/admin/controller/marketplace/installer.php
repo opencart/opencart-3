@@ -40,7 +40,7 @@ class ControllerMarketplaceInstaller extends Controller {
         // Extensions
         $this->load->model('setting/extension');
 
-        $results = $this->model_setting_extension->getExtensionInstalls(($page - 1) * 10, 10);
+        $results = $this->model_setting_extension->getInstalls(($page - 1) * 10, 10);
 
         foreach ($results as $result) {
             $data['histories'][] = [
@@ -50,7 +50,7 @@ class ControllerMarketplaceInstaller extends Controller {
             ];
         }
 
-        $history_total = $this->model_setting_extension->getTotalExtensionInstalls();
+        $history_total = $this->model_setting_extension->getTotalInstalls();
 
         $pagination = new \Pagination();
         $pagination->total = $history_total;
