@@ -122,6 +122,14 @@ class ModelUpgrade1009 extends Model {
             }
         }
 
+        // Event - Orders
+        $this->db->query("UPDATE `" . DB_PREFIX . "event` SET `trigger` = 'admin/model/sale/returns/addHistory/after' WHERE `action` = 'event/activity/addOrderHistory'");
+        $this->db->query("UPDATE `" . DB_PREFIX . "event` SET `trigger` = 'admin/model/sale/returns/addHistory/after' WHERE `action` = 'extension/total/voucher/send'");
+        $this->db->query("UPDATE `" . DB_PREFIX . "event` SET `trigger` = 'catalog/model/checkout/order/addHistory/before' WHERE `action` = 'mail/order'");
+        $this->db->query("UPDATE `" . DB_PREFIX . "event` SET `trigger` = 'catalog/model/checkout/order/addHistory/before' WHERE `action` = 'mail/order/alert'");
+        $this->db->query("UPDATE `" . DB_PREFIX . "event` SET `trigger` = 'catalog/model/checkout/order/addHistory/before' WHERE `action` = 'event/statistics/addHistory'");
+        $this->db->query("UPDATE `" . DB_PREFIX . "event` SET `action` = 'event/activity/addHistory', `action` = 'mail/returns' WHERE `action` = 'event/activity/addOrderHistory'");
+
         // Event - Returns
         $this->db->query("UPDATE `" . DB_PREFIX . "event` SET `trigger` = 'admin/model/sale/returns/addHistory/after', `action` = 'mail/returns' WHERE `action` = 'mail/return'");
         $this->db->query("UPDATE `" . DB_PREFIX . "event` SET `trigger` = 'catalog/model/account/returns/addReturn/after' WHERE `action` = 'event/statistics/addReturn'");

@@ -1436,7 +1436,7 @@ INSERT INTO `oc_event` (`code`, `trigger`, `action`, `status`, `sort_order`) VAL
 INSERT INTO `oc_event` (`code`, `trigger`, `action`, `status`, `sort_order`) VALUES
 ('activity_affiliate_edit', 'catalog/model/account/customer/editAffiliate/after', 'event/activity/editAffiliate', 1, 0);
 INSERT INTO `oc_event` (`code`, `trigger`, `action`, `status`, `sort_order`) VALUES
-('activity_order_add', 'catalog/model/checkout/order/addOrderHistory/before', 'event/activity/addOrderHistory', 1, 0);
+('activity_order_add', 'catalog/model/checkout/order/addHistory/before', 'event/activity/addHistory', 1, 0);
 INSERT INTO `oc_event` (`code`, `trigger`, `action`, `status`, `sort_order`) VALUES
 ('activity_return_add', 'catalog/model/account/returns/addReturn/after', 'event/activity/addReturn', 1, 0);
 INSERT INTO `oc_event` (`code`, `trigger`, `action`, `status`, `sort_order`) VALUES
@@ -1452,17 +1452,17 @@ INSERT INTO `oc_event` (`code`, `trigger`, `action`, `status`, `sort_order`) VAL
 INSERT INTO `oc_event` (`code`, `trigger`, `action`, `status`, `sort_order`) VALUES
 ('mail_affiliate_alert', 'catalog/model/account/customer/addAffiliate/after', 'mail/affiliate/alert', 1, 0);
 INSERT INTO `oc_event` (`code`, `trigger`, `action`, `status`, `sort_order`) VALUES
-('mail_voucher', 'catalog/model/checkout/order/addOrderHistory/after', 'extension/total/voucher/send', 1, 0);
+('mail_voucher', 'catalog/model/checkout/order/addHistory/after', 'extension/total/voucher/send', 1, 0);
 INSERT INTO `oc_event` (`code`, `trigger`, `action`, `status`, `sort_order`) VALUES
-('mail_order_add', 'catalog/model/checkout/order/addOrderHistory/before', 'mail/order', 1, 0);
+('mail_order_add', 'catalog/model/checkout/order/addHistory/before', 'mail/order', 1, 0);
 INSERT INTO `oc_event` (`code`, `trigger`, `action`, `status`, `sort_order`) VALUES
-('mail_order_alert', 'catalog/model/checkout/order/addOrderHistory/before', 'mail/order/alert', 1, 0);
+('mail_order_alert', 'catalog/model/checkout/order/addHistory/before', 'mail/order/alert', 1, 0);
 INSERT INTO `oc_event` (`code`, `trigger`, `action`, `status`, `sort_order`) VALUES
 ('statistics_review_add', 'catalog/model/catalog/review/addReview/after', 'event/statistics/addReview', 1, 0);
 INSERT INTO `oc_event` (`code`, `trigger`, `action`, `status`, `sort_order`) VALUES
 ('statistics_return_add', 'catalog/model/account/returns/addReturn/after', 'event/statistics/addReturn', 1, 0);
 INSERT INTO `oc_event` (`code`, `trigger`, `action`, `status`, `sort_order`) VALUES
-('statistics_order_history', 'catalog/model/checkout/order/addOrderHistory/after', 'event/statistics/addOrderHistory', 1, 0);
+('statistics_order_history', 'catalog/model/checkout/order/addHistory/after', 'event/statistics/addHistory', 1, 0);
 INSERT INTO `oc_event` (`code`, `trigger`, `action`, `status`, `sort_order`) VALUES
 ('admin_mail_affiliate_approve', 'admin/model/customer/customer_approval/approveAffiliate/after', 'mail/affiliate/approve', 1, 0);
 INSERT INTO `oc_event` (`code`, `trigger`, `action`, `status`, `sort_order`) VALUES

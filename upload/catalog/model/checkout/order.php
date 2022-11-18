@@ -73,7 +73,7 @@ class ModelCheckoutOrder extends Model {
 
     public function editOrder(int $order_id, array $data): void {
         // Void the order first
-        $this->addOrderHistory($order_id, 0);
+        $this->addHistory($order_id, 0);
 
         $this->db->query("UPDATE `" . DB_PREFIX . "order` SET `invoice_prefix` = '" . $this->db->escape($data['invoice_prefix']) . "', `store_id` = '" . (int)$data['store_id'] . "', `store_name` = '" . $this->db->escape($data['store_name']) . "', `store_url` = '" . $this->db->escape($data['store_url']) . "', `customer_id` = '" . (int)$data['customer_id'] . "', `customer_group_id` = '" . (int)$data['customer_group_id'] . "', `firstname` = '" . $this->db->escape($data['firstname']) . "', `lastname` = '" . $this->db->escape($data['lastname']) . "', `email` = '" . $this->db->escape($data['email']) . "', `telephone` = '" . $this->db->escape($data['telephone']) . "', `custom_field` = '" . $this->db->escape(json_encode($data['custom_field'])) . "', `payment_firstname` = '" . $this->db->escape($data['payment_firstname']) . "', `payment_lastname` = '" . $this->db->escape($data['payment_lastname']) . "', `payment_company` = '" . $this->db->escape($data['payment_company']) . "', `payment_address_1` = '" . $this->db->escape($data['payment_address_1']) . "', `payment_address_2` = '" . $this->db->escape($data['payment_address_2']) . "', `payment_city` = '" . $this->db->escape($data['payment_city']) . "', `payment_postcode` = '" . $this->db->escape($data['payment_postcode']) . "', `payment_country` = '" . $this->db->escape($data['payment_country']) . "', `payment_country_id` = '" . (int)$data['payment_country_id'] . "', `payment_zone` = '" . $this->db->escape($data['payment_zone']) . "', `payment_zone_id` = '" . (int)$data['payment_zone_id'] . "', `payment_address_format` = '" . $this->db->escape($data['payment_address_format']) . "', `payment_custom_field` = '" . $this->db->escape(json_encode($data['payment_custom_field'])) . "', `payment_method` = '" . $this->db->escape($data['payment_method']) . "', `payment_code` = '" . $this->db->escape($data['payment_code']) . "', `shipping_firstname` = '" . $this->db->escape($data['shipping_firstname']) . "', `shipping_lastname` = '" . $this->db->escape($data['shipping_lastname']) . "', `shipping_company` = '" . $this->db->escape($data['shipping_company']) . "', `shipping_address_1` = '" . $this->db->escape($data['shipping_address_1']) . "', `shipping_address_2` = '" . $this->db->escape($data['shipping_address_2']) . "', `shipping_city` = '" . $this->db->escape($data['shipping_city']) . "', `shipping_postcode` = '" . $this->db->escape($data['shipping_postcode']) . "', `shipping_country` = '" . $this->db->escape($data['shipping_country']) . "', `shipping_country_id` = '" . (int)$data['shipping_country_id'] . "', `shipping_zone` = '" . $this->db->escape($data['shipping_zone']) . "', `shipping_zone_id` = '" . (int)$data['shipping_zone_id'] . "', `shipping_address_format` = '" . $this->db->escape($data['shipping_address_format']) . "', `shipping_custom_field` = '" . $this->db->escape(json_encode($data['shipping_custom_field'])) . "', `shipping_method` = '" . $this->db->escape($data['shipping_method']) . "', `shipping_code` = '" . $this->db->escape($data['shipping_code']) . "', `comment` = '" . $this->db->escape($data['comment']) . "', `total` = '" . (float)$data['total'] . "', `affiliate_id` = '" . (int)$data['affiliate_id'] . "', `commission` = '" . (float)$data['commission'] . "', `date_modified` = NOW() WHERE `order_id` = '" . (int)$order_id . "'");
 
@@ -127,7 +127,7 @@ class ModelCheckoutOrder extends Model {
 
     public function deleteOrder(int $order_id): void {
         // Void the order first
-        $this->addOrderHistory($order_id, 0);
+        $this->addHistory($order_id, 0);
 
         $this->db->query("DELETE FROM `" . DB_PREFIX . "order` WHERE `order_id` = '" . (int)$order_id . "'");
         $this->db->query("DELETE FROM `" . DB_PREFIX . "order_product` WHERE `order_id` = '" . (int)$order_id . "'");
@@ -274,31 +274,31 @@ class ModelCheckoutOrder extends Model {
         }
     }
 
-    public function getOrderProducts(int $order_id): array {
+    public function getProducts(int $order_id): array {
         $query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "order_product` WHERE `order_id` = '" . (int)$order_id . "'");
 
         return $query->rows;
     }
 
-    public function getOrderOptions(int $order_id, int $order_product_id): array {
+    public function getOptions(int $order_id, int $order_product_id): array {
         $query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "order_option` WHERE `order_id` = '" . (int)$order_id . "' AND `order_product_id` = '" . (int)$order_product_id . "'");
 
         return $query->rows;
     }
 
-    public function getOrderVouchers(int $order_id): array {
+    public function getVouchers(int $order_id): array {
         $query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "order_voucher` WHERE `order_id` = '" . (int)$order_id . "'");
 
         return $query->rows;
     }
 
-    public function getOrderTotals(int $order_id): array {
+    public function getTotals(int $order_id): array {
         $query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "order_total` WHERE `order_id` = '" . (int)$order_id . "' ORDER BY `sort_order` ASC");
 
         return $query->rows;
     }
 
-    public function addOrderHistory(int $order_id, int $order_status_id, string $comment = '', bool $notify = false, bool $override = false): int {
+    public function addHistory(int $order_id, int $order_status_id, string $comment = '', bool $notify = false, bool $override = false): int {
         $order_info = $this->getOrder($order_id);
 
         if ($order_info) {
@@ -338,7 +338,7 @@ class ModelCheckoutOrder extends Model {
             // If current order status is not processing or complete but new status is processing or complete then commence completing the order
             if (!in_array($order_info['order_status_id'], array_merge((array)$this->config->get('config_processing_status'), (array)$this->config->get('config_complete_status'))) && in_array($order_status_id, array_merge((array)$this->config->get('config_processing_status'), (array)$this->config->get('config_complete_status')))) {
                 // Redeem coupon, vouchers and reward points
-                $order_totals = $this->getOrderTotals($order_id);
+                $order_totals = $this->getTotals($order_id);
 
                 foreach ($order_totals as $order_total) {
                     $this->load->model('extension/total/' . $order_total['code']);
@@ -355,12 +355,12 @@ class ModelCheckoutOrder extends Model {
                 }
 
                 // Stock subtraction
-                $order_products = $this->getOrderProducts($order_id);
+                $order_products = $this->getProducts($order_id);
 
                 foreach ($order_products as $order_product) {
                     $this->db->query("UPDATE `" . DB_PREFIX . "product` SET `quantity` = (`quantity` - " . (int)$order_product['quantity'] . ") WHERE `product_id` = '" . (int)$order_product['product_id'] . "' AND `subtract` = '1'");
 
-                    $order_options = $this->getOrderOptions($order_id, $order_product['order_product_id']);
+                    $order_options = $this->getOptions($order_id, $order_product['order_product_id']);
 
                     foreach ($order_options as $order_option) {
                         $this->db->query("UPDATE `" . DB_PREFIX . "product_option_value` SET `quantity` = (`quantity` - " . (int)$order_product['quantity'] . ") WHERE `product_option_value_id` = '" . (int)$order_option['product_option_value_id'] . "' AND `subtract` = '1'");
@@ -386,12 +386,12 @@ class ModelCheckoutOrder extends Model {
             // If old order status is the processing, or complete status but new status is not, then commence restock. Then, we remove the coupon, voucher and reward history
             if (in_array($order_info['order_status_id'], array_merge((array)$this->config->get('config_processing_status'), $this->config->get('config_complete_status'))) && !in_array($order_status_id, array_merge((array)$this->config->get('config_processing_status'), (array)$this->config->get('config_complete_status')))) {
                 // Restock
-                $order_products = $this->getOrderProducts($order_id);
+                $order_products = $this->getProducts($order_id);
 
                 foreach ($order_products as $order_product) {
                     $this->db->query("UPDATE `" . DB_PREFIX . "product` SET `quantity` = (`quantity` + " . (int)$order_product['quantity'] . ") WHERE `product_id` = '" . (int)$order_product['product_id'] . "' AND `subtract` = '1'");
 
-                    $order_options = $this->getOrderOptions($order_id, $order_product['order_product_id']);
+                    $order_options = $this->getOptions($order_id, $order_product['order_product_id']);
 
                     foreach ($order_options as $order_option) {
                         $this->db->query("UPDATE `" . DB_PREFIX . "product_option_value` SET `quantity` = (`quantity` + " . (int)$order_product['quantity'] . ") WHERE `product_option_value_id` = '" . (int)$order_option['product_option_value_id'] . "' AND `subtract` = '1'");
@@ -399,7 +399,7 @@ class ModelCheckoutOrder extends Model {
                 }
 
                 // Remove coupon, vouchers and reward points history
-                $order_totals = $this->getOrderTotals($order_id);
+                $order_totals = $this->getTotals($order_id);
 
                 foreach ($order_totals as $order_total) {
                     $this->load->model('extension/total/' . $order_total['code']);

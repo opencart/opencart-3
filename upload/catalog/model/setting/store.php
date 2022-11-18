@@ -1,5 +1,11 @@
 <?php
 class ModelSettingStore extends Model {
+    public function getStore(int $store_id): array {
+        $query = $this->db->query("SELECT DISTINCT * FROM `" . DB_PREFIX . "store` WHERE `store_id` = '" . (int)$store_id . "'");
+
+        return $query->row;
+    }
+
     public function getStores(): array {
         $store_data = $this->cache->get('store');
 

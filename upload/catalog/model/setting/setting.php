@@ -22,7 +22,7 @@ class ModelSettingSetting extends Model {
         return $data;
     }
 
-    public function getSettingValue(string $key, int $store_id = 0): string {
+    public function getValue(string $key, int $store_id = 0): string {
         $query = $this->db->query("SELECT `value` FROM `" . DB_PREFIX . "setting` WHERE `store_id` = '" . (int)$store_id . "' AND `key` = '" . $this->db->escape($key) . "'");
 
         if ($query->num_rows) {

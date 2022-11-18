@@ -1,5 +1,9 @@
 <?php
 class ModelAccountRecurring extends Model {
+    public function editStatus(int $order_recurring_id, int $status): void {
+        $this->db->query("UPDATE `" . DB_PREFIX . "order_recurring` SET `status` = '" . (int)$status . "' WHERE `order_recurring_id` = '" . (int)$order_recurring_id . "'");
+    }
+
     public function getRecurring(int $order_recurring_id): array {
         $query = $this->db->query("SELECT `or`.*, o.`payment_method`, o.`payment_code`, o.`currency_code` FROM `" . DB_PREFIX . "order_recurring` `or` LEFT JOIN `" . DB_PREFIX . "order` o ON `or`.`order_id` = o.`order_id` WHERE `or`.`order_recurring_id` = '" . (int)$order_recurring_id . "' AND o.`customer_id` = '" . (int)$this->customer->getId() . "'");
 
@@ -36,9 +40,5 @@ class ModelAccountRecurring extends Model {
         $query = $this->db->query("SELECT COUNT(*) AS `total` FROM `" . DB_PREFIX . "order_recurring` `or` LEFT JOIN `" . DB_PREFIX . "order` o ON `or`.`order_id` = o.`order_id` WHERE o.`customer_id` = '" . (int)$this->customer->getId() . "'");
 
         return (int)$query->row['total'];
-    }
-
-    public function editStatus(int $order_recurring_id, int $status): void {
-        $this->db->query("UPDATE `" . DB_PREFIX . "order_recurring` SET `status` = '" . (int)$status . "' WHERE `order_recurring_id` = '" . (int)$order_recurring_id . "'");
     }
 }

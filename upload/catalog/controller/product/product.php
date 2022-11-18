@@ -164,7 +164,7 @@ class ControllerProductProduct extends Controller {
         if (isset($this->request->get['path'])) {
             $parts = explode('_', (string)$this->request->get['path']);
 
-            if (empty($this->model_catalog_product->checkProductCategory($product_id, $parts))) {
+            if (empty($this->model_catalog_product->checkProductCategories($product_id, $parts))) {
                 $product_info = [];
             }
         }
@@ -289,7 +289,7 @@ class ControllerProductProduct extends Controller {
 
             $data['images'] = [];
 
-            $results = $this->model_catalog_product->getProductImages($this->request->get['product_id']);
+            $results = $this->model_catalog_product->getImages($this->request->get['product_id']);
 
             foreach ($results as $result) {
                 $data['images'][] = [
@@ -320,7 +320,7 @@ class ControllerProductProduct extends Controller {
                 $data['tax'] = false;
             }
 
-            $discounts = $this->model_catalog_product->getProductDiscounts($this->request->get['product_id']);
+            $discounts = $this->model_catalog_product->getDiscounts($this->request->get['product_id']);
 
             $data['discounts'] = [];
 
@@ -333,7 +333,7 @@ class ControllerProductProduct extends Controller {
 
             $data['options'] = [];
 
-            foreach ($this->model_catalog_product->getProductOptions($this->request->get['product_id']) as $option) {
+            foreach ($this->model_catalog_product->getOptions($this->request->get['product_id']) as $option) {
                 $product_option_value_data = [];
 
                 foreach ($option['product_option_value'] as $option_value) {
@@ -433,11 +433,11 @@ class ControllerProductProduct extends Controller {
             $data['rating'] = (int)$product_info['rating'];
             $data['share'] = $this->url->link('product/product', 'product_id=' . (int)$this->request->get['product_id']);
 
-            $data['attribute_groups'] = $this->model_catalog_product->getProductAttributes($this->request->get['product_id']);
+            $data['attribute_groups'] = $this->model_catalog_product->getAttributes($this->request->get['product_id']);
 
             $data['products'] = [];
 
-            $results = $this->model_catalog_product->getProductRelated($this->request->get['product_id']);
+            $results = $this->model_catalog_product->getRelated($this->request->get['product_id']);
 
             foreach ($results as $result) {
                 if ($result['image']) {

@@ -90,7 +90,7 @@ class ControllerMailSubscription extends Controller {
                             $this->load->model('account/order');
 
                             // Order Products
-                            $order_product = $this->model_account_order->getOrderProduct($value['order_id'], $value['order_product_id']);
+                            $order_product = $this->model_account_order->getProduct($value['order_id'], $value['order_product_id']);
 
                             if ($order_product && $order_product['order_product_id'] == $subscription['order_product_id']) {
                                 $products = $this->cart->getProducts();
@@ -140,7 +140,7 @@ class ControllerMailSubscription extends Controller {
                                         $store_info = $this->model_setting_store->getStore($order_info['store_id']);
 
                                         if ($store_info) {
-                                            $store_logo = html_entity_decode($this->model_setting_setting->getSettingValue('config_logo', $store_info['store_id']), ENT_QUOTES, 'UTF-8');
+                                            $store_logo = html_entity_decode($this->model_setting_setting->getValue('config_logo', $store_info['store_id']), ENT_QUOTES, 'UTF-8');
                                             $store_name = html_entity_decode($store_info['name'], ENT_QUOTES, 'UTF-8');
 
                                             $store_url = $store_info['url'];
@@ -221,7 +221,7 @@ class ControllerMailSubscription extends Controller {
                                         // Order Totals
                                         $data['totals'] = [];
 
-                                        $order_totals = $this->model_checkout_order->getOrderTotals($order_info['order_id']);
+                                        $order_totals = $this->model_checkout_order->getTotals($order_info['order_id']);
 
                                         foreach ($order_totals as $order_total) {
                                             $data['totals'][] = [
@@ -254,7 +254,7 @@ class ControllerMailSubscription extends Controller {
                                                 $subscription_status_id = $this->{'model_extension_payment_' . $payment_info['code']}->promotion($value['subscription_id']);
 
                                                 if ($store_info) {
-                                                    $config_subscription_active_status_id = $this->model_setting_setting->getSettingValue('config_subscription_active_status_id', $store_info['store_id']);
+                                                    $config_subscription_active_status_id = $this->model_setting_setting->getValue('config_subscription_active_status_id', $store_info['store_id']);
                                                 } else {
                                                     $config_subscription_active_status_id = $this->config->get('config_subscription_active_status_id');
                                                 }
@@ -327,7 +327,7 @@ class ControllerMailSubscription extends Controller {
                                                                         $subscription_id = $next_subscription['subscription_id'];
 
                                                                         // Order Products
-                                                                        $order_product = $this->model_account_order->getOrderProduct($next_subscription['order_id'], $next_subscription['order_product_id']);
+                                                                        $order_product = $this->model_account_order->getProduct($next_subscription['order_id'], $next_subscription['order_product_id']);
 
                                                                         if ($order_product) {
                                                                             $order_info = $this->model_account_order->getOrder($next_subscription['order_id']);

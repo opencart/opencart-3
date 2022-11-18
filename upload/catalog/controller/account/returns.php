@@ -151,7 +151,7 @@ class ControllerAccountReturns extends Controller {
 
             $data['histories'] = [];
 
-            $results = $this->model_account_returns->getReturnHistories($this->request->get['return_id']);
+            $results = $this->model_account_returns->getHistories($this->request->get['return_id']);
 
             foreach ($results as $result) {
                 $data['histories'][] = [

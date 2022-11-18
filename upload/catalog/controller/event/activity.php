@@ -222,8 +222,8 @@ class ControllerEventActivity extends Controller {
         }
     }
 
-    // catalog/model/checkout/order/addOrderHistory/before
-    public function addOrderHistory(string &$route, array &$args): void {
+    // catalog/model/checkout/order/addHistory/before
+    public function addHistory(string &$route, array &$args): void {
         if ($this->config->get('config_customer_activity')) {
             // If last order status id is 0 and new order status is not then record as new order
             $this->load->model('checkout/order');
