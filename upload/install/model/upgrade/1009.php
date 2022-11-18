@@ -128,7 +128,7 @@ class ModelUpgrade1009 extends Model {
         $this->db->query("UPDATE `" . DB_PREFIX . "event` SET `trigger` = 'catalog/model/checkout/order/addHistory/before' WHERE `action` = 'mail/order'");
         $this->db->query("UPDATE `" . DB_PREFIX . "event` SET `trigger` = 'catalog/model/checkout/order/addHistory/before' WHERE `action` = 'mail/order/alert'");
         $this->db->query("UPDATE `" . DB_PREFIX . "event` SET `trigger` = 'catalog/model/checkout/order/addHistory/before' WHERE `action` = 'event/statistics/addHistory'");
-        $this->db->query("UPDATE `" . DB_PREFIX . "event` SET `action` = 'event/activity/addHistory', `action` = 'mail/returns' WHERE `action` = 'event/activity/addOrderHistory'");
+        $this->db->query("UPDATE `" . DB_PREFIX . "event` SET `action` = 'event/activity/addHistory' WHERE `action` = 'event/activity/addOrderHistory'");
 
         // Event - Returns
         $this->db->query("UPDATE `" . DB_PREFIX . "event` SET `trigger` = 'admin/model/sale/returns/addHistory/after', `action` = 'mail/returns' WHERE `action` = 'mail/return'");
