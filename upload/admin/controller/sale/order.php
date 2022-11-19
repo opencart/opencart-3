@@ -1868,6 +1868,14 @@ class ControllerSaleOrder extends Controller {
 
                 $product_data = [];
 
+                $frequencies = [
+                    'day',
+                    'week',
+                    'semi_month',
+                    'month',
+                    'year'
+                ];
+
                 // Products
                 $products = $this->model_sale_order->getProducts($order_id);
 
@@ -2133,6 +2141,14 @@ class ControllerSaleOrder extends Controller {
                 $shipping_address = str_replace(["\r\n", "\r", "\n"], '<br/>', preg_replace(["/\s\s+/", "/\r\r+/", "/\n\n+/"], '<br/>', trim(str_replace($find, $replace, $format))));
 
                 $product_data = [];
+
+                $frequencies = [
+                    'day',
+                    'week',
+                    'semi_month',
+                    'month',
+                    'year'
+                ];
 
                 // Subscription
                 $filter_data = [
