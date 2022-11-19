@@ -1755,6 +1755,14 @@ class ControllerSaleOrder extends Controller {
             $orders[] = (int)$this->request->get['order_id'];
         }
 
+        $frequencies = [
+            'day',
+            'week',
+            'semi_month',
+            'month',
+            'year'
+        ];
+
         foreach ($orders as $order_id) {
             $order_info = $this->model_sale_order->getOrder($order_id);
 
@@ -1867,14 +1875,6 @@ class ControllerSaleOrder extends Controller {
                 $subscriptions = $this->model_sale_subscription->getSubscriptions($filter_data);
 
                 $product_data = [];
-
-                $frequencies = [
-                    'day',
-                    'week',
-                    'semi_month',
-                    'month',
-                    'year'
-                ];
 
                 // Products
                 $products = $this->model_sale_order->getProducts($order_id);
@@ -2074,6 +2074,14 @@ class ControllerSaleOrder extends Controller {
             $orders[] = (int)$this->request->get['order_id'];
         }
 
+        $frequencies = [
+            'day',
+            'week',
+            'semi_month',
+            'month',
+            'year'
+        ];
+
         foreach ($orders as $order_id) {
             $order_info = $this->model_sale_order->getOrder($order_id);
 
@@ -2141,14 +2149,6 @@ class ControllerSaleOrder extends Controller {
                 $shipping_address = str_replace(["\r\n", "\r", "\n"], '<br/>', preg_replace(["/\s\s+/", "/\r\r+/", "/\n\n+/"], '<br/>', trim(str_replace($find, $replace, $format))));
 
                 $product_data = [];
-
-                $frequencies = [
-                    'day',
-                    'week',
-                    'semi_month',
-                    'month',
-                    'year'
-                ];
 
                 // Subscription
                 $filter_data = [

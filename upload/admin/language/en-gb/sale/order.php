@@ -59,6 +59,7 @@ $_['text_commission_added']      = 'Success: Commission added!';
 $_['text_commission_removed']    = 'Success: Commission removed!';
 $_['text_restock']               = 'Success: Products have been restocked!';
 $_['text_upload']                = 'Your file was successfully uploaded!';
+$_['text_subscription']          = 'Subscription';
 $_['text_status']                = 'Status';
 $_['text_trial_cycle_remaining'] = 'Trial Cycle Remaining';
 $_['text_cycle_remaining']       = 'Cycle Remaining';
