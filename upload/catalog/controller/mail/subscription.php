@@ -338,7 +338,7 @@ class ControllerMailSubscription extends Controller {
 
                                                                                 $product_subscription_info = $this->model_catalog_product->getSubscription($order_product['product_id'], $next_subscription['subscription_plan_id']);
 
-                                                                                if ($product_subscription_info && $product_subscription_info['cycle'] >= 0 && $cycle <= $product_subscription_info['cycle']) {
+                                                                                if ($product_subscription_info && $product_subscription_info['cycle'] >= 0 && $cycle <= $product_subscription_info['cycle'] && $product_subscription_info['subscription_plan_id'] == $next_subscription['subscription_plan_id']) {
                                                                                     // Adds the current amount in order for promotional subscription extensions
                                                                                     // to balance the new transaction amount to reflect the change on the next
                                                                                     // billing cycle
