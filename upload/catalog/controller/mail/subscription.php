@@ -357,8 +357,15 @@ class ControllerMailSubscription extends Controller {
                                                                                             // If the date next don't match with the latest date added of the subscription,
                                                                                             // we add an amount value of 0. Store owners then need to review the orders
                                                                                             // that are related with these transactions
-                                                                                            if (strtotime($transaction['date_added']) == $date_added && $date_added != $date_next && $transaction['payment_method'] == $order_info['payment_method'] && $transaction['payment_code'] == $order_info['payment_code']) {
-                                                                                                $this->model_account_subscription->addTransaction($next_subscription['subscription_id'], $next_subscription['order_id'], $language->get('text_promotion'), 0, $transaction['type'], $transaction['payment_method'], $transaction['payment_code']);
+                                                                                            if (strtotime($transaction['date_added']) == $date_added && $transaction['payment_method'] == $order_info['payment_method'] && $transaction['payment_code'] == $order_info['payment_code']) {
+                                                                                                if ($date_added != $date_next) {
+                                                                                                    $this->model_account_subscription->addTransaction($next_subscription['subscription_id'], $next_subscription['order_id'], $language->get('text_promotion'), 0, $transaction['type'], $transaction['payment_method'], $transaction['payment_code']);
+                                                                                                } else {
+                                                                                                    if (property_exists($this->{'model_extension_payment_' . $payment_method['code']}, 'addSubscriptionTransaction')) {
+                                                                                                        // Add Transaction from extension
+                                                                                                        $subscription_status_id = $this->{'model_extension_payment_' . $payment_method['code']}->addSubscriptionTransaction($next_subscription['subscription_id'], $next_subscription['order_id'], $language->get('text_promotion'), $transaction['amount'], $transaction['type'], $transaction['payment_method'], $transaction['payment_code']);
+                                                                                                    }
+                                                                                                }
                                                                                             }
                                                                                         }
                                                                                     }
