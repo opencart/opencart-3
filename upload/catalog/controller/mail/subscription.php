@@ -288,15 +288,14 @@ class ControllerMailSubscription extends Controller {
 
                                                                 // We need to validate frequencies in compliance of the admin subscription plans
                                                                 // as with the use of the APIs
-                                                                if ($customer_info && (int)$next_subscription['cycle'] >= 0 && in_array($next_subscription['frequency'], $frequencies)) {
+                                                                if ($customer_info && $next_subscription['customer_id'] == $customer_info['customer_id'] && (int)$next_subscription['cycle'] >= 0 && in_array($next_subscription['frequency'], $frequencies)) {
                                                                     if ($next_subscription['frequency'] == 'semi_month') {
                                                                         $period = strtotime("2 weeks");
                                                                     } else {
                                                                         $period = strtotime($next_subscription['cycle'] . ' ' . $next_subscription['frequency']);
                                                                     }
 
-                                                                    // New customer once the trial period has ended
-                                                                    $customer_period = strtotime($customer_info['date_added']);
+                                                                    $subscription_period = strtotime($next_subscription['date_added']);
 
                                                                     $trial_period = 0;
                                                                     $trial_cycle = 0;
@@ -309,13 +308,13 @@ class ControllerMailSubscription extends Controller {
                                                                             $trial_period = strtotime($next_subscription['trial_cycle'] . ' ' . $next_subscription['trial_frequency']);
                                                                         }
 
-                                                                        $trial_period = ($trial_period - $customer_period);
+                                                                        $trial_period = ($trial_period - $subscription_period);
                                                                         $trial_cycle = round($trial_period / (60 * 60 * 24));
                                                                     }
 
                                                                     // Calculates the remaining days between the subscription
                                                                     // promotional period and the date added period
-                                                                    $period = ($period - $customer_period);
+                                                                    $period = ($period - $subscription_period);
 
                                                                     // Calculate remaining period of each features
                                                                     $cycle = round($period / (60 * 60 * 24));
