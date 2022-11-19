@@ -77,9 +77,9 @@ class ControllerMailSubscription extends Controller {
                     // Payment Methods
                     $this->load->model('account/payment_method');
 
-                    $payment_info = $this->model_account_payment_method->getPaymentMethod($value['customer_id'], $value['customer_payment_id']);
+                    $payment_method = $this->model_account_payment_method->getPaymentMethod($value['customer_id'], $value['customer_payment_id']);
 
-                    if ($payment_info) {
+                    if ($payment_method) {
                         // Subscription
                         $this->load->model('checkout/subscription');
 
@@ -239,11 +239,11 @@ class ControllerMailSubscription extends Controller {
                                         $data['order'] = $this->url->link('account/order/info', 'order_id=' . $order_info['order_id']);
                                         $data['product'] = $this->url->link('product/product', 'product_id=' . $order_product['product_id']);
 
-                                        if ($this->config->get('payment_' . $payment_info['code'] . '_status')) {
-                                            $this->load->model('extension/payment/' . $payment_info['code']);
+                                        if ($this->config->get('payment_' . $payment_method['code'] . '_status')) {
+                                            $this->load->model('extension/payment/' . $payment_method['code']);
 
                                             // Promotion
-                                            if (property_exists($this->{'model_extension_payment_' . $payment_info['code']}, 'promotion')) {
+                                            if (property_exists($this->{'model_extension_payment_' . $payment_method['code']}, 'promotion')) {
                                                 /*
                                                   * The extension must create a new order
                                                   * The trial status and the status must
@@ -251,16 +251,16 @@ class ControllerMailSubscription extends Controller {
                                                   * this transaction. It must not be charged
                                                   * to the customer until the next billing cycle
                                                 */
-                                                $subscription_status_id = $this->{'model_extension_payment_' . $payment_info['code']}->promotion($value['subscription_id']);
+                                                $subscription_status_id = $this->{'model_extension_payment_' . $payment_method['code']}->promotion($value['subscription_id']);
 
                                                 if ($store_info) {
-                                                    $config_subscription_active_status_id = $this->model_setting_setting->getValue('config_subscription_active_status_id', $store_info['store_id']);
+                                                    $subscription_active_status_id = $this->model_setting_setting->getValue('config_subscription_active_status_id', $store_info['store_id']);
                                                 } else {
-                                                    $config_subscription_active_status_id = $this->config->get('config_subscription_active_status_id');
+                                                    $subscription_active_status_id = $this->config->get('config_subscription_active_status_id');
                                                 }
 
                                                 // Transaction
-                                                if ($config_subscription_active_status_id == $subscription_status_id) {
+                                                if ($subscription_active_status_id == $subscription_status_id) {
                                                     $filter_data = [
                                                         'filter_subscription_status_id' => $subscription_status_id,
                                                         'start'                         => 0,
@@ -273,7 +273,7 @@ class ControllerMailSubscription extends Controller {
                                                         foreach ($next_subscriptions as $next_subscription) {
                                                             // Validate the latest subscription values with the ones edited
                                                             // by promotional extensions
-                                                            if ($next_subscription['subscription_id'] != $value['subscription_id'] && $next_subscription['order_id'] != $value['order_id'] && $value['order_id'] != $subscription['order_id'] && $next_subscription['order_product_id'] != $value['order_product_id'] && $next_subscription['customer_id'] == $value['customer_id']) {
+                                                            if ($next_subscription['subscription_id'] != $value['subscription_id'] && $next_subscription['order_id'] != $value['order_id'] && $next_subscription['description'] != $description && $value['order_id'] != $subscription['order_id'] && $next_subscription['order_product_id'] != $value['order_product_id'] && $next_subscription['customer_id'] == $value['customer_id']) {
                                                                 $this->load->model('account/customer');
 
                                                                 $customer_info = $this->model_account_customer->getCustomer($next_subscription['customer_id']);

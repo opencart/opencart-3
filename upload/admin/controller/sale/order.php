@@ -486,6 +486,7 @@ class ControllerSaleOrder extends Controller {
 
             // Subscription
             $this->load->model('sale/subscription');
+            $this->load->model('localisation/subscription_status');
 
             // Settings
             $this->load->model('setting/setting');
@@ -494,8 +495,12 @@ class ControllerSaleOrder extends Controller {
 
             if ($store_info) {
                 $subscription_active_status_id = $store_info['config_subscription_active_status_id'];
+                $subscription_pending_status_id = $store_info['config_subscription_pending_status_id'];
+                $subscription_expired_status_id = $store_info['config_subscription_expired_status_id'];
             } else {
                 $subscription_active_status_id = $this->config->get('config_subscription_active_status_id');
+                $subscription_pending_status_id = $this->config->get('config_subscription_pending_status_id');
+                $subscription_expired_status_id = $this->config->get('config_subscription_expired_status_id');
             }
 
             $data['addresses'] = $this->model_customer_customer->getAddresses($order_info['customer_id']);
@@ -537,24 +542,88 @@ class ControllerSaleOrder extends Controller {
 
             $data['order_products'] = [];
 
+            $frequencies = [
+                'day',
+                'week',
+                'semi_month',
+                'month',
+                'year'
+            ];
+
             // Products
             $products = $this->model_sale_order->getProducts($this->request->get['order_id']);
 
             foreach ($products as $product) {
                 // Subscription
-                $subscription_data = '';
+                $subscription_data = [];
 
                 foreach ($subscriptions as $subscription) {
                     $filter_data = [
                         'filter_subscription_id'        => $subscription['subscription_id'],
-                        'filter_order_product_id'       => $product['order_product_id'],
-                        'filter_subscription_status_id' => $subscription_active_status_id
+                        'filter_order_product_id'       => $product['order_product_id']                        
                     ];
 
                     $subscription_info = $this->model_sale_subscription->getSubscriptions($filter_data);
 
                     if ($subscription_info) {
-                        $subscription_data = $subscription['name'];
+                        if ($subscription_info['frequency'] == 'semi_month') {
+                            $period = strtotime("2 weeks");
+                        } else {
+                            $period = strtotime($subscription_info['cycle'] . ' ' . $subscription_info['frequency']);
+                        }
+
+                        $subscription_period = strtotime($subscription_info['date_added']);
+
+                        $trial_period = 0;
+                        $trial_cycle = 0;
+
+                        // Trial
+                        if ($subscription_info['trial_status'] && (int)$subscription_info['trial_cycle'] >= 0 && in_array($subscription_info['trial_frequency'], $frequencies)) {
+                            if ($subscription_info['trial_frequency'] == 'semi_month') {
+                                $trial_period = strtotime("2 weeks");
+                            } else {
+                                $trial_period = strtotime($subscription_info['trial_cycle'] . ' ' . $subscription_info['trial_frequency']);
+                            }
+
+                            $trial_period = ($trial_period - $subscription_period);
+                            $trial_cycle = round($trial_period / (60 * 60 * 24));
+                        }
+
+                        $period = ($period - $subscription_period);
+
+                        // Calculate remaining period of each features
+                        $cycle = round($period / (60 * 60 * 24));
+
+                        // Pending
+                        if ($subscription_info['subscription_status_id'] == $subscription_pending_status_id && $subscription_info['trial_status'] && ($trial_cycle >= 0 && $trial_cycle <= $subscription_info['trial_cycle'])) {
+                            $subscription_status_info = $this->model_localisation_subscription_status->getSubscriptionStatus($subscription_pending_status_id);
+                        // Active
+                        } elseif ($subscription_info['subscription_status_id'] == $subscription_active_status_id && $subscription_info['status'] && ($cycle >= 0 && $cycle <= $subscription_info['cycle'])) {
+                            $subscription_status_info = $this->model_localisation_subscription_status->getSubscriptionStatus($subscription_active_status_id);
+                        // Expired
+                        } elseif ($subscription_info['subscription_status_id'] == $subscription_expired_status_id) {
+                            $subscription_status_info = $this->model_localisation_subscription_status->getSubscriptionStatus($subscription_expired_status_id);
+                        }
+
+                        if ($subscription_status_info) {
+                            // Trial
+                            if ($trial_cycle < 0) {
+                                $trial_cycle = 0;
+                            }
+
+                            // Full
+                            if ($cycle < 0) {
+                                $cycle = 0;
+                            }
+
+                            $subscription_data = [
+                                'name'       => $subscription_status_info['name'],
+                                'date_added' => date($this->language->get('date_format_short'), strtotime($subscription_info['date_added'])),
+                                'remaining'  => $trial_cycle ? $this->language->get('text_trial_cycle_remaining') : $this->language->get('text_cycle_remaining'),
+                                'cycle'      => $trial_cycle ? $trial_cycle : $cycle,
+                                'frequency'  => $subscription_info['trial_frequency'] && $trial_cycle ? $this->language->get('text_' . $subscription_info['trial_frequency']) : $this->language->get('text_' . $subscription_info['frequency'])
+                            ];
+                        }
                     }
                 }
 
@@ -887,6 +956,7 @@ class ControllerSaleOrder extends Controller {
 
             // Subscription
             $this->load->model('sale/subscription');
+            $this->load->model('localisation/subscription_status');
 
             // Customer Groups
             $this->load->model('customer/customer_group');
@@ -898,8 +968,12 @@ class ControllerSaleOrder extends Controller {
 
             if ($store_info) {
                 $subscription_active_status_id = $store_info['config_subscription_active_status_id'];
+                $subscription_pending_status_id = $store_info['config_subscription_pending_status_id'];
+                $subscription_expired_status_id = $store_info['config_subscription_expired_status_id'];
             } else {
                 $subscription_active_status_id = $this->config->get('config_subscription_active_status_id');
+                $subscription_pending_status_id = $this->config->get('config_subscription_pending_status_id');
+                $subscription_expired_status_id = $this->config->get('config_subscription_expired_status_id');
             }
 
             $customer_group_info = $this->model_customer_customer_group->getCustomerGroup($order_info['customer_group_id']);
@@ -997,6 +1071,14 @@ class ControllerSaleOrder extends Controller {
 
             $data['products'] = [];
 
+            $frequencies = [
+                'day',
+                'week',
+                'semi_month',
+                'month',
+                'year'
+            ];
+
             $products = $this->model_sale_order->getProducts($this->request->get['order_id']);
 
             foreach ($products as $product) {
@@ -1026,19 +1108,75 @@ class ControllerSaleOrder extends Controller {
                 }
 
                 // Subscription
-                $subscription_data = '';
+                $subscription_data = [];
 
                 foreach ($subscriptions as $subscription) {
                     $filter_data = [
                         'filter_subscription_id'        => $subscription['subscription_id'],
-                        'filter_order_product_id'       => $product['order_product_id'],
-                        'filter_subscription_status_id' => $subscription_active_status_id
+                        'filter_order_product_id'       => $product['order_product_id']
                     ];
 
                     $subscription_info = $this->model_sale_subscription->getSubscriptions($filter_data);
 
                     if ($subscription_info) {
-                        $subscription_data = $subscription['name'];
+                        if ($subscription_info['frequency'] == 'semi_month') {
+                            $period = strtotime("2 weeks");
+                        } else {
+                            $period = strtotime($subscription_info['cycle'] . ' ' . $subscription_info['frequency']);
+                        }
+
+                        $subscription_period = strtotime($subscription_info['date_added']);
+
+                        $trial_period = 0;
+                        $trial_cycle = 0;
+
+                        // Trial
+                        if ($subscription_info['trial_status'] && (int)$subscription_info['trial_cycle'] >= 0 && in_array($subscription_info['trial_frequency'], $frequencies)) {
+                            if ($subscription_info['trial_frequency'] == 'semi_month') {
+                                $trial_period = strtotime("2 weeks");
+                            } else {
+                                $trial_period = strtotime($subscription_info['trial_cycle'] . ' ' . $subscription_info['trial_frequency']);
+                            }
+
+                            $trial_period = ($trial_period - $subscription_period);
+                            $trial_cycle = round($trial_period / (60 * 60 * 24));
+                        }
+
+                        $period = ($period - $subscription_period);
+
+                        // Calculate remaining period of each features
+                        $cycle = round($period / (60 * 60 * 24));
+
+                        // Pending
+                        if ($subscription_info['subscription_status_id'] == $subscription_pending_status_id && $subscription_info['trial_status'] && ($trial_cycle >= 0 && $trial_cycle <= $subscription_info['trial_cycle'])) {
+                            $subscription_status_info = $this->model_localisation_subscription_status->getSubscriptionStatus($subscription_pending_status_id);
+                            // Active
+                        } elseif ($subscription_info['subscription_status_id'] == $subscription_active_status_id && $subscription_info['status'] && ($cycle >= 0 && $cycle <= $subscription_info['cycle'])) {
+                            $subscription_status_info = $this->model_localisation_subscription_status->getSubscriptionStatus($subscription_active_status_id);
+                            // Expired
+                        } elseif ($subscription_info['subscription_status_id'] == $subscription_expired_status_id) {
+                            $subscription_status_info = $this->model_localisation_subscription_status->getSubscriptionStatus($subscription_expired_status_id);
+                        }
+
+                        if ($subscription_status_info) {
+                            // Trial
+                            if ($trial_cycle < 0) {
+                                $trial_cycle = 0;
+                            }
+
+                            // Full
+                            if ($cycle < 0) {
+                                $cycle = 0;
+                            }
+
+                            $subscription_data = [
+                                'name'       => $subscription_status_info['name'],
+                                'date_added' => date($this->language->get('date_format_short'), strtotime($subscription_info['date_added'])),
+                                'remaining'  => $trial_cycle ? $this->language->get('text_trial_cycle_remaining') : $this->language->get('text_cycle_remaining'),
+                                'cycle'      => $trial_cycle ? $trial_cycle : $cycle,
+                                'frequency'  => $subscription_info['trial_frequency'] && $trial_cycle ? $this->language->get('text_' . $subscription_info['trial_frequency']) : $this->language->get('text_' . $subscription_info['frequency'])
+                            ];
+                        }
                     }
                 }
 
@@ -1602,6 +1740,7 @@ class ControllerSaleOrder extends Controller {
 
         // Subscription
         $this->load->model('sale/subscription');
+        $this->load->model('localisation/subscription_status');
 
         // Uploaded files
         $this->load->model('tool/upload');
@@ -1631,6 +1770,8 @@ class ControllerSaleOrder extends Controller {
                     $store_fax = $store_info['config_fax'];
 
                     $subscription_active_status_id = $store_info['config_subscription_active_status_id'];
+                    $subscription_pending_status_id = $store_info['config_subscription_pending_status_id'];
+                    $subscription_expired_status_id = $store_info['config_subscription_expired_status_id'];
                 } else {
                     $store_address = $this->config->get('config_address');
                     $store_email = $this->config->get('config_email');
@@ -1638,6 +1779,8 @@ class ControllerSaleOrder extends Controller {
                     $store_fax = $this->config->get('config_fax');
 
                     $subscription_active_status_id = $this->config->get('config_subscription_active_status_id');
+                    $subscription_pending_status_id = $this->config->get('config_subscription_pending_status_id');
+                    $subscription_expired_status_id = $this->config->get('config_subscription_expired_status_id');
                 }
 
                 if ($order_info['invoice_no']) {
@@ -1753,19 +1896,75 @@ class ControllerSaleOrder extends Controller {
                     }
 
                     // Subscription
-                    $subscription_data = '';
+                    $subscription_data = [];
 
                     foreach ($subscriptions as $subscription) {
                         $filter_data = [
                             'filter_subscription_id'        => $subscription['subscription_id'],
-                            'filter_order_product_id'       => $product['order_product_id'],
-                            'filter_subscription_status_id' => $subscription_active_status_id
+                            'filter_order_product_id'       => $product['order_product_id']
                         ];
 
                         $subscription_info = $this->model_sale_subscription->getSubscriptions($filter_data);
 
                         if ($subscription_info) {
-                            $subscription_data = $subscription['name'];
+                            if ($subscription_info['frequency'] == 'semi_month') {
+                                $period = strtotime("2 weeks");
+                            } else {
+                                $period = strtotime($subscription_info['cycle'] . ' ' . $subscription_info['frequency']);
+                            }
+
+                            $subscription_period = strtotime($subscription_info['date_added']);
+
+                            $trial_period = 0;
+                            $trial_cycle = 0;
+
+                            // Trial
+                            if ($subscription_info['trial_status'] && (int)$subscription_info['trial_cycle'] >= 0 && in_array($subscription_info['trial_frequency'], $frequencies)) {
+                                if ($subscription_info['trial_frequency'] == 'semi_month') {
+                                    $trial_period = strtotime("2 weeks");
+                                } else {
+                                    $trial_period = strtotime($subscription_info['trial_cycle'] . ' ' . $subscription_info['trial_frequency']);
+                                }
+
+                                $trial_period = ($trial_period - $subscription_period);
+                                $trial_cycle = round($trial_period / (60 * 60 * 24));
+                            }
+
+                            $period = ($period - $subscription_period);
+
+                            // Calculate remaining period of each features
+                            $cycle = round($period / (60 * 60 * 24));
+
+                            // Pending
+                            if ($subscription_info['subscription_status_id'] == $subscription_pending_status_id && $subscription_info['trial_status'] && ($trial_cycle >= 0 && $trial_cycle <= $subscription_info['trial_cycle'])) {
+                                $subscription_status_info = $this->model_localisation_subscription_status->getSubscriptionStatus($subscription_pending_status_id);
+                                // Active
+                            } elseif ($subscription_info['subscription_status_id'] == $subscription_active_status_id && $subscription_info['status'] && ($cycle >= 0 && $cycle <= $subscription_info['cycle'])) {
+                                $subscription_status_info = $this->model_localisation_subscription_status->getSubscriptionStatus($subscription_active_status_id);
+                                // Expired
+                            } elseif ($subscription_info['subscription_status_id'] == $subscription_expired_status_id) {
+                                $subscription_status_info = $this->model_localisation_subscription_status->getSubscriptionStatus($subscription_expired_status_id);
+                            }
+
+                            if ($subscription_status_info) {
+                                // Trial
+                                if ($trial_cycle < 0) {
+                                    $trial_cycle = 0;
+                                }
+
+                                // Full
+                                if ($cycle < 0) {
+                                    $cycle = 0;
+                                }
+
+                                $subscription_data = [
+                                    'name'       => $subscription_status_info['name'],
+                                    'date_added' => date($this->language->get('date_format_short'), strtotime($subscription_info['date_added'])),
+                                    'remaining'  => $trial_cycle ? $this->language->get('text_trial_cycle_remaining') : $this->language->get('text_cycle_remaining'),
+                                    'cycle'      => $trial_cycle ? $trial_cycle : $cycle,
+                                    'frequency'  => $subscription_info['trial_frequency'] && $trial_cycle ? $this->language->get('text_' . $subscription_info['trial_frequency']) : $this->language->get('text_' . $subscription_info['frequency'])
+                                ];
+                            }
                         }
                     }
 
@@ -1855,6 +2054,7 @@ class ControllerSaleOrder extends Controller {
 
         // Subscription
         $this->load->model('sale/subscription');
+        $this->load->model('localisation/subscription_status');
 
         $data['orders'] = [];
 
@@ -1878,13 +2078,17 @@ class ControllerSaleOrder extends Controller {
                     $store_email = $store_info['config_email'];
                     $store_telephone = $store_info['config_telephone'];
 
-                    $subscription_active_status_id = $store_info['config_subscription_status_id'];
+                    $subscription_active_status_id = $store_info['config_subscription_active_status_id'];
+                    $subscription_pending_status_id = $store_info['config_subscription_pending_status_id'];
+                    $subscription_expired_status_id = $store_info['config_subscription_expired_status_id'];
                 } else {
                     $store_address = $this->config->get('config_address');
                     $store_email = $this->config->get('config_email');
                     $store_telephone = $this->config->get('config_telephone');
 
-                    $subscription_active_status_id = $this->config->get('config_subscription_status_id');
+                    $subscription_active_status_id = $this->config->get('config_subscription_active_status_id');
+                    $subscription_pending_status_id = $this->config->get('config_subscription_pending_status_id');
+                    $subscription_expired_status_id = $this->config->get('config_subscription_expired_status_id');
                 }
 
                 if ($order_info['invoice_no']) {
@@ -1983,19 +2187,75 @@ class ControllerSaleOrder extends Controller {
                         }
 
                         // Subscription
-                        $subscription_data = '';
+                        $subscription_data = [];
 
                         foreach ($subscriptions as $subscription) {
                             $filter_data = [
                                 'filter_subscription_id'        => $subscription['subscription_id'],
-                                'filter_order_product_id'       => $product['order_product_id'],
-                                'filter_subscription_status_id' => $subscription_active_status_id
+                                'filter_order_product_id'       => $product['order_product_id']
                             ];
 
                             $subscription_info = $this->model_sale_subscription->getSubscriptions($filter_data);
 
                             if ($subscription_info) {
-                                $subscription_data = $subscription['name'];
+                                if ($subscription_info['frequency'] == 'semi_month') {
+                                    $period = strtotime("2 weeks");
+                                } else {
+                                    $period = strtotime($subscription_info['cycle'] . ' ' . $subscription_info['frequency']);
+                                }
+
+                                $subscription_period = strtotime($subscription_info['date_added']);
+
+                                $trial_period = 0;
+                                $trial_cycle = 0;
+
+                                // Trial
+                                if ($subscription_info['trial_status'] && (int)$subscription_info['trial_cycle'] >= 0 && in_array($subscription_info['trial_frequency'], $frequencies)) {
+                                    if ($subscription_info['trial_frequency'] == 'semi_month') {
+                                        $trial_period = strtotime("2 weeks");
+                                    } else {
+                                        $trial_period = strtotime($subscription_info['trial_cycle'] . ' ' . $subscription_info['trial_frequency']);
+                                    }
+
+                                    $trial_period = ($trial_period - $subscription_period);
+                                    $trial_cycle = round($trial_period / (60 * 60 * 24));
+                                }
+
+                                $period = ($period - $subscription_period);
+
+                                // Calculate remaining period of each features
+                                $cycle = round($period / (60 * 60 * 24));
+
+                                // Pending
+                                if ($subscription_info['subscription_status_id'] == $subscription_pending_status_id && $subscription_info['trial_status'] && ($trial_cycle >= 0 && $trial_cycle <= $subscription_info['trial_cycle'])) {
+                                    $subscription_status_info = $this->model_localisation_subscription_status->getSubscriptionStatus($subscription_pending_status_id);
+                                    // Active
+                                } elseif ($subscription_info['subscription_status_id'] == $subscription_active_status_id && $subscription_info['status'] && ($cycle >= 0 && $cycle <= $subscription_info['cycle'])) {
+                                    $subscription_status_info = $this->model_localisation_subscription_status->getSubscriptionStatus($subscription_active_status_id);
+                                    // Expired
+                                } elseif ($subscription_info['subscription_status_id'] == $subscription_expired_status_id) {
+                                    $subscription_status_info = $this->model_localisation_subscription_status->getSubscriptionStatus($subscription_expired_status_id);
+                                }
+
+                                if ($subscription_status_info) {
+                                    // Trial
+                                    if ($trial_cycle < 0) {
+                                        $trial_cycle = 0;
+                                    }
+
+                                    // Full
+                                    if ($cycle < 0) {
+                                        $cycle = 0;
+                                    }
+
+                                    $subscription_data = [
+                                        'name'       => $subscription_status_info['name'],
+                                        'date_added' => date($this->language->get('date_format_short'), strtotime($subscription_info['date_added'])),
+                                        'remaining'  => $trial_cycle ? $this->language->get('text_trial_cycle_remaining') : $this->language->get('text_cycle_remaining'),
+                                        'cycle'      => $trial_cycle ? $trial_cycle : $cycle,
+                                        'frequency'  => $subscription_info['trial_frequency'] && $trial_cycle ? $this->language->get('text_' . $subscription_info['trial_frequency']) : $this->language->get('text_' . $subscription_info['frequency'])
+                                    ];
+                                }
                             }
                         }
 

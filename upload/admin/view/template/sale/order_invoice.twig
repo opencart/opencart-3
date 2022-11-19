@@ -103,7 +103,13 @@
             {% endfor %}
             {% if product.subscription %}
               <br/>
-              <small> - {{ text_subscription }} {{ product.subscription }} </small>
+              {% for subscription in product.subscription %}
+                <small> - {{ text_status }}: {{ subscription.name }}</small>
+                <br/>
+                <small> - {{ text_date_added }}: {{ subscription.date_added }}</small>
+                <br/>
+                <small> - {{ subscription.remaining }}: {{ subscription.cycle }} {{ subscription.frequency }}</small>
+              {% endfor %}
             {% endif %}
           </td>
           <td>{{ product.model }}</td>
