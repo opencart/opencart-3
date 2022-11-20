@@ -8,14 +8,6 @@ class ModelSaleSubscription extends Model {
         $this->db->query("UPDATE `" . DB_PREFIX . "subscription` SET `customer_payment_id ` = '" . (int)$customer_payment_id . "' WHERE `subscription_id` = '" . (int)$subscription_id . "'");
     }
 
-    public function editRemaining(int $subscription_id, int $remaining): void {
-        $this->db->query("UPDATE `" . DB_PREFIX . "subscription` SET `remaining` = '" . (int)$remaining . "' WHERE `subscription_id` = '" . (int)$subscription_id . "'");
-    }
-
-    public function editTrialRemaining(int $subscription_id, int $trial_remaining): void {
-        $this->db->query("UPDATE `" . DB_PREFIX . "subscription` SET `trial_remaining` = '" . (int)$trial_remaining . "' WHERE `subscription_id` = '" . (int)$subscription_id . "'");
-    }
-
     public function editDateNext(int $subscription_id, string $date_next): void {
         $this->db->query("UPDATE `" . DB_PREFIX . "subscription` SET `date_next` = '" . $this->db->escape($date_next) . "' WHERE `subscription_id` = '" . (int)$subscription_id . "'");
     }

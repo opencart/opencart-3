@@ -4,10 +4,6 @@ class ModelAccountSubscription extends Model {
         $this->db->query("UPDATE `" . DB_PREFIX . "subscription` SET `status` = '" . (int)$status . "' WHERE `subscription_id` = '" . (int)$subscription_id . "'");
     }
 
-    public function editTrialRemaining(int $subscription_id, int $trial_remaining): void {
-        $this->db->query("UPDATE `" . DB_PREFIX . "subscription` SET `trial_remaining` = '" . (int)$trial_remaining . "' WHERE `subscription_id` = '" . (int)$subscription_id . "'");
-    }
-
     public function editDateNext(int $subscription_id, string $date_next): void {
         $this->db->query("UPDATE `" . DB_PREFIX . "subscription` SET `date_next` = '" . $this->db->escape($date_next) . "' WHERE `subscription_id` = '" . (int)$subscription_id . "'");
     }
@@ -19,7 +15,7 @@ class ModelAccountSubscription extends Model {
     }
 
     public function getSubscriptions(array $data): array {
-        $sql = "SELECT s.`subscription_id`, s.`trial_status`, s.`trial_duration`, s.`trial_remaining`, s.`duration`, s.`remaining`, s.`customer_payment_id`, s.`trial_cycle`, s.`trial_frequency`, s.`cycle`, s.`frequency`, o.*, o.`payment_method`, o.`currency_id`, o.`currency_value` FROM `" . DB_PREFIX . "subscription` s LEFT JOIN `" . DB_PREFIX . "order` o ON (s.`order_id` = o.`order_id`)";
+        $sql = "SELECT s.`subscription_id`, s.`trial_status`, s.`trial_duration`, s.`duration`, s.`customer_payment_id`, s.`trial_cycle`, s.`trial_frequency`, s.`cycle`, s.`frequency`, o.*, o.`payment_method`, o.`currency_id`, o.`currency_value` FROM `" . DB_PREFIX . "subscription` s LEFT JOIN `" . DB_PREFIX . "order` o ON (s.`order_id` = o.`order_id`)";
 
         $implode = [];
 

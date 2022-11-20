@@ -21,9 +21,9 @@ class ControllerExtensionModuleSubscription extends Controller {
 
             if ($results) {
                 foreach ($results as $result) {
-                    if ($result['trial_status'] && (!$result['trial_duration'] || $result['trial_remaining'])) {
+                    if ($result['trial_status'] && $result['trial_duration'] > 0) {
                         $amount = $result['trial_price'];
-                    } elseif (!$result['duration'] || $result['remaining']) {
+                    } elseif ($result['duration'] > 0) {
                         $amount = $result['price'];
                     }
 
@@ -42,9 +42,9 @@ class ControllerExtensionModuleSubscription extends Controller {
 
                                 // Transaction
                                 if ($this->config->get('config_subscription_active_status_id') == $subscription_status_id) {
-                                    if ($result['trial_duration'] && $result['trial_remaining']) {
+                                    if ($result['trial_duration'] > 0) {
                                         $date_next = date('Y-m-d', strtotime('+' . $result['trial_cycle'] . ' ' . $result['trial_frequency']));
-                                    } elseif ($result['duration'] && $result['remaining']) {
+                                    } elseif ($result['duration'] > 0) {
                                         $date_next = date('Y-m-d', strtotime('+' . $result['cycle'] . ' ' . $result['frequency']));
                                     }
 
@@ -92,21 +92,6 @@ class ControllerExtensionModuleSubscription extends Controller {
                     // History
                     if ($result['subscription_status_id'] != $subscription_status_id) {
                         $this->model_checkout_subscription->addHistory($result['subscription_id'], $subscription_status_id, 'payment extension ' . $result['payment_code'] . ' could not be loaded', true);
-                    }
-
-                    // Success
-                    if ($this->config->get('config_subscription_active_status_id') == $subscription_status_id) {
-                        // Trial
-                        if ($result['trial_status'] && (!$result['trial_duration'] || $result['trial_remaining'])) {
-                            if ($result['trial_duration'] && $result['trial_remaining']) {
-                                $this->model_account_subscription->editTrialRemaining($result['subscription_id'], $result['trial_remaining'] - 1);
-                            }
-                        } elseif (!$result['duration'] || $result['remaining']) {
-                            // Subscription
-                            if ($result['duration'] && $result['remaining']) {
-                                $this->model_account_subscription->editRemaining($result['subscription_id'], $result['remaining'] - 1);
-                            }
-                        }
                     }
                 }
             }
