@@ -61,11 +61,22 @@ class ControllerAccountSubscription extends Controller {
                 $status = '';
             }
 
+            if ($result['duration']) {
+                if ($result['frequency'] == 'semi_month') {
+                    $period = strtotime("2 weeks");
+                } else {
+                    $period = strtotime($result['cycle'] . ' ' . $result['frequency']);
+                }
+            }
+
+            $date_next = strtotime($result['date_next']);
+
             $data['subscriptions'][] = [
                 'subscription_id' => $result['subscription_id'],
                 'product'         => $result['product'],
                 'status'          => $status,
                 'date_added'      => date($this->language->get('date_format_short'), strtotime($result['date_added'])),
+                'is_subscription' => $date_next <= $period ? true : false,
                 'view'            => $this->url->link('account/subscription/info', 'customer_token=' . $this->session->data['customer_token'] . '&subscription_id=' . $result['subscription_id'], true)
             ];
         }
@@ -151,6 +162,18 @@ class ControllerAccountSubscription extends Controller {
             } else {
                 $data['status'] = '';
             }
+
+            if ($subscription_info['duration']) {
+                if ($subscription_info['frequency'] == 'semi_month') {
+                    $period = strtotime("2 weeks");
+                } else {
+                    $period = strtotime($subscription_info['cycle'] . ' ' . $subscription_info['frequency']);
+                }
+            }
+
+            $date_next = strtotime($subscription_info['date_next']);
+
+            $data['is_subscription'] = $date_next <= $period ? true : false;
 
             // Orders
             $this->load->model('account/order');
