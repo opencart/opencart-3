@@ -273,7 +273,7 @@ class ControllerMailSubscription extends Controller {
                                                         foreach ($next_subscriptions as $next_subscription) {
                                                             // Validate the latest subscription values with the ones edited
                                                             // by promotional extensions
-                                                            if ($next_subscription['subscription_id'] != $value['subscription_id'] && $next_subscription['order_id'] != $value['order_id'] && $next_subscription['description'] != $description && $value['order_id'] != $subscription['order_id'] && $next_subscription['order_product_id'] != $value['order_product_id'] && $next_subscription['customer_id'] == $value['customer_id']) {
+                                                            if ($next_subscription['subscription_id'] != $value['subscription_id'] && $next_subscription['order_id'] != $value['order_id'] && $next_subscription['description'] != $description && $value['order_id'] != $subscription['order_id'] && $next_subscription['order_product_id'] != $value['order_product_id'] && $next_subscription['customer_id'] == $value['customer_id'] && $next_subscription['duration'] == $value['duration'] && $value['duration'] == $subscription['duration'] && $subscription['duration'] == 1) {
                                                                 $this->load->model('account/customer');
 
                                                                 $customer_info = $this->model_account_customer->getCustomer($next_subscription['customer_id']);
@@ -335,7 +335,7 @@ class ControllerMailSubscription extends Controller {
 
                                                                                 $product_subscription_info = $this->model_catalog_product->getSubscription($order_product['product_id'], $next_subscription['subscription_plan_id']);
 
-                                                                                if ($product_subscription_info && $product_subscription_info['cycle'] >= 0 && $cycle <= $product_subscription_info['cycle'] && $product_subscription_info['subscription_plan_id'] == $next_subscription['subscription_plan_id']) {
+                                                                                if ($product_subscription_info && $product_subscription_info['cycle'] >= 0 && $cycle <= $product_subscription_info['cycle'] && $product_subscription_info['subscription_plan_id'] == $next_subscription['subscription_plan_id'] && $product_subscription_info['duration'] == $next_subscription['duration']) {
                                                                                     // Add Transaction from extension
                                                                                     if (property_exists($this->{'model_extension_payment_' . $payment_method['code']}, 'addSubscriptionTransaction')) {
                                                                                         $this->{'model_extension_payment_' . $payment_method['code']}->addSubscriptionTransaction($next_subscription['subscription_id'], $next_subscription['order_id']);
