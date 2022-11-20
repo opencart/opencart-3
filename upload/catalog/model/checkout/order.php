@@ -80,9 +80,6 @@ class ModelCheckoutOrder extends Model {
         $this->db->query("DELETE FROM `" . DB_PREFIX . "order_product` WHERE `order_id` = '" . (int)$order_id . "'");
         $this->db->query("DELETE FROM `" . DB_PREFIX . "order_option` WHERE `order_id` = '" . (int)$order_id . "'");
 
-        // Subscription
-        $this->load->model('checkout/subscription');
-
         // Products
         if (isset($data['products'])) {
             foreach ($data['products'] as $product) {
