@@ -356,7 +356,7 @@ class ControllerMailSubscription extends Controller {
                                         // and not based on promotional products, only subscribed
                                         // customers can receive the emails; either by automation
                                         // or on-demand.
-                                        if ($value['status'] && $subscription['status']) {
+                                        if (($value['trial_status'] && $subscription['trial_status']) || ($value['status'] && $subscription['status'])) {
                                             // Mail
                                             if ($this->config->get('config_mail_engine')) {
                                                 $mail = new \Mail($this->config->get('config_mail_engine'));
