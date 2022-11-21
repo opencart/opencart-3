@@ -60,17 +60,6 @@ $_['text_commission_removed']    = 'Success: Commission removed!';
 $_['text_restock']               = 'Success: Products have been restocked!';
 $_['text_upload']                = 'Your file was successfully uploaded!';
 $_['text_subscription']          = 'Subscription';
-$_['text_status']                = 'Status';
-$_['text_trial_cycle_remaining'] = 'Trial Cycle Remaining';
-$_['text_cycle_remaining']       = 'Cycle Remaining';
-$_['text_date_added']            = 'Date Added';
-$_['text_trial_cycle']           = 'Trial Cycle';
-$_['text_cycle']                 = 'Cycle';
-$_['text_day']                   = 'day';
-$_['text_week']                  = 'week';
-$_['text_semi_month']            = 'half-month';
-$_['text_month']                 = 'month';
-$_['text_year']                  = 'year';
 $_['text_picklist']              = 'Dispatch Note';
 
 // Column
