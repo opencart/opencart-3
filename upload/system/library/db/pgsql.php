@@ -1,5 +1,5 @@
 <?php
-namespace Opencart\System\Library\DB;
+namespace DB;
 class PgSQL {
     private object $connection;
 
@@ -18,7 +18,7 @@ class PgSQL {
         }
 
         try {
-            $pg = @pg_connect('host=' . $hostname . ' port=' . $port .  ' user=' . $username . ' password='	. $password . ' dbname=' . $database . ' options=\'--client_encoding=UTF8\' ');
+            $pg = @pg_connect('host=' . $hostname . ' port=' . $port . ' user=' . $username . ' password=' . $password . ' dbname=' . $database . ' options=\'--client_encoding=UTF8\' ');
         } catch (\Exception $e) {
             throw new \Exception('Error: Could not make a database link using ' . $username . '@' . $hostname);
         }
