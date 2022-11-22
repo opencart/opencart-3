@@ -281,13 +281,19 @@ class ControllerMailSubscription extends Controller {
 
                                                         if ($next_subscriptions) {
                                                             foreach ($next_subscriptions as $next_subscription) {
+                                                                // Transactions
+                                                                $transactions = $this->model_account_subscription->getTransactions($next_subscription['customer_id']);
+
+                                                                $transaction_dates = array_column($transactions, 'date_added');
+                                                                $next_date_max = strtotime(max($transaction_dates));
+
                                                                 $next_subscription_period = strtotime($next_subscription['date_next']);
                                                                 $calc_subscription_period = ($next_subscription_period - $subscription_period);
                                                                 $next_subscription_cycle = round($calc_subscription_period / (60 * 60 * 24));
 
                                                                 // Validate the latest subscription values with the ones edited
                                                                 // by promotional extensions
-                                                                if ($next_subscription_cycle >= 0 && $next_subscription['subscription_id'] != $result['subscription_id'] && $next_subscription['order_id'] != $result['order_id'] && $next_subscription['description'] != $description && $next_subscription['order_product_id'] != $result['order_product_id'] && $next_subscription['customer_id'] == $result['customer_id'] && $next_subscription['duration'] == $result['duration'] && $result['duration'] == $subscription['duration'] && $subscription['duration'] == 1) {
+                                                                if ($transactions && strtotime($next_subscription['date_next']) == $next_date_max && $next_subscription_cycle >= 0 && $next_subscription['subscription_id'] != $result['subscription_id'] && $next_subscription['order_id'] != $result['order_id'] && $next_subscription['description'] != $description && $next_subscription['order_product_id'] != $result['order_product_id'] && $next_subscription['customer_id'] == $result['customer_id'] && $next_subscription['duration'] == $result['duration'] && $result['duration'] == $subscription['duration'] && $subscription['duration'] == 1) {
                                                                     $this->load->model('account/customer');
 
                                                                     $customer_info = $this->model_account_customer->getCustomer($next_subscription['customer_id']);
@@ -382,7 +388,7 @@ class ControllerMailSubscription extends Controller {
                                             }
                                         }
                                     } elseif ($order_info && ((!$transactions) || (strtotime($result['date_added']) != $date_max))) {
-                                        $this->model_account_subscription->addTransaction($subscription_id, $order_info['order_id'], $this->language->get('error_transaction'), 0, 0, $order_info['payment_method'], $order_info['payment_code']);
+                                        $this->model_account_subscription->addTransaction($subscription_id, $order_info['order_id'], $this->language->get('error_transaction'), 0, 0, $order_info['payment_method'], $order_info['payment_code'], date('Y-m-d H:i:s'));
                                     }
                                 }
                             }
