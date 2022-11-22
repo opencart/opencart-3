@@ -69,29 +69,29 @@ class ControllerMailSubscription extends Controller {
         if ($subscriptions) {
             $this->load->language('mail/subscription');
 
-            foreach ($subscriptions as $value) {
-                if (strtotime($value['date_added']) == strtotime($subscription['date_added'])) {
+            foreach ($subscriptions as $result) {
+                if (strtotime($result['date_added']) == strtotime($subscription['date_added'])) {
                     // Only match the latest order ID of the same customer ID
                     // since new subscriptions cannot be re-added with the same
                     // order ID; only as a new order ID added by an extension
-                    if ($value['customer_id'] == $subscription['customer_id'] && $value['order_id'] == $subscription['order_id']) {
+                    if ($result['customer_id'] == $subscription['customer_id'] && $result['order_id'] == $subscription['order_id']) {
                         // Payment Methods
                         $this->load->model('account/payment_method');
 
-                        $payment_method = $this->model_account_payment_method->getPaymentMethod($value['customer_id'], $value['customer_payment_id']);
+                        $payment_method = $this->model_account_payment_method->getPaymentMethod($result['customer_id'], $result['customer_payment_id']);
 
                         if ($payment_method) {
                             // Subscription
                             $this->load->model('checkout/subscription');
 
-                            $subscription_order_product = $this->model_checkout_subscription->getSubscriptionByOrderProductId($value['order_product_id']);
+                            $subscription_order_product = $this->model_checkout_subscription->getSubscriptionByOrderProductId($result['order_product_id']);
 
                             if ($subscription_order_product) {
                                 // Orders
                                 $this->load->model('account/order');
 
                                 // Order Products
-                                $order_product = $this->model_account_order->getProduct($value['order_id'], $value['order_product_id']);
+                                $order_product = $this->model_account_order->getProduct($result['order_id'], $result['order_product_id']);
 
                                 if ($order_product && $order_product['order_product_id'] == $subscription['order_product_id']) {
                                     $products = $this->cart->getProducts();
@@ -100,19 +100,19 @@ class ControllerMailSubscription extends Controller {
 
                                     foreach ($products as $product) {
                                         if ($product['product_id'] == $order_product['product_id']) {
-                                            $trial_price = $this->currency->format($this->tax->calculate($value['trial_price'], $product['tax_class_id'], $this->config->get('config_tax')), $this->session->data['currency']);
-                                            $trial_cycle = $value['trial_cycle'];
-                                            $trial_frequency = $this->language->get('text_' . $value['trial_frequency']);
-                                            $trial_duration = $value['trial_duration'];
+                                            $trial_price = $this->currency->format($this->tax->calculate($result['trial_price'], $product['tax_class_id'], $this->config->get('config_tax')), $this->session->data['currency']);
+                                            $trial_cycle = $result['trial_cycle'];
+                                            $trial_frequency = $this->language->get('text_' . $result['trial_frequency']);
+                                            $trial_duration = $result['trial_duration'];
 
                                             if ($product['trial_status']) {
                                                 $description .= sprintf($this->language->get('text_subscription_trial'), $trial_price, $trial_cycle, $trial_frequency, $trial_duration);
                                             }
 
-                                            $price = $this->currency->format($this->tax->calculate($value['price'], $product['tax_class_id'], $this->config->get('config_tax')), $this->session->data['currency']);
-                                            $cycle = $value['cycle'];
-                                            $frequency = $this->language->get('text_' . $value['frequency']);
-                                            $duration = $value['duration'];
+                                            $price = $this->currency->format($this->tax->calculate($result['price'], $product['tax_class_id'], $this->config->get('config_tax')), $this->session->data['currency']);
+                                            $cycle = $result['cycle'];
+                                            $frequency = $this->language->get('text_' . $result['frequency']);
+                                            $duration = $result['duration'];
 
                                             if ($duration) {
                                                 $description .= sprintf($this->language->get('text_subscription_duration'), $price, $cycle, $frequency, $duration);
@@ -125,18 +125,18 @@ class ControllerMailSubscription extends Controller {
                                     // Both descriptions need to match to maintain the
                                     // mutual agreement of the subscription in accordance
                                     // with the service providers
-                                    if ($description && $description == $subscription['description'] && strtotime($value['date_next']) == strtotime($subscription['date_next'])) {
+                                    if ($description && $description == $subscription['description'] && strtotime($result['date_next']) == strtotime($subscription['date_next'])) {
                                         // Subscription date
-                                        $subscription_period = strtotime($value['date_next']);
+                                        $subscription_period = strtotime($result['date_next']);
 
                                         // Orders
                                         $this->load->model('checkout/order');
 
-                                        $order_info = $this->model_checkout_order->getOrder($value['order_id']);
+                                        $order_info = $this->model_checkout_order->getOrder($result['order_id']);
 
                                         if ($order_info) {
                                             $date_added = strtotime($order_info['date_added']);
-                                            $date_added = (strtotime($value['date_added']) - $date_added);
+                                            $date_added = (strtotime($result['date_added']) - $date_added);
                                             $date_cycle = round($date_added / (60 * 60 * 24));
 
                                             if ($date_cycle >= 0) {
@@ -165,7 +165,7 @@ class ControllerMailSubscription extends Controller {
                                                 }
 
                                                 // Subscription Status
-                                                $subscription_status_query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "subscription_status` WHERE `subscription_status_id` = '" . (int)$value['subscription_status_id'] . "' AND `language_id` = '" . (int)$order_info['language_id'] . "'");
+                                                $subscription_status_query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "subscription_status` WHERE `subscription_status_id` = '" . (int)$result['subscription_status_id'] . "' AND `language_id` = '" . (int)$order_info['language_id'] . "'");
 
                                                 if ($subscription_status_query->num_rows) {
                                                     $data['order_status'] = $subscription_status_query->row['name'];
@@ -213,7 +213,7 @@ class ControllerMailSubscription extends Controller {
                                                     $data['comment'] = '';
                                                 }
 
-                                                $data['description'] = $value['description'];
+                                                $data['description'] = $result['description'];
 
                                                 $subject = sprintf($language->get('text_subject'), $store_name, $order_info['order_id']);
 
@@ -260,7 +260,7 @@ class ControllerMailSubscription extends Controller {
                                                           * this transaction. It must not be charged
                                                           * to the customer until the next billing cycle
                                                         */
-                                                        $subscription_status_id = $this->{'model_extension_payment_' . $payment_method['code']}->promotion($value['subscription_id']);
+                                                        $subscription_status_id = $this->{'model_extension_payment_' . $payment_method['code']}->promotion($result['subscription_id']);
 
                                                         if ($store_info) {
                                                             $subscription_active_status_id = $this->model_setting_setting->getValue('config_subscription_active_status_id', $store_info['store_id']);
@@ -286,7 +286,7 @@ class ControllerMailSubscription extends Controller {
 
                                                                     // Validate the latest subscription values with the ones edited
                                                                     // by promotional extensions
-                                                                    if ($next_subscription_cycle >= 0 && $next_subscription['subscription_id'] != $value['subscription_id'] && $next_subscription['order_id'] != $value['order_id'] && $next_subscription['description'] != $description && $next_subscription['order_product_id'] != $value['order_product_id'] && $next_subscription['customer_id'] == $value['customer_id'] && $next_subscription['duration'] == $value['duration'] && $value['duration'] == $subscription['duration'] && $subscription['duration'] == 1) {
+                                                                    if ($next_subscription_cycle >= 0 && $next_subscription['subscription_id'] != $result['subscription_id'] && $next_subscription['order_id'] != $result['order_id'] && $next_subscription['description'] != $description && $next_subscription['order_product_id'] != $result['order_product_id'] && $next_subscription['customer_id'] == $result['customer_id'] && $next_subscription['duration'] == $result['duration'] && $result['duration'] == $subscription['duration'] && $subscription['duration'] == 1) {
                                                                         $this->load->model('account/customer');
 
                                                                         $customer_info = $this->model_account_customer->getCustomer($next_subscription['customer_id']);
@@ -318,7 +318,7 @@ class ControllerMailSubscription extends Controller {
                                                                             // Promotional subscription plans for full membership must be identical
                                                                             // until the time period has exceeded. Therefore, we need to match the
                                                                             // cycle period with the current time period; including pro rata
-                                                                            if ($next_subscription['status'] && $subscription['status'] && !$next_subscription['trial_status'] && $cycle >= 0 && $next_subscription['subscription_plan_id'] == $value['subscription_plan_id'] && $value['subscription_plan_id'] == $subscription['subscription_plan_id']) {
+                                                                            if ($next_subscription['status'] && $subscription['status'] && !$next_subscription['trial_status'] && $cycle >= 0 && $next_subscription['subscription_plan_id'] == $result['subscription_plan_id'] && $result['subscription_plan_id'] == $subscription['subscription_plan_id']) {
                                                                                 // Order Products
                                                                                 $order_product = $this->model_account_order->getProduct($next_subscription['order_id'], $next_subscription['order_product_id']);
 
@@ -360,7 +360,7 @@ class ControllerMailSubscription extends Controller {
                                                 // and not based on promotional products, only subscribed
                                                 // customers can receive the emails; either by automation
                                                 // or on-demand.
-                                                if (($value['trial_status'] && $subscription['trial_status']) || ($value['status'] && $subscription['status'])) {
+                                                if (($result['trial_status'] && $subscription['trial_status']) || ($result['status'] && $subscription['status'])) {
                                                     // Mail
                                                     if ($this->config->get('config_mail_engine')) {
                                                         $mail = new \Mail($this->config->get('config_mail_engine'));
