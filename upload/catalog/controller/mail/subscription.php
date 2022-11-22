@@ -337,7 +337,7 @@ class ControllerMailSubscription extends Controller {
                                                                                     $date_added = ($next_subscription_period - $date_added);
                                                                                     $next_date_cycle = round($date_added / (60 * 60 * 24));
 
-                                                                                    // If the order date cycle is in the future compared to the current
+                                                                                    // If the order date cycle is greater than the next
                                                                                     // cycle time period
                                                                                     if ($next_date_cycle >= 0) {
                                                                                         // Products
@@ -387,7 +387,7 @@ class ControllerMailSubscription extends Controller {
                                                 }
                                             }
                                         }
-                                    } elseif ($order_info && ((!$transactions) || (strtotime($result['date_added']) != $date_max))) {
+                                    } elseif (($order_info && !$transactions) || (strtotime($result['date_added']) != $date_max)) {
                                         $this->model_account_subscription->addTransaction($subscription_id, $order_info['order_id'], $this->language->get('error_transaction'), 0, 0, $order_info['payment_method'], $order_info['payment_code'], date('Y-m-d H:i:s'));
                                     }
                                 }
