@@ -28,7 +28,7 @@ class ModelAccountCustomer extends Model {
     }
 
     public function editPassword(string $email, string $password): void {
-        $this->db->query("UPDATE `" . DB_PREFIX . "customer` SET `password` = '" . $this->db->escape(password_hash(html_entity_decode($password, ENT_QUOTES, 'UTF-8'), PASSWORD_DEFAULT)) . "', `code` = '' WHERE LCASE(`email`) = '" . $this->db->escape(oc_strtolower($email)) . "'");
+        $this->db->query("UPDATE `" . DB_PREFIX . "customer` SET `password` = '" . $this->db->escape(password_hash(html_entity_decode($password, ENT_QUOTES, 'UTF-8'), PASSWORD_DEFAULT)) . "', `code` = '' WHERE LOWER(`email`) = '" . $this->db->escape(oc_strtolower($email)) . "'");
     }
 
     public function editAddressId(int $customer_id, int $address_id): void {
@@ -37,7 +37,7 @@ class ModelAccountCustomer extends Model {
     }
 
     public function editCode(string $email, string $code): void {
-        $this->db->query("UPDATE `" . DB_PREFIX . "customer` SET `code` = '" . $this->db->escape($code) . "' WHERE LCASE(`email`) = '" . $this->db->escape(oc_strtolower($email)) . "'");
+        $this->db->query("UPDATE `" . DB_PREFIX . "customer` SET `code` = '" . $this->db->escape($code) . "' WHERE LOWER(`email`) = '" . $this->db->escape(oc_strtolower($email)) . "'");
     }
 
     public function editNewsletter(string $newsletter): void {
@@ -51,7 +51,7 @@ class ModelAccountCustomer extends Model {
     }
 
     public function getCustomerByEmail(string $email): array {
-        $query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "customer` WHERE LCASE(`email`) = '" . $this->db->escape(oc_strtolower($email)) . "'");
+        $query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "customer` WHERE LOWER(`email`) = '" . $this->db->escape(oc_strtolower($email)) . "'");
 
         return $query->row;
     }
@@ -71,7 +71,7 @@ class ModelAccountCustomer extends Model {
     }
 
     public function getTotalCustomersByEmail(string $email): int {
-        $query = $this->db->query("SELECT COUNT(*) AS `total` FROM `" . DB_PREFIX . "customer` WHERE LCASE(`email`) = '" . $this->db->escape(oc_strtolower($email)) . "'");
+        $query = $this->db->query("SELECT COUNT(*) AS `total` FROM `" . DB_PREFIX . "customer` WHERE LOWER(`email`) = '" . $this->db->escape(oc_strtolower($email)) . "'");
 
         return (int)$query->row['total'];
     }
