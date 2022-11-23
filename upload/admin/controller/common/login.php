@@ -12,8 +12,6 @@ class ControllerCommonLogin extends Controller {
         }
 
         if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validate()) {
-            $this->session->data['user_token'] = oc_token(32);
-
             if (isset($this->request->post['redirect']) && (strpos($this->request->post['redirect'], HTTP_SERVER) === 0 || strpos($this->request->post['redirect'], HTTPS_SERVER) === 0)) {
                 $this->response->redirect($this->request->post['redirect'] . '&user_token=' . $this->session->data['user_token']);
             } else {
@@ -55,16 +53,18 @@ class ControllerCommonLogin extends Controller {
             $data['password'] = '';
         }
 
-        if (isset($this->request->get['route'])) {
-            $route = $this->request->get['route'];
+        if (isset($this->request->get['route']) && $this->request->get['route'] != 'common/login') {
+            $args = $this->request->get;
 
-            unset($this->request->get['route']);
-            unset($this->request->get['user_token']);
+            $route = $args['route'];
+
+            unset($args['route']);
+            unset($args['user_token']);
 
             $url = '';
 
             if ($this->request->get) {
-                $url .= http_build_query($this->request->get);
+                $url .= http_build_query($args);
             }
 
             $data['redirect'] = $this->url->link($route, $url, true);
@@ -100,28 +100,24 @@ class ControllerCommonLogin extends Controller {
 
         if (!$this->request->post['username'] || !$this->request->post['password']) {
             $this->error['warning'] = $this->language->get('error_login');
-        } else {
-            // Users
-            $this->load->model('user/user');
+        }
 
-            // Check how many login attempts have been made.
-            $login_info = $this->model_user_user->getLogins($this->request->post['username']);
-
-            if ($login_info && ($login_info['total'] >= $this->config->get('config_login_attempts')) && strtotime('-1 hour') < strtotime($login_info['date_modified'])) {
-                $this->error['error_attempts'] = $this->language->get('error_attempts');
-            }
+        if (!$this->error && !$this->user->login($this->request->post['username'], html_entity_decode($this->request->post['password'], ENT_QUOTES, 'UTF-8'))) {
+            $this->error['warning'] = $this->language->get('error_login');
         }
 
         if (!$this->error) {
-            if (!$this->user->login($this->request->post['username'], html_entity_decode($this->request->post['password'], ENT_QUOTES, 'UTF-8'))) {
-                $this->error['warning'] = $this->language->get('error_login');
+            $this->session->data['user_token'] = oc_token(32);
 
-                $this->model_user_user->addLogin($this->request->post['username']);
+            $login_data = [
+                'ip'         => $this->request->server['REMOTE_ADDR'],
+                'user_agent' => $this->request->server['HTTP_USER_AGENT']
+            ];
 
-                unset($this->session->data['user_token']);
-            } else {
-                $this->model_user_user->deleteLoginAttempts($this->request->post['username']);
-            }
+            // Users
+            $this->load->model('user/user');
+
+            $this->model_user_user->addLogin($this->user->getId(), $login_data);
         }
 
         return !$this->error;
