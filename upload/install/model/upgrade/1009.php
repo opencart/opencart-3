@@ -302,8 +302,8 @@ class ModelUpgrade1009 extends Model {
         $query = $this->db->query("SELECT * FROM information_schema.COLUMNS WHERE TABLE_SCHEMA = '" . DB_DATABASE . "' AND TABLE_NAME = '" . DB_PREFIX . "customer_ip' AND COLUMN_NAME = 'store_id'");
 
         if (!$query->num_rows) {
-            $this->db->query("ALTER TABLE `" . DB_PREFIX . "customer_ip` ADD COLUMN `store_id` tinyint(1) NOT NULL AFTER `customer_id`");
-            $this->db->query("ALTER TABLE `" . DB_PREFIX . "customer_ip` ADD COLUMN `country` tinyint(1) NOT NULL AFTER `ip`");
+            $this->db->query("ALTER TABLE `" . DB_PREFIX . "customer_ip` ADD COLUMN `store_id` int(11) NOT NULL AFTER `customer_id`");
+            $this->db->query("ALTER TABLE `" . DB_PREFIX . "customer_ip` ADD COLUMN `country` varchar(2) NOT NULL AFTER `ip`");
         }
 
         // Drop Fields
