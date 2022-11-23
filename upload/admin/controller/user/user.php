@@ -426,6 +426,47 @@ class ControllerUserUser extends Controller {
         $this->response->setOutput($this->load->view('user/user_form', $data));
     }
 
+    public function getLogins() {
+        if (isset($this->request->get['user_id'])) {
+            $user_id = (int)$this->request->get['user_id'];
+        } else {
+            $user_id = 0;
+        }
+
+        if (isset($this->request->get['page'])) {
+            $page = (int)$this->request->get['page'];
+        } else {
+            $page = 1;
+        }
+
+        $data['logins'] = [];
+
+        $this->load->model('user/user');
+
+        $results = $this->model_user_user->getLogins($user_id, ($page - 1) * 10, 10);
+
+        foreach ($results as $result) {
+            $data['logins'][] = [
+                'ip'         => $result['ip'],
+                'user_agent' => $result['user_agent'],
+                'date_added' => date($this->language->get('datetime_format'), strtotime($result['date_added']))
+            ];
+        }
+
+        $login_total = $this->model_user_user->getTotalLogins($user_id);
+
+        $pagination = new \Pagination();
+        $pagination->total = $login_total;
+        $pagination->page = $page;
+        $pagination->limit = $this->config->get('config_limit_admin');
+        $pagination->url = $this->url->link('user/user', 'user_token=' . $this->session->data['user_token'] . '&page={page}', true);
+
+        $data['pagination'] = $pagination->render();
+        $data['results'] = sprintf($this->language->get('text_pagination'), ($login_total) ? (($page - 1) * $this->config->get('config_limit_admin')) + 1 : 0, ((($page - 1) * $this->config->get('config_limit_admin')) > ($login_total - $this->config->get('config_limit_admin'))) ? $login_total : ((($page - 1) * $this->config->get('config_limit_admin')) + $this->config->get('config_limit_admin')), $login_total, ceil($login_total / $this->config->get('config_limit_admin')));
+
+        return $this->load->view('user/user_login', $data);
+    }
+
     protected function validateForm() {
         if (!$this->user->hasPermission('modify', 'user/user')) {
             $this->error['warning'] = $this->language->get('error_permission');
