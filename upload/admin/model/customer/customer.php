@@ -428,12 +428,12 @@ class ModelCustomerCustomer extends Model {
     }
 
     public function getTotalLoginAttempts(string $email): array {
-        $query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "customer_login` WHERE `email` = '" . $this->db->escape($email) . "'");
+        $query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "customer_login` WHERE LOWER(`email`) = '" . $this->db->escape(oc_strtolower($email)) . "'");
 
         return $query->row;
     }
 
     public function deleteLoginAttempts(string $email): void {
-        $this->db->query("DELETE FROM `" . DB_PREFIX . "customer_login` WHERE `email` = '" . $this->db->escape($email) . "'");
+        $this->db->query("DELETE FROM `" . DB_PREFIX . "customer_login` WHERE LOWER(`email`) = '" . $this->db->escape(oc_strtolower($email)) . "'");
     }
 }

@@ -302,6 +302,11 @@ class ModelUpgrade1009 extends Model {
         $remove = [];
 
         $remove[] = [
+            'table' => 'customer',
+            'field' => 'salt'
+        ];
+
+        $remove[] = [
             'table' => 'user',
             'field' => 'salt'
         ];
