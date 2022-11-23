@@ -231,7 +231,9 @@ function setup_db($data) {
             }
         }
 
-        $db->query("SET CHARACTER SET utf8");
+        $db->query("SET CHARACTER SET utf8mb4");
+
+        $db->query("SET @@session.sql_mode = ''");
 
         $db->query("DELETE FROM `" . $data['db_prefix'] . "user` WHERE `user_id` = '1'");
 

@@ -13,7 +13,7 @@ class ModelExtensionPaymentG2aPay extends Model {
 				`total` DECIMAL( 10, 2 ) NOT NULL,
 				KEY `g2apay_transaction_id` (`g2apay_transaction_id`),
 				PRIMARY KEY `g2apay_order_id` (`g2apay_order_id`)
-			) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+			) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 		");
 
         $this->db->query("
