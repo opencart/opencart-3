@@ -1147,6 +1147,22 @@ CREATE TABLE `oc_customer_history` (
 -----------------------------------------------------------
 
 --
+-- Table structure for table `oc_customer_ip`
+--
+
+DROP TABLE IF EXISTS `oc_customer_ip`;
+CREATE TABLE `oc_customer_ip` (
+  `customer_ip_id` int(11) NOT NULL AUTO_INCREMENT,
+  `customer_id` int(11) NOT NULL,
+  `ip` varchar(40) NOT NULL,
+  `date_added` datetime NOT NULL,
+  PRIMARY KEY (`customer_ip_id`),
+  KEY `ip` (`ip`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-----------------------------------------------------------
+
+--
 -- Table structure for table `oc_customer_login`
 --
 
@@ -1160,22 +1176,6 @@ CREATE TABLE `oc_customer_login` (
   `date_modified` datetime NOT NULL,
   PRIMARY KEY (`customer_login_id`),
   KEY `email` (`email`),
-  KEY `ip` (`ip`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
------------------------------------------------------------
-
---
--- Table structure for table `oc_customer_ip`
---
-
-DROP TABLE IF EXISTS `oc_customer_ip`;
-CREATE TABLE `oc_customer_ip` (
-  `customer_ip_id` int(11) NOT NULL AUTO_INCREMENT,
-  `customer_id` int(11) NOT NULL,
-  `ip` varchar(40) NOT NULL,
-  `date_added` datetime NOT NULL,
-  PRIMARY KEY (`customer_ip_id`),
   KEY `ip` (`ip`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
