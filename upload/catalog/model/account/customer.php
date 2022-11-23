@@ -40,10 +40,6 @@ class ModelAccountCustomer extends Model {
         $this->db->query("UPDATE `" . DB_PREFIX . "customer` SET `code` = '" . $this->db->escape($code) . "' WHERE LOWER(`email`) = '" . $this->db->escape(oc_strtolower($email)) . "'");
     }
 
-    public function editToken(string $email, string $token): void {
-        $this->db->query("UPDATE `" . DB_PREFIX . "customer` SET `token` = '" . $this->db->escape($token) . "' WHERE LOWER(`email`) = '" . $this->db->escape(oc_strtolower($email)) . "'");
-    }
-
     public function editNewsletter(string $newsletter): void {
         $this->db->query("UPDATE `" . DB_PREFIX . "customer` SET `newsletter` = '" . (int)$newsletter . "' WHERE `customer_id` = '" . (int)$this->customer->getId() . "'");
     }
