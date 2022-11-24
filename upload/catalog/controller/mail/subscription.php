@@ -351,9 +351,9 @@ class ControllerMailSubscription extends Controller {
                                                                                                 $this->{'model_extension_payment_' . $payment_method['code']}->addSubscriptionTransaction($next_subscription['subscription_id'], $next_subscription['order_id']);
                                                                                             }
                                                                                         }
+                                                                                    } else {
+                                                                                        $this->model_account_subscription->addTransaction($subscription_id, $subscription['order_id'], $this->language->get('error_transaction'), 0, 0, $order_info['payment_method'], $order_info['payment_code'], date('Y-m-d H:i:s'));
                                                                                     }
-                                                                                } else {
-                                                                                    $this->model_account_subscription->addTransaction($subscription_id, $order_info['order_id'], $this->language->get('error_transaction'), 0, 0, $order_info['payment_method'], $order_info['payment_code'], date('Y-m-d H:i:s'));
                                                                                 }
                                                                             }
                                                                         }
