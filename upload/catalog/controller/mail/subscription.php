@@ -63,10 +63,10 @@ class ControllerMailSubscription extends Controller {
         if ($subscriptions) {
             $this->load->language('mail/subscription');
 
-            foreach ($subscriptions as $result) {
-                // Customers
-                $this->load->model('account/customer');
+            // Customers
+            $this->load->model('account/customer');
 
+            foreach ($subscriptions as $result) {
                 $customer_info = $this->model_account_customer->getCustomer($result['customer_id']);
 
                 if ($customer_info && $customer_info['status'] && strtotime($result['date_added']) == strtotime($subscription['date_added']) && strtotime($result['date_next']) == strtotime($subscription['date_next']) && $customer_info['customer_id'] == $subscription['customer_id'] && $result['order_id'] == $subscription['order_id']) {
