@@ -1026,6 +1026,7 @@ class ControllerCustomerCustomer extends Controller {
             $customer_id = 0;
         }
 
+        // Customers
         $this->load->model('customer/customer');
 
         $customer_info = $this->model_customer_customer->getCustomer($customer_id);
@@ -1042,6 +1043,7 @@ class ControllerCustomerCustomer extends Controller {
                 $store_id = 0;
             }
 
+            // Settings
             $this->load->model('setting/store');
 
             $store_info = $this->model_setting_store->getStore($store_id);
