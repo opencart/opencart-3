@@ -28,6 +28,8 @@ class ControllerAccountLogin extends Controller {
             $customer_info = $this->model_account_customer->getCustomerByToken($this->request->get['token']);
 
             if ($customer_info && $this->customer->login($customer_info['email'], '', true)) {
+                $this->session->data['customer_token'] = oc_token(26);
+
                 // Default Addresses
                 $this->load->model('account/address');
 
