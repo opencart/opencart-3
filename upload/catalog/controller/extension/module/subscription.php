@@ -106,7 +106,7 @@ class ControllerExtensionModuleSubscription extends Controller {
     // catalog/view/account/recurring_list/after
     public function account(string &$route, array &$args, mixed &$output): void {
         if ($this->config->get('config_information_subscription_id')) {
-            $this->load->language('extension/module/account_subscription');
+            $this->load->language('extension/module/subscription');
 
             // Information
             $this->load->model('catalog/information');
