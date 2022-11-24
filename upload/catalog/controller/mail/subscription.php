@@ -346,13 +346,9 @@ class ControllerMailSubscription extends Controller {
                                                                                         $product_subscription_info = $this->model_catalog_product->getSubscription($order_product['product_id'], $next_subscription['subscription_plan_id']);
 
                                                                                         if ($product_subscription_info && (int)$product_subscription_info['cycle'] >= 0 && $product_subscription_info['subscription_plan_id'] == $next_subscription['subscription_plan_id'] && $product_subscription_info['duration'] == $next_subscription['duration']) {
-                                                                                            // Add Transaction from extension
-                                                                                            if (property_exists($this->{'model_extension_payment_' . $payment_method['code']}, 'addSubscriptionTransaction')) {
-                                                                                                $this->{'model_extension_payment_' . $payment_method['code']}->addSubscriptionTransaction($next_subscription['subscription_id'], $next_subscription['order_id']);
-                                                                                            }
+                                                                                            // Add Transaction
+                                                                                            $this->model_account_subscription->addTransaction($subscription_id, $subscription['order_id'], $this->language->get('text_promotion'), $next_subscription['amount'], 0, $order_info['payment_method'], $order_info['payment_code']);
                                                                                         }
-                                                                                    } else {
-                                                                                        $this->model_account_subscription->addTransaction($subscription_id, $subscription['order_id'], $this->language->get('error_transaction'), 0, 0, $order_info['payment_method'], $order_info['payment_code'], date('Y-m-d H:i:s'));
                                                                                     }
                                                                                 }
                                                                             }
@@ -389,8 +385,6 @@ class ControllerMailSubscription extends Controller {
                                                 }
                                             }
                                         }
-                                    } elseif (($order_info && !$transactions) || (strtotime($result['date_added']) != $date_max)) {
-                                        $this->model_account_subscription->addTransaction($subscription_id, $order_info['order_id'], $this->language->get('error_transaction'), 0, 0, $order_info['payment_method'], $order_info['payment_code'], date('Y-m-d H:i:s'));
                                     }
                                 }
                             }

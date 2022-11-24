@@ -1654,8 +1654,9 @@ class ControllerExtensionPaymentPPExpress extends Controller {
             ], 'Curl failed');
         }
 
-        $this->model_extension_payment_pp_express->log(['request'  => $request,
-                                                        'response' => $response
+        $this->model_extension_payment_pp_express->log([
+            'request'  => $request,
+            'response' => $response
         ], 'IPN data');
 
         if ((string)$response == 'VERIFIED') {
@@ -1777,18 +1778,24 @@ class ControllerExtensionPaymentPPExpress extends Controller {
                     $transaction_id = $this->request->post['parent_txn_id'];
                 }
 
+                $this->load->model('checkout/order');
+
                 // Payment
                 if ($this->request->post['txn_type'] == 'subscription_payment') {
                     $subscription = $this->model_account_subscription->getSubscriptionByReference($this->request->post['subscription_payment_id']);
 
                     $this->model_extension_payment_pp_express->log($subscription, 'IPN data');
 
-                    if ($subscription != false) {
-                        $this->model_account_subscription->addTransaction($subscription['subscription_id'], $subscription['order_id'], 1);
+                    if ($subscription) {
+                        $order_info = $this->model_checkout_order->getOrder($subscription['order_id']);
 
-                        // As there was a payment the subscription is active, ensure it is set to active (may be been suspended before)
-                        if ($subscription['status'] != 1) {
-                            $this->model_account_subscription->editStatus($subscription['subscription_id'], 2);
+                        if ($order_info) {
+                            $this->model_account_subscription->addTransaction($subscription['subscription_id'], $subscription['order_id'], $this->language->get('text_payment_status'), $subscription['amount'], 1, $order_info['payment_method'], $order_info['payment_code']);
+
+                            // As there was a payment the subscription is active, ensure it is set to active (maybe been suspended before)
+                            if ($subscription['status'] != 1) {
+                                $this->model_account_subscription->editStatus($subscription['subscription_id'], 2);
+                            }
                         }
                     }
                 }
@@ -1799,8 +1806,13 @@ class ControllerExtensionPaymentPPExpress extends Controller {
 
                     $this->model_extension_payment_pp_express->log($subscription, 'IPN data');
 
-                    if ($subscription != false) {
-                        $this->model_account_subscription->addTransaction($subscription['subscription_id'], $subscription['order_id'], 6);
+                    if ($subscription) {
+                        $order_info = $this->model_checkout_order->getOrder($subscription['order_id']);
+
+                        if ($order_info) {
+                            $this->model_account_subscription->addTransaction($subscription['subscription_id'], $subscription['order_id'], $this->language->get('text_suspended_status'), $subscription['amount'], 6, $order_info['payment_method'], $order_info['payment_code']);
+                        }
+
                         $this->model_account_subscription->editStatus($subscription['subscription_id'], 3);
                     }
                 }
@@ -1811,8 +1823,13 @@ class ControllerExtensionPaymentPPExpress extends Controller {
 
                     $this->model_extension_payment_pp_express->log($subscription, 'IPN data');
 
-                    if ($subscription != false) {
-                        $this->model_account_subscription->addTransaction($subscription['subscription_id'], $subscription['order_id'], 7);
+                    if ($subscription) {
+                        $order_info = $this->model_checkout_order->getOrder($subscription['order_id']);
+
+                        if ($order_info) {
+                            $this->model_account_subscription->addTransaction($subscription['subscription_id'], $subscription['order_id'], $this->language->get('text_suspended_max_status'), $subscription['amount'], 7, $order_info['payment_method'], $order_info['payment_code']);
+                        }
+
                         $this->model_account_subscription->editStatus($subscription['subscription_id'], 3);
                     }
                 }
@@ -1823,8 +1840,12 @@ class ControllerExtensionPaymentPPExpress extends Controller {
 
                     $this->model_extension_payment_pp_express->log($subscription, 'IPN data');
 
-                    if ($subscription != false) {
-                        $this->model_account_subscription->addTransaction($subscription['subscription_id'], $subscription['order_id'], 4);
+                    if ($subscription) {
+                        $order_info = $this->model_checkout_order->getOrder($subscription['order_id']);
+
+                        if ($order_info) {
+                            $this->model_account_subscription->addTransaction($subscription['subscription_id'], $subscription['order_id'], $this->language->get('text_failed_status'), $subscription['amount'], 4, $order_info['payment_method'], $order_info['payment_code']);
+                        }
                     }
                 }
 
@@ -1834,8 +1855,12 @@ class ControllerExtensionPaymentPPExpress extends Controller {
 
                     $this->model_extension_payment_pp_express->log($subscription, 'IPN data');
 
-                    if ($subscription != false) {
-                        $this->model_account_subscription->addTransaction($subscription['subscription_id'], $subscription['order_id'], 8);
+                    if ($subscription) {
+                        $order_info = $this->model_checkout_order->getOrder($subscription['order_id']);
+
+                        if ($order_info) {
+                            $this->model_account_subscription->addTransaction($subscription['subscription_id'], $subscription['order_id'], $this->language->get('text_outstanding_failed_status'), $subscription['amount'], 8, $order_info['payment_method'], $order_info['payment_code']);
+                        }
                     }
                 }
 
@@ -1845,8 +1870,12 @@ class ControllerExtensionPaymentPPExpress extends Controller {
 
                     $this->model_extension_payment_pp_express->log($subscription, 'IPN data');
 
-                    if ($subscription != false) {
-                        $this->model_account_subscription->addTransaction($subscription['subscription_id'], $subscription['order_id'], 2);
+                    if ($subscription) {
+                        $order_info = $this->model_checkout_order->getOrder($subscription['order_id']);
+
+                        if ($order_info) {
+                            $this->model_account_subscription->addTransaction($subscription['subscription_id'], $subscription['order_id'], $this->language->get('text_outstanding_status'), $subscription['amount'], 2, $order_info['payment_method'], $order_info['payment_code']);
+                        }
 
                         // As there was a payment the subscription is active, ensure it is set to active (may be been suspended before)
                         if ($subscription['status'] != 1) {
@@ -1861,8 +1890,12 @@ class ControllerExtensionPaymentPPExpress extends Controller {
 
                     $this->model_extension_payment_pp_express->log($subscription, 'IPN data');
 
-                    if ($subscription != false) {
-                        $this->model_account_subscription->addTransaction($subscription['subscription_id'], $subscription['order_id'], 0);
+                    if ($subscription) {
+                        $order_info = $this->model_checkout_order->getOrder($subscription['order_id']);
+
+                        if ($order_info) {
+                            $this->model_account_subscription->addTransaction($subscription['subscription_id'], $subscription['order_id'], $this->language->get('text_date_added_status'), $subscription['amount'], 0, $order_info['payment_method'], $order_info['payment_code']);
+                        }
 
                         // As there was a payment the subscription is active, ensure it is set to active (may be been suspended before)
                         if ($subscription['status'] != 1) {
@@ -1877,8 +1910,13 @@ class ControllerExtensionPaymentPPExpress extends Controller {
 
                     $this->model_extension_payment_pp_express->log($subscription, 'IPN data');
 
-                    if ($subscription != false && $subscription['status'] != 3) {
-                        $this->model_account_subscription->addTransaction($subscription['subscription_id'], $subscription['order_id'], 5);
+                    if ($subscription && $subscription['status'] != 3) {
+                        $order_info = $this->model_checkout_order->getOrder($subscription['order_id']);
+
+                        if ($order_info) {
+                            $this->model_account_subscription->addTransaction($subscription['subscription_id'], $subscription['order_id'], $this->language->get('text_canceled_status'), $subscription['amount'], 5, $order_info['payment_method'], $order_info['payment_code']);
+                        }
+
                         $this->model_account_subscription->editStatus($subscription['subscription_id'], 4);
                     }
                 }
@@ -1889,8 +1927,12 @@ class ControllerExtensionPaymentPPExpress extends Controller {
 
                     $this->model_extension_payment_pp_express->log($subscription, 'IPN data');
 
-                    if ($subscription != false) {
-                        $this->model_account_subscription->addTransaction($subscription['subscription_id'], $subscription['order_id'], 3);
+                    if ($subscription) {
+                        $order_info = $this->model_checkout_order->getOrder($subscription['order_id']);
+
+                        if ($order_info) {
+                            $this->model_account_subscription->addTransaction($subscription['subscription_id'], $subscription['order_id'], $this->language->get('text_skipped_status'), $subscription['amount'], 3, $order_info['payment_method'], $order_info['payment_code']);
+                        }
                     }
                 }
 
@@ -1900,8 +1942,13 @@ class ControllerExtensionPaymentPPExpress extends Controller {
 
                     $this->model_extension_payment_pp_express->log($subscription, 'IPN data');
 
-                    if ($subscription != false) {
-                        $this->model_account_subscription->addTransaction($subscription['subscription_id'], $subscription['order_id'], 9);
+                    if ($subscription) {
+                        $order_info = $this->model_checkout_order->getOrder($subscription['order_id']);
+
+                        if ($order_info) {
+                            $this->model_account_subscription->addTransaction($subscription['subscription_id'], $subscription['order_id'], $this->language->get('text_expired_status'), $subscription['amount'], 9, $order_info['payment_method'], $order_info['payment_code']);
+                        }
+
                         $this->model_account_subscription->editStatus($subscription['subscription_id'], 5);
                     }
                 }
