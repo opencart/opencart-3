@@ -310,7 +310,6 @@ class ControllerMailSubscription extends Controller {
                                                                     if ($transactions && strtotime($next_subscription['date_next']) == $next_date_max && $next_subscription_cycle >= 0 && $next_subscription['subscription_id'] != $result['subscription_id'] && $next_subscription['order_id'] != $result['order_id'] && $next_subscription['description'] != $description && $next_subscription['order_product_id'] != $result['order_product_id'] && $next_subscription['customer_id'] == $result['customer_id'] && $next_subscription['duration'] == $result['duration'] && $result['duration'] == $subscription['duration'] && $subscription['duration'] == 1 && in_array($next_subscription['frequency'], $frequencies)) {
                                                                         // We need to validate frequencies in compliance of the admin subscription plans
                                                                         // as with the use of the APIs
-
                                                                         if ($next_subscription['frequency'] == 'semi_month') {
                                                                             $period = strtotime("2 weeks");
                                                                         } else {
