@@ -455,6 +455,12 @@ class ControllerMailSubscription extends Controller {
         $subscription_info = $this->model_account_subscription->getSubscription($subscription_id);
 
         if ($subscription_info) {
+            if (isset($this->session->data['customer'])) {
+                $customer_id = $this->session->data['customer']['customer_id'];
+            } elseif ($this->customer->isLogged()) {
+                $customer_id = $this->customer->getId();
+            }
+
             $this->load->language('mail/subscription');
 
             // Customers
@@ -462,7 +468,7 @@ class ControllerMailSubscription extends Controller {
 
             $customer_info = $this->model_account_customer->getCustomer($subscription_info['customer_id']);
 
-            if ($customer_info && $customer_info['status'] && strtotime($subscription_info['date_added']) == strtotime($subscription['date_added']) && strtotime($subscription_info['date_next']) == strtotime($subscription['date_next']) && $customer_info['customer_id'] == $subscription['customer_id'] && $subscription_info['order_id'] == $subscription['order_id'] && $subscription_info['subscription_plan_id'] == $subscription['subscription_plan_id']) {
+            if ($customer_info && $customer_info['status'] && strtotime($subscription_info['date_added']) == strtotime($subscription['date_added']) && strtotime($subscription_info['date_next']) == strtotime($subscription['date_next']) && $customer_info['customer_id'] == $subscription['customer_id'] && $subscription['customer_id'] == $customer_id && $subscription_info['order_id'] == $subscription['order_id'] && $subscription_info['subscription_plan_id'] == $subscription['subscription_plan_id']) {
                 // Only match the latest order ID of the same customer ID
                 // since new subscriptions cannot be re-added with the same
                 // order ID; only as a new order ID added by an extension
