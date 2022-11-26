@@ -6,6 +6,32 @@ class ModelLocalisationLanguage extends Model {
         return $query->row;
     }
 
+    public function getLanguageByCode(string $code): array {
+        if (isset($this->data[$code])) {
+            return $this->data[$code];
+        }
+
+        $query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "language` WHERE `code` = '" . $this->db->escape($code) . "'");
+
+        $language = $query->row;
+
+        if ($language) {
+            $language['image'] = HTTP_SERVER;
+
+            if (!$language['extension']) {
+                $language['image'] .= 'catalog/';
+            } else {
+                $language['image'] .= 'extension/' . $language['extension'] . '/catalog/';
+            }
+
+            $language['image'] .= 'language/' . $language['code'] . '/' . $language['code'] . '.png';
+        }
+
+        $this->data[$code] = $language;
+
+        return $language;
+    }
+
     public function getLanguages(): array {
         $language_data = $this->cache->get('catalog.language');
 
