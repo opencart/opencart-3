@@ -506,7 +506,7 @@ class ControllerMailSubscription extends Controller {
                                         // and not based on promotional products, only subscribed
                                         // customers can receive the emails; either by automation
                                         // or on-demand.
-                                        $this->load->language('mail/subscription');
+                                        $this->load->language('mail/subscription_alert');
 
                                         // HTML Mail
                                         $data['text_received'] = $this->language->get('text_received');
