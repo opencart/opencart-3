@@ -121,16 +121,18 @@
         </div>
       </div>
     </div>
-    <div class="col-md-9 col-md-pull-3 col-sm-12">
-      <div class="panel panel-default">
-        <div class="panel-heading">
-          <h3 class="panel-title"><i class="fa fa-list"></i> {{ text_list }}</h3>
-        </div>
-        <div class="panel-body">
-          <div id="login"></div>
+    {% if username %}
+      <div class="col-md-9 col-md-pull-3 col-sm-12">
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h3 class="panel-title"><i class="fa fa-list"></i> {{ text_list }}</h3>
+          </div>
+          <div class="panel-body">
+            <div id="login"></div>
+          </div>
         </div>
       </div>
-    </div>
+    {% endif %}
   </div>
   <script type="text/javascript"><!--
       $('#login').delegate('.pagination a', 'click', function (e) {
