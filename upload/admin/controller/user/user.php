@@ -426,7 +426,9 @@ class ControllerUserUser extends Controller {
         $this->response->setOutput($this->load->view('user/user_form', $data));
     }
 
-    public function getLogins() {
+    public function getLogins(): string {
+        $this->load->language('user/user');
+
         if (isset($this->request->get['user_id'])) {
             $user_id = (int)$this->request->get['user_id'];
         } else {
@@ -459,7 +461,7 @@ class ControllerUserUser extends Controller {
         $pagination->total = $login_total;
         $pagination->page = $page;
         $pagination->limit = $this->config->get('config_limit_admin');
-        $pagination->url = $this->url->link('user/user', 'user_token=' . $this->session->data['user_token'] . '&page={page}', true);
+        $pagination->url = $this->url->link('user/user/getLogins', 'user_token=' . $this->session->data['user_token'] . '&page={page}', true);
 
         $data['pagination'] = $pagination->render();
         $data['results'] = sprintf($this->language->get('text_pagination'), ($login_total) ? (($page - 1) * $this->config->get('config_limit_admin')) + 1 : 0, ((($page - 1) * $this->config->get('config_limit_admin')) > ($login_total - $this->config->get('config_limit_admin'))) ? $login_total : ((($page - 1) * $this->config->get('config_limit_admin')) + $this->config->get('config_limit_admin')), $login_total, ceil($login_total / $this->config->get('config_limit_admin')));

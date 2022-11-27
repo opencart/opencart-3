@@ -121,15 +121,13 @@
         </div>
       </div>
     </div>
-    <div class="row">
-      <div class="col-md-9 col-md-pull-3 col-sm-12">
-        <div class="panel panel-default">
-          <div class="panel-heading">
-            <h3 class="panel-title"><i class="fa fa-list"></i> {{ text_list }}</h3>
-          </div>
-          <div class="panel-body">
-            <div id="login"></div>
-          </div>
+    <div class="col-md-9 col-md-pull-3 col-sm-12">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h3 class="panel-title"><i class="fa fa-list"></i> {{ text_list }}</h3>
+        </div>
+        <div class="panel-body">
+          <div id="login"></div>
         </div>
       </div>
     </div>
@@ -157,18 +155,10 @@
               complete: function () {
                   $(element).button('reset');
               },
-              success: function (json) {
+              success: function () {
                   $('.alert-dismissible').remove();
 
-                  if (json['error']) {
-                      $('#login').before('<div class="alert alert-danger alert-dismissible"><i class="fa fa-exclamation-circle"></i> ' + json['error'] + ' <button type="button" class="close" data-dismiss="alert">&times;</button></div>');
-                  }
-
-                  if (json['success']) {
-                      $('#login').load('index.php?route=user/user/getLogins&user_token={{ user_token }}');
-
-                      $('#login').before('<div class="alert alert-success alert-dismissible"><i class="fa fa-check-circle"></i> ' + json['success'] + ' <button type="button" class="close" data-dismiss="alert">&times;</button></div>');
-                  }
+                  $('#login').load('index.php?route=user/user/getLogins&user_token={{ user_token }}');
               },
               error: function (xhr, ajaxOptions, thrownError) {
                   alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
