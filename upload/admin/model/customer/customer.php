@@ -67,7 +67,7 @@ class ModelCustomerCustomer extends Model {
     }
 
     public function getCustomerByEmail(string $email): array {
-        $query = $this->db->query("SELECT DISTINCT * FROM `" . DB_PREFIX . "customer` WHERE LOWER(`email`) = '" . $this->db->escape(oc_strtolower($email)) . "'");
+        $query = $this->db->query("SELECT DISTINCT * FROM `" . DB_PREFIX . "customer` WHERE LCASE(`email`) = '" . $this->db->escape(oc_strtolower($email)) . "'");
 
         return $query->row;
     }
@@ -428,12 +428,12 @@ class ModelCustomerCustomer extends Model {
     }
 
     public function getTotalLoginAttempts(string $email): array {
-        $query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "customer_login` WHERE LOWER(`email`) = '" . $this->db->escape(oc_strtolower($email)) . "'");
+        $query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "customer_login` WHERE LCASE(`email`) = '" . $this->db->escape(oc_strtolower($email)) . "'");
 
         return $query->row;
     }
 
     public function deleteLoginAttempts(string $email): void {
-        $this->db->query("DELETE FROM `" . DB_PREFIX . "customer_login` WHERE LOWER(`email`) = '" . $this->db->escape(oc_strtolower($email)) . "'");
+        $this->db->query("DELETE FROM `" . DB_PREFIX . "customer_login` WHERE LCASE(`email`) = '" . $this->db->escape(oc_strtolower($email)) . "'");
     }
 }
