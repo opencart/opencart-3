@@ -1,4 +1,5 @@
 <?php
+
 class Squareup {
     private object $session;
     private object $url;
@@ -7,31 +8,30 @@ class Squareup {
     private object $customer;
     private object $currency;
     private object $registry;
-
-    const API_URL                      = 'https://connect.squareup.com';
-    const API_VERSION                  = 'v2';
-    const ENDPOINT_ADD_CARD            = 'customers/%s/cards';
-    const ENDPOINT_AUTH                = 'oauth2/authorize';
+    const API_URL = 'https://connect.squareup.com';
+    const API_VERSION = 'v2';
+    const ENDPOINT_ADD_CARD = 'customers/%s/cards';
+    const ENDPOINT_AUTH = 'oauth2/authorize';
     const ENDPOINT_CAPTURE_TRANSACTION = 'locations/%s/transactions/%s/capture';
-    const ENDPOINT_CUSTOMERS           = 'customers';
-    const ENDPOINT_DELETE_CARD         = 'customers/%s/cards/%s';
-    const ENDPOINT_GET_TRANSACTION     = 'locations/%s/transactions/%s';
-    const ENDPOINT_LOCATIONS           = 'locations';
-    const ENDPOINT_REFRESH_TOKEN       = 'oauth2/clients/%s/access-token/renew';
-    const ENDPOINT_REFUND_TRANSACTION  = 'locations/%s/transactions/%s/refund';
-    const ENDPOINT_TOKEN               = 'oauth2/token';
-    const ENDPOINT_TRANSACTIONS        = 'locations/%s/transactions';
-    const ENDPOINT_VOID_TRANSACTION    = 'locations/%s/transactions/%s/void';
-    const PAYMENT_FORM_URL             = 'https://js.squareup.com/v2/paymentform';
-    const SCOPE                        = 'MERCHANT_PROFILE_READ PAYMENTS_READ SETTLEMENTS_READ CUSTOMERS_READ CUSTOMERS_WRITE';
-    const VIEW_TRANSACTION_URL         = 'https://squareup.com/dashboard/sales/transactions/%s/by-unit/%s';
-    const SQUARE_INTEGRATION_ID        = 'sqi_65a5ac54459940e3600a8561829fd970';
+    const ENDPOINT_CUSTOMERS = 'customers';
+    const ENDPOINT_DELETE_CARD = 'customers/%s/cards/%s';
+    const ENDPOINT_GET_TRANSACTION = 'locations/%s/transactions/%s';
+    const ENDPOINT_LOCATIONS = 'locations';
+    const ENDPOINT_REFRESH_TOKEN = 'oauth2/clients/%s/access-token/renew';
+    const ENDPOINT_REFUND_TRANSACTION = 'locations/%s/transactions/%s/refund';
+    const ENDPOINT_TOKEN = 'oauth2/token';
+    const ENDPOINT_TRANSACTIONS = 'locations/%s/transactions';
+    const ENDPOINT_VOID_TRANSACTION = 'locations/%s/transactions/%s/void';
+    const PAYMENT_FORM_URL = 'https://js.squareup.com/v2/paymentform';
+    const SCOPE = 'MERCHANT_PROFILE_READ PAYMENTS_READ SETTLEMENTS_READ CUSTOMERS_READ CUSTOMERS_WRITE';
+    const VIEW_TRANSACTION_URL = 'https://squareup.com/dashboard/sales/transactions/%s/by-unit/%s';
+    const SQUARE_INTEGRATION_ID = 'sqi_65a5ac54459940e3600a8561829fd970';
 
     public function __construct($registry) {
-        $this->session  = $registry->get('session');
-        $this->url      = $registry->get('url');
-        $this->config   = $registry->get('config');
-        $this->log      = $registry->get('log');
+        $this->session = $registry->get('session');
+        $this->url = $registry->get('url');
+        $this->config = $registry->get('config');
+        $this->log = $registry->get('log');
         $this->customer = $registry->get('customer');
         $this->currency = $registry->get('currency');
         $this->registry = $registry;
@@ -123,7 +123,7 @@ class Squareup {
         $this->debug("SQUAREUP PARAMS: " . $params);
 
         // Fire off the request
-        $ch     = curl_init();
+        $ch = curl_init();
 
         curl_setopt_array($ch, $curl_options);
 
@@ -173,13 +173,13 @@ class Squareup {
     }
 
     public function authLink($client_id) {
-        $state                                                  = $this->authState();
+        $state = $this->authState();
 
-        $redirect_uri                                           = str_replace('&amp;', '&', $this->url->link('extension/payment/squareup/oauth_callback', 'user_token=' . $this->session->data['user_token'], true));
+        $redirect_uri = str_replace('&amp;', '&', $this->url->link('extension/payment/squareup/oauth_callback', 'user_token=' . $this->session->data['user_token'], true));
 
         $this->session->data['payment_squareup_oauth_redirect'] = $redirect_uri;
 
-        $params                                                 = [
+        $params = [
             'client_id'     => $client_id,
             'response_type' => 'code',
             'scope'         => self::SCOPE,
@@ -202,10 +202,13 @@ class Squareup {
 
         $api_result = $this->api($request_data);
 
-        $locations  = array_filter($api_result['locations'], [$this, 'filterLocation']);
+        $locations = array_filter($api_result['locations'], [
+            $this,
+            'filterLocation'
+        ]);
 
         if (!empty($locations)) {
-            $first_location    = current($locations);
+            $first_location = current($locations);
             $first_location_id = $first_location['id'];
         } else {
             $first_location_id = null;
