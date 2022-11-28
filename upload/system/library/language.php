@@ -12,7 +12,7 @@
  */
 class Language {
     private $default = 'en-gb';
-    private $directory = '';
+    private $directory;
     public  $data    = [];
 
     /**
