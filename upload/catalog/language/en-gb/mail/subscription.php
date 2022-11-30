@@ -34,7 +34,6 @@ $_['text_year']                  = 'year';
 $_['text_footer']                = 'Please reply to this e-mail if you have any questions.';
 
 // Error
-$_['error_transaction']          = 'The latest transaction with this order does not match or it could not be found!';
 $_['error_next_order']           = 'A promotional feature was found but the cycle and frequency settings could not be matched with the order date added period!';
 $_['error_next_subscription']    = 'A promotional feature was found but the subscription cycle period may have already expired!';
 $_['error_subscription_status']  = 'There was an error with the subscription status!';
