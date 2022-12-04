@@ -357,6 +357,19 @@ class ModelUpgrade1009 extends Model {
             $this->db->query("UPDATE `" . DB_PREFIX . "extension` SET `code` = 'default' WHERE `code` = 'theme_default'");
         }
 
+        // Report - Marketing
+        $query = $this->db->query("SELECT `extension_id` FROM `" . DB_PREFIX . "extension` WHERE `type` = 'report' AND `code` = 'marketing'");
+
+        if (!$query->num_rows) {
+            $this->db->query("INSERT INTO `" . DB_PREFIX . "extension` SET `type` = 'report', `code` = 'marketing'");
+        }
+
+        $query = $this->db->query("SELECT `setting_id` FROM `" . DB_PREFIX . "setting` WHERE `code` = 'report_customer_transaction' AND `key` = 'report_customer_transaction_status_sort_order'");
+
+        if ($query->num_rows) {
+            $this->db->query("UPDATE `" . DB_PREFIX . "setting` SET `key` = 'report_customer_transaction_sort_order' WHERE `key` = 'report_customer_transaction_status_sort_order'");
+        }
+
         // Drop Fields
         $remove = [];
 
