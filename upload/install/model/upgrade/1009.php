@@ -111,6 +111,21 @@ class ModelUpgrade1009 extends Model {
             $this->db->query("INSERT INTO `" . DB_PREFIX . "event` SET `code` = 'admin_promotion', `trigger` = 'admin/controller/extension/extension/promotion/after', `action` = 'extension/extension/promotion/getList', `status` = '1', `sort_order` = '0'");
         }
 
+        $this->db->query("UPDATE `" . DB_PREFIX . "event` SET `trigger` = '" . $this->db->escape('catalog/model/account/customer/addAffiliate/after') . "' WHERE `code` = 'activity_affiliate_add'");
+        $this->db->query("UPDATE `" . DB_PREFIX . "event` SET `trigger` = '" . $this->db->escape('catalog/model/account/customer/editAffiliate/after') . "' WHERE `code` = 'activity_affiliate_edit')'");
+        $this->db->query("UPDATE `" . DB_PREFIX . "event` SET `trigger` = '" . $this->db->escape('catalog/model/checkout/order/addOrderHistory/before') . "' WHERE `code` = 'activity_order_add'");
+        $this->db->query("UPDATE `" . DB_PREFIX . "event` SET `trigger` = '" . $this->db->escape('catalog/model/checkout/order/addOrderHistory/after') . "' WHERE `code` = 'mail_voucher'");
+        $this->db->query("UPDATE `" . DB_PREFIX . "event` SET `trigger` = '" . $this->db->escape('catalog/model/checkout/order/addOrderHistory/before') . "' WHERE `code` = 'mail_order_add'");
+        $this->db->query("UPDATE `" . DB_PREFIX . "event` SET `trigger` = '" . $this->db->escape('catalog/model/checkout/order/addOrderHistory/before') . "' WHERE `code` = 'mail_order_alert'");
+        $this->db->query("UPDATE `" . DB_PREFIX . "event` SET `trigger` = '" . $this->db->escape('catalog/model/checkout/order/addOrderHistory/before') . "' WHERE `code` = 'statistics_order_history'");
+        $this->db->query("UPDATE `" . DB_PREFIX . "event` SET `trigger` = '" . $this->db->escape('admin/model/sale/return/addOrderHistory/after') . "' WHERE `code` = 'admin_mail_return'");
+
+        $query = $this->db->query("SELECT `event_id` FROM `" . DB_PREFIX . "event` WHERE `code` = 'mail_review'");
+
+        if (!$query->num_rows) {
+            $this->db->query("INSERT INTO `" . DB_PREFIX . "event` SET `code` = 'mail_review', `trigger` = 'catalog/model/catalog/review/addReview/after', `action` = 'mail/review', `status` = '1', `sort_order` = '0'");
+        }
+
         // Layouts - GDPR Information
         $query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "layout` WHERE `name` = 'Account'");
 
@@ -273,6 +288,7 @@ class ModelUpgrade1009 extends Model {
         }
 
         // Country
+        $this->db->query("UPDATE `" . DB_PREFIX . "country` SET `name` = 'România' WHERE `name` = 'Romania'");
         $this->db->query("UPDATE `" . DB_PREFIX . "country` SET `address_format_id` = '1' WHERE `address_format_id` = '0'");
 
         // Information - Subscriptions
@@ -304,6 +320,41 @@ class ModelUpgrade1009 extends Model {
         if (!$query->num_rows) {
             $this->db->query("ALTER TABLE `" . DB_PREFIX . "customer_ip` ADD COLUMN `store_id` int(11) NOT NULL AFTER `customer_id`");
             $this->db->query("ALTER TABLE `" . DB_PREFIX . "customer_ip` ADD COLUMN `country` varchar(2) NOT NULL AFTER `ip`");
+        }
+
+        // Statistics
+        $query = $this->db->query("SELECT `statistics_id` FROM `" . DB_PREFIX . "statistics` WHERE `code` = 'order_sale'");
+
+        if (!$query->num_rows) {
+            $this->db->query("INSERT INTO `" . DB_PREFIX . "statistics` SET `code` = 'order_sale', `value` = '0'");
+            $this->db->query("INSERT INTO `" . DB_PREFIX . "statistics` SET `code` = 'order_processing', `value` = '0'");
+            $this->db->query("INSERT INTO `" . DB_PREFIX . "statistics` SET `code` = 'order_complete', `value` = '0'");
+            $this->db->query("INSERT INTO `" . DB_PREFIX . "statistics` SET `code` = 'order_other', `value` = '0'");
+            $this->db->query("INSERT INTO `" . DB_PREFIX . "statistics` SET `code` = 'return', `value` = '0'");
+            $this->db->query("INSERT INTO `" . DB_PREFIX . "statistics` SET `code` = 'product', `value` = '0'");
+            $this->db->query("INSERT INTO `" . DB_PREFIX . "statistics` SET `code` = 'review', `value` = '0'");
+        }
+
+        $this->db->query("UPDATE `" . DB_PREFIX . "statistics` SET `code` = 'return' WHERE `code` = 'returns'");
+
+        // Timezone
+        $query = $this->db->query("SELECT `setting_id` FROM `" . DB_PREFIX . "setting` WHERE `key` = 'config_timezone'");
+
+        if (!$query->num_rows) {
+            $this->db->query("INSERT INTO `" . DB_PREFIX . "setting` SET `store_id` = '0', `code` = 'config', `key` = 'config_timezone', `value` = 'UTC', `serialized` = '0'");
+        }
+
+        // Theme
+        $query = $this->db->query("SELECT `setting_id` FROM `" . DB_PREFIX . "setting` WHERE `value` = 'theme_default'");
+
+        if ($query->num_rows) {
+            $this->db->query("UPDATE `" . DB_PREFIX . "setting` SET `value` = 'default' WHERE `value` = 'theme_default'");
+        }
+
+        $query = $this->db->query("SELECT `extension_id` FROM `" . DB_PREFIX . "extension` WHERE `code` = 'theme_default'");
+
+        if ($query->num_rows) {
+            $this->db->query("UPDATE `" . DB_PREFIX . "extension` SET `code` = 'default' WHERE `code` = 'theme_default'");
         }
 
         // Drop Fields
