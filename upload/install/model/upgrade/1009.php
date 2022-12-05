@@ -344,19 +344,6 @@ class ModelUpgrade1009 extends Model {
             $this->db->query("INSERT INTO `" . DB_PREFIX . "setting` SET `store_id` = '0', `code` = 'config', `key` = 'config_timezone', `value` = 'UTC', `serialized` = '0'");
         }
 
-        // Theme
-        $query = $this->db->query("SELECT `setting_id` FROM `" . DB_PREFIX . "setting` WHERE `value` = 'theme_default'");
-
-        if ($query->num_rows) {
-            $this->db->query("UPDATE `" . DB_PREFIX . "setting` SET `value` = 'default' WHERE `value` = 'theme_default'");
-        }
-
-        $query = $this->db->query("SELECT `extension_id` FROM `" . DB_PREFIX . "extension` WHERE `code` = 'theme_default'");
-
-        if ($query->num_rows) {
-            $this->db->query("UPDATE `" . DB_PREFIX . "extension` SET `code` = 'default' WHERE `code` = 'theme_default'");
-        }
-
         // Report - Marketing
         $query = $this->db->query("SELECT `extension_id` FROM `" . DB_PREFIX . "extension` WHERE `type` = 'report' AND `code` = 'marketing'");
 
