@@ -1409,21 +1409,21 @@
 
       function addSubscriptionPlan() {
           html = '<tr id="subscription-row' + subscription_row + '">';
-          html += '  <td class="left">';
+          html += '  <td class="text-left">';
           html += '    <select name="product_subscription[' + subscription_row + '][subscription_plan_id]" class="form-control">';
         {% for subscription_plan in subscription_plans %}
           html += '      <option value="{{ subscription_plan.subscription_plan_id }}">{{ subscription_plan.name }}</option>';
         {% endfor %}
           html += '    </select>';
           html += '  </td>';
-          html += '  <td class="left">';
+          html += '  <td class="text-left">';
           html += '    <select name="product_subscription[' + subscription_row + '][customer_group_id]" class="form-control">';
         {% for customer_group in customer_groups %}
           html += '      <option value="{{ customer_group.customer_group_id }}">{{ customer_group.name }}</option>';
         {% endfor %}
           html += '    <select>';
           html += '  </td>';
-          html += '  <td class="left">';
+          html += '  <td class="text-left">';
           html += '    <a onclick="$(\'#subscription-row' + subscription_row + '\').remove()" data-toggle="tooltip" title="{{ button_remove }}" class="btn btn-danger"><i class="fa fa-minus-circle"></i></a>';
           html += '  </td>';
           html += '</tr>';
