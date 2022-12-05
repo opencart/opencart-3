@@ -24,7 +24,7 @@ class ModelExtensionAdvertiseGoogle extends Model {
     }
 
     public function getHumanReadableOpenCartCategory($category_id) {
-        $sql = "SELECT GROUP_CONCAT(cd.`name` ORDER BY cp.`level` SEPARATOR ' &gt; ') AS path FROM `" . DB_PREFIX . "category_path` cp LEFT JOIN `" . DB_PREFIX . "category_description` cd ON (cp.`path_id` = cd.`category_id`) WHERE cd.`language_id` = '" . (int)$this->config->get('config_language_id') . "' AND cp.`category_id` = '" . (int)$category_id . "'";
+        $sql = "SELECT GROUP_CONCAT(cd.`name` ORDER BY cp.`level` SEPARATOR ' > ') AS path FROM `" . DB_PREFIX . "category_path` cp LEFT JOIN `" . DB_PREFIX . "category_description` cd ON (cp.`path_id` = cd.`category_id`) WHERE cd.`language_id` = '" . (int)$this->config->get('config_language_id') . "' AND cp.`category_id` = '" . (int)$category_id . "'";
 
         $result = $this->db->query($sql);
 
