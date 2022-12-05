@@ -49,7 +49,7 @@ class ControllerAccountReturns extends Controller {
 
         $return_total = $this->model_account_returns->getTotalReturns();
 
-        $results = $this->model_account_returns->getReturns(($page - 1) * 10, 10);
+        $results = $this->model_account_returns->getReturns(($page - 1) * $this->config->get('theme_' . $this->config->get('config_theme') . '_product_limit'), $this->config->get('theme_' . $this->config->get('config_theme') . '_product_limit'));
 
         foreach ($results as $result) {
             $data['returns'][] = [
