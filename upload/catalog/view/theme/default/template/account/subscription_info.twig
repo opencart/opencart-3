@@ -20,12 +20,12 @@
           <table class="table table-bordered table-hover">
             <thead>
               <tr>
-                <td class="text-start" colspan="2">{{ text_subscription_detail }}</td>
+                <td class="text-left" colspan="2">{{ text_subscription_detail }}</td>
               </tr>
             </thead>
             <tbody>
               <tr>
-                <td class="text-start" style="width: 50%;"><b>{{ text_subscription_id }}</b> #{{ subscription_id }}
+                <td class="text-left" style="width: 50%;"><b>{{ text_subscription_id }}</b> #{{ subscription_id }}
                   <br/>
                   <b>{{ text_date_added }}</b> {{ date_added }}
                   <br/>
@@ -33,7 +33,7 @@
                   <br/>
                   <b>{{ text_payment_method }}</b> {{ payment_method }}
                 </td>
-                <td class="text-start" style="width: 50%;"><b>{{ text_orders_id }}</b> <a href="{{ order }}">#{{ order_id }}</a>
+                <td class="text-left" style="width: 50%;"><b>{{ text_orders_id }}</b> <a href="{{ order }}">#{{ order_id }}</a>
                   <br/>
                   <b>{{ text_product }}</b> <a href="{{ product }}">{{ product_name }}</a>
                   <br/>
@@ -45,14 +45,14 @@
           <table class="table table-bordered table-hover">
             <thead>
               <tr>
-                <td class="text-start">{{ text_description }}</td>
-                <td class="text-start">{{ text_reference }}</td>
+                <td class="text-left">{{ text_description }}</td>
+                <td class="text-right">{{ text_reference }}</td>
               </tr>
             </thead>
             <tbody>
               <tr>
-                <td class="text-start" style="width: 50%;">{{ description }}</td>
-                <td class="text-start" style="width: 50%;">{{ reference }}</td>
+                <td class="text-left" style="width: 50%;">{{ description }}</td>
+                <td class="text-right" style="width: 50%;">{{ reference }}</td>
               </tr>
             </tbody>
           </table>
@@ -63,18 +63,18 @@
         <table class="table table-bordered table-hover">
           <thead>
             <tr>
-              <td class="text-right">{{ column_date_added }}</td>
+              <td class="text-left">{{ column_date_added }}</td>
               <td class="text-center">{{ column_type }}</td>
-              <td class="text-left">{{ column_amount }}</td>
+              <td class="text-right">{{ column_amount }}</td>
             </tr>
           </thead>
           <tbody>
             {% if transactions and is_subscription %}
               {% for transaction in transactions %}
                 <tr>
-                  <td class="text-right">{{ transaction.date_added }}</td>
+                  <td class="text-left">{{ transaction.date_added }}</td>
                   <td class="text-center">{{ transaction.type }}</td>
-                  <td class="text-left">{{ transaction.amount }}</td>
+                  <td class="text-right">{{ transaction.amount }}</td>
                 </tr>
               {% endfor %}
             {% else %}
