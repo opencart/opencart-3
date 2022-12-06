@@ -19,8 +19,9 @@
             </div>
           {% endif %}
           {% if product.price %}
-            <p class="price"> {% if not product.special %}
-              {{ product.price }}
+            <p class="price">
+              {% if not product.special %}
+                {{ product.price }}
               {% else %}
                 <span class="price-new">{{ product.special }}</span>
                 <span class="price-old">{{ product.price }}</span>

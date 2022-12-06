@@ -453,7 +453,8 @@
                   </ul>
                 </div>
                 <div class="col-sm-10">
-                  <div class="tab-content"> {% set option_row = 0 %}
+                  <div class="tab-content">
+                    {% set option_row = 0 %}
                     {% set option_value_row = 0 %}
                     {% for product_option in product_options %}
                       <div id="tab-option{{ option_row }}" class="tab-pane">
@@ -795,7 +796,8 @@
                         <td class="text-left" style="width: 20%;">
                           <div class="input-group date">
                             <input type="text" name="product_special[{{ special_row }}][date_end]" value="{{ product_special.date_end }}" placeholder="{{ entry_date_end }}" data-date-format="YYYY-MM-DD" class="form-control"/>
-                            <span class="input-group-btn"> <button class="btn btn-default" type="button"><i class="fa fa-calendar"></i></button></span></div>
+                            <span class="input-group-btn"> <button class="btn btn-default" type="button"><i class="fa fa-calendar"></i></button></span>
+                          </div>
                         </td>
                         <td class="text-left"><button type="button" onclick="$('#special-row{{ special_row }}').remove();" data-toggle="tooltip" title="{{ button_remove }}" class="btn btn-danger"><i class="fa fa-minus-circle"></i></button></td>
                       </tr>

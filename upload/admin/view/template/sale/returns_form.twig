@@ -165,7 +165,7 @@
                       <option value="0"></option>
                       {% for return_action in return_actions %}
                         {% if return_action.return_action_id == return_action_id %}
-                          <option value="{{ return_action.return_action_id }}" selected="selected"> {{ return_action.name }}</option>
+                          <option value="{{ return_action.return_action_id }}" selected="selected">{{ return_action.name }}</option>
                         {% else %}
                           <option value="{{ return_action.return_action_id }}">{{ return_action.name }}</option>
                         {% endif %}
