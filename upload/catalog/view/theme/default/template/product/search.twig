@@ -122,13 +122,13 @@
                     <p>{{ product.description }}</p>
                     {% if product.price %}
                       <p class="price">
-                        {% if  not product.special %}
-                        {{ product.price }}
+                        {% if not product.special %}
+                          {{ product.price }}
                         {% else %}
-                        <span class="price-new">{{ product.special }}</span> <span class="price-old">{{ product.price }}</span>
+                          <span class="price-new">{{ product.special }}</span> <span class="price-old">{{ product.price }}</span>
                         {% endif %}
                         {% if product.tax %}
-                        <span class="price-tax">{{ text_tax }} {{ product.tax }}</span>
+                          <span class="price-tax">{{ text_tax }} {{ product.tax }}</span>
                         {% endif %}
                       </p>
                     {% endif %}
@@ -153,11 +153,11 @@
               </div>
             </div>
           {% endfor %}
-        </div>
-        <div class="row">
-          <div class="col-sm-6 text-left">{{ pagination }}</div>
-          <div class="col-sm-6 text-right">{{ results }}</div>
-        </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-6 text-left">{{ pagination }}</div>
+            <div class="col-sm-6 text-right">{{ results }}</div>
+          </div>
       {% else %}
         <p>{{ text_no_results }}</p>
       {% endif %}
