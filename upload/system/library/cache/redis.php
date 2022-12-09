@@ -1,6 +1,8 @@
 <?php
 namespace Cache;
 class Redis {
+    private object $config;
+    private object $redis;
     private int    $expire;
     private object $cache;
 

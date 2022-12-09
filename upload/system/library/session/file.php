@@ -1,6 +1,8 @@
 <?php
 namespace Session;
 class File {
+    private object $config;
+
     public function __construct(object $registry) {
         $this->config = $registry->get('config');
     }

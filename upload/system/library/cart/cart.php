@@ -1,13 +1,19 @@
 <?php
 namespace Cart;
 class Cart {
-    private array $data = [];
+    private object $db;
+    private object $config;
+    private object $customer;
+    private object $session;
+    private object $tax;
+    private object $weight;
+    private array  $data = [];
 
     public function __construct(object $registry) {
+        $this->db       = $registry->get('db');
         $this->config   = $registry->get('config');
         $this->customer = $registry->get('customer');
         $this->session  = $registry->get('session');
-        $this->db       = $registry->get('db');
         $this->tax      = $registry->get('tax');
         $this->weight   = $registry->get('weight');
 

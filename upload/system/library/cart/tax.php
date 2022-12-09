@@ -1,11 +1,13 @@
 <?php
 namespace Cart;
 class Tax {
-    private array $tax_rates = [];
+    private object $db;
+    private object $config;
+    private array  $tax_rates = [];
 
     public function __construct(object $registry) {
-        $this->config = $registry->get('config');
         $this->db     = $registry->get('db');
+        $this->config = $registry->get('config');
     }
 
     public function setShippingAddress(int $country_id, int $zone_id): void {

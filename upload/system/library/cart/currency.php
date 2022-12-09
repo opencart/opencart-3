@@ -1,7 +1,9 @@
 <?php
 namespace Cart;
 class Currency {
-    private array $currencies = [];
+    private object $db;
+    private object $language;
+    private array  $currencies = [];
 
     public function __construct(object $registry) {
         $this->db       = $registry->get('db');

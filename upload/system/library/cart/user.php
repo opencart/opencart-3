@@ -1,11 +1,14 @@
 <?php
 namespace Cart;
 class User {
-    private int $user_id = 0;
-    private string $username = '';
-    private int $user_group_id = 0;
-    private string $email = '';
-    private array $permission = [];
+    private object $db;
+    private object $request;
+    private object $session;
+    private int    $user_id       = 0;
+    private string $username      = '';
+    private int    $user_group_id = 0;
+    private string $email         = '';
+    private array  $permission    = [];
 
     /**
      * Constructor
