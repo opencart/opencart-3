@@ -262,14 +262,16 @@ class ControllerMailOrder extends Controller {
         }
 
         if ($this->config->get('config_mail_engine')) {
-            $mail = new \Mail($this->config->get('config_mail_engine'));
-            $mail->parameter = $this->config->get('config_mail_parameter');
-            $mail->smtp_hostname = $this->config->get('config_mail_smtp_hostname');
-            $mail->smtp_username = $this->config->get('config_mail_smtp_username');
-            $mail->smtp_password = html_entity_decode($this->config->get('config_mail_smtp_password'), ENT_QUOTES, 'UTF-8');
-            $mail->smtp_port = $this->config->get('config_mail_smtp_port');
-            $mail->smtp_timeout = $this->config->get('config_mail_smtp_timeout');
+            $mail_option = [
+                'parameter'     => $this->config->get('config_mail_parameter'),
+                'smtp_hostname' => $this->config->get('config_mail_smtp_hostname'),
+                'smtp_username' => $this->config->get('config_mail_smtp_username'),
+                'smtp_password' => html_entity_decode($this->config->get('config_mail_smtp_password'), ENT_QUOTES, 'UTF-8'),
+                'smtp_port'     => $this->config->get('config_mail_smtp_port'),
+                'smtp_timeout'  => $this->config->get('config_mail_smtp_timeout')
+            ];
 
+            $mail = new \Mail($this->config->get('config_mail_engine'), $mail_option);
             $mail->setTo($order_info['email']);
             $mail->setFrom($from);
             $mail->setSender(html_entity_decode($order_info['store_name'], ENT_QUOTES, 'UTF-8'));
@@ -320,14 +322,16 @@ class ControllerMailOrder extends Controller {
         }
 
         if ($this->config->get('config_mail_engine')) {
-            $mail = new \Mail($this->config->get('config_mail_engine'));
-            $mail->parameter = $this->config->get('config_mail_parameter');
-            $mail->smtp_hostname = $this->config->get('config_mail_smtp_hostname');
-            $mail->smtp_username = $this->config->get('config_mail_smtp_username');
-            $mail->smtp_password = html_entity_decode($this->config->get('config_mail_smtp_password'), ENT_QUOTES, 'UTF-8');
-            $mail->smtp_port = $this->config->get('config_mail_smtp_port');
-            $mail->smtp_timeout = $this->config->get('config_mail_smtp_timeout');
+            $mail_option = [
+                'parameter'     => $this->config->get('config_mail_parameter'),
+                'smtp_hostname' => $this->config->get('config_mail_smtp_hostname'),
+                'smtp_username' => $this->config->get('config_mail_smtp_username'),
+                'smtp_password' => html_entity_decode($this->config->get('config_mail_smtp_password'), ENT_QUOTES, 'UTF-8'),
+                'smtp_port'     => $this->config->get('config_mail_smtp_port'),
+                'smtp_timeout'  => $this->config->get('config_mail_smtp_timeout')
+            ];
 
+            $mail = new \Mail($this->config->get('config_mail_engine'), $mail_option);
             $mail->setTo($order_info['email']);
             $mail->setFrom($from);
             $mail->setSender(html_entity_decode($order_info['store_name'], ENT_QUOTES, 'UTF-8'));
@@ -454,14 +458,16 @@ class ControllerMailOrder extends Controller {
             $data['comment'] = strip_tags($order_info['comment']);
 
             if ($this->config->get('config_mail_engine')) {
-                $mail = new \Mail($this->config->get('config_mail_engine'));
-                $mail->parameter = $this->config->get('config_mail_parameter');
-                $mail->smtp_hostname = $this->config->get('config_mail_smtp_hostname');
-                $mail->smtp_username = $this->config->get('config_mail_smtp_username');
-                $mail->smtp_password = html_entity_decode($this->config->get('config_mail_smtp_password'), ENT_QUOTES, 'UTF-8');
-                $mail->smtp_port = $this->config->get('config_mail_smtp_port');
-                $mail->smtp_timeout = $this->config->get('config_mail_smtp_timeout');
+                $mail_option = [
+                    'parameter'     => $this->config->get('config_mail_parameter'),
+                    'smtp_hostname' => $this->config->get('config_mail_smtp_hostname'),
+                    'smtp_username' => $this->config->get('config_mail_smtp_username'),
+                    'smtp_password' => html_entity_decode($this->config->get('config_mail_smtp_password'), ENT_QUOTES, 'UTF-8'),
+                    'smtp_port'     => $this->config->get('config_mail_smtp_port'),
+                    'smtp_timeout'  => $this->config->get('config_mail_smtp_timeout')
+                ];
 
+                $mail = new \Mail($this->config->get('config_mail_engine'), $mail_option);
                 $mail->setTo($this->config->get('config_email'));
                 $mail->setFrom($this->config->get('config_email'));
                 $mail->setSender(html_entity_decode($order_info['store_name'], ENT_QUOTES, 'UTF-8'));
