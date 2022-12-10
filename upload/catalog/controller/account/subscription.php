@@ -85,7 +85,6 @@ class ControllerAccountSubscription extends Controller {
         $pagination->total = $subscription_total;
         $pagination->page = $page;
         $pagination->limit = 10;
-        $pagination->text = $this->language->get('text_pagination');
         $pagination->url = $this->url->link('account/subscription', 'customer_token=' . $this->session->data['customer_token'] . '&page={page}', true);
 
         $data['pagination'] = $pagination->render();

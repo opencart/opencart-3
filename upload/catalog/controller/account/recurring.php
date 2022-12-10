@@ -69,7 +69,6 @@ class ControllerAccountRecurring extends Controller {
         $pagination->total = $recurring_total;
         $pagination->page = $page;
         $pagination->limit = 10;
-        $pagination->text = $this->language->get('text_pagination');
         $pagination->url = $this->url->link('account/recurring', 'customer_token=' . $this->session->data['customer_token'] . '&page={page}', true);
 
         $data['pagination'] = $pagination->render();

@@ -225,7 +225,6 @@ class ControllerSaleSubscription extends Controller {
         $pagination->total = $subscription_total;
         $pagination->page = $page;
         $pagination->limit = $this->config->get('config_limit_admin');
-        $pagination->text = $this->language->get('text_pagination');
         $pagination->url = $this->url->link('sale/subscription', 'user_token=' . $this->session->data['user_token'] . '&page={page}' . $url, true);
 
         $data['pagination'] = $pagination->render();
