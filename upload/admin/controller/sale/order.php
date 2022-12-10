@@ -522,7 +522,7 @@ class ControllerSaleOrder extends Controller {
 
             // Subscription
             $filter_data = [
-                'order_id' => $order_info['order_id']
+                'filter_order_id' => $order_info['order_id']
             ];
 
             $subscriptions = $this->model_sale_subscription->getSubscriptions($filter_data);
@@ -978,7 +978,7 @@ class ControllerSaleOrder extends Controller {
 
             // Subscription
             $filter_data = [
-                'order_id' => $this->request->get['order_id']
+                'filter_order_id' => $this->request->get['order_id']
             ];
 
             $subscriptions = $this->model_sale_subscription->getSubscriptions($filter_data);
@@ -1721,7 +1721,7 @@ class ControllerSaleOrder extends Controller {
 
                 // Subscription
                 $filter_data = [
-                    'order_id' => $order_id
+                    'filter_order_id' => $order_id
                 ];
 
                 $subscriptions = $this->model_sale_subscription->getSubscriptions($filter_data);
@@ -1939,7 +1939,7 @@ class ControllerSaleOrder extends Controller {
 
                 // Subscription
                 $filter_data = [
-                    'order_id' => $order_id
+                    'filter_order_id' => $order_id
                 ];
 
                 $subscriptions = $this->model_sale_subscription->getSubscriptions($filter_data);
