@@ -11,7 +11,7 @@ class MySQLi {
         try {
             $mysqli = @new \MySQLi($hostname, $username, $password, $database, $port);
 
-            $this->connection              = $mysqli;
+            $this->connection = $mysqli;
             $this->connection->set_charset('utf8mb4');
             $this->connection->query("SET SESSION sql_mode = 'NO_ZERO_IN_DATE,NO_ENGINE_SUBSTITUTION'");
         } catch (\mysqli_sql_exception $e) {
