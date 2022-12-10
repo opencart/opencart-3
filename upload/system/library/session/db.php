@@ -3,7 +3,7 @@ namespace Session;
 class DB {
     private object $db;
     private object $config;
-    public int     $maxlifetime;
+    public  int    $maxlifetime;
 
     public function __construct(object $registry) {
         $this->db     = $registry->get('db');
