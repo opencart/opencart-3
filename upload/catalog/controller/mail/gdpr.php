@@ -57,11 +57,13 @@ class ControllerMailGdpr extends Controller {
             $status = 0;
         }
 
+        // GDPR
         $this->load->model('account/gdpr');
 
         $gdpr_info = $this->model_account_gdpr->getGdpr($gdpr_id);
 
         if ($gdpr_info && $gdpr_info['action'] == 'remove' && $status == 3) {
+            // Settings
             $this->load->model('setting/store');
 
             $store_info = $this->model_setting_store->getStore($gdpr_info['store_id']);
@@ -96,6 +98,7 @@ class ControllerMailGdpr extends Controller {
 
             $subject = sprintf($language->get('text_subject'), $store_name);
 
+            // Image files
             $this->load->model('tool/image');
 
             if ($this->config->get('config_logo')) {
@@ -104,6 +107,7 @@ class ControllerMailGdpr extends Controller {
                 $data['logo'] = '';
             }
 
+            // Customers
             $this->load->model('account/customer');
 
             $customer_info = $this->model_account_customer->getCustomerByEmail($gdpr_info['email']);
