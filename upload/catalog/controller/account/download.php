@@ -80,7 +80,7 @@ class ControllerAccountDownload extends Controller {
         $pagination = new \Pagination();
         $pagination->total = $download_total;
         $pagination->page = $page;
-        $pagination->limit = $this->config->get('theme_' . $this->config->get('config_theme') . '_product_limit');
+        $pagination->limit = 10;
         $pagination->url = $this->url->link('account/download', 'customer_token=' . $this->session->data['customer_token'] . '&page={page}', true);
 
         $data['pagination'] = $pagination->render();
