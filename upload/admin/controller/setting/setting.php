@@ -328,13 +328,12 @@ class ControllerSettingSetting extends Controller {
             $data['config_zone_id'] = $this->config->get('config_zone_id');
         }
 
-        if (isset($this->request->post['config_timezone'])) {
-            $data['config_timezone'] = $this->request->post['config_timezone'];
-        } else {
+        if ($this->config->has('config_timezone')) {
             $data['config_timezone'] = $this->config->get('config_timezone');
+        } else {
+            $data['config_timezone'] = 'UTC';
         }
 
-        // Set Time Zones
         $data['timezones'] = [];
 
         $timestamp = date_create('now');
