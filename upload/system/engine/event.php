@@ -14,7 +14,7 @@
  */
 class Event {
     protected $registry;
-    protected $data = [];
+    protected array $data = [];
 
     /**
      * Constructor
