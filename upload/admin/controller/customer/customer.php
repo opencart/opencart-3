@@ -744,6 +744,8 @@ class ControllerCustomerCustomer extends Controller {
             $data['telephone'] = '';
         }
 
+        $data['config_telephone_required'] = $this->config->get('config_telephone_required');
+
         if (isset($this->request->post['custom_field'])) {
             $data['account_custom_field'] = $this->request->post['custom_field'];
         } elseif (!empty($customer_info)) {
