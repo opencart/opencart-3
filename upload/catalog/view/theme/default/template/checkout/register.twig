@@ -28,10 +28,12 @@
         <label class="control-label" for="input-payment-email">{{ entry_email }}</label>
         <input type="text" name="email" value="" placeholder="{{ entry_email }}" id="input-payment-email" class="form-control"/>
       </div>
+      {% if config_telephone_display %}
         <div class="form-group{% if config_telephone_required %} required{% endif %}">
-        <label class="control-label" for="input-payment-telephone">{{ entry_telephone }}</label>
-        <input type="text" name="telephone" value="" placeholder="{{ entry_telephone }}" id="input-payment-telephone" class="form-control"/>
-      </div>
+          <label class="control-label" for="input-payment-telephone">{{ entry_telephone }}</label>
+          <input type="text" name="telephone" value="" placeholder="{{ entry_telephone }}" id="input-payment-telephone" class="form-control"/>
+        </div>
+      {% endif %}
       {% for custom_field in custom_fields %}
         {% if custom_field.location == 'account' %}
           {% if custom_field.type == 'select' %}

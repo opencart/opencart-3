@@ -74,6 +74,9 @@ class ControllerCheckoutRegister extends Controller {
             $data['text_agree'] = '';
         }
 
+        $data['config_telephone_display'] = $this->config->get('config_telephone_display');
+        $data['config_telephone_required'] = $this->config->get('config_telephone_required');
+
         $data['shipping_required'] = $this->cart->hasShipping();
 
         $data['config_telephone_required'] = $this->config->get('config_telephone_required');

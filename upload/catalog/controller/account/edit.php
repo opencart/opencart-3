@@ -85,6 +85,9 @@ class ControllerAccountEdit extends Controller {
 
         $data['action'] = $this->url->link('account/edit', 'customer_token=' . $this->session->data['customer_token'], true);
 
+        $data['config_telephone_display'] = $this->config->get('config_telephone_display');
+        $data['config_telephone_required'] = $this->config->get('config_telephone_required');
+
         if ($this->request->server['REQUEST_METHOD'] != 'POST') {
             $customer_info = $this->model_account_customer->getCustomer($this->customer->getId());
         }

@@ -103,6 +103,9 @@ class ControllerAccountRegister extends Controller {
             $data['error_confirm'] = '';
         }
 
+        $data['config_telephone_display'] = $this->config->get('config_telephone_display');
+        $data['config_telephone_required'] = $this->config->get('config_telephone_required');
+
         $data['customer_groups'] = [];
 
         if (is_array($this->config->get('config_customer_group_display'))) {
