@@ -118,7 +118,7 @@ class ControllerInformationGdpr extends Controller {
             }
 
             if ($status) {
-                $this->model_account_gdpr->addGdpr(token(32), $email, $action);
+                $this->model_account_gdpr->addGdpr(oc_token(32), $email, $action);
             }
 
             $json['success'] = $this->language->get('text_success');
