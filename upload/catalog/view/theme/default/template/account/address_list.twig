@@ -41,7 +41,7 @@
                   <td class="text-center">{{ address.address }}</td>
                   <td class="text-right">
                     <button type="button" data-toggle="tooltip" title="{{ button_edit }}" onclick="address.update('{{ address.address_id }}');" class="btn btn-primary"><i class="fa fa-pencil"></i></button>
-                    <button type="button" data-toggle="tooltip" title="{{ button_delete }}" onclick="address.remove('{{ address.address_id }}');return false;" class="btn btn-danger"><i class="fa fa-times-circle"></i></button>
+                    <button type="button" data-toggle="tooltip" title="{{ button_delete }}" onclick="address.remove('{{ address.address_id }}'); return false;" class="btn btn-danger"><i class="fa fa-times-circle"></i></button>
                   </td>
                 </tr>
               {% endfor %}

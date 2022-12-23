@@ -486,12 +486,12 @@
                                     html += '<a class="btn btn-success" data-url-transaction-capture="' + row.url_capture + '" data-confirm-capture="' + row.confirm_capture + '">{{ text_capture }}</a> ';
                                     html += '<a class="btn btn-warning" data-url-transaction-void="' + row.url_void + '" data-confirm-void="' + row.confirm_void + '">{{ text_void }}</a> ';
                                 }
-                                    break;
+                                break;
 
                                 case "CAPTURED" : {
                                     html += '<a class="btn btn-danger" data-url-transaction-refund="' + row.url_refund + '" data-confirm-refund="' + row.confirm_refund + '" data-insert-amount="' + row.insert_amount + '">{{ text_refund }}</a> ';
                                 }
-                                    break;
+                                break;
                             }
 
                               html += ' <a class="btn btn-info" href="' + row.url_info + '">{{ text_view }}</a>';
