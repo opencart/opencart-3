@@ -190,8 +190,6 @@ class ControllerCustomerCustomerApproval extends Controller {
             } elseif ($this->request->post['type'] == 'affiliate') {
                 $this->model_customer_customer_approval->approveAffiliate($this->request->post['customer_id']);
             }
-
-            $json['redirect'] = $this->url->link('customer/customer_approval', 'user_token=' . $this->session->data['user_token'], true);
         }
 
         $this->response->addHeader('Content-Type: application/json');
@@ -214,8 +212,6 @@ class ControllerCustomerCustomerApproval extends Controller {
             } elseif ($this->request->post['type'] == 'affiliate') {
                 $this->model_customer_customer_approval->denyAffiliate($this->request->post['customer_id']);
             }
-
-            $json['redirect'] = $this->url->link('customer/customer_approval', 'user_token=' . $this->session->data['user_token'], true);
         }
 
         $this->response->addHeader('Content-Type: application/json');
