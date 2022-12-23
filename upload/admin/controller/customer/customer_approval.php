@@ -209,13 +209,13 @@ class ControllerCustomerCustomerApproval extends Controller {
             // Customer Approvals
             $this->load->model('customer/customer_approval');
 
-            if ($this->request->get['type'] == 'customer') {
-                $this->model_customer_customer_approval->denyCustomer($this->request->get['customer_id']);
-            } elseif ($this->request->get['type'] == 'affiliate') {
-                $this->model_customer_customer_approval->denyAffiliate($this->request->get['customer_id']);
+            if ($this->request->post['type'] == 'customer') {
+                $this->model_customer_customer_approval->denyCustomer($this->request->post['customer_id']);
+            } elseif ($this->request->post['type'] == 'affiliate') {
+                $this->model_customer_customer_approval->denyAffiliate($this->request->post['customer_id']);
             }
 
-            $json['success'] = $this->language->get('text_success');
+            $json['redirect'] = $this->url->link('customer/customer_approval', 'user_token=' . $this->session->data['user_token'], true);
         }
 
         $this->response->addHeader('Content-Type: application/json');
