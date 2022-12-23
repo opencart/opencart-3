@@ -245,11 +245,11 @@ function setup_db($data) {
 
         $db->query("DELETE FROM `" . $data['db_prefix'] . "setting` WHERE `key` = 'config_encryption'");
 
-        $db->query("INSERT INTO `" . $data['db_prefix'] . "setting` SET `code` = 'config', `key` = 'config_encryption', `value` = '" . $db->escape(token(1024)) . "'");
+        $db->query("INSERT INTO `" . $data['db_prefix'] . "setting` SET `code` = 'config', `key` = 'config_encryption', `value` = '" . $db->escape(oc_token(1024)) . "'");
 
         $db->query("UPDATE `" . $data['db_prefix'] . "product` SET `viewed` = '0'");
 
-        $db->query("INSERT INTO `" . $data['db_prefix'] . "api` SET `username` = 'Default', `key` = '" . $db->escape(token(256)) . "', `status` = '1', `date_added` = NOW(), `date_modified` = NOW()");
+        $db->query("INSERT INTO `" . $data['db_prefix'] . "api` SET `username` = 'Default', `key` = '" . $db->escape(oc_token(256)) . "', `status` = '1', `date_added` = NOW(), `date_modified` = NOW()");
 
         $api_id = $db->getLastId();
 
