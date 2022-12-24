@@ -67,9 +67,10 @@
     // Address update, and remove functions
     var address = {
         'update': function (key) {
+            $('.alert-dismissible').remove();
+
             $.ajax({
                 url: 'index.php?route=account/address/editAddress&customer_token={{ customer_token }}&address_id=' + key,
-                type: 'post',
                 dataType: 'json',
                 success: function (json) {
                     if (json['redirect']) {
@@ -83,7 +84,6 @@
 
             $.ajax({
                 url: 'index.php?route=account/address/delete&customer_token={{ customer_token }}&address_id=' + key,
-                type: 'post',
                 dataType: 'json',
                 success: function (json) {
                     if (json['redirect']) {
