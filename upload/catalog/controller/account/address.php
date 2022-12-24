@@ -140,7 +140,7 @@ class ControllerAccountAddress extends Controller {
 
             $this->session->data['success'] = $this->language->get('text_delete');
 
-            $json['success'] = str_replace('&amp;', '&', $this->url->link('account/address', 'customer_token=' . $this->session->data['customer_token'], true));
+            $json['redirect'] = str_replace('&amp;', '&', $this->url->link('account/address', 'customer_token=' . $this->session->data['customer_token'], true));
         }
 
         $this->response->addHeader('Content-Type: application/json');
