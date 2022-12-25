@@ -221,6 +221,8 @@ class ControllerCustomerCustomerApproval extends Controller {
                 $url .= '&filter_date_added=' . $this->request->get['filter_date_added'];
             }
 
+            $this->session->data['success'] = $this->language->get('text_success');
+
             $json['redirect'] = str_replace('&amp;', '&', $this->url->link('customer/customer_approval', 'user_token=' . $this->session->data['user_token'] . $url, true));
         }
 
@@ -266,6 +268,8 @@ class ControllerCustomerCustomerApproval extends Controller {
             if (isset($this->request->get['filter_date_added'])) {
                 $url .= '&filter_date_added=' . $this->request->get['filter_date_added'];
             }
+
+            $this->session->data['success'] = $this->language->get('text_success');
 
             $json['redirect'] = str_replace('&amp;', '&', $this->url->link('customer/customer_approval', 'user_token=' . $this->session->data['user_token'] . $url, true));
         }
