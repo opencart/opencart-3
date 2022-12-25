@@ -29,8 +29,7 @@
             <div class="input-group-btn">
               {% for category in categories %}
                 {% if category.value == filter_category %}
-                  <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">{{ text_category }} ({{ category.text }})
-                    <span class="caret"></span></button>
+                  <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">{{ text_category }} ({{ category.text }})<span class="caret"></span></button>
                 {% endif %}
               {% endfor %}
               <ul class="dropdown-menu">
@@ -85,12 +84,13 @@
                   <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
                     <section>
                       <div class="extension-preview"><a href="{{ extension.href }}">
-                          <div class="extension-description"></div>
-                          <img src="{{ extension.image }}" alt="{{ extension.name }}" title="{{ extension.name }}" class="img-responsive"/></a>
+                        <div class="extension-description"></div>
+                        <img src="{{ extension.image }}" alt="{{ extension.name }}" title="{{ extension.name }}" class="img-responsive"/></a>
                       </div>
                       <div class="extension-name">
                         <h4><a href="{{ extension.href }}">{{ extension.name }}</a></h4>
-                        {{ extension.price }}</div>
+                        {{ extension.price }}
+                      </div>
                       <div class="extension-rate">
                         <div class="row">
                           <div class="col-xs-6">
@@ -121,8 +121,8 @@
                   <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
                     <section>
                       <div class="extension-preview"><a href="{{ extension.href }}">
-                          <div class="extension-description"></div>
-                          <img src="{{ extension.image }}" alt="{{ extension.name }}" title="{{ extension.name }}" class="img-responsive"/></a>
+                        <div class="extension-description"></div>
+                        <img src="{{ extension.image }}" alt="{{ extension.name }}" title="{{ extension.name }}" class="img-responsive"/></a>
                       </div>
                       <div class="extension-name">
                         <h4><a href="{{ extension.href }}">{{ extension.name }}</a></h4>
