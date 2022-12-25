@@ -199,7 +199,29 @@ class ControllerCustomerCustomerApproval extends Controller {
                 $this->model_customer_customer_approval->approveAffiliate($this->request->post['customer_id']);
             }
 
-            $json['redirect'] = str_replace('&amp;', '&', $this->url->link('customer/customer_approval', 'user_token=' . $this->session->data['user_token'], true));
+            $url = '';
+
+            if (isset($this->request->get['filter_name'])) {
+                $url .= '&filter_name=' . urlencode(html_entity_decode($this->request->get['filter_name'], ENT_QUOTES, 'UTF-8'));
+            }
+
+            if (isset($this->request->get['filter_email'])) {
+                $url .= '&filter_email=' . urlencode(html_entity_decode($this->request->get['filter_email'], ENT_QUOTES, 'UTF-8'));
+            }
+
+            if (isset($this->request->get['filter_customer_group_id'])) {
+                $url .= '&filter_customer_group_id=' . $this->request->get['filter_customer_group_id'];
+            }
+
+            if (isset($this->request->get['filter_type'])) {
+                $url .= '&filter_type=' . $this->request->get['filter_type'];
+            }
+
+            if (isset($this->request->get['filter_date_added'])) {
+                $url .= '&filter_date_added=' . $this->request->get['filter_date_added'];
+            }
+
+            $json['redirect'] = str_replace('&amp;', '&', $this->url->link('customer/customer_approval', 'user_token=' . $this->session->data['user_token'] . $url, true));
         }
 
         $this->response->addHeader('Content-Type: application/json');
@@ -223,7 +245,29 @@ class ControllerCustomerCustomerApproval extends Controller {
                 $this->model_customer_customer_approval->denyAffiliate($this->request->post['customer_id']);
             }
 
-            $json['redirect'] = str_replace('&amp;', '&', $this->url->link('customer/customer_approval', 'user_token=' . $this->session->data['user_token'], true));
+            $url = '';
+
+            if (isset($this->request->get['filter_name'])) {
+                $url .= '&filter_name=' . urlencode(html_entity_decode($this->request->get['filter_name'], ENT_QUOTES, 'UTF-8'));
+            }
+
+            if (isset($this->request->get['filter_email'])) {
+                $url .= '&filter_email=' . urlencode(html_entity_decode($this->request->get['filter_email'], ENT_QUOTES, 'UTF-8'));
+            }
+
+            if (isset($this->request->get['filter_customer_group_id'])) {
+                $url .= '&filter_customer_group_id=' . $this->request->get['filter_customer_group_id'];
+            }
+
+            if (isset($this->request->get['filter_type'])) {
+                $url .= '&filter_type=' . $this->request->get['filter_type'];
+            }
+
+            if (isset($this->request->get['filter_date_added'])) {
+                $url .= '&filter_date_added=' . $this->request->get['filter_date_added'];
+            }
+
+            $json['redirect'] = str_replace('&amp;', '&', $this->url->link('customer/customer_approval', 'user_token=' . $this->session->data['user_token'] . $url, true));
         }
 
         $this->response->addHeader('Content-Type: application/json');
