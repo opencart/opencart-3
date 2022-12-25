@@ -52,6 +52,14 @@ class ControllerCustomerCustomerApproval extends Controller {
             $page = 1;
         }
 
+        if (isset($this->session->data['success'])) {
+            $data['success'] = $this->session->data['success'];
+
+            unset ($this->session->data['success']);
+        } else {
+            $data['success'] = '';
+        }
+
         $url = '';
 
         if (isset($this->request->get['filter_name'])) {
