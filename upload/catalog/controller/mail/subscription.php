@@ -256,7 +256,7 @@ class ControllerMailSubscription extends Controller {
                                                 $this->load->model('extension/payment/' . $payment_method['code']);
 
                                                 // Promotion
-                                                if (property_exists($this->{'model_extension_payment_' . $payment_method['code']}, 'promotion')) {
+                                                if (isset($this->{'model_extension_payment_' . $payment_method['code']}, 'promotion')) {
                                                     /*
                                                       * The extension must create a new order
                                                       * The trial status and the status must
@@ -512,7 +512,7 @@ class ControllerMailSubscription extends Controller {
                             if ($this->config->get('payment_' . $payment_method['code'] . '_status')) {
                                 $this->load->model('extension/payment/' . $payment_method['code']);
 
-                                if (property_exists($this->{'model_extension_payment_' . $payment_method['code']}, 'cancel')) {
+                                if (isset($this->{'model_extension_payment_' . $payment_method['code']}, 'cancel')) {
                                     $subscription_status_id = $this->{'model_extension_payment_' . $payment_method['code']}->cancel($subscription_info['subscription_id']);
 
                                     if ($subscription_status_id == $this->config->get('config_subscription_canceled_status_id')) {
