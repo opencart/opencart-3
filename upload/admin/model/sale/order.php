@@ -432,6 +432,8 @@ class ModelSaleOrder extends Model {
 
             return $order_info['invoice_prefix'] . $invoice_no;
         }
+        
+        return '';
     }
 
     public function getHistories(int $order_id, int $start = 0, int $limit = 10): array {
