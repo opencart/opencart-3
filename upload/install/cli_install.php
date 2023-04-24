@@ -45,7 +45,7 @@ $registry = new \Registry();
 $loader = new \Loader($registry);
 $registry->set('load', $loader);
 
-function handleError($errno, $errstr, $errfile, $errline, array $errcontext) {
+function handleError($errno, $errstr, $errfile, $errline) {
     // error was suppressed with the @-operator
     if (!(error_reporting() & $errno)) {
         return false;
