@@ -165,7 +165,7 @@ function check_requirements() {
     $error = null;
 
     if (phpversion() < '8.1') {
-        $error = 'Warning: You need to use PHP7.3+ or above for OpenCart to work!';
+        $error = 'Warning: You need to use PHP8.1+ or above for OpenCart to work!';
     }
 
     if (!ini_get('file_uploads')) {
