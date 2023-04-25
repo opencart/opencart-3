@@ -61,6 +61,8 @@ class ControllerCheckoutGuestShipping extends Controller {
         $this->load->model('localisation/country');
 
         $data['countries'] = $this->model_localisation_country->getCountries();
+        
+        $data['custom_fields'] = [];
 
         // Custom Fields
         $this->load->model('account/custom_field');
