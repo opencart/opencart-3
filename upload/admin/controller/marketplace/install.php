@@ -106,7 +106,7 @@ class ControllerMarketplaceInstall extends Controller {
                 $files = [];
 
                 // Get a list of files ready to upload
-                $path = [$directory . 'upload/*'];
+                $path = [$directory . 'upload/'];
 
                 while (count($path) != 0) {
                     $next = array_shift($path);
@@ -114,7 +114,7 @@ class ControllerMarketplaceInstall extends Controller {
                     if (is_dir($next)) {
                         foreach (glob(trim($next, '/') . '/{*,.[!.]*,..?*}', GLOB_BRACE) as $file) {
                             if (is_dir($file)) {
-                                $path[] = $file . '/*';
+                                $path[] = $file . '/';
                             }
 
                             $files[] = $file;
