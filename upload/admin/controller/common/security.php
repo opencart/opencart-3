@@ -80,7 +80,7 @@ class ControllerCommonSecurity extends Controller {
                         foreach (glob(trim($next, '/') . '/{*,.[!.]*,..?*}', GLOB_BRACE) as $file) {
                             // If directory add to path array
                             if (is_dir($file)) {
-                                $source[] = $file . '/*';
+                                $source[] = $file . '/';
                             }
 
                             // Add the file to the files to be deleted array
@@ -96,7 +96,7 @@ class ControllerCommonSecurity extends Controller {
 
                 // Copy the
                 foreach ($files as $file) {
-                    $destination = $path . $directory . substr($file, strlen(DIR_SYSTEM . 'storage/'));
+                    $destination = $path . $directory . substr($file, strlen(DIR_SYSTEM . 'storage/') - 1);
 
                     if (is_dir($file) && !is_dir($destination)) {
                         mkdir($destination, 0777);
