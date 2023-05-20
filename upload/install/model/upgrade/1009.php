@@ -112,7 +112,9 @@ class ModelUpgrade1009 extends Model {
         }
 
         $this->db->query("UPDATE `" . DB_PREFIX . "event` SET `trigger` = '" . $this->db->escape('catalog/model/account/customer/addAffiliate/after') . "' WHERE `code` = 'activity_affiliate_add'");
-        $this->db->query("UPDATE `" . DB_PREFIX . "event` SET `trigger` = '" . $this->db->escape('catalog/model/account/customer/editAffiliate/after') . "' WHERE `code` = 'activity_affiliate_edit')'");
+        
+        $this->db->query("UPDATE `" . DB_PREFIX . "event` SET `trigger` = '" . $this->db->escape('catalog/model/account/customer/editAffiliate/after') . "' WHERE `code` = 'activity_affiliate_edit'");
+        
         $this->db->query("UPDATE `" . DB_PREFIX . "event` SET `trigger` = '" . $this->db->escape('catalog/model/checkout/order/addOrderHistory/before') . "' WHERE `code` = 'activity_order_add'");
         $this->db->query("UPDATE `" . DB_PREFIX . "event` SET `trigger` = '" . $this->db->escape('catalog/model/checkout/order/addOrderHistory/after') . "' WHERE `code` = 'mail_voucher'");
         $this->db->query("UPDATE `" . DB_PREFIX . "event` SET `trigger` = '" . $this->db->escape('catalog/model/checkout/order/addOrderHistory/before') . "' WHERE `code` = 'mail_order_add'");
@@ -288,13 +290,13 @@ class ModelUpgrade1009 extends Model {
         }
 
         // Country
-        $this->db->query("UPDATE `" . DB_PREFIX . "country` SET `name` = 'România' WHERE `name` = 'Romania'");
+        $this->db->query("UPDATE `" . DB_PREFIX . "country` SET `name` = 'Rom창nia' WHERE `name` = 'Romania'");
         $this->db->query("UPDATE `" . DB_PREFIX . "country` SET `address_format_id` = '1' WHERE `address_format_id` = '0'");
 
         // Information - Subscriptions
         $information_id = $this->db->query("INSERT INTO `" . DB_PREFIX . "information` SET `bottom` = '1', `sort_order` = '5', `status` = '1'");
 
-        $this->db->query("INSERT INTO `" . DB_PREFIX . "information_description` SET (`information_id` = '" . (int)$information_id . "', `language_id` = '1', `title` = 'Subscriptions', `description` = 'Within the next couple of months, our store will be introducing a new subscription system where customers will have the ability to handle customer payments with their accounts and our store to provide better services with larger subscription products.', `meta_title` = 'Subscriptions', `meta_description` = '', `meta_keyword` = ''");
+        $this->db->query("INSERT INTO `" . DB_PREFIX . "information_description` SET `information_id` = '" . (int)$information_id . "', `language_id` = '1', `title` = 'Subscriptions', `description` = 'Within the next couple of months, our store will be introducing a new subscription system where customers will have the ability to handle customer payments with their accounts and our store to provide better services with larger subscription products.', `meta_title` = 'Subscriptions', `meta_description` = '', `meta_keyword` = ''");
         $this->db->query("INSERT INTO `" . DB_PREFIX . "information_to_store` SET `information_id` = '" . (int)$information_id . "', `store_id` = '0'");
 
         // Cart - Subscriptions
