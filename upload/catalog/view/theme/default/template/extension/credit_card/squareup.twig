@@ -27,9 +27,7 @@
         <table class="table table-bordered">
           {% for card in cards %}
             <tr>
-              <td>
-                {{ card.text }}
-              </td>
+              <td>{{ card.text }}</td>
               <td class="text-right"><a class="btn btn-danger remove_card" href="{{ card.delete }}">{{ text_delete }}</a></td>
             </tr>
           {% endfor %}
