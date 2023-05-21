@@ -30,12 +30,16 @@
     {% if card_storage == 1 and stored_cards|length > 0 %}
       <div class="form-group">
         <div class="col-sm-12">
-         {% set i = 0 %}
-         {% for card in stored_cards %}
-            <p><input type="radio" name="cc_choice" value="{{ card.token }}" class="stored_card" {% if i == 0 %} checked="checked"{% endif %}/> {{ card.card_type }} xxxx {{ card.digits }}, {{ entry_cc_expire_date }}  {{ card.expire_month }} / {{ card.expire_year }}</p>
-           {% set i = i + 1 %}
+          {% set i = 0 %}
+          {% for card in stored_cards %}
+            <p>
+              <input type="radio" name="cc_choice" value="{{ card.token }}" class="stored_card" {% if i == 0 %} checked="checked"{% endif %}/> {{ card.card_type }} xxxx {{ card.digits }}, {{ entry_cc_expire_date }}  {{ card.expire_month }} / {{ card.expire_year }}
+            </p>
+            {% set i = i + 1 %}
           {% endfor %}
-          <p><input type="radio" name="cc_choice" value="new" class="stored_card"/>{{ text_card_new }}</p>
+          <p>
+            <input type="radio" name="cc_choice" value="new" class="stored_card"/>{{ text_card_new }}
+          </p>
         </div>
       </div>
     {% endif %}
@@ -56,15 +60,15 @@
         <label class="col-sm-2 control-label" for="input-cc-expire-date">{{ entry_cc_expire_date }}</label>
         <div class="col-sm-3">
           <select name="cc_expire_date_month" id="input-cc-expire-date" class="form-control">
-           {% for month in months %}
+            {% for month in months %}
               <option value="{{ month.value }}">{{ month.text }}</option>
             {% endfor %}
           </select>
         </div>
         <div class="col-sm-3">
           <select name="cc_expire_date_year" class="form-control">
-           {% for year in year_expire %}
-            <option value="{{ year.value }}">{{ year.text }}</option>
+            {% for year in year_expire %}
+              <option value="{{ year.value }}">{{ year.text }}</option>
             {% endfor %}
           </select>
         </div>
