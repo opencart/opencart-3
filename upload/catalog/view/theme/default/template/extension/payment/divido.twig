@@ -400,10 +400,10 @@
                     },
                     success: function (data) {
                         if (data.status == 'ok') {
-                          location = data.url;
+                            location = data.url;
                         } else {
-                          message = data.message || '{{ generic_credit_req_error }}';
-                          $('#divido-checkout').prepend('<div class="alert alert-warning alert-dismissible"><i class="fa fa-exclamation-circle"></i> ' + message + ' <button type="button" class="close" data-dismiss="alert">&times;</button></div>');
+                            message = data.message || '{{ generic_credit_req_error }}';
+                            $('#divido-checkout').prepend('<div class="alert alert-warning alert-dismissible"><i class="fa fa-exclamation-circle"></i> ' + message + ' <button type="button" class="close" data-dismiss="alert">&times;</button></div>');
                         }
                     }
                 });
