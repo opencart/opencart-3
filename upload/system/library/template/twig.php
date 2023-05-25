@@ -5,6 +5,7 @@ final class Twig {
     protected string $directory = '';
     protected object $loader;
     protected array  $path      = [];
+	protected array  $data      = [];
 
     public function set(string $key, mixed $value): void {
         $this->data[$key] = $value;
