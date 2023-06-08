@@ -2,7 +2,7 @@
 /**
  * Basic SMTP mail class
  */
-namespace Opencart\System\Library\Mail;
+namespace Mail;
 class Smtp {
 	protected array $option = [];
 	protected array $default = [
