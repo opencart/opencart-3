@@ -130,7 +130,7 @@ class ControllerInformationGdpr extends Controller {
 
     public function success(): object|null {
         if (isset($this->request->get['code'])) {
-            $code = $this->request->get['code'];
+            $code = (string)$this->request->get['code'];
         } else {
             $code = '';
         }
