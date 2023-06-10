@@ -162,7 +162,7 @@ class ControllerInformationGdpr extends Controller {
             ];
 
             if ($gdpr_info['status'] == 0) {
-                $this->model_account_gdpr->editStatus($code, 1);
+                $this->model_account_gdpr->editStatus($gdpr_info['gdpr_id'], 1);
             }
 
             if ($gdpr_info['action'] == 'export') {
