@@ -11,7 +11,9 @@
 {% endif %}
 {{ text_email }} {{ email }}
 <br/>
-{{ text_telephone }} {{ telephone }}
+{% if telephone %}
+  {{ text_telephone }} {{ telephone }}
+{% endif %}
 <br/>
 <br/>
 {{ store }}
