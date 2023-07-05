@@ -1,82 +1,123 @@
 <?php
 namespace DB;
 class MySQLi {
-    private object $connection;
+	private object|null $connection;
 
-    public function __construct(string $hostname, string $username, string $password, string $database, string $port = '') {
-        if (!$port) {
-            $port = '3306';
-        }
+	/**
+	 * Constructor
+	 *
+	 * @param    string  $hostname
+	 * @param    string  $username
+	 * @param    string  $password
+	 * @param    string  $database
+	 * @param    string  $port
+	 */
+	public function __construct(string $hostname, string $username, string $password, string $database, string $port = '') {
+		if (!$port) {
+			$port = '3306';
+		}
 
-        try {
-            $mysqli = @new \MySQLi($hostname, $username, $password, $database, $port);
+		try {
+			$mysqli = @new \MySQLi($hostname, $username, $password, $database, $port);
 
-            $this->connection = $mysqli;
-            $this->connection->set_charset('utf8mb4');
-            $this->connection->query("SET SESSION sql_mode = 'NO_ZERO_IN_DATE,NO_ENGINE_SUBSTITUTION'");
-        } catch (\mysqli_sql_exception $e) {
-            throw new \Exception('Error: Could not make a database link using ' . $username . '@' . $hostname . '!<br/>Message: ' . $e->getMessage());
-        }
-    }
+			$this->connection = $mysqli;
+			$this->connection->set_charset('utf8mb4');
 
-    public function query(string $sql): bool|object {
-        try {
-            $query = $this->connection->query($sql);
+			$this->query("SET SESSION sql_mode = 'NO_ZERO_IN_DATE,NO_ENGINE_SUBSTITUTION'");
+			$this->query("SET FOREIGN_KEY_CHECKS = 0");
 
-            if ($query instanceof \mysqli_result) {
-                $data = [];
+			// Sync PHP and DB time zones
+			$this->query("SET `time_zone` = '" . $this->escape(date('P')) . "'");
+		} catch (\mysqli_sql_exception $e) {
+			throw new \Exception('Error: Could not make a database link using ' . $username . '@' . $hostname . '!<br/>Message: ' . $e->getMessage());
+		}
+	}
 
-                while ($row = $query->fetch_assoc()) {
-                    $data[] = $row;
-                }
+	/**
+	 * Query
+	 *
+	 * @param    string  $sql
+	 *
+	 * @return   bool|object
+	 */
+	public function query(string $sql): bool|object {
+		try {
+			$query = $this->connection->query($sql);
 
-                $result           = new \stdClass();
-                $result->num_rows = $query->num_rows;
-                $result->row      = isset($data[0]) ? $data[0] : [];
-                $result->rows     = $data;
+			if ($query instanceof \mysqli_result) {
+				$data = [];
 
-                $query->close();
+				while ($row = $query->fetch_assoc()) {
+					$data[] = $row;
+				}
 
-                unset($data);
+				$result = new \stdClass();
+				$result->num_rows = $query->num_rows;
+				$result->row = isset($data[0]) ? $data[0] : [];
+				$result->rows = $data;
 
-                return $result;
-            } else {
-                return true;
-            }
-        } catch (\mysqli_sql_exception $e) {
-            throw new \Exception('Error: ' . $this->connection->error . '<br/>Error No: ' . $this->connection->errno . '<br/>' . $sql);
-        }
-    }
+				$query->close();
 
-    public function escape(string $value): string {
-        return $this->connection->real_escape_string($value);
-    }
+				unset($data);
 
-    public function countAffected(): int {
-        return $this->connection->affected_rows;
-    }
+				return $result;
+			} else {
+				return true;
+			}
+		} catch (\mysqli_sql_exception $e) {
+			throw new \Exception('Error: ' . $this->connection->error  . '<br/>Error No: ' . $this->connection->errno . '<br/>' . $sql);
+		}
+	}
 
-    public function getLastId(): int {
-        return $this->connection->insert_id;
-    }
+	/**
+	 * Escape
+	 *
+	 * @param    string  value
+	 *
+	 * @return   string
+	 */
+	public function escape(string $value): string {
+		return $this->connection->real_escape_string($value);
+	}
+	
+	/**
+	 * countAffected
+	 *
+	 * @return   int
+	 */
+	public function countAffected(): int {
+		return $this->connection->affected_rows;
+	}
 
-    public function isConnected(): bool {
-        if ($this->connection) {
-            return $this->connection->ping();
-        } else {
-            return false;
-        }
-    }
+	/**
+	 * getLastId
+	 *
+	 * @return   int
+	 */
+	public function getLastId(): int {
+		return $this->connection->insert_id;
+	}
+	
+	/**
+	 * isConnected
+	 *
+	 * @return   bool
+	 */
+	public function isConnected(): bool {
+		return $this->connection;
+	}
 
-    /**
-     * __destruct
-     * Closes the DB connection when this object is destroyed.
-     */
-    public function __destruct() {
-        if ($this->connection) {
-            $this->connection->close();
+	/**
+	 * Destructor
+	 *
+	 * Closes the DB connection when this object is destroyed.
+	 *
+	 */
+	public function __destruct() {
+		if ($this->connection) {
+			$this->connection->close();
 
-            unset($this->connection);
-        }
-    }
+			$this->connection = null;
+		}
+	}
 }
