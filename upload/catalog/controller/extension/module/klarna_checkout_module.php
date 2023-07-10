@@ -37,7 +37,7 @@ class ControllerExtensionModuleKlarnaCheckoutModule extends Controller {
         }
 
         // Validate cart has subscription products
-        if ($this->cart->hasSubscription()) {
+        if ($this->cart->hasSubscriptions()) {
             $this->model_extension_payment_klarna_checkout->log('Not shown due to cart having subscription products.');
 
             return false;
