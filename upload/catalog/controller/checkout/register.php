@@ -22,7 +22,7 @@ class ControllerCheckoutRegister extends Controller {
 
         $data['customer_group_id'] = $this->config->get('config_customer_group_id');
 
-        $data['config_checkout_guest'] = ($this->config->get('config_checkout_guest') && !$this->config->get('config_customer_price') && !$this->cart->hasDownload() && !$this->cart->hasSubscription());
+        $data['config_checkout_guest'] = ($this->config->get('config_checkout_guest') && !$this->config->get('config_customer_price') && !$this->cart->hasDownload() && !$this->cart->hasSubscriptions());
 
         if (isset($this->session->data['shipping_address']['postcode'])) {
             $data['postcode'] = $this->session->data['shipping_address']['postcode'];
@@ -222,7 +222,7 @@ class ControllerCheckoutRegister extends Controller {
             }
 
             // If not guest checkout disabled, login require price or cart has downloads
-            if (!$this->customer->isLogged() && (!$this->config->get('config_checkout_guest') || $this->config->get('config_customer_price') || $this->cart->hasDownload() || $this->cart->hasSubscription())) {
+            if (!$this->customer->isLogged() && (!$this->config->get('config_checkout_guest') || $this->config->get('config_customer_price') || $this->cart->hasDownload() || $this->cart->hasSubscriptions())) {
                 $json['error']['warning'] = $this->language->get('error_guest');
             }
 
