@@ -1171,7 +1171,7 @@ class ControllerExtensionPaymentPPExpress extends Controller {
 
                 $this->model_extension_payment_pp_express->addTransaction($paypal_transaction_data);
 
-                $subscription_products = $this->cart->getSubscription();
+                $subscription_products = $this->cart->getSubscriptions();
 
                 // Loop through any products that are subscription items
                 if ($subscription_products) {
@@ -1487,7 +1487,7 @@ class ControllerExtensionPaymentPPExpress extends Controller {
             ];
             $this->model_extension_payment_pp_express->addTransaction($paypal_transaction_data);
 
-            $subscription_products = $this->cart->getSubscription();
+            $subscription_products = $this->cart->getSubscriptions();
 
             // Loop through any products that are subscription items
             if ($subscription_products) {
