@@ -308,7 +308,7 @@ class Cart {
         $this->data = [];
     }
 
-    public function getSubscription(): array {
+    public function getSubscriptions(): array {
         $product_data = [];
 
         foreach ($this->getProducts() as $value) {
@@ -388,8 +388,8 @@ class Cart {
         return count($this->getProducts());
     }
 
-    public function hasSubscription(): bool {
-        return count($this->getSubscription());
+    public function hasSubscriptions(): bool {
+        return count($this->getSubscriptions());
     }
 
     public function hasStock(): bool {
