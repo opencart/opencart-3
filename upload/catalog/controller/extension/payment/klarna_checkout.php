@@ -56,7 +56,7 @@ class ControllerExtensionPaymentKlarnaCheckout extends Controller {
         }
 
         // Validate cart has subscription products
-        if ($this->cart->hasSubscription()) {
+        if ($this->cart->hasSubscriptions()) {
             $redirect = $this->url->link('checkout/cart');
         }
 
@@ -1068,7 +1068,7 @@ class ControllerExtensionPaymentKlarnaCheckout extends Controller {
             }
 
             // Validate cart has subscription products
-            if ($this->cart->hasSubscription()) {
+            if ($this->cart->hasSubscriptions()) {
                 $this->model_extension_payment_klarna_checkout->log('Cart has subscription products');
 
                 $validate = false;
