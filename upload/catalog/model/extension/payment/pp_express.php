@@ -208,7 +208,7 @@ class ModelExtensionPaymentPPExpress extends Model {
 
         $z = 0;
 
-        $subscription_products = $this->cart->getSubscription();
+        $subscription_products = $this->cart->getSubscriptions();
 
         if ($subscription_products) {
             $this->load->language('extension/payment/pp_express');
