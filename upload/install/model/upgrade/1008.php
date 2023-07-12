@@ -54,63 +54,7 @@ class ModelUpgrade1008 extends Model {
             $this->db->query("INSERT INTO `" . DB_PREFIX . "setting` SET `store_id` = '0', `code` = 'dashboard_recent', `key` = 'dashboard_recent_status', `value` = '1', `serialized` = '0'");
             $this->db->query("INSERT INTO `" . DB_PREFIX . "setting` SET `store_id` = '0', `code` = 'dashboard_recent', `key` = 'dashboard_recent_sort_order', `value` = '8', `serialized` = '0'");
             $this->db->query("INSERT INTO `" . DB_PREFIX . "setting` SET `store_id` = '0', `code` = 'dashboard_activity', `key` = 'dashboard_activity_width', `value` = '4', `serialized` = '0'");
-            $this->db->query("INSERT INTO `" . DB_PREFIX . "setting` SET `store_id` = '0', `code` = 'dashboard_recent', `key` = 'dashboard_recent_width', `value` = '8', `serialized` = '0'");
-
-            // Coupon - Date Start
-			$query = $this->db->query("SELECT * FROM information_schema.COLUMNS WHERE TABLE_SCHEMA = '" . DB_DATABASE . "' AND TABLE_NAME = '" . DB_PREFIX . "coupon' AND COLUMN_NAME = 'date_start' AND COLUMN_DEFAULT = '0000-00-00'");
-
-			if ($query->num_rows) {
-				$this->db->query("ALTER TABLE `" . DB_PREFIX . "coupon` MODIFY `date_start` date NOT NULL");
-			}
-
-            // Coupon - Date End
-			$query = $this->db->query("SELECT * FROM information_schema.COLUMNS WHERE TABLE_SCHEMA = '" . DB_DATABASE . "' AND TABLE_NAME = '" . DB_PREFIX . "coupon' AND COLUMN_NAME = 'date_end' AND COLUMN_DEFAULT = '0000-00-00'");
-
-			if ($query->num_rows) {
-				$this->db->query("ALTER TABLE `" . DB_PREFIX . "coupon` MODIFY `date_end` date NOT NULL");
-			}
-
-            // Product - Date Available
-			$query = $this->db->query("SELECT * FROM information_schema.COLUMNS WHERE TABLE_SCHEMA = '" . DB_DATABASE . "' AND TABLE_NAME = '" . DB_PREFIX . "product' AND COLUMN_NAME = 'date_available' AND COLUMN_DEFAULT = '0000-00-00'");
-
-			if ($query->num_rows) {
-				$this->db->query("ALTER TABLE `" . DB_PREFIX . "product` MODIFY `date_available` date NOT NULL");
-			}
-
-            // Product Discount - Date Start
-			$query = $this->db->query("SELECT * FROM information_schema.COLUMNS WHERE TABLE_SCHEMA = '" . DB_DATABASE . "' AND TABLE_NAME = '" . DB_PREFIX . "product_discount' AND COLUMN_NAME = 'date_start' AND COLUMN_DEFAULT = '0000-00-00'");
-
-			if ($query->num_rows) {
-				$this->db->query("ALTER TABLE `" . DB_PREFIX . "product_discount` MODIFY `date_start` date NOT NULL");
-			}
-
-			// Product Discount - Date End
-			$query = $this->db->query("SELECT * FROM information_schema.COLUMNS WHERE TABLE_SCHEMA = '" . DB_DATABASE . "' AND TABLE_NAME = '" . DB_PREFIX . "product_discount' AND COLUMN_NAME = 'date_end' AND COLUMN_DEFAULT = '0000-00-00'");
-
-			if ($query->num_rows) {
-				$this->db->query("ALTER TABLE `" . DB_PREFIX . "product_discount` MODIFY `date_end` date NOT NULL");
-			}
-
-            // Product Special - Date Start
-			$query = $this->db->query("SELECT * FROM information_schema.COLUMNS WHERE TABLE_SCHEMA = '" . DB_DATABASE . "' AND TABLE_NAME = '" . DB_PREFIX . "product_special' AND COLUMN_NAME = 'date_start' AND COLUMN_DEFAULT = '0000-00-00'");
-
-			if ($query->num_rows) {
-				$this->db->query("ALTER TABLE `" . DB_PREFIX . "product_special` MODIFY `date_start` date NOT NULL");
-			}
-
-			// Product Special - Date End
-			$query = $this->db->query("SELECT * FROM information_schema.COLUMNS WHERE TABLE_SCHEMA = '" . DB_DATABASE . "' AND TABLE_NAME = '" . DB_PREFIX . "product_special' AND COLUMN_NAME = 'date_end' AND COLUMN_DEFAULT = '0000-00-00'");
-
-			if ($query->num_rows) {
-				$this->db->query("ALTER TABLE `" . DB_PREFIX . "product_special` MODIFY `date_end` date NOT NULL");
-			}
-
-            // Return - Date Ordered
-			$query = $this->db->query("SELECT * FROM information_schema.COLUMNS WHERE TABLE_SCHEMA = '" . DB_DATABASE . "' AND TABLE_NAME = '" . DB_PREFIX . "return' AND COLUMN_NAME = 'date_ordered' AND COLUMN_DEFAULT = '0000-00-00'");
-
-			if ($query->num_rows) {
-				$this->db->query("ALTER TABLE `" . DB_PREFIX . "return` MODIFY `date_ordered` date NOT NULL");
-			}
+            $this->db->query("INSERT INTO `" . DB_PREFIX . "setting` SET `store_id` = '0', `code` = 'dashboard_recent', `key` = 'dashboard_recent_width', `value` = '8', `serialized` = '0'");            
         }
 
         // Add extension download for the admin extension store
