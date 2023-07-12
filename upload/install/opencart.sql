@@ -885,8 +885,8 @@ CREATE TABLE `oc_coupon` (
   `logged` tinyint(1) NOT NULL,
   `shipping` tinyint(1) NOT NULL,
   `total` decimal(15,4) NOT NULL,
-  `date_start` date NOT NULL,
-  `date_end` date NOT NULL,
+  `date_start` date NOT NULL DEFAULT '0000-00-00',
+  `date_end` date NOT NULL DEFAULT '0000-00-00',
   `uses_total` int(11) NOT NULL,
   `uses_customer` int(11) NOT NULL,
   `status` tinyint(1) NOT NULL,
@@ -2688,7 +2688,7 @@ CREATE TABLE `oc_product` (
   `price` decimal(15,4) NOT NULL DEFAULT '0.0000',
   `points` int(8) NOT NULL DEFAULT '0',
   `tax_class_id` int(11) NOT NULL,
-  `date_available` date NOT NULL,
+  `date_available` date NOT NULL DEFAULT '0000-00-00',
   `weight` decimal(15,8) NOT NULL DEFAULT '0.00000000',
   `weight_class_id` int(11) NOT NULL DEFAULT '0',
   `length` decimal(15,8) NOT NULL DEFAULT '0.00000000',
@@ -2815,8 +2815,8 @@ CREATE TABLE `oc_product_discount` (
   `quantity` int(4) NOT NULL DEFAULT '0',
   `priority` int(5) NOT NULL DEFAULT '1',
   `price` decimal(15,4) NOT NULL DEFAULT '0.0000',
-  `date_start` date NOT NULL,
-  `date_end` date NOT NULL,
+  `date_start` date NOT NULL DEFAULT '0000-00-00',
+  `date_end` date NOT NULL DEFAULT '0000-00-00',
   PRIMARY KEY (`product_discount_id`),
   KEY `product_id` (`product_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -3096,8 +3096,8 @@ CREATE TABLE `oc_product_special` (
   `customer_group_id` int(11) NOT NULL,
   `priority` int(5) NOT NULL DEFAULT '1',
   `price` decimal(15,4) NOT NULL DEFAULT '0.0000',
-  `date_start` date NOT NULL,
-  `date_end` date NOT NULL,
+  `date_start` date NOT NULL DEFAULT '0000-00-00',
+  `date_end` date NOT NULL DEFAULT '0000-00-00',
   PRIMARY KEY (`product_special_id`),
   KEY `product_id` (`product_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -3250,7 +3250,7 @@ CREATE TABLE `oc_return` (
   `return_action_id` int(11) NOT NULL,
   `return_status_id` int(11) NOT NULL,
   `comment` text,
-  `date_ordered` date NOT NULL,
+  `date_ordered` date NOT NULL DEFAULT '0000-00-00',
   `date_added` datetime NOT NULL,
   `date_modified` datetime NOT NULL,
   PRIMARY KEY (`return_id`)
