@@ -83,7 +83,7 @@ class ControllerStartupSeoUrl extends Controller {
                     }
                 } elseif ($key == 'path') {
                     $categories = explode('_', $value);
-	                $nonce = "";
+                    $nonce = "";
                     foreach ($categories as $category) {
                         $query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "seo_url` WHERE `query` = 'category_id=" . (int)$category . "' AND `store_id` = '" . (int)$this->config->get('config_store_id') . "' AND `language_id` = '" . (int)$this->config->get('config_language_id') . "'");
 
@@ -94,10 +94,10 @@ class ControllerStartupSeoUrl extends Controller {
                             break;
                         }
                     }
-					if (!empty($nonce)) {
-						unset($data[$key]);
-						$url .= $nonce;
-					}
+                    if (!empty($nonce)) {
+                        unset($data[$key]);
+                        $url .= $nonce;
+                    }
                 }
             }
         }
