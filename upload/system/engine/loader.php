@@ -116,7 +116,7 @@ class Loader {
         $result = $this->registry->get('event')->trigger('view/' . $trigger . '/before', [&$route, &$data, &$code]);
 
         // Make sure it's only the last event that returns an output if required.
-        if ($result && !$result instanceof \Exception) {
+        if ($result !== null && !$result instanceof \Exception) {
             $output = $result;
         } else {
             $template = new \Template($this->registry->get('config')->get('template_engine'));
@@ -131,7 +131,7 @@ class Loader {
         // Trigger the post events
         $result = $this->registry->get('event')->trigger('view/' . $trigger . '/after', [&$route, &$data, &$output]);
 
-        if ($result && !$result instanceof \Exception) {
+        if ($result !== null && !$result instanceof \Exception) {
             $output = $result;
         }
 
@@ -223,7 +223,7 @@ class Loader {
             // Trigger the pre events
             $result = $registry->get('event')->trigger('model/' . $trigger . '/before', [&$route, &$args]);
 
-            if ($result && !$result instanceof \Exception) {
+            if ($result !== null && !$result instanceof \Exception) {
                 $output = $result;
             } else {
                 $class = 'Model' . preg_replace('/[^a-zA-Z0-9]/', '', substr($route, 0, strrpos($route, '/')));
@@ -249,7 +249,7 @@ class Loader {
             // Trigger the post events
             $result = $registry->get('event')->trigger('model/' . $trigger . '/after', [&$route, &$args, &$output]);
 
-            if ($result && !$result instanceof \Exception) {
+            if ($result !== null && !$result instanceof \Exception) {
                 $output = $result;
             }
 
