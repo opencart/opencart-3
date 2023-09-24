@@ -1,6 +1,6 @@
 <?php
 namespace Cache;
-class APCu {
+class Apcu {
 	private int $expire;
 	private bool $active;
 
