@@ -128,7 +128,7 @@ class ModelUpgrade1004 extends Model {
 
         foreach ($query->rows as $result) {
             if ($result['serialized']) {
-                $value       = json_decode($result['value'], true);
+                $value = json_decode($result['value'], true);
                 
                 $module_data = [];
 
@@ -140,7 +140,7 @@ class ModelUpgrade1004 extends Model {
                                 $v['position'] = 'content_bottom';
                             }
 
-                            $module_data['name']   = ($result['key'] . '_' . $k);
+                            $module_data['name'] = ($result['key'] . '_' . $k);
                             $module_data['status'] = $v['status'];
 
                             if (isset($v['image_width'])) {
@@ -161,7 +161,7 @@ class ModelUpgrade1004 extends Model {
                                 foreach ($query->rows as $result2) {
                                     if ($result2['key'] == 'featured_product') {
                                         $module_data['product'] = explode(",", $result2['value']);
-                                        $module_data['limit']   = 4;
+                                        $module_data['limit'] = 4;
 
                                         break;
                                     } else {
@@ -169,7 +169,7 @@ class ModelUpgrade1004 extends Model {
 
                                         if ($featured_product_query->num_rows) {
                                             $module_data['product'] = explode(",", $featured_product_query->row['value']);
-                                            $module_data['limit']   = 4;
+                                            $module_data['limit'] = 4;
                                         }
                                     }
                                 }
@@ -199,8 +199,8 @@ class ModelUpgrade1004 extends Model {
                 } elseif (in_array($result['code'], ['banner', 'carousel', 'slideshow'])) {
                     if ($value) {
                         foreach ($value as $k => $v) {
-                            $module_data['name']      = ($result['key'] . '_' . $k);
-                            $module_data['status']    = $v['status'];
+                            $module_data['name'] = ($result['key'] . '_' . $k);
+                            $module_data['status'] = $v['status'];
                             $module_data['banner_id'] = $v['banner_id'];
 
                             if (isset($v['image_width'])) {
@@ -242,11 +242,11 @@ class ModelUpgrade1004 extends Model {
                         $result['code'] = 'html';
 
                         foreach ($value as $k => $v) {
-                            $module_data['name']   = ($result['key'] . '_' . $k);
+                            $module_data['name'] = ($result['key'] . '_' . $k);
                             $module_data['status'] = $v['status'];
 
                             foreach ($v['description'] as $language_id => $description) {
-                                $module_data['module_description'][$language_id]['title']       = '';
+                                $module_data['module_description'][$language_id]['title'] = '';
                                 $module_data['module_description'][$language_id]['description'] = str_replace('image/data', 'image/catalog', $description);
                             }
 
@@ -267,8 +267,8 @@ class ModelUpgrade1004 extends Model {
                     if (!empty($value)) {
                         foreach ($value as $k => $v) {
                             if (isset($v['position'])) {
-                                $module_data           = $v;
-                                $module_data['name']   = ($result['key'] . '_' . $k);
+                                $module_data = $v;
+                                $module_data['name'] = ($result['key'] . '_' . $k);
                                 $module_data['status'] = '0'; // Disable non-core modules
 
                                 $this->db->query("INSERT INTO `" . DB_PREFIX . "module` SET `name` = '" . $this->db->escape($result['key']) . '_' . $k . "', `code` = '" . $this->db->escape($result['code']) . "', `setting` = '" . $this->db->escape(json_encode($module_data)) . "'");
