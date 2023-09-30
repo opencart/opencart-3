@@ -6,7 +6,7 @@ class Tax {
     private array  $tax_rates = [];
 
     public function __construct(object $registry) {
-        $this->db     = $registry->get('db');
+        $this->db = $registry->get('db');
         $this->config = $registry->get('config');
     }
 
@@ -73,7 +73,7 @@ class Tax {
     }
 
     public function getTax(float $value, int $tax_class_id): float {
-        $amount    = 0;
+        $amount = 0;
 
         $tax_rates = $this->getRates($value, $tax_class_id);
 
