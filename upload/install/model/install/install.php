@@ -1,9 +1,9 @@
 <?php
 class ModelInstallInstall extends Model {
     public function database($data) {
-        $db    = new \DB($data['db_driver'], htmlspecialchars_decode($data['db_hostname']), htmlspecialchars_decode($data['db_username']), htmlspecialchars_decode($data['db_password']), htmlspecialchars_decode($data['db_database']), $data['db_port']);
+        $db = new \DB($data['db_driver'], htmlspecialchars_decode($data['db_hostname']), htmlspecialchars_decode($data['db_username']), htmlspecialchars_decode($data['db_password']), htmlspecialchars_decode($data['db_database']), $data['db_port']);
 
-        $file  = DIR_APPLICATION . 'opencart.sql';
+        $file = DIR_APPLICATION . 'opencart.sql';
 
         if (!file_exists($file)) {
             exit('Could not load sql file: ' . $file);
