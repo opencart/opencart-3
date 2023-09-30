@@ -3,10 +3,10 @@ namespace Session;
 class DB {
     private object $db;
     private object $config;
-    public  int    $maxlifetime;
+    public int $maxlifetime;
 
     public function __construct(object $registry) {
-        $this->db     = $registry->get('db');
+        $this->db = $registry->get('db');
         $this->config = $registry->get('config');
 
         $this->maxlifetime = ini_get('session.gc_maxlifetime') !== null ? (int)ini_get('session.gc_maxlifetime') : 1440;
