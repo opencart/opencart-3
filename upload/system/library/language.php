@@ -13,7 +13,7 @@
 class Language {
     private $default = 'en-gb';
     private $directory;
-    public  $data    = [];
+    public $data = [];
 
     /**
      * Constructor
