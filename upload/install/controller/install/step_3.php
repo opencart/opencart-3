@@ -97,26 +97,26 @@ class ControllerInstallStep3 extends Controller {
 
         $data['heading_title'] = $this->language->get('heading_title');
 
-        $data['text_step_3']            = $this->language->get('text_step_3');
-        $data['text_db_connection']     = $this->language->get('text_db_connection');
+        $data['text_step_3'] = $this->language->get('text_step_3');
+        $data['text_db_connection'] = $this->language->get('text_db_connection');
         $data['text_db_administration'] = $this->language->get('text_db_administration');
-        $data['text_mysqli']            = $this->language->get('text_mysqli');
-        $data['text_mpdo']              = $this->language->get('text_mpdo');
-        $data['text_pgsql']             = $this->language->get('text_pgsql');
+        $data['text_mysqli'] = $this->language->get('text_mysqli');
+        $data['text_mpdo'] = $this->language->get('text_mpdo');
+        $data['text_pgsql'] = $this->language->get('text_pgsql');
 
         $data['entry_db_driver']   = $this->language->get('entry_db_driver');
         $data['entry_db_hostname'] = $this->language->get('entry_db_hostname');
         $data['entry_db_username'] = $this->language->get('entry_db_username');
         $data['entry_db_password'] = $this->language->get('entry_db_password');
         $data['entry_db_database'] = $this->language->get('entry_db_database');
-        $data['entry_db_port']     = $this->language->get('entry_db_port');
-        $data['entry_db_prefix']   = $this->language->get('entry_db_prefix');
-        $data['entry_username']    = $this->language->get('entry_username');
-        $data['entry_password']    = $this->language->get('entry_password');
-        $data['entry_email']       = $this->language->get('entry_email');
+        $data['entry_db_port'] = $this->language->get('entry_db_port');
+        $data['entry_db_prefix'] = $this->language->get('entry_db_prefix');
+        $data['entry_username'] = $this->language->get('entry_username');
+        $data['entry_password'] = $this->language->get('entry_password');
+        $data['entry_email'] = $this->language->get('entry_email');
 
         $data['button_continue'] = $this->language->get('button_continue');
-        $data['button_back']     = $this->language->get('button_back');
+        $data['button_back'] = $this->language->get('button_back');
 
         if (isset($this->error['warning'])) {
             $data['error_warning'] = $this->error['warning'];
@@ -257,10 +257,10 @@ class ControllerInstallStep3 extends Controller {
             $data['email'] = '';
         }
 
-        $data['back']        = $this->url->link('install/step_2');
+        $data['back'] = $this->url->link('install/step_2');
 
-        $data['footer']      = $this->load->controller('common/footer');
-        $data['header']      = $this->load->controller('common/header');
+        $data['footer'] = $this->load->controller('common/footer');
+        $data['header'] = $this->load->controller('common/header');
         $data['column_left'] = $this->load->controller('common/column_left');
 
         $this->response->setOutput($this->load->view('install/step_3', $data));
