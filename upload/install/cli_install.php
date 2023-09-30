@@ -357,7 +357,6 @@ $script = array_shift($argv);
 $subcommand = array_shift($argv);
 
 switch ($subcommand) {
-
     case "install":
         try {
             $options = get_options($argv);
