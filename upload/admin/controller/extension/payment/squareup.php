@@ -467,7 +467,7 @@ class ControllerExtensionPaymentSquareup extends Controller {
         ];
 
         if (isset($this->request->get['order_id'])) {
-            $filter_data['order_id'] = $this->request->get['order_id'];
+            $filter_data['order_id'] = (int)$this->request->get['order_id'];
         }
 
         $transactions_total = $this->model_extension_payment_squareup->getTotalTransactions($filter_data);
