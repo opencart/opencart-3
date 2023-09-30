@@ -3,10 +3,10 @@ namespace Cart;
 class Weight {
     private object $db;
     private object $config;
-    private array  $weights = [];
+    private array $weights = [];
 
     public function __construct($registry) {
-        $this->db     = $registry->get('db');
+        $this->db = $registry->get('db');
         $this->config = $registry->get('config');
 
         $weight_class_query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "weight_class` wc LEFT JOIN `" . DB_PREFIX . "weight_class_description` wcd ON (wc.`weight_class_id` = wcd.`weight_class_id`) WHERE wcd.`language_id` = '" . (int)$this->config->get('config_language_id') . "'");
