@@ -13,10 +13,10 @@
 class Image {
     private string $file;
     private object $image;
-    private int    $width  = 0;
-    private int    $height = 0;
-    private string $bits   = '';
-    private string $mime   = '';
+    private int $width  = 0;
+    private int $height = 0;
+    private string $bits = '';
+    private string $mime = '';
 
     /**
      * Constructor
@@ -35,8 +35,8 @@ class Image {
 
             $this->width  = $info[0];
             $this->height = $info[1];
-            $this->bits   = isset($info['bits']) ? $info['bits'] : '';
-            $this->mime   = isset($info['mime']) ? $info['mime'] : '';
+            $this->bits = isset($info['bits']) ? $info['bits'] : '';
+            $this->mime = isset($info['mime']) ? $info['mime'] : '';
 
             if ($this->mime == 'image/gif') {
                 $this->image = imagecreatefromgif($file);
@@ -149,10 +149,10 @@ class Image {
 
         $new_width  = (int)($this->width * $scale);
         $new_height = (int)($this->height * $scale);
-        $xpos       = (int)(($width - $new_width) / 2);
-        $ypos       = (int)(($height - $new_height) / 2);
+        $xpos = (int)(($width - $new_width) / 2);
+        $ypos = (int)(($height - $new_height) / 2);
 
-        $image_old   = $this->image;
+        $image_old = $this->image;
         $this->image = imagecreatetruecolor($width, $height);
 
         if ($this->mime == 'image/png') {
@@ -179,7 +179,7 @@ class Image {
         imagecopyresampled($this->image, $image_old, $xpos, $ypos, 0, 0, $new_width, $new_height, $this->width, $this->height);
         imagedestroy($image_old);
 
-        $this->width  = $width;
+        $this->width = $width;
         $this->height = $height;
     }
 
@@ -241,13 +241,13 @@ class Image {
      * @param    int    $bottom_y
      */
     public function crop(int $top_x, int $top_y, int $bottom_x, int $bottom_y): void {
-        $image_old   = $this->image;
+        $image_old = $this->image;
         $this->image = imagecreatetruecolor($bottom_x - $top_x, $bottom_y - $top_y);
 
         imagecopy($this->image, $image_old, 0, 0, $top_x, $top_y, $this->width, $this->height);
         imagedestroy($image_old);
 
-        $this->width  = $bottom_x - $top_x;
+        $this->width = $bottom_x - $top_x;
         $this->height = $bottom_y - $top_y;
     }
 
@@ -260,7 +260,7 @@ class Image {
 
         $this->image = imagerotate($this->image, $degree, imagecolorallocate($this->image, $rgb[0], $rgb[1], $rgb[2]));
 
-        $this->width  = imagesx($this->image);
+        $this->width = imagesx($this->image);
         $this->height = imagesy($this->image);
     }
 
