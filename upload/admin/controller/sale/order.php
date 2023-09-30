@@ -675,8 +675,10 @@ class ControllerSaleOrder extends Controller {
 
         $data['customer_groups'] = $this->model_customer_customer_group->getCustomerGroups();
 
-        // Custom Fields
+        // Upload
         $this->load->model('tool/upload');
+
+        // Custom Fields
         $this->load->model('customer/custom_field');
 
         $data['custom_fields'] = [];
@@ -1600,6 +1602,8 @@ class ControllerSaleOrder extends Controller {
 
         // Subscription
         $this->load->model('sale/subscription');
+
+        // Subscription Status
         $this->load->model('localisation/subscription_status');
 
         // Uploaded files
@@ -1857,6 +1861,8 @@ class ControllerSaleOrder extends Controller {
 
         // Subscription
         $this->load->model('sale/subscription');
+
+        // Subscription Status
         $this->load->model('localisation/subscription_status');
 
         $data['orders'] = [];
