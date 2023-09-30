@@ -6,7 +6,7 @@ class Currency {
     private array  $currencies = [];
 
     public function __construct(object $registry) {
-        $this->db       = $registry->get('db');
+        $this->db = $registry->get('db');
         $this->language = $registry->get('language');
 
         $query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "currency`");
@@ -28,8 +28,8 @@ class Currency {
             return '';
         }
 
-        $symbol_left   = $this->currencies[$currency]['symbol_left'];
-        $symbol_right  = $this->currencies[$currency]['symbol_right'];
+        $symbol_left = $this->currencies[$currency]['symbol_left'];
+        $symbol_right = $this->currencies[$currency]['symbol_right'];
         $decimal_place = $this->currencies[$currency]['decimal_place'];
 
         if (!$value) {
