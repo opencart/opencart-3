@@ -5,13 +5,13 @@ class Customer {
     private object $config;
     private object $request;
     private object $session;
-    private int    $customer_id       = 0;
-    private int    $customer_group_id = 0;
-    private string $firstname         = '';
-    private string $lastname          = '';
-    private string $email             = '';
-    private string $telephone         = '';
-    private bool   $newsletter        = false;
+    private int $customer_id = 0;
+    private int $customer_group_id = 0;
+    private string $firstname = '';
+    private string $lastname = '';
+    private string $email = '';
+    private string $telephone = '';
+    private bool $newsletter = false;
 
     /**
      * Constructor
