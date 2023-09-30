@@ -158,7 +158,7 @@ class ControllerExtensionPaymentSquareup extends Controller {
                 ],
                 'billing_address'     => $billing_address,
                 'buyer_email_address' => $order_info['email'],
-                'delay_capture'       => !$this->cart->hasSubscriptions() && $this->config->get('payment_squareup_delay_capture'),
+                'delay_capture'       => !$this->cart->hasSubscription() && $this->config->get('payment_squareup_delay_capture'),
                 'integration_id'      => Squareup::SQUARE_INTEGRATION_ID
             ];
 
