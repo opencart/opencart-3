@@ -11,21 +11,21 @@
  * Request class
  */
 class Request {
-    public array $get    = [];
-    public array $post   = [];
+    public array $get = [];
+    public array $post = [];
     public array $cookie = [];
-    public array $files  = [];
+    public array $files = [];
     public array $server = [];
 
     /**
      * Constructor
      */
     public function __construct() {
-        $this->get     = $this->clean($_GET);
-        $this->post    = $this->clean($_POST);
-        $this->cookie  = $this->clean($_COOKIE);
-        $this->files   = $this->clean($_FILES);
-        $this->server  = $this->clean($_SERVER);
+        $this->get = $this->clean($_GET);
+        $this->post = $this->clean($_POST);
+        $this->cookie = $this->clean($_COOKIE);
+        $this->files = $this->clean($_FILES);
+        $this->server = $this->clean($_SERVER);
     }
 
     /**
