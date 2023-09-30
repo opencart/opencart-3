@@ -11,15 +11,15 @@
  * Pagination class
  */
 class Pagination {
-    public int    $total      = 0;
-    public int    $page       = 1;
-    public int    $limit      = 20;
-    public int    $num_links  = 8;
-    public string $url        = '';
+    public int $total = 0;
+    public int $page = 1;
+    public int $limit = 20;
+    public int $num_links  = 8;
+    public string $url = '';
     public string $text_first = '|&lt;';
-    public string $text_last  = '&gt;|';
-    public string $text_next  = '&gt;';
-    public string $text_prev  = '&lt;';
+    public string $text_last = '&gt;|';
+    public string $text_next = '&gt;';
+    public string $text_prev = '&lt;';
 
     /**
      * @return    text
@@ -67,19 +67,19 @@ class Pagination {
         if ($num_pages > 1) {
             if ($num_pages <= $num_links) {
                 $start = 1;
-                $end   = $num_pages;
+                $end = $num_pages;
             } else {
                 $start = $page - floor($num_links / 2);
-                $end   = $page + floor($num_links / 2);
+                $end = $page + floor($num_links / 2);
 
                 if ($start < 1) {
-                    $end   += abs($start) + 1;
+                    $end += abs($start) + 1;
                     $start = 1;
                 }
 
                 if ($end > $num_pages) {
                     $start -= ($end - $num_pages);
-                    $end   = $num_pages;
+                    $end = $num_pages;
                 }
             }
 
