@@ -4,12 +4,12 @@ class ControllerCommonColumnLeft extends Controller {
         $this->load->language('common/column_left');
 
         // Step
-        $data['text_license']       = $this->language->get('text_license');
-        $data['text_installation']  = $this->language->get('text_installation');
+        $data['text_license'] = $this->language->get('text_license');
+        $data['text_installation'] = $this->language->get('text_installation');
         $data['text_configuration'] = $this->language->get('text_configuration');
-        $data['text_upgrade']       = $this->language->get('text_upgrade');
-        $data['text_finished']      = $this->language->get('text_finished');
-        $data['text_language']      = $this->language->get('text_language');
+        $data['text_upgrade'] = $this->language->get('text_upgrade');
+        $data['text_finished'] = $this->language->get('text_finished');
+        $data['text_language'] = $this->language->get('text_language');
 
         if (isset($this->request->get['route'])) {
             $data['route'] = $this->request->get['route'];
