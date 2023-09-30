@@ -1,11 +1,11 @@
 <?php
 namespace Template;
 final class Twig {
-    protected string $root      = '';
+    protected string $root = '';
     protected string $directory = '';
     protected object $loader;
-    protected array  $path      = [];
-	protected array  $data      = [];
+    protected array $path = [];
+    protected array $data = [];
 
     public function set(string $key, mixed $value): void {
         $this->data[$key] = $value;
@@ -33,7 +33,7 @@ final class Twig {
 
         try {
             $loader = new \Twig\Loader\ArrayLoader([$filename . '.twig' => $code]);
-            $twig   = new \Twig\Environment($loader, $config);
+            $twig = new \Twig\Environment($loader, $config);
 
             return $twig->render($filename . '.twig', $this->data);
         } catch (Exception $e) {
