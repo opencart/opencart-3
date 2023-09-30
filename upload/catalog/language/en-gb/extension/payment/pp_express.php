@@ -20,7 +20,6 @@ $_['text_canceled_status']           = 'The transaction has been canceled';
 $_['text_skipped_status']            = 'The transaction has been skipped';
 $_['text_expired_status']            = 'The transaction has been expired';
 
-
 // Express
 $_['express_entry_coupon']           = 'Enter your coupon here:';
 
