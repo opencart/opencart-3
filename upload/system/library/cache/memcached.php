@@ -7,7 +7,7 @@ class Memcached {
     const CACHEDUMP_LIMIT = 9999;
 
     public function __construct(int $expire = 3600) {
-        $this->expire    = $expire;
+        $this->expire = $expire;
         $this->memcached = new \Memcached();
 
         $this->memcached->addServer(CACHE_HOSTNAME, CACHE_PORT);
