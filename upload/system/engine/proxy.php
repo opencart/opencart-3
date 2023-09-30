@@ -30,7 +30,7 @@ class Proxy {
     public function __call($key, $args) {
         $arg_data = [];
 
-        $args     = func_get_args();
+        $args = func_get_args();
 
         foreach ($args as $arg) {
             if ($arg instanceof Ref) {
