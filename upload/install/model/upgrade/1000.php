@@ -15,7 +15,7 @@ class ModelUpgrade1000 extends Model {
 
         $string = '';
         $status = false;
-        $lines  = file($file);
+        $lines = file($file);
 
         // Get only the create statements
         foreach ($lines as $line) {
