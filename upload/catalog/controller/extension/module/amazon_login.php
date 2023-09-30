@@ -182,6 +182,7 @@ class ControllerExtensionModuleAmazonLogin extends Controller {
             ];
 
             $data['content_main'] = $this->load->view('extension/module/amazon_login_error', $data);
+            
             $data['column_left'] = $this->load->controller('common/column_left');
             $data['column_right'] = $this->load->controller('common/column_right');
             $data['content_top'] = $this->load->controller('common/content_top');
