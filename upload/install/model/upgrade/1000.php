@@ -42,10 +42,10 @@ class ModelUpgrade1000 extends Model {
         $table_new_data = [];
 
         // Trim any spaces
-        $string     = trim($string);
+        $string = trim($string);
 
         // Trim any ;
-        $string     = trim($string, ';');
+        $string = trim($string, ';');
 
         // Start reading each create statement
         $statements = explode(';', $string);
@@ -89,7 +89,7 @@ class ModelUpgrade1000 extends Model {
 
             // Get indexes
             $index_data = [];
-            $indexes    = [];
+            $indexes = [];
 
             preg_match_all('#key\s*`\w[\w\d]*`\s*\(.*\)#i', $sql, $match);
 
@@ -138,22 +138,22 @@ class ModelUpgrade1000 extends Model {
         // Get all current tables, fields, type, size, etc..
         $table_old_data = [];
 
-        $table_query    = $this->db->query("SHOW TABLES FROM `" . DB_DATABASE . "`");
+        $table_query = $this->db->query("SHOW TABLES FROM `" . DB_DATABASE . "`");
 
         foreach ($table_query->rows as $table) {
             if (oc_substr($table['Tables_in_' . DB_DATABASE], 0, strlen(DB_PREFIX)) == DB_PREFIX) {
-                $field_data          = [];
+                $field_data = [];
                 $extended_field_data = [];
 
-                $field_query         = $this->db->query("SHOW COLUMNS FROM `" . $table['Tables_in_' . DB_DATABASE] . "`");
+                $field_query = $this->db->query("SHOW COLUMNS FROM `" . $table['Tables_in_' . DB_DATABASE] . "`");
 
                 foreach ($field_query->rows as $field) {
-                    $field_data[]          = $field['Field'];
+                    $field_data[] = $field['Field'];
 
                     $extended_field_data[] = $field;
                 }
 
-                $table_old_data[$table['Tables_in_' . DB_DATABASE]]['field_list']          = $field_data;
+                $table_old_data[$table['Tables_in_' . DB_DATABASE]]['field_list'] = $field_data;
                 $table_old_data[$table['Tables_in_' . DB_DATABASE]]['extended_field_data'] = $extended_field_data;
             }
         }
@@ -183,7 +183,7 @@ class ModelUpgrade1000 extends Model {
 
                         foreach ($table_old_data[$table['name']]['extended_field_data'] as $oldfield) {
                             if ($oldfield['Extra'] == 'auto_increment' && $field['autoincrement']) {
-                                $sql    = "ALTER TABLE `" . $table['name'] . "` CHANGE `" . $oldfield['Field'] . "` `" . $field['name'] . "` " . strtoupper($field['type']);
+                                $sql = "ALTER TABLE `" . $table['name'] . "` CHANGE `" . $oldfield['Field'] . "` `" . $field['name'] . "` " . strtoupper($field['type']);
 
                                 $status = false;
                                 break;
