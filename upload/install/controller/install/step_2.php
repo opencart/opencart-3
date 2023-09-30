@@ -14,38 +14,38 @@ class ControllerInstallStep2 extends Controller {
 
         $data['heading_title'] = $this->language->get('heading_title');
 
-        $data['text_step_2']            = $this->language->get('text_step_2');
-        $data['text_install_php']       = $this->language->get('text_install_php');
+        $data['text_step_2']  = $this->language->get('text_step_2');
+        $data['text_install_php'] = $this->language->get('text_install_php');
         $data['text_install_extension'] = $this->language->get('text_install_extension');
-        $data['text_install_file']      = $this->language->get('text_install_file');
+        $data['text_install_file'] = $this->language->get('text_install_file');
         $data['text_install_directory'] = $this->language->get('text_install_directory');
-        $data['text_setting']           = $this->language->get('text_setting');
-        $data['text_current']           = $this->language->get('text_current');
-        $data['text_required']          = $this->language->get('text_required');
-        $data['text_extension']         = $this->language->get('text_extension');
-        $data['text_file']              = $this->language->get('text_file');
-        $data['text_directory']         = $this->language->get('text_directory');
-        $data['text_status']            = $this->language->get('text_status');
-        $data['text_on']                = $this->language->get('text_on');
-        $data['text_off']               = $this->language->get('text_off');
-        $data['text_missing']           = $this->language->get('text_missing');
-        $data['text_writable']          = $this->language->get('text_writable');
-        $data['text_unwritable']        = $this->language->get('text_unwritable');
-        $data['text_version']           = $this->language->get('text_version');
-        $data['text_global']            = $this->language->get('text_global');
-        $data['text_magic']             = $this->language->get('text_magic');
-        $data['text_file_upload']       = $this->language->get('text_file_upload');
-        $data['text_session']           = $this->language->get('text_session');
-        $data['text_db']                = $this->language->get('text_db');
-        $data['text_gd']                = $this->language->get('text_gd');
-        $data['text_curl']              = $this->language->get('text_curl');
-        $data['text_openssl']           = $this->language->get('text_openssl');
-        $data['text_zlib']              = $this->language->get('text_zlib');
-        $data['text_zip']               = $this->language->get('text_zip');
-        $data['text_mbstring']          = $this->language->get('text_mbstring');
+        $data['text_setting'] = $this->language->get('text_setting');
+        $data['text_current'] = $this->language->get('text_current');
+        $data['text_required'] = $this->language->get('text_required');
+        $data['text_extension'] = $this->language->get('text_extension');
+        $data['text_file'] = $this->language->get('text_file');
+        $data['text_directory'] = $this->language->get('text_directory');
+        $data['text_status'] = $this->language->get('text_status');
+        $data['text_on'] = $this->language->get('text_on');
+        $data['text_off'] = $this->language->get('text_off');
+        $data['text_missing'] = $this->language->get('text_missing');
+        $data['text_writable'] = $this->language->get('text_writable');
+        $data['text_unwritable'] = $this->language->get('text_unwritable');
+        $data['text_version'] = $this->language->get('text_version');
+        $data['text_global'] = $this->language->get('text_global');
+        $data['text_magic'] = $this->language->get('text_magic');
+        $data['text_file_upload'] = $this->language->get('text_file_upload');
+        $data['text_session'] = $this->language->get('text_session');
+        $data['text_db'] = $this->language->get('text_db');
+        $data['text_gd'] = $this->language->get('text_gd');
+        $data['text_curl'] = $this->language->get('text_curl');
+        $data['text_openssl'] = $this->language->get('text_openssl');
+        $data['text_zlib'] = $this->language->get('text_zlib');
+        $data['text_zip'] = $this->language->get('text_zip');
+        $data['text_mbstring'] = $this->language->get('text_mbstring');
 
         $data['button_continue'] = $this->language->get('button_continue');
-        $data['button_back']     = $this->language->get('button_back');
+        $data['button_back'] = $this->language->get('button_back');
 
         if (isset($this->error['warning'])) {
             $data['error_warning'] = $this->error['warning'];
@@ -140,13 +140,13 @@ class ControllerInstallStep2 extends Controller {
             $data['db'] = true;
         }
 
-        $data['gd']             = extension_loaded('gd');
-        $data['curl']           = extension_loaded('curl');
-        $data['openssl']        = function_exists('openssl_encrypt');
-        $data['zlib']           = extension_loaded('zlib');
-        $data['zip']            = extension_loaded('zip');
-        $data['iconv']          = function_exists('iconv');
-        $data['mbstring']       = extension_loaded('mbstring');
+        $data['gd'] = extension_loaded('gd');
+        $data['curl'] = extension_loaded('curl');
+        $data['openssl'] = function_exists('openssl_encrypt');
+        $data['zlib'] = extension_loaded('zlib');
+        $data['zip'] = extension_loaded('zip');
+        $data['iconv'] = function_exists('iconv');
+        $data['mbstring'] = extension_loaded('mbstring');
 
         $data['catalog_config'] = DIR_OPENCART . 'config.php';
         $data['admin_config']   = DIR_OPENCART . 'admin/config.php';
