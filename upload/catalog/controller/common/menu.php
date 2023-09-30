@@ -3,8 +3,10 @@ class ControllerCommonMenu extends Controller {
     public function index(): string {
         $this->load->language('common/menu');
 
-        // Menu
+        // Product
         $this->load->model('catalog/product');
+
+        // Category
         $this->load->model('catalog/category');
 
         $data['categories'] = [];
