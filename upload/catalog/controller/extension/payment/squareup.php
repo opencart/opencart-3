@@ -63,8 +63,10 @@ class ControllerExtensionPaymentSquareup extends Controller {
         // Countries
         $this->load->model('localisation/country');
 
-        // Squareup
+        // Payment Squareup
         $this->load->model('extension/payment/squareup');
+
+        // Credit Card Squareup
         $this->load->model('extension/credit_card/squareup');
 
         $this->load->library('squareup');
