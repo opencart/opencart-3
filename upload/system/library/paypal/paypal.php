@@ -6,13 +6,13 @@ class PayPal {
         'production' => 'https://api.paypal.com'
     ];
 
-    private string $environment   = 'sandbox';
-    private string $partner_id    = '';
-    private string $client_id     = '';
-    private string $secret        = '';
-    private string $access_token  = '';
-    private array  $errors        = [];
-    private array  $last_response = [];
+    private string $environment = 'sandbox';
+    private string $partner_id = '';
+    private string $client_id = '';
+    private string $secret = '';
+    private string $access_token = '';
+    private array $errors = [];
+    private array $last_response = [];
 
     // IN:  paypal info
     public function __construct($paypal_info) {
@@ -290,23 +290,23 @@ class PayPal {
             switch (strtolower(trim($method))) {
                 case 'get':
                     $curl_options[CURLOPT_HTTPGET] = true;
-                    $curl_options[CURLOPT_URL]     .= '?' . $this->buildQuery($params, $json);
+                    $curl_options[CURLOPT_URL] .= '?' . $this->buildQuery($params, $json);
 
                     break;
                 case 'post':
-                    $curl_options[CURLOPT_POST]       = true;
+                    $curl_options[CURLOPT_POST] = true;
                     $curl_options[CURLOPT_POSTFIELDS] = $this->buildQuery($params, $json);
 
                     break;
                 case 'patch':
-                    $curl_options[CURLOPT_POST]          = true;
-                    $curl_options[CURLOPT_POSTFIELDS]    = $this->buildQuery($params, $json);
+                    $curl_options[CURLOPT_POST] = true;
+                    $curl_options[CURLOPT_POSTFIELDS] = $this->buildQuery($params, $json);
                     $curl_options[CURLOPT_CUSTOMREQUEST] = strtoupper($method);
 
                     break;
                 case 'delete':
-                    $curl_options[CURLOPT_POST]          = true;
-                    $curl_options[CURLOPT_POSTFIELDS]    = $this->buildQuery($params, $json);
+                    $curl_options[CURLOPT_POST] = true;
+                    $curl_options[CURLOPT_POSTFIELDS] = $this->buildQuery($params, $json);
                     $curl_options[CURLOPT_CUSTOMREQUEST] = strtoupper($method);
 
                     break;
@@ -318,7 +318,7 @@ class PayPal {
                             $params_string = $this->buildQuery($params, $json);
                             fwrite($buffer, $params_string);
                             fseek($buffer, 0);
-                            $curl_options[CURLOPT_INFILE]     = $buffer;
+                            $curl_options[CURLOPT_INFILE] = $buffer;
                             $curl_options[CURLOPT_INFILESIZE] = strlen($params_string);
                         } else {
                             $this->errors[] = [
@@ -346,7 +346,7 @@ class PayPal {
             if (curl_errno($ch)) {
                 $curl_code = curl_errno($ch);
 
-                $constant      = get_defined_constants(true);
+                $constant = get_defined_constants(true);
                 $curl_constant = preg_grep('/^CURLE_/', array_flip($constant['curl']));
 
                 $this->errors[] = [
