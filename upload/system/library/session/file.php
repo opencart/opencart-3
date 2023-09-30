@@ -18,7 +18,7 @@ class File {
 
                 flock($handle, LOCK_SH);
 
-                $data   = fread($handle, $size);
+                $data = fread($handle, $size);
 
                 flock($handle, LOCK_UN);
 
@@ -34,7 +34,7 @@ class File {
     }
 
     public function write(string $session_id, array $data): bool {
-        $file   = DIR_SESSION . 'sess_' . basename($session_id);
+        $file = DIR_SESSION . 'sess_' . basename($session_id);
 
         $handle = fopen($file, 'c');
 
