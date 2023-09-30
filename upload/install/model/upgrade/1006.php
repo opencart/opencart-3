@@ -18,7 +18,7 @@ class ModelUpgrade1006 extends Model {
             foreach ($files as $file) {
                 $upgrade = true;
 
-                $lines   = file($file);
+                $lines = file($file);
 
                 foreach ($lines as $line) {
                     if (strpos(strtoupper($line), 'DB_PORT') !== false) {
@@ -54,9 +54,9 @@ class ModelUpgrade1006 extends Model {
             foreach ($files as $file) {
                 $upgrade = true;
 
-                $lines   = file($file);
+                $lines = file($file);
 
-                $output  = '';
+                $output = '';
 
                 foreach ($lines as $line_id => $line) {
                     $output .= $line;
