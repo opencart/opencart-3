@@ -182,8 +182,10 @@ class ModelExtensionPaymentWorldpay extends Model {
     }
 
     public function cronPayment() {
-        // Orders
+        // Account Order
         $this->load->model('account/order');
+
+        // Checkout Order
         $this->load->model('checkout/order');
 
         $i = 1;
