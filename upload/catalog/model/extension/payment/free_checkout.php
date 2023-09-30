@@ -15,7 +15,7 @@ class ModelExtensionPaymentFreeCheckout extends Model {
 
         if ((float)$total <= 0.00) {
             $status = true;
-        } elseif ($this->cart->hasSubscriptions()) {
+        } elseif ($this->cart->hasSubscription()) {
             $status = false;
         } else {
             $status = false;
