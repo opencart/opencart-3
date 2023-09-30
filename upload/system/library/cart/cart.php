@@ -388,7 +388,7 @@ class Cart {
         return count($this->getProducts());
     }
 
-    public function hasSubscriptions(): bool {
+    public function hasSubscription(): bool {
         return count($this->getSubscriptions());
     }
 
