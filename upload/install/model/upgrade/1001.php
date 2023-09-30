@@ -172,7 +172,7 @@ class ModelUpgrade1001 extends Model {
 
                 $upgrade = true;
 
-                $lines   = file($file);
+                $lines = file($file);
 
                 foreach ($lines as $line) {
                     if (strpos($line, 'DIR_MODIFICATION') !== false) {
@@ -206,7 +206,7 @@ class ModelUpgrade1001 extends Model {
 
                 $upgrade = true;
 
-                $lines   = file($file);
+                $lines = file($file);
 
                 foreach ($lines as $line) {
                     if (strpos($line, 'DIR_UPLOAD') !== false) {
@@ -240,7 +240,7 @@ class ModelUpgrade1001 extends Model {
 
                 $upgrade = false;
 
-                $lines   = file($file);
+                $lines = file($file);
 
                 foreach ($lines as $line) {
                     if (strpos($line, "'mysql'") !== false) {
