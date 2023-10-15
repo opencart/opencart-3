@@ -1648,16 +1648,10 @@ class ControllerExtensionPaymentPPExpress extends Controller {
         $response = trim(curl_exec($curl));
 
         if (!$response) {
-            $this->model_extension_payment_pp_express->log([
-                'error'    => curl_error($curl),
-                'error_no' => curl_errno($curl)
-            ], 'Curl failed');
+            $this->model_extension_payment_pp_express->log(['error' => curl_error($curl), 'error_no' => curl_errno($curl)], 'Curl failed');
         }
 
-        $this->model_extension_payment_pp_express->log([
-            'request'  => $request,
-            'response' => $response
-        ], 'IPN data');
+        $this->model_extension_payment_pp_express->log(['request' => $request, 'response' => $response], 'IPN data');
 
         if ((string)$response == 'VERIFIED') {
             if (isset($this->request->post['transaction_entity'])) {
