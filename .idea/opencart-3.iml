@@ -2,6 +2,7 @@
 <module type="WEB_MODULE" version="4">
   <component name="NewModuleRootManager">
     <content url="file://$MODULE_DIR$">
+      <sourceFolder url="file://$MODULE_DIR$/upload/system/library" isTestSource="false" />
       <excludeFolder url="file://$MODULE_DIR$/upload/system/storage/vendor/klarna/kco_rest" />
       <excludeFolder url="file://$MODULE_DIR$/upload/system/storage/vendor/composer" />
       <excludeFolder url="file://$MODULE_DIR$/upload/system/storage/vendor/psr/log" />
