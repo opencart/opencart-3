@@ -28,11 +28,7 @@ class ControllerExtensionPaymentAmazonLoginPay extends Controller {
         // Cancel an existing order reference
         unset($this->session->data['order_id']);
 
-        if (!empty($this->session->data['apalwa']['pay']['order_reference_id']) && !$this->model_extension_payment_amazon_login_pay->isOrderInState($this->session->data['apalwa']['pay']['order_reference_id'], [
-                'Canceled',
-                'Closed',
-                'Draft'
-            ])) {
+        if (!empty($this->session->data['apalwa']['pay']['order_reference_id']) && !$this->model_extension_payment_amazon_login_pay->isOrderInState($this->session->data['apalwa']['pay']['order_reference_id'], ['Canceled', 'Closed', 'Draft'])) {
             $this->model_extension_payment_amazon_login_pay->cancelOrder($this->session->data['apalwa']['pay']['order_reference_id'], "Shipment widget has been requested, cancelling this order reference.");
 
             unset($this->session->data['apalwa']['pay']['order_reference_id']);
@@ -800,10 +796,7 @@ class ControllerExtensionPaymentAmazonLoginPay extends Controller {
             }
 
             // In case a payment has been completed, and the order is not closed, close it.
-            if (isset($authorization->CapturedAmount->Amount) && (float)$authorization->CapturedAmount->Amount && $this->model_extension_payment_amazon_login_pay->isOrderInState($order_reference_id, [
-                    'Open',
-                    'Suspended'
-                ])) {
+            if (isset($authorization->CapturedAmount->Amount) && (float)$authorization->CapturedAmount->Amount && $this->model_extension_payment_amazon_login_pay->isOrderInState($order_reference_id, ['Open', 'Suspended'])) {
                 $this->model_extension_payment_amazon_login_pay->closeOrder($order_reference_id, "A capture has been performed. Closing the order.");
             }
 
@@ -1002,10 +995,7 @@ class ControllerExtensionPaymentAmazonLoginPay extends Controller {
                 $amazon_login_pay_order = $this->model_extension_payment_amazon_login_pay->getOrderByOrderId($order_id);
                 $capture_response = $this->model_extension_payment_amazon_login_pay->captureOrder($amazon_login_pay_order['amazon_authorization_id'], $amazon_login_pay_order['total'], $amazon_login_pay_order['currency_code']);
 
-                if (isset($capture_response->CaptureStatus->State) && in_array($capture_response->CaptureStatus->State, [
-                        'Completed',
-                        'Pending'
-                    ])) {
+                if (isset($capture_response->CaptureStatus->State) && in_array($capture_response->CaptureStatus->State, ['Completed', 'Pending'])) {
                     $order_reference_id = $amazon_login_pay_order['amazon_order_reference_id'];
 
                     if ($this->model_extension_payment_amazon_login_pay->isOrderInState($order_reference_id, [
