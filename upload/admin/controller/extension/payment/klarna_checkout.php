@@ -855,7 +855,7 @@ class ControllerExtensionPaymentKlarnaCheckout extends Controller {
         // Klarna Checkout
         $this->load->model('extension/payment/klarna_checkout');
 
-        if (version_compare(phpversion(), '8.1', '<')) {
+        if (version_compare(phpversion(), '8.2', '<')) {
             $this->error['warning'] = $this->language->get('error_php_version');
         }
 
