@@ -5,7 +5,7 @@ class ControllerExtensionModulePayPalSmartButton extends Controller {
     public function __construct(object $registry) {
         parent::__construct($registry);
 
-        if (version_compare(phpversion(), '8.1', '>=')) {
+        if (version_compare(phpversion(), '8.2', '>=')) {
             ini_set('precision', 14);
             ini_set('serialize_precision', 14);
         }
