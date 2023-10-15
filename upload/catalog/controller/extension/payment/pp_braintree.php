@@ -65,19 +65,7 @@ class ControllerExtensionPaymentPPBraintree extends Controller {
         $data['currency_code'] = $order_info['currency_code'];
 
         // disable paypal option if currency is not in supported array
-        if (!in_array($order_info['currency_code'], [
-            'USD',
-            'EUR',
-            'GBP',
-            'CAD',
-            'AUD',
-            'DKK',
-            'NOK',
-            'PLN',
-            'SEK',
-            'CHF',
-            'TRY'
-        ])) {
+        if (!in_array($order_info['currency_code'], ['USD', 'EUR', 'GBP', 'CAD', 'AUD', 'DKK', 'NOK', 'PLN', 'SEK', 'CHF', 'TRY'])) {
             $data['payment_pp_braintree_paypal_option'] = false;
         }
 
