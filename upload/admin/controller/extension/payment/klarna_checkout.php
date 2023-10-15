@@ -344,10 +344,7 @@ class ControllerExtensionPaymentKlarnaCheckout extends Controller {
             return;
         }
 
-        [
-            $klarna_account,
-            $connector
-        ] = $this->model_extension_payment_klarna_checkout->getConnector($this->config->get('payment_klarna_checkout_account'), $order_info['currency_code']);
+        [$klarna_account, $connector] = $this->model_extension_payment_klarna_checkout->getConnector($this->config->get('payment_klarna_checkout_account'), $order_info['currency_code']);
 
         if (!$klarna_account || !$connector) {
             return;
