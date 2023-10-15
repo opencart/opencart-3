@@ -117,10 +117,7 @@ class ControllerExtensionPaymentKlarnaCheckout extends Controller {
         }
 
         // Klarna Connector
-        [
-            $klarna_account,
-            $connector
-        ] = $this->model_extension_payment_klarna_checkout->getConnector($this->config->get('payment_klarna_checkout_account'), $this->session->data['currency']);
+        [$klarna_account, $connector] = $this->model_extension_payment_klarna_checkout->getConnector($this->config->get('payment_klarna_checkout_account'), $this->session->data['currency']);
 
         if (!$klarna_account || !$connector) {
             $redirect = $this->url->link('checkout/cart');
