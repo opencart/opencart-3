@@ -85,23 +85,23 @@ class ControllerExtensionModuleKlarnaCheckoutModule extends Controller {
 			$zone_info = $this->model_localisation_zone->getZone($this->config->get('config_zone_id'));
 
 			$this->session->data['shipping_address'] = [
-				'address_id'	 => null,
-				'firstname'		 => null,
-				'lastname'		 => null,
-				'company'		 => null,
-				'address_1'		 => null,
-				'address_2'		 => null,
-				'postcode'		 => null,
-				'city'			 => null,
-				'zone_id'		 => $zone_info['zone_id'],
-				'zone'			 => $zone_info['name'],
-				'zone_code'		 => $zone_info['code'],
-				'country_id'	 => $country_info['country_id'],
-				'country'		 => $country_info['name'],
-				'iso_code_2'	 => $country_info['iso_code_2'],
-				'iso_code_3'	 => $country_info['iso_code_3'],
-				'address_format' => '',
-				'custom_field'	 => null,
+                'address_id'     => null,
+                'firstname'      => null,
+                'lastname'       => null,
+                'company'        => null,
+                'address_1'      => null,
+                'address_2'      => null,
+                'postcode'       => null,
+                'city'           => null,
+                'zone_id'        => $zone_info['zone_id'],
+                'zone'           => $zone_info['name'],
+                'zone_code'      => $zone_info['code'],
+                'country_id'     => $country_info['country_id'],
+                'country'        => $country_info['name'],
+                'iso_code_2'     => $country_info['iso_code_2'],
+                'iso_code_3'     => $country_info['iso_code_3'],
+                'address_format' => '',
+                'custom_field'   => null,
 			];
 		}
 
@@ -121,10 +121,10 @@ class ControllerExtensionModuleKlarnaCheckoutModule extends Controller {
 
 					if ($quote) {
 						$method_data[$result['code']] = [
-							'title'      => $quote['title'],
-							'quote'      => $quote['quote'],
-							'sort_order' => $quote['sort_order'],
-							'error'      => $quote['error']
+                            'title'      => $quote['title'],
+                            'quote'      => $quote['quote'],
+                            'sort_order' => $quote['sort_order'],
+                            'error'      => $quote['error']
 						];
 					}
 				}
