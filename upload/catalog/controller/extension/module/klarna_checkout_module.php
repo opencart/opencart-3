@@ -44,11 +44,7 @@ class ControllerExtensionModuleKlarnaCheckoutModule extends Controller {
 			return false;
 		}
 
-		[
-			$totals,
-			$taxes,
-			$total
-		] = $this->model_extension_payment_klarna_checkout->getTotals();
+		[$totals, $taxes, $total] = $this->model_extension_payment_klarna_checkout->getTotals();
 
 		if ($this->config->get('klarna_checkout_total') > 0 && $this->config->get('klarna_checkout_total') > $total) {
 			return false;
@@ -62,10 +58,7 @@ class ControllerExtensionModuleKlarnaCheckoutModule extends Controller {
 
 		$this->setShipping();
 
-		[
-			$klarna_account,
-			$connector
-		] = $this->model_extension_payment_klarna_checkout->getConnector($this->config->get('klarna_checkout_account'), $this->session->data['currency']);
+		[$klarna_account, $connector] = $this->model_extension_payment_klarna_checkout->getConnector($this->config->get('klarna_checkout_account'), $this->session->data['currency']);
 
 		if (!$klarna_account || !$connector) {
 			$this->model_extension_payment_klarna_checkout->log('Couldn\'t secure connection to Klarna API.');
@@ -85,11 +78,9 @@ class ControllerExtensionModuleKlarnaCheckoutModule extends Controller {
 
 		if (isset($this->session->data['shipping_address']) && !empty($this->session->data['shipping_address'])) {
 			$this->session->data['shipping_address'] = $this->session->data['shipping_address'];
-		}
-		elseif ($this->customer->isLogged() && $this->customer->getAddressId()) {
+		} elseif ($this->customer->isLogged() && $this->customer->getAddressId()) {
 			$this->session->data['shipping_address'] = $this->model_account_address->getAddress($this->customer->getAddressId());
-		}
-		else {
+		} else {
 			$country_info = $this->model_localisation_country->getCountry($this->config->get('config_country_id'));
 
 			$zone_info = $this->model_localisation_zone->getZone($this->config->get('config_zone_id'));
