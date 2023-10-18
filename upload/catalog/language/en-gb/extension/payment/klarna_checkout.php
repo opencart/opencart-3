@@ -1,6 +1,9 @@
 <?php
+// Heading
 $_['heading_title']               = 'Klarna Checkout';
 $_['heading_title_success']       = 'Your Klarna Checkout order has been placed!';
+
+// Text
 $_['text_title']                  = 'Klarna Checkout';
 $_['text_basket']                 = 'Shopping Cart';
 $_['text_checkout']               = 'Checkout';
