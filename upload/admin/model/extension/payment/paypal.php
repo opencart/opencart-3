@@ -24,9 +24,9 @@ class ModelExtensionPaymentPayPal extends Model {
 
         for ($i = 0; $i < 24; $i++) {
             $sale_data[$i] = [
-                'hour'  		=> $i,
-                'total' 		=> 0,
-                'paypal_total' 	=> 0
+                'hour'         => $i,
+                'total'        => 0,
+                'paypal_total' => 0
             ];
         }
 
@@ -34,9 +34,9 @@ class ModelExtensionPaymentPayPal extends Model {
 
         foreach ($query->rows as $result) {
             $sale_data[$result['hour']] = [
-                'hour'  		=> $result['hour'],
-                'total' 		=> $result['total'],
-                'paypal_total'  => $result['paypal_total']
+                'hour'         => $result['hour'],
+                'total'        => $result['total'],
+                'paypal_total' => $result['paypal_total']
             ];
         }
 
@@ -58,9 +58,9 @@ class ModelExtensionPaymentPayPal extends Model {
             $date = date('Y-m-d', $date_start + ($i * 86400));
 
             $sale_data[date('w', strtotime($date))] = [
-                'day'   		=> date('D', strtotime($date)),
-                'total' 		=> 0,
-                'paypal_total' 	=> 0
+                'day'          => date('D', strtotime($date)),
+                'total'        => 0,
+                'paypal_total' => 0
             ];
         }
 
@@ -68,9 +68,9 @@ class ModelExtensionPaymentPayPal extends Model {
 
         foreach ($query->rows as $result) {
             $sale_data[date('w', strtotime($result['date_added']))] = [
-                'day'   		=> date('D', strtotime($result['date_added'])),
-                'total' 		=> $result['total'],
-                'paypal_total'  => $result['paypal_total']
+                'day'          => date('D', strtotime($result['date_added'])),
+                'total'        => $result['total'],
+                'paypal_total' => $result['paypal_total']
             ];
         }
 
@@ -90,9 +90,9 @@ class ModelExtensionPaymentPayPal extends Model {
             $date = date('Y') . '-' . date('m') . '-' . $i;
 
             $sale_data[date('j', strtotime($date))] = [
-                'day'   		=> date('d', strtotime($date)),
-                'total' 		=> 0,
-                'paypal_total' 	=> 0
+                'day'          => date('d', strtotime($date)),
+                'total'        => 0,
+                'paypal_total' => 0
             ];
         }
 
@@ -120,9 +120,9 @@ class ModelExtensionPaymentPayPal extends Model {
 
         for ($i = 1; $i <= 12; $i++) {
             $sale_data[$i] = [
-                'month' 		=> date('M', mktime(0, 0, 0, $i)),
-                'total' 		=> 0,
-                'paypal_total' 	=> 0
+                'month'        => date('M', mktime(0, 0, 0, $i)),
+                'total'        => 0,
+                'paypal_total' => 0
             ];
         }
 
