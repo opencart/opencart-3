@@ -1,5 +1,4 @@
 <?php
-
 // Text
 $_['text_paypal']                        = 'PayPal';
 $_['text_paypal_title']                  = 'PayPal (Pay with PayPal, Card)';
