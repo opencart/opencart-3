@@ -1,19 +1,19 @@
 <?php
 $_['paypal_setting'] = [
-    'version' => '2.0.2',
-    'partner' => [
+    'version'               => '2.0.2',
+    'partner'               => [
         'production' => [
             'partner_id'             => 'TY2Q25KP2PX9L',
             'client_id'              => 'AbjxI4a9fMnew8UOMoDFVwSh7h1aeOBaXpd2wcccAnuqecijKIylRnNguGRWDrEPrTYraBQApf_-O3_4',
             'partner_attribution_id' => 'OPENCARTLIMITED_Cart_OpenCartPCP'
         ],
-        'sandbox' => [
+        'sandbox'    => [
             'partner_id'             => 'EJNHWRJJNB38L',
             'client_id'              => 'AfeIgIr-fIcEucsVXvdq21Ufu0wAALWhgJdVF4ItUK1IZFA9I4JIRdfyJ9vWrd9oi0B6mBGtJYDrlYsG',
             'partner_attribution_id' => 'OPENCARTLIMITED_Cart_OpenCartPCP'
         ]
     ],
-    'general' => [
+    'general'               => [
         'debug'                => false,
         'sale_analytics_range' => 'month',
         'checkout_mode'        => 'multi_button',
@@ -24,7 +24,7 @@ $_['paypal_setting'] = [
         'card_currency_code'   => 'USD',
         'card_currency_value'  => '1'
     ],
-    'button' => [
+    'button'                => [
         'checkout' => [
             'page_code' => 'checkout',
             'page_name' => 'text_checkout',
@@ -50,7 +50,7 @@ $_['paypal_setting'] = [
                 'venmo'       => 0
             ]
         ],
-        'product' => [
+        'product'  => [
             'page_code'   => 'product',
             'page_name'   => 'text_product',
             'status'      => true,
@@ -79,7 +79,7 @@ $_['paypal_setting'] = [
                 'venmo'       => 0
             ]
         ],
-        'cart' => [
+        'cart'     => [
             'page_code'   => 'cart',
             'page_name'   => 'text_cart',
             'status'      => true,
@@ -108,7 +108,7 @@ $_['paypal_setting'] = [
             ],
         ]
     ],
-    'applepay_button' => [
+    'applepay_button'       => [
         'status' => true,
         'align'  => 'right',
         'size'   => 'large',
@@ -116,7 +116,7 @@ $_['paypal_setting'] = [
         'shape'  => 'rect',
         'type'   => 'buy'
     ],
-    'card' => [
+    'card'                  => [
         'status'          => true,
         'align'           => 'right',
         'size'            => 'large',
@@ -132,7 +132,7 @@ $_['paypal_setting'] = [
             'system_bypassed'          => 1
         ]
     ],
-    'message' => [
+    'message'               => [
         'checkout' => [
             'page_code'  => 'checkout',
             'page_name'  => 'text_checkout',
@@ -145,7 +145,7 @@ $_['paypal_setting'] = [
             'flex_color' => 'blue',
             'flex_ratio' => '8x1'
         ],
-        'home' => [
+        'home'     => [
             'page_code'   => 'home',
             'page_name'   => 'text_home',
             'status'      => true,
@@ -159,7 +159,7 @@ $_['paypal_setting'] = [
             'flex_color'  => 'blue',
             'flex_ratio'  => '8x1'
         ],
-        'product' => [
+        'product'  => [
             'page_code'   => 'product',
             'page_name'   => 'text_product',
             'status'      => true,
@@ -173,7 +173,7 @@ $_['paypal_setting'] = [
             'flex_color'  => 'blue',
             'flex_ratio'  => '8x1'
         ],
-        'cart' => [
+        'cart'     => [
             'page_code'   => 'cart',
             'page_name'   => 'text_cart',
             'status'      => true,
@@ -188,44 +188,44 @@ $_['paypal_setting'] = [
             'flex_ratio'  => '8x1'
         ]
     ],
-    'order_status' => [
+    'order_status'          => [
         'completed' => [
             'code' => 'completed',
             'name' => 'text_completed_status',
             'id'   => 5
         ],
-        'denied' => [
+        'denied'    => [
             'code' => 'denied',
             'name' => 'text_denied_status',
             'id'   => 8
         ],
-        'failed' => [
+        'failed'    => [
             'code' => 'failed',
             'name' => 'text_failed_status',
             'id'   => 10
         ],
-        'pending' => [
+        'pending'   => [
             'code' => 'pending',
             'name' => 'text_pending_status',
             'id'   => 1
         ],
-        'refunded' => [
+        'refunded'  => [
             'code' => 'refunded',
             'name' => 'text_refunded_status',
             'id'   => 11
         ],
-        'reversed' => [
+        'reversed'  => [
             'code' => 'reversed',
             'name' => 'text_reversed_status',
             'id'   => 12
         ],
-        'voided' => [
+        'voided'    => [
             'code' => 'voided',
             'name' => 'text_voided_status',
             'id'   => 16
         ]
     ],
-    'contact' => [
+    'contact'               => [
         'oid'                           => '00D300000000LaY',
         'retURL'                        => 'https://www.opencart.com/',
         'Vendor_Partner_ID_VPID_MAM__c' => '0018000000LjXtY',
@@ -245,12 +245,12 @@ $_['paypal_setting'] = [
         '00N2E00000II4xO'               => '',
         '00N80000004IGsC'               => ''
     ],
-    'sale_analytics_range' => [
-        'day' => [
+    'sale_analytics_range'  => [
+        'day'   => [
             'code' => 'day',
             'name' => 'text_day'
         ],
-        'week' => [
+        'week'  => [
             'code' => 'week',
             'name' => 'text_week'
         ],
@@ -258,32 +258,32 @@ $_['paypal_setting'] = [
             'code' => 'month',
             'name' => 'text_month'
         ],
-        'year' => [
+        'year'  => [
             'code' => 'year',
             'name' => 'text_year'
         ]
     ],
-    'checkout_mode' => [
+    'checkout_mode'         => [
         'multi_button' => [
             'code' => 'multi_button',
             'name' => 'text_multi_button'
         ],
-        'one_button' => [
+        'one_button'   => [
             'code' => 'one_button',
             'name' => 'text_one_button'
         ]
     ],
-    'transaction_method' => [
+    'transaction_method'    => [
         'authorize' => [
             'code' => 'authorize',
             'name' => 'text_authorization'
         ],
-        'capture' => [
+        'capture'   => [
             'code' => 'capture',
             'name' => 'text_sale'
         ]
     ],
-    'paylater_country' => [
+    'paylater_country'      => [
         'US' => [
             'code' => 'US'
         ],
@@ -306,7 +306,7 @@ $_['paypal_setting'] = [
             'code' => 'AU'
         ]
     ],
-    'currency' => [
+    'currency'              => [
         'AUD' => [
             'code'          => 'AUD',
             'name'          => 'text_currency_aud',
@@ -483,26 +483,26 @@ $_['paypal_setting'] = [
             'card_status'   => true
         ]
     ],
-    'button_insert_type' => [
+    'button_insert_type'    => [
         'into_begin' => [
-            'code'	=> 'prepend',
-            'name'	=> 'text_insert_prepend'
+            'code' => 'prepend',
+            'name' => 'text_insert_prepend'
         ],
-        'into_end' => [
-            'code'	=> 'append',
-            'name'	=> 'text_insert_append'
+        'into_end'   => [
+            'code' => 'append',
+            'name' => 'text_insert_append'
         ],
-        'before' => [
-            'code'	=> 'before',
-            'name'	=> 'text_insert_before'
+        'before'     => [
+            'code' => 'before',
+            'name' => 'text_insert_before'
         ],
-        'after' => [
-            'code'	=> 'after',
-            'name'	=> 'text_insert_after'
+        'after'      => [
+            'code' => 'after',
+            'name' => 'text_insert_after'
         ]
     ],
-    'button_align' => [
-        'left' => [
+    'button_align'          => [
+        'left'   => [
             'code' => 'left',
             'name' => 'text_align_left'
         ],
@@ -510,21 +510,21 @@ $_['paypal_setting'] = [
             'code' => 'center',
             'name' => 'text_align_center'
         ],
-        'right' => [
+        'right'  => [
             'code' => 'right',
             'name' => 'text_align_right'
         ]
     ],
-    'button_size' => [
-        'small' => [
+    'button_size'           => [
+        'small'      => [
             'code' => 'small',
             'name' => 'text_small'
         ],
-        'medium' => [
+        'medium'     => [
             'code' => 'medium',
             'name' => 'text_medium'
         ],
-        'large' => [
+        'large'      => [
             'code' => 'large',
             'name' => 'text_large'
         ],
@@ -533,12 +533,12 @@ $_['paypal_setting'] = [
             'name' => 'text_responsive'
         ]
     ],
-    'button_color' => [
-        'gold' => [
+    'button_color'          => [
+        'gold'   => [
             'code' => 'gold',
             'name' => 'text_gold'
         ],
-        'blue' => [
+        'blue'   => [
             'code' => 'blue',
             'name' => 'text_blue'
         ],
@@ -546,16 +546,16 @@ $_['paypal_setting'] = [
             'code' => 'silver',
             'name' => 'text_silver'
         ],
-        'white' => [
+        'white'  => [
             'code' => 'white',
             'name' => 'text_white'
         ],
-        'black' => [
+        'black'  => [
             'code' => 'black',
             'name' => 'text_black'
         ]
     ],
-    'button_shape' => [
+    'button_shape'          => [
         'pill' => [
             'code' => 'pill',
             'name' => 'text_pill'
@@ -565,414 +565,414 @@ $_['paypal_setting'] = [
             'name' => 'text_rect'
         ]
     ],
-    'button_label' => [
-        'checkout' => [
+    'button_label'          => [
+        'checkout'    => [
             'code' => 'checkout',
             'name' => 'text_checkout'
         ],
-        'pay' => [
+        'pay'         => [
             'code' => 'pay',
             'name' => 'text_pay'
-		],
-		'buynow' => [
+        ],
+        'buynow'      => [
             'code' => 'buynow',
             'name' => 'text_buy_now'
-		],
-		'paypal' => [
+        ],
+        'paypal'      => [
             'code' => 'paypal',
             'name' => 'text_pay_pal'
-		],
-		'installment' => [
+        ],
+        'installment' => [
             'code' => 'installment',
             'name' => 'text_installment'
-		]
-	],
-	'button_tagline' => [
-        'true' => [
+        ]
+    ],
+    'button_tagline'        => [
+        'true'  => [
             'code' => 'true',
             'name' => 'text_yes'
-		],
-		'false' => [
+        ],
+        'false' => [
             'code' => 'false',
             'name' => 'text_no'
-		],
-	],
-	'button_width' => [
+        ],
+    ],
+    'button_width'          => [
         'small'      => '200px',
         'medium'     => '250px',
         'large'      => '350px',
         'responsive' => ''
-	],
-	'button_funding' => [
-        'paylater' => [
+    ],
+    'button_funding'        => [
+        'paylater'    => [
             'code' => 'paylater',
             'name' => 'text_paylater'
-		],
-		'card' => [
+        ],
+        'card'        => [
             'code' => 'card',
             'name' => 'text_card'
-		],
-		'bancontact' => [
+        ],
+        'bancontact'  => [
             'code' => 'bancontact',
             'name' => 'text_bancontact'
-		],
-		'blik' => [
+        ],
+        'blik'        => [
             'code' => 'blik',
             'name' => 'text_blik'
-		],
-		'eps' => [
+        ],
+        'eps'         => [
             'code' => 'eps',
             'name' => 'text_eps'
-		],
-		'giropay' => [
+        ],
+        'giropay'     => [
             'code' => 'giropay',
             'name' => 'text_giropay'
-		],
-		'ideal' => [
+        ],
+        'ideal'       => [
             'code' => 'ideal',
             'name' => 'text_ideal'
-		],
-		'mercadopago' => [
+        ],
+        'mercadopago' => [
             'code' => 'mercadopago',
             'name' => 'text_mercadopago'
-		],
-		'mybank' => [
+        ],
+        'mybank'      => [
             'code' => 'mybank',
             'name' => 'text_mybank'
-		],
-		'p24' => [
+        ],
+        'p24'         => [
             'code' => 'p24',
             'name' => 'text_p24'
-		],
-		'sepa' => [
+        ],
+        'sepa'        => [
             'code' => 'sepa',
             'name' => 'text_sepa'
-		],
-        'sofort' => [
+        ],
+        'sofort'      => [
             'code' => 'sofort',
             'name' => 'text_sofort'
-		],
-		'venmo' => [
+        ],
+        'venmo'       => [
             'code' => 'venmo',
             'name' => 'text_venmo'
-		]
-	],
-	'applepay_button_align' => [
-        'left' => [
+        ]
+    ],
+    'applepay_button_align' => [
+        'left'   => [
             'code' => 'left',
             'name' => 'text_align_left'
-		],
-		'center' => [
+        ],
+        'center' => [
             'code' => 'center',
             'name' => 'text_align_center'
-		],
-		'right' => [
+        ],
+        'right'  => [
             'code' => 'right',
             'name' => 'text_align_right'
-		]
-	],
-	'applepay_button_size' => [
-        'small' => [
+        ]
+    ],
+    'applepay_button_size'  => [
+        'small'      => [
             'code' => 'small',
             'name' => 'text_small'
-		],
-		'medium' => [
+        ],
+        'medium'     => [
             'code' => 'medium',
             'name' => 'text_medium'
-		],
-		    'large' => [
-                'code' => 'large',
-                'name' => 'text_large'
-		    ],
-		    'responsive' => [
-                'code' => 'responsive',
-                'name' => 'text_responsive'
-		    ]
-	    ],
-	    'applepay_button_color' => [
-            'black' => [
-                'code' => 'black',
-                'name' => 'text_black'
-		    ],
-		    'white' => [
-                'code' => 'white',
-                'name' => 'text_white'
-		    ],
-		    'white_outline' => [
-                'code' => 'white-outline',
-                'name' => 'text_white_outline'
-		    ]
-	    ],
-	    'applepay_button_shape' => [
-            'pill' => [
-                'code' => 'pill',
-                'name' => 'text_pill'
-		    ],
-		    'rect' => [
-                'code' => 'rect',
-                'name' => 'text_rect'
-		    ]
-	    ],
-	    'applepay_button_type' => [
-            'buy' => [
-                'code' => 'buy',
-                'name' => 'text_buy'
-		    ],
-		    'donate' => [
-                'code' => 'donate',
-                'name' => 'text_donate'
-		    ],
-		    'plain' => [
-                'code' => 'plain',
-                'name' => 'text_plain'
-		    ],
-		    'check-out' => [
-                'code' => 'check-out',
-                'name' => 'text_check_out'
-		    ]
-	    ],
-	    'applepay_button_width' => [
-            'small'      => '200px',
-            'medium'     => '250px',
-            'large'      => '350px',
-            'responsive' => ''
-	    ],
-	    'card_align' => [
-            'left' => [
-                'code' => 'left',
-                'name' => 'text_align_left'
-		    ],
-		    'center' => [
-                'code' => 'center',
-                'name' => 'text_align_center'
-		    ],
-		    'right' => [
-                'code' => 'right',
-                'name' => 'text_align_right'
-		    ]
-	    ],
-	    'card_size' => [
-            'medium' => [
-                'code' => 'medium',
-                'name' => 'text_medium'
-		    ],
-		    'large' => [
-                'code' => 'large',
-                'name' => 'text_large'
-		    ],
-		    'responsive' => [
-                'code' => 'responsive',
-                'name' => 'text_responsive'
-		    ]
-	    ],
-	    'card_width' => [
-            'medium'     => '250px',
-            'large'      => '350px',
-            'responsive' => ''
-	    ],
-	    'card_secure_scenario' => [
-            'failed_authentication' => [
-                'code'        => 'failed_authentication',
-                'name'        => 'text_3ds_failed_authentication',
-                'error'       => 'error_3ds_failed_authentication',
-                'recommended' => 0
-		    ],
-		    'rejected_authentication' => [
-                'code'        => 'rejected_authentication',
-                'name'        => 'text_3ds_rejected_authentication',
-                'error'       => 'error_3ds_rejected_authentication',
-                'recommended' => 0
-		    ],
-		    'attempted_authentication' => [
-                'code'        => 'attempted_authentication',
-                'name'        => 'text_3ds_attempted_authentication',
-                'error'       => 'error_3ds_attempted_authentication',
-                'recommended' => 1
-		    ],
-		    'unable_authentication' => [
-                'code'        => 'unable_authentication',
-                'name'        => 'text_3ds_unable_authentication',
-                'error'       => 'error_3ds_unable_authentication',
-                'recommended' => 0
-		    ],
-		    'challenge_authentication' => [
-                'code'        => 'challenge_authentication',
-                'name'        => 'text_3ds_challenge_authentication',
-                'error'       => 'error_3ds_challenge_authentication',
-                'recommended' => 0
-		    ],
-		    'card_ineligible' => [
-                'code'        => 'card_ineligible',
-                'name'        => 'text_3ds_card_ineligible',
-                'error'       => 'error_3ds_card_ineligible',
-                'recommended' => 1
-		    ],
-		    'system_unavailable' => [
-                'code'        => 'system_unavailable',
-                'name'        => 'text_3ds_system_unavailable',
-                'error'       => 'error_3ds_system_unavailable',
-                'recommended' => 0
-		    ],
-		    'system_bypassed' => [
-                'code'        => 'system_bypassed',
-                'name'        => 'text_3ds_system_bypassed',
-                'error'       => 'error_3ds_system_bypassed',
-                'recommended' => 1
-		    ]
-	    ],
-	    'message_insert_type' => [
-            'into_begin' => [
-                'code'	=> 'prepend',
-                'name'	=> 'text_insert_prepend'
-		    ],
-		    'into_end' => [
-                'code'	=> 'append',
-                'name'	=> 'text_insert_append'
-		    ],
-		    'before' => [
-                'code'	=> 'before',
-                'name'	=> 'text_insert_before'
-		    ],
-		    'after' => [
-                'code'	=> 'after',
-                'name'	=> 'text_insert_after'
-		    ]
-	    ],
-	    'message_align' => [
-            'left' => [
-                'code' => 'left',
-                'name' => 'text_align_left'
-		    ],
-		    'center' => [
-                'code' => 'center',
-                'name' => 'text_align_center'
-		    ],
-		    'right' => [
-                'code' => 'right',
-                'name' => 'text_align_right'
-		    ]
-	    ],
-	    'message_size' => [
-            'small' => [
-                'code' => 'small',
-                'name' => 'text_small'
-		    ],
-		    'medium' => [
-                'code' => 'medium',
-                'name' => 'text_medium'
-		    ],
-		    'large' => [
-                'code' => 'large',
-                'name' => 'text_large'
-		    ],
-		    'responsive' => [
-                'code' => 'responsive',
-                'name' => 'text_responsive'
-		    ]
-	    ],
-	    'message_width' => [
-            'small'      => '200px',
-            'medium'     => '250px',
-            'large'      => '350px',
-            'responsive' => ''
-	    ],
-	    'message_layout' => [
-            'text' => [
-                'code' => 'text',
-                'name' => 'text_text'
-		    ],
-		    'flex' => [
-                'code' => 'flex',
-                'name' => 'text_flex'
-		    ]
-	    ],
-	    'message_text_color' => [
-            'black' => [
-                'code' => 'black',
-                'name' => 'text_black'
-		    ],
-		    'white' => [
-                'code' => 'white',
-                'name' => 'text_white'
-		    ]
-	    ],
-	    'message_text_size' => [
-            '10',
-            '11',
-            '12',
-            '13',
-            '14',
-            '15',
-            '16'
         ],
-	    'message_flex_color' => [
-            'blue' => [
-                'code' => 'blue',
-                'name' => 'text_blue'
-		    ],
-		    'black' => [
-                'code' => 'black',
-                'name' => 'text_black'
-		    ],
-		    'white' => [
-                'code' => 'white',
-                'name' => 'text_white'
-		    ]
-	    ],
-	    'message_flex_ratio' => [
-            '1x1',
-            '1x4',
-            '8x1',
-            '20x1'
+        'large'      => [
+            'code' => 'large',
+            'name' => 'text_large'
         ],
-	    'contact_sales' => [
-            '100k - 250k',
-            '250k - 2m',
-            '2m - 10m',
-            '10m - 20m',
-            '20m - 50m',
-            '50m +'
+        'responsive' => [
+            'code' => 'responsive',
+            'name' => 'text_responsive'
+        ]
+    ],
+    'applepay_button_color' => [
+        'black'         => [
+            'code' => 'black',
+            'name' => 'text_black'
         ],
-	    'contact_product' => [
+        'white'         => [
+            'code' => 'white',
+            'name' => 'text_white'
+        ],
+        'white_outline' => [
+            'code' => 'white-outline',
+            'name' => 'text_white_outline'
+        ]
+    ],
+    'applepay_button_shape' => [
+        'pill' => [
+            'code' => 'pill',
+            'name' => 'text_pill'
+        ],
+        'rect' => [
+            'code' => 'rect',
+            'name' => 'text_rect'
+        ]
+    ],
+    'applepay_button_type'  => [
+        'buy'       => [
+            'code' => 'buy',
+            'name' => 'text_buy'
+        ],
+        'donate'    => [
+            'code' => 'donate',
+            'name' => 'text_donate'
+        ],
+        'plain'     => [
+            'code' => 'plain',
+            'name' => 'text_plain'
+        ],
+        'check-out' => [
+            'code' => 'check-out',
+            'name' => 'text_check_out'
+        ]
+    ],
+    'applepay_button_width' => [
+        'small'      => '200px',
+        'medium'     => '250px',
+        'large'      => '350px',
+        'responsive' => ''
+    ],
+    'card_align'            => [
+        'left'   => [
+            'code' => 'left',
+            'name' => 'text_align_left'
+        ],
+        'center' => [
+            'code' => 'center',
+            'name' => 'text_align_center'
+        ],
+        'right'  => [
+            'code' => 'right',
+            'name' => 'text_align_right'
+        ]
+    ],
+    'card_size'             => [
+        'medium'     => [
+            'code' => 'medium',
+            'name' => 'text_medium'
+        ],
+        'large'      => [
+            'code' => 'large',
+            'name' => 'text_large'
+        ],
+        'responsive' => [
+            'code' => 'responsive',
+            'name' => 'text_responsive'
+        ]
+    ],
+    'card_width'            => [
+        'medium'     => '250px',
+        'large'      => '350px',
+        'responsive' => ''
+    ],
+    'card_secure_scenario'  => [
+        'failed_authentication'    => [
+            'code'        => 'failed_authentication',
+            'name'        => 'text_3ds_failed_authentication',
+            'error'       => 'error_3ds_failed_authentication',
+            'recommended' => 0
+        ],
+        'rejected_authentication'  => [
+            'code'        => 'rejected_authentication',
+            'name'        => 'text_3ds_rejected_authentication',
+            'error'       => 'error_3ds_rejected_authentication',
+            'recommended' => 0
+        ],
+        'attempted_authentication' => [
+            'code'        => 'attempted_authentication',
+            'name'        => 'text_3ds_attempted_authentication',
+            'error'       => 'error_3ds_attempted_authentication',
+            'recommended' => 1
+        ],
+        'unable_authentication'    => [
+            'code'        => 'unable_authentication',
+            'name'        => 'text_3ds_unable_authentication',
+            'error'       => 'error_3ds_unable_authentication',
+            'recommended' => 0
+        ],
+        'challenge_authentication' => [
+            'code'        => 'challenge_authentication',
+            'name'        => 'text_3ds_challenge_authentication',
+            'error'       => 'error_3ds_challenge_authentication',
+            'recommended' => 0
+        ],
+        'card_ineligible'          => [
+            'code'        => 'card_ineligible',
+            'name'        => 'text_3ds_card_ineligible',
+            'error'       => 'error_3ds_card_ineligible',
+            'recommended' => 1
+        ],
+        'system_unavailable'       => [
+            'code'        => 'system_unavailable',
+            'name'        => 'text_3ds_system_unavailable',
+            'error'       => 'error_3ds_system_unavailable',
+            'recommended' => 0
+        ],
+        'system_bypassed'          => [
+            'code'        => 'system_bypassed',
+            'name'        => 'text_3ds_system_bypassed',
+            'error'       => 'error_3ds_system_bypassed',
+            'recommended' => 1
+        ]
+    ],
+    'message_insert_type'   => [
+        'into_begin' => [
+            'code' => 'prepend',
+            'name' => 'text_insert_prepend'
+        ],
+        'into_end'   => [
+            'code' => 'append',
+            'name' => 'text_insert_append'
+        ],
+        'before'     => [
+            'code' => 'before',
+            'name' => 'text_insert_before'
+        ],
+        'after'      => [
+            'code' => 'after',
+            'name' => 'text_insert_after'
+        ]
+    ],
+    'message_align'         => [
+        'left'   => [
+            'code' => 'left',
+            'name' => 'text_align_left'
+        ],
+        'center' => [
+            'code' => 'center',
+            'name' => 'text_align_center'
+        ],
+        'right'  => [
+            'code' => 'right',
+            'name' => 'text_align_right'
+        ]
+    ],
+    'message_size'          => [
+        'small'      => [
+            'code' => 'small',
+            'name' => 'text_small'
+        ],
+        'medium'     => [
+            'code' => 'medium',
+            'name' => 'text_medium'
+        ],
+        'large'      => [
+            'code' => 'large',
+            'name' => 'text_large'
+        ],
+        'responsive' => [
+            'code' => 'responsive',
+            'name' => 'text_responsive'
+        ]
+    ],
+    'message_width'         => [
+        'small'      => '200px',
+        'medium'     => '250px',
+        'large'      => '350px',
+        'responsive' => ''
+    ],
+    'message_layout'        => [
+        'text' => [
+            'code' => 'text',
+            'name' => 'text_text'
+        ],
+        'flex' => [
+            'code' => 'flex',
+            'name' => 'text_flex'
+        ]
+    ],
+    'message_text_color'    => [
+        'black' => [
+            'code' => 'black',
+            'name' => 'text_black'
+        ],
+        'white' => [
+            'code' => 'white',
+            'name' => 'text_white'
+        ]
+    ],
+    'message_text_size'     => [
+        '10',
+        '11',
+        '12',
+        '13',
+        '14',
+        '15',
+        '16'
+    ],
+    'message_flex_color'    => [
+        'blue'  => [
+            'code' => 'blue',
+            'name' => 'text_blue'
+        ],
+        'black' => [
+            'code' => 'black',
+            'name' => 'text_black'
+        ],
+        'white' => [
+            'code' => 'white',
+            'name' => 'text_white'
+        ]
+    ],
+    'message_flex_ratio'    => [
+        '1x1',
+        '1x4',
+        '8x1',
+        '20x1'
+    ],
+    'contact_sales'         => [
+        '100k - 250k',
+        '250k - 2m',
+        '2m - 10m',
+        '10m - 20m',
+        '20m - 50m',
+        '50m +'
+    ],
+    'contact_product'       => [
         [
             'code' => 'BT DCC',
             'name' => 'text_bt_dcc'
-		],
-		[
+        ],
+        [
             'code' => 'Express Checkout (EC)',
             'name' => 'text_express_checkout'
-		],
-		[
+        ],
+        [
             'code' => 'Credit - Installments',
             'name' => 'text_credit_installments'
-		],
-		[
+        ],
+        [
             'code' => 'Point of Sale',
             'name' => 'text_point_of_sale'
-		],
-		[
+        ],
+        [
             'code' => 'Invoicing API',
             'name' => 'text_invoicing_api'
-		],
-		[
+        ],
+        [
             'code' => 'PayPal Working Capital',
             'name' => 'text_paypal_working_capital'
-		],
-		[
+        ],
+        [
             'code' => 'Risk servicing',
             'name' => 'text_risk_servicing'
-		],
-		[
+        ],
+        [
             'code' => 'PayPal Here',
             'name' => 'text_paypal_here'
-		],
-		[
+        ],
+        [
             'code' => 'Payouts',
             'name' => 'text_payouts'
-		],
-		[
+        ],
+        [
             'code' => 'Marketing solutions',
             'name' => 'text_marketing_solutions'
-		],
-	]
+        ],
+    ]
 ];
