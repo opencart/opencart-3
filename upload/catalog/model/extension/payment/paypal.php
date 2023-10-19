@@ -13,14 +13,11 @@ class ModelExtensionPaymentPayPal extends Model {
 
 			if (($this->config->get('payment_paypal_total') > 0) && ($this->config->get('payment_paypal_total') > $total)) {
 				$status = false;
-			}
-			elseif (!$this->config->get('payment_paypal_geo_zone_id')) {
+			} elseif (!$this->config->get('payment_paypal_geo_zone_id')) {
 				$status = true;
-			}
-			elseif ($query->num_rows) {
+			} elseif ($query->num_rows) {
 				$status = true;
-			}
-			else {
+			} else {
 				$status = false;
 			}
 
