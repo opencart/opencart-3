@@ -26,10 +26,10 @@ $_['template_directory'] = '';
 $_['template_cache']     = true;
 
 // Autoload Libraries
-$_['library_autoload']   = [];
+$_['library_autoload'] = [];
 
 // Actions
-$_['action_pre_action']  = [
+$_['action_pre_action'] = [
 	'startup/setting',
 	'startup/session',
 	'startup/language',
@@ -37,7 +37,7 @@ $_['action_pre_action']  = [
 	'startup/customer',
 	'startup/currency',
 	'startup/tax',
-	'startup/application',	
+	'startup/application',
 	'startup/startup',
 	'startup/marketing',
 	'startup/error',

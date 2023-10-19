@@ -21,34 +21,34 @@ $_['template_cache']    = true;
 
 // Actions
 $_['action_pre_action'] = [
-	'startup/setting',
-	'startup/session',
-	'startup/language',
-	'startup/application',	
-	'startup/startup',
-	'startup/error',
-	'startup/event',
-	'startup/sass',
-	'startup/login',
-	'startup/permission'
+    'startup/setting',
+    'startup/session',
+    'startup/language',
+    'startup/application',
+    'startup/startup',
+    'startup/error',
+    'startup/event',
+    'startup/sass',
+    'startup/login',
+    'startup/permission'
 ];
 
 // Actions
-$_['action_default'] 	= 'common/dashboard';
+$_['action_default'] = 'common/dashboard';
 
 // Action Events
-$_['action_event'] 		= [
-	'controller/*/before' => [
-		'event/language/before'
-	],
-	'controller/*/after' => [
-		'event/language/after'
-	],
-	'view/*/before' => [
-		999  => 'event/language',
-		1000 => 'event/theme'
-	],
-	'view/*/after' => [
-		'event/language'
-	]
+$_['action_event'] = [
+    'controller/*/before' => [
+        'event/language/before'
+    ],
+    'controller/*/after' => [
+        'event/language/after'
+    ],
+    'view/*/before' => [
+        999  => 'event/language',
+        1000 => 'event/theme'
+    ],
+    'view/*/after' => [
+        'event/language'
+    ]
 ];

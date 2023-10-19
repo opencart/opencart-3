@@ -1,6 +1,6 @@
 <?php
-$_['advertise_google_push_limit']           = 1000; // No more than 1000
-$_['advertise_google_report_limit']         = 1000; // No more than 1000
+$_['advertise_google_push_limit'] = 1000; // No more than 1000
+$_['advertise_google_report_limit'] = 1000; // No more than 1000
 $_['advertise_google_product_status_limit'] = 1000; // No more than 1000
 
 // An empty array means it is always required.
@@ -10,56 +10,150 @@ $_['advertise_google_country_required_fields'] = [
         'countries'      => [],
         'selected_field' => null
     ],
-    'condition'               => [
+    'condition' => [
         'countries'      => [],
         'selected_field' => null
     ],
-    'adult'                   => [
+    'adult' => [
         'countries'      => [],
         'selected_field' => null
     ],
-    'multipack'               => [
-        'countries'      => ['AU', 'BR', 'CZ', 'FR', 'DE', 'IT', 'JP', 'NL', 'ES', 'CH', 'GB', 'US'],
+    'multipack' => [
+        'countries' => [
+			'AU',
+			'BR',
+			'CZ',
+			'FR',
+			'DE',
+			'IT',
+			'JP',
+			'NL',
+			'ES',
+			'CH',
+			'GB', 'US'
+		],
         'selected_field' => null
     ],
-    'is_bundle'               => [
-        'countries'      => ['AU', 'BR', 'CZ', 'FR', 'DE', 'IT', 'JP', 'NL', 'ES', 'CH', 'GB', 'US'],
+    'is_bundle' => [
+        'countries' => [
+			'AU',
+			'BR',
+			'CZ',
+			'FR',
+			'DE',
+			'IT',
+			'JP',
+			'NL',
+			'ES',
+			'CH',
+			'GB',
+			'US'
+		],
         'selected_field' => null
     ],
-    'age_group'               => [
-        'countries'      => ['BR', 'FR', 'DE', 'JP', 'GB', 'US'],
+    'age_group' => [
+        'countries' => [
+			'BR',
+			'FR',
+			'DE',
+			'JP',
+			'GB',
+			'US'
+		],
         'selected_field' => [
-            'google_product_category' => ['1604', '178', '3032', '201', '187']
+            'google_product_category' => [
+				'1604',
+				'178',
+				'3032',
+				'201',
+				'187'
+			]
         ]
     ],
-    'color'                   => [
-        'countries'      => ['BR', 'FR', 'DE', 'JP', 'GB', 'US'],
+    'color' => [
+        'countries' => [
+			'BR',
+			'FR',
+			'DE',
+			'JP',
+			'GB',
+			'US'
+		],
         'selected_field' => [
-            'google_product_category' => ['1604', '178', '3032', '201', '187']
+            'google_product_category' => [
+				'1604',
+				'178',
+				'3032',
+				'201',
+				'187'
+			]
         ]
     ],
-    'gender'                  => [
-        'countries'      => ['BR', 'FR', 'DE', 'JP', 'GB', 'US'],
+    'gender' => [
+        'countries' => [
+			'BR',
+			'FR',
+			'DE',
+			'JP',
+			'GB',
+			'US'
+		],
         'selected_field' => [
-            'google_product_category' => ['1604', '178', '3032', '201', '187']
+            'google_product_category' => [
+				'1604',
+				'178',
+				'3032',
+				'201',
+				'187'
+			]
         ]
     ],
-    'size'                    => [
-        'countries'      => ['BR', 'FR', 'DE', 'JP', 'GB', 'US'],
+    'size' => [
+        'countries' => [
+			'BR',
+			'FR',
+			'DE',
+			'JP',
+			'GB',
+			'US'
+		],
         'selected_field' => [
-            'google_product_category' => ['1604', '187']
+            'google_product_category' => [
+				'1604',
+				'187'
+			]
         ]
     ],
-    'size_type'               => [
-        'countries'      => ['BR', 'FR', 'DE', 'JP', 'GB', 'US'],
+    'size_type' => [
+        'countries' => [
+			'BR',
+			'FR',
+			'DE',
+			'JP',
+			'GB',
+			'US'
+		],
         'selected_field' => [
-            'google_product_category' => ['1604', '187']
+            'google_product_category' => [
+				'1604',
+				'187'
+			]
         ]
     ],
-    'size_system'             => [
-        'countries'      => ['BR', 'FR', 'DE', 'JP', 'GB', 'US'],
+    'size_system' => [
+        'countries' => [
+			'BR',
+			'FR',
+			'DE',
+			'JP',
+			'GB',
+			'US'
+		],
         'selected_field' => [
-            'google_product_category' => ['1604', '187']
+            'google_product_category' => [
+				'1604',
+				'187'
+			]
         ]
     ]
 ];
@@ -131,7 +225,19 @@ $_['advertise_google_google_product_categories'] = [
     '1279' => 'Software > Video Game Software'
 ];
 
-$_['advertise_google_size_systems'] = ['AU', 'BR', 'CN', 'DE', 'EU', 'FR', 'IT', 'JP', 'MEX', 'UK', 'US'];
+$_['advertise_google_size_systems'] = [
+	'AU',
+	'BR',
+	'CN',
+	'DE',
+	'EU',
+	'FR',
+	'IT',
+	'JP',
+	'MEX',
+	'UK',
+	'US'
+];
 
 $_['advertise_google_reporting_intervals'] = [
     'TODAY',
@@ -562,17 +668,27 @@ $_['advertise_google_targets'] = [
     ],
     [
         'country'    => 'AU',
-        'languages'  => ['en', 'zh'],
+        'languages'  => [
+			'en',
+			'zh'
+		],
         'currencies' => ['AUD']
     ],
     [
         'country'    => 'AT',
-        'languages'  => ['de', 'en'],
+        'languages'  => [
+			'de',
+			'en'
+		],
         'currencies' => ['EUR']
     ],
     [
         'country'    => 'BE',
-        'languages'  => ['fr', 'nl', 'en'],
+        'languages'  => [
+			'fr',
+			'nl',
+			'en'
+		],
         'currencies' => ['EUR']
     ],
     [
@@ -582,7 +698,11 @@ $_['advertise_google_targets'] = [
     ],
     [
         'country'    => 'CA',
-        'languages'  => ['en', 'fr', 'zh'],
+        'languages'  => [
+			'en',
+			'fr',
+			'zh'
+		],
         'currencies' => ['CAD']
     ],
     [
@@ -597,12 +717,18 @@ $_['advertise_google_targets'] = [
     ],
     [
         'country'    => 'CZ',
-        'languages'  => ['cs', 'en'],
+        'languages'  => [
+			'cs',
+			'en'
+		],
         'currencies' => ['CZK']
     ],
     [
         'country'    => 'DK',
-        'languages'  => ['da', 'en'],
+        'languages'  => [
+			'da',
+			'en'
+		],
         'currencies' => ['DKK']
     ],
     [
@@ -612,12 +738,18 @@ $_['advertise_google_targets'] = [
     ],
     [
         'country'    => 'DE',
-        'languages'  => ['de', 'en'],
+        'languages'  => [
+			'de',
+			'en'
+		],
         'currencies' => ['EUR']
     ],
     [
         'country'    => 'HK',
-        'languages'  => ['zh', 'en'],
+        'languages'  => [
+			'zh',
+			'en'
+		],
         'currencies' => ['HKD']
     ],
     [
@@ -627,7 +759,10 @@ $_['advertise_google_targets'] = [
     ],
     [
         'country'    => 'ID',
-        'languages'  => ['id', 'en'],
+        'languages'  => [
+			'id',
+			'en'
+		],
         'currencies' => ['IDR']
     ],
     [
@@ -637,7 +772,10 @@ $_['advertise_google_targets'] = [
     ],
     [
         'country'    => 'IL',
-        'languages'  => ['he', 'en'],
+        'languages'  => [
+			'he',
+			'en'
+		],
         'currencies' => ['ILS']
     ],
     [
@@ -652,17 +790,26 @@ $_['advertise_google_targets'] = [
     ],
     [
         'country'    => 'MY',
-        'languages'  => ['en', 'zh'],
+        'languages'  => [
+			'en',
+			'zh'
+		],
         'currencies' => ['MYR']
     ],
     [
         'country'    => 'MX',
-        'languages'  => ['es', 'en'],
+        'languages'  => [
+			'es',
+			'en'
+		],
         'currencies' => ['MXN']
     ],
     [
         'country'    => 'NL',
-        'languages'  => ['nl', 'en'],
+        'languages'  => [
+			'nl',
+			'en'
+		],
         'currencies' => ['EUR']
     ],
     [
@@ -672,7 +819,10 @@ $_['advertise_google_targets'] = [
     ],
     [
         'country'    => 'NO',
-        'languages'  => ['no', 'en'],
+        'languages'  => [
+			'no',
+			'en'
+		],
         'currencies' => ['NOK']
     ],
     [
@@ -697,12 +847,18 @@ $_['advertise_google_targets'] = [
     ],
     [
         'country'    => 'SA',
-        'languages'  => ['ar', 'en'],
+        'languages'  => [
+			'ar',
+			'en'
+		],
         'currencies' => ['SAR']
     ],
     [
         'country'    => 'SG',
-        'languages'  => ['en', 'zh'],
+        'languages'  => [
+			'en',
+			'zh'
+		],
         'currencies' => ['SGD']
     ],
     [
@@ -712,7 +868,10 @@ $_['advertise_google_targets'] = [
     ],
     [
         'country'    => 'KR',
-        'languages'  => ['ko', 'en'],
+        'languages'  => [
+			'ko',
+			'en'
+		],
         'currencies' => ['KRW']
     ],
     [
@@ -722,32 +881,52 @@ $_['advertise_google_targets'] = [
     ],
     [
         'country'    => 'SE',
-        'languages'  => ['sv', 'en'],
+        'languages'  => [
+			'sv',
+			'en'
+		],
         'currencies' => ['SEK']
     ],
     [
         'country'    => 'CH',
-        'languages'  => ['en', 'de', 'fr', 'it'],
+        'languages'  => [
+			'en',
+			'de',
+			'fr',
+			'it'
+		],
         'currencies' => ['CHF']
     ],
     [
         'country'    => 'TW',
-        'languages'  => ['zh', 'en'],
+        'languages'  => [
+			'zh',
+			'en'
+		],
         'currencies' => ['TWD']
     ],
     [
         'country'    => 'TH',
-        'languages'  => ['th', 'en'],
+        'languages'  => [
+			'th',
+			'en'
+		],
         'currencies' => ['THB']
     ],
     [
         'country'    => 'TR',
-        'languages'  => ['tr', 'en'],
+        'languages'  => [
+			'tr',
+			'en'
+		],
         'currencies' => ['TRY']
     ],
     [
         'country'    => 'UA',
-        'languages'  => ['uk', 'ru'],
+        'languages'  => [
+			'uk',
+			'ru'
+		],
         'currencies' => ['UAH']
     ],
     [
@@ -762,12 +941,19 @@ $_['advertise_google_targets'] = [
     ],
     [
         'country'    => 'US',
-        'languages'  => ['en', 'es', 'zh'],
+        'languages'  => [
+			'en',
+			'es',
+			'zh'
+		],
         'currencies' => ['USD']
     ],
     [
         'country'    => 'VN',
-        'languages'  => ['vi', 'en'],
+        'languages'  => [
+			'vi',
+			'en'
+		],
         'currencies' => ['VND']
     ]
 ];

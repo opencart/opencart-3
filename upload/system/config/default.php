@@ -62,7 +62,10 @@ $_['error_filename']       = 'error.log';
 $_['error_page']           = 'error.html';
 
 // Response
-$_['response_header']      = ['Content-Type: text/html; charset=utf-8'];
+$_['response_header']      = [
+	'Content-Type: text/html; charset=utf-8'
+];
+
 $_['response_compression'] = 0;
 
 // Autoload Configs
