@@ -30,7 +30,8 @@ $_['advertise_google_country_required_fields'] = [
 			'NL',
 			'ES',
 			'CH',
-			'GB', 'US'
+			'GB',
+			'US'
 		],
         'selected_field' => null
     ],
