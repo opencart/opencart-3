@@ -88,20 +88,20 @@ $('.payment-paypal').on('click', '.button-save', function() {
 
 $('.payment-paypal').on('click', '.button-agree', function() {
     $.ajax({
-      type: 'post',
-      url: '{{ agree_url }}',
-      data: '',
-      dataType: 'json',
-      success: function(json) {
-          $('.payment-paypal .alert').remove();
+        type: 'post',
+        url: '{{ agree_url }}',
+        data: '',
+        dataType: 'json',
+        success: function(json) {
+            $('.payment-paypal .alert').remove();
 
-          if (json['success']) {
-            $('#content > .container-fluid').prepend('<div class="alert alert-success"><i class="fa fa-check-circle"></i><button type="button" class="close" data-dismiss="alert">&times;</button> ' + json['success'] + '</div>');
-          }
-      },
-      error: function(xhr, ajaxOptions, thrownError) {
-          console.log(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
-      }
+            if (json['success']) {
+                $('#content > .container-fluid').prepend('<div class="alert alert-success"><i class="fa fa-check-circle"></i><button type="button" class="close" data-dismiss="alert">&times;</button> ' + json['success'] + '</div>');
+            }
+        },
+        error: function(xhr, ajaxOptions, thrownError) {
+            console.log(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
+        }
     });
 });
 </script>
