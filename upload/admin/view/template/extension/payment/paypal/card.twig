@@ -16,10 +16,10 @@
 	</div>
 	<div class="container-fluid">
 		{% if error_warning %}
-		<div class="alert alert-danger"><i class="fa fa-exclamation-circle"></i> {{ error_warning }}</div>
+		  <div class="alert alert-danger"><i class="fa fa-exclamation-circle"></i> {{ error_warning }}</div>
 		{% endif %}
 		{% if text_version %}
-		<div class="alert alert-info"><i class="fa fa-info-circle"></i> {{ text_version }}</div>
+		  <div class="alert alert-info"><i class="fa fa-info-circle"></i> {{ text_version }}</div>
 		{% endif %}
 		<div class="panel panel-default">
 			<div class="panel-heading">
@@ -83,7 +83,7 @@
 											</div>
 										</div>
 									</div>
-								</div>	
+								</div>
 							</div>
 							<div class="col col-lg-6">
 								<div class="section-card-setting">
@@ -103,11 +103,11 @@
 										<label class="control-label" for="input_card_align">{{ entry_card_align }}</label>
 										<select name="payment_paypal_setting[card][align]" id="input_card_align" class="form-control control-paypal-card">
 											{% for card_align in setting['card_align'] %}
-											{% if (card_align['code'] == setting['card']['align']) %}
-											<option value="{{ card_align['code'] }}" selected="selected">{{ attribute(_context, card_align['name']) }}</option>
-											{% else %}
-											<option value="{{ card_align['code'] }}">{{ attribute(_context, card_align['name']) }}</option>
-											{% endif %}
+											  {% if (card_align['code'] == setting['card']['align']) %}
+											    <option value="{{ card_align['code'] }}" selected="selected">{{ attribute(_context, card_align['name']) }}</option>
+											  {% else %}
+											    <option value="{{ card_align['code'] }}">{{ attribute(_context, card_align['name']) }}</option>
+											  {% endif %}
 											{% endfor %}
 										</select>
 									</div>
@@ -115,11 +115,11 @@
 										<label class="control-label" for="input_card_size">{{ entry_card_size }}</label>
 										<select name="payment_paypal_setting[card][size]" id="input_card_size" class="form-control control-paypal-card">
 											{% for card_size in setting['card_size'] %}
-											{% if (card_size['code'] == setting['card']['size']) %}
-											<option value="{{ card_size['code'] }}" selected="selected">{{ attribute(_context, card_size['name']) }}</option>
-											{% else %}
-											<option value="{{ card_size['code'] }}">{{ attribute(_context, card_size['name']) }}</option>
-											{% endif %}
+											  {% if (card_size['code'] == setting['card']['size']) %}
+											    <option value="{{ card_size['code'] }}" selected="selected">{{ attribute(_context, card_size['name']) }}</option>
+											  {% else %}
+											    <option value="{{ card_size['code'] }}">{{ attribute(_context, card_size['name']) }}</option>
+											  {% endif %}
 											{% endfor %}
 										</select>
 									</div>
@@ -131,20 +131,20 @@
 										</div>
 									</div>
 									<hr class="hr" />
-									<button type="button" href="#all_settings" class="btn btn-default button-all-settings collapsed" data-toggle="collapse" role="button">{{ button_all_settings }}<i class="icon icon-all-settings"></i></button>	
+									<button type="button" href="#all_settings" class="btn btn-default button-all-settings collapsed" data-toggle="collapse" role="button">{{ button_all_settings }}<i class="icon icon-all-settings"></i></button>
 									<div id="all_settings" class="all-settings collapse">
 										<div class="form-group">
 											<label class="control-label" for="input_card_secure_scenario">{{ entry_card_secure_scenario }}</label>
 											<p class="alert alert-info">{{ help_card_secure_scenario }}</p>
 										</div>
 										{% for card_secure_scenario in setting['card_secure_scenario'] %}
-										<div class="form-group">
-											<label class="control-label" for="input_card_secure_scenario_{{ card_secure_scenario['code'] }}">{{ attribute(_context, card_secure_scenario['name']) }}</label>	
-											<select name="payment_paypal_setting[card][secure_scenario][{{ card_secure_scenario['code'] }}]" id="input_card_secure_scenario_{{ card_secure_scenario['code'] }}" class="form-control">
-												<option value="1" {% if setting['card']['secure_scenario'][card_secure_scenario['code']] %}selected="selected"{% endif %}>{{ text_accept }}{% if card_secure_scenario['recommended'] %} {{ text_recommended }}{% endif %}</option>
-												<option value="0" {% if not setting['card']['secure_scenario'][card_secure_scenario['code']] %}selected="selected"{% endif %}>{{ text_decline }}{% if not card_secure_scenario['recommended'] %} {{ text_recommended }}{% endif %}</option>
-											</select>
-										</div>
+                      <div class="form-group">
+                        <label class="control-label" for="input_card_secure_scenario_{{ card_secure_scenario['code'] }}">{{ attribute(_context, card_secure_scenario['name']) }}</label>
+                        <select name="payment_paypal_setting[card][secure_scenario][{{ card_secure_scenario['code'] }}]" id="input_card_secure_scenario_{{ card_secure_scenario['code'] }}" class="form-control">
+                          <option value="1" {% if setting['card']['secure_scenario'][card_secure_scenario['code']] %}selected="selected"{% endif %}>{{ text_accept }}{% if card_secure_scenario['recommended'] %} {{ text_recommended }}{% endif %}</option>
+                          <option value="0" {% if not setting['card']['secure_scenario'][card_secure_scenario['code']] %}selected="selected"{% endif %}>{{ text_decline }}{% if not card_secure_scenario['recommended'] %} {{ text_recommended }}{% endif %}</option>
+                        </select>
+                      </div>
 										{% endfor %}
 									</div>
 								</div>
@@ -157,7 +157,6 @@
 	</div>
 </div>
 <script type="text/javascript">
-
 var card_width = JSON.parse('{{ setting['card_width']|json_encode() }}');
 
 updatePayPalCard();
@@ -169,71 +168,70 @@ $('.payment-paypal .switch').bootstrapSwitch({
 });
 
 $('.payment-paypal').on('change', '.control-paypal-card', function() {
-	updatePayPalCard();
+	  updatePayPalCard();
 });
 
 $('.payment-paypal').on('click', '.button-save', function() {
     $.ajax({
-		type: 'post',
-		url: $('#form_payment').attr('action'),
-		data: $('#form_payment').serialize(),
-		dataType: 'json',
-		success: function(json) {
-			$('.payment-paypal .alert-success').remove();
-			
-			if (json['success']) {
-				$('.payment-paypal > .container-fluid').prepend('<div class="alert alert-success alert-dismissible"><i class="fa fa-check-circle"></i><button type="button" class="close" data-dismiss="alert">&times;</button> ' + json['success'] + '</div>');
-				
-				$('html, body').animate({ scrollTop: $('.payment-paypal > .container-fluid .alert-success').offset().top}, 'slow');
-			}
-		},
-		error: function(xhr, ajaxOptions, thrownError) {
-			console.log(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
-		}
-    });  
+        type: 'post',
+        url: $('#form_payment').attr('action'),
+        data: $('#form_payment').serialize(),
+        dataType: 'json',
+        success: function(json) {
+            $('.payment-paypal .alert-success').remove();
+
+            if (json['success']) {
+                $('.payment-paypal > .container-fluid').prepend('<div class="alert alert-success alert-dismissible"><i class="fa fa-check-circle"></i><button type="button" class="close" data-dismiss="alert">&times;</button> ' + json['success'] + '</div>');
+
+                $('html, body').animate({ scrollTop: $('.payment-paypal > .container-fluid .alert-success').offset().top}, 'slow');
+            }
+        },
+        error: function(xhr, ajaxOptions, thrownError) {
+            console.log(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
+        }
+    });
 });
 
 $('.payment-paypal').on('click', '.button-agree', function() {
-	$.ajax({
-		type: 'post',
-		url: '{{ agree_url }}',
-		data: '',
-		dataType: 'json',
-		success: function(json) {
-			$('.payment-paypal .alert').remove();
-			
-			if (json['success']) {
-				$('#content > .container-fluid').prepend('<div class="alert alert-success alert-dismissible"><i class="fa fa-check-circle"></i><button type="button" class="close" data-dismiss="alert">&times;</button> ' + json['success'] + '</div>');
-			}
-		},
-		error: function(xhr, ajaxOptions, thrownError) {
-			console.log(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
-		}
-	});
+    $.ajax({
+        type: 'post',
+        url: '{{ agree_url }}',
+        data: '',
+        dataType: 'json',
+        success: function(json) {
+            $('.payment-paypal .alert').remove();
+
+            if (json['success']) {
+              $('#content > .container-fluid').prepend('<div class="alert alert-success alert-dismissible"><i class="fa fa-check-circle"></i><button type="button" class="close" data-dismiss="alert">&times;</button> ' + json['success'] + '</div>');
+            }
+        },
+        error: function(xhr, ajaxOptions, thrownError) {
+            console.log(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
+        }
+    });
 });
 
-function updatePayPalCard() {								
-	var paypal_data = {};
+function updatePayPalCard() {
+    var paypal_data = {};
 
-	paypal_data['client_id'] = '{{ client_id }}';
-	paypal_data['secret'] = '{{ secret }}';
-	paypal_data['merchant_id'] = '{{ merchant_id }}';
-	paypal_data['environment'] = '{{ environment }}';
-	paypal_data['partner_attribution_id'] = '{{ partner_attribution_id }}';
-	paypal_data['locale'] = '{{ locale }}';
-	paypal_data['currency_code'] = '{{ currency_code }}';
-	paypal_data['currency_value'] = '{{ currency_value }}';
-	paypal_data['decimal_place'] = '{{ decimal_place }}';
-	paypal_data['client_token'] = '{{ client_token }}';
-	paypal_data['transaction_method'] = '{{ setting['general']['transaction_method'] }}';
-	paypal_data['components'] = ['hosted-fields'];
-	paypal_data['card_align'] = $('.payment-paypal #input_card_align').val();
-	paypal_data['card_size'] = $('.payment-paypal #input_card_size').val();
-		
-	paypal_data['card_width'] = card_width[paypal_data['card_size']];
-			
-	PayPalAPI.init(paypal_data);
+    paypal_data['client_id'] = '{{ client_id }}';
+    paypal_data['secret'] = '{{ secret }}';
+    paypal_data['merchant_id'] = '{{ merchant_id }}';
+    paypal_data['environment'] = '{{ environment }}';
+    paypal_data['partner_attribution_id'] = '{{ partner_attribution_id }}';
+    paypal_data['locale'] = '{{ locale }}';
+    paypal_data['currency_code'] = '{{ currency_code }}';
+    paypal_data['currency_value'] = '{{ currency_value }}';
+    paypal_data['decimal_place'] = '{{ decimal_place }}';
+    paypal_data['client_token'] = '{{ client_token }}';
+    paypal_data['transaction_method'] = '{{ setting['general']['transaction_method'] }}';
+    paypal_data['components'] = ['hosted-fields'];
+    paypal_data['card_align'] = $('.payment-paypal #input_card_align').val();
+    paypal_data['card_size'] = $('.payment-paypal #input_card_size').val();
+
+    paypal_data['card_width'] = card_width[paypal_data['card_size']];
+
+    PayPalAPI.init(paypal_data);
 }
-
 </script>
 {{ footer }}
