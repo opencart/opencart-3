@@ -66,11 +66,11 @@
           </thead>
           <tbody>
             {% for transaction in globalpay_order.transactions %}
-            <tr>
-              <td class="text-left">{{ transaction.date_added }}</td>
-              <td class="text-left">{{ transaction.type }}</td>
-              <td class="text-left">{{ transaction.amount }}</td>
-            </tr>
+              <tr>
+                <td class="text-left">{{ transaction.date_added }}</td>
+                <td class="text-left">{{ transaction.type }}</td>
+                <td class="text-left">{{ transaction.amount }}</td>
+              </tr>
             {% endfor %}
           </tbody>
         </table>
@@ -79,165 +79,166 @@
   </tr>
 </table>
 <script type="text/javascript"><!--
-    $('#button-void').click(function () {
-        if (confirm('{{ text_confirm_void }}')) {
-            $.ajax({
-                url: 'index.php?route=extension/payment/globalpay_remote/void&user_token={{ user_token }}',
-                type: 'post',
-                dataType: 'json',
-                data: {'order_id': {{ order_id }} },
-                beforeSend: function () {
-                    $('#button-void').hide();
-                    
-                    $('#img_loading_void').show();
-                    $('#globalpay_transaction_msg').hide();
-                },
-                success: function (data) {
-                    if (data.error == false) {
-                        html = '';
-                        
-                        html += '<tr>';
-                          html += '<td class="text-left">' + data.data.date_added + '</td>';
-                          html += '<td class="text-left">{{ text_void }}</td>';
-                          html += '<td class="text-left">0.00</td>';
-                        html += '</tr>';
-                        
-                        $('.void_text').text('{{ text_yes }}');
-                        
-                        $('#globalpay_transactions').append(html);
-                        
-                        $('#button_capture').hide();
-                        $('#capture_amount').hide();
-                        
-                        if (data.msg != '') {
-                            $('#globalpay_transaction_msg').empty().html('<i class="fa fa-check-circle"></i> ' + data.msg).fadeIn();
-                        }
-                    }
-                    
-                    if (data.error == true) {
-                        alert(data.msg);
-                        
-                        $('#button-void').show();
-                    }
-                    
-                    $('#img_loading_void').hide();
-                }
-            });
-        }
-    });
-    
-    $('#button_capture').click(function () {
-        if (confirm('{{ text_confirm_capture }}')) {
-            $.ajax({
-                url: 'index.php?route=extension/payment/globalpay_remote/capture&user_token={{ user_token }}',
-                type: 'post',
-                dataType: 'json',
-                data: {'order_id': {{ order_id }}, 'amount': $('#capture_amount').val()},
-                beforeSend: function () {
-                    $('#capture_amount').hide();
+$('#button-void').click(function () {
+    if (confirm('{{ text_confirm_void }}')) {
+        $.ajax({
+            url: 'index.php?route=extension/payment/globalpay_remote/void&user_token={{ user_token }}',
+            type: 'post',
+            dataType: 'json',
+            data: {'order_id': {{ order_id }} },
+            beforeSend: function () {
+                $('#button-void').hide();
+
+                $('#img_loading_void').show();
+                $('#globalpay_transaction_msg').hide();
+            },
+            success: function (data) {
+                if (data.error == false) {
+                    html = '';
+
+                    html += '<tr>';
+                    html += '  <td class="text-left">' + data.data.date_added + '</td>';
+                    html += '  <td class="text-left">{{ text_void }}</td>';
+                    html += '  <td class="text-left">0.00</td>';
+                    html += '</tr>';
+
+                    $('.void_text').text('{{ text_yes }}');
+
+                    $('#globalpay_transactions').append(html);
+
                     $('#button_capture').hide();
-                    $('#globalpay_transaction_msg').hide();
-                    
-                    $('#img_loading_capture').show();
-                },
-                success: function (data) {
-                    if (data.error == false) {
-                        html = '';
-                        
-                        html += '<tr>';
-                          html += '<td class="text-left">' + data.data.date_added + '</td>';
-                          html += '<td class="text-left">{{ text_payment }}</td>';
-                          html += '<td class="text-left">' + data.data.amount + '</td>';
-                        html += '</tr>';
-                        
-                        $('#globalpay_transactions').append(html);
-                        
-                        $('#globalpay_total_captured').text(data.data.total_formatted);
-                        
-                        if (data.data.capture_status == 1) {
-                            $('#button-void').hide();
-                          
-                            $('.capture_text').text('{{ text_yes }}');
-                        } else {
-                            $('#button_capture').show();
-                          
-                            $('#capture_amount').val(0.00);
-                        }
-                        
-                        {% if auto_settle == 2 %}
-                            $('#capture_amount').show();
-                        {% endif %}
-                        
-                        if (data.msg != '') {
-                            $('#globalpay_transaction_msg').empty().html('<i class="fa fa-check-circle"></i> ' + data.msg).fadeIn();
-                        }
-                        
+                    $('#capture_amount').hide();
+
+                    if (data.msg != '') {
+                        $('#globalpay_transaction_msg').empty().html('<i class="fa fa-check-circle"></i> ' + data.msg).fadeIn();
+                    }
+                }
+
+                if (data.error == true) {
+                    alert(data.msg);
+
+                    $('#button-void').show();
+                }
+
+                $('#img_loading_void').hide();
+            }
+        });
+    }
+});
+
+$('#button_capture').click(function () {
+    if (confirm('{{ text_confirm_capture }}')) {
+        $.ajax({
+            url: 'index.php?route=extension/payment/globalpay_remote/capture&user_token={{ user_token }}',
+            type: 'post',
+            dataType: 'json',
+            data: {'order_id': {{ order_id }}, 'amount': $('#capture_amount').val()},
+            beforeSend: function () {
+                $('#capture_amount').hide();
+                $('#button_capture').hide();
+                $('#globalpay_transaction_msg').hide();
+
+                $('#img_loading_capture').show();
+            },
+            success: function (data) {
+                if (data.error == false) {
+                    html = '';
+
+                    html += '<tr>';
+                    html += '  <td class="text-left">' + data.data.date_added + '</td>';
+                    html += '  <td class="text-left">{{ text_payment }}</td>';
+                    html += '  <td class="text-left">' + data.data.amount + '</td>';
+                    html += '</tr>';
+
+                    $('#globalpay_transactions').append(html);
+
+                    $('#globalpay_total_captured').text(data.data.total_formatted);
+
+                    if (data.data.capture_status == 1) {
+                        $('#button-void').hide();
+
+                        $('.capture_text').text('{{ text_yes }}');
+                    } else {
+                        $('#button_capture').show();
+
+                        $('#capture_amount').val(0.00);
+                    }
+
+                    {% if auto_settle == 2 %}
+                        $('#capture_amount').show();
+                    {% endif %}
+
+                    if (data.msg != '') {
+                        $('#globalpay_transaction_msg').empty().html('<i class="fa fa-check-circle"></i> ' + data.msg).fadeIn();
+                    }
+
+                    $('#button-rebate').show();
+
+                    $('#rebate_amount').val(0.00).show();
+                }
+
+                if (data.error == true) {
+                    alert(data.msg);
+
+                    $('#button_capture').show();
+                    $('#capture_amount').show();
+                }
+
+                $('#img_loading_capture').hide();
+            }
+        });
+    }
+});
+
+$('#button-rebate').click(function () {
+    if (confirm('{{ text_confirm_rebate }}')) {
+        $.ajax({
+            url: 'index.php?route=extension/payment/globalpay_remote/rebate&user_token={{ user_token }}',
+            type: 'post',
+            dataType: 'json',
+            data: {'order_id': {{ order_id }}, 'amount': $('#rebate_amount').val()},
+            beforeSend: function () {
+                $('#rebate_amount').hide();
+                $('#button-rebate').hide();
+                $('#globalpay_transaction_msg').hide();
+
+                $('#img_loading_rebate').show();
+            },
+            success: function (data) {
+                if (data.error == false) {
+                    html = '';
+
+                    html += '<tr>';
+                    html += '  <td class="text-left">' + data.data.date_added + '</td>';
+                    html += '  <td class="text-left">{{ text_rebate }}</td>';
+                    html += '  <td class="text-left">' + data.data.amount + '</td>';
+                    html += '</tr>';
+
+                    $('#globalpay_transactions').append(html);
+                    $('#globalpay_total_captured').text(data.data.total_captured);
+
+                    if (data.data.rebate_status == 1) {
+                        $('.rebate_text').text('{{ text_yes }}');
+                    } else {
                         $('#button-rebate').show();
-                        
+
                         $('#rebate_amount').val(0.00).show();
                     }
-                    
-                    if (data.error == true) {
-                        alert(data.msg);
-                        
-                        $('#button_capture').show();
-                        $('#capture_amount').show();
+
+                    if (data.msg != '') {
+                        $('#globalpay_transaction_msg').empty().html('<i class="fa fa-check-circle"></i> ' + data.msg).fadeIn();
                     }
-                    
-                    $('#img_loading_capture').hide();
                 }
-            });
-        }
-    });
-    
-    $('#button-rebate').click(function () {
-        if (confirm('{{ text_confirm_rebate }}')) {
-            $.ajax({
-              url: 'index.php?route=extension/payment/globalpay_remote/rebate&user_token={{ user_token }}',
-              type: 'post',
-              dataType: 'json',
-              data: {'order_id': {{ order_id }}, 'amount': $('#rebate_amount').val()},
-              beforeSend: function () {
-                  $('#rebate_amount').hide();
-                  $('#button-rebate').hide();
-                  $('#globalpay_transaction_msg').hide();
-                
-                  $('#img_loading_rebate').show();
-              },
-              success: function (data) {
-                  if (data.error == false) {
-                      html = '';
-                      
-                      html += '<tr>';
-                        html += '<td class="text-left">' + data.data.date_added + '</td>';
-                        html += '<td class="text-left">{{ text_rebate }}</td>';
-                        html += '<td class="text-left">' + data.data.amount + '</td>';
-                      html += '</tr>';
-                      
-                      $('#globalpay_transactions').append(html);
-                      $('#globalpay_total_captured').text(data.data.total_captured);
-                      
-                      if (data.data.rebate_status == 1) {
-                          $('.rebate_text').text('{{ text_yes }}');
-                      } else {
-                          $('#button-rebate').show();
-                        
-                          $('#rebate_amount').val(0.00).show();
-                      }
-                      
-                      if (data.msg != '') {
-                          $('#globalpay_transaction_msg').empty().html('<i class="fa fa-check-circle"></i> ' + data.msg).fadeIn();
-                      }
-                    }
-                    if (data.error == true) {
-                        alert(data.msg);
-                        
-                        $('#button-rebate').show();
-                    }
-                    
-                    $('#img_loading_rebate').hide();
+
+                if (data.error == true) {
+                    alert(data.msg);
+
+                    $('#button-rebate').show();
                 }
-            });
-        }
-    });
+
+                $('#img_loading_rebate').hide();
+            }
+        });
+    }
+});
 //--></script>

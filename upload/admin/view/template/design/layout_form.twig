@@ -376,72 +376,71 @@
     </div>
   </div>
   <script type="text/javascript"><!--
-      var route_row = {{ route_row }};
+  var route_row = {{ route_row }};
 
-      function addRoute() {
-          html = '<tr id="route-row' + route_row + '">';
-          html += '  <td class="text-left"><select name="layout_route[' + route_row + '][store_id]" class="form-control">';
-          html += '  <option value="0">{{ text_default }}</option>';
-        {% for store in stores %}
-            html += '<option value="{{ store.store_id }}">{{ store.name|escape('js') }}</option>';
-        {% endfor %}
-          html += '  </select></td>';
-          html += '  <td class="text-left"><input type="text" name="layout_route[' + route_row + '][route]" value="" placeholder="{{ entry_route }}" class="form-control"/></td>';
-          html += '  <td class="text-left"><button type="button" onclick="$(\'#route-row' + route_row + '\').remove();" data-toggle="tooltip" title="{{ button_remove }}" class="btn btn-danger"><i class="fa fa-minus-circle"></i></button></td>';
-          html += '</tr>';
+  function addRoute() {
+      html = '<tr id="route-row' + route_row + '">';
+      html += '  <td class="text-left"><select name="layout_route[' + route_row + '][store_id]" class="form-control">';
+      html += '  <option value="0">{{ text_default }}</option>';
+      {% for store in stores %}
+          html += '<option value="{{ store.store_id }}">{{ store.name|escape('js') }}</option>';
+      {% endfor %}
+      html += '  </select></td>';
+      html += '  <td class="text-left"><input type="text" name="layout_route[' + route_row + '][route]" value="" placeholder="{{ entry_route }}" class="form-control"/></td>';
+      html += '  <td class="text-left"><button type="button" onclick="$(\'#route-row' + route_row + '\').remove();" data-toggle="tooltip" title="{{ button_remove }}" class="btn btn-danger"><i class="fa fa-minus-circle"></i></button></td>';
+      html += '</tr>';
 
-          $('#route tbody').append(html);
+      $('#route tbody').append(html);
 
-          route_row++;
-      }
+      route_row++;
+  }
 
-      var module_row = {{ module_row }};
+  var module_row = {{ module_row }};
 
-      function addModule(type) {
-          html = '<tr id="module-row' + module_row + '">';
-          html += '  <td class="text-left"><div class="input-group"><select name="layout_module[' + module_row + '][code]" class="form-control input-sm">';
-          
-          {% for extension in extensions %}
-              html += '    <optgroup label="{{ extension.name|escape('js') }}">';
-              
-              {% if not extension.module %}
-                  html += '      <option value="{{ extension.code }}">{{ extension.name|escape('js') }}</option>';
-              {% else %}
-                {% for module in extension.module %}
-                    html += '      <option value="{{ module.code }}">{{ module.name|escape('js') }}</option>';
-                {% endfor %}
-              {% endif %}
-              html += '    </optgroup>';
-            
-          {% endfor %}
-          
-          html += '  </select>';
-          html += '  <input type="hidden" name="layout_module[' + module_row + '][position]" value="' + type.replace('-', '_') + '"/>';
-          html += '  <input type="hidden" name="layout_module[' + module_row + '][sort_order]" value=""/>';
-          html += '  <div class="input-group-btn"><a href="" target="_blank" type="button" data-toggle="tooltip" title="{{ button_edit }}" class="btn btn-primary btn-sm"><i class="fa fa-pencil"></i></a><button type="button" onclick="$(\'#module-row' + module_row + '\').remove();" data-toggle="tooltip" title="{{ button_remove }}" class="btn btn-danger btn-sm"><i class="fa fa fa-minus-circle"></i></button></div></div></td>';
-          html += '</tr>';
+  function addModule(type) {
+      html = '<tr id="module-row' + module_row + '">';
+      html += '  <td class="text-left"><div class="input-group"><select name="layout_module[' + module_row + '][code]" class="form-control input-sm">';
 
-          $('#module-' + type + ' tbody').append(html);
-          $('#module-' + type + ' tbody select[name=\'layout_module[' + module_row + '][code]\']').val($('#module-' + type + ' tfoot select').val());
-          $('#module-' + type + ' select[name*=\'code\']').trigger('change');
-          $('#module-' + type + ' tbody input[name*=\'sort_order\']').each(function (i, element) {
-              $(element).val(i);
-          });
+      {% for extension in extensions %}
+          html += '    <optgroup label="{{ extension.name|escape('js') }}">';
 
-          module_row++;
-      }
+          {% if not extension.module %}
+              html += '      <option value="{{ extension.code }}">{{ extension.name|escape('js') }}</option>';
+          {% else %}
+            {% for module in extension.module %}
+                html += '      <option value="{{ module.code }}">{{ module.name|escape('js') }}</option>';
+            {% endfor %}
+          {% endif %}
+          html += '    </optgroup>';
+      {% endfor %}
 
-      $('#module-column-left, #module-column-right, #module-content-top, #module-content-bottom').delegate('select[name*=\'code\']', 'change', function () {
-          var part = this.value.split('.');
+      html += '  </select>';
+      html += '  <input type="hidden" name="layout_module[' + module_row + '][position]" value="' + type.replace('-', '_') + '"/>';
+      html += '  <input type="hidden" name="layout_module[' + module_row + '][sort_order]" value=""/>';
+      html += '  <div class="input-group-btn"><a href="" target="_blank" type="button" data-toggle="tooltip" title="{{ button_edit }}" class="btn btn-primary btn-sm"><i class="fa fa-pencil"></i></a><button type="button" onclick="$(\'#module-row' + module_row + '\').remove();" data-toggle="tooltip" title="{{ button_remove }}" class="btn btn-danger btn-sm"><i class="fa fa fa-minus-circle"></i></button></div></div></td>';
+      html += '</tr>';
 
-          if (!part[1]) {
-              $(this).parent().find('a').attr('href', 'index.php?route=extension/module/' + part[0] + '&user_token={{ user_token }}');
-          } else {
-              $(this).parent().find('a').attr('href', 'index.php?route=extension/module/' + part[0] + '&user_token={{ user_token }}&module_id=' + part[1]);
-          }
+      $('#module-' + type + ' tbody').append(html);
+      $('#module-' + type + ' tbody select[name=\'layout_module[' + module_row + '][code]\']').val($('#module-' + type + ' tfoot select').val());
+      $('#module-' + type + ' select[name*=\'code\']').trigger('change');
+      $('#module-' + type + ' tbody input[name*=\'sort_order\']').each(function (i, element) {
+          $(element).val(i);
       });
 
-      $('#module-column-left, #module-column-right, #module-content-top, #module-content-bottom').trigger('change');
+      module_row++;
+  }
+
+  $('#module-column-left, #module-column-right, #module-content-top, #module-content-bottom').delegate('select[name*=\'code\']', 'change', function () {
+      var part = this.value.split('.');
+
+      if (!part[1]) {
+          $(this).parent().find('a').attr('href', 'index.php?route=extension/module/' + part[0] + '&user_token={{ user_token }}');
+      } else {
+          $(this).parent().find('a').attr('href', 'index.php?route=extension/module/' + part[0] + '&user_token={{ user_token }}&module_id=' + part[1]);
+      }
+  });
+
+  $('#module-column-left, #module-column-right, #module-content-top, #module-content-bottom').trigger('change');
   //--></script>
 </div>
 {{ footer }}

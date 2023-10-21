@@ -3,8 +3,7 @@
   <div class="page-header">
     <div class="container-fluid">
       <div class="pull-right">
-        <button class="btn btn-primary" data-toggle="tooltip" form="form-fraud" title="{{ button_save }}" type="submit">
-          <i class="fa fa-save"></i></button>
+        <button class="btn btn-primary" data-toggle="tooltip" form="form-fraud" title="{{ button_save }}" type="submit"><i class="fa fa-save"></i></button>
         <a class="btn btn-default" data-toggle="tooltip" href="{{ cancel }}" title="{{ button_cancel }}"><i class="fa fa-reply"></i></a></div>
       <h1>{{ heading_title }}</h1>
       <ul class="breadcrumb">
@@ -75,79 +74,79 @@
     </div>
   </div>
   <script type="text/javascript"><!--
-      $('#ip').delegate('.pagination a', 'click', function (e) {
-          e.preventDefault();
+  $('#ip').delegate('.pagination a', 'click', function (e) {
+      e.preventDefault();
 
-          $('#ip').load(this.href);
-      });
+      $('#ip').load(this.href);
+  });
 
-      $('#ip').load('index.php?route=extension/fraud/ip/ip&user_token={{ user_token }}');
+  $('#ip').load('index.php?route=extension/fraud/ip/ip&user_token={{ user_token }}');
 
-      $('#button-ip-add').on('click', function () {
-          $.ajax({
-              url: 'index.php?route=extension/fraud/ip/addIp&user_token={{ user_token }}',
-              type: 'post',
-              dataType: 'json',
-              data: 'ip=' + encodeURIComponent($('#input-ip').val()),
-              beforeSend: function () {
-                  $('#button-ip-add').button('loading');
-              },
-              complete: function () {
-                  $('#button-ip-add').button('reset');
-              },
-              success: function (json) {
-                  $('.alert-dismissible').remove();
+  $('#button-ip-add').on('click', function () {
+      $.ajax({
+          url: 'index.php?route=extension/fraud/ip/addIp&user_token={{ user_token }}',
+          type: 'post',
+          dataType: 'json',
+          data: 'ip=' + encodeURIComponent($('#input-ip').val()),
+          beforeSend: function () {
+              $('#button-ip-add').button('loading');
+          },
+          complete: function () {
+              $('#button-ip-add').button('reset');
+          },
+          success: function (json) {
+              $('.alert-dismissible').remove();
 
-                  if (json['error']) {
-                      $('#content > .container-fluid').prepend('<div class="alert alert-danger alert-dismissible"><i class="fa fa-exclamation-circle"></i> ' + json['error'] + ' <button type="button" class="close" data-dismiss="alert">&times;</button></div>');
-                  }
-
-                  if (json['success']) {
-                      $('#content > .container-fluid').prepend('<div class="alert alert-success alert-dismissible"><i class="fa fa-check-circle"></i> ' + json['success'] + ' <button type="button" class="close" data-dismiss="alert">&times;</button></div>');
-
-                      $('#ip').load('index.php?route=extension/fraud/ip/ip&user_token={{ user_token }}');
-
-                      $('#input-ip').val('');
-                  }
-              },
-              error: function (xhr, ajaxOptions, thrownError) {
-                  alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
+              if (json['error']) {
+                  $('#content > .container-fluid').prepend('<div class="alert alert-danger alert-dismissible"><i class="fa fa-exclamation-circle"></i> ' + json['error'] + ' <button type="button" class="close" data-dismiss="alert">&times;</button></div>');
               }
-          });
-      });
 
-      $('#ip').delegate('button', 'click', function () {
-          var element = this;
+              if (json['success']) {
+                  $('#content > .container-fluid').prepend('<div class="alert alert-success alert-dismissible"><i class="fa fa-check-circle"></i> ' + json['success'] + ' <button type="button" class="close" data-dismiss="alert">&times;</button></div>');
 
-          $.ajax({
-              url: 'index.php?route=extension/fraud/ip/removeIp&user_token={{ user_token }}',
-              type: 'post',
-              dataType: 'json',
-              data: 'ip=' + encodeURIComponent($(element).val()),
-              beforeSend: function () {
-                  $(element).button('loading');
-              },
-              complete: function () {
-                  $(element).button('reset');
-              },
-              success: function (json) {
-                  $('.alert-dismissible').remove();
+                  $('#ip').load('index.php?route=extension/fraud/ip/ip&user_token={{ user_token }}');
 
-                  if (json['error']) {
-                      $('#content > .container-fluid').prepend('<div class="alert alert-danger alert-dismissible"><i class="fa fa-exclamation-circle"></i> ' + json['error'] + ' <button type="button" class="close" data-dismiss="alert">&times;</button></div>');
-                  }
-
-                  if (json['success']) {
-                      $('#content > .container-fluid').prepend('<div class="alert alert-success alert-dismissible"><i class="fa fa-check-circle"></i> ' + json['success'] + ' <button type="button" class="close" data-dismiss="alert">&times;</button></div>');
-
-                      $('#ip').load('index.php?route=extension/fraud/ip/ip&user_token={{ user_token }}');
-                  }
-              },
-              error: function (xhr, ajaxOptions, thrownError) {
-                  alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
+                  $('#input-ip').val('');
               }
-          });
+          },
+          error: function (xhr, ajaxOptions, thrownError) {
+              alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
+          }
       });
+  });
+
+  $('#ip').delegate('button', 'click', function () {
+      var element = this;
+
+      $.ajax({
+          url: 'index.php?route=extension/fraud/ip/removeIp&user_token={{ user_token }}',
+          type: 'post',
+          dataType: 'json',
+          data: 'ip=' + encodeURIComponent($(element).val()),
+          beforeSend: function () {
+              $(element).button('loading');
+          },
+          complete: function () {
+              $(element).button('reset');
+          },
+          success: function (json) {
+              $('.alert-dismissible').remove();
+
+              if (json['error']) {
+                  $('#content > .container-fluid').prepend('<div class="alert alert-danger alert-dismissible"><i class="fa fa-exclamation-circle"></i> ' + json['error'] + ' <button type="button" class="close" data-dismiss="alert">&times;</button></div>');
+              }
+
+              if (json['success']) {
+                  $('#content > .container-fluid').prepend('<div class="alert alert-success alert-dismissible"><i class="fa fa-check-circle"></i> ' + json['success'] + ' <button type="button" class="close" data-dismiss="alert">&times;</button></div>');
+
+                  $('#ip').load('index.php?route=extension/fraud/ip/ip&user_token={{ user_token }}');
+              }
+          },
+          error: function (xhr, ajaxOptions, thrownError) {
+              alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
+          }
+      });
+  });
   //--></script>
 </div>
 {{ footer }}

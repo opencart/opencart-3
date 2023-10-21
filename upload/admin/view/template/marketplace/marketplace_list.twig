@@ -159,51 +159,51 @@
     </div>
   </div>
   <script type="text/javascript"><!--
-      $('#button-opencart').on('click', function (e) {
-          $('#modal-opencart').remove();
+  $('#button-opencart').on('click', function (e) {
+      $('#modal-opencart').remove();
 
-          $.ajax({
-              url: 'index.php?route=marketplace/api&user_token={{ user_token }}',
-              dataType: 'html',
-              beforeSend: function () {
-                  $('#button-opencart').button('loading');
-              },
-              complete: function () {
-                  $('#button-opencart').button('reset');
-              },
-              success: function (html) {
-                  $('body').append('<div id="modal-opencart" class="modal">' + html + '</div>');
+      $.ajax({
+          url: 'index.php?route=marketplace/api&user_token={{ user_token }}',
+          dataType: 'html',
+          beforeSend: function () {
+              $('#button-opencart').button('loading');
+          },
+          complete: function () {
+              $('#button-opencart').button('reset');
+          },
+          success: function (html) {
+              $('body').append('<div id="modal-opencart" class="modal">' + html + '</div>');
 
-                  $('#modal-opencart').modal('show');
-              },
-              error: function (xhr, ajaxOptions, thrownError) {
-                  alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
-              }
-          });
+              $('#modal-opencart').modal('show');
+          },
+          error: function (xhr, ajaxOptions, thrownError) {
+              alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
+          }
       });
+  });
   //--></script>
   <script type="text/javascript"><!--
-      $('#button-filter').on('click', function (e) {
-          var url = 'index.php?route=marketplace/marketplace&user_token={{ user_token }}';
+  $('#button-filter').on('click', function (e) {
+      var url = 'index.php?route=marketplace/marketplace&user_token={{ user_token }}';
 
-          var input = $('#extension-filter :input');
+      var input = $('#extension-filter :input');
 
-          for (i = 0; i < input.length; i++) {
-              if ($(input[i]).val() != '' && $(input[i]).val() != null) {
-                  url += '&' + $(input[i]).attr('name') + '=' + $(input[i]).val()
-              }
+      for (i = 0; i < input.length; i++) {
+          if ($(input[i]).val() != '' && $(input[i]).val() != null) {
+              url += '&' + $(input[i]).attr('name') + '=' + $(input[i]).val()
           }
+      }
 
-          location = url;
-      });
+      location = url;
+  });
 
-      $('input[name="filter_search"]').keydown(function (e) {
-          if (e.keyCode == 13) {
-              e.preventDefault();
+  $('input[name="filter_search"]').keydown(function (e) {
+      if (e.keyCode == 13) {
+          e.preventDefault();
 
-              $('#button-filter').trigger('click');
-          }
-      });
+          $('#button-filter').trigger('click');
+      }
+  });
  //--></script>
 </div>
 {{ footer }}

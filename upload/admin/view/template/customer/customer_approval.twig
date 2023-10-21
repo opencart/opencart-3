@@ -99,26 +99,26 @@
                   </tr>
                 </thead>
                 <tbody>
-                {% if customer_approvals %}
-                  {% for customer_approval in customer_approvals %}
+                  {% if customer_approvals %}
+                    {% for customer_approval in customer_approvals %}
+                      <tr>
+                        <td class="text-left">{{ customer_approval.name }}</td>
+                        <td class="text-left">{{ customer_approval.email }}</td>
+                        <td class="text-left">{{ customer_approval.customer_group }}</td>
+                        <td class="text-left">{{ customer_approval.type }}</td>
+                        <td class="text-left">{{ customer_approval.date_added }}</td>
+                        <td class="text-right">
+                          <button type="button" data-toggle="tooltip" onclick="customer_approval.approve('{{ customer_approval.customer_id }}', '{{  customer_approval.type }}');" title="{{ button_approve }}" class="btn btn-success"><i class="fa fa-thumbs-o-up"></i></button>
+                          <button type="button" data-toggle="tooltip" onclick="customer_approval.deny('{{ customer_approval.customer_id }}', '{{  customer_approval.type }}');" title="{{ button_deny }}" class="btn btn-danger"><i class="fa fa-thumbs-o-down"></i></button>
+                          <a href="{{ customer_approval.edit }}" data-toggle="tooltip" title="{{ button_edit }}" class="btn btn-primary"><i class="fa fa-pencil"></i></a>
+                        </td>
+                      </tr>
+                    {% endfor %}
+                  {% else %}
                     <tr>
-                      <td class="text-left">{{ customer_approval.name }}</td>
-                      <td class="text-left">{{ customer_approval.email }}</td>
-                      <td class="text-left">{{ customer_approval.customer_group }}</td>
-                      <td class="text-left">{{ customer_approval.type }}</td>
-                      <td class="text-left">{{ customer_approval.date_added }}</td>
-                      <td class="text-right">
-                        <button type="button" data-toggle="tooltip" onclick="customer_approval.approve('{{ customer_approval.customer_id }}', '{{  customer_approval.type }}');" title="{{ button_approve }}" class="btn btn-success"><i class="fa fa-thumbs-o-up"></i></button>
-                        <button type="button" data-toggle="tooltip" onclick="customer_approval.deny('{{ customer_approval.customer_id }}', '{{  customer_approval.type }}');" title="{{ button_deny }}" class="btn btn-danger"><i class="fa fa-thumbs-o-down"></i></button>
-                        <a href="{{ customer_approval.edit }}" data-toggle="tooltip" title="{{ button_edit }}" class="btn btn-primary"><i class="fa fa-pencil"></i></a>
-                      </td>
+                      <td class="text-center" colspan="6">{{ text_no_results }}</td>
                     </tr>
-                  {% endfor %}
-                {% else %}
-                  <tr>
-                    <td class="text-center" colspan="6">{{ text_no_results }}</td>
-                  </tr>
-                {% endif %}
+                  {% endif %}
                 </tbody>
               </table>
             </div>
@@ -132,109 +132,9 @@
     </div>
   </div>
   <script type="text/javascript"><!--
-      // Customer removal approve and deny functions
-      var customer_approval = {
-          'approve': function (customer_id, type) {
-              url = 'index.php?route=customer/customer_approval&user_token={{ user_token }}';
-
-              var filter_name = $('input[name=\'filter_name\']').val();
-
-              if (filter_name) {
-                  url += '&filter_name=' + encodeURIComponent(filter_name);
-              }
-
-              var filter_email = $('input[name=\'filter_email\']').val();
-
-              if (filter_email) {
-                  url += '&filter_email=' + encodeURIComponent(filter_email);
-              }
-
-              var filter_customer_group_id = $('select[name=\'filter_customer_group_id\']').val();
-
-              if (filter_customer_group_id !== '') {
-                  url += '&filter_customer_group_id=' + encodeURIComponent(filter_customer_group_id);
-              }
-
-              var filter_type = $('select[name=\'filter_type\']').val();
-
-              if (filter_type !== '') {
-                  url += '&filter_type=' + filter_type;
-              }
-
-              var filter_date_added = $('input[name=\'filter_date_added\']').val();
-
-              if (filter_date_added) {
-                  url += '&filter_date_added=' + encodeURIComponent(filter_date_added);
-              }
-
-              $.ajax({
-                  url: url,
-                  type: 'post',
-                  dataType: 'json',
-                  data: 'customer_id=' + customer_id + '&type=' + encodeURIComponent(type),
-                  success: function (json) {
-                      if (json['redirect']) {
-                          location = json['redirect'];
-                      }
-
-                      if (json['error']) {
-                          $('#content > .container-fluid').prepend('<div class="alert alert-danger alert-dismissible"><i class="fa fa-exclamation-circle"></i> ' + json['error'] + ' <button type="button" class="close" data-dismiss="alert">&times;</button></div>');
-                      }
-                  }
-              });
-          },
-          'deny': function (customer_id, type) {
-              url = 'index.php?route=customer/customer_approval&user_token={{ user_token }}';
-
-              var filter_name = $('input[name=\'filter_name\']').val();
-
-              if (filter_name) {
-                  url += '&filter_name=' + encodeURIComponent(filter_name);
-              }
-
-              var filter_email = $('input[name=\'filter_email\']').val();
-
-              if (filter_email) {
-                  url += '&filter_email=' + encodeURIComponent(filter_email);
-              }
-
-              var filter_customer_group_id = $('select[name=\'filter_customer_group_id\']').val();
-
-              if (filter_customer_group_id !== '') {
-                  url += '&filter_customer_group_id=' + encodeURIComponent(filter_customer_group_id);
-              }
-
-              var filter_type = $('select[name=\'filter_type\']').val();
-
-              if (filter_type !== '') {
-                  url += '&filter_type=' + filter_type;
-              }
-
-              var filter_date_added = $('input[name=\'filter_date_added\']').val();
-
-              if (filter_date_added) {
-                  url += '&filter_date_added=' + encodeURIComponent(filter_date_added);
-              }
-
-              $.ajax({
-                  url: url,
-                  type: 'post',
-                  dataType: 'json',
-                  data: 'customer_id=' + customer_id + '&type=' + encodeURIComponent(type),
-                  success: function (json) {
-                      if (json['redirect']) {
-                          location = json['redirect'];
-                      }
-
-                      if (json['error']) {
-                          $('#content > .container-fluid').prepend('<div class="alert alert-danger alert-dismissible"><i class="fa fa-exclamation-circle"></i> ' + json['error'] + ' <button type="button" class="close" data-dismiss="alert">&times;</button></div>');
-                      }
-                  }
-              });
-          },
-      }
-
-      $('#button-filter').on('click', function () {
+  // Customer removal approve and deny functions
+  var customer_approval = {
+      'approve': function (customer_id, type) {
           url = 'index.php?route=customer/customer_approval&user_token={{ user_token }}';
 
           var filter_name = $('input[name=\'filter_name\']').val();
@@ -267,55 +167,155 @@
               url += '&filter_date_added=' + encodeURIComponent(filter_date_added);
           }
 
-          location = url;
-      });
-  //--></script>
-  <script type="text/javascript"><!--
-      $('input[name=\'filter_name\']').autocomplete({
-          'source': function (request, response) {
-              $.ajax({
-                  url: 'index.php?route=customer/customer/autocomplete&user_token={{ user_token }}&filter_name=' + encodeURIComponent(request),
-                  dataType: 'json',
-                  success: function (json) {
-                      response($.map(json, function (item) {
-                          return {
-                              label: item['name'],
-                              value: item['customer_id']
-                          }
-                      }));
+          $.ajax({
+              url: url,
+              type: 'post',
+              dataType: 'json',
+              data: 'customer_id=' + customer_id + '&type=' + encodeURIComponent(type),
+              success: function (json) {
+                  if (json['redirect']) {
+                      location = json['redirect'];
                   }
-              });
-          },
-          'select': function (item) {
-              $('input[name=\'filter_name\']').val(item['label']);
-          }
-      });
 
-      $('input[name=\'filter_email\']').autocomplete({
-          'source': function (request, response) {
-              $.ajax({
-                  url: 'index.php?route=customer/customer/autocomplete&user_token={{ user_token }}&filter_email=' + encodeURIComponent(request),
-                  dataType: 'json',
-                  success: function (json) {
-                      response($.map(json, function (item) {
-                          return {
-                              label: item['email'],
-                              value: item['customer_id']
-                          }
-                      }));
+                  if (json['error']) {
+                      $('#content > .container-fluid').prepend('<div class="alert alert-danger alert-dismissible"><i class="fa fa-exclamation-circle"></i> ' + json['error'] + ' <button type="button" class="close" data-dismiss="alert">&times;</button></div>');
                   }
-              });
-          },
-          'select': function (item) {
-              $('input[name=\'filter_email\']').val(item['label']);
+              }
+          });
+      },
+      'deny': function (customer_id, type) {
+          url = 'index.php?route=customer/customer_approval&user_token={{ user_token }}';
+
+          var filter_name = $('input[name=\'filter_name\']').val();
+
+          if (filter_name) {
+              url += '&filter_name=' + encodeURIComponent(filter_name);
           }
-      });
+
+          var filter_email = $('input[name=\'filter_email\']').val();
+
+          if (filter_email) {
+              url += '&filter_email=' + encodeURIComponent(filter_email);
+          }
+
+          var filter_customer_group_id = $('select[name=\'filter_customer_group_id\']').val();
+
+          if (filter_customer_group_id !== '') {
+              url += '&filter_customer_group_id=' + encodeURIComponent(filter_customer_group_id);
+          }
+
+          var filter_type = $('select[name=\'filter_type\']').val();
+
+          if (filter_type !== '') {
+              url += '&filter_type=' + filter_type;
+          }
+
+          var filter_date_added = $('input[name=\'filter_date_added\']').val();
+
+          if (filter_date_added) {
+              url += '&filter_date_added=' + encodeURIComponent(filter_date_added);
+          }
+
+          $.ajax({
+              url: url,
+              type: 'post',
+              dataType: 'json',
+              data: 'customer_id=' + customer_id + '&type=' + encodeURIComponent(type),
+              success: function (json) {
+                  if (json['redirect']) {
+                      location = json['redirect'];
+                  }
+
+                  if (json['error']) {
+                      $('#content > .container-fluid').prepend('<div class="alert alert-danger alert-dismissible"><i class="fa fa-exclamation-circle"></i> ' + json['error'] + ' <button type="button" class="close" data-dismiss="alert">&times;</button></div>');
+                  }
+              }
+          });
+      },
+  }
+
+  $('#button-filter').on('click', function () {
+      url = 'index.php?route=customer/customer_approval&user_token={{ user_token }}';
+
+      var filter_name = $('input[name=\'filter_name\']').val();
+
+      if (filter_name) {
+          url += '&filter_name=' + encodeURIComponent(filter_name);
+      }
+
+      var filter_email = $('input[name=\'filter_email\']').val();
+
+      if (filter_email) {
+          url += '&filter_email=' + encodeURIComponent(filter_email);
+      }
+
+      var filter_customer_group_id = $('select[name=\'filter_customer_group_id\']').val();
+
+      if (filter_customer_group_id !== '') {
+          url += '&filter_customer_group_id=' + encodeURIComponent(filter_customer_group_id);
+      }
+
+      var filter_type = $('select[name=\'filter_type\']').val();
+
+      if (filter_type !== '') {
+          url += '&filter_type=' + filter_type;
+      }
+
+      var filter_date_added = $('input[name=\'filter_date_added\']').val();
+
+      if (filter_date_added) {
+          url += '&filter_date_added=' + encodeURIComponent(filter_date_added);
+      }
+
+      location = url;
+  });
   //--></script>
   <script type="text/javascript"><!--
-      $('.date').datetimepicker({
-          language: '{{ datepicker }}',
-          pickTime: false
-      });
+  $('input[name=\'filter_name\']').autocomplete({
+      'source': function (request, response) {
+          $.ajax({
+              url: 'index.php?route=customer/customer/autocomplete&user_token={{ user_token }}&filter_name=' + encodeURIComponent(request),
+              dataType: 'json',
+              success: function (json) {
+                  response($.map(json, function (item) {
+                      return {
+                          label: item['name'],
+                          value: item['customer_id']
+                      }
+                  }));
+              }
+          });
+      },
+      'select': function (item) {
+          $('input[name=\'filter_name\']').val(item['label']);
+      }
+  });
+
+  $('input[name=\'filter_email\']').autocomplete({
+      'source': function (request, response) {
+          $.ajax({
+              url: 'index.php?route=customer/customer/autocomplete&user_token={{ user_token }}&filter_email=' + encodeURIComponent(request),
+              dataType: 'json',
+              success: function (json) {
+                  response($.map(json, function (item) {
+                      return {
+                          label: item['email'],
+                          value: item['customer_id']
+                      }
+                  }));
+              }
+          });
+      },
+      'select': function (item) {
+          $('input[name=\'filter_email\']').val(item['label']);
+      }
+  });
+  //--></script>
+  <script type="text/javascript"><!--
+  $('.date').datetimepicker({
+      language: '{{ datepicker }}',
+      pickTime: false
+  });
   //--></script>
 </div>
 {{ footer }}

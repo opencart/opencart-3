@@ -464,20 +464,20 @@
   </div>
 </div>
 <script type="text/javascript"><!--
-    function downloadTransactions() {
-        $('#download-iframe').remove();
-        $('#transaction-form').after('<iframe name="download-iframe" id="download-iframe" style="display: none;" src=""/>');
+function downloadTransactions() {
+    $('#download-iframe').remove();
+    $('#transaction-form').after('<iframe name="download-iframe" id="download-iframe" style="display: none;" src=""/>');
 
-        $('#transaction-form').attr('method', 'POST');
-        $('#transaction-form').attr('target', 'download-iframe');
-        $('#transaction-form').attr('action', 'index.php?route=extension/payment/securetrading_ws/downloadTransactions&user_token={{ user_token }}');
+    $('#transaction-form').attr('method', 'POST');
+    $('#transaction-form').attr('target', 'download-iframe');
+    $('#transaction-form').attr('action', 'index.php?route=extension/payment/securetrading_ws/downloadTransactions&user_token={{ user_token }}');
 
-        $('#transaction-form').submit();
+    $('#transaction-form').submit();
 
-        $('#transaction-form').removeAttr('method');
-        $('#transaction-form').removeAttr('target');
-        $('#transaction-form').removeAttr('action');
-    }
+    $('#transaction-form').removeAttr('method');
+    $('#transaction-form').removeAttr('target');
+    $('#transaction-form').removeAttr('action');
+}
 
     function showTransactions() {
         $.ajax({

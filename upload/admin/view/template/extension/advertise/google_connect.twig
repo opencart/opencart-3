@@ -121,30 +121,28 @@
   </div>
 </div>
 <script type="text/javascript"><!--
-    (function ($) {
-        var selector = {
-            save: '#connect',
-            form: '#form'
-        }
+(function ($) {
+    var selector = {
+        save: '#connect',
+        form: '#form'
+    }
 
-        var randomString = function () {
-            return (Math.random() * 100).toString(16).replace('.', '');
-        }
+    var randomString = function () {
+        return (Math.random() * 100).toString(16).replace('.', '');
+    }
 
-        var setCronUrl = function () {
-            $('#input_advertise_google_cron_url').val(
-                "{{ advertise_google_cron_url }}".replace('{CRON_TOKEN}', $('#input_advertise_google_cron_token').val())
-            );
-        }
+    var setCronUrl = function () {
+        $('#input_advertise_google_cron_url').val("{{ advertise_google_cron_url }}".replace('{CRON_TOKEN}', $('#input_advertise_google_cron_token').val()));
+    }
 
-        $(document).on('click', selector.save, function (e) {
-            e.preventDefault();
-            e.stopPropagation();
+    $(document).on('click', selector.save, function (e) {
+        e.preventDefault();
+        e.stopPropagation();
 
-            $(selector.save).text('{{ text_connecting }}').attr('disabled', true);
+        $(selector.save).text('{{ text_connecting }}').attr('disabled', true);
 
-            $(selector.form).submit();
-        });
+        $(selector.form).submit();
+    });
 
         $(document).ready(function () {
             setCronUrl();

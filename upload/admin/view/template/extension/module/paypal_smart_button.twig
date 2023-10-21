@@ -291,36 +291,36 @@
   </div>
 </div>
 <script type="text/javascript"><!--
-    $('#input_page_product_message_layout').on('change', function () {
-        var layout = $(this).val();
+$('#input_page_product_message_layout').on('change', function () {
+    var layout = $(this).val();
 
-        if (layout == 'text') {
-            $('#input_page_product_message_flex_color').parents('.form-group').addClass('hidden');
-            $('#input_page_product_message_flex_ratio').parents('.form-group').addClass('hidden');
-            $('#input_page_product_message_text_color').parents('.form-group').removeClass('hidden');
-            $('#input_page_product_message_text_size').parents('.form-group').removeClass('hidden');
-        } else {
-            $('#input_page_product_message_text_color').parents('.form-group').addClass('hidden');
-            $('#input_page_product_message_text_size').parents('.form-group').addClass('hidden');
-            $('#input_page_product_message_flex_color').parents('.form-group').removeClass('hidden');
-            $('#input_page_product_message_flex_ratio').parents('.form-group').removeClass('hidden');
-        }
-    });
+    if (layout == 'text') {
+        $('#input_page_product_message_flex_color').parents('.form-group').addClass('hidden');
+        $('#input_page_product_message_flex_ratio').parents('.form-group').addClass('hidden');
+        $('#input_page_product_message_text_color').parents('.form-group').removeClass('hidden');
+        $('#input_page_product_message_text_size').parents('.form-group').removeClass('hidden');
+    } else {
+        $('#input_page_product_message_text_color').parents('.form-group').addClass('hidden');
+        $('#input_page_product_message_text_size').parents('.form-group').addClass('hidden');
+        $('#input_page_product_message_flex_color').parents('.form-group').removeClass('hidden');
+        $('#input_page_product_message_flex_ratio').parents('.form-group').removeClass('hidden');
+    }
+});
 
-    $('#input_page_cart_message_layout').on('change', function () {
-        var layout = $(this).val();
+$('#input_page_cart_message_layout').on('change', function () {
+    var layout = $(this).val();
 
-        if (layout == 'text') {
-            $('#input_page_cart_message_flex_color').parents('.form-group').addClass('hidden');
-            $('#input_page_cart_message_flex_ratio').parents('.form-group').addClass('hidden');
-            $('#input_page_cart_message_text_color').parents('.form-group').removeClass('hidden');
-            $('#input_page_cart_message_text_size').parents('.form-group').removeClass('hidden');
-        } else {
-            $('#input_page_cart_message_text_color').parents('.form-group').addClass('hidden');
-            $('#input_page_cart_message_text_size').parents('.form-group').addClass('hidden');
-            $('#input_page_cart_message_flex_color').parents('.form-group').removeClass('hidden');
-            $('#input_page_cart_message_flex_ratio').parents('.form-group').removeClass('hidden');
-        }
-    });
+    if (layout == 'text') {
+        $('#input_page_cart_message_flex_color').parents('.form-group').addClass('hidden');
+        $('#input_page_cart_message_flex_ratio').parents('.form-group').addClass('hidden');
+        $('#input_page_cart_message_text_color').parents('.form-group').removeClass('hidden');
+        $('#input_page_cart_message_text_size').parents('.form-group').removeClass('hidden');
+    } else {
+        $('#input_page_cart_message_text_color').parents('.form-group').addClass('hidden');
+        $('#input_page_cart_message_text_size').parents('.form-group').addClass('hidden');
+        $('#input_page_cart_message_flex_color').parents('.form-group').removeClass('hidden');
+        $('#input_page_cart_message_flex_ratio').parents('.form-group').removeClass('hidden');
+    }
+});
 //--></script>
 {{ footer }}

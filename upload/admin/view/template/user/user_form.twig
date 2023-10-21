@@ -135,38 +135,38 @@
     {% endif %}
   </div>
   <script type="text/javascript"><!--
-      $('#login').delegate('.pagination a', 'click', function (e) {
-          e.preventDefault();
+  $('#login').delegate('.pagination a', 'click', function (e) {
+      e.preventDefault();
 
-          $('#login').load(this.href);
+      $('#login').load(this.href);
+  });
+
+  $('#login').load('index.php?route=user/user/getLogins&user_token={{ user_token }}');
+
+  $('#login').on('click', '.btn-success, .btn-danger', function (e) {
+      e.preventDefault();
+
+      var element = this;
+
+      $.ajax({
+          url: $(element).attr('href'),
+          dataType: 'json',
+          beforeSend: function () {
+              $(element).button('loading');
+          },
+          complete: function () {
+              $(element).button('reset');
+          },
+          success: function () {
+              $('.alert-dismissible').remove();
+
+              $('#login').load('index.php?route=user/user/getLogins&user_token={{ user_token }}');
+          },
+          error: function (xhr, ajaxOptions, thrownError) {
+              alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
+          }
       });
-
-      $('#login').load('index.php?route=user/user/getLogins&user_token={{ user_token }}');
-
-      $('#login').on('click', '.btn-success, .btn-danger', function (e) {
-          e.preventDefault();
-
-          var element = this;
-
-          $.ajax({
-              url: $(element).attr('href'),
-              dataType: 'json',
-              beforeSend: function () {
-                  $(element).button('loading');
-              },
-              complete: function () {
-                  $(element).button('reset');
-              },
-              success: function () {
-                  $('.alert-dismissible').remove();
-
-                  $('#login').load('index.php?route=user/user/getLogins&user_token={{ user_token }}');
-              },
-              error: function (xhr, ajaxOptions, thrownError) {
-                  alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
-              }
-          });
-      });
+  });
   //--></script>
 </div>
 {{ footer }}

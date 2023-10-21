@@ -86,37 +86,37 @@
 <script type="text/javascript"><!--
     $('#button-filter').on('click', function () {
         var url = '';
-        
+
         var filter_date_start = $('input[name=\'filter_date_start\']').val();
-        
+
         if (filter_date_start) {
             url += '&filter_date_start=' + encodeURIComponent(filter_date_start);
         }
-        
+
         var filter_date_end = $('input[name=\'filter_date_end\']').val();
-        
+
         if (filter_date_end) {
             url += '&filter_date_end=' + encodeURIComponent(filter_date_end);
         }
-        
+
         var filter_keyword = $('input[name=\'filter_keyword\']').val();
-        
+
         if (filter_keyword) {
             url += '&filter_keyword=' + encodeURIComponent(filter_keyword);
         }
-        
+
         var filter_customer = $('input[name=\'filter_customer\']').val();
-        
+
         if (filter_customer) {
             url += '&filter_customer=' + encodeURIComponent(filter_customer);
         }
-        
+
         var filter_ip = $('input[name=\'filter_ip\']').val();
-        
+
         if (filter_ip) {
             url += '&filter_ip=' + encodeURIComponent(filter_ip);
         }
-        
+
         location = 'index.php?route=report/report&code=customer_search&user_token={{ user_token }}' + url;
     });
 //--></script>
@@ -143,7 +143,7 @@
           });
         },
         'select': function (item) {
-          $('input[name=\'filter_customer\']').val(item['label']);
+            $('input[name=\'filter_customer\']').val(item['label']);
         }
     });
 //--></script>

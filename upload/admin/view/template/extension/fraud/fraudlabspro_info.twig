@@ -102,21 +102,21 @@
           <input type="hidden" id="new_status" name="new_status" value=""/>
         </form>
         <script>
-            $(document).ready(function () {
-                $('#button-flp-approve').click(function () {
-                    $('#new_status').val("APPROVE");
-                    
-                    $('#review-action').submit();
-                });
+        $(document).ready(function () {
+            $('#button-flp-approve').click(function () {
+                $('#new_status').val("APPROVE");
+
+                $('#review-action').submit();
             });
-            
-            $(document).ready(function () {
-                $('#button-flp-reject').click(function () {
-                    $('#new_status').val("REJECT");
-                    
-                    $('#review-action').submit();
-                });
+        });
+
+        $(document).ready(function () {
+            $('#button-flp-reject').click(function () {
+                $('#new_status').val("REJECT");
+
+                $('#review-action').submit();
             });
+        });
         </script>
       </td>
     </tr>

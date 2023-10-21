@@ -118,83 +118,83 @@
     </div>
   </div>
   <script type="text/javascript"><!--
-      $('#button-filter').on('click', function () {
-          url = 'index.php?route=sale/subscription&user_token={{ user_token }}';
-          
-          var filter_subscription_id = $('#input-subscription-id').val();
-          
-          if (filter_subscription_id !== '') {
-              url += '&filter_subscription_id=' + filter_subscription_id;
-          }
-          
-          var filter_order_id = $('#input-order-id').val();
-          
-          if (filter_order_id !== '') {
-              url += '&filter_order_id=' + filter_order_id;
-          }
-          
-          var filter_customer = $('#input-customer').val();
-          
-          if (filter_customer) {
-              url += '&filter_customer=' + encodeURIComponent(filter_customer);
-          }
-          
-          var filter_subscription_status_id = $('#input-subscription-status').val();
-          
-          if (filter_subscription_status_id !== '') {
-              url += '&filter_subscription_status_id=' + filter_subscription_status_id;
-          }
-          
-          var filter_date_from = $('#input-date-from').val();
-          
-          if (filter_date_from) {
-              url += '&filter_date_from=' + encodeURIComponent(filter_date_from);
-          }
-          
-          var filter_date_to = $('#input-date-to').val();
-          
-          if (filter_date_to) {
-              url += '&filter_date_to=' + encodeURIComponent(filter_date_to);
-          }
-          
-          location = url;
-      });
+  $('#button-filter').on('click', function () {
+      url = 'index.php?route=sale/subscription&user_token={{ user_token }}';
 
-      $('.date').datetimepicker({
-          language: '{{ datepicker }}',
-          pickTime: false
-      });
+      var filter_subscription_id = $('#input-subscription-id').val();
 
-      $('.datetime').datetimepicker({
-          language: '{{ datepicker }}',
-          pickDate: true,
-          pickTime: true
-      });
+      if (filter_subscription_id !== '') {
+          url += '&filter_subscription_id=' + filter_subscription_id;
+      }
 
-      $('.time').datetimepicker({
-          language: '{{ datepicker }}',
-          pickDate: false
-      });
+      var filter_order_id = $('#input-order-id').val();
 
-      $('input[name=\'filter_customer\']').autocomplete({
-          'source': function (request, response) {
-              $.ajax({
-                  url: 'index.php?route=customer/customer/autocomplete&user_token={{ user_token }}&filter_name=' + encodeURIComponent(request),
-                  dataType: 'json',
-                  success: function (json) {
-                      response($.map(json, function (item) {
-                          return {
-                              label: item['name'],
-                              value: item['customer_id']
-                          }
-                      }));
-                  }
-              });
-          },
-          'select': function (item) {
-              $('input[name=\'filter_customer\']').val(item['label']);
-          }
-      });
+      if (filter_order_id !== '') {
+          url += '&filter_order_id=' + filter_order_id;
+      }
+
+      var filter_customer = $('#input-customer').val();
+
+      if (filter_customer) {
+          url += '&filter_customer=' + encodeURIComponent(filter_customer);
+      }
+
+      var filter_subscription_status_id = $('#input-subscription-status').val();
+
+      if (filter_subscription_status_id !== '') {
+          url += '&filter_subscription_status_id=' + filter_subscription_status_id;
+      }
+
+      var filter_date_from = $('#input-date-from').val();
+
+      if (filter_date_from) {
+          url += '&filter_date_from=' + encodeURIComponent(filter_date_from);
+      }
+
+      var filter_date_to = $('#input-date-to').val();
+
+      if (filter_date_to) {
+          url += '&filter_date_to=' + encodeURIComponent(filter_date_to);
+      }
+
+      location = url;
+  });
+
+  $('.date').datetimepicker({
+      language: '{{ datepicker }}',
+      pickTime: false
+  });
+
+  $('.datetime').datetimepicker({
+      language: '{{ datepicker }}',
+      pickDate: true,
+      pickTime: true
+  });
+
+  $('.time').datetimepicker({
+      language: '{{ datepicker }}',
+      pickDate: false
+  });
+
+  $('input[name=\'filter_customer\']').autocomplete({
+      'source': function (request, response) {
+          $.ajax({
+              url: 'index.php?route=customer/customer/autocomplete&user_token={{ user_token }}&filter_name=' + encodeURIComponent(request),
+              dataType: 'json',
+              success: function (json) {
+                  response($.map(json, function (item) {
+                      return {
+                          label: item['name'],
+                          value: item['customer_id']
+                      }
+                  }));
+              }
+          });
+      },
+      'select': function (item) {
+          $('input[name=\'filter_customer\']').val(item['label']);
+      }
+  });
   //--></script>
 </div>
 {{ footer }}

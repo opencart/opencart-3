@@ -18,9 +18,9 @@
           <td class="text-left">{{ campaign.campaign_name }}</td>
           <td class="text-center">
             {% if campaign.status == 'paused' %}
-            <span class="label label-warning">{{ text_label_paused }}</span>
+              <span class="label label-warning">{{ text_label_paused }}</span>
             {% elseif campaign.status == 'active' %}
-            <span class="label label-success">{{ text_label_active }}</span>
+              <span class="label label-success">{{ text_label_active }}</span>
             {% endif %}
           </td>
           <td class="text-center">{{ campaign.impressions }}</td>

@@ -76,22 +76,22 @@
     }
 </style>
 <script type="text/javascript">
-    (function ($) {
-        $('input[name^=acknowledge]').change(function (e) {
-            $(this).closest('tr').toggleClass('success', $(this).is(':checked'));
+(function ($) {
+    $('input[name^=acknowledge]').change(function (e) {
+        $(this).closest('tr').toggleClass('success', $(this).is(':checked'));
 
-            $('button[type="submit"]').attr('disabled', $('input[name^=acknowledge]:not(:checked)').length > 0);
-        }).trigger('change');
+        $('button[type="submit"]').attr('disabled', $('input[name^=acknowledge]:not(:checked)').length > 0);
+    }).trigger('change');
 
-        $('input[name^=acknowledge]').closest('td').click(function (e) {
-            if ($(e.target).is('input')) {
-                return;
-            }
+    $('input[name^=acknowledge]').closest('td').click(function (e) {
+        if ($(e.target).is('input')) {
+            return;
+        }
 
-            var checkbox = $(this).find('input[name^=acknowledge]').first();
+        var checkbox = $(this).find('input[name^=acknowledge]').first();
 
-            $(checkbox).prop('checked', !$(checkbox).prop('checked')).trigger('change');
-        });
-    })(jQuery);
+        $(checkbox).prop('checked', !$(checkbox).prop('checked')).trigger('change');
+    });
+})(jQuery);
 </script>
 {{ footer }}

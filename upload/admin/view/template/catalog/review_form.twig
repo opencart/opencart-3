@@ -134,33 +134,33 @@
     </div>
   </div>
   <script type="text/javascript"><!--
-      $('.datetime').datetimepicker({
-          language: '{{ datepicker }}',
-          pickDate: true,
-          pickTime: true
-      });
-      //--></script>
+  $('.datetime').datetimepicker({
+      language: '{{ datepicker }}',
+      pickDate: true,
+      pickTime: true
+  });
+  //--></script>
   <script type="text/javascript"><!--
-      $('input[name=\'product\']').autocomplete({
-          'source': function (request, response) {
-              $.ajax({
-                  url: 'index.php?route=catalog/product/autocomplete&user_token={{ user_token }}&filter_name=' + encodeURIComponent(request),
-                  dataType: 'json',
-                  success: function (json) {
-                      response($.map(json, function (item) {
-                          return {
-                              label: item['name'],
-                              value: item['product_id']
-                          }
-                      }));
-                  }
-              });
-          },
-          'select': function (item) {
-              $('input[name=\'product\']').val(item['label']);
-              $('input[name=\'product_id\']').val(item['value']);
-          }
-      });
-      //--></script>
+  $('input[name=\'product\']').autocomplete({
+      'source': function (request, response) {
+          $.ajax({
+              url: 'index.php?route=catalog/product/autocomplete&user_token={{ user_token }}&filter_name=' + encodeURIComponent(request),
+              dataType: 'json',
+              success: function (json) {
+                  response($.map(json, function (item) {
+                      return {
+                          label: item['name'],
+                          value: item['product_id']
+                      }
+                  }));
+              }
+          });
+      },
+      'select': function (item) {
+          $('input[name=\'product\']').val(item['label']);
+          $('input[name=\'product_id\']').val(item['value']);
+      }
+  });
+  //--></script>
 </div>
 {{ footer }}

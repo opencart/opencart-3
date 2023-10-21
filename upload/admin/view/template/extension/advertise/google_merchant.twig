@@ -68,27 +68,27 @@
   </div>
 </div>
 <script type="text/javascript"><!--
-    (function ($) {
-        var selector = {
-            acknowledge: '.acknowledge',
-            save: '#proceed',
-            form: '#form'
-        }
+(function ($) {
+    var selector = {
+        acknowledge: '.acknowledge',
+        save: '#proceed',
+        form: '#form'
+    }
 
-        $(document).on('change', selector.acknowledge, function () {
-            $(selector.save).attr('disabled', $(selector.acknowledge + ':not(:checked)').length > 0);
-        });
+    $(document).on('change', selector.acknowledge, function () {
+        $(selector.save).attr('disabled', $(selector.acknowledge + ':not(:checked)').length > 0);
+    });
 
-        $(selector.acknowledge).trigger('change');
+    $(selector.acknowledge).trigger('change');
 
-        $(document).on('click', selector.save, function (e) {
-            e.preventDefault();
-            e.stopPropagation();
+    $(document).on('click', selector.save, function (e) {
+        e.preventDefault();
+        e.stopPropagation();
 
-            $(selector.save).text('{{ text_loading }}').attr('disabled', true);
+        $(selector.save).text('{{ text_loading }}').attr('disabled', true);
 
-            $(selector.form).submit();
-        });
-    })(jQuery);
+        $(selector.form).submit();
+    });
+})(jQuery);
 //--></script>
 {{ footer }}

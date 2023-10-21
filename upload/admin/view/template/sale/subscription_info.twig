@@ -198,173 +198,173 @@
     </div>
   </div>
   <script type="text/javascript"><!--
-      $('#input-subscription-plan, #input-payment-method').on('change', function (e) {
-          e.preventDefault();
+  $('#input-subscription-plan, #input-payment-method').on('change', function (e) {
+      e.preventDefault();
 
-          var element = this;
+      var element = this;
 
-          $.ajax({
-              url: 'index.php?route=sale/subscription/save&user_token={{ user_token }}&subscription_id=' + $('#input-subscription-id').val(),
-              type: 'post',
-              dataType: 'json',
-              data: $('#form-subscription').serialize(),
-              beforeSend: function () {
-                  $(element).prop('disabled', true).addClass('loading');
-              },
-              complete: function () {
-                  $(element).prop('disabled', false).removeClass('loading');
-              },
-              success: function (json) {
-                  $('.alert-dismissible').remove();
+      $.ajax({
+          url: 'index.php?route=sale/subscription/save&user_token={{ user_token }}&subscription_id=' + $('#input-subscription-id').val(),
+          type: 'post',
+          dataType: 'json',
+          data: $('#form-subscription').serialize(),
+          beforeSend: function () {
+              $(element).prop('disabled', true).addClass('loading');
+          },
+          complete: function () {
+              $(element).prop('disabled', false).removeClass('loading');
+          },
+          success: function (json) {
+              $('.alert-dismissible').remove();
 
-                  if (json['error']) {
-                      $('#tab-general').prepend('<div class="alert alert-danger alert-dismissible"><i class="fa fa-exclamation-circle"></i> ' + json['error'] + ' <button type="button" class="close" data-dismiss="alert">&times;</button></div>');
-                  }
-
-                  if (json['success']) {
-                      $('#tab-general').prepend('<div class="alert alert-success alert-dismissible"><i class="fa-solid fa-check-circle"></i> ' + json['success'] + ' <button type="button" class="btn-close" data-bs-dismiss="alert"></button></div>');
-                  }
-              },
-              error: function (xhr, ajaxOptions, thrownError) {
-                  console.log(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
+              if (json['error']) {
+                  $('#tab-general').prepend('<div class="alert alert-danger alert-dismissible"><i class="fa fa-exclamation-circle"></i> ' + json['error'] + ' <button type="button" class="close" data-dismiss="alert">&times;</button></div>');
               }
-          });
-      });
 
-      $('#history').on('click', '.pagination a', function (e) {
-          e.preventDefault();
-
-          $('#history').load(this.href);
-      });
-
-      $('#button-history').on('click', function (e) {
-          e.preventDefault();
-
-          $.ajax({
-              url: 'index.php?route=sale/subscription/addHistory&user_token={{ user_token }}&subscription_id=' + $('#input-subscription-id').val(),
-              type: 'post',
-              dataType: 'json',
-              data: $('#form-history').serialize(),
-              beforeSend: function () {
-                  $('#button-history').button('loading');
-              },
-              complete: function () {
-                  $('#button-history').button('reset');
-              },
-              success: function (json) {
-                  $('.alert-dismissible').remove();
-
-                  if (json['error']) {
-                      $('#tab-history').prepend('<div class="alert alert-danger alert-dismissible"><i class="fa fa-exclamation-circle"></i> ' + json['error'] + ' <button type="button" class="close" data-dismiss="alert">&times;</button></div>');
-                  }
-
-                  if (json['success']) {
-                      $('#tab-history').prepend('<div class="alert alert-success alert-dismissible"><i class="fa fa-check-circle"></i> ' + json['success'] + ' <button type="button" class="close" data-dismiss="alert">&times;</button></div>');
-
-                      $('#history').load('index.php?route=sale/subscription/history&user_token={{ user_token }}&subscription_id=' + $('#input-subscription-id').val());
-
-                      $('#tab-history textarea[name=\'comment\']').val('');
-                  }
-              },
-              error: function (xhr, ajaxOptions, thrownError) {
-                  console.log(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
+              if (json['success']) {
+                  $('#tab-general').prepend('<div class="alert alert-success alert-dismissible"><i class="fa-solid fa-check-circle"></i> ' + json['success'] + ' <button type="button" class="btn-close" data-bs-dismiss="alert"></button></div>');
               }
-          });
+          },
+          error: function (xhr, ajaxOptions, thrownError) {
+              console.log(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
+          }
       });
+  });
 
-      $('#transaction').on('click', '.pagination a', function (e) {
-          e.preventDefault();
+  $('#history').on('click', '.pagination a', function (e) {
+      e.preventDefault();
 
-          $('#transaction').load(this.href);
-      });
+      $('#history').load(this.href);
+  });
 
-      $('#button-transaction').on('click', function (e) {
-          e.preventDefault();
+  $('#button-history').on('click', function (e) {
+      e.preventDefault();
 
-          $.ajax({
-              url: 'index.php?route=sale/subscription/addTransaction&user_token={{ user_token }}&subscription_id=' + $('#input-subscription-id').val(),
-              type: 'post',
-              dataType: 'json',
-              data: $('#form-transaction').serialize(),
-              beforeSend: function () {
-                  $('#button-transaction').button('loading');
-              },
-              complete: function () {
-                  $('#button-transaction').button('reset');
-              },
-              success: function (json) {
-                  $('.alert-dismissible').remove();
+      $.ajax({
+          url: 'index.php?route=sale/subscription/addHistory&user_token={{ user_token }}&subscription_id=' + $('#input-subscription-id').val(),
+          type: 'post',
+          dataType: 'json',
+          data: $('#form-history').serialize(),
+          beforeSend: function () {
+              $('#button-history').button('loading');
+          },
+          complete: function () {
+              $('#button-history').button('reset');
+          },
+          success: function (json) {
+              $('.alert-dismissible').remove();
 
-                  if (json['error']) {
-                      $('#tab-transaction').prepend('<div class="alert alert-danger alert-dismissible"><i class="fa fa-exclamation-circle"></i> ' + json['error'] + ' <button type="button" class="close" data-dismiss="alert">&times;</button></div>');
-                  }
-
-                  if (json['success']) {
-                      $('#tab-transaction').prepend('<div class="alert alert-success alert-dismissible"><i class="fa fa-check-circle"></i> ' + json['success'] + ' <button type="button" class="close" data-dismiss="alert">&times;</button></div>');
-
-                      $('#transaction').load('index.php?route=sale/subscription/transaction&user_token={{ user_token }}&subscription_id=' + $('#input-subscription-id').val());
-
-                      $('#tab-transaction input[name=\'amount\']').val('');
-                      $('#tab-transaction input[name=\'description\']').val('');
-                  }
-              },
-              error: function (xhr, ajaxOptions, thrownError) {
-                  console.log(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
+              if (json['error']) {
+                  $('#tab-history').prepend('<div class="alert alert-danger alert-dismissible"><i class="fa fa-exclamation-circle"></i> ' + json['error'] + ' <button type="button" class="close" data-dismiss="alert">&times;</button></div>');
               }
-          });
+
+              if (json['success']) {
+                  $('#tab-history').prepend('<div class="alert alert-success alert-dismissible"><i class="fa fa-check-circle"></i> ' + json['success'] + ' <button type="button" class="close" data-dismiss="alert">&times;</button></div>');
+
+                  $('#history').load('index.php?route=sale/subscription/history&user_token={{ user_token }}&subscription_id=' + $('#input-subscription-id').val());
+
+                  $('#tab-history textarea[name=\'comment\']').val('');
+              }
+          },
+          error: function (xhr, ajaxOptions, thrownError) {
+              console.log(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
+          }
       });
+  });
+
+  $('#transaction').on('click', '.pagination a', function (e) {
+      e.preventDefault();
+
+      $('#transaction').load(this.href);
+  });
+
+  $('#button-transaction').on('click', function (e) {
+      e.preventDefault();
+
+      $.ajax({
+          url: 'index.php?route=sale/subscription/addTransaction&user_token={{ user_token }}&subscription_id=' + $('#input-subscription-id').val(),
+          type: 'post',
+          dataType: 'json',
+          data: $('#form-transaction').serialize(),
+          beforeSend: function () {
+              $('#button-transaction').button('loading');
+          },
+          complete: function () {
+              $('#button-transaction').button('reset');
+          },
+          success: function (json) {
+              $('.alert-dismissible').remove();
+
+              if (json['error']) {
+                  $('#tab-transaction').prepend('<div class="alert alert-danger alert-dismissible"><i class="fa fa-exclamation-circle"></i> ' + json['error'] + ' <button type="button" class="close" data-dismiss="alert">&times;</button></div>');
+              }
+
+              if (json['success']) {
+                  $('#tab-transaction').prepend('<div class="alert alert-success alert-dismissible"><i class="fa fa-check-circle"></i> ' + json['success'] + ' <button type="button" class="close" data-dismiss="alert">&times;</button></div>');
+
+                  $('#transaction').load('index.php?route=sale/subscription/transaction&user_token={{ user_token }}&subscription_id=' + $('#input-subscription-id').val());
+
+                  $('#tab-transaction input[name=\'amount\']').val('');
+                  $('#tab-transaction input[name=\'description\']').val('');
+              }
+          },
+          error: function (xhr, ajaxOptions, thrownError) {
+              console.log(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
+          }
+      });
+  });
   //--></script>
   <script type="text/javascript"><!--
-      $(document).delegate('#button-remaining', 'click', function(e) {
-          e.preventDefault();
+  $(document).delegate('#button-remaining', 'click', function(e) {
+      e.preventDefault();
 
-          {% if not permission %}
-              $('#content > .container-fluid').prepend('<div class="alert alert-danger alert-dismissible"><i class="fa fa-exclamation-circle"></i> {{ error_permission }} <button type="button" class="close" data-dismiss="alert">&times;</button></div>');
-          {% elseif not module_subscription_status %}
-              $('#content > .container-fluid').prepend('<div class="alert alert-danger alert-dismissible"><i class="fa fa-exclamation-circle"></i> {{ error_module }} <button type="button" class="close" data-dismiss="alert">&times;</button></div>');
-          {% else %}
-              {# Requires an API extension to connect. #}
-              $.ajax({
-                  url: '{{ catalog }}index.php?route=api/login',
-                  type: 'post',
-                  dataType: 'json',
-                  data: 'key={{ api_key }}',
-                  crossDomain: true,
-                  success: function () {
-                      $('.alert').remove();
-                  },
-                  error: function (xhr, ajaxOptions, thrownError) {
-                      alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
+      {% if not permission %}
+          $('#content > .container-fluid').prepend('<div class="alert alert-danger alert-dismissible"><i class="fa fa-exclamation-circle"></i> {{ error_permission }} <button type="button" class="close" data-dismiss="alert">&times;</button></div>');
+      {% elseif not module_subscription_status %}
+          $('#content > .container-fluid').prepend('<div class="alert alert-danger alert-dismissible"><i class="fa fa-exclamation-circle"></i> {{ error_module }} <button type="button" class="close" data-dismiss="alert">&times;</button></div>');
+      {% else %}
+          {# Requires an API extension to connect. #}
+          $.ajax({
+              url: '{{ catalog }}index.php?route=api/login',
+              type: 'post',
+              dataType: 'json',
+              data: 'key={{ api_key }}',
+              crossDomain: true,
+              success: function () {
+                  $('.alert').remove();
+              },
+              error: function (xhr, ajaxOptions, thrownError) {
+                  alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
+              }
+          }).then(function(json) {
+              if (json['error']) {
+                  if (json['error']['key']) {
+                      $('#content > .container-fluid').prepend('<div class="alert alert-danger"><i class="fa fa-exclamation-circle"></i> ' + json['error']['key'] + ' <button type="button" class="close" data-dismiss="alert">&times;</button></div>');
                   }
-              }).then(function(json) {
-                  if (json['error']) {
-                      if (json['error']['key']) {
-                          $('#content > .container-fluid').prepend('<div class="alert alert-danger"><i class="fa fa-exclamation-circle"></i> ' + json['error']['key'] + ' <button type="button" class="close" data-dismiss="alert">&times;</button></div>');
-                      }
 
-                      if (json['error']['ip']) {
-                          $('#content > .container-fluid').prepend('<div class="alert alert-danger"><i class="fa fa-exclamation-circle"></i> ' + json['error']['ip'] + ' <button type="button" id="button-ip-add" data-loading-text="{{ text_loading }}" class="btn btn-danger btn-xs pull-right"><i class="fa fa-plus"></i>{{ button_ip_add }}</button></div>');
-                      }
-                  } else {
-                    {# Requires a service extension. #}
-                      $.ajax({
-                          url: '{{ catalog }}index.php?route=extension/module/subscription/dateNext&api_token={{ api_token }}&subscription_id=' + $('#input-subscription-id').val(),
-                          dataType: 'json',
-                          success: function (json1) {
-                              if (json1['status']) {
-                                  $('#content > .container-fluid').prepend('<div class="alert alert-info"><i class="fa fa-exclamation-circle"></i> ' + json1['status'] + ' <button type="button" class="close" data-dismiss="alert">&times;</button></div>');
-                              }
-                          },
-                          error: function (xhr, ajaxOptions, thrownError) {
-                              console.log(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
+                  if (json['error']['ip']) {
+                      $('#content > .container-fluid').prepend('<div class="alert alert-danger"><i class="fa fa-exclamation-circle"></i> ' + json['error']['ip'] + ' <button type="button" id="button-ip-add" data-loading-text="{{ text_loading }}" class="btn btn-danger btn-xs pull-right"><i class="fa fa-plus"></i>{{ button_ip_add }}</button></div>');
+                  }
+              } else {
+                {# Requires a service extension. #}
+                  $.ajax({
+                      url: '{{ catalog }}index.php?route=extension/module/subscription/dateNext&api_token={{ api_token }}&subscription_id=' + $('#input-subscription-id').val(),
+                      dataType: 'json',
+                      success: function (json1) {
+                          if (json1['status']) {
+                              $('#content > .container-fluid').prepend('<div class="alert alert-info"><i class="fa fa-exclamation-circle"></i> ' + json1['status'] + ' <button type="button" class="close" data-dismiss="alert">&times;</button></div>');
                           }
-                      }).done(function () {
+                      },
+                      error: function (xhr, ajaxOptions, thrownError) {
+                          console.log(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
+                      }
+                  }).done(function () {
 
-                      });
-                  }
-              });
-          {% endif %}
-      });
+                  });
+              }
+          });
+      {% endif %}
+  });
   //--></script>
 </div>
 {{ footer }}

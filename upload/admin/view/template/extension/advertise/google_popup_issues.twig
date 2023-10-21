@@ -61,8 +61,7 @@
             <td class="text-left">
               {% for item_issue in issue.item_level_issues %}
                 <strong>{{ item_issue.servability }}</strong> {{ item_issue.detail }}
-                <a href="{{ item_issue.documentation }}" target="_blank">{{ text_learn_more }}
-                  <i class="fa fa-external-link"></i></a>
+                <a href="{{ item_issue.documentation }}" target="_blank">{{ text_learn_more }}<i class="fa fa-external-link"></i></a>
                 {% if not loop.last %}
                   <hr>
                 {% else %}

@@ -28,17 +28,11 @@
                 <div class="text-center">
                   <a href="{{ image.href }}" class="directory" style="vertical-align: middle;"><i class="fa fa-folder fa-5x"></i></a>
                 </div>
-                <label>
-                  <input type="checkbox" name="path[]" value="{{ image.path }}"/>
-                  {{ image.name }}
-                </label>
+                <label><input type="checkbox" name="path[]" value="{{ image.path }}"/>{{ image.name }}</label>
               {% endif %}
               {% if image.type == 'image' %}
                 <a href="{{ image.href }}" class="thumbnail"><img src="{{ image.thumb }}" alt="{{ image.name }}" title="{{ image.name }}"/></a>
-                <label>
-                  <input type="checkbox" name="path[]" value="{{ image.path }}"/>
-                  {{ image.name }}
-                </label>
+                <label><input type="checkbox" name="path[]" value="{{ image.path }}"/>{{ image.name }}</label>
               {% endif %}
             </div>
           {% endfor %}
@@ -53,38 +47,38 @@
 {% if target %}
     $('a.thumbnail').on('click', function (e) {
         e.preventDefault();
-        
+
         {% if thumb %}
-          $('#{{ thumb|escape('js') }}').find('img').attr('src', $(this).find('img').attr('src'));
+            $('#{{ thumb|escape('js') }}').find('img').attr('src', $(this).find('img').attr('src'));
         {% endif %}
-        
+
         $('#{{ target|escape('js') }}').val($(this).parent().find('input').val());
-        
+
         $('#modal-image').modal('hide');
     });
 {% endif %}
 
 $('a.directory').on('click', function (e) {
     e.preventDefault();
-    
+
     $('#modal-image').load($(this).attr('href'));
 });
 
 $('.pagination a').on('click', function (e) {
     e.preventDefault();
-    
+
     $('#modal-image').load($(this).attr('href'));
 });
 
 $('#button-parent').on('click', function (e) {
     e.preventDefault();
-    
+
     $('#modal-image').load($(this).attr('href'));
 });
 
 $('#button-refresh').on('click', function (e) {
     e.preventDefault();
-    
+
     $('#modal-image').load($(this).attr('href'));
 });
 
@@ -96,40 +90,40 @@ $('input[name=\'search\']').on('keydown', function (e) {
 
 $('#button-search').on('click', function (e) {
     var url = 'index.php?route=common/filemanager&user_token={{ user_token }}&directory={{ directory }}';
-    
+
     var filter_name = $('input[name=\'search\']').val();
-    
+
     if (filter_name) {
-      url += '&filter_name=' + encodeURIComponent(filter_name);
+        url += '&filter_name=' + encodeURIComponent(filter_name);
     }
-    
+
     {% if thumb %}
-      url += '&thumb=' + '{{ thumb|escape('js') }}';
+        url += '&thumb=' + '{{ thumb|escape('js') }}';
     {% endif %}
-    
+
     {% if target %}
-      url += '&target=' + '{{ target|escape('js') }}';
+        url += '&target=' + '{{ target|escape('js') }}';
     {% endif %}
-    
+
     $('#modal-image').load(url);
 });
 //--></script>
 <script type="text/javascript"><!--
     $('#button-upload').on('click', function () {
         $('#form-upload').remove();
-        
+
         $('body').prepend('<form enctype="multipart/form-data" id="form-upload" style="display: none;"><input type="file" name="file[]" value="" multiple="multiple"/></form>');
-        
+
         $('#form-upload input[name=\'file[]\']').trigger('click');
-        
+
         if (typeof timer != 'undefined') {
-          clearInterval(timer);
+            clearInterval(timer);
         }
-        
+
         timer = setInterval(function () {
             if ($('#form-upload input[name=\'file[]\']').val() != '') {
                 clearInterval(timer);
-                
+
                 $.ajax({
                     url: 'index.php?route=common/filemanager/upload&user_token={{ user_token }}&directory={{ directory }}',
                     type: 'post',
@@ -148,13 +142,13 @@ $('#button-search').on('click', function (e) {
                     },
                     success: function (json) {
                         if (json['error']) {
-                          alert(json['error']);
+                            alert(json['error']);
                         }
-                        
+
                         if (json['success']) {
-                          alert(json['success']);
-                          
-                          $('#button-refresh').trigger('click');
+                            alert(json['success']);
+
+                            $('#button-refresh').trigger('click');
                         }
                     },
                     error: function (xhr, ajaxOptions, thrownError) {
@@ -164,7 +158,7 @@ $('#button-search').on('click', function (e) {
             }
         }, 500);
     });
-      
+
     $('#button-folder').popover({
         html: true,
         placement: 'bottom',
@@ -175,11 +169,11 @@ $('#button-search').on('click', function (e) {
             html += '  <input type="text" name="folder" value="" placeholder="{{ entry_folder }}" class="form-control">';
             html += '  <span class="input-group-btn"><button type="button" title="{{ button_folder }}" id="button-create" class="btn btn-primary"><i class="fa fa-plus-circle"></i></button></span>';
             html += '</div>';
-              
+
             return html;
         }
     });
-      
+
     $('#button-folder').on('shown.bs.popover', function () {
         $('#button-create').on('click', function () {
             $.ajax({
@@ -195,13 +189,13 @@ $('#button-search').on('click', function (e) {
                 },
                 success: function (json) {
                     if (json['error']) {
-                      alert(json['error']);
+                        alert(json['error']);
                     }
-                      
+
                     if (json['success']) {
-                      alert(json['success']);
-                        
-                      $('#button-refresh').trigger('click');
+                        alert(json['success']);
+
+                        $('#button-refresh').trigger('click');
                     }
                 },
                 error: function (xhr, ajaxOptions, thrownError) {
@@ -210,7 +204,7 @@ $('#button-search').on('click', function (e) {
             });
         });
     });
-      
+
     $('#modal-image #button-delete').on('click', function (e) {
         if (confirm('{{ text_confirm }}')) {
             $.ajax({
@@ -228,10 +222,10 @@ $('#button-search').on('click', function (e) {
                   if (json['error']) {
                       alert(json['error']);
                   }
-                  
+
                   if (json['success']) {
                       alert(json['success']);
-                      
+
                       $('#button-refresh').trigger('click');
                   }
                 },

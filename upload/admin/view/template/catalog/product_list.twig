@@ -183,87 +183,87 @@
     </div>
   </div>
   <script type="text/javascript"><!--
-      $('#button-filter').on('click', function () {
-          var url = '';
+  $('#button-filter').on('click', function () {
+      var url = '';
 
-          var filter_name = $('input[name=\'filter_name\']').val();
+      var filter_name = $('input[name=\'filter_name\']').val();
 
-          if (filter_name) {
-              url += '&filter_name=' + encodeURIComponent(filter_name);
-          }
+      if (filter_name) {
+          url += '&filter_name=' + encodeURIComponent(filter_name);
+      }
 
-          var filter_model = $('input[name=\'filter_model\']').val();
+      var filter_model = $('input[name=\'filter_model\']').val();
 
-          if (filter_model) {
-              url += '&filter_model=' + encodeURIComponent(filter_model);
-          }
+      if (filter_model) {
+          url += '&filter_model=' + encodeURIComponent(filter_model);
+      }
 
-          var filter_price = $('input[name=\'filter_price\']').val();
+      var filter_price = $('input[name=\'filter_price\']').val();
 
-          if (filter_price) {
-              url += '&filter_price=' + encodeURIComponent(filter_price);
-          }
+      if (filter_price) {
+          url += '&filter_price=' + encodeURIComponent(filter_price);
+      }
 
-          var filter_quantity = $('input[name=\'filter_quantity\']').val();
+      var filter_quantity = $('input[name=\'filter_quantity\']').val();
 
-          if (filter_quantity) {
-              url += '&filter_quantity=' + encodeURIComponent(filter_quantity);
-          }
+      if (filter_quantity) {
+          url += '&filter_quantity=' + encodeURIComponent(filter_quantity);
+      }
 
-          var filter_status = $('select[name=\'filter_status\']').val();
+      var filter_status = $('select[name=\'filter_status\']').val();
 
-          if (filter_status !== '') {
-              url += '&filter_status=' + encodeURIComponent(filter_status);
-          }
+      if (filter_status !== '') {
+          url += '&filter_status=' + encodeURIComponent(filter_status);
+      }
 
-          location = 'index.php?route=catalog/product&user_token={{ user_token }}' + url;
-      });
+      location = 'index.php?route=catalog/product&user_token={{ user_token }}' + url;
+  });
   //--></script>
   <script type="text/javascript"><!--
-      // IE and Edge fix!
-      $('button[form=\'form-product\']').on('click', function (e) {
-          $('#form-product').attr('action', $(this).attr('formaction'));
-      });
+  // IE and Edge fix!
+  $('button[form=\'form-product\']').on('click', function (e) {
+      $('#form-product').attr('action', $(this).attr('formaction'));
+  });
 
-      $('input[name=\'filter_name\']').autocomplete({
-          'source': function (request, response) {
-              $.ajax({
-                  url: 'index.php?route=catalog/product/autocomplete&user_token={{ user_token }}&filter_name=' + encodeURIComponent(request),
-                  dataType: 'json',
-                  success: function (json) {
-                      response($.map(json, function (item) {
-                          return {
-                              label: item['name'],
-                              value: item['product_id']
-                          }
-                      }));
-                  }
-              });
-          },
-          'select': function (item) {
-              $('input[name=\'filter_name\']').val(item['label']);
-          }
-      });
+  $('input[name=\'filter_name\']').autocomplete({
+      'source': function (request, response) {
+          $.ajax({
+              url: 'index.php?route=catalog/product/autocomplete&user_token={{ user_token }}&filter_name=' + encodeURIComponent(request),
+              dataType: 'json',
+              success: function (json) {
+                  response($.map(json, function (item) {
+                      return {
+                          label: item['name'],
+                          value: item['product_id']
+                      }
+                  }));
+              }
+          });
+      },
+      'select': function (item) {
+          $('input[name=\'filter_name\']').val(item['label']);
+      }
+  });
 
-      $('input[name=\'filter_model\']').autocomplete({
-          'source': function (request, response) {
-              $.ajax({
-                  url: 'index.php?route=catalog/product/autocomplete&user_token={{ user_token }}&filter_model=' + encodeURIComponent(request),
-                  dataType: 'json',
-                  success: function (json) {
-                      response($.map(json, function (item) {
-                          return {
-                              label: item['model'],
-                              value: item['product_id']
-                          }
-                      }));
-                  }
-              });
-          },
-          'select': function (item) {
-              $('input[name=\'filter_model\']').val(item['label']);
-          }
-      });
+  $('input[name=\'filter_model\']').autocomplete({
+      'source': function (request, response) {
+          $.ajax({
+              url: 'index.php?route=catalog/product/autocomplete&user_token={{ user_token }}&filter_model=' + encodeURIComponent(request),
+              dataType: 'json',
+              success: function (json) {
+                  response($.map(json, function (item) {
+                      return {
+                          label: item['model'],
+                          value: item['product_id']
+                      }
+                  }));
+              }
+          });
+      },
+      'select': function (item) {
+          $('input[name=\'filter_model\']').val(item['label']);
+      }
+  });
   //--></script>
 </div>
 {{ footer }}

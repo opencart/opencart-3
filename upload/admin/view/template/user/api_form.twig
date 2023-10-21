@@ -137,66 +137,66 @@
     </div>
   </div>
   <script type="text/javascript"><!--
-      $('#button-generate').on('click', function () {
-          rand = '';
+  $('#button-generate').on('click', function () {
+      rand = '';
 
-          string = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+      string = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
 
-          for (i = 0; i < 256; i++) {
-              rand += string[Math.floor(Math.random() * (string.length - 1))];
-          }
-
-          $('#input-key').val(rand);
-      });
-  //--></script>
-  <script type="text/javascript"><!--
-      var ip_row = {{ ip_row }};
-
-      function addIp() {
-          html = '<tr id="ip-row' + ip_row + '">';
-          html += '  <td class="text-right"><input type="text" name="api_ip[]" value="" placeholder="{{ entry_ip }}" class="form-control"/></td>';
-          html += '  <td class="text-left"><button type="button" onclick="$(\'#ip-row' + ip_row + '\').remove();" data-toggle="tooltip" title="{{ button_remove }}" class="btn btn-danger"><i class="fa fa-minus-circle"></i></button></td>';
-          html += '</tr>';
-
-          $('#ip tbody').append(html);
-
-          ip_row++;
+      for (i = 0; i < 256; i++) {
+          rand += string[Math.floor(Math.random() * (string.length - 1))];
       }
+
+      $('#input-key').val(rand);
+  });
   //--></script>
   <script type="text/javascript"><!--
-      $('#session button').on('click', function (e) {
-          e.preventDefault();
+  var ip_row = {{ ip_row }};
 
-          var element = this;
+  function addIp() {
+      html = '<tr id="ip-row' + ip_row + '">';
+      html += '  <td class="text-right"><input type="text" name="api_ip[]" value="" placeholder="{{ entry_ip }}" class="form-control"/></td>';
+      html += '  <td class="text-left"><button type="button" onclick="$(\'#ip-row' + ip_row + '\').remove();" data-toggle="tooltip" title="{{ button_remove }}" class="btn btn-danger"><i class="fa fa-minus-circle"></i></button></td>';
+      html += '</tr>';
 
-          $.ajax({
-              url: 'index.php?route=user/api/deletesession&user_token={{ user_token }}&api_session_id=' + $(element).val(),
-              type: 'post',
-              dataType: 'json',
-              beforeSend: function () {
-                  $(element).button('loading');
-              },
-              complete: function () {
-                  $(element).button('reset');
-              },
-              success: function (json) {
-                  $('.alert-dismissible').remove();
+      $('#ip tbody').append(html);
 
-                  if (json['error']) {
-                      $('#tab-session').prepend('<div class="alert alert-danger alert-dismissible"><i class="fa fa-exclamation-circle"></i> ' + json['error'] + ' <button type="button" class="close" data-dismiss="alert">&times;</button></div>');
-                  }
+      ip_row++;
+  }
+  //--></script>
+  <script type="text/javascript"><!--
+  $('#session button').on('click', function (e) {
+      e.preventDefault();
 
-                  if (json['success']) {
-                      $('#tab-session').prepend('<div class="alert alert-success alert-dismissible"><i class="fa fa-check-circle"></i> ' + json['success'] + ' <button type="button" class="close" data-dismiss="alert">&times;</button></div>');
+      var element = this;
 
-                      $(element).parent().parent().remove();
-                  }
-              },
-              error: function (xhr, ajaxOptions, thrownError) {
-                  alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
+      $.ajax({
+          url: 'index.php?route=user/api/deletesession&user_token={{ user_token }}&api_session_id=' + $(element).val(),
+          type: 'post',
+          dataType: 'json',
+          beforeSend: function () {
+              $(element).button('loading');
+          },
+          complete: function () {
+              $(element).button('reset');
+          },
+          success: function (json) {
+              $('.alert-dismissible').remove();
+
+              if (json['error']) {
+                  $('#tab-session').prepend('<div class="alert alert-danger alert-dismissible"><i class="fa fa-exclamation-circle"></i> ' + json['error'] + ' <button type="button" class="close" data-dismiss="alert">&times;</button></div>');
               }
-          });
+
+              if (json['success']) {
+                  $('#tab-session').prepend('<div class="alert alert-success alert-dismissible"><i class="fa fa-check-circle"></i> ' + json['success'] + ' <button type="button" class="close" data-dismiss="alert">&times;</button></div>');
+
+                  $(element).parent().parent().remove();
+              }
+          },
+          error: function (xhr, ajaxOptions, thrownError) {
+              alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
+          }
       });
+  });
   //--></script>
 </div>
 {{ footer }}

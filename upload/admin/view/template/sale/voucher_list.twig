@@ -35,8 +35,7 @@
             <table class="table table-bordered table-hover">
               <thead>
                 <tr>
-                  <td style="width: 1px;" class="text-center">
-                    <input type="checkbox" onclick="$('input[name*=\'selected\']').prop('checked', this.checked);"/></td>
+                  <td style="width: 1px;" class="text-center"><input type="checkbox" onclick="$('input[name*=\'selected\']').prop('checked', this.checked);"/></td>
                   <td class="text-left">
                     {% if sort == 'v.code' %}
                       <a href="{{ sort_code }}" class="{{ order|lower }}">{{ column_code }}</a>
@@ -132,36 +131,36 @@
     </div>
   </div>
   <script type="text/javascript"><!--
-      $('#button-send').on('click', function () {
-          $.ajax({
-              url: 'index.php?route=sale/voucher/send&user_token={{ user_token }}',
-              type: 'post',
-              dataType: 'json',
-              data: $('input[name^=\'selected\']:checked'),
-              beforeSend: function () {
-                  $('#button-send i').replaceWith('<i class="fa fa-circle-o-notch fa-spin"></i>');
-                  $('#button-send').prop('disabled', true);
-              },
-              complete: function () {
-                  $('#button-send i').replaceWith('<i class="fa fa-envelope"></i>');
-                  $('#button-send').prop('disabled', false);
-              },
-              success: function (json) {
-                  $('.alert-dismissible').remove();
+  $('#button-send').on('click', function () {
+      $.ajax({
+          url: 'index.php?route=sale/voucher/send&user_token={{ user_token }}',
+          type: 'post',
+          dataType: 'json',
+          data: $('input[name^=\'selected\']:checked'),
+          beforeSend: function () {
+              $('#button-send i').replaceWith('<i class="fa fa-circle-o-notch fa-spin"></i>');
+              $('#button-send').prop('disabled', true);
+          },
+          complete: function () {
+              $('#button-send i').replaceWith('<i class="fa fa-envelope"></i>');
+              $('#button-send').prop('disabled', false);
+          },
+          success: function (json) {
+              $('.alert-dismissible').remove();
 
-                  if (json['error']) {
-                      $('#content > .container-fluid').prepend('<div class="alert alert-danger alert-dismissible"><i class="fa fa-exclamation-circle"></i> ' + json['error'] + '</div>');
-                  }
-
-                  if (json['success']) {
-                      $('#content > .container-fluid').prepend('<div class="alert alert-success alert-dismissible"><i class="fa fa-check-circle"></i> ' + json['success'] + '</div>');
-                  }
-              },
-              error: function (xhr, ajaxOptions, thrownError) {
-                  alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
+              if (json['error']) {
+                  $('#content > .container-fluid').prepend('<div class="alert alert-danger alert-dismissible"><i class="fa fa-exclamation-circle"></i> ' + json['error'] + '</div>');
               }
-          });
+
+              if (json['success']) {
+                  $('#content > .container-fluid').prepend('<div class="alert alert-success alert-dismissible"><i class="fa fa-check-circle"></i> ' + json['success'] + '</div>');
+              }
+          },
+          error: function (xhr, ajaxOptions, thrownError) {
+              alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
+          }
       });
+  });
   //--></script>
 </div>
 {{ footer }}

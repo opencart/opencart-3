@@ -88,7 +88,7 @@
                         if (data.error) {
                             $('#addressBookWidget').before('<div class="alert alert-danger alert-dismissible"><i class="fa fa-exclamation-circle"></i>&nbsp;&nbsp;' + data.error + '</div>');
                         } else if (data.quotes) {
-                            var html = '';
+                            html = '';
                         
                             $.each(data.quotes, function (code, shippingMethod) {
                                 html += '<hr><h3>' + shippingMethod.title + '</h3>';

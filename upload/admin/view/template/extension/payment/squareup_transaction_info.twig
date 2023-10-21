@@ -191,173 +191,176 @@
   </div>
 </div>
 <script type="text/javascript"><!--
-    $(document).ready(function () {
-        var transactionLoading = function () {
-            var message = $('#transaction-alert').attr('data-message');
+$(document).ready(function () {
+    var transactionLoading = function () {
+        var message = $('#transaction-alert').attr('data-message');
 
-            $('#transaction-alert').html('<div class="text-center alert alert-info"><i class="fa fa-circle-o-notch fa-spin"></i>&nbsp;' + message + '</div>');
-        }
+        $('#transaction-alert').html('<div class="text-center alert alert-info"><i class="fa fa-circle-o-notch fa-spin"></i>&nbsp;' + message + '</div>');
+    }
 
-        var refreshPage = function () {
-            document.location = document.location;
-        }
+    var refreshPage = function () {
+        document.location = document.location;
+    }
 
-        var transactionError = function (message) {
-            $('#transaction-alert').html('<div class="alert alert-danger"><button type="button" class="close" data-dismiss="alert" aria-label="X"><span aria-hidden="true">&times;</span></button><i class="fa fa-exclamation-circle"></i>&nbsp;' + message + '</div>');
-        }
+    var transactionError = function (message) {
+        $('#transaction-alert').html('<div class="alert alert-danger"><button type="button" class="close" data-dismiss="alert" aria-label="X"><span aria-hidden="true">&times;</span></button><i class="fa fa-exclamation-circle"></i>&nbsp;' + message + '</div>');
+    }
 
-        var addOrderHistory = function (data, success_callback) {
-            $.ajax({
-                url: '{{ catalog }}index.php?route=api/order/history&api_token={{ api_token }}&order_id=' + data.order_id,
-                type: 'post',
-                dataType: 'json',
-                data: data,
-                success: function (json) {
-                    if (json['error']) {
-                        refreshPage();
-                    }
-
-                    if (json['success']) {
-                        success_callback();
-                    }
-                },
-                error: function (xhr, ajaxOptions, thrownError) {
-                    transactionError(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
-                    enableTransactionButtons();
+    var addOrderHistory = function (data, success_callback) {
+        $.ajax({
+            url: '{{ catalog }}index.php?route=api/order/history&api_token={{ api_token }}&order_id=' + data.order_id,
+            type: 'post',
+            dataType: 'json',
+            data: data,
+            success: function (json) {
+                if (json['error']) {
+                    refreshPage();
                 }
-            });
-        }
 
-        var transactionRequest = function (type, url, data) {
-            $.ajax({
-                url: url,
-                dataType: 'json',
-                type: type,
-                data: data,
-                beforeSend: transactionLoading,
-                success: function (json) {
-                    if (json.error) {
-                        refreshPage();
-                    }
-
-                    if (json.success && json.order_history_data) {
-                        addOrderHistory(json.order_history_data, function () {
-                            refreshPage();
-                        });
-                    }
-                },
-                error: function (xhr, ajaxSettings, thrownError) {
-                    transactionError(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
-                    
-                    enableTransactionButtons();
+                if (json['success']) {
+                    success_callback();
                 }
-            });
+            },
+            error: function (xhr, ajaxOptions, thrownError) {
+                transactionError(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
+                enableTransactionButtons();
+            }
+        });
+    }
+
+    var transactionRequest = function (type, url, data) {
+        $.ajax({
+            url: url,
+            dataType: 'json',
+            type: type,
+            data: data,
+            beforeSend: transactionLoading,
+            success: function (json) {
+                if (json.error) {
+                    refreshPage();
+                }
+
+                if (json.success && json.order_history_data) {
+                    addOrderHistory(json.order_history_data, function () {
+                        refreshPage();
+                    });
+                }
+            },
+            error: function (xhr, ajaxSettings, thrownError) {
+                transactionError(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
+
+                enableTransactionButtons();
+            }
+        });
+    }
+
+    var disableTransactionButtons = function () {
+        $('*[data-url-transaction-capture], *[data-url-transaction-void], *[data-url-transaction-refund]').attr('disabled', true);
+    }
+
+    var enableTransactionButtons = function () {
+        $('*[data-url-transaction-capture], *[data-url-transaction-void], *[data-url-transaction-refund]').attr('disabled', false);
+    }
+
+    var modalConfirm = function (url, text) {
+        var modal = '#squareup-confirm-modal';
+        var content = '#squareup-confirm-modal-content';
+        var button = '#squareup-confirm-ok';
+
+        $(content).html(text);
+
+        $(button).unbind().click(function () {
+            disableTransactionButtons();
+
+            $(modal).modal('hide');
+
+            transactionRequest('GET', url);
+        });
+
+        $(modal).modal('show');
+    }
+
+    var refundInputValidate = function (reason_input, amount_input) {
+        var result = true;
+
+        if (!$(reason_input)[0].checkValidity()) {
+            $(reason_input).closest('.form-group').addClass('has-error');
+
+            result = false;
+        } else {
+            $(reason_input).closest('.form-group').removeClass('has-error');
         }
 
-        var disableTransactionButtons = function () {
-            $('*[data-url-transaction-capture], *[data-url-transaction-void], *[data-url-transaction-refund]').attr('disabled', true);
+        if (!$(amount_input)[0].checkValidity()) {
+            $(amount_input).closest('.form-group').addClass('has-error');
+
+            result = false;
+        } else {
+            $(amount_input).closest('.form-group').removeClass('has-error');
         }
 
-        var enableTransactionButtons = function () {
-            $('*[data-url-transaction-capture], *[data-url-transaction-void], *[data-url-transaction-refund]').attr('disabled', false);
-        }
+        return result;
+    }
 
-        var modalConfirm = function (url, text) {
-            var modal = '#squareup-confirm-modal';
-            var content = '#squareup-confirm-modal-content';
-            var button = '#squareup-confirm-ok';
+    var modalRefund = function (url, text_reason, text_amount) {
+        var modal = '#squareup-refund-modal';
+        var content_reason = '#squareup-refund-modal-content-reason';
+        var content_amount = '#squareup-refund-modal-content-amount';
+        var button = '#squareup-refund-ok';
+        var reason_input = '#squareup-refund-reason';
+        var amount_input = '#squareup-refund-amount';
 
-            $(content).html(text);
-            $(button).unbind().click(function () {
-                disableTransactionButtons();
+        $(content_reason).html(text_reason);
+        $(content_amount).html(text_amount);
 
-                $(modal).modal('hide');
+        $(reason_input).val('');
+        $(amount_input).val('');
 
-                transactionRequest('GET', url);
-            });
-
-            $(modal).modal('show');
-        }
-
-        var refundInputValidate = function (reason_input, amount_input) {
-            var result = true;
-
-            if (!$(reason_input)[0].checkValidity()) {
-                $(reason_input).closest('.form-group').addClass('has-error');
-                result = false;
-            } else {
-                $(reason_input).closest('.form-group').removeClass('has-error');
+        $(button).unbind().click(function () {
+            if (!refundInputValidate(reason_input, amount_input)) {
+                return;
             }
 
-            if (!$(amount_input)[0].checkValidity()) {
-                $(amount_input).closest('.form-group').addClass('has-error');
-                result = false;
-            } else {
-                $(amount_input).closest('.form-group').removeClass('has-error');
-            }
+            disableTransactionButtons();
 
-            return result;
-        }
+            $(modal).modal('hide');
 
-        var modalRefund = function (url, text_reason, text_amount) {
-            var modal = '#squareup-refund-modal';
-            var content_reason = '#squareup-refund-modal-content-reason';
-            var content_amount = '#squareup-refund-modal-content-amount';
-            var button = '#squareup-refund-ok';
-            var reason_input = '#squareup-refund-reason';
-            var amount_input = '#squareup-refund-amount';
-
-            $(content_reason).html(text_reason);
-            $(content_amount).html(text_amount);
-
-            $(reason_input).val('');
-            $(amount_input).val('');
-
-            $(button).unbind().click(function () {
-                if (!refundInputValidate(reason_input, amount_input)) {
-                    return;
-                }
-
-                disableTransactionButtons();
-
-                $(modal).modal('hide');
-
-                transactionRequest('POST', url, {
-                    reason: $(reason_input).val(),
-                    amount: $(amount_input).val()
-                });
+            transactionRequest('POST', url, {
+                reason: $(reason_input).val(),
+                amount: $(amount_input).val()
             });
-
-            $(modal).modal('show');
-        }
-
-        $(document).on('click', '*[data-url-transaction-capture]', function () {
-            if ($(this).attr('disabled')) return;
-
-            modalConfirm(
-                $(this).attr('data-url-transaction-capture'),
-                $(this).attr('data-confirm-capture')
-            );
         });
 
-        $(document).on('click', '*[data-url-transaction-void]', function () {
-            if ($(this).attr('disabled')) return;
+        $(modal).modal('show');
+    }
 
-            modalConfirm(
-                $(this).attr('data-url-transaction-void'),
-                $(this).attr('data-confirm-void')
-            );
-        });
+    $(document).on('click', '*[data-url-transaction-capture]', function () {
+        if ($(this).attr('disabled')) return;
 
-        $(document).on('click', '*[data-url-transaction-refund]', function () {
-            if ($(this).attr('disabled')) return;
-
-            modalRefund(
-                $(this).attr('data-url-transaction-refund'),
-                $(this).attr('data-confirm-refund'),
-                $(this).attr('data-insert-amount')
-            );
-        });
+        modalConfirm(
+            $(this).attr('data-url-transaction-capture'),
+            $(this).attr('data-confirm-capture')
+        );
     });
+
+    $(document).on('click', '*[data-url-transaction-void]', function () {
+        if ($(this).attr('disabled')) return;
+
+        modalConfirm(
+            $(this).attr('data-url-transaction-void'),
+            $(this).attr('data-confirm-void')
+        );
+    });
+
+    $(document).on('click', '*[data-url-transaction-refund]', function () {
+        if ($(this).attr('disabled')) return;
+
+        modalRefund(
+            $(this).attr('data-url-transaction-refund'),
+            $(this).attr('data-confirm-refund'),
+            $(this).attr('data-insert-amount')
+        );
+    });
+});
 //--></script>
 {{ footer }}

@@ -119,40 +119,40 @@
                 </tr>
                 </thead>
                 <tbody>
-                {% if gdprs %}
-                  {% for gdpr in gdpr %}
+                  {% if gdprs %}
+                    {% for gdpr in gdpr %}
+                      <tr>
+                        <td style="width: 1px;" class="text-center"><input type="checkbox" onclick="$('input[name*=\'selected\']').prop('checked', this.checked);"/></td>
+                        <td class="text-center">
+                          {% if gdpr.edit %}
+                            <a href="{{ gdpr.edit }}">{{ gdpr.email }}</a>
+                          {% else %}
+                            {{ gdpr.email }}
+                          {% endif %}
+                        </td>
+                        <td class="text-left">{{ gdpr.action }}</td>
+                        <td class="text-left">
+                          {% if gdpr.status == '-1' %}
+                            {{ text_denied }}
+                          {% elseif gdpr.status == '0' %}
+                            {{ text_unverified }}
+                          {% elseif gdpr.status == '1' %}
+                            {{ text_pending }}
+                          {% elseif gdpr.status == '2' %}
+                            {{ text_processing }}
+                          {% elseif gdpr.status == '3' %}
+                            {{ text_complete }}
+                          {% endif %}
+                        </td>
+                        <td class="text-left">{{ customer.date_added }}</td>
+                        <td class="text-right">{{ column_action }}</td>
+                      </tr>
+                    {% endfor %}
+                  {% else %}
                     <tr>
-                      <td style="width: 1px;" class="text-center"><input type="checkbox" onclick="$('input[name*=\'selected\']').prop('checked', this.checked);"/></td>
-                      <td class="text-center">
-                        {% if gdpr.edit %}
-                          <a href="{{ gdpr.edit }}">{{ gdpr.email }}</a>
-                        {% else %}
-                          {{ gdpr.email }}
-                        {% endif %}
-                      </td>
-                      <td class="text-left">{{ gdpr.action }}</td>
-                      <td class="text-left">
-                        {% if gdpr.status == '-1' %}
-                          {{ text_denied }}
-                        {% elseif gdpr.status == '0' %}
-                          {{ text_unverified }}
-                        {% elseif gdpr.status == '1' %}
-                          {{ text_pending }}
-                        {% elseif gdpr.status == '2' %}
-                          {{ text_processing }}
-                        {% elseif gdpr.status == '3' %}
-                          {{ text_complete }}
-                        {% endif %}
-                      </td>
-                      <td class="text-left">{{ customer.date_added }}</td>
-                      <td class="text-right">{{ column_action }}</td>
+                      <td class="text-center" colspan="5">{{ text_no_results }}</td>
                     </tr>
-                  {% endfor %}
-                {% else %}
-                  <tr>
-                    <td class="text-center" colspan="5">{{ text_no_results }}</td>
-                  </tr>
-                {% endif %}
+                  {% endif %}
                 </tbody>
               </table>
             </div>
@@ -166,68 +166,68 @@
     </div>
   </div>
   <script type="text/javascript"><!--
-      $('#button-filter').on('click', function () {
-          url = 'index.php?route=customer/gdpr&user_token={{ user_token }}';
+  $('#button-filter').on('click', function () {
+      url = 'index.php?route=customer/gdpr&user_token={{ user_token }}';
 
-          var filter_email = $('input[name=\'filter_email\']').val();
+      var filter_email = $('input[name=\'filter_email\']').val();
 
-          if (filter_email) {
-              url += '&filter_email=' + encodeURIComponent(filter_email);
-          }
+      if (filter_email) {
+          url += '&filter_email=' + encodeURIComponent(filter_email);
+      }
 
-          var filter_action = $('select[name=\'filter_action\']').val();
+      var filter_action = $('select[name=\'filter_action\']').val();
 
-          if (filter_action !== '') {
-              url += '&filter_action=' + encodeURIComponent(filter_action);
-          }
+      if (filter_action !== '') {
+          url += '&filter_action=' + encodeURIComponent(filter_action);
+      }
 
-          var filter_status = $('select[name=\'filter_status\']').val();
+      var filter_status = $('select[name=\'filter_status\']').val();
 
-          if (filter_status !== '') {
-              url += '&filter_status=' + encodeURIComponent(filter_status);
-          }
+      if (filter_status !== '') {
+          url += '&filter_status=' + encodeURIComponent(filter_status);
+      }
 
-          var filter_date_from = $('input[name=\'filter_date_from\']').val();
+      var filter_date_from = $('input[name=\'filter_date_from\']').val();
 
-          if (filter_date_from) {
-              url += '&filter_date_from=' + encodeURIComponent(filter_date_from);
-          }
+      if (filter_date_from) {
+          url += '&filter_date_from=' + encodeURIComponent(filter_date_from);
+      }
 
-          var filter_date_to = $('input[name=\'filter_date_to\']').val();
+      var filter_date_to = $('input[name=\'filter_date_to\']').val();
 
-          if (filter_date_to) {
-              url += '&filter_date_to=' + encodeURIComponent(filter_date_to);
-          }
+      if (filter_date_to) {
+          url += '&filter_date_to=' + encodeURIComponent(filter_date_to);
+      }
 
-          location = url;
-      });
+      location = url;
+  });
   //--></script>
   <script type="text/javascript"><!--
-      $('input[name=\'filter_email\']').autocomplete({
-          'source': function (request, response) {
-              $.ajax({
-                  url: 'index.php?route=customer/customer/autocomplete&user_token={{ user_token }}&filter_email=' + encodeURIComponent(request),
-                  dataType: 'json',
-                  success: function (json) {
-                      response($.map(json, function (item) {
-                          return {
-                              label: item['email'],
-                              value: item['customer_id']
-                          }
-                      }));
-                  }
-              });
-          },
-          'select': function (item) {
-              $('input[name=\'filter_email\']').val(item['label']);
-          }
-      });
+  $('input[name=\'filter_email\']').autocomplete({
+      'source': function (request, response) {
+          $.ajax({
+              url: 'index.php?route=customer/customer/autocomplete&user_token={{ user_token }}&filter_email=' + encodeURIComponent(request),
+              dataType: 'json',
+              success: function (json) {
+                  response($.map(json, function (item) {
+                      return {
+                          label: item['email'],
+                          value: item['customer_id']
+                      }
+                  }));
+              }
+          });
+      },
+      'select': function (item) {
+          $('input[name=\'filter_email\']').val(item['label']);
+      }
+  });
   //--></script>
   <script type="text/javascript"><!--
-      $('.date').datetimepicker({
-          language: '{{ datepicker }}',
-          pickTime: false
-      });
+  $('.date').datetimepicker({
+      language: '{{ datepicker }}',
+      pickTime: false
+  });
   //--></script>
 </div>
 {{ footer }}

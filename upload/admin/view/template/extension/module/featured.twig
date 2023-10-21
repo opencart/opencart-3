@@ -91,33 +91,33 @@
     </div>
   </div>
   <script type="text/javascript"><!--
-      $('input[name=\'product_name\']').autocomplete({
-          source: function (request, response) {
-              $.ajax({
-                  url: 'index.php?route=catalog/product/autocomplete&user_token={{ user_token }}&filter_name=' + encodeURIComponent(request),
-                  dataType: 'json',
-                  success: function (json) {
-                      response($.map(json, function (item) {
-                          return {
-                              label: item['name'],
-                              value: item['product_id']
-                          }
-                      }));
-                  }
-              });
-          },
-          select: function (item) {
-              $('input[name=\'product_name\']').val('');
+  $('input[name=\'product_name\']').autocomplete({
+      source: function (request, response) {
+          $.ajax({
+              url: 'index.php?route=catalog/product/autocomplete&user_token={{ user_token }}&filter_name=' + encodeURIComponent(request),
+              dataType: 'json',
+              success: function (json) {
+                  response($.map(json, function (item) {
+                      return {
+                          label: item['name'],
+                          value: item['product_id']
+                      }
+                  }));
+              }
+          });
+      },
+      select: function (item) {
+          $('input[name=\'product_name\']').val('');
 
-              $('#featured-product' + item['value']).remove();
+          $('#featured-product' + item['value']).remove();
 
-              $('#featured-product').append('<div id="featured-product' + item['value'] + '"><i class="fa fa-minus-circle"></i> ' + item['label'] + '<input type="hidden" name="product[]" value="' + item['value'] + '"/></div>');
-          }
-      });
+          $('#featured-product').append('<div id="featured-product' + item['value'] + '"><i class="fa fa-minus-circle"></i> ' + item['label'] + '<input type="hidden" name="product[]" value="' + item['value'] + '"/></div>');
+      }
+  });
 
-      $('#featured-product').delegate('.fa-minus-circle', 'click', function () {
-          $(this).parent().remove();
-      });
+  $('#featured-product').delegate('.fa-minus-circle', 'click', function () {
+      $(this).parent().remove();
+  });
   //--></script>
 </div>
 {{ footer }}

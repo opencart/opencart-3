@@ -190,38 +190,38 @@
     }
 </style>
 <script type="text/javascript"><!--
-    (function ($) {
-        var selector = {
-            shipping_type: '[name="advertise_google_shipping_taxes[shipping_type]"]',
-            tax_type: '[name="advertise_google_shipping_taxes[tax_type]"]',
-            save: '#proceed',
-            form: '#form'
-        }
+(function ($) {
+    var selector = {
+        shipping_type: '[name="advertise_google_shipping_taxes[shipping_type]"]',
+        tax_type: '[name="advertise_google_shipping_taxes[tax_type]"]',
+        save: '#proceed',
+        form: '#form'
+    }
 
-        $(selector.shipping_type).change(function (e) {
-            $('[data-shipping-visible-on]').hide();
+    $(selector.shipping_type).change(function (e) {
+        $('[data-shipping-visible-on]').hide();
 
-            $('[data-shipping-visible-on="' + $(this).val() + '"]').show();
-        });
+        $('[data-shipping-visible-on="' + $(this).val() + '"]').show();
+    });
 
-        $(selector.shipping_type + ':checked').trigger('change');
+    $(selector.shipping_type + ':checked').trigger('change');
 
-        $(selector.tax_type).change(function (e) {
-            $('[data-tax-visible-on]').hide();
+    $(selector.tax_type).change(function (e) {
+        $('[data-tax-visible-on]').hide();
 
-            $('[data-tax-visible-on="' + $(this).val() + '"]').show();
-        });
+        $('[data-tax-visible-on="' + $(this).val() + '"]').show();
+    });
 
-        $(selector.tax_type + ':checked').trigger('change');
+    $(selector.tax_type + ':checked').trigger('change');
 
-        $(document).on('click', selector.save, function (e) {
-            e.preventDefault();
-            e.stopPropagation();
+    $(document).on('click', selector.save, function (e) {
+        e.preventDefault();
+        e.stopPropagation();
 
-            $(selector.save).text('{{ text_loading }}').attr('disabled', true);
+        $(selector.save).text('{{ text_loading }}').attr('disabled', true);
 
-            $(selector.form).submit();
-        });
-    })(jQuery);
+        $(selector.form).submit();
+    });
+})(jQuery);
 //--></script>
 {{ footer }}

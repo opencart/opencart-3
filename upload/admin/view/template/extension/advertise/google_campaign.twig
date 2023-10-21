@@ -322,219 +322,219 @@
     </div>
   </script>
   <script type="text/javascript"><!--
-      (function ($) {
-          var allowed_targets = {{ json_allowed_targets }};
-          var targets = {{ json_targets }};
-          var id = 0;
+  (function ($) {
+      var allowed_targets = {{ json_allowed_targets }};
+      var targets = {{ json_targets }};
+      var id = 0;
 
-          var selector = {
-              alerts: '#alerts',
-              acknowledge: '.acknowledge',
-              save: '#proceed',
-              form: '#form',
-              target: {
-                  container: '#targets',
-                  list: '#list',
-                  modal: '#target-modal',
-                  alerts: '#target-alerts',
-                  add: '#button-target-add',
-                  edit: '.button-target-edit',
-                  delete: '.button-target-delete',
-                  country: '#select-country',
-                  status: '#select-status',
-                  save: '#button-target-save',
-                  budget: '#input-budget',
-                  warning_budget: '#warning-budget',
-                  roas: '#input-roas',
-                  warning_roas: '#warning-roas'
-              },
-              feed: {
-                  container: '#feeds',
-                  error_type: '[data-error-type]',
-                  language: 'select[name*="[language]"]',
-                  currency: 'select[name*="[currency]"]',
-                  add: '#button-feed-add',
-                  delete: '.button-feed-delete',
-                  row: '.feed'
-              },
-              template: {
-                  alert: '#template-alert',
-                  modal: '#template-modal',
-                  feed: '#template-feed',
-                  targets: '#template-targets',
-                  list_element: '#template-list-element'
-              }
-          };
-
-          var template = function (html, data) {
-              $.map(data, function (text, key) {
-                  html = html.replace(new RegExp("{" + key + "}", 'g'), text);
-              });
-
-              return html;
-          };
-
-          var makeModalHtml = function (data) {
-              var html = $(selector.template.modal).html();
-
-              return template(html, data);
-          };
-
-          var makeFeedsHtml = function (data) {
-              var html = $(selector.template.feed).html();
-
-              data.languages = '';
-              data.currencies = '';
-
-              // Set the feed countries
-              $(allowed_targets).each(function (index, target) {
-                  if (target.country.code == $(selector.target.country).val()) {
-                      $(target.languages).each(function (index, language) {
-                          data.languages += '<option value="' + language.code + '" ' + (language.status ? '' : 'disabled') + '>' + language.name + '</option>';
-                      });
-
-                      $(target.currencies).each(function (index, currency) {
-                          data.currencies += '<option value="' + currency.code + '" ' + (currency.status ? '' : 'disabled') + '>' + currency.name + '</option>';
-                      });
-                  }
-              });
-
-              return template(html, data);
-          };
-
-          var makeAlertHtml = function (data) {
-              var html = $(selector.template.alert).html();
-
-              return template(html, data);
-          };
-
-          var displayError = function (container, message) {
-              $(container).html(makeAlertHtml({
-                  icon: 'exclamation-triangle',
-                  type: 'danger',
-                  message: message
-              }));
-          };
-
-          var makeListElementHtml = function (data) {
-              var html = $(selector.template.list_element).html();
-
-              return template(html, data);
+      var selector = {
+          alerts: '#alerts',
+          acknowledge: '.acknowledge',
+          save: '#proceed',
+          form: '#form',
+          target: {
+              container: '#targets',
+              list: '#list',
+              modal: '#target-modal',
+              alerts: '#target-alerts',
+              add: '#button-target-add',
+              edit: '.button-target-edit',
+              delete: '.button-target-delete',
+              country: '#select-country',
+              status: '#select-status',
+              save: '#button-target-save',
+              budget: '#input-budget',
+              warning_budget: '#warning-budget',
+              roas: '#input-roas',
+              warning_roas: '#warning-roas'
+          },
+          feed: {
+              container: '#feeds',
+              error_type: '[data-error-type]',
+              language: 'select[name*="[language]"]',
+              currency: 'select[name*="[currency]"]',
+              add: '#button-feed-add',
+              delete: '.button-feed-delete',
+              row: '.feed'
+          },
+          template: {
+              alert: '#template-alert',
+              modal: '#template-modal',
+              feed: '#template-feed',
+              targets: '#template-targets',
+              list_element: '#template-list-element'
           }
+      };
 
-          var makeListElementRoasHtml = function (roas_status, roas_warning, roas) {
-              if (!roas_status) {
-                  return '<span class="label label-default" data-toggle="tooltip" data-original-title="' + roas_warning + '">{{ text_label_unavailable }}</span>';
-              } else {
-                  return roas.toString() + '&#37;';
-              }
-          }
+      var template = function (html, data) {
+          $.map(data, function (text, key) {
+              html = html.replace(new RegExp("{" + key + "}", 'g'), text);
+          });
 
-          var makeListElementStatusHtml = function (status) {
-              if (status == 'paused') {
-                  return '<span class="label label-warning">{{ text_label_paused }}</span>';
-              } else if (status == 'active') {
-                  return '<span class="label label-success">{{ text_label_active }}</span>';
-              }
+          return html;
+      };
 
-              return '';
-          }
+      var makeModalHtml = function (data) {
+          var html = $(selector.template.modal).html();
 
-          var makeListElementFeedsHtml = function (feeds) {
-              html = '<ul>';
-              
-              $(feeds).each(function (index, feed) {
-                  html += '<li>' + feed.text + '</li>';
-              });
-              
-              html += '</ul>';
+          return template(html, data);
+      };
 
-              return html;
-          }
+      var makeFeedsHtml = function (data) {
+          var html = $(selector.template.feed).html();
 
-          var displaySuccess = function (message) {
-              $(selector.alerts).html(makeAlertHtml({
-                  icon: 'check-circle',
-                  type: 'success',
-                  message: message
-              }));
-          };
+          data.languages = '';
+          data.currencies = '';
 
-          var refreshTargets = function (callback) {
-              $.ajax({
-                  url: '{{ target_list }}',
-                  type: 'get',
-                  dataType: 'json',
-                  beforeSend: function () {
-                      $(selector.target.container).html('<div class="alert alert-info text-center">{{ text_loading }}</div>');
-                  },
-                  complete: callback,
-                  error: function (jqXHR, textStatus, errorThrown) {
-                      displayError(selector.alerts, '(' + textStatus + ') ' + errorThrown);
-                  },
-                  success: function (data) {
-                      if (data.error) {
-                          displayError(selector.alerts, data.error);
-                      } else {
-                          if (data.targets.length) {
-                              targets = data.targets;
-
-                              $(selector.target.container).html($(selector.template.targets).html());
-
-                              $(data.targets).each(function (index, target) {
-                                  $(selector.target.list).append(makeListElementHtml({
-                                      target_id: target.target_id,
-                                      campaign_name: target.campaign_name,
-                                      country: target.country.name,
-                                      budget: target.budget.formatted,
-                                      roas: makeListElementRoasHtml(target.roas_status, target.roas_warning, target.roas),
-                                      status: makeListElementStatusHtml(target.status),
-                                      feeds: makeListElementFeedsHtml(target.feeds)
-                                  }));
-                              });
-                          } else {
-                              $(selector.target.container).html('<div class="alert alert-warning"><i class="fa fa-warning"></i> {{ text_no_targets }}</div>');
-                          }
-                      }
-                  }
-              });
-          };
-
-          var initModal = function (modalData) {
-              var html = $(makeModalHtml(modalData));
-
-              $(html).modal();
-
-              $(html).on('shown.bs.modal', function () {
-                  // Enable tooltips
-                  $('[data-toggle="tooltip"]').tooltip({container: 'body', html: true});
-
-                  // Populate countries
-                  $(allowed_targets).each(function (index, target) {
-                      $(selector.target.country).append('<option value="' + target.country.code + '">' + target.country.name + '</option>');
+          // Set the feed countries
+          $(allowed_targets).each(function (index, target) {
+              if (target.country.code == $(selector.target.country).val()) {
+                  $(target.languages).each(function (index, language) {
+                      data.languages += '<option value="' + language.code + '" ' + (language.status ? '' : 'disabled') + '>' + language.name + '</option>';
                   });
 
-                  // Select the current country
-                  $(selector.target.country).val($(selector.target.country).attr('data-value')).trigger('change');
-                  $(selector.target.status).val($(selector.target.status).attr('data-value')).trigger('change');
-                  
-                  $(selector.target.budget).trigger('change');
-                  
-                  $(selector.target.roas).attr('disabled', !modalData.roas_status);
-                  $(selector.target.roas).attr('data-original-disabled', !modalData.roas_status ? '1' : '0');
-                  
-                  $(selector.target.warning_roas).toggle(!modalData.roas_status);
+                  $(target.currencies).each(function (index, currency) {
+                      data.currencies += '<option value="' + currency.code + '" ' + (currency.status ? '' : 'disabled') + '>' + currency.name + '</option>';
+                  });
+              }
+          });
+
+          return template(html, data);
+      };
+
+      var makeAlertHtml = function (data) {
+          var html = $(selector.template.alert).html();
+
+          return template(html, data);
+      };
+
+      var displayError = function (container, message) {
+          $(container).html(makeAlertHtml({
+              icon: 'exclamation-triangle',
+              type: 'danger',
+              message: message
+          }));
+      };
+
+      var makeListElementHtml = function (data) {
+          var html = $(selector.template.list_element).html();
+
+          return template(html, data);
+      }
+
+      var makeListElementRoasHtml = function (roas_status, roas_warning, roas) {
+          if (!roas_status) {
+              return '<span class="label label-default" data-toggle="tooltip" data-original-title="' + roas_warning + '">{{ text_label_unavailable }}</span>';
+          } else {
+              return roas.toString() + '&#37;';
+          }
+      }
+
+      var makeListElementStatusHtml = function (status) {
+          if (status == 'paused') {
+              return '<span class="label label-warning">{{ text_label_paused }}</span>';
+          } else if (status == 'active') {
+              return '<span class="label label-success">{{ text_label_active }}</span>';
+          }
+
+          return '';
+      }
+
+      var makeListElementFeedsHtml = function (feeds) {
+          html = '<ul>';
+
+          $(feeds).each(function (index, feed) {
+              html += '<li>' + feed.text + '</li>';
+          });
+
+          html += '</ul>';
+
+          return html;
+      }
+
+      var displaySuccess = function (message) {
+          $(selector.alerts).html(makeAlertHtml({
+              icon: 'check-circle',
+              type: 'success',
+              message: message
+          }));
+      };
+
+      var refreshTargets = function (callback) {
+          $.ajax({
+              url: '{{ target_list }}',
+              type: 'get',
+              dataType: 'json',
+              beforeSend: function () {
+                  $(selector.target.container).html('<div class="alert alert-info text-center">{{ text_loading }}</div>');
+              },
+              complete: callback,
+              error: function (jqXHR, textStatus, errorThrown) {
+                  displayError(selector.alerts, '(' + textStatus + ') ' + errorThrown);
+              },
+              success: function (data) {
+                  if (data.error) {
+                      displayError(selector.alerts, data.error);
+                  } else {
+                      if (data.targets.length) {
+                          targets = data.targets;
+
+                          $(selector.target.container).html($(selector.template.targets).html());
+
+                          $(data.targets).each(function (index, target) {
+                              $(selector.target.list).append(makeListElementHtml({
+                                  target_id: target.target_id,
+                                  campaign_name: target.campaign_name,
+                                  country: target.country.name,
+                                  budget: target.budget.formatted,
+                                  roas: makeListElementRoasHtml(target.roas_status, target.roas_warning, target.roas),
+                                  status: makeListElementStatusHtml(target.status),
+                                  feeds: makeListElementFeedsHtml(target.feeds)
+                              }));
+                          });
+                      } else {
+                          $(selector.target.container).html('<div class="alert alert-warning"><i class="fa fa-warning"></i> {{ text_no_targets }}</div>');
+                      }
+                  }
+              }
+          });
+      };
+
+      var initModal = function (modalData) {
+          var html = $(makeModalHtml(modalData));
+
+          $(html).modal();
+
+          $(html).on('shown.bs.modal', function () {
+              // Enable tooltips
+              $('[data-toggle="tooltip"]').tooltip({container: 'body', html: true});
+
+              // Populate countries
+              $(allowed_targets).each(function (index, target) {
+                  $(selector.target.country).append('<option value="' + target.country.code + '">' + target.country.name + '</option>');
               });
 
-              $(html).on('hidden.bs.modal', function () {
-                  $(this).remove();
-              });
-          };
+              // Select the current country
+              $(selector.target.country).val($(selector.target.country).attr('data-value')).trigger('change');
+              $(selector.target.status).val($(selector.target.status).attr('data-value')).trigger('change');
 
-          var campaignCreateTestPromise = new Promise((resolve, reject) => {
-            {% if can_edit_campaigns %}
+              $(selector.target.budget).trigger('change');
+
+              $(selector.target.roas).attr('disabled', !modalData.roas_status);
+              $(selector.target.roas).attr('data-original-disabled', !modalData.roas_status ? '1' : '0');
+
+              $(selector.target.warning_roas).toggle(!modalData.roas_status);
+          });
+
+          $(html).on('hidden.bs.modal', function () {
+              $(this).remove();
+          });
+      };
+
+      var campaignCreateTestPromise = new Promise((resolve, reject) => {
+          {% if can_edit_campaigns %}
               resolve();
-            {% else %}
+          {% else %}
               var doCampaignCreateTest = function () {
                   $.ajax({
                       url: '{{ url_campaign_test }}',
@@ -552,249 +552,246 @@
               };
 
               doCampaignCreateTest();
-            {% endif %}
+          {% endif %}
+      });
+
+      $(document).on('click', selector.target.add, function (e) {
+          e.preventDefault();
+          e.stopPropagation();
+
+          var modalData = {
+              title: '{{ text_add_target }}',
+              url: '{{ target_add }}',
+              campaign_name: '',
+              budget: '25.00',
+              roas: 0,
+              roas_status: false,
+              roas_warning: '{{ text_roas_warning }}',
+              country: '',
+              status: 'active',
+              feeds: makeFeedsHtml({
+                  id: id++,
+                  language: '',
+                  currency: ''
+              })
+          };
+
+          initModal(modalData);
+      });
+
+      $(document).on('click', selector.target.edit, function (e) {
+          e.preventDefault();
+          e.stopPropagation();
+
+          var data = null;
+          var feeds = '';
+          var target_id = $(this).attr('data-target-id');
+
+          $(targets).each(function (index, target) {
+              if (target.target_id == target_id) {
+                  data = target;
+
+                  return;
+              }
           });
 
-          $(document).on('click', selector.target.add, function (e) {
-              e.preventDefault();
-              e.stopPropagation();
-
-              var modalData = {
-                  title: '{{ text_add_target }}',
-                  url: '{{ target_add }}',
-                  campaign_name: '',
-                  budget: '25.00',
-                  roas: 0,
-                  roas_status: false,
-                  roas_warning: '{{ text_roas_warning }}',
-                  country: '',
-                  status: 'active',
-                  feeds: makeFeedsHtml({
-                      id: id++,
-                      language: '',
-                      currency: ''
-                  })
-              };
-
-              initModal(modalData);
+          $(data.feeds).each(function (index, feed) {
+              feeds += makeFeedsHtml({
+                  id: id++,
+                  language: feed.language,
+                  currency: feed.currency
+              });
           });
 
-          $(document).on('click', selector.target.edit, function (e) {
-              e.preventDefault();
-              e.stopPropagation();
+          var modalData = {
+              title: '{{ text_edit_target }}'.replace(/%s/, data.campaign_name),
+              url: '{{ target_edit }}'.replace(/{target_id}/, target_id),
+              campaign_name: data.campaign_name,
+              budget: data.budget.value,
+              roas: data.roas,
+              roas_status: data.roas_status,
+              roas_warning: data.roas_warning,
+              country: data.country.code,
+              status: data.status,
+              feeds: feeds
+          };
 
-              var data = null;
-              var feeds = '';
+          initModal(modalData);
+      });
+
+      $(document).on('click', selector.target.delete, function (e) {
+          e.preventDefault();
+          e.stopPropagation();
+
+          if (confirm("{{ text_confirm }}")) {
               var target_id = $(this).attr('data-target-id');
 
-              $(targets).each(function (index, target) {
-                  if (target.target_id == target_id) {
-                      data = target;
-                      return;
-                  }
-              });
-
-              $(data.feeds).each(function (index, feed) {
-                  feeds += makeFeedsHtml({
-                      id: id++,
-                      language: feed.language,
-                      currency: feed.currency
-                  });
-              });
-
-              var modalData = {
-                  title: '{{ text_edit_target }}'.replace(/%s/, data.campaign_name),
-                  url: '{{ target_edit }}'.replace(/{target_id}/, target_id),
-                  campaign_name: data.campaign_name,
-                  budget: data.budget.value,
-                  roas: data.roas,
-                  roas_status: data.roas_status,
-                  roas_warning: data.roas_warning,
-                  country: data.country.code,
-                  status: data.status,
-                  feeds: feeds
-              };
-
-              initModal(modalData);
-          });
-
-          $(document).on('click', selector.target.delete, function (e) {
-              e.preventDefault();
-              e.stopPropagation();
-
-              if (confirm("{{ text_confirm }}")) {
-                  var target_id = $(this).attr('data-target-id');
-
-                  $(selector.target.container).html('<div class="alert alert-info text-center">{{ text_loading_please_wait }}</div>');
-
-                  campaignCreateTestPromise.then(function () {
-                      $.ajax({
-                          url: '{{ target_delete }}'.replace(/{target_id}/, target_id),
-                          type: 'get',
-                          dataType: 'json',
-                          complete: function () {
-                              refreshTargets();
-                          },
-                          error: function (jqXHR, textStatus, errorThrown) {
-                              displayError(selector.alerts, '(' + textStatus + ') ' + errorThrown);
-                          },
-                          success: function (data) {
-                              if (data.error) {
-                                  displayError(selector.alerts, data.error);
-                              } else if (data.redirect) {
-                                  document.location = data.redirect;
-                              } else {
-                                  displaySuccess(data.success);
-                              }
-                          }
-                      });
-                  });
-              }
-          });
-
-          $(document).on('click', selector.feed.add, function (e) {
-              $(selector.feed.container).append(
-                  $(makeFeedsHtml({
-                      id: id++,
-                      language: '',
-                      currency: ''
-                  }))
-              );
-          });
-
-          $(document).on('click', selector.feed.delete, function (e) {
-              e.preventDefault();
-
-              if (confirm("{{ text_confirm }}")) {
-                  $(this).closest(selector.feed.row).remove();
-              }
-          });
-
-          $(document).on('click', selector.target.save, function (e) {
-              var saveButton = this;
-
-              $(selector.target.alerts).empty();
-              $(selector.alerts).empty();
-
-              $(selector.target.save)
-                  .text($(selector.target.save).attr('data-loading'))
-                  .attr('disabled', true);
-
-              $(selector.target.modal).find('input,select').attr('disabled', true);
-              $(selector.target.modal).find(selector.feed.add).attr('disabled', true);
-              $(selector.target.modal).find(selector.feed.delete).attr('disabled', true);
-
-              $('.text-danger').remove();
-
-              $('.has-error').removeClass('has-error');
+              $(selector.target.container).html('<div class="alert alert-info text-center">{{ text_loading_please_wait }}</div>');
 
               campaignCreateTestPromise.then(function () {
                   $.ajax({
-                      url: $(saveButton).attr('data-url'),
-                      type: 'post',
+                      url: '{{ target_delete }}'.replace(/{target_id}/, target_id),
+                      type: 'get',
                       dataType: 'json',
-                      data: $(selector.target.modal).find('input,select'),
                       complete: function () {
-                          $(selector.target.save)
-                              .text($(selector.target.save).attr('data-text'))
-                              .attr('disabled', false);
-
-                          $(selector.target.modal).find('input,select').attr('disabled', false);
-                          
-                          $(selector.target.modal).find('[data-original-disabled]').each(function (index, element) {
-                              $(element).attr('disabled', $(element).attr('data-original-disabled') == '1');
-                          });
-                          
-                          $(selector.target.modal).find(selector.feed.add).attr('disabled', false);
-                          $(selector.target.modal).find(selector.feed.delete).attr('disabled', false);
+                          refreshTargets();
                       },
                       error: function (jqXHR, textStatus, errorThrown) {
-                          displayError(selector.target.alerts, '(' + textStatus + ') ' + errorThrown);
+                          displayError(selector.alerts, '(' + textStatus + ') ' + errorThrown);
                       },
                       success: function (data) {
                           if (data.error) {
-                              displayError(selector.target.alerts, data.error);
-
-                              $(selector.feed.error_type).each(function (index, element) {
-                                  if (typeof data[$(element).attr('data-error-type')] != 'undefined') {
-                                      $(element).find('.col-sm-9').append('<div class="text-danger">' + data[$(element).attr('data-error-type')] + '</div>');
-                                  }
-                              });
-
-                              // Highlight any found errors
-                              $('.text-danger').each(function () {
-                                  var element = $(saveButton).parent().parent();
-
-                                  if (element.hasClass('form-group')) {
-                                      element.addClass('has-error');
-                                  }
-                              });
+                              displayError(selector.alerts, data.error);
                           } else if (data.redirect) {
                               document.location = data.redirect;
-                          } else if (data.success) {
+                          } else {
                               displaySuccess(data.success);
-
-                              refreshTargets(function () {
-                                  $(selector.target.modal).modal('hide');
-                              });
                           }
                       }
                   });
               });
-          });
+          }
+      });
 
-          $(document).on('change', selector.target.country, function () {
-              var code = $(this).val();
+      $(document).on('click', selector.feed.add, function (e) {
+          $(selector.feed.container).append(
+              $(makeFeedsHtml({
+                  id: id++,
+                  language: '',
+                  currency: ''
+              }))
+          );
+      });
 
-              // Set the feed countries
-              $(allowed_targets).each(function (index, target) {
-                  if (target.country.code == code) {
-                      $(selector.feed.container).find(selector.feed.language).find('option[value!=""]').remove();
+      $(document).on('click', selector.feed.delete, function (e) {
+          e.preventDefault();
 
-                      $(target.languages).each(function (index, language) {
-                          $(selector.feed.container).find(selector.feed.language).append('<option value="' + language.code + '" ' + (language.status ? '' : 'disabled') + '>' + language.name + '</option>');
+          if (confirm("{{ text_confirm }}")) {
+              $(this).closest(selector.feed.row).remove();
+          }
+      });
+
+      $(document).on('click', selector.target.save, function (e) {
+          var saveButton = this;
+
+          $(selector.target.alerts).empty();
+          $(selector.alerts).empty();
+
+          $(selector.target.save).text($(selector.target.save).attr('data-loading')).attr('disabled', true);
+
+          $(selector.target.modal).find('input,select').attr('disabled', true);
+          $(selector.target.modal).find(selector.feed.add).attr('disabled', true);
+          $(selector.target.modal).find(selector.feed.delete).attr('disabled', true);
+
+          $('.text-danger').remove();
+
+          $('.has-error').removeClass('has-error');
+
+          campaignCreateTestPromise.then(function () {
+               $.ajax({
+                  url: $(saveButton).attr('data-url'),
+                  type: 'post',
+                  dataType: 'json',
+                  data: $(selector.target.modal).find('input,select'),
+                  complete: function () {
+                      $(selector.target.save).text($(selector.target.save).attr('data-text')).attr('disabled', false);
+
+                      $(selector.target.modal).find('input,select').attr('disabled', false);
+
+                      $(selector.target.modal).find('[data-original-disabled]').each(function (index, element) {
+                          $(element).attr('disabled', $(element).attr('data-original-disabled') == '1');
                       });
 
-                      $(selector.feed.container).find(selector.feed.language).val(
-                          $(selector.feed.container).find(selector.feed.language).attr('data-value')
-                      );
+                      $(selector.target.modal).find(selector.feed.add).attr('disabled', false);
+                      $(selector.target.modal).find(selector.feed.delete).attr('disabled', false);
+                  },
+                  error: function (jqXHR, textStatus, errorThrown) {
+                      displayError(selector.target.alerts, '(' + textStatus + ') ' + errorThrown);
+                  },
+                  success: function (data) {
+                      if (data.error) {
+                          displayError(selector.target.alerts, data.error);
 
-                      $(selector.feed.container).find(selector.feed.currency).find('option[value!=""]').remove();
+                          $(selector.feed.error_type).each(function (index, element) {
+                              if (typeof data[$(element).attr('data-error-type')] != 'undefined') {
+                                  $(element).find('.col-sm-9').append('<div class="text-danger">' + data[$(element).attr('data-error-type')] + '</div>');
+                              }
+                          });
 
-                      $(target.currencies).each(function (index, currency) {
-                          $(selector.feed.container).find(selector.feed.currency).append('<option value="' + currency.code + '" ' + (currency.status ? '' : 'disabled') + '>' + currency.name + '</option>');
-                      });
+                          // Highlight any found errors
+                          $('.text-danger').each(function () {
+                              var element = $(saveButton).parent().parent();
 
-                      $(selector.feed.container).find(selector.feed.currency).val(
-                          $(selector.feed.container).find(selector.feed.currency).attr('data-value')
-                      );
+                              if (element.hasClass('form-group')) {
+                                  element.addClass('has-error');
+                              }
+                          });
+                      } else if (data.redirect) {
+                          document.location = data.redirect;
+                      } else if (data.success) {
+                          displaySuccess(data.success);
+
+                          refreshTargets(function () {
+                              $(selector.target.modal).modal('hide');
+                          });
+                      }
                   }
               });
           });
+      });
 
-          $(document).on('change', selector.acknowledge, function () {
-              $(selector.save).attr('disabled', $(selector.acknowledge + ':not(:checked)').length > 0);
-          });
+      $(document).on('change', selector.target.country, function () {
+          var code = $(this).val();
 
-          $(document).on('change keyup', selector.target.budget, function () {
-              if (parseFloat($(this).val()) < 10) {
-                  $(selector.target.warning_budget).show();
-              } else {
-                  $(selector.target.warning_budget).hide();
+          // Set the feed countries
+          $(allowed_targets).each(function (index, target) {
+              if (target.country.code == code) {
+                  $(selector.feed.container).find(selector.feed.language).find('option[value!=""]').remove();
+
+                  $(target.languages).each(function (index, language) {
+                      $(selector.feed.container).find(selector.feed.language).append('<option value="' + language.code + '" ' + (language.status ? '' : 'disabled') + '>' + language.name + '</option>');
+                  });
+
+                  $(selector.feed.container).find(selector.feed.language).val(
+                      $(selector.feed.container).find(selector.feed.language).attr('data-value')
+                  );
+
+                  $(selector.feed.container).find(selector.feed.currency).find('option[value!=""]').remove();
+
+                  $(target.currencies).each(function (index, currency) {
+                      $(selector.feed.container).find(selector.feed.currency).append('<option value="' + currency.code + '" ' + (currency.status ? '' : 'disabled') + '>' + currency.name + '</option>');
+                  });
+
+                  $(selector.feed.container).find(selector.feed.currency).val(
+                      $(selector.feed.container).find(selector.feed.currency).attr('data-value')
+                  );
               }
           });
+      });
 
-          $(document).on('click', selector.save, function (e) {
-              e.preventDefault();
-              e.stopPropagation();
+      $(document).on('change', selector.acknowledge, function () {
+          $(selector.save).attr('disabled', $(selector.acknowledge + ':not(:checked)').length > 0);
+      });
 
-              $(selector.save).text('{{ text_loading_please_wait }}').attr('disabled', true);
-              $(selector.acknowledge).attr('disabled', true);
+      $(document).on('change keyup', selector.target.budget, function () {
+          if (parseFloat($(this).val()) < 10) {
+              $(selector.target.warning_budget).show();
+          } else {
+              $(selector.target.warning_budget).hide();
+          }
+      });
 
-              campaignCreateTestPromise.then(function () {
-                  $(selector.form).submit();
-              });
+      $(document).on('click', selector.save, function (e) {
+          e.preventDefault();
+          e.stopPropagation();
+
+          $(selector.save).text('{{ text_loading_please_wait }}').attr('disabled', true);
+          $(selector.acknowledge).attr('disabled', true);
+
+          campaignCreateTestPromise.then(function () {
+              $(selector.form).submit();
           });
-      })(jQuery);
+      });
+  })(jQuery);
   //--></script>
 {{ footer }}

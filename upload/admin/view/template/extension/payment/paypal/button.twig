@@ -351,7 +351,7 @@ $('.payment-paypal').on('click', '.button-agree', function() {
             $('.payment-paypal .alert').remove();
 
             if (json['success']) {
-              $('#content > .container-fluid').prepend('<div class="alert alert-success alert-dismissible"><i class="fa fa-check-circle"></i><button type="button" class="close" data-dismiss="alert">&times;</button> ' + json['success'] + '</div>');
+                $('#content > .container-fluid').prepend('<div class="alert alert-success alert-dismissible"><i class="fa fa-check-circle"></i><button type="button" class="close" data-dismiss="alert">&times;</button> ' + json['success'] + '</div>');
             }
         },
         error: function(xhr, ajaxOptions, thrownError) {
@@ -366,11 +366,11 @@ function updatePayPalButton(button_page_code, paypal_callback = '') {
 
     $('.payment-paypal [id^=input_button_' + button_page_code + '_funding').each(function() {
         if ($(this).val() == 1) {
-          button_enable_funding.push($(this).attr('funding_code'));
+            button_enable_funding.push($(this).attr('funding_code'));
         }
 
         if ($(this).val() == 2) {
-          button_disable_funding.push($(this).attr('funding_code'));
+            button_disable_funding.push($(this).attr('funding_code'));
         }
     });
 
@@ -396,7 +396,7 @@ function updatePayPalButton(button_page_code, paypal_callback = '') {
     paypal_data['button_label'] = $('.payment-paypal #input_button_' + button_page_code + '_label').val();
 
     if (button_page_code != 'checkout') {
-      paypal_data['button_tagline'] = $('.payment-paypal #input_button_' + button_page_code + '_tagline').val();
+        paypal_data['button_tagline'] = $('.payment-paypal #input_button_' + button_page_code + '_tagline').val();
     }
 
     paypal_data['button_width'] = button_width[paypal_data['button_size']];

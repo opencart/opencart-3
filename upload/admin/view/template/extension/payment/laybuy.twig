@@ -433,149 +433,149 @@
     }
 </style>
 <script type="text/javascript"><!--
-    $('input[name="category"]').autocomplete({
-        source: function (request, response) {
-            $.ajax({
-                url: 'index.php?route=catalog/category/autocomplete&user_token={{ user_token }}&filter_name=' + encodeURIComponent(request),
-                dataType: 'json',
-                success: function (json) {
-                    response($.map(json, function (item) {
-                        return {
-                            label: item['name'],
-                            value: item['category_id']
-                        }
-                    }));
-                }
-            });
-        },
-        select: function (item) {
-            $('input[name=\'category\']').val('');
+$('input[name="category"]').autocomplete({
+    source: function (request, response) {
+        $.ajax({
+            url: 'index.php?route=catalog/category/autocomplete&user_token={{ user_token }}&filter_name=' + encodeURIComponent(request),
+            dataType: 'json',
+            success: function (json) {
+                response($.map(json, function (item) {
+                    return {
+                        label: item['name'],
+                        value: item['category_id']
+                    }
+                }));
+            }
+        });
+    },
+    select: function (item) {
+        $('input[name=\'category\']').val('');
 
-            $('#laybuy-category' + item['value']).remove();
+        $('#laybuy-category' + item['value']).remove();
 
-            $('#laybuy-category').append('<div id="laybuy-category' + item['value'] + '"><i class="fa fa-minus-circle"></i> ' + item['label'] + '<input type="hidden" name="payment_laybuy_category[]" value="' + item['value'] + '"/></div>');
-        }
-    });
-
-    $('#laybuy-category').delegate('.fa-minus-circle', 'click', function () {
-        $(this).parent().remove();
-    });
-//--></script>
-<script type="text/javascript"><!--
-    $('input[name="customer_group"]').autocomplete({
-        source: function (request, response) {
-            $.ajax({
-                url: 'index.php?route=extension/payment/laybuy/autocomplete&user_token={{ user_token }}&filter_customer_group=' + encodeURIComponent(request),
-                dataType: 'json',
-                success: function (json) {
-                    response($.map(json, function (item) {
-                        return {
-                            label: item['name'],
-                            value: item['customer_group_id']
-                        }
-                    }));
-                }
-            });
-        },
-        select: function (item) {
-            $('input[name=\'customer_group\']').val('');
-
-            $('#laybuy-customer-group' + item['value']).remove();
-
-            $('#laybuy-customer-group').append('<div id="laybuy-customer-group' + item['value'] + '"><i class="fa fa-minus-circle"></i> ' + item['label'] + '<input type="hidden" name="payment_laybuy_customer_group[]" value="' + item['value'] + '"/></div>');
-        }
-    });
-
-    $('#laybuy-customer-group').delegate('.fa-minus-circle', 'click', function () {
-        $(this).parent().remove();
-    });
-//--></script>
-<script type="text/javascript"><!--
-    $('input[name=\'filter_customer\']').autocomplete({
-        'source': function (request, response) {
-            $.ajax({
-                url: 'index.php?route=customer/customer/autocomplete&user_token={{ user_token }}&filter_name=' + encodeURIComponent(request),
-                dataType: 'json',
-                success: function (json) {
-                    response($.map(json, function (item) {
-                        return {
-                            label: item['name'],
-                            value: item['customer_id']
-                        }
-                    }));
-                }
-            });
-        },
-        'select': function (item) {
-            $('input[name=\'filter_customer\']').val(item['label']);
-        }
-    });
-//--></script>
-<script type="text/javascript"><!--
-    $('#button-filter').on('click', function () {
-        url = 'index.php?route=extension/payment/laybuy&user_token={{ user_token }}';
-
-        var filter_order_id = $('input[name=\'filter_order_id\']').val();
-
-        if (filter_order_id) {
-            url += '&filter_order_id=' + encodeURIComponent(filter_order_id);
-        }
-
-        var filter_customer = $('input[name=\'filter_customer\']').val();
-
-        if (filter_customer) {
-            url += '&filter_customer=' + encodeURIComponent(filter_customer);
-        }
-
-        var filter_dp_percent = $('input[name=\'filter_dp_percent\']').val();
-
-        if (filter_dp_percent) {
-            url += '&filter_dp_percent=' + encodeURIComponent(filter_dp_percent);
-        }
-
-        var filter_months = $('input[name=\'filter_months\']').val();
-
-        if (filter_months) {
-            url += '&filter_months=' + encodeURIComponent(filter_months);
-        }
-
-        var filter_status = $('select[name=\'filter_status\']').val();
-
-        if (filter_status != '*') {
-            url += '&filter_status=' + encodeURIComponent(filter_status);
-        }
-
-        var filter_date_added = $('input[name=\'filter_date_added\']').val();
-
-        if (filter_date_added) {
-            url += '&filter_date_added=' + encodeURIComponent(filter_date_added);
-        }
-
-        location = url + '#reportstab';
-    });
-//--></script>
-<script type="text/javascript"><!--
-    $('.date').datetimepicker({
-        language: '{{ datepicker }}',
-        pickTime: false,
-        format: 'YYYY-MM-DD'
-    });
-//--></script>
-<script type="text/javascript"><!--
-    if (document.location.hash != '') {
-        var hash = window.location.hash.substring(1);
-
-        if (hash == 'settingstab') {
-            hash = 'tab-settings';
-        } else {
-            hash = 'tab-reports';
-        }
-
-        $('.nav-tabs li').removeClass('active');
-        $('.tab-pane').removeClass('active');
-
-        $('#' + hash).addClass('active');
-        $('#li-' + hash).addClass('active');
+        $('#laybuy-category').append('<div id="laybuy-category' + item['value'] + '"><i class="fa fa-minus-circle"></i> ' + item['label'] + '<input type="hidden" name="payment_laybuy_category[]" value="' + item['value'] + '"/></div>');
     }
+});
+
+$('#laybuy-category').delegate('.fa-minus-circle', 'click', function () {
+    $(this).parent().remove();
+});
+//--></script>
+<script type="text/javascript"><!--
+$('input[name="customer_group"]').autocomplete({
+    source: function (request, response) {
+        $.ajax({
+            url: 'index.php?route=extension/payment/laybuy/autocomplete&user_token={{ user_token }}&filter_customer_group=' + encodeURIComponent(request),
+            dataType: 'json',
+            success: function (json) {
+                response($.map(json, function (item) {
+                    return {
+                        label: item['name'],
+                        value: item['customer_group_id']
+                    }
+                }));
+            }
+        });
+    },
+    select: function (item) {
+        $('input[name=\'customer_group\']').val('');
+
+        $('#laybuy-customer-group' + item['value']).remove();
+
+        $('#laybuy-customer-group').append('<div id="laybuy-customer-group' + item['value'] + '"><i class="fa fa-minus-circle"></i> ' + item['label'] + '<input type="hidden" name="payment_laybuy_customer_group[]" value="' + item['value'] + '"/></div>');
+    }
+});
+
+$('#laybuy-customer-group').delegate('.fa-minus-circle', 'click', function () {
+    $(this).parent().remove();
+});
+//--></script>
+<script type="text/javascript"><!--
+$('input[name=\'filter_customer\']').autocomplete({
+    'source': function (request, response) {
+        $.ajax({
+            url: 'index.php?route=customer/customer/autocomplete&user_token={{ user_token }}&filter_name=' + encodeURIComponent(request),
+            dataType: 'json',
+            success: function (json) {
+                response($.map(json, function (item) {
+                    return {
+                        label: item['name'],
+                        value: item['customer_id']
+                    }
+                }));
+            }
+        });
+    },
+    'select': function (item) {
+        $('input[name=\'filter_customer\']').val(item['label']);
+    }
+});
+//--></script>
+<script type="text/javascript"><!--
+$('#button-filter').on('click', function () {
+    url = 'index.php?route=extension/payment/laybuy&user_token={{ user_token }}';
+
+    var filter_order_id = $('input[name=\'filter_order_id\']').val();
+
+    if (filter_order_id) {
+        url += '&filter_order_id=' + encodeURIComponent(filter_order_id);
+    }
+
+    var filter_customer = $('input[name=\'filter_customer\']').val();
+
+    if (filter_customer) {
+        url += '&filter_customer=' + encodeURIComponent(filter_customer);
+    }
+
+    var filter_dp_percent = $('input[name=\'filter_dp_percent\']').val();
+
+    if (filter_dp_percent) {
+        url += '&filter_dp_percent=' + encodeURIComponent(filter_dp_percent);
+    }
+
+    var filter_months = $('input[name=\'filter_months\']').val();
+
+    if (filter_months) {
+        url += '&filter_months=' + encodeURIComponent(filter_months);
+    }
+
+    var filter_status = $('select[name=\'filter_status\']').val();
+
+    if (filter_status != '*') {
+        url += '&filter_status=' + encodeURIComponent(filter_status);
+    }
+
+    var filter_date_added = $('input[name=\'filter_date_added\']').val();
+
+    if (filter_date_added) {
+        url += '&filter_date_added=' + encodeURIComponent(filter_date_added);
+    }
+
+    location = url + '#reportstab';
+});
+//--></script>
+<script type="text/javascript"><!--
+$('.date').datetimepicker({
+    language: '{{ datepicker }}',
+    pickTime: false,
+    format: 'YYYY-MM-DD'
+});
+//--></script>
+<script type="text/javascript"><!--
+if (document.location.hash != '') {
+    var hash = window.location.hash.substring(1);
+
+    if (hash == 'settingstab') {
+        hash = 'tab-settings';
+    } else {
+        hash = 'tab-reports';
+    }
+
+    $('.nav-tabs li').removeClass('active');
+    $('.tab-pane').removeClass('active');
+
+    $('#' + hash).addClass('active');
+    $('#li-' + hash).addClass('active');
+}
 //--></script>
 {{ footer }}

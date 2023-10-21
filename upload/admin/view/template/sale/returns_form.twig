@@ -239,105 +239,105 @@
       </div>
     </div>
     <script type="text/javascript"><!--
-        $('input[name=\'customer\']').autocomplete({
-            'source': function (request, response) {
-                $.ajax({
-                    url: 'index.php?route=customer/customer/autocomplete&user_token={{ user_token }}&filter_name=' + encodeURIComponent(request),
-                    dataType: 'json',
-                    success: function (json) {
-                        response($.map(json, function (item) {
-                            return {
-                                category: item['customer_group'],
-                                label: item['name'],
-                                value: item['customer_id'],
-                                firstname: item['firstname'],
-                                lastname: item['lastname'],
-                                email: item['email'],
-                                telephone: item['telephone']
-                            }
-                        }));
-                    }
-                });
-            },
-            'select': function (item) {
-                $('input[name=\'customer\']').val(item['label']);
-                $('input[name=\'customer_id\']').val(item['value']);
-                $('input[name=\'firstname\']').val(item['firstname']);
-                $('input[name=\'lastname\']').val(item['lastname']);
-                $('input[name=\'email\']').val(item['email']);
-                $('input[name=\'telephone\']').val(item['telephone']);
-            }
-        });
-    //--></script>
-    <script type="text/javascript"><!--
-        $('input[name=\'product\']').autocomplete({
-            'source': function (request, response) {
-                $.ajax({
-                    url: 'index.php?route=catalog/product/autocomplete&user_token={{ user_token }}&filter_name=' + encodeURIComponent(request),
-                    dataType: 'json',
-                    success: function (json) {
-                        response($.map(json, function (item) {
-                            return {
-                                label: item['name'],
-                                value: item['product_id'],
-                                model: item['model']
-                            }
-                        }));
-                    }
-                });
-            },
-            'select': function (item) {
-                $('input[name=\'product\']').val(item['label']);
-                $('input[name=\'product_id\']').val(item['value']);
-                $('input[name=\'model\']').val(item['model']);
-            }
-        });
-
-        $('#history').delegate('.pagination a', 'click', function (e) {
-            e.preventDefault();
-
-            $('#history').load(this.href);
-        });
-
-        $('#history').load('index.php?route=sale/returns/history&user_token={{ user_token }}&return_id={{ return_id }}');
-
-        $('#button-history').on('click', function (e) {
-            e.preventDefault();
-
+    $('input[name=\'customer\']').autocomplete({
+        'source': function (request, response) {
             $.ajax({
-                url: 'index.php?route=sale/returns/addHistory&user_token={{ user_token }}&return_id={{ return_id }}',
-                type: 'post',
+                url: 'index.php?route=customer/customer/autocomplete&user_token={{ user_token }}&filter_name=' + encodeURIComponent(request),
                 dataType: 'json',
-                data: 'return_status_id=' + encodeURIComponent($('#tab-history select[name=\'return_status_id\']').val()) + '&notify=' + ($('input[name=\'notify\']').prop('checked') ? 1 : 0) + '&comment=' + encodeURIComponent($('#tab-history textarea[name=\'comment\']').val()),
-                beforeSend: function () {
-                    $('#button-history').button('loading');
-                },
-                complete: function () {
-                    $('#button-history').button('reset');
-                },
                 success: function (json) {
-                    $('.alert-dismissible').remove();
-
-                    if (json['error']) {
-                        $('#tab-history').prepend('<div class="alert alert-danger alert-dismissible"><i class="fa fa-exclamation-circle"></i> ' + json['error'] + ' <button type="button" class="close" data-dismiss="alert">&times;</button></div>');
-                    }
-
-                    if (json['success']) {
-                        $('#history').load('index.php?route=sale/returns/history&user_token={{ user_token }}&return_id={{ return_id }}');
-
-                        $('#tab-history').prepend('<div class="alert alert-success alert-dismissible"><i class="fa fa-check-circle"></i> ' + json['success'] + ' <button type="button" class="close" data-dismiss="alert">&times;</button></div>');
-
-                        $('#tab-history textarea[name=\'comment\']').val('');
-                    }
+                    response($.map(json, function (item) {
+                        return {
+                            category: item['customer_group'],
+                            label: item['name'],
+                            value: item['customer_id'],
+                            firstname: item['firstname'],
+                            lastname: item['lastname'],
+                            email: item['email'],
+                            telephone: item['telephone']
+                        }
+                    }));
                 }
             });
-        });
+        },
+        'select': function (item) {
+            $('input[name=\'customer\']').val(item['label']);
+            $('input[name=\'customer_id\']').val(item['value']);
+            $('input[name=\'firstname\']').val(item['firstname']);
+            $('input[name=\'lastname\']').val(item['lastname']);
+            $('input[name=\'email\']').val(item['email']);
+            $('input[name=\'telephone\']').val(item['telephone']);
+        }
+    });
     //--></script>
     <script type="text/javascript"><!--
-        $('.date').datetimepicker({
-            language: '{{ datepicker }}',
-            pickTime: false
+    $('input[name=\'product\']').autocomplete({
+        'source': function (request, response) {
+            $.ajax({
+                url: 'index.php?route=catalog/product/autocomplete&user_token={{ user_token }}&filter_name=' + encodeURIComponent(request),
+                dataType: 'json',
+                success: function (json) {
+                    response($.map(json, function (item) {
+                        return {
+                            label: item['name'],
+                            value: item['product_id'],
+                            model: item['model']
+                        }
+                    }));
+                }
+            });
+        },
+        'select': function (item) {
+            $('input[name=\'product\']').val(item['label']);
+            $('input[name=\'product_id\']').val(item['value']);
+            $('input[name=\'model\']').val(item['model']);
+        }
+    });
+
+    $('#history').delegate('.pagination a', 'click', function (e) {
+        e.preventDefault();
+
+        $('#history').load(this.href);
+    });
+
+    $('#history').load('index.php?route=sale/returns/history&user_token={{ user_token }}&return_id={{ return_id }}');
+
+    $('#button-history').on('click', function (e) {
+        e.preventDefault();
+
+        $.ajax({
+            url: 'index.php?route=sale/returns/addHistory&user_token={{ user_token }}&return_id={{ return_id }}',
+            type: 'post',
+            dataType: 'json',
+            data: 'return_status_id=' + encodeURIComponent($('#tab-history select[name=\'return_status_id\']').val()) + '&notify=' + ($('input[name=\'notify\']').prop('checked') ? 1 : 0) + '&comment=' + encodeURIComponent($('#tab-history textarea[name=\'comment\']').val()),
+            beforeSend: function () {
+                $('#button-history').button('loading');
+            },
+            complete: function () {
+                $('#button-history').button('reset');
+            },
+            success: function (json) {
+                $('.alert-dismissible').remove();
+
+                if (json['error']) {
+                    $('#tab-history').prepend('<div class="alert alert-danger alert-dismissible"><i class="fa fa-exclamation-circle"></i> ' + json['error'] + ' <button type="button" class="close" data-dismiss="alert">&times;</button></div>');
+                }
+
+                if (json['success']) {
+                    $('#history').load('index.php?route=sale/returns/history&user_token={{ user_token }}&return_id={{ return_id }}');
+
+                    $('#tab-history').prepend('<div class="alert alert-success alert-dismissible"><i class="fa fa-check-circle"></i> ' + json['success'] + ' <button type="button" class="close" data-dismiss="alert">&times;</button></div>');
+
+                    $('#tab-history textarea[name=\'comment\']').val('');
+                }
+            }
         });
-        //--></script>
+    });
+    //--></script>
+    <script type="text/javascript"><!--
+    $('.date').datetimepicker({
+        language: '{{ datepicker }}',
+        pickTime: false
+    });
+    //--></script>
 </div>
 {{ footer }}
