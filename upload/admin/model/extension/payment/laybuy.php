@@ -101,7 +101,7 @@ class ModelExtensionPaymentLaybuy extends Model {
         $sql = "SELECT *, CONCAT(`firstname`, ' ', `lastname`) AS `customer` FROM `" . DB_PREFIX . "laybuy_transaction` lt WHERE 1 = 1";
 
         if (!empty($data['filter_order_id'])) {
-            $implode[] = "lt.`order_id` = '" . (int)$data['filter_order_id'] . "'";
+            $implode[] = "`lt`.`order_id` = '" . (int)$data['filter_order_id'] . "'";
         }
 
         if (!empty($data['filter_customer'])) {
@@ -109,19 +109,19 @@ class ModelExtensionPaymentLaybuy extends Model {
         }
 
         if (!empty($data['filter_dp_percent'])) {
-            $implode[] = "lt.`downpayment` = '" . (int)$data['filter_dp_percent'] . "'";
+            $implode[] = "`lt`.`downpayment` = '" . (int)$data['filter_dp_percent'] . "'";
         }
 
         if (!empty($data['filter_months'])) {
-            $implode[] = "lt.`months` = '" . (int)$data['filter_months'] . "'";
+            $implode[] = "`lt`.`months` = '" . (int)$data['filter_months'] . "'";
         }
 
         if (!empty($data['filter_status'])) {
-            $implode[] = "lt.`status` = '" . (int)$data['filter_status'] . "'";
+            $implode[] = "`lt`.`status` = '" . (int)$data['filter_status'] . "'";
         }
 
         if (!empty($data['filter_date_added'])) {
-            $implode[] = "DATE(lt.`date_added`) = DATE('" . $this->db->escape($data['filter_date_added']) . "')";
+            $implode[] = "DATE(`lt`.`date_added`) = DATE('" . $this->db->escape($data['filter_date_added']) . "')";
         }
 
         if ($implode) {
@@ -177,30 +177,30 @@ class ModelExtensionPaymentLaybuy extends Model {
     public function getTotalTransactions(array $data = []): int {
         $implode = [];
 
-        $sql = "SELECT COUNT(*) AS `total` FROM `" . DB_PREFIX . "laybuy_transaction` lt WHERE 1 = 1";
+        $sql = "SELECT COUNT(*) AS `total` FROM `" . DB_PREFIX . "laybuy_transaction` WHERE 1 = 1";
 
         if (!empty($data['filter_order_id'])) {
-            $implode[] = "lt.`order_id` = '" . (int)$data['filter_order_id'] . "'";
+            $implode[] = "`order_id` = '" . (int)$data['filter_order_id'] . "'";
         }
 
         if (!empty($data['filter_customer'])) {
-            $implode[] = "CONCAT(lt.`firstname`, ' ', lt.`lastname`) LIKE '%" . $this->db->escape($data['filter_customer']) . "%'";
+            $implode[] = "CONCAT(`firstname`, ' ', `lastname`) LIKE '%" . $this->db->escape($data['filter_customer']) . "%'";
         }
 
         if (!empty($data['filter_dp_percent'])) {
-            $implode[] = "lt.`downpayment` = '" . (int)$data['filter_dp_percent'] . "'";
+            $implode[] = "`downpayment` = '" . (int)$data['filter_dp_percent'] . "'";
         }
 
         if (!empty($data['filter_months'])) {
-            $implode[] = "lt.`months` = '" . (int)$data['filter_months'] . "'";
+            $implode[] = "`months` = '" . (int)$data['filter_months'] . "'";
         }
 
         if (!empty($data['filter_status'])) {
-            $implode[] = "lt.`status` = '" . (int)$data['filter_status'] . "'";
+            $implode[] = "`status` = '" . (int)$data['filter_status'] . "'";
         }
 
         if (!empty($data['filter_date_added'])) {
-            $implode[] = "DATE(lt.`date_added`) = DATE('" . $this->db->escape($data['filter_date_added']) . "')";
+            $implode[] = "DATE(`date_added`) = DATE('" . $this->db->escape($data['filter_date_added']) . "')";
         }
 
         if ($implode) {

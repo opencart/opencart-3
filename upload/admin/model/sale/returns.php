@@ -16,46 +16,46 @@ class ModelSaleReturns extends Model {
     }
 
     public function getReturn(int $return_id): array {
-        $query = $this->db->query("SELECT DISTINCT *, (SELECT CONCAT(c.`firstname`, ' ', c.`lastname`) FROM `" . DB_PREFIX . "customer` c WHERE c.`customer_id` = r.`customer_id`) AS `customer`, (SELECT rs.`name` FROM `" . DB_PREFIX . "return_status` rs WHERE rs.`return_status_id` = r.`return_status_id` AND rs.`language_id` = '" . (int)$this->config->get('config_language_id') . "') AS `return_status` FROM `" . DB_PREFIX . "return` r WHERE r.`return_id` = '" . (int)$return_id . "'");
+        $query = $this->db->query("SELECT DISTINCT *, (SELECT CONCAT(`c`.`firstname`, ' ', `c`.`lastname`) FROM `" . DB_PREFIX . "customer` `c` WHERE `c`.`customer_id` = `r`.`customer_id`) AS `customer`, (SELECT `rs`.`name` FROM `" . DB_PREFIX . "return_status` `rs` WHERE `rs`.`return_status_id` = `r`.`return_status_id` AND `rs`.`language_id` = '" . (int)$this->config->get('config_language_id') . "') AS `return_status` FROM `" . DB_PREFIX . "return` `r` WHERE `r`.`return_id` = '" . (int)$return_id . "'");
 
         return $query->row;
     }
 
     public function getReturns(array $data = []): array {
-        $sql = "SELECT *, CONCAT(r.`firstname`, ' ', r.`lastname`) AS `customer`, (SELECT rs.`name` FROM `" . DB_PREFIX . "return_status` rs WHERE rs.`return_status_id` = r.`return_status_id` AND rs.`language_id` = '" . (int)$this->config->get('config_language_id') . "') AS `return_status` FROM `" . DB_PREFIX . "return` r";
+        $sql = "SELECT *, CONCAT(`r`.`firstname`, ' ', `r`.`lastname`) AS `customer`, (SELECT `rs`.`name` FROM `" . DB_PREFIX . "return_status` `rs` WHERE `rs`.`return_status_id` = `r`.`return_status_id` AND `rs`.`language_id` = '" . (int)$this->config->get('config_language_id') . "') AS `return_status` FROM `" . DB_PREFIX . "return` `r`";
 
         $implode = [];
 
         if (!empty($data['filter_return_id'])) {
-            $implode[] = "r.`return_id` = '" . (int)$data['filter_return_id'] . "'";
+            $implode[] = "`r`.`return_id` = '" . (int)$data['filter_return_id'] . "'";
         }
 
         if (!empty($data['filter_order_id'])) {
-            $implode[] = "r.`order_id` = '" . (int)$data['filter_order_id'] . "'";
+            $implode[] = "`r`.`order_id` = '" . (int)$data['filter_order_id'] . "'";
         }
 
         if (!empty($data['filter_customer'])) {
-            $implode[] = "CONCAT(r.`firstname`, ' ', r.`lastname`) LIKE '" . $this->db->escape($data['filter_customer']) . "%'";
+            $implode[] = "CONCAT(`r`.`firstname`, ' ', `r`.`lastname`) LIKE '" . $this->db->escape($data['filter_customer']) . "%'";
         }
 
         if (!empty($data['filter_product'])) {
-            $implode[] = "r.`product` = '" . $this->db->escape($data['filter_product']) . "'";
+            $implode[] = "`r`.`product` = '" . $this->db->escape($data['filter_product']) . "'";
         }
 
         if (!empty($data['filter_model'])) {
-            $implode[] = "r.`model` = '" . $this->db->escape($data['filter_model']) . "'";
+            $implode[] = "`r`.`model` = '" . $this->db->escape($data['filter_model']) . "'";
         }
 
         if (!empty($data['filter_return_status_id'])) {
-            $implode[] = "r.`return_status_id` = '" . (int)$data['filter_return_status_id'] . "'";
+            $implode[] = "`r`.`return_status_id` = '" . (int)$data['filter_return_status_id'] . "'";
         }
 
         if (!empty($data['filter_date_added'])) {
-            $implode[] = "DATE(r.`date_added`) = DATE('" . $this->db->escape($data['filter_date_added']) . "')";
+            $implode[] = "DATE(`r`.`date_added`) = DATE('" . $this->db->escape($data['filter_date_added']) . "')";
         }
 
         if (!empty($data['filter_date_modified'])) {
-            $implode[] = "DATE(r.`date_modified`) = DATE('" . $this->db->escape($data['filter_date_modified']) . "')";
+            $implode[] = "DATE(`r`.`date_modified`) = DATE('" . $this->db->escape($data['filter_date_modified']) . "')";
         }
 
         if ($implode) {
@@ -76,7 +76,7 @@ class ModelSaleReturns extends Model {
         if (isset($data['sort']) && in_array($data['sort'], $sort_data)) {
             $sql .= " ORDER BY " . $data['sort'];
         } else {
-            $sql .= " ORDER BY r.`return_id`";
+            $sql .= " ORDER BY `r`.`return_id`";
         }
 
         if (isset($data['order']) && ($data['order'] == 'DESC')) {
@@ -108,35 +108,35 @@ class ModelSaleReturns extends Model {
         $implode = [];
 
         if (!empty($data['filter_return_id'])) {
-            $implode[] = "r.`return_id` = '" . (int)$data['filter_return_id'] . "'";
+            $implode[] = "`r`.`return_id` = '" . (int)$data['filter_return_id'] . "'";
         }
 
         if (!empty($data['filter_customer'])) {
-            $implode[] = "CONCAT(r.`firstname`, ' ', r.`lastname`) LIKE '" . $this->db->escape($data['filter_customer']) . "%'";
+            $implode[] = "CONCAT(`r`.`firstname`, ' ', `r`.`lastname`) LIKE '" . $this->db->escape($data['filter_customer']) . "%'";
         }
 
         if (!empty($data['filter_order_id'])) {
-            $implode[] = "r.`order_id` = '" . $this->db->escape($data['filter_order_id']) . "'";
+            $implode[] = "`r`.`order_id` = '" . $this->db->escape($data['filter_order_id']) . "'";
         }
 
         if (!empty($data['filter_product'])) {
-            $implode[] = "r.`product` = '" . $this->db->escape($data['filter_product']) . "'";
+            $implode[] = "`r`.`product` = '" . $this->db->escape($data['filter_product']) . "'";
         }
 
         if (!empty($data['filter_model'])) {
-            $implode[] = "r.`model` = '" . $this->db->escape($data['filter_model']) . "'";
+            $implode[] = "`r`.`model` = '" . $this->db->escape($data['filter_model']) . "'";
         }
 
         if (!empty($data['filter_return_status_id'])) {
-            $implode[] = "r.`return_status_id` = '" . (int)$data['filter_return_status_id'] . "'";
+            $implode[] = "`r`.`return_status_id` = '" . (int)$data['filter_return_status_id'] . "'";
         }
 
         if (!empty($data['filter_date_added'])) {
-            $implode[] = "DATE(r.`date_added`) = DATE('" . $this->db->escape($data['filter_date_added']) . "')";
+            $implode[] = "DATE(`r`.`date_added`) = DATE('" . $this->db->escape($data['filter_date_added']) . "')";
         }
 
         if (!empty($data['filter_date_modified'])) {
-            $implode[] = "DATE(r.`date_modified`) = DATE('" . $this->db->escape($data['filter_date_modified']) . "')";
+            $implode[] = "DATE(`r`.`date_modified`) = DATE('" . $this->db->escape($data['filter_date_modified']) . "')";
         }
 
         if ($implode) {
@@ -181,7 +181,7 @@ class ModelSaleReturns extends Model {
             $limit = 10;
         }
 
-        $query = $this->db->query("SELECT rh.`date_added`, rs.`name` AS `status`, rh.`comment`, rh.`notify` FROM `" . DB_PREFIX . "return_history` rh LEFT JOIN `" . DB_PREFIX . "return_status` rs ON rh.`return_status_id` = rs.`return_status_id` WHERE rh.`return_id` = '" . (int)$return_id . "' AND rs.`language_id` = '" . (int)$this->config->get('config_language_id') . "' ORDER BY rh.`date_added` DESC LIMIT " . (int)$start . "," . (int)$limit);
+        $query = $this->db->query("SELECT `rh`.`date_added`, `rs`.`name` AS `status`, `rh`.`comment`, `rh`.`notify` FROM `" . DB_PREFIX . "return_history` `rh` LEFT JOIN `" . DB_PREFIX . "return_status` `rs` ON `rh`.`return_status_id` = `rs`.`return_status_id` WHERE `rh`.`return_id` = '" . (int)$return_id . "' AND `rs`.`language_id` = '" . (int)$this->config->get('config_language_id') . "' ORDER BY `rh`.`date_added` DESC LIMIT " . (int)$start . "," . (int)$limit);
 
         return $query->rows;
     }

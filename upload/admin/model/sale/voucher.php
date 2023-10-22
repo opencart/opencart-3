@@ -28,7 +28,7 @@ class ModelSaleVoucher extends Model {
     }
 
     public function getVouchers(array $data = []): array {
-        $sql = "SELECT v.`voucher_id`, v.`order_id`, v.`code`, v.`from_name`, v.`from_email`, v.`to_name`, v.`to_email`, (SELECT vtd.`name` FROM `" . DB_PREFIX . "voucher_theme_description` vtd WHERE vtd.`voucher_theme_id` = v.`voucher_theme_id` AND vtd.`language_id` = '" . (int)$this->config->get('config_language_id') . "') AS `theme`, v.`amount`, v.`status`, v.`date_added` FROM `" . DB_PREFIX . "voucher` v";
+        $sql = "SELECT `v`.`voucher_id`, `v`.`order_id`, `v`.`code`, `v`.`from_name`, `v`.`from_email`, `v`.`to_name`, `v`.`to_email`, (SELECT `vtd`.`name` FROM `" . DB_PREFIX . "voucher_theme_description` `vtd` WHERE `vtd`.`voucher_theme_id` = `v`.`voucher_theme_id` AND `vtd`.`language_id` = '" . (int)$this->config->get('config_language_id') . "') AS `theme`, `v`.`amount`, `v`.`status`, `v`.`date_added` FROM `" . DB_PREFIX . "voucher` `v`";
 
         $sort_data = [
             'v.code',
@@ -43,7 +43,7 @@ class ModelSaleVoucher extends Model {
         if (isset($data['sort']) && in_array($data['sort'], $sort_data)) {
             $sql .= " ORDER BY " . $data['sort'];
         } else {
-            $sql .= " ORDER BY v.`date_added`";
+            $sql .= " ORDER BY `v`.`date_added`";
         }
 
         if (isset($data['order']) && ($data['order'] == 'DESC')) {
@@ -90,7 +90,7 @@ class ModelSaleVoucher extends Model {
             $limit = 10;
         }
 
-        $query = $this->db->query("SELECT vh.`order_id`, CONCAT(o.`firstname`, ' ', o.`lastname`) AS `customer`, vh.`amount`, vh.`date_added` FROM `" . DB_PREFIX . "voucher_history` vh LEFT JOIN `" . DB_PREFIX . "order` o ON (vh.`order_id` = o.`order_id`) WHERE vh.`voucher_id` = '" . (int)$voucher_id . "' ORDER BY vh.`date_added` ASC LIMIT " . (int)$start . "," . (int)$limit);
+        $query = $this->db->query("SELECT `vh`.`order_id`, CONCAT(`o`.`firstname`, ' ', `o`.`lastname`) AS `customer`, `vh`.`amount`, `vh`.`date_added` FROM `" . DB_PREFIX . "voucher_history` `vh` LEFT JOIN `" . DB_PREFIX . "order` `o` ON (`vh`.`order_id` = `o`.`order_id`) WHERE `vh`.`voucher_id` = '" . (int)$voucher_id . "' ORDER BY `vh`.`date_added` ASC LIMIT " . (int)$start . "," . (int)$limit);
 
         return $query->rows;
     }

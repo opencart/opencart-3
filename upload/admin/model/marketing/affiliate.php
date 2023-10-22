@@ -14,7 +14,7 @@ class ModelMarketingAffiliate extends Model {
     }
 
     public function getAffiliate(int $customer_id): array {
-        $query = $this->db->query("SELECT DISTINCT *, CONCAT(c.`firstname`, ' ', c.`lastname`) AS `customer`, ca.`custom_field` FROM `" . DB_PREFIX . "customer_affiliate` ca LEFT JOIN `" . DB_PREFIX . "customer` c ON (ca.`customer_id` = c.`customer_id`) WHERE ca.`customer_id` = '" . (int)$customer_id . "'");
+        $query = $this->db->query("SELECT DISTINCT *, CONCAT(`c`.`firstname`, ' ', `c`.`lastname`) AS `customer`, `ca`.`custom_field` FROM `" . DB_PREFIX . "customer_affiliate` `ca` LEFT JOIN `" . DB_PREFIX . "customer` `c` ON (`ca`.`customer_id` = `c`.`customer_id`) WHERE `ca`.`customer_id` = '" . (int)$customer_id . "'");
 
         return $query->row;
     }
@@ -26,28 +26,28 @@ class ModelMarketingAffiliate extends Model {
     }
 
     public function getAffiliates(array $data = []): array {
-        $sql = "SELECT *, CONCAT(c.`firstname`, ' ', c.`lastname`) AS `name`, ca.`status` FROM `" . DB_PREFIX . "customer_affiliate` ca LEFT JOIN `" . DB_PREFIX . "customer` c ON (ca.`customer_id` = c.`customer_id`)";
+        $sql = "SELECT *, CONCAT(`c`.`firstname`, ' ', `c`.`lastname`) AS `name`, `ca`.`status` FROM `" . DB_PREFIX . "customer_affiliate` `ca` LEFT JOIN `" . DB_PREFIX . "customer` `c` ON (`ca`.`customer_id` = `c`.`customer_id`)";
 
         $implode = [];
 
         if (!empty($data['filter_name'])) {
-            $implode[] = "CONCAT(c.`firstname`, ' ', c.`lastname`) LIKE '" . $this->db->escape($data['filter_name']) . "%'";
+            $implode[] = "CONCAT(`c`.`firstname`, ' ', `c`.`lastname`) LIKE '" . $this->db->escape($data['filter_name']) . "%'";
         }
 
         if (!empty($data['filter_tracking'])) {
-            $implode[] = "ca.`tracking` = '" . $this->db->escape($data['filter_tracking']) . "'";
+            $implode[] = "`ca`.`tracking` = '" . $this->db->escape($data['filter_tracking']) . "'";
         }
 
         if (!empty($data['filter_commission'])) {
-            $implode[] = "ca.`commission` = '" . (float)$data['filter_commission'] . "'";
+            $implode[] = "`ca`.`commission` = '" . (float)$data['filter_commission'] . "'";
         }
 
         if (isset($data['filter_status']) && $data['filter_status'] !== '') {
-            $implode[] = "ca.`status` = '" . (int)$data['filter_status'] . "'";
+            $implode[] = "`ca`.`status` = '" . (int)$data['filter_status'] . "'";
         }
 
         if (!empty($data['filter_date_added'])) {
-            $implode[] = "DATE(ca.`date_added`) = DATE('" . $this->db->escape($data['filter_date_added']) . "')";
+            $implode[] = "DATE(`ca`.`date_added`) = DATE('" . $this->db->escape($data['filter_date_added']) . "')";
         }
 
         if ($implode) {
@@ -92,28 +92,28 @@ class ModelMarketingAffiliate extends Model {
     }
 
     public function getTotalAffiliates(array $data = []): int {
-        $sql = "SELECT COUNT(*) AS `total` FROM `" . DB_PREFIX . "customer_affiliate` ca LEFT JOIN `" . DB_PREFIX . "customer` c ON (ca.`customer_id` = c.`customer_id`)";
+        $sql = "SELECT COUNT(*) AS `total` FROM `" . DB_PREFIX . "customer_affiliate` `ca` LEFT JOIN `" . DB_PREFIX . "customer` `c` ON (`ca`.`customer_id` = `c`.`customer_id`)";
 
         $implode = [];
 
         if (!empty($data['filter_name'])) {
-            $implode[] = "CONCAT(c.`firstname`, ' ', c.`lastname`) LIKE '" . $this->db->escape($data['filter_name']) . "%'";
+            $implode[] = "CONCAT(`c`.`firstname`, ' ', `c`.`lastname`) LIKE '" . $this->db->escape($data['filter_name']) . "%'";
         }
 
         if (!empty($data['filter_tracking'])) {
-            $implode[] = "ca.`tracking` = '" . $this->db->escape($data['filter_tracking']) . "'";
+            $implode[] = "`ca`.`tracking` = '" . $this->db->escape($data['filter_tracking']) . "'";
         }
 
         if (!empty($data['filter_commission'])) {
-            $implode[] = "ca.`commission` = '" . (float)$data['filter_commission'] . "'";
+            $implode[] = "`ca`.`commission` = '" . (float)$data['filter_commission'] . "'";
         }
 
         if (isset($data['filter_status']) && $data['filter_status'] !== '') {
-            $implode[] = "ca.`status` = '" . (int)$data['filter_status'] . "'";
+            $implode[] = "`ca`.`status` = '" . (int)$data['filter_status'] . "'";
         }
 
         if (!empty($data['filter_date_added'])) {
-            $implode[] = "DATE(ca.`date_added`) = DATE('" . $this->db->escape($data['filter_date_added']) . "')";
+            $implode[] = "DATE(`ca`.`date_added`) = DATE('" . $this->db->escape($data['filter_date_added']) . "')";
         }
 
         if ($implode) {

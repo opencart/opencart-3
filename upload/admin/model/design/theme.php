@@ -25,7 +25,7 @@ class ModelDesignTheme extends Model {
             $limit = 10;
         }
 
-        $query = $this->db->query("SELECT *, (SELECT `name` FROM `" . DB_PREFIX . "store` s WHERE s.`store_id` = t.`store_id`) AS `store` FROM `" . DB_PREFIX . "theme` t ORDER BY t.`date_added` DESC LIMIT " . (int)$start . "," . (int)$limit);
+        $query = $this->db->query("SELECT *, (SELECT `name` FROM `" . DB_PREFIX . "store` `s` WHERE `s`.`store_id` = `t`.`store_id`) AS `store` FROM `" . DB_PREFIX . "theme` `t` ORDER BY `t`.`date_added` DESC LIMIT " . (int)$start . "," . (int)$limit);
 
         return $query->rows;
     }

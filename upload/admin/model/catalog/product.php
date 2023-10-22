@@ -305,7 +305,7 @@ class ModelCatalogProduct extends Model {
     }
 
     public function copyProduct(int $product_id): void {
-        $query = $this->db->query("SELECT DISTINCT * FROM `" . DB_PREFIX . "product` p WHERE p.`product_id` = '" . (int)$product_id . "'");
+        $query = $this->db->query("SELECT DISTINCT * FROM `" . DB_PREFIX . "product` `p` WHERE `p`.`product_id` = '" . (int)$product_id . "'");
 
         if ($query->num_rows) {
             $data = $query->row;
@@ -360,35 +360,35 @@ class ModelCatalogProduct extends Model {
     }
 
     public function getProduct(int $product_id): array {
-        $query = $this->db->query("SELECT DISTINCT * FROM `" . DB_PREFIX . "product` p LEFT JOIN `" . DB_PREFIX . "product_description` pd ON (p.`product_id` = pd.`product_id`) WHERE p.`product_id` = '" . (int)$product_id . "' AND pd.`language_id` = '" . (int)$this->config->get('config_language_id') . "'");
+        $query = $this->db->query("SELECT DISTINCT * FROM `" . DB_PREFIX . "product` `p` LEFT JOIN `" . DB_PREFIX . "product_description` `pd` ON (`p`.`product_id` = `pd`.`product_id`) WHERE `p`.`product_id` = '" . (int)$product_id . "' AND `pd`.`language_id` = '" . (int)$this->config->get('config_language_id') . "'");
 
         return $query->row;
     }
 
     public function getProducts(array $data = []): array {
-        $sql = "SELECT * FROM `" . DB_PREFIX . "product` p LEFT JOIN `" . DB_PREFIX . "product_description` pd ON (p.`product_id` = pd.`product_id`) WHERE pd.`language_id` = '" . (int)$this->config->get('config_language_id') . "'";
+        $sql = "SELECT * FROM `" . DB_PREFIX . "product` `p` LEFT JOIN `" . DB_PREFIX . "product_description` `pd` ON (`p`.`product_id` = `pd`.`product_id`) WHERE `pd`.`language_id` = '" . (int)$this->config->get('config_language_id') . "'";
 
         if (!empty($data['filter_name'])) {
-            $sql .= " AND pd.`name` LIKE '" . $this->db->escape($data['filter_name']) . "%'";
+            $sql .= " AND `pd`.`name` LIKE '" . $this->db->escape($data['filter_name']) . "%'";
         }
 
         if (!empty($data['filter_model'])) {
-            $sql .= " AND p.`model` LIKE '" . $this->db->escape($data['filter_model']) . "%'";
+            $sql .= " AND `p`.`model` LIKE '" . $this->db->escape($data['filter_model']) . "%'";
         }
 
         if (!empty($data['filter_price'])) {
-            $sql .= " AND p.`price` LIKE '" . $this->db->escape($data['filter_price']) . "%'";
+            $sql .= " AND `p`.`price` LIKE '" . $this->db->escape($data['filter_price']) . "%'";
         }
 
         if (isset($data['filter_quantity']) && $data['filter_quantity'] !== '') {
-            $sql .= " AND p.`quantity` = '" . (int)$data['filter_quantity'] . "'";
+            $sql .= " AND `p`.`quantity` = '" . (int)$data['filter_quantity'] . "'";
         }
 
         if (isset($data['filter_status']) && $data['filter_status'] !== '') {
-            $sql .= " AND p.`status` = '" . (int)$data['filter_status'] . "'";
+            $sql .= " AND `p`.`status` = '" . (int)$data['filter_status'] . "'";
         }
 
-        $sql .= " GROUP BY p.`product_id`";
+        $sql .= " GROUP BY `p`.`product_id`";
 
         $sort_data = [
             'pd.name',
@@ -402,7 +402,7 @@ class ModelCatalogProduct extends Model {
         if (isset($data['sort']) && in_array($data['sort'], $sort_data)) {
             $sql .= " ORDER BY " . $data['sort'];
         } else {
-            $sql .= " ORDER BY pd.`name`";
+            $sql .= " ORDER BY `pd`.`name`";
         }
 
         if (isset($data['order']) && ($data['order'] == 'DESC')) {
@@ -429,7 +429,7 @@ class ModelCatalogProduct extends Model {
     }
 
     public function getProductsByCategoryId(int $category_id): array {
-        $query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "product` p LEFT JOIN `" . DB_PREFIX . "product_description` pd ON (p.`product_id` = pd.`product_id`) LEFT JOIN `" . DB_PREFIX . "product_to_category` p2c ON (p.`product_id` = p2c.`product_id`) WHERE pd.`language_id` = '" . (int)$this->config->get('config_language_id') . "' AND p2c.`category_id` = '" . (int)$category_id . "' ORDER BY pd.`name` ASC");
+        $query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "product` `p` LEFT JOIN `" . DB_PREFIX . "product_description` `pd` ON (`p`.`product_id` = `pd`.`product_id`) LEFT JOIN `" . DB_PREFIX . "product_to_category` `p2c` ON (`p`.`product_id` = `p2c`.`product_id`) WHERE `pd`.`language_id` = '" . (int)$this->config->get('config_language_id') . "' AND `p2c`.`category_id` = '" . (int)$category_id . "' ORDER BY `pd`.`name` ASC");
 
         return $query->rows;
     }
@@ -503,12 +503,12 @@ class ModelCatalogProduct extends Model {
     public function getOptions(int $product_id): array {
         $product_option_data = [];
 
-        $product_option_query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "product_option` po LEFT JOIN `" . DB_PREFIX . "option` o ON (po.`option_id` = o.`option_id`) LEFT JOIN `" . DB_PREFIX . "option_description` od ON (o.`option_id` = od.`option_id`) WHERE po.`product_id` = '" . (int)$product_id . "' AND od.`language_id` = '" . (int)$this->config->get('config_language_id') . "' ORDER BY o.`sort_order` ASC");
+        $product_option_query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "product_option` `po` LEFT JOIN `" . DB_PREFIX . "option` `o` ON (`po`.`option_id` = `o`.`option_id`) LEFT JOIN `" . DB_PREFIX . "option_description` `od` ON (`o`.`option_id` = `od`.`option_id`) WHERE `po`.`product_id` = '" . (int)$product_id . "' AND `od`.`language_id` = '" . (int)$this->config->get('config_language_id') . "' ORDER BY `o`.`sort_order` ASC");
 
         foreach ($product_option_query->rows as $product_option) {
             $product_option_value_data = [];
 
-            $product_option_value_query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "product_option_value` pov LEFT JOIN `" . DB_PREFIX . "option_value` ov ON(pov.`option_value_id` = ov.`option_value_id`) WHERE pov.`product_option_id` = '" . (int)$product_option['product_option_id'] . "' ORDER BY ov.`sort_order` ASC");
+            $product_option_value_query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "product_option_value` `pov` LEFT JOIN `" . DB_PREFIX . "option_value` `ov` ON(`pov`.`option_value_id` = `ov`.`option_value_id`) WHERE `pov`.`product_option_id` = '" . (int)$product_option['product_option_id'] . "' ORDER BY `ov`.`sort_order` ASC");
 
             foreach ($product_option_value_query->rows as $product_option_value) {
                 $product_option_value_data[] = [
@@ -540,7 +540,7 @@ class ModelCatalogProduct extends Model {
     }
 
     public function getOptionValue(int $product_id, int $product_option_value_id): array {
-        $query = $this->db->query("SELECT pov.`option_value_id`, ovd.`name`, pov.`quantity`, pov.`subtract`, pov.`price`, pov.`price_prefix`, pov.`points`, pov.`points_prefix`, pov.`weight`, pov.`weight_prefix` FROM `" . DB_PREFIX . "product_option_value` pov LEFT JOIN `" . DB_PREFIX . "option_value` ov ON (pov.`option_value_id` = ov.`option_value_id`) LEFT JOIN `" . DB_PREFIX . "option_value_description` ovd ON (ov.`option_value_id` = ovd.`option_value_id`) WHERE pov.`product_id` = '" . (int)$product_id . "' AND pov.`product_option_value_id` = '" . (int)$product_option_value_id . "' AND ovd.`language_id` = '" . (int)$this->config->get('config_language_id') . "'");
+        $query = $this->db->query("SELECT `pov`.`option_value_id`, `ovd`.`name`, `pov`.`quantity`, `pov`.`subtract`, `pov`.`price`, `pov`.`price_prefix`, `pov`.`points`, `pov`.`points_prefix`, `pov`.`weight`, `pov`.`weight_prefix` FROM `" . DB_PREFIX . "product_option_value` `pov` LEFT JOIN `" . DB_PREFIX . "option_value` `ov` ON (`pov`.`option_value_id` = `ov`.`option_value_id`) LEFT JOIN `" . DB_PREFIX . "option_value_description` `ovd` ON (`ov`.`option_value_id` = `ovd`.`option_value_id`) WHERE `pov`.`product_id` = '" . (int)$product_id . "' AND `pov`.`product_option_value_id` = '" . (int)$product_option_value_id . "' AND `ovd`.`language_id` = '" . (int)$this->config->get('config_language_id') . "'");
 
         return $query->row;
     }
@@ -642,28 +642,28 @@ class ModelCatalogProduct extends Model {
     }
 
     public function getTotalProducts(array $data = []): int {
-        $sql = "SELECT COUNT(DISTINCT p.`product_id`) AS `total` FROM `" . DB_PREFIX . "product` p LEFT JOIN `" . DB_PREFIX . "product_description` pd ON (p.`product_id` = pd.`product_id`)";
+        $sql = "SELECT COUNT(DISTINCT `p`.`product_id`) AS `total` FROM `" . DB_PREFIX . "product` `p` LEFT JOIN `" . DB_PREFIX . "product_description` `pd` ON (`p`.`product_id` = `pd`.`product_id`)";
 
-        $sql .= " WHERE pd.`language_id` = '" . (int)$this->config->get('config_language_id') . "'";
+        $sql .= " WHERE `pd`.`language_id` = '" . (int)$this->config->get('config_language_id') . "'";
 
         if (!empty($data['filter_name'])) {
-            $sql .= " AND pd.`name` LIKE '" . $this->db->escape($data['filter_name']) . "%'";
+            $sql .= " AND `pd`.`name` LIKE '" . $this->db->escape($data['filter_name']) . "%'";
         }
 
         if (!empty($data['filter_model'])) {
-            $sql .= " AND p.`model` LIKE '" . $this->db->escape($data['filter_model']) . "%'";
+            $sql .= " AND `p`.`model` LIKE '" . $this->db->escape($data['filter_model']) . "%'";
         }
 
         if (isset($data['filter_price']) && $data['filter_price'] != '') {
-            $sql .= " AND p.`price` LIKE '" . $this->db->escape($data['filter_price']) . "%'";
+            $sql .= " AND `p`.`price` LIKE '" . $this->db->escape($data['filter_price']) . "%'";
         }
 
         if (isset($data['filter_quantity']) && $data['filter_quantity'] !== '') {
-            $sql .= " AND p.`quantity` = '" . (int)$data['filter_quantity'] . "'";
+            $sql .= " AND `p`.`quantity` = '" . (int)$data['filter_quantity'] . "'";
         }
 
         if (isset($data['filter_status']) && $data['filter_status'] !== '') {
-            $sql .= " AND p.`status` = '" . (int)$data['filter_status'] . "'";
+            $sql .= " AND `p`.`status` = '" . (int)$data['filter_status'] . "'";
         }
 
         $query = $this->db->query($sql);

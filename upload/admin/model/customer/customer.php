@@ -73,36 +73,36 @@ class ModelCustomerCustomer extends Model {
     }
 
     public function getCustomers(array $data = []): array {
-        $sql = "SELECT *, CONCAT(c.`firstname`, ' ', c.`lastname`) AS `name`, cgd.`name` AS `customer_group` FROM `" . DB_PREFIX . "customer` c LEFT JOIN `" . DB_PREFIX . "customer_group_description` cgd ON (c.`customer_group_id` = cgd.`customer_group_id`)";
+        $sql = "SELECT *, CONCAT(`c`.`firstname`, ' ', `c`.`lastname`) AS `name`, `cgd`.`name` AS `customer_group` FROM `" . DB_PREFIX . "customer` `c` LEFT JOIN `" . DB_PREFIX . "customer_group_description` `cgd` ON (`c`.`customer_group_id` = `cgd`.`customer_group_id`)";
 
-        $sql .= " WHERE cgd.`language_id` = '" . (int)$this->config->get('config_language_id') . "'";
+        $sql .= " WHERE `cgd`.`language_id` = '" . (int)$this->config->get('config_language_id') . "'";
 
         if (!empty($data['filter_name'])) {
-            $sql .= " AND CONCAT(c.`firstname`, ' ', c.`lastname`) LIKE '" . $this->db->escape('%' . $data['filter_name'] . '%') . "'";
+            $sql .= " AND CONCAT(`c`.`firstname`, ' ', `c`.`lastname`) LIKE '" . $this->db->escape('%' . $data['filter_name'] . '%') . "'";
         }
 
         if (!empty($data['filter_email'])) {
-            $sql .= " AND c.`email` LIKE '" . $this->db->escape($data['filter_email']) . "%'";
+            $sql .= " AND `c`.`email` LIKE '" . $this->db->escape($data['filter_email']) . "%'";
         }
 
         if (isset($data['filter_newsletter']) && $data['filter_newsletter'] != '') {
-            $sql .= " AND c.`newsletter` = '" . (int)$data['filter_newsletter'] . "'";
+            $sql .= " AND `c`.`newsletter` = '" . (int)$data['filter_newsletter'] . "'";
         }
 
         if (!empty($data['filter_customer_group_id'])) {
-            $sql .= " AND c.`customer_group_id` = '" . (int)$data['filter_customer_group_id'] . "'";
+            $sql .= " AND `c`.`customer_group_id` = '" . (int)$data['filter_customer_group_id'] . "'";
         }
 
         if (!empty($data['filter_ip'])) {
-            $sql .= " AND c.`customer_id` IN(SELECT `customer_id` FROM `" . DB_PREFIX . "customer_ip` WHERE `ip` = '" . $this->db->escape($data['filter_ip']) . "')";
+            $sql .= " AND `c`.`customer_id` IN(SELECT `customer_id` FROM `" . DB_PREFIX . "customer_ip` WHERE `ip` = '" . $this->db->escape($data['filter_ip']) . "')";
         }
 
         if (isset($data['filter_status']) && $data['filter_status'] !== '') {
-            $sql .= " AND c.`status` = '" . (int)$data['filter_status'] . "'";
+            $sql .= " AND `c`.`status` = '" . (int)$data['filter_status'] . "'";
         }
 
         if (!empty($data['filter_date_added'])) {
-            $sql .= " AND DATE(c.`date_added`) = DATE('" . $this->db->escape($data['filter_date_added']) . "')";
+            $sql .= " AND DATE(`c`.`date_added`) = DATE('" . $this->db->escape($data['filter_date_added']) . "')";
         }
 
         $sort_data = [
@@ -147,7 +147,7 @@ class ModelCustomerCustomer extends Model {
         $address_query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "address` WHERE `address_id` = '" . (int)$address_id . "'");
 
         if ($address_query->num_rows) {
-            $country_query = $this->db->query("SELECT *, c.name FROM `" . DB_PREFIX . "country` c LEFT JOIN `" . DB_PREFIX . "address_format` af ON (c.`address_format_id` = af.`address_format_id`) WHERE `country_id` = '" . (int)$address_query->row['country_id'] . "'");
+            $country_query = $this->db->query("SELECT *, `c`.`name` FROM `" . DB_PREFIX . "country` `c` LEFT JOIN `" . DB_PREFIX . "address_format` `af` ON (`c`.`address_format_id` = `af`.`address_format_id`) WHERE `c`.`country_id` = '" . (int)$address_query->row['country_id'] . "'");
 
             if ($country_query->num_rows) {
                 $country = $country_query->row['name'];
@@ -214,36 +214,36 @@ class ModelCustomerCustomer extends Model {
     }
 
     public function getTotalCustomers(array $data = []): int {
-        $sql = "SELECT COUNT(*) AS `total` FROM `" . DB_PREFIX . "customer` c";
+        $sql = "SELECT COUNT(*) AS `total` FROM `" . DB_PREFIX . "customer` `c`";
 
         $implode = [];
 
         if (!empty($data['filter_name'])) {
-            $implode[] = "CONCAT(`firstname`, ' ', `lastname`) LIKE '%" . $this->db->escape($data['filter_name'] . '%') . "'";
+            $implode[] = "CONCAT(`c`.`firstname`, ' ', `c`.`lastname`) LIKE '%" . $this->db->escape($data['filter_name'] . '%') . "'";
         }
 
         if (!empty($data['filter_email'])) {
-            $implode[] = "c.`email` LIKE '" . $this->db->escape($data['filter_email']) . "%'";
+            $implode[] = "`c`.`email` LIKE '" . $this->db->escape($data['filter_email']) . "%'";
         }
 
         if (isset($data['filter_newsletter']) && $data['filter_newsletter'] != '') {
-            $implode[] = "c.`newsletter` = '" . (int)$data['filter_newsletter'] . "'";
+            $implode[] = "`c`.`newsletter` = '" . (int)$data['filter_newsletter'] . "'";
         }
 
         if (!empty($data['filter_customer_group_id'])) {
-            $implode[] = "c.`customer_group_id` = '" . (int)$data['filter_customer_group_id'] . "'";
+            $implode[] = "`c`.`customer_group_id` = '" . (int)$data['filter_customer_group_id'] . "'";
         }
 
         if (!empty($data['filter_ip'])) {
-            $implode[] = "c.`customer_id` IN(SELECT `customer_id` FROM `" . DB_PREFIX . "customer_ip` WHERE `ip` = '" . $this->db->escape($data['filter_ip']) . "')";
+            $implode[] = "`c`.`customer_id` IN(SELECT `customer_id` FROM `" . DB_PREFIX . "customer_ip` WHERE `ip` = '" . $this->db->escape($data['filter_ip']) . "')";
         }
 
         if (isset($data['filter_status']) && $data['filter_status'] !== '') {
-            $implode[] = "c.`status` = '" . (int)$data['filter_status'] . "'";
+            $implode[] = "`c`.`status` = '" . (int)$data['filter_status'] . "'";
         }
 
         if (!empty($data['filter_date_added'])) {
-            $implode[] = "DATE(c.`date_added`) = DATE('" . $this->db->escape($data['filter_date_added']) . "')";
+            $implode[] = "DATE(`c`.`date_added`) = DATE('" . $this->db->escape($data['filter_date_added']) . "')";
         }
 
         if ($implode) {

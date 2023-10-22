@@ -1,7 +1,7 @@
 <?php
 class ModelSaleRecurring extends Model {
     public function getRecurrings(array $data): array {
-        $sql = "SELECT `or`.`order_recurring_id`, `or`.`order_id`, `or`.`reference`, `or`.`status`, `or`.`date_added`, CONCAT(o.`firstname`, ' ', o.`lastname`) AS `customer` FROM `" . DB_PREFIX . "order_recurring` `or` LEFT JOIN `" . DB_PREFIX . "order` o ON (`or`.`order_id` = o.`order_id`)";
+        $sql = "SELECT `or`.`order_recurring_id`, `or`.`order_id`, `or`.`reference`, `or`.`status`, `or`.`date_added`, CONCAT(`o`.`firstname`, ' ', `o`.`lastname`) AS `customer` FROM `" . DB_PREFIX . "order_recurring` `or` LEFT JOIN `" . DB_PREFIX . "order` `o` ON (`or`.`order_id` = `o`.`order_id`)";
 
         $implode = [];
 
@@ -22,11 +22,11 @@ class ModelSaleRecurring extends Model {
         }
 
         if (!empty($data['filter_customer'])) {
-            $implode[] = "CONCAT(o.`firstname`, ' ', o.`lastname`) LIKE '" . $this->db->escape($data['filter_customer']) . "%'";
+            $implode[] = "CONCAT(`o`.`firstname`, ' ', `o`.`lastname`) LIKE '" . $this->db->escape($data['filter_customer']) . "%'";
         }
 
         if (!empty($data['filter_subscription_status_id'])) {
-            $implode[] = "`or`.`status` IN (SELECT ss.`subscription_status_id` FROM `" . DB_PREFIX . "subscription_status` ss WHERE ss.`subscription_status_id` = '" . (int)$data['filter_subscription_status_id'] . "')";
+            $implode[] = "`or`.`status` IN (SELECT `ss`.`subscription_status_id` FROM `" . DB_PREFIX . "subscription_status` `ss` WHERE `ss`.`subscription_status_id` = '" . (int)$data['filter_subscription_status_id'] . "')";
         }
 
         if (!empty($data['filter_date_added'])) {
@@ -134,7 +134,7 @@ class ModelSaleRecurring extends Model {
     }
 
     public function getTotalRecurrings(array $data): int {
-        $sql = "SELECT COUNT(*) AS `total` FROM `" . DB_PREFIX . "order_recurring` `or` LEFT JOIN `" . DB_PREFIX . "order` o ON (`or`.`order_id` = o.`order_id`)";
+        $sql = "SELECT COUNT(*) AS `total` FROM `" . DB_PREFIX . "order_recurring` `or` LEFT JOIN `" . DB_PREFIX . "order` `o` ON (`or`.`order_id` = `o`.`order_id`)";
 
         $implode = [];
 
@@ -151,11 +151,11 @@ class ModelSaleRecurring extends Model {
         }
 
         if (!empty($data['filter_customer'])) {
-            $implode[] = "CONCAT(o.`firstname`, ' ', o.`lastname`) LIKE '" . $this->db->escape($data['filter_customer']) . "%'";
+            $implode[] = "CONCAT(`o`.`firstname`, ' ', `o`.`lastname`) LIKE '" . $this->db->escape($data['filter_customer']) . "%'";
         }
 
         if (!empty($data['filter_subscription_status_id'])) {
-            $implode[] = "`or`.`status` IN (SELECT ss.`subscription_status_id` FROM `" . DB_PREFIX . "subscription_status` ss WHERE ss.`subscription_status_id` = '" . (int)$data['filter_subscription_status_id'] . "')";
+            $implode[] = "`or`.`status` IN (SELECT `ss`.`subscription_status_id` FROM `" . DB_PREFIX . "subscription_status` `ss` WHERE `ss`.`subscription_status_id` = '" . (int)$data['filter_subscription_status_id'] . "')";
         }
 
         if (!empty($data['filter_date_added'])) {
@@ -192,7 +192,7 @@ class ModelSaleRecurring extends Model {
             $limit = 10;
         }
 
-        $query = $this->db->query("SELECT orh.`date_added`, ss.`name` AS `status`, orh.`comment`, orh.`notify` FROM `" . DB_PREFIX . "order_recurring_history` orh LEFT JOIN `" . DB_PREFIX . "subscription_status` ss ON orh.`subscription_status_id` = ss.`subscription_status_id` WHERE orh.`order_recurring_id` = '" . (int)$order_recurring_id . "' AND ss.`language_id` = '" . (int)$this->config->get('config_language_id') . "' ORDER BY orh.`date_added` DESC LIMIT " . (int)$start . "," . (int)$limit);
+        $query = $this->db->query("SELECT `orh`.`date_added`, `ss`.`name` AS `status`, `orh`.`comment`, `orh`.`notify` FROM `" . DB_PREFIX . "order_recurring_history` `orh` LEFT JOIN `" . DB_PREFIX . "subscription_status` `ss` ON (`orh`.`subscription_status_id` = `ss`.`subscription_status_id`) WHERE `orh`.`order_recurring_id` = '" . (int)$order_recurring_id . "' AND `ss`.`language_id` = '" . (int)$this->config->get('config_language_id') . "' ORDER BY `orh`.`date_added` DESC LIMIT " . (int)$start . "," . (int)$limit);
 
         return $query->rows;
     }
