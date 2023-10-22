@@ -55,58 +55,58 @@
     }
 </style>
 <script type="text/javascript"><!--
-    $('.klarna-checkout-main').load('index.php?route=extension/payment/klarna_checkout/main', {response: 'template'}, function (data) {
-        window._klarnaCheckout(function (api) {
-            addSidebarOverlay();
-            
-            api.suspend();
+$('.klarna-checkout-main').load('index.php?route=extension/payment/klarna_checkout/main', {response: 'template'}, function (data) {
+    window._klarnaCheckout(function (api) {
+        addSidebarOverlay();
 
-            $('.klarna-checkout-sidebar').load('index.php?route=extension/payment/klarna_checkout/sidebar', function () {
-                api.resume();
-                
-                removeSidebarOverlay();
-            });
+        api.suspend();
 
-            api.on({
-                shipping_address_change: function (data) {
-                    addSidebarOverlay();
-                    
-                    api.suspend();
+        $('.klarna-checkout-sidebar').load('index.php?route=extension/payment/klarna_checkout/sidebar', function () {
+            api.resume();
 
-                    $.post('index.php?route=extension/payment/klarna_checkout/shippingAddress', data, function (data) {
-                        $('.klarna-checkout-sidebar').load('index.php?route=extension/payment/klarna_checkout/sidebar');
-
-                        $.get('index.php?route=extension/payment/klarna_checkout/cartTotal', function (total) {
-                            setTimeout(function () {
-                                $('#cart > button').html('<span id="cart-total"><i class="fa fa-shopping-cart"></i> ' + total + '</span>');
-                            }, 100);
-
-                            $('#cart > ul').load('index.php?route=common/cart/info ul li');
-                        });
-
-                        api.resume();
-                        
-                        removeSidebarOverlay();
-                    });
-                }
-            });
+            removeSidebarOverlay();
         });
 
-        $.get('index.php?route=extension/payment/klarna_checkout/cartTotal', function (total) {
-            setTimeout(function () {
-                $('#cart > button').html('<span id="cart-total"><i class="fa fa-shopping-cart"></i> ' + total + '</span>');
-            }, 100);
+        api.on({
+            shipping_address_change: function (data) {
+                addSidebarOverlay();
 
-            $('#cart > ul').load('index.php?route=common/cart/info ul li');
+                api.suspend();
+
+                $.post('index.php?route=extension/payment/klarna_checkout/shippingAddress', data, function (data) {
+                    $('.klarna-checkout-sidebar').load('index.php?route=extension/payment/klarna_checkout/sidebar');
+
+                    $.get('index.php?route=extension/payment/klarna_checkout/cartTotal', function (total) {
+                        setTimeout(function () {
+                            $('#cart > button').html('<span id="cart-total"><i class="fa fa-shopping-cart"></i> ' + total + '</span>');
+                        }, 100);
+
+                        $('#cart > ul').load('index.php?route=common/cart/info ul li');
+                    });
+
+                    api.resume();
+
+                    removeSidebarOverlay();
+                });
+            }
         });
     });
 
-    function addSidebarOverlay() {
-        $('.klarna-checkout-sidebar').prepend('<div class="sidebar-overlay"><span class="sidebar-loader"></span></div>');
-    }
+    $.get('index.php?route=extension/payment/klarna_checkout/cartTotal', function (total) {
+        setTimeout(function () {
+            $('#cart > button').html('<span id="cart-total"><i class="fa fa-shopping-cart"></i> ' + total + '</span>');
+        }, 100);
 
-    function removeSidebarOverlay() {
-        $('.sidebar-overlay').remove();
-    }
+        $('#cart > ul').load('index.php?route=common/cart/info ul li');
+    });
+});
+
+function addSidebarOverlay() {
+    $('.klarna-checkout-sidebar').prepend('<div class="sidebar-overlay"><span class="sidebar-loader"></span></div>');
+}
+
+function removeSidebarOverlay() {
+    $('.sidebar-overlay').remove();
+}
 //--></script>
 {{ footer }}

@@ -64,44 +64,44 @@
   </div>
 </div>
 <script type="text/javascript"><!--
-    // Address update, and remove functions
-    var address = {
-        'update': function (key) {
-            $('.alert-dismissible').remove();
+// Address update, and remove functions
+var address = {
+    'update': function (key) {
+        $('.alert-dismissible').remove();
 
-            $.ajax({
-                url: 'index.php?route=account/address/editAddress&customer_token={{ customer_token }}&address_id=' + key,
-                dataType: 'json',
-                success: function (json) {
-                    if (json['redirect']) {
-                        location = json['redirect'];
+        $.ajax({
+            url: 'index.php?route=account/address/editAddress&customer_token={{ customer_token }}&address_id=' + key,
+            dataType: 'json',
+            success: function (json) {
+                if (json['redirect']) {
+                    location = json['redirect'];
+                }
+            }
+        });
+    },
+    'remove': function (key) {
+        $('.alert-dismissible').remove();
+
+        $.ajax({
+            url: 'index.php?route=account/address/delete&customer_token={{ customer_token }}&address_id=' + key,
+            dataType: 'json',
+            success: function (json) {
+                if (json['redirect']) {
+                    location = json['redirect'];
+                }
+
+                if (json['warning']) {
+                    var result = confirm('{{ text_confirm }}');
+
+                    if (!result) {
+                        return false;
+                    } else {
+                        $('#account-address > .breadcrumb').after('<div class="alert alert-danger alert-dismissible"><i class="fa fa-exclamation-circle"></i> ' + json['warning'] + '<button type="button" class="close" data-dismiss="alert">&times;</button></div>');
                     }
                 }
-            });
-        },
-        'remove': function (key) {
-            $('.alert-dismissible').remove();
-
-            $.ajax({
-                url: 'index.php?route=account/address/delete&customer_token={{ customer_token }}&address_id=' + key,
-                dataType: 'json',
-                success: function (json) {
-                    if (json['redirect']) {
-                        location = json['redirect'];
-                    }
-
-                    if (json['warning']) {
-                        var result = confirm('{{ text_confirm }}');
-
-                        if (!result) {
-                            return false;
-                        } else {
-                            $('#account-address > .breadcrumb').after('<div class="alert alert-danger alert-dismissible"><i class="fa fa-exclamation-circle"></i> ' + json['warning'] + '<button type="button" class="close" data-dismiss="alert">&times;</button></div>');
-                        }
-                    }
-                }
-            });
-        }
+            }
+        });
     }
+}
 //--></script>
 {{ footer }}

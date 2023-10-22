@@ -51,7 +51,8 @@
                   {% else %}
                     <input type="radio" name="payment" value="cheque"/>
                   {% endif %}
-                  {{ text_cheque }}</label>
+                  {{ text_cheque }}
+                </label>
               </div>
               <div class="radio">
                 <label>{% if payment == 'paypal' %}
@@ -315,102 +316,102 @@
   </div>
 </div>
 <script type="text/javascript"><!--
-    $('input[name=\'payment\']').on('change', function () {
-        $('.payment').hide();
+$('input[name=\'payment\']').on('change', function () {
+    $('.payment').hide();
 
-        $('#payment-' + this.value).show();
-    });
+    $('#payment-' + this.value).show();
+});
 
-    $('input[name=\'payment\']:checked').trigger('change');
+$('input[name=\'payment\']:checked').trigger('change');
 //--></script>
 <script type="text/javascript"><!--
-    // Sort the custom fields
-    $('.form-group[data-sort]').detach().each(function () {
-        if ($(this).attr('data-sort') >= 0 && $(this).attr('data-sort') <= $('.form-group').length) {
-            $('.form-group').eq($(this).attr('data-sort')).before(this);
-        }
+// Sort the custom fields
+$('.form-group[data-sort]').detach().each(function () {
+    if ($(this).attr('data-sort') >= 0 && $(this).attr('data-sort') <= $('.form-group').length) {
+        $('.form-group').eq($(this).attr('data-sort')).before(this);
+    }
 
-        if ($(this).attr('data-sort') > $('.form-group').length) {
-            $('.form-group:last').after(this);
-        }
+    if ($(this).attr('data-sort') > $('.form-group').length) {
+        $('.form-group:last').after(this);
+    }
 
-        if ($(this).attr('data-sort') == $('.form-group').length) {
-            $('.form-group:last').after(this);
-        }
+    if ($(this).attr('data-sort') == $('.form-group').length) {
+        $('.form-group:last').after(this);
+    }
 
-        if ($(this).attr('data-sort') < -$('.form-group').length) {
-            $('.form-group:first').before(this);
-        }
-    });
+    if ($(this).attr('data-sort') < -$('.form-group').length) {
+        $('.form-group:first').before(this);
+    }
+});
 //--></script>
 <script type="text/javascript"><!--
-    $('button[id^=\'button-custom-field\']').on('click', function () {
-        var element = this;
+$('button[id^=\'button-custom-field\']').on('click', function () {
+    var element = this;
 
-        $('#form-upload').remove();
+    $('#form-upload').remove();
 
-        $('body').prepend('<form enctype="multipart/form-data" id="form-upload" style="display: none;"><input type="file" name="file"/></form>');
+    $('body').prepend('<form enctype="multipart/form-data" id="form-upload" style="display: none;"><input type="file" name="file"/></form>');
 
-        $('#form-upload input[name=\'file\']').trigger('click');
+    $('#form-upload input[name=\'file\']').trigger('click');
 
-        if (typeof timer != 'undefined') {
+    if (typeof timer != 'undefined') {
+        clearInterval(timer);
+    }
+
+    timer = setInterval(function () {
+        if ($('#form-upload input[name=\'file\']').val() != '') {
             clearInterval(timer);
-        }
 
-        timer = setInterval(function () {
-            if ($('#form-upload input[name=\'file\']').val() != '') {
-                clearInterval(timer);
+            $.ajax({
+                url: 'index.php?route=tool/upload',
+                type: 'post',
+                dataType: 'json',
+                data: new FormData($('#form-upload')[0]),
+                cache: false,
+                contentType: false,
+                processData: false,
+                beforeSend: function () {
+                    $(element).button('loading');
+                },
+                complete: function () {
+                    $(element).button('reset');
+                },
+                success: function (json) {
+                    $(element).parent().find('.text-danger').remove();
 
-                $.ajax({
-                    url: 'index.php?route=tool/upload',
-                    type: 'post',
-                    dataType: 'json',
-                    data: new FormData($('#form-upload')[0]),
-                    cache: false,
-                    contentType: false,
-                    processData: false,
-                    beforeSend: function () {
-                        $(element).button('loading');
-                    },
-                    complete: function () {
-                        $(element).button('reset');
-                    },
-                    success: function (json) {
-                        $(element).parent().find('.text-danger').remove();
-
-                        if (json['error']) {
-                            $(element).parent().find('input').after('<div class="text-danger">' + json['error'] + '</div>');
-                        }
-
-                        if (json['success']) {
-                            alert(json['success']);
-
-                            $(element).parent().find('input').val(json['code']);
-                        }
-                    },
-                    error: function (xhr, ajaxOptions, thrownError) {
-                        alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
+                    if (json['error']) {
+                        $(element).parent().find('input').after('<div class="text-danger">' + json['error'] + '</div>');
                     }
-                });
-            }
-        }, 500);
-    });
+
+                    if (json['success']) {
+                        alert(json['success']);
+
+                        $(element).parent().find('input').val(json['code']);
+                    }
+                },
+                error: function (xhr, ajaxOptions, thrownError) {
+                    alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
+                }
+            });
+        }
+    }, 500);
+});
 //--></script>
 <script type="text/javascript"><!--
-    $('.date').datetimepicker({
-        language: '{{ datepicker }}',
-        pickTime: false
-    });
+$('.date').datetimepicker({
+    language: '{{ datepicker }}',
+    pickTime: false
+});
 
-    $('.datetime').datetimepicker({
-        language: '{{ datepicker }}',
-        pickDate: true,
-        pickTime: true
-    });
+$('.datetime').datetimepicker({
+    language: '{{ datepicker }}',
+    pickDate: true,
+    pickTime: true
+});
 
-    $('.time').datetimepicker({
-        language: '{{ datepicker }}',
-        pickDate: false
-    });
+$('.time').datetimepicker({
+    language: '{{ datepicker }}',
+    pickDate: false
+});
 //--></script>
 {{ footer }}

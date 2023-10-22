@@ -123,9 +123,9 @@ class ControllerInstallStep2 extends Controller {
 
         $data['php_version'] = phpversion();
 
-        $data['register_globals']   = ini_get('register_globals');
-        $data['magic_quotes_gpc']   = ini_get('magic_quotes_gpc');
-        $data['file_uploads']       = ini_get('file_uploads');
+        $data['register_globals'] = ini_get('register_globals');
+        $data['magic_quotes_gpc'] = ini_get('magic_quotes_gpc');
+        $data['file_uploads'] = ini_get('file_uploads');
         $data['session_auto_start'] = ini_get('session_auto_start');
 
         $db = [
@@ -149,21 +149,21 @@ class ControllerInstallStep2 extends Controller {
         $data['mbstring'] = extension_loaded('mbstring');
 
         $data['catalog_config'] = DIR_OPENCART . 'config.php';
-        $data['admin_config']   = DIR_OPENCART . 'admin/config.php';
-        $data['image']          = DIR_OPENCART . 'image';
-        $data['image_cache']    = DIR_OPENCART . 'image/cache';
+        $data['admin_config'] = DIR_OPENCART . 'admin/config.php';
+        $data['image'] = DIR_OPENCART . 'image';
+        $data['image_cache'] = DIR_OPENCART . 'image/cache';
         $data['image_catalog']  = DIR_OPENCART . 'image/catalog';
-        $data['cache']          = DIR_SYSTEM . 'storage/cache';
-        $data['logs']           = DIR_SYSTEM . 'storage/logs';
-        $data['download']       = DIR_SYSTEM . 'storage/download';
-        $data['upload']         = DIR_SYSTEM . 'storage/upload';
-        $data['modification']   = DIR_SYSTEM . 'storage/modification';
+        $data['cache'] = DIR_SYSTEM . 'storage/cache';
+        $data['logs'] = DIR_SYSTEM . 'storage/logs';
+        $data['download'] = DIR_SYSTEM . 'storage/download';
+        $data['upload'] = DIR_SYSTEM . 'storage/upload';
+        $data['modification'] = DIR_SYSTEM . 'storage/modification';
 
-        $data['back']           = $this->url->link('install/step_1');
+        $data['back'] = $this->url->link('install/step_1');
 
-        $data['footer']         = $this->load->controller('common/footer');
-        $data['header']         = $this->load->controller('common/header');
-        $data['column_left']    = $this->load->controller('common/column_left');
+        $data['footer'] = $this->load->controller('common/footer');
+        $data['header'] = $this->load->controller('common/header');
+        $data['column_left'] = $this->load->controller('common/column_left');
 
         $this->response->setOutput($this->load->view('install/step_2', $data));
     }

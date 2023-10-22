@@ -66,36 +66,36 @@
   </div>
 </div>
 <script type="text/javascript"><!--
-    // Payment method remove function
-    var payment = {
-        'remove': function (key) {
-            $('.alert-dismissible').remove();
+// Payment method remove function
+var payment = {
+    'remove': function (key) {
+        $('.alert-dismissible').remove();
 
-            $.ajax({
-                url: 'index.php?route=account/payment_method/delete&customer_token={{ customer_token }}&customer_payment_id=' + key,
-                type: 'post',
-                dataType: 'json',
-                success: function (json) {
-                    if (json['redirect']) {
-                        location = json['redirect'];
-                    }
+        $.ajax({
+            url: 'index.php?route=account/payment_method/delete&customer_token={{ customer_token }}&customer_payment_id=' + key,
+            type: 'post',
+            dataType: 'json',
+            success: function (json) {
+                if (json['redirect']) {
+                    location = json['redirect'];
+                }
 
-                    if (json['error']) {
-                        $('#account-payment-method > .breadcrumb').after('<div class="alert alert-danger alert-dismissible"><i class="fa fa-exclamation-circle"></i> ' + json['error'] + '<button type="button" class="close" data-dismiss="alert">&times;</button></div>');
-                    } else {
-                        var result = confirm('{{ text_confirm }}');
+                if (json['error']) {
+                    $('#account-payment-method > .breadcrumb').after('<div class="alert alert-danger alert-dismissible"><i class="fa fa-exclamation-circle"></i> ' + json['error'] + '<button type="button" class="close" data-dismiss="alert">&times;</button></div>');
+                } else {
+                    var result = confirm('{{ text_confirm }}');
 
-                        if (!result) {
-                            return false;
-                        }
-                    }
-
-                    if (json['success']) {
-                        location = json['success'];
+                    if (!result) {
+                        return false;
                     }
                 }
-            });
-        }
+
+                if (json['success']) {
+                    location = json['success'];
+                }
+            }
+        });
     }
+}
 //--></script>
 {{ footer }}

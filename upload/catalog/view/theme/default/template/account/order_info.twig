@@ -80,9 +80,9 @@
               <td class="text-right">{{ column_quantity }}</td>
               <td class="text-right">{{ column_price }}</td>
               <td class="text-right">{{ column_total }}</td>
-                {% if products %}
-                  <td style="width: 20px;"></td>
-                {% endif %}
+              {% if products %}
+                <td style="width: 20px;"></td>
+              {% endif %}
             </tr>
           </thead>
           <tbody>
@@ -136,14 +136,14 @@
       {% if comment %}
         <table class="table table-bordered table-hover">
           <thead>
-          <tr>
-            <td class="text-left">{{ text_comment }}</td>
-          </tr>
+            <tr>
+              <td class="text-left">{{ text_comment }}</td>
+            </tr>
           </thead>
           <tbody>
-          <tr>
-            <td class="text-left">{{ comment }}</td>
-          </tr>
+            <tr>
+              <td class="text-left">{{ comment }}</td>
+            </tr>
           </tbody>
         </table>
       {% endif %}

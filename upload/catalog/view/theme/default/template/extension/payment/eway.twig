@@ -94,94 +94,94 @@
     </div>
   </div>
   <script type="text/javascript"><!--
-      function select_eWAYPaymentOption(v) {
-          if ($('#creditcard-info').length) {
-              $('#creditcard-info').hide();
-          }
-
-          if ($('#tip-paypal').length) {
-              $('#tip-paypal').hide();
-          }
-
-          if ($('#tip-masterpass').length) {
-              $('#tip-masterpass').hide();
-          }
-
-          if ($('#tip-vme').length) {
-              $('#tip-vme').hide();
-          }
-
-          if (v == 'creditcard') {
-              $('#creditcard-info').show();
-          } else {
-              $('#tip-' + v).show();
-          }
+  function select_eWAYPaymentOption(v) {
+      if ($('#creditcard-info').length) {
+          $('#creditcard-info').hide();
       }
-    //--></script>
-    <script type="text/javascript"><!--
-        $('#button-confirm').bind('click', function () {
-            if ($('#eway-radio-cc').is(':checked')) {
-                var eway_error = false;
 
-                if ($('#eway-cardname').val().length < 1) {
-                    eway_error = true;
+      if ($('#tip-paypal').length) {
+          $('#tip-paypal').hide();
+      }
 
-                    $('#ewaycard-error').html('{{ error_empty_name }}');
-                } else {
-                    $('#ewaycard-error').empty();
-                }
+      if ($('#tip-masterpass').length) {
+          $('#tip-masterpass').hide();
+      }
 
-                var ccnum_regex = new RegExp("^[0-9]{13,19}$");
+      if ($('#tip-vme').length) {
+          $('#tip-vme').hide();
+      }
 
-                if (!ccnum_regex.test($('#eway-cardnumber').val().replace(/ /g, '')) || !luhn10($('#eway-cardnumber').val())) {
-                    eway_error = true;
+      if (v == 'creditcard') {
+          $('#creditcard-info').show();
+      } else {
+          $('#tip-' + v).show();
+      }
+  }
+  //--></script>
+  <script type="text/javascript"><!--
+      $('#button-confirm').bind('click', function () {
+          if ($('#eway-radio-cc').is(':checked')) {
+              var eway_error = false;
 
-                    $('#ewaynumber-error').html('{{ error_invalid_card }}');
-                } else {
-                    $('#ewaynumber-error').empty();
-                }
+              if ($('#eway-cardname').val().length < 1) {
+                  eway_error = true;
 
-                var cc_year = parseInt($('#eway-card-expiry-year').val(), 10);
-                var cc_month = parseInt($('#eway-card-expiry-month').val(), 10);
+                  $('#ewaycard-error').html('{{ error_empty_name }}');
+              } else {
+                  $('#ewaycard-error').empty();
+              }
 
-                var cc_expiry = new Date(cc_year, cc_month, 1);
-                var cc_expired = new Date(cc_expiry - 1);
-                var today = new Date();
+              var ccnum_regex = new RegExp("^[0-9]{13,19}$");
 
-                if (today.getTime() > cc_expired.getTime()) {
-                    eway_error = true;
+              if (!ccnum_regex.test($('#eway-cardnumber').val().replace(/ /g, '')) || !luhn10($('#eway-cardnumber').val())) {
+                  eway_error = true;
 
-                    $('#expiry-error').html('{{ error_expiry_date }}');
-                } else {
-                    $('#expiry-error').empty();
-                }
+                  $('#ewaynumber-error').html('{{ error_invalid_card }}');
+              } else {
+                  $('#ewaynumber-error').empty();
+              }
 
-                var ccv_regex = new RegExp("^[0-9]{3,4}$");
+              var cc_year = parseInt($('#eway-card-expiry-year').val(), 10);
+              var cc_month = parseInt($('#eway-card-expiry-month').val(), 10);
 
-                if (!ccv_regex.test($('#eway-cardcvn').val().replace(/ /g, ''))) {
-                    eway_error = true;
+              var cc_expiry = new Date(cc_year, cc_month, 1);
+              var cc_expired = new Date(cc_expiry - 1);
+              var today = new Date();
 
-                    $('#ewaycvn-error').html('{{ error_cvv }}');
-                } else {
-                    $('#ewaycvn-error').empty();
-                }
+              if (today.getTime() > cc_expired.getTime()) {
+                  eway_error = true;
 
-                if (eway_error) {
-                    return false;
-                }
-            }
+                  $('#expiry-error').html('{{ error_expiry_date }}');
+              } else {
+                  $('#expiry-error').empty();
+              }
 
-            $('#eway-payment-form').submit();
-            $('#button-confirm').button('loading');
-            $("#button-confirm").prop('disabled', true);
+              var ccv_regex = new RegExp("^[0-9]{3,4}$");
 
-        });
+              if (!ccv_regex.test($('#eway-cardcvn').val().replace(/ /g, ''))) {
+                  eway_error = true;
 
-        var luhn10 = function (a, b, c, d, e) {
-            for (d = +a[b = a.length - 1], e = 0; b--;) {
-                c = +a[b], d += ++e % 2 ? 2 * c % 10 + (c > 4) : c;
-            }
-            return !(d % 10)
-        };
-    //--></script>
+                  $('#ewaycvn-error').html('{{ error_cvv }}');
+              } else {
+                  $('#ewaycvn-error').empty();
+              }
+
+              if (eway_error) {
+                  return false;
+              }
+          }
+
+          $('#eway-payment-form').submit();
+          $('#button-confirm').button('loading');
+          $("#button-confirm").prop('disabled', true);
+
+      });
+
+      var luhn10 = function (a, b, c, d, e) {
+          for (d = +a[b = a.length - 1], e = 0; b--;) {
+              c = +a[b], d += ++e % 2 ? 2 * c % 10 + (c > 4) : c;
+          }
+          return !(d % 10)
+      };
+  //--></script>
 {% endif %}

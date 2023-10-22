@@ -104,7 +104,7 @@ class ControllerInstallStep3 extends Controller {
         $data['text_mpdo'] = $this->language->get('text_mpdo');
         $data['text_pgsql'] = $this->language->get('text_pgsql');
 
-        $data['entry_db_driver']   = $this->language->get('entry_db_driver');
+        $data['entry_db_driver'] = $this->language->get('entry_db_driver');
         $data['entry_db_hostname'] = $this->language->get('entry_db_hostname');
         $data['entry_db_username'] = $this->language->get('entry_db_username');
         $data['entry_db_password'] = $this->language->get('entry_db_password');

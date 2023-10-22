@@ -105,32 +105,32 @@
   </div>
 </div>
 <script type="text/javascript">
-    $(document).ready(function () {
-        {% if existing_cards is not empty %}
-            $('#card-new input').prop('disabled', true);
-            $('#card-new input').prop('disabled', true);
-            $('#card-new select').prop('disabled', true);
-        {% endif %}
-    });
+$(document).ready(function () {
+    {% if existing_cards is not empty %}
+        $('#card-new input').prop('disabled', true);
+        $('#card-new input').prop('disabled', true);
+        $('#card-new select').prop('disabled', true);
+    {% endif %}
+});
 //</script>
 <script type="text/javascript">
-    $('input[name=\'CreateToken\']').on('change', function() {
-        if (this.value === '0') {
-            $('#card-existing').show();
-            $('#card-new').hide();
-            $('#card-new input').prop('disabled', true);
-            $('#card-new select').prop('disabled', true);
-            $('#card-existing select').prop('disabled', false);
-            $('#card-existing input').prop('disabled', false);
-        } else {
-            $('#card-existing').hide();
-            $('#card-new').show();
-            $('#card-new input').prop('disabled', false);
-            $('#card-new select').prop('disabled', false);
-            $('#card-existing select').prop('disabled', true);
-            $('#card-existing input').prop('disabled', true);
-        }
-    });
+$('input[name=\'CreateToken\']').on('change', function() {
+    if (this.value === '0') {
+        $('#card-existing').show();
+        $('#card-new').hide();
+        $('#card-new input').prop('disabled', true);
+        $('#card-new select').prop('disabled', true);
+        $('#card-existing select').prop('disabled', false);
+        $('#card-existing input').prop('disabled', false);
+    } else {
+        $('#card-existing').hide();
+        $('#card-new').show();
+        $('#card-new input').prop('disabled', false);
+        $('#card-new select').prop('disabled', false);
+        $('#card-existing select').prop('disabled', true);
+        $('#card-existing input').prop('disabled', true);
+    }
+});
 //--></script>
 <script type="text/javascript"><!--
 $('#button-confirm').bind('click', function () {
@@ -173,38 +173,38 @@ $('#button-confirm').bind('click', function () {
 });
 //--></script>
 <script type="text/javascript"><!--
-    $('#button-delete').bind('click', function () {
-        if (confirm('{{ text_confirm_delete }}')) {
-            $.ajax({
-                url: 'index.php?route=extension/payment/sagepay_direct/delete',
-                type: 'post',
-                data: $('#card-existing :input[name=\'Token\']'),
-                dataType: 'json',
-                beforeSend: function () {
-                    $('#button-delete').button('loading');
-                },
-                complete: function () {
-                    $('#button-delete').button('reset');
-                },
-                success: function (json) {
-                    if (json['error']) {
-                        alert(json['error']);
-                    }
-    
-                    if (json['success']) {
-                        $.ajax({
-                            url: 'index.php?route=checkout/confirm',
-                            dataType: 'html',
-                            success: function (html) {
-                                $('#collapse-checkout-confirm .panel-body').html(html);
-                            },
-                            error: function (xhr, ajaxOptions, thrownError) {
-                                alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
-                            }
-                        });
-                    }
+$('#button-delete').bind('click', function () {
+    if (confirm('{{ text_confirm_delete }}')) {
+        $.ajax({
+            url: 'index.php?route=extension/payment/sagepay_direct/delete',
+            type: 'post',
+            data: $('#card-existing :input[name=\'Token\']'),
+            dataType: 'json',
+            beforeSend: function () {
+                $('#button-delete').button('loading');
+            },
+            complete: function () {
+                $('#button-delete').button('reset');
+            },
+            success: function (json) {
+                if (json['error']) {
+                    alert(json['error']);
                 }
-            });
-        }
-    });
+
+                if (json['success']) {
+                    $.ajax({
+                        url: 'index.php?route=checkout/confirm',
+                        dataType: 'html',
+                        success: function (html) {
+                            $('#collapse-checkout-confirm .panel-body').html(html);
+                        },
+                        error: function (xhr, ajaxOptions, thrownError) {
+                            alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
+                        }
+                    });
+                }
+            }
+        });
+    }
+});
 //--></script>

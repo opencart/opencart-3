@@ -4,15 +4,15 @@
     }
 
     {% if express_status %}
-    #paypal_express_button {
-    text-align: {{ button_align }};
+        #paypal_express_button {
+        text-align: {{ button_align }};
     }
 
     #paypal_express_button_container {
-    {% if button_width %}
-    display: inline-block;
-    width: {{ button_width }};
-    {% endif %}
+        {% if button_width %}
+            display: inline-block;
+            width: {{ button_width }};
+        {% endif %}
     }
 
     @media (max-width: 476px) {
@@ -22,20 +22,20 @@
     }
     {% endif %}
     {% if card_status %}
-    #paypal_card {
-    text-align: {{ form_align }};
+        #paypal_card {
+        text-align: {{ form_align }};
     }
 
     #paypal_card_form {
-    {% if form_width %}
-    display: inline-block;
-    width: {{ form_width }};
-    {% endif %}
-    text-align: center;
-    transition: all 600ms cubic-bezier(0.2, 1.3, 0.7, 1);
-    -webkit-animation: cardIntro 500ms cubic-bezier(0.2, 1.3, 0.7, 1);
-    animation: cardIntro 500ms cubic-bezier(0.2, 1.3, 0.7, 1);
-    z-index: 1;
+        {% if form_width %}
+            display: inline-block;
+            width: {{ form_width }};
+        {% endif %}
+        text-align: center;
+        transition: all 600ms cubic-bezier(0.2, 1.3, 0.7, 1);
+        -webkit-animation: cardIntro 500ms cubic-bezier(0.2, 1.3, 0.7, 1);
+        animation: cardIntro 500ms cubic-bezier(0.2, 1.3, 0.7, 1);
+        z-index: 1;
     }
 
     @media (max-width: 476px) {
@@ -192,13 +192,13 @@
     {% endif %}
 
     #paypal_message {
-    text-align: {{ message_align }};
+        text-align: {{ message_align }};
     }
 
     #paypal_message_container {
     {% if message_width %}
-    display: inline-block;
-    width: {{ message_width }};
+        display: inline-block;
+        width: {{ message_width }};
     {% endif %}
     }
 
@@ -355,24 +355,122 @@
   </div>
 </div>
 <script type="text/javascript">
-    function setupPayPal() {
-        {% if express_status %}
-            try {
-                // Render the PayPal button into #paypal_express_button_container
-                paypal_sdk.Buttons({
-                    env: '{{ environment }}',
-                    locale: '{{ locale }}',
-                    style: {
-                        layout: 'vertical',
-                        size: '{{ button_size }}',
-                        color: '{{ button_color }}',
-                        shape: '{{ button_shape }}',
-                        label: '{{ button_label }}'
+function setupPayPal() {
+    {% if express_status %}
+        try {
+            // Render the PayPal button into #paypal_express_button_container
+            paypal_sdk.Buttons({
+                env: '{{ environment }}',
+                locale: '{{ locale }}',
+                style: {
+                    layout: 'vertical',
+                    size: '{{ button_size }}',
+                    color: '{{ button_color }}',
+                    shape: '{{ button_shape }}',
+                    label: '{{ button_label }}'
+                },
+                // Set up the transaction
+                createOrder: function (data, actions) {
+                    order_id = false;
+
+                    $.ajax({
+                        url: 'index.php?route=extension/payment/paypal/createOrder',
+                        method: 'post',
+                        data: '',
+                        dataType: 'json',
+                        async: false,
+                        success: function (json) {
+                            showPayPalAlert(json);
+
+                            order_id = json['order_id'];
+                        },
+                        error: function (xhr, ajaxOptions, thrownError) {
+                            console.log(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
+                        }
+                    });
+
+                    return order_id;
+                },
+                // Finalize the transaction
+                onApprove: function (data, actions) {
+                    // Call your server to save the transaction
+                    restart = false;
+
+                    $.ajax({
+                        url: 'index.php?route=extension/payment/paypal/approveOrder',
+                        method: 'post',
+                        data: { 'order_id': data.orderID },
+                        dataType: 'json',
+                        async: false,
+                        success: function (json) {
+                            showPayPalAlert(json);
+
+                            if (json['restart']) {
+                                restart = json['restart'];
+                            }
+
+                            if (json['success']) {
+                                location = json['success'];
+                            }
+                        },
+                        error: function (xhr, ajaxOptions, thrownError) {
+                            console.log(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
+                        }
+                    });
+
+                    if (restart) {
+                        return actions.restart();
+                    }
+                }
+            }).render('#paypal_express_button_container');
+        } catch (error) {
+            console.error('PayPal Express failed during startup', error);
+        }
+    {% endif %}
+
+    {% if card_status %}
+        try {
+            // Check if card fields are eligible to render for the buyer's country. The card fields are not eligible in all countries where buyers are located.
+            if (paypal_sdk.HostedFields.isEligible() === true) {
+                $('#paypal_card').removeClass('hidden');
+
+                var paypal_card_form = document.querySelector('#paypal_card_form');
+                var paypal_button_submit = document.querySelector('#paypal_button_submit');
+
+                paypal_sdk.HostedFields.render({
+                    styles: {
+                        'input': {
+                            'color': '#282c37',
+                            'transition': 'color 0.1s',
+                            'line-height': '3'
+                        },
+                        'input.invalid': {
+                            'color': '#E53A40'
+                        },
+                        ':-ms-input-placeholder': {
+                            'color': 'rgba(0,0,0,0.6)'
+                        },
+                        ':-moz-placeholder': {
+                            'color': 'rgba(0,0,0,0.6)'
+                        }
                     },
-                    // Set up the transaction
+                    fields: {
+                        number: {
+                            selector: '#card_number',
+                            placeholder: '#### #### #### ####'
+                        },
+                        cvv: {
+                            selector: '#cvv',
+                            placeholder: '###'
+                        },
+                        expirationDate: {
+                            selector: '#expiration_date',
+                            placeholder: 'MM / YYYY'
+                        }
+                    },
                     createOrder: function (data, actions) {
                         order_id = false;
-    
+
                         $.ajax({
                             url: 'index.php?route=extension/payment/paypal/createOrder',
                             method: 'post',
@@ -381,174 +479,69 @@
                             async: false,
                             success: function (json) {
                                 showPayPalAlert(json);
-    
+
                                 order_id = json['order_id'];
                             },
                             error: function (xhr, ajaxOptions, thrownError) {
                                 console.log(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
                             }
                         });
-    
-                        return order_id;
-                    },
-                    // Finalize the transaction
-                    onApprove: function (data, actions) {
-                        // Call your server to save the transaction
-                        restart = false;
-    
-                        $.ajax({
-                            url: 'index.php?route=extension/payment/paypal/approveOrder',
-                            method: 'post',
-                            data: { 'order_id': data.orderID },
-                            dataType: 'json',
-                            async: false,
-                            success: function (json) {
-                                showPayPalAlert(json);
-    
-                                if (json['restart']) {
-                                    restart = json['restart'];
-                                }
-    
-                                if (json['success']) {
-                                    location = json['success'];
-                                }
-                            },
-                            error: function (xhr, ajaxOptions, thrownError) {
-                                console.log(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
-                            }
-                        });
-    
-                        if (restart) {
-                            return actions.restart();
-                        }
-                    }
-                }).render('#paypal_express_button_container');
-            } catch (error) {
-                console.error('PayPal Express failed during startup', error);
-            }
-        {% endif %}
 
-        {% if card_status %}
-            try {
-                // Check if card fields are eligible to render for the buyer's country. The card fields are not eligible in all countries where buyers are located.
-                if (paypal_sdk.HostedFields.isEligible() === true) {
-                    $('#paypal_card').removeClass('hidden');
-    
-                    var paypal_card_form = document.querySelector('#paypal_card_form');
-                    var paypal_button_submit = document.querySelector('#paypal_button_submit');
-    
-                    paypal_sdk.HostedFields.render({
-                        styles: {
-                            'input': {
-                                'color': '#282c37',
-                                'transition': 'color 0.1s',
-                                'line-height': '3'
-                            },
-                            'input.invalid': {
-                                'color': '#E53A40'
-                            },
-                            ':-ms-input-placeholder': {
-                                'color': 'rgba(0,0,0,0.6)'
-                            },
-                            ':-moz-placeholder': {
-                                'color': 'rgba(0,0,0,0.6)'
-                            }
-                        },
-                        fields: {
-                            number: {
-                                selector: '#card_number',
-                                placeholder: '#### #### #### ####'
-                            },
-                            cvv: {
-                                selector: '#cvv',
-                                placeholder: '###'
-                            },
-                            expirationDate: {
-                                selector: '#expiration_date',
-                                placeholder: 'MM / YYYY'
-                            }
-                        },
-                        createOrder: function (data, actions) {
-                            order_id = false;
-    
-                            $.ajax({
-                                url: 'index.php?route=extension/payment/paypal/createOrder',
-                                method: 'post',
-                                data: '',
-                                dataType: 'json',
-                                async: false,
-                                success: function (json) {
-                                    showPayPalAlert(json);
-    
-                                    order_id = json['order_id'];
-                                },
-                                error: function (xhr, ajaxOptions, thrownError) {
-                                    console.log(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
-                                }
-                            });
-    
-                            return order_id;
+                        return order_id;
+                    }
+                }).then(function (hostedFieldsInstance) {
+                    hostedFieldsInstance.on('blur', function (event) {
+                        console.log('CCF Event "blur", state=' + hostedFieldsInstance.getState() + ', event=' + event);
+                    });
+
+                    hostedFieldsInstance.on('focus', function (event) {
+                        console.log('CCF Event "focus", state=' + hostedFieldsInstance.getState() + ', event=' + event);
+                    });
+
+                    hostedFieldsInstance.on('validityChange', function (event) {
+                        console.log('CCF Event "validityChange", state=' + hostedFieldsInstance.getState() + ',event=' + event);
+
+                        // Check if all fields are valid, then show submit button
+                        var formValid = Object.keys(event.fields).every(function (key) {
+                            return event.fields[key].isValid;
+                        });
+
+                        if (formValid) {
+                            $('#paypal_button_submit').addClass('show-button');
+                        } else {
+                            $('#paypal_button_submit').removeClass('show-button');
                         }
-                    }).then(function (hostedFieldsInstance) {
-                        hostedFieldsInstance.on('blur', function (event) {
-                            console.log('CCF Event "blur", state=' + hostedFieldsInstance.getState() + ', event=' + event);
-                        });
-    
-                        hostedFieldsInstance.on('focus', function (event) {
-                            console.log('CCF Event "focus", state=' + hostedFieldsInstance.getState() + ', event=' + event);
-                        });
-    
-                        hostedFieldsInstance.on('validityChange', function (event) {
-                            console.log('CCF Event "validityChange", state=' + hostedFieldsInstance.getState() + ',event=' + event);
-    
-                            // Check if all fields are valid, then show submit button
-                            var formValid = Object.keys(event.fields).every(function (key) {
-                                return event.fields[key].isValid;
-                            });
-    
-                            if (formValid) {
-                                $('#paypal_button_submit').addClass('show-button');
-                            } else {
-                                $('#paypal_button_submit').removeClass('show-button');
-                            }
-                        });
-    
-                        hostedFieldsInstance.on('notEmpty', function (event) {
-                            console.log('CCF Event "notEmpty", state=' + hostedFieldsInstance.getState() + ', event=' + event);
-                        });
-    
-                        hostedFieldsInstance.on('empty', function (event) {
-                            console.log('CCF Event "empty", state=' + hostedFieldsInstance.getState() + ',event=' + event);
-    
-                            $(paypal_card_form).removeClass().addClass('well');
-                            $('#card_image').removeClass();
-                        });
-    
-                        hostedFieldsInstance.on('cardTypeChange', function (event) {
-                            console.log('CCF Event "cardTypeChange", state=' + hostedFieldsInstance.getState() + ',event=' + event);
-    
-                            $(paypal_card_form).removeClass().addClass('well');
-                            $('#card_image').removeClass();
-    
-                            // Change card bg depending on card type
-                            if (event.cards.length === 1) {
-                                $(paypal_card_form).addClass(event.cards[0].type);
-                                $('#card_image').addClass(event.cards[0].type);
-    
-                                // Change the CVV length for AmericanExpress cards
-                                if (event.cards[0].code.size === 4) {
-                                    hostedFieldsInstance.setAttribute({
-                                        field: 'cvv',
-                                        attribute: 'placeholder',
-                                        value: '####'
-                                    });
-                                } else {
-                                    hostedFieldsInstance.setAttribute({
-                                        field: 'cvv',
-                                        attribute: 'placeholder',
-                                        value: '###'
-                                    });
-                                }
+                    });
+
+                    hostedFieldsInstance.on('notEmpty', function (event) {
+                        console.log('CCF Event "notEmpty", state=' + hostedFieldsInstance.getState() + ', event=' + event);
+                    });
+
+                    hostedFieldsInstance.on('empty', function (event) {
+                        console.log('CCF Event "empty", state=' + hostedFieldsInstance.getState() + ',event=' + event);
+
+                        $(paypal_card_form).removeClass().addClass('well');
+                        $('#card_image').removeClass();
+                    });
+
+                    hostedFieldsInstance.on('cardTypeChange', function (event) {
+                        console.log('CCF Event "cardTypeChange", state=' + hostedFieldsInstance.getState() + ',event=' + event);
+
+                        $(paypal_card_form).removeClass().addClass('well');
+                        $('#card_image').removeClass();
+
+                        // Change card bg depending on card type
+                        if (event.cards.length === 1) {
+                            $(paypal_card_form).addClass(event.cards[0].type);
+                            $('#card_image').addClass(event.cards[0].type);
+
+                            // Change the CVV length for AmericanExpress cards
+                            if (event.cards[0].code.size === 4) {
+                                hostedFieldsInstance.setAttribute({
+                                    field: 'cvv',
+                                    attribute: 'placeholder',
+                                    value: '####'
+                                });
                             } else {
                                 hostedFieldsInstance.setAttribute({
                                     field: 'cvv',
@@ -556,49 +549,56 @@
                                     value: '###'
                                 });
                             }
-                        });
-    
-                        paypal_button_submit.addEventListener('click', function (event) {
-                            event.preventDefault();
-    
-                            if ($('#paypal_button_submit').hasClass('show-button')) {
-                                showPayPalAlert({wait: true});
-    
-                                hostedFieldsInstance.submit({
-                                // Need to specify when triggering 3D Secure authentication
-                                {% if secure_status %}
-                                contingencies: ['3D_SECURE']
-                                {% endif %}
-    
-                            }).then(function (payload) {
-                                    $.ajax({
-                                        url: 'index.php?route=extension/payment/paypal/approveOrder',
-                                        method: 'post',
-                                        data: { 'payload': JSON.stringify(payload) },
-                                        dataType: 'json',
-                                        async: false,
-                                        success: function (json) {
-                                            showPayPalAlert(json);
-    
-                                            if (json['success']) {
-                                                location = json['success'];
-                                            }
-                                        },
-                                        error: function (xhr, ajaxOptions, thrownError) {
-                                            console.log(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
-                                        }
-                                    });
-                                });
-                            }
-                        }, false);
+                        } else {
+                            hostedFieldsInstance.setAttribute({
+                                field: 'cvv',
+                                attribute: 'placeholder',
+                                value: '###'
+                            });
+                        }
                     });
-                } else {
-                    console.log('Not eligible for CCF');
-                }
-            } catch (error) {
-                console.error('PayPal Card failed during startup', error);
+
+                    paypal_button_submit.addEventListener('click', function (event) {
+                        event.preventDefault();
+
+                        if ($('#paypal_button_submit').hasClass('show-button')) {
+                            showPayPalAlert({wait: true});
+
+                            hostedFieldsInstance.submit({
+                            // Need to specify when triggering 3D Secure authentication
+                            {% if secure_status %}
+                                contingencies: ['3D_SECURE']
+                            {% endif %}
+
+                            }).then(function (payload) {
+                                $.ajax({
+                                    url: 'index.php?route=extension/payment/paypal/approveOrder',
+                                    method: 'post',
+                                    data: { 'payload': JSON.stringify(payload) },
+                                    dataType: 'json',
+                                    async: false,
+                                    success: function (json) {
+                                        showPayPalAlert(json);
+
+                                        if (json['success']) {
+                                            location = json['success'];
+                                        }
+                                    },
+                                    error: function (xhr, ajaxOptions, thrownError) {
+                                        console.log(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
+                                    }
+                                });
+                            });
+                        }
+                    }, false);
+                });
+            } else {
+                console.log('Not eligible for CCF');
             }
-        {% endif %}
+        } catch (error) {
+            console.error('PayPal Card failed during startup', error);
+        }
+    {% endif %}
     }
 
     function showPayPalAlert(json) {
@@ -635,6 +635,7 @@
         script.onload = paypalReady();
 
         var paypal_form = document.querySelector('#paypal_form');
+
         paypal_form.appendChild(script);
     } else {
         setupPayPal();

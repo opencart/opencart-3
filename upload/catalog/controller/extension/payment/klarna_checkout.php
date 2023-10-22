@@ -1170,12 +1170,12 @@ class ControllerExtensionPaymentKlarnaCheckout extends Controller {
 
 		$data['continue'] = $this->url->link('common/home');
 
-		$data['column_left']    = $this->load->controller('common/column_left');
-		$data['column_right']   = $this->load->controller('common/column_right');
-		$data['content_top']    = $this->load->controller('common/content_top');
+		$data['column_left'] = $this->load->controller('common/column_left');
+		$data['column_right'] = $this->load->controller('common/column_right');
+		$data['content_top'] = $this->load->controller('common/content_top');
 		$data['content_bottom'] = $this->load->controller('common/content_bottom');
-		$data['footer']         = $this->load->controller('common/footer');
-		$data['header']         = $this->load->controller('common/header');
+		$data['footer'] = $this->load->controller('common/footer');
+		$data['header']	= $this->load->controller('common/header');
 
 		$this->load->model('extension/payment/klarna_checkout');
 		$this->load->model('checkout/order');
@@ -1478,8 +1478,8 @@ class ControllerExtensionPaymentKlarnaCheckout extends Controller {
 		$this->load->language('checkout/checkout');
 
 		$order_data['invoice_prefix'] = $this->config->get('config_invoice_prefix');
-		$order_data['store_id']       = $this->config->get('config_store_id');
-		$order_data['store_name']     = $this->config->get('config_name');
+		$order_data['store_id'] = $this->config->get('config_store_id');
+		$order_data['store_name'] = $this->config->get('config_name');
 
 		if ($order_data['store_id']) {
 			$order_data['store_url'] = $this->config->get('config_url');
@@ -1493,37 +1493,37 @@ class ControllerExtensionPaymentKlarnaCheckout extends Controller {
 
 			$customer_info = $this->model_account_customer->getCustomer($this->customer->getId());
 
-			$order_data['customer_id']       = $this->customer->getId();
+			$order_data['customer_id'] = $this->customer->getId();
 			$order_data['customer_group_id'] = $customer_info['customer_group_id'];
-			$order_data['firstname']         = $customer_info['firstname'];
-			$order_data['lastname']          = $customer_info['lastname'];
-			$order_data['email']             = $customer_info['email'];
-			$order_data['telephone']         = $customer_info['telephone'];
-			$order_data['custom_field']      = json_decode($customer_info['custom_field'], true);
+			$order_data['firstname'] = $customer_info['firstname'];
+			$order_data['lastname'] = $customer_info['lastname'];
+			$order_data['email'] = $customer_info['email'];
+			$order_data['telephone'] = $customer_info['telephone'];
+			$order_data['custom_field'] = json_decode($customer_info['custom_field'], true);
 		}
 		elseif (isset($this->session->data['guest'])) {
-			$order_data['customer_id']       = 0;
+			$order_data['customer_id'] = 0;
 			$order_data['customer_group_id'] = $this->session->data['guest']['customer_group_id'];
-			$order_data['firstname']         = $this->session->data['guest']['firstname'];
-			$order_data['lastname']          = $this->session->data['guest']['lastname'];
-			$order_data['email']             = $this->session->data['guest']['email'];
-			$order_data['telephone']         = $this->session->data['guest']['telephone'];
-			$order_data['custom_field']      = $this->session->data['guest']['custom_field'];
+			$order_data['firstname'] = $this->session->data['guest']['firstname'];
+			$order_data['lastname'] = $this->session->data['guest']['lastname'];
+			$order_data['email'] = $this->session->data['guest']['email'];
+			$order_data['telephone'] = $this->session->data['guest']['telephone'];
+			$order_data['custom_field'] = $this->session->data['guest']['custom_field'];
 		}
 
-		$order_data['payment_firstname']      = $this->session->data['payment_address']['firstname'];
-		$order_data['payment_lastname']       = $this->session->data['payment_address']['lastname'];
-		$order_data['payment_company']        = $this->session->data['payment_address']['company'];
-		$order_data['payment_address_1']      = $this->session->data['payment_address']['address_1'];
-		$order_data['payment_address_2']      = $this->session->data['payment_address']['address_2'];
-		$order_data['payment_city']           = $this->session->data['payment_address']['city'];
-		$order_data['payment_postcode']       = $this->session->data['payment_address']['postcode'];
-		$order_data['payment_zone']           = $this->session->data['payment_address']['zone'];
-		$order_data['payment_zone_id']        = $this->session->data['payment_address']['zone_id'];
-		$order_data['payment_country']        = $this->session->data['payment_address']['country'];
-		$order_data['payment_country_id']     = $this->session->data['payment_address']['country_id'];
+		$order_data['payment_firstname'] = $this->session->data['payment_address']['firstname'];
+		$order_data['payment_lastname'] = $this->session->data['payment_address']['lastname'];
+		$order_data['payment_company'] = $this->session->data['payment_address']['company'];
+		$order_data['payment_address_1'] = $this->session->data['payment_address']['address_1'];
+		$order_data['payment_address_2'] = $this->session->data['payment_address']['address_2'];
+		$order_data['payment_city'] = $this->session->data['payment_address']['city'];
+		$order_data['payment_postcode'] = $this->session->data['payment_address']['postcode'];
+		$order_data['payment_zone'] = $this->session->data['payment_address']['zone'];
+		$order_data['payment_zone_id'] = $this->session->data['payment_address']['zone_id'];
+		$order_data['payment_country'] = $this->session->data['payment_address']['country'];
+		$order_data['payment_country_id'] = $this->session->data['payment_address']['country_id'];
 		$order_data['payment_address_format'] = $this->session->data['payment_address']['address_format'];
-		$order_data['payment_custom_field']   = (isset($this->session->data['payment_address']['custom_field']) ? $this->session->data['payment_address']['custom_field'] : []);
+		$order_data['payment_custom_field'] = (isset($this->session->data['payment_address']['custom_field']) ? $this->session->data['payment_address']['custom_field'] : []);
 
 		if (isset($this->session->data['payment_method']['title'])) {
 			$order_data['payment_method'] = $this->session->data['payment_method']['title'];
@@ -1540,19 +1540,19 @@ class ControllerExtensionPaymentKlarnaCheckout extends Controller {
 		}
 
 		if ($this->cart->hasShipping()) {
-			$order_data['shipping_firstname']      = $this->session->data['shipping_address']['firstname'];
-			$order_data['shipping_lastname']       = $this->session->data['shipping_address']['lastname'];
-			$order_data['shipping_company']        = $this->session->data['shipping_address']['company'];
-			$order_data['shipping_address_1']      = $this->session->data['shipping_address']['address_1'];
-			$order_data['shipping_address_2']      = $this->session->data['shipping_address']['address_2'];
-			$order_data['shipping_city']           = $this->session->data['shipping_address']['city'];
-			$order_data['shipping_postcode']       = $this->session->data['shipping_address']['postcode'];
-			$order_data['shipping_zone']           = $this->session->data['shipping_address']['zone'];
-			$order_data['shipping_zone_id']        = $this->session->data['shipping_address']['zone_id'];
-			$order_data['shipping_country']        = $this->session->data['shipping_address']['country'];
-			$order_data['shipping_country_id']     = $this->session->data['shipping_address']['country_id'];
+			$order_data['shipping_firstname'] = $this->session->data['shipping_address']['firstname'];
+			$order_data['shipping_lastname'] = $this->session->data['shipping_address']['lastname'];
+			$order_data['shipping_company'] = $this->session->data['shipping_address']['company'];
+			$order_data['shipping_address_1'] = $this->session->data['shipping_address']['address_1'];
+			$order_data['shipping_address_2'] = $this->session->data['shipping_address']['address_2'];
+			$order_data['shipping_city'] = $this->session->data['shipping_address']['city'];
+			$order_data['shipping_postcode'] = $this->session->data['shipping_address']['postcode'];
+			$order_data['shipping_zone'] = $this->session->data['shipping_address']['zone'];
+			$order_data['shipping_zone_id'] = $this->session->data['shipping_address']['zone_id'];
+			$order_data['shipping_country'] = $this->session->data['shipping_address']['country'];
+			$order_data['shipping_country_id'] = $this->session->data['shipping_address']['country_id'];
 			$order_data['shipping_address_format'] = $this->session->data['shipping_address']['address_format'];
-			$order_data['shipping_custom_field']   = (isset($this->session->data['shipping_address']['custom_field']) ? $this->session->data['shipping_address']['custom_field'] : []);
+			$order_data['shipping_custom_field'] = (isset($this->session->data['shipping_address']['custom_field']) ? $this->session->data['shipping_address']['custom_field'] : []);
 
 			if (isset($this->session->data['shipping_method']['title'])) {
 				$order_data['shipping_method'] = $this->session->data['shipping_method']['title'];
@@ -1566,21 +1566,21 @@ class ControllerExtensionPaymentKlarnaCheckout extends Controller {
 				$order_data['shipping_code'] = '';
 			}
 		} else {
-			$order_data['shipping_firstname']      = '';
-			$order_data['shipping_lastname']       = '';
-			$order_data['shipping_company']        = '';
-			$order_data['shipping_address_1']      = '';
-			$order_data['shipping_address_2']      = '';
-			$order_data['shipping_city']           = '';
-			$order_data['shipping_postcode']       = '';
-			$order_data['shipping_zone']           = '';
-			$order_data['shipping_zone_id']        = '';
-			$order_data['shipping_country']        = '';
-			$order_data['shipping_country_id']     = '';
+			$order_data['shipping_firstname'] = '';
+			$order_data['shipping_lastname'] = '';
+			$order_data['shipping_company'] = '';
+			$order_data['shipping_address_1'] = '';
+			$order_data['shipping_address_2'] = '';
+			$order_data['shipping_city'] = '';
+			$order_data['shipping_postcode'] = '';
+			$order_data['shipping_zone'] = '';
+			$order_data['shipping_zone_id'] = '';
+			$order_data['shipping_country'] = '';
+			$order_data['shipping_country_id'] = '';
 			$order_data['shipping_address_format'] = '';
-			$order_data['shipping_custom_field']   = [];
-			$order_data['shipping_method']         = '';
-			$order_data['shipping_code']           = '';
+			$order_data['shipping_custom_field'] = [];
+			$order_data['shipping_method'] = '';
+			$order_data['shipping_code'] = '';
 		}
 
 		$order_data['products'] = [];
@@ -1635,7 +1635,7 @@ class ControllerExtensionPaymentKlarnaCheckout extends Controller {
 		}
 
 		$order_data['comment'] = $this->session->data['comment'];
-		$order_data['total']   = $total;
+		$order_data['total'] = $total;
 
 		if (isset($this->request->cookie['tracking'])) {
 			$order_data['tracking'] = $this->request->cookie['tracking'];
@@ -1649,10 +1649,10 @@ class ControllerExtensionPaymentKlarnaCheckout extends Controller {
 
 			if ($affiliate_info) {
 				$order_data['affiliate_id'] = $affiliate_info['affiliate_id'];
-				$order_data['commission']   = ($subtotal / 100) * $affiliate_info['commission'];
+				$order_data['commission'] = ($subtotal / 100) * $affiliate_info['commission'];
 			} else {
 				$order_data['affiliate_id'] = 0;
-				$order_data['commission']   = 0;
+				$order_data['commission'] = 0;
 			}
 
 			// Marketing
@@ -1667,16 +1667,16 @@ class ControllerExtensionPaymentKlarnaCheckout extends Controller {
 			}
 		} else {
 			$order_data['affiliate_id'] = 0;
-			$order_data['commission']   = 0;
+			$order_data['commission'] = 0;
 			$order_data['marketing_id'] = 0;
-			$order_data['tracking']     = '';
+			$order_data['tracking'] = '';
 		}
 
-		$order_data['language_id']    = $this->config->get('config_language_id');
-		$order_data['currency_id']    = $this->currency->getId($this->session->data['currency']);
-		$order_data['currency_code']  = $this->session->data['currency'];
+		$order_data['language_id'] = $this->config->get('config_language_id');
+		$order_data['currency_id'] = $this->currency->getId($this->session->data['currency']);
+		$order_data['currency_code'] = $this->session->data['currency'];
 		$order_data['currency_value'] = $this->currency->getValue($this->session->data['currency']);
-		$order_data['ip']             = $this->request->server['REMOTE_ADDR'];
+		$order_data['ip'] = $this->request->server['REMOTE_ADDR'];
 
 		if (!empty($this->request->server['HTTP_X_FORWARDED_FOR'])) {
 			$order_data['forwarded_ip'] = $this->request->server['HTTP_X_FORWARDED_FOR'];
@@ -1815,9 +1815,9 @@ class ControllerExtensionPaymentKlarnaCheckout extends Controller {
 		}
 
 		$klarna_order_data['purchase_currency'] = $currency_code;
-		$klarna_order_data['locale']            = $klarna_account['locale'];
+		$klarna_order_data['locale'] = $klarna_account['locale'];
 
-		$klarna_order_data['order_amount']     = round($this->currency->format($total, $currency_code, $currency_value, false) * 100);
+		$klarna_order_data['order_amount'] = round($this->currency->format($total, $currency_code, $currency_value, false) * 100);
 		$klarna_order_data['order_tax_amount'] = round($this->currency->format(array_sum($taxes), $currency_code, $currency_value, false) * 100);
 
 		$klarna_order_data['merchant_urls'] = $merchant_urls;
@@ -1958,11 +1958,11 @@ class ControllerExtensionPaymentKlarnaCheckout extends Controller {
 
 		foreach ($totals as $result) {
 			if ($result['code'] == 'coupon') {
-				$discount_total_price     = 0;
+				$discount_total_price = 0;
 				$discount_sub_total_price = 0;
 
 				foreach ($this->cart->getProducts() as $product) {
-					$discount_total_price     += $this->tax->calculate($result['value'], $product['tax_class_id'], $include_taxes);
+					$discount_total_price += $this->tax->calculate($result['value'], $product['tax_class_id'], $include_taxes);
 					$discount_sub_total_price += $result['value'];
 				}
 
