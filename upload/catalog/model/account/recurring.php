@@ -5,7 +5,7 @@ class ModelAccountRecurring extends Model {
     }
 
     public function getRecurring(int $order_recurring_id): array {
-        $query = $this->db->query("SELECT `or`.*, o.`payment_method`, o.`payment_code`, o.`currency_code` FROM `" . DB_PREFIX . "order_recurring` `or` LEFT JOIN `" . DB_PREFIX . "order` o ON `or`.`order_id` = o.`order_id` WHERE `or`.`order_recurring_id` = '" . (int)$order_recurring_id . "' AND o.`customer_id` = '" . (int)$this->customer->getId() . "'");
+        $query = $this->db->query("SELECT `or`.*, `o`.`payment_method`, `o`.`payment_code`, `o`.`currency_code` FROM `" . DB_PREFIX . "order_recurring` `or` LEFT JOIN `" . DB_PREFIX . "order` `o` ON `or`.`order_id` = `o`.`order_id` WHERE `or`.`order_recurring_id` = '" . (int)$order_recurring_id . "' AND `o`.`customer_id` = '" . (int)$this->customer->getId() . "'");
 
         return $query->row;
     }
@@ -19,7 +19,7 @@ class ModelAccountRecurring extends Model {
             $limit = 1;
         }
 
-        $query = $this->db->query("SELECT `or`.*, o.`payment_method`, o.`currency_id`, o.`currency_value` FROM `" . DB_PREFIX . "order_recurring` `or` LEFT JOIN `" . DB_PREFIX . "order` o ON `or`.`order_id` = o.`order_id` WHERE o.`customer_id` = '" . (int)$this->customer->getId() . "' ORDER BY o.`order_id` DESC LIMIT " . (int)$start . "," . (int)$limit);
+        $query = $this->db->query("SELECT `or`.*, `o`.`payment_method`, `o`.`currency_id`, `o`.`currency_value` FROM `" . DB_PREFIX . "order_recurring` `or` LEFT JOIN `" . DB_PREFIX . "order` `o` ON `or`.`order_id` = `o`.`order_id` WHERE `o`.`customer_id` = '" . (int)$this->customer->getId() . "' ORDER BY `o`.`order_id` DESC LIMIT " . (int)$start . "," . (int)$limit);
 
         return $query->rows;
     }
@@ -37,7 +37,7 @@ class ModelAccountRecurring extends Model {
     }
 
     public function getTotalRecurrings(): int {
-        $query = $this->db->query("SELECT COUNT(*) AS `total` FROM `" . DB_PREFIX . "order_recurring` `or` LEFT JOIN `" . DB_PREFIX . "order` o ON `or`.`order_id` = o.`order_id` WHERE o.`customer_id` = '" . (int)$this->customer->getId() . "'");
+        $query = $this->db->query("SELECT COUNT(*) AS `total` FROM `" . DB_PREFIX . "order_recurring` `or` LEFT JOIN `" . DB_PREFIX . "order` `o` ON `or`.`order_id` = `o`.`order_id` WHERE `o`.`customer_id` = '" . (int)$this->customer->getId() . "'");
 
         return (int)$query->row['total'];
     }

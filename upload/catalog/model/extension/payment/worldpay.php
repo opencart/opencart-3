@@ -313,7 +313,7 @@ class ModelExtensionPaymentWorldpay extends Model {
     private function getProfiles() {
         $order_subscription = [];
 
-        $sql = "SELECT s.`subscription_id` FROM `" . DB_PREFIX . "subscription` s JOIN `" . DB_PREFIX . "order` o USING(`order_id`) WHERE o.`payment_code` = 'worldpay'";
+        $sql = "SELECT `s`.`subscription_id` FROM `" . DB_PREFIX . "subscription` `s` JOIN `" . DB_PREFIX . "order` `o` USING(`order_id`) WHERE `o`.`payment_code` = 'worldpay'";
 
         $query = $this->db->query($sql);
 

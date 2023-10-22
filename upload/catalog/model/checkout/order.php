@@ -132,14 +132,14 @@ class ModelCheckoutOrder extends Model {
         $this->db->query("DELETE FROM `" . DB_PREFIX . "order_voucher` WHERE `order_id` = '" . (int)$order_id . "'");
         $this->db->query("DELETE FROM `" . DB_PREFIX . "order_total` WHERE `order_id` = '" . (int)$order_id . "'");
         $this->db->query("DELETE FROM `" . DB_PREFIX . "order_history` WHERE `order_id` = '" . (int)$order_id . "'");
-        $this->db->query("DELETE s, srt FROM `" . DB_PREFIX . "subscription` s, `" . DB_PREFIX . "subscription_transaction` srt WHERE `order_id` = '" . (int)$order_id . "' AND srt.`subscription_id` = s.`subscription_id`");
+        $this->db->query("DELETE `s`, `srt` FROM `" . DB_PREFIX . "subscription` `s`, `" . DB_PREFIX . "subscription_transaction` `srt` WHERE `order_id` = '" . (int)$order_id . "' AND `srt`.`subscription_id` = `s`.`subscription_id`");
         $this->db->query("DELETE FROM `" . DB_PREFIX . "customer_transaction` WHERE `order_id` = '" . (int)$order_id . "'");
 
         // Recurring
         $query = $this->db->query("SELECT * FROM information_schema.COLUMNS WHERE TABLE_SCHEMA = '" . DB_DATABASE . "' AND TABLE_NAME = '" . DB_PREFIX . "order_recurring' AND TABLE_NAME = '" . DB_PREFIX . "order_recurring_transaction'");
 
         if ($query->num_rows) {
-            $this->db->query("DELETE `or`, ort FROM `" . DB_PREFIX . "order_recurring` `or`, `" . DB_PREFIX . "order_recurring_transaction` `ort` WHERE `order_id` = '" . (int)$order_id . "' AND ort.`order_recurring_id` = `or`.`order_recurring_id`");
+            $this->db->query("DELETE `or`, `ort` FROM `" . DB_PREFIX . "order_recurring` `or`, `" . DB_PREFIX . "order_recurring_transaction` `ort` WHERE `order_id` = '" . (int)$order_id . "' AND `ort`.`order_recurring_id` = `or`.`order_recurring_id`");
         }
 
         // Gift Voucher
@@ -149,7 +149,7 @@ class ModelCheckoutOrder extends Model {
     }
 
     public function getOrder(int $order_id): array {
-        $order_query = $this->db->query("SELECT *, (SELECT os.`name` FROM `" . DB_PREFIX . "order_status` os WHERE os.`order_status_id` = o.`order_status_id` AND os.`language_id` = o.`language_id`) AS `order_status` FROM `" . DB_PREFIX . "order` o WHERE o.`order_id` = '" . (int)$order_id . "'");
+        $order_query = $this->db->query("SELECT *, (SELECT `os`.`name` FROM `" . DB_PREFIX . "order_status` `os` WHERE `os`.`order_status_id` = `o`.`order_status_id` AND `os`.`language_id` = `o`.`language_id`) AS `order_status` FROM `" . DB_PREFIX . "order` `o` WHERE `o`.`order_id` = '" . (int)$order_id . "'");
 
         if ($order_query->num_rows) {
             $country_query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "country` WHERE `country_id` = '" . (int)$order_query->row['payment_country_id'] . "'");

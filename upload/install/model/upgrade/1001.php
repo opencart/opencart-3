@@ -149,7 +149,7 @@ class ModelUpgrade1001 extends Model {
 
             foreach ($query->rows as $language) {
                 // Get old tags
-                $query = $this->db->query("SELECT p.`product_id`, GROUP_CONCAT(DISTINCT pt.`tag` order by pt.`tag` ASC SEPARATOR ',') as tags FROM `" . DB_PREFIX . "product` p LEFT JOIN `" . DB_PREFIX . "product_tag` pt ON (p.`product_id` = pt.`product_id`) WHERE pt.`language_id` = '" . (int)$language['language_id'] . "' GROUP BY p.`product_id`");
+                $query = $this->db->query("SELECT `p`.`product_id`, GROUP_CONCAT(DISTINCT `pt`.`tag` ORDER BY `pt`.`tag` ASC SEPARATOR ',') AS `tags` FROM `" . DB_PREFIX . "product` `p` LEFT JOIN `" . DB_PREFIX . "product_tag` `pt` ON (`p`.`product_id` = `pt`.`product_id`) WHERE `pt`.`language_id` = '" . (int)$language['language_id'] . "' GROUP BY `p`.`product_id`");
 
                 if ($query->num_rows) {
                     foreach ($query->rows as $row) {

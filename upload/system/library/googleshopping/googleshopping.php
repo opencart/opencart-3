@@ -219,7 +219,7 @@ class Googleshopping extends Library {
     public function getProductVariationIds($page) {
         $this->load->config('googleshopping/googleshopping');
 
-        $sql = "SELECT DISTINCT pag.`product_id`, pag.`color`, pag.`size` FROM `" . DB_PREFIX . "googleshopping_product` pag LEFT JOIN `" . DB_PREFIX . "product` p ON (p.`product_id` = pag.`product_id`) LEFT JOIN `" . DB_PREFIX . "product_to_store` p2s ON (p2s.`product_id` = p.`product_id` AND p2s.`store_id` = '" . (int)$this->store_id . "') WHERE p2s.`store_id` IS NOT NULL AND p.`status` = '1' AND p.`date_available` <= NOW() AND p.`price` > '0' ORDER BY p.`product_id` ASC LIMIT " . (int)(($page - 1) * $this->config->get('advertise_google_report_limit')) . ',' . (int)$this->config->get('advertise_google_report_limit');
+        $sql = "SELECT DISTINCT `pag`.`product_id`, `pag`.`color`, `pag`.`size` FROM `" . DB_PREFIX . "googleshopping_product` `pag` LEFT JOIN `" . DB_PREFIX . "product` `p` ON (`p`.`product_id` = `pag`.`product_id`) LEFT JOIN `" . DB_PREFIX . "product_to_store` `p2s` ON (`p2s`.`product_id` = `p`.`product_id` AND `p2s`.`store_id` = '" . (int)$this->store_id . "') WHERE `p2s`.`store_id` IS NOT NULL AND `p`.`status` = '1' AND `p`.`date_available` <= NOW() AND `p`.`price` > '0' ORDER BY `p`.`product_id` ASC LIMIT " . (int)(($page - 1) * $this->config->get('advertise_google_report_limit')) . ',' . (int)$this->config->get('advertise_google_report_limit');
 
         $result = [];
 
@@ -463,7 +463,7 @@ class Googleshopping extends Library {
     }
 
     public function getProductOptionValueNames($product_id, $language_id, $option_id) {
-        $sql = "SELECT DISTINCT pov.`product_option_value_id`, ovd.`name` FROM `" . DB_PREFIX . "product_option_value` pov LEFT JOIN `" . DB_PREFIX . "option_value_description` ovd ON (ovd.`option_value_id` = pov.`option_value_id`) WHERE pov.`product_id` = '" . (int)$product_id . "' AND pov.`option_id` = '" . (int)$option_id . "' AND ovd.`language_id` = '" . (int)$language_id . "'";
+        $sql = "SELECT DISTINCT `pov`.`product_option_value_id`, `ovd`.`name` FROM `" . DB_PREFIX . "product_option_value` `pov` LEFT JOIN `" . DB_PREFIX . "option_value_description` `ovd` ON (`ovd`.`option_value_id` = `pov`.`option_value_id`) WHERE `pov`.`product_id` = '" . (int)$product_id . "' AND `pov`.`option_id` = '" . (int)$option_id . "' AND `ovd`.`language_id` = '" . (int)$language_id . "'";
 
         $result = $this->db->query($sql);
 
@@ -485,32 +485,32 @@ class Googleshopping extends Library {
 
     public function applyFilter(&$sql, &$data) {
         if (!empty($data['filter_product_name'])) {
-            $sql .= " AND pd.`name` LIKE '" . $this->db->escape($data['filter_product_name']) . "%'";
+            $sql .= " AND `pd`.`name` LIKE '" . $this->db->escape($data['filter_product_name']) . "%'";
         }
 
         if (!empty($data['filter_product_model'])) {
-            $sql .= " AND p.`model` LIKE '" . $this->db->escape($data['filter_product_model']) . "%'";
+            $sql .= " AND `p`.`model` LIKE '" . $this->db->escape($data['filter_product_model']) . "%'";
         }
 
         if (!empty($data['filter_category_id'])) {
-            $sql .= " AND p.`product_id` IN (SELECT p2c_t.`product_id` FROM `" . DB_PREFIX . "category_path` cp_t LEFT JOIN `" . DB_PREFIX . "product_to_category` p2c_t ON (p2c_t.`category_id` = cp_t.`category_id`) WHERE cp_t.`path_id` = '" . (int)$data['filter_category_id'] . "')";
+            $sql .= " AND `p`.`product_id` IN (SELECT `p2c_t`.`product_id` FROM `" . DB_PREFIX . "category_path` `cp_t` LEFT JOIN `" . DB_PREFIX . "product_to_category` `p2c_t` ON (`p2c_t`.`category_id` = `cp_t`.`category_id`) WHERE `cp_t`.`path_id` = '" . (int)$data['filter_category_id'] . "')";
         }
 
         if (isset($data['filter_is_modified']) && $data['filter_is_modified'] !== '') {
-            $sql .= " AND p.`product_id` IN (SELECT pag_t.`product_id` FROM `" . DB_PREFIX . "googleshopping_product` pag_t WHERE pag_t.`is_modified` = '" . (int)$data['filter_is_modified'] . "')";
+            $sql .= " AND `p`.`product_id` IN (SELECT `pag_t`.`product_id` FROM `" . DB_PREFIX . "googleshopping_product` `pag_t` WHERE `pag_t`.`is_modified` = '" . (int)$data['filter_is_modified'] . "')";
         }
 
         if (!empty($data['filter_store_id'])) {
-            $sql .= " AND p.`product_id` IN (SELECT p2s_t.`product_id` FROM `" . DB_PREFIX . "product_to_store` p2s_t WHERE p2s_t.`store_id` = '" . (int)$data['filter_store_id'] . "')";
+            $sql .= " AND `p`.`product_id` IN (SELECT `p2s_t`.`product_id` FROM `" . DB_PREFIX . "product_to_store` `p2s_t` WHERE `p2s_t`.`store_id` = '" . (int)$data['filter_store_id'] . "')";
         }
     }
 
     public function getProducts($data, $store_id) {
-        $sql = "SELECT pag.*, p.`product_id`, p.`image`, pd.`name`, p.`model` FROM `" . DB_PREFIX . "product` p LEFT JOIN `" . DB_PREFIX . "product_description` pd ON (p.`product_id` = pd.`product_id`) LEFT JOIN `" . DB_PREFIX . "googleshopping_product` pag ON (pag.`product_id` = p.`product_id` AND pag.`store_id` = '" . (int)$store_id . "') WHERE pag.`store_id` IS NOT NULL AND pd.`language_id` = '" . (int)$this->config->get('config_language_id') . "'";
+        $sql = "SELECT `pag`.*, `p`.`product_id`, `p`.`image`, `pd`.`name`, `p`.`model` FROM `" . DB_PREFIX . "product` `p` LEFT JOIN `" . DB_PREFIX . "product_description` `pd` ON (`p`.`product_id` = `pd`.`product_id`) LEFT JOIN `" . DB_PREFIX . "googleshopping_product` `pag` ON (`pag`.`product_id` = `p`.`product_id` AND `pag`.`store_id` = '" . (int)$store_id . "') WHERE `pag`.`store_id` IS NOT NULL AND `pd`.`language_id` = '" . (int)$this->config->get('config_language_id') . "'";
 
         $this->applyFilter($sql, $data);
 
-        $sql .= " GROUP BY p.`product_id`";
+        $sql .= " GROUP BY `p`.`product_id`";
 
         $sort_data = [
             'name',
@@ -552,7 +552,7 @@ class Googleshopping extends Library {
     }
 
     public function getTotalProducts($data, $store_id) {
-        $sql = "SELECT COUNT(*) AS `total` FROM `" . DB_PREFIX . "product` p LEFT JOIN `" . DB_PREFIX . "product_description` pd ON (p.`product_id` = pd.`product_id`) LEFT JOIN `" . DB_PREFIX . "googleshopping_product` pag ON (pag.`product_id` = p.`product_id` AND pag.`store_id` = '" . (int)$store_id . "') WHERE pag.`store_id` IS NOT NULL AND pd.`language_id` = '" . (int)$this->config->get('config_language_id') . "'";
+        $sql = "SELECT COUNT(*) AS `total` FROM `" . DB_PREFIX . "product` `p` LEFT JOIN `" . DB_PREFIX . "product_description` `pd` ON (`p`.`product_id` = `pd`.`product_id`) LEFT JOIN `" . DB_PREFIX . "googleshopping_product` `pag` ON (`pag`.`product_id` = `p`.`product_id` AND `pag`.`store_id` = '" . (int)$store_id . "') WHERE `pag`.`store_id` IS NOT NULL AND `pd`.`language_id` = '" . (int)$this->config->get('config_language_id') . "'";
 
         $this->applyFilter($sql, $data);
 
@@ -1094,7 +1094,7 @@ class Googleshopping extends Library {
     protected function getFeedProductsQuery($page, $language_id) {
         $this->load->config('googleshopping/googleshopping');
 
-        $sql = "SELECT p.`product_id`, pd.`name`, pd.`description`, p.`image`, p.`quantity`, p.`price`, p.`mpn`, p.`ean`, p.`jan`, p.`isbn`, p.`upc`, p.`model`, p.`tax_class_id`, IFNULL((SELECT m.`name` FROM `" . DB_PREFIX . "manufacturer` m WHERE m.`manufacturer_id` = p.`manufacturer_id`), '') AS brand, (SELECT GROUP_CONCAT(agt.`campaign_name` SEPARATOR '<[S]>') FROM `" . DB_PREFIX . "googleshopping_product_target` pagt LEFT JOIN `" . DB_PREFIX . "googleshopping_target` agt ON (agt.`advertise_google_target_id` = pagt.`advertise_google_target_id`) WHERE pagt.`product_id` = p.`product_id` AND pagt.`store_id` = p2s.`store_id` GROUP BY pagt.`product_id`) AS campaign_names, (SELECT CONCAT_WS('<[S]>', ps.`price`, ps.`date_start`, ps.`date_end`) FROM `" . DB_PREFIX . "product_special` ps WHERE ps.`product_id` = p.`product_id` AND ps.`customer_group_id` = '" . (int)$this->config->get('config_customer_group_id') . "' AND ((ps.`date_start` = '0000-00-00' OR ps.`date_start` < NOW()) AND (ps.`date_end` = '0000-00-00' OR ps.`date_end` > NOW())) ORDER BY ps.`priority` ASC, ps.`price` ASC LIMIT 1) AS special_price, pag.`google_product_category`, pag.`condition`, pag.`adult`, pag.`multipack`, pag.`is_bundle`, pag.`age_group`, pag.`color`, pag.`gender`, pag.`size_type`, pag.`size_system`, pag.`size` FROM `" . DB_PREFIX . "product` p LEFT JOIN `" . DB_PREFIX . "product_to_store` p2s ON (p2s.`product_id` = p.`product_id` AND p2s.`store_id` = '" . (int)$this->store_id . "') LEFT JOIN `" . DB_PREFIX . "product_description` pd ON (pd.`product_id` = p.`product_id`) LEFT JOIN `" . DB_PREFIX . "googleshopping_product` pag ON (pag.`product_id` = p.`product_id` AND pag.`store_id` = p2s.`store_id`) WHERE p2s.`store_id` IS NOT NULL AND pd.`language_id` = '" . (int)$language_id . "' AND pd.`name` != '' AND pd.`description` != '' AND pd.`name` IS NOT NULL AND pd.`description` IS NOT NULL AND p.`image` != '' AND p.`status` = '1' AND p.`date_available` <= NOW() AND p.`price` > '0' ORDER BY p.`product_id` ASC LIMIT " . (int)(($page - 1) * $this->config->get('advertise_google_push_limit')) . ',' . (int)$this->config->get('advertise_google_push_limit');
+        $sql = "SELECT `p`.`product_id`, `pd`.`name`, `pd`.`description`, `p`.`image`, `p`.`quantity`, `p`.`price`, `p`.`mpn`, `p`.`ean`, `p`.`jan`, `p`.`isbn`, `p`.`upc`, `p`.`model`, `p`.`tax_class_id`, IFNULL((SELECT `m`.`name` FROM `" . DB_PREFIX . "manufacturer` `m` WHERE `m`.`manufacturer_id` = `p`.`manufacturer_id`), '') AS `brand`, (SELECT GROUP_CONCAT(`agt`.`campaign_name` SEPARATOR '<[S]>') FROM `" . DB_PREFIX . "googleshopping_product_target` `pagt` LEFT JOIN `" . DB_PREFIX . "googleshopping_target` `agt` ON (`agt`.`advertise_google_target_id` = `pagt`.`advertise_google_target_id`) WHERE `pagt`.`product_id` = `p`.`product_id` AND `pagt`.`store_id` = `p2s`.`store_id` GROUP BY `pagt`.`product_id`) AS `campaign_names`, (SELECT CONCAT_WS('<[S]>', `ps`.`price`, `ps`.`date_start`, `ps`.`date_end`) FROM `" . DB_PREFIX . "product_special` `ps` WHERE `ps`.`product_id` = `p`.`product_id` AND `ps`.`customer_group_id` = '" . (int)$this->config->get('config_customer_group_id') . "' AND ((`ps`.`date_start` = '0000-00-00' OR `ps`.`date_start` < NOW()) AND (`ps`.`date_end` = '0000-00-00' OR `ps`.`date_end` > NOW())) ORDER BY `ps`.`priority` ASC, `ps`.`price` ASC LIMIT 1) AS `special_price`, `pag`.`google_product_category`, `pag`.`condition`, `pag`.`adult`, `pag`.`multipack`, `pag`.`is_bundle`, `pag`.`age_group`, `pag`.`color`, `pag`.`gender`, `pag`.`size_type`, `pag`.`size_system`, `pag`.`size` FROM `" . DB_PREFIX . "product` `p` LEFT JOIN `" . DB_PREFIX . "product_to_store` `p2s` ON (`p2s`.`product_id` = `p`.`product_id` AND `p2s`.`store_id` = '" . (int)$this->store_id . "') LEFT JOIN `" . DB_PREFIX . "product_description` `pd` ON (`pd`.`product_id` = `p`.`product_id`) LEFT JOIN `" . DB_PREFIX . "googleshopping_product` `pag` ON (`pag`.`product_id` = `p`.`product_id` AND `pag`.`store_id` = `p2s`.`store_id`) WHERE `p2s`.`store_id` IS NOT NULL AND `pd`.`language_id` = '" . (int)$language_id . "' AND `pd`.`name` != '' AND `pd`.`description` != '' AND `pd`.`name` IS NOT NULL AND `pd`.`description` IS NOT NULL AND `p`.`image` != '' AND `p`.`status` = '1' AND `p`.`date_available` <= NOW() AND `p`.`price` > '0' ORDER BY `p`.`product_id` ASC LIMIT " . (int)(($page - 1) * $this->config->get('advertise_google_push_limit')) . ',' . (int)$this->config->get('advertise_google_push_limit');
 
         return $sql;
     }

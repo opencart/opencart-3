@@ -13,35 +13,35 @@ class ModelAccountSubscription extends Model {
     }
 
     public function getSubscription(int $subscription_id): array {
-        $query = $this->db->query("SELECT s.*, o.`payment_method`, o.`payment_code`, o.`currency_code` FROM `" . DB_PREFIX . "subscription` s LEFT JOIN `" . DB_PREFIX . "order` o ON (s.`order_id` = o.`order_id`) WHERE s.`subscription_id` = '" . (int)$subscription_id . "' AND o.`customer_id` = '" . (int)$this->customer->getId() . "'");
+        $query = $this->db->query("SELECT `s`.*, `o`.`payment_method`, `o`.`payment_code`, `o`.`currency_code` FROM `" . DB_PREFIX . "subscription` `s` LEFT JOIN `" . DB_PREFIX . "order` `o` ON (`s`.`order_id` = `o`.`order_id`) WHERE `s`.`subscription_id` = '" . (int)$subscription_id . "' AND `o`.`customer_id` = '" . (int)$this->customer->getId() . "'");
 
         return $query->row;
     }
 
     public function getSubscriptions(array $data): array {
-        $sql = "SELECT s.`subscription_id`, s.`trial_status`, s.`trial_duration`, s.`trial_remaining`, s.`duration`, s.`remaining`, s.`customer_payment_id`, s.`trial_cycle`, s.`trial_frequency`, s.`cycle`, s.`frequency`, o.*, o.`payment_method`, o.`currency_id`, o.`currency_value` FROM `" . DB_PREFIX . "subscription` s LEFT JOIN `" . DB_PREFIX . "order` o ON (s.`order_id` = o.`order_id`)";
+        $sql = "SELECT `s`.`subscription_id`, `s`.`trial_status`, `s`.`trial_duration`, `s`.`trial_remaining`, `s`.`duration`, `s`.`remaining`, `s`.`customer_payment_id`, `s`.`trial_cycle`, `s`.`trial_frequency`, `s`.`cycle`, `s`.`frequency`, `o`.*, `o`.`payment_method`, `o`.`currency_id`, `o`.`currency_value` FROM `" . DB_PREFIX . "subscription` `s` LEFT JOIN `" . DB_PREFIX . "order` `o` ON (`s`.`order_id` = `o`.`order_id`)";
 
         $implode = [];
 
-        $implode[] = "o.`customer_id` = '" . (int)$this->customer->getId() . "'";
+        $implode[] = "`o`.`customer_id` = '" . (int)$this->customer->getId() . "'";
 
         if (!empty($data['filter_subscription_id'])) {
-            $implode[] = "s.`subscription_id` = '" . (int)$data['filter_subscription_id'] . "'";
+            $implode[] = "`s`.`subscription_id` = '" . (int)$data['filter_subscription_id'] . "'";
         }
 
         if (!empty($data['filter_date_next'])) {
-            $implode[] = "DATE(s.`date_next`) = DATE('" . $this->db->escape($data['filter_date_next']) . "')";
+            $implode[] = "DATE(`s`.`date_next`) = DATE('" . $this->db->escape($data['filter_date_next']) . "')";
         }
 
         if (!empty($data['filter_subscription_status_id'])) {
-            $implode[] = "s.`subscription_status_id` = '" . (int)$data['filter_subscription_status_id'] . "'";
+            $implode[] = "`s`.`subscription_status_id` = '" . (int)$data['filter_subscription_status_id'] . "'";
         }
 
         if ($implode) {
             $sql .= " WHERE " . implode(" AND ", $implode);
         }
 
-        $sql .= " ORDER BY o.`order_id` DESC";
+        $sql .= " ORDER BY `o`.`order_id` DESC";
 
         if (isset($data['start']) || isset($data['limit'])) {
             if ($data['start'] < 0) {
@@ -67,22 +67,22 @@ class ModelAccountSubscription extends Model {
     }
 
     public function getTotalSubscriptions(array $data = []): int {
-        $sql = "SELECT COUNT(*) AS `total` FROM `" . DB_PREFIX . "subscription` s LEFT JOIN `" . DB_PREFIX . "order` o ON (s.`order_id` = o.`order_id`)";
+        $sql = "SELECT COUNT(*) AS `total` FROM `" . DB_PREFIX . "subscription` `s` LEFT JOIN `" . DB_PREFIX . "order` `o` ON (`s`.`order_id` = `o`.`order_id`)";
 
         $implode = [];
 
-        $implode[] = "o.`customer_id` = '" . (int)$this->customer->getId() . "'";
+        $implode[] = "`o`.`customer_id` = '" . (int)$this->customer->getId() . "'";
 
         if (!empty($data['filter_subscription_id'])) {
-            $implode[] = "s.`subscription_id` = '" . (int)$data['filter_subscription_id'] . "'";
+            $implode[] = "`s`.`subscription_id` = '" . (int)$data['filter_subscription_id'] . "'";
         }
 
         if (!empty($data['filter_date_next'])) {
-            $implode[] = "DATE(s.`date_next`) = DATE('" . $this->db->escape($data['filter_date_next']) . "')";
+            $implode[] = "DATE(`s`.`date_next`) = DATE('" . $this->db->escape($data['filter_date_next']) . "')";
         }
 
         if (!empty($data['filter_subscription_status_id'])) {
-            $implode[] = "s.`subscription_status_id` = '" . (int)$data['filter_subscription_status_id'] . "'";
+            $implode[] = "`s`.`subscription_status_id` = '" . (int)$data['filter_subscription_status_id'] . "'";
         }
 
         if ($implode) {

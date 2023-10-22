@@ -421,7 +421,7 @@ class ModelExtensionPaymentSagePayServer extends Model {
         // Subscription
         $this->load->model('account/subscription');
 
-        $sql = "SELECT s.`subscription_id` FROM `" . DB_PREFIX . "subscription` s JOIN `" . DB_PREFIX . "order` o USING(`order_id`) WHERE o.`payment_code` = 'sagepay_server'";
+        $sql = "SELECT `s`.`subscription_id` FROM `" . DB_PREFIX . "subscription` `s` JOIN `" . DB_PREFIX . "order` `o` USING(`order_id`) WHERE `o`.`payment_code` = 'sagepay_server'";
 
         $query = $this->db->query($sql);
 

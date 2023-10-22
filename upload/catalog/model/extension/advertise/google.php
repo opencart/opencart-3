@@ -3,7 +3,7 @@ class ModelExtensionAdvertiseGoogle extends Model {
     public function getHumanReadableCategory($product_id, $store_id) {
         $this->load->config('googleshopping/googleshopping');
 
-        $google_category_result = $this->db->query("SELECT `google_product_category` FROM `" . DB_PREFIX . "googleshopping_product` pag WHERE pag.`product_id` = '" . (int)$product_id . "' AND pag.`store_id` = '" . (int)$store_id . "'");
+        $google_category_result = $this->db->query("SELECT `google_product_category` FROM `" . DB_PREFIX . "googleshopping_product` `pag` WHERE `pag`.`product_id` = '" . (int)$product_id . "' AND `pag`.`store_id` = '" . (int)$store_id . "'");
 
         if ($google_category_result->num_rows > 0) {
             $google_category_id = $google_category_result->row['google_product_category'];
@@ -14,7 +14,7 @@ class ModelExtensionAdvertiseGoogle extends Model {
             }
         }
 
-        $oc_category_result = $this->db->query("SELECT c.`category_id` FROM `" . DB_PREFIX . "product_to_category` p2c LEFT JOIN `" . DB_PREFIX . "category` c ON (c.`category_id` = p2c.`category_id`) WHERE p2c.`product_id` = '" . (int)$product_id . "' LIMIT 0,1");
+        $oc_category_result = $this->db->query("SELECT `c`.`category_id` FROM `" . DB_PREFIX . "product_to_category` `p2c` LEFT JOIN `" . DB_PREFIX . "category` `c` ON (`c`.`category_id` = `p2c`.`category_id`) WHERE `p2c`.`product_id` = '" . (int)$product_id . "' LIMIT 0,1");
 
         if ($oc_category_result->num_rows > 0) {
             return $this->getHumanReadableOpenCartCategory((int)$oc_category_result->row['category_id']);
@@ -24,7 +24,7 @@ class ModelExtensionAdvertiseGoogle extends Model {
     }
 
     public function getHumanReadableOpenCartCategory($category_id) {
-        $sql = "SELECT GROUP_CONCAT(cd.`name` ORDER BY cp.`level` SEPARATOR ' > ') AS path FROM `" . DB_PREFIX . "category_path` cp LEFT JOIN `" . DB_PREFIX . "category_description` cd ON (cp.`path_id` = cd.`category_id`) WHERE cd.`language_id` = '" . (int)$this->config->get('config_language_id') . "' AND cp.`category_id` = '" . (int)$category_id . "'";
+        $sql = "SELECT GROUP_CONCAT(`cd`.`name` ORDER BY `cp`.`level` SEPARATOR ' > ') AS `path` FROM `" . DB_PREFIX . "category_path` `cp` LEFT JOIN `" . DB_PREFIX . "category_description` `cd` ON (`cp`.`path_id` = `cd`.`category_id`) WHERE `cd`.`language_id` = '" . (int)$this->config->get('config_language_id') . "' AND `cp`.`category_id` = '" . (int)$category_id . "'";
 
         $result = $this->db->query($sql);
 
@@ -53,7 +53,7 @@ class ModelExtensionAdvertiseGoogle extends Model {
     }
 
     public function getCoupon($order_id) {
-        $sql = "SELECT c.`code` FROM `" . DB_PREFIX . "coupon_history` ch LEFT JOIN `" . DB_PREFIX . "coupon` c ON (c.`coupon_id` = ch.`coupon_id`) WHERE ch.`order_id` = '" . (int)$order_id . "'";
+        $sql = "SELECT `c`.`code` FROM `" . DB_PREFIX . "coupon_history` `ch` LEFT JOIN `" . DB_PREFIX . "coupon` `c` ON (`c`.`coupon_id` = `ch`.`coupon_id`) WHERE `ch`.`order_id` = '" . (int)$order_id . "'";
 
         $result = $this->db->query($sql);
 
@@ -126,7 +126,7 @@ class ModelExtensionAdvertiseGoogle extends Model {
     }
 
     protected function getOptionId($product_id, $store_id, $type) {
-        $sql = "SELECT pag.`" . $type . "` FROM `" . DB_PREFIX . "googleshopping_product` pag WHERE `product_id` = '" . (int)$product_id . "' AND `store_id` = '" . (int)$store_id . "'";
+        $sql = "SELECT `pag`.`" . $type . "` FROM `" . DB_PREFIX . "googleshopping_product` `pag` WHERE `product_id` = '" . (int)$product_id . "' AND `store_id` = '" . (int)$store_id . "'";
 
         $result = $this->db->query($sql);
 

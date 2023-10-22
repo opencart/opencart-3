@@ -228,7 +228,7 @@ class ModelExtensionPaymentSquareup extends Model {
 
         $this->load->library('squareup');
 
-        $subscription_sql = "SELECT * FROM `" . DB_PREFIX . "subscription` s INNER JOIN `" . DB_PREFIX . "squareup_transaction` st ON (st.`transaction_id` = s.`reference`) WHERE s.`status` = '" . self::RECURRING_ACTIVE . "'";
+        $subscription_sql = "SELECT * FROM `" . DB_PREFIX . "subscription` `s` INNER JOIN `" . DB_PREFIX . "squareup_transaction` `st` ON (`st`.`transaction_id` = `s`.`reference`) WHERE `s`.`status` = '" . self::RECURRING_ACTIVE . "'";
 
         // Orders
         $this->load->model('checkout/order');
@@ -257,11 +257,11 @@ class ModelExtensionPaymentSquareup extends Model {
             $price = (int)($subscription['trial_status'] ? $subscription['trial_price'] : $subscription['price']);
 
             $transaction = [
-                'idempotency_key'     => uniqid(),
-                'amount_money'        => [
-                    'amount'   => $this->squareup->lowestDenomination($price * $subscription['product_quantity'], $subscription['transaction_currency']),
-                    'currency' => $subscription['transaction_currency']
-                ],
+				'idempotency_key' => uniqid(),
+				'amount_money'    => [
+					'amount'   => $this->squareup->lowestDenomination($price * $subscription['product_quantity'], $subscription['transaction_currency']),
+					'currency' => $subscription['transaction_currency']
+				],
                 'billing_address'     => $billing_address,
                 'buyer_email_address' => $order_info['email'],
                 'delay_capture'       => false,
