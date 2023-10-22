@@ -46,7 +46,7 @@ class ModelLocalisationWeightClass extends Model {
             if (isset($data['sort']) && in_array($data['sort'], $sort_data)) {
                 $sql .= " ORDER BY " . $data['sort'];
             } else {
-                $sql .= " ORDER BY `wcd`.`title`";
+                $sql .= " ORDER BY `title`";
             }
 
             if (isset($data['order']) && ($data['order'] == 'DESC')) {
