@@ -12,7 +12,7 @@ class ControllerExtensionExtensionTheme extends Controller {
     }
 
     public function install(): void {
-        $this->load->language('extension/extension/feed');
+        $this->load->language('extension/extension/theme');
 
         // Extensions
         $this->load->model('setting/extension');
