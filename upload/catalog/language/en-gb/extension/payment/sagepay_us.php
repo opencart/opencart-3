@@ -1,8 +1,6 @@
 <?php
-// Heading
-$_['text_title']           = 'Credit Card / Debit Card (SagePay)';
-
 // Text
+$_['text_title']           = 'Credit Card / Debit Card (SagePay)';
 $_['text_credit_card']     = 'Credit Card Details';
 
 // Entry

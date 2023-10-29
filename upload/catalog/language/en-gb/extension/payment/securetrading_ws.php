@@ -1,8 +1,6 @@
 <?php
-// Heading
-$_['text_title']                        = 'Credit / Debit card';
-
 // Text
+$_['text_title']                        = 'Credit / Debit card';
 $_['text_card_details']                 = 'Card details';
 $_['text_wait']                         = 'Processing your payment';
 $_['text_auth_code']                    = 'Authorisation code: %s';

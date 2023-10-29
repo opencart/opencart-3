@@ -1,19 +1,11 @@
 <?php
 // Heading
 $_['text_title']         = 'Credit / Debit card (Globalpay)';
-
-// Buttin
-$_['button_confirm']     = 'Confirm';
-
-// Entry
-$_['entry_cc_type']      = 'Card Type';
-
-// Text
-$_['text_success']       = 'Your payment has been authorised.';
-$_['text_decline']       = 'Your payment was unsuccessful';
-$_['text_bank_error']    = 'There was an error processing your request with the bank.';
-$_['text_generic_error'] = 'There was an error processing your request.';
-$_['text_hash_failed']   = 'Hash check failed. Do not try your payment again as the payment status is unknown. Please contact the merchant.';
+$_['text_success']       = 'Your payment has been authorized.';
+$_['text_decline']       = 'Your payment was unsuccessful.';
+$_['text_bank_error']    = 'There was an error while processing your request with the bank.';
+$_['text_generic_error'] = 'There was an error while processing your request.';
+$_['text_hash_failed']   = 'Hash check failed. Do not try your payment again as the payment status is currently set to: unknown. Please contact the merchant.';
 $_['text_link']          = 'Please click <a href="%s">here</a> to continue';
 $_['text_select_card']   = 'Please select your card type';
 $_['text_result']        = 'Auth result';
@@ -46,3 +38,9 @@ $_['text_card_amex']     = 'American Express';
 $_['text_card_switch']   = 'Switch';
 $_['text_card_laser']    = 'Laser';
 $_['text_card_diners']   = 'Diners';
+
+// Button
+$_['button_confirm']     = 'Confirm';
+
+// Entry
+$_['entry_cc_type']      = 'Card Type';

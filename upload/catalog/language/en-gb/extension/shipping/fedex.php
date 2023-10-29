@@ -1,8 +1,6 @@
 <?php
-// Heading
-$_['text_title']                               = 'Fedex';
-
 // Text
+$_['text_title']                               = 'Fedex';
 $_['text_weight']                              = 'Weight:';
 $_['text_eta']                                 = 'Estimated Time:';
 $_['text_europe_first_international_priority'] = 'Europe First International Priority';

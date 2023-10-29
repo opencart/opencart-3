@@ -1,8 +1,6 @@
 <?php
-// Heading
-$_['text_title']                               = 'EC-Ship';
-
 // Text
+$_['text_title']                               = 'EC-Ship';
 $_['text_weight']                              = 'Weight:';
 $_['text_air_registered_mail']                 = 'Air Registered Mail';
 $_['text_air_parcel']                          = 'Air Parcel';

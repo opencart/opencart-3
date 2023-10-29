@@ -51,7 +51,7 @@ $_['text_see_more']      = 'see more replies...';
 // Entry
 $_['entry_pin']          = 'PIN';
 
-// Tab
+// Tabs
 $_['tab_description']    = 'Description';
 $_['tab_documentation']  = 'Documentation';
 $_['tab_download']       = 'Download';

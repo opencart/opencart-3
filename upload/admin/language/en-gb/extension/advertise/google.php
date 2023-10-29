@@ -283,6 +283,14 @@ $_['success_target_add']                          = 'Success! Your new campaign 
 $_['success_target_delete']                       = 'Success! Your campaign has been deleted!';
 $_['success_target_edit']                         = 'Success! You have edited your campaign!';
 
+// Warning
+$_['warning_budget']                              = 'Campaigns with a daily budget of less than $10 may not yield good conversion results. For best results, we suggest a daily budget of at least $10.';
+$_['warning_disabled']                            = 'The extension is disabled and all of your campaigns are stopped. Enable the extension to activate the Smart Shopping Ad Campaigns.';
+$_['warning_last_cron_executed']                  = 'It seems like your CRON task has not been run recently. Please ensure it is set up correctly. Follow <a href="%s" target="_blank"><strong>this tutorial</strong></a> to see how to do it.';
+$_['warning_no_active_campaigns']                 = 'You have no campaigns running. <a href="%s"><strong>Click here</strong></a> to activate your campaign.';
+$_['warning_no_advertised_products']              = 'No products are being advertised. To start advertising, you must assign products to campaigns. Follow <a href="%s" target="_blank"><strong>this tutorial</strong></a> to see how to do it.';
+$_['warning_roas']                                = 'Google Ads needs about a couple of weeks after a campaign gets created to work properly with ROAS. Please check back on %s to configure this setting.';
+
 // Error
 $_['error_adblock']                               = "It looks like you are using an ad blocker. In order to use GoogleShopping, please disable your ad blocker for your OpenCart admin panel.";
 $_['error_budget']                                = 'Please insert the campaign budget. The value must be numeric and no less than 5.';
@@ -312,11 +320,3 @@ $_['error_store_url_claim']                       = 'Your store URL has been cla
 $_['error_tax']                                   = 'Please select at least one taxable state.';
 $_['error_used_app_id']                           = 'You have already connected this App with another one of your stores. Please disconnect the other store, or use a different App ID.';
 $_['error_warning']                               = 'Warning! Please check the form carefully for errors.';
-
-// Warning
-$_['warning_budget']                              = 'Campaigns with a daily budget of less than $10 may not yield good conversion results. For best results, we suggest a daily budget of at least $10.';
-$_['warning_disabled']                            = 'The extension is disabled and all of your campaigns are stopped. Enable the extension to activate the Smart Shopping Ad Campaigns.';
-$_['warning_last_cron_executed']                  = 'It seems like your CRON task has not been run recently. Please ensure it is set up correctly. Follow <a href="%s" target="_blank"><strong>this tutorial</strong></a> to see how to do it.';
-$_['warning_no_active_campaigns']                 = 'You have no campaigns running. <a href="%s"><strong>Click here</strong></a> to activate your campaign.';
-$_['warning_no_advertised_products']              = 'No products are being advertised. To start advertising, you must assign products to campaigns. Follow <a href="%s" target="_blank"><strong>this tutorial</strong></a> to see how to do it.';
-$_['warning_roas']                                = 'Google Ads needs about a couple of weeks after a campaign gets created to work properly with ROAS. Please check back on %s to configure this setting.';

@@ -1,14 +1,6 @@
 <?php
-// Heading
-$_['text_title']         = 'Credit / Debit card (Realex)';
-
-// Button
-$_['button_confirm']     = 'Confirm';
-
-// Entry
-$_['entry_cc_type']      = 'Card Type';
-
 // Text
+$_['text_title']         = 'Credit / Debit card (Realex)';
 $_['text_success']       = 'Your payment has been authorised.';
 $_['text_decline']       = 'Your payment was unsuccessful';
 $_['text_bank_error']    = 'There was an error processing your request with the bank.';
@@ -46,3 +38,9 @@ $_['text_card_amex']     = 'American Express';
 $_['text_card_switch']   = 'Switch';
 $_['text_card_laser']    = 'Laser';
 $_['text_card_diners']   = 'Diners';
+
+// Button
+$_['button_confirm']     = 'Confirm';
+
+// Entry
+$_['entry_cc_type']      = 'Card Type';

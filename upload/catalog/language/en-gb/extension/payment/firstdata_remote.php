@@ -1,23 +1,9 @@
 <?php
 // Text
 $_['text_title']              = 'Credit or Debit Card';
-
-// Text
 $_['text_credit_card']        = 'Credit Card Details';
 $_['text_wait']               = 'Please wait!';
 $_['text_store_card']         = 'Store card details?';
-
-// Entry
-$_['entry_cc_number']         = 'Card number';
-$_['entry_cc_name']           = 'Cardholder name';
-$_['entry_cc_expire_date']    = 'Card expiry date';
-$_['entry_cc_cvv2']           = 'Card security code (CVV2)';
-
-// Help
-$_['help_start_date']         = '(if available)';
-$_['help_issue']              = '(for Maestro and Solo cards only)';
-
-// Text
 $_['text_result']             = 'Result: ';
 $_['text_approval_code']      = 'Approval code: ';
 $_['text_reference_number']   = 'Reference: ';
@@ -52,6 +38,16 @@ $_['text_card_type_ma']       = 'Maestro';
 $_['text_card_new']           = 'New card';
 $_['text_response_proc_code'] = 'Processor code: ';
 $_['text_response_ref']       = 'Ref number: ';
+
+// Entry
+$_['entry_cc_number']         = 'Card number';
+$_['entry_cc_name']           = 'Cardholder name';
+$_['entry_cc_expire_date']    = 'Card expiry date';
+$_['entry_cc_cvv2']           = 'Card security code (CVV2)';
+
+// Help
+$_['help_start_date']         = '(if available)';
+$_['help_issue']              = '(for Maestro and Solo cards only)';
 
 // Error
 $_['error_card_number']       = 'Please check your card number is valid';

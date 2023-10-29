@@ -29,7 +29,7 @@ $_['help_display_weight']              = 'Do you want to display the shipping we
 $_['help_display_insurance']           = 'Do you want to display the shipping insurance? (e.g. Insured upto &pound;500)';
 $_['help_international']               = '<p>Shipping services and prices guide is avaliable here:</p><p><a href="http://www.royalmail.com/international-zones" target="_blank">http://www.royalmail.com/international-zones</a></p><p><a href="http://www.royalmail.com/sites/default/files/RM_OurPrices_Mar2014a.pdf" target="_blank">http://www.royalmail.com/sites/default/files/RM_OurPrices_Mar2014a.pdf</a></p><p><a href="http://www.royalmail.com/sites/default/files/RoyalMail_International_TrackedCoverage_Jan2014.pdf" target="_blank">http://www.royalmail.com/sites/default/files/RoyalMail_International_TrackedCoverage_Jan2014.pdf</a></p>';
 
-// Tab
+// Tabs
 $_['tab_special_delivery_500']         = 'Special Delivery Next Day (&pound;500)';
 $_['tab_special_delivery_1000']        = 'Special Delivery Next Day (&pound;1000)';
 $_['tab_special_delivery_2500']        = 'Special Delivery Next Day (&pound;2500)';

@@ -1,8 +1,6 @@
 <?php
-// Heading
-$_['text_title']                        = 'Royal Mail';
-
 // Text
+$_['text_title']                        = 'Royal Mail';
 $_['text_weight']                       = 'Weight:';
 $_['text_insurance']                    = 'Insured upto:';
 $_['text_special_delivery']             = 'Special Delivery Next Day';

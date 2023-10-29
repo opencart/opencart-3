@@ -1,11 +1,6 @@
 <?php
-// Heading
-$_['text_title']              = 'Credit / Debit card (First Data)';
-
-// Button
-$_['button_confirm']          = 'Continue';
-
 // Text
+$_['text_title']              = 'Credit / Debit card (First Data)';
 $_['text_new_card']           = 'New card';
 $_['text_store_card']         = 'Remember my card details';
 $_['text_address_response']   = 'Address verification: ';
@@ -37,6 +32,9 @@ $_['text_response_card']      = 'Card used: ';
 $_['text_response_card_type'] = 'Card type: ';
 $_['text_response_proc_code'] = 'Processor code: ';
 $_['text_response_ref']       = 'Ref number: ';
+
+// Button
+$_['button_confirm']          = 'Continue';
 
 // Error
 $_['error_failed']            = 'Unable to process your payment, please try again';
