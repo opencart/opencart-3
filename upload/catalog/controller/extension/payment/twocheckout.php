@@ -89,10 +89,10 @@ class ControllerExtensionPaymentTwoCheckout extends Controller {
 
         if (strtoupper(md5($this->config->get('payment_twocheckout_secret') . $this->config->get('payment_twocheckout_account') . $order_number . $this->request->post['total'])) == $this->request->post['key']) {
             if ($this->currency->format($order_info['total'], $order_info['currency_code'], $order_info['currency_value'], false) == $this->request->post['total']) {
-                $this->model_checkout_order->addOrderHistory($this->request->post['cart_order_id'], $this->config->get('payment_twocheckout_order_status_id'));
+                $this->model_checkout_order->addHistory($this->request->post['cart_order_id'], $this->config->get('payment_twocheckout_order_status_id'));
             } else {
                 // Ugh. Some one has faked the sum. What should we do? Probably drop an mail to the shop owner?
-                $this->model_checkout_order->addOrderHistory($this->request->post['cart_order_id'], $this->config->get('config_order_status_id'));
+                $this->model_checkout_order->addHistory($this->request->post['cart_order_id'], $this->config->get('config_order_status_id'));
             }
 
             // We can't use $this->response->redirect() here, because of 2CO behavior. It fetches this page

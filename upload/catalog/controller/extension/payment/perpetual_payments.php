@@ -108,7 +108,7 @@ class ControllerExtensionPaymentPerpetualPayments extends Controller {
                     $message .= $this->language->get('text_authorisation') . ' ' . $data[3] . "\n";
                 }
 
-                $this->model_checkout_order->addOrderHistory($this->session->data['order_id'], $this->config->get('payment_perpetual_payments_order_status_id'), $message, false);
+                $this->model_checkout_order->addHistory($this->session->data['order_id'], $this->config->get('payment_perpetual_payments_order_status_id'), $message, false);
 
                 $json['redirect'] = $this->url->link('checkout/success');
             } else {

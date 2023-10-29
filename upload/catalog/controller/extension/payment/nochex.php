@@ -116,9 +116,9 @@ class ControllerExtensionPaymentNochex extends Controller {
         curl_close($curl);
 
         if (strcmp($response, 'AUTHORISED') == 0) {
-            $this->model_checkout_order->addOrderHistory($order_id, $this->config->get('payment_nochex_order_status_id'));
+            $this->model_checkout_order->addHistory($order_id, $this->config->get('payment_nochex_order_status_id'));
         } else {
-            $this->model_checkout_order->addOrderHistory($order_id, $this->config->get('config_order_status_id'), 'Auto-Verification step failed. Manually check the transaction.');
+            $this->model_checkout_order->addHistory($order_id, $this->config->get('config_order_status_id'), 'Auto-Verification step failed. Manually check the transaction.');
         }
 
         // Since it returned, the customer should see success.

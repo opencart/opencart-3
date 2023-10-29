@@ -1432,7 +1432,7 @@ class ControllerExtensionModulePayPalSmartButton extends Controller {
             if (!$this->error) {
                 $message = sprintf($this->language->get('text_order_message'), $seller_protection_status);
 
-                $this->model_checkout_order->addOrderHistory($this->session->data['order_id'], $this->config->get('config_order_status_id'), $message);
+                $this->model_checkout_order->addHistory($this->session->data['order_id'], $this->config->get('config_order_status_id'), $message);
 
                 $this->response->redirect($this->url->link('checkout/success', '', true));
             } else {

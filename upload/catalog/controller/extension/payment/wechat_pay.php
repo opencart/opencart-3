@@ -133,7 +133,7 @@ class ControllerExtensionPaymentWechatPay extends Controller {
                     $order_status_id = $order_info['order_status_id'];
 
                     if (!$order_status_id) {
-                        $this->model_checkout_order->addOrderHistory($order_id, $this->config->get('payment_wechat_pay_completed_status_id'));
+                        $this->model_checkout_order->addHistory($order_id, $this->config->get('payment_wechat_pay_completed_status_id'));
                     }
                 }
 
