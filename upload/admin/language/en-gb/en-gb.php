@@ -27,7 +27,7 @@ $_['text_no_results']               = 'No results!';
 $_['text_confirm']                  = 'Are you sure?';
 $_['text_home']                     = 'Home';
 
-// Button
+// Buttons
 $_['button_add']                    = 'Add New';
 $_['button_delete']                 = 'Delete';
 $_['button_save']                   = 'Save';
@@ -100,9 +100,9 @@ $_['button_order']                  = 'View Order';
 $_['button_order_recurring']        = 'View Recurring Order';
 $_['button_order_subscription']     = 'View Subscription Order';
 $_['button_buy']                    = 'Buy';
-$_['button_developer']              = 'Developer Setting'; 
+$_['button_developer']              = 'Developer Setting';
 
-// Tab
+// Tabs
 $_['tab_affiliate']                 = 'Affiliate';
 $_['tab_address']                   = 'Address';
 $_['tab_additional']                = 'Additional';

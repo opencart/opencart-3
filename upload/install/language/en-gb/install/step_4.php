@@ -24,7 +24,7 @@ $_['text_view']                   = 'View details';
 $_['text_download']               = 'Download';
 $_['text_downloads']              = 'Downloads';
 
-// Button
+// Buttons
 $_['button_mail']                 = 'Join here';
 $_['button_setup']                = 'Set-up now';
 

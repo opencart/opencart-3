@@ -65,7 +65,7 @@ $_['tab_order_status']               = 'Order status';
 $_['tab_payment']                    = 'Payment settings';
 $_['tab_advanced']                   = 'Advanced';
 
-// Button
+// Buttons
 $_['button_capture']                 = 'Capture';
 $_['button_void']                    = 'Void';
 

@@ -124,7 +124,7 @@ $_['help_order_status_processing']  = 'The order status after the customer\'s or
 $_['help_cron_url']                 = 'Set a cron job to call this URL so that the reports are auto fetched.';
 $_['help_cron_time']                = 'This is the last time that the cron job URL was executed.';
 
-// Button
+// Buttons
 $_['button_fetch']                  = 'Fetch';
 $_['button_revise_plan']            = 'Revise Plan';
 $_['button_cancel_plan']            = 'Cancel Plan';

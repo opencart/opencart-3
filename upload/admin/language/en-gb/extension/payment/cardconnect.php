@@ -80,7 +80,7 @@ $_['help_cron_time']                = 'This is the last time that the cron job U
 $_['help_order_status_pending']     = 'The order status when the order has to be authorized by the merchant.';
 $_['help_order_status_processing']  = 'The order status when the order is automatically captured.';
 
-// Button
+// Buttons
 $_['button_inquire_all']            = 'Inquire All';
 $_['button_capture']                = 'Capture';
 $_['button_refund']                 = 'Refund';

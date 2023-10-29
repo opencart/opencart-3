@@ -264,7 +264,7 @@ $_['help_card_currency_value']		 		= 'Set to 1.00000 if this is your default cur
 $_['help_card_secure_status'] 				= '3D Secure enables you to authenticate card holders through card issuers. It reduces the likelihood of fraud when you use supported cards and improves transaction perfomance. A successful 3D Secure authentication can shift liability for chargebacks due to fraud from you -the merchant- to the card issuer.';
 $_['help_card_secure_scenario'] 			= '3D Secure authentication is perfomed only if the card is enrolled for the service. In scenarios where the 3D Secure authentication has not been successful, you have the option to complete the payment at your own risk, meaning that you -the merchant- will be liable in case of a chargeback.';
 
-// Button
+// Buttons
 $_['button_connect'] 						= 'Connect';
 $_['button_disconnect'] 					= 'Disconnect';
 $_['button_all_settings']					= 'All Settings';

@@ -152,7 +152,7 @@ $_['text_card_message_V6151']   = 'Refund amount greater than original transacti
 $_['text_card_message_D4406']   = 'Unknown error';
 $_['text_card_message_S5010']   = 'Unknown error';
 
-// Button
+// Buttons
 $_['btn_refund']                = 'Refund';
 $_['btn_capture']               = 'Capture';
 

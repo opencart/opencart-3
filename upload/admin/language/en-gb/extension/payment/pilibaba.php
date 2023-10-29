@@ -59,7 +59,7 @@ $_['help_order_status']     = 'The order status after the customer has placed th
 $_['help_total']            = 'The checkout total the order must reach before this payment method becomes active. Must be a value with no currency sign.';
 $_['help_logging']          = 'Enabling debug will write sensitive data to a log file. You should always disable unless instructed otherwise.';
 
-// Button
+// Buttons
 $_['button_register']       = 'Register';
 $_['button_tracking']       = 'Update Tracking Number';
 $_['button_barcode']        = 'Generate Barcode';

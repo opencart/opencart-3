@@ -64,7 +64,7 @@ $_['help_cron_job_url']                  = 'Set a cron job to call this URL';
 $_['tab_settings']                       = 'Settings';
 $_['tab_order_status']                   = 'Order Status';
 
-// Button
+// Buttons
 $_['button_refund']                      = 'Rebate / refund';
 
 // Error

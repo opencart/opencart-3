@@ -72,7 +72,7 @@ $_['help_password']                               = 'Your webservice password';
 $_['help_refund']                                 = 'Please include the decimal point and the decimal part of the amount';
 $_['help_total']                                  = 'The checkout total the order must reach before this payment method becomes active';
 
-// Button
+// Buttons
 $_['button_reverse_authorisation']                = 'Reverse Authorisation';
 $_['button_refund']                               = 'Refund';
 $_['button_release']                              = 'Release';

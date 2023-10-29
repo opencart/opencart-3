@@ -173,7 +173,7 @@ $_['column_refunds']                        = 'Refunds';
 $_['column_reason']                         = 'Reason';
 $_['column_fee']                            = 'Processing Fee';
 
-// Button
+// Buttons
 $_['button_void']                           = 'Void';
 $_['button_refund']                         = 'Refund';
 $_['button_capture']                        = 'Capture';

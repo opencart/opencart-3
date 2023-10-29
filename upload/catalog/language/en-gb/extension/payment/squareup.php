@@ -35,11 +35,6 @@ $_['text_token_revoked_message']                       = "The Square payment ext
 $_['text_token_expired_subject']                       = 'Your Square access token has expired!';
 $_['text_token_expired_message']                       = "The Square payment extension's access token connecting it to your Square account has expired. You need to verify your application credentials and CRON job in the extension settings and connect again.";
 
-// Error
-$_['error_browser_not_supported']                      = 'Error: The payment system no longer supports your web browser. Please update or use a different one.';
-$_['error_card_invalid']                               = 'Error: Card is invalid!';
-$_['error_squareup_cron_token']                        = 'Error: Access token could not get refreshed. Please connect your Square Payment extension via the OpenCart admin panel.';
-
 // Warning
 $_['warning_test_mode']                                = 'Warning: Sandbox mode is enabled! Transactions will appear to go through, but no charges will be carried out.';
 
@@ -55,3 +50,8 @@ $_['squareup_override_error_shipping_address.country'] = 'Shipping Address count
 $_['squareup_override_error_email_address']            = 'Your customer e-mail address is not valid. Please modify it and try again.';
 $_['squareup_override_error_phone_number']             = 'Your customer phone number is not valid. Please modify it and try again.';
 $_['squareup_error_field']                             = ' Field: %s';
+
+// Error
+$_['error_browser_not_supported']                      = 'Error: The payment system no longer supports your web browser. Please update or use a different one.';
+$_['error_card_invalid']                               = 'Error: Card is invalid!';
+$_['error_squareup_cron_token']                        = 'Error: Access token could not get refreshed. Please connect your Square Payment extension via the OpenCart admin panel.';

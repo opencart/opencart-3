@@ -52,7 +52,7 @@ $_['entry_card_number']                  = 'Card Number';
 $_['entry_expiration_date']              = 'Expiration Date';
 $_['entry_cvv']                          = 'CVV';
 
-// Button
+// Buttons
 $_['button_confirm']                     = 'Confirm';
 $_['button_shipping']                    = 'Update shipping';
 $_['button_pay']                         = 'Pay with Card';

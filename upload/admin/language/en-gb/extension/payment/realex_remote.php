@@ -83,7 +83,7 @@ $_['tab_account']                    = 'Accounts';
 $_['tab_order_status']               = 'Order Status';
 $_['tab_payment']                    = 'Payment Settings';
 
-// Button
+// Buttons
 $_['button_capture']                 = 'Capture';
 $_['button_rebate']                  = 'Rebate / refund';
 $_['button_void']                    = 'Void';

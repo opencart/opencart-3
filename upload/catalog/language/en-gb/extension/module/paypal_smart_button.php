@@ -42,7 +42,7 @@ $_['entry_city']                     = 'City';
 $_['entry_country']                  = 'Country';
 $_['entry_zone']                     = 'Region / State';
 
-// Button
+// Buttons
 $_['button_confirm']                 = 'Confirm';
 $_['button_shipping']                = 'Update shipping';
 

@@ -24,7 +24,7 @@ $_['entry_card_choice']     = 'Choose Your Card';
 $_['entry_account_number']  = 'Account Number';
 $_['entry_routing_number']  = 'Routing Number';
 
-// Button
+// Buttons
 $_['button_confirm']        = 'Confirm Order';
 $_['button_delete']         = 'Delete Selected Card';
 

@@ -23,6 +23,6 @@ $_['entry_cc_expire_date']  = 'Card Expiry Date';
 $_['entry_cc_cvv2']         = 'Card Security Code (CVV2)';
 $_['entry_cc_choice']       = 'Choose an Existing Card';
 
-// Button
+// Buttons
 $_['button_add_card']       = 'Add Card';
 $_['button_new_card']       = 'Add New Card';

@@ -115,7 +115,7 @@ $_['help_buyer_multi_no_currency']     = 'There are no <a href="https://pay.amaz
 // Tabs
 $_['tab_order_adjustment']             = 'Order Adjustment';
 
-// Button
+// Buttons
 $_['button_capture']                   = 'Capture';
 $_['button_refund']                    = 'Refund';
 $_['button_cancel']                    = 'Cancel';

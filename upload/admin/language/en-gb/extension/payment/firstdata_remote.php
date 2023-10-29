@@ -77,7 +77,7 @@ $_['tab_account']                    = 'API info';
 $_['tab_order_status']               = 'Order status';
 $_['tab_payment']                    = 'Payment settings';
 
-// Button
+// Buttons
 $_['button_capture']                 = 'Capture';
 $_['button_refund']                  = 'Refund';
 $_['button_void']                    = 'Void';

@@ -17,7 +17,7 @@ $_['entry_theme']      = 'Theme';
 $_['entry_sass']       = 'SASS';
 $_['entry_cache']      = 'Cache';
 
-// Button
+// Buttons
 $_['button_on']        = 'On';
 $_['button_off']       = 'Off';
 

@@ -239,12 +239,12 @@ $_['text_yes']                                    = 'Yes';
 // Placeholder
 $_['placeholder_access_token']                    = 'Paste your access token here';
 
-// Tab
+// Tabs
 $_['tab_text_ads']                                = 'Product Ads / Reports';
 $_['tab_text_reports']                            = 'Campaign Reports';
 $_['tab_text_settings']                           = 'Settings';
 
-// Button
+// Buttons
 $_['button_add_feed']                             = 'New Feed';
 $_['button_add_target']                           = 'New Campaign';
 $_['button_apply']                                = 'Assign Selected Products to Campaigns';

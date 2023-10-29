@@ -17,7 +17,7 @@ $_['text_admin']       = 'Edit admin/config.php and change';
 // Entry
 $_['entry_directory']  = 'Directory';
 
-// Button
+// Buttons
 $_['button_move']      = 'Move';
 $_['button_manual']    = 'Manual';
 

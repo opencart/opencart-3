@@ -58,7 +58,7 @@ $_['help_transaction']        = 'Transaction method MUST be set to Payment to al
 $_['help_cron_job_token']     = 'Make this long and hard to guess';
 $_['help_cron_job_url']       = 'Set a cron job to call this URL';
 
-// Button
+// Buttons
 $_['button_release']          = 'Release';
 $_['button_rebate']           = 'Rebate / refund';
 $_['button_void']             = 'Void';

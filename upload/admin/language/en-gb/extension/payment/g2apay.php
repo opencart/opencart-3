@@ -51,7 +51,7 @@ $_['help_debug']                      = 'Enabling debug will write sensitive dat
 $_['tab_settings']                    = 'Settings';
 $_['tab_order_status']                = 'Order Status';
 
-// Button
+// Buttons
 $_['btn_refund']                      = 'refund';
 $_['error_permission']                = 'Warning: You do not have permission to modify G2APay!';
 

@@ -143,7 +143,7 @@ $_['help_sftp_password']                 = 'SFTP password provided by your accou
 $_['help_settlement_order_status']       = 'Order status that processed settlement orders will change to.';
 $_['help_shipping']                      = 'All countries within this geo zone will be available to select in the Klarna iFrame.';
 
-// Button
+// Buttons
 $_['button_account_remove']              = 'Remove Account';
 $_['button_account_add']                 = 'Add Account';
 $_['button_capture']                     = 'Capture';

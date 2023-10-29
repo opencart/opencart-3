@@ -60,7 +60,7 @@ $_['text_void']               = 'Void';
 $_['text_payment']            = "Payment";
 $_['text_rebate']             = 'Rebate';
 
-// Button
+// Buttons
 $_['button_release']          = 'Release';
 $_['button_rebate']           = 'Rebate / refund';
 $_['button_void']             = 'Void';
