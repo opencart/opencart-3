@@ -140,7 +140,7 @@ class ControllerExtensionSubscriptionPpExpress extends Controller {
 
                 if (isset($response_info['PROFILEID'])) {
                     // Notify the customer
-                    $this->model_checkout_order->addOrderHistory($order_recurring_info['order_id'], $order_info['order_status_id'], $this->language->get('text_order_history_cancel'), true);
+                    $this->model_checkout_order->addHistory($order_recurring_info['order_id'], $order_info['order_status_id'], $this->language->get('text_order_history_cancel'), true);
 
                     if ($order_recurring_id) {
                         $this->model_account_recurring->editStatus($order_recurring_id, 4);

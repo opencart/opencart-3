@@ -882,7 +882,7 @@ class ControllerExtensionPaymentKlarnaCheckout extends Controller {
 					}
 
 					if ($order_status_id) {
-						$this->model_checkout_order->addOrderHistory($klarna_checkout_order['order_id'], $order_status_id);
+						$this->model_checkout_order->addHistory($klarna_checkout_order['order_id'], $order_status_id);
 					}
 				}
 			} else {
@@ -1105,7 +1105,7 @@ class ControllerExtensionPaymentKlarnaCheckout extends Controller {
 
 			$this->model_extension_payment_klarna_checkout->updateOcOrder($order_id, $order_data);
 
-			$this->model_checkout_order->addOrderHistory($order_id, $this->config->get('config_order_status_id'));
+			$this->model_checkout_order->addHistory($order_id, $this->config->get('config_order_status_id'));
 
 			http_response_code(200);
 		}
@@ -1319,7 +1319,7 @@ class ControllerExtensionPaymentKlarnaCheckout extends Controller {
 								}
 
 								if ($order_status_id) {
-									$this->model_checkout_order->addOrderHistory($klarna_checkout_order['order_id'], $order_status_id);
+									$this->model_checkout_order->addHistory($klarna_checkout_order['order_id'], $order_status_id);
 								}
 							}
 						}

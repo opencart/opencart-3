@@ -274,7 +274,7 @@ class ControllerExtensionPaymentSquareup extends Controller {
 
                 $order_status_comment = $this->language->get('squareup_status_comment_' . $transaction_status);
 
-                $this->model_checkout_order->addOrderHistory($this->session->data['order_id'], $order_status_id, $order_status_comment, true);
+                $this->model_checkout_order->addHistory($this->session->data['order_id'], $order_status_id, $order_status_comment, true);
             }
 
             $json['redirect'] = $this->url->link('checkout/success', '', true);

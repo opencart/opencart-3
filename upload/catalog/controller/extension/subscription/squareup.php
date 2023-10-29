@@ -110,7 +110,7 @@ class ControllerExtensionSubscriptionSquareup extends Controller {
                     $this->model_account_subscription->editStatus($subscription_id, ModelExtensionPaymentSquareup::RECURRING_CANCELLED);
                 }
 
-                $this->model_checkout_order->addOrderHistory($order_recurring_info['order_id'], $order_info['order_status_id'], $this->language->get('text_order_history_cancel'), true);
+                $this->model_checkout_order->addHistory($order_recurring_info['order_id'], $order_info['order_status_id'], $this->language->get('text_order_history_cancel'), true);
 
                 $json['success'] = $this->language->get('text_canceled');
             } else {
@@ -220,7 +220,7 @@ class ControllerExtensionSubscriptionSquareup extends Controller {
                         $notify = (bool)$this->config->get('payment_squareup_notify_recurring_fail');
                     }
 
-                    $this->model_checkout_order->addOrderHistory($payment['order_id'], $order_status_id, trim($order_status_comment), $notify);
+                    $this->model_checkout_order->addHistory($payment['order_id'], $order_status_id, trim($order_status_comment), $notify);
                 }
             } catch (\Squareup\Exception $e) {
                 $result['transaction_error'][] = '[ID: ' . $payment['subscription_id'] . '] - ' . $e->getMessage();

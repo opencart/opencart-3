@@ -11,7 +11,7 @@ class ControllerExtensionPaymentFreeCheckout extends Controller {
             // Orders
             $this->load->model('checkout/order');
 
-            $this->model_checkout_order->addOrderHistory($this->session->data['order_id'], $this->config->get('payment_free_checkout_order_status_id'));
+            $this->model_checkout_order->addHistory($this->session->data['order_id'], $this->config->get('payment_free_checkout_order_status_id'));
         }
     }
 }

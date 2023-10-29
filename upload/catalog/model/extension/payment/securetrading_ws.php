@@ -115,7 +115,7 @@ class ModelExtensionPaymentSecureTradingWs extends Model {
 
         $this->db->query("UPDATE `" . DB_PREFIX . "order` SET `order_status_id` = '0' WHERE `order_id` = '" . (int)$order_id . "'");
 
-        $this->model_checkout_order->addOrderHistory($order_id, $order_status_id, $comment, $notify);
+        $this->model_checkout_order->addHistory($order_id, $order_status_id, $comment, $notify);
 
         $order_info = $this->model_checkout_order->getOrder($order_id);
 
@@ -153,7 +153,7 @@ class ModelExtensionPaymentSecureTradingWs extends Model {
 
         $this->db->query("UPDATE `" . DB_PREFIX . "order` SET `order_status_id` = '" . (int)$order_status_id . "' WHERE `order_id` = '" . (int)$order_id . "'");
 
-        $this->model_checkout_order->addOrderHistory($order_id, $order_status_id, $comment, $notify);
+        $this->model_checkout_order->addHistory($order_id, $order_status_id, $comment, $notify);
     }
 
     public function logger($message) {

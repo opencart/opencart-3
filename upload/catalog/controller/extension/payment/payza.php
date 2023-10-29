@@ -29,7 +29,7 @@ class ControllerExtensionPaymentPayza extends Controller {
             // Orders
             $this->load->model('checkout/order');
 
-            $this->model_checkout_order->addOrderHistory($this->request->post['ap_itemcode'], $this->config->get('payment_payza_order_status_id'));
+            $this->model_checkout_order->addHistory($this->request->post['ap_itemcode'], $this->config->get('payment_payza_order_status_id'));
         }
     }
 }

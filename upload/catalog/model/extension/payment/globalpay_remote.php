@@ -307,18 +307,18 @@ class ModelExtensionPaymentGlobalpayRemote extends Model {
         }
 
         if ($response->result == '00') {
-            $this->model_checkout_order->addOrderHistory($order_id, $this->config->get('config_order_status_id'));
+            $this->model_checkout_order->addHistory($order_id, $this->config->get('config_order_status_id'));
 
             $globalpay_order_id = $this->addOrder($order_info, $response, $account, $order_ref);
 
             if ($this->config->get('payment_globalpay_remote_auto_settle') == 1) {
                 $this->addTransaction($globalpay_order_id, 'payment', $order_info);
 
-                $this->model_checkout_order->addOrderHistory($order_id, $this->config->get('payment_globalpay_remote_order_status_success_settled_id'), $message);
+                $this->model_checkout_order->addHistory($order_id, $this->config->get('payment_globalpay_remote_order_status_success_settled_id'), $message);
             } else {
                 $this->addTransaction($globalpay_order_id, 'auth', 0);
 
-                $this->model_checkout_order->addOrderHistory($order_id, $this->config->get('payment_globalpay_remote_order_status_success_unsettled_id'), $message);
+                $this->model_checkout_order->addHistory($order_id, $this->config->get('payment_globalpay_remote_order_status_success_unsettled_id'), $message);
             }
         } elseif ($response->result == '101') {
             // Decline

@@ -74,7 +74,7 @@ class ControllerExtensionPaymentAuthorizeNetSim extends Controller {
                     $message .= 'Receipt: ' . $this->request->post['exact_ctr'];
                 }
 
-                $this->model_checkout_order->addOrderHistory($this->request->post['x_invoice_num'], $this->config->get('payment_authorizenet_sim_order_status_id'), $message, true);
+                $this->model_checkout_order->addHistory($this->request->post['x_invoice_num'], $this->config->get('payment_authorizenet_sim_order_status_id'), $message, true);
 
                 $this->response->redirect($this->url->link('checkout/success'));
             } else {

@@ -284,7 +284,7 @@ class ControllerExtensionPaymentRealexRemote extends Controller {
                         $message .= '<br/><strong>' . $this->language->get('entry_cc_name') . ':</strong> ' . (string)$md['cc_name'];
                     }
 
-                    $this->model_checkout_order->addOrderHistory($md['order_id'], $this->config->get('payment_realex_remote_order_status_decline_id'), $message);
+                    $this->model_checkout_order->addHistory($md['order_id'], $this->config->get('payment_realex_remote_order_status_decline_id'), $message);
 
                     $this->session->data['error'] = $this->language->get('error_3d_unsuccessful');
 

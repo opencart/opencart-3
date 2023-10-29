@@ -128,7 +128,7 @@ class ControllerExtensionPaymentPaypoint extends Controller {
                 // Orders
                 $this->load->model('checkout/order');
 
-                $this->model_checkout_order->addOrderHistory($order_id, $this->config->get('payment_paypoint_order_status_id'), $message, false);
+                $this->model_checkout_order->addHistory($order_id, $this->config->get('payment_paypoint_order_status_id'), $message, false);
 
                 $data['language'] = $this->language->get('code');
                 $data['direction'] = $this->language->get('direction');

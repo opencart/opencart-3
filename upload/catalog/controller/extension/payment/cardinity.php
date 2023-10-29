@@ -218,7 +218,7 @@ class ControllerExtensionPaymentCardinity extends Controller {
         // Orders
         $this->load->model('checkout/order');
 
-        $this->model_checkout_order->addOrderHistory($this->session->data['order_id'], $this->config->get('payment_cardinity_order_status_id'));
+        $this->model_checkout_order->addHistory($this->session->data['order_id'], $this->config->get('payment_cardinity_order_status_id'));
 
         $this->model_extension_payment_cardinity->log($this->language->get('text_payment_success'));
         $this->model_extension_payment_cardinity->log($payment);

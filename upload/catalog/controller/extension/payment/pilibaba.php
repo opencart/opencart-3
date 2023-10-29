@@ -402,7 +402,7 @@ class ControllerExtensionPaymentPilibaba extends Controller {
                 $this->model_extension_payment_pilibaba->log('Order info updated');
                 $this->model_extension_payment_pilibaba->log('Adding order history');
 
-                $this->model_checkout_order->addOrderHistory($response_data['orderNo'], $this->config->get('payment_pilibaba_order_status_id'));
+                $this->model_checkout_order->addHistory($response_data['orderNo'], $this->config->get('payment_pilibaba_order_status_id'));
 
                 $this->model_extension_payment_pilibaba->log('Order history added');
             } else {

@@ -99,7 +99,7 @@ class ControllerExtensionPaymentPaymate extends Controller {
 
             $this->response->setOutput($this->load->view('common/success', $data));
         } else {
-            $this->model_checkout_order->addOrderHistory($order_id, $this->config->get('payment_paymate_order_status_id'));
+            $this->model_checkout_order->addHistory($order_id, $this->config->get('payment_paymate_order_status_id'));
 
             $this->response->redirect($this->url->link('checkout/success'));
         }

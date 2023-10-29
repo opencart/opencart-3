@@ -183,17 +183,17 @@ class ControllerExtensionPaymentFirstdata extends Controller {
                             if ($this->config->get('payment_firstdata_auto_settle') == 1) {
                                 $this->model_extension_payment_firstdata->addTransaction($fd_order_id, 'payment', $order_info);
 
-                                $this->model_checkout_order->addOrderHistory($order_id, $this->config->get('payment_firstdata_order_status_success_settled_id'), $message, false);
+                                $this->model_checkout_order->addHistory($order_id, $this->config->get('payment_firstdata_order_status_success_settled_id'), $message, false);
                             } else {
                                 $this->model_extension_payment_firstdata->addTransaction($fd_order_id, 'auth');
 
-                                $this->model_checkout_order->addOrderHistory($order_id, $this->config->get('payment_firstdata_order_status_success_unsettled_id'), $message, false);
+                                $this->model_checkout_order->addHistory($order_id, $this->config->get('payment_firstdata_order_status_success_unsettled_id'), $message, false);
                             }
                         } else {
                             $message = $this->request->post['fail_reason'] . '<br/>';
                             $message .= $this->language->get('text_response_code_full') . $this->request->post['approval_code'];
 
-                            $this->model_checkout_order->addOrderHistory($order_id, $this->config->get('payment_firstdata_order_status_decline_id'), $message);
+                            $this->model_checkout_order->addHistory($order_id, $this->config->get('payment_firstdata_order_status_decline_id'), $message);
                         }
                     }
                 }
@@ -205,7 +205,7 @@ class ControllerExtensionPaymentFirstdata extends Controller {
                         $this->model_extension_payment_firstdata->updateVoidStatus($order_id, 1);
                         $this->model_extension_payment_firstdata->addTransaction($fd_order['firstdata_order_id'], 'void');
 
-                        $this->model_checkout_order->addOrderHistory($order_id, $this->config->get('payment_firstdata_order_status_void_id'), $message, false);
+                        $this->model_checkout_order->addHistory($order_id, $this->config->get('payment_firstdata_order_status_void_id'), $message, false);
                     }
                 }
 
@@ -216,7 +216,7 @@ class ControllerExtensionPaymentFirstdata extends Controller {
                         $this->model_extension_payment_firstdata->updateCaptureStatus($order_id, 1);
                         $this->model_extension_payment_firstdata->addTransaction($fd_order['firstdata_order_id'], 'payment', $order_info);
 
-                        $this->model_checkout_order->addOrderHistory($order_id, $this->config->get('payment_firstdata_order_status_success_settled_id'), $message, false);
+                        $this->model_checkout_order->addHistory($order_id, $this->config->get('payment_firstdata_order_status_success_settled_id'), $message, false);
                     }
                 }
             } else {
