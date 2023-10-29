@@ -384,7 +384,7 @@ class ControllerExtensionPaymentSagepayServer extends Controller {
 
         $comment .= "Last 4 digits: " . $str_last_4_digits . "<br/>";
 
-        $this->model_checkout_order->addOrderHistory($order_id, $this->config->get('payment_sagepay_server_order_status_id'), $comment);
+        $this->model_checkout_order->addHistory($order_id, $this->config->get('payment_sagepay_server_order_status_id'), $comment);
 
         $this->model_extension_payment_sagepay_server->updateOrder($order_info, $str_vps_tx_id, $str_tx_auth_no);
         $this->model_extension_payment_sagepay_server->addTransaction($transaction_info['sagepay_server_order_id'], $this->config->get('payment_sagepay_server_transaction'), $order_info);

@@ -663,7 +663,7 @@ class ControllerExtensionPaymentAmazonLoginPay extends Controller {
             // Clean the session and redirect to the success page
             unset($this->session->data['apalwa']['pay']);
 
-            $this->model_checkout_order->addOrderHistory($order_id, $this->config->get('payment_amazon_login_pay_pending_status'), '', $this->config->get('payment_amazon_login_pay_mode') != 'payment');
+            $this->model_checkout_order->addHistory($order_id, $this->config->get('payment_amazon_login_pay_pending_status'), '', $this->config->get('payment_amazon_login_pay_mode') != 'payment');
 
             // In case a payment has been completed, and the order is not closed, close it.
             if (isset($authorization->CapturedAmount->Amount) && (float)$authorization->CapturedAmount->Amount && $this->model_extension_payment_amazon_login_pay->isOrderInState($order_reference_id, ['Open','Suspended'])) {
@@ -788,7 +788,7 @@ class ControllerExtensionPaymentAmazonLoginPay extends Controller {
             unset($this->session->data['apalwa']['pay']);
 
             try {
-                $this->model_checkout_order->addOrderHistory($order_id, $this->config->get('payment_amazon_login_pay_pending_status'), '', $this->config->get('payment_amazon_login_pay_mode') != 'payment');
+                $this->model_checkout_order->addHistory($order_id, $this->config->get('payment_amazon_login_pay_pending_status'), '', $this->config->get('payment_amazon_login_pay_mode') != 'payment');
             } catch (\Exception $e) {
                 if ($this->config->get('error_log')) {
                     $this->log->write($e->getMessage());
@@ -958,7 +958,7 @@ class ControllerExtensionPaymentAmazonLoginPay extends Controller {
                             // Change the order status only if the order is closed with the response code maxamountcharged or if the order is fully captured
                             if (($order_state == 'Closed' && $order_reason_code == 'MaxAmountCharged') || $order_reason_code == 'SellerClosed' || $amazon_captured_amount >= $order_total || $total_captured >= $order_total) {
                                 // Update the order history
-                                $this->model_checkout_order->addOrderHistory($order_id, $oc_order_status_id, '', true);
+                                $this->model_checkout_order->addHistory($order_id, $oc_order_status_id, '', true);
                             }
                         }
                         break;

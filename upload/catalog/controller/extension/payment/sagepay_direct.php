@@ -330,7 +330,7 @@ class ControllerExtensionPaymentSagepayDirect extends Controller {
             $this->model_extension_payment_sagepay_direct->logger('order_id', $this->session->data['order_id']);
             $this->model_extension_payment_sagepay_direct->addTransaction($sagepay_direct_order_id, $this->config->get('payment_sagepay_direct_transaction'), $order_info);
 
-            $this->model_checkout_order->addOrderHistory($this->session->data['order_id'], $this->config->get('payment_sagepay_direct_order_status_id'), $message, false);
+            $this->model_checkout_order->addHistory($this->session->data['order_id'], $this->config->get('payment_sagepay_direct_order_status_id'), $message, false);
 
             if ($this->config->get('payment_sagepay_direct_transaction') == 'PAYMENT') {
                 // Loop through any products that are subscription items
@@ -415,7 +415,7 @@ class ControllerExtensionPaymentSagepayDirect extends Controller {
                 $this->model_extension_payment_sagepay_direct->updateOrder($order_info, $response_data);
                 $this->model_extension_payment_sagepay_direct->addTransaction($sagepay_order_info['sagepay_direct_order_id'], $this->config->get('payment_sagepay_direct_transaction'), $order_info);
 
-                $this->model_checkout_order->addOrderHistory($this->session->data['order_id'], $this->config->get('payment_sagepay_direct_order_status_id'), $message, false);
+                $this->model_checkout_order->addHistory($this->session->data['order_id'], $this->config->get('payment_sagepay_direct_order_status_id'), $message, false);
 
                 if (!empty($response_data['Token']) && $this->customer->isLogged()) {
                     $this->model_extension_payment_sagepay_direct->updateCard($sagepay_order_info['card_id'], $response_data['Token']);

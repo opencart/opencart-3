@@ -153,7 +153,7 @@ class ControllerExtensionPaymentG2APay extends Controller {
 
             $this->model_extension_payment_g2apay->updateOrder($g2apay_order_info['g2apay_order_id'], $g2apay_transaction_id, 'payment', $order_info);
 
-            $this->model_checkout_order->addOrderHistory($order_id, $this->config->get('payment_g2apay_order_status_id'));
+            $this->model_checkout_order->addHistory($order_id, $this->config->get('payment_g2apay_order_status_id'));
         }
 
         $this->response->redirect($this->url->link('checkout/success'));
@@ -201,7 +201,7 @@ class ControllerExtensionPaymentG2APay extends Controller {
                         break;
                 }
 
-                $this->model_checkout_order->addOrderHistory($this->request->post['userOrderId'], $order_status_id);
+                $this->model_checkout_order->addHistory($this->request->post['userOrderId'], $order_status_id);
             }
         }
     }

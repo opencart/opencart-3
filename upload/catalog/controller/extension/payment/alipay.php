@@ -82,7 +82,7 @@ class ControllerExtensionPaymentAlipay extends Controller {
                 // Orders
                 $this->load->model('checkout/order');
 
-                $this->model_checkout_order->addOrderHistory($order_id, $this->config->get('payment_alipay_order_status_id'));
+                $this->model_checkout_order->addHistory($order_id, $this->config->get('payment_alipay_order_status_id'));
             }
 
             echo 'success'; // Do not modify or delete

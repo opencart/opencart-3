@@ -448,7 +448,7 @@ class ControllerExtensionPaymentPayPal extends Controller {
 
                 $data['success'] = $this->url->link('checkout/success', '', true);
 
-                $this->model_checkout_order->addOrderHistory($this->session->data['order_id'], $this->config->get('config_order_status_id'), $message);
+                $this->model_checkout_order->addHistory($this->session->data['order_id'], $this->config->get('config_order_status_id'), $message);
             }
         }
 
@@ -514,7 +514,7 @@ class ControllerExtensionPaymentPayPal extends Controller {
             // Orders
             $this->load->model('checkout/order');
 
-            $this->model_checkout_order->addOrderHistory($order_id, $order_status_id, '', true);
+            $this->model_checkout_order->addHistory($order_id, $order_status_id, '', true);
         }
     }
 }

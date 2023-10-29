@@ -163,7 +163,7 @@ class ControllerExtensionPaymentCardConnect extends Controller {
                                 $payment_method = 'card';
                             }
 
-                            $this->model_checkout_order->addOrderHistory($order_info['order_id'], $order_status_id);
+                            $this->model_checkout_order->addHistory($order_info['order_id'], $order_status_id);
 
                             $order_info = array_merge($order_info, $response_data);
                             $cardconnect_order_id = $this->model_extension_payment_cardconnect->addOrder($order_info, $payment_method);
