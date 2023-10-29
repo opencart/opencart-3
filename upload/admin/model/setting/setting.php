@@ -40,17 +40,17 @@ class ModelSettingSetting extends Model {
         $this->db->query("DELETE FROM `" . DB_PREFIX . "setting` WHERE `store_id` = '" . (int)$store_id . "' AND `code` = '" . $this->db->escape($code) . "'");
     }
 
-    public function getValue($key, $store_id = 0) {
+	public function getValue(string $key, int $store_id = 0): string {
         $query = $this->db->query("SELECT `value` FROM `" . DB_PREFIX . "setting` WHERE `store_id` = '" . (int)$store_id . "' AND `key` = '" . $this->db->escape($key) . "'");
 
         if ($query->num_rows) {
             return $query->row['value'];
         } else {
-            return 0;
+            return '';
         }
     }
 
-    public function editValue($code = '', $key = '', $value = '', $store_id = 0) {
+	public function editValue(string $code = '', string $key = '', $value = '', int $store_id = 0): void {
         if (!is_array($value)) {
             $this->db->query("UPDATE `" . DB_PREFIX . "setting` SET `value` = '" . $this->db->escape($value) . "', `serialized` = '0'  WHERE `code` = '" . $this->db->escape($code) . "' AND `key` = '" . $this->db->escape($key) . "' AND `store_id` = '" . (int)$store_id . "'");
         } else {
