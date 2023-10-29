@@ -1969,7 +1969,8 @@ INSERT INTO `oc_layout` (`layout_id`, `name`) VALUES
 (10, 'Affiliate'),
 (11, 'Information'),
 (12, 'Compare'),
-(13, 'Search');
+(13, 'Search'),
+(14, 'GDPR');
 
 -----------------------------------------------------------
 
@@ -2035,7 +2036,7 @@ INSERT INTO `oc_layout_route` (`layout_route_id`, `layout_id`, `store_id`, `rout
 (45, 5, 0, 'product/manufacturer'),
 (52, 12, 0, 'product/compare'),
 (53, 13, 0, 'product/search'),
-(54, 6, 0, 'information/gdpr');
+(54, 14, 0, 'information/gdpr');
 
 -----------------------------------------------------------
 
