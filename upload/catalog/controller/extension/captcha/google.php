@@ -1,6 +1,6 @@
 <?php
 class ControllerExtensionCaptchaGoogle extends Controller {
-    public function index($error = []): string {
+    public function index(array $error = []): string {
         $this->load->language('extension/captcha/google');
 
         if (isset($error['captcha'])) {
@@ -16,7 +16,7 @@ class ControllerExtensionCaptchaGoogle extends Controller {
     }
 
     public function validate() {
-        if (empty($this->session->data['gcapcha'])) {
+        if (empty($this->session->data['gcaptcha'])) {
             $this->load->language('extension/captcha/google');
 
             if (!isset($this->request->post['g-recaptcha-response'])) {
@@ -27,7 +27,7 @@ class ControllerExtensionCaptchaGoogle extends Controller {
             $recaptcha = json_decode($recaptcha, true);
 
             if ($recaptcha['success']) {
-                $this->session->data['gcapcha'] = true;
+                $this->session->data['gcaptcha'] = true;
             } else {
                 return $this->language->get('error_captcha');
             }
