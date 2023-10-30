@@ -1,8 +1,10 @@
 <?php
+namespace Mail;
 /**
+ * Class Mail
+ *
  * Basic PHP mail class
  */
-namespace Mail;
 class Mail {
 	protected array $option = [];
 
@@ -27,7 +29,7 @@ class Mail {
 			$to = $this->option['to'];
 		}
 
-		if (version_compare(phpversion(), '8.0', '>=') || substr(PHP_OS, 0, 3) == 'WIN') {
+		if (version_compare(phpversion(), '7.4', '>=') || substr(PHP_OS, 0, 3) == 'WIN') {
 			$eol = "\r\n";
 		} else {
 			$eol = PHP_EOL;
