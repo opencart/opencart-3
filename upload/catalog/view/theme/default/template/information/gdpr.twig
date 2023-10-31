@@ -1,5 +1,5 @@
 {{ header }}
-<div id="account-gdpr" class="container">
+<div id="information-gdpr" class="container">
   <ul class="breadcrumb">
     {% for breadcrumb in breadcrumbs %}
       <li><a href="{{ breadcrumb.href }}">{{ breadcrumb.text }}</a></li>
@@ -19,10 +19,9 @@
     <div id="content" class="{{ class }}">{{ content_top }}
       <h1>{{ heading_title }}</h1>
       <p>{{ text_gdpr|format(store, gdpr, title) }}</p>
-      <fieldset id="account">
+      <fieldset>
         <legend>{{ text_verification }}</legend>
         <div class="form-group">
-          <label class="col-sm-2 control-label" for="input-email">{{ entry_verification }}</label>
           <p>{{ text_email }}</p>
           <div class="input-group">
             <input type="text" name="email" value="{{ email }}" placeholder="{{ entry_email }}" id="input-email" class="form-control"/>
@@ -33,14 +32,19 @@
       <fieldset>
         <legend>{{ text_action }}</legend>
         <div class="form-group">
-          <label class="col-sm-2 control-label">{{ entry_action }}</span></label>
-          <div class="col-sm-10">
-            <label class="radio-inline">
-              <input type="radio" name="action" value="export" id="input-export" checked="checked"/><strong>{{ text_export }}</strong>
-            </label>
-            <label class="radio-inline">
-              <input type="radio" name="action" value="remove" id="input-remove"> <strong>{{ text_remove }}</strong>
-            </label>
+          <div class="radio">
+            <label class="control-label" for="input-export"><input type="radio" name="action" value="export" id="input-export" checked> <strong>{{ text_export }}</strong></label>
+          </div>
+          <div class="radio">
+            <label class="control-label" for="input-remove"><input type="radio" name="action" value="remove" id="input-remove"> <strong>{{ text_remove }}</strong></label>
+          </div>
+          <div id="collapse-remove" class="alert alert-warning collapse">
+            <p><i class="fa fa-exclamation-triangle"></i> {{ text_warning }}</p>
+            <ul>
+              <li>{{ text_access|format(store) }}</li>
+              <li>{{ text_history }}</li>
+              <li>{{ text_limit|format(limit) }}</li>
+            </ul>
           </div>
         </div>
       </fieldset>
@@ -52,51 +56,51 @@
     </div>
     {{ column_right }}
   </div>
+  <script type="text/javascript"><!--
+  $('input[name=\'action\']').on('change', function() {
+      if (this.value == 'remove') {
+          $('#collapse-remove').slideDown();
+      } else {
+          $('#collapse-remove').slideUp();
+      }
+  });
+
+  $('#button-continue').on('click', function() {
+      var element = this;
+
+      $.ajax({
+          url: 'index.php?route=information/gdpr/action',
+          type: 'post',
+          data: $('input[name=\'email\'], input[name=\'action\']:checked'),
+          dataType: 'json',
+          beforeSend: function() {
+              $(element).button('loading');
+          },
+          complete: function() {
+              $(element).button('reset');
+          },
+          success: function(json) {
+              $('.text-danger, .alert-dismissible').remove();
+
+              if (json['error']) {
+                  if (json['error']['email']) {
+                      $('#input-email').parent().after('<div class="text-danger">' + json['error']['email'] + '</div>');
+                  }
+
+                  if (json['error']['action']) {
+                      $('#action').after('<div class="alert alert-danger alert-dismissible"><i class="fa fa-exclamation-circle"></i> ' + json['error']['action'] + ' <button type="button" class="close" data-dismiss="alert">&times;</button></div>');
+                  }
+              }
+
+              if (json['success']) {
+                  $('.breadcrumb').after('<div class="alert alert-success alert-dismissible"><i class="fa fa-exclamation-circle"></i> ' + json['success'] + ' <button type="button" class="close" data-dismiss="alert">&times;</button></div>');
+              }
+          },
+          error: function(xhr, ajaxOptions, thrownError) {
+              alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
+          }
+      });
+  });
+  //--></script>
 </div>
-<script type="text/javascript"><!--
-$('input[name=\'action\']').on('change', function() {
-    if (this.value == 'remove') {
-        $('#collapse-remove').slideDown();
-    } else {
-        $('#collapse-remove').slideUp();
-    }
-});
-
-$('#button-continue').on('click', function() {
-    var element = this;
-
-    $.ajax({
-        url: 'index.php?route=information/gdpr/action',
-        type: 'post',
-        data: $('input[name=\'email\'], input[name=\'action\']:checked'),
-        dataType: 'json',
-        beforeSend: function() {
-            $(element).button('loading');
-        },
-        complete: function() {
-            $(element).button('reset');
-        },
-        success: function(json) {
-            $('.text-danger, .alert-dismissible').remove();
-
-            if (json['error']) {
-                if (json['error']['email']) {
-                    $('#input-email').parent().after('<div class="text-danger">' + json['error']['email'] + '</div>');
-                }
-
-                if (json['error']['action']) {
-                    $('#action').after('<div class="alert alert-danger alert-dismissible"><i class="fa fa-exclamation-circle"></i> ' + json['error']['action'] + '<button type="button" class="close" data-dismiss="alert">&times;</button></div>');
-                }
-            }
-
-            if (json['success']) {
-                $('.breadcrumb').after('<div class="alert alert-success alert-dismissible"><i class="fa fa-exclamation-circle"></i> ' + json['success'] + '<button type="button" class="close" data-dismiss="alert">&times;</button></div>');
-            }
-        },
-        error: function(xhr, ajaxOptions, thrownError) {
-            alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
-        }
-    });
-});
-//--></script>
 {{ footer }}
