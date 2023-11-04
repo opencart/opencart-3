@@ -138,7 +138,7 @@ class ControllerAccountRecurring extends Controller {
                 'href' => $this->url->link('account/recurring/info', 'customer_token=' . $this->session->data['customer_token'] . '&order_recurring_id=' . $this->request->get['order_recurring_id'] . $url, true),
             ];
 
-            $data['order_recurring_id'] = (int)$this->request->get['order_recurring_id'];
+            $data['order_recurring_id'] = $this->request->get['order_recurring_id'];
 
             $data['date_added'] = date($this->language->get('date_format_short'), strtotime($recurring_info['date_added']));
 
