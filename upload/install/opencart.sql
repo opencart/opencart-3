@@ -1872,7 +1872,7 @@ INSERT INTO `oc_information_description` (`information_id`, `language_id`, `titl
 (5, 1, 'Terms &amp; Conditions', '&lt;p&gt;\r\n	Terms &amp;amp; Conditions&lt;/p&gt;\r\n', 'Terms &amp; Conditions', '', ''),
 (3, 1, 'Privacy Policy', '&lt;p&gt;\r\n	Privacy Policy&lt;/p&gt;\r\n', 'Privacy Policy', '', ''),
 (6, 1, 'Delivery Information', '&lt;p&gt;\r\n	Delivery Information&lt;/p&gt;\r\n', 'Delivery Information', '', ''),
-(7, 1, 'Subscriptions', 'Nowadays, our stores are introducing a new subscription system where customers can have the ability to handle customer payments with better flexibility!', 'Subscriptions', '', '');
+(7, 1, 'Subscriptions', 'Nowadays, our stores are introducing a new subscription system. Customers can now have the ability to handle customer payments with better features!', 'Subscriptions', '', '');
 
 -----------------------------------------------------------
 
@@ -2360,7 +2360,7 @@ INSERT INTO `oc_option_value_description` (`option_value_id`, `language_id`, `op
 
 DROP TABLE IF EXISTS `oc_order`;
 CREATE TABLE `oc_order` (
-  `order_id` int(11) NOT NULL AUTO_INCREMENT,  
+  `order_id` int(11) NOT NULL AUTO_INCREMENT,
   `invoice_no` int(11) NOT NULL DEFAULT '0',
   `invoice_prefix` varchar(26) NOT NULL,
   `store_id` int(11) NOT NULL DEFAULT '0',
@@ -3791,7 +3791,7 @@ CREATE TABLE `oc_subscription` (
   `order_id` int(11) NOT NULL,
   `order_product_id` int(11) NOT NULL,
   `subscription_plan_id` int(11) NOT NULL,
-  `customer_payment_id` int(11) NOT NULL,  
+  `customer_payment_id` int(11) NOT NULL,
   `name` varchar(32) NOT NULL,
   `description` text NOT NULL,
   `reference` varchar(255) NOT NULL,
