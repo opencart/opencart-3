@@ -2,9 +2,7 @@
 <div id="content">
   <div class="page-header">
     <div class="container-fluid">
-      <div class="pull-right">
-        <button type="submit" form="form-recurring" data-toggle="tooltip" title="{{ button_save }}" class="btn btn-primary"><i class="fa fa-save"></i></button>
-        <a href="{{ cancel }}" data-toggle="tooltip" title="{{ button_cancel }}" class="btn btn-default"><i class="fa fa-reply"></i></a></div>
+      <div class="pull-right"><a href="{{ cancel }}" data-toggle="tooltip" title="{{ button_cancel }}" class="btn btn-default"><i class="fa fa-reply"></i></a></div>
       <h1>{{ heading_title }}</h1>
       <ul class="breadcrumb">
         {% for breadcrumb in breadcrumbs %}
@@ -14,313 +12,138 @@
     </div>
   </div>
   <div class="container-fluid">
-    {% if error_warning %}
-      <div class="alert alert-danger alert-dismissible"><i class="fa fa-exclamation-circle"></i> {{ error_warning }}
-        <button type="button" class="close" data-dismiss="alert">&times;</button>
-      </div>
-    {% endif %}
-    <div class="panel panel-default">
-      <div class="panel-heading">
-        <h3 class="panel-title"><i class="fa fa-list"></i> {{ text_recurring_detail }}</h3>
-      </div>
-      <div class="panel-body">{{ buttons }}
-        <ul class="nav nav-tabs">
-          <li class="active"><a href="#tab-general" data-toggle="tab">{{ tab_general }}</a></li>
-          <li><a href="#tab-history" data-toggle="tab">{{ tab_history }}</a></li>
-          <li><a href="#tab-transaction" data-toggle="tab">{{ tab_transaction }}</a></li>
-        </ul>
-        <div class="tab-content">
-          <div class="tab-pane active" id="tab-general">
-            <div class="tab-content">
-              <form id="form-recurring" class="form-horizontal">
-                <div class="form-group">
-                  <label class="col-sm-2 control-label" for="input-order-recurring-id">{{ text_order_recurring_id }}</label>
-                  <div class="col-sm-10">
-                    {{ order_recurring_id }}
-                  </div>
-                </div>
-                <div class="form-group">
-                  <label class="col-sm-2 control-label" for="input-order-id">{{ text_orders_id }}</label>
-                  <div class="col-sm-10">
-                    <a href="index.php?route=sale/order/info&user_token={{ user_token }}&order_id={{ order_id }}" target="_blank">{{ order_id }}</a>
-                  </div>
-                </div>
-                <div class="form-group">
-                  <label class="col-sm-2 control-label" for="input-customer">{{ text_customer }}</label>
-                  <div class="col-sm-10">
-                    {% if customer %}
-                      <a href="{{ customer }}">{{ firstname }} {{ lastname }}</a>
-                    {% else %}
-                      {{ firstname }} {{ lastname }}
-                    {% endif %}
-                  </div>
-                </div>
-                <div class="form-group">
-                  <label class="col-sm-2 control-label" for="input-reference">{{ text_reference }}</label>
-                  <div class="col-sm-10">
-                    {{ reference }}
-                  </div>
-                </div>
-                <div class="form-group">
-                  <label class="col-sm-2 control-label" for="input-recurring-name">{{ text_recurring_name }}</label>
-                  <div class="col-sm-10">
+    <div class="row">
+      <div class="col-lg-6 col-md-6 col-sm-12">
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h3 class="panel-title"><i class="fa fa-list"></i> {{ text_recurring_detail }}</h3>
+          </div>
+          <div class="panel-body">
+            <table class="table table-bordered">
+              <tr>
+                <td>{{ text_order_recurring_id }}</td>
+                <td>{{ order_recurring_id }}</td>
+              </tr>
+              <tr>
+                <td>{{ text_reference }}</td>
+                <td>{{ reference }}</td>
+              </tr>
+              <tr>
+                <td>{{ text_recurring_name }}</td>
+                <td>
+                  {% if recurring %}
+                    <a href="{{ recurring }}">{{ recurring_name }}</a>
+                  {% else %}
                     {{ recurring_name }}
-                  </div>
-                </div>
-                <div class="form-group">
-                  <label class="col-sm-2 control-label" for="input-recurring-description">{{ text_recurring_description }}</label>
-                  <div class="col-sm-10">
-                    {{ recurring_description }}
-                  </div>
-                </div>
-                <div class="form-group">
-                  <label class="col-sm-2 control-label" for="input-order-status"><strong>{{ text_recurring_status }}</strong></label>
-                  <div class="col-sm-10">
-                    {{ recurring_status }}
-                  </div>
-                </div>
-                <div class="form-group">
-                  <label class="col-sm-2 control-label" for="input-order-status"><strong>{{ text_order_status }}</strong></label>
-                  <div class="col-sm-10">
-                    {{ order_status }}
-                  </div>
-                </div>
-                <div class="form-group">
-                  <label class="col-sm-2 control-label" for="input-order-status"><strong>{{ text_date_added }}</strong></label>
-                  <div class="col-sm-10">
-                    {{ date_added }}
-                  </div>
-                </div>
-                <div class="form-group">
-                  <label class="col-sm-2 control-label" for="input-subscription-plan">{{ entry_subscription_plan }}</label>
-                  <div class="col-sm-10">
-                    <select name="subscription_plan_id" id="input-subscription-plan" class="form-control">
-                      <option value="">{{ text_select }}</option>
-                      {% for subscription_plan in subscription_plans %}
-                        <option value="{{ subscription_plan.subscription_plan_id }}"{% if subscription_plan.subscription_plan_id == subscription_plan_id %} selected{% endif %}>{{ subscription_plan.name }}</option>
-                      {% endfor %}
-                    </select>
-                  </div>
-                </div>
-                <div class="form-group">
-                  <label class="col-sm-2 control-label" for="input-payment-method">{{ entry_payment_method }}</label>
-                  <div class="col-sm-10">
-                    <select name="customer_payment_id" id="input-payment-method" class="form-control">
-                      <option value="">{{ text_select }}</option>
-                      {% for payment_method in payment_methods %}
-                        <option value="{{ payment_method.customer_payment_id }}"{% if payment_method.customer_payment_id == customer_payment_id %} selected{% endif %}>{{ payment_method.name }}</option>
-                      {% endfor %}
-                    </select>
-                  </div>
-                </div>
-                <fieldset>
-                  <legend>{{ text_product_detail }}</legend>
-                  <table class="table table-bordered">
-                    <thead>
-                      <tr>
-                        <td>{{ text_product }}</td>
-                        <td>{{ text_quantity }}</td>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr>
-                        <td>{{ product }}</td>
-                        <td>{{ quantity }}</td>
-                      </tr>
-                    </tbody>
-                  </table>
-                </fieldset>
-
-                <input type="hidden" name="order_recurring_id" value="{{ order_recurring_id }}" id="input-order-recurring-id"/>
-              </form>
-            </div>
+                  {% endif %}
+                </td>
+              </tr>
+              <tr>
+                <td>{{ text_recurring_description }}</td>
+                <td>{{ recurring_description }}</td>
+              </tr>
+              <tr>
+                <td>{{ text_recurring_status }}</td>
+                <td>{{ recurring_status }}</td>
+              </tr>
+              <tr>
+                <td>{{ text_payment_method }}</td>
+                <td>{{ payment_method }}</td>
+              </tr>
+            </table>
           </div>
-          <div id="tab-history" class="tab-pane">
-            <form id="form-history" class="form-horizontal">
-              <fieldset>
-                <legend>{{ text_history }}</legend>
-                <div id="history"></div>
-              </fieldset>
-              <br/>
-              <fieldset>
-                <legend>{{ text_history_add }}</legend>
-                <div class="form-group">
-                  <label class="col-sm-2 control-label" for="input-comment">{{ entry_subscription_status }}</label>
-                  <div class="col-sm-10">
-                    <select name="subscription_status_id" id="input-subscription-status" class="form-control"/>
-                      {% for subscription_status in subscription_statuses %}
-                        <option value="{{ subscription_status.subscription_status_id }}"{% if subscription_status.subscription_status_id == subscription_status_id %} selected{% endif %}>{{ subscription_status.name }}</option>
-                      {% endfor %}
-                    </select>
-                  </div>
-                </div>
-                <div class="form-group">
-                  <label class="col-sm-2 control-label" for="input-notify">{{ entry_notify }}</label>
-                  <div class="col-sm-10">
-                    <div class="checkbox">
-                      <input type="checkbox" name="notify" value="1" id="input-notify"/>
-                    </div>
-                  </div>
-                </div>
-                <div class="form-group">
-                  <label class="col-sm-2 control-label" for="input-comment">{{ entry_comment }}</label>
-                  <div class="col-sm-10">
-                    <textarea name="comment" rows="8" placeholder="{{ entry_comment }}" id="input-comment" class="form-control"></textarea>
-                  </div>
-                </div>
-              </fieldset>
-              <div class="text-right">
-                <button id="button-history" data-loading-text="{{ text_loading }}" class="btn btn-primary"><i class="fa fa-plus-circle"></i> {{ button_history_add }}</button>
-              </div>
-            </form>
+        </div>
+      </div>
+      <div class="col-lg-6 col-md-6 col-sm-12">
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h3 class="panel-title"><i class="fa fa-list"></i> {{ text_order_detail }}</h3>
           </div>
-          <div id="tab-transaction" class="tab-pane">
-            <form id="form-transaction" class="form-horizontal">
-              <fieldset>
-                <legend>{{ text_transaction }}</legend>
-                <div id="transaction"></div>
-              </fieldset>
-              <br/>
-              <fieldset>
-                <legend>{{ text_transaction_add }}</legend>
-                <div class="form-group">
-                  <label class="col-sm-2 control-label" for="input-transaction-description">{{ entry_description }}</label>
-                  <div class="col-sm-10">
-                    <input type="text" name="description" value="" placeholder="{{ entry_description }}" id="input-transaction-description" class="form-control"/>
-                  </div>
-                </div>
-                <div class="form-group">
-                  <label class="col-sm-2 control-label" for="input-amount">{{ entry_amount }}</label>
-                  <div class="col-sm-10">
-                    <input type="text" name="amount" value="" placeholder="{{ entry_amount }}" id="input-amount" class="form-control"/>
-                  </div>
-                </div>
-              </fieldset>
-              <div class="text-right">
-                <button type="button" id="button-transaction" data-loading-text="{{ text_loading }}" class="btn btn-primary"><i class="fa fa-plus-circle"></i> {{ button_transaction_add }}</button>
-              </div>
-            </form>
+          <div class="panel-body">
+            <table class="table table-bordered">
+              <tr>
+                <td>{{ text_order_id }}</td>
+                <td><a href="{{ order }}">{{ order_id }}</a></td>
+              </tr>
+              <tr>
+                <td>{{ text_customer }}</td>
+                <td>
+                  {% if customer %}
+                    <a href="{{ customer }}">{{ firstname }} {{ lastname }}</a>
+                  {% else %}
+                    {{ firstname }} {{ lastname }}
+                  {% endif %}
+                </td>
+              </tr>
+              <tr>
+                <td>{{ text_email }}</td>
+                <td>{{ email }}</td>
+              </tr>
+              <tr>
+                <td>{{ text_order_status }}</td>
+                <td>{{ order_status }}</td>
+              </tr>
+              <tr>
+                <td>{{ text_date_added }}</td>
+                <td>{{ date_added }}</td>
+              </tr>
+            </table>
           </div>
         </div>
       </div>
     </div>
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title"><i class="fa fa-list"></i> {{ text_product_detail }}</h3>
+      </div>
+      <div class="panel-body">
+        <table class="table table-bordered">
+          <thead>
+          <tr>
+            <td>{{ text_product }}</td>
+            <td>{{ text_quantity }}</td>
+          </tr>
+          </thead>
+          <tbody>
+          <tr>
+            <td>{{ product }}</td>
+            <td>{{ quantity }}</td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title"><i class="fa fa-list"></i> {{ text_transaction }}</h3>
+      </div>
+      <div class="panel-body"> {{ buttons }}
+        <table class="table table-bordered">
+          <thead>
+          <tr>
+            <td class="text-left">{{ column_date_added }}</td>
+            <td class="text-right">{{ column_amount }}</td>
+            <td class="text-left">{{ column_type }}</td>
+          </tr>
+          </thead>
+          <tbody>
+          {% if transactions %}
+            {% for transaction in transactions %}
+              <tr>
+                <td class="text-left">{{ transaction.date_added }}</td>
+                <td class="text-right">{{ transaction.amount }}</td>
+                <td class="text-left">{{ transaction.type }}</td>
+              </tr>
+            {% endfor %}
+          {% else %}
+            <tr>
+              <td class="text-center" colspan="7">{{ text_no_results }}</td>
+            </tr>
+          {% endif %}
+          </tbody>
+        </table>
+      </div>
+    </div>
   </div>
-  <script type="text/javascript"><!--
-  $('#input-subscription-plan, #input-payment-method').on('change', function (e) {
-      e.preventDefault();
-
-      var element = this;
-
-      $.ajax({
-          url: 'index.php?route=sale/recurring/save&user_token={{ user_token }}&order_recurring_id=' + $('#input-order-recurring-id').val(),
-          type: 'post',
-          dataType: 'json',
-          data: $('#form-recurring').serialize(),
-          beforeSend: function () {
-              $(element).prop('disabled', true).addClass('loading');
-          },
-          complete: function () {
-              $(element).prop('disabled', false).removeClass('loading');
-          },
-          success: function (json) {
-              $('.alert-dismissible').remove();
-
-              if (json['error']) {
-                  $('#tab-general').prepend('<div class="alert alert-danger alert-dismissible"><i class="fa fa-exclamation-circle"></i> ' + json['error'] + ' <button type="button" class="close" data-dismiss="alert">&times;</button></div>');
-              }
-
-              if (json['success']) {
-                  $('#tab-general').prepend('<div class="alert alert-success alert-dismissible"><i class="fa-solid fa-check-circle"></i> ' + json['success'] + ' <button type="button" class="btn-close" data-bs-dismiss="alert"></button></div>');
-              }
-          },
-          error: function (xhr, ajaxOptions, thrownError) {
-              console.log(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
-          }
-      });
-  });
-
-  $('#history').on('click', '.pagination a', function (e) {
-      e.preventDefault();
-
-      $('#history').load(this.href);
-  });
-
-  $('#button-history').on('click', function (e) {
-      e.preventDefault();
-
-      $.ajax({
-          url: 'index.php?route=sale/recurring/addHistory&user_token={{ user_token }}&order_recurring_id=' + $('#input-order-recurring-id').val(),
-          type: 'post',
-          dataType: 'json',
-          data: $('#form-history').serialize(),
-          beforeSend: function () {
-              $('#button-history').button('loading');
-          },
-          complete: function () {
-              $('#button-history').button('reset');
-          },
-          success: function (json) {
-              $('.alert-dismissible').remove();
-
-              if (json['error']) {
-                  $('#tab-history').prepend('<div class="alert alert-danger alert-dismissible"><i class="fa fa-exclamation-circle"></i> ' + json['error'] + ' <button type="button" class="close" data-dismiss="alert">&times;</button></div>');
-              }
-
-              if (json['success']) {
-                  $('#tab-history').prepend('<div class="alert alert-success alert-dismissible"><i class="fa fa-check-circle"></i> ' + json['success'] + ' <button type="button" class="close" data-dismiss="alert">&times;</button></div>');
-
-                  $('#history').load('index.php?route=sale/recurring/history&user_token={{ user_token }}&order_recurring_id=' + $('#input-order-recurring-id').val());
-
-                  $('#tab-history textarea[name=\'comment\']').val('');
-              }
-          },
-          error: function (xhr, ajaxOptions, thrownError) {
-              console.log(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
-          }
-      });
-  });
-
-  $('#transaction').on('click', '.pagination a', function (e) {
-      e.preventDefault();
-
-      $('#transaction').load(this.href);
-  });
-
-  $('#button-transaction').on('click', function (e) {
-      e.preventDefault();
-
-      $.ajax({
-          url: 'index.php?route=sale/recurring/addTransaction&user_token={{ user_token }}&order_recurring_id=' + $('#input-order-recurring-id').val(),
-          type: 'post',
-          dataType: 'json',
-          data: $('#form-transaction').serialize(),
-          beforeSend: function () {
-              $('#button-transaction').button('loading');
-          },
-          complete: function () {
-              $('#button-transaction').button('reset');
-          },
-          success: function (json) {
-              $('.alert-dismissible').remove();
-
-              if (json['error']) {
-                  $('#tab-transaction').prepend('<div class="alert alert-danger alert-dismissible"><i class="fa fa-exclamation-circle"></i> ' + json['error'] + ' <button type="button" class="close" data-dismiss="alert">&times;</button></div>');
-              }
-
-              if (json['success']) {
-                  $('#tab-transaction').prepend('<div class="alert alert-success alert-dismissible"><i class="fa fa-check-circle"></i> ' + json['success'] + ' <button type="button" class="close" data-dismiss="alert">&times;</button></div>');
-
-                  $('#transaction').load('index.php?route=sale/recurring/transaction&user_token={{ user_token }}&order_recurring_id=' + $('#input-order-recurring-id').val());
-
-                  $('#tab-transaction input[name=\'amount\']').val('');
-                  $('#tab-transaction input[name=\'description\']').val('');
-              }
-          },
-          error: function (xhr, ajaxOptions, thrownError) {
-              console.log(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
-          }
-      });
-  });
-  //--></script>
 </div>
 {{ footer }}

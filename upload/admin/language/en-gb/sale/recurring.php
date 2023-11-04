@@ -4,7 +4,6 @@ $_['heading_title']                        = 'Recurring Orders';
 
 // Text
 $_['text_success']                         = 'Success: You have modified recurring profiles!';
-$_['text_plan_success']                    = 'Success: The payment method and subscription plan were both validated!';
 $_['text_list']                            = 'Recurring Order List';
 $_['text_filter']                          = 'Filter';
 $_['text_recurring_detail']                = 'Recurring Details';
@@ -17,7 +16,7 @@ $_['text_recurring_name']                  = 'Recurring Profile';
 $_['text_recurring_description']           = 'Description';
 $_['text_recurring_status']                = 'Recurring Status';
 $_['text_payment_method']                  = 'Payment Method';
-$_['text_orders_id']                       = 'Order ID';
+$_['text_order_id']                        = 'Order ID';
 $_['text_customer']                        = 'Customer';
 $_['text_email']                           = 'Email';
 $_['text_date_added']                      = 'Date Added';
@@ -34,7 +33,6 @@ $_['text_status_3']                        = 'Cancelled';
 $_['text_status_4']                        = 'Suspended';
 $_['text_status_5']                        = 'Expired';
 $_['text_status_6']                        = 'Pending';
-$_['text_subscription']                    = 'This recurring order was previously migrated to the subscription system.';
 $_['text_transactions']                    = 'Transactions';
 $_['text_cancel_confirm']                  = 'Profile\'s cancellation cannot be undone! Are you sure want to do this?';
 $_['text_transaction_date_added']          = 'Date added';
@@ -50,27 +48,21 @@ $_['text_transaction_expired']             = 'Expired';
 $_['text_cancelled']                       = 'Recurring payment has been cancelled';
 
 // Column
-$_['column_order_recurring_id']            = 'Recurring ID';
-$_['column_order_id']                      = 'Order ID';
-$_['column_reference']                     = 'Payment Reference';
-$_['column_customer']                      = 'Customer';
-$_['column_comment']                       = 'Comment';
-$_['column_description']                   = 'Description';
-$_['column_date_added']                    = 'Date Added';
-$_['column_status']                        = 'Status';
-$_['column_product']                       = 'Product Details';
-$_['column_quantity']                      = 'Quantity';
-$_['column_amount']                        = 'Amount';
-$_['column_notify']                        = 'Customer Notified';
-$_['column_type']                          = 'Type';
-$_['column_action']                        = 'Action';
+$_['column_order_recurring_id']             = 'Recurring ID';
+$_['column_order_id']                       = 'Order ID';
+$_['column_reference']                      = 'Payment Reference';
+$_['column_customer']                       = 'Customer';
+$_['column_date_added']                     = 'Date Added';
+$_['column_status']                         = 'Status';
+$_['column_amount']                         = 'Amount';
+$_['column_type']                           = 'Type';
+$_['column_action']                         = 'Action';
 
 // Entry
 $_['entry_order_recurring_id']             = 'Recurring ID';
 $_['entry_order_id']                       = 'Order ID';
 $_['entry_reference']                      = 'Payment Reference';
 $_['entry_customer']                       = 'Customer';
-$_['entry_subscription_status']            = 'Subscription Status';
 $_['entry_date_added']                     = 'Date Added';
 $_['entry_status']                         = 'Status';
 $_['entry_type']                           = 'Type';
@@ -85,12 +77,5 @@ $_['entry_payment_method']                 = 'Payment Method';
 $_['entry_cancel_payment']                 = 'Cancel Payment';
 
 // Error
-$_['error_permission']                     = 'Warning: You do not have permission to modify recurring profiles!';
 $_['error_not_cancelled']                  = 'Error: %s';
-$_['error_not_found']                      = 'Error: Could not cancel recurring profile!';
-$_['error_status']                         = 'Error: The recurring status does not match with the subscription status!';
-$_['error_subscription_plan']              = 'Warning: Subscription plan does not exist!';
-$_['error_subscription_status']            = 'Warning: Subscription status needs to be selected!';
-$_['error_payment_method']                 = 'Warning: Payment method does not exist!';
-$_['error_service_type']                   = 'Error: The service status has not been included with this transaction. If you see this error message, please contact your extension developer that handles the subscription services to resolve this issue!';
-$_['error_transaction']                    = 'Error: Cannot add the transaction to this recurring order!';
+$_['error_not_found']                      = 'Could not cancel recurring profile';
