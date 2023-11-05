@@ -54,7 +54,7 @@ class ModelExtensionPaymentSquareup extends Model {
         return $method_data;
     }
 
-    public function addTransaction($transaction, $merchant_id, $address, $order_id, $user_agent, $ip): void {
+    public function addTransaction(array $transaction, string $merchant_id, array $address, int $order_id, string $user_agent, string $ip): void {
         $amount = $this->squareup->standardDenomination($transaction['tenders'][0]['amount_money']['amount'], $transaction['tenders'][0]['amount_money']['currency']);
 
         $this->db->query("INSERT INTO `" . DB_PREFIX . "squareup_transaction` SET `transaction_id` = '" . $this->db->escape($transaction['id']) . "', `merchant_id` = '" . $this->db->escape($merchant_id) . "', `location_id` = '" . $this->db->escape($transaction['location_id']) . "', `order_id` = '" . (int)$order_id . "', `transaction_type` = '" . $this->db->escape($transaction['tenders'][0]['card_details']['status']) . "', `transaction_amount` = '" . (float)$amount . "', `transaction_currency` = '" . $this->db->escape($transaction['tenders'][0]['amount_money']['currency']) . "', `billing_address_city` = '" . $this->db->escape($address['locality']) . "', `billing_address_country` = '" . $this->db->escape($address['country']) . "', `billing_address_postcode` = '" . $this->db->escape($address['postal_code']) . "', `billing_address_province` = '" . $this->db->escape($address['sublocality']) . "', `billing_address_street_1` = '" . $this->db->escape($address['address_line_1']) . "', `billing_address_street_2` = '" . $this->db->escape($address['address_line_2']) . "', `device_browser` = '" . $this->db->escape($user_agent) . "', `device_ip` = '" . $this->db->escape($ip) . "', `created_at` = '" . $this->db->escape($transaction['created_at']) . "', `is_refunded` = '" . (int)(!empty($transaction['refunds'])) . "', `refunded_at` = '" . $this->db->escape(!empty($transaction['refunds']) ? $transaction['refunds'][0]['created_at'] : '') . "', `tenders` = '" . $this->db->escape(json_encode($transaction['tenders'])) . "', `refunds` = '" . $this->db->escape(json_encode(!empty($transaction['refunds']) ? $transaction['refunds'] : [])) . "'");
@@ -116,7 +116,7 @@ class ModelExtensionPaymentSquareup extends Model {
         }
     }
 
-    public function cronEmail($result): void {
+    public function cronEmail(array $result): void {
         if ($this->config->get('config_mail_engine')) {
             $mail = new \Mail($this->config->get('config_mail_engine'));
             $mail->protocol = $this->config->get('config_mail_protocol');
@@ -178,7 +178,7 @@ class ModelExtensionPaymentSquareup extends Model {
         return (bool)$this->config->get('payment_squareup_recurring_status');
     }
 
-    public function createRecurring($order_id, $data): void {
+    public function createRecurring(int $order_id, array $data): void {
         // Subscription
         $this->load->model('checkout/subscription');
 
@@ -282,7 +282,7 @@ class ModelExtensionPaymentSquareup extends Model {
         return $payments;
     }
 
-    public function addRecurringTransaction($subscription_id, $response_data, $transaction, $status): void {
+    public function addRecurringTransaction(int $subscription_id, array $response_data, array $transaction, string $status): void {
         // Orders
         $this->load->model('checkout/order');
 
@@ -309,7 +309,7 @@ class ModelExtensionPaymentSquareup extends Model {
         }
     }
 
-    public function updateRecurringExpired($subscription_id): bool {
+    public function updateRecurringExpired(int $subscription_id): bool {
         $subscription_info = $this->getSubscription($subscription_id);
 
         if ($subscription_info['trial_status']) {
@@ -336,7 +336,7 @@ class ModelExtensionPaymentSquareup extends Model {
         return false;
     }
 
-    public function updateRecurringTrial($subscription_id): bool {
+    public function updateRecurringTrial(int $subscription_id): bool {
         $subscription_info = $this->getSubscription($subscription_id);
 
         // If recurring payment is in trial and can expire (trial_duration > 0)
@@ -354,30 +354,30 @@ class ModelExtensionPaymentSquareup extends Model {
         return false;
     }
 
-    public function suspendRecurringProfile($subscription_id): void {
+    public function suspendRecurringProfile(int $subscription_id): void {
         $this->db->query("UPDATE `" . DB_PREFIX . "subscription` SET `status` = '" . self::RECURRING_SUSPENDED . "' WHERE `subscription_id` = '" . (int)$subscription_id . "'");
     }
 
-    private function getLastSuccessfulRecurringPaymentDate($subscription_id): string {
+    private function getLastSuccessfulRecurringPaymentDate(int $subscription_id): string {
         $query = $this->db->query("SELECT `date_added` FROM `" . DB_PREFIX . "subscription_transaction` WHERE `subscription_id` = '" . (int)$subscription_id . "' AND `type` = '" . self::TRANSACTION_PAYMENT . "' ORDER BY `date_added` DESC LIMIT 0,1");
 
         return $query->row['date_added'];
     }
 
-    private function getSubscription($subscription_id): array {
+    private function getSubscription(int $subscription_id): array {
         // Subscription
         $this->load->model('account/subscription');
 
         return $this->model_account_subscription->getSubscription($subscription_id);
     }
 
-    private function getTotalSuccessfulPayments($subscription_id): int {
+    private function getTotalSuccessfulPayments(int $subscription_id): int {
         $query = $this->db->query("SELECT COUNT(*) AS `total` FROM `" . DB_PREFIX . "subscription_transaction` WHERE `subscription_id` = '" . (int)$subscription_id . "' AND `type` = '" . self::TRANSACTION_PAYMENT . "'")->row['total'];
 
         return (int)$query->row['total'];
     }
 
-    private function paymentIsDue($subscription_id): bool {
+    private function paymentIsDue(int $subscription_id): bool {
         // We know the recurring profile is active.
         $subscription_info = $this->getSubscription($subscription_id);
 
@@ -420,7 +420,7 @@ class ModelExtensionPaymentSquareup extends Model {
         return $this_date >= $due_date;
     }
 
-    private function editTokenSetting($settings): void {
+    private function editTokenSetting(array $settings): void {
         foreach ($settings as $key => $value) {
             $this->db->query("DELETE FROM `" . DB_PREFIX . "setting` WHERE `code` = 'payment_squareup' AND `key` = '" . $key . "'");
 
@@ -428,7 +428,7 @@ class ModelExtensionPaymentSquareup extends Model {
         }
     }
 
-    private function mailResendPeriodExpired($key): bool {
+    private function mailResendPeriodExpired(string $key): bool {
         $result = (int)$this->cache->get('squareup.' . $key);
 
         if (!$result) {

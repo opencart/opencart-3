@@ -1497,8 +1497,6 @@ INSERT INTO `oc_event` (`code`, `trigger`, `action`, `status`, `sort_order`) VAL
 INSERT INTO `oc_event` (`code`, `trigger`, `action`, `status`, `sort_order`) VALUES
 ('admin_mail_subscription_history', 'admin/controller/sale/subscription/addHistory/after', 'mail/subscription/history', 1, 0);
 INSERT INTO `oc_event` (`code`, `trigger`, `action`, `status`, `sort_order`) VALUES
-('admin_mail_subscription_transaction', 'admin/controller/sale/subscription/addTransaction/after', 'mail/subscription/transaction', 1, 0);
-INSERT INTO `oc_event` (`code`, `trigger`, `action`, `status`, `sort_order`) VALUES
 ('advertise_google', 'admin/model/catalog/product/deleteProduct/after', 'extension/advertise/google/deleteProduct', 1, 0);
 INSERT INTO `oc_event` (`code`, `trigger`, `action`, `status`, `sort_order`) VALUES
 ('advertise_google', 'admin/model/catalog/product/copyProduct/after', 'extension/advertise/google/copyProduct', 1, 0);
@@ -3791,28 +3789,41 @@ CREATE TABLE `oc_store` (
 DROP TABLE IF EXISTS `oc_subscription`;
 CREATE TABLE `oc_subscription` (
   `subscription_id` int(11) NOT NULL AUTO_INCREMENT,
-  `customer_id` int(11) NOT NULL,
   `order_id` int(11) NOT NULL,
   `order_product_id` int(11) NOT NULL,
+  `store_id` int(11) NOT NULL,
+  `customer_id` int(11) NOT NULL,
+  `payment_address_id` int(11) NOT NULL,
+  `payment_method` text NOT NULL,
+  `shipping_address_id` int(11) NOT NULL,
+  `shipping_method` text NOT NULL,
+  `product_id` int(11) NOT NULL,
+  `option` text NOT NULL,
+  `quantity` int(11) NOT NULL,
   `subscription_plan_id` int(11) NOT NULL,
-  `customer_payment_id` int(11) NOT NULL,
-  `name` varchar(32) NOT NULL,
-  `description` text NOT NULL,
-  `reference` varchar(255) NOT NULL,
   `trial_price` decimal(10,4) NOT NULL,
-  `trial_frequency` enum('day','week','semi_month','month','year') NOT NULL,
+  `trial_frequency` enum(\'day\',\'week\',\'semi_month\',\'month\',\'year\') NOT NULL,
   `trial_cycle` smallint(6) NOT NULL,
   `trial_duration` smallint(6) NOT NULL,
   `trial_remaining` smallint(6) NOT NULL,
   `trial_status` tinyint(1) NOT NULL,
   `price` decimal(10,4) NOT NULL,
-  `frequency` enum('day','week','semi_month','month','year') NOT NULL,
+  `frequency` enum(\'day\',\'week\',\'semi_month\',\'month\',\'year\') NOT NULL,
   `cycle` smallint(6) NOT NULL,
   `duration` smallint(6) NOT NULL,
   `remaining` smallint(6) NOT NULL,
   `date_next` datetime NOT NULL,
+  `comment` text NOT NULL,
   `subscription_status_id` int(11) NOT NULL,
-  `status` tinyint(1) NOT NULL,
+  `affiliate_id` int(11) NOT NULL,
+  `marketing_id` int(11) NOT NULL,
+  `tracking` varchar(64) NOT NULL,
+  `language_id` int(11) NOT NULL,
+  `currency_id` int(11) NOT NULL,
+  `ip` varchar(40) NOT NULL,
+  `forwarded_ip` varchar(40) NOT NULL,
+  `user_agent` varchar(255) NOT NULL,
+  `accept_language` varchar(255) NOT NULL,
   `date_added` datetime NOT NULL,
   `date_modified` datetime NOT NULL,
   PRIMARY KEY (`subscription_id`),
@@ -3870,7 +3881,6 @@ CREATE TABLE `oc_subscription_plan_description` (
   `subscription_plan_id` int(11) NOT NULL,
   `language_id` int(11) NOT NULL,
   `name` varchar(255) NOT NULL,
-  `description` text NOT NULL,
   PRIMARY KEY (`subscription_plan_id`,`language_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 

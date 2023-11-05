@@ -20,28 +20,10 @@ class ModelCheckoutOrder extends Model {
                 }
 
                 if ($product['subscription']) {
-                    $subscription_data = [
-                        'order_product_id'     => $order_product_id,
-                        'customer_id'          => $data['customer_id'],
-                        'order_id'             => $order_id,
-                        'subscription_plan_id' => $product['subscription']['subscription_plan_id'],
-                        'name'                 => $product['subscription']['name'],
-                        'description'          => $product['subscription']['description'],
-                        'trial_price'          => $product['subscription']['trial_price'],
-                        'trial_frequency'      => $product['subscription']['trial_frequency'],
-                        'trial_cycle'          => $product['subscription']['trial_cycle'],
-                        'trial_duration'       => $product['subscription']['trial_duration'],
-                        'trial_remaining'      => $product['subscription']['trial_remaining'],
-                        'trial_status'         => $product['subscription']['trial_status'],
-                        'price'                => $product['subscription']['price'],
-                        'frequency'            => $product['subscription']['frequency'],
-                        'cycle'                => $product['subscription']['cycle'],
-                        'duration'             => $product['subscription']['duration'],
-                        'remaining'            => $product['subscription']['duration'],
-                        'status'               => $product['subscription']['status']
-                    ];
-
-                    $this->model_checkout_subscription->addSubscription($order_id, $subscription_data);
+					// If subscription add details
+					if ($product['subscription']) {
+						$this->db->query("INSERT INTO `" . DB_PREFIX . "order_subscription` SET `order_id` = '" . (int)$order_id . "', `order_product_id` = '" . (int)$order_product_id . "', `subscription_plan_id` = '" . (int)$product['subscription']['subscription_plan_id'] . "', `trial_price` = '" . (float)$product['subscription']['trial_price'] . "', `trial_tax` = '" . (float)$product['subscription']['trial_tax'] . "', `trial_frequency` = '" . $this->db->escape($product['subscription']['trial_frequency']) . "', `trial_cycle` = '" . (int)$product['subscription']['trial_cycle'] . "', `trial_duration` = '" . (int)$product['subscription']['trial_duration'] . "', `trial_remaining` = '" . (int)$product['subscription']['trial_remaining'] . "', `trial_status` = '" . (int)$product['subscription']['trial_status'] . "', `price` = '" . (float)$product['subscription']['price'] . "', `tax` = '" . (float)$product['subscription']['tax'] . "', `frequency` = '" . $this->db->escape($product['subscription']['frequency']) . "', `cycle` = '" . (int)$product['subscription']['cycle'] . "', `duration` = '" . (int)$product['subscription']['duration'] . "'");
+					}
                 }
             }
         }
@@ -90,6 +72,10 @@ class ModelCheckoutOrder extends Model {
                 foreach ($product['option'] as $option) {
                     $this->db->query("INSERT INTO `" . DB_PREFIX . "order_option` SET `order_id` = '" . (int)$order_id . "', `order_product_id` = '" . (int)$order_product_id . "', `product_option_id` = '" . (int)$option['product_option_id'] . "', `product_option_value_id` = '" . (int)$option['product_option_value_id'] . "', `name` = '" . $this->db->escape($option['name']) . "', `value` = '" . $this->db->escape($option['value']) . "', `type` = '" . $this->db->escape($option['type']) . "'");
                 }
+
+				if ($product['subscription']) {
+					$this->db->query("INSERT INTO `" . DB_PREFIX . "order_subscription` SET `order_id` = '" . (int)$order_id . "', `order_product_id` = '" . (int)$order_product_id . "', `subscription_plan_id` = '" . (int)$product['subscription']['subscription_plan_id'] . "', `trial_price` = '" . (float)$product['subscription']['trial_price'] . "', `trial_tax` = '" . (float)$product['subscription']['trial_tax'] . "', `trial_frequency` = '" . $this->db->escape($product['subscription']['trial_frequency']) . "', `trial_cycle` = '" . (int)$product['subscription']['trial_cycle'] . "', `trial_duration` = '" . (int)$product['subscription']['trial_duration'] . "', `trial_remaining` = '" . (int)$product['subscription']['trial_remaining'] . "', `trial_status` = '" . (int)$product['subscription']['trial_status'] . "', `price` = '" . (float)$product['subscription']['price'] . "', `tax` = '" . (float)$product['subscription']['tax'] . "', `frequency` = '" . $this->db->escape($product['subscription']['frequency']) . "', `cycle` = '" . (int)$product['subscription']['cycle'] . "', `duration` = '" . (int)$product['subscription']['duration'] . "'");
+				}
             }
         }
 
@@ -132,7 +118,7 @@ class ModelCheckoutOrder extends Model {
         $this->db->query("DELETE FROM `" . DB_PREFIX . "order_voucher` WHERE `order_id` = '" . (int)$order_id . "'");
         $this->db->query("DELETE FROM `" . DB_PREFIX . "order_total` WHERE `order_id` = '" . (int)$order_id . "'");
         $this->db->query("DELETE FROM `" . DB_PREFIX . "order_history` WHERE `order_id` = '" . (int)$order_id . "'");
-        $this->db->query("DELETE `s`, `srt` FROM `" . DB_PREFIX . "subscription` `s`, `" . DB_PREFIX . "subscription_transaction` `srt` WHERE `order_id` = '" . (int)$order_id . "' AND `srt`.`subscription_id` = `s`.`subscription_id`");
+		$this->db->query("DELETE FROM `" . DB_PREFIX . "order_subscription` WHERE `order_id` = '" . (int)$order_id . "'");
         $this->db->query("DELETE FROM `" . DB_PREFIX . "customer_transaction` WHERE `order_id` = '" . (int)$order_id . "'");
 
         // Recurring
@@ -283,6 +269,89 @@ class ModelCheckoutOrder extends Model {
         return $query->rows;
     }
 
+	/**
+	 * @param int $order_id
+	 * @param int $order_product_id
+	 *
+	 * @return array
+	 */
+	public function getSubscription(int $order_id, int $order_product_id): array {
+		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "order_subscription` WHERE `order_id` = '" . (int)$order_id . "' AND `order_product_id` = '" . (int)$order_product_id . "'");
+
+		return $query->row;
+	}
+
+	/**
+	 * @param array $data
+	 *
+	 * @return array
+	 */
+	public function getSubscriptions(array $data): array {
+		$sql = "SELECT * FROM `" . DB_PREFIX . "subscription`";
+
+		$implode = [];
+
+		if (!empty($data['filter_date_next'])) {
+			$implode[] = "DATE(`date_next`) <= DATE('" . $this->db->escape($data['filter_date_next']) . "')";
+		}
+
+		if (!empty($data['filter_subscription_status_id'])) {
+			$implode[] = "`subscription_status_id` = '" . (int)$data['filter_subscription_status_id'] . "'";
+		}
+
+		if ($implode) {
+			$sql .= " WHERE " . implode(" AND ", $implode);
+		}
+
+		$sort_data = [
+			'pd.name',
+			'p.model',
+			'p.price',
+			'p.quantity',
+			'p.status',
+			'p.sort_order'
+		];
+
+		if (isset($data['sort']) && in_array($data['sort'], $sort_data)) {
+			$sql .= " ORDER BY " . $data['sort'];
+		} else {
+			$sql .= " ORDER BY `o`.`order_id`";
+		}
+
+		if (isset($data['order']) && ($data['order'] == 'DESC')) {
+			$sql .= " DESC";
+		} else {
+			$sql .= " ASC";
+		}
+
+		if (isset($data['start']) || isset($data['limit'])) {
+			if ($data['start'] < 0) {
+				$data['start'] = 0;
+			}
+
+			if ($data['limit'] < 1) {
+				$data['limit'] = 20;
+			}
+
+			$sql .= " LIMIT " . (int)$data['start'] . "," . (int)$data['limit'];
+		}
+
+		$query = $this->db->query($sql);
+
+		return $query->rows;
+	}
+
+	/**
+	 * @param int $subscription_id
+	 *
+	 * @return int
+	 */
+	public function getTotalOrdersBySubscriptionId(int $subscription_id): int {
+		$query = $this->db->query("SELECT COUNT(*) AS `total` FROM `" . DB_PREFIX . "order` WHERE `subscription_id` = '" . (int)$subscription_id . "' AND `customer_id` = '" . (int)$this->customer->getId() . "'");
+
+		return (int)$query->row['total'];
+	}
+
     public function getVouchers(int $order_id): array {
         $query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "order_voucher` WHERE `order_id` = '" . (int)$order_id . "'");
 
@@ -375,7 +444,7 @@ class ModelCheckoutOrder extends Model {
                 }
             }
 
-            // Update the DB with the new statuses
+			// Update the DB with the new statuses
             $this->db->query("UPDATE `" . DB_PREFIX . "order` SET `order_status_id` = '" . (int)$order_status_id . "', `date_modified` = NOW() WHERE `order_id` = '" . (int)$order_id . "'");
 
             $this->db->query("INSERT INTO `" . DB_PREFIX . "order_history` SET `order_id` = '" . (int)$order_id . "', `order_status_id` = '" . (int)$order_status_id . "', `notify` = '" . (int)$notify . "', `comment` = '" . $this->db->escape($comment) . "', `date_added` = NOW()");
@@ -385,7 +454,42 @@ class ModelCheckoutOrder extends Model {
                 // Restock
                 $order_products = $this->getProducts($order_id);
 
+				// Add subscription
+				$this->load->model('checkout/subscription');
+
                 foreach ($order_products as $order_product) {
+					// Subscription
+					$order_subscription_info = $this->getSubscription($order_id, $order_product['order_product_id']);
+
+					if ($order_subscription_info) {
+						// Add options for subscription
+						$option_data = [];
+
+						$options = $this->getOptions($order_id, $order_product['order_product_id']);
+
+						foreach ($options as $option) {
+							if ($option['type'] == 'text' || $option['type'] == 'textarea' || $option['type'] == 'file' || $option['type'] == 'date' || $option['type'] == 'datetime' || $option['type'] == 'time') {
+								$option_data[$option['product_option_id']] = $option['value'];
+							} elseif ($option['type'] == 'select' || $option['type'] == 'radio') {
+								$option_data[$option['product_option_id']] = $option['product_option_value_id'];
+							} elseif ($option['type'] == 'checkbox') {
+								$option_data[$option['product_option_id']][] = $option['product_option_value_id'];
+							}
+						}
+
+						// Add subscription if one is not setup
+						$subscription_info = $this->model_checkout_subscription->getSubscriptionByOrderProductId($order_id, $order_product['order_product_id']);
+
+						if ($subscription_info) {
+							$subscription_id = $subscription_info['subscription_id'];
+						} else {
+							$subscription_id = $this->model_checkout_subscription->addSubscription(array_merge($order_subscription_info, $order_product, $order_info, ['option' => $option_data]));
+						}
+
+						// Add history and set active subscription
+						$this->model_checkout_subscription->addHistory($subscription_id, (int)$this->config->get('config_subscription_active_id'));
+					}
+
                     $this->db->query("UPDATE `" . DB_PREFIX . "product` SET `quantity` = (`quantity` + " . (int)$order_product['quantity'] . ") WHERE `product_id` = '" . (int)$order_product['product_id'] . "' AND `subtract` = '1'");
 
                     $order_options = $this->getOptions($order_id, $order_product['order_product_id']);
