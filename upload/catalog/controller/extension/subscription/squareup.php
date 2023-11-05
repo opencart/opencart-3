@@ -185,7 +185,7 @@ class ControllerExtensionSubscriptionSquareup extends Controller {
                     $trial_expired = $this->model_extension_payment_squareup->updateRecurringTrial($payment['subscription_id']);
                     $recurring_expired = $this->model_extension_payment_squareup->updateRecurringExpired($payment['subscription_id']);
 
-                    $result['transaction_success'][$payment['sibscription_id']] = $this->currency->format($amount, $target_currency);
+                    $result['transaction_success'][$payment['subscription_id']] = $this->currency->format($amount, $target_currency);
                 } else {
                     // Transaction was not successful. Suspend the subscription profile.
                     $profile_suspended = $this->model_extension_payment_squareup->suspendRecurringProfile($payment['subscription_id']);
