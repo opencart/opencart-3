@@ -788,9 +788,9 @@ class ControllerExtensionPaymentLaybuy extends Controller {
 
         if ($order_page) {
             return $this->load->view('extension/payment/laybuy_transaction', $data);
-        } else {
-			$this->response->setOutput($this->load->view('extension/payment/laybuy_transaction', $data));
-		}
+        }
+
+		$this->response->setOutput($this->load->view('extension/payment/laybuy_transaction', $data));
     }
 
     public function cancel(): void {
