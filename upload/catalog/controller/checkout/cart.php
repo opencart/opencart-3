@@ -102,10 +102,10 @@ class ControllerCheckoutCart extends Controller {
                 if ($this->customer->isLogged() || !$this->config->get('config_customer_price')) {
                     $unit_price = $this->tax->calculate($product['price'], $product['tax_class_id'], $this->config->get('config_tax'));
 
-                    $price_status = $this->currency->format($unit_price, $this->session->data['currency']);
+                    $price = $this->currency->format($unit_price, $this->session->data['currency']);
                     $total = $this->currency->format($unit_price * $product['quantity'], $this->session->data['currency']);
                 } else {
-                    $price_status = false;
+                    $price = false;
                     $total = false;
                 }
 
@@ -119,7 +119,7 @@ class ControllerCheckoutCart extends Controller {
 						$trial_frequency = $this->language->get('text_' . $product['subscription']['trial_frequency']);
 						$trial_duration = $product['subscription']['trial_duration'];
 
-						$description .= sprintf($this->language->get('text_subscription_trial'), $price_status ? $trial_price : '', $trial_cycle, $trial_frequency, $trial_duration);
+						$description .= sprintf($this->language->get('text_subscription_trial'), $price ? $trial_price : '', $trial_cycle, $trial_frequency, $trial_duration);
 					}
 
 					$price = $this->currency->format($this->tax->calculate($product['subscription']['price'], $product['tax_class_id'], $this->config->get('config_tax')), $this->session->data['currency']);
@@ -129,9 +129,9 @@ class ControllerCheckoutCart extends Controller {
 					$duration = $product['subscription']['duration'];
 
 					if ($duration) {
-						$description .= sprintf($this->language->get('text_subscription_duration'), $price_status ? $price : '', $cycle, $frequency, $duration);
+						$description .= sprintf($this->language->get('text_subscription_duration'), $price ? $price : '', $cycle, $frequency, $duration);
 					} else {
-						$description .= sprintf($this->language->get('text_subscription_cancel'), $price_status ? $price : '', $cycle, $frequency);
+						$description .= sprintf($this->language->get('text_subscription_cancel'), $price ? $price : '', $cycle, $frequency);
 					}
 				}
 
