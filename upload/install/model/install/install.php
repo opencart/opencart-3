@@ -1,6 +1,6 @@
 <?php
 class ModelInstallInstall extends Model {
-    public function database($data) {
+    public function database(array $data): void {
         $db = new \DB($data['db_driver'], htmlspecialchars_decode($data['db_hostname']), htmlspecialchars_decode($data['db_username']), htmlspecialchars_decode($data['db_password']), htmlspecialchars_decode($data['db_database']), $data['db_port']);
 
         $file = DIR_APPLICATION . 'opencart.sql';
@@ -35,15 +35,12 @@ class ModelInstallInstall extends Model {
             $db->query("SET @@session.sql_mode = ''");
 
             $db->query("DELETE FROM `" . $data['db_prefix'] . "user` WHERE `user_id` = '1'");
-
             $db->query("INSERT INTO `" . $data['db_prefix'] . "user` SET `user_id` = '1', `user_group_id` = '1', `username` = '" . $db->escape($data['username']) . "', `password` = '" . $db->escape(password_hash(html_entity_decode($data['password'], ENT_QUOTES, 'UTF-8'), PASSWORD_DEFAULT)) . "', `firstname` = 'John', `lastname` = 'Doe', `email` = '" . $db->escape($data['email']) . "', `status` = '1', `date_added` = NOW()");
 
             $db->query("DELETE FROM `" . $data['db_prefix'] . "setting` WHERE `key` = 'config_email'");
-
             $db->query("INSERT INTO `" . $data['db_prefix'] . "setting` SET `code` = 'config', `key` = 'config_email', `value` = '" . $db->escape($data['email']) . "'");
 
             $db->query("DELETE FROM `" . $data['db_prefix'] . "setting` WHERE `key` = 'config_encryption'");
-
             $db->query("INSERT INTO `" . $data['db_prefix'] . "setting` SET `code` = 'config', `key` = 'config_encryption', `value` = '" . $db->escape(oc_token(1024)) . "'");
 
             $db->query("UPDATE `" . $data['db_prefix'] . "product` SET `viewed` = '0'");
@@ -53,7 +50,6 @@ class ModelInstallInstall extends Model {
             $api_id = $db->getLastId();
 
             $db->query("DELETE FROM `" . $data['db_prefix'] . "setting` WHERE `key` = 'config_api_id'");
-
             $db->query("INSERT INTO `" . $data['db_prefix'] . "setting` SET `code` = 'config', `key` = 'config_api_id', `value` = '" . (int)$api_id . "'");
 
             // set the current years prefix

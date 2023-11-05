@@ -303,7 +303,7 @@ class ModelCustomerCustomer extends Model {
         return (int)$query->row['total'];
     }
 
-    public function addTransaction($customer_id, $description = '', $amount = 0, $order_id = 0) {
+    public function addTransaction(int $customer_id, string $description = '', float $amount = 0, int $order_id = 0): void {
         $this->db->query("INSERT INTO `" . DB_PREFIX . "customer_transaction` SET `customer_id` = '" . (int)$customer_id . "', `order_id` = '" . (int)$order_id . "', `description` = '" . $this->db->escape($description) . "', `amount` = '" . (float)$amount . "', `date_added` = NOW()");
     }
 

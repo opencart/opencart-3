@@ -90,7 +90,7 @@ class ModelMarketingMarketing extends Model {
         return $query->rows;
     }
 
-    public function getTotalMarketings($data = []) {
+    public function getTotalMarketings(array $data = []): int {
         $sql = "SELECT COUNT(*) AS `total` FROM `" . DB_PREFIX . "marketing`";
 
         $implode = [];
