@@ -665,7 +665,7 @@ class ControllerExtensionPaymentLaybuy extends Controller {
         }
     }
 
-    public function transaction($order_page = false) {
+    public function transaction(bool $order_page = false) {
         $this->load->language('extension/payment/laybuy');
 
         // Laybuy
@@ -787,10 +787,10 @@ class ControllerExtensionPaymentLaybuy extends Controller {
         $data['footer'] = $this->load->controller('common/footer');
 
         if ($order_page) {
-            return $data;
-        }
-
-        $this->response->setOutput($this->load->view('extension/payment/laybuy_transaction', $data));
+            return $this->load->view('extension/payment/laybuy_transaction', $data);
+        } else {
+			$this->response->setOutput($this->load->view('extension/payment/laybuy_transaction', $data));
+		}
     }
 
     public function cancel(): void {

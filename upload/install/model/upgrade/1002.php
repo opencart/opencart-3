@@ -50,7 +50,7 @@ class ModelUpgrade1002 extends Model {
         $query = $this->db->query("SELECT * FROM information_schema.COLUMNS WHERE TABLE_SCHEMA = '" . DB_DATABASE . "' AND TABLE_NAME = '" . DB_PREFIX . "product_option' AND COLUMN_NAME = 'option_value'");
 
         if ($query->num_rows) {
-            // Drop product option value if exsits
+            // Drop product option value if exists
             $query = $this->db->query("SELECT * FROM information_schema.COLUMNS WHERE TABLE_SCHEMA = '" . DB_DATABASE . "' AND TABLE_NAME = '" . DB_PREFIX . "product_option' AND COLUMN_NAME = 'value'");
 
             if ($query->num_rows) {
