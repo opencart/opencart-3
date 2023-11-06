@@ -30,7 +30,7 @@ class ModelExtensionPaymentPayPal extends Model {
             ];
         }
 
-        $query = $this->db->query("SELECT SUM(`total`) AS total, SUM(IF (`payment_code` = 'paypal', total, 0)) AS paypal_total, HOUR(`date_added`) AS hour FROM `" . DB_PREFIX . "order` WHERE `order_status_id` IN(" . implode(',', $implode) . ") AND DATE(`date_added`) = DATE(NOW()) GROUP BY HOUR(`date_added`) ORDER BY `date_added` ASC");
+        $query = $this->db->query("SELECT SUM(`total`) AS `total`, SUM(IF (`payment_code` = 'paypal', total, 0)) AS paypal_total, HOUR(`date_added`) AS hour FROM `" . DB_PREFIX . "order` WHERE `order_status_id` IN(" . implode(',', $implode) . ") AND DATE(`date_added`) = DATE(NOW()) GROUP BY HOUR(`date_added`) ORDER BY `date_added` ASC");
 
         foreach ($query->rows as $result) {
             $sale_data[$result['hour']] = [
@@ -64,7 +64,7 @@ class ModelExtensionPaymentPayPal extends Model {
             ];
         }
 
-        $query = $this->db->query("SELECT SUM(`total`) AS total, SUM(IF (`payment_code` = 'paypal', total, 0)) AS paypal_total, `date_added` FROM `" . DB_PREFIX . "order` WHERE `order_status_id` IN(" . implode(',', $implode) . ") AND DATE(`date_added`) >= DATE('" . $this->db->escape(date('Y-m-d', $date_start)) . "') GROUP BY DAYNAME(`date_added`)");
+        $query = $this->db->query("SELECT SUM(`total`) AS `total`, SUM(IF (`payment_code` = 'paypal', total, 0)) AS paypal_total, `date_added` FROM `" . DB_PREFIX . "order` WHERE `order_status_id` IN(" . implode(',', $implode) . ") AND DATE(`date_added`) >= DATE('" . $this->db->escape(date('Y-m-d', $date_start)) . "') GROUP BY DAYNAME(`date_added`)");
 
         foreach ($query->rows as $result) {
             $sale_data[date('w', strtotime($result['date_added']))] = [
@@ -96,7 +96,7 @@ class ModelExtensionPaymentPayPal extends Model {
             ];
         }
 
-        $query = $this->db->query("SELECT SUM(`total`) AS total, SUM(IF (`payment_code` = 'paypal', total, 0)) AS paypal_total, `date_added` FROM `" . DB_PREFIX . "order` WHERE `order_status_id` IN(" . implode(',', $implode) . ") AND DATE(`date_added`) >= '" . $this->db->escape(date('Y') . '-' . date('m') . '-1') . "' GROUP BY DATE(`date_added`)");
+        $query = $this->db->query("SELECT SUM(`total`) AS `total`, SUM(IF (`payment_code` = 'paypal', total, 0)) AS paypal_total, `date_added` FROM `" . DB_PREFIX . "order` WHERE `order_status_id` IN(" . implode(',', $implode) . ") AND DATE(`date_added`) >= '" . $this->db->escape(date('Y') . '-' . date('m') . '-1') . "' GROUP BY DATE(`date_added`)");
 
         foreach ($query->rows as $result) {
             $sale_data[date('j', strtotime($result['date_added']))] = [
@@ -126,7 +126,7 @@ class ModelExtensionPaymentPayPal extends Model {
             ];
         }
 
-        $query = $this->db->query("SELECT SUM(`total`) AS total, SUM(IF (`payment_code` = 'paypal', total, 0)) AS paypal_total, `date_added` FROM `" . DB_PREFIX . "order` WHERE `order_status_id` IN(" . implode(',', $implode) . ") AND YEAR(`date_added`) = YEAR(NOW()) GROUP BY MONTH(`date_added`)");
+        $query = $this->db->query("SELECT SUM(`total`) AS `total`, SUM(IF (`payment_code` = 'paypal', total, 0)) AS paypal_total, `date_added` FROM `" . DB_PREFIX . "order` WHERE `order_status_id` IN(" . implode(',', $implode) . ") AND YEAR(`date_added`) = YEAR(NOW()) GROUP BY MONTH(`date_added`)");
 
         foreach ($query->rows as $result) {
             $sale_data[date('n', strtotime($result['date_added']))] = [
