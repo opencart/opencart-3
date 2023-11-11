@@ -19,7 +19,8 @@
           {{ text_invoice }} #{{ order.invoice_no }}
         {% else %}
           {{ order.text_order }}
-        {% endif %}</h1>
+        {% endif %}
+      </h1>
       <table class="table table-bordered">
         <thead>
           <tr>
@@ -42,7 +43,8 @@
               {% endif %}
               <b>{{ text_email }}</b> {{ order.store_email }}
               <br/>
-              <b>{{ text_website }}</b> <a href="{{ order.store_url }}">{{ order.store_url }}</a></td>
+              <b>{{ text_website }}</b> <a href="{{ order.store_url }}">{{ order.store_url }}</a>
+            </td>
             <td style="width: 50%;"><b>{{ text_date_added }}</b> {{ order.date_added }}
               <br/>
               {% if order.invoice_no %}

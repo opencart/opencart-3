@@ -6,11 +6,11 @@ class ModelSaleRecurring extends Model {
 		$implode = [];
 
 		if (!empty($data['filter_order_recurring_id'])) {
-			$implode[] = "`or`.`order_recurring_id` = " . (int)$data['filter_order_recurring_id'];
+			$implode[] = "`or`.`order_recurring_id` = '" . (int)$data['filter_order_recurring_id'] . "'";
 		}
 
 		if (!empty($data['filter_order_id'])) {
-			$implode[] = "`or`.`order_id` = " . (int)$data['filter_order_id'];
+			$implode[] = "`or`.`order_id` = '" . (int)$data['filter_order_id'] . "'";
 		}
 
 		if (!empty($data['filter_reference'])) {
@@ -22,7 +22,7 @@ class ModelSaleRecurring extends Model {
 		}
 
 		if (!empty($data['filter_status'])) {
-			$implode[] = "`or`.`status` = " . (int)$data['filter_status'];
+			$implode[] = "`or`.`status` = '" . (int)$data['filter_status'] . "'";
 		}
 
 		if (!empty($data['filter_date_added'])) {
@@ -135,11 +135,11 @@ class ModelSaleRecurring extends Model {
 		$implode = [];
 
 		if (!empty($data['filter_order_recurring_id'])) {
-			$implode[] = "`or`.`order_recurring_id` = " . (int)$data['filter_order_recurring_id'];
+			$implode[] = "`or`.`order_recurring_id` = '" . (int)$data['filter_order_recurring_id'] . "'";
 		}
 
 		if (!empty($data['filter_order_id'])) {
-			$implode[] = "`or`.`order_id` = " . (int)$data['filter_order_id'];
+			$implode[] = "`or`.`order_id` = '" . (int)$data['filter_order_id'] . "'";
 		}
 
 		if (!empty($data['filter_payment_reference'])) {
@@ -151,7 +151,7 @@ class ModelSaleRecurring extends Model {
 		}
 
 		if (!empty($data['filter_status'])) {
-			$implode[] = "`or`.`status` = " . (int)$data['filter_status'];
+			$implode[] = "`or`.`status` = '" . (int)$data['filter_status'] . "'";
 		}
 
 		if (!empty($data['filter_date_added'])) {
