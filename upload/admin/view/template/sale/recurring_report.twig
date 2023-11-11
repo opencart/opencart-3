@@ -29,16 +29,16 @@
                 <br/>
                 {{ recurring.store_address }}
               </address>
-              <b>{{ text_customer_group }}</b> {{ recurring.customer_group }}
-              <b>{{ text_telephone }}</b> {{ recurring.store_telephone }}
+              <b>{{ text_customer_group }}</b>: {{ recurring.customer_group }}
+              <b>{{ text_telephone }}</b>: {{ recurring.store_telephone }}
               <br/>
               {% if recurring.store_fax %}
-                <b>{{ text_fax }}</b> {{ recurring.store_fax }}
+                <b>{{ text_fax }}</b>: {{ recurring.store_fax }}
                 <br/>
               {% endif %}
-              <b>{{ text_email }}</b> {{ recurring.store_email }}
+              <b>{{ text_email }}</b>: {{ recurring.store_email }}
               <br/>
-              <b>{{ text_website }}</b> <a href="{{ recurring.store_url }}">{{ recurring.store_url }}</a>
+              <b>{{ text_website }}</b>: <a href="{{ recurring.store_url }}">{{ recurring.store_url }}</a>
             </td>
           </tr>
         </tbody>
