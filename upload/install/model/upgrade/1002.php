@@ -85,7 +85,7 @@ class ModelUpgrade1002 extends Model {
     }
 
     // Function to repair any erroneous categories that are not in the category path table.
-    public function repairCategories($parent_id = 0) {
+    public function repairCategories(int $parent_id = 0): void {
         $query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "category` WHERE `parent_id` = '" . (int)$parent_id . "'");
 
         foreach ($query->rows as $category) {
