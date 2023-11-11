@@ -562,16 +562,16 @@ class ControllerSaleRecurring extends Controller {
 									];
 
 									$data['recurrings'][] = [
-										'store_name'          => $this->config->get('config_name'),
-										'store_url'           => rtrim($store_url, '/'),
-										'store_address'       => nl2br($store_address),
-										'store_email'         => $store_email,
-										'store_telephone'     => $store_telephone,
-										'store_fax'           => $store_fax,
-										'duration'            => $duration,
-										'customer_group_name' => $customer_group['name'],
-										'product'             => $product_data,
-										'recurring'           => $recurring
+										'store_name'      => $this->config->get('config_name'),
+										'store_url'       => rtrim($store_url, '/'),
+										'store_address'   => nl2br($store_address),
+										'store_email'     => $store_email,
+										'store_telephone' => $store_telephone,
+										'store_fax'       => $store_fax,
+										'duration'        => $duration,
+										'customer_group'  => $customer_group['name'],
+										'product'         => $product_data,
+										'recurring'       => $recurring
 									];
 								}
 							}
