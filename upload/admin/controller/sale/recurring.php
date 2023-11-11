@@ -427,8 +427,7 @@ class ControllerSaleRecurring extends Controller {
 			$data['footer']      = $this->load->controller('common/footer');
 
 			$this->response->setOutput($this->load->view('sale/recurring_info', $data));
-		}
-		else {
+		} else {
 			return new \Action('error/not_found');
 		}
 
@@ -445,8 +444,7 @@ class ControllerSaleRecurring extends Controller {
 
 		if ($this->request->server['HTTPS']) {
 			$data['base'] = HTTPS_SERVER;
-		}
-		else {
+		} else {
 			$data['base'] = HTTP_SERVER;
 		}
 
@@ -455,8 +453,7 @@ class ControllerSaleRecurring extends Controller {
 
 		if (isset($this->request->post['selected'])) {
 			$selected = $this->request->post['selected'];
-		}
-		else {
+		} else {
 			$selected = [];
 		}
 
@@ -584,8 +581,7 @@ class ControllerSaleRecurring extends Controller {
 			}
 
 			$this->response->setOutput($this->load->view('sale/recurring_report', $data));
-		}
-		else {
+		} else {
 			return new \Action('error/permission');
 		}
 	}
