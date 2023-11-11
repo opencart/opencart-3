@@ -95,6 +95,9 @@ $_['entry_recurring']                      = 'Recurring Profile';
 $_['entry_payment_method']                 = 'Payment Method';
 $_['entry_cancel_payment']                 = 'Cancel Payment';
 
+// Button
+$_['button_report']                        = 'Download Report';
+
 // Error
 $_['error_not_cancelled']                  = 'Error: %s';
 $_['error_not_found']                      = 'Could not cancel recurring profile';
