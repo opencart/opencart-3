@@ -2525,7 +2525,6 @@ DROP TABLE IF EXISTS `oc_order_recurring_history`;
 CREATE TABLE `oc_order_recurring_history` (
   `order_recurring_history_id` int(11) NOT NULL AUTO_INCREMENT,
   `order_recurring_id` int(11) NOT NULL,
-  `subscription_status_id` int(11) NOT NULL,
   `notify` tinyint(1) NOT NULL,
   `comment` text NOT NULL,
   `date_added` datetime NOT NULL,
