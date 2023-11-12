@@ -525,12 +525,8 @@ class ControllerSaleRecurring extends Controller {
 
 									if ($order_recurring_info['recurring_duration']) {
 										$recurring .= sprintf($this->language->get('text_payment_description'), $this->currency->format($this->tax->calculate($order_recurring_info['recurring_price'] * $order_recurring_info['product_quantity'], $product_info['tax_class_id'], $this->config->get('config_tax')), $this->config->get('config_currency')), $order_recurring_info['recurring_cycle'], $frequencies[$order_recurring_info['recurring_frequency']], $order_recurring_info['recurring_duration']);
-
-										$duration = true;
 									} else {
 										$recurring .= sprintf($this->language->get('text_payment_cancel'), $this->currency->format($this->tax->calculate($order_recurring_info['recurring_price'] * $order_recurring_info['product_quantity'], $product_info['tax_class_id'], $this->config->get('config_tax')), $this->config->get('config_currency')), $order_recurring_info['recurring_cycle'], $frequencies[$order_recurring_info['recurring_frequency']], $order_recurring_info['recurring_duration']);
-
-										$duration = false;
 									}
 
 									$option_data = [];
@@ -571,7 +567,6 @@ class ControllerSaleRecurring extends Controller {
 										'store_email'     => $store_email,
 										'store_telephone' => $store_telephone,
 										'store_fax'       => $store_fax,
-										'duration'        => $duration,
 										'customer_group'  => $customer_group['name'],
 										'product'         => $product_data,
 										'recurring'       => $recurring
