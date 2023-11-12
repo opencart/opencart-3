@@ -493,7 +493,8 @@ class ControllerSaleRecurring extends Controller {
 			$store_fax       = $this->config->get('config_fax');
 
 			// As per GDPR law, only one store per organization with the same party
-			// can export customers' data
+			// or the same party from multiple stores of the same organization can export
+			// customers' data
 			if ($selected && $this->model_setting_store->getTotalStores() == 1) {
 				$expires = $this->model_customer_gdpr->getExpires();
 
