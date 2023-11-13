@@ -1591,6 +1591,7 @@ INSERT INTO `oc_extension` (`extension_id`, `type`, `code`) VALUES
 (40, 'report', 'customer_order'),
 (41, 'report', 'customer_reward'),
 (42, 'advertise', 'google');
+(43, 'currency', 'ecb'),
 
 -----------------------------------------------------------
 
@@ -3532,6 +3533,7 @@ INSERT INTO `oc_setting` (`store_id`, `code`, `key`, `value`, `serialized`) VALU
   (0, 'config', 'config_admin_language', 'en-gb', 0),
   (0, 'config', 'config_currency', 'USD', 0),
   (0, 'config', 'config_currency_auto', '1', 0),
+  (0, 'config', 'config_currency_engine', 'ecb', 0),
   (0, 'config', 'config_length_class_id', '1', 0),
   (0, 'config', 'config_weight_class_id', '1', 0),
   (0, 'config', 'config_product_count', '1', 0),
