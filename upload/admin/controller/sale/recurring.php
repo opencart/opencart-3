@@ -486,12 +486,6 @@ class ControllerSaleRecurring extends Controller {
 
 			$expires_data = [];
 
-			$store_address   = $this->config->get('config_address');
-			$store_email     = $this->config->get('config_email');
-			$store_telephone = $this->config->get('config_telephone');
-			$store_url       = $this->config->get('config_url');
-			$store_fax       = $this->config->get('config_fax');
-
 			// As per GDPR law, only one store per organization with the same party
 			// or the same party from multiple stores of the same organization can export
 			// customers' data
