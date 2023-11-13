@@ -380,16 +380,55 @@ class ControllerSettingSetting extends Controller {
             $data['config_currency'] = $this->config->get('config_currency');
         }
 
+		$data['currency_engines'] = [];
+
+		$this->load->model('setting/extension');
+
+		$extensions = $this->model_setting_extension->getInstalled('currency');
+
+		foreach ($extensions as $code) {
+			if ($this->config->get('currency_' . $code . '_status')) {
+
+				$this->load->language('extension/currency/' . $code, 'extension');
+
+				$data['currency_engines'][] = [
+					'text'  => $this->language->get('extension')->get('heading_title'),
+					'value' => $code
+				];
+			}
+		}
+
         if (isset($this->request->post['config_currency_auto'])) {
             $data['config_currency_auto'] = $this->request->post['config_currency_auto'];
         } else {
             $data['config_currency_auto'] = $this->config->get('config_currency_auto');
         }
 
+		if (isset($this->request->post['config_currency_engine'])) {
+			$data['config_currency_engine'] = $this->request->post['config_currency_engine'];
+		} else {
+			$data['config_currency_engine'] = $this->config->get('config_currency_engine');
+		}
+
         // Currencies
         $this->load->model('localisation/currency');
 
         $data['currencies'] = $this->model_localisation_currency->getCurrencies();
+
+		$data['currency_engines'] = [];
+
+		$extension_codes = $this->model_setting_extension->getInstalled('currency');
+
+		foreach ($extension_codes as $extension_code) {
+			if ($this->config->get('currency_' . $extension_code . '_status')) {
+				$this->load->language('extension/currency/' . $extension_code, 'currency_engine');
+
+				$data['currency_engines'][] = [
+					'text'  => $this->language->get('currency_engine')->get('heading_title'),
+					'value' => $extension_code
+				];
+			}
+		}
 
         if (isset($this->request->post['config_length_class_id'])) {
             $data['config_length_class_id'] = $this->request->post['config_length_class_id'];
