@@ -508,7 +508,7 @@ class ControllerSaleRecurring extends Controller {
 			foreach ($selected as $order_recurring_id) {
 				$order_recurring_info = $this->model_sale_recurring->getRecurring($order_recurring_id);
 
-				if ($order_recurring_info && $order_recurring_info['status'] == 2) {
+				if ($order_recurring_info) {
 					$transaction_total = $this->db->query("SELECT COUNT(*) AS `total` FROM `" . DB_PREFIX . "order_recurring_transaction` WHERE `order_recurring_id` = '" . (int)$order_recurring_info['order_recurring_id'] . "' AND `date_added` > DATE('" . $this->db->escape(date('Y-m-d', strtotime('+' . (int)$this->config->get('config_gdpr_limit') . ' days'))) . "') ORDER BY `date_added` ASC");
 
 					if (!in_array(strtotime($order_recurring_info['date_added']), $expires_data) && $transaction_total->row['total'] == 1) {
