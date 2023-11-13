@@ -510,7 +510,7 @@ class ControllerSaleRecurring extends Controller {
 
 				if ($order_recurring_info && $order_recurring_info['status']) {
 					if (!in_array(strtotime($order_recurring_info['date_added']), $expires_data)) {
-						$transaction_total = $this->db->query("SELECT COUNT(*) AS `total` FROM `" . DB_PREFIX . "order_recurring_transaction` ot LEFT JOIN `" . DB_PREFIX . "order_recurring` `or` ON (ot.`order_recurring_id` = `or`.`order_recurring_id`) WHERE `or`.`order_id` = '" . (int)$order_recurring_info['order_id'] . "' AND `or`.`date_added` > DATE('" . $this->db->escape(date('Y-m-d', strtotime('+' . (int)$this->config->get('config_gdpr_limit') . ' days'))) . "') AND ot.`amount` > '0' ORDER BY `or`.`date_added` ASC");
+						$transaction_total = $this->db->query("SELECT COUNT(*) AS `total` FROM `" . DB_PREFIX . "order_recurring_transaction` WHERE `order_recurring_id` = '" . (int)$order_recurring_id . "' AND `date_added` > DATE('" . $this->db->escape(date('Y-m-d', strtotime('+' . (int)$this->config->get('config_gdpr_limit') . ' days'))) . "') AND `amount` > '0' ORDER BY `date_added` ASC");
 
 						if ($transaction_total->row['total'] == 1) {
 							$product_recurring_info = $this->db->query("SELECT `customer_group_id` FROM `" . DB_PREFIX . "product_recurring` WHERE `recurring_id` = '" . (int)$order_recurring_info['recurring_id'] . "' AND `product_id` = '" . (int)$order_recurring_info['product_id'] . "'");
