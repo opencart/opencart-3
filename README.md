@@ -65,7 +65,7 @@ Please read the installation instructions included in the repository or download
 
 ## License
 
-[GNU General Public License version 3 (GPLv3)](https://github.com/opencart/opencart/blob/master/license.txt)
+[GNU General Public License version 3 (GPLv3)](https://github.com/opencart/opencart/blob/master/LICENSE)
 
 ## Links
 
