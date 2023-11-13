@@ -12,9 +12,11 @@
 </head>
 <body>
 <div class="container">
+  {% set i = 0 %}
   {% for recurring in recurrings %}
+    {% set i = i + 1 %}
     <div style="page-break-after: always;">
-      <h1>{{ recurring.recurring }}</h1>
+      <h1>{{ text_report }}: {{ i }}</h1>
       <table class="table table-bordered">
         <thead>
           <tr>
@@ -26,44 +28,9 @@
             <td style="width: 50%;">
               <address>
                 <strong>{{ recurring.store_name }}</strong>
-                <br/>
-                {{ recurring.store_address }}
               </address>
-              <b>{{ text_customer_group }}</b>: {{ recurring.customer_group }}
-              <b>{{ text_telephone }}</b>: {{ recurring.store_telephone }}
-              <br/>
-              {% if recurring.store_fax %}
-                <b>{{ text_fax }}</b>: {{ recurring.store_fax }}
-                <br/>
-              {% endif %}
-              <b>{{ text_email }}</b>: {{ recurring.store_email }}
-              <br/>
-              <b>{{ text_website }}</b>: <a href="{{ recurring.store_url }}">{{ recurring.store_url }}</a>
             </td>
-          </tr>
-        </tbody>
-      </table>
-      <table class="table table-bordered">
-        <thead>
-          <tr>
-            <td><b>{{ column_product }}</b></td>
-            <td><b>{{ column_model }}</b></td>
-            <td class="text-right"><b>{{ column_quantity }}</b></td>
-            <td class="text-right"><b>{{ column_price }}</b></td>
-          </tr>
-        </thead>
-        <tbody>
-          {% set product = recurring.product %}
-          <tr>
-            <td>{{ product.name }}
-              {% for option in product.option %}
-                <br/>
-                &nbsp;<small> - {{ option.name }}: {{ option.value }}</small>
-              {% endfor %}
-            </td>
-            <td>{{ product.model }}</td>
-            <td class="text-right">{{ product.quantity }}</td>
-            <td class="text-right">{{ product.price }}</td>
+            <td style="width: 50%;">{{ recurring.recurring }}</td>
           </tr>
         </tbody>
       </table>

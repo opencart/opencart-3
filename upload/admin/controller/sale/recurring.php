@@ -526,53 +526,13 @@ class ControllerSaleRecurring extends Controller {
 
 										if ($order_recurring_info['recurring_duration']) {
 											$recurring .= sprintf($this->language->get('text_payment_description'), $this->currency->format($this->tax->calculate($order_recurring_info['recurring_price'] * $order_recurring_info['product_quantity'], $product_info['tax_class_id'], $this->config->get('config_tax')), $this->config->get('config_currency')), $order_recurring_info['recurring_cycle'], $frequencies[$order_recurring_info['recurring_frequency']], $order_recurring_info['recurring_duration']);
-										}
-										else {
+										} else {
 											$recurring .= sprintf($this->language->get('text_payment_cancel'), $this->currency->format($this->tax->calculate($order_recurring_info['recurring_price'] * $order_recurring_info['product_quantity'], $product_info['tax_class_id'], $this->config->get('config_tax')), $this->config->get('config_currency')), $order_recurring_info['recurring_cycle'], $frequencies[$order_recurring_info['recurring_frequency']], $order_recurring_info['recurring_duration']);
 										}
 
-										$option_data = [];
-
-										$options = $this->model_catalog_product->getOptions($product_info['product_id']);
-
-										foreach ($options as $option) {
-											if ($option['type'] != 'file') {
-												$value = $option['value'];
-											}
-											else {
-												$upload_info = $this->model_tool_upload->getUploadByCode($option['value']);
-
-												if ($upload_info) {
-													$value = $upload_info['name'];
-												}
-												else {
-													$value = '';
-												}
-											}
-
-											$option_data[] = [
-												'name'  => $option['name'],
-												'value' => $value
-											];
-										}
-
-										$product_data = [
-											'name'     => $product_info['name'],
-											'model'    => $product_info['model'],
-											'quantity' => $product_info['quantity'],
-											'price'    => $this->currency->format($product_info['price'], $this->config->get('config_currency')),
-											'option'   => $option_data
-										];
-
 										$data['recurrings'][] = [
 											'store_name'      => $this->config->get('config_name'),
-											'store_url'       => rtrim($store_url, '/'),
-											'store_address'   => nl2br($store_address),
-											'store_email'     => $store_email,
-											'store_telephone' => $store_telephone,
-											'store_fax'       => $store_fax,
 											'customer_group'  => $customer_group['name'],
-											'product'         => $product_data,
 											'recurring'       => $recurring
 										];
 									}
