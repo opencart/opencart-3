@@ -508,69 +508,74 @@ class ControllerSaleRecurring extends Controller {
 			foreach ($selected as $order_recurring_id) {
 				$order_recurring_info = $this->model_sale_recurring->getRecurring($order_recurring_id);
 
-				if ($order_recurring_info) {
-					$transaction_total = $this->db->query("SELECT COUNT(*) AS `total` FROM `" . DB_PREFIX . "order_recurring_transaction` WHERE `order_recurring_id` = '" . (int)$order_recurring_info['order_recurring_id'] . "' AND `date_added` > DATE('" . $this->db->escape(date('Y-m-d', strtotime('+' . (int)$this->config->get('config_gdpr_limit') . ' days'))) . "') ORDER BY `date_added` ASC");
+				if ($order_recurring_info && $order_recurring_info['status']) {
+					if (!in_array(strtotime($order_recurring_info['date_added']), $expires_data)) {
+						$transaction_total = $this->db->query("SELECT COUNT(*) AS `total` FROM `" . DB_PREFIX . "order_recurring_transaction` ot LEFT JOIN `" . DB_PREFIX . "order_recurring` `or` ON (ot.`order_recurring_id` = `or`.`order_recurring_id`) WHERE `or`.`order_id` = '" . (int)$order_recurring_info['order_id'] . "' AND `or`.`date_added` > DATE('" . $this->db->escape(date('Y-m-d', strtotime('+' . (int)$this->config->get('config_gdpr_limit') . ' days'))) . "') AND ot.`amount` > '0' ORDER BY `or`.`date_added` ASC");
 
-					if (!in_array(strtotime($order_recurring_info['date_added']), $expires_data) && $transaction_total->row['total'] == 1) {
-						$product_recurring_info = $this->db->query("SELECT `customer_group_id` FROM `" . DB_PREFIX . "product_recurring` WHERE `recurring_id` = '" . (int)$order_recurring_info['recurring_id'] . "' AND `product_id` = '" . (int)$order_recurring_info['product_id'] . "'");
+						if ($transaction_total->row['total'] == 1) {
+							$product_recurring_info = $this->db->query("SELECT `customer_group_id` FROM `" . DB_PREFIX . "product_recurring` WHERE `recurring_id` = '" . (int)$order_recurring_info['recurring_id'] . "' AND `product_id` = '" . (int)$order_recurring_info['product_id'] . "'");
 
-						if ($product_recurring_info->num_rows) {
-							$customer_group = $this->model_customer_customer_group->getCustomerGroup((int)$product_recurring_info->row['customer_group_id']);
+							if ($product_recurring_info->num_rows) {
+								$customer_group = $this->model_customer_customer_group->getCustomerGroup((int)$product_recurring_info->row['customer_group_id']);
 
-							if ($customer_group) {
-								$product_info = $this->model_catalog_product->getProduct($order_recurring_info['product_id']);
+								if ($customer_group) {
+									$product_info = $this->model_catalog_product->getProduct($order_recurring_info['product_id']);
 
-								if ($product_info) {
-									$recurring = '';
+									if ($product_info) {
+										$recurring = '';
 
-									if ($order_recurring_info['recurring_duration']) {
-										$recurring .= sprintf($this->language->get('text_payment_description'), $this->currency->format($this->tax->calculate($order_recurring_info['recurring_price'] * $order_recurring_info['product_quantity'], $product_info['tax_class_id'], $this->config->get('config_tax')), $this->config->get('config_currency')), $order_recurring_info['recurring_cycle'], $frequencies[$order_recurring_info['recurring_frequency']], $order_recurring_info['recurring_duration']);
-									} else {
-										$recurring .= sprintf($this->language->get('text_payment_cancel'), $this->currency->format($this->tax->calculate($order_recurring_info['recurring_price'] * $order_recurring_info['product_quantity'], $product_info['tax_class_id'], $this->config->get('config_tax')), $this->config->get('config_currency')), $order_recurring_info['recurring_cycle'], $frequencies[$order_recurring_info['recurring_frequency']], $order_recurring_info['recurring_duration']);
-									}
-
-									$option_data = [];
-
-									$options = $this->model_catalog_product->getOptions($product_info['product_id']);
-
-									foreach ($options as $option) {
-										if ($option['type'] != 'file') {
-											$value = $option['value'];
-										} else {
-											$upload_info = $this->model_tool_upload->getUploadByCode($option['value']);
-
-											if ($upload_info) {
-												$value = $upload_info['name'];
-											} else {
-												$value = '';
-											}
+										if ($order_recurring_info['recurring_duration']) {
+											$recurring .= sprintf($this->language->get('text_payment_description'), $this->currency->format($this->tax->calculate($order_recurring_info['recurring_price'] * $order_recurring_info['product_quantity'], $product_info['tax_class_id'], $this->config->get('config_tax')), $this->config->get('config_currency')), $order_recurring_info['recurring_cycle'], $frequencies[$order_recurring_info['recurring_frequency']], $order_recurring_info['recurring_duration']);
+										}
+										else {
+											$recurring .= sprintf($this->language->get('text_payment_cancel'), $this->currency->format($this->tax->calculate($order_recurring_info['recurring_price'] * $order_recurring_info['product_quantity'], $product_info['tax_class_id'], $this->config->get('config_tax')), $this->config->get('config_currency')), $order_recurring_info['recurring_cycle'], $frequencies[$order_recurring_info['recurring_frequency']], $order_recurring_info['recurring_duration']);
 										}
 
-										$option_data[] = [
-											'name'  => $option['name'],
-											'value' => $value
+										$option_data = [];
+
+										$options = $this->model_catalog_product->getOptions($product_info['product_id']);
+
+										foreach ($options as $option) {
+											if ($option['type'] != 'file') {
+												$value = $option['value'];
+											}
+											else {
+												$upload_info = $this->model_tool_upload->getUploadByCode($option['value']);
+
+												if ($upload_info) {
+													$value = $upload_info['name'];
+												}
+												else {
+													$value = '';
+												}
+											}
+
+											$option_data[] = [
+												'name'  => $option['name'],
+												'value' => $value
+											];
+										}
+
+										$product_data = [
+											'name'     => $product_info['name'],
+											'model'    => $product_info['model'],
+											'quantity' => $product_info['quantity'],
+											'price'    => $this->currency->format($product_info['price'], $this->config->get('config_currency')),
+											'option'   => $option_data
+										];
+
+										$data['recurrings'][] = [
+											'store_name'      => $this->config->get('config_name'),
+											'store_url'       => rtrim($store_url, '/'),
+											'store_address'   => nl2br($store_address),
+											'store_email'     => $store_email,
+											'store_telephone' => $store_telephone,
+											'store_fax'       => $store_fax,
+											'customer_group'  => $customer_group['name'],
+											'product'         => $product_data,
+											'recurring'       => $recurring
 										];
 									}
-
-									$product_data = [
-										'name'     => $product_info['name'],
-										'model'    => $product_info['model'],
-										'quantity' => $product_info['quantity'],
-										'price'    => $this->currency->format($product_info['price'], $this->config->get('config_currency')),
-										'option'   => $option_data
-									];
-
-									$data['recurrings'][] = [
-										'store_name'      => $this->config->get('config_name'),
-										'store_url'       => rtrim($store_url, '/'),
-										'store_address'   => nl2br($store_address),
-										'store_email'     => $store_email,
-										'store_telephone' => $store_telephone,
-										'store_fax'       => $store_fax,
-										'customer_group'  => $customer_group['name'],
-										'product'         => $product_data,
-										'recurring'       => $recurring
-									];
 								}
 							}
 						}
