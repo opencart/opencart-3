@@ -11,28 +11,28 @@ class ModelExtensionReportSubscription extends Model {
      * @return array
      */
     public function getSubscriptions(array $data = []): array {
-        $sql = "SELECT MIN(`s`.`date_added`) AS date_start, MAX(`s`.`date_added`) AS date_end, COUNT(*) AS `subscriptions`, SUM((SELECT SUM(op.`quantity`) FROM `" . DB_PREFIX . "order_product` `op` WHERE `op`.`order_id` = `s`.`order_id` AND `op`.`product_id` = `s`.`product_id` GROUP BY `op`.`order_id`)) AS `products`, SUM((SELECT SUM(`ot`.`value`) FROM `" . DB_PREFIX . "order_total` ot WHERE ot.`order_id` = `s`.`order_id` AND ot.`code` = 'tax' GROUP BY ot.`order_id`)) AS tax, SUM(`s`.`price`) AS `total` FROM `" . DB_PREFIX . "subscription` `s`";
-        
+        $sql = "SELECT MIN(`s`.`date_added`) AS date_start, MAX(`s`.`date_added`) AS date_end, COUNT(*) AS `subscriptions`, SUM((SELECT SUM(`ot`.`value`) FROM `" . DB_PREFIX . "order_total` ot WHERE ot.`order_id` = `s`.`order_id` AND ot.`code` = 'tax' GROUP BY ot.`order_id`)) AS tax, SUM(`s`.`quantity`) AS `products`, SUM(`s`.`price`) AS `total` FROM `" . DB_PREFIX . "subscription` `s`";
+
         if (!empty($data['filter_subscription_status_id'])) {
             $sql .= " WHERE `s`.`subscription_status_id` = '" . (int)$data['filter_subscription_status_id'] . "'";
         } else {
             $sql .= " WHERE `s`.`subscription_status_id` > '0'";
         }
-        
+
         if (!empty($data['filter_date_start'])) {
             $sql .= " AND DATE(`s`.`date_added`) >= DATE('" . $this->db->escape((string)$data['filter_date_start']) . "')";
         }
-        
+
         if (!empty($data['filter_date_end'])) {
             $sql .= " AND DATE(`s`.`date_added`) <= DATE('" . $this->db->escape((string)$data['filter_date_end']) . "')";
         }
-        
+
         if (!empty($data['filter_group'])) {
             $group = $data['filter_group'];
         } else {
             $group = 'week';
         }
-        
+
         switch ($group) {
             case 'day';
                 $sql .= " GROUP BY YEAR(`s`.`date_added`), MONTH(`s`.`date_added`), DAY(`s`.`date_added`)";
@@ -48,26 +48,26 @@ class ModelExtensionReportSubscription extends Model {
                 $sql .= " GROUP BY YEAR(`s`.`date_added`)";
                 break;
         }
-        
+
         $sql .= " ORDER BY `s`.`date_added` DESC";
-        
+
         if (isset($data['start']) || isset($data['limit'])) {
             if ($data['start'] < 0) {
                 $data['start'] = 0;
             }
-            
+
             if ($data['limit'] < 1) {
                 $data['limit'] = 20;
             }
-            
+
             $sql .= " LIMIT " . (int)$data['start'] . "," . (int)$data['limit'];
         }
-        
+
         $query = $this->db->query($sql);
-        
+
         return $query->rows;
     }
-    
+
     /**
      * @param array $data
      *
@@ -79,7 +79,7 @@ class ModelExtensionReportSubscription extends Model {
         } else {
             $group = 'week';
         }
-        
+
         switch ($group) {
             case 'day';
                 $sql = "SELECT COUNT(DISTINCT YEAR(`date_added`), MONTH(`date_added`), DAY(`date_added`)) AS `total` FROM `" . DB_PREFIX . "subscription`";
@@ -95,23 +95,23 @@ class ModelExtensionReportSubscription extends Model {
                 $sql = "SELECT COUNT(DISTINCT YEAR(`date_added`)) AS `total` FROM `" . DB_PREFIX . "subscription`";
                 break;
         }
-        
+
         if (!empty($data['filter_subscription_status_id'])) {
             $sql .= " WHERE `subscription_status_id` = '" . (int)$data['filter_subscription_status_id'] . "'";
         } else {
             $sql .= " WHERE `subscription_status_id` > '0'";
         }
-        
+
         if (!empty($data['filter_date_start'])) {
             $sql .= " AND DATE(`date_added`) >= DATE('" . $this->db->escape((string)$data['filter_date_start']) . "')";
         }
-        
+
         if (!empty($data['filter_date_end'])) {
             $sql .= " AND DATE(`date_added`) <= DATE('" . $this->db->escape((string)$data['filter_date_end']) . "')";
         }
-        
+
         $query = $this->db->query($sql);
-        
+
         return (int)$query->row['total'];
     }
 }
