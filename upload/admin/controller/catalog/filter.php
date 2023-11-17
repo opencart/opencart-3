@@ -1,5 +1,11 @@
 <?php
+/**
+ * Class Filter
+ */
 class ControllerCatalogFilter extends Controller {
+	/**
+	 * @return void
+	 */
     private array $error = [];
 
     public function index(): void {
@@ -12,7 +18,9 @@ class ControllerCatalogFilter extends Controller {
 
         $this->getList();
     }
-
+	/**
+	 * @return void
+	 */
     public function add(): void {
         $this->load->language('catalog/filter');
 
@@ -45,7 +53,9 @@ class ControllerCatalogFilter extends Controller {
 
         $this->getForm();
     }
-
+	/**
+	 * @return void
+	 */
     public function edit(): void {
         $this->load->language('catalog/filter');
 
@@ -78,7 +88,9 @@ class ControllerCatalogFilter extends Controller {
 
         $this->getForm();
     }
-
+	/**
+	 * @return void
+	 */
     public function delete(): void {
         $this->load->language('catalog/filter');
 
@@ -376,7 +388,9 @@ class ControllerCatalogFilter extends Controller {
 
         return !$this->error;
     }
-
+	/**
+	 * @return void
+	 */
     public function autocomplete(): void {
         $json = [];
 

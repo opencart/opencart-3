@@ -1,5 +1,11 @@
 <?php
+/**
+ * Class Attribute
+ */
 class ControllerCatalogAttribute extends Controller {
+	/**
+	 * @return void
+	 */
     private array $error = [];
 
     public function index(): void {
@@ -12,7 +18,9 @@ class ControllerCatalogAttribute extends Controller {
 
         $this->getList();
     }
-
+	/**
+	 * @return void
+	 */
     public function add(): void {
         $this->load->language('catalog/attribute');
 
@@ -45,7 +53,9 @@ class ControllerCatalogAttribute extends Controller {
 
         $this->getForm();
     }
-
+	/**
+	 * @return void
+	 */
     public function edit(): void {
         $this->load->language('catalog/attribute');
 
@@ -78,7 +88,9 @@ class ControllerCatalogAttribute extends Controller {
 
         $this->getForm();
     }
-
+	/**
+	 * @return void
+	 */
     public function delete(): void {
         $this->load->language('catalog/attribute');
 
@@ -386,7 +398,9 @@ class ControllerCatalogAttribute extends Controller {
 
         return !$this->error;
     }
-
+	/**
+	 * @return void
+	 */
     public function autocomplete(): void {
         $json = [];
 
