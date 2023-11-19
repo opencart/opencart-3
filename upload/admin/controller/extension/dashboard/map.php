@@ -1,4 +1,9 @@
 <?php
+/**
+ * Class Map
+ *
+ * @package Admin\Controller\Extension\Dashboard
+ */
 class ControllerExtensionDashboardMap extends Controller {
     private array $error = [];
 

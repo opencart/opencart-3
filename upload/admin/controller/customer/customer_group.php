@@ -1,7 +1,14 @@
 <?php
+/**
+ * Class Customer Group
+ *
+ * @package Admin\Controller\Customer
+ */
 class ControllerCustomerCustomerGroup extends Controller {
     private array $error = [];
-
+	/**
+	 * @return void
+	 */
     public function index(): void {
         $this->load->language('customer/customer_group');
 
@@ -12,7 +19,9 @@ class ControllerCustomerCustomerGroup extends Controller {
 
         $this->getList();
     }
-
+	/**
+	 * @return void
+	 */
     public function add(): void {
         $this->load->language('customer/customer_group');
 
@@ -45,7 +54,9 @@ class ControllerCustomerCustomerGroup extends Controller {
 
         $this->getForm();
     }
-
+	/**
+	 * @return void
+	 */
     public function edit(): void {
         $this->load->language('customer/customer_group');
 
@@ -78,7 +89,9 @@ class ControllerCustomerCustomerGroup extends Controller {
 
         $this->getForm();
     }
-
+	/**
+	 * @return void
+	 */
     public function delete(): void {
         $this->load->language('customer/customer_group');
 

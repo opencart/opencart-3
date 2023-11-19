@@ -1,5 +1,13 @@
 <?php
+/**
+ * Class GDPR
+ *
+ * @package Admin\Controller\Customer
+ */
 class ControllerCustomerGdpr extends Controller {
+	/**
+	 * @return void
+	 */
     public function index(): void {
         $this->load->language('customer/gdpr');
 
@@ -10,7 +18,9 @@ class ControllerCustomerGdpr extends Controller {
 
         $this->getList();
     }
-
+	/**
+	 * @return void
+	 */
     public function getList(): void {
         if (isset($this->request->get['filter_email'])) {
             $filter_email = $this->request->get['filter_email'];
@@ -165,7 +175,9 @@ class ControllerCustomerGdpr extends Controller {
      *	pending    = 1
      *	processing = 2
      *	denied     = -1
-    */
+     *
+	 *  @return void
+	 */
     public function approve(): void {
         $this->load->language('customer/gdpr');
 
@@ -209,7 +221,9 @@ class ControllerCustomerGdpr extends Controller {
         $this->response->addHeader('Content-Type: application/json');
         $this->response->setOutput(json_encode($json));
     }
-
+	/**
+	 * @return void
+	 */
     public function deny(): void {
         $this->load->language('customer/gdpr');
 
@@ -243,7 +257,9 @@ class ControllerCustomerGdpr extends Controller {
         $this->response->addHeader('Content-Type: application/json');
         $this->response->setOutput(json_encode($json));
     }
-
+	/**
+	 * @return void
+	 */
     public function delete(): void {
         $this->load->language('customer/gdpr');
 

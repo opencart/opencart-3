@@ -1,4 +1,9 @@
 <?php
+/**
+ * Class Geo Zone
+ *
+ * @package Admin\Model\Localisation
+ */
 class ModelLocalisationGeoZone extends Model {
     public function addGeoZone(array $data): int {
         $this->db->query("INSERT INTO `" . DB_PREFIX . "geo_zone` SET `name` = '" . $this->db->escape($data['name']) . "', `description` = '" . $this->db->escape($data['description']) . "', `date_added` = NOW()");

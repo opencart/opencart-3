@@ -1,4 +1,9 @@
 <?php
+/**
+ * Class Globalpay
+ *
+ * @package Admin\Model\Extension\Payment
+ */
 class ModelExtensionPaymentGlobalpay extends Model {
     public function install(): void {
         $this->db->query("

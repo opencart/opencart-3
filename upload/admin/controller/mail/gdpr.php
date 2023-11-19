@@ -1,4 +1,9 @@
 <?php
+/**
+ * Class Gdpr
+ *
+ * @package Admin\Controller\Mail
+ */
 class ControllerMailGdpr extends Controller {
 	// admin/model/customer/gdpr/editStatus
 	public function index(&$route, &$args, &$output): void {

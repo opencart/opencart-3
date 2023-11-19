@@ -1,4 +1,9 @@
 <?php
+/**
+ * Class Subscription Status
+ *
+ * @package Admin\Model\Localisation
+ */
 class ModelLocalisationSubscriptionStatus extends Model {
     public function addSubscriptionStatus(array $data): int {
         foreach ($data['subscription_status'] as $language_id => $value) {

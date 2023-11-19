@@ -1,4 +1,9 @@
 <?php
+/**
+ * Class Online
+ *
+ * @package Admin\Model\Report
+ */
 class ModelReportOnline extends Model {
     public function getOnline(array $data = []): array {
         $sql = "SELECT `co`.`ip`, `co`.`customer_id`, `co`.`url`, `co`.`referer`, `co`.`date_added` FROM `" . DB_PREFIX . "customer_online` `co` LEFT JOIN `" . DB_PREFIX . "customer` `c` ON (`co`.`customer_id` = `c`.`customer_id`)";

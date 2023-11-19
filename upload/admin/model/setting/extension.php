@@ -1,4 +1,9 @@
 <?php
+/**
+ * Class Extension
+ *
+ * @package Admin\Model\Setting
+ */
 class ModelSettingExtension extends Model {
     public function getExtensionsByType(string $type): array {
         $extension_data = [];

@@ -1,4 +1,9 @@
 <?php
+/**
+ * Class Voucher
+ *
+ * @package Admin\Controller\Sale
+ */
 class ControllerSaleVoucher extends Controller {
     private array $error = [];
 

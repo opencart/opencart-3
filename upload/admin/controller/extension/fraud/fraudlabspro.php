@@ -1,4 +1,9 @@
 <?php
+/**
+ * Class Fraud Labs Pro
+ *
+ * @package Admin\Controller\Extension\Fraud
+ */
 class ControllerExtensionFraudFraudLabsPro extends Controller {
     private array $error = [];
 

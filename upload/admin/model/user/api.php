@@ -1,4 +1,9 @@
 <?php
+/**
+ * Class Api
+ *
+ * @package Admin\Model\User
+ */
 class ModelUserApi extends Model {
     public function addApi(array $data): int {
         $this->db->query("INSERT INTO `" . DB_PREFIX . "api` SET `username` = '" . $this->db->escape($data['username']) . "', `key` = '" . $this->db->escape($data['key']) . "', `status` = '" . (int)$data['status'] . "', `date_added` = NOW(), `date_modified` = NOW()");

@@ -1,4 +1,9 @@
 <?php
+/**
+ * Class Sale Shipping
+ *
+ * @package Admin\Controller\Extension\Report
+ */
 class ControllerExtensionReportSaleShipping extends Controller {
     public function index(): void {
         $this->load->language('extension/report/sale_shipping');

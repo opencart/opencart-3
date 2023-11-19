@@ -1,4 +1,9 @@
 <?php
+/**
+ * Class Sagepay Us
+ *
+ * @package Admin\Controller\Extension\Payment
+ */
 class ControllerExtensionPaymentSagepayUS extends Controller {
     private array $error = [];
 

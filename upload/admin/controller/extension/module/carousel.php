@@ -1,4 +1,9 @@
 <?php
+/**
+ * Class Carousel
+ *
+ * @package Admin\Controller\Extension\Module
+ */
 class ControllerExtensionModuleCarousel extends Controller {
     private array $error = [];
 

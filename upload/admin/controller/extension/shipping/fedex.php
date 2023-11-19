@@ -1,4 +1,9 @@
 <?php
+/**
+ * Class Fedex
+ *
+ * @package Admin\Controller\Extension\Shipping
+ */
 class ControllerExtensionShippingFedex extends Controller {
     private array $error = [];
 

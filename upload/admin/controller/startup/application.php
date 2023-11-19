@@ -1,4 +1,9 @@
 <?php
+/**
+ * Class Application
+ *
+ * @package Admin\Controller\Startup
+ */
 class ControllerStartupApplication extends Controller {
     public function index(): void {
         // Url

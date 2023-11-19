@@ -1,6 +1,8 @@
 <?php
 /**
  * Class Option
+ *
+ * @package Admin\Controller\Catalog
  */
 class ControllerCatalogOption extends Controller {
 	/**

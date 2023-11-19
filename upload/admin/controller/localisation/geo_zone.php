@@ -1,4 +1,9 @@
 <?php
+/**
+ * Class Geo Zone
+ *
+ * @package Admin\Controller\Localisation
+ */
 class ControllerLocalisationGeoZone extends Controller {
     private array $error = [];
 

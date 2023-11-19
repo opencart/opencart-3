@@ -1,4 +1,9 @@
 <?php
+/**
+ * Class Sagepay Server
+ *
+ * @package Admin\Model\Extension\Payment
+ */
 class ModelExtensionPaymentSagepayServer extends Model {
     public function install(): void {
         $this->db->query("

@@ -1,4 +1,9 @@
 <?php
+/**
+ * Class PP Braintree Button
+ *
+ * @package Admin\Controller\Extension\Module
+ */
 class ControllerExtensionModulePPBraintreeButton extends Controller {
     public function index(): void {
         $this->load->language('extension/module/pp_braintree_button');

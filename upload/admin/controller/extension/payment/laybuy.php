@@ -1,4 +1,9 @@
 <?php
+/**
+ * Class Laybuy
+ *
+ * @package Admin\Controller\Extension\Payment
+ */
 class ControllerExtensionPaymentLaybuy extends Controller {
     private array $error = [];
 

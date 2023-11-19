@@ -1,4 +1,9 @@
 <?php
+/**
+ * Class Returns Status
+ *
+ * @package Admin\Model\Localisation
+ */
 class ModelLocalisationReturnsStatus extends Model {
     public function addReturnStatus(array $data): int {
         foreach ($data['return_status'] as $language_id => $value) {

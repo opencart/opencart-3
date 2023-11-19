@@ -1,4 +1,9 @@
 <?php
+/**
+ * Class Bluepay Hosted
+ *
+ * @package Admin\Controller\Extension\Payment
+ */
 class ControllerExtensionPaymentBluePayHosted extends Controller {
     public function index(): string {
         $this->load->language('extension/payment/bluepay_hosted');

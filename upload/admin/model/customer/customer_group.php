@@ -1,4 +1,9 @@
 <?php
+/**
+ * Class Customer Group
+ *
+ * @package Admin\Model\Customer
+ */
 class ModelCustomerCustomerGroup extends Model {
     public function addCustomerGroup(array $data): int {
         $this->db->query("INSERT INTO `" . DB_PREFIX . "customer_group` SET `approval` = '" . (int)$data['approval'] . "', `sort_order` = '" . (int)$data['sort_order'] . "'");

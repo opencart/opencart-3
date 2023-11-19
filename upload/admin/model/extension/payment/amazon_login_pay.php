@@ -1,4 +1,9 @@
 <?php
+/**
+ * Class Amazon Login Pay
+ *
+ * @package Admin\Model\Extension\Payment
+ */
 class ModelExtensionPaymentAmazonLoginPay extends Model {
     public function install(): void {
         $this->db->query("

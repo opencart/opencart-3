@@ -1,4 +1,9 @@
 <?php
+/**
+ * Class SagePay Direct
+ *
+ * @package Admin\Model\Extension\Payment
+ */
 class ModelExtensionPaymentSagepayDirect extends Model {
     public function install(): void {
         $this->db->query("

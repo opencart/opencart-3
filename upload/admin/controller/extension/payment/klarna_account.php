@@ -1,4 +1,9 @@
 <?php
+/**
+ * Class Klarna Account
+ *
+ * @package Admin\Controller\Extension\Payment
+ */
 class ControllerExtensionPaymentKlarnaAccount extends Controller {
     private array $error = [];
     private array $pclasses = [];

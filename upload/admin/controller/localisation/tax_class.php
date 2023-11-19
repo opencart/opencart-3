@@ -1,4 +1,9 @@
 <?php
+/**
+ * Class Tax Class
+ *
+ * @package Admin\Controller\Localisation
+ */
 class ControllerLocalisationTaxClass extends Controller {
     private array $error = [];
 

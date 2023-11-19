@@ -1,4 +1,9 @@
 <?php
+/**
+ * Class Address Format
+ *
+ * @package Admin\Model\Localisation
+ */
 class ModelLocalisationAddressFormat extends Model {
     public function addAddressFormat(array $data): int {
         $this->db->query("INSERT INTO `" . DB_PREFIX . "address_format` SET `name` = '" . $this->db->escape($data['name']) . "', `address_format` = '" . $this->db->escape($data['address_format']) . "'");

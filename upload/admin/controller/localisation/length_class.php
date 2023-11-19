@@ -1,4 +1,9 @@
 <?php
+/**
+ * Class Length Class
+ *
+ * @package Admin\Controller\Localisation
+ */
 class ControllerLocalisationLengthClass extends Controller {
     private array $error = [];
 

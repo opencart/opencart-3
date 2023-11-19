@@ -1,4 +1,9 @@
 <?php
+/**
+ * Class Nochex
+ *
+ * @package Admin\Controller\Extension\Payment
+ */
 class ControllerExtensionPaymentNOCHEX extends Controller {
     private array $error = [];
 

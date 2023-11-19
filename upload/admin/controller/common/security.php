@@ -1,5 +1,13 @@
 <?php
+/**
+ * Class Security
+ *
+ * @package Admin\Controller\Common
+ */
 class ControllerCommonSecurity extends Controller {
+	/**
+	 * @return string
+	 */
     public function index(): string {
         $this->load->language('common/security');
 
@@ -25,7 +33,9 @@ class ControllerCommonSecurity extends Controller {
 
         return $this->load->view('common/security', $data);
     }
-
+	/**
+	 * @return string
+	 */
     public function move(): void {
         $this->load->language('common/security');
 

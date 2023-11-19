@@ -1,4 +1,9 @@
 <?php
+/**
+ * Class Sale Tax
+ *
+ * @package Admin\Controller\Extension\Report
+ */
 class ControllerExtensionReportSaleTax extends Controller {
     public function index(): void {
         $this->load->language('extension/report/sale_tax');

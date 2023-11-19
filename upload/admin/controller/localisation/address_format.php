@@ -1,4 +1,9 @@
 <?php
+/**
+ * Class Address Format
+ *
+ * @package Admin\Controller\Localisation
+ */
 class ControllerLocalisationAddressFormat extends Controller {
     private array $error = [];
 

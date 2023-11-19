@@ -1,4 +1,9 @@
 <?php
+/**
+ * Class Voucher Theme
+ *
+ * @package Admin\Controller\Sale
+ */
 class ControllerSaleVoucherTheme extends Controller {
     private array $error = [];
 

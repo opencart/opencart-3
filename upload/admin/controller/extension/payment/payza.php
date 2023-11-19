@@ -1,4 +1,9 @@
 <?php
+/**
+ * Class Payza
+ *
+ * @package Admin\Controller\Extension\Payment
+ */
 class ControllerExtensionPaymentPayza extends Controller {
     private array $error = [];
 

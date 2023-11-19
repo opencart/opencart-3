@@ -1,4 +1,9 @@
 <?php
+/**
+ * Class Subscription
+ *
+ * @package Admin\Controller\Extension\Report
+ */
 class ControllerExtensionReportSubscription extends Controller {
     public function index(): void {
         $this->load->language('extension/report/subscription');

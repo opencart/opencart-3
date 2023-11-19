@@ -1,4 +1,9 @@
 <?php
+/**
+ * Class Returns Reason
+ *
+ * @package Admin\Model\Localisation
+ */
 class ModelLocalisationReturnsReason extends Model {
     public function addReturnReason(array $data): int {
         foreach ($data['return_reason'] as $language_id => $value) {

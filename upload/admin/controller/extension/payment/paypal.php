@@ -1,5 +1,9 @@
 <?php
-
+/**
+ * Class Paypal
+ *
+ * @package Admin\Controller\Extension\Payment
+ */
 class ControllerExtensionPaymentPayPal extends Controller {
     private $error = [];
 

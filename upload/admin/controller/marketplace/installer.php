@@ -1,4 +1,9 @@
 <?php
+/**
+ * Class Installer
+ *
+ * @package Admin\Controller\Marketplace
+ */
 class ControllerMarketplaceInstaller extends Controller {
     public function index(): void {
         $this->load->language('marketplace/installer');

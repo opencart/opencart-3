@@ -1,4 +1,9 @@
 <?php
+/**
+ * Class Filter
+ *
+ * @package Admin\Controller\Extension\Module
+ */
 class ControllerExtensionModulefilter extends Controller {
     private array $error = [];
 

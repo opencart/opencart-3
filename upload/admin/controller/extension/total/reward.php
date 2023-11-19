@@ -1,4 +1,9 @@
 <?php
+/**
+ * Class Reward
+ *
+ * @package Admin\Controller\Extension\Total
+ */
 class ControllerExtensionTotalReward extends Controller {
     private array $error = [];
 

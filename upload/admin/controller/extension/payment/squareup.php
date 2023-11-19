@@ -1,4 +1,9 @@
 <?php
+/**
+ * Class Squareup
+ *
+ * @package Admin\Controller\Extension\Payment
+ */
 class ControllerExtensionPaymentSquareup extends Controller {
     private array $error = [];
 

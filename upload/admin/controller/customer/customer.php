@@ -1,7 +1,14 @@
 <?php
+/**
+ * Class Customer
+ *
+ * @package Admin\Controller\Customer
+ */
 class ControllerCustomerCustomer extends Controller {
     private array $error = [];
-
+	/**
+	 * @return void
+	 */
     public function index(): void {
         $this->load->language('customer/customer');
 
@@ -12,7 +19,9 @@ class ControllerCustomerCustomer extends Controller {
 
         $this->getList();
     }
-
+	/**
+	 * @return void
+	 */
     public function add(): void {
         $this->load->language('customer/customer');
 
@@ -69,7 +78,9 @@ class ControllerCustomerCustomer extends Controller {
 
         $this->getForm();
     }
-
+	/**
+	 * @return void
+	 */
     public function edit(): void {
         $this->load->language('customer/customer');
 
@@ -126,7 +137,9 @@ class ControllerCustomerCustomer extends Controller {
 
         $this->getForm();
     }
-
+	/**
+	 * @return void
+	 */
     public function delete(): void {
         $this->load->language('customer/customer');
 
@@ -185,7 +198,9 @@ class ControllerCustomerCustomer extends Controller {
 
         $this->getList();
     }
-
+	/**
+	 * @return void
+	 */
     public function unlock(): void {
         $this->load->language('customer/customer');
 
@@ -1020,7 +1035,9 @@ class ControllerCustomerCustomer extends Controller {
 
         return !$this->error;
     }
-
+	/**
+	 * @return object|null
+	 */
     public function login(): object|null {
         if (isset($this->request->get['customer_id'])) {
             $customer_id = (int)$this->request->get['customer_id'];
@@ -1061,7 +1078,9 @@ class ControllerCustomerCustomer extends Controller {
             return new \Action('error/not_found');
         }
     }
-
+	/**
+	 * @return void
+	 */
     public function history(): void {
         $this->load->language('customer/customer');
 
@@ -1100,7 +1119,9 @@ class ControllerCustomerCustomer extends Controller {
 
         $this->response->setOutput($this->load->view('customer/customer_history', $data));
     }
-
+	/**
+	 * @return void
+	 */
     public function addHistory(): void {
         $this->load->language('customer/customer');
 
@@ -1120,7 +1141,9 @@ class ControllerCustomerCustomer extends Controller {
         $this->response->addHeader('Content-Type: application/json');
         $this->response->setOutput(json_encode($json));
     }
-
+	/**
+	 * @return void
+	 */
     public function transaction(): void {
         $this->load->language('customer/customer');
 
@@ -1161,7 +1184,9 @@ class ControllerCustomerCustomer extends Controller {
 
         $this->response->setOutput($this->load->view('customer/customer_transaction', $data));
     }
-
+	/**
+	 * @return void
+	 */
     public function addTransaction(): void {
         $this->load->language('customer/customer');
 
@@ -1181,7 +1206,9 @@ class ControllerCustomerCustomer extends Controller {
         $this->response->addHeader('Content-Type: application/json');
         $this->response->setOutput(json_encode($json));
     }
-
+	/**
+	 * @return void
+	 */
     public function reward(): void {
         $this->load->language('customer/customer');
 
@@ -1222,7 +1249,9 @@ class ControllerCustomerCustomer extends Controller {
 
         $this->response->setOutput($this->load->view('customer/customer_reward', $data));
     }
-
+	/**
+	 * @return void
+	 */
     public function addReward(): void {
         $this->load->language('customer/customer');
 
@@ -1242,7 +1271,9 @@ class ControllerCustomerCustomer extends Controller {
         $this->response->addHeader('Content-Type: application/json');
         $this->response->setOutput(json_encode($json));
     }
-
+	/**
+	 * @return void
+	 */
     public function ip(): void {
         $this->load->language('customer/customer');
 
@@ -1282,7 +1313,9 @@ class ControllerCustomerCustomer extends Controller {
 
         $this->response->setOutput($this->load->view('customer/customer_ip', $data));
     }
-
+	/**
+	 * @return void
+	 */
     public function autocomplete(): void {
         $json = [];
 
@@ -1338,7 +1371,9 @@ class ControllerCustomerCustomer extends Controller {
         $this->response->addHeader('Content-Type: application/json');
         $this->response->setOutput(json_encode($json));
     }
-
+	/**
+	 * @return void
+	 */
     public function customfield(): void {
         $json = [];
 
@@ -1366,7 +1401,9 @@ class ControllerCustomerCustomer extends Controller {
         $this->response->addHeader('Content-Type: application/json');
         $this->response->setOutput(json_encode($json));
     }
-
+	/**
+	 * @return void
+	 */
     public function address(): void {
         $json = [];
 

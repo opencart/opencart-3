@@ -1,4 +1,9 @@
 <?php
+/**
+ * Class Recent
+ *
+ * @package Admin\Controller\Extension\Dashboard
+ */
 class ControllerExtensionDashboardRecent extends Controller {
     private array $error = [];
 

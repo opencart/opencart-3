@@ -1,5 +1,15 @@
 <?php
+/**
+ * Class Theme
+ *
+ * @package Admin\Controller\Event
+ */
 class ControllerEventTheme extends Controller {
+	/**
+	 * @param string $route
+	 * @param array  $args
+	 *
+	 */
     public function index(string &$route, array &$args): void {
         // This is only here for compatibility with old templates
         if (substr($route, -3) == 'tpl') {

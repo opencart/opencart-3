@@ -1,4 +1,9 @@
 <?php
+/**
+ * Class Ec Ship
+ *
+ * @package Admin\Controller\Extension\Shipping
+ */
 class ControllerExtensionShippingECShip extends Controller {
     private array $error = [];
 

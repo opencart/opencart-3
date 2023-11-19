@@ -1,5 +1,10 @@
 <?php
 /**
+ * Class Wechat Pay
+ *
+ * @package Admin\Controller\Extension\Payment
+ *
+/**
  * @package        OpenCart
  * @author         Meng Wenbin
  * @copyright      Copyright (c) 2010 - 2022, Chengdu Guangda Network Technology Co. Ltd. (https://www.opencart.cn/)

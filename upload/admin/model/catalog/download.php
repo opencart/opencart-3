@@ -1,4 +1,9 @@
 <?php
+/**
+ * Class Download
+ *
+ * @package Admin\Model\Catalog
+ */
 class ModelCatalogDownload extends Model {
     public function addDownload(array $data): int {
         $this->db->query("INSERT INTO `" . DB_PREFIX . "download` SET `filename` = '" . $this->db->escape($data['filename']) . "', `mask` = '" . $this->db->escape($data['mask']) . "', `date_added` = NOW()");

@@ -1,5 +1,13 @@
 <?php
+/**
+ * Class File Manager
+ *
+ * @package Admin\Controller\Common
+ */
 class ControllerCommonFileManager extends Controller {
+	/**
+	 * @return void
+	 */
     public function index(): void {
         $this->load->language('common/filemanager');
 
@@ -187,7 +195,9 @@ class ControllerCommonFileManager extends Controller {
 
         $this->response->setOutput($this->load->view('common/filemanager', $data));
     }
-
+	/**
+	 * @return void
+	 */
     public function upload(): void {
         $this->load->language('common/filemanager');
 
@@ -295,7 +305,9 @@ class ControllerCommonFileManager extends Controller {
         $this->response->addHeader('Content-Type: application/json');
         $this->response->setOutput(json_encode($json));
     }
-
+	/**
+	 * @return void
+	 */
     public function folder(): void {
         $this->load->language('common/filemanager');
 
@@ -344,7 +356,9 @@ class ControllerCommonFileManager extends Controller {
         $this->response->addHeader('Content-Type: application/json');
         $this->response->setOutput(json_encode($json));
     }
-
+	/**
+	 * @return void
+	 */
     public function delete(): void {
         $this->load->language('common/filemanager');
 

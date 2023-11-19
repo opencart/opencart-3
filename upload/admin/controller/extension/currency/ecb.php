@@ -1,4 +1,9 @@
 <?php
+/**
+ * Class Ecb
+ *
+ * @package Admin\Controller\Extension\Currency
+ */
 class ControllerExtensionCurrencyEcb extends Controller {
     private $error = [];
 

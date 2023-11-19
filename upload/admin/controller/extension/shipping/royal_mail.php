@@ -1,4 +1,9 @@
 <?php
+/**
+ * Class Royal Mail
+ *
+ * @package Admin\Controller\Extension\Shipping
+ */
 class ControllerExtensionShippingRoyalMail extends Controller {
     private array $error = [];
 

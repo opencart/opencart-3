@@ -1,5 +1,9 @@
 <?php
 /**
+ * Class Modification
+ *
+ * @package Admin\Controller\Marketplace
+ *
  * Modification XML Documentation can be found here:
  * https://github.com/opencart/opencart/wiki/Modification-System
  */

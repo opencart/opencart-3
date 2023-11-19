@@ -1,4 +1,9 @@
 <?php
+/**
+ * Class Currency
+ *
+ * @package Admin\Controller\Localisation
+ */
 class ControllerLocalisationCurrency extends Controller {
     private array $error = [];
 

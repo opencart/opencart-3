@@ -1,4 +1,9 @@
 <?php
+/**
+ * Class Returns Action
+ *
+ * @package Admin\Model\Localisation
+ */
 class ModelLocalisationReturnsAction extends Model {
     public function addReturnAction(array $data): int {
         foreach ($data['return_action'] as $language_id => $value) {

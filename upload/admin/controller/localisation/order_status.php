@@ -1,4 +1,9 @@
 <?php
+/**
+ * Class Order Status
+ *
+ * @package Admin\Controller\Localisation
+ */
 class ControllerLocalisationOrderStatus extends Controller {
     private array $error = [];
 

@@ -1,4 +1,9 @@
 <?php
+/**
+ * Class Bluepay Redirect
+ *
+ * @package Admin\Controller\Extension\Payment
+ */
 class ControllerExtensionPaymentBluepayredirect extends Controller {
     private array $error = [];
 

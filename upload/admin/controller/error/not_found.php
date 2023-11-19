@@ -1,5 +1,13 @@
 <?php
+/**
+ * Class Not Found
+ *
+ * @package Admin\Controller\Error
+ */
 class ControllerErrorNotFound extends Controller {
+	/**
+	 * @return void
+	 */
     public function index(): void {
         $this->load->language('error/not_found');
 

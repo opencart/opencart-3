@@ -1,4 +1,9 @@
 <?php
+/**
+ * Class Cardconnect
+ *
+ * @package Admin\Model\Extension\Payment
+ */
 class ModelExtensionPaymentCardConnect extends Model {
     public function install(): void {
         $this->db->query("

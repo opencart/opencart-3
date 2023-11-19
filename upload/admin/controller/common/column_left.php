@@ -1,5 +1,13 @@
 <?php
+/**
+ * Class Column Left
+ *
+ * @package Admin\Controller\Common
+ */
 class ControllerCommonColumnLeft extends Controller {
+	/**
+	 * @return string
+	 */
     public function index(): string {
         if (isset($this->request->get['user_token']) && isset($this->session->data['user_token']) && ($this->request->get['user_token'] == $this->session->data['user_token'])) {
             $this->load->language('common/column_left');

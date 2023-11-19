@@ -1,4 +1,9 @@
 <?php
+/**
+ * Class Customer Transaction
+ *
+ * @package Admin\Controller\Extension\Report
+ */
 class ControllerExtensionReportCustomerTransaction extends Controller {
     public function index(): void {
         $this->load->language('extension/report/customer_transaction');

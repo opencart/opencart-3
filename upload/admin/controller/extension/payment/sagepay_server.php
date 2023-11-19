@@ -1,4 +1,9 @@
 <?php
+/**
+ * Class Sagepay Direct
+ *
+ * @package Admin\Controller\Extension\Payment
+ */
 class ControllerExtensionPaymentSagepayServer extends Controller {
     private array $error = [];
 

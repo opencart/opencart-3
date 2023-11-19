@@ -1,4 +1,9 @@
 <?php
+/**
+ * Class Profile
+ *
+ * @package Admin\Controller\Common
+ */
 class ControllerCommonProfile extends Controller {
     private array $error = [];
 

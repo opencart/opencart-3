@@ -1,4 +1,9 @@
 <?php
+/**
+ * Class Coupon
+ *
+ * @package Admin\Model\Marketing
+ */
 class ModelMarketingCoupon extends Model {
     public function addCoupon(array $data): int {
         $this->db->query("INSERT INTO `" . DB_PREFIX . "coupon` SET `name` = '" . $this->db->escape($data['name']) . "', `code` = '" . $this->db->escape($data['code']) . "', `discount` = '" . (float)$data['discount'] . "', `type` = '" . $this->db->escape($data['type']) . "', `total` = '" . (float)$data['total'] . "', `logged` = '" . (int)$data['logged'] . "', `shipping` = '" . (int)$data['shipping'] . "', `date_start` = '" . $this->db->escape($data['date_start']) . "', `date_end` = '" . $this->db->escape($data['date_end']) . "', `uses_total` = '" . (int)$data['uses_total'] . "', `uses_customer` = '" . (int)$data['uses_customer'] . "', `status` = '" . (int)$data['status'] . "', `date_added` = NOW()");

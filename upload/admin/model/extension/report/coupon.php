@@ -1,4 +1,9 @@
 <?php
+/**
+ * Class Coupon
+ *
+ * @package Admin\Model\Extension\Report
+ */
 class ModelExtensionReportCoupon extends Model {
     public function getCoupons(array $data = []): array {
         $sql = "SELECT `ch`.`coupon_id`, `c`.`name`, `c`.`code`, COUNT(DISTINCT `ch`.`order_id`) AS `orders`, SUM(`ch`.`amount`) AS `total` FROM `" . DB_PREFIX . "coupon_history` `ch` LEFT JOIN `" . DB_PREFIX . "coupon` `c` ON (`ch`.`coupon_id` = `c`.`coupon_id`)";

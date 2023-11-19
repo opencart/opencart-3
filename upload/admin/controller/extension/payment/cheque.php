@@ -1,4 +1,9 @@
 <?php
+/**
+ * Class Cheqye
+ *
+ * @package Admin\Controller\Extension\Payment
+ */
 class ControllerExtensionPaymentCheque extends Controller {
     private array $error = [];
 

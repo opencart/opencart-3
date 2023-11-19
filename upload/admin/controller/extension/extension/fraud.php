@@ -1,4 +1,9 @@
 <?php
+/**
+ * Class Fraud
+ *
+ * @package Admin\Controller\Extension\Extension
+ */
 class ControllerExtensionExtensionFraud extends Controller {
     private array $error = [];
 

@@ -1,5 +1,13 @@
 <?php
+/**
+ * Class Dashboard
+ *
+ * @package Admin\Controller\Common
+ */
 class ControllerCommonDashboard extends Controller {
+	/**
+	 * @return void
+	 */
     public function index(): void {
         $this->load->language('common/dashboard');
 

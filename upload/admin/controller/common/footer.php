@@ -1,5 +1,13 @@
 <?php
+/**
+ * Class Footer
+ *
+ * @package Admin\Controller\Common
+ */
 class ControllerCommonFooter extends Controller {
+	/**
+	 * @return string
+	 */
     public function index(): string {
         $this->load->language('common/footer');
 

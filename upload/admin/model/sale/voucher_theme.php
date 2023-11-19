@@ -1,4 +1,9 @@
 <?php
+/**
+ * Class Voucher Theme
+ *
+ * @package Admin\Model\Sale
+ */
 class ModelSaleVoucherTheme extends Model {
     public function addVoucherTheme(array $data): int {
         $this->db->query("INSERT INTO `" . DB_PREFIX . "voucher_theme` SET `image` = '" . $this->db->escape($data['image']) . "'");

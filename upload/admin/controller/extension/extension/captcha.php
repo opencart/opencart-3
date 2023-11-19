@@ -1,4 +1,9 @@
 <?php
+/**
+ * Class Captcha
+ *
+ * @package Admin\Controller\Extension\Extension
+ */
 class ControllerExtensionExtensionCaptcha extends Controller {
     private array $error = [];
 

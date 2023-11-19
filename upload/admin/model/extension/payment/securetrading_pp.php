@@ -1,4 +1,9 @@
 <?php
+/**
+ * Class Securetrading Pp
+ *
+ * @package Admin\Model\Extension\Payment
+ */
 class ModelExtensionPaymentSecureTradingPp extends Model {
     public function install(): void {
         $this->db->query("

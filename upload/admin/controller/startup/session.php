@@ -1,4 +1,9 @@
 <?php
+/**
+ * Class Session
+ *
+ * @package Admin\Controller\Startup
+ */
 class ControllerStartupSession extends Controller {
     public function index(): void {
         // Session

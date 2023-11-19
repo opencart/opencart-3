@@ -1,4 +1,9 @@
 <?php
+/**
+ * Class Bank Transfer
+ *
+ * @package Admin\Controller\Extension\Payment
+ */
 class ControllerExtensionPaymentBankTransfer extends Controller {
     private array $error = [];
 

@@ -1,4 +1,9 @@
 <?php
+/**
+ * Class Currency
+ *
+ * @package Admin\Model\Localisation
+ */
 class ModelLocalisationCurrency extends Model {
     public function addCurrency(array $data): int {
         $this->db->query("INSERT INTO `" . DB_PREFIX . "currency` SET `title` = '" . $this->db->escape($data['title']) . "', `code` = '" . $this->db->escape($data['code']) . "', `symbol_left` = '" . $this->db->escape($data['symbol_left']) . "', `symbol_right` = '" . $this->db->escape($data['symbol_right']) . "', `decimal_place` = '" . $this->db->escape($data['decimal_place']) . "', `value` = '" . $this->db->escape($data['value']) . "', `status` = '" . (int)$data['status'] . "', `date_modified` = NOW()");
@@ -141,7 +146,7 @@ class ModelLocalisationCurrency extends Model {
 
 			if ($currencies) {
                 $value = $currencies['EUR'];
-                
+
 				$this->load->model('localisation/currency');
 
 				$results = $this->model_localisation_currency->getCurrencies();

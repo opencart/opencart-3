@@ -1,4 +1,9 @@
 <?php
+/**
+ * Class Maxmind
+ *
+ * @package Admin\Model\Extension\Fraud
+ */
 class ModelExtensionFraudMaxMind extends Model {
     public function install(): void {
         $this->db->query("

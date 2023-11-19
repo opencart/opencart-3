@@ -1,4 +1,9 @@
 <?php
+/**
+ * Class Credit
+ *
+ * @package Admin\Controller\Extension\Total
+ */
 class ControllerExtensionTotalCredit extends Controller {
     private array $error = [];
 

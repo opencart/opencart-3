@@ -1,6 +1,8 @@
 <?php
 /**
  * Class Category
+ *
+ * @package Admin\Controller\Catalog
  */
 class ControllerCatalogCategory extends Controller {
     private array $error = [];

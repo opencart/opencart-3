@@ -1,4 +1,9 @@
 <?php
+/**
+ * Class Divido
+ *
+ * @package Admin\Model\Extension\Payment
+ */
 class ModelExtensionPaymentDivido extends Model {
     const CACHE_KEY_PLANS = 'divido_plans';
 

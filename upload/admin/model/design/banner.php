@@ -1,4 +1,9 @@
 <?php
+/**
+ * Class Banner
+ *
+ * @package Admin\Model\Design
+ */
 class ModelDesignBanner extends Model {
     public function addBanner(array $data): int {
         $this->db->query("INSERT INTO `" . DB_PREFIX . "banner` SET `name` = '" . $this->db->escape($data['name']) . "', `status` = '" . (int)$data['status'] . "'");

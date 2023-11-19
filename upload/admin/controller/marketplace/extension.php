@@ -1,4 +1,9 @@
 <?php
+/**
+ * Class Extension
+ *
+ * @package Admin\Controller\Marketplace
+ */
 class ControllerMarketplaceExtension extends Controller {
     private array $error = [];
 

@@ -1,7 +1,14 @@
 <?php
+/**
+ * Class Custom Field
+ *
+ * @package Admin\Controller\Customer
+ */
 class ControllerCustomerCustomField extends Controller {
     private array $error = [];
-
+	/**
+	 * @return void
+	 */
     public function index(): void {
         $this->load->language('customer/custom_field');
 
@@ -12,7 +19,9 @@ class ControllerCustomerCustomField extends Controller {
 
         $this->getList();
     }
-
+	/**
+	 * @return void
+	 */
     public function add(): void {
         $this->load->language('customer/custom_field');
 
@@ -45,7 +54,9 @@ class ControllerCustomerCustomField extends Controller {
 
         $this->getForm();
     }
-
+	/**
+	 * @return void
+	 */
     public function edit(): void {
         $this->load->language('customer/custom_field');
 
@@ -78,7 +89,9 @@ class ControllerCustomerCustomField extends Controller {
 
         $this->getForm();
     }
-
+	/**
+	 * @return void
+	 */
     public function delete(): void {
         $this->load->language('customer/custom_field');
 

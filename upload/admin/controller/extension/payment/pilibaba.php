@@ -1,4 +1,9 @@
 <?php
+/**
+ * Class Pilibaba
+ *
+ * @package Admin\Controller\Extension\Payment
+ */
 class ControllerExtensionPaymentPilibaba extends Controller {
     private array $error = [];
 

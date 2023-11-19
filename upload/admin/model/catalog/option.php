@@ -1,4 +1,9 @@
 <?php
+/**
+ * Class Option
+ *
+ * @package Admin\Model\Catalog
+ */
 class ModelCatalogOption extends Model {
     public function addOption(array $data): int {
         $this->db->query("INSERT INTO `" . DB_PREFIX . "option` SET `type` = '" . $this->db->escape($data['type']) . "', `sort_order` = '" . (int)$data['sort_order'] . "'");

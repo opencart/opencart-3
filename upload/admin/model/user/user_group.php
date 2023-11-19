@@ -1,4 +1,9 @@
 <?php
+/**
+ * Class User Group
+ *
+ * @package Admin\Model\User
+ */
 class ModelUserUserGroup extends Model {
     public function addUserGroup(array $data): int {
         $this->db->query("INSERT INTO `" . DB_PREFIX . "user_group` SET `name` = '" . $this->db->escape($data['name']) . "', `permission` = '" . $this->db->escape(isset($data['permission']) ? json_encode($data['permission']) : '') . "'");

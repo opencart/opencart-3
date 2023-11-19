@@ -1,4 +1,9 @@
 <?php
+/**
+ * Class Google
+ *
+ * @package Admin\Model\Extension\Advertise
+ */
 use \googleshopping\exception\Connection as ConnectionException;
 use \googleshopping\Googleshopping;
 class ModelExtensionAdvertiseGoogle extends Model {

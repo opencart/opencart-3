@@ -1,4 +1,9 @@
 <?php
+/**
+ * Class Google
+ *
+ * @package Admin\Controller\Extension\Advertise
+ */
 use \googleshopping\exception\Connection as ConnectionException;
 use \googleshopping\Googleshopping;
 use \googleshopping\traits\LibraryLoader;

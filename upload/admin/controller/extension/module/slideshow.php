@@ -1,4 +1,9 @@
 <?php
+/**
+ * Class Slideshow
+ *
+ * @package Admin\Controller\Extension\Module
+ */
 class ControllerExtensionModuleSlideshow extends Controller {
     private array $error = [];
 

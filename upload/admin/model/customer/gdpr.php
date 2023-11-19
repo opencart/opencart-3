@@ -1,4 +1,9 @@
 <?php
+/**
+ * Class Gdpr
+ *
+ * @package Admin\Model\Customer
+ */
 class ModelCustomerGdpr extends Model {
     public function editStatus(int $gdpr_id, int $status): void {
         $this->db->query("UPDATE `" . DB_PREFIX . "gdpr` SET `status` = '" . (int)$status . "' WHERE `gdpr_id` = '" . (int)$gdpr_id . "'");

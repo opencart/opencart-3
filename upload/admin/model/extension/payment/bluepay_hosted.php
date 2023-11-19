@@ -1,4 +1,9 @@
 <?php
+/**
+ * Class Bluepay Hosted
+ *
+ * @package Admin\Model\Extension\Payment
+ */
 class ModelExtensionPaymentBluePayHosted extends Model {
     public function install(): void {
         $this->db->query("

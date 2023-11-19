@@ -1,4 +1,9 @@
 <?php
+/**
+ * Class Alipay Cross
+ *
+ * @package Admin\Controller\Extension\Payment
+ */
 class ControllerExtensionPaymentAlipayCross extends Controller {
     private array $error = [];
     private array $currencies = [

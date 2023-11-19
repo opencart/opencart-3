@@ -1,4 +1,9 @@
 <?php
+/**
+ * Class Weight Class
+ *
+ * @package Admin\Controller\Localisation
+ */
 class ControllerLocalisationWeightClass extends Controller {
     private array $error = [];
 

@@ -1,4 +1,9 @@
 <?php
+/**
+ * Class Product
+ *
+ * @package Admin\Model\Extension\Report
+ */
 class ModelExtensionReportProduct extends Model {
     public function getProductsViewed(array $data = []): array {
         $sql = "SELECT `pd`.`name`, `p`.`model`, `p`.`viewed` FROM `" . DB_PREFIX . "product` `p` LEFT JOIN `" . DB_PREFIX . "product_description` `pd` ON (`p`.`product_id` = `pd`.`product_id`) WHERE `pd`.`language_id` = '" . (int)$this->config->get('config_language_id') . "' AND `p`.`viewed` > '0' ORDER BY `p`.`viewed` DESC";

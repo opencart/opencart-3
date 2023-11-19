@@ -1,4 +1,9 @@
 <?php
+/**
+ * Class Klarna Checkout Module
+ *
+ * @package Admin\Controller\Extension\Module
+ */
 class ControllerExtensionModuleKlarnaCheckoutModule extends Controller {
     private array $error = [];
 

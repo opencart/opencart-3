@@ -1,4 +1,9 @@
 <?php
+/**
+ * Class Amazon Login
+ *
+ * @package Admin\Controller\Extension\Module
+ */
 class ControllerExtensionModuleAmazonLogin extends Controller {
     private string $version = '3.2.1';
     private array $error = [];

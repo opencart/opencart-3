@@ -1,4 +1,9 @@
 <?php
+/**
+ * Class Promotion
+ *
+ * @package Admin\Controller\Extension\Extension
+ */
 class ControllerExtensionExtensionPromotion extends Controller {
     public function index() {
         $curl = curl_init();

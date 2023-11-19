@@ -1,4 +1,9 @@
 <?php
+/**
+ * Class Banner
+ *
+ * @package Admin\Controller\Extension\Module
+ */
 class ControllerExtensionModuleBanner extends Controller {
     private array $error = [];
 

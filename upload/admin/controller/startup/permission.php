@@ -1,4 +1,9 @@
 <?php
+/**
+ * Class Logout
+ *
+ * @package Admin\Controller\Startup
+ */
 class ControllerStartupPermission extends Controller {
     public function index(): object|null {
         if (isset($this->request->get['route'])) {

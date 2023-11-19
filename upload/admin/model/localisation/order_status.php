@@ -1,4 +1,9 @@
 <?php
+/**
+ * Class Order Status
+ *
+ * @package Admin\Model\Localisation
+ */
 class ModelLocalisationOrderStatus extends Model {
     public function addOrderStatus(array $data): int {
         foreach ($data['order_status'] as $language_id => $value) {

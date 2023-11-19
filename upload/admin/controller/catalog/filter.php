@@ -1,6 +1,8 @@
 <?php
 /**
  * Class Filter
+ *
+ * @package Admin\Controller\Catalog
  */
 class ControllerCatalogFilter extends Controller {
 	/**

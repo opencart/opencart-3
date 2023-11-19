@@ -1,4 +1,9 @@
 <?php
+/**
+ * Class Maxmind
+ *
+ * @package Admin\Controller\Extension\Fraud
+ */
 class ControllerExtensionFraudMaxMind extends Controller {
     private array $error = [];
 

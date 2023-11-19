@@ -1,4 +1,9 @@
 <?php
+/**
+ * Class Country
+ *
+ * @package Admin\Model\Localisation
+ */
 class ModelLocalisationCountry extends Model {
     public function addCountry(array $data): int {
         $this->db->query("INSERT INTO `" . DB_PREFIX . "country` SET `name` = '" . $this->db->escape($data['name']) . "', `iso_code_2` = '" . $this->db->escape($data['iso_code_2']) . "', `iso_code_3` = '" . $this->db->escape($data['iso_code_3']) . "', `address_format_id` = '" . (int)$data['address_format_id'] . "', `postcode_required` = '" . (int)$data['postcode_required'] . "', `status` = '" . (bool)$data['status'] . "'");

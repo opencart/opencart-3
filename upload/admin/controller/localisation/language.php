@@ -1,4 +1,9 @@
 <?php
+/**
+ * Class Language
+ *
+ * @package Admin\Controller\Localisation
+ */
 class ControllerLocalisationLanguage extends Controller {
     private array $error = [];
 

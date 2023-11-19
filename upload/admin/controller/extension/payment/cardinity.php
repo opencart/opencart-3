@@ -1,4 +1,9 @@
 <?php
+/**
+ * Class Cardinity
+ *
+ * @package Admin\Controller\Extension\Payment
+ */
 class ControllerExtensionPaymentCardinity extends Controller {
     private array $error = [];
 

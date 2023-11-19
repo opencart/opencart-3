@@ -1,4 +1,9 @@
 <?php
+/**
+ * Class Fraud Labs Pro
+ *
+ * @package Admin\Model\Extension\Fraud
+ */
 class ModelExtensionFraudFraudLabsPro extends Model {
     public function install(): void {
         $this->db->query("

@@ -1,4 +1,9 @@
 <?php
+/**
+ * Class Eway
+ *
+ * @package Admin\Controller\Extension\Payment
+ */
 class ControllerExtensionPaymentEway extends Controller {
     private array $error = [];
 

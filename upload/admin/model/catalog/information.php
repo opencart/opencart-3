@@ -1,4 +1,9 @@
 <?php
+/**
+ * Class Information
+ *
+ * @package Admin\Model\Catalog
+ */
 class ModelCatalogInformation extends Model {
     public function addInformation(array $data): int {
         $this->db->query("INSERT INTO `" . DB_PREFIX . "information` SET `sort_order` = '" . (int)$data['sort_order'] . "', `bottom` = '" . (isset($data['bottom']) ? (int)$data['bottom'] : 0) . "', `status` = '" . (int)$data['status'] . "'");

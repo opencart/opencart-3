@@ -1,4 +1,9 @@
 <?php
+/**
+ * Class Authorize.net Aim
+ *
+ * @package Admin\Controller\Extension\Payment
+ */
 class ControllerExtensionPaymentAuthorizenetAim extends Controller {
     private array $error = [];
 

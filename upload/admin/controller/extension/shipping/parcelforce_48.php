@@ -1,4 +1,9 @@
 <?php
+/**
+ * Class Parcelforce 48
+ *
+ * @package Admin\Controller\Extension\Shipping
+ */
 class ControllerExtensionShippingParcelforce48 extends Controller {
     private array $error = [];
 

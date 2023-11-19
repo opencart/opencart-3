@@ -1,4 +1,9 @@
 <?php
+/**
+ * Class Customer Payment
+ *
+ * @package Admin\Controller\Customer
+ */
 class ControllerCustomerCustomerPayment extends Controller {
     public function index(): void {
         if (isset($this->request->get['customer_id'])) {

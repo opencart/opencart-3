@@ -1,5 +1,9 @@
 <?php
-
+/**
+ * Class Recurring
+ *
+ * @package Admin\Controller\Sale
+ */
 class ControllerSaleRecurring extends Controller {
 	private $error = [];
 

@@ -1,4 +1,9 @@
 <?php
+/**
+ * Class Alipay
+ *
+ * @package Admin\Controller\Extension\Payment
+ */
 class ControllerExtensionPaymentAlipay extends Controller {
     private array $error = [];
 

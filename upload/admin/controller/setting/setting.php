@@ -1,4 +1,9 @@
 <?php
+/**
+ * Class Setting
+ *
+ * @package Admin\Controller\Setting
+ */
 class ControllerSettingSetting extends Controller {
     private array $error = [];
 

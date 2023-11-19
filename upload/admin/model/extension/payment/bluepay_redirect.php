@@ -1,4 +1,9 @@
 <?php
+/**
+ * Class Bluepay Redirect
+ *
+ * @package Admin\Model\Extension\Payment
+ */
 class ModelExtensionPaymentBluepayredirect extends Model {
     public function install(): void {
         $this->db->query("

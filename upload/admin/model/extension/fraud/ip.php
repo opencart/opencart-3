@@ -1,4 +1,9 @@
 <?php
+/**
+ * Class Ip
+ *
+ * @package Admin\Model\Extension\Fraud
+ */
 class ModelExtensionFraudIp extends Model {
     public function install(): void {
         $this->db->query("

@@ -1,4 +1,9 @@
 <?php
+/**
+ * Class G2apay
+ *
+ * @package Admin\Controller\Extension\Payment
+ */
 class ControllerExtensionPaymentG2APay extends Controller {
     private array $error = [];
 

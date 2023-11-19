@@ -1,6 +1,8 @@
 <?php
 /**
  * Class Download
+ *
+ * @package Admin\Controller\Catalog
  */
 class ControllerCatalogDownload extends Controller {
 	/**

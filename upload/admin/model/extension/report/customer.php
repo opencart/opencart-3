@@ -1,4 +1,9 @@
 <?php
+/**
+ * Class Customer
+ *
+ * @package Admin\Model\Extension\Report
+ */
 class ModelExtensionReportCustomer extends Model {
     public function getTotalCustomersByDay(): array {
         $customer_data = [];

@@ -1,4 +1,9 @@
 <?php
+/**
+ * Class Cardinity
+ *
+ * @package Admin\Model\Extension\Payment
+ */
 use Cardinity\Client;
 use Cardinity\Method\Payment;
 use Cardinity\Method\Refund;

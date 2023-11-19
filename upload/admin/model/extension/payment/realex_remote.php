@@ -1,4 +1,9 @@
 <?php
+/**
+ * Class Realex Remote
+ *
+ * @package Admin\Model\Extension\Payment
+ */
 class ModelExtensionPaymentRealexRemote extends Model {
     public function install(): void {
         $this->db->query("

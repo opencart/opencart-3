@@ -1,4 +1,9 @@
 <?php
+/**
+ * Class Event
+ *
+ * @package Admin\Controller\Marketplace
+ */
 class ControllerMarketplaceEvent extends Controller {
     private array $error = [];
 

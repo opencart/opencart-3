@@ -1,4 +1,9 @@
 <?php
+/**
+ * Class Liqpay
+ *
+ * @package Admin\Controller\Extension\Payment
+ */
 class ControllerExtensionPaymentLiqPay extends Controller {
     private array $error = [];
 

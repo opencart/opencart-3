@@ -1,4 +1,9 @@
 <?php
+/**
+ * Class Sale Coupon
+ *
+ * @package Admin\Controller\Extension\Report
+ */
 class ControllerExtensionReportSaleCoupon extends Controller {
     public function index(): void {
         $this->load->language('extension/report/sale_coupon');

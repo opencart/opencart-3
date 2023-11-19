@@ -1,4 +1,9 @@
 <?php
+/**
+ * Class Firstdata
+ *
+ * @package Admin\Controller\Extension\Payment
+ */
 class ControllerExtensionPaymentFirstdata extends Controller {
     private array $error = [];
 

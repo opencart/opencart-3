@@ -1,4 +1,9 @@
 <?php
+/**
+ * Class Backup
+ *
+ * @package Admin\Controller\Tool
+ */
 class ControllerToolBackup extends Controller {
     public function index(): void {
         $this->load->language('tool/backup');

@@ -1,5 +1,13 @@
 <?php
+/**
+ * Class Customer Approval
+ *
+ * @package Admin\Controller\Customer
+ */
 class ControllerCustomerCustomerApproval extends Controller {
+	/**
+	 * @return void
+	 */
     public function index(): void {
         $this->load->language('customer/customer_approval');
 
@@ -181,7 +189,9 @@ class ControllerCustomerCustomerApproval extends Controller {
 
         $this->response->setOutput($this->load->view('customer/customer_approval', $data));
     }
-
+	/**
+	 * @return void
+	 */
     public function approve(): void {
         $this->load->language('customer/customer_approval');
 
@@ -229,7 +239,9 @@ class ControllerCustomerCustomerApproval extends Controller {
         $this->response->addHeader('Content-Type: application/json');
         $this->response->setOutput(json_encode($json));
     }
-
+	/**
+	 * @return void
+	 */
     public function deny(): void {
         $this->load->language('customer/customer_approval');
 

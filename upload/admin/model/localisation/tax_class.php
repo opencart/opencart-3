@@ -1,4 +1,9 @@
 <?php
+/**
+ * Class Tax Class
+ *
+ * @package Admin\Model\Localisation
+ */
 class ModelLocalisationTaxClass extends Model {
     public function addTaxClass(array $data): int {
         $this->db->query("INSERT INTO `" . DB_PREFIX . "tax_class` SET `title` = '" . $this->db->escape($data['title']) . "', `description` = '" . $this->db->escape($data['description']) . "', `date_added` = NOW()");

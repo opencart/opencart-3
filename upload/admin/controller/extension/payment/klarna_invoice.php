@@ -1,4 +1,9 @@
 <?php
+/**
+ * Class Klarna Invoice
+ *
+ * @package Admin\Controller\Extension\Payment
+ */
 class ControllerExtensionPaymentKlarnaInvoice extends Controller {
     private array $error = [];
 

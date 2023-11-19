@@ -1,5 +1,13 @@
 <?php
+/**
+ * Class Header
+ *
+ * @package Admin\Controller\Common
+ */
 class ControllerCommonHeader extends Controller {
+	/**
+	 * @return string
+	 */
     public function index(): string {
         $data['title'] = $this->document->getTitle();
 

@@ -1,4 +1,9 @@
 <?php
+/**
+ * Class Sale Return
+ *
+ * @package Admin\Controller\Extension\Report
+ */
 class ControllerExtensionReportSaleReturn extends Controller {
     public function index(): void {
         $this->load->language('extension/report/sale_return');

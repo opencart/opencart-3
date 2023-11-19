@@ -1,4 +1,9 @@
 <?php
+/**
+ * Class Google Sitemap
+ *
+ * @package Admin\Controller\Extension\Feed
+ */
 class ControllerExtensionFeedGoogleSitemap extends Controller {
     private array $error = [];
 

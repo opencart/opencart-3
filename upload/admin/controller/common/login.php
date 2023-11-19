@@ -1,5 +1,13 @@
 <?php
+/**
+ * Class Login
+ *
+ * @package Admin\Controller\Common
+ */
 class ControllerCommonLogin extends Controller {
+	/**
+	 * @return void
+	 */
     private array $error = [];
 
     public function index(): void {

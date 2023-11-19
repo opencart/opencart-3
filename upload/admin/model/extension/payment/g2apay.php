@@ -1,4 +1,9 @@
 <?php
+/**
+ * Class G2apay
+ *
+ * @package Admin\Model\Extension\Payment
+ */
 class ModelExtensionPaymentG2aPay extends Model {
     public function install(): void {
         $this->db->query("

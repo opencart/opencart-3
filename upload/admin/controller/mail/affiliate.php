@@ -1,4 +1,9 @@
 <?php
+/**
+ * Class Affiliate
+ *
+ * @package Admin\Controller\Mail
+ */
 class ControllerMailAffiliate extends Controller {
     // admin/model/customer/customer_approval/approveAffiliate/after
     public function approve(string &$route, array &$args, mixed &$output): void {

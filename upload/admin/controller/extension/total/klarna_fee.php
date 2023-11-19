@@ -1,4 +1,9 @@
 <?php
+/**
+ * Class Klarna Fee
+ *
+ * @package Admin\Controller\Extension\Total
+ */
 class ControllerExtensionTotalKlarnaFee extends Controller {
     private array $error = [];
 

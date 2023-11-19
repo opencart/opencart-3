@@ -1,4 +1,9 @@
 <?php
+/**
+ * Class Reset
+ *
+ * @package Admin\Controller\Common
+ */
 class ControllerCommonReset extends Controller {
     private array $error = [];
 

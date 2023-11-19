@@ -1,4 +1,9 @@
 <?php
+/**
+ * Class Authorize.net Sim
+ *
+ * @package Admin\Controller\Extension\Payment
+ */
 class ControllerExtensionPaymentAuthorizeNetSim extends Controller {
     private array $error = [];
 

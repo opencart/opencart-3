@@ -1,4 +1,9 @@
 <?php
+/**
+ * Class Google Base
+ *
+ * @package Admin\Controller\Extension\Feed
+ */
 class ControllerExtensionFeedGoogleBase extends Controller {
     private array $error = [];
 

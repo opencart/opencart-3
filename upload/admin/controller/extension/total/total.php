@@ -1,4 +1,9 @@
 <?php
+/**
+ * Class Total
+ *
+ * @package Admin\Controller\Extension\Total
+ */
 class ControllerExtensionTotalTotal extends Controller {
     private array $error = [];
 

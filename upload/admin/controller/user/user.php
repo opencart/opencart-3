@@ -1,4 +1,9 @@
 <?php
+/**
+ * Class User
+ *
+ * @package Admin\Controller\User
+ */
 class ControllerUserUser extends Controller {
     private array $error = [];
 
@@ -242,7 +247,7 @@ class ControllerUserUser extends Controller {
 
         $data['sort'] = $sort;
         $data['order'] = $order;
-        
+
         $data['user_token'] = $this->session->data['user_token'];
 
         $data['header'] = $this->load->controller('common/header');

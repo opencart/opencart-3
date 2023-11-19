@@ -1,7 +1,14 @@
 <?php
+/**
+ * Class Forgotten
+ *
+ * @package Admin\Controller\Common
+ */
 class ControllerCommonForgotten extends Controller {
     private array $error = [];
-
+	/**
+	 * @return void
+	 */
     public function index(): void {
         if ($this->user->isLogged() && isset($this->request->get['user_token']) && ($this->request->get['user_token'] == $this->session->data['user_token'])) {
             $this->response->redirect($this->url->link('common/dashboard', '', true));

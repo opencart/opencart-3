@@ -1,5 +1,13 @@
 <?php
+/**
+ * Class Logout
+ *
+ * @package Admin\Controller\Common
+ */
 class ControllerCommonLogout extends Controller {
+	/**
+	 * @return void
+	 */
     public function index(): void {
         $this->user->logout();
 

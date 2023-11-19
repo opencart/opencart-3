@@ -1,5 +1,13 @@
 <?php
+/**
+ * Class Developer
+ *
+ * @package Admin\Controller\Common
+ */
 class ControllerCommonDeveloper extends Controller {
+	/**
+	 * @return void
+	 */
     public function index(): void {
         $this->load->language('common/developer');
 
@@ -24,7 +32,9 @@ class ControllerCommonDeveloper extends Controller {
 
         $this->response->setOutput($this->load->view('common/developer', $data));
     }
-
+	/**
+	 * @return void
+	 */
     public function edit(): void {
         $this->load->language('common/developer');
 
@@ -44,7 +54,9 @@ class ControllerCommonDeveloper extends Controller {
         $this->response->addHeader('Content-Type: application/json');
         $this->response->setOutput(json_encode($json));
     }
-
+	/**
+	 * @return void
+	 */
     public function theme(): void {
         $this->load->language('common/developer');
 
@@ -77,7 +89,9 @@ class ControllerCommonDeveloper extends Controller {
         $this->response->addHeader('Content-Type: application/json');
         $this->response->setOutput(json_encode($json));
     }
-
+	/**
+	 * @return void
+	 */
     public function sass(): void {
         $this->load->language('common/developer');
 

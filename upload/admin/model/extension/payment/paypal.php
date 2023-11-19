@@ -1,4 +1,9 @@
 <?php
+/**
+ * Class PayPal
+ *
+ * @package Admin\Model\Extension\Payment
+ */
 class ModelExtensionPaymentPayPal extends Model {
 
     public function getTotalSales(): int {

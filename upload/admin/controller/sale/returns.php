@@ -1,4 +1,9 @@
 <?php
+/**
+ * Class Returns
+ *
+ * @package Admin\Controller\Sale
+ */
 class ControllerSaleReturns extends Controller {
     private array $error = [];
 

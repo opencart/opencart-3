@@ -1,4 +1,9 @@
 <?php
+/**
+ * Class Chart
+ *
+ * @package Admin\Model\Extension\Dashboard
+ */
 class ModelExtensionDashboardChart extends Model {
     public function getTotalOrdersByDay(): array {
         $implode = [];

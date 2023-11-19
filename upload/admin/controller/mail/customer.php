@@ -1,4 +1,9 @@
 <?php
+/**
+ * Class Customer
+ *
+ * @package Admin\Controller\Mail
+ */
 class ControllerMailCustomer extends Controller {
     // admin/model/customer/customer_approval/approveCustomer/after
     public function allow(string &$route, array &$args, mixed &$output): void {

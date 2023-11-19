@@ -1,4 +1,9 @@
 <?php
+/**
+ * Class Returns Status
+ *
+ * @package Admin\Controller\Localisation
+ */
 class ControllerLocalisationReturnsStatus extends Controller {
     private array $error = [];
 

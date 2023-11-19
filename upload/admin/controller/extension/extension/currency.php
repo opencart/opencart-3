@@ -1,6 +1,11 @@
 <?php
+/**
+ * Class Currency
+ *
+ * @package Admin\Controller\Extension\Extension
+ */
 class ControllerExtensionExtensionCurrency extends Controller {
-    private $error = [];
+    private array $error = [];
 
     public function index(): void {
         $this->load->language('extension/extension/currency');

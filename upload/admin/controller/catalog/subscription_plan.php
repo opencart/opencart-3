@@ -2,7 +2,7 @@
 /**
  * Class Subscription Plan
  *
- * @package Opencart\Admin\Controller\Catalog
+ * @package Admin\Controller\Catalog
  */
 class ControllerCatalogSubscriptionPlan extends Controller {
 	/**

@@ -1,4 +1,9 @@
 <?php
+/**
+ * Class Online
+ *
+ * @package Admin\Controller\Report
+ */
 class ControllerReportOnline extends Controller {
     public function index(): void {
         $this->load->language('report/online');

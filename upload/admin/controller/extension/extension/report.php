@@ -1,4 +1,9 @@
 <?php
+/**
+ * Class Report
+ *
+ * @package Admin\Controller\Extension\Extension
+ */
 class ControllerExtensionExtensionReport extends Controller {
     private array $error = [];
 

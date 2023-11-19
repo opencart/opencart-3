@@ -1,4 +1,9 @@
 <?php
+/**
+ * Class Sass
+ *
+ * @package Admin\Controller\Startup
+ */
 class ControllerStartupSass extends Controller {
     public function index(): void {
         $files = glob(DIR_APPLICATION . 'view/stylesheet/*.scss');

@@ -1,4 +1,9 @@
 <?php
+/**
+ * Class Google Hangouts
+ *
+ * @package Admin\Controller\Extension\Module
+ */
 class ControllerExtensionModuleGoogleHangouts extends Controller {
     private array $error = [];
 

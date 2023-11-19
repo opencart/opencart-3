@@ -1,4 +1,9 @@
 <?php
+/**
+ * Class Log
+ *
+ * @package Admin\Controller\Tool
+ */
 class ControllerToolLog extends Controller {
     private array $error = [];
 

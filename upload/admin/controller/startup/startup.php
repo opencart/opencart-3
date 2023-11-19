@@ -1,4 +1,9 @@
 <?php
+/**
+ * Class Startyp
+ *
+ * @package Admin\Controller\Startup
+ */
 class ControllerStartupStartup extends Controller {
     public function index(): void {
         // Settings

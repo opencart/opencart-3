@@ -1,4 +1,9 @@
 <?php
+/**
+ * Class Securetrading Ws
+ *
+ * @package Admin\Controller\Extension\Payment
+ */
 class ControllerExtensionPaymentSecureTradingWs extends Controller {
     private array $error = [];
 

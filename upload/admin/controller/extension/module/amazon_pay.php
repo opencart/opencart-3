@@ -1,4 +1,9 @@
 <?php
+/**
+ * Class Amazon Pay
+ *
+ * @package Admin\Controller\Extension\Module
+ */
 class ControllerExtensionModuleAmazonPay extends Controller {
     private string $version = '3.2.1';
     private array $error = [];

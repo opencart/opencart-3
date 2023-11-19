@@ -1,4 +1,9 @@
 <?php
+/**
+ * Class Api
+ *
+ * @package Admin\Controller\User
+ */
 class ControllerUserApi extends Controller {
     private array $error = [];
 

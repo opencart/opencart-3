@@ -1,4 +1,9 @@
 <?php
+/**
+ * Class Google Base
+ *
+ * @package Admin\Model\Extension\Feed
+ */
 class ModelExtensionFeedGoogleBase extends Model {
     public function install(): void {
         $this->db->query("

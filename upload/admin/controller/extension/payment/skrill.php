@@ -1,4 +1,9 @@
 <?php
+/**
+ * Class Skrill
+ *
+ * @package Admin\Controller\Extension\Payment
+ */
 class ControllerExtensionPaymentSkrill extends Controller {
     private array $error = [];
 

@@ -1,4 +1,9 @@
 <?php
+/**
+ * Class Google
+ *
+ * @package Admin\Controller\Extension\Captcha
+ */
 class ControllerExtensionCaptchaGoogle extends Controller {
     private array $error = [];
 

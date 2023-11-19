@@ -1,4 +1,9 @@
 <?php
+/**
+ * Class Realex Remote
+ *
+ * @package Admin\Controller\Extension\Payment
+ */
 class ControllerExtensionPaymentRealexRemote extends Controller {
     private array $error = [];
 

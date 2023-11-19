@@ -1,4 +1,9 @@
 <?php
+/**
+ * Class Layout
+ *
+ * @package Admin\Model\Design
+ */
 class ModelDesignLayout extends Model {
     public function addLayout(array $data): int {
         $this->db->query("INSERT INTO `" . DB_PREFIX . "layout` SET `name` = '" . $this->db->escape($data['name']) . "'");

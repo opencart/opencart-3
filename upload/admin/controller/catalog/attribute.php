@@ -1,6 +1,8 @@
 <?php
 /**
  * Class Attribute
+ *
+ * @package Admin\Controller\Catalog
  */
 class ControllerCatalogAttribute extends Controller {
 	/**

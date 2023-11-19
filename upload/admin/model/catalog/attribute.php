@@ -1,4 +1,9 @@
 <?php
+/**
+ * Class Attribute
+ *
+ * @package Admin\Model\Catalog
+ */
 class ModelCatalogAttribute extends Model {
     public function addAttribute(array $data): int {
         $this->db->query("INSERT INTO `" . DB_PREFIX . "attribute` SET `attribute_group_id` = '" . (int)$data['attribute_group_id'] . "', `sort_order` = '" . (int)$data['sort_order'] . "'");

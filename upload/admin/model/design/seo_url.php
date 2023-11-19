@@ -1,4 +1,9 @@
 <?php
+/**
+ * Class Seo Url
+ *
+ * @package Admin\Model\Design
+ */
 class ModelDesignSeoUrl extends Model {
     public function addSeoUrl(array $data): void {
         $this->db->query("INSERT INTO `" . DB_PREFIX . "seo_url` SET `store_id` = '" . (int)$data['store_id'] . "', `language_id` = '" . (int)$data['language_id'] . "', `query` = '" . $this->db->escape($data['query']) . "', `keyword` = '" . $this->db->escape($data['keyword']) . "'");

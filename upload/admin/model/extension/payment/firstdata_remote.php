@@ -1,4 +1,9 @@
 <?php
+/**
+ * Class Firstdata Remote
+ *
+ * @package Admin\Model\Extension\Payment
+ */
 class ModelExtensionPaymentFirstdataRemote extends Model {
     public function install(): void {
         $this->db->query("

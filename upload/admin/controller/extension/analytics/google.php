@@ -1,4 +1,9 @@
 <?php
+/**
+ * Class Google
+ *
+ * @package Admin\Controller\Extension\Analytics
+ */
 class ControllerExtensionAnalyticsGoogle extends Controller {
     private array $error = [];
 

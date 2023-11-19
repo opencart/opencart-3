@@ -1,4 +1,9 @@
 <?php
+/**
+ * Class Divido
+ *
+ * @package Admin\Controller\Extension\Payment
+ */
 class ControllerExtensionPaymentDivido extends Controller {
     private array $error = [];
 

@@ -1,4 +1,9 @@
 <?php
+/**
+ * Class Event
+ *
+ * @package Admin\Model\Setting
+ */
 class ModelSettingEvent extends Model {
     public function addEvent(string $code, string $trigger, string $action, int $status = 1, int $sort_order = 0): int {
         $this->db->query("INSERT INTO `" . DB_PREFIX . "event` SET `code` = '" . $this->db->escape($code) . "', `trigger` = '" . $this->db->escape($trigger) . "', `action` = '" . $this->db->escape($action) . "', `sort_order` = '" . (int)$sort_order . "', `status` = '" . (int)$status . "'");

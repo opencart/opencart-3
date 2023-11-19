@@ -1,4 +1,9 @@
 <?php
+/**
+ * Class Backup
+ *
+ * @package Admin\Model\Tool
+ */
 class ModelToolBackup extends Model {
     public function getTables(): array {
         $table_data = [];

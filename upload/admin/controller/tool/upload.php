@@ -1,4 +1,9 @@
 <?php
+/**
+ * Class Upload
+ *
+ * @package Admin\Controller\Tool
+ */
 class ControllerToolUpload extends Controller {
     private array $error = [];
 

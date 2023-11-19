@@ -1,4 +1,9 @@
 <?php
+/**
+ * Class Map
+ *
+ * @package Admin\Model\Extension\Dashboard
+ */
 class ModelExtensionDashboardMap extends Model {
     public function getTotalOrdersByCountry(): array {
         $implode = [];

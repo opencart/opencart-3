@@ -1,4 +1,9 @@
 <?php
+/**
+ * Class Globalpay
+ *
+ * @package Admin\Controller\Extension\Payment
+ */
 class ControllerExtensionPaymentGlobalpay extends Controller {
     private array $error = [];
 

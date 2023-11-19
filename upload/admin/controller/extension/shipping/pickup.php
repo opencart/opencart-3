@@ -1,4 +1,9 @@
 <?php
+/**
+ * Class Pickup
+ *
+ * @package Admin\Controller\Extension\Shipping
+ */
 class ControllerExtensionShippingPickup extends Controller {
     private array $error = [];
 

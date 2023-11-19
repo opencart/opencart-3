@@ -1,4 +1,9 @@
 <?php
+/**
+ * Class Subscription
+ *
+ * @package Admin\Controller\Mail
+ */
 class ControllerMailSubscription extends Controller {
     // admin/controller/sale/subscription/addHistory/after
     public function history(string &$route, array &$args, mixed &$output): void {

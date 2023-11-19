@@ -1,4 +1,9 @@
 <?php
+/**
+ * Class Manufacturer
+ *
+ * @package Admin\Model\Catalog
+ */
 class ModelCatalogManufacturer extends Model {
     public function addManufacturer(array $data): int {
         $this->db->query("INSERT INTO `" . DB_PREFIX . "manufacturer` SET `name` = '" . $this->db->escape($data['name']) . "', `sort_order` = '" . (int)$data['sort_order'] . "'");

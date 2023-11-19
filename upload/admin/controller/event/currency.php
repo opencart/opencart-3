@@ -1,6 +1,8 @@
 <?php
 /**
  * Class Currency
+ *
+ * @package Admin\Controller\Event
  */
 class ControllerEventCurrency extends Controller {
 	/**

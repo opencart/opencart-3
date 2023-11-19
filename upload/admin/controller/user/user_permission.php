@@ -1,4 +1,9 @@
 <?php
+/**
+ * Class User Permission
+ *
+ * @package Admin\Controller\User
+ */
 class ControllerUserUserPermission extends Controller {
     private array $error = [];
 

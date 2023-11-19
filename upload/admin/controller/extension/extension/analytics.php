@@ -1,4 +1,9 @@
 <?php
+/**
+ * Class Analytics
+ *
+ * @package Admin\Controller\Extension\Extension
+ */
 class ControllerExtensionExtensionAnalytics extends Controller {
     private array $error = [];
 

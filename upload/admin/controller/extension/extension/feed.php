@@ -1,4 +1,9 @@
 <?php
+/**
+ * Class Feed
+ *
+ * @package Admin\Controller\Extension\Extension
+ */
 class ControllerExtensionExtensionFeed extends Controller {
     private array $error = [];
 

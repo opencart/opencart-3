@@ -1,4 +1,9 @@
 <?php
+/**
+ * Class Pilibaba
+ *
+ * @package Admin\Model\Extension\Payment
+ */
 class ModelExtensionPaymentPilibaba extends Model {
     public function install(): void {
         $this->db->query("CREATE TABLE IF NOT EXISTS `" . DB_PREFIX . "pilibaba_order` (

@@ -1,4 +1,9 @@
 <?php
+/**
+ * Class PayPal Smart Button
+ *
+ * @package Admin\Controller\Extension\Module
+ */
 class ControllerExtensionModulePayPalSmartButton extends Controller {
     private array $error = [];
 

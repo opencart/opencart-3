@@ -1,4 +1,9 @@
 <?php
+/**
+ * Class Cardconnect
+ *
+ * @package Admin\Controller\Extension\Payment
+ */
 class ControllerExtensionPaymentCardConnect extends Controller {
     private array $error = [];
 

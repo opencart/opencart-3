@@ -1,4 +1,9 @@
 <?php
+/**
+ * Class Length Class
+ *
+ * @package Admin\Model\Localisation
+ */
 class ModelLocalisationLengthClass extends Model {
     public function addLengthClass(array $data): int {
         $this->db->query("INSERT INTO `" . DB_PREFIX . "length_class` SET `value` = '" . (float)$data['value'] . "'");

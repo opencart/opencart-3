@@ -1,4 +1,9 @@
 <?php
+/**
+ * Class Laybuy Layout
+ *
+ * @package Admin\Controller\Extension\Module
+ */
 class ControllerExtensionModuleLaybuyLayout extends Controller {
     private array $error = [];
 

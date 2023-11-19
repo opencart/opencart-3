@@ -1,4 +1,9 @@
 <?php
+/**
+ * Class Customer
+ *
+ * @package Admin\Model\Customer
+ */
 class ModelCustomerCustomer extends Model {
     public function addCustomer(array $data): int {
         $this->db->query("INSERT INTO `" . DB_PREFIX . "customer` SET `customer_group_id` = '" . (int)$data['customer_group_id'] . "', `firstname` = '" . $this->db->escape($data['firstname']) . "', `lastname` = '" . $this->db->escape($data['lastname']) . "', `email` = '" . $this->db->escape($data['email']) . "', `telephone` = '" . $this->db->escape($data['telephone']) . "', `custom_field` = '" . $this->db->escape(isset($data['custom_field']) ? json_encode($data['custom_field']) : '') . "', `newsletter` = '" . (int)$data['newsletter'] . "', `password` = '" . $this->db->escape(password_hash(html_entity_decode($data['password'], ENT_QUOTES, 'UTF-8'), PASSWORD_DEFAULT)) . "', `status` = '" . (int)$data['status'] . "', `safe` = '" . (int)$data['safe'] . "', `date_added` = NOW()");

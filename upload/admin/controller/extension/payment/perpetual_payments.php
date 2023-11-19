@@ -1,4 +1,9 @@
 <?php
+/**
+ * Class Perpetual Payments
+ *
+ * @package Admin\Controller\Extension\Payment
+ */
 class ControllerExtensionPaymentPerpetualPayments extends Controller {
     private array $error = [];
 

@@ -1,4 +1,9 @@
 <?php
+/**
+ * Class Sale
+ *
+ * @package Admin\Model\Extension\Dashboard
+ */
 class ModelExtensionDashboardSale extends Model {
     public function getTotalSales(array $data = []): float {
         $sql = "SELECT SUM(total) AS `total` FROM `" . DB_PREFIX . "order` WHERE `order_status_id` > '0'";

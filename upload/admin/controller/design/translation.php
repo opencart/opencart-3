@@ -1,7 +1,14 @@
 <?php
+/**
+ * Class Translation
+ *
+ * @package Admin\Controller\Design
+ */
 class ControllerDesignTranslation extends Controller {
     private array $error = [];
-
+	/**
+	 * @return void
+	 */
     public function index(): void {
         $this->load->language('design/translation');
 
@@ -12,7 +19,9 @@ class ControllerDesignTranslation extends Controller {
 
         $this->getList();
     }
-
+	/**
+	 * @return void
+	 */
     public function add(): void {
         $this->load->language('design/translation');
 
@@ -45,7 +54,9 @@ class ControllerDesignTranslation extends Controller {
 
         $this->getForm();
     }
-
+	/**
+	 * @return void
+	 */
     public function edit(): void {
         $this->load->language('design/translation');
 
@@ -78,7 +89,9 @@ class ControllerDesignTranslation extends Controller {
 
         $this->getForm();
     }
-
+	/**
+	 * @return void
+	 */
     public function delete(): void {
         $this->load->language('design/translation');
 
@@ -326,8 +339,8 @@ class ControllerDesignTranslation extends Controller {
             $language = $this->model_localisation_language->getLanguage($translation_info['language_id']);
             $code = $language['code'];
         } else {
+			$language = $this->model_localisation_language->getLanguageByCode($code);
             $code = $this->config->get('config_language');
-            $language = $this->model_localisation_language->getLanguageByCode($code);
         }
 
         if (isset($this->request->post['language_id'])) {
@@ -431,7 +444,9 @@ class ControllerDesignTranslation extends Controller {
 
         return !$this->error;
     }
-
+	/**
+	 * @return void
+	 */
     public function path(): void {
         // Translations
         $this->load->language('design/translation');
@@ -470,7 +485,9 @@ class ControllerDesignTranslation extends Controller {
         $this->response->addHeader('Content-Type: application/json');
         $this->response->setOutput(json_encode($json));
     }
-
+	/**
+	 * @return void
+	 */
     public function translation(): void {
         $this->load->language('design/translation');
 

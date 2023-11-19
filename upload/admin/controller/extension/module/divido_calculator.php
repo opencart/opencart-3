@@ -1,4 +1,9 @@
 <?php
+/**
+ * Class Divido Calculator
+ *
+ * @package Admin\Controller\Extension\Module
+ */
 class ControllerExtensionModuleDividoCalculator extends Controller {
     private array $error = [];
 

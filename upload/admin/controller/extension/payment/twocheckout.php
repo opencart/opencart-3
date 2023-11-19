@@ -1,4 +1,9 @@
 <?php
+/**
+ * Class Twocheckout
+ *
+ * @package Admin\Controller\Extension\Payment
+ */
 class ControllerExtensionPaymentTwoCheckout extends Controller {
     private array $error = [];
 

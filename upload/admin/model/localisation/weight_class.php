@@ -1,4 +1,9 @@
 <?php
+/**
+ * Class Weight Class
+ *
+ * @package Admin\Model\Localisation
+ */
 class ModelLocalisationWeightClass extends Model {
     public function addWeightClass(array $data): int {
         $this->db->query("INSERT INTO `" . DB_PREFIX . "weight_class` SET `value` = '" . (float)$data['value'] . "'");
