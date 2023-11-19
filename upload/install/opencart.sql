@@ -1459,7 +1459,7 @@ INSERT INTO `oc_event` (`code`, `trigger`, `action`, `status`, `sort_order`) VAL
 INSERT INTO `oc_event` (`code`, `trigger`, `action`, `status`, `sort_order`) VALUES
 ('mail_order_alert', 'catalog/model/checkout/order/addHistory/before', 'mail/order/alert', 1, 0);
 INSERT INTO `oc_event` (`code`, `trigger`, `action`, `status`, `sort_order`) VALUES
-('mail_gdpr', 'catalog/model/account/gdpr/addGdpr/after', 'mail/gdpr', 1),
+('mail_gdpr', 'catalog/model/account/gdpr/addGdpr/after', 'mail/gdpr', 1, 0);
 INSERT INTO `oc_event` (`code`, `trigger`, `action`, `status`, `sort_order`) VALUES
 ('mail_gdpr_delete', 'catalog/model/account/gdpr/editStatus/after', 'mail/gdpr/remove', 1, 0);
 INSERT INTO `oc_event` (`code`, `trigger`, `action`, `status`, `sort_order`) VALUES
@@ -1469,7 +1469,7 @@ INSERT INTO `oc_event` (`code`, `trigger`, `action`, `status`, `sort_order`) VAL
 INSERT INTO `oc_event` (`code`, `trigger`, `action`, `status`, `sort_order`) VALUES
 ('statistics_order_history', 'catalog/model/checkout/order/addHistory/after', 'event/statistics/addHistory', 1, 0);
 INSERT INTO `oc_event` (`code`, `trigger`, `action`, `status`, `sort_order`) VALUES
-('admin_mail_gdpr', 'admin/model/customer/gdpr/editStatus/after', 'mail/gdpr', 1),
+('admin_mail_gdpr', 'admin/model/customer/gdpr/editStatus/after', 'mail/gdpr', 1, 0);
 INSERT INTO `oc_event` (`code`, `trigger`, `action`, `status`, `sort_order`) VALUES
 ('admin_mail_affiliate_approve', 'admin/model/customer/customer_approval/approveAffiliate/after', 'mail/affiliate/approve', 1, 0);
 INSERT INTO `oc_event` (`code`, `trigger`, `action`, `status`, `sort_order`) VALUES
@@ -1590,8 +1590,8 @@ INSERT INTO `oc_extension` (`extension_id`, `type`, `code`) VALUES
 (39, 'report', 'customer_activity'),
 (40, 'report', 'customer_order'),
 (41, 'report', 'customer_reward'),
-(42, 'advertise', 'google');
-(43, 'currency', 'ecb'),
+(42, 'advertise', 'google'),
+(43, 'currency', 'ecb');
 
 -----------------------------------------------------------
 
@@ -3817,13 +3817,13 @@ CREATE TABLE `oc_subscription` (
   `quantity` int(11) NOT NULL,
   `subscription_plan_id` int(11) NOT NULL,
   `trial_price` decimal(10,4) NOT NULL,
-  `trial_frequency` enum(\'day\',\'week\',\'semi_month\',\'month\',\'year\') NOT NULL,
+  `trial_frequency` enum('day','week','semi_month','month','year') NOT NULL,
   `trial_cycle` smallint(6) NOT NULL,
   `trial_duration` smallint(6) NOT NULL,
   `trial_remaining` smallint(6) NOT NULL,
   `trial_status` tinyint(1) NOT NULL,
   `price` decimal(10,4) NOT NULL,
-  `frequency` enum(\'day\',\'week\',\'semi_month\',\'month\',\'year\') NOT NULL,
+  `frequency` enum('day','week','semi_month','month','year') NOT NULL,
   `cycle` smallint(6) NOT NULL,
   `duration` smallint(6) NOT NULL,
   `remaining` smallint(6) NOT NULL,
