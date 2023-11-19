@@ -84,7 +84,7 @@ class ControllerExtensionCurrencyEcb extends Controller {
 
                 $euro_currency = $this->model_localisation_currency->getCurrencyByCode('EUR');
 
-                if (empty($euro_currency)) {
+                if (!$euro_currency) {
                     $this->error['warning'] = $this->language->get('error_euro');
                 }
             }
@@ -118,7 +118,6 @@ class ControllerExtensionCurrencyEcb extends Controller {
         $code = 'currency_ecb';
 
         $this->model_setting_event->deleteEventByCode($code);
-
     }
 
     public function currency() {
