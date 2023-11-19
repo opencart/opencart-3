@@ -226,7 +226,7 @@ class ModelExtensionPaymentSagePayDirect extends Model {
         $payment_data['RelatedSecurityKey'] = $sagepay_order_info['SecurityKey'];
         $payment_data['RelatedTxAuthNo'] = $sagepay_order_info['TxAuthNo'];
 
-        if (!empty($order_info['shipping_lastname'])) {
+        if ($order_info['shipping_lastname']) {
             $payment_data['DeliverySurname'] = substr($order_info['shipping_lastname'], 0, 20);
             $payment_data['DeliveryFirstnames'] = substr($order_info['shipping_firstname'], 0, 20);
             $payment_data['DeliveryAddress1'] = substr($order_info['shipping_address_1'], 0, 100);

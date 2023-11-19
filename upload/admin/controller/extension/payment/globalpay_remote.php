@@ -207,7 +207,7 @@ class ControllerExtensionPaymentGlobalpayRemote extends Controller {
 
             $globalpay_order = $this->model_extension_payment_globalpay_remote->getOrder($this->request->get['order_id']);
 
-            if (!empty($globalpay_order)) {
+            if ($globalpay_order) {
                 $this->load->language('extension/payment/globalpay_remote');
 
                 $globalpay_order['total_captured'] = $this->model_extension_payment_globalpay_remote->getTotalCaptured($globalpay_order['globalpay_remote_order_id']);
@@ -260,7 +260,7 @@ class ControllerExtensionPaymentGlobalpayRemote extends Controller {
             } else {
                 $json['error'] = true;
 
-                $json['msg'] = (isset($void_response->message) && !empty($void_response->message) ? sprintf($this->language->get('error_status'), (string)$void_response->message) : $this->language->get('error_void'));
+                $json['msg'] = !empty($void_response->message) ? sprintf($this->language->get('error_status'), (string)$void_response->message) : $this->language->get('error_void');
             }
         } else {
             $json['error'] = true;
@@ -319,7 +319,7 @@ class ControllerExtensionPaymentGlobalpayRemote extends Controller {
             } else {
                 $json['error'] = true;
 
-                $json['msg'] = (isset($capture_response->message) && !empty($capture_response->message) ? sprintf($this->language->get('error_status'), (string)$capture_response->message) : $this->language->get('error_capture'));
+                $json['msg'] = !empty($capture_response->message) ? sprintf($this->language->get('error_status'), (string)$capture_response->message) : $this->language->get('error_capture');
             }
         } else {
             $json['error'] = true;
@@ -376,7 +376,7 @@ class ControllerExtensionPaymentGlobalpayRemote extends Controller {
             } else {
                 $json['error'] = true;
 
-                $json['msg'] = (isset($rebate_response->message) && !empty($rebate_response->message) ? sprintf($this->language->get('error_status'), (string)$rebate_response->message) : $this->language->get('error_rebate'));
+                $json['msg'] = !empty($rebate_response->message) ? sprintf($this->language->get('error_status'), (string)$rebate_response->message) : $this->language->get('error_rebate');
             }
         } else {
             $json['error'] = true;

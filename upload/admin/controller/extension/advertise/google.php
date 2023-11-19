@@ -13,7 +13,7 @@ class ControllerExtensionAdvertiseGoogle extends Controller {
     public function __construct(object $registry) {
         parent::__construct($registry);
 
-        $this->store_id = (isset($this->request->get['store_id']) ? (int)$this->request->get['store_id'] : 0);
+        $this->store_id = isset($this->request->get['store_id']) ? (int)$this->request->get['store_id'] : 0;
 
         $this->loadStore($this->store_id);
 
@@ -1104,8 +1104,8 @@ class ControllerExtensionAdvertiseGoogle extends Controller {
     public function callback_merchant(): void {
         $state_verified = !empty($this->session->data['advertise_google']['state']) && !empty($this->request->get['state']) && $this->request->get['state'] == $this->session->data['advertise_google']['state'];
 
-        $merchant_id = (isset($this->request->get['merchant_id']) ? $this->request->get['merchant_id'] : null);
-        $error = (isset($this->request->get['error']) ? $this->request->get['error'] : null);
+        $merchant_id = isset($this->request->get['merchant_id']) ? $this->request->get['merchant_id'] : null;
+        $error = isset($this->request->get['error']) ? $this->request->get['error'] : null;
 
         if ($state_verified && is_null($error)) {
             $this->load->language('extension/advertise/google');
@@ -1720,7 +1720,7 @@ class ControllerExtensionAdvertiseGoogle extends Controller {
         // Google
         $this->load->model('extension/advertise/google');
 
-        $product_id = (isset($this->request->get['product_id']) ? (int)$this->request->get['product_id'] : 0);
+        $product_id = isset($this->request->get['product_id']) ? (int)$this->request->get['product_id'] : 0;
 
         $product_issues = $this->model_extension_advertise_google->getProductIssues($product_id, $this->store_id);
 

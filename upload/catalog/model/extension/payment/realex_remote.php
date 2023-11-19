@@ -162,7 +162,7 @@ class ModelExtensionPaymentRealexRemote extends Model {
         $xml .= '<presind>2</presind>';
         $xml .= '</cvn>';
 
-        if (!empty($issue)) {
+        if ($issue) {
             $xml .= '<issueno>' . (int)$issue . '</issueno>';
         }
 
@@ -265,19 +265,19 @@ class ModelExtensionPaymentRealexRemote extends Model {
         $message .= '<br/><strong>' . $this->language->get('text_message') . ':</strong> ' . (string)$response->message;
         $message .= '<br/><strong>' . $this->language->get('text_order_ref') . ':</strong> ' . (string)$order_ref;
 
-        if (isset($response->cvnresult) && !empty($response->cvnresult)) {
+        if (!empty($response->cvnresult)) {
             $message .= '<br/><strong>' . $this->language->get('text_cvn_result') . ':</strong> ' . (string)$response->cvnresult;
         }
 
-        if (isset($response->avspostcoderesponse) && !empty($response->avspostcoderesponse)) {
+        if (!empty($response->avspostcoderesponse)) {
             $message .= '<br/><strong>' . $this->language->get('text_avs_postcode') . ':</strong> ' . (string)$response->avspostcoderesponse;
         }
 
-        if (isset($response->avsaddressresponse) && !empty($response->avsaddressresponse)) {
+        if (!empty($response->avsaddressresponse)) {
             $message .= '<br/><strong>' . $this->language->get('text_avs_address') . ':</strong> ' . (string)$response->avsaddressresponse;
         }
 
-        if (isset($response->authcode) && !empty($response->authcode)) {
+        if (!empty($response->authcode)) {
             $message .= '<br/><strong>' . $this->language->get('text_auth_code') . ':</strong> ' . (string)$response->authcode;
         }
 
@@ -285,7 +285,7 @@ class ModelExtensionPaymentRealexRemote extends Model {
             $message .= '<br/><strong>' . $this->language->get('text_eci') . ':</strong> (' . (int)$eci . ') ' . $this->language->get('text_3d_s' . (int)$eci_ref);
         }
 
-        if (isset($response->tss->result) && !empty($response->tss->result)) {
+        if (!empty($response->tss->result)) {
             $message .= '<br/><strong>' . $this->language->get('text_tss') . ':</strong> ' . (int)$response->tss->result;
         }
 
@@ -297,15 +297,15 @@ class ModelExtensionPaymentRealexRemote extends Model {
             $message .= '<br/><strong>' . $this->language->get('entry_cc_expire_date') . ':</strong> ' . (string)$expire;
             $message .= '<br/><strong>' . $this->language->get('entry_cc_name') . ':</strong> ' . (string)$name;
 
-            if (isset($response->cardissuer->bank) && !empty($response->cardissuer->bank)) {
+            if (!empty($response->cardissuer->bank)) {
                 $message .= '<br/><strong>' . $this->language->get('text_card_bank') . ':</strong> ' . (string)$response->cardissuer->bank;
             }
 
-            if (isset($response->cardissuer->country) && !empty($response->cardissuer->country)) {
+            if (!empty($response->cardissuer->country)) {
                 $message .= '<br/><strong>' . $this->language->get('text_card_country') . ':</strong> ' . (string)$response->cardissuer->country;
             }
 
-            if (isset($response->cardissuer->region) && !empty($response->cardissuer->region)) {
+            if (!empty($response->cardissuer->region)) {
                 $message .= '<br/><strong>' . $this->language->get('text_card_region') . ':</strong> ' . (string)$response->cardissuer->region;
             }
         }

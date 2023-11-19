@@ -261,7 +261,7 @@ class ControllerExtensionPaymentGlobalpayRemote extends Controller {
                 }
 
                 if ($this->config->get('payment_globalpay_remote_liability') != 1) {
-                    // this is the check for liability shift - if the merchant does not want to accept, redirect to checkout with message
+                    // This is the check for liability shift - if the merchant does not want to accept, we redirect to checkout with message
                     $this->load->language('extension/payment/globalpay_remote');
 
                     $message = $this->language->get('error_3d_unsuccessful');

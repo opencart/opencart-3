@@ -53,7 +53,7 @@ class ModelExtensionPaymentFirstdata extends Model {
     public function void($order_id) {
         $firstdata_order = $this->getOrder($order_id);
 
-        if (!empty($firstdata_order)) {
+        if ($firstdata_order) {
             $timestamp = date('YmdHis');
             $merchant_id = $this->config->get('payment_firstdata_merchant_id');
             $secret = $this->config->get('payment_firstdata_secret');
@@ -103,7 +103,7 @@ class ModelExtensionPaymentFirstdata extends Model {
     public function capture($order_id, $amount) {
         $firstdata_order = $this->getOrder($order_id);
 
-        if (!empty($firstdata_order) && $firstdata_order['capture_status'] == 0) {
+        if ($firstdata_order && $firstdata_order['capture_status'] == 0) {
             $timestamp = date('YmdHis');
             $merchant_id = $this->config->get('payment_firstdata_merchant_id');
             $secret = $this->config->get('payment_firstdata_secret');

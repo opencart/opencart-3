@@ -320,7 +320,7 @@ class ControllerExtensionPaymentSquareup extends Controller {
 
         $transaction_info = $this->model_extension_payment_squareup->getTransaction($squareup_transaction_id);
 
-        if (empty($transaction_info)) {
+        if ($transaction_info) {
             $this->response->redirect($this->url->link('extension/payment/squareup', 'user_token=' . $this->session->data['user_token'], true));
         }
 
@@ -999,7 +999,7 @@ class ControllerExtensionPaymentSquareup extends Controller {
 
         $transaction_info = $this->model_extension_payment_squareup->getTransaction($squareup_transaction_id);
 
-        if (empty($transaction_info)) {
+        if (!$transaction_info) {
             $json['error'] = $this->language->get('error_transaction_missing');
         } else {
             try {

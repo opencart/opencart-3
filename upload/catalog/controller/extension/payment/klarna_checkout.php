@@ -103,7 +103,7 @@ class ControllerExtensionPaymentKlarnaCheckout extends Controller {
 			unset($this->session->data['shipping_method']);
 		}
 
-		if ((!isset($this->session->data['shipping_method']) || empty($this->session->data['shipping_method'])) && (isset($this->session->data['shipping_methods']) && !empty($this->session->data['shipping_methods']))) {
+		if (empty($this->session->data['shipping_method']) && !empty($this->session->data['shipping_methods'])) {
 			$this->session->data['shipping_method'] = $this->model_extension_payment_klarna_checkout->getDefaultShippingMethod($this->session->data['shipping_methods']);
 		}
 
@@ -270,7 +270,7 @@ class ControllerExtensionPaymentKlarnaCheckout extends Controller {
 			unset($this->session->data['shipping_method']);
 		}
 
-		if ((!isset($this->session->data['shipping_method']) || empty($this->session->data['shipping_method'])) && (isset($this->session->data['shipping_methods']) && !empty($this->session->data['shipping_methods']))) {
+		if (empty($this->session->data['shipping_method']) && !empty($this->session->data['shipping_methods'])) {
 			$this->session->data['shipping_method'] = $this->model_extension_payment_klarna_checkout->getDefaultShippingMethod($this->session->data['shipping_methods']);
 		}
 
@@ -439,7 +439,7 @@ class ControllerExtensionPaymentKlarnaCheckout extends Controller {
 
 				$zone = [];
 
-				if (isset($this->request->post['region']) && !empty($this->request->post['region'])) {
+				if (isset($this->request->post['region'])) {
 					$zone = $this->model_extension_payment_klarna_checkout->getZoneByCode($this->request->post['region'], $country_info['country_id']);
 				}
 
@@ -648,7 +648,7 @@ class ControllerExtensionPaymentKlarnaCheckout extends Controller {
 
 				$zone = [];
 
-				if (isset($request->shipping_address->region) && !empty($request->shipping_address->region)) {
+				if (!empty($request->shipping_address->region)) {
 					$zone = $this->model_extension_payment_klarna_checkout->getZoneByCode($request->shipping_address->region, $country_info['country_id']);
 				}
 
@@ -742,7 +742,7 @@ class ControllerExtensionPaymentKlarnaCheckout extends Controller {
 							if ($this->cart->hasShipping()) {
 								$shipping_method = [];
 
-								if (isset($this->session->data['shipping_method']) && !empty($this->session->data['shipping_method'])) {
+								if (!empty($this->session->data['shipping_method'])) {
 									foreach ($shipping_methods as $individual_shipping_method) {
 										if ($individual_shipping_method['quote']) {
 											foreach ($individual_shipping_method['quote'] as $quote) {
@@ -1340,7 +1340,7 @@ class ControllerExtensionPaymentKlarnaCheckout extends Controller {
 		$this->load->model('localisation/country');
 		$this->load->model('localisation/zone');
 
-		if (isset($this->session->data['payment_address']) && !empty($this->session->data['payment_address'])) {
+		if (!empty($this->session->data['payment_address'])) {
 			$this->session->data['payment_address'] = $this->session->data['payment_address'];
 		}
 		elseif ($this->customer->isLogged() && $this->customer->getAddressId()) {
@@ -1381,7 +1381,7 @@ class ControllerExtensionPaymentKlarnaCheckout extends Controller {
 		$this->load->model('localisation/country');
 		$this->load->model('localisation/zone');
 
-		if (isset($this->session->data['shipping_address']) && !empty($this->session->data['shipping_address'])) {
+		if (!empty($this->session->data['shipping_address'])) {
 			$this->session->data['shipping_address'] = $this->session->data['shipping_address'];
 		} elseif ($this->customer->isLogged() && $this->customer->getAddressId()) {
 			$this->session->data['shipping_address'] = $this->model_account_address->getAddress($this->customer->getAddressId());
@@ -1523,7 +1523,7 @@ class ControllerExtensionPaymentKlarnaCheckout extends Controller {
 		$order_data['payment_country'] = $this->session->data['payment_address']['country'];
 		$order_data['payment_country_id'] = $this->session->data['payment_address']['country_id'];
 		$order_data['payment_address_format'] = $this->session->data['payment_address']['address_format'];
-		$order_data['payment_custom_field'] = (isset($this->session->data['payment_address']['custom_field']) ? $this->session->data['payment_address']['custom_field'] : []);
+		$order_data['payment_custom_field'] = isset($this->session->data['payment_address']['custom_field']) ? $this->session->data['payment_address']['custom_field'] : [];
 
 		if (isset($this->session->data['payment_method']['title'])) {
 			$order_data['payment_method'] = $this->session->data['payment_method']['title'];
@@ -1552,7 +1552,7 @@ class ControllerExtensionPaymentKlarnaCheckout extends Controller {
 			$order_data['shipping_country'] = $this->session->data['shipping_address']['country'];
 			$order_data['shipping_country_id'] = $this->session->data['shipping_address']['country_id'];
 			$order_data['shipping_address_format'] = $this->session->data['shipping_address']['address_format'];
-			$order_data['shipping_custom_field'] = (isset($this->session->data['shipping_address']['custom_field']) ? $this->session->data['shipping_address']['custom_field'] : []);
+			$order_data['shipping_custom_field'] = isset($this->session->data['shipping_address']['custom_field']) ? $this->session->data['shipping_address']['custom_field'] : [];
 
 			if (isset($this->session->data['shipping_method']['title'])) {
 				$order_data['shipping_method'] = $this->session->data['shipping_method']['title'];
@@ -1732,18 +1732,18 @@ class ControllerExtensionPaymentKlarnaCheckout extends Controller {
 			unset($this->session->data['shipping_method']);
 		}
 
-		if ((!isset($this->session->data['shipping_method']) || empty($this->session->data['shipping_method'])) && (isset($this->session->data['shipping_methods']) && !empty($this->session->data['shipping_methods']))) {
+		if (empty($this->session->data['shipping_method']) && !empty($this->session->data['shipping_methods'])) {
 			$this->session->data['shipping_method'] = $this->model_extension_payment_klarna_checkout->getDefaultShippingMethod($this->session->data['shipping_methods']);
 		}
 
-		//Check if customer is US. If so, send taxes differently
+		// Check if customer is US. If so, send taxes differently
 		if ($this->session->data['shipping_address']['iso_code_2'] === 'US') {
 			$include_taxes = false;
 		} else {
 			$include_taxes = true;
 		}
 
-		if ($this->cart->hasShipping() && isset($this->session->data['shipping_method']) && !empty($this->session->data['shipping_method'])) {
+		if ($this->cart->hasShipping() && !empty($this->session->data['shipping_method'])) {
 			$total_amount = $this->currency->format($this->tax->calculate($this->session->data['shipping_method']['cost'], $this->session->data['shipping_method']['tax_class_id'], $include_taxes), $currency_code, $currency_value, false) * 100;
 
 			if ($include_taxes) {

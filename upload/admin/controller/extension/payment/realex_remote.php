@@ -207,7 +207,7 @@ class ControllerExtensionPaymentRealexRemote extends Controller {
 
             $realex_order = $this->model_extension_payment_realex_remote->getOrder($this->request->get['order_id']);
 
-            if (!empty($realex_order)) {
+            if ($realex_order) {
                 $this->load->language('extension/payment/realex_remote');
 
                 $realex_order['total_captured'] = $this->model_extension_payment_realex_remote->getTotalCaptured($realex_order['realex_remote_order_id']);
@@ -252,7 +252,7 @@ class ControllerExtensionPaymentRealexRemote extends Controller {
                 $json['error'] = false;
             } else {
                 $json['error'] = true;
-                $json['msg'] = (isset($void_response->message) && !empty($void_response->message) ? sprintf($this->language->get('error_status'), (string)$void_response->message) : $this->language->get('error_void'));
+                $json['msg'] = !empty($void_response->message) ? sprintf($this->language->get('error_status'), (string)$void_response->message) : $this->language->get('error_void');
             }
         } else {
             $json['error'] = true;
@@ -306,7 +306,7 @@ class ControllerExtensionPaymentRealexRemote extends Controller {
                 $json['error'] = false;
             } else {
                 $json['error'] = true;
-                $json['msg'] = (isset($capture_response->message) && !empty($capture_response->message) ? sprintf($this->language->get('error_status'), (string)$capture_response->message) : $this->language->get('error_capture'));
+                $json['msg'] = !empty($capture_response->message) ? sprintf($this->language->get('error_status'), (string)$capture_response->message) : $this->language->get('error_capture');
             }
         } else {
             $json['error'] = true;
@@ -360,7 +360,7 @@ class ControllerExtensionPaymentRealexRemote extends Controller {
                 $json['error'] = false;
             } else {
                 $json['error'] = true;
-                $json['msg'] = (isset($rebate_response->message) && !empty($rebate_response->message) ? sprintf($this->language->get('error_status'), (string)$rebate_response->message) : $this->language->get('error_rebate'));
+                $json['msg'] = !empty($rebate_response->message) ? sprintf($this->language->get('error_status'), (string)$rebate_response->message) : $this->language->get('error_rebate');
             }
         } else {
             $json['error'] = true;

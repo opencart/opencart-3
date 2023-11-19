@@ -36,7 +36,7 @@ class ModelExtensionPaymentGlobalpay extends Model {
     public function void($order_id) {
         $globalpay_order = $this->getOrder($order_id);
 
-        if (!empty($globalpay_order)) {
+        if ($globalpay_order) {
             $timestamp = date('YmdHis');
             $merchant_id = $this->config->get('payment_globalpay_merchant_id');
             $secret = $this->config->get('payment_globalpay_secret');

@@ -79,7 +79,7 @@ class ControllerExtensionPaymentAmazonLoginPay extends Controller {
         ];
 
         $data['content_main'] = $this->load->view('extension/payment/amazon_login_pay_address', $data);
-        
+
         $data['column_left'] = $this->load->controller('common/column_left');
         $data['column_right'] = $this->load->controller('common/column_right');
         $data['content_top'] = $this->load->controller('common/content_top');
@@ -139,7 +139,7 @@ class ControllerExtensionPaymentAmazonLoginPay extends Controller {
                 }
             }
 
-            if (empty($quotes)) {
+            if (!$quotes) {
                 throw new \RuntimeException($this->language->get('error_no_shipping_methods'));
             }
 
@@ -308,7 +308,7 @@ class ControllerExtensionPaymentAmazonLoginPay extends Controller {
         ];
 
         $data['content_main'] = $this->load->view('extension/payment/amazon_login_pay_payment', $data);
-        
+
         $data['column_left'] = $this->load->controller('common/column_left');
         $data['column_right'] = $this->load->controller('common/column_right');
         $data['content_top'] = $this->load->controller('common/content_top');
@@ -943,16 +943,18 @@ class ControllerExtensionPaymentAmazonLoginPay extends Controller {
                                 'amount'                    => $amazon_captured_amount
                             ];
 
-                            $transaction_exists = (!empty($amazon_capture_id)) ? $this->model_extension_payment_amazon_login_pay->findCapture($amazon_capture_id) : false;
+                            $transaction_exists = !empty($amazon_capture_id) ? $this->model_extension_payment_amazon_login_pay->findCapture($amazon_capture_id) : false;
 
                             if (!isset($transaction_exists) || !$transaction_exists) {
                                 $this->model_extension_payment_amazon_login_pay->addTransaction($transaction);
                             }
 
                             $order_reference_details = $this->model_extension_payment_amazon_login_pay->fetchOrder($amazon_order_reference_id);
+
                             $order_reason_code = (string)$order_reference_details->OrderReferenceStatus->ReasonCode;
                             $order_state = (string)$order_reference_details->OrderReferenceStatus->State;
                             $order_total = (float)$order_reference_details->OrderTotal->Amount;
+
                             $total_captured = $this->model_extension_payment_amazon_login_pay->getTotalCaptured($amazon_login_pay_order_id);
 
                             // Change the order status only if the order is closed with the response code maxamountcharged or if the order is fully captured

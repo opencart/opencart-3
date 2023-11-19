@@ -421,7 +421,7 @@ class ControllerExtensionPaymentAmazonLoginPay extends Controller {
 
             $amazon_login_pay_order = $this->model_extension_payment_amazon_login_pay->getOrder($this->request->get['order_id']);
 
-            if (!empty($amazon_login_pay_order)) {
+            if ($amazon_login_pay_order) {
                 $this->load->language('extension/payment/amazon_login_pay');
 
                 $amazon_login_pay_order['total_captured'] = $this->model_extension_payment_amazon_login_pay->getTotalCaptured($amazon_login_pay_order['amazon_login_pay_order_id']);
@@ -475,7 +475,7 @@ class ControllerExtensionPaymentAmazonLoginPay extends Controller {
             } else {
                 $json['error'] = true;
 
-                $json['msg'] = (isset($cancel_response['status_detail']) && $cancel_response['status_detail'] != '' ? sprintf($this->language->get('error_status'), (string)$cancel_response['status_detail']) : $this->language->get('error_cancel'));
+                $json['msg'] = isset($cancel_response['status_detail']) && $cancel_response['status_detail'] != '' ? sprintf($this->language->get('error_status'), (string)$cancel_response['status_detail']) : $this->language->get('error_cancel');
             }
         } else {
             $json['error'] = true;
@@ -543,7 +543,7 @@ class ControllerExtensionPaymentAmazonLoginPay extends Controller {
             } else {
                 $json['error'] = true;
 
-                $json['msg'] = (isset($capture_response['status_detail']) && $capture_response['status_detail'] != '' ? sprintf($this->language->get('error_status'), (string)$capture_response['status_detail']) : $this->language->get('error_capture'));
+                $json['msg'] = isset($capture_response['status_detail']) && $capture_response['status_detail'] != '' ? sprintf($this->language->get('error_status'), (string)$capture_response['status_detail']) : $this->language->get('error_capture');
             }
         } else {
             $json['error'] = true;
@@ -606,7 +606,7 @@ class ControllerExtensionPaymentAmazonLoginPay extends Controller {
                     $json['data'][] = $post_data;
                 } else {
                     $json['error'] = true;
-                    $json['error_msg'][] = (isset($response['status_detail']) && $response['status_detail'] != '' ? sprintf($this->language->get('error_status'), (string)$response['status_detail']) : $this->language->get('error_refund'));
+                    $json['error_msg'][] = isset($response['status_detail']) && $response['status_detail'] != '' ? sprintf($this->language->get('error_status'), (string)$response['status_detail']) : $this->language->get('error_refund');
                 }
             }
 
@@ -656,7 +656,7 @@ class ControllerExtensionPaymentAmazonLoginPay extends Controller {
             $this->error['error_access_key'] = $this->language->get('error_access_key');
         }
 
-        if (empty($this->error)) {
+        if (!$this->error) {
             $this->load->model('extension/payment/amazon_login_pay');
 
             $errors = $this->model_extension_payment_amazon_login_pay->validateDetails($this->request->post);
@@ -689,7 +689,7 @@ class ControllerExtensionPaymentAmazonLoginPay extends Controller {
 
             $currency = $this->model_localisation_currency->getCurrency($this->currency->getId($currency_code));
 
-            if (empty($currency) || $currency['status'] != '1') {
+            if (!$currency || $currency['status'] != '1') {
                 $this->error['error_currency'] = sprintf($this->language->get('error_currency'), $currency_code);
             }
         }

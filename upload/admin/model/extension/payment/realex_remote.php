@@ -36,7 +36,7 @@ class ModelExtensionPaymentRealexRemote extends Model {
     public function void($order_id) {
         $realex_order = $this->getOrder($order_id);
 
-        if (!empty($realex_order)) {
+        if ($realex_order) {
             $timestamp = date('YmdHis');
             $merchant_id = $this->config->get('payment_realex_remote_merchant_id');
             $secret = $this->config->get('payment_realex_remote_secret');
@@ -86,7 +86,7 @@ class ModelExtensionPaymentRealexRemote extends Model {
     public function capture($order_id, $amount) {
         $realex_order = $this->getOrder($order_id);
 
-        if (!empty($realex_order) && $realex_order['capture_status'] == 0) {
+        if ($realex_order && $realex_order['capture_status'] == 0) {
             $timestamp = date('YmdHis');
             $merchant_id = $this->config->get('payment_realex_remote_merchant_id');
             $secret = $this->config->get('payment_realex_remote_secret');
@@ -154,7 +154,7 @@ class ModelExtensionPaymentRealexRemote extends Model {
     public function rebate($order_id, $amount) {
         $realex_order = $this->getOrder($order_id);
 
-        if (!empty($realex_order) && $realex_order['rebate_status'] != 1) {
+        if ($realex_order && $realex_order['rebate_status'] != 1) {
             $timestamp = date('YmdHis');
             $merchant_id = $this->config->get('payment_realex_remote_merchant_id');
             $secret = $this->config->get('payment_realex_remote_secret');

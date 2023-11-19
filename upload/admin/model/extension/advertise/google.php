@@ -288,21 +288,15 @@ class ModelExtensionAdvertiseGoogle extends Model {
     }
 
     public function setAdvertisingBySelect($post_product_ids, $post_target_ids, $store_id) {
-        if (!empty($post_product_ids)) {
-            $product_ids = array_map([
-                $this->googleshopping,
-                'integer'
-            ], $post_product_ids);
+        if ($post_product_ids) {
+            $product_ids = array_map([$this->googleshopping, 'integer'], $post_product_ids);
 
             $product_ids_expression = implode(',', $product_ids);
 
             $this->db->query("DELETE FROM `" . DB_PREFIX . "googleshopping_product_target` WHERE `product_id` IN(" . $product_ids_expression . ") AND `store_id` = '" . (int)$store_id . "'");
 
-            if (!empty($post_target_ids)) {
-                $target_ids = array_map([
-                    $this->googleshopping,
-                    'integer'
-                ], $post_target_ids);
+            if ($post_target_ids) {
+                $target_ids = array_map([$this->googleshopping, 'integer'], $post_target_ids);
 
                 $values = [];
 
@@ -326,11 +320,8 @@ class ModelExtensionAdvertiseGoogle extends Model {
 
         $this->db->query($sql);
 
-        if (!empty($post_target_ids)) {
-            $target_ids = array_map([
-                $this->googleshopping,
-                'integer'
-            ], $post_target_ids);
+        if ($post_target_ids) {
+            $target_ids = array_map([$this->googleshopping, 'integer'], $post_target_ids);
 
             $insert_sql = "SELECT `p`.`product_id`, " . (int)$store_id . " AS `store_id`, '{TARGET_ID}' AS `advertise_google_target_id` FROM `" . DB_PREFIX . "product` `p` LEFT JOIN `" . DB_PREFIX . "product_description` `pd` ON (`pd`.`product_id` = `p`.`product_id`) WHERE `pd`.`language_id` = '" . (int)$this->config->get('config_language_id') . "'";
 
@@ -347,7 +338,7 @@ class ModelExtensionAdvertiseGoogle extends Model {
     public function insertNewProducts($product_ids, $store_id) {
         $sql = "INSERT INTO `" . DB_PREFIX . "googleshopping_product` (`product_id`, `store_id`, `google_product_category`) SELECT `p`.`product_id`, `p2s`.`store_id`, (SELECT `c2gpc`.`google_product_category` FROM `" . DB_PREFIX . "product_to_category` `p2c` LEFT JOIN `" . DB_PREFIX . "category_path` `cp` ON (`p2c`.`category_id` = `cp`.`category_id`) LEFT JOIN `" . DB_PREFIX . "googleshopping_category` `c2gpc` ON (`c2gpc`.`category_id` = `cp`.`path_id` AND `c2gpc`.`store_id` = '" . (int)$store_id . "') WHERE `p2c`.`product_id` = `p`.`product_id` AND `c2gpc`.`google_product_category` IS NOT NULL ORDER BY `cp`.`level` DESC LIMIT 0,1) AS `google_product_category` FROM `" . DB_PREFIX . "product` `p` LEFT JOIN `" . DB_PREFIX . "product_to_store` `p2s` ON (`p2s`.`product_id` = `p`.`product_id` AND `p2s`.`store_id` = '" . (int)$store_id . "') LEFT JOIN `" . DB_PREFIX . "googleshopping_product` `pag` ON (`pag`.`product_id` = `p`.`product_id` AND `pag`.`store_id` = `p2s`.`store_id`) WHERE `pag`.`product_id` IS NULL AND `p2s`.`store_id` IS NOT NULL";
 
-        if (!empty($product_ids)) {
+        if ($product_ids) {
             $sql .= " AND `p`.`product_id` IN(" . $this->googleshopping->productIdsToIntegerExpression($product_ids) . ")";
         }
 
@@ -362,7 +353,6 @@ class ModelExtensionAdvertiseGoogle extends Model {
 
     public function updateSingleProductFields($data) {
         $values = [];
-
         $entry = [];
 
         $entry['product_id'] = (int)$data['product_id'];
@@ -477,11 +467,12 @@ class ModelExtensionAdvertiseGoogle extends Model {
 
         $product_info = $this->db->query($sql)->row;
 
-        if (!empty($product_info)) {
+        if ($product_info) {
             $result = [];
 
             $result['name'] = $product_info['name'];
             $result['model'] = $product_info['model'];
+
             $result['entries'] = [];
 
             foreach ($this->model_localisation_language->getLanguages() as $language) {

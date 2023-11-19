@@ -73,7 +73,7 @@ class ModelExtensionPaymentSagepayServer extends Model {
     public function void(int $order_id): array {
         $sagepay_server_order = $this->getOrder($order_id);
 
-        if (!empty($sagepay_server_order) && $sagepay_server_order['release_status'] == 0) {
+        if ($sagepay_server_order && $sagepay_server_order['release_status'] == 0) {
             $void_data = [];
 
             if ($this->config->get('payment_sagepay_server_test') == 'live') {
@@ -108,9 +108,10 @@ class ModelExtensionPaymentSagepayServer extends Model {
 
     public function release(int $order_id, float $amount): array {
         $sagepay_server_order = $this->getOrder($order_id);
+
         $total_released = $this->getTotalReleased($sagepay_server_order['sagepay_server_order_id']);
 
-        if (!empty($sagepay_server_order) && $sagepay_server_order['release_status'] == 0 && ($total_released + $amount <= $sagepay_server_order['total'])) {
+        if ($sagepay_server_order && $sagepay_server_order['release_status'] == 0 && ($total_released + $amount <= $sagepay_server_order['total'])) {
             $release_data = [];
 
             if ($this->config->get('payment_sagepay_server_test') == 'live') {
@@ -151,7 +152,7 @@ class ModelExtensionPaymentSagepayServer extends Model {
     public function rebate(int $order_id, float $amount): array {
         $sagepay_server_order = $this->getOrder($order_id);
 
-        if (!empty($sagepay_server_order) && $sagepay_server_order['rebate_status'] != 1) {
+        if ($sagepay_server_order && $sagepay_server_order['rebate_status'] != 1) {
             $refund_data = [];
 
             if ($this->config->get('payment_sagepay_server_test') == 'live') {

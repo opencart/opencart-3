@@ -64,7 +64,7 @@ class ModelExtensionPaymentWorldpay extends Model {
     public function refund(int $order_id, float $amount): array {
         $worldpay_order = $this->getOrder($order_id);
 
-        if (!empty($worldpay_order) && $worldpay_order['refund_status'] != 1) {
+        if ($worldpay_order && $worldpay_order['refund_status'] != 1) {
             $order['refundAmount'] = (int)($amount * 100);
             $url = $worldpay_order['order_code'] . '/refund';
             $response_data = $this->sendCurl($url, $order);

@@ -36,7 +36,7 @@ class ModelExtensionPaymentSecureTradingPp extends Model {
     public function void($order_id) {
         $securetrading_pp_order = $this->getOrder($order_id);
 
-        if (!empty($securetrading_pp_order) && $securetrading_pp_order['release_status'] == 0) {
+        if ($securetrading_pp_order && $securetrading_pp_order['release_status'] == 0) {
             $requestblock_xml = new \SimpleXMLElement('<requestblock></requestblock>');
             $requestblock_xml->addAttribute('version', '3.67');
             $requestblock_xml->addChild('alias', $this->config->get('payment_securetrading_pp_webservice_username'));
@@ -64,7 +64,7 @@ class ModelExtensionPaymentSecureTradingPp extends Model {
         $securetrading_pp_order = $this->getOrder($order_id);
         $total_released = $this->getTotalReleased($securetrading_pp_order['securetrading_pp_order_id']);
 
-        if (!empty($securetrading_pp_order) && $securetrading_pp_order['release_status'] == 0 && $total_released <= $amount) {
+        if ($securetrading_pp_order && $securetrading_pp_order['release_status'] == 0 && $total_released <= $amount) {
             $requestblock_xml = new \SimpleXMLElement('<requestblock></requestblock>');
 
             $requestblock_xml->addAttribute('version', '3.67');
@@ -98,7 +98,7 @@ class ModelExtensionPaymentSecureTradingPp extends Model {
     public function rebate($order_id, $refunded_amount) {
         $securetrading_pp_order = $this->getOrder($order_id);
 
-        if (!empty($securetrading_pp_order) && $securetrading_pp_order['rebate_status'] != 1) {
+        if ($securetrading_pp_order && $securetrading_pp_order['rebate_status'] != 1) {
             $requestblock_xml = new \SimpleXMLElement('<requestblock></requestblock>');
 
             $requestblock_xml->addAttribute('version', '3.67');

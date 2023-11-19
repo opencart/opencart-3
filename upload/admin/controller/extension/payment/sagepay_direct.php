@@ -164,7 +164,7 @@ class ControllerExtensionPaymentSagepayDirect extends Controller {
 
             $payment_sagepay_direct_order = $this->model_extension_payment_sagepay_direct->getOrder($this->request->get['order_id']);
 
-            if (!empty($payment_sagepay_direct_order)) {
+            if ($payment_sagepay_direct_order) {
                 $this->load->language('extension/payment/sagepay_direct');
 
                 $payment_sagepay_direct_order['total_released'] = $this->model_extension_payment_sagepay_direct->getTotalReleased($payment_sagepay_direct_order['sagepay_direct_order_id']);
@@ -217,7 +217,7 @@ class ControllerExtensionPaymentSagepayDirect extends Controller {
             } else {
                 $json['error'] = true;
 
-                $json['msg'] = (isset($void_response['StatusDetail']) && $void_response['StatusDetail'] != '' ? sprintf($this->language->get('error_status'), (string)$void_response['StatusDetail']) : $this->language->get('error_void'));
+                $json['msg'] = isset($void_response['StatusDetail']) && $void_response['StatusDetail'] != '' ? sprintf($this->language->get('error_status'), (string)$void_response['StatusDetail']) : $this->language->get('error_void');
             }
         } else {
             $json['error'] = true;
@@ -268,7 +268,7 @@ class ControllerExtensionPaymentSagepayDirect extends Controller {
                 $json['error'] = false;
             } else {
                 $json['error'] = true;
-                $json['msg'] = (isset($release_response['StatusDetail']) && $release_response['StatusDetail'] != '' ? sprintf($this->language->get('error_status'), (string)$release_response['StatusDetail']) : $this->language->get('error_release'));
+                $json['msg'] = isset($release_response['StatusDetail']) && $release_response['StatusDetail'] != '' ? sprintf($this->language->get('error_status'), (string)$release_response['StatusDetail']) : $this->language->get('error_release');
             }
         } else {
             $json['error'] = true;
@@ -324,7 +324,7 @@ class ControllerExtensionPaymentSagepayDirect extends Controller {
             } else {
                 $json['error'] = true;
 
-                $json['msg'] = (isset($rebate_response['StatusDetail']) && $rebate_response['StatusDetail'] != '' ? sprintf($this->language->get('error_status'), (string)$rebate_response['StatusDetail']) : $this->language->get('error_rebate'));
+                $json['msg'] = isset($rebate_response['StatusDetail']) && $rebate_response['StatusDetail'] != '' ? sprintf($this->language->get('error_status'), (string)$rebate_response['StatusDetail']) : $this->language->get('error_rebate');
             }
         } else {
             $json['error'] = true;

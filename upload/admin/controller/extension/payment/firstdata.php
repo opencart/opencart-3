@@ -214,7 +214,7 @@ class ControllerExtensionPaymentFirstdata extends Controller {
 
             $firstdata_order = $this->model_extension_payment_firstdata->getOrder($this->request->get['order_id']);
 
-            if (!empty($firstdata_order)) {
+            if ($firstdata_order) {
                 $this->load->language('extension/payment/firstdata');
 
                 $firstdata_order['total_captured'] = $this->model_extension_payment_firstdata->getTotalCaptured($firstdata_order['firstdata_order_id']);

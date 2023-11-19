@@ -621,7 +621,7 @@ class ControllerExtensionModulePayPalSmartButton extends Controller {
 
         $products = $this->cart->getProducts();
 
-        if (empty($products)) {
+        if (!$products) {
             $this->response->redirect($this->url->link('checkout/cart', '', true));
         }
 
@@ -739,63 +739,62 @@ class ControllerExtensionModulePayPalSmartButton extends Controller {
 
             $data['shipping_address'] = isset($this->session->data['shipping_address']) ? $this->session->data['shipping_address'] : [];
 
-            if (!empty($data['shipping_address'])) {
+            if ($data['shipping_address']) {
                 // Shipping Methods
                 $quote_data = [];
 
                 $results = $this->model_setting_extension->getExtensionsByType('shipping');
 
-                if (!empty($results)) {
-                    foreach ($results as $result) {
-                        if ($this->config->get('shipping_' . $result['code'] . '_status')) {
-                            $this->load->model('extension/shipping/' . $result['code']);
+                foreach ($results as $result) {
+                    if ($this->config->get('shipping_' . $result['code'] . '_status')) {
+                        $this->load->model('extension/shipping/' . $result['code']);
 
-                            $quote = $this->{'model_extension_shipping_' . $result['code']}->getQuote($data['shipping_address']);
+                        $quote = $this->{'model_extension_shipping_' . $result['code']}->getQuote($data['shipping_address']);
 
-                            if ($quote) {
-                                $quote_data[$result['code']] = [
-                                    'title'      => $quote['title'],
-                                    'quote'      => $quote['quote'],
-                                    'sort_order' => $quote['sort_order'],
-                                    'error'      => $quote['error']
-                                ];
-                            }
+                        if ($quote) {
+                            $quote_data[$result['code']] = [
+                                'title'      => $quote['title'],
+                                'quote'      => $quote['quote'],
+                                'sort_order' => $quote['sort_order'],
+                                'error'      => $quote['error']
+                            ];
                         }
                     }
+                }
 
-                    if (!empty($quote_data)) {
-                        $sort_order = [];
+                if ($quote_data) {
+                    $sort_order = [];
 
-                        foreach ($quote_data as $key => $value) {
-                            $sort_order[$key] = $value['sort_order'];
-                        }
-
-                        array_multisort($sort_order, SORT_ASC, $quote_data);
-
-                        $this->session->data['shipping_methods'] = $quote_data;
-                        $data['shipping_methods'] = $quote_data;
-
-                        if (!isset($this->session->data['shipping_method'])) {
-                            // Default the shipping to the very first option.
-                            $key1 = key($quote_data);
-                            $key2 = key($quote_data[$key1]['quote']);
-                            $this->session->data['shipping_method'] = $quote_data[$key1]['quote'][$key2];
-                        }
-
-                        $data['code'] = $this->session->data['shipping_method']['code'];
-                        $data['action_shipping'] = $this->url->link('extension/module/paypal_smart_button/confirmShipping', '', true);
-                    } else {
-                        unset($this->session->data['shipping_methods']);
-                        unset($this->session->data['shipping_method']);
-
-                        $data['error_no_shipping'] = $this->language->get('error_no_shipping');
+                    foreach ($quote_data as $key => $value) {
+                        $sort_order[$key] = $value['sort_order'];
                     }
+
+                    array_multisort($sort_order, SORT_ASC, $quote_data);
+
+                    $this->session->data['shipping_methods'] = $quote_data;
+                    $data['shipping_methods'] = $quote_data;
+
+                    if (!isset($this->session->data['shipping_method'])) {
+                        // Default the shipping to the very first option.
+                        $key1 = key($quote_data);
+                        $key2 = key($quote_data[$key1]['quote']);
+
+                        $this->session->data['shipping_method'] = $quote_data[$key1]['quote'][$key2];
+                    }
+
+                    $data['code'] = $this->session->data['shipping_method']['code'];
+                    $data['action_shipping'] = $this->url->link('extension/module/paypal_smart_button/confirmShipping', '', true);
                 } else {
                     unset($this->session->data['shipping_methods']);
                     unset($this->session->data['shipping_method']);
 
                     $data['error_no_shipping'] = $this->language->get('error_no_shipping');
                 }
+            } else {
+                unset($this->session->data['shipping_methods']);
+                unset($this->session->data['shipping_method']);
+
+                $data['error_no_shipping'] = $this->language->get('error_no_shipping');
             }
         } else {
             $data['has_shipping'] = false;
@@ -1623,7 +1622,7 @@ class ControllerExtensionModulePayPalSmartButton extends Controller {
         $this->load->language('checkout/cart');
         $this->load->language('extension/module/paypal_smart_button');
 
-        if (empty($code)) {
+        if (!$code) {
             $this->session->data['error_warning'] = $this->language->get('error_shipping');
 
             return false;

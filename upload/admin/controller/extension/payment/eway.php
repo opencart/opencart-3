@@ -194,7 +194,7 @@ class ControllerExtensionPaymentEway extends Controller {
 
             $eway_order = $this->model_extension_payment_eway->getOrder($this->request->get['order_id']);
 
-            if (!empty($eway_order)) {
+            if ($eway_order) {
                 $this->load->language('extension/payment/eway');
 
                 $eway_order['total'] = $eway_order['amount'];

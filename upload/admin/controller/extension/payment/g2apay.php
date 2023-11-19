@@ -192,7 +192,7 @@ class ControllerExtensionPaymentG2APay extends Controller {
 
             $payment_g2apay_order = $this->model_extension_payment_g2apay->getOrder($this->request->get['order_id']);
 
-            if (!empty($payment_g2apay_order)) {
+            if ($payment_g2apay_order) {
                 $this->load->language('extension/payment/g2apay');
 
                 $payment_g2apay_order['total_released_formatted'] = $this->currency->format($payment_g2apay_order['total_released'], $payment_g2apay_order['currency_code'], false);

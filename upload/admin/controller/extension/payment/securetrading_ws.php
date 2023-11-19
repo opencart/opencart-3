@@ -350,7 +350,7 @@ class ControllerExtensionPaymentSecureTradingWs extends Controller {
 
             $securetrading_ws_order = $this->model_extension_payment_securetrading_ws->getOrder($this->request->get['order_id']);
 
-            if (!empty($securetrading_ws_order)) {
+            if ($securetrading_ws_order) {
                 $this->load->language('extension/payment/securetrading_ws');
 
                 $securetrading_ws_order['total_released'] = $this->model_extension_payment_securetrading_ws->getTotalReleased($securetrading_ws_order['securetrading_ws_order_id']);

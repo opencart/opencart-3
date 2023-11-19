@@ -302,7 +302,7 @@ class ControllerExtensionPaymentDivido extends Controller {
 
         $plans = $this->model_extension_payment_divido->getProductPlans($product_id);
 
-        if (empty($plans)) {
+        if (!$plans) {
             return '';
         }
 

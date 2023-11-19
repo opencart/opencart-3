@@ -389,7 +389,7 @@ class ControllerExtensionPaymentSagepayServer extends Controller {
         $this->model_extension_payment_sagepay_server->updateOrder($order_info, $str_vps_tx_id, $str_tx_auth_no);
         $this->model_extension_payment_sagepay_server->addTransaction($transaction_info['sagepay_server_order_id'], $this->config->get('payment_sagepay_server_transaction'), $order_info);
 
-        if (!empty($str_token)) {
+        if ($str_token) {
             $data['customer_id'] = $order_info['customer_id'];
             $data['ExpiryDate'] = substr($str_expiry_date, -4, 2) . '/' . substr($str_expiry_date, 2);
             $data['Token'] = $str_token;
@@ -448,7 +448,7 @@ class ControllerExtensionPaymentSagepayServer extends Controller {
 
         $card = $this->model_extension_payment_sagepay_server->getCard(false, $this->request->post['Token']);
 
-        if (!empty($card['token'])) {
+        if ($card && $card['token']) {
             if ($this->config->get('payment_sagepay_server_test') == 'live') {
                 $url = 'https://live.sagepay.com/gateway/service/removetoken.vsp';
             } else {
