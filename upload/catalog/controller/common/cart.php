@@ -1,4 +1,9 @@
 <?php
+/**
+ * Class Cart
+ *
+ * @package Catalog\Controller\Common
+ */
 class ControllerCommonCart extends Controller {
     public function index(): string {
         $this->load->language('common/cart');

@@ -1,4 +1,9 @@
 <?php
+/**
+ * Class Startup
+ *
+ * @package Catalog\Controller\Startup
+ */
 class ControllerStartupStartup extends Controller {
     public function index(): void {
         // Store

@@ -1,4 +1,9 @@
 <?php
+/**
+ * Class Subscription
+ *
+ * @package Catalog\Model\Checkout
+ */
 class ModelCheckoutSubscription extends Model {
 	/**
 	 * @param array $data

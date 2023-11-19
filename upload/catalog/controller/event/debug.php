@@ -1,4 +1,9 @@
 <?php
+/**
+ * Class Debug
+ *
+ * @package Catalog\Controller\Event
+ */
 class ControllerEventDebug extends Controller {
     public function index(string &$route, array &$args): void {
         //echo $route;

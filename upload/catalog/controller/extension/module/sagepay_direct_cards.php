@@ -1,4 +1,9 @@
 <?php
+/**
+ * Class Sagepay Direct Cards
+ *
+ * @package Catalog\Controller\Extension\Module
+ */
 class ControllerExtensionModuleSagepayDirectCards extends Controller {
     public function index(): string {
         if ($this->config->get('module_sagepay_direct_cards_status') && $this->config->get('payment_sagepay_direct_status') && $this->customer->isLogged()) {

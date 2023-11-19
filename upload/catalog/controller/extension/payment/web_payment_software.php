@@ -1,4 +1,9 @@
 <?php
+/**
+ * Class Web Payment Software
+ *
+ * @package Catalog\Controller\Extension\Payment
+ */
 class ControllerExtensionPaymentWebPaymentSoftware extends Controller {
     public function index(): string {
         $this->load->language('extension/payment/web_payment_software');

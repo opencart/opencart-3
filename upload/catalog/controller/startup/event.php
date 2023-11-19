@@ -1,4 +1,9 @@
 <?php
+/**
+ * Class Event
+ *
+ * @package Catalog\Controller\Startup
+ */
 class ControllerStartupEvent extends Controller {
     public function index(): void {
         // Add events from the DB

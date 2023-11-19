@@ -1,4 +1,9 @@
 <?php
+/**
+ * Class Zone
+ *
+ * @package Catalog\Model\Localisation
+ */
 class ModelLocalisationZone extends Model {
     public function getZone(int $zone_id): array {
         $query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "zone` WHERE `zone_id` = '" . (int)$zone_id . "' AND `status` = '1'");

@@ -1,4 +1,9 @@
 <?php
+/**
+ * Class Maxmind
+ *
+ * @package Catalog\Model\Extension\Fraud
+ */
 class ModelExtensionFraudMaxMind extends Model {
     public function check(array $order_info): int {
         $risk_score = 0;

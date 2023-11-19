@@ -1,4 +1,9 @@
 <?php
+/**
+ * Class Ip
+ *
+ * @package Catalog\Model\Extension\Fraud
+ */
 class ModelExtensionFraudIp extends Model {
     public function check(array $order_info): int {
         $status = false;

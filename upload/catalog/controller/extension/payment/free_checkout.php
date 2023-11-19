@@ -1,4 +1,9 @@
 <?php
+/**
+ * Class Free Checkout
+ *
+ * @package Catalog\Controller\Extension\Payment
+ */
 class ControllerExtensionPaymentFreeCheckout extends Controller {
     public function index(): string {
         $data['continue'] = $this->url->link('checkout/success');

@@ -1,4 +1,9 @@
 <?php
+/**
+ * Class Banner
+ *
+ * @package Catalog\Controller\Extension\Module
+ */
 class ControllerExtensionModuleBanner extends Controller {
     public function index(array $setting): string {
         static $module = 0;

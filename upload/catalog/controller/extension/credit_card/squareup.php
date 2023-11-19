@@ -1,4 +1,9 @@
 <?php
+/**
+ * Class Squareup
+ *
+ * @package Catalog\Controller\Extension\CreditCard
+ */
 class ControllerExtensionCreditCardSquareup extends Controller {
     public function index(): void {
         if (!$this->customer->isLogged()) {

@@ -1,4 +1,9 @@
 <?php
+/**
+ * Class Globalpay Remote
+ *
+ * @package Catalog\Model\Extension\Payment
+ */
 class ModelExtensionPaymentGlobalpayRemote extends Model {
     public function getMethod(array $address): array {
         $this->load->language('extension/payment/globalpay_remote');

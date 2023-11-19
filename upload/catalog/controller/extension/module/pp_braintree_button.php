@@ -1,4 +1,9 @@
 <?php
+/**
+ * Class Pp Braintree Button
+ *
+ * @package Catalog\Controller\Extension\Module
+ */
 class ControllerExtensionModulePPBraintreeButton extends Controller {
     private string $gateway = '';
 

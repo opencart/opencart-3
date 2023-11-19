@@ -1,4 +1,9 @@
 <?php
+/**
+ * Class Subscription
+ *
+ * @package Catalog\Model\Account
+ */
 class ModelAccountSubscription extends Model {
 	/**
 	 * @param int $subscription_id

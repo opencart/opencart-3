@@ -1,4 +1,9 @@
 <?php
+/**
+ * Class Bluepay Hosted
+ *
+ * @package Catalog\Model\Extension\Payment
+ */
 class ModelExtensionPaymentBluePayHosted extends Model {
     public function getMethod(array $address): array {
         $this->load->language('extension/payment/bluepay_hosted');

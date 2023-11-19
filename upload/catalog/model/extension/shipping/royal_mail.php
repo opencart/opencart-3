@@ -1,5 +1,11 @@
 <?php
-/*
+/**
+ * Class Royal Mail
+ *
+ * @package Catalog\Model\Extension\Shipping
+ */
+
+/**
 List of Royal Mail support Countries
 
 http://www.royalmail.com/sites/default/files/RoyalMail_International_TrackedCoverage_Jan2014.pdf

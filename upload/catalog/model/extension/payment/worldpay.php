@@ -1,4 +1,9 @@
 <?php
+/**
+ * Class Worldpay
+ *
+ * @package Catalog\Model\Extension\Payment
+ */
 class ModelExtensionPaymentWorldpay extends Model {
     public function getMethod(array $address): array {
         $this->load->language('extension/payment/worldpay');

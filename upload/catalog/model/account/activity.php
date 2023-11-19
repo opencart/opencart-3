@@ -1,4 +1,9 @@
 <?php
+/**
+ * Class Activity
+ *
+ * @package Catalog\Model\Account
+ */
 class ModelAccountActivity extends Model {
     public function addActivity(string $key, array $data): void {
         if (isset($data['customer_id'])) {

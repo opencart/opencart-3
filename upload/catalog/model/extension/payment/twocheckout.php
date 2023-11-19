@@ -1,4 +1,9 @@
 <?php
+/**
+ * Class Twocheckout
+ *
+ * @package Catalog\Model\Extension\Payment
+ */
 class ModelExtensionPaymentTwoCheckout extends Model {
     public function getMethod(array $address): array {
         $this->load->language('extension/payment/twocheckout');

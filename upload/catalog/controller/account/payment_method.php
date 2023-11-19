@@ -1,4 +1,9 @@
 <?php
+/**
+ * Class Payment Method
+ *
+ * @package Catalog\Controller\Account
+ */
 class ControllerAccountPaymentMethod extends Controller {
     private array $error = [];
 

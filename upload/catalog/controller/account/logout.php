@@ -1,4 +1,9 @@
 <?php
+/**
+ * Class Logout
+ *
+ * @package Catalog\Controller\Account
+ */
 class ControllerAccountLogout extends Controller {
     public function index(): void {
         if ($this->customer->isLogged()) {

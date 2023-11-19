@@ -1,4 +1,9 @@
 <?php
+/**
+ * Class Klarna Checkout
+ *
+ * @package Catalog\Model\Extension\Payment
+ */
 use Klarna\Rest\Transport\Connector as KCConnector;
 use Klarna\Rest\Transport\ConnectorInterface as KCConnectorInterface;
 use Klarna\Rest\Checkout\Order as KCOrder;

@@ -1,4 +1,9 @@
 <?php
+/**
+ * Class Google Sitemap
+ *
+ * @package Catalog\Controller\Extension\Feed
+ */
 class ControllerExtensionFeedGoogleSitemap extends Controller {
     public function index(): void {
         if ($this->config->get('feed_google_sitemap_status')) {

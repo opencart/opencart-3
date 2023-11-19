@@ -1,4 +1,9 @@
 <?php
+/**
+ * Class Free Checkout
+ *
+ * @package Catalog\Model\Extension\Payment
+ */
 class ModelExtensionPaymentFreeCheckout extends Model {
     public function getMethod(array $address): array {
         $this->load->language('extension/payment/free_checkout');

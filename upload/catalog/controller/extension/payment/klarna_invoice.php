@@ -1,4 +1,9 @@
 <?php
+/**
+ * Class Klarna Invoice
+ *
+ * @package Catalog\Controller\Extension\Payment
+ */
 class ControllerExtensionPaymentKlarnaInvoice extends Controller {
     public function index(): string {
         // Orders

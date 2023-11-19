@@ -1,4 +1,9 @@
 <?php
+/**
+ * Class Column Right
+ *
+ * @package Catalog\Controller\Common
+ */
 class ControllerCommonColumnRight extends Controller {
     public function index(): string {
         // Layouts

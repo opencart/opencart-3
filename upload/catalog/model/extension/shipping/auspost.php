@@ -1,5 +1,9 @@
 <?php
 /**
+ * Class Auspost
+ *
+ * @package    Catalog\Model\Extension\Shipping
+ *
  * @version    N/A, base on AUSPOST API update on 18 April 2016
  * @link       https://developers.auspost.com.au/docs/reference
  * @since      2.3.0.2   Update on 21 March 2017

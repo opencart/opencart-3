@@ -1,4 +1,9 @@
 <?php
+/**
+ * Class Special
+ *
+ * @package Catalog\Controller\Extension\Module
+ */
 class ControllerExtensionModuleSpecial extends Controller {
     public function index(array $setting): string {
         $this->load->language('extension/module/special');

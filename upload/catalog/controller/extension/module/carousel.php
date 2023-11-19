@@ -1,4 +1,9 @@
 <?php
+/**
+ * Class Carousel
+ *
+ * @package Catalog\Controller\Extension\Module
+ */
 class ControllerExtensionModuleCarousel extends Controller {
     public function index(array $setting): string {
         static $module = 0;

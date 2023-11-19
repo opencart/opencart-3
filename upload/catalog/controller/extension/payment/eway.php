@@ -1,4 +1,9 @@
 <?php
+/**
+ * Class Eway
+ *
+ * @package Catalog\Controller\Extension\Payment
+ */
 class ControllerExtensionPaymentEway extends Controller {
     public function index(): string {
         $this->load->language('extension/payment/eway');

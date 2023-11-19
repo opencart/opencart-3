@@ -1,4 +1,9 @@
 <?php
+/**
+ * Class Cardinity
+ *
+ * @package Catalog\Model\Extension\Payment
+ */
 use Cardinity\Client;
 use Cardinity\Method\Payment;
 use Cardinity\Exception as CardinityException;

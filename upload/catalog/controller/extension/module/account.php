@@ -1,4 +1,9 @@
 <?php
+/**
+ * Class Account
+ *
+ * @package Catalog\Controller\Extension\Module
+ */
 class ControllerExtensionModuleAccount extends Controller {
     public function index(): string {
         $this->load->language('extension/module/account');

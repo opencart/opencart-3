@@ -1,4 +1,9 @@
 <?php
+/**
+ * Class Error
+ *
+ * @package Catalog\Controller\Startup
+ */
 class ControllerStartupError extends Controller {
     public function index(): void {
         // Log

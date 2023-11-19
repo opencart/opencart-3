@@ -1,4 +1,9 @@
 <?php
+/**
+ * Class Authorize.net Aim
+ *
+ * @package Catalog\Controller\Extension\Payment
+ */
 class ControllerExtensionPaymentAuthorizeNetAim extends Controller {
     public function index(): string {
         $this->load->language('extension/payment/authorizenet_aim');

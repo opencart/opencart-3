@@ -1,4 +1,9 @@
 <?php
+/**
+ * Class Realex
+ *
+ * @package Catalog\Model\Extension\Payment
+ */
 class ModelExtensionPaymentRealex extends Model {
     public function getMethod(array $address): array {
         $this->load->language('extension/payment/realex');

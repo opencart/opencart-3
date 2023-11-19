@@ -1,4 +1,9 @@
 <?php
+/**
+ * Class Google Base
+ *
+ * @package Catalog\Controller\Extension\Feed
+ */
 class ControllerExtensionFeedGoogleBase extends Controller {
     public function index(): void {
         if ($this->config->get('feed_google_base_status')) {

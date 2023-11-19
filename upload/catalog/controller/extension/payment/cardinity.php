@@ -1,4 +1,9 @@
 <?php
+/**
+ * Class Cardinity
+ *
+ * @package Catalog\Controller\Extension\Payment
+ */
 class ControllerExtensionPaymentCardinity extends Controller {
     public function index(): string {
         $this->load->language('extension/payment/cardinity');

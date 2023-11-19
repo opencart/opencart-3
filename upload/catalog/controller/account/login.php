@@ -1,4 +1,9 @@
 <?php
+/**
+ * Class Login
+ *
+ * @package Catalog\Controller\Account
+ */
 class ControllerAccountLogin extends Controller {
     private array $error = [];
 

@@ -1,6 +1,6 @@
 <?php
 /**
- * Class Fraud Labs Pro
+ * Class Fraudlabspro
  *
  * @package Admin\Model\Extension\Fraud
  */

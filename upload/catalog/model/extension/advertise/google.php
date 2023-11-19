@@ -1,4 +1,9 @@
 <?php
+/**
+ * Class Google
+ *
+ * @package Catalog\Model\Extension\Advertise
+ */
 class ModelExtensionAdvertiseGoogle extends Model {
     public function getHumanReadableCategory($product_id, $store_id) {
         $this->load->config('googleshopping/googleshopping');

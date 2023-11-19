@@ -1,4 +1,9 @@
 <?php
+/**
+ * Class Theme
+ *
+ * @package Catalog\Controller\Event
+ */
 class ControllerEventTheme extends Controller {
     public function index(string &$route, array &$args, mixed &$code): void {
         if (!$this->config->get('theme_' . $this->config->get('config_theme') . '_status')) {

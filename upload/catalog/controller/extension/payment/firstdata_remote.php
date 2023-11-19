@@ -1,4 +1,9 @@
 <?php
+/**
+ * Class Firstdata Remote
+ *
+ * @package Catalog\Controller\Extension\Payment
+ */
 class ControllerExtensionPaymentFirstdataRemote extends Controller {
     public function index(): string {
         $this->load->language('extension/payment/firstdata_remote');

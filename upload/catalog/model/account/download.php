@@ -1,4 +1,9 @@
 <?php
+/**
+ * Class Download
+ *
+ * @package Catalog\Model\Account
+ */
 class ModelAccountDownload extends Model {
     public function getDownload(int $download_id): array {
         $implode = [];

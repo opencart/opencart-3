@@ -1,4 +1,9 @@
 <?php
+/**
+ * Class Success
+ *
+ * @package Catalog\Controller\Affiliate
+ */
 class ControllerAffiliateSuccess extends Controller {
     public function index(): void {
         $this->load->language('affiliate/success');

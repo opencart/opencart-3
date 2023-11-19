@@ -5,7 +5,7 @@
  * @package Admin\Controller\Extension\Currency
  */
 class ControllerExtensionCurrencyEcb extends Controller {
-    private $error = [];
+    private array $error = [];
 
     public function index() {
         $this->load->language('extension/currency/ecb');
@@ -125,7 +125,7 @@ class ControllerExtensionCurrencyEcb extends Controller {
         $this->model_setting_event->deleteEventByCode($code);
     }
 
-    public function currency() {
+    public function currency(): bool|null {
         if ($this->config->get('currency_ecb_status')) {
             if ($this->config->get('config_currency_engine') == 'ecb') {
                 $curl = curl_init();

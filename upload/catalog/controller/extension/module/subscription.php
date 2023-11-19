@@ -1,4 +1,9 @@
 <?php
+/**
+ * Class Subscription
+ *
+ * @package Catalog\Controller\Extension\Module
+ */
 class ControllerExtensionModuleSubscription extends Controller {
     public function dateNext(): void {
         $this->load->language('extension/module/subscription');

@@ -1,4 +1,9 @@
 <?php
+/**
+ * Class EC Ship
+ *
+ * @package Catalog\Model\Extension\Shipping
+ */
 class ModelExtensionShippingECShip extends Model {
     public function getQuote(array $address): array {
         $this->load->language('extension/shipping/ec_ship');

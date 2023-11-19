@@ -1,4 +1,9 @@
 <?php
+/**
+ * Class Coupon
+ *
+ * @package Catalog\Controller\Extension\Total
+ */
 class ControllerExtensionTotalCoupon extends Controller {
     public function index(): string {
         if ($this->config->get('total_coupon_status')) {

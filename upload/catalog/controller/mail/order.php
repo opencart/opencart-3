@@ -1,4 +1,9 @@
 <?php
+/**
+ * Class Order
+ *
+ * @package Catalog\Controller\Mail
+ */
 class ControllerMailOrder extends Controller {
     // catalog/model/checkout/order/addHistory/before
     public function index(string &$route, array &$args): void {

@@ -1,4 +1,9 @@
 <?php
+/**
+ * Class Worldpay
+ *
+ * @package Catalog\Controller\Extension\Payment
+ */
 class ControllerExtensionPaymentWorldpay extends Controller {
     public function index(): string {
         $this->load->language('extension/payment/worldpay');

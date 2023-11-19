@@ -1,4 +1,9 @@
 <?php
+/**
+ * Class Content Bottom
+ *
+ * @package Catalog\Controller\Common
+ */
 class ControllerCommonContentBottom extends Controller {
     public function index(): string {
         // Layouts

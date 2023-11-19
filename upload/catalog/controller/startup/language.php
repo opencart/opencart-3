@@ -1,4 +1,9 @@
 <?php
+/**
+ * Class Language
+ *
+ * @package Catalog\Controller\Startup
+ */
 class ControllerStartupLanguage extends Controller {
     public function index(): void {
         // Languages

@@ -1,4 +1,9 @@
 <?php
+/**
+ * Class Product
+ *
+ * @package Catalog\Controller\Product
+ */
 class ControllerProductProduct extends Controller {
     private array $error = [];
 

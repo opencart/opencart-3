@@ -1,4 +1,9 @@
 <?php
+/**
+ * Class Perpetual Payments
+ *
+ * @package Catalog\Controller\Extension\Payment
+ */
 class ControllerExtensionPaymentPerpetualPayments extends Controller {
     public function index(): string {
         $this->load->language('extension/payment/perpetual_payments');

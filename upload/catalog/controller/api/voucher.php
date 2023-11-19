@@ -1,4 +1,9 @@
 <?php
+/**
+ * Class Voucher
+ *
+ * @package Catalog\Controller\Api
+ */
 class ControllerApiVoucher extends Controller {
     public function index(): void {
         $this->load->language('api/voucher');

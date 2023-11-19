@@ -1,4 +1,9 @@
 <?php
+/**
+ * Class Register
+ *
+ * @package Catalog\Controller\Checkout
+ */
 class ControllerCheckoutRegister extends Controller {
     public function index(): void {
         $this->load->language('checkout/checkout');

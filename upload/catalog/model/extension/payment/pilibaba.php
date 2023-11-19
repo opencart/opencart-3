@@ -1,4 +1,9 @@
 <?php
+/**
+ * Class Pilibaba
+ *
+ * @package Catalog\Model\Extension\Payment
+ */
 class ModelExtensionPaymentPilibaba extends Model {
     public function getMethod(array $address): array {
         $this->load->language('extension/payment/pilibaba');

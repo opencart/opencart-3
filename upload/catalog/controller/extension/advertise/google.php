@@ -1,4 +1,9 @@
 <?php
+/**
+ * Class Google
+ *
+ * @package Catalog\Controller\Extension\Advertise
+ */
 use \googleshopping\traits\StoreLoader;
 use \googleshopping\traits\LibraryLoader;
 class ControllerExtensionAdvertiseGoogle extends Controller {

@@ -1,4 +1,9 @@
 <?php
+/**
+ * Class Currency
+ *
+ * @package Catalog\Model\Localisation
+ */
 class ModelLocalisationCurrency extends Model {
     public function getCurrencyByCode(string $currency): array {
         $query = $this->db->query("SELECT DISTINCT * FROM `" . DB_PREFIX . "currency` WHERE `code` = '" . $this->db->escape($currency) . "'");

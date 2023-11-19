@@ -1,5 +1,9 @@
 <?php
-
+/**
+ * Class Klarna Checkout
+ *
+ * @package Catalog\Controller\Extension\Payment
+ */
 class ControllerExtensionPaymentKlarnaCheckout extends Controller {
 	public function index(): void {
 		$this->load->language('extension/payment/klarna_checkout');

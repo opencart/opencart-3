@@ -1,4 +1,9 @@
 <?php
+/**
+ * Class Sitemap
+ *
+ * @package Catalog\Controller\Information
+ */
 class ControllerInformationSitemap extends Controller {
     public function index(): void {
         $this->load->language('information/sitemap');

@@ -1,4 +1,9 @@
 <?php
+/**
+ * Class Language
+ *
+ * @package Catalog\Controller\Event
+ */
 class ControllerEventLanguage extends Controller {
     public function index(string &$route, array &$args): void {
         foreach ($this->language->all() as $key => $value) {

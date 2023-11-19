@@ -1,4 +1,9 @@
 <?php
+/**
+ * Class Bluepay Redirect
+ *
+ * @package Catalog\Model\Extension\Payment
+ */
 class ModelExtensionPaymentBluePayRedirect extends Model {
     public function getMethod(array $address): array {
         $this->load->language('extension/payment/bluepay_redirect');

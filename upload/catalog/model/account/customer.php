@@ -1,4 +1,9 @@
 <?php
+/**
+ * Class Customer
+ *
+ * @package Catalog\Model\Account
+ */
 class ModelAccountCustomer extends Model {
     public function addCustomer(array $data): int {
         if (isset($data['customer_group_id']) && in_array($data['customer_group_id'], (array)$this->config->get('config_customer_group_display'))) {

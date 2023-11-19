@@ -1,4 +1,9 @@
 <?php
+/**
+ * Class Home
+ *
+ * @package Catalog\Controller\Common
+ */
 class ControllerCommonHome extends Controller {
     public function index(): void {
         $this->document->setTitle($this->config->get('config_meta_title'));

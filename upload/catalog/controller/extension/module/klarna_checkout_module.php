@@ -1,5 +1,9 @@
 <?php
-
+/**
+ * Class Klarna Checkout Module
+ *
+ * @package Catalog\Controller\Extension\Module
+ */
 class ControllerExtensionModuleKlarnaCheckoutModule extends Controller {
 	public function index(): bool|string {
 		$this->load->model('extension/payment/klarna_checkout');

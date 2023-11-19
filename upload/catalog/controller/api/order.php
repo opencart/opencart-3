@@ -1,4 +1,9 @@
 <?php
+/**
+ * Class Order
+ *
+ * @package Catalog\Controller\Api
+ */
 class ControllerApiOrder extends Controller {
     public function add(): void {
         $this->load->language('api/order');

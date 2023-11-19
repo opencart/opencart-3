@@ -1,4 +1,9 @@
 <?php
+/**
+ * Class Filter
+ *
+ * @package Catalog\Controller\Extension\Module
+ */
 class ControllerExtensionModuleFilter extends Controller {
     public function index(): string {
         if (isset($this->request->get['path'])) {

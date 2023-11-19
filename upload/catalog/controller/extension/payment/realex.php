@@ -1,4 +1,9 @@
 <?php
+/**
+ * Class Realex
+ *
+ * @package Catalog\Controller\Extension\Payment
+ */
 class ControllerExtensionPaymentRealex extends Controller {
     public function index(): string {
         if (!isset($this->session->data['order_id'])) {

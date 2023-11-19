@@ -1,4 +1,9 @@
 <?php
+/**
+ * Class Language
+ *
+ * @package Catalog\Model\Localisation
+ */
 class ModelLocalisationLanguage extends Model {
     public function getLanguage(int $language_id): array {
         $query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "language` WHERE `language_id` = '" . (int)$language_id . "'");

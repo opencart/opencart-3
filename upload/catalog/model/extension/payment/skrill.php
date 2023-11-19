@@ -1,4 +1,9 @@
 <?php
+/**
+ * Class Skrill
+ *
+ * @package Catalog\Model\Extension\Payment
+ */
 class ModelExtensionPaymentSkrill extends Model {
     public function getMethod(array $address): array {
         $this->load->language('extension/payment/skrill');

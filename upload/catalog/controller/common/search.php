@@ -1,4 +1,9 @@
 <?php
+/**
+ * Class Search
+ *
+ * @package Catalog\Controller\Common
+ */
 class ControllerCommonSearch extends Controller {
     public function index(): string {
         $this->load->language('common/search');

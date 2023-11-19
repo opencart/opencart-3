@@ -1,4 +1,9 @@
 <?php
+/**
+ * Class Sagepay Direct
+ *
+ * @package Catalog\Controller\Extension\Payment
+ */
 class ControllerExtensionPaymentSagepayDirect extends Controller {
     public function index(): string {
         $this->load->language('extension/payment/sagepay_direct');

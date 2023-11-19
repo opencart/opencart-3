@@ -1,4 +1,9 @@
 <?php
+/**
+ * Class Marketing
+ *
+ * @package Catalog\Controller\Startup
+ */
 class ControllerStartupMarketing extends Controller {
     public function index(): void {
         $tracking = '';

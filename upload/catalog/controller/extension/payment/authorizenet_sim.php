@@ -1,4 +1,9 @@
 <?php
+/**
+ * Class Authorize.net Sim
+ *
+ * @package Catalog\Controller\Extension\Payment
+ */
 class ControllerExtensionPaymentAuthorizeNetSim extends Controller {
     public function index(): string {
         $this->load->language('extension/payment/authorizenet_sim');

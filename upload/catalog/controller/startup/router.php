@@ -1,4 +1,9 @@
 <?php
+/**
+ * Class Router
+ *
+ * @package Catalog\Controller\Startup
+ */
 class ControllerStartupRouter extends Controller {
     public function index(): mixed {
         // Route

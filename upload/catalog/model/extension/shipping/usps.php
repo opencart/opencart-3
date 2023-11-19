@@ -1,4 +1,9 @@
 <?php
+/**
+ * Class Usps
+ *
+ * @package Catalog\Model\Extension\Shipping
+ */
 class ModelExtensionShippingUsps extends Model {
     public function getQuote(array $address): array {
         $this->load->language('extension/shipping/usps');
@@ -384,7 +389,7 @@ class ModelExtensionShippingUsps extends Model {
                                 27,
                                 28
                             ];
-                            
+
                             $package = $rate_response->getElementsByTagName('Package')->item(0);
                             $postages = $package->getElementsByTagName('Postage');
 
@@ -458,7 +463,7 @@ class ModelExtensionShippingUsps extends Model {
                                 16,
                                 21
                             ];
-                            
+
                             $package = $intl_rate_response->getElementsByTagName('Package')->item(0);
                             $services = $package->getElementsByTagName('Service');
 

@@ -1,4 +1,9 @@
 <?php
+/**
+ * Class Cheque
+ *
+ * @package Catalog\Controller\Extension\Payment
+ */
 class ControllerExtensionPaymentCheque extends Controller {
     public function index(): string {
         $this->load->language('extension/payment/cheque');

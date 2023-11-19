@@ -1,4 +1,9 @@
 <?php
+/**
+ * Class Order Status
+ *
+ * @package Catalog\Model\Localisation
+ */
 class ModelLocalisationOrderStatus extends Model {
     public function getOrderStatus(int $order_status_id): array {
         $query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "order_status` WHERE `order_status_id` = '" . (int)$order_status_id . "' AND `language_id` = '" . (int)$this->config->get('config_language_id') . "'");

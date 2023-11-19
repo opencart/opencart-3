@@ -1,4 +1,9 @@
 <?php
+/**
+ * Class Search
+ *
+ * @package Catalog\Controller\Product
+ */
 class ControllerProductSearch extends Controller {
     public function index(): void {
         $this->load->language('product/search');

@@ -1,4 +1,9 @@
 <?php
+/**
+ * Class Realex Remote
+ *
+ * @package Catalog\Controller\Extension\Payment
+ */
 class ControllerExtensionPaymentRealexRemote extends Controller {
     public function index(): string {
         $this->load->language('extension/payment/realex_remote');

@@ -1,4 +1,9 @@
 <?php
+/**
+ * Class Maintenance
+ *
+ * @package Catalog\Controller\Startup
+ */
 class ControllerStartupMaintenance extends Controller {
     public function index(): object|null {
         if ($this->config->get('config_maintenance')) {

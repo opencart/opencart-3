@@ -1,4 +1,9 @@
 <?php
+/**
+ * Class Bluepay Redirect
+ *
+ * @package Catalog\Controller\Extension\Payment
+ */
 class ControllerExtensionPaymentBluePayRedirect extends Controller {
     public function index(): string {
         $this->load->language('extension/payment/bluepay_redirect');

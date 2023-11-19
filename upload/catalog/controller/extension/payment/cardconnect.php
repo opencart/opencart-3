@@ -1,4 +1,9 @@
 <?php
+/**
+ * Class Cardconnect
+ *
+ * @package Catalog\Controller\Extension\Payment
+ */
 class ControllerExtensionPaymentCardConnect extends Controller {
     public function index(): string {
         $this->load->language('extension/payment/cardconnect');

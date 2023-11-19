@@ -1,4 +1,9 @@
 <?php
+/**
+ * Class Klarna Account
+ *
+ * @package Catalog\Controller\Extension\Payment
+ */
 class ControllerExtensionPaymentKlarnaAccount extends Controller {
     public function index(): string {
         if (!isset($this->session->data['order_id'])) {

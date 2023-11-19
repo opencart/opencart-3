@@ -1,4 +1,9 @@
 <?php
+/**
+ * Class Menu
+ *
+ * @package Catalog\Controller\Common
+ */
 class ControllerCommonMenu extends Controller {
     public function index(): string {
         $this->load->language('common/menu');

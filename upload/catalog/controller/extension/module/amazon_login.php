@@ -1,4 +1,9 @@
 <?php
+/**
+ * Class Amazon Login
+ *
+ * @package Catalog\Controller\Extension\Module
+ */
 class ControllerExtensionModuleAmazonLogin extends Controller {
     public function index(): string {
         if ($this->config->get('payment_amazon_login_pay_status') && $this->config->get('module_amazon_login_status') && !$this->customer->isLogged() && !empty($this->request->server['HTTPS'])) {
@@ -182,7 +187,7 @@ class ControllerExtensionModuleAmazonLogin extends Controller {
             ];
 
             $data['content_main'] = $this->load->view('extension/module/amazon_login_error', $data);
-            
+
             $data['column_left'] = $this->load->controller('common/column_left');
             $data['column_right'] = $this->load->controller('common/column_right');
             $data['content_top'] = $this->load->controller('common/content_top');

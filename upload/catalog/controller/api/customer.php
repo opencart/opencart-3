@@ -1,4 +1,9 @@
 <?php
+/**
+ * Class Customer
+ *
+ * @package Catalog\Controller\Api
+ */
 class ControllerApiCustomer extends Controller {
     public function index(): void {
         $this->load->language('api/customer');

@@ -1,4 +1,9 @@
 <?php
+/**
+ * Class Basic
+ *
+ * @package Catalog\Controller\Extension\Captcha
+ */
 class ControllerExtensionCaptchaBasic extends Controller {
     public function index(array $error = []): string {
         $this->load->language('extension/captcha/basic');

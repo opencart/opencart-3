@@ -1,4 +1,9 @@
 <?php
+/**
+ * Class Fraudlabspro
+ *
+ * @package Catalog\Model\Extension\Fraud
+ */
 class ModelExtensionFraudFraudLabsPro extends Model {
     public function check(array $data): int {
         // Do not perform fraud check if FraudLabs Pro is disabled or API key is not provided.

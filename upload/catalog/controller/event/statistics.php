@@ -1,4 +1,9 @@
 <?php
+/**
+ * Class Statistics
+ *
+ * @package Catalog\Controller\Event
+ */
 class ControllerEventStatistics extends Controller {
     // catalog/model/catalog/review/addReview/after
     public function addReview(string &$route, array &$args, mixed &$output): void {

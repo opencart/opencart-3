@@ -1,4 +1,9 @@
 <?php
+/**
+ * Class Store
+ *
+ * @package Catalog\Controller\Extension\Module
+ */
 class ControllerExtensionModuleStore extends Controller {
     public function index(): string {
         $status = true;

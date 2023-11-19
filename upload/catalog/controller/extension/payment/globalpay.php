@@ -1,4 +1,9 @@
 <?php
+/**
+ * Class Globalpay
+ *
+ * @package Catalog\Controller\Extension\Payment
+ */
 class ControllerExtensionPaymentGlobalpay extends Controller {
     public function index(): string {
         if (!isset($this->session->data['order_id'])) {

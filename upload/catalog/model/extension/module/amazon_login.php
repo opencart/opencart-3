@@ -1,4 +1,9 @@
 <?php
+/**
+ * Class Amazon Login
+ *
+ * @package Catalog\Model\Extension\Module
+ */
 class ModelExtensionModuleAmazonLogin extends Model {
     const LOG_FILENAME = "amazon_login.log";
     const URL_PROFILE = "https://%s/user/profile";

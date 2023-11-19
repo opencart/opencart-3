@@ -1,4 +1,9 @@
 <?php
+/**
+ * Class Ups
+ *
+ * @package Catalog\Model\Extension\Shipping
+ */
 class ModelExtensionShippingUps extends Model {
     public function getQuote(array $address): array {
         $this->load->language('extension/shipping/ups');

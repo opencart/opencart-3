@@ -1,4 +1,9 @@
 <?php
+/**
+ * Class Bank Transfer
+ *
+ * @package Catalog\Controller\Extension\Payment
+ */
 class ControllerExtensionPaymentBankTransfer extends Controller {
     public function index(): string {
         $this->load->language('extension/payment/bank_transfer');

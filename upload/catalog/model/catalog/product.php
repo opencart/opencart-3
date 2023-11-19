@@ -1,4 +1,9 @@
 <?php
+/**
+ * Class Product
+ *
+ * @package Catalog\Model\Catalog
+ */
 class ModelCatalogProduct extends Model {
     public function updateViewed(int $product_id): void {
         $this->db->query("UPDATE `" . DB_PREFIX . "product` SET `viewed` = (`viewed` + 1) WHERE `product_id` = '" . (int)$product_id . "'");

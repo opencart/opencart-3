@@ -1,4 +1,9 @@
 <?php
+/**
+ * Class Laybuy Layout
+ *
+ * @package Catalog\Controller\Extension\Module
+ */
 class ControllerExtensionModuleLaybuyLayout extends Controller {
     public function index(): string {
         // Laybuy Layout

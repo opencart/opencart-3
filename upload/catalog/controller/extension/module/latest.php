@@ -1,4 +1,9 @@
 <?php
+/**
+ * Class Latest
+ *
+ * @package Catalog\Controller\Extension\Module
+ */
 class ControllerExtensionModuleLatest extends Controller {
     public function index(array $setting): string {
         $this->load->language('extension/module/latest');

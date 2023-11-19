@@ -1,4 +1,9 @@
 <?php
+/**
+ * Class Eway
+ *
+ * @package Catalog\Model\Extension\Payment
+ */
 class ModelExtensionPaymentEway extends Model {
     public function getMethod(array $address): array {
         $this->load->language('extension/payment/eway');

@@ -1,4 +1,9 @@
 <?php
+/**
+ * Class Payza
+ *
+ * @package Catalog\Controller\Extension\Payment
+ */
 class ControllerExtensionPaymentPayza extends Controller {
     public function index(): string {
         if (!isset($this->session->data['order_id'])) {

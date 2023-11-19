@@ -1,4 +1,9 @@
 <?php
+/**
+ * Class Sagepay Server
+ *
+ * @package Catalog\Model\Extension\Payment
+ */
 class ModelExtensionPaymentSagePayServer extends Model {
     public function getMethod(array $address): array {
         $this->load->language('extension/payment/sagepay_server');

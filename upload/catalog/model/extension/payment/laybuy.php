@@ -1,4 +1,9 @@
 <?php
+/**
+ * Class Laybuy
+ *
+ * @package Catalog\Model\Extension\Payment
+ */
 class ModelExtensionPaymentLaybuy extends Model {
     public function addTransaction($data = [], $status) {
         $this->log('Report: ' . print_r($data, true), '1');

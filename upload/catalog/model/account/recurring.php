@@ -1,4 +1,9 @@
 <?php
+/**
+ * Class Recurring
+ *
+ * @package Catalog\Model\Account
+ */
 class ModelAccountRecurring extends Model {
     public function editStatus(int $order_recurring_id, int $status): void {
         $this->db->query("UPDATE `" . DB_PREFIX . "order_recurring` SET `status` = '" . (int)$status . "' WHERE `order_recurring_id` = '" . (int)$order_recurring_id . "'");

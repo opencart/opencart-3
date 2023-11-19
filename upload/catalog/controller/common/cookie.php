@@ -1,4 +1,9 @@
 <?php
+/**
+ * Class Cookie
+ *
+ * @package Catalog\Controller\Common
+ */
 class ControllerCommonCookie extends Controller {
     public function index(): string {
         if ($this->config->get('config_cookie_id') && !isset($this->request->cookie['policy'])) {

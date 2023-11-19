@@ -1,4 +1,9 @@
 <?php
+/**
+ * Class Weight
+ *
+ * @package Catalog\Model\Extension\Shipping
+ */
 class ModelExtensionShippingWeight extends Model {
     public function getQuote(array $address): array {
         $this->load->language('extension/shipping/weight');

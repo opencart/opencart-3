@@ -1,4 +1,9 @@
 <?php
+/**
+ * Class Amazon Login Pay
+ *
+ * @package Catalog\Controller\Extension\Payment
+ */
 class ControllerExtensionPaymentAmazonLoginPay extends Controller {
     private string $version = '3.2.1';
 

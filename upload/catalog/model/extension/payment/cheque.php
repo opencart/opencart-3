@@ -1,4 +1,9 @@
 <?php
+/**
+ * Class Cheque
+ *
+ * @package Catalog\Model\Extension\Payment
+ */
 class ModelExtensionPaymentCheque extends Model {
     public function getMethod(array $address): array {
         $this->load->language('extension/payment/cheque');

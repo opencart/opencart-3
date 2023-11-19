@@ -1,4 +1,9 @@
 <?php
+/**
+ * Class Shipping
+ *
+ * @package Catalog\Model\Extension\Total
+ */
 class ModelExtensionTotalShipping extends Model {
     public function getTotal(array $total): void {
         if ($this->cart->hasShipping() && isset($this->session->data['shipping_method'])) {

@@ -1,4 +1,9 @@
 <?php
+/**
+ * Class Information
+ *
+ * @package Catalog\Controller\Extension\Module
+ */
 class ControllerExtensionModuleInformation extends Controller {
     public function index(): string {
         $this->load->language('extension/module/information');

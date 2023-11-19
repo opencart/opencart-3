@@ -1,4 +1,9 @@
 <?php
+/**
+ * Class Sagepay Direct
+ *
+ * @package Catalog\Model\Extension\Payment
+ */
 class ModelExtensionPaymentSagePayDirect extends Model {
     public function getMethod(array $address): array {
         $this->load->language('extension/payment/sagepay_direct');

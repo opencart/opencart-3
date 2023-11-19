@@ -1,4 +1,9 @@
 <?php
+/**
+ * Class Securetrading Pp
+ *
+ * @package Catalog\Controller\Extension\Payment
+ */
 class ControllerExtensionPaymentSecureTradingPp extends Controller {
     public function index(): string {
         if (!isset($this->session->data['order_id'])) {

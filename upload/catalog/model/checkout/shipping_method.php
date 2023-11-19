@@ -1,4 +1,9 @@
 <?php
+/**
+ * Class Shipping Method
+ *
+ * @package Catalog\Model\Checkout
+ */
 class ModelCheckoutShippingMethod extends Model {
     public function getMethods(array $shipping_address): array {
         $method_data = [];

@@ -1,4 +1,9 @@
 <?php
+/**
+ * Class Reward
+ *
+ * @package Catalog\Controller\Extension\Total
+ */
 class ControllerExtensionTotalReward extends Controller {
     public function index() {
         $points = $this->customer->getRewardPoints();

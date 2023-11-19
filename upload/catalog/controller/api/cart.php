@@ -1,4 +1,9 @@
 <?php
+/**
+ * Class Cart
+ *
+ * @package Catalog\Controller\Api
+ */
 class ControllerApiCart extends Controller {
     public function add(): void {
         $this->load->language('api/cart');

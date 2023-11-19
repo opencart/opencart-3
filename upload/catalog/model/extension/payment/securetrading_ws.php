@@ -1,4 +1,9 @@
 <?php
+/**
+ * Class Securetrading Ws
+ *
+ * @package Catalog\Model\Extension\Payment
+ */
 class ModelExtensionPaymentSecureTradingWs extends Model {
     public function getMethod(array $address): array {
         $this->load->language('extension/payment/securetrading_ws');

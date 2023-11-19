@@ -1,4 +1,9 @@
 <?php
+/**
+ * Class Login
+ *
+ * @package Catalog\Controller\Api
+ */
 class ControllerApiLogin extends Controller {
     public function index(): void {
         $this->load->language('api/login');

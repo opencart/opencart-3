@@ -1,4 +1,9 @@
 <?php
+/**
+ * Class Divido
+ *
+ * @package Catalog\Controller\Extension\Payment
+ */
 class ControllerExtensionPaymentDivido extends Controller {
     const STATUS_ACCEPTED = 'ACCEPTED', STATUS_ACTION_LENDER = 'ACTION-LENDER', STATUS_CANCELED = 'CANCELED', STATUS_COMPLETED = 'COMPLETED', STATUS_DEPOSIT_PAID = 'DEPOSIT-PAID', STATUS_DECLINED = 'DECLINED', STATUS_DEFERRED = 'DEFERRED', STATUS_REFERRED = 'REFERRED', STATUS_FULFILLED = 'FULFILLED', STATUS_SIGNED = 'SIGNED';
     private array $status_id = [

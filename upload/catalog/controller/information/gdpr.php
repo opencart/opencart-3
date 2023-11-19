@@ -1,4 +1,9 @@
 <?php
+/**
+ * Class Gdpr
+ *
+ * @package Catalog\Controller\Information
+ */
 class ControllerInformationGdpr extends Controller {
     public function index(): object|null {
         // Information

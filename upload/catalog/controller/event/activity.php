@@ -1,4 +1,9 @@
 <?php
+/**
+ * Class Activity
+ *
+ * @package Catalog\Controller\Event
+ */
 class ControllerEventActivity extends Controller {
     // catalog/model/account/customer/addCustomer/after
     public function addCustomer(string &$route, array &$args, mixed &$output): void {

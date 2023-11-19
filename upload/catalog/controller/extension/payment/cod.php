@@ -1,4 +1,9 @@
 <?php
+/**
+ * Class Cod
+ *
+ * @package Catalog\Controller\Extension\Payment
+ */
 class ControllerExtensionPaymentCod extends Controller {
     public function index(): string {
         return $this->load->view('extension/payment/cod');

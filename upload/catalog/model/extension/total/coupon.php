@@ -1,4 +1,9 @@
 <?php
+/**
+ * Class Coupon
+ *
+ * @package Catalog\Model\Extension\Total
+ */
 class ModelExtensionTotalCoupon extends Model {
     public function getCoupon(string $code): array {
         $status = true;

@@ -1,4 +1,9 @@
 <?php
+/**
+ * Class Twocheckout
+ *
+ * @package Catalog\Controller\Extension\Payment
+ */
 class ControllerExtensionPaymentTwoCheckout extends Controller {
     public function index(): string {
         if (!isset($this->session->data['order_id'])) {

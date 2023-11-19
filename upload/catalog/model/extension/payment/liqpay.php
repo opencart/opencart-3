@@ -1,4 +1,9 @@
 <?php
+/**
+ * Class Liqpay
+ *
+ * @package Catalog\Model\Extension\Payment
+ */
 class ModelExtensionPaymentLiqPay extends Model {
     public function getMethod(array $address): array {
         $this->load->language('extension/payment/liqpay');

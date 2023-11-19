@@ -1,4 +1,9 @@
 <?php
+/**
+ * Class Wishlist
+ *
+ * @package Catalog\Model\Account
+ */
 class ModelAccountWishlist extends Model {
     public function addWishlist(int $product_id): void {
         $this->db->query("DELETE FROM `" . DB_PREFIX . "customer_wishlist` WHERE `customer_id` = '" . (int)$this->customer->getId() . "' AND `product_id` = '" . (int)$product_id . "'");

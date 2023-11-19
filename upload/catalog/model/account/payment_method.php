@@ -1,4 +1,9 @@
 <?php
+/**
+ * Class Payment Method
+ *
+ * @package Catalog\Model\Account
+ */
 class ModelAccountPaymentMethod extends Model {
     public function addPaymentMethod(array $data): void {
         $this->db->query("INSERT INTO `" . DB_PREFIX . "customer_payment` SET `customer_id` = '" . (int)$this->customer->getId() . "', `name` = '" . (int)$this->customer->getId() . "', `image` = '" . $this->db->escape($data['image']) . "', `type` = '" . $this->db->escape($data['type']) . "', `code` = '" . $this->db->escape($data['code']) . "', `token` = '" . $this->db->escape($data['token']) . "', `date_expire` = '" . $this->db->escape($data['date_expire']) . "', `default` = '" . (bool)$data['default'] . "', `status` = '1', `date_added` = NOW()");

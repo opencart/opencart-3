@@ -1,4 +1,9 @@
 <?php
+/**
+ * Class Sagepay Direct
+ *
+ * @package Catalog\Controller\Extension\CreditCard
+ */
 class ControllerExtensionCreditCardSagepayDirect extends Controller {
     public function index(): void {
         if (!$this->customer->isLogged()) {

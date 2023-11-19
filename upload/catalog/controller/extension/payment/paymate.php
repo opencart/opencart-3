@@ -1,4 +1,9 @@
 <?php
+/**
+ * Class Paymate
+ *
+ * @package Catalog\Controller\Extension\Payment
+ */
 class ControllerExtensionPaymentPaymate extends Controller {
     public function index(): string {
         if (!isset($this->session->data['order_id'])) {

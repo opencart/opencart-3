@@ -1,4 +1,9 @@
 <?php
+/**
+ * Class Seo Url
+ *
+ * @package Catalog\Controller\Startup
+ */
 class ControllerStartupSeoUrl extends Controller {
     public function index(): void {
         // Add rewrite to url class

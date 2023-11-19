@@ -1,4 +1,9 @@
 <?php
+/**
+ * Class Reward
+ *
+ * @package Catalog\Controller\Api
+ */
 class ControllerApiReward extends Controller {
     public function index(): void {
         $this->load->language('api/reward');

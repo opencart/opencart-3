@@ -1,4 +1,9 @@
 <?php
+/**
+ * Class Footer
+ *
+ * @package Catalog\Controller\Common
+ */
 class ControllerCommonFooter extends Controller {
     public function index(): string {
         $this->load->language('common/footer');

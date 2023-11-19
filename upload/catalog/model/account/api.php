@@ -1,4 +1,9 @@
 <?php
+/**
+ * Class Api
+ *
+ * @package Catalog\Model\Account
+ */
 class ModelAccountApi extends Model {
     public function login(string $username, string $key): array {
         $query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "api` WHERE `username` = '" . $this->db->escape($username) . "' AND `key` = '" . $this->db->escape($key) . "' AND `status` = '1'");

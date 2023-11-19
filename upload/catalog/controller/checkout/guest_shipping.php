@@ -1,4 +1,9 @@
 <?php
+/**
+ * Class Guest Shipping
+ *
+ * @package Catalog\Controller\Checkout
+ */
 class ControllerCheckoutGuestShipping extends Controller {
     public function index(): void {
         $this->load->language('checkout/checkout');
@@ -61,7 +66,7 @@ class ControllerCheckoutGuestShipping extends Controller {
         $this->load->model('localisation/country');
 
         $data['countries'] = $this->model_localisation_country->getCountries();
-        
+
         $data['custom_fields'] = [];
 
         // Custom Fields

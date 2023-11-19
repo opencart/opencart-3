@@ -1,4 +1,9 @@
 <?php
+/**
+ * Class Content Top
+ *
+ * @package Catalog\Controller\Common
+ */
 class ControllerCommonContentTop extends Controller {
     public function index(): string {
         $this->load->model('design/layout');

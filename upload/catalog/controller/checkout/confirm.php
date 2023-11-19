@@ -1,4 +1,9 @@
 <?php
+/**
+ * Class Confirm
+ *
+ * @package Catalog\Controller\Checkout
+ */
 class ControllerCheckoutConfirm extends Controller {
     public function index(): void {
         $redirect = '';

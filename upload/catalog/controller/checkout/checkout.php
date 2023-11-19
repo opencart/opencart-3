@@ -1,4 +1,9 @@
 <?php
+/**
+ * Class Checkout
+ *
+ * @package Catalog\Controller\Checkout
+ */
 class ControllerCheckoutCheckout extends Controller {
     public function index(): void {
         // Validate cart has products and has stock.

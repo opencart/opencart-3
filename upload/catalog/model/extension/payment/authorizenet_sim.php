@@ -1,4 +1,9 @@
 <?php
+/**
+ * Class Authorize.net Sim
+ *
+ * @package Catalog\Model\Extension\Payment
+ */
 class ModelExtensionPaymentAuthorizeNetSim extends Model {
     public function getMethod(array $address): array {
         $this->load->language('extension/payment/authorizenet_sim');

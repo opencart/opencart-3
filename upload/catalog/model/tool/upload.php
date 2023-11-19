@@ -1,4 +1,9 @@
 <?php
+/**
+ * Class Upload
+ *
+ * @package Catalog\Model\Tool
+ */
 class ModelToolUpload extends Model {
     public function addUpload(string $name, string $filename): string {
         $code = sha1(uniqid(mt_rand(), true));

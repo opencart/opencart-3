@@ -1,5 +1,9 @@
 <?php
-
+/**
+ * Class PayPal
+ *
+ * @package Catalog\Model\Extension\Payment
+ */
 class ModelExtensionPaymentPayPal extends Model {
 	public function getMethod(array $address, float $total): array {
 		$method_data = [];

@@ -1,4 +1,9 @@
 <?php
+/**
+ * Class Manufacturer
+ *
+ * @package Catalog\Controller\Product
+ */
 class ControllerProductManufacturer extends Controller {
     public function index(): void {
         $this->load->language('product/manufacturer');

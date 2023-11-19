@@ -1,4 +1,9 @@
 <?php
+/**
+ * Class Payment Method
+ *
+ * @package Catalog\Model\Checkout
+ */
 class ModelCheckoutPaymentMethod extends Model {
     public function getMethods(array $payment_address): array {
         $method_data = [];

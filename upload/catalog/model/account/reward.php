@@ -1,4 +1,9 @@
 <?php
+/**
+ * Class Reward
+ *
+ * @package Catalog\Model\Account
+ */
 class ModelAccountReward extends Model {
     public function getRewards(array $data = []): array {
         $sql = "SELECT * FROM `" . DB_PREFIX . "customer_reward` WHERE `customer_id` = '" . (int)$this->customer->getId() . "'";

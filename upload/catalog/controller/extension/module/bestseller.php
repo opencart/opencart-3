@@ -1,4 +1,9 @@
 <?php
+/**
+ * Class Bestseller
+ *
+ * @package Catalog\Controller\Extension\Module
+ */
 class ControllerExtensionModuleBestSeller extends Controller {
     public function index(array $setting): string {
         $this->load->language('extension/module/bestseller');

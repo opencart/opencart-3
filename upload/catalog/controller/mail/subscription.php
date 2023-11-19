@@ -1,4 +1,9 @@
 <?php
+/**
+ * Class Subscription
+ *
+ * @package Catalog\Controller\Mail
+ */
 class ControllerMailSubscription extends Controller {
     // catalog/model/checkout/subscription/addSubscription/after
     public function index(string &$route, array &$args, mixed &$output): void {

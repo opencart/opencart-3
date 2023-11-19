@@ -1,4 +1,9 @@
 <?php
+/**
+ * Class Klarna Fee
+ *
+ * @package Catalog\Model\Extension\Total
+ */
 class ModelExtensionTotalKlarnaFee extends Model {
     public function getTotal(array $total): void {
         extract($total);

@@ -1,4 +1,9 @@
 <?php
+/**
+ * Class Alipay
+ *
+ * @package Catalog\Controller\Extension\Payment
+ */
 class ControllerExtensionPaymentAlipay extends Controller {
     public function index(): bool|string {
         if (!isset($this->session->data['order_id'])) {

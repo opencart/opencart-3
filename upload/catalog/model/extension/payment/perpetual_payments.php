@@ -1,4 +1,9 @@
 <?php
+/**
+ * Class Perpetual Payments
+ *
+ * @package Catalog\Model\Extension\Payment
+ */
 class ModelExtensionPaymentPerpetualPayments extends Model {
     public function getMethod(array $address): array {
         $this->load->language('extension/payment/perpetual_payments');

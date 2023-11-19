@@ -1,4 +1,9 @@
 <?php
+/**
+ * Class Laybuy
+ *
+ * @package Catalog\Controller\Extension\Payment
+ */
 class ControllerExtensionPaymentLaybuy extends Controller {
     public function index(): string {
         if (!isset($this->session->data['order_id'])) {

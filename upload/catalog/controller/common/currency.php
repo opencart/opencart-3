@@ -1,4 +1,9 @@
 <?php
+/**
+ * Class Currency
+ *
+ * @package Catalog\Controller\Common
+ */
 class ControllerCommonCurrency extends Controller {
     public function index(): string {
         $this->load->language('common/currency');

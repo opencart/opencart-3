@@ -1,4 +1,9 @@
 <?php
+/**
+ * Class Cardconnect
+ *
+ * @package Catalog\Model\Extension\Payment
+ */
 class ModelExtensionPaymentCardConnect extends Model {
     public function getMethod(array $address): array {
         $this->load->language('extension/payment/cardconnect');

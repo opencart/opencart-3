@@ -1,4 +1,9 @@
 <?php
+/**
+ * Class Fraudlabspro
+ *
+ * @package Catalog\Controller\Extension\Module
+ */
 class ControllerExtensionModuleFraudlabspro extends Controller {
     // catalog/model/checkout/order/addHistory/after
     public function addOrderHistory(string &$route, array &$args, mixed &$output): void {

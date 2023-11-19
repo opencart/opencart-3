@@ -1,4 +1,9 @@
 <?php
+/**
+ * Class Register
+ *
+ * @package Catalog\Controller\Mail
+ */
 class ControllerMailRegister extends Controller {
     // catalog/model/account/customer/addCustomer/after
     public function index(string &$route, array &$args, mixed &$output): void {

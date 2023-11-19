@@ -1,4 +1,9 @@
 <?php
+/**
+ * Class Shipping Address
+ *
+ * @package Catalog\Controller\Checkout
+ */
 class ControllerCheckoutShippingAddress extends Controller {
     public function index(): void {
         $this->load->language('checkout/checkout');

@@ -1,4 +1,9 @@
 <?php
+/**
+ * Class Fedex
+ *
+ * @package Catalog\Model\Extension\Shipping
+ */
 class ModelExtensionShippingFedex extends Model {
     public function getQuote(array $address): array {
         $this->load->language('extension/shipping/fedex');

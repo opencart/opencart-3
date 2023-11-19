@@ -1,4 +1,9 @@
 <?php
+/**
+ * Class Bank Transfer
+ *
+ * @package Catalog\Model\Extension\Payment
+ */
 class ModelExtensionPaymentBankTransfer extends Model {
     public function getMethod(array $address): array {
         $this->load->language('extension/payment/bank_transfer');

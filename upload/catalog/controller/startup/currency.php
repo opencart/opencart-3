@@ -1,4 +1,9 @@
 <?php
+/**
+ * Class Currency
+ *
+ * @package Catalog\Controller\Startup
+ */
 class ControllerStartupCurrency extends Controller {
     public function index(): void {
         $code = '';

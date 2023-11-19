@@ -1,4 +1,9 @@
 <?php
+/**
+ * Class PayPal
+ *
+ * @package Catalog\Controller\Extension\Payment
+ */
 class ControllerExtensionPaymentPayPal extends Controller {
     private array $error = [];
 

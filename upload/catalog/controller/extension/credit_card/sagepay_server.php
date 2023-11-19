@@ -1,4 +1,9 @@
 <?php
+/**
+ * Class Sagepay Server
+ *
+ * @package Catalog\Controller\Extension\CreditCard
+ */
 class ControllerExtensionCreditCardSagepayServer extends Controller {
     public function index(): void {
         if (!$this->customer->isLogged()) {

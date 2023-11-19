@@ -1,4 +1,9 @@
 <?php
+/**
+ * Class G2apay
+ *
+ * @package Catalog\Controller\Extension\Payment
+ */
 class ControllerExtensionPaymentG2APay extends Controller {
     public function index(): string {
         $this->load->language('extension/payment/g2apay');

@@ -1,4 +1,9 @@
 <?php
+/**
+ * Class Statistics
+ *
+ * @package Catalog\Model\Report
+ */
 class ModelReportStatistics extends Model {
     public function getStatistics(): array {
         $query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "statistics`");

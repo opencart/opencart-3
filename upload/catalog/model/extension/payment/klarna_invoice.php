@@ -1,4 +1,9 @@
 <?php
+/**
+ * Class Klarna Invoice
+ *
+ * @package Catalog\Model\Extension\Payment
+ */
 class ModelExtensionPaymentKlarnaInvoice extends Model {
     public function getMethod(array $address): array {
         $this->load->language('extension/payment/klarna_invoice');

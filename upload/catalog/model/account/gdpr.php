@@ -1,4 +1,9 @@
 <?php
+/**
+ * Class Gdpr
+ *
+ * @package Catalog\Model\Account
+ */
 class ModelAccountGdpr extends Model {
     public function addGdpr(string $code, string $email, string $action): void {
         $this->db->query("INSERT INTO `" . DB_PREFIX . "gdpr` SET `store_id` = '" . $this->db->escape($this->config->get('config_store_id')) . "', `language_id` = '" . $this->db->escape($this->config->get('config_language_id')) . "', `code` = '" . $this->db->escape($code) . "', `email` = '" . $this->db->escape($email) . "', `action` = '" . $this->db->escape($action) . "', `date_added` = NOW()");

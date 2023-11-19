@@ -1,4 +1,9 @@
 <?php
+/**
+ * Class Credit
+ *
+ * @package Catalog\Model\Extension\Total
+ */
 class ModelExtensionTotalCredit extends Model {
     public function getTotal(array $total): void {
         $this->load->language('extension/total/credit');

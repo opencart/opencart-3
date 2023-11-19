@@ -1,4 +1,9 @@
 <?php
+/**
+ * Class Authorize.net Aim
+ *
+ * @package Catalog\Model\Extension\Payment
+ */
 class ModelExtensionPaymentAuthorizeNetAim extends Model {
     public function getMethod(array $address): array {
         $this->load->language('extension/payment/authorizenet_aim');

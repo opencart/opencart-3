@@ -1,4 +1,9 @@
 <?php
+/**
+ * Class Tax
+ *
+ * @package Catalog\Controller\Startup
+ */
 class ControllerStartupTax extends Controller {
     public function index(): void {
         $this->registry->set('tax', new \Cart\Tax($this->registry));

@@ -1,4 +1,9 @@
 <?php
+/**
+ * Class Low Order Fee
+ *
+ * @package Catalog\Model\Extension\Total
+ */
 class ModelExtensionTotalLowOrderFee extends Model {
     public function getTotal(array &$total): void {
         if ($this->cart->getSubTotal() && ($this->cart->getSubTotal() < $this->config->get('total_low_order_fee_total'))) {

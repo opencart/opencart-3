@@ -1,4 +1,9 @@
 <?php
+/**
+ * Class Maintenance
+ *
+ * @package Catalog\Controller\Common
+ */
 class ControllerCommonMaintenance extends Controller {
     public function index(): void {
         $this->load->language('common/maintenance');

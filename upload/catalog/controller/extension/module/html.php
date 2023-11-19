@@ -1,4 +1,9 @@
 <?php
+/**
+ * Class Html
+ *
+ * @package Catalog\Controller\Extension\Module
+ */
 class ControllerExtensionModuleHTML extends Controller {
     public function index(array $setting): string {
         if (isset($setting['module_description'][$this->config->get('config_language_id')])) {

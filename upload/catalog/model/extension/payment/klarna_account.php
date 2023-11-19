@@ -1,4 +1,9 @@
 <?php
+/**
+ * Class Klarna Account
+ *
+ * @package Catalog\Model\Extension\Payment
+ */
 class ModelExtensionPaymentKlarnaAccount extends Model {
     // Requires $total
     public function getMethod(array $address): array {

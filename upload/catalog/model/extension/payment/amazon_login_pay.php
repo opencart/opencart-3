@@ -1,4 +1,9 @@
 <?php
+/**
+ * Class Amazon Login Pay
+ *
+ * @package Catalog\Model\Extension\Payment
+ */
 class ModelExtensionPaymentAmazonLoginPay extends Model {
     const LOG_FILENAME = "amazon_pay.log";
 

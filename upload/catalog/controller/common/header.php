@@ -1,4 +1,9 @@
 <?php
+/**
+ * Class Header
+ *
+ * @package Catalog\Controller\Common
+ */
 class ControllerCommonHeader extends Controller {
     public function index(): string {
         // Analytics

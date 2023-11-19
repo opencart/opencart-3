@@ -1,4 +1,9 @@
 <?php
+/**
+ * Class Contact
+ *
+ * @package Catalog\Controller\Information
+ */
 class ControllerInformationContact extends Controller {
     private array $error = [];
 

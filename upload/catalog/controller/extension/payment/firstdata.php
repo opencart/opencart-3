@@ -1,4 +1,9 @@
 <?php
+/**
+ * Class Firstdata
+ *
+ * @package Catalog\Controller\Extension\Payment
+ */
 class ControllerExtensionPaymentFirstdata extends Controller {
     public function index(): string {
         $this->load->language('extension/payment/firstdata');

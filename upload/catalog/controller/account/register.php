@@ -1,4 +1,9 @@
 <?php
+/**
+ * Class Register
+ *
+ * @package Catalog\Controller\Account
+ */
 class ControllerAccountRegister extends Controller {
     private array $error = [];
 
@@ -248,7 +253,7 @@ class ControllerAccountRegister extends Controller {
                 $this->request->post[$key] = '';
             }
         }
-        
+
         if ((oc_strlen($this->request->post['firstname']) < 1) || (oc_strlen($this->request->post['firstname']) > 32)) {
             $this->error['firstname'] = $this->language->get('error_firstname');
         }

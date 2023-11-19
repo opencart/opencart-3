@@ -1,4 +1,9 @@
 <?php
+/**
+ * Class Paymate
+ *
+ * @package Catalog\Model\Extension\Payment
+ */
 class ModelExtensionPaymentPayMate extends Model {
     public function getMethod(array $address): array {
         $this->load->language('extension/payment/paymate');

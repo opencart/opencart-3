@@ -1,4 +1,9 @@
 <?php
+/**
+ * Class Payment
+ *
+ * @package Catalog\Controller\Api
+ */
 class ControllerApiPayment extends Controller {
     public function address(): void {
         $this->load->language('api/payment');

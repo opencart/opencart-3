@@ -1,4 +1,9 @@
 <?php
+/**
+ * Class Reset
+ *
+ * @package Catalog\Controller\Account
+ */
 class ControllerAccountReset extends Controller {
     private array $error = [];
 

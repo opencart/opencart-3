@@ -1,4 +1,9 @@
 <?php
+/**
+ * Class Voucher
+ *
+ * @package Catalog\Controller\Extension\Total
+ */
 class ControllerExtensionTotalVoucher extends Controller {
     public function index(): string {
         if ($this->config->get('total_voucher_status')) {

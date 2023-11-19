@@ -1,4 +1,9 @@
 <?php
+/**
+ * Class Shipping
+ *
+ * @package Catalog\Controller\Api
+ */
 class ControllerApiShipping extends Controller {
     public function address(): void {
         $this->load->language('api/shipping');

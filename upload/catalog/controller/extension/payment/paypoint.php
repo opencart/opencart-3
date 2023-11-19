@@ -1,4 +1,9 @@
 <?php
+/**
+ * Class Paypoint
+ *
+ * @package Catalog\Controller\Extension\Payment
+ */
 class ControllerExtensionPaymentPaypoint extends Controller {
     public function index(): string {
         if (!isset($this->session->data['order_id'])) {

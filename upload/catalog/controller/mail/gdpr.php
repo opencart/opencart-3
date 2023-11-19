@@ -1,4 +1,9 @@
 <?php
+/**
+ * Class Gdpr
+ *
+ * @package Catalog\Controller\Mail
+ */
 class ControllerMailGdpr extends Controller {
     // catalog/model/account/gdpr/addGdpr
     public function index(string &$route, array &$args, mixed &$output): void {

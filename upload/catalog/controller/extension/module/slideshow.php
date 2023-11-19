@@ -1,4 +1,9 @@
 <?php
+/**
+ * Class Slideshow
+ *
+ * @package Catalog\Controller\Extension\Module
+ */
 class ControllerExtensionModuleSlideshow extends Controller {
     public function index(array $setting): string {
         static $module = 0;

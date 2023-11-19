@@ -1,4 +1,9 @@
 <?php
+/**
+ * Class Divido Calculator
+ *
+ * @package Catalog\Controller\Extension\Module
+ */
 class ControllerExtensionModuleDividoCalculator extends Controller {
     public function index(): bool|string {
         if (!isset($this->request->get['product_id']) || !$this->config->get('payment_divido_status') || !$this->config->get('module_divido_calculator_status')) {

@@ -1,4 +1,9 @@
 <?php
+/**
+ * Class Affiliate
+ *
+ * @package Catalog\Controller\Account
+ */
 class ControllerAccountAffiliate extends Controller {
     private array $error = [];
 

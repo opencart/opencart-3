@@ -1,4 +1,9 @@
 <?php
+/**
+ * Class Squareup
+ *
+ * @package Catalog\Controller\Extension\Payment
+ */
 class ControllerExtensionPaymentSquareup extends Controller {
     public function index(): string {
         $this->load->language('extension/payment/squareup');

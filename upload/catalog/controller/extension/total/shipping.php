@@ -1,4 +1,9 @@
 <?php
+/**
+ * Class Shipping
+ *
+ * @package Catalog\Controller\Extension\Total
+ */
 class ControllerExtensionTotalShipping extends Controller {
     public function index(): string {
         if ($this->config->get('total_shipping_status') && $this->config->get('total_shipping_estimator') && $this->cart->hasShipping()) {

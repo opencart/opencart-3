@@ -1,4 +1,9 @@
 <?php
+/**
+ * Class Api
+ *
+ * @package Catalog\Model\Setting
+ */
 class ModelSettingApi extends Model {
     public function login(string $username, string $key): array {
         $query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "api` `a` LEFT JOIN `" . DB_PREFIX . "api_ip` `ai` ON (`a`.`api_id` = `ai`.`api_id`) WHERE `a`.`username` = '" . $this->db->escape($username) . "' AND `a`.`key` = '" . $this->db->escape($key) . "'");

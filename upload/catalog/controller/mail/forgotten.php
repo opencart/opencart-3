@@ -1,4 +1,9 @@
 <?php
+/**
+ * Class Forgotten
+ *
+ * @package Catalog\Controller\Mail
+ */
 class ControllerMailForgotten extends Controller {
     // catalog/model/account/customer/editCode/after
     public function index(string &$route, array &$args, mixed &$output): void {

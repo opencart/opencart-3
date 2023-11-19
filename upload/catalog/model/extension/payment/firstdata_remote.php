@@ -1,4 +1,9 @@
 <?php
+/**
+ * Class Firstdata Remote
+ *
+ * @package Catalog\Model\Extension\Payment
+ */
 class ModelExtensionPaymentFirstdataRemote extends Model {
     public function getMethod(array $address): array {
         $this->load->language('extension/payment/firstdata_remote');

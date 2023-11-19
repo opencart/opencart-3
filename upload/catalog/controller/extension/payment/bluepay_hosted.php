@@ -1,4 +1,9 @@
 <?php
+/**
+ * Class Bluepay Hosted
+ *
+ * @package Catalog\Controller\Extension\Payment
+ */
 class ControllerExtensionPaymentBluePayHosted extends Controller {
     public function index(): bool|string {
         if (!isset($this->session->data['order_id'])) {

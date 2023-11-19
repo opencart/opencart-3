@@ -1,4 +1,9 @@
 <?php
+/**
+ * Class Success
+ *
+ * @package Catalog\Controller\Checkout
+ */
 class ControllerCheckoutSuccess extends Controller {
     public function index(): void {
         $this->load->language('checkout/success');

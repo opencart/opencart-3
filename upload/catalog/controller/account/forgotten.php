@@ -1,4 +1,9 @@
 <?php
+/**
+ * Class Forgotten
+ *
+ * @package Catalog\Controller\Account
+ */
 class ControllerAccountForgotten extends Controller {
     private array $error = [];
 

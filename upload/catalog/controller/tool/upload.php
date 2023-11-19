@@ -1,4 +1,9 @@
 <?php
+/**
+ * Class Upload
+ *
+ * @package Catalog\Controller\Tool
+ */
 class ControllerToolUpload extends Controller {
     public function index(): void {
         $this->load->language('tool/upload');

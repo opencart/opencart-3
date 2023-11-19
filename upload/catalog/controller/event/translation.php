@@ -1,4 +1,9 @@
 <?php
+/**
+ * Class Translation
+ *
+ * @package Catalog\Controller\Event
+ */
 class ControllerEventTranslation extends Controller {
     public function index(string &$route, string &$key): void {
         // Translations

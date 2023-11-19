@@ -1,4 +1,9 @@
 <?php
+/**
+ * Class Sub Total
+ *
+ * @package Catalog\Model\Extension\Total
+ */
 class ModelExtensionTotalSubTotal extends Model {
     public function getTotal(array $total): void {
         $this->load->language('extension/total/sub_total');

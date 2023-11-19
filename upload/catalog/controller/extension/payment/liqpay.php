@@ -1,4 +1,9 @@
 <?php
+/**
+ * Class Liqpay
+ *
+ * @package Catalog\Controller\Extension\Payment
+ */
 class ControllerExtensionPaymentLiqPay extends Controller {
     public function index(): string {
         if (!isset($this->session->data['order_id'])) {

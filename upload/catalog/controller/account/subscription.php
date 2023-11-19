@@ -1,4 +1,9 @@
 <?php
+/**
+ * Class Subscription
+ *
+ * @package Catalog\Controller\Account
+ */
 class ControllerAccountSubscription extends Controller {
     public function index(): void {
         $this->load->language('account/subscription');

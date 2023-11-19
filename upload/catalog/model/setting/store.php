@@ -1,4 +1,9 @@
 <?php
+/**
+ * Class Store
+ *
+ * @package Catalog\Model\Setting
+ */
 class ModelSettingStore extends Model {
     public function getStore(int $store_id): array {
         $query = $this->db->query("SELECT DISTINCT * FROM `" . DB_PREFIX . "store` WHERE `store_id` = '" . (int)$store_id . "'");

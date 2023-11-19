@@ -1,4 +1,9 @@
 <?php
+/**
+ * Class Reward
+ *
+ * @package Catalog\Model\Extension\Total
+ */
 class ModelExtensionTotalReward extends Model {
     public function getTotal(array $total): void {
         if (isset($this->session->data['reward'])) {

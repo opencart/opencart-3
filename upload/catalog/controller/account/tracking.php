@@ -1,4 +1,9 @@
 <?php
+/**
+ * Class Tracking
+ *
+ * @package Catalog\Controller\Account
+ */
 class ControllerAccountTracking extends Controller {
     public function index(): object|null {
         if (!$this->customer->isLogged() || (!isset($this->request->get['customer_token']) || !isset($this->session->data['customer_token']) || ($this->request->get['customer_token'] != $this->session->data['customer_token']))) {

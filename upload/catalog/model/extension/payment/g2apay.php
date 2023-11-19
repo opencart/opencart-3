@@ -1,4 +1,9 @@
 <?php
+/**
+ * Class G2apay
+ *
+ * @package Catalog\Model\Extension\Payment
+ */
 class ModelExtensionPaymentG2APay extends Model {
     public function getMethod(array $address): array {
         $this->load->language('extension/payment/g2apay');

@@ -1,4 +1,9 @@
 <?php
+/**
+ * Class Returns Reason
+ *
+ * @package Catalog\Model\Localisation
+ */
 class ModelLocalisationReturnsReason extends Model {
     public function getReturnReasons(array $data = []): array {
         if ($data) {

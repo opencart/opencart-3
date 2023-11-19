@@ -1,4 +1,9 @@
 <?php
+/**
+ * Class Information
+ *
+ * @package Catalog\Controller\Information
+ */
 class ControllerInformationInformation extends Controller {
     public function index(): void {
         $this->load->language('information/information');

@@ -1,4 +1,9 @@
 <?php
+/**
+ * Class Globalpay Remote
+ *
+ * @package Catalog\Controller\Extension\Payment
+ */
 class ControllerExtensionPaymentGlobalpayRemote extends Controller {
     public function index(): string {
         $this->load->language('extension/payment/globalpay_remote');

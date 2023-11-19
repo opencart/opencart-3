@@ -1,4 +1,9 @@
 <?php
+/**
+ * Class Google
+ *
+ * @package Catalog\Controller\Extension\Captcha
+ */
 class ControllerExtensionCaptchaGoogle extends Controller {
     public function index(array $error = []): string {
         $this->load->language('extension/captcha/google');

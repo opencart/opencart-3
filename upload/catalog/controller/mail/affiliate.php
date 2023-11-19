@@ -1,4 +1,9 @@
 <?php
+/**
+ * Class Affiliate
+ *
+ * @package Catalog\Controller\Mail
+ */
 class ControllerMailAffiliate extends Controller {
     // catalog/model/account/customer/addAffiliate/after
     public function index(string &$route, array &$args, mixed &$output): void {

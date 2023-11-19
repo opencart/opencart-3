@@ -1,4 +1,9 @@
 <?php
+/**
+ * Class Special
+ *
+ * @package Catalog\Controller\Product
+ */
 class ControllerProductSpecial extends Controller {
     public function index(): void {
         $this->load->language('product/special');

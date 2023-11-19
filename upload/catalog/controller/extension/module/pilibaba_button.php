@@ -1,4 +1,9 @@
 <?php
+/**
+ * Class Pilibaba Button
+ *
+ * @package Catalog\Controller\Extension\Module
+ */
 class ControllerExtensionModulePilibabaButton extends Controller {
     public function index(): string {
         $this->load->language('extension/module/pilibaba_button');

@@ -1,4 +1,9 @@
 <?php
+/**
+ * Class Amazon Pay
+ *
+ * @package Catalog\Controller\Extension\Module
+ */
 class ControllerExtensionModuleAmazonPay extends Controller {
     public function index(): string {
         // Amazon Login Pay

@@ -1,4 +1,9 @@
 <?php
+/**
+ * Class Skrill
+ *
+ * @package Catalog\Controller\Extension\Payment
+ */
 class ControllerExtensionPaymentSkrill extends Controller {
     public function index(): bool|string {
         if (!isset($this->session->data['order_id'])) {

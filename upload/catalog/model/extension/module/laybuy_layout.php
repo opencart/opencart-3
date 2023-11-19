@@ -1,4 +1,9 @@
 <?php
+/**
+ * Class Laybyy Layout
+ *
+ * @package Catalog\Model\Extension\Module
+ */
 class ModelExtensionModuleLaybuyLayout extends Model {
     public function getStatusLabel(int $id): string {
         $statuses = $this->getTransactionStatuses();

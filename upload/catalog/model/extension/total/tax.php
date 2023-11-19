@@ -1,4 +1,9 @@
 <?php
+/**
+ * Class Tax
+ *
+ * @package Catalog\Model\Extension\Total
+ */
 class ModelExtensionTotalTax extends Model {
     public function getTotal(array $total): void {
         foreach ($total['taxes'] as $key => $value) {

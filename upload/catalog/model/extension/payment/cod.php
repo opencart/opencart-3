@@ -1,4 +1,9 @@
 <?php
+/**
+ * Class Cod
+ *
+ * @package Catalog\Model\Extension\Payment
+ */
 class ModelExtensionPaymentCod extends Model {
     public function getMethod(array $address): array {
         $this->load->language('extension/payment/cod');
