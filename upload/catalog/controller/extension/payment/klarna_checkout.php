@@ -107,7 +107,7 @@ class ControllerExtensionPaymentKlarnaCheckout extends Controller {
 			$this->session->data['shipping_method'] = $this->model_extension_payment_klarna_checkout->getDefaultShippingMethod($this->session->data['shipping_methods']);
 		}
 
-		//Klarna Connector
+		// Klarna Connector
 		[$klarna_account, $connector] = $this->model_extension_payment_klarna_checkout->getConnector($this->config->get('klarna_checkout_account'), $this->session->data['currency']);
 
 		if (!$klarna_account || !$connector) {
@@ -139,7 +139,7 @@ class ControllerExtensionPaymentKlarnaCheckout extends Controller {
 				$retrieve = $this->model_extension_payment_klarna_checkout->orderRetrieve($connector, $this->session->data['klarna_checkout_order_id']);
 
 				if ($retrieve) {
-					//If address has changed, unset klarna_checkout_order_id and create new order
+					// If address has changed, unset klarna_checkout_order_id and create new order
 					$address_change = false;
 
 					if (isset($this->session->data['klarna_checkout_data']) && $this->session->data['klarna_checkout_data']) {
@@ -177,7 +177,7 @@ class ControllerExtensionPaymentKlarnaCheckout extends Controller {
 							'country' => $oc_country,
 						];
 
-						//If address has changed, dont use retrieved order, create new one instead
+						// If address has changed, dont use retrieved order, create new one instead
 						if (array_diff(array_map('strtolower', $kc_address), array_map('strtolower', $oc_address))) {
 							$address_change = true;
 						}
@@ -687,7 +687,7 @@ class ControllerExtensionPaymentKlarnaCheckout extends Controller {
 					$this->tax->setShippingAddress($country_info['country_id'], ($zone ? $zone['zone_id'] : $zones[0]['zone_id']));
 					$this->tax->setStoreAddress($this->config->get('config_country_id'), $this->config->get('config_zone_id'));
 
-					//Check if customer is US. If so, send taxes differently
+					// Check if customer is US. If so, send taxes differently
 					if ($this->session->data['shipping_address']['iso_code_2'] === 'US') {
 						$include_taxes = false;
 					} else {
@@ -797,7 +797,7 @@ class ControllerExtensionPaymentKlarnaCheckout extends Controller {
 
 							[$totals, $taxes, $total] = $this->model_extension_payment_klarna_checkout->getTotals();
 
-							//If $include_taxes is false, means customer is US so we add a new sales_tax order line with all the tax
+							// If $include_taxes is false, means customer is US so we add a new sales_tax order line with all the tax
 							if (!$include_taxes) {
 								foreach ($klarna_order_data['order_lines'] as $key => $order_line) {
 									if ($order_line['type'] == 'sales_tax') {
@@ -1062,7 +1062,7 @@ class ControllerExtensionPaymentKlarnaCheckout extends Controller {
 			$payment_country_info  = $this->model_extension_payment_klarna_checkout->getCountryByIsoCode2($request->billing_address->country);
 			$shipping_country_info = $this->model_extension_payment_klarna_checkout->getCountryByIsoCode2($request->shipping_address->country);
 
-			//If region is passed, try to update OpenCart order with correct region/zone
+			// If region is passed, try to update OpenCart order with correct region/zone
 			$payment_zone_info = [];
 
 			if ($payment_country_info && isset($request->billing_address->region)) {
@@ -1252,7 +1252,7 @@ class ControllerExtensionPaymentKlarnaCheckout extends Controller {
 								$payment_country_info = $this->model_extension_payment_klarna_checkout->getCountryByIsoCode2($order['billing_address']['country']);
 								$shipping_country_info = $this->model_extension_payment_klarna_checkout->getCountryByIsoCode2($order['shipping_address']['country']);
 
-								//If region is passed, try to update OpenCart order with correct region/zone
+								// If region is passed, try to update OpenCart order with correct region/zone
 								$payment_zone_info = [];
 
 								if ($payment_country_info && isset($order['billing_address']['region'])) {
@@ -1453,7 +1453,7 @@ class ControllerExtensionPaymentKlarnaCheckout extends Controller {
 	}
 
 	private function createOrder(): void {
-		//Klarna defaults:
+		// Klarna defaults:
 		$this->session->data['comment'] = '';
 
 		if (!$this->customer->isLogged()) {
@@ -1468,7 +1468,7 @@ class ControllerExtensionPaymentKlarnaCheckout extends Controller {
 			];
 		}
 
-		//OpenCart:
+		// OpenCart:
 		$order_data = [];
 
 		[$totals, $taxes, $total] = $this->model_extension_payment_klarna_checkout->getTotals();
@@ -1998,7 +1998,7 @@ class ControllerExtensionPaymentKlarnaCheckout extends Controller {
 			}
 		}
 
-		//If $include_taxes is false, means customer is US so we add a new sales_tax order line with all the tax
+		// If $include_taxes is false, means customer is US so we add a new sales_tax order line with all the tax
 		if (!$include_taxes) {
 			$klarna_order_data['order_lines'][] = [
 				'type'                  => 'sales_tax',
