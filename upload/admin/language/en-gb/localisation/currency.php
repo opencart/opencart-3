@@ -8,7 +8,6 @@ $_['text_list']            = 'Currency List';
 $_['text_add']             = 'Add Currency';
 $_['text_edit']            = 'Edit Currency';
 $_['text_iso']             = 'You can find a full list of ISO currency codes and settings <a href="http://www.xe.com/iso4217.php" target="_blank" class="alert-link">here</a>.';
-$_['text_support']         = 'This extension requires the EUR currency.';
 
 // Column
 $_['column_title']         = 'Currency Title';
