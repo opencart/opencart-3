@@ -389,7 +389,7 @@ class ControllerSettingSetting extends Controller {
 
 		$this->load->model('setting/extension');
 
-		$extensions = $this->model_setting_extension->getInstalled('currency');
+		$extensions = $this->model_setting_extension->getExtensionsByType('currency');
 
 		foreach ($extensions as $code) {
 			if ($this->config->get('currency_' . $code . '_status')) {
@@ -422,7 +422,7 @@ class ControllerSettingSetting extends Controller {
 
 		$data['currency_engines'] = [];
 
-		$extension_codes = $this->model_setting_extension->getInstalled('currency');
+		$extension_codes = $this->model_setting_extension->getExtensionsByType('currency');
 
 		foreach ($extension_codes as $extension_code) {
 			if ($this->config->get('currency_' . $extension_code . '_status')) {

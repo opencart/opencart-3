@@ -69,7 +69,7 @@ class ControllerExtensionExtensionCurrency extends Controller {
             $data['success'] = '';
         }
 
-        $extensions = $this->model_setting_extension->getInstalled('currency');
+        $extensions = $this->model_setting_extension->getExtensionsByType('currency');
 
         foreach ($extensions as $key => $value) {
             if (!is_file(DIR_APPLICATION . 'controller/extension/currency/' . $value . '.php') && !is_file(DIR_APPLICATION . 'controller/currency/' . $value . '.php')) {
