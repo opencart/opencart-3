@@ -704,11 +704,7 @@ class ModelExtensionPaymentAmazonLoginPay extends Model {
         $amazon_address->FirstName = array_shift($full_name);
         $amazon_address->LastName = implode(' ', $full_name);
 
-        $lines = array_filter([
-            $amazon_address->AddressLine1,
-            $amazon_address->AddressLine2,
-            $amazon_address->AddressLine3
-        ]);
+        $lines = array_filter([$amazon_address->AddressLine1, $amazon_address->AddressLine2, $amazon_address->AddressLine3]);
 
         $address_line_1 = array_shift($lines);
         $address_line_2 = implode(' ', $lines);
