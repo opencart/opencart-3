@@ -183,7 +183,7 @@ class ModelExtensionPaymentAlipay extends Model {
     private function getSignContent($params) {
         ksort($params);
 
-        $stringToBeSigned = "";
+        $stringToBeSigned = '';
 
         $i = 0;
 

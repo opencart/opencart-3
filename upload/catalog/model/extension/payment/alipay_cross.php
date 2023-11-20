@@ -39,13 +39,14 @@ class ModelExtensionPaymentAlipayCross extends Model {
     private function buildRequestMysign($para_sort) {
         $prestr = $this->createLinkstring($para_sort);
 
-        $mysign = "";
+        $mysign = '';
+
         switch (strtoupper(trim($this->alipay_config['sign_type']))) {
-            case "MD5" :
+            case 'MD5' :
                 $mysign = $this->md5Sign($prestr, $this->alipay_config['key']);
                 break;
             default :
-                $mysign = "";
+                $mysign = '';
         }
 
         return $mysign;
@@ -118,11 +119,11 @@ class ModelExtensionPaymentAlipayCross extends Model {
     }
 
     private function createLinkstring($para) {
-        $arg = "";
+        $arg = '';
 
-        while (list($key, $val) = each($para)) {
-            $arg .= $key . "=" . $val . "&";
-        }
+		foreach ($para as $key => $val) {
+			$arg .= $key . '=' . $val . '&';
+		}
 
         // Remove the last char '&'
         $arg = substr($arg, 0, count($arg) - 2);
@@ -133,13 +134,13 @@ class ModelExtensionPaymentAlipayCross extends Model {
     private function paraFilter($para) {
         $para_filter = [];
 
-        while (list($key, $val) = each($para)) {
-            if ($key == 'sign' || $key == 'sign_type' || $val == '') {
-                continue;
-            } else {
-                $para_filter[$key] = $para[$key];
-            }
-        }
+		foreach ($para as $key => $val) {
+			if ($key == 'sign' || $key == 'sign_type' || $val == '') {
+				continue;
+			} else {
+				$para_filter[$key] = $para[$key];
+			}
+		}
 
         return $para_filter;
     }

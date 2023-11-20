@@ -30,7 +30,7 @@
         submitGtagByColorAndSize("", "");
     } else {
         $('[name^="option["]').change(function() {
-            var color, size = "";
+            var color, size = '';
 
             $('select[name^="option["], [type="radio"][name^="option["]:checked').each(function (index, option) {
                 var product_option_value_id = $(option).val();
