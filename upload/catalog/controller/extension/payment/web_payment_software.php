@@ -92,7 +92,7 @@ class ControllerExtensionPaymentWebPaymentSoftware extends Controller {
         $xml = simplexml_load_string($response);
 
         // If successful log transaction in opencart system
-        if ('00' === (string)$xml->response_code) {
+        if ((string)$xml->response_code === '00') {
             $message = '';
             $message .= 'Response Code: ';
 

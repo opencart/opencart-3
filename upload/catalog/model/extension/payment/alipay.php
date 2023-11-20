@@ -127,7 +127,7 @@ class ModelExtensionPaymentAlipay extends Model {
 
         $totalParams['sign'] = $this->generateSign($totalParams, $this->signtype);
 
-        if ('GET' == strtoupper($httpmethod)) {
+        if (strtoupper($httpmethod) == 'GET') {
             $preString = $this->getSignContentUrlencode($totalParams);
             $requestUrl = $this->gateway_url . '?' . $preString;
 
@@ -171,7 +171,7 @@ class ModelExtensionPaymentAlipay extends Model {
 
         (trim($pubKey)) or die('Alipay public key error!');
 
-        if ('RSA2' == $signType) {
+        if ($signType == 'RSA2') {
             $result = (bool)openssl_verify($data, base64_decode($sign), $res, OPENSSL_ALGO_SHA256);
         } else {
             $result = (bool)openssl_verify($data, base64_decode($sign), $res);
@@ -213,7 +213,7 @@ class ModelExtensionPaymentAlipay extends Model {
 
         $res = "-----BEGIN RSA PRIVATE KEY-----\n" . wordwrap($priKey, 64, "\n", true) . "\n-----END RSA PRIVATE KEY-----";
 
-        if ('RSA2' == $signType) {
+        if ($signType == 'RSA2') {
             openssl_sign($data, $sign, $res, OPENSSL_ALGO_SHA256);
         } else {
             openssl_sign($data, $sign, $res);
