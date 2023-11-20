@@ -237,10 +237,7 @@ class ModelExtensionAdvertiseGoogle extends Model {
     public function getTargetCountriesByProductIds($product_ids, $store_id) {
         $sql = "SELECT DISTINCT `agt`.`country` FROM `" . DB_PREFIX . "googleshopping_product_target` `pagt` LEFT JOIN `" . DB_PREFIX . "googleshopping_target` `agt` ON (`agt`.`advertise_google_target_id` = `pagt`.`advertise_google_target_id` AND `agt`.`store_id` = `pagt`.`store_id`) WHERE `pagt`.`product_id` IN(" . $this->googleshopping->productIdsToIntegerExpression($product_ids) . ") AND `pagt`.`store_id` = '" . (int)$store_id . "'";
 
-        return array_map([
-            $this,
-            'country'
-        ], $this->db->query($sql)->rows);
+        return array_map([$this, 'country'], $this->db->query($sql)->rows);
     }
 
     public function getTargetCountriesByFilter($data, $store_id) {
@@ -248,10 +245,7 @@ class ModelExtensionAdvertiseGoogle extends Model {
 
         $this->googleshopping->applyFilter($sql, $data);
 
-        return array_map([
-            $this,
-            'country'
-        ], $this->db->query($sql)->rows);
+        return array_map([$this, 'country'], $this->db->query($sql)->rows);
     }
 
     public function getProductOptionsByProductIds($product_ids) {

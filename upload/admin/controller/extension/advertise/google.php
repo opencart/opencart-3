@@ -344,10 +344,7 @@ class ControllerExtensionAdvertiseGoogle extends Controller {
 
         $product_total = $this->googleshopping->getTotalProducts($filter_data, $this->store_id);
 
-        $json['products'] = array_map([
-            $this,
-            'product'
-        ], $products);
+        $json['products'] = array_map([$this, 'product'], $products);
 
         $pagination = new \Pagination();
         $pagination->total = $product_total;

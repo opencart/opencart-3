@@ -472,10 +472,7 @@ class ModelExtensionPaymentAmazonLoginPay extends Model {
             $uri = "/";
         }
 
-        $uriencoded = implode("/", array_map([
-            $this,
-            "urlencode"
-        ], explode("/", $uri)));
+        $uriencoded = implode("/", array_map([$this, "urlencode"], explode("/", $uri)));
 
         $data .= $uriencoded;
         $data .= "\n";
