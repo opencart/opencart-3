@@ -5,6 +5,9 @@
  * @package Admin\Controller\Extension\Module
  */
 class ControllerExtensionModulePPBraintreeButton extends Controller {
+	/**
+	 * @return void
+	 */
     public function index(): void {
         $this->load->language('extension/module/pp_braintree_button');
 
@@ -60,7 +63,9 @@ class ControllerExtensionModulePPBraintreeButton extends Controller {
 
         $this->response->setOutput($this->load->view('extension/module/pp_braintree_button', $data));
     }
-
+	/**
+	 * @return void
+	 */
     public function install(): void {
         // Settings
         $this->load->model('setting/setting');
@@ -69,7 +74,9 @@ class ControllerExtensionModulePPBraintreeButton extends Controller {
 
         $this->model_setting_setting->editSetting('module_pp_braintree_button', $settings);
     }
-
+	/**
+	 * @return void
+	 */
     public function configure(): void {
         $this->load->language('extension/extension/module');
 

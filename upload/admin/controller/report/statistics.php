@@ -6,7 +6,9 @@
  */
 class ControllerReportStatistics extends Controller {
     private array $error = [];
-
+	/**
+	 * @return void
+	 */
     public function index(): void {
         $this->load->language('report/statistics');
 
@@ -17,7 +19,9 @@ class ControllerReportStatistics extends Controller {
 
         $this->getList();
     }
-
+	/**
+	 * @return void
+	 */
     public function ordersale(): void {
         $this->load->language('report/statistics');
 
@@ -38,7 +42,9 @@ class ControllerReportStatistics extends Controller {
 
         $this->getList();
     }
-
+	/**
+	 * @return void
+	 */
     public function orderprocessing(): void {
         $this->load->language('report/statistics');
 
@@ -59,7 +65,9 @@ class ControllerReportStatistics extends Controller {
 
         $this->getList();
     }
-
+	/**
+	 * @return void
+	 */
     public function ordercomplete(): void {
         $this->load->language('report/statistics');
 
@@ -80,7 +88,9 @@ class ControllerReportStatistics extends Controller {
 
         $this->getList();
     }
-
+	/**
+	 * @return void
+	 */
     public function orderother(): void {
         $this->load->language('report/statistics');
 
@@ -113,7 +123,9 @@ class ControllerReportStatistics extends Controller {
 
         $this->getList();
     }
-
+	/**
+	 * @return void
+	 */
     public function returns(): void {
         $this->load->language('report/statistics');
 
@@ -134,7 +146,9 @@ class ControllerReportStatistics extends Controller {
 
         $this->getList();
     }
-
+	/**
+	 * @return void
+	 */
     public function customer(): void {
         $this->load->language('report/statistics');
 
@@ -155,7 +169,9 @@ class ControllerReportStatistics extends Controller {
 
         $this->getList();
     }
-
+	/**
+	 * @return void
+	 */
     public function affiliate(): void {
         $this->load->language('report/statistics');
 
@@ -176,7 +192,9 @@ class ControllerReportStatistics extends Controller {
 
         $this->getList();
     }
-
+	/**
+	 * @return void
+	 */
     public function product(): void {
         $this->load->language('report/statistics');
 
@@ -197,7 +215,9 @@ class ControllerReportStatistics extends Controller {
 
         $this->getList();
     }
-
+	/**
+	 * @return void
+	 */
     public function review(): void {
         $this->load->language('report/statistics');
 

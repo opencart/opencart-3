@@ -6,7 +6,9 @@
  */
 class ControllerExtensionFraudMaxMind extends Controller {
     private array $error = [];
-
+	/**
+	 * @return void
+	 */
     public function index(): void {
         $this->load->language('extension/fraud/maxmind');
 
@@ -90,14 +92,18 @@ class ControllerExtensionFraudMaxMind extends Controller {
 
         $this->response->setOutput($this->load->view('extension/fraud/maxmind', $data));
     }
-
+	/**
+	 * @return void
+	 */
     public function install(): void {
         // Maxmind
         $this->load->model('extension/fraud/maxmind');
 
         $this->model_extension_fraud_maxmind->install();
     }
-
+	/**
+	 * @return void
+	 */
     public function uninstall(): void {
         // Maxmind
         $this->load->model('extension/fraud/maxmind');
@@ -116,7 +122,9 @@ class ControllerExtensionFraudMaxMind extends Controller {
 
         return !$this->error;
     }
-
+	/**
+	 * @return void
+	 */
     public function order(): string {
         $this->load->language('extension/fraud/maxmind');
 

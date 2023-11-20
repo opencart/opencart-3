@@ -6,7 +6,9 @@
  */
 class ControllerExtensionPaymentPayPal extends Controller {
     private $error = [];
-
+	/**
+	 * @return void
+	 */
     public function index(): void {
         if (isset($this->request->server['HTTPS']) && (($this->request->server['HTTPS'] == 'on') || ($this->request->server['HTTPS'] == '1'))) {
             $server = HTTPS_SERVER;
@@ -167,7 +169,9 @@ class ControllerExtensionPaymentPayPal extends Controller {
             $this->dashboard();
         }
     }
-
+	/**
+	 * @return void
+	 */
     public function auth(): void {
         $this->load->language('extension/payment/paypal');
 
@@ -261,7 +265,9 @@ class ControllerExtensionPaymentPayPal extends Controller {
 
         $this->response->setOutput($this->load->view('extension/payment/paypal/auth', $data));
     }
-
+	/**
+	 * @return void
+	 */
     public function dashboard(): void {
         if (!$this->config->get('payment_paypal_client_id')) {
             $this->response->redirect($this->url->link('extension/payment/paypal', 'user_token=' . $this->session->data['user_token'], true));
@@ -386,7 +392,9 @@ class ControllerExtensionPaymentPayPal extends Controller {
 
         $this->response->setOutput($this->load->view('extension/payment/paypal/dashboard', $data));
     }
-
+	/**
+	 * @return void
+	 */
     public function general(): void {
         if (!$this->config->get('payment_paypal_client_id')) {
             $this->response->redirect($this->url->link('extension/payment/paypal', 'user_token=' . $this->session->data['user_token'], true));
@@ -503,7 +511,9 @@ class ControllerExtensionPaymentPayPal extends Controller {
 
         $this->response->setOutput($this->load->view('extension/payment/paypal/general', $data));
     }
-
+	/**
+	 * @return void
+	 */
     public function button(): void {
         if (!$this->config->get('payment_paypal_client_id')) {
             $this->response->redirect($this->url->link('extension/payment/paypal', 'user_token=' . $this->session->data['user_token'], true));
@@ -596,7 +606,9 @@ class ControllerExtensionPaymentPayPal extends Controller {
 
             $paypal = new \PayPal($paypal_info);
 
-            $token_info = ['grant_type' => 'client_credentials'];
+            $token_info = [
+				'grant_type' => 'client_credentials'
+			];
 
             $paypal->setAccessToken($token_info);
 
@@ -651,7 +663,9 @@ class ControllerExtensionPaymentPayPal extends Controller {
 
         $this->response->setOutput($this->load->view('extension/payment/paypal/button', $data));
     }
-
+	/**
+	 * @return void
+	 */
     public function applepay_button(): void {
         if (!$this->config->get('payment_paypal_client_id')) {
             $this->response->redirect($this->url->link('extension/payment/paypal', 'user_token=' . $this->session->data['user_token'], true));
@@ -802,7 +816,9 @@ class ControllerExtensionPaymentPayPal extends Controller {
 
         $this->response->setOutput($this->load->view('extension/payment/paypal/applepay_button', $data));
     }
-
+	/**
+	 * @return void
+	 */
     public function card(): void {
         if (!$this->config->get('payment_paypal_client_id')) {
             $this->response->redirect($this->url->link('extension/payment/paypal', 'user_token=' . $this->session->data['user_token'], true));
@@ -951,8 +967,10 @@ class ControllerExtensionPaymentPayPal extends Controller {
 
         $this->response->setOutput($this->load->view('extension/payment/paypal/card', $data));
     }
-
-    public function message() {
+	/**
+	 * @return void
+	 */
+    public function message(): void {
         if (!$this->config->get('payment_paypal_client_id')) {
             $this->response->redirect($this->url->link('extension/payment/paypal', 'user_token=' . $this->session->data['user_token'], true));
         }
@@ -1107,7 +1125,9 @@ class ControllerExtensionPaymentPayPal extends Controller {
 
         $this->response->setOutput($this->load->view('extension/payment/paypal/message', $data));
     }
-
+	/**
+	 * @return void
+	 */
     public function order_status(): void {
         if (!$this->config->get('payment_paypal_client_id')) {
             $this->response->redirect($this->url->link('extension/payment/paypal', 'user_token=' . $this->session->data['user_token'], true));
@@ -1198,7 +1218,9 @@ class ControllerExtensionPaymentPayPal extends Controller {
 
         $this->response->setOutput($this->load->view('extension/payment/paypal/order_status', $data));
     }
-
+	/**
+	 * @return void
+	 */
     public function contact(): void {
         if (!$this->config->get('payment_paypal_client_id')) {
             $this->response->redirect($this->url->link('extension/payment/paypal', 'user_token=' . $this->session->data['user_token'], true));
@@ -1290,7 +1312,9 @@ class ControllerExtensionPaymentPayPal extends Controller {
 
         $this->response->setOutput($this->load->view('extension/payment/paypal/contact', $data));
     }
-
+	/**
+	 * @return void
+	 */
     public function save(): void {
         $this->load->language('extension/payment/paypal');
 
@@ -1311,7 +1335,9 @@ class ControllerExtensionPaymentPayPal extends Controller {
         $this->response->addHeader('Content-Type: application/json');
         $this->response->setOutput(json_encode($data));
     }
-
+	/**
+	 * @return void
+	 */
     public function disconnect(): void {
         $this->load->model('setting/setting');
 
@@ -1329,7 +1355,9 @@ class ControllerExtensionPaymentPayPal extends Controller {
         $this->response->addHeader('Content-Type: application/json');
         $this->response->setOutput(json_encode($data));
     }
-
+	/**
+	 * @return void
+	 */
     public function callback(): void {
         if (isset($this->request->post['environment']) && isset($this->request->post['authorization_code']) && isset($this->request->post['shared_id']) && isset($this->request->post['seller_nonce'])) {
             $this->session->data['environment'] = $this->request->post['environment'];
@@ -1343,7 +1371,9 @@ class ControllerExtensionPaymentPayPal extends Controller {
         $this->response->addHeader('Content-Type: application/json');
         $this->response->setOutput(json_encode($data));
     }
-
+	/**
+	 * @return void
+	 */
     public function getSaleAnalytics(): void {
         $this->load->language('extension/payment/paypal');
 
@@ -1467,7 +1497,9 @@ class ControllerExtensionPaymentPayPal extends Controller {
         $this->response->addHeader('Content-Type: application/json');
         $this->response->setOutput(json_encode($data));
     }
-
+	/**
+	 * @return void
+	 */
     public function downloadAssociationFile(): void {
         $environment = $this->config->get('payment_paypal_environment');
 
@@ -1492,7 +1524,9 @@ class ControllerExtensionPaymentPayPal extends Controller {
 
         readfile($file);
     }
-
+	/**
+	 * @return void
+	 */
     public function downloadHostAssociationFile(): void {
         $this->load->language('extension/payment/paypal');
 
@@ -1533,7 +1567,9 @@ class ControllerExtensionPaymentPayPal extends Controller {
         $this->response->addHeader('Content-Type: application/json');
         $this->response->setOutput(json_encode($data));
     }
-
+	/**
+	 * @return void
+	 */
     public function sendContact(): void {
         $this->load->language('extension/payment/paypal');
 
@@ -1550,7 +1586,9 @@ class ControllerExtensionPaymentPayPal extends Controller {
         $this->response->addHeader('Content-Type: application/json');
         $this->response->setOutput(json_encode($data));
     }
-
+	/**
+	 * @return void
+	 */
     public function agree(): void {
         $this->load->language('extension/payment/paypal');
 
@@ -1565,7 +1603,9 @@ class ControllerExtensionPaymentPayPal extends Controller {
         $this->response->addHeader('Content-Type: application/json');
         $this->response->setOutput(json_encode($data));
     }
-
+	/**
+	 * @return void
+	 */
     public function install(): void {
         $this->load->model('setting/event');
 
@@ -1575,7 +1615,9 @@ class ControllerExtensionPaymentPayPal extends Controller {
         $this->model_setting_event->addEvent('paypal_header', 'catalog/controller/common/header/before', 'extension/payment/paypal/header_before');
         $this->model_setting_event->addEvent('paypal_extension_get_extensions', 'catalog/model/setting/extension/getExtensions/after', 'extension/payment/paypal/extension_get_extensions_after');
     }
-
+	/**
+	 * @return void
+	 */
     public function uninstall(): void {
         $this->load->model('setting/event');
 

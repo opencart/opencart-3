@@ -7,7 +7,9 @@
 class ControllerExtensionModuleAmazonPay extends Controller {
     private string $version = '3.2.1';
     private array $error = [];
-
+	/**
+	 * @return void
+	 */
     public function index(): void {
         $this->load->language('extension/module/amazon_pay');
 
@@ -110,14 +112,18 @@ class ControllerExtensionModuleAmazonPay extends Controller {
 
         return !$this->error;
     }
-
+	/**
+	 * @return void
+	 */
     public function install(): void {
         // Events
         $this->load->model('setting/event');
 
         $this->model_setting_event->deleteEventByCode('amazon_pay');
     }
-
+	/**
+	 * @return void
+	 */
     public function uninstall(): void {
         // Events
         $this->load->model('setting/event');

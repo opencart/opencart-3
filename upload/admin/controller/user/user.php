@@ -6,7 +6,9 @@
  */
 class ControllerUserUser extends Controller {
     private array $error = [];
-
+	/**
+	 * @return void
+	 */
     public function index(): void {
         $this->load->language('user/user');
 
@@ -17,7 +19,9 @@ class ControllerUserUser extends Controller {
 
         $this->getList();
     }
-
+	/**
+	 * @return void
+	 */
     public function add(): void {
         $this->load->language('user/user');
 
@@ -50,7 +54,9 @@ class ControllerUserUser extends Controller {
 
         $this->getForm();
     }
-
+	/**
+	 * @return void
+	 */
     public function edit(): void {
         $this->load->language('user/user');
 
@@ -83,7 +89,9 @@ class ControllerUserUser extends Controller {
 
         $this->getForm();
     }
-
+	/**
+	 * @return void
+	 */
     public function delete(): void {
         $this->load->language('user/user');
 
@@ -432,7 +440,9 @@ class ControllerUserUser extends Controller {
 
         $this->response->setOutput($this->load->view('user/user_form', $data));
     }
-
+	/**
+	 * @return void
+	 */
     public function getLogins(): string {
         $this->load->language('user/user');
 

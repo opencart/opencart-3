@@ -6,7 +6,9 @@
  */
 class ControllerExtensionFeedGoogleBase extends Controller {
     private array $error = [];
-
+	/**
+	 * @return void
+	 */
     public function index(): void {
         $this->load->language('extension/feed/google_base');
 
@@ -73,14 +75,18 @@ class ControllerExtensionFeedGoogleBase extends Controller {
 
         return !$this->error;
     }
-
+	/**
+	 * @return void
+	 */
     public function install(): void {
         // Google Base
         $this->load->model('extension/feed/google_base');
 
         $this->model_extension_feed_google_base->install();
     }
-
+	/**
+	 * @return void
+	 */
     public function uninstall(): void {
         // Google Base
         $this->load->model('extension/feed/google_base');
@@ -139,7 +145,9 @@ class ControllerExtensionFeedGoogleBase extends Controller {
         $this->response->addHeader('Content-Type: application/json');
         $this->response->setOutput(json_encode($json));
     }
-
+	/**
+	 * @return void
+	 */
     public function category(): void {
         $this->load->language('extension/feed/google_base');
 
@@ -179,7 +187,9 @@ class ControllerExtensionFeedGoogleBase extends Controller {
 
         $this->response->setOutput($this->load->view('extension/feed/google_base_category', $data));
     }
-
+	/**
+	 * @return void
+	 */
     public function addCategory(): void {
         $this->load->language('extension/feed/google_base');
 
@@ -199,7 +209,9 @@ class ControllerExtensionFeedGoogleBase extends Controller {
         $this->response->addHeader('Content-Type: application/json');
         $this->response->setOutput(json_encode($json));
     }
-
+	/**
+	 * @return void
+	 */
     public function removeCategory(): void {
         $this->load->language('extension/feed/google_base');
 
@@ -219,7 +231,9 @@ class ControllerExtensionFeedGoogleBase extends Controller {
         $this->response->addHeader('Content-Type: application/json');
         $this->response->setOutput(json_encode($json));
     }
-
+	/**
+	 * @return void
+	 */
     public function autocomplete(): void {
         $json = [];
 

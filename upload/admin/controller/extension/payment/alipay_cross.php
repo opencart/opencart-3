@@ -23,7 +23,9 @@ class ControllerExtensionPaymentAlipayCross extends Controller {
         'KRW',
         'THB'
     ];
-
+	/**
+	 * @return void
+	 */
     public function index(): void {
         $this->load->language('extension/payment/alipay_cross');
 

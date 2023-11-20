@@ -5,6 +5,9 @@
  * @package Admin\Controller\Startup
  */
 class ControllerStartupPermission extends Controller {
+	/**
+	 * @return object|null
+	 */
     public function index(): object|null {
         if (isset($this->request->get['route'])) {
             $route = '';

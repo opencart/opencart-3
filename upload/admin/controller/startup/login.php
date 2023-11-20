@@ -5,6 +5,9 @@
  * @package Admin\Controller\Startup
  */
 class ControllerStartupLogin extends Controller {
+	/**
+	 * @return object|null
+	 */
     public function index(): object|null {
         $route = isset($this->request->get['route']) ? $this->request->get['route'] : '';
 

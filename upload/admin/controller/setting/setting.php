@@ -6,7 +6,9 @@
  */
 class ControllerSettingSetting extends Controller {
     private array $error = [];
-
+	/**
+	 * @return void
+	 */
     public function index(): void {
         $this->load->language('setting/setting');
 
@@ -1144,7 +1146,9 @@ class ControllerSettingSetting extends Controller {
 
         return !$this->error;
     }
-
+	/**
+	 * @return void
+	 */
     public function theme(): void {
         if ($this->request->server['HTTPS']) {
             $server = HTTPS_CATALOG;

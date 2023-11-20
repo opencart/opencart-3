@@ -5,6 +5,9 @@
  * @package Admin\Controller\Marketplace
  */
 class ControllerMarketplaceApi extends Controller {
+	/**
+	 * @return void
+	 */
     public function index(): void {
         $this->load->language('marketplace/api');
 
@@ -12,7 +15,9 @@ class ControllerMarketplaceApi extends Controller {
 
         $this->response->setOutput($this->load->view('marketplace/api', $data));
     }
-
+	/**
+	 * @return void
+	 */
     public function save(): void {
         $this->load->language('marketplace/api');
 

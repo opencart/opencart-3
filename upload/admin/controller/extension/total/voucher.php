@@ -6,7 +6,9 @@
  */
 class ControllerExtensionTotalVoucher extends Controller {
     private array $error = [];
-
+	/**
+	 * @return void
+	 */
     public function index(): void {
         $this->load->language('extension/total/voucher');
 
@@ -75,14 +77,18 @@ class ControllerExtensionTotalVoucher extends Controller {
 
         return !$this->error;
     }
-
+	/**
+	 * @return void
+	 */
     public function install(): void {
         // Register the event triggers
         $this->load->model('setting/event');
 
         $this->model_setting_event->addEvent('voucher', 'catalog/model/checkout/order/addOrderHistory/after', 'extension/total/voucher/send');
     }
-
+	/**
+	 * @return void
+	 */
     public function uninstall(): void {
         // Delete the event triggers
         $this->load->model('setting/event');

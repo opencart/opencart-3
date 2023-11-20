@@ -7,7 +7,9 @@
 class ControllerExtensionPaymentKlarnaAccount extends Controller {
     private array $error = [];
     private array $pclasses = [];
-
+	/**
+	 * @return void
+	 */
     public function index(): void {
         $this->load->language('extension/payment/klarna_account');
 
@@ -317,7 +319,9 @@ class ControllerExtensionPaymentKlarnaAccount extends Controller {
 
         return $value;
     }
-
+	/**
+	 * @return void
+	 */
     public function clear(): void {
         $this->load->language('extension/payment/klarna_account');
 

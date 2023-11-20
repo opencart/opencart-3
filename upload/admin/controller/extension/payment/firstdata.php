@@ -6,7 +6,9 @@
  */
 class ControllerExtensionPaymentFirstdata extends Controller {
     private array $error = [];
-
+	/**
+	 * @return void
+	 */
     public function index(): void {
         $this->load->language('extension/payment/firstdata');
 
@@ -197,21 +199,27 @@ class ControllerExtensionPaymentFirstdata extends Controller {
 
         $this->response->setOutput($this->load->view('extension/payment/firstdata', $data));
     }
-
+	/**
+	 * @return void
+	 */
     public function install(): void {
         // Firstdata
         $this->load->model('extension/payment/firstdata');
 
         $this->model_extension_payment_firstdata->install();
     }
-
+	/**
+	 * @return void
+	 */
     public function uninstall(): void {
         // Firstdata
         $this->load->model('extension/payment/firstdata');
 
         $this->model_extension_payment_firstdata->uninstall();
     }
-
+	/**
+	 * @return string
+	 */
     public function order(): string {
         if ($this->config->get('payment_firstdata_status')) {
             // Firstdata
@@ -288,7 +296,9 @@ class ControllerExtensionPaymentFirstdata extends Controller {
             return '';
         }
     }
-
+	/**
+	 * @return void
+	 */
     public function void(): void {
         $this->load->language('extension/payment/firstdata');
 
@@ -306,7 +316,9 @@ class ControllerExtensionPaymentFirstdata extends Controller {
 
         $this->response->redirect($this->url->link('sale/order/info', 'order_id=' . $this->request->post['order_id'] . '&user_token=' . $this->session->data['user_token'], true));
     }
-
+	/**
+	 * @return void
+	 */
     public function capture(): void {
         $this->load->language('extension/payment/firstdata');
 

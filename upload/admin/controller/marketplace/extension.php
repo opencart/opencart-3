@@ -6,7 +6,9 @@
  */
 class ControllerMarketplaceExtension extends Controller {
     private array $error = [];
-
+	/**
+	 * @return void
+	 */
     public function index(): void {
         $this->load->language('marketplace/extension');
 

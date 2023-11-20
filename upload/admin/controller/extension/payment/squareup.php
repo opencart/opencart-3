@@ -6,7 +6,9 @@
  */
 class ControllerExtensionPaymentSquareup extends Controller {
     private array $error = [];
-
+	/**
+	 * @return void
+	 */
     public function index(): void {
         $this->load->language('extension/payment/squareup');
 
@@ -308,7 +310,9 @@ class ControllerExtensionPaymentSquareup extends Controller {
 
         $this->response->setOutput($this->load->view('extension/payment/squareup', $data));
     }
-
+	/**
+	 * @return void
+	 */
     public function transaction_info(): void {
         $this->load->language('extension/payment/squareup');
 
@@ -368,7 +372,6 @@ class ControllerExtensionPaymentSquareup extends Controller {
         $data['url_void'] = $this->url->link('extension/payment/squareup' . '/void', 'user_token=' . $this->session->data['user_token'] . '&preserve_alert=true&squareup_transaction_id=' . $transaction_info['squareup_transaction_id'], true);
         $data['url_capture'] = $this->url->link('extension/payment/squareup' . '/capture', 'user_token=' . $this->session->data['user_token'] . '&preserve_alert=true&squareup_transaction_id=' . $transaction_info['squareup_transaction_id'], true);
         $data['url_refund'] = $this->url->link('extension/payment/squareup' . '/refund', 'user_token=' . $this->session->data['user_token'] . '&preserve_alert=true&squareup_transaction_id=' . $transaction_info['squareup_transaction_id'], true);
-
         $data['url_transaction'] = sprintf(Squareup::VIEW_TRANSACTION_URL, $transaction_info['transaction_id'], $transaction_info['location_id']);
 
         $data['is_authorized'] = in_array($transaction_info['transaction_type'], ['AUTHORIZED']);
@@ -448,7 +451,9 @@ class ControllerExtensionPaymentSquareup extends Controller {
 
         $this->response->setOutput($this->load->view('extension/payment/squareup_transaction_info', $data));
     }
-
+	/**
+	 * @return void
+	 */
     public function transactions(): void {
         $this->load->language('extension/payment/squareup');
 
@@ -519,7 +524,9 @@ class ControllerExtensionPaymentSquareup extends Controller {
         $this->response->addHeader('Content-Type: application/json');
         $this->response->setOutput(json_encode($result));
     }
-
+	/**
+	 * @return void
+	 */
     public function refresh_token(): void {
         $this->load->language('extension/payment/squareup');
 
@@ -572,7 +579,9 @@ class ControllerExtensionPaymentSquareup extends Controller {
 
         $this->response->redirect($this->url->link('extension/payment/squareup', 'user_token=' . $this->session->data['user_token'], true));
     }
-
+	/**
+	 * @return void
+	 */
     public function oauth_callback() {
         $this->load->language('extension/payment/squareup');
 
@@ -677,7 +686,9 @@ class ControllerExtensionPaymentSquareup extends Controller {
 
         $this->response->redirect($this->url->link('extension/payment/squareup', 'user_token=' . $this->session->data['user_token'], true));
     }
-
+	/**
+	 * @return void
+	 */
     public function capture(): void {
         $this->transactionAction(function ($transaction_info, &$json) {
             $updated_transaction = $this->squareup->captureTransaction($transaction_info['location_id'], $transaction_info['transaction_id']);
@@ -696,7 +707,9 @@ class ControllerExtensionPaymentSquareup extends Controller {
             $json['success'] = $this->language->get('text_success_capture');
         });
     }
-
+	/**
+	 * @return void
+	 */
     public function void(): void {
         $this->transactionAction(function ($transaction_info, &$json) {
             $updated_transaction = $this->squareup->voidTransaction($transaction_info['location_id'], $transaction_info['transaction_id']);
@@ -715,7 +728,9 @@ class ControllerExtensionPaymentSquareup extends Controller {
             $json['success'] = $this->language->get('text_success_void');
         });
     }
-
+	/**
+	 * @return void
+	 */
     public function refund(): void {
         $this->transactionAction(function ($transaction_info, &$json) {
             if (!empty($this->request->post['reason'])) {
@@ -773,7 +788,9 @@ class ControllerExtensionPaymentSquareup extends Controller {
             }
         });
     }
-
+	/**
+	 * @return string
+	 */
     public function order(): string {
         $this->load->language('extension/payment/squareup');
 
@@ -807,21 +824,27 @@ class ControllerExtensionPaymentSquareup extends Controller {
 
         return $this->load->view('extension/payment/squareup_order', $data);
     }
-
+	/**
+	 * @return void
+	 */
     public function install(): void {
         // Squareup
         $this->load->model('extension/payment/squareup');
 
         $this->model_extension_payment_squareup->createTables();
     }
-
+	/**
+	 * @return void
+	 */
     public function uninstall(): void {
         // Squareup
         $this->load->model('extension/payment/squareup');
 
         $this->model_extension_payment_squareup->dropTables();
     }
-
+	/**
+	 * @return string
+	 */
     public function recurringButtons(): string {
         $this->load->language('extension/payment/squareup');
 
@@ -886,7 +909,9 @@ class ControllerExtensionPaymentSquareup extends Controller {
 
         return $this->load->view('extension/payment/squareup_recurring_buttons', $data);
     }
-
+	/**
+	 * @return void
+	 */
     public function recurringCancel(): void {
         $this->load->language('extension/payment/squareup');
 

@@ -5,7 +5,11 @@
  * @package Admin\Controller\Mail
  */
 class ControllerMailTransaction extends Controller {
-    // admin/model/customer/customer/addTransaction/after
+	/**
+	 * @return void
+	 *
+     * admin/model/customer/customer/addTransaction/after
+	 */
     public function deny(string &$route, array &$args, mixed &$output): void {
         if (isset($args[0])) {
             $customer_id = $args[0];

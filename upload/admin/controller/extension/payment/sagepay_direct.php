@@ -6,7 +6,9 @@
  */
 class ControllerExtensionPaymentSagepayDirect extends Controller {
     private array $error = [];
-
+	/**
+	 * @return void
+	 */
     public function index(): void {
         $this->load->language('extension/payment/sagepay_direct');
 
@@ -147,21 +149,27 @@ class ControllerExtensionPaymentSagepayDirect extends Controller {
 
         $this->response->setOutput($this->load->view('extension/payment/sagepay_direct', $data));
     }
-
+	/**
+	 * @return void
+	 */
     public function install(): void {
         // Sagepay Direct
         $this->load->model('extension/payment/sagepay_direct');
 
         $this->model_extension_payment_sagepay_direct->install();
     }
-
+	/**
+	 * @return void
+	 */
     public function uninstall(): void {
         // Sagepay Direct
         $this->load->model('extension/payment/sagepay_direct');
 
         $this->model_extension_payment_sagepay_direct->uninstall();
     }
-
+	/**
+	 * @return string
+	 */
     public function order(): string {
         if ($this->config->get('payment_sagepay_direct_status')) {
             // Sagepay Direct
@@ -193,7 +201,9 @@ class ControllerExtensionPaymentSagepayDirect extends Controller {
             return '';
         }
     }
-
+	/**
+	 * @return void
+	 */
     public function void(): void {
         $this->load->language('extension/payment/sagepay_direct');
 
@@ -233,7 +243,9 @@ class ControllerExtensionPaymentSagepayDirect extends Controller {
         $this->response->addHeader('Content-Type: application/json');
         $this->response->setOutput(json_encode($json));
     }
-
+	/**
+	 * @return void
+	 */
     public function release(): void {
         $this->load->language('extension/payment/sagepay_direct');
 
@@ -283,7 +295,9 @@ class ControllerExtensionPaymentSagepayDirect extends Controller {
         $this->response->addHeader('Content-Type: application/json');
         $this->response->setOutput(json_encode($json));
     }
-
+	/**
+	 * @return void
+	 */
     public function rebate(): void {
         $this->load->language('extension/payment/sagepay_direct');
 

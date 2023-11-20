@@ -5,7 +5,11 @@
  * @package Admin\Controller\Mail
  */
 class ControllerMailGdpr extends Controller {
-	// admin/model/customer/gdpr/editStatus
+	/**
+	 * @return void
+	 *
+	 * admin/model/customer/gdpr/editStatus
+	 */
 	public function index(&$route, &$args, &$output): void {
 		$this->load->model('customer/gdpr');
 
@@ -35,7 +39,9 @@ class ControllerMailGdpr extends Controller {
 			}
 		}
 	}
-
+	/**
+	 * @return void
+	 */
 	public function export(array $gdpr_info): void {
 		$this->load->language('mail/gdpr_export');
 
@@ -179,7 +185,9 @@ class ControllerMailGdpr extends Controller {
 		$mail->setHtml($this->load->view('mail/gdpr_export', $data));
 		$mail->send();
 	}
-
+	/**
+	 * @return void
+	 */
 	public function approve(array $gdpr_info): void {
 		$this->load->model('setting/store');
 
@@ -241,7 +249,9 @@ class ControllerMailGdpr extends Controller {
 		$mail->setHtml($this->load->view('mail/gdpr_approve', $data));
 		$mail->send();
 	}
-
+	/**
+	 * @return void
+	 */
 	public function deny(array $gdpr_info): void {
 		$this->load->language('mail/gdpr_deny');
 
@@ -304,7 +314,9 @@ class ControllerMailGdpr extends Controller {
 		$mail->setHtml($this->load->view('mail/gdpr_deny', $data));
 		$mail->send();
 	}
-
+	/**
+	 * @return void
+	 */
 	public function remove(array $gdpr_info): void {
 		$this->load->language('mail/gdpr_delete');
 

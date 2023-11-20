@@ -6,7 +6,9 @@
  */
 class ControllerExtensionFraudFraudLabsPro extends Controller {
     private array $error = [];
-
+	/**
+	 * @return void
+	 */
     public function index(): void {
         $this->load->language('extension/fraud/fraudlabspro');
 
@@ -114,14 +116,18 @@ class ControllerExtensionFraudFraudLabsPro extends Controller {
 
         $this->response->setOutput($this->load->view('extension/fraud/fraudlabspro', $data));
     }
-
+	/**
+	 * @return void
+	 */
     public function install(): void {
         // Fraud Labs Pro
         $this->load->model('extension/fraud/fraudlabspro');
 
         $this->model_extension_fraud_fraudlabspro->install();
     }
-
+	/**
+	 * @return void
+	 */
     public function uninstall(): void {
         // Fraud Labs Pro
         $this->load->model('extension/fraud/fraudlabspro');
@@ -140,7 +146,9 @@ class ControllerExtensionFraudFraudLabsPro extends Controller {
 
         return !$this->error;
     }
-
+	/**
+	 * @return string
+	 */
     public function order(): string {
         $this->load->language('extension/fraud/fraudlabspro');
 

@@ -6,7 +6,9 @@
  */
 class ControllerExtensionPaymentAuthorizenetAim extends Controller {
     private array $error = [];
-
+	/**
+	 * @return void
+	 */
     public function index(): void {
         $this->load->language('extension/payment/authorizenet_aim');
 

@@ -5,6 +5,9 @@
  * @package Admin\Controller\Marketplace
  */
 class ControllerMarketplaceMarketplace extends Controller {
+	/**
+	 * @return void
+	 */
     public function index(): void {
         $this->load->language('marketplace/marketplace');
 
@@ -675,7 +678,9 @@ class ControllerMarketplaceMarketplace extends Controller {
             return new \Action('error/not_found');
         }
     }
-
+	/**
+	 * @return void
+	 */
     public function purchase(): void {
         $this->load->language('marketplace/marketplace');
 
@@ -745,7 +750,9 @@ class ControllerMarketplaceMarketplace extends Controller {
         $this->response->addHeader('Content-Type: application/json');
         $this->response->setOutput(json_encode($json));
     }
-
+	/**
+	 * @return void
+	 */
     public function download(): void {
         $this->load->language('marketplace/marketplace');
 
@@ -895,7 +902,9 @@ class ControllerMarketplaceMarketplace extends Controller {
         $this->response->addHeader('Content-Type: application/json');
         $this->response->setOutput(json_encode($json));
     }
-
+	/**
+	 * @return void
+	 */
     public function addComment(): void {
         $this->load->language('marketplace/marketplace');
 
@@ -971,7 +980,9 @@ class ControllerMarketplaceMarketplace extends Controller {
         $this->response->addHeader('Content-Type: application/json');
         $this->response->setOutput(json_encode($json));
     }
-
+	/**
+	 * @return void
+	 */
     public function comment(): void {
         $this->load->language('marketplace/marketplace');
 
@@ -1042,7 +1053,9 @@ class ControllerMarketplaceMarketplace extends Controller {
 
         $this->response->setOutput($this->load->view('marketplace/marketplace_comment', $data));
     }
-
+	/**
+	 * @return void
+	 */
     public function reply(): void {
         $this->load->language('marketplace/marketplace');
 

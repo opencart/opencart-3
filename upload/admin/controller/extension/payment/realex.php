@@ -6,7 +6,9 @@
  */
 class ControllerExtensionPaymentRealex extends Controller {
     private array $error = [];
-
+	/**
+	 * @return void
+	 */
     public function index(): void {
         $this->load->language('extension/payment/realex');
 
@@ -225,14 +227,18 @@ class ControllerExtensionPaymentRealex extends Controller {
 
         $this->response->setOutput($this->load->view('extension/payment/realex', $data));
     }
-
+	/**
+	 * @return void
+	 */
     public function install(): void {
         // Realex
         $this->load->model('extension/payment/realex');
 
         $this->model_extension_payment_realex->install();
     }
-
+	/**
+	 * @return string
+	 */
     public function order(): string {
         if ($this->config->get('payment_realex_status')) {
             // Realex
@@ -260,7 +266,9 @@ class ControllerExtensionPaymentRealex extends Controller {
             return '';
         }
     }
-
+	/**
+	 * @return void
+	 */
     public function void(): void {
         $this->load->language('extension/payment/realex');
 
@@ -301,7 +309,9 @@ class ControllerExtensionPaymentRealex extends Controller {
         $this->response->addHeader('Content-Type: application/json');
         $this->response->setOutput(json_encode($json));
     }
-
+	/**
+	 * @return void
+	 */
     public function capture(): void {
         $this->load->language('extension/payment/realex');
 
@@ -358,7 +368,9 @@ class ControllerExtensionPaymentRealex extends Controller {
         $this->response->addHeader('Content-Type: application/json');
         $this->response->setOutput(json_encode($json));
     }
-
+	/**
+	 * @return void
+	 */
     public function rebate(): void {
         $this->load->language('extension/payment/realex');
 

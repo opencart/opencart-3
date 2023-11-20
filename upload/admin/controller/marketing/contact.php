@@ -6,7 +6,9 @@
  */
 class ControllerMarketingContact extends Controller {
     private array $error = [];
-
+	/**
+	 * @return void
+	 */
     public function index(): void {
         $this->load->language('marketing/contact');
 
@@ -44,7 +46,9 @@ class ControllerMarketingContact extends Controller {
 
         $this->response->setOutput($this->load->view('marketing/contact', $data));
     }
-
+	/**
+	 * @return void
+	 */
     public function send(): void {
         $this->load->language('marketing/contact');
 

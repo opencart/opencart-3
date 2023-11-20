@@ -25,8 +25,11 @@ class ControllerExtensionExtensionPromotion extends Controller {
             return '';
         }
     }
-
-    // admin/controller/extension/extension/promotion/after
+	/**
+	 * @return void
+	 *
+     * admin/controller/extension/extension/promotion/after
+	 */
     public function getList(string &$route, array &$args, mixed &$output): void {
         if ($this->request->get['route'] == 'extension/extension/promotion') {
             $this->load->language('extension/extension/promotion');

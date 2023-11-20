@@ -5,6 +5,9 @@
  * @package Admin\Controller\Startup
  */
 class ControllerStartupEvent extends Controller {
+	/**
+	 * @return void
+	 */
     public function index(): void {
         // Add events from the DB
 

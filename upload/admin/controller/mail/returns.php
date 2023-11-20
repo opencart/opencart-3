@@ -5,7 +5,11 @@
  * @package Admin\Controller\Mail
  */
 class ControllerMailReturns extends Controller {
-    // admin/model/sale/returns/addHistory/after
+	/**
+	 * @return void
+	 *
+     * admin/model/sale/returns/addHistory/after
+	 */
     public function deny(string &$route, array &$args, mixed &$output): void {
         if (isset($args[0])) {
             $return_id = $args[0];

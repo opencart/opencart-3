@@ -6,7 +6,9 @@
  */
 class ControllerExtensionPaymentKlarnaCheckout extends Controller {
     private array $error = [];
-
+	/**
+	 * @return void
+	 */
     public function index(): void {
         $this->load->language('extension/payment/klarna_checkout');
 
@@ -317,7 +319,9 @@ class ControllerExtensionPaymentKlarnaCheckout extends Controller {
 
         $this->response->setOutput($this->load->view('extension/payment/klarna_checkout', $data));
     }
-
+	/**
+	 * @return string
+	 */
     public function order(): string {
         $this->load->language('extension/payment/klarna_checkout');
 
@@ -327,7 +331,9 @@ class ControllerExtensionPaymentKlarnaCheckout extends Controller {
 
         return $this->load->view('extension/payment/klarna_checkout_order', $data);
     }
-
+	/**
+	 * @return void
+	 */
     public function getTransaction(): void {
         if (!$this->config->get('payment_klarna_checkout_status') || !isset($this->request->get['order_id'])) {
             return;
@@ -577,21 +583,27 @@ class ControllerExtensionPaymentKlarnaCheckout extends Controller {
 
         $this->response->setOutput($this->load->view('extension/payment/klarna_checkout_order_ajax', $data));
     }
-
+	/**
+	 * @return void
+	 */
     public function install(): void {
         // Klarna Checkout
         $this->load->model('extension/payment/klarna_checkout');
 
         $this->model_extension_payment_klarna_checkout->install();
     }
-
+	/**
+	 * @return void
+	 */
     public function uninstall(): void {
         // Klarna Checkout
         $this->load->model('extension/payment/klarna_checkout');
 
         $this->model_extension_payment_klarna_checkout->uninstall();
     }
-
+	/**
+	 * @return void
+	 */
     public function transactionCommand(): void {
         // Orders
         $this->load->model('sale/order');
@@ -680,7 +692,7 @@ class ControllerExtensionPaymentKlarnaCheckout extends Controller {
 
         $new_klarna_status = $klarna_order['status'];
 
-        $order_status_id = '';
+        $order_status_id = 0;
 
         if ($old_klarna_status != $new_klarna_status) {
             switch ($klarna_order['status']) {
@@ -722,7 +734,9 @@ class ControllerExtensionPaymentKlarnaCheckout extends Controller {
         $this->response->addHeader('Content-Type: application/json');
         $this->response->setOutput(json_encode($json));
     }
-
+	/**
+	 * @return void
+	 */
     public function downloadSettlementFiles(): void {
         // Klarna Checkout
         $this->load->language('extension/payment/klarna_checkout');

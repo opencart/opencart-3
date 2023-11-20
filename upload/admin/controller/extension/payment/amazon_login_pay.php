@@ -7,7 +7,9 @@
 class ControllerExtensionPaymentAmazonLoginPay extends Controller {
     private string $version = '3.2.1';
     private array $error = [];
-
+	/**
+	 * @return void
+	 */
     public function index(): void {
         $this->load->language('extension/payment/amazon_login_pay');
 
@@ -398,7 +400,9 @@ class ControllerExtensionPaymentAmazonLoginPay extends Controller {
 
         $this->response->setOutput($this->load->view('extension/payment/amazon_login_pay', $data));
     }
-
+	/**
+	 * @return void
+	 */
     public function install(): void {
         // Amazon Login Pay
         $this->load->model('extension/payment/amazon_login_pay');
@@ -407,7 +411,9 @@ class ControllerExtensionPaymentAmazonLoginPay extends Controller {
         $this->model_extension_payment_amazon_login_pay->deleteEvents();
         $this->model_extension_payment_amazon_login_pay->addEvents();
     }
-
+	/**
+	 * @return void
+	 */
     public function uninstall(): void {
         // Settings
         $this->load->model('setting/event');
@@ -418,7 +424,9 @@ class ControllerExtensionPaymentAmazonLoginPay extends Controller {
         $this->model_extension_payment_amazon_login_pay->uninstall();
         $this->model_extension_payment_amazon_login_pay->deleteEvents();
     }
-
+	/**
+	 * @return string
+	 */
     public function order(): string {
         if ($this->config->get('payment_amazon_login_pay_status')) {
             // Amazon Login Pay
@@ -447,7 +455,9 @@ class ControllerExtensionPaymentAmazonLoginPay extends Controller {
             return '';
         }
     }
-
+	/**
+	 * @return void
+	 */
     public function cancel(): void {
         $this->load->language('extension/payment/amazon_login_pay');
 
@@ -491,8 +501,10 @@ class ControllerExtensionPaymentAmazonLoginPay extends Controller {
         $this->response->addHeader('Content-Type: application/json');
         $this->response->setOutput(json_encode($json));
     }
-
-    public function capture() {
+	/**
+	 * @return void
+	 */
+    public function capture(): void {
         $this->load->language('extension/payment/amazon_login_pay');
 
         $json = [];
@@ -559,7 +571,9 @@ class ControllerExtensionPaymentAmazonLoginPay extends Controller {
         $this->response->addHeader('Content-Type: application/json');
         $this->response->setOutput(json_encode($json));
     }
-
+	/**
+	 * @return void
+	 */
     public function refund(): void {
         $this->load->language('extension/payment/amazon_login_pay');
 

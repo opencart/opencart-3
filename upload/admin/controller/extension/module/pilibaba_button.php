@@ -5,6 +5,9 @@
  * @package Admin\Controller\Extension\Module
  */
 class ControllerExtensionModulePilibabaButton extends Controller {
+	/**
+	 * @return void
+	 */
     public function index(): void {
         $this->load->language('extension/module/pilibaba_button');
 

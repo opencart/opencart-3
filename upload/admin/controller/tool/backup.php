@@ -5,6 +5,9 @@
  * @package Admin\Controller\Tool
  */
 class ControllerToolBackup extends Controller {
+	/**
+	 * @return void
+	 */
     public function index(): void {
         $this->load->language('tool/backup');
 
@@ -45,7 +48,9 @@ class ControllerToolBackup extends Controller {
 
         $this->response->setOutput($this->load->view('tool/backup', $data));
     }
-
+	/**
+	 * @return void
+	 */
     public function import(): void {
         $this->load->language('tool/backup');
 
@@ -137,7 +142,9 @@ class ControllerToolBackup extends Controller {
         $this->response->addHeader('Content-Type: application/json');
         $this->response->setOutput(json_encode($json));
     }
-
+	/**
+	 * @return void
+	 */
     public function export(): void {
         $this->load->language('tool/backup');
 

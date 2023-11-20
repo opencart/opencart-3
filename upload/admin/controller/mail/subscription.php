@@ -5,7 +5,11 @@
  * @package Admin\Controller\Mail
  */
 class ControllerMailSubscription extends Controller {
-    // admin/controller/sale/subscription/addHistory/after
+	/**
+	 * @return void
+	 *
+     * admin/controller/sale/subscription/addHistory/after
+	 */
     public function history(string &$route, array &$args, mixed &$output): void {
         if (isset($args[0])) {
             $subscription_id = $args[0];
@@ -136,8 +140,11 @@ class ControllerMailSubscription extends Controller {
             }
         }
     }
-
-    // admin/controller/sale/subscription/addTransaction/after
+	/**
+	 * @return void
+	 *
+     * admin/controller/sale/subscription/addTransaction/after
+	 */
     public function transaction(string &$route, array &$args, mixed &$output): void {
         if (isset($args[0])) {
             $subscription_id = $args[0];

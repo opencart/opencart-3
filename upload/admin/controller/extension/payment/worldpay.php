@@ -6,7 +6,9 @@
  */
 class ControllerExtensionPaymentWorldpay extends Controller {
     private array $error = [];
-
+	/**
+	 * @return void
+	 */
     public function index(): void {
         $this->load->language('extension/payment/worldpay');
 
@@ -197,21 +199,27 @@ class ControllerExtensionPaymentWorldpay extends Controller {
 
         $this->response->setOutput($this->load->view('extension/payment/worldpay', $data));
     }
-
+	/**
+	 * @return void
+	 */
     public function install(): void {
         // Worldpay
         $this->load->model('extension/payment/worldpay');
 
         $this->model_extension_payment_worldpay->install();
     }
-
+	/**
+	 * @return void
+	 */
     public function uninstall(): void {
         // Worldpay
         $this->load->model('extension/payment/worldpay');
 
         $this->model_extension_payment_worldpay->uninstall();
     }
-
+	/**
+	 * @return string
+	 */
     public function order(): string {
         if ($this->config->get('payment_worldpay_status')) {
             // Worldpay
@@ -241,7 +249,9 @@ class ControllerExtensionPaymentWorldpay extends Controller {
             return '';
         }
     }
-
+	/**
+	 * @return void
+	 */
     public function refund(): void {
         $this->load->language('extension/payment/worldpay');
 

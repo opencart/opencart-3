@@ -6,7 +6,9 @@
  */
 class ControllerSaleRecurring extends Controller {
 	private $error = [];
-
+	/**
+	 * @return void
+	 */
 	public function index(): void {
 		$this->load->language('sale/recurring');
 
@@ -295,7 +297,9 @@ class ControllerSaleRecurring extends Controller {
 
 		$this->response->setOutput($this->load->view('sale/recurring_list', $data));
 	}
-
+	/**
+	 * @return void
+	 */
 	public function info(): object|null {
 		$this->load->model('sale/recurring');
 

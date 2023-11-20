@@ -6,7 +6,9 @@
  */
 class ControllerExtensionShippingParcelforce48 extends Controller {
     private array $error = [];
-
+	/**
+	 * @return void
+	 */
     public function index(): void {
         $this->load->language('extension/shipping/parcelforce_48');
 

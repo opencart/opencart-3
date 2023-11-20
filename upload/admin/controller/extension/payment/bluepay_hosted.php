@@ -5,6 +5,9 @@
  * @package Admin\Controller\Extension\Payment
  */
 class ControllerExtensionPaymentBluePayHosted extends Controller {
+	/**
+	 * @return void
+	 */
     public function index(): string {
         $this->load->language('extension/payment/bluepay_hosted');
 
@@ -59,7 +62,9 @@ class ControllerExtensionPaymentBluePayHosted extends Controller {
 
         return $this->load->view('extension/payment/bluepay_hosted', $data);
     }
-
+	/**
+	 * @return void
+	 */
     public function callback(): void {
         $this->load->language('extension/payment/bluepay_hosted');
 
@@ -95,7 +100,9 @@ class ControllerExtensionPaymentBluePayHosted extends Controller {
             $this->response->redirect($this->url->link('account/login', '', true));
         }
     }
-
+	/**
+	 * @return void
+	 */
     public function adminCallback(): void {
         $this->response->addHeader('Content-Type: application/json');
         $this->response->setOutput(json_encode($this->request->get));

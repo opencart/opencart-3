@@ -5,7 +5,11 @@
  * @package Admin\Controller\Mail
  */
 class ControllerMailAffiliate extends Controller {
-    // admin/model/customer/customer_approval/approveAffiliate/after
+	/**
+	 * @return void
+	 *
+     * admin/model/customer/customer_approval/approveAffiliate/after
+	 */
     public function approve(string &$route, array &$args, mixed &$output): void {
         // Customers
         $this->load->model('customer/customer');
@@ -68,8 +72,11 @@ class ControllerMailAffiliate extends Controller {
             }
         }
     }
-
-    // admin/model/customer/customer_approval/denyAffiliate/after
+	/**
+	 * @return void
+	 *
+     * admin/model/customer/customer_approval/denyAffiliate/after
+	 */
     public function deny(string &$route, array &$args, mixed &$output): void {
         // Customers
         $this->load->model('customer/customer');

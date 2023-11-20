@@ -6,8 +6,10 @@
  */
 class ControllerExtensionCurrencyEcb extends Controller {
     private array $error = [];
-
-    public function index() {
+	/**
+	 * @return void
+	 */
+    public function index(): void {
         $this->load->language('extension/currency/ecb');
 
         $this->document->setTitle($this->language->get('heading_title'));
@@ -103,8 +105,10 @@ class ControllerExtensionCurrencyEcb extends Controller {
 
         return !$this->error;
     }
-
-    public function install() {
+	/**
+	 * @return void
+	 */
+    public function install(): void {
         // Add event handlers
         $this->load->model('setting/event');
 
@@ -115,8 +119,10 @@ class ControllerExtensionCurrencyEcb extends Controller {
 
         $this->model_setting_event->addEvent($code, $app . $trigger, $route);
     }
-
-    public function uninstall() {
+	/**
+	 * @return void
+	 */
+    public function uninstall(): void {
         // Remove event handlers
         $this->load->model('setting/event');
 
@@ -124,7 +130,9 @@ class ControllerExtensionCurrencyEcb extends Controller {
 
         $this->model_setting_event->deleteEventByCode($code);
     }
-
+	/**
+	 * @return bool|null
+	 */
     public function currency(): bool|null {
         if ($this->config->get('currency_ecb_status')) {
             if ($this->config->get('config_currency_engine') == 'ecb') {

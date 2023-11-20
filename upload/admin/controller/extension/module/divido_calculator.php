@@ -6,7 +6,9 @@
  */
 class ControllerExtensionModuleDividoCalculator extends Controller {
     private array $error = [];
-
+	/**
+	 * @return void
+	 */
     public function index(): void {
         $this->load->language('extension/module/divido_calculator');
 

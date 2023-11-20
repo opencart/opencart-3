@@ -5,6 +5,9 @@
  * @package Admin\Controller\Extension\Report
  */
 class ControllerExtensionReportSaleReturn extends Controller {
+	/**
+	 * @return void
+	 */
     public function index(): void {
         $this->load->language('extension/report/sale_return');
 
@@ -73,7 +76,9 @@ class ControllerExtensionReportSaleReturn extends Controller {
 
         return !$this->error;
     }
-
+	/**
+	 * @return string
+	 */
     public function report(): string {
         $this->load->language('extension/report/sale_return');
 

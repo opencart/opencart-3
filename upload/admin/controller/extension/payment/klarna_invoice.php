@@ -6,7 +6,9 @@
  */
 class ControllerExtensionPaymentKlarnaInvoice extends Controller {
     private array $error = [];
-
+	/**
+	 * @return void
+	 */
     public function index(): void {
         $this->load->language('extension/payment/klarna_invoice');
 
@@ -184,7 +186,9 @@ class ControllerExtensionPaymentKlarnaInvoice extends Controller {
 
         return $value;
     }
-
+	/**
+	 * @return void
+	 */
     public function clear(): void {
         $this->load->language('extension/payment/klarna_invoice');
 

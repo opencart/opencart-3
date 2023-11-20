@@ -6,7 +6,9 @@
  */
 class ControllerExtensionPaymentFirstdataRemote extends Controller {
     private array $error = [];
-
+	/**
+	 * @return void
+	 */
     public function index(): void {
         $this->load->language('extension/payment/firstdata_remote');
 
@@ -246,21 +248,27 @@ class ControllerExtensionPaymentFirstdataRemote extends Controller {
 
         $this->response->setOutput($this->load->view('extension/payment/firstdata_remote', $data));
     }
-
+	/**
+	 * @return void
+	 */
     public function install(): void {
         // Firstdata Remote
         $this->load->model('extension/payment/firstdata_remote');
 
         $this->model_extension_payment_firstdata_remote->install();
     }
-
+	/**
+	 * @return void
+	 */
     public function uninstall(): void {
         // Firstdata Remote
         $this->load->model('extension/payment/firstdata_remote');
 
         $this->model_extension_payment_firstdata_remote->uninstall();
     }
-
+	/**
+	 * @return string
+	 */
     public function order(): string {
         if ($this->config->get('payment_firstdata_remote_status')) {
             // Firstdata Remote
@@ -289,7 +297,9 @@ class ControllerExtensionPaymentFirstdataRemote extends Controller {
             return '';
         }
     }
-
+	/**
+	 * @return void
+	 */
     public function void(): void {
         $this->load->language('extension/payment/firstdata_remote');
 
@@ -331,7 +341,9 @@ class ControllerExtensionPaymentFirstdataRemote extends Controller {
         $this->response->addHeader('Content-Type: application/json');
         $this->response->setOutput(json_encode($json));
     }
-
+	/**
+	 * @return void
+	 */
     public function capture(): void {
         $this->load->language('extension/payment/firstdata');
 
@@ -381,7 +393,9 @@ class ControllerExtensionPaymentFirstdataRemote extends Controller {
         $this->response->addHeader('Content-Type: application/json');
         $this->response->setOutput(json_encode($json));
     }
-
+	/**
+	 * @return void
+	 */
     public function refund(): void {
         $this->load->language('extension/payment/firstdata_remote');
 

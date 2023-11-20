@@ -6,7 +6,9 @@
  */
 class ControllerExtensionPaymentEway extends Controller {
     private array $error = [];
-
+	/**
+	 * @return void
+	 */
     public function index(): void {
         $this->load->language('extension/payment/eway');
 
@@ -167,14 +169,18 @@ class ControllerExtensionPaymentEway extends Controller {
 
         $this->response->setOutput($this->load->view('extension/payment/eway', $data));
     }
-
+	/**
+	 * @return void
+	 */
     public function install(): void {
         // Eway
         $this->load->model('extension/payment/eway');
 
         $this->model_extension_payment_eway->install();
     }
-
+	/**
+	 * @return void
+	 */
     public function uninstall(): void {
         // Eway
         $this->load->model('extension/payment/eway');
@@ -191,7 +197,9 @@ class ControllerExtensionPaymentEway extends Controller {
     public function action() {
         return $this->order();
     }
-
+	/**
+	 * @return string
+	 */
     public function order(): string {
         if ($this->config->get('payment_eway_status')) {
             // Eway
@@ -227,7 +235,9 @@ class ControllerExtensionPaymentEway extends Controller {
             return '';
         }
     }
-
+	/**
+	 * @return void
+	 */
     public function refund(): void {
         $this->load->language('extension/payment/eway');
 
@@ -302,7 +312,9 @@ class ControllerExtensionPaymentEway extends Controller {
         $this->response->addHeader('Content-Type: application/json');
         $this->response->setOutput(json_encode($json));
     }
-
+	/**
+	 * @return void
+	 */
     public function capture(): void {
         $this->load->language('extension/payment/eway');
 

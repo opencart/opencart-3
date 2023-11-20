@@ -5,6 +5,9 @@
  * @package Admin\Controller\Startup
  */
 class ControllerStartupApplication extends Controller {
+	/**
+	 * @return void
+	 */
     public function index(): void {
         // Url
         $this->registry->set('url', new \Url($this->config->get('site_url')));

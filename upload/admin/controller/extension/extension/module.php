@@ -6,7 +6,9 @@
  */
 class ControllerExtensionExtensionModule extends Controller {
     private array $error = [];
-
+	/**
+	 * @return void
+	 */
     public function index(): void {
         $this->load->language('extension/extension/module');
 
@@ -18,7 +20,9 @@ class ControllerExtensionExtensionModule extends Controller {
 
         $this->getList();
     }
-
+	/**
+	 * @return void
+	 */
     public function install(): void {
         $this->load->language('extension/extension/module');
 
@@ -47,7 +51,9 @@ class ControllerExtensionExtensionModule extends Controller {
 
         $this->getList();
     }
-
+	/**
+	 * @return void
+	 */
     public function uninstall(): void {
         $this->load->language('extension/extension/module');
 
@@ -70,7 +76,9 @@ class ControllerExtensionExtensionModule extends Controller {
 
         $this->getList();
     }
-
+	/**
+	 * @return void
+	 */
     public function add(): void {
         $this->load->language('extension/extension/module');
 
@@ -90,7 +98,9 @@ class ControllerExtensionExtensionModule extends Controller {
 
         $this->getList();
     }
-
+	/**
+	 * @return void
+	 */
     public function delete(): void {
         $this->load->language('extension/extension/module');
 

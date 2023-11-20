@@ -6,7 +6,9 @@
  */
 class ControllerExtensionPaymentSagepayServer extends Controller {
     private array $error = [];
-
+	/**
+	 * @return void
+	 */
     public function index(): void {
         $this->load->language('extension/payment/sagepay_server');
 
@@ -146,19 +148,25 @@ class ControllerExtensionPaymentSagepayServer extends Controller {
 
         $this->response->setOutput($this->load->view('extension/payment/sagepay_server', $data));
     }
-
+	/**
+	 * @return void
+	 */
     public function install(): void {
         $this->load->model('extension/payment/sagepay_server');
 
         $this->model_extension_payment_sagepay_server->install();
     }
-
+	/**
+	 * @return void
+	 */
     public function uninstall(): void {
         $this->load->model('extension/payment/sagepay_server');
 
         $this->model_extension_payment_sagepay_server->uninstall();
     }
-
+	/**
+	 * @return string
+	 */
     public function order(): string {
         if ($this->config->get('payment_sagepay_server_status')) {
             $this->load->model('extension/payment/sagepay_server');
@@ -185,7 +193,9 @@ class ControllerExtensionPaymentSagepayServer extends Controller {
             return '';
         }
     }
-
+	/**
+	 * @return void
+	 */
     public function void(): void {
         $this->load->language('extension/payment/sagepay_server');
 
@@ -225,7 +235,9 @@ class ControllerExtensionPaymentSagepayServer extends Controller {
         $this->response->addHeader('Content-Type: application/json');
         $this->response->setOutput(json_encode($json));
     }
-
+	/**
+	 * @return void
+	 */
     public function release(): void {
         $this->load->language('extension/payment/sagepay_server');
 
@@ -279,7 +291,9 @@ class ControllerExtensionPaymentSagepayServer extends Controller {
         $this->response->addHeader('Content-Type: application/json');
         $this->response->setOutput(json_encode($json));
     }
-
+	/**
+	 * @return void
+	 */
     public function rebate(): void {
         $this->load->language('extension/payment/sagepay_server');
 

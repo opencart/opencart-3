@@ -6,7 +6,9 @@
  */
 class ControllerExtensionPaymentDivido extends Controller {
     private array $error = [];
-
+	/**
+	 * @return void
+	 */
     public function index(): void {
         $this->load->language('extension/payment/divido');
 
@@ -179,7 +181,9 @@ class ControllerExtensionPaymentDivido extends Controller {
 
         $this->response->setOutput($this->load->view('extension/payment/divido', $data));
     }
-
+	/**
+	 * @return string
+	 */
     public function order(): string {
         if (!$this->config->get('payment_divido_status')) {
             return '';
@@ -215,14 +219,18 @@ class ControllerExtensionPaymentDivido extends Controller {
 
         return $this->load->view('extension/payment/divido_order', $data);
     }
-
+	/**
+	 * @return void
+	 */
     public function install(): void {
         // Divido
         $this->load->model('extension/payment/divido');
 
         $this->model_extension_payment_divido->install();
     }
-
+	/**
+	 * @return void
+	 */
     public function uninstall(): void {
         // Divido
         $this->load->model('extension/payment/divido');

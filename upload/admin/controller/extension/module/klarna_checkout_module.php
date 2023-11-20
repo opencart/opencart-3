@@ -6,7 +6,9 @@
  */
 class ControllerExtensionModuleKlarnaCheckoutModule extends Controller {
     private array $error = [];
-
+	/**
+	 * @return void
+	 */
     public function index(): void {
         $this->load->language('extension/module/klarna_checkout_module');
 

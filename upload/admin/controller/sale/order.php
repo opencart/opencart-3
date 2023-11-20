@@ -6,7 +6,9 @@
  */
 class ControllerSaleOrder extends Controller {
     private array $error = [];
-
+	/**
+	 * @return void
+	 */
     public function index(): void {
         $this->load->language('sale/order');
 
@@ -17,7 +19,9 @@ class ControllerSaleOrder extends Controller {
 
         $this->getList();
     }
-
+	/**
+	 * @return void
+	 */
     public function add(): void {
         $this->load->language('sale/order');
 
@@ -28,7 +32,9 @@ class ControllerSaleOrder extends Controller {
 
         $this->getForm();
     }
-
+	/**
+	 * @return void
+	 */
     public function edit(): void {
         $this->load->language('sale/order');
 
@@ -39,7 +45,9 @@ class ControllerSaleOrder extends Controller {
 
         $this->getForm();
     }
-
+	/**
+	 * @return void
+	 */
     public function delete(): void {
         $this->load->language('sale/order');
 
@@ -784,7 +792,9 @@ class ControllerSaleOrder extends Controller {
 
         $this->response->setOutput($this->load->view('sale/order_form', $data));
     }
-
+	/**
+	 * @return void
+	 */
     public function info(): object|null {
         // Orders
         $this->load->model('sale/order');
@@ -1375,7 +1385,9 @@ class ControllerSaleOrder extends Controller {
 
         return !$this->error;
     }
-
+	/**
+	 * @return void
+	 */
     public function createInvoiceNo(): void {
         $this->load->language('sale/order');
 
@@ -1405,7 +1417,9 @@ class ControllerSaleOrder extends Controller {
         $this->response->addHeader('Content-Type: application/json');
         $this->response->setOutput(json_encode($json));
     }
-
+	/**
+	 * @return void
+	 */
     public function addReward(): void {
         $this->load->language('sale/order');
 
@@ -1442,7 +1456,9 @@ class ControllerSaleOrder extends Controller {
         $this->response->addHeader('Content-Type: application/json');
         $this->response->setOutput(json_encode($json));
     }
-
+	/**
+	 * @return void
+	 */
     public function removeReward(): void {
         $this->load->language('sale/order');
 
@@ -1475,7 +1491,9 @@ class ControllerSaleOrder extends Controller {
         $this->response->addHeader('Content-Type: application/json');
         $this->response->setOutput(json_encode($json));
     }
-
+	/**
+	 * @return void
+	 */
     public function addCommission(): void {
         $this->load->language('sale/order');
 
@@ -1512,7 +1530,9 @@ class ControllerSaleOrder extends Controller {
         $this->response->addHeader('Content-Type: application/json');
         $this->response->setOutput(json_encode($json));
     }
-
+	/**
+	 * @return void
+	 */
     public function removeCommission(): void {
         $this->load->language('sale/order');
 
@@ -1545,7 +1565,9 @@ class ControllerSaleOrder extends Controller {
         $this->response->addHeader('Content-Type: application/json');
         $this->response->setOutput(json_encode($json));
     }
-
+	/**
+	 * @return void
+	 */
     public function history(): void {
         $this->load->language('sale/order');
 
@@ -1584,7 +1606,9 @@ class ControllerSaleOrder extends Controller {
 
         $this->response->setOutput($this->load->view('sale/order_history', $data));
     }
-
+	/**
+	 * @return void
+	 */
     public function invoice(): void {
         $this->load->language('sale/order');
 
@@ -1840,7 +1864,9 @@ class ControllerSaleOrder extends Controller {
 
         $this->response->setOutput($this->load->view('sale/order_invoice', $data));
     }
-
+	/**
+	 * @return void
+	 */
     public function shipping(): void {
         $this->load->language('sale/order');
 

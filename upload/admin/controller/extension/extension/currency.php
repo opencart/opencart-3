@@ -7,6 +7,9 @@
 class ControllerExtensionExtensionCurrency extends Controller {
     private array $error = [];
 
+	/**
+	 * @return void
+	 */
     public function index(): void {
         $this->load->language('extension/extension/currency');
 
@@ -14,7 +17,9 @@ class ControllerExtensionExtensionCurrency extends Controller {
 
         $this->getList();
     }
-
+	/**
+	 * @return void
+	 */
     public function install(): void {
         $this->load->language('extension/extension/currency');
 
@@ -36,7 +41,9 @@ class ControllerExtensionExtensionCurrency extends Controller {
 
         $this->getList();
     }
-
+	/**
+	 * @return void
+	 */
     public function uninstall(): void {
         $this->load->language('extension/extension/currency');
 

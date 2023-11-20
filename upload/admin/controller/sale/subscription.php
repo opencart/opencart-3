@@ -6,7 +6,9 @@
  */
 class ControllerSaleSubscription extends Controller {
     private array $error = [];
-
+	/**
+	 * @return void
+	 */
     public function index(): void {
         $this->load->language('sale/subscription');
 
@@ -253,7 +255,9 @@ class ControllerSaleSubscription extends Controller {
 
         $this->response->setOutput($this->load->view('sale/subscription', $data));
     }
-
+	/**
+	 * @return void
+	 */
     public function info(): void {
         $this->load->language('sale/subscription');
 
@@ -499,8 +503,10 @@ class ControllerSaleSubscription extends Controller {
 
         $this->response->setOutput($this->load->view('sale/subscription_info', $data));
     }
-
-    public function save() {
+	/**
+	 * @return void
+	 */
+    public function save(): void {
         $this->load->language('sale/subscription');
 
         $json = [];
@@ -553,7 +559,9 @@ class ControllerSaleSubscription extends Controller {
         $this->response->addHeader('Content-Type: application/json');
         $this->response->setOutput(json_encode($json));
     }
-
+	/**
+	 * @return void
+	 */
     public function history(): void {
         $this->load->language('sale/subscription');
 
@@ -598,7 +606,9 @@ class ControllerSaleSubscription extends Controller {
 
         $this->response->setOutput($this->load->view('sale/subscription_history', $data));
     }
-
+	/**
+	 * @return void
+	 */
     public function addHistory(): void {
         $this->load->language('sale/subscription');
 
@@ -634,7 +644,9 @@ class ControllerSaleSubscription extends Controller {
         $this->response->addHeader('Content-Type: application/json');
         $this->response->setOutput(json_encode($json));
     }
-
+	/**
+	 * @return void
+	 */
     public function transaction(): void {
         $this->load->language('sale/subscription');
 
@@ -680,7 +692,9 @@ class ControllerSaleSubscription extends Controller {
 
         $this->response->setOutput($this->load->view('sale/subscription_transaction', $data));
     }
-
+	/**
+	 * @return void
+	 */
     public function addTransaction(): void {
         $this->load->language('sale/subscription');
 

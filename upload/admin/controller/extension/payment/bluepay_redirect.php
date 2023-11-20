@@ -6,7 +6,9 @@
  */
 class ControllerExtensionPaymentBluepayredirect extends Controller {
     private array $error = [];
-
+	/**
+	 * @return void
+	 */
     public function index(): void {
         $this->load->language('extension/payment/bluepay_redirect');
 
@@ -145,21 +147,27 @@ class ControllerExtensionPaymentBluepayredirect extends Controller {
 
         $this->response->setOutput($this->load->view('extension/payment/bluepay_redirect', $data));
     }
-
+	/**
+	 * @return void
+	 */
     public function install(): void {
         // Bluepay Redirect
         $this->load->model('extension/payment/bluepay_redirect');
 
         $this->model_extension_payment_bluepay_redirect->install();
     }
-
+	/**
+	 * @return void
+	 */
     public function uninstall(): void {
         // Bluepay Redirect
         $this->load->model('extension/payment/bluepay_redirect');
 
         $this->model_extension_payment_bluepay_redirect->uninstall();
     }
-
+	/**
+	 * @return void
+	 */
     public function order(): string {
         if ($this->config->get('payment_bluepay_redirect_status')) {
             // Bluepay Redirect
@@ -188,7 +196,9 @@ class ControllerExtensionPaymentBluepayredirect extends Controller {
             return '';
         }
     }
-
+	/**
+	 * @return void
+	 */
     public function void(): void {
         $this->load->language('extension/payment/bluepay_redirect');
 
@@ -230,7 +240,9 @@ class ControllerExtensionPaymentBluepayredirect extends Controller {
         $this->response->addHeader('Content-Type: application/json');
         $this->response->setOutput(json_encode($json));
     }
-
+	/**
+	 * @return void
+	 */
     public function release(): void {
         $this->load->language('extension/payment/bluepay_redirect');
 
@@ -286,7 +298,9 @@ class ControllerExtensionPaymentBluepayredirect extends Controller {
         $this->response->addHeader('Content-Type: application/json');
         $this->response->setOutput(json_encode($json));
     }
-
+	/**
+	 * @return void
+	 */
     public function rebate(): void {
         $this->load->language('extension/payment/bluepay_redirect');
 
@@ -355,7 +369,9 @@ class ControllerExtensionPaymentBluepayredirect extends Controller {
 
         return !$this->error;
     }
-
+	/**
+	 * @return void
+	 */
     public function callback(): void {
         $this->response->addHeader('Content-Type: application/json');
         $this->response->setOutput(json_encode($this->request->get));

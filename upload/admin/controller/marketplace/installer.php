@@ -5,6 +5,9 @@
  * @package Admin\Controller\Marketplace
  */
 class ControllerMarketplaceInstaller extends Controller {
+	/**
+	 * @return void
+	 */
     public function index(): void {
         $this->load->language('marketplace/installer');
 
@@ -30,7 +33,9 @@ class ControllerMarketplaceInstaller extends Controller {
 
         $this->response->setOutput($this->load->view('marketplace/installer', $data));
     }
-
+	/**
+	 * @return void
+	 */
     public function history(): void {
         $this->load->language('marketplace/installer');
 
@@ -68,7 +73,9 @@ class ControllerMarketplaceInstaller extends Controller {
 
         $this->response->setOutput($this->load->view('marketplace/installer_history', $data));
     }
-
+	/**
+	 * @return void
+	 */
     public function upload(): void {
         $this->load->language('marketplace/installer');
 

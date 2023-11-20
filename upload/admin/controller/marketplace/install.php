@@ -5,6 +5,9 @@
  * @package Admin\Controller\Marketplace
  */
 class ControllerMarketplaceInstall extends Controller {
+	/**
+	 * @return void
+	 */
     public function install(): void {
         $this->load->language('marketplace/install');
 
@@ -36,7 +39,9 @@ class ControllerMarketplaceInstall extends Controller {
         $this->response->addHeader('Content-Type: application/json');
         $this->response->setOutput(json_encode($json));
     }
-
+	/**
+	 * @return void
+	 */
     public function unzip(): void {
         $this->load->language('marketplace/install');
 
@@ -82,7 +87,9 @@ class ControllerMarketplaceInstall extends Controller {
         $this->response->addHeader('Content-Type: application/json');
         $this->response->setOutput(json_encode($json));
     }
-
+	/**
+	 * @return void
+	 */
     public function move(): void {
         $this->load->language('marketplace/install');
 
@@ -234,7 +241,9 @@ class ControllerMarketplaceInstall extends Controller {
         $this->response->addHeader('Content-Type: application/json');
         $this->response->setOutput(json_encode($json));
     }
-
+	/**
+	 * @return void
+	 */
     public function xml(): void {
         $this->load->language('marketplace/install');
 
@@ -346,7 +355,9 @@ class ControllerMarketplaceInstall extends Controller {
         $this->response->addHeader('Content-Type: application/json');
         $this->response->setOutput(json_encode($json));
     }
-
+	/**
+	 * @return void
+	 */
     public function remove(): void {
         $this->load->language('marketplace/install');
 
@@ -414,7 +425,9 @@ class ControllerMarketplaceInstall extends Controller {
         $this->response->addHeader('Content-Type: application/json');
         $this->response->setOutput(json_encode($json));
     }
-
+	/**
+	 * @return void
+	 */
     public function uninstall(): void {
         $this->load->language('marketplace/install');
 

@@ -5,6 +5,9 @@
  * @package Admin\Controller\Startup
  */
 class ControllerStartupSetting extends Controller {
+	/**
+	 * @return void
+	 */
     public function index(): void {
         // Settings
         $this->load->model('setting/setting');

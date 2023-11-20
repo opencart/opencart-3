@@ -6,7 +6,9 @@
  */
 class ControllerExtensionPaymentSecureTradingWs extends Controller {
     private array $error = [];
-
+	/**
+	 * @return void
+	 */
     public function index(): void {
         $this->load->language('extension/payment/securetrading_ws');
 
@@ -257,21 +259,27 @@ class ControllerExtensionPaymentSecureTradingWs extends Controller {
 
         $this->response->setOutput($this->load->view('extension/payment/securetrading_ws', $data));
     }
-
+	/**
+	 * @return void
+	 */
     public function install(): void {
         // Securetrading WS
         $this->load->model('extension/payment/securetrading_ws');
 
         $this->model_extension_payment_securetrading_ws->install();
     }
-
+	/**
+	 * @return void
+	 */
     public function uninstall(): void {
         // Securetrading WS
         $this->load->model('extension/payment/securetrading_ws');
 
         $this->model_extension_payment_securetrading_ws->uninstall();
     }
-
+	/**
+	 * @return void
+	 */
     public function downloadTransactions(): void {
         $this->load->language('extension/payment/securetrading_ws');
 
@@ -292,7 +300,9 @@ class ControllerExtensionPaymentSecureTradingWs extends Controller {
 
         $this->response->setOutput($response);
     }
-
+	/**
+	 * @return string
+	 */
     public function showTransactions(): string {
         $this->load->language('extension/payment/securetrading_ws');
 
@@ -347,7 +357,9 @@ class ControllerExtensionPaymentSecureTradingWs extends Controller {
 
         return $this->load->view('extension/payment/securetrading_ws_transactions', $data);
     }
-
+	/**
+	 * @return string
+	 */
     public function order(): string {
         if ($this->config->get('payment_securetrading_ws_status')) {
             // Securetrading WS
@@ -375,7 +387,9 @@ class ControllerExtensionPaymentSecureTradingWs extends Controller {
             return '';
         }
     }
-
+	/**
+	 * @return void
+	 */
     public function void(): void {
         $this->load->language('extension/payment/securetrading_ws');
 
@@ -433,7 +447,9 @@ class ControllerExtensionPaymentSecureTradingWs extends Controller {
         $this->response->addHeader('Content-Type: application/json');
         $this->response->setOutput(json_encode($json));
     }
-
+	/**
+	 * @return void
+	 */
     public function release(): void {
         $this->load->language('extension/payment/securetrading_ws');
 
@@ -505,7 +521,9 @@ class ControllerExtensionPaymentSecureTradingWs extends Controller {
         $this->response->addHeader('Content-Type: application/json');
         $this->response->setOutput(json_encode($json));
     }
-
+	/**
+	 * @return void
+	 */
     public function rebate(): void {
         $this->load->language('extension/payment/securetrading_ws');
 

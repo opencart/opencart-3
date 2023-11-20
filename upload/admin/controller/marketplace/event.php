@@ -6,7 +6,9 @@
  */
 class ControllerMarketplaceEvent extends Controller {
     private array $error = [];
-
+	/**
+	 * @return void
+	 */
     public function index(): void {
         $this->load->language('marketplace/event');
 
@@ -17,7 +19,9 @@ class ControllerMarketplaceEvent extends Controller {
 
         $this->getList();
     }
-
+	/**
+	 * @return void
+	 */
     public function enable(): void {
         $this->load->language('marketplace/event');
 
@@ -50,7 +54,9 @@ class ControllerMarketplaceEvent extends Controller {
 
         $this->getList();
     }
-
+	/**
+	 * @return void
+	 */
     public function disable(): void {
         $this->load->language('marketplace/event');
 
@@ -83,7 +89,9 @@ class ControllerMarketplaceEvent extends Controller {
 
         $this->getList();
     }
-
+	/**
+	 * @return void
+	 */
     public function delete(): void {
         $this->load->language('marketplace/event');
 

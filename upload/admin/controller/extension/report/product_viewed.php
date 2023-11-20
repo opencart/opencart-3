@@ -5,6 +5,9 @@
  * @package Admin\Controller\Extension\Report
  */
 class ControllerExtensionReportProductViewed extends Controller {
+	/**
+	 * @return void
+	 */
     public function index(): void {
         $this->load->language('extension/report/product_viewed');
 
@@ -73,7 +76,9 @@ class ControllerExtensionReportProductViewed extends Controller {
 
         return !$this->error;
     }
-
+	/**
+	 * @return string
+	 */
     public function report(): string {
         $this->load->language('extension/report/product_viewed');
 
@@ -136,7 +141,9 @@ class ControllerExtensionReportProductViewed extends Controller {
 
         return $this->load->view('extension/report/product_viewed_info', $data);
     }
-
+	/**
+	 * @return void
+	 */
     public function reset(): void {
         $this->load->language('extension/report/product_viewed');
 

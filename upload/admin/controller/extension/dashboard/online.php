@@ -6,7 +6,9 @@
  */
 class ControllerExtensionDashboardOnline extends Controller {
     private array $error = [];
-
+	/**
+	 * @return void
+	 */
     public function index(): void {
         $this->load->language('extension/dashboard/online');
 
@@ -87,7 +89,9 @@ class ControllerExtensionDashboardOnline extends Controller {
 
         return !$this->error;
     }
-
+	/**
+	 * @return string
+	 */
     public function dashboard(): string {
         $this->load->language('extension/dashboard/online');
 

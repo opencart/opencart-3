@@ -5,6 +5,9 @@
  * @package Admin\Controller\Startup
  */
 class ControllerStartupError extends Controller {
+	/**
+	 * @return void
+	 */
     public function index(): void {
         // Log
         $this->registry->set('log', new \Log($this->config->get('config_error_filename') ? $this->config->get('config_error_filename') : $this->config->get('error_filename')));

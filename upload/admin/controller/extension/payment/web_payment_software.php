@@ -6,7 +6,9 @@
  */
 class ControllerExtensionPaymentWebPaymentSoftware extends Controller {
     private array $error = [];
-
+	/**
+	 * @return void
+	 */
     public function index(): void {
         $this->load->language('extension/payment/web_payment_software');
 

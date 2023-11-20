@@ -6,7 +6,9 @@
  */
 class ControllerExtensionModulePayPalSmartButton extends Controller {
     private array $error = [];
-
+	/**
+	 * @return void
+	 */
     public function index(): void {
         $this->load->language('extension/module/paypal_smart_button');
 
@@ -76,7 +78,9 @@ class ControllerExtensionModulePayPalSmartButton extends Controller {
 
         $this->response->setOutput($this->load->view('extension/module/paypal_smart_button', $data));
     }
-
+	/**
+	 * @return void
+	 */
     public function install(): void {
         // Settings
         $this->load->model('setting/setting');

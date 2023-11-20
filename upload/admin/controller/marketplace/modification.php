@@ -9,7 +9,9 @@
  */
 class ControllerMarketplaceModification extends Controller {
     private array $error = [];
-
+	/**
+	 * @return void
+	 */
     public function index(): void {
         $this->load->language('marketplace/modification');
 
@@ -20,7 +22,9 @@ class ControllerMarketplaceModification extends Controller {
 
         $this->getList();
     }
-
+	/**
+	 * @return void
+	 */
     public function delete(): void {
         $this->load->language('marketplace/modification');
 
@@ -55,7 +59,9 @@ class ControllerMarketplaceModification extends Controller {
 
         $this->getList();
     }
-
+	/**
+	 * @return void
+	 */
     public function refresh(array $data = []): void {
         $this->load->language('marketplace/modification');
 
@@ -450,7 +456,9 @@ class ControllerMarketplaceModification extends Controller {
 
         $this->getList();
     }
-
+	/**
+	 * @return void
+	 */
     public function clear(): void {
         $this->load->language('marketplace/modification');
 
@@ -519,7 +527,9 @@ class ControllerMarketplaceModification extends Controller {
 
         $this->getList();
     }
-
+	/**
+	 * @return void
+	 */
     public function enable(): void {
         $this->load->language('marketplace/modification');
 
@@ -552,7 +562,9 @@ class ControllerMarketplaceModification extends Controller {
 
         $this->getList();
     }
-
+	/**
+	 * @return void
+	 */
     public function disable(): void {
         $this->load->language('marketplace/modification');
 
@@ -585,7 +597,9 @@ class ControllerMarketplaceModification extends Controller {
 
         $this->getList();
     }
-
+	/**
+	 * @return void
+	 */
     public function clearlog(): void {
         $this->load->language('marketplace/modification');
 

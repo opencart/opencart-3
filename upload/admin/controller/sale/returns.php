@@ -6,7 +6,9 @@
  */
 class ControllerSaleReturns extends Controller {
     private array $error = [];
-
+	/**
+	 * @return void
+	 */
     public function index(): void {
         $this->load->language('sale/returns');
 
@@ -17,7 +19,9 @@ class ControllerSaleReturns extends Controller {
 
         $this->getList();
     }
-
+	/**
+	 * @return void
+	 */
     public function add(): void {
         $this->load->language('sale/returns');
 
@@ -82,7 +86,9 @@ class ControllerSaleReturns extends Controller {
 
         $this->getForm();
     }
-
+	/**
+	 * @return void
+	 */
     public function edit(): void {
         $this->load->language('sale/returns');
 
@@ -147,7 +153,9 @@ class ControllerSaleReturns extends Controller {
 
         $this->getForm();
     }
-
+	/**
+	 * @return void
+	 */
     public function delete(): void {
         $this->load->language('sale/returns');
 
@@ -807,7 +815,9 @@ class ControllerSaleReturns extends Controller {
 
         return !$this->error;
     }
-
+	/**
+	 * @return void
+	 */
     public function history(): void {
         $this->load->language('sale/returns');
 
@@ -846,7 +856,9 @@ class ControllerSaleReturns extends Controller {
 
         $this->response->setOutput($this->load->view('sale/returns_history', $data));
     }
-
+	/**
+	 * @return void
+	 */
     public function addHistory(): void {
         $this->load->language('sale/returns');
 

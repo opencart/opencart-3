@@ -6,7 +6,9 @@
  */
 class ControllerExtensionPaymentLaybuy extends Controller {
     private array $error = [];
-
+	/**
+	 * @return void
+	 */
     public function index(): void {
         $this->load->language('extension/payment/laybuy');
 
@@ -486,7 +488,9 @@ class ControllerExtensionPaymentLaybuy extends Controller {
 
         $this->response->setOutput($this->load->view('extension/payment/laybuy', $data));
     }
-
+	/**
+	 * @return void
+	 */
     public function fetch(): void {
         // Laybuy
         $this->load->model('extension/payment/laybuy');
@@ -651,7 +655,9 @@ class ControllerExtensionPaymentLaybuy extends Controller {
             $this->model_extension_payment_laybuy->log('User does not have permission');
         }
     }
-
+	/**
+	 * @return void
+	 */
     public function install(): void {
         if ($this->user->hasPermission('modify', 'marketplace/extension')) {
             // Laybuy
@@ -660,7 +666,9 @@ class ControllerExtensionPaymentLaybuy extends Controller {
             $this->model_extension_payment_laybuy->install();
         }
     }
-
+	/**
+	 * @return void
+	 */
     public function uninstall(): void {
         if ($this->user->hasPermission('modify', 'marketplace/extension')) {
             // Laybuy
@@ -669,7 +677,9 @@ class ControllerExtensionPaymentLaybuy extends Controller {
             $this->model_extension_payment_laybuy->uninstall();
         }
     }
-
+	/**
+	 * @return void
+	 */
     public function transaction(bool $order_page = false) {
         $this->load->language('extension/payment/laybuy');
 
@@ -797,7 +807,9 @@ class ControllerExtensionPaymentLaybuy extends Controller {
 
 		$this->response->setOutput($this->load->view('extension/payment/laybuy_transaction', $data));
     }
-
+	/**
+	 * @return void
+	 */
     public function cancel(): void {
         // Laybuy
         $this->load->model('extension/payment/laybuy');
@@ -899,7 +911,9 @@ class ControllerExtensionPaymentLaybuy extends Controller {
             $this->model_extension_payment_laybuy->log('User does not have permission');
         }
     }
-
+	/**
+	 * @return void
+	 */
     public function revise(): void {
         // Laybuy
         $this->load->model('extension/payment/laybuy');
@@ -919,11 +933,8 @@ class ControllerExtensionPaymentLaybuy extends Controller {
                 $json = [];
 
                 $payment_type = $this->request->post['payment_type'];
-
                 $amount = $this->request->post['amount'];
-
                 $initial = $this->request->post['INIT'];
-
                 $months = $this->request->post['MONTHS'];
 
                 $id = $this->request->get['id'];
@@ -1062,7 +1073,9 @@ class ControllerExtensionPaymentLaybuy extends Controller {
             $this->model_extension_payment_laybuy->log('User does not have permission');
         }
     }
-
+	/**
+	 * @return void
+	 */
     public function autocomplete(): void {
         $json = [];
 
@@ -1083,7 +1096,9 @@ class ControllerExtensionPaymentLaybuy extends Controller {
         $this->response->addHeader('Content-Type: application/json');
         $this->response->setOutput(json_encode($json));
     }
-
+	/**
+	 * @return string
+	 */
     public function order(): string {
         if ($this->config->get('payment_laybuy_status')) {
             $this->load->language('extension/payment/laybuy');

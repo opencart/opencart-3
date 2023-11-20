@@ -6,7 +6,9 @@
  */
 class ControllerExtensionDashboardMap extends Controller {
     private array $error = [];
-
+	/**
+	 * @return void
+	 */
     public function index(): void {
         $this->load->language('extension/dashboard/map');
 
@@ -87,7 +89,9 @@ class ControllerExtensionDashboardMap extends Controller {
 
         return !$this->error;
     }
-
+	/**
+	 * @return string
+	 */
     public function dashboard(): string {
         $this->load->language('extension/dashboard/map');
 
@@ -95,7 +99,9 @@ class ControllerExtensionDashboardMap extends Controller {
 
         return $this->load->view('extension/dashboard/map_info', $data);
     }
-
+	/**
+	 * @return void
+	 */
     public function map(): void {
         $json = [];
 

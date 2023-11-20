@@ -6,7 +6,9 @@
  */
 class ControllerExtensionPaymentCardConnect extends Controller {
     private array $error = [];
-
+	/**
+	 * @return void
+	 */
     public function index(): void {
         $this->load->language('extension/payment/cardconnect');
 
@@ -220,7 +222,9 @@ class ControllerExtensionPaymentCardConnect extends Controller {
 
         $this->response->setOutput($this->load->view('extension/payment/cardconnect', $data));
     }
-
+	/**
+	 * @return void
+	 */
     public function install(): void {
         if ($this->user->hasPermission('modify', 'marketplace/extension')) {
             // Cardconnect
@@ -229,7 +233,9 @@ class ControllerExtensionPaymentCardConnect extends Controller {
             $this->model_extension_payment_cardconnect->install();
         }
     }
-
+	/**
+	 * @return void
+	 */
     public function uninstall(): void {
         if ($this->user->hasPermission('modify', 'marketplace/extension')) {
             // Cardconnect
@@ -238,7 +244,9 @@ class ControllerExtensionPaymentCardConnect extends Controller {
             $this->model_extension_payment_cardconnect->uninstall();
         }
     }
-
+	/**
+	 * @return string
+	 */
     public function order(): string {
         if ($this->config->get('payment_cardconnect_status')) {
             // Cardconnect
@@ -307,7 +315,9 @@ class ControllerExtensionPaymentCardConnect extends Controller {
             return '';
         }
     }
-
+	/**
+	 * @return void
+	 */
     public function inquire(): void {
         $this->load->language('extension/payment/cardconnect');
 
@@ -345,7 +355,9 @@ class ControllerExtensionPaymentCardConnect extends Controller {
         $this->response->addHeader('Content-Type: application/json');
         $this->response->setOutput(json_encode($json));
     }
-
+	/**
+	 * @return void
+	 */
     public function capture(): void {
         $this->load->language('extension/payment/cardconnect');
 
@@ -395,7 +407,9 @@ class ControllerExtensionPaymentCardConnect extends Controller {
         $this->response->addHeader('Content-Type: application/json');
         $this->response->setOutput(json_encode($json));
     }
-
+	/**
+	 * @return void
+	 */
     public function refund(): void {
         $this->load->language('extension/payment/cardconnect');
 
@@ -446,7 +460,9 @@ class ControllerExtensionPaymentCardConnect extends Controller {
         $this->response->addHeader('Content-Type: application/json');
         $this->response->setOutput(json_encode($json));
     }
-
+	/**
+	 * @return void
+	 */
     public function void(): void {
         $this->load->language('extension/payment/cardconnect');
 

@@ -6,7 +6,9 @@
  */
 class ControllerToolUpload extends Controller {
     private array $error = [];
-
+	/**
+	 * @return void
+	 */
     public function index(): void {
         $this->load->language('tool/upload');
 
@@ -17,7 +19,9 @@ class ControllerToolUpload extends Controller {
 
         $this->getList();
     }
-
+	/**
+	 * @return void
+	 */
     public function delete(): void {
         $this->load->language('tool/upload');
 
@@ -257,7 +261,9 @@ class ControllerToolUpload extends Controller {
 
         return !$this->error;
     }
-
+	/**
+	 * @return void
+	 */
     public function download(): void {
         $this->load->language('tool/upload');
 
@@ -318,7 +324,9 @@ class ControllerToolUpload extends Controller {
             $this->response->redirect($this->url->link('tool/upload', 'user_token=' . $this->session->data['user_token'] . $url, true));
         }
     }
-
+	/**
+	 * @return void
+	 */
     public function upload(): void {
         $this->load->language('sale/order');
 

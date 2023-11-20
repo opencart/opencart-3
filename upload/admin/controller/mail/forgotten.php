@@ -5,7 +5,11 @@
  * @package Admin\Controller\Mail
  */
 class ControllerMailForgotten extends Controller {
-    // admin/model/user/user/editCode/after
+	/**
+	 * @return void
+	 *
+     * admin/model/user/user/editCode/after
+	 */
     public function deny(string &$route, array &$args, mixed &$output): void {
         if (isset($args[0]) && isset($args[1]) && $args[0] && $args[1]) {
             $this->load->language('mail/forgotten');
