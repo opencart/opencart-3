@@ -37,7 +37,7 @@ class Mail {
 
 		$boundary = '----=_NextPart_' . md5(time());
 
-		$header  = 'MIME-Version: 1.0' . $eol;
+		$header = 'MIME-Version: 1.0' . $eol;
 		$header .= 'Date: ' . date('D, d M Y H:i:s O') . $eol;
 		$header .= 'From: =?UTF-8?B?' . base64_encode($this->option['sender']) . '?= <' . $this->option['from'] . '>' . $eol;
 

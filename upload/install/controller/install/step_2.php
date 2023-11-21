@@ -14,7 +14,7 @@ class ControllerInstallStep2 extends Controller {
 
         $data['heading_title'] = $this->language->get('heading_title');
 
-        $data['text_step_2']  = $this->language->get('text_step_2');
+        $data['text_step_2'] = $this->language->get('text_step_2');
         $data['text_install_php'] = $this->language->get('text_install_php');
         $data['text_install_extension'] = $this->language->get('text_install_extension');
         $data['text_install_file'] = $this->language->get('text_install_file');
@@ -152,7 +152,7 @@ class ControllerInstallStep2 extends Controller {
         $data['admin_config'] = DIR_OPENCART . 'admin/config.php';
         $data['image'] = DIR_OPENCART . 'image';
         $data['image_cache'] = DIR_OPENCART . 'image/cache';
-        $data['image_catalog']  = DIR_OPENCART . 'image/catalog';
+        $data['image_catalog'] = DIR_OPENCART . 'image/catalog';
         $data['cache'] = DIR_SYSTEM . 'storage/cache';
         $data['logs'] = DIR_SYSTEM . 'storage/logs';
         $data['download'] = DIR_SYSTEM . 'storage/download';

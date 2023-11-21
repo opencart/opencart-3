@@ -47,10 +47,10 @@ class Cart {
             $product_query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "product_to_store` `p2s` LEFT JOIN `" . DB_PREFIX . "product` `p` ON (`p2s`.`product_id` = `p`.`product_id`) LEFT JOIN `" . DB_PREFIX . "product_description` `pd` ON (`p`.`product_id` = `pd`.`product_id`) WHERE `p2s`.`store_id` = '" . (int)$this->config->get('config_store_id') . "' AND `p2s`.`product_id` = '" . (int)$cart['product_id'] . "' AND `pd`.`language_id` = '" . (int)$this->config->get('config_language_id') . "' AND `p`.`date_available` <= NOW() AND `p`.`status` = '1'");
 
             if ($product_query->num_rows && ($cart['quantity'] > 0)) {
-                $option_price  = 0;
+                $option_price = 0;
                 $option_points = 0;
                 $option_weight = 0;
-                $option_data   = [];
+                $option_data = [];
 
                 foreach ((array)json_decode($cart['option'], true) as $product_option_id => $value) {
                     $option_query = $this->db->query("SELECT `po`.`product_option_id`, `po`.`option_id`, `od`.`name`, `o`.`type` FROM `" . DB_PREFIX . "product_option` `po` LEFT JOIN `" . DB_PREFIX . "option` `o` ON (`po`.`option_id` = `o`.`option_id`) LEFT JOIN `" . DB_PREFIX . "option_description` `od` ON (`o`.`option_id` = `od`.`option_id`) WHERE `po`.`product_option_id` = '" . (int)$product_option_id . "' AND `po`.`product_id` = '" . (int)$cart['product_id'] . "' AND `od`.`language_id` = '" . (int)$this->config->get('config_language_id') . "'");
@@ -202,7 +202,7 @@ class Cart {
                 }
 
                 // Downloads
-                $download_data  = [];
+                $download_data = [];
 
                 $download_query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "product_to_download` `p2d` LEFT JOIN `" . DB_PREFIX . "download` `d` ON (`p2d`.`download_id` = `d`.`download_id`) LEFT JOIN `" . DB_PREFIX . "download_description` `dd` ON (`d`.`download_id` = `dd`.`download_id`) WHERE `p2d`.`product_id` = '" . (int)$cart['product_id'] . "' AND `dd`.`language_id` = '" . (int)$this->config->get('config_language_id') . "'");
 

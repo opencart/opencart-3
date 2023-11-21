@@ -14,7 +14,7 @@ class Pagination {
     public int $total = 0;
     public int $page = 1;
     public int $limit = 20;
-    public int $num_links  = 8;
+    public int $num_links = 8;
     public string $url = '';
     public string $text_first = '|&lt;';
     public string $text_last = '&gt;|';

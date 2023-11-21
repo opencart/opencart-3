@@ -33,7 +33,7 @@ class Image {
 
             $info = getimagesize($file);
 
-            $this->width  = $info[0];
+            $this->width = $info[0];
             $this->height = $info[1];
             $this->bits = isset($info['bits']) ? $info['bits'] : '';
             $this->mime = isset($info['mime']) ? $info['mime'] : '';
@@ -128,8 +128,8 @@ class Image {
             return;
         }
 
-        $xpos  = 0;
-        $ypos  = 0;
+        $xpos = 0;
+        $ypos = 0;
         $scale = 1;
 
         $scale_w = $width / $this->width;
@@ -147,7 +147,7 @@ class Image {
             return;
         }
 
-        $new_width  = (int)($this->width * $scale);
+        $new_width = (int)($this->width * $scale);
         $new_height = (int)($this->height * $scale);
         $xpos = (int)(($width - $new_width) / 2);
         $ypos = (int)(($height - $new_height) / 2);
