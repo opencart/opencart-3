@@ -339,8 +339,8 @@ class ControllerDesignTranslation extends Controller {
             $language = $this->model_localisation_language->getLanguage($translation_info['language_id']);
             $code = $language['code'];
         } else {
+			$code = $this->config->get('config_language');
 			$language = $this->model_localisation_language->getLanguageByCode($code);
-            $code = $this->config->get('config_language');
         }
 
         if (isset($this->request->post['language_id'])) {
