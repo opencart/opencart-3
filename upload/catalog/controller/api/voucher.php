@@ -5,6 +5,9 @@
  * @package Catalog\Controller\Api
  */
 class ControllerApiVoucher extends Controller {
+	/**
+	 * @return void
+	 */
     public function index(): void {
         $this->load->language('api/voucher');
 
@@ -40,6 +43,9 @@ class ControllerApiVoucher extends Controller {
         $this->response->setOutput(json_encode($json));
     }
 
+	/**
+	 * @return void
+	 */
     public function add(): void {
         $this->load->language('api/voucher');
 

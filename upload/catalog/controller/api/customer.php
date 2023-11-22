@@ -5,6 +5,9 @@
  * @package Catalog\Controller\Api
  */
 class ControllerApiCustomer extends Controller {
+	/**
+	 * @return void
+	 */
     public function index(): void {
         $this->load->language('api/customer');
 

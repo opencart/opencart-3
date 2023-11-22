@@ -7,6 +7,9 @@
 class ControllerInformationContact extends Controller {
     private array $error = [];
 
+	/**
+	 * @return void
+	 */
     public function index(): void {
         $this->load->language('information/contact');
 
@@ -188,6 +191,9 @@ class ControllerInformationContact extends Controller {
         return !$this->error;
     }
 
+	/**
+	 * @return void
+	 */
     public function success(): void {
         $this->load->language('information/contact');
 

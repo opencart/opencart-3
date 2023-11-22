@@ -7,6 +7,9 @@
 class ControllerAccountVoucher extends Controller {
     private array $error = [];
 
+	/**
+	 * @return void
+	 */
     public function index(): void {
         $this->load->language('account/voucher');
 
@@ -160,6 +163,9 @@ class ControllerAccountVoucher extends Controller {
         $this->response->setOutput($this->load->view('account/voucher', $data));
     }
 
+	/**
+	 * @return void
+	 */
     public function success(): void {
         $this->load->language('account/voucher');
 

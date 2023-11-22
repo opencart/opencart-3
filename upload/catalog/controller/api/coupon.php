@@ -5,6 +5,9 @@
  * @package Catalog\Controller\Api
  */
 class ControllerApiCoupon extends Controller {
+	/**
+	 * @return void
+	 */
     public function index(): void {
         $this->load->language('api/coupon');
 

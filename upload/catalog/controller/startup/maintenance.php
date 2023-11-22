@@ -5,6 +5,9 @@
  * @package Catalog\Controller\Startup
  */
 class ControllerStartupMaintenance extends Controller {
+	/**
+	 * @return void
+	 */
     public function index(): object|null {
         if ($this->config->get('config_maintenance')) {
             // Route

@@ -5,6 +5,9 @@
  * @package Catalog\Controller\Startup
  */
 class ControllerStartupStartup extends Controller {
+	/**
+	 * @return void
+	 */
     public function index(): void {
         // Store
         if ($this->request->server['HTTPS']) {

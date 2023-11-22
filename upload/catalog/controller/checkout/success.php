@@ -5,6 +5,9 @@
  * @package Catalog\Controller\Checkout
  */
 class ControllerCheckoutSuccess extends Controller {
+	/**
+	 * @return void
+	 */
     public function index(): void {
         $this->load->language('checkout/success');
 

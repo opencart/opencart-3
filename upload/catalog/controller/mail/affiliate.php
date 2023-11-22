@@ -5,7 +5,14 @@
  * @package Catalog\Controller\Mail
  */
 class ControllerMailAffiliate extends Controller {
-    // catalog/model/account/customer/addAffiliate/after
+	/**
+	 * @param string $route
+	 * @param array  $args
+	 * @param mixed  $output
+	 *
+	 * @return void
+	 * @throws \Exception
+	 */
     public function index(string &$route, array &$args, mixed &$output): void {
         $this->load->language('mail/affiliate');
 
@@ -61,7 +68,14 @@ class ControllerMailAffiliate extends Controller {
         }
     }
 
-    // catalog/model/account/customer/addAffiliate/after
+	/**
+	 * @param string $route
+	 * @param array  $args
+	 * @param mixed  $output
+	 *
+	 * @return void
+	 * @throws \Exception
+	 */
     public function alert(string &$route, array &$args, mixed &$output): void {
         // Send to main admin email if new affiliate email is enabled
         if (in_array('affiliate', (array)$this->config->get('config_mail_alert'))) {

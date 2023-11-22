@@ -5,6 +5,9 @@
  * @package Catalog\Controller\Account
  */
 class ControllerAccountSuccess extends Controller {
+	/**
+	 * @return void
+	 */
     public function index(): void {
         $this->load->language('account/success');
 

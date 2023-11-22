@@ -5,6 +5,9 @@
  * @package Catalog\Controller\Account
  */
 class ControllerAccountLogout extends Controller {
+	/**
+	 * @return void
+	 */
     public function index(): void {
         if ($this->customer->isLogged()) {
             $this->customer->logout();

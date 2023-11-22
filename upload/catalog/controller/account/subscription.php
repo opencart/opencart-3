@@ -5,6 +5,9 @@
  * @package Catalog\Controller\Account
  */
 class ControllerAccountSubscription extends Controller {
+	/**
+	 * @return void
+	 */
     public function index(): void {
         $this->load->language('account/subscription');
 
@@ -106,6 +109,9 @@ class ControllerAccountSubscription extends Controller {
         $this->response->setOutput($this->load->view('account/subscription_list', $data));
     }
 
+	/**
+	 * @return void
+	 */
     public function info(): void {
         $this->load->language('account/subscription');
 

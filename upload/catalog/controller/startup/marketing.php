@@ -5,6 +5,9 @@
  * @package Catalog\Controller\Startup
  */
 class ControllerStartupMarketing extends Controller {
+	/**
+	 * @return void
+	 */
     public function index(): void {
         $tracking = '';
 

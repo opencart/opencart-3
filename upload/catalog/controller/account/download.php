@@ -5,6 +5,9 @@
  * @package Catalog\Controller\Account
  */
 class ControllerAccountDownload extends Controller {
+	/**
+	 * @return void
+	 */
     public function index(): void {
         if (!$this->customer->isLogged() || (!isset($this->request->get['customer_token']) || !isset($this->session->data['customer_token']) || ($this->request->get['customer_token'] != $this->session->data['customer_token']))) {
             $this->session->data['redirect'] = $this->url->link('account/download', '', true);
@@ -105,6 +108,9 @@ class ControllerAccountDownload extends Controller {
         $this->response->setOutput($this->load->view('account/download', $data));
     }
 
+	/**
+	 * @return void
+	 */
     public function download(): void {
         if (!$this->customer->isLogged()) {
             $this->session->data['redirect'] = $this->url->link('account/download', 'customer_token=' . $this->session->data['customer_token'], true);

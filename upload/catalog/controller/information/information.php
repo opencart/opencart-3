@@ -5,6 +5,9 @@
  * @package Catalog\Controller\Information
  */
 class ControllerInformationInformation extends Controller {
+	/**
+	 * @return void
+	 */
     public function index(): void {
         $this->load->language('information/information');
 
@@ -73,6 +76,9 @@ class ControllerInformationInformation extends Controller {
         }
     }
 
+	/**
+	 * @return void
+	 */
     public function agree(): void {
         // Information
         $this->load->model('catalog/information');

@@ -5,6 +5,9 @@
  * @package Catalog\Controller\Checkout
  */
 class ControllerCheckoutLogin extends Controller {
+	/**
+	 * @return void
+	 */
     public function index(): void {
         $this->load->language('checkout/checkout');
 
@@ -21,6 +24,9 @@ class ControllerCheckoutLogin extends Controller {
         $this->response->setOutput($this->load->view('checkout/login', $data));
     }
 
+	/**
+	 * @return void
+	 */
     public function save(): void {
         $this->load->language('checkout/checkout');
 

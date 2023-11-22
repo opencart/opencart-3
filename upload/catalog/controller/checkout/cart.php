@@ -5,6 +5,9 @@
  * @package Catalog\Controller\Checkout
  */
 class ControllerCheckoutCart extends Controller {
+	/**
+	 * @return void
+	 */
     public function index(): void {
         $this->load->language('checkout/cart');
 
@@ -269,6 +272,9 @@ class ControllerCheckoutCart extends Controller {
         }
     }
 
+	/**
+	 * @return void
+	 */
     public function add(): void {
         $this->load->language('checkout/cart');
 
@@ -392,6 +398,9 @@ class ControllerCheckoutCart extends Controller {
         $this->response->setOutput(json_encode($json));
     }
 
+	/**
+	 * @return void
+	 */
     public function edit(): void {
         $this->load->language('checkout/cart');
 
@@ -418,6 +427,9 @@ class ControllerCheckoutCart extends Controller {
         $this->response->setOutput(json_encode($json));
     }
 
+	/**
+	 * @return void
+	 */
     public function remove(): void {
         $this->load->language('checkout/cart');
 

@@ -5,6 +5,9 @@
  * @package Catalog\Controller\Api
  */
 class ControllerApiReward extends Controller {
+	/**
+	 * @return void
+	 */
     public function index(): void {
         $this->load->language('api/reward');
 
@@ -49,6 +52,9 @@ class ControllerApiReward extends Controller {
         $this->response->setOutput(json_encode($json));
     }
 
+	/**
+	 * @return void
+	 */
     public function maximum(): void {
         $this->load->language('api/reward');
 
@@ -70,6 +76,9 @@ class ControllerApiReward extends Controller {
         $this->response->setOutput(json_encode($json));
     }
 
+	/**
+	 * @return void
+	 */
     public function available(): void {
         $this->load->language('api/reward');
 

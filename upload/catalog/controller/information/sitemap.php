@@ -5,6 +5,9 @@
  * @package Catalog\Controller\Information
  */
 class ControllerInformationSitemap extends Controller {
+	/**
+	 * @return void
+	 */
     public function index(): void {
         $this->load->language('information/sitemap');
 

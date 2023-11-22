@@ -5,6 +5,9 @@
  * @package Catalog\Controller\Product
  */
 class ControllerProductCompare extends Controller {
+	/**
+	 * @return void
+	 */
     public function index(): void {
         $this->load->language('product/compare');
 
@@ -142,6 +145,9 @@ class ControllerProductCompare extends Controller {
         $this->response->setOutput($this->load->view('product/compare', $data));
     }
 
+	/**
+	 * @return void
+	 */
     public function add(): void {
         $this->load->language('product/compare');
 

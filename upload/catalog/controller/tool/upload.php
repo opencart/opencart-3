@@ -5,6 +5,9 @@
  * @package Catalog\Controller\Tool
  */
 class ControllerToolUpload extends Controller {
+	/**
+	 * @return void
+	 */
     public function index(): void {
         $this->load->language('tool/upload');
 

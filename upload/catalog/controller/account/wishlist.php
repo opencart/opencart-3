@@ -5,6 +5,9 @@
  * @package Catalog\Controller\Account
  */
 class ControllerAccountWishList extends Controller {
+	/**
+	 * @return void
+	 */
     public function index(): void {
         if (!$this->customer->isLogged() || (!isset($this->request->get['customer_token']) || !isset($this->session->data['customer_token']) || ($this->request->get['customer_token'] != $this->session->data['customer_token']))) {
             $this->session->data['redirect'] = $this->url->link('account/wishlist', '', true);
@@ -121,6 +124,9 @@ class ControllerAccountWishList extends Controller {
         $this->response->setOutput($this->load->view('account/wishlist', $data));
     }
 
+	/**
+	 * @return void
+	 */
     public function add(): void {
         $this->load->language('account/wishlist');
 

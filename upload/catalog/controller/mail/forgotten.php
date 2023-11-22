@@ -5,7 +5,15 @@
  * @package Catalog\Controller\Mail
  */
 class ControllerMailForgotten extends Controller {
-    // catalog/model/account/customer/editCode/after
+	// catalog/model/account/customer/editCode/after
+	/**
+	 * @param string $route
+	 * @param array  $args
+	 * @param mixed  $output
+	 *
+	 * @return void
+	 * @throws \Exception
+	 */
     public function index(string &$route, array &$args, mixed &$output): void {
         if ($args[0] && $args[1]) {
             // Customers

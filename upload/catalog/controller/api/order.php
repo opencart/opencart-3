@@ -5,6 +5,9 @@
  * @package Catalog\Controller\Api
  */
 class ControllerApiOrder extends Controller {
+	/**
+	 * @return void
+	 */
     public function add(): void {
         $this->load->language('api/order');
 
@@ -365,6 +368,9 @@ class ControllerApiOrder extends Controller {
         $this->response->setOutput(json_encode($json));
     }
 
+	/**
+	 * @return void
+	 */
     public function edit(): void {
         $this->load->language('api/order');
 
@@ -707,6 +713,9 @@ class ControllerApiOrder extends Controller {
         $this->response->setOutput(json_encode($json));
     }
 
+	/**
+	 * @return void
+	 */
     public function delete(): void {
         $this->load->language('api/order');
 
@@ -739,6 +748,9 @@ class ControllerApiOrder extends Controller {
         $this->response->setOutput(json_encode($json));
     }
 
+	/**
+	 * @return void
+	 */
     public function info(): void {
         $this->load->language('api/order');
 
@@ -770,6 +782,9 @@ class ControllerApiOrder extends Controller {
         $this->response->setOutput(json_encode($json));
     }
 
+	/**
+	 * @return void
+	 */
     public function history(): void {
         $this->load->language('api/order');
 

@@ -7,6 +7,9 @@
 class ControllerProductProduct extends Controller {
     private array $error = [];
 
+	/**
+	 * @return void
+	 */
     public function index(): void {
         $this->load->language('product/product');
 
@@ -591,6 +594,9 @@ class ControllerProductProduct extends Controller {
         }
     }
 
+	/**
+	 * @return void
+	 */
     public function review(): void {
         $this->load->language('product/product');
 
@@ -629,6 +635,9 @@ class ControllerProductProduct extends Controller {
         $this->response->setOutput($this->load->view('product/review', $data));
     }
 
+	/**
+	 * @return void
+	 */
     public function write(): void {
         $this->load->language('product/product');
 

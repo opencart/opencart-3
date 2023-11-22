@@ -5,6 +5,9 @@
  * @package Catalog\Controller\Product
  */
 class ControllerProductCategory extends Controller {
+	/**
+	 * @return void
+	 */
     public function index(): void {
         $this->load->language('product/category');
 

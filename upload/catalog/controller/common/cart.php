@@ -5,6 +5,9 @@
  * @package Catalog\Controller\Common
  */
 class ControllerCommonCart extends Controller {
+	/**
+	 * @return string
+	 */
     public function index(): string {
         $this->load->language('common/cart');
 
@@ -169,6 +172,9 @@ class ControllerCommonCart extends Controller {
         return $this->load->view('common/cart', $data);
     }
 
+	/**
+	 * @return void
+	 */
     public function info(): void {
         $this->response->setOutput($this->index());
     }

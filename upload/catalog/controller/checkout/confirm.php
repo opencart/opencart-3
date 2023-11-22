@@ -5,6 +5,9 @@
  * @package Catalog\Controller\Checkout
  */
 class ControllerCheckoutConfirm extends Controller {
+	/**
+	 * @return void
+	 */
     public function index(): void {
         $redirect = '';
 

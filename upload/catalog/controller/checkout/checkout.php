@@ -5,6 +5,9 @@
  * @package Catalog\Controller\Checkout
  */
 class ControllerCheckoutCheckout extends Controller {
+	/**
+	 * @return void
+	 */
     public function index(): void {
         // Validate cart has products and has stock.
         if ((!$this->cart->hasProducts() && empty($this->session->data['vouchers'])) || (!$this->cart->hasStock() && !$this->config->get('config_stock_checkout'))) {
@@ -101,6 +104,9 @@ class ControllerCheckoutCheckout extends Controller {
         $this->response->setOutput($this->load->view('checkout/checkout', $data));
     }
 
+	/**
+	 * @return void
+	 */
     public function country(): void {
         $json = [];
 
@@ -129,6 +135,9 @@ class ControllerCheckoutCheckout extends Controller {
         $this->response->setOutput(json_encode($json));
     }
 
+	/**
+	 * @return void
+	 */
     public function customfield(): void {
         $json = [];
 

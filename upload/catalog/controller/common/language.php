@@ -5,6 +5,9 @@
  * @package Catalog\Controller\Common
  */
 class ControllerCommonLanguage extends Controller {
+	/**
+	 * @return string
+	 */
     public function index(): string {
         $this->load->language('common/language');
 
@@ -47,6 +50,9 @@ class ControllerCommonLanguage extends Controller {
         return $this->load->view('common/language', $data);
     }
 
+	/**
+	 * @return void
+	 */
     public function save(): void {
         if (isset($this->request->get['code'])) {
             $code = $this->request->get['code'];

@@ -5,6 +5,9 @@
  * @package Catalog\Controller\Startup
  */
 class ControllerStartupTax extends Controller {
+	/**
+	 * @return void
+	 */
     public function index(): void {
         $this->registry->set('tax', new \Cart\Tax($this->registry));
 

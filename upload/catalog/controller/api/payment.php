@@ -5,6 +5,9 @@
  * @package Catalog\Controller\Api
  */
 class ControllerApiPayment extends Controller {
+	/**
+	 * @return void
+	 */
     public function address(): void {
         $this->load->language('api/payment');
 
@@ -146,6 +149,9 @@ class ControllerApiPayment extends Controller {
         $this->response->setOutput(json_encode($json));
     }
 
+	/**
+	 * @return void
+	 */
     public function methods(): void {
         $this->load->language('api/payment');
 
@@ -222,6 +228,9 @@ class ControllerApiPayment extends Controller {
         $this->response->setOutput(json_encode($json));
     }
 
+	/**
+	 * @return void
+	 */
     public function method(): void {
         $this->load->language('api/payment');
 

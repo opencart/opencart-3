@@ -5,6 +5,9 @@
  * @package Catalog\Controller\Startup
  */
 class ControllerStartupLanguage extends Controller {
+	/**
+	 * @return void
+	 */
     public function index(): void {
         // Languages
         $this->load->model('localisation/language');

@@ -5,6 +5,9 @@
  * @package Catalog\Controller\Startup
  */
 class ControllerStartupCustomer extends Controller {
+	/**
+	 * @return void
+	 */
     public function index(): void {
         $this->registry->set('customer', new \Cart\Customer($this->registry));
 

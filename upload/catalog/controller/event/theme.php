@@ -5,6 +5,13 @@
  * @package Catalog\Controller\Event
  */
 class ControllerEventTheme extends Controller {
+	/**
+	 * @param string $route
+	 * @param array  $args
+	 * @param mixed $code
+	 *
+	 * @return void
+	 */
     public function index(string &$route, array &$args, mixed &$code): void {
         if (!$this->config->get('theme_' . $this->config->get('config_theme') . '_status')) {
             exit('Error: A theme has not been assigned to this store!');

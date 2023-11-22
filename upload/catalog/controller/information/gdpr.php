@@ -5,6 +5,9 @@
  * @package Catalog\Controller\Information
  */
 class ControllerInformationGdpr extends Controller {
+	/**
+	 * @return object|null
+	 */
     public function index(): object|null {
         // Information
         $this->load->model('catalog/information');
@@ -74,6 +77,9 @@ class ControllerInformationGdpr extends Controller {
      *	processing = 2
      *	denied     = -1
     */
+	/**
+	 * @return void
+	 */
     public function action(): void {
         $this->load->language('information/gdpr');
 
@@ -133,6 +139,9 @@ class ControllerInformationGdpr extends Controller {
         $this->response->setOutput(json_encode($json));
     }
 
+	/**
+	 * @return object|null
+	 */
     public function success(): object|null {
         if (isset($this->request->get['code'])) {
             $code = (string)$this->request->get['code'];

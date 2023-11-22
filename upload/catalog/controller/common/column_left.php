@@ -5,6 +5,9 @@
  * @package Catalog\Controller\Common
  */
 class ControllerCommonColumnLeft extends Controller {
+	/**
+	 * @return string
+	 */
     public function index(): string {
         // Layouts
         $this->load->model('design/layout');

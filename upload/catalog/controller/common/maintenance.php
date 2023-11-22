@@ -5,6 +5,9 @@
  * @package Catalog\Controller\Common
  */
 class ControllerCommonMaintenance extends Controller {
+	/**
+	 * @return void
+	 */
     public function index(): void {
         $this->load->language('common/maintenance');
 

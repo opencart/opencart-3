@@ -5,6 +5,9 @@
  * @package Catalog\Controller\Common
  */
 class ControllerCommonContentTop extends Controller {
+	/**
+	 * @return string
+	 */
     public function index(): string {
         $this->load->model('design/layout');
 

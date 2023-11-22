@@ -5,6 +5,9 @@
  * @package Catalog\Controller\Api
  */
 class ControllerApiCart extends Controller {
+	/**
+	 * @return void
+	 */
     public function add(): void {
         $this->load->language('api/cart');
 
@@ -100,6 +103,9 @@ class ControllerApiCart extends Controller {
         $this->response->setOutput(json_encode($json));
     }
 
+	/**
+	 * @return void
+	 */
     public function edit(): void {
         $this->load->language('api/cart');
 
@@ -123,6 +129,9 @@ class ControllerApiCart extends Controller {
         $this->response->setOutput(json_encode($json));
     }
 
+	/**
+	 * @return void
+	 */
     public function remove(): void {
         $this->load->language('api/cart');
 
@@ -151,6 +160,9 @@ class ControllerApiCart extends Controller {
         $this->response->setOutput(json_encode($json));
     }
 
+	/**
+	 * @return void
+	 */
     public function products(): void {
         $this->load->language('api/cart');
 

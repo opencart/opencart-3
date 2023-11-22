@@ -5,6 +5,9 @@
  * @package Catalog\Controller\Common
  */
 class ControllerCommonCurrency extends Controller {
+	/**
+	 * @return string
+	 */
     public function index(): string {
         $this->load->language('common/currency');
 
@@ -50,6 +53,9 @@ class ControllerCommonCurrency extends Controller {
         return $this->load->view('common/currency', $data);
     }
 
+	/**
+	 * @return void
+	 */
     public function currency(): void {
         if (isset($this->request->post['code'])) {
             $this->session->data['currency'] = $this->request->post['code'];

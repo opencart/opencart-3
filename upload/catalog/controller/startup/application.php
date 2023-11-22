@@ -5,6 +5,9 @@
  * @package Catalog\Controller\Startup
  */
 class ControllerStartupApplication extends Controller {
+	/**
+	 * @return void
+	 */
     public function index(): void {
         // Weight
         $this->registry->set('weight', new \Cart\Weight($this->registry));

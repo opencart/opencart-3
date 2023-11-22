@@ -5,6 +5,9 @@
  * @package Catalog\Controller\Product
  */
 class ControllerProductManufacturer extends Controller {
+	/**
+	 * @return void
+	 */
     public function index(): void {
         $this->load->language('product/manufacturer');
 
@@ -58,6 +61,9 @@ class ControllerProductManufacturer extends Controller {
         $this->response->setOutput($this->load->view('product/manufacturer_list', $data));
     }
 
+	/**
+	 * @return void
+	 */
     public function info(): void {
         $this->load->language('product/manufacturer');
 

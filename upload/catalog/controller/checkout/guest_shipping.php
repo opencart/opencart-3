@@ -5,6 +5,9 @@
  * @package Catalog\Controller\Checkout
  */
 class ControllerCheckoutGuestShipping extends Controller {
+	/**
+	 * @return void
+	 */
     public function index(): void {
         $this->load->language('checkout/checkout');
 
@@ -89,6 +92,9 @@ class ControllerCheckoutGuestShipping extends Controller {
         $this->response->setOutput($this->load->view('checkout/guest_shipping', $data));
     }
 
+	/**
+	 * @return void
+	 */
     public function save(): void {
         $this->load->language('checkout/checkout');
 

@@ -7,6 +7,9 @@
 class ControllerAccountPaymentMethod extends Controller {
     private array $error = [];
 
+	/**
+	 * @return void
+	 */
     public function index(): void {
         if (!$this->customer->isLogged() || (!isset($this->request->get['customer_token']) || !isset($this->session->data['customer_token']) || ($this->request->get['customer_token'] != $this->session->data['customer_token']))) {
             $this->session->data['redirect'] = $this->url->link('account/payment_method', '', true);
@@ -24,6 +27,9 @@ class ControllerAccountPaymentMethod extends Controller {
         $this->getList();
     }
 
+	/**
+	 * @return void
+	 */
     public function delete(): void {
         $this->load->language('account/payment_method');
 

@@ -5,6 +5,9 @@
  * @package Catalog\Controller\Common
  */
 class ControllerCommonMenu extends Controller {
+	/**
+	 * @return string
+	 */
     public function index(): string {
         $this->load->language('common/menu');
 

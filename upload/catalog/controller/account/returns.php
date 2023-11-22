@@ -7,6 +7,9 @@
 class ControllerAccountReturns extends Controller {
     private array $error = [];
 
+	/**
+	 * @return void
+	 */
     public function index(): void {
         if (!$this->customer->isLogged()) {
             $this->session->data['redirect'] = $this->url->link('account/returns', '', true);
@@ -90,6 +93,9 @@ class ControllerAccountReturns extends Controller {
         $this->response->setOutput($this->load->view('account/returns_list', $data));
     }
 
+	/**
+	 * @return void
+	 */
     public function info(): void {
         $this->load->language('account/returns');
 
@@ -223,6 +229,9 @@ class ControllerAccountReturns extends Controller {
         }
     }
 
+	/**
+	 * @return void
+	 */
     public function add(): void {
         $this->load->language('account/returns');
 
@@ -542,6 +551,9 @@ class ControllerAccountReturns extends Controller {
         return !$this->error;
     }
 
+	/**
+	 * @return void
+	 */
     public function success(): void {
         $this->load->language('account/returns');
 

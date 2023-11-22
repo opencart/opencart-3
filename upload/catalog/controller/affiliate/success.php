@@ -5,6 +5,9 @@
  * @package Catalog\Controller\Affiliate
  */
 class ControllerAffiliateSuccess extends Controller {
+	/**
+	 * @return void
+	 */
     public function index(): void {
         $this->load->language('affiliate/success');
 

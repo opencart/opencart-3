@@ -5,6 +5,9 @@
  * @package Catalog\Controller\Common
  */
 class ControllerCommonHeader extends Controller {
+	/**
+	 * @return string
+	 */
     public function index(): string {
         // Analytics
         $this->load->model('setting/extension');

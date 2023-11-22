@@ -5,6 +5,9 @@
  * @package Catalog\Controller\Checkout
  */
 class ControllerCheckoutPaymentMethod extends Controller {
+	/**
+	 * @return void
+	 */
     public function index(): void {
         $this->load->language('checkout/checkout');
 
@@ -104,6 +107,9 @@ class ControllerCheckoutPaymentMethod extends Controller {
         $this->response->setOutput($this->load->view('checkout/payment_method', $data));
     }
 
+	/**
+	 * @return void
+	 */
     public function save(): void {
         $this->load->language('checkout/checkout');
 

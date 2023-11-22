@@ -5,7 +5,14 @@
  * @package Catalog\Controller\Event
  */
 class ControllerEventStatistics extends Controller {
-    // catalog/model/catalog/review/addReview/after
+	// catalog/model/catalog/review/addReview/after
+	/**
+	 * @param string $route
+	 * @param array  $args
+	 * @param mixed  $output
+	 *
+	 * @return void
+	 */
     public function addReview(string &$route, array &$args, mixed &$output): void {
         // Statistics
         $this->load->model('report/statistics');
@@ -13,7 +20,15 @@ class ControllerEventStatistics extends Controller {
         $this->model_report_statistics->addValue('review', 1);
     }
 
-    // catalog/model/account/returns/addReturn/after
+	// catalog/model/account/returns/addReturn/after
+
+	/**
+	 * @param string $route
+	 * @param array  $args
+	 * @param mixed  $output
+	 *
+	 * @return void
+	 */
     public function addReturn(string &$route, array &$args, mixed &$output): void {
         // Statistics
         $this->load->model('report/statistics');
@@ -21,7 +36,14 @@ class ControllerEventStatistics extends Controller {
         $this->model_report_statistics->addValue('returns', 1);
     }
 
-    // catalog/model/checkout/order/addHistory/before
+	// catalog/model/checkout/order/addHistory/before
+
+	/**
+	 * @param string $route
+	 * @param array  $args
+	 *
+	 * @return void
+	 */
     public function addHistory(string &$route, array &$args, mixed &$output): void {
         // Orders
         $this->load->model('checkout/order');

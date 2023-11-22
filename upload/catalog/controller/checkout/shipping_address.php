@@ -5,6 +5,9 @@
  * @package Catalog\Controller\Checkout
  */
 class ControllerCheckoutShippingAddress extends Controller {
+	/**
+	 * @return void
+	 */
     public function index(): void {
         $this->load->language('checkout/checkout');
 
@@ -64,6 +67,9 @@ class ControllerCheckoutShippingAddress extends Controller {
         $this->response->setOutput($this->load->view('checkout/shipping_address', $data));
     }
 
+	/**
+	 * @return void
+	 */
     public function save(): void {
         $this->load->language('checkout/checkout');
 

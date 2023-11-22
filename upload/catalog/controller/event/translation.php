@@ -5,6 +5,12 @@
  * @package Catalog\Controller\Event
  */
 class ControllerEventTranslation extends Controller {
+	/**
+	 * @param string $route
+	 * @param string $key
+	 *
+	 * @return void
+	 */
     public function index(string &$route, string &$key): void {
         // Translations
         $this->load->model('design/translation');

@@ -5,6 +5,9 @@
  * @package Catalog\Controller\Startup
  */
 class ControllerStartupSession extends Controller {
+	/**
+	 * @return void
+	 */
     public function index(): void {
         // Session
         $session = new \Session($this->config->get('session_engine'), $this->registry);

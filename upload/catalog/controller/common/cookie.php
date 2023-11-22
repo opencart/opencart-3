@@ -5,6 +5,9 @@
  * @package Catalog\Controller\Common
  */
 class ControllerCommonCookie extends Controller {
+	/**
+	 * @return string
+	 */
     public function index(): string {
         if ($this->config->get('config_cookie_id') && !isset($this->request->cookie['policy'])) {
             // Information
@@ -27,6 +30,9 @@ class ControllerCommonCookie extends Controller {
         return '';
     }
 
+	/**
+	 * @return void
+	 */
     public function confirm(): void {
         $json = [];
 

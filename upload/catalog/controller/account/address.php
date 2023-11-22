@@ -7,6 +7,9 @@
 class ControllerAccountAddress extends Controller {
     private array $error = [];
 
+	/**
+	 * @return void
+	 */
     public function index(): void {
         if (!$this->customer->isLogged() || (!isset($this->request->get['customer_token']) || !isset($this->session->data['customer_token']) || ($this->request->get['customer_token'] != $this->session->data['customer_token']))) {
             $this->session->data['redirect'] = $this->url->link('account/address', '', true);
@@ -24,6 +27,9 @@ class ControllerAccountAddress extends Controller {
         $this->getList();
     }
 
+	/**
+	 * @return void
+	 */
     public function add(): void {
         if (!$this->customer->isLogged() || (!isset($this->request->get['customer_token']) || !isset($this->session->data['customer_token']) || ($this->request->get['customer_token'] != $this->session->data['customer_token']))) {
             $this->session->data['redirect'] = $this->url->link('account/address', '', true);
@@ -55,6 +61,9 @@ class ControllerAccountAddress extends Controller {
         $this->getForm();
     }
 
+	/**
+	 * @return void
+	 */
     public function edit(): void {
         if (!$this->customer->isLogged() || (!isset($this->request->get['customer_token']) || !isset($this->session->data['customer_token']) || ($this->request->get['customer_token'] != $this->session->data['customer_token']))) {
             $this->session->data['redirect'] = $this->url->link('account/address', '', true);
@@ -102,6 +111,9 @@ class ControllerAccountAddress extends Controller {
         $this->getForm();
     }
 
+	/**
+	 * @return void
+	 */
     public function delete(): void {
         $json = [];
 
@@ -514,6 +526,9 @@ class ControllerAccountAddress extends Controller {
         return !$this->error;
     }
 
+	/**
+	 * @return void
+	 */
     public function editAddress(): void {
         $json = [];
 

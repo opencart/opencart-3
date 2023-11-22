@@ -7,6 +7,9 @@
 class ControllerAccountLogin extends Controller {
     private array $error = [];
 
+	/**
+	 * @return void
+	 */
     public function index(): void {
         // Customers
         $this->load->model('account/customer');

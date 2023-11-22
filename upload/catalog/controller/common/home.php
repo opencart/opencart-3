@@ -5,6 +5,9 @@
  * @package Catalog\Controller\Common
  */
 class ControllerCommonHome extends Controller {
+	/**
+	 * @return void
+	 */
     public function index(): void {
         $this->document->setTitle($this->config->get('config_meta_title'));
         $this->document->setDescription($this->config->get('config_meta_description'));

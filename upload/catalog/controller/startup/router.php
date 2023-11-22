@@ -5,6 +5,9 @@
  * @package Catalog\Controller\Startup
  */
 class ControllerStartupRouter extends Controller {
+	/**
+	 * @return void
+	 */
     public function index(): mixed {
         // Route
         if (isset($this->request->get['route']) && $this->request->get['route'] != 'startup/router') {
