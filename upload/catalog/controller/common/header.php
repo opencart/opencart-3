@@ -43,7 +43,7 @@ class ControllerCommonHeader extends Controller {
         $data['stylesheet'] = 'catalog/view/theme/' . $directory . '/stylesheet/stylesheet.css';
 
         // Hard coding scripts so they can be replaced via the event's system.
-        $data['jquery'] = 'catalog/view/javascript/jquery/jquery-2.1.1.min.js';
+        $data['jquery'] = 'catalog/view/javascript/jquery/jquery-3.7.1.min.js';
 
         $data['base'] = $server;
         $data['description'] = $this->document->getDescription();
