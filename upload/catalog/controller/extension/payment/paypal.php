@@ -16,6 +16,9 @@ class ControllerExtensionPaymentPayPal extends Controller {
         }
     }
 
+	/**
+	 * @return void
+	 */
     public function index(): string {
         $this->load->language('extension/payment/paypal');
 
@@ -126,6 +129,9 @@ class ControllerExtensionPaymentPayPal extends Controller {
         return $this->load->view('extension/payment/paypal', $data);
     }
 
+	/**
+	 * @return void
+	 */
     public function createOrder(): void {
         $this->load->language('extension/payment/paypal');
 
@@ -338,6 +344,9 @@ class ControllerExtensionPaymentPayPal extends Controller {
         $this->response->setOutput(json_encode($data));
     }
 
+	/**
+	 * @return void
+	 */
     public function approveOrder(): void {
         $this->load->language('extension/payment/paypal');
 
@@ -463,6 +472,9 @@ class ControllerExtensionPaymentPayPal extends Controller {
         $this->response->setOutput(json_encode($data));
     }
 
+	/**
+	 * @return void
+	 */
     public function webhook(): void {
         // PayPal
         $this->load->model('extension/payment/paypal');
