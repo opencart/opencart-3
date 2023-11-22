@@ -5,6 +5,11 @@
  * @package Admin\Model\Sale
  */
 class ModelSaleRecurring extends Model {
+	/**
+	 * @param array $data
+	 *
+	 * @return array
+	 */
 	public function getRecurrings(array $data): array {
 		$sql = "SELECT `or`.`order_recurring_id`, `or`.`order_id`, `or`.`reference`, `or`.`status`, `or`.`date_added`, CONCAT(`o`.`firstname`, ' ', `o`.`lastname`) AS customer FROM `" . DB_PREFIX . "order_recurring` `or` LEFT JOIN `" . DB_PREFIX . "order` `o` ON (`or`.`order_id` = `o`.`order_id`)";
 
@@ -76,12 +81,22 @@ class ModelSaleRecurring extends Model {
 		return $query->rows;
 	}
 
+	/**
+	 * @param int $order_recurring_id
+	 *
+	 * @return array
+	 */
 	public function getRecurring(int $order_recurring_id): array {
 		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "order_recurring` WHERE `order_recurring_id` = '" . (int)$order_recurring_id . "'");
 
 		return $query->row;
 	}
 
+	/**
+	 * @param int $order_recurring_id
+	 *
+	 * @return array
+	 */
 	public function getRecurringTransactions(int $order_recurring_id): array {
 		$transactions = [];
 
@@ -134,6 +149,11 @@ class ModelSaleRecurring extends Model {
 		return $transactions;
 	}
 
+	/**
+	 * @param array $data
+	 *
+	 * @return int
+	 */
 	public function getTotalRecurrings(array $data): int {
 		$sql = "SELECT COUNT(*) AS `total` FROM `" . DB_PREFIX . "order_recurring` `or` LEFT JOIN `" . DB_PREFIX . "order` `o` ON (`or`.`order_id` = `o`.`order_id`)";
 

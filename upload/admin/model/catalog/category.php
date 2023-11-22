@@ -5,6 +5,11 @@
  * @package Admin\Model\Catalog
  */
 class ModelCatalogCategory extends Model {
+	/**
+	 * @param array $data
+	 *
+	 * @return int
+	 */
     public function addCategory(array $data): int {
         $this->db->query("INSERT INTO `" . DB_PREFIX . "category` SET `parent_id` = '" . (int)$data['parent_id'] . "', `top` = '" . (isset($data['top']) ? (int)$data['top'] : 0) . "', `column` = '" . (int)$data['column'] . "', `sort_order` = '" . (int)$data['sort_order'] . "', `status` = '" . (int)$data['status'] . "', `date_modified` = NOW(), `date_added` = NOW()");
 
@@ -65,6 +70,12 @@ class ModelCatalogCategory extends Model {
         return $category_id;
     }
 
+	/**
+	 * @param int   $category_id
+	 * @param array $data
+	 *
+	 * @return void
+	 */
     public function editCategory(int $category_id, array $data): void {
         $this->db->query("UPDATE `" . DB_PREFIX . "category` SET `parent_id` = '" . (int)$data['parent_id'] . "', `top` = '" . (isset($data['top']) ? (int)$data['top'] : 0) . "', `column` = '" . (int)$data['column'] . "', `sort_order` = '" . (int)$data['sort_order'] . "', `status` = '" . (int)$data['status'] . "', `date_modified` = NOW() WHERE `category_id` = '" . (int)$category_id . "'");
 
@@ -169,6 +180,11 @@ class ModelCatalogCategory extends Model {
         $this->cache->delete('category');
     }
 
+	/**
+	 * @param int $category_id
+	 *
+	 * @return void
+	 */
     public function deleteCategory(int $category_id): void {
         $this->db->query("DELETE FROM `" . DB_PREFIX . "category_path` WHERE `category_id` = '" . (int)$category_id . "'");
 
@@ -190,6 +206,11 @@ class ModelCatalogCategory extends Model {
         $this->cache->delete('category');
     }
 
+	/**
+	 * @param int $parent_id
+	 *
+	 * @return void
+	 */
     public function repairCategories(int $parent_id = 0): void {
         $query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "category` WHERE `parent_id` = '" . (int)$parent_id . "'");
 
@@ -214,12 +235,22 @@ class ModelCatalogCategory extends Model {
         }
     }
 
+	/**
+	 * @param int $category_id
+	 *
+	 * @return array
+	 */
     public function getCategory(int $category_id): array {
         $query = $this->db->query("SELECT DISTINCT *, (SELECT GROUP_CONCAT(`cd1`.`name` ORDER BY `level` SEPARATOR ' > ') FROM `" . DB_PREFIX . "category_path` `cp` LEFT JOIN `" . DB_PREFIX . "category_description` `cd1` ON (`cp`.`path_id` = `cd1`.`category_id` AND `cp`.`category_id` != `cp`.`path_id`) WHERE `cp`.`category_id` = `c`.`category_id` AND `cd1`.`language_id` = '" . (int)$this->config->get('config_language_id') . "' GROUP BY `cp`.`category_id`) AS `path` FROM `" . DB_PREFIX . "category` `c` LEFT JOIN `" . DB_PREFIX . "category_description` `cd2` ON (`c`.`category_id` = `cd2`.`category_id`) WHERE `c`.`category_id` = '" . (int)$category_id . "' AND `cd2`.`language_id` = '" . (int)$this->config->get('config_language_id') . "'");
 
         return $query->row;
     }
 
+	/**
+	 * @param array $data
+	 *
+	 * @return array
+	 */
     public function getCategories(array $data = []): array {
         $sql = "SELECT `cp`.`category_id` AS `category_id`, GROUP_CONCAT(`cd1`.`name` ORDER BY `cp`.`level` SEPARATOR ' > ') AS `name`, `c1`.`parent_id`, `c1`.`sort_order` FROM `" . DB_PREFIX . "category_path` `cp` LEFT JOIN `" . DB_PREFIX . "category` `c1` ON (`cp`.`category_id` = `c1`.`category_id`) LEFT JOIN `" . DB_PREFIX . "category` `c2` ON (`cp`.`path_id` = `c2`.`category_id`) LEFT JOIN `" . DB_PREFIX . "category_description` `cd1` ON (`cp`.`path_id` = `cd1`.`category_id`) LEFT JOIN `" . DB_PREFIX . "category_description` `cd2` ON (`cp`.`category_id` = `cd2`.`category_id`) WHERE `cd1`.`language_id` = '" . (int)$this->config->get('config_language_id') . "' AND `cd2`.`language_id` = '" . (int)$this->config->get('config_language_id') . "'";
 
@@ -263,6 +294,11 @@ class ModelCatalogCategory extends Model {
         return $query->rows;
     }
 
+	/**
+	 * @param int $category_id
+	 *
+	 * @return array
+	 */
     public function getDescriptions(int $category_id): array {
         $category_description_data = [];
 
@@ -281,12 +317,22 @@ class ModelCatalogCategory extends Model {
         return $category_description_data;
     }
 
+	/**
+	 * @param int $category_id
+	 *
+	 * @return array
+	 */
     public function getPath(int $category_id): array {
         $query = $this->db->query("SELECT `category_id`, `path_id`, `level` FROM `" . DB_PREFIX . "category_path` WHERE `category_id` = '" . (int)$category_id . "'");
 
         return $query->rows;
     }
 
+	/**
+	 * @param int $category_id
+	 *
+	 * @return array
+	 */
     public function getFilters(int $category_id): array {
         $category_filter_data = [];
 
@@ -299,6 +345,11 @@ class ModelCatalogCategory extends Model {
         return $category_filter_data;
     }
 
+	/**
+	 * @param int $category_id
+	 *
+	 * @return array
+	 */
     public function getCategoryStores(int $category_id): array {
         $category_store_data = [];
 
@@ -311,6 +362,11 @@ class ModelCatalogCategory extends Model {
         return $category_store_data;
     }
 
+	/**
+	 * @param int $category_id
+	 *
+	 * @return array
+	 */
     public function getCategorySeoUrls(int $category_id): array {
         $category_seo_url_data = [];
 
@@ -323,6 +379,11 @@ class ModelCatalogCategory extends Model {
         return $category_seo_url_data;
     }
 
+	/**
+	 * @param int $category_id
+	 *
+	 * @return array
+	 */
     public function getCategoryLayouts(int $category_id): array {
         $category_layout_data = [];
 
@@ -335,12 +396,20 @@ class ModelCatalogCategory extends Model {
         return $category_layout_data;
     }
 
+	/**
+	 * @return int
+	 */
     public function getTotalCategories(): int {
         $query = $this->db->query("SELECT COUNT(*) AS `total` FROM `" . DB_PREFIX . "category`");
 
         return (int)$query->row['total'];
     }
 
+	/**
+	 * @param int $layout_id
+	 *
+	 * @return int
+	 */
     public function getTotalCategoriesByLayoutId(int $layout_id): int {
         $query = $this->db->query("SELECT COUNT(*) AS `total` FROM `" . DB_PREFIX . "category_to_layout` WHERE `layout_id` = '" . (int)$layout_id . "'");
 

@@ -5,32 +5,63 @@
  * @package Admin\Model\Marketing
  */
 class ModelMarketingMarketing extends Model {
+	/**
+	 * @param array $data
+	 *
+	 * @return int
+	 */
     public function addMarketing(array $data): int {
         $this->db->query("INSERT INTO `" . DB_PREFIX . "marketing` SET `name` = '" . $this->db->escape($data['name']) . "', `description` = '" . $this->db->escape($data['description']) . "', `code` = '" . $this->db->escape($data['code']) . "', `date_added` = NOW()");
 
         return $this->db->getLastId();
     }
 
+	/**
+	 * @param int   $marketing_id
+	 * @param array $data
+	 *
+	 * @return void
+	 */
     public function editMarketing(int $marketing_id, array $data): void {
         $this->db->query("UPDATE `" . DB_PREFIX . "marketing` SET `name` = '" . $this->db->escape($data['name']) . "', `description` = '" . $this->db->escape($data['description']) . "', `code` = '" . $this->db->escape($data['code']) . "' WHERE `marketing_id` = '" . (int)$marketing_id . "'");
     }
 
+	/**
+	 * @param int $marketing_id
+	 *
+	 * @return void
+	 */
     public function deleteMarketing(int $marketing_id): void {
         $this->db->query("DELETE FROM `" . DB_PREFIX . "marketing` WHERE `marketing_id` = '" . (int)$marketing_id . "'");
     }
 
+	/**
+	 * @param int $marketing_id
+	 *
+	 * @return array
+	 */
     public function getMarketing(int $marketing_id): array {
         $query = $this->db->query("SELECT DISTINCT * FROM `" . DB_PREFIX . "marketing` WHERE `marketing_id` = '" . (int)$marketing_id . "'");
 
         return $query->row;
     }
 
+	/**
+	 * @param string $code
+	 *
+	 * @return array
+	 */
     public function getMarketingByCode(string $code): array {
         $query = $this->db->query("SELECT DISTINCT * FROM `" . DB_PREFIX . "marketing` WHERE `code` = '" . $this->db->escape($code) . "'");
 
         return $query->row;
     }
 
+	/**
+	 * @param array $data
+	 *
+	 * @return array
+	 */
     public function getMarketings(array $data = []): array {
         $implode = [];
 
@@ -95,6 +126,11 @@ class ModelMarketingMarketing extends Model {
         return $query->rows;
     }
 
+	/**
+	 * @param array $data
+	 *
+	 * @return int
+	 */
     public function getTotalMarketings(array $data = []): int {
         $sql = "SELECT COUNT(*) AS `total` FROM `" . DB_PREFIX . "marketing`";
 

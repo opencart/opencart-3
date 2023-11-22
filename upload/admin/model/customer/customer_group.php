@@ -5,6 +5,11 @@
  * @package Admin\Model\Customer
  */
 class ModelCustomerCustomerGroup extends Model {
+	/**
+	 * @param array $data
+	 *
+	 * @return int
+	 */
     public function addCustomerGroup(array $data): int {
         $this->db->query("INSERT INTO `" . DB_PREFIX . "customer_group` SET `approval` = '" . (int)$data['approval'] . "', `sort_order` = '" . (int)$data['sort_order'] . "'");
 
@@ -17,6 +22,12 @@ class ModelCustomerCustomerGroup extends Model {
         return $customer_group_id;
     }
 
+	/**
+	 * @param int   $customer_group_id
+	 * @param array $data
+	 *
+	 * @return void
+	 */
     public function editCustomerGroup(int $customer_group_id, array $data): void {
         $this->db->query("UPDATE `" . DB_PREFIX . "customer_group` SET `approval` = '" . (int)$data['approval'] . "', `sort_order` = '" . (int)$data['sort_order'] . "' WHERE `customer_group_id` = '" . (int)$customer_group_id . "'");
 
@@ -27,6 +38,11 @@ class ModelCustomerCustomerGroup extends Model {
         }
     }
 
+	/**
+	 * @param int $customer_group_id
+	 *
+	 * @return void
+	 */
     public function deleteCustomerGroup(int $customer_group_id): void {
         $this->db->query("DELETE FROM `" . DB_PREFIX . "customer_group` WHERE `customer_group_id` = '" . (int)$customer_group_id . "'");
         $this->db->query("DELETE FROM `" . DB_PREFIX . "customer_group_description` WHERE customer_group_id = '" . (int)$customer_group_id . "'");
@@ -36,12 +52,22 @@ class ModelCustomerCustomerGroup extends Model {
         $this->db->query("DELETE FROM `" . DB_PREFIX . "tax_rate_to_customer_group` WHERE `customer_group_id` = '" . (int)$customer_group_id . "'");
     }
 
+	/**
+	 * @param int $customer_group_id
+	 *
+	 * @return array
+	 */
     public function getCustomerGroup(int $customer_group_id): array {
         $query = $this->db->query("SELECT DISTINCT * FROM `" . DB_PREFIX . "customer_group` `cg` LEFT JOIN `" . DB_PREFIX . "customer_group_description` `cgd` ON (`cg`.`customer_group_id` = `cgd`.`customer_group_id`) WHERE `cg`.`customer_group_id` = '" . (int)$customer_group_id . "' AND `cgd`.`language_id` = '" . (int)$this->config->get('config_language_id') . "'");
 
         return $query->row;
     }
 
+	/**
+	 * @param array $data
+	 *
+	 * @return array
+	 */
     public function getCustomerGroups(array $data = []): array {
         $sql = "SELECT * FROM `" . DB_PREFIX . "customer_group` `cg` LEFT JOIN `" . DB_PREFIX . "customer_group_description` `cgd` ON (`cg`.`customer_group_id` = `cgd`.`customer_group_id`) WHERE `cgd`.`language_id` = '" . (int)$this->config->get('config_language_id') . "'";
 
@@ -79,6 +105,11 @@ class ModelCustomerCustomerGroup extends Model {
         return $query->rows;
     }
 
+	/**
+	 * @param int $customer_group_id
+	 *
+	 * @return array
+	 */
     public function getDescriptions(int $customer_group_id): array {
         $customer_group_data = [];
 
@@ -94,6 +125,9 @@ class ModelCustomerCustomerGroup extends Model {
         return $customer_group_data;
     }
 
+	/**
+	 * @return int
+	 */
     public function getTotalCustomerGroups(): int {
         $query = $this->db->query("SELECT COUNT(*) AS `total` FROM `" . DB_PREFIX . "customer_group`");
 

@@ -5,6 +5,11 @@
  * @package Admin\Model\Catalog
  */
 class ModelCatalogSubscriptionPlan extends Model {
+	/**
+	 * @param array $data
+	 *
+	 * @return int
+	 */
     public function addSubscriptionPlan(array $data): int {
         $this->db->query("INSERT INTO `" . DB_PREFIX . "subscription_plan` SET `trial_price` = '" . (float)$data['trial_price'] . "', `trial_frequency` = '" . $this->db->escape($data['trial_frequency']) . "', `trial_duration` = '" . (int)$data['trial_duration'] . "', `trial_cycle` = '" . (int)$data['trial_cycle'] . "', `trial_status` = '" . (int)$data['trial_status'] . "', `price` = '" . (float)$data['price'] . "', `frequency` = '" . $this->db->escape($data['frequency']) . "', `duration` = '" . (int)$data['duration'] . "', `cycle` = '" . (int)$data['cycle'] . "', `status` = '" . (bool)(isset($data['status']) ? $data['status'] : 0) . "', `sort_order` = '" . (int)$data['sort_order'] . "'");
 
@@ -17,6 +22,12 @@ class ModelCatalogSubscriptionPlan extends Model {
         return $subscription_plan_id;
     }
 
+	/**
+	 * @param int   $subscription_plan_id
+	 * @param array $data
+	 *
+	 * @return void
+	 */
     public function editSubscriptionPlan(int $subscription_plan_id, array $data): void {
         $this->db->query("UPDATE `" . DB_PREFIX . "subscription_plan` SET `trial_price` = '" . (float)$data['trial_price'] . "', `trial_frequency` = '" . $this->db->escape($data['trial_frequency']) . "', `trial_duration` = '" . (int)$data['trial_duration'] . "', `trial_cycle` = '" . (int)$data['trial_cycle'] . "', `trial_status` = '" . (int)$data['trial_status'] . "', `price` = '" . (float)$data['price'] . "', `frequency` = '" . $this->db->escape($data['frequency']) . "', `duration` = '" . (int)$data['duration'] . "', `cycle` = '" . (int)$data['cycle'] . "', `status` = '" . (bool)(isset($data['status']) ? $data['status'] : 0) . "', `sort_order` = '" . (int)$data['sort_order'] . "' WHERE `subscription_plan_id` = '" . (int)$subscription_plan_id . "'");
 
@@ -27,6 +38,11 @@ class ModelCatalogSubscriptionPlan extends Model {
         }
     }
 
+	/**
+	 * @param int $subscription_plan_id
+	 *
+	 * @return void
+	 */
     public function copySubscriptionPlan(int $subscription_plan_id): void {
         $data = $this->getSubscriptionPlan($subscription_plan_id);
 
@@ -35,6 +51,11 @@ class ModelCatalogSubscriptionPlan extends Model {
         $this->addSubscriptionPlan($data);
     }
 
+	/**
+	 * @param int $subscription_plan_id
+	 *
+	 * @return void
+	 */
     public function deleteSubscriptionPlan(int $subscription_plan_id): void {
         $this->db->query("DELETE FROM `" . DB_PREFIX . "subscription_plan` WHERE `subscription_plan_id` = '" . (int)$subscription_plan_id . "'");
         $this->db->query("DELETE FROM `" . DB_PREFIX . "subscription_plan_description` WHERE `subscription_plan_id` = '" . (int)$subscription_plan_id . "'");
@@ -43,12 +64,22 @@ class ModelCatalogSubscriptionPlan extends Model {
         $this->db->query("UPDATE `" . DB_PREFIX . "subscription` SET `subscription_plan_id` = '0' WHERE `subscription_plan_id` = '" . (int)$subscription_plan_id . "'");
     }
 
+	/**
+	 * @param int $subscription_plan_id
+	 *
+	 * @return array
+	 */
     public function getSubscriptionPlan(int $subscription_plan_id): array {
         $query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "subscription_plan` `sp` LEFT JOIN `" . DB_PREFIX . "subscription_plan_description` `spd` ON (`sp`.`subscription_plan_id` = `spd`.`subscription_plan_id`) WHERE `sp`.`subscription_plan_id` = '" . (int)$subscription_plan_id . "' AND `spd`.`language_id` = '" . (int)$this->config->get('config_language_id') . "'");
 
         return $query->row;
     }
 
+	/**
+	 * @param int $subscription_plan_id
+	 *
+	 * @return array
+	 */
     public function getSubscriptionPlanDescription(int $subscription_plan_id): array {
         $subscription_plan_description_data = [];
 
@@ -64,6 +95,11 @@ class ModelCatalogSubscriptionPlan extends Model {
         return $subscription_plan_description_data;
     }
 
+	/**
+	 * @param array $data
+	 *
+	 * @return array
+	 */
     public function getSubscriptionPlans(array $data = []): array {
         $sql = "SELECT * FROM `" . DB_PREFIX . "subscription_plan` `sp` LEFT JOIN `" . DB_PREFIX . "subscription_plan_description` `spd` ON (`sp`.`subscription_plan_id` = `spd`.`subscription_plan_id`) WHERE `spd`.`language_id` = '" . (int)$this->config->get('config_language_id') . "'";
 
@@ -105,6 +141,9 @@ class ModelCatalogSubscriptionPlan extends Model {
         return $query->rows;
     }
 
+	/**
+	 * @return int
+	 */
     public function getTotalSubscriptionPlans(): int {
         $query = $this->db->query("SELECT COUNT(*) AS `total` FROM `" . DB_PREFIX . "subscription_plan`");
 

@@ -370,8 +370,8 @@ class ControllerExtensionPaymentKlarnaCheckout extends Controller {
 		}
 
 		$totals = [];
-		$taxes  = $this->cart->getTaxes();
-		$total  = 0;
+		$taxes = $this->cart->getTaxes();
+		$total = 0;
 
 		// Because __call can not keep var references so we put them into an array.
 		$total_data = [
@@ -493,8 +493,8 @@ class ControllerExtensionPaymentKlarnaCheckout extends Controller {
 		$this->load->model('setting/extension');
 
 		$totals = [];
-		$taxes  = $this->cart->getTaxes();
-		$total  = 0;
+		$taxes = $this->cart->getTaxes();
+		$total = 0;
 
 		// Because __call can not keep var references so we put them into an array.
 		$total_data = [
@@ -1063,7 +1063,7 @@ class ControllerExtensionPaymentKlarnaCheckout extends Controller {
 			}
 
 			// Update OpenCart order with payment and shipping details
-			$payment_country_info  = $this->model_extension_payment_klarna_checkout->getCountryByIsoCode2($request->billing_address->country);
+			$payment_country_info = $this->model_extension_payment_klarna_checkout->getCountryByIsoCode2($request->billing_address->country);
 			$shipping_country_info = $this->model_extension_payment_klarna_checkout->getCountryByIsoCode2($request->shipping_address->country);
 
 			// If region is passed, try to update OpenCart order with correct region/zone
@@ -1713,7 +1713,7 @@ class ControllerExtensionPaymentKlarnaCheckout extends Controller {
 		$this->load->model('extension/payment/klarna_checkout');
 		$this->load->model('localisation/country');
 
-		$currency_code  = $this->session->data['currency'];
+		$currency_code = $this->session->data['currency'];
 		$currency_value = $this->currency->getValue($this->session->data['currency']);
 
 		// Shipping

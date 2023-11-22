@@ -5,6 +5,14 @@
  * @package Admin\Model\Tool
  */
 class ModelToolImage extends Model {
+	/**
+	 * @param string $filename
+	 * @param int    $width
+	 * @param int    $height
+	 *
+	 * @return string
+	 * @throws \Exception
+	 */
     public function resize(string $filename, int $width, int $height): string {
         if (!is_file(DIR_IMAGE . $filename) || substr(str_replace('\\', '/', realpath(DIR_IMAGE . $filename)), 0, strlen(DIR_IMAGE)) != str_replace('\\', '/', DIR_IMAGE)) {
             return '';

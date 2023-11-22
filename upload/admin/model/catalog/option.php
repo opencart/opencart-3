@@ -5,6 +5,11 @@
  * @package Admin\Model\Catalog
  */
 class ModelCatalogOption extends Model {
+	/**
+	 * @param array $data
+	 *
+	 * @return int
+	 */
     public function addOption(array $data): int {
         $this->db->query("INSERT INTO `" . DB_PREFIX . "option` SET `type` = '" . $this->db->escape($data['type']) . "', `sort_order` = '" . (int)$data['sort_order'] . "'");
 
@@ -29,6 +34,12 @@ class ModelCatalogOption extends Model {
         return $option_id;
     }
 
+	/**
+	 * @param int   $option_id
+	 * @param array $data
+	 *
+	 * @return void
+	 */
     public function editOption(int $option_id, array $data): void {
         $this->db->query("UPDATE `" . DB_PREFIX . "option` SET `type` = '" . $this->db->escape($data['type']) . "', `sort_order` = '" . (int)$data['sort_order'] . "' WHERE `option_id` = '" . (int)$option_id . "'");
 
@@ -58,6 +69,11 @@ class ModelCatalogOption extends Model {
         }
     }
 
+	/**
+	 * @param int $option_id
+	 *
+	 * @return void
+	 */
     public function deleteOption(int $option_id): void {
         $this->db->query("DELETE FROM `" . DB_PREFIX . "option` WHERE `option_id` = '" . (int)$option_id . "'");
         $this->db->query("DELETE FROM `" . DB_PREFIX . "option_description` WHERE `option_id` = '" . (int)$option_id . "'");
@@ -65,12 +81,22 @@ class ModelCatalogOption extends Model {
         $this->db->query("DELETE FROM `" . DB_PREFIX . "option_value_description` WHERE `option_id` = '" . (int)$option_id . "'");
     }
 
+	/**
+	 * @param int $option_id
+	 *
+	 * @return array
+	 */
     public function getOption(int $option_id): array {
         $query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "option` `o` LEFT JOIN `" . DB_PREFIX . "option_description` `od` ON (`o`.`option_id` = `od`.`option_id`) WHERE `o`.`option_id` = '" . (int)$option_id . "' AND `od`.`language_id` = '" . (int)$this->config->get('config_language_id') . "'");
 
         return $query->row;
     }
 
+	/**
+	 * @param array $data
+	 *
+	 * @return array
+	 */
     public function getOptions(array $data = []): array {
         $sql = "SELECT * FROM `" . DB_PREFIX . "option` `o` LEFT JOIN `" . DB_PREFIX . "option_description` `od` ON (`o`.`option_id` = `od`.`option_id`) WHERE `od`.`language_id` = '" . (int)$this->config->get('config_language_id') . "'";
 
@@ -113,6 +139,11 @@ class ModelCatalogOption extends Model {
         return $query->rows;
     }
 
+	/**
+	 * @param int $option_id
+	 *
+	 * @return array
+	 */
     public function getDescriptions(int $option_id): array {
         $option_data = [];
 
@@ -125,12 +156,22 @@ class ModelCatalogOption extends Model {
         return $option_data;
     }
 
+	/**
+	 * @param int $option_value_id
+	 *
+	 * @return array
+	 */
     public function getValue(int $option_value_id): array {
         $query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "option_value` `ov` LEFT JOIN `" . DB_PREFIX . "option_value_description` `ovd` ON (`ov`.`option_value_id` = `ovd`.`option_value_id`) WHERE `ov`.`option_value_id` = '" . (int)$option_value_id . "' AND `ovd`.`language_id` = '" . (int)$this->config->get('config_language_id') . "'");
 
         return $query->row;
     }
 
+	/**
+	 * @param int $option_id
+	 *
+	 * @return array
+	 */
     public function getValues(int $option_id): array {
         $option_value_data = [];
 
@@ -148,6 +189,11 @@ class ModelCatalogOption extends Model {
         return $option_value_data;
     }
 
+	/**
+	 * @param int $option_id
+	 *
+	 * @return array
+	 */
     public function getValueDescriptions(int $option_id): array {
         $option_value_data = [];
 
@@ -173,6 +219,9 @@ class ModelCatalogOption extends Model {
         return $option_value_data;
     }
 
+	/**
+	 * @return int
+	 */
     public function getTotalOptions(): int {
         $query = $this->db->query("SELECT COUNT(*) AS `total` FROM `" . DB_PREFIX . "option`");
 

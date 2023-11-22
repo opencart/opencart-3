@@ -5,6 +5,11 @@
  * @package Admin\Model\Report
  */
 class ModelReportOnline extends Model {
+	/**
+	 * @param array $data
+	 *
+	 * @return array
+	 */
     public function getOnline(array $data = []): array {
         $sql = "SELECT `co`.`ip`, `co`.`customer_id`, `co`.`url`, `co`.`referer`, `co`.`date_added` FROM `" . DB_PREFIX . "customer_online` `co` LEFT JOIN `" . DB_PREFIX . "customer` `c` ON (`co`.`customer_id` = `c`.`customer_id`)";
 
@@ -41,6 +46,11 @@ class ModelReportOnline extends Model {
         return $query->rows;
     }
 
+	/**
+	 * @param array $data
+	 *
+	 * @return int
+	 */
     public function getTotalOnline(array $data = []): int {
         $sql = "SELECT COUNT(*) AS `total` FROM `" . DB_PREFIX . "customer_online` `co` LEFT JOIN `" . DB_PREFIX . "customer` `c` ON (`co`.`customer_id` = `c`.`customer_id`)";
 

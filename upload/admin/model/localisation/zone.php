@@ -5,6 +5,11 @@
  * @package Admin\Model\Localisation
  */
 class ModelLocalisationZone extends Model {
+	/**
+	 * @param array $data
+	 *
+	 * @return int
+	 */
     public function addZone(array $data): int {
         $this->db->query("INSERT INTO `" . DB_PREFIX . "zone` SET `status` = '" . (int)$data['status'] . "', `name` = '" . $this->db->escape($data['name']) . "', `code` = '" . $this->db->escape($data['code']) . "', `country_id` = '" . (int)$data['country_id'] . "'");
 
@@ -13,24 +18,45 @@ class ModelLocalisationZone extends Model {
         return $this->db->getLastId();
     }
 
+	/**
+	 * @param int   $zone_id
+	 * @param array $data
+	 *
+	 * @return void
+	 */
     public function editZone(int $zone_id, array $data): void {
         $this->db->query("UPDATE `" . DB_PREFIX . "zone` SET `status` = '" . (int)$data['status'] . "', `name` = '" . $this->db->escape($data['name']) . "', `code` = '" . $this->db->escape($data['code']) . "', `country_id` = '" . (int)$data['country_id'] . "' WHERE `zone_id` = '" . (int)$zone_id . "'");
 
         $this->cache->delete('zone');
     }
 
+	/**
+	 * @param int $zone_id
+	 *
+	 * @return void
+	 */
     public function deleteZone(int $zone_id): void {
         $this->db->query("DELETE FROM `" . DB_PREFIX . "zone` WHERE `zone_id` = '" . (int)$zone_id . "'");
 
         $this->cache->delete('zone');
     }
 
+	/**
+	 * @param int $zone_id
+	 *
+	 * @return array
+	 */
     public function getZone(int $zone_id): array {
         $query = $this->db->query("SELECT DISTINCT * FROM `" . DB_PREFIX . "zone` WHERE `zone_id` = '" . (int)$zone_id . "'");
 
         return $query->row;
     }
 
+	/**
+	 * @param array $data
+	 *
+	 * @return array
+	 */
     public function getZones(array $data = []): array {
         $sql = "SELECT *, `z`.`name`, `c`.`name` AS `country` FROM `" . DB_PREFIX . "zone` `z` LEFT JOIN `" . DB_PREFIX . "country` `c` ON (`z`.`country_id` = `c`.`country_id`)";
 
@@ -69,6 +95,11 @@ class ModelLocalisationZone extends Model {
         return $query->rows;
     }
 
+	/**
+	 * @param int $country_id
+	 *
+	 * @return array
+	 */
     public function getZonesByCountryId(int $country_id): array {
         $zone_data = $this->cache->get('zone.' . (int)$country_id);
 
@@ -83,12 +114,22 @@ class ModelLocalisationZone extends Model {
         return $zone_data;
     }
 
+	/**
+	 * @param array $data
+	 *
+	 * @return int
+	 */
     public function getTotalZones(): int {
         $query = $this->db->query("SELECT COUNT(*) AS `total` FROM `" . DB_PREFIX . "zone`");
 
         return (int)$query->row['total'];
     }
 
+	/**
+	 * @param int $country_id
+	 *
+	 * @return int
+	 */
     public function getTotalZonesByCountryId(int $country_id): int {
         $query = $this->db->query("SELECT COUNT(*) AS `total` FROM `" . DB_PREFIX . "zone` WHERE `country_id` = '" . (int)$country_id . "'");
 

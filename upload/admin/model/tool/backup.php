@@ -5,6 +5,9 @@
  * @package Admin\Model\Tool
  */
 class ModelToolBackup extends Model {
+	/**
+	 * @return array
+	 */
     public function getTables(): array {
         $table_data = [];
 
@@ -21,6 +24,13 @@ class ModelToolBackup extends Model {
         return $table_data;
     }
 
+	/**
+	 * @param string $table
+	 * @param int    $start
+	 * @param int    $limit
+	 *
+	 * @return array
+	 */
     public function getRecords(string $table, int $start = 0, int $limit = 100): array {
         if ($start < 0) {
             $start = 0;
@@ -39,6 +49,11 @@ class ModelToolBackup extends Model {
         }
     }
 
+	/**
+	 * @param string $table
+	 *
+	 * @return int
+	 */
     public function getTotalRecords(string $table): int {
         $query = $this->db->query("SELECT COUNT(*) AS `total` FROM `" . $table . "`");
 
@@ -49,6 +64,11 @@ class ModelToolBackup extends Model {
         }
     }
 
+	/**
+	 * @param array $tables
+	 *
+	 * @return string
+	 */
     public function backup(array $tables): string {
         $output = '';
 

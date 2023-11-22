@@ -5,32 +5,67 @@
  * @package Admin\Model\Setting
  */
 class ModelSettingModification extends Model {
+	/**
+	 * @param array $data
+	 *
+	 * @return void
+	 */
     public function addModification(array $data): void {
         $this->db->query("INSERT INTO `" . DB_PREFIX . "modification` SET `extension_install_id` = '" . (int)$data['extension_install_id'] . "', `name` = '" . $this->db->escape($data['name']) . "', `code` = '" . $this->db->escape($data['code']) . "', `author` = '" . $this->db->escape($data['author']) . "', `version` = '" . $this->db->escape($data['version']) . "', `link` = '" . $this->db->escape($data['link']) . "', `xml` = '" . $this->db->escape($data['xml']) . "', `status` = '" . (int)$data['status'] . "', `date_added` = NOW()");
     }
 
+	/**
+	 * @param int $modification_id
+	 *
+	 * @return void
+	 */
     public function deleteModification(int $modification_id): void {
         $this->db->query("DELETE FROM `" . DB_PREFIX . "modification` WHERE `modification_id` = '" . (int)$modification_id . "'");
     }
 
+	/**
+	 * @param int $extension_install_id
+	 *
+	 * @return void
+	 */
     public function deleteModificationsByExtensionInstallId(int $extension_install_id): void {
         $this->db->query("DELETE FROM `" . DB_PREFIX . "modification` WHERE `extension_install_id` = '" . (int)$extension_install_id . "'");
     }
 
+	/**
+	 * @param int $modification_id
+	 *
+	 * @return void
+	 */
     public function enableModification(int $modification_id): void {
         $this->db->query("UPDATE `" . DB_PREFIX . "modification` SET `status` = '1' WHERE `modification_id` = '" . (int)$modification_id . "'");
     }
 
+	/**
+	 * @param int $modification_id
+	 *
+	 * @return void
+	 */
     public function disableModification(int $modification_id): void {
         $this->db->query("UPDATE `" . DB_PREFIX . "modification` SET `status` = '0' WHERE `modification_id` = '" . (int)$modification_id . "'");
     }
 
+	/**
+	 * @param int $modification_id
+	 *
+	 * @return array
+	 */
     public function getModification(int $modification_id): array {
         $query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "modification` WHERE `modification_id` = '" . (int)$modification_id . "'");
 
         return $query->row;
     }
 
+	/**
+	 * @param array $data
+	 *
+	 * @return array
+	 */
     public function getModifications(array $data = []): array {
         $sql = "SELECT * FROM `" . DB_PREFIX . "modification`";
 
@@ -71,12 +106,20 @@ class ModelSettingModification extends Model {
         return $query->rows;
     }
 
+	/**
+	 * @return int
+	 */
     public function getTotalModifications(): int {
         $query = $this->db->query("SELECT COUNT(*) AS `total` FROM `" . DB_PREFIX . "modification`");
 
         return (int)$query->row['total'];
     }
 
+	/**
+	 * @param string $code
+	 *
+	 * @return array
+	 */
     public function getModificationByCode(string $code): array {
         $query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "modification` WHERE `code` = '" . $this->db->escape($code) . "'");
 
