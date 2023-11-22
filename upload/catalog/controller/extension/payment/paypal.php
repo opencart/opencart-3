@@ -17,7 +17,7 @@ class ControllerExtensionPaymentPayPal extends Controller {
     }
 
 	/**
-	 * @return void
+	 * @return string
 	 */
     public function index(): string {
         $this->load->language('extension/payment/paypal');
