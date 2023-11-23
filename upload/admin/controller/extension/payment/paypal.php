@@ -5,7 +5,7 @@
  * @package Admin\Controller\Extension\Payment
  */
 class ControllerExtensionPaymentPayPal extends Controller {
-    private $error = [];
+    private array $error = [];
 	/**
 	 * @return void
 	 */

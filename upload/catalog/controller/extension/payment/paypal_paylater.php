@@ -5,9 +5,12 @@
  * @package Catalog\Controller\Extension\Payment
  */
 class ControllerExtensionPaymentPayPalPayLater extends Controller {
-	private $error = [];
+	private array $error = [];
 
-	public function index() {
+	/**
+	 * @return string
+	 */
+	public function index(): string {
 		$this->load->model('extension/payment/paypal');
 
 		$agree_status = $this->model_extension_payment_paypal->getAgreeStatus();
@@ -86,8 +89,13 @@ class ControllerExtensionPaymentPayPalPayLater extends Controller {
 
 			return $this->load->view('extension/payment/paypal/paypal_paylater', $data);
 		}
+
+		return '';
 	}
 
+	/**
+	 * @return void
+	 */
 	public function modal(): void {
 		$this->load->language('extension/payment/paypal');
 
