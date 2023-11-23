@@ -5,6 +5,12 @@
  * @package Catalog\Model\Extension\Payment
  */
 class ModelExtensionPaymentPayPalPayLater extends Model {
+	/**
+	 * @param array $address
+	 * @param float $total
+	 *
+	 * @return array
+	 */
 	public function getMethod(array $address, float $total): array {
 		$method_data = [];
 

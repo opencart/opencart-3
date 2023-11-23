@@ -5,6 +5,11 @@
  * @package Catalog\Model\Checkout
  */
 class ModelCheckoutShippingMethod extends Model {
+	/**
+	 * @param array $shipping_address
+	 *
+	 * @return array
+	 */
     public function getMethods(array $shipping_address): array {
         $method_data = [];
 

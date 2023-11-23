@@ -5,6 +5,11 @@
  * @package Catalog\Model\Localisation
  */
 class ModelLocalisationReturnsReason extends Model {
+	/**
+	 * @param array $data
+	 *
+	 * @return array
+	 */
     public function getReturnReasons(array $data = []): array {
         if ($data) {
             $sql = "SELECT * FROM `" . DB_PREFIX . "return_reason` WHERE `language_id` = '" . (int)$this->config->get('config_language_id') . "'";

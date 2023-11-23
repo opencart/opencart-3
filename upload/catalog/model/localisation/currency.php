@@ -5,12 +5,20 @@
  * @package Catalog\Model\Localisation
  */
 class ModelLocalisationCurrency extends Model {
+	/**
+	 * @param string $currency
+	 *
+	 * @return array
+	 */
     public function getCurrencyByCode(string $currency): array {
         $query = $this->db->query("SELECT DISTINCT * FROM `" . DB_PREFIX . "currency` WHERE `code` = '" . $this->db->escape($currency) . "'");
 
         return $query->row;
     }
 
+	/**
+	 * @return array
+	 */
     public function getCurrencies(): array {
         $currency_data = $this->cache->get('currency');
 

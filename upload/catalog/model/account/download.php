@@ -5,6 +5,11 @@
  * @package Catalog\Model\Account
  */
 class ModelAccountDownload extends Model {
+	/**
+	 * @param int $download_id
+	 *
+	 * @return array
+	 */
     public function getDownload(int $download_id): array {
         $implode = [];
 
@@ -23,6 +28,12 @@ class ModelAccountDownload extends Model {
         }
     }
 
+	/**
+	 * @param int $start
+	 * @param int $limit
+	 *
+	 * @return array
+	 */
     public function getDownloads(int $start = 0, int $limit = 20): array {
         if ($start < 0) {
             $start = 0;
@@ -49,6 +60,9 @@ class ModelAccountDownload extends Model {
         }
     }
 
+	/**
+	 * @return int
+	 */
     public function getTotalDownloads(): int {
         $implode = [];
 

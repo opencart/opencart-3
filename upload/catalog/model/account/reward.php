@@ -5,6 +5,11 @@
  * @package Catalog\Model\Account
  */
 class ModelAccountReward extends Model {
+	/**
+	 * @param array $data
+	 *
+	 * @return array
+	 */
     public function getRewards(array $data = []): array {
         $sql = "SELECT * FROM `" . DB_PREFIX . "customer_reward` WHERE `customer_id` = '" . (int)$this->customer->getId() . "'";
 
@@ -43,12 +48,18 @@ class ModelAccountReward extends Model {
         return $query->rows;
     }
 
+	/**
+	 * @return int
+	 */
     public function getTotalRewards(): int {
         $query = $this->db->query("SELECT COUNT(*) AS `total` FROM `" . DB_PREFIX . "customer_reward` WHERE `customer_id` = '" . (int)$this->customer->getId() . "'");
 
         return (int)$query->row['total'];
     }
 
+	/**
+	 * @return int
+	 */
     public function getTotalPoints(): int {
         $query = $this->db->query("SELECT SUM(`points`) AS `total` FROM `" . DB_PREFIX . "customer_reward` WHERE `customer_id` = '" . (int)$this->customer->getId() . "' GROUP BY `customer_id`");
 

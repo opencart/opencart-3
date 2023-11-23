@@ -5,6 +5,11 @@
  * @package Catalog\Model\Checkout
  */
 class ModelCheckoutPaymentMethod extends Model {
+	/**
+	 * @param array $payment_address
+	 *
+	 * @return array
+	 */
     public function getMethods(array $payment_address): array {
         $method_data = [];
 

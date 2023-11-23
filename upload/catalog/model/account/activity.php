@@ -5,6 +5,12 @@
  * @package Catalog\Model\Account
  */
 class ModelAccountActivity extends Model {
+	/**
+	 * @param string $key
+	 * @param array  $data
+	 *
+	 * @return void
+	 */
     public function addActivity(string $key, array $data): void {
         if (isset($data['customer_id'])) {
             $customer_id = $data['customer_id'];

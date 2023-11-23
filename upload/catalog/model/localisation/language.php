@@ -5,12 +5,22 @@
  * @package Catalog\Model\Localisation
  */
 class ModelLocalisationLanguage extends Model {
+	/**
+	 * @param int $language_id
+	 *
+	 * @return array
+	 */
     public function getLanguage(int $language_id): array {
         $query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "language` WHERE `language_id` = '" . (int)$language_id . "'");
 
         return $query->row;
     }
 
+	/**
+	 * @param string $code
+	 *
+	 * @return array
+	 */
     public function getLanguageByCode(string $code): array {
         if (isset($this->data[$code])) {
             return $this->data[$code];
@@ -37,6 +47,9 @@ class ModelLocalisationLanguage extends Model {
         return $language;
     }
 
+	/**
+	 * @return array
+	 */
     public function getLanguages(): array {
         $language_data = $this->cache->get('catalog.language');
 

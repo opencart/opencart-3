@@ -5,6 +5,12 @@
  * @package Catalog\Model\Account
  */
 class ModelAccountAddress extends Model {
+	/**
+	 * @param int   $customer_id
+	 * @param array $data
+	 *
+	 * @return int
+	 */
     public function addAddress(int $customer_id, array $data): int {
         $this->db->query("INSERT INTO `" . DB_PREFIX . "address` SET `customer_id` = '" . (int)$customer_id . "', `firstname` = '" . $this->db->escape($data['firstname']) . "', `lastname` = '" . $this->db->escape($data['lastname']) . "', `company` = '" . $this->db->escape($data['company']) . "', `address_1` = '" . $this->db->escape($data['address_1']) . "', `address_2` = '" . $this->db->escape($data['address_2']) . "', `postcode` = '" . $this->db->escape($data['postcode']) . "', `city` = '" . $this->db->escape($data['city']) . "', `zone_id` = '" . (int)$data['zone_id'] . "', `country_id` = '" . (int)$data['country_id'] . "', `custom_field` = '" . $this->db->escape(isset($data['custom_field']) ? json_encode($data['custom_field']) : '') . "', `default` = '" . (isset($data['default']) ? (int)$data['default'] : 0) . "'");
 
@@ -17,6 +23,12 @@ class ModelAccountAddress extends Model {
         return $address_id;
     }
 
+	/**
+	 * @param int   $address_id
+	 * @param array $data
+	 *
+	 * @return void
+	 */
     public function editAddress(int $address_id, array $data): void {
         $this->db->query("UPDATE `" . DB_PREFIX . "address` SET `firstname` = '" . $this->db->escape($data['firstname']) . "', `lastname` = '" . $this->db->escape($data['lastname']) . "', `company` = '" . $this->db->escape($data['company']) . "', `address_1` = '" . $this->db->escape($data['address_1']) . "', `address_2` = '" . $this->db->escape($data['address_2']) . "', `postcode` = '" . $this->db->escape($data['postcode']) . "', `city` = '" . $this->db->escape($data['city']) . "', `zone_id` = '" . (int)$data['zone_id'] . "', `country_id` = '" . (int)$data['country_id'] . "', `custom_field` = '" . $this->db->escape(isset($data['custom_field']) ? json_encode($data['custom_field']) : '') . "', `default` = '" . (isset($data['default']) ? (int)$data['default'] : 0) . "' WHERE `address_id` = '" . (int)$address_id . "' AND `customer_id` = '" . (int)$this->customer->getId() . "'");
 
@@ -25,6 +37,11 @@ class ModelAccountAddress extends Model {
         }
     }
 
+	/**
+	 * @param int $address_id
+	 *
+	 * @return void
+	 */
     public function deleteAddress(int $address_id): void {
         $this->db->query("DELETE FROM `" . DB_PREFIX . "address` WHERE `address_id` = '" . (int)$address_id . "' AND `customer_id` = '" . (int)$this->customer->getId() . "'");
 
@@ -35,6 +52,12 @@ class ModelAccountAddress extends Model {
         }
     }
 
+	/**
+	 * @param int $customer_id
+	 * @param int $address_id
+	 *
+	 * @return array
+	 */
     public function getAddress(int $address_id): array {
         $address_query = $this->db->query("SELECT DISTINCT * FROM `" . DB_PREFIX . "address` WHERE `address_id` = '" . (int)$address_id . "' AND `customer_id` = '" . (int)$this->customer->getId() . "'");
 
@@ -122,6 +145,11 @@ class ModelAccountAddress extends Model {
         }
     }
 
+	/**
+	 * @param int $customer_id
+	 *
+	 * @return array
+	 */
     public function getAddresses(): array {
         $address_data = [];
 
@@ -138,6 +166,11 @@ class ModelAccountAddress extends Model {
         return $address_data;
     }
 
+	/**
+	 * @param int $customer_id
+	 *
+	 * @return int
+	 */
     public function getTotalAddresses(): int {
         $query = $this->db->query("SELECT COUNT(*) AS `total` FROM `" . DB_PREFIX . "address` WHERE `customer_id` = '" . (int)$this->customer->getId() . "'");
 
