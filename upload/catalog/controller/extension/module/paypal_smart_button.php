@@ -449,7 +449,7 @@ class ControllerExtensionModulePayPalSmartButton extends Controller {
                 $this->session->data['guest']['lastname'] = $customer_info['lastname'];
                 $this->session->data['guest']['email'] = $customer_info['email'];
                 $this->session->data['guest']['telephone'] = $customer_info['telephone'];
-                $this->session->data['guest']['custom_field'] = json_decode($customer_info['custom_field'], true);
+                $this->session->data['guest']['custom_field'] = $customer_info['custom_field'];
             } else {
                 $this->session->data['guest']['customer_id'] = 0;
                 $this->session->data['guest']['customer_group_id'] = $this->config->get('config_customer_group_id');

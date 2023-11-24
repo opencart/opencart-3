@@ -1503,7 +1503,7 @@ class ControllerExtensionPaymentKlarnaCheckout extends Controller {
 			$order_data['lastname'] = $customer_info['lastname'];
 			$order_data['email'] = $customer_info['email'];
 			$order_data['telephone'] = $customer_info['telephone'];
-			$order_data['custom_field'] = json_decode($customer_info['custom_field'], true);
+			$order_data['custom_field'] = $customer_info['custom_field'];
 		}
 		elseif (isset($this->session->data['guest'])) {
 			$order_data['customer_id'] = 0;
