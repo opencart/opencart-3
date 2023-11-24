@@ -16,6 +16,9 @@ class ControllerExtensionModulePayPalSmartButton extends Controller {
         }
     }
 
+	/**
+	 * @return string
+	 */
     public function index(): string {
         if ($this->config->get('payment_paypal_status') && isset($this->request->get['route'])) {
             $status = false;
@@ -138,6 +141,9 @@ class ControllerExtensionModulePayPalSmartButton extends Controller {
         }
     }
 
+	/**
+	 * @return void
+	 */
     public function createOrder(): void {
         $this->load->language('extension/module/paypal_smart_button');
 
@@ -343,6 +349,9 @@ class ControllerExtensionModulePayPalSmartButton extends Controller {
         $this->response->setOutput(json_encode($data));
     }
 
+	/**
+	 * @return void
+	 */
     public function approveOrder(): void {
         $this->load->language('extension/module/paypal_smart_button');
 
@@ -542,6 +551,9 @@ class ControllerExtensionModulePayPalSmartButton extends Controller {
         $this->response->setOutput(json_encode($data));
     }
 
+	/**
+	 * @return void
+	 */
     public function confirmOrder(): void {
         $this->load->language('checkout/cart');
         $this->load->language('extension/module/paypal_smart_button');
@@ -943,6 +955,9 @@ class ControllerExtensionModulePayPalSmartButton extends Controller {
         $this->response->setOutput($this->load->view('extension/module/paypal_smart_button/confirm', $data));
     }
 
+	/**
+	 * @return void
+	 */
     public function completeOrder(): void {
         $this->load->language('extension/module/paypal_smart_button');
 
@@ -1449,6 +1464,9 @@ class ControllerExtensionModulePayPalSmartButton extends Controller {
         $this->response->redirect($this->url->link('checkout/cart', '', true));
     }
 
+	/**
+	 * @return void
+	 */
     public function paymentAddress(): void {
         $this->load->language('extension/module/paypal_smart_button');
 
@@ -1469,6 +1487,9 @@ class ControllerExtensionModulePayPalSmartButton extends Controller {
         $this->response->setOutput($this->load->view('extension/module/paypal_smart_button/payment_address', $data));
     }
 
+	/**
+	 * @return void
+	 */
     public function shippingAddress(): void {
         $this->load->language('extension/module/paypal_smart_button');
 
@@ -1486,12 +1507,18 @@ class ControllerExtensionModulePayPalSmartButton extends Controller {
         $this->response->setOutput($this->load->view('extension/module/paypal_smart_button/shipping_address', $data));
     }
 
+	/**
+	 * @return void
+	 */
     public function confirmShipping(): void {
         $this->validateShipping($this->request->post['shipping_method']);
 
         $this->response->redirect($this->url->link('extension/module/paypal_smart_button/confirmOrder', '', true));
     }
 
+	/**
+	 * @return void
+	 */
     public function confirmPaymentAddress(): void {
         $this->load->language('extension/module/paypal_smart_button');
 
@@ -1564,6 +1591,9 @@ class ControllerExtensionModulePayPalSmartButton extends Controller {
         $this->response->setOutput(json_encode($data));
     }
 
+	/**
+	 * @return void
+	 */
     public function confirmShippingAddress(): void {
         $this->load->language('extension/module/paypal_smart_button');
 

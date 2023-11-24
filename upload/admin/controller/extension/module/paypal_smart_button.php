@@ -78,6 +78,7 @@ class ControllerExtensionModulePayPalSmartButton extends Controller {
 
         $this->response->setOutput($this->load->view('extension/module/paypal_smart_button', $data));
     }
+
 	/**
 	 * @return void
 	 */
