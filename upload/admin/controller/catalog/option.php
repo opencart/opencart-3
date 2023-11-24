@@ -5,11 +5,10 @@
  * @package Admin\Controller\Catalog
  */
 class ControllerCatalogOption extends Controller {
+    private array $error = [];
 	/**
 	 * @return void
 	 */
-    private array $error = [];
-
     public function index(): void {
         $this->load->language('catalog/option');
 

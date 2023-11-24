@@ -5,6 +5,9 @@
  * @package Admin\Controller\Customer
  */
 class ControllerCustomerCustomerPayment extends Controller {
+	/**
+	 * @return void
+	 */
     public function index(): void {
         if (isset($this->request->get['customer_id'])) {
             $customer_id = (int)$this->request->get['customer_id'];
@@ -82,6 +85,9 @@ class ControllerCustomerCustomerPayment extends Controller {
         }
     }
 
+	/**
+	 * @return void
+	 */
     public function getPayment(): void {
         if (isset($this->request->get['customer_id'])) {
             $customer_id = (int)$this->request->get['customer_id'];
@@ -134,6 +140,9 @@ class ControllerCustomerCustomerPayment extends Controller {
         $this->response->setOutput($this->load->view('customer/customer_payment_list', $data));
     }
 
+	/**
+	 * @return void
+	 */
     public function deletePayment(): void {
         $this->load->language('customer/customer');
 
