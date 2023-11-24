@@ -135,7 +135,7 @@ class ControllerAccountEdit extends Controller {
         if (isset($this->request->post['custom_field'])) {
             $data['account_custom_field'] = $this->request->post['custom_field'];
         } elseif (isset($customer_info)) {
-            $data['account_custom_field'] = json_decode($customer_info['custom_field'], true);
+            $data['account_custom_field'] = $customer_info['custom_field'];
         } else {
             $data['account_custom_field'] = [];
         }

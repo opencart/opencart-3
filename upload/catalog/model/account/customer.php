@@ -80,7 +80,11 @@ class ModelAccountCustomer extends Model {
     public function getCustomer(int $customer_id): array {
         $query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "customer` WHERE `customer_id` = '" . (int)$customer_id . "'");
 
-        return $query->row;
+		if ($query->num_rows) {
+			return $query->row + json_decode($query->row['custom_field'], true);
+		} else {
+			return [];
+		}
     }
 
 	/**
@@ -91,7 +95,11 @@ class ModelAccountCustomer extends Model {
     public function getCustomerByEmail(string $email): array {
         $query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "customer` WHERE LCASE(`email`) = '" . $this->db->escape(oc_strtolower($email)) . "'");
 
-        return $query->row;
+		if ($query->num_rows) {
+			return $query->row + json_decode($query->row['custom_field'], true);
+		} else {
+			return [];
+		}
     }
 
     public function getCustomerByCode(string $code): array {
@@ -110,7 +118,11 @@ class ModelAccountCustomer extends Model {
 
         $this->db->query("UPDATE `" . DB_PREFIX . "customer` SET `token` = ''");
 
-        return $query->row;
+		if ($query->num_rows) {
+			return $query->row + json_decode($query->row['custom_field'], true);
+		} else {
+			return [];
+		}
     }
 
 	/**
