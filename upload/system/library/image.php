@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @package        OpenCart
  * @author         Daniel Kerr
@@ -13,7 +14,7 @@
 class Image {
     private string $file;
     private object $image;
-    private int $width  = 0;
+    private int $width = 0;
     private int $height = 0;
     private string $bits = '';
     private string $mime = '';
@@ -33,21 +34,25 @@ class Image {
 
             $info = getimagesize($file);
 
-            $this->width = $info[0];
+            $this->width  = $info[0];
             $this->height = $info[1];
-            $this->bits = isset($info['bits']) ? $info['bits'] : '';
-            $this->mime = isset($info['mime']) ? $info['mime'] : '';
+            $this->bits   = isset($info['bits']) ? $info['bits'] : '';
+            $this->mime   = isset($info['mime']) ? $info['mime'] : '';
 
             if ($this->mime == 'image/gif') {
                 $this->image = imagecreatefromgif($file);
-            } elseif ($this->mime == 'image/png') {
+            }
+            elseif ($this->mime == 'image/png') {
                 $this->image = imagecreatefrompng($file);
-            } elseif ($this->mime == 'image/jpeg') {
+            }
+            elseif ($this->mime == 'image/jpeg') {
                 $this->image = imagecreatefromjpeg($file);
-            } elseif ($this->mime == 'image/webp') {
+            }
+            elseif ($this->mime == 'image/webp') {
                 $this->image = imagecreatefromwebp($file);
             }
-        } else {
+        }
+        else {
             throw new \Exception('Error: Could not load image ' . $file . '!');
         }
     }
@@ -60,7 +65,7 @@ class Image {
     }
 
     /**
-     * @return array
+     * @return object
      */
     public function getImage(): object {
         return $this->image;
@@ -97,6 +102,8 @@ class Image {
     /**
      * @param string $file
      * @param int    $quality
+     *
+     * @return void
      */
     public function save(string $file, int $quality = 90): void {
         $info = pathinfo($file);
@@ -106,11 +113,14 @@ class Image {
         if (is_object($this->image) || is_resource($this->image)) {
             if ($extension == 'jpeg' || $extension == 'jpg') {
                 imagejpeg($this->image, $file, $quality);
-            } elseif ($extension == 'png') {
+            }
+            elseif ($extension == 'png') {
                 imagepng($this->image, $file);
-            } elseif ($extension == 'gif') {
+            }
+            elseif ($extension == 'gif') {
                 imagegif($this->image, $file);
-            } elseif ($extension == 'webp') {
+            }
+            elseif ($extension == 'webp') {
                 imagewebp($this->image, $file);
             }
 
@@ -122,14 +132,16 @@ class Image {
      * @param int    $width
      * @param int    $height
      * @param string $default
+     *
+     * @return void
      */
     public function resize(int $width = 0, int $height = 0, string $default = ''): void {
         if (!$this->width || !$this->height) {
             return;
         }
 
-        $xpos = 0;
-        $ypos = 0;
+        $xpos  = 0;
+        $ypos  = 0;
         $scale = 1;
 
         $scale_w = $width / $this->width;
@@ -137,9 +149,11 @@ class Image {
 
         if ($default == 'w') {
             $scale = $scale_w;
-        } elseif ($default == 'h') {
+        }
+        elseif ($default == 'h') {
             $scale = $scale_h;
-        } else {
+        }
+        else {
             $scale = min($scale_w, $scale_h);
         }
 
@@ -147,12 +161,12 @@ class Image {
             return;
         }
 
-        $new_width = (int)($this->width * $scale);
+        $new_width  = (int)($this->width * $scale);
         $new_height = (int)($this->height * $scale);
-        $xpos = (int)(($width - $new_width) / 2);
-        $ypos = (int)(($height - $new_height) / 2);
+        $xpos       = (int)(($width - $new_width) / 2);
+        $ypos       = (int)(($height - $new_height) / 2);
 
-        $image_old = $this->image;
+        $image_old   = $this->image;
         $this->image = imagecreatetruecolor($width, $height);
 
         if ($this->mime == 'image/png') {
@@ -163,14 +177,16 @@ class Image {
 
             imagecolortransparent($this->image, $background);
 
-        } elseif ($this->mime == 'image/webp') {
+        }
+        elseif ($this->mime == 'image/webp') {
             imagealphablending($this->image, false);
             imagesavealpha($this->image, true);
 
             $background = imagecolorallocatealpha($this->image, 255, 255, 255, 127);
 
             imagecolortransparent($this->image, $background);
-        } else {
+        }
+        else {
             $background = imagecolorallocate($this->image, 255, 255, 255);
         }
 
@@ -179,13 +195,15 @@ class Image {
         imagecopyresampled($this->image, $image_old, $xpos, $ypos, 0, 0, $new_width, $new_height, $this->width, $this->height);
         imagedestroy($image_old);
 
-        $this->width = $width;
+        $this->width  = $width;
         $this->height = $height;
     }
 
     /**
-     * @param string $watermark
+     * @param object $watermark
      * @param string $position
+     *
+     * @return void
      */
     public function watermark(object $watermark, string $position = 'bottomright'): void {
         switch ($position) {
@@ -239,28 +257,32 @@ class Image {
      * @param int $top_y
      * @param int $bottom_x
      * @param int $bottom_y
+     *
+     * @return void
      */
     public function crop(int $top_x, int $top_y, int $bottom_x, int $bottom_y): void {
-        $image_old = $this->image;
+        $image_old   = $this->image;
         $this->image = imagecreatetruecolor($bottom_x - $top_x, $bottom_y - $top_y);
 
         imagecopy($this->image, $image_old, 0, 0, $top_x, $top_y, $this->width, $this->height);
         imagedestroy($image_old);
 
-        $this->width = $bottom_x - $top_x;
+        $this->width  = $bottom_x - $top_x;
         $this->height = $bottom_y - $top_y;
     }
 
     /**
      * @param int    $degree
      * @param string $color
+     *
+     * @return void
      */
     public function rotate(int $degree, string $color = 'FFFFFF'): void {
         $rgb = $this->html2rgb($color);
 
         $this->image = imagerotate($this->image, $degree, imagecolorallocate($this->image, $rgb[0], $rgb[1], $rgb[2]));
 
-        $this->width = imagesx($this->image);
+        $this->width  = imagesx($this->image);
         $this->height = imagesy($this->image);
     }
 
@@ -273,46 +295,36 @@ class Image {
         call_user_func_array('imagefilter', $args);
     }
 
-    /**
-     * @param string $text
-     * @param int    $x
-     * @param int    $y
-     * @param int    $size
-     * @param string $color
-     */
     private function text(string $text, int $x = 0, int $y = 0, int $size = 5, string $color = '000000'): void {
         $rgb = $this->html2rgb($color);
 
         imagestring($this->image, $size, $x, $y, $text, imagecolorallocate($this->image, $rgb[0], $rgb[1], $rgb[2]));
     }
 
-    /**
-     * @param object $merge
-     * @param int    $x
-     * @param int    $y
-     * @param int    $opacity
-	 *
-	 * @return void
-     */
     private function merge(object $merge, int $x = 0, int $y = 0, int $opacity = 100): void {
         imagecopymerge($this->image, $merge->getImage(), $x, $y, 0, 0, $merge->getWidth(), $merge->getHeight(), $opacity);
     }
 
-    /**
-     * @param string $color
-     *
-     * @return array
-     */
     private function html2rgb(string $color): array {
         if ($color[0] == '#') {
             $color = substr($color, 1);
         }
 
         if (strlen($color) == 6) {
-            [$r, $g, $b] = [$color[0] . $color[1], $color[2] . $color[3], $color[4] . $color[5]];
-        } elseif (strlen($color) == 3) {
-            [$r, $g, $b] = [$color[0] . $color[0], $color[1] . $color[1], $color[2] . $color[2]];
-        } else {
+            [$r, $g, $b] = [
+                $color[0] . $color[1],
+                $color[2] . $color[3],
+                $color[4] . $color[5]
+            ];
+        }
+        elseif (strlen($color) == 3) {
+            [$r, $g, $b] = [
+                $color[0] . $color[0],
+                $color[1] . $color[1],
+                $color[2] . $color[2]
+            ];
+        }
+        else {
             return false;
         }
 
@@ -320,6 +332,10 @@ class Image {
         $g = hexdec($g);
         $b = hexdec($b);
 
-        return [$r, $g, $b];
+        return [
+            $r,
+            $g,
+            $b
+        ];
     }
 }
