@@ -70,7 +70,7 @@ class ModelExtensionFeedGoogleBase extends Model {
         $this->db->query("INSERT INTO `" . DB_PREFIX . "google_base_category_to_category` SET `google_base_category_id` = '" . (int)$data['google_base_category_id'] . "', `category_id` = '" . (int)$data['category_id'] . "'");
     }
 
-    public function deleteCategory($category_id): void {
+    public function deleteCategory(int $category_id): void {
         $this->db->query("DELETE FROM `" . DB_PREFIX . "google_base_category_to_category` WHERE `category_id` = '" . (int)$category_id . "'");
     }
 
