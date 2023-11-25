@@ -41,18 +41,14 @@ class Image {
 
             if ($this->mime == 'image/gif') {
                 $this->image = imagecreatefromgif($file);
-            }
-            elseif ($this->mime == 'image/png') {
+            } elseif ($this->mime == 'image/png') {
                 $this->image = imagecreatefrompng($file);
-            }
-            elseif ($this->mime == 'image/jpeg') {
+            } elseif ($this->mime == 'image/jpeg') {
                 $this->image = imagecreatefromjpeg($file);
-            }
-            elseif ($this->mime == 'image/webp') {
+            } elseif ($this->mime == 'image/webp') {
                 $this->image = imagecreatefromwebp($file);
             }
-        }
-        else {
+        } else {
             throw new \Exception('Error: Could not load image ' . $file . '!');
         }
     }
@@ -113,14 +109,11 @@ class Image {
         if (is_object($this->image) || is_resource($this->image)) {
             if ($extension == 'jpeg' || $extension == 'jpg') {
                 imagejpeg($this->image, $file, $quality);
-            }
-            elseif ($extension == 'png') {
+            } elseif ($extension == 'png') {
                 imagepng($this->image, $file);
-            }
-            elseif ($extension == 'gif') {
+            } elseif ($extension == 'gif') {
                 imagegif($this->image, $file);
-            }
-            elseif ($extension == 'webp') {
+            } elseif ($extension == 'webp') {
                 imagewebp($this->image, $file);
             }
 
@@ -149,11 +142,9 @@ class Image {
 
         if ($default == 'w') {
             $scale = $scale_w;
-        }
-        elseif ($default == 'h') {
+        } elseif ($default == 'h') {
             $scale = $scale_h;
-        }
-        else {
+        } else {
             $scale = min($scale_w, $scale_h);
         }
 
@@ -177,16 +168,14 @@ class Image {
 
             imagecolortransparent($this->image, $background);
 
-        }
-        elseif ($this->mime == 'image/webp') {
+        } elseif ($this->mime == 'image/webp') {
             imagealphablending($this->image, false);
             imagesavealpha($this->image, true);
 
             $background = imagecolorallocatealpha($this->image, 255, 255, 255, 127);
 
             imagecolortransparent($this->image, $background);
-        }
-        else {
+        } else {
             $background = imagecolorallocate($this->image, 255, 255, 255);
         }
 
@@ -316,15 +305,13 @@ class Image {
                 $color[2] . $color[3],
                 $color[4] . $color[5]
             ];
-        }
-        elseif (strlen($color) == 3) {
+        } elseif (strlen($color) == 3) {
             [$r, $g, $b] = [
                 $color[0] . $color[0],
                 $color[1] . $color[1],
                 $color[2] . $color[2]
             ];
-        }
-        else {
+        } else {
             return false;
         }
 
