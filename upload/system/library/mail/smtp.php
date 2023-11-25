@@ -24,7 +24,7 @@ class Smtp {
 	/**
 	 * Constructor
 	 *
-	 * @param    array  $option
+	 * @param array $option
 	 */
 	public function __construct(array &$option = []) {
 		foreach ($this->default as $key => $value) {
@@ -39,7 +39,7 @@ class Smtp {
 	/**
 	 * Send
 	 *
-	 * @return    bool
+	 * @return bool
 	 */
 	public function send(): bool {
 		if (empty($this->option['smtp_hostname'])) {
@@ -274,12 +274,12 @@ class Smtp {
 	/**
 	 * handleReply
 	 *
-	 * @param	array	$handle
-	 * @param	bool	$status_code
-	 * @param	bool	$error_text
-	 * @param	int		$counter
+	 * @param array	$handle
+	 * @param bool	$status_code
+	 * @param bool	$error_text
+	 * @param int	$counter
 	 *
-	 * @return      string
+	 * @return string
 	 */
 	private function handleReply($handle, $status_code = false, $error_text = false, $counter = 0) {
 		$reply = '';

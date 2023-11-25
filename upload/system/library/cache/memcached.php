@@ -6,6 +6,11 @@ class Memcached {
 
     const CACHEDUMP_LIMIT = 9999;
 
+	/**
+	 * Constructor
+	 *
+	 * @param int $expire
+	 */
     public function __construct(int $expire = 3600) {
         $this->expire = $expire;
         $this->memcached = new \Memcached();
@@ -13,14 +18,35 @@ class Memcached {
         $this->memcached->addServer(CACHE_HOSTNAME, CACHE_PORT);
     }
 
-    public function get(string $key): array|string|null {
+	/**
+	 * Get
+	 *
+	 * @param string $key
+	 *
+	 * @return mixed
+	 */
+    public function get(string $key) {
         return $this->memcached->get(CACHE_PREFIX . $key);
     }
 
-    public function set(string $key, array|string|null $value) {
+	/**
+	 * Set
+	 *
+	 * @param string $key
+	 *
+	 * @return mixed
+	 */
+    public function set(string $key, $value) {
         return $this->memcached->set(CACHE_PREFIX . $key, $value, $this->expire);
     }
 
+	/**
+	 * Delete
+	 *
+	 * @param string $key
+	 *
+	 * @return mixed
+	 */
     public function delete(string $key) {
         $this->memcached->delete(CACHE_PREFIX . $key);
     }

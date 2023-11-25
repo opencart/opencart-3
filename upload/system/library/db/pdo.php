@@ -2,17 +2,17 @@
 namespace DB;
 class PDO {
 	private object|null $connection;
-	private array $data = [];
-	private int $affected;
-	
+	private array 		$data = [];
+	private int 		$affected;
+
 	/**
 	 * Constructor
 	 *
-	 * @param    string  $hostname
-	 * @param    string  $username
-	 * @param    string  $password
-	 * @param    string  $database
-	 * @param    string  $port
+	 * @param string $hostname
+	 * @param string $username
+	 * @param string $password
+	 * @param string $database
+	 * @param string $port
 	 */
 	public function __construct(string $hostname, string $username, string $password, string $database, string $port = '') {
 		if (!$port) {
@@ -35,13 +35,13 @@ class PDO {
 			$this->query("SET `time_zone` = '" . $this->escape(date('P')) . "'");
 		}
 	}
-	
+
 	/**
 	 * Query
 	 *
-	 * @param    string  $sql
+	 * @param string  $sql
 	 *
-	 * @return   bool|object
+	 * @return bool|object
 	 */
 	public function query(string $sql): bool|object {
 		$sql = preg_replace('/(?:\'\:)([a-z0-9]*.)(?:\')/', ':$1', $sql);
@@ -82,9 +82,9 @@ class PDO {
 	/**
 	 * Escape
 	 *
-	 * @param    string  value
+	 * @param string $value
 	 *
-	 * @return   string
+	 * @return string
 	 */
 	public function escape(string $value): string {
 		$key = ':' . count($this->data);
@@ -97,7 +97,7 @@ class PDO {
 	/**
 	 * countAffected
 	 *
-	 * @return   int
+	 * @return int
 	 */
 	public function countAffected(): int {
 		return $this->affected;
@@ -106,7 +106,7 @@ class PDO {
 	/**
 	 * getLastId
 	 *
-	 * @return   int
+	 * @return int
 	 */
 	public function getLastId(): int {
 		return $this->connection->lastInsertId();
@@ -115,7 +115,7 @@ class PDO {
 	/**
 	 * isConnected
 	 *
-	 * @return   bool
+	 * @return bool
 	 */
 	public function isConnected(): bool {
 		return $this->connection;

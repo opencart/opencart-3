@@ -10,7 +10,7 @@
 /**
  * Registry class
  */
-final class Registry {
+class Registry {
     private array $data = [];
 
     /**

@@ -10,7 +10,7 @@
 /**
  * Encryption class
  */
-final class Encryption {
+class Encryption {
     public function encrypt($key, $value) {
         return strtr(base64_encode(openssl_encrypt($value, 'aes-128-cbc', hash('sha256', $key, true))), '+/=', '-_,');
     }

@@ -5,7 +5,11 @@ class Redis {
     private object $redis;
     private int    $expire;
     private object $cache;
-
+	/**
+	 * Constructor
+	 *
+	 * @param int $expire
+	 */
     public function __construct(int $expire = 3600) {
         $this->expire = $expire;
 
@@ -13,13 +17,25 @@ class Redis {
         $this->cache->pconnect(CACHE_HOSTNAME, CACHE_PORT);
     }
 
+	/**
+	 * Get
+	 *
+	 * @param string $key
+	 *
+	 * @return mixed
+	 */
     public function get(string $key): array|string|null {
         $data = $this->cache->get(CACHE_PREFIX . $key);
 
         return json_decode($data, true);
     }
 
-    public function set(string $key, array|string|null $value) {
+	/**
+	 * Set
+	 *
+	 * @param string $key
+	 */
+    public function set(string $key, $value) {
         $status = $this->cache->set(CACHE_PREFIX . $key, json_encode($value));
 
         if ($status) {
@@ -29,7 +45,14 @@ class Redis {
         return $status;
     }
 
-    public function delete(string $key): bool {
+	/**
+	 * Delete
+	 *
+	 * @param string $key
+	 *
+	 * @return void
+	 */
+    public function delete(string $key): void {
         $this->cache->del(CACHE_PREFIX . $key);
     }
 }

@@ -6,11 +6,11 @@ class MySQLi {
 	/**
 	 * Constructor
 	 *
-	 * @param    string  $hostname
-	 * @param    string  $username
-	 * @param    string  $password
-	 * @param    string  $database
-	 * @param    string  $port
+	 * @param string $hostname
+	 * @param string $username
+	 * @param string $password
+	 * @param string $database
+	 * @param string $port
 	 */
 	public function __construct(string $hostname, string $username, string $password, string $database, string $port = '') {
 		if (!$port) {
@@ -36,9 +36,9 @@ class MySQLi {
 	/**
 	 * Query
 	 *
-	 * @param    string  $sql
+	 * @param string $sql
 	 *
-	 * @return   bool|object
+	 * @return bool|object
 	 */
 	public function query(string $sql): bool|object {
 		try {
@@ -72,18 +72,18 @@ class MySQLi {
 	/**
 	 * Escape
 	 *
-	 * @param    string  value
+	 * @param string $value
 	 *
-	 * @return   string
+	 * @return string
 	 */
 	public function escape(string $value): string {
 		return $this->connection->real_escape_string($value);
 	}
-	
+
 	/**
 	 * countAffected
 	 *
-	 * @return   int
+	 * @return int
 	 */
 	public function countAffected(): int {
 		return $this->connection->affected_rows;
@@ -92,16 +92,16 @@ class MySQLi {
 	/**
 	 * getLastId
 	 *
-	 * @return   int
+	 * @return int
 	 */
 	public function getLastId(): int {
 		return $this->connection->insert_id;
 	}
-	
+
 	/**
 	 * isConnected
 	 *
-	 * @return   bool
+	 * @return bool
 	 */
 	public function isConnected(): bool {
 		return $this->connection;

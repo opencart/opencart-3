@@ -13,15 +13,30 @@ class Mem {
         $this->memcache->pconnect(CACHE_HOSTNAME, CACHE_PORT);
     }
 
-    public function get(string $key): array|string|null {
+	/**
+	 * Get
+	 *
+	 * @param string $key
+	 */
+    public function get(string $key) {
         return $this->memcache->get(CACHE_PREFIX . $key);
     }
 
-    public function set(string $key, array|string|null $value) {
+	/**
+	 * Set
+	 *
+	 * @param string $key
+	 */
+    public function set(string $key, $value) {
         return $this->memcache->set(CACHE_PREFIX . $key, $value, MEMCACHE_COMPRESSED, $this->expire);
     }
 
-    public function delete($key) {
+	/**
+	 * Delete
+	 *
+	 * @param string $key
+	 */
+    public function delete(string $key) {
         $this->memcache->delete(CACHE_PREFIX . $key);
     }
 }

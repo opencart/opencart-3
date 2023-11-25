@@ -6,11 +6,11 @@ class PgSQL {
 	/**
 	 * Constructor
 	 *
-	 * @param    string  $hostname
-	 * @param    string  $username
-	 * @param    string  $password
-	 * @param    string  $database
-	 * @param    string  $port
+	 * @param string $hostname
+	 * @param string $username
+	 * @param string $password
+	 * @param string $database
+	 * @param string $port
 	 */
 	public function __construct(string $hostname, string $username, string $password, string $database, string $port = '') {
 		if (!$port) {
@@ -35,9 +35,9 @@ class PgSQL {
 	/**
 	 * Query
 	 *
-	 * @param    string  $sql
+	 * @param string $sql
 	 *
-	 * @return   bool|object
+	 * @return bool|object
 	 */
 	public function query(string $sql): bool|object {
 		$resource = pg_query($this->connection, $sql);
@@ -71,13 +71,13 @@ class PgSQL {
 			throw new \Exception('Error: ' . pg_result_error($resource) . '<br/>' . $sql);
 		}
 	}
-	
+
 	/**
 	 * Escape
 	 *
-	 * @param    string  value
+	 * @param string $value
 	 *
-	 * @return   string
+	 * @return string
 	 */
 	public function escape(string $value): string  {
 		return pg_escape_string($this->connection, $value);
@@ -86,16 +86,16 @@ class PgSQL {
 	/**
 	 * countAffected
 	 *
-	 * @return   int
+	 * @return int
 	 */
 	public function countAffected(): int {
 		return pg_affected_rows($this->connection);
 	}
-	
+
 	/**
 	 * getLastId
 	 *
-	 * @return   int
+	 * @return int
 	 */
 	public function getLastId(): int {
 		$query = $this->query("SELECT LASTVAL() AS `id`");
@@ -106,7 +106,7 @@ class PgSQL {
 	/**
 	 * isConnected
 	 *
-	 * @return   bool
+	 * @return bool
 	 */
 	public function isConnected(): bool {
 		return pg_connection_status($this->connection) == PGSQL_CONNECTION_OK;

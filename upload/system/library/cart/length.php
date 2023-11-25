@@ -4,8 +4,12 @@ class Length {
     private object $db;
     private object $config;
     private array  $lengths = [];
-
-    public function __construct($registry) {
+	/**
+	 * Constructor
+	 *
+	 * @param object $registry
+	 */
+    public function __construct(object $registry) {
         $this->db = $registry->get('db');
         $this->config = $registry->get('config');
 
@@ -21,6 +25,15 @@ class Length {
         }
     }
 
+	/**
+	 * Convert
+	 *
+	 * @param float  $value
+	 * @param string $from
+	 * @param string $to
+	 *
+	 * @return float
+	 */
     public function convert(float $value, string $from, string $to): float {
         if ($from == $to) {
             return $value;
@@ -41,6 +54,16 @@ class Length {
         return $value * ($to / $from);
     }
 
+	/**
+	 * Format
+	 *
+	 * @param float  $value
+	 * @param int    $length_class_id
+	 * @param string $decimal_point
+	 * @param string $thousand_point
+	 *
+	 * @return string
+	 */
     public function format(float $value, int $length_class_id, string $decimal_point = '.', string $thousand_point = ','): string {
         if (isset($this->lengths[$length_class_id])) {
             return number_format($value, 2, $decimal_point, $thousand_point) . $this->lengths[$length_class_id]['unit'];
@@ -49,6 +72,13 @@ class Length {
         }
     }
 
+	/**
+	 * getUnit
+	 *
+	 * @param int $length_class_id
+	 *
+	 * @return string
+	 */
     public function getUnit(int $length_class_id): string {
         if (isset($this->lengths[$length_class_id])) {
             return $this->lengths[$length_class_id]['unit'];

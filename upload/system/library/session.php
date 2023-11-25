@@ -50,7 +50,7 @@ class Session {
      *
      * @return string
      */
-    public function start(string $session_id = ''): array|string {
+    public function start(string $session_id = ''): string {
         if (!$session_id) {
             if (function_exists('random_bytes')) {
                 $session_id = substr(bin2hex(random_bytes(26)), 0, 26);

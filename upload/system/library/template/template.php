@@ -1,12 +1,33 @@
 <?php
 namespace Template;
-final class Template {
+/**
+ * Class Template
+ *
+ * @package System\Library\Template
+ */
+class Template {
     private array $data = [];
-
+	/**
+	 * addPath
+	 *
+	 * @param string $namespace
+	 * @param string $directory
+	 *
+	 * @return	 void
+	 */
     public function set(string $key, string $value): void {
         $this->data[$key] = $value;
     }
 
+	/**
+	 * Render
+	 *
+	 * @param string $filename
+	 * @param array	 $data
+	 * @param string $code
+	 *
+	 * @return string
+	 */
     public function render(string $template): string {
         $file = DIR_TEMPLATE . $template . '.tpl';
 

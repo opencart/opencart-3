@@ -34,7 +34,7 @@ class Language {
     }
 
 	/**
-	 * set
+	 * Set
 	 *
 	 * @param string $key
 	 *

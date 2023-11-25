@@ -93,7 +93,7 @@ class Document {
 	 *
 	 * @return void
      */
-    public function addStyle(string $href, string $rel = 'stylesheet', $media = 'screen'): void {
+    public function addStyle(string $href, string $rel = 'stylesheet', string $media = 'screen'): void {
         $this->styles[$href] = [
             'href'  => $href,
             'rel'   => $rel,

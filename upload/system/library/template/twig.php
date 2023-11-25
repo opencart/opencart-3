@@ -1,6 +1,11 @@
 <?php
 namespace Template;
-final class Twig {
+/**
+ * Class Twig
+ *
+ * @package
+ */
+class Twig {
     protected string $root = '';
     protected string $directory = '';
     protected object $loader;

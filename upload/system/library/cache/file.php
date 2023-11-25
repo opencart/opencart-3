@@ -33,11 +33,11 @@ class File {
      * Set
      *
      * @param string $key
-     * @param array|string|null $value
+	 * @param int 	 $expire
      *
      * @return void
      */
-    public function set(string $key, array|string|null $value, int $expire = 0): void {
+    public function set(string $key, $value, int $expire = 0): void {
         $this->delete($key);
 
         if (!$expire) {
