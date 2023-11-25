@@ -19,16 +19,16 @@ class Event {
     /**
      * Constructor
      *
-     * @param    object    $route
+     * @param object $route
      */
     public function __construct(object $registry) {
         $this->registry = $registry;
     }
 
     /**
-     * @param    string    $trigger
-     * @param    object    $action
-     * @param    int       $priority
+     * @param string $trigger
+     * @param object $action
+     * @param int    $priority
      */
     public function register(string $trigger, object $action, int $priority = 0): void {
         $this->data[] = [
@@ -47,8 +47,8 @@ class Event {
     }
 
     /**
-     * @param    string    $event
-     * @param    array     $args
+     * @param string $event
+     * @param array  $args
      */
     public function trigger(string $event, array $args = []) {
         foreach ($this->data as $value) {
@@ -63,8 +63,8 @@ class Event {
     }
 
     /**
-     * @param    string    $trigger
-     * @param    string    $route
+     * @param string $trigger
+     * @param string $route
      */
     public function unregister(string $trigger, string $route): void {
         foreach ($this->data as $key => $value) {
@@ -75,7 +75,7 @@ class Event {
     }
 
     /**
-     * @param    string    $trigger
+     * @param string $trigger
      */
     public function clear(string $trigger): void {
         foreach ($this->data as $key => $value) {

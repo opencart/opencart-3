@@ -47,8 +47,8 @@ class Action {
     }
 
     /**
-     * @param    object    $registry
-     * @param    array     $args
+     * @param object $registry
+     * @param array  $args
      */
     public function execute(object $registry, array $args = []): mixed {
         // Stop any magical methods being called

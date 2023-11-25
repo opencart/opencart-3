@@ -18,37 +18,44 @@ class Language {
     /**
      * Constructor
      *
-     * @param    string    $file
+     * @param string $file
      */
     public function __construct(string $directory = '') {
         $this->directory = $directory;
     }
 
     /**
-     * @param    string    $key
+     * @param string $key
      *
-     * @return    string
+     * @return string
      */
     public function get(string $key) {
         return isset($this->data[$key]) ? $this->data[$key] : $key;
     }
 
+	/**
+	 * set
+	 *
+	 * @param string $key
+	 *
+	 * @return void
+	 */
     public function set(string $key, $value): void {
         $this->data[$key] = $value;
     }
 
     /**
-     * @return    array
+     * @return array
      */
     public function all(): array {
         return $this->data;
     }
 
     /**
-     * @param    string    $filename
-     * @param    string    $key
+     * @param string $filename
+     * @param string $key
      *
-     * @return    array
+     * @return array
      */
     public function load(string $filename, string $key = ''): array {
         if (!$key) {

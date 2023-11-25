@@ -19,66 +19,58 @@ class Document {
     private array $scripts = [];
 
     /**
-     *
-     *
-     * @param	string	$title
+     * @param string $title
+	 *
+	 * @return void
      */
     public function setTitle(string $title): void {
         $this->title = $title;
     }
 
     /**
-     *
-     *
-     * @return	string
+     * @return string
      */
     public function getTitle(): string {
         return $this->title;
     }
 
     /**
-     *
-     *
-     * @param	string	$description
+     * @param string $description
+	 *
+	 * @param void
      */
     public function setDescription(string $description): void {
         $this->description = $description;
     }
 
     /**
-     *
-     *
-     * @param	string	$description
-     *
-     * @return	string
+     * @return string
      */
     public function getDescription(): string {
         return $this->description;
     }
 
     /**
-     *
-     *
-     * @param	string	$keywords
+     * @param string $keywords
+	 *
+	 * @return void
      */
     public function setKeywords(string $keywords): void {
         $this->keywords = $keywords;
     }
 
     /**
-     *
-     *
-     * @return	string
+     * @return string
      */
     public function getKeywords(): string {
         return $this->keywords;
     }
 
     /**
-     *
-     *
-     * @param	string	$href
-     * @param	string	$rel
+     * @param string $href
+     * @param string $rel
+	 *
+	 * @return void
      */
     public function addLink(string $href, string $rel): void {
         $this->links[$href] = [
@@ -88,22 +80,20 @@ class Document {
     }
 
     /**
-     *
-     *
-     * @return	array
+     * @return array
      */
     public function getLinks(): array {
         return $this->links;
     }
 
     /**
-     *
-     *
-     * @param	string	$href
-     * @param	string	$rel
-     * @param	string	$media
+     * @param string $href
+     * @param string $rel
+     * @param string $media
+	 *
+	 * @return void
      */
-    public function addStyle(string $href, $rel = 'stylesheet', $media = 'screen'): void {
+    public function addStyle(string $href, string $rel = 'stylesheet', $media = 'screen'): void {
         $this->styles[$href] = [
             'href'  => $href,
             'rel'   => $rel,
@@ -112,32 +102,28 @@ class Document {
     }
 
     /**
-     *
-     *
-     * @return	array
+     * @return array
      */
     public function getStyles(): array {
         return $this->styles;
     }
 
     /**
-     *
-     *
-     * @param	string	$href
-     * @param	string	$position
+     * @param string $href
+     * @param string $position
+	 *
+	 * @return void
      */
-    public function addScript(string $href, $position = 'header'): void {
+    public function addScript(string $href, string $position = 'header'): void {
         $this->scripts[$position][$href] = ['href' => $href];
     }
 
     /**
+     * @param string $position
      *
-     *
-     * @param	string	$position
-     *
-     * @return	array
+     * @return array
      */
-    public function getScripts($position = 'header'): array {
+    public function getScripts(string $position = 'header'): array {
         if (isset($this->scripts[$position])) {
             return $this->scripts[$position];
         } else {

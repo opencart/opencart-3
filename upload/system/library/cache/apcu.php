@@ -7,7 +7,7 @@ class Apcu {
 	/**
 	 * Constructor
 	 *
-	 * @param    int  $expire
+	 * @param int $expire
 	 */
 	public function __construct(int $expire = 3600) {
 		$this->expire = $expire;
@@ -17,9 +17,9 @@ class Apcu {
 	/**
      * Get
      *
-     * @param	 string	 $key
-	 * 
-	 * @return	 array|string|null
+     * @param string $key
+	 *
+	 * @return array|string|null
      */
 	public function get(string $key): array|string|null {
 		return $this->active ? apcu_fetch(CACHE_PREFIX . $key) : [];
@@ -28,9 +28,10 @@ class Apcu {
 	/**
      * Set
      *
-     * @param	 string	 $key
-	 * @param	 array|string|null  $key
-	 * 
+     * @param string 			$key
+	 * @param array|string|null $value
+	 * @param int 				$expire
+	 *
 	 * @return	 void
      */
 	public function set(string $key, array|string|null $value, int $expire = 0): void {
@@ -46,9 +47,9 @@ class Apcu {
 	/**
      * Delete
      *
-     * @param	 string	 $key
-	 * 
-	 * @return	 void
+     * @param string $key
+	 *
+	 * @return void
      */
 	public function delete(string $key): void {
 		if ($this->active) {
@@ -65,11 +66,9 @@ class Apcu {
 	}
 
 	/**
-     * Delete all cache
+     * Flush
      *
-     * @param	 null
-	 * 
-	 * @return	 bool
+     * @return bool
      */
 	public function flush(): bool {
 		$status = false;

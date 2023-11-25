@@ -16,7 +16,7 @@ class Template {
     /**
      * Constructor
      *
-     * @param    string    $adaptor
+     * @param string $adaptor
      */
     public function __construct(string $adaptor) {
         $class = 'Template\\' . $adaptor;
@@ -29,18 +29,18 @@ class Template {
     }
 
     /**
-     * @param    string    $key
-     * @param    mixed     $value
+     * @param string $key
+     * @param mixed  $value
      */
     public function set($key, $value) {
         $this->adaptor->set($key, $value);
     }
 
     /**
-     * @param    string    $template
-     * @param    bool      $cache
+     * @param string $template
+     * @param bool   $cache
      *
-     * @return    string
+     * @return string
      */
     public function render(string $template, bool $cache = false): string {
         return $this->adaptor->render($template, $cache);

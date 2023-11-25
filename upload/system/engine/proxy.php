@@ -13,16 +13,12 @@
 class Proxy {
 	protected array $data = [];
     /**
-     * @param    string    $key
+     * @param string $key
      */
     public function __get($key) {
         return $this->data[$key];
     }
 
-    /**
-     * @param    string    $key
-     * @param    string    $value
-     */
     public function __set($key, $value) {
         $this->data[$key] = $value;
     }

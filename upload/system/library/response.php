@@ -18,15 +18,15 @@ class Response {
     /**
      * Constructor
      *
-     * @param    string    $header
+     * @param string $header
      */
     public function addHeader($header) {
         $this->headers[] = $header;
     }
 
     /**
-     * @param    string    $url
-     * @param    int       $status
+     * @param string $url
+     * @param int $status
      */
     public function redirect($url, $status = 302) {
         header('Location: ' . str_replace(['&amp;', "\n", "\r"], ['&', '', ''], $url), true, $status);
@@ -34,31 +34,31 @@ class Response {
     }
 
     /**
-     * @param    int    $level
+     * @param int $level
      */
     public function setCompression($level) {
         $this->level = $level;
     }
 
     /**
-     * @return    array
+     * @return array
      */
     public function getOutput() {
         return $this->output;
     }
 
     /**
-     * @param    string    $output
+     * @param string $output
      */
     public function setOutput($output) {
         $this->output = $output;
     }
 
     /**
-     * @param    string    $data
-     * @param    int       $level
+     * @param string $data
+     * @param int    $level
      *
-     * @return    string
+     * @return string
      */
     private function compress($data, $level = 0) {
         if (isset($_SERVER['HTTP_ACCEPT_ENCODING']) && (strpos($_SERVER['HTTP_ACCEPT_ENCODING'], 'gzip') !== false)) {
@@ -90,9 +90,6 @@ class Response {
         return gzencode($data, (int)$level);
     }
 
-    /**
-     *
-     */
     public function output() {
         if ($this->output) {
             $output = $this->level ? $this->compress($this->output, $this->level) : $this->output;

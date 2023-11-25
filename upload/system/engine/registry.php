@@ -14,27 +14,22 @@ final class Registry {
     private array $data = [];
 
     /**
-     * @param    string    $key
+     * @param string $key
      *
-     * @return    mixed
+     * @return object|null
      */
     public function get(string $key): object|null {
         return isset($this->data[$key]) ? $this->data[$key] : null;
     }
 
     /**
-     * @param    string    $key
-     * @param    string    $value
+     * @param string $key
+     * @param string $value
      */
     public function set(string $key, object $value): void {
         $this->data[$key] = $value;
     }
 
-    /**
-     * @param    string    $key
-     *
-     * @return    bool
-     */
     public function has($key) {
         return isset($this->data[$key]);
     }

@@ -17,6 +17,13 @@ abstract class Model {
         $this->registry = $registry;
     }
 
+	/**
+	 * __get
+	 *
+	 * @param string $key
+	 *
+	 * @return object
+	 */
     public function __get(string $key): object {
         if ($this->registry->has($key)) {
             return $this->registry->get($key);
@@ -24,7 +31,14 @@ abstract class Model {
             throw new \Exception('Error: Could not call registry key ' . $key . '!');
         }
     }
-
+	/**
+	 * __set
+	 *
+	 * @param string $key
+	 * @param object $value
+	 *
+	 * @return object
+	 */
     public function __set(string $key, object $value): void {
         $this->registry->set($key, $value);
     }

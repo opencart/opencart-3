@@ -16,15 +16,15 @@ class Loader {
     /**
      * Constructor
      *
-     * @param    object    $registry
+     * @param object $registry
      */
     public function __construct(object $registry) {
         $this->registry = $registry;
     }
 
     /**
-     * @param    string    $route
-     * @param    array     $data
+     * @param string $route
+     * @param array  $data
      *
      * @return    mixed
      */
@@ -66,7 +66,7 @@ class Loader {
     }
 
     /**
-     * @param    string    $route
+     * @param string $route
      */
     public function model(string $route): void {
         // Sanitize the call
@@ -97,8 +97,8 @@ class Loader {
     }
 
     /**
-     * @param    string    $route
-     * @param    array     $data
+     * @param string $route
+     * @param array  $data
      *
      * @return    string
      */
@@ -139,7 +139,7 @@ class Loader {
     }
 
     /**
-     * @param    string    $route
+     * @param string $route
      */
     public function library(string $route, array &...$args): object {
         // Sanitize the call
@@ -158,7 +158,7 @@ class Loader {
     }
 
     /**
-     * @param    string    $route
+     * @param string $route
      */
     public function helper(string $route): void {
         $file = DIR_SYSTEM . 'helper/' . preg_replace('/[^a-zA-Z0-9_\/]/', '', (string)$route) . '.php';
@@ -171,7 +171,7 @@ class Loader {
     }
 
     /**
-     * @param    string    $route
+     * @param string $route
      */
     public function config(string $route) {
         $this->registry->get('event')->trigger('config/' . $route . '/before', [&$route]);
@@ -182,8 +182,8 @@ class Loader {
     }
 
     /**
-     * @param    string    $route
-     * @param    string    $key
+     * @param string $route
+     * @param string $key
      *
      * @return    array
      */

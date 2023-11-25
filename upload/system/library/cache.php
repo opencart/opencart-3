@@ -12,12 +12,12 @@
  */
 class Cache {
     private object $adaptor;
-	
+
     /**
      * Constructor
      *
-     * @param    string    $adaptor    The type of storage for the cache.
-     * @param    int       $expire     Optional parameters
+     * @param string $adaptor    The type of storage for the cache.
+     * @param int    $expire     Optional parameters
      */
     public function __construct(string $adaptor, int $expire = 3600) {
         $class = 'Cache\\' . $adaptor;
@@ -32,17 +32,17 @@ class Cache {
     /**
      * Gets a cache by key name.
      *
-     * @param    string    $key    The cache key name
+     * @param  string $key    The cache key name
      *
-     * @return    string
+     * @return string
      */
     public function get(string $key): array|string|null {
         return $this->adaptor->get($key);
     }
 
     /**
-     * @param    string    $key      The cache key
-     * @param    string    $value    The cache value
+     * @param string $key      The cache key
+     * @param string $value    The cache value
      *
      * @return    string
      */

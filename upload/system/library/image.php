@@ -21,7 +21,7 @@ class Image {
     /**
      * Constructor
      *
-     * @param    string    $file
+     * @param string $file
      */
     public function __construct(string $file) {
         if (!extension_loaded('gd')) {
@@ -53,50 +53,50 @@ class Image {
     }
 
     /**
-     * @return    string
+     * @return string
      */
     public function getFile(): string {
         return $this->file;
     }
 
     /**
-     * @return    array
+     * @return array
      */
     public function getImage(): object {
         return $this->image;
     }
 
     /**
-     * @return    int
+     * @return int
      */
     public function getWidth(): int {
         return $this->width;
     }
 
     /**
-     * @return    int
+     * @return int
      */
     public function getHeight(): int {
         return $this->height;
     }
 
     /**
-     * @return    string
+     * @return string
      */
     public function getBits(): string {
         return $this->bits;
     }
 
     /**
-     * @return    string
+     * @return string
      */
     public function getMime(): string {
         return $this->mime;
     }
 
     /**
-     * @param    string    $file
-     * @param    int       $quality
+     * @param string $file
+     * @param int    $quality
      */
     public function save(string $file, int $quality = 90): void {
         $info = pathinfo($file);
@@ -119,9 +119,9 @@ class Image {
     }
 
     /**
-     * @param    int       $width
-     * @param    int       $height
-     * @param    string    $default
+     * @param int    $width
+     * @param int    $height
+     * @param string $default
      */
     public function resize(int $width = 0, int $height = 0, string $default = ''): void {
         if (!$this->width || !$this->height) {
@@ -184,8 +184,8 @@ class Image {
     }
 
     /**
-     * @param    string    $watermark
-     * @param    string    $position
+     * @param string $watermark
+     * @param string $position
      */
     public function watermark(object $watermark, string $position = 'bottomright'): void {
         switch ($position) {
@@ -235,10 +235,10 @@ class Image {
     }
 
     /**
-     * @param    int    $top_x
-     * @param    int    $top_y
-     * @param    int    $bottom_x
-     * @param    int    $bottom_y
+     * @param int $top_x
+     * @param int $top_y
+     * @param int $bottom_x
+     * @param int $bottom_y
      */
     public function crop(int $top_x, int $top_y, int $bottom_x, int $bottom_y): void {
         $image_old = $this->image;
@@ -252,8 +252,8 @@ class Image {
     }
 
     /**
-     * @param    int       $degree
-     * @param    string    $color
+     * @param int    $degree
+     * @param string $color
      */
     public function rotate(int $degree, string $color = 'FFFFFF'): void {
         $rgb = $this->html2rgb($color);
@@ -265,7 +265,7 @@ class Image {
     }
 
     /**
-     *
+     * @return void
      */
     private function filter(): void {
         $args = func_get_args();
@@ -274,11 +274,11 @@ class Image {
     }
 
     /**
-     * @param    string    $text
-     * @param    int       $x
-     * @param    int       $y
-     * @param    int       $size
-     * @param    string    $color
+     * @param string $text
+     * @param int    $x
+     * @param int    $y
+     * @param int    $size
+     * @param string $color
      */
     private function text(string $text, int $x = 0, int $y = 0, int $size = 5, string $color = '000000'): void {
         $rgb = $this->html2rgb($color);
@@ -287,19 +287,21 @@ class Image {
     }
 
     /**
-     * @param    object    $merge
-     * @param    int       $x
-     * @param    int       $y
-     * @param    int       $opacity
+     * @param object $merge
+     * @param int    $x
+     * @param int    $y
+     * @param int    $opacity
+	 *
+	 * @return void
      */
     private function merge(object $merge, int $x = 0, int $y = 0, int $opacity = 100): void {
         imagecopymerge($this->image, $merge->getImage(), $x, $y, 0, 0, $merge->getWidth(), $merge->getHeight(), $opacity);
     }
 
     /**
-     * @param    string    $color
+     * @param string $color
      *
-     * @return    array
+     * @return array
      */
     private function html2rgb(string $color): array {
         if ($color[0] == '#') {

@@ -18,8 +18,8 @@ class Session {
     /**
      * Constructor
      *
-     * @param    string    $adaptor
-     * @param    object    $registry
+     * @param string $adaptor
+     * @param object $registry
      */
     public function __construct(string $adaptor, $registry = '') {
         $class = 'Session\\' . $adaptor;
@@ -39,16 +39,16 @@ class Session {
     }
 
     /**
-     * @return    string
+     * @return string
      */
     public function getId(): string {
         return $this->session_id;
     }
 
     /**
-     * @param    string    $session_id
+     * @param string $session_id
      *
-     * @return    string
+     * @return string
      */
     public function start(string $session_id = ''): array|string {
         if (!$session_id) {
@@ -71,14 +71,14 @@ class Session {
     }
 
     /**
-     *
+     * @return void
      */
     public function close(): void {
         $this->adaptor->write($this->session_id, $this->data);
     }
 
     /**
-     *
+     * @return void
      */
     public function destroy(): void {
         $this->adaptor->destroy($this->session_id);

@@ -6,7 +6,7 @@ class File {
     /**
      * Constructor
      *
-     * @param    int  $expire
+     * @param int $expire
      */
     public function __construct(int $expire = 3600) {
         $this->expire = $expire;
@@ -15,9 +15,9 @@ class File {
     /**
      * Get
      *
-     * @param    string  $key
+     * @param string $key
      *
-     * @return array|string|null
+     * @return array
      */
     public function get(string $key): array {
         $files = glob(DIR_CACHE . 'cache.' . preg_replace('/[^A-Z0-9\._-]/i', '', $key) . '.*');
@@ -32,8 +32,8 @@ class File {
     /**
      * Set
      *
-     * @param    string  $key
-     * @param    array|string|null  $value
+     * @param string $key
+     * @param array|string|null $value
      *
      * @return void
      */
@@ -50,7 +50,7 @@ class File {
     /**
      * Delete
      *
-     * @param    string  $key
+     * @param string $key
      *
      * @return void
      */

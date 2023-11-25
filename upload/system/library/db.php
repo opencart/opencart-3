@@ -16,12 +16,12 @@ class DB {
     /**
      * Constructor
      *
-     * @param    string    $adaptor
-     * @param    string    $hostname
-     * @param    string    $username
-     * @param    string    $password
-     * @param    string    $database
-     * @param    int       $port
+     * @param string $adaptor
+     * @param string $hostname
+     * @param string $username
+     * @param string $password
+     * @param string $database
+     * @param int    $port
      */
     public function __construct(string $adaptor, string $hostname, string $username, string $password, string $database, string $port = '') {
         $class = 'DB\\' . $adaptor;
@@ -36,9 +36,9 @@ class DB {
     /**
      * Query
      *
-     * @param    string    $sql
+     * @param string $sql
      *
-     * @return    array
+     * @return array
      */
     public function query(string $sql): bool|object {
         return $this->adaptor->query($sql);
@@ -47,9 +47,9 @@ class DB {
     /**
      * Escape
      *
-     * @param    string    $value
+     * @param string $value
      *
-     * @return    string
+     * @return string
      */
     public function escape(string $value): string {
         return $this->adaptor->escape($value);
@@ -59,7 +59,7 @@ class DB {
      * Count Affected
      * Gets the total number of affected rows from the last query
      *
-     * @return    int    returns the total number of affected rows.
+     * @return int    returns the total number of affected rows.
      */
     public function countAffected(): int {
         return $this->adaptor->countAffected();
@@ -69,7 +69,7 @@ class DB {
      * Get Last ID
      * Get the last ID gets the primary key that was returned after creating a row in a table.
      *
-     * @return    int returns last ID
+     * @return int returns last ID
      */
     public function getLastId(): int {
         return $this->adaptor->getLastId();
@@ -79,7 +79,7 @@ class DB {
      * Is Connected
      * Checks if a DB connection is active.
      *
-     * @return    bool
+     * @return bool
      */
     public function isConnected(): bool {
         return $this->adaptor->isConnected();
