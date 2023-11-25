@@ -25,7 +25,7 @@ class ModelMarketingAffiliate extends Model {
     }
 
 	/**
-	 * @param int   $customer_id
+	 * @param int $customer_id
 	 *
 	 * @return void
 	 */
@@ -35,14 +35,18 @@ class ModelMarketingAffiliate extends Model {
     }
 
 	/**
-	 * @param int   $customer_id
+	 * @param int $customer_id
 	 *
 	 * @return array
 	 */
     public function getAffiliate(int $customer_id): array {
         $query = $this->db->query("SELECT DISTINCT *, CONCAT(`c`.`firstname`, ' ', `c`.`lastname`) AS `customer`, `ca`.`custom_field` FROM `" . DB_PREFIX . "customer_affiliate` `ca` LEFT JOIN `" . DB_PREFIX . "customer` `c` ON (`ca`.`customer_id` = `c`.`customer_id`) WHERE `ca`.`customer_id` = '" . (int)$customer_id . "'");
 
-        return $query->row;
+		if ($query->num_rows) {
+			return $query->row + json_decode($query->row['custom_field'], true);
+		} else {
+			return [];
+		}
     }
 
 	/**
@@ -53,7 +57,11 @@ class ModelMarketingAffiliate extends Model {
     public function getAffiliateByTracking(string $tracking): array {
         $query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "customer_affiliate` WHERE `tracking` = '" . $this->db->escape($tracking) . "'");
 
-        return $query->row;
+		if ($query->num_rows) {
+			return $query->row + json_decode($query->row['custom_field'], true);
+		} else {
+			return [];
+		}
     }
 
 	/**

@@ -704,7 +704,7 @@ class ControllerMarketingAffiliate extends Controller {
         if (isset($this->request->post['custom_field'])) {
             $data['affiliate_custom_field'] = $this->request->post['custom_field'];
         } elseif (!empty($affiliate_info)) {
-            $data['affiliate_custom_field'] = json_decode($affiliate_info['custom_field'], true);
+            $data['affiliate_custom_field'] = $affiliate_info['custom_field'];
         } else {
             $data['affiliate_custom_field'] = [];
         }

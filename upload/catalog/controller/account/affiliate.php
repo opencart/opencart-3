@@ -237,7 +237,7 @@ class ControllerAccountAffiliate extends Controller {
         }
 
         if (!empty($affiliate_info)) {
-            $data['affiliate_custom_field'] = json_decode($affiliate_info['custom_field'], true);
+            $data['affiliate_custom_field'] = $affiliate_info['custom_field'];
         } else {
             $data['affiliate_custom_field'] = [];
         }

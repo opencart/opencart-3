@@ -279,7 +279,11 @@ class ModelAccountCustomer extends Model {
     public function getAffiliate(int $customer_id): array {
         $query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "customer_affiliate` WHERE `customer_id` = '" . (int)$customer_id . "'");
 
-        return $query->row;
+		if ($query->num_rows) {
+			return $query->row + json_decode($query->row['custom_field'], true);
+		} else {
+			return [];
+		}
     }
 
 	/**
@@ -290,7 +294,11 @@ class ModelAccountCustomer extends Model {
     public function getAffiliateByTracking(string $tracking): array {
         $query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "customer_affiliate` WHERE `tracking` = '" . $this->db->escape($tracking) . "'");
 
-        return $query->row;
+		if ($query->num_rows) {
+			return $query->row + json_decode($query->row['custom_field'], true);
+		} else {
+			return [];
+		}
     }
 
 	/**

@@ -95,7 +95,11 @@ class ModelCustomerCustomer extends Model {
     public function getCustomer(int $customer_id): array {
         $query = $this->db->query("SELECT DISTINCT * FROM `" . DB_PREFIX . "customer` WHERE `customer_id` = '" . (int)$customer_id . "'");
 
-        return $query->row;
+		if ($query->num_rows) {
+			return $query->row + json_decode($query->row['custom_field'], true);
+		} else {
+			return [];
+		}
     }
 
 	/**
@@ -106,7 +110,11 @@ class ModelCustomerCustomer extends Model {
     public function getCustomerByEmail(string $email): array {
         $query = $this->db->query("SELECT DISTINCT * FROM `" . DB_PREFIX . "customer` WHERE LCASE(`email`) = '" . $this->db->escape(oc_strtolower($email)) . "'");
 
-        return $query->row;
+		if ($query->num_rows) {
+			return $query->row + json_decode($query->row['custom_field'], true);
+		} else {
+			return [];
+		}
     }
 
 	/**
