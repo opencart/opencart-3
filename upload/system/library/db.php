@@ -21,7 +21,7 @@ class DB {
      * @param string $username
      * @param string $password
      * @param string $database
-     * @param int    $port
+     * @param string $port
      */
     public function __construct(string $adaptor, string $hostname, string $username, string $password, string $database, string $port = '') {
         $class = 'DB\\' . $adaptor;
@@ -56,7 +56,8 @@ class DB {
     }
 
     /**
-     * Count Affected
+     * countAffected
+	 *
      * Gets the total number of affected rows from the last query
      *
      * @return int    returns the total number of affected rows.
@@ -66,7 +67,8 @@ class DB {
     }
 
     /**
-     * Get Last ID
+     * getLastId
+	 *
      * Get the last ID gets the primary key that was returned after creating a row in a table.
      *
      * @return int returns last ID
@@ -76,7 +78,7 @@ class DB {
     }
 
     /**
-     * Is Connected
+     * isConnected
      * Checks if a DB connection is active.
      *
      * @return bool
