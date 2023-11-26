@@ -271,16 +271,6 @@ class Smtp {
 		}
 	}
 
-	/**
-	 * handleReply
-	 *
-	 * @param array	$handle
-	 * @param bool	$status_code
-	 * @param bool	$error_text
-	 * @param int	$counter
-	 *
-	 * @return string
-	 */
 	private function handleReply($handle, $status_code = false, $error_text = false, $counter = 0) {
 		$reply = '';
 
