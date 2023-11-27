@@ -43,7 +43,7 @@ class ModelMarketingAffiliate extends Model {
         $query = $this->db->query("SELECT DISTINCT *, CONCAT(`c`.`firstname`, ' ', `c`.`lastname`) AS `customer`, `ca`.`custom_field` FROM `" . DB_PREFIX . "customer_affiliate` `ca` LEFT JOIN `" . DB_PREFIX . "customer` `c` ON (`ca`.`customer_id` = `c`.`customer_id`) WHERE `ca`.`customer_id` = '" . (int)$customer_id . "'");
 
 		if ($query->num_rows) {
-			return $query->row + json_decode($query->row['custom_field'], true);
+			return $query->row + ['custom_field' => json_decode($query->row['custom_field'], true)];
 		} else {
 			return [];
 		}
@@ -58,7 +58,7 @@ class ModelMarketingAffiliate extends Model {
         $query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "customer_affiliate` WHERE `tracking` = '" . $this->db->escape($tracking) . "'");
 
 		if ($query->num_rows) {
-			return $query->row + json_decode($query->row['custom_field'], true);
+			return $query->row + ['custom_field' => json_decode($query->row['custom_field'], true)];
 		} else {
 			return [];
 		}

@@ -81,7 +81,7 @@ class ModelAccountCustomer extends Model {
         $query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "customer` WHERE `customer_id` = '" . (int)$customer_id . "'");
 
 		if ($query->num_rows) {
-			return $query->row + json_decode($query->row['custom_field'], true);
+			return $query->row + ['custom_field' => json_decode($query->row['custom_field'], true)];
 		} else {
 			return [];
 		}
@@ -96,7 +96,7 @@ class ModelAccountCustomer extends Model {
         $query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "customer` WHERE LCASE(`email`) = '" . $this->db->escape(oc_strtolower($email)) . "'");
 
 		if ($query->num_rows) {
-			return $query->row + json_decode($query->row['custom_field'], true);
+			return $query->row + ['custom_field' => json_decode($query->row['custom_field'], true)];
 		} else {
 			return [];
 		}
@@ -119,7 +119,7 @@ class ModelAccountCustomer extends Model {
         $this->db->query("UPDATE `" . DB_PREFIX . "customer` SET `token` = ''");
 
 		if ($query->num_rows) {
-			return $query->row + json_decode($query->row['custom_field'], true);
+			return $query->row + ['custom_field' => json_decode($query->row['custom_field'], true)];
 		} else {
 			return [];
 		}
@@ -280,7 +280,7 @@ class ModelAccountCustomer extends Model {
         $query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "customer_affiliate` WHERE `customer_id` = '" . (int)$customer_id . "'");
 
 		if ($query->num_rows) {
-			return $query->row + json_decode($query->row['custom_field'], true);
+			return $query->row + ['custom_field' => json_decode($query->row['custom_field'], true)];
 		} else {
 			return [];
 		}
@@ -295,7 +295,7 @@ class ModelAccountCustomer extends Model {
         $query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "customer_affiliate` WHERE `tracking` = '" . $this->db->escape($tracking) . "'");
 
 		if ($query->num_rows) {
-			return $query->row + json_decode($query->row['custom_field'], true);
+			return $query->row + ['custom_field' => json_decode($query->row['custom_field'], true)];
 		} else {
 			return [];
 		}
