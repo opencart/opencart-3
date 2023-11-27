@@ -156,7 +156,7 @@ class ModelCheckoutOrder extends Model {
     }
 
 	/**
-	 * @param int   $order_id
+	 * @param int $order_id
 	 *
 	 * @return array
 	 */
@@ -284,7 +284,7 @@ class ModelCheckoutOrder extends Model {
     }
 
 	/**
-	 * @param int   $order_id
+	 * @param int $order_id
 	 *
 	 * @return array
 	 */
