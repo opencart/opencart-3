@@ -466,14 +466,6 @@ class ControllerSaleRecurring extends Controller {
 		}
 
 		if ($this->user->hasPermission('modify', 'sale/recurring')) {
-			$frequencies = [
-				'day'        => $this->language->get('text_day'),
-				'week'       => $this->language->get('text_week'),
-				'semi_month' => $this->language->get('text_semi_month'),
-				'month'      => $this->language->get('text_month'),
-				'year'       => $this->language->get('text_year')
-			];
-
 			// GDPR
 			$this->load->model('customer/gdpr');
 
@@ -483,7 +475,15 @@ class ControllerSaleRecurring extends Controller {
 			// Recurring
 			$this->load->model('sale/recurring');
 
-			$expires_data = [];
+			$frequencies = [
+				'day'        => $this->language->get('text_day'),
+				'week'       => $this->language->get('text_week'),
+				'semi_month' => $this->language->get('text_semi_month'),
+				'month'      => $this->language->get('text_month'),
+				'year'       => $this->language->get('text_year')
+			];
+
+			$gdpr_data = [];
 
 			// As per GDPR law, only one store per organization with the same party
 			// or the same party from multiple stores of the same organization can export
@@ -492,43 +492,45 @@ class ControllerSaleRecurring extends Controller {
 				$expires = $this->model_customer_gdpr->getExpires();
 
 				foreach ($expires as $expire) {
-					$expires_data[] = strtotime($expire['date_added']);
+					$gdpr_data[] = "DATE(`date_added`) > DATE('" . $this->db->escape(date('Y-m-d', strtotime($expire['date_added']))) . "')";
 				}
 			}
 
 			$data['recurrings'] = [];
 
-			$transactions = $this->db->query("SELECT `order_recurring_id` FROM `" . DB_PREFIX . "order_recurring_transaction` WHERE `date_added` > DATE('" . $this->db->escape(date('Y-m-d', strtotime('+' . (int)$this->config->get('config_gdpr_limit') . ' days'))) . "') AND `amount` > '0' GROUP BY `order_recurring_id`, `order_id` HAVING COUNT(`order_recurring_id`) = 1 AND COUNT(`order_id`) = 1 ORDER BY `date_added` ASC");
+			$order_recurring_data = [];
 
-			if ($transactions->num_rows) {
-				$transaction_data = [];
+			foreach ($selected as $order_recurring_id) {
+				$order_recurring_data[] = "`order_recurring_id` = '" . (int)$order_recurring_id . "'";
+			}
 
-				foreach ($transactions->rows as $transaction) {
-					$transaction_data[] = $transaction['order_recurring_id'];
-				}
+			if ($order_recurring_data && $gdpr_data) {
+				// Only pull unique order recurring and order
+				// since it is not possible to create multiple identical orders
+				// for the same subscription as it is not possible to create
+				// multiple subscriptions for the same order.
+				$transactions = $this->db->query("SELECT `order_recurring_id` FROM `" . DB_PREFIX . "order_recurring_transaction` WHERE (" . implode(" OR ", $order_recurring_data) . ") AND (" . implode(" OR ", $gdpr_data) . ") AND `amount` > '0' GROUP BY `order_recurring_id`, `order_id` HAVING COUNT(`order_recurring_id`) = 1 AND COUNT(`order_id`) = 1 ORDER BY `date_added` ASC");
 
-				foreach ($selected as $order_recurring_id) {
-					if (in_array($order_recurring_id, $transaction_data)) {
-						$order_recurring_info = $this->model_sale_recurring->getRecurring($order_recurring_id);
+				if ($transactions->num_rows) {
+					foreach ($transactions->rows as $transaction) {
+						$order_recurring_info = $this->model_sale_recurring->getRecurring($transaction['order_recurring_id']);
 
 						if ($order_recurring_info && $order_recurring_info['status']) {
-							if (!in_array(strtotime($order_recurring_info['date_added']), $expires_data)) {
-								$product_info = $this->model_catalog_product->getProduct($order_recurring_info['product_id']);
+							$product_info = $this->model_catalog_product->getProduct($order_recurring_info['product_id']);
 
-								if ($product_info) {
-									$recurring = '';
+							if ($product_info) {
+								$recurring = '';
 
-									if ($order_recurring_info['recurring_duration']) {
-										$recurring .= sprintf($this->language->get('text_payment_description'), $this->currency->format($this->tax->calculate($order_recurring_info['recurring_price'] * $order_recurring_info['product_quantity'], $product_info['tax_class_id'], $this->config->get('config_tax')), $this->config->get('config_currency')), $order_recurring_info['recurring_cycle'], $frequencies[$order_recurring_info['recurring_frequency']], $order_recurring_info['recurring_duration']);
-									} else {
-										$recurring .= sprintf($this->language->get('text_payment_cancel'), $this->currency->format($this->tax->calculate($order_recurring_info['recurring_price'] * $order_recurring_info['product_quantity'], $product_info['tax_class_id'], $this->config->get('config_tax')), $this->config->get('config_currency')), $order_recurring_info['recurring_cycle'], $frequencies[$order_recurring_info['recurring_frequency']], $order_recurring_info['recurring_duration']);
-									}
-
-									$data['recurrings'][] = [
-										'store_name' => $this->config->get('config_name'),
-										'recurring'  => $recurring
-									];
+								if ($order_recurring_info['recurring_duration']) {
+									$recurring .= sprintf($this->language->get('text_payment_description'), $this->currency->format($this->tax->calculate($order_recurring_info['recurring_price'] * $order_recurring_info['product_quantity'], $product_info['tax_class_id'], $this->config->get('config_tax')), $this->config->get('config_currency')), $order_recurring_info['recurring_cycle'], $frequencies[$order_recurring_info['recurring_frequency']], $order_recurring_info['recurring_duration']);
+								} else {
+									$recurring .= sprintf($this->language->get('text_payment_cancel'), $this->currency->format($this->tax->calculate($order_recurring_info['recurring_price'] * $order_recurring_info['product_quantity'], $product_info['tax_class_id'], $this->config->get('config_tax')), $this->config->get('config_currency')), $order_recurring_info['recurring_cycle'], $frequencies[$order_recurring_info['recurring_frequency']], $order_recurring_info['recurring_duration']);
 								}
+
+								$data['recurrings'][] = [
+									'store_name' => $this->config->get('config_name'),
+									'recurring'  => $recurring
+								];
 							}
 						}
 					}
