@@ -6,11 +6,10 @@ namespace googleshopping;
 */
 class Log {
     private $handle;
-
     /**
      * Constructor
      *
-     * @param   string  $filename
+     * @param string $filename
     */
     public function __construct($filename, $max_size = 8388608) {
         $file = DIR_LOGS . $filename;
@@ -32,19 +31,20 @@ class Log {
     }
 
     /**
-     * 
-     *
-     * @param   string  $message
+     * Write
+	 *
+     * @param string $message
+	 *
+	 * @return void
      */
-    public function write($message) {
+    public function write(string $message): void {
         if (is_resource($this->handle)) {
             fwrite($this->handle, date('Y-m-d G:i:s') . ' - ' . print_r($message, true) . "\n");
         }
     }
 
     /**
-     * 
-     *
+     * Destructor
      */
     public function __destruct() {
         if (is_resource($this->handle)) {
