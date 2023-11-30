@@ -509,7 +509,7 @@ class ControllerSaleRecurring extends Controller {
 				// since it is not possible to create multiple identical orders
 				// for the same subscription as it is not possible to create
 				// multiple subscriptions for the same order.
-				$transactions = $this->db->query("SELECT `oh`.`order_recurring_id` FROM `" . DB_PREFIX . "order_recurring_history` `oh` LEFT JOIN `" . DB_PREFIX . "order_recurring` `or` ON (`oh`.`order_recurring_id` = `or`.`order_recurring_id`) WHERE (" . implode(" OR ", $order_recurring_data) . ") AND (" . implode(" OR ", $gdpr_data) . ") AND `or`.`status` = '2' GROUP BY `oh`.`order_recurring_id` HAVING COUNT(`or`.`order_id`) = 1 ORDER BY `or`.`date_added` ASC");
+				$transactions = $this->db->query("SELECT `oh`.`order_recurring_id` FROM `" . DB_PREFIX . "order_recurring_history` `oh` LEFT JOIN `" . DB_PREFIX . "order_recurring` `or` ON (`oh`.`order_recurring_id` = `or`.`order_recurring_id`) WHERE (" . implode(" OR ", $order_recurring_data) . ") AND (" . implode(" OR ", $gdpr_data) . ") GROUP BY `oh`.`order_recurring_id`, `or`.`order_id` ORDER BY `or`.`date_added` ASC");
 
 				if ($transactions->num_rows) {
 					foreach ($transactions->rows as $transaction) {
