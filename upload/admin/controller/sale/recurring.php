@@ -492,7 +492,7 @@ class ControllerSaleRecurring extends Controller {
 				$expires = $this->model_customer_gdpr->getExpires();
 
 				foreach ($expires as $expire) {
-					$gdpr_data[] = "DATE(`date_added`) > DATE('" . $this->db->escape(date('Y-m-d', strtotime($expire['date_added']))) . "')";
+					$gdpr_data[] = "DATE(`or`.`date_added`) > DATE('" . $this->db->escape(date('Y-m-d', strtotime($expire['date_added']))) . "')";
 				}
 			}
 
@@ -501,7 +501,7 @@ class ControllerSaleRecurring extends Controller {
 			$order_recurring_data = [];
 
 			foreach ($selected as $order_recurring_id) {
-				$order_recurring_data[] = "`order_recurring_id` = '" . (int)$order_recurring_id . "'";
+				$order_recurring_data[] = "`or`.`order_recurring_id` = '" . (int)$order_recurring_id . "'";
 			}
 
 			if ($order_recurring_data && $gdpr_data) {
@@ -509,7 +509,7 @@ class ControllerSaleRecurring extends Controller {
 				// since it is not possible to create multiple identical orders
 				// for the same subscription as it is not possible to create
 				// multiple subscriptions for the same order.
-				$transactions = $this->db->query("SELECT `order_recurring_id` FROM `" . DB_PREFIX . "order_recurring_transaction` WHERE (" . implode(" OR ", $order_recurring_data) . ") AND (" . implode(" OR ", $gdpr_data) . ") AND `amount` > '0' GROUP BY `order_recurring_id`, `order_id` HAVING COUNT(`order_recurring_id`) = 1 AND COUNT(`order_id`) = 1 ORDER BY `date_added` ASC");
+				$transactions = $this->db->query("SELECT `oh`.`order_recurring_id` FROM `" . DB_PREFIX . "order_recurring_history` `oh` LEFT JOIN `" . DB_PREFIX . "order_recurring` `or` ON (`oh`.`order_recurring_id` = `or`.`order_recurring_id`) WHERE (" . implode(" OR ", $order_recurring_data) . ") AND (" . implode(" OR ", $gdpr_data) . ") AND `or`.`status` = '2' GROUP BY `oh`.`order_recurring_id` HAVING COUNT(`or`.`order_id`) = 1 ORDER BY `or`.`date_added` ASC");
 
 				if ($transactions->num_rows) {
 					foreach ($transactions->rows as $transaction) {
