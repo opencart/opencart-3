@@ -25,9 +25,10 @@ class Language {
     }
 
     /**
+	 * Get
+	 *
      * @param string $key
-     *
-     * @return string
+	 *
      */
     public function get(string $key) {
         return isset($this->data[$key]) ? $this->data[$key] : $key;
@@ -37,14 +38,17 @@ class Language {
 	 * Set
 	 *
 	 * @param string $key
+	 * @param string $value
 	 *
 	 * @return void
 	 */
-    public function set(string $key, $value): void {
+    public function set(string $key, string $value): void {
         $this->data[$key] = $value;
     }
 
     /**
+	 * All
+	 *
      * @return array
      */
     public function all(): array {
@@ -52,6 +56,8 @@ class Language {
     }
 
     /**
+	 * Load
+	 *
      * @param string $filename
      * @param string $key
      *

@@ -29,14 +29,18 @@ class Template {
     }
 
     /**
+	 * Set
+	 *
      * @param string $key
      * @param mixed  $value
      */
-    public function set($key, $value) {
+    public function set(string $key, $value) {
         $this->adaptor->set($key, $value);
     }
 
     /**
+	 * Render
+	 *
      * @param string $template
      * @param bool   $cache
      *

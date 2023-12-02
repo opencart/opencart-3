@@ -39,6 +39,8 @@ class Session {
     }
 
     /**
+	 * getId
+	 *
      * @return string
      */
     public function getId(): string {
@@ -46,6 +48,8 @@ class Session {
     }
 
     /**
+	 * Start
+	 *
      * @param string $session_id
      *
      * @return string
@@ -71,6 +75,8 @@ class Session {
     }
 
     /**
+	 * Close
+	 *
      * @return void
      */
     public function close(): void {
@@ -78,6 +84,8 @@ class Session {
     }
 
     /**
+	 * Destroy
+	 *
      * @return void
      */
     public function destroy(): void {

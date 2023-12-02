@@ -28,6 +28,8 @@ class Document {
     }
 
     /**
+	 * getTitle
+	 *
      * @return string
      */
     public function getTitle(): string {
@@ -35,6 +37,8 @@ class Document {
     }
 
     /**
+	 * setDescription
+	 *
      * @param string $description
 	 *
 	 * @param void
@@ -44,6 +48,8 @@ class Document {
     }
 
     /**
+	 * getDescription
+	 *
      * @return string
      */
     public function getDescription(): string {
@@ -51,6 +57,8 @@ class Document {
     }
 
     /**
+	 * setKeywords
+	 *
      * @param string $keywords
 	 *
 	 * @return void
@@ -60,6 +68,8 @@ class Document {
     }
 
     /**
+	 * getKeywords
+	 *
      * @return string
      */
     public function getKeywords(): string {
@@ -67,6 +77,8 @@ class Document {
     }
 
     /**
+	 * addLink
+	 *
      * @param string $href
      * @param string $rel
 	 *
@@ -80,6 +92,8 @@ class Document {
     }
 
     /**
+	 * getLinks
+	 *
      * @return array
      */
     public function getLinks(): array {
@@ -87,6 +101,8 @@ class Document {
     }
 
     /**
+	 * addStyle
+	 *
      * @param string $href
      * @param string $rel
      * @param string $media
@@ -102,6 +118,8 @@ class Document {
     }
 
     /**
+	 * getStyles
+	 *
      * @return array
      */
     public function getStyles(): array {
@@ -109,6 +127,8 @@ class Document {
     }
 
     /**
+	 * addScript
+	 *
      * @param string $href
      * @param string $position
 	 *
@@ -119,6 +139,8 @@ class Document {
     }
 
     /**
+	 * getScripts
+	 *
      * @param string $position
      *
      * @return array

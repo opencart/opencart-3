@@ -22,6 +22,8 @@ class Pagination {
     public string $text_prev = '&lt;';
 
     /**
+	 * Render
+	 *
      * @return string
      */
     public function render(): string {

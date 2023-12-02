@@ -29,11 +29,13 @@ class Request {
     }
 
     /**
+	 * Clean
+	 *
      * @param mixed $data
      *
      * @return mixed
      */
-    public function clean(mixed $data): mixed {
+    public function clean($data) {
         if (is_array($data)) {
             foreach ($data as $key => $value) {
                 unset($data[$key]);

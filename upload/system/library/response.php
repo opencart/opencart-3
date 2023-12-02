@@ -25,8 +25,10 @@ class Response {
     }
 
     /**
+	 * Redirect
+	 *
      * @param string $url
-     * @param int $status
+     * @param int    $status
      */
     public function redirect(string $url, int $status = 302) {
         header('Location: ' . str_replace(['&amp;', "\n", "\r"], ['&', '', ''], $url), true, $status);
@@ -34,30 +36,42 @@ class Response {
     }
 
     /**
+	 * setCompression
+	 *
      * @param int $level
      */
     public function setCompression(int $level) {
         $this->level = $level;
     }
-
-    public function getOutput() {
+	/**
+	 * getOutput
+	 *
+	 * @return string
+	 */
+    public function getOutput(): string {
         return $this->output;
     }
 
     /**
+	 * setOutput
+	 *
      * @param string $output
+	 *
+	 * @return void
      */
-    public function setOutput($output) {
+    public function setOutput(string $output): void {
         $this->output = $output;
     }
 
     /**
-     * @param string $data
-     * @param int    $level
+	 * Compress
+	 *
+     * @param mixed $data
+     * @param int   $level
      *
      * @return string
      */
-    private function compress($data, int $level = 0) {
+    private function compress($data, int $level = 0): string {
         if (isset($_SERVER['HTTP_ACCEPT_ENCODING']) && (strpos($_SERVER['HTTP_ACCEPT_ENCODING'], 'gzip') !== false)) {
             $encoding = 'gzip';
         }
@@ -87,7 +101,14 @@ class Response {
         return gzencode($data, (int)$level);
     }
 
-    public function output() {
+	/**
+	 * Output
+	 *
+	 * Displays the set HTML output
+	 *
+	 * @return void
+	 */
+    public function output(): void {
         if ($this->output) {
             $output = $this->level ? $this->compress($this->output, $this->level) : $this->output;
 

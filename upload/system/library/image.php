@@ -54,6 +54,8 @@ class Image {
     }
 
     /**
+	 * getFile
+	 *
      * @return string
      */
     public function getFile(): string {
@@ -61,6 +63,8 @@ class Image {
     }
 
     /**
+	 * getImage
+	 *
      * @return object
      */
     public function getImage(): object {
@@ -68,6 +72,8 @@ class Image {
     }
 
     /**
+	 * getWidth
+	 *
      * @return int
      */
     public function getWidth(): int {
@@ -75,6 +81,8 @@ class Image {
     }
 
     /**
+	 * getHeight
+	 *
      * @return int
      */
     public function getHeight(): int {
@@ -82,6 +90,8 @@ class Image {
     }
 
     /**
+	 * getBits
+	 *
      * @return string
      */
     public function getBits(): string {
@@ -89,6 +99,8 @@ class Image {
     }
 
     /**
+	 * getMime
+	 *
      * @return string
      */
     public function getMime(): string {
@@ -96,6 +108,8 @@ class Image {
     }
 
     /**
+	 * Save
+	 *
      * @param string $file
      * @param int    $quality
      *
@@ -122,6 +136,8 @@ class Image {
     }
 
     /**
+	 * Resize
+	 *
      * @param int    $width
      * @param int    $height
      * @param string $default
@@ -167,7 +183,6 @@ class Image {
             $background = imagecolorallocatealpha($this->image, 255, 255, 255, 127);
 
             imagecolortransparent($this->image, $background);
-
         } elseif ($this->mime == 'image/webp') {
             imagealphablending($this->image, false);
             imagesavealpha($this->image, true);
@@ -189,6 +204,8 @@ class Image {
     }
 
     /**
+	 * Watermark
+	 *
      * @param object $watermark
      * @param string $position
      *
@@ -242,6 +259,8 @@ class Image {
     }
 
     /**
+	 * Crop
+	 *
      * @param int $top_x
      * @param int $top_y
      * @param int $bottom_x
@@ -261,6 +280,8 @@ class Image {
     }
 
     /**
+	 * Rotate
+	 *
      * @param int    $degree
      * @param string $color
      *
@@ -275,10 +296,7 @@ class Image {
         $this->height = imagesy($this->image);
     }
 
-    /**
-     * @return void
-     */
-    private function filter(): void {
+    private function filter() {
         $args = func_get_args();
 
         call_user_func_array('imagefilter', $args);

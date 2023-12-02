@@ -30,27 +30,33 @@ class Cache {
     }
 
     /**
+	 * Get
+	 *
      * Gets a cache by key name.
      *
      * @param string $key     The cache key name
      *
-     * @return string
+     * @return array|string|null
      */
     public function get(string $key): array|string|null {
         return $this->adaptor->get($key);
     }
 
     /**
+	 * Set
+	 *
      * @param string $key      The cache key
      * @param string $value    The cache value
      *
-     * @return string
+     * @return mixed
      */
     public function set(string $key, array|string|null $value, int $expire = 0): mixed {
         return $this->adaptor->set($key, $value);
     }
 
     /**
+	 * Delete
+	 *
      * @param string $key      The cache key
      */
     public function delete(string $key) {

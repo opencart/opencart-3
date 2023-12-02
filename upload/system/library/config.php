@@ -11,34 +11,48 @@
  * Config class
  */
 class Config {
-    private $data = [];
+    private array $data = [];
 
     /**
+	 * Get
+	 *
      * @param string $key
      *
      * @return mixed
      */
-    public function get($key) {
+    public function get(string $key) {
         return isset($this->data[$key]) ? $this->data[$key] : null;
     }
 
-    public function set($key, $value) {
+	/**
+	 * Set
+	 *
+	 * @param string $key
+	 * @param int    $value
+	 *
+	 * @return mixed
+	 */
+    public function set(string $key, int $value) {
         $this->data[$key] = $value;
     }
 
     /**
+	 * Has
+	 *
      * @param string $key
      *
      * @return bool
      */
-    public function has($key) {
+    public function has(string $key): bool {
         return isset($this->data[$key]);
     }
 
     /**
+	 * Load
+	 *
      * @param string $filename
      */
-    public function load($filename) {
+    public function load(string $filename) {
         $file = DIR_CONFIG . $filename . '.php';
 
         if (file_exists($file)) {

@@ -23,6 +23,8 @@ class Log {
     }
 
     /**
+	 * Write
+	 *
      * @param string $message
 	 *
 	 * @return void

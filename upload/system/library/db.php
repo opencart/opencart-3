@@ -8,7 +8,7 @@
  */
 
 /**
- * DB
+ * DB Class
  */
 class DB {
     private object $adaptor;
@@ -38,9 +38,9 @@ class DB {
      *
      * @param string $sql
      *
-     * @return array
+     * @return mixed
      */
-    public function query(string $sql): bool|object {
+    public function query(string $sql) {
         return $this->adaptor->query($sql);
     }
 
@@ -60,7 +60,7 @@ class DB {
 	 *
      * Gets the total number of affected rows from the last query
      *
-     * @return int    returns the total number of affected rows.
+     * @return int    Returns the total number of affected rows.
      */
     public function countAffected(): int {
         return $this->adaptor->countAffected();
@@ -71,7 +71,7 @@ class DB {
 	 *
      * Get the last ID gets the primary key that was returned after creating a row in a table.
      *
-     * @return int returns last ID
+     * @return int    Returns last ID
      */
     public function getLastId(): int {
         return $this->adaptor->getLastId();
