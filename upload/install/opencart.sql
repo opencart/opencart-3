@@ -3727,7 +3727,7 @@ INSERT INTO `oc_setting` (`store_id`, `code`, `key`, `value`, `serialized`) VALU
   (0, 'report_product_purchased', 'report_product_purchased_sort_order', '11', 0),
   (0, 'report_marketing', 'report_marketing_status', '1', 0),
   (0, 'report_marketing', 'report_marketing_sort_order', '12', 0),
-  (0, 'report_subscription', 'report_subscription_sort_order', '12', 0),
+  (0, 'report_subscription', 'report_subscription_sort_order', '13', 0),
   (0, 'developer', 'developer_theme', '1', 0),
   (0, 'developer', 'developer_sass', '1', 0);
 
