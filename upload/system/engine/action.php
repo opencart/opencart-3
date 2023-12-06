@@ -11,9 +11,9 @@
  * Action class
  */
 class Action {
-    private $id;
-    private $route;
-    private $method = 'index';
+    private string $id;
+    private string $route;
+    private string $method = 'index';
 
     /**
      * Constructor
@@ -42,7 +42,7 @@ class Action {
     /**
      * @return string
      */
-    public function getId() {
+    public function getId(): string {
         return $this->id;
     }
 
