@@ -40,7 +40,7 @@ class Action {
     }
 
     /**
-     * @return    string
+     * @return string
      */
     public function getId() {
         return $this->id;
