@@ -89,7 +89,7 @@ class ControllerAccountLogin extends Controller {
             }
 
             // Added strpos check to pass McAfee PCI compliance test (http://forum.opencart.com/viewtopic.php?f=10&t=12043&p=151494#p151295)
-            if (isset($this->request->post['redirect']) && $this->request->post['redirect'] != $this->url->link('account/logout', '', true) && (strpos($this->request->post['redirect'], $this->config->get('config_url')) !== false || strpos($this->request->post['redirect'], $this->config->get('config_ssl')) !== false)) {
+			if (isset($this->request->post['redirect']) && $this->request->post['redirect'] != $this->url->link('account/logout', '', true) && (strpos($this->request->post['redirect'], $this->config->get('config_url')) === 0 || strpos($this->request->post['redirect'], $this->config->get('config_ssl')) === 0)) {
                 $this->response->redirect(str_replace('&amp;', '&', $this->request->post['redirect'] . '&customer_token=' . $this->session->data['customer_token']));
             } else {
                 $this->response->redirect($this->url->link('account/account', 'customer_token=' . $this->session->data['customer_token'], true));
@@ -124,7 +124,7 @@ class ControllerAccountLogin extends Controller {
         }
 
         // Added strpos check to pass McAfee PCI compliance test (http://forum.opencart.com/viewtopic.php?f=10&t=12043&p=151494#p151295)
-        if (isset($this->request->post['redirect']) && (strpos($this->request->post['redirect'], $this->config->get('config_url')) !== false || strpos($this->request->post['redirect'], $this->config->get('config_ssl')) !== false)) {
+		if (isset($this->request->post['redirect']) && (strpos($this->request->post['redirect'], $this->config->get('config_url')) === 0 || strpos($this->request->post['redirect'], $this->config->get('config_ssl')) === 0)) {
             $data['redirect'] = $this->request->post['redirect'];
         } elseif (isset($this->session->data['redirect'])) {
             $data['redirect'] = $this->session->data['redirect'];
