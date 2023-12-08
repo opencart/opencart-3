@@ -76,7 +76,10 @@ class ControllerExtensionReportProductViewed extends Controller {
 
         return !$this->error;
     }
+
 	/**
+	 * Report
+	 *
 	 * @return string
 	 */
     public function report(): string {
@@ -141,7 +144,10 @@ class ControllerExtensionReportProductViewed extends Controller {
 
         return $this->load->view('extension/report/product_viewed_info', $data);
     }
+
 	/**
+	 * Reset
+	 *
 	 * @return void
 	 */
     public function reset(): void {

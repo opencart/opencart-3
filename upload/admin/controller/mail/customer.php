@@ -6,9 +6,12 @@
  */
 class ControllerMailCustomer extends Controller {
 	/**
-	 * @return void
+	 * Allow
 	 *
-     * admin/model/customer/customer_approval/approveCustomer/after
+	 * admin/model/customer/customer_approval/approveCustomer/after
+	 *
+	 * @return void
+     *
 	 */
     public function allow(string &$route, array &$args, mixed &$output): void {
         // Customers
@@ -86,9 +89,11 @@ class ControllerMailCustomer extends Controller {
         }
     }
 	/**
-	 * @return void
+	 * Deny
 	 *
-     * admin/model/customer/customer_approval/denyCustomer/after
+	 * admin/model/customer/customer_approval/denyCustomer/after
+	 *
+	 * @return void
 	 */
     public function deny(string &$route, array &$args, mixed &$output): void {
         // Customers

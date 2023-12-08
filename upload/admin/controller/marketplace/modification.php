@@ -22,7 +22,10 @@ class ControllerMarketplaceModification extends Controller {
 
         $this->getList();
     }
+
 	/**
+	 * Delete
+	 *
 	 * @return void
 	 */
     public function delete(): void {
@@ -59,7 +62,10 @@ class ControllerMarketplaceModification extends Controller {
 
         $this->getList();
     }
+
 	/**
+	 * Refresh
+	 *
 	 * @return void
 	 */
     public function refresh(array $data = []): void {
@@ -456,7 +462,10 @@ class ControllerMarketplaceModification extends Controller {
 
         $this->getList();
     }
+
 	/**
+	 * Clear
+	 *
 	 * @return void
 	 */
     public function clear(): void {
@@ -527,7 +536,10 @@ class ControllerMarketplaceModification extends Controller {
 
         $this->getList();
     }
+
 	/**
+	 * Enable
+	 *
 	 * @return void
 	 */
     public function enable(): void {
@@ -562,7 +574,10 @@ class ControllerMarketplaceModification extends Controller {
 
         $this->getList();
     }
+
 	/**
+	 * Disable
+	 *
 	 * @return void
 	 */
     public function disable(): void {
@@ -597,7 +612,10 @@ class ControllerMarketplaceModification extends Controller {
 
         $this->getList();
     }
+
 	/**
+	 * Clearlog
+	 *
 	 * @return void
 	 */
     public function clearlog(): void {

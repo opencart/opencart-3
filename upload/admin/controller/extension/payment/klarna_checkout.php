@@ -319,7 +319,10 @@ class ControllerExtensionPaymentKlarnaCheckout extends Controller {
 
         $this->response->setOutput($this->load->view('extension/payment/klarna_checkout', $data));
     }
+
 	/**
+	 * Order
+	 *
 	 * @return string
 	 */
     public function order(): string {
@@ -331,7 +334,10 @@ class ControllerExtensionPaymentKlarnaCheckout extends Controller {
 
         return $this->load->view('extension/payment/klarna_checkout_order', $data);
     }
+
 	/**
+	 * getTransaction
+	 *
 	 * @return void
 	 */
     public function getTransaction(): void {
@@ -583,7 +589,10 @@ class ControllerExtensionPaymentKlarnaCheckout extends Controller {
 
         $this->response->setOutput($this->load->view('extension/payment/klarna_checkout_order_ajax', $data));
     }
+
 	/**
+	 * Install
+	 *
 	 * @return void
 	 */
     public function install(): void {
@@ -592,7 +601,10 @@ class ControllerExtensionPaymentKlarnaCheckout extends Controller {
 
         $this->model_extension_payment_klarna_checkout->install();
     }
+
 	/**
+	 * Uninstall
+	 *
 	 * @return void
 	 */
     public function uninstall(): void {
@@ -601,7 +613,10 @@ class ControllerExtensionPaymentKlarnaCheckout extends Controller {
 
         $this->model_extension_payment_klarna_checkout->uninstall();
     }
+
 	/**
+	 * transactionCommand
+	 *
 	 * @return void
 	 */
     public function transactionCommand(): void {
@@ -734,7 +749,10 @@ class ControllerExtensionPaymentKlarnaCheckout extends Controller {
         $this->response->addHeader('Content-Type: application/json');
         $this->response->setOutput(json_encode($json));
     }
+
 	/**
+	 * downloadSettlementFiles
+	 *
 	 * @return void
 	 */
     public function downloadSettlementFiles(): void {

@@ -199,7 +199,10 @@ class ControllerExtensionPaymentFirstdata extends Controller {
 
         $this->response->setOutput($this->load->view('extension/payment/firstdata', $data));
     }
+
 	/**
+	 * Install
+	 *
 	 * @return void
 	 */
     public function install(): void {
@@ -208,7 +211,10 @@ class ControllerExtensionPaymentFirstdata extends Controller {
 
         $this->model_extension_payment_firstdata->install();
     }
+
 	/**
+	 * Uninstall
+	 *
 	 * @return void
 	 */
     public function uninstall(): void {
@@ -218,6 +224,8 @@ class ControllerExtensionPaymentFirstdata extends Controller {
         $this->model_extension_payment_firstdata->uninstall();
     }
 	/**
+	 * Order
+	 *
 	 * @return string
 	 */
     public function order(): string {
@@ -296,7 +304,10 @@ class ControllerExtensionPaymentFirstdata extends Controller {
             return '';
         }
     }
+
 	/**
+	 * Void
+	 *
 	 * @return void
 	 */
     public function void(): void {
@@ -316,7 +327,10 @@ class ControllerExtensionPaymentFirstdata extends Controller {
 
         $this->response->redirect($this->url->link('sale/order/info', 'order_id=' . $this->request->post['order_id'] . '&user_token=' . $this->session->data['user_token'], true));
     }
+
 	/**
+	 * Capture
+	 *
 	 * @return void
 	 */
     public function capture(): void {

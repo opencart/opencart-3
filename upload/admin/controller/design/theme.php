@@ -47,7 +47,10 @@ class ControllerDesignTheme extends Controller {
 
         $this->response->setOutput($this->load->view('design/theme', $data));
     }
+
 	/**
+	 * History
+	 *
 	 * @return void
 	 */
     public function history(): void {
@@ -102,7 +105,10 @@ class ControllerDesignTheme extends Controller {
 
         $this->response->setOutput($this->load->view('design/theme_history', $data));
     }
+
 	/**
+	 * Path
+	 *
 	 * @return void
 	 */
     public function path(): void {
@@ -171,7 +177,10 @@ class ControllerDesignTheme extends Controller {
         $this->response->addHeader('Content-Type: application/json');
         $this->response->setOutput(json_encode($json));
     }
+
 	/**
+	 * Template
+	 *
 	 * @return void
 	 */
     public function template(): void {
@@ -217,7 +226,10 @@ class ControllerDesignTheme extends Controller {
         $this->response->addHeader('Content-Type: application/json');
         $this->response->setOutput(json_encode($json));
     }
+
 	/**
+	 * Save
+	 *
 	 * @return void
 	 */
     public function save(): void {
@@ -270,7 +282,10 @@ class ControllerDesignTheme extends Controller {
         $this->response->addHeader('Content-Type: application/json');
         $this->response->setOutput(json_encode($json));
     }
+
 	/**
+	 * Reset
+	 *
 	 * @return void
 	 */
     public function reset(): void {
@@ -308,6 +323,11 @@ class ControllerDesignTheme extends Controller {
         $this->response->setOutput(json_encode($json));
     }
 
+	/**
+	 * Delete
+	 *
+	 * @return void
+	 */
     public function delete(): void {
         $this->load->language('design/theme');
 

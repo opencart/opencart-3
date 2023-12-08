@@ -19,6 +19,8 @@ class ControllerCustomerGdpr extends Controller {
         $this->getList();
     }
 	/**
+	 * getList
+	 *
 	 * @return void
 	 */
     public function getList(): void {
@@ -154,6 +156,8 @@ class ControllerCustomerGdpr extends Controller {
     }
 
     /*
+     * Approve
+     *
      *  Action Statuses
      *
      *	EXPORT
@@ -222,6 +226,8 @@ class ControllerCustomerGdpr extends Controller {
         $this->response->setOutput(json_encode($json));
     }
 	/**
+	 * Deny
+	 *
 	 * @return void
 	 */
     public function deny(): void {
@@ -258,6 +264,8 @@ class ControllerCustomerGdpr extends Controller {
         $this->response->setOutput(json_encode($json));
     }
 	/**
+	 * Delete
+	 *
 	 * @return void
 	 */
     public function delete(): void {

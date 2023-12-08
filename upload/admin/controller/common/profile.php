@@ -6,7 +6,9 @@
  */
 class ControllerCommonProfile extends Controller {
     private array $error = [];
-
+	/**
+	 * @return void
+	 */
     public function index(): void {
         $this->load->language('common/profile');
 

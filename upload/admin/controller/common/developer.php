@@ -33,6 +33,8 @@ class ControllerCommonDeveloper extends Controller {
         $this->response->setOutput($this->load->view('common/developer', $data));
     }
 	/**
+	 * Edit
+	 *
 	 * @return void
 	 */
     public function edit(): void {
@@ -55,6 +57,8 @@ class ControllerCommonDeveloper extends Controller {
         $this->response->setOutput(json_encode($json));
     }
 	/**
+	 * Theme
+	 *
 	 * @return void
 	 */
     public function theme(): void {
@@ -90,6 +94,8 @@ class ControllerCommonDeveloper extends Controller {
         $this->response->setOutput(json_encode($json));
     }
 	/**
+	 * Sass
+	 *
 	 * @return void
 	 */
     public function sass(): void {

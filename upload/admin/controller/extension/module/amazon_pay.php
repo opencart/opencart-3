@@ -113,6 +113,8 @@ class ControllerExtensionModuleAmazonPay extends Controller {
         return !$this->error;
     }
 	/**
+	 * Install
+	 *
 	 * @return void
 	 */
     public function install(): void {
@@ -122,6 +124,8 @@ class ControllerExtensionModuleAmazonPay extends Controller {
         $this->model_setting_event->deleteEventByCode('amazon_pay');
     }
 	/**
+	 * Uninstall
+	 *
 	 * @return void
 	 */
     public function uninstall(): void {

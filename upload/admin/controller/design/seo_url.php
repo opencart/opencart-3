@@ -19,7 +19,10 @@ class ControllerDesignSeoUrl extends Controller {
 
         $this->getList();
     }
+
 	/**
+	 * Add
+	 *
 	 * @return void
 	 */
     public function add(): void {
@@ -70,7 +73,10 @@ class ControllerDesignSeoUrl extends Controller {
 
         $this->getForm();
     }
+
 	/**
+	 * Edit
+	 *
 	 * @return void
 	 */
     public function edit(): void {
@@ -121,7 +127,10 @@ class ControllerDesignSeoUrl extends Controller {
 
         $this->getForm();
     }
+
 	/**
+	 * Delete
+	 *
 	 * @return void
 	 */
     public function delete(): void {

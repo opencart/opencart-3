@@ -19,7 +19,10 @@ class ControllerCatalogDownload extends Controller {
 
         $this->getList();
     }
+
 	/**
+	 * Add
+	 *
 	 * @return void
 	 */
     public function add(): void {
@@ -54,7 +57,10 @@ class ControllerCatalogDownload extends Controller {
 
         $this->getForm();
     }
+
 	/**
+	 * Edit
+	 *
 	 * @return void
 	 */
     public function edit(): void {
@@ -89,7 +95,10 @@ class ControllerCatalogDownload extends Controller {
 
         $this->getForm();
     }
+
 	/**
+	 * Delete
+	 *
 	 * @return void
 	 */
     public function delete(): void {
@@ -411,7 +420,10 @@ class ControllerCatalogDownload extends Controller {
 
         return !$this->error;
     }
+
 	/**
+	 * Upload
+	 *
 	 * @return void
 	 */
     public function upload(): void {
@@ -491,7 +503,10 @@ class ControllerCatalogDownload extends Controller {
         $this->response->addHeader('Content-Type: application/json');
         $this->response->setOutput(json_encode($json));
     }
+
 	/**
+	 * Autocomplete
+	 *
 	 * @return void
 	 */
     public function autocomplete(): void {

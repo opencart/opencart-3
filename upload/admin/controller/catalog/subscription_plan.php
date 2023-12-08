@@ -19,7 +19,10 @@ class ControllerCatalogSubscriptionPlan extends Controller {
 
         $this->getList();
     }
+
 	/**
+	 * Add
+	 *
 	 * @return void
 	 */
     public function add(): void {
@@ -54,7 +57,10 @@ class ControllerCatalogSubscriptionPlan extends Controller {
 
         $this->getForm();
     }
+
 	/**
+	 * Edit
+	 *
 	 * @return void
 	 */
     public function edit(): void {
@@ -89,7 +95,10 @@ class ControllerCatalogSubscriptionPlan extends Controller {
 
         $this->getForm();
     }
+
 	/**
+	 * Delete
+	 *
 	 * @return void
 	 */
     public function delete(): void {
@@ -126,7 +135,10 @@ class ControllerCatalogSubscriptionPlan extends Controller {
 
         $this->getList();
     }
+
 	/**
+	 * Copy
+	 *
 	 * @return void
 	 */
     public function copy(): void {

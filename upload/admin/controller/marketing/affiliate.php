@@ -19,7 +19,10 @@ class ControllerMarketingAffiliate extends Controller {
 
         $this->getList();
     }
+
 	/**
+	 * Add
+	 *
 	 * @return void
 	 */
     public function add(): void {
@@ -74,7 +77,10 @@ class ControllerMarketingAffiliate extends Controller {
 
         $this->getForm();
     }
+
 	/**
+	 * Edit
+	 *
 	 * @return void
 	 */
     public function edit(): void {
@@ -129,7 +135,10 @@ class ControllerMarketingAffiliate extends Controller {
 
         $this->getForm();
     }
+
 	/**
+	 * Delete
+	 *
 	 * @return void
 	 */
     public function delete(): void {
@@ -795,7 +804,10 @@ class ControllerMarketingAffiliate extends Controller {
 
         return !$this->error;
     }
+
 	/**
+	 * Report
+	 *
 	 * @return void
 	 */
     public function report(): void {

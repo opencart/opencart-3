@@ -147,7 +147,10 @@ class ControllerExtensionPaymentBluepayredirect extends Controller {
 
         $this->response->setOutput($this->load->view('extension/payment/bluepay_redirect', $data));
     }
+
 	/**
+	 * Install
+	 *
 	 * @return void
 	 */
     public function install(): void {
@@ -156,7 +159,10 @@ class ControllerExtensionPaymentBluepayredirect extends Controller {
 
         $this->model_extension_payment_bluepay_redirect->install();
     }
+
 	/**
+	 * Uninstall
+	 *
 	 * @return void
 	 */
     public function uninstall(): void {
@@ -165,7 +171,10 @@ class ControllerExtensionPaymentBluepayredirect extends Controller {
 
         $this->model_extension_payment_bluepay_redirect->uninstall();
     }
+
 	/**
+	 * Order
+	 *
 	 * @return void
 	 */
     public function order(): string {
@@ -196,7 +205,10 @@ class ControllerExtensionPaymentBluepayredirect extends Controller {
             return '';
         }
     }
+
 	/**
+	 * Void
+	 *
 	 * @return void
 	 */
     public function void(): void {
@@ -240,7 +252,10 @@ class ControllerExtensionPaymentBluepayredirect extends Controller {
         $this->response->addHeader('Content-Type: application/json');
         $this->response->setOutput(json_encode($json));
     }
+
 	/**
+	 * Release
+	 *
 	 * @return void
 	 */
     public function release(): void {
@@ -298,7 +313,10 @@ class ControllerExtensionPaymentBluepayredirect extends Controller {
         $this->response->addHeader('Content-Type: application/json');
         $this->response->setOutput(json_encode($json));
     }
+
 	/**
+	 * Rebate
+	 *
 	 * @return void
 	 */
     public function rebate(): void {
@@ -369,7 +387,10 @@ class ControllerExtensionPaymentBluepayredirect extends Controller {
 
         return !$this->error;
     }
+
 	/**
+	 * Callback
+	 *
 	 * @return void
 	 */
     public function callback(): void {

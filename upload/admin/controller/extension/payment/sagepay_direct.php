@@ -149,7 +149,10 @@ class ControllerExtensionPaymentSagepayDirect extends Controller {
 
         $this->response->setOutput($this->load->view('extension/payment/sagepay_direct', $data));
     }
+
 	/**
+	 * Install
+	 *
 	 * @return void
 	 */
     public function install(): void {
@@ -158,7 +161,10 @@ class ControllerExtensionPaymentSagepayDirect extends Controller {
 
         $this->model_extension_payment_sagepay_direct->install();
     }
+
 	/**
+	 * Uninstall
+	 *
 	 * @return void
 	 */
     public function uninstall(): void {
@@ -167,7 +173,10 @@ class ControllerExtensionPaymentSagepayDirect extends Controller {
 
         $this->model_extension_payment_sagepay_direct->uninstall();
     }
+
 	/**
+	 * Order
+	 *
 	 * @return string
 	 */
     public function order(): string {
@@ -201,7 +210,10 @@ class ControllerExtensionPaymentSagepayDirect extends Controller {
             return '';
         }
     }
+
 	/**
+	 * Void
+	 *
 	 * @return void
 	 */
     public function void(): void {
@@ -243,7 +255,10 @@ class ControllerExtensionPaymentSagepayDirect extends Controller {
         $this->response->addHeader('Content-Type: application/json');
         $this->response->setOutput(json_encode($json));
     }
+
 	/**
+	 * Release
+	 *
 	 * @return void
 	 */
     public function release(): void {
@@ -295,7 +310,10 @@ class ControllerExtensionPaymentSagepayDirect extends Controller {
         $this->response->addHeader('Content-Type: application/json');
         $this->response->setOutput(json_encode($json));
     }
+
 	/**
+	 * Rebate
+	 *
 	 * @return void
 	 */
     public function rebate(): void {

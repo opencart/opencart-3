@@ -34,6 +34,8 @@ class ControllerCommonSecurity extends Controller {
         return $this->load->view('common/security', $data);
     }
 	/**
+	 * Move
+	 *
 	 * @return string
 	 */
     public function move(): void {

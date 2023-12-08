@@ -513,6 +513,9 @@ class ControllerMarketplaceMarketplace extends Controller {
         $this->response->setOutput($this->load->view('marketplace/marketplace_list', $data));
     }
 
+	/**
+	 * info
+	 */
     public function info() {
         if (isset($this->request->get['extension_id'])) {
             $extension_id = (int)$this->request->get['extension_id'];
@@ -678,7 +681,10 @@ class ControllerMarketplaceMarketplace extends Controller {
             return new \Action('error/not_found');
         }
     }
+
 	/**
+	 * Purchase
+	 *
 	 * @return void
 	 */
     public function purchase(): void {
@@ -750,7 +756,10 @@ class ControllerMarketplaceMarketplace extends Controller {
         $this->response->addHeader('Content-Type: application/json');
         $this->response->setOutput(json_encode($json));
     }
+
 	/**
+	 * Download
+	 *
 	 * @return void
 	 */
     public function download(): void {
@@ -902,7 +911,10 @@ class ControllerMarketplaceMarketplace extends Controller {
         $this->response->addHeader('Content-Type: application/json');
         $this->response->setOutput(json_encode($json));
     }
+
 	/**
+	 * addComment
+	 *
 	 * @return void
 	 */
     public function addComment(): void {
@@ -980,7 +992,10 @@ class ControllerMarketplaceMarketplace extends Controller {
         $this->response->addHeader('Content-Type: application/json');
         $this->response->setOutput(json_encode($json));
     }
+
 	/**
+	 * Comment
+	 *
 	 * @return void
 	 */
     public function comment(): void {
@@ -1053,7 +1068,10 @@ class ControllerMarketplaceMarketplace extends Controller {
 
         $this->response->setOutput($this->load->view('marketplace/marketplace_comment', $data));
     }
+
 	/**
+	 * Reply
+	 *
 	 * @return void
 	 */
     public function reply(): void {

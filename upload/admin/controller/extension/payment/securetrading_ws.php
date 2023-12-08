@@ -259,7 +259,10 @@ class ControllerExtensionPaymentSecureTradingWs extends Controller {
 
         $this->response->setOutput($this->load->view('extension/payment/securetrading_ws', $data));
     }
+
 	/**
+	 * Install
+	 *
 	 * @return void
 	 */
     public function install(): void {
@@ -268,7 +271,10 @@ class ControllerExtensionPaymentSecureTradingWs extends Controller {
 
         $this->model_extension_payment_securetrading_ws->install();
     }
+
 	/**
+	 * Uninstall
+	 *
 	 * @return void
 	 */
     public function uninstall(): void {
@@ -277,7 +283,10 @@ class ControllerExtensionPaymentSecureTradingWs extends Controller {
 
         $this->model_extension_payment_securetrading_ws->uninstall();
     }
+
 	/**
+	 * downloadTransactions
+	 *
 	 * @return void
 	 */
     public function downloadTransactions(): void {
@@ -300,7 +309,10 @@ class ControllerExtensionPaymentSecureTradingWs extends Controller {
 
         $this->response->setOutput($response);
     }
+
 	/**
+	 * showTransactions
+	 *
 	 * @return string
 	 */
     public function showTransactions(): string {
@@ -357,7 +369,10 @@ class ControllerExtensionPaymentSecureTradingWs extends Controller {
 
         return $this->load->view('extension/payment/securetrading_ws_transactions', $data);
     }
+
 	/**
+	 * Order
+	 *
 	 * @return string
 	 */
     public function order(): string {
@@ -387,7 +402,10 @@ class ControllerExtensionPaymentSecureTradingWs extends Controller {
             return '';
         }
     }
+
 	/**
+	 * Void
+	 *
 	 * @return void
 	 */
     public function void(): void {
@@ -447,7 +465,10 @@ class ControllerExtensionPaymentSecureTradingWs extends Controller {
         $this->response->addHeader('Content-Type: application/json');
         $this->response->setOutput(json_encode($json));
     }
+
 	/**
+	 * Release
+	 *
 	 * @return void
 	 */
     public function release(): void {
@@ -521,7 +542,10 @@ class ControllerExtensionPaymentSecureTradingWs extends Controller {
         $this->response->addHeader('Content-Type: application/json');
         $this->response->setOutput(json_encode($json));
     }
+
 	/**
+	 * Rebate
+	 *
 	 * @return void
 	 */
     public function rebate(): void {

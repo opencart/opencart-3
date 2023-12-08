@@ -76,7 +76,10 @@ class ControllerExtensionReportSaleReturn extends Controller {
 
         return !$this->error;
     }
+
 	/**
+	 * Report
+	 *
 	 * @return string
 	 */
     public function report(): string {

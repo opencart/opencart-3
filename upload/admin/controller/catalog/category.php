@@ -19,7 +19,10 @@ class ControllerCatalogCategory extends Controller {
 
         $this->getList();
     }
+
 	/**
+	 * Add
+	 *
 	 * @return void
 	 */
     public function add(): void {
@@ -54,7 +57,10 @@ class ControllerCatalogCategory extends Controller {
 
         $this->getForm();
     }
+
 	/**
+	 * Edit
+	 *
 	 * @return void
 	 */
     public function edit(): void {
@@ -89,7 +95,10 @@ class ControllerCatalogCategory extends Controller {
 
         $this->getForm();
     }
+
 	/**
+	 * Delete
+	 *
 	 * @return void
 	 */
     public function delete(): void {
@@ -126,7 +135,10 @@ class ControllerCatalogCategory extends Controller {
 
         $this->getList();
     }
+
 	/**
+	 * Repair
+	 *
 	 * @return void
 	 */
     public function repair(): void {
@@ -604,7 +616,10 @@ class ControllerCatalogCategory extends Controller {
 
         return !$this->error;
     }
+
 	/**
+	 * Autocomplete
+	 *
 	 * @return void
 	 */
     public function autocomplete(): void {

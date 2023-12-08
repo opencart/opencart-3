@@ -19,7 +19,10 @@ class ControllerLocalisationCountry extends Controller {
 
         $this->getList();
     }
+
 	/**
+	 * Add
+	 *
 	 * @return void
 	 */
     public function add(): void {
@@ -54,7 +57,10 @@ class ControllerLocalisationCountry extends Controller {
 
         $this->getForm();
     }
+
 	/**
+	 * Edit
+	 *
 	 * @return void
 	 */
     public function edit(): void {
@@ -89,7 +95,10 @@ class ControllerLocalisationCountry extends Controller {
 
         $this->getForm();
     }
+
 	/**
+	 * Delete
+	 *
 	 * @return void
 	 */
     public function delete(): void {
@@ -438,7 +447,10 @@ class ControllerLocalisationCountry extends Controller {
 
         return !$this->error;
     }
+
 	/**
+	 * Country
+	 *
 	 * @return void
 	 */
     public function country(): void {

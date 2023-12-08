@@ -19,7 +19,10 @@ class ControllerUserUser extends Controller {
 
         $this->getList();
     }
+
 	/**
+	 * Add
+	 *
 	 * @return void
 	 */
     public function add(): void {
@@ -54,7 +57,10 @@ class ControllerUserUser extends Controller {
 
         $this->getForm();
     }
+
 	/**
+	 * Edit
+	 *
 	 * @return void
 	 */
     public function edit(): void {
@@ -89,7 +95,10 @@ class ControllerUserUser extends Controller {
 
         $this->getForm();
     }
+
 	/**
+	 * Delete
+	 *
 	 * @return void
 	 */
     public function delete(): void {
@@ -440,8 +449,11 @@ class ControllerUserUser extends Controller {
 
         $this->response->setOutput($this->load->view('user/user_form', $data));
     }
+
 	/**
-	 * @return void
+	 * getLogins
+	 *
+	 * @return string
 	 */
     public function getLogins(): string {
         $this->load->language('user/user');

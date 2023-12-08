@@ -222,7 +222,10 @@ class ControllerExtensionPaymentCardConnect extends Controller {
 
         $this->response->setOutput($this->load->view('extension/payment/cardconnect', $data));
     }
+
 	/**
+	 * Install
+	 *
 	 * @return void
 	 */
     public function install(): void {
@@ -233,7 +236,10 @@ class ControllerExtensionPaymentCardConnect extends Controller {
             $this->model_extension_payment_cardconnect->install();
         }
     }
+
 	/**
+	 * Uninstall
+	 *
 	 * @return void
 	 */
     public function uninstall(): void {
@@ -244,7 +250,10 @@ class ControllerExtensionPaymentCardConnect extends Controller {
             $this->model_extension_payment_cardconnect->uninstall();
         }
     }
+
 	/**
+	 * Order
+	 *
 	 * @return string
 	 */
     public function order(): string {
@@ -315,7 +324,10 @@ class ControllerExtensionPaymentCardConnect extends Controller {
             return '';
         }
     }
+
 	/**
+	 * Inquire
+	 *
 	 * @return void
 	 */
     public function inquire(): void {
@@ -355,7 +367,10 @@ class ControllerExtensionPaymentCardConnect extends Controller {
         $this->response->addHeader('Content-Type: application/json');
         $this->response->setOutput(json_encode($json));
     }
+
 	/**
+	 * Capture
+	 *
 	 * @return void
 	 */
     public function capture(): void {
@@ -407,7 +422,10 @@ class ControllerExtensionPaymentCardConnect extends Controller {
         $this->response->addHeader('Content-Type: application/json');
         $this->response->setOutput(json_encode($json));
     }
+
 	/**
+	 * Refund
+	 *
 	 * @return void
 	 */
     public function refund(): void {
@@ -460,7 +478,10 @@ class ControllerExtensionPaymentCardConnect extends Controller {
         $this->response->addHeader('Content-Type: application/json');
         $this->response->setOutput(json_encode($json));
     }
+
 	/**
+	 * Void
+	 *
 	 * @return void
 	 */
     public function void(): void {

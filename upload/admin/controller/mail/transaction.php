@@ -6,6 +6,8 @@
  */
 class ControllerMailTransaction extends Controller {
 	/**
+	 * Deny
+	 *
 	 * @return void
 	 *
      * admin/model/customer/customer/addTransaction/after

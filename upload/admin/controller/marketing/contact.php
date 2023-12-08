@@ -46,7 +46,10 @@ class ControllerMarketingContact extends Controller {
 
         $this->response->setOutput($this->load->view('marketing/contact', $data));
     }
+
 	/**
+	 * Send
+	 *
 	 * @return void
 	 */
     public function send(): void {

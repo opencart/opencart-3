@@ -127,7 +127,10 @@ class ControllerExtensionPaymentCardinity extends Controller {
 
         $this->response->setOutput($this->load->view('extension/payment/cardinity', $data));
     }
+
 	/**
+	 * Order
+	 *
 	 * @return string
 	 */
     public function order(): string {
@@ -139,7 +142,9 @@ class ControllerExtensionPaymentCardinity extends Controller {
 
         return $this->load->view('extension/payment/cardinity_order', $data);
     }
-	/**
+
+	/** getPayment
+	 *
 	 * @return void
 	 */
     public function getPayment(): void {
@@ -223,6 +228,8 @@ class ControllerExtensionPaymentCardinity extends Controller {
         $this->response->setOutput($this->load->view('extension/payment/cardinity_order_ajax', $data));
     }
 	/**
+	 * Refund
+	 *
 	 * @return void
 	 */
     public function refund(): void {
@@ -309,7 +316,10 @@ class ControllerExtensionPaymentCardinity extends Controller {
 
         return !$this->error;
     }
+
 	/**
+	 * Install
+	 *
 	 * @return void
 	 */
     public function install(): void {
@@ -318,7 +328,10 @@ class ControllerExtensionPaymentCardinity extends Controller {
 
         $this->model_extension_payment_cardinity->install();
     }
+
 	/**
+	 * Uninstall
+	 *
 	 * @return void
 	 */
     public function uninstall(): void {

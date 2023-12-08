@@ -189,7 +189,10 @@ class ControllerCustomerCustomerApproval extends Controller {
 
         $this->response->setOutput($this->load->view('customer/customer_approval', $data));
     }
+
 	/**
+	 * Approve
+	 *
 	 * @return void
 	 */
     public function approve(): void {
@@ -239,7 +242,10 @@ class ControllerCustomerCustomerApproval extends Controller {
         $this->response->addHeader('Content-Type: application/json');
         $this->response->setOutput(json_encode($json));
     }
+
 	/**
+	 * Deny
+	 *
 	 * @return void
 	 */
     public function deny(): void {

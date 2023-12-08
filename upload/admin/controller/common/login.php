@@ -5,11 +5,10 @@
  * @package Admin\Controller\Common
  */
 class ControllerCommonLogin extends Controller {
+    private array $error = [];
 	/**
 	 * @return void
 	 */
-    private array $error = [];
-
     public function index(): void {
         $this->load->language('common/login');
 

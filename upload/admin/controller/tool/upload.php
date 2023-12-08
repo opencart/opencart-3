@@ -19,7 +19,10 @@ class ControllerToolUpload extends Controller {
 
         $this->getList();
     }
+
 	/**
+	 * Delete
+	 *
 	 * @return void
 	 */
     public function delete(): void {
@@ -261,7 +264,10 @@ class ControllerToolUpload extends Controller {
 
         return !$this->error;
     }
+
 	/**
+	 * Download
+	 *
 	 * @return void
 	 */
     public function download(): void {
@@ -324,7 +330,10 @@ class ControllerToolUpload extends Controller {
             $this->response->redirect($this->url->link('tool/upload', 'user_token=' . $this->session->data['user_token'] . $url, true));
         }
     }
+
 	/**
+	 * Upload
+	 *
 	 * @return void
 	 */
     public function upload(): void {

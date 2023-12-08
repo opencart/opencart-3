@@ -19,7 +19,10 @@ class ControllerUserApi extends Controller {
 
         $this->getList();
     }
+
 	/**
+	 * Add
+	 *
 	 * @return void
 	 */
     public function add(): void {
@@ -54,7 +57,10 @@ class ControllerUserApi extends Controller {
 
         $this->getForm();
     }
+
 	/**
+	 * Edit
+	 *
 	 * @return void
 	 */
     public function edit(): void {
@@ -89,7 +95,10 @@ class ControllerUserApi extends Controller {
 
         $this->getForm();
     }
+
 	/**
+	 * Delete
+	 *
 	 * @return void
 	 */
     public function delete(): void {
@@ -411,7 +420,10 @@ class ControllerUserApi extends Controller {
 
         return !$this->error;
     }
+
 	/**
+	 * deleteSession
+	 *
 	 * @return void
 	 */
     public function deleteSession(): void {

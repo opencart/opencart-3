@@ -19,7 +19,10 @@ class ControllerCustomerCustomer extends Controller {
 
         $this->getList();
     }
+
 	/**
+	 * Add
+	 *
 	 * @return void
 	 */
     public function add(): void {
@@ -78,7 +81,10 @@ class ControllerCustomerCustomer extends Controller {
 
         $this->getForm();
     }
+
 	/**
+	 * Edit
+	 *
 	 * @return void
 	 */
     public function edit(): void {
@@ -137,7 +143,10 @@ class ControllerCustomerCustomer extends Controller {
 
         $this->getForm();
     }
+
 	/**
+	 * Delete
+	 *
 	 * @return void
 	 */
     public function delete(): void {
@@ -198,7 +207,10 @@ class ControllerCustomerCustomer extends Controller {
 
         $this->getList();
     }
+
 	/**
+	 * Unlock
+	 *
 	 * @return void
 	 */
     public function unlock(): void {
@@ -1035,7 +1047,10 @@ class ControllerCustomerCustomer extends Controller {
 
         return !$this->error;
     }
+
 	/**
+	 * Login
+	 *
 	 * @return object|null
 	 */
     public function login(): object|null {
@@ -1078,7 +1093,10 @@ class ControllerCustomerCustomer extends Controller {
             return new \Action('error/not_found');
         }
     }
+
 	/**
+	 * History
+	 *
 	 * @return void
 	 */
     public function history(): void {
@@ -1119,7 +1137,10 @@ class ControllerCustomerCustomer extends Controller {
 
         $this->response->setOutput($this->load->view('customer/customer_history', $data));
     }
+
 	/**
+	 * addHistory
+	 *
 	 * @return void
 	 */
     public function addHistory(): void {
@@ -1141,7 +1162,10 @@ class ControllerCustomerCustomer extends Controller {
         $this->response->addHeader('Content-Type: application/json');
         $this->response->setOutput(json_encode($json));
     }
+
 	/**
+	 * Transaction
+	 *
 	 * @return void
 	 */
     public function transaction(): void {
@@ -1184,7 +1208,10 @@ class ControllerCustomerCustomer extends Controller {
 
         $this->response->setOutput($this->load->view('customer/customer_transaction', $data));
     }
+
 	/**
+	 * addTransaction
+	 *
 	 * @return void
 	 */
     public function addTransaction(): void {
@@ -1206,7 +1233,10 @@ class ControllerCustomerCustomer extends Controller {
         $this->response->addHeader('Content-Type: application/json');
         $this->response->setOutput(json_encode($json));
     }
+
 	/**
+	 * Reward
+	 *
 	 * @return void
 	 */
     public function reward(): void {
@@ -1249,7 +1279,10 @@ class ControllerCustomerCustomer extends Controller {
 
         $this->response->setOutput($this->load->view('customer/customer_reward', $data));
     }
+
 	/**
+	 * addReward
+	 *
 	 * @return void
 	 */
     public function addReward(): void {
@@ -1271,7 +1304,10 @@ class ControllerCustomerCustomer extends Controller {
         $this->response->addHeader('Content-Type: application/json');
         $this->response->setOutput(json_encode($json));
     }
+
 	/**
+	 * Ip
+	 *
 	 * @return void
 	 */
     public function ip(): void {
@@ -1313,7 +1349,10 @@ class ControllerCustomerCustomer extends Controller {
 
         $this->response->setOutput($this->load->view('customer/customer_ip', $data));
     }
+
 	/**
+	 * Autocomplete
+	 *
 	 * @return void
 	 */
     public function autocomplete(): void {
@@ -1371,7 +1410,10 @@ class ControllerCustomerCustomer extends Controller {
         $this->response->addHeader('Content-Type: application/json');
         $this->response->setOutput(json_encode($json));
     }
+
 	/**
+	 * Customfield
+	 *
 	 * @return void
 	 */
     public function customfield(): void {
@@ -1401,7 +1443,10 @@ class ControllerCustomerCustomer extends Controller {
         $this->response->addHeader('Content-Type: application/json');
         $this->response->setOutput(json_encode($json));
     }
+
 	/**
+	 * Address
+	 *
 	 * @return void
 	 */
     public function address(): void {

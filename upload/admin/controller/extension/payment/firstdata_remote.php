@@ -248,7 +248,10 @@ class ControllerExtensionPaymentFirstdataRemote extends Controller {
 
         $this->response->setOutput($this->load->view('extension/payment/firstdata_remote', $data));
     }
+
 	/**
+	 * Install
+	 *
 	 * @return void
 	 */
     public function install(): void {
@@ -257,7 +260,10 @@ class ControllerExtensionPaymentFirstdataRemote extends Controller {
 
         $this->model_extension_payment_firstdata_remote->install();
     }
+
 	/**
+	 * Uninstall
+	 *
 	 * @return void
 	 */
     public function uninstall(): void {
@@ -266,7 +272,10 @@ class ControllerExtensionPaymentFirstdataRemote extends Controller {
 
         $this->model_extension_payment_firstdata_remote->uninstall();
     }
+
 	/**
+	 * Order
+	 *
 	 * @return string
 	 */
     public function order(): string {
@@ -297,7 +306,10 @@ class ControllerExtensionPaymentFirstdataRemote extends Controller {
             return '';
         }
     }
+
 	/**
+	 * Void
+	 *
 	 * @return void
 	 */
     public function void(): void {
@@ -341,7 +353,10 @@ class ControllerExtensionPaymentFirstdataRemote extends Controller {
         $this->response->addHeader('Content-Type: application/json');
         $this->response->setOutput(json_encode($json));
     }
+
 	/**
+	 * Capture
+	 *
 	 * @return void
 	 */
     public function capture(): void {
@@ -393,7 +408,10 @@ class ControllerExtensionPaymentFirstdataRemote extends Controller {
         $this->response->addHeader('Content-Type: application/json');
         $this->response->setOutput(json_encode($json));
     }
+
 	/**
+	 * Refund
+	 *
 	 * @return void
 	 */
     public function refund(): void {

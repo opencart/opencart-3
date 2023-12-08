@@ -6,6 +6,8 @@
  */
 class ControllerMailReturns extends Controller {
 	/**
+	 * Deny
+	 *
 	 * @return void
 	 *
      * admin/model/sale/returns/addHistory/after

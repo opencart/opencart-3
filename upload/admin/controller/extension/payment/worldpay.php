@@ -199,7 +199,10 @@ class ControllerExtensionPaymentWorldpay extends Controller {
 
         $this->response->setOutput($this->load->view('extension/payment/worldpay', $data));
     }
+
 	/**
+	 * Install
+	 *
 	 * @return void
 	 */
     public function install(): void {
@@ -208,7 +211,10 @@ class ControllerExtensionPaymentWorldpay extends Controller {
 
         $this->model_extension_payment_worldpay->install();
     }
+
 	/**
+	 * Uninstall
+	 *
 	 * @return void
 	 */
     public function uninstall(): void {
@@ -217,7 +223,10 @@ class ControllerExtensionPaymentWorldpay extends Controller {
 
         $this->model_extension_payment_worldpay->uninstall();
     }
+
 	/**
+	 * Order
+	 *
 	 * @return string
 	 */
     public function order(): string {
@@ -249,7 +258,10 @@ class ControllerExtensionPaymentWorldpay extends Controller {
             return '';
         }
     }
+
 	/**
+	 * Refund
+	 *
 	 * @return void
 	 */
     public function refund(): void {

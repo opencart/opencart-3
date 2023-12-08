@@ -19,7 +19,10 @@ class ControllerSaleVoucher extends Controller {
 
         $this->getList();
     }
+
 	/**
+	 * Add
+	 *
 	 * @return void
 	 */
     public function add(): void {
@@ -54,7 +57,10 @@ class ControllerSaleVoucher extends Controller {
 
         $this->getForm();
     }
+
 	/**
+	 * Edit
+	 *
 	 * @return void
 	 */
     public function edit(): void {
@@ -90,6 +96,8 @@ class ControllerSaleVoucher extends Controller {
         $this->getForm();
     }
 	/**
+	 * Delete
+	 *
 	 * @return void
 	 */
     public function delete(): void {
@@ -516,7 +524,10 @@ class ControllerSaleVoucher extends Controller {
 
         return !$this->error;
     }
+
 	/**
+	 * History
+	 *
 	 * @return void
 	 */
     public function history(): void {
@@ -558,7 +569,10 @@ class ControllerSaleVoucher extends Controller {
 
         $this->response->setOutput($this->load->view('sale/voucher_history', $data));
     }
+
 	/**
+	 * Send
+	 *
 	 * @return void
 	 */
     public function send(): void {

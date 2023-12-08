@@ -19,7 +19,10 @@ class ControllerDesignTranslation extends Controller {
 
         $this->getList();
     }
+
 	/**
+	 * Add
+	 *
 	 * @return void
 	 */
     public function add(): void {
@@ -54,7 +57,10 @@ class ControllerDesignTranslation extends Controller {
 
         $this->getForm();
     }
+
 	/**
+	 * Edit
+	 *
 	 * @return void
 	 */
     public function edit(): void {
@@ -89,7 +95,10 @@ class ControllerDesignTranslation extends Controller {
 
         $this->getForm();
     }
+
 	/**
+	 * Delete
+	 *
 	 * @return void
 	 */
     public function delete(): void {
@@ -444,7 +453,10 @@ class ControllerDesignTranslation extends Controller {
 
         return !$this->error;
     }
+
 	/**
+	 * Path
+	 *
 	 * @return void
 	 */
     public function path(): void {
@@ -485,7 +497,10 @@ class ControllerDesignTranslation extends Controller {
         $this->response->addHeader('Content-Type: application/json');
         $this->response->setOutput(json_encode($json));
     }
+
 	/**
+	 * Translation
+	 *
 	 * @return void
 	 */
     public function translation(): void {

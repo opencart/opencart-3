@@ -488,7 +488,10 @@ class ControllerExtensionPaymentLaybuy extends Controller {
 
         $this->response->setOutput($this->load->view('extension/payment/laybuy', $data));
     }
+
 	/**
+	 * Fetch
+	 *
 	 * @return void
 	 */
     public function fetch(): void {
@@ -655,7 +658,10 @@ class ControllerExtensionPaymentLaybuy extends Controller {
             $this->model_extension_payment_laybuy->log('User does not have permission');
         }
     }
+
 	/**
+	 * Install
+	 *
 	 * @return void
 	 */
     public function install(): void {
@@ -666,7 +672,10 @@ class ControllerExtensionPaymentLaybuy extends Controller {
             $this->model_extension_payment_laybuy->install();
         }
     }
+
 	/**
+	 * Uninstall
+	 *
 	 * @return void
 	 */
     public function uninstall(): void {
@@ -677,7 +686,10 @@ class ControllerExtensionPaymentLaybuy extends Controller {
             $this->model_extension_payment_laybuy->uninstall();
         }
     }
+
 	/**
+	 * Transaction
+	 *
 	 * @return void
 	 */
     public function transaction(bool $order_page = false) {
@@ -808,6 +820,8 @@ class ControllerExtensionPaymentLaybuy extends Controller {
 		$this->response->setOutput($this->load->view('extension/payment/laybuy_transaction', $data));
     }
 	/**
+	 * Cancel
+	 *
 	 * @return void
 	 */
     public function cancel(): void {
@@ -911,7 +925,10 @@ class ControllerExtensionPaymentLaybuy extends Controller {
             $this->model_extension_payment_laybuy->log('User does not have permission');
         }
     }
+
 	/**
+	 * Revise
+	 *
 	 * @return void
 	 */
     public function revise(): void {
@@ -1073,7 +1090,10 @@ class ControllerExtensionPaymentLaybuy extends Controller {
             $this->model_extension_payment_laybuy->log('User does not have permission');
         }
     }
+
 	/**
+	 * Autocomplete
+	 *
 	 * @return void
 	 */
     public function autocomplete(): void {
@@ -1096,7 +1116,10 @@ class ControllerExtensionPaymentLaybuy extends Controller {
         $this->response->addHeader('Content-Type: application/json');
         $this->response->setOutput(json_encode($json));
     }
+
 	/**
+	 * Order
+	 *
 	 * @return string
 	 */
     public function order(): string {

@@ -191,7 +191,10 @@ class ControllerExtensionPaymentG2APay extends Controller {
 
         $this->response->setOutput($this->load->view('extension/payment/g2apay', $data));
     }
+
 	/**
+	 * Order
+	 *
 	 * @return string
 	 */
     public function order(): string {
@@ -222,7 +225,10 @@ class ControllerExtensionPaymentG2APay extends Controller {
             return '';
         }
     }
+
 	/**
+	 * Refund
+	 *
 	 * @return void
 	 */
     public function refund(): void {
@@ -281,7 +287,10 @@ class ControllerExtensionPaymentG2APay extends Controller {
         $this->response->addHeader('Content-Type: application/json');
         $this->response->setOutput(json_encode($json));
     }
+
 	/**
+	 * Install
+	 *
 	 * @return void
 	 */
     public function install(): void {
@@ -290,7 +299,10 @@ class ControllerExtensionPaymentG2APay extends Controller {
 
         $this->model_extension_payment_g2apay->install();
     }
+
 	/**
+	 * Uninstall
+	 *
 	 * @return void
 	 */
     public function uninstall(): void {

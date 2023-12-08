@@ -64,6 +64,13 @@ class ControllerStartupError extends Controller {
         return true;
     }
 
+	/**
+	 * Exception
+	 *
+	 * @param \Throwable $e
+	 *
+	 * @return void
+	 */
     public function exception(\Throwable $e): void {
         if ($this->config->get('config_error_log')) {
             $sting = get_class($e) . ':  ' . $e->getMessage() . "\n";

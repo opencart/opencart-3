@@ -110,6 +110,8 @@ class ControllerExtensionModuleAmazonLogin extends Controller {
         return !$this->error;
     }
 	/**
+	 * Install
+	 *
 	 * @return void
 	 */
     public function install(): void {
@@ -120,6 +122,8 @@ class ControllerExtensionModuleAmazonLogin extends Controller {
         $this->model_setting_event->addEvent('amazon_login', 'catalog/controller/account/logout/after', 'extension/module/amazon_login/logout');
     }
 	/**
+	 * Uninstall
+	 *
 	 * @return void
 	 */
     public function uninstall(): void {

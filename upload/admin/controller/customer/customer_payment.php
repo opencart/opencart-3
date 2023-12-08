@@ -86,6 +86,8 @@ class ControllerCustomerCustomerPayment extends Controller {
     }
 
 	/**
+	 * getPayment
+	 *
 	 * @return void
 	 */
     public function getPayment(): void {
@@ -141,6 +143,8 @@ class ControllerCustomerCustomerPayment extends Controller {
     }
 
 	/**
+	 * deletePayment
+	 *
 	 * @return void
 	 */
     public function deletePayment(): void {

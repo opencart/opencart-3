@@ -255,7 +255,10 @@ class ControllerSaleSubscription extends Controller {
 
         $this->response->setOutput($this->load->view('sale/subscription', $data));
     }
+
 	/**
+	 * Info
+	 *
 	 * @return void
 	 */
     public function info(): void {
@@ -503,7 +506,10 @@ class ControllerSaleSubscription extends Controller {
 
         $this->response->setOutput($this->load->view('sale/subscription_info', $data));
     }
+
 	/**
+	 * Save
+	 *
 	 * @return void
 	 */
     public function save(): void {
@@ -559,7 +565,10 @@ class ControllerSaleSubscription extends Controller {
         $this->response->addHeader('Content-Type: application/json');
         $this->response->setOutput(json_encode($json));
     }
+
 	/**
+	 * History
+	 *
 	 * @return void
 	 */
     public function history(): void {
@@ -606,7 +615,10 @@ class ControllerSaleSubscription extends Controller {
 
         $this->response->setOutput($this->load->view('sale/subscription_history', $data));
     }
+
 	/**
+	 * addHistory
+	 *
 	 * @return void
 	 */
     public function addHistory(): void {
@@ -644,7 +656,10 @@ class ControllerSaleSubscription extends Controller {
         $this->response->addHeader('Content-Type: application/json');
         $this->response->setOutput(json_encode($json));
     }
+
 	/**
+	 * Transaction
+	 *
 	 * @return void
 	 */
     public function transaction(): void {
@@ -692,7 +707,10 @@ class ControllerSaleSubscription extends Controller {
 
         $this->response->setOutput($this->load->view('sale/subscription_transaction', $data));
     }
+
 	/**
+	 * addTransaction
+	 *
 	 * @return void
 	 */
     public function addTransaction(): void {

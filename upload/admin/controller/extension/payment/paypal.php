@@ -265,7 +265,10 @@ class ControllerExtensionPaymentPayPal extends Controller {
 
         $this->response->setOutput($this->load->view('extension/payment/paypal/auth', $data));
     }
+
 	/**
+	 * Dashboard
+	 *
 	 * @return void
 	 */
     public function dashboard(): void {
@@ -392,7 +395,10 @@ class ControllerExtensionPaymentPayPal extends Controller {
 
         $this->response->setOutput($this->load->view('extension/payment/paypal/dashboard', $data));
     }
+
 	/**
+	 * General
+	 *
 	 * @return void
 	 */
     public function general(): void {
@@ -511,7 +517,10 @@ class ControllerExtensionPaymentPayPal extends Controller {
 
         $this->response->setOutput($this->load->view('extension/payment/paypal/general', $data));
     }
+
 	/**
+	 * Button
+	 *
 	 * @return void
 	 */
     public function button(): void {
@@ -663,6 +672,7 @@ class ControllerExtensionPaymentPayPal extends Controller {
 
         $this->response->setOutput($this->load->view('extension/payment/paypal/button', $data));
     }
+
 	/**
 	 * @return void
 	 */
@@ -817,6 +827,8 @@ class ControllerExtensionPaymentPayPal extends Controller {
         $this->response->setOutput($this->load->view('extension/payment/paypal/applepay_button', $data));
     }
 	/**
+	 * Card
+	 *
 	 * @return void
 	 */
     public function card(): void {
@@ -967,7 +979,10 @@ class ControllerExtensionPaymentPayPal extends Controller {
 
         $this->response->setOutput($this->load->view('extension/payment/paypal/card', $data));
     }
+
 	/**
+	 * Message
+	 *
 	 * @return void
 	 */
     public function message(): void {
@@ -1125,6 +1140,7 @@ class ControllerExtensionPaymentPayPal extends Controller {
 
         $this->response->setOutput($this->load->view('extension/payment/paypal/message', $data));
     }
+
 	/**
 	 * @return void
 	 */
@@ -1218,7 +1234,10 @@ class ControllerExtensionPaymentPayPal extends Controller {
 
         $this->response->setOutput($this->load->view('extension/payment/paypal/order_status', $data));
     }
+
 	/**
+	 * Contact
+	 *
 	 * @return void
 	 */
     public function contact(): void {
@@ -1312,7 +1331,10 @@ class ControllerExtensionPaymentPayPal extends Controller {
 
         $this->response->setOutput($this->load->view('extension/payment/paypal/contact', $data));
     }
+
 	/**
+	 * Save
+	 *
 	 * @return void
 	 */
     public function save(): void {
@@ -1335,7 +1357,10 @@ class ControllerExtensionPaymentPayPal extends Controller {
         $this->response->addHeader('Content-Type: application/json');
         $this->response->setOutput(json_encode($data));
     }
+
 	/**
+	 * Disconnect
+	 *
 	 * @return void
 	 */
     public function disconnect(): void {
@@ -1355,7 +1380,10 @@ class ControllerExtensionPaymentPayPal extends Controller {
         $this->response->addHeader('Content-Type: application/json');
         $this->response->setOutput(json_encode($data));
     }
+
 	/**
+	 * Callback
+	 *
 	 * @return void
 	 */
     public function callback(): void {
@@ -1371,7 +1399,10 @@ class ControllerExtensionPaymentPayPal extends Controller {
         $this->response->addHeader('Content-Type: application/json');
         $this->response->setOutput(json_encode($data));
     }
+
 	/**
+	 * getSaleAnalytics
+	 *
 	 * @return void
 	 */
     public function getSaleAnalytics(): void {
@@ -1497,7 +1528,10 @@ class ControllerExtensionPaymentPayPal extends Controller {
         $this->response->addHeader('Content-Type: application/json');
         $this->response->setOutput(json_encode($data));
     }
+
 	/**
+	 * downloadAssociationFile
+	 *
 	 * @return void
 	 */
     public function downloadAssociationFile(): void {
@@ -1524,7 +1558,10 @@ class ControllerExtensionPaymentPayPal extends Controller {
 
         readfile($file);
     }
+
 	/**
+	 * downloadHostAssociationFile
+	 *
 	 * @return void
 	 */
     public function downloadHostAssociationFile(): void {
@@ -1567,7 +1604,10 @@ class ControllerExtensionPaymentPayPal extends Controller {
         $this->response->addHeader('Content-Type: application/json');
         $this->response->setOutput(json_encode($data));
     }
+
 	/**
+	 * sendContact
+	 *
 	 * @return void
 	 */
     public function sendContact(): void {
@@ -1586,7 +1626,10 @@ class ControllerExtensionPaymentPayPal extends Controller {
         $this->response->addHeader('Content-Type: application/json');
         $this->response->setOutput(json_encode($data));
     }
+
 	/**
+	 * Agree
+	 *
 	 * @return void
 	 */
     public function agree(): void {
@@ -1603,7 +1646,10 @@ class ControllerExtensionPaymentPayPal extends Controller {
         $this->response->addHeader('Content-Type: application/json');
         $this->response->setOutput(json_encode($data));
     }
+
 	/**
+	 * Install
+	 *
 	 * @return void
 	 */
     public function install(): void {
@@ -1615,7 +1661,10 @@ class ControllerExtensionPaymentPayPal extends Controller {
         $this->model_setting_event->addEvent('paypal_header', 'catalog/controller/common/header/before', 'extension/payment/paypal/header_before');
         $this->model_setting_event->addEvent('paypal_extension_get_extensions', 'catalog/model/setting/extension/getExtensions/after', 'extension/payment/paypal/extension_get_extensions_after');
     }
+
 	/**
+	 * Uninstall
+	 *
 	 * @return void
 	 */
     public function uninstall(): void {

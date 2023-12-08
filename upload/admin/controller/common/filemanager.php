@@ -39,6 +39,7 @@ class ControllerCommonFileManager extends Controller {
 
         $directories = [];
         $files = [];
+
         $data['images'] = [];
 
         // Image files
@@ -196,6 +197,8 @@ class ControllerCommonFileManager extends Controller {
         $this->response->setOutput($this->load->view('common/filemanager', $data));
     }
 	/**
+	 * Upload
+	 *
 	 * @return void
 	 */
     public function upload(): void {
@@ -306,6 +309,8 @@ class ControllerCommonFileManager extends Controller {
         $this->response->setOutput(json_encode($json));
     }
 	/**
+	 * Folder
+	 *
 	 * @return void
 	 */
     public function folder(): void {
@@ -357,6 +362,8 @@ class ControllerCommonFileManager extends Controller {
         $this->response->setOutput(json_encode($json));
     }
 	/**
+	 * Delete
+	 *
 	 * @return void
 	 */
     public function delete(): void {

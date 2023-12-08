@@ -401,6 +401,8 @@ class ControllerExtensionPaymentAmazonLoginPay extends Controller {
         $this->response->setOutput($this->load->view('extension/payment/amazon_login_pay', $data));
     }
 	/**
+	 * Install
+	 *
 	 * @return void
 	 */
     public function install(): void {
@@ -412,6 +414,8 @@ class ControllerExtensionPaymentAmazonLoginPay extends Controller {
         $this->model_extension_payment_amazon_login_pay->addEvents();
     }
 	/**
+	 * Uninstall
+	 *
 	 * @return void
 	 */
     public function uninstall(): void {
@@ -425,6 +429,8 @@ class ControllerExtensionPaymentAmazonLoginPay extends Controller {
         $this->model_extension_payment_amazon_login_pay->deleteEvents();
     }
 	/**
+	 * Order
+	 *
 	 * @return string
 	 */
     public function order(): string {
@@ -456,6 +462,8 @@ class ControllerExtensionPaymentAmazonLoginPay extends Controller {
         }
     }
 	/**
+	 * Cancel
+	 *
 	 * @return void
 	 */
     public function cancel(): void {
@@ -502,6 +510,8 @@ class ControllerExtensionPaymentAmazonLoginPay extends Controller {
         $this->response->setOutput(json_encode($json));
     }
 	/**
+	 * Capture
+	 *
 	 * @return void
 	 */
     public function capture(): void {
@@ -572,6 +582,8 @@ class ControllerExtensionPaymentAmazonLoginPay extends Controller {
         $this->response->setOutput(json_encode($json));
     }
 	/**
+	 * Refund
+	 *
 	 * @return void
 	 */
     public function refund(): void {

@@ -319,7 +319,10 @@ class ControllerExtensionPaymentKlarnaAccount extends Controller {
 
         return $value;
     }
+
 	/**
+	 * Clear
+	 *
 	 * @return void
 	 */
     public function clear(): void {

@@ -1146,7 +1146,10 @@ class ControllerSettingSetting extends Controller {
 
         return !$this->error;
     }
+
 	/**
+	 * Theme
+	 *
 	 * @return void
 	 */
     public function theme(): void {

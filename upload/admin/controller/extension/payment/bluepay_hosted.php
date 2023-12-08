@@ -62,7 +62,10 @@ class ControllerExtensionPaymentBluePayHosted extends Controller {
 
         return $this->load->view('extension/payment/bluepay_hosted', $data);
     }
+
 	/**
+	 * Callback
+	 *
 	 * @return void
 	 */
     public function callback(): void {
@@ -100,7 +103,10 @@ class ControllerExtensionPaymentBluePayHosted extends Controller {
             $this->response->redirect($this->url->link('account/login', '', true));
         }
     }
+
 	/**
+	 * adminCallback
+	 *
 	 * @return void
 	 */
     public function adminCallback(): void {

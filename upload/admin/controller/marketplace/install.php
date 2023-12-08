@@ -39,7 +39,10 @@ class ControllerMarketplaceInstall extends Controller {
         $this->response->addHeader('Content-Type: application/json');
         $this->response->setOutput(json_encode($json));
     }
+
 	/**
+	 * Unzip
+	 *
 	 * @return void
 	 */
     public function unzip(): void {
@@ -87,7 +90,10 @@ class ControllerMarketplaceInstall extends Controller {
         $this->response->addHeader('Content-Type: application/json');
         $this->response->setOutput(json_encode($json));
     }
+
 	/**
+	 * Move
+	 *
 	 * @return void
 	 */
     public function move(): void {
@@ -241,7 +247,10 @@ class ControllerMarketplaceInstall extends Controller {
         $this->response->addHeader('Content-Type: application/json');
         $this->response->setOutput(json_encode($json));
     }
+
 	/**
+	 * Xml
+	 *
 	 * @return void
 	 */
     public function xml(): void {
@@ -355,7 +364,10 @@ class ControllerMarketplaceInstall extends Controller {
         $this->response->addHeader('Content-Type: application/json');
         $this->response->setOutput(json_encode($json));
     }
+
 	/**
+	 * Remove
+	 *
 	 * @return void
 	 */
     public function remove(): void {
@@ -425,7 +437,10 @@ class ControllerMarketplaceInstall extends Controller {
         $this->response->addHeader('Content-Type: application/json');
         $this->response->setOutput(json_encode($json));
     }
+
 	/**
+	 * Uninstall
+	 *
 	 * @return void
 	 */
     public function uninstall(): void {

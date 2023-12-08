@@ -297,8 +297,11 @@ class ControllerSaleRecurring extends Controller {
 
 		$this->response->setOutput($this->load->view('sale/recurring_list', $data));
 	}
+
 	/**
-	 * @return void
+	 * Info
+	 *
+	 * @return object|null
 	 */
 	public function info(): object|null {
 		$this->load->model('sale/recurring');
@@ -443,6 +446,8 @@ class ControllerSaleRecurring extends Controller {
 	}
 
 	/**
+	 * getReport
+	 *
 	 * @return \Action|void
 	 */
 	public function getReport() {

@@ -199,7 +199,10 @@ class ControllerExtensionPaymentGlobalpayRemote extends Controller {
 
         $this->response->setOutput($this->load->view('extension/payment/globalpay_remote', $data));
     }
+
 	/**
+	 * Install
+	 *
 	 * @return void
 	 */
     public function install(): void {
@@ -208,7 +211,10 @@ class ControllerExtensionPaymentGlobalpayRemote extends Controller {
 
         $this->model_extension_payment_globalpay_remote->install();
     }
+
 	/**
+	 * Order
+	 *
 	 * @return string
 	 */
     public function order(): string {
@@ -242,7 +248,10 @@ class ControllerExtensionPaymentGlobalpayRemote extends Controller {
             return '';
         }
     }
+
 	/**
+	 * Void
+	 *
 	 * @return void
 	 */
     public function void(): void {
@@ -284,7 +293,10 @@ class ControllerExtensionPaymentGlobalpayRemote extends Controller {
         $this->response->addHeader('Content-Type: application/json');
         $this->response->setOutput(json_encode($json));
     }
+
 	/**
+	 * Capture
+	 *
 	 * @return void
 	 */
     public function capture(): void {
@@ -345,7 +357,10 @@ class ControllerExtensionPaymentGlobalpayRemote extends Controller {
         $this->response->addHeader('Content-Type: application/json');
         $this->response->setOutput(json_encode($json));
     }
+
 	/**
+	 * Rebate
+	 *
 	 * @return void
 	 */
     public function rebate(): void {

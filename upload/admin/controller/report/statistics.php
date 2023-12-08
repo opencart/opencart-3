@@ -19,7 +19,10 @@ class ControllerReportStatistics extends Controller {
 
         $this->getList();
     }
+
 	/**
+	 * Ordersale
+	 *
 	 * @return void
 	 */
     public function ordersale(): void {
@@ -42,7 +45,10 @@ class ControllerReportStatistics extends Controller {
 
         $this->getList();
     }
+
 	/**
+	 * Orderprocessing
+	 *
 	 * @return void
 	 */
     public function orderprocessing(): void {
@@ -65,7 +71,10 @@ class ControllerReportStatistics extends Controller {
 
         $this->getList();
     }
+
 	/**
+	 * Ordercomplete
+	 *
 	 * @return void
 	 */
     public function ordercomplete(): void {
@@ -88,7 +97,10 @@ class ControllerReportStatistics extends Controller {
 
         $this->getList();
     }
+
 	/**
+	 * Orderother
+	 *
 	 * @return void
 	 */
     public function orderother(): void {
@@ -123,7 +135,10 @@ class ControllerReportStatistics extends Controller {
 
         $this->getList();
     }
+
 	/**
+	 * Returns
+	 *
 	 * @return void
 	 */
     public function returns(): void {
@@ -146,7 +161,10 @@ class ControllerReportStatistics extends Controller {
 
         $this->getList();
     }
+
 	/**
+	 * Customer
+	 *
 	 * @return void
 	 */
     public function customer(): void {
@@ -169,7 +187,10 @@ class ControllerReportStatistics extends Controller {
 
         $this->getList();
     }
+
 	/**
+	 * Affiliate
+	 *
 	 * @return void
 	 */
     public function affiliate(): void {
@@ -192,7 +213,10 @@ class ControllerReportStatistics extends Controller {
 
         $this->getList();
     }
+
 	/**
+	 * Product
+	 *
 	 * @return void
 	 */
     public function product(): void {
@@ -215,7 +239,10 @@ class ControllerReportStatistics extends Controller {
 
         $this->getList();
     }
+
 	/**
+	 * Review
+	 *
 	 * @return void
 	 */
     public function review(): void {

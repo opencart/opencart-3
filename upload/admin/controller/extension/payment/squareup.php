@@ -127,7 +127,6 @@ class ControllerExtensionPaymentSquareup extends Controller {
         if ($previous_config->get('payment_squareup_access_token') && $previous_config->get('payment_squareup_access_token_expires')) {
             $expiration_time = date_create_from_format('Y-m-d\TH:i:s\Z', $previous_config->get('payment_squareup_access_token_expires'));
             $now = date_create();
-
             $delta = $expiration_time->getTimestamp() - $now->getTimestamp();
             $expiration_date_formatted = $expiration_time->format('l, F jS, Y h:i:s A, e');
 
@@ -310,6 +309,7 @@ class ControllerExtensionPaymentSquareup extends Controller {
 
         $this->response->setOutput($this->load->view('extension/payment/squareup', $data));
     }
+
 	/**
 	 * @return void
 	 */
@@ -451,7 +451,10 @@ class ControllerExtensionPaymentSquareup extends Controller {
 
         $this->response->setOutput($this->load->view('extension/payment/squareup_transaction_info', $data));
     }
+
 	/**
+	 * transactions
+	 *
 	 * @return void
 	 */
     public function transactions(): void {
@@ -524,6 +527,7 @@ class ControllerExtensionPaymentSquareup extends Controller {
         $this->response->addHeader('Content-Type: application/json');
         $this->response->setOutput(json_encode($result));
     }
+
 	/**
 	 * @return void
 	 */
@@ -579,6 +583,7 @@ class ControllerExtensionPaymentSquareup extends Controller {
 
         $this->response->redirect($this->url->link('extension/payment/squareup', 'user_token=' . $this->session->data['user_token'], true));
     }
+
 	/**
 	 * @return void
 	 */
@@ -686,7 +691,10 @@ class ControllerExtensionPaymentSquareup extends Controller {
 
         $this->response->redirect($this->url->link('extension/payment/squareup', 'user_token=' . $this->session->data['user_token'], true));
     }
+
 	/**
+	 * Capture
+	 *
 	 * @return void
 	 */
     public function capture(): void {
@@ -707,7 +715,10 @@ class ControllerExtensionPaymentSquareup extends Controller {
             $json['success'] = $this->language->get('text_success_capture');
         });
     }
+
 	/**
+	 * Void
+	 *
 	 * @return void
 	 */
     public function void(): void {
@@ -728,7 +739,10 @@ class ControllerExtensionPaymentSquareup extends Controller {
             $json['success'] = $this->language->get('text_success_void');
         });
     }
+
 	/**
+	 * Refund
+	 *
 	 * @return void
 	 */
     public function refund(): void {
@@ -788,7 +802,10 @@ class ControllerExtensionPaymentSquareup extends Controller {
             }
         });
     }
+
 	/**
+	 * Order
+	 *
 	 * @return string
 	 */
     public function order(): string {
@@ -824,7 +841,10 @@ class ControllerExtensionPaymentSquareup extends Controller {
 
         return $this->load->view('extension/payment/squareup_order', $data);
     }
+
 	/**
+	 * Install
+	 *
 	 * @return void
 	 */
     public function install(): void {
@@ -833,7 +853,10 @@ class ControllerExtensionPaymentSquareup extends Controller {
 
         $this->model_extension_payment_squareup->createTables();
     }
+
 	/**
+	 * Uninstall
+	 *
 	 * @return void
 	 */
     public function uninstall(): void {
@@ -842,7 +865,10 @@ class ControllerExtensionPaymentSquareup extends Controller {
 
         $this->model_extension_payment_squareup->dropTables();
     }
+
 	/**
+	 * recurringButtons
+	 *
 	 * @return string
 	 */
     public function recurringButtons(): string {
@@ -909,7 +935,10 @@ class ControllerExtensionPaymentSquareup extends Controller {
 
         return $this->load->view('extension/payment/squareup_recurring_buttons', $data);
     }
+
 	/**
+	 * recurringCancel
+	 *
 	 * @return void
 	 */
     public function recurringCancel(): void {

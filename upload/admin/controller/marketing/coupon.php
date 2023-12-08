@@ -19,7 +19,10 @@ class ControllerMarketingCoupon extends Controller {
 
         $this->getList();
     }
+
 	/**
+	 * Add
+	 *
 	 * @return void
 	 */
     public function add(): void {
@@ -54,7 +57,10 @@ class ControllerMarketingCoupon extends Controller {
 
         $this->getForm();
     }
+
 	/**
+	 * Edit
+	 *
 	 * @return void
 	 */
     public function edit(): void {
@@ -89,7 +95,10 @@ class ControllerMarketingCoupon extends Controller {
 
         $this->getForm();
     }
+
 	/**
+	 * Delete
+	 *
 	 * @return void
 	 */
     public function delete(): void {
@@ -533,6 +542,8 @@ class ControllerMarketingCoupon extends Controller {
         return !$this->error;
     }
 	/**
+	 * History
+	 *
 	 * @return void
 	 */
     public function history(): void {

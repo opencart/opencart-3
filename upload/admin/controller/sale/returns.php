@@ -19,7 +19,10 @@ class ControllerSaleReturns extends Controller {
 
         $this->getList();
     }
+
 	/**
+	 * Add
+	 *
 	 * @return void
 	 */
     public function add(): void {
@@ -86,7 +89,10 @@ class ControllerSaleReturns extends Controller {
 
         $this->getForm();
     }
+
 	/**
+	 * Edit
+	 *
 	 * @return void
 	 */
     public function edit(): void {
@@ -153,7 +159,10 @@ class ControllerSaleReturns extends Controller {
 
         $this->getForm();
     }
+
 	/**
+	 * Delete
+	 *
 	 * @return void
 	 */
     public function delete(): void {
@@ -815,7 +824,10 @@ class ControllerSaleReturns extends Controller {
 
         return !$this->error;
     }
+
 	/**
+	 * History
+	 *
 	 * @return void
 	 */
     public function history(): void {
@@ -856,7 +868,10 @@ class ControllerSaleReturns extends Controller {
 
         $this->response->setOutput($this->load->view('sale/returns_history', $data));
     }
+
 	/**
+	 * addHistory
+	 *
 	 * @return void
 	 */
     public function addHistory(): void {

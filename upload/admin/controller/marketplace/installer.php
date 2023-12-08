@@ -33,7 +33,10 @@ class ControllerMarketplaceInstaller extends Controller {
 
         $this->response->setOutput($this->load->view('marketplace/installer', $data));
     }
+
 	/**
+	 * History
+	 *
 	 * @return void
 	 */
     public function history(): void {
@@ -73,7 +76,10 @@ class ControllerMarketplaceInstaller extends Controller {
 
         $this->response->setOutput($this->load->view('marketplace/installer_history', $data));
     }
+
 	/**
+	 * Upload
+	 *
 	 * @return void
 	 */
     public function upload(): void {

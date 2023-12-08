@@ -181,7 +181,10 @@ class ControllerExtensionPaymentDivido extends Controller {
 
         $this->response->setOutput($this->load->view('extension/payment/divido', $data));
     }
+
 	/**
+	 * Order
+	 *
 	 * @return string
 	 */
     public function order(): string {
@@ -219,7 +222,10 @@ class ControllerExtensionPaymentDivido extends Controller {
 
         return $this->load->view('extension/payment/divido_order', $data);
     }
+
 	/**
+	 * Install
+	 *
 	 * @return void
 	 */
     public function install(): void {
@@ -228,7 +234,10 @@ class ControllerExtensionPaymentDivido extends Controller {
 
         $this->model_extension_payment_divido->install();
     }
+
 	/**
+	 * Uninstall
+	 *
 	 * @return void
 	 */
     public function uninstall(): void {

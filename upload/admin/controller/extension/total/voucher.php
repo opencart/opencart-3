@@ -77,7 +77,10 @@ class ControllerExtensionTotalVoucher extends Controller {
 
         return !$this->error;
     }
+
 	/**
+	 * Install
+	 *
 	 * @return void
 	 */
     public function install(): void {
@@ -86,7 +89,10 @@ class ControllerExtensionTotalVoucher extends Controller {
 
         $this->model_setting_event->addEvent('voucher', 'catalog/model/checkout/order/addOrderHistory/after', 'extension/total/voucher/send');
     }
+
 	/**
+	 * Uninstall
+	 *
 	 * @return void
 	 */
     public function uninstall(): void {

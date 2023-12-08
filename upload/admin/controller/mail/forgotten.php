@@ -6,9 +6,11 @@
  */
 class ControllerMailForgotten extends Controller {
 	/**
-	 * @return void
+	 * Denu
 	 *
-     * admin/model/user/user/editCode/after
+	 * admin/model/user/user/editCode/after
+	 *
+	 * @return void
 	 */
     public function deny(string &$route, array &$args, mixed &$output): void {
         if (isset($args[0]) && isset($args[1]) && $args[0] && $args[1]) {

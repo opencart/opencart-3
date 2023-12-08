@@ -6,6 +6,7 @@
  */
 class ControllerEventLanguage extends Controller {
 	/**
+	 *
 	 * Dump all the language vars into the template.
 	 *
 	 * view/ * /before
@@ -24,6 +25,8 @@ class ControllerEventLanguage extends Controller {
     }
 
 	/**
+	 * Before
+	 *
 	 * 1. Before controller load store all current loaded language data.
 	 *
 	 * controller/ * /before
@@ -38,6 +41,8 @@ class ControllerEventLanguage extends Controller {
     }
 
 	/**
+	 * After
+	 *
 	 *  // 2. After controller load restore old language data.
 	 *
 	 * // controller/ * / * /after

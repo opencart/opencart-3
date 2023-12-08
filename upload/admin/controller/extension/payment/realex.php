@@ -227,7 +227,10 @@ class ControllerExtensionPaymentRealex extends Controller {
 
         $this->response->setOutput($this->load->view('extension/payment/realex', $data));
     }
+
 	/**
+	 * Install
+	 *
 	 * @return void
 	 */
     public function install(): void {
@@ -236,7 +239,10 @@ class ControllerExtensionPaymentRealex extends Controller {
 
         $this->model_extension_payment_realex->install();
     }
+
 	/**
+	 * Order
+	 *
 	 * @return string
 	 */
     public function order(): string {
@@ -266,7 +272,10 @@ class ControllerExtensionPaymentRealex extends Controller {
             return '';
         }
     }
+
 	/**
+	 * Void
+	 *
 	 * @return void
 	 */
     public function void(): void {
@@ -309,7 +318,10 @@ class ControllerExtensionPaymentRealex extends Controller {
         $this->response->addHeader('Content-Type: application/json');
         $this->response->setOutput(json_encode($json));
     }
+
 	/**
+	 * Capture
+	 *
 	 * @return void
 	 */
     public function capture(): void {
@@ -368,7 +380,10 @@ class ControllerExtensionPaymentRealex extends Controller {
         $this->response->addHeader('Content-Type: application/json');
         $this->response->setOutput(json_encode($json));
     }
+
 	/**
+	 * Rebate
+	 *
 	 * @return void
 	 */
     public function rebate(): void {

@@ -6,6 +6,8 @@
  */
 class ControllerMailReward extends Controller {
 	/**
+	 * Deny
+	 *
 	 * @return void
 	 *
      * admin/model/customer/customer/addReward/after

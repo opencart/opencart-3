@@ -6,9 +6,11 @@
  */
 class ControllerEventTheme extends Controller {
 	/**
+	 *
 	 * @param string $route
 	 * @param array  $args
 	 *
+	 * @return void
 	 */
     public function index(string &$route, array &$args): void {
         // This is only here for compatibility with old templates

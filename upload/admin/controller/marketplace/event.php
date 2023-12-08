@@ -19,7 +19,10 @@ class ControllerMarketplaceEvent extends Controller {
 
         $this->getList();
     }
+
 	/**
+	 * Enable
+	 *
 	 * @return void
 	 */
     public function enable(): void {
@@ -54,7 +57,10 @@ class ControllerMarketplaceEvent extends Controller {
 
         $this->getList();
     }
+
 	/**
+	 * Disable
+	 *
 	 * @return void
 	 */
     public function disable(): void {
@@ -89,7 +95,10 @@ class ControllerMarketplaceEvent extends Controller {
 
         $this->getList();
     }
+
 	/**
+	 * Delete
+	 *
 	 * @return void
 	 */
     public function delete(): void {

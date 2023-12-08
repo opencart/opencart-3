@@ -80,6 +80,8 @@ class ControllerExtensionModulePayPalSmartButton extends Controller {
     }
 
 	/**
+	 * Install
+	 *
 	 * @return void
 	 */
     public function install(): void {

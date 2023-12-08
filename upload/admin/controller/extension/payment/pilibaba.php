@@ -186,7 +186,10 @@ class ControllerExtensionPaymentPilibaba extends Controller {
 
         $this->response->setOutput($this->load->view('extension/payment/pilibaba', $data));
     }
+
 	/**
+	 * Install
+	 *
 	 * @return void
 	 */
     public function install(): void {
@@ -197,7 +200,10 @@ class ControllerExtensionPaymentPilibaba extends Controller {
             $this->model_extension_payment_pilibaba->install();
         }
     }
+
 	/**
+	 * Uninstall
+	 *
 	 * @return void
 	 */
     public function uninstall(): void {
@@ -208,7 +214,10 @@ class ControllerExtensionPaymentPilibaba extends Controller {
             $this->model_extension_payment_pilibaba->uninstall();
         }
     }
+
 	/**
+	 * Register
+	 *
 	 * @return void
 	 */
     public function register(): void {
@@ -264,7 +273,10 @@ class ControllerExtensionPaymentPilibaba extends Controller {
         $this->response->addHeader('Content-Type: application/json');
         $this->response->setOutput(json_encode($json));
     }
+
 	/**
+	 * Order
+	 *
 	 * @return string
 	 */
     public function order(): string {
@@ -299,7 +311,10 @@ class ControllerExtensionPaymentPilibaba extends Controller {
             return '';
         }
     }
+
 	/**
+	 * Tracking
+	 *
 	 * @return void
 	 */
     public function tracking(): void {
@@ -329,7 +344,10 @@ class ControllerExtensionPaymentPilibaba extends Controller {
         $this->response->addHeader('Content-Type: application/json');
         $this->response->setOutput(json_encode($json));
     }
+
 	/**
+	 * Barcode
+	 *
 	 * @return void
 	 */
     public function barcode(): void {

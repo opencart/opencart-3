@@ -19,7 +19,10 @@ class ControllerSaleOrder extends Controller {
 
         $this->getList();
     }
+
 	/**
+	 * Add
+	 *
 	 * @return void
 	 */
     public function add(): void {
@@ -32,7 +35,10 @@ class ControllerSaleOrder extends Controller {
 
         $this->getForm();
     }
+
 	/**
+	 * Edit
+	 *
 	 * @return void
 	 */
     public function edit(): void {
@@ -45,7 +51,10 @@ class ControllerSaleOrder extends Controller {
 
         $this->getForm();
     }
+
 	/**
+	 * Delete
+	 *
 	 * @return void
 	 */
     public function delete(): void {
@@ -793,7 +802,9 @@ class ControllerSaleOrder extends Controller {
         $this->response->setOutput($this->load->view('sale/order_form', $data));
     }
 	/**
-	 * @return void
+	 * Info
+	 *
+	 * @return object|null
 	 */
     public function info(): object|null {
         // Orders
@@ -1386,6 +1397,8 @@ class ControllerSaleOrder extends Controller {
         return !$this->error;
     }
 	/**
+	 * createInvoiceNo
+	 *
 	 * @return void
 	 */
     public function createInvoiceNo(): void {
@@ -1417,7 +1430,10 @@ class ControllerSaleOrder extends Controller {
         $this->response->addHeader('Content-Type: application/json');
         $this->response->setOutput(json_encode($json));
     }
+
 	/**
+	 * addReward
+	 *
 	 * @return void
 	 */
     public function addReward(): void {
@@ -1456,7 +1472,10 @@ class ControllerSaleOrder extends Controller {
         $this->response->addHeader('Content-Type: application/json');
         $this->response->setOutput(json_encode($json));
     }
+
 	/**
+	 * removeReward
+	 *
 	 * @return void
 	 */
     public function removeReward(): void {
@@ -1491,7 +1510,10 @@ class ControllerSaleOrder extends Controller {
         $this->response->addHeader('Content-Type: application/json');
         $this->response->setOutput(json_encode($json));
     }
+
 	/**
+	 * addCommission
+	 *
 	 * @return void
 	 */
     public function addCommission(): void {
@@ -1530,7 +1552,10 @@ class ControllerSaleOrder extends Controller {
         $this->response->addHeader('Content-Type: application/json');
         $this->response->setOutput(json_encode($json));
     }
+
 	/**
+	 * removeCommission
+	 *
 	 * @return void
 	 */
     public function removeCommission(): void {
@@ -1565,7 +1590,10 @@ class ControllerSaleOrder extends Controller {
         $this->response->addHeader('Content-Type: application/json');
         $this->response->setOutput(json_encode($json));
     }
+
 	/**
+	 * History
+	 *
 	 * @return void
 	 */
     public function history(): void {
@@ -1606,7 +1634,10 @@ class ControllerSaleOrder extends Controller {
 
         $this->response->setOutput($this->load->view('sale/order_history', $data));
     }
+
 	/**
+	 * Invoice
+	 *
 	 * @return void
 	 */
     public function invoice(): void {
@@ -1864,7 +1895,10 @@ class ControllerSaleOrder extends Controller {
 
         $this->response->setOutput($this->load->view('sale/order_invoice', $data));
     }
+
 	/**
+	 * Shipping
+	 *
 	 * @return void
 	 */
     public function shipping(): void {

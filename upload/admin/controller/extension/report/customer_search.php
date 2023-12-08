@@ -76,7 +76,10 @@ class ControllerExtensionReportCustomerSearch extends Controller {
 
         return !$this->error;
     }
+
 	/**
+	 * Report
+	 *
 	 * @return string
 	 */
     public function report(): string {

@@ -6,6 +6,8 @@
  */
 class ControllerMailSubscription extends Controller {
 	/**
+	 * History
+	 *
 	 * @return void
 	 *
      * admin/controller/sale/subscription/addHistory/after
@@ -140,7 +142,10 @@ class ControllerMailSubscription extends Controller {
             }
         }
     }
+
 	/**
+	 * Transaction
+	 *
 	 * @return void
 	 *
      * admin/controller/sale/subscription/addTransaction/after

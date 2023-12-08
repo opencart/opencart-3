@@ -5,6 +5,9 @@
  * @package Admin\Controller\Startup
  */
 class ControllerStartupRouter extends Controller {
+	/**
+	 *
+	 */
     public function index() {
         // Route
         if (isset($this->request->get['route']) && $this->request->get['route'] != 'startup/router') {

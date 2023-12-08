@@ -6,7 +6,9 @@
  */
 class ControllerCommonReset extends Controller {
     private array $error = [];
-
+	/**
+	 * @return object|null
+	 */
     public function index(): object|null {
         if ($this->user->isLogged() && isset($this->request->get['user_token']) && ($this->request->get['user_token'] == $this->session->data['user_token'])) {
             $this->response->redirect($this->url->link('common/dashboard', '', true));

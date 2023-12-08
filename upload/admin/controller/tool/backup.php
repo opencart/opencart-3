@@ -48,7 +48,10 @@ class ControllerToolBackup extends Controller {
 
         $this->response->setOutput($this->load->view('tool/backup', $data));
     }
+
 	/**
+	 * Import
+	 *
 	 * @return void
 	 */
     public function import(): void {
@@ -142,7 +145,10 @@ class ControllerToolBackup extends Controller {
         $this->response->addHeader('Content-Type: application/json');
         $this->response->setOutput(json_encode($json));
     }
+
 	/**
+	 * Export
+	 *
 	 * @return void
 	 */
     public function export(): void {
