@@ -133,6 +133,7 @@ class ControllerExtensionPaymentPayPal extends Controller {
             $setting['payment_paypal_geo_zone_id'] = 0;
             $setting['payment_paypal_sort_order'] = 0;
 
+			// Countries
             $this->load->model('localisation/country');
 
             $country = $this->model_localisation_country->getCountry($this->config->get('config_country_id'));
@@ -487,6 +488,7 @@ class ControllerExtensionPaymentPayPal extends Controller {
 
         $data['geo_zones'] = $this->model_localisation_geo_zone->getGeoZones();
 
+		// Countries
         $this->load->model('localisation/country');
 
         $data['countries'] = $this->model_localisation_country->getCountries();
@@ -594,7 +596,10 @@ class ControllerExtensionPaymentPayPal extends Controller {
         $data['environment'] = $this->config->get('payment_paypal_environment');
         $data['partner_attribution_id'] = $data['setting']['partner'][$data['environment']]['partner_attribution_id'];
 
-        $country = $this->model_extension_payment_paypal->getCountryByCode($data['setting']['general']['country_code']);
+		// Countries
+		$this->load->model('localisation/country');
+
+        $country = $this->model_localisation_country->getCountryByIsoCode2($data['setting']['general']['country_code']);
 
         $data['locale'] = preg_replace('/-(.+?)+/', '', $this->config->get('config_language')) . '_' . $country['iso_code_2'];
 
@@ -750,7 +755,10 @@ class ControllerExtensionPaymentPayPal extends Controller {
         $data['environment'] = $this->config->get('payment_paypal_environment');
         $data['partner_attribution_id'] = $data['setting']['partner'][$data['environment']]['partner_attribution_id'];
 
-        $country = $this->model_extension_payment_paypal->getCountryByCode($data['setting']['general']['country_code']);
+		// Countries
+		$this->load->model('localisation/country');
+
+        $country = $this->model_localisation_country->getCountryByIsoCode2($data['setting']['general']['country_code']);
 
         $data['locale'] = preg_replace('/-(.+?)+/', '', $this->config->get('config_language')) . '_' . $country['iso_code_2'];
 
@@ -903,7 +911,10 @@ class ControllerExtensionPaymentPayPal extends Controller {
         $data['environment'] = $this->config->get('payment_paypal_environment');
         $data['partner_attribution_id'] = $data['setting']['partner'][$data['environment']]['partner_attribution_id'];
 
-        $country = $this->model_extension_payment_paypal->getCountryByCode($data['setting']['general']['country_code']);
+		// Countries
+		$this->load->model('localisation/country');
+
+        $country = $this->model_localisation_country->getCountryByIsoCode2($data['setting']['general']['country_code']);
 
         $data['locale'] = preg_replace('/-(.+?)+/', '', $this->config->get('config_language')) . '_' . $country['iso_code_2'];
 
@@ -1056,7 +1067,10 @@ class ControllerExtensionPaymentPayPal extends Controller {
         $data['environment'] = $this->config->get('payment_paypal_environment');
         $data['partner_attribution_id'] = $data['setting']['partner'][$data['environment']]['partner_attribution_id'];
 
-        $country = $this->model_extension_payment_paypal->getCountryByCode($data['setting']['general']['country_code']);
+		// Countries
+		$this->load->model('localisation/country');
+
+        $country = $this->model_localisation_country->getCountryByIsoCode2($data['setting']['general']['country_code']);
 
         $data['locale'] = preg_replace('/-(.+?)+/', '', $this->config->get('config_language')) . '_' . $country['iso_code_2'];
 
@@ -1301,6 +1315,7 @@ class ControllerExtensionPaymentPayPal extends Controller {
 
         $data['setting'] = array_replace_recursive((array)$data['setting'], (array)$this->config->get('payment_paypal_setting'));
 
+		// Countries
         $this->load->model('localisation/country');
 
         $data['countries'] = $this->model_localisation_country->getCountries();

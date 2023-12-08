@@ -25,7 +25,14 @@ class ControllerExtensionExtensionPromotion extends Controller {
             return '';
         }
     }
+
 	/**
+	 * getList
+	 *
+	 * @param string $route
+	 * @param array  $args
+	 * @param mixed  $output
+	 *
 	 * @return void
 	 *
      * admin/controller/extension/extension/promotion/after

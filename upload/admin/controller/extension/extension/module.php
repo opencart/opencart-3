@@ -20,7 +20,10 @@ class ControllerExtensionExtensionModule extends Controller {
 
         $this->getList();
     }
+
 	/**
+	 * Install
+	 *
 	 * @return void
 	 */
     public function install(): void {
@@ -51,7 +54,10 @@ class ControllerExtensionExtensionModule extends Controller {
 
         $this->getList();
     }
+
 	/**
+	 * Uninstall
+	 *
 	 * @return void
 	 */
     public function uninstall(): void {
