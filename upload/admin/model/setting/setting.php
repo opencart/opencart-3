@@ -6,6 +6,8 @@
  */
 class ModelSettingSetting extends Model {
 	/**
+	 * getSettings
+	 *
 	 * @param int $store_id
 	 *
 	 * @return array
@@ -17,6 +19,8 @@ class ModelSettingSetting extends Model {
     }
 
 	/**
+	 * getSetting
+	 *
 	 * @param string $code
 	 * @param int    $store_id
 	 *
@@ -39,6 +43,8 @@ class ModelSettingSetting extends Model {
     }
 
 	/**
+	 * editSetting
+	 *
 	 * @param string $code
 	 * @param array  $data
 	 * @param int    $store_id
@@ -60,6 +66,8 @@ class ModelSettingSetting extends Model {
     }
 
 	/**
+	 * deleteSetting
+	 *
 	 * @param string $code
 	 * @param int    $store_id
 	 *
@@ -70,6 +78,8 @@ class ModelSettingSetting extends Model {
     }
 
 	/**
+	 * getValue
+	 *
 	 * @param string $key
 	 * @param int    $store_id
 	 *
@@ -86,6 +96,8 @@ class ModelSettingSetting extends Model {
     }
 
 	/**
+	 * editValue
+	 *
 	 * @param string       $code
 	 * @param string       $key
 	 * @param string|array $value

@@ -6,6 +6,8 @@
  */
 class ModelCustomerCustomerApproval extends Model {
 	/**
+	 * getCustomerApprovals
+	 *
 	 * @param array $data
 	 *
 	 * @return array
@@ -53,6 +55,8 @@ class ModelCustomerCustomerApproval extends Model {
     }
 
 	/**
+	 * getCustomerApproval
+	 *
 	 * @param int $customer_approval_id
 	 *
 	 * @return array
@@ -64,6 +68,8 @@ class ModelCustomerCustomerApproval extends Model {
     }
 
 	/**
+	 * getTotalCustomerApprovals
+	 *
 	 * @param array $data
 	 *
 	 * @return int
@@ -103,6 +109,8 @@ class ModelCustomerCustomerApproval extends Model {
     }
 
 	/**
+	 * approveCustomer
+	 *
 	 * @param int $customer_id
 	 *
 	 * @return void
@@ -114,6 +122,8 @@ class ModelCustomerCustomerApproval extends Model {
     }
 
 	/**
+	 * denyCustomer
+	 *
 	 * @param int $customer_id
 	 *
 	 * @return void
@@ -123,6 +133,8 @@ class ModelCustomerCustomerApproval extends Model {
     }
 
 	/**
+	 * approveAffiliate
+	 *
 	 * @param int $customer_id
 	 *
 	 * @return void
@@ -134,6 +146,8 @@ class ModelCustomerCustomerApproval extends Model {
     }
 
 	/**
+	 * denyAffiliate
+	 *
 	 * @param int $customer_id
 	 *
 	 * @return void

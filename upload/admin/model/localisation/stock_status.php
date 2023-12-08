@@ -6,6 +6,8 @@
  */
 class ModelLocalisationStockStatus extends Model {
 	/**
+	 * addStockStatus
+	 *
 	 * @param array $data
 	 *
 	 * @return int
@@ -27,6 +29,8 @@ class ModelLocalisationStockStatus extends Model {
     }
 
 	/**
+	 * editStockStatus
+	 *
 	 * @param int   $stock_status_id
 	 * @param array $data
 	 *
@@ -43,6 +47,8 @@ class ModelLocalisationStockStatus extends Model {
     }
 
 	/**
+	 * deleteStockStatus
+	 *
 	 * @param int $stock_status_id
 	 *
 	 * @return void
@@ -54,6 +60,8 @@ class ModelLocalisationStockStatus extends Model {
     }
 
 	/**
+	 * getStockStatus
+	 *
 	 * @param int $stock_status_id
 	 *
 	 * @return array
@@ -65,6 +73,8 @@ class ModelLocalisationStockStatus extends Model {
     }
 
 	/**
+	 * getStockStatuses
+	 *
 	 * @param array $data
 	 *
 	 * @return array
@@ -112,6 +122,8 @@ class ModelLocalisationStockStatus extends Model {
     }
 
 	/**
+	 * getDescriptions
+	 *
 	 * @param int $stock_status_id
 	 *
 	 * @return array
@@ -129,6 +141,8 @@ class ModelLocalisationStockStatus extends Model {
     }
 
 	/**
+	 * getTotalStockStatuses
+	 *
 	 * @return int
 	 */
     public function getTotalStockStatuses(): int {

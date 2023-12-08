@@ -6,6 +6,8 @@
  */
 class ModelSettingModification extends Model {
 	/**
+	 * addModification
+	 *
 	 * @param array $data
 	 *
 	 * @return void
@@ -15,6 +17,8 @@ class ModelSettingModification extends Model {
     }
 
 	/**
+	 * deleteModification
+	 *
 	 * @param int $modification_id
 	 *
 	 * @return void
@@ -24,6 +28,8 @@ class ModelSettingModification extends Model {
     }
 
 	/**
+	 * deleteModificationsByExtensionInstallId
+	 *
 	 * @param int $extension_install_id
 	 *
 	 * @return void
@@ -33,6 +39,8 @@ class ModelSettingModification extends Model {
     }
 
 	/**
+	 * enableModification
+	 *
 	 * @param int $modification_id
 	 *
 	 * @return void
@@ -42,6 +50,8 @@ class ModelSettingModification extends Model {
     }
 
 	/**
+	 * disableModification
+	 *
 	 * @param int $modification_id
 	 *
 	 * @return void
@@ -51,6 +61,8 @@ class ModelSettingModification extends Model {
     }
 
 	/**
+	 * getModification
+	 *
 	 * @param int $modification_id
 	 *
 	 * @return array
@@ -62,6 +74,8 @@ class ModelSettingModification extends Model {
     }
 
 	/**
+	 * getModifications
+	 *
 	 * @param array $data
 	 *
 	 * @return array
@@ -107,6 +121,8 @@ class ModelSettingModification extends Model {
     }
 
 	/**
+	 * getTotalModifications
+	 *
 	 * @return int
 	 */
     public function getTotalModifications(): int {
@@ -116,6 +132,8 @@ class ModelSettingModification extends Model {
     }
 
 	/**
+	 * getModificationByCode
+	 *
 	 * @param string $code
 	 *
 	 * @return array

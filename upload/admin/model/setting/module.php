@@ -6,6 +6,8 @@
  */
 class ModelSettingModule extends Model {
 	/**
+	 * addModule
+	 *
 	 * @param string $code
 	 * @param array  $data
 	 *
@@ -16,6 +18,8 @@ class ModelSettingModule extends Model {
     }
 
 	/**
+	 * editModule
+	 *
 	 * @param int   $module_id
 	 * @param array $data
 	 *
@@ -26,6 +30,8 @@ class ModelSettingModule extends Model {
     }
 
 	/**
+	 * deleteModule
+	 *
 	 * @param int $module_id
 	 *
 	 * @return void
@@ -36,6 +42,8 @@ class ModelSettingModule extends Model {
     }
 
 	/**
+	 * getModule
+	 *
 	 * @param int $module_id
 	 *
 	 * @return array
@@ -51,6 +59,8 @@ class ModelSettingModule extends Model {
     }
 
 	/**
+	 * getModules
+	 *
 	 * @return array
 	 */
     public function getModules(): array {
@@ -60,6 +70,8 @@ class ModelSettingModule extends Model {
     }
 
 	/**
+	 * getModulesByCode
+	 *
 	 * @param string $code
 	 *
 	 * @return array
@@ -71,6 +83,8 @@ class ModelSettingModule extends Model {
     }
 
 	/**
+	 * deleteModulesByCode
+	 *
 	 * @param string $code
 	 *
 	 * @return void

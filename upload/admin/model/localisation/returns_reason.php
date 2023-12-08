@@ -6,6 +6,8 @@
  */
 class ModelLocalisationReturnsReason extends Model {
 	/**
+	 * addReturnReason
+	 *
 	 * @param array $data
 	 *
 	 * @return int
@@ -27,6 +29,8 @@ class ModelLocalisationReturnsReason extends Model {
     }
 
 	/**
+	 * editReturnReason
+	 *
 	 * @param int   $return_reason_id
 	 * @param array $data
 	 *
@@ -43,6 +47,8 @@ class ModelLocalisationReturnsReason extends Model {
     }
 
 	/**
+	 * deleteReturnReason
+	 *
 	 * @param int $return_reason_id
 	 *
 	 * @return void
@@ -54,6 +60,8 @@ class ModelLocalisationReturnsReason extends Model {
     }
 
 	/**
+	 * getReturnReason
+	 *
 	 * @param int $return_reason_id
 	 *
 	 * @return array
@@ -65,6 +73,8 @@ class ModelLocalisationReturnsReason extends Model {
     }
 
 	/**
+	 * getReturnReasons
+	 *
 	 * @param array $data
 	 *
 	 * @return array
@@ -112,6 +122,8 @@ class ModelLocalisationReturnsReason extends Model {
     }
 
 	/**
+	 * getDescriptions
+	 *
 	 * @param int $return_reason_id
 	 *
 	 * @return array
@@ -129,6 +141,8 @@ class ModelLocalisationReturnsReason extends Model {
     }
 
 	/**
+	 * getTotalReturnReasons
+	 *
 	 * @return int
 	 */
     public function getTotalReturnReasons(): int {

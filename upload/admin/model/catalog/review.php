@@ -6,6 +6,8 @@
  */
 class ModelCatalogReview extends Model {
 	/**
+	 * addReview
+	 *
 	 * @param array $data
 	 *
 	 * @return int
@@ -21,6 +23,8 @@ class ModelCatalogReview extends Model {
     }
 
 	/**
+	 * editReview
+	 *
 	 * @param int   $review_id
 	 * @param array $data
 	 *
@@ -33,6 +37,8 @@ class ModelCatalogReview extends Model {
     }
 
 	/**
+	 * deleteReview
+	 *
 	 * @param int $review_id
 	 *
 	 * @return void
@@ -44,6 +50,8 @@ class ModelCatalogReview extends Model {
     }
 
 	/**
+	 * getReview
+	 *
 	 * @param int $review_id
 	 *
 	 * @return array
@@ -55,6 +63,8 @@ class ModelCatalogReview extends Model {
     }
 
 	/**
+	 * getReviews
+	 *
 	 * @param array $data
 	 *
 	 * @return array
@@ -120,6 +130,8 @@ class ModelCatalogReview extends Model {
     }
 
 	/**
+	 * getTotalReviews
+	 *
 	 * @param array $data
 	 *
 	 * @return int
@@ -153,6 +165,8 @@ class ModelCatalogReview extends Model {
     }
 
 	/**
+	 * getTotalReviewsAwaitingApproval
+	 *
 	 * @return int
 	 */
     public function getTotalReviewsAwaitingApproval(): int {

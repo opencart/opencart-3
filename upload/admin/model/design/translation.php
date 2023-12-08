@@ -6,6 +6,8 @@
  */
 class ModelDesignTranslation extends Model {
 	/**
+	 * addTranslation
+	 *
 	 * @param array $data
 	 *
 	 * @return void
@@ -15,6 +17,8 @@ class ModelDesignTranslation extends Model {
     }
 
 	/**
+	 * editTranslation
+	 *
 	 * @param int   $translation_id
 	 * @param array $data
 	 *
@@ -25,6 +29,8 @@ class ModelDesignTranslation extends Model {
     }
 
 	/**
+	 * deleteTranslation
+	 *
 	 * @param int $translation_id
 	 *
 	 * @return void
@@ -34,6 +40,8 @@ class ModelDesignTranslation extends Model {
     }
 
 	/**
+	 * getTranslation
+	 *
 	 * @param int $translation_id
 	 *
 	 * @return array
@@ -45,6 +53,8 @@ class ModelDesignTranslation extends Model {
     }
 
 	/**
+	 * getTranslations
+	 *
 	 * @param array $data
 	 *
 	 * @return array
@@ -90,6 +100,8 @@ class ModelDesignTranslation extends Model {
     }
 
 	/**
+	 * getTotalTranslations
+	 *
 	 * @return int
 	 */
     public function getTotalTranslations(): int {

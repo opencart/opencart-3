@@ -6,6 +6,8 @@
  */
 class ModelDesignLayout extends Model {
 	/**
+	 * addLayout
+	 *
 	 * @param array $data
 	 *
 	 * @return int
@@ -31,6 +33,8 @@ class ModelDesignLayout extends Model {
     }
 
 	/**
+	 * editLayout
+	 *
 	 * @param int   $layout_id
 	 * @param array $data
 	 *
@@ -57,6 +61,8 @@ class ModelDesignLayout extends Model {
     }
 
 	/**
+	 * deleteLayout
+	 *
 	 * @param int $layout_id
 	 *
 	 * @return void
@@ -71,6 +77,8 @@ class ModelDesignLayout extends Model {
     }
 
 	/**
+	 * getLayout
+	 *
 	 * @param int $layout_id
 	 *
 	 * @return array
@@ -82,6 +90,8 @@ class ModelDesignLayout extends Model {
     }
 
 	/**
+	 * getLayouts
+	 *
 	 * @param array $data
 	 *
 	 * @return array
@@ -121,6 +131,8 @@ class ModelDesignLayout extends Model {
     }
 
 	/**
+	 * getRoutes
+	 *
 	 * @param int $layout_id
 	 *
 	 * @return array
@@ -132,6 +144,8 @@ class ModelDesignLayout extends Model {
     }
 
 	/**
+	 * getModules
+	 *
 	 * @param int $layout_id
 	 *
 	 * @return array
@@ -143,6 +157,8 @@ class ModelDesignLayout extends Model {
     }
 
 	/**
+	 * getTotalLayouts
+	 *
 	 * @return int
 	 */
     public function getTotalLayouts(): int {

@@ -6,6 +6,8 @@
  */
 class ModelCatalogProduct extends Model {
 	/**
+	 * addProduct
+	 *
 	 * @param array $data
 	 *
 	 * @return int
@@ -150,6 +152,8 @@ class ModelCatalogProduct extends Model {
     }
 
 	/**
+	 * editProduct
+	 *
 	 * @param int   $product_id
 	 * @param array $data
 	 *
@@ -321,6 +325,8 @@ class ModelCatalogProduct extends Model {
     }
 
 	/**
+	 * copyProduct
+	 *
 	 * @param int $product_id
 	 *
 	 * @return void
@@ -356,6 +362,8 @@ class ModelCatalogProduct extends Model {
     }
 
 	/**
+	 * deleteProduct
+	 *
 	 * @param int $product_id
 	 *
 	 * @return void
@@ -386,6 +394,8 @@ class ModelCatalogProduct extends Model {
     }
 
 	/**
+	 * getProduct
+	 *
 	 * @param int $product_id
 	 *
 	 * @return array
@@ -397,6 +407,8 @@ class ModelCatalogProduct extends Model {
     }
 
 	/**
+	 * getProducts
+	 *
 	 * @param array $data
 	 *
 	 * @return array
@@ -465,6 +477,8 @@ class ModelCatalogProduct extends Model {
     }
 
 	/**
+	 * getProductsByCategoryId
+	 *
 	 * @param int $category_id
 	 *
 	 * @return array
@@ -476,6 +490,8 @@ class ModelCatalogProduct extends Model {
     }
 
 	/**
+	 * getDescriptions
+	 *
 	 * @param int $product_id
 	 *
 	 * @return array
@@ -500,6 +516,8 @@ class ModelCatalogProduct extends Model {
     }
 
 	/**
+	 * getCategories
+	 *
 	 * @param int $product_id
 	 *
 	 * @return array
@@ -517,6 +535,8 @@ class ModelCatalogProduct extends Model {
     }
 
 	/**
+	 * getFilters
+	 *
 	 * @param int $product_id
 	 *
 	 * @return array
@@ -534,6 +554,8 @@ class ModelCatalogProduct extends Model {
     }
 
 	/**
+	 * getAttributes
+	 *
 	 * @param int $product_id
 	 *
 	 * @return array
@@ -562,6 +584,8 @@ class ModelCatalogProduct extends Model {
     }
 
 	/**
+	 * getOptions
+	 *
 	 * @param int $product_id
 	 *
 	 * @return array
@@ -606,6 +630,8 @@ class ModelCatalogProduct extends Model {
     }
 
 	/**
+	 * getOptionValue
+	 *
 	 * @param int $product_id
 	 * @param int $product_option_value_id
 	 *
@@ -618,6 +644,8 @@ class ModelCatalogProduct extends Model {
     }
 
 	/**
+	 * getImages
+	 *
 	 * @param int $product_id
 	 *
 	 * @return array
@@ -629,6 +657,8 @@ class ModelCatalogProduct extends Model {
     }
 
 	/**
+	 * getDiscounts
+	 *
 	 * @param int $product_id
 	 *
 	 * @return array
@@ -640,6 +670,8 @@ class ModelCatalogProduct extends Model {
     }
 
 	/**
+	 * getSpecials
+	 *
 	 * @param int $product_id
 	 *
 	 * @return array
@@ -651,6 +683,8 @@ class ModelCatalogProduct extends Model {
     }
 
 	/**
+	 * getRewards
+	 *
 	 * @param int $product_id
 	 *
 	 * @return array
@@ -668,6 +702,8 @@ class ModelCatalogProduct extends Model {
     }
 
 	/**
+	 * getDownloads
+	 *
 	 * @param int $product_id
 	 *
 	 * @return array
@@ -685,6 +721,8 @@ class ModelCatalogProduct extends Model {
     }
 
 	/**
+	 * getStores
+	 *
 	 * @param int $product_id
 	 *
 	 * @return array
@@ -702,6 +740,7 @@ class ModelCatalogProduct extends Model {
     }
 
 	/**
+	 * getSeoUrls
 	 * @param int $product_id
 	 *
 	 * @return array
@@ -719,6 +758,8 @@ class ModelCatalogProduct extends Model {
     }
 
 	/**
+	 * getLayouts
+	 *
 	 * @param int $product_id
 	 *
 	 * @return array
@@ -736,6 +777,8 @@ class ModelCatalogProduct extends Model {
     }
 
 	/**
+	 * getRelated
+	 *
 	 * @param int $product_id
 	 *
 	 * @return array
@@ -753,6 +796,8 @@ class ModelCatalogProduct extends Model {
     }
 
 	/**
+	 * getSubscriptions
+	 *
 	 * @param int $product_id
 	 *
 	 * @return array
@@ -764,6 +809,8 @@ class ModelCatalogProduct extends Model {
     }
 
 	/**
+	 * getTotalProducts
+	 *
 	 * @param array $data
 	 *
 	 * @return int
@@ -799,6 +846,8 @@ class ModelCatalogProduct extends Model {
     }
 
 	/**
+	 * getTotalProductsByTaxClassId
+	 *
 	 * @param int $tax_class_id
 	 *
 	 * @return int
@@ -810,6 +859,8 @@ class ModelCatalogProduct extends Model {
     }
 
 	/**
+	 * getTotalProductsByStockStatusId
+	 *
 	 * @param int $stock_status_id
 	 *
 	 * @return int
@@ -821,6 +872,8 @@ class ModelCatalogProduct extends Model {
     }
 
 	/**
+	 * getTotalProductsByWeightClassId
+	 *
 	 * @param int $weight_class_id
 	 *
 	 * @return int
@@ -832,6 +885,8 @@ class ModelCatalogProduct extends Model {
     }
 
 	/**
+	 * getTotalProductsByLengthClassId
+	 *
 	 * @param int $length_class_id
 	 *
 	 * @return int
@@ -843,6 +898,8 @@ class ModelCatalogProduct extends Model {
     }
 
 	/**
+	 * getTotalProductsByDownloadId
+	 *
 	 * @param int $download_id
 	 *
 	 * @return int
@@ -854,6 +911,8 @@ class ModelCatalogProduct extends Model {
     }
 
 	/**
+	 * getTotalProductsByManufacturerId
+	 *
 	 * @param int $manufacturer_id
 	 *
 	 * @return int
@@ -865,6 +924,8 @@ class ModelCatalogProduct extends Model {
     }
 
 	/**
+	 * getTotalProductsByAttributeId
+	 *
 	 * @param int $attribute_id
 	 *
 	 * @return int
@@ -875,6 +936,8 @@ class ModelCatalogProduct extends Model {
         return (int)$query->row['total'];
     }
 	/**
+	 * getTotalProductsBySubscriptionPlanId
+	 *
 	 * @param int $subscription_plan_id
 	 *
 	 * @return int
@@ -885,6 +948,8 @@ class ModelCatalogProduct extends Model {
         return (int)$query->row['total'];
     }
 	/**
+	 * getTotalProductsByOptionId
+	 *
 	 * @param int $option_id
 	 *
 	 * @return int
@@ -895,6 +960,8 @@ class ModelCatalogProduct extends Model {
         return (int)$query->row['total'];
     }
 	/**
+	 * getTotalProductsByLayoutId
+	 *
 	 * @param int $layout_id
 	 *
 	 * @return int

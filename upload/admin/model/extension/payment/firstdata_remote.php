@@ -5,6 +5,11 @@
  * @package Admin\Model\Extension\Payment
  */
 class ModelExtensionPaymentFirstdataRemote extends Model {
+	/**
+	 * Install
+	 *
+	 * @return void
+	 */
     public function install(): void {
         $this->db->query("
 			CREATE TABLE IF NOT EXISTS `" . DB_PREFIX . "firstdata_remote_order` (
@@ -47,13 +52,23 @@ class ModelExtensionPaymentFirstdataRemote extends Model {
 			) ENGINE=MyISAM DEFAULT COLLATE=utf8_general_ci;");
     }
 
+	/**
+	 * Uninstall
+	 *
+	 * @return void
+	 */
     public function uninstall(): void {
         $this->db->query("DROP TABLE IF EXISTS `" . DB_PREFIX . "firstdata_remote_order`;");
         $this->db->query("DROP TABLE IF EXISTS `" . DB_PREFIX . "firstdata_remote_order_transaction`;");
         $this->db->query("DROP TABLE IF EXISTS `" . DB_PREFIX . "firstdata_remote_card`;");
     }
 
-    public function call($xml) {
+	/**
+	 * Call
+	 *
+	 * @param string $xml
+	 */
+    public function call(string $xml) {
         $ch = curl_init();
 
         curl_setopt($ch, CURLOPT_URL, 'https://test.ipg-online.com/ipgapi/services');
@@ -85,6 +100,14 @@ class ModelExtensionPaymentFirstdataRemote extends Model {
         return $response;
     }
 
+	/**
+	 * Void
+	 *
+	 * @param int    $order_ref
+	 * @param string $tdate
+	 *
+	 * @return array
+	 */
     public function void(int $order_ref, string $tdate): array {
         $xml = '<?xml version="1.0" encoding="UTF-8"?>';
         $xml .= '<SOAP-ENV:Envelope xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/">';
@@ -119,16 +142,34 @@ class ModelExtensionPaymentFirstdataRemote extends Model {
 
         $string = $xml->xpath('//ipgapi:ErrorMessage');
         $response['error'] = (isset($string[0]) ? (string)$string[0] : '');
+
         $string = $xml->xpath('//ipgapi:TransactionResult');
         $response['transaction_result'] = (isset($string[0]) ? (string)$string[0] : '');
 
         return $response;
     }
 
+	/**
+	 * updateVoidStatus
+	 *
+	 * @param int $firstdata_remote_order_id
+	 * @param int $status
+	 *
+	 * @return void
+	 */
     public function updateVoidStatus(int $firstdata_remote_order_id, int $status): void {
         $this->db->query("UPDATE `" . DB_PREFIX . "firstdata_remote_order` SET `void_status` = '" . (int)$status . "' WHERE `firstdata_remote_order_id` = '" . (int)$firstdata_remote_order_id . "'");
     }
 
+	/**
+	 * Capture
+	 *
+	 * @param int    $order_ref
+	 * @param float  $total
+	 * @param string $currency_code
+	 *
+	 * @return array
+	 */
     public function capture(int $order_ref, float $total, string $currency_code): array {
         $xml = '<?xml version="1.0" encoding="UTF-8"?>';
         $xml .= '<SOAP-ENV:Envelope xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/">';
@@ -173,10 +214,27 @@ class ModelExtensionPaymentFirstdataRemote extends Model {
         return $response;
     }
 
+	/**
+	 * updateCaptureStatus
+	 *
+	 * @param int $firstdata_remote_order_id
+	 * @param int $status
+	 *
+	 * @return void
+	 */
     public function updateCaptureStatus(int $firstdata_remote_order_id, int $status): void {
         $this->db->query("UPDATE `" . DB_PREFIX . "firstdata_remote_order` SET `capture_status` = '" . (int)$status . "' WHERE `firstdata_remote_order_id` = '" . (int)$firstdata_remote_order_id . "'");
     }
 
+	/**
+	 * Refund
+	 *
+	 * @param int    $order_ref
+	 * @param float  $total
+	 * @param string $currency_code
+	 *
+	 * @return array
+	 */
     public function refund(int $order_ref, float $total, string $currency_code): array {
         $xml = '<?xml version="1.0" encoding="UTF-8"?>';
         $xml .= '<SOAP-ENV:Envelope xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/">';
@@ -221,10 +279,25 @@ class ModelExtensionPaymentFirstdataRemote extends Model {
         return $response;
     }
 
+	/**
+	 * updateRefundStatus
+	 *
+	 * @param int $firstdata_remote_order_id
+	 * @param int $status
+	 *
+	 * @return void
+	 */
     public function updateRefundStatus(int $firstdata_remote_order_id, int $status): void {
         $this->db->query("UPDATE `" . DB_PREFIX . "firstdata_remote_order` SET `refund_status` = '" . (int)$status . "' WHERE `firstdata_remote_order_id` = '" . (int)$firstdata_remote_order_id . "'");
     }
 
+	/**
+	 * getOrder
+	 *
+	 * @param int $order_id
+	 *
+	 * @return array
+	 */
     public function getOrder(int $order_id): array {
         $query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "firstdata_remote_order` WHERE `order_id` = '" . (int)$order_id . "' LIMIT 1");
 
@@ -248,10 +321,26 @@ class ModelExtensionPaymentFirstdataRemote extends Model {
         }
     }
 
+	/**
+	 * addTransaction
+	 *
+	 * @param int    $firstdata_remote_order_id
+	 * @param string $type
+	 * @param float  $total
+	 *
+	 * @return void
+	 */
     public function addTransaction(int $firstdata_remote_order_id, string $type, float $total): void {
         $this->db->query("INSERT INTO `" . DB_PREFIX . "firstdata_remote_order_transaction` SET `firstdata_remote_order_id` = '" . (int)$firstdata_remote_order_id . "', `date_added` = NOW(), `type` = '" . $this->db->escape($type) . "', `amount` = '" . (float)$total . "'");
     }
 
+	/**
+	 * Logger
+	 *
+	 * @param string $message
+	 *
+	 * @return void
+	 */
     public function logger(string $message): void {
         if ($this->config->get('payment_firstdata_remote_debug') == 1) {
             $log = new \Log('firstdata_remote.log');
@@ -259,18 +348,39 @@ class ModelExtensionPaymentFirstdataRemote extends Model {
         }
     }
 
+	/**
+	 * getTotalCaptured
+	 *
+	 * @param int $firstdata_order_id
+	 *
+	 * @return float
+	 */
     public function getTotalCaptured(int $firstdata_order_id): float {
         $query = $this->db->query("SELECT SUM(`amount`) AS `total` FROM `" . DB_PREFIX . "firstdata_remote_order_transaction` WHERE `firstdata_remote_order_id` = '" . (int)$firstdata_order_id . "' AND (`type` = 'payment' OR `type` = 'refund')");
 
         return (float)$query->row['total'];
     }
 
+	/**
+	 * getTotalRefunded
+	 *
+	 * @param int $firstdata_order_id
+	 *
+	 * @return float
+	 */
     public function getTotalRefunded(int $firstdata_order_id): float {
         $query = $this->db->query("SELECT SUM(`amount`) AS `total` FROM `" . DB_PREFIX . "firstdata_remote_order_transaction` WHERE `firstdata_remote_order_id` = '" . (int)$firstdata_order_id . "' AND `type` = 'refund'");
 
         return (float)$query->row['total'];
     }
 
+	/**
+	 * mapCurrency
+	 *
+	 * @param string $code
+	 *
+	 * @return string
+	 */
     public function mapCurrency(string $code): string {
         $currency = [
             'GBP' => 826,

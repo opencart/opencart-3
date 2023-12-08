@@ -6,6 +6,8 @@
  */
 class ModelDesignSeoUrl extends Model {
 	/**
+	 * addSeoUrl
+	 *
 	 * @param array $data
 	 *
 	 * @return int
@@ -15,6 +17,8 @@ class ModelDesignSeoUrl extends Model {
     }
 
 	/**
+	 * editSeoUrl
+	 *
 	 * @param int   $seo_url_id
 	 * @param array $data
 	 *
@@ -25,6 +29,8 @@ class ModelDesignSeoUrl extends Model {
     }
 
 	/**
+	 * deleteSeoUrl
+	 *
 	 * @param int $seo_url_id
 	 *
 	 * @return void
@@ -34,6 +40,8 @@ class ModelDesignSeoUrl extends Model {
     }
 
 	/**
+	 * getSeoUrl
+	 *
 	 * @param int $seo_url_id
 	 *
 	 * @return array
@@ -45,6 +53,8 @@ class ModelDesignSeoUrl extends Model {
     }
 
 	/**
+	 * getSeoUrls
+	 *
 	 * @param array $data
 	 *
 	 * @return array
@@ -111,6 +121,8 @@ class ModelDesignSeoUrl extends Model {
     }
 
 	/**
+	 * getTotalSeoUrls
+	 *
 	 * @param array $data
 	 *
 	 * @return int
@@ -146,6 +158,7 @@ class ModelDesignSeoUrl extends Model {
     }
 
 	/**
+	 * getSeoUrlsByKeyword
 	 * @param string $keyword
 	 *
 	 * @return array
@@ -157,6 +170,8 @@ class ModelDesignSeoUrl extends Model {
     }
 
 	/**
+	 * getSeoUrlsByQuery
+	 *
 	 * @param string $query
 	 *
 	 * @return array
@@ -168,6 +183,8 @@ class ModelDesignSeoUrl extends Model {
     }
 
 	/**
+	 * getSeoUrlsByQueryId
+	 *
 	 * @param int 	 $seo_url_id
 	 * @param string $query
 	 *
@@ -180,6 +197,8 @@ class ModelDesignSeoUrl extends Model {
     }
 
 	/**
+	 * getSeoUrlsByKeywordId
+	 *
 	 * @param int 	 $seo_url_id
 	 * @param string $keyword
 	 *

@@ -6,6 +6,8 @@
  */
 class ModelCatalogCategory extends Model {
 	/**
+	 * addCategory
+	 *
 	 * @param array $data
 	 *
 	 * @return int
@@ -71,6 +73,8 @@ class ModelCatalogCategory extends Model {
     }
 
 	/**
+	 * editCategory
+	 *
 	 * @param int   $category_id
 	 * @param array $data
 	 *
@@ -181,6 +185,8 @@ class ModelCatalogCategory extends Model {
     }
 
 	/**
+	 * deleteCategory
+	 *
 	 * @param int $category_id
 	 *
 	 * @return void
@@ -207,6 +213,8 @@ class ModelCatalogCategory extends Model {
     }
 
 	/**
+	 * repairCategories
+	 *
 	 * @param int $parent_id
 	 *
 	 * @return void
@@ -236,6 +244,8 @@ class ModelCatalogCategory extends Model {
     }
 
 	/**
+	 * getCategory
+	 *
 	 * @param int $category_id
 	 *
 	 * @return array
@@ -247,6 +257,8 @@ class ModelCatalogCategory extends Model {
     }
 
 	/**
+	 * getCategories
+	 *
 	 * @param array $data
 	 *
 	 * @return array
@@ -295,6 +307,8 @@ class ModelCatalogCategory extends Model {
     }
 
 	/**
+	 * getDescriptions
+	 *
 	 * @param int $category_id
 	 *
 	 * @return array
@@ -318,6 +332,8 @@ class ModelCatalogCategory extends Model {
     }
 
 	/**
+	 * getPath
+	 *
 	 * @param int $category_id
 	 *
 	 * @return array
@@ -329,6 +345,8 @@ class ModelCatalogCategory extends Model {
     }
 
 	/**
+	 * getFilters
+	 *
 	 * @param int $category_id
 	 *
 	 * @return array
@@ -346,6 +364,8 @@ class ModelCatalogCategory extends Model {
     }
 
 	/**
+	 * getCategoryStores
+	 *
 	 * @param int $category_id
 	 *
 	 * @return array
@@ -363,6 +383,8 @@ class ModelCatalogCategory extends Model {
     }
 
 	/**
+	 * getCategorySeoUrls
+	 *
 	 * @param int $category_id
 	 *
 	 * @return array
@@ -380,6 +402,8 @@ class ModelCatalogCategory extends Model {
     }
 
 	/**
+	 * getCategoryLayouts
+	 *
 	 * @param int $category_id
 	 *
 	 * @return array
@@ -397,6 +421,8 @@ class ModelCatalogCategory extends Model {
     }
 
 	/**
+	 * getTotalCategories
+	 *
 	 * @return int
 	 */
     public function getTotalCategories(): int {
@@ -406,6 +432,8 @@ class ModelCatalogCategory extends Model {
     }
 
 	/**
+	 * getTotalCategoriesByLayoutId
+	 *
 	 * @param int $layout_id
 	 *
 	 * @return int

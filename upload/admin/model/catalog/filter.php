@@ -6,6 +6,8 @@
  */
 class ModelCatalogFilter extends Model {
 	/**
+	 * addFilter
+	 *
 	 * @param array $data
 	 *
 	 * @return int
@@ -35,6 +37,8 @@ class ModelCatalogFilter extends Model {
     }
 
 	/**
+	 * editFilter
+	 *
 	 * @param int   $filter_group_id
 	 * @param array $data
 	 *
@@ -70,6 +74,8 @@ class ModelCatalogFilter extends Model {
     }
 
 	/**
+	 * deleteFilter
+	 *
 	 * @param int $filter_group_id
 	 *
 	 * @return void
@@ -82,6 +88,8 @@ class ModelCatalogFilter extends Model {
     }
 
 	/**
+	 * getGroup
+	 *
 	 * @param int $filter_group_id
 	 *
 	 * @return array
@@ -93,6 +101,8 @@ class ModelCatalogFilter extends Model {
     }
 
 	/**
+	 * getGroups
+	 *
 	 * @param array $data
 	 *
 	 * @return array
@@ -135,6 +145,8 @@ class ModelCatalogFilter extends Model {
     }
 
 	/**
+	 * getGroupDescriptions
+	 *
 	 * @param int $filter_group_id
 	 *
 	 * @return array
@@ -152,6 +164,8 @@ class ModelCatalogFilter extends Model {
     }
 
 	/**
+	 * getFilter
+	 *
 	 * @param int $filter_id
 	 *
 	 * @return array
@@ -163,6 +177,8 @@ class ModelCatalogFilter extends Model {
     }
 
 	/**
+	 * getFilters
+	 *
 	 * @param array $data
 	 *
 	 * @return array
@@ -194,6 +210,8 @@ class ModelCatalogFilter extends Model {
     }
 
 	/**
+	 * getDescriptions
+	 *
 	 * @param int $filter_group_id
 	 *
 	 * @return array
@@ -223,6 +241,8 @@ class ModelCatalogFilter extends Model {
     }
 
 	/**
+	 * getTotalGroups
+	 *
 	 * @return int
 	 */
     public function getTotalGroups(): int {

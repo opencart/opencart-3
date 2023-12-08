@@ -6,6 +6,8 @@
  */
 class ModelUserUser extends Model {
 	/**
+	 * addUser
+	 *
 	 * @param array $data
 	 *
 	 * @return int
@@ -17,6 +19,8 @@ class ModelUserUser extends Model {
     }
 
 	/**
+	 * editUser
+	 *
 	 * @param int   $user_id
 	 * @param array $data
 	 *
@@ -31,6 +35,8 @@ class ModelUserUser extends Model {
     }
 
 	/**
+	 * editPassword
+	 *
 	 * @param int $user_id
 	 * @param     $password
 	 *
@@ -41,6 +47,8 @@ class ModelUserUser extends Model {
     }
 
 	/**
+	 * editCode
+	 *
 	 * @param string $email
 	 * @param string $code
 	 *
@@ -51,6 +59,8 @@ class ModelUserUser extends Model {
     }
 
 	/**
+	 * deleteUser
+	 *
 	 * @param int $user_id
 	 *
 	 * @return void
@@ -60,6 +70,8 @@ class ModelUserUser extends Model {
     }
 
 	/**
+	 * getUser
+	 *
 	 * @param int $user_id
 	 *
 	 * @return array
@@ -71,6 +83,8 @@ class ModelUserUser extends Model {
     }
 
 	/**
+	 * getUserByUsername
+	 *
 	 * @param string $username
 	 *
 	 * @return array
@@ -82,6 +96,8 @@ class ModelUserUser extends Model {
     }
 
 	/**
+	 * getUserByEmail
+	 *
 	 * @param string $email
 	 *
 	 * @return array
@@ -93,6 +109,8 @@ class ModelUserUser extends Model {
     }
 
 	/**
+	 * getUserByCode
+	 *
 	 * @param string $code
 	 *
 	 * @return array
@@ -104,6 +122,8 @@ class ModelUserUser extends Model {
     }
 
 	/**
+	 * getUsers
+	 *
 	 * @param array $data
 	 *
 	 * @return array
@@ -147,6 +167,8 @@ class ModelUserUser extends Model {
     }
 
 	/**
+	 * getTotalusers
+	 *
 	 * @return int
 	 */
     public function getTotalUsers(): int {
@@ -156,6 +178,8 @@ class ModelUserUser extends Model {
     }
 
 	/**
+	 * getTotalUsersByGroupId
+	 *
 	 * @param int $user_group_id
 	 *
 	 * @return int
@@ -167,6 +191,8 @@ class ModelUserUser extends Model {
     }
 
 	/**
+	 * getTotalUsersByEmail
+	 *
 	 * @param string $email
 	 *
 	 * @return int
@@ -178,6 +204,8 @@ class ModelUserUser extends Model {
     }
 
 	/**
+	 * addLogin
+	 *
 	 * @param int   $user_id
 	 * @param array $data
 	 *
@@ -188,6 +216,8 @@ class ModelUserUser extends Model {
     }
 
 	/**
+	 * getLogins
+	 *
 	 * @param int $user_id
 	 * @param int $start
 	 * @param int $limit
@@ -213,6 +243,8 @@ class ModelUserUser extends Model {
     }
 
 	/**
+	 * getTotalLogins
+	 *
 	 * @param int $user_id
 	 *
 	 * @return int

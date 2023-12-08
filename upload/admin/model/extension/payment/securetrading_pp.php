@@ -5,6 +5,11 @@
  * @package Admin\Model\Extension\Payment
  */
 class ModelExtensionPaymentSecureTradingPp extends Model {
+	/**
+	 * Install
+	 *
+	 * @return void
+	 */
     public function install(): void {
         $this->db->query("
 			CREATE TABLE IF NOT EXISTS `" . DB_PREFIX . "securetrading_pp_order` (
@@ -33,12 +38,24 @@ class ModelExtensionPaymentSecureTradingPp extends Model {
 			) ENGINE=MyISAM DEFAULT COLLATE=utf8_general_ci;");
     }
 
+	/**
+	 * Uninstall
+	 *
+	 * @return void
+	 */
     public function uninstall(): void {
         $this->db->query("DROP TABLE IF EXISTS `" . DB_PREFIX . "securetrading_pp_order`");
         $this->db->query("DROP TABLE IF EXISTS `" . DB_PREFIX . "securetrading_pp_order_transaction`;");
     }
 
-    public function void($order_id) {
+	/**
+	 * Void
+	 *
+	 * @param int $order_id
+	 *
+	 * @return object|null
+	 */
+    public function void(int $order_id): object|null {
         $securetrading_pp_order = $this->getOrder($order_id);
 
         if ($securetrading_pp_order && $securetrading_pp_order['release_status'] == 0) {
@@ -57,16 +74,33 @@ class ModelExtensionPaymentSecureTradingPp extends Model {
 
             return $this->call($requestblock_xml->asXML());
         } else {
-            return false;
+            return null;
         }
     }
 
+	/**
+	 * updateVoidStatus
+	 *
+	 * @param int $securetrading_pp_order_id
+	 * @param int $status
+	 *
+	 * @return void
+	 */
     public function updateVoidStatus(int $securetrading_pp_order_id, int $status): void {
         $this->db->query("UPDATE `" . DB_PREFIX . "securetrading_pp_order` SET `void_status` = '" . (int)$status . "' WHERE `securetrading_pp_order_id` = '" . (int)$securetrading_pp_order_id . "'");
     }
 
-    public function release($order_id, $amount) {
+	/**
+	 * Release
+	 *
+	 * @param int   $order_id
+	 * @param float $amount
+	 *
+	 * @return object|null
+	 */
+    public function release(int $order_id, float $amount): object|null {
         $securetrading_pp_order = $this->getOrder($order_id);
+
         $total_released = $this->getTotalReleased($securetrading_pp_order['securetrading_pp_order_id']);
 
         if ($securetrading_pp_order && $securetrading_pp_order['release_status'] == 0 && $total_released <= $amount) {
@@ -88,19 +122,43 @@ class ModelExtensionPaymentSecureTradingPp extends Model {
 
             return $this->call($requestblock_xml->asXML());
         } else {
-            return false;
+            return null;
         }
     }
 
+	/**
+	 * updateReleaseStatus
+	 *
+	 * @param int $securetrading_pp_order_id
+	 * @param int $status
+	 *
+	 * @return void
+	 */
     public function updateReleaseStatus(int $securetrading_pp_order_id, int $status): void {
         $this->db->query("UPDATE `" . DB_PREFIX . "securetrading_pp_order` SET `release_status` = '" . (int)$status . "' WHERE `securetrading_pp_order_id` = '" . (int)$securetrading_pp_order_id . "'");
     }
 
+	/**
+	 * updateForRebate
+	 *
+	 * @param int    $securetrading_pp_order_id
+	 * @param string $order_ref
+	 *
+	 * @return void
+	 */
     public function updateForRebate(int $securetrading_pp_order_id, string $order_ref): void {
         $this->db->query("UPDATE `" . DB_PREFIX . "securetrading_pp_order` SET `order_ref_previous` = '_multisettle_" . $this->db->escape($order_ref) . "' WHERE `securetrading_pp_order_id` = '" . (int)$securetrading_pp_order_id . "' LIMIT 1");
     }
 
-    public function rebate($order_id, $refunded_amount) {
+	/**
+	 * Rebate
+	 *
+	 * @param int   $order_id
+	 * @param float $refunded_amount
+	 *
+	 * @return object|null
+	 */
+    public function rebate(int $order_id, float $refunded_amount): object|null {
         $securetrading_pp_order = $this->getOrder($order_id);
 
         if ($securetrading_pp_order && $securetrading_pp_order['rebate_status'] != 1) {
@@ -125,10 +183,17 @@ class ModelExtensionPaymentSecureTradingPp extends Model {
 
             return $this->call($requestblock_xml->asXML());
         } else {
-            return false;
+            return null;
         }
     }
 
+	/**
+	 * getOrder
+	 *
+	 * @param int $order_id
+	 *
+	 * @return array
+	 */
     public function getOrder(int $order_id): array {
         $qry = $this->db->query("SELECT * FROM `" . DB_PREFIX . "securetrading_pp_order` WHERE `order_id` = '" . (int)$order_id . "' LIMIT 1");
 
@@ -143,7 +208,7 @@ class ModelExtensionPaymentSecureTradingPp extends Model {
         }
     }
 
-    private function getTransactions(int $securetrading_pp_order_id): array {
+    private function getTransactions($securetrading_pp_order_id) {
         $qry = $this->db->query("SELECT * FROM `" . DB_PREFIX . "securetrading_pp_order_transaction` WHERE `securetrading_pp_order_id` = '" . (int)$securetrading_pp_order_id . "'");
 
         if ($qry->num_rows) {
@@ -153,27 +218,63 @@ class ModelExtensionPaymentSecureTradingPp extends Model {
         }
     }
 
+	/**
+	 * addTransaction
+	 *
+	 * @param int    $securetrading_pp_order_id
+	 * @param string $type
+	 * @param float  $total
+	 *
+	 * @return void
+	 */
     public function addTransaction(int $securetrading_pp_order_id, string $type, float $total): void {
         $this->db->query("INSERT INTO `" . DB_PREFIX . "securetrading_pp_order_transaction` SET `securetrading_pp_order_id` = '" . (int)$securetrading_pp_order_id . "', `created` = NOW(), `type` = '" . $this->db->escape($type) . "', `amount` = '" . (double)$total . "'");
     }
 
+	/**
+	 * getTotalReleased
+	 *
+	 * @param int $securetrading_pp_order_id
+	 *
+	 * @return float
+	 */
     public function getTotalReleased(int $securetrading_pp_order_id): float {
         $query = $this->db->query("SELECT SUM(`amount`) AS `total` FROM `" . DB_PREFIX . "securetrading_pp_order_transaction` WHERE `securetrading_pp_order_id` = '" . (int)$securetrading_pp_order_id . "' AND (`type` = 'payment' OR `type` = 'rebate')");
 
         return (float)$query->row['total'];
     }
 
+	/**
+	 * getTotalRebated
+	 *
+	 * @param int $securetrading_pp_order_id
+	 *
+	 * @return float
+	 */
     public function getTotalRebated(int $securetrading_pp_order_id): float {
         $query = $this->db->query("SELECT SUM(`amount`) AS `total` FROM `" . DB_PREFIX . "securetrading_pp_order_transaction` WHERE `securetrading_pp_order_id` = '" . (int)$securetrading_pp_order_id . "' AND `type` = 'rebate'");
 
         return (float)$query->row['total'];
     }
 
+	/**
+	 * increaseRefundedAmount
+	 *
+	 * @param int   $order_id
+	 * @param float $amount
+	 *
+	 * @return void
+	 */
     public function increaseRefundedAmount(int $order_id, float $amount): void {
         $this->db->query("UPDATE `" . DB_PREFIX . "securetrading_pp_order` SET `refunded` = (`refunded` + " . (double)$amount . ") WHERE `order_id` = '" . (int)$order_id . "'");
     }
 
-    public function call($data) {
+	/**
+	 * Call
+	 *
+	 * @return array
+	 */
+    public function call(array $data): array {
         $ch = curl_init();
 
         $defaults = [
@@ -206,6 +307,13 @@ class ModelExtensionPaymentSecureTradingPp extends Model {
         return $response;
     }
 
+	/**
+	 * Logger
+	 *
+	 * @param string $message
+	 *
+	 * @return void
+	 */
     public function logger(string $message): void {
         $log = new \Log('securetrading_pp.log');
         $log->write($message);

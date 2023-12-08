@@ -6,6 +6,8 @@
  */
 class ModelCatalogOption extends Model {
 	/**
+	 * addOption
+	 *
 	 * @param array $data
 	 *
 	 * @return int
@@ -35,6 +37,8 @@ class ModelCatalogOption extends Model {
     }
 
 	/**
+	 * editOption
+	 *
 	 * @param int   $option_id
 	 * @param array $data
 	 *
@@ -70,6 +74,8 @@ class ModelCatalogOption extends Model {
     }
 
 	/**
+	 * deleteOption
+	 *
 	 * @param int $option_id
 	 *
 	 * @return void
@@ -82,6 +88,8 @@ class ModelCatalogOption extends Model {
     }
 
 	/**
+	 * getOption
+	 *
 	 * @param int $option_id
 	 *
 	 * @return array
@@ -93,6 +101,8 @@ class ModelCatalogOption extends Model {
     }
 
 	/**
+	 * getOptions
+	 *
 	 * @param array $data
 	 *
 	 * @return array
@@ -140,6 +150,8 @@ class ModelCatalogOption extends Model {
     }
 
 	/**
+	 * getDescriptions
+	 *
 	 * @param int $option_id
 	 *
 	 * @return array
@@ -157,6 +169,8 @@ class ModelCatalogOption extends Model {
     }
 
 	/**
+	 * getValue
+	 *
 	 * @param int $option_value_id
 	 *
 	 * @return array
@@ -168,6 +182,8 @@ class ModelCatalogOption extends Model {
     }
 
 	/**
+	 * getValues
+	 *
 	 * @param int $option_id
 	 *
 	 * @return array
@@ -190,6 +206,8 @@ class ModelCatalogOption extends Model {
     }
 
 	/**
+	 * getValueDescriptions
+	 *
 	 * @param int $option_id
 	 *
 	 * @return array
@@ -220,6 +238,8 @@ class ModelCatalogOption extends Model {
     }
 
 	/**
+	 * getTotalOptions
+	 *
 	 * @return int
 	 */
     public function getTotalOptions(): int {

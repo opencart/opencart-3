@@ -5,6 +5,13 @@
  * @package Admin\Model\Extension\Report
  */
 class ModelExtensionReportSale extends Model {
+	/**
+	 * getTotalSales
+	 *
+	 * @param array $data
+	 *
+	 * @return int
+	 */
     public function getTotalSales(array $data = []): int {
         $sql = "SELECT SUM(`total`) AS `total` FROM `" . DB_PREFIX . "order` WHERE `order_status_id` > '0'";
 
@@ -17,12 +24,22 @@ class ModelExtensionReportSale extends Model {
         return (int)$query->row['total'];
     }
 
+	/**
+	 * getTotalOrdersByCountry
+	 *
+	 * @return array
+	 */
     public function getTotalOrdersByCountry(): array {
         $query = $this->db->query("SELECT COUNT(*) AS `total`, SUM(`o`.`total`) AS `amount`, `c`.`iso_code_2` FROM `" . DB_PREFIX . "order` `o` LEFT JOIN `" . DB_PREFIX . "country` `c` ON (`o`.`payment_country_id` = `c`.`country_id`) WHERE `o`.`order_status_id` > '0' GROUP BY `o`.`payment_country_id`");
 
         return $query->rows;
     }
 
+	/**
+	 * getTotalOrdersByDay
+	 *
+	 * @return array
+	 */
     public function getTotalOrdersByDay(): array {
         $implode = [];
 
@@ -51,6 +68,11 @@ class ModelExtensionReportSale extends Model {
         return $order_data;
     }
 
+	/**
+	 * getTotalOrdersByWeek
+	 *
+	 * @return array
+	 */
     public function getTotalOrdersByWeek(): array {
         $implode = [];
 
@@ -81,6 +103,11 @@ class ModelExtensionReportSale extends Model {
         return $order_data;
     }
 
+	/**
+	 * getTotalOrdersByMonth
+	 *
+	 * @return array
+	 */
     public function getTotalOrdersByMonth(): array {
         $implode = [];
 
@@ -92,6 +119,7 @@ class ModelExtensionReportSale extends Model {
 
         for ($i = 1; $i <= date('t'); $i++) {
             $date = date('Y') . '-' . date('m') . '-' . $i;
+
             $order_data[date('j', strtotime($date))] = [
                 'day'   => date('d', strtotime($date)),
                 'total' => 0
@@ -110,6 +138,11 @@ class ModelExtensionReportSale extends Model {
         return $order_data;
     }
 
+	/**
+	 * getTotalOrdersByYear
+	 *
+	 * @return array
+	 */
     public function getTotalOrdersByYear(): array {
         $implode = [];
 
@@ -138,6 +171,13 @@ class ModelExtensionReportSale extends Model {
         return $order_data;
     }
 
+	/**
+	 * getOrders
+	 *
+	 * @param array $data
+	 *
+	 * @return array
+	 */
     public function getOrders(array $data = []): array {
         $sql = "SELECT MIN(`o`.`date_added`) AS `date_start`, MAX(`o`.`date_added`) AS `date_end`, COUNT(*) AS `orders`, SUM((SELECT SUM(`op`.`quantity`) FROM `" . DB_PREFIX . "order_product` `op` WHERE `op`.`order_id` = `o`.`order_id` GROUP BY `op`.`order_id`)) AS `products`, SUM((SELECT SUM(`ot`.`value`) FROM `" . DB_PREFIX . "order_total` `ot` WHERE `ot`.`order_id` = `o`.`order_id` AND `ot`.`code` = 'tax' GROUP BY `ot`.`order_id`)) AS `tax`, SUM(`o`.`total`) AS `total` FROM `" . DB_PREFIX . "order` `o`";
 
@@ -196,6 +236,13 @@ class ModelExtensionReportSale extends Model {
         return $query->rows;
     }
 
+	/**
+	 * getTotalOrders
+	 *
+	 * @param array $data
+	 *
+	 * @return int
+	 */
     public function getTotalOrders(array $data = []): int {
         if (!empty($data['filter_group'])) {
             $group = $data['filter_group'];
@@ -238,6 +285,13 @@ class ModelExtensionReportSale extends Model {
         return (int)$query->row['total'];
     }
 
+	/**
+	 * getTaxes
+	 *
+	 * @param array $data
+	 *
+	 * @return array
+	 */
     public function getTaxes(array $data = []): array {
         $sql = "SELECT MIN(`o`.`date_added`) AS `date_start`, MAX(`o`.`date_added`) AS `date_end`, `ot`.`title`, SUM(`ot`.`value`) AS `total`, COUNT(`o`.`order_id`) AS `orders` FROM `" . DB_PREFIX . "order` `o` LEFT JOIN `" . DB_PREFIX . "order_total` `ot` ON (`ot`.`order_id` = `o`.`order_id`) WHERE `ot`.`code` = 'tax'";
 
@@ -294,6 +348,13 @@ class ModelExtensionReportSale extends Model {
         return $query->rows;
     }
 
+	/**
+	 * getTotalTaxes
+	 *
+	 * @param array $data
+	 *
+	 * @return int
+	 */
     public function getTotalTaxes(array $data = []): int {
         if (!empty($data['filter_group'])) {
             $group = $data['filter_group'];
@@ -338,6 +399,13 @@ class ModelExtensionReportSale extends Model {
         return (int)$query->row['total'];
     }
 
+	/**
+	 * getShipping
+	 *
+	 * @param array $data
+	 *
+	 * @return array
+	 */
     public function getShipping(array $data = []): array {
         $sql = "SELECT MIN(`o`.`date_added`) AS `date_start`, MAX(`o`.`date_added`) AS `date_end`, `ot`.`title`, SUM(`ot`.`value`) AS `total`, COUNT(`o`.`order_id`) AS `orders` FROM `" . DB_PREFIX . "order` `o` LEFT JOIN `" . DB_PREFIX . "order_total` `ot` ON (`o`.`order_id` = `ot`.`order_id`) WHERE `ot`.`code` = 'shipping'";
 
@@ -394,6 +462,13 @@ class ModelExtensionReportSale extends Model {
         return $query->rows;
     }
 
+	/**
+	 * getTotalShipping
+	 *
+	 * @param array $data
+	 *
+	 * @return int
+	 */
     public function getTotalShipping(array $data = []): int {
         if (!empty($data['filter_group'])) {
             $group = $data['filter_group'];

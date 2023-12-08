@@ -6,6 +6,8 @@
  */
 class ModelCatalogInformation extends Model {
 	/**
+	 * addInformation
+	 *
 	 * @param array $data
 	 *
 	 * @return int
@@ -48,6 +50,8 @@ class ModelCatalogInformation extends Model {
     }
 
 	/**
+	 * editInformation
+	 *
 	 * @param int   $information_id
 	 * @param array $data
 	 *
@@ -94,6 +98,8 @@ class ModelCatalogInformation extends Model {
     }
 
 	/**
+	 * deleteInformation
+	 *
 	 * @param int $information_id
 	 *
 	 * @return void
@@ -109,6 +115,8 @@ class ModelCatalogInformation extends Model {
     }
 
 	/**
+	 * getInformation
+	 *
 	 * @param int $information_id
 	 *
 	 * @return array
@@ -120,6 +128,7 @@ class ModelCatalogInformation extends Model {
     }
 
 	/**
+	 * getInformations
 	 * @param array $data
 	 *
 	 * @return array
@@ -176,6 +185,8 @@ class ModelCatalogInformation extends Model {
     }
 
 	/**
+	 * getDescriptions
+	 *
 	 * @param int $information_id
 	 *
 	 * @return array
@@ -199,6 +210,8 @@ class ModelCatalogInformation extends Model {
     }
 
 	/**
+	 * getStores
+	 *
 	 * @param int $information_id
 	 *
 	 * @return array
@@ -216,6 +229,8 @@ class ModelCatalogInformation extends Model {
     }
 
 	/**
+	 * getInformationSeoUrls
+	 *
 	 * @param int $information_id
 	 *
 	 * @return array
@@ -233,6 +248,8 @@ class ModelCatalogInformation extends Model {
     }
 
 	/**
+	 * getInformationLayouts
+	 *
 	 * @param int $information_id
 	 *
 	 * @return array
@@ -250,6 +267,8 @@ class ModelCatalogInformation extends Model {
     }
 
 	/**
+	 * getTotalInformations
+	 *
 	 * @return int
 	 */
     public function getTotalInformations(): int {
@@ -259,6 +278,8 @@ class ModelCatalogInformation extends Model {
     }
 
 	/**
+	 * getTotalInformationsByLayoutId
+	 *
 	 * @param int $layout_id
 	 *
 	 * @return int

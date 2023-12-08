@@ -6,6 +6,8 @@
  */
 class ModelMarketingMarketing extends Model {
 	/**
+	 * addMarketing
+	 *
 	 * @param array $data
 	 *
 	 * @return int
@@ -17,6 +19,8 @@ class ModelMarketingMarketing extends Model {
     }
 
 	/**
+	 * editMarketing
+	 *
 	 * @param int   $marketing_id
 	 * @param array $data
 	 *
@@ -27,6 +31,8 @@ class ModelMarketingMarketing extends Model {
     }
 
 	/**
+	 * deleteMarketing
+	 *
 	 * @param int $marketing_id
 	 *
 	 * @return void
@@ -36,6 +42,8 @@ class ModelMarketingMarketing extends Model {
     }
 
 	/**
+	 * getMarketing
+	 *
 	 * @param int $marketing_id
 	 *
 	 * @return array
@@ -47,6 +55,8 @@ class ModelMarketingMarketing extends Model {
     }
 
 	/**
+	 * getMarketingByCode
+	 *
 	 * @param string $code
 	 *
 	 * @return array
@@ -58,6 +68,8 @@ class ModelMarketingMarketing extends Model {
     }
 
 	/**
+	 * getMarketings
+	 *
 	 * @param array $data
 	 *
 	 * @return array
@@ -127,6 +139,8 @@ class ModelMarketingMarketing extends Model {
     }
 
 	/**
+	 * getTotalMarketings
+	 *
 	 * @param array $data
 	 *
 	 * @return int

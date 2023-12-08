@@ -5,7 +5,11 @@
  * @package Admin\Model\Extension\Payment
  */
 class ModelExtensionPaymentPayPal extends Model {
-
+	/**
+	 * getTotalSales
+	 *
+	 * @return int
+	 */
     public function getTotalSales(): int {
         $implode = [];
 
@@ -48,6 +52,11 @@ class ModelExtensionPaymentPayPal extends Model {
         return $sale_data;
     }
 
+	/**
+	 * getTotalSalesByWeek
+	 *
+	 * @return array
+	 */
     public function getTotalSalesByWeek(): array {
         $implode = [];
 
@@ -82,6 +91,11 @@ class ModelExtensionPaymentPayPal extends Model {
         return $sale_data;
     }
 
+	/**
+	 * getTotalSalesByMonth
+	 *
+	 * @return array
+	 */
     public function getTotalSalesByMonth(): array {
         $implode = [];
 
@@ -114,6 +128,11 @@ class ModelExtensionPaymentPayPal extends Model {
         return $sale_data;
     }
 
+	/**
+	 * getTotalSalesByYear
+	 *
+	 * @return array
+	 */
     public function getTotalSalesByYear(): array {
         $implode = [];
 
@@ -144,17 +163,21 @@ class ModelExtensionPaymentPayPal extends Model {
         return $sale_data;
     }
 
-    public function getCountryByCode(string $code): array {
-        $query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "country` WHERE `iso_code_2` = '" . $this->db->escape($code) . "'");
-
-        return $query->row;
-    }
-
+	/**
+	 * setAgreeStatus
+	 *
+	 * @return void
+	 */
     public function setAgreeStatus(): void {
         $this->db->query("UPDATE `" . DB_PREFIX . "country` SET `status` = '0' WHERE (`iso_code_2` = 'CU' OR `iso_code_2` = 'IR' OR `iso_code_2` = 'SY' OR `iso_code_2` = 'KP')");
         $this->db->query("UPDATE `" . DB_PREFIX . "zone` SET `status` = '0' WHERE `country_id` = '220' AND (`code` = '43' OR `code` = '14' OR `code` = '09')");
     }
 
+	/**
+	 * getAgreeStatus
+	 *
+	 * @return bool
+	 */
     public function getAgreeStatus(): bool {
         $agree_status = true;
 
@@ -173,7 +196,15 @@ class ModelExtensionPaymentPayPal extends Model {
         return $agree_status;
     }
 
-    public function checkVersion(string $opencart_version, string $paypal_version): array|int {
+	/**
+	 * checkVersion
+	 *
+	 * @param string $opencart_version
+	 * @param string $paypal_version
+	 *
+	 * @return array
+	 */
+    public function checkVersion(string $opencart_version, string $paypal_version): array {
         $curl = curl_init();
 
         curl_setopt($curl, CURLOPT_URL, 'https://www.opencart.com/index.php?route=api/promotion/paypalCheckoutIntegration&opencart=' . $opencart_version . '&paypal=' . $paypal_version);
@@ -194,10 +225,17 @@ class ModelExtensionPaymentPayPal extends Model {
         if ($result) {
             return $result;
         } else {
-            return 0;
+            return [];
         }
     }
 
+	/**
+	 * sendContact
+	 *
+	 * @param array $data
+	 *
+	 * @return void
+	 */
     public function sendContact(array $data): void {
         $curl = curl_init();
 
@@ -216,6 +254,14 @@ class ModelExtensionPaymentPayPal extends Model {
         curl_close($curl);
     }
 
+	/**
+	 * Logger
+	 *
+	 * @param array  $data
+	 * @param string $title
+	 *
+	 * @return void
+	 */
     public function log(array $data, string $title = null): void {
         // Setting
         $_config = new \Config();

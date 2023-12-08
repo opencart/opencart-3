@@ -6,6 +6,8 @@
  */
 class ModelLocalisationZone extends Model {
 	/**
+	 * addZone
+	 *
 	 * @param array $data
 	 *
 	 * @return int
@@ -19,6 +21,8 @@ class ModelLocalisationZone extends Model {
     }
 
 	/**
+	 * editZone
+	 *
 	 * @param int   $zone_id
 	 * @param array $data
 	 *
@@ -31,6 +35,8 @@ class ModelLocalisationZone extends Model {
     }
 
 	/**
+	 * deleteZone
+	 *
 	 * @param int $zone_id
 	 *
 	 * @return void
@@ -42,6 +48,8 @@ class ModelLocalisationZone extends Model {
     }
 
 	/**
+	 * getZone
+	 *
 	 * @param int $zone_id
 	 *
 	 * @return array
@@ -53,6 +61,8 @@ class ModelLocalisationZone extends Model {
     }
 
 	/**
+	 * getZones
+	 *
 	 * @param array $data
 	 *
 	 * @return array
@@ -96,6 +106,8 @@ class ModelLocalisationZone extends Model {
     }
 
 	/**
+	 * getZonesByCountryId
+	 *
 	 * @param int $country_id
 	 *
 	 * @return array
@@ -115,6 +127,8 @@ class ModelLocalisationZone extends Model {
     }
 
 	/**
+	 * getTotalZones
+	 *
 	 * @param array $data
 	 *
 	 * @return int
@@ -126,6 +140,8 @@ class ModelLocalisationZone extends Model {
     }
 
 	/**
+	 * getTotalZonesByCountryId
+	 *
 	 * @param int $country_id
 	 *
 	 * @return int

@@ -6,6 +6,8 @@
  */
 class ModelCustomerCustomField extends Model {
 	/**
+	 * addCustomField
+	 *
 	 * @param array $data
 	 *
 	 * @return int
@@ -43,6 +45,8 @@ class ModelCustomerCustomField extends Model {
     }
 
 	/**
+	 * editCustomField
+	 *
 	 * @param int   $custom_field_id
 	 * @param array $data
 	 *
@@ -88,6 +92,8 @@ class ModelCustomerCustomField extends Model {
     }
 
 	/**
+	 * deleteCustomField
+	 *
 	 * @param int $custom_field_id
 	 *
 	 * @return void
@@ -101,6 +107,8 @@ class ModelCustomerCustomField extends Model {
     }
 
 	/**
+	 * getCustomField
+	 *
 	 * @param int $custom_field_id
 	 *
 	 * @return array
@@ -112,6 +120,8 @@ class ModelCustomerCustomField extends Model {
     }
 
 	/**
+	 * getCustomFields
+	 *
 	 * @param array $data
 	 *
 	 * @return array
@@ -169,6 +179,8 @@ class ModelCustomerCustomField extends Model {
     }
 
 	/**
+	 * getDescriptions
+	 *
 	 * @param int $custom_field_id
 	 *
 	 * @return array
@@ -186,6 +198,8 @@ class ModelCustomerCustomField extends Model {
     }
 
 	/**
+	 * getValue
+	 *
 	 * @param int $custom_field_value_id
 	 *
 	 * @return array
@@ -197,6 +211,8 @@ class ModelCustomerCustomField extends Model {
     }
 
 	/**
+	 * getValues
+	 *
 	 * @param int $custom_field_id
 	 *
 	 * @return array
@@ -217,6 +233,8 @@ class ModelCustomerCustomField extends Model {
     }
 
 	/**
+	 * getCustomerGroups
+	 *
 	 * @param int $custom_field_id
 	 *
 	 * @return array
@@ -228,6 +246,8 @@ class ModelCustomerCustomField extends Model {
     }
 
 	/**
+	 * getValueDescriptions
+	 *
 	 * @param int $custom_field_id
 	 *
 	 * @return array
@@ -257,6 +277,8 @@ class ModelCustomerCustomField extends Model {
     }
 
 	/**
+	 * getTotalCustomFields
+	 *
 	 * @return int
 	 */
     public function getTotalCustomFields(): int {

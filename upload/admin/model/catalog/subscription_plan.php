@@ -6,6 +6,8 @@
  */
 class ModelCatalogSubscriptionPlan extends Model {
 	/**
+	 * addSubscriptionPlan
+	 *
 	 * @param array $data
 	 *
 	 * @return int
@@ -23,6 +25,8 @@ class ModelCatalogSubscriptionPlan extends Model {
     }
 
 	/**
+	 * editSubscriptionPlan
+	 *
 	 * @param int   $subscription_plan_id
 	 * @param array $data
 	 *
@@ -39,6 +43,8 @@ class ModelCatalogSubscriptionPlan extends Model {
     }
 
 	/**
+	 * copySubscriptionPlan
+	 *
 	 * @param int $subscription_plan_id
 	 *
 	 * @return void
@@ -52,6 +58,8 @@ class ModelCatalogSubscriptionPlan extends Model {
     }
 
 	/**
+	 * deleteSubscriptionPlan
+	 *
 	 * @param int $subscription_plan_id
 	 *
 	 * @return void
@@ -65,6 +73,8 @@ class ModelCatalogSubscriptionPlan extends Model {
     }
 
 	/**
+	 * getSubscriptionPlan
+	 *
 	 * @param int $subscription_plan_id
 	 *
 	 * @return array
@@ -76,6 +86,8 @@ class ModelCatalogSubscriptionPlan extends Model {
     }
 
 	/**
+	 * getSubscriptionPlanDescription
+	 *
 	 * @param int $subscription_plan_id
 	 *
 	 * @return array
@@ -96,6 +108,8 @@ class ModelCatalogSubscriptionPlan extends Model {
     }
 
 	/**
+	 * getSubscriptionPlans
+	 *
 	 * @param array $data
 	 *
 	 * @return array
@@ -142,6 +156,8 @@ class ModelCatalogSubscriptionPlan extends Model {
     }
 
 	/**
+	 * getTotalSubscriptionPlans
+	 *
 	 * @return int
 	 */
     public function getTotalSubscriptionPlans(): int {

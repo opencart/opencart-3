@@ -1,6 +1,8 @@
 <?php
 class ModelLocalisationLanguage extends Model {
 	/**
+	 * addLanguage
+	 *
 	 * @param array $data
 	 *
 	 * @return int
@@ -200,6 +202,8 @@ class ModelLocalisationLanguage extends Model {
     }
 
 	/**
+	 * editLanguage
+	 *
 	 * @param int   $language_id
 	 * @param array $data
 	 *
@@ -220,6 +224,8 @@ class ModelLocalisationLanguage extends Model {
     }
 
 	/**
+	 * deleteLanguage
+	 *
 	 * @param int $language_id
 	 *
 	 * @return void
@@ -233,6 +239,8 @@ class ModelLocalisationLanguage extends Model {
     }
 
 	/**
+	 * getLanguage
+	 *
 	 * @param int $language_id
 	 *
 	 * @return array
@@ -244,6 +252,8 @@ class ModelLocalisationLanguage extends Model {
     }
 
 	/**
+	 * getLanguages
+	 *
 	 * @param array $data
 	 *
 	 * @return array
@@ -314,6 +324,8 @@ class ModelLocalisationLanguage extends Model {
     }
 
 	/**
+	 * getLanguageByCode
+	 *
 	 * @param string $code
 	 *
 	 * @return array
@@ -325,6 +337,8 @@ class ModelLocalisationLanguage extends Model {
     }
 
 	/**
+	 * getTotalLanguages
+	 *
 	 * @return int
 	 */
     public function getTotalLanguages(): int {

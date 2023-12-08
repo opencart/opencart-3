@@ -6,6 +6,8 @@
  */
 class ModelSettingExtension extends Model {
 	/**
+	 * getExtensionsByType
+	 *
 	 * @param string $type
 	 *
 	 * @return array
@@ -23,6 +25,8 @@ class ModelSettingExtension extends Model {
     }
 
 	/**
+	 * getExtensionByCode
+	 *
 	 * @param string $type
 	 * @param string $code
 	 *
@@ -35,6 +39,8 @@ class ModelSettingExtension extends Model {
     }
 
 	/**
+	 * Install
+	 *
 	 * @param string $type
 	 * @param string $code
 	 *
@@ -49,6 +55,8 @@ class ModelSettingExtension extends Model {
     }
 
 	/**
+	 * Uninstall
+	 *
 	 * @param string $type
 	 * @param string $code
 	 *
@@ -60,6 +68,8 @@ class ModelSettingExtension extends Model {
     }
 
 	/**
+	 * addExtensionInstall
+	 *
 	 * @param string $filename
 	 * @param int    $extension_download_id
 	 *
@@ -72,6 +82,8 @@ class ModelSettingExtension extends Model {
     }
 
 	/**
+	 * deleteExtensionInstall
+	 *
 	 * @param int $extension_install_id
 	 *
 	 * @return void
@@ -81,6 +93,8 @@ class ModelSettingExtension extends Model {
     }
 
 	/**
+	 * getInstalls
+	 *
 	 * @param int $start
 	 * @param int $limit
 	 *
@@ -101,6 +115,8 @@ class ModelSettingExtension extends Model {
     }
 
 	/**
+	 * getInstallByExtensionDownloadId
+	 *
 	 * @param int $extension_download_id
 	 *
 	 * @return array
@@ -112,6 +128,8 @@ class ModelSettingExtension extends Model {
     }
 
 	/**
+	 * getExtensionInstallByCode
+	 *
 	 * @param string $code
 	 *
 	 * @return array
@@ -123,6 +141,8 @@ class ModelSettingExtension extends Model {
     }
 
 	/**
+	 * getTotalInstalls
+	 *
 	 * @return int
 	 */
     public function getTotalInstalls(): int {
@@ -132,6 +152,8 @@ class ModelSettingExtension extends Model {
     }
 
 	/**
+	 * addPath
+	 *
 	 * @param int    $extension_install_id
 	 * @param string $path
 	 *
@@ -142,6 +164,8 @@ class ModelSettingExtension extends Model {
     }
 
 	/**
+	 * deletePath
+	 *
 	 * @param int $extension_path_id
 	 *
 	 * @return void
@@ -151,6 +175,8 @@ class ModelSettingExtension extends Model {
     }
 
 	/**
+	 * getPathsByExtensionInstallId
+	 *
 	 * @param int $extension_install_id
 	 *
 	 * @return array
@@ -162,6 +188,8 @@ class ModelSettingExtension extends Model {
     }
 
 	/**
+	 * getPaths
+	 *
 	 * @param string $path
 	 *
 	 * @return array
@@ -173,6 +201,8 @@ class ModelSettingExtension extends Model {
     }
 
 	/**
+	 * getTotalPaths
+	 *
 	 * @param string $path
 	 *
 	 * @return int

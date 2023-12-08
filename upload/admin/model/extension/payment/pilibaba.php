@@ -5,6 +5,11 @@
  * @package Admin\Model\Extension\Payment
  */
 class ModelExtensionPaymentPilibaba extends Model {
+	/**
+	 * Install
+	 *
+	 * @return void
+	 */
     public function install(): void {
         $this->db->query("CREATE TABLE IF NOT EXISTS `" . DB_PREFIX . "pilibaba_order` (
 			`pilibaba_order_id` int(11) NOT NULL AUTO_INCREMENT,
@@ -17,6 +22,11 @@ class ModelExtensionPaymentPilibaba extends Model {
 		) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci");
     }
 
+	/**
+	 * Uninstall
+	 *
+	 * @return void
+	 */
     public function uninstall(): void {
         $this->db->query("DROP TABLE IF EXISTS `" . DB_PREFIX . "pilibaba_order`");
 
@@ -25,6 +35,11 @@ class ModelExtensionPaymentPilibaba extends Model {
         $this->log('Module uninstalled');
     }
 
+	/**
+	 * getCurrencies
+	 *
+	 * @return array
+	 */
     public function getCurrencies(): array {
         $ch = curl_init();
 
@@ -42,6 +57,11 @@ class ModelExtensionPaymentPilibaba extends Model {
         return json_decode($response, true);
     }
 
+	/**
+	 * getWarehouses
+	 *
+	 * @return array
+	 */
     public function getWarehouses(): array {
         $ch = curl_init();
 
@@ -59,6 +79,13 @@ class ModelExtensionPaymentPilibaba extends Model {
         return json_decode($response, true);
     }
 
+	/**
+	 * getOrder
+	 *
+	 * @param int $order_id
+	 *
+	 * @return array
+	 */
     public function getOrder(int $order_id): array {
         $query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "pilibaba_order` WHERE `order_id` = '" . (int)$order_id . "' LIMIT 1");
 
@@ -69,6 +96,18 @@ class ModelExtensionPaymentPilibaba extends Model {
         }
     }
 
+	/**
+	 * Register
+	 *
+	 * @param string $email
+	 * @param string $password
+	 * @param string $currency
+	 * @param string $warehouse
+	 * @param string $country
+	 * @param string $environment
+	 *
+	 * @return array
+	 */
     public function register(string $email, string $password, string $currency, string $warehouse, string $country, string $environment): array {
         $this->log('Posting register');
 
@@ -122,6 +161,7 @@ class ModelExtensionPaymentPilibaba extends Model {
         if (curl_errno($ch)) {
             $this->log('cURL error: ' . curl_errno($ch));
         }
+
         curl_close($ch);
 
         $this->log('Response: ' . print_r($response, true));
@@ -129,6 +169,15 @@ class ModelExtensionPaymentPilibaba extends Model {
         return json_decode($response, true);
     }
 
+	/**
+	 * updateTrackingNumber
+	 *
+	 * @param int    $order_id
+	 * @param string $tracking_number
+	 * @param string $merchant_number
+	 *
+	 * @return void
+	 */
     public function updateTrackingNumber(int $order_id, string $tracking_number, string $merchant_number): void {
         $this->log('Posting tracking');
 
@@ -164,6 +213,11 @@ class ModelExtensionPaymentPilibaba extends Model {
         $this->db->query("UPDATE `" . DB_PREFIX . "pilibaba_order` SET `tracking` = '" . $this->db->escape($tracking_number) . "' WHERE `order_id` = '" . (int)$order_id . "'");
     }
 
+	/**
+	 * enablePiliExpress
+	 *
+	 * @return void
+	 */
     public function enablePiliExpress(): void {
         $query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "extension` WHERE `type` = 'shipping' AND `code` = 'pilibaba'");
 
@@ -172,10 +226,22 @@ class ModelExtensionPaymentPilibaba extends Model {
         }
     }
 
+	/**
+	 * disablePiliExpress
+	 *
+	 * @return void
+	 */
     public function disablePiliExpress(): void {
         $this->db->query("DELETE FROM `" . DB_PREFIX . "extension` WHERE `type` = 'shipping' AND `code` = 'pilibaba'");
     }
 
+	/**
+	 * Logger
+	 *
+	 * @param string $data
+	 *
+	 * @return void
+	 */
     public function log(string $data): void {
         if ($this->config->has('payment_pilibaba_logging') && $this->config->get('payment_pilibaba_logging')) {
             $log = new \Log('pilibaba.log');

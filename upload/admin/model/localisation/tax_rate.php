@@ -6,6 +6,8 @@
  */
 class ModelLocalisationTaxRate extends Model {
 	/**
+	 * addTaxRate
+	 *
 	 * @param array $data
 	 *
 	 * @return int
@@ -25,6 +27,8 @@ class ModelLocalisationTaxRate extends Model {
     }
 
 	/**
+	 * editTaxRate
+	 *
 	 * @param int   $tax_rate_id
 	 * @param array $data
 	 *
@@ -43,6 +47,8 @@ class ModelLocalisationTaxRate extends Model {
     }
 
 	/**
+	 * deleteTaxRate
+	 *
 	 * @param int $tax_rate_id
 	 *
 	 * @return void
@@ -53,6 +59,8 @@ class ModelLocalisationTaxRate extends Model {
     }
 
 	/**
+	 * getTaxRate
+	 *
 	 * @param int $tax_rate_id
 	 *
 	 * @return array
@@ -64,6 +72,8 @@ class ModelLocalisationTaxRate extends Model {
     }
 
 	/**
+	 * getTaxRates
+	 *
 	 * @param array $data
 	 *
 	 * @return array
@@ -110,6 +120,8 @@ class ModelLocalisationTaxRate extends Model {
     }
 
 	/**
+	 * getCustomerGroups
+	 *
 	 * @param int $tax_rate_id
 	 *
 	 * @return array
@@ -127,6 +139,8 @@ class ModelLocalisationTaxRate extends Model {
     }
 
 	/**
+	 * getTotalTaxRates
+	 *
 	 * @return int
 	 */
     public function getTotalTaxRates(): int {
@@ -136,6 +150,8 @@ class ModelLocalisationTaxRate extends Model {
     }
 
 	/**
+	 * getTotalTaxRatesByGeoZoneId
+	 *
 	 * @param int $geo_zone_id
 	 *
 	 * @return int

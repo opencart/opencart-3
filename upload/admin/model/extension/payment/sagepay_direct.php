@@ -5,6 +5,11 @@
  * @package Admin\Model\Extension\Payment
  */
 class ModelExtensionPaymentSagepayDirect extends Model {
+	/**
+	 * Install
+	 *
+	 * @return void
+	 */
     public function install(): void {
         $this->db->query("
 			CREATE TABLE IF NOT EXISTS `" . DB_PREFIX . "sagepay_direct_order` (
@@ -67,6 +72,11 @@ class ModelExtensionPaymentSagepayDirect extends Model {
 			) ENGINE=MyISAM DEFAULT COLLATE=utf8_general_ci;");
     }
 
+	/**
+	 * Uninstall
+	 *
+	 * @return void
+	 */
     public function uninstall(): void {
         $this->db->query("DROP TABLE IF EXISTS `" . DB_PREFIX . "sagepay_direct_order`;");
         $this->db->query("DROP TABLE IF EXISTS `" . DB_PREFIX . "sagepay_direct_order_transaction`;");
@@ -74,6 +84,13 @@ class ModelExtensionPaymentSagepayDirect extends Model {
         $this->db->query("DROP TABLE IF EXISTS `" . DB_PREFIX . "sagepay_direct_card`;");
     }
 
+	/**
+	 * Void
+	 *
+	 * @param int $order_id
+	 *
+	 * @return array
+	 */
     public function void(int $order_id): array {
         $sagepay_direct_order = $this->getOrder($order_id);
 
@@ -82,12 +99,15 @@ class ModelExtensionPaymentSagepayDirect extends Model {
 
             if ($this->config->get('payment_sagepay_direct_test') == 'live') {
                 $url = 'https://live.sagepay.com/gateway/service/void.vsp';
+
                 $void_data['VPSProtocol'] = '3.00';
             } elseif ($this->config->get('payment_sagepay_direct_test') == 'test') {
                 $url = 'https://test.sagepay.com/gateway/service/void.vsp';
+
                 $void_data['VPSProtocol'] = '3.00';
             } elseif ($this->config->get('payment_sagepay_direct_test') == 'sim') {
                 $url = 'https://test.sagepay.com/Simulator/VSPServerGateway.asp?Service=VendorVoidTx';
+
                 $void_data['VPSProtocol'] = '2.23';
             }
 
@@ -106,12 +126,29 @@ class ModelExtensionPaymentSagepayDirect extends Model {
         }
     }
 
+	/**
+	 * updateVoidStatus
+	 *
+	 * @param int $sagepay_direct_order_id
+	 * @param int $status
+	 *
+	 * @return void
+	 */
     public function updateVoidStatus(int $sagepay_direct_order_id, int $status): void {
         $this->db->query("UPDATE `" . DB_PREFIX . "sagepay_direct_order` SET `void_status` = '" . (int)$status . "' WHERE `sagepay_direct_order_id` = '" . (int)$sagepay_direct_order_id . "'");
     }
 
+	/**
+	 * Release
+	 *
+	 * @param int   $order_id
+	 * @param array $amount
+	 *
+	 * @return array
+	 */
     public function release(int $order_id, float $amount): array {
         $sagepay_direct_order = $this->getOrder($order_id);
+
         $total_released = $this->getTotalReleased($sagepay_direct_order['sagepay_direct_order_id']);
 
         if ($sagepay_direct_order && $sagepay_direct_order['release_status'] == 0 && ($total_released + $amount <= $sagepay_direct_order['total'])) {
@@ -119,12 +156,15 @@ class ModelExtensionPaymentSagepayDirect extends Model {
 
             if ($this->config->get('payment_sagepay_direct_test') == 'live') {
                 $url = 'https://live.sagepay.com/gateway/service/release.vsp';
+
                 $release_data['VPSProtocol'] = '3.00';
             } elseif ($this->config->get('payment_sagepay_direct_test') == 'test') {
                 $url = 'https://test.sagepay.com/gateway/service/release.vsp';
+
                 $release_data['VPSProtocol'] = '3.00';
             } elseif ($this->config->get('payment_sagepay_direct_test') == 'sim') {
                 $url = 'https://test.sagepay.com/Simulator/VSPServerGateway.asp?Service=VendorReleaseTx';
+
                 $release_data['VPSProtocol'] = '2.23';
             }
 
@@ -144,10 +184,26 @@ class ModelExtensionPaymentSagepayDirect extends Model {
         }
     }
 
+	/**
+	 * updateReleaseStatus
+	 *
+	 * @param int $sagepay_direct_order_id
+	 * @param int $status
+	 *
+	 * @return void
+	 */
     public function updateReleaseStatus(int $sagepay_direct_order_id, int $status): void {
         $this->db->query("UPDATE `" . DB_PREFIX . "sagepay_direct_order` SET `release_status` = '" . (int)$status . "' WHERE `sagepay_direct_order_id` = '" . (int)$sagepay_direct_order_id . "'");
     }
 
+	/**
+	 * Rebate
+	 *
+	 * @param int   $order_id
+	 * @param float $amount
+	 *
+	 * @return array
+	 */
     public function rebate(int $order_id, float $amount): array {
         $sagepay_direct_order = $this->getOrder($order_id);
 
@@ -156,12 +212,15 @@ class ModelExtensionPaymentSagepayDirect extends Model {
 
             if ($this->config->get('payment_sagepay_direct_test') == 'live') {
                 $url = 'https://live.sagepay.com/gateway/service/refund.vsp';
+
                 $refund_data['VPSProtocol'] = '3.00';
             } elseif ($this->config->get('payment_sagepay_direct_test') == 'test') {
                 $url = 'https://test.sagepay.com/gateway/service/refund.vsp';
+
                 $refund_data['VPSProtocol'] = '3.00';
             } elseif ($this->config->get('payment_sagepay_direct_test') == 'sim') {
                 $url = 'https://test.sagepay.com/Simulator/VSPServerGateway.asp?Service=VendorRefundTx';
+
                 $refund_data['VPSProtocol'] = '2.23';
             }
 
@@ -184,10 +243,25 @@ class ModelExtensionPaymentSagepayDirect extends Model {
         }
     }
 
+	/**
+	 * updateRebateStatus
+	 *
+	 * @param int $sagepay_direct_order_id
+	 * @param int $status
+	 *
+	 * @return void
+	 */
     public function updateRebateStatus(int $sagepay_direct_order_id, int $status): void {
         $this->db->query("UPDATE `" . DB_PREFIX . "sagepay_direct_order` SET `rebate_status` = '" . (int)$status . "' WHERE `sagepay_direct_order_id` = '" . (int)$sagepay_direct_order_id . "'");
     }
 
+	/**
+	 * getOrder
+	 *
+	 * @param int $order_id
+	 *
+	 * @return array
+	 */
     public function getOrder(int $order_id): array {
         $query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "sagepay_direct_order` WHERE `order_id` = '" . (int)$order_id . "' LIMIT 1");
 
@@ -201,7 +275,7 @@ class ModelExtensionPaymentSagepayDirect extends Model {
         }
     }
 
-    private function getTransactions(int $sagepay_direct_order_id): array {
+    private function getTransactions($sagepay_direct_order_id) {
         $query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "sagepay_direct_order_transaction` WHERE `sagepay_direct_order_id` = '" . (int)$sagepay_direct_order_id . "'");
 
         if ($query->num_rows) {
@@ -211,22 +285,53 @@ class ModelExtensionPaymentSagepayDirect extends Model {
         }
     }
 
+	/**
+	 * addTransaction
+	 *
+	 * @param int    $sagepay_direct_order_id
+	 * @param string $type
+	 * @param float  $total
+	 *
+	 * @return void
+	 */
     public function addTransaction(int $sagepay_direct_order_id, string $type, float $total): void {
         $this->db->query("INSERT INTO `" . DB_PREFIX . "sagepay_direct_order_transaction` SET `sagepay_direct_order_id` = '" . (int)$sagepay_direct_order_id . "', `date_added` = NOW(), `type` = '" . $this->db->escape($type) . "', `amount` = '" . (float)$total . "'");
     }
 
+	/**
+	 * getTotalReleased
+	 *
+	 * @param int $sagepay_direct_order_id
+	 *
+	 * @return float
+	 */
     public function getTotalReleased(int $sagepay_direct_order_id): float {
         $query = $this->db->query("SELECT SUM(`amount`) AS `total` FROM `" . DB_PREFIX . "sagepay_direct_order_transaction` WHERE `sagepay_direct_order_id` = '" . (int)$sagepay_direct_order_id . "' AND (`type` = 'payment' OR `type` = 'rebate')");
 
         return (float)$query->row['total'];
     }
 
+	/**
+	 * getTotalRebated
+	 *
+	 * @param int $sagepay_direct_order_id
+	 *
+	 * @return float
+	 */
     public function getTotalRebated(int $sagepay_direct_order_id): float {
         $query = $this->db->query("SELECT SUM(`amount`) AS `total` FROM `" . DB_PREFIX . "sagepay_direct_order_transaction` WHERE `sagepay_direct_order_id` = '" . (int)$sagepay_direct_order_id . "' AND `type` = 'rebate'");
 
         return (float)$query->row['total'];
     }
 
+	/**
+	 * sendCurl
+	 *
+	 * @param string $url
+	 * @param array  $payment_data
+	 *
+	 * @return array
+	 */
     public function sendCurl(string $url, array $payment_data): array {
         $data = [];
 
@@ -251,9 +356,11 @@ class ModelExtensionPaymentSagepayDirect extends Model {
         foreach ($response_info as $string) {
             if (strpos($string, '=') && isset($i)) {
                 $parts = explode('=', $string, 2);
+
                 $data['RepeatResponseData_' . $i][trim($parts[0])] = trim($parts[1]);
             } elseif (strpos($string, '=')) {
                 $parts = explode('=', $string, 2);
+
                 $data[trim($parts[0])] = trim($parts[1]);
             }
         }
@@ -261,6 +368,14 @@ class ModelExtensionPaymentSagepayDirect extends Model {
         return $data;
     }
 
+	/**
+	 * Logger
+	 *
+	 * @param string $title
+	 * @param array  $data
+	 *
+	 * @return void
+	 */
     public function logger(string $title, array $data): void {
         if ($this->config->get('payment_sagepay_direct_debug')) {
             $log = new \Log('sagepay_direct.log');

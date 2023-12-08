@@ -6,6 +6,8 @@
  */
 class ModelLocalisationReturnsStatus extends Model {
 	/**
+	 * addReturnStatus
+	 *
 	 * @param array $data
 	 *
 	 * @return int
@@ -27,6 +29,8 @@ class ModelLocalisationReturnsStatus extends Model {
     }
 
 	/**
+	 * editReturnStatus
+	 *
 	 * @param int   $return_status_id
 	 * @param array $data
 	 *
@@ -43,6 +47,8 @@ class ModelLocalisationReturnsStatus extends Model {
     }
 
 	/**
+	 * deleteReturnStatus
+	 *
 	 * @param int $return_status_id
 	 *
 	 * @return void
@@ -54,6 +60,8 @@ class ModelLocalisationReturnsStatus extends Model {
     }
 
 	/**
+	 * getReturnStatus
+	 *
 	 * @param int $return_status_id
 	 *
 	 * @return array
@@ -65,6 +73,8 @@ class ModelLocalisationReturnsStatus extends Model {
     }
 
 	/**
+	 * getReturnStatuses
+	 *
 	 * @param array $data
 	 *
 	 * @return array
@@ -112,6 +122,8 @@ class ModelLocalisationReturnsStatus extends Model {
     }
 
 	/**
+	 * getDescriptions
+	 *
 	 * @param int $return_status_id
 	 *
 	 * @return array
@@ -129,6 +141,8 @@ class ModelLocalisationReturnsStatus extends Model {
     }
 
 	/**
+	 * getTotalReturnStatuses
+	 *
 	 * @return int
 	 */
     public function getTotalReturnStatuses(): int {

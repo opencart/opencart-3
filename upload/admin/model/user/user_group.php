@@ -6,6 +6,8 @@
  */
 class ModelUserUserGroup extends Model {
 	/**
+	 * addUserGroup
+	 *
 	 * @param array $data
 	 *
 	 * @return int
@@ -17,6 +19,8 @@ class ModelUserUserGroup extends Model {
     }
 
 	/**
+	 * editUserGroup
+	 *
 	 * @param int   $user_group_id
 	 * @param array $data
 	 *
@@ -27,6 +31,8 @@ class ModelUserUserGroup extends Model {
     }
 
 	/**
+	 * deleteUserGroup
+	 *
 	 * @param int $user_group_id
 	 *
 	 * @return void
@@ -36,6 +42,8 @@ class ModelUserUserGroup extends Model {
     }
 
 	/**
+	 * getUserGroup
+	 *
 	 * @param int $user_group_id
 	 *
 	 * @return array
@@ -52,6 +60,8 @@ class ModelUserUserGroup extends Model {
     }
 
 	/**
+	 * getUserGroups
+	 *
 	 * @param array $data
 	 *
 	 * @return array
@@ -85,6 +95,8 @@ class ModelUserUserGroup extends Model {
     }
 
 	/**
+	 * getTotalUserGroups
+	 *
 	 * @return int
 	 */
     public function getTotalUserGroups(): int {
@@ -94,6 +106,8 @@ class ModelUserUserGroup extends Model {
     }
 
 	/**
+	 * addPermission
+	 *
 	 * @param int    $user_group_id
 	 * @param string $type
 	 * @param string $route
@@ -112,6 +126,8 @@ class ModelUserUserGroup extends Model {
     }
 
 	/**
+	 * removePermission
+	 *
 	 * @param int    $user_group_id
 	 * @param string $type
 	 * @param string $route

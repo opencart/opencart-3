@@ -6,6 +6,8 @@
  */
 class ModelCatalogManufacturer extends Model {
 	/**
+	 * addManufacturer
+	 *
 	 * @param array $data
 	 *
 	 * @return int
@@ -42,6 +44,8 @@ class ModelCatalogManufacturer extends Model {
     }
 
 	/**
+	 * editManufacturer
+	 *
 	 * @param int   $manufacturer_id
 	 * @param array $data
 	 *
@@ -78,6 +82,8 @@ class ModelCatalogManufacturer extends Model {
     }
 
 	/**
+	 * deleteManufacturer
+	 *
 	 * @param int $manufacturer_id
 	 *
 	 * @return void
@@ -91,6 +97,8 @@ class ModelCatalogManufacturer extends Model {
     }
 
 	/**
+	 * getManufacturer
+	 *
 	 * @param int $manufacturer_id
 	 *
 	 * @return array
@@ -102,6 +110,8 @@ class ModelCatalogManufacturer extends Model {
     }
 
 	/**
+	 * getManufacturers
+	 *
 	 * @param array $data
 	 *
 	 * @return array
@@ -148,6 +158,8 @@ class ModelCatalogManufacturer extends Model {
     }
 
 	/**
+	 * getStores
+	 *
 	 * @param int $manufacturer_id
 	 *
 	 * @return array
@@ -165,6 +177,8 @@ class ModelCatalogManufacturer extends Model {
     }
 
 	/**
+	 * getSeoUrls
+	 *
 	 * @param int $manufacturer_id
 	 *
 	 * @return array
@@ -182,6 +196,8 @@ class ModelCatalogManufacturer extends Model {
     }
 
 	/**
+	 * getTotalManufacturers
+	 *
 	 * @return int
 	 */
     public function getTotalManufacturers(): int {

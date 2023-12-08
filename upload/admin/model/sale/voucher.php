@@ -6,6 +6,8 @@
  */
 class ModelSaleVoucher extends Model {
 	/**
+	 * addVoucher
+	 *
 	 * @param int   $subscription_id
 	 * @param array $data
 	 *
@@ -18,6 +20,8 @@ class ModelSaleVoucher extends Model {
     }
 
 	/**
+	 * editVoucher
+	 *
 	 * @param int $subscription_id
 	 * @param int $customer_payment_id
 	 *
@@ -28,6 +32,8 @@ class ModelSaleVoucher extends Model {
     }
 
 	/**
+	 * deleteVoucher
+	 *
 	 * @param int $voucher_id
 	 *
 	 * @return void
@@ -38,6 +44,8 @@ class ModelSaleVoucher extends Model {
     }
 
 	/**
+	 * getVoucher
+	 *
 	 * @param int $voucher_id
 	 *
 	 * @return array
@@ -49,6 +57,8 @@ class ModelSaleVoucher extends Model {
     }
 
 	/**
+	 * getVoucherByCode
+	 *
 	 * @param string $code
 	 *
 	 * @return array
@@ -60,6 +70,8 @@ class ModelSaleVoucher extends Model {
     }
 
 	/**
+	 * getVouchers
+	 *
 	 * @param array $data
 	 *
 	 * @return array
@@ -107,6 +119,8 @@ class ModelSaleVoucher extends Model {
     }
 
 	/**
+	 * getTotalVouchers
+	 *
 	 * @return int
 	 */
     public function getTotalVouchers(): int {
@@ -116,6 +130,8 @@ class ModelSaleVoucher extends Model {
     }
 
 	/**
+	 * getTotalVouchersByVoucherThemeId
+	 *
 	 * @param int $voucher_theme_id
 	 *
 	 * @return int
@@ -127,6 +143,8 @@ class ModelSaleVoucher extends Model {
     }
 
 	/**
+	 * getHistories
+	 *
 	 * @param int $voucher_id
 	 * @param int $start
 	 * @param int $limit
@@ -148,6 +166,8 @@ class ModelSaleVoucher extends Model {
     }
 
 	/**
+	 * getTotalHistories
+	 *
 	 * @param int $voucher_id
 	 *
 	 * @return int

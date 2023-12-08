@@ -6,6 +6,8 @@
  */
 class ModelCustomerGdpr extends Model {
 	/**
+	 * editStatus
+	 *
 	 * @param int $gdpr_id
 	 * @param int $status
 	 *
@@ -16,6 +18,8 @@ class ModelCustomerGdpr extends Model {
     }
 
 	/**
+	 * deleteGdpr
+	 *
 	 * @param int $gdpr_id
 	 *
 	 * @return void
@@ -25,6 +29,8 @@ class ModelCustomerGdpr extends Model {
     }
 
 	/**
+	 * getGdprs
+	 *
 	 * @param array $data
 	 *
 	 * @return array
@@ -74,6 +80,8 @@ class ModelCustomerGdpr extends Model {
     }
 
 	/**
+	 * getGdpr
+	 *
 	 * @param int $gdpr_id
 	 *
 	 * @return array
@@ -85,6 +93,8 @@ class ModelCustomerGdpr extends Model {
     }
 
 	/**
+	 * getTotalGdprs
+	 *
 	 * @param array $data
 	 *
 	 * @return int
@@ -120,6 +130,8 @@ class ModelCustomerGdpr extends Model {
     }
 
 	/**
+	 * getExpires
+	 *
 	 * @return array
 	 */
     public function getExpires(): array {

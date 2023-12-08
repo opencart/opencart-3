@@ -6,6 +6,8 @@
  */
 class ModelLocalisationWeightClass extends Model {
 	/**
+	 * addWeightClass
+	 *
 	 * @param array $data
 	 *
 	 * @return int
@@ -25,6 +27,8 @@ class ModelLocalisationWeightClass extends Model {
     }
 
 	/**
+	 * editWeightClass
+	 *
 	 * @param int   $weight_class_id
 	 * @param array $data
 	 *
@@ -43,6 +47,8 @@ class ModelLocalisationWeightClass extends Model {
     }
 
 	/**
+	 * deleteWeightClass
+	 *
 	 * @param int $weight_class_id
 	 *
 	 * @return void
@@ -55,6 +61,8 @@ class ModelLocalisationWeightClass extends Model {
     }
 
 	/**
+	 * getWeightClasses
+	 *
 	 * @param array $data
 	 *
 	 * @return array
@@ -112,6 +120,8 @@ class ModelLocalisationWeightClass extends Model {
     }
 
 	/**
+	 * getWeightClass
+	 *
 	 * @param int $weight_class_id
 	 *
 	 * @return array
@@ -123,6 +133,8 @@ class ModelLocalisationWeightClass extends Model {
     }
 
 	/**
+	 * getDescriptionByUnit
+	 *
 	 * @param string $unit
 	 *
 	 * @return array
@@ -134,6 +146,8 @@ class ModelLocalisationWeightClass extends Model {
     }
 
 	/**
+	 * getDescriptions
+	 *
 	 * @param int $weight_class_id
 	 *
 	 * @return array
@@ -154,6 +168,8 @@ class ModelLocalisationWeightClass extends Model {
     }
 
 	/**
+	 * getTotalWeightClasses
+	 *
 	 * @return int
 	 */
     public function getTotalWeightClasses(): int {

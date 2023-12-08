@@ -6,6 +6,8 @@
  */
 class ModelLocalisationTaxClass extends Model {
 	/**
+	 * addTaxClass
+	 *
 	 * @param array $data
 	 *
 	 * @return int
@@ -27,6 +29,8 @@ class ModelLocalisationTaxClass extends Model {
     }
 
 	/**
+	 * editTaxClass
+	 *
 	 * @param int   $tax_class_id
 	 * @param array $data
 	 *
@@ -47,6 +51,8 @@ class ModelLocalisationTaxClass extends Model {
     }
 
 	/**
+	 * deleteTaxClass
+	 *
 	 * @param int $tax_class_id
 	 *
 	 * @return void
@@ -59,6 +65,8 @@ class ModelLocalisationTaxClass extends Model {
     }
 
 	/**
+	 * getTaxClass
+	 *
 	 * @param int $tax_class_id
 	 *
 	 * @return array
@@ -70,6 +78,8 @@ class ModelLocalisationTaxClass extends Model {
     }
 
 	/**
+	 * getTaxClasses
+	 *
 	 * @param array $data
 	 *
 	 * @return array
@@ -117,6 +127,8 @@ class ModelLocalisationTaxClass extends Model {
     }
 
 	/**
+	 * getTotalTaxClasses
+	 *
 	 * @return int
 	 */
     public function getTotalTaxClasses(): int {
@@ -126,6 +138,8 @@ class ModelLocalisationTaxClass extends Model {
     }
 
 	/**
+	 * getTaxRules
+	 *
 	 * @param int $tax_class_id
 	 *
 	 * @return array
@@ -137,6 +151,8 @@ class ModelLocalisationTaxClass extends Model {
     }
 
 	/**
+	 * getTotalTaxRulesByTaxRateId
+	 *
 	 * @param int $tax_rate_id
 	 *
 	 * @return int

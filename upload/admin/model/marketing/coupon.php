@@ -6,6 +6,8 @@
  */
 class ModelMarketingCoupon extends Model {
 	/**
+	 * addCoupon
+	 *
 	 * @param array $data
 	 *
 	 * @return int
@@ -31,6 +33,8 @@ class ModelMarketingCoupon extends Model {
     }
 
 	/**
+	 * editCoupon
+	 *
 	 * @param int   $coupon_id
 	 * @param array $data
 	 *
@@ -57,6 +61,8 @@ class ModelMarketingCoupon extends Model {
     }
 
 	/**
+	 * deleteCoupon
+	 *
 	 * @param int $coupon_id
 	 *
 	 * @return void
@@ -69,6 +75,8 @@ class ModelMarketingCoupon extends Model {
     }
 
 	/**
+	 * getCoupon
+	 *
 	 * @param int $coupon_id
 	 *
 	 * @return array
@@ -80,6 +88,8 @@ class ModelMarketingCoupon extends Model {
     }
 
 	/**
+	 * getCouponByCode
+	 *
 	 * @param string $code
 	 *
 	 * @return array
@@ -91,6 +101,8 @@ class ModelMarketingCoupon extends Model {
     }
 
 	/**
+	 * getCoupons
+	 *
 	 * @param array $data
 	 *
 	 * @return array
@@ -137,6 +149,8 @@ class ModelMarketingCoupon extends Model {
     }
 
 	/**
+	 * getProducts
+	 *
 	 * @param int $coupon_id
 	 *
 	 * @return array
@@ -154,6 +168,8 @@ class ModelMarketingCoupon extends Model {
     }
 
 	/**
+	 * getCategories
+	 *
 	 * @param int $coupon_id
 	 *
 	 * @return array
@@ -171,6 +187,8 @@ class ModelMarketingCoupon extends Model {
     }
 
 	/**
+	 * getTotalCoupons
+	 *
 	 * @return int
 	 */
     public function getTotalCoupons(): int {
@@ -180,6 +198,8 @@ class ModelMarketingCoupon extends Model {
     }
 
 	/**
+	 * getHistories
+	 *
 	 * @param int $coupon_id
 	 * @param int $start
 	 * @param int $limit
@@ -201,6 +221,8 @@ class ModelMarketingCoupon extends Model {
     }
 
 	/**
+	 * getTotalHistories
+	 *
 	 * @param int $coupon_id
 	 *
 	 * @return int

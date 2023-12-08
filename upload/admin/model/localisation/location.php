@@ -6,6 +6,8 @@
  */
 class ModelLocalisationLocation extends Model {
 	/**
+	 * addLocation
+	 *
 	 * @param array $data
 	 *
 	 * @return int
@@ -17,6 +19,8 @@ class ModelLocalisationLocation extends Model {
     }
 
 	/**
+	 * editLocation
+	 *
 	 * @param int   $location_id
 	 * @param array $data
 	 *
@@ -27,6 +31,8 @@ class ModelLocalisationLocation extends Model {
     }
 
 	/**
+	 * deleteLocation
+	 *
 	 * @param int $location_id
 	 *
 	 * @return void
@@ -36,6 +42,8 @@ class ModelLocalisationLocation extends Model {
     }
 
 	/**
+	 * getLocation
+	 *
 	 * @param int $location_id
 	 *
 	 * @return array
@@ -47,6 +55,8 @@ class ModelLocalisationLocation extends Model {
     }
 
 	/**
+	 * getLocations
+	 *
 	 * @param array $data
 	 *
 	 * @return array
@@ -89,6 +99,8 @@ class ModelLocalisationLocation extends Model {
     }
 
 	/**
+	 * getTotalLocations
+	 *
 	 * @return int
 	 */
     public function getTotalLocations(): int {

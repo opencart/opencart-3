@@ -6,6 +6,8 @@
  */
 class ModelSaleReturns extends Model {
 	/**
+	 * addReturn
+	 *
 	 * @param array $data
 	 *
 	 * @return int
@@ -17,6 +19,8 @@ class ModelSaleReturns extends Model {
     }
 
 	/**
+	 * editReturn
+	 *
 	 * @param int   $return_id
 	 * @param array $data
 	 *
@@ -27,6 +31,8 @@ class ModelSaleReturns extends Model {
     }
 
 	/**
+	 * deleteReturn
+	 *
 	 * @param int $return_id
 	 *
 	 * @return void
@@ -37,6 +43,8 @@ class ModelSaleReturns extends Model {
     }
 
 	/**
+	 * getReturn
+	 *
 	 * @param int $return_id
 	 *
 	 * @return array
@@ -48,6 +56,8 @@ class ModelSaleReturns extends Model {
     }
 
 	/**
+	 * getReturns
+	 *
 	 * @param array $data
 	 *
 	 * @return array
@@ -134,6 +144,8 @@ class ModelSaleReturns extends Model {
     }
 
 	/**
+	 * getTotalReturns
+	 *
 	 * @param array $data
 	 *
 	 * @return int
@@ -185,6 +197,8 @@ class ModelSaleReturns extends Model {
     }
 
 	/**
+	 * getTotalReturnsByReturnStatusId
+	 *
 	 * @param int $return_status_id
 	 *
 	 * @return int
@@ -196,6 +210,8 @@ class ModelSaleReturns extends Model {
     }
 
 	/**
+	 * getTotalReturnsByReturnReasonId
+	 *
 	 * @param int $return_reason_id
 	 *
 	 * @return int
@@ -207,6 +223,8 @@ class ModelSaleReturns extends Model {
     }
 
 	/**
+	 * getTotalReturnsByReturnActionId
+	 *
 	 * @param int $return_action_id
 	 *
 	 * @return int
@@ -218,6 +236,8 @@ class ModelSaleReturns extends Model {
     }
 
 	/**
+	 * addHistory
+	 *
 	 * @param int    $return_id
 	 * @param int    $return_status_id
 	 * @param string $comment
@@ -232,6 +252,8 @@ class ModelSaleReturns extends Model {
     }
 
 	/**
+	 * getHistories
+	 *
 	 * @param int $return_id
 	 * @param int $start
 	 * @param int $limit
@@ -253,6 +275,8 @@ class ModelSaleReturns extends Model {
     }
 
 	/**
+	 * getTotalHistories
+	 *
 	 * @param int $return_id
 	 *
 	 * @return int
@@ -264,6 +288,8 @@ class ModelSaleReturns extends Model {
     }
 
 	/**
+	 * getTotalReturnHistoriesByReturnStatusId
+	 *
 	 * @param int $return_status_id
 	 *
 	 * @return int

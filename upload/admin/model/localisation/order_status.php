@@ -6,6 +6,8 @@
  */
 class ModelLocalisationOrderStatus extends Model {
 	/**
+	 * addOrderStatus
+	 *
 	 * @param array $data
 	 *
 	 * @return int
@@ -27,6 +29,8 @@ class ModelLocalisationOrderStatus extends Model {
     }
 
 	/**
+	 * editOrderStatus
+	 *
 	 * @param int   $order_status_id
 	 * @param array $data
 	 *
@@ -43,6 +47,8 @@ class ModelLocalisationOrderStatus extends Model {
     }
 
 	/**
+	 * deleteOrderStatus
+	 *
 	 * @param int $order_status_id
 	 *
 	 * @return void
@@ -54,6 +60,8 @@ class ModelLocalisationOrderStatus extends Model {
     }
 
 	/**
+	 * getOrderStatus
+	 *
 	 * @param int $order_status_id
 	 *
 	 * @return array
@@ -65,6 +73,8 @@ class ModelLocalisationOrderStatus extends Model {
     }
 
 	/**
+	 * getOrderStatuses
+	 *
 	 * @param array $data
 	 *
 	 * @return array
@@ -112,6 +122,8 @@ class ModelLocalisationOrderStatus extends Model {
     }
 
 	/**
+	 * getDescriptions
+	 *
 	 * @param int $order_status_id
 	 *
 	 * @return array
@@ -129,6 +141,8 @@ class ModelLocalisationOrderStatus extends Model {
     }
 
 	/**
+	 * getTotalOrderStatuses
+	 *
 	 * @return int
 	 */
     public function getTotalOrderStatuses(): int {

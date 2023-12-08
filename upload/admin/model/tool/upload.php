@@ -6,6 +6,8 @@
  */
 class ModelToolUpload extends Model {
 	/**
+	 * addUpload
+	 *
 	 * @param string $name
 	 * @param string $filename
 	 *
@@ -20,6 +22,8 @@ class ModelToolUpload extends Model {
     }
 
 	/**
+	 * deleteUpload
+	 *
 	 * @param int $upload_id
 	 *
 	 * @return void
@@ -29,6 +33,8 @@ class ModelToolUpload extends Model {
     }
 
 	/**
+	 * getUpload
+	 *
 	 * @param int $upload_id
 	 *
 	 * @return array
@@ -40,6 +46,8 @@ class ModelToolUpload extends Model {
     }
 
 	/**
+	 * getUploadByCode
+	 *
 	 * @param string $code
 	 *
 	 * @return array
@@ -51,6 +59,8 @@ class ModelToolUpload extends Model {
     }
 
 	/**
+	 * getUploads
+	 *
 	 * @param array $data
 	 *
 	 * @return array
@@ -112,6 +122,8 @@ class ModelToolUpload extends Model {
     }
 
 	/**
+	 * getTotalUploads
+	 *
 	 * @param array $data
 	 *
 	 * @return int

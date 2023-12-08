@@ -5,6 +5,13 @@
  * @package Admin\Model\Extension\Report
  */
 class ModelExtensionReportCustomerTransaction extends Model {
+	/**
+	 * getTransactions
+	 *
+	 * @param array $data
+	 *
+	 * @return array
+	 */
     public function getTransactions(array $data = []): array {
         $sql = "SELECT `ct`.`customer_id`, CONCAT(`c`.`firstname`, ' ', `c`.`lastname`) AS `customer`, `c`.`email`, `cgd`.`name` AS `customer_group`, `c`.`status`, SUM(`ct`.`amount`) AS `total` FROM `" . DB_PREFIX . "customer_transaction` `ct` LEFT JOIN `" . DB_PREFIX . "customer` `c` ON (`ct`.`customer_id` = `c`.`customer_id`) LEFT JOIN `" . DB_PREFIX . "customer_group_description` `cgd` ON (`c`.`customer_group_id` = `cgd`.`customer_group_id`) WHERE `cgd`.`language_id` = '" . (int)$this->config->get('config_language_id') . "'";
 
@@ -39,6 +46,13 @@ class ModelExtensionReportCustomerTransaction extends Model {
         return $query->rows;
     }
 
+	/**
+	 * getTotalTransactions
+	 *
+	 * @param array $data
+	 *
+	 * @return int
+	 */
     public function getTotalTransactions(array $data = []): int {
         $sql = "SELECT COUNT(DISTINCT `ct`.`customer_id`) AS `total` FROM `" . DB_PREFIX . "customer_transaction` `ct` LEFT JOIN `" . DB_PREFIX . "customer` `c` ON (`ct`.`customer_id` = `c`.`customer_id`)";
 

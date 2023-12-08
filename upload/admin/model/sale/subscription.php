@@ -6,6 +6,8 @@
  */
 class ModelSaleSubscription extends Model {
 	/**
+	 * editSubscription
+	 *
 	 * @param int   $subscription_id
 	 * @param array $data
 	 *
@@ -16,6 +18,8 @@ class ModelSaleSubscription extends Model {
 	}
 
 	/**
+	 * editPaymentMethod
+	 *
 	 * @param int $subscription_id
 	 * @param int $customer_payment_id
 	 *
@@ -26,6 +30,8 @@ class ModelSaleSubscription extends Model {
 	}
 
 	/**
+	 * editSubscriptionPlan
+	 *
 	 * @param int $subscription_id
 	 * @param int $subscription_plan_id
 	 *
@@ -36,6 +42,8 @@ class ModelSaleSubscription extends Model {
 	}
 
 	/**
+	 * editRemaining
+	 *
 	 * @param int $subscription_id
 	 * @param int $remaining
 	 *
@@ -46,6 +54,8 @@ class ModelSaleSubscription extends Model {
 	}
 
 	/**
+	 * editTrialRemaining
+	 *
 	 * @param int $subscription_id
 	 * @param int $trial_remaining
 	 *
@@ -56,6 +66,8 @@ class ModelSaleSubscription extends Model {
 	}
 
 	/**
+	 * editDateNext
+	 *
 	 * @param int    $subscription_id
 	 * @param string $date_next
 	 *
@@ -66,6 +78,8 @@ class ModelSaleSubscription extends Model {
 	}
 
 	/**
+	 * getSubscription
+	 *
 	 * @param int $subscription_id
 	 *
 	 * @return array
@@ -87,6 +101,8 @@ class ModelSaleSubscription extends Model {
 	}
 
 	/**
+	 * getSubscriptionByOrderProductId
+	 *
 	 * @param int $order_id
 	 * @param int $order_product_id
 	 *
@@ -99,6 +115,8 @@ class ModelSaleSubscription extends Model {
 	}
 
 	/**
+	 * getSubscriptions
+	 *
 	 * @param array $data
 	 *
 	 * @return array
@@ -183,6 +201,8 @@ class ModelSaleSubscription extends Model {
 	}
 
 	/**
+	 * getTotalSubscriptions
+	 *
 	 * @param array $data
 	 *
 	 * @return int
@@ -226,6 +246,8 @@ class ModelSaleSubscription extends Model {
 	}
 
 	/**
+	 * getTotalSubscriptionsByStoreId
+	 *
 	 * @param int $store_id
 	 *
 	 * @return int
@@ -237,6 +259,8 @@ class ModelSaleSubscription extends Model {
 	}
 
 	/**
+	 * getTotalSubscriptionsBySubscriptionStatusId
+	 *
 	 * @param int $subscription_status_id
 	 *
 	 * @return int
@@ -248,6 +272,8 @@ class ModelSaleSubscription extends Model {
 	}
 
 	/**
+	 * addHistory
+	 *
 	 * @param int    $subscription_id
 	 * @param int    $subscription_status_id
 	 * @param string $comment
@@ -262,6 +288,8 @@ class ModelSaleSubscription extends Model {
 	}
 
 	/**
+	 * getHistories
+	 *
 	 * @param int $subscription_id
 	 * @param int $start
 	 * @param int $limit
@@ -283,6 +311,8 @@ class ModelSaleSubscription extends Model {
 	}
 
 	/**
+	 * getTotalHistories
+	 *
 	 * @param int $subscription_id
 	 *
 	 * @return int
@@ -294,6 +324,8 @@ class ModelSaleSubscription extends Model {
 	}
 
 	/**
+	 * getTotalHistoriesBySubscriptionStatusId
+	 *
 	 * @param int $subscription_status_id
 	 *
 	 * @return int

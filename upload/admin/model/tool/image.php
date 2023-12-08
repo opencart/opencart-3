@@ -6,6 +6,8 @@
  */
 class ModelToolImage extends Model {
 	/**
+	 * Resize
+	 *
 	 * @param string $filename
 	 * @param int    $width
 	 * @param int    $height

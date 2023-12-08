@@ -6,6 +6,8 @@
  */
 class ModelDesignBanner extends Model {
 	/**
+	 * addBanner
+	 *
 	 * @param array $data
 	 *
 	 * @return int
@@ -27,6 +29,8 @@ class ModelDesignBanner extends Model {
     }
 
 	/**
+	 * editBanner
+	 *
 	 * @param int   $banner_id
 	 * @param array $data
 	 *
@@ -47,6 +51,8 @@ class ModelDesignBanner extends Model {
     }
 
 	/**
+	 * deleteBanner
+	 *
 	 * @param int $banner_id
 	 *
 	 * @return void
@@ -57,6 +63,8 @@ class ModelDesignBanner extends Model {
     }
 
 	/**
+	 * getBanner
+	 *
 	 * @param int $banner_id
 	 *
 	 * @return array
@@ -68,6 +76,8 @@ class ModelDesignBanner extends Model {
     }
 
 	/**
+	 * getBanners
+	 *
 	 * @param array $data
 	 *
 	 * @return array
@@ -110,6 +120,8 @@ class ModelDesignBanner extends Model {
     }
 
 	/**
+	 * getImages
+	 *
 	 * @param int $banner_id
 	 *
 	 * @return array
@@ -132,6 +144,8 @@ class ModelDesignBanner extends Model {
     }
 
 	/**
+	 * getTotalBanners
+	 *
 	 * @return int
 	 */
     public function getTotalBanners(): int {

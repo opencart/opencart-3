@@ -6,6 +6,8 @@
  */
 class ModelSaleVoucherTheme extends Model {
 	/**
+	 * addVoucherTheme
+	 *
 	 * @param array $data
 	 *
 	 * @return int
@@ -25,6 +27,8 @@ class ModelSaleVoucherTheme extends Model {
     }
 
 	/**
+	 * editVoucherTheme
+	 *
 	 * @param int   $voucher_theme_id
 	 * @param array $data
 	 *
@@ -43,6 +47,8 @@ class ModelSaleVoucherTheme extends Model {
     }
 
 	/**
+	 * deleteVoucherTheme
+	 *
 	 * @param int $voucher_theme_id
 	 *
 	 * @return void
@@ -55,6 +61,8 @@ class ModelSaleVoucherTheme extends Model {
     }
 
 	/**
+	 * getVoucherTheme
+	 *
 	 * @param int $voucher_theme_id
 	 *
 	 * @return array
@@ -66,6 +74,8 @@ class ModelSaleVoucherTheme extends Model {
     }
 
 	/**
+	 * getVoucherThemes
+	 *
 	 * @param array $data
 	 *
 	 * @return array
@@ -111,6 +121,8 @@ class ModelSaleVoucherTheme extends Model {
     }
 
 	/**
+	 * getDescriptions
+	 *
 	 * @param int $voucher_theme_id
 	 *
 	 * @return array
@@ -128,6 +140,8 @@ class ModelSaleVoucherTheme extends Model {
     }
 
 	/**
+	 * getTotalVoucherThemes
+	 *
 	 * @return int
 	 */
     public function getTotalVoucherThemes(): int {

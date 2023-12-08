@@ -6,6 +6,8 @@
  */
 class ModelSaleRecurring extends Model {
 	/**
+	 * getRecurrings
+	 *
 	 * @param array $data
 	 *
 	 * @return array
@@ -82,6 +84,8 @@ class ModelSaleRecurring extends Model {
 	}
 
 	/**
+	 * getRecurring
+	 *
 	 * @param int $order_recurring_id
 	 *
 	 * @return array
@@ -93,6 +97,8 @@ class ModelSaleRecurring extends Model {
 	}
 
 	/**
+	 * getRecurringTransactions
+	 *
 	 * @param int $order_recurring_id
 	 *
 	 * @return array
@@ -150,6 +156,8 @@ class ModelSaleRecurring extends Model {
 	}
 
 	/**
+	 * getTotalRecurrings
+	 *
 	 * @param array $data
 	 *
 	 * @return int

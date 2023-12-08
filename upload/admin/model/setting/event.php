@@ -6,6 +6,8 @@
  */
 class ModelSettingEvent extends Model {
 	/**
+	 * addEvent
+	 *
 	 * @param array $data
 	 *
 	 * @return int
@@ -17,6 +19,8 @@ class ModelSettingEvent extends Model {
     }
 
 	/**
+	 * deleteEvent
+	 *
 	 * @param int $event_id
 	 *
 	 * @return void
@@ -26,6 +30,8 @@ class ModelSettingEvent extends Model {
     }
 
 	/**
+	 * deleteEventByCode
+	 *
 	 * @param string $code
 	 *
 	 * @return void
@@ -35,6 +41,8 @@ class ModelSettingEvent extends Model {
     }
 
 	/**
+	 * enableEvent
+	 *
 	 * @param int $event_id
 	 *
 	 * @return void
@@ -44,6 +52,8 @@ class ModelSettingEvent extends Model {
     }
 
 	/**
+	 * disableEvent
+	 *
 	 * @param int $event_id
 	 *
 	 * @return void
@@ -53,6 +63,8 @@ class ModelSettingEvent extends Model {
     }
 
 	/**
+	 * Uninstall
+	 *
 	 * @param string $type
 	 * @param string $code
 	 *
@@ -64,6 +76,8 @@ class ModelSettingEvent extends Model {
     }
 
 	/**
+	 * getEvent
+	 *
 	 * @param int $event_id
 	 *
 	 * @return array
@@ -75,6 +89,8 @@ class ModelSettingEvent extends Model {
     }
 
 	/**
+	 * getEventByCode
+	 *
 	 * @param string $code
 	 *
 	 * @return array
@@ -86,6 +102,8 @@ class ModelSettingEvent extends Model {
     }
 
 	/**
+	 * getEvents
+	 *
 	 * @param array $data
 	 *
 	 * @return array
@@ -132,6 +150,8 @@ class ModelSettingEvent extends Model {
     }
 
 	/**
+	 * getTotalEvents
+	 *
 	 * @return int
 	 */
     public function getTotalEvents(): int {

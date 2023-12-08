@@ -6,6 +6,8 @@
  */
 class ModelLocalisationCurrency extends Model {
 	/**
+	 * addCurrency
+	 *
 	 * @param array $data
 	 *
 	 * @return int
@@ -21,6 +23,8 @@ class ModelLocalisationCurrency extends Model {
     }
 
 	/**
+	 * editCurrency
+	 *
 	 * @param int   $currency_id
 	 * @param array $data
 	 *
@@ -33,6 +37,8 @@ class ModelLocalisationCurrency extends Model {
     }
 
 	/**
+	 * editValueByCode
+	 *
 	 * @param string $code
 	 * @param float  $value
 	 *
@@ -45,6 +51,8 @@ class ModelLocalisationCurrency extends Model {
     }
 
 	/**
+	 * deleteCurrency
+	 *
 	 * @param int $currency_id
 	 *
 	 * @return void
@@ -56,6 +64,8 @@ class ModelLocalisationCurrency extends Model {
     }
 
 	/**
+	 * getCurrency
+	 *
 	 * @param int $currency_id
 	 *
 	 * @return array
@@ -67,6 +77,8 @@ class ModelLocalisationCurrency extends Model {
     }
 
 	/**
+	 * getCurrencyByCode
+	 *
 	 * @param string $currency
 	 *
 	 * @return array
@@ -78,6 +90,8 @@ class ModelLocalisationCurrency extends Model {
     }
 
 	/**
+	 * getCurrencies
+	 *
 	 * @param array $data
 	 *
 	 * @return array
@@ -150,6 +164,8 @@ class ModelLocalisationCurrency extends Model {
     }
 
 	/**
+	 * Refresh
+	 *
 	 * @return void
 	 */
     public function refresh(): void {
@@ -205,6 +221,8 @@ class ModelLocalisationCurrency extends Model {
     }
 
 	/**
+	 * getTotalCurrencies
+	 *
 	 * @return int
 	 */
     public function getTotalCurrencies(): int {

@@ -6,6 +6,8 @@
  */
 class ModelMarketingAffiliate extends Model {
 	/**
+	 * addAffiliate
+	 *
 	 * @param array $data
 	 *
 	 * @return void
@@ -15,6 +17,8 @@ class ModelMarketingAffiliate extends Model {
     }
 
 	/**
+	 * editAffiliate
+	 *
 	 * @param int   $customer_id
 	 * @param array $data
 	 *
@@ -25,6 +29,8 @@ class ModelMarketingAffiliate extends Model {
     }
 
 	/**
+	 * deleteAffiliate
+	 *
 	 * @param int $customer_id
 	 *
 	 * @return void
@@ -35,6 +41,8 @@ class ModelMarketingAffiliate extends Model {
     }
 
 	/**
+	 * getAffiliate
+	 *
 	 * @param int $customer_id
 	 *
 	 * @return array
@@ -50,6 +58,8 @@ class ModelMarketingAffiliate extends Model {
     }
 
 	/**
+	 * getAffiliateByTracking
+	 *
 	 * @param string $tracking
 	 *
 	 * @return array
@@ -65,6 +75,8 @@ class ModelMarketingAffiliate extends Model {
     }
 
 	/**
+	 * getAffiliates
+	 *
 	 * @param array $data
 	 *
 	 * @return array
@@ -136,6 +148,8 @@ class ModelMarketingAffiliate extends Model {
     }
 
 	/**
+	 * getTotalAffiliates
+	 *
 	 * @param array $data
 	 *
 	 * @return int
@@ -175,6 +189,8 @@ class ModelMarketingAffiliate extends Model {
     }
 
 	/**
+	 * getReports
+	 *
 	 * @param int $customer_id
 	 * @param int $start
 	 * @param int $limit
@@ -196,6 +212,8 @@ class ModelMarketingAffiliate extends Model {
     }
 
 	/**
+	 * getTotalReports
+	 *
 	 * @param int $customer_id
 	 *
 	 * @return int

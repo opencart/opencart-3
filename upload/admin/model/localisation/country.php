@@ -6,6 +6,8 @@
  */
 class ModelLocalisationCountry extends Model {
 	/**
+	 * addCountry
+	 *
 	 * @param array $data
 	 *
 	 * @return int
@@ -19,6 +21,8 @@ class ModelLocalisationCountry extends Model {
     }
 
 	/**
+	 * editCountry
+	 *
 	 * @param int   $country_id
 	 * @param array $data
 	 *
@@ -31,6 +35,8 @@ class ModelLocalisationCountry extends Model {
     }
 
 	/**
+	 * deleteCountry
+	 *
 	 * @param int $country_id
 	 *
 	 * @return void
@@ -42,6 +48,8 @@ class ModelLocalisationCountry extends Model {
     }
 
 	/**
+	 * getCountry
+	 *
 	 * @param int $country_id
 	 *
 	 * @return array
@@ -53,6 +61,8 @@ class ModelLocalisationCountry extends Model {
     }
 
 	/**
+	 * getCountryByIsoCode2
+	 *
 	 * @param $iso_code_2
 	 *
 	 * @return array
@@ -64,6 +74,8 @@ class ModelLocalisationCountry extends Model {
     }
 
 	/**
+	 *  getCountryByIsoCode3
+	 *
 	 * @param $iso_code_3
 	 *
 	 * @return array
@@ -75,6 +87,8 @@ class ModelLocalisationCountry extends Model {
     }
 
 	/**
+	 * getCountries
+	 *
 	 * @param array $data
 	 *
 	 * @return array
@@ -150,6 +164,8 @@ class ModelLocalisationCountry extends Model {
     }
 
 	/**
+	 * getTotalCountries
+	 *
 	 * @param array $data
 	 *
 	 * @return int
@@ -181,6 +197,8 @@ class ModelLocalisationCountry extends Model {
     }
 
 	/**
+	 * getTotalCountriesByAddressFormatId
+	 *
 	 * @param int $address_format_id
 	 *
 	 * @return int

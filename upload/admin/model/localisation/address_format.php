@@ -6,6 +6,8 @@
  */
 class ModelLocalisationAddressFormat extends Model {
 	/**
+	 * addAddressFormat
+	 *
 	 * @param array $data
 	 *
 	 * @return int
@@ -17,6 +19,8 @@ class ModelLocalisationAddressFormat extends Model {
     }
 
 	/**
+	 * editAddressFormat
+	 *
 	 * @param int   $address_format_id
 	 * @param array $data
 	 *
@@ -27,6 +31,8 @@ class ModelLocalisationAddressFormat extends Model {
     }
 
 	/**
+	 * deleteAddressFormat
+	 *
 	 * @param int $address_format_id
 	 *
 	 * @return void
@@ -36,6 +42,8 @@ class ModelLocalisationAddressFormat extends Model {
     }
 
 	/**
+	 * getAddressFormat
+	 *
 	 * @param int $address_format_id
 	 *
 	 * @return array
@@ -47,6 +55,8 @@ class ModelLocalisationAddressFormat extends Model {
     }
 
 	/**
+	 * getAddressFormats
+	 *
 	 * @param array $data
 	 *
 	 * @return array
@@ -72,6 +82,8 @@ class ModelLocalisationAddressFormat extends Model {
     }
 
 	/**
+	 * getTotalAddressFormats
+	 *
 	 * @param array $data
 	 *
 	 * @return int

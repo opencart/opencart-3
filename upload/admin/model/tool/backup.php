@@ -6,6 +6,8 @@
  */
 class ModelToolBackup extends Model {
 	/**
+	 * getTables
+	 *
 	 * @return array
 	 */
     public function getTables(): array {
@@ -25,6 +27,8 @@ class ModelToolBackup extends Model {
     }
 
 	/**
+	 * getRecords
+	 *
 	 * @param string $table
 	 * @param int    $start
 	 * @param int    $limit
@@ -50,6 +54,8 @@ class ModelToolBackup extends Model {
     }
 
 	/**
+	 * getTotalRecords
+	 *
 	 * @param string $table
 	 *
 	 * @return int
@@ -65,6 +71,8 @@ class ModelToolBackup extends Model {
     }
 
 	/**
+	 * Backup
+	 *
 	 * @param array $tables
 	 *
 	 * @return string

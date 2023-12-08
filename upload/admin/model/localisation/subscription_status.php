@@ -6,6 +6,8 @@
  */
 class ModelLocalisationSubscriptionStatus extends Model {
 	/**
+	 * addSubscriptionStatus
+	 *
 	 * @param array $data
 	 *
 	 * @return int
@@ -27,6 +29,8 @@ class ModelLocalisationSubscriptionStatus extends Model {
     }
 
 	/**
+	 * editSubscriptionStatus
+	 *
 	 * @param int   $subscription_status_id
 	 * @param array $data
 	 *
@@ -43,6 +47,8 @@ class ModelLocalisationSubscriptionStatus extends Model {
     }
 
 	/**
+	 * deleteSubscriptionStatus
+	 *
 	 * @param int $subscription_status_id
 	 *
 	 * @return void
@@ -54,6 +60,8 @@ class ModelLocalisationSubscriptionStatus extends Model {
     }
 
 	/**
+	 * getSubscriptionStatus
+	 *
 	 * @param int $subscription_status_id
 	 *
 	 * @return array
@@ -65,6 +73,8 @@ class ModelLocalisationSubscriptionStatus extends Model {
     }
 
 	/**
+	 * getSubscriptionStatuses
+	 *
 	 * @param array $data
 	 *
 	 * @return array
@@ -112,6 +122,8 @@ class ModelLocalisationSubscriptionStatus extends Model {
     }
 
 	/**
+	 * getDescriptions
+	 *
 	 * @param int $subscription_status_id
 	 *
 	 * @return array
@@ -129,6 +141,8 @@ class ModelLocalisationSubscriptionStatus extends Model {
     }
 
 	/**
+	 * getTotalSubscriptionStatuses
+	 *
 	 * @return int
 	 */
     public function getTotalSubscriptionStatuses(): int {

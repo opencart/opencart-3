@@ -6,6 +6,8 @@
  */
 class ModelCatalogDownload extends Model {
 	/**
+	 * addDownload
+	 *
 	 * @param array $data
 	 *
 	 * @return int
@@ -23,6 +25,8 @@ class ModelCatalogDownload extends Model {
     }
 
 	/**
+	 * editDownload
+	 *
 	 * @param int   $download_id
 	 * @param array $data
 	 *
@@ -39,6 +43,8 @@ class ModelCatalogDownload extends Model {
     }
 
 	/**
+	 * deleteDownload
+	 *
 	 * @param int $download_id
 	 *
 	 * @return void
@@ -49,6 +55,8 @@ class ModelCatalogDownload extends Model {
     }
 
 	/**
+	 * getDownload
+	 *
 	 * @param int $download_id
 	 *
 	 * @return array
@@ -60,6 +68,8 @@ class ModelCatalogDownload extends Model {
     }
 
 	/**
+	 * getDownloads
+	 *
 	 * @param array $data
 	 *
 	 * @return array
@@ -106,6 +116,8 @@ class ModelCatalogDownload extends Model {
     }
 
 	/**
+	 * getDescriptions
+	 *
 	 * @param int $download_id
 	 *
 	 * @return array
@@ -123,6 +135,8 @@ class ModelCatalogDownload extends Model {
     }
 
 	/**
+	 * getTotalDownloads
+	 *
 	 * @return int
 	 */
     public function getTotalDownloads(): int {

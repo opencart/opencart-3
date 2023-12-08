@@ -6,6 +6,8 @@
  */
 class ModelCustomerCustomer extends Model {
 	/**
+	 * addCustomer
+	 *
 	 * @param array $data
 	 *
 	 * @return int
@@ -31,6 +33,8 @@ class ModelCustomerCustomer extends Model {
     }
 
 	/**
+	 * editCustomer
+	 *
 	 * @param int   $customer_id
 	 * @param array $data
 	 *
@@ -59,6 +63,8 @@ class ModelCustomerCustomer extends Model {
     }
 
 	/**
+	 * editToken
+	 *
 	 * @param int    $customer_id
 	 * @param string $token
 	 *
@@ -69,6 +75,8 @@ class ModelCustomerCustomer extends Model {
     }
 
 	/**
+	 * deleteCustomer
+	 *
 	 * @param int $customer_id
 	 *
 	 * @return void
@@ -88,6 +96,8 @@ class ModelCustomerCustomer extends Model {
     }
 
 	/**
+	 * getCustomer
+	 *
 	 * @param int $customer_id
 	 *
 	 * @return array
@@ -103,6 +113,8 @@ class ModelCustomerCustomer extends Model {
     }
 
 	/**
+	 * getCustomerByEmail
+	 *
 	 * @param string $email
 	 *
 	 * @return array
@@ -118,6 +130,8 @@ class ModelCustomerCustomer extends Model {
     }
 
 	/**
+	 * getCustomers
+	 *
 	 * @param array $data
 	 *
 	 * @return array
@@ -194,6 +208,8 @@ class ModelCustomerCustomer extends Model {
     }
 
 	/**
+	 * getAddress
+	 *
 	 * @param int $address_id
 	 *
 	 * @return array
@@ -253,6 +269,8 @@ class ModelCustomerCustomer extends Model {
     }
 
 	/**
+	 * getAddresses
+	 *
 	 * @param int $customer_id
 	 *
 	 * @return array
@@ -274,6 +292,8 @@ class ModelCustomerCustomer extends Model {
     }
 
 	/**
+	 * getTotalCustomers
+	 *
 	 * @param int $customer_id
 	 *
 	 * @return int
@@ -321,6 +341,8 @@ class ModelCustomerCustomer extends Model {
     }
 
 	/**
+	 * getTotalAddressesByCustomerId
+	 *
 	 * @param int $customer_id
 	 *
 	 * @return int
@@ -332,6 +354,8 @@ class ModelCustomerCustomer extends Model {
     }
 
 	/**
+	 * getTotalAddressesByCountryId
+	 *
 	 * @param int $country_id
 	 *
 	 * @return int
@@ -343,6 +367,8 @@ class ModelCustomerCustomer extends Model {
     }
 
 	/**
+	 * getTotalAddressesByZoneId
+	 *
 	 * @param int $zone_id
 	 *
 	 * @return int
@@ -354,6 +380,8 @@ class ModelCustomerCustomer extends Model {
     }
 
 	/**
+	 * getTotalCustomersByCustomerGroupId
+	 *
 	 * @param int $customer_group_id
 	 *
 	 * @return int
@@ -365,6 +393,8 @@ class ModelCustomerCustomer extends Model {
     }
 
 	/**
+	 * addHistory
+	 *
 	 * @param int    $customer_id
 	 * @param string $comment
 	 *
@@ -375,6 +405,8 @@ class ModelCustomerCustomer extends Model {
     }
 
 	/**
+	 * getHistories
+	 *
 	 * @param int $customer_id
 	 * @param int $start
 	 * @param int $limit
@@ -396,6 +428,8 @@ class ModelCustomerCustomer extends Model {
     }
 
 	/**
+	 * getTotalHistories
+	 *
 	 * @param int $customer_id
 	 *
 	 * @return int
@@ -407,6 +441,8 @@ class ModelCustomerCustomer extends Model {
     }
 
 	/**
+	 * addTransaction
+	 *
 	 * @param int    $customer_id
 	 * @param string $description
 	 * @param float  $amount
@@ -419,6 +455,7 @@ class ModelCustomerCustomer extends Model {
     }
 
 	/**
+	 * deleteTransactionByOrderId
 	 * @param int $order_id
 	 *
 	 * @return void
@@ -428,6 +465,8 @@ class ModelCustomerCustomer extends Model {
     }
 
 	/**
+	 * getTransactions
+	 *
 	 * @param int $customer_id
 	 * @param int $start
 	 * @param int $limit
@@ -449,6 +488,8 @@ class ModelCustomerCustomer extends Model {
     }
 
 	/**
+	 * getTotalTransactions
+	 *
 	 * @param int $customer_id
 	 *
 	 * @return int
@@ -460,6 +501,8 @@ class ModelCustomerCustomer extends Model {
     }
 
 	/**
+	 * getTransactionTotal
+	 *
 	 * @param int $customer_id
 	 *
 	 * @return float
@@ -471,6 +514,8 @@ class ModelCustomerCustomer extends Model {
     }
 
 	/**
+	 * getTotalTransactionsByOrderId
+	 *
 	 * @param int $order_id
 	 *
 	 * @return int
@@ -482,6 +527,8 @@ class ModelCustomerCustomer extends Model {
     }
 
 	/**
+	 * deletePaymentMethod
+	 *
 	 * @param int $customer_payment_id
 	 *
 	 * @return void
@@ -491,6 +538,8 @@ class ModelCustomerCustomer extends Model {
     }
 
 	/**
+	 * editPaymentMethodStatus
+	 *
 	 * @param int    $customer_payment_id
 	 * @param bool   $status
 	 *
@@ -501,6 +550,8 @@ class ModelCustomerCustomer extends Model {
     }
 
 	/**
+	 * getPaymentMethod
+	 *
 	 * @param int $customer_id
 	 * @param int $customer_payment_id
 	 *
@@ -513,6 +564,8 @@ class ModelCustomerCustomer extends Model {
     }
 
 	/**
+	 * getPaymentMethods
+	 *
 	 * @param int $customer_id
 	 *
 	 * @return array
@@ -524,6 +577,8 @@ class ModelCustomerCustomer extends Model {
     }
 
 	/**
+	 * getTotalPaymentMethods
+	 *
 	 * @param int $customer_id
 	 *
 	 * @return int
@@ -535,6 +590,8 @@ class ModelCustomerCustomer extends Model {
     }
 
 	/**
+	 * addReward
+	 *
 	 * @param int    $customer_id
 	 * @param string $description
 	 * @param int    $points
@@ -547,6 +604,8 @@ class ModelCustomerCustomer extends Model {
     }
 
 	/**
+	 * deleteReward
+	 *
 	 * @param int $order_id
 	 *
 	 * @return void
@@ -556,6 +615,8 @@ class ModelCustomerCustomer extends Model {
     }
 
 	/**
+	 * getRewards
+	 *
 	 * @param int    $customer_id
 	 * @param int    $start
 	 * @param int    $limit
@@ -569,6 +630,8 @@ class ModelCustomerCustomer extends Model {
     }
 
 	/**
+	 * getTotalRewards
+	 *
 	 * @param int $customer_id
 	 *
 	 * @return int
@@ -580,6 +643,8 @@ class ModelCustomerCustomer extends Model {
     }
 
 	/**
+	 * getRewardTotal
+	 *
 	 * @param int $customer_id
 	 *
 	 * @return int
@@ -591,6 +656,8 @@ class ModelCustomerCustomer extends Model {
     }
 
 	/**
+	 * getTotalCustomerRewardsByOrderId
+	 *
 	 * @param int $order_id
 	 *
 	 * @return int
@@ -602,6 +669,8 @@ class ModelCustomerCustomer extends Model {
     }
 
 	/**
+	 * getIps
+	 *
 	 * @param int $customer_id
 	 * @param int $start
 	 * @param int $limit
@@ -623,6 +692,8 @@ class ModelCustomerCustomer extends Model {
     }
 
 	/**
+	 * getTotalIps
+	 *
 	 * @param int $customer_id
 	 *
 	 * @return int
@@ -634,6 +705,8 @@ class ModelCustomerCustomer extends Model {
     }
 
 	/**
+	 * getTotalCustomersByIp
+	 *
 	 * @param string $ip
 	 *
 	 * @return int
@@ -645,6 +718,8 @@ class ModelCustomerCustomer extends Model {
     }
 
 	/**
+	 * getTotalLoginAttempts
+	 *
 	 * @param string $email
 	 *
 	 * @return array
@@ -656,6 +731,8 @@ class ModelCustomerCustomer extends Model {
     }
 
 	/**
+	 * deleteLoginAttempts
+	 *
 	 * @param string $email
 	 *
 	 * @return void

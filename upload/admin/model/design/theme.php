@@ -6,6 +6,8 @@
  */
 class ModelDesignTheme extends Model {
 	/**
+	 * editTheme
+	 *
 	 * @param int    $store_id
 	 * @param string $theme
 	 * @param string $route
@@ -20,7 +22,9 @@ class ModelDesignTheme extends Model {
     }
 
 	/**
-	 * @param int    $theme_id
+	 * deleteTheme
+	 *
+	 * @param int $theme_id
 	 *
 	 * @return void
 	 */
@@ -29,6 +33,8 @@ class ModelDesignTheme extends Model {
     }
 
 	/**
+	 * getTheme
+	 *
 	 * @param int    $store_id
 	 * @param string $theme
 	 * @param string $route
@@ -42,6 +48,8 @@ class ModelDesignTheme extends Model {
     }
 
 	/**
+	 * getThemes
+	 *
 	 * @param int    $start
 	 * @param int 	 $limit
 	 *
@@ -62,6 +70,8 @@ class ModelDesignTheme extends Model {
     }
 
 	/**
+	 * getTotalThemes
+	 *
 	 * @return int
 	 */
     public function getTotalThemes(): int {

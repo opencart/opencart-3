@@ -6,6 +6,8 @@
  */
 class ModelCatalogAttributeGroup extends Model {
 	/**
+	 * addAttributeGroup
+	 *
 	 * @param array $data
 	 *
 	 * @return int
@@ -23,6 +25,8 @@ class ModelCatalogAttributeGroup extends Model {
     }
 
 	/**
+	 * editAttributeGroup
+	 *
 	 * @param int $attribute_group_id
 	 * @param array $data
 	 *
@@ -39,6 +43,8 @@ class ModelCatalogAttributeGroup extends Model {
     }
 
 	/**
+	 * deleteAttributeGroup
+	 *
 	 * @param int $attribute_group_id
 	 *
 	 * @return void
@@ -49,6 +55,8 @@ class ModelCatalogAttributeGroup extends Model {
     }
 
 	/**
+	 * getAttributeGroyp
+	 *
 	 * @param int $attribute_group_id
 	 *
 	 * @return array
@@ -60,6 +68,8 @@ class ModelCatalogAttributeGroup extends Model {
     }
 
 	/**
+	 * getAttributeGroups
+	 *
 	 * @param array $data
 	 *
 	 * @return array
@@ -102,6 +112,8 @@ class ModelCatalogAttributeGroup extends Model {
     }
 
 	/**
+	 * getDescriptions
+	 *
 	 * @param int $attribute_group_id
 	 *
 	 * @return array
@@ -119,6 +131,8 @@ class ModelCatalogAttributeGroup extends Model {
     }
 
 	/**
+	 * getTotalAttributeGroups
+	 *
 	 * @return int
 	 */
     public function getTotalAttributeGroups(): int {

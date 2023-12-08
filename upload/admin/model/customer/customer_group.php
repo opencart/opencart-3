@@ -6,6 +6,8 @@
  */
 class ModelCustomerCustomerGroup extends Model {
 	/**
+	 * addCustomerGroup
+	 *
 	 * @param array $data
 	 *
 	 * @return int
@@ -23,6 +25,8 @@ class ModelCustomerCustomerGroup extends Model {
     }
 
 	/**
+	 * editCustomerGroup
+	 *
 	 * @param int   $customer_group_id
 	 * @param array $data
 	 *
@@ -39,6 +43,8 @@ class ModelCustomerCustomerGroup extends Model {
     }
 
 	/**
+	 * deleteCustomerGroup
+	 *
 	 * @param int $customer_group_id
 	 *
 	 * @return void
@@ -53,6 +59,8 @@ class ModelCustomerCustomerGroup extends Model {
     }
 
 	/**
+	 * getCustomerGroup
+	 *
 	 * @param int $customer_group_id
 	 *
 	 * @return array
@@ -64,6 +72,8 @@ class ModelCustomerCustomerGroup extends Model {
     }
 
 	/**
+	 * getCustomerGroups
+	 *
 	 * @param array $data
 	 *
 	 * @return array
@@ -106,6 +116,8 @@ class ModelCustomerCustomerGroup extends Model {
     }
 
 	/**
+	 * getDescriptions
+	 *
 	 * @param int $customer_group_id
 	 *
 	 * @return array
@@ -126,6 +138,8 @@ class ModelCustomerCustomerGroup extends Model {
     }
 
 	/**
+	 * getTotalCustomerGroups
+	 *
 	 * @return int
 	 */
     public function getTotalCustomerGroups(): int {

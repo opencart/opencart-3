@@ -5,6 +5,11 @@
  * @package Admin\Model\Extension\Payment
  */
 class ModelExtensionPaymentRealex extends Model {
+	/**
+	 * Install
+	 *
+	 * @return void
+	 */
     public function install(): void {
         $this->db->query("
 			CREATE TABLE IF NOT EXISTS `" . DB_PREFIX . "realex_order` (
@@ -38,7 +43,14 @@ class ModelExtensionPaymentRealex extends Model {
 			) ENGINE=MyISAM DEFAULT COLLATE=utf8_general_ci;");
     }
 
-    public function void($order_id) {
+	/**
+	 * Void
+	 *
+	 * @param int $order_id
+	 *
+	 * @return object|null
+	 */
+    public function void(int $order_id): object|null {
         $realex_order = $this->getOrder($order_id);
 
         if ($realex_order) {
@@ -80,15 +92,31 @@ class ModelExtensionPaymentRealex extends Model {
 
             return simplexml_load_string($response);
         } else {
-            return false;
+            return null;
         }
     }
 
+	/**
+	 * updateVoidStatus
+	 *
+	 * @param int $realex_order_id
+	 * @param int $status
+	 *
+	 * @return void
+	 */
     public function updateVoidStatus(int $realex_order_id, int $status): void {
         $this->db->query("UPDATE `" . DB_PREFIX . "realex_order` SET `void_status` = '" . (int)$status . "' WHERE `realex_order_id` = '" . (int)$realex_order_id . "'");
     }
 
-    public function capture($order_id, $amount) {
+	/**
+	 * Capture
+	 *
+	 * @param int   $order_id
+	 * @param float $amount
+	 *
+	 * @return object|null
+	 */
+    public function capture($order_id, $amount): object|null {
         $realex_order = $this->getOrder($order_id);
 
         if ($realex_order && $realex_order['capture_status'] == 0) {
@@ -146,19 +174,44 @@ class ModelExtensionPaymentRealex extends Model {
 
             return simplexml_load_string($response);
         } else {
-            return false;
+            return null;
         }
     }
 
+	/**
+	 * updateCaptureStatus
+	 *
+	 * @param int $realex_order_id
+	 * @param int $status
+	 *
+	 * @return void
+	 */
     public function updateCaptureStatus(int $realex_order_id, int $status): void {
         $this->db->query("UPDATE `" . DB_PREFIX . "realex_order` SET `capture_status` = '" . (int)$status . "' WHERE `realex_order_id` = '" . (int)$realex_order_id . "'");
     }
 
+	/**
+	 * updateForRebate
+	 *
+	 * @param int    $realex_order_id
+	 * @param string $pas_ref
+	 * @param string $order_ref
+	 *
+	 * @return void
+	 */
     public function updateForRebate(int $realex_order_id, string $pas_ref, string $order_ref): void {
         $this->db->query("UPDATE `" . DB_PREFIX . "realex_order` SET `order_ref_previous` = '_multisettle_" . $this->db->escape($order_ref) . "', `pasref_previous` = '" . $this->db->escape($pas_ref) . "' WHERE `realex_order_id` = '" . (int)$realex_order_id . "' LIMIT 1");
     }
 
-    public function rebate($order_id, $amount) {
+	/**
+	 * Rebate
+	 *
+	 * @param int   $order_id
+	 * @param float $amount
+	 *
+	 * @return object|null
+	 */
+    public function rebate(int $order_id, float $amount): object|null {
         $realex_order = $this->getOrder($order_id);
 
         if ($realex_order && $realex_order['rebate_status'] != 1) {
@@ -216,14 +269,29 @@ class ModelExtensionPaymentRealex extends Model {
 
             return simplexml_load_string($response);
         } else {
-            return false;
+            return null;
         }
     }
 
+	/**
+	 * updateRebateStatus
+	 *
+	 * @param int $realex_order_id
+	 * @param int $status
+	 *
+	 * @return void
+	 */
     public function updateRebateStatus(int $realex_order_id, int $status): void {
         $this->db->query("UPDATE `" . DB_PREFIX . "realex_order` SET `rebate_status` = '" . (int)$status . "' WHERE `realex_order_id` = '" . (int)$realex_order_id . "'");
     }
 
+	/**
+	 * getOrder
+	 *
+	 * @param int $order_id
+	 *
+	 * @return array
+	 */
     public function getOrder(int $order_id): array {
         $this->logger('getOrder - ' . $order_id);
 
@@ -241,7 +309,7 @@ class ModelExtensionPaymentRealex extends Model {
         }
     }
 
-    private function getTransactions(int $realex_order_id): array {
+    private function getTransactions($realex_order_id) {
         $query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "realex_order_transaction` WHERE `realex_order_id` = '" . (int)$realex_order_id . "'");
 
         if ($query->num_rows) {
@@ -251,10 +319,26 @@ class ModelExtensionPaymentRealex extends Model {
         }
     }
 
+	/**
+	 * addTransaction
+	 *
+	 * @param int    $realex_order_id
+	 * @param string $type
+	 * @param float  $total
+	 *
+	 * @return void
+	 */
     public function addTransaction(int $realex_order_id, string $type, float $total): void {
         $this->db->query("INSERT INTO `" . DB_PREFIX . "realex_order_transaction` SET `realex_order_id` = '" . (int)$realex_order_id . "', `date_added` = NOW(), `type` = '" . $this->db->escape($type) . "', `amount` = '" . (float)$total . "'");
     }
 
+	/**
+	 * Logger
+	 *
+	 * @param string $message
+	 *
+	 * @return void
+	 */
     public function logger(string $message): void {
         if ($this->config->get('payment_realex_debug') == 1) {
             $log = new \Log('realex.log');
@@ -262,12 +346,26 @@ class ModelExtensionPaymentRealex extends Model {
         }
     }
 
+	/**
+	 * getTotalCaptured
+	 *
+	 * @param int $realex_order_id
+	 *
+	 * @return float
+	 */
     public function getTotalCaptured(int $realex_order_id): float {
         $query = $this->db->query("SELECT SUM(`amount`) AS `total` FROM `" . DB_PREFIX . "realex_order_transaction` WHERE `realex_order_id` = '" . (int)$realex_order_id . "' AND (`type` = 'payment' OR `type` = 'rebate')");
 
         return (float)$query->row['total'];
     }
 
+	/**
+	 * getTotalRebated
+	 *
+	 * @param int $realex_order_id
+	 *
+	 * @return float
+	 */
     public function getTotalRebated(int $realex_order_id): float {
         $query = $this->db->query("SELECT SUM(`amount`) AS `total` FROM `" . DB_PREFIX . "realex_order_transaction` WHERE `realex_order_id` = '" . (int)$realex_order_id . "' AND `type` = 'rebate'");
 

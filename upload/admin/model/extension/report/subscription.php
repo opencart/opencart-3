@@ -6,6 +6,8 @@
  */
 class ModelExtensionReportSubscription extends Model {
     /**
+	 * getSubscriptions
+	 *
      * @param array $data
      *
      * @return array
@@ -69,6 +71,8 @@ class ModelExtensionReportSubscription extends Model {
     }
 
     /**
+	 * getTotalSubscriptions
+	 *
      * @param array $data
      *
      * @return int

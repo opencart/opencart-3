@@ -7,6 +7,11 @@
 class ModelExtensionPaymentDivido extends Model {
     const CACHE_KEY_PLANS = 'divido_plans';
 
+	/**
+	 * getAllPlans
+	 *
+	 * @return array
+	 */
     public function getAllPlans(): array {
         if ($plans = $this->cache->get(self::CACHE_KEY_PLANS)) {
             // OpenCart 2.1 decodes json objects to associative arrays so we
@@ -57,10 +62,22 @@ class ModelExtensionPaymentDivido extends Model {
         return $plans_plain;
     }
 
+	/**
+	 * getLookupByOrderId
+	 *
+	 * @param int $order_id
+	 *
+	 * @return int
+	 */
     public function getLookupByOrderId(int $order_id): int {
         return $this->db->query("SELECT * FROM `" . DB_PREFIX . "divido_lookup` WHERE `order_id` = '" . (int)$order_id . "'");
     }
 
+	/**
+	 * Install
+	 *
+	 * @return void
+	 */
     public function install(): void {
         $this->db->query("
 			CREATE TABLE IF NOT EXISTS `" . DB_PREFIX . "divido_product` (
@@ -81,6 +98,11 @@ class ModelExtensionPaymentDivido extends Model {
 			) ENGINE=MyISAM DEFAULT COLLATE=utf8_general_ci;");
     }
 
+	/**
+	 * Uninstall
+	 *
+	 * @return void
+	 */
     public function uninstall(): void {
         $this->db->query("DROP TABLE IF EXISTS `" . DB_PREFIX . "divido_product`;");
         $this->db->query("DROP TABLE IF EXISTS `" . DB_PREFIX . "divido_lookup`;");

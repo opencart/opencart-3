@@ -6,6 +6,8 @@
  */
 class ModelSettingStore extends Model {
 	/**
+	 * addStore
+	 *
 	 * @param array $data
 	 *
 	 * @return int
@@ -28,6 +30,8 @@ class ModelSettingStore extends Model {
     }
 
 	/**
+	 * editStore
+	 *
 	 * @param int   $store_id
 	 * @param array $data
 	 *
@@ -40,6 +44,8 @@ class ModelSettingStore extends Model {
     }
 
 	/**
+	 * deleteStore
+	 *
 	 * @param int $store_id
 	 *
 	 * @return void
@@ -72,6 +78,8 @@ class ModelSettingStore extends Model {
     }
 
 	/**
+	 * getStore
+	 *
 	 * @param int $store_id
 	 *
 	 * @return array
@@ -83,6 +91,8 @@ class ModelSettingStore extends Model {
     }
 
 	/**
+	 * getStores
+	 *
 	 * @param array $data
 	 *
 	 * @return array
@@ -102,6 +112,8 @@ class ModelSettingStore extends Model {
     }
 
 	/**
+	 * getTotalStores
+	 *
 	 * @return int
 	 */
     public function getTotalStores(): int {
@@ -111,6 +123,8 @@ class ModelSettingStore extends Model {
     }
 
 	/**
+	 * getTotalStoresByLayoutId
+	 *
 	 * @param int $layout_id
 	 *
 	 * @return int
@@ -122,6 +136,8 @@ class ModelSettingStore extends Model {
     }
 
 	/**
+	 * getTotalStoresByLanguage
+	 *
 	 * @param string $language
 	 *
 	 * @return int
@@ -133,6 +149,8 @@ class ModelSettingStore extends Model {
     }
 
 	/**
+	 * getTotalStoresByCurrency
+	 *
 	 * @param string $currency
 	 *
 	 * @return int
@@ -144,6 +162,8 @@ class ModelSettingStore extends Model {
     }
 
 	/**
+	 * getTotalStoresByCountryId
+	 *
 	 * @param int $country_id
 	 *
 	 * @return int
@@ -155,6 +175,8 @@ class ModelSettingStore extends Model {
     }
 
 	/**
+	 * getTotalStoresByZoneId
+	 *
 	 * @param int $zone_id
 	 *
 	 * @return int
@@ -166,6 +188,8 @@ class ModelSettingStore extends Model {
     }
 
 	/**
+	 * getTotalStoresByCustomerGroupId
+	 *
 	 * @param int $customer_group_id
 	 *
 	 * @return int
@@ -177,6 +201,8 @@ class ModelSettingStore extends Model {
     }
 
 	/**
+	 * getTotalStoresByInformationId
+	 *
 	 * @param int $information_id
 	 *
 	 * @return int
@@ -189,6 +215,8 @@ class ModelSettingStore extends Model {
     }
 
 	/**
+	 * getTotalStoresByOrderStatusId
+	 *
 	 * @param int $order_status_id
 	 *
 	 * @return int

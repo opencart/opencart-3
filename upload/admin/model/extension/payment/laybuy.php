@@ -5,12 +5,26 @@
  * @package Admin\Model\Extension\Payment
  */
 class ModelExtensionPaymentLaybuy extends Model {
+	/**
+	 * addRevisedTransaction
+	 *
+	 * @param array $data
+	 *
+	 * @return int
+	 */
     public function addRevisedTransaction(array $data = []): int {
         $query = $this->db->query("INSERT INTO `" . DB_PREFIX . "laybuy_revise_request` SET `laybuy_transaction_id` = '" . (int)$data['transaction_id'] . "', `type` = '" . $this->db->escape($data['type']) . "', `order_id` = '" . (int)$data['order_id'] . "', `firstname` = '" . $this->db->escape($data['firstname']) . "', `lastname` = '" . $this->db->escape($data['lastname']) . "', `address` = '" . $this->db->escape($data['address']) . "', `suburb` = '" . $this->db->escape($data['suburb']) . "', `state` = '" . $this->db->escape($data['state']) . "', `country` = '" . $this->db->escape($data['country']) . "', `postcode` = '" . $this->db->escape($data['postcode']) . "', `email` = '" . $this->db->escape($data['email']) . "', `amount` = '" . (float)$data['amount'] . "', `currency` = '" . $this->db->escape($data['currency']) . "', `downpayment` = '" . $this->db->escape($data['downpayment']) . "', `months` = '" . (int)$data['months'] . "', `downpayment_amount` = '" . (float)$data['downpayment_amount'] . "', `payment_amounts` = '" . (float)$data['payment_amounts'] . "', `first_payment_due` = '" . $this->db->escape($data['first_payment_due']) . "', `last_payment_due` = '" . $this->db->escape($data['last_payment_due']) . "', `store_id` = '" . (int)$data['store_id'] . "', `status` = '" . (int)$data['status'] . "', `report` = '" . $this->db->escape($data['report']) . "', `transaction` = '" . (int)$data['transaction'] . "', `paypal_profile_id` = '" . $this->db->escape($data['paypal_profile_id']) . "', `laybuy_ref_no` = '" . (int)$data['laybuy_ref_no'] . "', `payment_type` = '" . (int)$data['payment_type'] . "', `date_added` = NOW()");
 
         return $this->db->getLastId();
     }
 
+	/**
+	 * getCustomerIdByOrderId
+	 *
+	 * @param int $order_id
+	 *
+	 * @return int
+	 */
     public function getCustomerIdByOrderId(int $order_id): int {
         $query = $this->db->query("SELECT `customer_id` FROM `" . DB_PREFIX . "order` WHERE `order_id` = '" . (int)$order_id . "'");
 
@@ -21,6 +35,11 @@ class ModelExtensionPaymentLaybuy extends Model {
         }
     }
 
+	/**
+	 * getInitialPayments
+	 *
+	 * @return array
+	 */
     public function getInitialPayments(): array {
         $initial_payments = [];
 
@@ -34,6 +53,11 @@ class ModelExtensionPaymentLaybuy extends Model {
         return $initial_payments;
     }
 
+	/**
+	 * getMonths
+	 *
+	 * @return array
+	 */
     public function getMonths(): array {
         $this->load->language('extension/payment/laybuy');
 
@@ -59,29 +83,63 @@ class ModelExtensionPaymentLaybuy extends Model {
         return $months;
     }
 
+	/**
+	 * getPayPalProfileIds
+	 *
+	 * @return array
+	 */
     public function getPayPalProfileIds(): array {
         $query = $this->db->query("SELECT `paypal_profile_id` FROM `" . DB_PREFIX . "laybuy_transaction` WHERE `status` = '1'");
 
         return $query->rows;
     }
 
+	/**
+	 * getRevisedTransaction
+	 *
+	 * @param int $id
+	 *
+	 * @return array
+	 */
     public function getRevisedTransaction(int $id): array {
         $query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "laybuy_revise_request` WHERE `laybuy_revise_request_id` = '" . (int)$id . "'");
 
         return $query->row;
     }
 
+	/**
+	 * getRemainingAmount
+	 *
+	 * @param float $amount
+	 * @param float $downpayment_amount
+	 * @param float $payment_amounts
+	 * @param int   $transaction
+	 *
+	 * @return float
+	 */
     public function getRemainingAmount(float $amount, float $downpayment_amount, float $payment_amounts, int $transaction = 2): float {
         return $amount - ($downpayment_amount + (((int)$transaction - 2) * $payment_amounts));
     }
 
+	/**
+	 * getRevisedTransactions
+	 *
+	 * @param int $id
+	 *
+	 * @return array
+	 */
     public function getRevisedTransactions(int $id): array {
         $query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "laybuy_revise_request` WHERE `laybuy_revise_request_id` = '" . (int)$id . "'");
 
         return $query->rows;
     }
 
-    public function getStatusLabel($id) {
+	/**
+	 * getStatusLabel
+	 *
+	 * @return int
+	 */
+    public function getStatusLabel(int $id): int {
         $statuses = $this->getTransactionStatuses();
 
         foreach ($statuses as $status) {
@@ -94,12 +152,26 @@ class ModelExtensionPaymentLaybuy extends Model {
         return $id;
     }
 
+	/**
+	 * getTransaction
+	 *
+	 * @param int $id
+	 *
+	 * @return array
+	 */
     public function getTransaction(int $id): array {
         $query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "laybuy_transaction` WHERE `laybuy_transaction_id` = '" . (int)$id . "'");
 
         return $query->row;
     }
 
+	/**
+	 * getTransactions
+	 *
+	 * @param array $data
+	 *
+	 * @return array
+	 */
     public function getTransactions(array $data = []): array {
         $implode = [];
 
@@ -179,6 +251,13 @@ class ModelExtensionPaymentLaybuy extends Model {
         return $query->rows;
     }
 
+	/**
+	 * getTotalTransactions
+	 *
+	 * @param array $data
+	 *
+	 * @return int
+	 */
     public function getTotalTransactions(array $data = []): int {
         $implode = [];
 
@@ -217,24 +296,44 @@ class ModelExtensionPaymentLaybuy extends Model {
         return (int)$query->row['total'];
     }
 
+	/**
+	 * getTransactionByLayBuyRefId
+	 *
+	 * @param int $laybuy_ref_id
+	 *
+	 * @return array
+	 */
     public function getTransactionByLayBuyRefId(int $laybuy_ref_id): array {
         $query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "laybuy_transaction` WHERE `laybuy_ref_no` = '" . (int)$laybuy_ref_id . "'");
 
         return $query->row;
     }
 
+	/**
+	 * getTransactionByOrderId
+	 *
+	 * @param int $order_id
+	 *
+	 * @return array
+	 */
     public function getTransactionByOrderId(int $order_id): array {
         $query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "laybuy_transaction` WHERE `order_id` = '" . (int)$order_id . "' ORDER BY `laybuy_ref_no` DESC LIMIT 1");
 
         return $query->row;
     }
 
+	/**
+	 * getTransactionStatuses
+	 *
+	 * @return array
+	 */
     public function getTransactionStatuses(): array {
         $this->load->language('extension/payment/laybuy');
 
         $transaction_statuses = [
-            ['status_id'   => 1,
-             'status_name' => $this->language->get('text_status_1')
+            [
+				'status_id'   => 1,
+				'status_name' => $this->language->get('text_status_1')
             ],
             [
                 'status_id'   => 5,
@@ -257,6 +356,11 @@ class ModelExtensionPaymentLaybuy extends Model {
         return $transaction_statuses;
     }
 
+	/**
+	 * Install
+	 *
+	 * @return void
+	 */
     public function install(): void {
         $this->db->query("CREATE TABLE IF NOT EXISTS `" . DB_PREFIX . "laybuy_transaction` (
 			`laybuy_transaction_id` int(11) NOT NULL AUTO_INCREMENT,
@@ -325,6 +429,14 @@ class ModelExtensionPaymentLaybuy extends Model {
         $this->model_setting_event->addEvent('laybuy', 'catalog/model/checkout/order/deleteOrder/after', 'extension/payment/laybuy/deleteOrder');
     }
 
+	/**
+	 * Log
+	 *
+	 * @param string $data
+	 * @param int    $step
+	 *
+	 * @return void
+	 */
     public function log(string $data, int $step = 6): void {
         if ($this->config->get('payment_laybuy_logging')) {
             $backtrace = debug_backtrace();
@@ -335,6 +447,11 @@ class ModelExtensionPaymentLaybuy extends Model {
         }
     }
 
+	/**
+	 * Uninstall
+	 *
+	 * @return void
+	 */
     public function uninstall(): void {
         $this->db->query("DROP TABLE IF EXISTS `" . DB_PREFIX . "laybuy_transaction`");
         $this->db->query("DROP TABLE IF EXISTS `" . DB_PREFIX . "laybuy_revise_request`");
@@ -345,20 +462,55 @@ class ModelExtensionPaymentLaybuy extends Model {
         $this->model_setting_event->deleteEventByCode('laybuy');
     }
 
+	/**
+	 * updateOrderStatus
+	 *
+	 * @param int    $order_id
+	 * @param int    $order_status_id
+	 * @param string $comment
+	 *
+	 * @return void
+	 */
     public function updateOrderStatus(int $order_id, int $order_status_id, string $comment): void {
         $this->db->query("UPDATE `" . DB_PREFIX . "order` SET `order_status_id` = '" . (int)$order_status_id . "', `date_modified` = NOW() WHERE `order_id` = '" . (int)$order_id . "'");
 
         $this->db->query("INSERT INTO `" . DB_PREFIX . "order_history` SET `order_id` = '" . (int)$order_id . "', `order_status_id` = '" . (int)$order_status_id . "', `notify` = '0', `comment` = '" . $this->db->escape($comment) . "', `date_added` = NOW()");
     }
 
+	/**
+	 * updateRevisedTransaction
+	 *
+	 * @param int   $id
+	 * @param array $data
+	 *
+	 * @return void
+	 */
     public function updateRevisedTransaction(int $id, array $data = []): void {
         $this->db->query("UPDATE `" . DB_PREFIX . "laybuy_revise_request` SET `laybuy_transaction_id` = '" . (int)$data['transaction_id'] . "', `type` = '" . $this->db->escape($data['type']) . "', `order_id` = '" . (int)$data['order_id'] . "', `firstname` = '" . $this->db->escape($data['firstname']) . "', `lastname` = '" . $this->db->escape($data['lastname']) . "', `address` = '" . $this->db->escape($data['address']) . "', `suburb` = '" . $this->db->escape($data['suburb']) . "', `state` = '" . $this->db->escape($data['state']) . "', `country` = '" . $this->db->escape($data['country']) . "', `postcode` = '" . $this->db->escape($data['postcode']) . "', `email` = '" . $this->db->escape($data['email']) . "', `amount` = '" . (float)$data['amount'] . "', `currency` = '" . $this->db->escape($data['currency']) . "', `downpayment` = '" . $this->db->escape($data['downpayment']) . "', `months` = '" . (int)$data['months'] . "', `downpayment_amount` = '" . (float)$data['downpayment_amount'] . "', `payment_amounts` = '" . (float)$data['payment_amounts'] . "', `first_payment_due` = '" . $this->db->escape($data['first_payment_due']) . "', `last_payment_due` = '" . $this->db->escape($data['last_payment_due']) . "', `store_id` = '" . (int)$data['store_id'] . "', `status` = '" . (int)$data['status'] . "', `report` = '" . $this->db->escape($data['report']) . "', `transaction` = '" . (int)$data['transaction'] . "', `paypal_profile_id` = '" . $this->db->escape($data['paypal_profile_id']) . "', `laybuy_ref_no` = '" . (int)$data['laybuy_ref_no'] . "', `payment_type` = '" . (int)$data['payment_type'] . "', `date_added` = NOW() WHERE `laybuy_revise_request_id` = '" . (int)$id . "'");
     }
 
+	/**
+	 * updateTransaction
+	 *
+	 * @param int    $id
+	 * @param int    $status
+	 * @param string $report
+	 * @param int    $transaction
+	 *
+	 * @return void
+	 */
     public function updateTransaction(int $id, int $status, string $report, int $transaction): void {
         $this->db->query("UPDATE `" . DB_PREFIX . "laybuy_transaction` SET `status` = '" . (int)$status . "', `report` = '" . $this->db->escape($report) . "', `transaction` = '" . (int)$transaction . "' WHERE `laybuy_transaction_id` = '" . (int)$id . "'");
     }
 
+	/**
+	 * updateTransactionStatus
+	 *
+	 * @param int $id
+	 * @param int $status
+	 *
+	 * @return void
+	 */
     public function updateTransactionStatus(int $id, int $status): void {
         $this->db->query("UPDATE `" . DB_PREFIX . "laybuy_transaction` SET `status` = '" . (int)$status . "' WHERE `laybuy_transaction_id` = '" . (int)$id . "'");
     }

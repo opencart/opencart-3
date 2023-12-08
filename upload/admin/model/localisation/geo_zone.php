@@ -6,6 +6,8 @@
  */
 class ModelLocalisationGeoZone extends Model {
 	/**
+	 * addGeoZone
+	 *
 	 * @param array $data
 	 *
 	 * @return int
@@ -29,6 +31,8 @@ class ModelLocalisationGeoZone extends Model {
     }
 
 	/**
+	 * editGeoZone
+	 *
 	 * @param int   $geo_zone_id
 	 * @param array $data
 	 *
@@ -51,6 +55,8 @@ class ModelLocalisationGeoZone extends Model {
     }
 
 	/**
+	 * deleteGeoZone
+	 *
 	 * @param int $geo_zone_id
 	 *
 	 * @return void
@@ -63,6 +69,8 @@ class ModelLocalisationGeoZone extends Model {
     }
 
 	/**
+	 * getGeoZone
+	 *
 	 * @param int $geo_zone_id
 	 *
 	 * @return array
@@ -74,6 +82,8 @@ class ModelLocalisationGeoZone extends Model {
     }
 
 	/**
+	 * getGeoZones
+	 *
 	 * @param array $data
 	 *
 	 * @return array
@@ -130,6 +140,8 @@ class ModelLocalisationGeoZone extends Model {
     }
 
 	/**
+	 * getTotalGeoZones
+	 *
 	 * @return int
 	 */
     public function getTotalGeoZones(): int {
@@ -139,6 +151,8 @@ class ModelLocalisationGeoZone extends Model {
     }
 
 	/**
+	 * getZoneToGeoZones
+	 *
 	 * @param int $geo_zone_id
 	 *
 	 * @return array
@@ -150,6 +164,8 @@ class ModelLocalisationGeoZone extends Model {
     }
 
 	/**
+	 * getTotalZoneToGeoZoneByGeoZoneId
+	 *
 	 * @param int $geo_zone_id
 	 *
 	 * @return int
@@ -161,6 +177,8 @@ class ModelLocalisationGeoZone extends Model {
     }
 
 	/**
+	 * getTotalZoneToGeoZoneByCountryId
+	 *
 	 * @param int $country_id
 	 *
 	 * @return int
@@ -172,6 +190,8 @@ class ModelLocalisationGeoZone extends Model {
     }
 
 	/**
+	 * getTotalZoneToGeoZoneByZoneId
+	 *
 	 * @param int $zone_id
 	 *
 	 * @return int

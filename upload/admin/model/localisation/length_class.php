@@ -6,6 +6,8 @@
  */
 class ModelLocalisationLengthClass extends Model {
 	/**
+	 * addLengthClass
+	 *
 	 * @param array $data
 	 *
 	 * @return int
@@ -25,6 +27,8 @@ class ModelLocalisationLengthClass extends Model {
     }
 
 	/**
+	 * editLengthClass
+	 *
 	 * @param int   $length_class_id
 	 * @param array $data
 	 *
@@ -43,6 +47,8 @@ class ModelLocalisationLengthClass extends Model {
     }
 
 	/**
+	 * deleteLengthClass
+	 *
 	 * @param int $length_class_id
 	 *
 	 * @return void
@@ -55,6 +61,8 @@ class ModelLocalisationLengthClass extends Model {
     }
 
 	/**
+	 * getLengthClasses
+	 *
 	 * @param array $data
 	 *
 	 * @return array
@@ -112,6 +120,8 @@ class ModelLocalisationLengthClass extends Model {
     }
 
 	/**
+	 * getLengthClass
+	 *
 	 * @param int $length_class_id
 	 *
 	 * @return array
@@ -123,6 +133,8 @@ class ModelLocalisationLengthClass extends Model {
     }
 
 	/**
+	 * getDescriptionByUnit
+	 *
 	 * @param string $unit
 	 *
 	 * @return array
@@ -134,6 +146,8 @@ class ModelLocalisationLengthClass extends Model {
     }
 
 	/**
+	 * getDescriptions
+	 *
 	 * @param int $length_class_id
 	 *
 	 * @return array
@@ -154,6 +168,8 @@ class ModelLocalisationLengthClass extends Model {
     }
 
 	/**
+	 * getTotalLengthClasses
+	 *
 	 * @return int
 	 */
     public function getTotalLengthClasses(): int {

@@ -5,6 +5,11 @@
  * @package Admin\Model\Extension\Payment
  */
 class ModelExtensionPaymentFirstdata extends Model {
+	/**
+	 * Install
+	 *
+	 * @return void
+	 */
     public function install(): void {
         $this->db->query("
 			CREATE TABLE IF NOT EXISTS `" . DB_PREFIX . "firstdata_order` (
@@ -49,13 +54,25 @@ class ModelExtensionPaymentFirstdata extends Model {
 			) ENGINE=MyISAM DEFAULT COLLATE=utf8_general_ci;");
     }
 
+	/**
+	 * Uninstall
+	 *
+	 * @return void
+	 */
     public function uninstall(): void {
         $this->db->query("DROP TABLE IF EXISTS `" . DB_PREFIX . "firstdata_order`;");
         $this->db->query("DROP TABLE IF EXISTS `" . DB_PREFIX . "firstdata_order_transaction`;");
         $this->db->query("DROP TABLE IF EXISTS `" . DB_PREFIX . "firstdata_card`;");
     }
 
-    public function void($order_id) {
+	/**
+	 * Void
+	 *
+	 * @param int $order_id
+	 *
+	 * @return object|null
+	 */
+    public function void(int $order_id): object|null {
         $firstdata_order = $this->getOrder($order_id);
 
         if ($firstdata_order) {
@@ -97,15 +114,31 @@ class ModelExtensionPaymentFirstdata extends Model {
 
             return simplexml_load_string($response);
         } else {
-            return false;
+            return null;
         }
     }
 
+	/**
+	 * updateVoidStatus
+	 *
+	 * @param int $firstdata_order_id
+	 * @param int $status
+	 *
+	 * @return void
+	 */
     public function updateVoidStatus(int $firstdata_order_id, int $status): void {
         $this->db->query("UPDATE `" . DB_PREFIX . "firstdata_order` SET `void_status` = '" . (int)$status . "' WHERE `firstdata_order_id` = '" . (int)$firstdata_order_id . "'");
     }
 
-    public function capture($order_id, $amount) {
+	/**
+	 * Capture
+	 *
+	 * @param int   $order_id
+	 * @param float	$amount
+	 *
+	 * @return object|null
+	 */
+    public function capture(int $order_id, float $amount): object|null {
         $firstdata_order = $this->getOrder($order_id);
 
         if ($firstdata_order && $firstdata_order['capture_status'] == 0) {
@@ -164,14 +197,29 @@ class ModelExtensionPaymentFirstdata extends Model {
 
             return simplexml_load_string($response);
         } else {
-            return false;
+            return null;
         }
     }
 
+	/**
+	 * updateCaptureStatus
+	 *
+	 * @param int $firstdata_order_id
+	 * @param int $status
+	 *
+	 * @return void
+	 */
     public function updateCaptureStatus(int $firstdata_order_id, int $status): void {
         $this->db->query("UPDATE `" . DB_PREFIX . "firstdata_order` SET `capture_status` = '" . (int)$status . "' WHERE `firstdata_order_id` = '" . (int)$firstdata_order_id . "'");
     }
 
+	/**
+	 * getOrder
+	 *
+	 * @param int $order_id
+	 *
+	 * @return array
+	 */
     public function getOrder(int $order_id): array {
         $this->logger('getOrder - ' . $order_id);
 
@@ -200,10 +248,26 @@ class ModelExtensionPaymentFirstdata extends Model {
         }
     }
 
+	/**
+	 * addTransaction
+	 *
+	 * @param int    $firstdata_order_id
+	 * @param string $type
+	 * @param float  $total
+	 *
+	 * @return void
+	 */
     public function addTransaction(int $firstdata_order_id, string $type, float $total): void {
         $this->db->query("INSERT INTO `" . DB_PREFIX . "firstdata_order_transaction` SET `firstdata_order_id` = '" . (int)$firstdata_order_id . "', `date_added` = NOW(), `type` = '" . $this->db->escape($type) . "', `amount` = '" . (float)$total . "'");
     }
 
+	/**
+	 * Logger
+	 *
+	 * @param string $message
+	 *
+	 * @return void
+	 */
     public function logger(string $message): void {
         if ($this->config->get('payment_firstdata_debug') == 1) {
             $log = new \Log('firstdata.log');
@@ -211,12 +275,26 @@ class ModelExtensionPaymentFirstdata extends Model {
         }
     }
 
+	/**
+	 * getTotalCaptured
+	 *
+	 * @param int $firstdata_order_id
+	 *
+	 * @return float
+	 */
     public function getTotalCaptured(int $firstdata_order_id): float {
         $query = $this->db->query("SELECT SUM(`amount`) AS `total` FROM `" . DB_PREFIX . "firstdata_order_transaction` WHERE `firstdata_order_id` = '" . (int)$firstdata_order_id . "' AND (`type` = 'payment' OR `type` = 'refund')");
 
         return (float)$query->row['total'];
     }
 
+	/**
+	 * mapCurrency
+	 *
+	 * @param string $code
+	 *
+	 * @return string
+	 */
     public function mapCurrency(string $code): string {
         $currency = [
             'GBP' => 826,

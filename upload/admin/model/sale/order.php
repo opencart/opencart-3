@@ -6,6 +6,8 @@
  */
 class ModelSaleOrder extends Model {
 	/**
+	 * getOrder
+	 *
 	 * @param int $order_id
 	 *
 	 * @return array
@@ -160,6 +162,8 @@ class ModelSaleOrder extends Model {
     }
 
 	/**
+	 * getOrders
+	 *
 	 * @param array $data
 	 *
 	 * @return array
@@ -244,6 +248,8 @@ class ModelSaleOrder extends Model {
     }
 
 	/**
+	 * getProducts
+	 *
 	 * @param int $order_id
 	 *
 	 * @return array
@@ -255,6 +261,8 @@ class ModelSaleOrder extends Model {
     }
 
 	/**
+	 * getProductByOrderProductId
+	 *
 	 * @param int $order_id
 	 * @param int $order_product_id
 	 *
@@ -267,6 +275,8 @@ class ModelSaleOrder extends Model {
     }
 
 	/**
+	 * getOptions
+	 *
 	 * @param int $order_id
 	 * @param int $order_product_id
 	 *
@@ -279,6 +289,8 @@ class ModelSaleOrder extends Model {
     }
 
 	/**
+	 * getVouchers
+	 *
 	 * @param int $order_id
 	 *
 	 * @return array
@@ -290,6 +302,8 @@ class ModelSaleOrder extends Model {
     }
 
 	/**
+	 * getOrderVoucherByVoucherId
+	 *
 	 * @param int $voucher_id
 	 *
 	 * @return array
@@ -301,6 +315,8 @@ class ModelSaleOrder extends Model {
     }
 
 	/**
+	 * getTotals
+	 *
 	 * @param int $order_id
 	 *
 	 * @return array
@@ -312,6 +328,8 @@ class ModelSaleOrder extends Model {
     }
 
 	/**
+	 * getTotalOrders
+	 *
 	 * @param array $data
 	 *
 	 * @return int
@@ -363,6 +381,8 @@ class ModelSaleOrder extends Model {
     }
 
 	/**
+	 * getTotalOrdersByStoreId
+	 *
 	 * @param int $store_id
 	 *
 	 * @return int
@@ -374,6 +394,8 @@ class ModelSaleOrder extends Model {
     }
 
 	/**
+	 * getTotalOrdersByOrderStatusId
+	 *
 	 * @param int $order_status_id
 	 *
 	 * @return int
@@ -385,6 +407,8 @@ class ModelSaleOrder extends Model {
     }
 
 	/**
+	 * getTotalOrdersByProcessingStatus
+	 *
 	 * @return int
 	 */
     public function getTotalOrdersByProcessingStatus(): int {
@@ -406,6 +430,8 @@ class ModelSaleOrder extends Model {
     }
 
 	/**
+	 * getTotalOrdersByCompleteStatus
+	 *
 	 * @return int
 	 */
     public function getTotalOrdersByCompleteStatus(): int {
@@ -427,6 +453,8 @@ class ModelSaleOrder extends Model {
     }
 
 	/**
+	 * getTotalOrdersByLanguageId
+	 *
 	 * @param int $language_id
 	 *
 	 * @return int
@@ -438,6 +466,8 @@ class ModelSaleOrder extends Model {
     }
 
 	/**
+	 * getTotalOrdersByCurrencyId
+	 *
 	 * @param int $currency_id
 	 *
 	 * @return int
@@ -449,6 +479,8 @@ class ModelSaleOrder extends Model {
     }
 
 	/**
+	 * getTotalSales
+	 *
 	 * @param array $data
 	 *
 	 * @return int
@@ -500,6 +532,8 @@ class ModelSaleOrder extends Model {
     }
 
 	/**
+	 * createInvoiceNo
+	 *
 	 * @param int $order_id
 	 *
 	 * @return string
@@ -525,6 +559,8 @@ class ModelSaleOrder extends Model {
     }
 
 	/**
+	 * getHistories
+	 *
 	 * @param int $order_id
 	 * @param int $start
 	 * @param int $limit
@@ -546,6 +582,8 @@ class ModelSaleOrder extends Model {
     }
 
 	/**
+	 * getTotalOrderHistories
+	 *
 	 * @param int $order_id
 	 *
 	 * @return int
@@ -557,6 +595,7 @@ class ModelSaleOrder extends Model {
     }
 
 	/**
+	 * getTotalOrderHistoriesByOrderStatusId
 	 * @param int $order_status_id
 	 *
 	 * @return int
@@ -568,6 +607,8 @@ class ModelSaleOrder extends Model {
     }
 
 	/**
+	 * getEmailsByProductsOrdered
+	 *
 	 * @param array $products
 	 * @param int   $start
 	 * @param int   $end
@@ -587,6 +628,8 @@ class ModelSaleOrder extends Model {
     }
 
 	/**
+	 * getTotalEmailsByProductsOrdered
+	 *
 	 * @param array $products
 	 *
 	 * @return int

@@ -5,6 +5,11 @@
  * @package Admin\Model\Extension\Payment
  */
 class ModelExtensionPaymentG2aPay extends Model {
+	/**
+	 * Install
+	 *
+	 * @return void
+	 */
     public function install(): void {
         $this->db->query("
 			CREATE TABLE `" . DB_PREFIX . "g2apay_order` (
@@ -33,11 +38,23 @@ class ModelExtensionPaymentG2aPay extends Model {
 			");
     }
 
+	/**
+	 * Uninstall
+	 *
+	 * @return void
+	 */
     public function uninstall(): void {
         $this->db->query("DROP TABLE IF EXISTS `" . DB_PREFIX . "g2apay_order`;");
         $this->db->query("DROP TABLE IF EXISTS `" . DB_PREFIX . "g2apay_order_transaction`;");
     }
 
+	/**
+	 * getOrder
+	 *
+	 * @param int $order_id
+	 *
+	 * @return array
+	 */
     public function getOrder(int $order_id): array {
         $query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "g2apay_order` WHERE `order_id` = '" . (int)$order_id . "' LIMIT 1");
 
@@ -51,12 +68,27 @@ class ModelExtensionPaymentG2aPay extends Model {
         }
     }
 
+	/**
+	 * getTotalReleased
+	 *
+	 * @param int $g2apay_order_id
+	 *
+	 * @return float
+	 */
     public function getTotalReleased(int $g2apay_order_id): float {
         $query = $this->db->query("SELECT SUM(`amount`) AS `total` FROM `" . DB_PREFIX . "g2apay_order_transaction` WHERE `g2apay_order_id` = '" . (int)$g2apay_order_id . "' AND (`type` = 'payment' OR `type` = 'refund')");
 
         return (float)$query->row['total'];
     }
 
+	/**
+	 * Refund
+	 *
+	 * @param array $g2apay_order
+	 * @param float $amount
+	 *
+	 * @return array
+	 */
     public function refund(array $g2apay_order, float $amount): array {
         if (!empty($g2apay_order) && $g2apay_order['refund_status'] != 1) {
             if ($this->config->get('payment_g2apay_environment') == 1) {
@@ -81,38 +113,67 @@ class ModelExtensionPaymentG2aPay extends Model {
         }
     }
 
+	/**
+	 * updatedRefundStatus
+	 *
+	 * @param int $g2apay_order_id
+	 * @param int $status
+	 *
+	 * @return void
+	 */
     public function updateRefundStatus(int $g2apay_order_id, int $status): void {
         $this->db->query("UPDATE `" . DB_PREFIX . "g2apay_order` SET `refund_status` = '" . (int)$status . "' WHERE `g2apay_order_id` = '" . (int)$g2apay_order_id . "'");
     }
 
-    private function getTransactions(int $g2apay_order_id, string $currency_code): array {
+	private function getTransactions(int $g2apay_order_id, string $currency_code): array {
+		$transactions = [];
+
         $query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "g2apay_order_transaction` WHERE `g2apay_order_id` = '" . (int)$g2apay_order_id . "'");
 
-        $transactions = [];
+        foreach ($query->rows as $row) {
+            $row['amount'] = $this->currency->format($row['amount'], $currency_code, true, true);
 
-        if ($query->num_rows) {
-            foreach ($query->rows as $row) {
-                $row['amount'] = $this->currency->format($row['amount'], $currency_code, true, true);
-                $transactions[] = $row;
-            }
-
-            return $transactions;
-        } else {
-            return [];
+            $transactions[] = $row;
         }
+
+		return $transactions;
     }
 
+	/**
+	 * addTransaction
+	 *
+	 * @param int    $g2apay_order_id
+	 * @param string $type
+	 * @param float  $total
+	 *
+	 * @return void
+	 */
     public function addTransaction(int $g2apay_order_id, string $type, float $total): void {
         $this->db->query("INSERT INTO `" . DB_PREFIX . "g2apay_order_transaction` SET `g2apay_order_id` = '" . (int)$g2apay_order_id . "',`date_added` = NOW(), `type` = '" . $this->db->escape($type) . "', `amount` = '" . (double)$total . "'");
     }
 
+	/**
+	 * getTotalRefunded
+	 *
+	 * @param int $g2apay_order_id
+	 *
+	 * @return float
+	 */
     public function getTotalRefunded(int $g2apay_order_id): float {
         $query = $this->db->query("SELECT SUM(`amount`) AS `total` FROM `" . DB_PREFIX . "g2apay_order_transaction` WHERE `g2apay_order_id` = '" . (int)$g2apay_order_id . "' AND `type` = 'refund'");
 
         return (float)$query->row['total'];
     }
 
-    public function sendCurl($url, $fields) {
+	/**
+	 * sendCurl
+	 *
+	 * @param string $url
+	 * @param array  $fields
+	 *
+	 * @return string
+	 */
+    public function sendCurl(string $url, array $fields): string {
         $curl = curl_init($url);
 
         curl_setopt($curl, CURLOPT_URL, $url);
@@ -136,6 +197,13 @@ class ModelExtensionPaymentG2aPay extends Model {
         }
     }
 
+	/**
+	 * Logger
+	 *
+	 * @param string $message
+	 *
+	 * @return void
+	 */
     public function logger(string $message): void {
         if ($this->config->get('payment_g2apay_debug') == 1) {
             $backtrace = debug_backtrace();

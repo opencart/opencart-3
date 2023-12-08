@@ -6,6 +6,8 @@
  */
 class ModelUserApi extends Model {
 	/**
+	 * addApi
+	 *
 	 * @param array $data
 	 *
 	 * @return int
@@ -27,6 +29,8 @@ class ModelUserApi extends Model {
     }
 
 	/**
+	 * editApi
+	 *
 	 * @param int   $api_id
 	 * @param array $data
 	 *
@@ -47,6 +51,8 @@ class ModelUserApi extends Model {
     }
 
 	/**
+	 * deleteApi
+	 *
 	 * @param int $api_id
 	 *
 	 * @return void
@@ -56,6 +62,8 @@ class ModelUserApi extends Model {
     }
 
 	/**
+	 * getApi
+	 *
 	 * @param int $api_id
 	 *
 	 * @return array
@@ -67,6 +75,8 @@ class ModelUserApi extends Model {
     }
 
 	/**
+	 * getApis
+	 *
 	 * @param array $data
 	 *
 	 * @return array
@@ -111,6 +121,8 @@ class ModelUserApi extends Model {
     }
 
 	/**
+	 * getTotalApis
+	 *
 	 * @return int
 	 */
     public function getTotalApis(): int {
@@ -120,6 +132,8 @@ class ModelUserApi extends Model {
     }
 
 	/**
+	 * addIp
+	 *
 	 * @param int    $api_id
 	 * @param string $ip
 	 *
@@ -130,6 +144,8 @@ class ModelUserApi extends Model {
     }
 
 	/**
+	 * getIps
+	 *
 	 * @param int $api_id
 	 *
 	 * @return array
@@ -141,6 +157,8 @@ class ModelUserApi extends Model {
     }
 
 	/**
+	 * addSession
+	 *
 	 * @param int    $api_id
 	 * @param string $session_id
 	 * @param string $ip
@@ -160,6 +178,8 @@ class ModelUserApi extends Model {
     }
 
 	/**
+	 * getSessions
+	 *
 	 * @param int $api_id
 	 *
 	 * @return array
@@ -171,6 +191,8 @@ class ModelUserApi extends Model {
     }
 
 	/**
+	 * deleteSession
+	 *
 	 * @param int $api_session_id
 	 *
 	 * @return void
@@ -180,6 +202,8 @@ class ModelUserApi extends Model {
     }
 
 	/**
+	 * deleteSessionBySessionId
+	 *
 	 * @param string $session_id
 	 *
 	 * @return void

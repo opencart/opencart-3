@@ -5,6 +5,11 @@
  * @package Admin\Model\Extension\Payment
  */
 class ModelExtensionPaymentWorldpay extends Model {
+	/**
+	 * Install
+	 *
+	 * @return void
+	 */
     public function install(): void {
         $this->db->query("
 			CREATE TABLE IF NOT EXISTS `" . DB_PREFIX . "worldpay_order` (
@@ -59,6 +64,11 @@ class ModelExtensionPaymentWorldpay extends Model {
 			) ENGINE=MyISAM DEFAULT COLLATE=utf8_general_ci;");
     }
 
+	/**
+	 * Uninstall
+	 *
+	 * @return void
+	 */
     public function uninstall(): void {
         $this->db->query("DROP TABLE IF EXISTS `" . DB_PREFIX . "worldpay_order`;");
         $this->db->query("DROP TABLE IF EXISTS `" . DB_PREFIX . "worldpay_order_transaction`;");
@@ -66,6 +76,14 @@ class ModelExtensionPaymentWorldpay extends Model {
         $this->db->query("DROP TABLE IF EXISTS `" . DB_PREFIX . "worldpay_card`;");
     }
 
+	/**
+	 * Refund
+	 *
+	 * @param int   $order_id
+	 * @param float $amount
+	 *
+	 * @return array
+	 */
     public function refund(int $order_id, float $amount): array {
         $worldpay_order = $this->getOrder($order_id);
 
@@ -80,10 +98,25 @@ class ModelExtensionPaymentWorldpay extends Model {
         }
     }
 
+	/**
+	 * updateRefundStatus
+	 *
+	 * @param int $worldpay_order_id
+	 * @param int $status
+	 *
+	 * @return void
+	 */
     public function updateRefundStatus(int $worldpay_order_id, int $status): void {
         $this->db->query("UPDATE `" . DB_PREFIX . "worldpay_order` SET `refund_status` = '" . (int)$status . "' WHERE `worldpay_order_id` = '" . (int)$worldpay_order_id . "'");
     }
 
+	/**
+	 * getOrder
+	 *
+	 * @param int $order_id
+	 *
+	 * @return array
+	 */
     public function getOrder(int $order_id): array {
         $query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "worldpay_order` WHERE `order_id` = '" . (int)$order_id . "' LIMIT 1");
 
@@ -98,7 +131,7 @@ class ModelExtensionPaymentWorldpay extends Model {
         }
     }
 
-    private function getTransactions(int $worldpay_order_id, string $currency_code): array {
+    private function getTransactions($worldpay_order_id, $currency_code) {
         $query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "worldpay_order_transaction` WHERE `worldpay_order_id` = '" . (int)$worldpay_order_id . "'");
 
         $transactions = [];
@@ -116,23 +149,54 @@ class ModelExtensionPaymentWorldpay extends Model {
         }
     }
 
+	/**
+	 * addTransaction
+	 *
+	 * @param int    $worldpay_order_id
+	 * @param string $type
+	 * @param float  $total
+	 *
+	 * @return void
+	 */
     public function addTransaction(int $worldpay_order_id, string $type, float $total): void {
         $this->db->query("INSERT INTO `" . DB_PREFIX . "worldpay_order_transaction` SET `worldpay_order_id` = '" . (int)$worldpay_order_id . "', `date_added` = NOW(), `type` = '" . $this->db->escape($type) . "', `amount` = '" . (double)$total . "'");
     }
 
+	/**
+	 * getTotalReleased
+	 *
+	 * @param int $worldpay_order_id
+	 *
+	 * @return float
+	 */
     public function getTotalReleased(int $worldpay_order_id): float {
         $query = $this->db->query("SELECT SUM(`amount`) AS `total` FROM `" . DB_PREFIX . "worldpay_order_transaction` WHERE `worldpay_order_id` = '" . (int)$worldpay_order_id . "' AND (`type` = 'payment' OR `type` = 'refund')");
 
         return (float)$query->row['total'];
     }
 
+	/**
+	 * getTotalRefunded
+	 *
+	 * @param int $worldpay_order_id
+	 *
+	 * @return float
+	 */
     public function getTotalRefunded(int $worldpay_order_id): float {
         $query = $this->db->query("SELECT SUM(`amount`) AS `total` FROM `" . DB_PREFIX . "worldpay_order_transaction` WHERE `worldpay_order_id` = '" . (int)$worldpay_order_id . "' AND `type` = 'refund'");
 
         return (float)$query->row['total'];
     }
 
-    public function sendCurl($url, $order) {
+	/**
+	 * sendCurl
+	 *
+	 * @param string $url
+	 * @param array  $order
+	 *
+	 * @return array
+	 */
+    public function sendCurl(string $url, array $order): array {
         $json = json_encode($order);
 
         $curl = curl_init();
@@ -167,6 +231,13 @@ class ModelExtensionPaymentWorldpay extends Model {
         return $response;
     }
 
+	/**
+	 * Logger
+	 *
+	 * @param string $message
+	 *
+	 * @return void
+	 */
     public function logger(string $message): void {
         if ($this->config->get('payment_worldpay_debug') == 1) {
             $log = new \Log('worldpay.log');

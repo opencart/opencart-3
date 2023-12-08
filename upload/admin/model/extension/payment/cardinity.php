@@ -8,20 +8,45 @@ use Cardinity\Client;
 use Cardinity\Method\Payment;
 use Cardinity\Method\Refund;
 class ModelExtensionPaymentCardinity extends Model {
-    public function getOrder($order_id) {
+	/**
+	 * getOrder
+	 *
+	 * @param int $order_id
+	 *
+	 * @return array
+	 */
+    public function getOrder(int $order_id): array {
         $query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "cardinity_order` WHERE `order_id` = '" . (int)$order_id . "' LIMIT 1");
 
         return $query->row;
     }
 
-    public function createClient($credentials) {
-        return Client::create([
-            'consumerKey'    => $credentials['key'],
-            'consumerSecret' => $credentials['secret']
-        ]);
+	/**
+	 * getOrder
+	 *
+	 * @param array $credentials
+	 *
+	 * @return object|null
+	 */
+    public function createClient(array $credentials): object|null {
+		if ($credentials) {
+			return Client::create([
+				'consumerKey'    => $credentials['key'],
+				'consumerSecret' => $credentials['secret']
+			]);
+		} else {
+			return null;
+		}
     }
 
-    public function verifyCredentials($client) {
+	/**
+	 * verifyCredentials
+	 *
+	 * @param object $client
+	 *
+	 * @return bool
+	 */
+    public function verifyCredentials(object $client): bool {
         $method = new \Payment\GetAll(10);
 
         try {
@@ -35,7 +60,15 @@ class ModelExtensionPaymentCardinity extends Model {
         }
     }
 
-    public function getPayment($client, $payment_id) {
+	/**
+	 * getPayment
+	 *
+	 * @param object $client
+	 * @param string $payment_id
+	 *
+	 * @return object|null
+	 */
+    public function getPayment(object $client, string $payment_id): object|null {
         $method = new \Payment\Get($payment_id);
 
         try {
@@ -45,11 +78,19 @@ class ModelExtensionPaymentCardinity extends Model {
         } catch (\Exception $e) {
             $this->log($e->getMessage());
 
-            return false;
+            return null;
         }
     }
 
-    public function getRefunds($client, $payment_id) {
+	/**
+	 * getRefunds
+	 *
+	 * @param object $client
+	 * @param string $payment_id
+	 *
+	 * @return object|null
+	 */
+    public function getRefunds(object $client, string $payment_id): object|null {
         $method = new \Refund\GetAll($payment_id);
 
         try {
@@ -59,11 +100,21 @@ class ModelExtensionPaymentCardinity extends Model {
         } catch (\Exception $e) {
             $this->log($e->getMessage());
 
-            return false;
+            return null;
         }
     }
 
-    public function refundPayment($client, $payment_id, $amount, $description) {
+	/**
+	 * refundPayment
+	 *
+	 * @param object $client
+	 * @param string $payment_id
+	 * @param float  $amount
+	 * @param string $description
+	 *
+	 * @return object|null
+	 */
+    public function refundPayment(object $client, string $payment_id, float $amount, string $description): object|null {
         $method = new \Refund\Create($payment_id, $amount, $description);
 
         try {
@@ -73,11 +124,18 @@ class ModelExtensionPaymentCardinity extends Model {
         } catch (\Exception $e) {
             $this->log($e->getMessage());
 
-            return false;
+            return null;
         }
     }
 
-    public function log($data) {
+	/**
+	 * Log
+	 *
+	 * @param string $data
+	 *
+	 * @return void
+	 */
+    public function log(string $data): void {
         if ($this->config->get('payment_cardinity_debug')) {
             $backtrace = debug_backtrace();
 
@@ -86,7 +144,12 @@ class ModelExtensionPaymentCardinity extends Model {
         }
     }
 
-    public function install() {
+	/**
+	 * Install
+	 *
+	 * @return void
+	 */
+    public function install(): void {
         $this->db->query("
 			CREATE TABLE IF NOT EXISTS `" . DB_PREFIX . "cardinity_order` (
 			  `cardinity_order_id` INT(11) NOT NULL AUTO_INCREMENT,
@@ -97,7 +160,12 @@ class ModelExtensionPaymentCardinity extends Model {
 		");
     }
 
-    public function uninstall() {
+	/**
+	 * Uninstall
+	 *
+	 * @return void
+	 */
+    public function uninstall(): void {
         $this->db->query("DROP TABLE IF EXISTS `" . DB_PREFIX . "cardinity_order`;");
     }
 }

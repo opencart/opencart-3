@@ -6,6 +6,8 @@
  */
 class ModelReportOnline extends Model {
 	/**
+	 * getOnline
+	 *
 	 * @param array $data
 	 *
 	 * @return array
@@ -47,6 +49,8 @@ class ModelReportOnline extends Model {
     }
 
 	/**
+	 * getTotalOnline
+	 *
 	 * @param array $data
 	 *
 	 * @return int

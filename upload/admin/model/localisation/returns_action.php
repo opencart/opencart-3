@@ -6,6 +6,8 @@
  */
 class ModelLocalisationReturnsAction extends Model {
 	/**
+	 * addReturnAction
+	 *
 	 * @param array $data
 	 *
 	 * @return int
@@ -27,6 +29,8 @@ class ModelLocalisationReturnsAction extends Model {
     }
 
 	/**
+	 * editReturnAction
+	 *
 	 * @param int   $return_action_id
 	 * @param array $data
 	 *
@@ -43,6 +47,8 @@ class ModelLocalisationReturnsAction extends Model {
     }
 
 	/**
+	 * deleteReturnAction
+	 *
 	 * @param int $return_action_id
 	 *
 	 * @return void
@@ -54,6 +60,8 @@ class ModelLocalisationReturnsAction extends Model {
     }
 
 	/**
+	 * getReturnAction
+	 *
 	 * @param int $return_action_id
 	 *
 	 * @return array
@@ -65,6 +73,8 @@ class ModelLocalisationReturnsAction extends Model {
     }
 
 	/**
+	 * getReturnActions
+	 *
 	 * @param array $data
 	 *
 	 * @return array
@@ -112,6 +122,8 @@ class ModelLocalisationReturnsAction extends Model {
     }
 
 	/**
+	 * getDescriptions
+	 *
 	 * @param int $return_action_id
 	 *
 	 * @return array
@@ -129,6 +141,8 @@ class ModelLocalisationReturnsAction extends Model {
     }
 
 	/**
+	 * getTotalReturnActions
+	 *
 	 * @return int
 	 */
     public function getTotalReturnActions(): int {
