@@ -14,7 +14,9 @@ class ControllerExtensionAdvertiseGoogle extends Controller {
 
     private array $error;
     private int $store_id;
-
+	/**
+	 * Constructor
+	 */
     public function __construct(object $registry) {
         parent::__construct($registry);
 
@@ -232,6 +234,7 @@ class ControllerExtensionAdvertiseGoogle extends Controller {
 
         $this->response->setOutput($this->load->view('extension/advertise/google', $data));
     }
+
 	/**
 	 * @return void
 	 */
@@ -253,7 +256,10 @@ class ControllerExtensionAdvertiseGoogle extends Controller {
 
         exit;
     }
+
 	/**
+	 * Advertise
+	 *
 	 * @return void
 	 */
     public function advertise(): void {
@@ -316,6 +322,7 @@ class ControllerExtensionAdvertiseGoogle extends Controller {
         $this->response->addHeader('Content-Type: application/json');
         $this->response->setOutput(json_encode($json));
     }
+
 	/**
 	 * @return void
 	 */
@@ -362,7 +369,10 @@ class ControllerExtensionAdvertiseGoogle extends Controller {
         $this->response->addHeader('Content-Type: application/json');
         $this->response->setOutput(json_encode($json));
     }
+
 	/**
+	 * Merchant
+	 *
 	 * @return void
 	 */
     public function merchant(): void {
@@ -451,6 +461,7 @@ class ControllerExtensionAdvertiseGoogle extends Controller {
 
         $this->response->setOutput($this->load->view('extension/advertise/google_merchant', $data));
     }
+
 	/**
 	 * @return void
 	 */
@@ -623,7 +634,10 @@ class ControllerExtensionAdvertiseGoogle extends Controller {
 
         $this->response->setOutput($this->load->view('extension/advertise/google_shipping_taxes', $data));
     }
+
 	/**
+	 * Mapping
+	 *
 	 * @return void
 	 */
     public function mapping(): void {
@@ -758,6 +772,7 @@ class ControllerExtensionAdvertiseGoogle extends Controller {
 
         $this->response->setOutput($this->load->view('extension/advertise/google_mapping', $data));
     }
+
 	/**
 	 * @return void
 	 */
@@ -777,6 +792,7 @@ class ControllerExtensionAdvertiseGoogle extends Controller {
         $this->response->addHeader('Content-Type: application/json');
         $this->response->setOutput(json_encode($json));
     }
+
 	/**
 	 * @return void
 	 */
@@ -810,7 +826,10 @@ class ControllerExtensionAdvertiseGoogle extends Controller {
         $this->response->addHeader('Content-Type: application/json');
         $this->response->setOutput(json_encode($json));
     }
+
 	/**
+	 * Campaign
+	 *
 	 * @return void
 	 */
     public function campaign(): void {
@@ -929,6 +948,7 @@ class ControllerExtensionAdvertiseGoogle extends Controller {
 
         $this->response->setOutput($this->load->view('extension/advertise/google_campaign', $data));
     }
+
 	/**
 	 * @return void
 	 */
@@ -995,6 +1015,7 @@ class ControllerExtensionAdvertiseGoogle extends Controller {
         $this->response->addHeader('Content-Type: application/json');
         $this->response->setOutput(json_encode($json));
     }
+
 	/**
 	 * @return void
 	 */
@@ -1060,6 +1081,7 @@ class ControllerExtensionAdvertiseGoogle extends Controller {
         $this->response->addHeader('Content-Type: application/json');
         $this->response->setOutput(json_encode($json));
     }
+
 	/**
 	 * @return void
 	 */
@@ -1101,6 +1123,7 @@ class ControllerExtensionAdvertiseGoogle extends Controller {
         $this->response->addHeader('Content-Type: application/json');
         $this->response->setOutput(json_encode($json));
     }
+
 	/**
 	 * @return void
 	 */
@@ -1130,6 +1153,7 @@ class ControllerExtensionAdvertiseGoogle extends Controller {
         $this->response->addHeader('Content-Type: application/json');
         $this->response->setOutput(json_encode($json));
     }
+
 	/**
 	 * @return void
 	 */
@@ -1204,6 +1228,7 @@ class ControllerExtensionAdvertiseGoogle extends Controller {
 
         $this->response->redirect($this->url->link('extension/advertise/google', 'store_id=' . $this->store_id . '&user_token=' . $this->session->data['user_token'], true));
     }
+
 	/**
 	 * @return void
 	 */
@@ -1255,7 +1280,10 @@ class ControllerExtensionAdvertiseGoogle extends Controller {
             $this->response->redirect($this->url->link('extension/advertise/google/merchant', 'store_id=' . $this->store_id . '&user_token=' . $this->session->data['user_token'], true));
         }
     }
+
 	/**
+	 * Connect
+	 *
 	 * @return void
 	 */
     public function connect(): void {
@@ -1373,7 +1401,10 @@ class ControllerExtensionAdvertiseGoogle extends Controller {
 
         $this->response->setOutput($this->load->view('extension/advertise/google_connect', $data));
     }
+
 	/**
+	 * Disconnect
+	 *
 	 * @return void
 	 */
     public function disconnect(): void {
@@ -1416,7 +1447,10 @@ class ControllerExtensionAdvertiseGoogle extends Controller {
 
         $this->response->redirect($this->url->link('extension/advertise/google', 'store_id=' . $this->store_id . '&user_token=' . $this->session->data['user_token'], true));
     }
+
 	/**
+	 * Checklist
+	 *
 	 * @return void
 	 */
     public function checklist(): void {
@@ -1471,6 +1505,7 @@ class ControllerExtensionAdvertiseGoogle extends Controller {
 
         $this->response->setOutput($this->load->view('extension/advertise/google_checklist', $data));
     }
+
 	/**
 	 * @return void
 	 */
@@ -1491,6 +1526,7 @@ class ControllerExtensionAdvertiseGoogle extends Controller {
         $operand_info = null;
         $form_data = null;
         $filter_data = null;
+
         $product_ids = [];
 
         if ($this->request->post['operand']['type'] == 'single') {
@@ -1747,6 +1783,7 @@ class ControllerExtensionAdvertiseGoogle extends Controller {
         $this->response->addHeader('Content-Type: application/json');
         $this->response->setOutput(json_encode($json));
     }
+
 	/**
 	 * @return void
 	 */
@@ -1783,6 +1820,9 @@ class ControllerExtensionAdvertiseGoogle extends Controller {
         $this->response->setOutput(json_encode($json));
     }
 
+	/**
+	 * @return void
+	 */
     public function admin_link(&$route, &$data, &$template): void {
         if (!$this->user->hasPermission('access', 'extension/advertise/google')) {
             return;
@@ -1820,9 +1860,16 @@ class ControllerExtensionAdvertiseGoogle extends Controller {
         }
     }
 	/**
+	 * addProduct
+	 *
+	 * @param string $route
+	 * @param array  $args
+	 * @param mixed  $output
+	 *
 	 * @return void
+	 *
+	 * admin/model/catalog/product/addProduct/after
 	 */
-    // admin/model/catalog/product/addProduct/after
     public function addProduct(string &$route, array &$args, mixed &$output): void {
         // Products
         $this->load->model('catalog/product');
@@ -1834,7 +1881,14 @@ class ControllerExtensionAdvertiseGoogle extends Controller {
             $this->model_extension_advertise_google->insertNewProducts([$output], $store_id);
         }
     }
+
 	/**
+	 * copyProduct
+	 *
+	 * @param string $route
+	 * @param array  $args
+	 * @param mixed  $output
+	 *
 	 * @return void
 	 *
      * admin/model/catalog/product/copyProduct/after
@@ -1854,7 +1908,14 @@ class ControllerExtensionAdvertiseGoogle extends Controller {
             }
         }
     }
+
 	/**
+	 * deleteProduct
+	 *
+	 * @param string $route
+	 * @param array  $args
+	 * @param mixed  $output
+	 *
 	 * @return void
 	 *
      * admin/model/catalog/product/deleteProduct/after
@@ -1865,7 +1926,10 @@ class ControllerExtensionAdvertiseGoogle extends Controller {
 
         $this->model_extension_advertise_google->deleteProducts([(int)$args[0]]);
     }
+
 	/**
+	 * Install
+	 *
 	 * @return void
 	 */
     public function install(): void {
@@ -1875,7 +1939,10 @@ class ControllerExtensionAdvertiseGoogle extends Controller {
         $this->model_extension_advertise_google->createTables();
         $this->model_extension_advertise_google->createEvents();
     }
+
 	/**
+	 * Uninstall
+	 *
 	 * @return void
 	 */
     public function uninstall(): void {
@@ -1885,6 +1952,7 @@ class ControllerExtensionAdvertiseGoogle extends Controller {
         $this->model_extension_advertise_google->dropTables();
         $this->model_extension_advertise_google->deleteEvents();
     }
+
 	/**
 	 * @return void
 	 */

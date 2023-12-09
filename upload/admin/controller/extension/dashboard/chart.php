@@ -89,8 +89,11 @@ class ControllerExtensionDashboardChart extends Controller {
 
         return !$this->error;
     }
+
 	/**
-	 * @return void
+	 * Dashboard
+	 *
+	 * @return string
 	 */
     public function dashboard(): string {
         $this->load->language('extension/dashboard/chart');
@@ -99,7 +102,10 @@ class ControllerExtensionDashboardChart extends Controller {
 
         return $this->load->view('extension/dashboard/chart_info', $data);
     }
+
 	/**
+	 * Chart
+	 *
 	 * @return void
 	 */
     public function chart(): void {

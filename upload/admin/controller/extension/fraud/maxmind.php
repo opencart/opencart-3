@@ -92,7 +92,10 @@ class ControllerExtensionFraudMaxMind extends Controller {
 
         $this->response->setOutput($this->load->view('extension/fraud/maxmind', $data));
     }
+
 	/**
+	 * Install
+	 *
 	 * @return void
 	 */
     public function install(): void {
@@ -101,7 +104,10 @@ class ControllerExtensionFraudMaxMind extends Controller {
 
         $this->model_extension_fraud_maxmind->install();
     }
+
 	/**
+	 * Uninstall
+	 *
 	 * @return void
 	 */
     public function uninstall(): void {
@@ -122,8 +128,11 @@ class ControllerExtensionFraudMaxMind extends Controller {
 
         return !$this->error;
     }
+
 	/**
-	 * @return void
+	 * Order
+	 *
+	 * @return string
 	 */
     public function order(): string {
         $this->load->language('extension/fraud/maxmind');

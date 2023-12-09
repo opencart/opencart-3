@@ -76,7 +76,10 @@ class ControllerExtensionFraudIp extends Controller {
 
         $this->response->setOutput($this->load->view('extension/fraud/ip', $data));
     }
+
 	/**
+	 * Install
+	 *
 	 * @return void
 	 */
     public function install(): void {
@@ -85,7 +88,10 @@ class ControllerExtensionFraudIp extends Controller {
 
         $this->model_extension_fraud_ip->install();
     }
+
 	/**
+	 * Uninstall
+	 *
 	 * @return void
 	 */
     public function uninstall(): void {
@@ -102,7 +108,10 @@ class ControllerExtensionFraudIp extends Controller {
 
         return !$this->error;
     }
+
 	/**
+	 * Ip
+	 *
 	 * @return void
 	 */
     public function ip(): void {
@@ -147,7 +156,10 @@ class ControllerExtensionFraudIp extends Controller {
 
         $this->response->setOutput($this->load->view('extension/fraud/ip_ip', $data));
     }
+
 	/**
+	 * addIp
+	 *
 	 * @return void
 	 */
     public function addIp(): void {
@@ -171,7 +183,10 @@ class ControllerExtensionFraudIp extends Controller {
         $this->response->addHeader('Content-Type: application/json');
         $this->response->setOutput(json_encode($json));
     }
+
 	/**
+	 * removeIp
+	 *
 	 * @return void
 	 */
     public function removeIp(): void {

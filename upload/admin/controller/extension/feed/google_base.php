@@ -75,7 +75,10 @@ class ControllerExtensionFeedGoogleBase extends Controller {
 
         return !$this->error;
     }
+
 	/**
+	 * Install
+	 *
 	 * @return void
 	 */
     public function install(): void {
@@ -84,7 +87,10 @@ class ControllerExtensionFeedGoogleBase extends Controller {
 
         $this->model_extension_feed_google_base->install();
     }
+
 	/**
+	 * Uninstall
+	 *
 	 * @return void
 	 */
     public function uninstall(): void {
@@ -94,6 +100,11 @@ class ControllerExtensionFeedGoogleBase extends Controller {
         $this->model_extension_feed_google_base->uninstall();
     }
 
+	/**
+	 * Import
+	 *
+	 * @return void
+	 */
     public function import(): void {
         $this->load->language('extension/feed/google_base');
 
@@ -145,7 +156,10 @@ class ControllerExtensionFeedGoogleBase extends Controller {
         $this->response->addHeader('Content-Type: application/json');
         $this->response->setOutput(json_encode($json));
     }
+
 	/**
+	 * Category
+	 *
 	 * @return void
 	 */
     public function category(): void {
@@ -209,7 +223,10 @@ class ControllerExtensionFeedGoogleBase extends Controller {
         $this->response->addHeader('Content-Type: application/json');
         $this->response->setOutput(json_encode($json));
     }
+
 	/**
+	 * removeCategory
+	 *
 	 * @return void
 	 */
     public function removeCategory(): void {
@@ -231,6 +248,7 @@ class ControllerExtensionFeedGoogleBase extends Controller {
         $this->response->addHeader('Content-Type: application/json');
         $this->response->setOutput(json_encode($json));
     }
+
 	/**
 	 * @return void
 	 */

@@ -105,7 +105,10 @@ class ControllerExtensionCurrencyEcb extends Controller {
 
         return !$this->error;
     }
+
 	/**
+	 * Install
+	 *
 	 * @return void
 	 */
     public function install(): void {
@@ -119,7 +122,10 @@ class ControllerExtensionCurrencyEcb extends Controller {
 
         $this->model_setting_event->addEvent($code, $app . $trigger, $route);
     }
+
 	/**
+	 * Uninstall
+	 *
 	 * @return void
 	 */
     public function uninstall(): void {
@@ -130,7 +136,10 @@ class ControllerExtensionCurrencyEcb extends Controller {
 
         $this->model_setting_event->deleteEventByCode($code);
     }
+
 	/**
+	 * Currency
+	 *
 	 * @return bool|null
 	 */
     public function currency(): bool|null {

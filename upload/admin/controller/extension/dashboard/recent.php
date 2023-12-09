@@ -89,7 +89,10 @@ class ControllerExtensionDashboardRecent extends Controller {
 
         return !$this->error;
     }
+
 	/**
+	 * Dashboard
+	 *
 	 * @return string
 	 */
     public function dashboard(): string {

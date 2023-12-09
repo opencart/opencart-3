@@ -89,7 +89,10 @@ class ControllerExtensionDashboardMap extends Controller {
 
         return !$this->error;
     }
+
 	/**
+	 * Dashboard
+	 *
 	 * @return string
 	 */
     public function dashboard(): string {
@@ -99,7 +102,10 @@ class ControllerExtensionDashboardMap extends Controller {
 
         return $this->load->view('extension/dashboard/map_info', $data);
     }
+
 	/**
+	 * Map
+	 *
 	 * @return void
 	 */
     public function map(): void {

@@ -116,7 +116,10 @@ class ControllerExtensionFraudFraudLabsPro extends Controller {
 
         $this->response->setOutput($this->load->view('extension/fraud/fraudlabspro', $data));
     }
+
 	/**
+	 * Install
+	 *
 	 * @return void
 	 */
     public function install(): void {
@@ -125,7 +128,10 @@ class ControllerExtensionFraudFraudLabsPro extends Controller {
 
         $this->model_extension_fraud_fraudlabspro->install();
     }
+
 	/**
+	 * Uninstall
+	 *
 	 * @return void
 	 */
     public function uninstall(): void {
@@ -146,7 +152,10 @@ class ControllerExtensionFraudFraudLabsPro extends Controller {
 
         return !$this->error;
     }
+
 	/**
+	 * Order
+	 *
 	 * @return string
 	 */
     public function order(): string {
