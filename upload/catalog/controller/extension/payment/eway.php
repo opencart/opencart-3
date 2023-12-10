@@ -318,7 +318,7 @@ class ControllerExtensionPaymentEway extends Controller {
                     $this->model_checkout_order->addHistory($order_id, $this->config->get('payment_eway_order_status_auth_id'), $message);
                 }
 
-                if (!empty($result->Customer->TokenCustomerID) && $this->customer->isLogged() && isset($this->request->get['customer_token']) && $this->request->get['customer_token'] == $this->session->data['customer_token'] && !$this->model_extension_payment_eway->checkToken($result->Customer->TokenCustomerID)) {
+                if (!empty($result->Customer->TokenCustomerID) && $this->customer->isLogged() && isset($this->session->data['customer_token']) && !$this->model_extension_payment_eway->checkToken($result->Customer->TokenCustomerID)) {
                     $card_data = [];
 
                     $card_data['customer_id'] = $this->customer->getId();
