@@ -5,6 +5,9 @@
  * @package Catalog\Model\Extension\Payment
  */
 class ModelExtensionPaymentFirstdata extends Model {
+	/**
+	 * getMethod
+	 */
     public function getMethod(array $address): array {
         $this->load->language('extension/payment/firstdata');
 
@@ -32,6 +35,9 @@ class ModelExtensionPaymentFirstdata extends Model {
         return $method_data;
     }
 
+	/**
+	 * addOrder
+	 */
     public function addOrder($order_info, $order_ref, $transaction_date) {
         if ($this->config->get('payment_firstdata_auto_settle') == 1) {
             $settle_status = 1;
@@ -44,12 +50,18 @@ class ModelExtensionPaymentFirstdata extends Model {
         return $this->db->getLastId();
     }
 
+	/**
+	 * getOrder
+	 */
     public function getOrder($order_id) {
         $order = $this->db->query("SELECT * FROM `" . DB_PREFIX . "firstdata_order` WHERE `order_id` = '" . (int)$order_id . "' LIMIT 1");
 
         return $order->row;
     }
 
+	/**
+	 * addTransaction
+	 */
     public function addTransaction($fd_order_id, $type, $order_info = []) {
         if (!empty($order_info)) {
             $amount = $this->currency->format($order_info['total'], $order_info['currency_code'], $order_info['currency_value'], false);
@@ -60,6 +72,9 @@ class ModelExtensionPaymentFirstdata extends Model {
         $this->db->query("INSERT INTO `" . DB_PREFIX . "firstdata_order_transaction` SET `firstdata_order_id` = '" . (int)$fd_order_id . "', `date_added` = NOW(), `type` = '" . $this->db->escape($type) . "', `amount` = '" . (float)$amount . "'");
     }
 
+	/**
+	 * Logger
+	 */
     public function logger($message) {
         if ($this->config->get('payment_firstdata_debug') == 1) {
             // Log
@@ -68,6 +83,9 @@ class ModelExtensionPaymentFirstdata extends Model {
         }
     }
 
+	/**
+	 * mapCurrency
+	 */
     public function mapCurrency($code) {
         $currency = [];
 
@@ -84,6 +102,9 @@ class ModelExtensionPaymentFirstdata extends Model {
         }
     }
 
+	/**
+	 * getScoredCards
+	 */
     public function getStoredCards() {
         $customer_id = $this->customer->getId();
 
@@ -92,6 +113,9 @@ class ModelExtensionPaymentFirstdata extends Model {
         return $query->rows;
     }
 
+	/**
+	 * storeCard
+	 */
     public function storeCard($token, $customer_id, $month, $year, $digits) {
         $existing_card = $this->db->query("SELECT * FROM `" . DB_PREFIX . "firstdata_card` WHERE `token` = '" . $this->db->escape($token) . "' AND `customer_id` = '" . (int)$customer_id . "' LIMIT 1");
 
@@ -102,6 +126,9 @@ class ModelExtensionPaymentFirstdata extends Model {
         }
     }
 
+	/**
+	 * responseHash
+	 */
     public function responseHash($total, $currency, $txn_date, $approval_code) {
         $tmp = $total . $this->config->get('payment_firstdata_secret') . $currency . $txn_date . $this->config->get('payment_firstdata_merchant_id') . $approval_code;
         $ascii = bin2hex($tmp);
@@ -109,10 +136,16 @@ class ModelExtensionPaymentFirstdata extends Model {
         return sha1($ascii);
     }
 
+	/**
+	 * updateVoidStatus
+	 */
     public function updateVoidStatus($order_id, $status) {
         $this->db->query("UPDATE `" . DB_PREFIX . "firstdata_order` SET `void_status` = '" . (int)$status . "' WHERE `order_id` = '" . (int)$order_id . "'");
     }
 
+	/**
+	 * updateCaptureStatus
+	 */
     public function updateCaptureStatus($order_id, $status) {
         $this->db->query("UPDATE `" . DB_PREFIX . "firstdata_order` SET `capture_status` = '" . (int)$status . "' WHERE `order_id` = '" . (int)$order_id . "'");
     }

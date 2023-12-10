@@ -9,6 +9,9 @@
  * @since      2.3.0.2   Update on 21 March 2017
  */
 class ModelExtensionShippingAusPost extends Model {
+	/**
+	 * getQuote
+	 */
     public function getQuote(array $address): array {
         $this->load->language('extension/shipping/auspost');
 

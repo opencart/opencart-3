@@ -6,6 +6,8 @@
  */
 class ModelCatalogManufacturer extends Model {
 	/**
+	 * getManufacturer
+	 *
 	 * @param int $manufacturer_id
 	 *
 	 * @return array
@@ -17,6 +19,8 @@ class ModelCatalogManufacturer extends Model {
     }
 
 	/**
+	 * getManufacturers
+	 *
 	 * @param array $data
 	 *
 	 * @return array

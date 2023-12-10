@@ -6,6 +6,8 @@
  */
 class ModelAccountOrder extends Model {
 	/**
+	 * getOrder
+	 *
 	 * @param int $order_id
 	 *
 	 * @return array
@@ -111,6 +113,8 @@ class ModelAccountOrder extends Model {
     }
 
 	/**
+	 * getOrders
+	 *
 	 * @param int $start
 	 * @param int $limit
 	 *
@@ -131,6 +135,8 @@ class ModelAccountOrder extends Model {
     }
 
 	/**
+	 * getProduct
+	 *
 	 * @param int $order_id
 	 * @param int $order_product_id
 	 *
@@ -143,6 +149,8 @@ class ModelAccountOrder extends Model {
     }
 
 	/**
+	 * getProducts
+	 *
 	 * @param int $order_id
 	 *
 	 * @return array
@@ -154,6 +162,8 @@ class ModelAccountOrder extends Model {
     }
 
 	/**
+	 * getOptions
+	 *
 	 * @param int $order_id
 	 * @param int $order_product_id
 	 *
@@ -166,6 +176,8 @@ class ModelAccountOrder extends Model {
     }
 
 	/**
+	 * getVouchers
+	 *
 	 * @param int $order_id
 	 *
 	 * @return array
@@ -177,6 +189,8 @@ class ModelAccountOrder extends Model {
     }
 
 	/**
+	 * getTotals
+	 *
 	 * @param int $order_id
 	 *
 	 * @return array
@@ -188,6 +202,8 @@ class ModelAccountOrder extends Model {
     }
 
 	/**
+	 * getHistories
+	 *
 	 * @param int $order_id
 	 *
 	 * @return array
@@ -199,6 +215,8 @@ class ModelAccountOrder extends Model {
     }
 
 	/**
+	 * getTotalOrders
+	 *
 	 * @return int
 	 */
     public function getTotalOrders(): int {
@@ -208,6 +226,8 @@ class ModelAccountOrder extends Model {
     }
 
 	/**
+	 * getTotalOrderProductsByOrderId
+	 *
 	 * @param int $product_id
 	 *
 	 * @return int
@@ -219,6 +239,8 @@ class ModelAccountOrder extends Model {
     }
 
 	/**
+	 * getTotalOrderVouchersByOrderId
+	 *
 	 * @param int $order_id
 	 *
 	 * @return int

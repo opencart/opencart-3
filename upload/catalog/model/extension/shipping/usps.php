@@ -5,6 +5,9 @@
  * @package Catalog\Model\Extension\Shipping
  */
 class ModelExtensionShippingUsps extends Model {
+	/**
+	 * getQuote
+	 */
     public function getQuote(array $address): array {
         $this->load->language('extension/shipping/usps');
 

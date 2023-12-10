@@ -6,6 +6,8 @@
  */
 class ModelCatalogCategory extends Model {
 	/**
+	 * getCategory
+	 *
 	 * @param int $category_id
 	 *
 	 * @return array
@@ -17,6 +19,8 @@ class ModelCatalogCategory extends Model {
     }
 
 	/**
+	 * getCategories
+	 *
 	 * @param int $parent_id
 	 *
 	 * @return array
@@ -28,6 +32,8 @@ class ModelCatalogCategory extends Model {
     }
 
 	/**
+	 * getFilters
+	 *
 	 * @param int $category_id
 	 *
 	 * @return array
@@ -72,6 +78,8 @@ class ModelCatalogCategory extends Model {
     }
 
 	/**
+	 * getLayoutId
+	 *
 	 * @param int $category_id
 	 *
 	 * @return int
@@ -87,6 +95,8 @@ class ModelCatalogCategory extends Model {
     }
 
 	/**
+	 * getTotalCategoriesByCategoryId
+	 *
 	 * @param int $parent_id
 	 *
 	 * @return int

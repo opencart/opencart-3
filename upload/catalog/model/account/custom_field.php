@@ -6,6 +6,8 @@
  */
 class ModelAccountCustomField extends Model {
 	/**
+	 * getCustomField
+	 *
 	 * @param int $custom_field_id
 	 *
 	 * @return array
@@ -17,6 +19,8 @@ class ModelAccountCustomField extends Model {
     }
 
 	/**
+	 * getCustomFields
+	 *
 	 * @param int $customer_group_id
 	 *
 	 * @return array

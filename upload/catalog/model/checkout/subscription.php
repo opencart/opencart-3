@@ -6,6 +6,8 @@
  */
 class ModelCheckoutSubscription extends Model {
 	/**
+	 * addSubscription
+	 *
 	 * @param array $data
 	 *
 	 * @return int
@@ -71,6 +73,8 @@ class ModelCheckoutSubscription extends Model {
 	}
 
 	/**
+	 * editSubscription
+	 *
 	 * @param int   $subscription_id
 	 * @param array $data
 	 *
@@ -135,6 +139,8 @@ class ModelCheckoutSubscription extends Model {
 	}
 
 	/**
+	 * deleteSubscriptionByOrderId
+	 *
 	 * @param int $order_id
 	 *
 	 * @return void
@@ -144,6 +150,8 @@ class ModelCheckoutSubscription extends Model {
 	}
 
 	/**
+	 * getSubscriptionByOrderProductId
+	 *
 	 * @param int $order_id
 	 * @param int $order_product_id
 	 *
@@ -166,6 +174,8 @@ class ModelCheckoutSubscription extends Model {
 	}
 
 	/**
+	 * addHistory
+	 *
 	 * @param int    $subscription_id
 	 * @param int    $subscription_status_id
 	 * @param string $comment
@@ -180,6 +190,8 @@ class ModelCheckoutSubscription extends Model {
 	}
 
 	/**
+	 * editSubscriptionStatus
+	 *
 	 * @param int  $subscription_id
 	 * @param bool $subscription_status_id
 	 *
@@ -190,6 +202,8 @@ class ModelCheckoutSubscription extends Model {
 	}
 
 	/**
+	 * editTrialRemaining
+	 *
 	 * @param int $subscription_id
 	 * @param int $trial_remaining
 	 *
@@ -200,6 +214,8 @@ class ModelCheckoutSubscription extends Model {
 	}
 
 	/**
+	 * editDateNext
+	 *
 	 * @param int    $subscription_id
 	 * @param string $date_next
 	 *
@@ -210,6 +226,8 @@ class ModelCheckoutSubscription extends Model {
 	}
 
 	/**
+	 * getSubscriptions
+	 *
 	 * @param array $data
 	 *
 	 * @return array

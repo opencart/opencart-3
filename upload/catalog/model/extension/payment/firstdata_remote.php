@@ -5,6 +5,9 @@
  * @package Catalog\Model\Extension\Payment
  */
 class ModelExtensionPaymentFirstdataRemote extends Model {
+	/**
+	 * getMethod
+	 */
     public function getMethod(array $address): array {
         $this->load->language('extension/payment/firstdata_remote');
 
@@ -32,6 +35,9 @@ class ModelExtensionPaymentFirstdataRemote extends Model {
         return $method_data;
     }
 
+	/**
+	 * capturePayment
+	 */
     public function capturePayment($data, $order_id) {
         // Orders
         $this->load->model('checkout/order');
@@ -47,6 +53,7 @@ class ModelExtensionPaymentFirstdataRemote extends Model {
         }
 
         $currency = $this->mapCurrency($order_info['currency_code']);
+
         $token = '';
         $payment_token = '';
 
@@ -201,6 +208,9 @@ class ModelExtensionPaymentFirstdataRemote extends Model {
         return $response;
     }
 
+	/**
+	 * Call
+	 */
     public function call($xml) {
         $ch = curl_init();
 
@@ -233,6 +243,9 @@ class ModelExtensionPaymentFirstdataRemote extends Model {
         return $response;
     }
 
+	/**
+	 * addOrder
+	 */
     public function addOrder($order_info, $capture_result) {
         if ($this->config->get('payment_firstdata_remote_auto_settle') == 1) {
             $settle_status = 1;
@@ -245,6 +258,9 @@ class ModelExtensionPaymentFirstdataRemote extends Model {
         return $this->db->getLastId();
     }
 
+	/**
+	 * addTransaction
+	 */
     public function addTransaction($firstdata_remote_order_id, $type, $order_info = []) {
         if (!empty($order_info)) {
             $amount = $this->currency->format($order_info['total'], $order_info['currency_code'], $order_info['currency_value'], false);
@@ -255,6 +271,9 @@ class ModelExtensionPaymentFirstdataRemote extends Model {
         $this->db->query("INSERT INTO `" . DB_PREFIX . "firstdata_remote_order_transaction` SET `firstdata_remote_order_id` = '" . (int)$firstdata_remote_order_id . "', `date_added` = NOW(), `type` = '" . $this->db->escape($type) . "', `amount` = '" . (float)$amount . "'");
     }
 
+	/**
+	 * Logger
+	 */
     public function logger($message) {
         if ($this->config->get('payment_firstdata_remote_debug') == 1) {
             // Log
@@ -263,10 +282,16 @@ class ModelExtensionPaymentFirstdataRemote extends Model {
         }
     }
 
+	/**
+	 * addHistory
+	 */
     public function addHistory($order_id, $order_status_id, $comment) {
         $this->db->query("INSERT INTO `" . DB_PREFIX . "order_history` SET `order_id` = '" . (int)$order_id . "', `order_status_id` = '" . (int)$order_status_id . "', `notify` = '0', `comment` = '" . $this->db->escape($comment) . "', `date_added` = NOW()");
     }
 
+	/**
+	 * mapCurrency
+	 */
     public function mapCurrency($code) {
         $currency = [
             'GBP' => 826,
@@ -281,6 +306,9 @@ class ModelExtensionPaymentFirstdataRemote extends Model {
         }
     }
 
+	/**
+	 * getStoredCards
+	 */
     public function getStoredCards() {
         $customer_id = $this->customer->getId();
 
@@ -289,6 +317,9 @@ class ModelExtensionPaymentFirstdataRemote extends Model {
         return $query->rows;
     }
 
+	/**
+	 * storeCard
+	 */
     public function storeCard($token, $customer_id, $type, $month, $year, $digits) {
         $this->db->query("INSERT INTO `" . DB_PREFIX . "firstdata_remote_card` SET `customer_id` = '" . (int)$customer_id . "', `date_added` = NOW(), `token` = '" . $this->db->escape($token) . "', `card_type` = '" . $this->db->escape($type) . "', `expire_month` = '" . $this->db->escape($month) . "', `expire_year` = '" . $this->db->escape($year) . "', `digits` = '" . $this->db->escape($digits) . "'");
     }

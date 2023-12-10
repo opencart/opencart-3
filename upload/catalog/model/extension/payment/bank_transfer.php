@@ -5,6 +5,9 @@
  * @package Catalog\Model\Extension\Payment
  */
 class ModelExtensionPaymentBankTransfer extends Model {
+	/**
+	 * getMethod
+	 */
     public function getMethod(array $address): array {
         $this->load->language('extension/payment/bank_transfer');
 

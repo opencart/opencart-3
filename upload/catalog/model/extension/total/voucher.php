@@ -5,16 +5,25 @@
  * @package Catalog\Model\Extension\Total
  */
 class ModelExtensionTotalVoucher extends Model {
+	/**
+	 * addVoucher
+	 */
     public function addVoucher(int $order_id, array $data): int {
         $this->db->query("INSERT INTO `" . DB_PREFIX . "voucher` SET `order_id` = '" . (int)$order_id . "', `code` = '" . $this->db->escape($data['code']) . "', `from_name` = '" . $this->db->escape($data['from_name']) . "', `from_email` = '" . $this->db->escape($data['from_email']) . "', `to_name` = '" . $this->db->escape($data['to_name']) . "', `to_email` = '" . $this->db->escape($data['to_email']) . "', `voucher_theme_id` = '" . (int)$data['voucher_theme_id'] . "', `message` = '" . $this->db->escape($data['message']) . "', `amount` = '" . (float)$data['amount'] . "', `status` = '1', `date_added` = NOW()");
 
         return $this->db->getLastId();
     }
 
+	/**
+	 * disableVoucher
+	 */
     public function disableVoucher(int $order_id): void {
         $this->db->query("UPDATE `" . DB_PREFIX . "voucher` SET `status` = '0' WHERE `order_id` = '" . (int)$order_id . "'");
     }
 
+	/**
+	 * getVoucher
+	 */
     public function getVoucher(string $code): array {
         $status = true;
 
@@ -77,6 +86,9 @@ class ModelExtensionTotalVoucher extends Model {
         }
     }
 
+	/**
+	 * getTotal
+	 */
     public function getTotal(array $total): void {
         if (isset($this->session->data['voucher'])) {
             $this->load->language('extension/total/voucher', 'voucher');
@@ -104,6 +116,9 @@ class ModelExtensionTotalVoucher extends Model {
         }
     }
 
+	/**
+	 * Confirm
+	 */
     public function confirm(array $order_info, array $order_total): int {
         $code = '';
 
@@ -127,6 +142,9 @@ class ModelExtensionTotalVoucher extends Model {
         return 0;
     }
 
+	/**
+	 * Unconfirm
+	 */
     public function unconfirm(int $order_id): void {
         $this->db->query("DELETE FROM `" . DB_PREFIX . "voucher_history` WHERE `order_id` = '" . (int)$order_id . "'");
     }

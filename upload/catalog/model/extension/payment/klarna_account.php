@@ -5,14 +5,18 @@
  * @package Catalog\Model\Extension\Payment
  */
 class ModelExtensionPaymentKlarnaAccount extends Model {
-    // Requires $total
+    /**
+	 * getMethod
+	 *
+	 * Requires $total
+	 */
     public function getMethod(array $address): array {
         $method = [];
 
         return $method;
     }
 
-    private function getLowestPaymentAccount($country) {
+	private function getLowestPaymentAccount($country) {
         switch ($country) {
             case 'SWE':
                 $amount = 50.0;

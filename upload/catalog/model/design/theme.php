@@ -6,6 +6,8 @@
  */
 class ModelDesignTheme extends Model {
 	/**
+	 * getTheme
+	 *
 	 * @param string $route
 	 * @param string $theme
 	 *

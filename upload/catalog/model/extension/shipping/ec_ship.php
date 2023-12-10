@@ -5,6 +5,9 @@
  * @package Catalog\Model\Extension\Shipping
  */
 class ModelExtensionShippingECShip extends Model {
+	/**
+	 * getQuote
+	 */
     public function getQuote(array $address): array {
         $this->load->language('extension/shipping/ec_ship');
 
@@ -532,6 +535,9 @@ class api01Req {
     private string $shipCode;
     private float $weight;
 
+	/**
+	 * Constructor
+	 */
     public function __construct($ecshipUsername, $integratorUsername, $countryCode, $shipCode, $weight) {
         $this->ecshipUsername = $ecshipUsername;
         $this->integratorUsername = $integratorUsername;

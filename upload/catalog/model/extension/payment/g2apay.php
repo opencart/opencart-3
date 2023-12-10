@@ -5,6 +5,9 @@
  * @package Catalog\Model\Extension\Payment
  */
 class ModelExtensionPaymentG2APay extends Model {
+	/**
+	 * getMethod
+	 */
     public function getMethod(array $address): array {
         $this->load->language('extension/payment/g2apay');
 
@@ -32,20 +35,32 @@ class ModelExtensionPaymentG2APay extends Model {
         return $method_data;
     }
 
+	/**
+	 * addG2aOrder
+	 */
     public function addG2aOrder($order_info) {
         $this->db->query("INSERT INTO `" . DB_PREFIX . "g2apay_order` SET `order_id` = '" . (int)$order_info['order_id'] . "', `date_added` = NOW(), `modified` = NOW(), `currency_code` = '" . $this->db->escape($order_info['currency_code']) . "', `total` = '" . $this->currency->format($order_info['total'], $order_info['currency_code'], false, false) . "'");
     }
 
+	/**
+	 * updateOrder
+	 */
     public function updateOrder($g2apay_order_id, $g2apay_transaction_id, $type, $order_info) {
         $this->db->query("UPDATE `" . DB_PREFIX . "g2apay_order` SET `g2apay_transaction_id` = '" . $this->db->escape($g2apay_transaction_id) . "', `modified` = NOW() WHERE `order_id` = '" . (int)$order_info['order_id'] . "'");
 
         $this->addTransaction($g2apay_order_id, $type, $order_info);
     }
 
+	/**
+	 * addTransaction
+	 */
     public function addTransaction($g2apay_order_id, $type, $order_info) {
         $this->db->query("INSERT INTO `" . DB_PREFIX . "g2apay_order_transaction` SET `g2apay_order_id` = '" . (int)$g2apay_order_id . "', `date_added` = NOW(), `type` = '" . $this->db->escape($type) . "', `amount` = '" . $this->currency->format($order_info['total'], $order_info['currency_code'], false, false) . "'");
     }
 
+	/**
+	 * getG2aOrder
+	 */
     public function getG2aOrder($order_id) {
         $query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "g2apay_order` WHERE `order_id` = '" . (int)$order_id . "' LIMIT 1");
 
@@ -56,6 +71,9 @@ class ModelExtensionPaymentG2APay extends Model {
         }
     }
 
+	/**
+	 * sendCurl
+	 */
     public function sendCurl($url, $fields) {
         $curl = curl_init($url);
 
@@ -71,6 +89,9 @@ class ModelExtensionPaymentG2APay extends Model {
         return json_decode($response);
     }
 
+	/**
+	 * Logger
+	 */
     public function logger($message) {
         if ($this->config->get('payment_g2apay_debug') == 1) {
             $backtrace = debug_backtrace();

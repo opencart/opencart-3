@@ -6,6 +6,8 @@
  */
 class ModelAccountCustomerGroup extends Model {
 	/**
+	 * getCustomerGroup
+	 *
 	 * @param int $customer_group_id
 	 *
 	 * @return array
@@ -15,7 +17,10 @@ class ModelAccountCustomerGroup extends Model {
 
         return $query->row;
     }
+
 	/**
+	 * getCustomerGroups
+	 *
 	 * @return array
 	 */
     public function getCustomerGroups(): array {

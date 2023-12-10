@@ -4,7 +4,10 @@
  *
  * @package Catalog\Model\Extension\Payment
  */
-class ModelExtensionPaymentNOCHEX extends Model {
+class ModelExtensionPaymentNochex extends Model {
+	/**
+	 * getMethod
+	 */
     public function getMethod(array $address): array {
         $this->load->language('extension/payment/nochex');
 

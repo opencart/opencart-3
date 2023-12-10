@@ -6,6 +6,8 @@
  */
 class ModelCheckoutPaymentMethod extends Model {
 	/**
+	 * getMethods
+	 *
 	 * @param array $payment_address
 	 *
 	 * @return array

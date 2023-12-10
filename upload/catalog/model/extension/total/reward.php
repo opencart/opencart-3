@@ -5,6 +5,9 @@
  * @package Catalog\Model\Extension\Total
  */
 class ModelExtensionTotalReward extends Model {
+	/**
+	 * getTotal
+	 */
     public function getTotal(array $total): void {
         if (isset($this->session->data['reward'])) {
             $this->load->language('extension/total/reward', 'reward');
@@ -56,6 +59,9 @@ class ModelExtensionTotalReward extends Model {
         }
     }
 
+	/**
+	 * Confirm
+	 */
     public function confirm(array $order_info, array $order_total): int {
         $this->load->language('extension/opencart/total/reward');
 
@@ -80,6 +86,9 @@ class ModelExtensionTotalReward extends Model {
         return 0;
     }
 
+	/**
+	 * Unconfirm
+	 */
     public function unconfirm(int $order_id): void {
         $this->db->query("DELETE FROM `" . DB_PREFIX . "customer_reward` WHERE `order_id` = '" . (int)$order_id . "' AND `points` < '0'");
     }

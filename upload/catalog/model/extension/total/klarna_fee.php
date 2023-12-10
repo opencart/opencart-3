@@ -5,6 +5,9 @@
  * @package Catalog\Model\Extension\Total
  */
 class ModelExtensionTotalKlarnaFee extends Model {
+	/**
+	 * getTotal
+	 */
     public function getTotal(array $total): void {
         extract($total);
 

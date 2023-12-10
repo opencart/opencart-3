@@ -5,6 +5,9 @@
  * @package Catalog\Model\Extension\Payment
  */
 class ModelExtensionPaymentSecureTradingWs extends Model {
+	/**
+	 * getMethod
+	 */
     public function getMethod(array $address): array {
         $this->load->language('extension/payment/securetrading_ws');
 
@@ -32,6 +35,9 @@ class ModelExtensionPaymentSecureTradingWs extends Model {
         return $method_data;
     }
 
+	/**
+	 * Call
+	 */
     public function call($data) {
         $ch = curl_init();
 
@@ -67,6 +73,9 @@ class ModelExtensionPaymentSecureTradingWs extends Model {
         return $response;
     }
 
+	/**
+	 * Format
+	 */
     public function format($number, $currency, $value = '', $format = false) {
         $decimal_place = $this->currency->getDecimalPlace($currency);
 
@@ -82,20 +91,32 @@ class ModelExtensionPaymentSecureTradingWs extends Model {
         }
     }
 
+	/**
+	 * getOrder
+	 */
     public function getOrder($order_id) {
         $query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "securetrading_ws_order` WHERE `order_id` = '" . (int)$order_id . "' LIMIT 1");
 
         return $query->row;
     }
 
+	/**
+	 * addMd
+	 */
     public function addMd($order_id, $md) {
         $this->db->query("INSERT INTO `" . DB_PREFIX . "securetrading_ws_order` SET `order_id` = '" . (int)$order_id . "', `md` = '" . $this->db->escape($md) . "', `created` = NOW(), `modified` = NOW()");
     }
 
+	/**
+	 * removeMd
+	 */
     public function removeMd($md) {
         $this->db->query("DELETE FROM `" . DB_PREFIX . "securetrading_ws_order` WHERE `md` = '" . $this->db->escape($md) . "'");
     }
 
+	/**
+	 * updateReference
+	 */
     public function updateReference($order_id, $transaction_reference) {
         $this->db->query("UPDATE `" . DB_PREFIX . "securetrading_ws_order` SET `transaction_reference` = '" . $this->db->escape($transaction_reference) . "' WHERE `order_id` = '" . (int)$order_id . "'");
 
@@ -104,6 +125,9 @@ class ModelExtensionPaymentSecureTradingWs extends Model {
         }
     }
 
+	/**
+	 * getOrderId
+	 */
     public function getOrderId($md) {
         $row = $this->db->query("SELECT `order_id` FROM `" . DB_PREFIX . "securetrading_ws_order` WHERE `md` = '" . $this->db->escape($md) . "' LIMIT 1")->row;
 
@@ -114,6 +138,9 @@ class ModelExtensionPaymentSecureTradingWs extends Model {
         }
     }
 
+	/**
+	 * confirmOrder
+	 */
     public function confirmOrder($order_id, $order_status_id, $comment = '', $notify = false) {
         // Orders
         $this->load->model('checkout/order');
@@ -152,6 +179,9 @@ class ModelExtensionPaymentSecureTradingWs extends Model {
         }
     }
 
+	/**
+	 * updateOrder
+	 */
     public function updateOrder($order_id, $order_status_id, $comment = '', $notify = false) {
         // Orders
         $this->load->model('checkout/order');
@@ -161,6 +191,9 @@ class ModelExtensionPaymentSecureTradingWs extends Model {
         $this->model_checkout_order->addHistory($order_id, $order_status_id, $comment, $notify);
     }
 
+	/**
+	 * Logger
+	 */
     public function logger($message) {
         // Log
         $log = new \Log('secure.log');

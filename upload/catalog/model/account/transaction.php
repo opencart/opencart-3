@@ -6,6 +6,8 @@
  */
 class ModelAccountTransaction extends Model {
 	/**
+	 * getTransactions
+	 *
 	 * @param array $data
 	 *
 	 * @return array
@@ -49,6 +51,8 @@ class ModelAccountTransaction extends Model {
     }
 
 	/**
+	 * getTotalTransactions
+	 *
 	 * @return int
 	 */
     public function getTotalTransactions(): int {
@@ -58,6 +62,8 @@ class ModelAccountTransaction extends Model {
     }
 
 	/**
+	 * getTotalAmount
+	 *
 	 * @return int
 	 */
     public function getTotalAmount(): int {

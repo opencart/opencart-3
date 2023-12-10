@@ -6,6 +6,8 @@
  */
 class ModelAccountReward extends Model {
 	/**
+	 * getRewards
+	 *
 	 * @param array $data
 	 *
 	 * @return array
@@ -49,6 +51,8 @@ class ModelAccountReward extends Model {
     }
 
 	/**
+	 * getTotalRewards
+	 *
 	 * @return int
 	 */
     public function getTotalRewards(): int {
@@ -58,6 +62,8 @@ class ModelAccountReward extends Model {
     }
 
 	/**
+	 * getTotalPoints
+	 *
 	 * @return int
 	 */
     public function getTotalPoints(): int {

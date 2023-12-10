@@ -6,6 +6,8 @@
  */
 class ModelAccountRecurring extends Model {
 	/**
+	 * editStatus
+	 *
 	 * @param int $order_recurring_id
 	 * @param int $status
 	 *
@@ -16,6 +18,8 @@ class ModelAccountRecurring extends Model {
     }
 
 	/**
+	 * getRecurring
+	 *
 	 * @param int $order_recurring_id
 	 *
 	 * @return array
@@ -27,6 +31,8 @@ class ModelAccountRecurring extends Model {
     }
 
 	/**
+	 * getRecurrings
+	 *
 	 * @param int $start
 	 * @param int $limit
 	 *
@@ -47,6 +53,8 @@ class ModelAccountRecurring extends Model {
     }
 
 	/**
+	 * getRecurringByReference
+	 *
 	 * @param string $reference
 	 *
 	 * @return array
@@ -58,6 +66,8 @@ class ModelAccountRecurring extends Model {
     }
 
 	/**
+	 * getRecyrringTransactions
+	 *
 	 * @param int $order_recurring_id
 	 *
 	 * @return array
@@ -69,6 +79,8 @@ class ModelAccountRecurring extends Model {
     }
 
 	/**
+	 * getTotalRecurrings
+	 *
 	 * @return int
 	 */
     public function getTotalRecurrings(): int {

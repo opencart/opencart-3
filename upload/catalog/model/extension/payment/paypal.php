@@ -6,6 +6,8 @@
  */
 class ModelExtensionPaymentPayPal extends Model {
 	/**
+	 * getMethod
+	 *
 	 * @param array $address
 	 * @param float $total
 	 *
@@ -45,6 +47,8 @@ class ModelExtensionPaymentPayPal extends Model {
 	}
 
 	/**
+	 * hasProductInCart
+	 *
 	 * @param int 	$product_id
 	 * @param array $option
 	 * @param int 	$recurring_id
@@ -58,6 +62,8 @@ class ModelExtensionPaymentPayPal extends Model {
 	}
 
 	/**
+	 * getCountryByCode
+	 *
 	 * @param string $code
 	 *
 	 * @return array
@@ -69,6 +75,8 @@ class ModelExtensionPaymentPayPal extends Model {
 	}
 
 	/**
+	 * getZoneByCode
+	 *
 	 * @param int 	 $country_id
 	 * @param string $code
 	 *
@@ -81,6 +89,8 @@ class ModelExtensionPaymentPayPal extends Model {
 	}
 
 	/**
+	 * getAgreeStatus
+	 *
 	 * @return bool
 	 */
 	public function getAgreeStatus(): bool {
@@ -102,6 +112,8 @@ class ModelExtensionPaymentPayPal extends Model {
 	}
 
 	/**
+	 * Log
+	 *
 	 * @param array  $data
 	 * @param string $title
 	 *

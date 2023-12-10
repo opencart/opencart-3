@@ -7,22 +7,38 @@
 class ModelExtensionPaymentAmazonLoginPay extends Model {
     const LOG_FILENAME = "amazon_pay.log";
 
+	/**
+	 * getMethod
+	 *
+	 * @param array $address
+	 *
+	 * @return void
+	 */
     public function getMethod(array $address): void {
         // Do nothing, as Amazon Pay is a separate checkout flow, not a payment option in OpenCart.
     }
 
+	/**
+	 * verifyOrder
+	 */
     public function verifyOrder() {
         if (!isset($this->session->data['apalwa']['pay']['order'])) {
             $this->response->redirect($this->url->link('extension/payment/amazon_login_pay/confirm', '', true));
         }
     }
 
+	/**
+	 * verifyShipping
+	 */
     public function verifyShipping() {
         if (!isset($this->session->data['apalwa']['pay']['shipping_method']) || !isset($this->session->data['apalwa']['pay']['address']) || !isset($this->session->data['shipping_method'])) {
             $this->response->redirect($this->url->link('extension/payment/amazon_login_pay/address', '', true));
         }
     }
 
+	/**
+	 * verifyCart
+	 */
     public function verifyCart() {
         if ((!$this->cart->hasProducts() && empty($this->session->data['vouchers'])) || (!$this->cart->hasStock() && !$this->config->get('config_stock_checkout'))) {
             $this->cartRedirect();
@@ -45,6 +61,9 @@ class ModelExtensionPaymentAmazonLoginPay extends Model {
         }
     }
 
+	/**
+	 * verifyLogin
+	 */
     public function verifyLogin() {
         // capital L in Amazon cookie name is required, do not alter for coding standards
         if (!isset($this->request->cookie['amazon_Login_state_cache']) || !isset($this->session->data['apalwa']['pay']['profile'])) {
@@ -54,6 +73,9 @@ class ModelExtensionPaymentAmazonLoginPay extends Model {
         }
     }
 
+	/**
+	 * verifyTotal
+	 */
     public function verifyTotal() {
         $set_minimum = (float)$this->config->get('payment_amazon_login_pay_minimum_total');
         $minimum = $set_minimum > 0 ? $set_minimum : 0.01;
@@ -63,12 +85,18 @@ class ModelExtensionPaymentAmazonLoginPay extends Model {
         }
     }
 
+	/**
+	 * verifyReference
+	 */
     public function verifyReference() {
         if (empty($this->session->data['apalwa']['pay']['order_reference_id'])) {
             $this->cartRedirect($this->language->get('error_process_order'));
         }
     }
 
+	/**
+	 * verifyOrderSessionData
+	 */
     public function verifyOrderSessionData() {
         $keys = [
             'profile',
@@ -85,6 +113,9 @@ class ModelExtensionPaymentAmazonLoginPay extends Model {
         }
     }
 
+	/**
+	 * cartRedirect
+	 */
     public function cartRedirect($message = null, $return_value = false) {
         unset($this->session->data['apalwa']['pay']);
         unset($this->session->data['order_id']);
@@ -100,6 +131,9 @@ class ModelExtensionPaymentAmazonLoginPay extends Model {
         }
     }
 
+	/**
+	 * getTotals
+	 */
     public function getTotals(&$total_data) {
         // Extensions
         $this->load->model('setting/extension');
@@ -134,6 +168,9 @@ class ModelExtensionPaymentAmazonLoginPay extends Model {
         array_multisort($sort_order, SORT_ASC, $total_data['totals']);
     }
 
+	/**
+	 * isTotalPositive
+	 */
     public function isTotalPositive() {
         // Totals
         $totals = [];
@@ -152,6 +189,9 @@ class ModelExtensionPaymentAmazonLoginPay extends Model {
         return $total > 0;
     }
 
+	/**
+	 * makeOrder
+	 */
     public function makeOrder() {
         $this->load->language('checkout/checkout');
 
@@ -191,6 +231,7 @@ class ModelExtensionPaymentAmazonLoginPay extends Model {
         $profile = $this->session->data['apalwa']['pay']['profile'];
         $address = $this->session->data['apalwa']['pay']['address'];
         $shipping_method = $this->session->data['apalwa']['pay']['shipping_method'];
+
         $order_data['customer_id'] = !empty($profile['customer_id']) ? $profile['customer_id'] : 0;
         $order_data['customer_group_id'] = $profile['customer_group_id'];
         $order_data['firstname'] = $profile['firstname'];
@@ -355,6 +396,9 @@ class ModelExtensionPaymentAmazonLoginPay extends Model {
         return $order_data;
     }
 
+	/**
+	 * getWidgetJs
+	 */
     public function getWidgetJs() {
         if ($this->config->get('payment_amazon_login_pay_test') == 'sandbox') {
             if ($this->config->get('payment_amazon_login_pay_payment_region') == 'GBP') {
@@ -377,6 +421,9 @@ class ModelExtensionPaymentAmazonLoginPay extends Model {
         return $amazon_payment_js . '?sellerId=' . $this->config->get('payment_amazon_login_pay_merchant_id');
     }
 
+	/**
+	 * submitOrderDetails
+	 */
     public function submitOrderDetails($order_reference_id, $order_id, $currency_code, $text_version) {
         // Orders
         $this->load->model('checkout/order');
@@ -398,6 +445,9 @@ class ModelExtensionPaymentAmazonLoginPay extends Model {
         ]);
     }
 
+	/**
+	 * confirmOrder
+	 */
     public function confirmOrder($order_reference_id) {
         $this->postCurl('ConfirmOrderReference', [
             'AmazonOrderReferenceId' => $order_reference_id,
@@ -407,6 +457,9 @@ class ModelExtensionPaymentAmazonLoginPay extends Model {
         ]);
     }
 
+	/**
+	 * authorizeOrder
+	 */
     public function authorizeOrder($order) {
         $capture_now = $this->config->get('payment_amazon_login_pay_mode') == 'payment';
 
@@ -420,18 +473,27 @@ class ModelExtensionPaymentAmazonLoginPay extends Model {
         ])->ResponseBody->AuthorizeResult->AuthorizationDetails;
     }
 
+	/**
+	 * fetchOrderId
+	 */
     public function fetchOrderId($order_reference_id) {
         return $this->postCurl('GetOrderReferenceDetails', [
             'AmazonOrderReferenceId' => $order_reference_id
         ])->ResponseBody->GetOrderReferenceDetailsResult->OrderReferenceDetails->SellerOrderAttributes->SellerOrderId;
     }
 
+	/**
+	 * fetchOrder
+	 */
     public function fetchOrder($order_reference_id) {
         return $this->postCurl('GetOrderReferenceDetails', [
             'AmazonOrderReferenceId' => $order_reference_id
         ])->ResponseBody->GetOrderReferenceDetailsResult->OrderReferenceDetails;
     }
 
+	/**
+	 * captureOrder
+	 */
     public function captureOrder($amazon_authorization_id, $total, $currency) {
         return $this->postCurl('Capture', [
             'AmazonAuthorizationId'      => $amazon_authorization_id,
@@ -441,6 +503,9 @@ class ModelExtensionPaymentAmazonLoginPay extends Model {
         ])->ResponseBody->CaptureResult->CaptureDetails;
     }
 
+	/**
+	 * cancelOrder
+	 */
     public function cancelOrder($order_reference_id, $reason) {
         $this->postCurl('CancelOrderReference', [
             'AmazonOrderReferenceId' => $order_reference_id,
@@ -448,6 +513,9 @@ class ModelExtensionPaymentAmazonLoginPay extends Model {
         ]);
     }
 
+	/**
+	 * closeOrder
+	 */
     public function closeOrder($order_reference_id, $reason) {
         $this->postCurl('CloseOrderReference', [
             'AmazonOrderReferenceId' => $order_reference_id,
@@ -455,10 +523,16 @@ class ModelExtensionPaymentAmazonLoginPay extends Model {
         ]);
     }
 
+	/**
+	 * isOrderInState
+	 */
     public function isOrderInState($order_reference_id, $states = []) {
         return in_array((string)$this->fetchOrder($order_reference_id)->OrderReferenceStatus->State, $states);
     }
 
+	/**
+	 * findOrAddOrder
+	 */
     public function findOrAddOrder($order) {
         $order_id = (int)$order->SellerOrderAttributes->SellerOrderId;
         $order_reference_id = (string)$order->AmazonOrderReferenceId;
@@ -493,6 +567,9 @@ class ModelExtensionPaymentAmazonLoginPay extends Model {
         return $this->db->getLastId();
     }
 
+	/**
+	 * getOrderByOrderId
+	 */
     public function getOrderByOrderId($order_id) {
         $sql = "SELECT * FROM `" . DB_PREFIX . "amazon_login_pay_order` WHERE `order_id` = '" . (int)$order_id . "'";
 
@@ -505,6 +582,9 @@ class ModelExtensionPaymentAmazonLoginPay extends Model {
         return [];
     }
 
+	/**
+	 * addAuthorization
+	 */
     public function addAuthorization($amazon_login_pay_order_id, $authorization) {
         $capture_id = (string)$authorization->IdList->member;
         $type = (string)$authorization->CaptureNow == 'true' ? 'capture' : 'authorization';
@@ -531,16 +611,25 @@ class ModelExtensionPaymentAmazonLoginPay extends Model {
         $this->updateCapturedStatus($amazon_login_pay_order_id, $capture_status);
     }
 
+	/**
+	 * updateCapturedStatus
+	 */
     public function updateCapturedStatus($amazon_login_pay_order_id, $status) {
         $this->db->query("UPDATE `" . DB_PREFIX . "amazon_login_pay_order` SET `capture_status` = '" . (int)$status . "' WHERE `amazon_login_pay_order_id` = '" . $this->db->escape($amazon_login_pay_order_id) . "'");
     }
 
+	/**
+	 * findCapture
+	 */
     public function findCapture($amazon_capture_id) {
         $sql = "SELECT * FROM `" . DB_PREFIX . "amazon_login_pay_order_transaction` WHERE `amazon_capture_id` = '" . $this->db->escape($amazon_capture_id) . "'";
 
         return $this->db->query($sql)->num_rows > 0;
     }
 
+	/**
+	 * addTransaction
+	 */
     public function addTransaction($data) {
         $insert = [
             'amazon_login_pay_order_id' => "'" . (int)$data['amazon_login_pay_order_id'] . "'",
@@ -562,12 +651,18 @@ class ModelExtensionPaymentAmazonLoginPay extends Model {
         $this->db->query("INSERT INTO `" . DB_PREFIX . "amazon_login_pay_order_transaction` SET " . implode(',', $row));
     }
 
+	/**
+	 * isShippingFree
+	 */
     public function isShippingFree($order_id) {
         $sql = "SELECT * FROM `" . DB_PREFIX . "order_total` WHERE `order_id` = '" . (int)$order_id . "' AND `value` = '0.0000' AND `code` = 'shipping'";
 
         return $this->db->query($sql)->num_rows > 0;
     }
 
+	/**
+	 * getPlatformId
+	 */
     public function getPlatformId() {
         if ($this->config->get('payment_amazon_login_pay_payment_region') == 'USD') {
             return 'A3GK1RS09H3A7D';
@@ -576,6 +671,9 @@ class ModelExtensionPaymentAmazonLoginPay extends Model {
         }
     }
 
+	/**
+	 * parseIpnBody
+	 */
     public function parseIpnBody($json) {
         $data = $this->parseJson($json);
         $message = $this->parseJson($data['Message']);
@@ -593,6 +691,9 @@ class ModelExtensionPaymentAmazonLoginPay extends Model {
         return $xml;
     }
 
+	/**
+	 * parseJson
+	 */
     public function parseJson($json) {
         $message = @json_decode($json, true);
         $json_error = json_last_error();
@@ -604,10 +705,16 @@ class ModelExtensionPaymentAmazonLoginPay extends Model {
         return $message;
     }
 
+	/**
+	 * updateStatus
+	 */
     public function updateStatus($amazon_id, $type, $status) {
         $this->db->query("UPDATE `" . DB_PREFIX . "amazon_login_pay_order_transaction` SET `status` = '" . $this->db->escape($status) . "' WHERE `amazon_" . $type . "_id` = '" . $this->db->escape($amazon_id) . "' AND `type` = '" . $this->db->escape($type) . "'");
     }
 
+	/**
+	 * findOCOrderId
+	 */
     public function findOCOrderId($amazon_authorization_id) {
         $sql = "SELECT * FROM `" . DB_PREFIX . "amazon_login_pay_order` WHERE `amazon_order_reference_id` = '" . $this->db->escape($amazon_authorization_id) . "'";
 
@@ -618,6 +725,9 @@ class ModelExtensionPaymentAmazonLoginPay extends Model {
         }
     }
 
+	/**
+	 * findAOrderId
+	 */
     public function findAOrderId($amazon_authorization_id) {
         $sql = "SELECT * FROM `" . DB_PREFIX . "amazon_login_pay_order` WHERE `amazon_order_reference_id` = '" . $this->db->escape($amazon_authorization_id) . "'";
 
@@ -628,12 +738,18 @@ class ModelExtensionPaymentAmazonLoginPay extends Model {
         }
     }
 
+	/**
+	 * getTotalCaptured
+	 */
     public function getTotalCaptured($amazon_login_pay_order_id) {
         $query = $this->db->query("SELECT SUM(`amount`) AS `total` FROM `" . DB_PREFIX . "amazon_login_pay_order_transaction` WHERE `amazon_login_pay_order_id` = '" . (int)$amazon_login_pay_order_id . "' AND (`type` = 'capture' OR `type` = 'refund') AND (`status` = 'Completed' OR `status` = 'Closed')");
 
         return (float)$query->row['total'];
     }
 
+	/**
+	 * authorizationIpn
+	 */
     public function authorizationIpn($xml) {
         $status = (string)$xml->AuthorizationDetails->AuthorizationStatus->State;
         $amazon_authorization_id = (string)$xml->AuthorizationDetails->AmazonAuthorizationId;
@@ -647,6 +763,9 @@ class ModelExtensionPaymentAmazonLoginPay extends Model {
         return ($status == 'Closed' && $xml->AuthorizationDetails->AuthorizationStatus->ReasonCode == 'MaxCapturesProcessed');
     }
 
+	/**
+	 * captureIpn
+	 */
     public function captureIpn($xml) {
         $status = (string)$xml->CaptureDetails->CaptureStatus->State;
         $amazon_capture_id = (string)$xml->CaptureDetails->AmazonCaptureId;
@@ -658,6 +777,9 @@ class ModelExtensionPaymentAmazonLoginPay extends Model {
         }
     }
 
+	/**
+	 * refundIpn
+	 */
     public function refundIpn($xml) {
         $status = (string)$xml->RefundDetails->RefundStatus->State;
         $amazon_refund_id = (string)$xml->RefundDetails->AmazonRefundId;
@@ -669,6 +791,9 @@ class ModelExtensionPaymentAmazonLoginPay extends Model {
         }
     }
 
+	/**
+	 * updatePaymentAddress
+	 */
     public function updatePaymentAddress($order_id, $amazon_address) {
         $address = $this->amazonAddressToOcAddress($amazon_address);
 
@@ -699,6 +824,9 @@ class ModelExtensionPaymentAmazonLoginPay extends Model {
         $this->db->query($sql);
     }
 
+	/**
+	 * amazonAddressToOcAddress
+	 */
     public function amazonAddressToOcAddress($amazon_address, $default_telephone = '0000000') {
         $full_name = explode(' ', $amazon_address->Name);
         $amazon_address->FirstName = array_shift($full_name);
@@ -734,6 +862,9 @@ class ModelExtensionPaymentAmazonLoginPay extends Model {
         ];
     }
 
+	/**
+	 * getAddress
+	 */
     public function getAddress($order_reference_id) {
         if (!isset($this->session->data['apalwa']['login']['access_token'])) {
             $this->debugLog('ERROR', $this->language->get('error_shipping_methods'));
@@ -753,6 +884,9 @@ class ModelExtensionPaymentAmazonLoginPay extends Model {
         return $this->amazonAddressToOcAddress($amazon_address, $order_telephone);
     }
 
+	/**
+	 * getCountryInfo
+	 */
     public function getCountryInfo($amazon_address) {
         $sql = "SELECT * FROM `" . DB_PREFIX . "country` WHERE LCASE(`iso_code_2`) = '" . $this->db->escape(oc_strtolower($amazon_address->CountryCode)) . "' AND `status` = '1' LIMIT 1";
 
@@ -777,6 +911,9 @@ class ModelExtensionPaymentAmazonLoginPay extends Model {
         ];
     }
 
+	/**
+	 * getZoneInfo
+	 */
     public function getZoneInfo($amazon_address, $country_info) {
         if (!empty($amazon_address->StateOrRegion)) {
             $sql = "SELECT `zone_id`, `code`, `name` FROM `" . DB_PREFIX . "zone` WHERE (LOWER(`name`) LIKE '" . $this->db->escape(oc_strtolower($amazon_address->StateOrRegion)) . "' OR LCASE(`code`) LIKE '" . $this->db->escape(strtolower($amazon_address->StateOrRegion)) . "') AND `country_id` = '" . (int)$country_info['country_id'] . "' LIMIT 1";
@@ -798,6 +935,9 @@ class ModelExtensionPaymentAmazonLoginPay extends Model {
         ];
     }
 
+	/**
+	 * getCurlUrl
+	 */
     public function getCurlUrl() {
         if ($this->config->get('payment_amazon_login_pay_test') == 'sandbox') {
             if ($this->config->get('payment_amazon_login_pay_payment_region') == 'USD') {
@@ -814,10 +954,16 @@ class ModelExtensionPaymentAmazonLoginPay extends Model {
         }
     }
 
+	/**
+	 * urlencode
+	 */
     public function urlencode($value) {
         return str_replace('%7E', '~', rawurlencode($value));
     }
 
+	/**
+	 * calculateStringToSignV2
+	 */
     public function calculateStringToSignV2($url, $params) {
         $data = 'POST';
         $data .= "\n";
@@ -845,6 +991,9 @@ class ModelExtensionPaymentAmazonLoginPay extends Model {
         return $data;
     }
 
+	/**
+	 * makePost
+	 */
     public function makePost($url, $action, $extra = []) {
         $params = [];
 
@@ -867,6 +1016,9 @@ class ModelExtensionPaymentAmazonLoginPay extends Model {
         return http_build_query($params);
     }
 
+	/**
+	 * postCurl
+	 */
     public function postCurl($action, $params = []) {
         $url = $this->getCurlUrl();
         $post = $this->makePost($url, $action, $params);
@@ -885,6 +1037,7 @@ class ModelExtensionPaymentAmazonLoginPay extends Model {
         curl_setopt($ch, CURLOPT_USERAGENT, $this->request->server['HTTP_USER_AGENT']);
 
         $response = curl_exec($ch);
+
         $info = curl_getinfo($ch);
 
         if (empty($response)) {
@@ -925,6 +1078,9 @@ class ModelExtensionPaymentAmazonLoginPay extends Model {
         return $result;
     }
 
+	/**
+	 * loggedException
+	 */
     public function loggedException($log_message, $error_message) {
         $id = uniqid();
 
@@ -933,6 +1089,9 @@ class ModelExtensionPaymentAmazonLoginPay extends Model {
         return new \RuntimeException('#' . $id . ': ' . $error_message);
     }
 
+	/**
+	 * logHandler
+	 */
     public function logHandler($code, $message, $file, $line) {
         if (!(error_reporting() & $code)) {
             return false;
@@ -963,6 +1122,9 @@ class ModelExtensionPaymentAmazonLoginPay extends Model {
         }
     }
 
+	/**
+	 * debugLog
+	 */
     public function debugLog($type, $data, $id = null) {
         if (!$this->config->get('payment_amazon_login_pay_debug')) {
             return;

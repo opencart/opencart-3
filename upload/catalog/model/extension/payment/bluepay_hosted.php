@@ -5,6 +5,9 @@
  * @package Catalog\Model\Extension\Payment
  */
 class ModelExtensionPaymentBluePayHosted extends Model {
+	/**
+	 * getMethod
+	 */
     public function getMethod(array $address): array {
         $this->load->language('extension/payment/bluepay_hosted');
 
@@ -32,6 +35,9 @@ class ModelExtensionPaymentBluePayHosted extends Model {
         return $method_data;
     }
 
+	/**
+	 * addOrder
+	 */
     public function addOrder($order_info, $response_data) {
         if ($this->config->get('payment_bluepay_hosted_transaction') == 'SALE') {
             $release_status = 1;
@@ -44,10 +50,16 @@ class ModelExtensionPaymentBluePayHosted extends Model {
         return $this->db->getLastId();
     }
 
+	/**
+	 * addTransaction
+	 */
     public function addTransaction($bluepay_hosted_order_id, $type, $order_info) {
         $this->db->query("INSERT INTO `" . DB_PREFIX . "bluepay_hosted_order_transaction` SET `bluepay_hosted_order_id` = '" . (int)$bluepay_hosted_order_id . "', `date_added` = NOW(), `type` = '" . $this->db->escape($type) . "', `amount` = '" . $this->currency->format($order_info['total'], $order_info['currency_code'], false, false) . "'");
     }
 
+	/**
+	 * Logger
+	 */
     public function logger($message) {
         if ($this->config->get('payment_bluepay_hosted_debug') == 1) {
             // Log

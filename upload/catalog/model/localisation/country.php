@@ -6,6 +6,8 @@
  */
 class ModelLocalisationCountry extends Model {
 	/**
+	 * getCountry
+	 *
 	 * @param int $country_id
 	 *
 	 * @return array
@@ -17,6 +19,8 @@ class ModelLocalisationCountry extends Model {
     }
 
 	/**
+	 * getCountryByIsoCode2
+	 *
 	 * @param $iso_code_2
 	 *
 	 * @return array
@@ -28,6 +32,8 @@ class ModelLocalisationCountry extends Model {
     }
 
 	/**
+	 * getCountryByIsoCode3
+	 *
 	 * @param $iso_code_3
 	 *
 	 * @return array
@@ -39,6 +45,8 @@ class ModelLocalisationCountry extends Model {
     }
 
 	/**
+	 * getCountries
+	 *
 	 * @return array
 	 */
     public function getCountries(): array {

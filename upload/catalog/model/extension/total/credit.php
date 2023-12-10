@@ -5,6 +5,9 @@
  * @package Catalog\Model\Extension\Total
  */
 class ModelExtensionTotalCredit extends Model {
+	/**
+	 * getTotal
+	 */
     public function getTotal(array $total): void {
         $this->load->language('extension/total/credit');
 
@@ -26,6 +29,9 @@ class ModelExtensionTotalCredit extends Model {
         }
     }
 
+	/**
+	 * Confirm
+	 */
     public function confirm(array $order_info, float $order_total): void {
         $this->load->language('extension/total/credit');
 
@@ -34,6 +40,9 @@ class ModelExtensionTotalCredit extends Model {
         }
     }
 
+	/**
+	 * Unconfirm
+	 */
     public function unconfirm(int $order_id): void {
         $this->db->query("DELETE FROM `" . DB_PREFIX . "customer_transaction` WHERE `order_id` = '" . (int)$order_id . "'");
     }

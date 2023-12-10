@@ -247,6 +247,9 @@ Zambia = ZM
 Zimbabwe = ZW
 */
 class ModelExtensionShippingRoyalMail extends Model {
+	/**
+	 * getQuote
+	 */
     public function getQuote(array $address): array {
         $this->load->language('extension/shipping/royal_mail');
 

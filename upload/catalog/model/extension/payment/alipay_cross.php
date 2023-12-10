@@ -9,6 +9,13 @@ class ModelExtensionPaymentAlipayCross extends Model {
     var $https_verify_url_test = 'https://openapi.alipaydev.com/gateway.do?service=notify_verify&';
     var $alipay_config;
 
+	/**
+	 * getMethod
+	 *
+	 * @param array $address
+	 *
+	 * @return array
+	 */
     public function getMethod(array $address): array {
         $this->load->language('extension/payment/alipay_cross');
 
@@ -52,6 +59,9 @@ class ModelExtensionPaymentAlipayCross extends Model {
         return $mysign;
     }
 
+	/**
+	 * buildRequestPara
+	 */
     public function buildRequestPara($alipay_config, $para_temp) {
         $this->alipay_config = $alipay_config;
 
@@ -67,6 +77,9 @@ class ModelExtensionPaymentAlipayCross extends Model {
         return $para_sort;
     }
 
+	/**
+	 * verifyNotify
+	 */
     public function verifyNotify($alipay_config) {
         $this->alipay_config = $alipay_config;
 
@@ -86,6 +99,7 @@ class ModelExtensionPaymentAlipayCross extends Model {
                 return true;
             } else {
                 $this->log->write($responseTxt);
+
                 return false;
             }
         }

@@ -5,6 +5,9 @@
  * @package Catalog\Model\Extension\Payment
  */
 class ModelExtensionPaymentCardConnect extends Model {
+	/**
+	 * getMethod
+	 */
     public function getMethod(array $address): array {
         $this->load->language('extension/payment/cardconnect');
 
@@ -32,6 +35,9 @@ class ModelExtensionPaymentCardConnect extends Model {
         return $method_data;
     }
 
+	/**
+	 * getCardTypes
+	 */
     public function getCardTypes() {
         $cards = [];
 
@@ -58,6 +64,9 @@ class ModelExtensionPaymentCardConnect extends Model {
         return $cards;
     }
 
+	/**
+	 * getMonths
+	 */
     public function getMonths() {
         $months = [];
 
@@ -71,6 +80,9 @@ class ModelExtensionPaymentCardConnect extends Model {
         return $months;
     }
 
+	/**
+	 * getYears
+	 */
     public function getYears() {
         $years = [];
 
@@ -86,6 +98,9 @@ class ModelExtensionPaymentCardConnect extends Model {
         return $years;
     }
 
+	/**
+	 * getCard
+	 */
     public function getCard($token, $customer_id) {
         $query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "cardconnect_card` WHERE `token` = '" . $this->db->escape($token) . "' AND `customer_id` = '" . (int)$customer_id . "'");
 
@@ -96,30 +111,48 @@ class ModelExtensionPaymentCardConnect extends Model {
         }
     }
 
+	/**
+	 * getCards
+	 */
     public function getCards($customer_id) {
         $query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "cardconnect_card` WHERE `customer_id` = '" . (int)$customer_id . "'");
 
         return $query->rows;
     }
 
+	/**
+	 * addCard
+	 */
     public function addCard($cardconnect_order_id, $customer_id, $profileid, $token, $type, $account, $expiry) {
         $this->db->query("INSERT INTO `" . DB_PREFIX . "cardconnect_card` SET `cardconnect_order_id` = '" . (int)$cardconnect_order_id . "', `customer_id` = '" . (int)$customer_id . "', `profileid` = '" . $this->db->escape($profileid) . "', `token` = '" . $this->db->escape($token) . "', `type` = '" . $this->db->escape($type) . "', `account` = '" . $this->db->escape($account) . "', `expiry` = '" . $this->db->escape($expiry) . "', `date_added` = NOW()");
     }
 
+	/**
+	 * deleteCard
+	 */
     public function deleteCard($token, $customer_id) {
         $this->db->query("DELETE FROM `" . DB_PREFIX . "cardconnect_card` WHERE `token` = '" . $this->db->escape($token) . "' AND `customer_id` = '" . (int)$customer_id . "'");
     }
 
+	/**
+	 * addOrder
+	 */
     public function addOrder($order_info, $payment_method) {
         $this->db->query("INSERT INTO `" . DB_PREFIX . "cardconnect_order` SET `order_id` = '" . (int)$order_info['order_id'] . "', `customer_id` = '" . (int)$this->customer->getId() . "', `payment_method` = '" . $this->db->escape($payment_method) . "', `retref` = '" . $this->db->escape($order_info['retref']) . "', `authcode` = '" . $this->db->escape($order_info['authcode']) . "', `currency_code` = '" . $this->db->escape($order_info['currency_code']) . "', `total` = '" . $this->currency->format($order_info['total'], $order_info['currency_code'], false, false) . "', `date_added` = NOW()");
 
         return $this->db->getLastId();
     }
 
+	/**
+	 * addTransaction
+	 */
     public function addTransaction($cardconnect_order_id, $type, $status, $order_info) {
         $this->db->query("INSERT INTO `" . DB_PREFIX . "cardconnect_order_transaction` SET `cardconnect_order_id` = '" . (int)$cardconnect_order_id . "', `type` = '" . $this->db->escape($type) . "', `retref` = '" . $this->db->escape($order_info['retref']) . "', `amount` = '" . (float)$this->currency->format($order_info['total'], $order_info['currency_code'], false, false) . "', `status` = '" . $this->db->escape($status) . "', `date_modified` = NOW(), `date_added` = NOW()");
     }
 
+	/**
+	 * getSettlementStatuses
+	 */
     public function getSettlementStatuses($merchant_id, $date) {
         $this->log('Getting settlement statuses from CardConnect');
 
@@ -157,16 +190,25 @@ class ModelExtensionPaymentCardConnect extends Model {
         return $response_data;
     }
 
+	/**
+	 * updateTransactionStatusByRetref
+	 */
     public function updateTransactionStatusByRetref($retref, $status) {
         $this->db->query("UPDATE `" . DB_PREFIX . "cardconnect_order_transaction` SET `status` = '" . $this->db->escape($status) . "', `date_modified` = NOW() WHERE `retref` = '" . $this->db->escape($retref) . "'");
     }
 
+	/**
+	 * updateCronRunTime
+	 */
     public function updateCronRunTime() {
         $this->db->query("DELETE FROM `" . DB_PREFIX . "setting` WHERE `key` = 'payment_cardconnect_cron_time'");
 
         $this->db->query("INSERT INTO `" . DB_PREFIX . "setting` SET `store_id` = '0', `code` = 'cardconnect', `key` = 'payment_cardconnect_cron_time', `value` = NOW(), `serialized` = '0'");
     }
 
+	/**
+	 * Log
+	 */
     public function log($data) {
         if ($this->config->get('payment_cardconnect_logging')) {
             // Log

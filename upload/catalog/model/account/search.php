@@ -6,6 +6,8 @@
  */
 class ModelAccountSearch extends Model {
 	/**
+	 * addSearch
+	 *
 	 * @param array $data
 	 *
 	 * @return void

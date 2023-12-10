@@ -6,6 +6,8 @@
  */
 class ModelToolUpload extends Model {
 	/**
+	 * addUpload
+	 *
 	 * @param string $name
 	 * @param string $filename
 	 *
@@ -20,6 +22,8 @@ class ModelToolUpload extends Model {
     }
 
 	/**
+	 * getUploadByCode
+	 *
 	 * @param string $code
 	 *
 	 * @return array

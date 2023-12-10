@@ -5,6 +5,9 @@
  * @package Catalog\Model\Extension\Total
  */
 class ModelExtensionTotalCoupon extends Model {
+	/**
+	 * getCoupon
+	 */
     public function getCoupon(string $code): array {
         $status = true;
 
@@ -100,6 +103,9 @@ class ModelExtensionTotalCoupon extends Model {
         }
     }
 
+	/**
+	 * getTotal
+	 */
     public function getTotal(array $total): void {
         if (isset($this->session->data['coupon'])) {
             $this->load->language('extension/total/coupon', 'coupon');
@@ -188,6 +194,9 @@ class ModelExtensionTotalCoupon extends Model {
         }
     }
 
+	/**
+	 * Confirm
+	 */
     public function confirm(array $order_info, array $order_total): int {
         $code = '';
 
@@ -232,16 +241,25 @@ class ModelExtensionTotalCoupon extends Model {
         return 0;
     }
 
+	/**
+	 * Unconfirm
+	 */
     public function unconfirm(int $order_id): void {
         $this->db->query("DELETE FROM `" . DB_PREFIX . "coupon_history` WHERE `order_id` = '" . (int)$order_id . "'");
     }
 
+	/**
+	 * getTotalCouponHistoriesByCoupon
+	 */
     public function getTotalCouponHistoriesByCoupon(string $coupon): int {
         $query = $this->db->query("SELECT COUNT(*) AS `total` FROM `" . DB_PREFIX . "coupon_history` `ch` LEFT JOIN `" . DB_PREFIX . "coupon` `c` ON (`ch`.`coupon_id` = `c`.`coupon_id`) WHERE `c`.`code` = '" . $this->db->escape($coupon) . "'");
 
         return (int)$query->row['total'];
     }
 
+	/**
+	 * getTotalCouponHistoriesByCustomerId
+	 */
     public function getTotalCouponHistoriesByCustomerId(string $coupon, int $customer_id): int {
         $query = $this->db->query("SELECT COUNT(*) AS `total` FROM `" . DB_PREFIX . "coupon_history` `ch` LEFT JOIN `" . DB_PREFIX . "coupon` `c` ON (`ch`.`coupon_id` = `c`.`coupon_id`) WHERE `c`.`code` = '" . $this->db->escape($coupon) . "' AND `ch`.`customer_id` = '" . (int)$customer_id . "'");
 

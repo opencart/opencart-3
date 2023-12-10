@@ -6,6 +6,8 @@
  */
 class ModelAccountActivity extends Model {
 	/**
+	 * addActivity
+	 *
 	 * @param string $key
 	 * @param array  $data
 	 *

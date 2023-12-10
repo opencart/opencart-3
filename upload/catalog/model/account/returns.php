@@ -6,6 +6,8 @@
  */
 class ModelAccountReturns extends Model {
 	/**
+	 * addReturn
+	 *
 	 * @param array $data
 	 *
 	 * @return int
@@ -17,6 +19,8 @@ class ModelAccountReturns extends Model {
     }
 
 	/**
+	 * getReturn
+	 *
 	 * @param int $return_id
 	 *
 	 * @return array
@@ -28,6 +32,8 @@ class ModelAccountReturns extends Model {
     }
 
 	/**
+	 * getReturns
+	 *
 	 * @param int $start
 	 * @param int $limit
 	 *
@@ -48,6 +54,8 @@ class ModelAccountReturns extends Model {
     }
 
 	/**
+	 * getTotalReturns
+	 *
 	 * @return int
 	 */
     public function getTotalReturns(): int {
@@ -57,6 +65,8 @@ class ModelAccountReturns extends Model {
     }
 
 	/**
+	 * getHistories
+	 *
 	 * @param int $return_id
 	 *
 	 * @return array

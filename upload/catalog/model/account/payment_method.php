@@ -6,6 +6,8 @@
  */
 class ModelAccountPaymentMethod extends Model {
 	/**
+	 * addPaymentMethod
+	 *
 	 * @param array $data
 	 *
 	 * @return void
@@ -15,6 +17,8 @@ class ModelAccountPaymentMethod extends Model {
     }
 
 	/**
+	 * deletePaymentMethod
+	 *
 	 * @param int $customer_payment_id
 	 *
 	 * @return void
@@ -24,6 +28,8 @@ class ModelAccountPaymentMethod extends Model {
     }
 
 	/**
+	 * getPaymentMethod
+	 *
 	 * @param int $customer_id
 	 * @param int $customer_payment_id
 	 *
@@ -36,6 +42,8 @@ class ModelAccountPaymentMethod extends Model {
     }
 
 	/**
+	 * getPaymentMethods
+	 *
 	 * @param int $customer_id
 	 *
 	 * @return array
@@ -47,6 +55,8 @@ class ModelAccountPaymentMethod extends Model {
     }
 
 	/**
+	 * getTotalPaymentMethods
+	 *
 	 * @return int
 	 */
     public function getTotalPaymentMethods(): int {

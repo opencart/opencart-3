@@ -10,6 +10,9 @@
  * @link           https://www.opencart.cn
  */
 class ModelExtensionPaymentWechatPay extends Model {
+	/**
+	 * getMethod
+	 */
     public function getMethod(array $address): array {
         $this->load->language('extension/payment/wechat_pay');
 

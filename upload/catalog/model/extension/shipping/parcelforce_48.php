@@ -5,6 +5,9 @@
  * @package Catalog\Model\Extension\Shipping
  */
 class ModelExtensionShippingParcelforce48 extends Model {
+	/**
+	 * getQuote
+	 */
     public function getQuote(array $address): array {
         $this->load->language('extension/shipping/parcelforce_48');
 

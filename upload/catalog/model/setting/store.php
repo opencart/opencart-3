@@ -6,6 +6,8 @@
  */
 class ModelSettingStore extends Model {
 	/**
+	 * getStore
+	 *
 	 * @param int $store_id
 	 *
 	 * @return array
@@ -17,6 +19,8 @@ class ModelSettingStore extends Model {
     }
 
 	/**
+	 * getStores
+	 *
 	 * @return array
 	 */
     public function getStores(): array {
@@ -34,6 +38,8 @@ class ModelSettingStore extends Model {
     }
 
 	/**
+	 * getStoreByHostname
+	 *
 	 * @param string $url
 	 *
 	 * @return array

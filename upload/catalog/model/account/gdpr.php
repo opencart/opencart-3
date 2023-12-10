@@ -6,6 +6,8 @@
  */
 class ModelAccountGdpr extends Model {
 	/**
+	 * addGdpr
+	 *
 	 * @param string $code
 	 * @param string $email
 	 * @param string $action
@@ -17,6 +19,8 @@ class ModelAccountGdpr extends Model {
     }
 
 	/**
+	 * editStatus
+	 *
 	 * @param int $gdpr_id
 	 * @param int $status
 	 *
@@ -27,6 +31,8 @@ class ModelAccountGdpr extends Model {
     }
 
 	/**
+	 * getGdprByCode
+	 *
 	 * @param string $code
 	 *
 	 * @return array
@@ -38,6 +44,8 @@ class ModelAccountGdpr extends Model {
     }
 
 	/**
+	 * getGdprsByEmail
+	 *
 	 * @param string $email
 	 *
 	 * @return array

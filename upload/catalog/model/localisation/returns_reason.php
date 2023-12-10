@@ -6,6 +6,8 @@
  */
 class ModelLocalisationReturnsReason extends Model {
 	/**
+	 * getReturnReasons
+	 *
 	 * @param array $data
 	 *
 	 * @return array

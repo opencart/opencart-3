@@ -6,6 +6,8 @@
  */
 class ModelExtensionPaymentPayPalPayLater extends Model {
 	/**
+	 * getMethod
+	 *
 	 * @param array $address
 	 * @param float $total
 	 *

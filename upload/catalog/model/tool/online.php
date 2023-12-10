@@ -6,6 +6,8 @@
  */
 class ModelToolOnline extends Model {
 	/**
+	 * addOnline
+	 *
 	 * @param string $ip
 	 * @param int    $customer_id
 	 * @param string $url

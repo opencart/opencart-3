@@ -6,6 +6,8 @@
  */
 class ModelAccountAddress extends Model {
 	/**
+	 * addAddress
+	 *
 	 * @param int   $customer_id
 	 * @param array $data
 	 *
@@ -24,6 +26,8 @@ class ModelAccountAddress extends Model {
     }
 
 	/**
+	 * editAddress
+	 *
 	 * @param int   $address_id
 	 * @param array $data
 	 *
@@ -38,6 +42,8 @@ class ModelAccountAddress extends Model {
     }
 
 	/**
+	 * deleteAddress
+	 *
 	 * @param int $address_id
 	 *
 	 * @return void
@@ -53,6 +59,8 @@ class ModelAccountAddress extends Model {
     }
 
 	/**
+	 * getAddress
+	 *
 	 * @param int $customer_id
 	 * @param int $address_id
 	 *
@@ -146,6 +154,8 @@ class ModelAccountAddress extends Model {
     }
 
 	/**
+	 * getAddresses
+	 *
 	 * @param int $customer_id
 	 *
 	 * @return array
@@ -167,6 +177,8 @@ class ModelAccountAddress extends Model {
     }
 
 	/**
+	 * getTotalAddresses
+	 *
 	 * @param int $customer_id
 	 *
 	 * @return int

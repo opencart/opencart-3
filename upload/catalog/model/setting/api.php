@@ -6,6 +6,8 @@
  */
 class ModelSettingApi extends Model {
 	/**
+	 * Login
+	 *
 	 * @param string $username
 	 * @param string $key
 	 *
@@ -18,6 +20,8 @@ class ModelSettingApi extends Model {
     }
 
 	/**
+	 * getApiByToken
+	 *
 	 * @param string $token
 	 *
 	 * @return array
@@ -29,6 +33,8 @@ class ModelSettingApi extends Model {
     }
 
 	/**
+	 * updateSession
+	 *
 	 * @param string $api_session_id
 	 *
 	 * @return void
@@ -39,6 +45,8 @@ class ModelSettingApi extends Model {
     }
 
 	/**
+	 * cleanSessions
+	 *
 	 * @return void
 	 */
     public function cleanSessions(): void {

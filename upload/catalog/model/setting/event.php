@@ -6,6 +6,8 @@
  */
 class ModelSettingEvent extends Model {
 	/**
+	 * getEvents
+	 *
 	 * @return array
 	 */
     public function getEvents(): array {

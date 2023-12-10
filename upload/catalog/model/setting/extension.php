@@ -6,6 +6,8 @@
  */
 class ModelSettingExtension extends Model {
 	/**
+	 * getExtensionsByType
+	 *
 	 * @param string $type
 	 *
 	 * @return array
@@ -17,6 +19,8 @@ class ModelSettingExtension extends Model {
     }
 
 	/**
+	 * getExtensionByCode
+	 *
 	 * @param string $type
 	 * @param string $code
 	 *

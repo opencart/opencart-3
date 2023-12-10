@@ -6,6 +6,8 @@
  */
 class ModelAccountApi extends Model {
 	/**
+	 * Login
+	 *
 	 * @param string $username
 	 * @param string $key
 	 *
@@ -18,6 +20,8 @@ class ModelAccountApi extends Model {
     }
 
 	/**
+	 * addSession
+	 *
 	 * @param int    $api_id
 	 * @param string $session_id
 	 * @param string $ip
@@ -31,6 +35,8 @@ class ModelAccountApi extends Model {
     }
 
 	/**
+	 * getIps
+	 *
 	 * @param int $api_id
 	 *
 	 * @return array

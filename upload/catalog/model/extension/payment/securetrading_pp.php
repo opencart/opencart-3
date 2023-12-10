@@ -5,6 +5,9 @@
  * @package Catalog\Model\Extension\Payment
  */
 class ModelExtensionPaymentSecureTradingPp extends Model {
+	/**
+	 * getMethod
+	 */
     public function getMethod(array $address): array {
         $this->load->language('extension/payment/securetrading_pp');
 
@@ -32,20 +35,32 @@ class ModelExtensionPaymentSecureTradingPp extends Model {
         return $method_data;
     }
 
+	/**
+	 * getOrder
+	 */
     public function getOrder($order_id) {
         $query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "securetrading_pp_order` WHERE `order_id` = '" . (int)$order_id . "' LIMIT 1");
 
         return $query->row;
     }
 
+	/**
+	 * editOrder
+	 */
     public function editOrder($order_id, $order) {
         $this->db->query("UPDATE `" . DB_PREFIX . "order` SET `shipping_firstname` = '" . $this->db->escape($order['shipping_firstname']) . "', `shipping_lastname` = '" . $this->db->escape($order['shipping_lastname']) . "', `shipping_address_1` = '" . $this->db->escape($order['shipping_address_1']) . "', `shipping_address_2` = '" . $this->db->escape($order['shipping_address_2']) . "', `shipping_city` = '" . $this->db->escape($order['shipping_city']) . "', `shipping_zone` = '" . $this->db->escape($order['shipping_zone']) . "', `shipping_zone_id` = '" . (int)$order['shipping_zone_id'] . "', `shipping_country` = '" . $this->db->escape($order['shipping_country']) . "', `shipping_country_id` = '" . (int)$order['shipping_country_id'] . "', `shipping_postcode` = '" . $this->db->escape($order['shipping_postcode']) . "', `payment_firstname` = '" . $this->db->escape($order['payment_firstname']) . "', `payment_lastname` = '" . $this->db->escape($order['payment_lastname']) . "', `payment_address_1` = '" . $this->db->escape($order['payment_address_1']) . "', `payment_address_2` = '" . $this->db->escape($order['payment_address_2']) . "', `payment_city` = '" . $this->db->escape($order['payment_city']) . "', `payment_zone` = '" . $this->db->escape($order['payment_zone']) . "', `payment_zone_id` = '" . (int)$order['payment_zone_id'] . "', `payment_country` = '" . $this->db->escape($order['payment_country']) . "', `payment_country_id` = '" . (int)$order['payment_country_id'] . "', `payment_postcode` = '" . $this->db->escape($order['payment_postcode']) . "' WHERE `order_id` = '" . (int)$order_id . "'");
     }
 
+	/**
+	 * addReference
+	 */
     public function addReference($order_id, $reference) {
         $this->db->query("REPLACE INTO `" . DB_PREFIX . "securetrading_pp_order` SET `order_id` = '" . (int)$order_id . "', `transaction_reference` = '" . $this->db->escape($reference) . "', `created` = NOW()");
     }
 
+	/**
+	 * confirmOrder
+	 */
     public function confirmOrder($order_id, $order_status_id, $comment = '', $notify = false) {
         $this->logger('confirmOrder');
 
@@ -86,6 +101,9 @@ class ModelExtensionPaymentSecureTradingPp extends Model {
         }
     }
 
+	/**
+	 * updateOrder
+	 */
     public function updateOrder($order_id, $order_status_id, $comment = '', $notify = false) {
         // Orders
         $this->load->model('checkout/order');
@@ -95,10 +113,16 @@ class ModelExtensionPaymentSecureTradingPp extends Model {
         $this->model_checkout_order->addHistory($order_id, $order_status_id, $comment, $notify);
     }
 
+	/**
+	 * getCountry
+	 */
     public function getCountry($iso_code_2) {
         return $this->db->query("SELECT * FROM `" . DB_PREFIX . "country` WHERE LCASE(`iso_code_2`) = '" . $this->db->escape(oc_strtolower($iso_code_2)) . "'")->row;
     }
 
+	/**
+	 * Logger
+	 */
     public function logger($message) {
         // Log
         $log = new \Log('secure.log');

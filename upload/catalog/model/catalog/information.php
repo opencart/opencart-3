@@ -6,6 +6,8 @@
  */
 class ModelCatalogInformation extends Model {
 	/**
+	 * getInformation
+	 *
 	 * @param int $information_id
 	 *
 	 * @return array
@@ -17,6 +19,8 @@ class ModelCatalogInformation extends Model {
     }
 
 	/**
+	 * getInformations
+	 *
 	 * @return array
 	 */
     public function getInformations(): array {
@@ -26,6 +30,8 @@ class ModelCatalogInformation extends Model {
     }
 
 	/**
+	 * getLayoutId
+	 *
 	 * @param int $information_id
 	 *
 	 * @return int

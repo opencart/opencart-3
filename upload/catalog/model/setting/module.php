@@ -6,6 +6,8 @@
  */
 class ModelSettingModule extends Model {
 	/**
+	 * getModule
+	 *
 	 * @param int $module_id
 	 *
 	 * @return array

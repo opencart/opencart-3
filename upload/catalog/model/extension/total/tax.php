@@ -5,6 +5,9 @@
  * @package Catalog\Model\Extension\Total
  */
 class ModelExtensionTotalTax extends Model {
+	/**
+	 * getTotal
+	 */
     public function getTotal(array $total): void {
         foreach ($total['taxes'] as $key => $value) {
             if ($value > 0) {

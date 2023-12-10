@@ -6,6 +6,8 @@
  */
 class ModelCheckoutShippingMethod extends Model {
 	/**
+	 * getMethods
+	 *
 	 * @param array $shipping_address
 	 *
 	 * @return array

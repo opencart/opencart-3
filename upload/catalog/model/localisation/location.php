@@ -6,6 +6,8 @@
  */
 class ModelLocalisationLocation extends Model {
 	/**
+	 * getLocation
+	 *
 	 * @param int $location_id
 	 *
 	 * @return array

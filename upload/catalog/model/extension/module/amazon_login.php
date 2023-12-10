@@ -9,6 +9,9 @@ class ModelExtensionModuleAmazonLogin extends Model {
     const URL_PROFILE = "https://%s/user/profile";
     const URL_TOKENINFO = "https://%s/auth/o2/tokeninfo?access_token=%s";
 
+	/**
+	 * fetchProfile
+	 */
     public function fetchProfile($access_token) {
         $url = sprintf(self::URL_PROFILE, $this->getApiDomainName());
 
@@ -29,6 +32,9 @@ class ModelExtensionModuleAmazonLogin extends Model {
         return $profile;
     }
 
+	/**
+	 * verifyAccessToken
+	 */
     public function verifyAccessToken($access_token) {
         $url = sprintf(self::URL_TOKENINFO, $this->getApiDomainName(), urlencode($access_token));
 
@@ -43,6 +49,9 @@ class ModelExtensionModuleAmazonLogin extends Model {
         return true;
     }
 
+	/**
+	 * loginProfile
+	 */
     public function loginProfile($amazon_profile) {
         // Addresses
         $this->load->model('account/address');
@@ -102,6 +111,9 @@ class ModelExtensionModuleAmazonLogin extends Model {
         return $customer_info;
     }
 
+	/**
+	 * persistAddress
+	 */
     public function persistAddress($address) {
         if (!$this->customer->isLogged()) {
             return;
@@ -117,6 +129,9 @@ class ModelExtensionModuleAmazonLogin extends Model {
         }
     }
 
+	/**
+	 * addressMatches
+	 */
     public function addressMatches($new, $addresses) {
         foreach ($addresses as $address) {
             if ($this->addressMatch($new, $address, array_keys($address))) {
@@ -127,6 +142,9 @@ class ModelExtensionModuleAmazonLogin extends Model {
         return false;
     }
 
+	/**
+	 * addressMatch
+	 */
     public function addressMatch($a1, $a2, $keys) {
         // Skip comparison of custom_field. TODO introduce comparison for custom_field
         unset($keys[array_search('custom_field', $keys)]);
@@ -136,6 +154,9 @@ class ModelExtensionModuleAmazonLogin extends Model {
         return empty($diff);
     }
 
+	/**
+	 * forceLoginCustomer
+	 */
     public function forceLoginCustomer($customer_info) {
         if (!$this->customer->login($customer_info['email'], '', true)) {
             $this->model_account_customer->addLoginAttempt($customer_info['email']);
@@ -166,6 +187,9 @@ class ModelExtensionModuleAmazonLogin extends Model {
         }
     }
 
+	/**
+	 * getApiDomainName
+	 */
     public function getApiDomainName() {
         if ($this->config->get('payment_amazon_login_pay_test') == 'sandbox') {
             switch ($this->config->get('payment_amazon_login_pay_payment_region')) {
@@ -188,6 +212,9 @@ class ModelExtensionModuleAmazonLogin extends Model {
         }
     }
 
+	/**
+	 * curlGet
+	 */
     public function curlGet($url, $headers = []) {
         $this->debugLog('URL', $url);
 
@@ -228,6 +255,9 @@ class ModelExtensionModuleAmazonLogin extends Model {
         return json_decode($response);
     }
 
+	/**
+	 * debugLog
+	 */
     public function debugLog($type, $data) {
         if (!$this->config->get('payment_amazon_login_pay_debug')) {
             return;

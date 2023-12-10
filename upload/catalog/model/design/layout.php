@@ -6,6 +6,8 @@
  */
 class ModelDesignLayout extends Model {
 	/**
+	 * getLayout
+	 *
 	 * @param string $route
 	 *
 	 * @return int
@@ -21,6 +23,8 @@ class ModelDesignLayout extends Model {
     }
 
 	/**
+	 * getModules
+	 *
 	 * @param int    $layout_id
 	 * @param string $position
 	 *

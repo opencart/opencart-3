@@ -6,6 +6,8 @@
  */
 class ModelLocalisationLanguage extends Model {
 	/**
+	 * getLanguage
+	 *
 	 * @param int $language_id
 	 *
 	 * @return array
@@ -17,6 +19,8 @@ class ModelLocalisationLanguage extends Model {
     }
 
 	/**
+	 * getLanguageByCode
+	 *
 	 * @param string $code
 	 *
 	 * @return array
@@ -48,6 +52,8 @@ class ModelLocalisationLanguage extends Model {
     }
 
 	/**
+	 * getLanguages
+	 *
 	 * @return array
 	 */
     public function getLanguages(): array {

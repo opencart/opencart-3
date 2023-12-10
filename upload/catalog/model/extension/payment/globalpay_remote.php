@@ -5,6 +5,9 @@
  * @package Catalog\Model\Extension\Payment
  */
 class ModelExtensionPaymentGlobalpayRemote extends Model {
+	/**
+	 * getMethod
+	 */
     public function getMethod(array $address): array {
         $this->load->language('extension/payment/globalpay_remote');
 
@@ -32,6 +35,9 @@ class ModelExtensionPaymentGlobalpayRemote extends Model {
         return $method_data;
     }
 
+	/**
+	 * checkEnrollment
+	 */
     public function checkEnrollment($account, $amount, $currency, $order_ref) {
         $timestamp = date('YmdHis');
         $merchant_id = $this->config->get('payment_globalpay_remote_merchant_id');
@@ -80,6 +86,9 @@ class ModelExtensionPaymentGlobalpayRemote extends Model {
         return simplexml_load_string($response);
     }
 
+	/**
+	 * enrollmentSignature
+	 */
     public function enrollmentSignature($account, $amount, $currency, $order_ref, $card_number, $card_expire, $card_type, $card_name, $pares) {
         // Orders
         $this->load->model('checkout/order');
@@ -133,6 +142,9 @@ class ModelExtensionPaymentGlobalpayRemote extends Model {
         return simplexml_load_string($response);
     }
 
+	/**
+	 * capturePayment
+	 */
     public function capturePayment($account, $amount, $currency, $order_id, $order_ref, $card_number, $expire, $name, $type, $cvv, $issue, $eci_ref, $eci = '', $cavv = '', $xid = '') {
         $this->load->language('extension/payment/globalpay_remote');
 
@@ -351,6 +363,9 @@ class ModelExtensionPaymentGlobalpayRemote extends Model {
         return $response;
     }
 
+	/**
+	 * addOrder
+	 */
     public function addOrder($order_info, $response, $account, $order_ref) {
         if ($this->config->get('payment_globalpay_remote_auto_settle') == 1) {
             $settle_status = 1;
@@ -363,10 +378,16 @@ class ModelExtensionPaymentGlobalpayRemote extends Model {
         return $this->db->getLastId();
     }
 
+	/**
+	 * addTransaction
+	 */
     public function addTransaction($globalpay_remote_order_id, $type, $order_info) {
         $this->db->query("INSERT INTO `" . DB_PREFIX . "globalpay_remote_order_transaction` SET `globalpay_remote_order_id` = '" . (int)$globalpay_remote_order_id . "', `date_added` = NOW(), `type` = '" . $this->db->escape($type) . "', `amount` = '" . $this->currency->format($order_info['total'], $order_info['currency_code'], $order_info['currency_value'], false) . "'");
     }
 
+	/**
+	 * Logger
+	 */
     public function logger($message) {
         if ($this->config->get('payment_globalpay_remote_debug') == 1) {
             // Log

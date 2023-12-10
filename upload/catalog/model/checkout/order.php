@@ -6,6 +6,8 @@
  */
 class ModelCheckoutOrder extends Model {
 	/**
+	 * addOrder
+	 *
 	 * @param array $data
 	 *
 	 * @return int
@@ -64,6 +66,8 @@ class ModelCheckoutOrder extends Model {
     }
 
 	/**
+	 * editOrder
+	 *
 	 * @param int   $order_id
 	 * @param array $data
 	 *
@@ -125,6 +129,8 @@ class ModelCheckoutOrder extends Model {
     }
 
 	/**
+	 * deleteOrder
+	 *
 	 * @param int $order_id
 	 *
 	 * @return void
@@ -149,6 +155,8 @@ class ModelCheckoutOrder extends Model {
     }
 
 	/**
+	 * getOrder
+	 *
 	 * @param int $order_id
 	 *
 	 * @return array
@@ -277,6 +285,8 @@ class ModelCheckoutOrder extends Model {
     }
 
 	/**
+	 * getProducts
+	 *
 	 * @param int $order_id
 	 *
 	 * @return array
@@ -288,6 +298,8 @@ class ModelCheckoutOrder extends Model {
     }
 
 	/**
+	 * getOptions
+	 *
 	 * @param int $order_id
 	 * @param int $order_product_id
 	 *
@@ -300,6 +312,8 @@ class ModelCheckoutOrder extends Model {
     }
 
 	/**
+	 * getSubscription
+	 *
 	 * @param int $order_id
 	 * @param int $order_product_id
 	 *
@@ -312,6 +326,8 @@ class ModelCheckoutOrder extends Model {
 	}
 
 	/**
+	 * getSubscriptions
+	 *
 	 * @param array $data
 	 *
 	 * @return array
@@ -372,6 +388,8 @@ class ModelCheckoutOrder extends Model {
 	}
 
 	/**
+	 * getTotalOrdersBySubscriptionId
+	 *
 	 * @param int $subscription_id
 	 *
 	 * @return int
@@ -383,6 +401,8 @@ class ModelCheckoutOrder extends Model {
 	}
 
 	/**
+	 * getVouchers
+	 *
 	 * @param int $order_id
 	 *
 	 * @return array
@@ -394,6 +414,8 @@ class ModelCheckoutOrder extends Model {
     }
 
 	/**
+	 * getTotals
+	 *
 	 * @param int $order_id
 	 *
 	 * @return array
@@ -405,6 +427,8 @@ class ModelCheckoutOrder extends Model {
     }
 
 	/**
+	 * addHistory
+	 *
 	 * @param int 	 $order_id
 	 * @param int 	 $order_status_id
 	 * @param string $comment

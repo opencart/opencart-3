@@ -6,6 +6,8 @@
  */
 class ModelReportStatistics extends Model {
 	/**
+	 * getStatistics
+	 *
 	 * @return array
 	 */
     public function getStatistics(): array {
@@ -15,6 +17,8 @@ class ModelReportStatistics extends Model {
     }
 
 	/**
+	 * getValue
+	 *
 	 * @param string $code
 	 *
 	 * @return float
@@ -30,6 +34,8 @@ class ModelReportStatistics extends Model {
     }
 
 	/**
+	 * addValue
+	 *
 	 * @param string $code
 	 * @param float  $value
 	 *
@@ -40,6 +46,8 @@ class ModelReportStatistics extends Model {
     }
 
 	/**
+	 * removeValue
+	 *
 	 * @param string $code
 	 * @param float  $value
 	 *
@@ -50,6 +58,8 @@ class ModelReportStatistics extends Model {
     }
 
 	/**
+	 * editValue
+	 *
 	 * @param string $code
 	 * @param float  $value
 	 *

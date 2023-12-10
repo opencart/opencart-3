@@ -6,6 +6,8 @@
  */
 class ModelAccountSubscription extends Model {
 	/**
+	 * getSubscription
+	 *
 	 * @param int $subscription_id
 	 *
 	 * @return array
@@ -27,6 +29,8 @@ class ModelAccountSubscription extends Model {
 	}
 
 	/**
+	 * getSubscriptionByOrderProductId
+	 *
 	 * @param int $order_id
 	 * @param int $order_product_id
 	 *
@@ -49,6 +53,8 @@ class ModelAccountSubscription extends Model {
 	}
 
 	/**
+	 * getSubscriptions
+	 *
 	 * @param int $start
 	 * @param int $limit
 	 *
@@ -69,6 +75,8 @@ class ModelAccountSubscription extends Model {
 	}
 
 	/**
+	 * getTotalSubscriptions
+	 *
 	 * @return int
 	 */
 	public function getTotalSubscriptions(): int {
@@ -82,6 +90,8 @@ class ModelAccountSubscription extends Model {
 	}
 
 	/**
+	 * getTotalSubscriptionByShippingAddressId
+	 *
 	 * @param int $address_id
 	 *
 	 * @return int
@@ -93,6 +103,8 @@ class ModelAccountSubscription extends Model {
 	}
 
 	/**
+	 * getTotalSubscriptionByPaymentAddressId
+	 *
 	 * @param int $address_id
 	 *
 	 * @return int
@@ -104,6 +116,8 @@ class ModelAccountSubscription extends Model {
 	}
 
 	/**
+	 * getHistories
+	 *
 	 * @param int $subscription_id
 	 * @param int $start
 	 * @param int $limit
@@ -125,6 +139,8 @@ class ModelAccountSubscription extends Model {
 	}
 
 	/**
+	 * getTotalHistories
+	 *
 	 * @param int $subscription_id
 	 *
 	 * @return int

@@ -5,6 +5,9 @@
  * @package Catalog\Model\Extension\Payment
  */
 class ModelExtensionPaymentGlobalpay extends Model {
+	/**
+	 * getMethod
+	 */
     public function getMethod(array $address): array {
         $this->load->language('extension/payment/globalpay');
 
@@ -32,6 +35,9 @@ class ModelExtensionPaymentGlobalpay extends Model {
         return $method_data;
     }
 
+	/**
+	 * addOrder
+	 */
     public function addOrder($order_info, $pas_ref, $auth_code, $account, $order_ref) {
         if ($this->config->get('payment_globalpay_auto_settle') == 1) {
             $settle_status = 1;
@@ -44,10 +50,16 @@ class ModelExtensionPaymentGlobalpay extends Model {
         return $this->db->getLastId();
     }
 
+	/**
+	 * addTransaction
+	 */
     public function addTransaction($globalpay_order_id, $type, $order_info) {
         $this->db->query("INSERT INTO `" . DB_PREFIX . "globalpay_order_transaction` SET `globalpay_order_id` = '" . (int)$globalpay_order_id . "', `date_added` = NOW(), `type` = '" . $this->db->escape($type) . "', `amount` = '" . $this->currency->format($order_info['total'], $order_info['currency_code'], $order_info['currency_value'], false) . "'");
     }
 
+	/**
+	 * Logger
+	 */
     public function logger($message) {
         if ($this->config->get('payment_globalpay_debug') == 1) {
             // Log

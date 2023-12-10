@@ -6,6 +6,8 @@
  */
 class ModelLocalisationCurrency extends Model {
 	/**
+	 * getCurrencyByCode
+	 *
 	 * @param string $currency
 	 *
 	 * @return array
@@ -17,6 +19,8 @@ class ModelLocalisationCurrency extends Model {
     }
 
 	/**
+	 * getCurrencies
+	 *
 	 * @return array
 	 */
     public function getCurrencies(): array {

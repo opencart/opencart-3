@@ -6,6 +6,8 @@
  */
 class ModelCatalogProduct extends Model {
 	/**
+	 * updateViewed
+	 *
 	 * @param int $product_id
 	 *
 	 * @return void
@@ -15,6 +17,8 @@ class ModelCatalogProduct extends Model {
     }
 
 	/**
+	 * getProduct
+	 *
 	 * @param int $product_id
 	 *
 	 * @return array
@@ -72,6 +76,8 @@ class ModelCatalogProduct extends Model {
     }
 
 	/**
+	 * getProducts
+	 *
 	 * @param array $data
 	 *
 	 * @return array
@@ -227,6 +233,8 @@ class ModelCatalogProduct extends Model {
     }
 
 	/**
+	 * getSpecials
+	 *
 	 * @param array $data
 	 *
 	 * @return array
@@ -282,6 +290,8 @@ class ModelCatalogProduct extends Model {
     }
 
 	/**
+	 * getLatest
+	 *
 	 * @param int $limit
 	 *
 	 * @return array
@@ -305,6 +315,8 @@ class ModelCatalogProduct extends Model {
     }
 
 	/**
+	 * getPopularProducts
+	 *
 	 * @param int $limit
 	 *
 	 * @return array
@@ -328,6 +340,8 @@ class ModelCatalogProduct extends Model {
     }
 
 	/**
+	 * getBestSellerProducts
+	 *
 	 * @param int $limit
 	 *
 	 * @return array
@@ -351,6 +365,8 @@ class ModelCatalogProduct extends Model {
     }
 
 	/**
+	 * getAttributes
+	 *
 	 * @param int $product_id
 	 *
 	 * @return array
@@ -384,6 +400,8 @@ class ModelCatalogProduct extends Model {
     }
 
 	/**
+	 * getOptions
+	 *
 	 * @param int $product_id
 	 *
 	 * @return array
@@ -428,6 +446,8 @@ class ModelCatalogProduct extends Model {
     }
 
 	/**
+	 * getDiscounts
+	 *
 	 * @param int $product_id
 	 *
 	 * @return array
@@ -439,6 +459,8 @@ class ModelCatalogProduct extends Model {
     }
 
 	/**
+	 * getImages
+	 *
 	 * @param int $product_id
 	 *
 	 * @return array
@@ -450,6 +472,8 @@ class ModelCatalogProduct extends Model {
     }
 
 	/**
+	 * getRelated
+	 *
 	 * @param int $product_id
 	 *
 	 * @return array
@@ -467,6 +491,8 @@ class ModelCatalogProduct extends Model {
     }
 
 	/**
+	 * getLayoutId
+	 *
 	 * @param int $product_id
 	 *
 	 * @return int
@@ -482,6 +508,8 @@ class ModelCatalogProduct extends Model {
     }
 
 	/**
+	 * getCategories
+	 *
 	 * @param int $product_id
 	 *
 	 * @return array
@@ -493,6 +521,8 @@ class ModelCatalogProduct extends Model {
     }
 
 	/**
+	 * getTotalProducts
+	 *
 	 * @param array $data
 	 *
 	 * @return int
@@ -600,6 +630,8 @@ class ModelCatalogProduct extends Model {
     }
 
 	/**
+	 * getSubscription
+	 *
 	 * @param int $product_id
 	 * @param int $subscription_plan_id
 	 *
@@ -612,6 +644,8 @@ class ModelCatalogProduct extends Model {
     }
 
 	/**
+	 * getSubscriptions
+	 *
 	 * @param int $product_id
 	 *
 	 * @return array
@@ -623,6 +657,8 @@ class ModelCatalogProduct extends Model {
     }
 
 	/**
+	 * getTotalSpecials
+	 *
 	 * @return int
 	 */
     public function getTotalSpecials(): int {
@@ -636,6 +672,8 @@ class ModelCatalogProduct extends Model {
     }
 
 	/**
+	 * checkProductCategories
+	 *
 	 * @param int 	$product_id
 	 * @param array $category_ids
 	 *
@@ -648,7 +686,7 @@ class ModelCatalogProduct extends Model {
             $implode[] = (int)$category_id;
         }
 
-        $query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "product_to_category` WHERE `product_id` = '" . (int)$product_id . "' AND `category_id` IN(" . implode(',', $implode) . ")");
+        $query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "product_to_category` WHERE `product_id` = '" . (int)$product_id . "' AND `category_id` IN('" . implode(',', $implode) . "')");
 
         return $query->rows;
     }

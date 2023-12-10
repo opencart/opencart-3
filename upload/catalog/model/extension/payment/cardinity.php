@@ -8,16 +8,25 @@ use Cardinity\Client;
 use Cardinity\Method\Payment;
 use Cardinity\Exception as CardinityException;
 class ModelExtensionPaymentCardinity extends Model {
+	/**
+	 * addOrder
+	 */
     public function addOrder($data) {
         $this->db->query("INSERT INTO `" . DB_PREFIX . "cardinity_order` SET `order_id` = '" . (int)$data['order_id'] . "', `payment_id` = '" . $this->db->escape($data['payment_id']) . "'");
     }
 
+	/**
+	 * getOrder
+	 */
     public function getOrder($order_id) {
         $query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "cardinity_order` WHERE `order_id` = '" . (int)$order_id . "' LIMIT 1");
 
         return $query->row;
     }
 
+	/**
+	 * createPayment
+	 */
     public function createPayment($key, $secret, $payment_data) {
         $client = Client::create([
             'consumerKey'    => $key,
@@ -37,6 +46,9 @@ class ModelExtensionPaymentCardinity extends Model {
         }
     }
 
+	/**
+	 * finalizePayment
+	 */
     public function finalizePayment($key, $secret, $payment_id, $pares) {
         $client = Client::create([
             'consumerKey'    => $key,
@@ -56,6 +68,13 @@ class ModelExtensionPaymentCardinity extends Model {
         }
     }
 
+	/**
+	 * getMethod
+	 *
+	 * @param array $address
+	 *
+	 * @return array
+	 */
     public function getMethod(array $address): array {
         $this->load->language('extension/payment/cardinity');
 
@@ -87,6 +106,9 @@ class ModelExtensionPaymentCardinity extends Model {
         return $method_data;
     }
 
+	/**
+	 * getSupportedCountries
+	 */
     public function getSupportedCurrencies() {
         return [
             'USD',
@@ -95,6 +117,9 @@ class ModelExtensionPaymentCardinity extends Model {
         ];
     }
 
+	/**
+	 * Log
+	 */
     public function log($data, $class_step = 6, $function_step = 6) {
         if ($this->config->get('payment_cardinity_debug')) {
             $backtrace = debug_backtrace();

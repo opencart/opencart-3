@@ -6,6 +6,8 @@
  */
 class ModelAccountWishlist extends Model {
 	/**
+	 * addWishlist
+	 *
 	 * @param int $product_id
 	 *
 	 * @return void
@@ -17,6 +19,8 @@ class ModelAccountWishlist extends Model {
     }
 
 	/**
+	 * deleteWishlist
+	 *
 	 * @param int $product_id
 	 *
 	 * @return void
@@ -26,6 +30,8 @@ class ModelAccountWishlist extends Model {
     }
 
 	/**
+	 * getWishlist
+	 *
 	 * @return array
 	 */
     public function getWishlist(): array {
@@ -35,6 +41,8 @@ class ModelAccountWishlist extends Model {
     }
 
 	/**
+	 * getTotalWishlist
+	 *
 	 * @return int
 	 */
     public function getTotalWishlist(): int {

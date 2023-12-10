@@ -6,6 +6,8 @@
  */
 class ModelLocalisationOrderStatus extends Model {
 	/**
+	 * getOrderStatus
+	 *
 	 * @param int $order_status_id
 	 *
 	 * @return array
@@ -17,6 +19,8 @@ class ModelLocalisationOrderStatus extends Model {
     }
 
 	/**
+	 * getOrderStatuses
+	 *
 	 * @return array
 	 */
     public function getOrderStatuses(): array {

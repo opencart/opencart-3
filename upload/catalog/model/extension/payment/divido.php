@@ -7,23 +7,40 @@
 class ModelExtensionPaymentDivido extends Model {
     const CACHE_KEY_PLANS = 'divido_plans';
 
+	/**
+	 * setMerchant
+	 */
     public function setMerchant($api_key) {
         if ($api_key) {
             Divido::setMerchant($api_key);
         }
     }
 
-    // Requires $total
+    /**
+	 * findOCOrderId
+	 *
+	 * @param array $address
+	 *
+	 * @return array
+	 *
+	 * Requires $total
+	 */
     public function getMethod(array $address): array {
         $method_data = [];
 
         return $method_data;
     }
 
+	/**
+	 * getProductSettings
+	 */
     public function getProductSettings($product_id) {
         return $this->db->query("SELECT `display`, `plans` FROM `" . DB_PREFIX . "divido_product` WHERE `product_id` = '" . (int)$product_id . "'")->row;
     }
 
+	/**
+	 * isEnabled
+	 */
     public function isEnabled() {
         $api_key = $this->config->get('payment_divido_api_key');
         $enabled = $this->config->get('payment_divido_status');
@@ -31,10 +48,16 @@ class ModelExtensionPaymentDivido extends Model {
         return !empty($api_key) && $enabled == 1;
     }
 
+	/**
+	 * hasOrderId
+	 */
     public function hashOrderId($order_id, $salt) {
         return hash('sha256', $order_id . $salt);
     }
 
+	/**
+	 * saveLookup
+	 */
     public function saveLookup($order_id, $salt, $proposal_id = null, $application_id = null, $deposit_amount = null) {
         $order_id = (int)$order_id;
         $salt = $this->db->escape($salt);
@@ -73,10 +96,16 @@ class ModelExtensionPaymentDivido extends Model {
         $this->db->query($query_upsert);
     }
 
+	/**
+	 * getLookupByOrderId
+	 */
     public function getLookupByOrderId($order_id) {
         return $this->db->query("SELECT * FROM `" . DB_PREFIX . "divido_lookup` WHERE `order_id` = '" . (int)$order_id . "'");
     }
 
+	/**
+	 * getGlobalSelectedPlans
+	 */
     public function getGlobalSelectedPlans() {
         $all_plans = $this->getAllPlans();
         $display_plans = $this->config->get('payment_divido_planselection');
@@ -102,6 +131,9 @@ class ModelExtensionPaymentDivido extends Model {
         return $plans;
     }
 
+	/**
+	 * getAllPlans
+	 */
     public function getAllPlans() {
         if ($plans = $this->cache->get(self::CACHE_KEY_PLANS)) {
             // OpenCart 2.1 decodes json objects to associative arrays so we
@@ -154,6 +186,9 @@ class ModelExtensionPaymentDivido extends Model {
         return $plans_plain;
     }
 
+	/**
+	 * getCartPlans
+	 */
     public function getCartPlans($cart) {
         $plans = [];
 
@@ -170,6 +205,9 @@ class ModelExtensionPaymentDivido extends Model {
         return $plans;
     }
 
+	/**
+	 * getPlans
+	 */
     public function getPlans($default_plans) {
         if ($default_plans) {
             $plans = $this->getGlobalSelectedPlans();
@@ -180,6 +218,9 @@ class ModelExtensionPaymentDivido extends Model {
         return $plans;
     }
 
+	/**
+	 * getOrderTotals
+	 */
     public function getOrderTotals() {
         $taxes = $this->cart->getTaxes();
         $total = 0;
@@ -228,6 +269,9 @@ class ModelExtensionPaymentDivido extends Model {
         ];
     }
 
+	/**
+	 * getProductPlans
+	 */
     public function getProductPlans($product_id) {
         // Products
         $this->load->model('catalog/product');
@@ -284,6 +328,7 @@ class ModelExtensionPaymentDivido extends Model {
 
         // If the product has non-default plans, fetch all of them.
         $available_plans = $this->getPlans(false);
+
         $selected_plans = explode(',', $settings['plans']);
 
         $plans = [];

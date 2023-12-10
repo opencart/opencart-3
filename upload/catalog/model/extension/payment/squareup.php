@@ -22,6 +22,9 @@ class ModelExtensionPaymentSquareup extends Model {
     const TRANSACTION_OUTSTANDING_FAILED = 8;
     const TRANSACTION_EXPIRED = 9;
 
+	/**
+	 * getMethod
+	 */
     public function getMethod(array $address): array {
         $this->load->language('extension/payment/squareup');
 
@@ -59,12 +62,18 @@ class ModelExtensionPaymentSquareup extends Model {
         return $method_data;
     }
 
+	/**
+	 * addTransaction
+	 */
     public function addTransaction(array $transaction, string $merchant_id, array $address, int $order_id, string $user_agent, string $ip): void {
         $amount = $this->squareup->standardDenomination($transaction['tenders'][0]['amount_money']['amount'], $transaction['tenders'][0]['amount_money']['currency']);
 
         $this->db->query("INSERT INTO `" . DB_PREFIX . "squareup_transaction` SET `transaction_id` = '" . $this->db->escape($transaction['id']) . "', `merchant_id` = '" . $this->db->escape($merchant_id) . "', `location_id` = '" . $this->db->escape($transaction['location_id']) . "', `order_id` = '" . (int)$order_id . "', `transaction_type` = '" . $this->db->escape($transaction['tenders'][0]['card_details']['status']) . "', `transaction_amount` = '" . (float)$amount . "', `transaction_currency` = '" . $this->db->escape($transaction['tenders'][0]['amount_money']['currency']) . "', `billing_address_city` = '" . $this->db->escape($address['locality']) . "', `billing_address_country` = '" . $this->db->escape($address['country']) . "', `billing_address_postcode` = '" . $this->db->escape($address['postal_code']) . "', `billing_address_province` = '" . $this->db->escape($address['sublocality']) . "', `billing_address_street_1` = '" . $this->db->escape($address['address_line_1']) . "', `billing_address_street_2` = '" . $this->db->escape($address['address_line_2']) . "', `device_browser` = '" . $this->db->escape($user_agent) . "', `device_ip` = '" . $this->db->escape($ip) . "', `created_at` = '" . $this->db->escape($transaction['created_at']) . "', `is_refunded` = '" . (int)(!empty($transaction['refunds'])) . "', `refunded_at` = '" . $this->db->escape(!empty($transaction['refunds']) ? $transaction['refunds'][0]['created_at'] : '') . "', `tenders` = '" . $this->db->escape(json_encode($transaction['tenders'])) . "', `refunds` = '" . $this->db->escape(json_encode(!empty($transaction['refunds']) ? $transaction['refunds'] : [])) . "'");
     }
 
+	/**
+	 * tokenExpiredEmail
+	 */
     public function tokenExpiredEmail(): void {
         if (!$this->mailResendPeriodExpired('token_expired')) {
             return;
@@ -93,6 +102,9 @@ class ModelExtensionPaymentSquareup extends Model {
         }
     }
 
+	/**
+	 * tokenRevokedEmail
+	 */
     public function tokenRevokedEmail(): void {
         if (!$this->mailResendPeriodExpired('token_revoked')) {
             return;
@@ -121,6 +133,9 @@ class ModelExtensionPaymentSquareup extends Model {
         }
     }
 
+	/**
+	 * cronEmail
+	 */
     public function cronEmail(array $result): void {
         if ($this->config->get('config_mail_engine')) {
             $mail = new \Mail($this->config->get('config_mail_engine'));
@@ -175,6 +190,9 @@ class ModelExtensionPaymentSquareup extends Model {
         }
     }
 
+	/**
+	 * subscriptionPayments
+	 */
     public function subscriptionPayments(): bool {
         /*
          * Used by the checkout to state the module
@@ -183,6 +201,9 @@ class ModelExtensionPaymentSquareup extends Model {
         return (bool)$this->config->get('payment_squareup_recurring_status');
     }
 
+	/**
+	 * createRecurring
+	 */
     public function createRecurring(int $order_id, array $data): void {
         // Subscription
         $this->load->model('checkout/subscription');
@@ -193,6 +214,9 @@ class ModelExtensionPaymentSquareup extends Model {
         $this->model_checkout_subscription->addSubscription($order_id, $data);
     }
 
+	/**
+	 * validateCRON
+	 */
     public function validateCRON(): bool {
         if (!$this->config->get('payment_squareup_status') || !$this->config->get('payment_squareup_recurring_status')) {
             return false;
@@ -209,6 +233,9 @@ class ModelExtensionPaymentSquareup extends Model {
         return false;
     }
 
+	/**
+	 * updateToken
+	 */
     public function updateToken(): array|string {
         try {
             $response = $this->squareup->refreshToken();
@@ -228,6 +255,9 @@ class ModelExtensionPaymentSquareup extends Model {
         return '';
     }
 
+	/**
+	 * nextRecurringPayments
+	 */
     public function nextRecurringPayments(): array {
         $payments = [];
 
@@ -287,6 +317,9 @@ class ModelExtensionPaymentSquareup extends Model {
         return $payments;
     }
 
+	/**
+	 * addRecurringTransaction
+	 */
     public function addRecurringTransaction(int $subscription_id, array $response_data, array $transaction, string $status): void {
         // Orders
         $this->load->model('checkout/order');
@@ -314,6 +347,9 @@ class ModelExtensionPaymentSquareup extends Model {
         }
     }
 
+	/**
+	 * updateRecurringExpired
+	 */
     public function updateRecurringExpired(int $subscription_id): bool {
         $subscription_info = $this->getSubscription($subscription_id);
 
@@ -341,6 +377,9 @@ class ModelExtensionPaymentSquareup extends Model {
         return false;
     }
 
+	/**
+	 * updateRecurringTrial
+	 */
     public function updateRecurringTrial(int $subscription_id): bool {
         $subscription_info = $this->getSubscription($subscription_id);
 
@@ -359,6 +398,9 @@ class ModelExtensionPaymentSquareup extends Model {
         return false;
     }
 
+	/**
+	 * suspendRecurringProfile
+	 */
     public function suspendRecurringProfile(int $subscription_id): void {
         $this->db->query("UPDATE `" . DB_PREFIX . "subscription` SET `status` = '" . self::RECURRING_SUSPENDED . "' WHERE `subscription_id` = '" . (int)$subscription_id . "'");
     }

@@ -6,6 +6,8 @@
  */
 class ModelDesignBanner extends Model {
 	/**
+	 * getBanner
+	 *
 	 * @param int $banner_id
 	 *
 	 * @return array

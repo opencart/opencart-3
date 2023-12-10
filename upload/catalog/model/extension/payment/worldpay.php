@@ -5,6 +5,9 @@
  * @package Catalog\Model\Extension\Payment
  */
 class ModelExtensionPaymentWorldpay extends Model {
+	/**
+	 * getMethod
+	 */
     public function getMethod(array $address): array {
         $this->load->language('extension/payment/worldpay');
 
@@ -32,6 +35,9 @@ class ModelExtensionPaymentWorldpay extends Model {
         return $method_data;
     }
 
+	/**
+	 * getCards
+	 */
     public function getCards($customer_id) {
         $card_data = [];
 
@@ -55,10 +61,16 @@ class ModelExtensionPaymentWorldpay extends Model {
         return $card_data;
     }
 
+	/**
+	 * addCard
+	 */
     public function addCard($order_id, $card_data) {
         $this->db->query("INSERT INTO `" . DB_PREFIX . "worldpay_card` SET `customer_id` = '" . (int)$card_data['customer_id'] . "', `order_id` = '" . (int)$order_id . "', `digits` = '" . $this->db->escape($card_data['Last4Digits']) . "', `expiry` = '" . $this->db->escape($card_data['ExpiryDate']) . "', `type` = '" . $this->db->escape($card_data['CardType']) . "', `token` = '" . $this->db->escape($card_data['Token']) . "'");
     }
 
+	/**
+	 * deleteCard
+	 */
     public function deleteCard($token) {
         $this->db->query("DELETE FROM `" . DB_PREFIX . "worldpay_card` WHERE `customer_id` = '" . $this->customer->isLogged() . "' AND `token` = '" . $this->db->escape($token) . "'");
 
@@ -69,12 +81,18 @@ class ModelExtensionPaymentWorldpay extends Model {
         }
     }
 
+	/**
+	 * addOrder
+	 */
     public function addOrder($order_info, $order_code) {
         $this->db->query("INSERT INTO `" . DB_PREFIX . "worldpay_order` SET `order_id` = '" . (int)$order_info['order_id'] . "', `order_code` = '" . $this->db->escape($order_code) . "', `date_added` = NOW(), `date_modified` = NOW(), `currency_code` = '" . $this->db->escape($order_info['currency_code']) . "', `total` = '" . $this->currency->format($order_info['total'], $order_info['currency_code'], false, false) . "'");
 
         return $this->db->getLastId();
     }
 
+	/**
+	 * getOrder
+	 */
     public function getOrder($order_id) {
         $query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "worldpay_order` WHERE `order_id` = '" . (int)$order_id . "' LIMIT 1");
 
@@ -89,10 +107,16 @@ class ModelExtensionPaymentWorldpay extends Model {
         }
     }
 
+	/**
+	 * addTransaction
+	 */
     public function addTransaction($worldpay_order_id, $type, $order_info) {
         $this->db->query("INSERT INTO `" . DB_PREFIX . "worldpay_order_transaction` SET `worldpay_order_id` = '" . (int)$worldpay_order_id . "', `date_added` = NOW(), `type` = '" . $this->db->escape($type) . "', `amount` = '" . $this->currency->format($order_info['total'], $order_info['currency_code'], false, false) . "'");
     }
 
+	/**
+	 * getTransactions
+	 */
     public function getTransactions($worldpay_order_id) {
         $query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "worldpay_order_transaction` WHERE `worldpay_order_id` = '" . (int)$worldpay_order_id . "'");
 
@@ -103,6 +127,9 @@ class ModelExtensionPaymentWorldpay extends Model {
         }
     }
 
+	/**
+	 * recurringPayment
+	 */
     public function recurringPayment($item, $order_id_rand, $token) {
         // Subscription
         $this->load->model('checkout/subscription');
@@ -186,6 +213,9 @@ class ModelExtensionPaymentWorldpay extends Model {
         }
     }
 
+	/**
+	 * cronPayment
+	 */
     public function cronPayment() {
         // Account Order
         $this->load->model('account/order');
@@ -260,7 +290,9 @@ class ModelExtensionPaymentWorldpay extends Model {
     private function calculateSchedule($frequency, $next_payment, $cycle) {
         if ($frequency == 'semi_month') {
             $day = date_format($next_payment, 'd');
+
             $value = 15 - $day;
+
             $isEven = false;
 
             if ($cycle % 2 == 0) {
@@ -338,18 +370,27 @@ class ModelExtensionPaymentWorldpay extends Model {
         return $subscription_info;
     }
 
+	/**
+	 * getWorldpayOrder
+	 */
     public function getWorldpayOrder($worldpay_order_id) {
         $query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "worldpay_order` WHERE `order_code` = '" . (int)$worldpay_order_id . "'");
 
         return $query->row;
     }
 
+	/**
+	 * updateCronJobRunTime
+	 */
     public function updateCronJobRunTime() {
         $this->db->query("DELETE FROM `" . DB_PREFIX . "setting` WHERE `code` = 'payment_worldpay' AND `key` = 'payment_worldpay_last_cron_job_run'");
 
         $this->db->query("INSERT INTO `" . DB_PREFIX . "setting` SET `store_id` = '0', `code` = 'payment_worldpay', `key` = 'payment_worldpay_last_cron_job_run', `value` = NOW(), `serialized` = '0'");
     }
 
+	/**
+	 * sendCurl
+	 */
     public function sendCurl($url, $order = null) {
         $curl = curl_init();
 
@@ -383,6 +424,9 @@ class ModelExtensionPaymentWorldpay extends Model {
         return $result;
     }
 
+	/**
+	 * Logger
+	 */
     public function logger($data) {
         if ($this->config->get('payment_worldpay_debug')) {
             // Log
@@ -392,6 +436,9 @@ class ModelExtensionPaymentWorldpay extends Model {
         }
     }
 
+	/**
+	 * subscriptionPayments
+	 */
     public function subscriptionPayments() {
         /*
          * Used by the checkout to state the module

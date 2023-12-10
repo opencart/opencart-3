@@ -6,6 +6,8 @@
  */
 class ModelDesignTranslation extends Model {
 	/**
+	 * getTranslations
+	 *
 	 * @param string $route
 	 *
 	 * @return array

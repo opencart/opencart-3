@@ -6,6 +6,8 @@
  */
 class ModelCatalogReview extends Model {
 	/**
+	 * addReview
+	 *
 	 * @param int   $product_id
 	 * @param array $data
 	 *
@@ -63,6 +65,8 @@ class ModelCatalogReview extends Model {
     }
 
 	/**
+	 * getReviewsByProductId
+	 *
 	 * @param int $product_id
 	 * @param int $start
 	 * @param int $limit
@@ -84,6 +88,8 @@ class ModelCatalogReview extends Model {
     }
 
 	/**
+	 * getTotalReviewsByProductId
+	 *
 	 * @param int $product_id
 	 *
 	 * @return int

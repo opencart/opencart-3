@@ -6,6 +6,8 @@
  */
 class ModelAccountDownload extends Model {
 	/**
+	 * getDownload
+	 *
 	 * @param int $download_id
 	 *
 	 * @return array
@@ -29,6 +31,8 @@ class ModelAccountDownload extends Model {
     }
 
 	/**
+	 * getDownloads
+	 *
 	 * @param int $start
 	 * @param int $limit
 	 *
@@ -61,6 +65,8 @@ class ModelAccountDownload extends Model {
     }
 
 	/**
+	 * getTotalDownloads
+	 *
 	 * @return int
 	 */
     public function getTotalDownloads(): int {

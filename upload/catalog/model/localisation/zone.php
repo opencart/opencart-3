@@ -6,6 +6,8 @@
  */
 class ModelLocalisationZone extends Model {
 	/**
+	 * getZone
+	 *
 	 * @param int $zone_id
 	 *
 	 * @return array
@@ -17,6 +19,8 @@ class ModelLocalisationZone extends Model {
     }
 
 	/**
+	 * getZonesByCountryId
+	 *
 	 * @param int $country_id
 	 *
 	 * @return array
