@@ -35,7 +35,9 @@ class ModelExtensionPaymentDivido extends Model {
 	 * getProductSettings
 	 */
     public function getProductSettings($product_id) {
-        return $this->db->query("SELECT `display`, `plans` FROM `" . DB_PREFIX . "divido_product` WHERE `product_id` = '" . (int)$product_id . "'")->row;
+        $query = $this->db->query("SELECT `display`, `plans` FROM `" . DB_PREFIX . "divido_product` WHERE `product_id` = '" . (int)$product_id . "'");
+
+		return $query->row;
     }
 
 	/**
@@ -277,7 +279,9 @@ class ModelExtensionPaymentDivido extends Model {
         $this->load->model('catalog/product');
 
         $product_info = $this->model_catalog_product->getProduct($product_id);
+
         $settings = $this->getProductSettings($product_id);
+
         $product_selection = $this->config->get('payment_divido_productselection');
         $divido_categories = $this->config->get('payment_divido_categories');
         $price_threshold = $this->config->get('payment_divido_price_threshold');

@@ -98,7 +98,6 @@ class ModelExtensionPaymentWorldpay extends Model {
 
         if ($query->num_rows) {
             $order = $query->row;
-
             $order['transactions'] = $this->getTransactions($order['worldpay_order_id']);
 
             return $order;

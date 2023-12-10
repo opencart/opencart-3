@@ -423,6 +423,7 @@ class ControllerExtensionPaymentKlarnaCheckout extends Controller {
 
 	public function shippingAddress() {
 		$this->load->model('extension/payment/klarna_checkout');
+		$this->load->model('localisation/country');
 		$this->load->model('localisation/zone');
 
 		if (!$this->config->get('klarna_checkout_status')) {
@@ -435,7 +436,7 @@ class ControllerExtensionPaymentKlarnaCheckout extends Controller {
 		unset($this->session->data['shipping_methods']);
 
 		if (($this->request->server['REQUEST_METHOD'] == 'POST') && isset($this->request->post['country'])) {
-			$country_info = $this->model_extension_payment_klarna_checkout->getCountryByIsoCode3($this->request->post['country']);
+			$country_info = $this->model_localisation_country->getCountryByIsoCode3($this->request->post['country']);
 
 			if ($country_info) {
 				// Set default zone for shipping calculations. Get overwritten by correct data when order is confirmed
@@ -640,7 +641,10 @@ class ControllerExtensionPaymentKlarnaCheckout extends Controller {
 			$this->session->data['currency'] = $order_info['currency_code'];
 			$this->session->data['language'] = $order_info['language_code'];
 
-			$country_info = $this->model_extension_payment_klarna_checkout->getCountryByIsoCode2($request->shipping_address->country);
+			// Countries
+			$this->load->model('localisation/country');
+
+			$country_info = $this->model_localisation_country->getCountryByIsoCode2($request->shipping_address->country);
 
 			if (!$country_info) {
 				$this->model_extension_payment_klarna_checkout->log('No country found using: ' . $request->shipping_address->country . '. Full request below:');
@@ -1048,8 +1052,7 @@ class ControllerExtensionPaymentKlarnaCheckout extends Controller {
 
 					$validate = false;
 				}
-			}
-			else {
+			} else {
 				$this->model_extension_payment_klarna_checkout->log('Cannot find order using: ' . $order_id);
 
 				$validate = false;
@@ -1062,9 +1065,12 @@ class ControllerExtensionPaymentKlarnaCheckout extends Controller {
 				$this->model_extension_payment_klarna_checkout->updateOcOrderEmail($order_id, utf8_substr($request->shipping_address->email, 0, 96));
 			}
 
+			// Countries
+			$this->load->model('localisation/country');
+
 			// Update OpenCart order with payment and shipping details
-			$payment_country_info = $this->model_extension_payment_klarna_checkout->getCountryByIsoCode2($request->billing_address->country);
-			$shipping_country_info = $this->model_extension_payment_klarna_checkout->getCountryByIsoCode2($request->shipping_address->country);
+			$payment_country_info = $this->model_localisation_country->getCountryByIsoCode2($request->billing_address->country);
+			$shipping_country_info = $this->model_localisation_country->getCountryByIsoCode2($request->shipping_address->country);
 
 			// If region is passed, try to update OpenCart order with correct region/zone
 			$payment_zone_info = [];
@@ -1252,9 +1258,12 @@ class ControllerExtensionPaymentKlarnaCheckout extends Controller {
 
 						if ($order) {
 							if ($order->acknowledge()) {
+								// Countries
+								$this->load->model('localisation/country');
+
 								// Update OpenCart order with payment and shipping details
-								$payment_country_info = $this->model_extension_payment_klarna_checkout->getCountryByIsoCode2($order['billing_address']['country']);
-								$shipping_country_info = $this->model_extension_payment_klarna_checkout->getCountryByIsoCode2($order['shipping_address']['country']);
+								$payment_country_info = $this->model_localisation_country->getCountryByIsoCode2($order['billing_address']['country']);
+								$shipping_country_info = $this->model_localisation_country->getCountryByIsoCode2($order['shipping_address']['country']);
 
 								// If region is passed, try to update OpenCart order with correct region/zone
 								$payment_zone_info = [];

@@ -122,14 +122,18 @@ class ModelExtensionPaymentKlarnaCheckout extends Model {
 	 * getOrder
 	 */
     public function getOrder($order_ref) {
-        return $this->db->query("SELECT * FROM `" . DB_PREFIX . "klarna_checkout_order` WHERE `order_ref` = '" . $this->db->escape($order_ref) . "' LIMIT 1")->row;
+        $query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "klarna_checkout_order` WHERE `order_ref` = '" . $this->db->escape($order_ref) . "' LIMIT 1");
+
+		return $query->row;
     }
 
 	/**
 	 * getOrderByOrderId
 	 */
     public function getOrderByOrderId($order_id) {
-        return $this->db->query("SELECT * FROM `" . DB_PREFIX . "klarna_checkout_order` WHERE `order_id` = '" . (int)$order_id . "' LIMIT 1")->row;
+        $query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "klarna_checkout_order` WHERE `order_id` = '" . (int)$order_id . "' LIMIT 1");
+
+		return $query->row;
     }
 
 	/**
@@ -158,24 +162,6 @@ class ModelExtensionPaymentKlarnaCheckout extends Model {
 	 */
     public function updateOcOrderEmail($order_id, $email) {
         $this->db->query("UPDATE `" . DB_PREFIX . "order` SET `email` = '" . $this->db->escape($email) . "' WHERE `order_id` = '" . (int)$order_id . "'");
-    }
-
-	/**
-	 * getCountryByIsoCode2
-	 */
-    public function getCountryByIsoCode2($iso_code_2) {
-        $query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "country` WHERE `iso_code_2` = '" . $this->db->escape($iso_code_2) . "' AND `status` = '1'");
-
-        return $query->row;
-    }
-
-	/**
-	 * getCountryByIsoCode3
-	 */
-    public function getCountryByIsoCode3($iso_code_3) {
-        $query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "country` WHERE `iso_code_3` = '" . $this->db->escape($iso_code_3) . "' AND `status` = '1'");
-
-        return $query->row;
     }
 
 	/**

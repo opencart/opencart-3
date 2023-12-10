@@ -117,7 +117,9 @@ class ModelExtensionPaymentSecureTradingPp extends Model {
 	 * getCountry
 	 */
     public function getCountry($iso_code_2) {
-        return $this->db->query("SELECT * FROM `" . DB_PREFIX . "country` WHERE LCASE(`iso_code_2`) = '" . $this->db->escape(oc_strtolower($iso_code_2)) . "'")->row;
+        $query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "country` WHERE LCASE(`iso_code_2`) = '" . $this->db->escape(oc_strtolower($iso_code_2)) . "'");
+
+		return $query->row;
     }
 
 	/**

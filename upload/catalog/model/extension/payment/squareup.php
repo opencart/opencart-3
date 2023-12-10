@@ -419,7 +419,7 @@ class ModelExtensionPaymentSquareup extends Model {
     }
 
     private function getTotalSuccessfulPayments(int $subscription_id): int {
-        $query = $this->db->query("SELECT COUNT(*) AS `total` FROM `" . DB_PREFIX . "subscription_transaction` WHERE `subscription_id` = '" . (int)$subscription_id . "' AND `type` = '" . self::TRANSACTION_PAYMENT . "'")->row['total'];
+        $query = $this->db->query("SELECT COUNT(*) AS `total` FROM `" . DB_PREFIX . "subscription_transaction` WHERE `subscription_id` = '" . (int)$subscription_id . "' AND `type` = '" . self::TRANSACTION_PAYMENT . "'");
 
         return (int)$query->row['total'];
     }

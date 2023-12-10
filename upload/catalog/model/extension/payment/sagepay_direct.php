@@ -113,7 +113,6 @@ class ModelExtensionPaymentSagePayDirect extends Model {
 
         if ($query->num_rows) {
             $order = $query->row;
-
             $order['transactions'] = $this->getTransactions($order['sagepay_direct_order_id']);
 
             return $order;
