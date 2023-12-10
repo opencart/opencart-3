@@ -54,6 +54,8 @@ class ControllerCommonCurrency extends Controller {
     }
 
 	/**
+	 * Currency
+	 *
 	 * @return void
 	 */
     public function currency(): void {

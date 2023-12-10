@@ -5,6 +5,9 @@
  * @package Catalog\Controller\Extension\Module
  */
 class ControllerExtensionModuleAmazonPay extends Controller {
+	/**
+	 * @return string
+	 */
     public function index(): string {
         // Amazon Login Pay
         $this->load->model('extension/payment/amazon_login_pay');

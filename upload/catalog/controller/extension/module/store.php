@@ -5,6 +5,9 @@
  * @package Catalog\Controller\Extension\Module
  */
 class ControllerExtensionModuleStore extends Controller {
+	/**
+	 * @return string
+	 */
     public function index(): string {
         $status = true;
 

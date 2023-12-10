@@ -8,12 +8,12 @@ class ControllerMailOrder extends Controller {
 	/**
 	 * Mail class for orders
 	 *
-	 * Trigger catalog/model/checkout/order/addHistory/before
-	 *
 	 * @param string $route
 	 * @param array  $args
 	 *
 	 * @return void
+	 *
+	 * Trigger catalog/model/checkout/order/addHistory/before
 	 */
     public function index(string &$route, array &$args): void {
         if (isset($args[0])) {
@@ -57,6 +57,8 @@ class ControllerMailOrder extends Controller {
     }
 
 	/**
+	 * Add
+	 *
 	 * @param array  $order_info
 	 * @param int    $order_status_id
 	 * @param string $comment
@@ -305,6 +307,8 @@ class ControllerMailOrder extends Controller {
     }
 
 	/**
+	 * Edit
+	 *
 	 * @param array  $order_info
 	 * @param int    $order_status_id
 	 * @param string $comment
@@ -373,13 +377,15 @@ class ControllerMailOrder extends Controller {
     }
 
 	/**
+	 * Alert
+	 *
 	 * @param string $route
 	 * @param array  $args
 	 *
-	 * Event called catalog/model/checkout/order/addHistory/before
-	 *
 	 * @return void
 	 * @throws \Exception
+	 *
+	 * Event called catalog/model/checkout/order/addHistory/before
 	 */
     public function alert(string &$route, array &$args): void {
         if (isset($args[0])) {

@@ -6,7 +6,7 @@
  */
 class ControllerStartupMaintenance extends Controller {
 	/**
-	 * @return void
+	 * @return object|null
 	 */
     public function index(): object|null {
         if ($this->config->get('config_maintenance')) {

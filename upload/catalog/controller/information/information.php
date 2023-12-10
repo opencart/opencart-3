@@ -77,6 +77,8 @@ class ControllerInformationInformation extends Controller {
     }
 
 	/**
+	 * Agree
+	 *
 	 * @return void
 	 */
     public function agree(): void {

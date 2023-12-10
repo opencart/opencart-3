@@ -5,6 +5,9 @@
  * @package Catalog\Controller\Extension\Module
  */
 class ControllerExtensionModuleGoogleHangouts extends Controller {
+	/**
+	 * @return string
+	 */
     public function index(): string {
         $this->load->language('extension/module/google_hangouts');
 

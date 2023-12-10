@@ -5,6 +5,9 @@
  * @package Catalog\Controller\Extension\Module
  */
 class ControllerExtensionModuleKlarnaCheckoutModule extends Controller {
+	/**
+	 * @return bool|string
+	 */
 	public function index(): bool|string {
 		$this->load->model('extension/payment/klarna_checkout');
 

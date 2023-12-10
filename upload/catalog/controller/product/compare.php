@@ -146,6 +146,8 @@ class ControllerProductCompare extends Controller {
     }
 
 	/**
+	 * Add
+	 *
 	 * @return void
 	 */
     public function add(): void {

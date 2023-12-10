@@ -28,6 +28,8 @@ class ControllerAccountPaymentMethod extends Controller {
     }
 
 	/**
+	 * Delete
+	 *
 	 * @return void
 	 */
     public function delete(): void {

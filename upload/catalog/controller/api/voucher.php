@@ -44,6 +44,8 @@ class ControllerApiVoucher extends Controller {
     }
 
 	/**
+	 * Add
+	 *
 	 * @return void
 	 */
     public function add(): void {

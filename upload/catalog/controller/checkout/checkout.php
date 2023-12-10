@@ -105,6 +105,8 @@ class ControllerCheckoutCheckout extends Controller {
     }
 
 	/**
+	 * Country
+	 *
 	 * @return void
 	 */
     public function country(): void {
@@ -136,6 +138,8 @@ class ControllerCheckoutCheckout extends Controller {
     }
 
 	/**
+	 * Customfield
+	 *
 	 * @return void
 	 */
     public function customfield(): void {

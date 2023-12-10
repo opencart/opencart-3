@@ -273,6 +273,8 @@ class ControllerCheckoutCart extends Controller {
     }
 
 	/**
+	 * Add
+	 *
 	 * @return void
 	 */
     public function add(): void {
@@ -399,6 +401,8 @@ class ControllerCheckoutCart extends Controller {
     }
 
 	/**
+	 * Edit
+	 *
 	 * @return void
 	 */
     public function edit(): void {
@@ -428,6 +432,8 @@ class ControllerCheckoutCart extends Controller {
     }
 
 	/**
+	 * Remove
+	 *
 	 * @return void
 	 */
     public function remove(): void {

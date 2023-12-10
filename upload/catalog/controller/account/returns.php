@@ -94,6 +94,8 @@ class ControllerAccountReturns extends Controller {
     }
 
 	/**
+	 * Info
+	 *
 	 * @return void
 	 */
     public function info(): void {
@@ -230,6 +232,8 @@ class ControllerAccountReturns extends Controller {
     }
 
 	/**
+	 * Add
+	 *
 	 * @return void
 	 */
     public function add(): void {
@@ -552,6 +556,8 @@ class ControllerAccountReturns extends Controller {
     }
 
 	/**
+	 * Success
+	 *
 	 * @return void
 	 */
     public function success(): void {

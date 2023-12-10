@@ -332,6 +332,8 @@ class ControllerAccountRegister extends Controller {
     }
 
 	/**
+	 * Customfield
+	 *
 	 * @return void
 	 */
     public function customfield(): void {

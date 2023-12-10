@@ -6,6 +6,8 @@
  */
 class ControllerApiPayment extends Controller {
 	/**
+	 * Address
+	 *
 	 * @return void
 	 */
     public function address(): void {
@@ -150,6 +152,8 @@ class ControllerApiPayment extends Controller {
     }
 
 	/**
+	 * Methods
+	 *
 	 * @return void
 	 */
     public function methods(): void {
@@ -229,6 +233,8 @@ class ControllerApiPayment extends Controller {
     }
 
 	/**
+	 * Method
+	 *
 	 * @return void
 	 */
     public function method(): void {

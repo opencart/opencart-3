@@ -5,14 +5,15 @@
  * @package Catalog\Controller\Mail
  */
 class ControllerMailGdpr extends Controller {
-    // catalog/model/account/gdpr/addGdpr
-	/**
+    /**
 	 * @param string $route
 	 * @param array  $args
 	 * @param mixed  $output
 	 *
 	 * @return void
 	 * @throws \Exception
+	 *
+	 * catalog/model/account/gdpr/addGdpr
 	 */
     public function index(string &$route, array &$args, mixed &$output): void {
         // $args[0] $code
@@ -56,15 +57,17 @@ class ControllerMailGdpr extends Controller {
         }
     }
 
-	// catalog/model/account/gdpr/editStatus/after
-
 	/**
+	 * Remove
+	 *
 	 * @param string $route
 	 * @param array  $args
 	 * @param mixed  $output
 	 *
 	 * @return void
 	 * @throws \Exception
+	 *
+	 * catalog/model/account/gdpr/editStatus/after
 	 */
     public function remove(string &$route, array &$args, mixed &$output): void {
         if (isset($args[0])) {

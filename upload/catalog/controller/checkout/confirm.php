@@ -80,6 +80,7 @@ class ControllerCheckoutConfirm extends Controller {
             $this->load->model('setting/extension');
 
             $sort_order = [];
+
             $results = $this->model_setting_extension->getExtensionsByType('total');
 
             foreach ($results as $key => $value) {

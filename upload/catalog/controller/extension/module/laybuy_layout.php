@@ -5,6 +5,9 @@
  * @package Catalog\Controller\Extension\Module
  */
 class ControllerExtensionModuleLaybuyLayout extends Controller {
+	/**
+	 * @return string
+	 */
     public function index(): string {
         // Laybuy Layout
         $this->load->model('extension/module/laybuy_layout');

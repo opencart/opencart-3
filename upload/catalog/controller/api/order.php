@@ -6,6 +6,8 @@
  */
 class ControllerApiOrder extends Controller {
 	/**
+	 * Add
+	 *
 	 * @return void
 	 */
     public function add(): void {
@@ -369,6 +371,8 @@ class ControllerApiOrder extends Controller {
     }
 
 	/**
+	 * Edit
+	 *
 	 * @return void
 	 */
     public function edit(): void {
@@ -714,6 +718,8 @@ class ControllerApiOrder extends Controller {
     }
 
 	/**
+	 * Delete
+	 *
 	 * @return void
 	 */
     public function delete(): void {
@@ -749,6 +755,8 @@ class ControllerApiOrder extends Controller {
     }
 
 	/**
+	 * Info
+	 *
 	 * @return void
 	 */
     public function info(): void {
@@ -783,6 +791,8 @@ class ControllerApiOrder extends Controller {
     }
 
 	/**
+	 * History
+	 *
 	 * @return void
 	 */
     public function history(): void {

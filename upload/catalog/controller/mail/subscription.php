@@ -10,8 +10,9 @@ class ControllerMailSubscription extends Controller {
 	 * @param array  $args
 	 * @param mixed  $output
 	 *
-	 *  addHistory
 	 * @return void
+	 *
+	 * addHistory
 	 */
     public function index(string &$route, array &$args, mixed &$output): void {
         if (isset($args[0])) {
@@ -421,14 +422,16 @@ class ControllerMailSubscription extends Controller {
         }
     }
 
-    // catalog/model/checkout/order/editOrder/after
-
-	/**
+    /**
+	 * Cancel
+	 *
 	 * @param string $route
 	 * @param array  $args
 	 * @param mixed  $output
 	 *
 	 * @return void
+	 *
+	 * catalog/model/checkout/order/editOrder/after
 	 */
     public function cancel(string &$route, array &$args, mixed &$output): void {
         if (isset($args[0])) {

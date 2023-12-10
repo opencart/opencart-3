@@ -6,7 +6,7 @@
  */
 class ControllerStartupRouter extends Controller {
 	/**
-	 * @return void
+	 * @return mixed
 	 */
     public function index(): mixed {
         // Route

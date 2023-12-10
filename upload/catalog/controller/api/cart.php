@@ -6,6 +6,8 @@
  */
 class ControllerApiCart extends Controller {
 	/**
+	 * Add
+	 *
 	 * @return void
 	 */
     public function add(): void {
@@ -104,6 +106,8 @@ class ControllerApiCart extends Controller {
     }
 
 	/**
+	 * Edit
+	 *
 	 * @return void
 	 */
     public function edit(): void {
@@ -130,6 +134,8 @@ class ControllerApiCart extends Controller {
     }
 
 	/**
+	 * Remove
+	 *
 	 * @return void
 	 */
     public function remove(): void {
@@ -161,6 +167,8 @@ class ControllerApiCart extends Controller {
     }
 
 	/**
+	 * Products
+	 *
 	 * @return void
 	 */
     public function products(): void {

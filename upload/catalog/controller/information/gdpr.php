@@ -55,6 +55,8 @@ class ControllerInformationGdpr extends Controller {
     }
 
     /*
+     * Action
+     *
      *  Action Statuses
      *
      *	EXPORT
@@ -140,6 +142,8 @@ class ControllerInformationGdpr extends Controller {
     }
 
 	/**
+	 * Success
+	 *
 	 * @return object|null
 	 */
     public function success(): object|null {

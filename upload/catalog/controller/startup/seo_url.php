@@ -72,6 +72,13 @@ class ControllerStartupSeoUrl extends Controller {
         }
     }
 
+	/**
+	 * Rewrite
+	 *
+	 * @param string $link
+	 *
+	 * @return string
+	 */
     public function rewrite(string $link): string {
         $url = '';
         $data = [];

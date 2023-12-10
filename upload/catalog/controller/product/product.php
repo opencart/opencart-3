@@ -595,6 +595,8 @@ class ControllerProductProduct extends Controller {
     }
 
 	/**
+	 * Review
+	 *
 	 * @return void
 	 */
     public function review(): void {
@@ -612,6 +614,7 @@ class ControllerProductProduct extends Controller {
         $data['reviews'] = [];
 
         $review_total = $this->model_catalog_review->getTotalReviewsByProductId($this->request->get['product_id']);
+
         $results = $this->model_catalog_review->getReviewsByProductId($this->request->get['product_id'], ($page - 1) * 5, 5);
 
         foreach ($results as $result) {
@@ -636,6 +639,8 @@ class ControllerProductProduct extends Controller {
     }
 
 	/**
+	 * Write
+	 *
 	 * @return void
 	 */
     public function write(): void {

@@ -6,6 +6,8 @@
  */
 class ControllerApiShipping extends Controller {
 	/**
+	 * Address
+	 *
 	 * @return void
 	 */
     public function address(): void {
@@ -152,6 +154,8 @@ class ControllerApiShipping extends Controller {
     }
 
 	/**
+	 * Methods
+	 *
 	 * @return void
 	 */
     public function methods(): void {
@@ -198,6 +202,8 @@ class ControllerApiShipping extends Controller {
     }
 
 	/**
+	 * Method
+	 *
 	 * @return void
 	 */
     public function method(): void {

@@ -67,6 +67,8 @@ class ControllerAccountTracking extends Controller {
     }
 
 	/**
+	 * Autocomplete
+	 *
 	 * @return void
 	 */
     public function autocomplete(): void {

@@ -96,6 +96,8 @@ class ControllerAccountOrder extends Controller {
     }
 
 	/**
+	 * Info
+	 *
 	 * @return object|null
 	 */
     public function info(): object|null {
@@ -360,6 +362,8 @@ class ControllerAccountOrder extends Controller {
     }
 
 	/**
+	 * Reorder
+	 *
 	 * @return void
 	 */
     public function reorder(): void {

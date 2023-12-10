@@ -5,7 +5,6 @@
  * @package Catalog\Controller\Mail
  */
 class ControllerMailRegister extends Controller {
-	// catalog/model/account/customer/addCustomer/after
 	/**
 	 * @param string $route
 	 * @param array  $args
@@ -13,6 +12,8 @@ class ControllerMailRegister extends Controller {
 	 *
 	 * @return void
 	 * @throws \Exception
+	 *
+	 * catalog/model/account/customer/addCustomer/after
 	 */
     public function index(string &$route, array &$args, mixed &$output): void {
         $this->load->language('mail/register');
@@ -62,15 +63,17 @@ class ControllerMailRegister extends Controller {
         }
     }
 
-	// catalog/model/account/customer/addCustomer/after
-
 	/**
+	 * Alert
+	 *
 	 * @param string $route
 	 * @param array  $args
 	 * @param mixed  $output
 	 *
 	 * @return void
 	 * @throws \Exception
+	 *
+	 * catalog/model/account/customer/addCustomer/after
 	 */
     public function alert(string &$route, array &$args, mixed &$output): void {
         // Send to main admin email if new account email is enabled
@@ -103,6 +106,7 @@ class ControllerMailRegister extends Controller {
 
             $data['email'] = $args[0]['email'];
             $data['telephone'] = $args[0]['telephone'];
+
             $data['store'] = $store_name;
             $data['store_url'] = $this->config->get('config_url');
 

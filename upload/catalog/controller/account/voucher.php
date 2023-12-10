@@ -164,6 +164,8 @@ class ControllerAccountVoucher extends Controller {
     }
 
 	/**
+	 * Success
+	 *
 	 * @return void
 	 */
     public function success(): void {

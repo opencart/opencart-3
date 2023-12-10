@@ -5,6 +5,11 @@
  * @package Catalog\Controller\Extension\Module
  */
 class ControllerExtensionModuleCarousel extends Controller {
+	/**
+	 * @param array $setting
+	 *
+	 * @return string
+	 */
     public function index(array $setting): string {
         static $module = 0;
 

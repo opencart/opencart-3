@@ -5,6 +5,11 @@
  * @package Catalog\Controller\Extension\Module
  */
 class ControllerExtensionModuleSubscription extends Controller {
+	/**
+	 * dateNext
+	 *
+	 * @return void
+	 */
     public function dateNext(): void {
         $this->load->language('extension/module/subscription');
 
@@ -108,7 +113,17 @@ class ControllerExtensionModuleSubscription extends Controller {
         $this->response->setOutput(json_encode($json));
     }
 
-    // catalog/view/account/recurring_list/after
+    /**
+	 * Account
+	 *
+	 * @param string $route
+	 * @param array  $args
+	 * @param mixed  $output
+	 *
+	 * @return void
+	 *
+	 * catalog/view/account/recurring_list/after
+	 */
     public function account(string &$route, array &$args, mixed &$output): void {
         if ($this->config->get('config_information_subscription_id')) {
             $this->load->language('extension/module/subscription');

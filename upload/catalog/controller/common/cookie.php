@@ -31,6 +31,8 @@ class ControllerCommonCookie extends Controller {
     }
 
 	/**
+	 * Confirm
+	 *
 	 * @return void
 	 */
     public function confirm(): void {

@@ -16,6 +16,8 @@ class ControllerEventDebug extends Controller {
     }
 
 	/**
+	 * Before
+	 *
 	 * @param string $route
 	 * @param array  $args
 	 *
@@ -31,6 +33,8 @@ class ControllerEventDebug extends Controller {
     }
 
 	/**
+	 * After
+	 *
 	 * @param string $route
 	 * @param array  $args
 	 * @param mixed  $output

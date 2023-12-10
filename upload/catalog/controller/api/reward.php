@@ -53,6 +53,8 @@ class ControllerApiReward extends Controller {
     }
 
 	/**
+	 * Maximum
+	 *
 	 * @return void
 	 */
     public function maximum(): void {
@@ -77,6 +79,8 @@ class ControllerApiReward extends Controller {
     }
 
 	/**
+	 * Available
+	 *
 	 * @return void
 	 */
     public function available(): void {

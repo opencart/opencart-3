@@ -7,6 +7,13 @@
 class ControllerExtensionModulePayPalSmartButton extends Controller {
     private array $error = [];
 
+	/**
+	 * Constructor
+	 *
+	 * @param object $registry
+	 *
+	 * @return string
+	 */
     public function __construct(object $registry) {
         parent::__construct($registry);
 
@@ -142,6 +149,8 @@ class ControllerExtensionModulePayPalSmartButton extends Controller {
     }
 
 	/**
+	 * createOrder
+	 *
 	 * @return void
 	 */
     public function createOrder(): void {
@@ -351,6 +360,8 @@ class ControllerExtensionModulePayPalSmartButton extends Controller {
     }
 
 	/**
+	 * approveOrder
+	 *
 	 * @return void
 	 */
     public function approveOrder(): void {
@@ -554,6 +565,8 @@ class ControllerExtensionModulePayPalSmartButton extends Controller {
     }
 
 	/**
+	 * confirmOrder
+	 *
 	 * @return void
 	 */
     public function confirmOrder(): void {
@@ -958,6 +971,8 @@ class ControllerExtensionModulePayPalSmartButton extends Controller {
     }
 
 	/**
+	 * completeOrder
+	 *
 	 * @return void
 	 */
     public function completeOrder(): void {
@@ -1467,6 +1482,8 @@ class ControllerExtensionModulePayPalSmartButton extends Controller {
     }
 
 	/**
+	 * paymentAddress
+	 *
 	 * @return void
 	 */
     public function paymentAddress(): void {
@@ -1490,6 +1507,8 @@ class ControllerExtensionModulePayPalSmartButton extends Controller {
     }
 
 	/**
+	 * shippingAddress
+	 *
 	 * @return void
 	 */
     public function shippingAddress(): void {
@@ -1510,6 +1529,8 @@ class ControllerExtensionModulePayPalSmartButton extends Controller {
     }
 
 	/**
+	 * confirmShipping
+	 *
 	 * @return void
 	 */
     public function confirmShipping(): void {
@@ -1519,6 +1540,8 @@ class ControllerExtensionModulePayPalSmartButton extends Controller {
     }
 
 	/**
+	 * confirmPaymentAddress
+	 *
 	 * @return void
 	 */
     public function confirmPaymentAddress(): void {
@@ -1594,6 +1617,8 @@ class ControllerExtensionModulePayPalSmartButton extends Controller {
     }
 
 	/**
+	 * confirmShippingAddress
+	 *
 	 * @return void
 	 */
     public function confirmShippingAddress(): void {

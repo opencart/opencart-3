@@ -8,6 +8,8 @@ class ControllerAccountAffiliate extends Controller {
     private array $error = [];
 
 	/**
+	 * Add
+	 *
 	 * @return void
 	 */
     public function add(): void {
@@ -40,6 +42,8 @@ class ControllerAccountAffiliate extends Controller {
     }
 
 	/**
+	 * Edit
+	 *
 	 * @return void
 	 */
     public function edit(): void {
@@ -68,6 +72,8 @@ class ControllerAccountAffiliate extends Controller {
     }
 
 	/**
+	 * getForm
+	 *
 	 * @return void
 	 */
     public function getForm(): void {

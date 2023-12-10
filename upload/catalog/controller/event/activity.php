@@ -5,13 +5,16 @@
  * @package Catalog\Controller\Event
  */
 class ControllerEventActivity extends Controller {
-	// catalog/model/account/customer/addCustomer/after
 	/**
+	 * addCustomer
+	 *
 	 * @param string $route
 	 * @param array  $args
 	 * @param mixed  $output
 	 *
 	 * @return void
+	 *
+	 * catalog/model/account/customer/addCustomer/after
 	 */
     public function addCustomer(string &$route, array &$args, mixed &$output): void {
         if ($this->config->get('config_customer_activity')) {
@@ -27,14 +30,16 @@ class ControllerEventActivity extends Controller {
         }
     }
 
-    // catalog/model/account/customer/editCustomer/after
-
-	/**
+    /**
+	 * editCustomer
+	 *
 	 * @param string $route
 	 * @param array  $args
 	 * @param mixed  $output
 	 *
 	 * @return void
+	 *
+	 * catalog/model/account/customer/editCustomer/after
 	 */
     public function editCustomer(string &$route, array &$args, mixed &$output): void {
         if ($this->config->get('config_customer_activity')) {
@@ -50,14 +55,16 @@ class ControllerEventActivity extends Controller {
         }
     }
 
-    // catalog/model/account/customer/editPassword/after
-
-	/**
+    /**
+	 * editPassword
+	 *
 	 * @param string $route
 	 * @param array  $args
 	 * @param mixed  $output
 	 *
 	 * @return void
+	 *
+	 * catalog/model/account/customer/editPassword/after
 	 */
     public function editPassword(string &$route, array &$args, mixed &$output): void {
         if ($this->config->get('config_customer_activity')) {
@@ -86,14 +93,16 @@ class ControllerEventActivity extends Controller {
         }
     }
 
-    // catalog/model/account/customer/deleteLoginAttempts/after
-
-	/**
+    /**
+	 * Login
+	 *
 	 * @param string $route
 	 * @param array  $args
 	 * @param mixed  $output
 	 *
 	 * @return void
+	 *
+	 * catalog/model/account/customer/deleteLoginAttempts/after
 	 */
     public function login(string &$route, array &$args, mixed &$output): void {
         if (isset($this->request->get['route']) && ($this->request->get['route'] == 'account/login' || $this->request->get['route'] == 'checkout/login/save') && $this->config->get('config_customer_activity')) {
@@ -113,14 +122,16 @@ class ControllerEventActivity extends Controller {
         }
     }
 
-    // catalog/model/account/customer/editCode/after
-
-	/**
+    /**
+	 * Forgotten
+	 *
 	 * @param string $route
 	 * @param array  $args
 	 * @param mixed  $output
 	 *
 	 * @return void
+	 *
+	 * catalog/model/account/customer/editCode/after
 	 */
     public function forgotten(string &$route, array &$args, mixed &$output): void {
         if (isset($this->request->get['route']) && $this->request->get['route'] == 'account/forgotten' && $this->config->get('config_customer_activity')) {
@@ -143,14 +154,16 @@ class ControllerEventActivity extends Controller {
         }
     }
 
-    // catalog/model/account/customer/addTransaction/after
-
-	/**
+    /**
+	 * addTransaction
+	 *
 	 * @param string $route
 	 * @param array  $args
 	 * @param mixed  $output
 	 *
 	 * @return void
+	 *
+	 * catalog/model/account/customer/addTransaction/after
 	 */
     public function addTransaction(string &$route, array &$args, mixed &$output): void {
         if ($this->config->get('config_customer_activity')) {
@@ -174,14 +187,16 @@ class ControllerEventActivity extends Controller {
         }
     }
 
-    // catalog/model/account/customer/addAffiliate/after
-
-	/**
+    /**
+	 * addAffiliate
+	 *
 	 * @param string $route
 	 * @param array  $args
 	 * @param mixed  $output
 	 *
 	 * @return void
+	 *
+	 * catalog/model/account/customer/addAffiliate/after
 	 */
     public function addAffiliate(string &$route, array &$args, mixed &$output): void {
         if ($this->config->get('config_customer_activity')) {
@@ -197,14 +212,16 @@ class ControllerEventActivity extends Controller {
         }
     }
 
-    // catalog/model/account/customer/editAffiliate/after
-
-	/**
+    /**
+	 * editAffiliate
+	 *
 	 * @param string $route
 	 * @param array  $args
 	 * @param mixed  $output
 	 *
 	 * @return void
+	 *
+	 * catalog/model/account/customer/editAffiliate/after
 	 */
     public function editAffiliate(string &$route, array &$args, mixed &$output): void {
         if ($this->config->get('config_customer_activity') && $output) {
@@ -220,14 +237,16 @@ class ControllerEventActivity extends Controller {
         }
     }
 
-    // catalog/model/account/address/addAddress/after
-
-	/**
+    /**
+	 * addAddress
+	 *
 	 * @param string $route
 	 * @param array  $args
 	 * @param mixed  $output
 	 *
 	 * @return void
+	 *
+	 * catalog/model/account/address/addAddress/after
 	 */
     public function addAddress(string &$route, array &$args, mixed &$output): void {
         if ($this->config->get('config_customer_activity')) {
@@ -243,14 +262,16 @@ class ControllerEventActivity extends Controller {
         }
     }
 
-    // catalog/model/account/address/editAddress/after
-
-	/**
+    /**
+	 * editAddress
+	 *
 	 * @param string $route
 	 * @param array  $args
 	 * @param mixed  $output
 	 *
 	 * @return void
+	 *
+	 * catalog/model/account/address/editAddress/after
 	 */
     public function editAddress(string &$route, array &$args, mixed &$output): void {
         if ($this->config->get('config_customer_activity')) {
@@ -266,14 +287,16 @@ class ControllerEventActivity extends Controller {
         }
     }
 
-    // catalog/model/account/address/deleteAddress/after
-
-	/**
+    /**
+	 * deleteAddress
+	 *
 	 * @param string $route
 	 * @param array  $args
 	 * @param mixed  $output
 	 *
 	 * @return void
+	 *
+	 * catalog/model/account/address/deleteAddress/after
 	 */
     public function deleteAddress(string &$route, array &$args, mixed &$output): void {
         if ($this->config->get('config_customer_activity')) {
@@ -289,14 +312,16 @@ class ControllerEventActivity extends Controller {
         }
     }
 
-    // catalog/model/account/returns/addReturn/after
-
-	/**
+    /**
+	 * addReturn
+	 *
 	 * @param string $route
 	 * @param array  $args
 	 * @param mixed  $output
 	 *
 	 * @return void
+	 *
+	 * catalog/model/account/returns/addReturn/after
 	 */
     public function addReturn(string &$route, array &$args, mixed &$output): void {
         if ($this->config->get('config_customer_activity') && $output) {
@@ -322,13 +347,15 @@ class ControllerEventActivity extends Controller {
         }
     }
 
-    // catalog/model/checkout/order/addHistory/before
-
-	/**
+    /**
+	 * addHistory
+	 *
 	 * @param string $route
 	 * @param array  $args
 	 *
 	 * @return void
+	 *
+	 * catalog/model/checkout/order/addHistory/before
 	 */
     public function addHistory(string &$route, array &$args): void {
         if ($this->config->get('config_customer_activity')) {

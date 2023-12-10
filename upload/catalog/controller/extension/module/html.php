@@ -5,6 +5,11 @@
  * @package Catalog\Controller\Extension\Module
  */
 class ControllerExtensionModuleHTML extends Controller {
+	/**
+	 * @param array $setting
+	 *
+	 * @return string
+	 */
     public function index(array $setting): string {
         if (isset($setting['module_description'][$this->config->get('config_language_id')])) {
             $data['heading_title'] = html_entity_decode($setting['module_description'][$this->config->get('config_language_id')]['title'], ENT_QUOTES, 'UTF-8');

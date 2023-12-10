@@ -5,6 +5,11 @@
  * @package Catalog\Controller\Extension\Module
  */
 class ControllerExtensionModuleBestSeller extends Controller {
+	/**
+	 * @param array $setting
+	 *
+	 * @return string
+	 */
     public function index(array $setting): string {
         $this->load->language('extension/module/bestseller');
 

@@ -62,6 +62,8 @@ class ControllerProductManufacturer extends Controller {
     }
 
 	/**
+	 * Info
+	 *
 	 * @return void
 	 */
     public function info(): void {
