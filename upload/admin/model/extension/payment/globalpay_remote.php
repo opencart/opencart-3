@@ -50,7 +50,7 @@ class ModelExtensionPaymentGlobalpayRemote extends Model {
 	 *
 	 * @return object|null
 	 */
-    public function void(int $order_id): object|null {
+    public function void(int $order_id): ?object {
         $globalpay_order = $this->getOrder($order_id);
 
         if ($globalpay_order) {
@@ -116,7 +116,7 @@ class ModelExtensionPaymentGlobalpayRemote extends Model {
 	 *
 	 * @return object|null
 	 */
-    public function capture(int $order_id, float $amount): object|null {
+    public function capture(int $order_id, float $amount): ?object {
         $globalpay_order = $this->getOrder($order_id);
 
         if ($globalpay_order && $globalpay_order['capture_status'] == 0) {
@@ -210,7 +210,7 @@ class ModelExtensionPaymentGlobalpayRemote extends Model {
 	 *
 	 * @return object|null
 	 */
-    public function rebate(int $order_id, float $amount): object|null {
+    public function rebate(int $order_id, float $amount): ?object {
         $globalpay_order = $this->getOrder($order_id);
 
         if ($globalpay_order && $globalpay_order['rebate_status'] != 1) {

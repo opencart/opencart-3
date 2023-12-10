@@ -90,7 +90,7 @@ class ModelExtensionPaymentG2aPay extends Model {
 	 * @return array
 	 */
     public function refund(array $g2apay_order, float $amount): array {
-        if (!empty($g2apay_order) && $g2apay_order['refund_status'] != 1) {
+        if ($g2apay_order && $g2apay_order['refund_status'] != 1) {
             if ($this->config->get('payment_g2apay_environment') == 1) {
                 $url = 'https://pay.g2a.com/rest/transactions/' . $g2apay_order['g2apay_transaction_id'];
             } else {

@@ -55,7 +55,7 @@ class ModelExtensionPaymentSecureTradingPp extends Model {
 	 *
 	 * @return object|null
 	 */
-    public function void(int $order_id): object|null {
+    public function void(int $order_id): ?object {
         $securetrading_pp_order = $this->getOrder($order_id);
 
         if ($securetrading_pp_order && $securetrading_pp_order['release_status'] == 0) {
@@ -98,7 +98,7 @@ class ModelExtensionPaymentSecureTradingPp extends Model {
 	 *
 	 * @return object|null
 	 */
-    public function release(int $order_id, float $amount): object|null {
+    public function release(int $order_id, float $amount): ?object {
         $securetrading_pp_order = $this->getOrder($order_id);
 
         $total_released = $this->getTotalReleased($securetrading_pp_order['securetrading_pp_order_id']);
@@ -158,7 +158,7 @@ class ModelExtensionPaymentSecureTradingPp extends Model {
 	 *
 	 * @return object|null
 	 */
-    public function rebate(int $order_id, float $refunded_amount): object|null {
+    public function rebate(int $order_id, float $refunded_amount): ?object {
         $securetrading_pp_order = $this->getOrder($order_id);
 
         if ($securetrading_pp_order && $securetrading_pp_order['rebate_status'] != 1) {

@@ -116,7 +116,7 @@ class ModelExtensionPaymentEway extends Model {
 	 *
 	 * @return object|null
 	 */
-    public function capture(int $order_id, float $capture_amount, array $currency): object|null {
+    public function capture(int $order_id, float $capture_amount, array $currency): ?object {
         $eway_order = $this->getOrder($order_id);
 
         if ($eway_order && $capture_amount > 0) {

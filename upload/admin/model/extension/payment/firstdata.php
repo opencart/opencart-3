@@ -72,7 +72,7 @@ class ModelExtensionPaymentFirstdata extends Model {
 	 *
 	 * @return object|null
 	 */
-    public function void(int $order_id): object|null {
+    public function void(int $order_id): ?object {
         $firstdata_order = $this->getOrder($order_id);
 
         if ($firstdata_order) {
@@ -138,7 +138,7 @@ class ModelExtensionPaymentFirstdata extends Model {
 	 *
 	 * @return object|null
 	 */
-    public function capture(int $order_id, float $amount): object|null {
+    public function capture(int $order_id, float $amount): ?object {
         $firstdata_order = $this->getOrder($order_id);
 
         if ($firstdata_order && $firstdata_order['capture_status'] == 0) {

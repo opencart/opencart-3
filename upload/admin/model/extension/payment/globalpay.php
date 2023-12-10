@@ -46,9 +46,11 @@ class ModelExtensionPaymentGlobalpay extends Model {
 	/**
 	 * Void
 	 *
+	 * @param int $order_id
+	 *
 	 * @return object|null
 	 */
-    public function void(int $order_id): object|null {
+    public function void(int $order_id): ?object {
         $globalpay_order = $this->getOrder($order_id);
 
         if ($globalpay_order) {
@@ -114,10 +116,10 @@ class ModelExtensionPaymentGlobalpay extends Model {
 	 *
 	 * @return object|null
 	 */
-    public function capture(int $order_id, float $amount): object|null {
+    public function capture(int $order_id, float $amount): ?object {
         $globalpay_order = $this->getOrder($order_id);
 
-        if (!empty($globalpay_order) && $globalpay_order['capture_status'] == 0) {
+        if ($globalpay_order && $globalpay_order['capture_status'] == 0) {
             $timestamp = date('YmdHis');
 
             $merchant_id = $this->config->get('payment_globalpay_merchant_id');
@@ -210,10 +212,10 @@ class ModelExtensionPaymentGlobalpay extends Model {
 	 *
 	 * @return object|null
 	 */
-    public function rebate(int $order_id, float $amount): object|null {
+    public function rebate(int $order_id, float $amount): ?object {
         $globalpay_order = $this->getOrder($order_id);
 
-        if (!empty($globalpay_order) && $globalpay_order['rebate_status'] != 1) {
+        if ($globalpay_order && $globalpay_order['rebate_status'] != 1) {
             $timestamp = date('YmdHis');
             $merchant_id = $this->config->get('payment_globalpay_merchant_id');
             $secret = $this->config->get('payment_globalpay_secret');

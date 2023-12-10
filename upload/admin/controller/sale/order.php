@@ -805,9 +805,9 @@ class ControllerSaleOrder extends Controller {
 	/**
 	 * Info
 	 *
-	 * @return object|null
+	 * @return object|\Action|null
 	 */
-    public function info(): object|null {
+    public function info(): ?object {
         // Orders
         $this->load->model('sale/order');
 

@@ -56,10 +56,10 @@ class ModelExtensionPaymentSecureTradingWs extends Model {
 	 *
 	 * @return object|null
 	 */
-    public function void(int $order_id): object|null {
+    public function void(int $order_id): ?object {
         $securetrading_ws_order = $this->getOrder($order_id);
 
-        if (!empty($securetrading_ws_order) && $securetrading_ws_order['release_status'] == 0) {
+        if ($securetrading_ws_order && $securetrading_ws_order['release_status'] == 0) {
             $requestblock_xml = new \SimpleXMLElement('<requestblock></requestblock>');
             $requestblock_xml->addAttribute('version', '3.67');
             $requestblock_xml->addChild('alias', $this->config->get('payment_securetrading_ws_username'));
@@ -99,12 +99,12 @@ class ModelExtensionPaymentSecureTradingWs extends Model {
 	 *
 	 * @return object|null
 	 */
-    public function release(int $order_id, float $amount): object|null {
+    public function release(int $order_id, float $amount): ?object {
         $securetrading_ws_order = $this->getOrder($order_id);
 
         $total_released = $this->getTotalReleased($securetrading_ws_order['securetrading_ws_order_id']);
 
-        if (!empty($securetrading_ws_order) && $securetrading_ws_order['release_status'] == 0 && $total_released <= $amount) {
+        if ($securetrading_ws_order && $securetrading_ws_order['release_status'] == 0 && $total_released <= $amount) {
             $requestblock_xml = new \SimpleXMLElement('<requestblock></requestblock>');
 
             $requestblock_xml->addAttribute('version', '3.67');
@@ -159,10 +159,10 @@ class ModelExtensionPaymentSecureTradingWs extends Model {
 	 *
 	 * @return object|null
 	 */
-    public function rebate(int $order_id, float $refunded_amount): object|null {
+    public function rebate(int $order_id, float $refunded_amount): ?object {
         $securetrading_ws_order = $this->getOrder($order_id);
 
-        if (!empty($securetrading_ws_order) && $securetrading_ws_order['rebate_status'] != 1) {
+        if ($securetrading_ws_order && $securetrading_ws_order['rebate_status'] != 1) {
             $requestblock_xml = new \SimpleXMLElement('<requestblock></requestblock>');
 
             $requestblock_xml->addAttribute('version', '3.67');

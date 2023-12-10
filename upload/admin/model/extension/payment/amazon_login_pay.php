@@ -109,7 +109,7 @@ class ModelExtensionPaymentAmazonLoginPay extends Model {
     public function cancel(array $amazon_login_pay_order): array {
         $total_captured = $this->getTotalCaptured($amazon_login_pay_order['amazon_login_pay_order_id']);
 
-        if (!empty($amazon_login_pay_order) && $total_captured == 0) {
+        if ($amazon_login_pay_order && $total_captured == 0) {
             $cancel_parameter_data = [];
 
             $cancel_parameter_data['AmazonOrderReferenceId'] = $amazon_login_pay_order['amazon_order_reference_id'];
@@ -165,7 +165,7 @@ class ModelExtensionPaymentAmazonLoginPay extends Model {
     public function capture(array $amazon_login_pay_order, float $amount): array {
         $total_captured = $this->getTotalCaptured($amazon_login_pay_order['amazon_login_pay_order_id']);
 
-        if (!empty($amazon_login_pay_order) && $amazon_login_pay_order['capture_status'] == 0 && ($total_captured + $amount <= $amazon_login_pay_order['total'])) {
+        if ($amazon_login_pay_order && $amazon_login_pay_order['capture_status'] == 0 && ($total_captured + $amount <= $amazon_login_pay_order['total'])) {
             if (!$this->hasOpenAuthorization($amazon_login_pay_order['transactions'])) {
                 $amazon_authorization = $this->authorize($amazon_login_pay_order, $amount);
 
@@ -250,7 +250,7 @@ class ModelExtensionPaymentAmazonLoginPay extends Model {
 	 * @return array
 	 */
     public function refund(array $amazon_login_pay_order, float $amount): array {
-        if (!empty($amazon_login_pay_order) && $amazon_login_pay_order['refund_status'] != 1) {
+        if ($amazon_login_pay_order && $amazon_login_pay_order['refund_status'] != 1) {
             $amazon_captures_remaining = $this->getUnCaptured($amazon_login_pay_order['amazon_login_pay_order_id']);
 
             $refund_response = [];
@@ -417,7 +417,7 @@ class ModelExtensionPaymentAmazonLoginPay extends Model {
 	 *
 	 * @return object|null
 	 */
-    public function fetchOrder(string $order_reference_id): object|null {
+    public function fetchOrder(string $order_reference_id): ?object {
         $order = $this->offAmazon('GetOrderReferenceDetails', [
             'AmazonOrderReferenceId' => $order_reference_id
         ]);

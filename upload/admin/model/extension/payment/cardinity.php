@@ -28,7 +28,7 @@ class ModelExtensionPaymentCardinity extends Model {
 	 *
 	 * @return object|null
 	 */
-    public function createClient(array $credentials): object|null {
+    public function createClient(array $credentials): ?object {
 		if ($credentials) {
 			return Client::create([
 				'consumerKey'    => $credentials['key'],
@@ -68,7 +68,7 @@ class ModelExtensionPaymentCardinity extends Model {
 	 *
 	 * @return object|null
 	 */
-    public function getPayment(object $client, string $payment_id): object|null {
+    public function getPayment(object $client, string $payment_id): ?object {
         $method = new \Payment\Get($payment_id);
 
         try {
@@ -90,7 +90,7 @@ class ModelExtensionPaymentCardinity extends Model {
 	 *
 	 * @return object|null
 	 */
-    public function getRefunds(object $client, string $payment_id): object|null {
+    public function getRefunds(object $client, string $payment_id): ?object {
         $method = new \Refund\GetAll($payment_id);
 
         try {
@@ -114,7 +114,7 @@ class ModelExtensionPaymentCardinity extends Model {
 	 *
 	 * @return object|null
 	 */
-    public function refundPayment(object $client, string $payment_id, float $amount, string $description): object|null {
+    public function refundPayment(object $client, string $payment_id, float $amount, string $description): ?object {
         $method = new \Refund\Create($payment_id, $amount, $description);
 
         try {

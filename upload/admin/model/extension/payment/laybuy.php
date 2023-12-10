@@ -175,7 +175,7 @@ class ModelExtensionPaymentLaybuy extends Model {
     public function getTransactions(array $data = []): array {
         $implode = [];
 
-        $sql = "SELECT *, CONCAT(`firstname`, ' ', `lastname`) AS `customer` FROM `" . DB_PREFIX . "laybuy_transaction` lt WHERE 1 = 1";
+        $sql = "SELECT *, CONCAT(`firstname`, ' ', `lastname`) AS `customer` FROM `" . DB_PREFIX . "laybuy_transaction` `lt` WHERE 1 = 1";
 
         if (!empty($data['filter_order_id'])) {
             $implode[] = "`lt`.`order_id` = '" . (int)$data['filter_order_id'] . "'";

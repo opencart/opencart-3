@@ -50,7 +50,7 @@ class ModelExtensionPaymentRealex extends Model {
 	 *
 	 * @return object|null
 	 */
-    public function void(int $order_id): object|null {
+    public function void(int $order_id): ?object {
         $realex_order = $this->getOrder($order_id);
 
         if ($realex_order) {
@@ -116,7 +116,7 @@ class ModelExtensionPaymentRealex extends Model {
 	 *
 	 * @return object|null
 	 */
-    public function capture($order_id, $amount): object|null {
+    public function capture(int $order_id, float $amount): ?object {
         $realex_order = $this->getOrder($order_id);
 
         if ($realex_order && $realex_order['capture_status'] == 0) {
@@ -211,7 +211,7 @@ class ModelExtensionPaymentRealex extends Model {
 	 *
 	 * @return object|null
 	 */
-    public function rebate(int $order_id, float $amount): object|null {
+    public function rebate(int $order_id, float $amount): ?object {
         $realex_order = $this->getOrder($order_id);
 
         if ($realex_order && $realex_order['rebate_status'] != 1) {
