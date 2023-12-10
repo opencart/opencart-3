@@ -47,6 +47,7 @@ class ControllerExtensionPaymentLaybuy extends Controller {
                 $this->model_extension_payment_laybuy->log('Order ID: ' . $order_info['order_id']);
 
                 $post_data = [];
+
                 $post_data['VERSION'] = '0.2';
                 $post_data['MEMBER'] = $this->config->get('payment_laybuys_membership_id');
                 $post_data['RETURNURL'] = $this->url->link('extension/payment/laybuy/callback', '', true);

@@ -81,6 +81,7 @@ class ModelExtensionReportSale extends Model {
         }
 
         $order_data = [];
+
         $date_start = strtotime('-' . date('w') . ' days');
 
         for ($i = 0; $i < 7; $i++) {

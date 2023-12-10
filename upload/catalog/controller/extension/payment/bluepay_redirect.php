@@ -115,6 +115,7 @@ class ControllerExtensionPaymentBluePayRedirect extends Controller {
 
         if (isset($post_data['CreateToken']) && $response_data['Result'] == 'APPROVED') {
             $card_data = [];
+
             $card_data['customer_id'] = $this->customer->getId();
             $card_data['Last4Digits'] = substr(str_replace(' ', '', $post_data['CC_NUM']), -4, 4);
             $card_data['ExpiryDate'] = $post_data['CC_EXPIRES_MONTH'] . '/' . substr($post_data['CC_EXPIRES_YEAR'], 2);

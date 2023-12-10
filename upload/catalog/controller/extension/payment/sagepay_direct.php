@@ -261,6 +261,7 @@ class ControllerExtensionPaymentSagepayDirect extends Controller {
 
             if (!empty($payment_data['CreateToken']) && $this->customer->isLogged()) {
                 $card_data = [];
+
                 $card_data['customer_id'] = $this->customer->getId();
                 $card_data['Token'] = '';
                 $card_data['Last4Digits'] = substr(str_replace(' ', '', $payment_data['CardNumber']), -4, 4);
@@ -316,6 +317,7 @@ class ControllerExtensionPaymentSagepayDirect extends Controller {
 
             if (!empty($payment_data['CreateToken']) && !empty($response_data['Token']) && $this->customer->isLogged()) {
                 $card_data = [];
+
                 $card_data['customer_id'] = $this->customer->getId();
                 $card_data['Token'] = $response_data['Token'];
                 $card_data['Last4Digits'] = substr(str_replace(' ', '', $payment_data['CardNumber']), -4, 4);
@@ -466,6 +468,7 @@ class ControllerExtensionPaymentSagepayDirect extends Controller {
             }
 
             $payment_data = [];
+
             $payment_data['VPSProtocol'] = '3.00';
             $payment_data['Vendor'] = $this->config->get('payment_sagepay_direct_vendor');
             $payment_data['TxType'] = 'REMOVETOKEN';

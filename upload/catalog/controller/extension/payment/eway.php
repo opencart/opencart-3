@@ -313,6 +313,7 @@ class ControllerExtensionPaymentEway extends Controller {
 
                 if (!empty($result->Customer->TokenCustomerID) && $this->customer->isLogged() && !$this->model_extension_payment_eway->checkToken($result->Customer->TokenCustomerID)) {
                     $card_data = [];
+
                     $card_data['customer_id'] = $this->customer->getId();
                     $card_data['Token'] = $result->Customer->TokenCustomerID;
                     $card_data['Last4Digits'] = substr(str_replace(' ', '', $result->Customer->CardDetails->Number), -4, 4);

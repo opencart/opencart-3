@@ -461,6 +461,7 @@ class ControllerExtensionPaymentSagepayServer extends Controller {
             }
 
             $payment_data = [];
+
             $payment_data['VPSProtocol'] = '3.00';
             $payment_data['Vendor'] = $this->config->get('payment_sagepay_server_vendor');
             $payment_data['TxType'] = 'REMOVETOKEN';

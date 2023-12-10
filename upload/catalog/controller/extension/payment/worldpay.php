@@ -107,6 +107,7 @@ class ControllerExtensionPaymentWorldpay extends Controller {
 
                 if (isset($response->paymentMethod)) {
                     $card_data = [];
+
                     $card_data['customer_id'] = $this->customer->getId();
                     $card_data['Token'] = $response->token;
                     $card_data['Last4Digits'] = (string)$response->paymentMethod->maskedCardNumber;
