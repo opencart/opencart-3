@@ -432,6 +432,7 @@ class ControllerExtensionPaymentSecureTradingPp extends Controller {
                     }
 
                     $json['data'] = [];
+
                     $json['data']['created'] = date('Y-m-d H:i:s');
                     $json['data']['amount'] = $amount;
                     $json['data']['release_status'] = $release_status;
@@ -501,6 +502,7 @@ class ControllerExtensionPaymentSecureTradingPp extends Controller {
                         $this->load->model('sale/order');
 
                         $history = [];
+
                         $history['order_status_id'] = $this->config->get('payment_securetrading_pp_refunded_order_status_id');
                         $history['comment'] = '';
                         $history['notify'] = '';
@@ -513,6 +515,7 @@ class ControllerExtensionPaymentSecureTradingPp extends Controller {
                     }
 
                     $json['data'] = [];
+
                     $json['data']['created'] = date('Y-m-d H:i:s');
                     $json['data']['amount'] = $amount * -1;
                     $json['data']['total_released'] = (double)$total_released;

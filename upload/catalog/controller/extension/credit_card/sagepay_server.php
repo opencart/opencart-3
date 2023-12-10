@@ -101,6 +101,7 @@ class ControllerExtensionCreditCardSagepayServer extends Controller {
             }
 
             $payment_data = [];
+
             $payment_data['VPSProtocol'] = '3.00';
             $payment_data['Vendor'] = $this->config->get('payment_sagepay_server_vendor');
             $payment_data['TxType'] = 'REMOVETOKEN';
@@ -139,6 +140,7 @@ class ControllerExtensionCreditCardSagepayServer extends Controller {
         }
 
         $payment_data = [];
+
         $payment_data['VPSProtocol'] = '3.00';
         $payment_data['ReferrerID'] = 'E511AF91-E4A0-42DE-80B0-09C981A3FB61';
         $payment_data['TxType'] = 'TOKEN';
@@ -262,6 +264,7 @@ class ControllerExtensionCreditCardSagepayServer extends Controller {
         }
 
         $card_data = [];
+
         $card_data['customer_id'] = $transaction_info['customer_id'];
         $card_data['Token'] = $this->request->post['Token'];
         $card_data['Last4Digits'] = $this->request->post['Last4Digits'];

@@ -847,6 +847,7 @@ class ModelExtensionPaymentAmazonLoginPay extends Model {
 
     public function makePost($url, $action, $extra = []) {
         $params = [];
+
         $params['AWSAccessKeyId'] = $this->config->get('payment_amazon_login_pay_access_key');
         $params['Action'] = $action;
         $params['SellerId'] = $this->config->get('payment_amazon_login_pay_merchant_id');

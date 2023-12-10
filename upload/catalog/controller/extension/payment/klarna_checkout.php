@@ -1264,6 +1264,7 @@ class ControllerExtensionPaymentKlarnaCheckout extends Controller {
 								}
 
 								$shipping_zone_info = [];
+
 								if ($shipping_country_info && isset($order['shipping_address']['region'])) {
 									$shipping_zone_info = $this->model_extension_payment_klarna_checkout->getZoneByCode($order['shipping_address']['region'], $shipping_country_info['country_id']);
 								}

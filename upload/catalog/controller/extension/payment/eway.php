@@ -9,6 +9,7 @@ class ControllerExtensionPaymentEway extends Controller {
         $this->load->language('extension/payment/eway');
 
         $data['months'] = [];
+
         $data['payment_type'] = $this->config->get('payment_eway_payment_type');
 
         for ($i = 1; $i <= 12; $i++) {

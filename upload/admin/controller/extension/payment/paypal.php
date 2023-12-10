@@ -1428,14 +1428,17 @@ class ControllerExtensionPaymentPayPal extends Controller {
 
         $this->load->model('extension/payment/paypal');
 
-        $data['all_sale'] = [];
-        $data['paypal_sale'] = [];
         $data['xaxis'] = [];
 
-        $data['all_sale']['label'] = $this->language->get('text_all_sales');
+		$data['paypal_sale'] = [];
+
         $data['paypal_sale']['label'] = $this->language->get('text_paypal_sales');
+		$data['paypal_sale']['data'] = [];
+
+		$data['all_sale'] = [];
+
+		$data['all_sale']['label'] = $this->language->get('text_all_sales');
         $data['all_sale']['data'] = [];
-        $data['paypal_sale']['data'] = [];
 
         if (isset($this->request->get['range'])) {
             $range = $this->request->get['range'];

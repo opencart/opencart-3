@@ -35,6 +35,7 @@ class ControllerExtensionPaymentBluePayRedirect extends Controller {
         }
 
         $data['existing_cards'] = [];
+
         if ($this->customer->isLogged() && $data['payment_bluepay_redirect_card']) {
             // Bluepay Redirect
             $this->load->model('extension/payment/bluepay_redirect');

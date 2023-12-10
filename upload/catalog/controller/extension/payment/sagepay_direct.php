@@ -99,6 +99,7 @@ class ControllerExtensionPaymentSagepayDirect extends Controller {
         }
 
         $data['existing_cards'] = [];
+
         if ($this->customer->isLogged() && $data['sagepay_direct_card']) {
             // Sagepay Direct
             $this->load->model('extension/payment/sagepay_direct');
@@ -254,9 +255,11 @@ class ControllerExtensionPaymentSagepayDirect extends Controller {
             $json['ACSURL'] = $response_data['ACSURL'];
             $json['MD'] = $response_data['MD'];
             $json['PaReq'] = $response_data['PAReq'];
+
             $response_data['VPSTxId'] = '';
             $response_data['SecurityKey'] = '';
             $response_data['TxAuthNo'] = '';
+
             $card_id = '';
 
             if (!empty($payment_data['CreateToken']) && $this->customer->isLogged()) {

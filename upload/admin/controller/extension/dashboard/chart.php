@@ -117,13 +117,16 @@ class ControllerExtensionDashboardChart extends Controller {
         // Charts
         $this->load->model('extension/dashboard/chart');
 
-        $json['order'] = [];
-        $json['customer'] = [];
         $json['xaxis'] = [];
 
-        $json['order']['label'] = $this->language->get('text_order');
+		$json['order'] = [];
+
+		$json['order']['label'] = $this->language->get('text_order');
+		$json['order']['data'] = [];
+
+		$json['customer'] = [];
+
         $json['customer']['label'] = $this->language->get('text_customer');
-        $json['order']['data'] = [];
         $json['customer']['data'] = [];
 
         if (isset($this->request->get['range'])) {

@@ -250,6 +250,7 @@ class ControllerExtensionAdvertiseGoogle extends Controller {
         $this->load->model('extension/advertise/google');
 
         $data = [];
+
         $data['send_to'] = $this->googleshopping->getEventSnippetSendTo();
         $data['description'] = str_replace('"', '\\"', $this->model_extension_advertise_google->getHumanReadableOpenCartCategory($category_id));
 
@@ -298,6 +299,7 @@ class ControllerExtensionAdvertiseGoogle extends Controller {
         $option_map = $this->model_extension_advertise_google->getSizeAndColorOptionMap($product_info['product_id'], $this->store_id);
 
         $data = [];
+
         $data['send_to'] = $this->googleshopping->getEventSnippetSendTo();
         $data['option_map'] = json_encode($option_map);
         $data['brand'] = $product_info['manufacturer'];
@@ -339,6 +341,7 @@ class ControllerExtensionAdvertiseGoogle extends Controller {
         $this->load->model('extension/advertise/google');
 
         $data = [];
+
         $data['send_to'] = $this->googleshopping->getEventSnippetSendTo();
         $data['ecomm_totalvalue'] = $this->cart->getTotal();
         $data['ecomm_prodid'] = json_encode($this->model_extension_advertise_google->getRemarketingProductIds($this->cart->getProducts(), $this->store_id));

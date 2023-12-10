@@ -239,6 +239,7 @@ class ControllerExtensionPaymentSagepayDirect extends Controller {
                 $json['msg'] = $this->language->get('text_void_ok');
 
                 $json['data'] = [];
+
                 $json['data']['date_added'] = date('Y-m-d H:i:s');
 
                 $json['error'] = false;

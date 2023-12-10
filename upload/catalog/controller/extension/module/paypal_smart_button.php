@@ -321,6 +321,7 @@ class ControllerExtensionModulePayPalSmartButton extends Controller {
 
             if ($paypal->hasErrors()) {
                 $error_messages = [];
+
                 $errors = $paypal->getErrors();
 
                 foreach ($errors as $error) {
@@ -418,6 +419,7 @@ class ControllerExtensionModulePayPalSmartButton extends Controller {
 
         if ($paypal->hasErrors()) {
             $error_messages = [];
+
             $errors = $paypal->getErrors();
 
             foreach ($errors as $error) {

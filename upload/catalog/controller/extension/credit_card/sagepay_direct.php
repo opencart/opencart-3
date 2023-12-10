@@ -253,6 +253,7 @@ class ControllerExtensionCreditCardSagepayDirect extends Controller {
         }
 
         $payment_data = [];
+
         $payment_data['VPSProtocol'] = '3.00';
         $payment_data['ReferrerID'] = 'E511AF91-E4A0-42DE-80B0-09C981A3FB61';
         $payment_data['TxType'] = 'TOKEN';
@@ -268,6 +269,7 @@ class ControllerExtensionCreditCardSagepayDirect extends Controller {
 
         if ($response_data['Status'] == 'OK') {
             $card_data = [];
+
             $card_data['customer_id'] = $this->customer->getId();
             $card_data['Token'] = $response_data['Token'];
             $card_data['Last4Digits'] = substr(str_replace(' ', '', $payment_data['CardNumber']), -4, 4);

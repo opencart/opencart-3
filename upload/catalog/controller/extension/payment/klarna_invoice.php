@@ -365,6 +365,7 @@ class ControllerExtensionPaymentKlarnaInvoice extends Controller {
                 $xml .= '</methodCall>';
 
                 $header = [];
+
                 $header[] = 'Content-Type: text/xml';
                 $header[] = 'Content-Length: ' . strlen($xml);
 

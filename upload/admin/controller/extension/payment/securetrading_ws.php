@@ -344,8 +344,9 @@ class ControllerExtensionPaymentSecureTradingWs extends Controller {
         ];
 
         if ($response) {
+			$csv = [];
+
             $lines = array_filter(explode("\n", $response));
-            $csv = [];
             $keys = str_getcsv($lines[0]);
 
             for ($i = 1; $i < count($lines); $i++) {
@@ -510,6 +511,7 @@ class ControllerExtensionPaymentSecureTradingWs extends Controller {
                         $this->load->model('sale/order');
 
                         $history = [];
+
                         $history['order_status_id'] = $this->config->get('securetrading_ws_order_status_success_settled_id');
                         $history['comment'] = '';
                         $history['notify'] = '';
@@ -522,6 +524,7 @@ class ControllerExtensionPaymentSecureTradingWs extends Controller {
                     }
 
                     $json['data'] = [];
+
                     $json['data']['created'] = date('Y-m-d H:i:s');
                     $json['data']['amount'] = $amount;
                     $json['data']['release_status'] = $release_status;
@@ -588,6 +591,7 @@ class ControllerExtensionPaymentSecureTradingWs extends Controller {
                         $this->load->model('sale/order');
 
                         $history = [];
+
                         $history['order_status_id'] = $this->config->get('payment_securetrading_ws_refunded_order_status_id');
                         $history['comment'] = '';
                         $history['notify'] = '';
@@ -600,6 +604,7 @@ class ControllerExtensionPaymentSecureTradingWs extends Controller {
                     }
 
                     $json['data'] = [];
+
                     $json['data']['created'] = date('Y-m-d H:i:s');
                     $json['data']['amount'] = $amount * -1;
                     $json['data']['total_released'] = (double)$total_released;

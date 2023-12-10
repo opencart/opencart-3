@@ -242,9 +242,11 @@ class ModelExtensionPaymentDivido extends Model {
             $product_categories = $this->model_catalog_product->getCategories($product_id);
 
             $all_categories = [];
+
             foreach ($product_categories as $product_category) {
                 $all_categories[] = $product_category['category_id'];
             }
+
             $category_matches = array_intersect($all_categories, $divido_categories);
 
             if (!$category_matches) {

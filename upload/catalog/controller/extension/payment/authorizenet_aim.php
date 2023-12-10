@@ -127,9 +127,11 @@ class ControllerExtensionPaymentAuthorizeNetAim extends Controller {
 
             $this->log->write('AUTHNET AIM CURL ERROR: ' . curl_errno($curl) . '::' . curl_error($curl));
         } elseif ($response) {
-            $i = 1;
-            $response_info = [];
+			$response_info = [];
+
             $results = explode('|', $response);
+
+			$i = 1;
 
             foreach ($results as $result) {
                 $response_info[$i] = trim($result, '"');
