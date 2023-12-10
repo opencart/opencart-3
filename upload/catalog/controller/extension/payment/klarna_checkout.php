@@ -232,8 +232,7 @@ class ControllerExtensionPaymentKlarnaCheckout extends Controller {
 			$data['klarna_checkout'] = $html_snippet;
 
 			$this->response->setOutput($this->load->view('extension/payment/klarna_checkout_main', $data));
-		}
-		elseif (isset($this->request->post['response']) && $this->request->post['response'] == 'json') {
+		} elseif (isset($this->request->post['response']) && $this->request->post['response'] == 'json') {
 			$json['redirect'] = $redirect;
 
 			$this->response->addHeader('Content-Type: application/json');
@@ -473,8 +472,7 @@ class ControllerExtensionPaymentKlarnaCheckout extends Controller {
 					$this->tax->setShippingAddress($this->session->data['shipping_address']['country_id'], $this->session->data['shipping_address']['zone_id']);
 					$this->tax->setStoreAddress($this->config->get('config_country_id'), $this->config->get('config_zone_id'));
 				}
-			}
-			else {
+			} else {
 				$this->model_extension_payment_klarna_checkout->log('Couldnt find country: ' . $this->request->post['country']);
 			}
 		}
@@ -944,8 +942,7 @@ class ControllerExtensionPaymentKlarnaCheckout extends Controller {
 
 					$validate = false;
 				}
-			}
-			else {
+			} else {
 				$this->model_extension_payment_klarna_checkout->log('Cannot get decrypted order_id');
 
 				$validate = false;
@@ -1118,8 +1115,7 @@ class ControllerExtensionPaymentKlarnaCheckout extends Controller {
 			$this->model_checkout_order->addHistory($order_id, $this->config->get('config_order_status_id'));
 
 			http_response_code(200);
-		}
-		else {
+		} else {
 			http_response_code(303);
 			$this->response->addHeader('Location: ' . $this->url->link('checkout/failure', '', true));
 		}
@@ -1316,8 +1312,7 @@ class ControllerExtensionPaymentKlarnaCheckout extends Controller {
 
 										if ($order['fraud_status'] == 'PENDING') {
 											$order_status_id = $this->config->get('klarna_checkout_order_status_fraud_pending_id');
-										}
-										elseif ($order['fraud_status'] == 'REJECTED') {
+										} elseif ($order['fraud_status'] == 'REJECTED') {
 											$order_status_id = $this->config->get('klarna_checkout_order_status_fraud_rejected_id');
 										}
 										break;
@@ -1336,14 +1331,12 @@ class ControllerExtensionPaymentKlarnaCheckout extends Controller {
 									$this->model_checkout_order->addHistory($klarna_checkout_order['order_id'], $order_status_id);
 								}
 							}
-						}
-						else {
+						} else {
 							$this->model_extension_payment_klarna_checkout->log('Cannot retrieve KC order using order_id: ' . $this->request->get['klarna_order_id']);
 						}
 					}
 				}
-			}
-			else {
+			} else {
 				$this->model_extension_payment_klarna_checkout->log('Cannot find KC order using order_id: ' . $this->request->get['klarna_order_id']);
 			}
 		}
@@ -1356,11 +1349,9 @@ class ControllerExtensionPaymentKlarnaCheckout extends Controller {
 
 		if (!empty($this->session->data['payment_address'])) {
 			$this->session->data['payment_address'] = $this->session->data['payment_address'];
-		}
-		elseif ($this->customer->isLogged() && $this->customer->getAddressId()) {
+		} elseif ($this->customer->isLogged() && $this->customer->getAddressId()) {
 			$this->session->data['payment_address'] = $this->model_account_address->getAddress($this->customer->getAddressId());
-		}
-		else {
+		} else {
 			$country_info = $this->model_localisation_country->getCountry($this->config->get('config_country_id'));
 
 			$zone_info = $this->model_localisation_zone->getZone($this->config->get('config_zone_id'));
@@ -1497,8 +1488,7 @@ class ControllerExtensionPaymentKlarnaCheckout extends Controller {
 
 		if ($order_data['store_id']) {
 			$order_data['store_url'] = $this->config->get('config_url');
-		}
-		else {
+		} else {
 			$order_data['store_url'] = HTTP_SERVER;
 		}
 
@@ -1514,8 +1504,7 @@ class ControllerExtensionPaymentKlarnaCheckout extends Controller {
 			$order_data['email'] = $customer_info['email'];
 			$order_data['telephone'] = $customer_info['telephone'];
 			$order_data['custom_field'] = $customer_info['custom_field'];
-		}
-		elseif (isset($this->session->data['guest'])) {
+		} elseif (isset($this->session->data['guest'])) {
 			$order_data['customer_id'] = 0;
 			$order_data['customer_group_id'] = $this->session->data['guest']['customer_group_id'];
 			$order_data['firstname'] = $this->session->data['guest']['firstname'];
@@ -1541,15 +1530,13 @@ class ControllerExtensionPaymentKlarnaCheckout extends Controller {
 
 		if (isset($this->session->data['payment_method']['title'])) {
 			$order_data['payment_method'] = $this->session->data['payment_method']['title'];
-		}
-		else {
+		} else {
 			$order_data['payment_method'] = '';
 		}
 
 		if (isset($this->session->data['payment_method']['code'])) {
 			$order_data['payment_code'] = $this->session->data['payment_method']['code'];
-		}
-		else {
+		} else {
 			$order_data['payment_code'] = '';
 		}
 
@@ -1921,8 +1908,7 @@ class ControllerExtensionPaymentKlarnaCheckout extends Controller {
 
 			if ($include_taxes) {
 				$total_tax_amount = $this->currency->format($this->tax->getTax($product['price'], $product['tax_class_id']) * $product['quantity'], $currency_code, $currency_value, false) * 100;
-			}
-			else {
+			} else {
 				$total_tax_amount = 0;
 			}
 
