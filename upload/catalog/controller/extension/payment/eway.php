@@ -209,16 +209,20 @@ class ControllerExtensionPaymentEway extends Controller {
             }
 
             $is_error = false;
+
             $result = $this->model_extension_payment_eway->getAccessCodeResult($access_code);
 
             // Check if any error returns
             if (isset($result->Errors)) {
                 $is_error = true;
+
                 $lbl_error = '';
+
                 $error_array = explode(",", $result->Errors);
 
                 foreach ($error_array as $error) {
                     $error = $this->language->get('text_card_message_' . $error);
+
                     $lbl_error .= $error . ", ";
                 }
 
@@ -230,8 +234,10 @@ class ControllerExtensionPaymentEway extends Controller {
 
                 if (!$result->TransactionStatus) {
                     $is_error = true;
+
                     $lbl_error = '';
                     $log_error = '';
+
                     $error_array = explode(", ", $result->ResponseMessage);
 
                     foreach ($error_array as $error) {
@@ -312,7 +318,7 @@ class ControllerExtensionPaymentEway extends Controller {
                     $this->model_checkout_order->addHistory($order_id, $this->config->get('payment_eway_order_status_auth_id'), $message);
                 }
 
-                if (!empty($result->Customer->TokenCustomerID) && $this->customer->isLogged() && !$this->model_extension_payment_eway->checkToken($result->Customer->TokenCustomerID)) {
+                if (!empty($result->Customer->TokenCustomerID) && $this->customer->isLogged() && isset($this->request->get['customer_token']) && $this->request->get['customer_token'] == $this->session->data['customer_token'] && !$this->model_extension_payment_eway->checkToken($result->Customer->TokenCustomerID)) {
                     $card_data = [];
 
                     $card_data['customer_id'] = $this->customer->getId();
