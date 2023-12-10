@@ -6,6 +6,7 @@
  */
 class ControllerCustomerCustomerGroup extends Controller {
     private array $error = [];
+
 	/**
 	 * @return void
 	 */

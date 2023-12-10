@@ -6,6 +6,7 @@
  */
 class ControllerExtensionPaymentRealexRemote extends Controller {
     private array $error = [];
+
 	/**
 	 * @return void
 	 */

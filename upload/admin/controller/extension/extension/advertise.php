@@ -6,6 +6,7 @@
  */
 class ControllerExtensionExtensionAdvertise extends Controller {
     private array $error = [];
+
 	/**
 	 * @return void
 	 */

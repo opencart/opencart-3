@@ -6,6 +6,7 @@
  */
 class ControllerExtensionModuleSagepayServerCards extends Controller {
     private array $error = [];
+
 	/**
 	 * @return void
 	 */

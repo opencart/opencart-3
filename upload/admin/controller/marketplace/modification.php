@@ -9,6 +9,7 @@
  */
 class ControllerMarketplaceModification extends Controller {
     private array $error = [];
+
 	/**
 	 * @return void
 	 */

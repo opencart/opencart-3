@@ -6,6 +6,7 @@
  */
 class ControllerExtensionAnalyticsGoogle extends Controller {
     private array $error = [];
+
 	/**
 	 * @return void
 	 */

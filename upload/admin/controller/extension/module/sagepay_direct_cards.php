@@ -6,6 +6,7 @@
  */
 class ControllerExtensionModuleSagepayDirectCards extends Controller {
     private array $error = [];
+
 	/**
 	 * @return void
 	 */

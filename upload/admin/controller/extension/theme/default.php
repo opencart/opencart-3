@@ -6,6 +6,7 @@
  */
 class ControllerExtensionThemeDefault extends Controller {
     private array $error = [];
+
 	/**
 	 * @return void
 	 */

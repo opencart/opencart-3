@@ -6,6 +6,7 @@
  */
 class ControllerExtensionModuleSubscription extends Controller {
     private array $error = [];
+	
 	/**
 	 * @return void
 	 */

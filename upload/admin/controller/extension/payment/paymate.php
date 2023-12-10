@@ -6,6 +6,7 @@
  */
 class ControllerExtensionPaymentPayMate extends Controller {
     private array $error = [];
+
 	/**
 	 * @return void
 	 */

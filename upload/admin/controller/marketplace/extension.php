@@ -6,6 +6,7 @@
  */
 class ControllerMarketplaceExtension extends Controller {
     private array $error = [];
+
 	/**
 	 * @return void
 	 */

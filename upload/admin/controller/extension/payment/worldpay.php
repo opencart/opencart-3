@@ -6,6 +6,7 @@
  */
 class ControllerExtensionPaymentWorldpay extends Controller {
     private array $error = [];
+
 	/**
 	 * @return void
 	 */

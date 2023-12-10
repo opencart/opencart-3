@@ -6,6 +6,7 @@
  */
 class ControllerLocalisationReturnsReason extends Controller {
     private array $error = [];
+
 	/**
 	 * @return void
 	 */

@@ -7,6 +7,7 @@
 class ControllerExtensionModuleAmazonPay extends Controller {
     private string $version = '3.2.1';
     private array $error = [];
+
 	/**
 	 * @return void
 	 */

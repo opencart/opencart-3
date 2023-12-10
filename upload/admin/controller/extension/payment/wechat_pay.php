@@ -13,6 +13,7 @@
  */
 class ControllerExtensionPaymentWechatPay extends Controller {
     private array $error = [];
+
 	/**
 	 * @return void
 	 */

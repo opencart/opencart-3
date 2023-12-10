@@ -6,6 +6,7 @@
  */
 class ControllerSettingSetting extends Controller {
     private array $error = [];
+
 	/**
 	 * @return void
 	 */

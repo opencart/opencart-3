@@ -6,6 +6,7 @@
  */
 class ControllerExtensionPaymentLiqPay extends Controller {
     private array $error = [];
+
 	/**
 	 * @return void
 	 */

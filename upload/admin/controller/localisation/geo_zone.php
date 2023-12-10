@@ -6,6 +6,7 @@
  */
 class ControllerLocalisationGeoZone extends Controller {
     private array $error = [];
+
 	/**
 	 * @return void
 	 */

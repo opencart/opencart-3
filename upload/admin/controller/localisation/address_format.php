@@ -6,6 +6,7 @@
  */
 class ControllerLocalisationAddressFormat extends Controller {
     private array $error = [];
+
 	/**
 	 * @return void
 	 */

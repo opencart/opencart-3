@@ -6,6 +6,7 @@
  */
 class ControllerExtensionShippingRoyalMail extends Controller {
     private array $error = [];
+
 	/**
 	 * @return void
 	 */

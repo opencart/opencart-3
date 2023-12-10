@@ -6,6 +6,7 @@
  */
 class ControllerExtensionPaymentAlipay extends Controller {
     private array $error = [];
+
 	/**
 	 * @return void
 	 */

@@ -6,6 +6,7 @@
  */
 class ControllerExtensionTotalVoucher extends Controller {
     private array $error = [];
+
 	/**
 	 * @return void
 	 */

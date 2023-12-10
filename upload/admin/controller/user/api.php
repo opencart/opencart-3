@@ -6,6 +6,7 @@
  */
 class ControllerUserApi extends Controller {
     private array $error = [];
+
 	/**
 	 * @return void
 	 */

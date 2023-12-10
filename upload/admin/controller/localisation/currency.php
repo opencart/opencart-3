@@ -6,6 +6,7 @@
  */
 class ControllerLocalisationCurrency extends Controller {
     private array $error = [];
+
 	/**
 	 * @return void
 	 */

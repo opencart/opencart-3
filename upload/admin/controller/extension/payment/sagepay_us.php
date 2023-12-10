@@ -6,6 +6,7 @@
  */
 class ControllerExtensionPaymentSagepayUS extends Controller {
     private array $error = [];
+
 	/**
 	 * @return void
 	 */

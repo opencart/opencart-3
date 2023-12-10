@@ -6,6 +6,7 @@
  */
 class ControllerExtensionPaymentPayPal extends Controller {
     private array $error = [];
+
 	/**
 	 * @return void
 	 */

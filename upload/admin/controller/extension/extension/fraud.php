@@ -6,6 +6,7 @@
  */
 class ControllerExtensionExtensionFraud extends Controller {
     private array $error = [];
+
 	/**
 	 * @return void
 	 */

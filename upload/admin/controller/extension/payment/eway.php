@@ -6,6 +6,7 @@
  */
 class ControllerExtensionPaymentEway extends Controller {
     private array $error = [];
+
 	/**
 	 * @return void
 	 */

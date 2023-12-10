@@ -6,6 +6,7 @@
  */
 class ControllerCommonReset extends Controller {
     private array $error = [];
+
 	/**
 	 * @return object|null
 	 */

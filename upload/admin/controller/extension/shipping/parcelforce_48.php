@@ -6,6 +6,7 @@
  */
 class ControllerExtensionShippingParcelforce48 extends Controller {
     private array $error = [];
+
 	/**
 	 * @return void
 	 */

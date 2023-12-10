@@ -6,6 +6,7 @@
  */
 class ControllerExtensionPaymentAuthorizeNetSim extends Controller {
     private array $error = [];
+
 	/**
 	 * @return void
 	 */

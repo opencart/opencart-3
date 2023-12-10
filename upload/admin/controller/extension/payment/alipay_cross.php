@@ -6,6 +6,7 @@
  */
 class ControllerExtensionPaymentAlipayCross extends Controller {
     private array $error = [];
+
     private array $currencies = [
         'GBP',
         'HKD',
@@ -23,6 +24,7 @@ class ControllerExtensionPaymentAlipayCross extends Controller {
         'KRW',
         'THB'
     ];
+
 	/**
 	 * @return void
 	 */

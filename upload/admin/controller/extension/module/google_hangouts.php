@@ -6,6 +6,7 @@
  */
 class ControllerExtensionModuleGoogleHangouts extends Controller {
     private array $error = [];
+
 	/**
 	 * @return void
 	 */

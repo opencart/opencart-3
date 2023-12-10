@@ -6,6 +6,7 @@
  */
 class ControllerExtensionModuleHTML extends Controller {
     private array $error = [];
+
 	/**
 	 * @return void
 	 */

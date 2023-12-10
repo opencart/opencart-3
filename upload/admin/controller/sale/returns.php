@@ -6,6 +6,7 @@
  */
 class ControllerSaleReturns extends Controller {
     private array $error = [];
+
 	/**
 	 * @return void
 	 */

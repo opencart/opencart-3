@@ -6,6 +6,7 @@
  */
 class ControllerExtensionExtensionReport extends Controller {
     private array $error = [];
+
 	/**
 	 * @return void
 	 */

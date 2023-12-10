@@ -6,6 +6,7 @@
  */
 class ControllerExtensionTotalSubTotal extends Controller {
     private array $error = [];
+
 	/**
 	 * @return void
 	 */

@@ -6,6 +6,7 @@
  */
 class ControllerCustomerCustomField extends Controller {
     private array $error = [];
+
 	/**
 	 * @return void
 	 */

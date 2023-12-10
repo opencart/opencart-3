@@ -6,6 +6,7 @@
  */
 class ControllerExtensionTotalCoupon extends Controller {
     private array $error = [];
+
 	/**
 	 * @return void
 	 */

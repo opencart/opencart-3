@@ -6,6 +6,7 @@
  */
 class ControllerCommonProfile extends Controller {
     private array $error = [];
+
 	/**
 	 * @return void
 	 */

@@ -6,6 +6,7 @@
  */
 class ControllerExtensionModuleLaybuyLayout extends Controller {
     private array $error = [];
+
 	/**
 	 * @return void
 	 */

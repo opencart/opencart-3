@@ -6,6 +6,7 @@
  */
 class ControllerExtensionPaymentSecureTradingWs extends Controller {
     private array $error = [];
+
 	/**
 	 * @return void
 	 */

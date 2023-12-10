@@ -6,6 +6,7 @@
  */
 class ControllerExtensionExtensionFeed extends Controller {
     private array $error = [];
+
 	/**
 	 * @return void
 	 */

@@ -6,6 +6,7 @@
  */
 class ControllerToolLog extends Controller {
     private array $error = [];
+
 	/**
 	 * @return void
 	 */

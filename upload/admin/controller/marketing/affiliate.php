@@ -6,6 +6,7 @@
  */
 class ControllerMarketingAffiliate extends Controller {
     private array $error = [];
+
 	/**
 	 * @return void
 	 */

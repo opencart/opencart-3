@@ -6,6 +6,7 @@
  */
 class ControllerExtensionDashboardCustomer extends Controller {
     private array $error = [];
+
 	/**
 	 * @return void
 	 */

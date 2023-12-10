@@ -6,6 +6,7 @@
  */
 class ControllerExtensionTotalShipping extends Controller {
     private array $error = [];
+
 	/**
 	 * @return void
 	 */

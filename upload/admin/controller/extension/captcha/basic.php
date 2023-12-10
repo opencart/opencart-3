@@ -6,6 +6,7 @@
  */
 class ControllerExtensionCaptchaBasic extends Controller {
     private array $error = [];
+
 	/**
 	 * @return void
 	 */

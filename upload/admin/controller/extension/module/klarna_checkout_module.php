@@ -6,6 +6,7 @@
  */
 class ControllerExtensionModuleKlarnaCheckoutModule extends Controller {
     private array $error = [];
+
 	/**
 	 * @return void
 	 */

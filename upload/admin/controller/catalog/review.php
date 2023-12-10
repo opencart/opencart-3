@@ -6,6 +6,7 @@
  */
 class ControllerCatalogReview extends Controller {
     private array $error = [];
+
 	/**
 	 * @return void
 	 */

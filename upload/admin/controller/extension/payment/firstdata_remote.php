@@ -6,6 +6,7 @@
  */
 class ControllerExtensionPaymentFirstdataRemote extends Controller {
     private array $error = [];
+
 	/**
 	 * @return void
 	 */

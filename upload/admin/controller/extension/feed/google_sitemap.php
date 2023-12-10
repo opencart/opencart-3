@@ -6,6 +6,7 @@
  */
 class ControllerExtensionFeedGoogleSitemap extends Controller {
     private array $error = [];
+
 	/**
 	 * @return void
 	 */

@@ -6,6 +6,7 @@
  */
 class ControllerUserUserPermission extends Controller {
     private array $error = [];
+
 	/**
 	 * @return void
 	 */

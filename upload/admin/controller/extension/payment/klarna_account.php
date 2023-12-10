@@ -6,7 +6,9 @@
  */
 class ControllerExtensionPaymentKlarnaAccount extends Controller {
     private array $error = [];
+
     private array $pclasses = [];
+
 	/**
 	 * @return void
 	 */

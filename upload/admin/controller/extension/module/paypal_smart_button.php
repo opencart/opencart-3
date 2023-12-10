@@ -6,6 +6,7 @@
  */
 class ControllerExtensionModulePayPalSmartButton extends Controller {
     private array $error = [];
+
 	/**
 	 * @return void
 	 */

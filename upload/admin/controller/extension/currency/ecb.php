@@ -6,6 +6,7 @@
  */
 class ControllerExtensionCurrencyEcb extends Controller {
     private array $error = [];
+
 	/**
 	 * @return void
 	 */

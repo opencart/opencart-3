@@ -6,6 +6,7 @@
  */
 class ControllerExtensionPaymentPayza extends Controller {
     private array $error = [];
+
 	/**
 	 * @return void
 	 */

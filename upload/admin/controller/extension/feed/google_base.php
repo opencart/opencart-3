@@ -6,6 +6,7 @@
  */
 class ControllerExtensionFeedGoogleBase extends Controller {
     private array $error = [];
+
 	/**
 	 * @return void
 	 */
