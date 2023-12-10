@@ -6,9 +6,9 @@
  */
 class ControllerStartupMaintenance extends Controller {
 	/**
-	 * @return object|null
+	 * @return object|\Action|null
 	 */
-    public function index(): object|null {
+    public function index(): ?object {
         if ($this->config->get('config_maintenance')) {
             // Route
             if (isset($this->request->get['route'])) {

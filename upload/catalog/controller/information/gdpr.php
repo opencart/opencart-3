@@ -6,9 +6,9 @@
  */
 class ControllerInformationGdpr extends Controller {
 	/**
-	 * @return object|null
+	 * @return object|\Action|null
 	 */
-    public function index(): object|null {
+    public function index(): ?object {
         // Information
         $this->load->model('catalog/information');
 
@@ -144,9 +144,9 @@ class ControllerInformationGdpr extends Controller {
 	/**
 	 * Success
 	 *
-	 * @return object|null
+	 * @return object|\Action|null
 	 */
-    public function success(): object|null {
+    public function success(): ?object {
         if (isset($this->request->get['code'])) {
             $code = (string)$this->request->get['code'];
         } else {
