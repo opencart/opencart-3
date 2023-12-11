@@ -6,11 +6,11 @@
  */
 class ControllerExtensionPaymentBluePayHosted extends Controller {
 	/**
-	 * @return bool|string
+	 * @return string
 	 */
-    public function index(): bool|string {
+    public function index(): string {
         if (!isset($this->session->data['order_id'])) {
-            return false;
+            return '';
         }
 
         $this->load->language('extension/payment/bluepay_hosted');

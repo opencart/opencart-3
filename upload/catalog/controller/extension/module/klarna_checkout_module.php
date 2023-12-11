@@ -6,23 +6,23 @@
  */
 class ControllerExtensionModuleKlarnaCheckoutModule extends Controller {
 	/**
-	 * @return bool|string
+	 * @return string
 	 */
-	public function index(): bool|string {
+	public function index(): string {
 		$this->load->model('extension/payment/klarna_checkout');
 
 		// If Payment Method or Module is disabled
 		if (!$this->config->get('module_klarna_checkout_status') || !$this->config->get('klarna_checkout_status')) {
 			$this->model_extension_payment_klarna_checkout->log('Not shown due to Payment Method or Module being disabled');
 
-			return false;
+			return '';
 		}
 
 		// Validate cart has products and has stock.
 		if ((!$this->cart->hasProducts() && empty($this->session->data['vouchers'])) || (!$this->cart->hasStock() && !$this->config->get('config_stock_checkout'))) {
 			$this->model_extension_payment_klarna_checkout->log('Not shown due to empty cart');
 
-			return false;
+			return '';
 		}
 
 		// Validate minimum quantity requirements.
@@ -40,7 +40,7 @@ class ControllerExtensionModuleKlarnaCheckoutModule extends Controller {
 			if ($product['minimum'] > $product_total) {
 				$this->model_extension_payment_klarna_checkout->log('Not shown due to cart not meeting minimum quantity reqs.');
 
-				return false;
+				return '';
 			}
 		}
 
@@ -48,19 +48,19 @@ class ControllerExtensionModuleKlarnaCheckoutModule extends Controller {
 		if ($this->cart->hasRecurringProducts()) {
 			$this->model_extension_payment_klarna_checkout->log('Not shown due to cart having recurring products.');
 
-			return false;
+			return '';
 		}
 
 		[$totals, $taxes, $total] = $this->model_extension_payment_klarna_checkout->getTotals();
 
 		if ($this->config->get('klarna_checkout_total') > 0 && $this->config->get('klarna_checkout_total') > $total) {
-			return false;
+			return '';
 		}
 
 		if ($this->model_extension_payment_klarna_checkout->checkForPaymentTaxes($products)) {
 			$this->model_extension_payment_klarna_checkout->log('Payment Address based taxes used.');
 
-			return false;
+			return '';
 		}
 
 		$this->setShipping();
@@ -70,7 +70,7 @@ class ControllerExtensionModuleKlarnaCheckoutModule extends Controller {
 		if (!$klarna_account || !$connector) {
 			$this->model_extension_payment_klarna_checkout->log('Couldn\'t secure connection to Klarna API.');
 
-			return false;
+			return '';
 		}
 
 		$data['klarna_checkout'] = $this->url->link('extension/payment/klarna_checkout', '', true);

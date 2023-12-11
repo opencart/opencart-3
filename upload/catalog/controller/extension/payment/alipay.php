@@ -6,11 +6,11 @@
  */
 class ControllerExtensionPaymentAlipay extends Controller {
 	/**
-	 * @return bool|string
+	 * @return string
 	 */
-    public function index(): bool|string {
+    public function index(): string {
         if (!isset($this->session->data['order_id'])) {
-            return false;
+            return '';
         }
 
         $data['button_confirm'] = $this->language->get('button_confirm');
@@ -32,8 +32,11 @@ class ControllerExtensionPaymentAlipay extends Controller {
         ];
 
         $out_trade_no = $order_info['order_id'];
+
         $subject = trim($this->config->get('config_name'));
+
         $total_amount = $this->currency->format($order_info['total'], 'CNY', '', false);
+
         $body = '';//trim($_POST['WIDbody']);
 
         $payRequestBuilder = [
