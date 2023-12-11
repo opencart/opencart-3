@@ -5,6 +5,13 @@
  * @package Catalog\Model\Extension\Fraud
  */
 class ModelExtensionFraudFraudLabsPro extends Model {
+	/**
+	 * Check
+	 *
+	 * @param array $data
+	 *
+	 * @return int
+	 */
     public function check(array $data): int {
         // Do not perform fraud check if FraudLabs Pro is disabled or API key is not provided.
         if (!$this->config->get('fraud_fraudlabspro_status') || !$this->config->get('fraud_fraudlabspro_key')) {
@@ -36,6 +43,8 @@ class ModelExtensionFraudFraudLabsPro extends Model {
         if (filter_var($this->config->get('fraud_fraudlabspro_simulate_ip'), FILTER_VALIDATE_IP)) {
             $ip = $this->config->get('fraud_fraudlabspro_simulate_ip');
         }
+
+		$request = [];
 
         $request['key'] = $this->config->get('fraud_fraudlabspro_key');
         $request['ip'] = $ip;
@@ -155,8 +164,17 @@ class ModelExtensionFraudFraudLabsPro extends Model {
         if ($json->fraudlabspro_status == 'REJECT') {
             return $this->config->get('fraud_fraudlabspro_reject_status_id');
         }
+
+		return 0;
     }
 
+	/**
+	 * getStatus
+	 *
+	 * @param int $order_id
+	 *
+	 * @return int
+	 */
     public function getStatus(int $order_id): int {
         $query = $this->db->query("SELECT `fraudlabspro_status` FROM `" . DB_PREFIX . "fraudlabspro` WHERE `order_id` = '" . (int)$order_id . "'");
 

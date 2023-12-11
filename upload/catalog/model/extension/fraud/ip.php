@@ -5,6 +5,13 @@
  * @package Catalog\Model\Extension\Fraud
  */
 class ModelExtensionFraudIp extends Model {
+	/**
+	 * Check
+	 *
+	 * @param array $order_info
+	 *
+	 * @return int
+	 */
     public function check(array $order_info): int {
         $status = false;
 

@@ -5,7 +5,15 @@
  * @package Catalog\Model\Extension\Advertise
  */
 class ModelExtensionAdvertiseGoogle extends Model {
-    public function getHumanReadableCategory($product_id, $store_id) {
+	/**
+	 * getHumanReadableCategory
+	 *
+	 * @param int $product_id
+	 * @param int $store_id
+	 *
+	 * @return string
+	 */
+    public function getHumanReadableCategory(int $product_id, int $store_id): string {
         $this->load->config('googleshopping/googleshopping');
 
         $google_category_result = $this->db->query("SELECT `google_product_category` FROM `" . DB_PREFIX . "googleshopping_product` `pag` WHERE `pag`.`product_id` = '" . (int)$product_id . "' AND `pag`.`store_id` = '" . (int)$store_id . "'");
@@ -28,7 +36,14 @@ class ModelExtensionAdvertiseGoogle extends Model {
         return '';
     }
 
-    public function getHumanReadableOpenCartCategory($category_id) {
+	/**
+	 * getHumanReadableOpenCartCategory
+	 *
+	 * @param int $category_id
+	 *
+	 * @return string
+	 */
+    public function getHumanReadableOpenCartCategory(int $category_id): string {
         $sql = "SELECT GROUP_CONCAT(`cd`.`name` ORDER BY `cp`.`level` SEPARATOR ' > ') AS `path` FROM `" . DB_PREFIX . "category_path` `cp` LEFT JOIN `" . DB_PREFIX . "category_description` `cd` ON (`cp`.`path_id` = `cd`.`category_id`) WHERE `cd`.`language_id` = '" . (int)$this->config->get('config_language_id') . "' AND `cp`.`category_id` = '" . (int)$category_id . "'";
 
         $result = $this->db->query($sql);
@@ -40,7 +55,15 @@ class ModelExtensionAdvertiseGoogle extends Model {
         return '';
     }
 
-    public function getSizeAndColorOptionMap($product_id, $store_id) {
+	/**
+	 * getSizeAndColorOptionMap
+	 *
+	 * @param int $product_id
+	 * @param int $category_id
+	 *
+	 * @return array
+	 */
+    public function getSizeAndColorOptionMap(int $product_id, int $store_id): array {
         $color_id = $this->getOptionId($product_id, $store_id, 'color');
         $size_id = $this->getOptionId($product_id, $store_id, 'size');
 
@@ -57,19 +80,34 @@ class ModelExtensionAdvertiseGoogle extends Model {
         return $map;
     }
 
-    public function getCoupon($order_id) {
+	/**
+	 * getCoupon
+	 *
+	 * @param int $order_id
+	 *
+	 * @return string
+	 */
+    public function getCoupon(int $order_id): string {
         $sql = "SELECT `c`.`code` FROM `" . DB_PREFIX . "coupon_history` `ch` LEFT JOIN `" . DB_PREFIX . "coupon` `c` ON (`c`.`coupon_id` = `ch`.`coupon_id`) WHERE `ch`.`order_id` = '" . (int)$order_id . "'";
 
         $result = $this->db->query($sql);
 
         if ($result->num_rows > 0) {
             return $result->row['code'];
-        }
-
-        return null;
+        } else {
+			return '';
+		}
     }
 
-    public function getRemarketingProductIds($products, $store_id) {
+	/**
+	 * getRemarketingProductIds
+	 *
+	 * @param array $products
+	 * @param int   $store_id
+	 *
+	 * @return array
+	 */
+    public function getRemarketingProductIds(array $products, int $store_id): array {
         $ecomm_prodid = [];
 
         foreach ($products as $product) {
@@ -81,7 +119,15 @@ class ModelExtensionAdvertiseGoogle extends Model {
         return $ecomm_prodid;
     }
 
-    public function getRemarketingItems($products, $store_id) {
+	/**
+	 * getRemarketingItems
+	 *
+	 * @param array $products
+	 * @param int   $store_id
+	 *
+	 * @return array
+	 */
+    public function getRemarketingItems(array $products, int $store_id): array {
         $items = [];
 
         foreach ($products as $product) {

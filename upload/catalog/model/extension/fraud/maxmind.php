@@ -5,6 +5,13 @@
  * @package Catalog\Model\Extension\Fraud
  */
 class ModelExtensionFraudMaxMind extends Model {
+	/**
+	 * Check
+	 *
+	 * @param array $order_info
+	 *
+	 * @return int
+	 */
     public function check(array $order_info): int {
         $risk_score = 0;
 
@@ -71,10 +78,7 @@ class ModelExtensionFraudMaxMind extends Model {
                 $parts = explode(';', $response);
 
                 foreach ($parts as $part) {
-                    [
-                        $key,
-                        $value
-                    ] = explode('=', $part);
+                    [$key,$value] = explode('=', $part);
 
                     $response_info[$key] = $value;
                 }
