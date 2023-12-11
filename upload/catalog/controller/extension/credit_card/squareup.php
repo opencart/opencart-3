@@ -5,6 +5,9 @@
  * @package Catalog\Controller\Extension\CreditCard
  */
 class ControllerExtensionCreditCardSquareup extends Controller {
+	/**
+	 * @return void
+	 */
     public function index(): void {
         if (!$this->customer->isLogged()) {
             $this->session->data['redirect'] = $this->url->link('account/account', '', true);
@@ -75,6 +78,11 @@ class ControllerExtensionCreditCardSquareup extends Controller {
         $this->response->setOutput($this->load->view('extension/credit_card/squareup', $data));
     }
 
+	/**
+	 * Forget
+	 *
+	 * @return void
+	 */
     public function forget(): void {
         if (!$this->customer->isLogged()) {
             $this->session->data['redirect'] = $this->url->link('account/account', '', true);
@@ -87,6 +95,7 @@ class ControllerExtensionCreditCardSquareup extends Controller {
         // Sagepay Server
         $this->load->model('extension/credit_card/squareup');
 
+		// Squareup
         $this->load->library('squareup');
 
         $squareup_token_id = !empty($this->request->get['squareup_token_id']) ? $this->request->get['squareup_token_id'] : 0;

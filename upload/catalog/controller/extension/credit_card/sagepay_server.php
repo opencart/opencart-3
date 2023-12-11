@@ -5,6 +5,9 @@
  * @package Catalog\Controller\Extension\CreditCard
  */
 class ControllerExtensionCreditCardSagepayServer extends Controller {
+	/**
+	 * @return void
+	 */
     public function index(): void {
         if (!$this->customer->isLogged()) {
             $this->session->data['redirect'] = $this->url->link('account/account', '', true);
@@ -85,6 +88,9 @@ class ControllerExtensionCreditCardSagepayServer extends Controller {
         $this->response->setOutput($this->load->view('extension/credit_card/sagepay_server_list', $data));
     }
 
+	/**
+	 * @return void
+	 */
     public function delete(): void {
         $this->load->language('extension/credit_card/sagepay_server');
 
@@ -122,6 +128,11 @@ class ControllerExtensionCreditCardSagepayServer extends Controller {
         $this->response->redirect($this->url->link('extension/credit_card/sagepay_server', '', true));
     }
 
+	/**
+	 * addCard
+	 *
+	 * @return void
+	 */
     public function addCard(): void {
         $this->load->language('extension/payment/sagepay_server');
 
@@ -174,7 +185,12 @@ class ControllerExtensionCreditCardSagepayServer extends Controller {
         $this->response->setOutput(json_encode($json));
     }
 
-    public function callback() {
+	/**
+	 * Callback
+	 *
+	 * @return void
+	 */
+    public function callback(): void {
         // Orders
         $this->load->model('checkout/order');
 
@@ -277,6 +293,11 @@ class ControllerExtensionCreditCardSagepayServer extends Controller {
         echo "RedirectURL=" . $success_page . $end_ln;
     }
 
+	/**
+	 * Success
+	 *
+	 * @return void
+	 */
     public function success(): void {
         // Sagepay Server
         $this->load->model('extension/payment/sagepay_server');
@@ -288,6 +309,11 @@ class ControllerExtensionCreditCardSagepayServer extends Controller {
         $this->response->redirect($this->url->link('extension/credit_card/sagepay_server', '', true));
     }
 
+	/**
+	 * Failure
+	 *
+	 * @return void
+	 */
     public function failure(): void {
         // Sagepay Server
         $this->load->model('extension/payment/sagepay_server');

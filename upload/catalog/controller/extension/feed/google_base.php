@@ -5,6 +5,9 @@
  * @package Catalog\Controller\Extension\Feed
  */
 class ControllerExtensionFeedGoogleBase extends Controller {
+	/**
+	 * @return void
+	 */
     public function index(): void {
         if ($this->config->get('feed_google_base_status')) {
             $output = '<?xml version="1.0" encoding="UTF-8" ?>';

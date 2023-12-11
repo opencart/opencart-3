@@ -5,6 +5,11 @@
  * @package Catalog\Controller\Extension\Currency
  */
 class ControllerExtensionCurrencyEcb extends Controller {
+	/**
+	 * Refresh
+	 *
+	 * @return bool
+	 */
     public function refresh(): bool {
         // This method can be called as a CRON task
         if (!$this->config->get('currency_ecb_status')) {
@@ -56,7 +61,10 @@ class ControllerExtensionCurrencyEcb extends Controller {
             }
 
             if ($currencies) {
+				// Currencies
                 $this->load->model('localisation/currency');
+
+				// ECB
                 $this->load->model('extension/currency/ecb');
 
                 $default = $this->config->get('config_currency');

@@ -5,6 +5,9 @@
  * @package Catalog\Controller\Extension\CreditCard
  */
 class ControllerExtensionCreditCardSagepayDirect extends Controller {
+	/**
+	 * @return void
+	 */
     public function index(): void {
         if (!$this->customer->isLogged()) {
             $this->session->data['redirect'] = $this->url->link('account/account', '', true);
@@ -86,6 +89,11 @@ class ControllerExtensionCreditCardSagepayDirect extends Controller {
         $this->response->setOutput($this->load->view('extension/credit_card/sagepay_direct_list', $data));
     }
 
+	/**
+	 * Add
+	 *
+	 * @return void
+	 */
     public function add(): void {
         if (!$this->customer->isLogged()) {
             $this->session->data['redirect'] = $this->url->link('account/account', '', true);
@@ -201,6 +209,11 @@ class ControllerExtensionCreditCardSagepayDirect extends Controller {
         $this->response->setOutput($this->load->view('extension/credit_card/sagepay_direct_form', $data));
     }
 
+	/**
+	 * Delete
+	 *
+	 * @return void
+	 */
     public function delete(): void {
         $this->load->language('extension/credit_card/sagepay_direct');
 
@@ -215,6 +228,8 @@ class ControllerExtensionCreditCardSagepayDirect extends Controller {
             } else {
                 $url = 'https://test.sagepay.com/gateway/service/removetoken.vsp';
             }
+
+			$payment_data = [];
 
             $payment_data['VPSProtocol'] = '3.00';
             $payment_data['Vendor'] = $this->config->get('payment_sagepay_direct_vendor');
@@ -237,6 +252,11 @@ class ControllerExtensionCreditCardSagepayDirect extends Controller {
         $this->response->redirect($this->url->link('acredit_card/sagepay_direct', '', true));
     }
 
+	/**
+	 * addCard
+	 *
+	 * @return void
+	 */
     public function addCard(): void {
         $this->load->language('extension/credit_card/sagepay_direct');
 

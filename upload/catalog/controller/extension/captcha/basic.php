@@ -5,6 +5,13 @@
  * @package Catalog\Controller\Extension\Captcha
  */
 class ControllerExtensionCaptchaBasic extends Controller {
+	/**
+	 * @param array $error
+	 *
+	 * @return string
+	 *
+	 * catalog/view/checkout/cart/after
+	 */
     public function index(array $error = []): string {
         $this->load->language('extension/captcha/basic');
 
@@ -21,14 +28,26 @@ class ControllerExtensionCaptchaBasic extends Controller {
         return $this->load->view('extension/captcha/basic', $data);
     }
 
-    public function validate() {
+	/**
+	 * Validate
+	 *
+	 * @return string
+	 */
+    public function validate(): string {
         $this->load->language('extension/captcha/basic');
 
         if (empty($this->session->data['captcha']) || ($this->session->data['captcha'] != $this->request->post['captcha'])) {
             return $this->language->get('error_captcha');
-        }
+        } else {
+			return '';
+		}
     }
 
+	/**
+	 * Captcha
+	 *
+	 * @return void
+	 */
     public function captcha(): void {
         $image = imagecreatetruecolor(150, 35);
         $width = imagesx($image);

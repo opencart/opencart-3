@@ -5,6 +5,11 @@
  * @package Catalog\Controller\Extension\Captcha
  */
 class ControllerExtensionCaptchaGoogle extends Controller {
+	/**
+	 * @param array $error
+	 *
+	 * @return string
+	 */
     public function index(array $error = []): string {
         $this->load->language('extension/captcha/google');
 
@@ -20,6 +25,11 @@ class ControllerExtensionCaptchaGoogle extends Controller {
         return $this->load->view('extension/captcha/google', $data);
     }
 
+	/**
+	 * Validate
+	 *
+	 * @return string
+	 */
     public function validate() {
         if (empty($this->session->data['gcaptcha'])) {
             $this->load->language('extension/captcha/google');
