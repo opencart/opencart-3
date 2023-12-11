@@ -78,7 +78,7 @@ class ModelExtensionFraudMaxMind extends Model {
                 $parts = explode(';', $response);
 
                 foreach ($parts as $part) {
-                    [$key,$value] = explode('=', $part);
+                    [$key, $value] = explode('=', $part);
 
                     $response_info[$key] = $value;
                 }
