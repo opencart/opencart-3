@@ -32,12 +32,12 @@ class ModelExtensionFraudFraudLabsPro extends Model {
 
         $ip = $data['ip'];
 
-        // Detect client IP is store is behind CloudFlare protection.
+        // Detect client IP if stored behind CloudFlare protection.
         if (isset($_SERVER['HTTP_CF_CONNECTING_IP']) && filter_var($_SERVER['HTTP_CF_CONNECTING_IP'], FILTER_VALIDATE_IP)) {
             $ip = $_SERVER['HTTP_CF_CONNECTING_IP'];
         }
 
-        // Get real client IP is they are behind proxy server.
+        // Get real client IP if they are behind proxy server.
         if (isset($_SERVER['HTTP_X_FORWARDED_FOR']) && filter_var($_SERVER['HTTP_X_FORWARDED_FOR'], FILTER_VALIDATE_IP)) {
             $ip = $_SERVER['HTTP_X_FORWARDED_FOR'];
         }
