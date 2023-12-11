@@ -5,6 +5,9 @@
  * @package Catalog\Controller\Extension\Payment
  */
 class ControllerExtensionPaymentPilibaba extends Controller {
+	/**
+	 * @return string
+	 */
     public function index(): string {
         if (!isset($this->session->data['order_id'])) {
             return false;
@@ -73,6 +76,11 @@ class ControllerExtensionPaymentPilibaba extends Controller {
         return $this->load->view('extension/payment/pilibaba', $data);
     }
 
+	/**
+	 * Express
+	 *
+	 * @return void
+	 */
     public function express(): void {
         $this->load->language('extension/payment/pilibaba');
         $this->load->language('extension/shipping/pilibaba');
@@ -370,6 +378,11 @@ class ControllerExtensionPaymentPilibaba extends Controller {
         }
     }
 
+	/**
+	 * Callback
+	 *
+	 * @return void
+	 */
     public function callback(): void {
         $this->load->language('extension/payment/pilibaba');
 

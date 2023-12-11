@@ -5,6 +5,9 @@
  * @package Catalog\Controller\Extension\Payment
  */
 class ControllerExtensionPaymentCardConnect extends Controller {
+	/**
+	 * @return string
+	 */
     public function index(): string {
         $this->load->language('extension/payment/cardconnect');
 
@@ -29,6 +32,11 @@ class ControllerExtensionPaymentCardConnect extends Controller {
         return $this->load->view('extension/payment/cardconnect', $data);
     }
 
+	/**
+	 * Send
+	 *
+	 * @return void
+	 */
     public function send(): void {
         $this->load->language('extension/payment/cardconnect');
 
@@ -214,6 +222,11 @@ class ControllerExtensionPaymentCardConnect extends Controller {
         $this->response->setOutput(json_encode($json));
     }
 
+	/**
+	 * Delete
+	 *
+	 * @return void
+	 */
     public function delete(): void {
         $this->load->language('extension/payment/cardconnect');
 
@@ -262,6 +275,11 @@ class ControllerExtensionPaymentCardConnect extends Controller {
         $this->response->setOutput(json_encode($json));
     }
 
+	/**
+	 * Cron
+	 *
+	 * @return void
+	 */
     public function cron(): void {
         // Cardconnect
         $this->load->model('extension/payment/cardconnect');

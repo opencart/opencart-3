@@ -5,6 +5,9 @@
  * @package Catalog\Controller\Extension\Payment
  */
 class ControllerExtensionPaymentG2APay extends Controller {
+	/**
+	 * @return string
+	 */
     public function index(): string {
         $this->load->language('extension/payment/g2apay');
 
@@ -13,6 +16,11 @@ class ControllerExtensionPaymentG2APay extends Controller {
         return $this->load->view('extension/payment/g2apay', $data);
     }
 
+	/**
+	 * Checkout
+	 *
+	 * @return void
+	 */
     public function checkout(): void {
         if (!isset($this->session->data['order_id'])) {
             return;
@@ -134,6 +142,11 @@ class ControllerExtensionPaymentG2APay extends Controller {
         }
     }
 
+	/**
+	 * Success
+	 *
+	 * @return void
+	 */
     public function success(): void {
         $order_id = (int)$this->session->data['order_id'];
 
@@ -164,6 +177,11 @@ class ControllerExtensionPaymentG2APay extends Controller {
         $this->response->redirect($this->url->link('checkout/success'));
     }
 
+	/**
+	 * Ipn
+	 *
+	 * @return void
+	 */
     public function ipn(): void {
         // Orders
         $this->load->model('checkout/order');

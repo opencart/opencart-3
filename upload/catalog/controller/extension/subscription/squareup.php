@@ -5,6 +5,9 @@
  * @package Catalog\Controller\Extension\Subscription
  */
 class ControllerExtensionSubscriptionSquareup extends Controller {
+	/**
+	 * @return string
+	 */
     public function index(): string {
         $this->load->language('extension/subscription/squareup');
 
@@ -66,6 +69,11 @@ class ControllerExtensionSubscriptionSquareup extends Controller {
         }
     }
 
+	/**
+	 * Cancel
+	 *
+	 * @return void
+	 */
     public function cancel(): void {
         $this->load->language('extension/subscription/squareup');
 
@@ -129,6 +137,11 @@ class ControllerExtensionSubscriptionSquareup extends Controller {
         $this->response->setOutput(json_encode($json));
     }
 
+	/**
+	 * Recurring
+	 *
+	 * @return void
+	 */
     public function recurring(): void {
         $this->load->language('extension/payment/squareup');
 

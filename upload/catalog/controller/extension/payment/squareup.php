@@ -5,9 +5,13 @@
  * @package Catalog\Controller\Extension\Payment
  */
 class ControllerExtensionPaymentSquareup extends Controller {
+	/**
+	 * @return string
+	 */
     public function index(): string {
         $this->load->language('extension/payment/squareup');
 
+		// Squareup
         $this->load->library('squareup');
 
         $data['action'] = $this->url->link('extension/payment/squareup/checkout', '', true);
@@ -50,6 +54,11 @@ class ControllerExtensionPaymentSquareup extends Controller {
         return $this->load->view('extension/payment/squareup', $data);
     }
 
+	/**
+	 * Checkout
+	 *
+	 * @return void
+	 */
     public function checkout(): void {
         if (!isset($this->session->data['order_id'])) {
             return;
@@ -74,6 +83,7 @@ class ControllerExtensionPaymentSquareup extends Controller {
         // Credit Card Squareup
         $this->load->model('extension/credit_card/squareup');
 
+		// Squareup
         $this->load->library('squareup');
 
         $order_info = $this->model_checkout_order->getOrder($this->session->data['order_id']);

@@ -5,6 +5,9 @@
  * @package Catalog\Controller\Extension\Payment
  */
 class ControllerExtensionPaymentPerpetualPayments extends Controller {
+	/**
+	 * @return string
+	 */
     public function index(): string {
         $this->load->language('extension/payment/perpetual_payments');
 
@@ -40,6 +43,11 @@ class ControllerExtensionPaymentPerpetualPayments extends Controller {
         return $this->load->view('extension/payment/perpetual_payments', $data);
     }
 
+	/**
+	 * Send
+	 *
+	 * @return void
+	 */
     public function send(): void {
         if (!isset($this->session->data['order_id'])) {
             return;

@@ -8,6 +8,9 @@
  * Nochex via APC maybe only avaiable to "Merchant" account holders only - site docs a bit vague on this point
  */
 class ControllerExtensionPaymentNochex extends Controller {
+	/**
+	 * @return string
+	 */
     public function index(): string {
         $this->load->language('extension/payment/nochex');
 
@@ -15,7 +18,7 @@ class ControllerExtensionPaymentNochex extends Controller {
         $this->load->model('checkout/order');
 
         if (!isset($this->session->data['order_id'])) {
-            return false;
+            return '';
         }
 
         $order_info = $this->model_checkout_order->getOrder($this->session->data['order_id']);
@@ -75,6 +78,11 @@ class ControllerExtensionPaymentNochex extends Controller {
         return $this->load->view('extension/payment/nochex', $data);
     }
 
+	/**
+	 * Callback
+	 *
+	 * @return void
+	 */
     public function callback(): void {
         $this->load->language('extension/payment/nochex');
 

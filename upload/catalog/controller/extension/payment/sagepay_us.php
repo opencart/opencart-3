@@ -5,6 +5,9 @@
  * @package Catalog\Controller\Extension\Payment
  */
 class ControllerExtensionPaymentSagepayUS extends Controller {
+	/**
+	 * @return string
+	 */
     public function index(): string {
         $this->load->language('extension/payment/sagepay_us');
 
@@ -31,6 +34,11 @@ class ControllerExtensionPaymentSagepayUS extends Controller {
         return $this->load->view('extension/payment/sagepay_us', $data);
     }
 
+	/**
+	 * Send
+	 *
+	 * @return void
+	 */
     public function send(): void {
         if (!isset($this->session->data['order_id'])) {
             return;

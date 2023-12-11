@@ -5,6 +5,9 @@
  * @package Catalog\Controller\Extension\Payment
  */
 class ControllerExtensionPaymentKlarnaCheckout extends Controller {
+	/**
+	 * @return void
+	 */
 	public function index(): void {
 		$this->load->language('extension/payment/klarna_checkout');
 
@@ -23,6 +26,11 @@ class ControllerExtensionPaymentKlarnaCheckout extends Controller {
 		$this->response->setOutput($this->load->view('extension/payment/klarna_checkout', $data));
 	}
 
+	/**
+	 * Main
+	 *
+	 * @return void
+	 */
 	public function main(): void {
 		$this->load->language('extension/payment/klarna_checkout');
 
@@ -240,14 +248,19 @@ class ControllerExtensionPaymentKlarnaCheckout extends Controller {
 		}
 	}
 
-	public function sidebar() {
+	/**
+	 * Sidebar
+	 *
+	 * @return void
+	 */
+	public function sidebar(): void {
 		$this->load->language('checkout/checkout');
 		$this->load->language('extension/payment/klarna_checkout');
 
 		$this->load->model('extension/payment/klarna_checkout');
 
 		if (!$this->config->get('klarna_checkout_status')) {
-			return false;
+			return;
 		}
 
 		$this->setPayment();
@@ -293,7 +306,10 @@ class ControllerExtensionPaymentKlarnaCheckout extends Controller {
 			$data['code'] = '';
 		}
 
+		// Image
 		$this->load->model('tool/image');
+
+		// Upload
 		$this->load->model('tool/upload');
 
 		$data['products'] = [];
@@ -420,13 +436,23 @@ class ControllerExtensionPaymentKlarnaCheckout extends Controller {
 		$this->response->setOutput($this->load->view('extension/payment/klarna_checkout_sidebar', $data));
 	}
 
-	public function shippingAddress() {
+	/**
+	 * ShippingAddress
+	 *
+	 * @return void
+	 */
+	public function shippingAddress(): void {
+		// Klarna Checkout
 		$this->load->model('extension/payment/klarna_checkout');
+
+		// Countries
 		$this->load->model('localisation/country');
+
+		// Zones
 		$this->load->model('localisation/zone');
 
 		if (!$this->config->get('klarna_checkout_status')) {
-			return false;
+			return;
 		}
 
 		$json = [];
@@ -481,11 +507,16 @@ class ControllerExtensionPaymentKlarnaCheckout extends Controller {
 		$this->response->setOutput(json_encode($json));
 	}
 
-	public function cartTotal() {
+	/**
+	 * cartTotal
+	 *
+	 * @return void
+	 */
+	public function cartTotal(): void {
 		$this->load->language('checkout/cart');
 
 		if (!$this->config->get('klarna_checkout_status')) {
-			return false;
+			return;
 		}
 
 		// Totals
@@ -538,16 +569,28 @@ class ControllerExtensionPaymentKlarnaCheckout extends Controller {
 		$this->response->setOutput(json_encode($total));
 	}
 
-	public function addressUpdate() {
+	/**
+	 * addressUpdate
+	 *
+	 * @return void
+	 */
+	public function addressUpdate(): void {
 		$this->load->language('extension/payment/klarna_checkout');
 
+		// Customers
 		$this->load->model('account/customer');
+
+		// Orders
 		$this->load->model('checkout/order');
+
+		// Klarna Checkout
 		$this->load->model('extension/payment/klarna_checkout');
+
+		// Zones
 		$this->load->model('localisation/zone');
 
 		if (!$this->config->get('klarna_checkout_status')) {
-			return false;
+			return;
 		}
 
 		$process = true;
@@ -846,12 +889,17 @@ class ControllerExtensionPaymentKlarnaCheckout extends Controller {
 		$this->response->setOutput(json_encode($json));
 	}
 
-	public function notification() {
+	/**
+	 * Notification
+	 *
+	 * @return void
+	 */
+	public function notification(): void {
 		$this->load->model('extension/payment/klarna_checkout');
 		$this->load->model('checkout/order');
 
 		if (!$this->config->get('klarna_checkout_status')) {
-			return false;
+			return;
 		}
 
 		$request = json_decode(file_get_contents('php://input'));
@@ -863,10 +911,7 @@ class ControllerExtensionPaymentKlarnaCheckout extends Controller {
 				$order_info = $this->model_checkout_order->getOrder($klarna_checkout_order['order_id']);
 
 				if ($order_info) {
-					[
-						$klarna_account,
-						$connector
-					] = $this->model_extension_payment_klarna_checkout->getConnector($this->config->get('klarna_checkout_account'), $order_info['currency_code']);
+					[$klarna_account, $connector] = $this->model_extension_payment_klarna_checkout->getConnector($this->config->get('klarna_checkout_account'), $order_info['currency_code']);
 
 					if (!$klarna_account || !$connector) {
 						$this->model_extension_payment_klarna_checkout->log('Could not getConnector');
@@ -899,13 +944,23 @@ class ControllerExtensionPaymentKlarnaCheckout extends Controller {
 		}
 	}
 
-	public function validation() {
+	/**
+	 * Validation
+	 *
+	 * @return void
+	 */
+	public function validation(): void {
+		// Customers
 		$this->load->model('account/customer');
+
+		// Orders
 		$this->load->model('checkout/order');
+
+		// Klarna Checkout
 		$this->load->model('extension/payment/klarna_checkout');
 
 		if (!$this->config->get('klarna_checkout_status')) {
-			return false;
+			return;
 		}
 
 		$validate = true;
@@ -1124,11 +1179,16 @@ class ControllerExtensionPaymentKlarnaCheckout extends Controller {
 		$this->response->setOutput(json_encode($json));
 	}
 
-	public function confirmation() {
+	/**
+	 * Confirmation
+	 *
+	 * @return void
+	 */
+	public function confirmation(): void {
 		$this->load->language('extension/payment/klarna_checkout');
 
 		if (!$this->config->get('klarna_checkout_status')) {
-			return false;
+			return;
 		}
 
 		if (isset($this->session->data['order_id'])) {
@@ -1183,7 +1243,10 @@ class ControllerExtensionPaymentKlarnaCheckout extends Controller {
 		$data['footer'] = $this->load->controller('common/footer');
 		$data['header']	= $this->load->controller('common/header');
 
+		// Klarna Checkout
 		$this->load->model('extension/payment/klarna_checkout');
+
+		// Orders
 		$this->load->model('checkout/order');
 
 		$klarna_checkout = false;
@@ -1200,6 +1263,7 @@ class ControllerExtensionPaymentKlarnaCheckout extends Controller {
 
 					if (!$klarna_account || !$connector) {
 						$this->model_extension_payment_klarna_checkout->log('Could not getConnector');
+
 						$this->response->redirect($this->url->link('checkout/failure', '', true));
 					}
 
@@ -1217,10 +1281,12 @@ class ControllerExtensionPaymentKlarnaCheckout extends Controller {
 				}
 			} else {
 				$this->model_extension_payment_klarna_checkout->log('Could not find order id using ' . $this->request->get['klarna_order_id']);
+
 				$this->response->redirect($this->url->link('checkout/failure', '', true));
 			}
 		} else {
 			$this->model_extension_payment_klarna_checkout->log('$this->request->get[\'klarna_order_id\'] is not set');
+
 			$this->response->redirect($this->url->link('checkout/failure', '', true));
 		}
 
@@ -1229,12 +1295,20 @@ class ControllerExtensionPaymentKlarnaCheckout extends Controller {
 		$this->response->setOutput($this->load->view('extension/payment/klarna_checkout_success', $data));
 	}
 
-	public function push() {
+	/**
+	 * Push
+	 *
+	 * @return void
+	 */
+	public function push(): void {
+		// Klarna Checkout
 		$this->load->model('extension/payment/klarna_checkout');
+
+		// Orders
 		$this->load->model('checkout/order');
 
 		if (!$this->config->get('klarna_checkout_status')) {
-			return false;
+			return;
 		}
 
 		if (isset($this->request->get['klarna_order_id'])) {
@@ -1493,6 +1567,7 @@ class ControllerExtensionPaymentKlarnaCheckout extends Controller {
 		}
 
 		if ($this->customer->isLogged()) {
+			// Customers
 			$this->load->model('account/customer');
 
 			$customer_info = $this->model_account_customer->getCustomer($this->customer->getId());

@@ -5,10 +5,18 @@
  * @package Catalog\Controller\Extension\Payment
  */
 class ControllerExtensionPaymentCod extends Controller {
+	/**
+	 * @return string
+	 */
     public function index(): string {
         return $this->load->view('extension/payment/cod');
     }
 
+	/**
+	 * Confirm
+	 *
+	 * @return void
+	 */
     public function confirm(): void {
         $json = [];
 

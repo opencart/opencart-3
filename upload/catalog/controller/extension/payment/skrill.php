@@ -5,9 +5,12 @@
  * @package Catalog\Controller\Extension\Payment
  */
 class ControllerExtensionPaymentSkrill extends Controller {
-    public function index(): bool|string {
+	/**
+	 * @return string
+	 */
+    public function index(): string {
         if (!isset($this->session->data['order_id'])) {
-            return false;
+            return '';
         }
 
         $this->load->language('extension/payment/skrill');
@@ -54,6 +57,11 @@ class ControllerExtensionPaymentSkrill extends Controller {
         return $this->load->view('extension/payment/skrill', $data);
     }
 
+	/**
+	 * Callback
+	 *
+	 * @return void
+	 */
     public function callback(): void {
         if (isset($this->request->post['order_id'])) {
             $order_id = (int)$this->request->post['order_id'];

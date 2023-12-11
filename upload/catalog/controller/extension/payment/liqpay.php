@@ -5,9 +5,12 @@
  * @package Catalog\Controller\Extension\Payment
  */
 class ControllerExtensionPaymentLiqPay extends Controller {
+	/**
+	 * @return string
+	 */
     public function index(): string {
         if (!isset($this->session->data['order_id'])) {
-            return false;
+            return '';
         }
 
         // Orders
@@ -36,6 +39,11 @@ class ControllerExtensionPaymentLiqPay extends Controller {
         return $this->load->view('extension/payment/liqpay', $data);
     }
 
+	/**
+	 * Callback
+	 *
+	 * @return void
+	 */
     public function callback(): void {
         $xml = base64_decode($this->request->post['operation_xml']);
         $signature = base64_encode(sha1($this->config->get('payment_liqpay_signature') . $xml . $this->config->get('payment_liqpay_signature'), true));

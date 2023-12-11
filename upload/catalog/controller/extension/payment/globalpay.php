@@ -5,6 +5,9 @@
  * @package Catalog\Controller\Extension\Payment
  */
 class ControllerExtensionPaymentGlobalpay extends Controller {
+	/**
+	 * @return string
+	 */
     public function index(): string {
         if (!isset($this->session->data['order_id'])) {
             return false;
@@ -68,6 +71,7 @@ class ControllerExtensionPaymentGlobalpay extends Controller {
 
         $tmp = $data['timestamp'] . '.' . $data['merchant_id'] . '.' . $data['order_id'] . '.' . $data['amount'] . '.' . $data['currency'];
         $hash = sha1($tmp);
+
         $tmp = $hash . '.' . $this->config->get('payment_globalpay_secret');
 
         $data['hash'] = sha1($tmp);
@@ -87,6 +91,11 @@ class ControllerExtensionPaymentGlobalpay extends Controller {
         return $this->load->view('extension/payment/globalpay', $data);
     }
 
+	/**
+	 * Notify
+	 *
+	 * @return void
+	 */
     public function notify(): void {
         $this->load->language('extension/payment/globalpay');
 
@@ -96,7 +105,9 @@ class ControllerExtensionPaymentGlobalpay extends Controller {
         $this->model_extension_payment_globalpay->logger(print_r($this->request->post, 1));
 
         $hash = sha1($this->request->post['TIMESTAMP'] . '.' . $this->config->get('payment_globalpay_merchant_id') . '.' . $this->request->post['ORDER_ID'] . '.' . $this->request->post['RESULT'] . '.' . $this->request->post['MESSAGE'] . '.' . $this->request->post['PASREF'] . '.' . $this->request->post['AUTHCODE']);
+
         $tmp = $hash . '.' . $this->config->get('payment_globalpay_secret');
+
         $hash = sha1($tmp);
 
         // Check to see if hashes match or not

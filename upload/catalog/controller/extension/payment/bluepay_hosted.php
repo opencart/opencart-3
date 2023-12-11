@@ -5,6 +5,9 @@
  * @package Catalog\Controller\Extension\Payment
  */
 class ControllerExtensionPaymentBluePayHosted extends Controller {
+	/**
+	 * @return bool|string
+	 */
     public function index(): bool|string {
         if (!isset($this->session->data['order_id'])) {
             return false;
@@ -59,6 +62,11 @@ class ControllerExtensionPaymentBluePayHosted extends Controller {
         return $this->load->view('extension/payment/bluepay_hosted', $data);
     }
 
+	/**
+	 * Callback
+	 *
+	 * @return void
+	 */
     public function callback(): void {
         $this->load->language('extension/payment/bluepay_hosted');
 
@@ -95,6 +103,11 @@ class ControllerExtensionPaymentBluePayHosted extends Controller {
         }
     }
 
+	/**
+	 * adminCallback
+	 *
+	 * @return void
+	 */
     public function adminCallback(): void {
         $this->response->addHeader('Content-Type: application/json');
         $this->response->setOutput(json_encode($this->request->get));

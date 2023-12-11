@@ -5,6 +5,9 @@
  * @package Catalog\Controller\Extension\Payment
  */
 class ControllerExtensionPaymentRealexRemote extends Controller {
+	/**
+	 * @return string
+	 */
     public function index(): string {
         $this->load->language('extension/payment/realex_remote');
 
@@ -53,6 +56,11 @@ class ControllerExtensionPaymentRealexRemote extends Controller {
         return $this->load->view('extension/payment/realex_remote', $data);
     }
 
+	/**
+	 * Send
+	 *
+	 * @return void
+	 */
     public function send(): void {
         $this->load->language('extension/payment/realex_remote');
 
@@ -130,6 +138,7 @@ class ControllerExtensionPaymentRealexRemote extends Controller {
                     $md = $this->encryption->encrypt($this->config->get('config_encryption'), json_encode($enc_data));
 
                     $json = [];
+
                     $json['ACSURL'] = (string)$verify_3ds->url;
                     $json['MD'] = $md;
                     $json['PaReq'] = (string)$verify_3ds->pareq;
@@ -213,6 +222,11 @@ class ControllerExtensionPaymentRealexRemote extends Controller {
         $this->response->setOutput(json_encode($json));
     }
 
+	/**
+	 * acsRetyrn
+	 *
+	 * @return void
+	 */
     public function acsReturn(): void {
         if (isset($this->session->data['order_id'])) {
             // Orders

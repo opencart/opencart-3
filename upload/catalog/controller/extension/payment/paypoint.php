@@ -5,6 +5,9 @@
  * @package Catalog\Controller\Extension\Payment
  */
 class ControllerExtensionPaymentPaypoint extends Controller {
+	/**
+	 * @return string
+	 */
     public function index(): string {
         if (!isset($this->session->data['order_id'])) {
             return false;
@@ -73,6 +76,11 @@ class ControllerExtensionPaymentPaypoint extends Controller {
         return $this->load->view('extension/payment/paypoint', $data);
     }
 
+	/**
+	 * Callback
+	 *
+	 * @return void
+	 */
     public function callback(): void {
         if (isset($this->request->get['trans_id'])) {
             $order_id = (int)$this->request->get['trans_id'];

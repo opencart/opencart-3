@@ -5,6 +5,9 @@
  * @package Catalog\Controller\Extension\Payment
  */
 class ControllerExtensionPaymentSecureTradingPp extends Controller {
+	/**
+	 * @return string
+	 */
     public function index(): string {
         if (!isset($this->session->data['order_id'])) {
             return '';
@@ -92,6 +95,11 @@ class ControllerExtensionPaymentSecureTradingPp extends Controller {
         }
     }
 
+	/**
+	 * Ipn
+	 *
+	 * @return void
+	 */
     public function ipn(): void {
         $this->load->language('extension/payment/securetrading_pp');
 

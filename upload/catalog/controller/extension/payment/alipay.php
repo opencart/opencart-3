@@ -5,6 +5,9 @@
  * @package Catalog\Controller\Extension\Payment
  */
 class ControllerExtensionPaymentAlipay extends Controller {
+	/**
+	 * @return bool|string
+	 */
     public function index(): bool|string {
         if (!isset($this->session->data['order_id'])) {
             return false;
@@ -52,6 +55,11 @@ class ControllerExtensionPaymentAlipay extends Controller {
         return $this->load->view('extension/payment/alipay', $data);
     }
 
+	/**
+	 * Callback
+	 *
+	 * @return void
+	 */
     public function callback(): void {
         $this->log->write('alipay pay notify:');
 

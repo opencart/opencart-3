@@ -5,6 +5,9 @@
  * @package Catalog\Controller\Extension\Payment
  */
 class ControllerExtensionPaymentBankTransfer extends Controller {
+	/**
+	 * @return string
+	 */
     public function index(): string {
         $this->load->language('extension/payment/bank_transfer');
 
@@ -13,6 +16,11 @@ class ControllerExtensionPaymentBankTransfer extends Controller {
         return $this->load->view('extension/payment/bank_transfer', $data);
     }
 
+	/**
+	 * Confirm
+	 *
+	 * @return void
+	 */
     public function confirm(): void {
         $json = [];
 

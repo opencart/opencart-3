@@ -5,9 +5,12 @@
  * @package Catalog\Controller\Extension\Payment
  */
 class ControllerExtensionPaymentLaybuy extends Controller {
+	/**
+	 * @return string
+	 */
     public function index(): string {
         if (!isset($this->session->data['order_id'])) {
-            return false;
+            return '';
         }
 
         $this->load->language('extension/payment/laybuy');
@@ -31,6 +34,11 @@ class ControllerExtensionPaymentLaybuy extends Controller {
         return $this->load->view('extension/payment/laybuy', $data);
     }
 
+	/**
+	 * postToLaybuy
+	 *
+	 * @return void
+	 */
     public function postToLaybuy(): void {
         // Laybuy
         $this->load->model('extension/payment/laybuy');
@@ -115,6 +123,11 @@ class ControllerExtensionPaymentLaybuy extends Controller {
         }
     }
 
+	/**
+	 * Callback
+	 *
+	 * @return void
+	 */
     public function callback(): void {
         // Laybuy
         $this->load->model('extension/payment/laybuy');
@@ -170,6 +183,11 @@ class ControllerExtensionPaymentLaybuy extends Controller {
         }
     }
 
+	/**
+	 * Cancel
+	 *
+	 * @return void
+	 */
     public function cancel(): void {
         // Laybuy
         $this->load->model('extension/payment/laybuy');
@@ -179,6 +197,11 @@ class ControllerExtensionPaymentLaybuy extends Controller {
         $this->response->redirect($this->url->link('checkout/checkout', '', true));
     }
 
+	/**
+	 * reviseCallback
+	 *
+	 * @return void
+	 */
     public function reviseCallback(): void {
         $this->load->language('extension/payment/laybuy');
 
@@ -314,6 +337,11 @@ class ControllerExtensionPaymentLaybuy extends Controller {
         }
     }
 
+	/**
+	 * reviseCancel
+	 *
+	 * @return void
+	 */
     public function reviseCancel(): void {
         // Laybuy
         $this->load->model('extension/payment/laybuy');
@@ -323,6 +351,16 @@ class ControllerExtensionPaymentLaybuy extends Controller {
         $this->response->redirect($this->url->link('checkout/checkout', '', true));
     }
 
+	/**
+	 * deleteOrder
+	 *
+	 * @param string $route
+	 * @param string $output
+	 * @param int    $order_id
+	 * @param int    $order_status_id
+	 *
+	 * @return void
+	 */
     public function deleteOrder(string $route = '', string $output = '', int $order_id = 0, int $order_status_id = 0): void {
         // Laybuy
         $this->load->model('extension/payment/laybuy');
@@ -335,6 +373,11 @@ class ControllerExtensionPaymentLaybuy extends Controller {
         }
     }
 
+	/**
+	 * Cron
+	 *
+	 * @return void
+	 */
     public function cron(): void {
         $this->load->language('extension/payment/laybuy');
 

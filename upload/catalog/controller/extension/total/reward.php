@@ -5,6 +5,9 @@
  * @package Catalog\Controller\Extension\Total
  */
 class ControllerExtensionTotalReward extends Controller {
+	/**
+	 * @return string
+	 */
     public function index() {
         $points = $this->customer->getRewardPoints();
         $points_total = 0;
@@ -33,6 +36,11 @@ class ControllerExtensionTotalReward extends Controller {
         }
     }
 
+	/**
+	 * Reward
+	 *
+	 * @return void
+	 */
     public function reward(): void {
         $this->load->language('extension/total/reward');
 

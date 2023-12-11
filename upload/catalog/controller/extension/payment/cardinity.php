@@ -5,6 +5,9 @@
  * @package Catalog\Controller\Extension\Payment
  */
 class ControllerExtensionPaymentCardinity extends Controller {
+	/**
+	 * @return string
+	 */
     public function index(): string {
         $this->load->language('extension/payment/cardinity');
 
@@ -30,6 +33,11 @@ class ControllerExtensionPaymentCardinity extends Controller {
         return $this->load->view('extension/payment/cardinity', $data);
     }
 
+	/**
+	 * Send
+	 *
+	 * @return void
+	 */
     public function send(): void {
         $this->load->language('extension/payment/cardinity');
 
@@ -137,6 +145,11 @@ class ControllerExtensionPaymentCardinity extends Controller {
         $this->response->setOutput(json_encode($json));
     }
 
+	/**
+	 * threeDSecureForm
+	 *
+	 * @return void
+	 */
     public function threeDSecureForm(): void {
         $this->load->language('extension/payment/cardinity');
 
@@ -172,6 +185,11 @@ class ControllerExtensionPaymentCardinity extends Controller {
         $this->response->setOutput($this->load->view('extension/payment/cardinity_3ds', $data));
     }
 
+	/**
+	 * threeDSecureCallback
+	 *
+	 * @return void
+	 */
     public function threeDSecureCallback(): void {
         $this->load->language('extension/payment/cardinity');
 
@@ -179,6 +197,7 @@ class ControllerExtensionPaymentCardinity extends Controller {
         $this->load->model('extension/payment/cardinity');
 
         $success = false;
+
         $error = '';
 
         $encryption_data = [

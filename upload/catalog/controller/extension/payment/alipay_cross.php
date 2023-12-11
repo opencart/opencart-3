@@ -8,6 +8,9 @@ class ControllerExtensionPaymentAlipayCross extends Controller {
     var $alipay_gateway = 'https://mapi.alipay.com/gateway.do?';
     var $alipay_gateway_test = 'https://openapi.alipaydev.com/gateway.do?';
 
+	/**
+	 * @return string
+	 */
     public function index(): string {
         if (!isset($this->session->data['order_id'])) {
             return false;
@@ -67,6 +70,9 @@ class ControllerExtensionPaymentAlipayCross extends Controller {
         return $this->load->view('extension/payment/alipay_cross', $data);
     }
 
+	/**
+	 * @return void
+	 */
     public function callback(): void {
         $this->log->write('alipay cross payment notify:');
 

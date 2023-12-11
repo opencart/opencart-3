@@ -5,6 +5,9 @@
  * @package Catalog\Controller\Extension\Payment
  */
 class ControllerExtensionPaymentRealex extends Controller {
+	/**
+	 * @return string
+	 */
     public function index(): string {
         if (!isset($this->session->data['order_id'])) {
             return false;
@@ -87,6 +90,11 @@ class ControllerExtensionPaymentRealex extends Controller {
         return $this->load->view('extension/payment/realex', $data);
     }
 
+	/**
+	 * Notify
+	 *
+	 * @return void
+	 */
     public function notify(): void {
         $this->load->language('extension/payment/realex');
 

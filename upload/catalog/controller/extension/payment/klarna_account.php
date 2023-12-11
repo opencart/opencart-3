@@ -5,6 +5,9 @@
  * @package Catalog\Controller\Extension\Payment
  */
 class ControllerExtensionPaymentKlarnaAccount extends Controller {
+	/**
+	 * @return string
+	 */
     public function index(): string {
         if (!isset($this->session->data['order_id'])) {
             return false;
@@ -61,6 +64,7 @@ class ControllerExtensionPaymentKlarnaAccount extends Controller {
             $this->load->model('setting/extension');
 
             $sort_order = [];
+
             $results = $this->model_setting_extension->getExtensionsByType('total');
 
             foreach ($results as $key => $value) {
@@ -114,6 +118,7 @@ class ControllerExtensionPaymentKlarnaAccount extends Controller {
             }
 
             $klarna_account = $this->config->get('payment_klarna_account');
+
             $data['merchant'] = $klarna_account[$order_info['payment_iso_code_3']]['merchant'];
             $data['phone_number'] = $order_info['telephone'];
 
@@ -147,6 +152,7 @@ class ControllerExtensionPaymentKlarnaAccount extends Controller {
             $data['iso_code_3'] = $order_info['payment_iso_code_3'];
 
             $total = $this->currency->format($order_info['total'], $country_to_currency[$order_info['payment_iso_code_3']], '', false);
+
             $pclasses = $this->config->get('payment_klarna_account_pclasses');
 
             if (isset($pclasses[$order_info['payment_iso_code_3']])) {
@@ -154,6 +160,8 @@ class ControllerExtensionPaymentKlarnaAccount extends Controller {
             } else {
                 $pclasses = [];
             }
+
+			$payment_option = [];
 
             foreach ($pclasses as $pclass) {
                 // 0 - Campaign
@@ -202,6 +210,7 @@ class ControllerExtensionPaymentKlarnaAccount extends Controller {
 
                         $balance = $sum;
                         $months = $pclass['months'];
+
                         $pay_data = [];
 
                         while (($months != 0) && ($balance > 0.01)) {
@@ -221,6 +230,7 @@ class ControllerExtensionPaymentKlarnaAccount extends Controller {
 
                             $balance = $new_balance - $new_payment;
                             $months -= 1;
+
                             $pay_data[] = $new_payment;
                         }
 
@@ -240,7 +250,6 @@ class ControllerExtensionPaymentKlarnaAccount extends Controller {
                     }
                 }
 
-                $payment_option = [];
                 $payment_option[$pclass['id']]['pclass_id'] = $pclass['id'];
                 $payment_option[$pclass['id']]['title'] = $pclass['description'];
                 $payment_option[$pclass['id']]['months'] = $pclass['months'];
@@ -270,6 +279,11 @@ class ControllerExtensionPaymentKlarnaAccount extends Controller {
         }
     }
 
+	/**
+	 * Send
+	 *
+	 * @return void
+	 */
     public function send(): void {
         if (!isset($this->session->data['order_id'])) {
             return;
@@ -725,6 +739,7 @@ class ControllerExtensionPaymentKlarnaAccount extends Controller {
             '#',
             '.'
         ];
+
         $num_pos = $this->strposArr($address, $numbers, 2);
         $street_name = substr($address, 0, $num_pos);
         $street_name = trim($street_name);

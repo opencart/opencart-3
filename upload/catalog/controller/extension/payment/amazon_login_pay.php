@@ -7,6 +7,9 @@
 class ControllerExtensionPaymentAmazonLoginPay extends Controller {
     private string $version = '3.2.1';
 
+	/**
+	 * @return void
+	 */
     public function session_expired(): void {
         $this->load->language('extension/payment/amazon_login_pay');
 
@@ -16,6 +19,11 @@ class ControllerExtensionPaymentAmazonLoginPay extends Controller {
         $this->model_extension_payment_amazon_login_pay->cartRedirect($this->language->get('error_session_expired'));
     }
 
+	/**
+	 * Address
+	 *
+	 * @return void
+	 */
     public function address(): void {
         $this->load->language('extension/payment/amazon_login_pay');
 
@@ -95,6 +103,9 @@ class ControllerExtensionPaymentAmazonLoginPay extends Controller {
         $this->response->setOutput($this->load->view('extension/payment/amazon_login_pay_generic', $data));
     }
 
+	/**
+	 * @return void
+	 */
     public function shipping_methods(): void {
         $this->load->language('extension/payment/amazon_login_pay');
 
@@ -174,6 +185,11 @@ class ControllerExtensionPaymentAmazonLoginPay extends Controller {
         $this->response->setOutput(json_encode($json));
     }
 
+	/**
+	 * Shipping
+	 *
+	 * @return void
+	 */
     public function shipping(): void {
         $this->load->language('extension/payment/amazon_login_pay');
 
@@ -217,6 +233,11 @@ class ControllerExtensionPaymentAmazonLoginPay extends Controller {
         $this->response->setOutput(json_encode($json));
     }
 
+	/**
+	 * Payment
+	 *
+	 * @return void
+	 */
     public function payment(): void {
         $this->load->language('extension/payment/amazon_login_pay');
 
@@ -324,6 +345,9 @@ class ControllerExtensionPaymentAmazonLoginPay extends Controller {
         $this->response->setOutput($this->load->view('extension/payment/amazon_login_pay_generic', $data));
     }
 
+	/**
+	 * @return void
+	 */
     public function persist_comment(): void {
         if (isset($this->request->post['comment'])) {
             $this->session->data['comment'] = strip_tags($this->request->post['comment']);
@@ -332,6 +356,9 @@ class ControllerExtensionPaymentAmazonLoginPay extends Controller {
         }
     }
 
+	/**
+	 * @return void
+	 */
     public function coupon_discard(): void {
         // Amazon Login Pay
         $this->load->model('extension/payment/amazon_login_pay');
@@ -346,6 +373,9 @@ class ControllerExtensionPaymentAmazonLoginPay extends Controller {
         $this->response->redirect($this->url->link('extension/payment/amazon_login_pay/confirm', '', true));
     }
 
+	/**
+	 * @return void
+	 */
     public function standard_checkout(): void {
         $this->load->language('extension/payment/amazon_login_pay');
 
@@ -368,6 +398,11 @@ class ControllerExtensionPaymentAmazonLoginPay extends Controller {
         $this->response->redirect($this->url->link('checkout/cart', '', true));
     }
 
+	/**
+	 * Confirm
+	 *
+	 * @return void
+	 */
     public function confirm(): void {
         $this->load->language('checkout/checkout');
         $this->load->language('extension/payment/amazon_login_pay');
@@ -532,6 +567,9 @@ class ControllerExtensionPaymentAmazonLoginPay extends Controller {
         $this->response->setOutput($this->load->view('extension/payment/amazon_login_pay_generic', $data));
     }
 
+	/**
+	 * @return void
+	 */
     // Handle the SuccessUrl response
     public function mfa_success(): void {
         $this->load->language('extension/payment/amazon_login_pay');
@@ -555,6 +593,9 @@ class ControllerExtensionPaymentAmazonLoginPay extends Controller {
         }
     }
 
+	/**
+	 * @return void
+	 */
     // Handle the FailureUrl response
     public function mfa_failure(): void {
         $this->load->language('extension/payment/amazon_login_pay');
@@ -581,6 +622,11 @@ class ControllerExtensionPaymentAmazonLoginPay extends Controller {
         }
     }
 
+	/**
+	 * Authorize
+	 *
+	 * @return void
+	 */
     private function authorize(): void {
         $this->load->language('checkout/checkout');
         $this->load->language('extension/payment/amazon_login_pay');
@@ -681,6 +727,9 @@ class ControllerExtensionPaymentAmazonLoginPay extends Controller {
         }
     }
 
+	/**
+	 * @return void
+	 */
     public function process_us(): void {
         $this->load->language('checkout/checkout');
         $this->load->language('extension/payment/amazon_login_pay');
@@ -817,6 +866,11 @@ class ControllerExtensionPaymentAmazonLoginPay extends Controller {
         }
     }
 
+	/**
+	 * Process
+	 *
+	 * @return void
+	 */
     public function process(): void {
         $this->load->language('checkout/checkout');
         $this->load->language('extension/payment/amazon_login_pay');
@@ -889,6 +943,11 @@ class ControllerExtensionPaymentAmazonLoginPay extends Controller {
         $this->response->setOutput(json_encode($json));
     }
 
+	/**
+	 * Ipn
+	 *
+	 * @return void
+	 */
     public function ipn(): void {
         sleep(5);
 
@@ -985,8 +1044,18 @@ class ControllerExtensionPaymentAmazonLoginPay extends Controller {
         $this->response->addHeader('Content-Type: application/json');
     }
 
-    // catalog/model/checkout/order/editOrder/after
-    // catalog/model/checkout/order/addHistory/after
+    /**
+	 * Capture
+	 *
+	 * @param string $route
+	 * @param array  $args
+	 * @param mixed  $output
+	 *
+	 * @return void
+	 *
+	 * catalog/model/checkout/order/editOrder/after
+	 * catalog/model/checkout/order/addHistory/after
+	 */
     public function capture(string &$route, array &$args, mixed &$output): void {
         $this->load->language('extension/payment/amazon_login_pay');
 

@@ -32,6 +32,9 @@ class ControllerExtensionPaymentDivido extends Controller {
         self::STATUS_SIGNED        => 'Contract signed',
     ];
 
+	/**
+	 * @return string
+	 */
     public function index(): string {
         $this->load->language('extension/payment/divido');
 
@@ -78,6 +81,11 @@ class ControllerExtensionPaymentDivido extends Controller {
         return $this->load->view('extension/payment/divido', $data);
     }
 
+	/**
+	 * Update
+	 *
+	 * @return string
+	 */
     public function update(): string {
         $this->load->language('extension/payment/divido');
 
@@ -143,6 +151,11 @@ class ControllerExtensionPaymentDivido extends Controller {
         return $this->response->setOutput('ok');
     }
 
+	/**
+	 * Confirm
+	 *
+	 * @return void
+	 */
     public function confirm(): void {
         $this->load->language('extension/payment/divido');
 
@@ -160,7 +173,6 @@ class ControllerExtensionPaymentDivido extends Controller {
         $api_key = $this->config->get('payment_divido_api_key');
 
         $deposit = $this->request->post['deposit'];
-
         $finance = $this->request->post['finance'];
 
         $address = $this->session->data['payment_address'];
@@ -170,7 +182,9 @@ class ControllerExtensionPaymentDivido extends Controller {
         }
 
         $country = $address['iso_code_2'];
+
         $language = strtoupper($this->language->get('code'));
+
         $currency = strtoupper($this->session->data['currency']);
         $order_id = (int)$this->session->data['order_id'];
 
@@ -210,7 +224,9 @@ class ControllerExtensionPaymentDivido extends Controller {
         ] = $this->model_extension_payment_divido->getOrderTotals();
 
         $sub_total = $total;
+
         $cart_total = $this->cart->getSubTotal();
+
         $shiphandle = $sub_total - $cart_total;
 
         $products[] = [
@@ -281,6 +297,13 @@ class ControllerExtensionPaymentDivido extends Controller {
         $this->response->setOutput(json_encode($data));
     }
 
+	/**
+	 * Calculator
+	 *
+	 * @param array $args
+	 *
+	 * @return string
+	 */
     public function calculator(array $args): string {
         $this->load->language('extension/payment/divido');
 

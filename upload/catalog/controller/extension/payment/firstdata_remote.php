@@ -5,14 +5,18 @@
  * @package Catalog\Controller\Extension\Payment
  */
 class ControllerExtensionPaymentFirstdataRemote extends Controller {
+	/**
+	 * @return string
+	 */
     public function index(): string {
         $this->load->language('extension/payment/firstdata_remote');
 
-        // Firstdate Remote
+        // Firstdata Remote
         $this->load->model('extension/payment/firstdata_remote');
 
         if ($this->config->get('payment_firstdata_remote_card_storage') == 1 && $this->customer->isLogged()) {
             $data['card_storage'] = 1;
+
             $data['stored_cards'] = $this->model_extension_payment_firstdata_remote->getStoredCards();
         } else {
             $data['card_storage'] = 0;
@@ -20,6 +24,7 @@ class ControllerExtensionPaymentFirstdataRemote extends Controller {
         }
 
         $data['accepted_cards'] = $this->config->get('payment_firstdata_remote_cards_accepted');
+
         $data['months'] = [];
 
         for ($i = 1; $i <= 12; $i++) {
@@ -42,6 +47,11 @@ class ControllerExtensionPaymentFirstdataRemote extends Controller {
         return $this->load->view('extension/payment/firstdata_remote', $data);
     }
 
+	/**
+	 * Send
+	 *
+	 * @return void
+	 */
     public function send(): void {
         $this->load->language('extension/payment/firstdata_remote');
 
@@ -90,12 +100,16 @@ class ControllerExtensionPaymentFirstdataRemote extends Controller {
             ];
 
             $order_id = (int)$this->session->data['order_id'];
+
             $order_info = $this->model_checkout_order->getOrder($order_id);
+
             $capture_result = $this->model_extension_payment_firstdata_remote->capturePayment($this->request->post, $order_id);
+
             $message = '';
 
             if (isset($capture_result['transaction_result']) && strtoupper($capture_result['transaction_result']) == 'APPROVED') {
                 $json['success'] = $this->url->link('checkout/success');
+
                 $message .= $this->language->get('text_result') . $capture_result['transaction_result'] . '<br/>';
                 $message .= $this->language->get('text_avs') . $address_codes[$capture_result['avs']] . ' (' . $capture_result['avs'] . ')<br/>';
 

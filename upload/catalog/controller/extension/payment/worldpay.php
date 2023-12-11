@@ -5,6 +5,9 @@
  * @package Catalog\Controller\Extension\Payment
  */
 class ControllerExtensionPaymentWorldpay extends Controller {
+	/**
+	 * @return string
+	 */
     public function index(): string {
         $this->load->language('extension/payment/worldpay');
 
@@ -36,6 +39,11 @@ class ControllerExtensionPaymentWorldpay extends Controller {
         return $this->load->view('extension/payment/worldpay', $data);
     }
 
+	/**
+	 * Send
+	 *
+	 * @return void
+	 */
     public function send(): void {
         if (!isset($this->session->data['order_id'])) {
             return;
@@ -131,6 +139,11 @@ class ControllerExtensionPaymentWorldpay extends Controller {
         }
     }
 
+	/**
+	 * deleteCard
+	 *
+	 * @return void
+	 */
     public function deleteCard(): void {
         $this->load->language('extension/payment/worldpay');
 
@@ -157,6 +170,11 @@ class ControllerExtensionPaymentWorldpay extends Controller {
         $this->response->setOutput(json_encode($json));
     }
 
+	/**
+	 * Webhook
+	 *
+	 * @return void
+	 */
     public function webhook(): void {
         if (isset($this->request->get['token']) && hash_equals($this->config->get('payment_worldpay_secret_token'), $this->request->get['token'])) {
             // Worldpay
@@ -214,6 +232,11 @@ class ControllerExtensionPaymentWorldpay extends Controller {
         $this->response->addHeader('Content-Type: application/json');
     }
 
+	/**
+	 * Cron
+	 *
+	 * @return void
+	 */
     public function cron(): void {
         if ($this->request->get['token'] == $this->config->get('payment_worldpay_secret_token')) {
             // Worldpay

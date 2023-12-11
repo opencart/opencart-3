@@ -5,6 +5,9 @@
  * @package Catalog\Controller\Extension\Payment
  */
 class ControllerExtensionPaymentCheque extends Controller {
+	/**
+	 * @return string
+	 */
     public function index(): string {
         $this->load->language('extension/payment/cheque');
 
@@ -14,6 +17,11 @@ class ControllerExtensionPaymentCheque extends Controller {
         return $this->load->view('extension/payment/cheque', $data);
     }
 
+	/**
+	 * Confirm
+	 *
+	 * @return void
+	 */
     public function confirm(): void {
         $json = [];
 

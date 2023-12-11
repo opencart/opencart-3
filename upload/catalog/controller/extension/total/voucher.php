@@ -5,6 +5,9 @@
  * @package Catalog\Controller\Extension\Total
  */
 class ControllerExtensionTotalVoucher extends Controller {
+	/**
+	 * @return string
+	 */
     public function index(): string {
         if ($this->config->get('total_voucher_status')) {
             $this->load->language('extension/total/voucher');
@@ -21,6 +24,11 @@ class ControllerExtensionTotalVoucher extends Controller {
         }
     }
 
+	/**
+	 * Voucher
+	 *
+	 * @return void
+	 */
     public function voucher(): void {
         $this->load->language('extension/total/voucher');
 
@@ -52,7 +60,17 @@ class ControllerExtensionTotalVoucher extends Controller {
         $this->response->setOutput(json_encode($json));
     }
 
-    // catalog/model/checkout/order/addHistory/after
+    /**
+	 * Send
+	 *
+	 * @param string $route
+	 * @param array  $args
+	 * @param mixed  $output
+	 *
+	 * @return void
+	 *
+	 * catalog/model/checkout/order/addHistory/after
+	 */
     public function send(string &$route, array &$args, mixed &$output): void {
         // Orders
         $this->load->model('checkout/order');

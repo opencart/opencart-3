@@ -5,6 +5,9 @@
  * @package Catalog\Controller\Extension\Total
  */
 class ControllerExtensionTotalShipping extends Controller {
+	/**
+	 * @return string
+	 */
     public function index(): string {
         if ($this->config->get('total_shipping_status') && $this->config->get('total_shipping_estimator') && $this->cart->hasShipping()) {
             $this->load->language('extension/total/shipping');
@@ -44,6 +47,11 @@ class ControllerExtensionTotalShipping extends Controller {
         }
     }
 
+	/**
+	 * Quote
+	 *
+	 * @return void
+	 */
     public function quote(): void {
         $this->load->language('extension/total/shipping');
 
@@ -174,6 +182,11 @@ class ControllerExtensionTotalShipping extends Controller {
         $this->response->setOutput(json_encode($json));
     }
 
+	/**
+	 * Shipping
+	 *
+	 * @return void
+	 */
     public function shipping(): void {
         $this->load->language('extension/total/shipping');
 
@@ -202,6 +215,11 @@ class ControllerExtensionTotalShipping extends Controller {
         $this->response->setOutput(json_encode($json));
     }
 
+	/**
+	 * Country
+	 *
+	 * @return void
+	 */
     public function country(): void {
         $json = [];
 

@@ -5,6 +5,9 @@
  * @package Catalog\Controller\Extension\Payment
  */
 class ControllerExtensionPaymentKlarnaInvoice extends Controller {
+	/**
+	 * @return string
+	 */
     public function index(): string {
         // Orders
         $this->load->model('checkout/order');
@@ -146,6 +149,11 @@ class ControllerExtensionPaymentKlarnaInvoice extends Controller {
         }
     }
 
+	/**
+	 * Send
+	 *
+	 * @return void
+	 */
     public function send(): void {
         $this->load->language('extension/payment/klarna_invoice');
 

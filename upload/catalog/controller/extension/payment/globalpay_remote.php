@@ -5,6 +5,9 @@
  * @package Catalog\Controller\Extension\Payment
  */
 class ControllerExtensionPaymentGlobalpayRemote extends Controller {
+	/**
+	 * @return string
+	 */
     public function index(): string {
         $this->load->language('extension/payment/globalpay_remote');
 
@@ -40,6 +43,7 @@ class ControllerExtensionPaymentGlobalpayRemote extends Controller {
         }
 
         $today = getdate();
+
         $data['year_expire'] = [];
 
         for ($i = $today['year']; $i < $today['year'] + 11; $i++) {
@@ -52,6 +56,11 @@ class ControllerExtensionPaymentGlobalpayRemote extends Controller {
         return $this->load->view('extension/payment/globalpay_remote', $data);
     }
 
+	/**
+	 * Send
+	 *
+	 * @return void
+	 */
     public function send(): void {
         $this->load->language('extension/payment/globalpay_remote');
 
@@ -81,11 +90,15 @@ class ControllerExtensionPaymentGlobalpayRemote extends Controller {
         }
 
         $order_id = (int)$this->session->data['order_id'];
+
         $order_ref = $order_id . 'T' . date('YmdHis') . mt_rand(1, 999);
+
         $order_info = $this->model_checkout_order->getOrder($order_id);
 
         $amount = round($this->currency->format($order_info['total'], $order_info['currency_code'], $order_info['currency_value'], false) * 100);
-        $currency = $order_info['currency_code'];
+
+		$currency = $order_info['currency_code'];
+
         $accounts = $this->config->get('payment_globalpay_remote_account');
 
         if (isset($accounts[$this->request->post['cc_type']]['default']) && $accounts[$this->request->post['cc_type']]['default'] == 1) {
@@ -206,6 +219,11 @@ class ControllerExtensionPaymentGlobalpayRemote extends Controller {
         $this->response->setOutput(json_encode($json));
     }
 
+	/**
+	 * acsReturn
+	 *
+	 * @return void
+	 */
     public function acsReturn(): void {
         if (isset($this->session->data['order_id'])) {
             // Orders
@@ -215,7 +233,9 @@ class ControllerExtensionPaymentGlobalpayRemote extends Controller {
             $this->load->model('extension/payment/globalpay_remote');
 
             $post = $this->request->post;
+
             $md = json_decode($this->encryption->decrypt($this->config->get('config_encryption'), $post['MD']), true);
+
             $signature_result = $this->model_extension_payment_globalpay_remote->enrollmentSignature($md['account'], $md['amount'], $md['currency'], $md['order_ref'], $md['cc_number'], $md['cc_expire'], $md['cc_type'], $md['cc_name'], $post['PaRes']);
 
             $this->model_extension_payment_globalpay_remote->logger('Signature result:\r\n' . print_r($signature_result, 1));

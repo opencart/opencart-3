@@ -5,6 +5,9 @@
  * @package Catalog\Controller\Extension\Payment
  */
 class ControllerExtensionPaymentSecureTradingWs extends Controller {
+	/**
+	 * @return string
+	 */
     public function index(): string {
         if (!isset($this->session->data['order_id'])) {
             return false;
@@ -63,6 +66,11 @@ class ControllerExtensionPaymentSecureTradingWs extends Controller {
         }
     }
 
+	/**
+	 * Process
+	 *
+	 * @return void
+	 */
     public function process(): void {
         if (!isset($this->session->data['order_id'])) {
             return;
@@ -231,6 +239,11 @@ class ControllerExtensionPaymentSecureTradingWs extends Controller {
         }
     }
 
+	/**
+	 * Threedreturn
+	 *
+	 * @return void
+	 */
     public function threedreturn(): void {
         $this->load->language('extension/payment/securetrading_ws');
 

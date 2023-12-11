@@ -94,6 +94,8 @@ class ControllerExtensionPaymentPayPalPayLater extends Controller {
 	}
 
 	/**
+	 * Modal
+	 *
 	 * @return void
 	 */
 	public function modal(): void {

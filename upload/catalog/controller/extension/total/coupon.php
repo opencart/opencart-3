@@ -5,6 +5,9 @@
  * @package Catalog\Controller\Extension\Total
  */
 class ControllerExtensionTotalCoupon extends Controller {
+	/**
+	 * @return string
+	 */
     public function index(): string {
         if ($this->config->get('total_coupon_status')) {
             $this->load->language('extension/total/coupon');
@@ -21,6 +24,11 @@ class ControllerExtensionTotalCoupon extends Controller {
         }
     }
 
+	/**
+	 * Coupon
+	 *
+	 * @return void
+	 */
     public function coupon(): void {
         $this->load->language('extension/total/coupon');
 

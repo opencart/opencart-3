@@ -5,6 +5,9 @@
  * @package Catalog\Controller\Extension\Payment
  */
 class ControllerExtensionPaymentEway extends Controller {
+	/**
+	 * @return string
+	 */
     public function index(): string {
         $this->load->language('extension/payment/eway');
 
@@ -39,9 +42,11 @@ class ControllerExtensionPaymentEway extends Controller {
 
         if ($this->config->get('payment_eway_test')) {
             $data['Endpoint'] = 'Sandbox';
+
             $data['text_testing'] = $this->language->get('text_testing');
         } else {
             $data['Endpoint'] = 'Production';
+
             $data['text_testing'] = '';
         }
 
@@ -49,8 +54,11 @@ class ControllerExtensionPaymentEway extends Controller {
         $this->load->model('localisation/zone');
 
         $payment_zone_info = $this->model_localisation_zone->getZone($order_info['payment_zone_id']);
+
         $payment_zone_code = isset($payment_zone_info['code']) ? $payment_zone_info['code'] : '';
+
         $shipping_zone_info = $this->model_localisation_zone->getZone($order_info['shipping_zone_id']);
+
         $shipping_zone_code = isset($shipping_zone_info['code']) ? $shipping_zone_info['code'] : '';
 
         $request = new \stdClass();
@@ -94,6 +102,7 @@ class ControllerExtensionPaymentEway extends Controller {
             $item->Total = $this->lowestDenomination($item_total, $order_info['currency_code']);
 
             $request->Items[] = $item;
+
             $invoice_desc .= $product['name'] . ', ';
         }
 
@@ -147,7 +156,9 @@ class ControllerExtensionPaymentEway extends Controller {
         if ($this->config->get('payment_eway_paymode') == 'iframe') {
             $request->CancelUrl = 'http://www.example.org';
             $request->CustomerReadOnly = true;
+
             $result = $this->model_extension_payment_eway->getSharedAccessCode($request);
+
             $template = 'eway_iframe';
         } else {
             $result = $this->model_extension_payment_eway->getAccessCode($request);
@@ -156,6 +167,7 @@ class ControllerExtensionPaymentEway extends Controller {
         // Check if any error returns
         if (isset($result->Errors)) {
             $lbl_error = '';
+
             $error_array = explode(",", $result->Errors);
 
             foreach ($error_array as $error) {
@@ -181,13 +193,30 @@ class ControllerExtensionPaymentEway extends Controller {
         return $this->load->view('extension/payment/' . $template, $data);
     }
 
+	/**
+	 * lowestDenomination
+	 *
+	 * @param float $value
+	 * @param float $currency
+	 *
+	 * @return float
+	 */
     public function lowestDenomination(float $value, float $currency): float {
         $power = $this->currency->getDecimalPlace($currency);
+
         $value = (float)$value;
 
         return (int)($value * pow(10, $power));
     }
 
+	/**
+	 * validateDenomination
+	 *
+	 * @param float $value
+	 * @param float $currency
+	 *
+	 * @return float
+	 */
     public function ValidateDenomination(float $value, float $currency): float {
         $power = $this->currency->getDecimalPlace($currency);
         $value = (float)$value;
@@ -195,6 +224,11 @@ class ControllerExtensionPaymentEway extends Controller {
         return (int)($value * pow(10, '-' . $power));
     }
 
+	/**
+	 * Callback
+	 *
+	 * @return void
+	 */
     public function callback(): void {
         $this->load->language('extension/payment/eway');
 
@@ -229,9 +263,9 @@ class ControllerExtensionPaymentEway extends Controller {
                 $this->log->write('eWAY error: ' . $lbl_error);
             }
 
-            if (!$is_error) {
-                $fraud = false;
+			$fraud = false;
 
+            if (!$is_error) {
                 if (!$result->TransactionStatus) {
                     $is_error = true;
 
@@ -296,6 +330,7 @@ class ControllerExtensionPaymentEway extends Controller {
                 }
 
                 $log_error = substr($log_error, 0, -2);
+
                 $eway_order_id = $this->model_extension_payment_eway->addOrder($eway_order_data);
 
                 $this->model_extension_payment_eway->addTransaction($eway_order_id, $this->config->get('payment_eway_transaction_method'), $result->TransactionID, $order_info);

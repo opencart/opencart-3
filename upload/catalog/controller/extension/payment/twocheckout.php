@@ -5,9 +5,12 @@
  * @package Catalog\Controller\Extension\Payment
  */
 class ControllerExtensionPaymentTwoCheckout extends Controller {
+	/**
+	 * @return string
+	 */
     public function index(): string {
         if (!isset($this->session->data['order_id'])) {
-            return false;
+            return '';
         }
 
         // Orders
@@ -80,6 +83,11 @@ class ControllerExtensionPaymentTwoCheckout extends Controller {
         return $this->load->view('extension/payment/twocheckout', $data);
     }
 
+	/**
+	 * Callback
+	 *
+	 * @return void
+	 */
     public function callback(): void {
         // Orders
         $this->load->model('checkout/order');

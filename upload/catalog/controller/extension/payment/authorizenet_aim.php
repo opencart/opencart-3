@@ -5,6 +5,12 @@
  * @package Catalog\Controller\Extension\Payment
  */
 class ControllerExtensionPaymentAuthorizeNetAim extends Controller {
+	/**
+	 * @return string
+	 *
+	 * catalog/model/checkout/order/editOrder/after
+	 * catalog/model/checkout/order/addHistory/after
+	 */
     public function index(): string {
         $this->load->language('extension/payment/authorizenet_aim');
 
@@ -31,6 +37,14 @@ class ControllerExtensionPaymentAuthorizeNetAim extends Controller {
         return $this->load->view('extension/payment/authorizenet_aim', $data);
     }
 
+	/**
+	 * Send
+	 *
+	 * @return void
+	 *
+	 * catalog/model/checkout/order/editOrder/after
+	 * catalog/model/checkout/order/addHistory/after
+	 */
     public function send(): void {
         if ($this->config->get('payment_authorizenet_aim_server') == 'live') {
             $url = 'https://secure.authorize.net/gateway/transact.dll';

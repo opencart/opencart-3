@@ -5,6 +5,9 @@
  * @package Catalog\Controller\Extension\Payment
  */
 class ControllerExtensionPaymentWebPaymentSoftware extends Controller {
+	/**
+	 * @return string
+	 */
     public function index(): string {
         $this->load->language('extension/payment/web_payment_software');
 
@@ -31,6 +34,11 @@ class ControllerExtensionPaymentWebPaymentSoftware extends Controller {
         return $this->load->view('extension/payment/web_payment_software', $data);
     }
 
+	/**
+	 * Send
+	 *
+	 * @return void
+	 */
     public function send(): void {
         if (!isset($this->session->data['order_id'])) {
             return;

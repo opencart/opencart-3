@@ -5,6 +5,9 @@
  * @package Catalog\Controller\Extension\Payment
  */
 class ControllerExtensionPaymentBluePayRedirect extends Controller {
+	/**
+	 * @return string
+	 */
     public function index(): string {
         $this->load->language('extension/payment/bluepay_redirect');
 
@@ -47,6 +50,11 @@ class ControllerExtensionPaymentBluePayRedirect extends Controller {
         return $this->load->view('extension/payment/bluepay_redirect', $data);
     }
 
+	/**
+	 * Send
+	 *
+	 * @return void
+	 */
     public function send(): void {
         if (!isset($this->session->data['order_id'])) {
             return;
@@ -130,6 +138,11 @@ class ControllerExtensionPaymentBluePayRedirect extends Controller {
         $this->response->setOutput(json_encode($json));
     }
 
+	/**
+	 * Callback
+	 *
+	 * @return void
+	 */
     public function callback(): void {
         $this->response->addHeader('Content-Type: application/json');
         $this->response->setOutput(json_encode($this->request->get));

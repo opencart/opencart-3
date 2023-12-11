@@ -10,6 +10,9 @@
  * @link           https://www.opencart.cn
  */
 class ControllerExtensionPaymentWechatPay extends Controller {
+	/**
+	 * @return string
+	 */
     public function index(): string {
         $data['button_confirm'] = $this->language->get('button_confirm');
         $data['redirect'] = $this->url->link('extension/payment/wechat_pay/qrcode');
@@ -88,6 +91,11 @@ class ControllerExtensionPaymentWechatPay extends Controller {
         $this->response->setOutput($this->load->view('extension/payment/wechat_pay_qrcode', $data));
     }
 
+	/**
+	 * isOrderPaid
+	 *
+	 * @return void
+	 */
     public function isOrderPaid(): void {
         $json = [];
         $json['result'] = false;
@@ -109,6 +117,11 @@ class ControllerExtensionPaymentWechatPay extends Controller {
         $this->response->setOutput(json_encode($json));
     }
 
+	/**
+	 * Callback
+	 *
+	 * @return array
+	 */
     public function callback(): array {
         $options = [
             'appid'      => $this->config->get('payment_wechat_pay_app_id'),

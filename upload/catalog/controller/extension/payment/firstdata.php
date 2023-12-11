@@ -5,6 +5,9 @@
  * @package Catalog\Controller\Extension\Payment
  */
 class ControllerExtensionPaymentFirstdata extends Controller {
+	/**
+	 * @return string
+	 */
     public function index(): string {
         $this->load->language('extension/payment/firstdata');
 
@@ -36,6 +39,7 @@ class ControllerExtensionPaymentFirstdata extends Controller {
 
         $tmp = $data['merchant_id'] . $data['timestamp'] . $data['amount'] . $data['currency'] . $this->config->get('payment_firstdata_secret');
         $ascii = bin2hex($tmp);
+
         $data['hash'] = sha1($ascii);
         $data['version'] = 'OPENCART-C-' . VERSION;
         $data['bcompany'] = $order_info['payment_company'];
@@ -76,7 +80,9 @@ class ControllerExtensionPaymentFirstdata extends Controller {
 
         if ($this->config->get('payment_firstdata_card_storage') == 1 && $this->customer->isLogged()) {
             $data['card_storage'] = 1;
+
             $data['stored_cards'] = $this->model_extension_payment_firstdata->getStoredCards();
+
             $data['new_hosted_id'] = sha1($this->customer->getId() . '-' . date('Y-m-d-H-i-s') . rand(10, 500));
         } else {
             $data['card_storage'] = 0;
@@ -86,6 +92,11 @@ class ControllerExtensionPaymentFirstdata extends Controller {
         return $this->load->view('extension/payment/firstdata', $data);
     }
 
+	/**
+	 * Notify
+	 *
+	 * @return void
+	 */
     public function notify(): void {
         $this->load->language('extension/payment/firstdata');
 
@@ -232,6 +243,11 @@ class ControllerExtensionPaymentFirstdata extends Controller {
         }
     }
 
+	/**
+	 * Fail
+	 *
+	 * @return void
+	 */
     public function fail(): void {
         $this->load->language('extension/payment/firstdata');
 

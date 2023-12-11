@@ -5,9 +5,12 @@
  * @package Catalog\Controller\Extension\Payment
  */
 class ControllerExtensionPaymentPaymate extends Controller {
+	/**
+	 * @return string
+	 */
     public function index(): string {
         if (!isset($this->session->data['order_id'])) {
-            return false;
+            return '';
         }
 
         if (!$this->config->get('payment_paymate_test')) {
@@ -40,6 +43,11 @@ class ControllerExtensionPaymentPaymate extends Controller {
         return $this->load->view('extension/payment/paymate', $data);
     }
 
+	/**
+	 * Callback
+	 *
+	 * @return void
+	 */
     public function callback(): void {
         $this->load->language('extension/payment/paymate');
 
