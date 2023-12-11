@@ -95,6 +95,7 @@ class ModelExtensionFraudFraudLabsPro extends Model {
 
         $risk_score = 0;
 
+		// We validate the response object
         if (is_null($json = json_decode($response)) === false) {
             $this->db->query("REPLACE INTO `" . DB_PREFIX . "fraudlabspro` SET `order_id` = '" . (int)$data['order_id'] . "',
 				`is_country_match` = '" . $this->db->escape($json->is_country_match) . "',
