@@ -10,9 +10,12 @@ class ModelExtensionFraudFraudLabsPro extends Model {
 	 *
 	 * @param array $data
 	 *
-	 * @return int
+	 * @return object|null
+	 *
+	 * Using a ?object output in this scenario, since we cannot throw
+	 * a new Exception error for fraud checks.
 	 */
-    public function check(array $data): int {
+    public function check(array $data): ?object {
         // Do not perform fraud check if FraudLabs Pro is disabled or API key is not provided.
         if (!$this->config->get('fraud_fraudlabspro_status') || !$this->config->get('fraud_fraudlabspro_key')) {
             return 0;
@@ -24,7 +27,7 @@ class ModelExtensionFraudFraudLabsPro extends Model {
 
         // Do not call FraudLabs Pro API if order is already screened.
         if ($query->num_rows) {
-            return 0;
+            return null;
         }
 
         $ip = $data['ip'];
@@ -146,7 +149,7 @@ class ModelExtensionFraudFraudLabsPro extends Model {
 
         // Do not perform any action if error found
         if ($json->fraudlabspro_error_code) {
-            return 0;
+            return null;
         }
 
         if ($risk_score > $this->config->get('fraud_fraudlabspro_score')) {
@@ -165,7 +168,7 @@ class ModelExtensionFraudFraudLabsPro extends Model {
             return $this->config->get('fraud_fraudlabspro_reject_status_id');
         }
 
-		return 0;
+		return null;
     }
 
 	/**
