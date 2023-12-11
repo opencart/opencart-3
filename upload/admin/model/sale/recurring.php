@@ -6,6 +6,19 @@
  */
 class ModelSaleRecurring extends Model {
 	/**
+	 * getRecurring
+	 *
+	 * @param int $order_recurring_id
+	 *
+	 * @return array
+	 */
+	public function getRecurring(int $order_recurring_id): array {
+		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "order_recurring` WHERE `order_recurring_id` = '" . (int)$order_recurring_id . "'");
+
+		return $query->row;
+	}
+
+	/**
 	 * getRecurrings
 	 *
 	 * @param array $data
@@ -81,19 +94,6 @@ class ModelSaleRecurring extends Model {
 		$query = $this->db->query($sql);
 
 		return $query->rows;
-	}
-
-	/**
-	 * getRecurring
-	 *
-	 * @param int $order_recurring_id
-	 *
-	 * @return array
-	 */
-	public function getRecurring(int $order_recurring_id): array {
-		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "order_recurring` WHERE `order_recurring_id` = '" . (int)$order_recurring_id . "'");
-
-		return $query->row;
 	}
 
 	/**

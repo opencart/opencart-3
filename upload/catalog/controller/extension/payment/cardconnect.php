@@ -46,6 +46,7 @@ class ControllerExtensionPaymentCardConnect extends Controller {
         $this->model_extension_payment_cardconnect->log('Posting order to CardConnect');
 
         $json = [];
+
         $json['error'] = '';
 
         if ($this->config->get('payment_cardconnect_status')) {

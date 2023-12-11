@@ -98,6 +98,7 @@ class ControllerExtensionPaymentWechatPay extends Controller {
 	 */
     public function isOrderPaid(): void {
         $json = [];
+
         $json['result'] = false;
 
         if (isset($this->request->get['order_id'])) {

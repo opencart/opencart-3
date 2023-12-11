@@ -625,6 +625,7 @@ class ControllerExtensionPaymentKlarnaCheckout extends Controller {
         $this->load->model('sale/order');
 
         $json = [];
+
         $success = $error = '';
 
         $order_info = $this->model_sale_order->getOrder($this->request->get['order_id']);
