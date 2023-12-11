@@ -33,8 +33,12 @@ class ModelExtensionPaymentDivido extends Model {
 
 	/**
 	 * getProductSettings
+	 *
+	 * @param int $product_id
+	 *
+	 * @return array
 	 */
-    public function getProductSettings($product_id) {
+    public function getProductSettings(int $product_id): array {
         $query = $this->db->query("SELECT `display`, `plans` FROM `" . DB_PREFIX . "divido_product` WHERE `product_id` = '" . (int)$product_id . "'");
 
 		return $query->row;
@@ -42,8 +46,10 @@ class ModelExtensionPaymentDivido extends Model {
 
 	/**
 	 * isEnabled
+	 *
+	 * @return bool
 	 */
-    public function isEnabled() {
+    public function isEnabled(): bool {
         $api_key = $this->config->get('payment_divido_api_key');
         $enabled = $this->config->get('payment_divido_status');
 
@@ -52,31 +58,36 @@ class ModelExtensionPaymentDivido extends Model {
 
 	/**
 	 * hasOrderId
+	 *
+	 * @param int    $order_id
+	 * @param string $salt
+	 *
+	 * @return string
 	 */
-    public function hashOrderId($order_id, $salt) {
+    public function hashOrderId(int $order_id, string $salt): string {
         return hash('sha256', $order_id . $salt);
     }
 
 	/**
 	 * saveLookup
+	 *
+	 * @param int    $order_id
+	 * @param string $salt
+	 * @param string $proposal_id
+	 * @param string $application_id
+	 * @param float  $deposit_amount
+	 *
+	 * @return void
 	 */
-    public function saveLookup($order_id, $salt, $proposal_id = null, $application_id = null, $deposit_amount = null) {
-        $order_id = (int)$order_id;
-        $salt = $this->db->escape($salt);
-        $proposal_id = $this->db->escape($proposal_id);
-        $application_id = $this->db->escape($application_id);
-        $deposit_amount = $this->db->escape($deposit_amount);
+    public function saveLookup(int $order_id, string $salt, string $proposal_id = null, string $application_id = null, float $deposit_amount = null): void {
+        $query = $this->db->query("SELECT `application_id` FROM `" . DB_PREFIX . "divido_lookup` WHERE `order_id` = '" . $order_id . "'");
 
-        $query_get_lookup = "SELECT `application_id` FROM `" . DB_PREFIX . "divido_lookup` WHERE `order_id` = '" . $order_id . "'";
-
-        $result_get_lookup = $this->db->query($query_get_lookup);
-
-        if ($result_get_lookup->num_rows == 0) {
+        if (!$query->num_rows) {
             $proposal_id = ($proposal_id) ? "'" . $proposal_id . "'" : 'NULL';
             $application_id = ($application_id) ? "'" . $application_id . "'" : 'NULL';
             $deposit_amount = ($deposit_amount) ? $deposit_amount : 'NULL';
 
-            $query_upsert = "INSERT INTO `" . DB_PREFIX . "divido_lookup` SET `order_id` = '" . $order_id . "', `salt` = '" . $salt . "', `proposal_id` = '" . $proposal_id . "', `application_id` = '" . $application_id . "', `deposit_amount` = '" . $deposit_amount . "'";
+            $query_upsert = "INSERT INTO `" . DB_PREFIX . "divido_lookup` SET `order_id` = '" . (int)$order_id . "', `salt` = '" . $this->db->escape($salt) . "', `proposal_id` = '" . $this->db->escape($proposal_id) . "', `application_id` = '" . $application_id . "', `deposit_amount` = '" . (float)$deposit_amount . "'";
         } else {
             $query_upsert = "UPDATE `" . DB_PREFIX . "divido_lookup` SET `salt` = '" . $salt . "'";
 
@@ -100,16 +111,25 @@ class ModelExtensionPaymentDivido extends Model {
 
 	/**
 	 * getLookupByOrderId
+	 *
+	 * @param int $order_id
+	 *
+	 * @return array
 	 */
-    public function getLookupByOrderId($order_id) {
-        return $this->db->query("SELECT * FROM `" . DB_PREFIX . "divido_lookup` WHERE `order_id` = '" . (int)$order_id . "'");
+    public function getLookupByOrderId(int $order_id): array {
+        $query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "divido_lookup` WHERE `order_id` = '" . (int)$order_id . "'");
+
+		return $query->row;
     }
 
 	/**
 	 * getGlobalSelectedPlans
+	 *
+	 * @return array
 	 */
-    public function getGlobalSelectedPlans() {
+    public function getGlobalSelectedPlans(): array {
         $all_plans = $this->getAllPlans();
+
         $display_plans = $this->config->get('payment_divido_planselection');
 
         if ($display_plans == 'all' || empty($display_plans)) {
@@ -135,8 +155,10 @@ class ModelExtensionPaymentDivido extends Model {
 
 	/**
 	 * getAllPlans
+	 *
+	 * @return array
 	 */
-    public function getAllPlans() {
+    public function getAllPlans(): array {
         if ($plans = $this->cache->get(self::CACHE_KEY_PLANS)) {
             // OpenCart 2.1 decodes json objects to associative arrays so we
             // need to make sure we're getting a list of simple objects back.
@@ -190,8 +212,12 @@ class ModelExtensionPaymentDivido extends Model {
 
 	/**
 	 * getCartPlans
+	 *
+	 * @param object $cart
+	 *
+	 * @return array
 	 */
-    public function getCartPlans($cart) {
+    public function getCartPlans(object $cart): array {
         $plans = [];
 
         $products = $cart->getProducts();
@@ -209,8 +235,10 @@ class ModelExtensionPaymentDivido extends Model {
 
 	/**
 	 * getPlans
+	 *
+	 * @return array
 	 */
-    public function getPlans($default_plans) {
+    public function getPlans($default_plans): array {
         if ($default_plans) {
             $plans = $this->getGlobalSelectedPlans();
         } else {
@@ -222,8 +250,10 @@ class ModelExtensionPaymentDivido extends Model {
 
 	/**
 	 * getOrderTotals
+	 *
+	 * @return array
 	 */
-    public function getOrderTotals() {
+    public function getOrderTotals(): array {
         $taxes = $this->cart->getTaxes();
         $total = 0;
         $totals = [];
@@ -273,8 +303,12 @@ class ModelExtensionPaymentDivido extends Model {
 
 	/**
 	 * getProductPlans
+	 *
+	 * @param int $product_id
+	 *
+	 * @return array
 	 */
-    public function getProductPlans($product_id) {
+    public function getProductPlans(int $product_id): array {
         // Products
         $this->load->model('catalog/product');
 
@@ -298,7 +332,7 @@ class ModelExtensionPaymentDivido extends Model {
             $category_matches = array_intersect($all_categories, $divido_categories);
 
             if (!$category_matches) {
-                return null;
+                return [];
             }
         }
 
@@ -310,7 +344,7 @@ class ModelExtensionPaymentDivido extends Model {
         }
 
         if ($product_selection == 'selected' && $settings['display'] == 'custom' && empty($settings['plans'])) {
-            return null;
+            return [];
         }
 
         $price = 0;
@@ -321,7 +355,7 @@ class ModelExtensionPaymentDivido extends Model {
         }
 
         if ($product_selection == 'threshold' && !empty($price_threshold) && $price < $price_threshold) {
-            return null;
+            return [];
         }
 
         if ($settings['display'] == 'default') {
@@ -344,7 +378,7 @@ class ModelExtensionPaymentDivido extends Model {
         }
 
         if (empty($plans)) {
-            return null;
+            return [];
         }
 
         return $plans;

@@ -7,8 +7,13 @@
 class ModelExtensionPaymentLaybuy extends Model {
 	/**
 	 * addTransaction
+	 *
+	 * @param array $data
+	 * @param int   $status
+	 *
+	 * @return void
 	 */
-    public function addTransaction($data = [], $status) {
+    public function addTransaction(array $data = [], int $status): void {
         $this->log('Report: ' . print_r($data, true), '1');
         $this->log('Status: ' . $status, '1');
 
@@ -17,23 +22,33 @@ class ModelExtensionPaymentLaybuy extends Model {
 
 	/**
 	 * deleteRevisedTransaction
+	 *
+	 * @param int $id
+	 *
+	 * @return void
 	 */
-    public function deleteRevisedTransaction($id) {
+    public function deleteRevisedTransaction(int $id): void {
         $this->db->query("DELETE FROM `" . DB_PREFIX . "laybuy_revise_request` WHERE `laybuy_revise_request_id` = '" . (int)$id . "'");
     }
 
 	/**
 	 * deleteTransactionByOrderId
+	 *
+	 * @param int $order_id
+	 *
+	 * @return void
 	 */
-    public function deleteTransactionByOrderId($order_id) {
+    public function deleteTransactionByOrderId(int $order_id): void {
         $this->db->query("DELETE FROM `" . DB_PREFIX . "laybuy_transaction` WHERE `order_id` = '" . (int)$order_id . "'");
         $this->db->query("DELETE FROM `" . DB_PREFIX . "laybuy_revise_request` WHERE `order_id` = '" . (int)$order_id . "'");
     }
 
 	/**
 	 * getInitialPayments
+	 *
+	 * @return array
 	 */
-    public function getInitialPayments() {
+    public function getInitialPayments(): array {
         $minimum = $this->config->get('payment_laybuy_min_deposit') ? $this->config->get('payment_laybuy_min_deposit') : 20;
         $maximum = $this->config->get('payment_laybuy_max_deposit') ? $this->config->get('payment_laybuy_max_deposit') : 50;
 
@@ -48,6 +63,10 @@ class ModelExtensionPaymentLaybuy extends Model {
 
 	/**
 	 * getMethod
+	 *
+	 * @param array $address
+	 *
+	 * @return array
 	 */
     public function getMethod(array $address): array {
         $this->load->language('extension/payment/laybuy');
@@ -127,8 +146,10 @@ class ModelExtensionPaymentLaybuy extends Model {
 
 	/**
 	 * getMonths
+	 *
+	 * @return array
 	 */
-    public function getMonths() {
+    public function getMonths(): array {
         $this->load->language('extension/payment/laybuy');
 
         $max_months = $this->config->get('payment_laybuy_max_months');
@@ -155,8 +176,10 @@ class ModelExtensionPaymentLaybuy extends Model {
 
 	/**
 	 * getPayPalProfileIds
+	 *
+	 * @return array
 	 */
-    public function getPayPalProfileIds() {
+    public function getPayPalProfileIds(): array {
         $query = $this->db->query("SELECT `paypal_profile_id` FROM `" . DB_PREFIX . "laybuy_transaction` WHERE `status` = '1'");
 
         return $query->rows;
@@ -164,8 +187,12 @@ class ModelExtensionPaymentLaybuy extends Model {
 
 	/**
 	 * getRevisedTransaction
+	 *
+	 * @param int $id
+	 *
+	 * @return array
 	 */
-    public function getRevisedTransaction($id) {
+    public function getRevisedTransaction(int $id): array {
         $query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "laybuy_revise_request` WHERE `laybuy_revise_request_id` = '" . (int)$id . "'");
 
         return $query->row;
@@ -173,8 +200,12 @@ class ModelExtensionPaymentLaybuy extends Model {
 
 	/**
 	 * getTransaction
+	 *
+	 * @param int $id
+	 *
+	 * @return array
 	 */
-    public function getTransaction($id) {
+    public function getTransaction(int $id): array {
         $query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "laybuy_transaction` WHERE `laybuy_transaction_id` = '" . (int)$id . "'");
 
         return $query->row;
@@ -182,8 +213,12 @@ class ModelExtensionPaymentLaybuy extends Model {
 
 	/**
 	 * getTransactionByLayBuyRefId
+	 *
+	 * @param int $laybuy_ref_id
+	 *
+	 * @return array
 	 */
-    public function getTransactionByLayBuyRefId($laybuy_ref_id) {
+    public function getTransactionByLayBuyRefId(int $laybuy_ref_id): array {
         $query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "laybuy_transaction` WHERE `laybuy_ref_no` = '" . (int)$laybuy_ref_id . "'");
 
         return $query->row;
@@ -191,20 +226,29 @@ class ModelExtensionPaymentLaybuy extends Model {
 
 	/**
 	 * Log
+	 *
+	 * @param string $message
+	 * @param int    $step
+	 *
+	 * @return void
 	 */
-    public function log($data, $step = 6) {
+    public function log(string $message, int $step = 6): void {
         if ($this->config->get('payment_laybuy_logging')) {
             // Log
             $log = new \Log('laybuy.log');
             $backtrace = debug_backtrace();
-            $log->write('(' . $backtrace[$step]['class'] . '::' . $backtrace[$step]['function'] . ') - ' . $data);
+            $log->write('(' . $backtrace[$step]['class'] . '::' . $backtrace[$step]['function'] . ') - ' . $message);
         }
     }
 
 	/**
 	 * prepareTransactionReport
+	 *
+	 * @param array $post_data
+	 *
+	 * @return array
 	 */
-    public function prepareTransactionReport($post_data) {
+    public function prepareTransactionReport(array $post_data): array {
         $this->load->language('extension/payment/laybuy');
 
         // Orders
@@ -254,8 +298,10 @@ class ModelExtensionPaymentLaybuy extends Model {
 
 	/**
 	 * updateCronRunTime
+	 *
+	 * @return void
 	 */
-    public function updateCronRunTime() {
+    public function updateCronRunTime(): void {
         $this->db->query("DELETE FROM `" . DB_PREFIX . "setting` WHERE `key` = 'laybuy_cron_time'");
 
         $this->db->query("INSERT INTO `" . DB_PREFIX . "setting` SET `store_id` = '0', `code` = 'laybuy', `key` = 'laybuy_cron_time', `value` = NOW(), `serialized` = '0'");
@@ -263,8 +309,15 @@ class ModelExtensionPaymentLaybuy extends Model {
 
 	/**
 	 * updateTransaction
+	 *
+	 * @param int    $id
+	 * @param int    $status
+	 * @param string $report
+	 * @param int    $transaction
+	 *
+	 * @return void
 	 */
-    public function updateTransaction($id, $status, $report, $transaction) {
+    public function updateTransaction(int $id, int $status, string $report, int $transaction): void {
         $this->db->query("UPDATE `" . DB_PREFIX . "laybuy_transaction` SET `status` = '" . (int)$status . "', `report` = '" . $this->db->escape($report) . "', `transaction` = '" . (int)$transaction . "' WHERE `laybuy_transaction_id` = '" . (int)$id . "'");
     }
 }

@@ -114,12 +114,12 @@ class ModelExtensionPaymentPayPal extends Model {
 	/**
 	 * Log
 	 *
-	 * @param array  $data
+	 * @param string $message
 	 * @param string $title
 	 *
 	 * @return void
 	 */
-	public function log(array $data, string $title = null): void {
+	public function log(string $message, string $title = null): void {
 		// Setting
 		$_config = new \Config();
 		$_config->load('paypal');
@@ -130,7 +130,7 @@ class ModelExtensionPaymentPayPal extends Model {
 
 		if ($setting['general']['debug']) {
 			$log = new Log('paypal.log');
-			$log->write('PayPal debug (' . $title . '): ' . json_encode($data));
+			$log->write('PayPal debug (' . $title . '): ' . json_encode($message));
 		}
 	}
 }

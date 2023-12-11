@@ -7,6 +7,10 @@
 class ModelExtensionPaymentFirstdata extends Model {
 	/**
 	 * getMethod
+	 *
+	 * @param array $address
+	 *
+	 * @return array
 	 */
     public function getMethod(array $address): array {
         $this->load->language('extension/payment/firstdata');
@@ -37,8 +41,14 @@ class ModelExtensionPaymentFirstdata extends Model {
 
 	/**
 	 * addOrder
+	 *
+	 * @param array  $order_info
+	 * @param string $order_ref
+	 * @param string $transaction_date
+	 *
+	 * @return int
 	 */
-    public function addOrder($order_info, $order_ref, $transaction_date) {
+    public function addOrder(array $order_info, string $order_ref, string $transaction_date): int {
         if ($this->config->get('payment_firstdata_auto_settle') == 1) {
             $settle_status = 1;
         } else {
@@ -52,8 +62,12 @@ class ModelExtensionPaymentFirstdata extends Model {
 
 	/**
 	 * getOrder
+	 *
+	 * @param int $order_id
+	 *
+	 * @return array
 	 */
-    public function getOrder($order_id) {
+    public function getOrder(int $order_id): array {
         $order = $this->db->query("SELECT * FROM `" . DB_PREFIX . "firstdata_order` WHERE `order_id` = '" . (int)$order_id . "' LIMIT 1");
 
         return $order->row;
@@ -61,8 +75,14 @@ class ModelExtensionPaymentFirstdata extends Model {
 
 	/**
 	 * addTransaction
+	 *
+	 * @param int    $fd_order_id
+	 * @param string $type
+	 * @param array  $order_info
+	 *
+	 * @return void
 	 */
-    public function addTransaction($fd_order_id, $type, $order_info = []) {
+    public function addTransaction(int $fd_order_id, string $type, array $order_info = []): void {
         if (!empty($order_info)) {
             $amount = $this->currency->format($order_info['total'], $order_info['currency_code'], $order_info['currency_value'], false);
         } else {
@@ -74,8 +94,12 @@ class ModelExtensionPaymentFirstdata extends Model {
 
 	/**
 	 * Logger
+	 *
+	 * @param string $message
+	 *
+	 * @return void
 	 */
-    public function logger($message) {
+    public function logger(string $message): void {
         if ($this->config->get('payment_firstdata_debug') == 1) {
             // Log
             $log = new \Log('firstdata.log');
@@ -85,8 +109,12 @@ class ModelExtensionPaymentFirstdata extends Model {
 
 	/**
 	 * mapCurrency
+	 *
+	 * @param string $code
+	 *
+	 * @return string
 	 */
-    public function mapCurrency($code) {
+    public function mapCurrency(string $code): string {
         $currency = [];
 
         $currency = [
@@ -98,14 +126,16 @@ class ModelExtensionPaymentFirstdata extends Model {
         if (array_key_exists($code, $currency)) {
             return $currency[$code];
         } else {
-            return false;
+            return '';
         }
     }
 
 	/**
 	 * getScoredCards
+	 *
+	 * @return array
 	 */
-    public function getStoredCards() {
+    public function getStoredCards(): array {
         $customer_id = $this->customer->getId();
 
         $query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "firstdata_card` WHERE `customer_id` = '" . (int)$customer_id . "'");
@@ -115,8 +145,16 @@ class ModelExtensionPaymentFirstdata extends Model {
 
 	/**
 	 * storeCard
+	 *
+	 * @param string $token
+	 * @param int    $customer_id
+	 * @param string $month
+	 * @param string $year
+	 * @param string $digits
+	 *
+	 * @return void
 	 */
-    public function storeCard($token, $customer_id, $month, $year, $digits) {
+    public function storeCard(string $token, int $customer_id, string $month, string $year, string $digits): void {
         $existing_card = $this->db->query("SELECT * FROM `" . DB_PREFIX . "firstdata_card` WHERE `token` = '" . $this->db->escape($token) . "' AND `customer_id` = '" . (int)$customer_id . "' LIMIT 1");
 
         if ($existing_card->num_rows > 0) {
@@ -138,15 +176,25 @@ class ModelExtensionPaymentFirstdata extends Model {
 
 	/**
 	 * updateVoidStatus
+	 *
+	 * @param int $order_id
+	 * @param int $status
+	 *
+	 * @return void
 	 */
-    public function updateVoidStatus($order_id, $status) {
+    public function updateVoidStatus(int $order_id, int $status): void {
         $this->db->query("UPDATE `" . DB_PREFIX . "firstdata_order` SET `void_status` = '" . (int)$status . "' WHERE `order_id` = '" . (int)$order_id . "'");
     }
 
 	/**
 	 * updateCaptureStatus
+	 *
+	 * @param int $order_id
+	 * @param int $status
+	 *
+	 * @return void
 	 */
-    public function updateCaptureStatus($order_id, $status) {
+    public function updateCaptureStatus(int $order_id, int $status): void {
         $this->db->query("UPDATE `" . DB_PREFIX . "firstdata_order` SET `capture_status` = '" . (int)$status . "' WHERE `order_id` = '" . (int)$order_id . "'");
     }
 }

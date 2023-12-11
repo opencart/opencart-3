@@ -7,12 +7,17 @@
 class ModelExtensionPaymentEway extends Model {
 	/**
 	 * getMethod
+	 *
+	 * @param array $address
+	 *
+	 * @return array
 	 */
     public function getMethod(array $address): array {
         $this->load->language('extension/payment/eway');
 
         if ($this->config->get('payment_eway_status')) {
             $query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "zone_to_geo_zone` WHERE `geo_zone_id` = '" . (int)$this->config->get('payment_eway_standard_geo_zone_id') . "' AND `country_id` = '" . (int)$address['country_id'] . "' AND (`zone_id` = '" . (int)$address['zone_id'] . "' OR `zone_id` = '0')");
+
             if (!$this->config->get('payment_eway_standard_geo_zone_id')) {
                 $status = true;
             } elseif ($query->num_rows) {
@@ -40,8 +45,12 @@ class ModelExtensionPaymentEway extends Model {
 
 	/**
 	 * addOrder
+	 *
+	 * @param array $order_data
+	 *
+	 * @return int
 	 */
-    public function addOrder($order_data) {
+    public function addOrder(array $order_data): int {
         $cap = '';
 
         if ($this->config->get('payment_eway_transaction_method') == 'payment') {
@@ -55,8 +64,15 @@ class ModelExtensionPaymentEway extends Model {
 
 	/**
 	 * addTransaction
+	 *
+	 * @param int    $eway_order_id
+	 * @param string $type
+	 * @param string $transactionid
+	 * @param array  $order_info
+	 *
+	 * @return int
 	 */
-    public function addTransaction($eway_order_id, $type, $transactionid, $order_info) {
+    public function addTransaction(int $eway_order_id, string $type, string $transactionid, array $order_info): int {
         $this->db->query("INSERT INTO `" . DB_PREFIX . "eway_transactions` SET `eway_order_id` = '" . (int)$eway_order_id . "', `created` = NOW(), `transaction_id` = '" . $this->db->escape($transactionid) . "', `type` = '" . $this->db->escape($type) . "', `amount` = '" . $this->currency->format($order_info['total'], $order_info['currency_code'], false, false) . "'");
 
         return $this->db->getLastId();
@@ -64,8 +80,12 @@ class ModelExtensionPaymentEway extends Model {
 
 	/**
 	 * getCards
+	 *
+	 * @param int $customer_id
+	 *
+	 * @return array
 	 */
-    public function getCards($customer_id) {
+    public function getCards(int $customer_id): array {
         $query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "eway_card` WHERE `customer_id` = '" . (int)$customer_id . "'");
 
         $card_data = [];
@@ -89,8 +109,12 @@ class ModelExtensionPaymentEway extends Model {
 
 	/**
 	 * checkToken
+	 *
+	 * @param int $token_id
+	 *
+	 * @return bool
 	 */
-    public function checkToken($token_id) {
+    public function checkToken(int $token_id): bool {
         $query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "eway_card` WHERE `token_id` = '" . (int)$token_id . "'");
 
         if ($query->num_rows) {
@@ -102,36 +126,60 @@ class ModelExtensionPaymentEway extends Model {
 
 	/**
 	 * addCard
+	 *
+	 * @param int   $order_id
+	 * @param array $card_data
+	 *
+	 * @return void
 	 */
-    public function addCard($order_id, $card_data) {
+    public function addCard(int $order_id, array $card_data): void {
         $this->db->query("INSERT INTO `" . DB_PREFIX . "eway_card` SET `customer_id` = '" . (int)$card_data['customer_id'] . "', `order_id` = '" . (int)$order_id . "', `digits` = '" . $this->db->escape($card_data['Last4Digits']) . "', `expiry` = '" . $this->db->escape($card_data['ExpiryDate']) . "', `type` = '" . $this->db->escape($card_data['CardType']) . "'");
     }
 
 	/**
 	 * updateCard
+	 *
+	 * @param int    $order_id
+	 * @param string $token
+	 *
+	 * @return void
 	 */
-    public function updateCard($order_id, $token) {
+    public function updateCard(int $order_id, string $token): void {
         $this->db->query("UPDATE `" . DB_PREFIX . "eway_card` SET `token` = '" . $this->db->escape($token) . "' WHERE `order_id` = '" . (int)$order_id . "'");
     }
 
 	/**
 	 * updateFullCard
+	 *
+	 * @param int    $card_id
+	 * @param string $token
+	 * @param array  $card_data
+	 *
+	 * @return void
 	 */
-    public function updateFullCard($card_id, $token, $card_data) {
+    public function updateFullCard(int $card_id, string $token, array $card_data): void {
         $this->db->query("UPDATE `" . DB_PREFIX . "eway_card` SET `token` = '" . $this->db->escape($token) . "', `digits` = '" . $this->db->escape($card_data['Last4Digits']) . "', `expiry` = '" . $this->db->escape($card_data['ExpiryDate']) . "', `type` = '" . $this->db->escape($card_data['CardType']) . "' WHERE `card_id` = '" . (int)$card_id . "'");
     }
 
 	/**
 	 * deleteCard
+	 *
+	 * @param int $order_id
+	 *
+	 * @return void
 	 */
-    public function deleteCard($order_id) {
+    public function deleteCard(int $order_id): void {
         $this->db->query("DELETE FROM `" . DB_PREFIX . "eway_card` WHERE `order_id` = '" . (int)$order_id . "'");
     }
 
 	/**
 	 * getAccessCode
+	 *
+	 * @param array $request
+	 *
+	 * @return ?object
 	 */
-    public function getAccessCode($request) {
+    public function getAccessCode(array $request): ?object {
         if ($this->config->get('payment_eway_test')) {
             $url = 'https://api.sandbox.ewaypayments.com/AccessCodes';
         } else {
@@ -146,8 +194,12 @@ class ModelExtensionPaymentEway extends Model {
 
 	/**
 	 * getSharedAccessCode
+	 *
+	 * @param array $request
+	 *
+	 * @return ?object
 	 */
-    public function getSharedAccessCode($request) {
+    public function getSharedAccessCode(array $request): ?object {
         if ($this->config->get('payment_eway_test')) {
             $url = 'https://api.sandbox.ewaypayments.com/AccessCodesShared';
         } else {
@@ -161,9 +213,12 @@ class ModelExtensionPaymentEway extends Model {
     }
 	/**
 	 * getAccessCodeDefault
+	 *
+	 * @param string $access_code
+	 *
+	 * @return ?object
 	 */
-
-    public function getAccessCodeResult($access_code) {
+    public function getAccessCodeResult(string $access_code): ?object {
         if ($this->config->get('payment_eway_test')) {
             $url = 'https://api.sandbox.ewaypayments.com/AccessCode/' . $access_code;
         } else {
@@ -178,8 +233,14 @@ class ModelExtensionPaymentEway extends Model {
 
 	/**
 	 * sendCurl
+	 *
+	 * @param string $url
+	 * @param array  $data
+	 * @param bool   $is_post
+	 *
+	 * @return ?object
 	 */
-    public function sendCurl($url, $data, $is_post = true) {
+    public function sendCurl(string $url, array $data, bool $is_post = true): ?object {
         $ch = curl_init($url);
 
         $eway_username = html_entity_decode($this->config->get('payment_eway_username'), ENT_QUOTES, 'UTF-8');

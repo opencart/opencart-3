@@ -10,7 +10,6 @@ use Klarna\Rest\Checkout\Order as KCOrder;
 class ModelExtensionPaymentKlarnaCheckout extends Model {
 	/**
 	 * orderCreate
-	 *
 	 */
     public function orderCreate(KCConnector $connector, $order_data) {
         try {
@@ -27,7 +26,6 @@ class ModelExtensionPaymentKlarnaCheckout extends Model {
 
 	/**
 	 * orderRetrieve
-	 *
 	 */
     public function orderRetrieve(KCConnector $connector, $order_id) {
         try {
@@ -43,7 +41,6 @@ class ModelExtensionPaymentKlarnaCheckout extends Model {
 
 	/**
 	 * orderUpdate
-	 *
 	 */
     public function orderUpdate(KCConnector $connector, $order_id, $order_data) {
         try {
@@ -75,6 +72,10 @@ class ModelExtensionPaymentKlarnaCheckout extends Model {
 
 	/**
 	 * getMethod
+	 *
+	 * @param array $address
+	 *
+	 * @return array
 	 */
     public function getMethod(array $address): array {
         // Not shown in the payment method list
@@ -120,8 +121,12 @@ class ModelExtensionPaymentKlarnaCheckout extends Model {
 
 	/**
 	 * getOrder
+	 *
+	 * @param string $order_ref
+	 *
+	 * @return array
 	 */
-    public function getOrder($order_ref) {
+    public function getOrder(string $order_ref): array {
         $query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "klarna_checkout_order` WHERE `order_ref` = '" . $this->db->escape($order_ref) . "' LIMIT 1");
 
 		return $query->row;
@@ -129,8 +134,12 @@ class ModelExtensionPaymentKlarnaCheckout extends Model {
 
 	/**
 	 * getOrderByOrderId
+	 *
+	 * @param int $order_id
+	 *
+	 * @return array
 	 */
-    public function getOrderByOrderId($order_id) {
+    public function getOrderByOrderId(int $order_id): array {
         $query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "klarna_checkout_order` WHERE `order_id` = '" . (int)$order_id . "' LIMIT 1");
 
 		return $query->row;
@@ -138,36 +147,63 @@ class ModelExtensionPaymentKlarnaCheckout extends Model {
 
 	/**
 	 * addOrder
+	 *
+	 * @param int    $order_id
+	 * @param string $order_ref
+	 * @param string $data
+	 *
+	 * @return void
 	 */
-    public function addOrder($order_id, $order_ref, $data) {
+    public function addOrder(int $order_id, string $order_ref, string $data): void {
         $this->db->query("INSERT INTO `" . DB_PREFIX . "klarna_checkout_order` SET `order_id` = '" . (int)$order_id . "', `order_ref` = '" . $this->db->escape($order_ref) . "', `data` = '" . $this->db->escape($data) . "'");
     }
 
 	/**
 	 * updateOrder
+	 *
+	 * @param int    $order_id
+	 * @param string $order_ref
+	 * @param string $data
+	 *
+	 * @return void
 	 */
-    public function updateOrder($order_id, $order_ref, $data) {
+    public function updateOrder(int $order_id, string $order_ref, string $data): void {
         $this->db->query("UPDATE `" . DB_PREFIX . "klarna_checkout_order` SET `order_id` = '" . (int)$order_id . "', `data` = '" . $this->db->escape($data) . "' WHERE `order_ref` = '" . $this->db->escape($order_ref) . "'");
     }
 
 	/**
 	 * updateOcOrder
+	 *
+	 * @param int    $order_id
+	 * @param array  $data
+	 *
+	 * @return void
 	 */
-    public function updateOcOrder($order_id, $data) {
+    public function updateOcOrder(int $order_id, array $data): void {
         $this->db->query("UPDATE `" . DB_PREFIX . "order` SET `firstname` = '" . $this->db->escape($data['firstname']) . "', `lastname` = '" . $this->db->escape($data['lastname']) . "', `telephone` = '" . $this->db->escape($data['telephone']) . "', `payment_firstname` = '" . $this->db->escape($data['payment_firstname']) . "', `payment_lastname` = '" . $this->db->escape($data['payment_lastname']) . "', `payment_address_1` = '" . $this->db->escape($data['payment_address_1']) . "', `payment_address_2` = '" . $this->db->escape($data['payment_address_2']) . "', `payment_city` = '" . $this->db->escape($data['payment_city']) . "', `payment_postcode` = '" . $this->db->escape($data['payment_postcode']) . "', `payment_zone` = '" . $this->db->escape($data['payment_zone']) . "', `payment_zone_id` = '" . (int)$data['payment_zone_id'] . "', `payment_country` = '" . $this->db->escape($data['payment_country']) . "', `payment_country_id` = '" . (int)$data['payment_country_id'] . "', `payment_address_format` = '" . $this->db->escape($data['payment_address_format']) . "', `shipping_firstname` = '" . $this->db->escape($data['shipping_firstname']) . "', `shipping_lastname` = '" . $this->db->escape($data['shipping_lastname']) . "', `shipping_address_1` = '" . $this->db->escape($data['shipping_address_1']) . "', `shipping_address_2` = '" . $this->db->escape($data['shipping_address_2']) . "', `shipping_city` = '" . $this->db->escape($data['shipping_city']) . "', `shipping_postcode` = '" . $this->db->escape($data['shipping_postcode']) . "', `shipping_zone` = '" . $this->db->escape($data['shipping_zone']) . "', `shipping_zone_id` = '" . (int)$data['shipping_zone_id'] . "', `shipping_country` = '" . $this->db->escape($data['shipping_country']) . "', `shipping_country_id` = '" . (int)$data['shipping_country_id'] . "', `shipping_address_format` = '" . $this->db->escape($data['shipping_address_format']) . "' WHERE `order_id` = '" . (int)$order_id . "'");
     }
 
 	/**
 	 * updateOcOrderEmail
+	 *
+	 * @param int    $order_id
+	 * @param string $email
+	 *
+	 * @return void
 	 */
-    public function updateOcOrderEmail($order_id, $email) {
+    public function updateOcOrderEmail(int $order_id, string $email): void {
         $this->db->query("UPDATE `" . DB_PREFIX . "order` SET `email` = '" . $this->db->escape($email) . "' WHERE `order_id` = '" . (int)$order_id . "'");
     }
 
 	/**
 	 * getZoneByCode
+	 *
+	 * @param string $code
+	 * @param int    $country_id
+	 *
+	 * @return array
 	 */
-    public function getZoneByCode($code, $country_id) {
+    public function getZoneByCode(string $code, int $country_id): array {
         $query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "zone` WHERE (`code` = '" . $this->db->escape($code) . "' OR `name` = '" . $this->db->escape($code) . "') AND `country_id` = '" . (int)$country_id . "' AND `status` = '1'");
 
         return $query->row;
@@ -175,8 +211,12 @@ class ModelExtensionPaymentKlarnaCheckout extends Model {
 
 	/**
 	 * getCountriesByGeoZone
+	 *
+	 * @param int $geo_zone_id
+	 *
+	 * @return array
 	 */
-    public function getCountriesByGeoZone($geo_zone_id) {
+    public function getCountriesByGeoZone(int $geo_zone_id): array {
         $query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "zone_to_geo_zone` WHERE `geo_zone_id` = '" . (int)$geo_zone_id . "' GROUP BY `country_id` ORDER BY `country_id` ASC");
 
         return $query->rows;
@@ -184,8 +224,12 @@ class ModelExtensionPaymentKlarnaCheckout extends Model {
 
 	/**
 	 * checkForPaymentTaxes
+	 *
+	 * @param array $products
+	 *
+	 * @return bool
 	 */
-    public function checkForPaymentTaxes($products = []) {
+    public function checkForPaymentTaxes(array $products = []): bool {
         foreach ($products as $product) {
             $query = $this->db->query("SELECT COUNT(*) AS `total` FROM `" . DB_PREFIX . "tax_rule` WHERE `based` = 'payment' AND `tax_class_id` = '" . (int)$product['tax_class_id'] . "'");
 
@@ -199,8 +243,12 @@ class ModelExtensionPaymentKlarnaCheckout extends Model {
 
 	/**
 	 * getDefaultShippingMethod
+	 *
+	 * @param array $shipping_methods
+	 *
+	 * @return array
 	 */
-    public function getDefaultShippingMethod($shipping_methods) {
+    public function getDefaultShippingMethod(array $shipping_methods): array {
         $first_shipping_method = reset($shipping_methods);
 
         if ($first_shipping_method && isset($first_shipping_method['quote'])) {
@@ -218,8 +266,13 @@ class ModelExtensionPaymentKlarnaCheckout extends Model {
 
 	/**
 	 * Log
+	 *
+	 * @param string $data
+	 * @param int    $step
+	 *
+	 * @return void
 	 */
-    public function log($data, $step = 6) {
+    public function log(string $data, int $step = 6): void {
         if ($this->config->get('payment_klarna_checkout_debug')) {
             // Log
             $log = new \Log('klarna_checkout.log');
@@ -230,15 +283,21 @@ class ModelExtensionPaymentKlarnaCheckout extends Model {
 
 	/**
 	 * subscribeNewsletter
+	 *
+	 * @param int $customer_id
+	 *
+	 * @return void
 	 */
-    public function subscribeNewsletter($customer_id) {
+    public function subscribeNewsletter(int $customer_id): void {
         $this->db->query("UPDATE `" . DB_PREFIX . "customer` SET `newsletter` = '1' WHERE `customer_id` = '" . (int)$customer_id . "'");
     }
 
 	/**
 	 * getTotals
+	 *
+	 * @return array
 	 */
-    public function getTotals() {
+    public function getTotals(): array {
         $taxes = $this->cart->getTaxes();
         $total = 0;
         $totals = [];

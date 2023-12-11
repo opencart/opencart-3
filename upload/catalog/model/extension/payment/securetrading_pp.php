@@ -7,6 +7,10 @@
 class ModelExtensionPaymentSecureTradingPp extends Model {
 	/**
 	 * getMethod
+	 *
+	 * @param array $address
+	 *
+	 * @return array
 	 */
     public function getMethod(array $address): array {
         $this->load->language('extension/payment/securetrading_pp');
@@ -37,8 +41,12 @@ class ModelExtensionPaymentSecureTradingPp extends Model {
 
 	/**
 	 * getOrder
+	 *
+	 * @param int $order_id
+	 *
+	 * @return array
 	 */
-    public function getOrder($order_id) {
+    public function getOrder(int $order_id): array {
         $query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "securetrading_pp_order` WHERE `order_id` = '" . (int)$order_id . "' LIMIT 1");
 
         return $query->row;
@@ -46,22 +54,39 @@ class ModelExtensionPaymentSecureTradingPp extends Model {
 
 	/**
 	 * editOrder
+	 *
+	 * @param int   $order_id
+	 * @param array $order
+	 *
+	 * @return void
 	 */
-    public function editOrder($order_id, $order) {
+    public function editOrder(int $order_id, array $order): void {
         $this->db->query("UPDATE `" . DB_PREFIX . "order` SET `shipping_firstname` = '" . $this->db->escape($order['shipping_firstname']) . "', `shipping_lastname` = '" . $this->db->escape($order['shipping_lastname']) . "', `shipping_address_1` = '" . $this->db->escape($order['shipping_address_1']) . "', `shipping_address_2` = '" . $this->db->escape($order['shipping_address_2']) . "', `shipping_city` = '" . $this->db->escape($order['shipping_city']) . "', `shipping_zone` = '" . $this->db->escape($order['shipping_zone']) . "', `shipping_zone_id` = '" . (int)$order['shipping_zone_id'] . "', `shipping_country` = '" . $this->db->escape($order['shipping_country']) . "', `shipping_country_id` = '" . (int)$order['shipping_country_id'] . "', `shipping_postcode` = '" . $this->db->escape($order['shipping_postcode']) . "', `payment_firstname` = '" . $this->db->escape($order['payment_firstname']) . "', `payment_lastname` = '" . $this->db->escape($order['payment_lastname']) . "', `payment_address_1` = '" . $this->db->escape($order['payment_address_1']) . "', `payment_address_2` = '" . $this->db->escape($order['payment_address_2']) . "', `payment_city` = '" . $this->db->escape($order['payment_city']) . "', `payment_zone` = '" . $this->db->escape($order['payment_zone']) . "', `payment_zone_id` = '" . (int)$order['payment_zone_id'] . "', `payment_country` = '" . $this->db->escape($order['payment_country']) . "', `payment_country_id` = '" . (int)$order['payment_country_id'] . "', `payment_postcode` = '" . $this->db->escape($order['payment_postcode']) . "' WHERE `order_id` = '" . (int)$order_id . "'");
     }
 
 	/**
 	 * addReference
+	 *
+	 * @param int    $order_id
+	 * @param string $reference
+	 *
+	 * @return void
 	 */
-    public function addReference($order_id, $reference) {
+    public function addReference(int $order_id, string $reference): void {
         $this->db->query("REPLACE INTO `" . DB_PREFIX . "securetrading_pp_order` SET `order_id` = '" . (int)$order_id . "', `transaction_reference` = '" . $this->db->escape($reference) . "', `created` = NOW()");
     }
 
 	/**
 	 * confirmOrder
+	 *
+	 * @param int    $order_id
+	 * @param int    $order_status_id
+	 * @param string $comment
+	 * @param bool   $notify
+	 *
+	 * @return int
 	 */
-    public function confirmOrder($order_id, $order_status_id, $comment = '', $notify = false) {
+    public function confirmOrder(int $order_id, int $order_status_id, string $comment = '', bool $notify = false): int {
         $this->logger('confirmOrder');
 
         // Orders
@@ -99,12 +124,21 @@ class ModelExtensionPaymentSecureTradingPp extends Model {
 
             $this->db->query("INSERT INTO `" . DB_PREFIX . "securetrading_pp_order_transaction` SET `securetrading_pp_order_id` = '" . (int)$securetrading_pp_order['securetrading_pp_order_id'] . "', `amount` = '" . $amount . "', `type` = '" . $trans_type . "', `created` = NOW()");
         }
+
+		return 0;
     }
 
 	/**
 	 * updateOrder
+	 *
+	 * @param int    $order_id
+	 * @param int    $order_status_id
+	 * @param string $comment
+	 * @param bool   $notify
+	 *
+	 * @return void
 	 */
-    public function updateOrder($order_id, $order_status_id, $comment = '', $notify = false) {
+    public function updateOrder(int $order_id, int $order_status_id, string $comment = '', bool $notify = false): void {
         // Orders
         $this->load->model('checkout/order');
 
@@ -114,18 +148,13 @@ class ModelExtensionPaymentSecureTradingPp extends Model {
     }
 
 	/**
-	 * getCountry
-	 */
-    public function getCountry($iso_code_2) {
-        $query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "country` WHERE LCASE(`iso_code_2`) = '" . $this->db->escape(oc_strtolower($iso_code_2)) . "'");
-
-		return $query->row;
-    }
-
-	/**
 	 * Logger
+	 *
+	 * @param string $message
+	 *
+	 * @return void
 	 */
-    public function logger($message) {
+    public function logger(string $message): void {
         // Log
         $log = new \Log('secure.log');
         $log->write($message);

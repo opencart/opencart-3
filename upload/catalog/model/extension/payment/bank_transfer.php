@@ -7,6 +7,10 @@
 class ModelExtensionPaymentBankTransfer extends Model {
 	/**
 	 * getMethod
+	 *
+	 * @param array $address
+	 *
+	 * @return array
 	 */
     public function getMethod(array $address): array {
         $this->load->language('extension/payment/bank_transfer');

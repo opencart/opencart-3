@@ -7,6 +7,10 @@
 class ModelExtensionPaymentBluePayRedirect extends Model {
 	/**
 	 * getMethod
+	 *
+	 * @param array $address
+	 *
+	 * @return array
 	 */
     public function getMethod(array $address): array {
         $this->load->language('extension/payment/bluepay_redirect');
@@ -37,8 +41,12 @@ class ModelExtensionPaymentBluePayRedirect extends Model {
 
 	/**
 	 * getCards
+	 *
+	 * @param int $customer_id
+	 *
+	 * @return array
 	 */
-    public function getCards($customer_id) {
+    public function getCards(int $customer_id): array {
         $query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "bluepay_redirect_card` WHERE `customer_id` = '" . (int)$customer_id . "'");
 
         $card_data = [];
@@ -62,15 +70,24 @@ class ModelExtensionPaymentBluePayRedirect extends Model {
 
 	/**
 	 * addCard
+	 *
+	 * @param array $card_data
+	 *
+	 * @return void
 	 */
-    public function addCard($card_data) {
+    public function addCard(array $card_data) {
         $this->db->query("INSERT INTO `" . DB_PREFIX . "bluepay_redirect_card` SET `customer_id` = '" . (int)$card_data['customer_id'] . "', `token` = '" . $this->db->escape($card_data['Token']) . "', `digits` = '" . $this->db->escape($card_data['Last4Digits']) . "', `expiry` = '" . $this->db->escape($card_data['ExpiryDate']) . "', `type` = '" . $this->db->escape($card_data['CardType']) . "'");
     }
 
 	/**
 	 * addOrder
+	 *
+	 * @param array $order_info
+	 * @param array $response_data
+	 *
+	 * @return int
 	 */
-    public function addOrder($order_info, $response_data) {
+    public function addOrder(array $order_info, array $response_data): int {
         if ($this->config->get('payment_bluepay_redirect_transaction') == 'SALE') {
             $release_status = 1;
         } else {
@@ -84,8 +101,12 @@ class ModelExtensionPaymentBluePayRedirect extends Model {
 
 	/**
 	 * getOrder
+	 *
+	 * @param int $order_id
+	 *
+	 * @return array
 	 */
-    public function getOrder($order_id) {
+    public function getOrder(int $order_id): array {
         $query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "bluepay_redirect_order` WHERE `order_id` = '" . (int)$order_id . "' LIMIT 1");
 
         if ($query->num_rows) {
@@ -100,8 +121,14 @@ class ModelExtensionPaymentBluePayRedirect extends Model {
 
 	/**
 	 * addTransaction
+	 *
+	 * @param int    $bluepay_redirect_order_id
+	 * @param string $type
+	 * @param array  $order_info
+	 *
+	 * @return void
 	 */
-    public function addTransaction($bluepay_redirect_order_id, $type, $order_info) {
+    public function addTransaction(int $bluepay_redirect_order_id, string $type, array $order_info): void {
         $this->db->query("INSERT INTO `" . DB_PREFIX . "bluepay_redirect_order_transaction` SET `bluepay_redirect_order_id` = '" . (int)$bluepay_redirect_order_id . "', `date_added` = NOW(), `type` = '" . $this->db->escape($type) . "', `amount` = '" . $this->currency->format($order_info['total'], $order_info['currency_code'], false, false) . "'");
     }
 
@@ -117,8 +144,12 @@ class ModelExtensionPaymentBluePayRedirect extends Model {
 
 	/**
 	 * Logger
+	 *
+	 * @param string $message
+	 *
+	 * @return void
 	 */
-    public function logger($message) {
+    public function logger(string $message): void {
         if ($this->config->get('payment_bluepay_redirect_debug') == 1) {
             // Log
             $log = new \Log('bluepay_redirect.log');
@@ -128,8 +159,13 @@ class ModelExtensionPaymentBluePayRedirect extends Model {
 
 	/**
 	 * sendCurl
+	 *
+	 * @param string $url
+	 * @param array  $post_data
+	 *
+	 * @return array
 	 */
-    public function sendCurl($url, $post_data) {
+    public function sendCurl(string $url, array $post_data) {
         $curl = curl_init($url);
 
         curl_setopt($curl, CURLOPT_PORT, 443);

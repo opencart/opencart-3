@@ -7,6 +7,10 @@
 class ModelExtensionPaymentPerpetualPayments extends Model {
 	/**
 	 * getMethod
+	 *
+	 * @param array $address
+	 *
+	 * @return array
 	 */
     public function getMethod(array $address): array {
         $this->load->language('extension/payment/perpetual_payments');

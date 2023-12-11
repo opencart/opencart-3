@@ -7,6 +7,10 @@
 class ModelExtensionPaymentG2APay extends Model {
 	/**
 	 * getMethod
+	 *
+	 * @param array $address
+	 *
+	 * @return array
 	 */
     public function getMethod(array $address): array {
         $this->load->language('extension/payment/g2apay');
@@ -37,31 +41,52 @@ class ModelExtensionPaymentG2APay extends Model {
 
 	/**
 	 * addG2aOrder
+	 *
+	 * @param array $order_info
+	 *
+	 * @return void
 	 */
-    public function addG2aOrder($order_info) {
+    public function addG2aOrder(array $order_info): void {
         $this->db->query("INSERT INTO `" . DB_PREFIX . "g2apay_order` SET `order_id` = '" . (int)$order_info['order_id'] . "', `date_added` = NOW(), `modified` = NOW(), `currency_code` = '" . $this->db->escape($order_info['currency_code']) . "', `total` = '" . $this->currency->format($order_info['total'], $order_info['currency_code'], false, false) . "'");
     }
 
 	/**
 	 * updateOrder
+	 *
+	 * @param int    $g2apay_order_id
+	 * @param string $g2apay_transaction_id
+	 * @param string $type
+	 * @param array  $order_info
+	 *
+	 * return void
 	 */
-    public function updateOrder($g2apay_order_id, $g2apay_transaction_id, $type, $order_info) {
-        $this->db->query("UPDATE `" . DB_PREFIX . "g2apay_order` SET `g2apay_transaction_id` = '" . $this->db->escape($g2apay_transaction_id) . "', `modified` = NOW() WHERE `order_id` = '" . (int)$order_info['order_id'] . "'");
+    public function updateOrder(int $g2apay_order_id, string $g2apay_transaction_id, string $type, array $order_info): void {
+        $this->db->query("UPDATE `" . DB_PREFIX . "g2apay_order` SET `g2apay_transaction_id` = '" . $this->db->escape($g2apay_transaction_id) . "', `type` = '" . $this->db->escape($type) . "', `modified` = NOW() WHERE `order_id` = '" . (int)$order_info['order_id'] . "'");
 
         $this->addTransaction($g2apay_order_id, $type, $order_info);
     }
 
 	/**
 	 * addTransaction
+	 *
+	 * @param int    $g2apay_order_id
+	 * @param string $type
+	 * @param array  $order_info
+	 *
+	 * @return void
 	 */
-    public function addTransaction($g2apay_order_id, $type, $order_info) {
+    public function addTransaction(int $g2apay_order_id, string $type, array $order_info): void {
         $this->db->query("INSERT INTO `" . DB_PREFIX . "g2apay_order_transaction` SET `g2apay_order_id` = '" . (int)$g2apay_order_id . "', `date_added` = NOW(), `type` = '" . $this->db->escape($type) . "', `amount` = '" . $this->currency->format($order_info['total'], $order_info['currency_code'], false, false) . "'");
     }
 
 	/**
 	 * getG2aOrder
+	 *
+	 * @param int $order_id
+	 *
+	 * @return array
 	 */
-    public function getG2aOrder($order_id) {
+    public function getG2aOrder(int $order_id): array {
         $query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "g2apay_order` WHERE `order_id` = '" . (int)$order_id . "' LIMIT 1");
 
         if ($query->num_rows) {
@@ -73,8 +98,13 @@ class ModelExtensionPaymentG2APay extends Model {
 
 	/**
 	 * sendCurl
+	 *
+	 * @param string $url
+	 * @param array  $fields
+	 *
+	 * @return ?object
 	 */
-    public function sendCurl($url, $fields) {
+    public function sendCurl(string $url, array $fields): ?object {
         $curl = curl_init($url);
 
         curl_setopt($curl, CURLOPT_URL, $url);
@@ -91,8 +121,12 @@ class ModelExtensionPaymentG2APay extends Model {
 
 	/**
 	 * Logger
+	 *
+	 * @param string $message
+	 *
+	 * @return void
 	 */
-    public function logger($message) {
+    public function logger(string $message): void {
         if ($this->config->get('payment_g2apay_debug') == 1) {
             $backtrace = debug_backtrace();
 

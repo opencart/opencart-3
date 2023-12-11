@@ -10,15 +10,23 @@ use Cardinity\Exception as CardinityException;
 class ModelExtensionPaymentCardinity extends Model {
 	/**
 	 * addOrder
+	 *
+	 * @param array $data
+	 *
+	 * @return void
 	 */
-    public function addOrder($data) {
+    public function addOrder(array $data): void {
         $this->db->query("INSERT INTO `" . DB_PREFIX . "cardinity_order` SET `order_id` = '" . (int)$data['order_id'] . "', `payment_id` = '" . $this->db->escape($data['payment_id']) . "'");
     }
 
 	/**
 	 * getOrder
+	 *
+	 * @param int $order_id
+	 *
+	 * @return array
 	 */
-    public function getOrder($order_id) {
+    public function getOrder(int $order_id): array {
         $query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "cardinity_order` WHERE `order_id` = '" . (int)$order_id . "' LIMIT 1");
 
         return $query->row;
@@ -26,8 +34,15 @@ class ModelExtensionPaymentCardinity extends Model {
 
 	/**
 	 * createPayment
+	 *
+	 * @param string $key
+	 * @param string $secret
+	 * @param array  $payment_data
+	 *
+	 * @return ?object
+	 * @Throws \Exception
 	 */
-    public function createPayment($key, $secret, $payment_data) {
+    public function createPayment(string $key, string $secret, array $payment_data): ?object {
         $client = Client::create([
             'consumerKey'    => $key,
             'consumerSecret' => $secret,
@@ -42,7 +57,7 @@ class ModelExtensionPaymentCardinity extends Model {
         } catch (\Exception $exception) {
             $this->exception($exception);
 
-            throw $exception;
+            throw new $exception;
         }
     }
 
@@ -108,8 +123,10 @@ class ModelExtensionPaymentCardinity extends Model {
 
 	/**
 	 * getSupportedCountries
+	 *
+	 * @return array
 	 */
-    public function getSupportedCurrencies() {
+    public function getSupportedCurrencies(): array {
         return [
             'USD',
             'GBP',
@@ -119,8 +136,14 @@ class ModelExtensionPaymentCardinity extends Model {
 
 	/**
 	 * Log
+	 *
+	 * @param string $data
+	 * @param int    $class_step
+	 * @param int    $function_step
+	 *
+	 * @return void
 	 */
-    public function log($data, $class_step = 6, $function_step = 6) {
+    public function log($data, $class_step = 6, $function_step = 6): void {
         if ($this->config->get('payment_cardinity_debug')) {
             $backtrace = debug_backtrace();
 

@@ -7,6 +7,10 @@
 class ModelExtensionPaymentPilibaba extends Model {
 	/**
 	 * getMethod
+	 *
+	 * @param array $address
+	 *
+	 * @return array
 	 */
     public function getMethod(array $address): array {
         $this->load->language('extension/payment/pilibaba');
@@ -33,8 +37,12 @@ class ModelExtensionPaymentPilibaba extends Model {
 
 	/**
 	 * getOrderTaxAmount
+	 *
+	 * @param int $order_id
+	 *
+	 * @return int
 	 */
-    public function getOrderTaxAmount($order_id) {
+    public function getOrderTaxAmount(int $order_id): int {
         $query = $this->db->query("SELECT SUM(`value`) AS `value` FROM `" . DB_PREFIX . "order_total` WHERE `order_id` = '" . (int)$order_id . "' AND `code` = 'tax'");
 
         if ($query->num_rows) {
@@ -46,15 +54,23 @@ class ModelExtensionPaymentPilibaba extends Model {
 
 	/**
 	 * addPilibabaOrder
+	 *
+	 * @param array $response_data
+	 *
+	 * @return void
 	 */
-    public function addPilibabaOrder($response_data) {
+    public function addPilibabaOrder(array $response_data): void {
         $this->db->query("INSERT INTO `" . DB_PREFIX . "pilibaba_order` SET `order_id` = '" . (int)$response_data['orderNo'] . "', `amount` = '" . (float)$response_data['orderAmount'] . "', `fee` = '" . (float)$response_data['fee'] . "', `tracking` = '', `date_added` = NOW()");
     }
 
 	/**
 	 * getConsumerInfo
+	 *
+	 * @param int $order_id
+	 *
+	 * @param array
 	 */
-    public function getConsumerInfo($order_id) {
+    public function getConsumerInfo(int $order_id): array {
         $sign_msg = strtoupper(md5($this->config->get('payment_pilibaba_merchant_number') . $order_id . 'MD5' . $this->config->get('payment_pilibaba_secret_key')));
 
         if ($this->config->get('payment_pilibaba_environment') == 'live') {
@@ -91,8 +107,13 @@ class ModelExtensionPaymentPilibaba extends Model {
 
 	/**
 	 * updateOrderInfo
+	 *
+	 * @param array $data
+	 * @param int   $order_id
+	 *
+	 * @return void
 	 */
-    public function updateOrderInfo($data, $order_id) {
+    public function updateOrderInfo(array $data, int $order_id): void {
         $parts = explode(' ', $data['name']);
 
         $data['lastname'] = array_pop($parts);
@@ -103,12 +124,16 @@ class ModelExtensionPaymentPilibaba extends Model {
 
 	/**
 	 * Log
+	 *
+	 * @param string $message
+	 *
+	 * @return void
 	 */
-    public function log($data) {
+    public function log(string $message): void {
         if ($this->config->get('payment_pilibaba_logging')) {
             // Log
             $log = new \Log('pilibaba.log');
-            $log->write($data);
+            $log->write($message);
         }
     }
 }

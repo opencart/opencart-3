@@ -142,8 +142,11 @@ class ControllerExtensionPaymentSecureTradingPp extends Controller {
                         4 => $this->language->get('text_not_match'),
                     ];
 
-                    $payment_country = $this->model_extension_payment_securetrading_pp->getCountry($this->request->post['billingcountryiso2a']);
-                    $shipping_country = $this->model_extension_payment_securetrading_pp->getCountry($this->request->post['customercountryiso2a']);
+					// Countries
+					$this->load->model('localisation/country');
+
+                    $payment_country = $this->model_localisation_country->getCountry($this->request->post['billingcountryiso2a']);
+                    $shipping_country = $this->model_localisation_country->getCountry($this->request->post['customercountryiso2a']);
 
                     // Payment Details
                     $order_info['payment_zone_id'] = 0;

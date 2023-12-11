@@ -124,7 +124,7 @@ class ModelExtensionPaymentAlipay extends Model {
 	/**
 	 * pageExecute
 	 */
-    public function pageExecute($request, $httpmethod = "POST") {
+    public function pageExecute($request, $httpmethod = 'POST') {
         $iv = $this->api_version;
 
         $sys_params['app_id'] = $this->appid;

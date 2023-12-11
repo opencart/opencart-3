@@ -7,6 +7,10 @@
 class ModelExtensionPaymentSagePayUS extends Model {
 	/**
 	 * getMethod
+	 *
+	 * @param array $address
+	 *
+	 * @return array
 	 */
     public function getMethod(array $address): array {
         $this->load->language('extension/payment/sagepay_us');

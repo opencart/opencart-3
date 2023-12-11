@@ -7,6 +7,10 @@
 class ModelExtensionPaymentRealex extends Model {
 	/**
 	 * getMethod
+	 *
+	 * @param array $address
+	 *
+	 * @return array
 	 */
     public function getMethod(array $address): array {
         $this->load->language('extension/payment/realex');
@@ -37,8 +41,16 @@ class ModelExtensionPaymentRealex extends Model {
 
 	/**
 	 * addOrder
+	 *
+	 * @param array  $order_info
+	 * @param string $pas_ref
+	 * @param string $auth_code
+	 * @param string $account
+	 * @param string $order_ref
+	 *
+	 * @return int
 	 */
-    public function addOrder($order_info, $pas_ref, $auth_code, $account, $order_ref) {
+    public function addOrder(array $order_info, string $pas_ref, string $auth_code, string $account, string $order_ref): int {
         if ($this->config->get('payment_realex_auto_settle') == 1) {
             $settle_status = 1;
         } else {
@@ -52,15 +64,25 @@ class ModelExtensionPaymentRealex extends Model {
 
 	/**
 	 * addTransaction
+	 *
+	 * @param int    $realex_order_id
+	 * @param string $type
+	 * @param array  $order_info
+	 *
+	 * @return void
 	 */
-    public function addTransaction($realex_order_id, $type, $order_info) {
+    public function addTransaction(int $realex_order_id, string $type, array $order_info): void {
         $this->db->query("INSERT INTO `" . DB_PREFIX . "realex_order_transaction` SET `realex_order_id` = '" . (int)$realex_order_id . "', `date_added` = NOW(), `type` = '" . $this->db->escape($type) . "', `amount` = '" . $this->currency->format($order_info['total'], $order_info['currency_code'], $order_info['currency_value'], false) . "'");
     }
 
 	/**
 	 * Logger
+	 *
+	 * @param string $message
+	 *
+	 * @return void
 	 */
-    public function logger($message) {
+    public function logger(string $message): void {
         if ($this->config->get('payment_realex_debug') == 1) {
             // Log
             $log = new \Log('realex.log');

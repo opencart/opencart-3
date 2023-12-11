@@ -8,6 +8,10 @@ class ModelExtensionPaymentKlarnaAccount extends Model {
     /**
 	 * getMethod
 	 *
+	 * @param array $address
+	 *
+	 * @return array
+	 *
 	 * Requires $total
 	 */
     public function getMethod(array $address): array {
