@@ -323,7 +323,7 @@ class ControllerMarketingAffiliate extends Controller {
                 'tracking'    => $result['tracking'],
                 'commission'  => $result['commission'],
                 'balance'     => $this->currency->format($this->model_customer_customer->getTransactionTotal($result['customer_id']), $this->config->get('config_currency')),
-                'status'      => ($result['status'] ? $this->language->get('text_enabled') : $this->language->get('text_disabled')),
+                'status'      => $result['status'] ? $this->language->get('text_enabled') : $this->language->get('text_disabled'),
                 'date_added'  => date($this->language->get('date_format_short'), strtotime($result['date_added'])),
                 'customer'    => $this->url->link('customer/customer/edit', 'user_token=' . $this->session->data['user_token'] . '&customer_id=' . $result['customer_id']),
                 'edit'        => $this->url->link('marketing/affiliate/edit', 'user_token=' . $this->session->data['user_token'] . '&customer_id=' . $result['customer_id'] . $url, true)

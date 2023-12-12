@@ -206,7 +206,7 @@ class ControllerMarketingCoupon extends Controller {
                 'discount'   => $result['discount'],
                 'date_start' => date($this->language->get('date_format_short'), strtotime($result['date_start'])),
                 'date_end'   => date($this->language->get('date_format_short'), strtotime($result['date_end'])),
-                'status'     => ($result['status'] ? $this->language->get('text_enabled') : $this->language->get('text_disabled')),
+                'status'     => $result['status'] ? $this->language->get('text_enabled') : $this->language->get('text_disabled'),
                 'edit'       => $this->url->link('marketing/coupon/edit', 'user_token=' . $this->session->data['user_token'] . '&coupon_id=' . $result['coupon_id'] . $url, true)
             ];
         }

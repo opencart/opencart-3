@@ -202,7 +202,7 @@ class ControllerDesignBanner extends Controller {
             $data['banners'][] = [
                 'banner_id' => $result['banner_id'],
                 'name'      => $result['name'],
-                'status'    => ($result['status'] ? $this->language->get('text_enabled') : $this->language->get('text_disabled')),
+                'status'    => $result['status'] ? $this->language->get('text_enabled') : $this->language->get('text_disabled'),
                 'edit'      => $this->url->link('design/banner/edit', 'user_token=' . $this->session->data['user_token'] . '&banner_id=' . $result['banner_id'] . $url, true)
             ];
         }

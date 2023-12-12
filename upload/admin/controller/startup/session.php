@@ -28,7 +28,7 @@ class ControllerStartupSession extends Controller {
 
         // Require higher security for session cookies
         $option = [
-            'expires'  => ($this->config->get('session_expire') ? time() + (int)$this->config->get('session_expire') : 0),
+            'expires'  => $this->config->get('session_expire') ? time() + (int)$this->config->get('session_expire') : 0,
             'path'     => $this->config->get('session_path'),
             'secure'   => $this->request->server['HTTPS'],
             'httponly' => false,

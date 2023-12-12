@@ -138,7 +138,7 @@ class ControllerExtensionReportCustomerOrder extends Controller {
                 'customer'       => $result['customer'],
                 'email'          => $result['email'],
                 'customer_group' => $result['customer_group'],
-                'status'         => ($result['status'] ? $this->language->get('text_enabled') : $this->language->get('text_disabled')),
+                'status'         => $result['status'] ? $this->language->get('text_enabled') : $this->language->get('text_disabled'),
                 'orders'         => $result['orders'],
                 'products'       => $result['products'],
                 'total'          => $this->currency->format($result['total'], $this->config->get('config_currency')),

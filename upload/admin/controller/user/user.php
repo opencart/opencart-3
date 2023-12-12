@@ -202,7 +202,7 @@ class ControllerUserUser extends Controller {
             $data['users'][] = [
                 'user_id'    => $result['user_id'],
                 'username'   => $result['username'],
-                'status'     => ($result['status'] ? $this->language->get('text_enabled') : $this->language->get('text_disabled')),
+                'status'     => $result['status'] ? $this->language->get('text_enabled') : $this->language->get('text_disabled'),
                 'date_added' => date($this->language->get('date_format_short'), strtotime($result['date_added'])),
                 'edit'       => $this->url->link('user/user/edit', 'user_token=' . $this->session->data['user_token'] . '&user_id=' . $result['user_id'] . $url, true)
             ];

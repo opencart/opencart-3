@@ -204,7 +204,7 @@ class ControllerDesignTranslation extends Controller {
         foreach ($results as $result) {
             $data['translations'][] = [
                 'translation_id' => $result['translation_id'],
-                'store'          => ($result['store_id'] ? $result['store'] : $this->language->get('text_default')),
+                'store'          => $result['store_id'] ? $result['store'] : $this->language->get('text_default'),
                 'route'          => $result['route'],
                 'language'       => $result['language'],
                 'key'            => $result['key'],

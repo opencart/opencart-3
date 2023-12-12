@@ -131,7 +131,7 @@ class ControllerExtensionReportCustomerTransaction extends Controller {
                 'customer'       => $result['customer'],
                 'email'          => $result['email'],
                 'customer_group' => $result['customer_group'],
-                'status'         => ($result['status'] ? $this->language->get('text_enabled') : $this->language->get('text_disabled')),
+                'status'         => $result['status'] ? $this->language->get('text_enabled') : $this->language->get('text_disabled'),
                 'total'          => $this->currency->format($result['total'], $this->config->get('config_currency')),
                 'edit'           => $this->url->link('customer/customer/edit', 'user_token=' . $this->session->data['user_token'] . '&customer_id=' . $result['customer_id'], true)
             ];
