@@ -11,7 +11,10 @@ class ControllerExtensionPaymentKlarnaCheckout extends Controller {
 	public function index(): void {
 		$this->load->language('extension/payment/klarna_checkout');
 
+		// Klarna Checkout
 		$this->load->model('extension/payment/klarna_checkout');
+
+		// Countries
 		$this->load->model('localisation/country');
 
 		$this->document->setTitle($this->language->get('heading_title'));
@@ -363,7 +366,7 @@ class ControllerExtensionPaymentKlarnaCheckout extends Controller {
 				'name'      => $product['name'],
 				'model'     => $product['model'],
 				'option'    => $option_data,
-				'recurring' => ($product['recurring'] ? $product['recurring']['name'] : ''),
+				'recurring' => $product['recurring'] ? $product['recurring']['name'] : '',
 				'quantity'  => $product['quantity'],
 				'price'     => $price,
 				'total'     => $total,
@@ -483,9 +486,9 @@ class ControllerExtensionPaymentKlarnaCheckout extends Controller {
 						'address_2'      => utf8_substr($this->request->post['street_address'], 129, 256),
 						'postcode'       => utf8_substr($this->request->post['postal_code'], 0, 10),
 						'city'           => utf8_substr($this->request->post['city'], 0, 128),
-						'zone_id'        => ($zone ? $zone['zone_id'] : $zones[0]['zone_id']),
-						'zone'           => ($zone ? $zone['name'] : $zones[0]['name']),
-						'zone_code'      => ($zone ? $zone['code'] : $zones[0]['code']),
+						'zone_id'        => $zone ? $zone['zone_id'] : $zones[0]['zone_id'],
+						'zone'           => $zone ? $zone['name'] : $zones[0]['name'],
+						'zone_code'      => $zone ? $zone['code'] : $zones[0]['code'],
 						'country_id'     => $country_info['country_id'],
 						'country'        => $country_info['name'],
 						'iso_code_2'     => $country_info['iso_code_2'],
@@ -711,9 +714,9 @@ class ControllerExtensionPaymentKlarnaCheckout extends Controller {
 						'address_2'      => null,
 						'postcode'       => null,
 						'city'           => null,
-						'zone_id'        => ($zone ? $zone['zone_id'] : $zones[0]['zone_id']),
-						'zone'           => ($zone ? $zone['name'] : $zones[0]['name']),
-						'zone_code'      => ($zone ? $zone['code'] : $zones[0]['code']),
+						'zone_id'        => $zone ? $zone['zone_id'] : $zones[0]['zone_id'],
+						'zone'           => $zone ? $zone['name'] : $zones[0]['name'],
+						'zone_code'      => $zone ? $zone['code'] : $zones[0]['code'],
 						'country_id'     => $country_info['country_id'],
 						'country'        => $country_info['name'],
 						'iso_code_2'     => $country_info['iso_code_2'],
@@ -1144,25 +1147,25 @@ class ControllerExtensionPaymentKlarnaCheckout extends Controller {
 				'payment_firstname'       => utf8_substr($request->billing_address->given_name, 0, 32),
 				'payment_lastname'        => utf8_substr($request->billing_address->family_name, 0, 32),
 				'payment_address_1'       => utf8_substr($request->billing_address->street_address, 0, 128),
-				'payment_address_2'       => (isset($request->billing_address->street_address2) ? utf8_substr($request->billing_address->street_address2, 0, 128) : ''),
+				'payment_address_2'       => isset($request->billing_address->street_address2) ? utf8_substr($request->billing_address->street_address2, 0, 128) : '',
 				'payment_city'            => utf8_substr($request->billing_address->city, 0, 128),
 				'payment_postcode'        => utf8_substr($request->billing_address->postal_code, 0, 10),
-				'payment_zone'            => ($payment_zone_info ? $payment_zone_info['name'] : ''),
-				'payment_zone_id'         => ($payment_zone_info ? $payment_zone_info['zone_id'] : ''),
-				'payment_country'         => ($payment_country_info ? $payment_country_info['name'] : ''),
-				'payment_country_id'      => ($payment_country_info ? $payment_country_info['country_id'] : ''),
-				'payment_address_format'  => ($payment_country_info ? $payment_country_info['address_format'] : ''),
+				'payment_zone'            => $payment_zone_info ? $payment_zone_info['name'] : '',
+				'payment_zone_id'         => $payment_zone_info ? $payment_zone_info['zone_id'] : '',
+				'payment_country'         => $payment_country_info ? $payment_country_info['name'] : '',
+				'payment_country_id'      => $payment_country_info ? $payment_country_info['country_id'] : '',
+				'payment_address_format'  => $payment_country_info ? $payment_country_info['address_format'] : '',
 				'shipping_firstname'      => utf8_substr($request->shipping_address->given_name, 0, 32),
 				'shipping_lastname'       => utf8_substr($request->shipping_address->family_name, 0, 32),
 				'shipping_address_1'      => utf8_substr($request->shipping_address->street_address, 0, 128),
-				'shipping_address_2'      => (isset($request->shipping_address->street_address2) ? utf8_substr($request->shipping_address->street_address2, 0, 128) : ''),
+				'shipping_address_2'      => isset($request->shipping_address->street_address2) ? utf8_substr($request->shipping_address->street_address2, 0, 128) : '',
 				'shipping_city'           => utf8_substr($request->shipping_address->city, 0, 128),
 				'shipping_postcode'       => utf8_substr($request->shipping_address->postal_code, 0, 10),
-				'shipping_zone'           => ($shipping_zone_info ? $shipping_zone_info['name'] : ''),
-				'shipping_zone_id'        => ($shipping_zone_info ? $shipping_zone_info['zone_id'] : ''),
-				'shipping_country'        => ($shipping_country_info ? $shipping_country_info['name'] : ''),
-				'shipping_country_id'     => ($shipping_country_info ? $shipping_country_info['country_id'] : ''),
-				'shipping_address_format' => ($shipping_country_info ? $shipping_country_info['address_format'] : '')
+				'shipping_zone'           => $shipping_zone_info ? $shipping_zone_info['name'] : '',
+				'shipping_zone_id'        => $shipping_zone_info ? $shipping_zone_info['zone_id'] : '',
+				'shipping_country'        => $shipping_country_info ? $shipping_country_info['name'] : '',
+				'shipping_country_id'     => $shipping_country_info ? $shipping_country_info['country_id'] : '',
+				'shipping_address_format' => $shipping_country_info ? $shipping_country_info['address_format'] : ''
 			];
 
 			$this->model_extension_payment_klarna_checkout->updateOcOrder($order_id, $order_data);
@@ -1355,25 +1358,25 @@ class ControllerExtensionPaymentKlarnaCheckout extends Controller {
 									'payment_firstname'       => utf8_substr($order['billing_address']['given_name'], 0, 32),
 									'payment_lastname'        => utf8_substr($order['billing_address']['family_name'], 0, 32),
 									'payment_address_1'       => utf8_substr($order['billing_address']['street_address'], 0, 128),
-									'payment_address_2'       => (isset($order['billing_address']['street_address2']) ? utf8_substr($order['billing_address']['street_address2'], 0, 128) : ''),
+									'payment_address_2'       => isset($order['billing_address']['street_address2']) ? utf8_substr($order['billing_address']['street_address2'], 0, 128) : '',
 									'payment_city'            => utf8_substr($order['billing_address']['city'], 0, 128),
 									'payment_postcode'        => utf8_substr($order['billing_address']['postal_code'], 0, 10),
-									'payment_zone'            => ($payment_zone_info ? $payment_zone_info['name'] : ''),
-									'payment_zone_id'         => ($payment_zone_info ? $payment_zone_info['zone_id'] : ''),
-									'payment_country'         => ($payment_country_info ? $payment_country_info['name'] : ''),
-									'payment_country_id'      => ($payment_country_info ? $payment_country_info['country_id'] : ''),
-									'payment_address_format'  => ($payment_country_info ? $payment_country_info['address_format'] : ''),
+									'payment_zone'            => $payment_zone_info ? $payment_zone_info['name'] : '',
+									'payment_zone_id'         => $payment_zone_info ? $payment_zone_info['zone_id'] : '',
+									'payment_country'         => $payment_country_info ? $payment_country_info['name'] : '',
+									'payment_country_id'      => $payment_country_info ? $payment_country_info['country_id'] : '',
+									'payment_address_format'  => $payment_country_info ? $payment_country_info['address_format'] : '',
 									'shipping_firstname'      => utf8_substr($order['shipping_address']['given_name'], 0, 32),
 									'shipping_lastname'       => utf8_substr($order['shipping_address']['family_name'], 0, 32),
 									'shipping_address_1'      => utf8_substr($order['shipping_address']['street_address'], 0, 128),
-									'shipping_address_2'      => (isset($order['shipping_address']['street_address2']) ? utf8_substr($order['shipping_address']['street_address2'], 0, 128) : ''),
+									'shipping_address_2'      => isset($order['shipping_address']['street_address2']) ? utf8_substr($order['shipping_address']['street_address2'], 0, 128) : '',
 									'shipping_city'           => utf8_substr($order['shipping_address']['city'], 0, 128),
 									'shipping_postcode'       => utf8_substr($order['shipping_address']['postal_code'], 0, 10),
-									'shipping_zone'           => ($shipping_zone_info ? $shipping_zone_info['name'] : ''),
-									'shipping_zone_id'        => ($shipping_zone_info ? $shipping_zone_info['zone_id'] : ''),
-									'shipping_country'        => ($shipping_country_info ? $shipping_country_info['name'] : ''),
-									'shipping_country_id'     => ($shipping_country_info ? $shipping_country_info['country_id'] : ''),
-									'shipping_address_format' => ($shipping_country_info ? $shipping_country_info['address_format'] : '')
+									'shipping_zone'           => $shipping_zone_info ? $shipping_zone_info['name'] : '',
+									'shipping_zone_id'        => $shipping_zone_info ? $shipping_zone_info['zone_id'] : '',
+									'shipping_country'        => $shipping_country_info ? $shipping_country_info['name'] : '',
+									'shipping_country_id'     => $shipping_country_info ? $shipping_country_info['country_id'] : '',
+									'shipping_address_format' => $shipping_country_info ? $shipping_country_info['address_format'] : ''
 								];
 
 								$this->model_extension_payment_klarna_checkout->updateOcOrder($klarna_checkout_order['order_id'], $order_data);
@@ -1863,8 +1866,8 @@ class ControllerExtensionPaymentKlarnaCheckout extends Controller {
 			$klarna_order_data['billing_address'] = [
 				'given_name'  => $this->session->data['shipping_address']['firstname'],
 				'family_name' => $this->session->data['shipping_address']['lastname'],
-				'email'       => ($this->customer->isLogged() ? $this->customer->getEmail() : null),
-				'phone'       => ($this->customer->isLogged() ? $this->customer->getTelephone() : null)
+				'email'       => $this->customer->isLogged() ? $this->customer->getEmail() : null,
+				'phone'       => $this->customer->isLogged() ? $this->customer->getTelephone() : null
 			];
 		}
 
@@ -1998,7 +2001,7 @@ class ControllerExtensionPaymentKlarnaCheckout extends Controller {
 			$average_product_tax_rate[] = round($tax_rate * 100);
 
 			$klarna_order_data['order_lines'][] = [
-				'type'                  => ($product['shipping'] ? 'physical' : 'digital'),
+				'type'                  => $product['shipping'] ? 'physical' : 'digital',
 				'reference'             => $product['model'],
 				'name'                  => $product['name'],
 				'quantity'              => $product['quantity'],
