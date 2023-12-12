@@ -1880,7 +1880,7 @@ class ControllerExtensionPaymentKlarnaCheckout extends Controller {
 			'push'           => html_entity_decode($this->url->link('extension/payment/klarna_checkout/push', 'klarna_order_id={checkout.order.id}', true)),
 			'validation'     => html_entity_decode($this->url->link('extension/payment/klarna_checkout/validation', 'klarna_order_id={checkout.order.id}', true)),
 			'address_update' => html_entity_decode($this->url->link('extension/payment/klarna_checkout/addressUpdate', 'klarna_order_id={checkout.order.id}', true)),
-			'notification'   => html_entity_decode($this->url->link('extension/payment/klarna_checkout/notification', 'klarna_order_id={checkout.order.id}', true)),
+			'notification'   => html_entity_decode($this->url->link('extension/payment/klarna_checkout/notification', 'klarna_order_id={checkout.order.id}', true))
 		];
 
 		if ($this->config->get('klarna_checkout_terms')) {
