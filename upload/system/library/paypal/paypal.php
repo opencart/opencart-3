@@ -393,9 +393,15 @@ class PayPal {
 
 			if (isset($parts[0]) && isset($parts[1])) {
 				if (($parts[0] == 'HTTP/1.1 100 Continue') && isset($parts[2])) {
-					[$head, $body] = [$parts[1], $parts[2]];
+					[$head, $body] = [
+						$parts[1],
+						$parts[2]
+					];
 				} else {
-					[$head, $body] = [$parts[0], $parts[1]];
+					[$head, $body] = [
+						$parts[0],
+						$parts[1]
+					];
 				}
             }
 

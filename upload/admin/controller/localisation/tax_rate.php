@@ -203,7 +203,7 @@ class ControllerLocalisationTaxRate extends Controller {
                 'tax_rate_id'   => $result['tax_rate_id'],
                 'name'          => $result['name'],
                 'rate'          => $result['rate'],
-                'type'          => ($result['type'] == 'F' ? $this->language->get('text_amount') : $this->language->get('text_percent')),
+                'type'          => $result['type'] == 'F' ? $this->language->get('text_amount') : $this->language->get('text_percent'),
                 'geo_zone'      => $result['geo_zone'],
                 'date_added'    => date($this->language->get('date_format_short'), strtotime($result['date_added'])),
                 'date_modified' => date($this->language->get('date_format_short'), strtotime($result['date_modified'])),
