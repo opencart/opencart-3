@@ -270,10 +270,10 @@ class ControllerExtensionCreditCardSagepayServer extends Controller {
             exit;
         }
 
-        if ($str_status != "OK") {
-            echo "Status=INVALID" . $end_ln;
-            echo "StatusDetail= Either status invalid or order info was not found.";
-            echo "RedirectURL=" . $error_page . $end_ln;
+        if ($str_status != 'OK') {
+            echo 'Status=INVALID' . $end_ln;
+            echo 'StatusDetail= Either status invalid or order info was not found.';
+            echo 'RedirectURL=' . $error_page . $end_ln;
 
             $this->model_extension_payment_sagepay_server->logger('StatusDetail', 'Either status invalid or order info was not found.');
             exit;

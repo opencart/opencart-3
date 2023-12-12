@@ -1702,7 +1702,7 @@ class Googleshopping extends Library {
 
         $language_info = $this->model_localisation_language->getLanguage($language_id);
 
-        if (isset($language_info['name']) && trim($language_info['name']) != "") {
+        if (isset($language_info['name']) && trim($language_info['name']) != '') {
             return $language_info['name'];
         }
 
@@ -1735,7 +1735,7 @@ class Googleshopping extends Library {
 
         $currency_info = $this->getCurrency($currency_id);
 
-        if (isset($currency_info['title']) && trim($currency_info['title']) != "") {
+        if (isset($currency_info['title']) && trim($currency_info['title']) != '') {
             return $currency_info['title'];
         }
 

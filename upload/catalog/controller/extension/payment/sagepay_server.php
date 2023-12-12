@@ -377,12 +377,12 @@ class ControllerExtensionPaymentSagepayServer extends Controller {
             exit;
         }
 
-        if (($str_status != "OK" && $str_status != "REGISTERED" && $str_status != "AUTHENTICATED") || !$order_info) {
+        if (($str_status != 'OK' && $str_status != 'REGISTERED' && $str_status != 'AUTHENTICATED') || !$order_info) {
             $this->model_extension_payment_sagepay_server->deleteOrder($order_id);
 
-            echo "Status=INVALID" . $end_ln;
-            echo "StatusDetail= Either status invalid or order info was not found.";
-            echo "RedirectURL=" . $error_page . $end_ln;
+            echo 'Status=INVALID' . $end_ln;
+            echo 'StatusDetail= Either status invalid or order info was not found.';
+            echo 'RedirectURL=' . $error_page . $end_ln;
 
             $this->model_extension_payment_sagepay_server->logger('StatusDetail', 'Either status invalid or order info was not found');
             exit;

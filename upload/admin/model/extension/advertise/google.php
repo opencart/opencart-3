@@ -492,8 +492,8 @@ class ModelExtensionAdvertiseGoogle extends Model {
                     $google_expiration_date = !empty($issues['google_expiration_date']) ? date($this->language->get('datetime_format'), $issues['google_expiration_date']) : $this->language->get('text_na');
 
                     $result['entries'][$language_id]['issues'][] = [
-                        'color'                  => $group['color'] != "" ? $group['color'] : $this->language->get('text_na'),
-                        'size'                   => $group['size'] != "" ? $group['size'] : $this->language->get('text_na'),
+                        'color'                  => $group['color'] != '' ? $group['color'] : $this->language->get('text_na'),
+                        'size'                   => $group['size'] != '' ? $group['size'] : $this->language->get('text_na'),
                         'destination_statuses'   => $destination_statuses,
                         'data_quality_issues'    => $data_quality_issues,
                         'item_level_issues'      => $item_level_issues,
