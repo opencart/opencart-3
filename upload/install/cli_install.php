@@ -380,7 +380,6 @@ switch ($subcommand) {
             echo 'FAILED!: ' . $e->getMessage() . "\n";
             exit(1);
         }
-
         break;
     case "usage":
     default:

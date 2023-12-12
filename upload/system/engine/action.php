@@ -31,7 +31,6 @@ class Action {
 
             if (is_file($file)) {
                 $this->route = implode('/', $parts);
-
                 break;
             } else {
                 $this->method = array_pop($parts);

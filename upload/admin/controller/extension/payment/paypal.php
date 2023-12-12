@@ -1468,7 +1468,6 @@ class ControllerExtensionPaymentPayPal extends Controller {
                         $i
                     ];
                 }
-
                 break;
             case 'week':
                 $results = $this->model_extension_payment_paypal->getTotalSalesByWeek();
@@ -1518,7 +1517,6 @@ class ControllerExtensionPaymentPayPal extends Controller {
                         date('d', strtotime($date))
                     ];
                 }
-
                 break;
             case 'year':
                 $results = $this->model_extension_payment_paypal->getTotalSalesByYear();
@@ -1540,7 +1538,6 @@ class ControllerExtensionPaymentPayPal extends Controller {
                         date('M', mktime(0, 0, 0, $i))
                     ];
                 }
-
                 break;
         }
 

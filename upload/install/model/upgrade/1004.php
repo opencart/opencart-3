@@ -129,7 +129,7 @@ class ModelUpgrade1004 extends Model {
         foreach ($query->rows as $result) {
             if ($result['serialized']) {
                 $value = json_decode($result['value'], true);
-                
+
                 $module_data = [];
 
                 if (in_array($result['code'], ['latest', 'bestseller', 'special', 'featured'])) {
@@ -162,7 +162,6 @@ class ModelUpgrade1004 extends Model {
                                     if ($result2['key'] == 'featured_product') {
                                         $module_data['product'] = explode(",", $result2['value']);
                                         $module_data['limit'] = 4;
-
                                         break;
                                     } else {
                                         $featured_product_query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "setting` WHERE `key` = 'featured_product'");
